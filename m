@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE47EB443
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Apr 2019 20:17:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72283B433
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Apr 2019 20:07:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CDAA16DE;
-	Sat, 27 Apr 2019 20:17:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CDAA16DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A50615D9;
+	Sat, 27 Apr 2019 20:06:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A50615D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556389076;
-	bh=ltb6TG+52REuBTeb9psT7LUhEphoLaSXgW2CtWNcOY4=;
+	s=default; t=1556388430;
+	bh=6TXFsYorKm8pTy9Q/2phClJyI+j4TyWJSVDTq5Pnnic=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rOGg2D136LHRHbLK4Cf/As7S1Av659OxWCT6XDtoJtI0JHsnKdA2SzBia8/Igp6ko
-	 MTxnDxpIwAT/ZTnWgjSOZcPLq9//W6U942MdVaGzEgVY9h510+m8N2snjJ6xxIbgXD
-	 OLVAD9EAuWjs5CDcW1Qz1e4+IrpXgRJNw8XzO/w8=
+	b=oSJzjadMAvarFqmL8KFs4xIxo9GNobTCM36wrHYvcJgEZWQsFjMvHrGL09CmhbwRw
+	 8GEBWuIr3DaWZ7P5IxlEZDEtpHOErq5ijpdU8U+We6E1PTEtWjdf7GpR3bRybuxLKE
+	 4rXslwyeCZalhJiJ/3PTPcP/i1fE9r+sd7m+bUjM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74B5DF8985C;
-	Sat, 27 Apr 2019 19:55:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8393FF897AE;
+	Sat, 27 Apr 2019 19:54:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E108FF8976F; Sat, 27 Apr 2019 19:54:13 +0200 (CEST)
+ id 4003BF8975B; Sat, 27 Apr 2019 19:53:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A8CBF89744;
- Sat, 27 Apr 2019 19:53:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A8CBF89744
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D1D4F8972E;
+ Sat, 27 Apr 2019 19:53:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D1D4F8972E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="xvy+c/rE"
+ header.b="lfvmimWs"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Tqt52GH3BoJ5xttimbyYOM2CJO76eM3PzyDQ3TyFIWg=; b=xvy+c/rEKaFX
- JTSZV8YCc60DZAdnU17pYbS5gqZ3Vd6kEnPeEnXMWqT3qe7VB8S3/cvywOzfjl2kQIiY4a/OtobJg
- rgDlh9lovqBKdwfPPpS4ZiKiaGodCKE02Lz69SOwuFla3zzyZVdF+M3Y+FeOHNPpyeYF9iiSt68DA
- HWd3c=;
+ List-Archive; bh=8UJpgC1gBByOhlU0J0qD1vxYivQjSN2rVX+IF0iVvEE=; b=lfvmimWs/OoV
+ 9gUq9RzHyb9ixnY1yvolBAK4A64zQOC4dJIvKd5PioCMsLsGu8UYY93rGsZFFm19IibY3gndjxBW/
+ nwG67mGr+NIMy/8zE8RXGD6jeTL4EHl7T8VlLiHj/FE6rrnsPa4nuCoMx/GK8tk7ZcNJR1jx1+eph
+ DUIs0=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hKRVU-0004qO-Gv; Sat, 27 Apr 2019 17:53:01 +0000
+ id 1hKRVU-0004qI-3G; Sat, 27 Apr 2019 17:53:00 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id E2E78441D3C; Sat, 27 Apr 2019 18:52:56 +0100 (BST)
+ id 518F0441D3B; Sat, 27 Apr 2019 18:52:56 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190412160519.30207-14-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190412160519.30207-15-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190427175256.E2E78441D3C@finisterre.ee.mobilebroadband>
+Message-Id: <20190427175256.518F0441D3B@finisterre.ee.mobilebroadband>
 Date: Sat, 27 Apr 2019 18:52:56 +0100 (BST)
 Cc: Dragos Tarcatu <dragos_tarcatu@mentor.com>,
  Daniel Baluta <daniel.baluta@gmail.com>, sound-open-firmware@alsa-project.org,
- tiwai@suse.de, Pan Xiuli <xiuli.pan@linux.intel.com>,
+ tiwai@suse.de, Keyon Jie <yang.jie@linux.intel.com>,
  alsa-devel@alsa-project.org, liam.r.girdwood@linux.intel.com, vkoul@kernel.org,
  Mark Brown <broonie@kernel.org>, andriy.shevchenko@linux.intel.com,
  Alan Cox <alan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Add xtensa support" to the asoc
-	tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Add utils" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,16 +82,14 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============4259935795579732932=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---===============4259935795579732932==
-Content-Type: text/plain
-
 The patch
 
-   ASoC: SOF: Add xtensa support
+   ASoC: SOF: Add utils
 
 has been applied to the asoc tree at
 
@@ -117,103 +114,30 @@ to this mail.
 Thanks,
 Mark
 
-From e657c18a01c85d2c4ec0e96d52be8ba42b956593 Mon Sep 17 00:00:00 2001
+From 3bafac46065eb7ea6f3e3fcbdb8b70b66f6c71b4 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 12 Apr 2019 11:05:18 -0500
-Subject: [PATCH] ASoC: SOF: Add xtensa support
+Date: Fri, 12 Apr 2019 11:05:19 -0500
+Subject: [PATCH] ASoC: SOF: Add utils
 
-Add common directory for xtensa architecture
+Helpers to set-up back-ends, create platform devices and common
+IO/block read/write operations
 
-Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Signed-off-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof/xtensa.h    |  44 +++++++++++
- sound/soc/sof/xtensa/Kconfig  |   2 +
- sound/soc/sof/xtensa/Makefile |   5 ++
- sound/soc/sof/xtensa/core.c   | 138 ++++++++++++++++++++++++++++++++++
- 4 files changed, 189 insertions(+)
- create mode 100644 include/sound/sof/xtensa.h
- create mode 100644 sound/soc/sof/xtensa/Kconfig
- create mode 100644 sound/soc/sof/xtensa/Makefile
- create mode 100644 sound/soc/sof/xtensa/core.c
+ sound/soc/sof/utils.c | 112 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
+ create mode 100644 sound/soc/sof/utils.c
 
-diff --git a/include/sound/sof/xtensa.h b/include/sound/sof/xtensa.h
+diff --git a/sound/soc/sof/utils.c b/sound/soc/sof/utils.c
 new file mode 100644
-index 000000000000..a7189984000d
+index 000000000000..2ac4c3da0320
 --- /dev/null
-+++ b/include/sound/sof/xtensa.h
-@@ -0,0 +1,44 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/*
-+ * This file is provided under a dual BSD/GPLv2 license.  When using or
-+ * redistributing this file, you may do so under either license.
-+ *
-+ * Copyright(c) 2018 Intel Corporation. All rights reserved.
-+ */
-+
-+#ifndef __INCLUDE_SOUND_SOF_XTENSA_H__
-+#define __INCLUDE_SOUND_SOF_XTENSA_H__
-+
-+#include <sound/sof/header.h>
-+
-+/*
-+ * Architecture specific debug
-+ */
-+
-+/* Xtensa Firmware Oops data */
-+struct sof_ipc_dsp_oops_xtensa {
-+	struct sof_ipc_hdr hdr;
-+	uint32_t exccause;
-+	uint32_t excvaddr;
-+	uint32_t ps;
-+	uint32_t epc1;
-+	uint32_t epc2;
-+	uint32_t epc3;
-+	uint32_t epc4;
-+	uint32_t epc5;
-+	uint32_t epc6;
-+	uint32_t epc7;
-+	uint32_t eps2;
-+	uint32_t eps3;
-+	uint32_t eps4;
-+	uint32_t eps5;
-+	uint32_t eps6;
-+	uint32_t eps7;
-+	uint32_t depc;
-+	uint32_t intenable;
-+	uint32_t interrupt;
-+	uint32_t sar;
-+	uint32_t stack;
-+}  __packed;
-+
-+#endif
-diff --git a/sound/soc/sof/xtensa/Kconfig b/sound/soc/sof/xtensa/Kconfig
-new file mode 100644
-index 000000000000..8a9343b85146
---- /dev/null
-+++ b/sound/soc/sof/xtensa/Kconfig
-@@ -0,0 +1,2 @@
-+config SND_SOC_SOF_XTENSA
-+	tristate
-diff --git a/sound/soc/sof/xtensa/Makefile b/sound/soc/sof/xtensa/Makefile
-new file mode 100644
-index 000000000000..cc89c7472a38
---- /dev/null
-+++ b/sound/soc/sof/xtensa/Makefile
-@@ -0,0 +1,5 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-+
-+snd-sof-xtensa-dsp-objs := core.o
-+
-+obj-$(CONFIG_SND_SOC_SOF_XTENSA) += snd-sof-xtensa-dsp.o
-diff --git a/sound/soc/sof/xtensa/core.c b/sound/soc/sof/xtensa/core.c
-new file mode 100644
-index 000000000000..c3ad23a85b99
---- /dev/null
-+++ b/sound/soc/sof/xtensa/core.c
-@@ -0,0 +1,138 @@
++++ b/sound/soc/sof/utils.c
+@@ -0,0 +1,112 @@
 +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
 +//
 +// This file is provided under a dual BSD/GPLv2 license.  When using or
@@ -221,150 +145,115 @@ index 000000000000..c3ad23a85b99
 +//
 +// Copyright(c) 2018 Intel Corporation. All rights reserved.
 +//
-+// Author: Pan Xiuli <xiuli.pan@linux.intel.com>
++// Author: Keyon Jie <yang.jie@linux.intel.com>
 +//
 +
-+#include <linux/module.h>
++#include <linux/io-64-nonatomic-lo-hi.h>
++#include <linux/platform_device.h>
++#include <sound/soc.h>
 +#include <sound/sof.h>
-+#include <sound/sof/xtensa.h>
-+#include "../sof-priv.h"
-+
-+struct xtensa_exception_cause {
-+	u32 id;
-+	const char *msg;
-+	const char *description;
-+};
++#include "sof-priv.h"
 +
 +/*
-+ * From 4.4.1.5 table 4-64 Exception Causes of Xtensa
-+ * Instruction Set Architecture (ISA) Reference Manual
++ * Register IO
++ *
++ * The sof_io_xyz() wrappers are typically referenced in snd_sof_dsp_ops
++ * structures and cannot be inlined.
 + */
-+static const struct xtensa_exception_cause xtensa_exception_causes[] = {
-+	{0, "IllegalInstructionCause", "Illegal instruction"},
-+	{1, "SyscallCause", "SYSCALL instruction"},
-+	{2, "InstructionFetchErrorCause",
-+	"Processor internal physical address or data error during instruction fetch"},
-+	{3, "LoadStoreErrorCause",
-+	"Processor internal physical address or data error during load or store"},
-+	{4, "Level1InterruptCause",
-+	"Level-1 interrupt as indicated by set level-1 bits in the INTERRUPT register"},
-+	{5, "AllocaCause",
-+	"MOVSP instruction, if caller’s registers are not in the register file"},
-+	{6, "IntegerDivideByZeroCause",
-+	"QUOS, QUOU, REMS, or REMU divisor operand is zero"},
-+	{8, "PrivilegedCause",
-+	"Attempt to execute a privileged operation when CRING ? 0"},
-+	{9, "LoadStoreAlignmentCause", "Load or store to an unaligned address"},
-+	{12, "InstrPIFDataErrorCause",
-+	"PIF data error during instruction fetch"},
-+	{13, "LoadStorePIFDataErrorCause",
-+	"Synchronous PIF data error during LoadStore access"},
-+	{14, "InstrPIFAddrErrorCause",
-+	"PIF address error during instruction fetch"},
-+	{15, "LoadStorePIFAddrErrorCause",
-+	"Synchronous PIF address error during LoadStore access"},
-+	{16, "InstTLBMissCause", "Error during Instruction TLB refill"},
-+	{17, "InstTLBMultiHitCause",
-+	"Multiple instruction TLB entries matched"},
-+	{18, "InstFetchPrivilegeCause",
-+	"An instruction fetch referenced a virtual address at a ring level less than CRING"},
-+	{20, "InstFetchProhibitedCause",
-+	"An instruction fetch referenced a page mapped with an attribute that does not permit instruction fetch"},
-+	{24, "LoadStoreTLBMissCause",
-+	"Error during TLB refill for a load or store"},
-+	{25, "LoadStoreTLBMultiHitCause",
-+	"Multiple TLB entries matched for a load or store"},
-+	{26, "LoadStorePrivilegeCause",
-+	"A load or store referenced a virtual address at a ring level less than CRING"},
-+	{28, "LoadProhibitedCause",
-+	"A load referenced a page mapped with an attribute that does not permit loads"},
-+	{32, "Coprocessor0Disabled",
-+	"Coprocessor 0 instruction when cp0 disabled"},
-+	{33, "Coprocessor1Disabled",
-+	"Coprocessor 1 instruction when cp1 disabled"},
-+	{34, "Coprocessor2Disabled",
-+	"Coprocessor 2 instruction when cp2 disabled"},
-+	{35, "Coprocessor3Disabled",
-+	"Coprocessor 3 instruction when cp3 disabled"},
-+	{36, "Coprocessor4Disabled",
-+	"Coprocessor 4 instruction when cp4 disabled"},
-+	{37, "Coprocessor5Disabled",
-+	"Coprocessor 5 instruction when cp5 disabled"},
-+	{38, "Coprocessor6Disabled",
-+	"Coprocessor 6 instruction when cp6 disabled"},
-+	{39, "Coprocessor7Disabled",
-+	"Coprocessor 7 instruction when cp7 disabled"},
-+};
 +
-+/* only need xtensa atm */
-+static void xtensa_dsp_oops(struct snd_sof_dev *sdev, void *oops)
++void sof_io_write(struct snd_sof_dev *sdev, void __iomem *addr, u32 value)
 +{
-+	struct sof_ipc_dsp_oops_xtensa *xoops = oops;
-+	int i;
-+
-+	dev_err(sdev->dev, "error: DSP Firmware Oops\n");
-+	for (i = 0; i < ARRAY_SIZE(xtensa_exception_causes); i++) {
-+		if (xtensa_exception_causes[i].id == xoops->exccause) {
-+			dev_err(sdev->dev, "error: Exception Cause: %s, %s\n",
-+				xtensa_exception_causes[i].msg,
-+				xtensa_exception_causes[i].description);
-+		}
-+	}
-+	dev_err(sdev->dev, "EXCCAUSE 0x%8.8x EXCVADDR 0x%8.8x PS       0x%8.8x SAR     0x%8.8x\n",
-+		xoops->exccause, xoops->excvaddr, xoops->ps, xoops->sar);
-+	dev_err(sdev->dev, "EPC1     0x%8.8x EPC2     0x%8.8x EPC3     0x%8.8x EPC4    0x%8.8x",
-+		xoops->epc1, xoops->epc2, xoops->epc3, xoops->epc4);
-+	dev_err(sdev->dev, "EPC5     0x%8.8x EPC6     0x%8.8x EPC7     0x%8.8x DEPC    0x%8.8x",
-+		xoops->epc5, xoops->epc6, xoops->epc7, xoops->depc);
-+	dev_err(sdev->dev, "EPS2     0x%8.8x EPS3     0x%8.8x EPS4     0x%8.8x EPS5    0x%8.8x",
-+		xoops->eps2, xoops->eps3, xoops->eps4, xoops->eps5);
-+	dev_err(sdev->dev, "EPS6     0x%8.8x EPS7     0x%8.8x INTENABL 0x%8.8x INTERRU 0x%8.8x",
-+		xoops->eps6, xoops->eps7, xoops->intenable, xoops->interrupt);
++	writel(value, addr);
 +}
++EXPORT_SYMBOL(sof_io_write);
 +
-+static void xtensa_stack(struct snd_sof_dev *sdev, void *oops, u32 *stack,
-+			 u32 stack_words)
++u32 sof_io_read(struct snd_sof_dev *sdev, void __iomem *addr)
 +{
-+	struct sof_ipc_dsp_oops_xtensa *xoops = oops;
-+	u32 stack_ptr = xoops->stack;
-+	/* 4 * 8chars + 3 ws + 1 terminating NUL */
-+	unsigned char buf[4 * 8 + 3 + 1];
-+	int i;
++	return readl(addr);
++}
++EXPORT_SYMBOL(sof_io_read);
 +
-+	dev_err(sdev->dev, "stack dump from 0x%8.8x\n", stack_ptr);
++void sof_io_write64(struct snd_sof_dev *sdev, void __iomem *addr, u64 value)
++{
++	writeq(value, addr);
++}
++EXPORT_SYMBOL(sof_io_write64);
 +
-+	/*
-+	 * example output:
-+	 * 0x0049fbb0: 8000f2d0 0049fc00 6f6c6c61 00632e63
-+	 */
-+	for (i = 0; i < stack_words; i += 4) {
-+		hex_dump_to_buffer(stack + i * 4, 16, 16, 4,
-+				   buf, sizeof(buf), false);
-+		dev_err(sdev->dev, "0x%08x: %s\n", stack_ptr + i, buf);
++u64 sof_io_read64(struct snd_sof_dev *sdev, void __iomem *addr)
++{
++	return readq(addr);
++}
++EXPORT_SYMBOL(sof_io_read64);
++
++/*
++ * IPC Mailbox IO
++ */
++
++void sof_mailbox_write(struct snd_sof_dev *sdev, u32 offset,
++		       void *message, size_t bytes)
++{
++	void __iomem *dest = sdev->bar[sdev->mailbox_bar] + offset;
++
++	memcpy_toio(dest, message, bytes);
++}
++EXPORT_SYMBOL(sof_mailbox_write);
++
++void sof_mailbox_read(struct snd_sof_dev *sdev, u32 offset,
++		      void *message, size_t bytes)
++{
++	void __iomem *src = sdev->bar[sdev->mailbox_bar] + offset;
++
++	memcpy_fromio(message, src, bytes);
++}
++EXPORT_SYMBOL(sof_mailbox_read);
++
++/*
++ * Memory copy.
++ */
++
++void sof_block_write(struct snd_sof_dev *sdev, u32 bar, u32 offset, void *src,
++		     size_t size)
++{
++	void __iomem *dest = sdev->bar[bar] + offset;
++	const u8 *src_byte = src;
++	u32 affected_mask;
++	u32 tmp;
++	int m, n;
++
++	m = size / 4;
++	n = size % 4;
++
++	/* __iowrite32_copy use 32bit size values so divide by 4 */
++	__iowrite32_copy(dest, src, m);
++
++	if (n) {
++		affected_mask = (1 << (8 * n)) - 1;
++
++		/* first read the 32bit data of dest, then change affected
++		 * bytes, and write back to dest. For unaffected bytes, it
++		 * should not be changed
++		 */
++		tmp = ioread32(dest + m * 4);
++		tmp &= ~affected_mask;
++
++		tmp |= *(u32 *)(src_byte + m * 4) & affected_mask;
++		iowrite32(tmp, dest + m * 4);
 +	}
 +}
++EXPORT_SYMBOL(sof_block_write);
 +
-+const struct sof_arch_ops sof_xtensa_arch_ops = {
-+	.dsp_oops = xtensa_dsp_oops,
-+	.dsp_stack = xtensa_stack,
-+};
-+EXPORT_SYMBOL(sof_xtensa_arch_ops);
++void sof_block_read(struct snd_sof_dev *sdev, u32 bar, u32 offset, void *dest,
++		    size_t size)
++{
++	void __iomem *src = sdev->bar[bar] + offset;
 +
-+MODULE_DESCRIPTION("SOF Xtensa DSP support");
-+MODULE_LICENSE("Dual BSD/GPL");
++	memcpy_fromio(dest, src, size);
++}
++EXPORT_SYMBOL(sof_block_read);
 -- 
 2.20.1
-
-
---===============4259935795579732932==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4259935795579732932==--

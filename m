@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3106B42E
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Apr 2019 20:04:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5ADF3B436
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Apr 2019 20:09:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53FFF160D;
-	Sat, 27 Apr 2019 20:04:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53FFF160D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E93E3161F;
+	Sat, 27 Apr 2019 20:08:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E93E3161F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556388298;
-	bh=HZ1HJJIw33zpxX9caLt8oKKXnFr85FMOHcmN1LTkv6E=;
+	s=default; t=1556388560;
+	bh=UmNkllIQ/TRUWPj6GNAvjM/nJeLJhvVOJLZOdXXZXQ4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=XLgn6hoJp+HkbC/nKcqaxlQKseO7e0cgWH+fj6A1hvT5exZe4ypK+e13wbmbPtfFf
-	 iFOgoFlAPe2mkIiw806+DBciEBs8N7088iY3+oDn2azLPQSNS8zvSQnTW173ag4yiH
-	 iOU1HX4ilz+8Ujw/9g5XAnRIzthtLzI4ohpjvBU4=
+	b=flrb0EY6Z9s7lKc+iK4n9QOqXf7+vzGWD20AsjTsX5796t5wPRhfJBg3Q3vPSrRRm
+	 bB6rGxow8aUhaV9NC05BFahQCu2eMedVsya1Omc+W+m2LSgqxzAsSCrDJEWinDjj9H
+	 ZIDbUXUSEpaSMdJYi0JX45Ycm6oYUcQwOeN24Hjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F5B0F89794;
-	Sat, 27 Apr 2019 19:54:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 996CFF89731;
+	Sat, 27 Apr 2019 19:54:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6E62F8974C; Sat, 27 Apr 2019 19:53:26 +0200 (CEST)
+ id E84E0F8972F; Sat, 27 Apr 2019 19:53:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,45 +33,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BECBEF89725;
- Sat, 27 Apr 2019 19:52:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BECBEF89725
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41682F89730;
+ Sat, 27 Apr 2019 19:53:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41682F89730
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="MSZCUSDB"
+ header.b="UuLe3eSf"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=64zph0OcxaURwfXEN8KRyHhOZM9nBJRV8KKgEhAd8us=; b=MSZCUSDBli3I
- tn+GyKPsJaZVhDWgvPahY8SgKZI269uR4Q9yZzRIw5M8JNvWMmyzeCEK9zpbCnBClNyB6o9TyAGbh
- 4/2i4zL9yKztrMRG6/JiBn79A0Y4govP7GxT7+Hu5EObsBSQA8cfisIOx1mEX5cQjW5x3I/zbNNZj
- pB/ck=;
+ List-Archive; bh=noCMcloiEzuPpAa1jceu2M+Kxb8cbh2i3OTuisMysFg=; b=UuLe3eSfYshC
+ GJRJYnGsnQb44TJCagFGWDvhgWxKhqsVFY5CCr1b8A0hI+5uBtoJFbW/8NJV0TuXXT39hBdLxjwdW
+ JlCJUFoezv8eL/2ESwHYT+W2iB00WwDmAnDZlAFbeQrC4+Ir3Y6PvI5P5sYucKZGuVnScDlKjz3hs
+ M6faQ=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hKRVP-0004pY-DI; Sat, 27 Apr 2019 17:52:55 +0000
+ id 1hKRVR-0004py-LL; Sat, 27 Apr 2019 17:52:57 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 34619441D3C; Sat, 27 Apr 2019 18:52:52 +0100 (BST)
+ id 984BD441D3E; Sat, 27 Apr 2019 18:52:54 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-In-Reply-To: <20190412160904.30418-6-pierre-louis.bossart@linux.intel.com>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+In-Reply-To: <20190412160904.30418-4-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190427175252.34619441D3C@finisterre.ee.mobilebroadband>
-Date: Sat, 27 Apr 2019 18:52:52 +0100 (BST)
+Message-Id: <20190427175254.984BD441D3E@finisterre.ee.mobilebroadband>
+Date: Sat, 27 Apr 2019 18:52:54 +0100 (BST)
 Cc: Dragos Tarcatu <dragos_tarcatu@mentor.com>,
  Daniel Baluta <daniel.baluta@gmail.com>, sound-open-firmware@alsa-project.org,
- tiwai@suse.de, Keyon Jie <yang.jie@linux.intel.com>,
- alsa-devel@alsa-project.org,
+ tiwai@suse.de, alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  liam.r.girdwood@linux.intel.com, vkoul@kernel.org,
  Mark Brown <broonie@kernel.org>, andriy.shevchenko@linux.intel.com,
  Alan Cox <alan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: Add HDA controller for
-	Intel DSP" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: Add legacy IPC support" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: Add HDA controller for Intel DSP
+   ASoC: SOF: Intel: Add legacy IPC support
 
 has been applied to the asoc tree at
 
@@ -117,211 +116,121 @@ to this mail.
 Thanks,
 Mark
 
-From 8a300c8fb17c7546aaf3f2203a2eeff32debfb8f Mon Sep 17 00:00:00 2001
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Date: Fri, 12 Apr 2019 11:08:48 -0500
-Subject: [PATCH] ASoC: SOF: Intel: Add HDA controller for Intel DSP
+From 351d1174fef03adb4defed7ef14f1ede0251aae9 Mon Sep 17 00:00:00 2001
+From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Date: Fri, 12 Apr 2019 11:08:46 -0500
+Subject: [PATCH] ASoC: SOF: Intel: Add legacy IPC support
 
-Support HDA controller operations for DSP and provide space for future
-DSP HDA FW integration.
+Add IPC support required for devices introduced before Skylake
+(Merrifield, baytrail, CherryTrail, Haswell, Broadwell)
 
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-ctrl.c | 181 +++++++++++++++++++++++++++++++++
- 1 file changed, 181 insertions(+)
- create mode 100644 sound/soc/sof/intel/hda-ctrl.c
+ sound/soc/sof/intel/intel-ipc.c | 92 +++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+ create mode 100644 sound/soc/sof/intel/intel-ipc.c
 
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
+diff --git a/sound/soc/sof/intel/intel-ipc.c b/sound/soc/sof/intel/intel-ipc.c
 new file mode 100644
-index 000000000000..2c3645736e1f
+index 000000000000..4edd92151fd5
 --- /dev/null
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -0,0 +1,181 @@
++++ b/sound/soc/sof/intel/intel-ipc.c
+@@ -0,0 +1,92 @@
 +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
 +//
 +// This file is provided under a dual BSD/GPLv2 license.  When using or
 +// redistributing this file, you may do so under either license.
 +//
-+// Copyright(c) 2018 Intel Corporation. All rights reserved.
++// Copyright(c) 2019 Intel Corporation. All rights reserved.
 +//
-+// Authors: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-+//	    Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-+//	    Rander Wang <rander.wang@intel.com>
-+//          Keyon Jie <yang.jie@linux.intel.com>
-+//
++// Authors: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 +
-+/*
-+ * Hardware interface for generic Intel audio DSP HDA IP
-+ */
++/* Intel-specific SOF IPC code */
 +
-+#include <sound/hdaudio_ext.h>
-+#include <sound/hda_register.h>
++#include <linux/device.h>
++#include <linux/export.h>
++#include <linux/module.h>
++#include <linux/types.h>
++
++#include <sound/pcm.h>
++#include <sound/sof/stream.h>
++
 +#include "../ops.h"
-+#include "hda.h"
++#include "../sof-priv.h"
 +
-+/*
-+ * HDA Operations.
-+ */
++struct intel_stream {
++	size_t posn_offset;
++};
 +
-+int hda_dsp_ctrl_link_reset(struct snd_sof_dev *sdev, bool reset)
++/* Mailbox-based Intel IPC implementation */
++void intel_ipc_msg_data(struct snd_sof_dev *sdev,
++			struct snd_pcm_substream *substream,
++			void *p, size_t sz)
 +{
-+	unsigned long timeout;
-+	u32 gctl = 0;
-+	u32 val;
++	if (!substream || !sdev->stream_box.size) {
++		sof_mailbox_read(sdev, sdev->dsp_box.offset, p, sz);
++	} else {
++		struct intel_stream *stream = substream->runtime->private_data;
 +
-+	/* 0 to enter reset and 1 to exit reset */
-+	val = reset ? 0 : SOF_HDA_GCTL_RESET;
-+
-+	/* enter/exit HDA controller reset */
-+	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_GCTL,
-+				SOF_HDA_GCTL_RESET, val);
-+
-+	/* wait to enter/exit reset */
-+	timeout = jiffies + msecs_to_jiffies(HDA_DSP_CTRL_RESET_TIMEOUT);
-+	while (time_before(jiffies, timeout)) {
-+		gctl = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_GCTL);
-+		if ((gctl & SOF_HDA_GCTL_RESET) == val)
-+			return 0;
-+		usleep_range(500, 1000);
++		/* The stream might already be closed */
++		if (stream)
++			sof_mailbox_read(sdev, stream->posn_offset, p, sz);
 +	}
-+
-+	/* enter/exit reset failed */
-+	dev_err(sdev->dev, "error: failed to %s HDA controller gctl 0x%x\n",
-+		reset ? "reset" : "ready", gctl);
-+	return -EIO;
 +}
++EXPORT_SYMBOL(intel_ipc_msg_data);
 +
-+int hda_dsp_ctrl_get_caps(struct snd_sof_dev *sdev)
++int intel_ipc_pcm_params(struct snd_sof_dev *sdev,
++			 struct snd_pcm_substream *substream,
++			 const struct sof_ipc_pcm_params_reply *reply)
 +{
-+	struct hdac_bus *bus = sof_to_bus(sdev);
-+	u32 cap, offset, feature;
-+	int count = 0;
++	struct intel_stream *stream = substream->runtime->private_data;
++	size_t posn_offset = reply->posn_offset;
 +
-+	offset = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_LLCH);
++	/* check if offset is overflow or it is not aligned */
++	if (posn_offset > sdev->stream_box.size ||
++	    posn_offset % sizeof(struct sof_ipc_stream_posn) != 0)
++		return -EINVAL;
 +
-+	do {
-+		cap = snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, offset);
++	stream->posn_offset = sdev->stream_box.offset + posn_offset;
 +
-+		dev_dbg(sdev->dev, "checking for capabilities at offset 0x%x\n",
-+			offset & SOF_HDA_CAP_NEXT_MASK);
-+
-+		feature = (cap & SOF_HDA_CAP_ID_MASK) >> SOF_HDA_CAP_ID_OFF;
-+
-+		switch (feature) {
-+		case SOF_HDA_PP_CAP_ID:
-+			dev_dbg(sdev->dev, "found DSP capability at 0x%x\n",
-+				offset);
-+			bus->ppcap = bus->remap_addr + offset;
-+			sdev->bar[HDA_DSP_PP_BAR] = bus->ppcap;
-+			break;
-+		case SOF_HDA_SPIB_CAP_ID:
-+			dev_dbg(sdev->dev, "found SPIB capability at 0x%x\n",
-+				offset);
-+			bus->spbcap = bus->remap_addr + offset;
-+			sdev->bar[HDA_DSP_SPIB_BAR] = bus->spbcap;
-+			break;
-+		case SOF_HDA_DRSM_CAP_ID:
-+			dev_dbg(sdev->dev, "found DRSM capability at 0x%x\n",
-+				offset);
-+			bus->drsmcap = bus->remap_addr + offset;
-+			sdev->bar[HDA_DSP_DRSM_BAR] = bus->drsmcap;
-+			break;
-+		case SOF_HDA_GTS_CAP_ID:
-+			dev_dbg(sdev->dev, "found GTS capability at 0x%x\n",
-+				offset);
-+			bus->gtscap = bus->remap_addr + offset;
-+			break;
-+		case SOF_HDA_ML_CAP_ID:
-+			dev_dbg(sdev->dev, "found ML capability at 0x%x\n",
-+				offset);
-+			bus->mlcap = bus->remap_addr + offset;
-+			break;
-+		default:
-+			dev_vdbg(sdev->dev, "found capability %d at 0x%x\n",
-+				 feature, offset);
-+			break;
-+		}
-+
-+		offset = cap & SOF_HDA_CAP_NEXT_MASK;
-+	} while (count++ <= SOF_HDA_MAX_CAPS && offset);
++	dev_dbg(sdev->dev, "pcm: stream dir %d, posn mailbox offset is %zu",
++		substream->stream, stream->posn_offset);
 +
 +	return 0;
 +}
++EXPORT_SYMBOL(intel_ipc_pcm_params);
 +
-+void hda_dsp_ctrl_ppcap_enable(struct snd_sof_dev *sdev, bool enable)
++int intel_pcm_open(struct snd_sof_dev *sdev,
++		   struct snd_pcm_substream *substream)
 +{
-+	u32 val = enable ? SOF_HDA_PPCTL_GPROCEN : 0;
++	struct intel_stream *stream = kmalloc(sizeof(*stream), GFP_KERNEL);
 +
-+	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
-+				SOF_HDA_PPCTL_GPROCEN, val);
-+}
++	if (!stream)
++		return -ENOMEM;
 +
-+void hda_dsp_ctrl_ppcap_int_enable(struct snd_sof_dev *sdev, bool enable)
-+{
-+	u32 val	= enable ? SOF_HDA_PPCTL_PIE : 0;
-+
-+	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
-+				SOF_HDA_PPCTL_PIE, val);
-+}
-+
-+void hda_dsp_ctrl_misc_clock_gating(struct snd_sof_dev *sdev, bool enable)
-+{
-+	u32 val = enable ? PCI_CGCTL_MISCBDCGE_MASK : 0;
-+
-+	snd_sof_pci_update_bits(sdev, PCI_CGCTL, PCI_CGCTL_MISCBDCGE_MASK, val);
-+}
-+
-+/*
-+ * enable/disable audio dsp clock gating and power gating bits.
-+ * This allows the HW to opportunistically power and clock gate
-+ * the audio dsp when it is idle
-+ */
-+int hda_dsp_ctrl_clock_power_gating(struct snd_sof_dev *sdev, bool enable)
-+{
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+	struct hdac_bus *bus = sof_to_bus(sdev);
-+#endif
-+	u32 val;
-+
-+	/* enable/disable audio dsp clock gating */
-+	val = enable ? PCI_CGCTL_ADSPDCGE : 0;
-+	snd_sof_pci_update_bits(sdev, PCI_CGCTL, PCI_CGCTL_ADSPDCGE, val);
-+
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+	/* enable/disable L1 support */
-+	val = enable ? SOF_HDA_VS_EM2_L1SEN : 0;
-+	snd_hdac_chip_updatel(bus, VS_EM2, SOF_HDA_VS_EM2_L1SEN, val);
-+#endif
-+
-+	/* enable/disable audio dsp power gating */
-+	val = enable ? 0 : PCI_PGCTL_ADSPPGD;
-+	snd_sof_pci_update_bits(sdev, PCI_PGCTL, PCI_PGCTL_ADSPPGD, val);
++	/* binding pcm substream to hda stream */
++	substream->runtime->private_data = stream;
 +
 +	return 0;
 +}
++EXPORT_SYMBOL(intel_pcm_open);
 +
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+/*
-+ * While performing reset, controller may not come back properly and causing
-+ * issues, so recommendation is to set CGCTL.MISCBDCGE to 0 then do reset
-+ * (init chip) and then again set CGCTL.MISCBDCGE to 1
-+ */
-+int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev, bool full_reset)
++int intel_pcm_close(struct snd_sof_dev *sdev,
++		    struct snd_pcm_substream *substream)
 +{
-+	struct hdac_bus *bus = sof_to_bus(sdev);
-+	int ret;
++	struct intel_stream *stream = substream->runtime->private_data;
 +
-+	hda_dsp_ctrl_misc_clock_gating(sdev, false);
-+	ret = snd_hdac_bus_init_chip(bus, full_reset);
-+	hda_dsp_ctrl_misc_clock_gating(sdev, true);
++	substream->runtime->private_data = NULL;
++	kfree(stream);
 +
-+	return ret;
++	return 0;
 +}
-+#endif
++EXPORT_SYMBOL(intel_pcm_close);
++
++MODULE_LICENSE("Dual BSD/GPL");
 -- 
 2.20.1
 

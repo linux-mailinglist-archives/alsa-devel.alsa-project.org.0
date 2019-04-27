@@ -2,86 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C8BB585
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Apr 2019 09:35:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DFD5B2D9
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Apr 2019 08:08:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A575087A;
-	Sun, 28 Apr 2019 09:34:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A575087A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69C54867;
+	Sat, 27 Apr 2019 08:08:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69C54867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556436929;
-	bh=3ONYRIXExnr1Bc85cxSxy3reQBnHHhUmTc63wU0owIQ=;
+	s=default; t=1556345338;
+	bh=hMrPCr1aT7osN4blMpiixG8EZtnbjEyvP9aIY88WSRg=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=iN2v2sLaqLdphWnHE81BWKoib7/Hq3w3CP9QzhQD+lCyn7v/wkvyKVwrqoJakroBI
-	 YB3HIJQWJoeo5+yx/6IYCZlyLplUvfa4TUVUPyrXhVKzV31VGa0dSclgI55Q2vkEGY
-	 yiqCJf+sIKnpcgBEppxXuRixw2hRyzdutIxFwVSs=
+	b=dvkCb48abjWY4gehoqxNAANq6VF/TlPxPc/nDnphFvGDwK/90pqKSVqTqoUSvxmE3
+	 uXNm1V0Nc+EKpxlAo6e76F/KeclEhtdN447kzxTGiO09NRXr5tOk6Uhmtxslx3Xtce
+	 /cG03hDM/4CzlZNTIN/O4qb1QxbLUu1+S+ZcEGxk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1D91F89732;
-	Sun, 28 Apr 2019 09:30:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F8DAF896DB;
+	Sat, 27 Apr 2019 08:07:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21150F896DF; Fri, 26 Apr 2019 18:47:50 +0200 (CEST)
+ id EE6E1F896DB; Sat, 27 Apr 2019 08:07:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-it1-x143.google.com (mail-it1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mta-p5.oit.umn.edu (mta-p5.oit.umn.edu [134.84.196.205])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DFD1F8961C
- for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2019 18:47:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DFD1F8961C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80633F80CAB
+ for <alsa-devel@alsa-project.org>; Sat, 27 Apr 2019 08:07:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80633F80CAB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="dNgKICUg"
-Received: by mail-it1-x143.google.com with SMTP id a190so6893042ite.4
- for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2019 09:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QqnKyrp3mArwKqL8dFKZ2FJ7oLbcOYhGCMtzg+mpDC0=;
- b=dNgKICUg+IWEQxdmdCtJcSez1ZKhkhiV71QuC+EpBG0rrvhfwciZwGars1KO58Cvx7
- cC/N/dbiY2Tk8bLLCVEjOPfJTHuhO/BOZBliSuw4Iu67sG25vzU1leEOdJ5g1qvPHpnJ
- OhqOFs8RWHCLFKgcenGaqdCJZzmSoaQKRVBPs=
+ dkim=pass (2048-bit key) header.d=umn.edu header.i=@umn.edu
+ header.b="Kc8zoi7b"
+Received: from localhost (unknown [127.0.0.1])
+ by mta-p5.oit.umn.edu (Postfix) with ESMTP id 2FA05F5F
+ for <alsa-devel@alsa-project.org>; Sat, 27 Apr 2019 06:07:03 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at umn.edu
+Received: from mta-p5.oit.umn.edu ([127.0.0.1])
+ by localhost (mta-p5.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id FCevi0NEdYuf for <alsa-devel@alsa-project.org>;
+ Sat, 27 Apr 2019 01:07:03 -0500 (CDT)
+Received: from mail-it1-f198.google.com (mail-it1-f198.google.com
+ [209.85.166.198])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mta-p5.oit.umn.edu (Postfix) with ESMTPS id 0935FF65
+ for <alsa-devel@alsa-project.org>; Sat, 27 Apr 2019 01:07:02 -0500 (CDT)
+Received: by mail-it1-f198.google.com with SMTP id w1so4881105itk.4
+ for <alsa-devel@alsa-project.org>; Fri, 26 Apr 2019 23:07:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=NFlIqhQAiZ0fKBdX7sqqPlFbICv397OLf5KoFgtnxks=;
+ b=Kc8zoi7baurWPlTU1x/nQLHBxVn40vnDnX+BlDg4nKi+7gxiwc3DP+cyQ54OiKWQbU
+ rxOJUAotGkU6UkDJoyS+PvugK2b6W8gxtI0ZY2e29dqwUc9fce26RbIpi6JMpClLE3Nj
+ vmFJuGeXStBkdjRxJWpQoF67x6+PwTQPAfgQIuBKAhik8v1i3jDtaBmVao1+psxcVC14
+ 6Zl1F944VZUPoJBgHYXEN9LNFGnr0szQTdJOKzpu2z0uuumo/MOmrFo/Pcw4ivTpIHDJ
+ dqlT5z1lhQQde3M96I8rce6hOqigvhfjAV3FEZVoPtSbTw0wXCEf+jCKt+Po8aPhqE9j
+ 3p5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=QqnKyrp3mArwKqL8dFKZ2FJ7oLbcOYhGCMtzg+mpDC0=;
- b=fRgejdqLaK/u4ybeqevgzsPbo5fHn1yprzoGf2QFC4KLNp+PfWFy8KrHSlndUfCXBf
- 3k5QCusF+2bSow2VzYS4i9hwJTnH0ZDbFG5yG26Nz+eJ8aUf3+MRA21ZczBi7BaJ9+Oo
- JfUX5Cf5b81Bwu4Pnlp2kAx4vuXg2zJcp/oF3vlr6ZcIhafwOdRPvrTq98/a2tQwpDtE
- /sl0TocOctqYfCeWtvq02LHvHpReA7rqJQ3hVNnP5M2ZiExZpbnYRuWKWnA9l6lnQ9ix
- 7Ry4jnMJ28OSdlZDCE81WVrNj4fCmXD8q+7VHq05GAZMFZYp24XO3d0i1jhvNAiy0Zzi
- eDxw==
-X-Gm-Message-State: APjAAAUNfqdUaQ1q/oPOrPfrD1CumBd9vAW5PVIyhJmUawzSKF44CrGC
- F1dAV/OKA5O9ZgKIAK7AjrifHw==
-X-Google-Smtp-Source: APXvYqy8i51neYtN3ZGXSleDs3Z783iB7tHbyaZ89nWCeKFCHDGb6h+c4WkCrQzNOBNX1Rk1Nh9slA==
-X-Received: by 2002:a24:2fcb:: with SMTP id j194mr9671987itj.14.1556297265229; 
- Fri, 26 Apr 2019 09:47:45 -0700 (PDT)
-Received: from localhost ([2620:15c:183:200:855f:8919:84a7:4794])
- by smtp.gmail.com with ESMTPSA id q22sm8856679ion.15.2019.04.26.09.47.44
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Apr 2019 09:47:44 -0700 (PDT)
-From: Ross Zwisler <zwisler@chromium.org>
-X-Google-Original-From: Ross Zwisler <zwisler@google.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 26 Apr 2019 10:47:40 -0600
-Message-Id: <20190426164740.211139-1-zwisler@google.com>
-X-Mailer: git-send-email 2.21.0.593.g511ec345e18-goog
-MIME-Version: 1.0
-X-Mailman-Approved-At: Sun, 28 Apr 2019 09:30:26 +0200
-Cc: alsa-devel@alsa-project.org, Ross Zwisler <zwisler@google.com>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH] ASoC: Intel: avoid Oops if DMA setup fails
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=NFlIqhQAiZ0fKBdX7sqqPlFbICv397OLf5KoFgtnxks=;
+ b=N9RGbp/oeKxZ9Os5KrYAvamEwz7SRhQVq9zGkyGYe8y8XUmXCE+TKFh6jp9G+iKjUF
+ zt+b/DdO2VFVBLcXgXARDcY4Z09H1Cu3AmDh4cL7bNBw8v3lWXe4HKwvI4fEXGV1dVuP
+ d8/v9kgW9Lu6TweyDqe6gmru+wUEfJHKmiu3VUvzFZs4986rHZqz4Mv9pwepFcgXhy2K
+ wur+8sLcU4opbv2GsBlwVevXdR5fqxGvcOBCy7VG7WkttqVRYlTmKwreUhRGfY7UA0bu
+ tsjDCse+CNdjwZPaG3uahsdb6l+C5VoUC/ScvpdQdfXAUAhlQnJq32jTDtQGTCUFZQxf
+ /r0w==
+X-Gm-Message-State: APjAAAX73Cy0Fy7x+Yo8kmeJYqzUA1fnG5MfP4cKehEBHy5P1847jPU4
+ vfkH3PVPhfeW7be1LdlsG6xxTSTEr8w8+fbsA56LhfYnkZvoi39rG3ZoN+RXXnEIBX6YIvcmQUk
+ 5tJBda4BExE9xVWJgFv1jUVaufGA=
+X-Received: by 2002:a5d:9d0a:: with SMTP id j10mr28060549ioj.196.1556345222361; 
+ Fri, 26 Apr 2019 23:07:02 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqzS811HXtyXaCkgpoOpbax7PyFn3O06/h13VSIFhaFM9DP2JKm5kpfQ4hdDn9xpzx+c0mbK5Q==
+X-Received: by 2002:a5d:9d0a:: with SMTP id j10mr28060531ioj.196.1556345222018; 
+ Fri, 26 Apr 2019 23:07:02 -0700 (PDT)
+Received: from cs-u-cslp16.dtc.umn.edu (cs-u-cslp16.cs.umn.edu.
+ [128.101.106.40])
+ by smtp.gmail.com with ESMTPSA id k125sm5670880ita.1.2019.04.26.23.07.00
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 26 Apr 2019 23:07:01 -0700 (PDT)
+From: Wenwen Wang <wang6495@umn.edu>
+To: Wenwen Wang <wang6495@umn.edu>
+Date: Sat, 27 Apr 2019 01:06:46 -0500
+Message-Id: <1556345208-1210-1-git-send-email-wang6495@umn.edu>
+X-Mailer: git-send-email 2.7.4
+Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Jorge Sanjuan <jorge.sanjuan@codethink.co.uk>,
+ Ruslan Bilovol <ruslan.bilovol@gmail.com>
+Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Fix a memory leak bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,59 +108,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently in sst_dsp_new() if we get an error return from sst_dma_new()
-we just print an error message and then still complete the function
-successfully.  This means that we are trying to run without sst->dma
-properly set up, which will result in NULL pointer dereference when
-sst->dma is later used.  This was happening for me in
-sst_dsp_dma_get_channel():
+In parse_audio_selector_unit(), the string array 'namelist' is allocated
+through kmalloc_array(), and each string pointer in this array, i.e.,
+'namelist[]', is allocated through kmalloc() in the following for loop.
+Then, a control instance 'kctl' is created by invoking snd_ctl_new1(). If
+an error occurs during the creation process, the string array 'namelist',
+including all string pointers in the array 'namelist[]', should be freed,
+before the error code ENOMEM is returned. However, the current code does
+not free 'namelist[]', resulting in memory leaks.
 
-        struct sst_dma *dma = dsp->dma;
-	...
-        dma->ch = dma_request_channel(mask, dma_chan_filter, dsp);
+To fix the above issue, free all string pointers 'namelist[]' in a loop.
 
-This resulted in:
-
-   BUG: unable to handle kernel NULL pointer dereference at 0000000000000018
-   IP: sst_dsp_dma_get_channel+0x4f/0x125 [snd_soc_sst_firmware]
-
-Fix this by adding proper error handling for the case where we fail to
-set up DMA.
-
-Signed-off-by: Ross Zwisler <zwisler@google.com>
-Cc: stable@vger.kernel.org
+Signed-off-by: Wenwen Wang <wang6495@umn.edu>
 ---
- sound/soc/intel/common/sst-firmware.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/usb/mixer.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/intel/common/sst-firmware.c b/sound/soc/intel/common/sst-firmware.c
-index 1e067504b6043..9be3a793a55e3 100644
---- a/sound/soc/intel/common/sst-firmware.c
-+++ b/sound/soc/intel/common/sst-firmware.c
-@@ -1251,11 +1251,15 @@ struct sst_dsp *sst_dsp_new(struct device *dev,
- 		goto irq_err;
- 
- 	err = sst_dma_new(sst);
--	if (err)
-+	if (err)  {
- 		dev_warn(dev, "sst_dma_new failed %d\n", err);
-+		goto dma_err;
-+	}
- 
- 	return sst;
- 
-+dma_err:
-+	free_irq(sst->irq, sst);
- irq_err:
- 	if (sst->ops->free)
- 		sst->ops->free(sst);
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 73d7dff..53dccbf 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -2675,6 +2675,8 @@ static int parse_audio_selector_unit(struct mixer_build *state, int unitid,
+ 	kctl = snd_ctl_new1(&mixer_selectunit_ctl, cval);
+ 	if (! kctl) {
+ 		usb_audio_err(state->chip, "cannot malloc kcontrol\n");
++		for (i = 0; i < desc->bNrInPins; i++)
++			kfree(namelist[i]);
+ 		kfree(namelist);
+ 		kfree(cval);
+ 		return -ENOMEM;
 -- 
-2.21.0.593.g511ec345e18-goog
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

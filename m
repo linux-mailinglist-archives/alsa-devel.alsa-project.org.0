@@ -2,89 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E951DC29
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 08:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96056DCA2
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 09:07:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4970862;
-	Mon, 29 Apr 2019 08:46:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4970862
+	by alsa0.perex.cz (Postfix) with ESMTPS id F30E1867;
+	Mon, 29 Apr 2019 09:06:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F30E1867
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556520417;
-	bh=dSO+oNiL4jF9hybu+LDW0TU5/MUGYst+E31D/mfzrhE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1556521656;
+	bh=v8Nru9x2k379L78Zf2DqSiTzUKOf88xfG5Ea8N05EXQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=potxsUn++Ub5Gycy1EfOK4fiIpD2o8zce3ms+Lfhew4sPoPmYJkStE2LJKvDOE8fx
-	 0ZVpqCzpyDqmipCdpC4YiZTyG+9wo6Zir5eEDaxsSg7eLoiFKcxePBl0T0CSu7qjhY
-	 tWb/W9lh5FphaJoK8hgpUJJFc2QTNM1VWhzwNUXc=
+	b=n8Jv1QOoQwsYj7eqopSOVsxsvKWJWHdpZ4DqwtrSQa9BCGwdrdOAkdxkupRJgQLPR
+	 j7EHcRkGsp9uErtbLUqILQ/oLKCQbqdtqjU8A+b6231H39ZAczQVA2FITixqS7AIXq
+	 6dFq9h33+qfGfctc5hxfvd6ZR/mdAdivlNXIOnQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D452F80C41;
-	Mon, 29 Apr 2019 08:45:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E070DF80C41;
+	Mon, 29 Apr 2019 09:05:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74E7CF80CAB; Mon, 29 Apr 2019 08:45:10 +0200 (CEST)
+ id D9A40F80CAB; Mon, 29 Apr 2019 09:05:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mta-p3.oit.umn.edu (mta-p3.oit.umn.edu [134.84.196.203])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C88FF806E7
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 08:45:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C88FF806E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=umn.edu header.i=@umn.edu
- header.b="oglRIhN8"
-Received: from localhost (localhost [127.0.0.1])
- by mta-p3.oit.umn.edu (Postfix) with ESMTP id 49585674
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 06:45:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=umn.edu; h=
- content-type:content-type:subject:subject:message-id:date:date
- :from:from:in-reply-to:references:mime-version:received:received
- :received; s=20160920; t=1556520304; x=1558334705; bh=HR/VsmL+Sl
- Q9LEfLNg0cZiRdW29pIMsOScEdB/7Npfs=; b=oglRIhN8JL7V9EJT32AmBsxk4d
- nOVm/WeltHQJHOfHSvAbDiOlC10bBTIxmw1afCO04x3FbWWiai88XEStY4cNdNgg
- ox/r6Zsug6orBHeetIoD+uU3OTFtM8JftMRtlBnuq2WCX4w3Bv6G/rKNcka0HuyH
- n2SamimXSr7C3cgHD4lWl+07A1t1e4Dr3Juw0VA0dLh6wuN2Ng3pDudDXvMCeOPv
- XOUSs3CIc+8ViFhNFD8l1Vf4TDiXBVRdt74dEGovKqkn/QzbevaHDeUVedlVk6li
- HACmD+iM1D7aCkae0FOijlLs+nFJF/dGIA5d+NkaKJcKa4rq3Aa3+yztAm2Q==
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p3.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p3.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id TdTrGZDv0FMm for <alsa-devel@alsa-project.org>;
- Mon, 29 Apr 2019 01:45:04 -0500 (CDT)
-Received: from mail-it1-f176.google.com (mail-it1-f176.google.com
- [209.85.166.176]) (using TLSv1 with cipher AES128-SHA (128/128 bits))
- (No client certificate requested) (Authenticated sender: wang6495)
- by mta-p3.oit.umn.edu (Postfix) with ESMTPSA id 280A166E
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 01:45:04 -0500 (CDT)
-Received: by mail-it1-f176.google.com with SMTP id q14so14719465itk.0
- for <alsa-devel@alsa-project.org>; Sun, 28 Apr 2019 23:45:04 -0700 (PDT)
-X-Gm-Message-State: APjAAAXejypqi5Yzrs0thvyvIPCY6OMElokUhFD7bb7hDo33fplVjDDc
- ZFpgD5qAgcT03ZwthsRaQxcNhagzWQuKRLBRvBQ=
-X-Google-Smtp-Source: APXvYqwmcBj42HoRDaYE7ExTxp+2Gctub0ZLZgUoKG3V35QOlgB829b/DrYE8s3uHW8sArdfI7YGEeZfc8W1tYIFh8s=
-X-Received: by 2002:a05:660c:148:: with SMTP id
- r8mr4672499itk.125.1556520303936; 
- Sun, 28 Apr 2019 23:45:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <1556433754-3291-1-git-send-email-wang6495@umn.edu>
- <s5hd0l6mwbz.wl-tiwai@suse.de> <s5ha7g9l6ea.wl-tiwai@suse.de>
- <CAAa=b7f7MMJ=2PBxz8yYM6u2SX7T2-YnC37gbapc1f9HOPQdeA@mail.gmail.com>
- <s5h4l6hl3ca.wl-tiwai@suse.de>
-In-Reply-To: <s5h4l6hl3ca.wl-tiwai@suse.de>
-From: Wenwen Wang <wang6495@umn.edu>
-Date: Mon, 29 Apr 2019 01:44:28 -0500
-X-Gmail-Original-Message-ID: <CAAa=b7dHFLnXWEd+v5LOVuGDim5zP+w=qy_aFAgiiMrbVBmmxA@mail.gmail.com>
-Message-ID: <CAAa=b7dHFLnXWEd+v5LOVuGDim5zP+w=qy_aFAgiiMrbVBmmxA@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Wenwen Wang <wang6495@umn.edu>, Kees Cook <keescook@chromium.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: usx2y: fix a memory leak bug
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69C00F80C0D
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 09:05:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69C00F80C0D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 1BFA8AE60;
+ Mon, 29 Apr 2019 07:05:44 +0000 (UTC)
+Date: Mon, 29 Apr 2019 09:05:43 +0200
+Message-ID: <s5hv9yxjnp4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Arnd Bergmann" <arnd@arndb.de>
+In-Reply-To: <s5hk1fthx9u.wl-tiwai@suse.de>
+References: <20190416202013.4034148-1-arnd@arndb.de>
+ <20190416202839.248216-1-arnd@arndb.de>
+ <s5hk1fthx9u.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, y2038@lists.linaro.org,
+ linux-um@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ linux-fsdevel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v3 20/26] compat_ioctl: remove translation
+	for sound ioctls
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,47 +75,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Apr 29, 2019 at 1:42 AM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Mon, 29 Apr 2019 07:50:11 +0200,
-> Wenwen Wang wrote:
-> >
-> > On Mon, Apr 29, 2019 at 12:36 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > >
-> > > On Sun, 28 Apr 2019 09:18:40 +0200,
-> > > Takashi Iwai wrote:
-> > > >
-> > > > On Sun, 28 Apr 2019 08:42:32 +0200,
-> > > > Wenwen Wang wrote:
-> > > > >
-> > > > > In usX2Y_In04_init(), a new urb is firstly created through usb_alloc_urb()
-> > > > > and saved to 'usX2Y->In04urb'. Then, a buffer is allocated through
-> > > > > kmalloc() and saved to 'usX2Y->In04Buf'. After the urb is initialized, a
-> > > > > sanity check is performed for the endpoint in the urb by invoking
-> > > > > usb_urb_ep_type_check(). If the check fails, the error code EINVAL will be
-> > > > > returned. In that case, however, the created urb and the allocated buffer
-> > > > > are not freed, leading to memory leaks.
-> > > > >
-> > > > > To fix the above issue, free the urb and the buffer if the check fails.
-> > > > >
-> > > > > Signed-off-by: Wenwen Wang <wang6495@umn.edu>
-> > > >
-> > > > Applied now, thanks.
-> > >
-> > > ... and looking at the code again, this patch turned out to be wrong.
-> > > The in04 urb and transfer buffer are freed at card->private_free
-> > > callback (snd_usX2Y_card_private_free()) later, so this patch would
-> > > lead to double-free.
-> >
-> > Thanks for your comment! Does that mean we should remove
-> > usb_free_urb() in the if statement of allocating 'usX2Y->In04Buf',
-> > because it may also lead to double free?
->
-> Yes, that's another superfluous code.
+On Wed, 17 Apr 2019 10:05:33 +0200,
+Takashi Iwai wrote:
+> 
+> On Tue, 16 Apr 2019 22:28:05 +0200,
+> Arnd Bergmann wrote:
+> > 
+> > The SNDCTL_* and SOUND_* commands are the old OSS user interface.
+> > 
+> > I checked all the sound ioctl commands listed in fs/compat_ioctl.c
+> > to see if we still need the translation handlers. Here is what I
+> > found:
+> > 
+> > - sound/oss/ is (almost) gone from the kernel, this is what actually
+> >   needed all the translations
+> > - The ALSA emulation for OSS correctly handles all compat_ioctl
+> >   commands already.
+> > - sound/oss/dmasound/ is the last holdout of the original OSS code,
+> >   this is only used on arch/m68k, which has no 64-bit mode and
+> >   hence needs no compat handlers
+> > - arch/um/drivers/hostaudio_kern.c may run in 64-bit mode with
+> >   32-bit x86 user space underneath it. This rare corner case is
+> >   the only one that still needs the compat handlers.
+> > 
+> > By adding a simple redirect of .compat_ioctl to .unlocked_ioctl in the
+> > UML driver, we can remove all the COMPATIBLE_IOCTL() annotations without
+> > a change in functionality. For completeness, I'm adding the same thing
+> > to the dmasound file, knowing that it makes no difference.
+> > 
+> > The compat_ioctl list contains one comment about SNDCTL_DSP_MAPINBUF and
+> > SNDCTL_DSP_MAPOUTBUF, which actually would need a translation handler
+> > if implemented. However, the native implementation just returns -EINVAL,
+> > so we don't care.
+> > 
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> 
+> This looks like a really nice cleanup.  Thanks!
+> 
+> Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-Thanks! I will rework the patch.
+Is this supposed to be taken via sound git tree, or would you apply
+over yours?  I'm fine in either way.
 
-Wenwen
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

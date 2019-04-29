@@ -2,81 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70C3BE760
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 18:13:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31DF9E84E
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 19:04:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFD311669;
-	Mon, 29 Apr 2019 18:12:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFD311669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82AA2166B;
+	Mon, 29 Apr 2019 19:03:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82AA2166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556554384;
-	bh=VaYcysAJA+mf3lopvQqPV8wv8CtpapIeqjC74ITsfXM=;
+	s=default; t=1556557454;
+	bh=SaOlnQNTc2SizaUziSYQWehSwCnHid4q0GIC69j2Bek=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U2ToaPXwrGtgSRHP/iOn8Vtt/b8d4+801Le5yidKkD4E9caj5XqIkteWnWoN/dSJ3
-	 uQHsdizYGGzCNPymuIgCYvJBe5fJrlxwAM9VyUQgIzMYSpSaWbMADL7UPYbvUISdmv
-	 t/30cI0PPOPqGLYDVWILzU90ge9n7w+FBv/Y4ozo=
+	b=m7Beu+JHgS9WiSl2bHTyJvYej5D+5eltT2bZ/jHVquGQ6j78Z/o7BnHLz1YRk3dEr
+	 ixTb77cHhTmKJ2zIyhcIuCYJylCxH/l0FIgFnIb8z+76/kHsKx+cb/e7uW+Xvc1qM3
+	 1oke40i62i0akRuQAVNT58jQyhx1qJA4l7C+UN0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AF87F80CAB;
-	Mon, 29 Apr 2019 18:11:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F2EDF80C41;
+	Mon, 29 Apr 2019 19:02:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B52B1F80CAB; Mon, 29 Apr 2019 18:11:16 +0200 (CEST)
+ id 38143F80CAB; Mon, 29 Apr 2019 19:02:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=KHOP_DYNAMIC
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-13.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-it1-x144.google.com (mail-it1-x144.google.com
+ [IPv6:2607:f8b0:4864:20::144])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79E91F80641
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 18:11:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E91F80641
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3TG90LT004931; Mon, 29 Apr 2019 11:11:09 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail2.cirrus.com (mail2.cirrus.com [141.131.128.20])
- by mx0b-001ae601.pphosted.com with ESMTP id 2s4kgpat8v-1;
- Mon, 29 Apr 2019 11:11:09 -0500
-Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
- by mail2.cirrus.com (Postfix) with ESMTP id 22ED1605A682;
- Mon, 29 Apr 2019 11:11:09 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 29 Apr
- 2019 17:11:05 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Mon, 29 Apr 2019 17:11:05 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9EB8F45;
- Mon, 29 Apr 2019 17:11:05 +0100 (BST)
-Date: Mon, 29 Apr 2019 17:11:05 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Daniel Gomez <dagmcr@gmail.com>
-Message-ID: <20190429161105.GE81578@ediswmail.ad.cirrus.com>
-References: <1555960430-8899-1-git-send-email-dagmcr@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DC96F80C0D
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 19:02:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC96F80C0D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="s2AGHwV0"
+Received: by mail-it1-x144.google.com with SMTP id z4so142798itc.3
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 10:02:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=wL3BmO/NnA3NwafXMitsQjGpheHu4M8s6Xt8v0Jomo0=;
+ b=s2AGHwV0MIipVuKm522AGWItowSBGgqT99tWc8KzjL140BVwLf0BNLJtwKT41jWXNL
+ Ukof9nce0Cq6pB0k4RT6l+JJckq6LDo7dqUTee6F4HyesQwlrL6FccvupQpguUqjGpNE
+ 1LBkfc1FShajkH5kEmAjl9yf5FfYh/FTohBDK2bup5Dt8ctFaMV91kmiluhGT6lwpsIL
+ XNYRY1uDKflHGrH3ShCan7broKF2mwu9hB3Nri6Yuhib2DH1pqwGFDg425K6uze853HA
+ YqRV8YWIdZh09HQ/zO2TrNYOfMHz1jkmWpxyVCVGrCB7tP4XVQzYSYBc/qRxDOruKlp+
+ OUKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=wL3BmO/NnA3NwafXMitsQjGpheHu4M8s6Xt8v0Jomo0=;
+ b=k/l6Vp3ypAkTJ9hteke0BVGyDOQruXnYNEC/ndBkbQEJvDHZDDpbONw4AIOcdUHoGu
+ d1mzuwafb9QghhVpNl7J8+Gs+003DyeP4KMGDJRfDDO2MCP5kunfRiUJ6KusEYGktrI5
+ eszw8gVgmFEpTsbBFM4R6rnR2GUiduSGgLUcrcn0lGVl8alac6T7ZIaOdGXg1MvNbSTW
+ tFTSgEWP3J9iBdDyiKVuR1MnqNZakYXwJUaeS+S/d51PA+G/OJkHOIe6v+5qE5ubmocZ
+ MYj6cwTO4wPiNllicw0qAu2LAnCvak8L8J7EW1nuV08TOTyWHYtE1WDodf1+Mt5EjaAY
+ I4aQ==
+X-Gm-Message-State: APjAAAX0Duz3hkYGo+YtnBpipUZTKQPt6rNrKCVIRKoQYaTWhSCYfXBx
+ eI1nQ74OrTMqqoVNpN2CHzNayQ==
+X-Google-Smtp-Source: APXvYqyy2Hy85tx6UOgrLCUuzqKRridrK87+eM70gRZqlE4r2DrU+rLIsbBcQp9QFi70TYGENQj11w==
+X-Received: by 2002:a24:3602:: with SMTP id l2mr85415itl.68.1556557342335;
+ Mon, 29 Apr 2019 10:02:22 -0700 (PDT)
+Received: from google.com ([2620:15c:183:200:855f:8919:84a7:4794])
+ by smtp.gmail.com with ESMTPSA id w2sm9289032iot.33.2019.04.29.10.02.21
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Mon, 29 Apr 2019 10:02:21 -0700 (PDT)
+Date: Mon, 29 Apr 2019 11:02:19 -0600
+From: Ross Zwisler <zwisler@google.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190429170219.GA89435@google.com>
+References: <20190426164740.211139-1-zwisler@google.com>
+ <0b030b85-00c8-2e35-3064-bb764aaff0f6@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1555960430-8899-1-git-send-email-dagmcr@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1904290111
-Cc: patches@opensource.cirrus.com, rf@opensource.cirrus.com,
- javier@dowhile0.org, lee.jones@linaro.org, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH] spi: Madera codecs: add missing of table
-	registration
+In-Reply-To: <0b030b85-00c8-2e35-3064-bb764aaff0f6@linux.intel.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: avoid Oops if DMA setup fails
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,75 +105,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Apr 22, 2019 at 09:13:50PM +0200, Daniel Gomez wrote:
-> MODULE_DEVICE_TABLE(of, <of_match_table> should be called to complete DT
-> OF mathing mechanism and register it.
+On Fri, Apr 26, 2019 at 04:03:47PM -0500, Pierre-Louis Bossart wrote:
+> On 4/26/19 11:47 AM, Ross Zwisler wrote:
+> > Currently in sst_dsp_new() if we get an error return from sst_dma_new()
+> > we just print an error message and then still complete the function
+> > successfully.  This means that we are trying to run without sst->dma
+> > properly set up, which will result in NULL pointer dereference when
+> > sst->dma is later used.  This was happening for me in
+> > sst_dsp_dma_get_channel():
+> > 
+> >          struct sst_dma *dma = dsp->dma;
+> > 	...
+> >          dma->ch = dma_request_channel(mask, dma_chan_filter, dsp);
+> > 
+> > This resulted in:
+> > 
+> >     BUG: unable to handle kernel NULL pointer dereference at 0000000000000018
+> >     IP: sst_dsp_dma_get_channel+0x4f/0x125 [snd_soc_sst_firmware]
+> > 
+> > Fix this by adding proper error handling for the case where we fail to
+> > set up DMA.
+> > 
+> > Signed-off-by: Ross Zwisler <zwisler@google.com>
+> > Cc: stable@vger.kernel.org
+> > ---
+> >   sound/soc/intel/common/sst-firmware.c | 6 +++++-
+> >   1 file changed, 5 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/sound/soc/intel/common/sst-firmware.c b/sound/soc/intel/common/sst-firmware.c
+> > index 1e067504b6043..9be3a793a55e3 100644
+> > --- a/sound/soc/intel/common/sst-firmware.c
+> > +++ b/sound/soc/intel/common/sst-firmware.c
+> > @@ -1251,11 +1251,15 @@ struct sst_dsp *sst_dsp_new(struct device *dev,
+> >   		goto irq_err;
+> >   	err = sst_dma_new(sst);
+> > -	if (err)
+> > +	if (err)  {
+> >   		dev_warn(dev, "sst_dma_new failed %d\n", err);
+> > +		goto dma_err;
+> > +	}
 > 
-> Before this patch:
-> modinfo drivers/mfd/madera-spi.ko  | grep alias
-> alias:          spi:wm1840
-> alias:          spi:cs47l91
-> alias:          spi:cs47l90
-> alias:          spi:cs47l85
-> alias:          spi:cs47l35
-> 
-> After this patch:
-> modinfo drivers/mfd/madera-spi.ko  | grep alias
-> alias:          spi:wm1840
-> alias:          spi:cs47l91
-> alias:          spi:cs47l90
-> alias:          spi:cs47l85
-> alias:          spi:cs47l35
-> alias:          of:N*T*Ccirrus,wm1840C*
-> alias:          of:N*T*Ccirrus,wm1840
-> alias:          of:N*T*Ccirrus,cs47l91C*
-> alias:          of:N*T*Ccirrus,cs47l91
-> alias:          of:N*T*Ccirrus,cs47l90C*
-> alias:          of:N*T*Ccirrus,cs47l90
-> alias:          of:N*T*Ccirrus,cs47l85C*
-> alias:          of:N*T*Ccirrus,cs47l85
-> alias:          of:N*T*Ccirrus,cs47l35C*
-> alias:          of:N*T*Ccirrus,cs47l35
-> 
-> Reported-by: Javier Martinez Canillas <javier@dowhile0.org>
-> Signed-off-by: Daniel Gomez <dagmcr@gmail.com>
-> ---
->  drivers/mfd/madera-spi.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/mfd/madera-spi.c b/drivers/mfd/madera-spi.c
-> index 4c398b2..1128584 100644
-> --- a/drivers/mfd/madera-spi.c
-> +++ b/drivers/mfd/madera-spi.c
-> @@ -121,6 +121,16 @@ static const struct spi_device_id madera_spi_ids[] = {
->  };
->  MODULE_DEVICE_TABLE(spi, madera_spi_ids);
->  
-> +const struct of_device_id madera_of_match[] = {
-> +	{ .compatible = "cirrus,cs47l35", .data = (void *)CS47L35 },
-> +	{ .compatible = "cirrus,cs47l85", .data = (void *)CS47L85 },
-> +	{ .compatible = "cirrus,cs47l90", .data = (void *)CS47L90 },
-> +	{ .compatible = "cirrus,cs47l91", .data = (void *)CS47L91 },
-> +	{ .compatible = "cirrus,wm1840", .data = (void *)WM1840 },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, madera_of_match);
-> +
+> Thanks for the patch.
+> The fix looks correct, but does it make sense to keep a dev_warn() here?
+> Should it be changed to dev_err() instead since as you mentioned it's fatal
+> to keep going.
+> Also you may want to mention in the commit message that this should only
+> impact Broadwell and maybe the legacy Baytrail driver. IIRC we don't use the
+> DMAs in other cases.
 
-This is definitely an oversight but it would be worth
-looking into if it is possible to use the existing table in
-madera-core.c rather than adding new tables. The I2C will also
-need fixed so it would be best to share.
-
-Thanks,
-Charles
-
->  static struct spi_driver madera_spi_driver = {
->  	.driver = {
->  		.name	= "madera",
-> -- 
-> 2.7.4
-> 
+Sure, I'll address both of these in a v2.  Thank you for the quick review.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

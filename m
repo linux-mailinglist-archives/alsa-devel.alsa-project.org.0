@@ -2,83 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6965E147
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 13:29:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E797CE14A
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 13:29:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F8A31664;
-	Mon, 29 Apr 2019 13:28:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F8A31664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 753921663;
+	Mon, 29 Apr 2019 13:29:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 753921663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556537351;
-	bh=r2DLL2clLEj5nLJy+Pt84bkL0jttFIcBpA2le53IGik=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SJ+7PSUEKRceHzGbPi9YdUJQj0yoe2N39rdnCLIta84l0qmxYGfrlX941UVqy8Do8
-	 lZo9h9/1F3FmDV5F9jpMQhbh6MoWsMSgMAe2KdqM51aOPhNcDGd+r0xA7lOwWcs709
-	 7DmOqBJwMDqJmwMcNUYV6clgULkWKJb4JAzKcESo=
+	s=default; t=1556537397;
+	bh=Azv6BvOLZwf0s0JVqRJxuvv3l8j15LeLoh5Akz5uwS8=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pzE3XaL+H2/HXkA953g3FxJkU2IE/jYrDHVxLmt4nAWuzFZnyutOpkSnk7hmdmgED
+	 OvqKDffUJktQ39Vu+lW2xDlOHBncig2iFRajQcJ1FGA7teXYKAjiWlsTb2jaCXncwJ
+	 Fx3WEaVzMdOa17uImzBf0wHhYddAkxtm/RAzdf3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEF29F80CAB;
-	Mon, 29 Apr 2019 13:27:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECDBEF80C41;
+	Mon, 29 Apr 2019 13:28:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D21FF80CAB; Mon, 29 Apr 2019 13:27:24 +0200 (CEST)
+ id EA024F89693; Mon, 29 Apr 2019 13:28:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, PRX_BODY_78,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46AC8F806E7
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 13:28:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46AC8F806E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="XXSiBucS"
+Received: from localhost (unknown [171.76.113.243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D0BEF80641
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 13:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D0BEF80641
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="qyP9cbaI"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id x3TBRIIN117261;
- Mon, 29 Apr 2019 06:27:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1556537238;
- bh=a+x+/nPRMlKw5EveKCxlbdn8CCxZMXGPNGFgU8VSsWA=;
- h=Subject:To:References:From:Date:In-Reply-To;
- b=qyP9cbaIP90UdXbkUo96l4vHkj77yrzUhS0DkhQGe3KqUXM1BQH4r+iZjWH+lNn6M
- NnBImA8+D1mJMZ2ITWUJuN9VIbj9pU2DJj5h2ueBAD4rMDHTlfOhftfwgerH+g0nEj
- qDrTjbyIIZTOTQJZ8GcrXXQYYTZZLO8BdQXC95uk=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x3TBRHjo122088
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 29 Apr 2019 06:27:17 -0500
-Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 29
- Apr 2019 06:27:17 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Mon, 29 Apr 2019 06:27:17 -0500
-Received: from [192.168.2.10] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x3TBRFvH073635;
- Mon, 29 Apr 2019 06:27:16 -0500
-To: Saravanan Sekar <sravanhome@gmail.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-References: <20190427194005.7308-1-sravanhome@gmail.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <507b9ee8-2505-8014-114e-563dc5995e8f@ti.com>
-Date: Mon, 29 Apr 2019 14:27:15 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by mail.kernel.org (Postfix) with ESMTPSA id 19FF12084B;
+ Mon, 29 Apr 2019 11:28:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1556537322;
+ bh=gG5FFTjfM5Lp/tmOAVDJhSzr6Q+9Ve90iHqXWOVCsG8=;
+ h=Date:From:To:Cc:Subject:From;
+ b=XXSiBucSMGlu+xVhMsFO7Y7eE6akiUS4WKkXoAOmDxhD9c8dGixxsLmaULu2cs2rN
+ B8CS/xdHBcw3HrtPaQw6yRdOZq/IqAp8JqwbO28jMnGz/k0G1lUz47+8KeJ2gIqNFH
+ 1C8losMDRA7t82U+CPSgt4OMr5Jou/osDEPahpao=
+Date: Mon, 29 Apr 2019 16:58:29 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20190429112829.GH3845@vkoul-mobl.Dlink>
 MIME-Version: 1.0
-In-Reply-To: <20190427194005.7308-1-sravanhome@gmail.com>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Subject: Re: [alsa-devel] [PATCH] ASoC: tlv320aic3x: Add support for high
- power analog output
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [GIT PULL] soundwire updates for v5.2-rc1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,40 +71,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4953711455552681611=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGksCgpPbiAyNy8wNC8yMDE5IDIyLjQwLCBTYXJhdmFuYW4gU2VrYXIgd3JvdGU6Cj4gQWRkIHN1
-cHBvcnQgdG8gcG93ZXIgYW5kIG91dHB1dCBsZXZlbCBjb250cm9sIGZvciB0aGUgYW5hbG9nIGhp
-Z2ggcG93ZXIKPiBvdXRwdXQgZHJpdmVycyBIUE9VVCBhbmQgSFBDT00uCj4gCj4gU2lnbmVkLW9m
-Zi1ieTogU2FyYXZhbmFuIFNla2FyIDxzcmF2YW5ob21lQGdtYWlsLmNvbT4KPiAtLS0KPiAgc291
-bmQvc29jL2NvZGVjcy90bHYzMjBhaWMzeC5jIHwgNiArKysrKysKPiAgMSBmaWxlIGNoYW5nZWQs
-IDYgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3RsdjMy
-MGFpYzN4LmMgYi9zb3VuZC9zb2MvY29kZWNzL3RsdjMyMGFpYzN4LmMKPiBpbmRleCA1MTZkMTdj
-YjIxODIuLmQ0YmFmYWM4MDJlYiAxMDA2NDQKPiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL3RsdjMy
-MGFpYzN4LmMKPiArKysgYi9zb3VuZC9zb2MvY29kZWNzL3RsdjMyMGFpYzN4LmMKPiBAQCAtNDE5
-LDYgKzQxOSwxMiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgYWljM3hf
-c25kX2NvbnRyb2xzW10gPSB7Cj4gIAkvKiBQb3AgcmVkdWN0aW9uICovCj4gIAlTT0NfRU5VTSgi
-T3V0cHV0IERyaXZlciBQb3dlci1PbiB0aW1lIiwgYWljM3hfcG93ZXJvbl90aW1lX2VudW0pLAo+
-ICAJU09DX0VOVU0oIk91dHB1dCBEcml2ZXIgUmFtcC11cCBzdGVwIiwgYWljM3hfcmFtcHVwX3N0
-ZXBfZW51bSksCj4gKwo+ICsJLyogQW5hbG9nIEhQT1VULCBIUENPTSBwb3dlciBhbmQgb3V0cHV0
-IGxldmVsIGNvbnRyb2xzICovCj4gKwlTT0NfRE9VQkxFX1IoIkFuYWxvZyBvdXRwdXQgcG93ZXIg
-Y29udHJvbCIsIEhQUk9VVF9DVFJMLAo+ICsJCQlIUFJDT01fQ1RSTCwgMCwgMSwgMCksCgpiaXQg
-MCBvZiBIUFJPVVRfQ1RSTCBhbmQgSFBSQ09NX0NUUkwgaXMgaGFuZGxlZCBieSBEQVBNOgoiUmln
-aHQgSFAgT3V0IgoiUmlnaHQgSFAgQ29tIgoKPiArCVNPQ19ET1VCTEVfUigiQW5hbG9nIG91dHB1
-dCBsZXZlbCBjb250cm9sIiwgSFBST1VUX0NUUkwsCj4gKwkJCUhQUkNPTV9DVFJMLCA0LCA5LCAw
-KSwKCmFuZCB0aGlzIHdpbGwgbW9kaWZ5IHRoZSBIUFIgYW5kIEhQUkNPTSAocmlnaHQgY2hhbm5l
-bHMpIG9ubHkuCgpZb3Ugc2hvdWxkIGFkZCB0d28gY29udHJvbHM6CgovKiBIUC9IUENPTSB2b2x1
-bWVzLiBGcm9tIDAgdG8gOSBkQiBpbiAxIGRCIHN0ZXBzICovCnN0YXRpYyBERUNMQVJFX1RMVl9E
-Ql9TQ0FMRShocF90bHYsIDAsIDEwMCwgMCk7CgpTT0NfRE9VQkxFX1JfVExWKCJIUCBQbGF5YmFj
-ayBWb2x1bWUiLCBIUExPVVRfQ1RSTCwgSFBST1VUX0NUUkwsIDQsIDksCjAsIGhwX3Rsdik7CgpT
-T0NfRE9VQkxFX1JfVExWKCJIUENPTSBQbGF5YmFjayBWb2x1bWUiLCBIUExDT01fQ1RSTCwgSFBS
-Q09NX0NUUkwsIDQsCjksIDAsIGhwX3Rsdik7CgoKPiAgfTsKPiAgCj4gIC8qIEZvciBvdGhlciB0
-aGFuIHRsdjMyMGFpYzMxMDQgKi8KPiAKCi0gUMOpdGVyCgpUZXhhcyBJbnN0cnVtZW50cyBGaW5s
-YW5kIE95LCBQb3Jra2FsYW5rYXR1IDIyLCAwMDE4MCBIZWxzaW5raS4KWS10dW5udXMvQnVzaW5l
-c3MgSUQ6IDA2MTU1MjEtNC4gS290aXBhaWtrYS9Eb21pY2lsZTogSGVsc2lua2kKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5n
-IGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXBy
-b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+
+--===============4953711455552681611==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="oLBj+sq0vYjzfsbl"
+Content-Disposition: inline
+
+
+--oLBj+sq0vYjzfsbl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hey Greg,
+
+Please PULL to receive updates to soundwire subsystem
+
+The following changes since commit bfeffd155283772bbe78c6a05dec7c0128ee500c:
+
+  Linux 5.0-rc1 (2019-01-06 17:08:20 -0800)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/so=
+undwire-5.2-rc1
+
+for you to fetch changes up to 4abbd783d126cabfc20d1b8d50b1d5026b5cba09:
+
+  soundwire: intel: fix implicit header use of module.h/export.h (2019-04-1=
+4 15:52:50 +0530)
+
+----------------------------------------------------------------
+soundwire updates for v5.2-rc1
+
+This round saw interest from Intel, Linaro and Cadence in
+Soundwire. More patches are in pipeline (maybe next cycle)
+
+ - removal of useless initialzation in core
+ - couple of header and kcalloc inversion fixes on Intel driver
+
+----------------------------------------------------------------
+Paul Gortmaker (1):
+      soundwire: intel: fix implicit header use of module.h/export.h
+
+Pierre-Louis Bossart (3):
+      soundwire: intel: fix inversion in devm_kcalloc parameters
+      soundwire: remove useless initializations
+      soundwire: stream: remove useless initialization of local variable
+
+ drivers/soundwire/bus.c        | 2 --
+ drivers/soundwire/intel.c      | 5 +++--
+ drivers/soundwire/intel_init.c | 2 ++
+ drivers/soundwire/stream.c     | 2 +-
+ 4 files changed, 6 insertions(+), 5 deletions(-)
+
+Thanks
+--=20
+~Vinod
+
+--oLBj+sq0vYjzfsbl
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBAgAGBQJcxt/dAAoJEHwUBw8lI4NHz4AQAJAOb2nb95UYUxrr0RLV+jCv
+PRb7otRSeBJMfWcfAFVWdf2i4bdOeD/k4iGxYpYx/nWDtzHtLciZ2u+7S/+z+5bd
+KKCYpmuCEkhWgm0USTwuZzNV8DOHTnR8eOTrS79nueJHqZolcPyhnWOBXIpqC8Gd
+GiXFxedbsk/pXvs0Rj3HZLxQkFgSPlNg4rW69KWCNUMRpn70BsMv9xAaBrJRs5mx
+2XdtUqx8HPxgXXOA5eeo1d/UIZ6/9SSHvSYTb45CE4AVhqvFNnw5R4a/HH3A3Coa
+8nk0PAU79FFmHUIS8hpqk2qppL18+byuruiog99myI6J96GeS0UkuWwFX+C2mhdj
+4+DzaOBXapO0wB2tv2tqM5IxQAav5yOLywu4FccCzrXSKqv6tBnKjFQMk+0PIz3q
+cnmb3+FztSRpDFzYKbTGIabRT2rXjEBiHuh5b9RbjPpQTECdRCr9VyVgFILYinez
+EMoidk5kB2ErVa7vx9QQdTapAJPNOeruRXaNGiOZHz+weeECUpNM9R74h35TFTU8
+sU1DD8Na48dFW58DGS0s5SDcUgvtQWcGrwhJW4+MtV8ASs9EPIcfdLWKZeB+RMql
+BRYg/xaykYvriTaupv3HffnuzrXfwI6nZTNk9uM9mmyfmqKRd7AgS/7YSINQsxxC
+UQUF0H8CpChsCpn1a/Is
+=I1sV
+-----END PGP SIGNATURE-----
+
+--oLBj+sq0vYjzfsbl--
+
+--===============4953711455552681611==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============4953711455552681611==--

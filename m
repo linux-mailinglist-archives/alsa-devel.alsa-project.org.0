@@ -2,76 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77E24E2F9
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 14:45:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D0A6E31D
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 14:54:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D82AB1669;
-	Mon, 29 Apr 2019 14:44:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D82AB1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B0171667;
+	Mon, 29 Apr 2019 14:54:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B0171667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556541926;
-	bh=eM9syI/QuxGTo8QS2KYuHnXd+I34Jfh6pLAXYSwYHwo=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1556542498;
+	bh=dpw4RqzEtp0Z5ViCP2WslMz7yx5jw2CfjYhCenGIuss=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h9KqDH/5aqs6Ij2zFo3S3bdNOK4GsdLdMNtDn1yxVU+qGd50teMeaeBc4aOXfmqHd
-	 MmYem/R9qEIcAKVDirJgMdMbUwC6quw1sNirlQ7kmnE2qeYpdVkvyYVDyOzy3X1C73
-	 /cZGFrk/79zMEHcJZVRIh8oAwiLVjmKCg+yrGYro=
+	b=WwgK1yQuQA3MVs1c/t1vIndYFn4Zz3PDik+lRshijcncCAt52UjHsNK7aecPmsq76
+	 AQvD3RYockTPUYUwD4mQNQXqlTIftF4povHhKx/ND+1THrc3EzHUZOWOkTEpTXyQeF
+	 qGhRY+Utb9z+TP+2Cqa+YIOWeX8wR1NSBL2c11TM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2912F8962A;
-	Mon, 29 Apr 2019 14:43:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46B94F80C0D;
+	Mon, 29 Apr 2019 14:53:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10B0BF80CAB; Mon, 29 Apr 2019 14:43:40 +0200 (CEST)
+ id B46B9F80CAB; Mon, 29 Apr 2019 14:53:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
  version=3.4.0
-Received: from mail-qt1-f195.google.com (mail-qt1-f195.google.com
- [209.85.160.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10B59F80C0D
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 14:43:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10B59F80C0D
-Received: by mail-qt1-f195.google.com with SMTP id y49so5943076qta.7
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 05:43:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SqNvNUMJEdexVr3hF+SW8m4hwxFpjhomBgbdEJazb7w=;
- b=r3o/b/j/4PDfiu3a6T79Cd9uVd/4XfU1uIoXA15LZwpcF+Ry8JtFTTXHhS0Ozemniv
- ohhHj71IjxmlXdGm4RnDTlHvqndaybTEDlrjb36yNzx4lwmg9Hun2jbJ/jbFUG9Y1pqi
- GdgN0gItnvXKRFz0iLChOrsF6whxFGiIresQB/gTqRzhhQEgnCUKD+H63m9lTWJuaycC
- eviC8S4748pt+FNstEFh8c9qwaH9e9cYhWnYRDl5zelDg3BFuZgDfEv1e6vQYcoY8UZK
- 2Lejgw3N/o9QrvYgdpooDqqAxUYfGq2tOT3L7bH5kn4C+SQPtdVcxxIMAr+kkeQ4yy4L
- u6kQ==
-X-Gm-Message-State: APjAAAVDxl/L6ablaA6yV5re8YQ8I9kQ1lgF5T6U0jq9ajiDMsOTI/GR
- Y/akicGxGZMowtE1q0dKstr+pTqcdl7tKOE1XpY=
-X-Google-Smtp-Source: APXvYqxN+jezyo2Yt09ge37OQJJuo/uOJcb8r6doEQ7wqS9DeRlWthXGnE4ncJ5t7cuNHdEH8H49xZyEeaQ6MnvohQM=
-X-Received: by 2002:ac8:29cf:: with SMTP id 15mr8626476qtt.319.1556541815414; 
- Mon, 29 Apr 2019 05:43:35 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5EC0F806E7
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 14:53:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5EC0F806E7
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2019 05:53:05 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,409,1549958400"; d="scan'208";a="146666925"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga003.jf.intel.com with ESMTP; 29 Apr 2019 05:53:06 -0700
+Received: from brettjgr-mobl1.ger.corp.intel.com (unknown [10.254.180.216])
+ by linux.intel.com (Postfix) with ESMTP id 105BA5803E4;
+ Mon, 29 Apr 2019 05:53:05 -0700 (PDT)
+To: Vinod Koul <vkoul@kernel.org>, Greg KH <gregkh@linuxfoundation.org>
+References: <20190429112829.GH3845@vkoul-mobl.Dlink>
+ <20190429114337.GA16771@kroah.com> <20190429114617.GJ3845@vkoul-mobl.Dlink>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <24c3eef6-2a91-afbd-04f1-2e9a0db29f1c@linux.intel.com>
+Date: Mon, 29 Apr 2019 07:53:05 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190416202013.4034148-1-arnd@arndb.de>
- <20190416202839.248216-1-arnd@arndb.de>
- <s5hk1fthx9u.wl-tiwai@suse.de> <s5hv9yxjnp4.wl-tiwai@suse.de>
-In-Reply-To: <s5hv9yxjnp4.wl-tiwai@suse.de>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 29 Apr 2019 14:43:18 +0200
-Message-ID: <CAK8P3a1CbQsyTBykXkZv-35M_zQx97aOubtZD2YuzyPV94+4=w@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- y2038 Mailman List <y2038@lists.linaro.org>, linux-um@lists.infradead.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Linux FS-devel Mailing List <linux-fsdevel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH v3 20/26] compat_ioctl: remove translation
-	for sound ioctls
+In-Reply-To: <20190429114617.GJ3845@vkoul-mobl.Dlink>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [GIT PULL] soundwire updates for v5.2-rc1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +73,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Apr 29, 2019 at 9:05 AM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Wed, 17 Apr 2019 10:05:33 +0200, Takashi Iwai wrote:
-> >
-> > On Tue, 16 Apr 2019 22:28:05 +0200, Arnd Bergmann wrote:
-> > > The compat_ioctl list contains one comment about SNDCTL_DSP_MAPINBUF and
-> > > SNDCTL_DSP_MAPOUTBUF, which actually would need a translation handler
-> > > if implemented. However, the native implementation just returns -EINVAL,
-> > > so we don't care.
-> > >
-> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> >
-> > This looks like a really nice cleanup.  Thanks!
-> >
-> > Reviewed-by: Takashi Iwai <tiwai@suse.de>
->
-> Is this supposed to be taken via sound git tree, or would you apply
-> over yours?  I'm fine in either way.
+On 4/29/19 6:46 AM, Vinod Koul wrote:
+> On 29-04-19, 13:43, Greg KH wrote:
+>> On Mon, Apr 29, 2019 at 04:58:29PM +0530, Vinod Koul wrote:
+>>> Hey Greg,
+>>>
+>>> Please PULL to receive updates to soundwire subsystem
+>>>
+>>> The following changes since commit bfeffd155283772bbe78c6a05dec7c0128ee500c:
+>>>
+>>>    Linux 5.0-rc1 (2019-01-06 17:08:20 -0800)
+>>>
+>>> are available in the Git repository at:
+>>>
+>>>    git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/soundwire-5.2-rc1
+>>
+>> Pulled and pushed out, thanks,
+> 
+> That was fast :)
 
-I was hoping that Al could pick up the entire series to avoid the merge
-conflicts, but then we had some more discussion about the earlier
-patches in the series and he did another version of those.
-
-Al, what is your current plan for the compat-ioctl removal series?
-Are you working on a combined series, or should I resend a
-subset of my patches to you?
-
-       Arnd
+Vinod, is there any reason why you didn't take the rest of my clean-up 
+patches? The feedback you provided wasn't really relevant (patches do 
+apply and alignment is fine) and you didn't reply to my questions. 
+That's not 'fast'. If we start having such delays with trivial patches, 
+I can only imagine how well this is going to work with the rest of the 
+patches I am cooking...
+Regards
+-Pierre
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

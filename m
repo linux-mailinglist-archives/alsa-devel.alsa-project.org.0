@@ -2,91 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAA6ADFC6
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 11:50:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CE92DFC9
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 11:51:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 115761676;
-	Mon, 29 Apr 2019 11:49:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 115761676
+	by alsa0.perex.cz (Postfix) with ESMTPS id B254C1671;
+	Mon, 29 Apr 2019 11:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B254C1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556531429;
-	bh=0s2NsNld4sRsJXE9A0tW5uC7QERieVDZgZdaJtyLnGw=;
+	s=default; t=1556531473;
+	bh=26fBvEzaBbW+OFXbLkXPdrWtxTxYAHhArbcuINSPi2A=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vLrLDHvAOX+ABgKyERvSdshoTBqozVrLwLoUffAqBkRhXUN3o1Hx5MS9Bp5Yex/Pa
-	 +xhw0uZGMg1FO3U/0YKqn+WbhZHE6OUUGSPuoTd7Nwg0nz4iWXZis9bEi7/MFiuXPq
-	 tueeW0xHFv2UwLQT3vKpO/29dLtMZJf1scpYnDMU=
+	b=WitFkFUm9DIKjj9l3URjWNwNyejpVFdUneYIV88LSqvxwVxlFgHDAqIFm++Och69Y
+	 4+BJ7GoUQMYme+tP/Rpdp+zynXN9ViOXArNlqMPbi7yeqxoUscr02uFjbyhQJjpI0V
+	 vyw41CtX4KnVqAtoae3cveNv9+eTl3awqQHmJ78o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9606AF896FA;
-	Mon, 29 Apr 2019 11:48:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE569F89721;
+	Mon, 29 Apr 2019 11:48:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F5D7F8962A; Mon, 29 Apr 2019 11:48:04 +0200 (CEST)
+ id 4A499F806E7; Mon, 29 Apr 2019 11:48:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C045F80C41
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 11:48:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C045F80C41
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDD12F806E7
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 11:48:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDD12F806E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="DHEEBsU1"
-Received: by mail-wr1-x444.google.com with SMTP id k16so15041879wrn.5
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 02:48:00 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="L3oVRjgu"
+Received: by mail-wm1-x342.google.com with SMTP id o25so13094094wmf.5
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 02:48:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=1vJi7jzhGksKSzSUALjvd5a/wT/QdGOfMu/ANjtuZHE=;
- b=DHEEBsU1qBAt9TXEXJ1V85pxD8WpW3If6DHzzZi4Hkhn5f5Pbe85cOLPEAMi29AOb2
- uofvyNQN+W1wNmV2zYC2Y5KawyC620cqLMa67v5FM0PGsR51yW3pvqZO5zPlcYGSDuvN
- mAOZrLCxN+uffrRq2Flq2BjKnPdoZACbiAQjwUuMelA6FB6p1S69w59uezspzBhpChBZ
- ovEmRyiAhMtLAiAo/6EiQJpcqQgVXI8xJbUqxZQiDoVdcDGu9QHwyt2p8SMEnCjAM4XF
- bEfnbq9JeCrrNxSZWHtyn0EQYI93hlqZxZV0UIq86aEvKP1l38cJoAnucKOIFvUpGZqX
- 95lQ==
+ bh=5lwkmI0zOv7BLpsbZZC29sb6Qw7tCofqiIoNLObPe54=;
+ b=L3oVRjguMhqlA0Z2Bbxuj4vY1G3zFDofgG8TuQyhbayfUvqNiThGHm0Efy3YfZ0PMr
+ pO79kWWVi6mW3pYWM/LmvlWPj9OcUqbaUteiHlO4O7ee/5XpL5PsJZ0o2EhRpDZcbqXr
+ aVpbS95VmUUu4eJMyM+FQaxlPVcZ+ya60i4bdWLgqfdYLzdK51kFkwv1bg/XzlSEX5lh
+ nJv41NX75qyNsvaUVPcMxG0PhOeIhD2iutryaSn/ak9rnsAfcsZMy3UGwiJbiKQb9v1r
+ rmKwEtIeTabuJubq1d3hXZNL9hIrJWb9pgdV/PYbdNrl31kp54ZGSGRn7IWP1P2VclTN
+ CISA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=1vJi7jzhGksKSzSUALjvd5a/wT/QdGOfMu/ANjtuZHE=;
- b=tmOiRgy9jdv/ZgGol1TpK1Dv/9/bjRVzuhLL99wbCpG0heUiMP8fKB5p7PcVIBe6Is
- fk1SHjJqlbN7NLGPk1V38GvKeXzX0MdrPNbEJkrFXsNI2QJhBndZQfeG0WyEIdvoAJHv
- o5eMjdkJBbjbhzpIcoTeQNX1vk1rSwTzxVs7e3+aES9MrRtF73+c7olwUqbvnpqPavxx
- J+T7a6Jlta6/3vAKa+5LCo1K2d9w59rCHSdQimEv3RpixkpmGDzVwpVWyl/Gottulx7G
- VvM5v7+j3ZrxZLQ8WPvpDk2Z/YLPDdVvvABYbldL2gtUOkgiuqUAi0ciCkBqmjzkluYw
- AFZA==
-X-Gm-Message-State: APjAAAUhWUD8kRLu5azdtxGIs7EykhmRBYeFL10s0tEnCV/3WudoQ46D
- R3o4jfIc1wdP6VRvliaMamEfeg==
-X-Google-Smtp-Source: APXvYqy37aX173M+03P7QBLkDx71CokTO8IGK+3sJKOpk4e5ax6NJ8Np4npqIkJGdOhMkgcVWidOkA==
-X-Received: by 2002:a05:6000:45:: with SMTP id
- k5mr11840603wrx.261.1556531279788; 
- Mon, 29 Apr 2019 02:47:59 -0700 (PDT)
+ bh=5lwkmI0zOv7BLpsbZZC29sb6Qw7tCofqiIoNLObPe54=;
+ b=hZjTJnzTf96Er0dJoeZ88e2k3oIbIL9karUvmlgUEGXsHEvMnvMW909qwQj4z4gHty
+ yrXfYbLXThVOia65qWvntAU/AcQFjUHhGwAZzlqkAEcBe5W8T/M30tvlfWzL4/fBHwl1
+ twGrD6Q2dtk+XiBLsDaMD3RMgc6b0wURl8ghaMmnui2Yz2lUTRek05ezIbeVS2zkopsC
+ RY0uA7NeIbLPFSzzLLEuJnGjkFkobWcPbCvS1SbtfidiXbSjvqwqajTI+ZWof7dndL1y
+ Csqx38wReO3bvvqnveJqLYFwCCEhmwKGK8FVdxEWIggKVzgS+2DxD/w2eUx5OWB20Yew
+ 3nhg==
+X-Gm-Message-State: APjAAAWYqb8kmcugJcszhIgrpt4uFFLdaFvhvQSEiZteBJURcPjqGta+
+ mA4NhK9OkD5qWAVM3kYOqz4QUw==
+X-Google-Smtp-Source: APXvYqx9JPfF01cmoW9CW/F015/U9kE0LlcnPM6+cR5nK+o2pv+7MIr/YlDHkptqGMa1Hrl9pkLQdA==
+X-Received: by 2002:a7b:cc97:: with SMTP id p23mr15087366wma.24.1556531281035; 
+ Mon, 29 Apr 2019 02:48:01 -0700 (PDT)
 Received: from boomer.local (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
  [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id 192sm47987465wme.13.2019.04.29.02.47.58
+ by smtp.googlemail.com with ESMTPSA id 192sm47987465wme.13.2019.04.29.02.47.59
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 29 Apr 2019 02:47:59 -0700 (PDT)
+ Mon, 29 Apr 2019 02:48:00 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Date: Mon, 29 Apr 2019 11:47:49 +0200
-Message-Id: <20190429094750.1857-2-jbrunet@baylibre.com>
+Date: Mon, 29 Apr 2019 11:47:50 +0200
+Message-Id: <20190429094750.1857-3-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190429094750.1857-1-jbrunet@baylibre.com>
 References: <20190429094750.1857-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH 1/2] ASoC: fix valid stream condition
+Subject: [alsa-devel] [PATCH 2/2] ASoC: skip hw_free on codec dai for which
+	the stream is invalid
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,32 +104,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A stream may specify a rate range using 'rate_min' and 'rate_max', so a
-stream may be valid and not specify any rates. However, as stream cannot
-be valid and not have any channel. Let's use this condition instead to
-determine if a stream is valid or not.
+Like for hw_params, hw_free should not be called on codec dai for
+which the current stream is invalid.
 
 Fixes: cde79035c6cf ("ASoC: Handle multiple codecs with split playback / capture")
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/soc/soc-pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-pcm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 99bbd724d2a6..263086af707d 100644
+index 263086af707d..04ccdc59295d 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -42,8 +42,8 @@ static bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int stream)
- 	else
- 		codec_stream = &dai->driver->capture;
+@@ -1020,6 +1020,9 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  
--	/* If the codec specifies any rate at all, it supports the stream. */
--	return codec_stream->rates;
-+	/* If the codec specifies any channels at all, it supports the stream */
-+	return codec_stream->channels_min;
- }
+ codec_err:
+ 	for_each_rtd_codec_dai_rollback(rtd, i, codec_dai) {
++		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
++			continue;
++
+ 		if (codec_dai->driver->ops->hw_free)
+ 			codec_dai->driver->ops->hw_free(substream, codec_dai);
+ 		codec_dai->rate = 0;
+@@ -1077,6 +1080,9 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
  
- /**
+ 	/* now free hw params for the DAIs  */
+ 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
++		if (!snd_soc_dai_stream_valid(codec_dai, substream->stream))
++			continue;
++
+ 		if (codec_dai->driver->ops->hw_free)
+ 			codec_dai->driver->ops->hw_free(substream, codec_dai);
+ 	}
 -- 
 2.20.1
 

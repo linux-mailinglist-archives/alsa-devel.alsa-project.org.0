@@ -2,92 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31DF9E84E
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 19:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD953E978
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 19:47:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82AA2166B;
-	Mon, 29 Apr 2019 19:03:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82AA2166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7CD5166B;
+	Mon, 29 Apr 2019 19:46:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7CD5166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556557454;
-	bh=SaOlnQNTc2SizaUziSYQWehSwCnHid4q0GIC69j2Bek=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=m7Beu+JHgS9WiSl2bHTyJvYej5D+5eltT2bZ/jHVquGQ6j78Z/o7BnHLz1YRk3dEr
-	 ixTb77cHhTmKJ2zIyhcIuCYJylCxH/l0FIgFnIb8z+76/kHsKx+cb/e7uW+Xvc1qM3
-	 1oke40i62i0akRuQAVNT58jQyhx1qJA4l7C+UN0M=
+	s=default; t=1556560065;
+	bh=UENj7qJ7Mw/VzkdM5iNywicL814i0vyB+wp4/CnfZQ4=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cHbGyTEPPmbuRpngXJbZTsH/wLRBKWzQB+3VGFtUNmIxnFJ+NKMRqOTzaI9uZNBvS
+	 a7lgkbK2a/w0LdVmONGG6RPLnD2FKePKWAZ2xkucxkbXW8k0RLOD0DgzMnIpb3+fIg
+	 CZNLwrWH2biajnspwoCKvTnY1slJ8oXreOKoPsNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F2EDF80C41;
-	Mon, 29 Apr 2019 19:02:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D55ECF806E7;
+	Mon, 29 Apr 2019 19:46:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38143F80CAB; Mon, 29 Apr 2019 19:02:27 +0200 (CEST)
+ id 46CCFF80CAB; Mon, 29 Apr 2019 19:45:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-it1-x144.google.com (mail-it1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mta-p8.oit.umn.edu (mta-p8.oit.umn.edu [134.84.196.208])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DC96F80C0D
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 19:02:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC96F80C0D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3E55F806E7
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 19:45:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3E55F806E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="s2AGHwV0"
-Received: by mail-it1-x144.google.com with SMTP id z4so142798itc.3
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 10:02:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=wL3BmO/NnA3NwafXMitsQjGpheHu4M8s6Xt8v0Jomo0=;
- b=s2AGHwV0MIipVuKm522AGWItowSBGgqT99tWc8KzjL140BVwLf0BNLJtwKT41jWXNL
- Ukof9nce0Cq6pB0k4RT6l+JJckq6LDo7dqUTee6F4HyesQwlrL6FccvupQpguUqjGpNE
- 1LBkfc1FShajkH5kEmAjl9yf5FfYh/FTohBDK2bup5Dt8ctFaMV91kmiluhGT6lwpsIL
- XNYRY1uDKflHGrH3ShCan7broKF2mwu9hB3Nri6Yuhib2DH1pqwGFDg425K6uze853HA
- YqRV8YWIdZh09HQ/zO2TrNYOfMHz1jkmWpxyVCVGrCB7tP4XVQzYSYBc/qRxDOruKlp+
- OUKw==
+ dkim=pass (2048-bit key) header.d=umn.edu header.i=@umn.edu
+ header.b="nKku9kvZ"
+Received: from localhost (unknown [127.0.0.1])
+ by mta-p8.oit.umn.edu (Postfix) with ESMTP id 91F13CAD
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 17:45:51 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at umn.edu
+Received: from mta-p8.oit.umn.edu ([127.0.0.1])
+ by localhost (mta-p8.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 1lsFF5aDy0w4 for <alsa-devel@alsa-project.org>;
+ Mon, 29 Apr 2019 12:45:51 -0500 (CDT)
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
+ (using TLSv1.2 with cipher AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mta-p8.oit.umn.edu (Postfix) with ESMTPS id 6DA13A08
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 12:45:51 -0500 (CDT)
+Received: by mail-io1-f72.google.com with SMTP id a5so9322670iod.16
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 10:45:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=uxPM7sWsj1FXWn2sHkMbQQ4Yr44ikQVSiMn4hllkK/A=;
+ b=nKku9kvZYmb1cYpv1cXx+XLn4k2eH8QvwQNMaWpn0oyrUSy4lyBM6oz0WcZPjwVSOr
+ 0voqfz71u9Br9NWWJeR0sN1uRTRevnHljOHXj/yW2nO45QsEedoVnx0IgfjvUEUHHPka
+ PIlI7jXIrZNpJ83x7NcJUWhYz5EfD3/Qv7TWwFaEyfp5fCtnXY3KRdkx7j67jX3Biifw
+ KUIXO3V6dcD5tv5xvT/7WF2KARhdZuqJZdrxxt3V2YNY5QPwwiZCaawwP2gUDOZ5B8eJ
+ N49eq3dErIAtrXnCQ5yWs85zQ1rPQhHZQwro+ICPGo4USj0oC1nVnbmkZmD4SCf1bVd/
+ 2epw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wL3BmO/NnA3NwafXMitsQjGpheHu4M8s6Xt8v0Jomo0=;
- b=k/l6Vp3ypAkTJ9hteke0BVGyDOQruXnYNEC/ndBkbQEJvDHZDDpbONw4AIOcdUHoGu
- d1mzuwafb9QghhVpNl7J8+Gs+003DyeP4KMGDJRfDDO2MCP5kunfRiUJ6KusEYGktrI5
- eszw8gVgmFEpTsbBFM4R6rnR2GUiduSGgLUcrcn0lGVl8alac6T7ZIaOdGXg1MvNbSTW
- tFTSgEWP3J9iBdDyiKVuR1MnqNZakYXwJUaeS+S/d51PA+G/OJkHOIe6v+5qE5ubmocZ
- MYj6cwTO4wPiNllicw0qAu2LAnCvak8L8J7EW1nuV08TOTyWHYtE1WDodf1+Mt5EjaAY
- I4aQ==
-X-Gm-Message-State: APjAAAX0Duz3hkYGo+YtnBpipUZTKQPt6rNrKCVIRKoQYaTWhSCYfXBx
- eI1nQ74OrTMqqoVNpN2CHzNayQ==
-X-Google-Smtp-Source: APXvYqyy2Hy85tx6UOgrLCUuzqKRridrK87+eM70gRZqlE4r2DrU+rLIsbBcQp9QFi70TYGENQj11w==
-X-Received: by 2002:a24:3602:: with SMTP id l2mr85415itl.68.1556557342335;
- Mon, 29 Apr 2019 10:02:22 -0700 (PDT)
-Received: from google.com ([2620:15c:183:200:855f:8919:84a7:4794])
- by smtp.gmail.com with ESMTPSA id w2sm9289032iot.33.2019.04.29.10.02.21
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Mon, 29 Apr 2019 10:02:21 -0700 (PDT)
-Date: Mon, 29 Apr 2019 11:02:19 -0600
-From: Ross Zwisler <zwisler@google.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190429170219.GA89435@google.com>
-References: <20190426164740.211139-1-zwisler@google.com>
- <0b030b85-00c8-2e35-3064-bb764aaff0f6@linux.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <0b030b85-00c8-2e35-3064-bb764aaff0f6@linux.intel.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: avoid Oops if DMA setup fails
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=uxPM7sWsj1FXWn2sHkMbQQ4Yr44ikQVSiMn4hllkK/A=;
+ b=E2pwQK+n5mlhjLQtVBw66KzfK1uZWSt9vnKEnx39nr99SiF0US7/GJ03FmqifsXW+R
+ 3HzWwUtbPuOtiOj6eY3B145aQJm1hwLEHV54RuM/RbhHDdpq+q1jljXUbjVbXdHWPMpL
+ V/bsxusWRtZThtuVn1AJKGmM+UXA6lqJ5wYumhO9cl0XQL9Lsk9ViuVSlNbIWP/vQQvA
+ htb3cLg85GUiEfyVPPufAX7cNg3sXlUFhEV5NCzNCVLsO3pZCeFfCzTqIyJ18kXriYsn
+ 4IBmRhCr76tF9FNREz/7EdQ5ClfLDDXyWaMzpyHO5YaN/OR5FHwaruyzE9MtcM/ADUM+
+ tOfw==
+X-Gm-Message-State: APjAAAVNH/JdhoKnVJWJwB9qfGIh2rY6eymoc+fxvAxM4ndOxNwoMrJs
+ cyWCt0bqlX/kDohir9RHfsxKk8g2VrSPTeU1uRNDBcq//3vGjQ/ITX7ME8+8lHbJ3B7h5yLmS8+
+ q0GCHHlB8BP6ysWLjbBSIb4uHOz8=
+X-Received: by 2002:a5e:dc44:: with SMTP id s4mr19244573iop.9.1556559950730;
+ Mon, 29 Apr 2019 10:45:50 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqy5iCLTVrOmTeqizKMaoQ1oFJNs0FGOPNBW6H+Zer8OUXBmxy+2CAoDckD1tifSqHXZdw2Rtw==
+X-Received: by 2002:a5e:dc44:: with SMTP id s4mr19244548iop.9.1556559950417;
+ Mon, 29 Apr 2019 10:45:50 -0700 (PDT)
+Received: from cs-u-cslp16.dtc.umn.edu (cs-u-cslp16.cs.umn.edu.
+ [128.101.106.40])
+ by smtp.gmail.com with ESMTPSA id n184sm90194itc.28.2019.04.29.10.45.49
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 29 Apr 2019 10:45:49 -0700 (PDT)
+From: Wenwen Wang <wang6495@umn.edu>
+To: Wenwen Wang <wang6495@umn.edu>
+Date: Mon, 29 Apr 2019 12:45:40 -0500
+Message-Id: <1556559941-26684-1-git-send-email-wang6495@umn.edu>
+X-Mailer: git-send-email 2.7.4
+Cc: open list <linux-kernel@vger.kernel.org>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Kees Cook <keescook@chromium.org>
+Subject: [alsa-devel] [PATCH v2] ALSA: usx2y: fix a double free bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,60 +107,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Apr 26, 2019 at 04:03:47PM -0500, Pierre-Louis Bossart wrote:
-> On 4/26/19 11:47 AM, Ross Zwisler wrote:
-> > Currently in sst_dsp_new() if we get an error return from sst_dma_new()
-> > we just print an error message and then still complete the function
-> > successfully.  This means that we are trying to run without sst->dma
-> > properly set up, which will result in NULL pointer dereference when
-> > sst->dma is later used.  This was happening for me in
-> > sst_dsp_dma_get_channel():
-> > 
-> >          struct sst_dma *dma = dsp->dma;
-> > 	...
-> >          dma->ch = dma_request_channel(mask, dma_chan_filter, dsp);
-> > 
-> > This resulted in:
-> > 
-> >     BUG: unable to handle kernel NULL pointer dereference at 0000000000000018
-> >     IP: sst_dsp_dma_get_channel+0x4f/0x125 [snd_soc_sst_firmware]
-> > 
-> > Fix this by adding proper error handling for the case where we fail to
-> > set up DMA.
-> > 
-> > Signed-off-by: Ross Zwisler <zwisler@google.com>
-> > Cc: stable@vger.kernel.org
-> > ---
-> >   sound/soc/intel/common/sst-firmware.c | 6 +++++-
-> >   1 file changed, 5 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/sound/soc/intel/common/sst-firmware.c b/sound/soc/intel/common/sst-firmware.c
-> > index 1e067504b6043..9be3a793a55e3 100644
-> > --- a/sound/soc/intel/common/sst-firmware.c
-> > +++ b/sound/soc/intel/common/sst-firmware.c
-> > @@ -1251,11 +1251,15 @@ struct sst_dsp *sst_dsp_new(struct device *dev,
-> >   		goto irq_err;
-> >   	err = sst_dma_new(sst);
-> > -	if (err)
-> > +	if (err)  {
-> >   		dev_warn(dev, "sst_dma_new failed %d\n", err);
-> > +		goto dma_err;
-> > +	}
-> 
-> Thanks for the patch.
-> The fix looks correct, but does it make sense to keep a dev_warn() here?
-> Should it be changed to dev_err() instead since as you mentioned it's fatal
-> to keep going.
-> Also you may want to mention in the commit message that this should only
-> impact Broadwell and maybe the legacy Baytrail driver. IIRC we don't use the
-> DMAs in other cases.
+In usX2Y_In04_init(), a new urb is firstly created through usb_alloc_urb()
+and saved to 'usX2Y->In04urb'. Then, a buffer is allocated through
+kmalloc() and saved to 'usX2Y->In04Buf'. If the allocation of the buffer
+fails, the error code ENOMEM is returned after usb_free_urb(), which frees
+the created urb. However, the urb is actually freed at card->private_free
+callback, i.e., snd_usX2Y_card_private_free(). So the free operation here
+leads to a double free bug.
 
-Sure, I'll address both of these in a v2.  Thank you for the quick review.
+To fix the above issue, simply remove usb_free_urb().
+
+Signed-off-by: Wenwen Wang <wang6495@umn.edu>
+---
+ sound/usb/usx2y/usbusx2y.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
+index da4a5a5..1f0b0100 100644
+--- a/sound/usb/usx2y/usbusx2y.c
++++ b/sound/usb/usx2y/usbusx2y.c
+@@ -293,10 +293,8 @@ int usX2Y_In04_init(struct usX2Ydev *usX2Y)
+ 	if (! (usX2Y->In04urb = usb_alloc_urb(0, GFP_KERNEL)))
+ 		return -ENOMEM;
+ 
+-	if (! (usX2Y->In04Buf = kmalloc(21, GFP_KERNEL))) {
+-		usb_free_urb(usX2Y->In04urb);
++	if (! (usX2Y->In04Buf = kmalloc(21, GFP_KERNEL)))
+ 		return -ENOMEM;
+-	}
+ 	 
+ 	init_waitqueue_head(&usX2Y->In04WaitQueue);
+ 	usb_fill_int_urb(usX2Y->In04urb, usX2Y->dev, usb_rcvintpipe(usX2Y->dev, 0x4),
+-- 
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

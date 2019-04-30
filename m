@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F4111032E
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:13:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B549610334
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:15:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EEAD16B3;
-	Wed,  1 May 2019 01:12:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EEAD16B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 557F916AF;
+	Wed,  1 May 2019 01:14:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 557F916AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556665988;
-	bh=VH2Zft6vcr6QDnsvaNRLdauklLJwM1rG4PBTKbAqnt4=;
+	s=default; t=1556666140;
+	bh=YyCBNnLTVc+6JBXk24egIVOk4AZxvf1W9dB129ZItSA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=njcpHHRHU1Wvwwtht2I1301bD6XIG+lELAlW4jCuv/DjnuOdncy4b8d67acdjcIv8
-	 qwZewlJ1bX6f/Er3hFQbPJGLhmZDy2X135BYs3WWT2MYRijNrwHnlJfC/qSO8032px
-	 tWuAh3g/rkaByDj/Qs+1W/r5GejZkWswo+50/AGg=
+	b=GlZTrf4XLSI4pv7zDmsRDc59ouWhB7+XjGRkY7t6eEbl46WIA+046z7JtJpHwvUlI
+	 XjiXHgCvHEgiM48uS8LLvLo+I/efEr7EVTzUpTPM7fUM7ckTrXBNag7lH0FFb2Fpm1
+	 VFCDj7frOFTZMtGW1ylolc0cPfd6bD/h5bm8SDi8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8095F89733;
-	Wed,  1 May 2019 01:10:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 222D5F89729;
+	Wed,  1 May 2019 01:10:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A61DEF89724; Wed,  1 May 2019 01:10:02 +0200 (CEST)
+ id 4FD2AF89735; Wed,  1 May 2019 01:10:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E01DF8962C
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0368F896AA
  for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 01:09:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E01DF8962C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0368F896AA
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2019 16:09:53 -0700
+ 30 Apr 2019 16:09:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166540893"
+X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166540908"
 Received: from slawsonx-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.133.128])
- by fmsmga004.fm.intel.com with ESMTP; 30 Apr 2019 16:09:53 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 30 Apr 2019 16:09:54 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 30 Apr 2019 18:09:17 -0500
-Message-Id: <20190430230934.4321-3-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 30 Apr 2019 18:09:18 -0500
+Message-Id: <20190430230934.4321-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
 References: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
 Cc: tiwai@suse.de, broonie@kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 02/19] ASOC: SOF: ipc: add support for stricter
-	ABI checks
+Subject: [alsa-devel] [PATCH 03/19] ASoC: SOF: topology: add support for
+	stricter ABI checks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,34 +75,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fail early if firmware is more recent than kernel and Kconfig is
+Fail early if topology is more recent than kernel and Kconfig is
 selected.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/ipc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ sound/soc/sof/topology.c | 43 ++++++++++++++++++++++++++++------------
+ 1 file changed, 30 insertions(+), 13 deletions(-)
 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index d00373ceca12..bf58d58e7379 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -762,6 +762,15 @@ int snd_sof_ipc_valid(struct snd_sof_dev *sdev)
- 		return -EINVAL;
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 2b9de1b97447..b04b99cc0ff8 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -3051,6 +3051,7 @@ static int sof_manifest(struct snd_soc_component *scomp, int index,
+ {
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	u32 size;
++	u32 abi_version;
+ 
+ 	size = le32_to_cpu(man->priv.size);
+ 
+@@ -3060,20 +3061,36 @@ static int sof_manifest(struct snd_soc_component *scomp, int index,
+ 		return 0;
  	}
  
-+	if (v->abi_version > SOF_ABI_VERSION) {
+-	if (size == SOF_TPLG_ABI_SIZE) {
+-		dev_info(sdev->dev,
+-			 "Topology: ABI %d:%d:%d Kernel ABI %d:%d:%d\n",
+-			 man->priv.data[0], man->priv.data[1],
+-			 man->priv.data[2], SOF_ABI_MAJOR, SOF_ABI_MINOR,
+-			 SOF_ABI_PATCH);
+-		if (SOF_ABI_VER(man->priv.data[0], man->priv.data[1],
+-				man->priv.data[2]) <= SOF_ABI_VERSION)
+-			return 0;
++	if (size != SOF_TPLG_ABI_SIZE) {
++		dev_err(sdev->dev, "error: invalid topology ABI size\n");
++		return -EINVAL;
+ 	}
+-	dev_err(sdev->dev,
+-		"error: Incompatible ABI version %d:%d:%d\n",
+-		man->priv.data[0], man->priv.data[1], man->priv.data[2]);
+-	return -EINVAL;
++
++	dev_info(sdev->dev,
++		 "Topology: ABI %d:%d:%d Kernel ABI %d:%d:%d\n",
++		 man->priv.data[0], man->priv.data[1],
++		 man->priv.data[2], SOF_ABI_MAJOR, SOF_ABI_MINOR,
++		 SOF_ABI_PATCH);
++
++	abi_version = SOF_ABI_VER(man->priv.data[0],
++				  man->priv.data[1],
++				  man->priv.data[2]);
++
++	if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION, abi_version)) {
++		dev_err(sdev->dev, "error: incompatible topology ABI version\n");
++		return -EINVAL;
++	}
++
++	if (abi_version > SOF_ABI_VERSION) {
 +		if (!IS_ENABLED(CONFIG_SND_SOC_SOF_STRICT_ABI_CHECKS)) {
-+			dev_warn(sdev->dev, "warn: FW ABI is more recent than kernel\n");
++			dev_warn(sdev->dev, "warn: topology ABI is more recent than kernel\n");
 +		} else {
-+			dev_err(sdev->dev, "error: FW ABI is more recent than kernel\n");
++			dev_err(sdev->dev, "error: topology ABI is more recent than kernel\n");
 +			return -EINVAL;
 +		}
 +	}
 +
- 	if (ready->debug.bits.build) {
- 		dev_info(sdev->dev,
- 			 "Firmware debug build %d on %s-%s - options:\n"
++	return 0;
+ }
+ 
+ /* vendor specific kcontrol handlers available for binding */
 -- 
 2.17.1
 

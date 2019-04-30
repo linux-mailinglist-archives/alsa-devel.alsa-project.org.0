@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69AE21032C
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:12:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F4111032E
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:13:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1B6A16A9;
-	Wed,  1 May 2019 01:11:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B6A16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EEAD16B3;
+	Wed,  1 May 2019 01:12:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EEAD16B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556665944;
-	bh=+yuvEuYSZZHmI9JeuvbJBRjc8l5gTr4jT+BE5ImGz3I=;
+	s=default; t=1556665988;
+	bh=VH2Zft6vcr6QDnsvaNRLdauklLJwM1rG4PBTKbAqnt4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BDFsU3po9pTy1Cri/MrwJJ/m4Jz/kAhjDlxw2tvlXrmwItUoz96Ug2aVwIwjNyUhQ
-	 Q+Wu9ilwY2S/30gp/5i7PMA+HAHmvgfGQ3rKWnGJ72BeOjeAafLBeXnhgSQTRBdql0
-	 zXC5ofcC8QAwTotEVh6bx7vZpI2AvR6x0qRCp/T8=
+	b=njcpHHRHU1Wvwwtht2I1301bD6XIG+lELAlW4jCuv/DjnuOdncy4b8d67acdjcIv8
+	 qwZewlJ1bX6f/Er3hFQbPJGLhmZDy2X135BYs3WWT2MYRijNrwHnlJfC/qSO8032px
+	 tWuAh3g/rkaByDj/Qs+1W/r5GejZkWswo+50/AGg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E710CF8972B;
-	Wed,  1 May 2019 01:10:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8095F89733;
+	Wed,  1 May 2019 01:10:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F1E9F89720; Wed,  1 May 2019 01:10:00 +0200 (CEST)
+ id A61DEF89724; Wed,  1 May 2019 01:10:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AA30F8065C
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 01:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AA30F8065C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E01DF8962C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 01:09:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E01DF8962C
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
  30 Apr 2019 16:09:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166540876"
+X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166540893"
 Received: from slawsonx-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.133.128])
- by fmsmga004.fm.intel.com with ESMTP; 30 Apr 2019 16:09:52 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 30 Apr 2019 16:09:53 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 30 Apr 2019 18:09:16 -0500
-Message-Id: <20190430230934.4321-2-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 30 Apr 2019 18:09:17 -0500
+Message-Id: <20190430230934.4321-3-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
 References: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
 Cc: tiwai@suse.de, broonie@kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 01/19] ASoC: SOF: add Kconfig option for strict
+Subject: [alsa-devel] [PATCH 02/19] ASOC: SOF: ipc: add support for stricter
 	ABI checks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,44 +75,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the kernel is more recent than firmware files, it will always
-behave in backwards-compatible ways.
-
-Add optional behavior to check if the kernel is older than the
-firmware files, so that the kernel fails early instead of attempting
-to use new functionality it does not support.
+Fail early if firmware is more recent than kernel and Kconfig is
+selected.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/Kconfig | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ sound/soc/sof/ipc.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index eaa380092c3b..a1a9ffe605dc 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -53,6 +53,21 @@ config SND_SOC_SOF_NOCODEC
- 	  Say Y if you need this nocodec fallback option
- 	  If unsure select "N".
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index d00373ceca12..bf58d58e7379 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -762,6 +762,15 @@ int snd_sof_ipc_valid(struct snd_sof_dev *sdev)
+ 		return -EINVAL;
+ 	}
  
-+config SND_SOC_SOF_STRICT_ABI_CHECKS
-+	bool "SOF strict ABI checks"
-+	help
-+	  This option enables strict ABI checks for firmware and topology
-+	  files.
-+	  When these files are more recent than the kernel, the kernel
-+	  will handle the functionality it supports and may report errors
-+	  during topology creation or run-time usage if new functionality
-+	  is invoked.
-+	  This option will stop topology creation and firmware load upfront.
-+	  It is intended for SOF CI/releases and not for users or distros.
-+	  Say Y if you want strict ABI checks for an SOF release
-+	  If you are not involved in SOF releases and CI development
-+	  select "N".
++	if (v->abi_version > SOF_ABI_VERSION) {
++		if (!IS_ENABLED(CONFIG_SND_SOC_SOF_STRICT_ABI_CHECKS)) {
++			dev_warn(sdev->dev, "warn: FW ABI is more recent than kernel\n");
++		} else {
++			dev_err(sdev->dev, "error: FW ABI is more recent than kernel\n");
++			return -EINVAL;
++		}
++	}
 +
- config SND_SOC_SOF_DEBUG
- 	bool "SOF debugging features"
- 	help
+ 	if (ready->debug.bits.build) {
+ 		dev_info(sdev->dev,
+ 			 "Firmware debug build %d on %s-%s - options:\n"
 -- 
 2.17.1
 

@@ -2,57 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A75E210288
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 00:39:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B49B310289
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 00:40:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 064C1167C;
-	Wed,  1 May 2019 00:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 064C1167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F3B316B3;
+	Wed,  1 May 2019 00:39:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F3B316B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556663997;
-	bh=5fmpgTSEOXo+LBvPiKj1l4KdQWNvRLfTE7uLmH/+8NU=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=s40f4Bcp0L8KU/P5PnUBuI83Nyr+O0fS0o6/8TIupYaz8x1Lg231m4cXDCvnEMIGL
-	 VxRagT4GlZTkBuTrlD3ew9M+6xR+ipKWfDBtlDiiGXZ42b1FjSM4hmxTDEpP8raHqZ
-	 taor3zH7BoaXIb4iyY5od9TiIrlBqYCdtoeMBhio=
+	s=default; t=1556664034;
+	bh=U+GfkVa5D6pfiEWpF0bH94JZyx8mnkgyxfhE96pzXHE=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=haWySOKcGUSQsLD2mjR6EnIhGJ7hX0oXnj++blnooJFtOyoHO8LszuYaGxeFQZpuY
+	 Ra7sY7GyTL9v0W90M8xEBcc0TE25sLjuQKBphsOYwVD1EhOwUg04ubliAVQNw9nRo+
+	 FsTdze/M3HxlU/5u7IDKffluUiwMOEE0WW7ddUYw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A22CF8962C;
-	Wed,  1 May 2019 00:38:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 571A0F89722;
+	Wed,  1 May 2019 00:38:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63D05F896E3; Wed,  1 May 2019 00:38:08 +0200 (CEST)
+ id 8EC3CF896EC; Wed,  1 May 2019 00:38:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3056EF80759
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 00:38:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3056EF80759
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2828CF8065C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 00:38:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2828CF8065C
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2019 15:38:00 -0700
+ 30 Apr 2019 15:38:01 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="147124103"
+X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="147124106"
 Received: from slawsonx-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.133.128])
- by orsmga003.jf.intel.com with ESMTP; 30 Apr 2019 15:37:59 -0700
+ by orsmga003.jf.intel.com with ESMTP; 30 Apr 2019 15:38:00 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 30 Apr 2019 17:37:41 -0500
-Message-Id: <20190430223744.3863-1-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 30 Apr 2019 17:37:42 -0500
+Message-Id: <20190430223744.3863-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20190430223744.3863-1-pierre-louis.bossart@linux.intel.com>
+References: <20190430223744.3863-1-pierre-louis.bossart@linux.intel.com>
 Cc: tiwai@suse.de, broonie@kernel.org,
+ Rander Wang <rander.wang@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 0/3] ASoC: Intel: machine drivers for SOF
+Subject: [alsa-devel] [PATCH 1/3] ASoC: Intel: skl_hda_dsp_generic: add DMIC
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,41 +76,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for the two main machine drivers used by SOF (not tested
-with the Skylake driver due to lack of hardware and/or firmware
-signature/ missing topology)
+From: Rander Wang <rander.wang@linux.intel.com>
 
-The DMIC support for HDaudio-based devices is very much needed for a
-number of WhiskyLake+ platforms designed for Windows. SOF will be the
-only Intel driver supporting this configuration. A firmware binary
-signed with the required production key should be available shortly.
+Add dmic dai links using naming conventions used in
+previous machine drivers.
 
-The rt5682 codec is the main validation vehicle of the Intel SOF team,
-with eval boards connected to the Baytrail MinnowBoard as well as more
-recent devices. The main difference with traditional Intel machine
-drivers is that the dai links are added dynamically at probe time to
-avoid multiple table copy/pastes.
+Tested on whiskylake & icelake with SOF driver. Due
+to a missing topology file, the DMIC functionality
+could not be tested with the Skylake driver but was
+tested for non-regressions on a GeminiLake platform
+without DMICs.
 
-Bard liao (1):
-  ASoC: Intel: add sof-rt5682 machine driver
+Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/intel/boards/skl_hda_dsp_common.c  | 22 ++++++++++++++++++--
+ sound/soc/intel/boards/skl_hda_dsp_common.h  |  2 +-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c | 17 ++++++++++++++-
+ 3 files changed, 37 insertions(+), 4 deletions(-)
 
-Rander Wang (2):
-  ASoC: Intel: skl_hda_dsp_generic: add DMIC support
-  ASoC: Intel: skl_hda_dsp_generic:refine code style
-
- sound/soc/intel/boards/Kconfig                |  16 +
- sound/soc/intel/boards/Makefile               |   2 +
- sound/soc/intel/boards/skl_hda_dsp_common.c   |  22 +-
- sound/soc/intel/boards/skl_hda_dsp_common.h   |   2 +-
- sound/soc/intel/boards/skl_hda_dsp_generic.c  |  19 +-
- sound/soc/intel/boards/sof_rt5682.c           | 563 ++++++++++++++++++
- .../intel/common/soc-acpi-intel-byt-match.c   |   6 +
- .../intel/common/soc-acpi-intel-cht-match.c   |   6 +
- .../intel/common/soc-acpi-intel-cnl-match.c   |  19 +
- .../intel/common/soc-acpi-intel-icl-match.c   |   6 +
- 10 files changed, 656 insertions(+), 5 deletions(-)
- create mode 100644 sound/soc/intel/boards/sof_rt5682.c
-
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
+index 3fdbf239da74..8b68f41a5b88 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
+@@ -78,7 +78,6 @@ struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
+ 		.platform_name = "0000:00:1f.3",
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+-		.init = NULL,
+ 		.no_pcm = 1,
+ 	},
+ 	{
+@@ -90,7 +89,26 @@ struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
+ 		.platform_name = "0000:00:1f.3",
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+-		.init = NULL,
++		.no_pcm = 1,
++	},
++	{
++		.name = "dmic01",
++		.id = 6,
++		.cpu_dai_name = "DMIC01 Pin",
++		.codec_name = "dmic-codec",
++		.codec_dai_name = "dmic-hifi",
++		.platform_name = "0000:00:1f.3",
++		.dpcm_capture = 1,
++		.no_pcm = 1,
++	},
++	{
++		.name = "dmic16k",
++		.id = 7,
++		.cpu_dai_name = "DMIC16k Pin",
++		.codec_name = "dmic-codec",
++		.codec_dai_name = "dmic-hifi",
++		.platform_name = "0000:00:1f.3",
++		.dpcm_capture = 1,
+ 		.no_pcm = 1,
+ 	},
+ };
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.h b/sound/soc/intel/boards/skl_hda_dsp_common.h
+index 87c50aff56cd..daa582e513b2 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.h
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.h
+@@ -15,7 +15,7 @@
+ #include <sound/core.h>
+ #include <sound/jack.h>
+ 
+-#define HDA_DSP_MAX_BE_DAI_LINKS 5
++#define HDA_DSP_MAX_BE_DAI_LINKS 7
+ 
+ struct skl_hda_hdmi_pcm {
+ 	struct list_head head;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index b9a21e64ead2..e69dc36b6600 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -97,6 +97,9 @@ static struct snd_soc_card hda_soc_card = {
+ };
+ 
+ #define IDISP_DAI_COUNT		3
++#define HDAC_DAI_COUNT		2
++#define DMIC_DAI_COUNT		2
++
+ /* there are two routes per iDisp output */
+ #define IDISP_ROUTE_COUNT	(IDISP_DAI_COUNT * 2)
+ #define IDISP_CODEC_MASK	0x4
+@@ -112,8 +115,20 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ 	codec_count = hweight_long(codec_mask);
+ 
+ 	if (codec_count == 1 && codec_mask & IDISP_CODEC_MASK) {
+-		num_links = IDISP_DAI_COUNT;
++		num_links = IDISP_DAI_COUNT + DMIC_DAI_COUNT;
+ 		num_route = IDISP_ROUTE_COUNT;
++
++		/*
++		 * rearrange the dai link array and make the
++		 * dmic dai links follow idsp dai links for only
++		 * num_links of dai links need to be registered
++		 * to ASoC.
++		 */
++		for (i = 0; i < DMIC_DAI_COUNT; i++) {
++			skl_hda_be_dai_links[IDISP_DAI_COUNT + i] =
++				skl_hda_be_dai_links[IDISP_DAI_COUNT +
++					HDAC_DAI_COUNT + i];
++		}
+ 	} else if (codec_count == 2 && codec_mask & IDISP_CODEC_MASK) {
+ 		num_links = ARRAY_SIZE(skl_hda_be_dai_links);
+ 		num_route = ARRAY_SIZE(skl_hda_map),
 -- 
 2.17.1
 

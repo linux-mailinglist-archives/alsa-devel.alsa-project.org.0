@@ -2,57 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E33F1C6
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 10:07:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12457F0C9
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 08:58:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA7E71662;
-	Tue, 30 Apr 2019 10:06:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA7E71662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CC54166A;
+	Tue, 30 Apr 2019 08:57:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CC54166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556611660;
-	bh=bw7dd9rUB4ZyVZJGNYan/WtaSJCehoMXbda6dsRcf0I=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ytcu/MiVd4bdCtJ/KdbGQUyTehSo362fiJ1Fu6fRxHHw+4wnorEGcYfLn2jNqZqyh
-	 hNJbHKvvL6iDSgOdeaPu8qgGTP1bAtH6QH/k2PcLPXuLywhL06slT8EyIU464lFEM/
-	 JXp3VJe9x4geLwBLgn2gdceEnpx+yNRCcRUXrrt4=
+	s=default; t=1556607499;
+	bh=Ghw4uIJX1hL6XnshYXWUycfCbvPbt9K+DeKb+j7QXMw=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KFkn4IQReSHk+7yyjkNzMzqVC7N7WnF4nTEMiwqc+G6KDf5VwqNSH32vB81Z8WbF/
+	 gh/+fqZ2U6U5KuTetdhLQ0wH/Hf1GOW+7+LQXibqL2G5TbHPfM9DHE+lnu6EaLGMap
+	 u/mfL5tJdfCOH9SfVzDi68L0uoMRD58TAnsYmyoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0240FF896AA;
-	Tue, 30 Apr 2019 10:05:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7757F896E3;
+	Tue, 30 Apr 2019 08:56:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBEC1F896AA; Tue, 30 Apr 2019 08:12:29 +0200 (CEST)
+ id F1BDEF896AA; Tue, 30 Apr 2019 08:56:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail1.windriver.com (mail1.windriver.com [147.11.146.13])
- (using TLSv1.1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45886F80759
- for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 08:12:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45886F80759
-Received: from ALA-HCA.corp.ad.wrs.com ([147.11.189.40])
- by mail1.windriver.com (8.15.2/8.15.1) with ESMTPS id x3U6CAK5017535
- (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Mon, 29 Apr 2019 23:12:10 -0700 (PDT)
-Received: from pek-lpggp3.wrs.com (128.224.153.76) by ALA-HCA.corp.ad.wrs.com
- (147.11.189.40) with Microsoft SMTP Server id 14.3.439.0;
- Mon, 29 Apr 2019 23:12:09 -0700
-From: Song liwei <liwei.song@windriver.com>
-To: <alsa-devel@alsa-project.org>
-Date: Tue, 30 Apr 2019 02:10:53 -0400
-Message-ID: <1556604653-47363-1-git-send-email-liwei.song@windriver.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 30 Apr 2019 10:05:53 +0200
-Cc: Yu Zhao <yuzhao@google.com>, LiweiSong <liwei.song@windriver.com>,
- Keyon Jie <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH] ALSA: hda: check RIRB to avoid use NULL pointer
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5BBCF80C0D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 08:56:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5BBCF80C0D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 9AC9BABA1;
+ Tue, 30 Apr 2019 06:56:26 +0000 (UTC)
+Date: Tue, 30 Apr 2019 08:56:26 +0200
+Message-ID: <s5hk1fchtgl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: rodomar705@protonmail.com
+In-Reply-To: <fMOfR-AM5BZjmykavpgjiLe3n2LgH0DSzc_k0h8Y8HlIRtBIvQ3Bd-lR-yaDR3awj3RlTfVf64otDHNKM5RMwsWVZqpX9mTl3DnbyBQlDeU=@protonmail.com>
+References: <hJCWDldvDAxz-blVsrgdF3-SZp7hJtpRovLdmJaqDOXpGb_Ftn2TAOMtDELhGzcZGl8ax6qAnR2BHLw-6NWhYB-k9CpBhF75IIsBmOiOeaI=@protonmail.com>
+ <s5ho94okg03.wl-tiwai@suse.de>
+ <6RvNKXcJJ9Ik3fFWf8SpH-tbFPnwT3ftuns9vv12T-wb9dryfuF8UWhjWW8-k3Z5CQEPYBBdIcaV7nPE-IX-xIqepSk8c8-kbvMeqoPdWtA=@protonmail.com>
+ <s5h36m0k7rj.wl-tiwai@suse.de>
+ <NglFwtTKvjxRbwGOg-rQE7ThssNuzPh5pLEXQv_kcLJ1PIT4-g4ErqOP0fOYBmfcJE5M-thgOfQF6L9XrdOLjROwo_J9YyU_4Wzc2gcA42Y=@protonmail.com>
+ <9iuKJ2ymWASO2uilTQ_UIB6Mlqwa_7SybJffDcH6Ag2zAva1J_z_-ACYUNi6nGaOQAqscry1Wj59dkLoAFgJaZGJNEdSNfiE8SR1sbwRhnI=@protonmail.com>
+ <s5hzho8ipbp.wl-tiwai@suse.de>
+ <fMOfR-AM5BZjmykavpgjiLe3n2LgH0DSzc_k0h8Y8HlIRtBIvQ3Bd-lR-yaDR3awj3RlTfVf64otDHNKM5RMwsWVZqpX9mTl3DnbyBQlDeU=@protonmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, kailang@realtek.com
+Subject: Re: [alsa-devel] ALC892 acquisition stutter
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,71 +71,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Liwei Song <liwei.song@windriver.com>
-
-Fix the following BUG:
-
-BUG: unable to handle kernel NULL pointer dereference at 000000000000000c
-Workqueue: events azx_probe_work [snd_hda_intel]
-RIP: 0010:snd_hdac_bus_update_rirb+0x80/0x160 [snd_hda_core]
-Call Trace:
- <IRQ>
- azx_interrupt+0x78/0x140 [snd_hda_codec]
- __handle_irq_event_percpu+0x49/0x300
- handle_irq_event_percpu+0x23/0x60
- handle_irq_event+0x3c/0x60
- handle_edge_irq+0xdb/0x180
- handle_irq+0x23/0x30
- do_IRQ+0x6a/0x140
- common_interrupt+0xf/0xf
-
-The Call Trace happened when run kdump on a NFS rootfs system.
-Exist the following calling sequence when boot the second kernel:
-
-azx_first_init()
-   --> azx_acquire_irq()
-                      <-- interrupt come in, azx_interrupt() was called
-   --> hda_intel_init_chip()
-      --> azx_init_chip()
-         --> snd_hdac_bus_init_chip()
-              --> snd_hdac_bus_init_cmd_io();
-                    --> init rirb.buf and corb.buf
-
-Interrupt happened after azx_acquire_irq() while RIRB still didn't got
-initialized, then NULL pointer will be used when process the interrupt.
-
-Check the value of RIRB to ensure it is not NULL, to aviod some special
-case may hang the system.
-
-Fixes: 14752412721c ("ALSA: hda - Add the controller helper codes to hda-core module")
-Signed-off-by: Liwei Song <liwei.song@windriver.com>
----
- sound/hda/hdac_controller.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
-index 74244d8e2909..2f0fa5353361 100644
---- a/sound/hda/hdac_controller.c
-+++ b/sound/hda/hdac_controller.c
-@@ -195,6 +195,9 @@ void snd_hdac_bus_update_rirb(struct hdac_bus *bus)
- 		return;
- 	bus->rirb.wp = wp;
- 
-+	if (!bus->rirb.buf)
-+		return;
-+
- 	while (bus->rirb.rp != wp) {
- 		bus->rirb.rp++;
- 		bus->rirb.rp %= AZX_MAX_RIRB_ENTRIES;
--- 
-2.7.4
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVHVlLCAzMCBBcHIgMjAxOSAwODoyNzo1NCArMDIwMCwKcm9kb21hcjcwNUBwcm90b25tYWls
+LmNvbSB3cm90ZToKPiAKPiBOb3BlLCBuZWl0aGVyIGFkZGluZyBBWlhfRENBUFNfUE1fUlVOVElN
+RSBhcyBzZWVuIG9uIG90aGVyIEFNRCBjb2RlY3MgYmVsb3cgc2VlbXMgdG8gYWZmZWN0IGl0LCB1
+bmZvcnR1bmF0ZWx5LgoKUGxlYXNlIGRvbid0IGRyb3AgQ2MgdG8gTUwgYW5kIG90aGVycy4KCkFu
+ZCwgZGlkIHlvdSB0cnkgb3RoZXIgcG9zaXRpb25fZml4IG9wdGlvbiB2YWx1ZSwgdG9vPwoKT3Ro
+ZXJ3aXNlIEkgaGF2ZSBvdXQgb2YgaWRlYS4gIEl0IG11c3QgYmUgcGxhdGZvcm0tc3BlY2lmaWMg
+aXNzdWUgb25seQp0aGUgaGFyZHdhcmUgdmVuZG9ycyBrbm93LgoKClRha2FzaGkKCj4gCj4gU2Vu
+dCB3aXRoIFByb3Rvbk1haWwgU2VjdXJlIEVtYWlsLgo+IAo+IOKAkOKAkOKAkOKAkOKAkOKAkOKA
+kCBPcmlnaW5hbCBNZXNzYWdlIOKAkOKAkOKAkOKAkOKAkOKAkOKAkAo+IElsIGx1bmVkw6wgMjkg
+YXByaWxlIDIwMTkgMjE6MjgsIFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4gaGEgc2NyaXR0
+bzoKPiAKPiA+IE9uIE1vbiwgMjkgQXByIDIwMTkgMjA6MjE6MjIgKzAyMDAsCj4gPiByb2RvbWFy
+NzA1QHByb3Rvbm1haWwuY29tIHdyb3RlOgo+ID4KPiA+ID4gV2hvb3BzLCBzb3JyeS4gSGVyZSBp
+dCBpcy4KPiA+Cj4gPiBPSywgaXQncyBhbiBBTUQgY2hpcCBhbmQgbm90IGxpc3RlZCBleHBsaWNp
+dGx5IGluIHRoZSBkcml2ZXIgY29uZmlnLgo+ID4gRG9lcyB0aGUgcGF0Y2ggYmVsb3cgaGF2ZSBh
+bnkgaW5mbHVlbmNlPwo+ID4KPiA+IFRha2FzaGkKPiA+Cj4gPiAtLS0gYS9zb3VuZC9wY2kvaGRh
+L2hkYV9pbnRlbC5jCj4gPiArKysgYi9zb3VuZC9wY2kvaGRhL2hkYV9pbnRlbC5jCj4gPiBAQCAt
+MjQ1Miw2ICsyNDUyLDkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkIGF6eF9p
+ZHNbXSA9IHsKPiA+IC8qIEFNRCBIdWRzb24gKi8KPiA+IHsgUENJX0RFVklDRSgweDEwMjIsIDB4
+NzgwZCksCj4gPiAuZHJpdmVyX2RhdGEgPSBBWlhfRFJJVkVSX0dFTkVSSUMgfCBBWlhfRENBUFNf
+UFJFU0VUX0FUSV9TQiB9LAo+ID4KPiA+IC0gICAvKiBBTUQgZmFtaWx5IDE3aCAqLwo+ID4gLSAg
+IHsgUENJX0RFVklDRSgweDEwMjIsIDB4MTQ1NyksCj4gPiAtICAgICAgIC5kcml2ZXJfZGF0YSA9
+IEFaWF9EUklWRVJfR0VORVJJQyB8IEFaWF9EQ0FQU19QUkVTRVRfQVRJX1NCIH0sCj4gPgo+ID4K
+PiA+ICAgICAvKiBBTUQgU3RvbmV5ICovCj4gPiAgICAgeyBQQ0lfREVWSUNFKDB4MTAyMiwgMHgx
+NTdhKSwKPiA+ICAgICAuZHJpdmVyX2RhdGEgPSBBWlhfRFJJVkVSX0dFTkVSSUMgfCBBWlhfRENB
+UFNfUFJFU0VUX0FUSV9TQiB8Cj4gPgo+IAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFs
+c2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbHNhLWRldmVsCg==

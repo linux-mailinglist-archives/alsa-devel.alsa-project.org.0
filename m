@@ -2,80 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB548F1C0
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 10:03:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE751F1C2
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 10:04:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A8DE166D;
-	Tue, 30 Apr 2019 10:02:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A8DE166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74BF01680;
+	Tue, 30 Apr 2019 10:03:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74BF01680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556611423;
-	bh=EENjeI9Te/DXJC8FqYHOQ+VTWSL00dN7cMlx+RfYwtQ=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UjKlf2K8i3CNjKXQA8ztwMXfY1yd/rkdY9V0LNfk3sseJAgBoIZzpF9IWUXImxCw0
-	 aCiKRXT5HnPrmr0cQfEwBzxxqi/B8QQf+E7LXOLqPjH9Fm/Ag9MxBKjg4E2H8gjl9E
-	 +5MhmbMSSzRMLpBjA1ofqdLjY4gy15M49NV/4vVU=
+	s=default; t=1556611476;
+	bh=udrm3gmMrT317NMVFwTqYJrelyF8Zz2Pq+wpilwJWPE=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WauGBm9Ox2kjC20KcBVM9PxkPYwy0iDiC3eNXcaucF2ys1O0kR8oGSfBqLjIN6Rr1
+	 ek8DjJ1os9L0FXJyuEktu37oeUg2uBLhmgfyBjmx/eTyzPNnhJtBtnt0U75EZlpjR1
+	 GqPJc/PW35ufCM10WzEt3Y/ttN2W2cSyAkPxqMuQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DF32F896EC;
-	Tue, 30 Apr 2019 10:01:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76E8AF896F3;
+	Tue, 30 Apr 2019 10:03:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 510BEF896AA; Tue, 30 Apr 2019 10:01:56 +0200 (CEST)
+ id 61AD7F896E3; Tue, 30 Apr 2019 10:03:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x449.google.com (mail-pf1-x449.google.com
- [IPv6:2607:f8b0:4864:20::449])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFC2DF80759
- for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 10:01:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFC2DF80759
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="G3E1qGaj"
-Received: by mail-pf1-x449.google.com with SMTP id g1so8712733pfo.2
- for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 01:01:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=b0eS6J87HRbWlZiqOm1D47fILxdhSO+PpTJzP3/PYc4=;
- b=G3E1qGajppgGMJv/iXFqFh1VC+ndtIWUlkd+sJWgig1vVSTdK+1AMe+B7DbOYjLMLc
- 55+lqmJjzxVij+Lhs6dSgUBt4TZjJXvQy9hjgAz5qJyJzwQA9qQjqhjTj2SUejhwiz6U
- uMmdw7uwM2CwoPWJEuWGQBWXZsL5utBYThorKu3bKLrC5IJpjlEelvYueIYNG0WRUTjj
- 2ex5ENUVHoQrRuG1f/T3bp7fhB9IuhXqApvBeW4MRS81lD/SgG9ORE8AOybluHfqqTk+
- acJJkYjSOZZ/dTPPQaauIB3TcUx1XzVxkHotIpuvkNdVxFJ9ham6YKNW0pcQTfzvNDRT
- X/dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=b0eS6J87HRbWlZiqOm1D47fILxdhSO+PpTJzP3/PYc4=;
- b=alWYYUEiV0Wto51YxX4eaUepYlgHR0LJ75SLQgmHAHA12Ip8yrzR12YXsgM47MO372
- EMaKWbSvz5QBbPUtVBGVFYkuGfAz7zm6CA1BO9mGhR3Orz6rvhHNSXCmrYAwbB2DsaYV
- CpVZOgchuXuSAEkKJZLSCcWHd9DHwtEhiZnrG8IH55GJPQri8o1hxOk0BLnzGto6ilTP
- gDjuPuMqvHN5FCg9lhpfTMYF79nGQPULNTzlw8Ss6Bh4iNysu966GJv3lFglUTAVuulc
- T4/CNwFrYEwyz2CYaepjHyi/gHLp9kmdZjg6JzWOdhkq0ny1cEzQLZz3qARKLI9sSRea
- GfBA==
-X-Gm-Message-State: APjAAAXRbSF/N9rPF9G/PoQo6MjdzVZ6fe7NjBHBye/IfAowNxogaSV3
- y7YNEC0CMrmrIhrkH3daKZf5UYNbBT0k
-X-Google-Smtp-Source: APXvYqwjM8eBUdMcKpqYlUfjxVNkog1NPiFvJt77wIijn4g1V0YlXWXPBagiBxtzBRlYmsSVsM6R65/R0Bgh
-X-Received: by 2002:a63:e304:: with SMTP id f4mr64318328pgh.374.1556611309936; 
- Tue, 30 Apr 2019 01:01:49 -0700 (PDT)
-Date: Tue, 30 Apr 2019 16:01:07 +0800
-Message-Id: <20190430080107.113871-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.21.0.593.g511ec345e18-goog
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, tiwai@suse.com
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
- cychiang@google.com
-Subject: [alsa-devel] [RFC PATCH] ASoC: max98357a: manage GPIO for component
-	rebinding
+ by alsa1.perex.cz (Postfix) with ESMTPS id E61CCF80C0D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 10:03:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E61CCF80C0D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id DF655AE8D;
+ Tue, 30 Apr 2019 08:03:32 +0000 (UTC)
+Date: Tue, 30 Apr 2019 10:03:32 +0200
+Message-ID: <s5hd0l3j4x7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+In-Reply-To: <6FAB7C47BCF00940BB0999A99BE3547A1D76558C@RTITMBSVM07.realtek.com.tw>
+References: <6FAB7C47BCF00940BB0999A99BE3547A1D76558C@RTITMBSVM07.realtek.com.tw>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] move eapd coef function before ACT_PRE_PROBE state
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,127 +69,146 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Component's probe() gets GPIO for "sdmode-gpios" via
-devm_gpiod_get_optional().  The GPIO binds to the device.
+On Tue, 30 Apr 2019 09:40:31 +0200,
+Kailang wrote:
+> 
+> Hi Takashi,
+> 
+> alc_fill_eapd_coef(),this function was change EAPD control to default.
+> Default was set EAPD by verb control.
+> This function was run in ACT_INIT state.
+> Move it to ACT_PRE_PROBE above. It will have a chance to change EAPD control
+> on ACT_PRE_PROBE state. It could change control by 0x20 coef bit.
 
-When the component get removed but the device does not, the GPIO
-still binds to the device.
+Unfortuantely, moving this doesn't suffice.  There is the hibernation
+resume that needs the explicit initialization again.
 
-Then, when the component be probed again, devm_gpiod_get_optional()
-returns EBUSY.
+Also, calling this in alc_alloc_spec() isn't intuitive.  Although it'd
+become a larger patch, I prefer making it more explicit, e.g. creating
+alc_pre_init() function handling the pre-init procedure and call it
+from appropriate places.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
-Hi,
+So I can imagine a patch like below.  Does it work for you?
 
-We discovered the issue when rebinding sound card.  We found that the
-rebinding failed due to the GPIO was hold by the first time component's
-probe() in max98357.
 
-The patch changes devm to non-devm API, because we don't have equivalent
-API for ASoC components (e.g. compm_).
+thanks,
 
-Question: we are not very sure to move from devm to non-devm, because
-devm should be most encouraged.
-Question: does it suggest not to use devm for GPIO in component's
-probe()?  It seems there are still some such usages, for example
-sound/soc/codecs/dmic.c.
+Takashi
 
- sound/soc/codecs/max98357a.c | 42 ++++++++++++++++++++++++++++--------
- 1 file changed, 33 insertions(+), 9 deletions(-)
-
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index d037a3e4d323..4e90876f6ef6 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -27,24 +27,28 @@
- #include <sound/soc-dai.h>
- #include <sound/soc-dapm.h>
- 
-+struct max98357a_priv {
-+	struct gpio_desc *sdmode;
-+};
-+
- static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
- 		int cmd, struct snd_soc_dai *dai)
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -501,7 +501,6 @@ static void alc_eapd_shutup(struct hda_codec *codec)
+ /* generic EAPD initialization */
+ static void alc_auto_init_amp(struct hda_codec *codec, int type)
  {
--	struct gpio_desc *sdmode = snd_soc_dai_get_drvdata(dai);
-+	struct max98357a_priv *max98357a = snd_soc_dai_get_drvdata(dai);
+-	alc_fill_eapd_coef(codec);
+ 	alc_auto_setup_eapd(codec, true);
+ 	alc_write_gpio(codec);
+ 	switch (type) {
+@@ -796,10 +795,22 @@ static int alc_build_controls(struct hda_codec *codec)
+  * Common callbacks
+  */
  
--	if (!sdmode)
-+	if (!max98357a->sdmode)
- 		return 0;
++static void alc_pre_init(struct hda_codec *codec)
++{
++	alc_fill_eapd_coef(codec);
++}
++
++#define is_s4_resume(codec) \
++	((codec)->core.dev.power.power_state.event == PM_EVENT_RESTORE)
++
+ static int alc_init(struct hda_codec *codec)
+ {
+ 	struct alc_spec *spec = codec->spec;
  
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		gpiod_set_value(sdmode, 1);
-+		gpiod_set_value(max98357a->sdmode, 1);
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		gpiod_set_value(sdmode, 0);
-+		gpiod_set_value(max98357a->sdmode, 0);
++	/* hibernation resume needs the full chip initialization */
++	if (is_s4_resume(codec))
++		alc_pre_init(codec);
++
+ 	if (spec->init_hook)
+ 		spec->init_hook(codec);
+ 
+@@ -1537,6 +1548,8 @@ static int patch_alc880(struct hda_codec *codec)
+ 
+ 	codec->patch_ops.unsol_event = alc880_unsol_event;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc880_fixup_models, alc880_fixup_tbl,
+ 		       alc880_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -1788,6 +1801,8 @@ static int patch_alc260(struct hda_codec *codec)
+ 
+ 	spec->shutup = alc_eapd_shutup;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc260_fixup_models, alc260_fixup_tbl,
+ 			   alc260_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -2491,6 +2506,8 @@ static int patch_alc882(struct hda_codec *codec)
  		break;
  	}
  
-@@ -61,19 +65,31 @@ static const struct snd_soc_dapm_route max98357a_dapm_routes[] = {
- 
- static int max98357a_component_probe(struct snd_soc_component *component)
- {
--	struct gpio_desc *sdmode;
-+	struct max98357a_priv *max98357a =
-+			snd_soc_component_get_drvdata(component);
- 
--	sdmode = devm_gpiod_get_optional(component->dev, "sdmode", GPIOD_OUT_LOW);
--	if (IS_ERR(sdmode))
--		return PTR_ERR(sdmode);
-+	max98357a->sdmode = gpiod_get_optional(component->dev,
-+					"sdmode", GPIOD_OUT_LOW);
-+	if (IS_ERR(max98357a->sdmode))
-+		return PTR_ERR(max98357a->sdmode);
- 
--	snd_soc_component_set_drvdata(component, sdmode);
-+	snd_soc_component_set_drvdata(component, max98357a);
- 
- 	return 0;
- }
- 
-+static void max98357a_component_remove(struct snd_soc_component *component)
-+{
-+	struct max98357a_priv *max98357a =
-+			snd_soc_component_get_drvdata(component);
++	alc_pre_init(codec);
 +
-+	if (max98357a->sdmode)
-+		gpiod_put(max98357a->sdmode);
-+}
-+
- static const struct snd_soc_component_driver max98357a_component_driver = {
- 	.probe			= max98357a_component_probe,
-+	.remove			= max98357a_component_remove,
- 	.dapm_widgets		= max98357a_dapm_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(max98357a_dapm_widgets),
- 	.dapm_routes		= max98357a_dapm_routes,
-@@ -112,6 +128,14 @@ static struct snd_soc_dai_driver max98357a_dai_driver = {
+ 	snd_hda_pick_fixup(codec, alc882_fixup_models, alc882_fixup_tbl,
+ 		       alc882_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -2665,6 +2682,8 @@ static int patch_alc262(struct hda_codec *codec)
+ #endif
+ 	alc_fix_pll_init(codec, 0x20, 0x0a, 10);
  
- static int max98357a_platform_probe(struct platform_device *pdev)
- {
-+	struct max98357a_priv *max98357a;
++	alc_pre_init(codec);
 +
-+	max98357a = devm_kzalloc(&pdev->dev, sizeof(*max98357a), GFP_KERNEL);
-+	if (!max98357a)
-+		return -ENOMEM;
+ 	snd_hda_pick_fixup(codec, alc262_fixup_models, alc262_fixup_tbl,
+ 		       alc262_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -2809,6 +2828,8 @@ static int patch_alc268(struct hda_codec *codec)
+ 
+ 	spec->shutup = alc_eapd_shutup;
+ 
++	alc_pre_init(codec);
 +
-+	dev_set_drvdata(&pdev->dev, max98357a);
+ 	snd_hda_pick_fixup(codec, alc268_fixup_models, alc268_fixup_tbl, alc268_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+@@ -7768,6 +7789,8 @@ static int patch_alc269(struct hda_codec *codec)
+ 		spec->init_hook = alc5505_dsp_init;
+ 	}
+ 
++	alc_pre_init(codec);
 +
- 	return devm_snd_soc_register_component(&pdev->dev,
- 			&max98357a_component_driver,
- 			&max98357a_dai_driver, 1);
--- 
-2.21.0.593.g511ec345e18-goog
-
+ 	snd_hda_pick_fixup(codec, alc269_fixup_models,
+ 		       alc269_fixup_tbl, alc269_fixups);
+ 	snd_hda_pick_pin_fixup(codec, alc269_pin_fixup_tbl, alc269_fixups);
+@@ -7910,6 +7933,8 @@ static int patch_alc861(struct hda_codec *codec)
+ 	spec->power_hook = alc_power_eapd;
+ #endif
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, NULL, alc861_fixup_tbl, alc861_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+@@ -8007,6 +8032,8 @@ static int patch_alc861vd(struct hda_codec *codec)
+ 
+ 	spec->shutup = alc_eapd_shutup;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, NULL, alc861vd_fixup_tbl, alc861vd_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+@@ -8742,6 +8769,8 @@ static int patch_alc662(struct hda_codec *codec)
+ 		break;
+ 	}
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc662_fixup_models,
+ 		       alc662_fixup_tbl, alc662_fixups);
+ 	snd_hda_pick_pin_fixup(codec, alc662_pin_fixup_tbl, alc662_fixups);
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,77 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D98FB73
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 16:27:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54E8EFBAD
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 16:40:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3F2716BA;
-	Tue, 30 Apr 2019 16:26:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3F2716BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC0B616BA;
+	Tue, 30 Apr 2019 16:39:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC0B616BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556634453;
-	bh=IYBi8NC2seL6hOTgLebpusypSPLQ1D4XMCU9e6TxY6k=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556635226;
+	bh=CrDG0KQf2HjFcY604BxQOK3fnseplFaLpm71GS3cW98=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uTi1/8iXScSqNCyPIjhETZ+xj+l+8B5lxqzOT0BMrxdQnwB9sGbqTsbsmWl/kWJzD
-	 W5T3OS0uVheZFVpK+WPECRWCOnXFoRiy6qdbUh+XTVkz8XROhJC775xyvZ9iy366dg
-	 KXczTx4/WDFYhhW9bbV0EmXsgwMHaXbxuU323r4I=
+	b=h8KY5b7/A0hjzaJI3ka2ujPUytsf1WLH9szZ2GpeqjaEKF00a0LCKLqnlBj4t9ZkC
+	 LBfKvn33dmGoBFz8xDOl6+/er0hif6Gi2BiEDSnEdunYz1rzgTwqobeRsO67ebxYF7
+	 JeYLIsBzT9uoI1MLRSeVBmJvTVBCpMpkoEegrjMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4781BF8962C;
-	Tue, 30 Apr 2019 16:25:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5CEC1F80759;
+	Tue, 30 Apr 2019 16:38:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73EBAF896AA; Tue, 30 Apr 2019 16:25:45 +0200 (CEST)
+ id 11CD4F896AA; Tue, 30 Apr 2019 16:38:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48DF0F80759
- for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 16:25:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48DF0F80759
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="TvExlQJ2"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BF07120835;
- Tue, 30 Apr 2019 14:25:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556634339;
- bh=rulEanPhmjFN3OEL+l1hhcaiBatHmWy80GceKdaBKMU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TvExlQJ25UxGdkTL6XeMsx6mHD+XNb504SCreklMl6J8yzS8Jx0cWFGWmnrxacWc/
- Mf245ec1LxXqFWflNHBx+QsDZUT0xFaGXpLET1yU2kA7ZalTo1sbq3VzuFMmYQpeaM
- /ivAjVYZYoh0x/hhN7wYQ66YIVY4GeDC7A/zHxw4=
-Date: Tue, 30 Apr 2019 16:25:36 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190430142536.GA22503@kroah.com>
-References: <20190411031701.5926-1-pierre-louis.bossart@linux.intel.com>
- <20190411031701.5926-3-pierre-louis.bossart@linux.intel.com>
- <20190414095839.GG28103@vkoul-mobl>
- <08ea1442-361a-ecfc-ca26-d3bd8a0ec37b@linux.intel.com>
- <20190430085153.GS3845@vkoul-mobl.Dlink>
- <9866ac8c-103d-22cd-a639-a71c39a685c2@linux.intel.com>
- <20190430140526.GB18986@kroah.com>
- <b036a602-704f-4286-001c-6d4b32e0391e@linux.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <b036a602-704f-4286-001c-6d4b32e0391e@linux.intel.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- liam.r.girdwood@linux.intel.com, Vinod Koul <vkoul@kernel.org>,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH v3 2/5] soundwire: fix style issues
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93C36F80759
+ for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 16:38:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93C36F80759
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 2BD4AADA3;
+ Tue, 30 Apr 2019 14:38:34 +0000 (UTC)
+Date: Tue, 30 Apr 2019 16:38:33 +0200
+Message-ID: <s5h8svrimmu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jonathan Liu <net147@gmail.com>
+In-Reply-To: <s5ho94vmrb2.wl-tiwai@suse.de>
+References: <5fb8650f-5a55-d895-f7b3-bc8a3b1af31b@linux.intel.com>
+ <Pine.LNX.4.44L0.1810221112460.1530-100000@iolanthe.rowland.org>
+ <CANwerB2wCHRz4E45uqWRVsynhzcFHNDwkHiAefoG0eJ=dCYTKQ@mail.gmail.com>
+ <928c8739-f0bc-339c-f951-6eb6bd001cf4@linux.intel.com>
+ <s5htvlbq0k6.wl-tiwai@suse.de>
+ <CANwerB1piY43GRZUP2DA9odEkjCXu=gFLZY5Ft1Y3U3tXLn+Mg@mail.gmail.com>
+ <s5ho94vmrb2.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Clemens Ladisch <clemens@ladisch.de>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Alan Stern <stern@rowland.harvard.edu>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] snd-usb-audio Buffer Sizes and Round Trip Latency
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,107 +78,261 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 30, 2019 at 09:13:55AM -0500, Pierre-Louis Bossart wrote:
+On Wed, 24 Apr 2019 16:05:53 +0200,
+Takashi Iwai wrote:
 > 
-> > My patch-bot would reject a patch that tried to do multiple types of
-> > different cleanups on the same file(s).  Has done so for _years_, this
-> > is not a new thing.
+> On Mon, 22 Apr 2019 12:50:15 +0200,
+> Jonathan Liu wrote:
+> > 
+> > On Wed, 24 Oct 2018 at 18:13, Takashi Iwai <tiwai@suse.de> wrote:
+> > >
+> > > On Tue, 23 Oct 2018 16:08:22 +0200,
+> > > Pierre-Louis Bossart wrote:
+> > > >
+> > > >
+> > > > >>>> Linux 4.17.14, Class Compliant Mode (snd-usb-audio, ALSA backend):
+> > > > >>>> 16/2 32 + 80 ~ 2.333 ms
+> > > > >> What are these numbers?  Are these lines supposed to in the format
+> > > > >> expressed by the first formula above?  If they are, how come
+> > > > >> "block_size/periods" shows up as a pair of numbers "16/2" but
+> > > > >> "block_size*periods" shows up as a single number "32"?
+> > > > >>
+> > > > > To interpret "16/2 32 + 80 ~ 2.333 ms"
+> > > > > Block size: 16 samples
+> > > > > Periods: 2 (one period for playback + one period for recording when
+> > > > > determining round trip latency)
+> > > > > The minimum round trip latency is: 16 * 2 = 32 samples
+> > > > > However, I measured 112 samples round trip latency which is an
+> > > > > additional delay of 80 samples (32 + 80 = 112).
+> > > > > 112 samples at 48000 Hz is 112 / 48000 * 1000 is approximately 2.333
+> > > > > ms measured round trip latency.
+> > > >
+> > > > ok, so what problem are you trying to fix?
+> > > >
+> > > > Are you concerned about the latency numbers (but then they seem lower
+> > > > on Linux and latency concerns with large buffers are a self-negating
+> > > > proposition)? are you concerned about the variable delay that doesn't
+> > > > seem to exist on MacOS or Windows? Are you trying to match the
+> > > > performance of the RME driver on MacOS?
+> > > >
+> > > > I am not sure how this comparison is done btw, the delay includes both
+> > > > buffering on the device side before reaching the analog parts as well
+> > > > as buffering on the OS side. While the former should be constant, the
+> > > > latter depends a great deal on implementation, not sure there are
+> > > > direct lessons to be applied to ALSA. I also see
+> > > > inconsistent/non-linear results where with a larger block size the
+> > > > delay is smaller, e.g.
+> > > >
+> > > > 256/2 512 + 650 ~ 24.208 ms
+> > > > 2048/3 6144 + 633 ~ 141.188 ms
+> > 
+> > >
+> > > Independently from the measurement done in this thread, actually,
+> > > there is a known latency source in the playback path in USB-audio
+> > > driver code -- which I mentioned in the audio mini conf in the last
+> > > year: namely, the USB-audio driver starts streaming at prepare time
+> > > for playback, not at the trigger-START time.  This is a sort of
+> > > workaround to make the device looking similar to the standard
+> > > ring-buffer behavior.
+> > >
+> > > Maybe moving the start at trigger (like the capture direction) would
+> > > reduce this artificial latency, but it makes the driver behaving in an
+> > > unexpected manner.  Then it may wake up for period_elapsed soon after
+> > > the stream start with a large runtime->delay value, as the data in
+> > > in-flight URBs are seen as already "processed".
+> > 
+> > I observed that snd_usb_pcm_prepare calls start_endpoints which ends
+> > up submitting silent urbs (prepared by prepare_silent_urb) until
+> > ep->prepare_data_urb is set by SNDRV_PCM_TRIGGER_START in
+> > snd_usb_substream_playback_trigger.
+> > 
+> > I tried to moving the start_endpoints call from snd_usb_pcm_prepare to
+> > snd_usb_substream_playback trigger's SNDRV_PCM_TRIGGER_START case (see
+> > https://github.com/net147/linux/commit/276eae5481653a2d4034fbae56f0d5bc579ecf67
+> > - it is enabled using start_playback_on_prepare=0 module option for
+> > snd-usb-audio) but I get a kernel stall in some cases with the
+> > following call trace:
+> > _raw_spin_lock+0x2c/0x30
+> > _snd_pcm_stream_lock_irqsave+0x31/0x60 [snd_pcm]
+> > snd_pcm_period_elapsed+0x26/0xb0 [snd_pcm]
+> > prepare_playback_urb+0x368/0x640 [snd_usb_audio]
+> > ? usb_submit_urb+0x3cb/0x590
+> > snd_usb_endpoint_start+0x148/0x300 [snd_usb_audio]
+> > start_endpoints+0x36/0x160 [snd_usb_audio]
+> > snd_usb_substream_playback_trigger+0x152/0x1a0 [snd_usb_audio]
+> > snd_pcm_action+0x117/0x150 [snd_pcm]
+> > snd_pcm_common_ioctl+0x588/0xdb0 [snd_pcm]
+> > ? mprotect_fixup+0x1ec/0x2f0
+> > snd_pcm_ioctl+0x23/0x30 [snd_pcm]
+> > do_vfs_ioctl+0xa6/0x760
+> > ? syscall_trace_enter+0x1be/0x2b0
+> > __x64_sys_ioctl+0x62/0x90
+> > do_syscall_64+0x5b/0x170
+> > entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> > 
+> > Any ideas?
 > 
-> If there are tools let's use them (all the fixes in this series were
-> reported by tools). Can you share pointers and location of this patch-bot?
+> This is because snd_pcm_period_elapsed() is called from
+> prepare_data_urb callback that is called also at start_endpoints().
+> 
+> I guess we'd need to move the hwptr accounting and
+> snd_pcm_period_elapsed() call into retire_data_urb callback in the
+> case of start-at-trigger for playback.
 
-I talked about my bot a long time ago in one of my presentations, the
-source isn't around anywhere public, sorry.
-
-But here's the template for what it can spit out, depending on the patch
-input, feel free to cut/paste from it for your use when reviewing
-patches.
-
-thanks,
-
-greg k-h
------------------
+I meant something like below.  Only lightly tested.
 
 
-Hi,
+Takashi
 
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- Your patch breaks the build.
-
-- Your patch contains warnings and/or errors noticed by the
-  scripts/checkpatch.pl tool.
-
-- Your patch is malformed (tabs converted to spaces, linewrapped, etc.)
-  and can not be applied.  Please read the file,
-  Documentation/email-clients.txt in order to fix this.
-
-- Your patch was attached, please place it inline so that it can be
-  applied directly from the email message itself.
-
-- Your patch does not have a Signed-off-by: line.  Please read the
-  kernel file, Documentation/SubmittingPatches and resend it after
-  adding that line.  Note, the line needs to be in the body of the
-  email, before the patch, not at the bottom of the patch or in the
-  email signature.
-
-- Your patch was sent privately to Greg.  Kernel development is done in
-  public, please always cc: a public mailing list with a patch
-  submission.  Using the tool, scripts/get_maintainer.pl on the patch
-  will tell you what mailing list to cc.
-
-- Your patch did many different things all at once, making it difficult
-  to review.  All Linux kernel patches need to only do one thing at a
-  time.  If you need to do multiple things (such as clean up all coding
-  style issues in a file/driver), do it in a sequence of patches, each
-  one doing only one thing.  This will make it easier to review the
-  patches to ensure that they are correct, and to help alleviate any
-  merge issues that larger patches can cause.
-
-- Your patch did not apply to any known trees that Greg is in control
-  of.  Possibly this is because you made it against Linus's tree, not
-  the linux-next tree, which is where all of the development for the
-  next version of the kernel is at.  Please refresh your patch against
-  the linux-next tree, or even better yet, the development tree
-  specified in the MAINTAINERS file for the subsystem you are submitting
-  a patch for, and resend it.
-
-- You sent multiple patches, yet no indication of which ones should be
-  applied in which order.  Greg could just guess, but if you are
-  receiving this email, he guessed wrong and the patches didn't apply.
-  Please read the section entitled "The canonical patch format" in the
-  kernel file, Documentation/SubmittingPatches for a description of how
-  to do this so that Greg has a chance to apply these correctly.
-
-- You did not specify a description of why the patch is needed, or
-  possibly, any description at all, in the email body.  Please read the
-  section entitled "The canonical patch format" in the kernel file,
-  Documentation/SubmittingPatches for what is needed in order to
-  properly describe the change.
-
-- You did not write a descriptive Subject: for the patch, allowing Greg,
-  and everyone else, to know what this patch is all about.  Please read
-  the section entitled "The canonical patch format" in the kernel file,
-  Documentation/SubmittingPatches for what a proper Subject: line should
-  look like.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -84,6 +84,7 @@ static int pid[SNDRV_CARDS] = { [0 ... (SNDRV_CARDS-1)] = -1 };
+ static int device_setup[SNDRV_CARDS]; /* device parameter for this card */
+ static bool ignore_ctl_error;
+ static bool autoclock = true;
++static bool lowlatency;
+ static char *quirk_alias[SNDRV_CARDS];
+ 
+ bool snd_usb_use_vmalloc = true;
+@@ -105,6 +106,8 @@ MODULE_PARM_DESC(ignore_ctl_error,
+ 		 "Ignore errors from USB controller for mixer interfaces.");
+ module_param(autoclock, bool, 0444);
+ MODULE_PARM_DESC(autoclock, "Enable auto-clock selection for UAC2 devices (default: yes).");
++module_param(lowlatency, bool, 0444);
++MODULE_PARM_DESC(lowlatency, "Low latency playback");
+ module_param_array(quirk_alias, charp, NULL, 0444);
+ MODULE_PARM_DESC(quirk_alias, "Quirk aliases, e.g. 0123abcd:5678beef.");
+ module_param_named(use_vmalloc, snd_usb_use_vmalloc, bool, 0444);
+@@ -487,6 +490,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+ 	chip->card = card;
+ 	chip->setup = device_setup[idx];
+ 	chip->autoclock = autoclock;
++	chip->lowlatency = lowlatency;
+ 	atomic_set(&chip->active, 1); /* avoid autopm during probing */
+ 	atomic_set(&chip->usage_count, 0);
+ 	atomic_set(&chip->shutdown, 0);
+diff --git a/sound/usb/card.h b/sound/usb/card.h
+index 79fa2a19fb7b..244c80ff8e33 100644
+--- a/sound/usb/card.h
++++ b/sound/usb/card.h
+@@ -48,6 +48,7 @@ struct snd_urb_ctx {
+ 	int index;	/* index for urb array */
+ 	int packets;	/* number of packets per urb */
+ 	int packet_size[MAX_PACKS_HS]; /* size of packets for next submission */
++	bool period_elapsed;
+ 	struct list_head ready_list;
+ };
+ 
+diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+index 056af0a57b22..165bf2de6a37 100644
+--- a/sound/usb/pcm.c
++++ b/sound/usb/pcm.c
+@@ -927,7 +927,8 @@ static int snd_usb_pcm_prepare(struct snd_pcm_substream *substream)
+ 
+ 	/* for playback, submit the URBs now; otherwise, the first hwptr_done
+ 	 * updates for all URBs would happen at the same time when starting */
+-	if (subs->direction == SNDRV_PCM_STREAM_PLAYBACK)
++	if (subs->direction == SNDRV_PCM_STREAM_PLAYBACK &&
++	    !subs->stream->chip->lowlatency)
+ 		ret = start_endpoints(subs);
+ 
+  unlock:
+@@ -1542,7 +1543,7 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 	struct snd_usb_endpoint *ep = subs->data_endpoint;
+ 	struct snd_urb_ctx *ctx = urb->context;
+ 	unsigned int counts, frames, bytes;
+-	int i, stride, period_elapsed = 0;
++	int i, stride;
+ 	unsigned long flags;
+ 
+ 	stride = runtime->frame_bits >> 3;
+@@ -1551,6 +1552,7 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 	urb->number_of_packets = 0;
+ 	spin_lock_irqsave(&subs->lock, flags);
+ 	subs->frame_limit += ep->max_urb_frames;
++	ctx->period_elapsed = 0;
+ 	for (i = 0; i < ctx->packets; i++) {
+ 		if (ctx->packet_size[i])
+ 			counts = ctx->packet_size[i];
+@@ -1566,7 +1568,7 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 		if (subs->transfer_done >= runtime->period_size) {
+ 			subs->transfer_done -= runtime->period_size;
+ 			subs->frame_limit = 0;
+-			period_elapsed = 1;
++			ctx->period_elapsed = 1;
+ 			if (subs->fmt_type == UAC_FORMAT_TYPE_II) {
+ 				if (subs->transfer_done > 0) {
+ 					/* FIXME: fill-max mode is not
+@@ -1589,7 +1591,7 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 			}
+ 		}
+ 		/* finish at the period boundary or after enough frames */
+-		if ((period_elapsed ||
++		if ((ctx->period_elapsed ||
+ 				subs->transfer_done >= subs->frame_limit) &&
+ 		    !snd_usb_endpoint_implicit_feedback_sink(ep))
+ 			break;
+@@ -1640,7 +1642,7 @@ static void prepare_playback_urb(struct snd_usb_substream *subs,
+ 
+ 	spin_unlock_irqrestore(&subs->lock, flags);
+ 	urb->transfer_buffer_length = bytes;
+-	if (period_elapsed)
++	if (!subs->stream->chip->lowlatency && ctx->period_elapsed)
+ 		snd_pcm_period_elapsed(subs->pcm_substream);
+ }
+ 
+@@ -1654,6 +1656,7 @@ static void retire_playback_urb(struct snd_usb_substream *subs,
+ 	unsigned long flags;
+ 	struct snd_pcm_runtime *runtime = subs->pcm_substream->runtime;
+ 	struct snd_usb_endpoint *ep = subs->data_endpoint;
++	struct snd_urb_ctx *ctx = urb->context;
+ 	int processed = urb->transfer_buffer_length / ep->stride;
+ 	int est_delay;
+ 
+@@ -1695,12 +1698,16 @@ static void retire_playback_urb(struct snd_usb_substream *subs,
+ 
+  out:
+ 	spin_unlock_irqrestore(&subs->lock, flags);
++
++	if (subs->stream->chip->lowlatency && ctx->period_elapsed)
++		snd_pcm_period_elapsed(subs->pcm_substream);
+ }
+ 
+ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substream,
+ 					      int cmd)
+ {
+ 	struct snd_usb_substream *subs = substream->runtime->private_data;
++	int err;
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+@@ -1709,6 +1716,14 @@ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substrea
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 		subs->data_endpoint->prepare_data_urb = prepare_playback_urb;
+ 		subs->data_endpoint->retire_data_urb = retire_playback_urb;
++		if (subs->stream->chip->lowlatency) {
++			err = start_endpoints(subs);
++			if (err < 0) {
++				subs->data_endpoint->prepare_data_urb = NULL;
++				subs->data_endpoint->retire_data_urb = NULL;
++				return err;
++			}
++		}
+ 		subs->running = 1;
+ 		return 0;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
+index b9faeca645fd..71bc58b11ca0 100644
+--- a/sound/usb/usbaudio.h
++++ b/sound/usb/usbaudio.h
+@@ -64,6 +64,7 @@ struct snd_usb_audio {
+ 	bool keep_iface;		/* keep interface/altset after closing
+ 					 * or parameter change
+ 					 */
++	bool lowlatency;
+ 
+ 	struct usb_host_interface *ctrl_intf;	/* the audio control interface */
+ };
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

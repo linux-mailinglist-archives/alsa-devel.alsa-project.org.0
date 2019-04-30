@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E955EBA9
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Apr 2019 22:31:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D1EEEE6
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Apr 2019 04:57:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 855021669;
-	Mon, 29 Apr 2019 22:30:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 855021669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A8291668;
+	Tue, 30 Apr 2019 04:56:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A8291668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556569877;
-	bh=u1qDTc9skoUXUEHaAghQIRbKHQw8/cx/n+MOrrpzrFQ=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=QdxvZElw3XSlQ5ysTU5eQ0VnGl0BmILf6m3HEBhdQhfZWxMXb0zn3lc3K9CTvmOq1
-	 hX32HD7JaqFg9+/zNBdXwvrB0yYLoJPuQusRTYNkIiaXmrLwaJg+GeyL7cfG+8tUy5
-	 UbV50Jn4CJ6nPzMvvdV1ptSxNjIDJrYksaUBvzhw=
+	s=default; t=1556593019;
+	bh=AfUoZN5RAiC1drB/NxdqAXt33oYLAPX+TIL4WuYr3Vk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rghmv2W4vSU3Xd2Ue1kG1CVXIWBbou4uMG45D92xY8tg38O/4q978SdjILjtfOAhU
+	 rFC64E3RFtnTdkM1HvAdaA1JWffj7Ald8/NPDMjTPo9ZHYaLc90u/lSmCEtrGxjBgn
+	 NVYUSNaCPJ3uT/fE7iG7bha/sw2zYpxPkylKFoWM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50FE8F80CAB;
-	Mon, 29 Apr 2019 22:29:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9128F80C0D;
+	Tue, 30 Apr 2019 04:55:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEE88F80CAB; Mon, 29 Apr 2019 22:29:27 +0200 (CEST)
+ id DD69FF896AA; Tue, 30 Apr 2019 04:55:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.2 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF9D1F80641
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 22:29:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF9D1F80641
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E537F80C0D
+ for <alsa-devel@alsa-project.org>; Tue, 30 Apr 2019 04:55:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E537F80C0D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Zeho+7d9"
-Received: by mail-it1-x142.google.com with SMTP id z4so1158474itc.3
- for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 13:29:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:subject:message-id:mime-version:content-disposition
- :user-agent; bh=gjJLmWfpxows7aW1jhatibycH4OFy3vLBDbKlm8gSAA=;
- b=Zeho+7d9i7VcjwlxdD8Deh5bImiRNmsyTYbk3bCYu4iGzUhUOA5AwLKaEt9stl6zpi
- KsAFbi+5yKwlA5Z0qVUj8GXxxjoJyIQp2h/QJX7c3UFS2pxgiChTOKT3t73fG6oHHxwM
- eAThpBK3nHylMQeUY30wYGPNLxS8QJf6TtTTkFVz950nIDAaLH6b3mfg2xYkZjshnRO4
- to2B5n8XKMvLo/lYeu8Wr+ehmR0WE98j8N3YTD+PSitw5STOLaVFimeoHwTlHsA+3dtg
- pwSWRs2RiKNf5azkDBxtD6xxxxovdfgGDcljpekKuyP4jyKEc3ml5RsU9suJ7IignqKr
- tddw==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="jsqMSj9X"
+Received: by mail-ot1-x343.google.com with SMTP id 77so4436604otu.13
+ for <alsa-devel@alsa-project.org>; Mon, 29 Apr 2019 19:55:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Bt+90qKJU51hc2zj+wyErRDhxM+YorzWX9KYuojMxOI=;
+ b=jsqMSj9X3fRj0YFL5jSMd0EkQP21EHUJHAXMgNHmoL+P90pUJ5Sx5iIkYBdG9IbkdK
+ N/lC8T5N51Scf9+lteOZqHg11GKw1Zw1YYZkwUh0XE6gQntOv49m/ZOnjnkjEK+RW4Qp
+ tnmIetz6h7k7KLL9Wdf5/HtGtxljTzrhtdbO7E2Qr9Mg1BxBU+jVuNPahRgP/m8xLeCc
+ 2KlGk+efpxRx1HbWHj89P8m4xoTFNguyNsVSdGBmDnwIYot26G9zwYgYD2XnarsXbOib
+ CPSFjAi1ahzmuZ8yTK+aPPgJIA5DsJa5OdrdOO+TDiwjuJ/0C8poIZNt+ZFf1l7Jiszz
+ rgag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=gjJLmWfpxows7aW1jhatibycH4OFy3vLBDbKlm8gSAA=;
- b=P9S04uCNKiCEV/eRE4HJtGv0FLyTNWlt0m5XYNwNnU2AKQ459dDVJAd6RQX6ipF7ah
- rdK7xPWRs7gH3hk6Nx0TQDaLWEVXvU+QVUdj6dsT/dQs7hg7gSHo6eE2YkGkIyJJC96M
- DhGHi8/eBFQZb1k7rX/JpeGkJcL67EfRAMhrnQOZs/dufLbLgCHr8afFeDiIWJ+zY/+y
- CM324uSmjE4TMJZ0LSZkC7MVL6cwabSWhO52Gm62ayIy3ozeI2QS3mFnQ0GTupmKdJbN
- W4NpYCYgFkRsSgHB193d0kp8Fr/322e9Rzmig608hPl3rgA9Q5tz+eNl1T69OAbkXOpC
- 51Sg==
-X-Gm-Message-State: APjAAAVwPlqgBa74R9vkgLikNIFiWLHH9bfqExrauoMikZh5wY/OZTQq
- 2NjjTNNqpGWy4IfZZRQG9DeAj7kM3fI=
-X-Google-Smtp-Source: APXvYqwlElYNVvw2estkV95iygTziVEjExHbaT0HL/tDZLWRmHHNJIzRt3OODZek0hqJPIug8kSvQA==
-X-Received: by 2002:a02:760b:: with SMTP id z11mr37812522jab.139.1556569761891; 
- Mon, 29 Apr 2019 13:29:21 -0700 (PDT)
-Received: from google.com ([2620:15c:183:200:855f:8919:84a7:4794])
- by smtp.gmail.com with ESMTPSA id x5sm790520iop.81.2019.04.29.13.29.20
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 29 Apr 2019 13:29:20 -0700 (PDT)
-Date: Mon, 29 Apr 2019 14:29:18 -0600
-From: Ross Zwisler <zwisler@google.com>
-To: alsa-devel@alsa-project.org,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Message-ID: <20190429202918.GA35915@google.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Bt+90qKJU51hc2zj+wyErRDhxM+YorzWX9KYuojMxOI=;
+ b=kqhLj654SVFgqwvxuweI5nxBzL4P//QOQHo4br91czXL0+MJEtMa5pjUOrX5IUE5Cf
+ mZm+56o0jtEu18lsSstw3CIyz403LSx1M0f9Zv1x5MDMwdj1RaiAYlczrxWRh5YcRCLB
+ 6KswKTzyU9l5KiWOyh2DZUTI7cMgD5BxvBIFlQqfg2s9Q7pWQS5LSuMy5wnulTGtvuEV
+ OGsXz9l9wQ8FfkqWmsNxJ9/QFfFLLue8tpKKDQj/d1dwcbq+gqNTdxy6oDdxAfPLFaK4
+ GMzDVkXyrsN8QdeBoYN0snZM5UzuDr6NiPUTkRGdjB3HjutW28FPlCAEbPZyCwNhkVHY
+ VSog==
+X-Gm-Message-State: APjAAAVDVejlmKiZ0VWQ51YyrXE/xWNFCfBw3wuXnLB01p+p/w5r7L9L
+ kX1BQ0zZJJ1pwYswkDfEN8bayYZ4bZ7b8x/0BsBYpw==
+X-Google-Smtp-Source: APXvYqza1fSMSoBvnt0Jo4oJAm75w947jdC8tfEOFgO4J39P16MQxMTnMDONNOU7uqQ8ZQ2JCrF+Y/d3FabU0N0gWDE=
+X-Received: by 2002:a05:6830:b:: with SMTP id
+ c11mr10056069otp.281.1556592903791; 
+ Mon, 29 Apr 2019 19:55:03 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: [alsa-devel] Correct git tree for ALSA development
+References: <20190429122512.59242-1-weiyongjun1@huawei.com>
+In-Reply-To: <20190429122512.59242-1-weiyongjun1@huawei.com>
+From: Baolin Wang <baolin.wang@linaro.org>
+Date: Tue, 30 Apr 2019 10:54:51 +0800
+Message-ID: <CAMz4kuJtMAyjbPR0Yf_FN1fhDwSi5=0WAgD_BNEuTB5GhcTYxQ@mail.gmail.com>
+To: Wei Yongjun <weiyongjun1@huawei.com>
+Cc: alsa-devel@alsa-project.org, Chunyan Zhang <zhang.lyra@gmail.com>,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Orson Zhai <orsonzhai@gmail.com>, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH -next] ASoC: sprd: Fix return value check
+	in sprd_mcdt_probe()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,34 +98,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Mon, 29 Apr 2019 at 20:15, Wei Yongjun <weiyongjun1@huawei.com> wrote:
+>
+> In case of error, the function devm_ioremap_resource() returns ERR_PTR()
+> and never returns NULL. The NULL test in the return value check should
+> be replaced with IS_ERR().
+>
+> Fixes: d7bff893e04f ("ASoC: sprd: Add Spreadtrum multi-channel data transfer support")
+> Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
 
-I'm trying to ramp up a bit on ALSA development, and I noticed that many
-sound-related entries in MAINTAINERS still refer to alsa-kernel.git hosted on
-alsa-project.org, i.e.:
+Thanks for fixing my mistake.
+Reviewed-by: Baolin Wang <baolin.wang@linaro.org>
 
-BT87X AUDIO DRIVER
-M:      Clemens Ladisch <clemens@ladisch.de>
-L:      alsa-devel@alsa-project.org (moderated for non-subscribers)
-T:      git git://git.alsa-project.org/alsa-kernel.git
-S:      Maintained
-F:      Documentation/sound/cards/bt87x.rst
-F:      sound/pci/bt87x.c
+> ---
+>  sound/soc/sprd/sprd-mcdt.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/sound/soc/sprd/sprd-mcdt.c b/sound/soc/sprd/sprd-mcdt.c
+> index 28f5e649733d..e9318d7a4810 100644
+> --- a/sound/soc/sprd/sprd-mcdt.c
+> +++ b/sound/soc/sprd/sprd-mcdt.c
+> @@ -951,8 +951,8 @@ static int sprd_mcdt_probe(struct platform_device *pdev)
+>
+>         res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>         mcdt->base = devm_ioremap_resource(&pdev->dev, res);
+> -       if (!mcdt->base)
+> -               return -ENOMEM;
+> +       if (IS_ERR(mcdt->base))
+> +               return PTR_ERR(mcdt->base);
+>
+>         mcdt->dev = &pdev->dev;
+>         spin_lock_init(&mcdt->lock);
+>
+>
+>
 
-From the alsa-project.org pages:
 
-https://alsa-project.org/wiki/Download#Developers:_GIT_access
-https://alsa-project.org/wiki/GIT_Server#For_developers_-_kernel_drivers
-
-it seems like current development/maintenance actually happens somewhere else,
-possibly on Mark Brown's kernel.org tree?
-
-https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/
-
-If so, should we update those stale MAINTAINERS entries?
-
-Thanks,
-- Ross
+-- 
+Baolin Wang
+Best Regards
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

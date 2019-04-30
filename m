@@ -2,58 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB0C010327
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:11:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69AE21032C
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:12:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5518116B6;
-	Wed,  1 May 2019 01:10:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5518116B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1B6A16A9;
+	Wed,  1 May 2019 01:11:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1B6A16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556665906;
-	bh=BuJjG/PfpjEyvNgIAkIULHP51OBZCb+P8nc0hjcTeG0=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BY4sqVRwcBOj9VQloh8xieCCATZoOnhhmYrrHNEhnvVQalHppLpZ0CaIoE1vxc6eB
-	 zU9gdSKl3aBy98GRj/6hTOcMohw2X+O0OlSnIY6egbeXk/JtdRrlH9F2UAVFN6oz+g
-	 qWX8Fq2lcYIFt12XwWS01tuwEFmalAu6km3i+hwo=
+	s=default; t=1556665944;
+	bh=+yuvEuYSZZHmI9JeuvbJBRjc8l5gTr4jT+BE5ImGz3I=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BDFsU3po9pTy1Cri/MrwJJ/m4Jz/kAhjDlxw2tvlXrmwItUoz96Ug2aVwIwjNyUhQ
+	 Q+Wu9ilwY2S/30gp/5i7PMA+HAHmvgfGQ3rKWnGJ72BeOjeAafLBeXnhgSQTRBdql0
+	 zXC5ofcC8QAwTotEVh6bx7vZpI2AvR6x0qRCp/T8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA5C0F89722;
-	Wed,  1 May 2019 01:10:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E710CF8972B;
+	Wed,  1 May 2019 01:10:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF867F80C0D; Wed,  1 May 2019 01:09:58 +0200 (CEST)
+ id 0F1E9F89720; Wed,  1 May 2019 01:10:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57FEBF80C0D
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 01:09:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57FEBF80C0D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AA30F8065C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 01:09:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AA30F8065C
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2019 16:09:52 -0700
+ 30 Apr 2019 16:09:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166540860"
+X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166540876"
 Received: from slawsonx-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.133.128])
  by fmsmga004.fm.intel.com with ESMTP; 30 Apr 2019 16:09:52 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 30 Apr 2019 18:09:15 -0500
-Message-Id: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 30 Apr 2019 18:09:16 -0500
+Message-Id: <20190430230934.4321-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
+References: <20190430230934.4321-1-pierre-louis.bossart@linux.intel.com>
 Cc: tiwai@suse.de, broonie@kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 00/19] ASoC: SOF: improvements for ABI checks
-	and Intel code
+Subject: [alsa-devel] [PATCH 01/19] ASoC: SOF: add Kconfig option for strict
+	ABI checks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,84 +75,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series is a set of relatively small SOF changes after the big
-batch merged last week (Thanks!). Since we are very close to the merge
-window and in May where most of the world takes time off, it'd be
-perfectly understandable if those patches were queued for 5.3, after
-feedback and corrections as needed.
+When the kernel is more recent than firmware files, it will always
+behave in backwards-compatible ways.
 
-First we added optional stricter ABI checks when the firmware,
-topology and kernel ABI levels differ, which can happen when patches
-are merged at different times on Github. This is mainly for developers
-and the Github CI to track disconnects, should they happen despite our
-new process to keep evolutions under control. This option has no
-impact on the usual problem of updating the kernel without updating
-the firmware files.
+Add optional behavior to check if the kernel is older than the
+firmware files, so that the kernel fails early instead of attempting
+to use new functionality it does not support.
 
-The Intel changes are mainly
-a) fixes for the slave mode suppport
-b) clean-ups such as removal of a static index for HDAudio support or
-removal of unneeded include file
-c) use of a workqueue to defer period elapsed events after the
-IPC completion.
-d) simplification of the IRQ code
-e) fixes to deal with resume on HDaudio links. In the previous
-patchset we removed the RESUME_INFO flag but missed the need to
-explicitly set the hw_params on resume.
-f) a set of routines to dump the Intel IPC registers, mainly for early
-platform enablement.
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/Kconfig | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Keyon Jie (7):
-  ASoC: SOF: Intel: cnl: add pointer ops to use DPIB position
-  ASoC: SOF: PCM: add period_elapsed work to fix race condition in
-    interrupt context
-  ASoC: SOF: Intel: use snd_sof_pcm_period_elapsed
-  ASoC: SOF: ipc: use snd_sof_pcm_period_elapsed
-  ASoC: SOF: Intel: hda-ipc: simplify handling of IPC IRQ
-  ASoC: SOF: Intel: hda-stream: store stream capabilities
-  ASoC: SOF: Intel: hda-stream: handle real stream interrupts only
-
-Pan Xiuli (3):
-  ASoC: SOF: IPC: add ipc dump function
-  ASoC: SOF: Intel: APL: add ipc dump function
-  ASoC: SOF: Intel: CNL: add ipc dump function
-
-Pierre-Louis Bossart (4):
-  ASoC: SOF: add Kconfig option for strict ABI checks
-  ASOC: SOF: ipc: add support for stricter ABI checks
-  ASoC: SOF: topology: add support for stricter ABI checks
-  ASoC: SOF: Intel: hda-pcm: remove useless dependency on hdac_ext
-
-Ranjani Sridharan (1):
-  ASoC: SOF: intel: hda: add hw_params_upon_resume flag for hda stream
-
-Zhu Yingjiang (4):
-  ASoC: SOF: Intel: hda: add the SSP Host Device memory space
-  ASoC: SOF: Intel: hda: add SSP info to the chip info struct
-  ASoC: SOF: Intel: hda: set I2S slave before enabling DSP
-  ASoC: SOF: Intel: hda: set bus->idx as 0
-
- sound/soc/sof/Kconfig            | 15 ++++++++++
- sound/soc/sof/intel/apl.c        |  4 +++
- sound/soc/sof/intel/cnl.c        | 27 +++++++++++++++---
- sound/soc/sof/intel/hda-bus.c    |  9 ++++--
- sound/soc/sof/intel/hda-dai.c    | 23 +++++++++------
- sound/soc/sof/intel/hda-dsp.c    | 16 +++++++++++
- sound/soc/sof/intel/hda-ipc.c    | 13 ++++-----
- sound/soc/sof/intel/hda-loader.c | 11 ++++++++
- sound/soc/sof/intel/hda-pcm.c    |  1 -
- sound/soc/sof/intel/hda-stream.c | 15 ++++++++--
- sound/soc/sof/intel/hda.c        | 18 ++++++++++++
- sound/soc/sof/intel/hda.h        | 23 +++++++++++++++
- sound/soc/sof/intel/shim.h       |  2 ++
- sound/soc/sof/ipc.c              | 12 +++++++-
- sound/soc/sof/ops.h              | 12 ++++++++
- sound/soc/sof/pcm.c              | 48 ++++++++++++++++++++++++++++++++
- sound/soc/sof/pm.c               |  3 ++
- sound/soc/sof/sof-priv.h         |  5 +++-
- sound/soc/sof/topology.c         | 43 +++++++++++++++++++---------
- 19 files changed, 257 insertions(+), 43 deletions(-)
-
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index eaa380092c3b..a1a9ffe605dc 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -53,6 +53,21 @@ config SND_SOC_SOF_NOCODEC
+ 	  Say Y if you need this nocodec fallback option
+ 	  If unsure select "N".
+ 
++config SND_SOC_SOF_STRICT_ABI_CHECKS
++	bool "SOF strict ABI checks"
++	help
++	  This option enables strict ABI checks for firmware and topology
++	  files.
++	  When these files are more recent than the kernel, the kernel
++	  will handle the functionality it supports and may report errors
++	  during topology creation or run-time usage if new functionality
++	  is invoked.
++	  This option will stop topology creation and firmware load upfront.
++	  It is intended for SOF CI/releases and not for users or distros.
++	  Say Y if you want strict ABI checks for an SOF release
++	  If you are not involved in SOF releases and CI development
++	  select "N".
++
+ config SND_SOC_SOF_DEBUG
+ 	bool "SOF debugging features"
+ 	help
 -- 
 2.17.1
 

@@ -2,82 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C30107AB
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 13:58:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12197107D9
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 14:18:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC02F16D5;
-	Wed,  1 May 2019 13:57:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC02F16D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 931B216E6;
+	Wed,  1 May 2019 14:17:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 931B216E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556711895;
-	bh=P8/RTMTvKYnjRWsV2XNRdJF/272h8dTkcdFYY1sEyIc=;
+	s=default; t=1556713092;
+	bh=d0LyhLSFuKHlTO8n9VedDsWIfuVJBdUu5eS52bAWfi0=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c9uhMlsEkqMet6Ie34s4TV1cAcJvu8liGKgL4p+xH9yczhMO4MVt/Dw3nFctyuwxn
-	 WZVQvZU61/qKIrfNLXMf6N80GP3erf+HMMc9I7HUzq6zdDmBH9Ja6p4efZ5+8hRkd0
-	 IdGamQte2wAiu0apeosnPkaltPuDCTZa4qv6tyII=
+	b=eNsqvxaQHZLNgNRbG43EYeqJqL5B/QVxE8Ykeq+3HUpP8WNgwW/RzMB48PAzz+kAD
+	 /BbnHuylC38eZkQ1Qnm9drNhYtyOYUxoJQFaIT+i8Rp1OrYfbm1Sn2RcsXX5ABnVqE
+	 Bzx5YWS9Gf5MGwuvdDfkvajgK5c0WMDvJMbWLvfE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DF8EF89693;
-	Wed,  1 May 2019 13:56:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2D22F896CB;
+	Wed,  1 May 2019 14:16:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BEDBF896B7; Wed,  1 May 2019 13:56:28 +0200 (CEST)
+ id B59ACF896B7; Wed,  1 May 2019 14:16:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A6041F89693
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 13:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6041F89693
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="A0TexfoK"; 
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="A0TexfoK"
-Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id E1C346086B; Wed,  1 May 2019 11:56:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1556711782;
- bh=SH+iBymOwJgn65YiYpdig2ngBAsVv4AI1dnrt+DJDCo=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=A0TexfoKmLho9EFuES3KMEY8MDxzVJRSDdZQcVQVKhJRicy9sWWCUOpwLT1NeVEEH
- 6oHIqRAQjRGfHNBHNnGTcb/TFietcMafa3egAMSoeuQUezMRhTe5l75uX7YrmWZm/r
- 4AIMWtQxQnfY3z/4JEa5fRYZqFlMGbA/qUM3fKcg=
-Received: from [10.204.79.15]
- (blr-c-bdr-fw-01_globalnat_allzones-outside.qualcomm.com [103.229.19.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: mojha@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 621FE60240;
- Wed,  1 May 2019 11:56:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1556711782;
- bh=SH+iBymOwJgn65YiYpdig2ngBAsVv4AI1dnrt+DJDCo=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=A0TexfoKmLho9EFuES3KMEY8MDxzVJRSDdZQcVQVKhJRicy9sWWCUOpwLT1NeVEEH
- 6oHIqRAQjRGfHNBHNnGTcb/TFietcMafa3egAMSoeuQUezMRhTe5l75uX7YrmWZm/r
- 4AIMWtQxQnfY3z/4JEa5fRYZqFlMGbA/qUM3fKcg=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 621FE60240
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- spf=none smtp.mailfrom=mojha@codeaurora.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA1AAF8065C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 14:16:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA1AAF8065C
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 May 2019 05:16:19 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,417,1549958400"; d="scan'208";a="169578990"
+Received: from sbahirat-mobl1.amr.corp.intel.com (HELO [10.255.231.197])
+ ([10.255.231.197])
+ by fmsmga001.fm.intel.com with ESMTP; 01 May 2019 05:16:18 -0700
 To: Colin King <colin.king@canonical.com>, Liam Girdwood
  <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Keyon Jie <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org
 References: <20190501102308.30390-1-colin.king@canonical.com>
-From: Mukesh Ojha <mojha@codeaurora.org>
-Message-ID: <21cd03b5-c5be-dc93-cabb-980def737f87@codeaurora.org>
-Date: Wed, 1 May 2019 17:26:14 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <7aff79bd-e0d5-a10b-7443-6f27ea1f47c7@linux.intel.com>
+Date: Wed, 1 May 2019 07:16:17 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
 In-Reply-To: <20190501102308.30390-1-colin.king@canonical.com>
@@ -103,20 +80,22 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On 5/1/2019 3:53 PM, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
->
-> There is a spelling mistake in a hda_dsp_rom_msg message, fix it.
->
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Reviewed-by: Mukesh Ojha <mojha@codeaurora.org>
 
-Cheers,
--Mukesh
+On 5/1/19 5:23 AM, Colin King wrote:
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> There is a spelling mistake in a hda_dsp_rom_msg message, fix it.
+> 
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+Thanks for the fix!
+
 > ---
 >   sound/soc/sof/intel/hda.c | 2 +-
 >   1 file changed, 1 insertion(+), 1 deletion(-)
->
+> 
 > diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
 > index b8fc19790f3b..84baf275b467 100644
 > --- a/sound/soc/sof/intel/hda.c
@@ -130,6 +109,7 @@ Cheers,
 >   	{HDA_DSP_ROM_UNHANDLED_INTERRUPT, "error: unhandled interrupt"},
 >   	{HDA_DSP_ROM_MEMORY_HOLE_ECC, "error: ECC memory hole"},
 >   	{HDA_DSP_ROM_KERNEL_EXCEPTION, "error: kernel exception"},
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

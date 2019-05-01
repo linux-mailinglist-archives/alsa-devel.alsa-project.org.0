@@ -2,87 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94EE41063F
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 11:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1B9F106DF
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 12:16:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA14F16CD;
-	Wed,  1 May 2019 11:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA14F16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 416BB16EF;
+	Wed,  1 May 2019 12:15:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 416BB16EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556701590;
-	bh=J7Iyd3jYJ7ndrr/EilZ8S814REgzf60apAXWA0XLNtE=;
+	s=default; t=1556705763;
+	bh=puZ4VihplBz627UG2b1HMu93pOIsaUfiNNsM8TRzzuQ=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=AY7tF21UxGnGiZA77rSrGeCdqnfkn0NRNGEJa+PCJirY8icDyHYeAkmaZezjVF8+0
-	 o8osAWIrV3uEc3Hu6ie60of8FG4LRceMM9i4EmNEn8W5+CHgzwJAMtmpmuXRJSsgrP
-	 PdQOEDINE8H9/5IpSjOGKMuuATpLQ7Qx70H6Th6U=
+	b=PUhekEhAfsN1oH8MAZ0n9Hw4yx1p05kQSlPCpHMl7pWttqWbR8Mqn/SCZ+l5HS1X9
+	 C4Nk2fBEIPxtdZS9eMyGPWv51zSHjQ1ffrnwlx9rwVwqO5BxJ/H/RXw40TwfFTqDki
+	 MJNsst3jjgqvt2GnGaDyTUvNkTNe0Kh6vCH2tx50=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10DC7F896B6;
-	Wed,  1 May 2019 11:04:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 342F5F89722;
+	Wed,  1 May 2019 12:13:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 956B3F896B7; Wed,  1 May 2019 11:04:40 +0200 (CEST)
+ id A6B91F896B7; Wed,  1 May 2019 12:13:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=KHOP_DYNAMIC,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2575DF8065C
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 11:04:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2575DF8065C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=timesys-com.20150623.gappssmtp.com
- header.i=@timesys-com.20150623.gappssmtp.com header.b="JDPD1J3+"
-Received: by mail-qk1-x741.google.com with SMTP id m137so9861962qke.3
- for <alsa-devel@alsa-project.org>; Wed, 01 May 2019 02:04:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=timesys-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7qoj+Gg0Ie+V2P3vdKcUMBKk9Ht4HM0XQ72NvNmgC6k=;
- b=JDPD1J3+a4YeIuGvGMAoqmYEA5npUqAW61TV1IUuFuKdv8/Kfvk1fUxt3vUDSnR2AQ
- lCPhm0cdA04neXkMxUyLtixjjaqWLS4+xdvOG5cUx2dxILtHVmewYzAx9am6ZjivhAsS
- kmBVsuSjuHiSNeO12VGK3Y+Ce09Amgc9B1TvUh5Cze6+MsEso/x+PwclTAld53iPDcYa
- 31TGfRdmMhBSURYdYPQL0sMzyXYFLkj64ldCMMuYRHcd6qd9KnRLN0ZmmvrvOaeqD1zi
- AVJPZ+b79EWruZo8sXiCDE4D8kkMhmdPA093YN8vjTKiMyQWPxoyBAjNiPjjWBkdltqw
- vv3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7qoj+Gg0Ie+V2P3vdKcUMBKk9Ht4HM0XQ72NvNmgC6k=;
- b=Jb+tptRt5EtBrjL+AQv6c6qbAqmvvPmiF7rjd0RMWJmfxM5oxb7RYTfNF4Uorg7Yl7
- O8n6DPMQzpXOqMX1SULs9qIfc8RGU28Qgq+pfdZLvh1qAz3bJsR4fbwu/ZWuyuNq8jDS
- 4qsJMuqSD8DLFaYD6hgDeOtw48bie1CQ/9Q2wWHNhnVRhFejJoBd0l5Psm4NdZwIoOp4
- saMeapp+e7otOveIkpPGjYO01ecVCs8gh4SjY29ELZlYlmlgmelxvhTjheZYDMc6csZE
- nRYmTDcxiJYRcIpkycERb27jKFT6pHrJ6v+3nyW40fgIugzmbMTyMr3Q5JnNPC8/Am2P
- wwYQ==
-X-Gm-Message-State: APjAAAXzJ2/nraNzplE82LVGPLfpbwjCrEfIs3XqYvHamKXYvA2kyEbh
- lJn+6I5xm1SDWlpYg3+9Wj7+Tg==
-X-Google-Smtp-Source: APXvYqwWtu0OPXTZRNoHqHJOZ0MQiw4981/F7mq00OKu19obOvhOzJapf2aq4cJqA7r6h4cQuXnLrQ==
-X-Received: by 2002:a37:5a46:: with SMTP id o67mr53956614qkb.31.1556701474032; 
- Wed, 01 May 2019 02:04:34 -0700 (PDT)
-Received: from ts-system.timesys.com ([49.204.220.208])
- by smtp.gmail.com with ESMTPSA id l15sm11000984qti.12.2019.05.01.02.04.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 01 May 2019 02:04:33 -0700 (PDT)
-From: Logesh Kolandavel <logesh.kolandavel@timesys.com>
-To: support.opensource@diasemi.com
-Date: Wed,  1 May 2019 14:34:24 +0530
-Message-Id: <20190501090424.28861-1-logesh.kolandavel@timesys.com>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABF0AF896B6
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 12:13:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABF0AF896B6
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x41A9aAF026606; Wed, 1 May 2019 05:13:34 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2s6xhv0wcs-1;
+ Wed, 01 May 2019 05:13:33 -0500
+Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
+ by mail1.cirrus.com (Postfix) with ESMTP id 52880611E124;
+ Wed,  1 May 2019 05:13:33 -0500 (CDT)
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 1 May
+ 2019 11:13:32 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Wed, 1 May 2019 11:13:32 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5067044;
+ Wed,  1 May 2019 11:13:32 +0100 (BST)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Date: Wed, 1 May 2019 11:13:31 +0100
+Message-ID: <20190501101332.31190-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, logesh.kolandavel@timesys.com,
- Adam.Thomson.Opensource@diasemi.com
-Subject: [alsa-devel] [PATCH v2] ASoC: da7213: fix DAI_CLK_EN register bit
-	overwrite
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=899 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905010068
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com
+Subject: [alsa-devel] [PATCH 1/2] ASoC: wm_adsp: Correct region base typo in
+	wm_halo_setup_algs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,54 +90,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Logesh <logesh.kolandavel@timesys.com>
+Due to a typo the wrong base is being supplied for the primary algorithm
+on Halo firmwares, which will cause the controls to not function.
 
-If the da7213 codec is configured as Master with the DAPM power down
-delay time set, 'snd_soc_component_write' function overwrites the
-DAI_CLK_EN bit of DAI_CLK_MODE register which leads to audio play
-only once until it re-initialize after codec power up.
-
-Signed-off-by: Logesh <logesh.kolandavel@timesys.com>
+Fixes: 170b1e123f38 ("ASoC: wm_adsp: Add support for new Halo core DSPs")
+Reported-by: Stuart Henderson <stuarth@opensource.cirrus.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
-Changes in v2:
--Include the mask DA7213_DAI_BCLKS_PER_WCLK_MASK
+ sound/soc/codecs/wm_adsp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- sound/soc/codecs/da7213.c | 5 ++++-
- sound/soc/codecs/da7213.h | 2 ++
- 2 files changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-index 92d006a5283e..425c11d63e49 100644
---- a/sound/soc/codecs/da7213.c
-+++ b/sound/soc/codecs/da7213.c
-@@ -1305,7 +1305,10 @@ static int da7213_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
- 	/* By default only 64 BCLK per WCLK is supported */
- 	dai_clk_mode |= DA7213_DAI_BCLKS_PER_WCLK_64;
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index a9298bfddd9c7..f3c28e54d6d6e 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -2445,7 +2445,7 @@ static int wm_halo_setup_algs(struct wm_adsp *dsp)
+ 	wmfw_v3_parse_id_header(dsp, &halo_id.fw, n_algs);
  
--	snd_soc_component_write(component, DA7213_DAI_CLK_MODE, dai_clk_mode);
-+	snd_soc_component_update_bits(component, DA7213_DAI_CLK_MODE,
-+			    DA7213_DAI_BCLKS_PER_WCLK_MASK |
-+			    DA7213_DAI_CLK_POL_MASK | DA7213_DAI_WCLK_POL_MASK,
-+			    dai_clk_mode);
- 	snd_soc_component_update_bits(component, DA7213_DAI_CTRL, DA7213_DAI_FORMAT_MASK,
- 			    dai_ctrl);
- 	snd_soc_component_write(component, DA7213_DAI_OFFSET, dai_offset);
-diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
-index 5a78dba1dcb5..9d31efc3cfe5 100644
---- a/sound/soc/codecs/da7213.h
-+++ b/sound/soc/codecs/da7213.h
-@@ -181,7 +181,9 @@
- #define DA7213_DAI_BCLKS_PER_WCLK_256				(0x3 << 0)
- #define DA7213_DAI_BCLKS_PER_WCLK_MASK				(0x3 << 0)
- #define DA7213_DAI_CLK_POL_INV					(0x1 << 2)
-+#define DA7213_DAI_CLK_POL_MASK					(0x1 << 2)
- #define DA7213_DAI_WCLK_POL_INV					(0x1 << 3)
-+#define DA7213_DAI_WCLK_POL_MASK				(0x1 << 3)
- #define DA7213_DAI_CLK_EN_MASK					(0x1 << 7)
+ 	ret = wm_halo_create_regions(dsp, halo_id.fw.id,
+-				     halo_id.ym_base, halo_id.ym_base);
++				     halo_id.xm_base, halo_id.ym_base);
+ 	if (ret)
+ 		return ret;
  
- /* DA7213_DAI_CTRL = 0x29 */
 -- 
-2.21.0
+2.11.0
 
 _______________________________________________
 Alsa-devel mailing list

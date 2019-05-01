@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F2EB105FB
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 10:01:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94EE41063F
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 11:06:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7BB216CD;
-	Wed,  1 May 2019 10:00:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7BB216CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA14F16CD;
+	Wed,  1 May 2019 11:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA14F16CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556697688;
-	bh=uEZLSWQSrMDs8R7RYjtYGWMVw9ZZyn9K22fx0EyNqzY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rADOZBqvEkN5Qmzy14PdiTaS57rn9suehCxhsqqR4l6JDL51U0pUEiQTjiNA8eDNW
-	 VGNhHg1eLx9UeoQCeNwhQ/O3sx3J8dfi6QUHjoBDbKQdWCApfgLo6iHWsNVlJHOfE1
-	 I94EM4nj/5ZKtRS/ylvBwLjAX/38x3udMKZP2ZIU=
+	s=default; t=1556701590;
+	bh=J7Iyd3jYJ7ndrr/EilZ8S814REgzf60apAXWA0XLNtE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AY7tF21UxGnGiZA77rSrGeCdqnfkn0NRNGEJa+PCJirY8icDyHYeAkmaZezjVF8+0
+	 o8osAWIrV3uEc3Hu6ie60of8FG4LRceMM9i4EmNEn8W5+CHgzwJAMtmpmuXRJSsgrP
+	 PdQOEDINE8H9/5IpSjOGKMuuATpLQ7Qx70H6Th6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FFDBF896CB;
-	Wed,  1 May 2019 09:59:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10DC7F896B6;
+	Wed,  1 May 2019 11:04:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 992BAF8065C; Wed,  1 May 2019 09:59:41 +0200 (CEST)
+ id 956B3F896B7; Wed,  1 May 2019 11:04:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,RCVD_IN_MSPIKE_H2,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FF73F8065C
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 09:59:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FF73F8065C
-Received: by mail-oi1-f195.google.com with SMTP id l203so13361706oia.3
- for <alsa-devel@alsa-project.org>; Wed, 01 May 2019 00:59:38 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2575DF8065C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 11:04:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2575DF8065C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=timesys-com.20150623.gappssmtp.com
+ header.i=@timesys-com.20150623.gappssmtp.com header.b="JDPD1J3+"
+Received: by mail-qk1-x741.google.com with SMTP id m137so9861962qke.3
+ for <alsa-devel@alsa-project.org>; Wed, 01 May 2019 02:04:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=timesys-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7qoj+Gg0Ie+V2P3vdKcUMBKk9Ht4HM0XQ72NvNmgC6k=;
+ b=JDPD1J3+a4YeIuGvGMAoqmYEA5npUqAW61TV1IUuFuKdv8/Kfvk1fUxt3vUDSnR2AQ
+ lCPhm0cdA04neXkMxUyLtixjjaqWLS4+xdvOG5cUx2dxILtHVmewYzAx9am6ZjivhAsS
+ kmBVsuSjuHiSNeO12VGK3Y+Ce09Amgc9B1TvUh5Cze6+MsEso/x+PwclTAld53iPDcYa
+ 31TGfRdmMhBSURYdYPQL0sMzyXYFLkj64ldCMMuYRHcd6qd9KnRLN0ZmmvrvOaeqD1zi
+ AVJPZ+b79EWruZo8sXiCDE4D8kkMhmdPA093YN8vjTKiMyQWPxoyBAjNiPjjWBkdltqw
+ vv3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zxgDmRsn1/IVmGuf5U9azTe0s7v3EA8DrDT/1fTHG9Q=;
- b=BOnNUL8ur0A5lslhFhuxZH02kGmI/UFsdIHe7fHt7eI+8npzx/ki/4wQSiPoBlDMir
- AwJMhFZTvMjkZOkcck59ZSjkTsOXQI+ZRWVFp1F5jasNvez63xUZChnUoV+2ytMCa/rQ
- G0ROyGIIcs2K79u+bY7TVaOY7XodJ3xxgeDplLBvIAynwAMA/NsT++TetZC4Ed+9hN7o
- cm9Qw8+FNdbvEHFRMSkHCj6p2rzU5AiBYHhklI+8FtVWAlyAycySNI9l2yYaz/1Di+Fb
- EF9ilnl5XQTw2vrAaBFETGnsUWrrwlyFEj5xE7nFGcq1sXZ1I4OSDjz1/SYuev/EUk1/
- EmYg==
-X-Gm-Message-State: APjAAAW8xIgYpGeiVPXFzOJqIikjFxAmaPF54qvvqu/wb6O0dcJf1lVJ
- 58AK1net2Tqq9GgJ1oyHdU+YrlhbnPUOs9D0BDk=
-X-Google-Smtp-Source: APXvYqwRucsn2ORnmZzJM80aybzIMoVJlKVHwZ0llOPopwmEQAxBSBA2QxPX+O9LwH4uQ12+7ADgZSOR7ZOcJJsf2+o=
-X-Received: by 2002:aca:ba82:: with SMTP id k124mr6169480oif.110.1556697576304; 
- Wed, 01 May 2019 00:59:36 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=7qoj+Gg0Ie+V2P3vdKcUMBKk9Ht4HM0XQ72NvNmgC6k=;
+ b=Jb+tptRt5EtBrjL+AQv6c6qbAqmvvPmiF7rjd0RMWJmfxM5oxb7RYTfNF4Uorg7Yl7
+ O8n6DPMQzpXOqMX1SULs9qIfc8RGU28Qgq+pfdZLvh1qAz3bJsR4fbwu/ZWuyuNq8jDS
+ 4qsJMuqSD8DLFaYD6hgDeOtw48bie1CQ/9Q2wWHNhnVRhFejJoBd0l5Psm4NdZwIoOp4
+ saMeapp+e7otOveIkpPGjYO01ecVCs8gh4SjY29ELZlYlmlgmelxvhTjheZYDMc6csZE
+ nRYmTDcxiJYRcIpkycERb27jKFT6pHrJ6v+3nyW40fgIugzmbMTyMr3Q5JnNPC8/Am2P
+ wwYQ==
+X-Gm-Message-State: APjAAAXzJ2/nraNzplE82LVGPLfpbwjCrEfIs3XqYvHamKXYvA2kyEbh
+ lJn+6I5xm1SDWlpYg3+9Wj7+Tg==
+X-Google-Smtp-Source: APXvYqwWtu0OPXTZRNoHqHJOZ0MQiw4981/F7mq00OKu19obOvhOzJapf2aq4cJqA7r6h4cQuXnLrQ==
+X-Received: by 2002:a37:5a46:: with SMTP id o67mr53956614qkb.31.1556701474032; 
+ Wed, 01 May 2019 02:04:34 -0700 (PDT)
+Received: from ts-system.timesys.com ([49.204.220.208])
+ by smtp.gmail.com with ESMTPSA id l15sm11000984qti.12.2019.05.01.02.04.30
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 01 May 2019 02:04:33 -0700 (PDT)
+From: Logesh Kolandavel <logesh.kolandavel@timesys.com>
+To: support.opensource@diasemi.com
+Date: Wed,  1 May 2019 14:34:24 +0530
+Message-Id: <20190501090424.28861-1-logesh.kolandavel@timesys.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <20190415151857.25531-1-pierre-louis.bossart@linux.intel.com>
- <20190416032923.GQ28103@vkoul-mobl>
- <CAJZ5v0jOkQ7aWn6B_yVTYd7y+78mpGSzBoGuWe3uCdzDRNE94Q@mail.gmail.com>
- <eda0ed4e-fc36-a53a-225f-e7d54bb73413@linux.intel.com>
-In-Reply-To: <eda0ed4e-fc36-a53a-225f-e7d54bb73413@linux.intel.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Wed, 1 May 2019 09:59:25 +0200
-Message-ID: <CAJZ5v0iwm5tLRy2mLX6_uTk2wh+1Y4VaEcqDx5Z1WDLZHMnpEg@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Robert Moore <robert.moore@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- "open list:ACPI" <linux-acpi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
- Joe Perches <joe@perches.com>, Len Brown <lenb@kernel.org>,
- Erik Schmauss <erik.schmauss@intel.com>,
- "open list:ACPI COMPONENT ARCHITECTURE \(ACPICA\)" <devel@acpica.org>
-Subject: Re: [alsa-devel] [PATCH] ACPI / device_sysfs: change _ADR
- representation to 64 bits
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, logesh.kolandavel@timesys.com,
+ Adam.Thomson.Opensource@diasemi.com
+Subject: [alsa-devel] [PATCH v2] ASoC: da7213: fix DAI_CLK_EN register bit
+	overwrite
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,51 +100,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Apr 30, 2019 at 8:23 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
-> On 4/16/19 3:09 AM, Rafael J. Wysocki wrote:
-> > On Tue, Apr 16, 2019 at 5:29 AM Vinod Koul <vkoul@kernel.org> wrote:
-> >>
-> >> On 15-04-19, 10:18, Pierre-Louis Bossart wrote:
-> >>> Standards such as the MIPI DisCo for SoundWire 1.0 specification
-> >>> assume the _ADR field is 64 bits.
-> >>>
-> >>> _ADR is defined as an "Integer" represented as 64 bits since ACPI 2.0
-> >>> released in 2002. The low levels already use _ADR as 64 bits, e.g. in
-> >>> struct acpi_device_info.
-> >>>
-> >>> This patch bumps the representation used for sysfs to 64 bits.
-> >>>
-> >>> Example with a SoundWire device, the results show the complete
-> >>> vendorID and linkID which were omitted before:
-> >>>
-> >>> Before:
-> >>> $ more /sys/bus/acpi/devices/device\:38/adr
-> >>> 0x5d070000
-> >>> After:
-> >>> $ more /sys/bus/acpi/devices/device\:38/adr
-> >>> 0x000010025d070000
-> >>
-> >> This looks fine but the sysfs file is an ABI. Not sure if we can modify
-> >> the value returned this way.. Though it should not cause userspace
-> >> reading 32bits to break...
-> >
-> > Well, IIRC using "08" instead of "016" in the format field would
-> > preserve the existing behavior for 32-bit values, wouldn't it?
->
-> yes, but it makes the 64-bit address not aligned depending on the number
-> of leading zeroes, see below. I get a migraine just looking at the results.
+From: Logesh <logesh.kolandavel@timesys.com>
 
-Well, scripts reading them won't get that, but fair enough.
+If the da7213 codec is configured as Master with the DAPM power down
+delay time set, 'snd_soc_component_write' function overwrites the
+DAI_CLK_EN bit of DAI_CLK_MODE register which leads to audio play
+only once until it re-initialize after codec power up.
 
-> Maybe add a test to use 08 for values that are below 0xFFFFFFFF and 16
-> for addresses who really need the full range, typically because of an
-> encoding?
+Signed-off-by: Logesh <logesh.kolandavel@timesys.com>
+---
+Changes in v2:
+-Include the mask DA7213_DAI_BCLKS_PER_WCLK_MASK
 
-That would be fine by me.
+ sound/soc/codecs/da7213.c | 5 ++++-
+ sound/soc/codecs/da7213.h | 2 ++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+index 92d006a5283e..425c11d63e49 100644
+--- a/sound/soc/codecs/da7213.c
++++ b/sound/soc/codecs/da7213.c
+@@ -1305,7 +1305,10 @@ static int da7213_set_dai_fmt(struct snd_soc_dai *codec_dai, unsigned int fmt)
+ 	/* By default only 64 BCLK per WCLK is supported */
+ 	dai_clk_mode |= DA7213_DAI_BCLKS_PER_WCLK_64;
+ 
+-	snd_soc_component_write(component, DA7213_DAI_CLK_MODE, dai_clk_mode);
++	snd_soc_component_update_bits(component, DA7213_DAI_CLK_MODE,
++			    DA7213_DAI_BCLKS_PER_WCLK_MASK |
++			    DA7213_DAI_CLK_POL_MASK | DA7213_DAI_WCLK_POL_MASK,
++			    dai_clk_mode);
+ 	snd_soc_component_update_bits(component, DA7213_DAI_CTRL, DA7213_DAI_FORMAT_MASK,
+ 			    dai_ctrl);
+ 	snd_soc_component_write(component, DA7213_DAI_OFFSET, dai_offset);
+diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
+index 5a78dba1dcb5..9d31efc3cfe5 100644
+--- a/sound/soc/codecs/da7213.h
++++ b/sound/soc/codecs/da7213.h
+@@ -181,7 +181,9 @@
+ #define DA7213_DAI_BCLKS_PER_WCLK_256				(0x3 << 0)
+ #define DA7213_DAI_BCLKS_PER_WCLK_MASK				(0x3 << 0)
+ #define DA7213_DAI_CLK_POL_INV					(0x1 << 2)
++#define DA7213_DAI_CLK_POL_MASK					(0x1 << 2)
+ #define DA7213_DAI_WCLK_POL_INV					(0x1 << 3)
++#define DA7213_DAI_WCLK_POL_MASK				(0x1 << 3)
+ #define DA7213_DAI_CLK_EN_MASK					(0x1 << 7)
+ 
+ /* DA7213_DAI_CTRL = 0x29 */
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

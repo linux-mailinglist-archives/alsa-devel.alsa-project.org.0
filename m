@@ -2,80 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32852106DE
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 12:15:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 095DE106F3
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 12:25:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9514616CD;
-	Wed,  1 May 2019 12:14:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9514616CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9877616E5;
+	Wed,  1 May 2019 12:24:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9877616E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556705726;
-	bh=JeheWKnzCACYKBjcAjNxDzWMNjyGFn66PJn0HPJdMKo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NWZu7NGwvSKiAZdYWCfckkhk8XzWmH60hBfr2WFn4zJX9UBol2SLUPT+Vh90T22rC
-	 e8HILDYvimG1Deffk91mWEIr98AEreFDLr/0xWL4bH2JPw4tdmwjoUSKhS2byRYCzB
-	 pcIWU3xhjboUYHWKRNHZFlxwtSPMdp/UOWr09HDw=
+	s=default; t=1556706308;
+	bh=LNXxsO1QcEA20/8z2qgUtQ6u9Nmr1hfvkr1MdK6Q/LI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=b3OoKs0fox509tdPYExlwJxQwhk3b4Q3DlYus7dx1hNKYXJ4d0OLhx0WKR/p/1AFu
+	 IKE0zxVrX7AXK+MNveR9KcBYPjuOqyaUZscQYI+s6kwFDMtDieUyaCCvOElvRZzbKF
+	 MALkDPHWKPARbzQs+nL0r5G/SO6BrP0SN6TpSUDc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C765F89693;
-	Wed,  1 May 2019 12:13:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F3D9F896CB;
+	Wed,  1 May 2019 12:23:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EC20F896B9; Wed,  1 May 2019 12:13:39 +0200 (CEST)
+ id AD32EF896B7; Wed,  1 May 2019 12:23:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=KHOP_DYNAMIC,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7BD7DF8075A
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 12:13:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BD7DF8075A
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x41A9e37026623; Wed, 1 May 2019 05:13:33 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0a-001ae601.pphosted.com with ESMTP id 2s6xhv0wcq-1;
- Wed, 01 May 2019 05:13:33 -0500
-Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
- by mail1.cirrus.com (Postfix) with ESMTP id ECEA2611E122;
- Wed,  1 May 2019 05:13:32 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 1 May
- 2019 11:13:32 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Wed, 1 May 2019 11:13:32 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 5FC062DA;
- Wed,  1 May 2019 11:13:32 +0100 (BST)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Date: Wed, 1 May 2019 11:13:32 +0100
-Message-ID: <20190501101332.31190-2-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20190501101332.31190-1-ckeepax@opensource.cirrus.com>
-References: <20190501101332.31190-1-ckeepax@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CF14F8065C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 12:23:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CF14F8065C
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_256_CBC_SHA1:32)
+ (Exim 4.76) (envelope-from <colin.king@canonical.com>)
+ id 1hLmOL-0004HA-AE; Wed, 01 May 2019 10:23:09 +0000
+From: Colin King <colin.king@canonical.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Keyon Jie <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org
+Date: Wed,  1 May 2019 11:23:08 +0100
+Message-Id: <20190501102308.30390-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=961 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1905010068
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
-Subject: [alsa-devel] [PATCH 2/2] ASoC: wm_adsp: Use DSP ops pointers to
-	stop watchdog in error handlers
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH][next] ASoC: SOF: Intel: fix spelling mistake
+	"incompatble" -> "incompatible"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,39 +67,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Whilst this isn't strictly necessary as the code is already DSP specific
-better to use the pointers to avoid potential issues in the future if
-one core ends up having multiple methods of stopping the watchdog.
+From: Colin Ian King <colin.king@canonical.com>
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+There is a spelling mistake in a hda_dsp_rom_msg message, fix it.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- sound/soc/codecs/wm_adsp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/sof/intel/hda.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index f3c28e54d6d6e..b26e6b825a900 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -4285,7 +4285,7 @@ irqreturn_t wm_adsp2_bus_error(struct wm_adsp *dsp)
- 
- 	if (val & ADSP2_WDT_TIMEOUT_STS_MASK) {
- 		adsp_err(dsp, "watchdog timeout error\n");
--		wm_adsp_stop_watchdog(dsp);
-+		dsp->ops->stop_watchdog(dsp);
- 		wm_adsp_fatal_error(dsp);
- 	}
- 
-@@ -4396,7 +4396,7 @@ irqreturn_t wm_halo_wdt_expire(int irq, void *data)
- 	mutex_lock(&dsp->pwr_lock);
- 
- 	adsp_warn(dsp, "WDT Expiry Fault\n");
--	wm_halo_stop_watchdog(dsp);
-+	dsp->ops->stop_watchdog(dsp);
- 	wm_adsp_fatal_error(dsp);
- 
- 	mutex_unlock(&dsp->pwr_lock);
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index b8fc19790f3b..84baf275b467 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -54,7 +54,7 @@ static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
+ 	{HDA_DSP_ROM_L2_CACHE_ERROR, "error: L2 cache error"},
+ 	{HDA_DSP_ROM_LOAD_OFFSET_TO_SMALL, "error: load offset too small"},
+ 	{HDA_DSP_ROM_API_PTR_INVALID, "error: API ptr invalid"},
+-	{HDA_DSP_ROM_BASEFW_INCOMPAT, "error: base fw incompatble"},
++	{HDA_DSP_ROM_BASEFW_INCOMPAT, "error: base fw incompatible"},
+ 	{HDA_DSP_ROM_UNHANDLED_INTERRUPT, "error: unhandled interrupt"},
+ 	{HDA_DSP_ROM_MEMORY_HOLE_ECC, "error: ECC memory hole"},
+ 	{HDA_DSP_ROM_KERNEL_EXCEPTION, "error: kernel exception"},
 -- 
-2.11.0
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

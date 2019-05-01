@@ -2,59 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D3E71034A
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 01:25:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F2EB105FB
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 May 2019 10:01:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C963616A1;
-	Wed,  1 May 2019 01:24:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C963616A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7BB216CD;
+	Wed,  1 May 2019 10:00:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7BB216CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556666701;
-	bh=6wy6zwQIHLKSVO8+/coJY+u0zGtOYCr+bf7WILHKlE8=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OAxFuyFLty6DPbC3edCGWfBKJpbPkJuTjAwjFI5aXoFjI5Wai9hRkdlgFsnwnwVfn
-	 8G//NqvU+Yc5IgC9L9dInXDwFFBs6YQQJDq5DyC6R7VbO7UudHC6NGhfbJZFCl+8w5
-	 6fCPE9cL2wszxMhcIjKJAH6+6pLDxks6xBLSoR3M=
+	s=default; t=1556697688;
+	bh=uEZLSWQSrMDs8R7RYjtYGWMVw9ZZyn9K22fx0EyNqzY=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rADOZBqvEkN5Qmzy14PdiTaS57rn9suehCxhsqqR4l6JDL51U0pUEiQTjiNA8eDNW
+	 VGNhHg1eLx9UeoQCeNwhQ/O3sx3J8dfi6QUHjoBDbKQdWCApfgLo6iHWsNVlJHOfE1
+	 I94EM4nj/5ZKtRS/ylvBwLjAX/38x3udMKZP2ZIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E6B7F896F0;
-	Wed,  1 May 2019 01:11:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FFDBF896CB;
+	Wed,  1 May 2019 09:59:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1023F89783; Wed,  1 May 2019 01:11:43 +0200 (CEST)
+ id 992BAF8065C; Wed,  1 May 2019 09:59:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,RCVD_IN_MSPIKE_H2,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22B9AF896F0
- for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 01:11:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22B9AF896F0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Apr 2019 16:11:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,415,1549958400"; d="scan'208";a="166418011"
-Received: from slawsonx-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.251.133.128])
- by fmsmga002.fm.intel.com with ESMTP; 30 Apr 2019 16:11:37 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 30 Apr 2019 18:11:34 -0500
-Message-Id: <20190430231134.4471-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: tiwai@suse.de, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH] ASoC: dapm: fix kcontrols for effect widgets
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7FF73F8065C
+ for <alsa-devel@alsa-project.org>; Wed,  1 May 2019 09:59:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FF73F8065C
+Received: by mail-oi1-f195.google.com with SMTP id l203so13361706oia.3
+ for <alsa-devel@alsa-project.org>; Wed, 01 May 2019 00:59:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zxgDmRsn1/IVmGuf5U9azTe0s7v3EA8DrDT/1fTHG9Q=;
+ b=BOnNUL8ur0A5lslhFhuxZH02kGmI/UFsdIHe7fHt7eI+8npzx/ki/4wQSiPoBlDMir
+ AwJMhFZTvMjkZOkcck59ZSjkTsOXQI+ZRWVFp1F5jasNvez63xUZChnUoV+2ytMCa/rQ
+ G0ROyGIIcs2K79u+bY7TVaOY7XodJ3xxgeDplLBvIAynwAMA/NsT++TetZC4Ed+9hN7o
+ cm9Qw8+FNdbvEHFRMSkHCj6p2rzU5AiBYHhklI+8FtVWAlyAycySNI9l2yYaz/1Di+Fb
+ EF9ilnl5XQTw2vrAaBFETGnsUWrrwlyFEj5xE7nFGcq1sXZ1I4OSDjz1/SYuev/EUk1/
+ EmYg==
+X-Gm-Message-State: APjAAAW8xIgYpGeiVPXFzOJqIikjFxAmaPF54qvvqu/wb6O0dcJf1lVJ
+ 58AK1net2Tqq9GgJ1oyHdU+YrlhbnPUOs9D0BDk=
+X-Google-Smtp-Source: APXvYqwRucsn2ORnmZzJM80aybzIMoVJlKVHwZ0llOPopwmEQAxBSBA2QxPX+O9LwH4uQ12+7ADgZSOR7ZOcJJsf2+o=
+X-Received: by 2002:aca:ba82:: with SMTP id k124mr6169480oif.110.1556697576304; 
+ Wed, 01 May 2019 00:59:36 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190415151857.25531-1-pierre-louis.bossart@linux.intel.com>
+ <20190416032923.GQ28103@vkoul-mobl>
+ <CAJZ5v0jOkQ7aWn6B_yVTYd7y+78mpGSzBoGuWe3uCdzDRNE94Q@mail.gmail.com>
+ <eda0ed4e-fc36-a53a-225f-e7d54bb73413@linux.intel.com>
+In-Reply-To: <eda0ed4e-fc36-a53a-225f-e7d54bb73413@linux.intel.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 1 May 2019 09:59:25 +0200
+Message-ID: <CAJZ5v0iwm5tLRy2mLX6_uTk2wh+1Y4VaEcqDx5Z1WDLZHMnpEg@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Robert Moore <robert.moore@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
+ Joe Perches <joe@perches.com>, Len Brown <lenb@kernel.org>,
+ Erik Schmauss <erik.schmauss@intel.com>,
+ "open list:ACPI COMPONENT ARCHITECTURE \(ACPICA\)" <devel@acpica.org>
+Subject: Re: [alsa-devel] [PATCH] ACPI / device_sysfs: change _ADR
+ representation to 64 bits
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,54 +93,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+On Tue, Apr 30, 2019 at 8:23 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+>
+>
+> On 4/16/19 3:09 AM, Rafael J. Wysocki wrote:
+> > On Tue, Apr 16, 2019 at 5:29 AM Vinod Koul <vkoul@kernel.org> wrote:
+> >>
+> >> On 15-04-19, 10:18, Pierre-Louis Bossart wrote:
+> >>> Standards such as the MIPI DisCo for SoundWire 1.0 specification
+> >>> assume the _ADR field is 64 bits.
+> >>>
+> >>> _ADR is defined as an "Integer" represented as 64 bits since ACPI 2.0
+> >>> released in 2002. The low levels already use _ADR as 64 bits, e.g. in
+> >>> struct acpi_device_info.
+> >>>
+> >>> This patch bumps the representation used for sysfs to 64 bits.
+> >>>
+> >>> Example with a SoundWire device, the results show the complete
+> >>> vendorID and linkID which were omitted before:
+> >>>
+> >>> Before:
+> >>> $ more /sys/bus/acpi/devices/device\:38/adr
+> >>> 0x5d070000
+> >>> After:
+> >>> $ more /sys/bus/acpi/devices/device\:38/adr
+> >>> 0x000010025d070000
+> >>
+> >> This looks fine but the sysfs file is an ABI. Not sure if we can modify
+> >> the value returned this way.. Though it should not cause userspace
+> >> reading 32bits to break...
+> >
+> > Well, IIRC using "08" instead of "016" in the format field would
+> > preserve the existing behavior for 32-bit values, wouldn't it?
+>
+> yes, but it makes the 64-bit address not aligned depending on the number
+> of leading zeroes, see below. I get a migraine just looking at the results.
 
-This patch adds the handling of snd_soc_dapm_effect that was missing.
+Well, scripts reading them won't get that, but fair enough.
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/soc-dapm.c | 3 +++
- 1 file changed, 3 insertions(+)
+> Maybe add a test to use 08 for values that are below 0xFFFFFFFF and 16
+> for addresses who really need the full range, typically because of an
+> encoding?
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 65ee0bb5dd0b..81a7a12196ff 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -883,6 +883,7 @@ static int dapm_create_or_share_kcontrol(struct snd_soc_dapm_widget *w,
- 			case snd_soc_dapm_switch:
- 			case snd_soc_dapm_mixer:
- 			case snd_soc_dapm_pga:
-+			case snd_soc_dapm_effect:
- 			case snd_soc_dapm_out_drv:
- 				wname_in_long_name = true;
- 				kcname_in_long_name = true;
-@@ -2370,6 +2371,7 @@ static ssize_t dapm_widget_show_component(struct snd_soc_component *cmpnt,
- 		case snd_soc_dapm_dac:
- 		case snd_soc_dapm_adc:
- 		case snd_soc_dapm_pga:
-+		case snd_soc_dapm_effect:
- 		case snd_soc_dapm_out_drv:
- 		case snd_soc_dapm_mixer:
- 		case snd_soc_dapm_mixer_named_ctl:
-@@ -3197,6 +3199,7 @@ int snd_soc_dapm_new_widgets(struct snd_soc_card *card)
- 			dapm_new_mux(w);
- 			break;
- 		case snd_soc_dapm_pga:
-+		case snd_soc_dapm_effect:
- 		case snd_soc_dapm_out_drv:
- 			dapm_new_pga(w);
- 			break;
--- 
-2.17.1
-
+That would be fine by me.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

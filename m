@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213D91117E
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:30:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A1311181
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:32:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACED31777;
-	Thu,  2 May 2019 04:29:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACED31777
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEFEC1739;
+	Thu,  2 May 2019 04:31:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEFEC1739
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556764246;
-	bh=r9dhjphrifVzYBLz8hPO2IPdH0BaMLncYT7V5rYMIHk=;
+	s=default; t=1556764327;
+	bh=gvnnDbsYoNXQxFq6mbnANdByP70+sQZl2qNFKkfw1VY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=JzPWKs6ILhsX21mi6w83faMSzo9SHYs0kGvOH6r4228TB5q7/XM9wJ3iWIB+cL0Rq
-	 vt1nI9OOt9tvA4jdUZeY/ywbhyGWfna2U1inFImH+7QmodaMkE1RPVUlOaLTJW1aWu
-	 cVK60Nu0lThQsRvqAIDmiCK5TMhjFxldqDpvtoaI=
+	b=JPGao4KkGb4jIr3sB4xJLwIkX/Rb4vutdR4lAjX8PAU5KY0eDYsH9onHoEDL23VWi
+	 ljFYNBHcxyiZvbW3p/VuQRU+5u+nxuFK9xj3u+3cgQIWFVgW0U8EJ4CyMOz008u93n
+	 lTVHq6DlPR7qZUyHVGkEXFrucBx4d974ESURpXxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 147FDF8977B;
-	Thu,  2 May 2019 04:19:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E453BF89785;
+	Thu,  2 May 2019 04:19:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ED74F8974E; Thu,  2 May 2019 04:18:53 +0200 (CEST)
+ id 60A08F89750; Thu,  2 May 2019 04:18:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F19E7F89730
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F19E7F89730
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F15BF89724
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F15BF89724
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="V1cGA/05"
+ header.b="WHzi9nLT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=v7BNy5FY8VVxeuyTtTXhkNB4mGH8vIIA5LpX6bCLpJ8=; b=V1cGA/05FX50
- uuJCa27A5ApgejS5gJ9WHiWtsQZmO+GJz/0LxRIHZ+STJtN9zvkDjb7DsHCUjkWVSQQaqa0eEpK0X
- ca0it7N5oVyYWx+70SkLNp/NStgDY46CXcv0aSUtHCoLQadcYEygmlwWMYfbRsbCztdf5hhrD8vvB
- 6tW00=;
+ List-Archive; bh=uN+m0c2baUFZ9aGoRUL5FbqmZq2brn5mpWyYq+S0/58=; b=WHzi9nLTgz+T
+ 5HfAmFKwfxA4m41XcfbN9zmKaRIg1nOfIqxuHTn6p2QahO+7dU79ozhuYR0iSy2J5hUogQFlBF671
+ 3vRvhtf06+6osn4D/+aajD2pAHeHw0BA9dmlmWdUsLg2DmCL6s4/9rOsOraotxuhkHSAvzZcWQEv3
+ lJdik=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1Im-0005rm-Ua; Thu, 02 May 2019 02:18:25 +0000
+ id 1hM1Io-0005rs-UG; Thu, 02 May 2019 02:18:27 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id E7690441D3B; Thu,  2 May 2019 03:18:21 +0100 (BST)
+ id EEE54441D3D; Thu,  2 May 2019 03:18:23 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kangjie Lu <kjlu@umn.edu>
-In-Reply-To: <20190315034833.25037-1-kjlu@umn.edu>
+To: Yong Zhi <yong.zhi@intel.com>
+In-Reply-To: <1554917251-16772-1-git-send-email-yong.zhi@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190502021821.E7690441D3B@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:18:21 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, kjlu@umn.edu,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, pakki001@umn.edu,
- Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt5645: fix a NULL pointer dereference"
-	to the asoc tree
+Message-Id: <20190502021823.EEE54441D3D@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:18:23 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, harshapriya.n@intel.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com, tiwai@suse.de, vkoul@kernel.org,
+ Mark Brown <broonie@kernel.org>, Naveen Manohar <naveen.m@intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: common: add Geminilake
+	Realtek+Maxim machine driver entry" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5645: fix a NULL pointer dereference
+   ASoC: Intel: common: add Geminilake Realtek+Maxim machine driver entry
 
 has been applied to the asoc tree at
 
@@ -114,34 +113,44 @@ to this mail.
 Thanks,
 Mark
 
-From 51dd97d1df5fb9ac58b9b358e63e67b530f6ae21 Mon Sep 17 00:00:00 2001
-From: Kangjie Lu <kjlu@umn.edu>
-Date: Thu, 14 Mar 2019 22:48:32 -0500
-Subject: [PATCH] ASoC: rt5645: fix a NULL pointer dereference
+From d3692cb5c56daa2fb8046a8f4ebe1b2b8b22c895 Mon Sep 17 00:00:00 2001
+From: Yong Zhi <yong.zhi@intel.com>
+Date: Wed, 10 Apr 2019 12:27:31 -0500
+Subject: [PATCH] ASoC: Intel: common: add Geminilake Realtek+Maxim machine
+ driver entry
 
-devm_kcalloc() may fail and return NULL. The fix returns ENOMEM
-in case it fails to avoid NULL pointer dereference.
+This patch adds glk_rt5682_max98357a_i2s machine driver entry into
+machine table. Both Skylake and SOF platform drivers can use this
+machine drivers.
 
-Signed-off-by: Kangjie Lu <kjlu@umn.edu>
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+Signed-off-by: Naveen Manohar <naveen.m@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5645.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/intel/common/soc-acpi-intel-glk-match.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 9a0751978090..f842775dbf2c 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3419,6 +3419,9 @@ static int rt5645_probe(struct snd_soc_component *component)
- 		RT5645_HWEQ_NUM, sizeof(struct rt5645_eq_param_s),
- 		GFP_KERNEL);
- 
-+	if (!rt5645->eq_param)
-+		return -ENOMEM;
-+
- 	return 0;
- }
- 
+diff --git a/sound/soc/intel/common/soc-acpi-intel-glk-match.c b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
+index 3f2061475ae4..616eb09e78a0 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-glk-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
+@@ -31,6 +31,15 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = {
+ 		.sof_fw_filename = "sof-glk.ri",
+ 		.sof_tplg_filename = "sof-glk-da7219.tplg",
+ 	},
++	{
++		.id = "10EC5682",
++		.drv_name = "glk_rt5682_max98357a",
++		.fw_filename = "intel/dsp_fw_glk.bin",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &glk_codecs,
++		.sof_fw_filename = "sof-glk.ri",
++		.sof_tplg_filename = "sof-glk-rt5682.tplg",
++	},
+ 	{},
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_glk_machines);
 -- 
 2.20.1
 

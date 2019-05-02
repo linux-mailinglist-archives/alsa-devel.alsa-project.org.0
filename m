@@ -2,134 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3697D111FD
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 06:01:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A00011388
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 08:49:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B511175B;
-	Thu,  2 May 2019 06:00:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B511175B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA4541782;
+	Thu,  2 May 2019 08:48:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA4541782
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556769691;
-	bh=X7tTniAzPHLn5hU7taEfhuCpvWvGhpiTPUj6YVb2U/w=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AnNTVHFkB0ri4Q91d8LIqnFxcgHbrtVQsGxQbVIi3pW5/NCxvtMOCWeCGKC5L9k6i
-	 M5H14APX4o8QI9jvV6ZGTo3oydS+DFl9y0NGynpKufMXaLpFGb4DZrZBC1oyBojhqr
-	 xnndOzrscbntxqFjrlj48V+e/RWNl1jBkgYuKVe4=
+	s=default; t=1556779784;
+	bh=n9LIXaa3bDF6iMwdZxtV/mvMHjnLPJxa8D5BTsjX8og=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TmIYQ6ffN8+vPsZAr48hP0P7dyAzG3kHfIJo++4/ZUJlw9x3aggIWcikv7fL/Re0b
+	 96kHae5ft3GXM94DTVaU9qP1adUVTDMlPtdRLnYgblLlWRPp6YZnQoywDcIrMuoCjZ
+	 ym9V0oiTS4AT7vc9TI4l+iNMpCNVEQsZrhUys9/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6155CF896EA;
-	Thu,  2 May 2019 05:59:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84A56F896C7;
+	Thu,  2 May 2019 08:47:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 562D5F896C7; Thu,  2 May 2019 05:59:22 +0200 (CEST)
+ id 52BBCF896C7; Thu,  2 May 2019 06:08:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from gateway33.websitewelcome.com (gateway33.websitewelcome.com
- [192.185.145.221])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26B31F89693
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 05:59:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26B31F89693
-Received: from cm10.websitewelcome.com (cm10.websitewelcome.com [100.42.49.4])
- by gateway33.websitewelcome.com (Postfix) with ESMTP id 8ACBD5422C8
- for <alsa-devel@alsa-project.org>;
- Wed,  1 May 2019 22:59:04 -0500 (CDT)
-Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
- id M2sChCX4K2PzOM2sChgH30; Wed, 01 May 2019 22:59:04 -0500
-X-Authority-Reason: nr=8
-Received: from [189.250.119.203] (port=48716 helo=[192.168.1.76])
- by gator4166.hostgator.com with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.91)
- (envelope-from <gustavo@embeddedor.com>)
- id 1hM2s9-002xCn-S2; Wed, 01 May 2019 22:59:02 -0500
-To: "S.j. Wang" <shengjiu.wang@nxp.com>, "timur@kernel.org"
- <timur@kernel.org>, "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <a2c4e289d292ac0e691131784962305f8207a4d8.1554971930.git.shengjiu.wang@nxp.com>
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=gustavo@embeddedor.com; keydata=
- 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
- VtSixD1uOgytAP7RWS474w==
-Message-ID: <dc58fb7a-dab8-2ee0-43e0-76da75ca2e0d@embeddedor.com>
-Date: Wed, 1 May 2019 22:59:00 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00B27F80722
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 06:08:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00B27F80722
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="OM63BoL4"
+Received: by mail-pl1-x643.google.com with SMTP id ck18so417818plb.1
+ for <alsa-devel@alsa-project.org>; Wed, 01 May 2019 21:08:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fOwKWUPB3XYL5vqCBpfMhq2ycc4DNiuOgeK/TTjRmug=;
+ b=OM63BoL46xvlrzeumkV1LZA93RUL3Tn8qyNAtNyvef+IRAl9lg08hzIZVDBLnB43l9
+ faSzDUTKXqhKzADVxeVXcKYh3EscgVnyI2P3JuY0rzwfvhkjCIZK/sLhRkz6YTnjy8U3
+ ac8Rq85iP1+dm+tMt6U5hhlK0hwcuOiV2/DAU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fOwKWUPB3XYL5vqCBpfMhq2ycc4DNiuOgeK/TTjRmug=;
+ b=DLe9LlFB8WeR7JkJNYZ8rygsYnF3GZjz7mDLb3Vu/gSrUI2sIAdowuu12wRpvUMJXl
+ pvpD/b2Jk3YzyPInruGElycxEVy+0RLayYUc9AeZ04iORneD0nejeKCT487pjjZx3iLl
+ 65aq09kyK1i3tKJULXbNgEyh7nahkBOXv9a4t7T1WhVAViKbCBltC5ZW1QfFbY4GNbcs
+ gJCQh9HqJ1yKaes54nnMvgatHSE5C7CkOpIhsCuloR6iiDChslGKo9NXb4aKUGeWrbKe
+ WQBkASMdEQHfzTXs7SGtkiIZeoeHzDslHVjEpuvSNQo/uQCQPByQm9cUmAWY9oeYtYpI
+ XjhA==
+X-Gm-Message-State: APjAAAWO9ZKATWaTOnoZozxNJX5lblARY66GXZizVSHQNyXsHzA5/mjR
+ QdeC7maVFh2s+f9+0lSa6+38jQ==
+X-Google-Smtp-Source: APXvYqzB3uwZbHEMviHNeD8m1xkKNL2FXm123P94Bp57SbqrASolvKxjmDOyHF1jlW5+fb0pShkuzA==
+X-Received: by 2002:a17:902:8642:: with SMTP id
+ y2mr1343912plt.104.1556770072646; 
+ Wed, 01 May 2019 21:07:52 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:10:6cc8:36d1:3ceb:a986])
+ by smtp.gmail.com with ESMTPSA id d5sm31527869pgb.33.2019.05.01.21.07.49
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 01 May 2019 21:07:51 -0700 (PDT)
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Thu,  2 May 2019 12:07:43 +0800
+Message-Id: <20190502040743.184310-1-yuhsuan@chromium.org>
+X-Mailer: git-send-email 2.21.0.593.g511ec345e18-goog
 MIME-Version: 1.0
-In-Reply-To: <a2c4e289d292ac0e691131784962305f8207a4d8.1554971930.git.shengjiu.wang@nxp.com>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - embeddedor.com
-X-BWhitelist: no
-X-Source-IP: 189.250.119.203
-X-Source-L: No
-X-Exim-ID: 1hM2s9-002xCn-S2
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: ([192.168.1.76]) [189.250.119.203]:48716
-X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 7
-X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
-X-Local-Domain: yes
-Cc: "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH V5] ASoC: fsl_esai: Fix missing break in
-	switch statement
+X-Mailman-Approved-At: Thu, 02 May 2019 08:47:52 +0200
+Cc: alsa-devel@alsa-project.org,
+ Support Opensource <support.opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>, dgreid@chromium.org
+Subject: [alsa-devel] [PATCH] ASoC: da7219: Update the support rate list
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,52 +100,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark,
+If we want to set rate to 64000 on da7219, it fails and returns
+"snd_pcm_hw_params: Invalid argument".
+We should remove 64000 from support rate list because it is not
+available.
 
-I wonder if you are going to take this patch.
+Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+---
+ sound/soc/codecs/da7219.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Thanks
---
-Gustavo
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index 5f5fa3416af3..7497457cf3d4 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -1658,20 +1658,26 @@ static const struct snd_soc_dai_ops da7219_dai_ops = {
+ #define DA7219_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
+ 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
+ 
++#define DA7219_RATES (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 |\
++		      SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |\
++		      SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
++		      SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
++		      SNDRV_PCM_RATE_96000)
++
+ static struct snd_soc_dai_driver da7219_dai = {
+ 	.name = "da7219-hifi",
+ 	.playback = {
+ 		.stream_name = "Playback",
+ 		.channels_min = 1,
+ 		.channels_max = DA7219_DAI_CH_NUM_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_96000,
++		.rates = DA7219_RATES,
+ 		.formats = DA7219_FORMATS,
+ 	},
+ 	.capture = {
+ 		.stream_name = "Capture",
+ 		.channels_min = 1,
+ 		.channels_max = DA7219_DAI_CH_NUM_MAX,
+-		.rates = SNDRV_PCM_RATE_8000_96000,
++		.rates = DA7219_RATES,
+ 		.formats = DA7219_FORMATS,
+ 	},
+ 	.ops = &da7219_dai_ops,
+-- 
+2.21.0.593.g511ec345e18-goog
 
-On 4/11/19 3:43 AM, S.j. Wang wrote:
-> case ESAI_HCKT_EXTAL and case ESAI_HCKR_EXTAL should be
-> independent of each other, so replace fall-through with break.
-> 
-> Fixes: 43d24e76b698 ("ASoC: fsl_esai: Add ESAI CPU DAI driver")
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-> Cc: <stable@vger.kernel.org>
-> ---
-> Changes in v5
-> - remove new line after Fixes
-> 
-> Changes in v4
-> - Add acked-by
-> 
-> Changes in v3
-> - Update subject line and cc stable
-> 
-> Changes in v2
-> - Fix "Fixes" tag
-> 
->  sound/soc/fsl/fsl_esai.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-> index 3623aa9a6f2e..15202a637197 100644
-> --- a/sound/soc/fsl/fsl_esai.c
-> +++ b/sound/soc/fsl/fsl_esai.c
-> @@ -251,7 +251,7 @@ static int fsl_esai_set_dai_sysclk(struct snd_soc_dai *dai, int clk_id,
->  		break;
->  	case ESAI_HCKT_EXTAL:
->  		ecr |= ESAI_ECR_ETI;
-> -		/* fall through */
-> +		break;
->  	case ESAI_HCKR_EXTAL:
->  		ecr |= ESAI_ECR_ERI;
->  		break;
-> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

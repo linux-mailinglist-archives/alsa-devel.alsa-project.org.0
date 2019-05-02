@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DFF511C75
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 17:17:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D6111C81
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 17:21:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D95017B8;
-	Thu,  2 May 2019 17:17:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D95017B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4452A17D1;
+	Thu,  2 May 2019 17:20:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4452A17D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556810270;
-	bh=oUe5sO0buPdtv5eAoORS2TqYR8JLrye9xPJSr1gB9NM=;
+	s=default; t=1556810486;
+	bh=pq8wVdMSVxp8J7XHESOLzfpPkxlJvJOBlTAg8/ROVFc=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EY9xUBgcZeVgHHQKtPBT7+G8cS9hThEh9qhbMdqOJlPtWV9mSN/Neo9TAGuHqpyIl
-	 lAQ8zE5QlE6tmKlogxyiJMH5XYmyPQoTi8aAXsd71c+L+gBp4ujaYhPvPVGeVClAn4
-	 PBXG13q5vNzHuigmYxkjjEwal/WuvUbYZ6app5lA=
+	b=QrKjKsjUIaCgTgSa37m89dqaGdjMzcMZ+benNFhaLmTzEvxjdMCD6lgajSdYcSAY+
+	 L3acbph1CPnuwECTze/s2eHqcbcc3jHSOprEbb8n6FS11SqTcnom5b0UZnzDywNxb4
+	 oNQWM6UwZ5KpnQrV2O9gVR0WdVW7vL3BywNiHh48=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 352F3F89726;
-	Thu,  2 May 2019 17:16:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2CDFF896AA;
+	Thu,  2 May 2019 17:19:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E741F89724; Thu,  2 May 2019 17:16:05 +0200 (CEST)
+ id D2BE7F896C7; Thu,  2 May 2019 17:19:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,40 +33,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FDB0F8075A
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 17:16:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FDB0F8075A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B35DF8075A
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 17:19:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B35DF8075A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ArAWMn3C"
+ header.b="jnwMR4RZ"
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3C00F20675;
- Thu,  2 May 2019 15:16:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3A22220675;
+ Thu,  2 May 2019 15:19:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556810160;
- bh=zPl9TfaDqqEybzC535ro61dhGAUdiQrrm68r2DClHUY=;
+ s=default; t=1556810375;
+ bh=+8qEsuCHaZrMRG+V++/Uz5BxQxtwwBclvz8xEdWjKgw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ArAWMn3CBHmL/PIyY85JtViTumCSGkuXcpT5Q7IzgC7Blk+sKjkEVWAHmWx5U5tp2
- E0g429b4tNlQUJWtNZG7VBlSI13ceZbaKwvBg/SEEhkm1PEYcIPnsHIQSZk0sZFAPH
- pAMEgN1/UhG7MmTF1EjFGNoACXRWpo7SqxNwW9WI=
-Date: Thu, 2 May 2019 17:15:58 +0200
+ b=jnwMR4RZfBk3R55orLhj3VVbW61l/17ZMrhZk50RcKgdLdaKtM6FwjWg3GGvoCR+y
+ G3XH2LmqPvMHtv2H8knA5Lm958DnFoE6ieTa64YU9Iclgcn8wPGwX4yxqQ1DFBbR6H
+ e3U7M3tNbU6u45bmfRU3nDkgoTIOPJm4cay526Jw=
+Date: Thu, 2 May 2019 17:19:33 +0200
 From: Greg KH <gregkh@linuxfoundation.org>
 To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20190502151558.GA2499@kroah.com>
+Message-ID: <20190502151933.GA32285@kroah.com>
 References: <20190502105930.9889-1-vkoul@kernel.org>
- <20190502105930.9889-2-vkoul@kernel.org>
- <20190502150754.GA17197@kroah.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190502150754.GA17197@kroah.com>
+In-Reply-To: <20190502105930.9889-1-vkoul@kernel.org>
 User-Agent: Mutt/1.11.4 (2019-03-13)
 Cc: alsa-devel@alsa-project.org, Shreyas NC <shreyas.nc@intel.com>,
  Sanyog Kale <sanyog.r.kale@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 01/14] soundwire: fix kconfig help format
+Subject: Re: [alsa-devel] [PATCH 00/14] soundwire: more code cleanups
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,47 +82,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 02, 2019 at 05:07:54PM +0200, Greg KH wrote:
-> On Thu, May 02, 2019 at 04:29:17PM +0530, Vinod Koul wrote:
-> > Move to help format instead of --help-- as that is not recommended and
-> > this makes file consistent with other instance
-> > 
-> > Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> > ---
-> >  drivers/soundwire/Kconfig | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
-> > index 84876a74874f..53b55b79c4af 100644
-> > --- a/drivers/soundwire/Kconfig
-> > +++ b/drivers/soundwire/Kconfig
-> > @@ -28,7 +28,7 @@ config SOUNDWIRE_INTEL
-> >  	select SOUNDWIRE_CADENCE
-> >  	select SOUNDWIRE_BUS
-> >  	depends on X86 && ACPI && SND_SOC
-> > -	---help---
-> > +	help
-> >  	  SoundWire Intel Master driver.
-> >  	  If you have an Intel platform which has a SoundWire Master then
-> >  	  enable this config option to get the SoundWire support for that
-> > -- 
-> > 2.20.1
-> > 
+On Thu, May 02, 2019 at 04:29:16PM +0530, Vinod Koul wrote:
+> After applying cleanup from Pierre, I realized few more things can be
+> cleaned up as well, so fixing these instance in the subsystem.
 > 
-> Huh?
+> Looks like bool is no longer encouraged, but I have skipped those and few
+> alignment as they caused code to look worse.
 > 
-> Pierre-Louis sent this patch before you did.  Why did you just rewrite
-> the changelog text a bit and then ignore his authorship and
-> signed-off-by?
-> 
-> That's a really really shitty thing to do, I'm going to go take his
-> version of these patches instead, let me see how they line up...
+> Greg,
+> if you are okay I would like to add this as well (i know it is late, but
+> they are cosmetic changes and no logic ones, let me know and I can
+> send a updated PR)
 
-Ok, my apologies, that was incorrect.  Your patch was against a
-different file than his.
+This made no sense, as it was on top of Pierre's patches.
 
-Way to go and make this a total mess to try to figure out, let me see
-what I can do...
+I've applied both his, and your, patch series to the tree now, hopefully
+this type of mess doesn't happen again in the future.
+
+Please be a lot more specific as to what you expect me to do with a
+patch series, and what exactly it is for/against/after, as this was not
+obvious at all.
+
+ugh, someone owes me a drink...
 
 greg k-h
 _______________________________________________

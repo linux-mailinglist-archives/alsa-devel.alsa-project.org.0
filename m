@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843D811192
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:37:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8019411194
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:38:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 268E41766;
-	Thu,  2 May 2019 04:36:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268E41766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09F071756;
+	Thu,  2 May 2019 04:37:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09F071756
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556764644;
-	bh=xkmPTOBXBwDt7NofAtb2qp885lOJUQKOqRRXlt2Tf5U=;
+	s=default; t=1556764686;
+	bh=PZFH151NO5HwtQZr70Wxp+OD9XGFK48kRSDNdvdMZUk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=A0a5gJjw2r2wOEuSHHvhjB8BFv6t16MvbBvwlPTpb/0t0BSjelljTRAZMe6P2JfOU
-	 jaKpfDcVtl1JQVmYLhnrNI090PN45l3Nb1qk7aAJYR0dfU0q+KuGoTQzMb6M29tZ6e
-	 CUmD7zd4aQXHcmLGdVDmpOghswTfQpLwx0DxHlFM=
+	b=J8jYAeZ5gBa5sp6G84KimZEeJqIrSJtlfL+yGhC3TdLQPONiWnH0Oji9X+CR2PnOX
+	 jUbDYLZu0A/ICEn1ylFNYHd7ykhCQ2bPAYlx5LJ8xIWatdRJmSUZg+DxpFu6up3JTT
+	 m+CnRXUzClIMX3Xc1LMbsCKsBy6/91yw49KwxiQI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA12AF897B3;
-	Thu,  2 May 2019 04:19:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42675F896E3;
+	Thu,  2 May 2019 04:19:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F388F89760; Thu,  2 May 2019 04:19:14 +0200 (CEST)
+ id F179DF89761; Thu,  2 May 2019 04:19:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F40C2F89747
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F40C2F89747
+ by alsa1.perex.cz (Postfix) with ESMTPS id 853F0F89727
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 853F0F89727
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="pBr7tviu"
+ header.b="wzpP8lwG"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=s/aeLHmcSaCGZGW2T/ryaeA0ktI3wfHggwlvpiCdiGs=; b=pBr7tviub0M4
- Y7B+GAiIE0/H/6glIphSg1+JN79huRE/j+YTI3NQ8U8Ngjerot3AmpFSTaWjMQnGMlH6D7sZc9AUF
- 3KdkDIC/cUuL6ULBrrDQkXR65KG+hNHiJxGyDwLWrIXCheEHEoXTtb4tYDKdoVda2u6WvOL4XHiHy
- b4dDw=;
+ List-Archive; bh=A/66kRQc3q5wn42sm0oWbgVdM3908r6Wc5+tQsSwk04=; b=wzpP8lwG07E8
+ oRG4coHg7JvWMB+Le8NmNZA3H5Qbnncvd4Fw2mTL/wpYX2MaBN0uwHhehuf6Ql3SNqS2cKdWIQTxv
+ 44WNqLvG1+7SO/0XamXw7x24vUCuKwSV+/1O1XP678p0c3Xsb74t44/z3rz+VkRiZLolZALp3WkXq
+ /UUqw=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1J8-0005tL-2M; Thu, 02 May 2019 02:18:46 +0000
+ id 1hM1J9-0005tY-Ta; Thu, 02 May 2019 02:18:48 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 03B03441D3B; Thu,  2 May 2019 03:18:43 +0100 (BST)
+ id 06AC6441D3C; Thu,  2 May 2019 03:18:45 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190417150915.37968-1-yuehaibing@huawei.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+In-Reply-To: <20190417113140.15572-1-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190502021843.03B03441D3B@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:18:42 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- festevam@gmail.com, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] Applied "ASoC: fsl_micfil: Remove set but not used
-	variable 'osr'" to the asoc tree
+Message-Id: <20190502021845.06AC6441D3C@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:18:44 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com, kuninori.morimoto.gx@renesas.com
+Subject: [alsa-devel] Applied "ASoC: pcm3168a: Enable TDM support for
+	DSP_A/B modes" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_micfil: Remove set but not used variable 'osr'
+   ASoC: pcm3168a: Enable TDM support for DSP_A/B modes
 
 has been applied to the asoc tree at
 
@@ -113,42 +111,52 @@ to this mail.
 Thanks,
 Mark
 
-From a0c34c7629bee46ffd8121987d27df25a6433cc7 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Wed, 17 Apr 2019 23:09:15 +0800
-Subject: [PATCH] ASoC: fsl_micfil: Remove set but not used variable 'osr'
+From 5011454ee34a84700e9a8c7eb1138efceea9d662 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Wed, 17 Apr 2019 14:31:40 +0300
+Subject: [PATCH] ASoC: pcm3168a: Enable TDM support for DSP_A/B modes
 
-Fixes gcc '-Wunused-but-set-variable' warning:
+The 24-bit TDM mode also applies to DSP_A and DSP_B modes.
+Most dais on the SoC side can not interpret I2S/Left_j with other than 2
+channels of audio.
 
-sound/soc/fsl/fsl_micfil.c: In function 'get_clk_div':
-sound/soc/fsl/fsl_micfil.c:154:6: warning: variable 'osr' set but not used [-Wunused-but-set-variable]
-
-It is never used since introduction in
-commit 47a70e6fc9a8 ("ASoC: Add MICFIL SoC Digital Audio Interface driver.")
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_micfil.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/soc/codecs/pcm3168a.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
-index 40c07e756481..f7f2d29f1bfe 100644
---- a/sound/soc/fsl/fsl_micfil.c
-+++ b/sound/soc/fsl/fsl_micfil.c
-@@ -151,12 +151,9 @@ static inline int get_clk_div(struct fsl_micfil *micfil,
- {
- 	u32 ctrl2_reg;
- 	long mclk_rate;
--	int osr;
- 	int clk_div;
- 
- 	regmap_read(micfil->regmap, REG_MICFIL_CTRL2, &ctrl2_reg);
--	osr = 16 - ((ctrl2_reg & MICFIL_CTRL2_CICOSR_MASK)
--		    >> MICFIL_CTRL2_CICOSR_SHIFT);
- 
- 	mclk_rate = clk_get_rate(micfil->mclk);
- 
+diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
+index 08d3fe192e65..e0d5839fe1a7 100644
+--- a/sound/soc/codecs/pcm3168a.c
++++ b/sound/soc/codecs/pcm3168a.c
+@@ -457,13 +457,16 @@ static int pcm3168a_hw_params(struct snd_pcm_substream *substream,
+ 	if (chan > 2) {
+ 		switch (fmt) {
+ 		case PCM3168A_FMT_I2S:
++		case PCM3168A_FMT_DSP_A:
+ 			fmt = PCM3168A_FMT_I2S_TDM;
+ 			break;
+ 		case PCM3168A_FMT_LEFT_J:
++		case PCM3168A_FMT_DSP_B:
+ 			fmt = PCM3168A_FMT_LEFT_J_TDM;
+ 			break;
+ 		default:
+-			dev_err(component->dev, "TDM is supported under I2S/Left_J only\n");
++			dev_err(component->dev,
++				"TDM is supported under DSP/I2S/Left_J only\n");
+ 			return -EINVAL;
+ 		}
+ 	}
+@@ -526,6 +529,8 @@ static int pcm3168a_startup(struct snd_pcm_substream *substream,
+ 		break;
+ 	case PCM3168A_FMT_LEFT_J:
+ 	case PCM3168A_FMT_I2S:
++	case PCM3168A_FMT_DSP_A:
++	case PCM3168A_FMT_DSP_B:
+ 		sample_min  = 24;
+ 		channel_max = channel_maxs[tx];
+ 		break;
 -- 
 2.20.1
 

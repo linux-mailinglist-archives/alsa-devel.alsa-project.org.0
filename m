@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC6901115B
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:20:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C4E111171
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:24:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A5441744;
-	Thu,  2 May 2019 04:19:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A5441744
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C50D1727;
+	Thu,  2 May 2019 04:23:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C50D1727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556763637;
-	bh=W8XTP7E2d2+EoJ7kmvFDhlK4+B9sz2GBgXuPQ5hQ5dw=;
+	s=default; t=1556763880;
+	bh=4zH1dTszK5iuKroRpJBNAthpWq3YyitiDWfEYId67AI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fTcBRTkt1WNRDCFQmsRmlP8wE82jZeSIcKxhxpOE/ocDKSO96cm7Q0N5Jta2ERWjE
-	 eblvPW92BPGMl7wgZB79U11Ev4vPfNhPUqwPO8//PatqcIUysUgVB63bwK17LhhhHl
-	 QAxxPc7nS40BpJY0pSz/BsEsXujaFVJ1EBF6cpi0=
+	b=HBDE7hAwvNDFMliFU3SL2eY0ZfZN3ULr3ZKTZ0+7nd6cQP8Z54lphRtH9W32AnUXU
+	 XNtnE7kyocoMWfEQcakRZIpz/trLHrVIPmib0iuU0R83Gs1YjfFI83AVpCdcdWUyi5
+	 D2hTFKO3WSNzlKElahlJyy0+uMxMbgridAa+EFhs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD80CF89729;
-	Thu,  2 May 2019 04:18:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0AD6F8974E;
+	Thu,  2 May 2019 04:18:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EDE3F896EC; Thu,  2 May 2019 04:18:11 +0200 (CEST)
+ id C5064F89734; Thu,  2 May 2019 04:18:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A194BF80722
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A194BF80722
+ by alsa1.perex.cz (Postfix) with ESMTPS id EDC42F896AA
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDC42F896AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ZyOnCzlg"
+ header.b="ulRALQv+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=hi5VJQ+Lo4aZnL4bPsz8CJ7C64a60/l+NzHBAYZHxDk=; b=ZyOnCzlgGXRu
- O1yR9cDzUnqTs0maY8Js4ndpN8ytMim1H8P6Ko4u3p764rh0oLC+Z/z9RcdMCABR51C8NH0v5fKCI
- +5MTYKRIq7jl1PjAJU+09p5+5u09vYX3ZGBqQr7LDbjwhVX8dugEFhf3LuzXeBkJ2Nw9W7G6fe7Oe
- qvy/w=;
+ List-Archive; bh=tSRP9AREY1phAztSLdhpxjCCxjAVr/6vVxlS8p739D8=; b=ulRALQv+WaEZ
+ dWAzFCLY+CxW6k6PgY3Y8PFjrGSd3H7DCO491Tl3E05IMZiuViUgwAlR4nmwo6GZgtZqKiPUxLFxl
+ uxoNGF6k89EDqMqzlE+I96cwLemX7HXY6YehuuhQdwAKu6kauZrd3N6VoGnzGwnKyhG9dze4qa13Y
+ 5CEiU=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1IS-0005pl-QM; Thu, 02 May 2019 02:18:05 +0000
+ id 1hM1IV-0005ps-20; Thu, 02 May 2019 02:18:07 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id E0AC1441D3E; Thu,  2 May 2019 03:18:01 +0100 (BST)
+ id 0F5F9441D41; Thu,  2 May 2019 03:18:03 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20190501101332.31190-2-ckeepax@opensource.cirrus.com>
+To: Wei Yongjun <weiyongjun1@huawei.com>
+In-Reply-To: <20190429122512.59242-1-weiyongjun1@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190502021801.E0AC1441D3E@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:18:01 +0100 (BST)
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
-Subject: [alsa-devel] Applied "ASoC: wm_adsp: Use DSP ops pointers to stop
-	watchdog in error handlers" to the asoc tree
+Message-Id: <20190502021803.0F5F9441D41@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:18:02 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Baolin Wang <baolin.wang@linaro.org>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: sprd: Fix return value check in
+	sprd_mcdt_probe()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wm_adsp: Use DSP ops pointers to stop watchdog in error handlers
+   ASoC: sprd: Fix return value check in sprd_mcdt_probe()
 
 has been applied to the asoc tree at
 
@@ -111,44 +114,38 @@ to this mail.
 Thanks,
 Mark
 
-From 81ed884501a59a49c71cd810578f793f3890c131 Mon Sep 17 00:00:00 2001
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-Date: Wed, 1 May 2019 11:13:32 +0100
-Subject: [PATCH] ASoC: wm_adsp: Use DSP ops pointers to stop watchdog in error
- handlers
+From 7c88b92816dfe5eab224b96577b50ac00b4be68a Mon Sep 17 00:00:00 2001
+From: Wei Yongjun <weiyongjun1@huawei.com>
+Date: Mon, 29 Apr 2019 12:25:12 +0000
+Subject: [PATCH] ASoC: sprd: Fix return value check in sprd_mcdt_probe()
 
-Whilst this isn't strictly necessary as the code is already DSP specific
-better to use the pointers to avoid potential issues in the future if
-one core ends up having multiple methods of stopping the watchdog.
+In case of error, the function devm_ioremap_resource() returns ERR_PTR()
+and never returns NULL. The NULL test in the return value check should
+be replaced with IS_ERR().
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Fixes: d7bff893e04f ("ASoC: sprd: Add Spreadtrum multi-channel data transfer support")
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+Reviewed-by: Baolin Wang <baolin.wang@linaro.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wm_adsp.c | 4 ++--
+ sound/soc/sprd/sprd-mcdt.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index a9298bfddd9c..bb10c4aeceb4 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -4285,7 +4285,7 @@ irqreturn_t wm_adsp2_bus_error(struct wm_adsp *dsp)
+diff --git a/sound/soc/sprd/sprd-mcdt.c b/sound/soc/sprd/sprd-mcdt.c
+index 28f5e649733d..e9318d7a4810 100644
+--- a/sound/soc/sprd/sprd-mcdt.c
++++ b/sound/soc/sprd/sprd-mcdt.c
+@@ -951,8 +951,8 @@ static int sprd_mcdt_probe(struct platform_device *pdev)
  
- 	if (val & ADSP2_WDT_TIMEOUT_STS_MASK) {
- 		adsp_err(dsp, "watchdog timeout error\n");
--		wm_adsp_stop_watchdog(dsp);
-+		dsp->ops->stop_watchdog(dsp);
- 		wm_adsp_fatal_error(dsp);
- 	}
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	mcdt->base = devm_ioremap_resource(&pdev->dev, res);
+-	if (!mcdt->base)
+-		return -ENOMEM;
++	if (IS_ERR(mcdt->base))
++		return PTR_ERR(mcdt->base);
  
-@@ -4396,7 +4396,7 @@ irqreturn_t wm_halo_wdt_expire(int irq, void *data)
- 	mutex_lock(&dsp->pwr_lock);
- 
- 	adsp_warn(dsp, "WDT Expiry Fault\n");
--	wm_halo_stop_watchdog(dsp);
-+	dsp->ops->stop_watchdog(dsp);
- 	wm_adsp_fatal_error(dsp);
- 
- 	mutex_unlock(&dsp->pwr_lock);
+ 	mcdt->dev = &pdev->dev;
+ 	spin_lock_init(&mcdt->lock);
 -- 
 2.20.1
 

@@ -2,68 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9397611804
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 13:11:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE44611839
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 13:35:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 210C617AF;
-	Thu,  2 May 2019 13:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 210C617AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31B9117BF;
+	Thu,  2 May 2019 13:34:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31B9117BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556795490;
-	bh=YkEJxQMQpq/BqZh/vMtl8CRQGZTGcDSofYOqyFrHLFM=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qgPK6U23nY4La1Wu6E/D1OIvRL1WC+v2pkdjHQNoDn+OOJ0pNxeYbIeescN0rhuTe
-	 tO/jdFMRu1rEjjE3h1qIGLTmu32M9oW18/BEqE5IzbQVK3BcMf+LnPaSFBErX0n9To
-	 qztYU1qEd5FUtfwx4U9rv6FjhLfg1dBONlAf/lvU=
+	s=default; t=1556796942;
+	bh=in+plsMztc422EmIarW8+L4s8fpyQdtbeHMFYICRZlQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tc1jM1D73d1bxpfH+/vp6jjnQBGM/pf/F3xU4xVI/cWEE+RPbfAvRwdvIoo0acIvp
+	 wSmi76NhT64JzEx6YcWs35lO6pTiAB32XoimG49C4wConVdyf1IqceQY3A921wbvlc
+	 398ykUrMajKUiXpMjfO88JanAXEpCkkSmVDdpojA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DFEFF8976A;
-	Thu,  2 May 2019 13:00:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF93AF896C7;
+	Thu,  2 May 2019 13:33:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A5B0F89756; Thu,  2 May 2019 13:00:51 +0200 (CEST)
+ id 8C117F896C7; Thu,  2 May 2019 13:33:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EA6AF89756
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 13:00:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EA6AF89756
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IVtfhlSC"
-Received: from localhost.localdomain (unknown [171.76.113.243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CC383208C4;
- Thu,  2 May 2019 11:00:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556794847;
- bh=szJ85gxJz6zknlvjIpxxl7nxdBK55/AVxPPzf9NzxyQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=IVtfhlSCSrofuXA0i/dhhTTQfaIUkt+S5vYewfIpvOVQWY4W54HJg6teZgU/tl3nj
- LIywcEQYBmuXBDjw6IT9PEYbWxPNtqeKemkqNTweRXXVE11Ys5vbXmL7qA2qhzoFuP
- AS2itSRmKclgZgxhlOX8fo+AvRDXJT8AFAMLIw7c=
-From: Vinod Koul <vkoul@kernel.org>
-To: alsa-devel@alsa-project.org
-Date: Thu,  2 May 2019 16:29:30 +0530
-Message-Id: <20190502105930.9889-15-vkoul@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190502105930.9889-1-vkoul@kernel.org>
-References: <20190502105930.9889-1-vkoul@kernel.org>
-MIME-Version: 1.0
-Cc: Greg KH <gregkh@linuxfoundation.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
- Vinod Koul <vkoul@kernel.org>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84226F89693
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 13:33:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84226F89693
+Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_256_CBC_SHA1:32)
+ (Exim 4.76) (envelope-from <colin.king@canonical.com>)
+ id 1hM9y8-0005q6-Uv; Thu, 02 May 2019 11:33:41 +0000
+From: Colin King <colin.king@canonical.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Shreyas NC <shreyas.nc@intel.com>
-Subject: [alsa-devel] [PATCH 14/14] soundwire: remove multiple blank lines
+ alsa-devel@alsa-project.org
+Date: Thu,  2 May 2019 12:33:40 +0100
+Message-Id: <20190502113340.8688-1-colin.king@canonical.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH][next] ASoC: SOF: remove redundant null checks
+	of dai
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,28 +68,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Multi-blank lines do not help readability so remove them
+From: Colin Ian King <colin.king@canonical.com>
 
-Checkpatch complains:
-CHECK: Please don't use multiple blank lines
+Currently there are two null checks of pointer dai in function
+sof_connect_dai_widget and yet there is no null check of dai
+at the end of the function when checking !dai->name.  The latter
+would be a null pointer deference if dai is null (as picked up
+by static analysis), however the function is only ever called
+when dai is successfully allocated, so the null checks are
+redundant. Clean up the code by removing the null checks.
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Addresses-Coverity: ("Dereference after null check")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- include/linux/soundwire/sdw_registers.h | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/sof/topology.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/soundwire/sdw_registers.h b/include/linux/soundwire/sdw_registers.h
-index e75b2e3cf93d..a686f7988156 100644
---- a/include/linux/soundwire/sdw_registers.h
-+++ b/include/linux/soundwire/sdw_registers.h
-@@ -73,7 +73,6 @@
- #define SDW_SCP_INTSTAT2_SCP3_CASCADE		BIT(7)
- #define SDW_SCP_INTSTAT2_PORT4_10		GENMASK(6, 0)
- 
--
- #define SDW_SCP_INTSTAT3			0x43
- #define SDW_SCP_INTSTAT3_PORT11_14		GENMASK(3, 0)
- 
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 2b9de1b97447..1f71857298a9 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1127,15 +1127,13 @@ static int sof_connect_dai_widget(struct snd_soc_component *scomp,
+ 		switch (w->id) {
+ 		case snd_soc_dapm_dai_out:
+ 			rtd->cpu_dai->capture_widget = w;
+-			if (dai)
+-				dai->name = rtd->dai_link->name;
++			dai->name = rtd->dai_link->name;
+ 			dev_dbg(sdev->dev, "tplg: connected widget %s -> DAI link %s\n",
+ 				w->name, rtd->dai_link->name);
+ 			break;
+ 		case snd_soc_dapm_dai_in:
+ 			rtd->cpu_dai->playback_widget = w;
+-			if (dai)
+-				dai->name = rtd->dai_link->name;
++			dai->name = rtd->dai_link->name;
+ 			dev_dbg(sdev->dev, "tplg: connected widget %s -> DAI link %s\n",
+ 				w->name, rtd->dai_link->name);
+ 			break;
 -- 
 2.20.1
 

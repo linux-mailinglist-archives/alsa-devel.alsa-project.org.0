@@ -2,84 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E45D1124B2
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 00:46:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0226124ED
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 01:08:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F4B51826;
-	Fri,  3 May 2019 00:45:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F4B51826
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29A201814;
+	Fri,  3 May 2019 01:07:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29A201814
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556837171;
-	bh=sCBIl3D7O94DMo3K8AylPGuUyPqjuR5zmVi2UZKju4w=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1556838508;
+	bh=WwILI5YSUchcbet0H9rWzhqTL2Typp952Iy20LBHjIA=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aCCNE0Ie5yxBc6+JNr5OpX+2KpLHYFVJyDm/WQvj4hbbYht6cxH8a3dBJwXkE6Izh
-	 9NvmviNfADFeK5Bd/J7I1YUCTdUc1YzVSRv41D7pETQp/Fsmd6D4UDBjlnHfNibrBJ
-	 nDylwgPDkVtFIDz7FlYtKE/TYAJ33IHDhXSx6fjA=
+	b=np8h0WzEoTWZ6AcmH/9BM7iZtCQDjIUn3D7rOdn+eTIHjBHbxvzmYSJdirqaez9B9
+	 opLiqmgK/3y+yoFCqsjALEjX9ChEEwF6lt9PC8cYnuMgFwj4UJ1WwHabp4snxugsw/
+	 2OOldTJnK2PgA2SythkfB2kZ/aIu8/FW+7SRdAUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EDB8F896C7;
-	Fri,  3 May 2019 00:44:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF20CF896EA;
+	Fri,  3 May 2019 01:06:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4D84F896C7; Fri,  3 May 2019 00:44:23 +0200 (CEST)
+ id 6516BF896C7; Fri,  3 May 2019 01:06:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mout.perfora.net (mout.perfora.net [74.208.4.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5BB2F80722
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 00:44:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5BB2F80722
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ViH32LHW"
-Received: by mail-wr1-x441.google.com with SMTP id f7so5509533wrs.2
- for <alsa-devel@alsa-project.org>; Thu, 02 May 2019 15:44:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SuUpfHu3jsyrHNGkijE3t4kxZS81qdHPL95LsioUnGs=;
- b=ViH32LHWXkf+gwRwBFv9arWh1x/EQk3jp2GPbg9ZDbhOQGKi18HcFZ2a2WhvUdi0E2
- hLvmZB7C0IFgBg2Wt5nPCV3wA+dJCEcrgd8xjJ5KKdM2aS0VsIPysO9DPqo1Y5f9lYLo
- qaAhnsjBl9hDzPhHjUXmIAW3wvTicKFLDFu7kZq52ny7jUEI//hYwQuWSMS3chSvHm+Z
- VO0Wdt5xL/wnXtyjcztI2b0wSpaSa5bw4RaFt5QAqXPbUY35WUbALfrrAL/ZYAb1oMdX
- OltRwihVxtM4GvvA+QkJh+Xvo+IGoR8HSfpyGf6+K0hBJW1uT5Suj0QV35es4Q/JcWMf
- 9MWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SuUpfHu3jsyrHNGkijE3t4kxZS81qdHPL95LsioUnGs=;
- b=OHvDFa2IUwKnF9M4QHVTxi+4g4Jwa4P1ZvuFFen1gEy8IbAdquy257vueXFi5vTeIt
- Lz0IKHqzIpJIGa8c4ncHkbLPienxoyoxMAWqKZVC+E1FHOgSBouii8oFHtIkpd44nRYV
- tPgEcWKBGZOtZ9zANiM74giGCAUkU0Zai2TH2E7c/yVACM4ZNW1cyz8lMUgLU6NrnVFV
- pkenmjJHgL0v4OIxBqe3ckf176nrAQmV82hSnQULL6WNEpag32Ccyg+3gFzwMZKC5oAD
- F947z29eyYlUddcOq9FvfPrXuYHnu4N/ZT9GYSx50k2It6yQMzBJSUMOZUB8GZ6lvaNk
- RJmw==
-X-Gm-Message-State: APjAAAUSDfIUuQK5bBSZ4g7qv0KCVDgxpa72v+OW+6+nhTneqAONohxO
- C5Vu763ZI2qZExhCRBKc5gg63AhBoJeIpTlk2Lw=
-X-Google-Smtp-Source: APXvYqwNoLYrunH147NNmfIlbuaw02XNIikLKmKRNPweSoKWE52cBbTEMFCd6StVQmgpG2uMD74V9CWt37ZivUZ4L9I=
-X-Received: by 2002:a5d:6101:: with SMTP id v1mr4479676wrt.222.1556837059885; 
- Thu, 02 May 2019 15:44:19 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5C47F8075A
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 01:06:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5C47F8075A
+Received: from [200.100.0.109] ([23.242.202.27]) by mrelay.perfora.net
+ (mreueus003 [74.208.5.2]) with ESMTPSA (Nemesis) id 0MCJYl-1hUp5t4BKz-0097MS; 
+ Fri, 03 May 2019 01:06:33 +0200
+To: Takashi Iwai <tiwai@suse.de>
+References: <1887e6cb-0c33-664c-d3be-c282d8b797de@ecmk.org>
+ <s5hmukp3s6o.wl-tiwai@suse.de>
+ <c341a56c-be1d-2301-1bde-b8eb403c6391@ecmk.org>
+ <s5hmukgeost.wl-tiwai@suse.de>
+ <9e12d82d-0b7b-7952-4367-b6fe333c4c5d@ecmk.org>
+ <s5hmuk7iqk0.wl-tiwai@suse.de>
+From: ecmk <info@ecmk.org>
+Message-ID: <5a782605-3c26-eb30-65dc-b4aaa0fa0188@ecmk.org>
+Date: Thu, 2 May 2019 16:06:30 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190502181332.5503-1-sravanhome@gmail.com>
-In-Reply-To: <20190502181332.5503-1-sravanhome@gmail.com>
-From: =?UTF-8?Q?Beno=C3=AEt_Th=C3=A9baudeau?= <benoit.thebaudeau.dev@gmail.com>
-Date: Fri, 3 May 2019 00:44:31 +0200
-Message-ID: <CA+sos7-U49b7DyQ76h-RohhGqPSPqsV-u-r+oaZnB5=DAkbm6w@mail.gmail.com>
-To: Saravanan Sekar <sravanhome@gmail.com>
-Cc: Alsa-devel <alsa-devel@alsa-project.org>, lgirdwood@gmail.com,
- linux-kernel <linux-kernel@vger.kernel.org>, tiwai@suse.com,
- broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v3] ASoC: tlv320aic3x: Add support for high
- power analog output
+In-Reply-To: <s5hmuk7iqk0.wl-tiwai@suse.de>
+Content-Language: en-US
+X-Provags-ID: V03:K1:GQQyv3xVaHVLOK7HMVzWx4lfONKJfYph7D1CEDum60hATgqudbH
+ sJ4zSdXdVr1B27Lt/fGLzdKGvODlTiiDKDRvxRUzv82mrvElLUchfQM3e5S3seYA0xyQyvu
+ oaNDuUC+p21vdLuHel14shBVbLqX4V8YpThn2AveJbW+FtdMdnbcOKlu9QX2RiMC3Est4wy
+ Abe4kEk3d7L7MRePl3LyA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Kso+6oraH2o=:bGDctywhODW7VW7dRGfvWc
+ S2dvexhYj2iMgxihC5EJaND3pd2vR/VkjjUG+jvrfsytN/8WgCTM0G2Utx5OWyCuSyj+d2HAj
+ tG22dl4Rv/fV1Cbr98WqAHvNgp/1hdpgqUsMeOVXd8JBQzo3ebUuQLDgqJjonyP/lh9au3ao1
+ Afv18OuNh0bPx+ktQt+eJ5b+nQGJ1BeXLaj7nrLCVd9ZYqq16gmug439mWAw2zQPQZWXBKXow
+ NM3X+HFxctKXIEqiXJtIguGGDBSDzJ2GWBDxX16FlwCgp4vGBYJHNghRLWRUqhu4BC47/JwA2
+ K9MzhINPDiE0ljj8n5ftEd4r/3SnLQuY9n80n1KPFMCCgLBz8DTvMtB4puk/q5QN7jHDCVO0C
+ TQJERPIU2Ei3v3UMdkigEwvYkOr5vb14nd9vVLD3rrhHRV2F8herU4A37zawy15nE7a44sAhf
+ 4bchfxWZ3p5kOjDZgg1Ev0Ez36R17m0oFwWb/jpWkHhiLrh5Q1ADlwW1ubinGJ36EBtiUXMxF
+ DFnHrF+EqHzHqCWX7HZYNSi2UkAev2K+Cr4nayxkDRP5MuOqxZ6rFGw4ZdXe5nhGYrepuIbTk
+ w3KWbpb7aUnOvv0DNg9nXtpA+UzWnMEa74xI19Fn+LzeeDBwhC4/ch/PgalxKZ7Ful0PInl1J
+ JKMUKsp1Om2ULXoE1oM8uoV9n4mNxSMCXrf+INp3iKsuuw2Ga9vTuopgBFd1cwzg3sWaXjzj2
+ J9Qy2JDQiyf/xIFrsAEZ1CFvYyWDbKhRj7XYSS0aQCHs8kZOyWe0PpIy5U4=
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Kernel patch needed for Asus Q325UAR
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,82 +84,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RGVhciBTYXJhdmFuYW4gU2VrYXIsCgpPbiBUaHUsIE1heSAyLCAyMDE5IGF0IDg6MTQgUE0gU2Fy
-YXZhbmFuIFNla2FyIDxzcmF2YW5ob21lQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBZGQgc3VwcG9y
-dCB0byBvdXRwdXQgbGV2ZWwgY29udHJvbCBmb3IgdGhlIGFuYWxvZyBoaWdoIHBvd2VyIG91dHB1
-dAo+IGRyaXZlcnMgSFBPVVQgYW5kIEhQQ09NLgo+Cj4gU2lnbmVkLW9mZi1ieTogU2FyYXZhbmFu
-IFNla2FyIDxzcmF2YW5ob21lQGdtYWlsLmNvbT4KPiAtLS0KPgo+IE5vdGVzOgo+ICAgICBDaGFu
-Z2VzIGluIFYzOgo+ICAgICAtRml4ZWQgY29tcGlsYXRpb24gZXJyb3IKPgo+ICAgICBDaGFuZ2Vz
-IGluIFYyOgo+ICAgICAtIFJlbW92ZWQgcG93ZXIgY29udHJvbCBhcyBpdCBpcyBoYW5kbGVkIGJ5
-IERBUE0KPiAgICAgLSBBZGRlZCBsZXZlbCBjb250cm9sIGZvciBsZWZ0IGNoYW5uZWwKPgo+ICBz
-b3VuZC9zb2MvY29kZWNzL3RsdjMyMGFpYzN4LmMgfCA5ICsrKysrKysrKwo+ICAxIGZpbGUgY2hh
-bmdlZCwgOSBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy90
-bHYzMjBhaWMzeC5jIGIvc291bmQvc29jL2NvZGVjcy90bHYzMjBhaWMzeC5jCj4gaW5kZXggNTE2
-ZDE3Y2IyMTgyLi40ODlhNmQ4OWQ2M2QgMTAwNjQ0Cj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy90
-bHYzMjBhaWMzeC5jCj4gKysrIGIvc291bmQvc29jL2NvZGVjcy90bHYzMjBhaWMzeC5jCj4gQEAg
-LTMyNCw2ICszMjQsOSBAQCBzdGF0aWMgREVDTEFSRV9UTFZfREJfU0NBTEUoYWRjX3RsdiwgMCwg
-NTAsIDApOwo+ICAgKi8KPiAgc3RhdGljIERFQ0xBUkVfVExWX0RCX1NDQUxFKG91dHB1dF9zdGFn
-ZV90bHYsIC01OTAwLCA1MCwgMSk7Cj4KPiArLyogSFAvSFBDT00gdm9sdW1lcy4gRnJvbSAwIHRv
-IDkgZEIgaW4gMSBkQiBzdGVwcyAqLwo+ICtzdGF0aWMgREVDTEFSRV9UTFZfREJfU0NBTEUoaHBf
-dGx2LCAwLCAxMDAsIDApOwoKVGhpcyBjb3VsZCBiZSBtYWRlICJjb25zdCIgKGFzIHdlbGwgYXMg
-dGhlIG90aGVyIGluc3RhbmNlcyBvZgpERUNMQVJFX1RMVl9EQl9TQ0FMRSgpKS4KClRoZSBocF90
-bHYgbmFtaW5nIGlzIGZpbmUgZm9yIHRoZSBjaGFuZ2UgaGVyZSwgYnV0IHNvbWV0aGluZyBub3QK
-SFAtc3BlY2lmaWMsIHN1Y2ggYXMgb3V0X3RsdiB3b3VsZCBiZSBiZXR0ZXIgaWYgeW91IGNvbnNp
-ZGVyIHRoZQpmdXJ0aGVyIGNoYW5nZXMgdGhhdCBjb3VsZCB1c2UgdGhpcyBkZWZpbml0aW9uOgpz
-dGF0aWMgREVDTEFSRV9UTFZfREJfU0NBTEUob3V0cHV0X3N0YWdlX3RsdiwgLTU5MDAsIDUwLCAx
-KTsKKy8qIE91dHB1dCB2b2x1bWVzLiBGcm9tIDAgdG8gOSBkQiBpbiAxIGRCIHN0ZXBzICovCitz
-dGF0aWMgY29uc3QgREVDTEFSRV9UTFZfREJfU0NBTEUob3V0X3RsdiwgMCwgMTAwLCAwKTsKCkUu
-Zy4sIHRoZSBmb2xsb3dpbmcgY29udHJvbCBjb3VsZCBiZSBhZGRlZCB0byBhaWMzeF9zbmRfY29u
-dHJvbHNbXToKK1NPQ19ET1VCTEVfUl9UTFYoIkxpbmUgUGxheWJhY2sgVm9sdW1lIiwgTExPUE1f
-Q1RSTCwgUkxPUE1fQ1RSTCwgNCwKOSwgMCwgb3V0X3RsdiksCgpBbmQgdGhpcyBjb250cm9sIGNv
-dWxkIGJlIGFkZGVkIHRvIGFpYzN4X21vbm9fY29udHJvbHNbXToKK1NPQ19TSU5HTEVfVExWKCJN
-b25vIFBsYXliYWNrIFZvbHVtZSIsIE1PTk9MT1BNX0NUUkwsIDQsIDksIDAsIG91dF90bHYpLAoK
-VGhlIE1PTk9MT1BNX0NUUkwgcmVnaXN0ZXIgZXhpc3RzIGZvciB0aGUgMzMgYW5kIDMxMDYsIGJ1
-dCBub3QgZm9yIHRoZQozMSwgMzIsIDMwMDcsIGFuZCAzMTA0IChpdCBzaG91bGQgbm90IGJlIHdy
-aXR0ZW4gdG8gZm9yIHRoZXNlIENPREVDcykuCkhvd2V2ZXIsIHRoZSBkcml2ZXIgdXNlcyB0aGlz
-IHJlZ2lzdGVyIGZvciB0aGUgMzEgYW5kIDMyIHRvbywgd2hpY2gKc2hvdWxkIGJlIGZpeGVkIHJh
-dGhlciB0aGFuIGRpc2FibGluZyB0aGUgY29ycmVzcG9uZGluZyBwaW4gYXMKc3VnZ2VzdGVkIGlu
-IHRoZSBmaWxlIHRvcCBjb21tZW50LgoKPiArCj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tj
-b250cm9sX25ldyBhaWMzeF9zbmRfY29udHJvbHNbXSA9IHsKPiAgICAgICAgIC8qIE91dHB1dCAq
-Lwo+ICAgICAgICAgU09DX0RPVUJMRV9SX1RMVigiUENNIFBsYXliYWNrIFZvbHVtZSIsCj4gQEAg
-LTQxOSw2ICs0MjIsMTIgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IGFp
-YzN4X3NuZF9jb250cm9sc1tdID0gewo+ICAgICAgICAgLyogUG9wIHJlZHVjdGlvbiAqLwo+ICAg
-ICAgICAgU09DX0VOVU0oIk91dHB1dCBEcml2ZXIgUG93ZXItT24gdGltZSIsIGFpYzN4X3Bvd2Vy
-b25fdGltZV9lbnVtKSwKPiAgICAgICAgIFNPQ19FTlVNKCJPdXRwdXQgRHJpdmVyIFJhbXAtdXAg
-c3RlcCIsIGFpYzN4X3JhbXB1cF9zdGVwX2VudW0pLAo+ICsKPiArICAgICAgIC8qIEFuYWxvZyBI
-UE9VVCwgSFBDT00gb3V0cHV0IGxldmVsIGNvbnRyb2xzICovCj4gKyAgICAgICBTT0NfRE9VQkxF
-X1JfVExWKCJIUCBQbGF5YmFjayBWb2x1bWUiLCBIUExPVVRfQ1RSTCwgSFBST1VUX0NUUkwsCj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgNCwgOSwgMCwgaHBfdGx2KSwKCkNvcnJlY3QgZm9yIGFs
-bCB0aGUgc3VwcG9ydGVkIENPREVDcy4KCj4gKyAgICAgICBTT0NfRE9VQkxFX1JfVExWKCJIUENP
-TSBQbGF5YmFjayBWb2x1bWUiLCBIUExDT01fQ1RSTCwgSFBSQ09NX0NUUkwsCj4gKyAgICAgICAg
-ICAgICAgICAgICAgICAgNCwgOSwgMCwgaHBfdGx2KSwKCkNvcnJlY3QgZm9yIGFsbCB0aGUgc3Vw
-cG9ydGVkIENPREVDcyBidXQgdGhlIFRMVjMyMEFJQzMwMDcuIFRoZSBsYXR0ZXIKaGFzIG5vIEhQ
-UkNPTSBvdXRwdXQsIGJ1dCBvbmx5IEhQQ09NICg9IEhQTENPTSkuIFRoZSBIUFJDT01fQ1RSTApy
-ZWdpc3RlciBvZiB0aGlzIENPREVDIGlzIHJlc2VydmVkIGFuZCBzaG91bGQgbm90IGJlIHdyaXR0
-ZW4gdG8uIEFsbAp0aGUgcmVmZXJlbmNlcyB0byB0aGlzIHJlZ2lzdGVyIGZvciB0aGlzIENPREVD
-IGFyZSBhY3R1YWxseSBicm9rZW4gaW4KdGhpcyBkcml2ZXIuIFlvdSBjb3VsZCBzdGlsbCBhZGQg
-dGhpcyBjb250cm9sLCBhbmQgdGhlIDMwMDcgaXNzdWUKY291bGQgYmUgZml4ZWQgc2VwYXJhdGVs
-eSBieSB5b3Ugb3Igc29tZW9uZSBlbHNlLgoKWW91IGNvdWxkIGtlZXAgdGhlIHZvbHVtZXMgZ3Jv
-dXBlZCB3aXRoIHRoZSBjb3JyZXNwb25kaW5nIHN3aXRjaGVzLApqdXN0IGxpa2UgYWxsIHRoZSBB
-R0Mgb3IgUEdBIENhcHR1cmUgY29udHJvbHMgYXJlIGdyb3VwZWQgdG9nZXRoZXI6Ci0vKiBPdXRw
-dXQgcGluIG11dGUgY29udHJvbHMgKi8KKy8qIE91dHB1dCBwaW4gY29udHJvbHMgKi8KK1NPQ19E
-T1VCTEVfUl9UTFYoIkxpbmUgUGxheWJhY2sgVm9sdW1lIiwgTExPUE1fQ1RSTCwgUkxPUE1fQ1RS
-TCwgNCwKOSwgMCwgb3V0X3RsdiksClNPQ19ET1VCTEVfUigiTGluZSBQbGF5YmFjayBTd2l0Y2gi
-LCBMTE9QTV9DVFJMLCBSTE9QTV9DVFJMLCAzLCAweDAxLCAwKSwKK1NPQ19ET1VCTEVfUl9UTFYo
-IkhQIFBsYXliYWNrIFZvbHVtZSIsIEhQTE9VVF9DVFJMLCBIUFJPVVRfQ1RSTCwgNCwKOSwgMCwg
-b3V0X3RsdiksClNPQ19ET1VCTEVfUigiSFAgUGxheWJhY2sgU3dpdGNoIiwgSFBMT1VUX0NUUkws
-IEhQUk9VVF9DVFJMLCAzLCAweDAxLCAwKSwKK1NPQ19ET1VCTEVfUl9UTFYoIkhQQ09NIFBsYXli
-YWNrIFZvbHVtZSIsIEhQTENPTV9DVFJMLCBIUFJDT01fQ1RSTCwKNCwgOSwgMCwgb3V0X3Rsdiks
-ClNPQ19ET1VCTEVfUigiSFBDT00gUGxheWJhY2sgU3dpdGNoIiwgSFBMQ09NX0NUUkwsIEhQUkNP
-TV9DVFJMLCAzLCAweDAxLCAwKSwKCkFuZDoKK1NPQ19TSU5HTEVfVExWKCJNb25vIFBsYXliYWNr
-IFZvbHVtZSIsIE1PTk9MT1BNX0NUUkwsIDQsIDksIDAsIG91dF90bHYpLApTT0NfU0lOR0xFKCJN
-b25vIFBsYXliYWNrIFN3aXRjaCIsIE1PTk9MT1BNX0NUUkwsIDMsIDB4MDEsIDApLAoKPiAgfTsK
-Pgo+ICAvKiBGb3Igb3RoZXIgdGhhbiB0bHYzMjBhaWMzMTA0ICovCgpCZXN0IHJlZ2FyZHMKQmVu
-b8OudApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNh
-LWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9t
-YWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+Great! Thank you!
+
+On 4/30/19 6:13 AM, Takashi Iwai wrote:
+> On Wed, 24 Apr 2019 01:21:36 +0200,
+> ecmk wrote:
+>> Here is the alsa-info output
+> Thanks.  Below is the fix patch.  I'm going to apply it.
+>
+>
+> Takashi
+>
+> -- 8< --
+> From: Takashi Iwai <tiwai@suse.de>
+> Subject: [PATCH] ALSA: hda/realtek - Apply the fixup for ASUS Q325UAR
+>
+> Some ASUS models like Q325UAR with ALC295 codec requires the same
+> fixup that has been applied to ALC294 codec.  Just copy the entry with
+> the pin matching to cover ALC295 too.
+>
+> BugLink: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1784485
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>   sound/pci/hda/patch_realtek.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+>
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index 7da7fa4f4201..42cd3945e0de 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -7547,6 +7547,10 @@ static const struct snd_hda_pin_quirk alc269_pin_fixup_tbl[] = {
+>   		{0x12, 0x90a60130},
+>   		{0x17, 0x90170110},
+>   		{0x21, 0x04211020}),
+> +	SND_HDA_PIN_QUIRK(0x10ec0295, 0x1043, "ASUS", ALC294_FIXUP_ASUS_SPK,
+> +		{0x12, 0x90a60130},
+> +		{0x17, 0x90170110},
+> +		{0x21, 0x03211020}),
+>   	SND_HDA_PIN_QUIRK(0x10ec0295, 0x1028, "Dell", ALC269_FIXUP_DELL1_MIC_NO_PRESENCE,
+>   		{0x14, 0x90170110},
+>   		{0x21, 0x04211020}),
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

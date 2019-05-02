@@ -2,55 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 537961138A
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 08:50:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FED611343
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 08:17:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCA62179B;
-	Thu,  2 May 2019 08:49:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCA62179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70CD11781;
+	Thu,  2 May 2019 08:17:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70CD11781
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556779820;
+	s=default; t=1556777877;
 	bh=3eF2MQH+XCDH6PAGutdqYdm9bRBb4zC+LDo7kEQzh3s=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=cuzsFCX5D4cFpHVT0HjR39jYVOBdaxq18EUTeElF4bQxvfhzDEM9LyGswTIkhWK18
-	 R5qbg/wMtirOFJTBZbgBsfmZQIgRQVgEMljYlst44vSsiqEDu3vSsNCkdWLmXAjsr3
-	 jbESN0Ds0dqIJkUhn6oHV1kZTA3asnFo+ORjLxS4=
+	b=ETP4EeSJWFp1u2L7VI+9WNCuhZT1CrZzpDhqGvhXiayob17R00XfKPVIzl8yhABmQ
+	 +nf22avOZfU6DzoG+m6HihRwRWgLgl34zQV5D2BW8goVwTJ/p2OTBYC9nJMenXAIva
+	 hZ7cYYCrZa67T9xx+f3FpAWxaRc48pXONEj75vtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC656F89722;
-	Thu,  2 May 2019 08:48:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06FA8F896C7;
+	Thu,  2 May 2019 08:16:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43DE2F896AA; Thu,  2 May 2019 08:11:54 +0200 (CEST)
+ id 041A4F80722; Thu,  2 May 2019 08:16:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E28ECF80722
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 08:11:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E28ECF80722
+ by alsa1.perex.cz (Postfix) with ESMTPS id E19F2F8075A
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 08:16:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E19F2F8075A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 May 2019 23:11:48 -0700
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 May 2019 23:15:59 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,420,1549958400"; d="scan'208";a="320740889"
+X-IronPort-AV: E=Sophos;i="5.60,420,1549958400"; d="scan'208";a="139201489"
 Received: from macchian.itwn.intel.com ([10.5.230.135])
- by orsmga005.jf.intel.com with ESMTP; 01 May 2019 23:11:47 -0700
-From: "mac.chiang@intel.com--cc=pierre-louis.bossart"@linux.intel.com
+ by orsmga008.jf.intel.com with ESMTP; 01 May 2019 23:15:58 -0700
+From: mac.chiang@intel.com
 To: alsa-devel@alsa-project.org
-Date: Thu,  2 May 2019 14:12:04 +0800
-Message-Id: <1556777524-7437-1-git-send-email-mac.chiang@intel.com>
+Date: Thu,  2 May 2019 14:16:15 +0800
+Message-Id: <1556777775-7598-1-git-send-email-mac.chiang@intel.com>
 X-Mailer: git-send-email 2.7.4
-X-Mailman-Approved-At: Thu, 02 May 2019 08:47:52 +0200
-Cc: mac.chiang@intel.com, broonie@kernel.org, chintan.m.patel@intel.com
+Cc: mac.chiang@intel.com, broonie@kernel.org, chintan.m.patel@intel.com,
+ pierre-louis.bossart@linux.intel.com
 Subject: [alsa-devel] [PATCH] ASoC: Intel: kbl_da7219_max98357a: Map BTN_0
 	to KEY_PLAYPAUSE
 X-BeenThere: alsa-devel@alsa-project.org

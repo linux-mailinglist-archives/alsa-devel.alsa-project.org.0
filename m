@@ -2,68 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07702120DA
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 19:11:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88705120F6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 19:24:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8382C1812;
-	Thu,  2 May 2019 19:11:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8382C1812
+	by alsa0.perex.cz (Postfix) with ESMTPS id 096AD1804;
+	Thu,  2 May 2019 19:23:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 096AD1804
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556817110;
-	bh=Y+g3YN0in+QbB5rguJIXrePp2aTdR3ClhtSD0tBN/58=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556817845;
+	bh=4fCTEkWa7mVy8u2djWiUyLUCicYx72y6vhI0lylHMic=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UOr3ynvDm6YXdAixVQuMC3d5SdLwOjVCC90bzYrqVOfE53KH7Cv5IDfTH/Y2Xij7D
-	 keWkAwh3ATVIuGwOneGWnJwMr3lNshjiIdKvsPHhtXxv6yEw9oeeOzIjIkICyADGni
-	 SkXP3WejL5E6FHjiVZYjs1zMUvpFEMZhe7cUpGtU=
+	b=hYXaFbpwpzmwHbvW52W68TmZDz4/KW45vR3NhK6btW2TPQg6Avl4fWmbhxNgXm8R8
+	 K2uxVB1T6hdv9ISWNmPZc+vFz6tAFXw/wkJOLLGqKoT5GGKocAK8yzYWVw5no/LCf7
+	 MLAnasCp1A29/vOhtRiFUAWDDsGz8e+JzMbMBIUA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A439F896E3;
-	Thu,  2 May 2019 19:10:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9498F896C7;
+	Thu,  2 May 2019 19:22:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0B61F896C7; Thu,  2 May 2019 19:10:03 +0200 (CEST)
+ id 8D9A9F896C7; Thu,  2 May 2019 19:22:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53DFBF89693
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 19:10:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53DFBF89693
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="z5EVuigJ"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E10DD20675;
- Thu,  2 May 2019 17:09:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556816998;
- bh=dGFqRljxay/QBS5jA/YGpNxt5v22s46sFC0Zch9qAz8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=z5EVuigJtQ0MIunh05r86zaVUdh6wUol44STekkh2dJ01bM1mvH9cFDqzxgve4DJY
- Xn8A5GViSY6JDjOHtb+s1YnVKC6U7x8Trol6NR9wWAB0ZcaiQIlfUBihqOPa8p9VTA
- nRuIZYbzhiZcwBunvQ0+Zw+nYLaClGmhFzG88Nr0=
-Date: Thu, 2 May 2019 19:09:56 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20190502170956.GA18654@kroah.com>
-References: <20190502165636.GU3845@vkoul-mobl.Dlink>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190502165636.GU3845@vkoul-mobl.Dlink>
-User-Agent: Mutt/1.11.4 (2019-03-13)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17BD1F8075A
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 19:22:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17BD1F8075A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3640DAF70;
+ Thu,  2 May 2019 17:22:13 +0000 (UTC)
+Date: Thu, 02 May 2019 19:22:12 +0200
+Message-ID: <s5hd0l0ojp7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190502153343.21979-1-tiwai@suse.de>
+References: <20190502153343.21979-1-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [GIT PULL]: Second soundwire updates
+Subject: Re: [alsa-devel] [PATCH v3 0/2] ASoC: CX2072X codec support
+	(revised)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,33 +71,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 02, 2019 at 10:26:36PM +0530, Vinod Koul wrote:
-> Hi Greg,
+On Thu, 02 May 2019 17:33:41 +0200,
+Takashi Iwai wrote:
 > 
-> As discussed here is the second soundwire PULL request for v5.2-rc1.
+> Hi,
 > 
-> The following changes since commit 4abbd783d126cabfc20d1b8d50b1d5026b5cba09:
-> 
->   soundwire: intel: fix implicit header use of module.h/export.h (2019-04-14 15:52:50 +0530)
-> 
-> are available in the Git repository at:
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/soundwire-5.2-rc1_2
+> this is a revised patchset for ASoC CX2072X codec support on Intel
+> platforms.
 
-I just did a pull, and a diff, and got nothing:
-	$ git diff work-testing..HEAD
-	$
+Soon after submitting a new version, I found a bug I introduced
+mistakenly about the endianess conversion.  This should be harmless on
+little-endian machines, but hey, it's a clear bug to be fixed.  Will
+resubmit v4 soon.  Sorry for the mess...
 
-So what I currently have in my char-misc work-testing branch is
-identical to your branch.  So if you were to rebase, you would have a
-"clean" tree.
-
-So I'll just keep what I have already, as this way, everything has my
-signed-off-by on them, as I did take the time to review them all :)
 
 thanks,
 
-greg k-h
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

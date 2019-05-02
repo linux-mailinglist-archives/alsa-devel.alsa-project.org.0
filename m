@@ -2,71 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B0E611C95
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 17:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B4711D44
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 17:35:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED81D17E9;
-	Thu,  2 May 2019 17:22:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED81D17E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A61C17E9;
+	Thu,  2 May 2019 17:34:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A61C17E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556810596;
-	bh=g7R5E0mzHiCUIr2xBWKJeZfJC5vONFoD9+T2WkzYTXA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Sb8pVAdPrg0+t79bS9kY3G59u2qCsszzVdoUiMup8p7HMof5ArO3x/OBtAckJJeRU
-	 WeIVm8pELZabZstXS5mylu36Huh48UqnMU0suxYuWR9lvd+uocr/OGmDE16DMrx/qx
-	 6niGLoIBai9aq/Cc8qY/2MIr1g0regTNZpRqB5fk=
+	s=default; t=1556811337;
+	bh=TsZ/+mgsG5iWnVG8D3ASPgS/TEvNhsLJD2f/wSIS4YE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pmeEWn+x6qEF62s887bdEHXCr6EVJke7n1BDjTKl+s1OD+Uc5k1SmN1B6QqLXBuMu
+	 rXdOO3bV97/aWRSwHZoQOoAEKR1HNPm3/HPDZjAq69Qdn8VKn5/2IPN4NziIyK7LIJ
+	 kj9SCoj/xRqllK5VAY8fGLvCV4aFT1PmhHlEvc5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F3E1F896FA;
-	Thu,  2 May 2019 17:22:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94011F89693;
+	Thu,  2 May 2019 17:33:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21316F896FA; Thu,  2 May 2019 17:22:00 +0200 (CEST)
+ id B7B91F896EA; Thu,  2 May 2019 17:33:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8201FF896AA
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 17:21:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8201FF896AA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="X642rllv"
-Received: from localhost (unknown [171.76.113.243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 209DB2081C;
- Thu,  2 May 2019 15:21:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556810515;
- bh=srh69RHlEa4y941jzHlZBcZT+te2UcrZuwKgnwmxTCU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=X642rllv4ifyyEZ086UUKKL5HVSosWoZfquYuhnT7+fWO0riCsHTwWuE/8ObcoA8g
- svyAoxmXfnPYANGvPKWlINMIXg7CR1JFYoudRPxILyXv2d9jIUvr8XAB7YTkIpDfzz
- oWocaAJclMsWM5va29KQQ81J3Fh6Dr/EnV5HLAeA=
-Date: Thu, 2 May 2019 20:51:46 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <20190502152146.GS3845@vkoul-mobl.Dlink>
-References: <20190502105930.9889-1-vkoul@kernel.org>
- <20190502105930.9889-2-vkoul@kernel.org>
- <20190502150754.GA17197@kroah.com>
- <20190502151558.GA2499@kroah.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190502151558.GA2499@kroah.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, Shreyas NC <shreyas.nc@intel.com>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EA2AF89693
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 17:33:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EA2AF89693
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id A1EEDAB91;
+ Thu,  2 May 2019 15:33:45 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+Date: Thu,  2 May 2019 17:33:41 +0200
+Message-Id: <20190502153343.21979-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Cc: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 01/14] soundwire: fix kconfig help format
+Subject: [alsa-devel] [PATCH v3 0/2] ASoC: CX2072X codec support (revised)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,69 +59,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-05-19, 17:15, Greg KH wrote:
-> On Thu, May 02, 2019 at 05:07:54PM +0200, Greg KH wrote:
-> > On Thu, May 02, 2019 at 04:29:17PM +0530, Vinod Koul wrote:
-> > > Move to help format instead of --help-- as that is not recommended and
-> > > this makes file consistent with other instance
-> > > 
-> > > Signed-off-by: Vinod Koul <vkoul@kernel.org>
-> > > ---
-> > >  drivers/soundwire/Kconfig | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > > 
-> > > diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
-> > > index 84876a74874f..53b55b79c4af 100644
-> > > --- a/drivers/soundwire/Kconfig
-> > > +++ b/drivers/soundwire/Kconfig
-> > > @@ -28,7 +28,7 @@ config SOUNDWIRE_INTEL
-> > >  	select SOUNDWIRE_CADENCE
-> > >  	select SOUNDWIRE_BUS
-> > >  	depends on X86 && ACPI && SND_SOC
-> > > -	---help---
-> > > +	help
-> > >  	  SoundWire Intel Master driver.
-> > >  	  If you have an Intel platform which has a SoundWire Master then
-> > >  	  enable this config option to get the SoundWire support for that
-> > > -- 
-> > > 2.20.1
-> > > 
-> > 
-> > Huh?
-> > 
-> > Pierre-Louis sent this patch before you did.  Why did you just rewrite
-> > the changelog text a bit and then ignore his authorship and
-> > signed-off-by?
-> > 
-> > That's a really really shitty thing to do, I'm going to go take his
-> > version of these patches instead, let me see how they line up...
-> 
-> Ok, my apologies, that was incorrect.  Your patch was against a
-> different file than his.
+Hi,
 
-Yes and our emails crossed, apology accepted.
-> 
-> Way to go and make this a total mess to try to figure out, let me see
-> what I can do...
+this is a revised patchset for ASoC CX2072X codec support on Intel
+platforms.
 
-If you can hold off for a bit longer, I have patches in next (pierre's
-full series and couple of then split and ofcourse authorship retain
-(https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git/log/?h=next)
-and mine on top
-(https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git/log/?h=checkpatch_fixes)
+v1->v2: Uncomment SOF entries in ACPI binding
+        Move snd_soc_dai_set_bclk_ratio() call into init callback
 
-I can send you a signed PR for both and you can merged them. otherwise
-the style changes will conflict and defeat the whole purpose..
+v2->v3: CX2072X codec driver:
+	* Move register tables to appropriate place
+	* Remove some confusing codes
+	* Set snd_ctl_boolean_* helpers directly
+	* Fix EQ put callback
+	* Rename to "DAC1 Switch" from "DAC1 Mute Switch"
+	* Drop superfluous regmap calls at shutdown
+	* Avoid regmap_register_patch()
+	* Add missing register definitions
+	* Fix register access on big-endian machine
+	* Remove regcache messes
+	CX2072X machine driver:
+	* Add Pierre's ack
+	* Drop superfluous ssp0 routes
 
-Let me know if that is okay, thanks
+Simon Ho (1):
+  ASoC: Add support for Conexant CX2071X CODEC
+
+Takashi Iwai (1):
+  ASoC: Intel: Add machine driver for CX2072X on BYT/CHT platforms
+
+ sound/soc/codecs/Kconfig                          |    7 +
+ sound/soc/codecs/Makefile                         |    2 +
+ sound/soc/codecs/cx2072x.c                        | 2158 +++++++++++++++++++++
+ sound/soc/codecs/cx2072x.h                        |  319 +++
+ sound/soc/intel/boards/Kconfig                    |   11 +
+ sound/soc/intel/boards/Makefile                   |    2 +
+ sound/soc/intel/boards/bytcht_cx2072x.c           |  284 +++
+ sound/soc/intel/common/soc-acpi-intel-byt-match.c |    8 +
+ sound/soc/intel/common/soc-acpi-intel-cht-match.c |    8 +
+ 9 files changed, 2799 insertions(+)
+ create mode 100644 sound/soc/codecs/cx2072x.c
+ create mode 100644 sound/soc/codecs/cx2072x.h
+ create mode 100644 sound/soc/intel/boards/bytcht_cx2072x.c
 
 -- 
-~Vinod
+2.16.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

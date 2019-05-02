@@ -2,92 +2,139 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A2061169B
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 11:41:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 747FB116E5
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 12:09:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D90D4179D;
-	Thu,  2 May 2019 11:40:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D90D4179D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE77B17A1;
+	Thu,  2 May 2019 12:08:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE77B17A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556790088;
-	bh=WRvZTd4Aex1ZvDxL8FtKHZCieyj5Ncnhdub1KZB26Uc=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1556791742;
+	bh=9c3Z/QppUK2J5iWeMekdiWipugi51WXXUSvb6ynFeXE=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L/0zz0MdwDOUHixVnHgsk9jM7TKp3q4J99OhxmAEOSvRVE+JoqyVSyV5dK6MDvjtc
-	 KjV2Ou9+G9znEtyNUexF8pRYLeIX6j1A74nzyaSoBQb399leFj0VmquarLHTvkifWE
-	 WjSPmowUGx7+lXWgtJPVSrpIlPfueBIhY6+n0Ylo=
+	b=jm4yqozDIsqgOe9kTBh7Jp7Z2h7HtP95G70jwkne6nGDZwH0WjJh2Bkgvdv5EeIJe
+	 ykhb71bRvA9UO9Cd3X8hwMpkTiG+Ycq73v/mhL3paHXa2w8Jv1D4tLJaMklbhIL4+P
+	 4/A22iDJVDuDW6kbT4xQ7KlU0p5uigRj20z4lF60=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48F91F896E3;
-	Thu,  2 May 2019 11:39:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 469C7F896C7;
+	Thu,  2 May 2019 12:07:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AD32F896C7; Thu,  2 May 2019 11:39:41 +0200 (CEST)
+ id 205D9F896C7; Thu,  2 May 2019 12:07:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,PRX_BODY_26,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yw1-xc41.google.com (mail-yw1-xc41.google.com
- [IPv6:2607:f8b0:4864:20::c41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
+ [85.158.142.113])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72BEDF80722
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 11:39:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72BEDF80722
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A2B4F8075A
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 12:07:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A2B4F8075A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="o/QvTJIE"
-Received: by mail-yw1-xc41.google.com with SMTP id y131so1065945ywa.9
- for <alsa-devel@alsa-project.org>; Thu, 02 May 2019 02:39:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=xdth6z7sqKu/asM4+DC73vTGpHLCXQAmob0Qaa/8YnM=;
- b=o/QvTJIE8PitYxkh4yvYEP7Tlz9YaO+C3yH6EjG0InghIxds93jyqsBTvd52ICXN9/
- GrsEFXSoSFhBiKoP4lgs43Hyd+cApUzno5wzvBlSlVRc17HFgBdUeUCqkiFKLM3zryEM
- 3ww+v/AQN2i8rwinnsnyvLywB9TAc6JhEuP1XTMaFp397P1A/y1eS8hqZJz/9eCGek1j
- xGi0wf/jWQRIu1krKaeL3h6+yi/bDCwuMYNCXkvjnn8yJhuqN8P/5se0UN+kynzp+7qW
- xSpBXd9xbPfFTxWtze6TWkl/13g0pLSVUZQTskfULsKHeXUWmtlqcbPWB+Dtd0mydcb7
- k9KA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=xdth6z7sqKu/asM4+DC73vTGpHLCXQAmob0Qaa/8YnM=;
- b=B5iqybBrTVtqmWv7cSoXFeBT9D5Zjgu/aeqgGcuhrQtF2SMvOBg7qq8sftsD2es3/Q
- +JzxoGk4J9oYTnBBrnFYUdkmDduM+gqpZ9gjPC+YZkAcLRjKas6Hmni5gaKyOqhdzVXM
- KLoRrFVBxdoIvUXWVOajvSTEqhoXcJOtnpLnL3jBFt5bfQNMD9EviQfgrDaUFV5Hned5
- LXi+AKE3h689XQUhnspLVHfCq7IORBUzE/0xtDBvAiSCqz8seiyF/tuLY4uztJQdcwBI
- wjDAeE1aIY7nl7jxLtJrtrLw3glH4zoTUx7eXTO0P4+R4I6Uo1qCg3i5R/o4+Xp8TeBb
- +U8w==
-X-Gm-Message-State: APjAAAXqtJ6PmFXDANp3tTK17GHEBwH5QUFedkTKrxkrfzmDYVCJD61X
- imGDxphd67xMHjEoEf1J4j3v7BE8MMH0TN9/Yls=
-X-Google-Smtp-Source: APXvYqy9UVNsnJk0s5cEO6VZ63moEbd8k1NJDxozXOq8MMQz8L/1qN9gkjVoDMSbQ5Zo2h1ORNtu8+kTCWPcECUeFqY=
-X-Received: by 2002:a81:b653:: with SMTP id h19mr2129914ywk.253.1556789975500; 
- Thu, 02 May 2019 02:39:35 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
+ header.i=@dialogsemiconductor.onmicrosoft.com header.b="Nqqte2+j"
+Received: from [85.158.142.201] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-2.bemta.az-b.eu-central-1.aws.symcld.net id FE/95-23082-D41CACC5;
+ Thu, 02 May 2019 10:07:09 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrAJsWRWlGSWpSXmKPExsWSoc9npet78FS
+ Mwe4WZosrFw8xWUx9+ITNYv6JW2wW3650MFlc3jWHzaJzVz+rxYbvaxkt5nbmOXB4bPjcxOYx
+ u+Eii8fOWXfZPTat6mTz2Pd2GZvH+i1XWTw+b5ILYI9izcxLyq9IYM14/qqNseAHb8XVk7eZG
+ xiPc3cxcnGwCKxnlnh8oJUdxBESmMIksW/OVxYI5wGjxObJzUAOJwebgIXE5BMP2EBsEYF0iX
+ 2TJrCCFDELPGCSWLDvMStIQljAXuLtuvOsEEUOEpsm7meHsI0k9sxuYASxWQRUJD4/eQYW5xV
+ IlDg99Q9QnANom5XEw+lFICangLXErkd+IBWMArISXxpXM4PYzALiEreezGcCsSUEBCSW7DnP
+ DGGLSrx8/I8Voj5V4mTTDUaIuI7E2etPwKZLCChK9D5ggQjLSlya3w1V4isxd9U/sHclBO4wS
+ kxYd4oVprelcy/UfAuJJd2tUM0FEo8nzYFqVpM4tLqNDcKWkeje1AQ1aCKbxMdNs8FeFBJIlv
+ gw9yw7RJGcxKreh1BFF5gldl96xzKBUWsWkucgbB2JBbs/sUHY2hLLFr5mngUOLkGJkzOfsCx
+ gZFnFaJFUlJmeUZKbmJmja2hgoGtoaKxromtkpJdYpZukl1qqm5yaV1KUCJTUSywv1iuuzE3O
+ SdHLSy3ZxAhMbSmFLGI7GC8sTT/EKMnBpCTK+3vFqRghvqT8lMqMxOKM+KLSnNTiQ4wyHBxKE
+ rwv9wHlBItS01Mr0jJzgEkWJi3BwaMkwpt2ACjNW1yQmFucmQ6ROsWoy3Fg0cO5zEIsefl5qV
+ LivDogRQIgRRmleXAjYAn/EqOslDAvIwMDgxBPQWpRbmYJqvwrRnEORiVh3gqQKTyZeSVwm14
+ BHcEEdMTzSWBHlCQipKQaGFcYLD3Odesrh9Rfp4jC6IdHso+GSgWoymzriyra9zvnEKP74//P
+ Ml5LtYXIX5gf27IsfJ6p0gyumXN3r+uwXVFSNN8x2eJ2y6KVScHTA79uqd6QWmYb9NHt0rRoE
+ bUL+37ueL2YeyK7xIEzv9dle9nobly3e+luDivGB6u2bY318d8vcseya5ISS3FGoqEWc1FxIg
+ DhjX2D8wMAAA==
+X-Env-Sender: Adam.Thomson.Opensource@diasemi.com
+X-Msg-Ref: server-4.tower-246.messagelabs.com!1556791628!5475643!1
+X-Originating-IP: [104.47.14.58]
+X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.31.5; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 23896 invoked from network); 2 May 2019 10:07:08 -0000
+Received: from mail-vi1eur04lp2058.outbound.protection.outlook.com (HELO
+ EUR04-VI1-obe.outbound.protection.outlook.com) (104.47.14.58)
+ by server-4.tower-246.messagelabs.com with AES256-SHA256 encrypted SMTP;
+ 2 May 2019 10:07:08 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=dialogsemiconductor.onmicrosoft.com; s=selector1-diasemi-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d79/PvtV5NHswfZyQ0SHN3QdSMQYeivxpnwzxEgzk5A=;
+ b=Nqqte2+jmOBvXl2uDbClcD42/XVrRQ55nDBkdioKDNlshbGz6HjsOdRNDS83lkf2RhqVCugQzLkIN8/RhW4HjBN93QbbaYPRwlFRpPrL9FqWhhnJSqyUrprIfp6/iS6lA8rcrOXmZr+S7ClaL8+X/G1qURInm98bOBqqmmj4MTk=
+Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM (10.169.154.136) by
+ AM5PR1001MB1041.EURPRD10.PROD.OUTLOOK.COM (10.169.155.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1835.12; Thu, 2 May 2019 10:07:06 +0000
+Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::45b2:d8a8:e1c:b971]) by AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::45b2:d8a8:e1c:b971%5]) with mapi id 15.20.1856.008; Thu, 2 May 2019
+ 10:07:06 +0000
+From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Thread-Topic: [PATCH] ASoC: da7219: Update the support rate list
+Thread-Index: AQHVAJyitg9iRjOROEK/950fcGO9eKZXm2CQ
+Date: Thu, 2 May 2019 10:07:05 +0000
+Message-ID: <AM5PR1001MB0994A52E77F12680F71AB08080340@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+References: <20190502040743.184310-1-yuhsuan@chromium.org>
+In-Reply-To: <20190502040743.184310-1-yuhsuan@chromium.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [165.225.80.50]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3bfedf67-761e-4a3e-9db7-08d6cee5ee65
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
+ SRVR:AM5PR1001MB1041; 
+x-ms-traffictypediagnostic: AM5PR1001MB1041:
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-microsoft-antispam-prvs: <AM5PR1001MB1041D6A66F9B524356552376A7340@AM5PR1001MB1041.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:1303;
+x-forefront-prvs: 0025434D2D
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(136003)(376002)(396003)(39850400004)(366004)(346002)(199004)(189003)(54906003)(446003)(86362001)(486006)(55016002)(110136005)(6436002)(229853002)(476003)(7736002)(66556008)(186003)(76116006)(8936002)(66946007)(64756008)(66446008)(6506007)(11346002)(73956011)(9686003)(66476007)(2501003)(3846002)(256004)(53546011)(76176011)(8676002)(66066001)(6116002)(81166006)(7696005)(102836004)(14454004)(478600001)(305945005)(6246003)(99286004)(55236004)(71200400001)(71190400001)(72206003)(81156014)(5660300002)(53936002)(25786009)(316002)(52536014)(26005)(74316002)(68736007)(33656002)(4326008)(2906002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM5PR1001MB1041;
+ H:AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:0; MX:1; 
+received-spf: None (protection.outlook.com: diasemi.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 4U0P0lTt6/2Z4ShRV3AfnlHjbcuyYwHIuF1ev3qLmZPJ8k1a3lozTyY+nlWKbdRVp4VnDpiDD7yxccH/ZiEn+uLKf8tTcTHHdEKtNT7csI7dymCKQmoMoC/IThNMO5JnPBN0Rp1AVEh/DVPG8OKRDSfKVDbVtyKhqlpOLerzzz6+9xL20d0TnALYPRwT/Y0suEwL+GQ9fJPCXKNsL7klGp3/LxYZWRyBS7ePuRAeyUN78lGoz6btni4NKcp1j1Eaz/KEE+oyaygpq0jTa2JVsN38xmkoy3j2nKL1vWgR1bmiDL4NastPJzSxe6qgRXHocKrVePNfTLf5dBAf1Ne7CrcxERy7RwPvKTXX0yQtkKGN56bTRpE/goZGsg5jMRvxDnM8JdMp3TCIJqigr8EhdEca6FnBFHL9P4JRZrnBgT4=
 MIME-Version: 1.0
-References: <20190419191730.9437-1-peron.clem@gmail.com>
- <20190419191730.9437-3-peron.clem@gmail.com>
- <20190502082526.c5zo4uzceqzizbxo@flea>
-In-Reply-To: <20190502082526.c5zo4uzceqzizbxo@flea>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Thu, 2 May 2019 11:39:24 +0200
-Message-ID: <CAJiuCcdFUPBsXfKtDLt-p6Edx-7JrST9d0C=ofCU4CL8ZxwcsA@mail.gmail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
+X-OriginatorOrg: diasemi.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bfedf67-761e-4a3e-9db7-08d6cee5ee65
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 May 2019 10:07:06.0231 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR1001MB1041
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Support Opensource <Support.Opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
  Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v2 2/5] ASoC: sun4i-spdif: Add support for
-	H6 SoC
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+ "dgreid@chromium.org" <dgreid@chromium.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: da7219: Update the support rate list
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,95 +147,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgTWF4aW1lLAoKT24gVGh1LCAyIE1heSAyMDE5IGF0IDEwOjI1LCBNYXhpbWUgUmlwYXJkIDxt
-YXhpbWUucmlwYXJkQGJvb3RsaW4uY29tPiB3cm90ZToKPgo+IE9uIEZyaSwgQXByIDE5LCAyMDE5
-IGF0IDA5OjE3OjI3UE0gKzAyMDAsIENsw6ltZW50IFDDqXJvbiB3cm90ZToKPiA+IEFsbHdpbm5l
-ciBINiBoYXMgYSBkaWZmZXJlbnQgbWFwcGluZyBmb3IgdGhlIGZpZm8gcmVnaXN0ZXIgY29udHJv
-bGxlci4KPiA+Cj4gPiBBY3R1YWxseSBvbmx5IHRoZSBmaWZvIHR4IGZsdXNoIGJpdCBpcyB1c2Vk
-Lgo+ID4KPiA+IEFkZCBhIG5ldyBxdWlyayB0byBrbm93IHRoZSBjb3JyZWN0IGZpZm8gdHggZmx1
-c2ggYml0Lgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IENsw6ltZW50IFDDqXJvbiA8cGVyb24uY2xl
-bUBnbWFpbC5jb20+Cj4gPiAtLS0KPiA+ICBzb3VuZC9zb2Mvc3VueGkvc3VuNGktc3BkaWYuYyB8
-IDQyICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tCj4gPiAgMSBmaWxlIGNoYW5n
-ZWQsIDM2IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBh
-L3NvdW5kL3NvYy9zdW54aS9zdW40aS1zcGRpZi5jIGIvc291bmQvc29jL3N1bnhpL3N1bjRpLXNw
-ZGlmLmMKPiA+IGluZGV4IGI0YWY0YWFiZWFkMS4uMTllNGJmOWNhYTI0IDEwMDY0NAo+ID4gLS0t
-IGEvc291bmQvc29jL3N1bnhpL3N1bjRpLXNwZGlmLmMKPiA+ICsrKyBiL3NvdW5kL3NvYy9zdW54
-aS9zdW40aS1zcGRpZi5jCj4gPiBAQCAtNzUsNiArNzUsMTggQEAKPiA+ICAgICAgICNkZWZpbmUg
-U1VONElfU1BESUZfRkNUTF9SWE9NKHYpICAgICAgICAgICAgICAgICgodikgPDwgMCkKPiA+ICAg
-ICAgICNkZWZpbmUgU1VONElfU1BESUZfRkNUTF9SWE9NX01BU0sgICAgICAgICAgICAgIEdFTk1B
-U0soMSwgMCkKPiA+Cj4gPiArI2RlZmluZSBTVU41MElfSDZfU1BESUZfRkNUTCAoMHgxNCkKPiA+
-ICsgICAgICNkZWZpbmUgU1VONTBJX0g2X1NQRElGX0ZDVExfSFVCX0VOICAgICAgICAgICAgIEJJ
-VCgzMSkKPiA+ICsgICAgICNkZWZpbmUgU1VONTBJX0g2X1NQRElGX0ZDVExfRlRYICAgICAgICAg
-ICAgICAgIEJJVCgzMCkKPiA+ICsgICAgICNkZWZpbmUgU1VONTBJX0g2X1NQRElGX0ZDVExfRlJY
-ICAgICAgICAgICAgICAgIEJJVCgyOSkKPiA+ICsgICAgICNkZWZpbmUgU1VONTBJX0g2X1NQRElG
-X0ZDVExfVFhUTCh2KSAgICAgICAgICAgICgodikgPDwgMTIpCj4gPiArICAgICAjZGVmaW5lIFNV
-TjUwSV9INl9TUERJRl9GQ1RMX1RYVExfTUFTSyAgICAgICAgICBHRU5NQVNLKDE5LCAxMikKPiA+
-ICsgICAgICNkZWZpbmUgU1VONTBJX0g2X1NQRElGX0ZDVExfUlhUTCh2KSAgICAgICAgICAgICgo
-dikgPDwgNCkKPiA+ICsgICAgICNkZWZpbmUgU1VONTBJX0g2X1NQRElGX0ZDVExfUlhUTF9NQVNL
-ICAgICAgICAgIEdFTk1BU0soMTAsIDQpCj4gPiArICAgICAjZGVmaW5lIFNVTjUwSV9INl9TUERJ
-Rl9GQ1RMX1RYSU0gICAgICAgICAgICAgICBCSVQoMikKPiA+ICsgICAgICNkZWZpbmUgU1VONTBJ
-X0g2X1NQRElGX0ZDVExfUlhPTSh2KSAgICAgICAgICAgICgodikgPDwgMCkKPiA+ICsgICAgICNk
-ZWZpbmUgU1VONTBJX0g2X1NQRElGX0ZDVExfUlhPTV9NQVNLICAgICAgICAgIEdFTk1BU0soMSwg
-MCkKPiA+ICsKPiA+ICAjZGVmaW5lIFNVTjRJX1NQRElGX0ZTVEEgICAgICgweDE4KQo+ID4gICAg
-ICAgI2RlZmluZSBTVU40SV9TUERJRl9GU1RBX1RYRSAgICAgICAgICAgICAgICAgICAgQklUKDE0
-KQo+ID4gICAgICAgI2RlZmluZSBTVU40SV9TUERJRl9GU1RBX1RYRUNOVFNIVCAgICAgICAgICAg
-ICAgKDgpCj4gPiBAQCAtMTY5LDE2ICsxODEsMjUgQEAgc3RydWN0IHN1bjRpX3NwZGlmX2RldiB7
-Cj4gPiAgICAgICBzdHJ1Y3Qgc25kX3NvY19kYWlfZHJpdmVyIGNwdV9kYWlfZHJ2Owo+ID4gICAg
-ICAgc3RydWN0IHJlZ21hcCAqcmVnbWFwOwo+ID4gICAgICAgc3RydWN0IHNuZF9kbWFlbmdpbmVf
-ZGFpX2RtYV9kYXRhIGRtYV9wYXJhbXNfdHg7Cj4gPiArICAgICBjb25zdCBzdHJ1Y3Qgc3VuNGlf
-c3BkaWZfcXVpcmtzICpxdWlya3M7Cj4KPiBJIGd1ZXNzIHRoaXMgd2lsbCBnZW5lcmF0ZSBhIHdh
-cm5pbmcgc2luY2UgdGhlIHN0cnVjdHVyZSBoYXNuJ3QgYmVlbgo+IGRlZmluZWQgeWV0PwoKSXQn
-cyBhIHBvaW50ZXIgdG8gYSBzdHJ1Y3R1cmUgc28gbm8gd2FybmluZyBmcm9tIHRoZSBjb21waWxl
-ci4KCj4KPiA+ICt9Owo+ID4gKwo+ID4gK3N0cnVjdCBzdW40aV9zcGRpZl9xdWlya3Mgewo+ID4g
-KyAgICAgdW5zaWduZWQgaW50IHJlZ19kYWNfdHhkYXRhOyAgICAvKiBUWCBGSUZPIG9mZnNldCBm
-b3IgRE1BIGNvbmZpZyAqLwo+ID4gKyAgICAgdW5zaWduZWQgaW50IHJlZ19mY3RsX2Z0eDsgICAg
-ICAvKiBUWCBGSUZPIGZsdXNoIGJpdG1hc2sgKi8KPiA+ICsgICAgIGJvb2wgaGFzX3Jlc2V0Owo+
-Cj4gWW91IGRvbid0IHJlYWxseSBuZWVkIHRvIG1vdmUgaXQgYXJvdW5kLCB5b3UgY2FuIGp1c3Qg
-YWRkIHRoZQo+IHN0cnVjdHVyZSBwcm90b3R5cGUuCj4KPiBJZiB5b3UgZG8gd2FudCB0byBtb3Zl
-IGl0IGFyb3VuZCwgdGhlbiBwbGVhc2UgZG8gc28gaW4gYSBzZXBhcmF0ZSBwYXRjaAoKSSBoYXZl
-IGNob29zZSB0byBtb3ZlIGl0IHRvIGZvbGxvdyB3aGF0IGlzIGRvbmUgaW4gdGhlIHN1bjRpLWky
-cy4KSSB3aWxsIHB1dCBpdCBpbiBhIHNlcGFyYXRlIHBhdGNoIGFuZCBtYWtlIHRoZSBjb21tZW50
-IGEgYml0IG1vcmUgcHJvcGVyLgoKPgo+ID4gIH07Cj4gPgo+ID4gIHN0YXRpYyB2b2lkIHN1bjRp
-X3NwZGlmX2NvbmZpZ3VyZShzdHJ1Y3Qgc3VuNGlfc3BkaWZfZGV2ICpob3N0KQo+ID4gIHsKPiA+
-ICsgICAgIGNvbnN0IHN0cnVjdCBzdW40aV9zcGRpZl9xdWlya3MgKnF1aXJrcyA9IGhvc3QtPnF1
-aXJrczsKPiA+ICsKPiA+ICAgICAgIC8qIHNvZnQgcmVzZXQgU1BESUYgKi8KPiA+ICAgICAgIHJl
-Z21hcF93cml0ZShob3N0LT5yZWdtYXAsIFNVTjRJX1NQRElGX0NUTCwgU1VONElfU1BESUZfQ1RM
-X1JFU0VUKTsKPiA+Cj4gPiAgICAgICAvKiBmbHVzaCBUWCBGSUZPICovCj4gPiAgICAgICByZWdt
-YXBfdXBkYXRlX2JpdHMoaG9zdC0+cmVnbWFwLCBTVU40SV9TUERJRl9GQ1RMLAo+ID4gLSAgICAg
-ICAgICAgICAgICAgICAgICAgIFNVTjRJX1NQRElGX0ZDVExfRlRYLCBTVU40SV9TUERJRl9GQ1RM
-X0ZUWCk7Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgcXVpcmtzLT5yZWdfZmN0bF9mdHgs
-IHF1aXJrcy0+cmVnX2ZjdGxfZnR4KTsKPiA+Cj4gPiAgICAgICAvKiBjbGVhciBUWCBjb3VudGVy
-ICovCj4gPiAgICAgICByZWdtYXBfd3JpdGUoaG9zdC0+cmVnbWFwLCBTVU40SV9TUERJRl9UWENO
-VCwgMCk7Cj4gPiBAQCAtNDA1LDIyICs0MjYsMjYgQEAgc3RhdGljIHN0cnVjdCBzbmRfc29jX2Rh
-aV9kcml2ZXIgc3VuNGlfc3BkaWZfZGFpID0gewo+ID4gICAgICAgLm5hbWUgPSAic3BkaWYiLAo+
-ID4gIH07Cj4gPgo+ID4gLXN0cnVjdCBzdW40aV9zcGRpZl9xdWlya3Mgewo+ID4gLSAgICAgdW5z
-aWduZWQgaW50IHJlZ19kYWNfdHhkYXRhOyAgICAvKiBUWCBGSUZPIG9mZnNldCBmb3IgRE1BIGNv
-bmZpZyAqLwo+ID4gLSAgICAgYm9vbCBoYXNfcmVzZXQ7Cj4gPiAtfTsKPiA+IC0KPiA+ICBzdGF0
-aWMgY29uc3Qgc3RydWN0IHN1bjRpX3NwZGlmX3F1aXJrcyBzdW40aV9hMTBfc3BkaWZfcXVpcmtz
-ID0gewo+ID4gICAgICAgLnJlZ19kYWNfdHhkYXRhID0gU1VONElfU1BESUZfVFhGSUZPLAo+ID4g
-KyAgICAgLnJlZ19mY3RsX2Z0eCAgID0gU1VONElfU1BESUZfRkNUTF9GVFgsCj4gPiAgfTsKPiA+
-Cj4gPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBzdW40aV9zcGRpZl9xdWlya3Mgc3VuNmlfYTMxX3Nw
-ZGlmX3F1aXJrcyA9IHsKPiA+ICAgICAgIC5yZWdfZGFjX3R4ZGF0YSA9IFNVTjRJX1NQRElGX1RY
-RklGTywKPiA+ICsgICAgIC5yZWdfZmN0bF9mdHggICA9IFNVTjRJX1NQRElGX0ZDVExfRlRYLAo+
-ID4gICAgICAgLmhhc19yZXNldCAgICAgID0gdHJ1ZSwKPiA+ICB9Owo+ID4KPiA+ICBzdGF0aWMg
-Y29uc3Qgc3RydWN0IHN1bjRpX3NwZGlmX3F1aXJrcyBzdW44aV9oM19zcGRpZl9xdWlya3MgPSB7
-Cj4gPiAgICAgICAucmVnX2RhY190eGRhdGEgPSBTVU44SV9TUERJRl9UWEZJRk8sCj4gPiArICAg
-ICAucmVnX2ZjdGxfZnR4ICAgPSBTVU40SV9TUERJRl9GQ1RMX0ZUWCwKPiA+ICsgICAgIC5oYXNf
-cmVzZXQgICAgICA9IHRydWUsCj4gPiArfTsKPiA+Cj4gPiArc3RhdGljIGNvbnN0IHN0cnVjdCBz
-dW40aV9zcGRpZl9xdWlya3Mgc3VuNTBpX2g2X3NwZGlmX3F1aXJrcyA9IHsKPiA+ICsgICAgIC5y
-ZWdfZGFjX3R4ZGF0YSA9IFNVTjhJX1NQRElGX1RYRklGTywKPiA+ICsgICAgIC5yZWdfZmN0bF9m
-dHggICA9IFNVTjUwSV9INl9TUERJRl9GQ1RMX0ZUWCwKPiA+ICAgICAgIC5oYXNfcmVzZXQgICAg
-ICA9IHRydWUsCj4KPiBUaGUgcmVnX2RhY190eGRhdGEgYW5kIHJlZ19mY3RsX2Z0eCBjaGFuZ2Vz
-IGhlcmUgc2hvdWxkIGFsc28gYmUgcGFydAo+IG9mIGEgc2VwYXJhdGUgcGF0Y2guCgpZb3UgbWVh
-biB0aGUgcmVnX2ZjdGxfZnR4IHF1aXJrIGFuZCB0aGUgSDYgaW50cm9kdWN0aW9uIHNob3VsZCBi
-ZSBzcGxpdCA/CgpUaGFua3MgZm9yIHRoZSByZXZpZXcsCkNsZW1lbnQKCj4KPiBNYXhpbWUKPgo+
-IC0tCj4gTWF4aW1lIFJpcGFyZCwgQm9vdGxpbgo+IEVtYmVkZGVkIExpbnV4IGFuZCBLZXJuZWwg
-ZW5naW5lZXJpbmcKPiBodHRwczovL2Jvb3RsaW4uY29tCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2
-ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+On 02 May 2019 05:08, Yu-Hsuan Hsu wrote:
+
+> If we want to set rate to 64000 on da7219, it fails and returns
+> "snd_pcm_hw_params: Invalid argument".
+> We should remove 64000 from support rate list because it is not
+> available.
+> 
+> Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+
+Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+
+> ---
+>  sound/soc/codecs/da7219.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+> index 5f5fa3416af3..7497457cf3d4 100644
+> --- a/sound/soc/codecs/da7219.c
+> +++ b/sound/soc/codecs/da7219.c
+> @@ -1658,20 +1658,26 @@ static const struct snd_soc_dai_ops da7219_dai_ops
+> = {
+>  #define DA7219_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |
+> SNDRV_PCM_FMTBIT_S20_3LE |\
+>  			SNDRV_PCM_FMTBIT_S24_LE |
+> SNDRV_PCM_FMTBIT_S32_LE)
+> 
+> +#define DA7219_RATES (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025
+> |\
+> +		      SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |\
+> +		      SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
+> +		      SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
+> +		      SNDRV_PCM_RATE_96000)
+> +
+>  static struct snd_soc_dai_driver da7219_dai = {
+>  	.name = "da7219-hifi",
+>  	.playback = {
+>  		.stream_name = "Playback",
+>  		.channels_min = 1,
+>  		.channels_max = DA7219_DAI_CH_NUM_MAX,
+> -		.rates = SNDRV_PCM_RATE_8000_96000,
+> +		.rates = DA7219_RATES,
+>  		.formats = DA7219_FORMATS,
+>  	},
+>  	.capture = {
+>  		.stream_name = "Capture",
+>  		.channels_min = 1,
+>  		.channels_max = DA7219_DAI_CH_NUM_MAX,
+> -		.rates = SNDRV_PCM_RATE_8000_96000,
+> +		.rates = DA7219_RATES,
+>  		.formats = DA7219_FORMATS,
+>  	},
+>  	.ops = &da7219_dai_ops,
+> --
+> 2.21.0.593.g511ec345e18-goog
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

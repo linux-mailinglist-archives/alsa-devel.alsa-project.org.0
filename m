@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0DAC1116C
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:22:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D2A1116F
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:24:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 824151740;
-	Thu,  2 May 2019 04:21:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 824151740
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68A3E173C;
+	Thu,  2 May 2019 04:23:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68A3E173C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556763756;
-	bh=OXum3rOfjqTf3q7KBgLyAHknYwf+2YdCIwrs/+z+ZWU=;
+	s=default; t=1556763842;
+	bh=PQgdOtenShazLokSMO2U0AHtHzfBSk6djNRcLtUjUEU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=QX8UCuhAjn3/9UnxnWDza42jLgvVUE3AP6WX6bST30XHv7SpPsFvneyrpFTAX6+fl
-	 MpxuxNYsImccYUH2Q8ydRm3/Tt+nclrMBNV3lcox22TdgB9Cc8fptljzxG2Jfc06WJ
-	 E4gi9oU3XWGznGjy64rfyZtRsbMmS5lw4rWQU2dQ=
+	b=aBMDDLnKrEUkwD42idtmdh1JzvbnxTyrz/tnR7Xe84DwYrNkhbzQPdqUWnfG0UgY4
+	 y68FNbL0sBuXCZFwD6El6nvaaWTJxxMMNa+H95Lbw2JSx6UKyIQ8pz5IQjzeqrVqym
+	 v6+u22X1VS8vCkFEpXCYzKUkmjdmpZa1fbV049g4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E6B4F89742;
-	Thu,  2 May 2019 04:18:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74791F8974A;
+	Thu,  2 May 2019 04:18:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CD0E4F89729; Thu,  2 May 2019 04:18:22 +0200 (CEST)
+ id 3CF86F89733; Thu,  2 May 2019 04:18:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,51 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 706EEF8971A
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 706EEF8971A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 911C7F89724
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 911C7F89724
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="TeiwuLrw"
+ header.b="g7HBSZHx"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=/WZe54ra2XqFdangOLiX00Z92PAeriqAJdzr7Z/b+/s=; b=TeiwuLrwP5f6
- d/7VHhfFOldfXqYBZ35LspYPgSwTtnNZNJIJktSM3qyyM2ZGb0vwYaM1L/rezzHhfCinkArV2RoVs
- dxBKfRVx1625r3ixlQXPxDGpptGvrAw3z3NNWJ0/S1/5FzRgK1QAmBQHBgH0B2vxQX6njMz1UzFlW
- +Ckps=;
+ List-Archive; bh=JSlPcUnFqX1tN5EF+WG+3VLibdvupztBzoEMjhd4pBY=; b=g7HBSZHxEi41
+ FbJOFo6XXTQJJ4jd7ljgytbHAlajKmV+/HndsXkAQtOvo+vHj106e0vJhsG1vuijAWw29aiNl3EzG
+ l/oQinOz18TveSp+rV+4A6u9ko4jCwW9hCw7RotfC5h/NLZMi2ntyWQSGKNgQlD9a849ZiCNpPHal
+ mCKTk=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1IV-0005pv-PH; Thu, 02 May 2019 02:18:08 +0000
+ id 1hM1IX-0005qB-G5; Thu, 02 May 2019 02:18:09 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 22810441D3B; Thu,  2 May 2019 03:18:04 +0100 (BST)
+ id 39C17441D3C; Thu,  2 May 2019 03:18:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-In-Reply-To: <20190430231134.4471-1-pierre-louis.bossart@linux.intel.com>
+To: Viorel Suman <viorel.suman@nxp.com>
+In-Reply-To: <1554894380-25153-5-git-send-email-viorel.suman@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190502021804.22810441D3B@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:18:04 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: dapm: fix kcontrols for effect widgets"
-	to the asoc tree
+Message-Id: <20190502021806.39C17441D3C@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:18:06 +0100 (BST)
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Julia Lawall <Julia.Lawall@lip6.fr>,
+ Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Viorel Suman <viorel.suman@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Fabio Estevam <festevam@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: [alsa-devel] Applied "ASoC: fsl_audmix: cache pdev->dev pointer" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,11 +98,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: dapm: fix kcontrols for effect widgets
+   ASoC: fsl_audmix: cache pdev->dev pointer
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.1
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -112,49 +123,99 @@ to this mail.
 Thanks,
 Mark
 
-From 882c8b4af315bf921431142c1e9f5f69df99da34 Mon Sep 17 00:00:00 2001
-From: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-Date: Tue, 30 Apr 2019 18:11:34 -0500
-Subject: [PATCH] ASoC: dapm: fix kcontrols for effect widgets
+From 62be484f7ad8443c393293a415392fbf3190c864 Mon Sep 17 00:00:00 2001
+From: Viorel Suman <viorel.suman@nxp.com>
+Date: Wed, 10 Apr 2019 11:06:39 +0000
+Subject: [PATCH] ASoC: fsl_audmix: cache pdev->dev pointer
 
-This patch adds the handling of snd_soc_dapm_effect that was missing.
+There should be no trouble to understand dev = pdev->dev.
+This can save some space to have more print info or save
+some wrapped lines.
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Suggested-by: Nicolin Chen <nicoleotsuka@gmail.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-dapm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/fsl/fsl_audmix.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 0382a47b30bd..29cdfbf4c888 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -883,6 +883,7 @@ static int dapm_create_or_share_kcontrol(struct snd_soc_dapm_widget *w,
- 			case snd_soc_dapm_switch:
- 			case snd_soc_dapm_mixer:
- 			case snd_soc_dapm_pga:
-+			case snd_soc_dapm_effect:
- 			case snd_soc_dapm_out_drv:
- 				wname_in_long_name = true;
- 				kcname_in_long_name = true;
-@@ -2370,6 +2371,7 @@ static ssize_t dapm_widget_show_component(struct snd_soc_component *cmpnt,
- 		case snd_soc_dapm_dac:
- 		case snd_soc_dapm_adc:
- 		case snd_soc_dapm_pga:
-+		case snd_soc_dapm_effect:
- 		case snd_soc_dapm_out_drv:
- 		case snd_soc_dapm_mixer:
- 		case snd_soc_dapm_mixer_named_ctl:
-@@ -3197,6 +3199,7 @@ int snd_soc_dapm_new_widgets(struct snd_soc_card *card)
- 			dapm_new_mux(w);
- 			break;
- 		case snd_soc_dapm_pga:
-+		case snd_soc_dapm_effect:
- 		case snd_soc_dapm_out_drv:
- 			dapm_new_pga(w);
- 			break;
+diff --git a/sound/soc/fsl/fsl_audmix.c b/sound/soc/fsl/fsl_audmix.c
+index dc802d5c4ccd..3897a54a11fe 100644
+--- a/sound/soc/fsl/fsl_audmix.c
++++ b/sound/soc/fsl/fsl_audmix.c
+@@ -456,6 +456,7 @@ MODULE_DEVICE_TABLE(of, fsl_audmix_ids);
+ 
+ static int fsl_audmix_probe(struct platform_device *pdev)
+ {
++	struct device *dev = &pdev->dev;
+ 	struct fsl_audmix *priv;
+ 	struct resource *res;
+ 	const char *mdrv;
+@@ -463,52 +464,50 @@ static int fsl_audmix_probe(struct platform_device *pdev)
+ 	void __iomem *regs;
+ 	int ret;
+ 
+-	of_id = of_match_device(fsl_audmix_ids, &pdev->dev);
++	of_id = of_match_device(fsl_audmix_ids, dev);
+ 	if (!of_id || !of_id->data)
+ 		return -EINVAL;
+ 
+ 	mdrv = of_id->data;
+ 
+-	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	/* Get the addresses */
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	regs = devm_ioremap_resource(&pdev->dev, res);
++	regs = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(regs))
+ 		return PTR_ERR(regs);
+ 
+-	priv->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "ipg", regs,
++	priv->regmap = devm_regmap_init_mmio_clk(dev, "ipg", regs,
+ 						 &fsl_audmix_regmap_config);
+ 	if (IS_ERR(priv->regmap)) {
+-		dev_err(&pdev->dev, "failed to init regmap\n");
++		dev_err(dev, "failed to init regmap\n");
+ 		return PTR_ERR(priv->regmap);
+ 	}
+ 
+-	priv->ipg_clk = devm_clk_get(&pdev->dev, "ipg");
++	priv->ipg_clk = devm_clk_get(dev, "ipg");
+ 	if (IS_ERR(priv->ipg_clk)) {
+-		dev_err(&pdev->dev, "failed to get ipg clock\n");
++		dev_err(dev, "failed to get ipg clock\n");
+ 		return PTR_ERR(priv->ipg_clk);
+ 	}
+ 
+ 	platform_set_drvdata(pdev, priv);
+-	pm_runtime_enable(&pdev->dev);
++	pm_runtime_enable(dev);
+ 
+-	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_audmix_component,
++	ret = devm_snd_soc_register_component(dev, &fsl_audmix_component,
+ 					      fsl_audmix_dai,
+ 					      ARRAY_SIZE(fsl_audmix_dai));
+ 	if (ret) {
+-		dev_err(&pdev->dev, "failed to register ASoC DAI\n");
++		dev_err(dev, "failed to register ASoC DAI\n");
+ 		return ret;
+ 	}
+ 
+-	priv->pdev = platform_device_register_data(&pdev->dev, mdrv, 0, NULL,
+-						   0);
++	priv->pdev = platform_device_register_data(dev, mdrv, 0, NULL, 0);
+ 	if (IS_ERR(priv->pdev)) {
+ 		ret = PTR_ERR(priv->pdev);
+-		dev_err(&pdev->dev, "failed to register platform %s: %d\n",
+-			mdrv, ret);
++		dev_err(dev, "failed to register platform %s: %d\n", mdrv, ret);
+ 	}
+ 
+ 	return ret;
 -- 
 2.20.1
 

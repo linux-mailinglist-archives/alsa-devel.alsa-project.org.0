@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27989112A8
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 07:39:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46328112AA
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 07:41:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EF271779;
-	Thu,  2 May 2019 07:38:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EF271779
+	by alsa0.perex.cz (Postfix) with ESMTPS id A30EF177C;
+	Thu,  2 May 2019 07:41:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A30EF177C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556775589;
-	bh=ef9rngB4cklV2IJRZmtoJfVDpPa/cQ8wvN4VcSnJ2B8=;
+	s=default; t=1556775717;
+	bh=dlSBvXa+uObLbAYXwV1YM7ehXDSPcmA0D0oXU/1z20c=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZhgEWCA0sAERCNmsTp+C+h2yhJb8xxkQrD6ZqtyvSirr/bDrclpLy/RISqfhYTf4a
-	 VJ+SFDVOjqrQiUIOWksTs2+GuQn1yeCz4BEfGayevgpOrFEfOj4kxI5ctXCcYW3SSh
-	 ucGMHQeNRkwt3HyWte6Qc9E/QbspohrcuE8MnLdI=
+	b=C3h33HbJDgswDzuOM+OgkqkRnSwE+Zp8o2AJA46uNuC10OKR/hYs7ZNkRLLL/wq5U
+	 U1RvND0PAFWRCdW2YDrsrUiDFpUgscCzVS6f73iqD/5+q2P2nztpPaHcsNdoL+1WW1
+	 WVQk3Xa37hGHTPsoVSjBksYjR0/fBc5SCUO+t5I0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D21AF896EA;
-	Thu,  2 May 2019 07:38:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5460F896EA;
+	Thu,  2 May 2019 07:40:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5DC0F896AA; Thu,  2 May 2019 07:38:00 +0200 (CEST)
+ id 4A04DF896AA; Thu,  2 May 2019 07:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
@@ -33,40 +33,40 @@ X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51FAEF80722
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 07:37:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51FAEF80722
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFD1CF8075A
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 07:40:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFD1CF8075A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HTZNCRqx"
+ header.b="lU2gW1eM"
 Received: from localhost (unknown [171.76.113.243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 88F7220873;
- Thu,  2 May 2019 05:37:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 30DE020873;
+ Thu,  2 May 2019 05:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556775475;
- bh=1DawRFLT7t05k8v0cV9BglVQshWM9ob5TgAeTumjZ+U=;
+ s=default; t=1556775605;
+ bh=KaJg4Insj81qVuOaZzwgno+jYYq4b7sV6fPvH+HM3jc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=HTZNCRqxAwj7YMKiu8DsWogyCAiJIhuF0jiFeHK2QS4mnX7T4WhzvPKCPhcgvYhiw
- BUpCjng8msMo43DijBSVgEUUvtznjNbNizYGxVRD+OLZzrcsEN13LjYB4/2Uth1PrF
- OzD5qxyOnmOtZWIRSbvGP3dMAxL7ri0Unr01+Ius=
-Date: Thu, 2 May 2019 11:07:46 +0530
+ b=lU2gW1eMhYpYLQ7+0t2kSId0hdhuewCytT3VArPYkYF3mOS5YHZ3wFMeUImT5mUDM
+ E5O33ekz3+qslsnqioQr1RjwCceW3+yO+xS5k9pw7BXm+LaMnUlH1R5XFdK7GqG50q
+ ZOcxujVjPMAbittO8IQ5zjf+KcKKnlbHaQS88sNY=
+Date: Thu, 2 May 2019 11:09:56 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190502053746.GE3845@vkoul-mobl.Dlink>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20190502053956.GF3845@vkoul-mobl.Dlink>
 References: <20190501155745.21806-1-pierre-louis.bossart@linux.intel.com>
- <20190501155745.21806-23-pierre-louis.bossart@linux.intel.com>
+ <20190501160755.GC19281@kroah.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190501155745.21806-23-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190501160755.GC19281@kroah.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH v4 22/22] soundwire: add missing newlines
- in dynamic debug logs
+ joe@perches.com
+Subject: Re: [alsa-devel] [PATCH v4 00/22] soundwire: code cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,23 +84,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 01-05-19, 10:57, Pierre-Louis Bossart wrote:
-> For some reason the newlines are not used everywhere. Fix as needed.
+On 01-05-19, 18:07, Greg KH wrote:
+> On Wed, May 01, 2019 at 10:57:23AM -0500, Pierre-Louis Bossart wrote:
+> > SoundWire support will be provided in Linux with the Sound Open
+> > Firmware (SOF) on Intel platforms. Before we start adding the missing
+> > pieces, there are a number of warnings and style issues reported by
+> > checkpatch, cppcheck and Coccinelle that need to be cleaned-up.
+> > 
+> > Changes since v3:
+> > patch 1,3,4 were merged for 5.2-rc1
+> > No code change, only split patch2 in 21 patches to make Vinod
+> > happy. Each patch only fixes a specific issue. patch 5 is now patch22
+> > and wasn't changed. Not sure why Vinod reported the patch didn't
+> > apply.
+> > Added Takashi's Reviewed-by tag in all patches since the code is
+> > exactly the same as in v3.
 > 
-> Reported-by: Joe Perches <joe@perches.com>
-> Reviewed-by: Takashi Iwai <tiwai@suse.de>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  drivers/soundwire/bus.c            |  74 +++++++++----------
->  drivers/soundwire/cadence_master.c |  12 ++--
->  drivers/soundwire/intel.c          |  12 ++--
->  drivers/soundwire/stream.c         | 110 ++++++++++++++---------------
+> These all look good to me:
+> 
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> 
+> Vinod, want me to just pick these up from the list as-is so we can get
+> them into 5.2-rc1?
 
-Sorry this needs to be split up. I think bus.c and stream.c should go
-in patch with cadence_master.c and intel.c in different ones
+Thanks Greg, I would still like modification to patches that touch core
+subsystem parts and drivers in a single one. Otherwise changes are fine.
 
+So I will go ahead and apply the rest and send you a PR tomorrow giving
+a chance to Pierre to update these (ofcourse they will be in linux-next
+tomorrow)
 
->  4 files changed, 104 insertions(+), 104 deletions(-)
+Thanks
 -- 
 ~Vinod
 _______________________________________________

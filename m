@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5870F11191
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:36:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 843D811192
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:37:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E17A11654;
-	Thu,  2 May 2019 04:35:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E17A11654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 268E41766;
+	Thu,  2 May 2019 04:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268E41766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556764610;
-	bh=i0KETutJ7HTLEcLamDqMDo8SkmJE/7YFgUvd5GntEtQ=;
+	s=default; t=1556764644;
+	bh=xkmPTOBXBwDt7NofAtb2qp885lOJUQKOqRRXlt2Tf5U=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=OfXTJFXQeXleogU5ZLHnEa7vc0DFfHfKbhvsFaZFXOlWKqZ98EEhjc+eLT3Vrv1os
-	 IK3nFNhH4xrZcls5b0Ka1UYKS1rT5aRBOZ6lbUXwps3cm3lmYxF1735AJUJwFyzQ6x
-	 GHaSnEVWmMhYOkONd4zSo8P4Uai7m5d1OKiUw7Ec=
+	b=A0a5gJjw2r2wOEuSHHvhjB8BFv6t16MvbBvwlPTpb/0t0BSjelljTRAZMe6P2JfOU
+	 jaKpfDcVtl1JQVmYLhnrNI090PN45l3Nb1qk7aAJYR0dfU0q+KuGoTQzMb6M29tZ6e
+	 CUmD7zd4aQXHcmLGdVDmpOghswTfQpLwx0DxHlFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01F11F897AB;
-	Thu,  2 May 2019 04:19:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA12AF897B3;
+	Thu,  2 May 2019 04:19:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1E59F8975C; Thu,  2 May 2019 04:19:09 +0200 (CEST)
+ id 1F388F89760; Thu,  2 May 2019 04:19:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 442A3F89746
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442A3F89746
+ by alsa1.perex.cz (Postfix) with ESMTPS id F40C2F89747
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F40C2F89747
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="NRigOCsL"
+ header.b="pBr7tviu"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=L9kr2PyDG3ONEeQqCQol/NtkqBAJzA6CBfbpNXHI7e8=; b=NRigOCsL9VTh
- hIVKdYkuZzJPn5rhWY3aLBT5Q7sVYIvQYAl0imp0EmDf9xmXfmvh1vb7Uhohndl5WIWVFn1GVY83x
- viLsYljAkYFXpwzaCc18jFOfNVXDC2MNomP95SFTEjgyOKlAC4GhiiOfNSsVtORa5N8o/ycSAgCSs
- wnqqM=;
+ List-Archive; bh=s/aeLHmcSaCGZGW2T/ryaeA0ktI3wfHggwlvpiCdiGs=; b=pBr7tviub0M4
+ Y7B+GAiIE0/H/6glIphSg1+JN79huRE/j+YTI3NQ8U8Ngjerot3AmpFSTaWjMQnGMlH6D7sZc9AUF
+ 3KdkDIC/cUuL6ULBrrDQkXR65KG+hNHiJxGyDwLWrIXCheEHEoXTtb4tYDKdoVda2u6WvOL4XHiHy
+ b4dDw=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1J5-0005t8-SH; Thu, 02 May 2019 02:18:44 +0000
+ id 1hM1J8-0005tL-2M; Thu, 02 May 2019 02:18:46 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id C9330441D3C; Thu,  2 May 2019 03:18:40 +0100 (BST)
+ id 03B03441D3B; Thu,  2 May 2019 03:18:43 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190417150157.24044-1-yuehaibing@huawei.com>
+In-Reply-To: <20190417150915.37968-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190502021840.C9330441D3C@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:18:40 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: tlv320aic32x4: Remove set but not used
-	variable 'mclk_rate'" to the asoc tree
+Message-Id: <20190502021843.03B03441D3B@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:18:42 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Subject: [alsa-devel] Applied "ASoC: fsl_micfil: Remove set but not used
+	variable 'osr'" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tlv320aic32x4: Remove set but not used variable 'mclk_rate'
+   ASoC: fsl_micfil: Remove set but not used variable 'osr'
 
 has been applied to the asoc tree at
 
@@ -111,51 +113,42 @@ to this mail.
 Thanks,
 Mark
 
-From 83b4f50ca2b2e93346195b51f58e8089f9f35c0b Mon Sep 17 00:00:00 2001
+From a0c34c7629bee46ffd8121987d27df25a6433cc7 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Wed, 17 Apr 2019 23:01:57 +0800
-Subject: [PATCH] ASoC: tlv320aic32x4: Remove set but not used variable
- 'mclk_rate'
+Date: Wed, 17 Apr 2019 23:09:15 +0800
+Subject: [PATCH] ASoC: fsl_micfil: Remove set but not used variable 'osr'
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-sound/soc/codecs/tlv320aic32x4.c: In function 'aic32x4_setup_clocks':
-sound/soc/codecs/tlv320aic32x4.c:669:16: warning: variable 'mclk_rate' set but not used [-Wunused-but-set-variable]
+sound/soc/fsl/fsl_micfil.c: In function 'get_clk_div':
+sound/soc/fsl/fsl_micfil.c:154:6: warning: variable 'osr' set but not used [-Wunused-but-set-variable]
 
-It is not used since introduction in
-commit 96c3bb00239d ("ASoC: tlv320aic32x4: Dynamically Determine Clocking")
+It is never used since introduction in
+commit 47a70e6fc9a8 ("ASoC: Add MICFIL SoC Digital Audio Interface driver.")
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tlv320aic32x4.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ sound/soc/fsl/fsl_micfil.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
-index 6edee05ff9f0..83608f386aef 100644
---- a/sound/soc/codecs/tlv320aic32x4.c
-+++ b/sound/soc/codecs/tlv320aic32x4.c
-@@ -684,9 +684,8 @@ static int aic32x4_setup_clocks(struct snd_soc_component *component,
- 	u8 madc, nadc, mdac, ndac, max_nadc, min_mdac, max_ndac;
- 	u8 dosr_increment;
- 	u16 max_dosr, min_dosr;
--	unsigned long mclk_rate, adc_clock_rate, dac_clock_rate;
-+	unsigned long adc_clock_rate, dac_clock_rate;
- 	int ret;
--	struct clk *mclk;
+diff --git a/sound/soc/fsl/fsl_micfil.c b/sound/soc/fsl/fsl_micfil.c
+index 40c07e756481..f7f2d29f1bfe 100644
+--- a/sound/soc/fsl/fsl_micfil.c
++++ b/sound/soc/fsl/fsl_micfil.c
+@@ -151,12 +151,9 @@ static inline int get_clk_div(struct fsl_micfil *micfil,
+ {
+ 	u32 ctrl2_reg;
+ 	long mclk_rate;
+-	int osr;
+ 	int clk_div;
  
- 	struct clk_bulk_data clocks[] = {
- 		{ .id = "pll" },
-@@ -700,9 +699,6 @@ static int aic32x4_setup_clocks(struct snd_soc_component *component,
- 	if (ret)
- 		return ret;
+ 	regmap_read(micfil->regmap, REG_MICFIL_CTRL2, &ctrl2_reg);
+-	osr = 16 - ((ctrl2_reg & MICFIL_CTRL2_CICOSR_MASK)
+-		    >> MICFIL_CTRL2_CICOSR_SHIFT);
  
--	mclk = clk_get_parent(clocks[1].clk);
--	mclk_rate = clk_get_rate(mclk);
--
- 	if (sample_rate <= 48000) {
- 		aosr = 128;
- 		adc_resource_class = 6;
+ 	mclk_rate = clk_get_rate(micfil->mclk);
+ 
 -- 
 2.20.1
 

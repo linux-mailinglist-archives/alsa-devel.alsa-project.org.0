@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D6271118D
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:35:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A627911190
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:36:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2618174E;
-	Thu,  2 May 2019 04:34:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2618174E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 436E2177F;
+	Thu,  2 May 2019 04:35:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 436E2177F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556764530;
-	bh=EKuWA2kh3l2X2rUs8FETIVCo36MRV+t9WZCJPfL/BFk=;
+	s=default; t=1556764569;
+	bh=Is0Nj3zZ5D5Isyy4vua48Wr3BixYtoUNH/E3/39k8X0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gcv65d5SiEDEQ4pzGkB59+KJIr+dvoKq0asVUHNDctVeZYcWnxhndpntd1mXviRKW
-	 AJYoAhs+aPM5JFZft0v7CeKcnhuYKNtWVKFyscJp72E2EDr3N1UmIxMPtrqpTmUkXP
-	 WO2BviUxXJxrBdsm4dzCiEOatbN28NTg7FQZ+AZg=
+	b=up4oGejxbjdCA0e8X4xGPi23lMBoCG4XS90V6GV0vBmzm5l0skPsSYCSLvc2vgxks
+	 AnoXNl5zz4NCLxzV+5QNq9qB2dWKiQnrr5wUtqM+jj473NqYq37ZJhzMkyjbQh7gnt
+	 3jvlC4DDnPcF4qh2VBO5CnetZBe7JayBtn/40Yn0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6461EF897A4;
-	Thu,  2 May 2019 04:19:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF4F8F897A9;
+	Thu,  2 May 2019 04:19:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD26DF8975C; Thu,  2 May 2019 04:19:06 +0200 (CEST)
+ id A0228F8975D; Thu,  2 May 2019 04:19:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +33,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C2D5F8973A
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C2D5F8973A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00CB8F89744
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:18:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00CB8F89744
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="R4ctCByo"
+ header.b="RRkiWZzn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=r3CyppHMBbbvBau7Gtud8BstrQ70gDTeNXRpDTmvaMk=; b=R4ctCByoicg3
- nB+OqNmdXltXegvsA4azXvfJ2+4EQajUsBHMo+uIGLZt1jrmUb6AvB7Legheyc5675NmEfTs0aApG
- EQuEpltuCZVb9ynZddLGvq5Q7fV4OrftOk/3SvbYiS3U+L4RGGSwaRjtyyi7agYLv9GZeSo+bIUsj
- bCbkk=;
+ List-Archive; bh=UHEfdzY2SRblr5bwZcw14SwkQj4L3ql7iy+ou6Q9jpY=; b=RRkiWZznDnkq
+ 9i1BJ9BDacg3nhd5+AAC2FWqBYdHF0aOqh+HPw+42Kz5ePNCW35qSAWdrWOKRiPGQaatodjC9RWxf
+ 2s09OxcrRo5I/lxpff9XGc64maZTWk4ByZSDzlu/VUOjftvzNCzhieVUtYOetI+ev9D90owDQk804
+ z8VnM=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1J1-0005sk-PO; Thu, 02 May 2019 02:18:40 +0000
+ id 1hM1J3-0005sr-SV; Thu, 02 May 2019 02:18:42 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id A4527441D3C; Thu,  2 May 2019 03:18:36 +0100 (BST)
+ id BE8A2441D3B; Thu,  2 May 2019 03:18:38 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-In-Reply-To: <20190416131242.1232143-1-arnd@arndb.de>
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20190416145251.16800-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190502021836.A4527441D3C@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:18:36 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Shawn Guo <shawnguo@kernel.org>,
- Shengjiu Wang <shengjiu.wang@nxp.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Cosmin Samoila <cosmin.samoila@nxp.com>, Fabio Estevam <festevam@gmail.com>
-Subject: [alsa-devel] Applied "ASoC: imx: fix fiq dependencies" to the asoc
-	tree
+Message-Id: <20190502021838.BE8A2441D3B@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:18:38 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, maruthi.bayyavarapu@amd.com, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
+ Vijendar.Mukunda@amd.com, colin.king@canonical.com
+Subject: [alsa-devel] Applied "ASoC: amd: acp3x: Make acp3x_dai_i2s_ops
+	static" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: imx: fix fiq dependencies
+   ASoC: amd: acp3x: Make acp3x_dai_i2s_ops static
 
 has been applied to the asoc tree at
 
@@ -113,67 +113,36 @@ to this mail.
 Thanks,
 Mark
 
-From ea751227c813ab833609afecfeedaf0aa26f327e Mon Sep 17 00:00:00 2001
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 16 Apr 2019 15:12:23 +0200
-Subject: [PATCH] ASoC: imx: fix fiq dependencies
+From a1a86e1bd4a87fd09171fd8555fe7490917e4e94 Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Tue, 16 Apr 2019 22:52:51 +0800
+Subject: [PATCH] ASoC: amd: acp3x: Make acp3x_dai_i2s_ops static
 
-During randconfig builds, I occasionally run into an invalid configuration
-of the freescale FIQ sound support:
+Fix sparse warning:
 
-WARNING: unmet direct dependencies detected for SND_SOC_IMX_PCM_FIQ
-  Depends on [m]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_IMX_SOC [=m]
-  Selected by [y]:
-  - SND_SOC_FSL_SPDIF [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_IMX_SOC [=m]!=n && (MXC_TZIC [=n] || MXC_AVIC [=y])
+sound/soc/amd/raven/acp3x-pcm-dma.c:561:24: warning:
+ symbol 'acp3x_dai_i2s_ops' was not declared. Should it be static?
 
-sound/soc/fsl/imx-ssi.o: In function `imx_ssi_remove':
-imx-ssi.c:(.text+0x28): undefined reference to `imx_pcm_fiq_exit'
-sound/soc/fsl/imx-ssi.o: In function `imx_ssi_probe':
-imx-ssi.c:(.text+0xa64): undefined reference to `imx_pcm_fiq_init'
-
-The Kconfig warning is a result of the symbol being defined inside of
-the "if SND_IMX_SOC" block, and is otherwise harmless. The link error
-is more tricky and happens with SND_SOC_IMX_SSI=y, which may or may not
-imply FIQ support. However, if SND_SOC_FSL_SSI is set to =m at the same
-time, that selects SND_SOC_IMX_PCM_FIQ as a loadable module dependency,
-which then causes a link failure from imx-ssi.
-
-The solution here is to make SND_SOC_IMX_PCM_FIQ built-in whenever
-one of its potential users is built-in.
-
-Fixes: ff40260f79dc ("ASoC: fsl: refine DMA/FIQ dependencies")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/Kconfig | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ sound/soc/amd/raven/acp3x-pcm-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-index d87c842806bd..55ed47c599e2 100644
---- a/sound/soc/fsl/Kconfig
-+++ b/sound/soc/fsl/Kconfig
-@@ -189,16 +189,17 @@ config SND_MPC52xx_SOC_EFIKA
+diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
+index 1a2e15ff1456..9775bda2a4ca 100644
+--- a/sound/soc/amd/raven/acp3x-pcm-dma.c
++++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
+@@ -558,7 +558,7 @@ static int acp3x_dai_i2s_trigger(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
  
- endif # SND_POWERPC_SOC
- 
-+config SND_SOC_IMX_PCM_FIQ
-+	tristate
-+	default y if SND_SOC_IMX_SSI=y && (SND_SOC_FSL_SSI=m || SND_SOC_FSL_SPDIF=m) && (MXC_TZIC || MXC_AVIC)
-+	select FIQ
-+
- if SND_IMX_SOC
- 
- config SND_SOC_IMX_SSI
- 	tristate
- 	select SND_SOC_FSL_UTILS
- 
--config SND_SOC_IMX_PCM_FIQ
--	tristate
--	select FIQ
--
- comment "SoC Audio support for Freescale i.MX boards:"
- 
- config SND_MXC_SOC_WM1133_EV1
+-struct snd_soc_dai_ops acp3x_dai_i2s_ops = {
++static struct snd_soc_dai_ops acp3x_dai_i2s_ops = {
+ 	.hw_params = acp3x_dai_i2s_hwparams,
+ 	.trigger   = acp3x_dai_i2s_trigger,
+ 	.set_fmt = acp3x_dai_i2s_set_fmt,
 -- 
 2.20.1
 

@@ -2,77 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B5D111B0
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:42:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E900111B5
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:42:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7232C1782;
-	Thu,  2 May 2019 04:41:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7232C1782
+	by alsa0.perex.cz (Postfix) with ESMTPS id BFD501755;
+	Thu,  2 May 2019 04:42:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFD501755
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556764932;
-	bh=fG0m+Tm3HqGW/xZCN7XhmRngruL3FTNnZmmvKxOcPrI=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DVPaJcm8E785PTX5Q+G79Ds8+JnoKd19QEnlA3YudAgVCUUWH66gmsPkWsQDSa/Pz
-	 hyPgcOnnp/Q1Cxe8sCJLdaHjgv8v83fv1LwhpK5iuh9gs4YaQitZSuVWdZCHERbHOY
-	 nKmfL0C+rwLFag5MGeFrCMVALrgZNGcQjKOYaJB4=
+	s=default; t=1556764978;
+	bh=dSffyASDsgFuUKB7JSqfgi1MfohSt0b6L1oJufENcds=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=D65khPYHTiZOvKzLr3MPib5ilD5kzYG0+xuiDcFsexb3D0G8iTbFGBxDBj3pQ4hR9
+	 R1ZCVNG1MSWLPOfZey46sCrdv23GRoUvJ/E89qFqqcEraBonahHErWagN0C12v1CN7
+	 2IwRLZjm0kev4u85JywvGg9r7+bD2kxNevreipX4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7889FF89723;
-	Thu,  2 May 2019 04:39:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81898F89725;
+	Thu,  2 May 2019 04:40:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82F68F8971A; Thu,  2 May 2019 04:39:53 +0200 (CEST)
+ id 70CC4F89725; Thu,  2 May 2019 04:40:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B932BF896E3
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:39:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B932BF896E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E404F8075A
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E404F8075A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Cb5V6HQQ"
+ header.b="oIhrXmZk"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AOg+ZncfoqT6OZPyimiwJ+flH8XXCIhe4A54zI2KK28=; b=Cb5V6HQQ4gnGG3LZN1YTJSqcw
- pulWeJA0UGmo7LW4DpqAG6I4UuXXDLRLzIDRKL+XkUg3SdVIEaZ8q1FeB1/44M+YWpm/ZqUWVxrNV
- +e/NtKkTZ8jt/JEG83MKeTPQA7Po//H3Id7lWSYCTfnhB3P1+t6BATI/zGJEh3O65Bi5U=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=cXtMjzP8cWAlpfCwO5TSBDzBd4YnAQjIOZyKXqyt03Y=; b=oIhrXmZkvNtb
+ yVF1MyjDyQlIfkSEufz4kVndt34EVQ+uj//AdfYBO5YvLsvW5nSx9NJdZunFwsIaqRf/n0LQ9qd+c
+ lF4rHkyyWFql12AGVGW3UwGtr8K1foxSldbufC7espm5jnCCijHfVtaan8gc7Vl/p+9/goj2ZBq6Q
+ K2we4=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1dU-0005zv-N8; Thu, 02 May 2019 02:39:49 +0000
+ id 1hM1eA-000604-6W; Thu, 02 May 2019 02:40:30 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 6F730441D3C; Thu,  2 May 2019 03:39:45 +0100 (BST)
-Date: Thu, 2 May 2019 11:39:45 +0900
+ id 0D700441D3C; Thu,  2 May 2019 03:40:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: "S.j. Wang" <shengjiu.wang@nxp.com>
-Message-ID: <20190502023945.GA19532@sirena.org.uk>
-References: <c4cf809a66b8c98de11e43f7e9fa2823cf3c5ba6.1556417687.git.shengjiu.wang@nxp.com>
-MIME-Version: 1.0
-In-Reply-To: <c4cf809a66b8c98de11e43f7e9fa2823cf3c5ba6.1556417687.git.shengjiu.wang@nxp.com>
-X-Cookie: Vax Vobiscum
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [alsa-devel] [PATCH V4] ASoC: fsl_esai: Add pm runtime function
+To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+In-Reply-To: <20190429105733.71FB83FBCC@swsrvapps-01.diasemi.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190502024027.0D700441D3C@finisterre.ee.mobilebroadband>
+Date: Thu,  2 May 2019 03:40:26 +0100 (BST)
+Cc: alsa-devel@alsa-project.org,
+ Support Opensource <support.opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Akshu Agrawal <Akshu.Agrawal@amd.com>
+Subject: [alsa-devel] Applied "ASoC: da7219: Use clk_round_rate to handle
+	enabled bclk/wclk case" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,61 +81,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4827439706414677254=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============4827439706414677254==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RnlQjJ0d97Da+TV1"
-Content-Disposition: inline
+   ASoC: da7219: Use clk_round_rate to handle enabled bclk/wclk case
 
+has been applied to the asoc tree at
 
---RnlQjJ0d97Da+TV1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
 
-On Sun, Apr 28, 2019 at 02:24:54AM +0000, S.j. Wang wrote:
-> Add pm runtime support and move clock handling there.
-> Close the clocks at suspend to reduce the power consumption.
->=20
-> fsl_esai_suspend is replaced by pm_runtime_force_suspend.
-> fsl_esai_resume is replaced by pm_runtime_force_resume.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-This doesn't apply against for-5.2 again.  Sorry about this, I think
-this one is due to some messups with my scripts which caused some
-patches to be dropped for a while (and it's likely to be what happened
-the last time as well).  Can you check and resend again please?  Like I
-say sorry about this, I think it's my mistake.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---RnlQjJ0d97Da+TV1
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzKWHAACgkQJNaLcl1U
-h9DAmAf/ZznWBwoyQXL+nQLRK1eWpBZg9ma0CiFNxH/eUHzwZYIKALZvQ/XtxTgU
-loMrwMJLbC8TRCPxVnH77AQRIKS0VJMheOaYCv9wmu+hFNjnEuuhRT0wg/30oMba
-gt6LFb/SdSap+9uDN0x6m6BEAoM44d9efhi8M2zc9F9TegdXH1Vehcg9Z+andnzx
-0zj6hZtkD22iTm7Cc866VIvc8SfOEsn3TK7mtFUtH3dwX7uJC11HFQnlBcLqyMrV
-Wxny0faTSxjZXYxrMJMd7vk7ekzyvb57Rg58Si3234fbU8yL/vOJS8xLNbWjvjYX
-4+wYCtvBSLTk76eOCZIBx+Hi2ifAGw==
-=YKw2
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---RnlQjJ0d97Da+TV1--
+From 1cd472d2ac1654f939ae01164b29e81fc76e0a93 Mon Sep 17 00:00:00 2001
+From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+Date: Mon, 29 Apr 2019 11:57:33 +0100
+Subject: [PATCH] ASoC: da7219: Use clk_round_rate to handle enabled bclk/wclk
+ case
 
---===============4827439706414677254==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+For some platforms where DA7219 is the DAI clock master, BCLK/WCLK
+will be set and enabled prior to the codec's hw_params() function
+being called. It is possible the platform requires a different
+BCLK configuration than would be chosen by hw_params(), for
+example S16_LE format needed with a 64-bit frame to satisfy certain
+devices using the clocks.
+
+To handle those kinds of scenarios, the use of clk_round_rate() is
+now employed as part of hw_params(). If BCLK is already enabled
+then this function will just return the currently set rate, if it
+is valid for the desired frame size, so the subsequent call to
+clk_set_rate() will succeed and nothing changes with regards to
+clocking. In addition the specific BCLK & WCLK recalc_rate()
+implementations needed updating to always give back a real value,
+as those functions are called as part of the clk init code and a
+real value is needed for the clk_round_rate() call to work as
+expected.
+
+Signed-off-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/da7219.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index 5f5fa3416af3..206d01c6eb7e 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -1621,6 +1621,21 @@ static int da7219_hw_params(struct snd_pcm_substream *substream,
+ 
+ 		if (bclk) {
+ 			bclk_rate = frame_size * sr;
++			/*
++			 * Rounding the rate here avoids failure trying to set a
++			 * new rate on an already enabled bclk. In that
++			 * instance this will just set the same rate as is
++			 * currently in use, and so should continue without
++			 * problem, as long as the BCLK rate is suitable for the
++			 * desired frame size.
++			 */
++			bclk_rate = clk_round_rate(bclk, bclk_rate);
++			if ((bclk_rate / sr) < frame_size) {
++				dev_err(component->dev,
++					"BCLK rate mismatch against frame size");
++				return -EINVAL;
++			}
++
+ 			ret = clk_set_rate(bclk, bclk_rate);
+ 			if (ret) {
+ 				dev_err(component->dev,
+@@ -1927,9 +1942,6 @@ static unsigned long da7219_wclk_recalc_rate(struct clk_hw *hw,
+ 	struct snd_soc_component *component = da7219->component;
+ 	u8 fs = snd_soc_component_read32(component, DA7219_SR);
+ 
+-	if (!da7219->master)
+-		return 0;
+-
+ 	switch (fs & DA7219_SR_MASK) {
+ 	case DA7219_SR_8000:
+ 		return 8000;
+@@ -2016,9 +2028,6 @@ static unsigned long da7219_bclk_recalc_rate(struct clk_hw *hw,
+ 	u8 bclks_per_wclk = snd_soc_component_read32(component,
+ 						     DA7219_DAI_CLK_MODE);
+ 
+-	if (!da7219->master)
+-		return 0;
+-
+ 	switch (bclks_per_wclk & DA7219_DAI_BCLKS_PER_WCLK_MASK) {
+ 	case DA7219_DAI_BCLKS_PER_WCLK_32:
+ 		return parent_rate * 32;
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4827439706414677254==--

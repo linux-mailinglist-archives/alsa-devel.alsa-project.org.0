@@ -2,74 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8257D11384
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 08:46:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A29F113A6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 09:05:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F29E1785;
-	Thu,  2 May 2019 08:45:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F29E1785
+	by alsa0.perex.cz (Postfix) with ESMTPS id 114A9178D;
+	Thu,  2 May 2019 09:05:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 114A9178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556779606;
-	bh=IxEBFAbrM3IaMp/AnYPm3BKqlxtaHUEEMkMTCfEAQ/k=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556780759;
+	bh=jFvL4fqmf1DShZArAFZBRFmksyM5aaCJKwzG4FnzsoI=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sEwbLXfaqdt3k2gKMNUnqbb7gvHc3mRKilyndWRtMYeQw6rsXcIXLK6COXX7A/cLX
-	 tJ0EPgPc7j9s07Z8nswT355Vu/OKoMjgkQll+pV+Iq7WqJlzpDtqK3nJIluvhkcBTQ
-	 PfLAJ04UbXihF2slN4EL7d2X6jJ0EjhBvuvsN+oE=
+	b=g9sBbT8gWzeYLLnaD6Lay5JO+rTKro/UynJGnqsXJiUadPffSCMajzv7bC7GiaGrg
+	 MvNOgkloPMJgAeOpfgy0Tb0aQikovh51f9/rLzLhvBFXX5nxnnW+Kwfh6kDc/cEHlL
+	 pPZ4cZwSH20Ye7S4zFO0+VZ/A07K3uSFrRePbel8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F9DBF896EA;
-	Thu,  2 May 2019 08:45:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EC0AF896E3;
+	Thu,  2 May 2019 09:04:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 174CBF896C7; Thu,  2 May 2019 08:44:58 +0200 (CEST)
+ id 02D9CF896C7; Thu,  2 May 2019 09:04:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7478BF89693
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 08:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7478BF89693
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2qpWuJ26"
-Received: from localhost (unknown [171.76.113.243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 83AC5208C4;
- Thu,  2 May 2019 06:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556779492;
- bh=t0B0FuOVE7Lh7IadbKF9pKqOPoOYFk5qPf8OvxHkMEY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=2qpWuJ26/iHz3DAWERdoRtev8O+uc7f55BIyH1gkalCRJDUmvhdoqct1XmKBowpYf
- q8krZ94SMaLjce49NkHH7G5wJ9+EW73lc3quUdoYV1WI5EV0gRHKTWjWctFplnDt+u
- TbaZ+ZB7B/D7ZD5tSgXKNNncES2J7vwiVmSGaqxw=
-Date: Thu, 2 May 2019 12:14:38 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <20190502064438.GJ3845@vkoul-mobl.Dlink>
-References: <20190501155745.21806-1-pierre-louis.bossart@linux.intel.com>
- <20190501155745.21806-3-pierre-louis.bossart@linux.intel.com>
- <20190502051440.GA3845@vkoul-mobl.Dlink>
- <20190502063139.GA14347@kroah.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190502063139.GA14347@kroah.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH v4 02/22] soundwire: fix SPDX license for
-	header files
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00DE8F89693
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 09:04:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00DE8F89693
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 140ADAEE6;
+ Thu,  2 May 2019 07:04:06 +0000 (UTC)
+Date: Thu, 02 May 2019 09:04:06 +0200
+Message-ID: <s5h36lxpcbd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190427175938.GJ14916@sirena.org.uk>
+References: <20190423141336.12568-1-tiwai@suse.de>
+ <20190423141336.12568-2-tiwai@suse.de>
+ <20190427175938.GJ14916@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Add support for Conexant CX2072X
+	CODEC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,49 +73,226 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-05-19, 08:31, Greg KH wrote:
-> On Thu, May 02, 2019 at 10:46:49AM +0530, Vinod Koul wrote:
-> > On 01-05-19, 10:57, Pierre-Louis Bossart wrote:
-> > > No C++ comments in .h files
-> > > 
-> > > Reviewed-by: Takashi Iwai <tiwai@suse.de>
-> > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > ---
-> > >  drivers/soundwire/bus.h            | 4 ++--
-> > >  drivers/soundwire/cadence_master.h | 4 ++--
-> > >  drivers/soundwire/intel.h          | 4 ++--
-> > 
-> > As I said previously this touches subsystem header as well as driver
-> > headers which is not ideal.
+On Sat, 27 Apr 2019 19:59:38 +0200,
+Mark Brown wrote:
 > 
-> What?  Who knows that?  Who cares?
-
-Well at least Pierre knows that very well :) He is designate Reviewer of
-this subsystem.
-
-> This is doing "one logical thing" to all of the needed files.  Your
-> split of "this is a driver" vs. "this is a subsystem" split is _VERY_
-> arbritary.
+> On Tue, Apr 23, 2019 at 04:13:35PM +0200, Takashi Iwai wrote:
 > 
-> That's just too picky and assumes a subsystem-internal-knowledge much
-> deeper than anyone submitting a normal cleanup patch would ever know.
+> > +/*
+> > + * register patch.
+> > + */
+> > +static const struct reg_sequence cx2072x_patch[] = {
+> > +	{ 0x71A4, 0x080 }, /* DC offset Calibration		*/
+> > +	{ 0x7328, 0x65f }, /* disable the PA			*/
+> > +	{ 0x71a8, 0x289 }, /* Set the spkeaer output gain	*/
+> > +	{ 0x7310, 0xf05 },
+> > +	{ 0x7290, 0x380 },
+> > +	{ 0x7328, 0xb90 },
+> > +	{ 0x7124, 0x001 }, /* Enable 30 Hz High pass filter	*/
+> > +	{ 0x718c, 0x300 }, /* Disable PCBEEP pad		*/
+> > +	{ 0x731c, 0x100 }, /* Disable SnM mode			*/
+> > +	{ 0x641c, 0x020 }, /* Enable PortD input		*/
+> > +	{ 0x0458, 0x040 }, /* Enable GPIO7 pin for button	*/
+> > +	{ 0x0464, 0x040 }, /* Enable UM for GPIO7		*/
+> > +	{ 0x0420, 0x080 }, /* Enable button response		*/
+> > +	{ 0x7230, 0x0c4 }, /* Enable headset button		*/
+> > +	{ 0x7200, 0x415 }, /* Power down class-D during idle	*/
+> > +	{ 0x6e04, 0x00f }, /* Enable I2S TX			*/
+> > +	{ 0x6e08, 0x00f }, /* Enable I2S RX			*/
+> > +};
+> 
+> This looks *very* much like board configuration rather than a patch -
+> there's no kind of test bit and the comments talk specifically about
+> things like gain settings and pad configuration which look very board
+> specific.  Register patches are supposed to be for things like early
+> revisions of the chip which have different register defaults or magic
+> sequences that vendors tell you to run on startup, usually to tune test
+> registers.
 
-Sure I do agree that this assumes internal knowledge but the contributor
-knows the subsystem extremely well and he knows the different parts. For
-drive by contributor I agree things would be not that picky :)
+OK, will replace with the straight regmap_multi_reg_write().
 
-Even considering the patch series, some split was even file based and in
-this case not done. All I ask is for consistency in the series proposed.
 
-> I think you have swung too far to the "too picky" side, you might want
-> to dial it back.
+> > +/* return register size */
+> > +static unsigned int cx2072x_register_size(struct device *dev, unsigned int reg)
+> > +{
+> > +	switch (reg) {
+> 
+> This is *not* going to play well with regmap...
 
-Sure given that this is code cleanup I will split them up and push.
-Shouldn't take much of my time.
+The code seems trying to unify the register access with the same
+width, while the register size differs depending on the register
+index.  So the read/write ops adjust it by checking this register size
+*internally*.  IOW, it's hiding the internal register size difference
+from the outside so that regmap can work.
 
-Thanks for the advise.
--- 
-~Vinod
+(Actually the zero check in the caller side is bogus -- this function
+never returns an error.)
+
+I'm going to rewrite the whole these tables.  Maybe better to have a
+single register attribute table.
+
+> > +static int cx2072x_reg_bulk_write(struct snd_soc_component *codec,
+> > +				  unsigned int reg,
+> > +				  const void *val, size_t val_count)
+> > +{
+> > +	struct i2c_client *client = to_i2c_client(codec->dev);
+> > +	struct device *dev = &client->dev;
+> > +	u8 buf[2 + CX2072X_MAX_EQ_COEFF];
+> > +	int ret;
+> > +
+> > +	if (val_count > CX2072X_MAX_EQ_COEFF) {
+> > +		dev_err(dev,
+> > +			"cx2072x_reg_bulk_write failed, writing count = %d\n",
+> > +			(int)val_count);
+> > +		return -EINVAL;
+> > +	}
+> 
+> So this only works for the EQ registers?
+
+I guess this was meant only as a sanity check.  It's an internal
+function that is called from a few helper functions, and the check
+above is to assure not overflowing the temporary buffer on the stack.
+It can be simply WARN_ON() like
+	if (WARN_ON(val_count + 2 > sizeof(buf)))
+		return -EINVAL;
+
+> If so there should be
+> validation to confirm that it only gets used for them.  If not there
+> should be handling for register size variation issues.
+> 
+> > +#define cx2072x_plbk_eq_en_info		snd_ctl_boolean_mono_info
+> 
+> Why not just use the function directly rather than hiding it?
+
+Just a standard idiom.  Can be replaced if preferred.
+
+
+> > +	/* do nothing if the value is the same */
+> > +	if (memcmp(cache, param, CX2072X_PLBK_EQ_COEF_LEN))
+> > +		goto unlock;
+> 
+> Is this test not inverted - shouldn't we be skipping if memcmp returns
+> 0?
+
+Oh yeah, indeed, it looks like a real bug.  This shows that I have
+never played with the EQ stuff :)
+
+(IOW, I'm fine to drop the untested EQ stuff, but someone else might
+ play with it...)
+
+
+> > +	SOC_DOUBLE_R_TLV("DAC1 Volume", CX2072X_DAC1_AMP_GAIN_LEFT,
+> > +			 CX2072X_DAC1_AMP_GAIN_RIGHT, 0, 0x4a, 0, dac_tlv),
+> > +	SOC_DOUBLE_R("DAC1 Mute Switch", CX2072X_DAC1_AMP_GAIN_LEFT,
+> > +		     CX2072X_DAC1_AMP_GAIN_RIGHT, 7,  1, 0),
+> 
+> Should just be DAC1 Switch so it gets joined up with DAC1 Volume in UIs
+> and the "Mute" is redundant anyway.
+
+OK.
+
+> > +int snd_soc_cx2072x_enable_jack_detect(struct snd_soc_component *codec)
+> > +{
+> > +	struct cx2072x_priv *cx2072x = snd_soc_component_get_drvdata(codec);
+> > +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(codec);
+> > +
+> > +	/* No-sticky input type */
+> > +	regmap_write(cx2072x->regmap, CX2072X_GPIO_STICKY_MASK, 0x1f);
+> > +
+> > +	/* Use GPOI0 as interrupt pin */
+> > +	regmap_write(cx2072x->regmap, CX2072X_UM_INTERRUPT_CRTL_E, 0x12 << 24);
+> 
+> This isn't board specific is it?
+
+I have no idea.  It's been so from the original code, and there
+doesn't seem any other hardware implementations.
+
+
+> > +int snd_soc_cx2072x_get_jack_state(struct snd_soc_component *codec)
+> > +{
+> > +	struct cx2072x_priv *cx2072x = snd_soc_component_get_drvdata(codec);
+> > +	unsigned int jack;
+> > +	unsigned int type = 0;
+> > +	int state = 0;
+> > +	bool need_cache_bypass =
+> > +		snd_soc_component_get_bias_level(codec) == SND_SOC_BIAS_OFF;
+> > +
+> > +	if (need_cache_bypass)
+> > +		regcache_cache_only(cx2072x->regmap, false);
+> 
+> This looks funky and racy - what's going on here?  If the register map
+> is live and usable why is it in cache only mode?
+
+Not to read the register while the chip is turned off, I suppose.
+The jack detection in ASoC is anyway a bit funky, especially when
+involved with PM...
+
+
+> > +	dev_dbg(codec->dev, "CX2072X_HSDETECT type=0x%X,Jack state = %x\n",
+> > +		type, state);
+> > +	return state;
+> > +}
+> > +EXPORT_SYMBOL_GPL(snd_soc_cx2072x_get_jack_state);
+> 
+> Why is this symbol exported?
+
+It's called from the machine driver.
+snd_soc_jack_add_gpios() is called in the machine driver side, and it
+needs the jack_status_check callback that calls this function.
+
+
+> > +static void cx2072x_shutdown(struct snd_pcm_substream *substream,
+> > +			     struct snd_soc_dai *dai)
+> > +{
+> > +	struct snd_soc_component *codec = dai->component;
+> > +	struct cx2072x_priv *cx2072x = snd_soc_component_get_drvdata(codec);
+> > +
+> > +	/* shutdown codec */
+> > +	regcache_cache_only(cx2072x->regmap, false);
+> > +	regmap_write(cx2072x->regmap, CX2072X_PORTA_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_PORTB_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_PORTC_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_PORTD_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_PORTE_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_PORTG_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_MIXER_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_ADC1_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_ADC2_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_DAC1_POWER_STATE, 3);
+> > +	regmap_write(cx2072x->regmap, CX2072X_DAC2_POWER_STATE, 3);
+> 
+> Why isn't DAPM powering things off for us?
+
+Honestly speaking, no idea.  It seems to have been added some revision
+of the original code.  Let's try to rip off.
+
+> > +	/* use flat eq by default */
+> > +	for (ch = 0 ; ch < 2 ; ch++) {
+> > +		for (band = 0; band < CX2072X_PLBK_EQ_BAND_NUM; band++) {
+> > +			cx2072x->plbk_eq[ch][band][1] = 64;
+> > +			cx2072x->plbk_eq[ch][band][10] = 3;
+> > +		}
+> > +	}
+> 
+> Why not use the register defaults?
+
+Because it'll become too messy for put flatten array values?
+The initialization using loop makes more sense in such a case, IMO.
+
+
+> > +static bool cx2072x_readable_register(struct device *dev, unsigned int reg)
+> > +{
+> > +	switch (reg) {
+> > +	case CX2072X_VENDOR_ID:
+> 
+> It's weird that this is a long way away from the other regmap functions.
+
+Agreed, will move to a former place.
+
+
+Thanks!
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

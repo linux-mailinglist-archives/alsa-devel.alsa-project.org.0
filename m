@@ -2,87 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A00011388
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 08:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F33E11281
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 07:13:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA4541782;
-	Thu,  2 May 2019 08:48:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA4541782
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98941175E;
+	Thu,  2 May 2019 07:12:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98941175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556779784;
-	bh=n9LIXaa3bDF6iMwdZxtV/mvMHjnLPJxa8D5BTsjX8og=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TmIYQ6ffN8+vPsZAr48hP0P7dyAzG3kHfIJo++4/ZUJlw9x3aggIWcikv7fL/Re0b
-	 96kHae5ft3GXM94DTVaU9qP1adUVTDMlPtdRLnYgblLlWRPp6YZnQoywDcIrMuoCjZ
-	 ym9V0oiTS4AT7vc9TI4l+iNMpCNVEQsZrhUys9/E=
+	s=default; t=1556774028;
+	bh=rfsQAyzUGm4DiVxDsbgulHa3URNXoe2lnlht6QVRpsg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VQmQDA3SHfcx+iklBjUsbe7GtofqtEu7WEi9bPtaC7mMO6KbCac/JZ8p7cn9fjnrl
+	 fDxIKnuTdeqQ55dLObSEF5ounZJu/40lWSaRIgyTDyZqRIyuAdQi0OiExe1Jvqf06u
+	 Tzguv8OM/blwpxseDULRhKqGj5VGqsDNoErFYvsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84A56F896C7;
-	Thu,  2 May 2019 08:47:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2CCEF89693;
+	Thu,  2 May 2019 07:12:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52BBCF896C7; Thu,  2 May 2019 06:08:27 +0200 (CEST)
+ id E24C7F896C7; Thu,  2 May 2019 07:04:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS, TIME_LIMIT_EXCEEDED, 
+ URIBL_BLOCKED autolearn=unavailable version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00B27F80722
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 06:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00B27F80722
+ by alsa1.perex.cz (Postfix) with ESMTPS id 825D9F89693
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 06:58:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 825D9F89693
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="OM63BoL4"
-Received: by mail-pl1-x643.google.com with SMTP id ck18so417818plb.1
- for <alsa-devel@alsa-project.org>; Wed, 01 May 2019 21:08:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fOwKWUPB3XYL5vqCBpfMhq2ycc4DNiuOgeK/TTjRmug=;
- b=OM63BoL46xvlrzeumkV1LZA93RUL3Tn8qyNAtNyvef+IRAl9lg08hzIZVDBLnB43l9
- faSzDUTKXqhKzADVxeVXcKYh3EscgVnyI2P3JuY0rzwfvhkjCIZK/sLhRkz6YTnjy8U3
- ac8Rq85iP1+dm+tMt6U5hhlK0hwcuOiV2/DAU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fOwKWUPB3XYL5vqCBpfMhq2ycc4DNiuOgeK/TTjRmug=;
- b=DLe9LlFB8WeR7JkJNYZ8rygsYnF3GZjz7mDLb3Vu/gSrUI2sIAdowuu12wRpvUMJXl
- pvpD/b2Jk3YzyPInruGElycxEVy+0RLayYUc9AeZ04iORneD0nejeKCT487pjjZx3iLl
- 65aq09kyK1i3tKJULXbNgEyh7nahkBOXv9a4t7T1WhVAViKbCBltC5ZW1QfFbY4GNbcs
- gJCQh9HqJ1yKaes54nnMvgatHSE5C7CkOpIhsCuloR6iiDChslGKo9NXb4aKUGeWrbKe
- WQBkASMdEQHfzTXs7SGtkiIZeoeHzDslHVjEpuvSNQo/uQCQPByQm9cUmAWY9oeYtYpI
- XjhA==
-X-Gm-Message-State: APjAAAWO9ZKATWaTOnoZozxNJX5lblARY66GXZizVSHQNyXsHzA5/mjR
- QdeC7maVFh2s+f9+0lSa6+38jQ==
-X-Google-Smtp-Source: APXvYqzB3uwZbHEMviHNeD8m1xkKNL2FXm123P94Bp57SbqrASolvKxjmDOyHF1jlW5+fb0pShkuzA==
-X-Received: by 2002:a17:902:8642:: with SMTP id
- y2mr1343912plt.104.1556770072646; 
- Wed, 01 May 2019 21:07:52 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:6cc8:36d1:3ceb:a986])
- by smtp.gmail.com with ESMTPSA id d5sm31527869pgb.33.2019.05.01.21.07.49
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 01 May 2019 21:07:51 -0700 (PDT)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Thu,  2 May 2019 12:07:43 +0800
-Message-Id: <20190502040743.184310-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.21.0.593.g511ec345e18-goog
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="lpbZos6r"
+Received: from localhost (unknown [171.76.113.243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C5A012075E;
+ Thu,  2 May 2019 04:58:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1556773108;
+ bh=AlJ7fhDL8zv1DFy/4ydx44JaOUdD+SCp0M+l+7To4Ec=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=lpbZos6rpTINadMWn1nKzCfUFszahKJ0vXJP2WiXTWV353VANv3wilfr+SK8RHHsy
+ fPhgeErlz9pG40sridkX9jHWEvLUBoKpyJxGn2UFRtzRUJ9mwvL6Dm4Jtc8SXCd2Bh
+ SNGXr8rjqJm6mOrdIbGyBFEM8fAMhRl2MzY9qn+s=
+Date: Thu, 2 May 2019 10:28:17 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190502045817.GZ3845@vkoul-mobl.Dlink>
+References: <20190501125322.23791-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 02 May 2019 08:47:52 +0200
-Cc: alsa-devel@alsa-project.org,
- Support Opensource <support.opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Adam Thomson <Adam.Thomson.Opensource@diasemi.com>, dgreid@chromium.org
-Subject: [alsa-devel] [PATCH] ASoC: da7219: Update the support rate list
+Content-Disposition: inline
+In-Reply-To: <20190501125322.23791-1-pierre-louis.bossart@linux.intel.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ "Rafael J. Wysocki" <rjw@rjwysocki.net>, linux-kernel@vger.kernel.org,
+ Robert Moore <robert.moore@intel.com>, liam.r.girdwood@linux.intel.com,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, joe@perches.com,
+ "open list:ACPI COMPONENT ARCHITECTURE \(ACPICA\)" <devel@acpica.org>,
+ Erik Schmauss <erik.schmauss@intel.com>, Len Brown <lenb@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2] ACPI / device_sysfs: change _ADR
+ representation to 64 bits
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,52 +86,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If we want to set rate to 64000 on da7219, it fails and returns
-"snd_pcm_hw_params: Invalid argument".
-We should remove 64000 from support rate list because it is not
-available.
+On 01-05-19, 07:53, Pierre-Louis Bossart wrote:
+> Standards such as the MIPI DisCo for SoundWire 1.0 specification
+> assume the _ADR field is 64 bits.
+> 
+> _ADR is defined as an "Integer" represented as 64 bits since ACPI 2.0
+> released in 2002. The low levels already use _ADR as 64 bits, e.g. in
+> struct acpi_device_info.
+> 
+> This patch bumps the representation used for sysfs to 64 bits. To
+> avoid any compatibility/ABI issues, the printf format is only extended
+> to 16 characters when the actual _ADR value exceeds the 32 bit
+> maximum.
+> 
+> Example with a SoundWire device, the results show the complete
+> vendorID and linkID which were omitted before:
+> 
+> Before:
+> $ more /sys/bus/acpi/devices/device\:38/adr
+> 0x5d070000
+> After:
+> $ more /sys/bus/acpi/devices/device\:38/adr
+> 0x000010025d070000
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+> v2: only use 64 bits when required to avoid compatibility issues
+> (feedback from Vinod and Rafael)
+> 
+>  drivers/acpi/device_sysfs.c | 6 ++++--
+>  include/acpi/acpi_bus.h     | 2 +-
+>  2 files changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/acpi/device_sysfs.c b/drivers/acpi/device_sysfs.c
+> index 8940054d6250..7dda0ee05cd1 100644
+> --- a/drivers/acpi/device_sysfs.c
+> +++ b/drivers/acpi/device_sysfs.c
+> @@ -428,8 +428,10 @@ static ssize_t acpi_device_adr_show(struct device *dev,
+>  {
+>  	struct acpi_device *acpi_dev = to_acpi_device(dev);
+>  
+> -	return sprintf(buf, "0x%08x\n",
+> -		       (unsigned int)(acpi_dev->pnp.bus_address));
+> +	if (acpi_dev->pnp.bus_address > 0xFFFFFFFF)
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
----
- sound/soc/codecs/da7219.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+Would prefer to use U32_MAX instead of 0xFFFFFFFF
 
-diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-index 5f5fa3416af3..7497457cf3d4 100644
---- a/sound/soc/codecs/da7219.c
-+++ b/sound/soc/codecs/da7219.c
-@@ -1658,20 +1658,26 @@ static const struct snd_soc_dai_ops da7219_dai_ops = {
- #define DA7219_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
- 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE)
- 
-+#define DA7219_RATES (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_11025 |\
-+		      SNDRV_PCM_RATE_16000 | SNDRV_PCM_RATE_22050 |\
-+		      SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
-+		      SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
-+		      SNDRV_PCM_RATE_96000)
-+
- static struct snd_soc_dai_driver da7219_dai = {
- 	.name = "da7219-hifi",
- 	.playback = {
- 		.stream_name = "Playback",
- 		.channels_min = 1,
- 		.channels_max = DA7219_DAI_CH_NUM_MAX,
--		.rates = SNDRV_PCM_RATE_8000_96000,
-+		.rates = DA7219_RATES,
- 		.formats = DA7219_FORMATS,
- 	},
- 	.capture = {
- 		.stream_name = "Capture",
- 		.channels_min = 1,
- 		.channels_max = DA7219_DAI_CH_NUM_MAX,
--		.rates = SNDRV_PCM_RATE_8000_96000,
-+		.rates = DA7219_RATES,
- 		.formats = DA7219_FORMATS,
- 	},
- 	.ops = &da7219_dai_ops,
+> +		return sprintf(buf, "0x%016llx\n", acpi_dev->pnp.bus_address);
+> +	else
+> +		return sprintf(buf, "0x%08llx\n", acpi_dev->pnp.bus_address);
+>  }
+>  static DEVICE_ATTR(adr, 0444, acpi_device_adr_show, NULL);
+>  
+> diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+> index f7981751ac77..9075e28ea60a 100644
+> --- a/include/acpi/acpi_bus.h
+> +++ b/include/acpi/acpi_bus.h
+> @@ -230,7 +230,7 @@ struct acpi_device_dir {
+>  /* Plug and Play */
+>  
+>  typedef char acpi_bus_id[8];
+> -typedef unsigned long acpi_bus_address;
+> +typedef u64 acpi_bus_address;
+>  typedef char acpi_device_name[40];
+>  typedef char acpi_device_class[20];
+>  
+> -- 
+> 2.17.1
+
 -- 
-2.21.0.593.g511ec345e18-goog
-
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

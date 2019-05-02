@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 946FE111A8
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37998111AE
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 04:41:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2CBA01746;
-	Thu,  2 May 2019 04:39:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CBA01746
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9485174E;
+	Thu,  2 May 2019 04:40:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9485174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556764843;
-	bh=V61Ohvnp9/+e7JK1avSl5Dd/YufWmordQ7lFJKUO8Uk=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IPFowEk/7iZICJNpJZxPiR4tV9mIB8mc9xPUNzmtAZjQT1ypLNT+nYrB2kpmjQY1w
-	 q6xVAwHSYoU8X0IhYf5VJUyU+wqeaZwMAOj7GJisrq/lDNuGaVhw7/hu0c6nq6rpG7
-	 f/cau2cMTAIGRo8euHVhi2wrRIJztXrKHCIBKrpc=
+	s=default; t=1556764893;
+	bh=m12P4msXpgKIyhgahf+ttpQ4SuQbkX22876cBXUfihw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fKKYCqFD855kO2WJXjf0uvgyB3gII++1hl9LB0y9AULYyRB2BxIQ/S4D43pM+LOQo
+	 at+CuMTsz4N3i0HRUU9A2N4Xe9zn7POy3tv3xVvc84XMtUfWelbwTOzpH39obNuGU3
+	 6hHLJMKQfHBQ+rzw36rhuxNAHpVepj9aewOzhfS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9EA3F897C8;
-	Thu,  2 May 2019 04:19:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B24AF896EA;
+	Thu,  2 May 2019 04:27:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04A23F89764; Thu,  2 May 2019 04:19:20 +0200 (CEST)
+ id 51BC3F896EA; Thu,  2 May 2019 04:27:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,41 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B7DFF8975A
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:19:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B7DFF8975A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 619F7F896AA
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 04:27:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 619F7F896AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oLzyp+d1"
+ header.b="aLU4nCOv"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=R2j1F1wG65fNXhdJylyMnKqAApoSPDTfJTSPsQzYInI=; b=oLzyp+d1FTxd
- XFjAxkD/AxSEaW4Wk1USCkF73J1VnldM6Cae4/6zjUCOnIKUEHQ/mD8Dcrm8WFs/CFAUEVdDps4Av
- KAarUqzYoYLU8GEOs3Z2c7rDQ+1EubOQX0x7BrLhD/+sKI+D8u4yCXFf8WDwDGAlS81cx1gKG9mll
- oV9Xg=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=9c4BcFPduca/5DIXVfe1mO9D4wGow/7aiG5RgWCHmVw=; b=aLU4nCOvtXATqFiWNV81qdttd
+ 0zXOKNP1h12+KvH+DanJiqPnoQf9Vu9NbeR/Yr2aXENfdbl8kaWNXuGjyB/aeJ9uldnFpmJ19LeIb
+ hqrQFgLM7sXo4QhJuLsLmaFqsdiAFulTN/z3wEYOZFe/gKC2G3E1/31EYBfd0Lq78P4qI=;
 Received: from [211.55.52.15] (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hM1JQ-0005vZ-Hf; Thu, 02 May 2019 02:19:04 +0000
+ id 1hM1R8-0005z1-7W; Thu, 02 May 2019 02:27:02 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 5D8EE441D3D; Thu,  2 May 2019 03:19:00 +0100 (BST)
+ id 17DAC441D3C; Thu,  2 May 2019 03:26:59 +0100 (BST)
+Date: Thu, 2 May 2019 11:26:59 +0900
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Gomez <dagmcr@gmail.com>
-In-Reply-To: <1555960353-8836-1-git-send-email-dagmcr@gmail.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190502021900.5D8EE441D3D@finisterre.ee.mobilebroadband>
-Date: Thu,  2 May 2019 03:19:00 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, tiwai@suse.com,
- lgirdwood@gmail.com, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, dagmcr@gmail.com,
- Javier Martinez Canillas <javier@dowhile0.org>
-Subject: [alsa-devel] Applied "spi: AD ASoC: declare missing of table" to
-	the spi tree
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190502022659.GR14916@sirena.org.uk>
+References: <20190428072550.31087-1-tiwai@suse.de>
+ <20190428072550.31087-2-tiwai@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <20190428072550.31087-2-tiwai@suse.de>
+X-Cookie: -- I have seen the FUN --
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: Add support for Conexant
+	CX2072X CODEC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,108 +82,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1504920989372867966=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   spi: AD ASoC: declare missing of table
+--===============1504920989372867966==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zj18g9eElA7rRQh+"
+Content-Disposition: inline
 
-has been applied to the spi tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.2
+--zj18g9eElA7rRQh+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Sun, Apr 28, 2019 at 09:25:49AM +0200, Takashi Iwai wrote:
+> From: Simon Ho <simon.ho@conexant.com>
+>=20
+> Initial commit of the Conexant CX2072X CODEC driver. Some features are
+> not present.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+It looks like this raced with me reviewing the earlier version and my
+comments against v1 still apply here?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+--zj18g9eElA7rRQh+
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Mark
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzKVXIACgkQJNaLcl1U
+h9CQvgf/eEA8Rqg+J/hXBuY5uGTB2ZqsRYWjWnpgfP2g8PeT+NDWHlw6rVt7Yzua
+hRiZqVeD4qz93rQyE6iMz9KhcwkGQl+Fy4+9z9lCvTWzFAZvTYrot2CNd6IlgQBH
+e3Z9TytqEXc8bW34FHmiGiuIjPRxOXiU8bN2GtNkc7LyzBqOewlXzhqONBc2A9vX
+Xo33jz+4Q+NQ1zIVvuLgxAGIoFiw5inHqkcPV3YdIK3pU/ujGCY9p5o7DLsk/bND
+z+JJJQecf/ltwkMSp+Ad3ZtgSdQkG8Jea24dwl9K36R+NG73wEz4qFF1yl+h+6CL
+c67L1xSoWvwwTI/4Q8L2pWf41dVrvw==
+=PDS8
+-----END PGP SIGNATURE-----
 
-From 2a168e10d6db7b77190c55d994e42fc5a58fc8e5 Mon Sep 17 00:00:00 2001
-From: Daniel Gomez <dagmcr@gmail.com>
-Date: Mon, 22 Apr 2019 21:12:33 +0200
-Subject: [PATCH] spi: AD ASoC: declare missing of table
+--zj18g9eElA7rRQh+--
 
-Add missing <of_device_id> table for SPI driver relying on SPI
-device match since compatible is in a DT binding or in a DTS.
-
-Before this patch:
-modinfo sound/soc/codecs/snd-soc-adau1977-spi.ko | grep alias
-alias:          spi:adau1979
-alias:          spi:adau1978
-alias:          spi:adau1977
-
-After this patch:
-modinfo sound/soc/codecs/snd-soc-adau1977-spi.ko | grep alias
-alias:          of:N*T*Cadi,adau1979C*
-alias:          of:N*T*Cadi,adau1979
-alias:          of:N*T*Cadi,adau1978C*
-alias:          of:N*T*Cadi,adau1978
-alias:          of:N*T*Cadi,adau1977C*
-alias:          of:N*T*Cadi,adau1977
-alias:          spi:adau1979
-alias:          spi:adau1978
-alias:          spi:adau1977
-
-Reported-by: Javier Martinez Canillas <javier@dowhile0.org>
-Signed-off-by: Daniel Gomez <dagmcr@gmail.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/adau1977-spi.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/sound/soc/codecs/adau1977-spi.c b/sound/soc/codecs/adau1977-spi.c
-index 84ffbde9583f..2baf61567b59 100644
---- a/sound/soc/codecs/adau1977-spi.c
-+++ b/sound/soc/codecs/adau1977-spi.c
-@@ -10,6 +10,8 @@
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/regmap.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
- #include <linux/spi/spi.h>
- #include <sound/soc.h>
- 
-@@ -54,9 +56,18 @@ static const struct spi_device_id adau1977_spi_ids[] = {
- };
- MODULE_DEVICE_TABLE(spi, adau1977_spi_ids);
- 
-+static const struct of_device_id adau1977_spi_of_match[] = {
-+        { .compatible = "adi,adau1977" },
-+        { .compatible = "adi,adau1978" },
-+        { .compatible = "adi,adau1979" },
-+        { },
-+};
-+MODULE_DEVICE_TABLE(of, adau1977_spi_of_match);
-+
- static struct spi_driver adau1977_spi_driver = {
- 	.driver = {
- 		.name = "adau1977",
-+		.of_match_table = of_match_ptr(adau1977_spi_of_match),
- 	},
- 	.probe = adau1977_spi_probe,
- 	.id_table = adau1977_spi_ids,
--- 
-2.20.1
+--===============1504920989372867966==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1504920989372867966==--

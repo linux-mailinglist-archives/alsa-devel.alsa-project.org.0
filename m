@@ -2,70 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70687113B8
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 09:09:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DA5B11497
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 May 2019 09:54:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAD761799;
-	Thu,  2 May 2019 09:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAD761799
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D0B11795;
+	Thu,  2 May 2019 09:53:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D0B11795
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556780997;
-	bh=GBG4hrav8DqozXj/S/tJZwkMeVuzv/BufxDy/0hzz5E=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556783671;
+	bh=sGiXf2QVoS7bAUKGTPgoH/bABxitICUK5SosKaoBJrw=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KPQbz6w87ecaBEOoH+gEeJW5AgF8zwQ6CP/zwRjkAk5EuoYnVwae5Ua83Dd5wojuq
-	 eGSIlCeGCVP8ASJo/aCJK9F0jsnNCWXq58LjXRNUGd+NansvMZAkzLWk6WeibfhvFl
-	 kqYryLEC8lIvzKbiJR+QqRQMdlz1cCQBI3HhDIpY=
+	b=VuTjz9DhPn6QXT0lzGyZKnOuWwS8BX7V+CUQGJUNuHCTILhDZVJy+lwpSTjU0VJEe
+	 M5cTxNkDfDfyHl+BmM8zkFdnqgsGKwRgMYkQs6nNQT82UK2/szSpAu70hLHHlELxsp
+	 6qRfaDVmXq9JHnSjPA4HRnNLrCl/PCOnyV7NUazQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A8B9F896C7;
-	Thu,  2 May 2019 09:08:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20CA8F89693;
+	Thu,  2 May 2019 09:52:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 24EC8F896C7; Thu,  2 May 2019 09:08:08 +0200 (CEST)
+ id E3985F896C7; Thu,  2 May 2019 09:52:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 983BCF89693
- for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 09:08:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 983BCF89693
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="vX1nueDl"
-Received: from localhost (unknown [171.76.113.243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C67852085A;
- Thu,  2 May 2019 07:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1556780883;
- bh=4UFPxs6JvZxakaeyG4qDIBh4IL4y8hXBZwN3SfTw9Z8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=vX1nueDloxy/jwbPpl+bD+/PQL4Nk27eLeLLscm7SW5XQiUXI29+PY+3e9U7ZjKF6
- wCLA0qtUDD/MY01BCYAYW0IpzL7HX2MhxHG1C2GQO3Ye9OAUeBx0CgWnqfFmIHyQVh
- S3FHSrrgSHqAwTYnwXK6pH5eGcftsVqFqkgHhCKA=
-Date: Thu, 2 May 2019 12:37:53 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190502070753.GK3845@vkoul-mobl.Dlink>
-References: <20190501155745.21806-1-pierre-louis.bossart@linux.intel.com>
- <20190502055812.GG3845@vkoul-mobl.Dlink>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190502055812.GG3845@vkoul-mobl.Dlink>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- joe@perches.com
-Subject: Re: [alsa-devel] [PATCH v4 00/22] soundwire: code cleanup
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1B29F89693
+ for <alsa-devel@alsa-project.org>; Thu,  2 May 2019 09:52:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1B29F89693
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 0F93DAD6D;
+ Thu,  2 May 2019 07:52:41 +0000 (UTC)
+Date: Thu, 02 May 2019 09:52:40 +0200
+Message-ID: <s5hsgtxnvhz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <s5h36lxpcbd.wl-tiwai@suse.de>
+References: <20190423141336.12568-1-tiwai@suse.de>
+ <20190423141336.12568-2-tiwai@suse.de>
+ <20190427175938.GJ14916@sirena.org.uk>
+ <s5h36lxpcbd.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Add support for Conexant CX2072X
+	CODEC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,19 +74,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-05-19, 11:28, Vinod Koul wrote:
-> On 01-05-19, 10:57, Pierre-Louis Bossart wrote:
-> > SoundWire support will be provided in Linux with the Sound Open
-> > Firmware (SOF) on Intel platforms. Before we start adding the missing
-> > pieces, there are a number of warnings and style issues reported by
-> > checkpatch, cppcheck and Coccinelle that need to be cleaned-up.
+On Thu, 02 May 2019 09:04:06 +0200,
+Takashi Iwai wrote:
 > 
-> Applied all expect 2, 3, 6 and 22
+> > > +int snd_soc_cx2072x_get_jack_state(struct snd_soc_component *codec)
+> > > +{
+> > > +	struct cx2072x_priv *cx2072x = snd_soc_component_get_drvdata(codec);
+> > > +	unsigned int jack;
+> > > +	unsigned int type = 0;
+> > > +	int state = 0;
+> > > +	bool need_cache_bypass =
+> > > +		snd_soc_component_get_bias_level(codec) == SND_SOC_BIAS_OFF;
+> > > +
+> > > +	if (need_cache_bypass)
+> > > +		regcache_cache_only(cx2072x->regmap, false);
+> > 
+> > This looks funky and racy - what's going on here?  If the register map
+> > is live and usable why is it in cache only mode?
+> 
+> Not to read the register while the chip is turned off, I suppose.
 
-Split 2, 3, 22, updated log for 6 and pushed
+Actually other way round: the codec driver tries to avoid the whole
+register access while the chip is in BIAS_OFF state.  OTOH, the jack
+state check is still required even in that state, so it flips the
+cache-only flag temporarily at reading the jack detect bit.
 
--- 
-~Vinod
+I guess we may remove the cache-only behavior, although this is a
+nice-to-have thing.
+
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E8F81289D
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 09:20:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8C5112983
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 10:07:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0D1F187E;
-	Fri,  3 May 2019 09:19:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0D1F187E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A28B1883;
+	Fri,  3 May 2019 10:06:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A28B1883
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556868020;
-	bh=HAVMroc0wobgxCtckftXXVDQKXh2CThJ3mlUXlQB4L4=;
+	s=default; t=1556870840;
+	bh=2NMCQs931xkojK04nxMUeXf3flvqxNwlCLkesc8cwUw=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZNknhnDBtPrYa9yZhU0IzdVP3ZKGQGBl8P3kSs1O/IToI8k3ienUHLRw780bvrfBw
-	 nOOahtu3DSYZ1yq/nYEi1fZzDHogDSK6iJMc6gf6/fl4cszMX3KdFfFDA7qSNLe4yg
-	 0u47k69DuCYrGu02H3+SCIQas9WNzyh6dFp+7Bts=
+	b=pMIVz5XW1TYt6Z/MTbajo2qLD+GMigQzkvIfIlzX9ZpMafYiaGMAFhn1qPvHXlWgb
+	 2ElWJoqIo0A8iet9FNDtRxKuO12zwnN875kW43kYWqYFdkLICk+ZpOnU/GLJxJlEGz
+	 n6gVyc9J1zNNTVrArNA7IK/m/RPW+lVLlak0ql1s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EA1DF896B7;
-	Fri,  3 May 2019 09:18:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD966F896B6;
+	Fri,  3 May 2019 10:05:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F861F8075A; Fri,  3 May 2019 09:18:32 +0200 (CEST)
+ id DB10FF896B7; Fri,  3 May 2019 10:05:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
@@ -33,15 +33,15 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92488F8075A
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 09:18:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92488F8075A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B2DCF8075A
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 10:05:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B2DCF8075A
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 2967FAD14;
- Fri,  3 May 2019 07:18:27 +0000 (UTC)
-Date: Fri, 03 May 2019 09:18:26 +0200
-Message-ID: <s5hk1f8m2f1.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 398C2AC4F;
+ Fri,  3 May 2019 08:05:25 +0000 (UTC)
+Date: Fri, 03 May 2019 10:05:25 +0200
+Message-ID: <s5htvecrmii.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <20190503064729.GF14916@sirena.org.uk>
@@ -78,25 +78,6 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 On Fri, 03 May 2019 08:47:29 +0200,
 Mark Brown wrote:
 > 
-> On Thu, May 02, 2019 at 09:04:06AM +0200, Takashi Iwai wrote:
-> > Mark Brown wrote:
-> > > On Tue, Apr 23, 2019 at 04:13:35PM +0200, Takashi Iwai wrote:
-> 
-> > > This looks *very* much like board configuration rather than a patch -
-> > > there's no kind of test bit and the comments talk specifically about
-> > > things like gain settings and pad configuration which look very board
-> > > specific.  Register patches are supposed to be for things like early
-> > > revisions of the chip which have different register defaults or magic
-> > > sequences that vendors tell you to run on startup, usually to tune test
-> > > registers.
-> 
-> > OK, will replace with the straight regmap_multi_reg_write().
-> 
-> That's probably not addressing the issue, a lot of that stuff just
-> doesn't seem like it should be in some fixed configuration table at all.
-
-So what's your alternative suggestion?
-
 > > > > +#define cx2072x_plbk_eq_en_info		snd_ctl_boolean_mono_info
 > 
 > > > Why not just use the function directly rather than hiding it?
@@ -104,75 +85,46 @@ So what's your alternative suggestion?
 > > Just a standard idiom.  Can be replaced if preferred.
 > 
 > Please.
-> 
-> > > > +int snd_soc_cx2072x_enable_jack_detect(struct snd_soc_component *codec)
-> > > > +{
-> > > > +	struct cx2072x_priv *cx2072x = snd_soc_component_get_drvdata(codec);
-> > > > +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(codec);
-> > > > +
-> > > > +	/* No-sticky input type */
-> > > > +	regmap_write(cx2072x->regmap, CX2072X_GPIO_STICKY_MASK, 0x1f);
-> > > > +
-> > > > +	/* Use GPOI0 as interrupt pin */
-> > > > +	regmap_write(cx2072x->regmap, CX2072X_UM_INTERRUPT_CRTL_E, 0x12 << 24);
-> 
-> > > This isn't board specific is it?
-> 
-> > I have no idea.  It's been so from the original code, and there
-> > doesn't seem any other hardware implementations.
-> 
-> Oh, joy.  What's the story here?  Do you have a datasheet for the part?
 
-Not at all.  I just refreshed the already submitted patches since I
-have a laptop with the codec.  I tried to contact Conexant, but in
-vain, so I decided to submit the renewed one.
+BTW, a good reason for the style above is that it makes code more
+undrestandable.  For defining a ctl element, typically we define three
+callback functions, info, get and put, in that order:
 
-> > The jack detection in ASoC is anyway a bit funky, especially when
-> > involved with PM...
-> 
-> What do you mean here?  I'm not aware of any issues and the systems I've
-> worked with seemed robust...
+static int foo_info()
+{
+	....
+}
 
-There are tons of different ways of implementation for jack controls,
-with different API usages.  IOW, no consistency.
+static int foo_get()
+{
+	....
+}
 
-> > > > +	dev_dbg(codec->dev, "CX2072X_HSDETECT type=0x%X,Jack state = %x\n",
-> > > > +		type, state);
-> > > > +	return state;
-> > > > +}
-> > > > +EXPORT_SYMBOL_GPL(snd_soc_cx2072x_get_jack_state);
-> 
-> > > Why is this symbol exported?
-> 
-> > It's called from the machine driver.
-> > snd_soc_jack_add_gpios() is called in the machine driver side, and it
-> > needs the jack_status_check callback that calls this function.
-> 
-> That code shouldn't be in the machine driver, the CODEC driver should
-> request any interrupts it needs itself.
+static int foo_put()
+{
+	...
+};
 
-The similar things are done on many other Intel SST board drivers.
-The current patch just follows the pattern.
+and often the actual snd_kcontrol_new table containing these callbacks
+appears much later, where you'd need to scroll down a few screens to
+read that point.
 
-> > > > +	/* use flat eq by default */
-> > > > +	for (ch = 0 ; ch < 2 ; ch++) {
-> > > > +		for (band = 0; band < CX2072X_PLBK_EQ_BAND_NUM; band++) {
-> > > > +			cx2072x->plbk_eq[ch][band][1] = 64;
-> > > > +			cx2072x->plbk_eq[ch][band][10] = 3;
-> > > > +		}
-> > > > +	}
-> 
-> > > Why not use the register defaults?
-> 
-> > Because it'll become too messy for put flatten array values?
-> > The initialization using loop makes more sense in such a case, IMO.
-> 
-> No, that's not the question.  The question is why there is any
-> initialization at all?
+In the above, especially defining the info callback at the beginning
+is important.  By reading foo_init() at first, readers can know which
+type (int, boolean, enum, etc) and the number of elements to be used
+in get/put callbacks beforehand.  It's a commonly seen mistake, for
+example, that a wrong type (e.g. integer) is passed to info callback
+while enum type is used in the get/put.
 
-Again, no idea.  These are likely no default values of the hardware
-registers, and we need to set up some.  I *guess* ditto for the
-initial register table in the above, too.
+The #define above keeps this foo_info() definition while optimizing
+with the standard helper.  If we drop this and set
+snd_ctl_boolean_mono_info directly in the snd_kcontrol_new entry,
+you'll have to go and back the screen just to take a look at the info
+callback.
+
+That's why I called it a standard idiom.  It's not strictly necessary,
+but often help reading / reviewing the code.  Though, it's just
+another bikeshed theme, so I'm not sticking with this style.
 
 
 thanks,

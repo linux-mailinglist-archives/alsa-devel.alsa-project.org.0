@@ -2,72 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A88212815
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 08:54:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E8F81289D
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 09:20:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFE0E187C;
-	Fri,  3 May 2019 08:53:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFE0E187C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0D1F187E;
+	Fri,  3 May 2019 09:19:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0D1F187E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556866451;
-	bh=n8PP61XYkaLap5xkNvYYe8D4Jq/NxpXTwRFEgIqRh5M=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556868020;
+	bh=HAVMroc0wobgxCtckftXXVDQKXh2CThJ3mlUXlQB4L4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mgvd6IZg8HcNgmtal0lnyE0cPsbc22Pk0tw9pIj4apcAaTsFS80YZgau0hVESU0cg
-	 XB8uENaOcgfNmZBqwfw4iiGZfYSJmZTStEzzz+PYDO4hp35eAyz24BDqAlXF7pherK
-	 CPZ+MA5gofeDf5FBHt9thKH1RhTKTLI35QeTmwIk=
+	b=ZNknhnDBtPrYa9yZhU0IzdVP3ZKGQGBl8P3kSs1O/IToI8k3ienUHLRw780bvrfBw
+	 nOOahtu3DSYZ1yq/nYEi1fZzDHogDSK6iJMc6gf6/fl4cszMX3KdFfFDA7qSNLe4yg
+	 0u47k69DuCYrGu02H3+SCIQas9WNzyh6dFp+7Bts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81036F896B7;
-	Fri,  3 May 2019 08:52:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EA1DF896B7;
+	Fri,  3 May 2019 09:18:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2547F896B7; Fri,  3 May 2019 08:52:23 +0200 (CEST)
+ id 7F861F8075A; Fri,  3 May 2019 09:18:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS, RCVD_IN_SBL_CSS autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25E5CF8075A
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 08:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25E5CF8075A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="gfDsgzG+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JlQAeL3Y/OZXPnUamb7S3t7t4kp7KHEAF4rsUZp0Y0E=; b=gfDsgzG+0+1WFyd4Mpi/ZEgab
- PGEg86/XfJ50OesRqJc45oR0T5Kn2jVg5rpO7/tO6UJTJG3aXHU8bxzFhfBbzZpIWOjxQxIeKva7o
- Nxyc6cfaULJhmhgLL6++JF2fGsv+Gtk2vaMd6WIsPbdIkNvgZrVcTvKIhC8JHMmn13XUw=;
-Received: from [42.29.24.106] (helo=finisterre.ee.mobilebroadband)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hMS3O-0000sI-A2; Fri, 03 May 2019 06:52:20 +0000
-Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id B398A441D3C; Fri,  3 May 2019 07:52:07 +0100 (BST)
-Date: Fri, 3 May 2019 15:52:07 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190503065207.GG14916@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92488F8075A
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 09:18:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92488F8075A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 2967FAD14;
+ Fri,  3 May 2019 07:18:27 +0000 (UTC)
+Date: Fri, 03 May 2019 09:18:26 +0200
+Message-ID: <s5hk1f8m2f1.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190503064729.GF14916@sirena.org.uk>
 References: <20190423141336.12568-1-tiwai@suse.de>
  <20190423141336.12568-2-tiwai@suse.de>
  <20190427175938.GJ14916@sirena.org.uk>
- <s5h36lxpcbd.wl-tiwai@suse.de> <s5hsgtxnvhz.wl-tiwai@suse.de>
-MIME-Version: 1.0
-In-Reply-To: <s5hsgtxnvhz.wl-tiwai@suse.de>
-X-Cookie: -- I have seen the FUN --
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <s5h36lxpcbd.wl-tiwai@suse.de>
+ <20190503064729.GF14916@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Add support for Conexant CX2072X
@@ -84,68 +70,115 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1904691544575323139=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 03 May 2019 08:47:29 +0200,
+Mark Brown wrote:
+> 
+> On Thu, May 02, 2019 at 09:04:06AM +0200, Takashi Iwai wrote:
+> > Mark Brown wrote:
+> > > On Tue, Apr 23, 2019 at 04:13:35PM +0200, Takashi Iwai wrote:
+> 
+> > > This looks *very* much like board configuration rather than a patch -
+> > > there's no kind of test bit and the comments talk specifically about
+> > > things like gain settings and pad configuration which look very board
+> > > specific.  Register patches are supposed to be for things like early
+> > > revisions of the chip which have different register defaults or magic
+> > > sequences that vendors tell you to run on startup, usually to tune test
+> > > registers.
+> 
+> > OK, will replace with the straight regmap_multi_reg_write().
+> 
+> That's probably not addressing the issue, a lot of that stuff just
+> doesn't seem like it should be in some fixed configuration table at all.
 
---===============1904691544575323139==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qCuyVVLLFvr0p6ls"
-Content-Disposition: inline
+So what's your alternative suggestion?
+
+> > > > +#define cx2072x_plbk_eq_en_info		snd_ctl_boolean_mono_info
+> 
+> > > Why not just use the function directly rather than hiding it?
+> 
+> > Just a standard idiom.  Can be replaced if preferred.
+> 
+> Please.
+> 
+> > > > +int snd_soc_cx2072x_enable_jack_detect(struct snd_soc_component *codec)
+> > > > +{
+> > > > +	struct cx2072x_priv *cx2072x = snd_soc_component_get_drvdata(codec);
+> > > > +	struct snd_soc_dapm_context *dapm = snd_soc_component_get_dapm(codec);
+> > > > +
+> > > > +	/* No-sticky input type */
+> > > > +	regmap_write(cx2072x->regmap, CX2072X_GPIO_STICKY_MASK, 0x1f);
+> > > > +
+> > > > +	/* Use GPOI0 as interrupt pin */
+> > > > +	regmap_write(cx2072x->regmap, CX2072X_UM_INTERRUPT_CRTL_E, 0x12 << 24);
+> 
+> > > This isn't board specific is it?
+> 
+> > I have no idea.  It's been so from the original code, and there
+> > doesn't seem any other hardware implementations.
+> 
+> Oh, joy.  What's the story here?  Do you have a datasheet for the part?
+
+Not at all.  I just refreshed the already submitted patches since I
+have a laptop with the codec.  I tried to contact Conexant, but in
+vain, so I decided to submit the renewed one.
+
+> > The jack detection in ASoC is anyway a bit funky, especially when
+> > involved with PM...
+> 
+> What do you mean here?  I'm not aware of any issues and the systems I've
+> worked with seemed robust...
+
+There are tons of different ways of implementation for jack controls,
+with different API usages.  IOW, no consistency.
+
+> > > > +	dev_dbg(codec->dev, "CX2072X_HSDETECT type=0x%X,Jack state = %x\n",
+> > > > +		type, state);
+> > > > +	return state;
+> > > > +}
+> > > > +EXPORT_SYMBOL_GPL(snd_soc_cx2072x_get_jack_state);
+> 
+> > > Why is this symbol exported?
+> 
+> > It's called from the machine driver.
+> > snd_soc_jack_add_gpios() is called in the machine driver side, and it
+> > needs the jack_status_check callback that calls this function.
+> 
+> That code shouldn't be in the machine driver, the CODEC driver should
+> request any interrupts it needs itself.
+
+The similar things are done on many other Intel SST board drivers.
+The current patch just follows the pattern.
+
+> > > > +	/* use flat eq by default */
+> > > > +	for (ch = 0 ; ch < 2 ; ch++) {
+> > > > +		for (band = 0; band < CX2072X_PLBK_EQ_BAND_NUM; band++) {
+> > > > +			cx2072x->plbk_eq[ch][band][1] = 64;
+> > > > +			cx2072x->plbk_eq[ch][band][10] = 3;
+> > > > +		}
+> > > > +	}
+> 
+> > > Why not use the register defaults?
+> 
+> > Because it'll become too messy for put flatten array values?
+> > The initialization using loop makes more sense in such a case, IMO.
+> 
+> No, that's not the question.  The question is why there is any
+> initialization at all?
+
+Again, no idea.  These are likely no default values of the hardware
+registers, and we need to set up some.  I *guess* ditto for the
+initial register table in the above, too.
 
 
---qCuyVVLLFvr0p6ls
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+thanks,
 
-On Thu, May 02, 2019 at 09:52:40AM +0200, Takashi Iwai wrote:
-> Takashi Iwai wrote:
-
-> > Not to read the register while the chip is turned off, I suppose.
-
-> Actually other way round: the codec driver tries to avoid the whole
-> register access while the chip is in BIAS_OFF state.  OTOH, the jack
-> state check is still required even in that state, so it flips the
-> cache-only flag temporarily at reading the jack detect bit.
-
-> I guess we may remove the cache-only behavior, although this is a
-> nice-to-have thing.
-
-No, it should be removed - it's buggy and racy.  Devices should only be
-going into cache only mode if they can't be physically accessed,
-otherwise you end up with incoherent things like this that create bugs.
-If the driver is actually able to access the register map, actively
-doing so and therefore needs to try flipping cache only mode on and off
-without coordinating with the rest of the device it isn't really in a
-cache only mode.
-
---qCuyVVLLFvr0p6ls
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzL5RYACgkQJNaLcl1U
-h9B39Af8DFdRU4DenPYRVOhhCVX5lnAR3Y1cM7UtBQlzr6G2ZaWkp5tK51mXP4E0
-3QttvJVXq/Vv3ckDP8CuLtN9LMGc1030IeYe1nUglbsmo82qt4IKxY2WqdKrXCDd
-4IqfHD/qRn77l513Eq0bYueZ04XBXTyua6LejeO1YqEao3jlESvwF4SzLdKjlwu7
-nsKns/xTma7PQhjXVA66SMr8BHzIQZx3QRNmA2v6BT5XTKUick+oz+k+UdHBu7uv
-wxuIXDb02iVEdn2jKHlVG6DQQFw2OyEu/KDuWzK0pcZbKNyxSwWr3lptwFG7gtbh
-ojRy7vadrRTT04OYJTtGMHbFP5Nblw==
-=DMEO
------END PGP SIGNATURE-----
-
---qCuyVVLLFvr0p6ls--
-
---===============1904691544575323139==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============1904691544575323139==--

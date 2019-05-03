@@ -2,81 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A023113496
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 22:56:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F6FF13534
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 May 2019 00:04:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 191411829;
-	Fri,  3 May 2019 22:55:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 191411829
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F9C71829;
+	Sat,  4 May 2019 00:03:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F9C71829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556917001;
-	bh=KhRP2F2FdF4MlZtST888J/HqX3+WXc3MOau099zBSB8=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nbi7KlRALk8kOJdIFMT8yRg+J2zMI2tDCRFFiw+Gk5bkcNh4jxbg6GlHPE8wiVye7
-	 g4UP21lA+2iGL8yFSS8Tnx/GG07GdoPcHHsFgr3mH55uepyesqNRLU3YrWG4IUV9Zd
-	 D+sE+4wRxMpItaVLNG7Sh78pmppK+YCFscyKVXuM=
+	s=default; t=1556921078;
+	bh=pY47dtW7DP5BKMVc3vlbV8dJ6hQDgnPOVX0lR159/94=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QrHz3XDzD5b5oELWUooH/xoXeodMMrMQwvZ2X+++R7x1ikYVmfXNaFF06D04LG1HN
+	 i1bng2LVOLWGvVV2Z+K+OTJmifJH6QtctuZDWSjpa6oHikOhBJ1l1z0ts2YPZinkkr
+	 U3uwvvfOpkbu02TYAOMr/LLDTDrdhIo8CK34VBKc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F3E4F80722;
-	Fri,  3 May 2019 22:54:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFE52F896F0;
+	Sat,  4 May 2019 00:02:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B03A3F896B7; Fri,  3 May 2019 22:54:53 +0200 (CEST)
+ id A5089F80720; Sat,  4 May 2019 00:02:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4ECBF80722
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 22:54:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4ECBF80722
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B120F80720
+ for <alsa-devel@alsa-project.org>; Sat,  4 May 2019 00:02:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B120F80720
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="PTHDDHjf"
-Received: by mail-oi1-x242.google.com with SMTP id t189so5389080oih.12
- for <alsa-devel@alsa-project.org>; Fri, 03 May 2019 13:54:50 -0700 (PDT)
+ header.b="JsedSoz7"
+Received: by mail-pf1-x442.google.com with SMTP id b3so3548972pfd.1
+ for <alsa-devel@alsa-project.org>; Fri, 03 May 2019 15:02:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6OdExlNg20WC8ltnTxLGyXC77kwc7mgrv8iolIuiD3Q=;
- b=PTHDDHjfZGFQeNZQ3QRUp6KCc+BJzugiHsEe+7snnW1zv5jy5qZxRN22wvplquAnjc
- 8Te0H/e+9xMqj2tiG2Z5IUC1HK1R6ooNGe7HYXuaudRQJiJzpwT2bZMVmjWgJ4Vg4QQn
- vCu0g27F3rm6QYh08O26eK9NaP0UIj/ckSF3k=
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UAkZh+pG3X7RhxhjtR/tZOT3SAC9uY31R80VLP/yIuQ=;
+ b=JsedSoz7wKFSnaH6jn4rCeN58mmcMcynZw3khYX3cgPvEqus+JNQZwJcs7t6++F4ia
+ WIdviprjMaJ9gvQh8lACs7qxQxaMCYdPdXH9C/Z1g5PQFqd1nrU/rDFcDZR9RNUJHgSP
+ AwiXbqHkP3Tu96dinRppVrhvt9EcpANfA4VVI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6OdExlNg20WC8ltnTxLGyXC77kwc7mgrv8iolIuiD3Q=;
- b=eBY+e7SU/YmGjJRfD4UL9ZVOglVg0/dHTT5WHtiiRgZJCPjIZtQiokC/a7RsA7ILZZ
- gntGZwXq6Aj156SIN5sRe4jed7XGjI+BFHp1Jb0s14mgeAPccARsyS/BiJ3sw0iJD2dc
- WYUNgciBy0TwzZjTi9BEbeEncJPr0Ec4N325DLRK6fAvXuBpiC/P5J23ldJEOoDh8ShA
- YzpcjxU16uTVwjqgfDnIlg8EO74zUE2iwB8mUrGc86N1aOA1FC71AAkpOtuGowGnNvr4
- ooGAMP6hDdx8t0u7CFUdz5fheidswM6dgbbNy6GS4ZIgP3FqU0vRtQm8mThRvfWAJuqE
- AOlA==
-X-Gm-Message-State: APjAAAXcwF3076FOquiqbVBOvFmiXbEMMsGpfyo+m34D4zHCqTGdEtVL
- CqTMX+lVcf5OwNs6dFB+aBFukrduFM1Z6ZSPxEsbdw==
-X-Google-Smtp-Source: APXvYqwySx+04aOQwJ9d/gVbg/GrgoXX4PX9d70phfineXyIjLO+O4jeU8D/Xaqt75+rDvo7rJEsAc9DDT9UhJO34vA=
-X-Received: by 2002:aca:de57:: with SMTP id v84mr475585oig.149.1556916888811; 
- Fri, 03 May 2019 13:54:48 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=UAkZh+pG3X7RhxhjtR/tZOT3SAC9uY31R80VLP/yIuQ=;
+ b=JovMnZIHY+Ck9ysY/EEy4UczWSloeQunQPz4LtkN0zYfv2TuNbhfMw/vT6+Im7T141
+ 7w97JCziprgnLiIGcKyO1bHUgy8Z74ZQ0V8IxDNG1tkvBZhBPNRKqC9LULS7sp2P6gCx
+ mrZZhWYJDVmfhL+zJExXY5w/9WkHehLm2qIfJv5KfKed74NaSFApj/CCpLDThsZ9WO1m
+ Cju+EtRSaqaUzYMOoD6IjrUzjObidaqYp8UVNX/8ThiXtH5Io0pO+R7lFYWaxy048sHI
+ OU7Intm5hKoZPZUfmKCAA6CX7u5SIVh4sVzaTT242R3zG7YFj+zRQR6EN6vdHMDPDvDt
+ P2zg==
+X-Gm-Message-State: APjAAAVadsy4PB19gc/I3xi2rGzLkG0GTVcnp9JljobPPByzWDn1xfjg
+ drxarJOFmMVhJGo+iWEoIqHOEg==
+X-Google-Smtp-Source: APXvYqye04AAIXZnSLyIndCwXAXdHVgkKP1uVoNTcf32J5fI9MQPwyrqamzRblzQLzNnMyL3pMWsxQ==
+X-Received: by 2002:a62:470e:: with SMTP id u14mr14522795pfa.31.1556920962181; 
+ Fri, 03 May 2019 15:02:42 -0700 (PDT)
+Received: from localhost ([2620:15c:202:1:3c8f:512b:3522:dfaf])
+ by smtp.gmail.com with ESMTPSA id j14sm3967888pfa.57.2019.05.03.15.02.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 03 May 2019 15:02:41 -0700 (PDT)
+From: Gwendal Grignou <gwendal@chromium.org>
+To: enric.balletbo@collabora.com, bleung@chromium.org, groeck@chromium.org,
+ lee.jones@linaro.org, jic23@kernel.org, broonie@kernel.org,
+ cychiang@chromium.org, tiwai@suse.com
+Date: Fri,  3 May 2019 15:02:03 -0700
+Message-Id: <20190503220233.64546-1-gwendal@chromium.org>
+X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
 MIME-Version: 1.0
-References: <20190503193213.227189-1-cujomalainey@chromium.org>
-In-Reply-To: <20190503193213.227189-1-cujomalainey@chromium.org>
-From: Ben Zhang <benzh@chromium.org>
-Date: Fri, 3 May 2019 16:54:37 -0400
-Message-ID: <CAEQjanPVZe0X+Qsp-J7N=wVG=5i3aHy5ZWxbcLV+onn=Nci8SA@mail.gmail.com>
-To: Curtis Malainey <cujomalainey@chromium.org>
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: RT5677-SPI: Disable 16Bit SPI
-	Transfers
+Cc: linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+ Gwendal Grignou <gwendal@chromium.org>
+Subject: [alsa-devel] [PATCH v2 00/30] Update cros_ec_commands.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,137 +97,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 3, 2019 at 3:32 PM Curtis Malainey
-<cujomalainey@chromium.org> wrote:
->
-> The current algorithm allows 3 types of transfers, 16bit, 32bit and
-> burst. According to Realtek, 16bit transfers have a special restriction
-> in that it is restricted to the memory region of
-> 0x18020000 ~ 0x18021000. This region is the memory location of the I2C
-> registers. The current algorithm does not uphold this restriction and
-> therefore fails to complete writes.
->
-> Since this has been broken for some time it likely no one is using it.
-> Better to simply disable the 16 bit writes. This will allow users to
-> properly load firmware over SPI without data corruption.
->
-> CC: Ben Zhang <benzh@chromium.org>
-> CC: Oder Chiou <oder_chiou@realtek.com>
-> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+The interface between CrosEC embedded controller and the host,
+described by cros_ec_commands.h, as diverged from what the embedded
+controller really support.
 
-Reviewed-by: Ben Zhang <benzh@chromium.org>
-Looks good to me. Thanks for the fix.
+The source of thruth is at
+https://chromium.googlesource.com/chromiumos/platform/ec/+/master/include/ec_commands.h
 
-> ---
->  sound/soc/codecs/rt5677-spi.c | 35 ++++++++++++++++-------------------
->  1 file changed, 16 insertions(+), 19 deletions(-)
->
-> diff --git a/sound/soc/codecs/rt5677-spi.c b/sound/soc/codecs/rt5677-spi.c
-> index 167a02773a0b..84b6bd8b50e1 100644
-> --- a/sound/soc/codecs/rt5677-spi.c
-> +++ b/sound/soc/codecs/rt5677-spi.c
-> @@ -58,13 +58,15 @@ static DEFINE_MUTEX(spi_mutex);
->   * RT5677_SPI_READ/WRITE_32:   Transfer 4 bytes
->   * RT5677_SPI_READ/WRITE_BURST:        Transfer any multiples of 8 bytes
->   *
-> - * For example, reading 260 bytes at 0x60030002 uses the following commands:
-> - * 0x60030002 RT5677_SPI_READ_16       2 bytes
-> + * Note:
-> + * 16 Bit writes and reads are restricted to the address range
-> + * 0x18020000 ~ 0x18021000
-> + *
-> + * For example, reading 256 bytes at 0x60030004 uses the following commands:
->   * 0x60030004 RT5677_SPI_READ_32       4 bytes
->   * 0x60030008 RT5677_SPI_READ_BURST    240 bytes
->   * 0x600300F8 RT5677_SPI_READ_BURST    8 bytes
->   * 0x60030100 RT5677_SPI_READ_32       4 bytes
-> - * 0x60030104 RT5677_SPI_READ_16       2 bytes
->   *
->   * Input:
->   * @read: true for read commands; false for write commands
-> @@ -79,15 +81,13 @@ static u8 rt5677_spi_select_cmd(bool read, u32 align, u32 remain, u32 *len)
->  {
->         u8 cmd;
->
-> -       if (align == 2 || align == 6 || remain == 2) {
-> -               cmd = RT5677_SPI_READ_16;
-> -               *len = 2;
-> -       } else if (align == 4 || remain <= 6) {
-> +       if (align == 4 || remain <= 4) {
->                 cmd = RT5677_SPI_READ_32;
->                 *len = 4;
->         } else {
->                 cmd = RT5677_SPI_READ_BURST;
-> -               *len = min_t(u32, remain & ~7, RT5677_SPI_BURST_LEN);
-> +               *len = (((remain - 1) >> 3) + 1) << 3;
-> +               *len = min_t(u32, *len, RT5677_SPI_BURST_LEN);
->         }
->         return read ? cmd : cmd + 1;
->  }
-> @@ -108,7 +108,7 @@ static void rt5677_spi_reverse(u8 *dst, u32 dstlen, const u8 *src, u32 srclen)
->         }
->  }
->
-> -/* Read DSP address space using SPI. addr and len have to be 2-byte aligned. */
-> +/* Read DSP address space using SPI. addr and len have to be 4-byte aligned. */
->  int rt5677_spi_read(u32 addr, void *rxbuf, size_t len)
->  {
->         u32 offset;
-> @@ -124,7 +124,7 @@ int rt5677_spi_read(u32 addr, void *rxbuf, size_t len)
->         if (!g_spi)
->                 return -ENODEV;
->
-> -       if ((addr & 1) || (len & 1)) {
-> +       if ((addr & 3) || (len & 3)) {
->                 dev_err(&g_spi->dev, "Bad read align 0x%x(%zu)\n", addr, len);
->                 return -EACCES;
->         }
-> @@ -159,13 +159,13 @@ int rt5677_spi_read(u32 addr, void *rxbuf, size_t len)
->  }
->  EXPORT_SYMBOL_GPL(rt5677_spi_read);
->
-> -/* Write DSP address space using SPI. addr has to be 2-byte aligned.
-> - * If len is not 2-byte aligned, an extra byte of zero is written at the end
-> +/* Write DSP address space using SPI. addr has to be 4-byte aligned.
-> + * If len is not 4-byte aligned, then extra zeros are written at the end
->   * as padding.
->   */
->  int rt5677_spi_write(u32 addr, const void *txbuf, size_t len)
->  {
-> -       u32 offset, len_with_pad = len;
-> +       u32 offset;
->         int status = 0;
->         struct spi_transfer t;
->         struct spi_message m;
-> @@ -178,22 +178,19 @@ int rt5677_spi_write(u32 addr, const void *txbuf, size_t len)
->         if (!g_spi)
->                 return -ENODEV;
->
-> -       if (addr & 1) {
-> +       if (addr & 3) {
->                 dev_err(&g_spi->dev, "Bad write align 0x%x(%zu)\n", addr, len);
->                 return -EACCES;
->         }
->
-> -       if (len & 1)
-> -               len_with_pad = len + 1;
-> -
->         memset(&t, 0, sizeof(t));
->         t.tx_buf = buf;
->         t.speed_hz = RT5677_SPI_FREQ;
->         spi_message_init_with_transfers(&m, &t, 1);
->
-> -       for (offset = 0; offset < len_with_pad;) {
-> +       for (offset = 0; offset < len;) {
->                 spi_cmd = rt5677_spi_select_cmd(false, (addr + offset) & 7,
-> -                               len_with_pad - offset, &t.len);
-> +                               len - offset, &t.len);
->
->                 /* Construct SPI message header */
->                 buf[0] = spi_cmd;
-> --
-> 2.21.0.1020.gf2820cf01a-goog
->
+That include file is converted to remove ACPI and Embedded only code.
+
+From now on, cros_ec_commands.h will be automatically generated from
+the file above, do not modify directly.
+
+Fell free to squash the commits below.
+
+Changes in v2:
+- Move I2S changes at the end of the patchset, squashed with change in
+  sound/soc/codecs/cros_ec_codec.c to match new interface.
+- Add Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+
+Gwendal Grignou (30):
+  mfd: cros_ec: Update license term
+  mfd: cros_ec: Zero BUILD_ macro
+  mfd: cros_ec: set comments properly
+  mfd: cros_ec: add ec_align macros
+  mfd: cros_ec: Define commands as 4-digit UPPER CASE hex values
+  mfd: cros_ec: use BIT macro
+  mfd: cros_ec: Update ACPI interface definition
+  mfd: cros_ec: move HDMI CEC API definition
+  mfd: cros_ec: Remove zero-size structs
+  mfd: cros_ec: Add Flash V2 commands API
+  mfd: cros_ec: Add PWM_SET_DUTY API
+  mfd: cros_ec: Add lightbar v2 API
+  mfd: cros_ec: Expand hash API
+  mfd: cros_ec: Add EC transport protocol v4
+  mfd: cros_ec: Complete MEMS sensor API
+  mfd: cros_ec: Fix event processing API
+  mfd: cros_ec: Add fingerprint API
+  mfd: cros_ec: Fix temperature API
+  mfd: cros_ec: Complete Power and USB PD API
+  mfd: cros_ec: Add API for keyboard testing
+  mfd: cros_ec: Add Hibernate API
+  mfd: cros_ec: Add Smart Battery Firmware update API
+  mfd: cros_ec: Add I2C passthru protection API
+  mfd: cros_ec: Add API for EC-EC communication
+  mfd: cros_ec: Add API for Touchpad support
+  mfd: cros_ec: Add API for Fingerprint support
+  mfd: cros_ec: Add API for rwsig
+  mfd: cros_ec: Add SKU ID and Secure storage API
+  mfd: cros_ec: Add Management API entry points
+  mfd: cros_ec: Update I2S API
+
+ include/linux/mfd/cros_ec_commands.h | 3735 +++++++++++++++++++++-----
+ sound/soc/codecs/cros_ec_codec.c     |    8 +-
+ 2 files changed, 2997 insertions(+), 746 deletions(-)
+
+-- 
+2.21.0.1020.gf2820cf01a-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

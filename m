@@ -2,67 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10512130C6
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 16:56:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DBB2130ED
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 17:09:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B08B17F7;
-	Fri,  3 May 2019 16:55:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B08B17F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DA7F17FD;
+	Fri,  3 May 2019 17:09:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DA7F17FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556895391;
-	bh=6QW+jej1LhPLvM8pXHfMCZoThMd1xMQYFkMkdnegs/4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556896192;
+	bh=R0ifkeoFVvxiyxL6OH8ggHXlmRWrZdy1Lz0ksoJ1SM0=;
+	h=In-Reply-To:References:Date:From:To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=trasvzi7G1mi/Be5igrwukkL4N2Pb1woctLC0G6TKDjmV+n0bQslR5JZZskaugfYf
-	 3X3BHH8Mm2WtFu1fHFjSUpqTaS6LYdw+Tq1brckRCFASnFCXwoc/yrMdwqLslVTznK
-	 ccG7bLurgf4CV4gomRTeXEfoh0Rz7dUdL1bHnaZg=
+	b=H1jmTMg+vM4L+J+BsjsK3Dl0sShaPCHPJJkSq0MYiFGHSNrAxEaWFBXwf5W70B9QU
+	 W3Ne+zLiIOnt+Mu+HueI5J+rylS1L2/SchlthAcmcGcwPSsc4F1fds0MiFszGMACbu
+	 fMx1i9w3xVzZKnJG6G/pfHi+oTlTTXmr287MYtTg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34BB8F896B9;
-	Fri,  3 May 2019 16:54:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EF44F896B6;
+	Fri,  3 May 2019 17:08:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EEC9F896B7; Fri,  3 May 2019 16:54:45 +0200 (CEST)
+ id C10FEF896B6; Fri,  3 May 2019 17:08:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net
- [217.70.183.201])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7603DF8075A
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 16:54:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7603DF8075A
-X-Originating-IP: 90.88.149.145
-Received: from localhost (aaubervilliers-681-1-29-145.w90-88.abo.wanadoo.fr
- [90.88.149.145]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay8-d.mail.gandi.net (Postfix) with ESMTPSA id C246D1BF20C;
- Fri,  3 May 2019 14:54:35 +0000 (UTC)
-Date: Fri, 3 May 2019 16:54:35 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Message-ID: <20190503145435.jziomr3sqxp6jbpd@flea>
-References: <20190419191730.9437-1-peron.clem@gmail.com>
- <20190419191730.9437-3-peron.clem@gmail.com>
- <20190502082526.c5zo4uzceqzizbxo@flea>
- <CAJiuCcdFUPBsXfKtDLt-p6Edx-7JrST9d0C=ofCU4CL8ZxwcsA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAJiuCcdFUPBsXfKtDLt-p6Edx-7JrST9d0C=ofCU4CL8ZxwcsA@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v2 2/5] ASoC: sun4i-spdif: Add support for
-	H6 SoC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CA49F80720
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 17:08:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CA49F80720
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="C5abyg8G"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 74BC4245
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 11:07:58 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute1.internal (MEProxy); Fri, 03 May 2019 11:07:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=IVRygQ
+ 5mum5VFep6oB81WhcouPf0rD9gjweTg9vcN+w=; b=C5abyg8GLKHOYDmwQqmczx
+ vgmXYJyKZF+RhrFalrihoW+USqQuGDIxGVfCk0TRCcevOXSApsKq0eRkEn2vXpdy
+ hHT9zycWPgqNGPd/w8prPqfnHLMUwl7789EC3pkXf8g0asx742hYG7e+01b81bhX
+ cH5AvJAYyTW5PsyXSIJucxo8XXza6Ou+jyTEnI6eiCs6ffJG6Dirnwb5XMg/pfN+
+ V4y+odrOcwL4BQW8aShwK1bR46IkQveCmydQ3SEcMXRmbQoaFQOgjpdIzxiGCxuy
+ 2JxtXGiRutn8mfaHgVZAtZPY7H7O52hQa3wR7+nQNQ5KYYxFUJnl3e9sliDc+eaw
+ ==
+X-ME-Sender: <xms:TVnMXBQURfpjfWk9cxwoDn1obVe4eYv5guLSe6n9ue7xpF1FsBOzWA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrjedugdekkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgesthdtre
+ dtreerjeenucfhrhhomhepfdflvghrvghmhicuufholhhlvghrfdcuoehjvghrvghmhies
+ shihshhtvghmjeeirdgtohhmqeenucffohhmrghinheprghlshgrqdhprhhojhgvtghtrd
+ horhhgnecurfgrrhgrmhepmhgrihhlfhhrohhmpehjvghrvghmhiesshihshhtvghmjeei
+ rdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:TVnMXLfr2qi5BhKLTc15Tl0C1XUeGDy5S6Nvvyl59jp6yy9K_WZQyQ>
+ <xmx:TVnMXLWYgfZHwOiT52SAVae68iVO6r_Ys9F1EEWigW7rJure64r7Yg>
+ <xmx:TVnMXJgsjzOG1I-mDebgvh3yJQ-a2bEz6EONCh5iMvwXh9Wo2trz7Q>
+ <xmx:TlnMXBtSGVRiHfrUxKgP8IHbBWxOIHlU7iAMgnd19gtKs8m4IsnrHQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id A143A7C6D9; Fri,  3 May 2019 11:07:54 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.6-449-gfb3fc5a-fmstable-20190430v1
+Mime-Version: 1.0
+Message-Id: <529da7d1-ae84-4010-9fe8-6f9c69dfb4f9@www.fastmail.com>
+In-Reply-To: <s5h8swrfm5v.wl-tiwai@suse.de>
+References: <20190402135204.11563-1-rs@tuxedocomputers.com>
+ <s5h8swrfm5v.wl-tiwai@suse.de>
+Date: Fri, 03 May 2019 11:07:54 -0400
+From: "Jeremy Soller" <jeremy@system76.com>
+To: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel]
+ =?utf-8?q?=5BPATCH=5D_Headset=2C=09microphone_and_in?=
+ =?utf-8?q?ternal_speaker_support_for_Tuxedo_XC_1509?=
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,106 +95,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3672828247969754182=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The use of PB51ED in the enum variant does not make complete sense. The System76 oryp5 is based on the P960ED and  P960EF models, not the PB51ED. I am about to add two more models that require similar fixups - NH58RCQ and NH70RCQ.
 
---===============3672828247969754182==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="f5z2x6ysmbssgmgl"
-Content-Disposition: inline
+This patch basically applies to any current Clevo motherboards with an ALC1220 and a headphone combo jack. Perhaps something like ALC1220_FIXUP_CLEVO_HP_COMBO would be a better name?
 
+-- 
+  Jeremy Soller
+  System76
+  Engineering Manager
+  jeremy@system76.com
 
---f5z2x6ysmbssgmgl
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, May 02, 2019 at 11:39:24AM +0200, Cl=E9ment P=E9ron wrote:
-> > > @@ -169,16 +181,25 @@ struct sun4i_spdif_dev {
-> > >       struct snd_soc_dai_driver cpu_dai_drv;
-> > >       struct regmap *regmap;
-> > >       struct snd_dmaengine_dai_dma_data dma_params_tx;
-> > > +     const struct sun4i_spdif_quirks *quirks;
-> >
-> > I guess this will generate a warning since the structure hasn't been
-> > defined yet?
+On Wed, Apr 3, 2019, at 3:57 AM, Takashi Iwai wrote:
+> On Tue, 02 Apr 2019 15:52:04 +0200,
+> Richard Sailer wrote:
+> > 
+> > This adds a SND_PCI_QUIRK(...) line for the Tuxedo XC 1509.
+> > 
+> > The Tuxedo XC 1509 and the System76 oryp5 are the same barebone
+> > notebooks manufactured by Clevo. To name the fixups both use after the
+> > actual underlying hardware, this patch also changes System76_orpy5
+> > to clevo_pb51ed in 2 enum symbols and one function name,
+> > matching the other pci_quirk entries which are also named after the device ODM.
+> > 
+> > Signed-off-by: Richard Sailer <rs@tuxedocomputers.com>
+> 
+> Applied, thanks.
+> 
+> 
+> Takashi
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 >
-> It's a pointer to a structure so no warning from the compiler.
-
-Damn, I was convinced just declaring a pointer to a structure would
-result to a gcc warning. Nevermind then.
-
-> > > @@ -405,22 +426,26 @@ static struct snd_soc_dai_driver sun4i_spdif_da=
-i =3D {
-> > >       .name =3D "spdif",
-> > >  };
-> > >
-> > > -struct sun4i_spdif_quirks {
-> > > -     unsigned int reg_dac_txdata;    /* TX FIFO offset for DMA confi=
-g */
-> > > -     bool has_reset;
-> > > -};
-> > > -
-> > >  static const struct sun4i_spdif_quirks sun4i_a10_spdif_quirks =3D {
-> > >       .reg_dac_txdata =3D SUN4I_SPDIF_TXFIFO,
-> > > +     .reg_fctl_ftx   =3D SUN4I_SPDIF_FCTL_FTX,
-> > >  };
-> > >
-> > >  static const struct sun4i_spdif_quirks sun6i_a31_spdif_quirks =3D {
-> > >       .reg_dac_txdata =3D SUN4I_SPDIF_TXFIFO,
-> > > +     .reg_fctl_ftx   =3D SUN4I_SPDIF_FCTL_FTX,
-> > >       .has_reset      =3D true,
-> > >  };
-> > >
-> > >  static const struct sun4i_spdif_quirks sun8i_h3_spdif_quirks =3D {
-> > >       .reg_dac_txdata =3D SUN8I_SPDIF_TXFIFO,
-> > > +     .reg_fctl_ftx   =3D SUN4I_SPDIF_FCTL_FTX,
-> > > +     .has_reset      =3D true,
-> > > +};
-> > >
-> > > +static const struct sun4i_spdif_quirks sun50i_h6_spdif_quirks =3D {
-> > > +     .reg_dac_txdata =3D SUN8I_SPDIF_TXFIFO,
-> > > +     .reg_fctl_ftx   =3D SUN50I_H6_SPDIF_FCTL_FTX,
-> > >       .has_reset      =3D true,
-> >
-> > The reg_dac_txdata and reg_fctl_ftx changes here should also be part
-> > of a separate patch.
->
-> You mean the reg_fctl_ftx quirk and the H6 introduction should be split ?
-
-Yep
-
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---f5z2x6ysmbssgmgl
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXMxWKwAKCRDj7w1vZxhR
-xTheAQD9sE7A0WEHij5Wf1qBjNLpFuz3ZidjjR2KW3BxB9EWSgD/fmxUP0w8djKy
-bpfpawxYsCpDiDgb1b2tfBSFbXO87wE=
-=ry69
------END PGP SIGNATURE-----
-
---f5z2x6ysmbssgmgl--
-
---===============3672828247969754182==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3672828247969754182==--

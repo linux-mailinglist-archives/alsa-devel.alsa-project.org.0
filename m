@@ -2,90 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E7B12F34
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 15:31:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAD1B12FAF
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 15:58:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 266D017E8;
-	Fri,  3 May 2019 15:30:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 266D017E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BEB417E5;
+	Fri,  3 May 2019 15:57:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BEB417E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556890304;
-	bh=vGgALh6J/T56cm9aznX6jE4LLsGMWTjJ7EkmzuGEdEY=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556891913;
+	bh=T63ftIqntkg1i4ts6Lu5+J82BK9h5eROv7FC6vBmfBA=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UL/Wpg+YgCyb2CnX4sHYZEDyeu9YEDIR0IsmCWwt4glwY8fqLWSqbMsOceCVsTFF7
-	 kiad7u3jKf/ihVXmCLmo2gpY290DuySX0OLy/QYDINnTGorn7aebPzGEzwMTLrZCBt
-	 ni2huT9AK9qiojxnLvjIQsLEebwOsSmgb2S3d3lE=
+	b=HAa3yIW/7gQyJ1ndAR6CagPVBYPJKDmcQrCaOYsGuwdXRKrHzA1DHVHQdCAPQiDhg
+	 G2YytZZypGLhB0K2n/TjWem6wpsSm8X+/1Dei8dypqaNNLgeGNATIViEWskp9YHXBB
+	 qH6e+YBXz7prGMlaMf5E6rcbLPyCDnxWDeetf8bU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8275DF896CB;
-	Fri,  3 May 2019 15:29:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D297F896B7;
+	Fri,  3 May 2019 15:56:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9C40F896B7; Fri,  3 May 2019 15:29:54 +0200 (CEST)
+ id 57B27F896B7; Fri,  3 May 2019 15:56:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_76,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7DE2F80722
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 15:29:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7DE2F80722
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="E56XYT8f"
-Received: by mail-pf1-x441.google.com with SMTP id e24so2889341pfi.12
- for <alsa-devel@alsa-project.org>; Fri, 03 May 2019 06:29:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=LtEFuWD0A5ewT9UJi3Bm5ZE9k48rBOaj313vqY1FXOo=;
- b=E56XYT8fBHsP2GUCtcNx9LR4DsxT/Y9z3PnnnFdS3GAVN9k5G0pJKUyGA2L2duITqk
- pY/hNYf5wg8rieCfgCFnGTvN1QL7vmjIizutgUv+bltZzC4a4oQnf+ouRczK2i3hDuxo
- hwTNpPwmA127uMIhq1HpV2ALeo7Unwc1ufgkAMsx/qD6bMreo5UHT7+KeNcWULIjJsbj
- ljclC0QNlmsFJ1jKCEaeIYPHxZfAIlR+Ef+o9cxCT0lxxHLhHQ3baLFlRZx/pYi9kU49
- YXK3HHn38FE0y9VjhuRDqo3zF/gJz8cVoeJF+uJOMEWC9dwtu95Vl0NW8HXdChGn1Ke0
- j27g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=LtEFuWD0A5ewT9UJi3Bm5ZE9k48rBOaj313vqY1FXOo=;
- b=FW7lTTtJJ2bxHPugB+Ry1nM5Qu4LrDQbPyMGQKQLgRLfg0WJkboe/m+eXiBUdTCWPe
- lotTWt7J0X3JiD8m9JFs0caNC5oUvgzkBjMYVRh4aNNQ0AhsOJQrdrCzoEgapi3SPPdh
- CIih35W0oSnrE23/XneLAADpL1AtYzyG2PGgl6PQhgH8CKLO81NvLFuaiNg9yQXuRLVP
- qjENK+3N5M60qKYWN/jtr9XUp/+O4yN/+36FeCRtYmm8PfhgbSBJqEgRZya6u52/irFK
- DgZP1QgjSkyxfANgHBrbtjMyQPhiuVZripkekILu53TVl89O4V0WXSBr21IMExxnngTn
- iPMg==
-X-Gm-Message-State: APjAAAWVx3H8GNmF7WxInVHwNOsVYjsuVkvKR6Nr5z5hONa2978/W3uG
- ScT9uSMT5xL6GOiklyIoMew=
-X-Google-Smtp-Source: APXvYqxbKYhaoqBsLtLHf6UcPZCAUGUB/YArDGyO6iVAgBs4GiEE7JMXEkHPVHCV6hmq9ZFHpCSEjw==
-X-Received: by 2002:a62:6f02:: with SMTP id k2mr11073679pfc.136.1556890186770; 
- Fri, 03 May 2019 06:29:46 -0700 (PDT)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id p2sm7169164pfi.73.2019.05.03.06.29.44
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 03 May 2019 06:29:45 -0700 (PDT)
-Date: Fri, 3 May 2019 06:29:43 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Message-ID: <20190503132943.GA14550@roeck-us.net>
-References: <20180702155954.6722-1-liam.r.girdwood@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A621F80720
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 15:56:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A621F80720
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 May 2019 06:56:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,425,1549958400"; d="scan'208";a="145726888"
+Received: from nzussbla-mobl.amr.corp.intel.com (HELO [10.254.111.239])
+ ([10.254.111.239])
+ by fmsmga008.fm.intel.com with ESMTP; 03 May 2019 06:56:37 -0700
+To: mac.chiang@intel.com, alsa-devel@alsa-project.org
+References: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <da67f9fb-53c2-dec7-51e3-41ba635e5c27@linux.intel.com>
+Date: Fri, 3 May 2019 08:56:37 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20180702155954.6722-1-liam.r.girdwood@linux.intel.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: core: Allow topology to override
- machine driver FE DAI link config.
+In-Reply-To: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
+Content-Language: en-US
+Cc: broonie@kernel.org, chintan.m.patel@intel.com, jenny.tc@intel.com
+Subject: Re: [alsa-devel] [PATCH RESEND v4] ASoC: Intel: boards:
+ kbl_da7219_max98927: add dai_trigger function
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,297 +71,150 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 02, 2018 at 04:59:54PM +0100, Liam Girdwood wrote:
-> Machine drivers statically define a number of DAI links that currently
-> cannot be changed or removed by topology. This means PCMs and platform
-> components cannot be changed by topology at runtime AND machine drivers
-> are tightly coupled to topology.
+
+
+On 5/2/19 9:48 PM, mac.chiang@intel.com wrote:
+> From: Mac Chiang <mac.chiang@intel.com>
 > 
-> This patch allows topology to override the machine driver DAI link config
-> in order to reuse machine drivers with different topologies and platform
-> components. The patch supports :-
+> amplifier feedback is not modeled as being dependent on any active
+> output. Even when there is no playback happening, parts of the graph,
+> specifically the IV sense->speaker protection->output remains active
+> and this prevents the DSP from entering low-power states.
 > 
-> 1) create new FE PCMs with a topology defined PCM ID.
-> 2) destroy existing static FE PCMs
-> 3) change the platform component driver.
-> 4) assign any new HW params fixups.
-> 5) assign a new card name prefix to differentiate this topology to userspace.
+> This patch suggest a machine driver level approach where the speaker
+> pins are enabled/disabled dynamically depending on stream start/stop
+> events. DPAM graph representations show the feedback loop is indeed
+> disabled and low-power states can be reached.
 > 
-> The patch requires no changes to the machine drivers, but does add some
-> platform component flags that the platform component driver can assign
-> before loading topologies.
-> 
+> Signed-off-by: Jenny TC <jenny.tc@intel.com>
+> Signed-off-by: Harshapriya.n <harshapriya.n@intel.com>
+> Signed-off-by: Mac Chiang <mac.chiang@intel.com>
 
-This patch causes most Kabylake systems, specifically those utilizing
-kbl_rt5663_rt5514_max98927.c or kbl_da7219_max98927.c, to crash.
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Reason is that the fixup functions in those drivers expect params to be
-part of struct snd_soc_dpcm:
-
-static int kabylake_ssp_fixup(..)
-{
-	...
-	struct snd_soc_dpcm *dpcm = container_of(
-			params, struct snd_soc_dpcm, hw_params);
-
-That is, however, not always the case with the new call path.
-
-int soc_dai_hw_params(struct snd_pcm_substream *substream,
-...
-	/* perform any topology hw_params fixups before DAI  */
-	if (rtd->dai_link->be_hw_params_fixup) {
-		ret = rtd->dai_link->be_hw_params_fixup(rtd, params);
-
-called from:
-
-static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
-...
-	ret = soc_dai_hw_params(substream, &codec_params, codec_dai);
-
-codec_params is a local variable, and container_of() on it points to some
-random location on the stack. Result is odd and random crashes in
-kabylake_ssp_fixup(), nad even if it doesn't crash the fixup doesn't work.
-
-I have no idea how to fix the problem, unfortunately.
-
-Guenter
-
-> Signed-off-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
 > ---
+> Changelog:
+>    v4:
+>      - Changed device name in in kabylake_ssp0_trigger to address a
+> 	conflict with recently merged patch
+> 	MAXIM_DEV0_NAME -> MAX98927_DEV0_NAME ...
+>    v3:
+>      - fixed the return logic at the end of kabylake_card_late_probe()
+>    v2:
+>      - described clearly in commit message
+>      - added snd_soc_dapm_disable_pin in kabylake_card_late_probe()
+> ---
+> ---
+>   sound/soc/intel/boards/kbl_da7219_max98927.c | 73 +++++++++++++++++++++++++++-
+>   1 file changed, 71 insertions(+), 2 deletions(-)
 > 
-> Changes since V1. 
->   o Now iterate over component_list to fix crash with DT enumerated cards.
->   o Make sure name prefix is only added once with deferred probiing.
-> 
->  include/sound/soc.h  |  13 ++++++
->  sound/soc/soc-core.c | 101 +++++++++++++++++++++++++++++++++++++++++--
->  sound/soc/soc-pcm.c  |  12 +++++
->  3 files changed, 123 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/sound/soc.h b/include/sound/soc.h
-> index f7579f82cc00..b1d65fcb8756 100644
-> --- a/include/sound/soc.h
-> +++ b/include/sound/soc.h
-> @@ -806,6 +806,14 @@ struct snd_soc_component_driver {
->  	unsigned int use_pmdown_time:1; /* care pmdown_time at stop */
->  	unsigned int endianness:1;
->  	unsigned int non_legacy_dai_naming:1;
-> +
-> +	/* this component uses topology and ignore machine driver FEs */
-> +	const char *ignore_machine;
-> +	const char *topology_name_prefix;
-> +	int (*be_hw_params_fixup)(struct snd_soc_pcm_runtime *rtd,
-> +				  struct snd_pcm_hw_params *params);
-> +	bool use_dai_pcm_id;	/* use the DAI link PCM ID as PCM device number */
-> +	int be_pcm_base;	/* base device ID for all BE PCMs */
->  };
->  
->  struct snd_soc_component {
-> @@ -963,6 +971,9 @@ struct snd_soc_dai_link {
->  	/* pmdown_time is ignored at stop */
->  	unsigned int ignore_pmdown_time:1;
->  
-> +	/* Do not create a PCM for this DAI link (Backend link) */
-> +	unsigned int ignore:1;
-> +
->  	struct list_head list; /* DAI link list of the soc card */
->  	struct snd_soc_dobj dobj; /* For topology */
->  };
-> @@ -1002,6 +1013,7 @@ struct snd_soc_card {
->  	const char *long_name;
->  	const char *driver_name;
->  	char dmi_longname[80];
-> +	char topology_shortname[32];
->  
->  	struct device *dev;
->  	struct snd_card *snd_card;
-> @@ -1011,6 +1023,7 @@ struct snd_soc_card {
->  	struct mutex dapm_mutex;
->  
->  	bool instantiated;
-> +	bool topology_shortname_created;
->  
->  	int (*probe)(struct snd_soc_card *card);
->  	int (*late_probe)(struct snd_soc_card *card);
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 4663de3cf495..38bf7d01894b 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -852,6 +852,9 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
->  	const char *platform_name;
->  	int i;
->  
-> +	if (dai_link->ignore)
-> +		return 0;
-> +
->  	dev_dbg(card->dev, "ASoC: binding %s\n", dai_link->name);
->  
->  	if (soc_is_dai_link_bound(card, dai_link)) {
-> @@ -1461,7 +1464,9 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
->  {
->  	struct snd_soc_dai_link *dai_link = rtd->dai_link;
->  	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-> -	int i, ret;
-> +	struct snd_soc_rtdcom_list *rtdcom;
-> +	struct snd_soc_component *component;
-> +	int i, ret, num;
->  
->  	dev_dbg(card->dev, "ASoC: probe %s dai link %d late %d\n",
->  			card->name, rtd->num, order);
-> @@ -1507,9 +1512,28 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
->  		soc_dpcm_debugfs_add(rtd);
->  #endif
->  
-> +	num = rtd->num;
-> +
-> +	/*
-> +	 * most drivers will register their PCMs using DAI link ordering but
-> +	 * topology based drivers can use the DAI link id field to set PCM
-> +	 * device number and then use rtd + a base offset of the BEs.
-> +	 */
-> +	for_each_rtdcom(rtd, rtdcom) {
-> +		component = rtdcom->component;
-> +
-> +		if (!component->driver->use_dai_pcm_id)
-> +			continue;
-> +
-> +		if (rtd->dai_link->no_pcm)
-> +			num += component->driver->be_pcm_base;
-> +		else
-> +			num = rtd->dai_link->id;
-> +	}
-> +
->  	if (cpu_dai->driver->compress_new) {
->  		/*create compress_device"*/
-> -		ret = cpu_dai->driver->compress_new(rtd, rtd->num);
-> +		ret = cpu_dai->driver->compress_new(rtd, num);
->  		if (ret < 0) {
->  			dev_err(card->dev, "ASoC: can't create compress %s\n",
->  					 dai_link->stream_name);
-> @@ -1519,7 +1543,7 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
->  
->  		if (!dai_link->params) {
->  			/* create the pcm */
-> -			ret = soc_new_pcm(rtd, rtd->num);
-> +			ret = soc_new_pcm(rtd, num);
->  			if (ret < 0) {
->  				dev_err(card->dev, "ASoC: can't create pcm %s :%d\n",
->  				       dai_link->stream_name, ret);
-> @@ -1846,6 +1870,74 @@ int snd_soc_set_dmi_name(struct snd_soc_card *card, const char *flavour)
->  EXPORT_SYMBOL_GPL(snd_soc_set_dmi_name);
->  #endif /* CONFIG_DMI */
->  
-> +static void soc_check_tplg_fes(struct snd_soc_card *card)
+> diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
+> index f72a7bf..1efe7fd 100644
+> --- a/sound/soc/intel/boards/kbl_da7219_max98927.c
+> +++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
+> @@ -219,8 +219,60 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+>   	return 0;
+>   }
+>   
+> +static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
 > +{
-> +	struct snd_soc_component *component;
-> +	const struct snd_soc_component_driver *comp_drv;
-> +	struct snd_soc_dai_link *dai_link;
-> +	int i;
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	int j, ret;
 > +
-> +	list_for_each_entry(component, &component_list, list) {
+> +	for (j = 0; j < rtd->num_codecs; j++) {
+> +		struct snd_soc_dai *codec_dai = rtd->codec_dais[j];
+> +		const char *name = codec_dai->component->name;
+> +		struct snd_soc_component *component = codec_dai->component;
+> +		struct snd_soc_dapm_context *dapm =
+> +				snd_soc_component_get_dapm(component);
+> +		char pin_name[20];
 > +
-> +		/* does this component override FEs ? */
-> +		if (!component->driver->ignore_machine)
+> +		if (strcmp(name, MAX98927_DEV0_NAME) &&
+> +			strcmp(name, MAX98927_DEV1_NAME) &&
+> +			strcmp(name, MAX98373_DEV0_NAME) &&
+> +			strcmp(name, MAX98373_DEV1_NAME))
 > +			continue;
 > +
-> +		/* for this machine ? */
-> +		if (strcmp(component->driver->ignore_machine,
-> +			   card->dev->driver->name))
-> +			continue;
+> +		snprintf(pin_name, ARRAY_SIZE(pin_name), "%s Spk",
+> +			codec_dai->component->name_prefix);
 > +
-> +		/* machine matches, so override the rtd data */
-> +		for (i = 0; i < card->num_links; i++) {
-> +
-> +			dai_link = &card->dai_link[i];
-> +
-> +			/* ignore this FE */
-> +			if (dai_link->dynamic) {
-> +				dai_link->ignore = true;
-> +				continue;
+> +		switch (cmd) {
+> +		case SNDRV_PCM_TRIGGER_START:
+> +		case SNDRV_PCM_TRIGGER_RESUME:
+> +		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +			ret = snd_soc_dapm_enable_pin(dapm, pin_name);
+> +			if (ret) {
+> +				dev_err(rtd->dev, "failed to enable %s: %d\n",
+> +				pin_name, ret);
+> +				return ret;
 > +			}
-> +
-> +			dev_info(card->dev, "info: override FE DAI link %s\n",
-> +				 card->dai_link[i].name);
-> +
-> +			/* override platform component */
-> +			dai_link->platform_name = component->name;
-> +
-> +			/* convert non BE into BE */
-> +			dai_link->no_pcm = 1;
-> +
-> +			/* override any BE fixups */
-> +			dai_link->be_hw_params_fixup =
-> +				component->driver->be_hw_params_fixup;
-> +
-> +			/* most BE links don't set stream name, so set it to
-> +			 * dai link name if it's NULL to help bind widgets.
-> +			 */
-> +			if (!dai_link->stream_name)
-> +				dai_link->stream_name = dai_link->name;
-> +		}
-> +
-> +		/* Inform userspace we are using alternate topology */
-> +		if (component->driver->topology_name_prefix) {
-> +
-> +			/* topology shortname created ? */
-> +			if (!card->topology_shortname_created) {
-> +				comp_drv = component->driver;
-> +
-> +				snprintf(card->topology_shortname, 32, "%s-%s",
-> +					 comp_drv->topology_name_prefix,
-> +					 card->name);
-> +				card->topology_shortname_created = true;
+> +			snd_soc_dapm_sync(dapm);
+> +			break;
+> +		case SNDRV_PCM_TRIGGER_STOP:
+> +		case SNDRV_PCM_TRIGGER_SUSPEND:
+> +		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +			ret = snd_soc_dapm_disable_pin(dapm, pin_name);
+> +			if (ret) {
+> +				dev_err(rtd->dev, "failed to disable %s: %d\n",
+> +				pin_name, ret);
+> +				return ret;
 > +			}
-> +
-> +			/* use topology shortname */
-> +			card->name = card->topology_shortname;
+> +			snd_soc_dapm_sync(dapm);
+> +			break;
 > +		}
 > +	}
+> +
+> +	return 0;
 > +}
 > +
->  static int snd_soc_instantiate_card(struct snd_soc_card *card)
->  {
->  	struct snd_soc_pcm_runtime *rtd;
-> @@ -1855,6 +1947,9 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
->  	mutex_lock(&client_mutex);
->  	mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_INIT);
->  
-> +	/* check whether any platform is ignore machine FE and using topology */
-> +	soc_check_tplg_fes(card);
+>   static struct snd_soc_ops kabylake_ssp0_ops = {
+>   	.hw_params = kabylake_ssp0_hw_params,
+> +	.trigger = kabylake_ssp0_trigger,
+>   };
+>   
+>   static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+> @@ -950,6 +1002,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+>   {
+>   	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
+>   	struct kbl_hdmi_pcm *pcm;
+> +	struct snd_soc_dapm_context *dapm = &card->dapm;
+>   	struct snd_soc_component *component = NULL;
+>   	int err, i = 0;
+>   	char jack_name[NAME_SIZE];
+> @@ -976,9 +1029,25 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+>   	if (!component)
+>   		return -EINVAL;
+>   
+> -	return hdac_hdmi_jack_port_init(component, &card->dapm);
+>   
+> -	return 0;
+> +	err = hdac_hdmi_jack_port_init(component, &card->dapm);
 > +
->  	/* bind DAIs */
->  	for (i = 0; i < card->num_links; i++) {
->  		ret = soc_bind_dai_link(card, &card->dai_link[i]);
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 153218aa4909..db51849ae9bd 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -865,8 +865,20 @@ int soc_dai_hw_params(struct snd_pcm_substream *substream,
->  		      struct snd_pcm_hw_params *params,
->  		      struct snd_soc_dai *dai)
->  {
-> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
->  	int ret;
->  
-> +	/* perform any topology hw_params fixups before DAI  */
-> +	if (rtd->dai_link->be_hw_params_fixup) {
-> +		ret = rtd->dai_link->be_hw_params_fixup(rtd, params);
-> +		if (ret < 0) {
-> +			dev_err(rtd->dev,
-> +				"ASoC: hw_params topology fixup failed %d\n",
-> +				ret);
-> +			return ret;
-> +		}
+> +	if (err < 0)
+> +		return err;
+> +
+> +	err = snd_soc_dapm_disable_pin(dapm, "Left Spk");
+> +	if (err) {
+> +		dev_err(card->dev, "failed to disable Left Spk: %d\n", err);
+> +		return err;
 > +	}
 > +
->  	if (dai->driver->ops->hw_params) {
->  		ret = dai->driver->ops->hw_params(substream, params, dai);
->  		if (ret < 0) {
+> +	err = snd_soc_dapm_disable_pin(dapm, "Right Spk");
+> +	if (err) {
+> +		dev_err(card->dev, "failed to disable Right Spk: %d\n", err);
+> +		return err;
+> +	}
+> +
+> +	return snd_soc_dapm_sync(dapm);
+>   }
+>   
+>   /* kabylake audio machine driver for SPT + DA7219 */
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

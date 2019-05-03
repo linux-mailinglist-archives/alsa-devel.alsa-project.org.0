@@ -2,63 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD1B12FAF
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 15:58:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 082AA12FD2
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 16:08:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BEB417E5;
-	Fri,  3 May 2019 15:57:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BEB417E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7565317E9;
+	Fri,  3 May 2019 16:07:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7565317E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556891913;
-	bh=T63ftIqntkg1i4ts6Lu5+J82BK9h5eROv7FC6vBmfBA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1556892526;
+	bh=Kh3y6h4Z8MWOuiUUAcSRnvY81kux+LZnvkoQZ6ssDzY=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HAa3yIW/7gQyJ1ndAR6CagPVBYPJKDmcQrCaOYsGuwdXRKrHzA1DHVHQdCAPQiDhg
-	 G2YytZZypGLhB0K2n/TjWem6wpsSm8X+/1Dei8dypqaNNLgeGNATIViEWskp9YHXBB
-	 qH6e+YBXz7prGMlaMf5E6rcbLPyCDnxWDeetf8bU=
+	b=D/uB4w+lCW4h/jJyTKa0kXxfvKUUAsP1QvL6j6tPlVqhVPuaI09zbJW7A6JIpVv+R
+	 t9KAxOq0uW5t8j53IeamRUV1LX9Ewrx1ZoyF4KBL/Yxe/k3+SRvt7VqI/UABJJKrmz
+	 QQavUuNzusGtWYgbAfCvCfz8LxWi3oaS3/jtsCXA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D297F896B7;
-	Fri,  3 May 2019 15:56:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A947DF80722;
+	Fri,  3 May 2019 16:07:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57B27F896B7; Fri,  3 May 2019 15:56:46 +0200 (CEST)
+ id 0DA23F896B7; Fri,  3 May 2019 16:06:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A621F80720
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 15:56:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A621F80720
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 May 2019 06:56:39 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,425,1549958400"; d="scan'208";a="145726888"
-Received: from nzussbla-mobl.amr.corp.intel.com (HELO [10.254.111.239])
- ([10.254.111.239])
- by fmsmga008.fm.intel.com with ESMTP; 03 May 2019 06:56:37 -0700
-To: mac.chiang@intel.com, alsa-devel@alsa-project.org
-References: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <da67f9fb-53c2-dec7-51e3-41ba635e5c27@linux.intel.com>
-Date: Fri, 3 May 2019 08:56:37 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F0BAF80720
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 16:06:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F0BAF80720
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="JHtMIDVU"
+Received: by mail-ed1-x544.google.com with SMTP id w11so6152281edl.5
+ for <alsa-devel@alsa-project.org>; Fri, 03 May 2019 07:06:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=bIkHlNqSnjBvKekWU2vvrbH/hm3F1RI6rjhDUHQ8YbQ=;
+ b=JHtMIDVUiritOqCWGomzNEQCggPiA6NeSQ3lGRaP2nhvOANoSP4i/iLCUYXt1kwSFI
+ 8QyVfDuZBxPieJ17zHM/y0bXd2YeHSymPZVFTyWt8dRxqWVspwQ2Ip/G/I5ZGP4RY0G0
+ 2AtQKu13MoGMrq0Sdl3l/KIHRU98Rd/86IV7U=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=bIkHlNqSnjBvKekWU2vvrbH/hm3F1RI6rjhDUHQ8YbQ=;
+ b=isRzcwUzYeNkrO55VOl1u9EneO/PPiHfJcad0Re//BHjte56p9pzs0bQFLn5x6nWWg
+ 6ToTbpPXU2zI3ZpeQVuPwnosunpNoAwOzA/n+4ev9fXoGeivTVo1878r1eacsqtw6QyY
+ ouXKTh0plaFahQTD7SUln/4Vx7NQdP3FKLgEGpnCdsGJRMKg4l6HOsEsEO64b+u6YY6c
+ ziZtkCLbWAZhs5LQgULaJdxGrOTzGMMUjda3NY9/DIPQr01he3Ar+kyaEUfCK+c0iat/
+ cPSx3zfJKB16nmFu9tvojU53YjM/YqDEmfudaRSCUYRx+6t72VcqKewqzKU2MKseyPqC
+ FX9A==
+X-Gm-Message-State: APjAAAXSrZ15kBz+QDqCOB6xRb9c0GLxHSLhJFqdjhquG1tEn6brt5Au
+ PKZFnhRzWk/6yvbeVLV+d000/wRDwpI=
+X-Google-Smtp-Source: APXvYqypWQQ/asfxl847hJX/poQ/rSooSXedgg0SWeq+OVeEo7m46BNEpoOn2+dy5eEY7DfEMgHx2A==
+X-Received: by 2002:a17:906:2606:: with SMTP id
+ h6mr6460029ejc.211.1556892414739; 
+ Fri, 03 May 2019 07:06:54 -0700 (PDT)
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com.
+ [209.85.208.50])
+ by smtp.gmail.com with ESMTPSA id n3sm353258eja.70.2019.05.03.07.06.52
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Fri, 03 May 2019 07:06:53 -0700 (PDT)
+Received: by mail-ed1-f50.google.com with SMTP id m4so6151157edd.8
+ for <alsa-devel@alsa-project.org>; Fri, 03 May 2019 07:06:52 -0700 (PDT)
+X-Received: by 2002:a50:9056:: with SMTP id z22mr8689692edz.72.1556892412452; 
+ Fri, 03 May 2019 07:06:52 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
-Content-Language: en-US
-Cc: broonie@kernel.org, chintan.m.patel@intel.com, jenny.tc@intel.com
-Subject: Re: [alsa-devel] [PATCH RESEND v4] ASoC: Intel: boards:
- kbl_da7219_max98927: add dai_trigger function
+References: <20190502172700.215737-1-zwisler@google.com>
+ <s5hr29grlz9.wl-tiwai@suse.de>
+In-Reply-To: <s5hr29grlz9.wl-tiwai@suse.de>
+From: Ross Zwisler <zwisler@chromium.org>
+Date: Fri, 3 May 2019 08:06:40 -0600
+X-Gmail-Original-Message-ID: <CAGRrVHxXFSOKFW6Di49OwAEnqvak6W+gkpA_TB3ULGe2PHjZ-w@mail.gmail.com>
+Message-ID: <CAGRrVHxXFSOKFW6Di49OwAEnqvak6W+gkpA_TB3ULGe2PHjZ-w@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Clemens Ladisch <clemens@ladisch.de>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] MAINTAINERS: update git tree for sound
+	entries
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,150 +101,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, May 3, 2019 at 2:17 AM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Thu, 02 May 2019 19:27:00 +0200,
+> Ross Zwisler wrote:
+> >
+> > Several sound related entries in MAINTAINERS refer to the old git tree
+> > at "git://git.alsa-project.org/alsa-kernel.git".  This is no longer used
+> > for development, and Takashi Iwai's kernel.org tree is used instead.
+> >
+> > Signed-off-by: Ross Zwisler <zwisler@google.com>
+>
+> Ross, would you like to keep @chromium.org as your author address
+> while the sign-off is with @google.com?  It's OK and some people even
+> prefer giving different addresses, but it's often an overlook.  So,
+> just for confirmation.
 
+Hi Takashi,
 
-On 5/2/19 9:48 PM, mac.chiang@intel.com wrote:
-> From: Mac Chiang <mac.chiang@intel.com>
-> 
-> amplifier feedback is not modeled as being dependent on any active
-> output. Even when there is no playback happening, parts of the graph,
-> specifically the IV sense->speaker protection->output remains active
-> and this prevents the DSP from entering low-power states.
-> 
-> This patch suggest a machine driver level approach where the speaker
-> pins are enabled/disabled dynamically depending on stream start/stop
-> events. DPAM graph representations show the feedback loop is indeed
-> disabled and low-power states can be reached.
-> 
-> Signed-off-by: Jenny TC <jenny.tc@intel.com>
-> Signed-off-by: Harshapriya.n <harshapriya.n@intel.com>
-> Signed-off-by: Mac Chiang <mac.chiang@intel.com>
+It's fine to leave the author address as @chromium.org with the
+sign-off @google.com.  Thank you for checking.
 
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
-> Changelog:
->    v4:
->      - Changed device name in in kabylake_ssp0_trigger to address a
-> 	conflict with recently merged patch
-> 	MAXIM_DEV0_NAME -> MAX98927_DEV0_NAME ...
->    v3:
->      - fixed the return logic at the end of kabylake_card_late_probe()
->    v2:
->      - described clearly in commit message
->      - added snd_soc_dapm_disable_pin in kabylake_card_late_probe()
-> ---
-> ---
->   sound/soc/intel/boards/kbl_da7219_max98927.c | 73 +++++++++++++++++++++++++++-
->   1 file changed, 71 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
-> index f72a7bf..1efe7fd 100644
-> --- a/sound/soc/intel/boards/kbl_da7219_max98927.c
-> +++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
-> @@ -219,8 +219,60 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
->   	return 0;
->   }
->   
-> +static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> +	int j, ret;
-> +
-> +	for (j = 0; j < rtd->num_codecs; j++) {
-> +		struct snd_soc_dai *codec_dai = rtd->codec_dais[j];
-> +		const char *name = codec_dai->component->name;
-> +		struct snd_soc_component *component = codec_dai->component;
-> +		struct snd_soc_dapm_context *dapm =
-> +				snd_soc_component_get_dapm(component);
-> +		char pin_name[20];
-> +
-> +		if (strcmp(name, MAX98927_DEV0_NAME) &&
-> +			strcmp(name, MAX98927_DEV1_NAME) &&
-> +			strcmp(name, MAX98373_DEV0_NAME) &&
-> +			strcmp(name, MAX98373_DEV1_NAME))
-> +			continue;
-> +
-> +		snprintf(pin_name, ARRAY_SIZE(pin_name), "%s Spk",
-> +			codec_dai->component->name_prefix);
-> +
-> +		switch (cmd) {
-> +		case SNDRV_PCM_TRIGGER_START:
-> +		case SNDRV_PCM_TRIGGER_RESUME:
-> +		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +			ret = snd_soc_dapm_enable_pin(dapm, pin_name);
-> +			if (ret) {
-> +				dev_err(rtd->dev, "failed to enable %s: %d\n",
-> +				pin_name, ret);
-> +				return ret;
-> +			}
-> +			snd_soc_dapm_sync(dapm);
-> +			break;
-> +		case SNDRV_PCM_TRIGGER_STOP:
-> +		case SNDRV_PCM_TRIGGER_SUSPEND:
-> +		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +			ret = snd_soc_dapm_disable_pin(dapm, pin_name);
-> +			if (ret) {
-> +				dev_err(rtd->dev, "failed to disable %s: %d\n",
-> +				pin_name, ret);
-> +				return ret;
-> +			}
-> +			snd_soc_dapm_sync(dapm);
-> +			break;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static struct snd_soc_ops kabylake_ssp0_ops = {
->   	.hw_params = kabylake_ssp0_hw_params,
-> +	.trigger = kabylake_ssp0_trigger,
->   };
->   
->   static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
-> @@ -950,6 +1002,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
->   {
->   	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
->   	struct kbl_hdmi_pcm *pcm;
-> +	struct snd_soc_dapm_context *dapm = &card->dapm;
->   	struct snd_soc_component *component = NULL;
->   	int err, i = 0;
->   	char jack_name[NAME_SIZE];
-> @@ -976,9 +1029,25 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
->   	if (!component)
->   		return -EINVAL;
->   
-> -	return hdac_hdmi_jack_port_init(component, &card->dapm);
->   
-> -	return 0;
-> +	err = hdac_hdmi_jack_port_init(component, &card->dapm);
-> +
-> +	if (err < 0)
-> +		return err;
-> +
-> +	err = snd_soc_dapm_disable_pin(dapm, "Left Spk");
-> +	if (err) {
-> +		dev_err(card->dev, "failed to disable Left Spk: %d\n", err);
-> +		return err;
-> +	}
-> +
-> +	err = snd_soc_dapm_disable_pin(dapm, "Right Spk");
-> +	if (err) {
-> +		dev_err(card->dev, "failed to disable Right Spk: %d\n", err);
-> +		return err;
-> +	}
-> +
-> +	return snd_soc_dapm_sync(dapm);
->   }
->   
->   /* kabylake audio machine driver for SPT + DA7219 */
-> 
+- Ross
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

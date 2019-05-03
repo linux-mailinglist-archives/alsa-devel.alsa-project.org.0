@@ -2,57 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F1931264D
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 04:29:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC3EB1265C
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 May 2019 04:49:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E475B184F;
-	Fri,  3 May 2019 04:28:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E475B184F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CF6C184C;
+	Fri,  3 May 2019 04:49:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CF6C184C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556850553;
+	s=default; t=1556851796;
 	bh=Np4l2UxMYEob/JRlw+rPlysfc3ydjCUDXDleUVxKOWw=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=sJ8E1E4IRzWD4XmCcvZ6F+/4Na24rN4QXsl0eWQs2ykqBMqbUoX0F4MJu3gFtTNBR
-	 qCjBAkUYY/H2YwbkPGKplB/JZ0wHX3z/1WW6VqLWB9n0+0Fy3JHKwo4UcXA90ugjzu
-	 hoI3nvUxEgeBoEmEuPL+7Cz0FU/bI/qPzPclwaJk=
+	b=Dbf3TQlDtPGo2St4U/A//ehYg0D31VoP1wJ+jDdS7BkSvbuylpaRdrMnWBv/K/1RN
+	 RwlE8YeXy1yP/IuoiC/Nq380mvjutiEjaP6FxKP/48HEMMubXg7PIhDezbP/lfkPgQ
+	 gBiIspY+GI1Qk6ljyXP2+HzPVAoSAtBQpsar4Xcc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A308F896B9;
-	Fri,  3 May 2019 04:27:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC213F896B7;
+	Fri,  3 May 2019 04:48:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5C61F896B7; Fri,  3 May 2019 04:27:24 +0200 (CEST)
+ id EB3DDF896B7; Fri,  3 May 2019 04:48:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96666F8075A
- for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 04:27:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96666F8075A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 881F8F80722
+ for <alsa-devel@alsa-project.org>; Fri,  3 May 2019 04:48:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 881F8F80722
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 May 2019 19:27:17 -0700
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 May 2019 19:48:02 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,424,1549958400"; d="scan'208";a="147846926"
+X-IronPort-AV: E=Sophos;i="5.60,424,1549958400"; d="scan'208";a="140858610"
 Received: from macchian.itwn.intel.com ([10.5.230.135])
- by fmsmga007.fm.intel.com with ESMTP; 02 May 2019 19:27:15 -0700
+ by orsmga006.jf.intel.com with ESMTP; 02 May 2019 19:47:59 -0700
 From: mac.chiang@intel.com
 To: alsa-devel@alsa-project.org
-Date: Fri,  3 May 2019 10:27:33 +0800
-Message-Id: <1556850453-32619-1-git-send-email-mac.chiang@intel.com>
+Date: Fri,  3 May 2019 10:48:17 +0800
+Message-Id: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
 X-Mailer: git-send-email 2.7.4
 Cc: mac.chiang@intel.com, broonie@kernel.org, chintan.m.patel@intel.com,
  pierre-louis.bossart@linux.intel.com, jenny.tc@intel.com
-Subject: [alsa-devel] [PATCH] ASoC: Intel: boards: kbl_da7219_max98927: add
-	dai_trigger function
+Subject: [alsa-devel] [PATCH RESEND v4] ASoC: Intel: boards:
+	kbl_da7219_max98927: add dai_trigger function
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

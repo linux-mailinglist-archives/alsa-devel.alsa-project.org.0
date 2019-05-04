@@ -2,56 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A494139E8
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 May 2019 14:53:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6E1F140EF
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 May 2019 18:00:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1754189B;
-	Sat,  4 May 2019 14:53:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1754189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6235718BE;
+	Sun,  5 May 2019 18:00:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6235718BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1556974434;
-	bh=BobKtXRm0p7C9FehApHBdRpWXEWZzs4XDO4A6eV4PBk=;
-	h=To:From:Date:References:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bcpUSqV1Bi88nC+BZcP4cLJeUeNHXYy6DOhZ1ixZ6lPqZ8MtURS03adUMiSBXMXQT
-	 RbpucHndrLWE0aAfOtDpzBX9cS5M0lCeKizsrVWNcHTW+6FqgIRgX0WrBcGzace5j3
-	 zrsd8zNDYSMiJdz4jvJXRgzcF/zovIWEnDO7OCYI=
+	s=default; t=1557072059;
+	bh=aIw45u3BHXYtLAh2i9/07Td8kBYUgsuBEdQ3Ui1iMsc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EhfBsTH0Zd3rtwad29XesI4gGhwj4M3+tzp9B283V+0mKk2sxPh365P2mLPZmjXo8
+	 9dBraJLMeur2niHZtMIC4NUiFozjwwwo4X8DcYjutW+FQNvm41k6IN9rJEyrG5r5YW
+	 5ekzK6mYfSMCtbR7ykPyqizaRxJhTOAe55QtOuMM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49229F80726;
-	Sat,  4 May 2019 14:52:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14372F89744;
+	Sun,  5 May 2019 17:54:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72C59F896C7; Sat,  4 May 2019 14:52:07 +0200 (CEST)
+ id 78496F896E3; Sat,  4 May 2019 17:17:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.6 required=5.0 tests=FORGED_MUA_MOZILLA,
- HEADER_FROM_DIFFERENT_DOMAINS,RDNS_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from blaine.gmane.org (unknown [195.159.176.226])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
+ [IPv6:2a00:1450:4864:20::541])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 138DFF80726
- for <alsa-devel@alsa-project.org>; Sat,  4 May 2019 14:52:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 138DFF80726
-Received: from list by blaine.gmane.org with local (Exim 4.89)
- (envelope-from <glad-alsa-devel-2@m.gmane.org>) id 1hMu94-000goC-W6
- for alsa-devel@alsa-project.org; Sat, 04 May 2019 14:52:02 +0200
-X-Injected-Via-Gmane: http://gmane.org/
-To: alsa-devel@alsa-project.org
-From: Rob van der Putten <rob@sput.nl>
-Date: Sat, 4 May 2019 14:51:53 +0200
-Message-ID: <qak1t9$4vqg$1@blaine.gmane.org>
-References: <q9nlbm$3kqm$1@blaine.gmane.org> <s5h1s1mmudg.wl-tiwai@suse.de>
-Mime-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-In-Reply-To: <s5h1s1mmudg.wl-tiwai@suse.de>
-Content-Language: en-GB
-Subject: Re: [alsa-devel] [PATCH] Aseqnet, no nagle and dual stack
+ by alsa1.perex.cz (Postfix) with ESMTPS id DED7DF80726
+ for <alsa-devel@alsa-project.org>; Sat,  4 May 2019 17:17:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DED7DF80726
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lust9394"
+Received: by mail-ed1-x541.google.com with SMTP id w35so8040901edd.1
+ for <alsa-devel@alsa-project.org>; Sat, 04 May 2019 08:17:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eVaNiZEHc2WcLQetcZoCKC6E7inFmZ0Pm/1lAy3U6IQ=;
+ b=lust9394uk9VsG0Af6ixeNW7Ob8Y4vrJJbdXC0+Iz6YUJM2pFZz5fdUE3ZUf/dUZRS
+ 258q1s8zOau8xZFmjfqsexI66BrPIQnJhr3KMpu6KjXwhU260OS08iBj8RVzzM/UmkVL
+ KHnF7+YdzH8mMcxykyLrVlI00WT0ZMIjocPqbkAL12+JMv1O1XLx/guD5xeWUDWFi1aC
+ tLYAU+cx5cOt1L4gGVkLrgdC54ecQW83nn90RIFMI8CddXjJSsVrdWuPRYxU2J0I8ai1
+ NLwtKehhdv2w4k9SqtGVpKIhu3vBAY2sp7w6mZnweCDEb3wNSXmDK0F/9fl/sKPYCBJS
+ hayg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eVaNiZEHc2WcLQetcZoCKC6E7inFmZ0Pm/1lAy3U6IQ=;
+ b=gGrooQGkYg562l6iR0xqW7yiIZaq4Ekx7gBtSdRpS1emVtJYF6XljNO3IZC6jmcpeG
+ OEjDPmMBmvhvNKdJfONI/PtZPwVk379U3KT1+bPaNwuMHqu8FC4E22FJq6hNGZzJWHoP
+ xQ84XJrJLc9f7ghWHtQa7stv/1AZi2My4piXQ8/n2zjKgO7K/V6Tz3/+C1QfVbbfLYdb
+ I57ReKJj1p/e9tlLeT+yh7e3fK764C9mAwbcuvn6ZG+qeOONAUAqLN57ZMZcQrXqNY+s
+ lqCSOyCIR1pS4DjWPoF8bmKUclDdnn2RkO2LYkNfDXoRDHvdCHsdl0krg0CtKH0j5rhj
+ VJNg==
+X-Gm-Message-State: APjAAAVgITfaFQEg0YIMQiF9avsFPvGyj6K/6BTB1NZe0ELYJvok1osw
+ RQ0VjlwL/+QSqUS8FEsV188=
+X-Google-Smtp-Source: APXvYqyjUMC5lD1Ttz9DnqsIcJ7TsmGtzUtIugjLV+/qjipULhLu9wXCxDrKuT4+m1zJljEJdgNsyQ==
+X-Received: by 2002:a17:906:c52:: with SMTP id
+ t18mr11359001ejf.53.1556983023082; 
+ Sat, 04 May 2019 08:17:03 -0700 (PDT)
+Received: from elitebook-localhost (84-106-70-146.cable.dynamic.v4.ziggo.nl.
+ [84.106.70.146])
+ by smtp.gmail.com with ESMTPSA id x44sm1438747edb.51.2019.05.04.08.17.02
+ (version=TLS1 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Sat, 04 May 2019 08:17:02 -0700 (PDT)
+From: Nariman <narimantos@gmail.com>
+X-Google-Original-From: Nariman <root>
+To: linux-kernel@vger.kernel.org
+Date: Sat,  4 May 2019 17:16:49 +0200
+Message-Id: <20190504151652.5213-1-user@elitebook-localhost>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+X-Mailman-Approved-At: Sun, 05 May 2019 17:54:02 +0200
+Cc: Nariman Etemadi <narimantos@gmail.com>, alsa-devel@alsa-project.org,
+ tiwai@suse.com, yang.jie@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, hdegoede@redhat.com, broonie@kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: Intel: bytcr_5640.c:Refactored if
+	statement and removed buffer
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,395 +98,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi there
+From: Nariman Etemadi <narimantos@gmail.com>
 
+in function snd_byt_rt5640_mc_probe and removed buffer yt_rt5640_codec_aif_name & byt_rt5640_cpu_dai_name
 
-On 28/04/2019 10:00, Takashi Iwai wrote:
+Signed-off-by: Nariman Etemadi <narimantos@gmail.com>
+---
+ sound/soc/intel/boards/bytcr_rt5640.c | 26 ++++----------------------
+ 1 file changed, 4 insertions(+), 22 deletions(-)
 
-> On Tue, 23 Apr 2019 20:25:58 +0200,
-> Rob van der Putten wrote:
-> On Tue, 23 Apr 2019 20:25:58 +0200,
-> Rob van der Putten wrote:
->>
->> Hi there
->>
->>
->> Not an ALSA source patch, but a patch for an ALSA related util.
->> Aseqnet sends ALSA sound_seq MIDI over TCP/IP. The patch below
->> disables nagle, enables quickack and makes aseqnet dual-stack.
-> 
-> Thanks for the patch.  Could you repost with a proper patch change log
-> and your Signed-off-by line so that one can apply to git repo?
-
-Added
-- Disabled Nagle's algorithm
-- Enbled quickack
-- IPv6 support
-
-Signed-off-by: Rob van der Putten <rob@sput.nl>
-
-> About the changes:
->> --- aseqnet.c.bak	2012-01-25 10:43:38.000000000 +0100
->> +++ aseqnet.c	2017-08-26 14:17:58.261868853 +0200
->> @@ -3,6 +3,8 @@
->>    *   ver.0.1
->>    *
->>    * Copyright (C) 1999-2000 Takashi Iwai
->> + * Modified by Rob van der Putten, Leiden, Holland,
->> + * rob at sput dot nl.
-> 
-> We don't need to add each change in the source like that as all
-> tracked in git.
-> 
->> @@ -15,18 +17,21 @@
->>    *
->>    */
->>
->> +#include <alsa/asoundlib.h>
->> +#include <arpa/inet.h>
->> +#include <assert.h>
->> +#include <ctype.h>
->> +#include <getopt.h>
->> +#include <locale.h>
->> +#include <netdb.h>
->> +#include <netinet/in.h>
->> +#include <netinet/tcp.h>
->> +#include <signal.h>
->>   #include <stdio.h>
->>   #include <stdlib.h>
->> -#include <ctype.h>
->>   #include <string.h>
->> -#include <netinet/in.h>
->>   #include <sys/socket.h>
->> -#include <netdb.h>
->> -#include <locale.h>
->> -#include <alsa/asoundlib.h>
->> -#include <getopt.h>
->> -#include <signal.h>
->> -#include <assert.h>
->> +#include <sys/types.h>
->>   #include "aconfig.h"
->>   #include "gettext.h"
-> 
-> Why these large rearrangement of include files?  If it must be
-> inevitably done, please describe the reason in the changelog, too.
-
-I just put them into alphabetical order. I changed that back.
-
->> @@ -327,17 +332,24 @@
->>    */
->>   static void init_server(int port)
->>   {
->> +	/*
->> +	*       RvdP, changed to support IPv6
->> +	*       Dual stack only!
->> +	*/
-> 
-> Wouldn't it potentially break things?  IMO, it's better to keep the
-> old behavior (ipv4-only), at least, with an option.
-
-Server:
-The behaviour is determined by /proc/sys/net/ipv6/bindv6only
-If this is one, the listening socket will be IPv6 only instead of dual
-stack. A socket option is used to set IPV6_V6ONLY to zero, which forces 
-the listening socket dual stack.
-
-Client:
-The 'for (rp = result; rp != NULL; rp = rp->ai_next) {' loop keeps 
-trying to connect to the remote host: If IPv6 fails, it uses IPv4 instead.
-
-Both:
-I added a -4 / --ipv4 option.
-This not in the previous patch.
-It also introduces the string '-4, --ipv4 : IPv4 only' for which there 
-no translations. And a new bit in the man page, with an added man page 
-patch.
-
-> Also, drop your initials in the commit, it's rather superfluous.
-
-A new aseqnet patch. Note: This patches the original, not the previous 
-patch.
---- a/seq/aseqnet/aseqnet.c
-+++ b/seq/aseqnet/aseqnet.c
-@@ -29,6 +29,9 @@
-  #include <assert.h>
-  #include "aconfig.h"
-  #include "gettext.h"
-+#include <arpa/inet.h>
-+#include <netinet/tcp.h>
-+#include <sys/types.h>
-
-  /*
-   * prototypes
-@@ -78,6 +81,8 @@
-  static int verbose = 0;
-  static int info = 0;
-
-+static int ipv4only = 0;
-+
-
-  /*
-   * main routine
-@@ -90,6 +95,7 @@
-         {"help", 0, NULL, 'h'},
-         {"verbose", 0, NULL, 'v'},
-         {"info", 0, NULL, 'i'},
-+       {"ipv4", 0, NULL, '4'},
-         {NULL, 0, NULL, 0},
-  };
-
-@@ -104,7 +110,7 @@
-         textdomain(PACKAGE);
-  #endif
-
--       while ((c = getopt_long(argc, argv, "p:s:d:vi", long_option, 
-NULL)) != -1) {
-+       while ((c = getopt_long(argc, argv, "p:s:d:vi4", long_option, 
-NULL)) != -1) {
-                 switch (c) {
-                 case 'p':
-                         if (isdigit(*optarg))
-@@ -124,6 +130,9 @@
-                 case 'i':
-                         info++;
-                         break;
-+               case '4':
-+                       ipv4only++;
-+                       break;
-                 default:
-                         usage();
-                         exit(1);
-@@ -172,6 +181,7 @@
-         printf(_("  -d,--dest addr : write to given addr 
-(client:port)\n"));
-         printf(_("  -v, --verbose : print verbose messages\n"));
-         printf(_("  -i, --info : print certain received events\n"));
-+       printf(_("  -4, --ipv4 : IPv4 only\n"));
-  }
-
-
-@@ -329,25 +339,64 @@
-  {
-         int i;
-         int curstate = 1;
--       struct sockaddr_in addr;
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 940eb27158da..0d91642ca287 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1075,8 +1075,6 @@ static struct snd_soc_dai_link byt_rt5640_dais[] = {
+ 
+ /* SoC card */
+ static char byt_rt5640_codec_name[SND_ACPI_I2C_ID_LEN];
+-static char byt_rt5640_codec_aif_name[12]; /*  = "rt5640-aif[1|2]" */
+-static char byt_rt5640_cpu_dai_name[10]; /*  = "ssp[0|2]-port" */
+ static char byt_rt5640_long_name[40]; /* = "bytcr-rt5640-*-spk-*-mic" */
+ 
+ static int byt_rt5640_suspend(struct snd_soc_card *card)
+@@ -1268,28 +1266,12 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+ 	log_quirks(&pdev->dev);
+ 
+ 	if ((byt_rt5640_quirk & BYT_RT5640_SSP2_AIF2) ||
+-	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2)) {
 -
--       memset(&addr, 0, sizeof(addr));
+-		/* fixup codec aif name */
+-		snprintf(byt_rt5640_codec_aif_name,
+-			sizeof(byt_rt5640_codec_aif_name),
+-			"%s", "rt5640-aif2");
 -
--       addr.sin_family = AF_INET;
--       addr.sin_addr.s_addr = INADDR_ANY;
--       addr.sin_port = htons(port);
-+       int ipv6only = 0;
-+       int nodelay  = 1;
-+       int quickack = 1;
-+       struct sockaddr_in addr4;
-+       struct sockaddr_in6 addr;
-+
-+       if (ipv4only == 0) {
-+               memset(&addr, 0, sizeof(addr));
-+
-+               addr.sin6_family = AF_INET6;
-+               inet_pton(AF_INET6, "::", &(addr.sin6_addr));
-+               addr.sin6_port = htons(port);
-+
-+               sockfd = socket(PF_INET6, SOCK_STREAM, 0);
-+               if (sockfd < 0)  {
-+                       perror("create socket");
-+                       exit(1);
-+               }
-+       } else {
-+               memset(&addr4, 0, sizeof(addr4));
-
--       sockfd = socket(AF_INET, SOCK_STREAM, 0);
--       if (sockfd < 0)  {
--               perror("create socket");
--               exit(1);
-+               addr4.sin_family = AF_INET;
-+               addr4.sin_addr.s_addr = INADDR_ANY;
-+               addr4.sin_port = htons(port);
-+
-+               sockfd = socket(AF_INET, SOCK_STREAM, 0);
-+               if (sockfd < 0)  {
-+                       perror("create socket");
-+                       exit(1);
-+               }
-         }
-         setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &curstate, 
-sizeof(curstate));
-         /* the return value is ignored.. */
-
--       if (bind(sockfd, (struct sockaddr *)&addr, sizeof(addr)) < 0)  {
--               perror("can't bind");
--               exit(1);
-+       if (ipv4only == 0) {
-+               /*    Force dual stack    */
-+               setsockopt(sockfd, IPPROTO_IPV6, IPV6_V6ONLY, &ipv6only, 
-sizeof(ipv6only));
-+               /* the return value is ignored.. */
-+       }
-+
-+       /*    Nagle and quickack  */
-+       if ((setsockopt(sockfd, IPPROTO_TCP, TCP_NODELAY, &nodelay, 
-sizeof(nodelay))) < 0) {
-+               perror("Error setsockopt tcp_nodelay");
-+       }
-+       if ((setsockopt(sockfd, IPPROTO_TCP, TCP_QUICKACK, &quickack, 
-sizeof(quickack))) < 0) {
-+               perror("Error setsockopt tcp_quickack");
-+       }
-+
-+       if (ipv4only == 0) {
-+               if (bind(sockfd, (struct sockaddr *) &addr, 
-sizeof(addr)) < 0)  {
-+                       perror("can't bind");
-+                       exit(1);
-+               }
-+       } else {
-+               if (bind(sockfd, (struct sockaddr *) &addr4, 
-sizeof(addr4)) < 0)  {
-+                       perror("can't bind");
-+                       exit(1);
-+               }
-         }
-
-         if (listen(sockfd, 5) < 0)  {
-@@ -365,7 +414,8 @@
-   */
-  static void start_connection(void)
-  {
--       struct sockaddr_in addr;
-+       struct sockaddr_in6 addr;
-+       struct sockaddr_in addr4;
-         int i;
-         socklen_t addr_len;
-
-@@ -377,9 +427,15 @@
-                 fprintf(stderr, _("too many connections!\n"));
-                 exit(1);
-         }
--       memset(&addr, 0, sizeof(addr));
--       addr_len = sizeof(addr);
--       netfd[i] = accept(sockfd, (struct sockaddr *)&addr, &addr_len);
-+       if (ipv4only == 0) {
-+               memset(&addr, 0, sizeof(addr));
-+               addr_len = sizeof(addr);
-+               netfd[i] = accept(sockfd, (struct sockaddr *)&addr, 
-&addr_len);
-+       } else {
-+               memset(&addr4, 0, sizeof(addr4));
-+               addr_len = sizeof(addr4);
-+               netfd[i] = accept(sockfd, (struct sockaddr *)&addr4, 
-&addr_len);
-+       }
-         if (netfd[i] < 0) {
-                 perror("accept");
-                 exit(1);
-@@ -394,30 +450,57 @@
-   */
-  static void init_client(char *server, int port)
-  {
--       struct sockaddr_in addr;
--       struct hostent *host;
-+       struct addrinfo hints;
-+       struct addrinfo *result, *rp;
-         int curstate = 1;
--       int fd;
-+       int nodelay  = 1;
-+       int quickack = 1;
-+       int fd, s;
-+       char portstr[8];
-+       struct hostent *host;
-
--       if ((fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) < 0){
--               perror("create socket");
-+       memset(&hints, 0, sizeof(struct addrinfo));
-+       if(ipv4only == 0)
-+               hints.ai_family = AF_UNSPEC;
-+       else
-+               hints.ai_family = AF_INET;
-+       hints.ai_socktype = SOCK_STREAM;
-+       /* hints.ai_protocol = IPPROTO_TCP; */
-+       hints.ai_flags    = 0;
-+
-+       memset(portstr, 0, 8);
-+       snprintf(portstr, 6, "%d", port);
-+
-+       s = getaddrinfo(server, portstr, &hints, &result);
-+       if (s != 0) {
-+               fprintf(stderr, "getaddrinfo: %s\n", gai_strerror(s));
-+               exit(1);
-+       }
-+       for (rp = result; rp != NULL; rp = rp->ai_next) {
-+               fd = socket(rp->ai_family, rp->ai_socktype, 
-rp->ai_protocol);
-+               if (fd == -1)
-+                       continue;
-+               if (connect(fd, rp->ai_addr, rp->ai_addrlen) != -1)
-+                       break;
-+               close(fd);
-+       }
-+       if (rp == NULL) {
-+               fprintf(stderr, "Could not connect\n");
-                 exit(1);
-         }
-+
-         if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &curstate, 
-sizeof(curstate)) < 0) {
-                 perror("setsockopt");
-                 exit(1);
-         }
--       if ((host = gethostbyname(server)) == NULL){
--               fprintf(stderr, _("can't get address %s\n"), server);
--               exit(1);
-+
-+       if ((setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &nodelay, 
-sizeof(nodelay))) < 0) {
-+               perror("Error setsockopt tcp_nodelay");
-         }
--       addr.sin_port = htons(port);
--       addr.sin_family = AF_INET;
--       memcpy(&addr.sin_addr, host->h_addr, host->h_length);
--       if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
--               perror("connect");
--               exit(1);
-+       if ((setsockopt(fd, IPPROTO_TCP, TCP_QUICKACK, &quickack, 
-sizeof(quickack))) < 0) {
-+               perror("Error setsockopt tcp_quickack");
-         }
-+
-         if (verbose)
-                 fprintf(stderr, _("ok.. connected\n"));
-         netfd[0] = fd;
-
-
-A man page patch;
---- a/seq/aseqnet/aseqnet.1
-+++ b/seq/aseqnet/aseqnet.1
-@@ -1,4 +1,4 @@
--.TH aseqnet 1 "January 1, 2000"
-+.TH aseqnet 1 "May 1, 2019"
-  .SH NAME
-  aseqnet \- ALSA sequencer connectors over network
-
-@@ -72,6 +72,9 @@
-  .TP
-  .B \-v
-  Verbose mode.
-+.TP
-+.B \-4
-+IPv4 only.
-
-  .SH "SEE ALSO"
-  aconnect(1), pmidi(1)
-
-
-Regards,
-Rob
+-		byt_rt5640_dais[dai_index].codec_dai_name =
+-			byt_rt5640_codec_aif_name;
+-	}
++	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2))
++		byt_rt5640_dais[dai_index].codec_dai_name = "rt5640-aif2";
+ 
+ 	if ((byt_rt5640_quirk & BYT_RT5640_SSP0_AIF1) ||
+-	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2)) {
+-
+-		/* fixup cpu dai name name */
+-		snprintf(byt_rt5640_cpu_dai_name,
+-			sizeof(byt_rt5640_cpu_dai_name),
+-			"%s", "ssp0-port");
+-
+-		byt_rt5640_dais[dai_index].cpu_dai_name =
+-			byt_rt5640_cpu_dai_name;
+-	}
++	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2))
++		byt_rt5640_dais[dai_index].cpu_dai_name = "ssp0-port";
+ 
+ 	if (byt_rt5640_quirk & BYT_RT5640_MCLK_EN) {
+ 		priv->mclk = devm_clk_get(&pdev->dev, "pmc_plt_clk_3");
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

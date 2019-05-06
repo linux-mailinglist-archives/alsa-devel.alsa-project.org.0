@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6720B14B94
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 16:11:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C0F14B96
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 16:12:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE09218CF;
-	Mon,  6 May 2019 16:10:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE09218CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9674918E1;
+	Mon,  6 May 2019 16:11:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9674918E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557151904;
-	bh=Ym2qaLf0hacz46ytv7aHNhO+0W675T6/3FhqdhAvvBc=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gOVkKRwP+xb5Dk8dx5P30TswSCGJSUtsS1avXUGyKrPXQAfs+5krHMWV7sDRlXlXp
-	 gdRkgOJvHkYi9ss4DDpR4HWgiDToKINzVpW0rSz3uRe+tNBX2o0ufCsNQxhmyPSImj
-	 hwnc5fqWredyJtujiD6xzROs3qTzRn5pIed/aGVU=
+	s=default; t=1557151942;
+	bh=wZlroqp6HJaDyaQlPyJneySe6TkseS3rniuTSXkckoE=;
+	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aLe238GCbTtrlMfiMNBsMb9pdjClWi3jJdPu4RSlU1Mt0KUQNIYrTFUIMcX44x0Px
+	 pHR/SKPCrdcWR2QKEuBTUwPht5w2RIqbDgxtlglYJt2ZHnaHaqiXbNveyYvhlHrYpM
+	 fvCeh0z84A2BH7/3aEROsvajJ2LBvtH5CfXldV64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B17BF896FD;
-	Mon,  6 May 2019 16:09:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB167F89701;
+	Mon,  6 May 2019 16:10:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80AAFF896F0; Mon,  6 May 2019 16:09:56 +0200 (CEST)
+ id CE2EFF80C07; Mon,  6 May 2019 16:09:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
@@ -32,21 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E00E6F89673
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 16:09:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E00E6F89673
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17F02F80C07
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 16:09:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17F02F80C07
 Received: from [123.123.251.121] (helo=localhost.localdomain)
  by youngberry.canonical.com with esmtpsa (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
  (Exim 4.76) (envelope-from <hui.wang@canonical.com>)
- id 1hNeJU-0001SM-8j; Mon, 06 May 2019 14:09:53 +0000
+ id 1hNeJW-0001SM-U7; Mon, 06 May 2019 14:09:55 +0000
 From: Hui Wang <hui.wang@canonical.com>
 To: alsa-devel@alsa-project.org,
 	tiwai@suse.de
-Date: Mon,  6 May 2019 22:09:31 +0800
-Message-Id: <20190506140932.7942-1-hui.wang@canonical.com>
+Date: Mon,  6 May 2019 22:09:32 +0800
+Message-Id: <20190506140932.7942-2-hui.wang@canonical.com>
 X-Mailer: git-send-email 2.17.1
-Subject: [alsa-devel] [PATCH v2 1/2] ALSA: hda/hdmi - Read the pin sense
-	from register when repolling
+In-Reply-To: <20190506140932.7942-1-hui.wang@canonical.com>
+References: <20190506140932.7942-1-hui.wang@canonical.com>
+Subject: [alsa-devel] [PATCH v2 2/2] ALSA: hda/hdmi - Consider eld_valid
+	when reporting jack event
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,40 +68,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver will check the monitor presence when resuming from suspend,
-starting poll or interrupt triggers. In these 3 situations, the
-jack_dirty will be set to 1 first, then the hda_jack.c reads the
-pin_sense from register, after reading the register, the jack_dirty
-will be set to 0. But hdmi_repoll_work() is enabled in these 3
-situations, It will read the pin_sense a couple of times subsequently,
-since the jack_dirty is 0 now, It does not read the register anymore,
-instead it uses the shadow pin_sense which is read at the first time.
+On the machines with AMD GPU or Nvidia GPU, we often meet this issue:
+after s3, there are 4 HDMI/DP audio devices in the gnome-sound-setting
+even there is no any monitors plugged.
 
-It is meaningless to check the shadow pin_sense a couple of times,
-we need to read the register to check the real plugging state, so
-we set the jack_dirty to 1 in the hdmi_repoll_work().
+When this problem happens, we check the /proc/asound/cardX/eld#N.M, we
+will find the monitor_present=1, eld_valid=0.
+
+The root cause is BIOS or GPU driver makes the PRESENCE valid even no
+monitor plugged, and of course the driver will not get the valid
+eld_data subsequently.
+
+In this situation, we should not report the jack_plugged event, to do
+so, let us change the function hdmi_present_sense_via_verbs(). In this
+function, it reads the pin_sense via snd_hda_pin_sense(), after
+calling this function, the jack_dirty is 0, and before exiting
+via_verbs(), we change the shadow pin_sense according to both
+monitor_present and eld_valid, then in the snd_hda_jack_report_sync(),
+since the jack_dirty is still 0, it will report jack event according
+to this modified shadow pin_sense.
+
+After this change, the driver will not report Jack_is_plugged event
+through hdmi_present_sense_via_verbs() if monitor_present is 1 and
+eld_valid is 0.
 
 Signed-off-by: Hui Wang <hui.wang@canonical.com>
 ---
- sound/pci/hda/patch_hdmi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/pci/hda/patch_hdmi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 8b3ac690efa3..410d94301941 100644
+index 410d94301941..ec88b2e97c45 100644
 --- a/sound/pci/hda/patch_hdmi.c
 +++ b/sound/pci/hda/patch_hdmi.c
-@@ -1663,6 +1663,11 @@ static void hdmi_repoll_eld(struct work_struct *work)
- 	container_of(to_delayed_work(work), struct hdmi_spec_per_pin, work);
- 	struct hda_codec *codec = per_pin->codec;
- 	struct hdmi_spec *spec = codec->spec;
-+	struct hda_jack_tbl *jack;
-+
-+	jack = snd_hda_jack_tbl_get(codec, per_pin->pin_nid);
-+	if (jack)
-+		jack = jack->jack_dirty = 1;
+@@ -1551,9 +1551,11 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+ 	ret = !repoll || !eld->monitor_present || eld->eld_valid;
  
- 	if (per_pin->repoll_count++ > 6)
- 		per_pin->repoll_count = 0;
+ 	jack = snd_hda_jack_tbl_get(codec, pin_nid);
+-	if (jack)
++	if (jack) {
+ 		jack->block_report = !ret;
+-
++		jack->pin_sense = (eld->monitor_present && eld->eld_valid) ?
++			AC_PINSENSE_PRESENCE : 0;
++	}
+ 	mutex_unlock(&per_pin->lock);
+ 	return ret;
+ }
 -- 
 2.17.1
 

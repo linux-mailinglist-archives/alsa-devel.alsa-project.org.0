@@ -2,66 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1548A15085
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:42:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23AAA15088
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:43:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79ADA16A9;
-	Mon,  6 May 2019 17:42:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79ADA16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F11F18FE;
+	Mon,  6 May 2019 17:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F11F18FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557157372;
-	bh=01sXgpI2xDYdU1r8+C8e357nz031PqYxnB+BaDQcN4M=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557157416;
+	bh=nlxAwrCJuCQMy/+FG8zWsAQNMPewkIi4TGJnreZgN9w=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LVphDRFRX6bQBnE/jaU0zUQphliYGiz4CSE/8UAR+IQktXMloCKLIpRQYmv39VV+z
-	 2b2clGw3yzXKrkR1YBzD/hlaBUeL2Iz3DGVGE3ml0NUwejIvsL6ZVPI8imbm2NSEnS
-	 5t7qv7td1QlgOkGRZOZX0J9z+NDwBrqLcvNrIIx8=
+	b=Q0uKT/SeN6nkYgLAof2/85sXp+nQhcBl2wb7m7jPiGuzpfkddnOqGWWCOmO8B7rC7
+	 O9dnJU0GiMUzdW19elMxZTEJ+07+g6wRoVLfP1UjbcwSXOZShxjSfMAKLwqVfRsKWT
+	 GvcK/wSRLRYnedfRFet06NlN/LH5DfQJY9NUyPRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38334F89723;
-	Mon,  6 May 2019 17:40:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68DCDF89727;
+	Mon,  6 May 2019 17:41:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B489F89705; Mon,  6 May 2019 17:40:54 +0200 (CEST)
+ id 3A9CEF89725; Mon,  6 May 2019 17:41:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7630FF896FD
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:40:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7630FF896FD
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 May 2019 08:40:49 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,438,1549958400"; d="scan'208";a="229980313"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga001.jf.intel.com with ESMTP; 06 May 2019 08:40:49 -0700
-Received: from slaugust-mobl.amr.corp.intel.com (unknown [10.254.21.102])
- by linux.intel.com (Postfix) with ESMTP id 04EF158010A;
- Mon,  6 May 2019 08:40:48 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
-References: <20190506150224.1394-1-tiwai@suse.de>
- <20190506150224.1394-3-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ea78fa2e-5cc3-2639-4b73-4b9e4f3e1963@linux.intel.com>
-Date: Mon, 6 May 2019 10:40:48 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20190506150224.1394-3-tiwai@suse.de>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: SOF: Fix a compile warning with
- CONFIG_PCI=n
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BE48F896F0
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:41:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BE48F896F0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 33574AB42;
+ Mon,  6 May 2019 15:41:09 +0000 (UTC)
+Date: Mon, 06 May 2019 17:41:08 +0200
+Message-ID: <s5hzhnz3817.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <bebcb1f6-1d8b-63aa-a22d-b48047b64809@linux.intel.com>
+References: <1557125960-29353-1-git-send-email-libin.yang@intel.com>
+ <bebcb1f6-1d8b-63aa-a22d-b48047b64809@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: libin.yang@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
+ subhransu.s.prusty@intel.com, samreen.nilofer@intel.com
+Subject: Re: [alsa-devel] [RFC PATCH] ASoC: codec: hdac_hdmi: no checking
+	monitor in hw_params
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,29 +67,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gNS82LzE5IDEwOjAyIEFNLCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gQSB0cml2aWFsIGZpeCBm
-b3IgdGhlIHJhbmRjb25maWcgYnVpbGQgZXJyb3I6Cj4gICAgc291bmQvc29jL3NvZi9vcHMuYzoy
-MDo2OiB3YXJuaW5nOiDigJhyZXTigJkgaXMgdXNlZCB1bmluaXRpYWxpemVkIGluIHRoaXMgZnVu
-Y3Rpb24gWy1XdW5pbml0aWFsaXplZF0KPiAKPiBGaXhlczogZDFkOTVmY2I2M2UzICgiQVNvQzog
-U09GOiBBZGQgRFNQIEhXIGFic3RyYWN0aW9uIG9wZXJhdGlvbnMiKQo+IFNpZ25lZC1vZmYtYnk6
-IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4KCkkgcmVtZW1iZXIgZml4aW5nIHRoaXMsIHBy
-b2JhYmx5IG5ldmVyIGFwcGxpZWQgaXQgdG8gdGhlIHJpZ2h0IGJyYW5jaCAKOi0oIFRoYW5rcyBU
-YWthc2hpLgoKQWNrZWQtYnk6IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDxwaWVycmUtbG91aXMuYm9z
-c2FydEBsaW51eC5pbnRlbC5jb20+CgoKPiAtLS0KPiAgIHNvdW5kL3NvYy9zb2Yvb3BzLmMgfCAy
-ICstCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiAK
-PiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL3NvZi9vcHMuYyBiL3NvdW5kL3NvYy9zb2Yvb3BzLmMK
-PiBpbmRleCA4MGY5MDc3NDBiODIuLjdhMjdjM2I3MTllNyAxMDA2NDQKPiAtLS0gYS9zb3VuZC9z
-b2Mvc29mL29wcy5jCj4gKysrIGIvc291bmQvc29jL3NvZi9vcHMuYwo+IEBAIC0xNyw3ICsxNyw3
-IEBAIGJvb2wgc25kX3NvZl9wY2lfdXBkYXRlX2JpdHNfdW5sb2NrZWQoc3RydWN0IHNuZF9zb2Zf
-ZGV2ICpzZGV2LCB1MzIgb2Zmc2V0LAo+ICAgewo+ICAgCXN0cnVjdCBwY2lfZGV2ICpwY2kgPSB0
-b19wY2lfZGV2KHNkZXYtPmRldik7Cj4gICAJdW5zaWduZWQgaW50IG9sZCwgbmV3Owo+IC0JdTMy
-IHJldDsKPiArCXUzMiByZXQgPSAwOwo+ICAgCj4gICAJcGNpX3JlYWRfY29uZmlnX2R3b3JkKHBj
-aSwgb2Zmc2V0LCAmcmV0KTsKPiAgIAlvbGQgPSByZXQ7Cj4gCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNh
-LWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+On Mon, 06 May 2019 17:37:32 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> On 5/6/19 1:59 AM, libin.yang@intel.com wrote:
+> > From: Libin Yang <libin.yang@intel.com>
+> >
+> > This patch move the check of monitor from hw_params to trigger callback.
+> >
+> > The original code will check the monitor presence in hw_params. If the
+> > monitor doesn't exist, hw_params will return -ENODEV. Mostly this is OK.
+> >
+> > However, pulseaudio will check the pcm devices when kernel is booting up.
+> > It will try to open, set hw_params, prepare such pcm devices. We can't
+> > guarantee that the monitor will be connected when kernel is booting up.
+> > Especially, hdac_hdmi will export 3 pcms at most. It's hard to say users
+> > will connect 3 monitors to the HDMI/DP ports. This will cause pulseaudio
+> > fail in parsing the pcm devices because the driver will return -ENODEV in
+> > hw_params.
+> >
+> > This patch tries to move the check of monitor presence into trigger
+> > callback. This can "trick" the pulseaudio the pcm is ready.
+> >
+> > This bug is found when we try to enable HDMI detection in
+> > gnome-sound-setting for ASoC hdac_hdmi. After we enable the hdmi in UCM,
+> > pulseaudio will try to parse the hdmi pcm devices. It will cause failure if
+> > there are no monitors connected.
+> 
+> Out of curiosity, how is this handled in the legacy driver? I haven't
+> done this for a long time but I remember very clearly being able to
+> play on the HDMI:3,7, etc devices without any monitors
+> connected. You'd get of course no sound but there was no error
+> reported to userspace. The hardware is perfectly capable of pushing
+> samples into the display controller using the HDAudio/iDisp link.
+
+As mentioned in the thread, PA just picks up the stream that is
+connected via a monitor by checking / notified by the corresponding
+Jack control.  On hdac_hdmi driver, the jack control has different
+base name that is irrelevant with the output pins, so PA doesn't know
+how to interpret it, hence it's ignored.
+
+
+thanks,
+
+Takashi
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

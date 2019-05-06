@@ -2,72 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 109D114B44
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 15:53:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8807C14B82
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 16:07:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9535318C4;
-	Mon,  6 May 2019 15:52:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9535318C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 093F018CA;
+	Mon,  6 May 2019 16:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093F018CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557150814;
-	bh=lmulC1tne/fn0MaJqIKoBcBItYH+h2/fqV+iOKk3p+w=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=QNR3zWazpnngo8hF9k+hOqlmql1qmPOytDaGazN8WnZvjbenZDuQIIUIQ/N+og8M6
-	 LniqrE/HUIpX9i4CWua8Z5r9Ay8PX+BsM6XjtD8DhfOYxqUXW4jpATmBcVqneZ/9RA
-	 +AgNOAxrn0TaMVfZcLCyfVQ0JwSGxZSrjU+Liyfs=
+	s=default; t=1557151626;
+	bh=ndXp2Yr16wR0f6ZEMcmAJZH+S672kCK0oA2K8qj481g=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Aq8uaLcywDOvKSv5E5qjuR6iVekuhZ2hMGxJ+sp4SrwWMIKLNG2AFu7J3H5v4LTAz
+	 lzyO4ltnBmef9ovozuSMN0KFY8tpDQjOKNT1QmNWVxrEiq2vlKfUe2I8Qb2yM9bC65
+	 F0IYYfA6S4L9A+sqTRhqLz1Kfjoojl+6tEVg2I9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21908F896FD;
-	Mon,  6 May 2019 15:51:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E79F2F896FF;
+	Mon,  6 May 2019 16:05:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 039C4F896F0; Mon,  6 May 2019 15:51:48 +0200 (CEST)
+ id 70A17F896F0; Mon,  6 May 2019 16:05:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30 autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82AB1F80C07
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 15:51:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82AB1F80C07
+ by alsa1.perex.cz (Postfix) with ESMTPS id D21A3F80C07
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 16:05:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D21A3F80C07
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="AepfxQ0p"
+ header.b="SNT8FWfn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=foLRJ95fVzlyBOYQo4XCM1XGFmZlXrGXPccu2GVICFA=; b=AepfxQ0pUAJC
- cMqeDbM5pyH2X53QKpSIIK1cr/ijcg7KRroVelwnQ6fWTwgtR9jL//dUICL5IY9CGnU1kpjAvNF97
- EPL2KkGdlbCxl85+m4ucbwJNhBv5q0Tm//KHBCsQUtyVd+X9bqgXj7ILQYlcG6eByO1IbSdTkj9X+
- Ytxvo=;
-Received: from [2001:268:c0e6:658d:8f3d:d90b:c4e4:2fdf]
- (helo=finisterre.ee.mobilebroadband)
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NYr9AxCkxsWfUC7hgtEvcNu3RbpDQGS46rNwUoxvWVw=; b=SNT8FWfnI7yp/AcUTYmsHSv3O
+ tOySqY+T9ycDWb8NRJAsF+WyrxGtu6rjht1IFLneA8PRA8CJnBQFPB2lWD0sGrmXLEkZ5lVw+pbdi
+ hdNpAcSWlJQZqtK3UOpV+F+DPZOBlSMvXtudJAXgr4ZbXPTNBhaPb70pO4xpvYI5TS9VM=;
+Received: from kd111239184067.au-net.ne.jp ([111.239.184.67]
+ helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNe1u-0001jB-U5; Mon, 06 May 2019 13:51:43 +0000
+ id 1hNeEx-0001lN-2P; Mon, 06 May 2019 14:05:11 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id E96D944000C; Mon,  6 May 2019 14:51:36 +0100 (BST)
+ id 0BFDA44000C; Mon,  6 May 2019 15:05:07 +0100 (BST)
+Date: Mon, 6 May 2019 23:05:06 +0900
 From: Mark Brown <broonie@kernel.org>
-To: Baolin Wang <baolin.wang@linaro.org>
-In-Reply-To: <ee4a22c3491628abf94c8d356dccd67984604811.1555049554.git.baolin.wang@linaro.org>
-X-Patchwork-Hint: ignore
-Message-Id: <20190506135136.E96D944000C@finisterre.ee.mobilebroadband>
-Date: Mon,  6 May 2019 14:51:36 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, baolin.wang@linaro.org, zhang.lyra@gmail.com,
- tiwai@suse.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, orsonzhai@gmail.com
-Subject: [alsa-devel] Applied "ASoC: sprd: Add reserved DMA memory support"
-	to the asoc tree
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190506140506.GQ14916@sirena.org.uk>
+References: <20190423141336.12568-1-tiwai@suse.de>
+ <20190423141336.12568-2-tiwai@suse.de>
+ <20190427175938.GJ14916@sirena.org.uk>
+ <s5h36lxpcbd.wl-tiwai@suse.de>
+ <20190503064729.GF14916@sirena.org.uk>
+ <s5hk1f8m2f1.wl-tiwai@suse.de>
+ <20190506042625.GK14916@sirena.org.uk>
+ <s5hsgtr6h5y.wl-tiwai@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <s5hsgtr6h5y.wl-tiwai@suse.de>
+X-Cookie: -- I have seen the FUN --
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Add support for Conexant CX2072X
+	CODEC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,92 +89,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7627909057855159579=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: sprd: Add reserved DMA memory support
+--===============7627909057855159579==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9ZRxqsK4bBEmgNeO"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+--9ZRxqsK4bBEmgNeO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Mon, May 06, 2019 at 11:55:37AM +0200, Takashi Iwai wrote:
+> Mark Brown wrote:
+> > On Fri, May 03, 2019 at 09:18:26AM +0200, Takashi Iwai wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> > comments or something.  For safety the bits that look board specific
+> > like the pinmuxing should ideally be behind DMI checks, though if nobody
+> > else ever bought the CODEC that's probably not so important.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> Since this is the only code for this codec on the net and all existing
+> platforms (Intel devices, RPi extensions and else) seem working with
+> it -- i.e. all these depend on the same init sequence more or less, so
+> splitting to platform data won't help much in practice.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+Yeah, like I say that's a bit more nice to have given that it looks like
+there's basically one system using the thing.
 
-Thanks,
-Mark
+> > The board registration interfaces do vary as the hardware isn't very
+> > standard so there's a bunch of things you can do for configuration
+> > (though there is a generic interface for the 90% case, the main
+> > limitation these days on using it is Intel's lack of any sensible
+> > firmware interface).  I'm not aware of any issues with power management
+> > though?
 
-From 1587a061ef562de0d97c82a95863e191bcd69d63 Mon Sep 17 00:00:00 2001
-From: Baolin Wang <baolin.wang@linaro.org>
-Date: Fri, 12 Apr 2019 14:40:17 +0800
-Subject: [PATCH] ASoC: sprd: Add reserved DMA memory support
+> Yeah, I understand the various use cases and coverage for a wide range
+> of hardware implementations, but the lack of the documentation
+> is... not a thing we can be proud of.
 
-For Spreadtrum audio platform driver, it need allocate a larger DMA buffer
-dynamically to copy audio data between userspace and kernel space, but that
-will increase the risk of memory allocation failure especially the system
-is under heavy load situation.
+The bits that vary are driver specific interfaces so any sort of general
+documentation is pretty hard.  The core stuff all at least has kerneldoc
+which is about average here.
 
-To make sure the audio can work in this scenario, we usually reserve one
-region of memory to be used as a shared pool of DMA buffers for the
-platform component. So add of_reserved_mem_device_init_by_idx() function
-to initialize the shared pool of DMA buffers to be used by the platform
-component.
+> Regarding the PM, my statement wasn't straight, sorry.  The fact is
+> that ASoC manages so many different levels of (a sort of) "PM".  We
+> have the Linux device-object system and runtime PMs, and we have BIAS
+> level control.  The machine needed the jack handling via ACPI GPIO
+> IRQ, that is outside the codec, which looks rather like a rare case,=20
+> and  I had hard time to look for the right choice of the API usage.
 
-Signed-off-by: Baolin Wang <baolin.wang@linaro.org>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sprd/sprd-pcm-dma.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+The reason you're not finding much handling for interrupt GPIOs is that
+if something is an interrupt it should be going through the kernel
+interrupt interfaces, even if the pin that is providing the interrupt
+has GPIO support the code should just ignore that and let the frameworks
+deal with things.  The only exception that comes up is that there's a
+few devices that manually emulate level triggered interrupts with GPIOs
+and edge triggered interrupts for cases where controllers only provide
+level triggers, unfortunately nobody had the time/enthusiasm to push
+that emulation into the interrupt core but fortunately few hardware
+designers are implementing edge triggered interrupt controllers these
+days.
 
-diff --git a/sound/soc/sprd/sprd-pcm-dma.c b/sound/soc/sprd/sprd-pcm-dma.c
-index 9be6d4b2bf74..d38ebbbbf169 100644
---- a/sound/soc/sprd/sprd-pcm-dma.c
-+++ b/sound/soc/sprd/sprd-pcm-dma.c
-@@ -6,6 +6,7 @@
- #include <linux/dma/sprd-dma.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/of_reserved_mem.h>
- #include <linux/platform_device.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -530,8 +531,14 @@ static const struct snd_soc_component_driver sprd_soc_component = {
- 
- static int sprd_soc_platform_probe(struct platform_device *pdev)
- {
-+	struct device_node *np = pdev->dev.of_node;
- 	int ret;
- 
-+	ret = of_reserved_mem_device_init_by_idx(&pdev->dev, np, 0);
-+	if (ret)
-+		dev_warn(&pdev->dev,
-+			 "no reserved DMA memory for audio platform device\n");
-+
- 	ret = devm_snd_soc_register_component(&pdev->dev, &sprd_soc_component,
- 					      NULL, 0);
- 	if (ret)
--- 
-2.20.1
+> This is rather a question how generic the codec driver should be
+> written.  I changed the code in v5 patchset to embed the jack_gpio
+> stuff inside the codec driver side rather than the machine driver, so
+> the whole exported functions can be reduced now.  But, of course, it
+> slightly gives more implicit assumption about the hardware
+> implementations, too.  Though, the existing code seems to have already
+> fixed gpio / pin setups, so the other setups wouldn't have worked, in
+> anyway.
+
+Like I say if the device is using the fact that the pin is a GPIO
+there's quite likely something wrong - that shouldn't be something that
+the user of an interrupt should need to see.
+
+> > It's unlikely there are *no* default values - you'd kind of have to try
+> > to have a specific register range like this with genuinely floating
+> > values.  Given that the code for configuring the EQ was broken to IIRC
+> > never take effect I'd not be 100% surprisd if someone couldn't figure
+> > out why their settings weren't taking effect and just bodged something
+> > directly in the driver.
+
+> Actually I'm fine to drop the whole EQ stuff that brings lots of black
+> magic.  Certainly it'll benefit us for code simplification.  Let's
+> see.
+
+Probably worth checking to make sure the default EQ setup isn't too
+awful (though I guess the EQ is just turned off by default so it'll just
+be an uncorrected speaker/headphone which should be fine if not ideal).
+
+--9ZRxqsK4bBEmgNeO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzQPxIACgkQJNaLcl1U
+h9CfoQf+Pfz8yA57/fl8Fzjzb0iGOU8zjsyiPTo02O1IJ8doNHGC7gLkA6I1UuIS
+ogSwTKCKbKLqqKWAUurCyKu8+QEapIiQXafN8F7bLP72c5a5On1BQBol7K5pshk1
+Fm4IflhMbOtwNNbUsrEO2Ag4ALxEadIFz+9HM0J3A6NLEsOQEBif5/dYqB9hmxBW
+IapUxSRnW/oCHFhWMkLJOHt9OyeKlOawGaWT/l3cSPJo0guhRB3QjXeKjjDm1Mvr
+dbeY9jxJ+FDO0QjSuhvyh7z+jCVL6kJDU+F/jvgqabJ5Y//kJORCrsxPMDq1gZcP
+mx7UzBoDw+VnW/87X3c6iCZoZ56bLQ==
+=TvaA
+-----END PGP SIGNATURE-----
+
+--9ZRxqsK4bBEmgNeO--
+
+--===============7627909057855159579==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7627909057855159579==--

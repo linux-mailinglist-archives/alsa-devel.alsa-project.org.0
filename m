@@ -2,82 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CC5A1467F
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 10:38:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DBE114691
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 10:41:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E845A1839;
-	Mon,  6 May 2019 10:37:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E845A1839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26E1B185C;
+	Mon,  6 May 2019 10:40:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26E1B185C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557131906;
-	bh=y2lKmeL8pvGxrkTNS6rir/LmGnq6hOFqKoXZXo/7bL0=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1557132102;
+	bh=VvMugbmIYpfJxg1Gk+laHsHHnmkfIO7u5UpOpGHi6s4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UyeiD+T2qv4Yo1L8K0lTyTrGTjbQGJ3vnHaH4P43hws5srMmL5gc3VlUzdKhzMWm8
-	 A2thejkm91BdYLGDYUbfLTENkWfW/KPEHUPgbtucTSfGPLrxGwdK+7Ygfy1je5VwuD
-	 3NhOsE5J3QXZ1Izbp8h3bh8l8PaPwn/3vq7GSzMw=
+	b=Ub0dolhBlwTS2vkVbuVTHAyZmaF9jTr/segfiMGmtV4spq44JD9i49us4k5v8kAic
+	 j+hyduEINQutb42h2gImpTjI7Jhe2RWbKTISLnwuSdmaGkFpofwIBlQrxW3gQ40zet
+	 bnxnMTzUbw+Rz2HYtbr+zFSe2nQVfAdlcnzoBUBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 702DCF89673;
-	Mon,  6 May 2019 10:36:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3ECDF896F0;
+	Mon,  6 May 2019 10:39:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D555F89673; Mon,  6 May 2019 10:36:38 +0200 (CEST)
+ id 983D3F8962A; Mon,  6 May 2019 10:39:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_PASS,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5306DF80726
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 10:36:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5306DF80726
-Received: by mail-oi1-f195.google.com with SMTP id l203so8950530oia.3
- for <alsa-devel@alsa-project.org>; Mon, 06 May 2019 01:36:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RI5tWDg9So1VuC7W9/kUG69QrGBsy3wNS2QspBOJr3w=;
- b=o3Ycz+amaQR2w9Gt9VzJppjhF0FktOm7uZZrvz3Ht2e+xEqWIRoJtUh8zYVOqwXPWw
- TDiyyUW+OUkUj8RGiRY1khYQiN6hNDHWtnWNWkz4q3W0AlrJOmFQB+SVCiKTWim1Do9X
- Oq0JET0yrCR4xyigvoA4IM+0VWbEdBWkxhJNk3HYCDHt4ienp9dW8npH/v2+V6B1B8sv
- G9XS36cf+5/mKs+wPr0kdDbEijyoA37IWFFzc3mmgtn4wPAmtPgSDgaZqOhVQwzuXMnA
- cZo9LTFu2aB917wvrcFz0ZReOYbtRUHGPzmn61TGO6XxOzpZLQOn1JNrOS4xBEeORC9q
- FSag==
-X-Gm-Message-State: APjAAAUpss13kke03cuSF0stO2TWG9Fy60iuheQnyXRUyFxj10opYuCF
- vE0pn7Rp9dFby135Nz1nCLmnCvKEgonyyeFRhWk=
-X-Google-Smtp-Source: APXvYqwAJUUjNvKVg6KZ3xRKyBM0B1Mi/aBfBkvmIKfrou4l4YatPD9RnwfhnPr74P6+x5gOB/MDST+7GGsfyLwLVXk=
-X-Received: by 2002:aca:f01:: with SMTP id 1mr387656oip.68.1557131793348; Mon,
- 06 May 2019 01:36:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190501125322.23791-1-pierre-louis.bossart@linux.intel.com>
- <20190502045817.GZ3845@vkoul-mobl.Dlink>
-In-Reply-To: <20190502045817.GZ3845@vkoul-mobl.Dlink>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Mon, 6 May 2019 10:36:22 +0200
-Message-ID: <CAJZ5v0i+M8y3ddr+Z5o5af8OatMXq3xqCF5CUg5PjnANrTOSHw@mail.gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "open list:ACPI" <linux-acpi@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Robert Moore <robert.moore@intel.com>, Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
- Joe Perches <joe@perches.com>,
- "open list:ACPI COMPONENT ARCHITECTURE \(ACPICA\)" <devel@acpica.org>,
- Erik Schmauss <erik.schmauss@intel.com>, Len Brown <lenb@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2] ACPI / device_sysfs: change _ADR
-	representation to 64 bits
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62BA9F8962A
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 10:39:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62BA9F8962A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 348ECAEEC;
+ Mon,  6 May 2019 08:39:50 +0000 (UTC)
+Date: Mon, 06 May 2019 10:39:50 +0200
+Message-ID: <s5h1s1c6ko9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <320b97c1-ed3c-6c56-0829-c00d2e475278@perex.cz>
+References: <1557125960-29353-1-git-send-email-libin.yang@intel.com>
+ <320b97c1-ed3c-6c56-0829-c00d2e475278@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, broonie@kernel.org,
+ subhransu.s.prusty@intel.com, samreen.nilofer@intel.com
+Subject: Re: [alsa-devel] [RFC PATCH] ASoC: codec: hdac_hdmi: no checking
+	monitor in hw_params
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,55 +73,136 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 2, 2019 at 6:58 AM Vinod Koul <vkoul@kernel.org> wrote:
->
-> On 01-05-19, 07:53, Pierre-Louis Bossart wrote:
-> > Standards such as the MIPI DisCo for SoundWire 1.0 specification
-> > assume the _ADR field is 64 bits.
-> >
-> > _ADR is defined as an "Integer" represented as 64 bits since ACPI 2.0
-> > released in 2002. The low levels already use _ADR as 64 bits, e.g. in
-> > struct acpi_device_info.
-> >
-> > This patch bumps the representation used for sysfs to 64 bits. To
-> > avoid any compatibility/ABI issues, the printf format is only extended
-> > to 16 characters when the actual _ADR value exceeds the 32 bit
-> > maximum.
-> >
-> > Example with a SoundWire device, the results show the complete
-> > vendorID and linkID which were omitted before:
-> >
-> > Before:
-> > $ more /sys/bus/acpi/devices/device\:38/adr
-> > 0x5d070000
-> > After:
-> > $ more /sys/bus/acpi/devices/device\:38/adr
-> > 0x000010025d070000
-> >
-> > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > ---
-> > v2: only use 64 bits when required to avoid compatibility issues
-> > (feedback from Vinod and Rafael)
-> >
-> >  drivers/acpi/device_sysfs.c | 6 ++++--
-> >  include/acpi/acpi_bus.h     | 2 +-
-> >  2 files changed, 5 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/acpi/device_sysfs.c b/drivers/acpi/device_sysfs.c
-> > index 8940054d6250..7dda0ee05cd1 100644
-> > --- a/drivers/acpi/device_sysfs.c
-> > +++ b/drivers/acpi/device_sysfs.c
-> > @@ -428,8 +428,10 @@ static ssize_t acpi_device_adr_show(struct device *dev,
-> >  {
-> >       struct acpi_device *acpi_dev = to_acpi_device(dev);
-> >
-> > -     return sprintf(buf, "0x%08x\n",
-> > -                    (unsigned int)(acpi_dev->pnp.bus_address));
-> > +     if (acpi_dev->pnp.bus_address > 0xFFFFFFFF)
->
-> Would prefer to use U32_MAX instead of 0xFFFFFFFF
+On Mon, 06 May 2019 10:19:48 +0200,
+Jaroslav Kysela wrote:
+> 
+> Dne 06. 05. 19 v 8:59 libin.yang@intel.com napsal(a):
+> > From: Libin Yang <libin.yang@intel.com>
+> > 
+> > This patch move the check of monitor from hw_params to trigger callback.
+> > 
+> > The original code will check the monitor presence in hw_params. If the
+> > monitor doesn't exist, hw_params will return -ENODEV. Mostly this is OK.
+> > 
+> > However, pulseaudio will check the pcm devices when kernel is booting up.
+> > It will try to open, set hw_params, prepare such pcm devices. We can't
+> > guarantee that the monitor will be connected when kernel is booting up.
+> > Especially, hdac_hdmi will export 3 pcms at most. It's hard to say users
+> > will connect 3 monitors to the HDMI/DP ports. This will cause pulseaudio
+> > fail in parsing the pcm devices because the driver will return -ENODEV in
+> > hw_params.
+> > 
+> > This patch tries to move the check of monitor presence into trigger
+> > callback. This can "trick" the pulseaudio the pcm is ready.
+> > 
+> > This bug is found when we try to enable HDMI detection in
+> > gnome-sound-setting for ASoC hdac_hdmi. After we enable the hdmi in UCM,
+> > pulseaudio will try to parse the hdmi pcm devices. It will cause failure if
+> > there are no monitors connected.
+> 
+> I don't like this solution much. PA should use the Jack control to add the
+> devices dynamically and avoid probing when the Jack control is false.
 
-I would.
+Ideally, yes, but this isn't going to happen soon, I'm afraid.  And
+we're still responsible for fixing for the existing platforms.  So I
+find the proposed patch OK although it's hackish.  The added code in
+the trigger has almost no overhead, and it won't break stuff.
+
+
+thanks,
+
+Takashi
+
+> 
+> 						Jaroslav
+> 
+> > 
+> > Signed-off-by: Libin Yang <libin.yang@intel.com>
+> > ---
+> >  sound/soc/codecs/hdac_hdmi.c | 44 +++++++++++++++++++++++++++++++-------------
+> >  1 file changed, 31 insertions(+), 13 deletions(-)
+> > 
+> > diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+> > index 4de1fbf..f482e09 100644
+> > --- a/sound/soc/codecs/hdac_hdmi.c
+> > +++ b/sound/soc/codecs/hdac_hdmi.c
+> > @@ -455,24 +455,11 @@ static int hdac_hdmi_set_hw_params(struct snd_pcm_substream *substream,
+> >  	struct snd_pcm_hw_params *hparams, struct snd_soc_dai *dai)
+> >  {
+> >  	struct hdac_hdmi_priv *hdmi = snd_soc_dai_get_drvdata(dai);
+> > -	struct hdac_device *hdev = hdmi->hdev;
+> >  	struct hdac_hdmi_dai_port_map *dai_map;
+> > -	struct hdac_hdmi_port *port;
+> >  	struct hdac_hdmi_pcm *pcm;
+> >  	int format;
+> >  
+> >  	dai_map = &hdmi->dai_map[dai->id];
+> > -	port = dai_map->port;
+> > -
+> > -	if (!port)
+> > -		return -ENODEV;
+> > -
+> > -	if ((!port->eld.monitor_present) || (!port->eld.eld_valid)) {
+> > -		dev_err(&hdev->dev,
+> > -			"device is not configured for this pin:port%d:%d\n",
+> > -					port->pin->nid, port->id);
+> > -		return -ENODEV;
+> > -	}
+> >  
+> >  	format = snd_hdac_calc_stream_format(params_rate(hparams),
+> >  			params_channels(hparams), params_format(hparams),
+> > @@ -630,6 +617,36 @@ static void hdac_hdmi_pcm_close(struct snd_pcm_substream *substream,
+> >  		dai_map->port = NULL;
+> >  }
+> >  
+> > +static int hdac_hdmi_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
+> > +				 struct snd_soc_dai *dai)
+> > +{
+> > +	struct hdac_hdmi_port *port;
+> > +	struct hdac_hdmi_dai_port_map *dai_map;
+> > +	struct hdac_hdmi_priv *hdmi = snd_soc_dai_get_drvdata(dai);
+> > +	struct hdac_device *hdev = hdmi->hdev;
+> > +
+> > +	/*
+> > +	 * When start, if there is no monitor,
+> > +	 * It should not start audio.
+> > +	 */
+> > +	if (cmd == SNDRV_PCM_TRIGGER_START) {
+> > +		dai_map = &hdmi->dai_map[dai->id];
+> > +		port = dai_map->port;
+> > +
+> > +		if (!port)
+> > +			return -ENODEV;
+> > +
+> > +		if ((!port->eld.monitor_present) || (!port->eld.eld_valid)) {
+> > +			dev_err(&hdev->dev,
+> > +				"device is not configured for this pin:port%d:%d\n",
+> > +				port->pin->nid, port->id);
+> > +			return -ENODEV;
+> > +		}
+> > +	}
+> > +
+> > +	return 0;
+> > +}
+> > +
+> >  static int
+> >  hdac_hdmi_query_cvt_params(struct hdac_device *hdev, struct hdac_hdmi_cvt *cvt)
+> >  {
+> > @@ -1389,6 +1406,7 @@ static const struct snd_soc_dai_ops hdmi_dai_ops = {
+> >  	.startup = hdac_hdmi_pcm_open,
+> >  	.shutdown = hdac_hdmi_pcm_close,
+> >  	.hw_params = hdac_hdmi_set_hw_params,
+> > +	.trigger = hdac_hdmi_pcm_trigger,
+> >  	.set_tdm_slot = hdac_hdmi_set_tdm_slot,
+> >  };
+> >  
+> > 
+> 
+> 
+> -- 
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

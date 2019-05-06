@@ -2,66 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2645E148A5
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 13:00:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1BFC148AD
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 13:07:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 911501865;
-	Mon,  6 May 2019 12:59:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 911501865
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66D581855;
+	Mon,  6 May 2019 13:06:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66D581855
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557140443;
-	bh=93ifPWrKM/Zm9cjqS/EWGLSSGArv0o8W63Ha3CWlabk=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557140842;
+	bh=3M33xqy9ynPfAbsHaal0RnT0TNtJdetBAnonJIzhDt4=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZFa4lp70FAmYjX561t+LvCsoTqNaF+h7E1hZEkBLzA8LZflv5xRNmjZE639WXrDoH
-	 Wd43e4p16Y5k+IJcGiGhgeL5zUaZzKN1Z8+fRhmKvhnMUkEWYDJPy6AErzxIb/F6EX
-	 92zqrh+tXIs09lN2baFI6pTzmBseEFeR3d+CSCTQ=
+	b=da9gCQE+4UKeByMitmEgW5vc5WF417qESqqK9YS3Jyr5lCjkOxOyL+NVbuMzwSL2/
+	 2GYzDsJNnO5LUVKtbWjzKlaBRT2Hk+N8iXQ2eSC2xyalJ7fFzW8UTXSh16hqNRaMJB
+	 vcjkvfbpSbMzVzMe6VObeUcNFfRSbxvTpMWwPbHw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 463CAF89701;
-	Mon,  6 May 2019 12:59:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A9B1F896E6;
+	Mon,  6 May 2019 13:05:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99007F896FD; Mon,  6 May 2019 12:59:01 +0200 (CEST)
+ id 6CFDBF896F0; Mon,  6 May 2019 13:05:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,SPF_NEUTRAL,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18270F80C07
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 12:58:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18270F80C07
-Received: from [123.123.251.121] (helo=[192.168.1.107])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <hui.wang@canonical.com>)
- id 1hNbKg-000558-2F; Mon, 06 May 2019 10:58:54 +0000
-To: Takashi Iwai <tiwai@suse.de>, "Yang, Libin" <libin.yang@intel.com>
-References: <1557125960-29353-1-git-send-email-libin.yang@intel.com>
- <320b97c1-ed3c-6c56-0829-c00d2e475278@perex.cz>
- <96A12704CE18D347B625EE2D4A099D19528350C9@SHSMSX103.ccr.corp.intel.com>
- <30fdd871-e4fa-e8a6-2393-cbc655fce75e@perex.cz>
- <96A12704CE18D347B625EE2D4A099D1952835144@SHSMSX103.ccr.corp.intel.com>
- <s5hv9yo53pz.wl-tiwai@suse.de>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <e8388ab1-6765-329b-c52b-1a1563d48921@canonical.com>
-Date: Mon, 6 May 2019 18:58:46 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D91AF80726
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 13:05:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D91AF80726
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="0n1C4MZB"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id AF5062387A;
+ Mon,  6 May 2019 07:05:30 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Mon, 06 May 2019 07:05:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=ZuMnHLk9PMyrx+JlWiSie99J2IIkOvoJSNrq59IAM
+ 9Y=; b=0n1C4MZBtCoYz97KWylxTHNPyYQhtH32iEho8TEG+NJ3NVB7qow6bN1pS
+ Rh8TvPSSNin0cZNn7/1QrzBJ6r8CeF+KR+sx2Qc83ElXkfa0CBHWpAbbOrJnTHeX
+ 5AoTchwyLQ/Vm4tJKFt7qxTUqFfc60s0TOSh/ie/4T0wrL1Iqzcoq+mIafwQCcUb
+ TYg8CO8X8jQJXNTaUkiBHaB7UvfS73w8DHT2PZt9i3flIEkNp3NzS3/ei5asLzHx
+ HisbdQnlUG+fM5rQnc6Pp5QfbfiLq2I90ZEqbJZ2nD6xuxRfJmW0ddrmeYfWJ+6R
+ uLrOFjqdiaxU6bKk3P+JPeaOn7iCA==
+X-ME-Sender: <xms:-RTQXE4zHIvn0yh9ExICIUP3RXNnQtAUEkspjunfxE5mkjN7y3U4gA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrjeejgdefkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepkffuhffvffgjfhgtfggggfesthejre
+ dttderjeenucfhrhhomhepvfgrnhhuucfmrghskhhinhgvnhcuoehtrghnuhhksehikhhi
+ rdhfiheqnecuffhomhgrihhnpehlihgsvghrrghprgihrdgtohhmpdhprghtrhgvohhnrd
+ gtohhmnecukfhppeduledvrdegtddrleehrddvjeenucfrrghrrghmpehmrghilhhfrhho
+ mhepthgrnhhukhesihhkihdrfhhinecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:-RTQXCTLFVLFqPWWjxge6nEo8XwPi8UerkwzDSqLLYKF2qvqzH992w>
+ <xmx:-RTQXGTD40TrottsMCm5cK1seaFstva5l6Z-szr7AUSchN5-y-Vbjw>
+ <xmx:-RTQXIP_qzfOxXdAtA2hOZudSaMQLg3DV2ftxLqiB8syz1kYiDEVgA>
+ <xmx:-hTQXNJmhShYEoymGqIsUhUMiNfGopUAxFH1arVXiSEXRtxnEhyJFg>
+Received: from laptop (unknown [192.40.95.27])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D9AC8E448F;
+ Mon,  6 May 2019 07:05:28 -0400 (EDT)
+Message-ID: <491dc670d9aaa8a9a72a6f0aaf5071be935a1aca.camel@iki.fi>
+From: Tanu Kaskinen <tanuk@iki.fi>
+To: frederik@ofb.net, alsa-devel@alsa-project.org
+Date: Mon, 06 May 2019 14:04:37 +0300
+In-Reply-To: <20190503180521.gtfv64hel5427dx7@localhost>
+References: <20190503180521.gtfv64hel5427dx7@localhost>
+User-Agent: Evolution 3.30.5-1 
 MIME-Version: 1.0
-In-Reply-To: <s5hv9yo53pz.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: "Lin, Mengdong" <mengdong.lin@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "Wang, Rander" <rander.wang@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH] ASoC: codec: hdac_hdmi: no checking
- monitor in hw_params
+Cc: pulseaudio-discuss@lists.freedesktop.org, georg@chini.tk
+Subject: Re: [alsa-devel] ALSA -> pulseaudio channel mapping,
+ what is it (and why?)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,147 +94,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ck9uIDIwMTkvNS82IOS4i+WNiDU6MzEsIFRha2FzaGkgSXdhaSB3cm90ZToKPiBPbiBNb24sIDA2
-IE1heSAyMDE5IDExOjI1OjE2ICswMjAwLAo+IFlhbmcsIExpYmluIHdyb3RlOgo+PiBIaSBKYXJv
-c2xhdiwKPj4KPj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4+PiBGcm9tOiBKYXJvc2xh
-diBLeXNlbGEgW21haWx0bzpwZXJleEBwZXJleC5jel0KPj4+IFNlbnQ6IE1vbmRheSwgTWF5IDYs
-IDIwMTkgNTowNCBQTQo+Pj4gVG86IFlhbmcsIExpYmluIDxsaWJpbi55YW5nQGludGVsLmNvbT47
-IGFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwo+Pj4gQ2M6IHRpd2FpQHN1c2UuZGU7IHBpZXJy
-ZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbTsgYnJvb25pZUBrZXJuZWwub3JnOwo+Pj4g
-SHVpIFdhbmcgPGh1aS53YW5nQGNhbm9uaWNhbC5jb20+OyBMaW4sIE1lbmdkb25nCj4+PiA8bWVu
-Z2RvbmcubGluQGludGVsLmNvbT47IFdhbmcsIFJhbmRlciA8cmFuZGVyLndhbmdAaW50ZWwuY29t
-Pgo+Pj4gU3ViamVjdDogUmU6IFthbHNhLWRldmVsXSBbUkZDIFBBVENIXSBBU29DOiBjb2RlYzog
-aGRhY19oZG1pOiBubyBjaGVja2luZwo+Pj4gbW9uaXRvciBpbiBod19wYXJhbXMKPj4+Cj4+PiBE
-bmUgMDYuIDA1LiAxOSB2IDEwOjQ2IFlhbmcsIExpYmluIG5hcHNhbChhKToKPj4+PiBBZGQgTWVu
-Z2RvbmcsIEh1aSwgUmFuZGVyCj4+Pj4KPj4+PiBIaSBKYXJvc2xhdiwKPj4+Pgo+Pj4+PiAtLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+Pj4+PiBGcm9tOiBKYXJvc2xhdiBLeXNlbGEgW21haWx0
-bzpwZXJleEBwZXJleC5jel0KPj4+Pj4gU2VudDogTW9uZGF5LCBNYXkgNiwgMjAxOSA0OjIwIFBN
-Cj4+Pj4+IFRvOiBZYW5nLCBMaWJpbiA8bGliaW4ueWFuZ0BpbnRlbC5jb20+OyBhbHNhLWRldmVs
-QGFsc2EtcHJvamVjdC5vcmcKPj4+Pj4gQ2M6IHRpd2FpQHN1c2UuZGU7IHBpZXJyZS1sb3Vpcy5i
-b3NzYXJ0QGxpbnV4LmludGVsLmNvbTsKPj4+Pj4gYnJvb25pZUBrZXJuZWwub3JnOyBzdWJocmFu
-c3Uucy5wcnVzdHlAaW50ZWwuY29tOwo+Pj4+PiBzYW1yZWVuLm5pbG9mZXJAaW50ZWwuY29tCj4+
-Pj4+IFN1YmplY3Q6IFJlOiBbYWxzYS1kZXZlbF0gW1JGQyBQQVRDSF0gQVNvQzogY29kZWM6IGhk
-YWNfaGRtaTogbm8KPj4+Pj4gY2hlY2tpbmcgbW9uaXRvciBpbiBod19wYXJhbXMKPj4+Pj4KPj4+
-Pj4gRG5lIDA2LiAwNS4gMTkgdiA4OjU5IGxpYmluLnlhbmdAaW50ZWwuY29tIG5hcHNhbChhKToK
-Pj4+Pj4+IEZyb206IExpYmluIFlhbmcgPGxpYmluLnlhbmdAaW50ZWwuY29tPgo+Pj4+Pj4KPj4+
-Pj4+IFRoaXMgcGF0Y2ggbW92ZSB0aGUgY2hlY2sgb2YgbW9uaXRvciBmcm9tIGh3X3BhcmFtcyB0
-byB0cmlnZ2VyIGNhbGxiYWNrLgo+Pj4+Pj4KPj4+Pj4+IFRoZSBvcmlnaW5hbCBjb2RlIHdpbGwg
-Y2hlY2sgdGhlIG1vbml0b3IgcHJlc2VuY2UgaW4gaHdfcGFyYW1zLiBJZgo+Pj4+Pj4gdGhlIG1v
-bml0b3IgZG9lc24ndCBleGlzdCwgaHdfcGFyYW1zIHdpbGwgcmV0dXJuIC1FTk9ERVYuIE1vc3Rs
-eSB0aGlzIGlzCj4+PiBPSy4KPj4+Pj4+IEhvd2V2ZXIsIHB1bHNlYXVkaW8gd2lsbCBjaGVjayB0
-aGUgcGNtIGRldmljZXMgd2hlbiBrZXJuZWwgaXMgYm9vdGluZwo+Pj4gdXAuCj4+Pj4+PiBJdCB3
-aWxsIHRyeSB0byBvcGVuLCBzZXQgaHdfcGFyYW1zLCBwcmVwYXJlIHN1Y2ggcGNtIGRldmljZXMu
-IFdlCj4+Pj4+PiBjYW4ndCBndWFyYW50ZWUgdGhhdCB0aGUgbW9uaXRvciB3aWxsIGJlIGNvbm5l
-Y3RlZCB3aGVuIGtlcm5lbCBpcyBib290aW5nCj4+PiB1cC4KPj4+Pj4+IEVzcGVjaWFsbHksIGhk
-YWNfaGRtaSB3aWxsIGV4cG9ydCAzIHBjbXMgYXQgbW9zdC4gSXQncyBoYXJkIHRvIHNheQo+Pj4+
-Pj4gdXNlcnMgd2lsbCBjb25uZWN0IDMgbW9uaXRvcnMgdG8gdGhlIEhETUkvRFAgcG9ydHMuIFRo
-aXMgd2lsbCBjYXVzZQo+Pj4+Pj4gcHVsc2VhdWRpbyBmYWlsIGluIHBhcnNpbmcgdGhlIHBjbSBk
-ZXZpY2VzIGJlY2F1c2UgdGhlIGRyaXZlciB3aWxsCj4+Pj4+PiByZXR1cm4gLUVOT0RFViBpbiBo
-d19wYXJhbXMuCj4+Pj4+Pgo+Pj4+Pj4gVGhpcyBwYXRjaCB0cmllcyB0byBtb3ZlIHRoZSBjaGVj
-ayBvZiBtb25pdG9yIHByZXNlbmNlIGludG8gdHJpZ2dlcgo+Pj4+Pj4gY2FsbGJhY2suIFRoaXMg
-Y2FuICJ0cmljayIgdGhlIHB1bHNlYXVkaW8gdGhlIHBjbSBpcyByZWFkeS4KPj4+Pj4+Cj4+Pj4+
-PiBUaGlzIGJ1ZyBpcyBmb3VuZCB3aGVuIHdlIHRyeSB0byBlbmFibGUgSERNSSBkZXRlY3Rpb24g
-aW4KPj4+Pj4+IGdub21lLXNvdW5kLXNldHRpbmcgZm9yIEFTb0MgaGRhY19oZG1pLiBBZnRlciB3
-ZSBlbmFibGUgdGhlIGhkbWkgaW4KPj4+Pj4+IFVDTSwgcHVsc2VhdWRpbyB3aWxsIHRyeSB0byBw
-YXJzZSB0aGUgaGRtaSBwY20gZGV2aWNlcy4gSXQgd2lsbAo+Pj4+Pj4gY2F1c2UgZmFpbHVyZSBp
-ZiB0aGVyZSBhcmUgbm8gbW9uaXRvcnMgY29ubmVjdGVkLgo+Pj4+PiBJIGRvbid0IGxpa2UgdGhp
-cyBzb2x1dGlvbiBtdWNoLiBQQSBzaG91bGQgdXNlIHRoZSBKYWNrIGNvbnRyb2wgdG8KPj4+Pj4g
-YWRkIHRoZSBkZXZpY2VzIGR5bmFtaWNhbGx5IGFuZCBhdm9pZCBwcm9iaW5nIHdoZW4gdGhlIEph
-Y2sgY29udHJvbCBpcwo+Pj4gZmFsc2UuCj4+Pj4gQmVmb3JlIHdlIGRlY2lkZWQgdG8gdXNlIFVD
-TSwgd2UgZGlkIHNvbWUgaW52ZXN0aWdhdGlvbiBvbiBKYWNrIGNvbnRyb2xzLgo+Pj4+IEFuZCB3
-ZSBmb3VuZCB3ZSBuZWVkIGRvIG11Y2ggbW9yZSBjaGFuZ2VzIGluIGRyaXZlciB0byBzdXBwb3J0
-IEphY2sKPj4+PiBDb250cm9scy4KPj4+IEhvdyBkbyB5b3UgaGFuZGxlIHRoZSBkeW5hbWljIG1v
-bml0b3IgY29uZmlndXJhdGlvbiAobGlrZSB3aGVuIHVzZXIKPj4+IGRpc2Nvbm5lY3RzIHRoZSBt
-b25pdG9yIG9uLXRoZS1mbHkpIHRoZW4/IFRoZSBjb250cm9sIGludGVyZmFjZSBjYW4gbm90aWZ5
-IHRoZQo+Pj4gc3RhdGUgY2hhbmdlIHRocm91Z2ggdGhlIEphY2sgY29udHJvbHMuIFRoZSBQQ00g
-aW50ZXJmYWNlIGRvZXMgbm90IGhhbmRsZQo+Pj4gdGhpcy4KPj4gV2UgbWF5IHN0aWxsIG5lZWQg
-SmFjayBjb250cm9sIGZvciB0aGlzIGNhc2UuIFRoaXMgaXMgbXkgc2Vjb25kIHBsYW4gdG8gZW5h
-YmxlCj4+IEphY2sgY29udHJvbC4gQnV0IGV2ZW4gd2UgZW5hYmxlIEphY2sgY29udHJvbCwgaXQg
-c2VlbXMgaXQgaXMgc3RpbGwgZWFzeSB0byB1c2UgVUNNLgo+PiBUaGlzIGlzIGJlY2F1c2UgQVNv
-QyBjb250cm9sIG5hbWVzIGRvbid0IGZvbGxvdyBsZWdhY3kgSERBIHJ1bGUuIFRoaXMgbWVhbnMK
-Pj4gd2UgbWF5IG5lZWQgdG8gY2hhbmdlIG90aGVyIGNvbnRyb2xzIG5hbWUgYmVzaWRlcyBIRE1J
-IGluIHRoZSBkcml2ZXIgb3Igd2UKPj4gbWF5IG5lZWQgdG8gYWRkIG1vcmUgY29uZmlndXJlcyBp
-biBwdWxzZWF1ZGlvL2Fsc2EtbWl4ZXIvcGF0aHMuCj4gQWgsIEkgb3Zlcmxvb2tlZCB0aGF0IGhk
-YWNfaGRtaSBjaG9zZSB0aGUgb3duIGphY2sgY29udHJvbCBuYW1lcy4KPiBUaGF0J3MgYmFzaWNh
-bGx5IHVzZWxlc3MsIHllYWguCj4KPj4gSGkgTWVuZ2RvbmcgJiBIdWksCj4+Cj4+IERvIHlvdSBo
-YXZlIG1vcmUgY29tbWVudHMgZm9yIEphY2sgY29udHJvbCBvciBVQ00/Cj4gSSBndWVzcyBhIFVD
-TSBwcm9maWxlIHdvdWxkIGhhbmRsZSB0aGUgamFjayBkZXRlY3Rpb24gYXMgd2VsbCwgYnkKPiBz
-cGVjaWZ5aW5nIHRoZSByaWdodCBrY29udHJvbCBuYW1lcywgcmlnaHQ/CgpZZXMsIHByb2JhYmx5
-IGl0IGNhbiB3b3JrLiBzZXQgYSBIRC1BdWRpbyBKYWNrIG5hbWUgaW4gdGhlIApTZWN0aW9uRGV2
-aWNlLCBhbmQgbW9uaXRvciB0aGUgQVNvQyBqYWNrIG5hbWUgdmlhIEphY2tDb250cm9sLiBsaWtl
-IGJlbG93OgoKU2VjdGlvbkRldmljZS4iSmFjayBIRE1JL0RQLHBjbT0zIiB7CiDCoMKgwqDCoMKg
-wqDCoCBDb21tZW50ICJIRE1JL0RQIEF1ZGlvICMwIgoKIMKgwqDCoMKgwqDCoMKgIFZhbHVlIHsK
-IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBDYXB0dXJlQ2hhbm5lbHMgIjIiCiDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQ2FwdHVyZVBDTSAiaHc6JHtjYXJkX25hbWV9LCN7
-c3ViZGV2fSIKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBKYWNrQ29udHJvbCAiJHtB
-U29DX0hETUlfSmFja19OYW1lfSBKYWNrIgogwqDCoMKgwqDCoMKgwqAgfQoKLi4uClRoYW5rcywK
-Ckh1aS4KCj4KPiB0aGFua3MsCj4KPiBUYWthc2hpCj4KPj4gUmVnYXJkcywKPj4gTGliaW4KPj4K
-Pj4+IAkJCQkJCUphcm9zbGF2Cj4+Pgo+Pj4+IFJlZ2FyZHMsCj4+Pj4gTGliaW4KPj4+Pgo+Pj4+
-PiAJCQkJCQlKYXJvc2xhdgo+Pj4+Pgo+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogTGliaW4gWWFuZyA8
-bGliaW4ueWFuZ0BpbnRlbC5jb20+Cj4+Pj4+PiAtLS0KPj4+Pj4+ICAgc291bmQvc29jL2NvZGVj
-cy9oZGFjX2hkbWkuYyB8IDQ0Cj4+Pj4+PiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-LS0tLS0tLS0tLS0tLQo+Pj4+Pj4gICAxIGZpbGUgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwg
-MTMgZGVsZXRpb25zKC0pCj4+Pj4+Pgo+Pj4+Pj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2Rl
-Y3MvaGRhY19oZG1pLmMKPj4+Pj4+IGIvc291bmQvc29jL2NvZGVjcy9oZGFjX2hkbWkuYyBpbmRl
-eCA0ZGUxZmJmLi5mNDgyZTA5IDEwMDY0NAo+Pj4+Pj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9o
-ZGFjX2hkbWkuYwo+Pj4+Pj4gKysrIGIvc291bmQvc29jL2NvZGVjcy9oZGFjX2hkbWkuYwo+Pj4+
-Pj4gQEAgLTQ1NSwyNCArNDU1LDExIEBAIHN0YXRpYyBpbnQgaGRhY19oZG1pX3NldF9od19wYXJh
-bXMoc3RydWN0Cj4+Pj4+IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJlYW0sCj4+Pj4+PiAgIAlz
-dHJ1Y3Qgc25kX3BjbV9od19wYXJhbXMgKmhwYXJhbXMsIHN0cnVjdCBzbmRfc29jX2RhaSAqZGFp
-KSAgewo+Pj4+Pj4gICAJc3RydWN0IGhkYWNfaGRtaV9wcml2ICpoZG1pID0gc25kX3NvY19kYWlf
-Z2V0X2RydmRhdGEoZGFpKTsKPj4+Pj4+IC0Jc3RydWN0IGhkYWNfZGV2aWNlICpoZGV2ID0gaGRt
-aS0+aGRldjsKPj4+Pj4+ICAgCXN0cnVjdCBoZGFjX2hkbWlfZGFpX3BvcnRfbWFwICpkYWlfbWFw
-Owo+Pj4+Pj4gLQlzdHJ1Y3QgaGRhY19oZG1pX3BvcnQgKnBvcnQ7Cj4+Pj4+PiAgIAlzdHJ1Y3Qg
-aGRhY19oZG1pX3BjbSAqcGNtOwo+Pj4+Pj4gICAJaW50IGZvcm1hdDsKPj4+Pj4+Cj4+Pj4+PiAg
-IAlkYWlfbWFwID0gJmhkbWktPmRhaV9tYXBbZGFpLT5pZF07Cj4+Pj4+PiAtCXBvcnQgPSBkYWlf
-bWFwLT5wb3J0Owo+Pj4+Pj4gLQo+Pj4+Pj4gLQlpZiAoIXBvcnQpCj4+Pj4+PiAtCQlyZXR1cm4g
-LUVOT0RFVjsKPj4+Pj4+IC0KPj4+Pj4+IC0JaWYgKCghcG9ydC0+ZWxkLm1vbml0b3JfcHJlc2Vu
-dCkgfHwgKCFwb3J0LT5lbGQuZWxkX3ZhbGlkKSkgewo+Pj4+Pj4gLQkJZGV2X2VycigmaGRldi0+
-ZGV2LAo+Pj4+Pj4gLQkJCSJkZXZpY2UgaXMgbm90IGNvbmZpZ3VyZWQgZm9yIHRoaXMgcGluOnBv
-cnQlZDolZFxuIiwKPj4+Pj4+IC0JCQkJCXBvcnQtPnBpbi0+bmlkLCBwb3J0LT5pZCk7Cj4+Pj4+
-PiAtCQlyZXR1cm4gLUVOT0RFVjsKPj4+Pj4+IC0JfQo+Pj4+Pj4KPj4+Pj4+ICAgCWZvcm1hdCA9
-IHNuZF9oZGFjX2NhbGNfc3RyZWFtX2Zvcm1hdChwYXJhbXNfcmF0ZShocGFyYW1zKSwKPj4+Pj4+
-ICAgCQkJcGFyYW1zX2NoYW5uZWxzKGhwYXJhbXMpLAo+Pj4+PiBwYXJhbXNfZm9ybWF0KGhwYXJh
-bXMpLCBAQCAtNjMwLDYKPj4+Pj4+ICs2MTcsMzYgQEAgc3RhdGljIHZvaWQgaGRhY19oZG1pX3Bj
-bV9jbG9zZShzdHJ1Y3QKPj4+IHNuZF9wY21fc3Vic3RyZWFtCj4+Pj4+ICpzdWJzdHJlYW0sCj4+
-Pj4+PiAgIAkJZGFpX21hcC0+cG9ydCA9IE5VTEw7Cj4+Pj4+PiAgIH0KPj4+Pj4+Cj4+Pj4+PiAr
-c3RhdGljIGludCBoZGFjX2hkbWlfcGNtX3RyaWdnZXIoc3RydWN0IHNuZF9wY21fc3Vic3RyZWFt
-Cj4+Pj4+PiArKnN1YnN0cmVhbSwKPj4+Pj4gaW50IGNtZCwKPj4+Pj4+ICsJCQkJIHN0cnVjdCBz
-bmRfc29jX2RhaSAqZGFpKQo+Pj4+Pj4gK3sKPj4+Pj4+ICsJc3RydWN0IGhkYWNfaGRtaV9wb3J0
-ICpwb3J0Owo+Pj4+Pj4gKwlzdHJ1Y3QgaGRhY19oZG1pX2RhaV9wb3J0X21hcCAqZGFpX21hcDsK
-Pj4+Pj4+ICsJc3RydWN0IGhkYWNfaGRtaV9wcml2ICpoZG1pID0gc25kX3NvY19kYWlfZ2V0X2Ry
-dmRhdGEoZGFpKTsKPj4+Pj4+ICsJc3RydWN0IGhkYWNfZGV2aWNlICpoZGV2ID0gaGRtaS0+aGRl
-djsKPj4+Pj4+ICsKPj4+Pj4+ICsJLyoKPj4+Pj4+ICsJICogV2hlbiBzdGFydCwgaWYgdGhlcmUg
-aXMgbm8gbW9uaXRvciwKPj4+Pj4+ICsJICogSXQgc2hvdWxkIG5vdCBzdGFydCBhdWRpby4KPj4+
-Pj4+ICsJICovCj4+Pj4+PiArCWlmIChjbWQgPT0gU05EUlZfUENNX1RSSUdHRVJfU1RBUlQpIHsK
-Pj4+Pj4+ICsJCWRhaV9tYXAgPSAmaGRtaS0+ZGFpX21hcFtkYWktPmlkXTsKPj4+Pj4+ICsJCXBv
-cnQgPSBkYWlfbWFwLT5wb3J0Owo+Pj4+Pj4gKwo+Pj4+Pj4gKwkJaWYgKCFwb3J0KQo+Pj4+Pj4g
-KwkJCXJldHVybiAtRU5PREVWOwo+Pj4+Pj4gKwo+Pj4+Pj4gKwkJaWYgKCghcG9ydC0+ZWxkLm1v
-bml0b3JfcHJlc2VudCkgfHwgKCFwb3J0LT5lbGQuZWxkX3ZhbGlkKSkgewo+Pj4+Pj4gKwkJCWRl
-dl9lcnIoJmhkZXYtPmRldiwKPj4+Pj4+ICsJCQkJImRldmljZSBpcyBub3QgY29uZmlndXJlZCBm
-b3IgdGhpcwo+Pj4+PiBwaW46cG9ydCVkOiVkXG4iLAo+Pj4+Pj4gKwkJCQlwb3J0LT5waW4tPm5p
-ZCwgcG9ydC0+aWQpOwo+Pj4+Pj4gKwkJCXJldHVybiAtRU5PREVWOwo+Pj4+Pj4gKwkJfQo+Pj4+
-Pj4gKwl9Cj4+Pj4+PiArCj4+Pj4+PiArCXJldHVybiAwOwo+Pj4+Pj4gK30KPj4+Pj4+ICsKPj4+
-Pj4+ICAgc3RhdGljIGludAo+Pj4+Pj4gICBoZGFjX2hkbWlfcXVlcnlfY3Z0X3BhcmFtcyhzdHJ1
-Y3QgaGRhY19kZXZpY2UgKmhkZXYsIHN0cnVjdAo+Pj4+Pj4gaGRhY19oZG1pX2N2dCAqY3Z0KSAg
-eyBAQCAtMTM4OSw2ICsxNDA2LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdAo+Pj4+Pj4gc25kX3Nv
-Y19kYWlfb3BzIGhkbWlfZGFpX29wcyA9IHsKPj4+Pj4+ICAgCS5zdGFydHVwID0gaGRhY19oZG1p
-X3BjbV9vcGVuLAo+Pj4+Pj4gICAJLnNodXRkb3duID0gaGRhY19oZG1pX3BjbV9jbG9zZSwKPj4+
-Pj4+ICAgCS5od19wYXJhbXMgPSBoZGFjX2hkbWlfc2V0X2h3X3BhcmFtcywKPj4+Pj4+ICsJLnRy
-aWdnZXIgPSBoZGFjX2hkbWlfcGNtX3RyaWdnZXIsCj4+Pj4+PiAgIAkuc2V0X3RkbV9zbG90ID0g
-aGRhY19oZG1pX3NldF90ZG1fc2xvdCwgIH07Cj4+Pj4+Pgo+Pj4+Pj4KPj4+Pj4KPj4+Pj4gLS0K
-Pj4+Pj4gSmFyb3NsYXYgS3lzZWxhIDxwZXJleEBwZXJleC5jej4KPj4+Pj4gTGludXggU291bmQg
-TWFpbnRhaW5lcjsgQUxTQSBQcm9qZWN0OyBSZWQgSGF0LCBJbmMuCj4+Pgo+Pj4gLS0KPj4+IEph
-cm9zbGF2IEt5c2VsYSA8cGVyZXhAcGVyZXguY3o+Cj4+PiBMaW51eCBTb3VuZCBNYWludGFpbmVy
-OyBBTFNBIFByb2plY3Q7IFJlZCBIYXQsIEluYy4KPiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+IEFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0Cj4gQWxzYS1k
-ZXZlbEBhbHNhLXByb2plY3Qub3JnCj4gaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCj4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBh
-bHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Fri, 2019-05-03 at 11:05 -0700, frederik@ofb.net wrote:
+> Dear ALSA developers,
+> 
+> I ran into a problem which seems to be caused by some lines in
+> "alsa-plugins-1.1.8/pulse/pcm_pulse.c".
+> 
+> The problem is that if I create a 6-channel PulseAudio device, and
+> then I configure an ALSA device in ~/.asoundrc to output to the
+> PulseAudio device, the channels of the ALSA device are mixed together
+> in various ways and don't correspond 1-1 with the channels of the
+> PulseAudio device.
+> 
+> I find this to be counter-intuitive. If I wanted channels to be mixed
+> and remapped in various ways, I would use the PulseAudio module
+> module-remap-sink on the PulseAudio side, since AFAICT ALSA does not
+> support named channels.
+
+There is an API for querying and configuring PCM device channel maps.
+pcm_pulse.c doesn't seem to implement that API, though, so applications
+are expected to use the default channel map, and if that doesn't match
+the sink channel map, then PulseAudio will do the remapping (and
+possibly remixing, if the channel maps differ in other ways than just
+channel order).
+
+> I would not expect remixing to happen in the
+> ALSA->Pulse bridge, since the relevant PCM plugin contains no channel
+> map parameter.
+
+The remixing happens in PulseAudio, not in pcm_pulse.c. pcm_pulse.c
+just tells PulseAudio the channel map that the stream uses.
+
+> I don't even know what channel map I should give the PulseAudio device
+> in order to prevent remixing from occurring. The file pcm_pulse.c
+> contains the lines:
+> 
+>         for (c = pcm->ss.channels; c > 0; c--)
+>                 if (pa_channel_map_init_auto(&map, c, PA_CHANNEL_MAP_ALSA))
+>                         break;
+> 
+> This refers to a macro in /usr/include/pulse/channelmap.h:
+> 
+>     /** \cond fulldocs */
+>         PA_CHANNEL_MAP_ALSA,
+>         /**< The default mapping used by ALSA. This mapping is probably
+>          * not too useful since ALSA's default channel mapping depends on
+>          * the device string used. */
+>     /** \endcond */
+> 
+> The comment says that the ALSA mapping is "not too useful" - so why
+> are we using it?
+
+pcm_pulse.c has to specify some channel map. Do you have better
+proposals than PA_CHANNEL_MAP_ALSA?
+
+> Also, how do I find out what it is, if it "depends on
+> the device string used"?
+
+There's currently no way to query the sink channel map through the ALSA
+API. There's snd_pcm_get_chmap() that pcm_pulse.c could maybe
+implement. There's the complication that usually the pulse PCM uses the
+default sink, and the default sink can change at any time, so the
+channel map can change at any time too, but that's probably not a huge
+problem in practice.
+
+> My preference would simply be to have a 1-1 channel map in pcm_pulse,
+> so that a PulseAudio device with 6 channels will turn into an ALSA
+> device with THE SAME 6 CHANNELS. No mixing. Mixing is confusing in
+> this context, and seems undocumented outside of the code.
+
+Remapping/remixing is very much expected in usual media playback cases.
+If you have a 5.1 movie, it's easier for the player application to play
+the audio in whatever channel order it wants and let the sound server
+to remap and remix as necessary.
+
+> I tried using aux0 thru aux5 as the PulseAudio channel map, to prevent
+> geometry-based remixing. However, this results in silence - apparently
+> none of the 6 ALSA channels end up going anywhere. That was also
+> unexpected. Since I am playing 6-channel audio to a 6-channel device,
+> which emulates another 6-channel device, I would have thought that the
+> channel mapping wouldn't be complicated. Instead, it appears that the
+> PulseAudio sink needs to have channels with specific names in order to
+> receive data from ALSA.
+> 
+> Can we fix this, or improve the user experience?
+
+What's the sink channel map in PulseAudio and what's your application's
+channel map? Apparently one of them is not using the default ALSA map
+for 6 channels.
+
+If your application is not using the default channel map, why not?
+
+If the sink is not using the default channel map, then it's expected
+that PulseAudio shuffles the channels around, otherwise audio meant for
+the front left speaker could end up in the rear right speaker, for
+example. Do you have a use case for ignoring the channel map? Maybe the
+SND_PCM_NO_AUTO_CHANNELS flag could be used in pcm_pulse.c to disable
+channel remapping (I'm not volunteering to implement that, though).
+
+-- 
+Tanu
+
+https://www.patreon.com/tanuk
+https://liberapay.com/tanuk
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

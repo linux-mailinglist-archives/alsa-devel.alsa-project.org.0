@@ -2,100 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A7D8158E9
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 07:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25E615657
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 01:31:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 147FB18C6;
-	Tue,  7 May 2019 07:24:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 147FB18C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25FDD18E8;
+	Tue,  7 May 2019 01:30:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25FDD18E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557206709;
-	bh=eCBmUZBCaSFI22rNyXZ/1B9Nn0RrcUXdvasHD3S/ooQ=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1557185506;
+	bh=DdG3fJI4Pax/J4BmFEeaBqzWvZkJ2C6SJRQEYAFCV/w=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iQBQWyyAHnXA5ILkMfz4SOjT6+T240JX54eav0lsU5cvb0dcW9zFdchzsS2pvID3P
-	 JHKRWsAaNtiCQEOhqrweDKcz5GHeM5WdRdxEoqxh5tImxfBeWAOiULeqFMUiw9cn71
-	 O3L0H005zWPUQ6fjjK7L8csTuZMWgMXqbJuEdC10=
+	b=thhGSUQPD6DEaPfneSImTtwXkefiuXqkmH6TcSq5oAJ7y8KhywWOsFDjvYRLLpemM
+	 pWrCFo2YJoB1u8bY1u262H4jZlf5V+ztZEReFvr1WVcGrLLDMJsmDOQ3f78VCBpTxP
+	 +d29uhFiepk+1XXL3UvDid7iBFWiF5KAHT2Mt4I0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6201F89736;
-	Tue,  7 May 2019 07:20:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D58FF896FD;
+	Tue,  7 May 2019 01:30:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E82FF896F0; Tue,  7 May 2019 00:57:00 +0200 (CEST)
+ id 385C2F896F0; Tue,  7 May 2019 01:29:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1894DF80C07
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 00:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1894DF80C07
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="QoDVimnn"
-Received: by mail-lj1-x241.google.com with SMTP id s7so7120125ljh.1
- for <alsa-devel@alsa-project.org>; Mon, 06 May 2019 15:56:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/WaaNfj9uQg4GryTK10qiR1OxO5joqp6K8QA9QYZtME=;
- b=QoDVimnn8QHOXdN2QkfK6VzCJDeVnIwLrzgqElZtLPiU7cL/oyYMZH6s1M7qoUb4Iy
- XHdUlx6prmQytEtQ5Kvf4vij9oDEs2PgrVda4PhTWlz8tgsm71D73/5Tr3ccowET08Rh
- jYwwKrBm6uJTfoA8FFhN0LXX5shsZ5w7bAcSo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/WaaNfj9uQg4GryTK10qiR1OxO5joqp6K8QA9QYZtME=;
- b=t+6wqLx6iZ9f8BYkKAyv815SY3v/rbncnuMXWsfPsH9FRLim9iaGXsojNlR9xG+GM2
- qoyv0pjuhMrEtH9wcGzwgFLdu+Chie6zYETEtqm438YQ/cGSASeAowmnZAtHQ7QdWnGQ
- VCKEzt0hDIQ3v4lutkbKjzmKT64LK/MDRRdoyKRedhhMdY9XlskuGrUCwdXLg4p4EYRp
- 5q2Bkwx8SFANCzibjXdhxvMGg4gnxh2I84r2sG7zPTvyVospur2moQWnlQSFQVhg2xrA
- mOhP0+9pP/cZt6aRMo/XRv2GvpTBlFwbC9gSgEdbZ0qX7aH1dnA96RqBIhzVXX9eaJ3l
- ppsw==
-X-Gm-Message-State: APjAAAXM8EwSlYL6pnksXCKAaaNYq2QJGvBgi4g4VlGlGjFBhEjEdQ2s
- z6BJIzDNDDJrVZ0mcPpwnzaMqfDzqWM=
-X-Google-Smtp-Source: APXvYqyRecHYe4WZdWzVEMTMEs5NsKWJy5ubXAVOSYEIjwHPIiZNuwYkz5GgWT48BB3XvNXX4LPzWA==
-X-Received: by 2002:a2e:97c1:: with SMTP id m1mr677676ljj.59.1557183416823;
- Mon, 06 May 2019 15:56:56 -0700 (PDT)
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com.
- [209.85.167.41])
- by smtp.gmail.com with ESMTPSA id d10sm1851164ljc.81.2019.05.06.15.56.55
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Mon, 06 May 2019 15:56:56 -0700 (PDT)
-Received: by mail-lf1-f41.google.com with SMTP id v18so8143636lfi.1
- for <alsa-devel@alsa-project.org>; Mon, 06 May 2019 15:56:55 -0700 (PDT)
-X-Received: by 2002:a19:1dc3:: with SMTP id
- d186mr13761297lfd.101.1557183415092; 
- Mon, 06 May 2019 15:56:55 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69759F89673
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 01:29:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69759F89673
+Received: from [123.123.251.121] (helo=[192.168.1.107])
+ by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <hui.wang@canonical.com>)
+ id 1hNn3R-0004ko-13; Mon, 06 May 2019 23:29:53 +0000
+To: Takashi Iwai <tiwai@suse.de>
+References: <20190506140932.7942-1-hui.wang@canonical.com>
+ <s5himun4pu4.wl-tiwai@suse.de>
+From: Hui Wang <hui.wang@canonical.com>
+Message-ID: <2738a3b7-168a-ccb2-eb2b-184c88477c65@canonical.com>
+Date: Tue, 7 May 2019 07:29:47 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190506225321.74100-1-evgreen@chromium.org>
-In-Reply-To: <20190506225321.74100-1-evgreen@chromium.org>
-From: Evan Green <evgreen@chromium.org>
-Date: Mon, 6 May 2019 15:56:18 -0700
-X-Gmail-Original-Message-ID: <CAE=gft6HNYqm7Jvh4hwgCLEaRVZ+95AJdYEncRKsq_ZmBidiqg@mail.gmail.com>
-Message-ID: <CAE=gft6HNYqm7Jvh4hwgCLEaRVZ+95AJdYEncRKsq_ZmBidiqg@mail.gmail.com>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-X-Mailman-Approved-At: Tue, 07 May 2019 07:20:44 +0200
-Cc: Rajat Jain <rajatja@chromium.org>, alsa-devel@alsa-project.org,
- Yu Zhao <yuzhao@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, Ben Zhang <benzh@chromium.org>,
- Rakesh Ughreja <rakesh.a.ughreja@intel.com>,
- Sathya Prakash <sathya.prakash.m.r@intel.com>, Naveen M <naveen.m@intel.com>,
- Guenter Roeck <groeck@chromium.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jenny TC <jenny.tc@intel.com>
-Subject: Re: [alsa-devel] [PATCH v1 0/2] ASoC: Intel: Add Cometlake PCI IDs
+In-Reply-To: <s5himun4pu4.wl-tiwai@suse.de>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v2 1/2] ALSA: hda/hdmi - Read the pin sense
+ from register when repolling
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,36 +66,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 6, 2019 at 3:53 PM Evan Green <evgreen@chromium.org> wrote:
->
->
-> This small series adds PCI IDs for Cometlake platforms, for a
-> dazzling audio experience.
->
->
-> Evan Green (2):
->   ASoC: SOF: Add Comet Lake PCI ID
->   ASoC: Intel: Skylake: Add Cometlake PCI IDs
->
->  sound/soc/intel/Kconfig                |  9 +++++++++
->  sound/soc/intel/skylake/skl-messages.c |  8 ++++++++
->  sound/soc/intel/skylake/skl.c          |  5 +++++
->  sound/soc/sof/intel/Kconfig            | 16 ++++++++++++++++
->  sound/soc/sof/sof-pci-dev.c            |  4 ++++
->  5 files changed, 42 insertions(+)
->
-> --
-> 2.20.1
->
-
-I should have mentioned that I based this off of linux-next next-20190506.
--Evan
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Ck9uIDIwMTkvNS82IOS4i+WNiDEwOjMxLCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gT24gTW9uLCAw
+NiBNYXkgMjAxOSAxNjowOTozMSArMDIwMCwKPiBIdWkgV2FuZyB3cm90ZToKPj4gQEAgLTE2NjMs
+NiArMTY2MywxMSBAQCBzdGF0aWMgdm9pZCBoZG1pX3JlcG9sbF9lbGQoc3RydWN0IHdvcmtfc3Ry
+dWN0ICp3b3JrKQo+PiAgIAljb250YWluZXJfb2YodG9fZGVsYXllZF93b3JrKHdvcmspLCBzdHJ1
+Y3QgaGRtaV9zcGVjX3Blcl9waW4sIHdvcmspOwo+PiAgIAlzdHJ1Y3QgaGRhX2NvZGVjICpjb2Rl
+YyA9IHBlcl9waW4tPmNvZGVjOwo+PiAgIAlzdHJ1Y3QgaGRtaV9zcGVjICpzcGVjID0gY29kZWMt
+PnNwZWM7Cj4+ICsJc3RydWN0IGhkYV9qYWNrX3RibCAqamFjazsKPj4gKwo+PiArCWphY2sgPSBz
+bmRfaGRhX2phY2tfdGJsX2dldChjb2RlYywgcGVyX3Bpbi0+cGluX25pZCk7Cj4+ICsJaWYgKGph
+Y2spCj4+ICsJCWphY2sgPSBqYWNrLT5qYWNrX2RpcnR5ID0gMTsKPiBPaCwgYW5kIEkgY29ycmVj
+dGVkIHRoZSBvYnZpb3VzIHR5cG8gYWJvdmUgbWFudWFsbHkgd2hpbGUgYXBwbHlpbmcuCj4gV2Ug
+ZG9uJ3QgbmVlZCB0byBzdWJzdGl0dXRlIGphY2sgdHdpY2UuCgpPaCwgc29ycnkuCgo+Cj4KPiBU
+YWthc2hpCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+PiBBbHNhLWRldmVsIG1haWxpbmcgbGlzdAo+IEFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwo+
+IGh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
+ZXZlbAo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFs
+c2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczov
+L21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

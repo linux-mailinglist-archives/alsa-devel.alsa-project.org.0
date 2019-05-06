@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A97F14F52
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:10:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 645CA14F22
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:09:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0ADB81807;
-	Mon,  6 May 2019 17:09:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0ADB81807
+	by alsa0.perex.cz (Postfix) with ESMTPS id F20391907;
+	Mon,  6 May 2019 17:08:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F20391907
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557155400;
-	bh=XhUOxDK6MzhMHBTsE9qyok3rcUGNbbSiYTZADBzB2Xs=;
+	s=default; t=1557155355;
+	bh=m3zwzJhEZodzEqnVKns+6o7Aadz/y14u58++lxkEYYU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=vGS+vI+kGALCM9J9ofgp474YSDzctAI6rUVYmUV1jhsO7BsN5tNeCE/RLZggu3Lqb
-	 LVyjyGV6RGEqX3aqDS6BAV9+I5JIvWB+ErEg2+WFhk/zyCVLYk/eP3YHONzfzVKNqt
-	 0nwHOaxIpoeH+78zfR6xds2q724pHURTTa9K7EsA=
+	b=bT240RylFRBdZhznxjwiFcwRSYVGw8AZaf7XXBUxKFiD4yZiXMc+pLEw3N32WRNEd
+	 jwqOBZperdemlHIqGBZXM6GWB1R0fh6ZUrvph8cJ2MoWsgLLnF9Xz1skCgtcfNdjr6
+	 WQTF/Hny4y+6ojGPpVnhTwmd8lKQcuXjtOLg/qjE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 109CBF8974A;
-	Mon,  6 May 2019 17:04:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB63DF89744;
+	Mon,  6 May 2019 17:04:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4D30EF8973B; Mon,  6 May 2019 17:03:58 +0200 (CEST)
+ id 6625CF80C07; Mon,  6 May 2019 17:03:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0552AF89735
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:03:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0552AF89735
+ by alsa1.perex.cz (Postfix) with ESMTPS id A30C9F89673
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:03:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A30C9F89673
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="IgXp/W6C"
+ header.b="MhvwmI9Y"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=zISSK7BMRYtIQviKajlbZmcAGpaqp8FrE1fMsg4iIKo=; b=IgXp/W6CoO4P
- BO28c6HBJ90m+XCsFGUw4N6vy5L6hc/Dx4mbWe+GybtKJwztrc2tlCEUjvdQNgvVkp55+a8AYHb+V
- Swobdgpkh3n+5u978/3qASuBEk+SyY6na/dKg+7P2h7SoNEuV4cYwfpQKJbuenq/m3iKb68WRrPw6
- VZz3Q=;
+ List-Archive; bh=EThOkJf9yfd8OraEta4Svn7ZgieF2YDjgBRKFVT/FQw=; b=MhvwmI9YVbGq
+ jU7X5GLkHH0FgnuHVyOh4PzjFWehH0HM2DX/3mnybRAlyaxXh6TcJtb/S/Xt+ggZTX6zDUEWLk0Nb
+ FoA0yQPZWVqGaVWg3qwWRDZ4GlUfY3+KKZ64MiR+xXz67JwibW9FRLzkshzJB6/oQpW2aTIPGHFpJ
+ DTC94=;
 Received: from [2001:268:c0e6:658d:8f3d:d90b:c4e4:2fdf]
  (helo=finisterre.ee.mobilebroadband)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNf9i-0001uZ-B8; Mon, 06 May 2019 15:03:50 +0000
+ id 1hNf9f-0001uS-CS; Mon, 06 May 2019 15:03:48 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id C12E7440035; Mon,  6 May 2019 16:03:44 +0100 (BST)
+ id 263A8440034; Mon,  6 May 2019 16:03:44 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <1557146646-18150-2-git-send-email-olivier.moysan@st.com>
+In-Reply-To: <1557146646-18150-3-git-send-email-olivier.moysan@st.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190506150344.C12E7440035@finisterre.ee.mobilebroadband>
+Message-Id: <20190506150344.263A8440034@finisterre.ee.mobilebroadband>
 Date: Mon,  6 May 2019 16:03:44 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
  tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, benjamin.gaignard@st.com
-Subject: [alsa-devel] Applied "ASoC: stm32: spdifrx: update pcm hardware
-	constraints" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: stm32: spdifrx: change trace level on
+	iec control" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: stm32: spdifrx: update pcm hardware constraints
+   ASoC: stm32: spdifrx: change trace level on iec control
 
 has been applied to the asoc tree at
 
@@ -115,36 +115,34 @@ to this mail.
 Thanks,
 Mark
 
-From 863137f0bc5eb2a3a65d1d29778ac65642171b17 Mon Sep 17 00:00:00 2001
+From 19e42536b27121bcf6ee841b25054f8bacafd8c7 Mon Sep 17 00:00:00 2001
 From: Olivier Moysan <olivier.moysan@st.com>
-Date: Mon, 6 May 2019 14:44:04 +0200
-Subject: [PATCH] ASoC: stm32: spdifrx: update pcm hardware constraints
+Date: Mon, 6 May 2019 14:44:05 +0200
+Subject: [PATCH] ASoC: stm32: spdifrx: change trace level on iec control
 
-- Set period minimum size. Ensure at least 5ms period
-up to 48kHz/16 bits to prevent underrun/overrun.
-- Remove MDMA constraints on period maximum size and
-set period maximum to half the buffer maximum size.
+Change trace level to debug to avoid spurious messages.
+Return quietly when accessing iec958 control, while no
+S/PDIF signal is available.
 
 Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/stm/stm32_spdifrx.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/stm/stm32_spdifrx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index b4c3d983e195..aa83b50efabb 100644
+index aa83b50efabb..3d64200edbb5 100644
 --- a/sound/soc/stm/stm32_spdifrx.c
 +++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -845,7 +845,8 @@ static struct snd_soc_dai_driver stm32_spdifrx_dai[] = {
- static const struct snd_pcm_hardware stm32_spdifrx_pcm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_MMAP,
- 	.buffer_bytes_max = 8 * PAGE_SIZE,
--	.period_bytes_max = 2048, /* MDMA constraint */
-+	.period_bytes_min = 1024,
-+	.period_bytes_max = 4 * PAGE_SIZE,
- 	.periods_min = 2,
- 	.periods_max = 8,
- };
+@@ -496,7 +496,7 @@ static int stm32_spdifrx_get_ctrl_data(struct stm32_spdifrx_data *spdifrx)
+ 	if (wait_for_completion_interruptible_timeout(&spdifrx->cs_completion,
+ 						      msecs_to_jiffies(100))
+ 						      <= 0) {
+-		dev_err(&spdifrx->pdev->dev, "Failed to get control data\n");
++		dev_dbg(&spdifrx->pdev->dev, "Failed to get control data\n");
+ 		ret = -EAGAIN;
+ 	}
+ 
 -- 
 2.20.1
 

@@ -2,66 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2844F1506D
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:39:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 530A51507C
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:42:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC287190E;
-	Mon,  6 May 2019 17:38:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC287190E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC55B18F0;
+	Mon,  6 May 2019 17:41:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC55B18F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557157170;
-	bh=LeY2JC/SGu7Nnte1TQClz6HI/kBPhbKPW8hmv3JZsME=;
+	s=default; t=1557157334;
+	bh=kSP+CgnqrB5HXMygn8ow82bDTPjJuoMK/ScCIZp2GS4=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TN6O/rgSmwxOmKUodYABeZPErgPQfg5UUJJm/8Nbj02/HE0+Uyfsul8gwtHUHWwML
-	 w+c01z0zRu13VEL1mI5OlqJdZBNGC4kA4MIswaXQB+Nt5zDWNXZVOA1DWTB9BLOgzO
-	 kIsHfFdweRUB+FSVIU80fe0+vzF7Fv2HSfbzAKTk=
+	b=NXWecnL6CwGoEAn/GgTwHBc/GvsCxyZjc8qDxPaTrU++ulD6lcmfsWNpyyt8FKIhR
+	 llOz0NBC78YjvKTTl9P4DJnps5eY/9kdDb0cfHwAZrsWgIAKLrdkeOPwSZ4pipco2b
+	 USX+2xfVAi7nCo7/qmOQpmE9M9ggSufhTCJCNvbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6ED6EF896FF;
-	Mon,  6 May 2019 17:37:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6220DF896FF;
+	Mon,  6 May 2019 17:40:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8062CF896F0; Mon,  6 May 2019 17:37:42 +0200 (CEST)
+ id 2B359F896F0; Mon,  6 May 2019 17:40:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E34E2F80C07
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:37:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E34E2F80C07
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 May 2019 08:37:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,438,1549958400"; d="scan'208";a="141847640"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga006.jf.intel.com with ESMTP; 06 May 2019 08:37:35 -0700
-Received: from slaugust-mobl.amr.corp.intel.com (unknown [10.254.21.102])
- by linux.intel.com (Postfix) with ESMTP id 343BF58010A;
- Mon,  6 May 2019 08:37:35 -0700 (PDT)
-To: libin.yang@intel.com, alsa-devel@alsa-project.org
-References: <1557125960-29353-1-git-send-email-libin.yang@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <bebcb1f6-1d8b-63aa-a22d-b48047b64809@linux.intel.com>
-Date: Mon, 6 May 2019 10:37:32 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08816F80C07
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:40:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08816F80C07
+Received: by mail-ed1-f66.google.com with SMTP id w11so15788936edl.5
+ for <alsa-devel@alsa-project.org>; Mon, 06 May 2019 08:40:23 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=uAt1+pUkHfiJ3Hg4XJTNXo+R9FukguOnVl+FlWHruWQ=;
+ b=NePr4HSc5V9FwjUApR4G5TwidkmFp+kwlag2KwcNT9/VTOGUco44bT/7LQ0N+cBbdH
+ zcdE/8AGCWwpmbZFxFTC9+OpRxBsTDPJCaWUAQ/ggNgcSbG0c3be/gSqV8UITbZlIMMQ
+ /nHhYu/Fl79QKnT9Nzi0919foIeZ5Ag/xYu0rlg9iO+nhvv5YQcyn+2aQUegUbGaxtzS
+ SiHay//C8/cYlvHojpHvPTowFgxvgnHi+T5FcLDAFiErYENdexU5Arsc5L4s/cp10d1D
+ RFpQjzJBKSOUWmyTgKoTpl3r7hskTTzSoujo/1X+sdHLSgc9Zk3pPvCCI7mqOU8FY+5b
+ BmFA==
+X-Gm-Message-State: APjAAAXFzvjo9jUL2wevAhWbpfIDIS0qYkY+ZpyTND9kRzQsaNt4L6OP
+ mhePleBljU5pKmfORa0QNjS8gWShx/I=
+X-Google-Smtp-Source: APXvYqwkOVwYLQgYelDo9ZzuV43ZZ0RTtcphw9n4FCkU4LkSY4qTAmycWdlu02lc4BAATUf6N2RTrg==
+X-Received: by 2002:a17:906:5c0f:: with SMTP id
+ e15mr19687933ejq.151.1557157222769; 
+ Mon, 06 May 2019 08:40:22 -0700 (PDT)
+Received: from shalem.localdomain (84-106-84-65.cable.dynamic.v4.ziggo.nl.
+ [84.106.84.65])
+ by smtp.gmail.com with ESMTPSA id f40sm3239068edb.55.2019.05.06.08.40.21
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 May 2019 08:40:21 -0700 (PDT)
+To: Takashi Iwai <tiwai@suse.de>, Nariman <narimantos@gmail.com>
+References: <20190504151652.5213-1-user@elitebook-localhost>
+ <20190504151652.5213-4-user@elitebook-localhost>
+ <s5ha7g1l4oq.wl-tiwai@suse.de>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <b9ea51f6-29fb-5ae8-607b-a047eba4bac0@redhat.com>
+Date: Mon, 6 May 2019 17:40:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <1557125960-29353-1-git-send-email-libin.yang@intel.com>
+In-Reply-To: <s5ha7g1l4oq.wl-tiwai@suse.de>
 Content-Language: en-US
-Cc: tiwai@suse.de, broonie@kernel.org, subhransu.s.prusty@intel.com,
- samreen.nilofer@intel.com
-Subject: Re: [alsa-devel] [RFC PATCH] ASoC: codec: hdac_hdmi: no checking
- monitor in hw_params
+Cc: alsa-devel@alsa-project.org, Jordy Ubink <jordyubink@hotmail.nl>,
+ yang.jie@linux.intel.com, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: bytcr_rt5651.c: remove string
+ buffers 'byt_rt5651_cpu_dai_name' and 'byt_rt5651_cpu_dai_name'
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,119 +97,34 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/6/19 1:59 AM, libin.yang@intel.com wrote:
-> From: Libin Yang <libin.yang@intel.com>
-> 
-> This patch move the check of monitor from hw_params to trigger callback.
-> 
-> The original code will check the monitor presence in hw_params. If the
-> monitor doesn't exist, hw_params will return -ENODEV. Mostly this is OK.
-> 
-> However, pulseaudio will check the pcm devices when kernel is booting up.
-> It will try to open, set hw_params, prepare such pcm devices. We can't
-> guarantee that the monitor will be connected when kernel is booting up.
-> Especially, hdac_hdmi will export 3 pcms at most. It's hard to say users
-> will connect 3 monitors to the HDMI/DP ports. This will cause pulseaudio
-> fail in parsing the pcm devices because the driver will return -ENODEV in
-> hw_params.
-> 
-> This patch tries to move the check of monitor presence into trigger
-> callback. This can "trick" the pulseaudio the pcm is ready.
-> 
-> This bug is found when we try to enable HDMI detection in
-> gnome-sound-setting for ASoC hdac_hdmi. After we enable the hdmi in UCM,
-> pulseaudio will try to parse the hdmi pcm devices. It will cause failure if
-> there are no monitors connected.
+Hi,
 
-Out of curiosity, how is this handled in the legacy driver? I haven't 
-done this for a long time but I remember very clearly being able to play 
-on the HDMI:3,7, etc devices without any monitors connected. You'd get 
-of course no sound but there was no error reported to userspace. The 
-hardware is perfectly capable of pushing samples into the display 
-controller using the HDAudio/iDisp link.
+On 05-05-19 09:51, Takashi Iwai wrote:
+> On Sat, 04 May 2019 17:16:52 +0200,
+> Nariman wrote:
+>>
+>> From: Jordy Ubink <jordyubink@hotmail.nl>
+>>
+>> The snprintf calls filling byt_rt5651_cpu_dai_name / byt_rt5651_cpu_dai_name always fill them with the same string (ssp0-port" resp "rt5651-aif2"). So instead of keeping these buffers around and making the cpu_dai_name / codec_dai_name point to this, simply update the foo_dai_name pointers to directly point to a string constant containing the desired string.
+>>
+>> Signed-off-by: Jordy Ubink <jordyubink@hotmail.nl>
+> 
+> If you submit a patch, please give your own sign-off as well as the
+> author's one, even if the patch is not written by you.  This is a
+> legal requirement.
 
-> 
-> Signed-off-by: Libin Yang <libin.yang@intel.com>
-> ---
->   sound/soc/codecs/hdac_hdmi.c | 44 +++++++++++++++++++++++++++++++-------------
->   1 file changed, 31 insertions(+), 13 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-> index 4de1fbf..f482e09 100644
-> --- a/sound/soc/codecs/hdac_hdmi.c
-> +++ b/sound/soc/codecs/hdac_hdmi.c
-> @@ -455,24 +455,11 @@ static int hdac_hdmi_set_hw_params(struct snd_pcm_substream *substream,
->   	struct snd_pcm_hw_params *hparams, struct snd_soc_dai *dai)
->   {
->   	struct hdac_hdmi_priv *hdmi = snd_soc_dai_get_drvdata(dai);
-> -	struct hdac_device *hdev = hdmi->hdev;
->   	struct hdac_hdmi_dai_port_map *dai_map;
-> -	struct hdac_hdmi_port *port;
->   	struct hdac_hdmi_pcm *pcm;
->   	int format;
->   
->   	dai_map = &hdmi->dai_map[dai->id];
-> -	port = dai_map->port;
-> -
-> -	if (!port)
-> -		return -ENODEV;
-> -
-> -	if ((!port->eld.monitor_present) || (!port->eld.eld_valid)) {
-> -		dev_err(&hdev->dev,
-> -			"device is not configured for this pin:port%d:%d\n",
-> -					port->pin->nid, port->id);
-> -		return -ENODEV;
-> -	}
->   
->   	format = snd_hdac_calc_stream_format(params_rate(hparams),
->   			params_channels(hparams), params_format(hparams),
-> @@ -630,6 +617,36 @@ static void hdac_hdmi_pcm_close(struct snd_pcm_substream *substream,
->   		dai_map->port = NULL;
->   }
->   
-> +static int hdac_hdmi_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
-> +				 struct snd_soc_dai *dai)
-> +{
-> +	struct hdac_hdmi_port *port;
-> +	struct hdac_hdmi_dai_port_map *dai_map;
-> +	struct hdac_hdmi_priv *hdmi = snd_soc_dai_get_drvdata(dai);
-> +	struct hdac_device *hdev = hdmi->hdev;
-> +
-> +	/*
-> +	 * When start, if there is no monitor,
-> +	 * It should not start audio.
-> +	 */
-> +	if (cmd == SNDRV_PCM_TRIGGER_START) {
-> +		dai_map = &hdmi->dai_map[dai->id];
-> +		port = dai_map->port;
-> +
-> +		if (!port)
-> +			return -ENODEV;
-> +
-> +		if ((!port->eld.monitor_present) || (!port->eld.eld_valid)) {
-> +			dev_err(&hdev->dev,
-> +				"device is not configured for this pin:port%d:%d\n",
-> +				port->pin->nid, port->id);
-> +			return -ENODEV;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int
->   hdac_hdmi_query_cvt_params(struct hdac_device *hdev, struct hdac_hdmi_cvt *cvt)
->   {
-> @@ -1389,6 +1406,7 @@ static const struct snd_soc_dai_ops hdmi_dai_ops = {
->   	.startup = hdac_hdmi_pcm_open,
->   	.shutdown = hdac_hdmi_pcm_close,
->   	.hw_params = hdac_hdmi_set_hw_params,
-> +	.trigger = hdac_hdmi_pcm_trigger,
->   	.set_tdm_slot = hdac_hdmi_set_tdm_slot,
->   };
->   
-> 
+Sorry, that is my bad, Nariman and the author authors of the patches
+are a group of students doing some kernel work for me and this is
+a warm-up assignment for them to get used to the kernel development
+process.
 
+I forgot to point out to Nariman that since he is sending
+out the entire series for all 4 of them, he needs to add his
+S-o-b.
+
+Regards,
+
+Hans
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

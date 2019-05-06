@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558A8151CA
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 18:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9163F151D8
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 18:45:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF6651865;
-	Mon,  6 May 2019 18:39:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6651865
+	by alsa0.perex.cz (Postfix) with ESMTPS id 00D611889;
+	Mon,  6 May 2019 18:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00D611889
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557160808;
-	bh=iXcNiO6GMVeLmtwxITWwXWK5oLiaq0MQBu8P3/lXzIc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557161147;
+	bh=atVIBsIvp4c7osuqmxkuAKHw9S63mt2BTzgFj7zxGXY=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lpdMs32bU4ZvOVOB+H3GMoo2+wuUCQIc253QShA7yG/wYbAiIYz6cufTDzhErZB6j
-	 5hpMA59JZt1Dv4aDDBpsbiwdwpQmtVxcJlRiSEobVXriCjhyfITj0ZE5JLJVcfoobx
-	 /ZaZm8aqqgizX/xNvoXcIUAM/pIkknm6KhJ9vf8A=
+	b=gtuQO6Pg32YatEBByVL9tmIYpzcclR5BUP2EVqq0sUXySlkm3syN6z8O62lNRPfhs
+	 ct71eqzVkLPhMT2M3pFx1wYppvzi1xYxNJ8+lvzvWRUEeHCDYwJIQU1NOJWQpqWAkw
+	 PrpFXVl2H22KO8M57P7u+scyS0gAyUD7hHQUuU9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1600AF896FD;
-	Mon,  6 May 2019 18:38:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40599F896F0;
+	Mon,  6 May 2019 18:44:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86011F896F0; Mon,  6 May 2019 18:38:20 +0200 (CEST)
+ id C6077F896F0; Mon,  6 May 2019 18:43:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5AE1FF80726
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 18:38:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AE1FF80726
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="YBrU4rBu"
-Received: from localhost (unknown [106.200.210.185])
+X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
+ version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9D51020578;
- Mon,  6 May 2019 16:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1557160696;
- bh=AekdLqHpDoOsRjyE4YTt8yYR+74f0A2mIBOAgYZpno4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=YBrU4rBuE3MPa6I6muGRenYoUcTpyx1Mnkwhrx8nhlI1RKIxFNJ7QoCL+fknzhuce
- s0VhHL2Aa/yPpH6tQ1fpnqUzgC9JYH48qUgurR0SAdXulLgD9fN0BIm0mvOY4YBbAk
- IkE5vzwINvW4lZCzvQ3Ea1x3PeXvASZ5IcxGE48I=
-Date: Mon, 6 May 2019 22:08:10 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <20190506163810.GK3845@vkoul-mobl.Dlink>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6EB0F89673
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 18:43:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6EB0F89673
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 May 2019 09:43:54 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,438,1549958400"; d="scan'208";a="230000844"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga001.jf.intel.com with ESMTP; 06 May 2019 09:43:53 -0700
+Received: from slaugust-mobl.amr.corp.intel.com (unknown [10.254.21.102])
+ by linux.intel.com (Postfix) with ESMTP id 08F6258010A;
+ Mon,  6 May 2019 09:43:51 -0700 (PDT)
+To: Greg KH <gregkh@linuxfoundation.org>
 References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
- <20190504010030.29233-6-pierre-louis.bossart@linux.intel.com>
- <20190504070301.GD9770@kroah.com>
- <a9e1c3d2-fe29-1683-9253-b66034c62010@linux.intel.com>
+ <20190504010030.29233-2-pierre-louis.bossart@linux.intel.com>
+ <20190504065242.GA9770@kroah.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <b36e5b42-6069-0a73-8cab-7fcfc999f3a8@linux.intel.com>
+Date: Mon, 6 May 2019 11:43:51 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a9e1c3d2-fe29-1683-9253-b66034c62010@linux.intel.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
+In-Reply-To: <20190504065242.GA9770@kroah.com>
+Content-Language: en-US
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- liam.r.girdwood@linux.intel.com, broonie@kernel.org,
+ liam.r.girdwood@linux.intel.com, vkoul@kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, joe@perches.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 5/7] soundwire: add debugfs support
+Subject: Re: [alsa-devel] [RFC PATCH 1/7] soundwire: Add sysfs support for
+ master(s)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,69 +78,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 06-05-19, 09:48, Pierre-Louis Bossart wrote:
+Thanks for the quick feedback Greg!
 
-> > > +struct dentry *sdw_bus_debugfs_get_root(struct sdw_bus_debugfs *d)
-> > > +{
-> > > +	if (d)
-> > > +		return d->fs;
-> > > +	return NULL;
-> > > +}
-> > > +EXPORT_SYMBOL(sdw_bus_debugfs_get_root);
-> > 
-> > _GPL()?
+>> +static const struct attribute_group sdw_master_node_group = {
+>> +	.attrs = master_node_attrs,
+>> +};
+>> +
+>> +static const struct attribute_group *sdw_master_node_groups[] = {
+>> +	&sdw_master_node_group,
+>> +	NULL
+>> +};
 > 
-> Oops, that's a big miss. will fix, thanks for spotting this.
+> Minor nit, you can use the ATTRIBUTE_GROUPS() macro here to save you a
+> few lines.
 
-Not really. The Soundwire code is dual licensed. Many of the soundwire
-symbols are indeed exported as EXPORT_SYMBOL. But I agree this one is
-'linux' specific so can be made _GPL.
+will do.
 
-Pierre, does Intel still care about this being dual licensed or not?
-
+>> +
+>> +static void sdw_device_release(struct device *dev)
+>> +{
+>> +	struct sdw_master_sysfs *master = to_sdw_device(dev);
+>> +
+>> +	kfree(master);
+>> +}
+>> +
+>> +static struct device_type sdw_device_type = {
+>> +	.name =	"sdw_device",
+>> +	.release = sdw_device_release,
+>> +};
+>> +
+>> +int sdw_sysfs_bus_init(struct sdw_bus *bus)
+>> +{
+>> +	struct sdw_master_sysfs *master;
+>> +	int err;
+>> +
+>> +	if (bus->sysfs) {
+>> +		dev_err(bus->dev, "SDW sysfs is already initialized\n");
+>> +		return -EIO;
+>> +	}
+>> +
+>> +	master = kzalloc(sizeof(*master), GFP_KERNEL);
+>> +	if (!master)
+>> +		return -ENOMEM;
 > 
-> > 
-> > But why is this exported at all?  No one calls this function.
-> 
-> I will have to check.
+> Why are you creating a whole new device to put all of this under?  Is
+> this needed?  What will the sysfs tree look like when you do this?  Why
+> can't the "bus" device just get all of these attributes and no second
+> device be created?
 
-It is used by codec driver which are not upstream yet. So my suggestion
-would be NOT to export this and only do so when we have users for it
-That would be true for other APIs exported out as well.
+This is indeed my main question on this code (see cover letter) and why 
+I tagged the series as RFC. I find it odd to create an int-sdw.0 
+platform device to model the SoundWire master, and a sdw-master:0 device 
+whose purpose is only to expose the properties of that master. it'd be 
+simpler if all the properties were exposed one level up.
 
-> > 
-> > > +struct sdw_slave_debugfs {
-> > > +	struct sdw_slave *slave;
-> > 
-> > Same question as above, why do you need this pointer?
-> 
-> will check.
-
-The deubugfs code does hold a ref to slave object to read the data and
-dump, this particular instance might be able to get rid of (should be
-doable)
-
-> > And meta-comment, if you _EVER_ save off a pointer to a reference
-> > counted object (like this and the above one), you HAVE to grab a
-> > reference to it, otherwise it can go away at any point in time as that
-> > is the point of reference counted objects.
-> > 
-> > So even if you do need/want this, you have to properly handle the
-> > reference count by incrementing/decrementing it as needed.
-
-Yes, but then device exit routine is supposed to do debugfs cleanup as
-well, so that would ensure these references are dropped at that point of
-time. Greg should that not take care of it or we *should* always do
-refcounting.
-
-Thanks
--- 
-~Vinod
+Vinod and Sanyog might be able to shed some light on this?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

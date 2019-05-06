@@ -2,84 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530A51507C
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:42:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1548A15085
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 17:42:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC55B18F0;
-	Mon,  6 May 2019 17:41:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC55B18F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79ADA16A9;
+	Mon,  6 May 2019 17:42:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79ADA16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557157334;
-	bh=kSP+CgnqrB5HXMygn8ow82bDTPjJuoMK/ScCIZp2GS4=;
+	s=default; t=1557157372;
+	bh=01sXgpI2xDYdU1r8+C8e357nz031PqYxnB+BaDQcN4M=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NXWecnL6CwGoEAn/GgTwHBc/GvsCxyZjc8qDxPaTrU++ulD6lcmfsWNpyyt8FKIhR
-	 llOz0NBC78YjvKTTl9P4DJnps5eY/9kdDb0cfHwAZrsWgIAKLrdkeOPwSZ4pipco2b
-	 USX+2xfVAi7nCo7/qmOQpmE9M9ggSufhTCJCNvbE=
+	b=LVphDRFRX6bQBnE/jaU0zUQphliYGiz4CSE/8UAR+IQktXMloCKLIpRQYmv39VV+z
+	 2b2clGw3yzXKrkR1YBzD/hlaBUeL2Iz3DGVGE3ml0NUwejIvsL6ZVPI8imbm2NSEnS
+	 5t7qv7td1QlgOkGRZOZX0J9z+NDwBrqLcvNrIIx8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6220DF896FF;
-	Mon,  6 May 2019 17:40:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38334F89723;
+	Mon,  6 May 2019 17:40:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B359F896F0; Mon,  6 May 2019 17:40:26 +0200 (CEST)
+ id 8B489F89705; Mon,  6 May 2019 17:40:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08816F80C07
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:40:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08816F80C07
-Received: by mail-ed1-f66.google.com with SMTP id w11so15788936edl.5
- for <alsa-devel@alsa-project.org>; Mon, 06 May 2019 08:40:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=uAt1+pUkHfiJ3Hg4XJTNXo+R9FukguOnVl+FlWHruWQ=;
- b=NePr4HSc5V9FwjUApR4G5TwidkmFp+kwlag2KwcNT9/VTOGUco44bT/7LQ0N+cBbdH
- zcdE/8AGCWwpmbZFxFTC9+OpRxBsTDPJCaWUAQ/ggNgcSbG0c3be/gSqV8UITbZlIMMQ
- /nHhYu/Fl79QKnT9Nzi0919foIeZ5Ag/xYu0rlg9iO+nhvv5YQcyn+2aQUegUbGaxtzS
- SiHay//C8/cYlvHojpHvPTowFgxvgnHi+T5FcLDAFiErYENdexU5Arsc5L4s/cp10d1D
- RFpQjzJBKSOUWmyTgKoTpl3r7hskTTzSoujo/1X+sdHLSgc9Zk3pPvCCI7mqOU8FY+5b
- BmFA==
-X-Gm-Message-State: APjAAAXFzvjo9jUL2wevAhWbpfIDIS0qYkY+ZpyTND9kRzQsaNt4L6OP
- mhePleBljU5pKmfORa0QNjS8gWShx/I=
-X-Google-Smtp-Source: APXvYqwkOVwYLQgYelDo9ZzuV43ZZ0RTtcphw9n4FCkU4LkSY4qTAmycWdlu02lc4BAATUf6N2RTrg==
-X-Received: by 2002:a17:906:5c0f:: with SMTP id
- e15mr19687933ejq.151.1557157222769; 
- Mon, 06 May 2019 08:40:22 -0700 (PDT)
-Received: from shalem.localdomain (84-106-84-65.cable.dynamic.v4.ziggo.nl.
- [84.106.84.65])
- by smtp.gmail.com with ESMTPSA id f40sm3239068edb.55.2019.05.06.08.40.21
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Mon, 06 May 2019 08:40:21 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>, Nariman <narimantos@gmail.com>
-References: <20190504151652.5213-1-user@elitebook-localhost>
- <20190504151652.5213-4-user@elitebook-localhost>
- <s5ha7g1l4oq.wl-tiwai@suse.de>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <b9ea51f6-29fb-5ae8-607b-a047eba4bac0@redhat.com>
-Date: Mon, 6 May 2019 17:40:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7630FF896FD
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 17:40:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7630FF896FD
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 May 2019 08:40:49 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,438,1549958400"; d="scan'208";a="229980313"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga001.jf.intel.com with ESMTP; 06 May 2019 08:40:49 -0700
+Received: from slaugust-mobl.amr.corp.intel.com (unknown [10.254.21.102])
+ by linux.intel.com (Postfix) with ESMTP id 04EF158010A;
+ Mon,  6 May 2019 08:40:48 -0700 (PDT)
+To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
+References: <20190506150224.1394-1-tiwai@suse.de>
+ <20190506150224.1394-3-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <ea78fa2e-5cc3-2639-4b73-4b9e4f3e1963@linux.intel.com>
+Date: Mon, 6 May 2019 10:40:48 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <s5ha7g1l4oq.wl-tiwai@suse.de>
+In-Reply-To: <20190506150224.1394-3-tiwai@suse.de>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, Jordy Ubink <jordyubink@hotmail.nl>,
- yang.jie@linux.intel.com, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: bytcr_rt5651.c: remove string
- buffers 'byt_rt5651_cpu_dai_name' and 'byt_rt5651_cpu_dai_name'
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: SOF: Fix a compile warning with
+ CONFIG_PCI=n
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,40 +74,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On 05-05-19 09:51, Takashi Iwai wrote:
-> On Sat, 04 May 2019 17:16:52 +0200,
-> Nariman wrote:
->>
->> From: Jordy Ubink <jordyubink@hotmail.nl>
->>
->> The snprintf calls filling byt_rt5651_cpu_dai_name / byt_rt5651_cpu_dai_name always fill them with the same string (ssp0-port" resp "rt5651-aif2"). So instead of keeping these buffers around and making the cpu_dai_name / codec_dai_name point to this, simply update the foo_dai_name pointers to directly point to a string constant containing the desired string.
->>
->> Signed-off-by: Jordy Ubink <jordyubink@hotmail.nl>
-> 
-> If you submit a patch, please give your own sign-off as well as the
-> author's one, even if the patch is not written by you.  This is a
-> legal requirement.
-
-Sorry, that is my bad, Nariman and the author authors of the patches
-are a group of students doing some kernel work for me and this is
-a warm-up assignment for them to get used to the kernel development
-process.
-
-I forgot to point out to Nariman that since he is sending
-out the entire series for all 4 of them, he needs to add his
-S-o-b.
-
-Regards,
-
-Hans
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gNS82LzE5IDEwOjAyIEFNLCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gQSB0cml2aWFsIGZpeCBm
+b3IgdGhlIHJhbmRjb25maWcgYnVpbGQgZXJyb3I6Cj4gICAgc291bmQvc29jL3NvZi9vcHMuYzoy
+MDo2OiB3YXJuaW5nOiDigJhyZXTigJkgaXMgdXNlZCB1bmluaXRpYWxpemVkIGluIHRoaXMgZnVu
+Y3Rpb24gWy1XdW5pbml0aWFsaXplZF0KPiAKPiBGaXhlczogZDFkOTVmY2I2M2UzICgiQVNvQzog
+U09GOiBBZGQgRFNQIEhXIGFic3RyYWN0aW9uIG9wZXJhdGlvbnMiKQo+IFNpZ25lZC1vZmYtYnk6
+IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4KCkkgcmVtZW1iZXIgZml4aW5nIHRoaXMsIHBy
+b2JhYmx5IG5ldmVyIGFwcGxpZWQgaXQgdG8gdGhlIHJpZ2h0IGJyYW5jaCAKOi0oIFRoYW5rcyBU
+YWthc2hpLgoKQWNrZWQtYnk6IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDxwaWVycmUtbG91aXMuYm9z
+c2FydEBsaW51eC5pbnRlbC5jb20+CgoKPiAtLS0KPiAgIHNvdW5kL3NvYy9zb2Yvb3BzLmMgfCAy
+ICstCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiAK
+PiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL3NvZi9vcHMuYyBiL3NvdW5kL3NvYy9zb2Yvb3BzLmMK
+PiBpbmRleCA4MGY5MDc3NDBiODIuLjdhMjdjM2I3MTllNyAxMDA2NDQKPiAtLS0gYS9zb3VuZC9z
+b2Mvc29mL29wcy5jCj4gKysrIGIvc291bmQvc29jL3NvZi9vcHMuYwo+IEBAIC0xNyw3ICsxNyw3
+IEBAIGJvb2wgc25kX3NvZl9wY2lfdXBkYXRlX2JpdHNfdW5sb2NrZWQoc3RydWN0IHNuZF9zb2Zf
+ZGV2ICpzZGV2LCB1MzIgb2Zmc2V0LAo+ICAgewo+ICAgCXN0cnVjdCBwY2lfZGV2ICpwY2kgPSB0
+b19wY2lfZGV2KHNkZXYtPmRldik7Cj4gICAJdW5zaWduZWQgaW50IG9sZCwgbmV3Owo+IC0JdTMy
+IHJldDsKPiArCXUzMiByZXQgPSAwOwo+ICAgCj4gICAJcGNpX3JlYWRfY29uZmlnX2R3b3JkKHBj
+aSwgb2Zmc2V0LCAmcmV0KTsKPiAgIAlvbGQgPSByZXQ7Cj4gCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNh
+LWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

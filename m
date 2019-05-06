@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17ADB1513B
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 18:29:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 415A3151AD
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 18:34:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6EBC0171A;
-	Mon,  6 May 2019 18:28:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EBC0171A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A202E184E;
+	Mon,  6 May 2019 18:33:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A202E184E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557160152;
-	bh=Ats0ggWjOQ+/xgLiXbfBShyBZV7etHF9R9ZAAk/ru5c=;
+	s=default; t=1557160452;
+	bh=f5+ddARKaB4WKOjjH6+5BZZ1Cv35n7OUEEnZV/5Ps8Q=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i6fNLJ5gw8LT+lKMV9vrQ7igMXo+p9IHyuK9TLINCAMBjQeJUb1nH5LgpO3D9k/gk
-	 Ih2wpNk0RKIJ6IcgJlo6VCco0AS+pqNi7rfKdWvbDi281GmLlVRZ1BbDGHktoS7kmZ
-	 j/cq8xdCeCo1H2g8Z9hHiOLd8ZCw7vgqZ4TZ/wMU=
+	b=tTqI7gaAwPcEYopMUUKcpevsnx4/DFbX7OHhs4F26JQXVRq6lMGMf4A5s8BhATGQO
+	 CLSl3ZeZIWagljw9OboIkFzis9T/gAVmzuIV21LmVeJ5y2zu18qZ3vzYrJp8I2I33B
+	 AQ3BnPWkfmV43/MsOf76DXW3Ortj6nFM8PdWaJyE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0FB4F896FF;
-	Mon,  6 May 2019 18:27:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5F469F896F0;
+	Mon,  6 May 2019 18:32:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B0FEF896F0; Mon,  6 May 2019 18:27:24 +0200 (CEST)
+ id 8EF77F896F0; Mon,  6 May 2019 18:32:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC96EF80726
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 18:27:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC96EF80726
+ by alsa1.perex.cz (Postfix) with ESMTPS id D18BAF80726
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 18:32:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D18BAF80726
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Gip5lYLx"
+ header.b="XcEKdXHk"
 Received: from localhost (unknown [106.200.210.185])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0ED7B214AE;
- Mon,  6 May 2019 16:22:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6DD9C205C9;
+ Mon,  6 May 2019 16:24:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1557159733;
- bh=n4fUgB+1Yb+XpXuGuFZbm4TH64BgfrO5/gdAK66Tgjk=;
+ s=default; t=1557159885;
+ bh=uNCQttmmYYJSvud2cb586tPjuGNdF1u7yrL8bCBjHTM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Gip5lYLxnyF4TLfsEBmG5/lCfyhlpsZTj3Y3wzZvTOw49H76Xa09haJHj3KZn8lhh
- LVdtb+CRNREQcpE523dVrdyxDf/uJZdxxjujFOZpF3PwqKiOQX7tBMUXGObaigSfki
- 4PV5iiqhjG2rEuBPF6+LibzDlcMdfBiN4rqiQE/g=
-Date: Mon, 6 May 2019 21:52:08 +0530
+ b=XcEKdXHk5NZREQ+2HaBsIwwCDKSu5pA9jHfW7LMPcR8Y5ooGtYA2jrNYIpBbBUnVE
+ 7/8hWIwYi0SjdUfQHoIMRUF3Y5doQVwpMKnEQ8cLek+skIXQmh742mAxnbutf1Kcv8
+ znGDI90xhLKur39DLQcVCxnf/x0iKGeNXG2zSwso=
+Date: Mon, 6 May 2019 21:54:39 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Greg KH <gregkh@linuxfoundation.org>
-Message-ID: <20190506162208.GI3845@vkoul-mobl.Dlink>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190506162439.GJ3845@vkoul-mobl.Dlink>
 References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
- <20190504010030.29233-3-pierre-louis.bossart@linux.intel.com>
- <20190504065444.GC9770@kroah.com>
- <c675ea60-5bfa-2475-8878-c589b8d20b32@linux.intel.com>
- <20190506151953.GA13178@kroah.com>
+ <20190504010030.29233-4-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190506151953.GA13178@kroah.com>
+In-Reply-To: <20190504010030.29233-4-pierre-louis.bossart@linux.intel.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
  joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 2/7] soundwire: add Slave sysfs support
+Subject: Re: [alsa-devel] [RFC PATCH 3/7] ABI: testing: Add description of
+ soundwire master sysfs files
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,50 +85,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 06-05-19, 17:19, Greg KH wrote:
-> On Mon, May 06, 2019 at 09:42:35AM -0500, Pierre-Louis Bossart wrote:
-> > > > +
-> > > > +int sdw_sysfs_slave_init(struct sdw_slave *slave)
-> > > > +{
-> > > > +	struct sdw_slave_sysfs *sysfs;
-> > > > +	unsigned int src_dpns, sink_dpns, i, j;
-> > > > +	int err;
-> > > > +
-> > > > +	if (slave->sysfs) {
-> > > > +		dev_err(&slave->dev, "SDW Slave sysfs is already initialized\n");
-> > > > +		err = -EIO;
-> > > > +		goto err_ret;
-> > > > +	}
-> > > > +
-> > > > +	sysfs = kzalloc(sizeof(*sysfs), GFP_KERNEL);
-> > > 
-> > > Same question as patch 1, why a new device?
-> > 
-> > yes it's the same open. In this case, the slave devices are defined at a
-> > different level so it's also confusing to create a device to represent the
-> > slave properties. The code works but I am not sure the initial directions
-> > are correct.
+On 03-05-19, 20:00, Pierre-Louis Bossart wrote:
+> The description is directly derived from the MIPI DisCo specification.
 > 
-> You can just make a subdir for your attributes by using the attribute
-> group name, if a subdirectory is needed just to keep things a bit more
-> organized.
-
-The key here is 'a subdir' which is not the case here. We did discuss
-this in the initial patches for SoundWire which had sysfs :)
-
-The way MIPI disco spec organized properties, we have dp0 and dpN
-properties each of them requires to have a subdir of their own and that
-was the reason why I coded it to be creating a device.
-
-Do we have a better way to handle this?
-
-> Otherwise, you need to mess with having multiple "types" of struct
-> device all associated with the same bus.  It is possible, and not that
-> hard, but I don't think you are doing that here.
+> Credits: this patch is based on an earlier internal contribution by
+> Vinod Koul, Sanyog Kale, Shreyas Nc and Hardik Shah.
 > 
-> thnaks,
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  .../ABI/testing/sysfs-bus-soundwire-master    | 21 +++++++++++++++++++
+>  drivers/soundwire/sysfs.c                     |  1 +
+>  2 files changed, 22 insertions(+)
+>  create mode 100644 Documentation/ABI/testing/sysfs-bus-soundwire-master
 > 
-> greg k-h
+> diff --git a/Documentation/ABI/testing/sysfs-bus-soundwire-master b/Documentation/ABI/testing/sysfs-bus-soundwire-master
+> new file mode 100644
+> index 000000000000..69cadf31049d
+> --- /dev/null
+> +++ b/Documentation/ABI/testing/sysfs-bus-soundwire-master
+> @@ -0,0 +1,21 @@
+> +What:		/sys/bus/soundwire/devices/sdw-master-N/revision
+> +		/sys/bus/soundwire/devices/sdw-master-N/clk_stop_modes
+> +		/sys/bus/soundwire/devices/sdw-master-N/clk_freq
+> +		/sys/bus/soundwire/devices/sdw-master-N/clk_gears
+> +		/sys/bus/soundwire/devices/sdw-master-N/default_col
+> +		/sys/bus/soundwire/devices/sdw-master-N/default_frame_rate
+> +		/sys/bus/soundwire/devices/sdw-master-N/default_row
+> +		/sys/bus/soundwire/devices/sdw-master-N/dynamic_shape
+> +		/sys/bus/soundwire/devices/sdw-master-N/err_threshold
+> +		/sys/bus/soundwire/devices/sdw-master-N/max_clk_freq
+> +
+> +Date:		May 2019
+> +
+> +Contact:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+As the author of original code, it would be great if you can add me as a
+contact as well.
+
+> +
+> +Description:	SoundWire Master-N DisCo properties.
+> +		These properties are defined by MIPI DisCo Specification
+> +		for SoundWire. They define various properties of the Master
+> +		and are used by the bus to configure the Master. clk_stop_modes
+> +		is a bitmask for simplifications and combines the
+> +		clock-stop-mode0 and clock-stop-mode1 properties.
+> diff --git a/drivers/soundwire/sysfs.c b/drivers/soundwire/sysfs.c
+> index 734e2c8bc5cd..c2e5b7ad42fb 100644
+> --- a/drivers/soundwire/sysfs.c
+> +++ b/drivers/soundwire/sysfs.c
+> @@ -31,6 +31,7 @@ struct sdw_master_sysfs {
+>   *      |---- clk_gears
+>   *      |---- default_row
+>   *      |---- default_col
+> + *      |---- default_frame_shape
+
+This should be folded into 1st patch
+
+>   *      |---- dynamic_shape
+>   *      |---- err_threshold
+>   */
+> -- 
+> 2.17.1
 
 -- 
 ~Vinod

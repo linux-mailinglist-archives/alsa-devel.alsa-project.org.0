@@ -2,69 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD21F14C99
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 16:44:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C7C514CD5
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 May 2019 16:45:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27C3518EF;
-	Mon,  6 May 2019 16:43:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27C3518EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB9831905;
+	Mon,  6 May 2019 16:44:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB9831905
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557153871;
-	bh=8UdQVme2Uw4zTtg7hd5EoHBpeoekxq3aR3dRsT0gzMY=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557153908;
+	bh=8EsBbAMM2myvb91YzwjIxeFhlCFOWC8K3ydz4/XAMJ4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qrSNAfAoqFLJyGwDKsJU+HHFhTutiGbm1Cfr23GSUp9Al79cjIChwv6O55CCtcVBJ
-	 vfqRUd0U0RHixmtzQuz3cGoD0SwGAZ3dsWxdUwQk9698yZAEqzpuujLrljAX9ahrAO
-	 bRe9qKOtx+9dlyfeh4wkmExzhvDTJECQj+OmH3ak=
+	b=tAW+cZtztJRhqN1a7zxMCuPJ7EKKFEnJn4mD/TD6n8dl/hmBtSQn4RRp19+iuTsbH
+	 4ugco/k2k+4dtoUpfefSPEVYfUXLDHNdu6uEcLTn9y56P8+WKnP9IDH7FBE0BLGOYS
+	 vwVXmtnEe/msJeLlI3XM8SzxvKxuRVg9PApg08dk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4E32F896F0;
-	Mon,  6 May 2019 16:42:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4054F89723;
+	Mon,  6 May 2019 16:43:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 366F5F896F0; Mon,  6 May 2019 16:42:42 +0200 (CEST)
+ id A206BF89705; Mon,  6 May 2019 16:43:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4F29F89673
- for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 16:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4F29F89673
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 May 2019 07:42:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,438,1549958400"; d="scan'208";a="137398978"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 06 May 2019 07:42:37 -0700
-Received: from slaugust-mobl.amr.corp.intel.com (unknown [10.254.21.102])
- by linux.intel.com (Postfix) with ESMTP id 407C458010A;
- Mon,  6 May 2019 07:42:36 -0700 (PDT)
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
- <20190504010030.29233-3-pierre-louis.bossart@linux.intel.com>
- <20190504065444.GC9770@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c675ea60-5bfa-2475-8878-c589b8d20b32@linux.intel.com>
-Date: Mon, 6 May 2019 09:42:35 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20190504065444.GC9770@kroah.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- liam.r.girdwood@linux.intel.com, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, joe@perches.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 2/7] soundwire: add Slave sysfs support
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6386F80C07
+ for <alsa-devel@alsa-project.org>; Mon,  6 May 2019 16:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6386F80C07
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id D01CFABE7;
+ Mon,  6 May 2019 14:42:59 +0000 (UTC)
+Date: Mon, 06 May 2019 16:42:59 +0200
+Message-ID: <s5hef5b4pak.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190506144000.GV14916@sirena.org.uk>
+References: <20190506141144.GR14916@sirena.org.uk>
+ <s5hr29b4qas.wl-tiwai@suse.de>
+ <20190506144000.GV14916@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [alsa-devel] [GIT PULL] ASoC updates for v5.2
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,50 +66,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
->> +static struct attribute_group sdw_slave_dev_attr_group = {
->> +	.attrs	= slave_dev_attrs,
->> +};
->> +
->> +const struct attribute_group *sdw_slave_dev_attr_groups[] = {
->> +	&sdw_slave_dev_attr_group,
->> +	NULL
->> +};
-> 
-> ATTRIBUTE_GROUP()?
-
-yes.
-
-> 
-> 
->> +
->> +int sdw_sysfs_slave_init(struct sdw_slave *slave)
->> +{
->> +	struct sdw_slave_sysfs *sysfs;
->> +	unsigned int src_dpns, sink_dpns, i, j;
->> +	int err;
->> +
->> +	if (slave->sysfs) {
->> +		dev_err(&slave->dev, "SDW Slave sysfs is already initialized\n");
->> +		err = -EIO;
->> +		goto err_ret;
->> +	}
->> +
->> +	sysfs = kzalloc(sizeof(*sysfs), GFP_KERNEL);
-> 
-> Same question as patch 1, why a new device?
-
-yes it's the same open. In this case, the slave devices are defined at a 
-different level so it's also confusing to create a device to represent 
-the slave properties. The code works but I am not sure the initial 
-directions are correct.
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gTW9uLCAwNiBNYXkgMjAxOSAxNjo0MDowMCArMDIwMCwKTWFyayBCcm93biB3cm90ZToKPiAK
+PiBPbiBNb24sIE1heSAwNiwgMjAxOSBhdCAwNDoyMToxNVBNICswMjAwLCBUYWthc2hpIEl3YWkg
+d3JvdGU6Cj4gPiBNYXJrIEJyb3duIHdyb3RlOgo+IAo+ID4gc291bmQvc29jL3JvY2tjaGlwL3Jv
+Y2tjaGlwX3BkbS5jOiBJbiBmdW5jdGlvbiDigJhyb2NrY2hpcF9wZG1faHdfcGFyYW1z4oCZOgo+
+ID4gc291bmQvc29jL3JvY2tjaGlwL3JvY2tjaGlwX3BkbS5jOjE3OTozOiB3YXJuaW5nOiDigJhj
+bGtfb3V04oCZIG1heSBiZSB1c2VkIHVuaW5pdGlhbGl6ZWQgaW4gdGhpcyBmdW5jdGlvbiBbLVdt
+YXliZS11bmluaXRpYWxpemVkXQo+ID4gICAgcmF0aW9uYWxfYmVzdF9hcHByb3hpbWF0aW9uKGNs
+a19vdXQsIGNsa19zcmMsCj4gPiAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn4KPiA+ICAgICAgICAgICBHRU5NQVNLKDE2IC0gMSwgMCksCj4gPiAgICAgICAg
+ICAgfn5+fn5+fn5+fn5+fn5+fn5+fgo+ID4gICAgICAgICAgIEdFTk1BU0soMTYgLSAxLCAwKSwK
+PiA+ICAgICAgICAgICB+fn5+fn5+fn5+fn5+fn5+fn5+Cj4gPiAgICAgICAgICAgJm0sICZuKTsK
+PiA+ICAgICAgICAgICB+fn5+fn5+Cj4gCj4gPiBJcyBhIGZpeCBvbiB5b3VyIHRyZWUgYWxyZWFk
+eT8KPiAKPiBObywgSSBkb24ndCBoYXZlIGFueXRoaW5nIEkgZGlkbid0IHNlbnQgdG8geW91LgoK
+T0ssIHRoZW4gSSdsbCBzdWJtaXQgYSBmZXcgdHJpdmlhbCBmaXggcGF0Y2hlcyBmb3IgY292ZXJp
+bmcgdGhlIHJhbmRvbQpidWlsZCB3YXJuaW5ncy4KCkluIGFkZGl0aW9uIHRvIHRoZSBhYm92ZSwg
+SSBzZWUgdHdvIG90aGVycyBkdXJpbmcgbXkgYnVpbGQgdGVzdHM6Cgpzb3VuZC9zb2Mvc29mL29w
+cy5jOjIwOjY6IHdhcm5pbmc6IOKAmHJldOKAmSBpcyB1c2VkIHVuaW5pdGlhbGl6ZWQgaW4gdGhp
+cyBmdW5jdGlvbiBbLVd1bmluaXRpYWxpemVkXQoKc291bmQvc29jL2NvZGVjcy9kYTcyMTkuYzoy
+MzY2OjY6IHdhcm5pbmc6IHVudXNlZCB2YXJpYWJsZSDigJhp4oCZIFstV3VudXNlZC12YXJpYWJs
+ZV0KCgp0aGFua3MsCgpUYWthc2hpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
+ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2Fsc2EtZGV2ZWwK

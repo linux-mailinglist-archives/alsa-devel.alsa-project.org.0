@@ -2,78 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8DE4162F4
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 13:39:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B0EF163BE
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 14:28:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F71317C4;
-	Tue,  7 May 2019 13:38:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F71317C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F18F17B9;
+	Tue,  7 May 2019 14:27:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F18F17B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557229153;
-	bh=sOKMwYVhj/nkc3Oj0axQOv96C9Tgiy/IkSxq+p6C9ic=;
+	s=default; t=1557232128;
+	bh=adHSvQb58Un6bE0ltjJ9+VSRkD4pngVnT9zG75wp7SE=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BKYyUgXslmXLT216NqIBn54ZsCpbuNo9lTy4/NRsi+b+F1O9osO2YBk3uZkpk1fcH
-	 4HONdegX1TSpwrnJVRyIlrlu3vRWRwzODl3q/RpYEzynHPnC2c4wS6X9WxZE1dVsQi
-	 51tVPKmp5h1d7LsLaRRU/OVxJYSO2MXnEqb72y3s=
+	b=XER5H9lh4hs2HIjIR/vgcnTKcMTAZmA4BK8ZEqd/oFT7ckY/1QNq14bMeemC0Su8n
+	 FJFVL9dMUDe/zvunZ+M/+ttRBAVP/zN4SI9ZrUJl/DGRwr4euSwZKSOdJAjL4o3MWX
+	 k/j3LfjywssEC6cgwk6LIlWRqv0tev/yco64p1wI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EE1EF89682;
-	Tue,  7 May 2019 13:37:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07143F89682;
+	Tue,  7 May 2019 14:27:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55A1DF89674; Tue,  7 May 2019 13:37:26 +0200 (CEST)
+ id AD1F4F89674; Tue,  7 May 2019 14:27:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BF0BF80726
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 13:37:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BF0BF80726
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38D60F80726
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 14:26:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38D60F80726
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cm884n61"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
+ header.b="g9dlocE/"
+Received: from localhost (unknown [106.200.210.185])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AED4B20825;
- Tue,  7 May 2019 11:19:58 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 95ECC206A3;
+ Tue,  7 May 2019 12:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1557227999;
- bh=2KW4IES2kdF+LQdQyLSfPjc52EwP8NS9wLwRpFTrJ5k=;
+ s=default; t=1557232017;
+ bh=tFaw7PLFFMnBD2d8LMpuF3sAy7zQewD/xapRJv5td7c=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cm884n610KLZNhOM9X2yXhp42AGTNt1AIxR2VPq1sMQs41n28o3Ojh3+0asTgFc17
- Z0TLT4R7S/k1b8dKxw+c7LgnrSpRiTEr/yRh2KqwUaUIyfzEl91HEctY/ArOE1190S
- PqA2+jjA3JW0BErUVpxOIVke9ZoK1P4e0ukwoBmk=
-Date: Tue, 7 May 2019 13:19:56 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20190507111956.GB1092@kroah.com>
-References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
- <20190504010030.29233-2-pierre-louis.bossart@linux.intel.com>
- <20190504065242.GA9770@kroah.com>
- <b0059709-027e-26c4-25a1-bd55df7c507f@linux.intel.com>
- <20190507052732.GD16052@vkoul-mobl>
- <20190507055432.GB17986@kroah.com>
- <20190507110331.GL16052@vkoul-mobl>
+ b=g9dlocE/TXIqwbSJEwFuisgfwTKdQL8aB0AdxYZ5EpShK/drxMcTLVpxvGRW41ZCh
+ Me4N4Ha6jq/tQUjJCz/pTCTiobrLr/JD8/WR6xt57qjbq6bCSIUFOUwb2PoZwWQCqQ
+ 2WAM6o0z3lvbRCELOX3zgOmSunz6eXjz78eSGorQ=
+Date: Tue, 7 May 2019 17:56:51 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190507122651.GO16052@vkoul-mobl>
+References: <20190504002926.28815-1-pierre-louis.bossart@linux.intel.com>
+ <20190504002926.28815-2-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190507110331.GL16052@vkoul-mobl>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+In-Reply-To: <20190504002926.28815-2-pierre-louis.bossart@linux.intel.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
  joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 1/7] soundwire: Add sysfs support for
- master(s)
+Subject: Re: [alsa-devel] [PATCH 1/8] soundwire: intel: filter SoundWire
+ controller device search
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,117 +85,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, May 07, 2019 at 04:33:31PM +0530, Vinod Koul wrote:
-> On 07-05-19, 07:54, Greg KH wrote:
-> > On Tue, May 07, 2019 at 10:57:32AM +0530, Vinod Koul wrote:
-> > > On 06-05-19, 21:24, Pierre-Louis Bossart wrote:
-> > > > 
-> > > > > > +int sdw_sysfs_bus_init(struct sdw_bus *bus)
-> > > > > > +{
-> > > > > > +	struct sdw_master_sysfs *master;
-> > > > > > +	int err;
-> > > > > > +
-> > > > > > +	if (bus->sysfs) {
-> > > > > > +		dev_err(bus->dev, "SDW sysfs is already initialized\n");
-> > > > > > +		return -EIO;
-> > > > > > +	}
-> > > > > > +
-> > > > > > +	master = kzalloc(sizeof(*master), GFP_KERNEL);
-> > > > > > +	if (!master)
-> > > > > > +		return -ENOMEM;
-> > > > > 
-> > > > > Why are you creating a whole new device to put all of this under?  Is
-> > > > > this needed?  What will the sysfs tree look like when you do this?  Why
-> > > > > can't the "bus" device just get all of these attributes and no second
-> > > > > device be created?
-> > > > 
-> > > > I tried a quick hack and indeed we could simplify the code with something as
-> > > > simple as:
-> > > > 
-> > > > [attributes omitted]
-> > > > 
-> > > > static const struct attribute_group sdw_master_node_group = {
-> > > > 	.attrs = master_node_attrs,
-> > > > 	.name = "mipi-disco"
-> > > > };
-> > > > 
-> > > > int sdw_sysfs_bus_init(struct sdw_bus *bus)
-> > > > {
-> > > > 	return sysfs_create_group(&bus->dev->kobj, &sdw_master_node_group);
-> > > > }
-> > > > 
-> > > > void sdw_sysfs_bus_exit(struct sdw_bus *bus)
-> > > > {
-> > > > 	sysfs_remove_group(&bus->dev->kobj, &sdw_master_node_group);	
-> > > > }
-> > > > 
-> > > > which gives me a simpler structure and doesn't require additional
-> > > > pretend-devices:
-> > > > 
-> > > > /sys/bus/acpi/devices/PRP00001:00/int-sdw.0/mipi-disco# ls
-> > > > clock_gears
-> > > > /sys/bus/acpi/devices/PRP00001:00/int-sdw.0/mipi-disco# more clock_gears
-> > > > 8086
-> > > > 
-> > > > The issue I have is that for the _show() functions, I don't see a way to go
-> > > > from the device argument to bus. In the example above I forced the output
-> > > > but would need a helper.
-> > > > 
-> > > > static ssize_t clock_gears_show(struct device *dev,
-> > > > 				struct device_attribute *attr, char *buf)
-> > > > {
-> > > > 	struct sdw_bus *bus; // this is what I need to find from dev
-> > > > 	ssize_t size = 0;
-> > > > 	int i;
-> > > > 
-> > > > 	return sprintf(buf, "%d \n", 8086);
-> > > > }
-> > > > 
-> > > > my brain is starting to fry, but I don't see how container_of() would work
-> > > > here since the bus structure contains a pointer to the device. I don't also
-> > > > see a way to check for all devices for the bus_type soundwire.
-> > > > For the slaves we do have a macro based on container_of(), so wondering if
-> > > > we made a mistake in the bus definition? Vinod, any thoughts?
-> > > 
-> > > yeah I dont recall a way to get bus fed into create_group, I did look at
-> > > the other examples back then and IIRC and most of them were using a
-> > > global to do the trick (I didn't want to go down that route).
-> > > 
-> > > I think that was the reason I wrote it this way...
-> > > 
-> > > BTW if you do use psedo-device you can create your own struct foo which
-> > > embeds device and then then you can use container approach to get foo
-> > > (and foo contains bus as a member).
-> > > 
-> > > Greg, any thoughts?
-> > 
-> > Why would you have "bus" attributes on a device?  I don't think you are
-> > using "bus" here like the driver model uses the term "bus", right?
-> > 
-> > What are you really trying to show here?
-> > 
-> > And if you need to know the bus pointer from the device, why don't you
-> > have a pointer to it in your device-specific structure?
+On 03-05-19, 19:29, Pierre-Louis Bossart wrote:
+> The convention is that the SoundWire controller device is a child of
+> the HDAudio controller. However there can be more than one child
+> exposed in the DSDT table, and the current namespace walk returns the
+> last device.
 > 
-> The model here is that Master device is PCI or Platform device and then
-> creates a bus instance which has soundwire slave devices.
+> Add a filter and terminate early when a valid _ADR is provided,
+> otherwise keep iterating to find the next child.
+
+So what are the other devices in DSDT here..
+
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  drivers/soundwire/intel_init.c | 19 ++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
 > 
-> So for any attribute on Master device (which has properties as well and
-> representation in sysfs), device specfic struct (PCI/platfrom doesn't
-> help). For slave that is not a problem as sdw_slave structure takes care
-> if that.
-> 
-> So, the solution was to create the psedo sdw_master device for the
-> representation and have device-specific structure.
+> diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
+> index d3d6b54c5791..f85db67d05f0 100644
+> --- a/drivers/soundwire/intel_init.c
+> +++ b/drivers/soundwire/intel_init.c
+> @@ -150,6 +150,12 @@ static acpi_status sdw_intel_acpi_cb(acpi_handle handle, u32 level,
+>  {
+>  	struct sdw_intel_res *res = cdata;
+>  	struct acpi_device *adev;
+> +	acpi_status status;
+> +	u64 adr;
+> +
+> +	status = acpi_evaluate_integer(handle, METHOD_NAME__ADR, NULL, &adr);
+> +	if (ACPI_FAILURE(status))
+> +		return AE_OK; /* keep going */
+>  
+>  	if (acpi_bus_get_device(handle, &adev)) {
+>  		pr_err("%s: Couldn't find ACPI handle\n", __func__);
+> @@ -157,7 +163,18 @@ static acpi_status sdw_intel_acpi_cb(acpi_handle handle, u32 level,
+>  	}
+>  
+>  	res->handle = handle;
+> -	return AE_OK;
+> +
+> +	/*
+> +	 * On some Intel platforms, multiple children of the HDAS
+> +	 * device can be found, but only one of them is the SoundWire
+> +	 * controller. The SNDW device is always exposed with
+> +	 * Name(_ADR, 0x40000000) so filter accordingly
+> +	 */
+> +	if (adr != 0x40000000)
 
-Ok, much like the "USB host controller" type device.  That's fine, make
-such a device, add it to your bus, and set the type correctly.  And keep
-a pointer to that structure in your device-specific structure if you
-really need to get to anything in it.
+I do not recall if 4 corresponds to the links you have or soundwire
+device type, is this number documented somewhere is HDA specs?
 
-thanks,
+Also it might good to create a define for this
+ 
+> +		return AE_OK; /* keep going */
+> +
+> +	/* device found, stop namespace walk */
+> +	return AE_CTRL_TERMINATE;
+>  }
+>  
+>  /**
+> -- 
+> 2.17.1
 
-greg k-h
+-- 
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

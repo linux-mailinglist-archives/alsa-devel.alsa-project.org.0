@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC3A0157C2
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:39:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FDC2157C7
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:42:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 727FB1907;
-	Tue,  7 May 2019 04:38:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 727FB1907
+	by alsa0.perex.cz (Postfix) with ESMTPS id E75ED16B4;
+	Tue,  7 May 2019 04:41:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E75ED16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557196775;
-	bh=CazQ7P800rIs1qs9JORdsQAMm0e4OEbiz9nLgKvXLUc=;
+	s=default; t=1557196939;
+	bh=qzGEjg5wRMr5FRQoCwpQUSTnKedu0F/+4kJrG3fbfNk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rREJy7Mc/fcSzCmKeugUmjAdCWhsSQx1/mYJucJ3IyiwSZjOynMoKCDSpE7Ueuhgk
-	 H+Bh/2ydEeVuVq5rN/qBim+NwoaC8PGNQezZJxmzpWwgdBZVpNFVKn1HG0qxMU+Egh
-	 d3xx8+S8NWL7li+oJPXTfemwlKTKQc+rTSUdWAt0=
+	b=LDEiIav0UVo2a0MtwfPssOf+5gpsfiArwTZnr3hwLq3H4c7zblZS8ZrKcbv198vSJ
+	 qcHXqwXvZJpCSNaEA6yYWsKtlR18NC5j9UmOTLNWKUvU7mMthrYqmFi1BGTua8qUn1
+	 oVScZ5bBJfkq/wahFeDM56eYiUITk/2sZQFe06zI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29C87F89763;
-	Tue,  7 May 2019 04:30:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6045F8977E;
+	Tue,  7 May 2019 04:30:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F504F8975E; Tue,  7 May 2019 04:30:45 +0200 (CEST)
+ id 67FBBF89777; Tue,  7 May 2019 04:30:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 411D4F8975A
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 411D4F8975A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C658F8976F
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C658F8976F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dZuyu72h"
+ header.b="inpTcYns"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=eFy0U8s/yw48UFL0gk7vE97JZ4glVfukIkTzC7rlsKo=; b=dZuyu72h64ha
- s+lvyxiC8hbSSSYQVHhCl28/E5xrS43Ib+UlHR6iRHn8mHlTYrWG9u9KL+QNVXm+7WDpHyGAn5uFG
- +/ash+RwDTFuzRBWkVd8H/NpWFFlaMxqepQDkD6EgFd4DCghCNHOfhmwdyKDmF/FuOfIsGsr5h3uG
- yVDu4=;
-Received: from [2001:268:c0e6:658d:8f3d:d90b:c4e4:2fdf]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=ulGxU59+SHg0LveLVxFzfgXsIwZDWNfvFJ6byVaTrN4=; b=inpTcYnsbYBC
+ RXzSlqPMPbhywhoEEOZ12cSdNDZKetcVk2o8QMn/M1u89/Hw5qJq/LA+9y5mkpHPQkh9oiusUfErE
+ /5cLCWnlynFDjUm55jCmzNLd1GKiGHJcqVAsti5pPV58KqRQHi89y/+hnh8lqcpRv/QDHqKIbp8Ow
+ hW6dQ=;
+Received: from kd111239185057.au-net.ne.jp ([111.239.185.57]
+ helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNpsJ-0003Sq-Vm; Tue, 07 May 2019 02:30:36 +0000
+ id 1hNpsN-0003Sy-6i; Tue, 07 May 2019 02:30:40 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 86EF7440034; Tue,  7 May 2019 03:30:32 +0100 (BST)
+ id B7423440036; Tue,  7 May 2019 03:30:33 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <418abbd5-f01c-19ef-c9f2-7de5662f10a2@infradead.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <1557146646-18150-4-git-send-email-olivier.moysan@st.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190507023032.86EF7440034@finisterre.sirena.org.uk>
-Date: Tue,  7 May 2019 03:30:32 +0100 (BST)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sound/soc/sof/: fix kconfig dependency
-	warning" to the asoc tree
+Message-Id: <20190507023033.B7423440036@finisterre.sirena.org.uk>
+Date: Tue,  7 May 2019 03:30:33 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
+ tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, benjamin.gaignard@st.com
+Subject: [alsa-devel] Applied "ASoC: stm32: spdifrx: manage identification
+	registers" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sound/soc/sof/: fix kconfig dependency warning
+   ASoC: stm32: spdifrx: manage identification registers
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -114,42 +115,112 @@ to this mail.
 Thanks,
 Mark
 
-From 4c88519133bdd802fb0df4707b5a8c066af7154d Mon Sep 17 00:00:00 2001
-From: Randy Dunlap <rdunlap@infradead.org>
-Date: Mon, 6 May 2019 12:01:40 -0700
-Subject: [PATCH] ASoC: sound/soc/sof/: fix kconfig dependency warning
+From 1a5c0b28fc56044737f988960f3bc5fdcdba0827 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Mon, 6 May 2019 14:44:06 +0200
+Subject: [PATCH] ASoC: stm32: spdifrx: manage identification registers
 
-Fix kconfig warning for unmet dependency for IOSF_MBI when
-PCI is not set/enabled.  Fixes this warning:
+Add support of identification registers in STM32 SPDIFRX.
 
-WARNING: unmet direct dependencies detected for IOSF_MBI
-  Depends on [n]: PCI [=n]
-  Selected by [y]:
-  - SND_SOC_SOF_ACPI [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_SOF_TOPLEVEL [=y] && (ACPI [=y] || COMPILE_TEST [=n]) && X86 [=y]
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/stm/stm32_spdifrx.c | 37 +++++++++++++++++++++++++++++++++--
+ 1 file changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index a1a9ffe605dc..b204c65698f9 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -28,7 +28,7 @@ config SND_SOC_SOF_ACPI
- 	select SND_SOC_ACPI if ACPI
- 	select SND_SOC_SOF_OPTIONS
- 	select SND_SOC_SOF_INTEL_ACPI if SND_SOC_SOF_INTEL_TOPLEVEL
--	select IOSF_MBI if X86
-+	select IOSF_MBI if X86 && PCI
- 	help
- 	  This adds support for ACPI enumeration. This option is required
- 	  to enable Intel Haswell/Broadwell/Baytrail/Cherrytrail devices
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index b4c3d983e195..62a887ee4a03 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -16,6 +16,7 @@
+  * details.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/completion.h>
+ #include <linux/delay.h>
+@@ -36,6 +37,9 @@
+ #define STM32_SPDIFRX_DR	0x10
+ #define STM32_SPDIFRX_CSR	0x14
+ #define STM32_SPDIFRX_DIR	0x18
++#define STM32_SPDIFRX_VERR	0x3F4
++#define STM32_SPDIFRX_IDR	0x3F8
++#define STM32_SPDIFRX_SIDR	0x3FC
+ 
+ /* Bit definition for SPDIF_CR register */
+ #define SPDIFRX_CR_SPDIFEN_SHIFT	0
+@@ -169,6 +173,18 @@
+ #define SPDIFRX_SPDIFEN_SYNC	0x1
+ #define SPDIFRX_SPDIFEN_ENABLE	0x3
+ 
++/* Bit definition for SPDIFRX_VERR register */
++#define SPDIFRX_VERR_MIN_MASK	GENMASK(3, 0)
++#define SPDIFRX_VERR_MAJ_MASK	GENMASK(7, 4)
++
++/* Bit definition for SPDIFRX_IDR register */
++#define SPDIFRX_IDR_ID_MASK	GENMASK(31, 0)
++
++/* Bit definition for SPDIFRX_SIDR register */
++#define SPDIFRX_SIDR_SID_MASK	GENMASK(31, 0)
++
++#define SPDIFRX_IPIDR_NUMBER	0x00130041
++
+ #define SPDIFRX_IN1		0x1
+ #define SPDIFRX_IN2		0x2
+ #define SPDIFRX_IN3		0x3
+@@ -607,6 +623,9 @@ static bool stm32_spdifrx_readable_reg(struct device *dev, unsigned int reg)
+ 	case STM32_SPDIFRX_DR:
+ 	case STM32_SPDIFRX_CSR:
+ 	case STM32_SPDIFRX_DIR:
++	case STM32_SPDIFRX_VERR:
++	case STM32_SPDIFRX_IDR:
++	case STM32_SPDIFRX_SIDR:
+ 		return true;
+ 	default:
+ 		return false;
+@@ -642,10 +661,11 @@ static const struct regmap_config stm32_h7_spdifrx_regmap_conf = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+ 	.val_bits = 32,
+-	.max_register = STM32_SPDIFRX_DIR,
++	.max_register = STM32_SPDIFRX_SIDR,
+ 	.readable_reg = stm32_spdifrx_readable_reg,
+ 	.volatile_reg = stm32_spdifrx_volatile_reg,
+ 	.writeable_reg = stm32_spdifrx_writeable_reg,
++	.num_reg_defaults_raw = STM32_SPDIFRX_SIDR / sizeof(u32) + 1,
+ 	.fast_io = true,
+ 	.cache_type = REGCACHE_FLAT,
+ };
+@@ -911,6 +931,7 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
+ 	struct stm32_spdifrx_data *spdifrx;
+ 	struct reset_control *rst;
+ 	const struct snd_dmaengine_pcm_config *pcm_config = NULL;
++	u32 ver, idr;
+ 	int ret;
+ 
+ 	spdifrx = devm_kzalloc(&pdev->dev, sizeof(*spdifrx), GFP_KERNEL);
+@@ -967,7 +988,19 @@ static int stm32_spdifrx_probe(struct platform_device *pdev)
+ 		goto error;
+ 	}
+ 
+-	return 0;
++	ret = regmap_read(spdifrx->regmap, STM32_SPDIFRX_IDR, &idr);
++	if (ret)
++		goto error;
++
++	if (idr == SPDIFRX_IPIDR_NUMBER) {
++		ret = regmap_read(spdifrx->regmap, STM32_SPDIFRX_VERR, &ver);
++
++		dev_dbg(&pdev->dev, "SPDIFRX version: %lu.%lu registered\n",
++			FIELD_GET(SPDIFRX_VERR_MAJ_MASK, ver),
++			FIELD_GET(SPDIFRX_VERR_MIN_MASK, ver));
++	}
++
++	return ret;
+ 
+ error:
+ 	if (!IS_ERR(spdifrx->ctrl_chan))
 -- 
 2.20.1
 

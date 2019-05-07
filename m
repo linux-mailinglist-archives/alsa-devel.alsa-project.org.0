@@ -2,75 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD93160FF
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 11:34:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E7CA15D15
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 08:10:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8996183F;
-	Tue,  7 May 2019 11:33:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8996183F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1085117B0;
+	Tue,  7 May 2019 08:09:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1085117B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557221651;
-	bh=CxVyAM6X+hPfD4RpuZnQVBOLBcCppqpOY4FKSRj504s=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557209408;
+	bh=K3OEwuK4V/J+PY2AshzZ/xaaAWOwedA1ga/+iParcXk=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Za9vjGMZVdqQx8aEU8ZSNLU1/YjPrUAiCgDN3J3T15GfQthQjME5oyTipuQqdO+1s
-	 C7qFAdFzhaIMPSI8uNpnzlbg6xRhk2FdtDB1LyQT5ewgz4lGC0JGk0V9ws5UbQxb82
-	 VCoEDFSWF2gPj3wv5W2wzH+KaIOkZUXH/AtsWCyY=
+	b=PRrpxdGpqji9YrTp3tJGIBMeIC5PRQlW/T6sRmimNTpC4arwOSCjSG+tyImuxOZai
+	 XqY7EkS4zHW9t0LqrKijYLNAsJts+ocU5SdeG3i8GZrwRJRRRoeg7QI1XGjwvz3nNv
+	 p/0cdz/kEmBzlsOlOXXdmAX1cd5UW7hf+1ojGx/Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B79B2F89678;
-	Tue,  7 May 2019 11:32:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74D21F89682;
+	Tue,  7 May 2019 08:08:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA914F89678; Tue,  7 May 2019 11:32:24 +0200 (CEST)
+ id 7BC60F89674; Tue,  7 May 2019 08:08:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.1 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS
+ autolearn=disabled version=3.4.0
+Received: from webclient5.webclient5.de (webclient5.webclient5.de
+ [136.243.32.184])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A3C2F807B5
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 11:32:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A3C2F807B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cS1hFIOn"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A92B7205ED;
- Tue,  7 May 2019 05:56:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1557208571;
- bh=t1e6qR30XoBlOonZc+HmloDE9SesZNKua7dzCp++aG0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cS1hFIOnRvtfqQN3aLt7ozfE6Nuiq9UTnTOQrVkeHauYc1jvYJAkxhbMj00JJ/kq8
- odLH6j1FQmphq7y78OZj13oyaZILigDagMpaWuM4iWulZY7DlG5US2/tuOgbrvKwiT
- 99ZYJ1DTzPkw+U5sEkwJV99kJJSajOReiixmSaOo=
-Date: Tue, 7 May 2019 07:56:08 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20190507055608.GC17986@kroah.com>
-References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
- <20190504010030.29233-6-pierre-louis.bossart@linux.intel.com>
- <20190504070301.GD9770@kroah.com>
- <a9e1c3d2-fe29-1683-9253-b66034c62010@linux.intel.com>
- <20190506163810.GK3845@vkoul-mobl.Dlink>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A07FF807B5
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 08:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A07FF807B5
+Received: from [10.1.2.4] (unknown [94.101.37.79])
+ by webclient5.webclient5.de (Postfix) with ESMTPSA id ADA415583451
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 08:08:15 +0200 (CEST)
+To: alsa-devel@alsa-project.org
+References: <bdc0a30f-c6f3-8ccb-f556-1d1a6a68f3b9@flatmax.org>
+From: Clemens Ladisch <clemens@ladisch.de>
+Message-ID: <1c0e5dbe-d5d5-c505-3b62-77e5fab8ee3d@ladisch.de>
+Date: Tue, 7 May 2019 08:08:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190506163810.GK3845@vkoul-mobl.Dlink>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 5/7] soundwire: add debugfs support
+In-Reply-To: <bdc0a30f-c6f3-8ccb-f556-1d1a6a68f3b9@flatmax.org>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.4 at webclient5
+X-Virus-Status: Clean
+Subject: Re: [alsa-devel] cs4265 : alsactl store and "C data buffer" fails
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,13 +70,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, May 06, 2019 at 10:08:10PM +0530, Vinod Koul wrote:
-> Yes, but then device exit routine is supposed to do debugfs cleanup as
-> well, so that would ensure these references are dropped at that point of
-> time. Greg should that not take care of it or we *should* always do
-> refcounting.
+Matt Flax wrote:
+> When alsactl store is run with a cs4265 chip, the following error occurs (from https://github.com/Audio-Injector/Ultra/issues/25) :
+>
+> $ sudo alsactl store
+> alsactl: get_control:256: Cannot read control '2,0,0,C Data Buffer,0': Input/output error
 
-Always do refcounting.  How else can you "guarantee" that it is safe?
+This sounds like a bug in cs4265_readable_register(); try replacing CS4265_SPDIF_CTL2
+with CS4265_MAX_REGISTER.
+
+
+Regards,
+Clemens
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

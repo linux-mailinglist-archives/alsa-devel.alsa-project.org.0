@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C415157BC
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:38:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EB5F157C3
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:40:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A87BB191A;
-	Tue,  7 May 2019 04:37:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A87BB191A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A564E17D2;
+	Tue,  7 May 2019 04:39:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A564E17D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557196694;
-	bh=9gG5HwyBaBKudFL+bA64mGwHyHrFcYoVbX44bKvi0Dc=;
+	s=default; t=1557196808;
+	bh=Z32rxizI2eJLjmq8h+WTr9GGU7ge2PHKt8Zb+lTnyAM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hG9g1/VdaEUcXP9kWvkIo1UocWh6cTNG6mNTs4R3vO7GE5Rz+F1IU2k1pN5XPgYsB
-	 eloX7MMrxqf5k6ayw4N4mjLo3DE1DdEHHEyMQe/gaJli3NGY8+mM0uC0AMHm6ypYgV
-	 FLVrijz1XM8KpOXdYYDwESgaAif5yIwf1lQY1wqo=
+	b=bEvdWswwU0akPmCZZV/lBpWPO+OCPEsFcUboCWMlMR5Ioa+M0FXyusH3agklGecAu
+	 Mqbrw0hdDvnhscg5s21gZXfV6B2CwjSUUWQqtEmF4V3QvGczkAaH80eT3yBaERvCDL
+	 FYRlC52YmzfooDRdtAmhiuS7atYsYmoyx8cGsRWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78E8BF8975E;
-	Tue,  7 May 2019 04:30:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A53CF89766;
+	Tue,  7 May 2019 04:30:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC61DF8975D; Tue,  7 May 2019 04:30:43 +0200 (CEST)
+ id B9D0FF89759; Tue,  7 May 2019 04:30:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDC8FF89758
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDC8FF89758
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F159F89759
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F159F89759
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="n0SFRfDF"
+ header.b="mjYJ7p/q"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=aSPRS/UQTQIlG/Fpji6u6bjSVgCp4Melu+2tov3g5R4=; b=n0SFRfDFK1Of
- rgY61rDkvIWmIM8aA9E9eE7sO4Ruh2YWA9xrrgw9Ry4r+8S3P2tgo6N7WISJoOWj2UOoCXTeKF9pI
- 40V6JiVixRC6iAbH64NX26Sa2vaddbleCMZSSaj1nbRAOgbYu261IgUDO34aiWXHTqopfG/8N/TEA
- 7heH0=;
-Received: from kd111239185057.au-net.ne.jp ([111.239.185.57]
- helo=finisterre.sirena.org.uk)
+ List-Archive; bh=69gNOrR5hr+ggTeaDHkcfb4lQWwrwVarl5WzF4L72IU=; b=mjYJ7p/q1s4L
+ shikxV2yS8mpHrQEKTHRjFcm4U6NhsXiVqD/QeQJEznIJK40NDwCUH/QJBXiH7QxNc+rKQu/wROeb
+ cfxHwNsI4FA7oVltZSrqRKD/Uc+yOAv9KohpRe43JSdAqeQgt7u9VRiItMR+pic+AFGJP69yI+3VC
+ ZY8/U=;
+Received: from [2001:268:c0e6:658d:8f3d:d90b:c4e4:2fdf]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNpsN-0003Sv-2h; Tue, 07 May 2019 02:30:39 +0000
+ id 1hNpsN-0003T5-OG; Tue, 07 May 2019 02:30:40 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 26DF4440035; Tue,  7 May 2019 03:30:33 +0100 (BST)
+ id 3349044003B; Tue,  7 May 2019 03:30:35 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: S.j. Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <20190503194944.30167-1-nicoleotsuka@gmail.com>
+To: Mac Chiang <mac.chiang@intel.com>
+In-Reply-To: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190507023033.26DF4440035@finisterre.sirena.org.uk>
-Date: Tue,  7 May 2019 03:30:33 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- festevam@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] Applied "ASoC: fsl_esai: Add pm runtime function" to
-	the asoc tree
+Message-Id: <20190507023035.3349044003B@finisterre.sirena.org.uk>
+Date: Tue,  7 May 2019 03:30:34 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, "Harshapriya.n" <harshapriya.n@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ mac.chiang@intel.com, Mark Brown <broonie@kernel.org>,
+ chintan.m.patel@intel.com, Jenny TC <jenny.tc@intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: boards: kbl_da7219_max98927: add
+	dai_trigger function" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_esai: Add pm runtime function
+   ASoC: Intel: boards: kbl_da7219_max98927: add dai_trigger function
 
 has been applied to the asoc tree at
 
@@ -115,249 +114,132 @@ to this mail.
 Thanks,
 Mark
 
-From b2d337d8de9fb6dd4f2970ebec0fa2375f7c9cdd Mon Sep 17 00:00:00 2001
-From: "S.j. Wang" <shengjiu.wang@nxp.com>
-Date: Fri, 3 May 2019 12:49:44 -0700
-Subject: [PATCH] ASoC: fsl_esai: Add pm runtime function
+From 53fdea9604fa1560bdbf418bbca564dbbebef211 Mon Sep 17 00:00:00 2001
+From: Mac Chiang <mac.chiang@intel.com>
+Date: Fri, 3 May 2019 10:48:17 +0800
+Subject: [PATCH] ASoC: Intel: boards: kbl_da7219_max98927: add dai_trigger
+ function
 
-Add pm runtime support and move clock handling there.
-Close the clocks at suspend to reduce the power consumption.
+amplifier feedback is not modeled as being dependent on any active
+output. Even when there is no playback happening, parts of the graph,
+specifically the IV sense->speaker protection->output remains active
+and this prevents the DSP from entering low-power states.
 
-fsl_esai_suspend is replaced by pm_runtime_force_suspend.
-fsl_esai_resume is replaced by pm_runtime_force_resume.
+This patch suggest a machine driver level approach where the speaker
+pins are enabled/disabled dynamically depending on stream start/stop
+events. DPAM graph representations show the feedback loop is indeed
+disabled and low-power states can be reached.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Signed-off-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Signed-off-by: Jenny TC <jenny.tc@intel.com>
+Signed-off-by: Harshapriya.n <harshapriya.n@intel.com>
+Signed-off-by: Mac Chiang <mac.chiang@intel.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_esai.c | 141 +++++++++++++++++++++------------------
- 1 file changed, 77 insertions(+), 64 deletions(-)
+ sound/soc/intel/boards/kbl_da7219_max98927.c | 73 +++++++++++++++++++-
+ 1 file changed, 71 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index bad0dfed6b68..10d2210c91ef 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -9,6 +9,7 @@
- #include <linux/module.h>
- #include <linux/of_irq.h>
- #include <linux/of_platform.h>
-+#include <linux/pm_runtime.h>
- #include <sound/dmaengine_pcm.h>
- #include <sound/pcm_params.h>
- 
-@@ -466,30 +467,6 @@ static int fsl_esai_startup(struct snd_pcm_substream *substream,
- 			    struct snd_soc_dai *dai)
- {
- 	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
--	int ret;
--
--	/*
--	 * Some platforms might use the same bit to gate all three or two of
--	 * clocks, so keep all clocks open/close at the same time for safety
--	 */
--	ret = clk_prepare_enable(esai_priv->coreclk);
--	if (ret)
--		return ret;
--	if (!IS_ERR(esai_priv->spbaclk)) {
--		ret = clk_prepare_enable(esai_priv->spbaclk);
--		if (ret)
--			goto err_spbaclk;
--	}
--	if (!IS_ERR(esai_priv->extalclk)) {
--		ret = clk_prepare_enable(esai_priv->extalclk);
--		if (ret)
--			goto err_extalck;
--	}
--	if (!IS_ERR(esai_priv->fsysclk)) {
--		ret = clk_prepare_enable(esai_priv->fsysclk);
--		if (ret)
--			goto err_fsysclk;
--	}
- 
- 	if (!dai->active) {
- 		/* Set synchronous mode */
-@@ -506,16 +483,6 @@ static int fsl_esai_startup(struct snd_pcm_substream *substream,
- 
- 	return 0;
- 
--err_fsysclk:
--	if (!IS_ERR(esai_priv->extalclk))
--		clk_disable_unprepare(esai_priv->extalclk);
--err_extalck:
--	if (!IS_ERR(esai_priv->spbaclk))
--		clk_disable_unprepare(esai_priv->spbaclk);
--err_spbaclk:
--	clk_disable_unprepare(esai_priv->coreclk);
--
--	return ret;
- }
- 
- static int fsl_esai_hw_params(struct snd_pcm_substream *substream,
-@@ -576,20 +543,6 @@ static int fsl_esai_hw_params(struct snd_pcm_substream *substream,
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
+index f72a7bf028d7..1efe7fdad2cb 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98927.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
+@@ -219,8 +219,60 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static void fsl_esai_shutdown(struct snd_pcm_substream *substream,
--			      struct snd_soc_dai *dai)
--{
--	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
--
--	if (!IS_ERR(esai_priv->fsysclk))
--		clk_disable_unprepare(esai_priv->fsysclk);
--	if (!IS_ERR(esai_priv->extalclk))
--		clk_disable_unprepare(esai_priv->extalclk);
--	if (!IS_ERR(esai_priv->spbaclk))
--		clk_disable_unprepare(esai_priv->spbaclk);
--	clk_disable_unprepare(esai_priv->coreclk);
--}
--
- static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- 			    struct snd_soc_dai *dai)
- {
-@@ -658,7 +611,6 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- 
- static const struct snd_soc_dai_ops fsl_esai_dai_ops = {
- 	.startup = fsl_esai_startup,
--	.shutdown = fsl_esai_shutdown,
- 	.trigger = fsl_esai_trigger,
- 	.hw_params = fsl_esai_hw_params,
- 	.set_sysclk = fsl_esai_set_dai_sysclk,
-@@ -947,6 +899,10 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	pm_runtime_enable(&pdev->dev);
-+
-+	regcache_cache_only(esai_priv->regmap, true);
-+
- 	ret = imx_pcm_dma_init(pdev, IMX_ESAI_DMABUF_SIZE);
- 	if (ret)
- 		dev_err(&pdev->dev, "failed to init imx pcm dma: %d\n", ret);
-@@ -954,6 +910,13 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
-+static int fsl_esai_remove(struct platform_device *pdev)
++static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
 +{
-+	pm_runtime_disable(&pdev->dev);
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	int j, ret;
++
++	for (j = 0; j < rtd->num_codecs; j++) {
++		struct snd_soc_dai *codec_dai = rtd->codec_dais[j];
++		const char *name = codec_dai->component->name;
++		struct snd_soc_component *component = codec_dai->component;
++		struct snd_soc_dapm_context *dapm =
++				snd_soc_component_get_dapm(component);
++		char pin_name[20];
++
++		if (strcmp(name, MAX98927_DEV0_NAME) &&
++			strcmp(name, MAX98927_DEV1_NAME) &&
++			strcmp(name, MAX98373_DEV0_NAME) &&
++			strcmp(name, MAX98373_DEV1_NAME))
++			continue;
++
++		snprintf(pin_name, ARRAY_SIZE(pin_name), "%s Spk",
++			codec_dai->component->name_prefix);
++
++		switch (cmd) {
++		case SNDRV_PCM_TRIGGER_START:
++		case SNDRV_PCM_TRIGGER_RESUME:
++		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++			ret = snd_soc_dapm_enable_pin(dapm, pin_name);
++			if (ret) {
++				dev_err(rtd->dev, "failed to enable %s: %d\n",
++				pin_name, ret);
++				return ret;
++			}
++			snd_soc_dapm_sync(dapm);
++			break;
++		case SNDRV_PCM_TRIGGER_STOP:
++		case SNDRV_PCM_TRIGGER_SUSPEND:
++		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++			ret = snd_soc_dapm_disable_pin(dapm, pin_name);
++			if (ret) {
++				dev_err(rtd->dev, "failed to disable %s: %d\n",
++				pin_name, ret);
++				return ret;
++			}
++			snd_soc_dapm_sync(dapm);
++			break;
++		}
++	}
 +
 +	return 0;
 +}
 +
- static const struct of_device_id fsl_esai_dt_ids[] = {
- 	{ .compatible = "fsl,imx35-esai", },
- 	{ .compatible = "fsl,vf610-esai", },
-@@ -961,22 +924,35 @@ static const struct of_device_id fsl_esai_dt_ids[] = {
+ static struct snd_soc_ops kabylake_ssp0_ops = {
+ 	.hw_params = kabylake_ssp0_hw_params,
++	.trigger = kabylake_ssp0_trigger,
  };
- MODULE_DEVICE_TABLE(of, fsl_esai_dt_ids);
  
--#ifdef CONFIG_PM_SLEEP
--static int fsl_esai_suspend(struct device *dev)
--{
--	struct fsl_esai *esai = dev_get_drvdata(dev);
--
--	regcache_cache_only(esai->regmap, true);
--	regcache_mark_dirty(esai->regmap);
--
+ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+@@ -950,6 +1002,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ {
+ 	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
+ 	struct kbl_hdmi_pcm *pcm;
++	struct snd_soc_dapm_context *dapm = &card->dapm;
+ 	struct snd_soc_component *component = NULL;
+ 	int err, i = 0;
+ 	char jack_name[NAME_SIZE];
+@@ -976,9 +1029,25 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+ 	if (!component)
+ 		return -EINVAL;
+ 
+-	return hdac_hdmi_jack_port_init(component, &card->dapm);
+ 
 -	return 0;
--}
--
--static int fsl_esai_resume(struct device *dev)
-+#ifdef CONFIG_PM
-+static int fsl_esai_runtime_resume(struct device *dev)
- {
- 	struct fsl_esai *esai = dev_get_drvdata(dev);
- 	int ret;
- 
-+	/*
-+	 * Some platforms might use the same bit to gate all three or two of
-+	 * clocks, so keep all clocks open/close at the same time for safety
-+	 */
-+	ret = clk_prepare_enable(esai->coreclk);
-+	if (ret)
-+		return ret;
-+	if (!IS_ERR(esai->spbaclk)) {
-+		ret = clk_prepare_enable(esai->spbaclk);
-+		if (ret)
-+			goto err_spbaclk;
-+	}
-+	if (!IS_ERR(esai->extalclk)) {
-+		ret = clk_prepare_enable(esai->extalclk);
-+		if (ret)
-+			goto err_extalclk;
-+	}
-+	if (!IS_ERR(esai->fsysclk)) {
-+		ret = clk_prepare_enable(esai->fsysclk);
-+		if (ret)
-+			goto err_fsysclk;
++	err = hdac_hdmi_jack_port_init(component, &card->dapm);
++
++	if (err < 0)
++		return err;
++
++	err = snd_soc_dapm_disable_pin(dapm, "Left Spk");
++	if (err) {
++		dev_err(card->dev, "failed to disable Left Spk: %d\n", err);
++		return err;
 +	}
 +
- 	regcache_cache_only(esai->regmap, false);
- 
- 	/* FIFO reset for safety */
-@@ -987,22 +963,59 @@ static int fsl_esai_resume(struct device *dev)
- 
- 	ret = regcache_sync(esai->regmap);
- 	if (ret)
--		return ret;
-+		goto err_regcache_sync;
- 
- 	/* FIFO reset done */
- 	regmap_update_bits(esai->regmap, REG_ESAI_TFCR, ESAI_xFCR_xFR, 0);
- 	regmap_update_bits(esai->regmap, REG_ESAI_RFCR, ESAI_xFCR_xFR, 0);
- 
-+	return 0;
++	err = snd_soc_dapm_disable_pin(dapm, "Right Spk");
++	if (err) {
++		dev_err(card->dev, "failed to disable Right Spk: %d\n", err);
++		return err;
++	}
 +
-+err_regcache_sync:
-+	if (!IS_ERR(esai->fsysclk))
-+		clk_disable_unprepare(esai->fsysclk);
-+err_fsysclk:
-+	if (!IS_ERR(esai->extalclk))
-+		clk_disable_unprepare(esai->extalclk);
-+err_extalclk:
-+	if (!IS_ERR(esai->spbaclk))
-+		clk_disable_unprepare(esai->spbaclk);
-+err_spbaclk:
-+	clk_disable_unprepare(esai->coreclk);
-+
-+	return ret;
-+}
-+
-+static int fsl_esai_runtime_suspend(struct device *dev)
-+{
-+	struct fsl_esai *esai = dev_get_drvdata(dev);
-+
-+	regcache_cache_only(esai->regmap, true);
-+	regcache_mark_dirty(esai->regmap);
-+
-+	if (!IS_ERR(esai->fsysclk))
-+		clk_disable_unprepare(esai->fsysclk);
-+	if (!IS_ERR(esai->extalclk))
-+		clk_disable_unprepare(esai->extalclk);
-+	if (!IS_ERR(esai->spbaclk))
-+		clk_disable_unprepare(esai->spbaclk);
-+	clk_disable_unprepare(esai->coreclk);
-+
- 	return 0;
++	return snd_soc_dapm_sync(dapm);
  }
--#endif /* CONFIG_PM_SLEEP */
-+#endif /* CONFIG_PM */
  
- static const struct dev_pm_ops fsl_esai_pm_ops = {
--	SET_SYSTEM_SLEEP_PM_OPS(fsl_esai_suspend, fsl_esai_resume)
-+	SET_RUNTIME_PM_OPS(fsl_esai_runtime_suspend,
-+			   fsl_esai_runtime_resume,
-+			   NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
- };
- 
- static struct platform_driver fsl_esai_driver = {
- 	.probe = fsl_esai_probe,
-+	.remove = fsl_esai_remove,
- 	.driver = {
- 		.name = "fsl-esai-dai",
- 		.pm = &fsl_esai_pm_ops,
+ /* kabylake audio machine driver for SPT + DA7219 */
 -- 
 2.20.1
 

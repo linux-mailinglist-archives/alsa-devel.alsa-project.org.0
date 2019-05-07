@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3226F157C5
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:41:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72999157C4
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:40:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B20621937;
-	Tue,  7 May 2019 04:40:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B20621937
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A4F918F0;
+	Tue,  7 May 2019 04:40:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A4F918F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557196896;
-	bh=ASVspFzTBO+WG68xQKy8bz79VjF8OoJjkH62hqpZwf8=;
+	s=default; t=1557196855;
+	bh=b2SgR1hW9mMGUsm/AxJvX04rq2CF0hgziUTJ3EBQGHk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mqatU6GrOF8EqoK9cN1tvPN+69H2YAxkWavL9pt3LaywevEI0cnFWuuV1S5PIWgZQ
-	 M6HsiSjDNKB0S4DOcovBEfRIjDp4DSJ3GjDJoIqJC1iASxivjigcfvyX03BztwJ/tc
-	 PNkxhUpKfqMQEF/0fg/xYH/ujb8CSjPKrF+m+is0=
+	b=bVJSQWqDPa5uWCAxoFtIx508mLUqhcebI/84JnApfhx8lUZwdZ0Ne7OPTKclMMi3c
+	 mmXasbSm5C66Wsm1AwoJC9y3CQGIISLi9cyr9GNxzjOmfi/8rytqAcSqtc7K307i9r
+	 c145mTW2q/CSqqDUqkOmeczIbvgxyIxS02GeLo/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4EB6CF8976F;
-	Tue,  7 May 2019 04:30:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6744F89776;
+	Tue,  7 May 2019 04:30:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02361F89763; Tue,  7 May 2019 04:30:49 +0200 (CEST)
+ id B8655F89763; Tue,  7 May 2019 04:30:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,43 +33,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F10DF89760
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F10DF89760
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C55AF8975C
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C55AF8975C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nFqe/sxl"
+ header.b="YZep8Lvh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=N/eXMLTVfkLVsDEzKWn1gZcKuzRcNBEC/eZA1T2nGEM=; b=nFqe/sxl9d4c
- rml38BNiiwttCVw5aYnML0XUOtp7Zd6srvVWxrs4FiYsB3fZLMcsgP+dGXsIEUJl6evBi+ySEfzq/
- vHUupVC7dqhLqQbqV/a6veYiFu8QZohR/LnWTzrPGcCwIAIvrxLH4tlvSZ8VGkEMTKbZ5/W5ya7Zl
- NCI5Q=;
+ List-Archive; bh=l1MCCLzyBc8ySr9AXvECU1l7JN0T9zmmPlnw+KeUDRE=; b=YZep8Lvhtm0m
+ u/RqiEQkn89+T2WO78VlNi5FEaiBKFY3wiRwP2g+O1pRlCfq6UISgu8zNY9dz8pu8RpG51022vSgq
+ 45FzEV/xh8UjEhfNwYF1a9PDvbHpRI+FUtsjZBiZA/p6FazabyNKVDqipPi+725AHtaAv/4GMTfwm
+ 3X/hY=;
 Received: from kd111239185057.au-net.ne.jp ([111.239.185.57]
  helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNpsN-0003Sw-6j; Tue, 07 May 2019 02:30:39 +0000
+ id 1hNpsS-0003Sn-G8; Tue, 07 May 2019 02:30:44 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 4CC2644000C; Tue,  7 May 2019 03:30:30 +0100 (BST)
+ id D5013440010; Tue,  7 May 2019 03:30:30 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Dylan Reid <dgreid@chromium.org>
-In-Reply-To: <20190506203006.161158-1-cujomalainey@chromium.org>
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <20190506150224.1394-4-tiwai@suse.de>
 X-Patchwork-Hint: ignore
-Message-Id: <20190507023030.4CC2644000C@finisterre.sirena.org.uk>
+Message-Id: <20190507023030.D5013440010@finisterre.sirena.org.uk>
 Date: Tue,  7 May 2019 03:30:30 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Ross Zwisler <zwisler@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Hsinyu Chao <hychao@chromium.org>, Bard Liao <bardliao@realtek.com>,
- Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] Applied "ASoC: rt5677: use more of the volume range
-	from DACs" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: rockchip: Fix an uninitialized variable
+	compile warning" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,18 +79,20 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8353707999669851046=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--===============8353707999669851046==
+Content-Type: text/plain
+
 The patch
 
-   ASoC: rt5677: use more of the volume range from DACs
+   ASoC: rockchip: Fix an uninitialized variable compile warning
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -115,51 +113,51 @@ to this mail.
 Thanks,
 Mark
 
-From 753c36a4d8a85beeb97640d1f91f2ead6aaee85e Mon Sep 17 00:00:00 2001
-From: Dylan Reid <dgreid@chromium.org>
-Date: Mon, 6 May 2019 13:30:06 -0700
-Subject: [PATCH] ASoC: rt5677: use more of the volume range from DACs
+From f153bf49ddf6169544b24ef5ea26fa3eb4996b95 Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Mon, 6 May 2019 17:02:24 +0200
+Subject: [PATCH] ASoC: rockchip: Fix an uninitialized variable compile warning
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The DACs volume can go over 0, both according to the data sheet and
-real world testing.  The control can go up to +30dB.
+Paper over a trivial case leading to an uninitialized variable compile
+warning:
+  sound/soc/rockchip/rockchip_pdm.c:179:3: warning: ‘clk_out’ may be used uninitialized in this function [-Wmaybe-uninitialized]
 
-This was tested by playing audio at full volume on a samus chromebook.
-
-Signed-off-by: Dylan Reid <dgreid@chromium.org>
-Reviewed-by: Hsinyu Chao <hychao@chromium.org>
-Signed-off-by: Ross Zwisler <zwisler@google.com>
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+Fixes: 624e8e00acaf ("ASoC: rockchip: pdm: fixup pdm fractional div")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/rockchip/rockchip_pdm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 6fc70e441458..907c957b614d 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -832,13 +832,13 @@ static const struct snd_kcontrol_new rt5677_snd_controls[] = {
- 
- 	/* DAC Digital Volume */
- 	SOC_DOUBLE_TLV("DAC1 Playback Volume", RT5677_DAC1_DIG_VOL,
--		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
-+		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
- 	SOC_DOUBLE_TLV("DAC2 Playback Volume", RT5677_DAC2_DIG_VOL,
--		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
-+		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
- 	SOC_DOUBLE_TLV("DAC3 Playback Volume", RT5677_DAC3_DIG_VOL,
--		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
-+		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
- 	SOC_DOUBLE_TLV("DAC4 Playback Volume", RT5677_DAC4_DIG_VOL,
--		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
-+		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
- 
- 	/* IN1/IN2 Control */
- 	SOC_SINGLE_TLV("IN1 Boost", RT5677_IN1, RT5677_BST_SFT1, 8, 0, bst_tlv),
+diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
+index 6c0f242db5ef..b9c1d8ad77c1 100644
+--- a/sound/soc/rockchip/rockchip_pdm.c
++++ b/sound/soc/rockchip/rockchip_pdm.c
+@@ -158,7 +158,7 @@ static int rockchip_pdm_hw_params(struct snd_pcm_substream *substream,
+ 	struct rk_pdm_dev *pdm = to_info(dai);
+ 	unsigned int val = 0;
+ 	unsigned int clk_rate, clk_div, samplerate;
+-	unsigned int clk_src, clk_out;
++	unsigned int clk_src, clk_out = 0;
+ 	unsigned long m, n;
+ 	bool change;
+ 	int ret;
 -- 
 2.20.1
+
+
+--===============8353707999669851046==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8353707999669851046==--

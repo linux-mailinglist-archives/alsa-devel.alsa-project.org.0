@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C46AB157B4
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:35:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59274157AE
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:34:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53A8418DC;
-	Tue,  7 May 2019 04:34:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53A8418DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D06291705;
+	Tue,  7 May 2019 04:33:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D06291705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557196523;
-	bh=CazQ7P800rIs1qs9JORdsQAMm0e4OEbiz9nLgKvXLUc=;
+	s=default; t=1557196442;
+	bh=eDhJ93BoV0M7pN7fvUBun7CLL1k+a34GW9UxNcAmK6w=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ToU6cU/81L/5wt8+xBFeFQTgmivI+sI+ppNF/1BRjDcaJYfkfsvGibW25I5DVmBsc
-	 dXG5Qhso7ecHFghxKvq0ofmOFc+ytYwJ1wR3LYuP9yvq9ERQ1/6M5xkEnUcQzEo+S/
-	 hAE0qEGA71GqH8qTVjMnQcXnpjx7Jn8SgC1sUcgg=
+	b=kUSt0vscO8ewjjXiRwWGCb1nENY3eQ+7EG0g9gt0y/0rmbWH9byCX9EdmGq6A4Gqm
+	 qaPjiOdFXtyUpT5cOsgL+gPQ8yCjo+7/dwBHSI0e+y40yGD4911rlMgBTVn7bIYuFl
+	 3wJbK0G67WD65dLaNLHyKzgYkBFVkxaUyzRhKsEM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72D23F89741;
-	Tue,  7 May 2019 04:29:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B026F89737;
+	Tue,  7 May 2019 04:29:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C9B6F89730; Tue,  7 May 2019 04:29:14 +0200 (CEST)
+ id A78B2F8972F; Tue,  7 May 2019 04:29:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDC00F8972A
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:29:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDC00F8972A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5ACEEF8972B
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:29:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5ACEEF8972B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="hkL9gH6C"
+ header.b="iCdu1t0U"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=eFy0U8s/yw48UFL0gk7vE97JZ4glVfukIkTzC7rlsKo=; b=hkL9gH6C+4M7
- YV5wkZZw318IHWXS16qCfNWU2hdf92mk8N08ALaNYA+jrkuopLX52awoAlNRyOdG/SGpj2MnqQ/1G
- 12eaJNqkPzuNCjfpmMseq0WHjqsRjlchL+S0pMBkecRnzkOPxon/alcnYXzvI/m/bR2nHlwkDbCqd
- OsWWA=;
-Received: from kd111239185057.au-net.ne.jp ([111.239.185.57]
- helo=finisterre.sirena.org.uk)
+ List-Archive; bh=ZzgIz9glfp0h4gJjJFcCWJx7yu5INOai7eBIXU1HpA4=; b=iCdu1t0UGfy4
+ m/FTCRUHFCkhXkZziN9S6dFYczGO7gAkCUi7EnTet2BnINPk5HRiEmPNO33rxEY7uw7HJJFj9hn04
+ 2nFQk6a/mcJdWYFLRVccyI5mrpK1aryB5CSaJw+Qg9QUUKrDsZuzTxynHrX2PRZpGF69iIOOrvMu6
+ WCsXk=;
+Received: from [2001:268:c0e6:658d:8f3d:d90b:c4e4:2fdf]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNpqp-0003RG-ME; Tue, 07 May 2019 02:29:04 +0000
+ id 1hNpqt-0003RF-Vc; Tue, 07 May 2019 02:29:08 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id EFDB8440034; Tue,  7 May 2019 03:28:52 +0100 (BST)
+ id 63EF1440033; Tue,  7 May 2019 03:28:52 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <418abbd5-f01c-19ef-c9f2-7de5662f10a2@infradead.org>
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <20190506150224.1394-2-tiwai@suse.de>
 X-Patchwork-Hint: ignore
-Message-Id: <20190507022852.EFDB8440034@finisterre.sirena.org.uk>
+Message-Id: <20190507022852.63EF1440033@finisterre.sirena.org.uk>
 Date: Tue,  7 May 2019 03:28:52 +0100 (BST)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- LKML <linux-kernel@vger.kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sound/soc/sof/: fix kconfig dependency
-	warning" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: da7219: Fix a compile warning at
+	CONFIG_COMMON_CLK=n" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,14 +79,16 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4338764978016427827=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--===============4338764978016427827==
+Content-Type: text/plain
+
 The patch
 
-   ASoC: sound/soc/sof/: fix kconfig dependency warning
+   ASoC: da7219: Fix a compile warning at CONFIG_COMMON_CLK=n
 
 has been applied to the asoc tree at
 
@@ -114,46 +113,51 @@ to this mail.
 Thanks,
 Mark
 
-From 4c88519133bdd802fb0df4707b5a8c066af7154d Mon Sep 17 00:00:00 2001
-From: Randy Dunlap <rdunlap@infradead.org>
-Date: Mon, 6 May 2019 12:01:40 -0700
-Subject: [PATCH] ASoC: sound/soc/sof/: fix kconfig dependency warning
+From ab0c433f32f86370152bc9cb4900e5fe9a11055c Mon Sep 17 00:00:00 2001
+From: Takashi Iwai <tiwai@suse.de>
+Date: Mon, 6 May 2019 17:02:22 +0200
+Subject: [PATCH] ASoC: da7219: Fix a compile warning at CONFIG_COMMON_CLK=n
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Fix kconfig warning for unmet dependency for IOSF_MBI when
-PCI is not set/enabled.  Fixes this warning:
+A trivial fix for the randconfig build error:
+  sound/soc/codecs/da7219.c:2366:6: warning: unused variable ‘i’ [-Wunused-variable]
 
-WARNING: unmet direct dependencies detected for IOSF_MBI
-  Depends on [n]: PCI [=n]
-  Selected by [y]:
-  - SND_SOC_SOF_ACPI [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_SOF_TOPLEVEL [=y] && (ACPI [=y] || COMPILE_TEST [=n]) && X86 [=y]
-
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Fixes: d90ba6c8b53e ("ASoC: da7219: Expose BCLK and WCLK control through CCF")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/da7219.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index a1a9ffe605dc..b204c65698f9 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -28,7 +28,7 @@ config SND_SOC_SOF_ACPI
- 	select SND_SOC_ACPI if ACPI
- 	select SND_SOC_SOF_OPTIONS
- 	select SND_SOC_SOF_INTEL_ACPI if SND_SOC_SOF_INTEL_TOPLEVEL
--	select IOSF_MBI if X86
-+	select IOSF_MBI if X86 && PCI
- 	help
- 	  This adds support for ACPI enumeration. This option is required
- 	  to enable Intel Haswell/Broadwell/Baytrail/Cherrytrail devices
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index 206d01c6eb7e..43c03e7b2f0e 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -2357,7 +2357,9 @@ static int da7219_probe(struct snd_soc_component *component)
+ static void da7219_remove(struct snd_soc_component *component)
+ {
+ 	struct da7219_priv *da7219 = snd_soc_component_get_drvdata(component);
++#ifdef CONFIG_COMMON_CLK
+ 	int i;
++#endif
+ 
+ 	da7219_aad_exit(component);
+ 
 -- 
 2.20.1
+
+
+--===============4338764978016427827==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============4338764978016427827==--

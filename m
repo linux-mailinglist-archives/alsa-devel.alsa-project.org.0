@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E7A3157B8
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:36:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3226F157C5
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 04:41:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD6AE18ED;
-	Tue,  7 May 2019 04:35:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6AE18ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id B20621937;
+	Tue,  7 May 2019 04:40:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B20621937
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557196563;
-	bh=Z32rxizI2eJLjmq8h+WTr9GGU7ge2PHKt8Zb+lTnyAM=;
+	s=default; t=1557196896;
+	bh=ASVspFzTBO+WG68xQKy8bz79VjF8OoJjkH62hqpZwf8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=j2W7ul3UWVuPKWFwYjtve3CwCmbimTar3Qa/7X7FykCWyVhxgy9OwPqErO6s1Mhl+
-	 M/h4SSgjm6lxcmRjXXG+DInQMXu8XWf+k7EJtBwz9PaMMGVC0NGR7dfw+XRrq+EhQT
-	 qQCzS9ygdAuZpfMAMEDbCbBavsBQcxnJkOi3w5AI=
+	b=mqatU6GrOF8EqoK9cN1tvPN+69H2YAxkWavL9pt3LaywevEI0cnFWuuV1S5PIWgZQ
+	 M6HsiSjDNKB0S4DOcovBEfRIjDp4DSJ3GjDJoIqJC1iASxivjigcfvyX03BztwJ/tc
+	 PNkxhUpKfqMQEF/0fg/xYH/ujb8CSjPKrF+m+is0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6CC0F8974C;
-	Tue,  7 May 2019 04:29:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EB6CF8976F;
+	Tue,  7 May 2019 04:30:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1860F89730; Tue,  7 May 2019 04:29:15 +0200 (CEST)
+ id 02361F89763; Tue,  7 May 2019 04:30:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 904CCF89729
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:29:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 904CCF89729
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F10DF89760
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 04:30:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F10DF89760
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="T60m9p5p"
+ header.b="nFqe/sxl"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=69gNOrR5hr+ggTeaDHkcfb4lQWwrwVarl5WzF4L72IU=; b=T60m9p5pOYQA
- pXffy3/SMZmh3CyKK2A/1zOqjLM2T+S0nmaDkDnDckbbcGO2IVEB93WMazU7DXRC+1psYQUVNlgBS
- 43Pz+G6exgvkOEKPz7DmYaJsMt5tZTDXGQ+mIaM75nx3HNYzN+QoJtJx2v2RCJFOAXiqgDP7Bg0l6
- o6pfA=;
+ List-Archive; bh=N/eXMLTVfkLVsDEzKWn1gZcKuzRcNBEC/eZA1T2nGEM=; b=nFqe/sxl9d4c
+ rml38BNiiwttCVw5aYnML0XUOtp7Zd6srvVWxrs4FiYsB3fZLMcsgP+dGXsIEUJl6evBi+ySEfzq/
+ vHUupVC7dqhLqQbqV/a6veYiFu8QZohR/LnWTzrPGcCwIAIvrxLH4tlvSZ8VGkEMTKbZ5/W5ya7Zl
+ NCI5Q=;
 Received: from kd111239185057.au-net.ne.jp ([111.239.185.57]
  helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hNpqt-0003Re-B9; Tue, 07 May 2019 02:29:08 +0000
+ id 1hNpsN-0003Sw-6j; Tue, 07 May 2019 02:30:39 +0000
 Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
- id 68537440017; Tue,  7 May 2019 03:29:03 +0100 (BST)
+ id 4CC2644000C; Tue,  7 May 2019 03:30:30 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Mac Chiang <mac.chiang@intel.com>
-In-Reply-To: <1556851697-301-1-git-send-email-mac.chiang@intel.com>
+To: Dylan Reid <dgreid@chromium.org>
+In-Reply-To: <20190506203006.161158-1-cujomalainey@chromium.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20190507022903.68537440017@finisterre.sirena.org.uk>
-Date: Tue,  7 May 2019 03:29:03 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, "Harshapriya.n" <harshapriya.n@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- mac.chiang@intel.com, Mark Brown <broonie@kernel.org>,
- chintan.m.patel@intel.com, Jenny TC <jenny.tc@intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: boards: kbl_da7219_max98927: add
-	dai_trigger function" to the asoc tree
+Message-Id: <20190507023030.4CC2644000C@finisterre.sirena.org.uk>
+Date: Tue,  7 May 2019 03:30:30 +0100 (BST)
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Ross Zwisler <zwisler@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Hsinyu Chao <hychao@chromium.org>, Bard Liao <bardliao@realtek.com>,
+ Curtis Malainey <cujomalainey@chromium.org>
+Subject: [alsa-devel] Applied "ASoC: rt5677: use more of the volume range
+	from DACs" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: boards: kbl_da7219_max98927: add dai_trigger function
+   ASoC: rt5677: use more of the volume range from DACs
 
 has been applied to the asoc tree at
 
@@ -114,132 +115,47 @@ to this mail.
 Thanks,
 Mark
 
-From 53fdea9604fa1560bdbf418bbca564dbbebef211 Mon Sep 17 00:00:00 2001
-From: Mac Chiang <mac.chiang@intel.com>
-Date: Fri, 3 May 2019 10:48:17 +0800
-Subject: [PATCH] ASoC: Intel: boards: kbl_da7219_max98927: add dai_trigger
- function
+From 753c36a4d8a85beeb97640d1f91f2ead6aaee85e Mon Sep 17 00:00:00 2001
+From: Dylan Reid <dgreid@chromium.org>
+Date: Mon, 6 May 2019 13:30:06 -0700
+Subject: [PATCH] ASoC: rt5677: use more of the volume range from DACs
 
-amplifier feedback is not modeled as being dependent on any active
-output. Even when there is no playback happening, parts of the graph,
-specifically the IV sense->speaker protection->output remains active
-and this prevents the DSP from entering low-power states.
+The DACs volume can go over 0, both according to the data sheet and
+real world testing.  The control can go up to +30dB.
 
-This patch suggest a machine driver level approach where the speaker
-pins are enabled/disabled dynamically depending on stream start/stop
-events. DPAM graph representations show the feedback loop is indeed
-disabled and low-power states can be reached.
+This was tested by playing audio at full volume on a samus chromebook.
 
-Signed-off-by: Jenny TC <jenny.tc@intel.com>
-Signed-off-by: Harshapriya.n <harshapriya.n@intel.com>
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Dylan Reid <dgreid@chromium.org>
+Reviewed-by: Hsinyu Chao <hychao@chromium.org>
+Signed-off-by: Ross Zwisler <zwisler@google.com>
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/kbl_da7219_max98927.c | 73 +++++++++++++++++++-
- 1 file changed, 71 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt5677.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
-index f72a7bf028d7..1efe7fdad2cb 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98927.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
-@@ -219,8 +219,60 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
+diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+index 6fc70e441458..907c957b614d 100644
+--- a/sound/soc/codecs/rt5677.c
++++ b/sound/soc/codecs/rt5677.c
+@@ -832,13 +832,13 @@ static const struct snd_kcontrol_new rt5677_snd_controls[] = {
  
-+static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	int j, ret;
-+
-+	for (j = 0; j < rtd->num_codecs; j++) {
-+		struct snd_soc_dai *codec_dai = rtd->codec_dais[j];
-+		const char *name = codec_dai->component->name;
-+		struct snd_soc_component *component = codec_dai->component;
-+		struct snd_soc_dapm_context *dapm =
-+				snd_soc_component_get_dapm(component);
-+		char pin_name[20];
-+
-+		if (strcmp(name, MAX98927_DEV0_NAME) &&
-+			strcmp(name, MAX98927_DEV1_NAME) &&
-+			strcmp(name, MAX98373_DEV0_NAME) &&
-+			strcmp(name, MAX98373_DEV1_NAME))
-+			continue;
-+
-+		snprintf(pin_name, ARRAY_SIZE(pin_name), "%s Spk",
-+			codec_dai->component->name_prefix);
-+
-+		switch (cmd) {
-+		case SNDRV_PCM_TRIGGER_START:
-+		case SNDRV_PCM_TRIGGER_RESUME:
-+		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+			ret = snd_soc_dapm_enable_pin(dapm, pin_name);
-+			if (ret) {
-+				dev_err(rtd->dev, "failed to enable %s: %d\n",
-+				pin_name, ret);
-+				return ret;
-+			}
-+			snd_soc_dapm_sync(dapm);
-+			break;
-+		case SNDRV_PCM_TRIGGER_STOP:
-+		case SNDRV_PCM_TRIGGER_SUSPEND:
-+		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+			ret = snd_soc_dapm_disable_pin(dapm, pin_name);
-+			if (ret) {
-+				dev_err(rtd->dev, "failed to disable %s: %d\n",
-+				pin_name, ret);
-+				return ret;
-+			}
-+			snd_soc_dapm_sync(dapm);
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static struct snd_soc_ops kabylake_ssp0_ops = {
- 	.hw_params = kabylake_ssp0_hw_params,
-+	.trigger = kabylake_ssp0_trigger,
- };
+ 	/* DAC Digital Volume */
+ 	SOC_DOUBLE_TLV("DAC1 Playback Volume", RT5677_DAC1_DIG_VOL,
+-		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
++		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
+ 	SOC_DOUBLE_TLV("DAC2 Playback Volume", RT5677_DAC2_DIG_VOL,
+-		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
++		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
+ 	SOC_DOUBLE_TLV("DAC3 Playback Volume", RT5677_DAC3_DIG_VOL,
+-		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
++		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
+ 	SOC_DOUBLE_TLV("DAC4 Playback Volume", RT5677_DAC4_DIG_VOL,
+-		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 87, 0, dac_vol_tlv),
++		RT5677_L_VOL_SFT, RT5677_R_VOL_SFT, 127, 0, dac_vol_tlv),
  
- static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
-@@ -950,6 +1002,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
- {
- 	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
- 	struct kbl_hdmi_pcm *pcm;
-+	struct snd_soc_dapm_context *dapm = &card->dapm;
- 	struct snd_soc_component *component = NULL;
- 	int err, i = 0;
- 	char jack_name[NAME_SIZE];
-@@ -976,9 +1029,25 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
- 	if (!component)
- 		return -EINVAL;
- 
--	return hdac_hdmi_jack_port_init(component, &card->dapm);
- 
--	return 0;
-+	err = hdac_hdmi_jack_port_init(component, &card->dapm);
-+
-+	if (err < 0)
-+		return err;
-+
-+	err = snd_soc_dapm_disable_pin(dapm, "Left Spk");
-+	if (err) {
-+		dev_err(card->dev, "failed to disable Left Spk: %d\n", err);
-+		return err;
-+	}
-+
-+	err = snd_soc_dapm_disable_pin(dapm, "Right Spk");
-+	if (err) {
-+		dev_err(card->dev, "failed to disable Right Spk: %d\n", err);
-+		return err;
-+	}
-+
-+	return snd_soc_dapm_sync(dapm);
- }
- 
- /* kabylake audio machine driver for SPT + DA7219 */
+ 	/* IN1/IN2 Control */
+ 	SOC_SINGLE_TLV("IN1 Boost", RT5677_IN1, RT5677_BST_SFT1, 8, 0, bst_tlv),
 -- 
 2.20.1
 

@@ -2,60 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A3F8167FA
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 18:35:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5469E169EA
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 20:09:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2745A17D0;
-	Tue,  7 May 2019 18:35:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2745A17D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB69317B9;
+	Tue,  7 May 2019 20:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB69317B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557246955;
-	bh=7zVz2BhDUqWk8E64fNRwIpu8DCorcQJMo8YT3JS6+uA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WSA8E9/+hRTnDmhB85pEG3MJP6lI7Safurxoew3M7NEh5THB4iVKmWl8RfCyRf+8/
-	 SejRIWU/BgWxRXS+sVpSoH31YudW0DL2L04PnZCLClJZNH0QuOPZloca3U4MYvaXr4
-	 KAdgvqiTiC9GwgCQxlRPfovyRMGVO3XsvriEFz0I=
+	s=default; t=1557252571;
+	bh=Dd29Abugm+RwsnEB7qS8pDed/lDx/1opWuRDXGrGI3w=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=b0H9usrveM8iX03CUF9TdNAdewetdI4w4DoAzkmcO0Tjjp04p+fr/5N/ujBNE7kaa
+	 tu1va2SftLbDFkfnpT+M7n7g24Y5sLkPOsbnveQP/iw8NhlX8kIKH8fvcHvWbS+jmE
+	 IgwtPad2a73VNvG0jcYxAoSqc0nt+Dx5DSGaDwDw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A7F7F89726;
-	Tue,  7 May 2019 18:32:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D39AF89682;
+	Tue,  7 May 2019 20:07:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB9BEF896EC; Tue,  7 May 2019 18:32:50 +0200 (CEST)
+ id E7AF4F89674; Tue,  7 May 2019 20:07:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49F8FF80726
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 18:32:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F8FF80726
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 May 2019 09:32:42 -0700
-X-ExtLoop1: 1
-Received: from jcsedaya-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.255.228.16])
- by orsmga001.jf.intel.com with ESMTP; 07 May 2019 09:32:41 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue,  7 May 2019 11:32:36 -0500
-Message-Id: <20190507163236.8783-3-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190507163236.8783-1-pierre-louis.bossart@linux.intel.com>
-References: <20190507163236.8783-1-pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, broonie@kernel.org, kbuild-all@01.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 2/2] ASoC: SOF: core: fix undefined nocodec
-	reference
+ by alsa1.perex.cz (Postfix) with ESMTPS id C86EFF89671
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 20:07:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C86EFF89671
+X-Originating-IP: 90.89.68.76
+Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
+ (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id 470F1FF804;
+ Tue,  7 May 2019 18:07:36 +0000 (UTC)
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>
+Date: Tue,  7 May 2019 20:07:28 +0200
+Message-Id: <dc84c7e9ce272109052f553a5e050bfe1a09e9d6.1557252411.git-series.maxime.ripard@bootlin.com>
+X-Mailer: git-send-email 2.21.0
+MIME-Version: 1.0
+Cc: Maxime Ripard <maxime.ripard@bootlin.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Chen-Yu Tsai <wens@csie.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v2 1/2] dt-bindings: sound: Convert Allwinner
+	SPDIF binding to YAML
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,57 +66,190 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The existing code mistakenly uses IS_ENABLED in C code instead of as
-in conditional compilation, leading to the following error:
+The Allwinner SoCs feature an SPDIF controller across multiple SoC
+generations.
 
-ld: sound/soc/sof/core.o: in function `sof_machine_check':
-sound/soc/sof/core.c:279: undefined reference to `sof_nocodec_setup'
+However, earlier generations were a bit simpler than the subsequent ones,
+and for example would always have RX and TX capabilities, and no reset
+lines.
 
-Fix by using #if !IS_ENABLED()
+In order to express this, let's create two YAML schemas instead of the free
+form text we had before.
 
-Reported-by: kbuild test robot <lkp@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+
 ---
- sound/soc/sof/core.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
-index 39cbd84ff9c8..5ddbfa8f1a28 100644
---- a/sound/soc/sof/core.c
-+++ b/sound/soc/sof/core.c
-@@ -265,11 +265,10 @@ static int sof_machine_check(struct snd_sof_dev *sdev)
- 	if (plat_data->machine)
- 		return 0;
- 
--	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)) {
--		dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
--		return -ENODEV;
--	}
+Changes from v1:
+  - Merged the two schemas together and used the draft-7 conditionals
+---
+ Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml | 98 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt          | 42 +-------------------------------
+ 2 files changed, 98 insertions(+), 42 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
+
+diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
+new file mode 100644
+index 000000000000..5698e5de5e31
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
+@@ -0,0 +1,98 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/allwinner,sun4i-a10-spdif.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Allwinner A10 S/PDIF Controller Device Tree Bindings
++
++maintainers:
++  - Chen-Yu Tsai <wens@csie.org>
++  - Liam Girdwood <lgirdwood@gmail.com>
++  - Mark Brown <broonie@kernel.org>
++  - Maxime Ripard <maxime.ripard@bootlin.com>
++
++properties:
++  "#sound-dai-cells":
++    const: 0
++
++  compatible:
++    oneOf:
++      - const: allwinner,sun4i-a10-spdif
++      - const: allwinner,sun6i-a31-spdif
++      - const: allwinner,sun8i-h3-spdif
++      - items:
++          - const: allwinner,sun8i-a83t-spdif
++          - const: allwinner,sun8i-h3-spdif
++      - items:
++          - const: allwinner,sun50i-a64-spdif
++          - const: allwinner,sun8i-h3-spdif
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Bus Clock
++      - description: Module Clock
++
++  clock-names:
++    items:
++      - const: apb
++      - const: spdif
++
++  dmas:
++    items:
++      - description: RX DMA Channel
++      - description: TX DMA Channel
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++  resets:
++    maxItems: 1
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - allwinner,sun6i-a31-spdif
++              - allwinner,sun8i-h3-spdif
++
++    then:
++      required:
++        - resets
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    spdif: spdif@1c21000 {
++        #sound-dai-cells = <0>;
++        compatible = "allwinner,sun4i-a10-spdif";
++        reg = <0x01c21000 0x40>;
++        interrupts = <13>;
++        clocks = <&apb0_gates 1>, <&spdif_clk>;
++        clock-names = "apb", "spdif";
++        dmas = <&dma 0 2>, <&dma 0 2>;
++        dma-names = "rx", "tx";
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt b/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
+deleted file mode 100644
+index 0c64a209c2e9..000000000000
+--- a/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
++++ /dev/null
+@@ -1,42 +0,0 @@
+-Allwinner Sony/Philips Digital Interface Format (S/PDIF) Controller
 -
-+#if !IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
-+	dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
-+	return -ENODEV;
-+#else
- 	/* fallback to nocodec mode */
- 	dev_warn(sdev->dev, "No ASoC machine driver found - using nocodec\n");
- 	machine = devm_kzalloc(sdev->dev, sizeof(*machine), GFP_KERNEL);
-@@ -284,6 +283,7 @@ static int sof_machine_check(struct snd_sof_dev *sdev)
- 	plat_data->machine = machine;
- 
- 	return 0;
-+#endif
- }
- 
- static int sof_probe_continue(struct snd_sof_dev *sdev)
--- 
-2.17.1
+-The Allwinner S/PDIF audio block is a transceiver that allows the
+-processor to receive and transmit digital audio via an coaxial cable or
+-a fibre cable.
+-For now only playback is supported.
+-
+-Required properties:
+-
+-  - compatible		: should be one of the following:
+-    - "allwinner,sun4i-a10-spdif": for the Allwinner A10 SoC
+-    - "allwinner,sun6i-a31-spdif": for the Allwinner A31 SoC
+-    - "allwinner,sun8i-h3-spdif": for the Allwinner H3 SoC
+-
+-  - reg			: Offset and length of the register set for the device.
+-
+-  - interrupts		: Contains the spdif interrupt.
+-
+-  - dmas		: Generic dma devicetree binding as described in
+-			  Documentation/devicetree/bindings/dma/dma.txt.
+-
+-  - dma-names		: Two dmas have to be defined, "tx" and "rx".
+-
+-  - clocks		: Contains an entry for each entry in clock-names.
+-
+-  - clock-names		: Includes the following entries:
+-	"apb"		  clock for the spdif bus.
+-	"spdif"		  clock for spdif controller.
+-
+-  - resets		: reset specifier for the ahb reset (A31 and newer only)
+-
+-Example:
+-
+-spdif: spdif@1c21000 {
+-	compatible = "allwinner,sun4i-a10-spdif";
+-	reg = <0x01c21000 0x40>;
+-	interrupts = <13>;
+-	clocks = <&apb0_gates 1>, <&spdif_clk>;
+-	clock-names = "apb", "spdif";
+-	dmas = <&dma 0 2>, <&dma 0 2>;
+-	dma-names = "rx", "tx";
+-};
 
+base-commit: 00c3bc00f0cadbb48f2414370733892676511e79
+-- 
+git-series 0.9.1
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

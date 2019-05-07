@@ -2,81 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37552158CF
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 07:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A981158DD
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 07:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1BE61838;
-	Tue,  7 May 2019 07:13:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1BE61838
+	by alsa0.perex.cz (Postfix) with ESMTPS id 217DC184D;
+	Tue,  7 May 2019 07:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 217DC184D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557206057;
-	bh=Oj+GBhErxa7qPw38ilgBVFgf955jAXdSVP5+qj4h9Sg=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Myaedg9z45vj3Zqitzqt1lOxmUm3M4qJ22MpHdwt8q3ezohHYJZ0eYEytVuWV5E6g
-	 D9fR4EMhxjlA3Ibbhw/SaUL26W9bCpQyxt3dKoAkdQn9dTkbftem1UHnTPr1wjKoYn
-	 xcPAkBle8vX5Xg+T9hmEvIxaq9StxpXqh3om3gN0=
+	s=default; t=1557206517;
+	bh=JiItMxkCHqPldfC1hOI1fDRzKTP1dI3yS+Oz5AJv6zs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Azle3ltcHmBJTdb8YQzmq+Zi7NwDh5k6LKgs3WSexClQ6SLYKjuL/xlPHX+l3C5Rd
+	 zAqlVJRqcZUwJAg2H8AiAnQdnwCldGiNKb+metzRC3ktfDmd3ZCBPuR5x/htoVffGr
+	 jBR7OMVUVrfkNHPMtWXy7lqQhf+Ie3tQCgxzdUi4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0DE1CF89673;
-	Tue,  7 May 2019 07:12:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9ED33F89682;
+	Tue,  7 May 2019 07:20:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A688DF89674; Tue,  7 May 2019 07:12:27 +0200 (CEST)
+ id B1E2CF89674; Tue,  7 May 2019 07:20:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, SPF_PASS, T_DKIMWL_WL_MED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-yw1-xc49.google.com (mail-yw1-xc49.google.com
- [IPv6:2607:f8b0:4864:20::c49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79C9AF89671
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 07:12:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79C9AF89671
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0891CF807B5
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 07:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0891CF807B5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="tmPYiA88"
-Received: by mail-yw1-xc49.google.com with SMTP id v123so29617166ywf.16
- for <alsa-devel@alsa-project.org>; Mon, 06 May 2019 22:12:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=Pvv2wbS5Kj009HIS8CNJwa937mTMwhbCEwAVBmg46RY=;
- b=tmPYiA88sQ238n487Rt0I0ebfaLgp4YU7aJEHj/2irRmaD6dkYf5Dfsqe2hWccHheh
- Vi16PnSs3saLor4yWFAv6hJ121FJMzS4xjXGekjAzjjDMoAJjONgGoMUXoRGsGXpGMQx
- 9OGNmkKUvKwftPDm3SeCzue/rAfyIISAmsLCwI2KxBcRk0Cc1J3PRO6v2VClivrbJIhN
- D77d9LW5YWnIDmOQGdy9EqlxHwoFOPCFDfT7zEkmD8Z1J7BSn3yS8K5KoHS9NnchpmNe
- m/z95A25xnrBcdmUz3FoGJdE5G4+Li/BQmp89PtkROpgtvznq/VLW/16RHu64g8/w7cj
- ug4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=Pvv2wbS5Kj009HIS8CNJwa937mTMwhbCEwAVBmg46RY=;
- b=JfG6yAU8/8vuZPlmMYGqoF1sDJKvkj8Fgn0y8bu3LViQ4NqkgXKf0O0nbxBlca1Ii6
- KOnftxPhrKgY7kf9o2ZKFymsep33ACwT3X2pwDgsanriYgYWJod84b+6hJ+XmfjTbMgT
- gMEj6iK3DsTPNlsKcJhWzaRnf800drWJZjprbISPo+WFAtGcjDLA4MNPxWqo9ByRGjc7
- MNMM9GjbhUJQb3Fud/2WLG43+V/CmJfS6FCZZJwK4YouSsxEI76CajNMgwYah8xtVwL8
- g4PTwpWHLRuhca/TOUGhmoyyPIMTVdAvazA30CcqWA2PykkUP4WnetiF3RiEIprvkCUM
- MjOA==
-X-Gm-Message-State: APjAAAU4Ba5wYxeZMYG7Va/LBagqVkVbN3I7Zl9VkLbxSRYAhNljMci/
- TDzdx6ihZr+rb8hBOxiqh6g4zRA7QbQV
-X-Google-Smtp-Source: APXvYqxjP/I6HDLlioM/ew2vO9f68fgZSHblWQowF+5LEIF3/u78ItoyeSzrLRCiX0PEhOobcBR8UVOLGZQ0
-X-Received: by 2002:a81:84cc:: with SMTP id
- u195mr21463128ywf.501.1557205942471; 
- Mon, 06 May 2019 22:12:22 -0700 (PDT)
-Date: Tue,  7 May 2019 13:11:40 +0800
-Message-Id: <20190507051140.240245-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, tiwai@suse.com
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
- cychiang@google.com
-Subject: [alsa-devel] [PATCH] ASoC: max98357a: release GPIO when component
-	removing
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tPo+br1J"
+Received: from localhost (unknown [106.200.210.185])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D5D3D20825;
+ Tue,  7 May 2019 05:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1557206404;
+ bh=Flvx6Er9d/coVStQbYYupZGxgW4cRN7G6LywOsFj20Q=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=tPo+br1JJSOD6ymilcJdrWRHzZOLmQSbawbDknuiOMWpT4SBxpHYGA4PfLjWsZzxQ
+ 326OqhKd60CoNvFoUaCfvE3AdFsB2yoOuo+J6RQjAJLAQi02uorkEflM3niUMGlRkd
+ 77/Eu5kvMgpKxc5XqSsEs2H35F4wBc4pzQZnvIjs=
+Date: Tue, 7 May 2019 10:49:59 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190507051959.GC16052@vkoul-mobl>
+References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
+ <20190504010030.29233-3-pierre-louis.bossart@linux.intel.com>
+ <20190504065444.GC9770@kroah.com>
+ <c675ea60-5bfa-2475-8878-c589b8d20b32@linux.intel.com>
+ <20190506151953.GA13178@kroah.com>
+ <20190506162208.GI3845@vkoul-mobl.Dlink>
+ <be72bbb1-b51f-8201-fdff-958836ed94d1@linux.intel.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <be72bbb1-b51f-8201-fdff-958836ed94d1@linux.intel.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@linux.intel.com, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, joe@perches.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 2/7] soundwire: add Slave sysfs support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,112 +89,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Component's probe() gets GPIO for "sdmode-gpios" via
-devm_gpiod_get_optional().  The GPIO binds to the device.
+On 06-05-19, 11:46, Pierre-Louis Bossart wrote:
+> On 5/6/19 11:22 AM, Vinod Koul wrote:
+> > On 06-05-19, 17:19, Greg KH wrote:
+> > > On Mon, May 06, 2019 at 09:42:35AM -0500, Pierre-Louis Bossart wrote:
+> > > > > > +
+> > > > > > +int sdw_sysfs_slave_init(struct sdw_slave *slave)
+> > > > > > +{
+> > > > > > +	struct sdw_slave_sysfs *sysfs;
+> > > > > > +	unsigned int src_dpns, sink_dpns, i, j;
+> > > > > > +	int err;
+> > > > > > +
+> > > > > > +	if (slave->sysfs) {
+> > > > > > +		dev_err(&slave->dev, "SDW Slave sysfs is already initialized\n");
+> > > > > > +		err = -EIO;
+> > > > > > +		goto err_ret;
+> > > > > > +	}
+> > > > > > +
+> > > > > > +	sysfs = kzalloc(sizeof(*sysfs), GFP_KERNEL);
+> > > > > 
+> > > > > Same question as patch 1, why a new device?
+> > > > 
+> > > > yes it's the same open. In this case, the slave devices are defined at a
+> > > > different level so it's also confusing to create a device to represent the
+> > > > slave properties. The code works but I am not sure the initial directions
+> > > > are correct.
+> > > 
+> > > You can just make a subdir for your attributes by using the attribute
+> > > group name, if a subdirectory is needed just to keep things a bit more
+> > > organized.
+> > 
+> > The key here is 'a subdir' which is not the case here. We did discuss
+> > this in the initial patches for SoundWire which had sysfs :)
+> > 
+> > The way MIPI disco spec organized properties, we have dp0 and dpN
+> > properties each of them requires to have a subdir of their own and that
+> > was the reason why I coded it to be creating a device.
+> 
+> Vinod, the question was not for dp0 and dpN, it's fine to have
+> subdirectories there, but rather why we need separate devices for the master
+> and slave properties.
 
-When the component get removed but the device does not, the GPIO
-still binds to the device.  Then, when the component be probed
-again, devm_gpiod_get_optional() returns EBUSY.
+Slave does not have a separate device. IIRC the properties for Slave are
+in /sys/bus/soundwire/device/<slave>/...
 
-Release the GPIO proactively when component is removing.
+For master yes we can skip the device creation, it was done for
+consistency sake of having these properties ties into sys/bus/soundwire/
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/codecs/max98357a.c | 42 ++++++++++++++++++++++++++++--------
- 1 file changed, 33 insertions(+), 9 deletions(-)
+I don't mind if they are shown up in respective device node (PCI/platform
+etc) /sys/bus/foo/device/<> 
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index d037a3e4d323..b11c6cb81f55 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -27,24 +27,28 @@
- #include <sound/soc-dai.h>
- #include <sound/soc-dapm.h>
- 
-+struct max98357a_priv {
-+	struct gpio_desc *sdmode;
-+};
-+
- static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
- 		int cmd, struct snd_soc_dai *dai)
- {
--	struct gpio_desc *sdmode = snd_soc_dai_get_drvdata(dai);
-+	struct max98357a_priv *max98357a = snd_soc_dai_get_drvdata(dai);
- 
--	if (!sdmode)
-+	if (!max98357a->sdmode)
- 		return 0;
- 
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		gpiod_set_value(sdmode, 1);
-+		gpiod_set_value(max98357a->sdmode, 1);
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		gpiod_set_value(sdmode, 0);
-+		gpiod_set_value(max98357a->sdmode, 0);
- 		break;
- 	}
- 
-@@ -61,19 +65,31 @@ static const struct snd_soc_dapm_route max98357a_dapm_routes[] = {
- 
- static int max98357a_component_probe(struct snd_soc_component *component)
- {
--	struct gpio_desc *sdmode;
-+	struct max98357a_priv *max98357a =
-+			snd_soc_component_get_drvdata(component);
- 
--	sdmode = devm_gpiod_get_optional(component->dev, "sdmode", GPIOD_OUT_LOW);
--	if (IS_ERR(sdmode))
--		return PTR_ERR(sdmode);
-+	max98357a->sdmode = devm_gpiod_get_optional(component->dev,
-+					"sdmode", GPIOD_OUT_LOW);
-+	if (IS_ERR(max98357a->sdmode))
-+		return PTR_ERR(max98357a->sdmode);
- 
--	snd_soc_component_set_drvdata(component, sdmode);
-+	snd_soc_component_set_drvdata(component, max98357a);
- 
- 	return 0;
- }
- 
-+static void max98357a_component_remove(struct snd_soc_component *component)
-+{
-+	struct max98357a_priv *max98357a =
-+			snd_soc_component_get_drvdata(component);
-+
-+	if (max98357a->sdmode)
-+		devm_gpiod_put(component->dev, max98357a->sdmode);
-+}
-+
- static const struct snd_soc_component_driver max98357a_component_driver = {
- 	.probe			= max98357a_component_probe,
-+	.remove			= max98357a_component_remove,
- 	.dapm_widgets		= max98357a_dapm_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(max98357a_dapm_widgets),
- 	.dapm_routes		= max98357a_dapm_routes,
-@@ -112,6 +128,14 @@ static struct snd_soc_dai_driver max98357a_dai_driver = {
- 
- static int max98357a_platform_probe(struct platform_device *pdev)
- {
-+	struct max98357a_priv *max98357a;
-+
-+	max98357a = devm_kzalloc(&pdev->dev, sizeof(*max98357a), GFP_KERNEL);
-+	if (!max98357a)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(&pdev->dev, max98357a);
-+
- 	return devm_snd_soc_register_component(&pdev->dev,
- 			&max98357a_component_driver,
- 			&max98357a_dai_driver, 1);
+But for creating subdirectories you would need the new dpX devices.
+
+HTH
+
+> 
+> > 
+> > Do we have a better way to handle this?
+> > 
+> > > Otherwise, you need to mess with having multiple "types" of struct
+> > > device all associated with the same bus.  It is possible, and not that
+> > > hard, but I don't think you are doing that here.
+> > > 
+> > > thnaks,
+> > > 
+> > > greg k-h
+> > 
+
 -- 
-2.21.0.1020.gf2820cf01a-goog
-
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

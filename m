@@ -2,84 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271F5161CA
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 12:16:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C2C61628F
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 May 2019 13:05:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C768C18ED;
-	Tue,  7 May 2019 12:15:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C768C18ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F36C1886;
+	Tue,  7 May 2019 13:04:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F36C1886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557224188;
-	bh=7WvQxeh3raWLkzbocyphaB5rU2vmFPB9SSxU4b6t1VI=;
-	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
+	s=default; t=1557227129;
+	bh=SI+NYYsbOijX87fYDNRGdVT45ULIoaWt2/fdf2XUGn0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tib4s0QY6TohxQmVWsyJ3FRhmjOOFVYw/MPZKbroeiBmPddPqs/Mj4D2psUiEmKA4
-	 O30AN/6OC5373nb/xpqgzJgToxu+69BvC1zCfZSj9XV0Py9d08MdbD7Teu++O/7S9m
-	 95OMooej2WLvJ2OIpCcvIlUPjSYz/KHAMja9Ff3o=
+	b=sMALEh1fITPm0sv7JUQ65S2mtT3/heDafx59lmQi2Sn/DjvfBM6hfGEPCSMehOb0k
+	 fnzow0dT7eBV+PXGqqfQsxyzafxM3CXqkAhvYtJADehnw3UyrUu4kG0BPPd6aMCT5K
+	 qv/Ov5WN5aXn2vOaMli76+24J3ejIHU/W6gI0EaY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1213CF8972A;
-	Tue,  7 May 2019 12:13:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05DFBF89674;
+	Tue,  7 May 2019 13:03:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8BB2F8972B; Tue,  7 May 2019 12:13:07 +0200 (CEST)
+ id 3A2CCF89674; Tue,  7 May 2019 13:03:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, SPF_PASS, T_DKIMWL_WL_MED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-yw1-xc49.google.com (mail-yw1-xc49.google.com
- [IPv6:2607:f8b0:4864:20::c49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DD81F89727
- for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 12:13:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DD81F89727
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B83EF80726
+ for <alsa-devel@alsa-project.org>; Tue,  7 May 2019 13:03:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B83EF80726
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="iTzwyM2j"
-Received: by mail-yw1-xc49.google.com with SMTP id q2so30502773ywd.9
- for <alsa-devel@alsa-project.org>; Tue, 07 May 2019 03:13:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=/z4fADeK2fLL67CzFV8fJ52P+/KQ/nXPgKIO88Uq6ms=;
- b=iTzwyM2jDB4YZJ2hoHnVjIzwIXPHs5cX9AdyDlt+MOLOxcTfeerWLDpy4942ck9z+y
- NQY2nAMAxlNGEvYeKvv4J8gipxmRwP3QBFD4BRDLYd3Ma8SXZTImQXF1DIljbhOYfERJ
- Re+mPtK5ODjW6xSyYzCfH8T4NiPb199AsKOzkLW/6sjQs1QkJ1whWme3mI1S4D6NJW5U
- sRNfZo8gjt3G44bFTMnS2fvwGJXNX5fnPPXLW3c7rDyePQRYiH7LnyF5cDygoo/1z7tH
- hs5q2R2zh+gQeIAXOIXYz18Kh3QGeBXnFbucUSad2hqd8wzbNRq7WfqTbVly0npQVjZ6
- MrbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=/z4fADeK2fLL67CzFV8fJ52P+/KQ/nXPgKIO88Uq6ms=;
- b=d+OCf+gr/luxG6gysI/JPnsZqbUsQW6H6tX9pkBhW8NJyIW42b5ZLOuQDF+MJMWsri
- +BvVpk8eZRq5VYdP7fSWunrA86ahPmKdt44NWSGhJXCNX1RoEf7Kycj7rvyuL7uA82Us
- y/KeQ1lmWdNKGTlu7J36mOwLno6xFj3QVIEHEWL7P0dFhfUvqaz56NTfX9OBg25HLObf
- KmciZc5tRmvCF5R1GGVme3p7YFmbGzPQYjcY+jMR6G32qEMOfiSnpA8LDQFF6kHo3re+
- NqRxIkREU65flYIRdpGpuCK67ILXh7+hps/1ngdqSJq6VMwKEVWGg7iouJcCk9kairve
- DJ8Q==
-X-Gm-Message-State: APjAAAXj70h0absuV0DYaLeHKG0auwMes7foljfOy5GjTlA+pr7CYXWh
- oagyv6v76Si48Zg05J5MJ5FHKW70pStN
-X-Google-Smtp-Source: APXvYqzNvb0zqPqpmCM1mvRYB6mf7opx4jk0uh09oTV6Kr2iamdljO6Vw0Ia/jUdJeisaldHzcTzBlRY4e5o
-X-Received: by 2002:a81:b717:: with SMTP id v23mr21255218ywh.120.1557223984586; 
- Tue, 07 May 2019 03:13:04 -0700 (PDT)
-Date: Tue,  7 May 2019 18:12:20 +0800
-In-Reply-To: <20190507101220.182466-1-tzungbi@google.com>
-Message-Id: <20190507101220.182466-4-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20190507101220.182466-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, tiwai@suse.com
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
- cychiang@google.com
-Subject: [alsa-devel] [PATCH 3/3] ASoC: mediatek: mt6358: save PGA for mixer
-	control
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VPcyi3tt"
+Received: from localhost (unknown [106.200.210.185])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 41DC620675;
+ Tue,  7 May 2019 11:03:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1557227017;
+ bh=zQZLtdYYVNTgRT4kCRHZVliDZ+R61VOCrL1FYUU0nqg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VPcyi3ttv6jHZ1181y/oeDuQ/uejHgRKb+0K9Cyc8XEDvP0yvpKA6+AmzH0wgmL7C
+ i9j36Tfog5yG7ns/GZxrI7g/Qj18wlSXv73aWUeW6KGXJc/EIpgMkFXMXH/m2j55Bi
+ YxzAiSwyp9hUKDFSuiM8QG2mlikZGQlNqyLIE5Ps=
+Date: Tue, 7 May 2019 16:33:31 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20190507110331.GL16052@vkoul-mobl>
+References: <20190504010030.29233-1-pierre-louis.bossart@linux.intel.com>
+ <20190504010030.29233-2-pierre-louis.bossart@linux.intel.com>
+ <20190504065242.GA9770@kroah.com>
+ <b0059709-027e-26c4-25a1-bd55df7c507f@linux.intel.com>
+ <20190507052732.GD16052@vkoul-mobl>
+ <20190507055432.GB17986@kroah.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190507055432.GB17986@kroah.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 1/7] soundwire: Add sysfs support for
+ master(s)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,84 +89,111 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-mt6358_amic_disable() resets PGA to 0.
+On 07-05-19, 07:54, Greg KH wrote:
+> On Tue, May 07, 2019 at 10:57:32AM +0530, Vinod Koul wrote:
+> > On 06-05-19, 21:24, Pierre-Louis Bossart wrote:
+> > > 
+> > > > > +int sdw_sysfs_bus_init(struct sdw_bus *bus)
+> > > > > +{
+> > > > > +	struct sdw_master_sysfs *master;
+> > > > > +	int err;
+> > > > > +
+> > > > > +	if (bus->sysfs) {
+> > > > > +		dev_err(bus->dev, "SDW sysfs is already initialized\n");
+> > > > > +		return -EIO;
+> > > > > +	}
+> > > > > +
+> > > > > +	master = kzalloc(sizeof(*master), GFP_KERNEL);
+> > > > > +	if (!master)
+> > > > > +		return -ENOMEM;
+> > > > 
+> > > > Why are you creating a whole new device to put all of this under?  Is
+> > > > this needed?  What will the sysfs tree look like when you do this?  Why
+> > > > can't the "bus" device just get all of these attributes and no second
+> > > > device be created?
+> > > 
+> > > I tried a quick hack and indeed we could simplify the code with something as
+> > > simple as:
+> > > 
+> > > [attributes omitted]
+> > > 
+> > > static const struct attribute_group sdw_master_node_group = {
+> > > 	.attrs = master_node_attrs,
+> > > 	.name = "mipi-disco"
+> > > };
+> > > 
+> > > int sdw_sysfs_bus_init(struct sdw_bus *bus)
+> > > {
+> > > 	return sysfs_create_group(&bus->dev->kobj, &sdw_master_node_group);
+> > > }
+> > > 
+> > > void sdw_sysfs_bus_exit(struct sdw_bus *bus)
+> > > {
+> > > 	sysfs_remove_group(&bus->dev->kobj, &sdw_master_node_group);	
+> > > }
+> > > 
+> > > which gives me a simpler structure and doesn't require additional
+> > > pretend-devices:
+> > > 
+> > > /sys/bus/acpi/devices/PRP00001:00/int-sdw.0/mipi-disco# ls
+> > > clock_gears
+> > > /sys/bus/acpi/devices/PRP00001:00/int-sdw.0/mipi-disco# more clock_gears
+> > > 8086
+> > > 
+> > > The issue I have is that for the _show() functions, I don't see a way to go
+> > > from the device argument to bus. In the example above I forced the output
+> > > but would need a helper.
+> > > 
+> > > static ssize_t clock_gears_show(struct device *dev,
+> > > 				struct device_attribute *attr, char *buf)
+> > > {
+> > > 	struct sdw_bus *bus; // this is what I need to find from dev
+> > > 	ssize_t size = 0;
+> > > 	int i;
+> > > 
+> > > 	return sprintf(buf, "%d \n", 8086);
+> > > }
+> > > 
+> > > my brain is starting to fry, but I don't see how container_of() would work
+> > > here since the bus structure contains a pointer to the device. I don't also
+> > > see a way to check for all devices for the bus_type soundwire.
+> > > For the slaves we do have a macro based on container_of(), so wondering if
+> > > we made a mistake in the bus definition? Vinod, any thoughts?
+> > 
+> > yeah I dont recall a way to get bus fed into create_group, I did look at
+> > the other examples back then and IIRC and most of them were using a
+> > global to do the trick (I didn't want to go down that route).
+> > 
+> > I think that was the reason I wrote it this way...
+> > 
+> > BTW if you do use psedo-device you can create your own struct foo which
+> > embeds device and then then you can use container approach to get foo
+> > (and foo contains bus as a member).
+> > 
+> > Greg, any thoughts?
+> 
+> Why would you have "bus" attributes on a device?  I don't think you are
+> using "bus" here like the driver model uses the term "bus", right?
+> 
+> What are you really trying to show here?
+> 
+> And if you need to know the bus pointer from the device, why don't you
+> have a pointer to it in your device-specific structure?
 
-Save the gain settings from mixer control and restore them when using
-the microphone.
+The model here is that Master device is PCI or Platform device and then
+creates a bus instance which has soundwire slave devices.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/codecs/mt6358.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
+So for any attribute on Master device (which has properties as well and
+representation in sysfs), device specfic struct (PCI/platfrom doesn't
+help). For slave that is not a problem as sdw_slave structure takes care
+if that.
 
-diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
-index 44edbda8afcc..50b3fc5457ea 100644
---- a/sound/soc/codecs/mt6358.c
-+++ b/sound/soc/codecs/mt6358.c
-@@ -450,6 +450,15 @@ static int mt6358_put_volsw(struct snd_kcontrol *kcontrol,
- 		priv->ana_gain[AUDIO_ANALOG_VOLUME_HSOUTR] =
- 			(reg >> RG_AUDHSGAIN_SFT) & RG_AUDHSGAIN_MASK;
- 		break;
-+	case MT6358_AUDENC_ANA_CON0:
-+	case MT6358_AUDENC_ANA_CON1:
-+		regmap_read(priv->regmap, MT6358_AUDENC_ANA_CON0, &reg);
-+		priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP1] =
-+			(reg >> RG_AUDPREAMPLGAIN_SFT) & RG_AUDPREAMPLGAIN_MASK;
-+		regmap_read(priv->regmap, MT6358_AUDENC_ANA_CON1, &reg);
-+		priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP2] =
-+			(reg >> RG_AUDPREAMPRGAIN_SFT) & RG_AUDPREAMPRGAIN_MASK;
-+		break;
- 	}
- 
- 	return ret;
-@@ -470,10 +479,10 @@ static const struct snd_kcontrol_new mt6358_snd_controls[] = {
- 			   MT6358_ZCD_CON3, 0, 0x12, 1,
- 			   snd_soc_get_volsw, mt6358_put_volsw, playback_tlv),
- 	/* ul pga gain */
--	SOC_DOUBLE_R_TLV("PGA Volume",
--			 MT6358_AUDENC_ANA_CON0, MT6358_AUDENC_ANA_CON1,
--			 8, 4, 0,
--			 pga_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("PGA Volume",
-+			     MT6358_AUDENC_ANA_CON0, MT6358_AUDENC_ANA_CON1,
-+			     8, 4, 0,
-+			     snd_soc_get_volsw, mt6358_put_volsw, pga_tlv),
- };
- 
- /* MUX */
-@@ -1750,6 +1759,21 @@ static void mt6358_dmic_disable(struct mt6358_priv *priv)
- 	regmap_write(priv->regmap, MT6358_AUDENC_ANA_CON9, 0x0000);
- }
- 
-+static void mt6358_restore_pga(struct mt6358_priv *priv)
-+{
-+	unsigned int gain_l, gain_r;
-+
-+	gain_l = priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP1];
-+	gain_r = priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP2];
-+
-+	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON0,
-+			   RG_AUDPREAMPLGAIN_MASK_SFT,
-+			   gain_l << RG_AUDPREAMPLGAIN_SFT);
-+	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON1,
-+			   RG_AUDPREAMPRGAIN_MASK_SFT,
-+			   gain_r << RG_AUDPREAMPRGAIN_SFT);
-+}
-+
- static int mt_mic_type_event(struct snd_soc_dapm_widget *w,
- 			     struct snd_kcontrol *kcontrol,
- 			     int event)
-@@ -1774,6 +1798,7 @@ static int mt_mic_type_event(struct snd_soc_dapm_widget *w,
- 			mt6358_amic_enable(priv);
- 			break;
- 		}
-+		mt6358_restore_pga(priv);
- 
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
+So, the solution was to create the psedo sdw_master device for the
+representation and have device-specific structure.
+
+Thanks
 -- 
-2.21.0.1020.gf2820cf01a-goog
-
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

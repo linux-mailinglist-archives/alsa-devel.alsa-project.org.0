@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3144417481
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:04:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 203B017490
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:06:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FC49191E;
-	Wed,  8 May 2019 11:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FC49191E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC8BD1A3C;
+	Wed,  8 May 2019 11:05:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC8BD1A3C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557306250;
-	bh=t0LyxBihSWLV52jGZ5ia8ajkaGbofgThDBV8q0LuLF0=;
+	s=default; t=1557306408;
+	bh=2qyklbFdULa0Lk8H8pmwWTRzh7Iw5h1E7z7zykqxBxM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dPD7fl8xTWrLfUIySKP6W9q7PSN2b5uKL4esvAGM2/erPoPO3DPAKsb7vDvALZwj/
-	 oaG2iEhpmNeUvHYI6nlC7HOjMDtn9bfVtP4ImUNZCMxVSNeBRGbEgU4pf22uerrw/6
-	 HTi3ASe/Lqm4+0wYN0ruKIaaAFdO2260W7eMPTQk=
+	b=EUQzcS1pnWf32WIiuXMaGLENABOJLmpp6h94s4YwtgWS/YEkzbHgE5/Df8WRZnRAp
+	 o81xGKIErXjAjh+ckrPQyhIGz9+wpfQBJrK+K7G2mmJ3AdrDsea+ahqq6e6fv4ECM/
+	 FYazpwzSkuUk8b5gg4lBsNfJ07kAUaiIinL7amME=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5037AF89730;
-	Wed,  8 May 2019 11:01:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B867F89745;
+	Wed,  8 May 2019 11:01:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E153F89726; Wed,  8 May 2019 11:01:42 +0200 (CEST)
+ id D38F3F8973F; Wed,  8 May 2019 11:01:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E571F89726
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E571F89726
+ by alsa1.perex.cz (Postfix) with ESMTPS id E99D5F8973B
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E99D5F8973B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="JWKWuMRH"
+ header.b="NWfk1/ac"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=j0BVhUdSsVNZZmpI2QpfiLV2xfXPtZzCwrFt5yURFYU=; b=JWKWuMRHWILi
- YdbjuGBH0MzGGR++caNDzWDv0M5Sf+mBkpcSJl3TobMeo91jjbvDPHvEpIF57VeJzgW9L+iF/Y6kk
- fiYhbtUEU633ojVYx3CNClm3uWB2PmKPdZ7/kIJ0KLdqUoybRrhTcOa7mHjm/TPrGBwrWi4r5HDG1
- a/DcY=;
+ List-Archive; bh=3foX1zSexcdw1h20N2CRNYxzqyizoRUKVKuHebbDRjs=; b=NWfk1/acOYOZ
+ pIdhn6VeUkyEZc5NYPylKzP+4+ecyftkJTtEhcSc+cOWOOBr2+KI/V2OMd9+LfycVWfnjaB7++5QK
+ +wwRAQ1Rdcqd5LLPfgg+FgGl5gQ/OpisQPbtm9i+BQGAOizlHvbV3YWwzkMaVVbkcsm69t20YBhcq
+ aY8v4=;
 Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hOISD-0007dQ-0A; Wed, 08 May 2019 09:01:36 +0000
+ id 1hOISN-0007dX-P0; Wed, 08 May 2019 09:01:49 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 495B0440017; Wed,  8 May 2019 10:01:27 +0100 (BST)
+ id 00B9A440035; Wed,  8 May 2019 10:01:28 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <1557147252-18679-3-git-send-email-olivier.moysan@st.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20190506095815.24578-3-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190508090127.495B0440017@finisterre.sirena.org.uk>
-Date: Wed,  8 May 2019 10:01:27 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
- tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, benjamin.gaignard@st.com
-Subject: [alsa-devel] Applied "ASoC: stm32: i2s: manage identification
-	registers" to the asoc tree
+Message-Id: <20190508090129.00B9A440035@finisterre.sirena.org.uk>
+Date: Wed,  8 May 2019 10:01:28 +0100 (BST)
+Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: hdmi-codec: remove reference to the
+	current substream" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: stm32: i2s: manage identification registers
+   ASoC: hdmi-codec: remove reference to the current substream
 
 has been applied to the asoc tree at
 
@@ -114,135 +112,145 @@ to this mail.
 Thanks,
 Mark
 
-From 71ed4bddde08285cd02d6d28c861ea1815d67476 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Mon, 6 May 2019 14:54:12 +0200
-Subject: [PATCH] ASoC: stm32: i2s: manage identification registers
+From 3fcf94ef4d418668fa66e33ce9aabb05689b55f6 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Mon, 6 May 2019 11:58:13 +0200
+Subject: [PATCH] ASoC: hdmi-codec: remove reference to the current substream
 
-Add support of identification registers in STM32 I2S.
+If the hdmi-codec is on a codec-to-codec link, the substream pointer
+it receives is completely made up by snd_soc_dai_link_event().
+The pointer will be different between startup() and shutdown().
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+The hdmi-codec complains when this happens even if it is not really a
+problem. The current_substream pointer is not used for anything useful
+apart from getting the exclusive ownership of the device.
+
+Remove current_substream pointer and replace the exclusive locking
+mechanism with a simple variable and some atomic operations.
+
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/stm/stm32_i2s.c | 60 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 57 insertions(+), 3 deletions(-)
+ sound/soc/codecs/hdmi-codec.c | 58 ++++++++++-------------------------
+ 1 file changed, 16 insertions(+), 42 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
-index 97d5e9901a0e..9755c49ae7dc 100644
---- a/sound/soc/stm/stm32_i2s.c
-+++ b/sound/soc/stm/stm32_i2s.c
-@@ -16,6 +16,7 @@
-  * details.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/module.h>
-@@ -37,6 +38,10 @@
- #define STM32_I2S_TXDR_REG	0X20
- #define STM32_I2S_RXDR_REG	0x30
- #define STM32_I2S_CGFR_REG	0X50
-+#define STM32_I2S_HWCFGR_REG	0x3F0
-+#define STM32_I2S_VERR_REG	0x3F4
-+#define STM32_I2S_IPIDR_REG	0x3F8
-+#define STM32_I2S_SIDR_REG	0x3FC
- 
- /* Bit definition for SPI2S_CR1 register */
- #define I2S_CR1_SPE		BIT(0)
-@@ -143,6 +148,23 @@
- #define I2S_CGFR_ODD		BIT(I2S_CGFR_ODD_SHIFT)
- #define I2S_CGFR_MCKOE		BIT(25)
- 
-+/* Registers below apply to I2S version 1.1 and more */
-+
-+/* Bit definition for SPI_HWCFGR register */
-+#define I2S_HWCFGR_I2S_SUPPORT_MASK	GENMASK(15, 12)
-+
-+/* Bit definition for SPI_VERR register */
-+#define I2S_VERR_MIN_MASK	GENMASK(3, 0)
-+#define I2S_VERR_MAJ_MASK	GENMASK(7, 4)
-+
-+/* Bit definition for SPI_IPIDR register */
-+#define I2S_IPIDR_ID_MASK	GENMASK(31, 0)
-+
-+/* Bit definition for SPI_SIDR register */
-+#define I2S_SIDR_ID_MASK	GENMASK(31, 0)
-+
-+#define I2S_IPIDR_NUMBER	0x00130022
-+
- enum i2s_master_mode {
- 	I2S_MS_NOT_SET,
- 	I2S_MS_MASTER,
-@@ -280,6 +302,10 @@ static bool stm32_i2s_readable_reg(struct device *dev, unsigned int reg)
- 	case STM32_I2S_SR_REG:
- 	case STM32_I2S_RXDR_REG:
- 	case STM32_I2S_CGFR_REG:
-+	case STM32_I2S_HWCFGR_REG:
-+	case STM32_I2S_VERR_REG:
-+	case STM32_I2S_IPIDR_REG:
-+	case STM32_I2S_SIDR_REG:
- 		return true;
- 	default:
- 		return false;
-@@ -711,10 +737,11 @@ static const struct regmap_config stm32_h7_i2s_regmap_conf = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
--	.max_register = STM32_I2S_CGFR_REG,
-+	.max_register = STM32_I2S_SIDR_REG,
- 	.readable_reg = stm32_i2s_readable_reg,
- 	.volatile_reg = stm32_i2s_volatile_reg,
- 	.writeable_reg = stm32_i2s_writeable_reg,
-+	.num_reg_defaults_raw = STM32_I2S_SIDR_REG / sizeof(u32) + 1,
- 	.fast_io = true,
- 	.cache_type = REGCACHE_FLAT,
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index eb31d7eddcbf..4d32f93f6be6 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -280,11 +280,10 @@ struct hdmi_codec_priv {
+ 	struct hdmi_codec_pdata hcd;
+ 	struct snd_soc_dai_driver *daidrv;
+ 	struct hdmi_codec_daifmt daifmt[2];
+-	struct mutex current_stream_lock;
+-	struct snd_pcm_substream *current_stream;
+ 	uint8_t eld[MAX_ELD_BYTES];
+ 	struct snd_pcm_chmap *chmap_info;
+ 	unsigned int chmap_idx;
++	unsigned long busy;
  };
-@@ -864,6 +891,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
- static int stm32_i2s_probe(struct platform_device *pdev)
+ 
+ static const struct snd_soc_dapm_widget hdmi_widgets[] = {
+@@ -392,42 +391,22 @@ static int hdmi_codec_chmap_ctl_get(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
+ 
+-static int hdmi_codec_new_stream(struct snd_pcm_substream *substream,
+-				 struct snd_soc_dai *dai)
+-{
+-	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+-	int ret = 0;
+-
+-	mutex_lock(&hcp->current_stream_lock);
+-	if (!hcp->current_stream) {
+-		hcp->current_stream = substream;
+-	} else if (hcp->current_stream != substream) {
+-		dev_err(dai->dev, "Only one simultaneous stream supported!\n");
+-		ret = -EINVAL;
+-	}
+-	mutex_unlock(&hcp->current_stream_lock);
+-
+-	return ret;
+-}
+-
+ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 			      struct snd_soc_dai *dai)
  {
- 	struct stm32_i2s_data *i2s;
-+	u32 val;
- 	int ret;
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 	int ret = 0;
  
- 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
-@@ -902,8 +930,34 @@ static int stm32_i2s_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	/* Set SPI/I2S in i2s mode */
--	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
--				  I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
-+	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
-+				 I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(i2s->regmap, STM32_I2S_IPIDR_REG, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (val == I2S_IPIDR_NUMBER) {
-+		ret = regmap_read(i2s->regmap, STM32_I2S_HWCFGR_REG, &val);
-+		if (ret)
-+			return ret;
-+
-+		if (!FIELD_GET(I2S_HWCFGR_I2S_SUPPORT_MASK, val)) {
-+			dev_err(&pdev->dev,
-+				"Device does not support i2s mode\n");
-+			return -EPERM;
-+		}
-+
-+		ret = regmap_read(i2s->regmap, STM32_I2S_VERR_REG, &val);
-+
-+		dev_dbg(&pdev->dev, "I2S version: %lu.%lu registered\n",
-+			FIELD_GET(I2S_VERR_MAJ_MASK, val),
-+			FIELD_GET(I2S_VERR_MIN_MASK, val));
+-	ret = hdmi_codec_new_stream(substream, dai);
+-	if (ret)
+-		return ret;
++	ret = test_and_set_bit(0, &hcp->busy);
++	if (ret) {
++		dev_err(dai->dev, "Only one simultaneous stream supported!\n");
++		return -EINVAL;
 +	}
+ 
+ 	if (hcp->hcd.ops->audio_startup) {
+ 		ret = hcp->hcd.ops->audio_startup(dai->dev->parent, hcp->hcd.data);
+-		if (ret) {
+-			mutex_lock(&hcp->current_stream_lock);
+-			hcp->current_stream = NULL;
+-			mutex_unlock(&hcp->current_stream_lock);
+-			return ret;
+-		}
++		if (ret)
++			goto err;
+ 	}
+ 
+ 	if (hcp->hcd.ops->get_eld) {
+@@ -437,17 +416,18 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 		if (!ret) {
+ 			ret = snd_pcm_hw_constraint_eld(substream->runtime,
+ 							hcp->eld);
+-			if (ret) {
+-				mutex_lock(&hcp->current_stream_lock);
+-				hcp->current_stream = NULL;
+-				mutex_unlock(&hcp->current_stream_lock);
+-				return ret;
+-			}
++			if (ret)
++				goto err;
+ 		}
+ 		/* Select chmap supported */
+ 		hdmi_codec_eld_chmap(hcp);
+ 	}
+ 	return 0;
 +
++err:
++	/* Release the exclusive lock on error */
++	clear_bit(0, &hcp->busy);
 +	return ret;
  }
  
- MODULE_DEVICE_TABLE(of, stm32_i2s_ids);
+ static void hdmi_codec_shutdown(struct snd_pcm_substream *substream,
+@@ -455,14 +435,10 @@ static void hdmi_codec_shutdown(struct snd_pcm_substream *substream,
+ {
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 
+-	WARN_ON(hcp->current_stream != substream);
+-
+ 	hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
+ 	hcp->hcd.ops->audio_shutdown(dai->dev->parent, hcp->hcd.data);
+ 
+-	mutex_lock(&hcp->current_stream_lock);
+-	hcp->current_stream = NULL;
+-	mutex_unlock(&hcp->current_stream_lock);
++	clear_bit(0, &hcp->busy);
+ }
+ 
+ static int hdmi_codec_hw_params(struct snd_pcm_substream *substream,
+@@ -761,8 +737,6 @@ static int hdmi_codec_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	hcp->hcd = *hcd;
+-	mutex_init(&hcp->current_stream_lock);
+-
+ 	hcp->daidrv = devm_kcalloc(dev, dai_count, sizeof(*hcp->daidrv),
+ 				   GFP_KERNEL);
+ 	if (!hcp->daidrv)
 -- 
 2.20.1
 

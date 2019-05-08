@@ -2,75 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F198E174B3
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:10:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69B08174DF
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:18:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 863A61A97;
-	Wed,  8 May 2019 11:09:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 863A61A97
+	by alsa0.perex.cz (Postfix) with ESMTPS id D80871930;
+	Wed,  8 May 2019 11:17:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D80871930
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557306614;
-	bh=jZ18K9yTV6curnyut1vgEakOAsGKxhnT2s+xZaFq6HM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557307090;
+	bh=DHV4r/O3ie66A567f1QSey3SjGODUCF6GiZP2A8nrFg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=orAz9wdZg9/jr1fgmuMOIvdj7gBWA7ctByg1RIswP/kzL+wR7/zEbD2O3E5h/T5q0
-	 FRoUoy4dnEZo+w4AJ5hVhK0sxTMF7XBWQaJF/hNP7NsNl+qiHGT/7zbNULiT2nJWh2
-	 8EFa5k0yPrHYoPvpOxoeg0+JIR49rke2HdiZG7/c=
+	b=bZbx6saWqZOtC/oT6Go6Q3CanLdRO5lwazMlyNi3VIE0qQJRRiqexlZwMlb8fp6z+
+	 9FxT839rForMaSRmVQPUgZpWT3MZrAagWSpklS01OirFRMpLt28xstmvpivD+SyMCz
+	 nNEjmZeq6lfrmcE3xHcoYnOUFmddod6YdYHDEGQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6ED4F896F0;
-	Wed,  8 May 2019 11:04:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5911DF807B5;
+	Wed,  8 May 2019 11:16:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89D67F896F0; Wed,  8 May 2019 11:04:17 +0200 (CEST)
+ id B00B5F896E6; Wed,  8 May 2019 11:16:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63087F807B5
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:04:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63087F807B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="FQeEtDtI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SLaCDPhxMMikTFAxLcu81CNC9LBPAJdG+62+3Qu31NA=; b=FQeEtDtIcZI9ZQMa/x0LAQ2ZC
- Rnt8PX8I2lrNjW5u2IoCgI3gJ74gce8ps6jeYXvH2RfU0kglDYAqZyMnbNpdUAGOcHnlLmNPOYEs5
- tHQO1Itm5msJT070ncRBpnC4rePdXjci8sEPJBTo1X50hKVSshtcqp/PPrtIA4MRV3rug=;
-Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hOIUm-0007fG-5K; Wed, 08 May 2019 09:04:12 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id D81CB44000C; Wed,  8 May 2019 10:04:06 +0100 (BST)
-Date: Wed, 8 May 2019 18:04:06 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Fletcher Woodruff <fletcherw@chromium.org>
-Message-ID: <20190508090406.GG14916@sirena.org.uk>
-References: <20190507220115.90395-1-fletcherw@chromium.org>
- <20190507220115.90395-4-fletcherw@chromium.org>
-MIME-Version: 1.0
-In-Reply-To: <20190507220115.90395-4-fletcherw@chromium.org>
-X-Cookie: -- I have seen the FUN --
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Curtis Malainey <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [PATCH v5 3/3] ASoC: rt5677: fall back to DT prop
-	names on error
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8CABF8075E
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:16:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8CABF8075E
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id BC557ACAA;
+ Wed,  8 May 2019 09:16:18 +0000 (UTC)
+Date: Wed, 08 May 2019 11:16:18 +0200
+Message-ID: <s5h5zqlnw65.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190508085953.GF14916@sirena.org.uk>
+References: <20190427175938.GJ14916@sirena.org.uk>
+ <s5h36lxpcbd.wl-tiwai@suse.de>
+ <20190503064729.GF14916@sirena.org.uk>
+ <s5hk1f8m2f1.wl-tiwai@suse.de>
+ <20190506042625.GK14916@sirena.org.uk>
+ <s5hsgtr6h5y.wl-tiwai@suse.de>
+ <20190506140506.GQ14916@sirena.org.uk>
+ <s5h4l674n9g.wl-tiwai@suse.de>
+ <20190508081006.GZ14916@sirena.org.uk>
+ <s5hk1f1nyyh.wl-tiwai@suse.de>
+ <20190508085953.GF14916@sirena.org.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Add support for Conexant CX2072X
+	CODEC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,57 +76,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1041327024948235339=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 08 May 2019 10:59:53 +0200,
+Mark Brown wrote:
+> 
+> On Wed, May 08, 2019 at 10:16:06AM +0200, Takashi Iwai wrote:
+> > Mark Brown wrote:
+> 
+> > > The GPIO/IRQ equivalence thing should just be a purely Linux internal
+> > > thing - looking at the driver it appears that there's no need to look at
+> > > the GPIO status, Linux can tell if something is plugged in purely by
+> > > reading the chip registers so the jack status function could directly be
+> > > the interrupt handler.
+> 
+> > But it can't see the button status or detect the headset type without
+> > reading the codec's magic registers...  So some help from the codec
+> > side is required, and the irq handler isn't in the codec side because
+> 
+> The whole thing should be in the CODEC side.
+> 
+> > there is no i2c irq assigned but only ACPI gpio, as far as I checked.
+> 
+> You can map through an ACPI GPIO to an interrupt without worrying about
+> the fact that it's mapped as a GPIO in ACPI IIRC - if you can't there's
+> lots of other drivers are going to have issues.
 
---===============1041327024948235339==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+if5tLMzDwmTCkiQ"
-Content-Disposition: inline
+But what gives a benefit?  It needs more plumbing between codec and
+machine driver.  The i2c probe doesn't give the irq, so you'd need and
+extra stuff to enable the irq in a different route if you'd need to
+implement the handler in the codec driver.
+
+Actually, my latest patchset already eliminates the exported stuff by
+moving to set_jack callback like some other drivers do.  If you have
+an idea for further simplification / fixes, let me know.
+
+I haven't submitted because of the merge window.  The patch is found
+at topic/soc-cx2072x-5.2 branch, the commit is
+  https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/?h=topic/soc-cx2072x-5.2&id=ca7f4eee5ecbefcf347f5a4984c0a17629360186
 
 
---+if5tLMzDwmTCkiQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+thanks,
 
-On Tue, May 07, 2019 at 04:01:15PM -0600, Fletcher Woodruff wrote:
-> The rt5677 driver uses ACPI-style property names to read from the
-> device API. However, these do not match the property names in _DSD
-> used on the Chromebook Pixel 2015, which are closer to the Device Tree
-> style.  Unify the two functions for reading from the device API so that
-> they try ACPI-style names first and fall back to the DT names on error.
-
-This is OK and should probably be the first patch in the series since
-it's much simpler than the other ones but depends on them.
-
---+if5tLMzDwmTCkiQ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzSm4UACgkQJNaLcl1U
-h9BXYgf9HL6kgqhLX5BgKf3C1D9thjRYiOmKbp5R2x6lp5KlyJkhLSBNUFaJVciZ
-6cshYtsU42VNjyT9ICN7OD3CoROo+HDvy5PaPfylSaNSUq180OQV6t4KE2SNrGZ8
-5O1GpwPLUJ2Q+0biQMPOp4eic90mz3usZtSIFgg9K8i0ZsYtmV2t75OeSETJY1au
-nxnYwLttQ1R73oRfaB7/uvYETekume/zHZ5BNi6xFPRgKY2cPoK+qUvWKH6CaaLa
-WOufUF3Os1nB7azLSxLfZvhRleqVmpv95d/jHtdYOH4920YbHqsImkyInJc8Uh0z
-tkxlqDjblH4PgakMTEmJ+T0M7JEAKA==
-=gN76
------END PGP SIGNATURE-----
-
---+if5tLMzDwmTCkiQ--
-
---===============1041327024948235339==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============1041327024948235339==--

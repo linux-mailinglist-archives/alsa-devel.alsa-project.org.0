@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7633E17486
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:05:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD6A174A6
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:09:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0CAFC1904;
-	Wed,  8 May 2019 11:04:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CAFC1904
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40A0A1AA4;
+	Wed,  8 May 2019 11:08:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40A0A1AA4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557306331;
-	bh=IAsn92e9RPvE8TrQ6plPCOzPSaumPLiAfrTtZdS9az0=;
+	s=default; t=1557306569;
+	bh=VvLVOm9su+arzTM62RdVP7jfrEZLt9hs8YEa7BoZwsA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jVN+xeczKJKwe8x6S+iUMskSWTLLoKruKEti36tWX5IZDxdMK303anUjWf/pHf7i+
-	 wnOMcGXqbrlKA+1xGCf1L4qbe+tOHY4Xs0g0pZ9pQWAi8TfTwIvplPCg5PGVADV7/E
-	 ZnLJmmTqb+IXS/K25Vtz0fI1gez78TwRrE8LGfsk=
+	b=R9DOyJel7vkKYTQo3s4Z1i6ih802kTQNpT5ADGB46I/e8LH0NWfYNLFGsxDKQAgKj
+	 lYfkOOlXUe3YeJydb8mCBSIIDPTLRrjh3iF4GBRRoajE+fL6iVvteaTbx56a/sfL9N
+	 mBPuRLhAFRg87rJ173ho0XkjLL32MC8d4rfhXrOM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5194F89739;
-	Wed,  8 May 2019 11:01:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AAAAF89758;
+	Wed,  8 May 2019 11:02:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B13A7F89739; Wed,  8 May 2019 11:01:47 +0200 (CEST)
+ id 004C7F8973C; Wed,  8 May 2019 11:01:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,39 +33,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA463F89726
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA463F89726
+ by alsa1.perex.cz (Postfix) with ESMTPS id 553A5F8973A
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 553A5F8973A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="jGZWk9Dj"
+ header.b="uMZygjis"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Q7DwZRHdJHt87MlpuWoH7grW8GSi6P8GMst92mpsgGY=; b=jGZWk9DjlCLz
- CIM/UNX8O6nxYj6UJs54sHE7vfbmfqf8CWazdVCEGw1Hl0V2fQeffiz/1718HhfEbhv0TV8ru77Or
- vscvHWi4UbzSKzkpWNbEQk6FZBoHlhQyF4WsP80HiRxwYT/fY5+fUkocUsLhc8Ga0cL15Cwc97dmt
- y8Uq0=;
+ List-Archive; bh=bBkrEgPSq8hc5aCHjilUOXB34a6TFD7nFVTZOLwQsrY=; b=uMZygjisX7W+
+ EyGsIYJFHqMbpKkgfNTBiPKXKESI5QrIXCoMe8VJQcZd3sgAsbdcAElgMZj5zDsdVIFQPcgG0O65F
+ h4pD//6ydumCq19q5Usgwf/GS3X3+EoJhaSsJIYq6UP+x6JMilwbhGHSKPsSScXMfJytJPJ+iaEVv
+ SL2Zo=;
 Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hOISM-0007dp-T3; Wed, 08 May 2019 09:01:43 +0000
+ id 1hOISP-0007ds-G9; Wed, 08 May 2019 09:01:49 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 41E6044003F; Wed,  8 May 2019 10:01:31 +0100 (BST)
+ id CB8F044000C; Wed,  8 May 2019 10:01:31 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20190507101220.182466-4-tzungbi@google.com>
+In-Reply-To: <20190507101220.182466-3-tzungbi@google.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190508090131.41E6044003F@finisterre.sirena.org.uk>
+Message-Id: <20190508090131.CB8F044000C@finisterre.sirena.org.uk>
 Date: Wed,  8 May 2019 10:01:31 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, cychiang@google.com, tiwai@suse.com,
  tzungbi@google.com, Mark Brown <broonie@kernel.org>, dgreid@google.com
-Subject: [alsa-devel] Applied "ASoC: mediatek: mt6358: save PGA for mixer
-	control" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt6358: save output volume
+	for mixer controls" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mt6358: save PGA for mixer control
+   ASoC: mediatek: mt6358: save output volume for mixer controls
 
 has been applied to the asoc tree at
 
@@ -111,87 +111,166 @@ to this mail.
 Thanks,
 Mark
 
-From ec0574a6ce31f2d6640bb8a5edf98973356dd3b4 Mon Sep 17 00:00:00 2001
+From bbb56537a3279f7221e253afc29e834a3d99662f Mon Sep 17 00:00:00 2001
 From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 7 May 2019 18:12:20 +0800
-Subject: [PATCH] ASoC: mediatek: mt6358: save PGA for mixer control
+Date: Tue, 7 May 2019 18:12:19 +0800
+Subject: [PATCH] ASoC: mediatek: mt6358: save output volume for mixer controls
 
-mt6358_amic_disable() resets PGA to 0.
+Output volume settings from mixer controls would be lost.
 
-Save the gain settings from mixer control and restore them when using
-the microphone.
+Imagine that "Headphone Volume" has set to -10dB via amixer:
+- in mtk_hp_enable()
+  - hp_store_gain() saves the volume setting -10dB from regmap_read()
+    to ana_gain[AUDIO_ANALOG_VOLUME_HPOUTL]
+  - headset_volume_ramp() ramps up from -10dB to -10dB
+- in mtk_hp_disable()
+  - headset_volume_ramp() ramps down from -10dB to -40dB
+
+Next time in mtk_hp_enable(), hp_store_gain() would save -40dB but
+not -10dB.  As a result, headset_volume_ramp() would ramp from -10dB to
+-40dB (which is mute).
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/mt6358.c | 33 +++++++++++++++++++++++++++++----
- 1 file changed, 29 insertions(+), 4 deletions(-)
+ sound/soc/codecs/mt6358.c | 91 ++++++++++++++++++++++-----------------
+ 1 file changed, 51 insertions(+), 40 deletions(-)
 
 diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
-index 44edbda8afcc..50b3fc5457ea 100644
+index 96547ae50a5d..44edbda8afcc 100644
 --- a/sound/soc/codecs/mt6358.c
 +++ b/sound/soc/codecs/mt6358.c
-@@ -450,6 +450,15 @@ static int mt6358_put_volsw(struct snd_kcontrol *kcontrol,
- 		priv->ana_gain[AUDIO_ANALOG_VOLUME_HSOUTR] =
- 			(reg >> RG_AUDHSGAIN_SFT) & RG_AUDHSGAIN_MASK;
- 		break;
-+	case MT6358_AUDENC_ANA_CON0:
-+	case MT6358_AUDENC_ANA_CON1:
-+		regmap_read(priv->regmap, MT6358_AUDENC_ANA_CON0, &reg);
-+		priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP1] =
-+			(reg >> RG_AUDPREAMPLGAIN_SFT) & RG_AUDPREAMPLGAIN_MASK;
-+		regmap_read(priv->regmap, MT6358_AUDENC_ANA_CON1, &reg);
-+		priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP2] =
-+			(reg >> RG_AUDPREAMPRGAIN_SFT) & RG_AUDPREAMPRGAIN_MASK;
-+		break;
+@@ -320,32 +320,6 @@ enum {
+ #define DL_GAIN_N_40DB_REG (DL_GAIN_N_40DB << 7 | DL_GAIN_N_40DB)
+ #define DL_GAIN_REG_MASK 0x0f9f
+ 
+-static void lo_store_gain(struct mt6358_priv *priv)
+-{
+-	unsigned int reg;
+-	unsigned int gain_l, gain_r;
+-
+-	regmap_read(priv->regmap, MT6358_ZCD_CON1, &reg);
+-	gain_l = (reg >> RG_AUDLOLGAIN_SFT) & RG_AUDLOLGAIN_MASK;
+-	gain_r = (reg >> RG_AUDLORGAIN_SFT) & RG_AUDLORGAIN_MASK;
+-
+-	priv->ana_gain[AUDIO_ANALOG_VOLUME_LINEOUTL] = gain_l;
+-	priv->ana_gain[AUDIO_ANALOG_VOLUME_LINEOUTR] = gain_r;
+-}
+-
+-static void hp_store_gain(struct mt6358_priv *priv)
+-{
+-	unsigned int reg;
+-	unsigned int gain_l, gain_r;
+-
+-	regmap_read(priv->regmap, MT6358_ZCD_CON2, &reg);
+-	gain_l = (reg >> RG_AUDHPLGAIN_SFT) & RG_AUDHPLGAIN_MASK;
+-	gain_r = (reg >> RG_AUDHPRGAIN_SFT) & RG_AUDHPRGAIN_MASK;
+-
+-	priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTL] = gain_l;
+-	priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTR] = gain_r;
+-}
+-
+ static void hp_zcd_disable(struct mt6358_priv *priv)
+ {
+ 	regmap_write(priv->regmap, MT6358_ZCD_CON0, 0x0000);
+@@ -439,20 +413,62 @@ static void headset_volume_ramp(struct mt6358_priv *priv, int from, int to)
  	}
- 
- 	return ret;
-@@ -470,10 +479,10 @@ static const struct snd_kcontrol_new mt6358_snd_controls[] = {
- 			   MT6358_ZCD_CON3, 0, 0x12, 1,
- 			   snd_soc_get_volsw, mt6358_put_volsw, playback_tlv),
- 	/* ul pga gain */
--	SOC_DOUBLE_R_TLV("PGA Volume",
--			 MT6358_AUDENC_ANA_CON0, MT6358_AUDENC_ANA_CON1,
--			 8, 4, 0,
--			 pga_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("PGA Volume",
-+			     MT6358_AUDENC_ANA_CON0, MT6358_AUDENC_ANA_CON1,
-+			     8, 4, 0,
-+			     snd_soc_get_volsw, mt6358_put_volsw, pga_tlv),
- };
- 
- /* MUX */
-@@ -1750,6 +1759,21 @@ static void mt6358_dmic_disable(struct mt6358_priv *priv)
- 	regmap_write(priv->regmap, MT6358_AUDENC_ANA_CON9, 0x0000);
  }
  
-+static void mt6358_restore_pga(struct mt6358_priv *priv)
++static int mt6358_put_volsw(struct snd_kcontrol *kcontrol,
++			    struct snd_ctl_elem_value *ucontrol)
 +{
-+	unsigned int gain_l, gain_r;
++	struct snd_soc_component *component =
++			snd_soc_kcontrol_component(kcontrol);
++	struct mt6358_priv *priv = snd_soc_component_get_drvdata(component);
++	struct soc_mixer_control *mc =
++			(struct soc_mixer_control *)kcontrol->private_value;
++	unsigned int reg;
++	int ret;
 +
-+	gain_l = priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP1];
-+	gain_r = priv->ana_gain[AUDIO_ANALOG_VOLUME_MICAMP2];
++	ret = snd_soc_put_volsw(kcontrol, ucontrol);
++	if (ret < 0)
++		return ret;
 +
-+	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON0,
-+			   RG_AUDPREAMPLGAIN_MASK_SFT,
-+			   gain_l << RG_AUDPREAMPLGAIN_SFT);
-+	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON1,
-+			   RG_AUDPREAMPRGAIN_MASK_SFT,
-+			   gain_r << RG_AUDPREAMPRGAIN_SFT);
++	switch (mc->reg) {
++	case MT6358_ZCD_CON2:
++		regmap_read(priv->regmap, MT6358_ZCD_CON2, &reg);
++		priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTL] =
++			(reg >> RG_AUDHPLGAIN_SFT) & RG_AUDHPLGAIN_MASK;
++		priv->ana_gain[AUDIO_ANALOG_VOLUME_HPOUTR] =
++			(reg >> RG_AUDHPRGAIN_SFT) & RG_AUDHPRGAIN_MASK;
++		break;
++	case MT6358_ZCD_CON1:
++		regmap_read(priv->regmap, MT6358_ZCD_CON1, &reg);
++		priv->ana_gain[AUDIO_ANALOG_VOLUME_LINEOUTL] =
++			(reg >> RG_AUDLOLGAIN_SFT) & RG_AUDLOLGAIN_MASK;
++		priv->ana_gain[AUDIO_ANALOG_VOLUME_LINEOUTR] =
++			(reg >> RG_AUDLORGAIN_SFT) & RG_AUDLORGAIN_MASK;
++		break;
++	case MT6358_ZCD_CON3:
++		regmap_read(priv->regmap, MT6358_ZCD_CON3, &reg);
++		priv->ana_gain[AUDIO_ANALOG_VOLUME_HSOUTL] =
++			(reg >> RG_AUDHSGAIN_SFT) & RG_AUDHSGAIN_MASK;
++		priv->ana_gain[AUDIO_ANALOG_VOLUME_HSOUTR] =
++			(reg >> RG_AUDHSGAIN_SFT) & RG_AUDHSGAIN_MASK;
++		break;
++	}
++
++	return ret;
 +}
 +
- static int mt_mic_type_event(struct snd_soc_dapm_widget *w,
- 			     struct snd_kcontrol *kcontrol,
- 			     int event)
-@@ -1774,6 +1798,7 @@ static int mt_mic_type_event(struct snd_soc_dapm_widget *w,
- 			mt6358_amic_enable(priv);
- 			break;
- 		}
-+		mt6358_restore_pga(priv);
+ static const DECLARE_TLV_DB_SCALE(playback_tlv, -1000, 100, 0);
+ static const DECLARE_TLV_DB_SCALE(pga_tlv, 0, 600, 0);
  
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
+ static const struct snd_kcontrol_new mt6358_snd_controls[] = {
+ 	/* dl pga gain */
+-	SOC_DOUBLE_TLV("Headphone Volume",
+-		       MT6358_ZCD_CON2, 0, 7, 0x12, 1,
+-		       playback_tlv),
+-	SOC_DOUBLE_TLV("Lineout Volume",
+-		       MT6358_ZCD_CON1, 0, 7, 0x12, 1,
+-		       playback_tlv),
+-	SOC_SINGLE_TLV("Handset Volume",
+-		       MT6358_ZCD_CON3, 0, 0x12, 1,
+-		       playback_tlv),
++	SOC_DOUBLE_EXT_TLV("Headphone Volume",
++			   MT6358_ZCD_CON2, 0, 7, 0x12, 1,
++			   snd_soc_get_volsw, mt6358_put_volsw, playback_tlv),
++	SOC_DOUBLE_EXT_TLV("Lineout Volume",
++			   MT6358_ZCD_CON1, 0, 7, 0x12, 1,
++			   snd_soc_get_volsw, mt6358_put_volsw, playback_tlv),
++	SOC_SINGLE_EXT_TLV("Handset Volume",
++			   MT6358_ZCD_CON3, 0, 0x12, 1,
++			   snd_soc_get_volsw, mt6358_put_volsw, playback_tlv),
+ 	/* ul pga gain */
+ 	SOC_DOUBLE_R_TLV("PGA Volume",
+ 			 MT6358_AUDENC_ANA_CON0, MT6358_AUDENC_ANA_CON1,
+@@ -831,8 +847,6 @@ static int mtk_hp_enable(struct mt6358_priv *priv)
+ 	/* Reduce ESD resistance of AU_REFN */
+ 	regmap_write(priv->regmap, MT6358_AUDDEC_ANA_CON2, 0x4000);
+ 
+-	/* save target gain to restore after hardware open complete */
+-	hp_store_gain(priv);
+ 	/* Set HPR/HPL gain as minimum (~ -40dB) */
+ 	regmap_write(priv->regmap, MT6358_ZCD_CON2, DL_GAIN_N_40DB_REG);
+ 
+@@ -1042,8 +1056,6 @@ static int mtk_hp_spk_enable(struct mt6358_priv *priv)
+ 	/* Reduce ESD resistance of AU_REFN */
+ 	regmap_write(priv->regmap, MT6358_AUDDEC_ANA_CON2, 0x4000);
+ 
+-	/* save target gain to restore after hardware open complete */
+-	hp_store_gain(priv);
+ 	/* Set HPR/HPL gain to -10dB */
+ 	regmap_write(priv->regmap, MT6358_ZCD_CON2, DL_GAIN_N_10DB_REG);
+ 
+@@ -1103,7 +1115,6 @@ static int mtk_hp_spk_enable(struct mt6358_priv *priv)
+ 	hp_main_output_ramp(priv, true);
+ 
+ 	/* Set LO gain as minimum (~ -40dB) */
+-	lo_store_gain(priv);
+ 	regmap_write(priv->regmap, MT6358_ZCD_CON1, DL_GAIN_N_40DB_REG);
+ 	/* apply volume setting */
+ 	headset_volume_ramp(priv,
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F361F17477
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19AD31747B
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:03:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D4A1938;
-	Wed,  8 May 2019 11:01:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D4A1938
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B9DB1694;
+	Wed,  8 May 2019 11:02:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B9DB1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557306158;
-	bh=Yr63nPHSzoPc8+tpnN6T/zaIpSX3kSEnKHC+RhJCRWM=;
+	s=default; t=1557306205;
+	bh=IKHWCbz3laGExDtc4cgMFFMypbYlsyIzpmOO9Yor/Ao=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qYcAhRJyAcjcqfvFLxdRhMSSP2Ic4WKk1+bU/q5wCc8FdXhzyM+Xph/WwMxVHbOQh
-	 9l7C7vQwqgOuwLQ/oqU8+D3Vmy0YrXKFxMq9OFe8vzntW0v+P5/wE6ji+Rcm95yOrH
-	 Etn04MxanQFZJxMwsrwDKHt+llIliCvFsWgiY66U=
+	b=gkLJMgN1DtHTnUHGLnahXCOCqo86SrWswpFqzY+BfjJFB0VqbhzVCmGHgP4fPhcj9
+	 NOnMXrVFTL8v/xdGPE5zIMaAxx56tDonEw97nvDDBaC6Nkf77wWm0QS2/+AdDK7DVx
+	 IW4sCvTPiCk/AgZwFrnEmLHOiRu0Z+xsqewpO4LU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 46B99F807B5;
-	Wed,  8 May 2019 11:01:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84A7DF89727;
+	Wed,  8 May 2019 11:01:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8944DF896F0; Wed,  8 May 2019 11:01:36 +0200 (CEST)
+ id 973EFF807B5; Wed,  8 May 2019 11:01:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20799F8075E
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20799F8075E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08CF4F807B5
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08CF4F807B5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bsWwKanj"
+ header.b="e6V9nLiT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=bwHhshSS/kbfWXI+gsQyuvdaNlF4NdaPvcOqb1oDAdo=; b=bsWwKanjClyz
- 3Q9U6F/VocjQtO/23y2c9tlFDgFhqXBiGnFtBEHU/dJYlV3dP1j2bgg8Bk6D6wCZnPj6Tf+kCXAQD
- hoNGpgQF/9zNWx9PFWMKEkNNEKceL1N4jLyGKKvmd3v6dzjvnJVyeCMsn22Zwf9I5hCtLMUe58Z9k
- N7pE8=;
+ List-Archive; bh=2YD+3e/mSQgijYlna+6iWfg/F1jXMZ186P5aAZIij44=; b=e6V9nLiTOmwN
+ kh78fhxIROK+fuFnMUJlnXV6HoDAzXLpSpK/GnKpeBrelmCk6oIgwqNWtjfk8+AVa2eH57Ge1Ugr/
+ vnotQ9IbyvpyoAhwPqZ1fGPrzMJW5Lyom/i2idLuQxhIxadgMhfrzb8Vm54jQNyyU0ze7Mm7u59ft
+ nNxXI=;
 Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hOISA-0007dM-I7; Wed, 08 May 2019 09:01:31 +0000
+ id 1hOISC-0007dN-I7; Wed, 08 May 2019 09:01:34 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 34D1C44000C; Wed,  8 May 2019 10:01:24 +0100 (BST)
+ id B5FB0440010; Wed,  8 May 2019 10:01:26 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Paul Gortmaker <paul.gortmaker@windriver.com>
-In-Reply-To: <1555168518-15287-1-git-send-email-paul.gortmaker@windriver.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <20190507140632.15996-1-daniel.baluta@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190508090124.34D1C44000C@finisterre.sirena.org.uk>
-Date: Wed,  8 May 2019 10:01:24 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "sound: soc-acpi: fix implicit header use of
-	module.h/export.h" to the asoc tree
+Message-Id: <20190508090126.B5FB0440010@finisterre.sirena.org.uk>
+Date: Wed,  8 May 2019 10:01:26 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org,
+ Daniel Baluta <daniel.baluta@nxp.com>, "S.j. Wang" <shengjiu.wang@nxp.com>,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ dl-linux-imx <linux-imx@nxp.com>, festevam@gmail.com
+Subject: [alsa-devel] Applied "ASoC: fsl_sai: Move clock operation to PM
+	runtime" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   sound: soc-acpi: fix implicit header use of module.h/export.h
+   ASoC: fsl_sai: Move clock operation to PM runtime
 
 has been applied to the asoc tree at
 
@@ -112,49 +114,121 @@ to this mail.
 Thanks,
 Mark
 
-From 473849e7f208b2d7de004c6c6c0eabe037d125ac Mon Sep 17 00:00:00 2001
-From: Paul Gortmaker <paul.gortmaker@windriver.com>
-Date: Sat, 13 Apr 2019 11:15:18 -0400
-Subject: [PATCH] sound: soc-acpi: fix implicit header use of module.h/export.h
+From c0ffbd64b9dc14d673e393cc5933f3b4a47ab39c Mon Sep 17 00:00:00 2001
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+Date: Tue, 7 May 2019 14:06:52 +0000
+Subject: [PATCH] ASoC: fsl_sai: Move clock operation to PM runtime
 
-This file is implicitly relying on an instance of including
-module.h from <linux/acpi.h>.
+Turn off/on clocks when device enters suspend/resume. This
+can help saving power.
 
-Ideally, header files under include/linux shouldn't be adding
-includes of other headers, in anticipation of their consumers,
-but just the headers needed for the header itself to pass
-parsing with CPP.
+As a further optimization, we turn off/on mclk only when SAI
+is in master mode because otherwise mclk is externally provided.
 
-The module.h is particularly bad in this sense, as it itself does
-include a whole bunch of other headers, due to the complexity of
-module support.
-
-Here, we make the include explicit, in order to allow the future
-removal of module.h from linux/acpi.h without causing build breakage.
-
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+Reviewed-by: Viorel Suman <viorel.suman@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-acpi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/fsl/fsl_sai.c | 54 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 44 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/soc-acpi.c b/sound/soc/soc-acpi.c
-index 4fb29f0e561e..444ce0602f76 100644
---- a/sound/soc/soc-acpi.c
-+++ b/sound/soc/soc-acpi.c
-@@ -4,6 +4,8 @@
- //
- // Copyright (c) 2013-15, Intel Corporation.
+diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+index 8593269156bd..d58cc3ae90d8 100644
+--- a/sound/soc/fsl/fsl_sai.c
++++ b/sound/soc/fsl/fsl_sai.c
+@@ -596,15 +596,8 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
+ {
+ 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+-	struct device *dev = &sai->pdev->dev;
+ 	int ret;
  
-+#include <linux/export.h>
-+#include <linux/module.h>
- #include <sound/soc-acpi.h>
+-	ret = clk_prepare_enable(sai->bus_clk);
+-	if (ret) {
+-		dev_err(dev, "failed to enable bus clock: %d\n", ret);
+-		return ret;
+-	}
+-
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx), FSL_SAI_CR3_TRCE,
+ 			   FSL_SAI_CR3_TRCE);
  
- struct snd_soc_acpi_mach *
+@@ -621,8 +614,6 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx), FSL_SAI_CR3_TRCE, 0);
+-
+-	clk_disable_unprepare(sai->bus_clk);
+ }
+ 
+ static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
+@@ -935,6 +926,14 @@ static int fsl_sai_runtime_suspend(struct device *dev)
+ {
+ 	struct fsl_sai *sai = dev_get_drvdata(dev);
+ 
++	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_CAPTURE))
++		clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[0]]);
++
++	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_PLAYBACK))
++		clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[1]]);
++
++	clk_disable_unprepare(sai->bus_clk);
++
+ 	regcache_cache_only(sai->regmap, true);
+ 	regcache_mark_dirty(sai->regmap);
+ 
+@@ -944,6 +943,25 @@ static int fsl_sai_runtime_suspend(struct device *dev)
+ static int fsl_sai_runtime_resume(struct device *dev)
+ {
+ 	struct fsl_sai *sai = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_prepare_enable(sai->bus_clk);
++	if (ret) {
++		dev_err(dev, "failed to enable bus clock: %d\n", ret);
++		return ret;
++	}
++
++	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_PLAYBACK)) {
++		ret = clk_prepare_enable(sai->mclk_clk[sai->mclk_id[1]]);
++		if (ret)
++			goto disable_bus_clk;
++	}
++
++	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_CAPTURE)) {
++		ret = clk_prepare_enable(sai->mclk_clk[sai->mclk_id[0]]);
++		if (ret)
++			goto disable_tx_clk;
++	}
+ 
+ 	regcache_cache_only(sai->regmap, false);
+ 	regmap_write(sai->regmap, FSL_SAI_TCSR, FSL_SAI_CSR_SR);
+@@ -951,7 +969,23 @@ static int fsl_sai_runtime_resume(struct device *dev)
+ 	usleep_range(1000, 2000);
+ 	regmap_write(sai->regmap, FSL_SAI_TCSR, 0);
+ 	regmap_write(sai->regmap, FSL_SAI_RCSR, 0);
+-	return regcache_sync(sai->regmap);
++
++	ret = regcache_sync(sai->regmap);
++	if (ret)
++		goto disable_rx_clk;
++
++	return 0;
++
++disable_rx_clk:
++	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_CAPTURE))
++		clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[0]]);
++disable_tx_clk:
++	if (sai->mclk_streams & BIT(SNDRV_PCM_STREAM_PLAYBACK))
++		clk_disable_unprepare(sai->mclk_clk[sai->mclk_id[1]]);
++disable_bus_clk:
++	clk_disable_unprepare(sai->bus_clk);
++
++	return ret;
+ }
+ #endif /* CONFIG_PM */
+ 
 -- 
 2.20.1
 

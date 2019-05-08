@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BA7C17C77
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 16:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8592E17C75
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 16:51:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACEB11AB2;
-	Wed,  8 May 2019 16:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACEB11AB2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 130D91AAF;
+	Wed,  8 May 2019 16:50:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 130D91AAF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557327135;
-	bh=bPbtflfr+u0USNV7QJJN/UJzrVuTL75HtEkBjwZxECY=;
+	s=default; t=1557327099;
+	bh=lz+9C52gtogxrLicUbgFbu3/JGomH1bpGjMmIqKUOZM=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gu+GT6W0tJOy7bN8PQhJB6aU6lOzLGjEYZO6nKudGiiTFTT+a+oFDA6AUo4EfUNG8
-	 dXPq2aWsBikS0gdlm8KwilbVdpd3kbOECfIoF3E2cx2xnJ2fscBQ97L3K6smk4crYV
-	 rVW6RGwUIJq2DK95LsYsannPhEjHFAH2VNDtHKk8=
+	b=N096WC3k3C1/7ofWBEyB03UdVtcyp3F71z68DdzolGUESP1li6FJtk7Cr5Oo6vC9c
+	 uM+b4lsOXCnQ9Cuvpvtimbf+pvcOg56fV0QRtUDsDBR1sIXR6cVJmaXH8ofIN1BoEq
+	 8HUjPye8eJ2xSJ+lXLTvaVCdltHaKzlhIb2d4tXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA537F89724;
-	Wed,  8 May 2019 16:49:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E747F896E6;
+	Wed,  8 May 2019 16:49:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 757A4F89705; Wed,  8 May 2019 16:49:48 +0200 (CEST)
+ id 998F4F8970E; Wed,  8 May 2019 16:49:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4443F80796
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64D31F8075E
  for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 16:49:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4443F80796
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64D31F8075E
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 08DB6AEBF
+ by mx1.suse.de (Postfix) with ESMTP id 17127AEEA
  for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 14:49:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Wed,  8 May 2019 16:49:40 +0200
-Message-Id: <20190508144943.8139-2-tiwai@suse.de>
+Date: Wed,  8 May 2019 16:49:41 +0200
+Message-Id: <20190508144943.8139-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20190508144943.8139-1-tiwai@suse.de>
 References: <20190508144943.8139-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 1/4] ALSA: line6: pod: Rewrite complex timer &
-	work combo with a delayed work
+Subject: [alsa-devel] [PATCH 2/4] ALSA: line6: podhd: Rewrite complex timer
+	& work combo with a delayed work
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,173 +67,159 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The POD driver had a complex staged startup procedure using both timer
-and work.  This patch simplifies it via a single delayed work with the
-reduced stages.
-
-Now basically only two intermediate stages:
-- POD_STARTUP_VERSIONREQ:
-  requesting the version information and the process_message callback
-  triggers the next stage,
-- POD_STARTUP_SETUP:
-  registering the actual card object.
+POD HD driver had a complex staged startup sequence with both timer
+and work.  This patch simplifies it to a single delayed work with a
+single stage.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/line6/pod.c | 85 ++++++++++++++++++---------------------------------
- 1 file changed, 30 insertions(+), 55 deletions(-)
+ sound/usb/line6/podhd.c | 73 ++++++++-----------------------------------------
+ 1 file changed, 11 insertions(+), 62 deletions(-)
 
-diff --git a/sound/usb/line6/pod.c b/sound/usb/line6/pod.c
-index ce45b6dab651..95d4b35ca0af 100644
---- a/sound/usb/line6/pod.c
-+++ b/sound/usb/line6/pod.c
-@@ -39,11 +39,9 @@
- 	Stages of POD startup procedure
- */
- enum {
--	POD_STARTUP_INIT = 1,
- 	POD_STARTUP_VERSIONREQ,
--	POD_STARTUP_WORKQUEUE,
- 	POD_STARTUP_SETUP,
--	POD_STARTUP_LAST = POD_STARTUP_SETUP - 1
-+	POD_STARTUP_DONE,
- };
+diff --git a/sound/usb/line6/podhd.c b/sound/usb/line6/podhd.c
+index 5f3c87264e66..be5d15639574 100644
+--- a/sound/usb/line6/podhd.c
++++ b/sound/usb/line6/podhd.c
+@@ -22,16 +22,6 @@
  
+ #define PODHD_STARTUP_DELAY 500
+ 
+-/*
+- * Stages of POD startup procedure
+- */
+-enum {
+-	PODHD_STARTUP_INIT = 1,
+-	PODHD_STARTUP_SCHEDULE_WORKQUEUE,
+-	PODHD_STARTUP_SETUP,
+-	PODHD_STARTUP_LAST = PODHD_STARTUP_SETUP - 1
+-};
+-
  enum {
-@@ -63,11 +61,8 @@ struct usb_line6_pod {
- 	/* Instrument monitor level */
- 	int monitor_level;
+ 	LINE6_PODHD300,
+ 	LINE6_PODHD400,
+@@ -47,14 +37,8 @@ struct usb_line6_podhd {
+ 	/* Generic Line 6 USB data */
+ 	struct usb_line6 line6;
  
 -	/* Timer for device initialization */
 -	struct timer_list startup_timer;
 -
  	/* Work handler for device initialization */
 -	struct work_struct startup_work;
+-
+-	/* Current progress in startup procedure */
+-	int startup_progress;
 +	struct delayed_work startup_work;
  
- 	/* Current progress in startup procedure */
- 	int startup_progress;
-@@ -173,10 +168,6 @@ static const char pod_version_header[] = {
- 	0xf2, 0x7e, 0x7f, 0x06, 0x02
+ 	/* Serial number of device */
+ 	u32 serial_number;
+@@ -158,10 +142,6 @@ static struct line6_pcm_properties podx3_pcm_properties = {
  };
+ static struct usb_driver podhd_driver;
  
--/* forward declarations: */
--static void pod_startup2(struct timer_list *t);
--static void pod_startup3(struct usb_line6_pod *pod);
+-static void podhd_startup_start_workqueue(struct timer_list *t);
+-static void podhd_startup_workqueue(struct work_struct *work);
+-static int podhd_startup_finalize(struct usb_line6_podhd *pod);
 -
- static char *pod_alloc_sysex_buffer(struct usb_line6_pod *pod, int code,
- 				    int size)
+ static ssize_t serial_number_show(struct device *dev,
+ 				  struct device_attribute *attr, char *buf)
  {
-@@ -196,7 +187,10 @@ static void line6_pod_process_message(struct usb_line6 *line6)
- 		pod->firmware_version = buf[13] * 100 + buf[14] * 10 + buf[15];
- 		pod->device_id = ((int)buf[8] << 16) | ((int)buf[9] << 8) |
- 				 (int) buf[10];
--		pod_startup3(pod);
-+		if (pod->startup_progress == POD_STARTUP_VERSIONREQ) {
-+			pod->startup_progress = POD_STARTUP_SETUP;
-+			schedule_delayed_work(&pod->startup_work, 0);
-+		}
- 		return;
- 	}
+@@ -202,26 +182,6 @@ static const struct attribute_group podhd_dev_attr_group = {
+  * audio nor bulk interfaces to work.
+  */
  
-@@ -281,47 +275,29 @@ static ssize_t device_id_show(struct device *dev,
- 	context). After the last one has finished, the device is ready to use.
- */
- 
--static void pod_startup1(struct usb_line6_pod *pod)
+-static void podhd_startup(struct usb_line6_podhd *pod)
 -{
--	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_INIT);
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress, PODHD_STARTUP_INIT);
 -
 -	/* delay startup procedure: */
--	line6_start_timer(&pod->startup_timer, POD_STARTUP_DELAY, pod_startup2);
+-	line6_start_timer(&pod->startup_timer, PODHD_STARTUP_DELAY,
+-		podhd_startup_start_workqueue);
 -}
 -
--static void pod_startup2(struct timer_list *t)
-+static void pod_startup_work(struct work_struct *work)
- {
--	struct usb_line6_pod *pod = from_timer(pod, t, startup_timer);
-+	struct usb_line6_pod *pod = container_of(work, struct usb_line6_pod,
-+						 startup_work.work);
- 	struct usb_line6 *line6 = &pod->line6;
- 
--	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_VERSIONREQ);
--
--	/* request firmware version: */
--	line6_version_request_async(line6);
--}
--
--static void pod_startup3(struct usb_line6_pod *pod)
+-static void podhd_startup_start_workqueue(struct timer_list *t)
 -{
--	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_WORKQUEUE);
+-	struct usb_line6_podhd *pod = from_timer(pod, t, startup_timer);
+-
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress,
+-		PODHD_STARTUP_SCHEDULE_WORKQUEUE);
 -
 -	/* schedule work for global work queue: */
 -	schedule_work(&pod->startup_work);
 -}
 -
--static void pod_startup4(struct work_struct *work)
+ static int podhd_dev_start(struct usb_line6_podhd *pod)
+ {
+ 	int ret;
+@@ -272,37 +232,27 @@ static int podhd_dev_start(struct usb_line6_podhd *pod)
+ 	return ret;
+ }
+ 
+-static void podhd_startup_workqueue(struct work_struct *work)
++static void podhd_startup_work(struct work_struct *work)
+ {
+ 	struct usb_line6_podhd *pod =
+-	    container_of(work, struct usb_line6_podhd, startup_work);
+-
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress, PODHD_STARTUP_SETUP);
++		container_of(work, struct usb_line6_podhd, startup_work.work);
++	struct usb_line6 *line6 = &pod->line6;
+ 
+ 	podhd_dev_start(pod);
+ 	line6_read_serial_number(&pod->line6, &pod->serial_number);
+-
+-	podhd_startup_finalize(pod);
+-}
+-
+-static int podhd_startup_finalize(struct usb_line6_podhd *pod)
 -{
--	struct usb_line6_pod *pod =
--	    container_of(work, struct usb_line6_pod, startup_work);
 -	struct usb_line6 *line6 = &pod->line6;
 -
--	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_SETUP);
--
--	/* serial number: */
--	line6_read_serial_number(&pod->line6, &pod->serial_number);
--
 -	/* ALSA audio interface: */
--	if (snd_card_register(line6->card))
--		dev_err(line6->ifcdev, "Failed to register POD card.\n");
-+	switch (pod->startup_progress) {
-+	case POD_STARTUP_VERSIONREQ:
-+		/* request firmware version: */
-+		line6_version_request_async(line6);
-+		break;
-+	case POD_STARTUP_SETUP:
-+		/* serial number: */
-+		line6_read_serial_number(&pod->line6, &pod->serial_number);
-+
-+		/* ALSA audio interface: */
-+		if (snd_card_register(line6->card))
-+			dev_err(line6->ifcdev, "Failed to register POD card.\n");
-+		pod->startup_progress = POD_STARTUP_DONE;
-+		break;
-+	default:
-+		break;
-+	}
+-	return snd_card_register(line6->card);
++	if (snd_card_register(line6->card))
++		dev_err(line6->ifcdev, "Failed to register POD HD card.\n");
  }
  
- /* POD special files: */
-@@ -397,8 +373,7 @@ static void line6_pod_disconnect(struct usb_line6 *line6)
+ static void podhd_disconnect(struct usb_line6 *line6)
  {
- 	struct usb_line6_pod *pod = (struct usb_line6_pod *)line6;
+ 	struct usb_line6_podhd *pod = (struct usb_line6_podhd *)line6;
  
--	del_timer_sync(&pod->startup_timer);
--	cancel_work_sync(&pod->startup_work);
 +	cancel_delayed_work_sync(&pod->startup_work);
- }
++
+ 	if (pod->line6.properties->capabilities & LINE6_CAP_CONTROL_INFO) {
+ 		struct usb_interface *intf;
  
- /*
-@@ -413,8 +388,7 @@ static int pod_init(struct usb_line6 *line6,
- 	line6->process_message = line6_pod_process_message;
- 	line6->disconnect = line6_pod_disconnect;
+-		del_timer_sync(&pod->startup_timer);
+-		cancel_work_sync(&pod->startup_work);
+-
+ 		intf = usb_ifnum_to_if(line6->usbdev,
+ 					pod->line6.properties->ctrl_if);
+ 		if (intf)
+@@ -322,8 +272,7 @@ static int podhd_init(struct usb_line6 *line6,
+ 
+ 	line6->disconnect = podhd_disconnect;
  
 -	timer_setup(&pod->startup_timer, NULL, 0);
--	INIT_WORK(&pod->startup_work, pod_startup4);
-+	INIT_DELAYED_WORK(&pod->startup_work, pod_startup_work);
+-	INIT_WORK(&pod->startup_work, podhd_startup_workqueue);
++	INIT_DELAYED_WORK(&pod->startup_work, podhd_startup_work);
  
- 	/* create sysfs entries: */
- 	err = snd_card_add_dev_attr(line6->card, &pod_dev_attr_group);
-@@ -447,7 +421,8 @@ static int pod_init(struct usb_line6 *line6,
- 		pod->monitor_level = POD_SYSTEM_INVALID;
+ 	if (pod->line6.properties->capabilities & LINE6_CAP_CONTROL) {
+ 		/* claim the data interface */
+@@ -362,11 +311,11 @@ static int podhd_init(struct usb_line6 *line6,
  
- 		/* initiate startup procedure: */
--		pod_startup1(pod);
-+		schedule_delayed_work(&pod->startup_work,
-+				      msecs_to_jiffies(POD_STARTUP_DELAY));
+ 	if (!(pod->line6.properties->capabilities & LINE6_CAP_CONTROL_INFO)) {
+ 		/* register USB audio system directly */
+-		return podhd_startup_finalize(pod);
++		return snd_card_register(line6->card);
  	}
  
+ 	/* init device and delay registering */
+-	podhd_startup(pod);
++	schedule_delayed_work(&pod->startup_work, PODHD_STARTUP_DELAY);
  	return 0;
+ }
+ 
 -- 
 2.16.4
 

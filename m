@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 054DF17485
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:04:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6953617488
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:06:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF611922;
-	Wed,  8 May 2019 11:04:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF611922
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1EA01930;
+	Wed,  8 May 2019 11:05:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1EA01930
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557306298;
-	bh=/ljO3ST6KPYZlaplKfm2ptKdxc2dqMkiKZ0yhksadr0=;
+	s=default; t=1557306367;
+	bh=GCZMF9uRkGE1pQokOFzgT9NGFG4d58M91ZTPn6yATpQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=p1yQcC87runOGTkfV7H3QSZ8TcNM4zbV/ipC11KmlFKNOKEbBmC/Tavh4kntb4EOm
-	 ygVxrPjmU7fCI1x67OVJZnipXagVvJ1Mhe8YzhNbgqdT4ZWOy9NqIpJEu3DHDZvOV/
-	 4SsepTqwZbYsD6Ib+M3mxk+yw9B0pEeWzBRwDv5Y=
+	b=qFzZnkvP3jOhXjlwQb59whs0AqIMXfmq/7zxuTbDqMusegOFGR/NTLOA/SRVGbhmX
+	 55vYvLMGm3l2yQGJK3fdUSCu2eTRV6sQNULKVC/wDpACIE1G2c3nZSygXHRxd9Sse7
+	 qmnOxpqZZKhVP7b61YNm+b00rcuuHPVYJxiFIhCs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C22ADF89726;
-	Wed,  8 May 2019 11:01:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD7A4F8973F;
+	Wed,  8 May 2019 11:01:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97B92F8972F; Wed,  8 May 2019 11:01:43 +0200 (CEST)
+ id 903E4F89737; Wed,  8 May 2019 11:01:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32F53F8972E
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32F53F8972E
+ by alsa1.perex.cz (Postfix) with ESMTPS id A15B5F89732
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A15B5F89732
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="r/8bGS+Z"
+ header.b="tJ8mI5RE"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=jLxFpJS05ZYrxx0fuMS+5wjxjXR7kCedppzu/OUwilA=; b=r/8bGS+ZlFTm
- MOHumLydScMrBTCMl4/2Xl45tKOy5iwxXqAleiJaCn7X5SlmDg/ws4nSfe/PjHIEmxaQLDQ5G/+oL
- lbpqTZK2KYzVIH4QMi6rYHWvdW19MOLgXOJpAM8maRC28YE3XYG1nVtzC/nYbrv5+6H+80R6nCJ5I
- cJuMw=;
+ List-Archive; bh=OZSKu6gy0jL8wesxVTcC/2QJcoQ2eYauP88jNhYxHUE=; b=tJ8mI5REkGI+
+ RTNiLmDkj1AaXt3vNEanI7bDDjogg3RflGYBLLmsEawPdykHdQhb5rLioGPI7UcDsZPfI5sABbZ3f
+ 5dBVjVhpHNfEv6h/XJr9UMjZ9MsHM2HAwuZNk3SlPItDBc/LsJnrZDDQbTOdWwju4CaG7Xgp5O9MP
+ mQ/78=;
 Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hOISG-0007dR-MH; Wed, 08 May 2019 09:01:40 +0000
+ id 1hOISH-0007dW-3w; Wed, 08 May 2019 09:01:39 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 6916C440034; Wed,  8 May 2019 10:01:28 +0100 (BST)
+ id 85A0D440036; Wed,  8 May 2019 10:01:29 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20190506095815.24578-4-jbrunet@baylibre.com>
+In-Reply-To: <20190506095815.24578-2-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190508090128.6916C440034@finisterre.sirena.org.uk>
-Date: Wed,  8 May 2019 10:01:28 +0100 (BST)
+Message-Id: <20190508090129.85A0D440036@finisterre.sirena.org.uk>
+Date: Wed,  8 May 2019 10:01:29 +0100 (BST)
 Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
  Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: hdmi-codec: remove reference to the dai
-	drivers in the private data" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: hdmi-codec: remove function name debug
+	traces" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: hdmi-codec: remove reference to the dai drivers in the private data
+   ASoC: hdmi-codec: remove function name debug traces
 
 has been applied to the asoc tree at
 
@@ -112,80 +112,78 @@ to this mail.
 Thanks,
 Mark
 
-From 1de005d47d90343666c5cc50a50929e05e52baac Mon Sep 17 00:00:00 2001
+From 900e5daf7034cf65ce4072b86f297c42f9042433 Mon Sep 17 00:00:00 2001
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Mon, 6 May 2019 11:58:14 +0200
-Subject: [PATCH] ASoC: hdmi-codec: remove reference to the dai drivers in the
- private data
+Date: Mon, 6 May 2019 11:58:12 +0200
+Subject: [PATCH] ASoC: hdmi-codec: remove function name debug traces
 
-Keeping the a pointer to the dai drivers is not necessary. It is not used
-by the hdmi_codec after the probe.
-
-Even if it was used, the 'struct snd_soc_dai_driver' can accessed through
-the 'struct snd_soc_dai' so keeping the pointer in the private data
-structure is not useful.
+Remove the debug traces only showing the function name on entry.
+The same can be obtained using ftrace.
 
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/hdmi-codec.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ sound/soc/codecs/hdmi-codec.c | 12 ------------
+ 1 file changed, 12 deletions(-)
 
 diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index 4d32f93f6be6..9408e6bc4d3e 100644
+index 39caf19abb0b..eb31d7eddcbf 100644
 --- a/sound/soc/codecs/hdmi-codec.c
 +++ b/sound/soc/codecs/hdmi-codec.c
-@@ -278,7 +278,6 @@ static const struct hdmi_codec_cea_spk_alloc hdmi_codec_channel_alloc[] = {
+@@ -416,8 +416,6 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 	int ret = 0;
  
- struct hdmi_codec_priv {
- 	struct hdmi_codec_pdata hcd;
--	struct snd_soc_dai_driver *daidrv;
- 	struct hdmi_codec_daifmt daifmt[2];
- 	uint8_t eld[MAX_ELD_BYTES];
- 	struct snd_pcm_chmap *chmap_info;
-@@ -715,6 +714,7 @@ static const struct snd_soc_component_driver hdmi_driver = {
- static int hdmi_codec_probe(struct platform_device *pdev)
+-	dev_dbg(dai->dev, "%s()\n", __func__);
+-
+ 	ret = hdmi_codec_new_stream(substream, dai);
+ 	if (ret)
+ 		return ret;
+@@ -457,8 +455,6 @@ static void hdmi_codec_shutdown(struct snd_pcm_substream *substream,
  {
- 	struct hdmi_codec_pdata *hcd = pdev->dev.platform_data;
-+	struct snd_soc_dai_driver *daidrv;
- 	struct device *dev = &pdev->dev;
- 	struct hdmi_codec_priv *hcp;
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 
+-	dev_dbg(dai->dev, "%s()\n", __func__);
+-
+ 	WARN_ON(hcp->current_stream != substream);
+ 
+ 	hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
+@@ -527,8 +523,6 @@ static int hdmi_codec_set_fmt(struct snd_soc_dai *dai,
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 	struct hdmi_codec_daifmt cf = { 0 };
+ 
+-	dev_dbg(dai->dev, "%s()\n", __func__);
+-
+ 	if (dai->id == DAI_ID_SPDIF)
+ 		return 0;
+ 
+@@ -597,8 +591,6 @@ static int hdmi_codec_digital_mute(struct snd_soc_dai *dai, int mute)
+ {
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 
+-	dev_dbg(dai->dev, "%s()\n", __func__);
+-
+ 	if (hcp->hcd.ops->digital_mute)
+ 		return hcp->hcd.ops->digital_mute(dai->dev->parent,
+ 						  hcp->hcd.data, mute);
+@@ -656,8 +648,6 @@ static int hdmi_codec_pcm_new(struct snd_soc_pcm_runtime *rtd,
+ 	};
+ 	int ret;
+ 
+-	dev_dbg(dai->dev, "%s()\n", __func__);
+-
+ 	ret =  snd_pcm_add_chmap_ctls(rtd->pcm, SNDRV_PCM_STREAM_PLAYBACK,
+ 				      NULL, drv->playback.channels_max, 0,
+ 				      &hcp->chmap_info);
+@@ -754,8 +744,6 @@ static int hdmi_codec_probe(struct platform_device *pdev)
  	int dai_count, i = 0;
-@@ -737,27 +737,25 @@ static int hdmi_codec_probe(struct platform_device *pdev)
- 		return -ENOMEM;
+ 	int ret;
  
- 	hcp->hcd = *hcd;
--	hcp->daidrv = devm_kcalloc(dev, dai_count, sizeof(*hcp->daidrv),
--				   GFP_KERNEL);
--	if (!hcp->daidrv)
-+	daidrv = devm_kcalloc(dev, dai_count, sizeof(*daidrv), GFP_KERNEL);
-+	if (!daidrv)
- 		return -ENOMEM;
- 
- 	if (hcd->i2s) {
--		hcp->daidrv[i] = hdmi_i2s_dai;
--		hcp->daidrv[i].playback.channels_max =
--			hcd->max_i2s_channels;
-+		daidrv[i] = hdmi_i2s_dai;
-+		daidrv[i].playback.channels_max = hcd->max_i2s_channels;
- 		i++;
- 	}
- 
- 	if (hcd->spdif) {
--		hcp->daidrv[i] = hdmi_spdif_dai;
-+		daidrv[i] = hdmi_spdif_dai;
- 		hcp->daifmt[DAI_ID_SPDIF].fmt = HDMI_SPDIF;
- 	}
- 
- 	dev_set_drvdata(dev, hcp);
- 
--	ret = devm_snd_soc_register_component(dev, &hdmi_driver, hcp->daidrv,
--				     dai_count);
-+	ret = devm_snd_soc_register_component(dev, &hdmi_driver, daidrv,
-+					      dai_count);
- 	if (ret) {
- 		dev_err(dev, "%s: snd_soc_register_component() failed (%d)\n",
- 			__func__, ret);
+-	dev_dbg(dev, "%s()\n", __func__);
+-
+ 	if (!hcd) {
+ 		dev_err(dev, "%s: No platform data\n", __func__);
+ 		return -EINVAL;
 -- 
 2.20.1
 

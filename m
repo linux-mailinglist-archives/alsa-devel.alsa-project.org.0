@@ -2,80 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE32017E08
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 18:23:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26C9D17E13
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 18:28:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5645A1ABB;
-	Wed,  8 May 2019 18:22:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5645A1ABB
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB32C1AB1;
+	Wed,  8 May 2019 18:27:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB32C1AB1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557332612;
-	bh=wU4AgNiXqP5I6zCxi7vmoOcerESdkkpqympT+DON0g0=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jrSdmv62Cq+WfZ9HmOWjJfZljAX2Zm8xrw9mbStwC9/i91Ds89RbTGgxwOdBLlH86
-	 rmXx91UjuZC1Whq/VCZmFcHCau+cnyve++3lYfxrTqtSVrEKvoBeYPQM41B5lZ/Bz5
-	 aTbUG7ZgDNWBuiEz6WLJhs50Q4xKoi6Tw2aZjuo4=
+	s=default; t=1557332886;
+	bh=FnXI4XNksjc2uXPwxA+p+ClI0SgOeFpVhC9aRXeCQok=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=J/YdHDdi/1/PzdoW4imR47r5eNsfiAbodzlfJ1vMzU+1H4kfXrOLgrW5UeTgP9YoZ
+	 j5ugiMz8bbQn1sXpG/CcxC5hSBAuCkPwhvAhjhY/NcvjntcddCQ9RL7KuLunxNdtxG
+	 xd0lvvtvWJIIGsXcxHS3CPHXl5CjaGaJPesrqsU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCAE4F896F0;
-	Wed,  8 May 2019 18:22:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 298A4F896E6;
+	Wed,  8 May 2019 18:26:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1755EF8075E; Wed,  8 May 2019 18:22:34 +0200 (CEST)
+ id AEDCEF896F0; Wed,  8 May 2019 18:26:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, SPF_PASS, T_DKIMWL_WL_MED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
- [IPv6:2607:f8b0:4864:20::84a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C361DF8075E
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 18:22:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C361DF8075E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="NgaNglaP"
-Received: by mail-qt1-x84a.google.com with SMTP id i5so21780486qtd.17
- for <alsa-devel@alsa-project.org>; Wed, 08 May 2019 09:22:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=OD2jCbTwAM9ArlwWtzqGvaqK7T857o9kqOtl5VL3lNE=;
- b=NgaNglaPcWZjPdk0WWbKecpWsNmEssi6UVvNif8+5V9qOHbIHDo31+Vel6MTcmn38k
- Z53g8pa6MAbduxx0MpnZPtscWcrDWaCkddAFMmGT8uPURFgamNXJn3X9hylZXmUozxYS
- it55Mw79e2/9MF/a3xT5KxJbGaMFPUU8lM7vf0kSglAWt0o62imT4Qn6RUxBwn0WSJcm
- 0Lu0t6eFKhVyWeAQfq+TfIFYQjvZb6d7jW6oO/vMt9fQoYDcsdMrAp/7IGpffFmdFRJ2
- KeIq9KJ/HwJW7bfWohkTDNzMKXY5sp/7yvLyBB+xQRRusgAWqIZn9xq+idTzpsLWJUG2
- FPKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=OD2jCbTwAM9ArlwWtzqGvaqK7T857o9kqOtl5VL3lNE=;
- b=dKZhSSzd8ZaHWiUHpIRjv+NckDQwr96/qCtXTXbLKmaTzzXnTuF+ui/Es6PFDmX27l
- JP+9TTEniqUzmW/HI5KnnzObhxTgqitNfWdSNErmIjV4bLTSgOyzTZ7Jgkcp58tu9NfC
- OvLZ2jtwxfbs1rnqCQSesvCyMgYGg8IzE/L9i8pEX5mnMx7B8jKgfEid0nAUXE8T8oNq
- q6yFPb8FAREH05KbuTj66pVtfkQrh59FBd7Ku0xW7ShTRfqJ5yDmTXmn9I+bDwmWbvId
- NNTUjBympPzWSPqKRmm+9zwTgYUdAuXKR5zz4BVf6YsKM1vtK7k3NaFsH7BdgA9cIJln
- ii6A==
-X-Gm-Message-State: APjAAAVNLmpkiUF+YuSnG883w05XzmjsRIYgR2i5PZniSFqtfjWTVnKW
- VMfrXxwKC2RVxhhf6ml6jIYp3pwfbaN4
-X-Google-Smtp-Source: APXvYqwhttconqUO43y1ap0H1sg4jaPAGfS0I9Li8K+g0v6Kn38h6ToHtXkib1d9P6I3g7YhSejHrmV9cjE0
-X-Received: by 2002:ae9:f818:: with SMTP id x24mr21750827qkh.329.1557332549989; 
- Wed, 08 May 2019 09:22:29 -0700 (PDT)
-Date: Thu,  9 May 2019 00:22:23 +0800
-Message-Id: <20190508162223.75322-1-tzungbi@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, tiwai@suse.com
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
- cychiang@google.com
-Subject: [alsa-devel] [PATCH] ASoC: max98357a: request GPIO when device get
-	probed
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEDDFF8075E
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 18:26:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEDDFF8075E
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id BE3F1AF49;
+ Wed,  8 May 2019 16:26:15 +0000 (UTC)
+Date: Wed, 08 May 2019 18:26:15 +0200
+Message-ID: <s5h5zqkrjyw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <44be7c35-1b4d-5183-ce4a-1def4126c55f@linux.intel.com>
+References: <20190507163236.8783-1-pierre-louis.bossart@linux.intel.com>
+ <20190507163236.8783-3-pierre-louis.bossart@linux.intel.com>
+ <20190508062717.GK14916@sirena.org.uk>
+ <44be7c35-1b4d-5183-ce4a-1def4126c55f@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ kbuild-all@01.org
+Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: SOF: core: fix undefined nocodec
+	reference
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,63 +74,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-devm_gpiod_get_optional() returns EBUSY after component rebound.
+On Wed, 08 May 2019 18:21:36 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 5/8/19 1:27 AM, Mark Brown wrote:
+> > On Tue, May 07, 2019 at 11:32:36AM -0500, Pierre-Louis Bossart wrote:
+> >> The existing code mistakenly uses IS_ENABLED in C code instead of as
+> >> in conditional compilation, leading to the following error:
+> >
+> >> ld: sound/soc/sof/core.o: in function `sof_machine_check':
+> >> sound/soc/sof/core.c:279: undefined reference to `sof_nocodec_setup'
+> >
+> > There's nothing wrong with using IS_ENABLED() in C code - it can be
+> > cleaner than using an ifdef to help the compiler eliminate unneeded
+> > code.
+> 
+> Agree, and we do make use of it. In this case it wasn't smart though.
 
-Request GPIO in max98357a_platform_probe() to support component
-rebinding.
+An alternative solution in such a case is to provide the dummy
+function.  For example, in sound/sof.h,
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
-v1:
-ASoC: max98357a: manage GPIO for component rebinding
-=> don't move from devm to non-devm
+#if IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
+int sof_nocodec_setup(struct device *dev,
+		      struct snd_sof_pdata *sof_pdata,
+		      struct snd_soc_acpi_mach *mach,
+		      const struct sof_dev_desc *desc,
+		      const struct snd_sof_dsp_ops *ops);
+#else
+static inline int sof_nocodec_setup(struct device *dev,
+		      struct snd_sof_pdata *sof_pdata,
+		      struct snd_soc_acpi_mach *mach,
+		      const struct sof_dev_desc *desc,
+		      const struct snd_sof_dsp_ops *ops)
+{
+	return -ENODEV;
+}
+#endif
 
-v2:
-ASoC: max98357a: release GPIO when component removing
-=> only put things that really need the card in component's probe()
-=> don't use devm_gpiod_put() if possible
+Which one is better depends on the context and other part of code.
 
- sound/soc/codecs/max98357a.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index d037a3e4d323..0a14f9dacbee 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -61,14 +61,6 @@ static const struct snd_soc_dapm_route max98357a_dapm_routes[] = {
- 
- static int max98357a_component_probe(struct snd_soc_component *component)
- {
--	struct gpio_desc *sdmode;
--
--	sdmode = devm_gpiod_get_optional(component->dev, "sdmode", GPIOD_OUT_LOW);
--	if (IS_ERR(sdmode))
--		return PTR_ERR(sdmode);
--
--	snd_soc_component_set_drvdata(component, sdmode);
--
- 	return 0;
- }
- 
-@@ -112,6 +104,15 @@ static struct snd_soc_dai_driver max98357a_dai_driver = {
- 
- static int max98357a_platform_probe(struct platform_device *pdev)
- {
-+	struct gpio_desc *sdmode;
-+
-+	sdmode = devm_gpiod_get_optional(&pdev->dev,
-+				"sdmode", GPIOD_OUT_LOW);
-+	if (IS_ERR(sdmode))
-+		return PTR_ERR(sdmode);
-+
-+	dev_set_drvdata(&pdev->dev, sdmode);
-+
- 	return devm_snd_soc_register_component(&pdev->dev,
- 			&max98357a_component_driver,
- 			&max98357a_dai_driver, 1);
--- 
-2.21.0.1020.gf2820cf01a-goog
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

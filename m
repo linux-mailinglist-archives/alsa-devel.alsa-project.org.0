@@ -2,69 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932D617DFF
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 18:22:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CF9C17E07
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 18:22:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E8721AA3;
-	Wed,  8 May 2019 18:21:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E8721AA3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 099EC176F;
+	Wed,  8 May 2019 18:22:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 099EC176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557332528;
-	bh=v51AqC4KCWLUBBXjMo1IG5GhAj5CbZ5hUPTgtgE38Ug=;
+	s=default; t=1557332574;
+	bh=JykMm6tsxrkEkYjcCHAWy/6nMioPqI7DrzeF8jUy41Q=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qJuMpjUl5VahNcTcL9hDlYblAbx1opTsieiQBJZkHCLXCDkkdR9UlZgS4WjM+LJdt
-	 LMKUmYXaO6kUlXRlURNEhWQTZM2Af8bY1WGffALwucfCViqhG3C9m/4V1S9LWPte+/
-	 RkTgWa8BQLdAN3o9xfXqBmd3sIxHS4N3/NrFocfQ=
+	b=rb0IjEpUVe/aN5YKsqHhCLwOADzSrItlfcC00cRbQ/QcZh1JN8G/hDszmTSvOtyn+
+	 7U+M85TKrC46vRFY7OeSgkiJbIEa3kA5JvSZXLtJQeLpHZBrblNnuUbpIeluSLTpjg
+	 q0HXbHSg9vNEluYH+cLoQ6fIAsZ7Dw2a2ZY6TJAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6FEBF896F0;
-	Wed,  8 May 2019 18:20:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99890F896FF;
+	Wed,  8 May 2019 18:21:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E746F896F0; Wed,  8 May 2019 18:20:19 +0200 (CEST)
+ id 21EF4F8075E; Wed,  8 May 2019 18:21:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
  version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81465F8075E
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 18:20:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81465F8075E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 442DDF8075E
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 18:21:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 442DDF8075E
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 May 2019 09:20:12 -0700
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 May 2019 09:21:37 -0700
 X-ExtLoop1: 1
 Received: from mayalewx-mobl1.amr.corp.intel.com (HELO [10.255.230.159])
  ([10.255.230.159])
- by fmsmga006.fm.intel.com with ESMTP; 08 May 2019 09:20:10 -0700
-To: Vinod Koul <vkoul@kernel.org>
-References: <20190504002926.28815-1-pierre-louis.bossart@linux.intel.com>
- <20190504002926.28815-2-pierre-louis.bossart@linux.intel.com>
- <20190507122651.GO16052@vkoul-mobl>
- <47fd3ca6-6910-f101-9b63-f653cd1443f9@linux.intel.com>
- <20190508050853.GT16052@vkoul-mobl>
+ by fmsmga006.fm.intel.com with ESMTP; 08 May 2019 09:21:37 -0700
+To: Mark Brown <broonie@kernel.org>
+References: <20190507163236.8783-1-pierre-louis.bossart@linux.intel.com>
+ <20190507163236.8783-3-pierre-louis.bossart@linux.intel.com>
+ <20190508062717.GK14916@sirena.org.uk>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a6b3f1d1-c815-3c6b-7f35-ac5cc98960b2@linux.intel.com>
-Date: Wed, 8 May 2019 11:20:10 -0500
+Message-ID: <44be7c35-1b4d-5183-ce4a-1def4126c55f@linux.intel.com>
+Date: Wed, 8 May 2019 11:21:36 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190508050853.GT16052@vkoul-mobl>
+In-Reply-To: <20190508062717.GK14916@sirena.org.uk>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/8] soundwire: intel: filter SoundWire
- controller device search
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, kbuild-all@01.org
+Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: SOF: core: fix undefined nocodec
+ reference
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,43 +78,20 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>>> +	/*
->>>> +	 * On some Intel platforms, multiple children of the HDAS
->>>> +	 * device can be found, but only one of them is the SoundWire
->>>> +	 * controller. The SNDW device is always exposed with
->>>> +	 * Name(_ADR, 0x40000000) so filter accordingly
->>>> +	 */
->>>> +	if (adr != 0x40000000)
->>>
->>> I do not recall if 4 corresponds to the links you have or soundwire
->>> device type, is this number documented somewhere is HDA specs?
->>
->> I thought it was a magic number, but I did check and for once it's
->> documented and the values match the spec :-)
->> I see in the ACPI docs bits 31..28 set to 4 indicate a SoundWire Link Type
->> and bits 3..0 indicate the SoundWire controller instance, the rest is
->> reserved to zero.
-> 
-> So in that case we should mask with bits 31..28 and match, who knows you
-> may have multiple controller instances in future
 
-yes, I was planning on only using the link type.
-
-> I had a vague recollection that this was documented in the spec, glad
-> that in turned out to be the case.
+On 5/8/19 1:27 AM, Mark Brown wrote:
+> On Tue, May 07, 2019 at 11:32:36AM -0500, Pierre-Louis Bossart wrote:
+>> The existing code mistakenly uses IS_ENABLED in C code instead of as
+>> in conditional compilation, leading to the following error:
 > 
-> Btw was the update to HDA spec made public?
-
-Not that I know of. The previous NHLT public doc has actually 
-disappeared from the Intel site and I can't find it any longer, so 
-currently the amount of public documentation is trending to zero :-(
-
+>> ld: sound/soc/sof/core.o: in function `sof_machine_check':
+>> sound/soc/sof/core.c:279: undefined reference to `sof_nocodec_setup'
 > 
->>> Also it might good to create a define for this
->>
->> I will respin this one to add the documentation above, and only filter on
->> the 4 ms-bits. Thanks for forcing me to RTFM :-)
-> 
+> There's nothing wrong with using IS_ENABLED() in C code - it can be
+> cleaner than using an ifdef to help the compiler eliminate unneeded
+> code.
+
+Agree, and we do make use of it. In this case it wasn't smart though.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

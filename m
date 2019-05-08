@@ -2,74 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE1E172BE
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 09:40:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4202117296
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 09:30:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DCBD1854;
-	Wed,  8 May 2019 09:40:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DCBD1854
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8AF6183F;
+	Wed,  8 May 2019 09:29:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8AF6183F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557301256;
-	bh=F2FgN1nhTPwU/x7eK0V/zEkEzYtOIX5VQNh4R3m+YlU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557300609;
+	bh=hc7Jw1UviYxAZPiPtlW3O8etzkspvk8Hok/g+ZdDcUw=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R2FagUXO+kgfg2xhE9yMVw/+tAClC1+9tR7QGPQ1siGOwEhxtAbHD0iykHYL7dusp
-	 AdXuIm4fyX5MZEx52eSzzDgvsAau1HA5LniexVZCEpS7jbtPYRroNINhG3yEsFaFiT
-	 QFlYozIsh4U/yB/WT2l+VpZ0Dn8iTRHOWoq8QvVI=
+	b=ui7oFTEpM70wfjK79VLh1SaxOvyt5skZnOPVeTB73DRQTfdzKQ95yu5kr4uae5t0y
+	 krltKvsRrZhJ4jNtDZGHsF92ds6W9FrlJTgQVJTWr28P4PMINpMXYqV0DQPHZwGmYq
+	 UH+2atzUzXsr4OqZJzDdedZ6S1twCe3HZ6Q5myjM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1BE87F896FF;
-	Wed,  8 May 2019 09:39:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0ED73F80796;
+	Wed,  8 May 2019 09:28:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F26EF896F0; Wed,  8 May 2019 09:39:09 +0200 (CEST)
+ id D76F7F896F0; Wed,  8 May 2019 09:28:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A7B1F80796
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 09:39:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A7B1F80796
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="NpG4UZkp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rcGh0WO6MG4XNO9hM5CGQV3g0vl7i85mz3ORoIw4Ecw=; b=NpG4UZkp/faf48Hj2lcxFSmBb
- 1VQQ4hcEPKpq1YO/EAWwoHbjL8MjDWykM8GXEPRyBo+gIRxKGd+XP+CB3r3PkQW7Xe0SGCGwfQ9Ic
- yyPMxkT8RBXxV9/NPln7xhUPKYyDH+SGghSNQHeenV4ER8cdJQFF9+xQTauavSsbd+Qlk=;
-Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hOHAL-0007LY-6i; Wed, 08 May 2019 07:39:05 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 2D558440036; Wed,  8 May 2019 08:00:58 +0100 (BST)
-Date: Wed, 8 May 2019 16:00:58 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Message-ID: <20190508070058.GQ14916@sirena.org.uk>
-References: <20190506095815.24578-1-jbrunet@baylibre.com>
- <20190506095815.24578-3-jbrunet@baylibre.com>
-MIME-Version: 1.0
-In-Reply-To: <20190506095815.24578-3-jbrunet@baylibre.com>
-X-Cookie: -- I have seen the FUN --
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 2/4] ASoC: hdmi-codec: remove reference
- to the current substream
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64E24F80796
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 09:28:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64E24F80796
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 84781AE5D;
+ Wed,  8 May 2019 07:28:16 +0000 (UTC)
+Date: Wed, 08 May 2019 09:28:16 +0200
+Message-ID: <s5hv9ylo167.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+In-Reply-To: <6FAB7C47BCF00940BB0999A99BE3547A1D765C5E@RTITMBSVM07.realtek.com.tw>
+References: <6FAB7C47BCF00940BB0999A99BE3547A1D765A9D@RTITMBSVM07.realtek.com.tw>
+ <s5hmujy39go.wl-tiwai@suse.de>
+ <6FAB7C47BCF00940BB0999A99BE3547A1D765C5E@RTITMBSVM07.realtek.com.tw>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] FW: move eapd coef function before ACT_PRE_PROBE
+	state
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,58 +67,156 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0522040482450373952=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 08 May 2019 08:59:02 +0200,
+Kailang wrote:
+> 
+> Hi Takashi,
+> 
+> I recreate patch as attach.
 
---===============0522040482450373952==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YQa7rwQ/GRwZE7J4"
-Content-Disposition: inline
+No, no, it's not what I meant.  I already *reviewed* and replied your
+patch.
+
+I copy my previous reply once again.  Please read and test it.
+
+===
+
+Unfortuantely, moving this doesn't suffice.  There is the hibernation
+resume that needs the explicit initialization again.
+
+Also, calling this in alc_alloc_spec() isn't intuitive.  Although it'd
+become a larger patch, I prefer making it more explicit, e.g. creating
+alc_pre_init() function handling the pre-init procedure and call it
+from appropriate places.
+
+So I can imagine a patch like below.  Does it work for you?
 
 
---YQa7rwQ/GRwZE7J4
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+thanks,
 
-On Mon, May 06, 2019 at 11:58:13AM +0200, Jerome Brunet wrote:
+Takashi
 
-> Remove current_substream pointer and replace the exclusive locking
-> mechanism with a simple variable and some atomic operations.
-
-The advantage of mutexes is that they are very simple and clear to
-reason about.  It is therefore unclear that this conversion to use
-atomic variables is an improvement, they're generally more complex=20
-to reason about and fragile.
-
---YQa7rwQ/GRwZE7J4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzSfqkACgkQJNaLcl1U
-h9CNHgf8DPUPcHpJuCKPN3bSkYe+k+fejr2ZSHO7YjXjHpH77DkAB87qstFvZ3mO
-Y99N2oT9nVhdO/Z0SvUx++6583NK1E9Kgymo4yLbsIYAR3z0lGLi494e8QzvCvov
-IyVuT4Bsj0HT/l2j1778lIy6QT7zGMtk+Q87LwWb2AZvlxFNkfjKCg3MiilMA6tu
-oFt6FJmazbFH+hhePFVsdaFVTEkn+lxJR7cquICuIHhxenGP3c0z6sTBR6Nn41aK
-W4ug1it7JnLohbh9qgQkBlo83GWEWKEC9TgiaN2/ByWDBdADgvC6dE9IPVG2xBD0
-jelL896tYbN4WASe9U9mW1CDwi2qhg==
-=Cq88
------END PGP SIGNATURE-----
-
---YQa7rwQ/GRwZE7J4--
-
---===============0522040482450373952==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -501,7 +501,6 @@ static void alc_eapd_shutup(struct hda_codec *codec)
+ /* generic EAPD initialization */
+ static void alc_auto_init_amp(struct hda_codec *codec, int type)
+ {
+-	alc_fill_eapd_coef(codec);
+ 	alc_auto_setup_eapd(codec, true);
+ 	alc_write_gpio(codec);
+ 	switch (type) {
+@@ -796,10 +795,22 @@ static int alc_build_controls(struct hda_codec *codec)
+  * Common callbacks
+  */
+ 
++static void alc_pre_init(struct hda_codec *codec)
++{
++	alc_fill_eapd_coef(codec);
++}
++
++#define is_s4_resume(codec) \
++	((codec)->core.dev.power.power_state.event == PM_EVENT_RESTORE)
++
+ static int alc_init(struct hda_codec *codec)
+ {
+ 	struct alc_spec *spec = codec->spec;
+ 
++	/* hibernation resume needs the full chip initialization */
++	if (is_s4_resume(codec))
++		alc_pre_init(codec);
++
+ 	if (spec->init_hook)
+ 		spec->init_hook(codec);
+ 
+@@ -1537,6 +1548,8 @@ static int patch_alc880(struct hda_codec *codec)
+ 
+ 	codec->patch_ops.unsol_event = alc880_unsol_event;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc880_fixup_models, alc880_fixup_tbl,
+ 		       alc880_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -1788,6 +1801,8 @@ static int patch_alc260(struct hda_codec *codec)
+ 
+ 	spec->shutup = alc_eapd_shutup;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc260_fixup_models, alc260_fixup_tbl,
+ 			   alc260_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -2491,6 +2506,8 @@ static int patch_alc882(struct hda_codec *codec)
+ 		break;
+ 	}
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc882_fixup_models, alc882_fixup_tbl,
+ 		       alc882_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -2665,6 +2682,8 @@ static int patch_alc262(struct hda_codec *codec)
+ #endif
+ 	alc_fix_pll_init(codec, 0x20, 0x0a, 10);
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc262_fixup_models, alc262_fixup_tbl,
+ 		       alc262_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+@@ -2809,6 +2828,8 @@ static int patch_alc268(struct hda_codec *codec)
+ 
+ 	spec->shutup = alc_eapd_shutup;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc268_fixup_models, alc268_fixup_tbl, alc268_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+@@ -7768,6 +7789,8 @@ static int patch_alc269(struct hda_codec *codec)
+ 		spec->init_hook = alc5505_dsp_init;
+ 	}
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc269_fixup_models,
+ 		       alc269_fixup_tbl, alc269_fixups);
+ 	snd_hda_pick_pin_fixup(codec, alc269_pin_fixup_tbl, alc269_fixups);
+@@ -7910,6 +7933,8 @@ static int patch_alc861(struct hda_codec *codec)
+ 	spec->power_hook = alc_power_eapd;
+ #endif
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, NULL, alc861_fixup_tbl, alc861_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+@@ -8007,6 +8032,8 @@ static int patch_alc861vd(struct hda_codec *codec)
+ 
+ 	spec->shutup = alc_eapd_shutup;
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, NULL, alc861vd_fixup_tbl, alc861vd_fixups);
+ 	snd_hda_apply_fixup(codec, HDA_FIXUP_ACT_PRE_PROBE);
+ 
+@@ -8742,6 +8769,8 @@ static int patch_alc662(struct hda_codec *codec)
+ 		break;
+ 	}
+ 
++	alc_pre_init(codec);
++
+ 	snd_hda_pick_fixup(codec, alc662_fixup_models,
+ 		       alc662_fixup_tbl, alc662_fixups);
+ 	snd_hda_pick_pin_fixup(codec, alc662_pin_fixup_tbl, alc662_fixups);
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0522040482450373952==--

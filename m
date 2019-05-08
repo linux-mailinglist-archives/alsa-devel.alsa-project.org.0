@@ -2,152 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA3D177DA
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 13:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F8DA17A20
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 15:13:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 363391AA8;
-	Wed,  8 May 2019 13:32:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 363391AA8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D09521AA6;
+	Wed,  8 May 2019 15:12:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D09521AA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557315194;
-	bh=0ODU0xIcSck2iHIBGaOR2vNHuTCjo39Z2t8LWsNL5UQ=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557321209;
+	bh=GPbRyY1F4eF18usnfJfrpWMpnPmmVI506j/vur9z70E=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nquDMApc5dzNuTC5BdSPWgiLtZP3ee/thgkWnsVSawY6mSRav8p9P+jroCAtBFchD
-	 c4ksnbO3WFysopUVvgCGcdGDFFee+4csLTClIXh49esjxiMxvP4xYeudUDFWod+uqA
-	 wUDOEmKnSJqa3ioOq7fLcbRzDl8NbWS7LLhm7Uvw=
+	b=K1mCtEa7CSHwrY2RUO+6QgMEO1rRJ5RE4R4G6c0V+/rpeM5G9SKHqANQYOD7Q7sWC
+	 scwt5EsNHpX5ra2qw3lVkf1NIUZqoIH9GATc1hFbT6ZTubms+RUtt8wOlAvsTKup3g
+	 cEm+Qb2o1+yIERh22Ojw/j8d6BvCn75xYPxCpKOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B8E6F896FF;
-	Wed,  8 May 2019 13:31:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25BCFF807B5;
+	Wed,  8 May 2019 15:11:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB0CEF896F0; Wed,  8 May 2019 13:31:26 +0200 (CEST)
+ id 1F5BFF896F0; Wed,  8 May 2019 15:11:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr740075.outbound.protection.outlook.com [40.107.74.75])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 471C8F80796
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 13:31:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 471C8F80796
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
- header.i=@analog.onmicrosoft.com header.b="ST5Z/dIp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector1-analog-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5znCPRPKBRTF+JsmgIj6aBz2AD2vefu9H7uU0wxS3Bk=;
- b=ST5Z/dIpKXaTMbKZaXyicKhHdXlzGRr2cvNr4QiUG7GY+t2c8tYrS8HUzZk7zoQX2Sqwe4wEAPF+A8JRA7yBnsNWwHplIEFbWx98uHp1nu1y/AQc7kTAAlpBLD/QdcBgnMXwfvYN222CXVA7LOxKe+AxnGT9uWSdnYuXbWlIovg=
-Received: from BN3PR03CA0101.namprd03.prod.outlook.com (2603:10b6:400:4::19)
- by DM2PR03MB559.namprd03.prod.outlook.com (2a01:111:e400:241d::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.1856.12; Wed, 8 May
- 2019 11:31:18 +0000
-Received: from BL2NAM02FT039.eop-nam02.prod.protection.outlook.com
- (104.47.38.57) by BN3PR03CA0101.outlook.office365.com (10.174.66.19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.1878.21 via Frontend
- Transport; Wed, 8 May 2019 11:31:17 +0000
-Authentication-Results: spf=pass (sender IP is 137.71.25.55)
- smtp.mailfrom=analog.com; linuxfoundation.org; dkim=none (message not signed)
- header.d=none;linuxfoundation.org; dmarc=bestguesspass action=none
- header.from=analog.com;
-Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
- 137.71.25.55 as permitted sender) receiver=protection.outlook.com;
- client-ip=137.71.25.55; helo=nwd2mta1.analog.com;
-Received: from nwd2mta1.analog.com (137.71.25.55) by
- BL2NAM02FT039.mail.protection.outlook.com (10.152.77.152) with Microsoft SMTP
- Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.1856.11
- via Frontend Transport; Wed, 8 May 2019 11:31:17 +0000
-Received: from NWD2HUBCAS7.ad.analog.com (nwd2hubcas7.ad.analog.com
- [10.64.69.107])
- by nwd2mta1.analog.com (8.13.8/8.13.8) with ESMTP id x48BVHaS024094
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
- Wed, 8 May 2019 04:31:17 -0700
-Received: from NWD2MBX7.ad.analog.com ([fe80::190e:f9c1:9a22:9663]) by
- NWD2HUBCAS7.ad.analog.com ([fe80::595b:ced1:cc03:539d%12]) with mapi id
- 14.03.0415.000; Wed, 8 May 2019 07:31:17 -0400
-From: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
-To: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-ide@vger.kernel.org" <linux-ide@vger.kernel.org>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
- "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "linux-mm@kvack.org"
- <linux-mm@kvack.org>, "linux-omap@vger.kernel.org"
- <linux-omap@vger.kernel.org>, "linux-gpio@vger.kernel.org"
- <linux-gpio@vger.kernel.org>, "linux-security-module@vger.kernel.org"
- <linux-security-module@vger.kernel.org>, "devel@driverdev.osuosl.org"
- <devel@driverdev.osuosl.org>, "linux-integrity@vger.kernel.org"
- <linux-integrity@vger.kernel.org>, "linux-fbdev@vger.kernel.org"
- <linux-fbdev@vger.kernel.org>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "linux-rpi-kernel@lists.infradead.org"
- <linux-rpi-kernel@lists.infradead.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>, "linux-rockchip@lists.infradead.org"
- <linux-rockchip@lists.infradead.org>, "linux-clk@vger.kernel.org"
- <linux-clk@vger.kernel.org>, "linux-pci@vger.kernel.org"
- <linux-pci@vger.kernel.org>, "linux-wireless@vger.kernel.org"
- <linux-wireless@vger.kernel.org>, "linux-mtd@lists.infradead.org"
- <linux-mtd@lists.infradead.org>, "linux-tegra@vger.kernel.org"
- <linux-tegra@vger.kernel.org>
-Thread-Topic: [PATCH 01/16] lib: fix match_string() helper on -1 array size
-Thread-Index: AQHVBZFHmipnRagpkkSQZ3QUXGEfCKZhWwOA
-Date: Wed, 8 May 2019 11:31:15 +0000
-Message-ID: <c8cfa5dbdfc0b0665d1b48f37ba57c3ec1233197.camel@analog.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39313F80796
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 15:11:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39313F80796
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 May 2019 06:11:37 -0700
+X-ExtLoop1: 1
+Received: from smile.fi.intel.com (HELO smile) ([10.237.72.86])
+ by orsmga001.jf.intel.com with ESMTP; 08 May 2019 06:11:29 -0700
+Received: from andy by smile with local (Exim 4.92)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1hOMM4-0000is-79; Wed, 08 May 2019 16:11:28 +0300
+Date: Wed, 8 May 2019 16:11:28 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alexandru Ardelean <alexandru.ardelean@analog.com>
+Message-ID: <20190508131128.GL9224@smile.fi.intel.com>
 References: <20190508112842.11654-1-alexandru.ardelean@analog.com>
- <20190508112842.11654-2-alexandru.ardelean@analog.com>
-In-Reply-To: <20190508112842.11654-2-alexandru.ardelean@analog.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.50.1.244]
-x-adiroutedonprem: True
-Content-ID: <BE083E2328EDB84B98DBA67ED168014A@analog.com>
+ <20190508112842.11654-5-alexandru.ardelean@analog.com>
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:137.71.25.55; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(1496009)(346002)(396003)(136003)(376002)(39860400002)(2980300002)(199004)(189003)(316002)(476003)(118296001)(6116002)(446003)(11346002)(47776003)(86362001)(356004)(336012)(7736002)(54906003)(7696005)(426003)(436003)(23676004)(76176011)(2201001)(50466002)(106002)(8676002)(186003)(305945005)(7636002)(26005)(126002)(102836004)(2501003)(7416002)(110136005)(2486003)(2616005)(6246003)(486006)(229853002)(3846002)(8936002)(4326008)(36756003)(14444005)(14454004)(478600001)(2906002)(246002)(70586007)(70206006)(5660300002)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM2PR03MB559; H:nwd2mta1.analog.com; FPR:;
- SPF:Pass; LANG:en; PTR:nwd2mail10.analog.com; A:1; MX:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 02c3a8a0-d0c1-4c80-7ddc-08d6d3a8afc4
-X-Microsoft-Antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(4709054)(2017052603328)(7193020);
- SRVR:DM2PR03MB559; 
-X-MS-TrafficTypeDiagnostic: DM2PR03MB559:
-X-Microsoft-Antispam-PRVS: <DM2PR03MB559A4A2108CED3746037F44F9320@DM2PR03MB559.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 0031A0FFAF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Message-Info: i1sZYo6+MPS+6/7XgMeGmPbqVIlaaoyZKrXQV6LiPzw6/R3K/eQZlAf95MbvTFj8RMJWP0II8lSInFCoIulDFlCx/JsNMygVVJ8q/LRE3z17s0tpdivj0+b/UasOcUpBHIp3OQfHj2kaVyCS2BeUcnIF5LWbo+8vDRMk7TLK+H8tp8dbpETe3ScxHUYDc/wd8D9/9BbnuLxjBKjEY4u7N/823NDi/QpVZP4q5veHEW/X50PKJ719D70vsHOHlWnIvzgNsRQbuw/2iNQHJ6hMflZpi8FSBrssSpTJWXoBQ62jnwr7L3xJJTrS49pFG12Vg/fkREnj1kwJSBIkhC1aiEA+1Nhy/J5FlWq9cKCtZDZjNHFsY8zmnAX59M+MVqQAkGrEfd0btkJOD7ftl06mPopshHrrs1UdWTFfMEXIMS0=
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 May 2019 11:31:17.5189 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 02c3a8a0-d0c1-4c80-7ddc-08d6d3a8afc4
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.55];
- Helo=[nwd2mta1.analog.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM2PR03MB559
-Cc: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 01/16] lib: fix match_string() helper on -1
-	array size
+Content-Disposition: inline
+In-Reply-To: <20190508112842.11654-5-alexandru.ardelean@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-fbdev@vger.kernel.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ linux-ide@vger.kernel.org, linux-mtd@lists.infradead.org,
+ linux-clk@vger.kernel.org, devel@driverdev.osuosl.org,
+ linux-rockchip@lists.infradead.org, linux-mmc@vger.kernel.org,
+ linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-gpio@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-tegra@vger.kernel.org, cgroups@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mm@kvack.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-security-module@vger.kernel.org, gregkh@linuxfoundation.org,
+ linux-integrity@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [alsa-devel] [PATCH 03/16] lib,
+	treewide: add new match_string() helper/macro
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -165,52 +90,265 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2019-05-08 at 14:28 +0300, Alexandru Ardelean wrote:
-> The documentation the `_match_string()` helper mentions that `n`
-> should be:
->  * @n: number of strings in the array or -1 for NULL terminated arrays
-> 
-> The behavior of the function is different, in the sense that it exits on
-> the first NULL element in the array, regardless of whether `n` is -1 or a
-> positive number.
-> 
-> This patch changes the behavior, to exit the loop when a NULL element is
-> found and n == -1. Essentially, this aligns the behavior with the
-> doc-string.
-> 
-> There are currently many users of `match_string()`, and so, in order to
-> go
-> through them, the next patches in the series will focus on doing some
-> cosmetic changes, which are aimed at grouping the users of
-> `match_string()`.
-> 
+On Wed, May 08, 2019 at 02:28:29PM +0300, Alexandru Ardelean wrote:
+> This change re-introduces `match_string()` as a macro that uses
+> ARRAY_SIZE() to compute the size of the array.
+> The macro is added in all the places that do
+> `match_string(_a, ARRAY_SIZE(_a), s)`, since the change is pretty
+> straightforward.
 
-This is the duplicate & should be dropped.
-Sorry for this.
+Can you split include/linux/ change from the rest?
 
+> 
 > Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
 > ---
->  lib/string.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/clk/bcm/clk-bcm2835.c                    | 4 +---
+>  drivers/gpio/gpiolib-of.c                        | 2 +-
+>  drivers/gpu/drm/i915/intel_pipe_crc.c            | 2 +-
+>  drivers/mfd/omap-usb-host.c                      | 2 +-
+>  drivers/net/wireless/intel/iwlwifi/mvm/debugfs.c | 2 +-
+>  drivers/pci/pcie/aer.c                           | 2 +-
+>  drivers/usb/common/common.c                      | 4 ++--
+>  drivers/usb/typec/class.c                        | 8 +++-----
+>  drivers/usb/typec/tps6598x.c                     | 2 +-
+>  drivers/vfio/vfio.c                              | 4 +---
+>  include/linux/string.h                           | 9 +++++++++
+>  sound/firewire/oxfw/oxfw.c                       | 2 +-
+>  sound/soc/codecs/max98088.c                      | 2 +-
+>  sound/soc/codecs/max98095.c                      | 2 +-
+>  14 files changed, 25 insertions(+), 22 deletions(-)
 > 
-> diff --git a/lib/string.c b/lib/string.c
-> index 3ab861c1a857..76edb7bf76cb 100644
-> --- a/lib/string.c
-> +++ b/lib/string.c
-> @@ -648,8 +648,11 @@ int match_string(const char * const *array, size_t
-> n, const char *string)
+> diff --git a/drivers/clk/bcm/clk-bcm2835.c b/drivers/clk/bcm/clk-bcm2835.c
+> index a775f6a1f717..1ab388590ead 100644
+> --- a/drivers/clk/bcm/clk-bcm2835.c
+> +++ b/drivers/clk/bcm/clk-bcm2835.c
+> @@ -1390,9 +1390,7 @@ static struct clk_hw *bcm2835_register_clock(struct bcm2835_cprman *cprman,
+>  	for (i = 0; i < data->num_mux_parents; i++) {
+>  		parents[i] = data->parents[i];
 >  
->  	for (index = 0; index < n; index++) {
->  		item = array[index];
-> -		if (!item)
-> +		if (!item) {
-> +			if (n != (size_t)-1)
-> +				continue;
->  			break;
-> +		}
->  		if (!strcmp(item, string))
->  			return index;
+> -		ret = __match_string(cprman_parent_names,
+> -				     ARRAY_SIZE(cprman_parent_names),
+> -				     parents[i]);
+> +		ret = match_string(cprman_parent_names, parents[i]);
+>  		if (ret >= 0)
+>  			parents[i] = cprman->real_parent_names[ret];
 >  	}
+> diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+> index 27d6f04ab58e..71e886869d78 100644
+> --- a/drivers/gpio/gpiolib-of.c
+> +++ b/drivers/gpio/gpiolib-of.c
+> @@ -279,7 +279,7 @@ static struct gpio_desc *of_find_regulator_gpio(struct device *dev, const char *
+>  	if (!con_id)
+>  		return ERR_PTR(-ENOENT);
+>  
+> -	i = __match_string(whitelist, ARRAY_SIZE(whitelist), con_id);
+> +	i = match_string(whitelist, con_id);
+>  	if (i < 0)
+>  		return ERR_PTR(-ENOENT);
+>  
+> diff --git a/drivers/gpu/drm/i915/intel_pipe_crc.c b/drivers/gpu/drm/i915/intel_pipe_crc.c
+> index 286fad1f0e08..6fc4f3d3d1f6 100644
+> --- a/drivers/gpu/drm/i915/intel_pipe_crc.c
+> +++ b/drivers/gpu/drm/i915/intel_pipe_crc.c
+> @@ -449,7 +449,7 @@ display_crc_ctl_parse_source(const char *buf, enum intel_pipe_crc_source *s)
+>  		return 0;
+>  	}
+>  
+> -	i = __match_string(pipe_crc_sources, ARRAY_SIZE(pipe_crc_sources), buf);
+> +	i = match_string(pipe_crc_sources, buf);
+>  	if (i < 0)
+>  		return i;
+>  
+> diff --git a/drivers/mfd/omap-usb-host.c b/drivers/mfd/omap-usb-host.c
+> index 9aaacb5bdb26..53dff34c0afc 100644
+> --- a/drivers/mfd/omap-usb-host.c
+> +++ b/drivers/mfd/omap-usb-host.c
+> @@ -509,7 +509,7 @@ static int usbhs_omap_get_dt_pdata(struct device *dev,
+>  			continue;
+>  
+>  		/* get 'enum usbhs_omap_port_mode' from port mode string */
+> -		ret = __match_string(port_modes, ARRAY_SIZE(port_modes), mode);
+> +		ret = match_string(port_modes, mode);
+>  		if (ret < 0) {
+>  			dev_warn(dev, "Invalid port%d-mode \"%s\" in device tree\n",
+>  					i, mode);
+> diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/debugfs.c b/drivers/net/wireless/intel/iwlwifi/mvm/debugfs.c
+> index 59ce3ff35553..778b4dfd8b75 100644
+> --- a/drivers/net/wireless/intel/iwlwifi/mvm/debugfs.c
+> +++ b/drivers/net/wireless/intel/iwlwifi/mvm/debugfs.c
+> @@ -667,7 +667,7 @@ iwl_dbgfs_bt_force_ant_write(struct iwl_mvm *mvm, char *buf,
+>  	};
+>  	int ret, bt_force_ant_mode;
+>  
+> -	ret = __match_string(modes_str, ARRAY_SIZE(modes_str), buf);
+> +	ret = match_string(modes_str, buf);
+>  	if (ret < 0)
+>  		return ret;
+>  
+> diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+> index 41a0773a1cbc..2278caba109c 100644
+> --- a/drivers/pci/pcie/aer.c
+> +++ b/drivers/pci/pcie/aer.c
+> @@ -203,7 +203,7 @@ void pcie_ecrc_get_policy(char *str)
+>  {
+>  	int i;
+>  
+> -	i = __match_string(ecrc_policy_str, ARRAY_SIZE(ecrc_policy_str), str);
+> +	i = match_string(ecrc_policy_str, str);
+>  	if (i < 0)
+>  		return;
+>  
+> diff --git a/drivers/usb/common/common.c b/drivers/usb/common/common.c
+> index bca0c404c6ca..5a651d311d38 100644
+> --- a/drivers/usb/common/common.c
+> +++ b/drivers/usb/common/common.c
+> @@ -68,7 +68,7 @@ enum usb_device_speed usb_get_maximum_speed(struct device *dev)
+>  	if (ret < 0)
+>  		return USB_SPEED_UNKNOWN;
+>  
+> -	ret = __match_string(speed_names, ARRAY_SIZE(speed_names), maximum_speed);
+> +	ret = match_string(speed_names, maximum_speed);
+>  
+>  	return (ret < 0) ? USB_SPEED_UNKNOWN : ret;
+>  }
+> @@ -106,7 +106,7 @@ static enum usb_dr_mode usb_get_dr_mode_from_string(const char *str)
+>  {
+>  	int ret;
+>  
+> -	ret = __match_string(usb_dr_modes, ARRAY_SIZE(usb_dr_modes), str);
+> +	ret = match_string(usb_dr_modes, str);
+>  	return (ret < 0) ? USB_DR_MODE_UNKNOWN : ret;
+>  }
+>  
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 4abc5a76ec51..38ac776cba8a 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -1409,8 +1409,7 @@ EXPORT_SYMBOL_GPL(typec_set_pwr_opmode);
+>   */
+>  int typec_find_port_power_role(const char *name)
+>  {
+> -	return __match_string(typec_port_power_roles,
+> -			      ARRAY_SIZE(typec_port_power_roles), name);
+> +	return match_string(typec_port_power_roles, name);
+>  }
+>  EXPORT_SYMBOL_GPL(typec_find_port_power_role);
+>  
+> @@ -1424,7 +1423,7 @@ EXPORT_SYMBOL_GPL(typec_find_port_power_role);
+>   */
+>  int typec_find_power_role(const char *name)
+>  {
+> -	return __match_string(typec_roles, ARRAY_SIZE(typec_roles), name);
+> +	return match_string(typec_roles, name);
+>  }
+>  EXPORT_SYMBOL_GPL(typec_find_power_role);
+>  
+> @@ -1438,8 +1437,7 @@ EXPORT_SYMBOL_GPL(typec_find_power_role);
+>   */
+>  int typec_find_port_data_role(const char *name)
+>  {
+> -	return __match_string(typec_port_data_roles,
+> -			      ARRAY_SIZE(typec_port_data_roles), name);
+> +	return match_string(typec_port_data_roles, name);
+>  }
+>  EXPORT_SYMBOL_GPL(typec_find_port_data_role);
+>  
+> diff --git a/drivers/usb/typec/tps6598x.c b/drivers/usb/typec/tps6598x.c
+> index 0389e4391faf..0c4e47868590 100644
+> --- a/drivers/usb/typec/tps6598x.c
+> +++ b/drivers/usb/typec/tps6598x.c
+> @@ -423,7 +423,7 @@ static int tps6598x_check_mode(struct tps6598x *tps)
+>  	if (ret)
+>  		return ret;
+>  
+> -	switch (__match_string(modes, ARRAY_SIZE(modes), mode)) {
+> +	switch (match_string(modes, mode)) {
+>  	case TPS_MODE_APP:
+>  		return 0;
+>  	case TPS_MODE_BOOT:
+> diff --git a/drivers/vfio/vfio.c b/drivers/vfio/vfio.c
+> index b31585ecf48f..fe8283d3781b 100644
+> --- a/drivers/vfio/vfio.c
+> +++ b/drivers/vfio/vfio.c
+> @@ -637,9 +637,7 @@ static bool vfio_dev_whitelisted(struct device *dev, struct device_driver *drv)
+>  			return true;
+>  	}
+>  
+> -	return __match_string(vfio_driver_whitelist,
+> -			      ARRAY_SIZE(vfio_driver_whitelist),
+> -			      drv->name) >= 0;
+> +	return match_string(vfio_driver_whitelist, drv->name) >= 0;
+>  }
+>  
+>  /*
+> diff --git a/include/linux/string.h b/include/linux/string.h
+> index 531d04308ff9..07e9f89088df 100644
+> --- a/include/linux/string.h
+> +++ b/include/linux/string.h
+> @@ -194,6 +194,15 @@ static inline int strtobool(const char *s, bool *res)
+>  int __match_string(const char * const *array, size_t n, const char *string);
+>  int __sysfs_match_string(const char * const *array, size_t n, const char *s);
+>  
+> +/**
+> + * match_string - matches given string in an array
+> + * @_a: array of strings
+> + * @_s: string to match with
+> + *
+> + * Helper for __match_string(). Calculates the size of @a automatically.
+> + */
+> +#define match_string(_a, _s) __match_string(_a, ARRAY_SIZE(_a), _s)
+> +
+>  /**
+>   * sysfs_match_string - matches given string in an array
+>   * @_a: array of strings
+> diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
+> index 9ec5316f3bb5..433fc84c4f90 100644
+> --- a/sound/firewire/oxfw/oxfw.c
+> +++ b/sound/firewire/oxfw/oxfw.c
+> @@ -57,7 +57,7 @@ static bool detect_loud_models(struct fw_unit *unit)
+>  	if (err < 0)
+>  		return false;
+>  
+> -	return __match_string(models, ARRAY_SIZE(models), model) >= 0;
+> +	return match_string(models, model) >= 0;
+>  }
+>  
+>  static int name_card(struct snd_oxfw *oxfw)
+> diff --git a/sound/soc/codecs/max98088.c b/sound/soc/codecs/max98088.c
+> index 3ef743075bda..911ffe84c37e 100644
+> --- a/sound/soc/codecs/max98088.c
+> +++ b/sound/soc/codecs/max98088.c
+> @@ -1405,7 +1405,7 @@ static int max98088_get_channel(struct snd_soc_component *component, const char
+>  {
+>  	int ret;
+>  
+> -	ret = __match_string(eq_mode_name, ARRAY_SIZE(eq_mode_name), name);
+> +	ret = match_string(eq_mode_name, name);
+>  	if (ret < 0)
+>  		dev_err(component->dev, "Bad EQ channel name '%s'\n", name);
+>  	return ret;
+> diff --git a/sound/soc/codecs/max98095.c b/sound/soc/codecs/max98095.c
+> index cd69916d5dcb..d182d45d0c83 100644
+> --- a/sound/soc/codecs/max98095.c
+> +++ b/sound/soc/codecs/max98095.c
+> @@ -1636,7 +1636,7 @@ static int max98095_get_bq_channel(struct snd_soc_component *component,
+>  {
+>  	int ret;
+>  
+> -	ret = __match_string(bq_mode_name, ARRAY_SIZE(bq_mode_name), name);
+> +	ret = match_string(bq_mode_name, name);
+>  	if (ret < 0)
+>  		dev_err(component->dev, "Bad biquad channel name '%s'\n", name);
+>  	return ret;
+> -- 
+> 2.17.1
+> 
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

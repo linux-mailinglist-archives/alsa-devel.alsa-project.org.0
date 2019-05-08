@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2DC174CC
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:14:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3144417481
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 11:04:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69D9C1A97;
-	Wed,  8 May 2019 11:13:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69D9C1A97
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FC49191E;
+	Wed,  8 May 2019 11:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FC49191E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557306876;
-	bh=/QzzzTeM8DP65LZYEaq0kgCOAPwytvQPEl+sBj+clPs=;
+	s=default; t=1557306250;
+	bh=t0LyxBihSWLV52jGZ5ia8ajkaGbofgThDBV8q0LuLF0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hfn4JJ9OeRLlhQAd19yI97iNjZtyiXO2ZSnEgUYfo0TjIv7FFp75vWbR2OuvBxUp5
-	 hA59Jn4VXwcLkP17brFTTWRSN+TLV9dA+C+a44DvxMRLwuNdSBaiXY+JE0kdbIwAer
-	 YC2hGX/P3/wWABh4Z80+uPiU8OBKXJCOivJnAVHM=
+	b=dPD7fl8xTWrLfUIySKP6W9q7PSN2b5uKL4esvAGM2/erPoPO3DPAKsb7vDvALZwj/
+	 oaG2iEhpmNeUvHYI6nlC7HOjMDtn9bfVtP4ImUNZCMxVSNeBRGbEgU4pf22uerrw/6
+	 HTi3ASe/Lqm4+0wYN0ruKIaaAFdO2260W7eMPTQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64086F896E6;
-	Wed,  8 May 2019 11:12:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5037AF89730;
+	Wed,  8 May 2019 11:01:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B848F896FD; Wed,  8 May 2019 11:12:48 +0200 (CEST)
+ id 3E153F89726; Wed,  8 May 2019 11:01:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB0E5F896E6
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:12:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB0E5F896E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E571F89726
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 11:01:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E571F89726
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="v5jnOGw3"
+ header.b="JWKWuMRH"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ogddXFSZso4GSk0uUQ4JEECk2Q3KnghE6of2/9riZcQ=; b=v5jnOGw3qbmh
- p78ZTznaPa8cBgn4eJMPaR6TGQ4F9d/gNi5/oAN2rTz4U3mz+KyVOOYSLXpSDLQbRAV/JCubOw58h
- TSFfA+9SWvEmFW4u0E0ouL/lxLHkOMPZq6xKeZR0gwAnf8ONWMaYU/DTY7tl95KGTnWy587eKBKSe
- ghf1Q=;
+ List-Archive; bh=j0BVhUdSsVNZZmpI2QpfiLV2xfXPtZzCwrFt5yURFYU=; b=JWKWuMRHWILi
+ YdbjuGBH0MzGGR++caNDzWDv0M5Sf+mBkpcSJl3TobMeo91jjbvDPHvEpIF57VeJzgW9L+iF/Y6kk
+ fiYhbtUEU633ojVYx3CNClm3uWB2PmKPdZ7/kIJ0KLdqUoybRrhTcOa7mHjm/TPrGBwrWi4r5HDG1
+ a/DcY=;
 Received: from [61.199.190.11] (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hOIcq-0007hv-OS; Wed, 08 May 2019 09:12:44 +0000
+ id 1hOISD-0007dQ-0A; Wed, 08 May 2019 09:01:36 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id D2C36440033; Wed,  8 May 2019 10:01:27 +0100 (BST)
+ id 495B0440017; Wed,  8 May 2019 10:01:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20190506095815.24578-5-jbrunet@baylibre.com>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <1557147252-18679-3-git-send-email-olivier.moysan@st.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190508090127.D2C36440033@finisterre.sirena.org.uk>
+Message-Id: <20190508090127.495B0440017@finisterre.sirena.org.uk>
 Date: Wed,  8 May 2019 10:01:27 +0100 (BST)
-Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: hdmi-codec: remove ops dependency on
-	the dai id" to the asoc tree
+Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
+ tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, benjamin.gaignard@st.com
+Subject: [alsa-devel] Applied "ASoC: stm32: i2s: manage identification
+	registers" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: hdmi-codec: remove ops dependency on the dai id
+   ASoC: stm32: i2s: manage identification registers
 
 has been applied to the asoc tree at
 
@@ -112,250 +114,135 @@ to this mail.
 Thanks,
 Mark
 
-From 0cf4610b9f297e570da4d98514b310f076ecc8ab Mon Sep 17 00:00:00 2001
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Mon, 6 May 2019 11:58:15 +0200
-Subject: [PATCH] ASoC: hdmi-codec: remove ops dependency on the dai id
+From 71ed4bddde08285cd02d6d28c861ea1815d67476 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Mon, 6 May 2019 14:54:12 +0200
+Subject: [PATCH] ASoC: stm32: i2s: manage identification registers
 
-The dependency on the dai_id can be removed by setting different ops
-for the i2s and spdif dai and storing the dai format information in
-each dai structure. It simplies the code a bit.
+Add support of identification registers in STM32 I2S.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/hdmi-codec.c | 100 +++++++++++++++++++++++-----------
- 1 file changed, 67 insertions(+), 33 deletions(-)
+ sound/soc/stm/stm32_i2s.c | 60 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 57 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index 9408e6bc4d3e..90a892766625 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -278,7 +278,6 @@ static const struct hdmi_codec_cea_spk_alloc hdmi_codec_channel_alloc[] = {
+diff --git a/sound/soc/stm/stm32_i2s.c b/sound/soc/stm/stm32_i2s.c
+index 97d5e9901a0e..9755c49ae7dc 100644
+--- a/sound/soc/stm/stm32_i2s.c
++++ b/sound/soc/stm/stm32_i2s.c
+@@ -16,6 +16,7 @@
+  * details.
+  */
  
- struct hdmi_codec_priv {
- 	struct hdmi_codec_pdata hcd;
--	struct hdmi_codec_daifmt daifmt[2];
- 	uint8_t eld[MAX_ELD_BYTES];
- 	struct snd_pcm_chmap *chmap_info;
- 	unsigned int chmap_idx;
-@@ -445,6 +444,7 @@ static int hdmi_codec_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_soc_dai *dai)
- {
- 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
-+	struct hdmi_codec_daifmt *cf = dai->playback_dma_data;
- 	struct hdmi_codec_params hp = {
- 		.iec = {
- 			.status = { 0 },
-@@ -489,28 +489,27 @@ static int hdmi_codec_hw_params(struct snd_pcm_substream *substream,
- 	hp.channels = params_channels(params);
++#include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/module.h>
+@@ -37,6 +38,10 @@
+ #define STM32_I2S_TXDR_REG	0X20
+ #define STM32_I2S_RXDR_REG	0x30
+ #define STM32_I2S_CGFR_REG	0X50
++#define STM32_I2S_HWCFGR_REG	0x3F0
++#define STM32_I2S_VERR_REG	0x3F4
++#define STM32_I2S_IPIDR_REG	0x3F8
++#define STM32_I2S_SIDR_REG	0x3FC
  
- 	return hcp->hcd.ops->hw_params(dai->dev->parent, hcp->hcd.data,
--				       &hcp->daifmt[dai->id], &hp);
-+				       cf, &hp);
- }
+ /* Bit definition for SPI2S_CR1 register */
+ #define I2S_CR1_SPE		BIT(0)
+@@ -143,6 +148,23 @@
+ #define I2S_CGFR_ODD		BIT(I2S_CGFR_ODD_SHIFT)
+ #define I2S_CGFR_MCKOE		BIT(25)
  
--static int hdmi_codec_set_fmt(struct snd_soc_dai *dai,
--			      unsigned int fmt)
-+static int hdmi_codec_i2s_set_fmt(struct snd_soc_dai *dai,
-+				  unsigned int fmt)
- {
--	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
--	struct hdmi_codec_daifmt cf = { 0 };
-+	struct hdmi_codec_daifmt *cf = dai->playback_dma_data;
- 
--	if (dai->id == DAI_ID_SPDIF)
--		return 0;
-+	/* Reset daifmt */
-+	memset(cf, 0, sizeof(*cf));
- 
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
- 	case SND_SOC_DAIFMT_CBM_CFM:
--		cf.bit_clk_master = 1;
--		cf.frame_clk_master = 1;
-+		cf->bit_clk_master = 1;
-+		cf->frame_clk_master = 1;
- 		break;
- 	case SND_SOC_DAIFMT_CBS_CFM:
--		cf.frame_clk_master = 1;
-+		cf->frame_clk_master = 1;
- 		break;
- 	case SND_SOC_DAIFMT_CBM_CFS:
--		cf.bit_clk_master = 1;
-+		cf->bit_clk_master = 1;
- 		break;
- 	case SND_SOC_DAIFMT_CBS_CFS:
- 		break;
-@@ -522,43 +521,41 @@ static int hdmi_codec_set_fmt(struct snd_soc_dai *dai,
- 	case SND_SOC_DAIFMT_NB_NF:
- 		break;
- 	case SND_SOC_DAIFMT_NB_IF:
--		cf.frame_clk_inv = 1;
-+		cf->frame_clk_inv = 1;
- 		break;
- 	case SND_SOC_DAIFMT_IB_NF:
--		cf.bit_clk_inv = 1;
-+		cf->bit_clk_inv = 1;
- 		break;
- 	case SND_SOC_DAIFMT_IB_IF:
--		cf.frame_clk_inv = 1;
--		cf.bit_clk_inv = 1;
-+		cf->frame_clk_inv = 1;
-+		cf->bit_clk_inv = 1;
- 		break;
- 	}
- 
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
- 	case SND_SOC_DAIFMT_I2S:
--		cf.fmt = HDMI_I2S;
-+		cf->fmt = HDMI_I2S;
- 		break;
- 	case SND_SOC_DAIFMT_DSP_A:
--		cf.fmt = HDMI_DSP_A;
-+		cf->fmt = HDMI_DSP_A;
- 		break;
- 	case SND_SOC_DAIFMT_DSP_B:
--		cf.fmt = HDMI_DSP_B;
-+		cf->fmt = HDMI_DSP_B;
- 		break;
- 	case SND_SOC_DAIFMT_RIGHT_J:
--		cf.fmt = HDMI_RIGHT_J;
-+		cf->fmt = HDMI_RIGHT_J;
- 		break;
- 	case SND_SOC_DAIFMT_LEFT_J:
--		cf.fmt = HDMI_LEFT_J;
-+		cf->fmt = HDMI_LEFT_J;
- 		break;
- 	case SND_SOC_DAIFMT_AC97:
--		cf.fmt = HDMI_AC97;
-+		cf->fmt = HDMI_AC97;
- 		break;
++/* Registers below apply to I2S version 1.1 and more */
++
++/* Bit definition for SPI_HWCFGR register */
++#define I2S_HWCFGR_I2S_SUPPORT_MASK	GENMASK(15, 12)
++
++/* Bit definition for SPI_VERR register */
++#define I2S_VERR_MIN_MASK	GENMASK(3, 0)
++#define I2S_VERR_MAJ_MASK	GENMASK(7, 4)
++
++/* Bit definition for SPI_IPIDR register */
++#define I2S_IPIDR_ID_MASK	GENMASK(31, 0)
++
++/* Bit definition for SPI_SIDR register */
++#define I2S_SIDR_ID_MASK	GENMASK(31, 0)
++
++#define I2S_IPIDR_NUMBER	0x00130022
++
+ enum i2s_master_mode {
+ 	I2S_MS_NOT_SET,
+ 	I2S_MS_MASTER,
+@@ -280,6 +302,10 @@ static bool stm32_i2s_readable_reg(struct device *dev, unsigned int reg)
+ 	case STM32_I2S_SR_REG:
+ 	case STM32_I2S_RXDR_REG:
+ 	case STM32_I2S_CGFR_REG:
++	case STM32_I2S_HWCFGR_REG:
++	case STM32_I2S_VERR_REG:
++	case STM32_I2S_IPIDR_REG:
++	case STM32_I2S_SIDR_REG:
+ 		return true;
  	default:
- 		dev_err(dai->dev, "Invalid DAI interface format\n");
- 		return -EINVAL;
- 	}
- 
--	hcp->daifmt[dai->id] = cf;
--
- 	return 0;
- }
- 
-@@ -573,14 +570,20 @@ static int hdmi_codec_digital_mute(struct snd_soc_dai *dai, int mute)
- 	return 0;
- }
- 
--static const struct snd_soc_dai_ops hdmi_dai_ops = {
-+static const struct snd_soc_dai_ops hdmi_codec_i2s_dai_ops = {
- 	.startup	= hdmi_codec_startup,
- 	.shutdown	= hdmi_codec_shutdown,
- 	.hw_params	= hdmi_codec_hw_params,
--	.set_fmt	= hdmi_codec_set_fmt,
-+	.set_fmt	= hdmi_codec_i2s_set_fmt,
- 	.digital_mute	= hdmi_codec_digital_mute,
+ 		return false;
+@@ -711,10 +737,11 @@ static const struct regmap_config stm32_h7_i2s_regmap_conf = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+ 	.val_bits = 32,
+-	.max_register = STM32_I2S_CGFR_REG,
++	.max_register = STM32_I2S_SIDR_REG,
+ 	.readable_reg = stm32_i2s_readable_reg,
+ 	.volatile_reg = stm32_i2s_volatile_reg,
+ 	.writeable_reg = stm32_i2s_writeable_reg,
++	.num_reg_defaults_raw = STM32_I2S_SIDR_REG / sizeof(u32) + 1,
+ 	.fast_io = true,
+ 	.cache_type = REGCACHE_FLAT,
  };
- 
-+static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
-+	.startup	= hdmi_codec_startup,
-+	.shutdown	= hdmi_codec_shutdown,
-+	.hw_params	= hdmi_codec_hw_params,
-+	.digital_mute	= hdmi_codec_digital_mute,
-+};
- 
- #define HDMI_RATES	(SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
- 			 SNDRV_PCM_RATE_48000 | SNDRV_PCM_RATE_88200 |\
-@@ -648,20 +651,52 @@ static int hdmi_codec_pcm_new(struct snd_soc_pcm_runtime *rtd,
- static int hdmi_dai_probe(struct snd_soc_dai *dai)
+@@ -864,6 +891,7 @@ static int stm32_i2s_parse_dt(struct platform_device *pdev,
+ static int stm32_i2s_probe(struct platform_device *pdev)
  {
- 	struct snd_soc_dapm_context *dapm;
-+	struct hdmi_codec_daifmt *daifmt;
- 	struct snd_soc_dapm_route route = {
- 		.sink = "TX",
- 		.source = dai->driver->playback.stream_name,
- 	};
-+	int ret;
+ 	struct stm32_i2s_data *i2s;
++	u32 val;
+ 	int ret;
  
- 	dapm = snd_soc_component_get_dapm(dai->component);
-+	ret = snd_soc_dapm_add_routes(dapm, &route, 1);
+ 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
+@@ -902,8 +930,34 @@ static int stm32_i2s_probe(struct platform_device *pdev)
+ 		return ret;
+ 
+ 	/* Set SPI/I2S in i2s mode */
+-	return regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
+-				  I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
++	ret = regmap_update_bits(i2s->regmap, STM32_I2S_CGFR_REG,
++				 I2S_CGFR_I2SMOD, I2S_CGFR_I2SMOD);
 +	if (ret)
 +		return ret;
 +
-+	daifmt = kzalloc(sizeof(*daifmt), GFP_KERNEL);
-+	if (!daifmt)
-+		return -ENOMEM;
- 
--	return snd_soc_dapm_add_routes(dapm, &route, 1);
-+	dai->playback_dma_data = daifmt;
-+	return 0;
-+}
-+
-+static int hdmi_dai_spdif_probe(struct snd_soc_dai *dai)
-+{
-+	struct hdmi_codec_daifmt *cf = dai->playback_dma_data;
-+	int ret;
-+
-+	ret = hdmi_dai_probe(dai);
++	ret = regmap_read(i2s->regmap, STM32_I2S_IPIDR_REG, &val);
 +	if (ret)
 +		return ret;
 +
-+	cf = dai->playback_dma_data;
-+	cf->fmt = HDMI_SPDIF;
++	if (val == I2S_IPIDR_NUMBER) {
++		ret = regmap_read(i2s->regmap, STM32_I2S_HWCFGR_REG, &val);
++		if (ret)
++			return ret;
 +
-+	return 0;
-+}
++		if (!FIELD_GET(I2S_HWCFGR_I2S_SUPPORT_MASK, val)) {
++			dev_err(&pdev->dev,
++				"Device does not support i2s mode\n");
++			return -EPERM;
++		}
 +
-+static int hdmi_codec_dai_remove(struct snd_soc_dai *dai)
-+{
-+	kfree(dai->playback_dma_data);
-+	return 0;
++		ret = regmap_read(i2s->regmap, STM32_I2S_VERR_REG, &val);
++
++		dev_dbg(&pdev->dev, "I2S version: %lu.%lu registered\n",
++			FIELD_GET(I2S_VERR_MAJ_MASK, val),
++			FIELD_GET(I2S_VERR_MIN_MASK, val));
++	}
++
++	return ret;
  }
  
- static const struct snd_soc_dai_driver hdmi_i2s_dai = {
- 	.name = "i2s-hifi",
- 	.id = DAI_ID_I2S,
- 	.probe = hdmi_dai_probe,
-+	.remove = hdmi_codec_dai_remove,
- 	.playback = {
- 		.stream_name = "I2S Playback",
- 		.channels_min = 2,
-@@ -670,14 +705,15 @@ static const struct snd_soc_dai_driver hdmi_i2s_dai = {
- 		.formats = I2S_FORMATS,
- 		.sig_bits = 24,
- 	},
--	.ops = &hdmi_dai_ops,
-+	.ops = &hdmi_codec_i2s_dai_ops,
- 	.pcm_new = hdmi_codec_pcm_new,
- };
- 
- static const struct snd_soc_dai_driver hdmi_spdif_dai = {
- 	.name = "spdif-hifi",
- 	.id = DAI_ID_SPDIF,
--	.probe = hdmi_dai_probe,
-+	.probe = hdmi_dai_spdif_probe,
-+	.remove = hdmi_codec_dai_remove,
- 	.playback = {
- 		.stream_name = "SPDIF Playback",
- 		.channels_min = 2,
-@@ -685,7 +721,7 @@ static const struct snd_soc_dai_driver hdmi_spdif_dai = {
- 		.rates = HDMI_RATES,
- 		.formats = SPDIF_FORMATS,
- 	},
--	.ops = &hdmi_dai_ops,
-+	.ops = &hdmi_codec_spdif_dai_ops,
- 	.pcm_new = hdmi_codec_pcm_new,
- };
- 
-@@ -747,10 +783,8 @@ static int hdmi_codec_probe(struct platform_device *pdev)
- 		i++;
- 	}
- 
--	if (hcd->spdif) {
-+	if (hcd->spdif)
- 		daidrv[i] = hdmi_spdif_dai;
--		hcp->daifmt[DAI_ID_SPDIF].fmt = HDMI_SPDIF;
--	}
- 
- 	dev_set_drvdata(dev, hcp);
- 
+ MODULE_DEVICE_TABLE(of, stm32_i2s_ids);
 -- 
 2.20.1
 

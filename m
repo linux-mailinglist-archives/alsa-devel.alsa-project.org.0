@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BEE017BC2
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 16:43:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B462717BC3
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 16:43:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98CAB1AAC;
-	Wed,  8 May 2019 16:42:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98CAB1AAC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37D271944;
+	Wed,  8 May 2019 16:43:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37D271944
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557326593;
-	bh=PkCYfsO9UOCj/csaj0oWw+kQ/0vZ7oppmlZk2VBe1v0=;
+	s=default; t=1557326630;
+	bh=UuEL7XSGsfbC2NXlSJHmM5MnLfO4kKEXuhGcxxXOpxo=;
 	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=C6iJuYGQwaZ9nT35gHXGbBA2MTLZa1lvqISNtiJDfKnQKbpnWBOogTokJDt8L/LFz
-	 EbYwS891gMdlBy+HGZXQa135T9Iou7g2nGSodLOXP1ATlDj2RghnldjnQAqp3vsH3P
-	 HxNBGyMGekQ84qqHc0tJLKMPbgrISTkY4w4S3wUk=
+	b=Vq84b7YqZmOcCxA8oMUXjehXYd7bT0vzegZzh0CaFxImC8kJPF9IRpWLd71GuB8EQ
+	 /6ZoYx8wSDZ01bpThcfXPIbyj3t/F1mH7J143BqbxhHX/vPQDTMte4d+DK6etemXlv
+	 q+8rPkdVHOL7gK7eSRphX1wrsu947DzLg/a/DXRE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12C16F80796;
-	Wed,  8 May 2019 16:41:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93111F89715;
+	Wed,  8 May 2019 16:41:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BF6FF896E6; Wed,  8 May 2019 16:41:24 +0200 (CEST)
+ id 6F605F8970E; Wed,  8 May 2019 16:41:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
@@ -32,19 +32,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE7E1F8075E
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 16:41:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE7E1F8075E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71430F896FF
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 16:41:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71430F896FF
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7B6B1AD05
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 14:41:20 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 9ADFFAD05
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 14:41:52 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Wed,  8 May 2019 16:41:19 +0200
-Message-Id: <20190508144119.4997-1-tiwai@suse.de>
+Date: Wed,  8 May 2019 16:41:51 +0200
+Message-Id: <20190508144151.5061-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH] ALSA: aica: Fix a long-time build breakage
+Subject: [alsa-devel] [PATCH] ALSA: line6: toneport: Fix broken usage of
+	timer for delayed execution
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,63 +64,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The build of aica sound driver has been broken since the timer API
-conversion and some code rewrite.  This patch fixes the breakage by
-using the common substream field, as well as a bit cleaning up wrt the
-timer handling in the code.
+The line6 toneport driver has code for some delayed initialization,
+and this hits the kernel Oops because mutex and other sleepable
+functions are used in the timer callback.  Fix the abuse by a delayed
+work instead so that everything works gracefully.
 
-Fixes: d522bb6a105f ("ALSA: sh: aica: Convert timers to use timer_setup()")
+Reported-by: syzbot+a07d0142e74fdd595cfb@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/sh/aica.c | 14 ++++----------
- 1 file changed, 4 insertions(+), 10 deletions(-)
+ sound/usb/line6/toneport.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-diff --git a/sound/sh/aica.c b/sound/sh/aica.c
-index e7fef3fce44a..a24e486d9d83 100644
---- a/sound/sh/aica.c
-+++ b/sound/sh/aica.c
-@@ -303,7 +303,7 @@ static void aica_period_elapsed(struct timer_list *t)
- {
- 	struct snd_card_aica *dreamcastcard = from_timer(dreamcastcard,
- 							      t, timer);
--	struct snd_pcm_substream *substream = dreamcastcard->timer_substream;
-+	struct snd_pcm_substream *substream = dreamcastcard->substream;
- 	/*timer function - so cannot sleep */
- 	int play_period;
- 	struct snd_pcm_runtime *runtime;
-@@ -335,13 +335,6 @@ static void spu_begin_dma(struct snd_pcm_substream *substream)
- 	dreamcastcard = substream->pcm->private_data;
- 	/*get the queue to do the work */
- 	schedule_work(&(dreamcastcard->spu_dma_work));
--	/* Timer may already be running */
--	if (unlikely(dreamcastcard->timer_substream)) {
--		mod_timer(&dreamcastcard->timer, jiffies + 4);
--		return;
--	}
--	timer_setup(&dreamcastcard->timer, aica_period_elapsed, 0);
--	dreamcastcard->timer_substream = substream;
- 	mod_timer(&dreamcastcard->timer, jiffies + 4);
+diff --git a/sound/usb/line6/toneport.c b/sound/usb/line6/toneport.c
+index 19bee725de00..325b07b98b3c 100644
+--- a/sound/usb/line6/toneport.c
++++ b/sound/usb/line6/toneport.c
+@@ -54,8 +54,8 @@ struct usb_line6_toneport {
+ 	/* Firmware version (x 100) */
+ 	u8 firmware_version;
+ 
+-	/* Timer for delayed PCM startup */
+-	struct timer_list timer;
++	/* Work for delayed PCM startup */
++	struct delayed_work pcm_work;
+ 
+ 	/* Device type */
+ 	enum line6_device_type type;
+@@ -241,9 +241,10 @@ static int snd_toneport_source_put(struct snd_kcontrol *kcontrol,
+ 	return 1;
  }
  
-@@ -379,8 +372,8 @@ static int snd_aicapcm_pcm_close(struct snd_pcm_substream
+-static void toneport_start_pcm(struct timer_list *t)
++static void toneport_start_pcm(struct work_struct *work)
  {
- 	struct snd_card_aica *dreamcastcard = substream->pcm->private_data;
- 	flush_work(&(dreamcastcard->spu_dma_work));
--	if (dreamcastcard->timer_substream)
--		del_timer(&dreamcastcard->timer);
-+	del_timer(&dreamcastcard->timer);
-+	dreamcastcard->substream = NULL;
- 	kfree(dreamcastcard->channel);
- 	spu_disable();
+-	struct usb_line6_toneport *toneport = from_timer(toneport, t, timer);
++	struct usb_line6_toneport *toneport =
++		container_of(work, struct usb_line6_toneport, pcm_work.work);
+ 	struct usb_line6 *line6 = &toneport->line6;
+ 
+ 	line6_pcm_acquire(line6->line6pcm, LINE6_STREAM_MONITOR, true);
+@@ -393,7 +394,8 @@ static int toneport_setup(struct usb_line6_toneport *toneport)
+ 	if (toneport_has_led(toneport))
+ 		toneport_update_led(toneport);
+ 
+-	mod_timer(&toneport->timer, jiffies + TONEPORT_PCM_DELAY * HZ);
++	schedule_delayed_work(&toneport->pcm_work,
++			      msecs_to_jiffies(TONEPORT_PCM_DELAY * 1000));
  	return 0;
-@@ -613,6 +606,7 @@ static int snd_aica_probe(struct platform_device *devptr)
- 	       "Yamaha AICA Super Intelligent Sound Processor for SEGA Dreamcast");
- 	/* Prepare to use the queue */
- 	INIT_WORK(&(dreamcastcard->spu_dma_work), run_spu_dma);
-+	timer_setup(&dreamcastcard->timer, aica_period_elapsed, 0);
- 	/* Load the PCM 'chip' */
- 	err = snd_aicapcmchip(dreamcastcard, 0);
- 	if (unlikely(err < 0))
+ }
+ 
+@@ -405,7 +407,7 @@ static void line6_toneport_disconnect(struct usb_line6 *line6)
+ 	struct usb_line6_toneport *toneport =
+ 		(struct usb_line6_toneport *)line6;
+ 
+-	del_timer_sync(&toneport->timer);
++	cancel_delayed_work_sync(&toneport->pcm_work);
+ 
+ 	if (toneport_has_led(toneport))
+ 		toneport_remove_leds(toneport);
+@@ -422,7 +424,7 @@ static int toneport_init(struct usb_line6 *line6,
+ 	struct usb_line6_toneport *toneport =  (struct usb_line6_toneport *) line6;
+ 
+ 	toneport->type = id->driver_info;
+-	timer_setup(&toneport->timer, toneport_start_pcm, 0);
++	INIT_DELAYED_WORK(&toneport->pcm_work, toneport_start_pcm);
+ 
+ 	line6->disconnect = line6_toneport_disconnect;
+ 
 -- 
 2.16.4
 

@@ -2,49 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C5917C96
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 16:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA7C17C77
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 May 2019 16:52:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4E651AA9;
-	Wed,  8 May 2019 16:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4E651AA9
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACEB11AB2;
+	Wed,  8 May 2019 16:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACEB11AB2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557327208;
-	bh=wzqslpY2uZuX8gTVx32nEOcyUzj72tZfSpeFvD0FB2E=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=GsY1grVi8qmY9aUK4nAfDsX+62zgTku8aR2HDUskYQr8793gt8a7yyT+MZqSaG0i1
-	 mcfplZvUCM00oVEKY1TAAL4x43emMP43Shy522jKKS1BO2wMo+A1VGmzV69k89iLQI
-	 V5o7yqeMhR08dffyquZxyTABe4potwd627e4K4X4=
+	s=default; t=1557327135;
+	bh=bPbtflfr+u0USNV7QJJN/UJzrVuTL75HtEkBjwZxECY=;
+	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gu+GT6W0tJOy7bN8PQhJB6aU6lOzLGjEYZO6nKudGiiTFTT+a+oFDA6AUo4EfUNG8
+	 dXPq2aWsBikS0gdlm8KwilbVdpd3kbOECfIoF3E2cx2xnJ2fscBQ97L3K6smk4crYV
+	 rVW6RGwUIJq2DK95LsYsannPhEjHFAH2VNDtHKk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE8EBF8972E;
-	Wed,  8 May 2019 16:49:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA537F89724;
+	Wed,  8 May 2019 16:49:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F89BF896FF; Wed,  8 May 2019 16:49:50 +0200 (CEST)
+ id 757A4F89705; Wed,  8 May 2019 16:49:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_PASS autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8B9CF896E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4443F80796
  for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 16:49:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8B9CF896E6
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4443F80796
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id EEF8EAE9D
- for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 14:49:43 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 08DB6AEBF
+ for <alsa-devel@alsa-project.org>; Wed,  8 May 2019 14:49:44 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Wed,  8 May 2019 16:49:39 +0200
-Message-Id: <20190508144943.8139-1-tiwai@suse.de>
+Date: Wed,  8 May 2019 16:49:40 +0200
+Message-Id: <20190508144943.8139-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH 0/4] ALSA: line6: Cleanup startup sequences
+In-Reply-To: <20190508144943.8139-1-tiwai@suse.de>
+References: <20190508144943.8139-1-tiwai@suse.de>
+Subject: [alsa-devel] [PATCH 1/4] ALSA: line6: pod: Rewrite complex timer &
+	work combo with a delayed work
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,34 +67,173 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The POD driver had a complex staged startup procedure using both timer
+and work.  This patch simplifies it via a single delayed work with the
+reduced stages.
 
-while debugging line6 toneport driver bug, I noticed that other line6
-drivers have too complex and fragile startup sequences.  This is the
-result of the rewrites with a single delayed work.  Maybe for 5.3, as
-these are no critical fixes.
+Now basically only two intermediate stages:
+- POD_STARTUP_VERSIONREQ:
+  requesting the version information and the process_message callback
+  triggers the next stage,
+- POD_STARTUP_SETUP:
+  registering the actual card object.
 
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/line6/pod.c | 85 ++++++++++++++++++---------------------------------
+ 1 file changed, 30 insertions(+), 55 deletions(-)
 
-Takashi
-
-===
-
-Takashi Iwai (4):
-  ALSA: line6: pod: Rewrite complex timer & work combo with a delayed
-    work
-  ALSA: line6: podhd: Rewrite complex timer & work combo with a delayed
-    work
-  ALSA: line6: variax: Rewrite complex timer & work combo with a delayed
-    work
-  ALSA: line6: Drop superfluous timer helper function
-
- sound/usb/line6/driver.c |  11 -----
- sound/usb/line6/driver.h |   9 ----
- sound/usb/line6/pod.c    |  85 ++++++++++++--------------------
- sound/usb/line6/podhd.c  |  73 +++++----------------------
- sound/usb/line6/variax.c | 125 ++++++++++++++---------------------------------
- 5 files changed, 78 insertions(+), 225 deletions(-)
-
+diff --git a/sound/usb/line6/pod.c b/sound/usb/line6/pod.c
+index ce45b6dab651..95d4b35ca0af 100644
+--- a/sound/usb/line6/pod.c
++++ b/sound/usb/line6/pod.c
+@@ -39,11 +39,9 @@
+ 	Stages of POD startup procedure
+ */
+ enum {
+-	POD_STARTUP_INIT = 1,
+ 	POD_STARTUP_VERSIONREQ,
+-	POD_STARTUP_WORKQUEUE,
+ 	POD_STARTUP_SETUP,
+-	POD_STARTUP_LAST = POD_STARTUP_SETUP - 1
++	POD_STARTUP_DONE,
+ };
+ 
+ enum {
+@@ -63,11 +61,8 @@ struct usb_line6_pod {
+ 	/* Instrument monitor level */
+ 	int monitor_level;
+ 
+-	/* Timer for device initialization */
+-	struct timer_list startup_timer;
+-
+ 	/* Work handler for device initialization */
+-	struct work_struct startup_work;
++	struct delayed_work startup_work;
+ 
+ 	/* Current progress in startup procedure */
+ 	int startup_progress;
+@@ -173,10 +168,6 @@ static const char pod_version_header[] = {
+ 	0xf2, 0x7e, 0x7f, 0x06, 0x02
+ };
+ 
+-/* forward declarations: */
+-static void pod_startup2(struct timer_list *t);
+-static void pod_startup3(struct usb_line6_pod *pod);
+-
+ static char *pod_alloc_sysex_buffer(struct usb_line6_pod *pod, int code,
+ 				    int size)
+ {
+@@ -196,7 +187,10 @@ static void line6_pod_process_message(struct usb_line6 *line6)
+ 		pod->firmware_version = buf[13] * 100 + buf[14] * 10 + buf[15];
+ 		pod->device_id = ((int)buf[8] << 16) | ((int)buf[9] << 8) |
+ 				 (int) buf[10];
+-		pod_startup3(pod);
++		if (pod->startup_progress == POD_STARTUP_VERSIONREQ) {
++			pod->startup_progress = POD_STARTUP_SETUP;
++			schedule_delayed_work(&pod->startup_work, 0);
++		}
+ 		return;
+ 	}
+ 
+@@ -281,47 +275,29 @@ static ssize_t device_id_show(struct device *dev,
+ 	context). After the last one has finished, the device is ready to use.
+ */
+ 
+-static void pod_startup1(struct usb_line6_pod *pod)
+-{
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_INIT);
+-
+-	/* delay startup procedure: */
+-	line6_start_timer(&pod->startup_timer, POD_STARTUP_DELAY, pod_startup2);
+-}
+-
+-static void pod_startup2(struct timer_list *t)
++static void pod_startup_work(struct work_struct *work)
+ {
+-	struct usb_line6_pod *pod = from_timer(pod, t, startup_timer);
++	struct usb_line6_pod *pod = container_of(work, struct usb_line6_pod,
++						 startup_work.work);
+ 	struct usb_line6 *line6 = &pod->line6;
+ 
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_VERSIONREQ);
+-
+-	/* request firmware version: */
+-	line6_version_request_async(line6);
+-}
+-
+-static void pod_startup3(struct usb_line6_pod *pod)
+-{
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_WORKQUEUE);
+-
+-	/* schedule work for global work queue: */
+-	schedule_work(&pod->startup_work);
+-}
+-
+-static void pod_startup4(struct work_struct *work)
+-{
+-	struct usb_line6_pod *pod =
+-	    container_of(work, struct usb_line6_pod, startup_work);
+-	struct usb_line6 *line6 = &pod->line6;
+-
+-	CHECK_STARTUP_PROGRESS(pod->startup_progress, POD_STARTUP_SETUP);
+-
+-	/* serial number: */
+-	line6_read_serial_number(&pod->line6, &pod->serial_number);
+-
+-	/* ALSA audio interface: */
+-	if (snd_card_register(line6->card))
+-		dev_err(line6->ifcdev, "Failed to register POD card.\n");
++	switch (pod->startup_progress) {
++	case POD_STARTUP_VERSIONREQ:
++		/* request firmware version: */
++		line6_version_request_async(line6);
++		break;
++	case POD_STARTUP_SETUP:
++		/* serial number: */
++		line6_read_serial_number(&pod->line6, &pod->serial_number);
++
++		/* ALSA audio interface: */
++		if (snd_card_register(line6->card))
++			dev_err(line6->ifcdev, "Failed to register POD card.\n");
++		pod->startup_progress = POD_STARTUP_DONE;
++		break;
++	default:
++		break;
++	}
+ }
+ 
+ /* POD special files: */
+@@ -397,8 +373,7 @@ static void line6_pod_disconnect(struct usb_line6 *line6)
+ {
+ 	struct usb_line6_pod *pod = (struct usb_line6_pod *)line6;
+ 
+-	del_timer_sync(&pod->startup_timer);
+-	cancel_work_sync(&pod->startup_work);
++	cancel_delayed_work_sync(&pod->startup_work);
+ }
+ 
+ /*
+@@ -413,8 +388,7 @@ static int pod_init(struct usb_line6 *line6,
+ 	line6->process_message = line6_pod_process_message;
+ 	line6->disconnect = line6_pod_disconnect;
+ 
+-	timer_setup(&pod->startup_timer, NULL, 0);
+-	INIT_WORK(&pod->startup_work, pod_startup4);
++	INIT_DELAYED_WORK(&pod->startup_work, pod_startup_work);
+ 
+ 	/* create sysfs entries: */
+ 	err = snd_card_add_dev_attr(line6->card, &pod_dev_attr_group);
+@@ -447,7 +421,8 @@ static int pod_init(struct usb_line6 *line6,
+ 		pod->monitor_level = POD_SYSTEM_INVALID;
+ 
+ 		/* initiate startup procedure: */
+-		pod_startup1(pod);
++		schedule_delayed_work(&pod->startup_work,
++				      msecs_to_jiffies(POD_STARTUP_DELAY));
+ 	}
+ 
+ 	return 0;
 -- 
 2.16.4
 

@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C6B419498
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:27:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3993419499
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:28:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9233E1904;
-	Thu,  9 May 2019 23:26:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9233E1904
+	by alsa0.perex.cz (Postfix) with ESMTPS id B67B51AB4;
+	Thu,  9 May 2019 23:27:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B67B51AB4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557437266;
-	bh=AmgsJ8SNPTxhgm1QtSxWqCVjl7+mCDAkvsKfNNXE/o8=;
+	s=default; t=1557437313;
+	bh=1KOXDZuwkLykjVMjLtzy/xMWn4+JVy6ieBUnUoQvCXg=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mS6qwwEelRtGOp3VuQOQsrb5sAn8nQK0sSsKITQqbcsNWSMTIIT3+0KzejfygMLI4
-	 oHLo8N6RCaKSIYehQGzCaBWPz4EaHBsmAv0y8GMnW81WufZMUU2xagMq9Ryz7kStNN
-	 qA8RdNdmkqeVUnUb3y5QaODwlzpkal7ZcMcvyMqA=
+	b=TxtIURTzOUe/+EUqHEn6R/SvUdMRivE5XqO+avEm5bivYTmJXf5zqwBTQZuXIsFvD
+	 vDb9OlguZhKIu+YwWSTiCILkmz9TO9mX4eQByplXWoNcvPg62bg3p5vu3xF1mTU46Y
+	 3XoNlS2esTZ4EEi1qQ/8XxVGFnPyFnBY68Mu/N2M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17162F89798;
-	Thu,  9 May 2019 23:14:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52389F8979D;
+	Thu,  9 May 2019 23:14:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B647F89763; Thu,  9 May 2019 23:14:34 +0200 (CEST)
+ id A5AC5F89763; Thu,  9 May 2019 23:14:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_21,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 740BEF89751
- for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 740BEF89751
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD7F5F89755
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD7F5F89755
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Oq5Zt5pX"
-Received: by mail-pg1-x541.google.com with SMTP id j26so1836331pgl.5
- for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:30 -0700 (PDT)
+ header.b="Bfd/Ekf2"
+Received: by mail-pl1-x642.google.com with SMTP id g9so1733713plm.6
+ for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=BA6nxer66GBmENOs0aI/8rHE+lNpwyhVsQAtDrFHwnE=;
- b=Oq5Zt5pXXBhBa5qfIIuRxBfr9w0fqGToXsZdvP9UGx8Qw53++zEtPTjuGRO4NY6L5Y
- UfQI9mCyOhL1U1IdVWgDksFl7c8EIvXA0JN3qbpXdz4zy+JndfokR2RiSDrbMmGwgPmF
- UN4y3t4Hj084/MJx0DvjNmpHz0zxiA3oAqfN0=
+ bh=LdBQmcIdU0Rz/x8vcPlOves92mcg6yTCi+x1gfv5Pak=;
+ b=Bfd/Ekf2p/8ipmAOdUnSq+3U+hBLAtjV69d+L0A5aiqMeWrRbYXuREhAR3zxvuNnKY
+ XW4VfFk8dw/iEMnIEvtF82oVHKPtTcEuwAElg84/cOriyZyt4kGa8XtDzC4v/Y/0v92R
+ 6kxrU3rQ+Ife1RHQCo35bkUNvd8mbc1xMJxnA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=BA6nxer66GBmENOs0aI/8rHE+lNpwyhVsQAtDrFHwnE=;
- b=uTFqSQkBFwZVoDWbeQPHHAZEovfsYZ1Zuj4fM0mCdz0IUinLJnbk3s89l7Aa5kdYC6
- z+Ryf8DIgIIfRCxku1lHUqegdbj/vTE/uSQMus+4XyqHBmlPKWPpfA8TH9CX/knAXlyU
- 0sJjJJbwAKeAv2ex/KQaDoBighT0hUYYq7b/4EcVIgVbJ+F/g7IF/Oae7ad7PCg1eFJk
- WovfBimwkiXC7UnTQs0j6t1g1KLT98dfksg05MxoRoZWREQIGdMPz06scMhygwRXhiwA
- X4ZMsOR0lkxto/L6b1TUUrdwnGRoA+iKeaEm3J+L6WV3PRUqhd2xTwn3H8XY6BeEgokU
- g2ZA==
-X-Gm-Message-State: APjAAAVV/mnWPY7UtAjvwMy1kDQduWcCfQBokZJIzQjzp9phPvdPnJEz
- /JbC73gdXZvft7Mu7yyfscHpHg==
-X-Google-Smtp-Source: APXvYqwcQs+/urXHKHgb1CDEjmYyDjXoe7r92gFjo7lVXhhKeh1fbrPg27K7X+1AhPRVEleKUhO5ow==
-X-Received: by 2002:a63:9dc8:: with SMTP id i191mr8490866pgd.91.1557436468948; 
- Thu, 09 May 2019 14:14:28 -0700 (PDT)
+ bh=LdBQmcIdU0Rz/x8vcPlOves92mcg6yTCi+x1gfv5Pak=;
+ b=BIU04kjA2KTKcGpBj3ryDt/pC+6bdnjYynPqr2TwrLRo1mwP8k6KTcjmQ9UGZ+eXHh
+ YFfXUhFVrfu67Gw6Ly4RdhkW9Ii+XV/NHL1N3cmuGuX+1IAKzRjGq+BVpazls/lljLJa
+ 0xutG6A2QhXCCZzr1uRV5Qz6HBUxzk29onhqvgClik8WNnIv6Y8++jLTayPiN0ihegGz
+ F2LBRxiudq5QuqZ1fOVezcqW4kVhyZfXcVbOUVTi6wZLFIUH2bo5cY2uSYvo3oX15I8B
+ l/k2M1SBWDMVwfozOuQyuB7mx0Pj1+w4FYjNolP2YffB+VXg0h68yC3ZmTQSPal2x4GG
+ orXg==
+X-Gm-Message-State: APjAAAWRKLe4WA98TKjpr1XEUIFXsoVSspAOFg5GI51VsYdhyJ1l1hP6
+ KtCkXEmJ8ql+vmG4WDvQPUwJ91kSetk=
+X-Google-Smtp-Source: APXvYqxbJXdzA8oxT2Bn+g8DBr4t1WTxDT7A8NncOrsx+sD74nqvfLbZIIXeJW3uwslBJ+FXKtQ/AQ==
+X-Received: by 2002:a17:902:7247:: with SMTP id
+ c7mr8290208pll.65.1557436470337; 
+ Thu, 09 May 2019 14:14:30 -0700 (PDT)
 Received: from localhost ([2620:15c:202:1:3c8f:512b:3522:dfaf])
- by smtp.gmail.com with ESMTPSA id y17sm4703860pfb.161.2019.05.09.14.14.27
+ by smtp.gmail.com with ESMTPSA id h189sm4414601pfc.125.2019.05.09.14.14.29
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 May 2019 14:14:28 -0700 (PDT)
+ Thu, 09 May 2019 14:14:29 -0700 (PDT)
 From: Gwendal Grignou <gwendal@chromium.org>
 To: enric.balletbo@collabora.com, bleung@chromium.org, groeck@chromium.org,
  lee.jones@linaro.org, jic23@kernel.org, broonie@kernel.org,
  cychiang@chromium.org, tiwai@suse.com
-Date: Thu,  9 May 2019 14:13:40 -0700
-Message-Id: <20190509211353.213194-18-gwendal@chromium.org>
+Date: Thu,  9 May 2019 14:13:41 -0700
+Message-Id: <20190509211353.213194-19-gwendal@chromium.org>
 X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
 In-Reply-To: <20190509211353.213194-1-gwendal@chromium.org>
 References: <20190509211353.213194-1-gwendal@chromium.org>
 MIME-Version: 1.0
 Cc: linux-iio@vger.kernel.org, Gwendal Grignou <gwendal@chromium.org>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v3 17/30] mfd: cros_ec: Add fingerprint API
+Subject: [alsa-devel] [PATCH v3 18/30] mfd: cros_ec: Fix temperature API
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,59 +101,118 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for fingerprint sensors managed by embedded controller.
+Improve API to retrieve temperature information.
 
 Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 Acked-by: Benson Leung <bleung@chromium.org>
 Signed-off-by: Gwendal Grignou <gwendal@chromium.org>
 ---
- include/linux/mfd/cros_ec_commands.h | 34 ++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ include/linux/mfd/cros_ec_commands.h | 64 +++++++++++++++++++++++++---
+ 1 file changed, 57 insertions(+), 7 deletions(-)
 
 diff --git a/include/linux/mfd/cros_ec_commands.h b/include/linux/mfd/cros_ec_commands.h
-index 51fe65170ce6..d5d07a9957ec 100644
+index d5d07a9957ec..9a84aad7475a 100644
 --- a/include/linux/mfd/cros_ec_commands.h
 +++ b/include/linux/mfd/cros_ec_commands.h
-@@ -3339,6 +3339,40 @@ struct ec_response_get_next_event_v1 {
- #define EC_MKBP_TABLET_MODE	1
- #define EC_MKBP_BASE_ATTACHED	2
+@@ -2945,9 +2945,28 @@ enum ec_temp_thresholds {
+ /*
+  * Thermal configuration for one temperature sensor. Temps are in degrees K.
+  * Zero values will be silently ignored by the thermal task.
++ *
++ * Set 'temp_host' value allows thermal task to trigger some event with 1 degree
++ * hysteresis.
++ * For example,
++ *	temp_host[EC_TEMP_THRESH_HIGH] = 300 K
++ *	temp_host_release[EC_TEMP_THRESH_HIGH] = 0 K
++ * EC will throttle ap when temperature >= 301 K, and release throttling when
++ * temperature <= 299 K.
++ *
++ * Set 'temp_host_release' value allows thermal task has a custom hysteresis.
++ * For example,
++ *	temp_host[EC_TEMP_THRESH_HIGH] = 300 K
++ *	temp_host_release[EC_TEMP_THRESH_HIGH] = 295 K
++ * EC will throttle ap when temperature >= 301 K, and release throttling when
++ * temperature <= 294 K.
++ *
++ * Note that this structure is a sub-structure of
++ * ec_params_thermal_set_threshold_v1, but maintains its alignment there.
+  */
+ struct ec_thermal_config {
+ 	uint32_t temp_host[EC_TEMP_THRESH_COUNT]; /* levels of hotness */
++	uint32_t temp_host_release[EC_TEMP_THRESH_COUNT]; /* release levels */
+ 	uint32_t temp_fan_off;		/* no active cooling needed */
+ 	uint32_t temp_fan_max;		/* max active cooling needed */
+ } __ec_align4;
+@@ -2973,32 +2992,63 @@ struct ec_params_thermal_set_threshold_v1 {
+ /* Toggle automatic fan control */
+ #define EC_CMD_THERMAL_AUTO_FAN_CTRL 0x0052
  
-+/* Fingerprint events in 'fp_events' for EC_MKBP_EVENT_FINGERPRINT */
-+#define EC_MKBP_FP_RAW_EVENT(fp_events) ((fp_events) & 0x00FFFFFF)
-+#define EC_MKBP_FP_ERRCODE(fp_events)   ((fp_events) & 0x0000000F)
-+#define EC_MKBP_FP_ENROLL_PROGRESS_OFFSET 4
-+#define EC_MKBP_FP_ENROLL_PROGRESS(fpe) (((fpe) & 0x00000FF0) \
-+					 >> EC_MKBP_FP_ENROLL_PROGRESS_OFFSET)
-+#define EC_MKBP_FP_MATCH_IDX_OFFSET 12
-+#define EC_MKBP_FP_MATCH_IDX_MASK 0x0000F000
-+#define EC_MKBP_FP_MATCH_IDX(fpe) (((fpe) & EC_MKBP_FP_MATCH_IDX_MASK) \
-+					 >> EC_MKBP_FP_MATCH_IDX_OFFSET)
-+#define EC_MKBP_FP_ENROLL               BIT(27)
-+#define EC_MKBP_FP_MATCH                BIT(28)
-+#define EC_MKBP_FP_FINGER_DOWN          BIT(29)
-+#define EC_MKBP_FP_FINGER_UP            BIT(30)
-+#define EC_MKBP_FP_IMAGE_READY          BIT(31)
-+/* code given by EC_MKBP_FP_ERRCODE() when EC_MKBP_FP_ENROLL is set */
-+#define EC_MKBP_FP_ERR_ENROLL_OK               0
-+#define EC_MKBP_FP_ERR_ENROLL_LOW_QUALITY      1
-+#define EC_MKBP_FP_ERR_ENROLL_IMMOBILE         2
-+#define EC_MKBP_FP_ERR_ENROLL_LOW_COVERAGE     3
-+#define EC_MKBP_FP_ERR_ENROLL_INTERNAL         5
-+/* Can be used to detect if image was usable for enrollment or not. */
-+#define EC_MKBP_FP_ERR_ENROLL_PROBLEM_MASK     1
-+/* code given by EC_MKBP_FP_ERRCODE() when EC_MKBP_FP_MATCH is set */
-+#define EC_MKBP_FP_ERR_MATCH_NO                0
-+#define EC_MKBP_FP_ERR_MATCH_NO_INTERNAL       6
-+#define EC_MKBP_FP_ERR_MATCH_NO_TEMPLATES      7
-+#define EC_MKBP_FP_ERR_MATCH_NO_LOW_QUALITY    2
-+#define EC_MKBP_FP_ERR_MATCH_NO_LOW_COVERAGE   4
-+#define EC_MKBP_FP_ERR_MATCH_YES               1
-+#define EC_MKBP_FP_ERR_MATCH_YES_UPDATED       3
-+#define EC_MKBP_FP_ERR_MATCH_YES_UPDATE_FAILED 5
+-/* Get TMP006 calibration data */
++/* Version 1 of input params */
++struct ec_params_auto_fan_ctrl_v1 {
++	uint8_t fan_idx;
++} __ec_align1;
++
++/* Get/Set TMP006 calibration data */
+ #define EC_CMD_TMP006_GET_CALIBRATION 0x0053
++#define EC_CMD_TMP006_SET_CALIBRATION 0x0054
++
++/*
++ * The original TMP006 calibration only needed four params, but now we need
++ * more. Since the algorithm is nothing but magic numbers anyway, we'll leave
++ * the params opaque. The v1 "get" response will include the algorithm number
++ * and how many params it requires. That way we can change the EC code without
++ * needing to update this file. We can also use a different algorithm on each
++ * sensor.
++ */
+ 
++/* This is the same struct for both v0 and v1. */
+ struct ec_params_tmp006_get_calibration {
+ 	uint8_t index;
+ } __ec_align1;
+ 
+-struct ec_response_tmp006_get_calibration {
++/* Version 0 */
++struct ec_response_tmp006_get_calibration_v0 {
+ 	float s0;
+ 	float b0;
+ 	float b1;
+ 	float b2;
+ } __ec_align4;
+ 
+-/* Set TMP006 calibration data */
+-#define EC_CMD_TMP006_SET_CALIBRATION 0x0054
+-
+-struct ec_params_tmp006_set_calibration {
++struct ec_params_tmp006_set_calibration_v0 {
+ 	uint8_t index;
+-	uint8_t reserved[3];  /* Reserved; set 0 */
++	uint8_t reserved[3];
+ 	float s0;
+ 	float b0;
+ 	float b1;
+ 	float b2;
+ } __ec_align4;
+ 
++/* Version 1 */
++struct ec_response_tmp006_get_calibration_v1 {
++	uint8_t algorithm;
++	uint8_t num_params;
++	uint8_t reserved[2];
++	float val[0];
++} __ec_align4;
++
++struct ec_params_tmp006_set_calibration_v1 {
++	uint8_t index;
++	uint8_t algorithm;
++	uint8_t num_params;
++	uint8_t reserved;
++	float val[0];
++} __ec_align4;
 +
 +
- /*****************************************************************************/
- /* Temperature sensor commands */
+ /* Read raw TMP006 data */
+ #define EC_CMD_TMP006_GET_RAW 0x0055
  
 -- 
 2.21.0.1020.gf2820cf01a-goog

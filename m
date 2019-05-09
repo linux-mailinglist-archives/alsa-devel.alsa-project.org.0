@@ -2,65 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B6EB18FD4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 20:02:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC6619019
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 20:20:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CCC61867;
-	Thu,  9 May 2019 20:01:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CCC61867
+	by alsa0.perex.cz (Postfix) with ESMTPS id D721C1864;
+	Thu,  9 May 2019 20:19:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D721C1864
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557424961;
-	bh=vboE0CcjJZnjosaqjreU3uTLYTreBhOxZS/9dfpgeRw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1557426007;
+	bh=KPSx5yyMWYlE/g+c7h0GVowVO3GSjzelv+6rCHSiJGM=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DK6VP7cmhcNaVswmPwrLbMOG1WDhkyNM5k88dbHn5Ftdzmr2jTJEpYCojPfj8Xvv+
-	 5HLVd6VawzaW84lvT7kC7/GlVQm4Wglbhug7QLlc+mrEFqkaPLOGoSouZIl4WUVyPu
-	 YJQb/B812kzUsiHZ4rSQWehT9Ai0hOfoXWLJT5Uc=
+	b=DYeaEjQk47yZ/7gqOBmx5Oqrfk3vsj+aOFuG6vc5z8ctcKgJIkCctUq7MyB9wa3JV
+	 pOQY7ZPcET+JczW7jLBK8WwQLvS5e6B3NV3WKRP6XXcKAgriPL85rC/uOv/vw98YXb
+	 COxcpxXEifzSRZutRF5ZMSCvQ4P6i9hHmO9XACG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48E76F89682;
-	Thu,  9 May 2019 20:00:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1084DF89682;
+	Thu,  9 May 2019 20:18:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F2ACF89682; Thu,  9 May 2019 20:00:55 +0200 (CEST)
+ id F0DB4F89682; Thu,  9 May 2019 20:18:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_14,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A579F89673
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 20:18:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A579F89673
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="W3+pqAbV"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7EA6EF89673
- for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 20:00:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EA6EF89673
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 May 2019 11:00:29 -0700
-X-ExtLoop1: 1
-Received: from ahsanmuh-mobl1.amr.corp.intel.com ([10.255.229.68])
- by orsmga002.jf.intel.com with ESMTP; 09 May 2019 11:00:28 -0700
-Message-ID: <45d99c71499388cd82711b7bd9e30cce88c8cce0.camel@linux.intel.com>
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Thu, 09 May 2019 11:00:27 -0700
-In-Reply-To: <s5hd0krmsyy.wl-tiwai@suse.de>
-References: <1557282761-26146-1-git-send-email-libin.yang@intel.com>
- <aa0c6eea81a721f340dd1362801e49049a6620dd.camel@linux.intel.com>
- <s5htve4mymn.wl-tiwai@suse.de>
- <ac99b2fefe05833787e473cbd2327a35c02de68b.camel@linux.intel.com>
- <s5hd0krmsyy.wl-tiwai@suse.de>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
- ranjani.sridharan@intel.com, pierre-louis.bossart@linux.intel.com,
- rander.wang@intel.com, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
- when pause release after resume
+ by mail.kernel.org (Postfix) with ESMTPSA id 1D5842177B;
+ Thu,  9 May 2019 18:18:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1557425894;
+ bh=Rp8HKo7Fdcgam0v1Ua2uwKopSm3b5oATFjtYo7Oiu3M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=W3+pqAbVbDVC0u6ryztGVanpb/jn5pF19Ib1VkO3ouYsEo/xjlz7H1kghWuTXjkaG
+ RpgbIOgdTow6BLVqFhrmWUTSHitjA9H7pSsChc4RVW0/g3SgkIbbaF78q90VGRJdhr
+ w9aMAatI+SzzuVGbSc3iba5jlkZU3rSECbEQcZbA=
+Date: Thu, 9 May 2019 20:18:12 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190509181812.GA10776@kroah.com>
+References: <20190507052732.GD16052@vkoul-mobl>
+ <20190507055432.GB17986@kroah.com>
+ <20190507110331.GL16052@vkoul-mobl>
+ <20190507111956.GB1092@kroah.com>
+ <10fef156-7b01-7a08-77b4-ae3153eaaabc@linux.intel.com>
+ <20190508074606.GV16052@vkoul-mobl>
+ <20190508091628.GB1858@kroah.com>
+ <c0161db3-69d7-0a76-f4bd-d5feb3529128@linux.intel.com>
+ <20190508165945.GC6157@kroah.com>
+ <0b8d5238-6894-e2b4-5522-28636e40dd63@linux.intel.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <0b8d5238-6894-e2b4-5522-28636e40dd63@linux.intel.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
+ liam.r.girdwood@linux.intel.com, Vinod Koul <vkoul@kernel.org>,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ joe@perches.com, Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 1/7] soundwire: Add sysfs support for
+ master(s)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,85 +93,186 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2019-05-09 at 19:35 +0200, Takashi Iwai wrote:
-> On Thu, 09 May 2019 18:56:12 +0200,
-> Ranjani Sridharan wrote:
-> > 
-> > > Hm, it's a good question.  Currently the PCM core doesn't care
-> > > about
-> > > the paused stream wrt PM by the assumption that the paused /
-> > > stopped
-> > > stream doesn't need a special resume treatment.  But, generally
-> > > speaking, the pause-release won't work for a hardware that
-> > > doesn't
-> > > support the full resume, either.  For example, the legacy HD-
-> > > audio
-> > > may
-> > > restart from some wrong position if resumed from the pause.
-> > > 
-> > > Maybe this problem hasn't been seen just because the pause
-> > > function
-> > > is
-> > > rarely used.
-> > > 
-> > > So, the safe behavior would be to let the stream being SUSPENDED
-> > > state
-> > > at snd_pcm_stream_suspend() when it's in the PAUSED and has no
-> > > INFO_RESUME capability.  Then the application does re-prepare the
-> > > stream like the running one.
-> > > 
-> > > But the question is what's expected at next.  Should the
-> > > application
-> > > re-start?  But it was paused.  Should PCM core automatically move
-> > > to
-> > > pause?  But most hardware can't move the pointer to any random
-> > > position.
-> > > 
-> > > My gut feeling is just to treat like a normal error-restart,
-> > > i.e. re-prepare / re-start.  But I'm open and would like to hear
-> > > more
-> > > opinions.
-> > 
-> > Hi Takashi,
-> > 
-> > So in the current scenario what we see is that after resuming from
-> > S3,
-> > a pause-release action from the user results in a FE prepare()
-> > followed
-> > by the START trigger (and not a PAUSE-RELEASE trigger).
-> > 
-> > Libin's patch proposes to do a prepare() for the BE even in the
-> > case of
-> > a regular pause-release. But this might not be ideal since other
-> > drivers might have logic in the prepare() ioctl that might end up
-> > with
-> > errors. 
+On Wed, May 08, 2019 at 03:57:49PM -0500, Pierre-Louis Bossart wrote:
 > 
-> Right.
 > 
-> > So I am thinking maybe we can have some internal logic in the SOF
-> > prepare() callback that will also call the BE prepare() when the 
-> > be->dpcm[stream].state is SND_SOC_DPCM_STATE_PAUSED? Would that
-> > make
-> > sense?
+> On 5/8/19 11:59 AM, Greg KH wrote:
+> > On Wed, May 08, 2019 at 11:42:15AM -0500, Pierre-Louis Bossart wrote:
+> > > 
+> > > 
+> > > On 5/8/19 4:16 AM, Greg KH wrote:
+> > > > On Wed, May 08, 2019 at 01:16:06PM +0530, Vinod Koul wrote:
+> > > > > On 07-05-19, 17:49, Pierre-Louis Bossart wrote:
+> > > > > > 
+> > > > > > > > The model here is that Master device is PCI or Platform device and then
+> > > > > > > > creates a bus instance which has soundwire slave devices.
+> > > > > > > > 
+> > > > > > > > So for any attribute on Master device (which has properties as well and
+> > > > > > > > representation in sysfs), device specfic struct (PCI/platfrom doesn't
+> > > > > > > > help). For slave that is not a problem as sdw_slave structure takes care
+> > > > > > > > if that.
+> > > > > > > > 
+> > > > > > > > So, the solution was to create the psedo sdw_master device for the
+> > > > > > > > representation and have device-specific structure.
+> > > > > > > 
+> > > > > > > Ok, much like the "USB host controller" type device.  That's fine, make
+> > > > > > > such a device, add it to your bus, and set the type correctly.  And keep
+> > > > > > > a pointer to that structure in your device-specific structure if you
+> > > > > > > really need to get to anything in it.
+> > > > > > 
+> > > > > > humm, you lost me on the last sentence. Did you mean using
+> > > > > > set_drv/platform_data during the init and retrieving the bus information
+> > > > > > with get_drv/platform_data as needed later? Or something else I badly need
+> > > > > > to learn?
+> > > > > 
+> > > > > IIUC Greg meant we should represent a soundwire master device type and
+> > > > > use that here. Just like we have soundwire slave device type. Something
+> > > > > like:
+> > > > > 
+> > > > > struct sdw_master {
+> > > > >           struct device dev;
+> > > > >           struct sdw_master_prop *prop;
+> > > > >           ...
+> > > > > };
+> > > > > 
+> > > > > In show function you get master from dev (container of) and then use
+> > > > > that to access the master properties. So int.sdw.0 can be of this type.
+> > > > 
+> > > > Yes, you need to represent the master device type if you are going to be
+> > > > having an internal representation of it.
+> > > 
+> > > Humm, confused...In the existing code bus and master are synonyms, see e.g.
+> > > following code excerpts:
+> > > 
+> > >   * sdw_add_bus_master() - add a bus Master instance
+> > >   * @bus: bus instance
+> > >   *
+> > >   * Initializes the bus instance, read properties and create child
+> > >   * devices.
+> > > 
+> > > struct sdw_bus {
+> > > 	struct device *dev; <<< pointer here
+> > 
+> > That's the pointer to what?  The device that the bus is "attached to"
+> > (i.e. parent, like a platform device or a pci device)?
+> > 
+> > Why isn't this a "real" device in itself?
 > 
-> Yes, that would work, I guess.  Eventually this might be needed to be
-> addressed in ALSA core side, too, but it's good to have some fix
-> beforehand in DPCM.
-Thanks, Takashi. We will address this issue in SOF for now and I will
-also file an enhancement request to address this in the ALSA core.
+> Allow me to provide a bit of background. I am not trying to be pedantic but
+> make sure we are on the same page.
+> 
+> The SoundWire spec only defines a Master and Slaves attached to that Master.
+> 
+> In real applications, there is a need to have multiple links, which can
+> possibly operate in synchronized ways, so Intel came up with the concept of
+> Controller, which expose multiple Master interfaces that are in sync (two
+> streams can start at exactly the same clock edge of different links).
+> 
+> The Controller is exposed in ACPI as a child of the HDAudio controller (ACPI
+> companion of a PCI device). The controller exposes a 'master-count' and a
+> set of link-specific properties needed for bandwidth/clock scaling.
+> 
+> For some reason, our Windows friends did not want to have a device for each
+> Master interface, likely because they did not want to load a driver per
+> Master interface or have 'yellow bangs'.
+> 
+> So the net result is that we have the following hierarchy in ACPI
+> 
+> Device(HDAS) // HDaudio controller
+>   Device(SNDW) // SoundWire Controller
+>     Device(SDW0) { // Slave0
+> 	_ADR(link0, vendorX, partY...)
+>     }
+>     Device(SDW1) { // Slave0
+> 	_ADR(link0, vendorX, partY...)
+>     }
+>     Device(SDW2) { // Slave0
+> 	_ADR(link1, vendorX, partY...)
+>     }
+>     Device(SDWM) { // Slave0
+> 	_ADR(linkM, vendorX, partY...)
+>     }
+> 
+> There is no master device represented in ACPI and the only way by which we
+> know to which Master a Slave device is attached by looking up the _ADR which
+> contains the link information.
+> 
+> So, coming back to the plot, when we parse the Controller properties, we
+> find out how many Master interfaces we have, create a platform_device for
+> each of them, then initialize all the bus stuff.
 
-Ranjani
-> 
-> 
-> thanks,
-> 
-> Takashi
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+So soundwire is creating platform devices?  Ick, no!  Don't do that,
+create a "real" device that is the root of your bus and attach that to
+the platform/pci/whatever device that is the parent of that device's
+resources.
 
+> > I thought I asked that a long time ago when first reviewing these
+> > patches...
+> > 
+> > > 	unsigned int link_id;
+> > > 	struct list_head slaves;
+> > > 	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
+> > > 	struct mutex bus_lock;
+> > > 	struct mutex msg_lock;
+> > > 	const struct sdw_master_ops *ops;
+> > > 	const struct sdw_master_port_ops *port_ops;
+> > > 	struct sdw_bus_params params;
+> > > 	struct sdw_master_prop prop;
+> > > 
+> > > The existing code creates a platform_device in
+> > > drivers/soundwire/intel_init.c, and it's assigned by the following code:
+> > 
+> > The core creates a platform device, don't assume you can "take it over"
+> > :)
+> > 
+> > That platform device lives on the platform bus, you need a "master"
+> > device that lives on your soundbus bus.
+> > 
+> > Again, look at how USB does this.  Or better yet, greybus, as that code
+> > is a lot smaller and simpler.
+> 
+> The learning curve is not small here...
+
+kernel programming is hard.  Writing a new bus subsystem is even harder :(
+
+> > > static int intel_probe(struct platform_device *pdev)
+> > > {
+> > > 	struct sdw_cdns_stream_config config;
+> > > 	struct sdw_intel *sdw;
+> > > 	int ret;
+> > > 
+> > > 	sdw = devm_kzalloc(&pdev->dev, sizeof(*sdw), GFP_KERNEL);
+> > > [snip]
+> > > 	sdw->cdns.dev = &pdev->dev;
+> > > 	sdw->cdns.bus.dev = &pdev->dev;
+> > 
+> > Gotta love the lack of reference counting :(
+> > 
+> > > I really don't see what you are hinting at, sorry, unless we are talking
+> > > about major surgery in the code.
+> > 
+> > It sounds like you need a device on your bus that represents the master,
+> > as you have attributes associated with it, and other things.  You can't
+> > put attributes on a random pci or platform device, as you do not "own"
+> > that device.
+> > 
+> > does that help?
+> 
+> Looks like we are doing things wrong at multiple levels.
+> 
+> It might be better to have a more 'self-contained' solution where the bus
+> initialization creates/registers a master device instead of having this
+> proxy platform_device. That would avoid all these refcount issues and make
+> the translation from device to bus straightforward.
+
+Yes, that sounds better.  Don't mess with a platform device unless you
+really have no other possible choice.  And even then, don't do it and
+try to do something else.  Platform devices are really abused, don't
+perpetuate it.
+
+thanks,
+
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

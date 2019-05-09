@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E315B19495
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:25:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B09119496
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:26:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E96B188D;
-	Thu,  9 May 2019 23:24:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E96B188D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9939C193A;
+	Thu,  9 May 2019 23:25:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9939C193A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557437138;
-	bh=IIlSRrwM7B0hdrhjZp1fPnLxqBP8GaHWPD4yXcBtIDk=;
+	s=default; t=1557437182;
+	bh=Mlvt4d17alZd7VBjf07x/E3uYASY8YtoWeXprkqm8qU=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sXfobzEiTwjjncKn1BbiCtKDXTACGCrGza5MucHmFOjaIZgZycnqfTDh/knffl4sy
-	 PRLKuHcvplNW78D3ZWuIWWKBiAmYrdZ8ss1JcpXqfvfCw4jFFMEUPPNzVQwOWrBnJR
-	 +DQm/cq/gtsHNjyU3o2Ncn1zxhXnR0tOWcVcWlbc=
+	b=bjb+YtX1Y4zo9E4zcCh1ojEIyq284GS1qHe0DAMxnmwh2cVlwaPRIEmfcUjTcbZEa
+	 KLo30G5MeKa6oE34uZrOZShygWYafeVKG8hYX+2H8aj65Fg45gkTLYVwHUibSrV7N7
+	 9ndGteanL4UeADusO6qFxJhGpcmK8G0IC5pYGYgE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF84CF89780;
-	Thu,  9 May 2019 23:14:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B046CF8977E;
+	Thu,  9 May 2019 23:14:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34B39F89759; Thu,  9 May 2019 23:14:31 +0200 (CEST)
+ id AC261F8975F; Thu,  9 May 2019 23:14:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_21,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F856F89751
- for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F856F89751
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2A61F89755
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2A61F89755
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="m2IdU+IH"
-Received: by mail-pg1-x541.google.com with SMTP id h1so1841610pgs.2
- for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:25 -0700 (PDT)
+ header.b="I3PIyAa3"
+Received: by mail-pg1-x543.google.com with SMTP id e6so1835713pgc.4
+ for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=gqayeGuddjPe6w5qnR/QdiK5/I13mFiipbNcBcee+Lw=;
- b=m2IdU+IH4JuKFYiT7q1VArEPfMhNxv2Ppoygv7EAYBnma3RgoVWsBBYafZirt8ZoCz
- XAVNc6ZbKCwMESG17GkLsO2yq8KL7vAznd47LzsRyroc+kLXnZJi3lANdmkeGqp0T3+q
- AeW5jhRvKHlzyR2Ib2qqWfAZjFYAGEAtucv9A=
+ bh=aERpYlTt9zDaKfK1OcvhNuR9lU6Qq/aoH2LguVcLpGQ=;
+ b=I3PIyAa3TBuB2LR7OpSJgkK0sAB0HXoD43KtZmgypkVqeYyOXDXjo2qsFqVbOKY+sR
+ NB/GlkATl8JO3qMeH2+n6b3nkUU5cYlW/JlRQoBdkw1p0dgEohM7vVmMI7STjBw89ogm
+ kRbC+8rvWNJF3WHFCVtHNWUAHhESmzTbTJpMc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=gqayeGuddjPe6w5qnR/QdiK5/I13mFiipbNcBcee+Lw=;
- b=bpgGJxm5ouykKNwLTdm25iTCJLcMP5mNcD7wmmfYegKjwIa8g5t5t9OGZy6Te1B5+s
- vSPi7eex95sQ8xOnR33gBkQzJGRCb3AcP3wC6ruZDTLslbyhyNs9m+mDj+ltJQC/CLvJ
- 9zW8YE3y/Ujg1m0UfIxrlTYrjSYSA4IQXz9KylKPnjC1a35a4wNJdHf1S8doKNNYa1fq
- 5AwyK6uOCIQ0wItW8FFY2z0oVm9yap7zzWaAcr2soKceFJpiF4Jx5/jUATB5dSKX/grw
- +1OHOG9IUnQOh/M0lW7rj2dong+76X9X8qdcRf3ci20w9VCSvnGDigwgJI2xu62raD9n
- CN6A==
-X-Gm-Message-State: APjAAAXLf9GlEcrjq1Vl3/HIAIjo1Mnm6jjS8qvaygoF5mgVkPe6BTH/
- 4oHeIuvL2x1unVt/Yeeg68dCzg==
-X-Google-Smtp-Source: APXvYqyhfSfOht5AMuVjNtohzOfoZ0AoGJJnvZ6qhK+3yT4wzigSao1hfmWSVuEthiJ6HLDK/6sN6A==
-X-Received: by 2002:a63:2b0d:: with SMTP id r13mr8757947pgr.400.1557436464210; 
- Thu, 09 May 2019 14:14:24 -0700 (PDT)
+ bh=aERpYlTt9zDaKfK1OcvhNuR9lU6Qq/aoH2LguVcLpGQ=;
+ b=lIm/LVWSjW0d0AAuOSGce9Lk4aZqxMY9Xgpk8p5eR7Ajxe3Nu4i69DIZz+5Z/wHpzI
+ 2RvUj2Ph5Txabp3F2LbNAzamDhJD4CVe8ldxaf1zdIzLWwgHNuzqPMH6TQq1Dsrv7M//
+ nngq8682XG3nNHfJTPYYfeMlGb3YmVZTjLF8Ngit7hG4K8sRKAR0WuwNSSv2HAKHg0PH
+ NKd2BPr95GKzHIqcbMSBK2xeVDKUDp0Sy9tpKpJbe77ecmSKyWhdD5sITSnaMIRcShJI
+ MF0nzWhJZZ3NGARJnuOP/GyhvGkWxysgXlSCu4m9dPlAE5r7RZk8dWoRlbb8l51bXWI8
+ j6lw==
+X-Gm-Message-State: APjAAAWUkdbCpX3CNUJxaH5npk52reHttAW16Lwf6Nn3dlQt0J+GgyAK
+ P3vqZRM44CseTgp0KTXG2jQg6A==
+X-Google-Smtp-Source: APXvYqxRfS9oiSky//oV+OFjRUnP8tOboUkkwzI7QRRgyzkHI61DgRMyc/lNzBKQ+5VJ9rFX5oIpVA==
+X-Received: by 2002:a62:2687:: with SMTP id m129mr8740196pfm.204.1557436465798; 
+ Thu, 09 May 2019 14:14:25 -0700 (PDT)
 Received: from localhost ([2620:15c:202:1:3c8f:512b:3522:dfaf])
- by smtp.gmail.com with ESMTPSA id l9sm3282655pgq.48.2019.05.09.14.14.23
+ by smtp.gmail.com with ESMTPSA id y14sm3722113pga.54.2019.05.09.14.14.24
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 May 2019 14:14:23 -0700 (PDT)
+ Thu, 09 May 2019 14:14:25 -0700 (PDT)
 From: Gwendal Grignou <gwendal@chromium.org>
 To: enric.balletbo@collabora.com, bleung@chromium.org, groeck@chromium.org,
  lee.jones@linaro.org, jic23@kernel.org, broonie@kernel.org,
  cychiang@chromium.org, tiwai@suse.com
-Date: Thu,  9 May 2019 14:13:37 -0700
-Message-Id: <20190509211353.213194-15-gwendal@chromium.org>
+Date: Thu,  9 May 2019 14:13:38 -0700
+Message-Id: <20190509211353.213194-16-gwendal@chromium.org>
 X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
 In-Reply-To: <20190509211353.213194-1-gwendal@chromium.org>
 References: <20190509211353.213194-1-gwendal@chromium.org>
 MIME-Version: 1.0
 Cc: linux-iio@vger.kernel.org, Gwendal Grignou <gwendal@chromium.org>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v3 14/30] mfd: cros_ec: Add EC transport
-	protocol v4
+Subject: [alsa-devel] [PATCH v3 15/30] mfd: cros_ec: Complete MEMS sensor API
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,183 +100,609 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Introduce a new transport procotol between EC and host.
+Add new command for batched mode, add support for more sensors.
 
 Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 Acked-by: Benson Leung <bleung@chromium.org>
 Signed-off-by: Gwendal Grignou <gwendal@chromium.org>
 ---
- include/linux/mfd/cros_ec_commands.h | 143 ++++++++++++++++++++++++++-
- 1 file changed, 141 insertions(+), 2 deletions(-)
+ include/linux/mfd/cros_ec_commands.h | 464 +++++++++++++++++++++++----
+ 1 file changed, 406 insertions(+), 58 deletions(-)
 
 diff --git a/include/linux/mfd/cros_ec_commands.h b/include/linux/mfd/cros_ec_commands.h
-index 76943e64998a..40a8069a58e8 100644
+index 40a8069a58e8..701b03cfa445 100644
 --- a/include/linux/mfd/cros_ec_commands.h
 +++ b/include/linux/mfd/cros_ec_commands.h
-@@ -455,7 +455,10 @@
- #define EC_LPC_STATUS_BUSY_MASK \
- 	(EC_LPC_STATUS_FROM_HOST | EC_LPC_STATUS_PROCESSING)
+@@ -2191,7 +2191,13 @@ enum motionsense_command {
  
--/* Host command response codes */
-+/*
-+ * Host command response codes (16-bit).  Note that response codes should be
-+ * stored in a uint16_t rather than directly in a value of this type.
-+ */
- enum ec_status {
- 	EC_RES_SUCCESS = 0,
- 	EC_RES_INVALID_COMMAND = 1,
-@@ -471,7 +474,13 @@ enum ec_status {
- 	EC_RES_OVERFLOW = 11,		/* Table / data overflow */
- 	EC_RES_INVALID_HEADER = 12,     /* Header contains invalid data */
- 	EC_RES_REQUEST_TRUNCATED = 13,  /* Didn't get the entire request */
--	EC_RES_RESPONSE_TOO_BIG = 14    /* Response was too big to handle */
-+	EC_RES_RESPONSE_TOO_BIG = 14,   /* Response was too big to handle */
-+	EC_RES_BUS_ERROR = 15,		/* Communications bus error */
-+	EC_RES_BUSY = 16,		/* Up but too busy.  Should retry */
-+	EC_RES_INVALID_HEADER_VERSION = 17,  /* Header version invalid */
-+	EC_RES_INVALID_HEADER_CRC = 18,      /* Header CRC invalid */
-+	EC_RES_INVALID_DATA_CRC = 19,        /* Data CRC invalid */
-+	EC_RES_DUP_UNAVAILABLE = 20,         /* Can't resend response */
+ 	/*
+ 	 * EC Rate command is a setter/getter command for the EC sampling rate
+-	 * of all motion sensors in milliseconds.
++	 * in milliseconds.
++	 * It is per sensor, the EC run sample task  at the minimum of all
++	 * sensors EC_RATE.
++	 * For sensors without hardware FIFO, EC_RATE should be equals to 1/ODR
++	 * to collect all the sensor samples.
++	 * For sensor with hardware FIFO, EC_RATE is used as the maximal delay
++	 * to process of all motion sensors in milliseconds.
+ 	 */
+ 	MOTIONSENSE_CMD_EC_RATE = 2,
+ 
+@@ -2222,32 +2228,76 @@ enum motionsense_command {
+ 	MOTIONSENSE_CMD_DATA = 6,
+ 
+ 	/*
+-	 * Perform low level calibration.. On sensors that support it, ask to
+-	 * do offset calibration.
++	 * Return sensor fifo info.
++	 */
++	MOTIONSENSE_CMD_FIFO_INFO = 7,
++
++	/*
++	 * Insert a flush element in the fifo and return sensor fifo info.
++	 * The host can use that element to synchronize its operation.
++	 */
++	MOTIONSENSE_CMD_FIFO_FLUSH = 8,
++
++	/*
++	 * Return a portion of the fifo.
++	 */
++	MOTIONSENSE_CMD_FIFO_READ = 9,
++
++	/*
++	 * Perform low level calibration.
++	 * On sensors that support it, ask to do offset calibration.
+ 	 */
+ 	MOTIONSENSE_CMD_PERFORM_CALIB = 10,
+ 
+ 	/*
+-	 * Sensor Offset command is a setter/getter command for the offset used
+-	 * for calibration. The offsets can be calculated by the host, or via
++	 * Sensor Offset command is a setter/getter command for the offset
++	 * used for calibration.
++	 * The offsets can be calculated by the host, or via
+ 	 * PERFORM_CALIB command.
+ 	 */
+ 	MOTIONSENSE_CMD_SENSOR_OFFSET = 11,
+ 
+-	/* Number of motionsense sub-commands. */
+-	MOTIONSENSE_NUM_CMDS
+-};
++	/*
++	 * List available activities for a MOTION sensor.
++	 * Indicates if they are enabled or disabled.
++	 */
++	MOTIONSENSE_CMD_LIST_ACTIVITIES = 12,
++
++	/*
++	 * Activity management
++	 * Enable/Disable activity recognition.
++	 */
++	MOTIONSENSE_CMD_SET_ACTIVITY = 13,
++
++	/*
++	 * Lid Angle
++	 */
++	MOTIONSENSE_CMD_LID_ANGLE = 14,
++
++	/*
++	 * Allow the FIFO to trigger interrupt via MKBP events.
++	 * By default the FIFO does not send interrupt to process the FIFO
++	 * until the AP is ready or it is coming from a wakeup sensor.
++	 */
++	MOTIONSENSE_CMD_FIFO_INT_ENABLE = 15,
++
++	/*
++	 * Spoof the readings of the sensors.  The spoofed readings can be set
++	 * to arbitrary values, or will lock to the last read actual values.
++	 */
++	MOTIONSENSE_CMD_SPOOF = 16,
+ 
+-enum motionsensor_id {
+-	EC_MOTION_SENSOR_ACCEL_BASE = 0,
+-	EC_MOTION_SENSOR_ACCEL_LID = 1,
+-	EC_MOTION_SENSOR_GYRO = 2,
++	/* Set lid angle for tablet mode detection. */
++	MOTIONSENSE_CMD_TABLET_MODE_LID_ANGLE = 17,
+ 
+ 	/*
+-	 * Note, if more sensors are added and this count changes, the padding
+-	 * in ec_response_motion_sense dump command must be modified.
++	 * Sensor Scale command is a setter/getter command for the calibration
++	 * scale.
+ 	 */
+-	EC_MOTION_SENSOR_COUNT = 3
++	MOTIONSENSE_CMD_SENSOR_SCALE = 18,
++
++	/* Number of motionsense sub-commands. */
++	MOTIONSENSE_NUM_CMDS
  };
  
- /*
-@@ -744,6 +753,136 @@ struct ec_host_response {
- 	uint16_t reserved;
- } __ec_align4;
+ /* List of motion sensor types. */
+@@ -2259,6 +2309,7 @@ enum motionsensor_type {
+ 	MOTIONSENSE_TYPE_LIGHT = 4,
+ 	MOTIONSENSE_TYPE_ACTIVITY = 5,
+ 	MOTIONSENSE_TYPE_BARO = 6,
++	MOTIONSENSE_TYPE_SYNC = 7,
+ 	MOTIONSENSE_TYPE_MAX,
+ };
  
-+/*****************************************************************************/
+@@ -2266,36 +2317,48 @@ enum motionsensor_type {
+ enum motionsensor_location {
+ 	MOTIONSENSE_LOC_BASE = 0,
+ 	MOTIONSENSE_LOC_LID = 1,
++	MOTIONSENSE_LOC_CAMERA = 2,
+ 	MOTIONSENSE_LOC_MAX,
+ };
+ 
+ /* List of motion sensor chips. */
+ enum motionsensor_chip {
+ 	MOTIONSENSE_CHIP_KXCJ9 = 0,
++	MOTIONSENSE_CHIP_LSM6DS0 = 1,
++	MOTIONSENSE_CHIP_BMI160 = 2,
++	MOTIONSENSE_CHIP_SI1141 = 3,
++	MOTIONSENSE_CHIP_SI1142 = 4,
++	MOTIONSENSE_CHIP_SI1143 = 5,
++	MOTIONSENSE_CHIP_KX022 = 6,
++	MOTIONSENSE_CHIP_L3GD20H = 7,
++	MOTIONSENSE_CHIP_BMA255 = 8,
++	MOTIONSENSE_CHIP_BMP280 = 9,
++	MOTIONSENSE_CHIP_OPT3001 = 10,
++	MOTIONSENSE_CHIP_BH1730 = 11,
++	MOTIONSENSE_CHIP_GPIO = 12,
++	MOTIONSENSE_CHIP_LIS2DH = 13,
++	MOTIONSENSE_CHIP_LSM6DSM = 14,
++	MOTIONSENSE_CHIP_LIS2DE = 15,
++	MOTIONSENSE_CHIP_LIS2MDL = 16,
++	MOTIONSENSE_CHIP_LSM6DS3 = 17,
++	MOTIONSENSE_CHIP_LSM6DSO = 18,
++	MOTIONSENSE_CHIP_LNG2DM = 19,
++	MOTIONSENSE_CHIP_MAX,
+ };
+ 
+-/* Module flag masks used for the dump sub-command. */
+-#define MOTIONSENSE_MODULE_FLAG_ACTIVE (1<<0)
+-
+-/* Sensor flag masks used for the dump sub-command. */
+-#define MOTIONSENSE_SENSOR_FLAG_PRESENT (1<<0)
+-
+-/*
+- * Send this value for the data element to only perform a read. If you
+- * send any other value, the EC will interpret it as data to set and will
+- * return the actual value set.
+- */
+-#define EC_MOTION_SENSE_NO_VALUE -1
+-
+-#define EC_MOTION_SENSE_INVALID_CALIB_TEMP 0x8000
+-
+-/* Set Calibration information */
+-#define MOTION_SENSE_SET_OFFSET	1
++/* List of orientation positions */
++enum motionsensor_orientation {
++	MOTIONSENSE_ORIENTATION_LANDSCAPE = 0,
++	MOTIONSENSE_ORIENTATION_PORTRAIT = 1,
++	MOTIONSENSE_ORIENTATION_UPSIDE_DOWN_PORTRAIT = 2,
++	MOTIONSENSE_ORIENTATION_UPSIDE_DOWN_LANDSCAPE = 3,
++	MOTIONSENSE_ORIENTATION_UNKNOWN = 4,
++};
+ 
+ struct ec_response_motion_sensor_data {
+ 	/* Flags for each sensor. */
+ 	uint8_t flags;
+-	/* Sensor number the data comes from */
++	/* Sensor number the data comes from. */
+ 	uint8_t sensor_num;
+ 	/* Each sensor is up to 3-axis. */
+ 	union {
+@@ -2312,22 +2375,138 @@ struct ec_response_motion_sensor_data {
+ 	};
+ } __ec_todo_packed;
+ 
++/* Note: used in ec_response_get_next_data */
++struct ec_response_motion_sense_fifo_info {
++	/* Size of the fifo */
++	uint16_t size;
++	/* Amount of space used in the fifo */
++	uint16_t count;
++	/* Timestamp recorded in us.
++	 * aka accurate timestamp when host event was triggered.
++	 */
++	uint32_t timestamp;
++	/* Total amount of vector lost */
++	uint16_t total_lost;
++	/* Lost events since the last fifo_info, per sensors */
++	uint16_t lost[0];
++} __ec_todo_packed;
++
++struct ec_response_motion_sense_fifo_data {
++	uint32_t number_data;
++	struct ec_response_motion_sensor_data data[0];
++} __ec_todo_packed;
++
++/* List supported activity recognition */
++enum motionsensor_activity {
++	MOTIONSENSE_ACTIVITY_RESERVED = 0,
++	MOTIONSENSE_ACTIVITY_SIG_MOTION = 1,
++	MOTIONSENSE_ACTIVITY_DOUBLE_TAP = 2,
++	MOTIONSENSE_ACTIVITY_ORIENTATION = 3,
++};
++
++struct ec_motion_sense_activity {
++	uint8_t sensor_num;
++	uint8_t activity; /* one of enum motionsensor_activity */
++	uint8_t enable;   /* 1: enable, 0: disable */
++	uint8_t reserved;
++	uint16_t parameters[3]; /* activity dependent parameters */
++} __ec_todo_unpacked;
++
++/* Module flag masks used for the dump sub-command. */
++#define MOTIONSENSE_MODULE_FLAG_ACTIVE BIT(0)
++
++/* Sensor flag masks used for the dump sub-command. */
++#define MOTIONSENSE_SENSOR_FLAG_PRESENT BIT(0)
 +
 +/*
-+ * Host command protocol V4.
-+ *
-+ * Packets always start with a request or response header.  They are followed
-+ * by data_len bytes of data.  If the data_crc_present flag is set, the data
-+ * bytes are followed by a CRC-8 of that data, using using x^8 + x^2 + x + 1
-+ * polynomial.
-+ *
-+ * Host algorithm when sending a request q:
-+ *
-+ * 101) tries_left=(some value, e.g. 3);
-+ * 102) q.seq_num++
-+ * 103) q.seq_dup=0
-+ * 104) Calculate q.header_crc.
-+ * 105) Send request q to EC.
-+ * 106) Wait for response r.  Go to 201 if received or 301 if timeout.
-+ *
-+ * 201) If r.struct_version != 4, go to 301.
-+ * 202) If r.header_crc mismatches calculated CRC for r header, go to 301.
-+ * 203) If r.data_crc_present and r.data_crc mismatches, go to 301.
-+ * 204) If r.seq_num != q.seq_num, go to 301.
-+ * 205) If r.seq_dup == q.seq_dup, return success.
-+ * 207) If r.seq_dup == 1, go to 301.
-+ * 208) Return error.
-+ *
-+ * 301) If --tries_left <= 0, return error.
-+ * 302) If q.seq_dup == 1, go to 105.
-+ * 303) q.seq_dup = 1
-+ * 304) Go to 104.
-+ *
-+ * EC algorithm when receiving a request q.
-+ * EC has response buffer r, error buffer e.
-+ *
-+ * 101) If q.struct_version != 4, set e.result = EC_RES_INVALID_HEADER_VERSION
-+ *      and go to 301
-+ * 102) If q.header_crc mismatches calculated CRC, set e.result =
-+ *      EC_RES_INVALID_HEADER_CRC and go to 301
-+ * 103) If q.data_crc_present, calculate data CRC.  If that mismatches the CRC
-+ *      byte at the end of the packet, set e.result = EC_RES_INVALID_DATA_CRC
-+ *      and go to 301.
-+ * 104) If q.seq_dup == 0, go to 201.
-+ * 105) If q.seq_num != r.seq_num, go to 201.
-+ * 106) If q.seq_dup == r.seq_dup, go to 205, else go to 203.
-+ *
-+ * 201) Process request q into response r.
-+ * 202) r.seq_num = q.seq_num
-+ * 203) r.seq_dup = q.seq_dup
-+ * 204) Calculate r.header_crc
-+ * 205) If r.data_len > 0 and data is no longer available, set e.result =
-+ *      EC_RES_DUP_UNAVAILABLE and go to 301.
-+ * 206) Send response r.
-+ *
-+ * 301) e.seq_num = q.seq_num
-+ * 302) e.seq_dup = q.seq_dup
-+ * 303) Calculate e.header_crc.
-+ * 304) Send error response e.
++ * Flush entry for synchronization.
++ * data contains time stamp
 + */
++#define MOTIONSENSE_SENSOR_FLAG_FLUSH BIT(0)
++#define MOTIONSENSE_SENSOR_FLAG_TIMESTAMP BIT(1)
++#define MOTIONSENSE_SENSOR_FLAG_WAKEUP BIT(2)
++#define MOTIONSENSE_SENSOR_FLAG_TABLET_MODE BIT(3)
++#define MOTIONSENSE_SENSOR_FLAG_ODR BIT(4)
 +
-+/* Version 4 request from host */
-+struct ec_host_request4 {
-+	/*
-+	 * bits 0-3: struct_version: Structure version (=4)
-+	 * bit    4: is_response: Is response (=0)
-+	 * bits 5-6: seq_num: Sequence number
-+	 * bit    7: seq_dup: Sequence duplicate flag
-+	 */
-+	uint8_t fields0;
++/*
++ * Send this value for the data element to only perform a read. If you
++ * send any other value, the EC will interpret it as data to set and will
++ * return the actual value set.
++ */
++#define EC_MOTION_SENSE_NO_VALUE -1
 +
-+	/*
-+	 * bits 0-4: command_version: Command version
-+	 * bits 5-6: Reserved (set 0, ignore on read)
-+	 * bit    7: data_crc_present: Is data CRC present after data
-+	 */
-+	uint8_t fields1;
++#define EC_MOTION_SENSE_INVALID_CALIB_TEMP 0x8000
 +
-+	/* Command code (EC_CMD_*) */
-+	uint16_t command;
++/* MOTIONSENSE_CMD_SENSOR_OFFSET subcommand flag */
++/* Set Calibration information */
++#define MOTION_SENSE_SET_OFFSET BIT(0)
 +
-+	/* Length of data which follows this header (not including data CRC) */
-+	uint16_t data_len;
++/* Default Scale value, factor 1. */
++#define MOTION_SENSE_DEFAULT_SCALE BIT(15)
 +
-+	/* Reserved (set 0, ignore on read) */
-+	uint8_t reserved;
++#define LID_ANGLE_UNRELIABLE 500
 +
-+	/* CRC-8 of above fields, using x^8 + x^2 + x + 1 polynomial */
-+	uint8_t header_crc;
-+} __ec_align4;
++enum motionsense_spoof_mode {
++	/* Disable spoof mode. */
++	MOTIONSENSE_SPOOF_MODE_DISABLE = 0,
 +
-+/* Version 4 response from EC */
-+struct ec_host_response4 {
-+	/*
-+	 * bits 0-3: struct_version: Structure version (=4)
-+	 * bit    4: is_response: Is response (=1)
-+	 * bits 5-6: seq_num: Sequence number
-+	 * bit    7: seq_dup: Sequence duplicate flag
-+	 */
-+	uint8_t fields0;
++	/* Enable spoof mode, but use provided component values. */
++	MOTIONSENSE_SPOOF_MODE_CUSTOM,
 +
-+	/*
-+	 * bits 0-6: Reserved (set 0, ignore on read)
-+	 * bit    7: data_crc_present: Is data CRC present after data
-+	 */
-+	uint8_t fields1;
++	/* Enable spoof mode, but use the current sensor values. */
++	MOTIONSENSE_SPOOF_MODE_LOCK_CURRENT,
 +
-+	/* Result code (EC_RES_*) */
-+	uint16_t result;
++	/* Query the current spoof mode status for the sensor. */
++	MOTIONSENSE_SPOOF_MODE_QUERY,
++};
 +
-+	/* Length of data which follows this header (not including data CRC) */
-+	uint16_t data_len;
+ struct ec_params_motion_sense {
+ 	uint8_t cmd;
+ 	union {
+ 		/* Used for MOTIONSENSE_CMD_DUMP. */
+ 		struct __ec_todo_unpacked {
+-			/* no args */
++			/*
++			 * Maximal number of sensor the host is expecting.
++			 * 0 means the host is only interested in the number
++			 * of sensors controlled by the EC.
++			 */
++			uint8_t max_sensor_count;
+ 		} dump;
+ 
+ 		/*
+-		 * Used for MOTIONSENSE_CMD_EC_RATE and
+-		 * MOTIONSENSE_CMD_KB_WAKE_ANGLE.
++		 * Used for MOTIONSENSE_CMD_KB_WAKE_ANGLE.
+ 		 */
+ 		struct __ec_todo_unpacked {
+-			/* Data to set or EC_MOTION_SENSE_NO_VALUE to read. */
++			/* Data to set or EC_MOTION_SENSE_NO_VALUE to read.
++			 * kb_wake_angle: angle to wakup AP.
++			 */
+ 			int16_t data;
+-		} ec_rate, kb_wake_angle;
++		} kb_wake_angle;
 +
-+	/* Reserved (set 0, ignore on read) */
-+	uint8_t reserved;
++		/*
++		 * Used for MOTIONSENSE_CMD_INFO, MOTIONSENSE_CMD_DATA
++		 * and MOTIONSENSE_CMD_PERFORM_CALIB.
++		 */
++		struct __ec_todo_unpacked {
++			uint8_t sensor_num;
++		} info, info_3, data, fifo_flush, perform_calib,
++				list_activities;
 +
-+	/* CRC-8 of above fields, using x^8 + x^2 + x + 1 polynomial */
-+	uint8_t header_crc;
-+} __ec_align4;
++		/*
++		 * Used for MOTIONSENSE_CMD_EC_RATE, MOTIONSENSE_CMD_SENSOR_ODR
++		 * and MOTIONSENSE_CMD_SENSOR_RANGE.
++		 */
++		struct __ec_todo_unpacked {
++			uint8_t sensor_num;
 +
-+/* Fields in fields0 byte */
-+#define EC_PACKET4_0_STRUCT_VERSION_MASK	0x0f
-+#define EC_PACKET4_0_IS_RESPONSE_MASK		0x10
-+#define EC_PACKET4_0_SEQ_NUM_SHIFT		5
-+#define EC_PACKET4_0_SEQ_NUM_MASK		0x60
-+#define EC_PACKET4_0_SEQ_DUP_MASK		0x80
++			/* Rounding flag, true for round-up, false for down. */
++			uint8_t roundup;
 +
-+/* Fields in fields1 byte */
-+#define EC_PACKET4_1_COMMAND_VERSION_MASK	0x1f  /* (request only) */
-+#define EC_PACKET4_1_DATA_CRC_PRESENT_MASK	0x80
++			uint16_t reserved;
++
++			/* Data to set or EC_MOTION_SENSE_NO_VALUE to read. */
++			int32_t data;
++		} ec_rate, sensor_odr, sensor_range;
+ 
+ 		/* Used for MOTIONSENSE_CMD_SENSOR_OFFSET */
+ 		struct __ec_todo_packed {
+@@ -2358,33 +2537,99 @@ struct ec_params_motion_sense {
+ 			int16_t offset[3];
+ 		} sensor_offset;
+ 
+-		/* Used for MOTIONSENSE_CMD_INFO. */
++		/* Used for MOTIONSENSE_CMD_SENSOR_SCALE */
+ 		struct __ec_todo_packed {
+ 			uint8_t sensor_num;
+-		} info;
+ 
+-		/*
+-		 * Used for MOTIONSENSE_CMD_SENSOR_ODR and
+-		 * MOTIONSENSE_CMD_SENSOR_RANGE.
+-		 */
+-		struct {
+-			/* Should be element of enum motionsensor_id. */
+-			uint8_t sensor_num;
++			/*
++			 * bit 0: If set (MOTION_SENSE_SET_OFFSET), set
++			 * the calibration information in the EC.
++			 * If unset, just retrieve calibration information.
++			 */
++			uint16_t flags;
+ 
+-			/* Rounding flag, true for round-up, false for down. */
+-			uint8_t roundup;
++			/*
++			 * Temperature at calibration, in units of 0.01 C
++			 * 0x8000: invalid / unknown.
++			 * 0x0: 0C
++			 * 0x7fff: +327.67C
++			 */
++			int16_t temp;
+ 
+-			uint16_t reserved;
++			/*
++			 * Scale for calibration:
++			 * By default scale is 1, it is encoded on 16bits:
++			 * 1 = BIT(15)
++			 * ~2 = 0xFFFF
++			 * ~0 = 0.
++			 */
++			uint16_t scale[3];
++		} sensor_scale;
+ 
+-			/* Data to set or EC_MOTION_SENSE_NO_VALUE to read. */
+-			int32_t data;
+-		} sensor_odr, sensor_range;
++
++		/* Used for MOTIONSENSE_CMD_FIFO_INFO */
++		/* (no params) */
++
++		/* Used for MOTIONSENSE_CMD_FIFO_READ */
++		struct __ec_todo_unpacked {
++			/*
++			 * Number of expected vector to return.
++			 * EC may return less or 0 if none available.
++			 */
++			uint32_t max_data_vector;
++		} fifo_read;
++
++		struct ec_motion_sense_activity set_activity;
++
++		/* Used for MOTIONSENSE_CMD_LID_ANGLE */
++		/* (no params) */
++
++		/* Used for MOTIONSENSE_CMD_FIFO_INT_ENABLE */
++		struct __ec_todo_unpacked {
++			/*
++			 * 1: enable, 0 disable fifo,
++			 * EC_MOTION_SENSE_NO_VALUE return value.
++			 */
++			int8_t enable;
++		} fifo_int_enable;
++
++		/* Used for MOTIONSENSE_CMD_SPOOF */
++		struct __ec_todo_packed {
++			uint8_t sensor_id;
++
++			/* See enum motionsense_spoof_mode. */
++			uint8_t spoof_enable;
++
++			/* Ignored, used for alignment. */
++			uint8_t reserved;
++
++			/* Individual component values to spoof. */
++			int16_t components[3];
++		} spoof;
++
++		/* Used for MOTIONSENSE_CMD_TABLET_MODE_LID_ANGLE. */
++		struct __ec_todo_unpacked {
++			/*
++			 * Lid angle threshold for switching between tablet and
++			 * clamshell mode.
++			 */
++			int16_t lid_angle;
++
++			/*
++			 * Hysteresis degree to prevent fluctuations between
++			 * clamshell and tablet mode if lid angle keeps
++			 * changing around the threshold. Lid motion driver will
++			 * use lid_angle + hys_degree to trigger tablet mode and
++			 * lid_angle - hys_degree to trigger clamshell mode.
++			 */
++			int16_t hys_degree;
++		} tablet_mode_threshold;
+ 	};
+ } __ec_todo_packed;
+ 
+ struct ec_response_motion_sense {
+ 	union {
+-		/* Used for MOTIONSENSE_CMD_DUMP. */
++		/* Used for MOTIONSENSE_CMD_DUMP */
+ 		struct __ec_todo_unpacked {
+ 			/* Flags representing the motion sensor module. */
+ 			uint8_t module_flags;
+@@ -2411,27 +2656,118 @@ struct ec_response_motion_sense {
+ 			uint8_t chip;
+ 		} info;
+ 
++		/* Used for MOTIONSENSE_CMD_INFO version 3 */
++		struct __ec_todo_unpacked {
++			/* Should be element of enum motionsensor_type. */
++			uint8_t type;
++
++			/* Should be element of enum motionsensor_location. */
++			uint8_t location;
++
++			/* Should be element of enum motionsensor_chip. */
++			uint8_t chip;
++
++			/* Minimum sensor sampling frequency */
++			uint32_t min_frequency;
++
++			/* Maximum sensor sampling frequency */
++			uint32_t max_frequency;
++
++			/* Max number of sensor events that could be in fifo */
++			uint32_t fifo_max_event_count;
++		} info_3;
++
+ 		/* Used for MOTIONSENSE_CMD_DATA */
+ 		struct ec_response_motion_sensor_data data;
+ 
+ 		/*
+ 		 * Used for MOTIONSENSE_CMD_EC_RATE, MOTIONSENSE_CMD_SENSOR_ODR,
+-		 * MOTIONSENSE_CMD_SENSOR_RANGE, and
+-		 * MOTIONSENSE_CMD_KB_WAKE_ANGLE.
++		 * MOTIONSENSE_CMD_SENSOR_RANGE,
++		 * MOTIONSENSE_CMD_KB_WAKE_ANGLE,
++		 * MOTIONSENSE_CMD_FIFO_INT_ENABLE and
++		 * MOTIONSENSE_CMD_SPOOF.
+ 		 */
+ 		struct __ec_todo_unpacked {
+ 			/* Current value of the parameter queried. */
+ 			int32_t ret;
+-		} ec_rate, sensor_odr, sensor_range, kb_wake_angle;
++		} ec_rate, sensor_odr, sensor_range, kb_wake_angle,
++		  fifo_int_enable, spoof;
+ 
+-		/* Used for MOTIONSENSE_CMD_SENSOR_OFFSET */
++		/*
++		 * Used for MOTIONSENSE_CMD_SENSOR_OFFSET,
++		 * PERFORM_CALIB.
++		 */
+ 		struct __ec_todo_unpacked  {
+ 			int16_t temp;
+ 			int16_t offset[3];
+ 		} sensor_offset, perform_calib;
++
++		/* Used for MOTIONSENSE_CMD_SENSOR_SCALE */
++		struct __ec_todo_unpacked  {
++			int16_t temp;
++			uint16_t scale[3];
++		} sensor_scale;
++
++		struct ec_response_motion_sense_fifo_info fifo_info, fifo_flush;
++
++		struct ec_response_motion_sense_fifo_data fifo_read;
++
++		struct __ec_todo_packed {
++			uint16_t reserved;
++			uint32_t enabled;
++			uint32_t disabled;
++		} list_activities;
++
++		/* No params for set activity */
++
++		/* Used for MOTIONSENSE_CMD_LID_ANGLE */
++		struct __ec_todo_unpacked {
++			/*
++			 * Angle between 0 and 360 degree if available,
++			 * LID_ANGLE_UNRELIABLE otherwise.
++			 */
++			uint16_t value;
++		} lid_angle;
++
++		/* Used for MOTIONSENSE_CMD_TABLET_MODE_LID_ANGLE. */
++		struct __ec_todo_unpacked {
++			/*
++			 * Lid angle threshold for switching between tablet and
++			 * clamshell mode.
++			 */
++			uint16_t lid_angle;
++
++			/* Hysteresis degree. */
++			uint16_t hys_degree;
++		} tablet_mode_threshold;
++
+ 	};
+ } __ec_todo_packed;
+ 
++/*****************************************************************************/
++/* Force lid open command */
++
++/* Make lid event always open */
++#define EC_CMD_FORCE_LID_OPEN 0x002C
++
++struct ec_params_force_lid_open {
++	uint8_t enabled;
++} __ec_align1;
++
++/*****************************************************************************/
++/* Configure the behavior of the power button */
++#define EC_CMD_CONFIG_POWER_BUTTON 0x002D
++
++enum ec_config_power_button_flags {
++	/* Enable/Disable power button pulses for x86 devices */
++	EC_POWER_BUTTON_ENABLE_PULSE = BIT(0),
++};
++
++struct ec_params_config_power_button {
++	/* See enum ec_config_power_button_flags */
++	uint8_t flags;
++} __ec_align1;
 +
  /*****************************************************************************/
- /*
-  * Notes on commands:
+ /* USB charging control commands */
+ 
+@@ -2888,6 +3224,12 @@ union __ec_align_offset1 ec_response_get_next_data {
+ 	/* Unaligned */
+ 	uint32_t  host_event;
+ 
++	struct __ec_todo_unpacked {
++		/* For aligning the fifo_info */
++		uint8_t reserved[3];
++		struct ec_response_motion_sense_fifo_info info;
++	} sensor_fifo;
++
+ 	uint32_t   buttons;
+ 	uint32_t   switches;
+ 	uint32_t   sysrq;
+@@ -2896,6 +3238,12 @@ union __ec_align_offset1 ec_response_get_next_data {
+ union __ec_align_offset1 ec_response_get_next_data_v1 {
+ 	uint8_t key_matrix[16];
+ 	uint32_t host_event;
++	struct __ec_todo_unpacked {
++		/* For aligning the fifo_info */
++		uint8_t reserved[3];
++		struct ec_response_motion_sense_fifo_info info;
++	} sensor_fifo;
++
+ 	uint32_t buttons;
+ 	uint32_t switches;
+ 	uint32_t sysrq;
 -- 
 2.21.0.1020.gf2820cf01a-goog
 

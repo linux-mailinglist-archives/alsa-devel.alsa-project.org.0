@@ -2,87 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 795AE183CC
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 04:32:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81DAE183D2
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 04:34:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EC99183C;
-	Thu,  9 May 2019 04:31:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EC99183C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA2341853;
+	Thu,  9 May 2019 04:33:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA2341853
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557369157;
-	bh=JKCL28andOhtpLkjmuOC+ZHvzdxO9uq68WXLp+USToA=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557369286;
+	bh=2rBP9NGPAyJl73QLplm7mKPjc5AESPFsI+AFnWCsrBM=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DIheopZhS0opxbifbRpUZTr3iaWfAQ2TUHEwIrV2ghMNeobB2RPYHZ3riEFpSwhkA
-	 hb2wypI/rzXkSIxXNX8OB5jU5FrgpzeYimwTVZcqgPBSsLqsIVBrsvUOaVYtRbQVv6
-	 pNelQsKfhWuuoYjJ1ASIeSeuTB/soMfiW2fzBIic=
+	b=L5cuuKUk5gR5UzZBSVBx74CYu3ocmm9Z01wPa8lcop07cZNubjz1KCQrTXqJH2ucb
+	 A/pNOggacGIcfxBSjRFVILFDVvItkJ5GpvTzcwIl/FlXk0EvHNFariudu4nmZz9YdN
+	 wvLm6o+2litdsnZY0WgD8BrhkN+8KFp6S65Pu3uY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DA9FF89682;
-	Thu,  9 May 2019 04:30:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FFC1F89682;
+	Thu,  9 May 2019 04:33:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AE70F89674; Thu,  9 May 2019 04:30:50 +0200 (CEST)
+ id F31B9F89674; Thu,  9 May 2019 04:32:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 916B4F8073C
- for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 04:30:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 916B4F8073C
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 May 2019 19:30:42 -0700
-X-ExtLoop1: 1
-Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
- by orsmga005.jf.intel.com with ESMTP; 08 May 2019 19:30:42 -0700
-Received: from fmsmsx112.amr.corp.intel.com (10.18.116.6) by
- FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Wed, 8 May 2019 19:30:42 -0700
-Received: from shsmsx108.ccr.corp.intel.com (10.239.4.97) by
- FMSMSX112.amr.corp.intel.com (10.18.116.6) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Wed, 8 May 2019 19:30:42 -0700
-Received: from shsmsx103.ccr.corp.intel.com ([169.254.4.70]) by
- SHSMSX108.ccr.corp.intel.com ([169.254.8.126]) with mapi id 14.03.0415.000;
- Thu, 9 May 2019 10:30:39 +0800
-From: "Yang, Libin" <libin.yang@intel.com>
-To: Takashi Iwai <tiwai@suse.de>, Ranjani Sridharan
- <ranjani.sridharan@linux.intel.com>
-Thread-Topic: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
- when pause release after resume
-Thread-Index: AQHVBUkLh5Eu02ZEH0uqF+PBAAy+/aZg5eoAgABRNwCAAMS6MA==
-Date: Thu, 9 May 2019 02:30:39 +0000
-Message-ID: <96A12704CE18D347B625EE2D4A099D1952838E47@SHSMSX103.ccr.corp.intel.com>
-References: <1557282761-26146-1-git-send-email-libin.yang@intel.com>
- <aa0c6eea81a721f340dd1362801e49049a6620dd.camel@linux.intel.com>
- <s5htve4mymn.wl-tiwai@suse.de>
-In-Reply-To: <s5htve4mymn.wl-tiwai@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNzE1MzljMGEtMGNjYi00ZjkwLTg4MWEtZDVkNjg4NGE4Nzc1IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicERhVWpZcEd2NFdLTHRGcU1cLzJ5ZzFKRGpIWjJteUNXd1l6alY4ZXMrYjA2b2txUm1UeHZMUm1hNzhWK3FpXC9OIn0=
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.0.600.7
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEC6AF807B5
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 04:32:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEC6AF807B5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="T88tg49M"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=A5G/1lWkrleN9QL1gRcbrpqWq59CDY9vHWndd24sW9I=; b=T88tg49MHvWq6cI1ntmfSSKGU
+ PiatX9xQ/RVBZZd7JsltR5BYTdxzV6Bfczl4KEPeOrSrTLVJYFDT1StKYHkbbvQp+PRF1hFgD/69l
+ 3zhHUVy2ck01ZEEbCHuk7H2VwpEA3HRdM10GTpoxKpoG3z9B21TkSFySPEC9JPRkpkz0E=;
+Received: from kd111239184245.au-net.ne.jp ([111.239.184.245]
+ helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hOYrc-0001RR-RR; Thu, 09 May 2019 02:32:53 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 9304E44000C; Thu,  9 May 2019 03:32:47 +0100 (BST)
+Date: Thu, 9 May 2019 11:32:47 +0900
+From: Mark Brown <broonie@kernel.org>
+To: Curtis Malainey <cujomalainey@google.com>
+Message-ID: <20190509023247.GT14916@sirena.org.uk>
+References: <20190507220115.90395-1-fletcherw@chromium.org>
+ <20190507220115.90395-2-fletcherw@chromium.org>
+ <20190508073623.GT14916@sirena.org.uk>
+ <CAOReqxgYV3SdXot84Xa4X7=MCZdzWmb2N+jaWzjxgmdoMRx5Mw@mail.gmail.com>
 MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "Wang, Rander" <rander.wang@intel.com>
-Subject: Re: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
- when pause release after resume
+In-Reply-To: <CAOReqxgYV3SdXot84Xa4X7=MCZdzWmb2N+jaWzjxgmdoMRx5Mw@mail.gmail.com>
+X-Cookie: -- I have seen the FUN --
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Ben Zhang <benzh@chromium.org>, Fletcher Woodruff <fletcherw@chromium.org>,
+ Curtis Malainey <cujomalainey@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v5 1/3] ASoC: rt5677: allow multiple
+	interrupt sources
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,89 +88,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3461819060443869090=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->-----Original Message-----
->From: Takashi Iwai [mailto:tiwai@suse.de]
->Sent: Thursday, May 9, 2019 5:21 AM
->To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
->Cc: Yang, Libin <libin.yang@intel.com>; alsa-devel@alsa-project.org;
->Sridharan, Ranjani <ranjani.sridharan@intel.com>; pierre-
->louis.bossart@linux.intel.com; Wang, Rander <rander.wang@intel.com>;
->broonie@kernel.org
->Subject: Re: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
->when pause release after resume
->
->On Wed, 08 May 2019 18:30:08 +0200,
->Ranjani Sridharan wrote:
->>
->> On Wed, 2019-05-08 at 10:32 +0800, libin.yang@intel.com wrote:
->> > From: Libin Yang <libin.yang@intel.com>
->> >
->> > If playback/capture is paused and system enters S3, after system
->> > returns from suspend, BE dai needs to call prepare() callback when
->> > playback/capture is released from pause if RESUME_INFO flag is not
->> > set.
->> Hi Takashi,
->>
->> This is a question for you. We've run into the problem of not being
->> able to do a pause-release after the system resumes from S3 after we
->> removed INFO_RESUME from the SOF driver.
->>
->> Apparently, with this flag removed, when the user does a pause release
->> after resuming from S3, the prepare() callback gets invoked for the FE
->> but doesnt happen for the the BE. Could you please guide us on whether
->> this is the right approach and if not, suggest an alternative?
+--===============3461819060443869090==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sOuRR0jXHR3ukxKL"
+Content-Disposition: inline
 
-I think this may be a ASoC FE-BE defect.
-In this case, ASoC will call FE dai prepare(), but it will not call 
-BE dai prepare() because of the judgement. This is why I made the patch.
 
->
->Hm, it's a good question.  Currently the PCM core doesn't care about the
->paused stream wrt PM by the assumption that the paused / stopped stream
->doesn't need a special resume treatment.  But, generally speaking, the pause-
->release won't work for a hardware that doesn't support the full resume,
->either.  For example, the legacy HD-audio may restart from some wrong
->position if resumed from the pause.
->
->Maybe this problem hasn't been seen just because the pause function is rarely
->used.
->
->So, the safe behavior would be to let the stream being SUSPENDED state at
->snd_pcm_stream_suspend() when it's in the PAUSED and has no
->INFO_RESUME capability.  Then the application does re-prepare the stream
->like the running one.
->
->But the question is what's expected at next.  Should the application re-start?
->But it was paused.  Should PCM core automatically move to pause?  But most
->hardware can't move the pointer to any random position.
+--sOuRR0jXHR3ukxKL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I think our current solution is reasonable. we should remove INFO_RESUME
-for Intel platform. The only side effect is that we will restart the PCM.
-My understanding is that INFO_RESUME is used for those platforms which 
-can support suspend/resume by hardware. And obviously, on intel platforms, 
-we need do a lot of recovery for resume in driver. 
+On Wed, May 08, 2019 at 02:39:32PM -0700, Curtis Malainey wrote:
 
-Regards,
-Libin
+> Pixelbooks (Samus Chromebook) are the only devices that use this part.
+> Realtek has confirmed this. Therefore we only have to worry about
+> breaking ourselves. That being said I agree there is likely a better
 
->
->My gut feeling is just to treat like a normal error-restart, i.e. re-prepare / re-
->start.  But I'm open and would like to hear more opinions.
->
->
->thanks,
->
->Takashi
->
->
+And there are no other parts that are software compatible enough to
+share the same driver?
+
+> way to handle general abstraction here. We will need the explicit irq
+> handling since I will be following these patches up with patches that
+> enable hotwording on the codec (we will be sending the firmware to
+> linux-firmware as well that is needed for the process.)
+
+OK.  Like I said it might also be clearer split into multiple patches,
+it was just really difficult to tell what was going on with the diff
+there.
+
+--sOuRR0jXHR3ukxKL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzTkU4ACgkQJNaLcl1U
+h9DsMgf8DlzUF2AXtzerym+DDHSpdLJct9B0sDS+4a3l7aJ0l4BGoN8UBK9D9bks
+KJq5h9X/JaOojry4WTfrdZtm2rFTa0ztIvtIsNBahAHzYGplUafHmr3lOdsWviUa
+IyQk8XARXYWfm0mB0Pdfe58BDY+Y74naM1H6WypF5S1nfCmg2vo4++C1DmV7L56J
+7ZdDnceJqVUpW6hyCsp1dRP6Ot8ICzKbUWZABTYVWj/a/CcowwUl+P5/eX5zhM1A
+Iy2LN3nZcQE/C7OcG1HB8rZhz+enKCURNLGHHWKmfOuDa8yZR7MS0Q8fFTTwbwow
+kPYJXq28b3JoVxlrpjiAFcNg5JUiZQ==
+=izHs
+-----END PGP SIGNATURE-----
+
+--sOuRR0jXHR3ukxKL--
+
+--===============3461819060443869090==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3461819060443869090==--

@@ -2,61 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBAD81933F
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 22:16:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83FD919452
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:16:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50EEA18B4;
-	Thu,  9 May 2019 22:15:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50EEA18B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 013C0188D;
+	Thu,  9 May 2019 23:15:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 013C0188D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557432984;
-	bh=fDn96UKJlFSuhwWXPnENFnouHj5tPcss51dWNOpsgM0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iWu1xngW7A4nZ2glkMM87ka9WlAwrbsP0P/VSi55ERc+nTrmbn/nX7aBvVvetjuDx
-	 MNcGuGHZ76JyXlUTl6PKI+DVUPiicjQwZUxMReKQmQSd8KWfQr/R4WFLyGXGYk9UAS
-	 esH395VHXqTR8wEsfJAiaVER4RGo8VMW109YJK50=
+	s=default; t=1557436561;
+	bh=gGG8PEM6wrRAvZNs3w361U/6JkhfizI+UQdaWmkpilY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=U1vcZiBps2BoIN3mzmCejR9ZG9ClOwOJlPC6lK8SKGs4r5ocbAodkyWP8YG8W+lBt
+	 LS/ENYRJ7Iw2fpf1QIKdtX2wKQ+ZDNxJzxA/6/0MdkuJTMHJ3Tjvls4yl1QebmKcqq
+	 hjxUOdk5DZpqQzur+xZlp8PjyEC8WAy/DPamKxG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7DBFF89744;
-	Thu,  9 May 2019 22:10:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAB0DF89701;
+	Thu,  9 May 2019 23:14:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2925F89728; Thu,  9 May 2019 22:10:46 +0200 (CEST)
+ id DC729F896DA; Thu,  9 May 2019 23:14:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B8AEF89674
- for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 22:10:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B8AEF89674
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 May 2019 13:10:40 -0700
-X-ExtLoop1: 1
-Received: from kli-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.254.111.224])
- by fmsmga005.fm.intel.com with ESMTP; 09 May 2019 13:10:39 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Thu,  9 May 2019 15:10:27 -0500
-Message-Id: <20190509201027.3906-7-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190509201027.3906-1-pierre-louis.bossart@linux.intel.com>
-References: <20190509201027.3906-1-pierre-louis.bossart@linux.intel.com>
-Cc: tiwai@suse.de, broonie@kernel.org,
- Zhu Yingjiang <yingjiang.zhu@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 6/6] ASoC: SOF: Intel: ICL add Icelake chip
-	info struct
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5438F89674
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5438F89674
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="PuAzQQMz"
+Received: by mail-pf1-x443.google.com with SMTP id t87so1964895pfa.2
+ for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=P9AsCRlkOOmYTXd62VCE+TLaRBh2EP8zJGBIvpPdv+s=;
+ b=PuAzQQMz7nwC9LEZewasSekHzr0gzavO/OiUWtrEjI2oRvWoSOlhf23dIs2YNuL8+I
+ hjQzfRQubWGAS97DozJVYiZkX1o6rwy8U0L2nQVVJXC4iTo4kh7mrNxL0WxOE6XUBMaL
+ AFAb1N/SveVKB8LKCd3n40EJH9pcpBSkZtzcU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=P9AsCRlkOOmYTXd62VCE+TLaRBh2EP8zJGBIvpPdv+s=;
+ b=LJHueNiihGPCgr8ZyHBA7oHbx4RVd8oXg22KlSRMKlzJf8f+mxdhQckvU/VT2ID4p2
+ MRfmex0jLP+KVjqUytrpanpZef9ZJSF10yLa2CWaGm6NPrNCWoJdlBHFm3IEkLG7xBpH
+ Pm/ECrNJNtLi/mYQM8brIRNnpRJOGcjs8+sWi3ZiA2/1lycIuinlwbWjXVDjb+9AXswl
+ IN6rV7NUBTm7QFk+EgvGX0p0EvGHp308dBECUazkfT4KHxdTIb0n/Vrf2sUVNr8FOh6z
+ 733Nj3LUPkvMoFKo1KimWHvTGB5maQXJfFUn9S5RqtK3Q1K6iAJPmbQN2MB01NZ514fG
+ 2WZA==
+X-Gm-Message-State: APjAAAXUFMVsyrymeiTs0HkXa2V4V4PUXq/BYzu4GaLYPKsN4kvS78s0
+ c+iODTWnGywtgsqRBMp5ePus8w==
+X-Google-Smtp-Source: APXvYqzOA+ux6Z4uGST2w2ScerR1nnAkn72owRHC1ECieOpbdEaZoJNeaELR4m34RLFLexWgNiS4ow==
+X-Received: by 2002:a63:3190:: with SMTP id x138mr8583878pgx.402.1557436442056; 
+ Thu, 09 May 2019 14:14:02 -0700 (PDT)
+Received: from localhost ([2620:15c:202:1:3c8f:512b:3522:dfaf])
+ by smtp.gmail.com with ESMTPSA id r8sm4162245pfn.11.2019.05.09.14.14.00
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 09 May 2019 14:14:00 -0700 (PDT)
+From: Gwendal Grignou <gwendal@chromium.org>
+To: enric.balletbo@collabora.com, bleung@chromium.org, groeck@chromium.org,
+ lee.jones@linaro.org, jic23@kernel.org, broonie@kernel.org,
+ cychiang@chromium.org, tiwai@suse.com
+Date: Thu,  9 May 2019 14:13:23 -0700
+Message-Id: <20190509211353.213194-1-gwendal@chromium.org>
+X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
+MIME-Version: 1.0
+Cc: linux-iio@vger.kernel.org, Gwendal Grignou <gwendal@chromium.org>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH v3 00/30] Update cros_ec_commands.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,79 +92,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+The interface between CrosEC embedded controller and the host,
+described by cros_ec_commands.h, as diverged from what the embedded
+controller really support.
 
-Icelake has different count of SSP other than CNL, using
-the new defined ICL SSP count, and copy other parameters
-from CNL chip info.
+The source of thruth is at
+https://chromium.googlesource.com/chromiumos/platform/ec/+/master/include/ec_commands.h
 
-Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/intel/cnl.c   | 19 +++++++++++++++++++
- sound/soc/sof/intel/hda.h   |  1 +
- sound/soc/sof/sof-pci-dev.c |  2 +-
- 3 files changed, 21 insertions(+), 1 deletion(-)
+That include file is converted to remove ACPI and Embedded only code.
 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 08a1a3d3c08d..c059d1170bab 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -266,3 +266,22 @@ const struct sof_intel_dsp_desc cnl_chip_info = {
- 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
- };
- EXPORT_SYMBOL(cnl_chip_info);
-+
-+const struct sof_intel_dsp_desc icl_chip_info = {
-+	/* Icelake */
-+	.cores_num = 4,
-+	.init_core_mask = 1,
-+	.cores_mask = HDA_DSP_CORE_MASK(0) |
-+				HDA_DSP_CORE_MASK(1) |
-+				HDA_DSP_CORE_MASK(2) |
-+				HDA_DSP_CORE_MASK(3),
-+	.ipc_req = CNL_DSP_REG_HIPCIDR,
-+	.ipc_req_mask = CNL_DSP_REG_HIPCIDR_BUSY,
-+	.ipc_ack = CNL_DSP_REG_HIPCIDA,
-+	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
-+	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
-+	.rom_init_timeout	= 300,
-+	.ssp_count = ICL_SSP_COUNT,
-+	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
-+};
-+EXPORT_SYMBOL(icl_chip_info);
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 15ea50aff4ea..455046612b94 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -580,5 +580,6 @@ extern const struct snd_sof_dsp_ops sof_skl_ops;
- extern const struct sof_intel_dsp_desc apl_chip_info;
- extern const struct sof_intel_dsp_desc cnl_chip_info;
- extern const struct sof_intel_dsp_desc skl_chip_info;
-+extern const struct sof_intel_dsp_desc icl_chip_info;
- 
- #endif
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index b778dffb2d25..5f0eccbafc22 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -137,7 +137,7 @@ static const struct sof_dev_desc icl_desc = {
- 	.resindex_imr_base      = -1,
- 	.irqindex_host_ipc      = -1,
- 	.resindex_dma_base      = -1,
--	.chip_info = &cnl_chip_info,
-+	.chip_info = &icl_chip_info,
- 	.default_fw_path = "intel/sof",
- 	.default_tplg_path = "intel/sof-tplg",
- 	.nocodec_fw_filename = "sof-icl.ri",
+From now on, cros_ec_commands.h will be automatically generated from
+the file above, do not modify directly.
+
+Fell free to squash the commits below.
+
+Changes in v3:
+- Rebase after commit 81888d8ab1532 ("mfd: cros_ec: Update the EC feature codes")
+- Add Acked-by: Benson Leung <bleung@chromium.org>
+
+Changes in v2:
+- Move I2S changes at the end of the patchset, squashed with change in
+  sound/soc/codecs/cros_ec_codec.c to match new interface.
+- Add Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+
+Gwendal Grignou (30):
+  mfd: cros_ec: Update license term
+  mfd: cros_ec: Zero BUILD_ macro
+  mfd: cros_ec: set comments properly
+  mfd: cros_ec: add ec_align macros
+  mfd: cros_ec: Define commands as 4-digit UPPER CASE hex values
+  mfd: cros_ec: use BIT macro
+  mfd: cros_ec: Update ACPI interface definition
+  mfd: cros_ec: move HDMI CEC API definition
+  mfd: cros_ec: Remove zero-size structs
+  mfd: cros_ec: Add Flash V2 commands API
+  mfd: cros_ec: Add PWM_SET_DUTY API
+  mfd: cros_ec: Add lightbar v2 API
+  mfd: cros_ec: Expand hash API
+  mfd: cros_ec: Add EC transport protocol v4
+  mfd: cros_ec: Complete MEMS sensor API
+  mfd: cros_ec: Fix event processing API
+  mfd: cros_ec: Add fingerprint API
+  mfd: cros_ec: Fix temperature API
+  mfd: cros_ec: Complete Power and USB PD API
+  mfd: cros_ec: Add API for keyboard testing
+  mfd: cros_ec: Add Hibernate API
+  mfd: cros_ec: Add Smart Battery Firmware update API
+  mfd: cros_ec: Add I2C passthru protection API
+  mfd: cros_ec: Add API for EC-EC communication
+  mfd: cros_ec: Add API for Touchpad support
+  mfd: cros_ec: Add API for Fingerprint support
+  mfd: cros_ec: Add API for rwsig
+  mfd: cros_ec: Add SKU ID and Secure storage API
+  mfd: cros_ec: Add Management API entry points
+  mfd: cros_ec: Update I2S API
+
+ include/linux/mfd/cros_ec_commands.h | 3658 ++++++++++++++++++++------
+ sound/soc/codecs/cros_ec_codec.c     |    8 +-
+ 2 files changed, 2915 insertions(+), 751 deletions(-)
+
 -- 
-2.17.1
+2.21.0.1020.gf2820cf01a-goog
 
 _______________________________________________
 Alsa-devel mailing list

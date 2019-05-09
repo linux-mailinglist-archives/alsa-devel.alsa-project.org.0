@@ -2,75 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E203183B6
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 04:25:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 795AE183CC
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 04:32:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA5DB1831;
-	Thu,  9 May 2019 04:24:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA5DB1831
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EC99183C;
+	Thu,  9 May 2019 04:31:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EC99183C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557368737;
-	bh=r3htsOcm+Nofblk4CY8wAYDzhUUmrcLwdJ34H4TebIc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557369157;
+	bh=JKCL28andOhtpLkjmuOC+ZHvzdxO9uq68WXLp+USToA=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oVJp26ej71BNoMxtZ5Jkhz8tPLVs02+udYYDcLH035WqMDXdvJP2rphNAl9B8JKXj
-	 tErmsT8Oxia/+Ekpe2QtQIYAmwkXChrZDn+JZE0PvKTo+xjmxlYZnlFx3tDqQjHf82
-	 bj30A1oNE1lR1LQqHTNvzNsOrYOe3K6qBgkF44Wo=
+	b=DIheopZhS0opxbifbRpUZTr3iaWfAQ2TUHEwIrV2ghMNeobB2RPYHZ3riEFpSwhkA
+	 hb2wypI/rzXkSIxXNX8OB5jU5FrgpzeYimwTVZcqgPBSsLqsIVBrsvUOaVYtRbQVv6
+	 pNelQsKfhWuuoYjJ1ASIeSeuTB/soMfiW2fzBIic=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17711F89673;
-	Thu,  9 May 2019 04:23:53 +0200 (CEST)
-X-Original-To: alsa-devel@Alsa-project.org
-Delivered-To: alsa-devel@Alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DA9FF89682;
+	Thu,  9 May 2019 04:30:52 +0200 (CEST)
+X-Original-To: alsa-devel@alsa-project.org
+Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5ACE1F89674; Thu,  9 May 2019 04:23:50 +0200 (CEST)
+ id 5AE70F89674; Thu,  9 May 2019 04:30:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDD67F807B5
- for <alsa-devel@Alsa-project.org>; Thu,  9 May 2019 04:23:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDD67F807B5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ANBZEFAx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zanGE15x4lJBoZyTy0mDMfP/BdxrRUrg0s9NVGyLsM4=; b=ANBZEFAxJTtSmr8Bb4CYJv7Y9
- OSTQArBKloD2QfCfnql9KSZ2D1Hn/KGDsZQm9KTfArJ5XzPay+CX8wRoNPo+CkZqEy8+TVoxi959v
- oJ1gCH/lmMRWrKHIfHJT7IT5+gXMMcG/a+3wo5x32nPZZcP0zo6Gv2FAmFRyuj2LM4/ic=;
-Received: from [2001:268:c0e3:9e6d:fb20:4124:5afd:9c02]
- (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hOYio-0001Q7-06; Thu, 09 May 2019 02:23:46 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 7761B44000C; Thu,  9 May 2019 03:23:41 +0100 (BST)
-Date: Thu, 9 May 2019 11:23:41 +0900
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190509022341.GR14916@sirena.org.uk>
-References: <20190508094554.GK14916@sirena.org.uk>
- <s5h4l65s0kr.wl-tiwai@suse.de>
- <20190508103150.GP14916@sirena.org.uk>
- <s5h1s19s06b.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 916B4F8073C
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 04:30:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 916B4F8073C
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 May 2019 19:30:42 -0700
+X-ExtLoop1: 1
+Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
+ by orsmga005.jf.intel.com with ESMTP; 08 May 2019 19:30:42 -0700
+Received: from fmsmsx112.amr.corp.intel.com (10.18.116.6) by
+ FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 8 May 2019 19:30:42 -0700
+Received: from shsmsx108.ccr.corp.intel.com (10.239.4.97) by
+ FMSMSX112.amr.corp.intel.com (10.18.116.6) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 8 May 2019 19:30:42 -0700
+Received: from shsmsx103.ccr.corp.intel.com ([169.254.4.70]) by
+ SHSMSX108.ccr.corp.intel.com ([169.254.8.126]) with mapi id 14.03.0415.000;
+ Thu, 9 May 2019 10:30:39 +0800
+From: "Yang, Libin" <libin.yang@intel.com>
+To: Takashi Iwai <tiwai@suse.de>, Ranjani Sridharan
+ <ranjani.sridharan@linux.intel.com>
+Thread-Topic: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
+ when pause release after resume
+Thread-Index: AQHVBUkLh5Eu02ZEH0uqF+PBAAy+/aZg5eoAgABRNwCAAMS6MA==
+Date: Thu, 9 May 2019 02:30:39 +0000
+Message-ID: <96A12704CE18D347B625EE2D4A099D1952838E47@SHSMSX103.ccr.corp.intel.com>
+References: <1557282761-26146-1-git-send-email-libin.yang@intel.com>
+ <aa0c6eea81a721f340dd1362801e49049a6620dd.camel@linux.intel.com>
+ <s5htve4mymn.wl-tiwai@suse.de>
+In-Reply-To: <s5htve4mymn.wl-tiwai@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNzE1MzljMGEtMGNjYi00ZjkwLTg4MWEtZDVkNjg4NGE4Nzc1IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicERhVWpZcEd2NFdLTHRGcU1cLzJ5ZzFKRGpIWjJteUNXd1l6alY4ZXMrYjA2b2txUm1UeHZMUm1hNzhWK3FpXC9OIn0=
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.0.600.7
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-In-Reply-To: <s5h1s19s06b.wl-tiwai@suse.de>
-X-Cookie: -- I have seen the FUN --
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@Alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [alsa-devel] [GIT PULL] ASoC fix for v5.2
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Sridharan,
+ Ranjani" <ranjani.sridharan@intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "Wang, Rander" <rander.wang@intel.com>
+Subject: Re: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
+ when pause release after resume
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,89 +95,89 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2365650838745988301=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============2365650838745988301==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FmkfFOZZ61l6O/yn"
-Content-Disposition: inline
+>-----Original Message-----
+>From: Takashi Iwai [mailto:tiwai@suse.de]
+>Sent: Thursday, May 9, 2019 5:21 AM
+>To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>Cc: Yang, Libin <libin.yang@intel.com>; alsa-devel@alsa-project.org;
+>Sridharan, Ranjani <ranjani.sridharan@intel.com>; pierre-
+>louis.bossart@linux.intel.com; Wang, Rander <rander.wang@intel.com>;
+>broonie@kernel.org
+>Subject: Re: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
+>when pause release after resume
+>
+>On Wed, 08 May 2019 18:30:08 +0200,
+>Ranjani Sridharan wrote:
+>>
+>> On Wed, 2019-05-08 at 10:32 +0800, libin.yang@intel.com wrote:
+>> > From: Libin Yang <libin.yang@intel.com>
+>> >
+>> > If playback/capture is paused and system enters S3, after system
+>> > returns from suspend, BE dai needs to call prepare() callback when
+>> > playback/capture is released from pause if RESUME_INFO flag is not
+>> > set.
+>> Hi Takashi,
+>>
+>> This is a question for you. We've run into the problem of not being
+>> able to do a pause-release after the system resumes from S3 after we
+>> removed INFO_RESUME from the SOF driver.
+>>
+>> Apparently, with this flag removed, when the user does a pause release
+>> after resuming from S3, the prepare() callback gets invoked for the FE
+>> but doesnt happen for the the BE. Could you please guide us on whether
+>> this is the right approach and if not, suggest an alternative?
 
+I think this may be a ASoC FE-BE defect.
+In this case, ASoC will call FE dai prepare(), but it will not call 
+BE dai prepare() because of the judgement. This is why I made the patch.
 
---FmkfFOZZ61l6O/yn
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>
+>Hm, it's a good question.  Currently the PCM core doesn't care about the
+>paused stream wrt PM by the assumption that the paused / stopped stream
+>doesn't need a special resume treatment.  But, generally speaking, the pause-
+>release won't work for a hardware that doesn't support the full resume,
+>either.  For example, the legacy HD-audio may restart from some wrong
+>position if resumed from the pause.
+>
+>Maybe this problem hasn't been seen just because the pause function is rarely
+>used.
+>
+>So, the safe behavior would be to let the stream being SUSPENDED state at
+>snd_pcm_stream_suspend() when it's in the PAUSED and has no
+>INFO_RESUME capability.  Then the application does re-prepare the stream
+>like the running one.
+>
+>But the question is what's expected at next.  Should the application re-start?
+>But it was paused.  Should PCM core automatically move to pause?  But most
+>hardware can't move the pointer to any random position.
 
-On Wed, May 08, 2019 at 12:36:12PM +0200, Takashi Iwai wrote:
+I think our current solution is reasonable. we should remove INFO_RESUME
+for Intel platform. The only side effect is that we will restart the PCM.
+My understanding is that INFO_RESUME is used for those platforms which 
+can support suspend/resume by hardware. And obviously, on intel platforms, 
+we need do a lot of recovery for resume in driver. 
 
-> OK, I can reset the repo and re-pull if you want...
+Regards,
+Libin
 
-The following changes since commit ce38a75089f70f6380fc63a5478a7659b4eb3f47:
-
-  ASoC: SOF: core: fix undefined nocodec reference (2019-05-08 15:42:00 +0900)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-v5.2-5
-
-for you to fetch changes up to 7f6647ced298d56027218e47619b7f0d925fc83e:
-
-  ASoC: SOF: Fix unused variable warnings (2019-05-09 11:18:57 +0900)
-
-----------------------------------------------------------------
-ASoC: Updates for v5.2
-
-Redone to remove the misfiled SPI commit
-
-----------------------------------------------------------------
-Libin Yang (1):
-      ASoC: codec: hdac_hdmi: no checking monitor in hw_params
-
-Olivier Moysan (1):
-      ASoC: stm32: i2s: update pcm hardware constraints
-
-Takashi Iwai (1):
-      ASoC: SOF: Fix unused variable warnings
-
-Tzung-Bi Shih (3):
-      ASoC: mediatek: mt6358: initialize setting when ramping volume
-      ASoC: mediatek: mt6358: save output volume for mixer controls
-      ASoC: mediatek: mt6358: save PGA for mixer control
-
- sound/soc/codecs/hdac_hdmi.c |  13 -----
- sound/soc/codecs/mt6358.c    | 131 +++++++++++++++++++++++++++----------------
- sound/soc/sof/core.c         |   2 +
- sound/soc/stm/stm32_i2s.c    |   3 +-
- 4 files changed, 87 insertions(+), 62 deletions(-)
-
---FmkfFOZZ61l6O/yn
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzTjywACgkQJNaLcl1U
-h9D0OQf/Wa1L+SEqVhURUB8LiiNkewc4IL5lo2grIL0ZcElC4DSq09uFnvRPDdDY
-HQ2Uoo/m6GB4hVvZmaSBroPbj8J67zHS216O46HBD0z818Pr/ZmFNzQq/MSRLHT1
-FYcfHpwJ/s4Qv2zB610AUDPFa863E4uGGAHJB15jkLugDebZl6kxs9HJhEuHkl/G
-VYPND/JjkNe7a0+CFdPrFAWsGWcd+C2tqqx1uzERzy+HqMoK1zH7jmwna8d1cnXo
-dIThfQj8azp0GxLtcaoRKtSjkWC6r0qU7buMf1xCUB9KvNouijEIGkwVraDrjCuD
-qfmdv8VbxArEAxwH3AJlQEIX1MyPag==
-=gZOj
------END PGP SIGNATURE-----
-
---FmkfFOZZ61l6O/yn--
-
---===============2365650838745988301==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+>
+>My gut feeling is just to treat like a normal error-restart, i.e. re-prepare / re-
+>start.  But I'm open and would like to hear more opinions.
+>
+>
+>thanks,
+>
+>Takashi
+>
+>
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2365650838745988301==--

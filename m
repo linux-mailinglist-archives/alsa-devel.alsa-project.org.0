@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83FD919452
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:16:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8A211945F
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 May 2019 23:16:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 013C0188D;
-	Thu,  9 May 2019 23:15:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 013C0188D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F964186D;
+	Thu,  9 May 2019 23:15:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F964186D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557436561;
-	bh=gGG8PEM6wrRAvZNs3w361U/6JkhfizI+UQdaWmkpilY=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=U1vcZiBps2BoIN3mzmCejR9ZG9ClOwOJlPC6lK8SKGs4r5ocbAodkyWP8YG8W+lBt
-	 LS/ENYRJ7Iw2fpf1QIKdtX2wKQ+ZDNxJzxA/6/0MdkuJTMHJ3Tjvls4yl1QebmKcqq
-	 hjxUOdk5DZpqQzur+xZlp8PjyEC8WAy/DPamKxG8=
+	s=default; t=1557436598;
+	bh=gU60euoX5gYYFMv3UBVfiQ0ZkIDhuvP39vNKXSUJWyo=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hX9wsh1IvatUqhGQo5I7pldAN+F4V0lp5+cZ2154Xm0YnZnoAkp8mw6ar62TekkYK
+	 pvI7BBA7jnPJHQUc1CfK69WGH9XnrCe5y0MzYJHxVhpyCS1ulGN7SE5MkHgaMgMw2n
+	 J6ffGWjPTwryH/5QHbanjgpF/uFv3EGtg/xFRF+s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BAB0DF89701;
-	Thu,  9 May 2019 23:14:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01B54F89726;
+	Thu,  9 May 2019 23:14:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC729F896DA; Thu,  9 May 2019 23:14:07 +0200 (CEST)
+ id C975AF89682; Thu,  9 May 2019 23:14:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5438F89674
- for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5438F89674
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE3FFF89673
+ for <alsa-devel@alsa-project.org>; Thu,  9 May 2019 23:14:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE3FFF89673
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="PuAzQQMz"
-Received: by mail-pf1-x443.google.com with SMTP id t87so1964895pfa.2
- for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:04 -0700 (PDT)
+ header.b="AUGxOu3D"
+Received: by mail-pf1-x441.google.com with SMTP id v80so1963243pfa.3
+ for <alsa-devel@alsa-project.org>; Thu, 09 May 2019 14:14:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=P9AsCRlkOOmYTXd62VCE+TLaRBh2EP8zJGBIvpPdv+s=;
- b=PuAzQQMz7nwC9LEZewasSekHzr0gzavO/OiUWtrEjI2oRvWoSOlhf23dIs2YNuL8+I
- hjQzfRQubWGAS97DozJVYiZkX1o6rwy8U0L2nQVVJXC4iTo4kh7mrNxL0WxOE6XUBMaL
- AFAb1N/SveVKB8LKCd3n40EJH9pcpBSkZtzcU=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=d/80tNNoqNchHETXJchLO/lOWqI7WgjPd5nso/co8eY=;
+ b=AUGxOu3DHNF8Z86pQz5bIBLujbaK2WibpbQN8fpI80OL1P03ICeh4AplsYpo0qFBRQ
+ r5uZOGgYhHqkAkBQk+TDLrEskDWUQKyqbOE1OL82v2vJPV8fy0aE9Fl+cumt3MStvrBm
+ Pr+Q2OMf5iZpkU1jtgjbGkbVs6J5r2IZzJJ5w=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=P9AsCRlkOOmYTXd62VCE+TLaRBh2EP8zJGBIvpPdv+s=;
- b=LJHueNiihGPCgr8ZyHBA7oHbx4RVd8oXg22KlSRMKlzJf8f+mxdhQckvU/VT2ID4p2
- MRfmex0jLP+KVjqUytrpanpZef9ZJSF10yLa2CWaGm6NPrNCWoJdlBHFm3IEkLG7xBpH
- Pm/ECrNJNtLi/mYQM8brIRNnpRJOGcjs8+sWi3ZiA2/1lycIuinlwbWjXVDjb+9AXswl
- IN6rV7NUBTm7QFk+EgvGX0p0EvGHp308dBECUazkfT4KHxdTIb0n/Vrf2sUVNr8FOh6z
- 733Nj3LUPkvMoFKo1KimWHvTGB5maQXJfFUn9S5RqtK3Q1K6iAJPmbQN2MB01NZ514fG
- 2WZA==
-X-Gm-Message-State: APjAAAXUFMVsyrymeiTs0HkXa2V4V4PUXq/BYzu4GaLYPKsN4kvS78s0
- c+iODTWnGywtgsqRBMp5ePus8w==
-X-Google-Smtp-Source: APXvYqzOA+ux6Z4uGST2w2ScerR1nnAkn72owRHC1ECieOpbdEaZoJNeaELR4m34RLFLexWgNiS4ow==
-X-Received: by 2002:a63:3190:: with SMTP id x138mr8583878pgx.402.1557436442056; 
- Thu, 09 May 2019 14:14:02 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=d/80tNNoqNchHETXJchLO/lOWqI7WgjPd5nso/co8eY=;
+ b=foKyAZ/rmPfAQGVu8nWf1r2qRo1li8KciytvLqKjua2AvhINJM9VXNCksz9D4SOVzK
+ e4xjyaZ6nV3pbhsqY20ekrOfy7MD+NqN91mKPHP4/tMpbX1GC1/y6MyywpQzvQyHG7lK
+ PNpFs7kSQLmti7WFS6NQwyb1IQzAXJiI7WQehK4E3FlWZUKj5VLbEomnC3vr8aEfZCpn
+ 3YpDLGhgE35WvwqHkHJag9cgCQ3blvAnyW3cABTaNNbBpgBSz8lUdycE9h8ANwd7HtuU
+ DlJ8YTMTifzi7zAJGXOrRH4Z2cPIs3VMfmhKbxxciauDm6f/kDz1BV78nokqnwpJQnzP
+ NiEw==
+X-Gm-Message-State: APjAAAV4jSNvcz9CWQyZML+4aaHExe4aeVughPkFWCqC59/h8Kqpw812
+ rxmA6TEz156AT764gVLPHHTgzw==
+X-Google-Smtp-Source: APXvYqzyrCsBLpH98WnNvOPuqptMkqpqV1bnMw3nBAhqRCEzxFqDIvc2gG7qEY/DBoFVTYYkBzObvQ==
+X-Received: by 2002:a63:7c54:: with SMTP id l20mr5267168pgn.167.1557436444004; 
+ Thu, 09 May 2019 14:14:04 -0700 (PDT)
 Received: from localhost ([2620:15c:202:1:3c8f:512b:3522:dfaf])
- by smtp.gmail.com with ESMTPSA id r8sm4162245pfn.11.2019.05.09.14.14.00
+ by smtp.gmail.com with ESMTPSA id l21sm5186810pff.40.2019.05.09.14.14.02
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 May 2019 14:14:00 -0700 (PDT)
+ Thu, 09 May 2019 14:14:03 -0700 (PDT)
 From: Gwendal Grignou <gwendal@chromium.org>
 To: enric.balletbo@collabora.com, bleung@chromium.org, groeck@chromium.org,
  lee.jones@linaro.org, jic23@kernel.org, broonie@kernel.org,
  cychiang@chromium.org, tiwai@suse.com
-Date: Thu,  9 May 2019 14:13:23 -0700
-Message-Id: <20190509211353.213194-1-gwendal@chromium.org>
+Date: Thu,  9 May 2019 14:13:24 -0700
+Message-Id: <20190509211353.213194-2-gwendal@chromium.org>
 X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
+In-Reply-To: <20190509211353.213194-1-gwendal@chromium.org>
+References: <20190509211353.213194-1-gwendal@chromium.org>
 MIME-Version: 1.0
 Cc: linux-iio@vger.kernel.org, Gwendal Grignou <gwendal@chromium.org>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v3 00/30] Update cros_ec_commands.h
+Subject: [alsa-devel] [PATCH v3 01/30] mfd: cros_ec: Update license term
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,65 +100,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The interface between CrosEC embedded controller and the host,
-described by cros_ec_commands.h, as diverged from what the embedded
-controller really support.
+Update to SPDX-License-Identifier, GPL-2.0
 
-The source of thruth is at
-https://chromium.googlesource.com/chromiumos/platform/ec/+/master/include/ec_commands.h
+Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Acked-by: Benson Leung <bleung@chromium.org>
+Signed-off-by: Gwendal Grignou <gwendal@chromium.org>
+---
+ include/linux/mfd/cros_ec_commands.h | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-That include file is converted to remove ACPI and Embedded only code.
-
-From now on, cros_ec_commands.h will be automatically generated from
-the file above, do not modify directly.
-
-Fell free to squash the commits below.
-
-Changes in v3:
-- Rebase after commit 81888d8ab1532 ("mfd: cros_ec: Update the EC feature codes")
-- Add Acked-by: Benson Leung <bleung@chromium.org>
-
-Changes in v2:
-- Move I2S changes at the end of the patchset, squashed with change in
-  sound/soc/codecs/cros_ec_codec.c to match new interface.
-- Add Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-
-Gwendal Grignou (30):
-  mfd: cros_ec: Update license term
-  mfd: cros_ec: Zero BUILD_ macro
-  mfd: cros_ec: set comments properly
-  mfd: cros_ec: add ec_align macros
-  mfd: cros_ec: Define commands as 4-digit UPPER CASE hex values
-  mfd: cros_ec: use BIT macro
-  mfd: cros_ec: Update ACPI interface definition
-  mfd: cros_ec: move HDMI CEC API definition
-  mfd: cros_ec: Remove zero-size structs
-  mfd: cros_ec: Add Flash V2 commands API
-  mfd: cros_ec: Add PWM_SET_DUTY API
-  mfd: cros_ec: Add lightbar v2 API
-  mfd: cros_ec: Expand hash API
-  mfd: cros_ec: Add EC transport protocol v4
-  mfd: cros_ec: Complete MEMS sensor API
-  mfd: cros_ec: Fix event processing API
-  mfd: cros_ec: Add fingerprint API
-  mfd: cros_ec: Fix temperature API
-  mfd: cros_ec: Complete Power and USB PD API
-  mfd: cros_ec: Add API for keyboard testing
-  mfd: cros_ec: Add Hibernate API
-  mfd: cros_ec: Add Smart Battery Firmware update API
-  mfd: cros_ec: Add I2C passthru protection API
-  mfd: cros_ec: Add API for EC-EC communication
-  mfd: cros_ec: Add API for Touchpad support
-  mfd: cros_ec: Add API for Fingerprint support
-  mfd: cros_ec: Add API for rwsig
-  mfd: cros_ec: Add SKU ID and Secure storage API
-  mfd: cros_ec: Add Management API entry points
-  mfd: cros_ec: Update I2S API
-
- include/linux/mfd/cros_ec_commands.h | 3658 ++++++++++++++++++++------
- sound/soc/codecs/cros_ec_codec.c     |    8 +-
- 2 files changed, 2915 insertions(+), 751 deletions(-)
-
+diff --git a/include/linux/mfd/cros_ec_commands.h b/include/linux/mfd/cros_ec_commands.h
+index dcec96f01879..48292d449921 100644
+--- a/include/linux/mfd/cros_ec_commands.h
++++ b/include/linux/mfd/cros_ec_commands.h
+@@ -1,25 +1,15 @@
++/* SPDX-License-Identifier: GPL-2.0 */
+ /*
+  * Host communication command constants for ChromeOS EC
+  *
+  * Copyright (C) 2012 Google, Inc
+  *
+- * This software is licensed under the terms of the GNU General Public
+- * License version 2, as published by the Free Software Foundation, and
+- * may be copied, distributed, and modified under those terms.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * The ChromeOS EC multi function device is used to mux all the requests
+- * to the EC device for its multiple features: keyboard controller,
+- * battery charging and regulator control, firmware update.
+- *
+- * NOTE: This file is copied verbatim from the ChromeOS EC Open Source
+- * project in an attempt to make future updates easy to make.
++ * NOTE: This file is auto-generated from ChromeOS EC Open Source code from
++ * https://chromium.googlesource.com/chromiumos/platform/ec/+/master/include/ec_commands.h
+  */
+ 
++/* Host communication command constants for Chrome EC */
++
+ #ifndef __CROS_EC_COMMANDS_H
+ #define __CROS_EC_COMMANDS_H
+ 
 -- 
 2.21.0.1020.gf2820cf01a-goog
 

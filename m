@@ -2,86 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C905C1A15A
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2019 18:23:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 309E31A16C
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2019 18:26:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3162D1892;
-	Fri, 10 May 2019 18:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3162D1892
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CAE21895;
+	Fri, 10 May 2019 18:25:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CAE21895
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557505415;
-	bh=u8a35WoIC35yTrv7bqVB1v6ZjJj720AN/gGjH2k7vRY=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
+	s=default; t=1557505573;
+	bh=iD4fsKYhEniOzWK42SqxIj623G2824I1pERqG84Gaf0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K9Nk+MNkb06YPHUDrgbyMa6BoIy0QPFp4EIjhPRfM5vrPjDNDIzwyk3BvoKnRMlUg
-	 jh38f3hIH0JzAiZLV5vlHlouYwgSQO00Bx+upv2no6pZ6SG2u58QjBHkwBxaxiUH3s
-	 dLcEk9x1PC9EUdqQAzd8ILM64kMVh5uVIkxnpL7c=
+	b=LqL7JK6BoDJvo4THKcj+iZcqu7svssBOkcsCWeXrfTtJkWUbkC4ra6oUQ2uFkPU9S
+	 Zhj7q+P4ieUw5LqG62sVzQiWAy2u6UWoQaM4KeGwW1qS37znLkMQmX5lHrqIy7VEEN
+	 i/rufdSi4F6VidLtlc2Pj2Fq/5EYWfgsbDgo1DS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BB58F89705;
-	Fri, 10 May 2019 18:21:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F2DDF8970E;
+	Fri, 10 May 2019 18:24:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D7571F896FD; Fri, 10 May 2019 18:21:47 +0200 (CEST)
+ id D25B1F896FD; Fri, 10 May 2019 18:24:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66D35F89673
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 18:21:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66D35F89673
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="NWmEtnOS"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id B8FE14C5;
- Fri, 10 May 2019 12:21:41 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute1.internal (MEProxy); Fri, 10 May 2019 12:21:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=h9KjUX
- 7V1CiqTw9fwBZNJrnNldCkWdw1q/9mV7jZbrs=; b=NWmEtnOSByu0hKZDbflLIO
- rjn7Trqgz1fj4zvGvFLK4CQLv4RfP3mbamw6oRPgDBdu/pmqfrvpKe6WrgRbhSZT
- iC0L22Nrcpft328SzX5tIX8NMK19F3utjtt2yxoqHAZncL8TQdLMF/obA7kJEPM/
- 4vy6/aXvyW7QfY0aE6/hHIuZRO8cwmvp7QEzQcUGK7ElMYWbKDFDYzUGzzNQbtNz
- faJ6R+/t+kjLDbIzE2A2CIt7Z8XQpgHSwAIi3bDNm+tBrVBj8cNRTVsmoha+q25U
- hwkrc8spUENkqfZcVQII8O7SRsCgtXdsFnaMfF5YUUItXSJmNrwTyVGPoXJ3rS+A
- ==
-X-ME-Sender: <xms:FKXVXC9H4gL00QfC9SqWmp4idpRuDG15EcpjwDJwiu8L3T1dSm3AZw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrkeekgddutdduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdflvghr
- vghmhicuufholhhlvghrfdcuoehjvghrvghmhiesshihshhtvghmjeeirdgtohhmqeenuc
- frrghrrghmpehmrghilhhfrhhomhepjhgvrhgvmhihsehshihsthgvmhejiedrtghomhen
- ucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:FKXVXG9-xYhng1kqB1Tf1otF5KiedFa3PbQ_AH8I-hpuuhDncD2KEw>
- <xmx:FKXVXDB8rT1JWaZn2kaw0k1w6ml4iJ3lTL6B7n-TAyNEx0zjYkqOVg>
- <xmx:FKXVXOwJsEtnlhYtt9v3qESg2I_KiOjp9L4so2u-viJPsw2JwJpNCQ>
- <xmx:FaXVXCmtNcj6Ii5y_zhBxLxn-CXerpSm8VcfN3QCKlmG0CwziHEWWg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 61EE07C3DB; Fri, 10 May 2019 12:21:40 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-449-gfb3fc5a-fmstable-20190430v1
-Mime-Version: 1.0
-Message-Id: <3e1a10df-03e8-4b2c-8446-7642526e71e1@www.fastmail.com>
-In-Reply-To: <s5hzhnul5w3.wl-tiwai@suse.de>
-References: <bce69280-a1df-4de4-ae4e-89de2d464e23@www.fastmail.com>
- <s5hzhnul5w3.wl-tiwai@suse.de>
-Date: Fri, 10 May 2019 12:21:39 -0400
-From: "Jeremy Soller" <jeremy@system76.com>
-To: "Takashi Iwai" <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH] Headset fixup for System76 Gazelle (gaze14)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F9BEF89673
+ for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 18:24:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F9BEF89673
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 May 2019 09:24:20 -0700
+X-ExtLoop1: 1
+Received: from bgtruong-mobl1.amr.corp.intel.com (HELO [10.252.205.232])
+ ([10.252.205.232])
+ by fmsmga007.fm.intel.com with ESMTP; 10 May 2019 09:24:19 -0700
+To: YueHaibing <yuehaibing@huawei.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com, rdunlap@infradead.org
+References: <20190510023657.8960-1-yuehaibing@huawei.com>
+ <20190510132940.28184-1-yuehaibing@huawei.com>
+ <9284cd65-98e3-5f7e-1427-8245dd84edcd@linux.intel.com>
+ <34a5afbc-c165-78aa-0269-7362b523195a@huawei.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <fc8fa6ea-b32c-0866-cc96-1cee2e2baae1@linux.intel.com>
+Date: Fri, 10 May 2019 11:24:18 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <34a5afbc-c165-78aa-0269-7362b523195a@huawei.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH V2] ASoC: SOF: Fix build error with
+ CONFIG_SND_SOC_SOF_NOCODEC=m
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,37 +74,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the quick merge!
 
--- 
-  Jeremy Soller
-  System76
-  Engineering Manager
-  jeremy@system76.com
 
-On Fri, May 10, 2019, at 8:51 AM, Takashi Iwai wrote:
-> On Fri, 10 May 2019 16:15:07 +0200,
-> Jeremy Soller wrote:
-> > 
-> > A mistake was made in the identification of the four variants of the System76
-> > Gazelle (gaze14). This patch corrects the PCI ID of the 17-inch, GTX 1660 Ti
-> > variant from 0x8560 to 0x8551. This patch also adds the correct fixups for the
-> > 15-inch and 17-inch GTX 1650 variants with PCI IDs 0x8560 and 0x8561.
-> > 
-> > Tests were done on all four variants ensuring full audio capability.
-> > 
-> > Signed-off-by: Jeremy Soller <jeremy@system76.com>
+On 5/10/19 8:50 AM, YueHaibing wrote:
+> On 2019/5/10 21:36, Pierre-Louis Bossart wrote:
+>> On 5/10/19 8:29 AM, YueHaibing wrote:
+>>> Fix gcc build error while CONFIG_SND_SOC_SOF_NOCODEC=m
+>>>
+>>> sound/soc/sof/core.o: In function `snd_sof_device_probe':
+>>> core.c:(.text+0x4af): undefined reference to `sof_nocodec_setup'
+>>>
+>>> Change IS_ENABLED to IS_REACHABLE to fix this.
+>>
+>> this just hides the issue instead of fixing it.
+>> please send the config+sha1 so that we can check.
 > 
-> Applied now (with proper Fixes tag).  Thanks.
+> Sure,  config sha1 5fdc79b550c1d850eee604aa58bad4d6da9223f0
+
+Indeed there is an issue. will send a patch shortly to alsa-devel.
+Thanks for spotting this.
+
 > 
-> 
-> Takashi
->
+>>
+>>>
+>>> Reported-by: Hulk Robot <hulkci@huawei.com>
+>>> Suggested-by: Takashi Iwai <tiwai@suse.de>
+>>> Fixes: c16211d6226d ("ASoC: SOF: Add Sound Open Firmware driver core")
+>>> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+>>> ---
+>>> V2: use IS_REACHABLE
+>>> ---
+>>>    sound/soc/sof/core.c | 4 ++--
+>>>    1 file changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+>>> index 32105e0..38e22f4 100644
+>>> --- a/sound/soc/sof/core.c
+>>> +++ b/sound/soc/sof/core.c
+>>> @@ -259,7 +259,7 @@ int snd_sof_create_page_table(struct snd_sof_dev *sdev,
+>>>    static int sof_machine_check(struct snd_sof_dev *sdev)
+>>>    {
+>>>        struct snd_sof_pdata *plat_data = sdev->pdata;
+>>> -#if IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
+>>> +#if IS_REACHABLE(CONFIG_SND_SOC_SOF_NOCODEC)
+>>>        struct snd_soc_acpi_mach *machine;
+>>>        int ret;
+>>>    #endif
+>>> @@ -267,7 +267,7 @@ static int sof_machine_check(struct snd_sof_dev *sdev)
+>>>        if (plat_data->machine)
+>>>            return 0;
+>>>    -#if !IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
+>>> +#if !IS_REACHABLE(CONFIG_SND_SOC_SOF_NOCODEC)
+>>>        dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
+>>>        return -ENODEV;
+>>>    #else
+>>>
+>>
+>>
+>> .
+>>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

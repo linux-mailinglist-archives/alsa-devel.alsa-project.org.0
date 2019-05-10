@@ -2,80 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5289B19EDC
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2019 16:17:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F49719F62
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2019 16:36:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D48261A96;
-	Fri, 10 May 2019 16:16:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D48261A96
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1866A1ABF;
+	Fri, 10 May 2019 16:35:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1866A1ABF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557497820;
-	bh=KAV19MvhC2N0x/y5hJQG579NwbXk3kD8PBa+sw7/wW4=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uD+6EY7VtbSOg7fXnomxynw2ROPj6tymsEKbMYSpxh86o5FA7EUoGooE8TH3TjX0c
-	 jv2RZFZRSlUToa6efvmFzXNUWdPJoO8g8fOx+aO+9qLE+UV9MSNqxb9/CuKu5y5Lo6
-	 8s5kvhF0XBgvrY/j2I28Epg7auZE2AReV55Z7eTw=
+	s=default; t=1557498973;
+	bh=tj2ktoRxKhW0oHLtsRGO821IyhCmeTO3ECyUpGhhbN0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lFTBDLMX5iZpTsT31Ua6Xx3TlpPt5KyZ+j/YF0OP67R61DVkmuy3qJEaSab5qrXRL
+	 LfF6mYdb4G6xZw+u14VnkmxYbuLoCgzGxlOvBrR1TtQP/twgoBbWFokzznr8psZTxH
+	 YC4+/6g+MKi7fVn/iHjHdNd0tG10ZslAb8zWAUXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50164F896F0;
-	Fri, 10 May 2019 16:15:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88033F896F0;
+	Fri, 10 May 2019 16:34:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3BD6F896FD; Fri, 10 May 2019 16:15:14 +0200 (CEST)
+ id A82D4F896FD; Fri, 10 May 2019 16:34:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=none autolearn=disabled
  version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C40A7F8073C
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 16:15:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C40A7F8073C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="NPnX1pLG"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 21BC33CB
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 10:15:08 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute1.internal (MEProxy); Fri, 10 May 2019 10:15:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=WTfAhOpXeDU7XfVp49Ad4Dgx5lEcA
- YrapqAYuCcH7fc=; b=NPnX1pLG0rz/Zw2S3CnLzS0/nbPaFOm4j6/i0vmQP/PbN
- CCyq0/5UjPrSUZ+tc16wHAC4cSR8g/aigASvlUwjWtw1osPcFLX38FxfdAFmpg5N
- joIze4sfAeiZL8VBLII+lj1wC1jretNRnp4OPdwIk9DiEnzGembX8whVJBA2w4F1
- HiMUUQJK6E1vjidISe4Z0M43h39NFr9u9OKwAiAw6Bb5T7D4c44w3Yok56FEYHzP
- fxCfAcbSedtjC2SCr03Avhf3lmQdrLvJE1D5piEb3zY74dMPJ3o4DOA/kcDRuc/S
- 6a3CdpOehpShGP5NdIwkNAUl/i9CKlRS+ybKQMJTw==
-X-ME-Sender: <xms:a4fVXDfx8qdtcfGSI5fQQVv8CzEiwPybim06whlMGQGQSBq-27dTww>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrkeekgdejjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkfffhvffutgesthdtredtre
- ertdenucfhrhhomhepfdflvghrvghmhicuufholhhlvghrfdcuoehjvghrvghmhiesshih
- shhtvghmjeeirdgtohhmqeenucfrrghrrghmpehmrghilhhfrhhomhepjhgvrhgvmhihse
- hshihsthgvmhejiedrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:a4fVXPo_puGg40VZP28f5__PTIuiVVXRdkH8leX3D6MOp03eE3Ddrw>
- <xmx:a4fVXKCNygF_nMbrDc8jrUvvWDetc60WkwECZfwtpT7tpTMqZLuAQQ>
- <xmx:a4fVXNUatoxWxKj21-c2vrv09OzRa5PAT66as4NqiI_u9qamtUO0Ug>
- <xmx:bIfVXDCzeFQfq-6XDgCibICd8eHQOOGXWHPv1d10IM3miBkkQgEbiw>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id C8E2D7C54E; Fri, 10 May 2019 10:15:07 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-449-gfb3fc5a-fmstable-20190430v1
-Mime-Version: 1.0
-Message-Id: <bce69280-a1df-4de4-ae4e-89de2d464e23@www.fastmail.com>
-Date: Fri, 10 May 2019 10:15:07 -0400
-From: "Jeremy Soller" <jeremy@system76.com>
-To: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH] Headset fixup for System76 Gazelle (gaze14)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50DAFF80730
+ for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 16:34:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50DAFF80730
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 May 2019 07:34:16 -0700
+X-ExtLoop1: 1
+Received: from smile.fi.intel.com (HELO smile) ([10.237.72.86])
+ by orsmga002.jf.intel.com with ESMTP; 10 May 2019 07:34:08 -0700
+Received: from andy by smile with local (Exim 4.92)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1hP6b9-0004Sg-Pc; Fri, 10 May 2019 17:34:07 +0300
+Date: Fri, 10 May 2019 17:34:07 +0300
+From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
+To: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
+Message-ID: <20190510143407.GA9224@smile.fi.intel.com>
+References: <20190508112842.11654-1-alexandru.ardelean@analog.com>
+ <20190508112842.11654-5-alexandru.ardelean@analog.com>
+ <20190508131128.GL9224@smile.fi.intel.com>
+ <20190508131856.GB10138@kroah.com>
+ <b2440bc9485456a7a90a488c528997587b22088b.camel@analog.com>
+ <4df165bc4247e60aa4952fd55cb0c77e60712767.camel@analog.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <4df165bc4247e60aa4952fd55cb0c77e60712767.camel@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+ "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+ "devel@driverdev.osuosl.org" <devel@driverdev.osuosl.org>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-ide@vger.kernel.org" <linux-ide@vger.kernel.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [alsa-devel] [PATCH 03/16] lib,
+	treewide: add new match_string() helper/macro
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,31 +111,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A mistake was made in the identification of the four variants of the System76
-Gazelle (gaze14). This patch corrects the PCI ID of the 17-inch, GTX 1660 Ti
-variant from 0x8560 to 0x8551. This patch also adds the correct fixups for the
-15-inch and 17-inch GTX 1650 variants with PCI IDs 0x8560 and 0x8561.
+On Fri, May 10, 2019 at 09:15:27AM +0000, Ardelean, Alexandru wrote:
+> On Wed, 2019-05-08 at 16:22 +0300, Alexandru Ardelean wrote:
+> > On Wed, 2019-05-08 at 15:18 +0200, Greg KH wrote:
+> > > On Wed, May 08, 2019 at 04:11:28PM +0300, Andy Shevchenko wrote:
+> > > > On Wed, May 08, 2019 at 02:28:29PM +0300, Alexandru Ardelean wrote:
 
-Tests were done on all four variants ensuring full audio capability.
+> > > > Can you split include/linux/ change from the rest?
+> > > 
+> > > That would break the build, why do you want it split out?  This makes
+> > > sense all as a single patch to me.
+> > > 
+> > 
+> > Not really.
+> > It would be just be the new match_string() helper/macro in a new commit.
+> > And the conversions of the simple users of match_string() (the ones using
+> > ARRAY_SIZE()) in another commit.
+> > 
+> 
+> I should have asked in my previous reply.
+> Leave this as-is or re-formulate in 2 patches ?
 
-Signed-off-by: Jeremy Soller <jeremy@system76.com>
+Depends on on what you would like to spend your time: collecting Acks for all
+pieces in treewide patch or send new API first followed up by per driver /
+module update in next cycle.
 
----
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index b3712d87e98b..3e790b49c1c0 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6901,7 +6901,9 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1462, 0xb171, "Cubi N 8GL (MS-B171)", ALC283_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1558, 0x1325, "System76 Darter Pro (darp5)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1558, 0x8550, "System76 Gazelle (gaze14)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
--	SND_PCI_QUIRK(0x1558, 0x8560, "System76 Gazelle (gaze14)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x8551, "System76 Gazelle (gaze14)", ALC293_FIXUP_SYSTEM76_MIC_NO_PRESENCE),
-+	SND_PCI_QUIRK(0x1558, 0x8560, "System76 Gazelle (gaze14)", ALC269_FIXUP_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1558, 0x8561, "System76 Gazelle (gaze14)", ALC269_FIXUP_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x17aa, 0x1036, "Lenovo P520", ALC233_FIXUP_LENOVO_MULTI_CODECS),
- 	SND_PCI_QUIRK(0x17aa, 0x20f2, "Thinkpad SL410/510", ALC269_FIXUP_SKU_IGNORE),
- 	SND_PCI_QUIRK(0x17aa, 0x215e, "Thinkpad L512", ALC269_FIXUP_SKU_IGNORE),
+I also have no strong preference.
+And I think it's good to add Heikki Krogerus to Cc list for both patch series,
+since he is the author of sysfs variant and may have something to comment on
+the rest.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

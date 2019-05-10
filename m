@@ -2,92 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E82761A526
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 May 2019 00:17:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 538F31A569
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 May 2019 00:41:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 572DC18B4;
-	Sat, 11 May 2019 00:16:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 572DC18B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id C91ED18D1;
+	Sat, 11 May 2019 00:40:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C91ED18D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557526621;
-	bh=VevWSwqtyk6edF3xCTriW63fizwxGLPdmPwXrUEavUo=;
-	h=From:To:References:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ERkZ1ijVvPVWldslUyTcxWZKS7d79hEfMu1nawfSdj/beiH156yizuM95BMpHq3F6
-	 8lvVS1+QaBMhotJgGuPxpfNMVzg155MKxASWYDxZSxR8kM7IucIbJu2hxztknAcIIo
-	 RPW1/umOYu1ZNgj8DeS5g57aePxrSuBUEpalpKHM=
+	s=default; t=1557528088;
+	bh=2lTL8FNTcHHb1FJRFCAQp4JQESwXhAIEfjPx9fnj9xA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FuYMRhJwbcCQM7KY+Aaf7O/8HRoHS7MmTtYrFiMsLacUxPOH4NZRBk6u/ooZ+KTuI
+	 N5jkObMKMPXotmbITGIhDMtgB4U6MzvnabOSEtCxGZViQIs+P6r0FJ+Cb1Z3X3RjS+
+	 dbfCeMYZ6TmLMKBkpN0Zh5Bl13gT1InCyHOkBbFA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9819AF89705;
-	Sat, 11 May 2019 00:15:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66D93F896FD;
+	Sat, 11 May 2019 00:39:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D96DF896FD; Sat, 11 May 2019 00:15:14 +0200 (CEST)
+ id 99BE4F896FD; Sat, 11 May 2019 00:39:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
+ DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2564F80730
- for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 00:15:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2564F80730
+ by alsa1.perex.cz (Postfix) with ESMTPS id 384D7F80730
+ for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 00:39:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 384D7F80730
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="o5GahpGp"
-Received: by mail-lj1-x233.google.com with SMTP id r76so6306054lja.12
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 15:15:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:references:message-id:date:user-agent:mime-version
- :in-reply-to:content-language;
- bh=2g7SEOFiX64GTKL7pgsPHM9406dXXpPdGGxfMjFEBkQ=;
- b=o5GahpGpnEy/qafjr5SWmOD603d6516Fos1QVrghb16Twdbg6z770wOrmy2uCH6xgK
- d6T2uTHrFmAN21kxY1rdUbSSkwTnAIOAFusDe+Sf0jZvRnSI3W2sy2OFZrAZwpubSx6d
- GIIdCcXw8c/2+hhTAQ9nflkhaD/X/pzBb9cot7Kom/KwM7LHYgc7u54VIOwf92mbTgFH
- byrnz+ITod+z4ek9QOAIM76kkjj3bJVDSKmn23Ee/9TKeZpYxl4kgPhOgQQYvRRDNKA+
- a7em2U4qXyT17VNVB3iD/nZ+sxR3LTGF8DnegF0NiOv1Td8AvwOmXS2r8MiL3VtecW2+
- 0Ytg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="ETEZBKP8"
+Received: by mail-pf1-x444.google.com with SMTP id u17so3933176pfn.7
+ for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 15:39:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Xq1TpWdwTDp+vPr9dbSF7ibV0/5bhRTpDmSdefETpPs=;
+ b=ETEZBKP8eV+KAtuYVJR87nKOwtbsH1T4CVkJShS5AlHxEAKWOFe1ChqZRhLq8qFsMr
+ RbAyFSpHkFqVhw8m5nHAhvswwsJd7oP5twzJWaRlLmYiIkKunPYOSyCQWBL8vM8TVO0u
+ EAEieXP5ZqLVl+SdDL0ZsgPOSbj8/K2AUlRgk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=2g7SEOFiX64GTKL7pgsPHM9406dXXpPdGGxfMjFEBkQ=;
- b=t71DdR5cACeAykOL/P1RyN18bHn8BOKvlfxAais00b70BzOdb0ux8eIcRyEUS/k9SE
- xM64pkSknKbeWDuX1MdCdGdYpIFspPA5DGCVysFFwG/gV6e76uIlf6rOAlMZGoKvDjLt
- nqIzzupvZ0lSym1lNTp7wZThLBBOEn9RwalcAYDjDKd9wqp30HM7PWWVsZYyWnWDhi+v
- HXdLet1js2rQg37Z26W/MKubijCqalurn+BYuM1UgbQ1sx0kSfry2K//nKjs4HOgjdt5
- EipbZrt7DuuL7t5kjy74I6AEHJKrmWOb4NJl+bDVIVArjdjDZiVgz+143OFJ7jPXVxMS
- /AXQ==
-X-Gm-Message-State: APjAAAU5AnMU6zidbQP8fkfwlnql7EnJECbJqXb6pQZqfCmPvf+TL8ZW
- F2ntPJQQGpGRz2ZPEb7YFHMB2W/T
-X-Google-Smtp-Source: APXvYqxGnECbALgbRCj725+SO3teqK870my9ov7XNPXj7Tm19cpQMWXYw646qxk980kSiafvbe+YRg==
-X-Received: by 2002:a2e:6a01:: with SMTP id f1mr4780470ljc.21.1557526510105;
- Fri, 10 May 2019 15:15:10 -0700 (PDT)
-Received: from [192.168.0.94] (31-178-116-31.dynamic.chello.pl.
- [31.178.116.31])
- by smtp.googlemail.com with ESMTPSA id r26sm1744667lfa.62.2019.05.10.15.15.08
- for <alsa-devel@alsa-project.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 May 2019 15:15:08 -0700 (PDT)
-From: =?UTF-8?Q?Micha=c5=82_Wadowski?= <wadosm@gmail.com>
-To: alsa-devel@alsa-project.org
-References: <abb4a724-b561-9579-e821-b56ff00051c5@gmail.com>
-Message-ID: <cc266f08-cbe8-28e1-c264-6c358274d671@gmail.com>
-Date: Sat, 11 May 2019 00:15:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.1
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Xq1TpWdwTDp+vPr9dbSF7ibV0/5bhRTpDmSdefETpPs=;
+ b=NdUypWRnvauqMCYJ9sF8Ir5gxgcd4X0wnIUQiJmV2bi3nBE+oJacASxrAe9s5OecPZ
+ YXAnh6U+lAj2X9LddWjO0DCHpWOXbEitUTzHo2CDKnOR84mrFbhlJv35PTRHv1wGsbwJ
+ E97qAyGpSbL3kFJTidqkHYKf45yvcPa+aYcXfzpWnxtyGNb3cvVhZXJuXxu8c856NuGn
+ 7LVpZ2QDDhu6MSbOPukDVA8TG86EoRZQVbxQROQfoxe/2b7Va68EfQj1KhNGUQWPO6xV
+ fqbJUv7u8ZpiC51geur2A/DfwBZHe/87ppgfVmuPkqGJc6vi+pCuPY5IJlM1Q3qD/mOy
+ QMQQ==
+X-Gm-Message-State: APjAAAVXURkGIizaTk3p9+0XNHXmVE8YK8VwTQ2wGbkUhM4d55HFgSrv
+ Qt9cfYVT4ZzvHewelG3BjMTXBw==
+X-Google-Smtp-Source: APXvYqyRS+XRwoalvlFcJf99Yk4/x47QLraCe/Go1TtMh7YgQMUXhQBX3eabXg/Gd4jvAvDCFASbzQ==
+X-Received: by 2002:a62:5103:: with SMTP id f3mr18196839pfb.146.1557527978098; 
+ Fri, 10 May 2019 15:39:38 -0700 (PDT)
+Received: from evgreen2.mtv.corp.google.com
+ ([2620:15c:202:201:ffda:7716:9afc:1301])
+ by smtp.gmail.com with ESMTPSA id u66sm13300540pfa.36.2019.05.10.15.39.36
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 10 May 2019 15:39:37 -0700 (PDT)
+From: Evan Green <evgreen@chromium.org>
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Date: Fri, 10 May 2019 15:39:27 -0700
+Message-Id: <20190510223929.165569-1-evgreen@chromium.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <abb4a724-b561-9579-e821-b56ff00051c5@gmail.com>
-Content-Type: multipart/mixed; boundary="------------6529BCBF533E9918A1266686"
-Content-Language: en-US
-Subject: Re: [alsa-devel] Fix for Lenovo B50-70 inverted internal microphone
-	bug
+Cc: Rajat Jain <rajatja@chromium.org>, alsa-devel@alsa-project.org,
+ Yu Zhao <yuzhao@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Evan Green <evgreen@chromium.org>, Ben Zhang <benzh@chromium.org>,
+ Rakesh Ughreja <rakesh.a.ughreja@intel.com>,
+ Sathya Prakash <sathya.prakash.m.r@intel.com>, Naveen M <naveen.m@intel.com>,
+ Guenter Roeck <groeck@chromium.org>
+Subject: [alsa-devel] [PATCH v3 0/2] ASoC: Intel: Add Cometlake PCI IDs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,86 +98,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
---------------6529BCBF533E9918A1266686
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-W dniu 10.05.2019 o 23:52, Michał Wadowski pisze:
-> I prepared patch for this bug:
-> https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1524215
-> 
-> I tested this patch on Linux 5.1.0 and it fixes problem on my Lenovo 
-> B50-70 laptop.
+This small series adds PCI IDs for Cometlake platforms, for a
+dazzling audio experience.
 
-Sorry, I forgot attach the patch
+This is based on linux-next's next-20190510.
 
---------------6529BCBF533E9918A1266686
-Content-Type: text/x-patch;
- name="fix_for_lenovo_b50-70_inverted_internal_microphone_bug.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename*0="fix_for_lenovo_b50-70_inverted_internal_microphone_bug.patch"
+Changes in v3:
+- Copy cnl_desc to new cml_desc, and avoid selecting cannonlake (Pierre-Louis)
+- Don't select CML_* in SND_SOC_INTEL_SKYLAKE (Pierre-Louis)
 
-commit 450484025b7051c8c078e95e906d7133967b9c36
-Author: Michał Wadowski <wadosm@gmail.com>
-Date:   Thu May 9 16:02:23 2019 +0200
+Changes in v2:
+- Add CML-H ID 0x06c8 (Pierre-Louis)
+- Add 0x06c8 for CML-H (Pierre-Louis)
 
-    Fix for Lenovo B50-70 inverted internal microphone bug.
-    Ref: https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1524215
+Evan Green (2):
+  ASoC: SOF: Add Comet Lake PCI IDs
+  ASoC: Intel: Skylake: Add Cometlake PCI IDs
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 42cd394..36c18a5 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -5676,6 +5676,7 @@ enum {
- 	ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE,
- 	ALC233_FIXUP_LENOVO_MULTI_CODECS,
- 	ALC233_FIXUP_ACER_HEADSET_MIC,
-+	ALC233_FIXUP_INV_DMIC,
- 	ALC294_FIXUP_LENOVO_MIC_LOCATION,
- 	ALC225_FIXUP_DELL_WYSE_MIC_NO_PRESENCE,
- 	ALC700_FIXUP_INTEL_REFERENCE,
-@@ -6384,6 +6385,10 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc233_fixup_lenovo_line2_mic_hotkey,
- 	},
-+	[ALC233_FIXUP_INV_DMIC] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc_fixup_inv_dmic,
-+	},
- 	[ALC255_FIXUP_DELL_SPK_NOISE] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc_fixup_disable_aamix,
-@@ -6975,6 +6980,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x17aa, 0x313c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
- 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
- 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
-+	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC233_FIXUP_INV_DMIC),
- 	SND_PCI_QUIRK(0x17aa, 0x3978, "IdeaPad Y410P", ALC269_FIXUP_NO_SHUTUP),
- 	SND_PCI_QUIRK(0x17aa, 0x5013, "Thinkpad", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
- 	SND_PCI_QUIRK(0x17aa, 0x501a, "Thinkpad", ALC283_FIXUP_INT_MIC),
-@@ -7157,6 +7163,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC256_FIXUP_ASUS_AIO_GPIO2, .name = "alc256-asus-aio"},
- 	{.id = ALC233_FIXUP_ASUS_MIC_NO_PRESENCE, .name = "alc233-asus"},
- 	{.id = ALC233_FIXUP_EAPD_COEF_AND_MIC_NO_PRESENCE, .name = "alc233-eapd"},
-+	{.id = ALC233_FIXUP_INV_DMIC, .name = "acl233-inv-dmic"},
- 	{.id = ALC294_FIXUP_LENOVO_MIC_LOCATION, .name = "alc294-lenovo-mic"},
- 	{.id = ALC225_FIXUP_DELL_WYSE_MIC_NO_PRESENCE, .name = "alc225-wyse"},
- 	{.id = ALC274_FIXUP_DELL_AIO_LINEOUT_VERB, .name = "alc274-dell-aio"},
+ sound/soc/intel/Kconfig                | 16 +++++++++++++
+ sound/soc/intel/skylake/skl-messages.c | 16 +++++++++++++
+ sound/soc/intel/skylake/skl.c          | 10 ++++++++
+ sound/soc/sof/intel/Kconfig            | 32 ++++++++++++++++++++++++++
+ sound/soc/sof/sof-pci-dev.c            | 28 ++++++++++++++++++++++
+ 5 files changed, 102 insertions(+)
 
---------------6529BCBF533E9918A1266686
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---------------6529BCBF533E9918A1266686--

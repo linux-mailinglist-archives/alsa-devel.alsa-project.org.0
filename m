@@ -2,65 +2,157 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A4C199D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2019 10:42:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69F3F1B590
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 14:13:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A6A98193A;
-	Fri, 10 May 2019 10:41:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6A98193A
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB59916C9;
+	Mon, 13 May 2019 14:12:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB59916C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557477763;
-	bh=AvOsAsSCmSjZEubsv8qLaAzacx0+vmwS8gS1o07AO98=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=P5GQ83JmB0Fo7zVpeC0zBBLqjTwLlVRA59a/mzQFb8WLVHqE6AwDxKV2CBlB3dVNp
-	 hopv9WH7BbmA7Zu4uj8a+QvmypsZvcKGKgRdM4ly6pCQwMoqN1gWlDNBauMLfquiNa
-	 vEa9uPZO0wG+ZaWvSRCKgLiKHdoTRHNrMNJe8KxU=
+	s=default; t=1557749587;
+	bh=7FgAFkZOAdbR5IkDv16MYUxWTpm4t6OFucanM2GlKE0=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NcCpJTMXVjCTYCOwI59h2cbV4DTAnOe2fApiYBu7PAnrnHztNVknf4WvkSO4bPzog
+	 eyFBcwBBAnJoCm56reIzBpALaiM/xDqjdBg2ZOjeb9xZgWEnSIDu6i2fQXL26sWC6i
+	 T3m6QcHi6rcA0CRknVLvA38VDGeFpx9Jmuu2ZNkI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 251ECF896F0;
-	Fri, 10 May 2019 10:40:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9EACF89720;
+	Mon, 13 May 2019 14:10:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1889F896FD; Fri, 10 May 2019 10:40:56 +0200 (CEST)
+ id 78BEAF8970E; Fri, 10 May 2019 11:13:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from NAM05-DM3-obe.outbound.protection.outlook.com
+ (mail-eopbgr730061.outbound.protection.outlook.com [40.107.73.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC14DF89673
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 10:40:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC14DF89673
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x4A8eiTU008689,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtitcas11.realtek.com.tw[172.21.6.12])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x4A8eiTU008689
- (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 10 May 2019 16:40:45 +0800
-Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
- RTITCAS11.realtek.com.tw ([fe80::7c6d:ced5:c4ff:8297%15]) with mapi id
- 14.03.0399.000; Fri, 10 May 2019 16:40:44 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-Thread-Topic: ALC298 headphone noise
-Thread-Index: AdUHC9/tbaE9yjqnSiKjgt5S8jrOEg==
-Date: Fri, 10 May 2019 08:40:43 +0000
-Message-ID: <6FAB7C47BCF00940BB0999A99BE3547A1D76602E@RTITMBSVM07.realtek.com.tw>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1EFBF896F0
+ for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 11:13:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1EFBF896F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
+ header.i=@analog.onmicrosoft.com header.b="UtgaGDmS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=analog.onmicrosoft.com; s=selector1-analog-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Cd+V8yqGMykCDx3832Gazx49N+DzcZoh0jyuHRt5ol4=;
+ b=UtgaGDmS/mFN7LqP4rRanlhIErtROJDfXKgcIeQ1c2pUsTHgWkYu7j96Yd2lPftDdz2wXx3xkpYor7R+H8gftiZOSJxx+ATBAk9fPgRuYm3L0Lav4JU1SKRoMBgfFlLd2aeYeN4GFuH2989f+gy+Ay1+8Dk0VQ9Sau1g+bv3pvo=
+Received: from BN3PR03CA0101.namprd03.prod.outlook.com (2603:10b6:400:4::19)
+ by BN3PR03MB2257.namprd03.prod.outlook.com (2a01:111:e400:c5f1::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.1878.22; Fri, 10 May
+ 2019 09:13:30 +0000
+Received: from BL2NAM02FT032.eop-nam02.prod.protection.outlook.com
+ (2a01:111:f400:7e46::206) by BN3PR03CA0101.outlook.office365.com
+ (2603:10b6:400:4::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.1878.21 via Frontend
+ Transport; Fri, 10 May 2019 09:13:29 +0000
+Authentication-Results: spf=pass (sender IP is 137.71.25.57)
+ smtp.mailfrom=analog.com; vger.kernel.org; dkim=none (message not signed)
+ header.d=none;vger.kernel.org; dmarc=bestguesspass action=none
+ header.from=analog.com;
+Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
+ 137.71.25.57 as permitted sender) receiver=protection.outlook.com;
+ client-ip=137.71.25.57; helo=nwd2mta2.analog.com;
+Received: from nwd2mta2.analog.com (137.71.25.57) by
+ BL2NAM02FT032.mail.protection.outlook.com (10.152.77.169) with Microsoft SMTP
+ Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.1856.11
+ via Frontend Transport; Fri, 10 May 2019 09:13:29 +0000
+Received: from NWD2HUBCAS8.ad.analog.com (nwd2hubcas8.ad.analog.com
+ [10.64.69.108])
+ by nwd2mta2.analog.com (8.13.8/8.13.8) with ESMTP id x4A9DRsE000406
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
+ Fri, 10 May 2019 02:13:27 -0700
+Received: from NWD2MBX7.ad.analog.com ([fe80::190e:f9c1:9a22:9663]) by
+ NWD2HUBCAS8.ad.analog.com ([fe80::90a0:b93e:53c6:afee%12]) with mapi id
+ 14.03.0415.000; Fri, 10 May 2019 05:13:27 -0400
+From: "Ardelean, Alexandru" <alexandru.Ardelean@analog.com>
+To: "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>
+Thread-Topic: [PATCH 09/16] mmc: sdhci-xenon: use new match_string()
+ helper/macro
+Thread-Index: AQHVBZFjC5krcc3G0k+g00YBPwx6V6ZhaK0AgAAShYCAAt35AA==
+Date: Fri, 10 May 2019 09:13:26 +0000
+Message-ID: <31be52eb1a1abbc99a24729f5c65619235cb201f.camel@analog.com>
+References: <20190508112842.11654-1-alexandru.ardelean@analog.com>
+ <20190508112842.11654-11-alexandru.ardelean@analog.com>
+ <20190508122010.GC21059@kadam>
+ <2ec6812d6bf2f33860c7c816c641167a31eb2ed6.camel@analog.com>
+In-Reply-To: <2ec6812d6bf2f33860c7c816c641167a31eb2ed6.camel@analog.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.211]
-Content-Type: multipart/mixed;
- boundary="_002_6FAB7C47BCF00940BB0999A99BE3547A1D76602ERTITMBSVM07real_"
+x-originating-ip: [10.50.1.244]
+x-adiroutedonprem: True
+Content-ID: <BB59C46108248B4E9B7153CD2DF23B7C@analog.com>
 MIME-Version: 1.0
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
-Subject: [alsa-devel] ALC298 headphone noise
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:137.71.25.57; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(1496009)(39860400002)(136003)(376002)(396003)(346002)(2980300002)(189003)(199004)(486006)(126002)(86362001)(186003)(436003)(426003)(11346002)(6916009)(2351001)(476003)(2501003)(478600001)(2616005)(47776003)(336012)(446003)(229853002)(5640700003)(5660300002)(305945005)(70206006)(70586007)(6116002)(7406005)(3846002)(7416002)(118296001)(7736002)(8676002)(54906003)(8936002)(6246003)(7636002)(102836004)(76176011)(7696005)(246002)(2486003)(23676004)(36756003)(26005)(356004)(316002)(2906002)(50466002)(14454004)(4326008)(106002)(14444005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN3PR03MB2257; H:nwd2mta2.analog.com; FPR:;
+ SPF:Pass; LANG:en; PTR:nwd2mail11.analog.com; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ed9fe5e3-db8d-4bcc-4243-08d6d527c4a6
+X-Microsoft-Antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(4709054)(2017052603328)(7193020);
+ SRVR:BN3PR03MB2257; 
+X-MS-TrafficTypeDiagnostic: BN3PR03MB2257:
+X-Microsoft-Antispam-PRVS: <BN3PR03MB22575AF9CEACED448826345BF90C0@BN3PR03MB2257.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-Forefront-PRVS: 0033AAD26D
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Message-Info: hz7ohuHgjnC+2gC26Y3onOT2s7J5axPm+umLFJQFpWgNQk6MlgOTYWYEOsKdiXoy1GNT+vGczdwJR2hzhjkPPM1uQL11kNZN6SYSWyKfr2kiZbabqEYBPxg7icedXBmdO+rbB5SwWFk2CrIhe/7lkW+xgUYjQGNgYAWGE0lXiIRaorInlOmQTMPz663NCbL7aaCb7ajYyo05LxXNUMEKTW2Pof7owMPxVhD448BZPhIoBbV1UHHwV/vrelBEVbXLtRY94OqIxeAe7xTw2lhziZuN15WfFYwjblJa6OE/jYP1PkRLhqh4l1AN/UYxDW/icpD8nSoxxD0H5PPn7qhAU0pjn6TkUKbqtid8LuApVz3z+EfmjXcQFNq5JLTewszxUxStGHfqcWVxcM/2aY0TjxPPu7OPuaGxGQvTycbDhqM=
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 May 2019 09:13:29.7933 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed9fe5e3-db8d-4bcc-4243-08d6d527c4a6
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.57];
+ Helo=[nwd2mta2.analog.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3PR03MB2257
+X-Mailman-Approved-At: Mon, 13 May 2019 14:10:23 +0200
+Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+ "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-mm@kvack.org" <linux-mm@kvack.org>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+ "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+ "devel@driverdev.osuosl.org" <devel@driverdev.osuosl.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "cgroups@vger.kernel.org" <cgroups@vger.kernel.org>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-ide@vger.kernel.org" <linux-ide@vger.kernel.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-security-module@vger.kernel.org"
+ <linux-security-module@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-integrity@vger.kernel.org" <linux-integrity@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [alsa-devel] [PATCH 09/16] mmc: sdhci-xenon: use new
+ match_string() helper/macro
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,95 +165,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76602ERTITMBSVM07real_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Wed, 2019-05-08 at 16:26 +0300, Alexandru Ardelean wrote:
+> On Wed, 2019-05-08 at 15:20 +0300, Dan Carpenter wrote:
+> > 
+> > 
+> > On Wed, May 08, 2019 at 02:28:35PM +0300, Alexandru Ardelean wrote:
+> > > -static const char * const phy_types[] = {
+> > > -     "emmc 5.0 phy",
+> > > -     "emmc 5.1 phy"
+> > > -};
+> > > -
+> > >  enum xenon_phy_type_enum {
+> > >       EMMC_5_0_PHY,
+> > >       EMMC_5_1_PHY,
+> > >       NR_PHY_TYPES
+> > 
+> > There is no need for NR_PHY_TYPES now so you could remove that as well.
+> > 
+> 
+> I thought the same.
+> The only reason to keep NR_PHY_TYPES, is for potential future patches,
+> where it would be just 1 addition
+> 
+>  enum xenon_phy_type_enum {
+>       EMMC_5_0_PHY,
+>       EMMC_5_1_PHY,
+> +      EMMC_5_2_PHY,
+>       NR_PHY_TYPES
+>   }
+> 
+> Depending on style/preference of how to do enums (allow comma on last
+> enum
+> or not allow comma on last enum value), adding new enum values woudl be 2
+> additions + 1 deletion lines.
+> 
+>  enum xenon_phy_type_enum {
+>       EMMC_5_0_PHY,
+> -      EMMC_5_1_PHY
+> +      EMM
+> C_5_1_PHY,
+> +      EMMC_5_2_PHY
+>  }
+> 
+> Either way (leave NR_PHY_TYPES or remove NR_PHY_TYPES) is fine from my
+> side.
+> 
 
-Hi Takashi,
+Preference on this ?
+If no objection [nobody insists] I would keep.
 
-Dell platform with ALC298.
-system enter to runtime suspend. Headphone had noise.
-Let Headset Mic not shutup will solve this issue.
+I don't feel strongly about it [dropping NR_PHY_TYPES or not].
 
-BR,
-Kailang
+Thanks
+Alex
 
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76602ERTITMBSVM07real_
-Content-Type: application/octet-stream;
-	name="0000-alc298-headset-mic-no-shutup.patch"
-Content-Description: 0000-alc298-headset-mic-no-shutup.patch
-Content-Disposition: attachment;
-	filename="0000-alc298-headset-mic-no-shutup.patch"; size=2976;
-	creation-date="Fri, 10 May 2019 03:47:00 GMT";
-	modification-date="Fri, 10 May 2019 08:37:20 GMT"
-Content-Transfer-Encoding: base64
-
-RnJvbSBmNjhjYmEwZWI5ZGU4MDFiNTY1OTUwOWVkMmJiMDk0MzcxZTAzNjM2IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgMTAgTWF5IDIwMTkgMTY6Mjg6NTcgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEZpeHVwIGhlYWRwaG9uZSBub2lzZSB2aWEgcnVudGltZSBzdXNwZW5k
-CgpEZWxsIHBsYXRmb3JtIHdpdGggQUxDMjk4LgpzeXN0ZW0gZW50ZXIgdG8gcnVudGltZSBzdXNw
-ZW5kLiBIZWFkcGhvbmUgaGFkIG5vaXNlLgpMZXQgSGVhZHNldCBNaWMgbm90IHNodXR1cCB3aWxs
-IHNvbHZlIHRoaXMgaXNzdWUuCgpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdA
-cmVhbHRlay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMg
-Yi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCBkYWNjY2FjYjVmZTAuLjczMzNi
-Mzc2YmE0ZiAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIv
-c291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTQ3OCwxMiArNDc4LDQwIEBAIHN0YXRp
-YyB2b2lkIGFsY19hdXRvX3NldHVwX2VhcGQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMsIGJvb2wg
-b24pCiAJCXNldF9lYXBkKGNvZGVjLCAqcCwgb24pOwogfQogCitzdGF0aWMgaW50IGZpbmRfZXh0
-X21pY19waW4oc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpOworCitzdGF0aWMgdm9pZCBhbGNfaGVh
-ZHNldF9taWNfbm9fc2h1dHVwKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKSB7CisJY29uc3Qgc3Ry
-dWN0IGhkYV9waW5jZmcgKnBpbjsKKwlpbnQgaTsKKwlpbnQgbWljX3BpbiA9IGZpbmRfZXh0X21p
-Y19waW4oY29kZWMpOworCS8qIGRvbid0IHNodXQgdXAgcGlucyB3aGVuIHVubG9hZGluZyB0aGUg
-ZHJpdmVyOyBvdGhlcndpc2UgaXQgYnJlYWtzCisJICogdGhlIGRlZmF1bHQgcGluIHNldHVwIGF0
-IHRoZSBuZXh0IGxvYWQgb2YgdGhlIGRyaXZlcgorCSAqLworCWlmIChjb2RlYy0+YnVzLT5zaHV0
-ZG93bikKKwkJcmV0dXJuOworCXNuZF9hcnJheV9mb3JfZWFjaCgmY29kZWMtPmluaXRfcGlucywg
-aSwgcGluKSB7CisJCS8qIHVzZSByZWFkIGhlcmUgZm9yIHN5bmNpbmcgYWZ0ZXIgaXNzdWluZyBl
-YWNoIHZlcmIgKi8KKwkJaWYgKHBpbi0+bmlkICE9IG1pY19waW4pCisJCQlzbmRfaGRhX2NvZGVj
-X3JlYWQoY29kZWMsIHBpbi0+bmlkLCAwLAorCQkJCQlBQ19WRVJCX1NFVF9QSU5fV0lER0VUX0NP
-TlRST0wsIDApOworCX0KKwljb2RlYy0+cGluc19zaHV0dXAgPSAxOworfQorCiBzdGF0aWMgdm9p
-ZCBhbGNfc2h1dHVwX3BpbnMoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiB7CiAJc3RydWN0IGFs
-Y19zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7Ci0KLQlpZiAoIXNwZWMtPm5vX3NodXR1cF9waW5z
-KQotCQlzbmRfaGRhX3NodXR1cF9waW5zKGNvZGVjKTsKKwlzd2l0Y2ggKGNvZGVjLT5jb3JlLnZl
-bmRvcl9pZCkgeworCQljYXNlIDB4MTBlYzAyODY6CisJCWNhc2UgMHgxMGVjMDI4ODoKKwkJY2Fz
-ZSAweDEwZWMwMjk4OgorCQkJYWxjX2hlYWRzZXRfbWljX25vX3NodXR1cChjb2RlYyk7CisJCQli
-cmVhazsKKwkJZGVmYXVsdDoKKwkJCWlmICghc3BlYy0+bm9fc2h1dHVwX3BpbnMpCisJCQkJc25k
-X2hkYV9zaHV0dXBfcGlucyhjb2RlYyk7CisJCQlicmVhazsKKwkJfQogfQogCiAvKiBnZW5lcmlj
-IHNodXR1cCBjYWxsYmFjazsKQEAgLTI5MjQsMjcgKzI5NTIsNiBAQCBzdGF0aWMgaW50IGFsYzI2
-OV9wYXJzZV9hdXRvX2NvbmZpZyhzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAlyZXR1cm4gYWxj
-X3BhcnNlX2F1dG9fY29uZmlnKGNvZGVjLCBhbGMyNjlfaWdub3JlLCBzc2lkcyk7CiB9CiAKLXN0
-YXRpYyBpbnQgZmluZF9leHRfbWljX3BpbihzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYyk7Ci0KLXN0
-YXRpYyB2b2lkIGFsYzI4Nl9zaHV0dXAoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCi17Ci0JY29u
-c3Qgc3RydWN0IGhkYV9waW5jZmcgKnBpbjsKLQlpbnQgaTsKLQlpbnQgbWljX3BpbiA9IGZpbmRf
-ZXh0X21pY19waW4oY29kZWMpOwotCS8qIGRvbid0IHNodXQgdXAgcGlucyB3aGVuIHVubG9hZGlu
-ZyB0aGUgZHJpdmVyOyBvdGhlcndpc2UgaXQgYnJlYWtzCi0JICogdGhlIGRlZmF1bHQgcGluIHNl
-dHVwIGF0IHRoZSBuZXh0IGxvYWQgb2YgdGhlIGRyaXZlcgotCSAqLwotCWlmIChjb2RlYy0+YnVz
-LT5zaHV0ZG93bikKLQkJcmV0dXJuOwotCXNuZF9hcnJheV9mb3JfZWFjaCgmY29kZWMtPmluaXRf
-cGlucywgaSwgcGluKSB7Ci0JCS8qIHVzZSByZWFkIGhlcmUgZm9yIHN5bmNpbmcgYWZ0ZXIgaXNz
-dWluZyBlYWNoIHZlcmIgKi8KLQkJaWYgKHBpbi0+bmlkICE9IG1pY19waW4pCi0JCQlzbmRfaGRh
-X2NvZGVjX3JlYWQoY29kZWMsIHBpbi0+bmlkLCAwLAotCQkJCQlBQ19WRVJCX1NFVF9QSU5fV0lE
-R0VUX0NPTlRST0wsIDApOwotCX0KLQljb2RlYy0+cGluc19zaHV0dXAgPSAxOwotfQotCiBzdGF0
-aWMgdm9pZCBhbGMyNjl2Yl90b2dnbGVfcG93ZXJfb3V0cHV0KHN0cnVjdCBoZGFfY29kZWMgKmNv
-ZGVjLCBpbnQgcG93ZXJfdXApCiB7CiAJYWxjX3VwZGF0ZV9jb2VmX2lkeChjb2RlYywgMHgwNCwg
-MSA8PCAxMSwgcG93ZXJfdXAgPyAoMSA8PCAxMSkgOiAwKTsKQEAgLTc3MjEsNyArNzcyOCw2IEBA
-IHN0YXRpYyBpbnQgcGF0Y2hfYWxjMjY5KHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQogCWNhc2Ug
-MHgxMGVjMDI4NjoKIAljYXNlIDB4MTBlYzAyODg6CiAJCXNwZWMtPmNvZGVjX3ZhcmlhbnQgPSBB
-TEMyNjlfVFlQRV9BTEMyODY7Ci0JCXNwZWMtPnNodXR1cCA9IGFsYzI4Nl9zaHV0dXA7CiAJCWJy
-ZWFrOwogCWNhc2UgMHgxMGVjMDI5ODoKIAkJc3BlYy0+Y29kZWNfdmFyaWFudCA9IEFMQzI2OV9U
-WVBFX0FMQzI5ODsK
-
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76602ERTITMBSVM07real_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> Thanks
+> Alex
+> 
+> > regards,
+> > dan carpenter
+> > 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76602ERTITMBSVM07real_--

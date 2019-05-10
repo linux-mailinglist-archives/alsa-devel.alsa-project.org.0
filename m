@@ -2,85 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8008B1B595
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 14:13:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0779519BA2
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 May 2019 12:28:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1933916C2;
-	Mon, 13 May 2019 14:12:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1933916C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD0918B4;
+	Fri, 10 May 2019 12:27:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD0918B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557749625;
-	bh=8YCbiwR8DHy+NoJLqXcXsG0yAExL+KGpYNFhdg1EoSs=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZeucJpeVX6efAtmFc5nj6k7RtGW08glZwlOaB8TDyVWMCETPzt9t8kBDOZ5Cgr2pc
-	 eu73KuYEk+P5QolK7wUhXCAT0IHYqorFS7AI/8Tmvuv/bi5QJbf0j4CMZYqwcEMrmC
-	 oLWfBm9X3fUJn8BUbnZVSylpiBLJ7yK8u5hpyhpw=
+	s=default; t=1557484101;
+	bh=GFHBb7VoX9jtCyiybDhXfREkkvUbqbDnXc9Pf52kc88=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MdfDLdFBc+PQIvpI+Zdkf3LCcPx7p1fzjj6C+JWbfMaALP1HbEi3StMj22cxm1ONy
+	 dBFFb4TUuycXBEhxUxhliEFdzuS3mf48KfRzdFsNyMt1Ytl4nmonlWSANK0IhnJqC5
+	 PJPhgVZt0O8lLwGpgEBb9EAfy86uiY1ubYdSnDlk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDD48F8972D;
-	Mon, 13 May 2019 14:11:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFC69F896FD;
+	Fri, 10 May 2019 12:26:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBF8FF89726; Fri, 10 May 2019 12:26:42 +0200 (CEST)
+ id BD84DF896FD; Fri, 10 May 2019 12:26:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=PRX_BODY_26,PRX_BODY_30,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay12.mail.gandi.net (relay12.mail.gandi.net [217.70.178.232])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F17EF80730
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 12:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F17EF80730
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="XVwFUIhN"
-Received: by mail-pf1-x444.google.com with SMTP id u17so3002116pfn.7
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 03:26:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6KX7bhkHg3YMiIW9gA14W3R58YbYmx+bP30Xm0xrams=;
- b=XVwFUIhNnY7Vr6G0aenGbpxQIFAnTaqlTy+WW9vXqYfZ7BsFK1craSiGjLjskBZ086
- jbqTXWZM8AX8P9X1zYSTEC4ojR013LY0fP2JjGdngkSA9Erk90Twz5nYPz+6kf6zxhgA
- nB66O3jG2lSN9twe6lwecwgoTtcSgzMStOdJA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6KX7bhkHg3YMiIW9gA14W3R58YbYmx+bP30Xm0xrams=;
- b=Ug7UVxDk74/aU2Mo08RYiVhyGzTlxu1mPgTb/qqKqJBnxuDgCcJp/E8R9ANSgWspMW
- 6bZfborpZTBoTgs/AYtT2S7SXiZ4R8jbI9srv4O/A8Nm7SchfdD/d0r/n6xawWLeb7+G
- IvJxzg5mXAwlB9dMSC+IyyUwLCxKH7eKbZhn7F7q0IySIhv3gi7DBwYRxCmnWwc9V3hU
- LQ2f/ovkK4jl649qZGX9WB8KylAjjSLbQ7LtSO7kzeo+OoRsMtg2QipLMCsCv7w84+Ch
- LqbYycXhoU4wb5Yu7K1uGAoq8Wz48jmARUAdiz8aByDKvxkbL4L+LjR7XntEAFj5ilJG
- tpyQ==
-X-Gm-Message-State: APjAAAXpb7j13uo3+AHqVnv+9xiGmvk7DgoGxEddPxRAQDFShLumByVd
- vMiOS48LNxHO3mprf76c+OAbLw==
-X-Google-Smtp-Source: APXvYqxZydM/ao+0NNXc/nuBz/ZksXOF4YpflsZ26aodWr5g6Jq82oUw3d+UMo0H41Xf5RHg+UTInw==
-X-Received: by 2002:a63:2943:: with SMTP id p64mr12654828pgp.151.1557483998262; 
- Fri, 10 May 2019 03:26:38 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:6cc8:36d1:3ceb:a986])
- by smtp.gmail.com with ESMTPSA id u75sm15317797pfa.138.2019.05.10.03.26.35
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 May 2019 03:26:37 -0700 (PDT)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 10 May 2019 18:25:59 +0800
-Message-Id: <20190510102559.76137-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.21.0.1020.gf2820cf01a-goog
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41643F8073C
+ for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 12:26:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41643F8073C
+Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
+ (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay12.mail.gandi.net (Postfix) with ESMTPSA id DF1B520001C;
+ Fri, 10 May 2019 10:26:28 +0000 (UTC)
+Date: Fri, 10 May 2019 12:26:28 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Rob Herring <robh+dt@kernel.org>
+Message-ID: <20190510102628.u344cqe7sftuamfg@flea>
+References: <dc84c7e9ce272109052f553a5e050bfe1a09e9d6.1557252411.git-series.maxime.ripard@bootlin.com>
+ <d9afb19c32f8b9b2c40c8d4c0c3df74bff0ccf35.1557252411.git-series.maxime.ripard@bootlin.com>
+ <CAL_Jsq+iLmzti5TX-TUU3PN4taC66UMqHMk-aKTjZKt1kVRtMQ@mail.gmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 13 May 2019 14:10:23 +0200
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Yu-Hsuan Hsu <yuhsuan@chromium.org>, Jon Hunter <jonathanh@nvidia.com>,
- dgreid@chromium.org, cychiang@chromium.org
-Subject: [alsa-devel] [PATCH] ASoC: max98090: remove 24-bit format support
+Content-Disposition: inline
+In-Reply-To: <CAL_Jsq+iLmzti5TX-TUU3PN4taC66UMqHMk-aKTjZKt1kVRtMQ@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v2 2/2] dt-bindings: sound: sun4i-spdif:
+ Document that the RX channel can be missing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,31 +76,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove 24-bit format support because it doesn't work now. We can revert
-this change after it really supports.
-(https://patchwork.kernel.org/patch/10783561/)
+Hi Rob,
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
----
- sound/soc/codecs/max98090.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Wed, May 08, 2019 at 02:35:10PM -0500, Rob Herring wrote:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: allwinner,sun8i-h3-spdif
+> > +
+> > +    then:
+> > +      properties:
+> > +        dmas:
+> > +          maxItems: 1
+>
+> In this and below, these should get added automatically by
+> fixup_schema. If not present, we set minItems/maxItems to the size of
+> the items list. It look like you added support for that, so left over
+> from before you addressed that for if/then/else?
 
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 7619ea31ab50..b25b7efa9118 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -2313,7 +2313,7 @@ int max98090_mic_detect(struct snd_soc_component *component,
- EXPORT_SYMBOL_GPL(max98090_mic_detect);
- 
- #define MAX98090_RATES SNDRV_PCM_RATE_8000_96000
--#define MAX98090_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
-+#define MAX98090_FORMATS SNDRV_PCM_FMTBIT_S16_LE
- 
- static const struct snd_soc_dai_ops max98090_dai_ops = {
- 	.set_sysclk = max98090_dai_set_sysclk,
--- 
-2.21.0.1020.gf2820cf01a-goog
+Sorry, I should have brought that up in the pull request.
 
+It seems that it's still necessary when using allOf, otherwise the
+schema won't match
+
+Maybe there's something more to fix when using allOf?
+
+> > +          items:
+> > +            - description: RX DMA Channel
+>
+> s/RX/TX/
+>
+> > +
+> > +        dma-names:
+> > +          maxItems: 1
+> > +          items:
+> > +            - const: tx
+> > +
+> > +    else:
+> > +      properties:
+> > +        dmas:
+> > +          minItems: 2
+> > +          maxItems: 2
+> > +          items:
+> > +            - description: RX DMA Channel
+> > +            - description: TX DMA Channel
+> > +
+> > +        dma-names:
+> > +          minItems: 2
+> > +          maxItems: 2
+> > +          items:
+> > +            - const: rx
+> > +            - const: tx
+>
+> I'm really on the fence whether it's worth it to add all this just add
+> the restrictions based on the compatible. I guess with copy-n-paste
+> this would be a common error.
+
+Converting most of the bindings to the schemas has shown that (at
+least in our case), we've been pretty bad at keeping the documentation
+up to date with that kind of information.
+
+Adding that kind of construct at least has the benefit to actively
+enforce that the documentation is complete.
+
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

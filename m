@@ -2,94 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65DFF1A56C
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 May 2019 00:42:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683021A760
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 May 2019 12:07:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF6CD17E7;
-	Sat, 11 May 2019 00:42:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF6CD17E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B19181862;
+	Sat, 11 May 2019 12:06:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B19181862
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557528173;
-	bh=wUTbdhZFu+xPWlh8ZdVdt/KNDY1aM2Ad//Hc2avqwVY=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PkNp8RWpQRpL4HSPaflJmY2XKaEaTWvHFFQEiU3kRKCj6pK0SsZTPA4hxfiRKLnb7
-	 JSKp2YjtEezTuzX4KpSvK54PlrKJ2Wb0yOrWegnw0jA+V+0sqinQhTzCgSNtsoGNge
-	 qtx9MZIWwmXoPB5EmYqkNZI20XvbVSROhM991zCM=
+	s=default; t=1557569229;
+	bh=XZCAH34N/o/eFHygh2Ex0b/VOu/rzxV7rs5RbSo2Nck=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=N9kWaok/VgVhuEoCHvPkwwbfxlVWCbJSRL9cdInOq7SaUhSpkiR6wWbzBHaSbBnrJ
+	 6ugf5g0SHNkOiZO2V7AuyxvrdcVQb5C7djVkLVsPNCgSZECTXN8Hb0vm9CsU86ZXTB
+	 NymzsCqIqzhlYzVYBzhaq8Ll8zZGZIuw64y5dAuI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D166F89728;
-	Sat, 11 May 2019 00:39:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32569F89673;
+	Sat, 11 May 2019 12:05:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0FC6F8970E; Sat, 11 May 2019 00:39:52 +0200 (CEST)
+ id ED2F6F89682; Sat, 11 May 2019 12:05:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2AD9F8970E
- for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 00:39:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2AD9F8970E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32715F89673
+ for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 12:05:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32715F89673
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="CW3FW1Qa"
-Received: by mail-pg1-x544.google.com with SMTP id e6so3660374pgc.4
- for <alsa-devel@alsa-project.org>; Fri, 10 May 2019 15:39:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=9SfaLLvXepQRjPBSTX7ofFVM9xFaCs9uEAd6y7Vf/jI=;
- b=CW3FW1QaMndV6cwwyiyNA8R53BhYSKmW1OSkoFcainmLy819+8sTqcbkORQZyJkm+j
- Xv2ZITvIK9F7I695Ipiy4gQ1xDUxh0NYNr8Kjztz40o19XH6MbspMyOdaQVO0Y1twGp7
- hRTBhLibmNvg9nBN/yrN6K3nY6blDcUvKTMQM=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="klfVSy6E"
+Received: by mail-lf1-x141.google.com with SMTP id y19so5816884lfy.5
+ for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 03:05:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=S1pzAmLNYPAdy00NLo0+swPi8ZueHy7n/ZkntsATcVI=;
+ b=klfVSy6EuBXbSF6HXaXcZqpKz9ArrgWbJLcJ/kiA+mUkTEmlnelyUiy+Ebc8lRDVF4
+ oJFOI2e031uG3NFEcMEKQqN7RykJoZr2Llk7h7G65PZNEGmsh50YH7h+bzjhfEYbSESC
+ L+zVmygnc8g3W/7S2XAwH5H3NBVSp5uYLPqvSMeBGMLSky47UaopILOd5R36IHeFeZpq
+ nYoUOj9cC8O3UbSbyjDMpe7ul4TuR40bYud8BzpaAuD+3LBBYEHVWpGE4Ae+6jFRvtA4
+ oIQzEYlOSNZngzIbq0rGpZIisbJeWT0Y+EKhxc5r94Q13Xb8OoilJeC1ngbfLKyom8Le
+ wUIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=9SfaLLvXepQRjPBSTX7ofFVM9xFaCs9uEAd6y7Vf/jI=;
- b=du/02VBcoYqB60groL9APosZm1dZs928o56r3yPMpmp+ScOjZaetD/CbOo8jzFjnGE
- VFuEdhMSu/6XFKK8bzByBHBuqDKElHOXfLThb9F4mfH1+xKLzwUv0Ss1FQGWfeOPm9Qr
- YNMLlm4PkrfcuoD9NqtUAOZDYh2CpwiHtN1g5zkDuGmqqDjacjt6xFnZU5tTn3jdDAi4
- alVIY8pJkpCAJ7xXlue82IcaL1QtbeoK+BFnbdrYvIfUShSvft4oDjJOILxDTxJo007m
- LD8cssCqNdCcIYziC/1z2d0qFojPHP8mPaHW4nMlVi8pFbJIFBsM64LV49BVaL9T0XaE
- /S7A==
-X-Gm-Message-State: APjAAAXG+ww6HFazwG6KyDvwlTLWrbih5/QC/mSP5wf6TF8RX6ZN5tO6
- a4aIHsmgUBhMFQ/yROqWo5uCHA==
-X-Google-Smtp-Source: APXvYqyRgDz+Yrd5PgXej0kYFwSP00cOYoCC+OFOn+fT0I0FzCSLjsERw1RyZahadf+YpZ58Uxujag==
-X-Received: by 2002:aa7:8a53:: with SMTP id n19mr17229422pfa.11.1557527988266; 
- Fri, 10 May 2019 15:39:48 -0700 (PDT)
-Received: from evgreen2.mtv.corp.google.com
- ([2620:15c:202:201:ffda:7716:9afc:1301])
- by smtp.gmail.com with ESMTPSA id u66sm13300540pfa.36.2019.05.10.15.39.46
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=S1pzAmLNYPAdy00NLo0+swPi8ZueHy7n/ZkntsATcVI=;
+ b=HSySLgbS3y7aEZbr+qCdH7rD2yyVgEzKyqEWS7/0NKTKE4WnlpaMb2C+DP/W7EEhmr
+ A7WGsItlFYhLZObxigXld7HXIQPijQhbAF5yMRrDS9FgT5Txf6AxR7tZeKT3Yw9GF5hN
+ I9WM9lCn08gDLimxRpdRGhIMj6HhFB4xJcOgkyl7TGo+ODFH2xB8HaBtjUawx7cwAc2u
+ e/VrFJKKtvFbcR+I7iAlo7xa2rWhmjgudbPGKv6A6QyYrK/q2KdFO9VmzK0vafLIHGW1
+ o+0Fqj41NTI8+ppn7a4dN6TKase1cj3AD+WNEACdyUbKm7wOZZCYJjwDVUpTLzuHy/6U
+ RBHg==
+X-Gm-Message-State: APjAAAXgA0yAb0BUXT98BzQmr2ysJP/JzBIcbsIz8pw5GCDGhmW/YxxK
+ U2to4a5WLhldP2IQ8EOPke8=
+X-Google-Smtp-Source: APXvYqxBlf058XLRLFZsCI5tRDwGeplpimfiuQZEYKJ3VIiqwLjYZ8sn94EHcuKStD9r7wG7384ngw==
+X-Received: by 2002:a19:e002:: with SMTP id x2mr9047896lfg.16.1557569118133;
+ Sat, 11 May 2019 03:05:18 -0700 (PDT)
+Received: from localhost.localdomain (80-167-223-88-cable.dk.customer.tdc.net.
+ [80.167.223.88])
+ by smtp.gmail.com with ESMTPSA id v1sm2196313lfa.93.2019.05.11.03.05.16
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 10 May 2019 15:39:47 -0700 (PDT)
-From: Evan Green <evgreen@chromium.org>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Date: Fri, 10 May 2019 15:39:29 -0700
-Message-Id: <20190510223929.165569-3-evgreen@chromium.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190510223929.165569-1-evgreen@chromium.org>
-References: <20190510223929.165569-1-evgreen@chromium.org>
-MIME-Version: 1.0
-Cc: Rajat Jain <rajatja@chromium.org>, alsa-devel@alsa-project.org,
- Yu Zhao <yuzhao@google.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Evan Green <evgreen@chromium.org>, Ben Zhang <benzh@chromium.org>,
- Rakesh Ughreja <rakesh.a.ughreja@intel.com>,
- Sathya Prakash <sathya.prakash.m.r@intel.com>, Naveen M <naveen.m@intel.com>,
- Guenter Roeck <groeck@chromium.org>
-Subject: [alsa-devel] [PATCH v3 2/2] ASoC: Intel: Skylake: Add Cometlake PCI
-	IDs
+ Sat, 11 May 2019 03:05:17 -0700 (PDT)
+From: Daniel Gomez <dagmcr@gmail.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Lee Jones <lee.jones@linaro.org>,
+ alsa-devel@alsa-project.org (moderated list:CIRRUS LOGIC MADERA CODEC DRIVERS),
+ patches@opensource.cirrus.com (open list:CIRRUS LOGIC MADERA CODEC DRIVERS),
+ linux-kernel@vger.kernel.org (open list)
+Date: Sat, 11 May 2019 12:03:58 +0200
+Message-Id: <1557569038-20340-1-git-send-email-dagmcr@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Cc: "open list:CIRRUS LOGIC MADERA CODEC DRIVERS"
+ <patches@opensource.cirrus.com>, javier@dowhile0.org, dagmcr@gmail.com,
+ "moderated list:CIRRUS LOGIC MADERA CODEC DRIVERS"
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>
+Subject: [alsa-devel] [PATCH v2] mfd: madera: Add missing of table
+	registration
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,105 +99,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add PCI IDs for Intel CometLake platforms, which from a software
-point of view are extremely similar to Cannonlake platforms.
+MODULE_DEVICE_TABLE(of, <of_match_table> should be called to complete DT
+OF mathing mechanism and register it.
 
-Signed-off-by: Evan Green <evgreen@chromium.org>
+Before this patch:
+modinfo ./drivers/mfd/madera.ko | grep alias
+
+After this patch:
+modinfo ./drivers/mfd/madera.ko | grep alias
+alias:          of:N*T*Ccirrus,wm1840C*
+alias:          of:N*T*Ccirrus,wm1840
+alias:          of:N*T*Ccirrus,cs47l91C*
+alias:          of:N*T*Ccirrus,cs47l91
+alias:          of:N*T*Ccirrus,cs47l90C*
+alias:          of:N*T*Ccirrus,cs47l90
+alias:          of:N*T*Ccirrus,cs47l85C*
+alias:          of:N*T*Ccirrus,cs47l85
+alias:          of:N*T*Ccirrus,cs47l35C*
+alias:          of:N*T*Ccirrus,cs47l35
+
+Reported-by: Javier Martinez Canillas <javier@dowhile0.org>
+Signed-off-by: Daniel Gomez <dagmcr@gmail.com>
 ---
+ drivers/mfd/madera-core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v3:
-- Don't select CML_* in SND_SOC_INTEL_SKYLAKE (Pierre-Louis)
-
-Changes in v2:
-- Add 0x06c8 for CML-H (Pierre-Louis)
-
- sound/soc/intel/Kconfig                | 16 ++++++++++++++++
- sound/soc/intel/skylake/skl-messages.c | 16 ++++++++++++++++
- sound/soc/intel/skylake/skl.c          | 10 ++++++++++
- 3 files changed, 42 insertions(+)
-
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index fc1396adde71..b089ed3bf77f 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -165,6 +165,22 @@ config SND_SOC_INTEL_CFL
- 	  If you have a Intel CoffeeLake platform with the DSP
- 	  enabled in the BIOS then enable this option by saying Y or m.
- 
-+config SND_SOC_INTEL_CML_H
-+	tristate "CometLake-H Platforms"
-+	depends on PCI && ACPI
-+	select SND_SOC_INTEL_SKYLAKE_FAMILY
-+	help
-+	  If you have a Intel CometLake-H platform with the DSP
-+	  enabled in the BIOS then enable this option by saying Y or m.
-+
-+config SND_SOC_INTEL_CML_LP
-+	tristate "CometLake-LP Platforms"
-+	depends on PCI && ACPI
-+	select SND_SOC_INTEL_SKYLAKE_FAMILY
-+	help
-+	  If you have a Intel CometLake-LP platform with the DSP
-+	  enabled in the BIOS then enable this option by saying Y or m.
-+
- config SND_SOC_INTEL_SKYLAKE_FAMILY
- 	tristate
- 	select SND_SOC_INTEL_SKYLAKE_COMMON
-diff --git a/sound/soc/intel/skylake/skl-messages.c b/sound/soc/intel/skylake/skl-messages.c
-index 4bf70b4429f0..df01dc952521 100644
---- a/sound/soc/intel/skylake/skl-messages.c
-+++ b/sound/soc/intel/skylake/skl-messages.c
-@@ -255,6 +255,22 @@ static const struct skl_dsp_ops dsp_ops[] = {
- 		.init_fw = cnl_sst_init_fw,
- 		.cleanup = cnl_sst_dsp_cleanup
- 	},
-+	{
-+		.id = 0x02c8,
-+		.num_cores = 4,
-+		.loader_ops = bxt_get_loader_ops,
-+		.init = cnl_sst_dsp_init,
-+		.init_fw = cnl_sst_init_fw,
-+		.cleanup = cnl_sst_dsp_cleanup
-+	},
-+	{
-+		.id = 0x06c8,
-+		.num_cores = 4,
-+		.loader_ops = bxt_get_loader_ops,
-+		.init = cnl_sst_dsp_init,
-+		.init_fw = cnl_sst_init_fw,
-+		.cleanup = cnl_sst_dsp_cleanup
-+	},
+diff --git a/drivers/mfd/madera-core.c b/drivers/mfd/madera-core.c
+index 2a77988..826b971 100644
+--- a/drivers/mfd/madera-core.c
++++ b/drivers/mfd/madera-core.c
+@@ -286,6 +286,7 @@ const struct of_device_id madera_of_match[] = {
+ 	{ .compatible = "cirrus,wm1840", .data = (void *)WM1840 },
+ 	{}
  };
++MODULE_DEVICE_TABLE(of, madera_of_match);
+ EXPORT_SYMBOL_GPL(madera_of_match);
  
- const struct skl_dsp_ops *skl_get_dsp_ops(int pci_id)
-diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
-index 4ed5b7e17d44..f864f7b3df3a 100644
---- a/sound/soc/intel/skylake/skl.c
-+++ b/sound/soc/intel/skylake/skl.c
-@@ -1166,6 +1166,16 @@ static const struct pci_device_id skl_ids[] = {
- 	/* CFL */
- 	{ PCI_DEVICE(0x8086, 0xa348),
- 		.driver_data = (unsigned long)&snd_soc_acpi_intel_cnl_machines},
-+#endif
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CML_LP)
-+	/* CML-LP */
-+	{ PCI_DEVICE(0x8086, 0x02c8),
-+		.driver_data = (unsigned long)&snd_soc_acpi_intel_cnl_machines},
-+#endif
-+#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CML_H)
-+	/* CML-H */
-+	{ PCI_DEVICE(0x8086, 0x06c8),
-+		.driver_data = (unsigned long)&snd_soc_acpi_intel_cnl_machines},
- #endif
- 	{ 0, }
- };
+ static int madera_get_reset_gpio(struct madera *madera)
 -- 
-2.20.1
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

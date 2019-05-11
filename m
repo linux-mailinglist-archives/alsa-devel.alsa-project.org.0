@@ -2,83 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 933C71A835
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 May 2019 17:14:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA6991A905
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 May 2019 20:18:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C00EB180D;
-	Sat, 11 May 2019 17:13:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C00EB180D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 493D91794;
+	Sat, 11 May 2019 20:18:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 493D91794
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557587639;
-	bh=uGsUeBfprEuNrWtRgSK6YU+MRqyonW/qQWyLW2app3c=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jmtpAfhfUpOv2PtUYh6TlC5+ZY9WEbdIzpHH0y4Q73k6tBJ8ZguAOv32dm/qQVZ+W
-	 wAbxg9pshQ3KIA7khOmMi4EpzYQ+NZXqn/KJ2wgOdb/PrJLjCoT40mG3X1vnv2U/8t
-	 g7L482ETpFKNZ6l+ZtC0sv8wFmcFMo4JGHIiEPag=
+	s=default; t=1557598738;
+	bh=94ls6v8wf7VJlBKTwJeFArkyu0N6y6LMUZiKWw6iK24=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fP8MHlfFUGodzZR5kDY77hQBlcSZaB+9x3+4vQIDuSEN83eOlWSfiCWbRPkoyzeH7
+	 Nr5HNrW4scvZZAQZOeabK0iFDLIKjEgJ98g19wid0b0xs2RK+I5gc7i6PQncoAPAdt
+	 1rOZYq62j7WJHNClq0Hcmn+fPqQqDLgD3oNnFcnk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15D6EF89682;
-	Sat, 11 May 2019 17:12:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07B24F896DF;
+	Sat, 11 May 2019 20:17:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53C05F89682; Sat, 11 May 2019 17:12:12 +0200 (CEST)
+ id A5FC5F89682; Sat, 11 May 2019 20:17:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B0F5F80737
- for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 17:12:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B0F5F80737
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="edW68aqi"
-Received: by mail-wr1-x442.google.com with SMTP id r7so10107765wrr.13
- for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 08:12:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id;
- bh=C9xJNH3rQETX8Uvs3BiVRbTmI3eQORXEanCcAES6EWo=;
- b=edW68aqiIHYXtk5/iyC/IjpLFuHH5sNyT/MWGYlKWphrNuWw6CC4sAOLKhR+YYuFjY
- wAdYHFoArU5lVWImIRBdWDF0fhK8aEMDjL4/3KVfbNk3dEDIwVa4PXdlhtkLCQSfNFSu
- Alc4+s7PmH0P3dmVS1JlC1J59yekcgeWRdNw/NXDpyhkj/hD5dcuy8/CNEKNtNfP8MMD
- VeBFVLvzem3RIthSx+dOCgrGxTTxwMxh4e+C2aEl/urK1grtbM3umIY5Jx9l39bBo3oI
- BJelrPxkXR1wZWnYk6f1emsArtADKTW3V8WJSHtSrobvE1pMl/TIAYUxOyHzSeq6oRTz
- Bzww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=C9xJNH3rQETX8Uvs3BiVRbTmI3eQORXEanCcAES6EWo=;
- b=ZXodtGEJDyNiF8Jbs9rPq3nS3bSwFdRV6y9go7wCbRYcNHfREZvE2BY9CN5nD5oP9H
- AY9VLpRwCHmqFRXy3DHiaxatheZLc9A6GK71XUyQCRhXLPt98jZ7KlBlq0ptRHio1h71
- +hNmyt7mwSiVLsr87hhB0ztXquvDEoKQolflluxSUOY3VpgOG8/IfIhzhYY6+O7qOo3V
- RpfK+Qltd6IX7bKL6aUpR+0RiM65wdTsVwhaFj74o1RW50+Knvev3OLpl3wvJpkH0BfU
- Y3dlAG0IpvUQim0mXV3m5Pj8Q30LMzYP92GfO8bHNrdomfvOJjWbxXrNwqwr/nXo7bJu
- zS5Q==
-X-Gm-Message-State: APjAAAXYNXVgZtoP5v4gVtaqm0Gp8YIXYttc5IJGjuic6aoSYNNzNaaa
- kBOvTfX579VKx62rkR/aLSg=
-X-Google-Smtp-Source: APXvYqyWfcN3Yu3qXJX1XKz4kwKny7FzO4sA95+9hvM0ipCvNtla9/0vQyTesyjVdmZHRW/aV4yrqA==
-X-Received: by 2002:a5d:6b46:: with SMTP id x6mr11143117wrw.313.1557587529021; 
- Sat, 11 May 2019 08:12:09 -0700 (PDT)
-Received: from localhost.localdomain (p5DCFEB77.dip0.t-ipconnect.de.
- [93.207.235.119])
- by smtp.gmail.com with ESMTPSA id c9sm5650992wrv.62.2019.05.11.08.12.06
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 11 May 2019 08:12:07 -0700 (PDT)
-From: Saravanan Sekar <sravanhome@gmail.com>
-To: sravanhome@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 11 May 2019 17:11:49 +0200
-Message-Id: <20190511151149.28823-1-sravanhome@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Subject: [alsa-devel] [PATCH v4] ASoC: tlv320aic3x: Add support for high
-	power analog output
+ by alsa1.perex.cz (Postfix) with ESMTPS id 131F2F80737
+ for <alsa-devel@alsa-project.org>; Sat, 11 May 2019 20:17:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131F2F80737
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 May 2019 11:17:03 -0700
+X-ExtLoop1: 1
+Received: from bgtruong-mobl1.amr.corp.intel.com (HELO [10.252.205.232])
+ ([10.252.205.232])
+ by orsmga006.jf.intel.com with ESMTP; 11 May 2019 11:17:01 -0700
+To: Evan Green <evgreen@chromium.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20190510223929.165569-1-evgreen@chromium.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3cd20987-c251-f068-271a-546a83f27188@linux.intel.com>
+Date: Sat, 11 May 2019 13:17:01 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <20190510223929.165569-1-evgreen@chromium.org>
+Content-Language: en-US
+Cc: Rajat Jain <rajatja@chromium.org>, alsa-devel@alsa-project.org,
+ Yu Zhao <yuzhao@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Ben Zhang <benzh@chromium.org>,
+ Rakesh Ughreja <rakesh.a.ughreja@intel.com>,
+ Sathya Prakash <sathya.prakash.m.r@intel.com>, Naveen M <naveen.m@intel.com>,
+ Guenter Roeck <groeck@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v3 0/2] ASoC: Intel: Add Cometlake PCI IDs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,80 +77,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support to output level control for the analog high power output
-drivers HPOUT and HPCOM.
 
-Signed-off-by: Saravanan Sekar <sravanhome@gmail.com>
----
 
-Notes:
-    Notes:
-        Changes in V4:
-        -Added separate mono playback volume control
-        -grouped volume controls with corresponding switch
-    
-        Changes in V3:
-        -Fixed compilation error
-    
-        Changes in V2:
-        - Removed power control as it is handled by DAPM
-        - Added level control for left channel
+On 5/10/19 5:39 PM, Evan Green wrote:
+> 
+> This small series adds PCI IDs for Cometlake platforms, for a
+> dazzling audio experience.
+> 
+> This is based on linux-next's next-20190510.
 
- sound/soc/codecs/tlv320aic3x.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+Thank you Evan, looks good. For the series
 
-diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
-index 516d17cb2182..599e4ed3850b 100644
---- a/sound/soc/codecs/tlv320aic3x.c
-+++ b/sound/soc/codecs/tlv320aic3x.c
-@@ -324,6 +324,9 @@ static DECLARE_TLV_DB_SCALE(adc_tlv, 0, 50, 0);
-  */
- static DECLARE_TLV_DB_SCALE(output_stage_tlv, -5900, 50, 1);
- 
-+/* Output volumes. From 0 to 9 dB in 1 dB steps */
-+static const DECLARE_TLV_DB_SCALE(out_tlv, 0, 100, 0);
-+
- static const struct snd_kcontrol_new aic3x_snd_controls[] = {
- 	/* Output */
- 	SOC_DOUBLE_R_TLV("PCM Playback Volume",
-@@ -386,11 +389,17 @@ static const struct snd_kcontrol_new aic3x_snd_controls[] = {
- 			 DACL1_2_HPLCOM_VOL, DACR1_2_HPRCOM_VOL,
- 			 0, 118, 1, output_stage_tlv),
- 
--	/* Output pin mute controls */
-+	/* Output pin controls */
-+	SOC_DOUBLE_R_TLV("Line Playback Volume", LLOPM_CTRL, RLOPM_CTRL, 4,
-+			 9, 0, out_tlv),
- 	SOC_DOUBLE_R("Line Playback Switch", LLOPM_CTRL, RLOPM_CTRL, 3,
- 		     0x01, 0),
-+	SOC_DOUBLE_R_TLV("HP Playback Volume", HPLOUT_CTRL, HPROUT_CTRL, 4,
-+			 9, 0, out_tlv),
- 	SOC_DOUBLE_R("HP Playback Switch", HPLOUT_CTRL, HPROUT_CTRL, 3,
- 		     0x01, 0),
-+	SOC_DOUBLE_R_TLV("HPCOM Playback Volume", HPLCOM_CTRL, HPRCOM_CTRL,
-+			 4, 9, 0, out_tlv),
- 	SOC_DOUBLE_R("HPCOM Playback Switch", HPLCOM_CTRL, HPRCOM_CTRL, 3,
- 		     0x01, 0),
- 
-@@ -472,6 +481,9 @@ static const struct snd_kcontrol_new aic3x_mono_controls[] = {
- 			 0, 118, 1, output_stage_tlv),
- 
- 	SOC_SINGLE("Mono Playback Switch", MONOLOPM_CTRL, 3, 0x01, 0),
-+	SOC_SINGLE_TLV("Mono Playback Volume", MONOLOPM_CTRL, 4, 9, 0,
-+			out_tlv),
-+
- };
- 
- /*
--- 
-2.17.1
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
+> 
+> Changes in v3:
+> - Copy cnl_desc to new cml_desc, and avoid selecting cannonlake (Pierre-Louis)
+> - Don't select CML_* in SND_SOC_INTEL_SKYLAKE (Pierre-Louis)
+> 
+> Changes in v2:
+> - Add CML-H ID 0x06c8 (Pierre-Louis)
+> - Add 0x06c8 for CML-H (Pierre-Louis)
+> 
+> Evan Green (2):
+>    ASoC: SOF: Add Comet Lake PCI IDs
+>    ASoC: Intel: Skylake: Add Cometlake PCI IDs
+> 
+>   sound/soc/intel/Kconfig                | 16 +++++++++++++
+>   sound/soc/intel/skylake/skl-messages.c | 16 +++++++++++++
+>   sound/soc/intel/skylake/skl.c          | 10 ++++++++
+>   sound/soc/sof/intel/Kconfig            | 32 ++++++++++++++++++++++++++
+>   sound/soc/sof/sof-pci-dev.c            | 28 ++++++++++++++++++++++
+>   5 files changed, 102 insertions(+)
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

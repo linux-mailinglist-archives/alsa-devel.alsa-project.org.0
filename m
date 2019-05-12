@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 399281AD6E
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 May 2019 19:08:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C1941AD6A
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 May 2019 19:07:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8385172E;
-	Sun, 12 May 2019 19:08:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8385172E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 003F5172D;
+	Sun, 12 May 2019 19:06:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 003F5172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557680934;
-	bh=SJZwoXwDMqz7wA1D7tarAznwfhEs+hEsmfSIM3tzau4=;
+	s=default; t=1557680851;
+	bh=qjOrelfCnhDy+cYfwREk7aonquBSQrwUpRlSULWjC9E=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OzvZzE+7TBsMIKFZLUuQGPHqDPSycAJmtwS3fq/sC58Phlg0KehC2IoL8P3bHj8lY
-	 UP2kyfRJCrxhLnV/baXWZ4s1oprRKpO3hHrbB4DLvecdvTv6TKxauTZN55cNyzxHVt
-	 R1QoSKJqqrXtU6OFH7Qki+s0KOpp8xIru2m2Af/c=
+	b=Ipx6DFII3sOK8UMeuTJpS8XuovbNyft9SnbQFhLLTH1v+PATiwjTcf6XwPXGDbCc0
+	 5yCJYSah46kFcwsVHWPs8NTVypOj7sV7FL534ArtEMSSNlMyNRUY4BkjawUWrFmbvy
+	 e4jEOnlxvYQQP0RFHejxMvg2IvB7OyMZoEMzuVa8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FFDAF8972B;
-	Sun, 12 May 2019 19:05:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99FC3F896B6;
+	Sun, 12 May 2019 19:05:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D45BF89719; Sun, 12 May 2019 19:05:47 +0200 (CEST)
+ id 8FAEFF896B6; Sun, 12 May 2019 19:05:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.2 required=5.0 tests=DATE_IN_PAST_06_12, DKIM_SIGNED,
@@ -34,49 +34,46 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6E1FF896B9
- for <alsa-devel@alsa-project.org>; Sun, 12 May 2019 19:05:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6E1FF896B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75159F8961A
+ for <alsa-devel@alsa-project.org>; Sun, 12 May 2019 19:05:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75159F8961A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Pqb+f8po"
+ header.b="YcPgH/wO"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Al4EoyY96EAxe1H2q1V9FWEsm/LEAVkyhL5q79Jk7NM=; b=Pqb+f8poN6fOZBIGOY2vx2WMT
- OXQ4lVhFA4XKnsj7aVIVyEngEGJInCg7BuQP9K7MBeFeSYf3HoFQHiTlCQ9lGaQ5qUInHWiVhosfJ
- YAZYMWfSMQVAksjR8BlUuAYj93RogMc84g5DU4TklSDH8PctzhkbM8FpGtYisyThVJm1Q=;
+ bh=i7AIbl3LuWCqd7OLDSbBZZ+JZVLRCdFPtZTLEmXFlX4=; b=YcPgH/wO+xi9sH9dzNiWeGDnh
+ aut8UScY9xKtjJf0ZSIy0pUP4FNY/xtfCuKYjbjLkdWva3AZvyNCnW35thx+T4VdaF0gkKNAJ8hpL
+ mwDObNGZGo8C0jJ0mQ50lzj40EZfdK0a1mK92z7NZLMISwwWGQ1OYGJCXiM1ccBafV3dA=;
 Received: from [81.145.206.43] (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hPruv-00044w-07; Sun, 12 May 2019 17:05:41 +0000
+ id 1hPrut-00044U-NA; Sun, 12 May 2019 17:05:39 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 8380244004A; Sun, 12 May 2019 09:07:56 +0100 (BST)
-Date: Sun, 12 May 2019 17:07:56 +0900
+ id EE2C5440056; Sun, 12 May 2019 09:27:26 +0100 (BST)
+Date: Sun, 12 May 2019 17:27:26 +0900
 From: Mark Brown <broonie@kernel.org>
-To: "Yang, Libin" <libin.yang@intel.com>
-Message-ID: <20190512080756.GI21483@sirena.org.uk>
-References: <1557282761-26146-1-git-send-email-libin.yang@intel.com>
- <aa0c6eea81a721f340dd1362801e49049a6620dd.camel@linux.intel.com>
- <s5htve4mymn.wl-tiwai@suse.de>
- <96A12704CE18D347B625EE2D4A099D1952838E47@SHSMSX103.ccr.corp.intel.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Message-ID: <20190512082726.GL21483@sirena.org.uk>
+References: <20190506095815.24578-1-jbrunet@baylibre.com>
+ <20190506095815.24578-3-jbrunet@baylibre.com>
+ <20190508070058.GQ14916@sirena.org.uk>
+ <fd633a5597703f557d75e43c14213699efe295f0.camel@baylibre.com>
+ <20190508085758.GE14916@sirena.org.uk>
+ <5b677f1581565bd8c915a14cd91352ec4bcabdd7.camel@baylibre.com>
 MIME-Version: 1.0
-In-Reply-To: <96A12704CE18D347B625EE2D4A099D1952838E47@SHSMSX103.ccr.corp.intel.com>
+In-Reply-To: <5b677f1581565bd8c915a14cd91352ec4bcabdd7.camel@baylibre.com>
 X-Cookie: HOST SYSTEM RESPONDING, PROBABLY UP...
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.de>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, "Wang,
- Rander" <rander.wang@intel.com>
-Subject: Re: [alsa-devel] [PATCH V2] ASoC: soc-pcm: BE dai needs prepare
- when pause release after resume
+Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v2 2/4] ASoC: hdmi-codec: remove reference
+ to the current substream
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,49 +86,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6435712641589738662=="
+Content-Type: multipart/mixed; boundary="===============2566124925335371649=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============6435712641589738662==
+--===============2566124925335371649==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9iyR+p8Z2cn535Lj"
+	protocol="application/pgp-signature"; boundary="00hq2S6J2Jlg6EbK"
 Content-Disposition: inline
 
 
---9iyR+p8Z2cn535Lj
+--00hq2S6J2Jlg6EbK
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 09, 2019 at 02:30:39AM +0000, Yang, Libin wrote:
+On Thu, May 09, 2019 at 10:11:48AM +0200, Jerome Brunet wrote:
+> On Wed, 2019-05-08 at 17:57 +0900, Mark Brown wrote:
 
-> I think this may be a ASoC FE-BE defect.
-> In this case, ASoC will call FE dai prepare(), but it will not call=20
-> BE dai prepare() because of the judgement. This is why I made the patch.
+> > Probably using a mutex for the flag is clearer.  I'd rather keep things
+> > as simple as absolutely possible to avoid people making mistakes in
+> > future.
 
-If it's calling only the front end but not the back end that definitely
-sounds like DPCM is causing trouble again.
+> I received a notification that you applied this patch.
+> Just to confirm, you expect a follow up patch to re-introduce the mutex, right ?
 
---9iyR+p8Z2cn535Lj
+Right.
+
+--00hq2S6J2Jlg6EbK
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzX1FsACgkQJNaLcl1U
-h9DW3Qf+N4/X6mvAmda7LVaF3udDZiG5YNm2xceAXi7Jj99GDH779doij4YfA1BN
-pcjw7hft1eNyna3WnGrin8XozWk5/bD6KXwQVQ4iliMKHomitFhjwtjgw/S2XB5w
-whnL9oksQ1IWVwoGVorbRTA1abQ1Mc8iN65zMxiZtVZ9zABKoKgGOWy1R18xhbKZ
-x308W5iDjOYJpHAxfqIR8yJ+sfqK6JInU3NsPuNjs89jnwwIHDXCQZiLIkuyuvpo
-dpwe8Q3/bO6HK23EQqIjxadRG78sNZI8WAZACbeY0vwdRfJtalzvvbdt+Wo7+Rvt
-VdXz8EZdCZvDQpLSoInclD5hwq4eMA==
-=UKiG
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzX2O4ACgkQJNaLcl1U
+h9DTqgf+PkO76Y2CBGrPX0MuFUXOjE2QlNeHbqPtBweMBUAI8bHZbVVwZzd4RWQc
+MO9Na+UlPDBKHaxlfkC8HqV5Tud6PMmAcXYj/qJCiGewOTwVI+C472JBLfsYfont
+dfAkAhqUE+XZ/WlF1MELpoXCWAY3AP/i8RLP7it1dD0Y58HZl3/ofjtB0eIXevAr
+HnPMmyv9VzSA9RmD7bEwzeuURho3714tlQs45grB3UtW6h39hDUWHanl8v+uet1u
+gyHtxg9tE90edoV83T8lkqwiRuO7Pd+V0XVKM1bvGpNVMEAgR6iAQ02UUgULBzh9
+qVZx8lrwwvTjCIQVH+VUw2B5NwV1Rw==
+=m9x5
 -----END PGP SIGNATURE-----
 
---9iyR+p8Z2cn535Lj--
+--00hq2S6J2Jlg6EbK--
 
---===============6435712641589738662==
+--===============2566124925335371649==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -142,4 +141,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============6435712641589738662==--
+--===============2566124925335371649==--

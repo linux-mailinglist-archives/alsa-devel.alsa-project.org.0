@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A63E1B6A4
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 15:04:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EEE41B6AD
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 15:06:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D276B1708;
-	Mon, 13 May 2019 15:03:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D276B1708
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CCAC172D;
+	Mon, 13 May 2019 15:05:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CCAC172D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557752679;
-	bh=ecyI9LgYnAX0DWVqRREr+SJwRrnHSkXgdsACbdQUOSM=;
+	s=default; t=1557752760;
+	bh=x8wORH08XjU7e1HpNIJBsJ5dTUegkInUgmfJKxb1DxA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=lxX0TbJ+F8G6vgjFaT/K1X4mYXwawmrAsWmsbT0fwjFkLSSBFZVDq8XcXbacGQpbJ
-	 WrcJK2lu9iQhpahp9AcurXjlh4zoYwjJcGC2SSLbyocuidHKQm5G6OSQKzaeb+nInk
-	 MgJJpKxzFQEoqXcrjhanIBch5zd8HYpgkDlmV0/U=
+	b=aalFMI/BLlt2rcyrL3rVNb8xK6di1DRPNRO1MDHbJ+KhAZepjn44DvQ5g1Nuz0bph
+	 KZkQfLrDYMDoCcpeinXjwePsHlp4SlZqH8/mZBQ3wfSjJLFKD11G/w915fQcWFsEA+
+	 XnCRpmAmiuDlSOTDvXIcStgBR2Be0sh3fH5c7ou4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6006EF8973A;
-	Mon, 13 May 2019 15:01:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C7ADF89748;
+	Mon, 13 May 2019 15:01:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFF63F89721; Mon, 13 May 2019 14:31:10 +0200 (CEST)
+ id 50DECF8972E; Mon, 13 May 2019 14:31:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4095F8972D
- for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 14:30:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4095F8972D
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4A23F89736
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 14:30:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4A23F89736
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="PhskhKSw"
+ header.b="nCkfFVAL"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=rXaxqHaX7E184Xyqo/lxBDTa3ZnS2WwuEb0wOWiFSPE=; b=PhskhKSwQzG8
- LDx57lyDyZCi8IbSXV8Xwnjg44TlcK+OJk9amDATf+DYCDKJIP5wDz5P9nFVcPyaCeEdacsurnPXq
- CrQ9jIoPfTcIYquIvbeRCDvhwXRB5d5V6CVMwbSMSQ7mAriYuNsSjk9Jdmue7z0tm4jDyWXHlFF1H
- AKWSk=;
+ List-Archive; bh=vreNtS8avElPudlPJqXLPJwQS0XItY+IjC0mF5VVz7g=; b=nCkfFVAL2Y2A
+ SEvC81JsNZCMAidD3GYCwvXMi9nApxHlcPRvEyuSljzobXTsGKX565N0YG2z37JqmKhxLs2nTS51X
+ h8w8rq+JHIw1so7AdHRqZHpK1bgbgagkYeSIObAhHoRtaUAnWW+sv0LCOKPKWGHigvK6K4p22evm2
+ xIf/M=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hQA6A-0006Wl-NN; Mon, 13 May 2019 12:30:30 +0000
+ id 1hQA6G-0006Wg-33; Mon, 13 May 2019 12:30:36 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 303621129235; Mon, 13 May 2019 13:30:30 +0100 (BST)
+ id 9841A1129233; Mon, 13 May 2019 13:30:30 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Viorel Suman <viorel.suman@nxp.com>
-In-Reply-To: <1557408607-25115-3-git-send-email-viorel.suman@nxp.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20190509201027.3906-5-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190513123030.303621129235@debutante.sirena.org.uk>
+Message-Id: <20190513123030.9841A1129233@debutante.sirena.org.uk>
 Date: Mon, 13 May 2019 13:30:30 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- "S.j. Wang" <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Viorel Suman <viorel.suman@gmail.com>,
- Julia Lawall <Julia.Lawall@lip6.fr>, Mark Brown <broonie@kernel.org>,
- dl-linux-imx <linux-imx@nxp.com>, Colin Ian King <colin.king@canonical.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
-Subject: [alsa-devel] Applied "ASoC: ak4458: add return value for
-	ak4458_probe" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: fix error in verbose ipc command
+	parsing" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: ak4458: add return value for ak4458_probe
+   ASoC: SOF: fix error in verbose ipc command parsing
 
 has been applied to the asoc tree at
 
@@ -116,65 +112,34 @@ to this mail.
 Thanks,
 Mark
 
-From a8dee20d792432740509237943700fbcfc230bad Mon Sep 17 00:00:00 2001
-From: Viorel Suman <viorel.suman@nxp.com>
-Date: Thu, 9 May 2019 13:30:36 +0000
-Subject: [PATCH] ASoC: ak4458: add return value for ak4458_probe
+From 8199a12037892f01e2cf5bedf5fbf08dff11b282 Mon Sep 17 00:00:00 2001
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Date: Thu, 9 May 2019 15:10:25 -0500
+Subject: [PATCH] ASoC: SOF: fix error in verbose ipc command parsing
 
-AK4458 is probed successfully even if AK4458 is not present - this
-is caused by probe function returning no error on i2c access failure.
-Return an error on probe if i2c access has failed.
+Remove the erroneous addition of "SET_VALUE" to the GLB
+IPC command string.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/ak4458.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ sound/soc/sof/ipc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
-index eab7c76cfcd9..4c5c3ec92609 100644
---- a/sound/soc/codecs/ak4458.c
-+++ b/sound/soc/codecs/ak4458.c
-@@ -536,9 +536,10 @@ static void ak4458_power_on(struct ak4458_priv *ak4458)
- 	}
- }
- 
--static void ak4458_init(struct snd_soc_component *component)
-+static int ak4458_init(struct snd_soc_component *component)
- {
- 	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
-+	int ret;
- 
- 	/* External Mute ON */
- 	if (ak4458->mute_gpiod)
-@@ -546,21 +547,21 @@ static void ak4458_init(struct snd_soc_component *component)
- 
- 	ak4458_power_on(ak4458);
- 
--	snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
-+	ret = snd_soc_component_update_bits(component, AK4458_00_CONTROL1,
- 			    0x80, 0x80);   /* ACKS bit = 1; 10000000 */
-+	if (ret < 0)
-+		return ret;
- 
--	ak4458_rstn_control(component, 1);
-+	return ak4458_rstn_control(component, 1);
- }
- 
- static int ak4458_probe(struct snd_soc_component *component)
- {
- 	struct ak4458_priv *ak4458 = snd_soc_component_get_drvdata(component);
- 
--	ak4458_init(component);
--
- 	ak4458->fs = 48000;
- 
--	return 0;
-+	return ak4458_init(component);
- }
- 
- static void ak4458_remove(struct snd_soc_component *component)
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index f0b9d3c53f6f..894e68cbd69d 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -115,7 +115,7 @@ static void ipc_log_header(struct device *dev, u8 *text, u32 cmd)
+ 		}
+ 		break;
+ 	case SOF_IPC_GLB_COMP_MSG:
+-		str = "GLB_COMP_MSG: SET_VALUE";
++		str = "GLB_COMP_MSG";
+ 		switch (type) {
+ 		case SOF_IPC_COMP_SET_VALUE:
+ 			str2 = "SET_VALUE"; break;
 -- 
 2.20.1
 

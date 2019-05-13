@@ -2,85 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE0F1B1C4
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 10:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0172C1B1CB
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 10:20:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FECC16E5;
-	Mon, 13 May 2019 10:16:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FECC16E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E5CA16C5;
+	Mon, 13 May 2019 10:20:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E5CA16C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557735439;
-	bh=DrUIAT41GnL8HXBo+WmGY60Lb/Hu5ZcNJ72rERjIZS4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=c4Nz7pxxcZaVVM0/x4X3YmfBqqdEp9cee6t3EK0ZpB5Xh6yi5M1pfJpBrIseRq3P/
-	 Uycml+hS7z2Zq9EFIPJmyIUUTFDD/PQjfx9dYNefChqrw7oebu2tnwceRf5l0Os7ZZ
-	 VsvZ5dNl4QHG5XMCnOzqWNaTMGTNoUldPT1uKaRg=
+	s=default; t=1557735654;
+	bh=e//fdyw95jx4hWNfA2tBgOYuEy5J7pK4o9ki+7L3kFU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ts8SxwHWqUGSFcEoJ01xvmZgIUXfiBHvwA+8H+NVSJhvTm1lIrttDvZnFLiuiBVZF
+	 iR9al2klmduCAYPCNRR3dr+Yh1ErvQgvWYYJjj9dlY9eWBgfDfbRCi98xSNCihzL1f
+	 oNJnxqhZYkDKP6iTY73mbIU7h6sbIQoIuKT2P3eY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D124F896B8;
-	Mon, 13 May 2019 10:15:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD89CF8968A;
+	Mon, 13 May 2019 10:19:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E9B3F89684; Mon, 13 May 2019 10:15:32 +0200 (CEST)
+ id D5347F89684; Mon, 13 May 2019 10:19:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7284EF80733
- for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 10:15:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7284EF80733
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4D89QCh015186; Mon, 13 May 2019 03:15:23 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0a-001ae601.pphosted.com with ESMTP id 2sdusy2arj-1;
- Mon, 13 May 2019 03:15:23 -0500
-Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
- by mail1.cirrus.com (Postfix) with ESMTP id 0A979611C8AD;
- Mon, 13 May 2019 03:15:23 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 13 May
- 2019 09:15:22 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Mon, 13 May 2019 09:15:22 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id CA94F2A1;
- Mon, 13 May 2019 09:15:21 +0100 (BST)
-Date: Mon, 13 May 2019 09:15:21 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Daniel Gomez <dagmcr@gmail.com>
-Message-ID: <20190513081521.GE45394@ediswmail.ad.cirrus.com>
-References: <1557569038-20340-1-git-send-email-dagmcr@gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE191F80733
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 10:19:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE191F80733
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="19wbZ9g4"
+Received: by mail-wr1-x443.google.com with SMTP id d12so14092672wrm.8
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 01:19:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fUi0ZGwdStuY0eVRYd5ldGSSn5HdKxs5p/Z/yyYivTw=;
+ b=19wbZ9g46sLKbeiPuUn11Sf+oj1WEgyw3x02jpEOfdMoHk27ztwm0HIkmsn3bInU5J
+ eprXbmiXOBvogz+3QhC3HHNgt61Uk4vo3vJDQrCasZG9z0KT2tyiawjCAYI9zMdrY0Ew
+ Lqws+TlEHrQ9dTEGblkJpOApAWL2qwkfhYOQmBUF1rjywGqbYBcMbkmo4tcK69bLgpM+
+ YkazkWzpRsxLieBr+vB5cLlNDAJr82+OCzsNY1kOuSFPNE+oieA4tKRY0CCzBYbcYNvA
+ CadWec3B2ct4eGoe/SnHPYEc120RviRN4dxFzYGRnwehbQjnlIjqibS50pGKe8iupjd2
+ oIOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fUi0ZGwdStuY0eVRYd5ldGSSn5HdKxs5p/Z/yyYivTw=;
+ b=Wn3Fst/0jH5F8Apg3llPk+pl543ndmOPV8hP9KYD2NS18kwHHU0qNb7ivIZ8jv1a/t
+ yIIfbGOXvoUZkdszZc6Eg8R98fioVSOQdTRzb6rPyIzKCLC/bAc3FJjT1CqU2qeiCQHZ
+ Bwzm1uzhzf7nJdI1oZdEvHJ+qconpupC1E4s5AapPVedswi058um4LWcGyEv5nM5QsJi
+ WaJzKUlzmItHc0GT18/ZdIM4ltngIjSIl/7lI4v8E6Do9Jz57KjdBlfY7KRNFsJ0BqS5
+ tlRJ+aMbo/IdaQatl8Ga7VukkdqdWOi0uP0Cowg+HmvHBdUKobVo7WFxqA/nJzXUvq5q
+ M6PA==
+X-Gm-Message-State: APjAAAVQjQyP8KtUqj6iPbXsimJM9V623foYNLslO1fRzw0LsrEUVWKy
+ Q2ihlfR3fRpTiskDN0CPnvp0uA==
+X-Google-Smtp-Source: APXvYqwLdalQYeISU9E+Q5WyRnBHVc3VJxFENzGQ3xLaSxs7jEwkM78H29YxFKjqcUY+auodvZ1x2Q==
+X-Received: by 2002:adf:eac6:: with SMTP id o6mr7825518wrn.222.1557735543746; 
+ Mon, 13 May 2019 01:19:03 -0700 (PDT)
+Received: from boomer.local (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.googlemail.com with ESMTPSA id x4sm1594859wrn.41.2019.05.13.01.19.02
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 13 May 2019 01:19:02 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Date: Mon, 13 May 2019 10:18:47 +0200
+Message-Id: <20190513081847.31140-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1557569038-20340-1-git-send-email-dagmcr@gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=988 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1905130060
-Cc: "moderated list:CIRRUS LOGIC MADERA CODEC DRIVERS"
- <alsa-devel@alsa-project.org>,
- "open list:CIRRUS LOGIC MADERA CODEC DRIVERS" <patches@opensource.cirrus.com>,
- open list <linux-kernel@vger.kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, javier@dowhile0.org,
- Lee Jones <lee.jones@linaro.org>
-Subject: Re: [alsa-devel] [PATCH v2] mfd: madera: Add missing of table
-	registration
+Cc: patchwork-bot+notify@kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] [PATCH] ASoC: hdmi-codec: re-introduce mutex locking
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,34 +100,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, May 11, 2019 at 12:03:58PM +0200, Daniel Gomez wrote:
-> MODULE_DEVICE_TABLE(of, <of_match_table> should be called to complete DT
-> OF mathing mechanism and register it.
-> 
-> Before this patch:
-> modinfo ./drivers/mfd/madera.ko | grep alias
-> 
-> After this patch:
-> modinfo ./drivers/mfd/madera.ko | grep alias
-> alias:          of:N*T*Ccirrus,wm1840C*
-> alias:          of:N*T*Ccirrus,wm1840
-> alias:          of:N*T*Ccirrus,cs47l91C*
-> alias:          of:N*T*Ccirrus,cs47l91
-> alias:          of:N*T*Ccirrus,cs47l90C*
-> alias:          of:N*T*Ccirrus,cs47l90
-> alias:          of:N*T*Ccirrus,cs47l85C*
-> alias:          of:N*T*Ccirrus,cs47l85
-> alias:          of:N*T*Ccirrus,cs47l35C*
-> alias:          of:N*T*Ccirrus,cs47l35
-> 
-> Reported-by: Javier Martinez Canillas <javier@dowhile0.org>
-> Signed-off-by: Daniel Gomez <dagmcr@gmail.com>
-> ---
+Replace the bit atomic operations by a mutex to ensure only one dai
+at a time is active on the hdmi codec.
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+This is a follow up on change:
+3fcf94ef4d41 ("ASoC: hdmi-codec: remove reference to the current substream")
 
-Thanks,
-Charles
+Suggested-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ sound/soc/codecs/hdmi-codec.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index 90a892766625..6a0cc8d7e141 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -281,7 +281,7 @@ struct hdmi_codec_priv {
+ 	uint8_t eld[MAX_ELD_BYTES];
+ 	struct snd_pcm_chmap *chmap_info;
+ 	unsigned int chmap_idx;
+-	unsigned long busy;
++	struct mutex lock;
+ };
+ 
+ static const struct snd_soc_dapm_widget hdmi_widgets[] = {
+@@ -395,8 +395,8 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 	int ret = 0;
+ 
+-	ret = test_and_set_bit(0, &hcp->busy);
+-	if (ret) {
++	ret = mutex_trylock(&hcp->lock);
++	if (!ret) {
+ 		dev_err(dai->dev, "Only one simultaneous stream supported!\n");
+ 		return -EINVAL;
+ 	}
+@@ -424,7 +424,7 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 
+ err:
+ 	/* Release the exclusive lock on error */
+-	clear_bit(0, &hcp->busy);
++	mutex_unlock(&hcp->lock);
+ 	return ret;
+ }
+ 
+@@ -436,7 +436,7 @@ static void hdmi_codec_shutdown(struct snd_pcm_substream *substream,
+ 	hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
+ 	hcp->hcd.ops->audio_shutdown(dai->dev->parent, hcp->hcd.data);
+ 
+-	clear_bit(0, &hcp->busy);
++	mutex_unlock(&hcp->lock);
+ }
+ 
+ static int hdmi_codec_hw_params(struct snd_pcm_substream *substream,
+@@ -773,6 +773,8 @@ static int hdmi_codec_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	hcp->hcd = *hcd;
++	mutex_init(&hcp->lock);
++
+ 	daidrv = devm_kcalloc(dev, dai_count, sizeof(*daidrv), GFP_KERNEL);
+ 	if (!daidrv)
+ 		return -ENOMEM;
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

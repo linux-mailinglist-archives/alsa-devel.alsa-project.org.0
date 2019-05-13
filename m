@@ -2,66 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8E7E1B6BD
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 15:09:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DC7F1B670
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 14:54:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C81D51742;
-	Mon, 13 May 2019 15:08:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C81D51742
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3938516BF;
+	Mon, 13 May 2019 14:53:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3938516BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557752947;
-	bh=2hjS2xVjiOpC6psF0dRMxA+nFuqaAH8ZRqAQA5SL7pg=;
+	s=default; t=1557752068;
+	bh=9Vo7oGkSzfi2IqnWt3+OtjCNbpFbr/pkc2GqKvMkt3A=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=QA2QqbQ4MZrx3QKa0MX5qyQtwv4CdCw+hus9vHj3JRrIaha2R+5jOIaRrZFGFxjK+
-	 XPAEstr4XH1mxh2i/j3hp0LwMT8ao5zr8hxNtfpUcVdhIFdOVVfI69sylOw9A+1agc
-	 ol86nSwHa92Fikmxx4/+gwfMNP7eiPfxzAcbAsJs=
+	b=AwkNLS034SN4xMnYTKUu3egZlakYth6W0zS024nLHSS8AxL4bgKYqPv3Kqlq6RNMa
+	 p0qaNlH+o2UOG3vHBYcfWFmkeceldfcwugT3G5gmFhEGRVAso8UOTgJEeFuLJkqsmv
+	 XQAJjkG4EThFPWaLWHa1j6rtDrtAE99v2Ou8Tk/I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57668F89760;
-	Mon, 13 May 2019 15:02:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94BEEF89707;
+	Mon, 13 May 2019 14:52:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C6D8F8961A; Mon, 13 May 2019 14:38:17 +0200 (CEST)
+ id BA9BCF89737; Mon, 13 May 2019 14:31:30 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D41E0F89731
- for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 14:30:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D41E0F89731
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33898F89739
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 14:30:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33898F89739
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="DKnUhzap"
+ header.b="KTk9COJV"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=tY8TX/f1zEyloSxyxZ7OTukDe+Zbx4VBeH51ekm18xA=; b=DKnUhzapYPqV
- vXrR1A+P58liHQmgMcLJ222XGErA5bpnkFKqizHGllSXXDAm2qmn/l55mf0uA0xR9sWrfmSgJuDtS
- dBCX16VuoIsBH8PBh2LZ0rRvID5r0LvJHzVPhIZQLhIyKG8dc2hlp7PbLkHxTP1mx2DvlTosmsbG9
- nMPwA=;
+ List-Archive; bh=Gya98iWC6hR5UseSMn2TUJE7xil5hh+MXjwk1Sye/i4=; b=KTk9COJVTQvX
+ GLQBYlpHARKbqmD9enbEntO1PJAxQGZP7w1ZrxGAiZgaowtrwCSl2+cKCOgby2lfoWVpny1/4wbfO
+ GCwgvsulQUlM7ErvOmD/dfjv9KPNkWJuRgP5Zd2sAy93wiV3kAy9TMpGr5o9LuQxDG/iK+xi2vUHb
+ yQH0s=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hQA6B-0006We-5F; Mon, 13 May 2019 12:30:31 +0000
+ id 1hQA6G-0006X5-ET; Mon, 13 May 2019 12:30:36 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id CC50F1129232; Mon, 13 May 2019 13:30:30 +0100 (BST)
+ id 08BB71129234; Mon, 13 May 2019 13:30:31 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20190509201027.3906-3-pierre-louis.bossart@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190510163803.8742-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190513123030.CC50F1129232@debutante.sirena.org.uk>
-Date: Mon, 13 May 2019 13:30:30 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: fix race in FW boot timeout
-	handling" to the asoc tree
+Message-Id: <20190513123031.08BB71129234@debutante.sirena.org.uk>
+Date: Mon, 13 May 2019 13:30:31 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, rdunlap@infradead.org,
+ YueHaibing <yuehaibing@huawei.com>, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: SOF: nocodec: fix undefined reference"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: fix race in FW boot timeout handling
+   ASoC: SOF: nocodec: fix undefined reference
 
 has been applied to the asoc tree at
 
@@ -107,38 +113,60 @@ to this mail.
 Thanks,
 Mark
 
-From a69270d8bfeb35fc89d047ea6db803cd75a74f12 Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Thu, 9 May 2019 15:10:23 -0500
-Subject: [PATCH] ASoC: SOF: fix race in FW boot timeout handling
+From 8d01c3c73cefbb5bacffe804427daed3e6051435 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 10 May 2019 11:38:03 -0500
+Subject: [PATCH] ASoC: SOF: nocodec: fix undefined reference
 
-A race condition exists in handling firmware boot timeout.
-If FW sends FW_READY just after boot timeout has expired in
-driver, a kernel exception will result as FW_READY handler
-will be run while the state is still being cleaned up in
-snd_sof_run_firmware(). Avoid the race by setting
-boot_complete also in the error case.
+The nocodec option can be selected individually, leading to the following
+issue:
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+sound/soc/sof/core.o: In function `snd_sof_device_probe':
+core.c:(.text+0x4af): undefined reference to `sof_nocodec_setup'
+
+Fix by selecting the SND_SOF_NOCODEC option as needed.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Reported-by: YueHaibing <yuehaibing@huawei.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/loader.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/sof/Kconfig | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
-index 81c7452aae17..628fae552442 100644
---- a/sound/soc/sof/loader.c
-+++ b/sound/soc/sof/loader.c
-@@ -372,6 +372,8 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
- 				 msecs_to_jiffies(sdev->boot_timeout));
- 	if (ret == 0) {
- 		dev_err(sdev->dev, "error: firmware boot failure\n");
-+		/* after this point FW_READY msg should be ignored */
-+		sdev->boot_complete = true;
- 		snd_sof_dsp_dbg_dump(sdev, SOF_DBG_REGS | SOF_DBG_MBOX |
- 			SOF_DBG_TEXT | SOF_DBG_PCI);
- 		return -EIO;
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index b204c65698f9..a9a1d502daae 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -44,7 +44,10 @@ config SND_SOC_SOF_OPTIONS
+ if SND_SOC_SOF_OPTIONS
+ 
+ config SND_SOC_SOF_NOCODEC
+-	tristate "SOF nocodec mode Support"
++	tristate
++
++config SND_SOC_SOF_NOCODEC_SUPPORT
++	bool "SOF nocodec mode support"
+ 	help
+ 	  This adds support for a dummy/nocodec machine driver fallback
+ 	  option if no known codec is detected. This is typically only
+@@ -80,7 +83,7 @@ if SND_SOC_SOF_DEBUG
+ 
+ config SND_SOC_SOF_FORCE_NOCODEC_MODE
+ 	bool "SOF force nocodec Mode"
+-	depends on SND_SOC_SOF_NOCODEC
++	depends on SND_SOC_SOF_NOCODEC_SUPPORT
+ 	help
+ 	  This forces SOF to use dummy/nocodec as machine driver, even
+ 	  though there is a codec detected on the real platform. This is
+@@ -135,6 +138,7 @@ endif ## SND_SOC_SOF_OPTIONS
+ config SND_SOC_SOF
+ 	tristate
+ 	select SND_SOC_TOPOLOGY
++	select SND_SOC_SOF_NOCODEC if SND_SOC_SOF_NOCODEC_SUPPORT
+ 	help
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level
 -- 
 2.20.1
 

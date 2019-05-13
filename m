@@ -2,80 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 554C21B781
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 15:56:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DB011B797
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 16:00:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3FB216C4;
-	Mon, 13 May 2019 15:55:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3FB216C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1343616F5;
+	Mon, 13 May 2019 15:59:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1343616F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557755771;
-	bh=Z+OhP7fyeRvZomT/d7zkUgpFrRLiQ7KBkzqcwGbADqs=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557756039;
+	bh=Y5dLXNAvWz2LrJXH0g5PayRPYujqoOpO3GY39NP1F0Q=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TDuAVtaDRfOMHVdV737TfL/tDoLOn9Z0/nHSffkAKJwjsDCm+tiQsmt2R9iuJKiog
-	 ug8+/FPHf/6Hiy3IqRcgMWuMzi9hCEXddZXbZS4wIhqww+1JWVLBs7zCfpwn4IoQOb
-	 7vHsdsQp1yFjhJHIrha3OH8rBp7R1yLJ5Zc5sdt0=
+	b=d9PCKP0Mag2A33a6P5V/3fSH0jVbEwRrzMGjz77iDVpodj4mtvDjMfTLCcvlbNIEs
+	 AuV9/QOUjZ59dvui+zg9LXgdh7iq/fZCSnW95DVbBUJGscP5pCdtCQcAh4myAzbSo4
+	 FDZnduTa6huLYMHY+dvgfFR+PnkG3ZhvZi+j4LnI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02791F80733;
-	Mon, 13 May 2019 15:54:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85EB5F896B8;
+	Mon, 13 May 2019 15:58:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07846F89633; Mon, 13 May 2019 15:54:23 +0200 (CEST)
+ id 6A5F2F89684; Mon, 13 May 2019 15:58:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=FROM_EXCESS_BASE64,
- RCVD_IN_DNSWL_BLOCKED,SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C852F80733
- for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 15:54:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C852F80733
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x4DDsAQ5024402,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtitcasv01.realtek.com.tw[172.21.6.18])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x4DDsAQ5024402
- (version=TLSv1 cipher=AES256-SHA bits=256 verify=NOT);
- Mon, 13 May 2019 21:54:10 +0800
-Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
- RTITCASV01.realtek.com.tw ([::1]) with mapi id 14.03.0415.000; Mon, 13 May
- 2019 21:54:09 +0800
-From: =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
-To: Mark Brown <broonie@kernel.org>
-Thread-Topic: [PATCH] ASoC: rt1308: Add RT1308 amplifier driver
-Thread-Index: AQHU8/tPQAgeauF2zUGmBO/aeAeg+qY+ZeAAgAGgD9D//+nuAIAJq9sAgBbJfoCAAM/mQIAFj/yAgAJ0bhA=
-Date: Mon, 13 May 2019 13:54:08 +0000
-Message-ID: <BC6F7617C38F3E4E8CA887E07B35B82805B13EE2@RTITMBSVM07.realtek.com.tw>
-References: <20190416022246.10121-1-derek.fang@realtek.com>
- <20190416153510.GE4834@sirena.org.uk>
- <BC6F7617C38F3E4E8CA887E07B35B8280116192E@RTITMBSVM07.realtek.com.tw>
- <20190417150518.GB5703@sirena.org.uk>
- <BC6F7617C38F3E4E8CA887E07B35B828011660AC@RTITEXDAG02.realtek.com.tw>
- <20190508064537.GN14916@sirena.org.uk>
- <BC6F7617C38F3E4E8CA887E07B35B82805B1144E@RTITMBSVM07.realtek.com.tw>
- <20190512080621.GH21483@sirena.org.uk>
-In-Reply-To: <20190512080621.GH21483@sirena.org.uk>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.141]
-MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Albert Chen <albertchen@realtek.com>,
- "bard.liao@intel.com" <bard.liao@intel.com>,
- =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt1308: Add RT1308 amplifier driver
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60823F8961A
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 15:58:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60823F8961A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 67413AD64;
+ Mon, 13 May 2019 13:58:47 +0000 (UTC)
+Date: Mon, 13 May 2019 15:58:47 +0200
+Message-ID: <s5hlfzajw14.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: MichaX2 Wadowski <wadosm@gmail.com>
+In-Reply-To: <639c0531-3482-75ab-5642-ccfb64064914@gmail.com>
+References: <639c0531-3482-75ab-5642-ccfb64064914@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Fix for Lenovo B50-70 inverted internal microphone
+	bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,34 +65,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> Subject: Re: [PATCH] ASoC: rt1308: Add RT1308 amplifier driver
-> 
-> On Wed, May 08, 2019 at 01:17:54PM +0000, Derek wrote:
-> 
-> > > The maximum volume can be limited with snd_soc_limit_volume() but if the
-> > >  limit is for the speaker then that's machine dependent anyway.
-> 
-> > The maximum volume setting is temporarily not machine dependent.
-> > It avoids harming if any machine doesn't set the limit volume.
-> 
-> I'm confused about what this limit is - is it just some arbatrary limit
-> imposed in case some board has problems or is it an actual limit that
-> comes from the chip?  If it's a "just in case" limit then the board
-> should be the one doing the limiting, yes people can break things but
-> it's difficult to get decision like that done sensibly in the CODEC
-> driver in a way that works for everything and the general expectation is
-> that this is all for use by system integrators rather than end users.
-
-It is an actual limit that comes from the chip.
-
-> 
-> ------Please consider the environment before printing this e-mail.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gRnJpLCAxMCBNYXkgMjAxOSAwODo0OTo1MSArMDIwMCwKTWljaGFYMiBXYWRvd3NraSB3cm90
+ZToKPiAKPiBIaS4KPiBJIHByZXBhcmVkIHBhdGNoIGZvciB0aGlzIGJ1ZzoKPiBodHRwczovL2J1
+Z3MubGF1bmNocGFkLm5ldC91YnVudHUvK3NvdXJjZS9hbHNhLWRyaXZlci8rYnVnLzE1MjQyMTUK
+PiAKPiBJIHRlc3RlZCB0aGlzIHBhdGNoIG9uIExpbnV4IDUuMS4wIGFuZCBpdCBmaXhlcyBwcm9i
+bGVtIG9uIG15IExlbm92bwo+IEI1MC03MCBsYXB0b3AuCj4gY29tbWl0IDQ1MDQ4NDAyNWI3MDUx
+YzhjMDc4ZTk1ZTkwNmQ3MTMzOTY3YjljMzYKPiBBdXRob3I6IE1pY2hhxYIgV2Fkb3dza2kgPHdh
+ZG9zbUBnbWFpbC5jb20+Cj4gRGF0ZTogICBUaHUgTWF5IDkgMTY6MDI6MjMgMjAxOSArMDIwMAo+
+IAo+ICAgICBGaXggZm9yIExlbm92byBCNTAtNzAgaW52ZXJ0ZWQgaW50ZXJuYWwgbWljcm9waG9u
+ZSBidWcuCj4gICAgIFJlZjogaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvdWJ1bnR1Lytzb3Vy
+Y2UvYWxzYS1kcml2ZXIvK2J1Zy8xNTI0MjE1CgpDb3VsZCB5b3UgcmUtZm9ybWF0IHRoZSBwYXRj
+aCBpbiBhIHN0YW5kYXJkIGtlcm5lbCBwYXRjaCB3YXk/CkVzcGVjaWFsbHkgZG9uJ3QgZm9yZ2V0
+IHRvIGdpdmUgeW91ciBzaWduZWQtb2ZmLWJ5IGxpbmUuClNlZSBEb2N1bWVudGF0aW9uL3Byb2Nl
+c3Mvc3VibWl0dGluZy1wYXRjaGVzLnJzdCBmb3IgZGV0YWlscy4KCgp0aGFua3MsCgpUYWthc2hp
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2
+ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxt
+YW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

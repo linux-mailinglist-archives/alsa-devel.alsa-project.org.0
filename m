@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC7F1B670
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 14:54:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E49BF1B686
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 14:56:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3938516BF;
-	Mon, 13 May 2019 14:53:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3938516BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B654316E0;
+	Mon, 13 May 2019 14:55:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B654316E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557752068;
-	bh=9Vo7oGkSzfi2IqnWt3+OtjCNbpFbr/pkc2GqKvMkt3A=;
+	s=default; t=1557752179;
+	bh=leIfv0S73FZhuYF6KjNh1kbYDew4G7blwhnu2yzEfnU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=AwkNLS034SN4xMnYTKUu3egZlakYth6W0zS024nLHSS8AxL4bgKYqPv3Kqlq6RNMa
-	 p0qaNlH+o2UOG3vHBYcfWFmkeceldfcwugT3G5gmFhEGRVAso8UOTgJEeFuLJkqsmv
-	 XQAJjkG4EThFPWaLWHa1j6rtDrtAE99v2Ou8Tk/I=
+	b=E2b9gymLYM8DbKe//GYCZL2kR99Zu0tiXwPALGaDh3+mqXKill/mdhnwr9GhFKefj
+	 tenT4EaHSGcBXExLCmLp1HOID5osLzKZNsihxLTWwaYZQZwP5dqDelVzhUpZ+AEEIG
+	 FLh5zDKRrvH3ADnHlKTvjFzGy+tZyRiP8R2ToIfo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94BEEF89707;
-	Mon, 13 May 2019 14:52:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9DEB6F89734;
+	Mon, 13 May 2019 14:53:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA9BCF89737; Mon, 13 May 2019 14:31:30 +0200 (CEST)
+ id 02D4AF8972F; Mon, 13 May 2019 14:31:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33898F89739
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0889F89737
  for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 14:30:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33898F89739
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0889F89737
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="KTk9COJV"
+ header.b="E2KaLt+B"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Gya98iWC6hR5UseSMn2TUJE7xil5hh+MXjwk1Sye/i4=; b=KTk9COJVTQvX
- GLQBYlpHARKbqmD9enbEntO1PJAxQGZP7w1ZrxGAiZgaowtrwCSl2+cKCOgby2lfoWVpny1/4wbfO
- GCwgvsulQUlM7ErvOmD/dfjv9KPNkWJuRgP5Zd2sAy93wiV3kAy9TMpGr5o9LuQxDG/iK+xi2vUHb
- yQH0s=;
+ List-Archive; bh=yA1X7HgkSnP2Au2Kn2fvnU9tH9YznOnzDuipdGr7QC8=; b=E2KaLt+Bej4Y
+ a8mddpGY3pMt36iTt36v6QvarXjGpxHbUQTLIrJAXIJk8p5gXISBxe5xvboOJeuRdJgeFuyneVGwY
+ NK6A0IxU8sXkNHcRHzDV29nijSs4TDDJzbXikMwUihC86Lkb3uKJI32zwCRygDiDyumr7zdjbXkFz
+ zToC0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hQA6G-0006X5-ET; Mon, 13 May 2019 12:30:36 +0000
+ id 1hQA6B-0006Wf-TN; Mon, 13 May 2019 12:30:32 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 08BB71129234; Mon, 13 May 2019 13:30:31 +0100 (BST)
+ id 3B9B71129235; Mon, 13 May 2019 13:30:31 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190510163803.8742-1-pierre-louis.bossart@linux.intel.com>
+To: Marc Gonzalez <marc.w.gonzalez@free.fr>
+In-Reply-To: <8c0b22e2-2c67-8d45-a57d-dfc54043fbc9@free.fr>
 X-Patchwork-Hint: ignore
-Message-Id: <20190513123031.08BB71129234@debutante.sirena.org.uk>
+Message-Id: <20190513123031.3B9B71129235@debutante.sirena.org.uk>
 Date: Mon, 13 May 2019 13:30:31 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, rdunlap@infradead.org,
- YueHaibing <yuehaibing@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: nocodec: fix undefined reference"
-	to the asoc tree
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Takashi Iwai <tiwai@suse.com>, LKML <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [alsa-devel] Applied "ASoC: wcd9335: Fix missing regmap
+	requirement" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +89,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: nocodec: fix undefined reference
+   ASoC: wcd9335: Fix missing regmap requirement
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.1
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,60 +114,31 @@ to this mail.
 Thanks,
 Mark
 
-From 8d01c3c73cefbb5bacffe804427daed3e6051435 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 10 May 2019 11:38:03 -0500
-Subject: [PATCH] ASoC: SOF: nocodec: fix undefined reference
+From 741bfce676b765f01396e148862740caec91338c Mon Sep 17 00:00:00 2001
+From: Marc Gonzalez <marc.w.gonzalez@free.fr>
+Date: Wed, 10 Apr 2019 16:23:38 +0200
+Subject: [PATCH] ASoC: wcd9335: Fix missing regmap requirement
 
-The nocodec option can be selected individually, leading to the following
-issue:
+wcd9335.c: undefined reference to 'devm_regmap_add_irq_chip'
 
-sound/soc/sof/core.o: In function `snd_sof_device_probe':
-core.c:(.text+0x4af): undefined reference to `sof_nocodec_setup'
-
-Fix by selecting the SND_SOF_NOCODEC option as needed.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Reported-by: YueHaibing <yuehaibing@huawei.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Marc Gonzalez <marc.w.gonzalez@free.fr>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/Kconfig | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/codecs/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index b204c65698f9..a9a1d502daae 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -44,7 +44,10 @@ config SND_SOC_SOF_OPTIONS
- if SND_SOC_SOF_OPTIONS
- 
- config SND_SOC_SOF_NOCODEC
--	tristate "SOF nocodec mode Support"
-+	tristate
-+
-+config SND_SOC_SOF_NOCODEC_SUPPORT
-+	bool "SOF nocodec mode support"
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 419114edfd57..667fc1d59e18 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1151,6 +1151,7 @@ config SND_SOC_WCD9335
+ 	tristate "WCD9335 Codec"
+ 	depends on SLIMBUS
+ 	select REGMAP_SLIMBUS
++	select REGMAP_IRQ
  	help
- 	  This adds support for a dummy/nocodec machine driver fallback
- 	  option if no known codec is detected. This is typically only
-@@ -80,7 +83,7 @@ if SND_SOC_SOF_DEBUG
- 
- config SND_SOC_SOF_FORCE_NOCODEC_MODE
- 	bool "SOF force nocodec Mode"
--	depends on SND_SOC_SOF_NOCODEC
-+	depends on SND_SOC_SOF_NOCODEC_SUPPORT
- 	help
- 	  This forces SOF to use dummy/nocodec as machine driver, even
- 	  though there is a codec detected on the real platform. This is
-@@ -135,6 +138,7 @@ endif ## SND_SOC_SOF_OPTIONS
- config SND_SOC_SOF
- 	tristate
- 	select SND_SOC_TOPOLOGY
-+	select SND_SOC_SOF_NOCODEC if SND_SOC_SOF_NOCODEC_SUPPORT
- 	help
- 	  This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level
+ 	  The WCD9335 is a standalone Hi-Fi audio CODEC IC, supports
+ 	  Qualcomm Technologies, Inc. (QTI) multimedia solutions,
 -- 
 2.20.1
 

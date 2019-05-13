@@ -2,74 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F2E81BC25
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 May 2019 19:45:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6C3F1F4F4
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2019 15:02:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E318D16E5;
-	Mon, 13 May 2019 19:44:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E318D16E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5066C16C1;
+	Wed, 15 May 2019 15:02:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5066C16C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557769543;
-	bh=xXUuGPVGSmCoIN3WYAFEUHO6jeUW2GKqtXPow/QY+x4=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cXLtsRp7X4sBopcS9nqaLzp58gxxTxl4ZUN37qaZrW48NWo4gT6mk6zCk7Kwh+DmP
-	 2YSn6V/2ZFL7TSJWYefHfAxq7/QXP4OnGg9C+KX7DcTqPFIvL7lThbM0Ume0wHZDau
-	 eYXCvQeDkluZsu7EYFqin31I3uFL3FkJSdwRn0jA=
+	s=default; t=1557925376;
+	bh=j7NmOt7wt7xryQc+J040Grq1TXwsmmMstf2MRTLYYzI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lOcxS9aF+eYEjgmSS8ne4kFURVNgUaPLbcPJ8g9gR2UZph/9AdX3hx7a85LfQI4aC
+	 BVnH3xxywmdRGMP4yaua4avCJXwiWJoiYeaEwhm/5uEASFIdj6lF23MffaRaawtkoF
+	 /6i6EfJ/yDAk1Yr4JvX7G/VM3241yn+AUZ/Q9MQM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93240F896B8;
-	Mon, 13 May 2019 19:43:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD405F896B8;
+	Wed, 15 May 2019 15:01:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A101F89684; Mon, 13 May 2019 19:43:56 +0200 (CEST)
+ id EB900F89684; Mon, 13 May 2019 22:30:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ua1-x944.google.com (mail-ua1-x944.google.com
+ [IPv6:2607:f8b0:4864:20::944])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 877A1F8072A
- for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 19:43:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 877A1F8072A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73D41F8072A
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 22:30:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73D41F8072A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="rdfqZtZg"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=01SQ1M8+mhmT38T3ebPVpYCR5KqwvinMNRkMsZZx/vc=; b=rdfqZtZgCKAz
- lvp7fckYG2k4jeABR12uhKy+odWKObQvqj6On5RJeY05luKyS77EuDf21yTAwemuGdZbVDOg9PsDh
- Kq8s5m26vyiPw3MROancrY2Dhu08hAeJb5i1fefKlMY2UCoRH930un8BsTFdFqdVlLRIArQxnoqaG
- jpDak=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=debutante.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hQEzM-0007Fm-Jc; Mon, 13 May 2019 17:43:48 +0000
-Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 6819C1129232; Mon, 13 May 2019 18:43:45 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Viorel Suman <viorel.suman@nxp.com>
-In-Reply-To: <1557741724-6859-2-git-send-email-viorel.suman@nxp.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190513174345.6819C1129232@debutante.sirena.org.uk>
-Date: Mon, 13 May 2019 18:43:45 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- "S.j. Wang" <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Viorel Suman <viorel.suman@gmail.com>,
- Julia Lawall <Julia.Lawall@lip6.fr>, Mark Brown <broonie@kernel.org>,
- dl-linux-imx <linux-imx@nxp.com>, Colin Ian King <colin.king@canonical.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
-Subject: [alsa-devel] Applied "ASoC: ak4458: rstn_control - return a
-	non-zero on error only" to the asoc tree
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="S5QBRMRX"
+Received: by mail-ua1-x944.google.com with SMTP id n7so5323252uap.12
+ for <alsa-devel@alsa-project.org>; Mon, 13 May 2019 13:30:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SJi5lC96vbQ5kIDUFpwE/Nznn3R+YuYl3oTaGEijmGo=;
+ b=S5QBRMRX4vmrvpFOpauCjHSowRBDI2/0TAffVvirzFa/nPY24bqEHrREytwdPcvSYN
+ o+qQYHgehn8maKl4MddbHnstr3QvNheBiQGW0FxJLIamFX5e4GZmNAzmSEAjiUi/cBqn
+ zuolDQMJwm6UZwRAvbc5S6soxCDYxAf87EUPMV+a0IHNiRmAGgsUZAzpPkhdODdIo1x7
+ FhR1pMxwwP0sYyhwIlidp5farRaisKDmattJtPtPFKLmlojODZT+la/GZPTMba9fJBMK
+ UmqG3y6PtpLCCjnZRcY+TIlU+XIwSe7Yt6XTZjjd+wxGPvFnZDYldTPnpHErwGMRM5du
+ YV5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SJi5lC96vbQ5kIDUFpwE/Nznn3R+YuYl3oTaGEijmGo=;
+ b=pnYJMtP8rvyTqb3LBsvYmXA5N4P08l7lE1/6vpT9qrUlMErJvt0ehIQ3x9gZ8Hc1e+
+ FZx9J/5ecfg69hNDW8/sc3rSNeGk+c3Wzaa+LhKI0Ybu5J7PsjRw3MYDCMQGXE5czqdi
+ ATQZTPy6eZ36XPRR57LlYWRU37NX1gFFa1l9YRA/6UNiYolbx/H83OyN4XVmYNPBjitK
+ RTlHUWDz6ItRRRQ1+6iNixNkdmiA9fGfXqiOkh0i1tGmlhhp/kHs17pLa8tCNuttjaZI
+ YigqsbQ12ObG8661tX8C/0hKJKDb+uTcss42qQOT2+wqdK9H0ZlOAGTi0e+ZV0VH0qru
+ b8sA==
+X-Gm-Message-State: APjAAAW6+vDe+TxLNIFT3kPSfngN1PeP8ovxhxEdjblNMnskR4QcZptP
+ tjyMaOWaHnek8EHCMTXZEQ==
+X-Google-Smtp-Source: APXvYqxvp+g2jLmI6bVnZkxN8U7wCgP69Ut4cq3E97D7jH4E16GiHN1oRAPx1KXUw3b992Gn8RKZTg==
+X-Received: by 2002:ab0:6783:: with SMTP id v3mr14845341uar.8.1557779422261;
+ Mon, 13 May 2019 13:30:22 -0700 (PDT)
+Received: from localhost.localdomain ([2601:902:c200:6512:37bd:d695:3a39:ceb9])
+ by smtp.gmail.com with ESMTPSA id 143sm1285120vkj.44.2019.05.13.13.30.20
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Mon, 13 May 2019 13:30:21 -0700 (PDT)
+From: Ayman Bagabas <ayman.bagabas@gmail.com>
+To: Darren Hart <dvhart@infradead.org>, Andy Shevchenko <andy@infradead.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Kailang Yang <kailang@realtek.com>, Jian-Hong Pan <jian-hong@endlessm.com>,
+ Daniel Drake <drake@endlessm.com>, Chris Chiu <chiu@endlessm.com>,
+ Hui Wang <hui.wang@canonical.com>, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org
+Date: Mon, 13 May 2019 16:30:04 -0400
+Message-Id: <20190513203009.28686-1-ayman.bagabas@gmail.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+X-Mailman-Approved-At: Wed, 15 May 2019 15:01:10 +0200
+Cc: ayman.bagabas@gmail.com
+Subject: [alsa-devel] [PATCH v1 0/2] Huawei WMI laptop extras driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,72 +97,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Using the WMI BIOS management interface found on Huawei laptops, extra features
+such as micmute LED, charging thresholds, and fn-lock can be controlled.
 
-   ASoC: ak4458: rstn_control - return a non-zero on error only
+A platform driver has been implemented along with the existing WMI driver. The
+platform driver controls the LED, battery charging thresholds, and fn-lock.
 
-has been applied to the asoc tree at
+We enable sound micmute hooks to platform driver on Huawei laptops to get the
+LED to work.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
+Ayman Bagabas (2):
+  platform/x86: Huawei WMI laptop extras driver update
+  sound: Enable micmute led for Huawei laptops
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+ drivers/platform/x86/Kconfig      |   8 +-
+ drivers/platform/x86/huawei-wmi.c | 578 +++++++++++++++++++++++++-----
+ sound/pci/hda/patch_realtek.c     |   9 +-
+ 3 files changed, 504 insertions(+), 91 deletions(-)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 176a11834b65ec35e3b7a953f87fb9cc41309497 Mon Sep 17 00:00:00 2001
-From: Viorel Suman <viorel.suman@nxp.com>
-Date: Mon, 13 May 2019 10:02:42 +0000
-Subject: [PATCH] ASoC: ak4458: rstn_control - return a non-zero on error only
-
-snd_soc_component_update_bits() may return 1 if operation
-was successful and the value of the register changed.
-Return a non-zero in ak4458_rstn_control for an error only.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/ak4458.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/ak4458.c b/sound/soc/codecs/ak4458.c
-index 4c5c3ec92609..71562154c0b1 100644
---- a/sound/soc/codecs/ak4458.c
-+++ b/sound/soc/codecs/ak4458.c
-@@ -304,7 +304,10 @@ static int ak4458_rstn_control(struct snd_soc_component *component, int bit)
- 					  AK4458_00_CONTROL1,
- 					  AK4458_RSTN_MASK,
- 					  0x0);
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
- }
- 
- static int ak4458_hw_params(struct snd_pcm_substream *substream,
 -- 
 2.20.1
 

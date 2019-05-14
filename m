@@ -2,78 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412D61D0D4
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2019 22:47:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019EE1D14E
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 May 2019 23:31:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B522F167F;
-	Tue, 14 May 2019 22:47:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B522F167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70C2E1681;
+	Tue, 14 May 2019 23:30:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70C2E1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557866871;
-	bh=MnQsnwn03NOAJDgaG6otR/i3xTa0v6RhgDZKa5rTI0w=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557869488;
+	bh=4CZ0AectgZYjsTHL9VTSQHg2lSlm3DhttA6tlt8PNmI=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OtIBiwT7J6R2oKjY0zfu3NhUPm3muP/SC5WTwq422mZ3YAWsB8g839zPGjtvZUMNp
-	 BOIsZQp5CFVC2hA7yUUknJQtTBV6jTPJzmUanawdVjPR2K+g/8Idbmf4Z1d4ON9g/2
-	 6Top6qwZcYkfp0BA3UN+fbimVO0k8OEhwitqufyM=
+	b=kfjmox4APRT2kEpKQnVY1+3WI6Z2JSMGtsCw6wV/Qj+z8/lMOmZujfYknvU1qFa7l
+	 SXdrCZJyKtFLKUEgrWfj5JR2VPHng9YL9wPKJer4s5CWg97Xj40im/h5/YlXQQqCtj
+	 l5U6d0Tl6VVUDbj0aVwXg8FIMPwgMG6+lmPqwwSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDE05F896B9;
-	Tue, 14 May 2019 22:46:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEEF7F89693;
+	Tue, 14 May 2019 23:29:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 169BBF8970B; Tue, 14 May 2019 22:41:32 +0200 (CEST)
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ id 54B67F896B6; Tue, 14 May 2019 23:29:29 +0200 (CEST)
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from cloudserver094114.home.pl (cloudserver094114.home.pl
+ [79.96.170.134])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 225F4F8072A
- for <alsa-devel@alsa-project.org>; Tue, 14 May 2019 22:31:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 225F4F8072A
-Received: by mail-oi1-f193.google.com with SMTP id y10so119431oia.8
- for <alsa-devel@alsa-project.org>; Tue, 14 May 2019 13:31:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=uj/aNb3lhudAxuL9yVxzedyisH6/evVA53ck6BzySPY=;
- b=Q4mjIxK9w9uC2BZuCbs/cdDdv1VW5SYr8+HZj1hTTiAK2dToApjtR0StVOEisTBhTX
- VF7psW6wbEQJSWrQRbET7qMOZkozL0jUCemE7OyUpTyshltKIPcFEK+RA9q92ng/dnja
- RBF9MjwBHUky7ZdCWGYfrNJYep4N3ass+dcsFS0XSVyoz4rnSZlFbroHY4gtFcCARTqI
- xrdevQlXovqeWfBaNHdAeooyNvrc0wF3JpSt1VcVErPFNsxbC/JkP2idJ628ezOQvQu/
- e7r1HBrDhn6UKpJxVhxP4C74n01u+7Ds5woBEIydfBpS2D4rNRsOXECPVV0B3AZWL1b3
- tY9Q==
-X-Gm-Message-State: APjAAAWAFJGPPPtTiOvwr52+n2nGV0jDiveRkBXxk8L9xSOJTuxJJnHV
- uqtVxMX0NPoaBCW6rMCzsg==
-X-Google-Smtp-Source: APXvYqzdjUlWTvBq+1madUv/8ZYMJ50qHKkthS9BLDmfCh7nxydKkUzHB56DapylG98G+Oz/KHde/A==
-X-Received: by 2002:aca:5041:: with SMTP id e62mr4403410oib.60.1557865878559; 
- Tue, 14 May 2019 13:31:18 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id m8sm6538868otl.40.2019.05.14.13.31.17
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 14 May 2019 13:31:17 -0700 (PDT)
-Date: Tue, 14 May 2019 15:31:17 -0500
-From: Rob Herring <robh@kernel.org>
-To: Fabien Parent <fparent@baylibre.com>
-Message-ID: <20190514203117.GA26954@bogus>
-References: <20190502121041.8045-1-fparent@baylibre.com>
- <20190502121041.8045-3-fparent@baylibre.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5B9F3F8072A
+ for <alsa-devel@alsa-project.org>; Tue, 14 May 2019 23:29:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B9F3F8072A
+Received: from 79.184.255.148.ipv4.supernova.orange.pl (79.184.255.148) (HELO
+ kreacher.localnet)
+ by serwer1319399.home.pl (79.96.170.134) with SMTP (IdeaSmtpServer 0.83.213)
+ id bc0f4377005ba3a1; Tue, 14 May 2019 23:29:19 +0200
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Tue, 14 May 2019 23:29:18 +0200
+Message-ID: <1683867.ro8ObbCUgW@kreacher>
+In-Reply-To: <CAJZ5v0i+M8y3ddr+Z5o5af8OatMXq3xqCF5CUg5PjnANrTOSHw@mail.gmail.com>
+References: <20190501125322.23791-1-pierre-louis.bossart@linux.intel.com>
+ <20190502045817.GZ3845@vkoul-mobl.Dlink>
+ <CAJZ5v0i+M8y3ddr+Z5o5af8OatMXq3xqCF5CUg5PjnANrTOSHw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190502121041.8045-3-fparent@baylibre.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, Fabien Parent <fparent@baylibre.com>,
- broonie@kernel.org, linux-mediatek@lists.infradead.org,
- shunli.wang@mediatek.com, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org, kaichieh.chuang@mediatek.com
-Subject: Re: [alsa-devel] [PATCH 2/5] dt-bindings: sound: Add MT8516 AFE PCM
-	bindings
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Robert Moore <robert.moore@intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ "open list:ACPI" <linux-acpi@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
+ Joe Perches <joe@perches.com>,
+ "open list:ACPI COMPONENT ARCHITECTURE \(ACPICA\)" <devel@acpica.org>,
+ Erik Schmauss <erik.schmauss@intel.com>, Len Brown <lenb@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2] ACPI / device_sysfs: change _ADR
+	representation to 64 bits
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,17 +81,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu,  2 May 2019 14:10:38 +0200, Fabien Parent wrote:
-> Add documentation for the bindings of the MT8516 AFE PCM driver.
+On Monday, May 6, 2019 10:36:22 AM CEST Rafael J. Wysocki wrote:
+> On Thu, May 2, 2019 at 6:58 AM Vinod Koul <vkoul@kernel.org> wrote:
+> >
+> > On 01-05-19, 07:53, Pierre-Louis Bossart wrote:
+> > > Standards such as the MIPI DisCo for SoundWire 1.0 specification
+> > > assume the _ADR field is 64 bits.
+> > >
+> > > _ADR is defined as an "Integer" represented as 64 bits since ACPI 2.0
+> > > released in 2002. The low levels already use _ADR as 64 bits, e.g. in
+> > > struct acpi_device_info.
+> > >
+> > > This patch bumps the representation used for sysfs to 64 bits. To
+> > > avoid any compatibility/ABI issues, the printf format is only extended
+> > > to 16 characters when the actual _ADR value exceeds the 32 bit
+> > > maximum.
+> > >
+> > > Example with a SoundWire device, the results show the complete
+> > > vendorID and linkID which were omitted before:
+> > >
+> > > Before:
+> > > $ more /sys/bus/acpi/devices/device\:38/adr
+> > > 0x5d070000
+> > > After:
+> > > $ more /sys/bus/acpi/devices/device\:38/adr
+> > > 0x000010025d070000
+> > >
+> > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > ---
+> > > v2: only use 64 bits when required to avoid compatibility issues
+> > > (feedback from Vinod and Rafael)
+> > >
+> > >  drivers/acpi/device_sysfs.c | 6 ++++--
+> > >  include/acpi/acpi_bus.h     | 2 +-
+> > >  2 files changed, 5 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/drivers/acpi/device_sysfs.c b/drivers/acpi/device_sysfs.c
+> > > index 8940054d6250..7dda0ee05cd1 100644
+> > > --- a/drivers/acpi/device_sysfs.c
+> > > +++ b/drivers/acpi/device_sysfs.c
+> > > @@ -428,8 +428,10 @@ static ssize_t acpi_device_adr_show(struct device *dev,
+> > >  {
+> > >       struct acpi_device *acpi_dev = to_acpi_device(dev);
+> > >
+> > > -     return sprintf(buf, "0x%08x\n",
+> > > -                    (unsigned int)(acpi_dev->pnp.bus_address));
+> > > +     if (acpi_dev->pnp.bus_address > 0xFFFFFFFF)
+> >
+> > Would prefer to use U32_MAX instead of 0xFFFFFFFF
 > 
-> Signed-off-by: Fabien Parent <fparent@baylibre.com>
-> ---
->  .../bindings/sound/mt8516-afe-pcm.txt         | 28 +++++++++++++++++++
->  1 file changed, 28 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/mt8516-afe-pcm.txt
+> I would.
 > 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+I have made that change manually and applied the patch.
+
+Thanks!
+
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

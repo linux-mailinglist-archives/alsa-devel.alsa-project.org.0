@@ -2,79 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBFFA1F776
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2019 17:29:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 555831F7A2
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2019 17:34:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45DBC16BC;
-	Wed, 15 May 2019 17:28:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45DBC16BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAF6D16C3;
+	Wed, 15 May 2019 17:33:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAF6D16C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557934186;
-	bh=Y3NGfyzz+Em2WwE0INgQ9or381iNJ5IJrLBBFbj3Jes=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1557934474;
+	bh=oBiA73c0r8b/3avskmjbuITWWV8MnAt9Jw87NTQ3Dt4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YOJ0FQ8EYIhrGkzOmOY5pTkC5hbTTRgGOXn+Snc4rwIaOSBXns0YGkmI+2STrL+qE
-	 MdwEnoqgrYnnZZ17YLnUMZJU2J1KY0UZvTLEr6ou9PayC5PiEvlhdSSAoSaYJ+gA6Y
-	 aNiCVh6AKDfwLMbwuI76bjDspw+wUSS5eIb/n9NM=
+	b=qrbvjfkXDHetAGr1U5QqDKqDQMWmH3UyZMaogatMhk+XwLMu27l0GBtZuuZo8CJh1
+	 6GRMgWBnfdhGw5VnOJK2VYSSOtGNBpK9FZY6lSSiW1h6et5uVx8W5ekPH2ivYKVra+
+	 dhTlIfcbsejEEtylnW+WVZzNDriWeSBJnb636/e4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41DA7F89684;
-	Wed, 15 May 2019 17:28:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1E25F80C17;
+	Wed, 15 May 2019 17:32:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FAB3F8968A; Wed, 15 May 2019 17:27:58 +0200 (CEST)
+ id 92632F8968A; Wed, 15 May 2019 17:32:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from forward102p.mail.yandex.net (forward102p.mail.yandex.net
- [IPv6:2a02:6b8:0:1472:2741:0:8b7:102])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E346F80C17
- for <alsa-devel@alsa-project.org>; Wed, 15 May 2019 17:27:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E346F80C17
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=emlid.com header.i=@emlid.com
- header.b="tnQRMJzn"
-Received: from mxback6j.mail.yandex.net (mxback6j.mail.yandex.net
- [IPv6:2a02:6b8:0:1619::10f])
- by forward102p.mail.yandex.net (Yandex) with ESMTP id 4FBBC1D40BDA;
- Wed, 15 May 2019 18:27:54 +0300 (MSK)
-Received: from smtp4o.mail.yandex.net (smtp4o.mail.yandex.net
- [2a02:6b8:0:1a2d::28])
- by mxback6j.mail.yandex.net (nwsmtp/Yandex) with ESMTP id kDVHURfUA6-Rq4Wx0eM; 
- Wed, 15 May 2019 18:27:54 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emlid.com; s=mail;
- t=1557934074; bh=C9/4v9tZ0QA/I8UwQ8+Wr54uQ98kB7tY2rAZlSGmGYI=;
- h=In-Reply-To:Subject:Cc:To:From:References:Date:Message-ID;
- b=tnQRMJznuo5R16cq/Ov8sa/PaVK+rORZKkA1sQYsDu0o7peSJuugenAiGPWBPUrlS
- Up1xPKTEoZMWy/XFlbCRjS95GmR1jY25LEe2yKUe4L0eJJOe3RT4ubBCE7e+4TGmF3
- VJRm9s/M6jk8QSmFGD3aS7F7dR37uzC5JOsQ8wj4=
-Authentication-Results: mxback6j.mail.yandex.net; dkim=pass header.i=@emlid.com
-Received: by smtp4o.mail.yandex.net (nwsmtp/Yandex) with ESMTPSA id
- biQI4DmMhu-Ro3qG95V; Wed, 15 May 2019 18:27:50 +0300
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (Client certificate not present)
-Date: Wed, 15 May 2019 18:27:49 +0300
-From: Georgii Staroselskii <georgii.staroselskii@emlid.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-Message-ID: <20190515152749.GA2241@softcrasher>
-References: <1557925120-31498-1-git-send-email-georgii.staroselskii@emlid.com>
- <20190515135813.5y72f2h526yjkncy@flea>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190515135813.5y72f2h526yjkncy@flea>
-User-Agent: Mutt/1.5.24 (2015-08-30)
-Cc: alsa-devel@alsa-project.org, dannym@scratchpost.org, tiwai@suse.com,
- lgirdwood@gmail.com, wens@csie.org, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: sun4i-codec: fix first delay on
-	Speaker
+ by alsa1.perex.cz (Postfix) with ESMTPS id 363B1F8078F
+ for <alsa-devel@alsa-project.org>; Wed, 15 May 2019 17:32:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 363B1F8078F
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 7325EAE89;
+ Wed, 15 May 2019 15:32:42 +0000 (UTC)
+Date: Wed, 15 May 2019 17:32:41 +0200
+Message-ID: <s5hk1erhgx2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: <vanitha.channaiah@in.bosch.com>
+In-Reply-To: <1557901597-19215-7-git-send-email-vanitha.channaiah@in.bosch.com>
+References: <1557901597-19215-1-git-send-email-vanitha.channaiah@in.bosch.com>
+ <1557901597-19215-7-git-send-email-vanitha.channaiah@in.bosch.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: twischer@de.adit-jv.com, alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v2 6/6] pcm: Update pcm->avail_min with
+	needed_slave_avail_min, after reading unaligned frames
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,85 +71,264 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 15, 2019 at 03:58:13PM +0200, Maxime Ripard wrote:
-Hi!
-
-> Hi,
+On Wed, 15 May 2019 08:26:37 +0200,
+<vanitha.channaiah@in.bosch.com> wrote:
 > 
-> On Wed, May 15, 2019 at 03:58:40PM +0300, Georgii Staroselskii wrote:
-> > This commit fixes the same issue as bf14da7 but for another codepath.
-> > The issue can be triggered by having Speaker in codec audio routing.
+> From: Vanitha Channaiah <vanitha.channaiah@in.bosch.com>
 > 
-> Mentionning what "the issue" is in the commit log would be great.
+> This Fix was analyzed for below usecase :
 > 
-
-Sure, will do.
-
-> > &codec {
-> >         allwinner,pa-gpios = <&r_pio 0 11 GPIO_ACTIVE_HIGH>; /* PL11 */
-> >         allwinner,audio-routing =
-> >                 "Speaker", "LINEOUT";
-> >
-> >         status = "okay";
-> > }
-> >
-> > Signed-off-by: Georgii Staroselskii <georgii.staroselskii@emlid.com>
-> > ---
-> >  sound/soc/sunxi/sun4i-codec.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-> > index 15d08e3..e0099519 100644
-> > --- a/sound/soc/sunxi/sun4i-codec.c
-> > +++ b/sound/soc/sunxi/sun4i-codec.c
-> > @@ -1329,6 +1329,15 @@ static int sun4i_codec_spk_event(struct snd_soc_dapm_widget *w,
-> >  	gpiod_set_value_cansleep(scodec->gpio_pa,
-> >  				 !!SND_SOC_DAPM_EVENT_ON(event));
-> >
-> > +	if (SND_SOC_DAPM_EVENT_ON(event)) {
-> > +		/*
-> > +		 * Need a delay to have the amplifier up. 700ms seems the best
-> > +		 * compromise between the time to let the amplifier up and the
-> > +		 * time not to feel this delay while playing a sound.
-> > +		 */
-> > +		msleep(700);
-> > +	}
-> > +
+> alsa configuration:
+> pcm.line_in {
+>     type dsnoop
+>     ipc_key  INT
+>     slave {
+>         pcm hardware
+> 	channels 2
+> 	period_time 8000
+>         rate 48000
+>         format S16_LE
+>     }
+>    bindings {
+>        0 0
+>        1 1
+>    }
+> }
+> pcm.hardware {
+>     type hw
+>     card "gmd-card"
+>     device 0
+>     subdevice 0
+>     channels 2
+>     period_time 2000
+>     rate 48000
+>     format S16_LE
+> }
 > 
-> Since this is an external amplifier, I guess they would have different
-> warm-up time depending on the exact part being used?
+> command:
+> $arecord -v -D line_in -r 48000 -c 2 -f S16_LE recordfile.wav
+> Direct Snoop PCM
+> Its setup is:
+>   stream       : CAPTURE
+>   access       : RW_INTERLEAVED
+>   format       : S16_LE
+>   subformat    : STD
+>   channels     : 2
+>   rate         : 48000
+>   exact rate   : 48000 (48000/1)
+>   msbits       : 16
+>   buffer_size  : 1536
+>   period_size  : 384
+>   period_time  : 8000
+>   tstamp_mode  : NONE
+>   tstamp_type  : MONOTONIC
+>   period_step  : 1
+>   avail_min    : 384
+>   period_event : 0
+>   start_threshold  : 1
+>   stop_threshold   : 1536
+>   silence_threshold: 0
+>   silence_size : 0
+>   boundary     : huge value
+> Hardware PCM card 3 'gmd-card' device 0 subdevice 0
+> Its setup is:
+>   stream       : CAPTURE
+>   access       : MMAP_INTERLEAVED
+>   format       : S16_LE
+>   subformat    : STD
+>   channels     : 2
+>   rate         : 48000
+>   exact rate   : 48000 (48000/1)
+>   msbits       : 16
+>   buffer_size  : 1536
+>   period_size  : 96
+>   period_time  : 2000
+>   tstamp_mode  : ENABLE
+>   tstamp_type  : MONOTONIC
+>   period_step  : 1
+>   avail_min    : 96
+>   period_event : 0
+>   start_threshold  : 1
+>   stop_threshold   : huge value
+>   silence_threshold: 0
+>   silence_size : 0
+>   boundary     : huge value
+>   appl_ptr     : 0
+>   hw_ptr       : 576
 > 
-
-I guess I might've used Speaker wrong and bumped into an existing issue.
-The issue first arose when I needed to connect a speaker and use a mute
-GPIO pin to toggle it. I bumped into the lag similar to the one that has
-been fixed in bf14da7. The word "amplifier" here in my comments might be wrong 
-and misleding. Sorry for that. I just measured the latency on the speaker I'm
-using and it is well under 1ms so this is the Allwinner DAC that is
-pushing the data with a lag. Or some other thing, I'm not sure.
-
-I want to stress again that I might've experienced the issue because
-I was abusing "Speaker" routing. I basically just needed the analog 
-audio stream and mute GPIO handling done automatically.
-
-bf14da7 made me think that this is some hardware Allwinner issue that
-needs to be fixed here. And well, it did fix the problem.
-
-> If so, we should use a property and set it on a per-board basis.
+> Here, there are no other plugins apart from Dsnoop.
 > 
-
-There might be a use case for that but this issue seems to be orthogonal
-to this.
-
-> Maxime
+> Issue: After partial read of unaligned frames(not one period frames),
+> snd_pcm_wait() would  block for the pcm->avail_min which would result in
+> blocking for longer periods i.e more than one period as specified by
+> pcm->avail_min
 > 
-> --
-> Maxime Ripard, Bootlin
-> Embedded Linux and Kernel engineering
-> https://bootlin.com
+> For e.g.:
+> Slave period size = 0x60
+> Client period-size=0x180
+> No. of Ticks = 4
+> pcm->avail_min = one period size = 0x180
+> 
+> Issue:
+> - During the start of streaming, the position of slave hw_ptr returned
+>   from the driver is 0x20.
+> - avail is 0x20
+> - hw_ptr is calculated by new_slave_hw_ptr - old_slave_hw_ptr i.e.
+>   0x20 - 0 = 0x20
+> - hw_ptr updated to 0x20
+> - avail is 0x20
+> - app_ptr updated to 0x20
+> - Now, avail = 0
+> - snd_pcm_wait() waits till avail=0x180 because pcm->avail_min = 0x180
+> - After 4 snd_pcm_elapsed(), slave_hw_ptr = 0x180
+> - Since app_ptr has updated with 0x20, avail becomes 0x160
+>   There is a shortage of 0x20 frames and hence snd_pcm_wait()
+>   goes back to wait again.
+> - Now, snd_pcm_wait is locked.
+> - After another 4 snd_pcm_elapsed() slave_hw_ptr = 0x300
+> - avail = 0x2e0
+> - snd_pcm_wait() unlocks.
+> So, here snd_pcm_wait() is locked for more than 1 period(exactly 2 periods)
+> 
+> Also, this issue can be seen without dsnoop plugin, when HW reports unaligned hw_ptr
+> For e.g.
+> period size = 0x60
+> pcm->avail_min = 0x60
+> - During the start of streaming, the position of slave hw_ptr returned
+>   from the driver is 0x20.
+> - hw_ptr is calculated by new_slave_hw_ptr - old_slave_hw_ptr i.e.
+>   0x20 - 0 = 0x20
+> - hw_ptr updated to 0x20
+> - avail is 0x20
+> - app_ptr updated to 0x20
+> - Now, avail = 0
+> - snd_pcm_wait() waits till avail=0x60 because pcm->avail_min=0x60
+> - After 1 snd_pcm_elapsed(), slave_hw_ptr = 0x60
+> - Since app_ptr has updated with 0x20, avail becomes 0x40
+>   There is a shortage of 0x20 frames and hence snd_pcm_wait()
+>   goes back to wait again.
+> - Now, snd_pcm_wait is locked.
+> - After another 1 snd_pcm_elapsed(), slave_hw_ptr = 0x120
+> - avail = 0xe0
+> - snd_pcm_wait() unlocks.
+> So, here snd_pcm_wait() is locked for more than 1 period (exactly 2 periods)
+> 
+> Fix: After reading unaligned frames(not one period frames),
+> set the pcm->avail_min to the needed_avail_slave_min frames
+> so that snd_pcm_wait() blocks till needed_avail_slave_min available
+> Once needed_avail_slave_min frames are read, set back the original
+> pcm->avail_min
+> 
+> For ex:
+> Slave period size = 0x60
+> Client period-size=0x180
+> No. of Ticks = 4
+> pcm->avail_min = one period size = 0x180
+> 
+> Fix:
+> - During the start of streaming, the position of slave_hw_ptr returned
+>   from the driver is 0x20.
+>   - hw_ptr is calculated by new_slave_hw_ptr - old_slave_hw_ptr
+>   i.e. 0x20 - 0 = 0x20
+> - hw_ptr updated to 0x20
+> - avail is 0x20
+> - app_ptr updated to 0x20
+> - Now, avail = 0
+> - calculate needed_avail_slave_min = 0x160
+> - update the needed_avail_slave_min to pcm->avail_min
+>   i.e. pcm->avail_min = 0x160
+> - snd_pcm_wait() waits till avail=0x160
+> - After 4 snd_pcm_elapsed(), slave_hw_ptr = 0x180
+> - snd_pcm_wait() unlocks.
+> - Once needed_avail_slave_min frames are read, set back the
+>   original pcm->avail_min to 0x180
+> So, here snd_pcm_wait() is locked for 1 period only.
+> 
+> Signed-off-by: Vanitha Channaiah <vanitha.channaiah@in.bosch.com>
+> ---
+>  src/pcm/pcm.c       | 21 +++++++++++++++++++++
+>  src/pcm/pcm_local.h |  2 ++
+>  2 files changed, 23 insertions(+)
+> 
+> diff --git a/src/pcm/pcm.c b/src/pcm/pcm.c
+> index f0db545..f361eb1 100644
+> --- a/src/pcm/pcm.c
+> +++ b/src/pcm/pcm.c
+> @@ -973,6 +973,7 @@ int snd_pcm_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
+>  		__snd_pcm_unlock(pcm);
+>  		return err;
+>  	}
+> +	pcm->original_avail_min = pcm->avail_min;
+>  	__snd_pcm_unlock(pcm);
+>  	return 0;
+>  }
+> @@ -7267,6 +7268,17 @@ void snd_pcm_areas_from_bufs(snd_pcm_t *pcm, snd_pcm_channel_area_t *areas,
+>  	snd_pcm_unlock(pcm);
+>  }
+>  
+> +static void snd_pcm_set_avail_min(snd_pcm_t *pcm, snd_pcm_uframes_t avail)
+> +{
+> +	if (avail != pcm->avail_min) {
+> +		snd_pcm_sw_params_t swparams;
+> +
+> +		snd_pcm_sw_params_current(pcm, &swparams);
+> +		swparams.avail_min = avail;
+> +		_snd_pcm_sw_params_internal(pcm, &swparams);
+> +	}
+> +}
+> +
+>  snd_pcm_sframes_t snd_pcm_read_areas(snd_pcm_t *pcm, const snd_pcm_channel_area_t *areas,
+>  				     snd_pcm_uframes_t offset, snd_pcm_uframes_t size,
+>  				     snd_pcm_xfer_areas_func_t func)
+> @@ -7274,6 +7286,7 @@ snd_pcm_sframes_t snd_pcm_read_areas(snd_pcm_t *pcm, const snd_pcm_channel_area_
+>  	snd_pcm_uframes_t xfer = 0;
+>  	snd_pcm_sframes_t err = 0;
+>  	snd_pcm_state_t state;
+> +	snd_pcm_uframes_t needed_slave_avail_min = 0;
+>  
+>  	if (size == 0)
+>  		return 0;
+> @@ -7332,6 +7345,14 @@ snd_pcm_sframes_t snd_pcm_read_areas(snd_pcm_t *pcm, const snd_pcm_channel_area_
+>  		if (err < 0)
+>  			break;
+>  		frames = err;
+> +		pcm->unaligned_frames += frames;
+> +		pcm->unaligned_frames %= pcm->period_size;
+> +		if (pcm->unaligned_frames) {
+> +			needed_slave_avail_min = pcm->period_size - pcm->unaligned_frames;
+> +			snd_pcm_set_avail_min(pcm, needed_slave_avail_min);
+> +		} else {
+> +			snd_pcm_set_avail_min(pcm, pcm->original_avail_min);
+> +		}
+>  		offset += frames;
+>  		size -= frames;
+>  		xfer += frames;
+> diff --git a/src/pcm/pcm_local.h b/src/pcm/pcm_local.h
+> index e103f72..3fdffb4 100644
+> --- a/src/pcm/pcm_local.h
+> +++ b/src/pcm/pcm_local.h
+> @@ -210,6 +210,8 @@ struct _snd_pcm {
+>  	snd_pcm_tstamp_type_t tstamp_type;	/* timestamp type */
+>  	unsigned int period_step;
+>  	snd_pcm_uframes_t avail_min;	/* min avail frames for wakeup */
+> +	snd_pcm_uframes_t unaligned_frames;
+> +	snd_pcm_uframes_t original_avail_min;
+>  	int period_event;
+>  	snd_pcm_uframes_t start_threshold;
+>  	snd_pcm_uframes_t stop_threshold;
 
-Best regards,
-Georgii Staroselskii
+Can we avoid adding such a hack in the core code?
+
+Basically the issue is very specific to direct-plugins, so this sort
+of workaround should be implemented locally there instead.  I guess we
+can do similar tricks by overriding the calls in the callbacks.
+
+
+thanks,
+
+Takashi
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

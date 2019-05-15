@@ -2,89 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEA231F582
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2019 15:22:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 086451F57C
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 May 2019 15:20:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8943E16DA;
-	Wed, 15 May 2019 15:21:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8943E16DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6997516C2;
+	Wed, 15 May 2019 15:20:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6997516C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1557926563;
-	bh=03Wgf+UYZs9d/dQKW9m7qoW/EuneSl2MWPLMuEGy3QA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=dX1JQWBjyL4C10mD/xiQiTMPHXhPyHK7I0QxCI6v6utxECaCd41Vk+UqBLvIUw3GB
-	 8bCkyO5j1EvKhLNDawWom/P6CU3sOXF1PPuib/OdbHaUE4yoGbEfheiVT5bP4Q1pkS
-	 ZpgL6rRaIp3YylI8PkaAVLW9Fdz1U1mrKebNvSMs=
+	s=default; t=1557926455;
+	bh=W8ercEri6ERwp4bv81tD2anlcaYEYKo58Eh0c71EdBQ=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZorLPzPpjYz3B718J3ZcCmrPek2KmL7tPKf3Dng2w3RA9LCt+2e1Iyx9Ii7Jj6s3O
+	 h7QtvpppqgrN5PtK9HhDgcBjzy2TEtASFL7IOB5hFZ8yf0DFpwZCX98jpoYa9vV17p
+	 cAbwVW80XO7p/b4hiAMAffsjEOOk+GH4CTCk8T+0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 588BAF89734;
-	Wed, 15 May 2019 15:19:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2BFFF80C17;
+	Wed, 15 May 2019 15:19:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8038FF80C17; Wed, 15 May 2019 15:19:10 +0200 (CEST)
+ id BF8ECF896B2; Wed, 15 May 2019 15:19:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 124A3F8078F
- for <alsa-devel@alsa-project.org>; Wed, 15 May 2019 15:19:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 124A3F8078F
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC550F80C17
+ for <alsa-devel@alsa-project.org>; Wed, 15 May 2019 15:19:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC550F80C17
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="vZJh22fk"
-Received: by mail-wr1-x442.google.com with SMTP id w12so2677020wrp.2
- for <alsa-devel@alsa-project.org>; Wed, 15 May 2019 06:19:03 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="X1lAu5ZH"
+Received: by mail-wr1-x441.google.com with SMTP id b18so2626185wrq.12
+ for <alsa-devel@alsa-project.org>; Wed, 15 May 2019 06:19:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JG2kah723rKt+6zVIVINToTJ1x5sX35cOTL/TkyEYK4=;
- b=vZJh22fkqgxxzQYvoRgM2gvXtNWcFHA4w/ZhpXhg3KcO5ZYtjNKkseZoctyABSvJYM
- JNXexdB8b7YXqUh/5OWvK48RZeoIDCCWPoWronkJubu2sqLNjPQOW88bdogK8PEQiGMc
- zo18n9fcq58uSAzG5iop6qietQv3MER71K3ppvb1yVZfJU6VdcoOQw+MQJ5O8306Lvma
- zamrxMsrIEPwYPooRGHEPa8l06Q2BaP/8XZRivdDkyAdSFUNR7NzuEmlMhamIM5YXg0N
- xZpBDhwzk3jHq7UNVDBVdogplW0YEikZzTMBBfQpXXSVQWmKU8oFYxHSHbA6GbytzTEi
- Eqag==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=2h106Z4/ATcPU1QRPJE9+ZrjCSAT+SxJpUGNW5+ypdI=;
+ b=X1lAu5ZHCCzjYghnscD0OX/jA0eMlPFEIG8XZk5dovfhL4UaTlEOtCBhFZFxVzm/Tx
+ pAuVx3DJBiDzhUUHz/kN5GlFuAml795hgYaBtvabvfgbbSrUquNiIytC02wU6fj3fGpV
+ INbx6MKpj3ZgfAYTSaDK2uVDCHND1QaFcBdR+pzG5vz7wuf9++VSiy/sSnyHl2lnRX4K
+ iD8w9VgD4eEWjD7rTwGUzq2ueadZtVALe0cg3iNfzNm+P/LBrM1AkLpMcCw3Fcdvgogo
+ fQ92LKWlhxnHDQLEc8iLHSjHlbisyKDTjc72ScH+sPXvyRVEgeAlm70JJ+g8h/ZGY0eW
+ KeKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=JG2kah723rKt+6zVIVINToTJ1x5sX35cOTL/TkyEYK4=;
- b=K10pOgvkoaBkjTAEbSVtnJqkbrjuXb2uhpw0aSTkLaK/xMI/tVd0x0yZxn3kpUzOzL
- tcFHLptiopKpBBK4IJr9N0H0J4gmMzE9WKMabuB+IBkoSBbpkDIvIdDZpL/m5DQVoad6
- 7GfgmJnq2vDFzbI0WYFzAoVwK/6qJZreZTnh3FN0nYYn2Hcv87uSRyr8aHdub1ajMKHx
- eDCpts5XbB6Yx+Yx7LEjIza73DbRc3LJf8Zq5lwfT07q3C9nAqbzmhpvtJQj13yUX1hE
- wvcSX/oW+r/7uGNt2exqw/HIIUy1GCqGN9uDD7Dbe2X+eowlJoq6UjqKYaT8Oi0QcJcX
- 4d7Q==
-X-Gm-Message-State: APjAAAWHwQbTt2UOaIKT7ErJYD1LvvML71tbaI9W/LEpysxHAZJBAL0c
- j2vdwIIHjlRdpx+8GV05FuiVDA==
-X-Google-Smtp-Source: APXvYqwBEr5yG88UvIos7c0fJnIW12gLKqi73L00zTVXIyfiLBv41bjumlNMgrgZkorOKeNy3+7XIw==
-X-Received: by 2002:a5d:4e50:: with SMTP id r16mr189913wrt.197.1557926342964; 
- Wed, 15 May 2019 06:19:02 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=2h106Z4/ATcPU1QRPJE9+ZrjCSAT+SxJpUGNW5+ypdI=;
+ b=tb3l77k+y7OgIl7iG5yoAaQpwEcn8n2lUrKed99d3wFo9Yy1z+69NZ1Km5OSiDWBXw
+ CvVruvuZzXTemGs/6vHtcqiowWzMHwRNIP7Z3rTL0Z1BcP7PBZZbZNMJlG+0mI28KDVL
+ j6QAXBJxB2mZYJ1ipGimn8zM95bx5TshLvB7gA711YToZNU1t1H70BlO8fyTlwHh/w+6
+ 5N5+vI6OEEgS3ES7AB7OzGaU/vTzrrIcP9u3cQooJnCKDh9/L7GVdUZrcehPuD/10AZd
+ Ofbu7EBcaEIyZJbysE7LK6+dLGaUlep+0FkFTvN9iHG6QiXKvFaStKeq9Dk7hmvrqV+y
+ AfrQ==
+X-Gm-Message-State: APjAAAU1BkPfzwOfMsloX4beijdvoG4mWORDn1k7VV93npDJCjZo2HzW
+ tqR0iCOICT1yBwcITtZgs16ZbQ==
+X-Google-Smtp-Source: APXvYqz/lQB5wpF2+qRrJ4I1Hpnj5Nzq4JBpunwqfTjfsaJ/6TVlW1DUT56LRi4iginnZTHgAhAYZg==
+X-Received: by 2002:adf:f5d1:: with SMTP id k17mr25107467wrp.281.1557926344035; 
+ Wed, 15 May 2019 06:19:04 -0700 (PDT)
 Received: from boomer.local (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
  [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id b206sm2789848wmd.28.2019.05.15.06.19.01
+ by smtp.googlemail.com with ESMTPSA id b206sm2789848wmd.28.2019.05.15.06.19.02
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 15 May 2019 06:19:02 -0700 (PDT)
+ Wed, 15 May 2019 06:19:03 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Kevin Hilman <khilman@baylibre.com>
-Date: Wed, 15 May 2019 15:18:53 +0200
-Message-Id: <20190515131858.32130-1-jbrunet@baylibre.com>
+Date: Wed, 15 May 2019 15:18:54 +0200
+Message-Id: <20190515131858.32130-2-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190515131858.32130-1-jbrunet@baylibre.com>
+References: <20190515131858.32130-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
  Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH 0/5] ASoC: meson: add hdmitx glue support
+Subject: [alsa-devel] [PATCH 1/5] ASoC: meson: axg-card: set link name based
+	on link node name
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,42 +106,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On the Amlogic SoC, there is a glue between the SoC audio outputs and the
-input of the embedded Synopsys HDMI controller.
+So far the link names of the axg sound card was derived from the cpu name
+of the link. Since the dai link must be unique, it works as long as a
+device does not provide more than one cpu dai. However, the 'tohdmitx'
+does provide 2 dais used as cpu on codec-to-codec links
 
-On the g12a, this glue is mostly a couple of muxes to select the i2s and
-spdif inputs of the hdmi controller. Each of these inputs may have
-different hw_params and fmt which makes our life a little bit more
-interesting, especially when switching between to active inputs.
+Instead of cpu name, use the node name of the dai link. DT already enforce
+the uniqueness of this name
 
-This glue is modeled as codec driver and uses codec-to-codec links to
-connect to the Synopsys controller. This allows to use the regular
-hdmi-codec driver (used by dw-hdmi i2s).
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ sound/soc/meson/axg-card.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-To avoid glitches while switching input, the trick is to temporarily
-force a disconnection of the mux output, which shutdowns the output dai
-link. This also ensure that the stream parameters and fmt are updated
-when the output is connected back.
-
-Jerome Brunet (5):
-  ASoC: meson: axg-card: set link name based on link node name
-  ASoC: dapm: allow muxes to force a disconnect
-  ASoC: meson: add tohdmitx DT bindings
-  ASoC: meson: axg-card: add basic codec-to-codec link support
-  ASoC: meson: add g12a tohdmitx control
-
- .../bindings/sound/amlogic,g12a-tohdmitx.txt  |  55 +++
- .../dt-bindings/sound/meson-g12a-tohdmitx.h   |  13 +
- sound/soc/meson/Kconfig                       |   8 +
- sound/soc/meson/Makefile                      |   2 +
- sound/soc/meson/axg-card.c                    |  31 +-
- sound/soc/meson/g12a-tohdmitx.c               | 413 ++++++++++++++++++
- sound/soc/soc-dapm.c                          |   2 +-
- 7 files changed, 518 insertions(+), 6 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt
- create mode 100644 include/dt-bindings/sound/meson-g12a-tohdmitx.h
- create mode 100644 sound/soc/meson/g12a-tohdmitx.c
-
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index aa54d2c612c9..5c8deee8d512 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -80,10 +80,11 @@ static int axg_card_parse_dai(struct snd_soc_card *card,
+ 
+ static int axg_card_set_link_name(struct snd_soc_card *card,
+ 				  struct snd_soc_dai_link *link,
++				  struct device_node *node,
+ 				  const char *prefix)
+ {
+ 	char *name = devm_kasprintf(card->dev, GFP_KERNEL, "%s.%s",
+-				    prefix, link->cpu_of_node->full_name);
++				    prefix, node->full_name);
+ 	if (!name)
+ 		return -ENOMEM;
+ 
+@@ -474,7 +475,7 @@ static int axg_card_set_be_link(struct snd_soc_card *card,
+ 		codec++;
+ 	}
+ 
+-	ret = axg_card_set_link_name(card, link, "be");
++	ret = axg_card_set_link_name(card, link, node, "be");
+ 	if (ret)
+ 		dev_err(card->dev, "error setting %pOFn link name\n", np);
+ 
+@@ -483,6 +484,7 @@ static int axg_card_set_be_link(struct snd_soc_card *card,
+ 
+ static int axg_card_set_fe_link(struct snd_soc_card *card,
+ 				struct snd_soc_dai_link *link,
++				struct device_node *node,
+ 				bool is_playback)
+ {
+ 	link->dynamic = 1;
+@@ -497,7 +499,7 @@ static int axg_card_set_fe_link(struct snd_soc_card *card,
+ 	else
+ 		link->dpcm_capture = 1;
+ 
+-	return axg_card_set_link_name(card, link, "fe");
++	return axg_card_set_link_name(card, link, node, "fe");
+ }
+ 
+ static int axg_card_cpu_is_capture_fe(struct device_node *np)
+@@ -527,9 +529,9 @@ static int axg_card_add_link(struct snd_soc_card *card, struct device_node *np,
+ 		return ret;
+ 
+ 	if (axg_card_cpu_is_playback_fe(dai_link->cpu_of_node))
+-		ret = axg_card_set_fe_link(card, dai_link, true);
++		ret = axg_card_set_fe_link(card, dai_link, np, true);
+ 	else if (axg_card_cpu_is_capture_fe(dai_link->cpu_of_node))
+-		ret = axg_card_set_fe_link(card, dai_link, false);
++		ret = axg_card_set_fe_link(card, dai_link, np, false);
+ 	else
+ 		ret = axg_card_set_be_link(card, dai_link, np);
+ 
 -- 
 2.20.1
 

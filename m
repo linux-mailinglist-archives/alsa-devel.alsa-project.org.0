@@ -2,73 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1F8420E5F
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 20:04:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1948820F85
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 22:14:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2462C1696;
-	Thu, 16 May 2019 20:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2462C1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89C8416D4;
+	Thu, 16 May 2019 22:14:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89C8416D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558029892;
-	bh=gPzOuWkS8zuqxeXpaiWkbCTatg02qLDPoMivEohjE+o=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=HawooEZDzJ+DBQYtdMtMPs/M/t5Jl+Nj2Ciw7Ca4nf669P+aXCzlQ2TxOsxMwIFe0
-	 Jd1g2gKu5WD3JjgCqRE43JR9JAipNKVHgJigr9hcrlfx1rE27kDqMZi7P/SxzaSapB
-	 iwiK+1epNjQsBoB1sjPqiwvv+fu7qYFcLUeDgXTg=
+	s=default; t=1558037697;
+	bh=Kaiz6fhGb5gfiuLIWbQfprCE2d4B4S88UKRbhoebtTk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LX1fd8Uo7GLjAT2JhqjDQ6lHtjxCArwEyiWgjv/QLeYi2dg7yxXXAWzkNIb/5czd9
+	 O7szvwIBmNoIjAyOiTrcABjDVB/x1qEUhPocC+eEB5I7uep7T6V8K2fJ1smqTXz7VO
+	 KOjuPyTGFbm2vTbFvLrrHRYkd7sBU9DBAE105Pfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83F86F896B9;
-	Thu, 16 May 2019 20:03:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9F81F806E7;
+	Thu, 16 May 2019 22:13:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02EF9F896B7; Thu, 16 May 2019 20:03:04 +0200 (CEST)
+ id 4E05AF896B6; Thu, 16 May 2019 22:13:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26, RCVD_IN_MSPIKE_H2,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EA19F8078F
- for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 20:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EA19F8078F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="NxNYO5a+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ekT/k7vlXSvj5k6HNpwx2lIkAO/l/9VkzZ2ftxsAgRE=; b=NxNYO5a+pBoX
- jgx89xKhk2hDxxmNv78NyjHKie8RM3Eo0AbOgh1W7B/wjzHZesg+HTUKIVJ1uBN26tcSzZKB7iX+Y
- uGYq3GjhmAllMPSyLwG9fbGRqpsRzN+Qnw1gxIQraQXvHgTKgCGqDZNyCLCIbckbF/VzT0tSshT7t
- YoQ4w=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=debutante.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hRKia-00085R-6y; Thu, 16 May 2019 18:03:00 +0000
-Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id AA4AD112929F; Thu, 16 May 2019 19:02:59 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: S.j. Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <e0c519d616b48a1481c9f239646517b453e7ce50.1557901312.git.shengjiu.wang@nxp.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190516180259.AA4AD112929F@debutante.sirena.org.uk>
-Date: Thu, 16 May 2019 19:02:59 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- festevam@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] Applied "ASoC: fsl_asrc: Fix the issue about
-	unsupported rate" to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84CF9F806E7
+ for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 22:13:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84CF9F806E7
+X-Originating-IP: 46.193.9.130
+Received: from localhost (cust-west-pareq2-46-193-9-130.wb.wifirst.net
+ [46.193.9.130]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id BC2EBC0005;
+ Thu, 16 May 2019 20:12:58 +0000 (UTC)
+Date: Thu, 16 May 2019 22:12:56 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Georgii Staroselskii <georgii.staroselskii@emlid.com>
+Message-ID: <20190516201256.te7ya3n7ugbfmzrw@flea>
+References: <1557925120-31498-1-git-send-email-georgii.staroselskii@emlid.com>
+ <20190515135813.5y72f2h526yjkncy@flea>
+ <20190515152749.GA2241@softcrasher>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190515152749.GA2241@softcrasher>
+User-Agent: NeoMutt/20180716
+Cc: alsa-devel@alsa-project.org, dannym@scratchpost.org, tiwai@suse.com,
+ lgirdwood@gmail.com, wens@csie.org, broonie@kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: sun4i-codec: fix first delay on
+	Speaker
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,78 +70,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Wed, May 15, 2019 at 06:27:49PM +0300, Georgii Staroselskii wrote:
+> On Wed, May 15, 2019 at 03:58:13PM +0200, Maxime Ripard wrote:
+> > > diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
+> > > index 15d08e3..e0099519 100644
+> > > --- a/sound/soc/sunxi/sun4i-codec.c
+> > > +++ b/sound/soc/sunxi/sun4i-codec.c
+> > > @@ -1329,6 +1329,15 @@ static int sun4i_codec_spk_event(struct snd_soc_dapm_widget *w,
+> > >  	gpiod_set_value_cansleep(scodec->gpio_pa,
+> > >  				 !!SND_SOC_DAPM_EVENT_ON(event));
+> > >
+> > > +	if (SND_SOC_DAPM_EVENT_ON(event)) {
+> > > +		/*
+> > > +		 * Need a delay to have the amplifier up. 700ms seems the best
+> > > +		 * compromise between the time to let the amplifier up and the
+> > > +		 * time not to feel this delay while playing a sound.
+> > > +		 */
+> > > +		msleep(700);
+> > > +	}
+> > > +
+> >
+> > Since this is an external amplifier, I guess they would have different
+> > warm-up time depending on the exact part being used?
+>
+> I guess I might've used Speaker wrong and bumped into an existing
+> issue.  The issue first arose when I needed to connect a speaker and
+> use a mute GPIO pin to toggle it. I bumped into the lag similar to
+> the one that has been fixed in bf14da7. The word "amplifier" here in
+> my comments might be wrong and misleding. Sorry for that. I just
+> measured the latency on the speaker I'm using and it is well under
+> 1ms so this is the Allwinner DAC that is pushing the data with a
+> lag. Or some other thing, I'm not sure.
+>
+> I want to stress again that I might've experienced the issue because
+> I was abusing "Speaker" routing. I basically just needed the analog
+> audio stream and mute GPIO handling done automatically.
 
-   ASoC: fsl_asrc: Fix the issue about unsupported rate
+Ok. I guess the comment should just be reflecting that then.
 
-has been applied to the asoc tree at
+Maxime
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From b06c58c2a1eed571ea2a6640fdb85b7b00196b1e Mon Sep 17 00:00:00 2001
-From: "S.j. Wang" <shengjiu.wang@nxp.com>
-Date: Wed, 15 May 2019 06:42:18 +0000
-Subject: [PATCH] ASoC: fsl_asrc: Fix the issue about unsupported rate
-
-When the output sample rate is [8kHz, 30kHz], the limitation
-of the supported ratio range is [1/24, 8]. In the driver
-we use (8kHz, 30kHz) instead of [8kHz, 30kHz].
-So this patch is to fix this issue and the potential rounding
-issue with divider.
-
-Fixes: fff6e03c7b65 ("ASoC: fsl_asrc: add support for 8-30kHz
-output sample rate")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/fsl/fsl_asrc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 0b937924d2e4..ea035c12a325 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -282,8 +282,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 		return -EINVAL;
- 	}
- 
--	if ((outrate > 8000 && outrate < 30000) &&
--	    (outrate/inrate > 24 || inrate/outrate > 8)) {
-+	if ((outrate >= 8000 && outrate <= 30000) &&
-+	    (outrate > 24 * inrate || inrate > 8 * outrate)) {
- 		pair_err("exceed supported ratio range [1/24, 8] for \
- 				inrate/outrate: %d/%d\n", inrate, outrate);
- 		return -EINVAL;
--- 
-2.20.1
-
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

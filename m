@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA56F20E60
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 20:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B3A120E63
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 20:06:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AD9E16FD;
-	Thu, 16 May 2019 20:04:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AD9E16FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id B176216E3;
+	Thu, 16 May 2019 20:05:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B176216E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558029938;
-	bh=0fjMbWT63zQD/RGIl+uCYacQgBVqNL/DhmzKbC7IAyw=;
+	s=default; t=1558029975;
+	bh=Qy+hy06P1t52bQhMTaNG1HsKBpsyyYY/QPMzm+mXBng=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=tywFAdkw7txwXeb+bM12umIH6quMaJPXvmWzO288BnS5V5Bw91ca6aLcMHUPizndr
-	 mcnrOAdklt0wpKnWVlegSN+gwcsBxaykwwKMw2S4gVx5nvSVB8HAtoR4TmoKG834Pb
-	 lHmALaMrCWL049ez4RzoJrEZ9yIuPzBzX60CRFTg=
+	b=Av1S6ieXTHRPKWl+KZY059sWRg1KRh1Vtb8WwQurVQ6DFph02gRZpFRh+hEyrm1vQ
+	 0OoQSPSH7+pF1sTqCQuV0lqTYc9+tDdEIdE78Xc0j+CtQbw1h9TYOQhUbVPsUQl3l/
+	 EFQkJjqEmx2zraQVATslGbs5+tHZg7iYFqbzMFSo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30E76F8972F;
-	Thu, 16 May 2019 20:03:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73C3BF89731;
+	Thu, 16 May 2019 20:03:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66798F896B6; Thu, 16 May 2019 20:03:06 +0200 (CEST)
+ id 737A8F89730; Thu, 16 May 2019 20:03:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,42 +33,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA81EF806E7
- for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 20:03:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA81EF806E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 480A0F896B6
+ for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 20:03:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 480A0F896B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Ri831v0U"
+ header.b="dM4KoVrP"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=AA9lPomAsHkkaE5VhjaR2bF+DIj0EPIcrzNk5PEZnuA=; b=Ri831v0Uz5gP
- +SRwM8+oL7a+TraAMglA+7mmyZuTyMDTlEywS+65Q4nVHF95AEDGY+ab9egdNU5blDsklraL1wCHf
- YsDrraNV+GjARJ8QRB0y2gRyDCjbpl5Dg5Kp/YdHk6ZvbdaEGygR6Ub7wkYwvg7j31MXnNS3EdR8f
- sb6Gk=;
+ List-Archive; bh=zgj2W6q+9qsrf1Oj8/SOCrI6+xHG4mo9gRx7GuPMUZ4=; b=dM4KoVrPlF9D
+ o634vsFLcnV+kV6MhC+HPNqjfW9oql6/SlLzCpw76k5x0wjdzB2exu2KF+kox5+gnRZB4Bkn7pwFV
+ hUU8Zv89ZA6P28JLIJWb/hC9HptrZ8G224ktI7W/ybrc23iXswyc1PJb4oyfjs4cPSb8fg8gZYwyQ
+ NNjVw=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hRKia-00085O-1J; Thu, 16 May 2019 18:03:00 +0000
+ id 1hRKiZ-00085P-V9; Thu, 16 May 2019 18:03:00 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 46AC9112929D; Thu, 16 May 2019 19:02:59 +0100 (BST)
+ id 13F28112929C; Thu, 16 May 2019 19:02:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Maxime Ripard <maxime.ripard@bootlin.com>
-In-Reply-To: <706cb97ae45cc9edc49c8709b2189ed786d2c7db.1557993523.git-series.maxime.ripard@bootlin.com>
+In-Reply-To: <a0558cf83011d21c4f44fecc078dff1e67cdbe9d.1557993523.git-series.maxime.ripard@bootlin.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190516180259.46AC9112929D@debutante.sirena.org.uk>
+Message-Id: <20190516180259.13F28112929C@debutante.sirena.org.uk>
 Date: Thu, 16 May 2019 19:02:59 +0100 (BST)
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
  Mark Brown <broonie@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
  linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "dt-bindings: sound: Convert Allwinner SPDIF
-	binding to YAML" to the asoc tree
+Subject: [alsa-devel] Applied "dt-bindings: sound: sun4i-spdif: Document
+	that the RX channel can be missing" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   dt-bindings: sound: Convert Allwinner SPDIF binding to YAML
+   dt-bindings: sound: sun4i-spdif: Document that the RX channel can be missing
 
 has been applied to the asoc tree at
 
@@ -114,186 +114,87 @@ to this mail.
 Thanks,
 Mark
 
-From 506c7f9b0612c46732aa74317f59a28d9477905b Mon Sep 17 00:00:00 2001
+From b1f35dfd7c2f509b0736f1ff02c314130b6b773e Mon Sep 17 00:00:00 2001
 From: Maxime Ripard <maxime.ripard@bootlin.com>
-Date: Thu, 16 May 2019 09:59:25 +0200
-Subject: [PATCH] dt-bindings: sound: Convert Allwinner SPDIF binding to YAML
+Date: Thu, 16 May 2019 09:59:26 +0200
+Subject: [PATCH] dt-bindings: sound: sun4i-spdif: Document that the RX channel
+ can be missing
 
-The Allwinner SoCs feature an SPDIF controller across multiple SoC
-generations.
+The H3 and compatibles controllers don't have any reception capabilities,
+even though it was never documented as such in the binding before.
 
-However, earlier generations were a bit simpler than the subsequent ones,
-and for example would always have RX and TX capabilities, and no reset
-lines.
+Therefore, on those controllers, we don't have the option to set an RX DMA
+channel.
 
-In order to express this, let's create two YAML schemas instead of the free
-form text we had before.
+This was already done in the DTSI, but the binding itself was never
+updated. Let's add a special case in the schemas.
 
 Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 Reviewed-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../sound/allwinner,sun4i-a10-spdif.yaml      | 101 ++++++++++++++++++
- .../bindings/sound/sunxi,sun4i-spdif.txt      |  42 --------
- 2 files changed, 101 insertions(+), 42 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
+ .../sound/allwinner,sun4i-a10-spdif.yaml      | 38 ++++++++++++++-----
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
-new file mode 100644
-index 000000000000..5d72d48e923e
---- /dev/null
+index 5d72d48e923e..a49ef2294a74 100644
+--- a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
 +++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
-@@ -0,0 +1,101 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/allwinner,sun4i-a10-spdif.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Allwinner A10 S/PDIF Controller Device Tree Bindings
-+
-+maintainers:
-+  - Chen-Yu Tsai <wens@csie.org>
-+  - Liam Girdwood <lgirdwood@gmail.com>
-+  - Mark Brown <broonie@kernel.org>
-+  - Maxime Ripard <maxime.ripard@bootlin.com>
-+
-+properties:
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  compatible:
-+    oneOf:
-+      - const: allwinner,sun4i-a10-spdif
-+      - const: allwinner,sun6i-a31-spdif
-+      - const: allwinner,sun8i-h3-spdif
-+      - items:
-+          - const: allwinner,sun8i-a83t-spdif
-+          - const: allwinner,sun8i-h3-spdif
-+      - items:
-+          - const: allwinner,sun50i-a64-spdif
-+          - const: allwinner,sun8i-h3-spdif
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Bus Clock
-+      - description: Module Clock
-+
-+  clock-names:
-+    items:
-+      - const: apb
-+      - const: spdif
-+
-+  dmas:
-+    items:
-+      - description: RX DMA Channel
-+      - description: TX DMA Channel
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+  # Even though it only applies to subschemas under the conditionals,
-+  # not listing them here will trigger a warning because of the
-+  # additionalsProperties set to false.
-+  resets:
-+    maxItems: 1
-+
-+allOf:
+@@ -44,19 +44,11 @@ properties:
+       - const: apb
+       - const: spdif
+ 
+-  dmas:
+-    items:
+-      - description: RX DMA Channel
+-      - description: TX DMA Channel
+-
+-  dma-names:
+-    items:
+-      - const: rx
+-      - const: tx
+-
+   # Even though it only applies to subschemas under the conditionals,
+   # not listing them here will trigger a warning because of the
+   # additionalsProperties set to false.
++  dmas: true
++  dma-names: true
+   resets:
+     maxItems: 1
+ 
+@@ -73,6 +65,32 @@ allOf:
+       required:
+         - resets
+ 
 +  - if:
 +      properties:
 +        compatible:
 +          contains:
-+            enum:
-+              - allwinner,sun6i-a31-spdif
-+              - allwinner,sun8i-h3-spdif
++            const: allwinner,sun8i-h3-spdif
 +
 +    then:
-+      required:
-+        - resets
++      properties:
++        dmas:
++          description: TX DMA Channel
 +
-+required:
-+  - "#sound-dai-cells"
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
++        dma-names:
++          const: tx
 +
-+additionalProperties: false
++    else:
++      properties:
++        dmas:
++          items:
++            - description: RX DMA Channel
++            - description: TX DMA Channel
 +
-+examples:
-+  - |
-+    spdif: spdif@1c21000 {
-+        #sound-dai-cells = <0>;
-+        compatible = "allwinner,sun4i-a10-spdif";
-+        reg = <0x01c21000 0x40>;
-+        interrupts = <13>;
-+        clocks = <&apb0_gates 1>, <&spdif_clk>;
-+        clock-names = "apb", "spdif";
-+        dmas = <&dma 0 2>, <&dma 0 2>;
-+        dma-names = "rx", "tx";
-+    };
++        dma-names:
++          items:
++            - const: rx
++            - const: tx
 +
-+...
-diff --git a/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt b/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
-deleted file mode 100644
-index 0c64a209c2e9..000000000000
---- a/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
-+++ /dev/null
-@@ -1,42 +0,0 @@
--Allwinner Sony/Philips Digital Interface Format (S/PDIF) Controller
--
--The Allwinner S/PDIF audio block is a transceiver that allows the
--processor to receive and transmit digital audio via an coaxial cable or
--a fibre cable.
--For now only playback is supported.
--
--Required properties:
--
--  - compatible		: should be one of the following:
--    - "allwinner,sun4i-a10-spdif": for the Allwinner A10 SoC
--    - "allwinner,sun6i-a31-spdif": for the Allwinner A31 SoC
--    - "allwinner,sun8i-h3-spdif": for the Allwinner H3 SoC
--
--  - reg			: Offset and length of the register set for the device.
--
--  - interrupts		: Contains the spdif interrupt.
--
--  - dmas		: Generic dma devicetree binding as described in
--			  Documentation/devicetree/bindings/dma/dma.txt.
--
--  - dma-names		: Two dmas have to be defined, "tx" and "rx".
--
--  - clocks		: Contains an entry for each entry in clock-names.
--
--  - clock-names		: Includes the following entries:
--	"apb"		  clock for the spdif bus.
--	"spdif"		  clock for spdif controller.
--
--  - resets		: reset specifier for the ahb reset (A31 and newer only)
--
--Example:
--
--spdif: spdif@1c21000 {
--	compatible = "allwinner,sun4i-a10-spdif";
--	reg = <0x01c21000 0x40>;
--	interrupts = <13>;
--	clocks = <&apb0_gates 1>, <&spdif_clk>;
--	clock-names = "apb", "spdif";
--	dmas = <&dma 0 2>, <&dma 0 2>;
--	dma-names = "rx", "tx";
--};
+ required:
+   - "#sound-dai-cells"
+   - compatible
 -- 
 2.20.1
 

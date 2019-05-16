@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFA5020815
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 15:26:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FADB2088A
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 15:48:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55B6C16DE;
-	Thu, 16 May 2019 15:25:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B6C16DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21D5416DC;
+	Thu, 16 May 2019 15:48:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21D5416DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558013203;
-	bh=TzSXOZkcAqM9EykUP3uokIU7fOz4HO/WYc1H8OX9YcY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1558014538;
+	bh=QUioqOsLG9OyO96mxkYw31QHTSwQGxTMTcXwvOqripw=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gt7tpSJ73gC3jYZwRm95vvJUumrGj6u7OMJIlDZIzRWx1H1JFOof66Tp7AQj+BbXi
-	 VejcCO9f4fiBWswmxXenmZx7ahehtLXa+UDsEHkNHNes0TvU9cSnyXok7qd+QNMTyt
-	 eDL6PhDzCOs0Rqd7uJ4sC0tzl8V72iMBMt4SFZig=
+	b=ioX3M3TpJFgMhD9iaeZ4WlnysfKjDAXm24hE/2xmGln+I6B92I8FhKgBKj4JDjVWg
+	 HtpxtsbeXA8ELjadmmhPhLn55tz9WjSshCwi8/Zxct80HDjPq8dC99Mtav5y1/Xo+5
+	 Egz05XfGZlY8g1+1k5U68Wac4xOu13O1cvi69d8E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F452F896E0;
-	Thu, 16 May 2019 15:25:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CF27F89693;
+	Thu, 16 May 2019 15:47:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9345EF896B9; Thu, 16 May 2019 15:25:13 +0200 (CEST)
+ id AFFE5F896B6; Thu, 16 May 2019 15:47:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, PRX_BODY_26,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=FROM_EXCESS_BASE64,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4E1EF80C18
- for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 15:25:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4E1EF80C18
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="wzEn6pbN"
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 33F1020881
- for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 13:25:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1558013109;
- bh=WNuqEHpbsjF3V2nlPtAGov/5DMwCSoLWptkVucGbyVY=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=wzEn6pbNaiEqoysDMjMLeEIiedjNG5ImjbiQPwVntaXLoLda3QCC2w+i9LI9k4DOU
- C2KElw9E0Kd99Rgn7PTOmiHSCy3SyWGlaHFfGjSasUgzJNHT3Ig8RL0D/M3qXSEGI0
- OxgBaxmQiI15Yl7Fp9DYiiFOFoQsdYhVuV+fsFNg=
-Received: by mail-qk1-f170.google.com with SMTP id z6so2194158qkl.10
- for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 06:25:09 -0700 (PDT)
-X-Gm-Message-State: APjAAAVFFu5QLmM9fwtJBmhkhmf317hJGst1wyoH5cLKrjdX2+n42/9P
- 4pZVIj98NwLZz4Q97rShssvC0TeaRcgIb7dLLQ==
-X-Google-Smtp-Source: APXvYqzhI3LC1U9lpGnWZZm7DhGgRFFQYomJQssdXmHE06C6cfyvv1SGkWtW749ihce0y9GQ66xFIrA1wtO+q2ZhKuQ=
-X-Received: by 2002:a37:7fc3:: with SMTP id a186mr37652270qkd.65.1558013108453; 
- Thu, 16 May 2019 06:25:08 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0B68F80C18
+ for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 15:47:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B68F80C18
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x4GDktvK030413,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (rtitcasv02.realtek.com.tw[172.21.6.19])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x4GDktvK030413
+ (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Thu, 16 May 2019 21:46:56 +0800
+Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
+ RTITCASV02.realtek.com.tw ([::1]) with mapi id 14.03.0439.000; Thu, 16 May
+ 2019 21:46:55 +0800
+From: =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
+To: Mark Brown <broonie@kernel.org>
+Thread-Topic: [PATCH] ASoC: rt1308: Add RT1308 amplifier driver
+Thread-Index: AQHU8/tPQAgeauF2zUGmBO/aeAeg+qY+ZeAAgAGgD9D//+nuAIAJq9sAgBbJfoCAAM/mQIAFj/yAgAJ0bhD//5BlAIABxHoQgAF2E4CAAe2iwA==
+Date: Thu, 16 May 2019 13:46:53 +0000
+Message-ID: <BC6F7617C38F3E4E8CA887E07B35B82805B15635@RTITMBSVM07.realtek.com.tw>
+References: <20190416153510.GE4834@sirena.org.uk>
+ <BC6F7617C38F3E4E8CA887E07B35B8280116192E@RTITMBSVM07.realtek.com.tw>
+ <20190417150518.GB5703@sirena.org.uk>
+ <BC6F7617C38F3E4E8CA887E07B35B828011660AC@RTITEXDAG02.realtek.com.tw>
+ <20190508064537.GN14916@sirena.org.uk>
+ <BC6F7617C38F3E4E8CA887E07B35B82805B1144E@RTITMBSVM07.realtek.com.tw>
+ <20190512080621.GH21483@sirena.org.uk>
+ <BC6F7617C38F3E4E8CA887E07B35B82805B13EE2@RTITMBSVM07.realtek.com.tw>
+ <20190513145608.GA5168@sirena.org.uk>
+ <BC6F7617C38F3E4E8CA887E07B35B82805B14BFF@RTITMBSVM07.realtek.com.tw>
+ <20190515161429.GH5613@sirena.org.uk>
+In-Reply-To: <20190515161429.GH5613@sirena.org.uk>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.141]
 MIME-Version: 1.0
-References: <706cb97ae45cc9edc49c8709b2189ed786d2c7db.1557993523.git-series.maxime.ripard@bootlin.com>
-In-Reply-To: <706cb97ae45cc9edc49c8709b2189ed786d2c7db.1557993523.git-series.maxime.ripard@bootlin.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Thu, 16 May 2019 08:24:57 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+4+LD+x-bd9iCwA4bGtRUjdqo7=g4HgGzcYTsZG17KLw@mail.gmail.com>
-Message-ID: <CAL_Jsq+4+LD+x-bd9iCwA4bGtRUjdqo7=g4HgGzcYTsZG17KLw@mail.gmail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Frank Rowand <frowand.list@gmail.com>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v3 1/2] dt-bindings: sound: Convert
- Allwinner SPDIF binding to YAML
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Albert Chen <albertchen@realtek.com>,
+ "bard.liao@intel.com" <bard.liao@intel.com>,
+ =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: rt1308: Add RT1308 amplifier driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,41 +91,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 16, 2019 at 2:59 AM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
->
-> The Allwinner SoCs feature an SPDIF controller across multiple SoC
-> generations.
->
-> However, earlier generations were a bit simpler than the subsequent ones,
-> and for example would always have RX and TX capabilities, and no reset
-> lines.
->
-> In order to express this, let's create two YAML schemas instead of the free
-> form text we had before.
->
-> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
->
-> ---
->
-> Changes from v2:
->   - Add comments
->
-> Changes from v1:
->   - Merged the two schemas together and used the draft-7 conditionals
-> ---
->  Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml | 101 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
->  Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt          |  42 +------------------------------
->  2 files changed, 101 insertions(+), 42 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
-
-Reviewed-by: Rob Herring <robh@kernel.org>
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+PiBTdWJqZWN0OiBSZTogW1BBVENIXSBBU29DOiBydDEzMDg6IEFkZCBSVDEzMDggYW1wbGlmaWVy
+IGRyaXZlcg0KPiANCj4gT24gVHVlLCBNYXkgMTQsIDIwMTkgYXQgMTE6MTA6NThBTSArMDAwMCwg
+RGVyZWsgW+aWueW+t+e+qV0gd3JvdGU6DQo+IA0KPiA+IEkgY291bGQgcmVtb3ZlIGNvbW1lbnQg
+Zm9yIHRoZSBsaW1pdCBzZXR0aW5nIGluIHJlZ2lzdGVyIHBhdGNoL2luaXQgbGlzdA0KPiA+IHRv
+IGF2b2lkIHVzZXJzIG9yIGludGVncmF0b3JzIGhhdmUgYW55IGV4cGVjdGF0aW9uLg0KPiA+IEFu
+ZCBhbHNvIHRoZXJlIHdpbGwgbm90IGJlIGFueSBzdXBwb3J0IGF0IGFsbCB0aGUgZHJpdmVyIGFj
+Y29yZGluZyB0byB0aGUNCj4gPiBsaW1pdCBzZXR0aW5nLg0KPiANCj4gSXQncyBiZXR0ZXIgdG8g
+aGF2ZSBhIGNvbW1lbnQgdGhhbiBub3QgaGF2ZSBvbmUsIEkgdGhpbmsgSSdkIGJlIGhhcHBpZXIN
+Cj4gaWYgSSB1bmRlcnN0b29kIHdoYXQgd2FzIGFjdHVhbGx5IGJlaW5nIGxpbWl0ZWQgaGVyZSAt
+IHRoYXQgbWlnaHQgbWFrZQ0KPiBpdCBjbGVhciB3aHkgaXQncyBub3Qgc3lzdGVtIHNwZWNpZmlj
+IHdoaWNoIGlzIHdoYXQncyBjb25jZXJuaW5nIG1lLg0KDQpJIHdpbGwgZ2l2ZSBhIGNvbW1lbnQg
+dGhhdCBkZXNjcmliZXMgdGhlIGxpbWl0IHNldHRpbmcgcmVhc29uIGNsZWFybHkuDQoNCj4gLS0t
+LS0tUGxlYXNlIGNvbnNpZGVyIHRoZSBlbnZpcm9ubWVudCBiZWZvcmUgcHJpbnRpbmcgdGhpcyBl
+LW1haWwuDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpB
+bHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6
+Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

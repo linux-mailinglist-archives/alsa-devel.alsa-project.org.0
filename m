@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0EE32170D
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 12:38:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC49216FD
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 12:36:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5766C1615;
-	Fri, 17 May 2019 12:37:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5766C1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id D990D16C6;
+	Fri, 17 May 2019 12:35:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D990D16C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558089481;
-	bh=kNlxUluI6WihUlzBAbr7W6NbK+WiBAwnv/LlTH0yoNU=;
+	s=default; t=1558089395;
+	bh=5gv+NwK6byu+yVw6//bPvTAvgEAhkCBDV5ySHEI31ik=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=b3vDoZejyK8IypqzBh9iPO7k1P0Yrr31b5tbVRkNQpApU5jXzT2XQ7m23oX1uiL/M
-	 waOny9OT32rDphB+jatkTAXxFLSxPwqZclEkG7mj4vadL7CUSPYx0/rQcFs/tviLl1
-	 VpAp05sjKWwsWn7YBG++4Z8dbhve3KMSabFEXRmE=
+	b=gqc4M0nXQxcXPuYJRrXSykj/gGXXtzYZWdAi8wqfXeFlsXy9+64elA8VJ+POnnqTH
+	 5jrQEJxRDWhCc1jUg1YnXG+nXHVzma1XYGPo/ba4iezDjdU6WnoKWZ0Y70CHyCyipi
+	 7zsWkNSDuTFHUPYlTSb318XckPlF9gdruqzBzSd4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFC16F8972D;
-	Fri, 17 May 2019 12:34:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB130F896B8;
+	Fri, 17 May 2019 12:34:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96154F8972B; Fri, 17 May 2019 12:34:56 +0200 (CEST)
+ id A9280F8968A; Fri, 17 May 2019 12:34:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7F3EF8972A
- for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 12:34:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7F3EF8972A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B48D8F80C18
+ for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 12:34:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B48D8F80C18
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="lcreit09"
+ header.b="s29sQGfK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=93NvC3nA8VWXUx8wELE1sJsU2NxjB4mv/EYPVnxhEsI=; b=lcreit09Dppi
- RAnP5PfAMTXQCOg+TKV5ofthBL/7CZ08rwdHFzACqODd2xp/PtsE6rdCJ8JQSOOFagjIGYZXLqWzS
- lPQweWIpnW0TPyGN6gvLxd1H1Rlw2ZXAZ4UeHEvVH8liM9OppovI/78Ls8Ps4FCetvLoRikSUneQ7
- vlnxk=;
+ List-Archive; bh=OKdDrU1lFWdXayu76ojzkhM6P19Gv62PlFxoKKvTCgk=; b=s29sQGfKZewU
+ 1n4TIX62DJqE1DDXD4khiPWafGv3MEwkyi6+PenA/ztzkAmwFXarMg57i8ZHd4ddgR+d8vPe74ilh
+ D38zT/xVxSA1mBagekWKtOjEdx1RKko4cG6rV4xmavKSyMwGGASk/2z2JjyikoALAMxXtv15J1cBK
+ keffs=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hRaCI-0001gZ-F8; Fri, 17 May 2019 10:34:42 +0000
+ id 1hRaCF-0001gV-J1; Fri, 17 May 2019 10:34:39 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 467241126D72; Fri, 17 May 2019 11:34:39 +0100 (BST)
+ id 130F41126D71; Fri, 17 May 2019 11:34:39 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: S.j. Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <e6fb6598dd863b74241e10d14652d12fe701845d.1557986478.git.shengjiu.wang@nxp.com>
+In-Reply-To: <95eb314ef6d47ee6581094a406516a6069278d56.1557986457.git.shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190517103439.467241126D72@debutante.sirena.org.uk>
+Message-Id: <20190517103439.130F41126D71@debutante.sirena.org.uk>
 Date: Fri, 17 May 2019 11:34:39 +0100 (BST)
 Cc: brian.austin@cirrus.com, alsa-devel@alsa-project.org,
  Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com,
  linux-kernel@vger.kernel.org, Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, stable@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: cs42xx8: Add regcache mask dirty" to
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: cs42xx8: Add reset gpio handling" to
 	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -89,11 +89,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: cs42xx8: Add regcache mask dirty
+   ASoC: cs42xx8: Add reset gpio handling
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -114,36 +114,72 @@ to this mail.
 Thanks,
 Mark
 
-From ad6eecbfc01c987e0253371f274c3872042e4350 Mon Sep 17 00:00:00 2001
+From bfe95dfa4dacefbe20a8532bdac0a19da0708be4 Mon Sep 17 00:00:00 2001
 From: "S.j. Wang" <shengjiu.wang@nxp.com>
-Date: Thu, 16 May 2019 06:04:29 +0000
-Subject: [PATCH] ASoC: cs42xx8: Add regcache mask dirty
+Date: Thu, 16 May 2019 06:04:58 +0000
+Subject: [PATCH] ASoC: cs42xx8: Add reset gpio handling
 
-Add regcache_mark_dirty before regcache_sync for power
-of codec may be lost at suspend, then all the register
-need to be reconfigured.
+Handle the reset GPIO and reset the device every time we
+start it.
 
-Fixes: 0c516b4ff85c ("ASoC: cs42xx8: Add codec driver
-support for CS42448/CS42888")
-Cc: <stable@vger.kernel.org>
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/cs42xx8.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/codecs/cs42xx8.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/sound/soc/codecs/cs42xx8.c b/sound/soc/codecs/cs42xx8.c
-index ebb9e0cf8364..28a4ac36c4f8 100644
+index ebb9e0cf8364..3e8dbf63adbe 100644
 --- a/sound/soc/codecs/cs42xx8.c
 +++ b/sound/soc/codecs/cs42xx8.c
-@@ -558,6 +558,7 @@ static int cs42xx8_runtime_resume(struct device *dev)
- 	msleep(5);
+@@ -14,6 +14,7 @@
+ #include <linux/delay.h>
+ #include <linux/module.h>
+ #include <linux/of_device.h>
++#include <linux/of_gpio.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <sound/pcm_params.h>
+@@ -45,6 +46,7 @@ struct cs42xx8_priv {
+ 	bool slave_mode;
+ 	unsigned long sysclk;
+ 	u32 tx_channels;
++	struct gpio_desc *gpiod_reset;
+ };
  
- 	regcache_cache_only(cs42xx8->regmap, false);
-+	regcache_mark_dirty(cs42xx8->regmap);
+ /* -127.5dB to 0dB with step of 0.5dB */
+@@ -467,6 +469,13 @@ int cs42xx8_probe(struct device *dev, struct regmap *regmap)
+ 		return -EINVAL;
+ 	}
  
- 	ret = regcache_sync(cs42xx8->regmap);
++	cs42xx8->gpiod_reset = devm_gpiod_get_optional(dev, "reset",
++							GPIOD_OUT_HIGH);
++	if (IS_ERR(cs42xx8->gpiod_reset))
++		return PTR_ERR(cs42xx8->gpiod_reset);
++
++	gpiod_set_value_cansleep(cs42xx8->gpiod_reset, 0);
++
+ 	cs42xx8->clk = devm_clk_get(dev, "mclk");
+ 	if (IS_ERR(cs42xx8->clk)) {
+ 		dev_err(dev, "failed to get the clock: %ld\n",
+@@ -547,6 +556,8 @@ static int cs42xx8_runtime_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	gpiod_set_value_cansleep(cs42xx8->gpiod_reset, 0);
++
+ 	ret = regulator_bulk_enable(ARRAY_SIZE(cs42xx8->supplies),
+ 				    cs42xx8->supplies);
  	if (ret) {
+@@ -585,6 +596,8 @@ static int cs42xx8_runtime_suspend(struct device *dev)
+ 	regulator_bulk_disable(ARRAY_SIZE(cs42xx8->supplies),
+ 			       cs42xx8->supplies);
+ 
++	gpiod_set_value_cansleep(cs42xx8->gpiod_reset, 1);
++
+ 	clk_disable_unprepare(cs42xx8->clk);
+ 
+ 	return 0;
 -- 
 2.20.1
 

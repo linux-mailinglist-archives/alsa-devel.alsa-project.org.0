@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CF77216FF
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 12:37:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0EE32170D
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 12:38:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF85016C0;
-	Fri, 17 May 2019 12:36:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF85016C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5766C1615;
+	Fri, 17 May 2019 12:37:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5766C1615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558089435;
-	bh=POHXeCwJITuZFVe4N4YMh4GBHPRtPkUIFoBYKBy3Vo0=;
+	s=default; t=1558089481;
+	bh=kNlxUluI6WihUlzBAbr7W6NbK+WiBAwnv/LlTH0yoNU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=N6r0RQ8KY+UsjrucJi2caq1Grf7AW8YL8Q6dIYIz7fsH/cAcA5LBW+C0OhC3Ak1xk
-	 DdZUeMZN7bSB/H4sEjC+VVlzXf5R/Oj23PAvdh9eo86SPdEUsD0/VruxACVPqwW7DH
-	 dENippd1sbTgZGSq/rtSQXzsz3f0TUs8r0E4XUQw=
+	b=b3vDoZejyK8IypqzBh9iPO7k1P0Yrr31b5tbVRkNQpApU5jXzT2XQ7m23oX1uiL/M
+	 waOny9OT32rDphB+jatkTAXxFLSxPwqZclEkG7mj4vadL7CUSPYx0/rQcFs/tviLl1
+	 VpAp05sjKWwsWn7YBG++4Z8dbhve3KMSabFEXRmE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B5BFF89723;
-	Fri, 17 May 2019 12:34:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFC16F8972D;
+	Fri, 17 May 2019 12:34:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FB65F89708; Fri, 17 May 2019 12:34:52 +0200 (CEST)
+ id 96154F8972B; Fri, 17 May 2019 12:34:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A62CF8968A
- for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 12:34:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A62CF8968A
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7F3EF8972A
+ for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 12:34:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7F3EF8972A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="xzM81uaI"
+ header.b="lcreit09"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=3yIQ0AOdHWQzC6rb+WwEefXqE5Fe2rpIMJ7AF7EUJtw=; b=xzM81uaIt0Li
- BcSEi6QrUIpncpFHkiGp6XrwzooGpWZW+3wtdbV/+Kc6ViPDNMiO93nn+obBkuP5J/X6I3YOhsCx8
- E6hxSA2B4Pfxbiy5/QkNZQCq6CyeCCZTjY0xT9ogofS5EwFg6L3y/d91nCwiwchk3vjaRSZ0DW0B1
- OXddA=;
+ List-Archive; bh=93NvC3nA8VWXUx8wELE1sJsU2NxjB4mv/EYPVnxhEsI=; b=lcreit09Dppi
+ RAnP5PfAMTXQCOg+TKV5ofthBL/7CZ08rwdHFzACqODd2xp/PtsE6rdCJ8JQSOOFagjIGYZXLqWzS
+ lPQweWIpnW0TPyGN6gvLxd1H1Rlw2ZXAZ4UeHEvVH8liM9OppovI/78Ls8Ps4FCetvLoRikSUneQ7
+ vlnxk=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hRaCI-0001gY-F7; Fri, 17 May 2019 10:34:42 +0000
+ id 1hRaCI-0001gZ-F8; Fri, 17 May 2019 10:34:42 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id D58891126D64; Fri, 17 May 2019 11:34:38 +0100 (BST)
+ id 467241126D72; Fri, 17 May 2019 11:34:39 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Saravanan Sekar <sravanhome@gmail.com>
-In-Reply-To: <20190511151149.28823-1-sravanhome@gmail.com>
+To: S.j. Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <e6fb6598dd863b74241e10d14652d12fe701845d.1557986478.git.shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190517103438.D58891126D64@debutante.sirena.org.uk>
-Date: Fri, 17 May 2019 11:34:38 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, sravanhome@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: tlv320aic3x: Add support for high power
-	analog output" to the asoc tree
+Message-Id: <20190517103439.467241126D72@debutante.sirena.org.uk>
+Date: Fri, 17 May 2019 11:34:39 +0100 (BST)
+Cc: brian.austin@cirrus.com, alsa-devel@alsa-project.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, stable@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: cs42xx8: Add regcache mask dirty" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +89,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tlv320aic3x: Add support for high power analog output
+   ASoC: cs42xx8: Add regcache mask dirty
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,63 +114,36 @@ to this mail.
 Thanks,
 Mark
 
-From bfa8130f50a63563eae10ef933fe01b50b3e87a0 Mon Sep 17 00:00:00 2001
-From: Saravanan Sekar <sravanhome@gmail.com>
-Date: Sat, 11 May 2019 17:11:49 +0200
-Subject: [PATCH] ASoC: tlv320aic3x: Add support for high power analog output
+From ad6eecbfc01c987e0253371f274c3872042e4350 Mon Sep 17 00:00:00 2001
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+Date: Thu, 16 May 2019 06:04:29 +0000
+Subject: [PATCH] ASoC: cs42xx8: Add regcache mask dirty
 
-Add support to output level control for the analog high power output
-drivers HPOUT and HPCOM.
+Add regcache_mark_dirty before regcache_sync for power
+of codec may be lost at suspend, then all the register
+need to be reconfigured.
 
-Signed-off-by: Saravanan Sekar <sravanhome@gmail.com>
+Fixes: 0c516b4ff85c ("ASoC: cs42xx8: Add codec driver
+support for CS42448/CS42888")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tlv320aic3x.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ sound/soc/codecs/cs42xx8.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/tlv320aic3x.c b/sound/soc/codecs/tlv320aic3x.c
-index 516d17cb2182..599e4ed3850b 100644
---- a/sound/soc/codecs/tlv320aic3x.c
-+++ b/sound/soc/codecs/tlv320aic3x.c
-@@ -324,6 +324,9 @@ static DECLARE_TLV_DB_SCALE(adc_tlv, 0, 50, 0);
-  */
- static DECLARE_TLV_DB_SCALE(output_stage_tlv, -5900, 50, 1);
+diff --git a/sound/soc/codecs/cs42xx8.c b/sound/soc/codecs/cs42xx8.c
+index ebb9e0cf8364..28a4ac36c4f8 100644
+--- a/sound/soc/codecs/cs42xx8.c
++++ b/sound/soc/codecs/cs42xx8.c
+@@ -558,6 +558,7 @@ static int cs42xx8_runtime_resume(struct device *dev)
+ 	msleep(5);
  
-+/* Output volumes. From 0 to 9 dB in 1 dB steps */
-+static const DECLARE_TLV_DB_SCALE(out_tlv, 0, 100, 0);
-+
- static const struct snd_kcontrol_new aic3x_snd_controls[] = {
- 	/* Output */
- 	SOC_DOUBLE_R_TLV("PCM Playback Volume",
-@@ -386,11 +389,17 @@ static const struct snd_kcontrol_new aic3x_snd_controls[] = {
- 			 DACL1_2_HPLCOM_VOL, DACR1_2_HPRCOM_VOL,
- 			 0, 118, 1, output_stage_tlv),
+ 	regcache_cache_only(cs42xx8->regmap, false);
++	regcache_mark_dirty(cs42xx8->regmap);
  
--	/* Output pin mute controls */
-+	/* Output pin controls */
-+	SOC_DOUBLE_R_TLV("Line Playback Volume", LLOPM_CTRL, RLOPM_CTRL, 4,
-+			 9, 0, out_tlv),
- 	SOC_DOUBLE_R("Line Playback Switch", LLOPM_CTRL, RLOPM_CTRL, 3,
- 		     0x01, 0),
-+	SOC_DOUBLE_R_TLV("HP Playback Volume", HPLOUT_CTRL, HPROUT_CTRL, 4,
-+			 9, 0, out_tlv),
- 	SOC_DOUBLE_R("HP Playback Switch", HPLOUT_CTRL, HPROUT_CTRL, 3,
- 		     0x01, 0),
-+	SOC_DOUBLE_R_TLV("HPCOM Playback Volume", HPLCOM_CTRL, HPRCOM_CTRL,
-+			 4, 9, 0, out_tlv),
- 	SOC_DOUBLE_R("HPCOM Playback Switch", HPLCOM_CTRL, HPRCOM_CTRL, 3,
- 		     0x01, 0),
- 
-@@ -472,6 +481,9 @@ static const struct snd_kcontrol_new aic3x_mono_controls[] = {
- 			 0, 118, 1, output_stage_tlv),
- 
- 	SOC_SINGLE("Mono Playback Switch", MONOLOPM_CTRL, 3, 0x01, 0),
-+	SOC_SINGLE_TLV("Mono Playback Volume", MONOLOPM_CTRL, 4, 9, 0,
-+			out_tlv),
-+
- };
- 
- /*
+ 	ret = regcache_sync(cs42xx8->regmap);
+ 	if (ret) {
 -- 
 2.20.1
 

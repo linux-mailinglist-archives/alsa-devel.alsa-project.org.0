@@ -2,96 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67E5621ED5
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 22:04:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9B382206E
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 May 2019 00:50:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED810169C;
-	Fri, 17 May 2019 22:03:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED810169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E12D1693;
+	Sat, 18 May 2019 00:50:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E12D1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558123465;
-	bh=EPMlFgsA7GAOZ9gWZ+0ymX2/cTe+Z6Y0kpX+fmMXn1Q=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1558133451;
+	bh=787A9tmxFD7iINs0wwXPNA+xizd33RInZsGGgUFL7ck=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dBrfjZXox4rykU7aThChxqsA0SJG/u4Sn3x4orEmcbC09YxzHGOyGiSEmRqPDeBSH
-	 j5LkOdflqh/8P0lAX5B1ChlLJsYPgZyskWVHse6GxufywlzFvrdG7IL7JFRGqM/I0V
-	 MicxzF/ml/qm2ksq3lAy6z9UlAjULAeZuftXlmUM=
+	b=hjt+iDyitF0e+9xc5R3UFcAiu68GFeQi5i1LpFSMHD5rKBRkWeWj8FBCSg7tqzQgR
+	 ZHXfkMC/9B3/gbTvjRVjUt9MOXkQfcok5LLdz2wBckht0Onob1KN8SY44agpXUk3Tf
+	 fSdFVGyUYFobG04kZnTgYcPz9UTz59h4R9Fb6ncc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A3B5F8968A;
-	Fri, 17 May 2019 22:02:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9085F8968A;
+	Sat, 18 May 2019 00:49:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86FBFF89684; Fri, 17 May 2019 22:02:37 +0200 (CEST)
+ id AE82DF8968A; Sat, 18 May 2019 00:49:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_30,PRX_BODY_72,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6CF27F80759
- for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 22:02:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CF27F80759
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE795F80759
+ for <alsa-devel@alsa-project.org>; Sat, 18 May 2019 00:49:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE795F80759
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ny71yutW"
-Received: by mail-pg1-x541.google.com with SMTP id a3so3788510pgb.3
- for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 13:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=g9wIYCx00weLSQMcQnQUCOzdDyH/zzhQi5GjVSkJuLo=;
- b=ny71yutWOjQbwSHC80AkORAGocGy81alQ8++2MaM43zfVScDFceITy7F2+a7DW/kyt
- 7nAXUgRsp4hWbHJKwwUj4ynO34TrAkwKJH4tzexBmAcnULLG6wVwYhZSI7V/UiEI4/Op
- WcmATzj49esMYFW+kYApeodr8LoTuMyJTbi1gvU3imlRfeaOrMSKS9IPpxDdrfA7I7Wv
- SsR5wStbloFrEDuL5GeC85tjsWyGAoEvV7y7oMJQ9fMZusq3/ajPqSl/64HI86VkpQXS
- hY+xJiEugIGQ949GOtknJZOhK+JaThp/Sa+rd8SwuvugWx/AvpjJcDGvpzzEpkAaZtqS
- odRg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="j1fMEwmF"
+Received: by mail-it1-x142.google.com with SMTP id a190so14420294ite.4
+ for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 15:49:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fWLIDy2co5Vn50CtpXbdQSItadAnwXRU6oL36I+LMbU=;
+ b=j1fMEwmFBzpq5dKJ/MaU3D+drIuI0ARLCKClUL2DUep1n6kX4Fj3FE+3y2BpqzVZcg
+ cEeqDwknBjsY/k8bhbZb9ooIqb2AicXfoG+WcGFLfDGOXOwGm39gXALlBPzi1fE7dZkl
+ Gy0hqJ4vSeb3tcYqh9HvuEQUYmtA/7AZnr2/4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=g9wIYCx00weLSQMcQnQUCOzdDyH/zzhQi5GjVSkJuLo=;
- b=jCluHShavCGYiB5q2G+Xx2OEAbqhQMUN3blqpzF5GoR/1T7VMn/8NwIhU+LFcT0L/0
- hqgQh2JmDovPWXDj+nEok4ZVc+6Iyw1GN3/4nPWpz3EjJ+9cBPvUY6t3Ak8qCmdiKG4b
- YEGd0rkYrN5uubguBAqiBY+KMvPnY5yksdhwtbeJ73rmNp6KfnMujuTT2SKuCxgRtrzz
- isaGh+LBWy3VnxWvkdfXzFqVWDxPJ/qZJ7YJq2MjLlKQ2qVMLki428UUVEJpOBhJxUbz
- i4+KdHuZYcqbwk0+Ldq/w/Xx80o94Vo0rSGJgpimKLpCiDYTOWk2p+QMctJ36oUlA1ZI
- YtWw==
-X-Gm-Message-State: APjAAAXN4uxr1GSdIKQ2W5VafISXr/+fIi89rdN4DZpEvtuGjQt2VKbC
- pzP47XadHc9nvbWVToexdgg=
-X-Google-Smtp-Source: APXvYqyEqY45/LSbPPjbR3puhM1JE7GS7ALQzydq4pmAfplcxzEl/0rb9l2x7ZzuZKK7zgBQMwqShQ==
-X-Received: by 2002:a63:a84c:: with SMTP id i12mr59903032pgp.115.1558123352159; 
- Fri, 17 May 2019 13:02:32 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id h18sm9639863pgv.38.2019.05.17.13.02.31
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 17 May 2019 13:02:32 -0700 (PDT)
-Date: Fri, 17 May 2019 13:01:10 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: "S.j. Wang" <shengjiu.wang@nxp.com>
-Message-ID: <20190517200110.GA22558@Asurada-Nvidia.nvidia.com>
-References: <20190517030903.25731-1-shengjiu.wang@nxp.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fWLIDy2co5Vn50CtpXbdQSItadAnwXRU6oL36I+LMbU=;
+ b=Zixxxhbij25Xe8gG6T7oDHJk4ocDe5P1OZ++lcQEkIhw9jN555ycxJr6Tt9+17HPXX
+ L2NVRLHWM9VpXpuyUFDoPb55AbfaHjwyLkIWzoQdLzUTsxtGoUv0wEDYOuXvxIO4VfPo
+ 1ig2SX1DvtMt2Y9M/OwovIi9OyVPzutUFGZlKo58Nl14ue6IgUS54lrJH7z8kbyreOxt
+ FHEvZmt2mfDsuuXNijsW0Mi88UkGUqwYOhJzyVbL+YxOL9S5UbtfPZtikzq9rzk3KKYl
+ Y+94utNyuJAixA3idSABNch6VQ0Al2hFdJ9HA8ZHyzTkpiqceGk/h8tDt8brTBYsuxi5
+ IRTg==
+X-Gm-Message-State: APjAAAWrbLCVxxckFQcFAGvAu0FL4f9FP25y7P1G+KgW+ujAhSxW0wdH
+ sKtUElNDKqUW3o+QwGb1Z+eTuikyDcCS7hn8qJ+/OQ==
+X-Google-Smtp-Source: APXvYqyYg5NJJ7Eb1Cf1sch9W6PqiIZNmQkePH7xL+iwmKaY8JvrKHQXzNzcY6+FGrg1OB6xJE1HilF2iy1ns9vW/Ag=
+X-Received: by 2002:a02:1142:: with SMTP id 63mr37714962jaf.19.1558133338638; 
+ Fri, 17 May 2019 15:48:58 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190517030903.25731-1-shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_esai: fix the channel swap issue
-	after xrun
+References: <20190509211353.213194-1-gwendal@chromium.org>
+In-Reply-To: <20190509211353.213194-1-gwendal@chromium.org>
+From: Gwendal Grignou <gwendal@chromium.org>
+Date: Fri, 17 May 2019 15:48:47 -0700
+Message-ID: <CAPUE2ut4OUhrmbx6n8KCj7+ghXmC9iMnxGN8DMvyvZstznwwng@mail.gmail.com>
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, 
+ Guenter Roeck <groeck@chromium.org>, Lee Jones <lee.jones@linaro.org>, 
+ Jonathan Cameron <jic23@kernel.org>, Mark Brown <broonie@kernel.org>, 
+ Cheng-Yi Chiang <cychiang@chromium.org>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-iio@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH v3 00/30] Update cros_ec_commands.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,254 +96,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, May 17, 2019 at 03:09:22AM +0000, S.j. Wang wrote:
-> There is chip errata ERR008000, the reference doc is
-> (https://www.nxp.com/docs/en/errata/IMX6DQCE.pdf),
-> 
-> The issue is "While using ESAI transmit or receive and
-> an underrun/overrun happens, channel swap may occur.
-> The only recovery mechanism is to reset the ESAI."
-> 
-> In this commit add a tasklet to handle reset of ESAI
-> after xrun happens
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  sound/soc/fsl/fsl_esai.c | 166 +++++++++++++++++++++++++++++++++++++++
->  1 file changed, 166 insertions(+)
-> 
-> diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-> index 10d2210c91ef..149972894c95 100644
-> --- a/sound/soc/fsl/fsl_esai.c
-> +++ b/sound/soc/fsl/fsl_esai.c
-> @@ -52,17 +52,20 @@ struct fsl_esai {
->  	struct clk *extalclk;
->  	struct clk *fsysclk;
->  	struct clk *spbaclk;
-> +	struct tasklet_struct task;
-[...]
-> +	u32 tx_channels;
-[...]
-> +	bool reset_at_xrun;
+Lee,
 
-Please add descriptions for them in the comments of the struct.
+I verified and merged the changes on the kernels (3.18, 4.4 and 4.14)
+used on chromebook using a squashed version of these patches.
+(crrev.com/c/1583322, crrev.com/c/1583385, crrev.com/c/1583321
+respectively)
+Please let me know if you have any questions.
 
-  
-> @@ -71,8 +74,14 @@ static irqreturn_t esai_isr(int irq, void *devid)
->  	struct fsl_esai *esai_priv = (struct fsl_esai *)devid;
->  	struct platform_device *pdev = esai_priv->pdev;
->  	u32 esr;
-> +	u32 saisr;
->  
->  	regmap_read(esai_priv->regmap, REG_ESAI_ESR, &esr);
-> +	regmap_read(esai_priv->regmap, REG_ESAI_SAISR, &saisr);
-> +
-> +	if ((saisr & (ESAI_SAISR_TUE | ESAI_SAISR_ROE))
-> +		&& esai_priv->reset_at_xrun)
+Thanks,
 
-Please follow the coding style:
-+	if ((saisr & (ESAI_SAISR_TUE | ESAI_SAISR_ROE)) &&
-+	    esai_priv->reset_at_xrun)
+Gwendal.
 
-> +		tasklet_schedule(&esai_priv->task);
-
-And maybe a dev_dbg also to inform people it's recovering.
-
-> @@ -552,6 +561,9 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
->  	u32 pins = DIV_ROUND_UP(channels, esai_priv->slots);
->  	u32 mask;
->  
-> +	if (tx)
-> +		esai_priv->tx_channels = channels;
-> +
->  	switch (cmd) {
->  	case SNDRV_PCM_TRIGGER_START:
->  	case SNDRV_PCM_TRIGGER_RESUME:
-> @@ -585,10 +597,16 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
->  		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
->  				   ESAI_xSMA_xS_MASK, ESAI_xSMA_xS(mask));
->  
-> +		regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
-> +				   ESAI_xCR_xEIE_MASK, ESAI_xCR_xEIE);
-
-A line of comments please.
-
-> +static void fsl_esai_reset(unsigned long arg)
-> +{
-> +	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
-
-> +	u32 saisr;
-> +	u32 tsma, tsmb, rsma, rsmb, tcr, rcr, tfcr, rfcr;
-
-Could we merge these two lines?
-
-> +	/*
-> +	 * stop the tx & rx
-> +	 */
-
-Single-line style please.
-
-> +	regmap_read(esai_priv->regmap, REG_ESAI_TSMA, &tsma);
-> +	regmap_read(esai_priv->regmap, REG_ESAI_TSMB, &tsmb);
-> +	regmap_read(esai_priv->regmap, REG_ESAI_RSMA, &rsma);
-> +	regmap_read(esai_priv->regmap, REG_ESAI_RSMB, &rsmb);
-> +
-> +	regmap_read(esai_priv->regmap, REG_ESAI_TCR, &tcr);
-> +	regmap_read(esai_priv->regmap, REG_ESAI_RCR, &rcr);
-> +
-> +	regmap_read(esai_priv->regmap, REG_ESAI_TFCR, &tfcr);
-> +	regmap_read(esai_priv->regmap, REG_ESAI_RFCR, &rfcr);
-
-I think this chunk is to save register values other than "stop".
-
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +				ESAI_xCR_xEIE_MASK | ESAI_xCR_TE_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +				ESAI_xCR_xEIE_MASK | ESAI_xCR_RE_MASK, 0);
-
-Indentation:
-+	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-+			   ESAI_xCR_xEIE_MASK | ESAI_xCR_RE_MASK, 0);
-
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMA,
-> +				ESAI_xSMA_xS_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMB,
-> +				ESAI_xSMB_xS_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMA,
-> +				ESAI_xSMA_xS_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMB,
-> +				ESAI_xSMB_xS_MASK, 0);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
-> +				ESAI_xFCR_xFR | ESAI_xFCR_xFEN, ESAI_xFCR_xFR);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
-> +				ESAI_xFCR_xFR, 0);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
-> +				ESAI_xFCR_xFR | ESAI_xFCR_xFEN, ESAI_xFCR_xFR);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
-> +				ESAI_xFCR_xFR, 0);
-
-Just a thought that I'd like to discuss: since these operations
-are completely same as TRIGGER_STOP(tx) + TRIGGER_STOP(rx), can
-we abstract a function of fsl_esai_trigger_stop(.., bool tx)?
-
-Benefits would be A) easier to read B) Won't miss an operation,
-as we might add something new to one of the stop routines while
-forgetting the other side.
-
-> +	/*
-> +	 * reset the esai, and restore the registers
-> +	 */
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_ECR,
-> +				ESAI_ECR_ESAIEN_MASK | ESAI_ECR_ERST_MASK,
-> +				ESAI_ECR_ESAIEN | ESAI_ECR_ERST);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_ECR,
-> +				ESAI_ECR_ESAIEN_MASK | ESAI_ECR_ERST_MASK,
-> +				ESAI_ECR_ESAIEN);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +				ESAI_xCR_xPR_MASK,
-> +				ESAI_xCR_xPR);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +				ESAI_xCR_xPR_MASK,
-> +				ESAI_xCR_xPR);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
-> +				ESAI_PRRC_PDC_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
-> +				ESAI_PCRC_PC_MASK, 0);
-
-And this could be abstracted too by sharing with probe().
-
-> +	/*
-> +	 * Add fifo reset here, because the regcache_sync will
-> +	 * write one more data to ETDR.
-> +	 * Which will cause channel shift.
-
-Sounds like a bug to me...should fix it first by marking the
-data registers as volatile.
-
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
-> +				ESAI_xFCR_xFR_MASK, ESAI_xFCR_xFR);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
-> +				ESAI_xFCR_xFR_MASK, ESAI_xFCR_xFR);
-> +
-> +	regcache_mark_dirty(esai_priv->regmap);
-> +	regcache_sync(esai_priv->regmap);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
-> +				ESAI_xFCR_xFR_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
-> +				ESAI_xFCR_xFR_MASK, 0);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +				ESAI_xCR_xPR_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +				ESAI_xCR_xPR_MASK, 0);
-
-Also same as suspend()-resume().
-
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
-> +				ESAI_PRRC_PDC_MASK,
-> +				ESAI_PRRC_PDC(ESAI_GPIO));
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
-> +				ESAI_PCRC_PC_MASK,
-> +				ESAI_PCRC_PC(ESAI_GPIO));
-> +
-> +	regmap_read(esai_priv->regmap, REG_ESAI_SAISR, &saisr);
-> +
-> +	/*
-> +	 * restart tx / rx, if they already enabled
-> +	 */
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
-> +				ESAI_xFCR_xFEN_MASK, tfcr & ESAI_xFCR_xFEN);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
-> +				ESAI_xFCR_xFEN_MASK, rfcr & ESAI_xFCR_xFEN);
-
-Btw, this xFEN should be xFE...a typo in the driver itself...
-
-> +
-> +	/* Write initial words reqiured by ESAI as normal procedure */
-> +	for (i = 0; i < esai_priv->tx_channels; i++)
-> +		regmap_write(esai_priv->regmap, REG_ESAI_ETDR, 0x0);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +				ESAI_xCR_TE_MASK,
-> +				ESAI_xCR_TE_MASK & tcr);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +				ESAI_xCR_RE_MASK,
-> +				ESAI_xCR_RE_MASK & rcr);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMB,
-> +				ESAI_xSMB_xS_MASK,
-> +				ESAI_xSMB_xS_MASK & tsmb);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMA,
-> +				ESAI_xSMA_xS_MASK,
-> +				ESAI_xSMA_xS_MASK & tsma);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMB,
-> +				ESAI_xSMB_xS_MASK,
-> +				ESAI_xSMB_xS_MASK & rsmb);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMA,
-> +				ESAI_xSMA_xS_MASK,
-> +				ESAI_xSMA_xS_MASK & rsma);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +			   ESAI_xCR_xEIE_MASK, ESAI_xCR_xEIE & tcr);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +			   ESAI_xCR_xEIE_MASK, ESAI_xCR_xEIE & rcr);
-
-Similarly having an fsl_esai_trigger_start() could do:
-	if (tfcr & ESAI_xFCR_xFE)
-		fsl_esai_trigger_start(tx);
-	if (rfcr & ESAI_xFCR_xFE)
-		fsl_esai_trigger_start(rx);
-
-Thank you
+On Thu, May 9, 2019 at 2:14 PM Gwendal Grignou <gwendal@chromium.org> wrote:
+>
+> The interface between CrosEC embedded controller and the host,
+> described by cros_ec_commands.h, as diverged from what the embedded
+> controller really support.
+>
+> The source of thruth is at
+> https://chromium.googlesource.com/chromiumos/platform/ec/+/master/include/ec_commands.h
+>
+> That include file is converted to remove ACPI and Embedded only code.
+>
+> From now on, cros_ec_commands.h will be automatically generated from
+> the file above, do not modify directly.
+>
+> Fell free to squash the commits below.
+>
+> Changes in v3:
+> - Rebase after commit 81888d8ab1532 ("mfd: cros_ec: Update the EC feature codes")
+> - Add Acked-by: Benson Leung <bleung@chromium.org>
+>
+> Changes in v2:
+> - Move I2S changes at the end of the patchset, squashed with change in
+>   sound/soc/codecs/cros_ec_codec.c to match new interface.
+> - Add Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+>
+> Gwendal Grignou (30):
+>   mfd: cros_ec: Update license term
+>   mfd: cros_ec: Zero BUILD_ macro
+>   mfd: cros_ec: set comments properly
+>   mfd: cros_ec: add ec_align macros
+>   mfd: cros_ec: Define commands as 4-digit UPPER CASE hex values
+>   mfd: cros_ec: use BIT macro
+>   mfd: cros_ec: Update ACPI interface definition
+>   mfd: cros_ec: move HDMI CEC API definition
+>   mfd: cros_ec: Remove zero-size structs
+>   mfd: cros_ec: Add Flash V2 commands API
+>   mfd: cros_ec: Add PWM_SET_DUTY API
+>   mfd: cros_ec: Add lightbar v2 API
+>   mfd: cros_ec: Expand hash API
+>   mfd: cros_ec: Add EC transport protocol v4
+>   mfd: cros_ec: Complete MEMS sensor API
+>   mfd: cros_ec: Fix event processing API
+>   mfd: cros_ec: Add fingerprint API
+>   mfd: cros_ec: Fix temperature API
+>   mfd: cros_ec: Complete Power and USB PD API
+>   mfd: cros_ec: Add API for keyboard testing
+>   mfd: cros_ec: Add Hibernate API
+>   mfd: cros_ec: Add Smart Battery Firmware update API
+>   mfd: cros_ec: Add I2C passthru protection API
+>   mfd: cros_ec: Add API for EC-EC communication
+>   mfd: cros_ec: Add API for Touchpad support
+>   mfd: cros_ec: Add API for Fingerprint support
+>   mfd: cros_ec: Add API for rwsig
+>   mfd: cros_ec: Add SKU ID and Secure storage API
+>   mfd: cros_ec: Add Management API entry points
+>   mfd: cros_ec: Update I2S API
+>
+>  include/linux/mfd/cros_ec_commands.h | 3658 ++++++++++++++++++++------
+>  sound/soc/codecs/cros_ec_codec.c     |    8 +-
+>  2 files changed, 2915 insertions(+), 751 deletions(-)
+>
+> --
+> 2.21.0.1020.gf2820cf01a-goog
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

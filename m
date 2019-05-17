@@ -2,62 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1948820F85
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 May 2019 22:14:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 019DB211B8
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 03:23:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89C8416D4;
-	Thu, 16 May 2019 22:14:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89C8416D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F71D16BF;
+	Fri, 17 May 2019 03:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F71D16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558037697;
-	bh=Kaiz6fhGb5gfiuLIWbQfprCE2d4B4S88UKRbhoebtTk=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LX1fd8Uo7GLjAT2JhqjDQ6lHtjxCArwEyiWgjv/QLeYi2dg7yxXXAWzkNIb/5czd9
-	 O7szvwIBmNoIjAyOiTrcABjDVB/x1qEUhPocC+eEB5I7uep7T6V8K2fJ1smqTXz7VO
-	 KOjuPyTGFbm2vTbFvLrrHRYkd7sBU9DBAE105Pfs=
+	s=default; t=1558056194;
+	bh=eK1ckzk21Ktygeee7sMHBUtlV0UXjNhj4JnRKnOnvP8=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FtV3CRDKiRzJeZ26VQu1j29M/oAz9+7/LMDg48PbHGdXJLW3LwVkQXi6GG6an0uF3
+	 4Ckm9c/0q3SfhAwJV/n+StFZIi3Bhp2e3d6rg6JZEeGeMYayWGDo6rpa+WoC50oArU
+	 zSuxTs32N/Akk2hqGwWlekFUfWnjUzyAyuIZJcNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9F81F806E7;
-	Thu, 16 May 2019 22:13:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9DC9F896B6;
+	Fri, 17 May 2019 03:21:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E05AF896B6; Thu, 16 May 2019 22:13:10 +0200 (CEST)
+ id 50DBFF896B6; Fri, 17 May 2019 03:21:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26, RCVD_IN_MSPIKE_H2,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84CF9F806E7
- for <alsa-devel@alsa-project.org>; Thu, 16 May 2019 22:13:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84CF9F806E7
-X-Originating-IP: 46.193.9.130
-Received: from localhost (cust-west-pareq2-46-193-9-130.wb.wifirst.net
- [46.193.9.130]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id BC2EBC0005;
- Thu, 16 May 2019 20:12:58 +0000 (UTC)
-Date: Thu, 16 May 2019 22:12:56 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: Georgii Staroselskii <georgii.staroselskii@emlid.com>
-Message-ID: <20190516201256.te7ya3n7ugbfmzrw@flea>
-References: <1557925120-31498-1-git-send-email-georgii.staroselskii@emlid.com>
- <20190515135813.5y72f2h526yjkncy@flea>
- <20190515152749.GA2241@softcrasher>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190515152749.GA2241@softcrasher>
-User-Agent: NeoMutt/20180716
-Cc: alsa-devel@alsa-project.org, dannym@scratchpost.org, tiwai@suse.com,
- lgirdwood@gmail.com, wens@csie.org, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: sun4i-codec: fix first delay on
-	Speaker
+X-Spam-Status: No, score=0.3 required=5.0 tests=AC_FROM_MANY_DOTS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 321D6F806E7
+ for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 03:21:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 321D6F806E7
+Date: 17 May 2019 10:21:12 +0900
+X-IronPort-AV: E=Sophos;i="5.60,477,1549897200"; d="scan'208";a="16178490"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 17 May 2019 10:21:12 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id EE6BE4155381;
+ Fri, 17 May 2019 10:21:11 +0900 (JST)
+Message-ID: <87mujl3n4t.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH][RFC] ASoC: soc-dpm: fixup DAI active unbalance
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,50 +66,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 15, 2019 at 06:27:49PM +0300, Georgii Staroselskii wrote:
-> On Wed, May 15, 2019 at 03:58:13PM +0200, Maxime Ripard wrote:
-> > > diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-> > > index 15d08e3..e0099519 100644
-> > > --- a/sound/soc/sunxi/sun4i-codec.c
-> > > +++ b/sound/soc/sunxi/sun4i-codec.c
-> > > @@ -1329,6 +1329,15 @@ static int sun4i_codec_spk_event(struct snd_soc_dapm_widget *w,
-> > >  	gpiod_set_value_cansleep(scodec->gpio_pa,
-> > >  				 !!SND_SOC_DAPM_EVENT_ON(event));
-> > >
-> > > +	if (SND_SOC_DAPM_EVENT_ON(event)) {
-> > > +		/*
-> > > +		 * Need a delay to have the amplifier up. 700ms seems the best
-> > > +		 * compromise between the time to let the amplifier up and the
-> > > +		 * time not to feel this delay while playing a sound.
-> > > +		 */
-> > > +		msleep(700);
-> > > +	}
-> > > +
-> >
-> > Since this is an external amplifier, I guess they would have different
-> > warm-up time depending on the exact part being used?
->
-> I guess I might've used Speaker wrong and bumped into an existing
-> issue.  The issue first arose when I needed to connect a speaker and
-> use a mute GPIO pin to toggle it. I bumped into the lag similar to
-> the one that has been fixed in bf14da7. The word "amplifier" here in
-> my comments might be wrong and misleding. Sorry for that. I just
-> measured the latency on the speaker I'm using and it is well under
-> 1ms so this is the Allwinner DAC that is pushing the data with a
-> lag. Or some other thing, I'm not sure.
->
-> I want to stress again that I might've experienced the issue because
-> I was abusing "Speaker" routing. I basically just needed the analog
-> audio stream and mute GPIO handling done automatically.
 
-Ok. I guess the comment should just be reflecting that then.
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Maxime
+snd_soc_dai_link_event() is updating snd_soc_dai :: active,
+but it is unbalance.
+It counts up if it has startup callback.
 
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+	case SND_SOC_DAPM_PRE_PMU:
+		...
+		snd_soc_dapm_widget_for_each_source_path(w, path) {
+			...
+			if (source->driver->ops->startup) {
+				...
+=>				source->active++;
+			}
+			...
+		}
+		...
+
+But, always counts down
+
+	case SND_SOC_DAPM_PRE_PMD:
+		...
+		snd_soc_dapm_widget_for_each_source_path(w, path) {
+			...
+=>			source->active--;
+			...
+		}
+
+This patch always counts up when SND_SOC_DAPM_PRE_PMD.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+Mark, Liam
+
+I think this is bug, but I can't confirm it,
+because my driver need to have .startup.
+Thus, I added [RFC] on this patch.
+I'm happy if someone can confirm it.
+
+ sound/soc/soc-dapm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index c864502..147ad9d 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3828,8 +3828,8 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 						ret);
+ 					goto out;
+ 				}
+-				source->active++;
+ 			}
++			source->active++;
+ 			ret = soc_dai_hw_params(&substream, params, source);
+ 			if (ret < 0)
+ 				goto out;
+@@ -3850,8 +3850,8 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 						ret);
+ 					goto out;
+ 				}
+-				sink->active++;
+ 			}
++			sink->active++;
+ 			ret = soc_dai_hw_params(&substream, params, sink);
+ 			if (ret < 0)
+ 				goto out;
+-- 
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

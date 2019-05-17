@@ -2,96 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 524CE21257
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 04:58:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90CE121266
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 May 2019 05:11:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B19CC16CC;
-	Fri, 17 May 2019 04:57:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B19CC16CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id EFDB616C0;
+	Fri, 17 May 2019 05:10:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFDB616C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558061902;
-	bh=YsRrqtPvHUqpc8F7Oe4haiL7K42AruKU746OIHeCm50=;
+	s=default; t=1558062680;
+	bh=mgvZKX612A1vHPRalbQF2Ww9z8N5Fgpz0Sky9gCxLCE=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=tuaQaPO84pPf067M1Q/GZnjZEfwjNjDh2/b5eA0fMl4ziu+/G1QZXU6SjGuZpQVPO
-	 pko/vPL4ymGJcOcSo01vCUwQv4WBi3V/XtzUvTbWVe9WNh7z+6lnX1FboUoCCgsTCf
-	 4LeMYnXHI0c1p/vNqx6ZJIxe3LHeWL+jTbURfAvU=
+	b=Hkm+CNE7u9QcnEpdH79FvyHe+ITD++02Ml2CcfkiuLDcR9XQ9lrQBWKGIcesWcqJw
+	 6pr9DkM73QbGKRJIOPeRijPdMRsbpdbNuE9lNXKt9hnwImqvbIZN8aimBy5bf34E3O
+	 Wg27NiaAuyjDGfH4Stsf18n8mITwrGab4w+DQO0c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13C81F806E7;
-	Fri, 17 May 2019 04:56:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B3DFF896B8;
+	Fri, 17 May 2019 05:09:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32C2FF8968A; Fri, 17 May 2019 04:56:35 +0200 (CEST)
+ id 1EE9EF8968A; Fri, 17 May 2019 05:09:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03on0618.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe09::618])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8481F806E7
- for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 04:56:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8481F806E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id E6FD4F806E7
+ for <alsa-devel@alsa-project.org>; Fri, 17 May 2019 05:09:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6FD4F806E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="D+HRZ6Lk"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="aTxKLIL+"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 7B99024654;
- Thu, 16 May 2019 22:56:28 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 16 May 2019 22:56:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=zDhJ5HAhyZ4dVa3nUuLFr40LWy
- XYTAH59jMgDeOC1EE=; b=D+HRZ6LktKAnyknSO4WeAL4DjQ3JYGqKegp706xHCg
- uZ8xkIUNs/9nV0uzqMfiuTy4iVwPlMAvvbcksGd/BoNeX/1CrHKcQU+D16SCxpbp
- NMar2t1VVWLah4xjVCnuuag9NKnXxqfIEmYLXc7dXRXpjk/vnJfge2DLR+4RQoTi
- iKT6yxf3dNZLb5AyjO5EikS13DDkoUX4x9cg0JIslBCJgEN/kTeUsJbKTLt5RAkZ
- Q35VV+hyWyWEr0Lm9zpbPuuWH0wYaHMLE6/8bCqlv3FaQZ91kTBlB+Sn4NPeHMGa
- WEtctjsxWi8/A0KjO+m8rSJYv6/Wrxh/jFj/L4NYz/zA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=zDhJ5HAhyZ4dVa3nU
- uLFr40LWyXYTAH59jMgDeOC1EE=; b=aTxKLIL+RhMfAIZ/cn7p0ba/iDZE/vT32
- 8cz6ZdkT/hY4/lR9MP3g0aY3OYgLPmiVz2xLFcCnz9ZIHzEKyJ5Wx1G+qTwszYPV
- Je9KvW2x581xso9EzEADuvXruQSzkkY5+kKHBqrTneNkJ4VedzlxB3JNf6eC0leS
- QT+P1vfA8EkQLETbPk+/b/hvwjMqsxczdcaxgXUJjaIYacowWXCBOIhWSlsKrBNo
- YcOQ7tJKN1+KjgsIVPpH0BnLdGsmB7I/gnWCiBG3dCy+D8MeA9Q15DKmABFouiEB
- 5qBbpzno35/u1Y7hXeTY7GxA8QsAm1u5U4A2dPkUdC0eRL3V941ww==
-X-ME-Sender: <xms:2iLeXCUE3o4TLPUKkss5yvXl4Podyk1pyGejd-7qOfOnMcr1tZ7Tig>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddtuddgieehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedunecurf
- grrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdr
- jhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:2yLeXEJhEOiAtno1TX97A4SBNP80e5h4gCQh2qck8FdFWtFrwCeBMA>
- <xmx:2yLeXP88hH_qAvLvryxYSnPSllZku5cnGh6QNaIUgf9u69BKKOGuZA>
- <xmx:2yLeXKNQtVZ-h9ZlBt5ol_eGJVHc1wK-fst85vB5OEs92wC4M51-Yw>
- <xmx:3CLeXFGYH4mvKM7SYxuMtzjyW33YdajdWntr3Q1vZ-aZr7K_C6GM8A>
-Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id C592A8005A;
- Thu, 16 May 2019 22:56:25 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Fri, 17 May 2019 11:56:22 +0900
-Message-Id: <20190517025622.3401-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="D+8wIcsJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u0FuCMMzpP/ODHlbwv4mvoBdANto4iRezsdTzITLA1M=;
+ b=D+8wIcsJgbRuzBifCHU2ddmWnteXWLpoG0ybWKwGdV26T62Qgsmj5Vcp2lET6MIAW+h5XGmay/lzmjNtZgW/Wq3JELu6jMQx8DpO+cD9ix5BatpwnuvAhrQc421Fl8ZmECnjepBWiH0cmpueY7HzkbdYF2l92TBmxLNbXc0KEP8=
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.233.80) by
+ VE1PR04MB6462.eurprd04.prod.outlook.com (20.179.233.19) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1900.17; Fri, 17 May 2019 03:09:22 +0000
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::a5b5:13f5:f89c:9a30]) by VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::a5b5:13f5:f89c:9a30%7]) with mapi id 15.20.1900.010; Fri, 17 May 2019
+ 03:09:22 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: "timur@kernel.org" <timur@kernel.org>, "nicoleotsuka@gmail.com"
+ <nicoleotsuka@gmail.com>, "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "festevam@gmail.com" <festevam@gmail.com>, "broonie@kernel.org"
+ <broonie@kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Thread-Topic: [PATCH] ASoC: fsl_esai: fix the channel swap issue after xrun
+Thread-Index: AQHVDF3seZkwEu4He0GObjqY7EqttQ==
+Date: Fri, 17 May 2019 03:09:22 +0000
+Message-ID: <20190517030903.25731-1-shengjiu.wang@nxp.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: git-send-email 2.21.0
+x-clientproxiedby: HK2PR03CA0052.apcprd03.prod.outlook.com
+ (2603:1096:202:17::22) To VE1PR04MB6479.eurprd04.prod.outlook.com
+ (2603:10a6:803:11e::16)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [119.31.174.66]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: d02c888d-3473-45fe-839a-08d6da750f23
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(4618075)(2017052603328)(7193020);
+ SRVR:VE1PR04MB6462; 
+x-ms-traffictypediagnostic: VE1PR04MB6462:
+x-ms-exchange-purlcount: 1
+x-microsoft-antispam-prvs: <VE1PR04MB6462A0508F4A258D203150ACE30B0@VE1PR04MB6462.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:132;
+x-forefront-prvs: 0040126723
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(376002)(396003)(366004)(346002)(136003)(39860400002)(199004)(189003)(71200400001)(110136005)(71190400001)(2501003)(52116002)(50226002)(81166006)(8936002)(102836004)(8676002)(54906003)(316002)(6506007)(386003)(81156014)(6512007)(6306002)(305945005)(7736002)(6116002)(99286004)(3846002)(6436002)(4326008)(25786009)(186003)(5660300002)(66476007)(2201001)(36756003)(53936002)(86362001)(68736007)(66446008)(66556008)(64756008)(66946007)(73956011)(14454004)(486006)(2616005)(476003)(14444005)(256004)(478600001)(26005)(66066001)(6486002)(2906002)(1076003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6462;
+ H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: yXPrYiIHXB7h/ihjvVjo49a3Sur5qGkFD4mFCZpPhJamuEUCj3eYLvH+35mZqi7Ke121MpEGOxnrRBIKCB6i1cOIW0xAkUjcdRKtBPGcMuin87icz40H358rBm1TMCLqwWXUpq3zcaftOAsTEvQZIVHl3dtXxcXxuNgZJzKy4zFMOxefRV4eDqtd7nT4JIKXOecDkaZKUfG2zO2OpAGsFq8c9NME2OEulNoTgk946fSY5QnGAbIx6b2cLcwqva+6siK2rAgSI8TLu1ZIlnMH0wRGgzQlhlZK6rYNxjkQONTBr9hls5pvagKdTU4QKWchIQz+c/eRE5fTckux96m22Hz6aPWrPtSsyaRcvEydflNac2DxbaK5XO+rZxF9xUjpxPh0j4Id6waTDtJ6XffuNtwHbHaZfbetSn9g68kqkt0=
+Content-ID: <CD952D0B5BE728489F6FFD2DDF2D3DA2@eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH] ALSA: dice: add stream format parameters for
-	PreSonus FireStudio
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d02c888d-3473-45fe-839a-08d6da750f23
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 May 2019 03:09:22.2356 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6462
+Cc: "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [alsa-devel] [PATCH] ASoC: fsl_esai: fix the channel swap issue
+	after xrun
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,203 +124,267 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-FireStudio was launched by PreSonus 2009. This model consists of three
-ICs for its packet processing on IEEE 1394 bus:
+There is chip errata ERR008000, the reference doc is
+(https://www.nxp.com/docs/en/errata/IMX6DQCE.pdf),
 
- - Texus Instruments TSB41AB2 for physical layer of IEEE 1394 bus
- - WaveFront semiconductor, Dice II STD ASIC for link layer of IEEE 1394
-   bus and protocol layer
- - Xilinx Spartan XG3S500E FPGA for signal processing
+The issue is "While using ESAI transmit or receive and
+an underrun/overrun happens, channel swap may occur.
+The only recovery mechanism is to reset the ESAI."
 
-This model don't support TCAT extended application protocol. For such
-devices, ALSA dice driver needs to have hard-coded parameters for stream
-formats.
+In this commit add a tasklet to handle reset of ESAI
+after xrun happens
 
-This commit adds hard-coded table for this model. As a result, sampling
-transfer frequencies of 88.2/96.0 kHz are supported. I note that this
-patch can be backported to Linux kernel v4.18 and later.
-
-$ python2 crpp < /sys/bus/firewire/devices/fw1/config_rom
-               ROM header and bus information block
-               -----------------------------------------------------------------
-400  04042eda  bus_info_length 4, crc_length 4, crc 11994
-404  31333934  bus_name "1394"
-408  e0ff8112  irmc 1, cmc 1, isc 1, bmc 0, pmc 0, cyc_clk_acc 255,
-               max_rec 8 (512), max_rom 1, gen 1, spd 2 (S400)
-40c  000a9204  company_id 000a92     |
-410  023a8b7f  device_id 04023a8b7f  | EUI-64 000a9204023a8b7f
-
-               root directory
-               -----------------------------------------------------------------
-414  000661b6  directory_length 6, crc 25014
-418  03000a92  vendor
-41c  8100000a  --> descriptor leaf at 444
-420  17000008  model
-424  8100000d  --> descriptor leaf at 458
-428  0c0087c0  node capabilities per IEEE 1394
-42c  d1000001  --> unit directory at 430
-
-               unit directory at 430
-               -----------------------------------------------------------------
-430  00041c75  directory_length 4, crc 7285
-434  12000a92  specifier id
-438  13000001  version
-43c  17000008  model
-440  8100000c  --> descriptor leaf at 470
-
-               descriptor leaf at 444
-               -----------------------------------------------------------------
-444  00047c11  leaf_length 4, crc 31761
-448  00000000  textual descriptor
-44c  00000000  minimal ASCII
-450  50726553  "PreS"
-454  6f6e7573  "onus"
-
-               descriptor leaf at 458
-               -----------------------------------------------------------------
-458  0005d7b3  leaf_length 5, crc 55219
-45c  00000000  textual descriptor
-460  00000000  minimal ASCII
-464  46495245  "FIRE"
-468  53545544  "STUD"
-46c  494f0000  "IO"
-
-               descriptor leaf at 470
-               -----------------------------------------------------------------
-470  0005d7b3  leaf_length 5, crc 55219
-474  00000000  textual descriptor
-478  00000000  minimal ASCII
-47c  46495245  "FIRE"
-480  53545544  "STUD"
-484  494f0000  "IO"
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/firewire/dice/Makefile        |  2 +-
- sound/firewire/dice/dice-presonus.c | 62 +++++++++++++++++++++++++++++
- sound/firewire/dice/dice.c          |  9 +++++
- sound/firewire/dice/dice.h          |  1 +
- 4 files changed, 73 insertions(+), 1 deletion(-)
- create mode 100644 sound/firewire/dice/dice-presonus.c
+ sound/soc/fsl/fsl_esai.c | 166 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 166 insertions(+)
 
-diff --git a/sound/firewire/dice/Makefile b/sound/firewire/dice/Makefile
-index 37062a233f6a..7efca3648c6a 100644
---- a/sound/firewire/dice/Makefile
-+++ b/sound/firewire/dice/Makefile
-@@ -1,4 +1,4 @@
- snd-dice-objs := dice-transaction.o dice-stream.o dice-proc.o dice-midi.o \
- 		 dice-pcm.o dice-hwdep.o dice.o dice-tcelectronic.o \
--		 dice-alesis.o dice-extension.o dice-mytek.o
-+		 dice-alesis.o dice-extension.o dice-mytek.o dice-presonus.o
- obj-$(CONFIG_SND_DICE) += snd-dice.o
-diff --git a/sound/firewire/dice/dice-presonus.c b/sound/firewire/dice/dice-presonus.c
-new file mode 100644
-index 000000000000..503f462a83f4
---- /dev/null
-+++ b/sound/firewire/dice/dice-presonus.c
-@@ -0,0 +1,62 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// dice-presonus.c - a part of driver for DICE based devices
-+//
-+// Copyright (c) 2019 Takashi Sakamoto
-+//
-+// Licensed under the terms of the GNU General Public License, version 2.
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index 10d2210c91ef..149972894c95 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -52,17 +52,20 @@ struct fsl_esai {
+ 	struct clk *extalclk;
+ 	struct clk *fsysclk;
+ 	struct clk *spbaclk;
++	struct tasklet_struct task;
+ 	u32 fifo_depth;
+ 	u32 slot_width;
+ 	u32 slots;
+ 	u32 tx_mask;
+ 	u32 rx_mask;
++	u32 tx_channels;
+ 	u32 hck_rate[2];
+ 	u32 sck_rate[2];
+ 	bool hck_dir[2];
+ 	bool sck_div[2];
+ 	bool slave_mode;
+ 	bool synchronous;
++	bool reset_at_xrun;
+ 	char name[32];
+ };
+ 
+@@ -71,8 +74,14 @@ static irqreturn_t esai_isr(int irq, void *devid)
+ 	struct fsl_esai *esai_priv = (struct fsl_esai *)devid;
+ 	struct platform_device *pdev = esai_priv->pdev;
+ 	u32 esr;
++	u32 saisr;
+ 
+ 	regmap_read(esai_priv->regmap, REG_ESAI_ESR, &esr);
++	regmap_read(esai_priv->regmap, REG_ESAI_SAISR, &saisr);
 +
-+#include "dice.h"
++	if ((saisr & (ESAI_SAISR_TUE | ESAI_SAISR_ROE))
++		&& esai_priv->reset_at_xrun)
++		tasklet_schedule(&esai_priv->task);
+ 
+ 	if (esr & ESAI_ESR_TINIT_MASK)
+ 		dev_dbg(&pdev->dev, "isr: Transmission Initialized\n");
+@@ -552,6 +561,9 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	u32 pins = DIV_ROUND_UP(channels, esai_priv->slots);
+ 	u32 mask;
+ 
++	if (tx)
++		esai_priv->tx_channels = channels;
 +
-+struct dice_presonus_spec {
-+	unsigned int tx_pcm_chs[MAX_STREAMS][SND_DICE_RATE_MODE_COUNT];
-+	unsigned int rx_pcm_chs[MAX_STREAMS][SND_DICE_RATE_MODE_COUNT];
-+	bool has_midi;
-+};
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+@@ -585,10 +597,16 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
+ 				   ESAI_xSMA_xS_MASK, ESAI_xSMA_xS(mask));
+ 
++		regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
++				   ESAI_xCR_xEIE_MASK, ESAI_xCR_xEIE);
 +
-+static const struct dice_presonus_spec dice_presonus_firesutio = {
-+	.tx_pcm_chs = {{16, 16, 0}, {10, 2, 0} },
-+	.rx_pcm_chs = {{16, 16, 0}, {10, 2, 0} },
-+	.has_midi = true,
-+};
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
++				   ESAI_xCR_xEIE_MASK, 0);
 +
-+int snd_dice_detect_presonus_formats(struct snd_dice *dice)
+ 		regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
+ 				   tx ? ESAI_xCR_TE_MASK : ESAI_xCR_RE_MASK, 0);
+ 		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
+@@ -618,6 +636,145 @@ static const struct snd_soc_dai_ops fsl_esai_dai_ops = {
+ 	.set_tdm_slot = fsl_esai_set_dai_tdm_slot,
+ };
+ 
++static void fsl_esai_reset(unsigned long arg)
 +{
-+	static const struct {
-+		u32 model_id;
-+		const struct dice_presonus_spec *spec;
-+	} *entry, entries[] = {
-+		{0x000008, &dice_presonus_firesutio},
-+	};
-+	struct fw_csr_iterator it;
-+	int key, val, model_id;
++	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
++	u32 saisr;
++	u32 tsma, tsmb, rsma, rsmb, tcr, rcr, tfcr, rfcr;
 +	int i;
 +
-+	model_id = 0;
-+	fw_csr_iterator_init(&it, dice->unit->directory);
-+	while (fw_csr_iterator_next(&it, &key, &val)) {
-+		if (key == CSR_MODEL) {
-+			model_id = val;
-+			break;
-+		}
-+	}
++	/*
++	 * stop the tx & rx
++	 */
++	regmap_read(esai_priv->regmap, REG_ESAI_TSMA, &tsma);
++	regmap_read(esai_priv->regmap, REG_ESAI_TSMB, &tsmb);
++	regmap_read(esai_priv->regmap, REG_ESAI_RSMA, &rsma);
++	regmap_read(esai_priv->regmap, REG_ESAI_RSMB, &rsmb);
 +
-+	for (i = 0; i < ARRAY_SIZE(entries); ++i) {
-+		entry = entries + i;
-+		if (entry->model_id == model_id)
-+			break;
-+	}
-+	if (i == ARRAY_SIZE(entries))
-+		return -ENODEV;
++	regmap_read(esai_priv->regmap, REG_ESAI_TCR, &tcr);
++	regmap_read(esai_priv->regmap, REG_ESAI_RCR, &rcr);
 +
-+	memcpy(dice->tx_pcm_chs, entry->spec->tx_pcm_chs,
-+	       MAX_STREAMS * SND_DICE_RATE_MODE_COUNT * sizeof(unsigned int));
-+	memcpy(dice->rx_pcm_chs, entry->spec->rx_pcm_chs,
-+	       MAX_STREAMS * SND_DICE_RATE_MODE_COUNT * sizeof(unsigned int));
++	regmap_read(esai_priv->regmap, REG_ESAI_TFCR, &tfcr);
++	regmap_read(esai_priv->regmap, REG_ESAI_RFCR, &rfcr);
 +
-+	if (entry->spec->has_midi) {
-+		dice->tx_midi_ports[0] = 1;
-+		dice->rx_midi_ports[0] = 1;
-+	}
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
++				ESAI_xCR_xEIE_MASK | ESAI_xCR_TE_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
++				ESAI_xCR_xEIE_MASK | ESAI_xCR_RE_MASK, 0);
 +
-+	return 0;
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMA,
++				ESAI_xSMA_xS_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMB,
++				ESAI_xSMB_xS_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMA,
++				ESAI_xSMA_xS_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMB,
++				ESAI_xSMB_xS_MASK, 0);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
++				ESAI_xFCR_xFR | ESAI_xFCR_xFEN, ESAI_xFCR_xFR);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
++				ESAI_xFCR_xFR, 0);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
++				ESAI_xFCR_xFR | ESAI_xFCR_xFEN, ESAI_xFCR_xFR);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
++				ESAI_xFCR_xFR, 0);
++
++	/*
++	 * reset the esai, and restore the registers
++	 */
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_ECR,
++				ESAI_ECR_ESAIEN_MASK | ESAI_ECR_ERST_MASK,
++				ESAI_ECR_ESAIEN | ESAI_ECR_ERST);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_ECR,
++				ESAI_ECR_ESAIEN_MASK | ESAI_ECR_ERST_MASK,
++				ESAI_ECR_ESAIEN);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
++				ESAI_xCR_xPR_MASK,
++				ESAI_xCR_xPR);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
++				ESAI_xCR_xPR_MASK,
++				ESAI_xCR_xPR);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
++				ESAI_PRRC_PDC_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
++				ESAI_PCRC_PC_MASK, 0);
++
++	/*
++	 * Add fifo reset here, because the regcache_sync will
++	 * write one more data to ETDR.
++	 * Which will cause channel shift.
++	 */
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
++				ESAI_xFCR_xFR_MASK, ESAI_xFCR_xFR);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
++				ESAI_xFCR_xFR_MASK, ESAI_xFCR_xFR);
++
++	regcache_mark_dirty(esai_priv->regmap);
++	regcache_sync(esai_priv->regmap);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
++				ESAI_xFCR_xFR_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
++				ESAI_xFCR_xFR_MASK, 0);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
++				ESAI_xCR_xPR_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
++				ESAI_xCR_xPR_MASK, 0);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
++				ESAI_PRRC_PDC_MASK,
++				ESAI_PRRC_PDC(ESAI_GPIO));
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
++				ESAI_PCRC_PC_MASK,
++				ESAI_PCRC_PC(ESAI_GPIO));
++
++	regmap_read(esai_priv->regmap, REG_ESAI_SAISR, &saisr);
++
++	/*
++	 * restart tx / rx, if they already enabled
++	 */
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
++				ESAI_xFCR_xFEN_MASK, tfcr & ESAI_xFCR_xFEN);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
++				ESAI_xFCR_xFEN_MASK, rfcr & ESAI_xFCR_xFEN);
++
++	/* Write initial words reqiured by ESAI as normal procedure */
++	for (i = 0; i < esai_priv->tx_channels; i++)
++		regmap_write(esai_priv->regmap, REG_ESAI_ETDR, 0x0);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
++				ESAI_xCR_TE_MASK,
++				ESAI_xCR_TE_MASK & tcr);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
++				ESAI_xCR_RE_MASK,
++				ESAI_xCR_RE_MASK & rcr);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMB,
++				ESAI_xSMB_xS_MASK,
++				ESAI_xSMB_xS_MASK & tsmb);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TSMA,
++				ESAI_xSMA_xS_MASK,
++				ESAI_xSMA_xS_MASK & tsma);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMB,
++				ESAI_xSMB_xS_MASK,
++				ESAI_xSMB_xS_MASK & rsmb);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RSMA,
++				ESAI_xSMA_xS_MASK,
++				ESAI_xSMA_xS_MASK & rsma);
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
++			   ESAI_xCR_xEIE_MASK, ESAI_xCR_xEIE & tcr);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
++			   ESAI_xCR_xEIE_MASK, ESAI_xCR_xEIE & rcr);
 +}
-diff --git a/sound/firewire/dice/dice.c b/sound/firewire/dice/dice.c
-index eee184b05d93..ac600e061d7b 100644
---- a/sound/firewire/dice/dice.c
-+++ b/sound/firewire/dice/dice.c
-@@ -19,6 +19,7 @@ MODULE_LICENSE("GPL v2");
- #define OUI_MAUDIO		0x000d6c
- #define OUI_MYTEK		0x001ee8
- #define OUI_SSL			0x0050c2	// Actually ID reserved by IEEE.
-+#define OUI_PRESONUS		0x000a92
++
+ static int fsl_esai_dai_probe(struct snd_soc_dai *dai)
+ {
+ 	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
+@@ -787,6 +944,10 @@ static int fsl_esai_probe(struct platform_device *pdev)
+ 	esai_priv->pdev = pdev;
+ 	snprintf(esai_priv->name, sizeof(esai_priv->name), "%pOFn", np);
  
- #define DICE_CATEGORY_ID	0x04
- #define WEISS_CATEGORY_ID	0x00
-@@ -371,6 +372,14 @@ static const struct ieee1394_device_id dice_id_table[] = {
- 		.vendor_id	= OUI_SSL,
- 		.model_id	= 0x000070,
- 	},
-+	// Presonus FireStudio.
-+	{
-+		.match_flags	= IEEE1394_MATCH_VENDOR_ID |
-+				  IEEE1394_MATCH_MODEL_ID,
-+		.vendor_id	= OUI_PRESONUS,
-+		.model_id	= 0x000008,
-+		.driver_data	= (kernel_ulong_t)snd_dice_detect_presonus_formats,
-+	},
- 	{
- 		.match_flags = IEEE1394_MATCH_VERSION,
- 		.version     = DICE_INTERFACE,
-diff --git a/sound/firewire/dice/dice.h b/sound/firewire/dice/dice.h
-index 83353a3559e8..9699adc2a96d 100644
---- a/sound/firewire/dice/dice.h
-+++ b/sound/firewire/dice/dice.h
-@@ -227,5 +227,6 @@ int snd_dice_detect_tcelectronic_formats(struct snd_dice *dice);
- int snd_dice_detect_alesis_formats(struct snd_dice *dice);
- int snd_dice_detect_extension_formats(struct snd_dice *dice);
- int snd_dice_detect_mytek_formats(struct snd_dice *dice);
-+int snd_dice_detect_presonus_formats(struct snd_dice *dice);
++	if (of_device_is_compatible(np, "fsl,vf610-esai") ||
++	    of_device_is_compatible(np, "fsl,imx35-esai"))
++		esai_priv->reset_at_xrun = true;
++
+ 	/* Get the addresses and IRQ */
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	regs = devm_ioremap_resource(&pdev->dev, res);
+@@ -899,6 +1060,8 @@ static int fsl_esai_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
  
- #endif
++	tasklet_init(&esai_priv->task, fsl_esai_reset, (unsigned long)esai_priv);
++
+ 	pm_runtime_enable(&pdev->dev);
+ 
+ 	regcache_cache_only(esai_priv->regmap, true);
+@@ -912,7 +1075,10 @@ static int fsl_esai_probe(struct platform_device *pdev)
+ 
+ static int fsl_esai_remove(struct platform_device *pdev)
+ {
++	struct fsl_esai *esai_priv = platform_get_drvdata(pdev);
++
+ 	pm_runtime_disable(&pdev->dev);
++	tasklet_kill(&esai_priv->task);
+ 
+ 	return 0;
+ }
 -- 
-2.20.1
+2.21.0
 
 _______________________________________________
 Alsa-devel mailing list

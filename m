@@ -2,85 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4DBD23B75
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 May 2019 17:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A43E2245E
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 May 2019 19:54:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62B371616;
-	Mon, 20 May 2019 17:01:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62B371616
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA9F0167B;
+	Sat, 18 May 2019 19:54:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA9F0167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558364558;
-	bh=CATDVikseg0FigB7EeRIixrIgVRzhT5WwU9Enkt3nUk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ndIb8Ld/36q5bp4v3wBq6fhPbZoyY9xhF7N6znB1MBgyqmCcHucrkPOs2BjGzFQiG
-	 c5UxKleq5vufI8KWbokK0G1z1fSPEkLd6sG8Iibs20ZUjU+tsj+zUp3VtHifQHMn6e
-	 r3lymX+nrlqVcBsHntRBgjHvBjxXp4UDLj8lHKuM=
+	s=default; t=1558202096;
+	bh=6FbPXZoXXC5ryxcHE+AXdBpKn/nsH6gJgtBZ7lwWXSc=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iGseReFrT4iTeTflbD2H35BJBLz96GnifP7fXUBGduZ1JqeYsOT90UrW9fXzu1X/+
+	 wYvxb2bL4307OIidFsSebO7WA0z9bEXbIj0NyVHUmfU4X7OWcj7GRxn7pLkhXh2ghA
+	 bjGdn8ZCrwWiQ9YI6mGr5yRUjIc+ZDyS2wCbs6gg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 919D4F8963E;
-	Mon, 20 May 2019 17:00:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3686EF896CB;
+	Sat, 18 May 2019 19:53:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B964F896B7; Sat, 18 May 2019 14:10:37 +0200 (CEST)
+ id 269DBF896B7; Sat, 18 May 2019 19:53:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2C4EF8961D
- for <alsa-devel@alsa-project.org>; Sat, 18 May 2019 14:10:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2C4EF8961D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ZMU/cnC1"
-Received: by mail-pf1-x443.google.com with SMTP id g3so4988641pfi.4
- for <alsa-devel@alsa-project.org>; Sat, 18 May 2019 05:10:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=hsExk2EVE9qHmQv/hDpWARWS77nXTJQOdwcfYjT4HFc=;
- b=ZMU/cnC1wUwXTMw26G/cc/0dgk3svpNp1Lrliqm4RpGZsPEcBi9a0hcV6wCBnoCICZ
- EvXmTaI0pF3Mo2nsek14s77tXOC4VfC7U6LY4bM7J1x+b4nnK6ot7rnIgObqkZPb+J4C
- lYKwM+4GCWjt2voajVnXNS7gXEoP8dbVXW/Iv9356ZjJQmF+3hoitppYRzUIZo6O2zf3
- 6RIfC/i2DiilYTaqHZU22VO+qH53GgOa7aItuY8zNJ/hNXj2GF6/XQVMXb4mNoY/yz7q
- kliDzc3LI+Ybmi2+HUCf5Bitq399OQcAo2dqpB8qstdUcAPfgfaVga04DtDW9At64rKW
- 8jqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=hsExk2EVE9qHmQv/hDpWARWS77nXTJQOdwcfYjT4HFc=;
- b=dNPAd7OFmYosOU0psLXqCCd0pslNvqPMggI1urBtzAPei9EDgaVUhSQGM7wttfJZL6
- TbJW1R4ylzp4sMgMZBTj7+0xBWVZL6cVdGmturA7b/EhQqp4CYUOaBpNJmHra+HQrl+f
- wnXIiSt8YOHUEmGsyYPQQCyMqdl/HMru/6X5IBIxs3Ru5z6zyvdFavb0fWSAz1df3P1G
- jTwM2+cxu3y2z3YZNa63H0QGWBA88hpOLkuRxxHjS+5szLPPoVutk/oPLr/MMSsurOTv
- MG2mlvSNhUjlWj0YQFpFR6867iH13TTUPerwkkUH3fK8ZqZJqEJDlUDoA3egb3eBA5Oo
- Ah3w==
-X-Gm-Message-State: APjAAAWNOPKrz9URDxQHe35VUIh93T3QHXTkTk7K/Qn2Cl1vjGDIqFPK
- Cpa05FU8qrLtTm2YxUFyi3c=
-X-Google-Smtp-Source: APXvYqyrY4opcaZJV1zKzZpEJ1t6eh1ysuCOBwPaeSx2WLZGmuPHHNhMruzPwI+uksaW7iI69D1VzQ==
-X-Received: by 2002:a63:2bd1:: with SMTP id r200mr165414pgr.202.1558181431523; 
- Sat, 18 May 2019 05:10:31 -0700 (PDT)
-Received: from localhost ([43.224.245.181])
- by smtp.gmail.com with ESMTPSA id 5sm13994078pfh.109.2019.05.18.05.10.30
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 18 May 2019 05:10:30 -0700 (PDT)
-From: Weitao Hou <houweitaoo@gmail.com>
-To: plai@codeaurora.org, bgoswami@codeaurora.org, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- srinivas.kandagatla@linaro.org, niklas.cassel@linaro.org,
- yuehaibing@huawei.com, houweitaoo@gmail.com
-Date: Sat, 18 May 2019 20:10:26 +0800
-Message-Id: <20190518121026.19135-1-houweitaoo@gmail.com>
-X-Mailer: git-send-email 2.18.0
-X-Mailman-Approved-At: Mon, 20 May 2019 17:00:11 +0200
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] sound: fix typos in code comments
+ by alsa1.perex.cz (Postfix) with ESMTPS id B388AF806E7
+ for <alsa-devel@alsa-project.org>; Sat, 18 May 2019 19:53:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B388AF806E7
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 May 2019 10:53:03 -0700
+X-ExtLoop1: 1
+Received: from jkwan-mobl.amr.corp.intel.com ([10.255.90.170])
+ by orsmga002.jf.intel.com with ESMTP; 18 May 2019 10:53:02 -0700
+Message-ID: <507314777fe91504238a26135614844209dd53b8.camel@linux.intel.com>
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
+ <broonie@kernel.org>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>, Liam Girdwood
+ <lgirdwood@gmail.com>,  Jaroslav Kysela <perex@perex.cz>, Vinod Koul
+ <vkoul@kernel.org>
+Date: Sat, 18 May 2019 10:53:02 -0700
+In-Reply-To: <87ef4x33wh.wl-kuninori.morimoto.gx@renesas.com>
+References: <87ef4x33wh.wl-kuninori.morimoto.gx@renesas.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH][RFC] ASoC: soc-pcm: fixup module_put()
+ calling timing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,34 +71,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-fix lenght to length
+On Fri, 2019-05-17 at 17:16 +0900, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> soc_pcm_components_close() try to call module_put()
+> based on component->driver->module_get_upon_open.
+> But, it should be called even though it doesn't have .close callback.
+I think this makes sense. Thanks!
 
-Signed-off-by: Weitao Hou <houweitaoo@gmail.com>
----
- sound/soc/qcom/qdsp6/q6asm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/qcom/qdsp6/q6asm.c b/sound/soc/qcom/qdsp6/q6asm.c
-index 4f85cb19a309..e8141a33a55e 100644
---- a/sound/soc/qcom/qdsp6/q6asm.c
-+++ b/sound/soc/qcom/qdsp6/q6asm.c
-@@ -1194,7 +1194,7 @@ EXPORT_SYMBOL_GPL(q6asm_open_read);
-  * q6asm_write_async() - non blocking write
-  *
-  * @ac: audio client pointer
-- * @len: lenght in bytes
-+ * @len: length in bytes
-  * @msw_ts: timestamp msw
-  * @lsw_ts: timestamp lsw
-  * @wflags: flags associated with write
--- 
-2.18.0
+Ranjani
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+> Mark, Pierre-Louis, Vinod, Liam
+> 
+> I think this patch is correct, but I'm not sure.
+> I'm happy if someone can confirm it.
+> 
+>  sound/soc/soc-pcm.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+> 
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 7b4cda6..e24eab3 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -477,11 +477,9 @@ static int soc_pcm_components_close(struct
+> snd_pcm_substream *substream,
+>  		if (component == last)
+>  			break;
+>  
+> -		if (!component->driver->ops ||
+> -		    !component->driver->ops->close)
+> -			continue;
+> -
+> -		component->driver->ops->close(substream);
+> +		if (component->driver->ops &&
+> +		    component->driver->ops->close)
+> +			component->driver->ops->close(substream);
+>  
+>  		if (component->driver->module_get_upon_open)
+>  			module_put(component->dev->driver->owner);
 
 _______________________________________________
 Alsa-devel mailing list

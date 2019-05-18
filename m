@@ -2,57 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B050B224D5
-	for <lists+alsa-devel@lfdr.de>; Sat, 18 May 2019 22:29:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F633224D6
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 May 2019 22:29:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B7A31681;
-	Sat, 18 May 2019 22:28:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B7A31681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 220A31674;
+	Sat, 18 May 2019 22:29:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 220A31674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558211355;
-	bh=qdCFYuENCXNVhS2cjmjBG3v7bzRc8hDkAZGk/saWz2k=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=a3Tk7y0cTiBYgXw109oylQWbI6VxitG69qATNtJKfZOzg4HmnPj3R4jV2xg6/JZDF
-	 /zvOIl7WF1XC+QQeNktQiG5/O2KpefsV80GvoPxPEpZ/x+McZHRQI4Hf2WDV34DS6l
-	 7aD0clp8286arxpPMHUDywGSH8Ge7b659d9YzZq0=
+	s=default; t=1558211394;
+	bh=RLGoJwhnoN/pSdsDf414YWbvCCZsEFzHnfHafhkmGVk=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vjKFAlbcUKp/ktEMQjqmX6rtWqzPUNCZNb0K0QjWg9HWbeFw97ZrPAj+qkrV+VTGq
+	 Moei43gooVg2FfLcIADsSjXsP6OqcKhMgMG8UISVWo+aS+I0JlHEDLoRrDr8cpKcLA
+	 j+UJOzPgypytdBLjrkXJJLzrlxB9xKIwTlMBu5EI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0171F8972B;
-	Sat, 18 May 2019 22:27:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D27A9F89732;
+	Sat, 18 May 2019 22:27:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE0C4F896CB; Sat, 18 May 2019 22:27:26 +0200 (CEST)
+ id 30359F8961D; Sat, 18 May 2019 22:27:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76C00F806E7
- for <alsa-devel@alsa-project.org>; Sat, 18 May 2019 22:27:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76C00F806E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDD45F8961D
+ for <alsa-devel@alsa-project.org>; Sat, 18 May 2019 22:27:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDD45F8961D
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga002.jf.intel.com ([10.7.209.21])
  by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 May 2019 13:27:20 -0700
+ 18 May 2019 13:27:21 -0700
 X-ExtLoop1: 1
 Received: from bmaster1-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.134.14])
- by orsmga002.jf.intel.com with ESMTP; 18 May 2019 13:27:19 -0700
+ by orsmga002.jf.intel.com with ESMTP; 18 May 2019 13:27:20 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Sat, 18 May 2019 15:26:52 -0500
-Message-Id: <20190518202704.7772-1-pierre-louis.bossart@linux.intel.com>
+Date: Sat, 18 May 2019 15:26:53 -0500
+Message-Id: <20190518202704.7772-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190518202704.7772-1-pierre-louis.bossart@linux.intel.com>
+References: <20190518202704.7772-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 00/12] ASoC: SOF: stability fixes
+Subject: [alsa-devel] [PATCH 01/12] ASoC: SOF: core: remove DSP after
+	unregistering machine driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,48 +70,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Tm8gbmV3IGZ1bmN0aW9uYWxpdHkgaGVyZSBidXQgZml4ZXMgdG8gdGhlIElQQywgbWVtb3J5IGFs
-bG9jYXRpb24sCndvcmtxdWV1ZXMsIGNvbnRyb2wsIHJ1bnRpbWVfcG0gYW5kIEhEYXVkaW8gc3Vw
-cG9ydC4gVGhlc2UgaXNzdWVzIHdlcmUKaWRlbnRpZmllZCBkdXJpbmcgdGhlIGludGVncmF0aW9u
-L3Byb2R1Y3RpemF0aW9uIG9mIG5ldyBwbGF0Zm9ybXMuCgpJIGFkZGVkIGEgJ0ZpeGVzJyB0YWcg
-dG8gbWFrZSBzdXJlIGJhY2twb3J0cy9zdGFibGUgY2FuIHBpY2sgdXAgdGhlc2UKcGF0Y2hlcywg
-aW4gY2FzZSBpdCdzIHRvbyBsYXRlIGZvciB0aGVtIHRvIGxhbmQgaW4gNS4yCgpUaGUgbmV4dCBi
-YXRjaCBmb3IgU09GIHdpbGwgYmUgYSBzZXQgb2YgbmV3IGNhcGFiaWxpdGllcyBmb3IgdHJhY2Us
-CklQQyB0ZXN0LCBIZGF1ZGlvIHN1cHBvcnQsIHRoZXkgd2lsbCBiZSBzdWJtaXR0ZWQgYWZ0ZXIg
-YWRkaXRpb25hbAp0ZXN0cyBhbmQgb25jZSB0aGVzZSBmaXhlcyBhcmUgcmV2aWV3ZWQvbWVyZ2Vk
-LgoKVGhhbmtzIQoKQW1hZGV1c3ogU8WCYXdpxYRza2kgKDEpOgogIEFMU0E6IGhkYWM6IGZpeCBt
-ZW1vcnkgcmVsZWFzZSBmb3IgU1NUIGFuZCBTT0YgZHJpdmVycwoKR3Vlbm5hZGkgTGlha2hvdmV0
-c2tpICgxKToKICBBU29DOiBTT0Y6IGlwYzogZml4IGEgcmFjZSwgbGVhZGluZyB0byBJUEMgdGlt
-ZW91dHMKCktleW9uIEppZSAoMSk6CiAgQVNvQzogU09GOiBjb250cm9sOiBjb3JyZWN0IHRoZSBj
-b3B5IHNpemUgZm9yIGJ5dGVzIGtjb250cm9sIHB1dAoKTGliaW4gWWFuZyAoMik6CiAgQVNvQzog
-U09GOiBwY206IGNsZWFyIGh3X3BhcmFtc191cG9uX3Jlc3VtZSBmbGFnIGNvcnJlY3RseQogIEFT
-b0M6IFNPRjogSW50ZWw6IGhkYS1jb2RlYzogZml4IG1lbW9yeSBhbGxvY2F0aW9uCgpQaWVycmUt
-TG91aXMgQm9zc2FydCAoMik6CiAgQVNvQzogU09GOiBjb3JlOiBmaXggZXJyb3IgaGFuZGxpbmcg
-d2l0aCB0aGUgcHJvYmUgd29ya3F1ZXVlCiAgQVNvQzogU09GOiBwY206IHJlbW92ZSB3YXJuaW5n
-IC0gaW5pdGlhbGl6ZSB3b3JrcXVldWUgb24gb3BlbgoKUmFuamFuaSBTcmlkaGFyYW4gKDMpOgog
-IEFTb0M6IFNPRjogY29yZTogcmVtb3ZlIERTUCBhZnRlciB1bnJlZ2lzdGVyaW5nIG1hY2hpbmUg
-ZHJpdmVyCiAgQVNvQzogU09GOiBjb3JlOiByZW1vdmUgc25kX3NvY191bnJlZ2lzdGVyX2NvbXBv
-bmVudCBpbiBjYXNlIG9mIGVycm9yCiAgQVNvQzogU09GOiBwY206IHJlbW92ZSBydW50aW1lIFBN
-IGNhbGxzIGR1cmluZyBwY20gb3Blbi9jbG9zZQoKWmh1IFlpbmdqaWFuZyAoMik6CiAgQVNvQzog
-U09GOiBJbnRlbDogaGRhOiBmaXggdGhlIGhkYSBpbml0IGNoaXAKICBBU29DOiBTT0Y6IEludGVs
-OiBoZGE6IHVzZSB0aGUgZGVmaW5lZCBwcGNhcCBmdW5jdGlvbnMKCiBzb3VuZC9oZGEvZXh0L2hk
-YWNfZXh0X2J1cy5jICAgIHwgICAxIC0KIHNvdW5kL3NvYy9zb2YvY29udHJvbC5jICAgICAgICAg
-fCAgIDkgKy0tCiBzb3VuZC9zb2Mvc29mL2NvcmUuYyAgICAgICAgICAgIHwgIDI5ICsrKysrKyst
-LQogc291bmQvc29jL3NvZi9pbnRlbC9iZHcuYyAgICAgICB8ICAxMSArKy0tCiBzb3VuZC9zb2Mv
-c29mL2ludGVsL2J5dC5jICAgICAgIHwgIDEyICsrLS0KIHNvdW5kL3NvYy9zb2YvaW50ZWwvY25s
-LmMgICAgICAgfCAgIDYgKysKIHNvdW5kL3NvYy9zb2YvaW50ZWwvaGRhLWNvZGVjLmMgfCAgIDYg
-Ky0KIHNvdW5kL3NvYy9zb2YvaW50ZWwvaGRhLWN0cmwuYyAgfCAxMDIgKysrKysrKysrKysrKysr
-KysrKysrKysrKysrLS0tCiBzb3VuZC9zb2Mvc29mL2ludGVsL2hkYS1pcGMuYyAgIHwgIDE5ICsr
-KysrLQogc291bmQvc29jL3NvZi9pbnRlbC9oZGEuYyAgICAgICB8IDEwOSArKysrKysrLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQogc291bmQvc29jL3NvZi9pcGMuYyAgICAgICAgICAgICB8ICAx
-MyAtLS0tCiBzb3VuZC9zb2Mvc29mL3BjbS5jICAgICAgICAgICAgIHwgIDM3ICsrLS0tLS0tLS0t
-CiAxMiBmaWxlcyBjaGFuZ2VkLCAxODggaW5zZXJ0aW9ucygrKSwgMTY2IGRlbGV0aW9ucygtKQoK
-LS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0
-dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZl
-bAo=
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+
+snd_sof_remove() disables the DSP and unmaps the DSP BAR.
+Removing topology after disabling the DSP results in a
+kernel panic while unloading the pipeline widget. This is
+because pipeline widget unload attempts to power down
+the core it is scheduled on by accessing the DSP registers.
+
+So, the suggested fix here is to unregister the machine driver
+first to remove the topology and then disable the DSP
+to avoid the situation described above.
+
+Note that the kernel panic only happens in cases where the
+HDaudio link is not managed by the hdac library,
+e.g. no codec or when HDMI is not supported.
+When the hdac library is used, snd_sof_remove() calls
+snd_hdac_ext_bus_device_remove() to remove the codec which
+unregisters the component driver thereby also removing the
+topology before the DSP is disabled.
+
+Fixes: c16211d6226 ("ASoC: SOF: Add Sound Open Firmware driver core")
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/core.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 32105e0fabe8..0bc4a8472c10 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -484,7 +484,6 @@ int snd_sof_device_remove(struct device *dev)
+ 	snd_sof_ipc_free(sdev);
+ 	snd_sof_free_debug(sdev);
+ 	snd_sof_free_trace(sdev);
+-	snd_sof_remove(sdev);
+ 
+ 	/*
+ 	 * Unregister machine driver. This will unbind the snd_card which
+@@ -494,6 +493,14 @@ int snd_sof_device_remove(struct device *dev)
+ 	if (!IS_ERR_OR_NULL(pdata->pdev_mach))
+ 		platform_device_unregister(pdata->pdev_mach);
+ 
++	/*
++	 * Unregistering the machine driver results in unloading the topology.
++	 * Some widgets, ex: scheduler, attempt to power down the core they are
++	 * scheduled on, when they are unloaded. Therefore, the DSP must be
++	 * removed only after the topology has been unloaded.
++	 */
++	snd_sof_remove(sdev);
++
+ 	/* release firmware */
+ 	release_firmware(pdata->fw);
+ 	pdata->fw = NULL;
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

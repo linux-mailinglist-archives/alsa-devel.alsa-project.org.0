@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF0332480D
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 08:28:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00821248AC
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 09:07:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41C4F1664;
-	Tue, 21 May 2019 08:28:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41C4F1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63BDE166D;
+	Tue, 21 May 2019 09:06:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63BDE166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558420132;
-	bh=6RbayyZO5vOcnL/EP2jOtC9d5OsjK3i0DMbv7XCo3So=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FG4+Zm/Z09IdhWS5s9ZsgVcK1RwZhXJXraVt9rlJ0HQCkGHEgKp7QU1yY0LmrbmQc
-	 3hWSTeQiztZCapukjyHRQdtMTT9sJuQaUjslQ5kPzxa6+Fxk2ey56IQAAvxQsyNrix
-	 0rntk3u8GVXgJFI5uLuMyUzf6uiJda9z8TpJI3EE=
+	s=default; t=1558422422;
+	bh=VZtZVnjjL3mz6kqxtGrmiyZIAcYqRxfQZWJacG6R6vI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qs8wvC/b/3ikiEPHFLxeRlOt2MN6UyMCi0T2GyVXI5rUaR9dYTaRzgisxUxnhvPE5
+	 tHwQ9eX2itggbNi7ZgI6l1Nw/+wjJ2LtfiGVMo/9zKS2hrWe25foWmBpn73BZHrN0n
+	 +4M2VDfE9eSLlHJvZcL1clX989OyktrEM0A0aoPI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A4F2F89709;
-	Tue, 21 May 2019 08:27:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B9B1F89633;
+	Tue, 21 May 2019 09:05:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22794F89709; Tue, 21 May 2019 08:27:01 +0200 (CEST)
+ id D6F36F89674; Tue, 21 May 2019 09:05:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 070E8F89633
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 08:26:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 070E8F89633
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1887DAE1D;
- Tue, 21 May 2019 06:26:56 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-Date: Tue, 21 May 2019 08:26:53 +0200
-Message-Id: <20190521062653.734-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20190521062653.734-1-tiwai@suse.de>
-References: <20190521062653.734-1-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH v6 2/2] ASoC: Intel: Add machine driver for
-	CX2072X on BYT/CHT platforms
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECDE3F806E7
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 09:05:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECDE3F806E7
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 May 2019 00:05:08 -0700
+X-ExtLoop1: 1
+Received: from rander-i9.sh.intel.com ([10.239.14.114])
+ by FMSMGA003.fm.intel.com with ESMTP; 21 May 2019 00:05:07 -0700
+From: Rander Wang <rander.wang@linux.intel.com>
+To: broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
+ alsa-devel@alsa-project.org
+Date: Tue, 21 May 2019 15:07:41 +0800
+Message-Id: <20190521070741.65866-1-rander.wang@linux.intel.com>
+X-Mailer: git-send-email 2.14.1
+Cc: Rander Wang <rander.wang@linux.intel.com>
+Subject: [alsa-devel] [RFC] ASoC: Intel: skl_hda_dsp_common: set long name
+	for skl_hda_card
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,386 +70,124 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is an implementation of a machine driver needed for Conexant
-CX2072X codec on Intel Baytrail and Cherrytrail platforms.  The
-current patch is based on the initial work by Pierre-Louis Bossart and
-the other Intel machine drivers.
+skl_hda_generic machine driver is used by many different devices
+and userspace uses the card long name to differentiate devices.
+The card long name is figured out by DMI info and is in format
+of "vendor-product-version-board". Ucm file is searched by this
+card long name and one problem is different devices can't share
+one ucm file based on this type of long name. We have three different
+product devices with the same codecs and audio settings, and these
+devices can share the same ucm setting, but now we need to provide
+three ucm files with different long names, because we can't get a
+same long name from DMI info.
 
-The jack detection support (driven via the standard GPIO) was added on
-top of the original work.
+The solution is to provide card long name in machine driver like
+bytcr_rt5640 and ASoC will use this long name to generate final long
+name. The card long name is composed of codec name, input and output
+enabled by devices. The long name should be initialized after hda codec
+is initialized and before sound card checking long name which is done
+after dai link initialization, so the long name is set in codec dai
+link initialization function.
 
-Tested with ASUS E200HA laptop.
+Possible card long names may be:
+skl-hda-ALC233-config135440
+skl-hda-ALC700-config69649
+skl-hda-ALC3204-config135185
 
-Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=115531
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Tested on intel hda platform whiskylake with SOF driver and gemilake
+with intel SST driver
+
+Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
 ---
-v1->v2: Uncomment SOF entries in ACPI binding
-        Move snd_soc_dai_set_bclk_ratio() call into init callback
-v2->v3: Add Pierre's ack
-	Drop superfluous ssp0 routes
-v3->v4: No changes
-v4->v5: Move some jack detection stuff into codec's set_jack call
-v5->v6: No changes
+ sound/soc/intel/boards/skl_hda_dsp_common.c | 54 +++++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
- sound/soc/intel/boards/Kconfig                    |  11 +
- sound/soc/intel/boards/Makefile                   |   2 +
- sound/soc/intel/boards/bytcht_cx2072x.c           | 262 ++++++++++++++++++++++
- sound/soc/intel/common/soc-acpi-intel-byt-match.c |   8 +
- sound/soc/intel/common/soc-acpi-intel-cht-match.c |   8 +
- 5 files changed, 291 insertions(+)
- create mode 100644 sound/soc/intel/boards/bytcht_cx2072x.c
-
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index e39473a6a5d9..59e366edc16b 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -155,6 +155,17 @@ config SND_SOC_INTEL_CHT_BSW_NAU8824_MACH
- 	  Say Y or m if you have such a device. This is a recommended option.
- 	  If unsure select "N".
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
+index 8b68f41a5b88..0193d2138e16 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
+@@ -11,11 +11,18 @@
+ #include <sound/pcm.h>
+ #include <sound/pcm_params.h>
+ #include <sound/soc.h>
++#include <sound/hda_codec.h>
++#include "../../../pci/hda/hda_jack.h"
++#include "../../../pci/hda/hda_local.h"
++#include "../../../pci/hda/hda_auto_parser.h"
++#include "../../../pci/hda/hda_generic.h"
+ #include "../../codecs/hdac_hdmi.h"
++#include "../../codecs/hdac_hda.h"
+ #include "../skylake/skl.h"
+ #include "skl_hda_dsp_common.h"
  
-+config SND_SOC_INTEL_BYT_CHT_CX2072X_MACH
-+	tristate "Baytrail & Cherrytrail with CX2072X codec"
-+	depends on X86_INTEL_LPSS && I2C && ACPI
-+	select SND_SOC_ACPI
-+	select SND_SOC_CX2072X
-+	help
-+	  This adds support for ASoC machine driver for Intel(R) Baytrail &
-+	  Cherrytrail platforms with Conexant CX2072X audio codec.
-+	  Say Y or m if you have such a device. This is a recommended option.
-+	  If unsure select "N".
-+
- config SND_SOC_INTEL_BYT_CHT_DA7213_MACH
- 	tristate "Baytrail & Cherrytrail with DA7212/7213 codec"
- 	depends on I2C && ACPI
-diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 451b3bd7d9c5..6445f90ea542 100644
---- a/sound/soc/intel/boards/Makefile
-+++ b/sound/soc/intel/boards/Makefile
-@@ -13,6 +13,7 @@ snd-soc-sst-cht-bsw-rt5672-objs := cht_bsw_rt5672.o
- snd-soc-sst-cht-bsw-rt5645-objs := cht_bsw_rt5645.o
- snd-soc-sst-cht-bsw-max98090_ti-objs := cht_bsw_max98090_ti.o
- snd-soc-sst-cht-bsw-nau8824-objs := cht_bsw_nau8824.o
-+snd-soc-sst-byt-cht-cx2072x-objs := bytcht_cx2072x.o
- snd-soc-sst-byt-cht-da7213-objs := bytcht_da7213.o
- snd-soc-sst-byt-cht-es8316-objs := bytcht_es8316.o
- snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
-@@ -42,6 +43,7 @@ obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_RT5672_MACH) += snd-soc-sst-cht-bsw-rt5672.o
- obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_RT5645_MACH) += snd-soc-sst-cht-bsw-rt5645.o
- obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_MAX98090_TI_MACH) += snd-soc-sst-cht-bsw-max98090_ti.o
- obj-$(CONFIG_SND_SOC_INTEL_CHT_BSW_NAU8824_MACH) += snd-soc-sst-cht-bsw-nau8824.o
-+obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_CX2072X_MACH) += snd-soc-sst-byt-cht-cx2072x.o
- obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_DA7213_MACH) += snd-soc-sst-byt-cht-da7213.o
- obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_ES8316_MACH) += snd-soc-sst-byt-cht-es8316.o
- obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH) += snd-soc-sst-byt-cht-nocodec.o
-diff --git a/sound/soc/intel/boards/bytcht_cx2072x.c b/sound/soc/intel/boards/bytcht_cx2072x.c
-new file mode 100644
-index 000000000000..b21b0e7f981a
---- /dev/null
-+++ b/sound/soc/intel/boards/bytcht_cx2072x.c
-@@ -0,0 +1,262 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// ASoC DPCM Machine driver for Baytrail / Cherrytrail platforms with
-+// CX2072X codec
-+//
-+
-+#include <linux/acpi.h>
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/slab.h>
-+#include <asm/platform_sst_audio.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/jack.h>
-+#include <sound/soc.h>
-+#include <sound/soc-acpi.h>
-+#include "../../codecs/cx2072x.h"
-+#include "../atom/sst-atom-controls.h"
-+
-+static const struct snd_soc_dapm_widget byt_cht_cx2072x_widgets[] = {
-+	SND_SOC_DAPM_HP("Headphone", NULL),
-+	SND_SOC_DAPM_MIC("Headset Mic", NULL),
-+	SND_SOC_DAPM_MIC("Int Mic", NULL),
-+	SND_SOC_DAPM_SPK("Ext Spk", NULL),
-+};
-+
-+static const struct snd_soc_dapm_route byt_cht_cx2072x_audio_map[] = {
-+	/* External Speakers: HFL, HFR */
-+	{"Headphone", NULL, "PORTA"},
-+	{"Ext Spk", NULL, "PORTG"},
-+	{"PORTC", NULL, "Int Mic"},
-+	{"PORTD", NULL, "Headset Mic"},
-+
-+	{"Playback", NULL, "ssp2 Tx"},
-+	{"ssp2 Tx", NULL, "codec_out0"},
-+	{"ssp2 Tx", NULL, "codec_out1"},
-+	{"codec_in0", NULL, "ssp2 Rx"},
-+	{"codec_in1", NULL, "ssp2 Rx"},
-+	{"ssp2 Rx", NULL, "Capture"},
-+};
-+
-+static const struct snd_kcontrol_new byt_cht_cx2072x_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
-+	SOC_DAPM_PIN_SWITCH("Int Mic"),
-+	SOC_DAPM_PIN_SWITCH("Ext Spk"),
-+};
-+
-+static struct snd_soc_jack byt_cht_cx2072x_headset;
-+
-+/* Headset jack detection DAPM pins */
-+static struct snd_soc_jack_pin byt_cht_cx2072x_headset_pins[] = {
-+	{
-+		.pin = "Headset Mic",
-+		.mask = SND_JACK_MICROPHONE,
-+	},
-+	{
-+		.pin = "Headphone",
-+		.mask = SND_JACK_HEADPHONE,
-+	},
-+};
-+
-+static const struct acpi_gpio_params byt_cht_cx2072x_headset_gpios;
-+static const struct acpi_gpio_mapping byt_cht_cx2072x_acpi_gpios[] = {
-+	{ "headset-gpios", &byt_cht_cx2072x_headset_gpios, 1 },
-+	{},
-+};
-+
-+static int byt_cht_cx2072x_init(struct snd_soc_pcm_runtime *rtd)
+ #define NAME_SIZE	32
++static char skl_hda_long_name[NAME_SIZE];
+ 
+ int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device)
+ {
+@@ -39,6 +46,52 @@ int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device)
+ 	return 0;
+ }
+ 
++int skl_hda_long_name_init(struct snd_soc_pcm_runtime *rtd)
 +{
-+	struct snd_soc_card *card = rtd->card;
-+	struct snd_soc_component *codec = rtd->codec_dai->component;
-+	int ret;
++	struct snd_soc_rtdcom_list *new_rtdcom;
++	struct snd_soc_component *component;
++	struct hdac_hda_priv *hda_pvt;
++	struct auto_pin_cfg *autocfg;
++	struct hda_gen_spec *spec;
++	struct snd_soc_card *card;
++	const char *name;
++	int config;
 +
-+	if (devm_acpi_dev_add_driver_gpios(codec->dev,
-+					   byt_cht_cx2072x_acpi_gpios))
-+		dev_warn(rtd->dev, "Unable to add GPIO mapping table\n");
++	name = rtd->dai_link->codecs->name;
++	card = rtd->card;
 +
-+	card->dapm.idle_bias_off = true;
++	list_for_each_entry(new_rtdcom, &rtd->component_list, list) {
++		component = new_rtdcom->component;
++		if (name && strcmp(component->name, name) == 0) {
++			hda_pvt = snd_soc_component_get_drvdata(component);
 +
-+	/* set the default PLL rate, the clock is handled by the codec driver */
-+	ret = snd_soc_dai_set_sysclk(rtd->codec_dai, CX2072X_MCLK_EXTERNAL_PLL,
-+				     19200000, SND_SOC_CLOCK_IN);
-+	if (ret) {
-+		dev_err(rtd->dev, "Could not set sysclk\n");
-+		return ret;
-+	}
++			if (!hda_pvt)
++				return -EINVAL;
 +
-+	ret = snd_soc_card_jack_new(card, "Headset",
-+				    SND_JACK_HEADSET | SND_JACK_BTN_0,
-+				    &byt_cht_cx2072x_headset,
-+				    byt_cht_cx2072x_headset_pins,
-+				    ARRAY_SIZE(byt_cht_cx2072x_headset_pins));
-+	if (ret)
-+		return ret;
++			spec = hda_pvt->codec.spec;
++			autocfg = &spec->autocfg;
 +
-+	snd_soc_component_set_jack(codec, &byt_cht_cx2072x_headset, NULL);
++			/*
++			 * config is figured out by combining the number of
++			 * enabled input and output.
++			 */
++			config = autocfg->speaker_outs | (autocfg->hp_outs << 4)
++				| (autocfg->dig_outs << 8)
++				| (autocfg->line_outs << 12)
++				| (autocfg->num_inputs << 16);
++			snprintf(skl_hda_long_name, sizeof(skl_hda_long_name),
++				 "skl-hda-%s-config%d",
++				 hda_pvt->codec.core.chip_name,
++				 config);
 +
-+	snd_soc_dai_set_bclk_ratio(rtd->codec_dai, 50);
-+
-+	return ret;
-+}
-+
-+static int byt_cht_cx2072x_fixup(struct snd_soc_pcm_runtime *rtd,
-+				 struct snd_pcm_hw_params *params)
-+{
-+	struct snd_interval *rate =
-+		hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE);
-+	struct snd_interval *channels =
-+		hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS);
-+	int ret;
-+
-+	/* The DSP will covert the FE rate to 48k, stereo, 24bits */
-+	rate->min = rate->max = 48000;
-+	channels->min = channels->max = 2;
-+
-+	/* set SSP2 to 24-bit */
-+	params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
-+
-+	/*
-+	 * Default mode for SSP configuration is TDM 4 slot, override config
-+	 * with explicit setting to I2S 2ch 24-bit. The word length is set with
-+	 * dai_set_tdm_slot() since there is no other API exposed
-+	 */
-+	ret = snd_soc_dai_set_fmt(rtd->cpu_dai,
-+				SND_SOC_DAIFMT_I2S     |
-+				SND_SOC_DAIFMT_NB_NF   |
-+				SND_SOC_DAIFMT_CBS_CFS);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "can't set format to I2S, err %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = snd_soc_dai_set_tdm_slot(rtd->cpu_dai, 0x3, 0x3, 2, 24);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "can't set I2S config, err %d\n", ret);
-+		return ret;
++			card->long_name = skl_hda_long_name;
++			break;
++		}
 +	}
 +
 +	return 0;
 +}
 +
-+static int byt_cht_cx2072x_aif1_startup(struct snd_pcm_substream *substream)
-+{
-+	return snd_pcm_hw_constraint_single(substream->runtime,
-+					    SNDRV_PCM_HW_PARAM_RATE, 48000);
-+}
-+
-+static struct snd_soc_ops byt_cht_cx2072x_aif1_ops = {
-+	.startup = byt_cht_cx2072x_aif1_startup,
-+};
-+
-+static struct snd_soc_dai_link byt_cht_cx2072x_dais[] = {
-+	[MERR_DPCM_AUDIO] = {
-+		.name = "Audio Port",
-+		.stream_name = "Audio",
-+		.cpu_dai_name = "media-cpu-dai",
-+		.codec_dai_name = "snd-soc-dummy-dai",
-+		.codec_name = "snd-soc-dummy",
-+		.platform_name = "sst-mfld-platform",
-+		.nonatomic = true,
-+		.dynamic = 1,
-+		.dpcm_playback = 1,
-+		.dpcm_capture = 1,
-+		.ops = &byt_cht_cx2072x_aif1_ops,
-+	},
-+	[MERR_DPCM_DEEP_BUFFER] = {
-+		.name = "Deep-Buffer Audio Port",
-+		.stream_name = "Deep-Buffer Audio",
-+		.cpu_dai_name = "deepbuffer-cpu-dai",
-+		.codec_dai_name = "snd-soc-dummy-dai",
-+		.codec_name = "snd-soc-dummy",
-+		.platform_name = "sst-mfld-platform",
-+		.nonatomic = true,
-+		.dynamic = 1,
-+		.dpcm_playback = 1,
-+		.ops = &byt_cht_cx2072x_aif1_ops,
-+	},
-+	/* back ends */
-+	{
-+		.name = "SSP2-Codec",
-+		.id = 0,
-+		.cpu_dai_name = "ssp2-port",
-+		.platform_name = "sst-mfld-platform",
-+		.no_pcm = 1,
-+		.codec_dai_name = "cx2072x-hifi",
-+		.codec_name = "i2c-14F10720:00",
-+		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
-+					      | SND_SOC_DAIFMT_CBS_CFS,
-+		.init = byt_cht_cx2072x_init,
-+		.be_hw_params_fixup = byt_cht_cx2072x_fixup,
-+		.nonatomic = true,
-+		.dpcm_playback = 1,
-+		.dpcm_capture = 1,
-+	},
-+};
-+
-+/* SoC card */
-+static struct snd_soc_card byt_cht_cx2072x_card = {
-+	.name = "bytcht-cx2072x",
-+	.owner = THIS_MODULE,
-+	.dai_link = byt_cht_cx2072x_dais,
-+	.num_links = ARRAY_SIZE(byt_cht_cx2072x_dais),
-+	.dapm_widgets = byt_cht_cx2072x_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(byt_cht_cx2072x_widgets),
-+	.dapm_routes = byt_cht_cx2072x_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(byt_cht_cx2072x_audio_map),
-+	.controls = byt_cht_cx2072x_controls,
-+	.num_controls = ARRAY_SIZE(byt_cht_cx2072x_controls),
-+};
-+
-+static char codec_name[SND_ACPI_I2C_ID_LEN];
-+
-+static int snd_byt_cht_cx2072x_probe(struct platform_device *pdev)
-+{
-+	struct snd_soc_acpi_mach *mach;
-+	struct acpi_device *adev;
-+	int dai_index = 0;
-+	int i, ret;
-+
-+	byt_cht_cx2072x_card.dev = &pdev->dev;
-+	mach = dev_get_platdata(&pdev->dev);
-+
-+	/* fix index of codec dai */
-+	for (i = 0; i < ARRAY_SIZE(byt_cht_cx2072x_dais); i++) {
-+		if (!strcmp(byt_cht_cx2072x_dais[i].codec_name,
-+			    "i2c-14F10720:00")) {
-+			dai_index = i;
-+			break;
-+		}
-+	}
-+
-+	/* fixup codec name based on HID */
-+	adev = acpi_dev_get_first_match_dev(mach->id, NULL, -1);
-+	if (adev) {
-+		snprintf(codec_name, sizeof(codec_name), "i2c-%s",
-+			 acpi_dev_name(adev));
-+		put_device(&adev->dev);
-+		byt_cht_cx2072x_dais[dai_index].codec_name = codec_name;
-+	}
-+
-+	/* override plaform name, if required */
-+	ret = snd_soc_fixup_dai_links_platform_name(&byt_cht_cx2072x_card,
-+						    mach->mach_params.platform);
-+	if (ret)
-+		return ret;
-+
-+	return devm_snd_soc_register_card(&pdev->dev, &byt_cht_cx2072x_card);
-+}
-+
-+static struct platform_driver snd_byt_cht_cx2072x_driver = {
-+	.driver = {
-+		.name = "bytcht_cx2072x",
-+	},
-+	.probe = snd_byt_cht_cx2072x_probe,
-+};
-+module_platform_driver(snd_byt_cht_cx2072x_driver);
-+
-+MODULE_DESCRIPTION("ASoC Intel(R) Baytrail/Cherrytrail Machine driver");
-+MODULE_LICENSE("GPL v2");
-+MODULE_ALIAS("platform:bytcht_cx2072x");
-diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-index 0cfab247876a..9cc7b17e0b10 100644
---- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-@@ -217,6 +217,14 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_baytrail_machines[] = {
- 		.sof_fw_filename = "sof-byt.ri",
- 		.sof_tplg_filename = "sof-byt-max98090.tplg",
+ /* skl_hda_digital audio interface glue - connects codec <--> CPU */
+ struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
+ 	/* Back End DAI links */
+@@ -79,6 +132,7 @@ struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.no_pcm = 1,
++		.init = skl_hda_long_name_init,
  	},
-+	{
-+		.id = "14F10720",
-+		.drv_name = "bytcht_cx2072x",
-+		.fw_filename = "intel/fw_sst_0f28.bin",
-+		.board = "bytcht_cx2072x",
-+		.sof_fw_filename = "sof-byt.ri",
-+		.sof_tplg_filename = "sof-byt-cx2072x.tplg",
-+	},
- #if IS_ENABLED(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH)
- 	/*
- 	 * This is always last in the table so that it is selected only when
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index ff9c31a39ad4..6d0755f1353a 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -175,6 +175,14 @@ struct snd_soc_acpi_mach  snd_soc_acpi_intel_cherrytrail_machines[] = {
- 		.sof_fw_filename = "sof-cht.ri",
- 		.sof_tplg_filename = "sof-cht-rt5651.tplg",
- 	},
-+	{
-+		.id = "14F10720",
-+		.drv_name = "bytcht_cx2072x",
-+		.fw_filename = "intel/fw_sst_22a8.bin",
-+		.board = "bytcht_cx2072x",
-+		.sof_fw_filename = "sof-cht.ri",
-+		.sof_tplg_filename = "sof-cht-cx2072x.tplg",
-+	},
- #if IS_ENABLED(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH)
- 	/*
- 	 * This is always last in the table so that it is selected only when
+ 	{
+ 		.name = "Digital Playback and Capture",
 -- 
-2.16.4
+2.14.1
 
 _______________________________________________
 Alsa-devel mailing list

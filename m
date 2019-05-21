@@ -2,95 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BF64253E1
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 17:27:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5F42571B
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 19:56:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65D0E169E;
-	Tue, 21 May 2019 17:26:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65D0E169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 943011614;
+	Tue, 21 May 2019 19:55:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 943011614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558452455;
-	bh=cn5rc18erlPl8Xf/OvrIAlRsa0glQC+Nz3jLB/mw3LA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1558461398;
+	bh=/qz9J/UFQbCJ9M6HzmT0ne0GM4lY8Z8i1TCEe/3ATsI=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z8cA2632eqZNIu1uJgAzy9t05DyKf2Qhs+Y3KCdNBQS8jgk0Ozw9CQMKOFJ4ysm0V
-	 L9QkX9a4vZKNdGVRscw4Xo5Cw24XMhioen3t4nkRPuiw0Khi7xEy0hulxfC9BX/trr
-	 /pppqDdq4DEmi+X0HjccOSkbG+ltzSt/a2YfX5tU=
+	b=YolydoMWIJHgSQ9e0tDQgaX8lT3EO104/TaGXrepv7a3d3QcMC6jYgKgcwL0880iA
+	 vXETIj6rarQ/MeihcL2dAX40w9gLg5uWs1qZrSDIOoMkyt7Ve60vMlbjWyRjqFtx3g
+	 Uoc/Go5KzskMWc9Dj9KpyJshfr93u4QHgJMNP4/U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0494F8972E;
-	Tue, 21 May 2019 17:25:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC79EF8079B;
+	Tue, 21 May 2019 19:54:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6A554F89715; Tue, 21 May 2019 17:12:05 +0200 (CEST)
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ id F2423F8972A; Tue, 21 May 2019 19:54:50 +0200 (CEST)
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2BADF89717
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 16:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2BADF89717
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB262F8079B
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 19:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB262F8079B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="OKeCGRg/"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="wTcck5K/"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id BC98D21E44;
- Tue, 21 May 2019 10:57:49 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 21 May 2019 10:57:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=2gDbxlc/pGHuY
- 6H2m17qxtzbbXPbwXaNfPA5FRYL5vA=; b=OKeCGRg/RUJh1Uw8vKLNuVeu+B83g
- Yk+uSePWrkQTpyrxvUB84XDBqwpk9q04rjbSISEGdxvNeYRjU2qaEYndtWKX08Nz
- o9e+mYCAEoHjuTi2cLIftP7Plz4svR8ja/f7wQJG474OGPOGJrzUZpeXyWpHXgQn
- OSfQ76gEV11oIYwb2rnYwc2GGcOQ5a7XX5wCtHRG6zJc9d03Am/24Nou7qDLNekc
- JQdLvIM71zQTAieUz7DcUl29rpbHAjL9QHThYlnFMSxt5zbe+iBBH5dyK4gv2wOw
- mLisP/f/89hGMjdbJY/co6MuElb0I08k1Kb9k3EqN1a9RNd7u1ls1Misw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=2gDbxlc/pGHuY6H2m17qxtzbbXPbwXaNfPA5FRYL5vA=; b=wTcck5K/
- MsPsHKSen+ImlbilaMdXl5Nzsf1yQsQZAxG6+28v8C8xRjMb/YtJPfYb1/nV8Pvm
- oDE481PfPseHo5hWJASTvjdU1+rzKzaEXCIGvfdW5QkzUPrdyaRr7wfZKmTSQW2z
- cJS6P3hvGgZmAaOZ+f51dzOoHnGMmZVoxMe6Az296b16nja12gC5cYgWW1szLPZ8
- Pdi9778BwiIzsLREMCujihp6zY7lQtfKLzDx9IwbFr8vU6NLFoL43FI/iVGexpKs
- pvTHAliTOHNojUqmebhqmPCrlg27yDwi7y6qgqJctFpom6+cym0YjSqviegl8gHm
- 37WM+hDR0lcZ1g==
-X-ME-Sender: <xms:7RHkXLOMrMBp_6XqIg9ZJW_VFCYjwB9zI-AL1qe5RIMWxTEVES3yyg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddutddgkeefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
- curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
- ihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:7RHkXDwXUQNXMxuGOlSp8nuDeQQCNGb5Ji6UvujQ411O89QFLAoDvg>
- <xmx:7RHkXLJLmdjsRjizY1DRuCPBHMXv8izmIHGfGyxn0OSvONL51bJgYQ>
- <xmx:7RHkXKotN25VydYifO9tungczr1BLZjiyW_onfrjqPc8HFsVYAT_Zg>
- <xmx:7RHkXJatxxVPONfOgECbPT5F2R4APX1fmKx4Nm_C5ofC_SA6DwMrMA>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3102F103CF;
- Tue, 21 May 2019 10:57:47 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Tue, 21 May 2019 23:57:37 +0900
-Message-Id: <20190521145737.11809-5-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190521145737.11809-1-o-takashi@sakamocchi.jp>
-References: <20190521145737.11809-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="bQVhsZXw"
+Received: by mail-pf1-x441.google.com with SMTP id t87so9435395pfa.2
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 10:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=606JMBHU1WCSkVE8vEh8jp0Vn08O9hluQpv6YSChqEM=;
+ b=bQVhsZXwJoS8kkAVFoHwkcLXby5dBYqyoeVKoiXPqgc7fmXn1bh8ym5oYjKC4HS7Tj
+ 9oCLmvze7JP4BG602rGkjb0Rp6P9Iw+/OkRoeJliB8fgxIRu1qINoBy3cwhjPL+63Tu/
+ OU32v+ugrsYpgf4PkCeaVSWXM3XmJt0AC/wLyUKT6tv6vIUzy8XChksFv5QwqetG3l4l
+ 1t+jCnm+4R2NtxtdGjmnXXwDLUdqNqe6PXgjXqdvyUEcYZBIfbQBwf766rewrwLIWjl8
+ b2dhZIJupbfBiYO3AqNNhhnTt8ST4hsQFVj3FO9ObC778Rd86z74h0x9191+G6uv3xka
+ uiFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=606JMBHU1WCSkVE8vEh8jp0Vn08O9hluQpv6YSChqEM=;
+ b=cl51XaH0VvDUDfjpzf0omvsF5Cy5B0UajavFsbIecHDfzTzWXk7Ajnem2tNLdkWzdY
+ 5Ys+Q18eIIKNl1Ppk59CFKhFNwO4lDCmCFs8lb6+HFtPaYibwffv+Si20poUjBJsmElK
+ epe4NOp6Lc1skNknLWCK/OWV0UTeWbSrFMAqLWpVadfp5fvLZ+LtfQZNHK+vJO94ogJm
+ AWambABq1ZL0A7Uhzb0z52L4t69ndx/mDjJJxDejuhWHTQEmM27XKvvTtrsCPDUpUjh3
+ S+pAoKaCeNu8lZD+S75Is5obLBS//F/75yMq0vKbHOLUQ+LWAs8ahX85q9xgKWxRnb9G
+ Qfiw==
+X-Gm-Message-State: APjAAAV7yt1HYewGKTGHAj+3wVe3xaMDyPBLgOVPcaS+cVCfPG9qCflI
+ xIcTTD4UhXhZJQwKHG2ybvgzXg==
+X-Google-Smtp-Source: APXvYqx9jmSTOfoHKfChiJWP6QeuV7uyrYxH5QrdJfyQeoHf+pjwRhSwqdCXVT6bvmqUA2iagFvxog==
+X-Received: by 2002:a63:5166:: with SMTP id r38mr12376011pgl.429.1558460684705; 
+ Tue, 21 May 2019 10:44:44 -0700 (PDT)
+Received: from google.com ([2620:15c:202:201:bc61:d85d:eb16:9036])
+ by smtp.gmail.com with ESMTPSA id r77sm29853892pgr.93.2019.05.21.10.44.43
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Tue, 21 May 2019 10:44:43 -0700 (PDT)
+Date: Tue, 21 May 2019 10:44:38 -0700
+From: Benson Leung <bleung@google.com>
+To: Lee Jones <lee.jones@linaro.org>
+Message-ID: <20190521174438.GA2821@google.com>
+References: <20190509211353.213194-1-gwendal@chromium.org>
+ <CAPUE2ut4OUhrmbx6n8KCj7+ghXmC9iMnxGN8DMvyvZstznwwng@mail.gmail.com>
+ <20190518063949.GY4319@dell>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 4/4] ALSA: firewire-lib: use IT context header
-	to compute cycle count for scheduling packet
+In-Reply-To: <20190518063949.GY4319@dell>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Gwendal Grignou <gwendal@chromium.org>, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Jonathan Cameron <jic23@kernel.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v3 00/30] Update cros_ec_commands.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,147 +98,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8661567264948714174=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In IT context, header includes information of cycle to have processed
-queued packet.
 
-This commit uses the per-packet information to compute the cycle for
-packet to be queued, instead of callback argument. In current
-implementaion of ALSA IEC 61883-1/6 packet streaming engine, 48 packets
-are queued at first to skip recent cycle. When IT context calls handler,
-cycle information in header plus 48 cycle means the cycle to be going
-to queue packet.
+--===============8661567264948714174==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oyUTqETQ0mS9luUI"
+Content-Disposition: inline
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/amdtp-stream.c | 51 +++++++++++++++++++----------------
- 1 file changed, 28 insertions(+), 23 deletions(-)
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 5ebdac2086c0..f43943fd962d 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -694,13 +694,12 @@ static int handle_in_packet_without_header(struct amdtp_stream *s,
- 	return 0;
- }
- 
--/*
-- * In CYCLE_TIMER register of IEEE 1394, 7 bits are used to represent second. On
-- * the other hand, in DMA descriptors of 1394 OHCI, 3 bits are used to represent
-- * it. Thus, via Linux firewire subsystem, we can get the 3 bits for second.
-- */
--static inline u32 compute_cycle_count(u32 tstamp)
-+// In CYCLE_TIMER register of IEEE 1394, 7 bits are used to represent second. On
-+// the other hand, in DMA descriptors of 1394 OHCI, 3 bits are used to represent
-+// it. Thus, via Linux firewire subsystem, we can get the 3 bits for second.
-+static inline u32 compute_cycle_count(__be32 ctx_header_tstamp)
- {
-+	u32 tstamp = be32_to_cpu(ctx_header_tstamp) & HEADER_TSTAMP_MASK;
- 	return (((tstamp >> 13) & 0x07) * 8000) + (tstamp & 0x1fff);
- }
- 
-@@ -712,6 +711,16 @@ static inline u32 increment_cycle_count(u32 cycle, unsigned int addend)
- 	return cycle;
- }
- 
-+// Align to actual cycle count for the packet which is going to be scheduled.
-+// This module queued the same number of isochronous cycle as QUEUE_LENGTH to
-+// skip isochronous cycle, therefore it's OK to just increment the cycle by
-+// QUEUE_LENGTH for scheduled cycle.
-+static inline u32 compute_it_cycle(const __be32 ctx_header_tstamp)
-+{
-+	u32 cycle = compute_cycle_count(ctx_header_tstamp);
-+	return increment_cycle_count(cycle, QUEUE_LENGTH);
-+}
-+
- static inline void cancel_stream(struct amdtp_stream *s)
- {
- 	s->packet_index = -1;
-@@ -725,23 +734,23 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 				void *private_data)
- {
- 	struct amdtp_stream *s = private_data;
--	unsigned int i, packets = header_length / 4;
--	u32 cycle;
-+	const __be32 *ctx_header = header;
-+	unsigned int i, packets = header_length / sizeof(*ctx_header);
- 
- 	if (s->packet_index < 0)
- 		return;
- 
--	cycle = compute_cycle_count(tstamp);
-+	for (i = 0; i < packets; ++i) {
-+		u32 cycle;
- 
--	/* Align to actual cycle count for the last packet. */
--	cycle = increment_cycle_count(cycle, QUEUE_LENGTH - packets);
-+		cycle = compute_it_cycle(*ctx_header);
- 
--	for (i = 0; i < packets; ++i) {
--		cycle = increment_cycle_count(cycle, 1);
- 		if (s->handle_packet(s, 0, cycle, i) < 0) {
- 			cancel_stream(s);
- 			return;
- 		}
-+
-+		++ctx_header;
- 	}
- 
- 	fw_iso_context_queue_flush(s->context);
-@@ -767,10 +776,9 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 
- 	for (i = 0; i < packets; i++) {
- 		u32 iso_header = be32_to_cpu(ctx_header[0]);
--		unsigned int cycle;
-+		u32 cycle;
- 
--		tstamp = be32_to_cpu(ctx_header[1]) & HEADER_TSTAMP_MASK;
--		cycle = compute_cycle_count(tstamp);
-+		cycle = compute_cycle_count(ctx_header[1]);
- 
- 		/* The number of bytes in this packet */
- 		payload_length = iso_header >> ISO_DATA_LENGTH_SHIFT;
-@@ -802,9 +810,8 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 					void *header, void *private_data)
- {
- 	struct amdtp_stream *s = private_data;
--	__be32 *ctx_header = header;
-+	const __be32 *ctx_header = header;
- 	u32 cycle;
--	unsigned int packets;
- 
- 	/*
- 	 * For in-stream, first packet has come.
-@@ -814,8 +821,7 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 	wake_up(&s->callback_wait);
- 
- 	if (s->direction == AMDTP_IN_STREAM) {
--		tstamp = be32_to_cpu(ctx_header[1]) & HEADER_TSTAMP_MASK;
--		cycle = compute_cycle_count(tstamp);
-+		cycle = compute_cycle_count(ctx_header[1]);
- 
- 		context->callback.sc = in_stream_callback;
- 		if (s->flags & CIP_NO_HEADER)
-@@ -823,9 +829,8 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 		else
- 			s->handle_packet = handle_in_packet;
- 	} else {
--		packets = header_length / 4;
--		cycle = compute_cycle_count(tstamp);
--		cycle = increment_cycle_count(cycle, QUEUE_LENGTH - packets);
-+		cycle = compute_it_cycle(*ctx_header);
-+
- 		context->callback.sc = out_stream_callback;
- 		if (s->flags & CIP_NO_HEADER)
- 			s->handle_packet = handle_out_packet_without_header;
--- 
-2.20.1
+--oyUTqETQ0mS9luUI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Lee,
+
+On Sat, May 18, 2019 at 07:39:49AM +0100, Lee Jones wrote:
+> On Fri, 17 May 2019, Gwendal Grignou wrote:
+>=20
+> > Lee,
+> >=20
+> > I verified and merged the changes on the kernels (3.18, 4.4 and 4.14)
+> > used on chromebook using a squashed version of these patches.
+> > (crrev.com/c/1583322, crrev.com/c/1583385, crrev.com/c/1583321
+> > respectively)
+> > Please let me know if you have any questions.
+>=20
+> Is no one else from Chromium going to review?
+>=20
+> These seem like quite important changes.
+>=20
+
+I've gone ahead and acked the whole series. Enric and I are OK with this go=
+ing
+in for 5.3, and as Gwendal mentioned, he's landed these changes into our
+production kernels for Chrome OS as well, so this is what we want to sync o=
+n.
+
+Let me know if you have any other concerns.
+
+Thanks,
+Benson
+
+--=20
+Benson Leung
+Staff Software Engineer
+Chrome OS Kernel
+Google Inc.
+bleung@google.com
+Chromium OS Project
+bleung@chromium.org
+
+--oyUTqETQ0mS9luUI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQQCtZK6p/AktxXfkOlzbaomhzOwwgUCXOQ5BgAKCRBzbaomhzOw
+wt8HAP9uU1klLrzkR34L7NbfgwEDQgELzBnyp0zr6eH8FswIUwEAhSZ8hXpksiuJ
+cuKw4zj4F0wocqqx1xPt59u73qeMXgM=
+=Zm0H
+-----END PGP SIGNATURE-----
+
+--oyUTqETQ0mS9luUI--
+
+--===============8661567264948714174==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8661567264948714174==--

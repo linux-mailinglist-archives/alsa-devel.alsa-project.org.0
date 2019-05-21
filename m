@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82F9125968
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:48:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D85A25974
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:50:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 140FB15E0;
-	Tue, 21 May 2019 22:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 140FB15E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13E5115E0;
+	Tue, 21 May 2019 22:49:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E5115E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558471703;
-	bh=RcZRNpkZ9bfEcnKoU5rxLKo8nKEZY+MfR89Z3HlM6j8=;
+	s=default; t=1558471835;
+	bh=PNgdN35zqU630XAtYVLkL1coCtDha1SGc3cOjKtqpvg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=KpQMzHvtC4OMpT11DL5VTbOApZDaliXuI7LqNK455Daf6dfh/25PHVARtzQzNxgel
-	 BNXgIZMS4swnSvHcj2O82qQfaCeFjh1ZLybtbk45XVgLJDuQ861L8x2g0hpPUvBb0F
-	 x+Z4q+v6LZTf8pk4uX15GgbApuNdqdgUopmefxLE=
+	b=I7g09T3Os1I4DDC8AUc17GQgTCkefXIBse9/9KBsqLmGVUTuLOGhPt8n78gwEcy4Z
+	 noO5WhwpTIR+yIL6v6x0DG7ttSeJzgiEfWpmz7azO5QMzcDA/NdLw6k2A/3SSIZdvf
+	 oXDVE6hZEZt4bbaSGyvaa2+MuJfpf8tyrwBgzNNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0701BF8973E;
-	Tue, 21 May 2019 22:44:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 474A0F89757;
+	Tue, 21 May 2019 22:46:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD9F1F89707; Tue, 21 May 2019 22:44:34 +0200 (CEST)
+ id DEA5AF89756; Tue, 21 May 2019 22:46:17 +0200 (CEST)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E6B9F89728
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E6B9F89728
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD2FAF8972F
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD2FAF8972F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ouhYo7tf"
+ header.b="EQbmVnqu"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=p0O72aPRVpjVEcqo6LohyIZUGEmLyR0F9H09XPKkv8Y=; b=ouhYo7tf5SvG
- 1YCyF5Or3IU7N+dcXkr13WOa5899bo3/dOs5u8vREC3C2AFfyROM64L2PfwAMcGcO7BnHinEl3H4Y
- R2ekZh/UyrfibA5cWY5X26jF9XclscHp35OPe3X5e9jjQdiKfaKmcKmRfQ+GhbsOmpTsSD2VV17iB
- lDqms=;
+ List-Archive; bh=BpMeRTd/F8q1dOpvDmitJNfki4ESxULIectbpG0jLiY=; b=EQbmVnquoClr
+ Nmg6u0hwMJ4gHPZuOprbUXJv2tqD28pAZJdfpFrBBoYsfF6Ocnp7+yUO1DczTw21IPSx8OETbF5oK
+ K6rmAF7yu+jf2Txefg38BnpWqGfe+S+PFUWyg2OU+QpEW33lcQ2MQpsRLb2TjV6BpcZBIRCZV0+5t
+ 11Fzk=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hTBRI-0001yp-06; Tue, 21 May 2019 20:32:48 +0000
+ id 1hTBRI-0001yl-05; Tue, 21 May 2019 20:32:48 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 607721126D22; Tue, 21 May 2019 21:32:43 +0100 (BST)
+ id D31411126D24; Tue, 21 May 2019 21:32:43 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-In-Reply-To: <20190518183009.13359-3-pierre-louis.bossart@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87mujl3n4t.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190521203243.607721126D22@debutante.sirena.org.uk>
+Message-Id: <20190521203243.D31411126D24@debutante.sirena.org.uk>
 Date: Tue, 21 May 2019 21:32:43 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: soc-acpi: Fix machine selection
-	order" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: [alsa-devel] Applied "ASoC: soc-dpm: fixup DAI active unbalance" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,7 +82,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: soc-acpi: Fix machine selection order
+   ASoC: soc-dpm: fixup DAI active unbalance
 
 has been applied to the asoc tree at
 
@@ -107,48 +107,70 @@ to this mail.
 Thanks,
 Mark
 
-From 30d9d4ff53532087bc13ed29d7715df868794b5e Mon Sep 17 00:00:00 2001
-From: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-Date: Sat, 18 May 2019 13:30:08 -0500
-Subject: [PATCH] ASoC: Intel: soc-acpi: Fix machine selection order
+From f7c4842abfa1a219554a3ffd8c317e8fdd979bec Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Fri, 17 May 2019 10:21:12 +0900
+Subject: [PATCH] ASoC: soc-dpm: fixup DAI active unbalance
 
-The selection order of m/c in match table is corrected
-to use common codec as last in the list.
+snd_soc_dai_link_event() is updating snd_soc_dai :: active,
+but it is unbalance.
+It counts up if it has startup callback.
 
-Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+	case SND_SOC_DAPM_PRE_PMU:
+		...
+		snd_soc_dapm_widget_for_each_source_path(w, path) {
+			...
+			if (source->driver->ops->startup) {
+				...
+=>				source->active++;
+			}
+			...
+		}
+		...
+
+But, always counts down
+
+	case SND_SOC_DAPM_PRE_PMD:
+		...
+		snd_soc_dapm_widget_for_each_source_path(w, path) {
+			...
+=>			source->active--;
+			...
+		}
+
+This patch always counts up when SND_SOC_DAPM_PRE_PMD.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Reviewed-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/soc-dapm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index df7c52cad5c3..c36c0aa4f683 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -29,17 +29,17 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
- 	},
- 	{
--		.id = "10EC5682",
-+		.id = "MX98357A",
- 		.drv_name = "sof_rt5682",
-+		.quirk_data = &cml_codecs,
- 		.sof_fw_filename = "sof-cnl.ri",
--		.sof_tplg_filename = "sof-cml-rt5682.tplg",
-+		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
- 	},
- 	{
--		.id = "MX98357A",
-+		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
--		.quirk_data = &cml_codecs,
- 		.sof_fw_filename = "sof-cnl.ri",
--		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
-+		.sof_tplg_filename = "sof-cml-rt5682.tplg",
- 	},
- 
- 	{},
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 65ee0bb5dd0b..62e27defce56 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3828,8 +3828,8 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 						ret);
+ 					goto out;
+ 				}
+-				source->active++;
+ 			}
++			source->active++;
+ 			ret = soc_dai_hw_params(&substream, params, source);
+ 			if (ret < 0)
+ 				goto out;
+@@ -3850,8 +3850,8 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 						ret);
+ 					goto out;
+ 				}
+-				sink->active++;
+ 			}
++			sink->active++;
+ 			ret = soc_dai_hw_params(&substream, params, sink);
+ 			if (ret < 0)
+ 				goto out;
 -- 
 2.20.1
 

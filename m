@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E0F25979
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:52:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EBB725959
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:46:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05A441671;
-	Tue, 21 May 2019 22:51:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05A441671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 131B11671;
+	Tue, 21 May 2019 22:45:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 131B11671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558471966;
-	bh=+3RtUm3O5ujtUA2t0yM8F+5YMEgCxjJ/60+8kNHiwPQ=;
+	s=default; t=1558471589;
+	bh=3kHj8Ik4Ow6R2XtaovF0fYWKGjVbsd8vRQhOYYInHGE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=OFYx+ZWO5Xa42srEYezengUu178vXCMClHWsv6barFCN/oIiixrY/8JTiIaevqbFS
-	 aDOiDAIUVMzxeM0E3lnp/g9QCexShRbj3CQt0ZWi9nt0lVoSepYD4csWP25VoMPn5G
-	 dWpFf+q6eq3TbAeCoQCMUNPhgky5j6XyQbI+UjR4=
+	b=W+3hIrBnCT2GN3t0tul0TxBbKP9+44MLx+iXaeVKsujJBgyyX6sUeFN3jhJN8QGaR
+	 D/f+zQfaTxaDXKKe6AVKtwUMUpNQTajJe/v0Qqink/FTrUqxwJRcfXBbasDDBNA3Xv
+	 ytAPY1s+/jPqZ6zWdfCuNN0SpQa4iTRSXULyW/ZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 906C9F89744;
-	Tue, 21 May 2019 22:47:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6355F89725;
+	Tue, 21 May 2019 22:44:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6795CF8970E; Tue, 21 May 2019 22:47:46 +0200 (CEST)
+ id 42E58F89733; Tue, 21 May 2019 22:44:33 +0200 (CEST)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43658F8970E
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43658F8970E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 85E1EF89717
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85E1EF89717
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="mDw2IY45"
+ header.b="RPDaCjlC"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=XkrsRvXUswg4QUhoQelGk2TIO7uoJT0THp96pk/PqpU=; b=mDw2IY45NtNe
- PFpGJE288M3fuc/vuDr+64cfEk4PMCirTiP1sjJuDtIvdZ31vajgm4OAYq6u01Yng1O50z8GlcV+L
- f7O4rcJPr5HGeLqEOg+Ex9Yy4pIXRbxaWTkKvN+aASE8MChGnz6Hy4WPT63nXlCVUOJMcU6aqplAO
- +Dfe0=;
+ List-Archive; bh=NroV3N1vJpd6DZ4DRQosf/gwRkeYD5eyKfv4NsTZWn0=; b=RPDaCjlCbz/v
+ cUKM5iO9XPYzdRBGIj22IbikbB00PudC+BrqAz0xLKLvAyXLO1rxocbP3u8IhdvSjIfALlfybFDKn
+ 7ZLR5eFXTwFyzJaT5BqlBrcy/ou1yerLY5rtw9dxmo5dSiuwMlzyBzKz5A9U1N0W0oAPk30VRGeRf
+ ATPkM=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hTBRE-0001yF-Et; Tue, 21 May 2019 20:32:44 +0000
+ id 1hTBRI-0001yj-04; Tue, 21 May 2019 20:32:48 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id BC44C1126D16; Tue, 21 May 2019 21:32:40 +0100 (BST)
+ id B277E1126D1B; Tue, 21 May 2019 21:32:41 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-In-Reply-To: <1558430978-2440-3-git-send-email-jiaxin.yu@mediatek.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <1558029086-18024-1-git-send-email-jonathanh@nvidia.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190521203240.BC44C1126D16@debutante.sirena.org.uk>
-Date: Tue, 21 May 2019 21:32:40 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com,
- garlic.tseng@mediatek.com, tzungbi@google.com, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, kaichieh.chuang@mediatek.com
-Subject: [alsa-devel] Applied "ASoC: Mediatek: MT8183: fix compile error" to
-	the asoc tree
+Message-Id: <20190521203241.B277E1126D1B@debutante.sirena.org.uk>
+Date: Tue, 21 May 2019 21:32:41 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-tegra@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: simple-card: Fix configuration of DAI
+	format" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,11 +83,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Mediatek: MT8183: fix compile error
+   ASoC: simple-card: Fix configuration of DAI format
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -108,108 +108,62 @@ to this mail.
 Thanks,
 Mark
 
-From 383d30e72e682021fdaf0371ade1c58ad2c434a4 Mon Sep 17 00:00:00 2001
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Date: Tue, 21 May 2019 17:29:38 +0800
-Subject: [PATCH] ASoC: Mediatek: MT8183: fix compile error
+From 069d037aea98ffa64c26d4b1dc958fb8f39f5c2b Mon Sep 17 00:00:00 2001
+From: Jon Hunter <jonathanh@nvidia.com>
+Date: Thu, 16 May 2019 18:51:26 +0100
+Subject: [PATCH] ASoC: simple-card: Fix configuration of DAI format
 
-mtk_regmap_update_bits() has been changed to take a shift and warn
-when reg >= 0 but shift < 0.So the hd_align_mshift must not have shift.
-Change it from XXX_HD_ALIGN_MASK_SFT to XXX_HD_ALIGN_MASK.
+When configuring a codec to be both bit-clock and frame-master, it was
+found that the codec was always configured as bit-clock and frame-slave.
+Looking at the simple_dai_link_of() function there appears to be two
+problems with the configuration of the DAI format, which are ...
 
-Fixes: cf61f5b01531 ("ASoC: Mediatek: MT8183: set data align")
+1. The function asoc_simple_parse_daifmt() is called before the function
+   asoc_simple_parse_codec() and this means that the device-tree node
+   for the codec has not been parsed yet, which is needed by the
+   function asoc_simple_parse_daifmt() to determine who is the codec.
+2. The phandle passed to asoc_simple_parse_daifmt() is the phandle to
+   the 'codec' node and not the phandle of the actual codec defined by
+   the 'sound-dai' property under the 'codec' node.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Fix the above by moving the call to asoc_simple_parse_daifmt() after the
+the call to asoc_simple_parse_codec() and pass the phandle for the codec
+to asoc_simple_parse_daifmt().
+
+Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/generic/simple-card.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index ab2bce1d9b3d..56c37323bc13 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -439,7 +439,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = DL1_HD_SFT,
--		.hd_align_mshift = DL1_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = DL1_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -460,7 +460,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = DL2_HD_SFT,
--		.hd_align_mshift = DL2_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = DL2_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -481,7 +481,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = DL3_HD_SFT,
--		.hd_align_mshift = DL3_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = DL3_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -502,7 +502,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = VUL2_HD_SFT,
--		.hd_align_mshift = VUL2_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = VUL2_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -523,7 +523,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = AWB_HD_SFT,
--		.hd_align_mshift = AWB_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = AWB_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -544,7 +544,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = AWB2_HD_SFT,
--		.hd_align_mshift = AWB2_ALIGN_MASK_SFT,
-+		.hd_align_mshift = AWB2_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -565,7 +565,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = VUL12_HD_SFT,
--		.hd_align_mshift = VUL12_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = VUL12_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -586,7 +586,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = MOD_DAI_HD_SFT,
--		.hd_align_mshift = MOD_DAI_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = MOD_DAI_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -607,7 +607,7 @@ static const struct mtk_base_memif_data memif_data[MT8183_MEMIF_NUM] = {
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = HDMI_HD_SFT,
--		.hd_align_mshift = HDMI_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = HDMI_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index 9b568f578bcd..c2c8dcbcf795 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -283,11 +283,6 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	codec_dai		=
+ 	dai_props->codec_dai	= &priv->dais[li->dais++];
+ 
+-	ret = asoc_simple_parse_daifmt(dev, node, codec,
+-				       prefix, &dai_link->dai_fmt);
+-	if (ret < 0)
+-		goto dai_link_of_err;
+-
+ 	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
+ 
+ 	ret = asoc_simple_parse_cpu(cpu, dai_link, &single_cpu);
+@@ -298,6 +293,11 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
+ 
++	ret = asoc_simple_parse_daifmt(dev, node, dai_link->codecs->of_node,
++				       prefix, &dai_link->dai_fmt);
++	if (ret < 0)
++		goto dai_link_of_err;
++
+ 	ret = asoc_simple_parse_platform(plat, dai_link);
+ 	if (ret < 0)
+ 		goto dai_link_of_err;
 -- 
 2.20.1
 

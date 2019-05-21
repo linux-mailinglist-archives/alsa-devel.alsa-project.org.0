@@ -2,66 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 550C42595B
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:47:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09BAD25969
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:48:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCB3E166C;
-	Tue, 21 May 2019 22:46:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCB3E166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EC67820;
+	Tue, 21 May 2019 22:47:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EC67820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558471631;
-	bh=g1c/cREoYVoNXxAolAtX1+N3ZQlByJ9CLNMUtk9W8us=;
+	s=default; t=1558471707;
+	bh=dd4l16i4FaGGU/4p5I8FTlGSCFKVsBEdQgYiRPktrRA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=PS9v/IboLMqt1v1cuy35hPfqVquAWE3dlTPXMyBQ2EJPXdOybd1xR4f/aSIcZFw3/
-	 6hAAqQdni306+u6xoxK6pTYZ5/WE8sCzqbFkaKHV5e2bFT/bWBbp0FOpFoKcNePsET
-	 1BfrCfIpvdlfhXjMCDpuT9U2n0mB0UdU6+JCgvGg=
+	b=lLtp9BUA4UnvQPPAKDCU53Ovu4/GAX07MRU/O9V8lBMqgxJHCY2liXgwS+2owMFXq
+	 5otJPvj3Epky+gYOZcnYFn1sjZPHbhYKGuUx1ZSqTDKTznSg7TSkrIko3IVw3q3gaj
+	 tAfS9ev5prrE2TVP6ngc4S8jihLPBqoEvXMIzzMs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FB45F89733;
-	Tue, 21 May 2019 22:44:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57BB5F89742;
+	Tue, 21 May 2019 22:44:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 790E3F89670; Tue, 21 May 2019 22:44:33 +0200 (CEST)
+ id 05E92F806E7; Tue, 21 May 2019 22:44:34 +0200 (CEST)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30BC5F89725
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30BC5F89725
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61DF1F8972C
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61DF1F8972C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="n5aXDEWF"
+ header.b="W0XDtb+S"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2CbuWJeLVgG2ibS6WWEVhw7tKAzh+l7pcufBmqxL+/M=; b=n5aXDEWFyu7P
- xlKPTWSMam8C3AJfbpj2Ff6UeXL5mki2f07HjpEDWqNxWUhbowk+mGI1emn7oSD2MC96Lar1QsqC1
- eQWh+bO3fwgywF2SlYvxnTAD4Ea2qpJRY+soNRnyC2ZLYJY5qgKDT3aouDOtjaJwHgxxLztl0wQZz
- UaEs4=;
+ List-Archive; bh=4Ooxl1nwnpeGCEs5X+zRMOqAN+gnSKNicoxFUijJaEQ=; b=W0XDtb+SUgpl
+ 2tyFAJlS4R6KUX1Wwf3CDdgz+WhovTYur3awpMbH05MiZd21jS1N2n9nUemG6uX01vLdlFVnO8XWr
+ /Zin9tQXcQ8wTXooRxOBisQQMUn+64sv/RQ61pk65WAsD9xvYoeXM11kIgEWrbBQf+MThZbC7rOEC
+ J5BXk=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hTBRE-0001yI-Eq; Tue, 21 May 2019 20:32:44 +0000
+ id 1hTBRI-0001yn-07; Tue, 21 May 2019 20:32:48 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 781D41126D1A; Tue, 21 May 2019 21:32:41 +0100 (BST)
+ id F0EF91126D1C; Tue, 21 May 2019 21:32:41 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-In-Reply-To: <20190520194645.432-2-pierre-louis.bossart@linux.intel.com>
+To: S.j. Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <3e15abaee348468a69005e4240346822320c7f69.1558006714.git.shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190521203241.781D41126D1A@debutante.sirena.org.uk>
+Message-Id: <20190521203241.F0EF91126D1C@debutante.sirena.org.uk>
 Date: Tue, 21 May 2019 21:32:41 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: sof-rt5682: fix for codec button
-	mapping" to the asoc tree
+Cc: brian.austin@cirrus.com, alsa-devel@alsa-project.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: cs42xx8: add reset-gpios in binding
+	document" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,11 +84,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: sof-rt5682: fix for codec button mapping
+   ASoC: cs42xx8: add reset-gpios in binding document
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -107,38 +109,41 @@ to this mail.
 Thanks,
 Mark
 
-From d5952f34ade5e6034e5eca3617fb77d4395bf492 Mon Sep 17 00:00:00 2001
-From: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-Date: Mon, 20 May 2019 14:46:41 -0500
-Subject: [PATCH] ASoC: Intel: sof-rt5682: fix for codec button mapping
+From 90fdbe8ab27047f7b9da57d1975c14a8d8f39370 Mon Sep 17 00:00:00 2001
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+Date: Thu, 16 May 2019 11:40:56 +0000
+Subject: [PATCH] ASoC: cs42xx8: add reset-gpios in binding document
 
-The RT5682 codec button mapping, initially copied from the DA7219 one,
-needs to be corrected.
+Add reset-gpios property, which is optional.
 
-Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/sound/cs42xx8.txt | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index f28fb98cc306..39ddefec4991 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -144,9 +144,9 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	jack = &ctx->sof_headset;
+diff --git a/Documentation/devicetree/bindings/sound/cs42xx8.txt b/Documentation/devicetree/bindings/sound/cs42xx8.txt
+index 8619a156d038..bbfe39347c20 100644
+--- a/Documentation/devicetree/bindings/sound/cs42xx8.txt
++++ b/Documentation/devicetree/bindings/sound/cs42xx8.txt
+@@ -14,6 +14,11 @@ Required properties:
+   - VA-supply, VD-supply, VLS-supply, VLC-supply: power supplies for the device,
+     as covered in Documentation/devicetree/bindings/regulator/regulator.txt
  
- 	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
--	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
--	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
--	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
-+	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
- 	ret = snd_soc_component_set_jack(component, jack, NULL);
++Optional properties:
++
++  - reset-gpios : a GPIO spec to define which pin is connected to the chip's
++    !RESET pin
++
+ Example:
  
- 	if (ret) {
+ cs42888: codec@48 {
+@@ -25,4 +30,5 @@ cs42888: codec@48 {
+ 	VD-supply = <&reg_audio>;
+ 	VLS-supply = <&reg_audio>;
+ 	VLC-supply = <&reg_audio>;
++	reset-gpios = <&pca9557_b 1 GPIO_ACTIVE_LOW>;
+ };
 -- 
 2.20.1
 

@@ -2,67 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B25424B91
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 11:31:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E7D24CEB
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 12:38:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB8F9167C;
-	Tue, 21 May 2019 11:30:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB8F9167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D3391668;
+	Tue, 21 May 2019 12:37:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D3391668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558431109;
-	bh=M4/JOWnAr+Liyha8kEkP4l/+m6Z94Ilqs+AEi4groVw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LuzaSCSMUZ7Xon6anJI61IB8rBCSRlRtqzel7iqXbxsPsqUALsm8by3TKS6eZoJzi
-	 VI7XvceRQxGnnd7FIaIskYZDmKUAoKVj1EUpv5xekehZbjFWemeaj8dngMqHjrVXO1
-	 uFbg64HuS587Isot4DX+N0A8RLxfyPBj0KYJK8wU=
+	s=default; t=1558435102;
+	bh=HmY2CKOLeWCM7RGyjcQNfjzsODURisGFkm1FRsz0Ylc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tRX/OPvsQ6p38ygq0jdBirIV+fHepRADAG0bxBJW+89ABRTM54K4uYmoTkUcXJKpN
+	 dat86kRJsSJnLfHqFPF33f29YlJ0yzukpdyk3cuw3mSWt2LIuwAzDx6iJCSg4543Rv
+	 70ywBvRQTi2OiZqP+TXWA3gxihECEusU7lew60Ks=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6853FF89709;
-	Tue, 21 May 2019 11:30:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D42CBF8970E;
+	Tue, 21 May 2019 12:36:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D660AF89709; Tue, 21 May 2019 11:30:00 +0200 (CEST)
+ id 31EADF89674; Tue, 21 May 2019 12:36:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_64, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06F4BF89670
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 11:29:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06F4BF89670
-X-UUID: 98199c601f3d4034a56e420de8c2d9f8-20190521
-X-UUID: 98199c601f3d4034a56e420de8c2d9f8-20190521
-Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
- (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 1389120104; Tue, 21 May 2019 17:29:47 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs06n2.mediatek.inc (172.21.101.130) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 21 May 2019 17:29:45 +0800
-Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 21 May 2019 17:29:45 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>
-Date: Tue, 21 May 2019 17:29:38 +0800
-Message-ID: <1558430978-2440-3-git-send-email-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 1.8.1.1.dirty
-In-Reply-To: <1558430978-2440-1-git-send-email-jiaxin.yu@mediatek.com>
-References: <1558430978-2440-1-git-send-email-jiaxin.yu@mediatek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 961C7F8079B
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 12:36:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 961C7F8079B
+Received: by mail-ed1-f66.google.com with SMTP id b8so28603995edm.11
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 03:36:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version;
+ bh=uAylt3ofKrXJiUmVt/aJiMVs6WCW7IL4o+lOVbQ9k+k=;
+ b=TVocVEhcbDpcRIAr5tBQ7BMol5/Qwm2gCwiOfpDgLL21KWwzoqqJqrCeE+niLMJ3c8
+ muNfVcBJauVPm3OMfyiVYo1gwDkUHKo97rOwP4oELowQn6tcLDyaMZPPjQH1wGqiQL83
+ fqikNRF7rA9358hBCyVc5pZfOoFafapoes2Z7Bn4VFoVWYndBrbxhj+KOzyU/c+5xrW4
+ D+zupvKnHNgyhd3GOXKzLA38d9IwnwZHoyfYPs8ypYQQRTvxx1oz1258CUrcItoq5hzo
+ K0iqQOiSM1sHtPrUIW+8Bx7LrDB9jgwn5e6ka6jCRHPzbkxKptNwheyTcaLL8T/kLeaE
+ hWJQ==
+X-Gm-Message-State: APjAAAXrRHTN0+B7BIMGOQ4GX3c1v749BSMFCR6Kw9BqbLtpBrPcE4MI
+ qohpdwEWcOyt8DSvQX8DSm8kDgwtfyOHS3bXxwjR+SmgtFBYgdIiCuTNE8w5Q0YGkAdbsgp1Zns
+ QlJAeAjIfkLocP+c=
+X-Google-Smtp-Source: APXvYqxwKTRDeQeHnXoeo2S5PjdpTBXMJbW529IdtNa7k6B9JmqbZcfYZOYpZVGnzIrOSfgpYYl4WA==
+X-Received: by 2002:a17:906:5593:: with SMTP id
+ y19mr35149813ejp.264.1558434989114; 
+ Tue, 21 May 2019 03:36:29 -0700 (PDT)
+Received: from localhost ([194.105.145.90])
+ by smtp.gmail.com with ESMTPSA id a40sm6205178edd.1.2019.05.21.03.36.28
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 21 May 2019 03:36:28 -0700 (PDT)
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+To: Fabio Estevam <festevam@gmail.com>
+Date: Tue, 21 May 2019 13:36:13 +0300
+Message-Id: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: C76EBAEA3122E841A0369E5B7172AF726DD2C9290DC0A9F32B76B8DF20415E4B2000:8
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com,
- garlic.tseng@mediatek.com, Jiaxin Yu <jiaxin.yu@mediatek.com>,
- tzungbi@google.com, linux-mediatek@lists.infradead.org,
- kaichieh.chuang@mediatek.com
-Subject: [alsa-devel] [PATCH 2/2] ASoC: Mediatek: MT8183: fix compile error
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+Subject: [alsa-devel] [PATCH v1 0/6] VAG power control improvement for
+	sgtl5000 codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,108 +89,67 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-mtk_regmap_update_bits() has been changed to take a shift and warn
-when reg >= 0 but shift < 0.So the hd_align_mshift must not have shift.
-Change it from XXX_HD_ALIGN_MASK_SFT to XXX_HD_ALIGN_MASK.
 
-Fixes: cf61f5b01531 ("ASoC: Mediatek: MT8183: set data align")
+VAG power control is improved to fit the manual. This fixes as
+minimum one bug: if customer muxes Headphone to Line-In right after boot
+w/o playing any sound, the VAG power remains off that leads to poor
+sound quality from line-in.
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
----
-Hi,
-	This patch is base on for-5.3 branch.
-	And tested pass on kukui board locally.
----
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+I.e. after boot:
+- Connect sound source to Line-In jack;
+- Connect headphone to HP jack;
+- Run following commands:
+$ amixer set 'Headphone' 80%
+$ amixer set 'Headphone Mux' LINE_IN
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index ab2bce1..56c3732 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -439,7 +439,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = DL1_HD_SFT,
--		.hd_align_mshift = DL1_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = DL1_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -460,7 +460,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = DL2_HD_SFT,
--		.hd_align_mshift = DL2_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = DL2_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -481,7 +481,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = DL3_HD_SFT,
--		.hd_align_mshift = DL3_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = DL3_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -502,7 +502,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = VUL2_HD_SFT,
--		.hd_align_mshift = VUL2_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = VUL2_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -523,7 +523,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = AWB_HD_SFT,
--		.hd_align_mshift = AWB_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = AWB_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -544,7 +544,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = AWB2_HD_SFT,
--		.hd_align_mshift = AWB2_ALIGN_MASK_SFT,
-+		.hd_align_mshift = AWB2_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -565,7 +565,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = VUL12_HD_SFT,
--		.hd_align_mshift = VUL12_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = VUL12_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -586,7 +586,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = MOD_DAI_HD_SFT,
--		.hd_align_mshift = MOD_DAI_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = MOD_DAI_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
-@@ -607,7 +607,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
- 		.hd_reg = AFE_MEMIF_HD_MODE,
- 		.hd_align_reg = AFE_MEMIF_HDALIGN,
- 		.hd_shift = HDMI_HD_SFT,
--		.hd_align_mshift = HDMI_HD_ALIGN_MASK_SFT,
-+		.hd_align_mshift = HDMI_HD_ALIGN_SFT,
- 		.agent_disable_reg = -1,
- 		.agent_disable_shift = -1,
- 		.msb_reg = -1,
+Also this series includes fixes of non-important bugs in sgtl5000 codec
+driver.
+
+
+Oleksandr Suvorov (6):
+  ASoC: sgtl5000: Fix definition of VAG Ramp Control
+  ASoC: sgtl5000: add ADC mute control
+  ASoC: sgtl5000: Fix of unmute outputs on probe
+  ASoC: sgtl5000: Fix charge pump source assignment
+  ASoC: Define a set of DAPM pre/post-up events
+  ASoC: sgtl5000: Improve VAG power and mute control
+
+ include/sound/soc-dapm.h    |   2 +
+ sound/soc/codecs/sgtl5000.c | 250 ++++++++++++++++++++++++++++++------
+ sound/soc/codecs/sgtl5000.h |   2 +-
+ 3 files changed, 212 insertions(+), 42 deletions(-)
+
 -- 
-1.8.1.1.dirty
+2.20.1
+
+
+-- 
+
+Ciklum refers to one or more of Ciklum Group Holdings LTD. and its 
+subsidiaries and affiliates each of which is a legally separate entity. 
+Ciklum LLC is a limited liability company registered in Ukraine under 
+EDRPOU code 31902643, with its registered address at 12 Amosova St., 03680, 
+Kyiv, Ukraine.
+
+
+
+The contents of this e-mail (including any attachments) 
+are confidential and may be legally privileged. If you are not the intended 
+recipient of this e-mail, please notify the sender immediately and then 
+delete it (including any attachments) from all your systems. Any 
+unauthorised use, reproduction, distribution, disclosure and/or 
+modification of this message and/or its contents are strictly prohibited. 
+We cannot guarantee that this e-mail is secure or error-free. Ciklum cannot 
+be held liable for any loss or damage caused by software viruses or 
+resulting from any use of or reliance on this email by anyone, other than 
+the intended addressee to the extent agreed in a contract for the matter to 
+which this email relates (if any). Messages sent to and from Ciklum may be 
+monitored; by replying to this e-mail you give your consent to such 
+monitoring.  Notice: we do not accept service by e-mail of court 
+proceedings, other processes or formal notices of any kind without specific 
+prior written agreement. This email does not constitute a binding offer or 
+acceptance for Ciklum unless so set forth in a separate document.
+
 
 _______________________________________________
 Alsa-devel mailing list

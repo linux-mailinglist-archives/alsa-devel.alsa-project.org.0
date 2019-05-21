@@ -2,76 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4E7D24CEB
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 12:38:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A433524CF6
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 12:39:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D3391668;
-	Tue, 21 May 2019 12:37:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D3391668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E8601671;
+	Tue, 21 May 2019 12:38:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E8601671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558435102;
-	bh=HmY2CKOLeWCM7RGyjcQNfjzsODURisGFkm1FRsz0Ylc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tRX/OPvsQ6p38ygq0jdBirIV+fHepRADAG0bxBJW+89ABRTM54K4uYmoTkUcXJKpN
-	 dat86kRJsSJnLfHqFPF33f29YlJ0yzukpdyk3cuw3mSWt2LIuwAzDx6iJCSg4543Rv
-	 70ywBvRQTi2OiZqP+TXWA3gxihECEusU7lew60Ks=
+	s=default; t=1558435141;
+	bh=1b/P5t1dUCRkhCIXBqyHBAqvD0+bXzvsm4MaSVu7OnA=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ik/DzIQd2YcOGBAALmWFvgBUhQ2qfncyunp9BwI9xPM0OaINbwpVTp0ilW8ENgoRP
+	 oG18LNWuQzegjMf9MBLsXkUtPcrly/ciMxRlfgR7QKoYrao/JJE68+wqNOkCtJgOY2
+	 vRgrrEzi/ThjRtT4M4QihZzMhdtqt94vkSEO4zl4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D42CBF8970E;
-	Tue, 21 May 2019 12:36:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B127FF89728;
+	Tue, 21 May 2019 12:36:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31EADF89674; Tue, 21 May 2019 12:36:34 +0200 (CEST)
+ id 1BED6F806E7; Tue, 21 May 2019 12:36:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- PRX_BODY_64, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
+ PRX_BODY_64, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 961C7F8079B
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 12:36:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 961C7F8079B
-Received: by mail-ed1-f66.google.com with SMTP id b8so28603995edm.11
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 03:36:29 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30E65F806E7
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 12:36:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30E65F806E7
+Received: by mail-ed1-f68.google.com with SMTP id p27so28699478eda.1
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 03:36:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version;
- bh=uAylt3ofKrXJiUmVt/aJiMVs6WCW7IL4o+lOVbQ9k+k=;
- b=TVocVEhcbDpcRIAr5tBQ7BMol5/Qwm2gCwiOfpDgLL21KWwzoqqJqrCeE+niLMJ3c8
- muNfVcBJauVPm3OMfyiVYo1gwDkUHKo97rOwP4oELowQn6tcLDyaMZPPjQH1wGqiQL83
- fqikNRF7rA9358hBCyVc5pZfOoFafapoes2Z7Bn4VFoVWYndBrbxhj+KOzyU/c+5xrW4
- D+zupvKnHNgyhd3GOXKzLA38d9IwnwZHoyfYPs8ypYQQRTvxx1oz1258CUrcItoq5hzo
- K0iqQOiSM1sHtPrUIW+8Bx7LrDB9jgwn5e6ka6jCRHPzbkxKptNwheyTcaLL8T/kLeaE
- hWJQ==
-X-Gm-Message-State: APjAAAXrRHTN0+B7BIMGOQ4GX3c1v749BSMFCR6Kw9BqbLtpBrPcE4MI
- qohpdwEWcOyt8DSvQX8DSm8kDgwtfyOHS3bXxwjR+SmgtFBYgdIiCuTNE8w5Q0YGkAdbsgp1Zns
- QlJAeAjIfkLocP+c=
-X-Google-Smtp-Source: APXvYqxwKTRDeQeHnXoeo2S5PjdpTBXMJbW529IdtNa7k6B9JmqbZcfYZOYpZVGnzIrOSfgpYYl4WA==
-X-Received: by 2002:a17:906:5593:: with SMTP id
- y19mr35149813ejp.264.1558434989114; 
- Tue, 21 May 2019 03:36:29 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version;
+ bh=g5+rFA36lwuazIudpaXXvHQFCY1jZEBw2F/UUKE3ovM=;
+ b=JQqX+V2edjlPxJM5P0ytqg90RAW84ObPHpEf5x+HUa5SMzFQYeiEDzCZ/6VQbr4C7X
+ QimzWbgYRJ6gL1D4vp6EkctMy2hyiiMCVUe5pP4BgB9PE56NF/lPO9ipx4THXVtU2z5y
+ nKxv5sv/Dg7HTyvZkzXnQJr1RDNCqmeHZN3qMaAC29DWY0lGsK8kWFe1b5n1M7EPL6Cv
+ CioNJMefJ8oMNNRQLaagH9GzuS7iwLLODw95v8mqqovd6osZa6mnfipBppptkDkdSSDr
+ b4frwVe3sBTZ6ETpjYHaGcWQ5oeBA4rF98cJDA0JOQ6a7zMo8NLV2P/Q7Uq67VSbGBbj
+ 0JNQ==
+X-Gm-Message-State: APjAAAUWBluQQddcbjQPXhuuug4jyAjb7CDIXhLpSOJRNj15aFkY7Qtx
+ 6K49aiVJuKpGXC/47OxWEG9sgSOiPANXNbipZT66hm8b6ylGxxR3+bC8tH/meO2mmKI1bJlUkNQ
+ nThoIfwEuu4tRIgk=
+X-Google-Smtp-Source: APXvYqxl2DSayF5AxGHApfnVwCqMXNZzKr/pm83PpOr142/+wqSpO8m+LjGWdsy0o8mJwheCqi8M9g==
+X-Received: by 2002:a50:a5fb:: with SMTP id b56mr81501952edc.262.1558434993795; 
+ Tue, 21 May 2019 03:36:33 -0700 (PDT)
 Received: from localhost ([194.105.145.90])
- by smtp.gmail.com with ESMTPSA id a40sm6205178edd.1.2019.05.21.03.36.28
+ by smtp.gmail.com with ESMTPSA id c49sm6303644eda.58.2019.05.21.03.36.33
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 21 May 2019 03:36:28 -0700 (PDT)
+ Tue, 21 May 2019 03:36:33 -0700 (PDT)
 From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
 To: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 21 May 2019 13:36:13 +0300
-Message-Id: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
+Date: Tue, 21 May 2019 13:36:14 +0300
+Message-Id: <20190521103619.4707-2-oleksandr.suvorov@toradex.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
+References: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
 MIME-Version: 1.0
-Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ Igor Opaniuk <igor.opaniuk@toradex.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org,
  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-Subject: [alsa-devel] [PATCH v1 0/6] VAG power control improvement for
-	sgtl5000 codec
+Subject: [alsa-devel] [PATCH v1 1/6] ASoC: sgtl5000: Fix definition of VAG
+	Ramp Control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,36 +92,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+SGTL5000_SMALL_POP is a bit mask, not a value. Usage of
+correct definition makes device probing code more clear.
 
-VAG power control is improved to fit the manual. This fixes as
-minimum one bug: if customer muxes Headphone to Line-In right after boot
-w/o playing any sound, the VAG power remains off that leads to poor
-sound quality from line-in.
+Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+---
 
-I.e. after boot:
-- Connect sound source to Line-In jack;
-- Connect headphone to HP jack;
-- Run following commands:
-$ amixer set 'Headphone' 80%
-$ amixer set 'Headphone Mux' LINE_IN
+ sound/soc/codecs/sgtl5000.c | 2 +-
+ sound/soc/codecs/sgtl5000.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Also this series includes fixes of non-important bugs in sgtl5000 codec
-driver.
-
-
-Oleksandr Suvorov (6):
-  ASoC: sgtl5000: Fix definition of VAG Ramp Control
-  ASoC: sgtl5000: add ADC mute control
-  ASoC: sgtl5000: Fix of unmute outputs on probe
-  ASoC: sgtl5000: Fix charge pump source assignment
-  ASoC: Define a set of DAPM pre/post-up events
-  ASoC: sgtl5000: Improve VAG power and mute control
-
- include/sound/soc-dapm.h    |   2 +
- sound/soc/codecs/sgtl5000.c | 250 ++++++++++++++++++++++++++++++------
- sound/soc/codecs/sgtl5000.h |   2 +-
- 3 files changed, 212 insertions(+), 42 deletions(-)
-
+diff --git sound/soc/codecs/sgtl5000.c sound/soc/codecs/sgtl5000.c
+index a6a4748c97f9..5e49523ee0b6 100644
+--- sound/soc/codecs/sgtl5000.c
++++ sound/soc/codecs/sgtl5000.c
+@@ -1296,7 +1296,7 @@ static int sgtl5000_probe(struct snd_soc_component *component)
+ 
+ 	/* enable small pop, introduce 400ms delay in turning off */
+ 	snd_soc_component_update_bits(component, SGTL5000_CHIP_REF_CTRL,
+-				SGTL5000_SMALL_POP, 1);
++				SGTL5000_SMALL_POP, SGTL5000_SMALL_POP);
+ 
+ 	/* disable short cut detector */
+ 	snd_soc_component_write(component, SGTL5000_CHIP_SHORT_CTRL, 0);
+diff --git sound/soc/codecs/sgtl5000.h sound/soc/codecs/sgtl5000.h
+index 18cae08bbd3a..a4bf4bca95bf 100644
+--- sound/soc/codecs/sgtl5000.h
++++ sound/soc/codecs/sgtl5000.h
+@@ -273,7 +273,7 @@
+ #define SGTL5000_BIAS_CTRL_MASK			0x000e
+ #define SGTL5000_BIAS_CTRL_SHIFT		1
+ #define SGTL5000_BIAS_CTRL_WIDTH		3
+-#define SGTL5000_SMALL_POP			1
++#define SGTL5000_SMALL_POP			0x0001
+ 
+ /*
+  * SGTL5000_CHIP_MIC_CTRL
 -- 
 2.20.1
 

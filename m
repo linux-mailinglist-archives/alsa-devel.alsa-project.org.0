@@ -2,68 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D11E25977
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:51:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82F9125968
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 22:48:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7AD815F2;
-	Tue, 21 May 2019 22:50:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7AD815F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 140FB15E0;
+	Tue, 21 May 2019 22:47:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 140FB15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558471882;
-	bh=bCkLnXaXFI9bubiNZKZzmck1zLU9TUA2JcJ5/gX6r7I=;
+	s=default; t=1558471703;
+	bh=RcZRNpkZ9bfEcnKoU5rxLKo8nKEZY+MfR89Z3HlM6j8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Kf0QPSHcKJ/vz+V2xlGzdEhqU4k1xR0U6dCrOPZcEAkacIo1Ot7kAi5eAupVwIvq+
-	 ZC+tf6KmioHr0j0NK0rWotxZdOtpgrX7mTk0+uaaIr3+T0W0sUKtPs/lrpgFYS7R87
-	 j8UO09diNK60QIop3/MO4nVH6b4429BJgZAiYKIQ=
+	b=KpQMzHvtC4OMpT11DL5VTbOApZDaliXuI7LqNK455Daf6dfh/25PHVARtzQzNxgel
+	 BNXgIZMS4swnSvHcj2O82qQfaCeFjh1ZLybtbk45XVgLJDuQ861L8x2g0hpPUvBb0F
+	 x+Z4q+v6LZTf8pk4uX15GgbApuNdqdgUopmefxLE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 965A8F8975F;
-	Tue, 21 May 2019 22:46:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0701BF8973E;
+	Tue, 21 May 2019 22:44:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13B63F8972A; Tue, 21 May 2019 22:46:20 +0200 (CEST)
+ id DD9F1F89707; Tue, 21 May 2019 22:44:34 +0200 (CEST)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 187AFF8972A
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 187AFF8972A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E6B9F89728
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 22:32:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E6B9F89728
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="wESFLjIq"
+ header.b="ouhYo7tf"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=yBoefPM/+aGORt6Hgixp/+uCtlOxgYGxahQmeI0dtAs=; b=wESFLjIqIe0u
- eGA9FHtoZ1KP+sLH7YXjUL9t1g7FTUmxwRds0m6BQYEPCCaX5yucmDqifQbY51ifcZ3irEtj/D322
- jKO3w7qu7+2tdf3Ax0xpKZIAGavbEsPOfU4YSEo2SK+LvaWyJIaHLUPMbycJVKTmABZmoQx3HlZo7
- OKdAc=;
+ List-Archive; bh=p0O72aPRVpjVEcqo6LohyIZUGEmLyR0F9H09XPKkv8Y=; b=ouhYo7tf5SvG
+ 1YCyF5Or3IU7N+dcXkr13WOa5899bo3/dOs5u8vREC3C2AFfyROM64L2PfwAMcGcO7BnHinEl3H4Y
+ R2ekZh/UyrfibA5cWY5X26jF9XclscHp35OPe3X5e9jjQdiKfaKmcKmRfQ+GhbsOmpTsSD2VV17iB
+ lDqms=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hTBRI-0001yk-05; Tue, 21 May 2019 20:32:48 +0000
+ id 1hTBRI-0001yp-06; Tue, 21 May 2019 20:32:48 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 280541126D21; Tue, 21 May 2019 21:32:43 +0100 (BST)
+ id 607721126D22; Tue, 21 May 2019 21:32:43 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Amir Goldstein <amir73il@gmail.com>
-In-Reply-To: <20190516102641.6574-2-amir73il@gmail.com>
+To: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
+In-Reply-To: <20190518183009.13359-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190521203243.280541126D21@debutante.sirena.org.uk>
+Message-Id: <20190521203243.607721126D22@debutante.sirena.org.uk>
 Date: Tue, 21 May 2019 21:32:43 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Jan Kara <jack@suse.cz>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>, Matthew Bobrowski <mbobrowski@mbobrowski.org>,
- linux-fsdevel@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: rename functions that pollute the
-	simple_xxx namespace" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: soc-acpi: Fix machine selection
+	order" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,11 +82,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rename functions that pollute the simple_xxx namespace
+   ASoC: Intel: soc-acpi: Fix machine selection order
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.2
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -109,58 +107,48 @@ to this mail.
 Thanks,
 Mark
 
-From b0a821daf0d04e5a8ae99829e24f2fe538f25763 Mon Sep 17 00:00:00 2001
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Thu, 16 May 2019 13:26:28 +0300
-Subject: [PATCH] ASoC: rename functions that pollute the simple_xxx namespace
+From 30d9d4ff53532087bc13ed29d7715df868794b5e Mon Sep 17 00:00:00 2001
+From: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
+Date: Sat, 18 May 2019 13:30:08 -0500
+Subject: [PATCH] ASoC: Intel: soc-acpi: Fix machine selection order
 
-include/linux/fs.h defines a bunch of simple fs helpers, (e.g.
-simple_rename) and we intend to add an fs helper named simple_remove.
+The selection order of m/c in match table is corrected
+to use common codec as last in the list.
 
-Rename the ASoC driver static functions, so they will not collide with
-the upcoming fs helper function name.
-
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Mark Brown <broonie@kernel.org>
-Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/generic/simple-card.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 9b568f578bcd..d16e894fce2b 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -607,7 +607,7 @@ static int simple_soc_probe(struct snd_soc_card *card)
- 	return 0;
- }
- 
--static int simple_probe(struct platform_device *pdev)
-+static int asoc_simple_probe(struct platform_device *pdev)
- {
- 	struct asoc_simple_priv *priv;
- 	struct device *dev = &pdev->dev;
-@@ -705,7 +705,7 @@ static int simple_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static int simple_remove(struct platform_device *pdev)
-+static int asoc_simple_remove(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = platform_get_drvdata(pdev);
- 
-@@ -726,8 +726,8 @@ static struct platform_driver asoc_simple_card = {
- 		.pm = &snd_soc_pm_ops,
- 		.of_match_table = simple_of_match,
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+index df7c52cad5c3..c36c0aa4f683 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+@@ -29,17 +29,17 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
+ 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
  	},
--	.probe = simple_probe,
--	.remove = simple_remove,
-+	.probe = asoc_simple_probe,
-+	.remove = asoc_simple_remove,
- };
+ 	{
+-		.id = "10EC5682",
++		.id = "MX98357A",
+ 		.drv_name = "sof_rt5682",
++		.quirk_data = &cml_codecs,
+ 		.sof_fw_filename = "sof-cnl.ri",
+-		.sof_tplg_filename = "sof-cml-rt5682.tplg",
++		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
+ 	},
+ 	{
+-		.id = "MX98357A",
++		.id = "10EC5682",
+ 		.drv_name = "sof_rt5682",
+-		.quirk_data = &cml_codecs,
+ 		.sof_fw_filename = "sof-cnl.ri",
+-		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
++		.sof_tplg_filename = "sof-cml-rt5682.tplg",
+ 	},
  
- module_platform_driver(asoc_simple_card);
+ 	{},
 -- 
 2.20.1
 

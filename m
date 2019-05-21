@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41B5A24B97
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 11:33:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B25424B91
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 11:31:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B12681671;
-	Tue, 21 May 2019 11:32:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B12681671
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB8F9167C;
+	Tue, 21 May 2019 11:30:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB8F9167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558431193;
-	bh=E7OkrXEbTwm0tM8iOAJUb+KTDminI+xRvtMT3PFaxaA=;
+	s=default; t=1558431109;
+	bh=M4/JOWnAr+Liyha8kEkP4l/+m6Z94Ilqs+AEi4groVw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bzqLfF0GoCuwNdy6ljh8s/oSvS4NTSsbG504IB4D2OowXKnmLMalCNGl7Ngpc3xu6
-	 VIe/uCORp130k7okA1ca5b4a8qbbDyxTHHSmSmUE3EnBGl1InRXt0YTZ/XYyVAmuk4
-	 4oSytwrB6Upl/LC2NbxOnNF8xRkN5LHIzE+JJZZM=
+	b=LuzaSCSMUZ7Xon6anJI61IB8rBCSRlRtqzel7iqXbxsPsqUALsm8by3TKS6eZoJzi
+	 VI7XvceRQxGnnd7FIaIskYZDmKUAoKVj1EUpv5xekehZbjFWemeaj8dngMqHjrVXO1
+	 uFbg64HuS587Isot4DX+N0A8RLxfyPBj0KYJK8wU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 533FFF89728;
-	Tue, 21 May 2019 11:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6853FF89709;
+	Tue, 21 May 2019 11:30:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B5B6F89709; Tue, 21 May 2019 11:30:04 +0200 (CEST)
+ id D660AF89709; Tue, 21 May 2019 11:30:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
  SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCAF2F806E7
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 11:29:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCAF2F806E7
-X-UUID: a4f6417aeaf64441b928e7b8d5fad8f0-20190521
-X-UUID: a4f6417aeaf64441b928e7b8d5fad8f0-20190521
-Received: from mtkexhb02.mediatek.inc [(172.21.101.103)] by
- mailgw01.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06F4BF89670
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 11:29:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06F4BF89670
+X-UUID: 98199c601f3d4034a56e420de8c2d9f8-20190521
+X-UUID: 98199c601f3d4034a56e420de8c2d9f8-20190521
+Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
+ mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
  (mhqrelay.mediatek.com ESMTP with TLS)
- with ESMTP id 1696502; Tue, 21 May 2019 17:29:52 +0800
+ with ESMTP id 1389120104; Tue, 21 May 2019 17:29:47 +0800
 Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs03n2.mediatek.inc (172.21.101.182) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 21 May 2019 17:29:44 +0800
+ mtkmbs06n2.mediatek.inc (172.21.101.130) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Tue, 21 May 2019 17:29:45 +0800
 Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Tue, 21 May 2019 17:29:43 +0800
+ Transport; Tue, 21 May 2019 17:29:45 +0800
 From: Jiaxin Yu <jiaxin.yu@mediatek.com>
 To: <broonie@kernel.org>
-Date: Tue, 21 May 2019 17:29:37 +0800
-Message-ID: <1558430978-2440-2-git-send-email-jiaxin.yu@mediatek.com>
+Date: Tue, 21 May 2019 17:29:38 +0800
+Message-ID: <1558430978-2440-3-git-send-email-jiaxin.yu@mediatek.com>
 X-Mailer: git-send-email 1.8.1.1.dirty
 In-Reply-To: <1558430978-2440-1-git-send-email-jiaxin.yu@mediatek.com>
 References: <1558430978-2440-1-git-send-email-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 6041E3935DF2EB47530DCC13BC892BD73048309CBC0EE37183E313E98AE0528C2000:8
+X-TM-SNTS-SMTP: C76EBAEA3122E841A0369E5B7172AF726DD2C9290DC0A9F32B76B8DF20415E4B2000:8
 X-MTK: N
 Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com,
- garlic.tseng@mediatek.com, Jiaxin
- Yu <jiaxin.yu@mediatek.com>, tzungbi@google.com,
- linux-mediatek@lists.infradead.org, kaichieh.chuang@mediatek.com
-Subject: [alsa-devel] [PATCH 1/2] ASoC: Mediatek: MT8183: fix compile error
+ garlic.tseng@mediatek.com, Jiaxin Yu <jiaxin.yu@mediatek.com>,
+ tzungbi@google.com, linux-mediatek@lists.infradead.org,
+ kaichieh.chuang@mediatek.com
+Subject: [alsa-devel] [PATCH 2/2] ASoC: Mediatek: MT8183: fix compile error
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +80,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-mtk_regmap_update_bits() has been changed from four
-parameters to five parameters.
+mtk_regmap_update_bits() has been changed to take a shift and warn
+when reg >= 0 but shift < 0.So the hd_align_mshift must not have shift.
+Change it from XXX_HD_ALIGN_MASK_SFT to XXX_HD_ALIGN_MASK.
 
-Fixes: 1628fc3f4771 ("ASoC: Mediatek: MT8183: add memory interface data align")
+Fixes: cf61f5b01531 ("ASoC: Mediatek: MT8183: set data align")
 
 Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
 ---
 Hi,
-	This patch is based on for-5.3 branch.
+	This patch is base on for-5.3 branch.
 	And tested pass on kukui board locally.
 ---
- sound/soc/mediatek/common/mtk-afe-fe-dai.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/mediatek/common/mtk-afe-fe-dai.c b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
-index 19048c3..d165634 100644
---- a/sound/soc/mediatek/common/mtk-afe-fe-dai.c
-+++ b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
-@@ -266,8 +266,7 @@ int mtk_afe_fe_prepare(struct snd_pcm_substream *substream,
- 			       1, hd_audio, memif->data->hd_shift);
- 
- 	mtk_regmap_update_bits(afe->regmap, memif->data->hd_align_reg,
--			       memif->data->hd_align_mshift,
--			       hd_align ? memif->data->hd_align_mshift : 0);
-+			       1, hd_align, memif->data->hd_align_mshift);
- 
- 	return 0;
- }
+diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+index ab2bce1..56c3732 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -439,7 +439,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = DL1_HD_SFT,
+-		.hd_align_mshift = DL1_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = DL1_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -460,7 +460,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = DL2_HD_SFT,
+-		.hd_align_mshift = DL2_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = DL2_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -481,7 +481,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = DL3_HD_SFT,
+-		.hd_align_mshift = DL3_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = DL3_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -502,7 +502,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = VUL2_HD_SFT,
+-		.hd_align_mshift = VUL2_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = VUL2_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -523,7 +523,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = AWB_HD_SFT,
+-		.hd_align_mshift = AWB_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = AWB_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -544,7 +544,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = AWB2_HD_SFT,
+-		.hd_align_mshift = AWB2_ALIGN_MASK_SFT,
++		.hd_align_mshift = AWB2_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -565,7 +565,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = VUL12_HD_SFT,
+-		.hd_align_mshift = VUL12_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = VUL12_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -586,7 +586,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = MOD_DAI_HD_SFT,
+-		.hd_align_mshift = MOD_DAI_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = MOD_DAI_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
+@@ -607,7 +607,7 @@ static int mt8183_irq_fs(struct snd_pcm_substream *substream, unsigned int rate)
+ 		.hd_reg = AFE_MEMIF_HD_MODE,
+ 		.hd_align_reg = AFE_MEMIF_HDALIGN,
+ 		.hd_shift = HDMI_HD_SFT,
+-		.hd_align_mshift = HDMI_HD_ALIGN_MASK_SFT,
++		.hd_align_mshift = HDMI_HD_ALIGN_SFT,
+ 		.agent_disable_reg = -1,
+ 		.agent_disable_shift = -1,
+ 		.msb_reg = -1,
 -- 
 1.8.1.1.dirty
 

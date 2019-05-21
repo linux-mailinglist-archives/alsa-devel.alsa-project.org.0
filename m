@@ -2,60 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6CBF252B5
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 16:51:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 225C22538F
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 17:12:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26FB01669;
-	Tue, 21 May 2019 16:50:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26FB01669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FCD91677;
+	Tue, 21 May 2019 17:11:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FCD91677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558450284;
-	bh=P+lhutAzpIJwVwkc0+lR2YN7lncF8e2ZcRs37sEVHqs=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=punjYO6l8ooXMeC3CLXC2FmBtKfjZ5EzjDG4wEM+iz0TiY9RePFCqNPKKrHjGlwxx
-	 oKziRnFFTpuzrPdC5w78T2r2RxAQ/b9YiP/4YymHyz7uehJszu8JQGgwlrJUbPGxdl
-	 bCdm03LbKEu9KMEKsOY6k7w+WhgyhRIewq+ueB0A=
+	s=default; t=1558451519;
+	bh=9psD7s6JpkIJ1y5+n7w73X6zIQGC2FOEHKQrJgNsGBM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=bOaL2iVlANX5jZ0dABOlOOTuGi5bMaeIwWZRXLakmAAPi+pN60JczzjCC+vhedkR0
+	 XK3T+tc9wF1jEGbxWPRaQy1JQrNNhbJfIB2VFO672a3/KqXZwlfIJcPo8reJEZzSKW
+	 iVsA8gBfWtd/M9ci2Bdqdm3UrsQxslWy4eSiMKFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B86DF89709;
-	Tue, 21 May 2019 16:49:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07938F89725;
+	Tue, 21 May 2019 17:10:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5BA5F806E7; Tue, 21 May 2019 16:48:44 +0200 (CEST)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id D538DF89633; Tue, 21 May 2019 17:07:58 +0200 (CEST)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49453F89707
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 16:38:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49453F89707
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 May 2019 07:38:26 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga007.fm.intel.com with ESMTP; 21 May 2019 07:38:26 -0700
-Received: from vgonzale-mobl.amr.corp.intel.com (unknown [10.254.21.162])
- by linux.intel.com (Postfix) with ESMTP id ADC8B5803C2;
- Tue, 21 May 2019 07:38:25 -0700 (PDT)
-To: Rander Wang <rander.wang@linux.intel.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org
-References: <20190521070741.65866-1-rander.wang@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <eda328c6-7083-4595-8f8d-a7cd2831fa93@linux.intel.com>
-Date: Tue, 21 May 2019 09:38:28 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35F22F89707
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 16:57:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F22F89707
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="mgCytosX"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="XZM9dBD6"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id C5940228BA;
+ Tue, 21 May 2019 10:57:43 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Tue, 21 May 2019 10:57:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=3bOEO8xiXiGptNlYQqvLqMYCMB
+ n7Cu8QBuVE/yWRQxY=; b=mgCytosXB61goKK8UQdiqA6kO7symW84jvDF0H+AXW
+ 6ze8Qtc0jBI5YHCtQPUvcYHncN+IqPeaNdBCMp0HfR7amUD3ptJsDbhG+rSU0jmq
+ f9EffbVpeI7cYqoy70soEbf/MzW173svrSIWvBhabv9BAy5hZH3szjVxVBwrVRkF
+ q4V2XcPGyaNN5HbF05w48oVlawWbnBW0T3MlGclNe2kT/ZW1yASgfL8bMf7F+AUI
+ hZ8EHVnlaTWrrmg8VQeCAsgXfcP3BEHWqgIgSilqCNUwB4YjuVfIV6f++m90z1r9
+ +wwQJ2dHcIlyoZABNaQih8oUFyIRh8Buz8vqVCooYSVQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=3bOEO8xiXiGptNlYQ
+ qvLqMYCMBn7Cu8QBuVE/yWRQxY=; b=XZM9dBD6Mqt3rsOnAobkRQiiTCwdLCkUO
+ 08cN/kbfxpORtuFbtA7AVnriUN41OY0b2TtiR5aiep4Qv00AhXHTxFxQzk7DpoPu
+ gQZx8VlrSNDTtrMkqjPXvUZ6Y4wcpr1/gtJI0myO1EDdmA5YuO6JmeWDN5dVnQUt
+ t0UUvN4z0h/mhR68AZmWrs4F8bWQ0KiKM/vl3sUrD3RIMtBpPYNWjNe+El1WN4ti
+ Ld/URcn9c7SReAap+gVYKbEM6Z26mOzsdbcr3E1EVvI/bIpxfWdzqChOxVsAwdqk
+ g4U/m0hybUoBT2p8ui+f2sU+Nkd6tYCDGF34ZZYTuZkKWlOvi5BjQ==
+X-ME-Sender: <xms:5hHkXEU9xAL0Ex0AWi4hceuFzp6Xe8es-l9N7DHw2L2WSTT4lqOPjw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddutddgkeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedunecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdr
+ jhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:5hHkXJrL5rU1D-WBTwH6JuZdgmEILqRf1MzShrXyvWJbylDd4LjXcg>
+ <xmx:5hHkXLXhsEJ-CeqdLsAf2hOThZ6vRBATslSgi-J6dXdRK21K0CKE0A>
+ <xmx:5hHkXBD-zquL7G2zO7aF8UT0ZJ3DtVstwxA3_Cmj0qF_fQAU80hocA>
+ <xmx:5xHkXPQylqaS0yIZ2wn5ESicNdOLPIl4FeCLS3lDLw0AvhBT-qQQCA>
+Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 512A110379;
+ Tue, 21 May 2019 10:57:41 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Date: Tue, 21 May 2019 23:57:33 +0900
+Message-Id: <20190521145737.11809-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190521070741.65866-1-rander.wang@linux.intel.com>
-Content-Language: en-US
-Subject: Re: [alsa-devel] [RFC] ASoC: Intel: skl_hda_dsp_common: set long
- name for skl_hda_card
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 0/4] ALSA: firewire-lib: use IT context header
+	to compute cycle count
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,149 +99,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/21/19 2:07 AM, Rander Wang wrote:
-> skl_hda_generic machine driver is used by many different devices
-> and userspace uses the card long name to differentiate devices.
-> The card long name is figured out by DMI info and is in format
-> of "vendor-product-version-board". Ucm file is searched by this
-> card long name and one problem is different devices can't share
-> one ucm file based on this type of long name. We have three different
-> product devices with the same codecs and audio settings, and these
-> devices can share the same ucm setting, but now we need to provide
-> three ucm files with different long names, because we can't get a
-> same long name from DMI info.
-> 
-> The solution is to provide card long name in machine driver like
-> bytcr_rt5640 and ASoC will use this long name to generate final long
-> name. The card long name is composed of codec name, input and output
-> enabled by devices. The long name should be initialized after hda codec
-> is initialized and before sound card checking long name which is done
-> after dai link initialization, so the long name is set in codec dai
-> link initialization function.
-> 
-> Possible card long names may be:
-> skl-hda-ALC233-config135440
-> skl-hda-ALC700-config69649
-> skl-hda-ALC3204-config135185
+Hi,
 
-Is this really what we want to do?
+In Linux firewire subsystem, the series of timestamp for each packets is
+passed as argument to callback of IT context. The timestamp comes from
+descriptor of 1394 OHCI IT context and represents the cycle to process
+queued packet.
 
-The configs are derived from the codec capabilities, which are typically 
-a superset of what is actually supported on the production device. It's 
-not usual e.g. to have a codec support an S/PDIF output but there is no 
-physical connector. If you expose capabilities to the user that are not 
-there, that's not so good. We have this example in one SOF device where 
-the Digital output does nothing.
+In current implementation of ALSA IEC 61883-1/6 packet streaming engine,
+the timestamp comes from calculation with the last packet to generate
+the callback, thus it's not per-packet information.
 
-Also the number of combinations could really be quite large, unlike for 
-bytcr_rt5640 where the options were limited to 1-2 bits here you have 5 
-options with 4 bits each. How many UCM files are we going to end-up 
-maintaining out of the possible 1M?
+For simplicity, this patchset uses the header to compute the cycle for
+packet to be going to be queued. Additionally, this patchset adds some
+minor refactoring.
 
-There is an alternate solution: you *could* use the DMI-base name and 
-the include mechanism to reuse the same config if you wanted to. It's 
-limiting in the sense that for every new platform we'll have to figure 
-out which config it uses, but it'll be exactly what the user needs.
+Takashi Sakamoto (4):
+  ALSA: firewire-lib: use union for directional parameters
+  ALSA: firewire-lib: add helper function to cancel context inner
+    callback handler
+  ALSA: firewire-lib: obsolete macro for header of IT context
+  ALSA: firewire-lib: use IT context header to compute cycle count for
+    scheduling packet
 
-> 
-> Tested on intel hda platform whiskylake with SOF driver and gemilake
-> with intel SST driver
-> 
-> Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
-> ---
->   sound/soc/intel/boards/skl_hda_dsp_common.c | 54 +++++++++++++++++++++++++++++
->   1 file changed, 54 insertions(+)
-> 
-> diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
-> index 8b68f41a5b88..0193d2138e16 100644
-> --- a/sound/soc/intel/boards/skl_hda_dsp_common.c
-> +++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
-> @@ -11,11 +11,18 @@
->   #include <sound/pcm.h>
->   #include <sound/pcm_params.h>
->   #include <sound/soc.h>
-> +#include <sound/hda_codec.h>
-> +#include "../../../pci/hda/hda_jack.h"
-> +#include "../../../pci/hda/hda_local.h"
-> +#include "../../../pci/hda/hda_auto_parser.h"
-> +#include "../../../pci/hda/hda_generic.h"
->   #include "../../codecs/hdac_hdmi.h"
-> +#include "../../codecs/hdac_hda.h"
->   #include "../skylake/skl.h"
->   #include "skl_hda_dsp_common.h"
->   
->   #define NAME_SIZE	32
-> +static char skl_hda_long_name[NAME_SIZE];
->   
->   int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device)
->   {
-> @@ -39,6 +46,52 @@ int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device)
->   	return 0;
->   }
->   
-> +int skl_hda_long_name_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct snd_soc_rtdcom_list *new_rtdcom;
-> +	struct snd_soc_component *component;
-> +	struct hdac_hda_priv *hda_pvt;
-> +	struct auto_pin_cfg *autocfg;
-> +	struct hda_gen_spec *spec;
-> +	struct snd_soc_card *card;
-> +	const char *name;
-> +	int config;
-> +
-> +	name = rtd->dai_link->codecs->name;
-> +	card = rtd->card;
-> +
-> +	list_for_each_entry(new_rtdcom, &rtd->component_list, list) {
-> +		component = new_rtdcom->component;
-> +		if (name && strcmp(component->name, name) == 0) {
-> +			hda_pvt = snd_soc_component_get_drvdata(component);
-> +
-> +			if (!hda_pvt)
-> +				return -EINVAL;
-> +
-> +			spec = hda_pvt->codec.spec;
-> +			autocfg = &spec->autocfg;
-> +
-> +			/*
-> +			 * config is figured out by combining the number of
-> +			 * enabled input and output.
-> +			 */
-> +			config = autocfg->speaker_outs | (autocfg->hp_outs << 4)
-> +				| (autocfg->dig_outs << 8)
-> +				| (autocfg->line_outs << 12)
-> +				| (autocfg->num_inputs << 16);
-> +			snprintf(skl_hda_long_name, sizeof(skl_hda_long_name),
-> +				 "skl-hda-%s-config%d",
-> +				 hda_pvt->codec.core.chip_name,
-> +				 config);
-> +
-> +			card->long_name = skl_hda_long_name;
-> +			break;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   /* skl_hda_digital audio interface glue - connects codec <--> CPU */
->   struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
->   	/* Back End DAI links */
-> @@ -79,6 +132,7 @@ struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
->   		.dpcm_playback = 1,
->   		.dpcm_capture = 1,
->   		.no_pcm = 1,
-> +		.init = skl_hda_long_name_init,
->   	},
->   	{
->   		.name = "Digital Playback and Capture",
-> 
+ sound/firewire/amdtp-am824.c                |   2 +-
+ sound/firewire/amdtp-stream.c               | 181 +++++++++++---------
+ sound/firewire/amdtp-stream.h               |  35 ++--
+ sound/firewire/digi00x/amdtp-dot.c          |   2 +-
+ sound/firewire/fireworks/fireworks_stream.c |   4 +-
+ sound/firewire/motu/amdtp-motu.c            |   2 +-
+ sound/firewire/tascam/amdtp-tascam.c        |   2 +-
+ 7 files changed, 135 insertions(+), 93 deletions(-)
+
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

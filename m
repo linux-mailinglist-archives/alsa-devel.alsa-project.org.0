@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DFBB253A5
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 17:18:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BF64253E1
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 17:27:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB72B167D;
-	Tue, 21 May 2019 17:17:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB72B167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65D0E169E;
+	Tue, 21 May 2019 17:26:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65D0E169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558451901;
-	bh=SnLOujIymvP7Q/7K05nfgxRudHS45Oo1QZQOgSkbvmY=;
+	s=default; t=1558452455;
+	bh=cn5rc18erlPl8Xf/OvrIAlRsa0glQC+Nz3jLB/mw3LA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ts4p80MuTr4I0iGsqSME1wwUNGpING/03KaLODq/U7T9myS350C3Ww02OCoN+1Sh/
-	 4tZSZ5Olx5qNGLeuiwS3rx1muE89Ah8929h8RQF46RHXW2wkKyZVFD+Cb36RxBX1w1
-	 KvHMhpxtDqlM2twyoh0wl8ulvaTwni+UQyVRh/Wo=
+	b=Z8cA2632eqZNIu1uJgAzy9t05DyKf2Qhs+Y3KCdNBQS8jgk0Ozw9CQMKOFJ4ysm0V
+	 L9QkX9a4vZKNdGVRscw4Xo5Cw24XMhioen3t4nkRPuiw0Khi7xEy0hulxfC9BX/trr
+	 /pppqDdq4DEmi+X0HjccOSkbG+ltzSt/a2YfX5tU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7DFCF8079B;
-	Tue, 21 May 2019 17:16:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0494F8972E;
+	Tue, 21 May 2019 17:25:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08CB2F89670; Tue, 21 May 2019 17:07:58 +0200 (CEST)
+ id 6A554F89715; Tue, 21 May 2019 17:12:05 +0200 (CEST)
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87C81F89715
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 16:57:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87C81F89715
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2BADF89717
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 16:57:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2BADF89717
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="jr9IIHum"; 
+ header.b="OKeCGRg/"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="PQqqDapD"
+ header.i=@messagingengine.com header.b="wTcck5K/"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 008DC24384;
- Tue, 21 May 2019 10:57:48 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id BC98D21E44;
+ Tue, 21 May 2019 10:57:49 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 21 May 2019 10:57:48 -0400
+ by compute1.internal (MEProxy); Tue, 21 May 2019 10:57:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=/XKfkql/+woDI
- eab442yarTBWSPdraWHDjicXCXZtfY=; b=jr9IIHumRGHjIVh4HEJRyyX+UdjRK
- 1Xz9d9BLLAiqRWEsRvuQKpmpnfRi0GgdWwwMHg9uuT5ZR8mvEmFyuf7/qL+a02Jy
- d+TJwXNujm9rKaNF1eqf4jXccwTEhlyr18MSgFrCHVyq3XZHc5GPe4rb75OZAukH
- dbRw61OurVTNwVtXe1PB5seaznk0aA7jmaE987zcz6VUfqNisVSJLXYNqfPmrCnV
- kDAhv7vZqATO+AwzZ23LWBOoZQ3X0vd6ed0xa25+Hvx7c6gulk5LDyl1v/IHEURB
- Ck1M6HsbObuiqiwJmGLDIb3tU7+Cr5DhtCpDFTKX9WTw01oSxyuz4ilVA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=2gDbxlc/pGHuY
+ 6H2m17qxtzbbXPbwXaNfPA5FRYL5vA=; b=OKeCGRg/RUJh1Uw8vKLNuVeu+B83g
+ Yk+uSePWrkQTpyrxvUB84XDBqwpk9q04rjbSISEGdxvNeYRjU2qaEYndtWKX08Nz
+ o9e+mYCAEoHjuTi2cLIftP7Plz4svR8ja/f7wQJG474OGPOGJrzUZpeXyWpHXgQn
+ OSfQ76gEV11oIYwb2rnYwc2GGcOQ5a7XX5wCtHRG6zJc9d03Am/24Nou7qDLNekc
+ JQdLvIM71zQTAieUz7DcUl29rpbHAjL9QHThYlnFMSxt5zbe+iBBH5dyK4gv2wOw
+ mLisP/f/89hGMjdbJY/co6MuElb0I08k1Kb9k3EqN1a9RNd7u1ls1Misw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=/XKfkql/+woDIeab442yarTBWSPdraWHDjicXCXZtfY=; b=PQqqDapD
- jjxiUGUQYXrJnXeY72KIJXT0Yu/UHRru8QQloL7RZ2XIjoenIF5DbYLa5UcIyAl8
- KL1PTNA7bEorFCMAiy8h+4GoF9NuMQyNuRC8W+vftolkTBrQ9UDksFolJP90596T
- mlxW+Z580yWVChy7moe9B72/5dBKbMkicW3co51v6bymmvTmzjnZNtWPBUucyXjN
- O8QeBa4GQIAbaPBD+zeQvXKoJH0HsGzKaNGuqRzTTGwTX7zhtmPdoo+pmCrA4pDH
- ZeDFBclFVSMoykcBFW0Ch2beg50itz/dtlORSxjVZVQOdh/yRDErOXdHkg3kGcIH
- jB0rK1Ia8UzYmQ==
-X-ME-Sender: <xms:6xHkXIxcy8XrCnGAuFk7Q-Lm3yMlG7bnpY_018gHpxLdnY2pafTEBg>
+ fm2; bh=2gDbxlc/pGHuY6H2m17qxtzbbXPbwXaNfPA5FRYL5vA=; b=wTcck5K/
+ MsPsHKSen+ImlbilaMdXl5Nzsf1yQsQZAxG6+28v8C8xRjMb/YtJPfYb1/nV8Pvm
+ oDE481PfPseHo5hWJASTvjdU1+rzKzaEXCIGvfdW5QkzUPrdyaRr7wfZKmTSQW2z
+ cJS6P3hvGgZmAaOZ+f51dzOoHnGMmZVoxMe6Az296b16nja12gC5cYgWW1szLPZ8
+ Pdi9778BwiIzsLREMCujihp6zY7lQtfKLzDx9IwbFr8vU6NLFoL43FI/iVGexpKs
+ pvTHAliTOHNojUqmebhqmPCrlg27yDwi7y6qgqJctFpom6+cym0YjSqviegl8gHm
+ 37WM+hDR0lcZ1g==
+X-ME-Sender: <xms:7RHkXLOMrMBp_6XqIg9ZJW_VFCYjwB9zI-AL1qe5RIMWxTEVES3yyg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddutddgkeefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -71,26 +71,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddutddgkeefucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:6xHkXAs-qfnzsQ7s8k4CY9W5tUSqtCrrmPT6n1sk1NZgMSwRYqCidA>
- <xmx:6xHkXFphKvOQ-bFDFxB0U5IP0cu9_WkiI2BZwklTD_yXjBtgsCZAZw>
- <xmx:6xHkXD37HkqRg-Ouc654gKzJVFC7E1guQDCMjBsDMlGm5RA1hr2JKw>
- <xmx:6xHkXMemiE5A7IVGmZUJ8H3J6uAr2EJXjfzKWyTjTuHrnjM5m_saTg>
+X-ME-Proxy: <xmx:7RHkXDwXUQNXMxuGOlSp8nuDeQQCNGb5Ji6UvujQ411O89QFLAoDvg>
+ <xmx:7RHkXLJLmdjsRjizY1DRuCPBHMXv8izmIHGfGyxn0OSvONL51bJgYQ>
+ <xmx:7RHkXKotN25VydYifO9tungczr1BLZjiyW_onfrjqPc8HFsVYAT_Zg>
+ <xmx:7RHkXJatxxVPONfOgECbPT5F2R4APX1fmKx4Nm_C5ofC_SA6DwMrMA>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 84602103CF;
- Tue, 21 May 2019 10:57:46 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3102F103CF;
+ Tue, 21 May 2019 10:57:47 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Tue, 21 May 2019 23:57:36 +0900
-Message-Id: <20190521145737.11809-4-o-takashi@sakamocchi.jp>
+Date: Tue, 21 May 2019 23:57:37 +0900
+Message-Id: <20190521145737.11809-5-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190521145737.11809-1-o-takashi@sakamocchi.jp>
 References: <20190521145737.11809-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 3/4] ALSA: firewire-lib: obsolete macro for
-	header of IT context
+Subject: [alsa-devel] [PATCH 4/4] ALSA: firewire-lib: use IT context header
+	to compute cycle count for scheduling packet
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,81 +108,138 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The header size parameter of 1394 OHCI IT context has no effect.
-Besides the header size of queued packet is different from context
-header.
+In IT context, header includes information of cycle to have processed
+queued packet.
 
-This commit cleans codes relevant to these two headers.
+This commit uses the per-packet information to compute the cycle for
+packet to be queued, instead of callback argument. In current
+implementaion of ALSA IEC 61883-1/6 packet streaming engine, 48 packets
+are queued at first to skip recent cycle. When IT context calls handler,
+cycle information in header plus 48 cycle means the cycle to be going
+to queue packet.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
+ sound/firewire/amdtp-stream.c | 51 +++++++++++++++++++----------------
+ 1 file changed, 28 insertions(+), 23 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index ce39cb92a11e..5ebdac2086c0 100644
+index 5ebdac2086c0..f43943fd962d 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -57,7 +57,6 @@
- #define QUEUE_LENGTH		48
- 
- #define IR_HEADER_SIZE		8	// For header and timestamp.
--#define OUT_PACKET_HEADER_SIZE	0
- #define HEADER_TSTAMP_MASK	0x0000ffff
- 
- static void pcm_period_tasklet(unsigned long data);
-@@ -428,8 +427,7 @@ static void pcm_period_tasklet(unsigned long data)
- 		snd_pcm_period_elapsed(pcm);
+@@ -694,13 +694,12 @@ static int handle_in_packet_without_header(struct amdtp_stream *s,
+ 	return 0;
  }
  
--static int queue_packet(struct amdtp_stream *s, unsigned int header_length,
--			unsigned int payload_length)
-+static int queue_packet(struct amdtp_stream *s, unsigned int payload_length)
+-/*
+- * In CYCLE_TIMER register of IEEE 1394, 7 bits are used to represent second. On
+- * the other hand, in DMA descriptors of 1394 OHCI, 3 bits are used to represent
+- * it. Thus, via Linux firewire subsystem, we can get the 3 bits for second.
+- */
+-static inline u32 compute_cycle_count(u32 tstamp)
++// In CYCLE_TIMER register of IEEE 1394, 7 bits are used to represent second. On
++// the other hand, in DMA descriptors of 1394 OHCI, 3 bits are used to represent
++// it. Thus, via Linux firewire subsystem, we can get the 3 bits for second.
++static inline u32 compute_cycle_count(__be32 ctx_header_tstamp)
  {
- 	struct fw_iso_packet p = {0};
- 	int err = 0;
-@@ -439,7 +437,15 @@ static int queue_packet(struct amdtp_stream *s, unsigned int header_length,
++	u32 tstamp = be32_to_cpu(ctx_header_tstamp) & HEADER_TSTAMP_MASK;
+ 	return (((tstamp >> 13) & 0x07) * 8000) + (tstamp & 0x1fff);
+ }
  
- 	p.interrupt = IS_ALIGNED(s->packet_index + 1, INTERRUPT_INTERVAL);
- 	p.tag = s->tag;
--	p.header_length = header_length;
+@@ -712,6 +711,16 @@ static inline u32 increment_cycle_count(u32 cycle, unsigned int addend)
+ 	return cycle;
+ }
+ 
++// Align to actual cycle count for the packet which is going to be scheduled.
++// This module queued the same number of isochronous cycle as QUEUE_LENGTH to
++// skip isochronous cycle, therefore it's OK to just increment the cycle by
++// QUEUE_LENGTH for scheduled cycle.
++static inline u32 compute_it_cycle(const __be32 ctx_header_tstamp)
++{
++	u32 cycle = compute_cycle_count(ctx_header_tstamp);
++	return increment_cycle_count(cycle, QUEUE_LENGTH);
++}
 +
-+	if (s->direction == AMDTP_IN_STREAM) {
-+		// Queue one packet for IR context.
-+		p.header_length = s->ctx_data.tx.ctx_header_size;
-+	} else {
-+		// No header for this packet.
-+		p.header_length = 0;
-+	}
+ static inline void cancel_stream(struct amdtp_stream *s)
+ {
+ 	s->packet_index = -1;
+@@ -725,23 +734,23 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
+ 				void *private_data)
+ {
+ 	struct amdtp_stream *s = private_data;
+-	unsigned int i, packets = header_length / 4;
+-	u32 cycle;
++	const __be32 *ctx_header = header;
++	unsigned int i, packets = header_length / sizeof(*ctx_header);
+ 
+ 	if (s->packet_index < 0)
+ 		return;
+ 
+-	cycle = compute_cycle_count(tstamp);
++	for (i = 0; i < packets; ++i) {
++		u32 cycle;
+ 
+-	/* Align to actual cycle count for the last packet. */
+-	cycle = increment_cycle_count(cycle, QUEUE_LENGTH - packets);
++		cycle = compute_it_cycle(*ctx_header);
+ 
+-	for (i = 0; i < packets; ++i) {
+-		cycle = increment_cycle_count(cycle, 1);
+ 		if (s->handle_packet(s, 0, cycle, i) < 0) {
+ 			cancel_stream(s);
+ 			return;
+ 		}
 +
- 	if (payload_length > 0)
- 		p.payload_length = payload_length;
- 	else
-@@ -460,13 +466,12 @@ static int queue_packet(struct amdtp_stream *s, unsigned int header_length,
- static inline int queue_out_packet(struct amdtp_stream *s,
- 				   unsigned int payload_length)
- {
--	return queue_packet(s, OUT_PACKET_HEADER_SIZE, payload_length);
-+	return queue_packet(s, payload_length);
- }
- 
- static inline int queue_in_packet(struct amdtp_stream *s)
- {
--	return queue_packet(s, s->ctx_data.tx.ctx_header_size,
--			    s->ctx_data.tx.max_payload_length);
-+	return queue_packet(s, s->ctx_data.tx.max_payload_length);
- }
- 
- static int handle_out_packet(struct amdtp_stream *s,
-@@ -888,7 +893,7 @@ int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed)
- 	} else {
- 		dir = DMA_TO_DEVICE;
- 		type = FW_ISO_CONTEXT_TRANSMIT;
--		ctx_header_size = OUT_PACKET_HEADER_SIZE;
-+		ctx_header_size = 0;	// No effect for IT context.
++		++ctx_header;
  	}
- 	err = iso_packets_buffer_init(&s->buffer, s->unit, QUEUE_LENGTH,
- 				      amdtp_stream_get_max_payload(s), dir);
+ 
+ 	fw_iso_context_queue_flush(s->context);
+@@ -767,10 +776,9 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
+ 
+ 	for (i = 0; i < packets; i++) {
+ 		u32 iso_header = be32_to_cpu(ctx_header[0]);
+-		unsigned int cycle;
++		u32 cycle;
+ 
+-		tstamp = be32_to_cpu(ctx_header[1]) & HEADER_TSTAMP_MASK;
+-		cycle = compute_cycle_count(tstamp);
++		cycle = compute_cycle_count(ctx_header[1]);
+ 
+ 		/* The number of bytes in this packet */
+ 		payload_length = iso_header >> ISO_DATA_LENGTH_SHIFT;
+@@ -802,9 +810,8 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
+ 					void *header, void *private_data)
+ {
+ 	struct amdtp_stream *s = private_data;
+-	__be32 *ctx_header = header;
++	const __be32 *ctx_header = header;
+ 	u32 cycle;
+-	unsigned int packets;
+ 
+ 	/*
+ 	 * For in-stream, first packet has come.
+@@ -814,8 +821,7 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
+ 	wake_up(&s->callback_wait);
+ 
+ 	if (s->direction == AMDTP_IN_STREAM) {
+-		tstamp = be32_to_cpu(ctx_header[1]) & HEADER_TSTAMP_MASK;
+-		cycle = compute_cycle_count(tstamp);
++		cycle = compute_cycle_count(ctx_header[1]);
+ 
+ 		context->callback.sc = in_stream_callback;
+ 		if (s->flags & CIP_NO_HEADER)
+@@ -823,9 +829,8 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
+ 		else
+ 			s->handle_packet = handle_in_packet;
+ 	} else {
+-		packets = header_length / 4;
+-		cycle = compute_cycle_count(tstamp);
+-		cycle = increment_cycle_count(cycle, QUEUE_LENGTH - packets);
++		cycle = compute_it_cycle(*ctx_header);
++
+ 		context->callback.sc = out_stream_callback;
+ 		if (s->flags & CIP_NO_HEADER)
+ 			s->handle_packet = handle_out_packet_without_header;
 -- 
 2.20.1
 

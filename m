@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0F324CFD
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 12:39:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF0CE24CFE
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 12:40:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 280C8166C;
-	Tue, 21 May 2019 12:38:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 280C8166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB6621672;
+	Tue, 21 May 2019 12:39:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB6621672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558435186;
-	bh=Wkg5TrDtao70VHvG+bcZ6X2cHYXmT0drCEJhlqHp7Dc=;
+	s=default; t=1558435210;
+	bh=DZC9hSRob0P0wlHlIo//j4wIJBctiQ9fuG2CowQWXUI=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q6JL47wpKr3CE+ORmE3Zt1nP9u4k1F2M1VXznR4XtmVD9AWCThz/xkkWxsr8vM4lq
-	 CmaFBaOGjZZWy4zOhOIn7n76bUldlKcag1gk5L+uX+t6Z2FetZosJFRKNDfBL+AKSL
-	 zvD1UJV4tkTTWxeDaccb6+eSmFurRim20MUO010s=
+	b=V/bSqR0033mrQQ9Tb66bwTmOnE8h+6nbbpDgkcRdXX6io8t/Xfrtlhc3lCUNQc5Gs
+	 mgL+AvzJ0KapUknfUpKtRdF3T+HWlezJw5UkM69EA/FUBE4exyEX1Dv6Cvmm+nzY9W
+	 V6NVExI0XrYUUxmmDnXFW5oA2dgdAjL5iwMZlUzc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06AF5F8972E;
-	Tue, 21 May 2019 12:36:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0DE3F89734;
+	Tue, 21 May 2019 12:36:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3957FF89723; Tue, 21 May 2019 12:36:40 +0200 (CEST)
+ id 60A83F89725; Tue, 21 May 2019 12:36:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
@@ -35,37 +35,37 @@ Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com
  [209.85.208.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38218F89715
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 12:36:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38218F89715
-Received: by mail-ed1-f65.google.com with SMTP id b8so28604570edm.11
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 03:36:36 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E040AF89709
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 12:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E040AF89709
+Received: by mail-ed1-f65.google.com with SMTP id m4so28632914edd.8
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 03:36:38 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version;
- bh=odw0Br10pd/FID0oLpxhs9oyem6lxu+oPFxMjbKBkEQ=;
- b=JIBKcAvC4fUfkD0z7SQVP6BY23Ad1GDGy34Mt1sqqV3ICt9994pFzURrAp7Kd1zR8i
- QuwPT97GTsLRw1nxtMwR1WTXremrJ0rKZTs1uTRRVrFuefPYyu9i7xVbcePdOAKrPItL
- n6+3s8g/rvS2Dp60ugj4mlb6EstLfwTSJHWopWvdQl1Rv6YgwVCVohmEEEddouw9Y9tT
- iTdjTC2IFRbnOdF0G7ogS1+v0v4eqhwTuvqCKuNPEYGXytk+3N0SsPeRRjCWHLwcG5Nm
- bkEI4rP+GIzyUWjuf4M4xIpjatovHuO0NKC9ge+ic+k27eGwcI6ufyROu2TFlH4yOEfJ
- H92w==
-X-Gm-Message-State: APjAAAXT7/3vqO43xNnFbAZwSRKd/wOeAjHqlBVmRbPJsK2ruL4w8quT
- 1PQOH9T3gs+0K95Ektsun49FCFYGk0HrbBbhWyKGEWzdixAIV2ByVStDeKCNGZa0yT6j85T9Ou9
- cmhmpwZUr/NvVTyM=
-X-Google-Smtp-Source: APXvYqybcyoaWgALzKgHnX9qkZKOL1y9QhO/tydUl9gFPtCPfkc2n+gdnaHhGjgsCSNAwAtctNFBuA==
-X-Received: by 2002:a17:906:90c6:: with SMTP id
- v6mr40526940ejw.111.1558434996456; 
- Tue, 21 May 2019 03:36:36 -0700 (PDT)
+ bh=iCa3sIkXRS0MUvhZrMU0I1kSnN7S8DExfC/yTx1vxTA=;
+ b=jt+nxCO7qy6GGh9Ib9nAMxuqGn2OoYVnzgXFUYftSYntmVpDb9MzesTlmNsu50dBmJ
+ nOQY/IveCcxUsJHy4x/y41qjHUAKx7M4exGlAvdUE3b6YSqLP8YRXy9qlWRnAk6pAJdJ
+ RY1foHFC/Kg1ur0TGaKMzQZWdUyQjdkw8ivW67F83hX/wfgPuqZX40sNj035VYZgUDSD
+ KSuvuwj3zSp1ls7s8ENs9cRcqp+qw4msLvuYJLF0j+27JkVYluTASZduuJTqia2t0VSI
+ yXo3VKorxf2gkUwn6ZuAJOXOQkjQLBnYusHxyNPRZYOfOHmf0lfCI3VqMMa99270TZ5x
+ FxdA==
+X-Gm-Message-State: APjAAAUBmqGXopFt4nKQuEJ8RVjXKX/QAjCnuGvSGmjJ32Yckiq3SXY2
+ X4PxtHrITwMaFs0ZuqVuKFQMkPbJUCZ0Mso6kZDL2eyWOqVLVb5b+ZCo2kvz/XHNR7Nc5NLuHNa
+ y4R5U5frjfL2eBOg=
+X-Google-Smtp-Source: APXvYqxeWQK82QeOi5z+lBMdAAErKeezVrdKlYCVRXGcKGYFNE9+MsqmQD8PS6/9oZTtpGtxLKg45A==
+X-Received: by 2002:a17:906:22d8:: with SMTP id
+ q24mr62970353eja.261.1558434997802; 
+ Tue, 21 May 2019 03:36:37 -0700 (PDT)
 Received: from localhost ([194.105.145.90])
- by smtp.gmail.com with ESMTPSA id ay6sm3507075ejb.20.2019.05.21.03.36.35
+ by smtp.gmail.com with ESMTPSA id e43sm6202423edb.38.2019.05.21.03.36.37
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 21 May 2019 03:36:35 -0700 (PDT)
+ Tue, 21 May 2019 03:36:37 -0700 (PDT)
 From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
 To: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 21 May 2019 13:36:15 +0300
-Message-Id: <20190521103619.4707-3-oleksandr.suvorov@toradex.com>
+Date: Tue, 21 May 2019 13:36:16 +0300
+Message-Id: <20190521103619.4707-4-oleksandr.suvorov@toradex.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
 References: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
@@ -74,7 +74,8 @@ Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>,
  Igor Opaniuk <igor.opaniuk@toradex.com>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org,
  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-Subject: [alsa-devel] [PATCH v1 2/6] ASoC: sgtl5000: add ADC mute control
+Subject: [alsa-devel] [PATCH v1 3/6] ASoC: sgtl5000: Fix of unmute outputs
+	on probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,27 +93,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This control mute/unmute the ADC input of SGTL5000
-using its CHIP_ANA_CTRL register.
+To enable "zero cross detect" for ADC/HP, change
+HP_ZCD_EN/ADC_ZCD_EN bits only instead of writing the whole
+CHIP_ANA_CTRL register.
 
 Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
 ---
 
- sound/soc/codecs/sgtl5000.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/codecs/sgtl5000.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git sound/soc/codecs/sgtl5000.c sound/soc/codecs/sgtl5000.c
-index 5e49523ee0b6..bb58c997c691 100644
+index bb58c997c691..e813a37910af 100644
 --- sound/soc/codecs/sgtl5000.c
 +++ sound/soc/codecs/sgtl5000.c
-@@ -556,6 +556,7 @@ static const struct snd_kcontrol_new sgtl5000_snd_controls[] = {
- 			SGTL5000_CHIP_ANA_ADC_CTRL,
- 			8, 1, 0, capture_6db_attenuate),
- 	SOC_SINGLE("Capture ZC Switch", SGTL5000_CHIP_ANA_CTRL, 1, 1, 0),
-+	SOC_SINGLE("Capture Switch", SGTL5000_CHIP_ANA_CTRL, 0, 1, 1),
+@@ -1289,6 +1289,7 @@ static int sgtl5000_probe(struct snd_soc_component *component)
+ 	int ret;
+ 	u16 reg;
+ 	struct sgtl5000_priv *sgtl5000 = snd_soc_component_get_drvdata(component);
++	unsigned int zcd_mask = SGTL5000_HP_ZCD_EN | SGTL5000_ADC_ZCD_EN;
  
- 	SOC_DOUBLE_TLV("Headphone Playback Volume",
- 			SGTL5000_CHIP_ANA_HP_CTRL,
+ 	/* power up sgtl5000 */
+ 	ret = sgtl5000_set_power_regs(component);
+@@ -1316,9 +1317,8 @@ static int sgtl5000_probe(struct snd_soc_component *component)
+ 	       0x1f);
+ 	snd_soc_component_write(component, SGTL5000_CHIP_PAD_STRENGTH, reg);
+ 
+-	snd_soc_component_write(component, SGTL5000_CHIP_ANA_CTRL,
+-			SGTL5000_HP_ZCD_EN |
+-			SGTL5000_ADC_ZCD_EN);
++	snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_CTRL,
++		zcd_mask, zcd_mask);
+ 
+ 	snd_soc_component_update_bits(component, SGTL5000_CHIP_MIC_CTRL,
+ 			SGTL5000_BIAS_R_MASK,
 -- 
 2.20.1
 

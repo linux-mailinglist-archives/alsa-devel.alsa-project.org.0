@@ -2,67 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3812259A9
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 23:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7549025AEA
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 01:41:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38F2E1689;
-	Tue, 21 May 2019 23:06:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38F2E1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id C62781683;
+	Wed, 22 May 2019 01:40:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C62781683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558472856;
-	bh=ueeMuD9o3ltO1A/u0yhZAPPONELjll9NEdm6zPbEL4I=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EOt5uH6iC/F3gF5Fa2VG6DLeiiQPifKkVOs3fjFCygzNs1m2jYjWE4ja10C2rXD7G
-	 v/mJ+CPCAhlH2CFu9ME/a7C9bRWZ/COjPIOfkI8UVVdymSXCcK3txPKaVzu71+9FlC
-	 2sK3N8hEx/HjknP2JQ9roLQo3paUTaEGsXKqrVtQ=
+	s=default; t=1558482085;
+	bh=AXS6JsIONKgw8+fOrFxk7dE5Xc/q2UX5FsUwJZBNQ68=;
+	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KKI+/zEOwoU+dOFDLcpq8zZTL9xLxSrclciw/B2Zc9PM89fyLQ2WMLVjE7Cyn6PCj
+	 y1jVv6i/pid6APFY3/HWhiLDMT1+5ihewcNJGjKkr2Xu08/Qe56mmPifs5dgYFyU2B
+	 CWlGzCNxNaIaeUuPe+gX0TojtquvgwRcqA50Dw80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7B52F89633;
-	Tue, 21 May 2019 23:05:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CDEFF89670;
+	Wed, 22 May 2019 01:39:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9787F8079B; Tue, 21 May 2019 23:05:49 +0200 (CEST)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id E3E4EF8079B; Wed, 22 May 2019 01:39:37 +0200 (CEST)
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2F83F8079B
- for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 23:04:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2F83F8079B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02B93F8079B
+ for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 01:37:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B93F8079B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="kTtEK5fu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=3kOq2GL8BnKnhrQQgdmhVccDVzqmr39vrGFmIPKCBHk=; b=kTtEK5fujLfs
- SjJCVH4Ulm5EyZuFTfvR/6Qf0H6rlwmJXvbSfB+i0nyp91l2/MzyY+CxgRcpGcdiYEO/iljhKKeFK
- yPWBDiymyi3oYkgzX6lQysNzlGf3ZoxJ2TXd1nGG0wETMUMdpvre3jzKjb0iav0lpeZfZLUbovYtG
- r12FQ=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=debutante.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hTBvV-0002EU-HJ; Tue, 21 May 2019 21:04:01 +0000
-Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 5590D1126D16; Tue, 21 May 2019 22:04:00 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87imu5zzh7.wl-kuninori.morimoto.gx@renesas.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190521210400.5590D1126D16@debutante.sirena.org.uk>
-Date: Tue, 21 May 2019 22:04:00 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="FMz21gFl"
+Received: by mail-lf1-x135.google.com with SMTP id h13so226699lfc.7
+ for <alsa-devel@alsa-project.org>; Tue, 21 May 2019 16:37:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=FvTKu4BuMZPreoTWhrrPJUduR4mDE5OiuyFjGMQ8Ank=;
+ b=FMz21gFlFBLuVO8J+KrCOs8Qguo36dHlzl1w3JfdI30M50obQwgUNa7Q6FIrOnNZIf
+ +37ed7hmUHaSnofpQ6NyKs7O3Xu3Z8b+6s0dmY10Y0a5XrUc3D3JO9vGRcxkkq2+X8mr
+ 1BB/n3fLBjuc2NDdsKyWzSrQitTBTzqYLD97bDHQuqCF5QAR+rJuK+c7W6Kl/rSfG0W6
+ w9fxaRKHhD6y00YACqatRJSl9UmDaenE4j9+EyByAi8LizGECR41ZuBFCP+t5deT9PY5
+ 8IAGQz/tPZKiLS1Zf5rEbEzKOxQvL/ipXWEBVn0Gz3cTwfITFQIAbMpvK2B4eXlc8mQ4
+ FnKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=FvTKu4BuMZPreoTWhrrPJUduR4mDE5OiuyFjGMQ8Ank=;
+ b=cfcA400wP0V2p4QaURKMJJeGSvPAx6Phxguc7HLMrKd0DQZ/L7LBIKN1yatYlHfIWr
+ iBnw1jYdfpwTgVHBInf3OYcB49CEZ2lyg3BYmL/XUBd2DZpqrgcZaaSiufgVYl7lXDDv
+ JRfH1UjphwE8Q7ZAa3Ce86g2ESAwsTOBMsjBopkb643wpXiJchGs88qy9ajC5z/rm9F8
+ GK74Dgxcb+Tocs4LNytt/Y7LMBgm1rXJr2eW0p5tikJKxHP8nb/eDZvZG/Cvwxfyz2pU
+ MwnexO0sMVj5/+qLOE4ANGSuxsZy1qc1l9Scy0H4raZrcu/RzBywESsB37NN5TI6JFiV
+ JO+w==
+X-Gm-Message-State: APjAAAXs3UfLdKAG8JEoVcBUDTsmIvNj4o1VMyNvuVjaD8HlAqioCWQC
+ N7zs8VzDhvbawzq5ZGN9gZ5uen6z8B997/fVX+qPUfuKA+GhNw==
+X-Google-Smtp-Source: APXvYqzFnpkqarOIR7tIypptM4i/JnKdL2qDrfK+MKgikzaglkAWAhWT7rPbUPDTD82zQ3mK3f3v21rPoEez0EO/xOU=
+X-Received: by 2002:ac2:593a:: with SMTP id v26mr41333233lfi.64.1558481870078; 
+ Tue, 21 May 2019 16:37:50 -0700 (PDT)
+MIME-Version: 1.0
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Tue, 21 May 2019 16:37:39 -0700
+Message-ID: <CAOReqxjQAya8GQ4bOSBfTBHwXd38c33pOMc35rrSj4O4jMaMSQ@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+Cc: Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-pcm: fixup
-	try_module_get()/module_put() timing" to the asoc tree
+ Guenter Roeck <groeck@google.com>
+Subject: [alsa-devel] Cannot build broadwell on for-5.3
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,110 +82,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+It appears the for-5.3 branch had some broken commits pulled in at
+1c7c3237c0cc4ad3c7b0df458290c8e2a652f178 ("Merge tag 'v5.2-rc1' into
+asoc-5.3 ")
 
-   ASoC: soc-pcm: fixup try_module_get()/module_put() timing
+building for the pixelbook I get the following build errors:
 
-has been applied to the asoc tree at
+Invalid absolute R_X86_64_32S relocation: _etext
+make[3]: *** [/mnt/host/source/src/third_party/kernel/v4.14/arch/x86/boot/compressed/Makefile:130:
+arch/x86/boot/compressed/vmlinux.relocs] Error 1
+make[3]: *** Deleting file 'arch/x86/boot/compressed/vmlinux.relocs'
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 428306c3b3fe107b1d059ceecf6fda09a1fcedf5 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 20 May 2019 10:42:39 +0900
-Subject: [PATCH] ASoC: soc-pcm: fixup try_module_get()/module_put() timing
-
-soc_pcm_components_open/close() try to call
-try_module_get()/module_put() based on
-component->driver->module_get_upon_open.
-
-Here, the purpose why we need to call these functions are to
-checking module reference.
-Thus, we need to call try_module_open() even though it doesn't
-have .open callback.
-
-The same reason, we need to call module_put() even though it
-doesn't have .close
-
-This patch calls try_module_get()/module_put() regardless of
-.open/.close
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-pcm.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
-
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 74c7d38af2c6..4a7096a22b28 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -458,10 +458,6 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream,
- 		component = rtdcom->component;
- 		*last = component;
- 
--		if (!component->driver->ops ||
--		    !component->driver->ops->open)
--			continue;
--
- 		if (component->driver->module_get_upon_open &&
- 		    !try_module_get(component->dev->driver->owner)) {
- 			dev_err(component->dev,
-@@ -470,6 +466,10 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream,
- 			return -ENODEV;
- 		}
- 
-+		if (!component->driver->ops ||
-+		    !component->driver->ops->open)
-+			continue;
-+
- 		ret = component->driver->ops->open(substream);
- 		if (ret < 0) {
- 			dev_err(component->dev,
-@@ -495,11 +495,9 @@ static int soc_pcm_components_close(struct snd_pcm_substream *substream,
- 		if (component == last)
- 			break;
- 
--		if (!component->driver->ops ||
--		    !component->driver->ops->close)
--			continue;
--
--		component->driver->ops->close(substream);
-+		if (component->driver->ops &&
-+		    component->driver->ops->close)
-+			component->driver->ops->close(substream);
- 
- 		if (component->driver->module_get_upon_open)
- 			module_put(component->dev->driver->owner);
--- 
-2.20.1
-
+Mainline is still broken as well. Not sure how to propagate this up to
+the responsible parties, figured I would start a discussion here
+first. I am also open to suggestions if there is a chance I am missing
+something.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

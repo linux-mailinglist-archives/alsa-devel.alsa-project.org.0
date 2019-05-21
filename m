@@ -2,59 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EAE225101
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 15:47:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F31C25108
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 May 2019 15:48:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D1E81615;
-	Tue, 21 May 2019 15:46:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D1E81615
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE04C167E;
+	Tue, 21 May 2019 15:47:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE04C167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558446467;
-	bh=Q9w2o+qCouNS/g9J789xYYk+LoUhlnWaeeASp5YEooY=;
+	s=default; t=1558446506;
+	bh=ENKUMhqWBJEN7KUMgP1Xpb9Kz5mgtZHUhsKOzlTDq8I=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=LhV5t0NfK8EQwSm04pJAhE9H0VafFAv7N1gzQAqZOFUbc2szEwlKgFEU4OkJMHuJm
-	 RowhwlS7LEdX8+Apwf67Do9DWBEdgItPvyeO+rH0JBcE1sDLVVMjd1dFbULYXnCUH8
-	 sKUhNuxUv6iq3xMSN/e0SuCx/05mwLKxCclGu+aI=
+	b=bbeidaSwDKF4Aczx+ePcNTfYHxyiQXT7iGAKfY87ZJp+ZlafVjvZ6r6PyXQAufM2t
+	 8v1mhp1mtAkG1zZwagufJzRrvk/2WAC/DUFrRPxsUhReyTs/usVR7c9D4+4QsQuniD
+	 EZCvqI5ojvS15AYehpEbTBz7rpQcpm9E6TjQ3CtE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D8DDF89725;
-	Tue, 21 May 2019 15:46:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 097C2F8972C;
+	Tue, 21 May 2019 15:47:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76361F89723; Tue, 21 May 2019 15:43:06 +0200 (CEST)
+ id 27F5CF89725; Tue, 21 May 2019 15:43:22 +0200 (CEST)
 Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DF82F89674;
- Tue, 21 May 2019 15:32:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF82F89674
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40BBFF89633;
+ Tue, 21 May 2019 15:33:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40BBFF89633
 Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
- by smtp1.de.adit-jv.com (Postfix) with ESMTP id 263C63C00D1;
- Tue, 21 May 2019 15:32:58 +0200 (CEST)
+ by smtp1.de.adit-jv.com (Postfix) with ESMTP id 087C83C00D1;
+ Tue, 21 May 2019 15:33:16 +0200 (CEST)
 Received: from smtp1.de.adit-jv.com ([127.0.0.1])
  by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Q_DFrGFa2gVk; Tue, 21 May 2019 15:32:48 +0200 (CEST)
+ with ESMTP id 7cm6mPv_1nqS; Tue, 21 May 2019 15:33:09 +0200 (CEST)
 Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp1.de.adit-jv.com (Postfix) with ESMTPS id 8A93B3C005E;
- Tue, 21 May 2019 15:32:48 +0200 (CEST)
+ by smtp1.de.adit-jv.com (Postfix) with ESMTPS id 6F4E13C005E;
+ Tue, 21 May 2019 15:33:09 +0200 (CEST)
 Received: from vmlxhi-082.adit-jv.com (10.72.93.164) by HI2EXCH01.adit-jv.com
  (10.72.92.24) with Microsoft SMTP Server (TLS) id 14.3.439.0;
- Tue, 21 May 2019 15:32:47 +0200
+ Tue, 21 May 2019 15:33:09 +0200
 From: Adam Miartus <amiartus@de.adit-jv.com>
 To: <patch@alsa-project.org>
-Date: Tue, 21 May 2019 15:32:47 +0200
-Message-ID: <1558445567-11480-1-git-send-email-amiartus@de.adit-jv.com>
+Date: Tue, 21 May 2019 15:33:08 +0200
+Message-ID: <1558445588-11524-1-git-send-email-amiartus@de.adit-jv.com>
 X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
 X-Originating-IP: [10.72.93.164]
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH - alsa-lib 1/4] pcm_file: add support for
-	infile reading in non interleaved mode
+Subject: [alsa-devel] [PATCH - alsa-lib 2/4] pcm_file: use
+	snd_pcm_file_areas_read_infile for readi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,126 +72,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-add helper function to copy input file data to buffer mapped by areas,
-in case of an error, do not fill the areas, allowing device read buffer
-to be provided to api caller
+use previously introduced helper function, this commit unifies behavior
+of readi and readn
 
-previously unused rbuf variable is reused for this purpose
+corner case behavior of readi is changed by this commit, previously,
+in case 0 bytes were red from file (EOF), frames = 0 was returned,
+signaling api user as if no data was red from slave, after the patch,
+amount of frames red from slave with data red from slave stored in buffer
+is returned when EOF is reached
 
 Signed-off-by: Adam Miartus <amiartus@de.adit-jv.com>
 Reviewed-by: Timo Wischer <twischer@de.adit-jv.com>
 
 diff --git a/src/pcm/pcm_file.c b/src/pcm/pcm_file.c
-index 3a19cef..3c68265 100644
+index 3c68265..dcaa41d 100644
 --- a/src/pcm/pcm_file.c
 +++ b/src/pcm/pcm_file.c
-@@ -77,6 +77,7 @@ typedef struct {
- 	snd_pcm_uframes_t appl_ptr;
- 	snd_pcm_uframes_t file_ptr_bytes;
- 	snd_pcm_uframes_t wbuf_size;
-+	snd_pcm_uframes_t rbuf_size;
- 	size_t wbuf_size_bytes;
- 	size_t wbuf_used_bytes;
- 	char *wbuf;
-@@ -266,6 +267,39 @@ static int snd_pcm_file_open_output_file(snd_pcm_file_t *file)
- 	return 0;
- }
- 
-+/* fill areas with data from input file, return bytes red */
-+static int snd_pcm_file_areas_read_infile(snd_pcm_t *pcm,
-+					  const snd_pcm_channel_area_t *areas,
-+					  snd_pcm_uframes_t offset,
-+					  snd_pcm_uframes_t frames)
-+{
-+	snd_pcm_file_t *file = pcm->private_data;
-+	snd_pcm_channel_area_t areas_if[pcm->channels];
-+	ssize_t bytes;
-+
-+	if (file->ifd < 0)
-+		return -EBADF;
-+
-+	if (file->rbuf == NULL)
-+		return -ENOMEM;
-+
-+	if (file->rbuf_size < frames) {
-+		SYSERR("requested more frames than pcm buffer");
-+		return -ENOMEM;
-+	}
-+
-+	bytes = read(file->ifd, file->rbuf, snd_pcm_frames_to_bytes(pcm, frames));
-+	if (bytes < 0) {
-+		SYSERR("read from file failed, error: %d", bytes);
-+		return bytes;
-+	}
-+
-+	snd_pcm_areas_from_buf(pcm, areas_if, file->rbuf);
-+	snd_pcm_areas_copy(areas, offset, areas_if, 0, pcm->channels, snd_pcm_bytes_to_frames(pcm, bytes), pcm->format);
-+
-+	return bytes;
-+}
-+
- static void setup_wav_header(snd_pcm_t *pcm, struct wav_fmt *fmt)
- {
- 	fmt->fmt = TO_LE16(0x01);
-@@ -568,19 +602,19 @@ static snd_pcm_sframes_t snd_pcm_file_readn(snd_pcm_t *pcm, void **bufs, snd_pcm
+@@ -579,22 +579,21 @@ static snd_pcm_sframes_t snd_pcm_file_readi(snd_pcm_t *pcm, void *buffer, snd_pc
  {
  	snd_pcm_file_t *file = pcm->private_data;
  	snd_pcm_channel_area_t areas[pcm->channels];
 -	snd_pcm_sframes_t n;
 +	snd_pcm_sframes_t frames;
- 
--	if (file->ifd >= 0) {
--		SNDERR("DEBUG: Noninterleaved read not yet implemented.\n");
--		return 0;	/* TODO: Noninterleaved read */
--	}
++
 +	__snd_pcm_lock(pcm);
-+	frames = _snd_pcm_readn(file->gen.slave, bufs, size);
++
++	frames = _snd_pcm_readi(file->gen.slave, buffer, size);
 +	if (frames <= 0)
 +		return frames;
  
--	n = _snd_pcm_readn(file->gen.slave, bufs, size);
--	if (n > 0) {
--		snd_pcm_areas_from_bufs(pcm, areas, bufs);
--		snd_pcm_file_add_frames(pcm, areas, 0, n);
+-	n = _snd_pcm_readi(file->gen.slave, buffer, size);
+-	if (n <= 0)
+-		return n;
+-	if (file->ifd >= 0) {
+-		__snd_pcm_lock(pcm);
+-		n = read(file->ifd, buffer, n * pcm->frame_bits / 8);
+-		__snd_pcm_unlock(pcm);
+-		if (n < 0)
+-			return n;
+-		n = n * 8 / pcm->frame_bits;
 -	}
+ 	snd_pcm_areas_from_buf(pcm, areas, buffer);
+-	snd_pcm_file_add_frames(pcm, areas, 0, n);
 -	return n;
-+	snd_pcm_areas_from_bufs(pcm, areas, bufs);
 +	snd_pcm_file_areas_read_infile(pcm, areas, 0, frames);
 +	snd_pcm_file_add_frames(pcm, areas, 0, frames);
 +
 +	__snd_pcm_unlock(pcm);
++
 +	return frames;
  }
  
- static snd_pcm_sframes_t snd_pcm_file_mmap_commit(snd_pcm_t *pcm,
-@@ -609,9 +643,11 @@ static int snd_pcm_file_hw_free(snd_pcm_t *pcm)
- 	free(file->wbuf);
- 	free(file->wbuf_areas);
- 	free(file->final_fname);
-+	free(file->rbuf);
- 	file->wbuf = NULL;
- 	file->wbuf_areas = NULL;
- 	file->final_fname = NULL;
-+	file->rbuf = NULL;
- 	return snd_pcm_hw_free(file->gen.slave);
- }
- 
-@@ -638,6 +674,15 @@ static int snd_pcm_file_hw_params(snd_pcm_t *pcm, snd_pcm_hw_params_t * params)
- 		snd_pcm_file_hw_free(pcm);
- 		return -ENOMEM;
- 	}
-+	assert(!file->rbuf);
-+	file->rbuf_size = slave->buffer_size;
-+	file->rbuf_size_bytes = snd_pcm_frames_to_bytes(slave, file->rbuf_size);
-+	file->rbuf_used_bytes = 0;
-+	file->rbuf = malloc(file->rbuf_size_bytes);
-+	if (file->rbuf == NULL) {
-+		snd_pcm_file_hw_free(pcm);
-+		return -ENOMEM;
-+	}
- 	file->appl_ptr = file->file_ptr_bytes = 0;
- 	for (channel = 0; channel < slave->channels; ++channel) {
- 		snd_pcm_channel_area_t *a = &file->wbuf_areas[channel];
+ /* locking */
 -- 
 2.7.4
 

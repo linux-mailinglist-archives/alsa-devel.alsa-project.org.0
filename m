@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0291926F1A
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 21:54:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A488A26F29
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 21:55:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86B561668;
-	Wed, 22 May 2019 21:54:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86B561668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32B64822;
+	Wed, 22 May 2019 21:54:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32B64822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558554890;
-	bh=KgQBtQcGrkKM/me2byo0gk0tG3lAL3dIRwpHWTjyKUg=;
+	s=default; t=1558554931;
+	bh=lzXkw1bE38EwiGlB2/bLaapHxjfDD5Me285HvNMrqNM=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OaEd5c8q27HPW1dwsh9Qo+YdlLLcSWRmjTNAXu5RO1g0S/tfYRRlPBkBz2IKtqcoV
-	 KEGgWJbVYxCqLOzDTcRsNmYufZzgwyhq/GDlx3521L99h9B7/h09bcwuLe0d8NCL1f
-	 euANnm5Khar5anat1Lb3B3yY8YMY4i7Fakgc4PZU=
+	b=B8AAtnIdLIXl1Bdo66x4b9aUNvPEvk1JGw+sV3otRTX6dYY208zU+5GyhcH7x4rQt
+	 BsztWci+TMnznKfNQogh+KcX/xciZhmCTcxnqkgDMCnNDdESlfKV8dbUgJqNf/unSD
+	 ZpIumlOeSjc9l4+PlQJsS9ZUs08LdZtslnPGMaiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1265F8974B;
-	Wed, 22 May 2019 21:48:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6108F89750;
+	Wed, 22 May 2019 21:48:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED81EF8972F; Wed, 22 May 2019 21:48:02 +0200 (CEST)
+ id 8B2B6F8972F; Wed, 22 May 2019 21:48:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D716F8972E
- for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 21:47:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D716F8972E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2243AF89625
+ for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 21:48:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2243AF89625
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 May 2019 12:47:59 -0700
+ 22 May 2019 12:48:00 -0700
 X-ExtLoop1: 1
 Received: from cjpowell-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.154.39])
- by fmsmga008.fm.intel.com with ESMTP; 22 May 2019 12:47:57 -0700
+ by fmsmga008.fm.intel.com with ESMTP; 22 May 2019 12:47:59 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed, 22 May 2019 14:47:24 -0500
-Message-Id: <20190522194732.25704-9-pierre-louis.bossart@linux.intel.com>
+Date: Wed, 22 May 2019 14:47:25 -0500
+Message-Id: <20190522194732.25704-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190522194732.25704-1-pierre-louis.bossart@linux.intel.com>
 References: <20190522194732.25704-1-pierre-louis.bossart@linux.intel.com>
@@ -57,7 +57,8 @@ Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [alsa-devel] [PATCH v2 08/15] soundwire: clarify comment
+Subject: [alsa-devel] [PATCH v2 09/15] soundwire: rename/clarify MIPI DisCo
+	properties
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,27 +76,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The MIPI DisCo spec refers to dynamic frame shape, not to dynamic
-shape. Clarify.
+The existing definitions are ambiguous and possibly misleading.
+
+For DP0, 'flow-control' is only relevant for the BRA protocol and
+should not be confused with async modes explicitly not supported for
+DP0, add prefix to follow MIPI DisCo definition
+
+The use of 'device_interrupts' is also questionable. The MIPI
+SoundWire spec defines Slave-, DP0- and DPN-level
+implementation-defined interrupts. Using the 'device' prefix in the
+last two cases is misleading, not only is the term 'device' overloaded
+but these properties are only valid at the DP0 and DPn levels. Rename
+to follow the MIPI definitions, no need to be creative here.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/linux/soundwire/sdw.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soundwire/bus.c        |  2 +-
+ drivers/soundwire/mipi_disco.c |  6 +++---
+ drivers/soundwire/stream.c     |  6 +++---
+ include/linux/soundwire/sdw.h  | 13 +++++++------
+ 4 files changed, 14 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 96e42df8f458..fe745830a261 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -648,7 +648,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
+ 		return 0;
+ 
+ 	/* Enable DP0 interrupts */
+-	val = prop->dp0_prop->device_interrupts;
++	val = prop->dp0_prop->imp_def_interrupts;
+ 	val |= SDW_DP0_INT_PORT_READY | SDW_DP0_INT_BRA_FAILURE;
+ 
+ 	ret = sdw_update(slave, SDW_DP0_INTMASK, val, val);
+diff --git a/drivers/soundwire/mipi_disco.c b/drivers/soundwire/mipi_disco.c
+index efb87ee0e7fc..79fee1b21ab6 100644
+--- a/drivers/soundwire/mipi_disco.c
++++ b/drivers/soundwire/mipi_disco.c
+@@ -150,13 +150,13 @@ static int sdw_slave_read_dp0(struct sdw_slave *slave,
+ 				dp0->words, dp0->num_words);
+ 	}
+ 
+-	dp0->flow_controlled = fwnode_property_read_bool(port,
++	dp0->BRA_flow_controlled = fwnode_property_read_bool(port,
+ 				"mipi-sdw-bra-flow-controlled");
+ 
+ 	dp0->simple_ch_prep_sm = fwnode_property_read_bool(port,
+ 				"mipi-sdw-simplified-channel-prepare-sm");
+ 
+-	dp0->device_interrupts = fwnode_property_read_bool(port,
++	dp0->imp_def_interrupts = fwnode_property_read_bool(port,
+ 				"mipi-sdw-imp-def-dp0-interrupts-supported");
+ 
+ 	return 0;
+@@ -225,7 +225,7 @@ static int sdw_slave_read_dpn(struct sdw_slave *slave,
+ 
+ 		fwnode_property_read_u32(node,
+ 				"mipi-sdw-imp-def-dpn-interrupts-supported",
+-				&dpn[i].device_interrupts);
++				&dpn[i].imp_def_interrupts);
+ 
+ 		fwnode_property_read_u32(node, "mipi-sdw-min-channel-number",
+ 					 &dpn[i].min_ch);
+diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+index 89edc897b8eb..ce9cb7fa4724 100644
+--- a/drivers/soundwire/stream.c
++++ b/drivers/soundwire/stream.c
+@@ -439,7 +439,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
+ 
+ 	prep_ch.bank = bus->params.next_bank;
+ 
+-	if (dpn_prop->device_interrupts || !dpn_prop->simple_ch_prep_sm)
++	if (dpn_prop->imp_def_interrupts || !dpn_prop->simple_ch_prep_sm)
+ 		intr = true;
+ 
+ 	/*
+@@ -449,7 +449,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
+ 	 */
+ 	if (prep && intr) {
+ 		ret = sdw_configure_dpn_intr(s_rt->slave, p_rt->num, prep,
+-					     dpn_prop->device_interrupts);
++					     dpn_prop->imp_def_interrupts);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
+@@ -493,7 +493,7 @@ static int sdw_prep_deprep_slave_ports(struct sdw_bus *bus,
+ 	/* Disable interrupt after Port de-prepare */
+ 	if (!prep && intr)
+ 		ret = sdw_configure_dpn_intr(s_rt->slave, p_rt->num, prep,
+-					     dpn_prop->device_interrupts);
++					     dpn_prop->imp_def_interrupts);
+ 
+ 	return ret;
+ }
 diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index 0e3fdd03e589..b7efa819d425 100644
+index b7efa819d425..bea46bd8b6ce 100644
 --- a/include/linux/soundwire/sdw.h
 +++ b/include/linux/soundwire/sdw.h
-@@ -373,7 +373,7 @@ struct sdw_slave_prop {
-  * @default_frame_rate: Controller default Frame rate, in Hz
-  * @default_row: Number of rows
-  * @default_col: Number of columns
-- * @dynamic_frame: Dynamic frame supported
-+ * @dynamic_frame: Dynamic frame shape supported
-  * @err_threshold: Number of times that software may retry sending a single
-  * command
-  */
+@@ -206,10 +206,11 @@ enum sdw_clk_stop_mode {
+  * (inclusive)
+  * @num_words: number of wordlengths supported
+  * @words: wordlengths supported
+- * @flow_controlled: Slave implementation results in an OK_NotReady
++ * @BRA_flow_controlled: Slave implementation results in an OK_NotReady
+  * response
+  * @simple_ch_prep_sm: If channel prepare sequence is required
+- * @device_interrupts: If implementation-defined interrupts are supported
++ * @imp_def_interrupts: If set, each bit corresponds to support for
++ * implementation-defined interrupts
+  *
+  * The wordlengths are specified by Spec as max, min AND number of
+  * discrete values, implementation can define based on the wordlengths they
+@@ -220,9 +221,9 @@ struct sdw_dp0_prop {
+ 	u32 min_word;
+ 	u32 num_words;
+ 	u32 *words;
+-	bool flow_controlled;
++	bool BRA_flow_controlled;
+ 	bool simple_ch_prep_sm;
+-	bool device_interrupts;
++	bool imp_def_interrupts;
+ };
+ 
+ /**
+@@ -272,7 +273,7 @@ struct sdw_dpn_audio_mode {
+  * @simple_ch_prep_sm: If the port supports simplified channel prepare state
+  * machine
+  * @ch_prep_timeout: Port-specific timeout value, in milliseconds
+- * @device_interrupts: If set, each bit corresponds to support for
++ * @imp_def_interrupts: If set, each bit corresponds to support for
+  * implementation-defined interrupts
+  * @max_ch: Maximum channels supported
+  * @min_ch: Minimum channels supported
+@@ -297,7 +298,7 @@ struct sdw_dpn_prop {
+ 	u32 max_grouping;
+ 	bool simple_ch_prep_sm;
+ 	u32 ch_prep_timeout;
+-	u32 device_interrupts;
++	u32 imp_def_interrupts;
+ 	u32 max_ch;
+ 	u32 min_ch;
+ 	u32 num_ch;
 -- 
 2.20.1
 

@@ -2,86 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96AF4269DF
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 20:32:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CA4326E7F
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 21:50:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA8C11669;
-	Wed, 22 May 2019 20:31:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA8C11669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95F6C1616;
+	Wed, 22 May 2019 21:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95F6C1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558549955;
-	bh=jIsxr6qfrgcnEC6X2ldPvL7y65kzaduF+RuRBzOOnFg=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZJg8fNRWVdrn+pXfbY9038aFmzMU5msX6XyHsfSk0NbClFWFzHOcGRfUiSz7eJKrF
-	 mP2d+V2a4e0+qIz0A9SpcqxoSL9emvGJ3at8rDrpSoyBMRKAhVEdDvTAVJrrQvtz3D
-	 sWtRfdh6ODUM3B9Ng0iR1ex41s0EXmvpu7oaTk9E=
+	s=default; t=1558554619;
+	bh=ag4brwLz8OnOzo4LqZKDXMip2GnBZspWelXdwJGKHkE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oH0qERZsxGjh4PgqOP8+Zg798S0qSYEl8CQwtv3nm2oV5U91rBH9S6PnFRmoSG+Ix
+	 5rjvhBDCbjS+0HUI53jqxY8/450t5JANtBjId7lE33VF3le6P0vs2JNr0NCnjfVzPG
+	 h/4Hmkuz4Gkgw510fHjsSiS+trbwTBRfDWUr7g/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 319F9F89633;
-	Wed, 22 May 2019 20:30:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9975F8962C;
+	Wed, 22 May 2019 21:47:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EEA3F8962F; Wed, 22 May 2019 20:30:47 +0200 (CEST)
+ id 91957F8963E; Wed, 22 May 2019 21:47:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C786CF8079B
- for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 20:30:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C786CF8079B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="IgKo5Nra"
-Received: by mail-lf1-x142.google.com with SMTP id d8so2431041lfb.8
- for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 11:30:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XxWUH00YdYVo2FVkSI+HN7hxR1IMHHcKqCXHJ6O/7ho=;
- b=IgKo5NraWmalRSJbm9t7bxHO18Z0iy5HfIE4PgaEitYVV2m4pOkO9NRWC3yVqGHNzr
- LW6DF5244g8ch4LDsP8sPPWjv1AifPgWnnVJ2hoJb/xT8QzxYd3DRjRsACdtgAjCt42N
- wKm9XeFobafK5oqVzykeSyQygyGADkAorSqDZcLYjyBJVIfSCti8I7UGCpNqrOMPIWCe
- GozEw4V2ibZb7PvwF1SPgn+2i8EPdsYo9k1EERT0KsChijHYsksM/Yq3IX9rJfDvYpzT
- 5cNKjOFISqBQfSbaxOC5q0Fyq9VrmF6YHBIp73PbtS4hamhcgSOs7jBAb1cqPXX7M/nK
- /JQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XxWUH00YdYVo2FVkSI+HN7hxR1IMHHcKqCXHJ6O/7ho=;
- b=RThyuocHrFHQjphrlG0oPBcLXhwG9x3lBWW9eJV7k7fh9qG7edaCIf/UNjuis6rgd7
- sOagIQ4Fmtc7bWwMRqVB8gNRBDgdOfwF3sI0MXYAYdkgDhnWCBxqDPraMUtLFioLDiS7
- aAhgPLqHfQW5B4JRp7xp3LoepAaDpzIyCMYmDcKVJq+ted0P5HGpTF+/zcseDJYYM2zN
- 6KvLv7Cc1fsVkgdTgZBzyGPorLkcqDyHUaP14Z1WXZOTZS70KdvLlSvUQinb2BijqkAL
- W6hdF3o+XtFoGwDjR35JCOwbWYnWW6asVPFF+XEOes6BOBqJU5L0zgmdG7tl2HQVXTD2
- 9v6w==
-X-Gm-Message-State: APjAAAUW2Hn2IpjG7zf4mffyg/71pzzEhy1BzIsooBunVbNPgHPQYpUF
- ALbbFGbv+H9n98QW2CW8MRh1yKaGsCWGfhJ7kFGEyw==
-X-Google-Smtp-Source: APXvYqzjw93U9yNMzbMYMbnPx5r7CHo6Bz3zJS/U/yKLajZ2DX3kwKbRs/xX45mNEvPW0qtsdK+hOxt3JX4xs8tSUC4=
-X-Received: by 2002:ac2:43af:: with SMTP id t15mr34980616lfl.45.1558549843057; 
- Wed, 22 May 2019 11:30:43 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D12F9F8962C
+ for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 21:47:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D12F9F8962C
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 May 2019 12:47:47 -0700
+X-ExtLoop1: 1
+Received: from cjpowell-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.251.154.39])
+ by fmsmga008.fm.intel.com with ESMTP; 22 May 2019 12:47:46 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Wed, 22 May 2019 14:47:16 -0500
+Message-Id: <20190522194732.25704-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <CAOReqxjQAya8GQ4bOSBfTBHwXd38c33pOMc35rrSj4O4jMaMSQ@mail.gmail.com>
- <s5hwoii1rd3.wl-tiwai@suse.de>
- <6eb7cc4d-aa95-74b9-e849-22559737f47a@linux.intel.com>
-In-Reply-To: <6eb7cc4d-aa95-74b9-e849-22559737f47a@linux.intel.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Wed, 22 May 2019 11:30:31 -0700
-Message-ID: <CAOReqxjUk_6Fvc=CRnCWu7c=QvObxhwA_psWLz5gLO_v5Fc5Pg@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
- Guenter Roeck <groeck@google.com>
-Subject: Re: [alsa-devel] Cannot build broadwell on for-5.3
+Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com
+Subject: [alsa-devel] [PATCH v2 00/15] soundwire: corrections to
+	ACPI/DisCo/Intel support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,38 +72,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 22, 2019 at 8:22 AM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
-> >> It appears the for-5.3 branch had some broken commits pulled in at
-> >> 1c7c3237c0cc4ad3c7b0df458290c8e2a652f178 ("Merge tag 'v5.2-rc1' into
-> >> asoc-5.3 ")
-> >>
-> >> building for the pixelbook I get the following build errors:
-> >>
-> >> Invalid absolute R_X86_64_32S relocation: _etext
-> >> make[3]: *** [/mnt/host/source/src/third_party/kernel/v4.14/arch/x86/boot/compressed/Makefile:130:
-> >> arch/x86/boot/compressed/vmlinux.relocs] Error 1
-> >> make[3]: *** Deleting file 'arch/x86/boot/compressed/vmlinux.relocs'
-> >>
-> >> Mainline is still broken as well. Not sure how to propagate this up to
-> >> the responsible parties, figured I would start a discussion here
-> >> first. I am also open to suggestions if there is a chance I am missing
-> >> something.
-> >
-> > Looks like some leftover interfering the build.
-> > Try to cleanup your work directory, e.g. make distclean and rebuild.
->
-> works for me with the attached .config.
-> Likely an environment problem.
-Yea, cleaning didn't help, Pierre is right, it appears to be tied to
-our gcc version we are stuck on. I will see what I can do to work
-around this. Thanks.
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Now that we are done with cleanups, we can start fixing the code with
+actual semantic or functional changes.
+
+This patchset corrects issues with Intel BIOS and hardware properties
+that prevented a successful init, aligns the code with the MIPI DisCo
+spec, adds rate-limiting for frequent errors and adds checks on number
+of links and PDIs.
+
+With all these changes, the hardware can be initialized correctly and
+modules can be added/removed without issues on WhiskyLake and
+IceLake.
+
+Parts of this code was initially written by my Intel colleagues Vinod
+Koul, Sanyog Kale, Shreyas Nc and Hardik Shah, who are either no
+longer with Intel or no longer involved in SoundWire development. When
+relevant, I explictly added a note in commit messages to give them
+credit for their hard work, but I removed their signed-off-by tags to
+avoid email bounces and avoid spamming them forever with SoundWire
+patches.
+
+Changes since v2:
+Feedback from Vinod:
+1. improve the SoundWire controller search without magic values
+2. split patches as needed
+Other additions
+rate-limiting to avoid flooding dmesg logs
+provide better Slave status on errors
+more checks on links and PDIs
+
+Pierre-Louis Bossart (15):
+  soundwire: intel: filter SoundWire controller device search
+  soundwire: mipi_disco: fix master/link error
+  soundwire: add port-related definitions
+  soundwire: remove master data port properties
+  soundwire: mipi-disco: remove master_count property for masters
+  soundwire: rename 'freq' fields
+  soundwire: mipi-disco: fix clock stop modes
+  soundwire: clarify comment
+  soundwire: rename/clarify MIPI DisCo properties
+  soundwire: cadence_master: use rate_limited dynamic debug
+  soundwire: cadence_master: log Slave status mask on errors
+  soundwire: cadence_master: check the number of bidir PDIs
+  soundwire: Intel: add log for number of PCM and PDM PDIs
+  soundwire: fix typo in comments
+  soundwire: intel_init: add checks on link numbers
+
+ drivers/soundwire/bus.c            |  6 +-
+ drivers/soundwire/cadence_master.c | 29 +++++-----
+ drivers/soundwire/intel.c          | 17 ++++--
+ drivers/soundwire/intel.h          |  2 +-
+ drivers/soundwire/intel_init.c     | 25 ++++++++-
+ drivers/soundwire/mipi_disco.c     | 35 ++++++------
+ drivers/soundwire/stream.c         |  8 +--
+ include/linux/soundwire/sdw.h      | 88 +++++++++++++++++++++++-------
+ 8 files changed, 147 insertions(+), 63 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

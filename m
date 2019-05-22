@@ -2,88 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7336A26857
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 18:33:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A08952686D
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 18:38:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10797166A;
-	Wed, 22 May 2019 18:32:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10797166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 177EF1669;
+	Wed, 22 May 2019 18:38:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 177EF1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558542782;
-	bh=JlnxDKBu9YESln9mRJfLxYMO1TWiVpwX/gscI+GuK4U=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=a6X45p0EXyGpuUoqv8MpZ4nXc9exXH0FOadm8PyMnUUc9BOmXjl2dX7KIaCedJXKt
-	 9BGLVHEmZXH7zK/Z7TNVElU8qXl0UPtpXyFkyklQ6FIVd488/63pFJj79xxgJcj1Tk
-	 lXbW53zqMFtS0P66XfwgcsFyIgxN+GCvW/rPc+xc=
+	s=default; t=1558543136;
+	bh=wKJ5kx7IrIEmRFKqq6yMd0+9cW4VDlwnmEpaPNDHswE=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=S0wgVC6b0hbkpCkdfOHVoR31Nzm3hk9/ihwfSv2dRJKqdsyhImYgHuM1JwMIfu6FT
+	 KTI1l2kVR0A0TLoMKSrBKaPD6Nyko2j2tjjYj4Hzzgjo3PIWxvF3NbaburaIDzU6Yl
+	 YxVFHsgiJH6bS97O+jHaSV2dZYhfc9xtkKF1kU3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02891F89725;
-	Wed, 22 May 2019 18:25:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78640F89625;
+	Wed, 22 May 2019 18:37:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87C9DF896E9; Wed, 22 May 2019 18:25:38 +0200 (CEST)
+ id 11C4CF8962C; Wed, 22 May 2019 18:37:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 230CBF8962F
- for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 18:25:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 230CBF8962F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FQFZQ5pL"
-Received: by mail-wm1-x341.google.com with SMTP id y3so2876612wmm.2
- for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 09:25:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AztR0YxQPjo+dl6FLzdHONEyjeweZt0zVC2E221XWlQ=;
- b=FQFZQ5pLhc3+G+tTnarBWj9uCgHvf6MQVBOxmiQB84MjmbRYL3d9lr0xad3tVwk8Us
- KBrk17D7HVu1WMERpxk6odDZFQxiXDopaksQeKlUNuYq7ZyHbsKfDGBajoJYU8L1O9Lp
- iCjUt7y3UsBPgcPyZ9PlKEefGwcj5aKUxuSOclGe3gowAl3nU5/Ney9Q3IodZ7ZbGWTS
- 24uMV/lfJ01p2zjjMsk54w8H7v7gA6bNoMNIR//+Z/SHeppmnhUqCuZsW1ZS0QZEpBSw
- CEwgWTUze6dsp6PxquA3kWgBIxrU8SuBShC89UFH77qqyEnAoFfQTaSw9H7snGzQACyQ
- gV2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AztR0YxQPjo+dl6FLzdHONEyjeweZt0zVC2E221XWlQ=;
- b=GcnAjji+yIhUBC9lgOMVIfb3ctWgk08Y1Zk82vA1gKnwag8q4TeMMctktoq37WqO/D
- ALcOuW2guluQKZZ/S4m4oqDjONytpo13V7lPH3rMFtHJQUJ1zEFPIXG8oktt8wDKsgud
- p+sBmjQWHEdMB+dRzwVl5jWBWjEHttaAZJjJ8+Y98u7mWvi1z8Srki27bsutzSmUQf/I
- eGq5eaMjM3rbLrOotUY06VIOqPik9JkJsItOUMmdRnelvCXaLiT5GJlaRam2JDAgn+lG
- 7GU46Pn2vG2dLZ/gsNsJm9T2ZyI1p4CwgP3+7znLv9zz4MMmM83j2peK+dmxpBIu1jd9
- 7bQw==
-X-Gm-Message-State: APjAAAWPT7NrBL7HCKmYqXsvFpZEUrnmFAbLhFZfNvOyOtRDCSvuc3Q+
- MwvEYLmVOzHtQphfOTQ9dl3PKw==
-X-Google-Smtp-Source: APXvYqwIODKI5c57KNCc8y6bUOIDanKrY+1pmIzGXwTstBFshTpXKRLQcFKf9Vf1xDgV4/+VGDHmmg==
-X-Received: by 2002:a1c:e009:: with SMTP id x9mr7976175wmg.117.1558542335118; 
- Wed, 22 May 2019 09:25:35 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id q15sm8462720wrr.19.2019.05.22.09.25.34
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 22 May 2019 09:25:34 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: vkoul@kernel.org
-Date: Wed, 22 May 2019 17:25:28 +0100
-Message-Id: <20190522162528.5892-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB284F80C20
+ for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 18:37:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB284F80C20
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 May 2019 09:37:02 -0700
+X-ExtLoop1: 1
+Received: from avcaesar-mobl.amr.corp.intel.com (HELO [10.252.140.52])
+ ([10.252.140.52])
+ by FMSMGA003.fm.intel.com with ESMTP; 22 May 2019 09:37:01 -0700
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org
+References: <20190522162443.5780-1-srinivas.kandagatla@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <19ad7a42-9625-f547-eab3-66d3aeded6c0@linux.intel.com>
+Date: Wed, 22 May 2019 11:37:01 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Cc: sanyog.r.kale@intel.com,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+In-Reply-To: <20190522162443.5780-1-srinivas.kandagatla@linaro.org>
+Content-Language: en-US
+Cc: sanyog.r.kale@intel.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] soundwire: stream: fix bad unlock balance
+Subject: Re: [alsa-devel] [PATCH] soundwire: stream: fix out of boundary
+ access on port properties
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,43 +71,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch fixes below warning due to unlocking without locking.
 
- =====================================
- WARNING: bad unlock balance detected!
- 5.1.0-16506-gc1c383a6f0a2-dirty #1523 Tainted: G        W
- -------------------------------------
- aplay/2954 is trying to release lock (&bus->msg_lock) at:
- do_bank_switch+0x21c/0x480
- but there are no more locks to release!
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- drivers/soundwire/stream.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+On 5/22/19 11:24 AM, Srinivas Kandagatla wrote:
+> Assigning local iterator to array element and using it again for
+> indexing would cross the array boundary.
+> Fix this by directly referring array element without using the local
+> variable.
 
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index 544925ff0b40..d16268f30e4f 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -814,7 +814,8 @@ static int do_bank_switch(struct sdw_stream_runtime *stream)
- 			goto error;
- 		}
- 
--		mutex_unlock(&bus->msg_lock);
-+		if (mutex_is_locked(&bus->msg_lock))
-+			utex_unlock(&bus->msg_lock);
- 	}
- 
- 	return ret;
--- 
-2.21.0
+The change is valid and indeed the code could never work as is. I 
+vaguely recall providing this feedback as well in an earlier version.
 
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>   drivers/soundwire/stream.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+> index d01060dbee96..544925ff0b40 100644
+> --- a/drivers/soundwire/stream.c
+> +++ b/drivers/soundwire/stream.c
+> @@ -1406,9 +1406,7 @@ struct sdw_dpn_prop *sdw_get_slave_dpn_prop(struct sdw_slave *slave,
+>   	}
+>   
+>   	for (i = 0; i < num_ports; i++) {
+> -		dpn_prop = &dpn_prop[i];
+> -
+> -		if (dpn_prop->num == port_num)
+> +		if (dpn_prop[i].num == port_num)
+>   			return &dpn_prop[i];
+>   	}
+>   
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

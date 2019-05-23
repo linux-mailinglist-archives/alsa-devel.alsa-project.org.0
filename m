@@ -2,65 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CCA2284CD
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 19:22:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A310285DD
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 20:24:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDFBD839;
-	Thu, 23 May 2019 19:21:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDFBD839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83A86166A;
+	Thu, 23 May 2019 20:23:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83A86166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558632150;
-	bh=knUG1HYbjPFBaR/MC+x0kvzzkhVaq5/tQ4XM1akAyqY=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1558635855;
+	bh=C4hYjfzH07y9lU32Kaf/ctWp5p1rj3XswV5E5XC9aLU=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xi8ZMIgCr53MGCkQYZXZlKXpzbuUdsacDZzYLX6lIeSZMODHbYBnZu2nJ27URvxvK
-	 gNIr2F729UJfQxFxHNt+NhI9urFSb8BRkuddxzKl8JiRHXRkzkNPMX2Jzbyi0EfynC
-	 2twfEMxVMyOPjeQd9MwX4CkzLjpi+Q49uY5dAIN4=
+	b=Bl6pIeGX7sEhM58OMJxHd4GExM3E+Ynv27bUsUyVu5o5yY95GcRH/SJxcb4x6PXgD
+	 XRmH+IfpXEtv91qUsRTyKFyveHatJ7gTw8pkdUgp4OewzypYWV3AmJDtLm5BRSX3hp
+	 0gbfUWPrJAuP0gvBC6soffOKcbRYucnPOGhMI4D0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64E21F89709;
-	Thu, 23 May 2019 19:20:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4ABFF89707;
+	Thu, 23 May 2019 20:22:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84AC4F89674; Thu, 23 May 2019 19:20:43 +0200 (CEST)
+ id CDAF4F89674; Thu, 23 May 2019 20:22:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DAE5F8079B
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 20:22:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DAE5F8079B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="EFW+THoz"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55132F89625
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 19:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55132F89625
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 May 2019 10:20:35 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga005.jf.intel.com with ESMTP; 23 May 2019 10:20:34 -0700
-Received: from avabhyan-mobl2.amr.corp.intel.com (unknown [10.251.156.56])
- by linux.intel.com (Postfix) with ESMTP id 59C485803C2;
- Thu, 23 May 2019 10:20:34 -0700 (PDT)
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20190523171201.31104-1-ranjani.sridharan@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8ab92ac1-2952-fe0c-f8a8-d75d41aa70b1@linux.intel.com>
-Date: Thu, 23 May 2019 12:20:34 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
+ by mail.kernel.org (Postfix) with ESMTPSA id BB3062177E;
+ Thu, 23 May 2019 17:43:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1558633388;
+ bh=e7KUMd6Qz9b5eaPnojS2yc1tJKWJ/Q91VqcSA/cXHbo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=EFW+THozn8RPDBpmFqkirP1+YtrxfcU3nMWjgImo7ALDSTxvfs1qv9Ns4N+pmcRoh
+ 7B8D5cTb5JkSljOsN39N0PQRwzPPaUDbRmVnUxiBL6w8D/m9VgTRchTx2U+Z68bvjP
+ FRv6ueL0a74+JkjGX/yk8rff3o2juOumjqcwRZbI=
+Date: Thu, 23 May 2019 19:43:05 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Suren Baghdasaryan <surenb@google.com>
+Message-ID: <20190523174305.GA29438@kroah.com>
+References: <20190522172655.183977-1-surenb@google.com>
 MIME-Version: 1.0
-In-Reply-To: <20190523171201.31104-1-ranjani.sridharan@linux.intel.com>
-Content-Language: en-US
-Cc: tiwai@suse.de, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: core: lock client_mutex while
- removing link components
+Content-Disposition: inline
+In-Reply-To: <20190522172655.183977-1-surenb@google.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+Cc: mathias.payer@nebelwelt.net, tiwai@suse.de, kdeus@google.com,
+ alsa-devel@alsa-project.org, stable@vger.kernel.org, benquike@gmail.com
+Subject: Re: [alsa-devel] [PATCH 1/1] ALSA: usb-audio: Fix UAF decrement if
+ card has no live interfaces in card.c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,47 +78,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/23/19 12:12 PM, Ranjani Sridharan wrote:
-> Removing link components results in topology unloading. So,
-> acquire the client_mutex before removing components in
-> soc_remove_link_components. This will prevent the lockdep warning
-> seen when dai links are removed during topology removal.
+On Wed, May 22, 2019 at 10:26:55AM -0700, Suren Baghdasaryan wrote:
+> Commit 5f8cf712582617d523120df67d392059eaf2fc4b upstream.
 > 
-> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-
-GitHub issue: https://github.com/thesofproject/linux/issues/967 for more 
-details.
-
+> This is a backport to stable 3.18.y. Implementation in 3.18 differs using
+> chip->probing flag instead of chip->active atomic but it still has the UAF
+> issue.
+> 
+> If a USB sound card reports 0 interfaces, an error condition is triggered
+> and the function usb_audio_probe errors out. In the error path, there was a
+> use-after-free vulnerability where the memory object of the card was first
+> freed, followed by a decrement of the number of active chips. Moving the
+> decrement above the atomic_dec fixes the UAF.
+> 
+> [ The original problem was introduced in 3.1 kernel, while it was
+>   developed in a different form.  The Fixes tag below indicates the
+>   original commit but it doesn't mean that the patch is applicable
+>   cleanly. -- tiwai ]
+> 
+> Fixes: 362e4e49abe5 ("ALSA: usb-audio - clear chip->probing on error exit")
+> Reported-by: Hui Peng <benquike@gmail.com>
+> Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Signed-off-by: Mathias Payer <mathias.payer@nebelwelt.net>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> [surenb@google.com: resolve 3.18 differences]
+> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 > ---
->   sound/soc/soc-core.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index ce8c057bcd5b..bbb52fbd195e 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -1010,12 +1010,14 @@ static void soc_remove_link_components(struct snd_soc_card *card,
->   	struct snd_soc_component *component;
->   	struct snd_soc_rtdcom_list *rtdcom;
->   
-> +	mutex_lock(&client_mutex);
->   	for_each_rtdcom(rtd, rtdcom) {
->   		component = rtdcom->component;
->   
->   		if (component->driver->remove_order == order)
->   			soc_remove_component(component);
->   	}
-> +	mutex_unlock(&client_mutex);
->   }
->   
->   static void soc_remove_dai_links(struct snd_soc_card *card)
-> 
+> Analysis for 3.18 codebase:
+> snd_usb_audio_create() sets card->device_data = chip
+> snd_usb_audio_probe() calls snd_card_free() and then resets chip->probing
+> snd_card_free() results in the following call chain:
+>  snd_card_free_when_closed() which waits on release_completion
+>  snd_card_do_free() calls snd_device_free_all() and signals release_completion
+>  snd_card_do_free() calls __snd_device_free()
+>  __snd_device_free() calls dev->ops->dev_free() == snd_usb_audio_dev_free()
+>  snd_usb_audio_dev_free() calls snd_usb_audio_free(chip) and frees "chip"
+> chip->probing = 0 results in UAF
 
+Thanks for the backport.  I've added it to my "internal" 3.18 queue.  As
+there is not going to be any more public kernel.org 3.18.y releases,
+I'll just be doing updates in the android-common tree over time every
+few weeks.  This will end up in the next batch that gets merged into
+there, thanks!
+
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

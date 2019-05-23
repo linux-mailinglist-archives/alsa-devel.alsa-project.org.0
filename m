@@ -2,63 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 246EB26FC3
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 May 2019 21:59:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4711127359
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 02:37:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA3751616;
-	Wed, 22 May 2019 21:58:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA3751616
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA8DD1607;
+	Thu, 23 May 2019 02:36:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA8DD1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558555172;
-	bh=mwOQKxa0eBCOFzbPeicF3LxmWAQsRSwVwgOsXAsvIK4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1558571823;
+	bh=LHT8wCl0dpQYlqWhwaeUNDWh6KAzrvNahxJmS6S3ZLM=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hjqLs/HzTn7FPYFz2NDl8erHk5n0pC4zK+snA7Vh6wuS5onJniBNzPmITZvby580Z
-	 idvGLKBBMbhbMxVreHgXpjX5/Tbxxp1jy7HIfJ4cEyinRU1Nhh1dHgYrWrVxbdg9jt
-	 ePHiCVIlkkgABeJFASCTSf+WgpxyM8SdZSpznCpc=
+	b=r7oQ9X0Le956okZSNuwnueNFJ6JJZu2FBFkoGm2dwRrGbukOuKV0zOvnVsJpZmuCB
+	 U8Hg48CLEtOPW/c5oSRRGejVSF6hgJzcmhYppeXd+ShUopcs7uow6FI8QQmqseClgk
+	 kg9O5l4L/fnm0LkSWVYZl5fDjEl4w78OhWT1jA1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B488FF89771;
-	Wed, 22 May 2019 21:48:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16C61F80C20;
+	Thu, 23 May 2019 02:35:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BB96F8973F; Wed, 22 May 2019 21:48:12 +0200 (CEST)
+ id 17375F8962F; Thu, 23 May 2019 02:35:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22433F89739
- for <alsa-devel@alsa-project.org>; Wed, 22 May 2019 21:48:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22433F89739
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 May 2019 12:48:08 -0700
-X-ExtLoop1: 1
-Received: from cjpowell-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.251.154.39])
- by fmsmga008.fm.intel.com with ESMTP; 22 May 2019 12:48:07 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Wed, 22 May 2019 14:47:31 -0500
-Message-Id: <20190522194732.25704-16-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190522194732.25704-1-pierre-louis.bossart@linux.intel.com>
-References: <20190522194732.25704-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [alsa-devel] [PATCH v2 15/15] soundwire: intel_init: add checks on
-	link numbers
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3A958F80C20
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 02:35:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A958F80C20
+Date: 23 May 2019 09:35:08 +0900
+X-IronPort-AV: E=Sophos;i="5.60,501,1549897200"; d="scan'208";a="16501605"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 23 May 2019 09:35:08 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 364C140041AB;
+ Thu, 23 May 2019 09:35:08 +0900 (JST)
+Message-ID: <87imu2uilw.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <s5htvdm3gl2.wl-tiwai@suse.de>
+References: <87r28qhpki.wl-kuninori.morimoto.gx@renesas.com>
+ <s5htvdm3gl2.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Question about soc_bind_aux_dev()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,42 +69,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add mask to correctly read the SoundWire SHIM LCAP register. Only bits
-2..0 are meaningful, the rest is about link synchronization and stream
-channel mapping. Without this mask, the hardware information would
-always be larger than whatever the BIOS would report.
 
-Also trap the case with zero links.
+Hi Takashi
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/soundwire/intel_init.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Thank you for your feedback
 
-diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index 771a53a5c033..70637a0383d2 100644
---- a/drivers/soundwire/intel_init.c
-+++ b/drivers/soundwire/intel_init.c
-@@ -81,6 +81,7 @@ static struct sdw_intel_ctx
- 
- 	/* Check SNDWLCAP.LCOUNT */
- 	caps = ioread32(res->mmio_base + SDW_SHIM_BASE + SDW_SHIM_LCAP);
-+	caps &= GENMASK(2, 0);
- 
- 	/* Check HW supported vs property value and use min of two */
- 	count = min_t(u8, caps, count);
-@@ -90,6 +91,9 @@ static struct sdw_intel_ctx
- 		dev_err(&adev->dev, "Link count %d exceeds max %d\n",
- 			count, SDW_MAX_LINKS);
- 		return NULL;
-+	} else if (!count) {
-+		dev_warn(&adev->dev, "No SoundWire links detected\n");
-+		return NULL;
- 	}
- 
- 	dev_dbg(&adev->dev, "Creating %d SDW Link devices\n", count);
--- 
-2.20.1
+> > Why .name is needed ??
+>
+> AFAIK, the binding with aux_dev->name was introduced later as a
+> fallback in case of no codec.  Through a quick glance at git log, the
+> commit f2ed6b07645e brought the behavior.  Other than that, the field
+> was used merely for some label, e.g. passed to
+> snd_soc_post_component_init().
+
+Ahh, OK. for non codec...
+Then, the reason was "main" is for search for codec,
+and it is using "codec_xxx" variable name.
+Then, using .name and .codec_name/.codec_of_node in the same time is strange.
+
+Anyway, the purpose of these are for finding component.
+I think this complicated code can be simple if we could replace it to
+snd_soc_dai_link_component which exist for this purpose ?
+
+	struct snd_soc_aux_dev {
+-		const char *name;		/* Codec name */
+
+		/*
+		 * specify multi-codec either by device name, or by
+		 * DT/OF node, but not both.
+		 */
+-		const char *codec_name;
+-		struct device_node *codec_of_node;
++		struct snd_soc_dai_link_component dlc;
++
+		/* codec/machine specific init - e.g. add machine controls */
+		int (*init)(struct snd_soc_component *component);
+	};
 
 _______________________________________________
 Alsa-devel mailing list

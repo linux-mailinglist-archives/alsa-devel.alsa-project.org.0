@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4711127359
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 02:37:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39864273BD
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 03:03:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA8DD1607;
-	Thu, 23 May 2019 02:36:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA8DD1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id A98421616;
+	Thu, 23 May 2019 03:02:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A98421616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558571823;
-	bh=LHT8wCl0dpQYlqWhwaeUNDWh6KAzrvNahxJmS6S3ZLM=;
+	s=default; t=1558573384;
+	bh=o1gGy8X8v0/oW+d8bYzVjqN4TYXqJ9hbCZlSbG9OK78=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r7oQ9X0Le956okZSNuwnueNFJ6JJZu2FBFkoGm2dwRrGbukOuKV0zOvnVsJpZmuCB
-	 U8Hg48CLEtOPW/c5oSRRGejVSF6hgJzcmhYppeXd+ShUopcs7uow6FI8QQmqseClgk
-	 kg9O5l4L/fnm0LkSWVYZl5fDjEl4w78OhWT1jA1Q=
+	b=jCn9KJ/WBIPARsUb1o2tp57LldiJv2Ys77IlNOw+jYu+YDgItp8cm6SoGQPgc1jnc
+	 IfC9i01+Dhs+BdllGv0hxxBPxkXjfVKxaPvXnkLyYuF8vStHJYv77KvNkk7bidRagH
+	 4vqzZ4jOL7kR6OlGfdletGXkCU5kppcgdHCJswRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16C61F80C20;
-	Thu, 23 May 2019 02:35:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A103F89630;
+	Thu, 23 May 2019 03:01:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17375F8962F; Thu, 23 May 2019 02:35:17 +0200 (CEST)
+ id 7FB19F8962F; Thu, 23 May 2019 03:01:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 3A958F80C20
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 02:35:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A958F80C20
-Date: 23 May 2019 09:35:08 +0900
-X-IronPort-AV: E=Sophos;i="5.60,501,1549897200"; d="scan'208";a="16501605"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 23 May 2019 09:35:08 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 4EAB3F80C20
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 03:01:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EAB3F80C20
+Date: 23 May 2019 10:01:10 +0900
+X-IronPort-AV: E=Sophos;i="5.60,501,1549897200"; d="scan'208";a="16503954"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 23 May 2019 10:01:10 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 364C140041AB;
- Thu, 23 May 2019 09:35:08 +0900 (JST)
-Message-ID: <87imu2uilw.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C68C54111FD9;
+ Thu, 23 May 2019 10:01:10 +0900 (JST)
+Message-ID: <87ef4quheh.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 To: Takashi Iwai <tiwai@suse.de>
 In-Reply-To: <s5htvdm3gl2.wl-tiwai@suse.de>
@@ -70,42 +70,21 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Takashi
+Hi Takashi, again
 
-Thank you for your feedback
-
-> > Why .name is needed ??
->
 > AFAIK, the binding with aux_dev->name was introduced later as a
 > fallback in case of no codec.  Through a quick glance at git log, the
 > commit f2ed6b07645e brought the behavior.  Other than that, the field
 > was used merely for some label, e.g. passed to
 > snd_soc_post_component_init().
 
-Ahh, OK. for non codec...
-Then, the reason was "main" is for search for codec,
-and it is using "codec_xxx" variable name.
-Then, using .name and .codec_name/.codec_of_node in the same time is strange.
+soc_post_component_init() is using dai_link->name, not aux_dev->name.
+But, am I misunderstanding ?
 
-Anyway, the purpose of these are for finding component.
-I think this complicated code can be simple if we could replace it to
-snd_soc_dai_link_component which exist for this purpose ?
-
-	struct snd_soc_aux_dev {
--		const char *name;		/* Codec name */
-
-		/*
-		 * specify multi-codec either by device name, or by
-		 * DT/OF node, but not both.
-		 */
--		const char *codec_name;
--		struct device_node *codec_of_node;
-+		struct snd_soc_dai_link_component dlc;
-+
-		/* codec/machine specific init - e.g. add machine controls */
-		int (*init)(struct snd_soc_component *component);
-	};
-
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

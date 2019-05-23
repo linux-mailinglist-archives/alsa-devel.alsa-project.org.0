@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0ACB27ECA
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 15:52:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ACB027ECE
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 15:52:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83F791671;
-	Thu, 23 May 2019 15:51:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83F791671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 252C91680;
+	Thu, 23 May 2019 15:51:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 252C91680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558619527;
-	bh=zdzsY+5nAfr5t9ToKbqSkU9CgvgTF4qePd32FNmTFGM=;
+	s=default; t=1558619553;
+	bh=H3Gr+uL7fpPwfOUtxmUDpI3z1aw0C5BCnKXeaJ1erRg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=COfWIXdiELUMNdzHkgj6TJGHgGCwdTh9unxz2Mq7lE69/hNmIPfDjCzi/CmM5Bhat
-	 PFT1gYzeHJnTfpiB8CDeO6kffL0TEUjJ6JVSm1Qi8kgzd5wjFpcopYwYsFjFq0nibr
-	 1JGf4rGVL2tWjYw5eC752pP39LdRUiIvFYE4i/UQ=
+	b=D4KgRYz3UIsbASogA0pXzG3J9d1YiXikn/O5ojmsnn3scsQts6PtoD7pW4pH4gt8z
+	 /AmDqZJx/cZPN0RKytD1aDB558PZoXdoJ2LXDt67US0xI0hgOfOJ851dTPcEam54dR
+	 8j5Dvzb0WGSMj4uvv5FUTC8rYRumzNuO5rAxG2So=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA697F89715;
-	Thu, 23 May 2019 15:49:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F33B2F89732;
+	Thu, 23 May 2019 15:49:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A411F89725; Thu, 23 May 2019 15:49:03 +0200 (CEST)
+ id 9020FF8972C; Thu, 23 May 2019 15:49:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AA6BF89717
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35542F89715
  for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 15:49:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AA6BF89717
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35542F89715
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="qU/N5s4s"
+ header.b="TNABHAgP"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=hTpmJpPnUl348fvANAwWFt8t/iw5ooVeLLCBkWV0jLw=; b=qU/N5s4sCXLS
- OsIQtkMSZ6wLTfWxLjl9oaf6orRHlJUL+Ki3mS7DOZIiqb2KEHSnyrhRVszbvJCpPiGJdCSjQdolu
- wUgG8H75JhmXfiI2603sPLZte2Q+vGknudeqmE/UHbUv8WuPTSErQlKijoxLpTmBEkU36t8AHwkEk
- Pxg8U=;
+ List-Archive; bh=JoiHqqtt4OG0WGA/0z1pluGicYFV1/H2buee19r+gh0=; b=TNABHAgPrrev
+ dZcA7ct0s0IAOV39UC5oH6VCKMjTBjeMlBIscEGqrUomKmSEgMz3redc/sZpVnIvxto1fuyX1GOGS
+ erH/fZB/jOamwgIHW9VXoCMx3zZvgkshpVJ7FiMJn/g7o0P13uVQU14V0rrNirLU9GOZHzVe7LxAU
+ dvKvY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=debutante.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hTo5b-0000E4-D5; Thu, 23 May 2019 13:48:59 +0000
+ id 1hTo5W-0000E0-3X; Thu, 23 May 2019 13:48:54 +0000
 Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id D99DB1126D25; Thu, 23 May 2019 14:48:53 +0100 (BST)
+ id 9FB631126D24; Thu, 23 May 2019 14:48:53 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20190522145505.257961-1-tzungbi@google.com>
+In-Reply-To: <20190522145402.256102-1-tzungbi@google.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190523134853.D99DB1126D25@debutante.sirena.org.uk>
+Message-Id: <20190523134853.9FB631126D24@debutante.sirena.org.uk>
 Date: Thu, 23 May 2019 14:48:53 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, cychiang@google.com, jiaxin.yu@mediatek.com,
  tzungbi@google.com, Mark Brown <broonie@kernel.org>, dgreid@google.com
-Subject: [alsa-devel] Applied "ASoC: mediatek: mt8183: remove unused DAPM
-	pins" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt8183: move card
+	registration to the end of probe" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mt8183: remove unused DAPM pins
+   ASoC: mediatek: mt8183: move card registration to the end of probe
 
 has been applied to the asoc tree at
 
@@ -112,91 +112,63 @@ to this mail.
 Thanks,
 Mark
 
-From 108d0d40b932f80fc7f1dbd1de548d666e649a4b Mon Sep 17 00:00:00 2001
+From 63ba8e4d04ab921f8aaa89227d2e0f7ad79725be Mon Sep 17 00:00:00 2001
 From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Wed, 22 May 2019 22:55:05 +0800
-Subject: [PATCH] ASoC: mediatek: mt8183: remove unused DAPM pins
+Date: Wed, 22 May 2019 22:54:02 +0800
+Subject: [PATCH] ASoC: mediatek: mt8183: move card registration to the end of
+ probe
 
-Kernel emits the following messages when booting.
-ASoC: DAPM unknown pin Headset Mic
-ASoC: DAPM unknown pin Headphone
+mt8183_mt6358_ts3a227_max98357_dev_probe() does not return immediately
+if devm_snd_soc_register_card() returns fail.  As a result, the rest of
+code still get executed.
 
-Remove the unused DAPM pins.
+Two options to fix:
+1. add an extra return statement if devm_snd_soc_register_card()
+   returns fail
+2. move devm_snd_soc_register_card() to the end of probe
+
+Adopt option 2 which is more clear and common.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../soc/mediatek/mt8183/mt8183-da7219-max98357.c | 15 +--------------
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c      | 16 +---------------
- 2 files changed, 2 insertions(+), 29 deletions(-)
+ .../soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-index 31ea8632c397..231fb49d79b9 100644
---- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
-@@ -18,18 +18,6 @@
- 
- static struct snd_soc_jack headset_jack;
- 
--/* Headset jack detection DAPM pins */
--static struct snd_soc_jack_pin headset_jack_pins[] = {
--	{
--		.pin = "Headphone",
--		.mask = SND_JACK_HEADPHONE,
--	},
--	{
--		.pin = "Headset Mic",
--		.mask = SND_JACK_MICROPHONE,
--	},
--};
--
- static struct snd_soc_dai_link_component
- mt8183_da7219_max98357_external_codecs[] = {
- 	{
-@@ -375,8 +363,7 @@ mt8183_da7219_max98357_headset_init(struct snd_soc_component *component)
- 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
- 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
- 				    &headset_jack,
--				    headset_jack_pins,
--				    ARRAY_SIZE(headset_jack_pins));
-+				    NULL, 0);
- 	if (ret)
- 		return ret;
- 
 diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index 4e44e5689d6f..1ba7aa58e4b6 100644
+index 1ba7aa58e4b6..23c422f13808 100644
 --- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
 +++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -17,19 +17,6 @@
+@@ -331,7 +331,7 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
+ 	struct device_node *platform_node;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct pinctrl *default_pins;
+-	int ret, i;
++	int i;
  
- static struct snd_soc_jack headset_jack;
+ 	card->dev = &pdev->dev;
  
--/* Headset jack detection DAPM pins */
--static struct snd_soc_jack_pin headset_jack_pins[] = {
--	{
--		.pin = "Headphone",
--		.mask = SND_JACK_HEADPHONE,
--	},
--	{
--		.pin = "Headset Mic",
--		.mask = SND_JACK_MICROPHONE,
--	},
+@@ -366,11 +366,6 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret)
+-		dev_err(&pdev->dev, "%s snd_soc_register_card fail %d\n",
+-			__func__, ret);
 -
--};
--
- static int mt8183_mt6358_i2s_hw_params(struct snd_pcm_substream *substream,
- 				       struct snd_pcm_hw_params *params)
- {
-@@ -328,8 +315,7 @@ mt8183_mt6358_ts3a227_max98357_headset_init(struct snd_soc_component *component)
- 				    SND_JACK_BTN_0 | SND_JACK_BTN_1 |
- 				    SND_JACK_BTN_2 | SND_JACK_BTN_3,
- 				    &headset_jack,
--				    headset_jack_pins,
--				    ARRAY_SIZE(headset_jack_pins));
-+				    NULL, 0);
- 	if (ret)
- 		return ret;
+ 	default_pins =
+ 		devm_pinctrl_get_select(&pdev->dev, PINCTRL_STATE_DEFAULT);
+ 	if (IS_ERR(default_pins)) {
+@@ -379,7 +374,7 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
+ 		return PTR_ERR(default_pins);
+ 	}
  
+-	return ret;
++	return devm_snd_soc_register_card(&pdev->dev, card);
+ }
+ 
+ #ifdef CONFIG_OF
 -- 
 2.20.1
 

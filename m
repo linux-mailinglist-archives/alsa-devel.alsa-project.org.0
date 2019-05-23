@@ -2,65 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D6A27BC4
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 13:30:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C21B727BE9
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 13:36:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D9911683;
-	Thu, 23 May 2019 13:29:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D9911683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DC891688;
+	Thu, 23 May 2019 13:36:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DC891688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558611020;
-	bh=et814ZCTGZ9aRQk6+8HiOjn+YTThgaq3vBDa0kgurFA=;
+	s=default; t=1558611419;
+	bh=5hZBLdthuusYioflivZbbHLI7/D99Jf3/C11PaTB4Lk=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kEYgw9zK2oJA2zQVV27sgUWylqaFzNce4tPVfVD0s2AbJTrSwZs03e9J5NyU8Zbt3
-	 pQulGhlExdbNjS+U7BQng12HRl+f9/kMU/5d8f9SYUcZpaiZkOkOuYidixlf4qP5Qu
-	 HJVOvQ0GpjGxZiOgAyqvYhPplTRBkoOvwXN66NJY=
+	b=XQrNubzKn7uqMAJg6Zz/N1v0RIQqkdEUzcVx+9kXQgCSLCbfyAQc/oDRqQTWN2gYk
+	 R5RUcgrosN5sKW9TgUk0L5pucutGA0qzSOacaJs3dC3x4aVgG3a5VAgxNsRWp3oZdo
+	 cnEfhdCLO5XuENRKFGKHagA37iqgzXyXHSMdkFN8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08BABF89707;
-	Thu, 23 May 2019 13:28:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3400F89709;
+	Thu, 23 May 2019 13:35:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82106F89674; Thu, 23 May 2019 13:28:33 +0200 (CEST)
+ id 29640F89674; Thu, 23 May 2019 13:35:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A3D7F80C0F
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 13:28:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A3D7F80C0F
+ by alsa1.perex.cz (Postfix) with ESMTPS id A840EF89625
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 13:35:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A840EF89625
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 May 2019 04:28:27 -0700
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 May 2019 04:35:06 -0700
 X-ExtLoop1: 1
-Received: from jlrosema-mobl.amr.corp.intel.com (HELO [10.252.131.22])
- ([10.252.131.22])
- by orsmga002.jf.intel.com with ESMTP; 23 May 2019 04:28:26 -0700
-To: Randy Dunlap <rdunlap@infradead.org>, LKML <linux-kernel@vger.kernel.org>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>
-References: <9019c87f-cf1a-b59f-d87e-8169b247cf88@infradead.org>
+Received: from tthravex-mobl.amr.corp.intel.com (HELO [10.254.190.8])
+ ([10.254.190.8])
+ by orsmga008.jf.intel.com with ESMTP; 23 May 2019 04:35:05 -0700
+To: "Yang, Libin" <libin.yang@intel.com>, Takashi Iwai <tiwai@suse.de>
+References: <20190522162142.11525-1-pierre-louis.bossart@linux.intel.com>
+ <20190522162142.11525-13-pierre-louis.bossart@linux.intel.com>
+ <96A12704CE18D347B625EE2D4A099D195284169B@SHSMSX103.ccr.corp.intel.com>
+ <s5hr28pfux1.wl-tiwai@suse.de>
+ <96A12704CE18D347B625EE2D4A099D19528416F0@SHSMSX103.ccr.corp.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <6b89e370-90e3-6962-c71a-80919b7c6154@linux.intel.com>
-Date: Thu, 23 May 2019 06:28:26 -0500
+Message-ID: <31702c41-aef4-712a-d11b-ee44e446a6cb@linux.intel.com>
+Date: Thu, 23 May 2019 06:35:05 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <9019c87f-cf1a-b59f-d87e-8169b247cf88@infradead.org>
+In-Reply-To: <96A12704CE18D347B625EE2D4A099D19528416F0@SHSMSX103.ccr.corp.intel.com>
 Content-Language: en-US
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Jie Yang <yang.jie@linux.intel.com>,
- kbuild test robot <lkp@intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoc: fix
- sound/soc/intel/skylake/slk-ssp-clk.c build error on IA64
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "broonie@kernel.org" <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 12/12] ASoC: SOF: Intel: hda-codec: fix
+ memory allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,77 +82,44 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 5/22/19 10:58 PM, Randy Dunlap wrote:
-> From: Randy Dunlap <rdunlap@infradead.org>
+On 5/23/19 3:24 AM, Yang, Libin wrote:
+> Hi Takashi,
 > 
-> skl-ssp-clk.c does not build on IA64 because the driver
-> uses the common clock interface, so make the driver depend
-> on COMMON_CLK.
 > 
-> Fixes this build error:
-> ../sound/soc/intel/skylake/skl-ssp-clk.c:26:16: error: field 'hw' has incomplete type
->    struct clk_hw hw;
->                  ^~
+>>> -----Original Message-----
+>>> From: Takashi Iwai [mailto:tiwai@suse.de]
+>>> Sent: Thursday, May 23, 2019 4:16 PM
+>>> To: Yang, Libin <libin.yang@intel.com>
+>>> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>; alsa-
+>>> devel@alsa-project.org; broonie@kernel.org
+>>> Subject: Re: [alsa-devel] [PATCH v2 12/12] ASoC: SOF: Intel: hda-codec:
+>>> fix memory allocation
+>>>
+>>> On Thu, 23 May 2019 10:03:03 +0200,
+>>> Yang, Libin wrote:
+>>>>
+>>>> Please let me describe the issue here.
+>>>>
+>>>> The test case is:
+>>>> 1) Unload module with script "sudo ./sof_remove.sh" ,
+>>>> 2) reload module with script "sudo ./sof_insert.sh"
+>>>>
+>>>> After several rounds of removing and inserting kernel modules, system
+>>>> will complain like below:
+>>>> "BUG: unable to handle kernel paging request at 000000292a282031"
+>>>
+>>> Did you try some kernel debug options?  It might show what went wrong.
+>>
+>> No, I haven't. I'm not sure which options I can use for this case. Could you
+>> please give me some suggestions?
 > 
-> Reported-by: kbuild test robot <lkp@intel.com>
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-> Cc: Jie Yang <yang.jie@linux.intel.com>
-> Cc: alsa-devel@alsa-project.org
-> ---
->   sound/soc/intel/Kconfig        |    3 ++-
->   sound/soc/intel/boards/Kconfig |    2 +-
->   2 files changed, 3 insertions(+), 2 deletions(-)
-> 
-> --- lnx-52-rc1.orig/sound/soc/intel/Kconfig
-> +++ lnx-52-rc1/sound/soc/intel/Kconfig
-> @@ -104,7 +104,7 @@ config SND_SST_ATOM_HIFI2_PLATFORM_ACPI
->   config SND_SOC_INTEL_SKYLAKE
->   	tristate "All Skylake/SST Platforms"
->   	depends on PCI && ACPI
-> -	select SND_SOC_INTEL_SKL
-> +	select SND_SOC_INTEL_SKL if COMMON_CLK
+> BTW: I have enabled DEBUG_DEVRES. Are there any other options I can try?
 
-Is this really necessary? The COMMON_CLK is only needed for the 
-SND_SOC_INTEL_SKYLAKE_SSP_CLK option, isn't it?
+There are already a set of kconfig fragments for debug, see 
+https://github.com/thesofproject/kconfig and select memory-debug-defconfig.
 
->   	select SND_SOC_INTEL_APL
->   	select SND_SOC_INTEL_KBL
->   	select SND_SOC_INTEL_GLK
-> @@ -120,6 +120,7 @@ config SND_SOC_INTEL_SKYLAKE
->   config SND_SOC_INTEL_SKL
->   	tristate "Skylake Platforms"
->   	depends on PCI && ACPI
-> +	depends on COMMON_CLK
->   	select SND_SOC_INTEL_SKYLAKE_FAMILY
->   	help
->   	  If you have a Intel Skylake platform with the DSP enabled
-> --- lnx-52-rc1.orig/sound/soc/intel/boards/Kconfig
-> +++ lnx-52-rc1/sound/soc/intel/boards/Kconfig
-> @@ -286,7 +286,7 @@ config SND_SOC_INTEL_KBL_RT5663_MAX98927
->   	select SND_SOC_MAX98927
->   	select SND_SOC_DMIC
->   	select SND_SOC_HDAC_HDMI
-> -	select SND_SOC_INTEL_SKYLAKE_SSP_CLK
-> +	select SND_SOC_INTEL_SKYLAKE_SSP_CLK if COMMON_CLK
-
-and here I would make it a depend. I guess your solution solves the 
-compilation but doesn't fully represent the fact that this machine 
-driver is not functional without COMMON_CLK+SKYLAKE_SSP_CLK.
-
-
->   	help
->   	  This adds support for ASoC Onboard Codec I2S machine driver. This will
->   	  create an alsa sound card for RT5663 + MAX98927.
-> 
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> 
+I guess I will need to require this test in the SOF CI, I really don't 
+get how this issue was not seen earlier. Gah.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

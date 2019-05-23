@@ -2,58 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CA3028689
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 21:13:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB2428B88
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 22:31:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22043166D;
-	Thu, 23 May 2019 21:12:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22043166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D5B166F;
+	Thu, 23 May 2019 22:30:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D5B166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558638787;
-	bh=+Cw9vawso+KF2WjgBS2O4l+n9DNM2MPq7eEKNt5IxpY=;
-	h=To:From:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1558643472;
+	bh=G3zoIUAvqk/5JF65hqIwqMykw3i60NaTMPLMGnlwbM4=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=p4/FYriIge9lWUsHeGcqkwd+TizqqGXezVkTkyNBtMsw6+70pr6YWUWJE1RZGBw09
-	 RLgafKTOmx0TBDTTQv6sWYBK4Mbb7SYmAcevCoE6ynZskf8Tz9RS//wyKBJ2wis/oV
-	 QeT6v7Ge9fw0//ycqR6L+30nq+pLALIJbN/M76Tg=
+	b=RUwV2jvo0lin8QT1RrMx7SyJG7PltfjFILPOj29JmXHpqvmNgbDT/CQw3UPbuMdjo
+	 qa5q/JVgusACPgTD4Ht9+mABgYiNlcztXH05gqZpdavofwDztTz4A5Ke+H0hPydZqR
+	 U31Y7SfQ4gTUhNEsY/kISTp/pQXG0RAYJ6TS+OeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 98FE7F89625;
-	Thu, 23 May 2019 21:11:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71465F80C0F;
+	Thu, 23 May 2019 22:29:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9672F89674; Thu, 23 May 2019 21:11:20 +0200 (CEST)
+ id 39677F80C0F; Thu, 23 May 2019 22:29:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from malenstwo.juszkiewicz.com.pl (malenstwo.juszkiewicz.com.pl
- [37.187.99.30]) by alsa1.perex.cz (Postfix) with ESMTP id 65F20F8079B
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 21:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65F20F8079B
-Received: from localhost (localhost [127.0.0.1])
- by malenstwo.juszkiewicz.com.pl (Postfix) with ESMTP id 608C8C057E
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 21:11:17 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at juszkiewicz.com.pl
-Received: from malenstwo.juszkiewicz.com.pl ([127.0.0.1])
- by localhost (mail.juszkiewicz.com.pl [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id QihVe6T223sT for <alsa-devel@alsa-project.org>;
- Thu, 23 May 2019 21:11:15 +0200 (CEST)
-Received: from puchatek.local (89-67-26-161.dynamic.chello.pl [89.67.26.161])
- by malenstwo.juszkiewicz.com.pl (Postfix) with ESMTPSA id CA739C034E
- for <alsa-devel@alsa-project.org>;
- Thu, 23 May 2019 21:11:14 +0200 (CEST)
-To: alsa-devel@alsa-project.org
-From: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
-Message-ID: <f4c9b563-af22-c351-47ee-9a748a9f4cc9@juszkiewicz.com.pl>
-Date: Thu, 23 May 2019 21:11:14 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from gateway30.websitewelcome.com (gateway30.websitewelcome.com
+ [192.185.144.21])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68009F80C0F
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 22:29:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68009F80C0F
+Received: from cm16.websitewelcome.com (cm16.websitewelcome.com [100.42.49.19])
+ by gateway30.websitewelcome.com (Postfix) with ESMTP id 487287030
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 15:29:19 -0500 (CDT)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id TuL0hx0w24FKpTuL1hJMQd; Thu, 23 May 2019 15:29:19 -0500
+X-Authority-Reason: nr=8
+Received: from [189.250.47.159] (port=34524 helo=embeddedor)
+ by gator4166.hostgator.com with esmtpa (Exim 4.91)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1hTuL0-000Lzk-50; Thu, 23 May 2019 15:29:18 -0500
+Date: Thu, 23 May 2019 15:29:17 -0500
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Message-ID: <20190523202917.GA12595@embeddedor>
 MIME-Version: 1.0
-Content-Language: en-GB
-Subject: [alsa-devel] No sound on Asrock Z68 Extreme4
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 189.250.47.159
+X-Source-L: No
+X-Exim-ID: 1hTuL0-000Lzk-50
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: (embeddedor) [189.250.47.159]:34524
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 3
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [alsa-devel] [PATCH] ALSA: Use struct_size() helper
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,26 +91,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I recently moved my home machine to Asrock Z68 Extreme4 mainboard.
-Booted into Fedora 30 and found out that my speakers are not making any
-sound.
+Make use of the struct_size() helper instead of an open-coded version
+in order to avoid any potential type mistakes, in particular in the
+context in which this code is being used.
 
-alsa-info.sh output:
-http://alsa-project.org/db/?f=9c079d91b5f2278d3c3bd98518a6a717c86d31df
+So, replace the following form:
 
-Pulseaudio says that are no speakers connected and 'hdajacksensetest'
-says the same:
+sizeof(struct rate_priv) + src_format->channels * sizeof(struct rate_channel)
 
-21:08 (0s) hrw@puchatek:~$ sudo hdajacksensetest
-Pin 0x14 (Green Line Out, Rear side): present = No
-Pin 0x15 (Black Line Out, Rear side): present = No
-Pin 0x16 (Orange Line Out, Rear side): present = No
-Pin 0x18 (Pink Mic, Rear side): present = No
-Pin 0x1a (Blue Line In, Rear side): present = No
+with:
 
-I noticed 'hdajackretask' tool but no idea how to use it properly.
+struct_size(data, channels, src_format->channels)
 
-Any ideas?
+This code was detected with the help of Coccinelle.
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ sound/core/oss/rate.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sound/core/oss/rate.c b/sound/core/oss/rate.c
+index 2fa9299a440d..7cd09cef6961 100644
+--- a/sound/core/oss/rate.c
++++ b/sound/core/oss/rate.c
+@@ -323,8 +323,8 @@ int snd_pcm_plugin_build_rate(struct snd_pcm_substream *plug,
+ 
+ 	err = snd_pcm_plugin_build(plug, "rate conversion",
+ 				   src_format, dst_format,
+-				   sizeof(struct rate_priv) +
+-				   src_format->channels * sizeof(struct rate_channel),
++				   struct_size(data, channels,
++					       src_format->channels),
+ 				   &plugin);
+ 	if (err < 0)
+ 		return err;
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

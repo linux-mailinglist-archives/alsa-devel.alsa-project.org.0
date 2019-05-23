@@ -2,73 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A1A27EBF
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 15:50:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05303280CA
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 May 2019 17:17:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3DC21668;
-	Thu, 23 May 2019 15:49:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3DC21668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 899C91677;
+	Thu, 23 May 2019 17:16:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 899C91677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558619445;
-	bh=xD2Bd46NBJEgAWsInm6crl935gaYS+Ezw+D8r8dGSjA=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BggbOp4/+DQ1DkoUNrfp9OJTjAZfXK42LS9twGgifXPvvA4E0b2C3RH4fwj86vbr1
-	 0+5nn7/id3AVGeXakDkSTDXxAoC2dJZ7BYG9CkoknMJRy7GTk4ugsaenZFhUgbxsYk
-	 UPqB8C+0f76Gjcp73S5KMo1RyYQAPezgiNaW4jY0=
+	s=default; t=1558624635;
+	bh=MuoB/d3aBYWjw7d165WyaE+SW/9hmvoytEKYEgoiylk=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Dn+pGlvNRqkBxV8I4MqGu1tDGizLzjlcrScsxaobcNuAlu4seLK7tD/SWPeOMNttq
+	 lOfjzHxkcwuuWYIXBcCRG87paYUu/ycOinT0wZ99xLkhlG7HoHlXqKrNbwB4/4Wqpn
+	 5jat3u0j0e9Xfw8pjZZAKxyh4zFfiaeMXMeJgp5Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54F0DF89709;
-	Thu, 23 May 2019 15:49:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 705EEF89725;
+	Thu, 23 May 2019 17:14:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAAC1F89674; Thu, 23 May 2019 15:48:58 +0200 (CEST)
+ id 0E307F89715; Thu, 23 May 2019 17:14:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58519F8079B
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 15:48:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58519F8079B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 428C4F8079B
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 17:14:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 428C4F8079B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="HHHzNbUm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Z1XGKzoZuWiyuoTsTpQctA9GXEF8o0GCw76GsdRIXxg=; b=HHHzNbUm2m5D
- l3GAdrQsUpEHddwtN12knYDh+lF9uoma0uuNkV1qn4NSECo3hF8jEAMgebb70DO2pZD6kSB9avMLt
- KZ3fbShOYtLdnqmBFxq9AYr57tNQDJXo7dV6GZSywQGkD3tqHmB3ObpVdrv9+AsswjlMPYpf5yrYB
- 7viCM=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=debutante.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpa (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hTo5W-0000E7-KX; Thu, 23 May 2019 13:48:54 +0000
-Received: by debutante.sirena.org.uk (Postfix, from userid 1000)
- id 1DAAD1126D27; Thu, 23 May 2019 14:48:54 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-In-Reply-To: <1558536724-18293-1-git-send-email-jiaxin.yu@mediatek.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190523134854.1DAAD1126D27@debutante.sirena.org.uk>
-Date: Thu, 23 May 2019 14:48:54 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, wsd_upstream@mediatek.com,
- srv_heupstream@mediatek.com, garlic.tseng@mediatek.com, tzungbi@google.com,
- Mark Brown <broonie@kernel.org>, linux-mediatek@list.infradead.org,
- kaichieh.chuang@mediatek.com
-Subject: [alsa-devel] Applied "ASoC: Mediatek: MT8183: enable dev runtime
-	suspend and resume" to the asoc tree
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ELjeFpm1"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="DLsL9Z+a"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 449AB37D85;
+ Thu, 23 May 2019 11:14:46 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Thu, 23 May 2019 11:14:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=zvCQHTFN6Lr7uJ5iZNFjQ3vD8z
+ Bt2NvxUXB42/Ij6HM=; b=ELjeFpm1RtAHnoKxIYY1GJ920gv1EjoIeKHqnXEPpm
+ WgVWaJGQFk5SDhklOV7gp0k92uaL/2wul8q3gnfKTJljD3j+gDgnapOUWl2kzISn
+ 0hbRI59DgkfVzRMUwmnX43C9xKyFM+YwIu5bq4uEdEE8klE1t7ev6Rl5YUQ6mRVv
+ NuHhxvqOBzRjudOk2meXWjSSztxk7n6grcd+9FBfWZH6cmn9nl3SuFaJ18fgVGPP
+ WSjeTG3HW3RZMCzs+6B/hYQe4ZlqN1Bbhhbo+MfYTckl/veqX3ykiE/fJfuBMbDp
+ For6MxKsAEStJYzk5n/5qNblPqVKPBtz8Bx6sbtXqUfQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=zvCQHTFN6Lr7uJ5iZ
+ NFjQ3vD8zBt2NvxUXB42/Ij6HM=; b=DLsL9Z+aYwRy1rWSvm6CB2sQR719CuQ3l
+ W/JznfCWYiD+Obt/aV9p9XZ0/vEH4bLvDc959JPL7el1PgFrZQDXeTyXcZw/iynu
+ niYt2q7kIs8ODpDINpTo5SIb5JTI0CC+hbe/9VoGIfdLdXnNRFOOrUl/mpUNw9YM
+ +A1w1iqiPNKWbCeVYMNkT+sZOtyFhtRxgQftccrZqbggML0ajKcq/hSl97NF8G4I
+ laWmzi+3lil+K4VcJJGRpJgstuvSsbQgqQGz2VUE8Ul+gaN8tEViUBQEV9b4xc14
+ S3jtYEiLGjq2Fal+ImzEIHnpe4cLLLeVJWSxf3JVz4CyNRrtrxKiQ==
+X-ME-Sender: <xms:5bjmXIfJ6frjmik5awbdUftzEPM9OCcgX80Es8lhR24MOt1_btugKA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddugedgkeekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedunecurf
+ grrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdr
+ jhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:5bjmXJ7tlfG8WA650ci9s2d-pztcDwynK0gwSghB5udsDpW4XWN3cA>
+ <xmx:5bjmXEVm1PTAGrHPLHGxT0b_UAvuKGOcFQt7T7_tOdv4mtPRUhcASg>
+ <xmx:5bjmXAZFPk5LzAp8hygMIe0NkuMEAjCxlsY5bFHEWdgFuTBbuRjxXQ>
+ <xmx:5rjmXPfTNVJHRocvvNr7UM5LGr-bIavq8s2orWsBBhG6TMGNlm42PQ>
+Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0978B380073;
+ Thu, 23 May 2019 11:14:43 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Date: Fri, 24 May 2019 00:14:36 +0900
+Message-Id: <20190523151440.5127-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 0/4] ALSA: firewire-lib: unify handlers for
+	outgoing packet
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,82 +103,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hi,
 
-   ASoC: Mediatek: MT8183: enable dev runtime suspend and resume
+In IT context of Linux firewire subsystem, some quadlets of packet
+payload can be put as a part of packet header. This enables to
+use context payload for data blocks only.
 
-has been applied to the asoc tree at
+This patchset uses the mechanism to unify handlers of outgoing packet
+for with-CIP and without-CIP headers.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+Takashi Sakamoto (4):
+  ALSA: firewire-lib: split helper function to generate CIP header
+  ALSA: firewire-lib: unify packet handler for IT context
+  ALSA: firewire-lib: code refactoring to queueing packets
+  ALSA: firewire-lib: use 8 byte packet header for IT context to
+    separate CIP header from CIP payload
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+ sound/firewire/amdtp-stream.c | 150 ++++++++++++++++------------------
+ sound/firewire/amdtp-stream.h |   3 -
+ 2 files changed, 69 insertions(+), 84 deletions(-)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 5463eb5c2f758069d1db21ed2cf23339431c9481 Mon Sep 17 00:00:00 2001
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Date: Wed, 22 May 2019 22:52:04 +0800
-Subject: [PATCH] ASoC: Mediatek: MT8183: enable dev runtime suspend and resume
-
-System suspend will power off audio, so we need regcache sync when
-system resume.
-
-Remove pm_runtime_get_sync in dev probe and pm_runtime_put_sync in
-dev remove.So that audio dev can triggle runitme suspend and resume.
-
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index 56c37323bc13..4a31106d3471 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -1142,8 +1142,6 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 	regcache_cache_only(afe->regmap, true);
- 	regcache_mark_dirty(afe->regmap);
- 
--	pm_runtime_get_sync(&pdev->dev);
--
- 	/* init memif */
- 	afe->memif_size = MT8183_MEMIF_NUM;
- 	afe->memif = devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
-@@ -1235,11 +1233,10 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 
- static int mt8183_afe_pcm_dev_remove(struct platform_device *pdev)
- {
--	pm_runtime_put_sync(&pdev->dev);
--
- 	pm_runtime_disable(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		mt8183_afe_runtime_suspend(&pdev->dev);
-+
- 	return 0;
- }
- 
 -- 
 2.20.1
 

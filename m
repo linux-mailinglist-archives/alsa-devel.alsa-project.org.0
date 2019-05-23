@@ -2,96 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5009728D75
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 00:54:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C82428DEC
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 01:42:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C13C71683;
-	Fri, 24 May 2019 00:53:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C13C71683
+	by alsa0.perex.cz (Postfix) with ESMTPS id B734C1685;
+	Fri, 24 May 2019 01:41:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B734C1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558652041;
-	bh=uzBrTmFw4FOXq1BL+CwmGSY7aFn+wiGuzt5FHtA7lqY=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gxrtLgNj1QU/KicT+S7BtbM4p9xw9QvY8BRa6R9Qm93YK7ZHcqo1TcVfn/E6q6AMN
-	 OxQPx2WcJ6IklqUFoOWccbVG+os5r7lYXeLDR2WEyfHL3WHKmab+3p8NDXzH1ODR3o
-	 1Xa3C4ZSPau2GaM9MVyvJc41K1BGt+vG2Kgc/Jac=
+	s=default; t=1558654945;
+	bh=0JwzFO+4m+sDTrNT9O7S+fgdjTOHc6ATEJ0exeasxpY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TvpYK8DX4pLR7K0+2bObkJuYff4i8Ltc35GKPOxwHv7ap2cy0s5MySdsYNq6DaGlX
+	 e2Bo/GYqhhphdRTa/lvDcsr3x3F6vKW95WNvsgU87inunbcHElPb0/YT+us0XKkQFK
+	 fvTDUZZafizd1UNA39VutW7O1Z5T/n+PYz8ZTfa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28024F89709;
-	Fri, 24 May 2019 00:52:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D32A1F89674;
+	Fri, 24 May 2019 01:40:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCF98F89674; Fri, 24 May 2019 00:52:14 +0200 (CEST)
+ id C1A1FF89709; Fri, 24 May 2019 01:40:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AF9EF8079B
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 00:52:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AF9EF8079B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HAsZi7nZ"
-Received: by mail-pf1-x441.google.com with SMTP id u17so4056099pfn.7
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 15:52:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=6sNQBO0ShsOiyXm56ZAi0h5L7rJJmlpKkNelQHUJj+w=;
- b=HAsZi7nZ8gveH237kWeKnke3dDxr+y2gwyQ7UKnpPqhx9d5PwmMZdVn7AXJnbNNKxS
- ePDFO1IpN8iZHALaZ59urWJKkwTEjRYeKIbeaa5XlK6YazplFpVh3yQoNM2SreXoytPY
- btxUuPLWLnazqWiEtgybRKS/JgvW7Ksg6tagpdJUc2j9vKOTSJ7wYNlwfPPVjGSV974J
- 8KoWA9zxDazLNvw1zkaTwiMaMQcUGxh/ANi8nkvxE5Fa1teN6vQn88J0xnGyo/nrpr4m
- imIzmRVIX8eS7v6OXmI02YsKDallHF64R30gSIuSWrHTWujRe7yWJmNXLOOIOAJsBNSa
- npYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=6sNQBO0ShsOiyXm56ZAi0h5L7rJJmlpKkNelQHUJj+w=;
- b=A0ICrc40jhGmBwTWBU7N6UTwzewVxhoJ8Tj6Mjt3SEIUEAvTHdYRXTpMITcOnIXvYU
- 6TRBfmjoKGH2KUYMT4VUTVSp6EGQmKU4dVUs7FB6KPqh3jifczhrP+NDwNwK58WzKHKX
- TbY+iG91cRI9UDJsol+H/svvl4GQBYjjSTVpiugzC2o4HB2K8VvzJcu5mkilT0cvwjzo
- pD601nFS0aFtH1Ih4LPLQLHLfAzjK4/JQAiBrVbEckqjqhR/707je2k6XVoCGg7VWjOv
- 78U1meN0/n2hgGevf1Rxf6G3Yn3LaHWpy5+jFvhUKEmONoP8tljlJYPL4CffrTRHI/dN
- g6Qg==
-X-Gm-Message-State: APjAAAUacFYzyJzVcXrP75SFqdOM/NYD41I388OxBk2+ejOttMmYWT3X
- iauBiATVnXmbcCj3hfPvOOo=
-X-Google-Smtp-Source: APXvYqyuBQiscdYr7VRVcYBJKBnh5BshxJM8AvZKv6cszmjJhESCIjuXtoiy1ZJAGyWPkAkAtziQ5w==
-X-Received: by 2002:a62:2506:: with SMTP id l6mr107019907pfl.250.1558651929550; 
- Thu, 23 May 2019 15:52:09 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id x17sm341603pgh.47.2019.05.23.15.52.09
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 23 May 2019 15:52:09 -0700 (PDT)
-Date: Thu, 23 May 2019 15:50:52 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: "broonie@kernel.org" <broonie@kernel.org>,
- "S.j. Wang" <shengjiu.wang@nxp.com>
-Message-ID: <20190523225052.GA29562@Asurada-Nvidia.nvidia.com>
-References: <VE1PR04MB6479FF8E1B55E9BE67E7B0ECE3010@VE1PR04MB6479.eurprd04.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86A26F8079B
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 01:40:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86A26F8079B
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 May 2019 16:40:30 -0700
+X-ExtLoop1: 1
+Received: from mgastonx-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.251.128.35])
+ by orsmga008.jf.intel.com with ESMTP; 23 May 2019 16:40:29 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Thu, 23 May 2019 18:39:45 -0500
+Message-Id: <20190523233951.31122-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <VE1PR04MB6479FF8E1B55E9BE67E7B0ECE3010@VE1PR04MB6479.eurprd04.prod.outlook.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_esai: fix the channel swap issue
-	after xrun
+Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
+ Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
+Subject: [alsa-devel] [RFC PATCH 0/6] ALSA/HDA: abort probe when DMICs are
+	detected
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,43 +72,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, May 23, 2019 at 11:04:03AM +0000, S.j. Wang wrote:
-> > On Thu, May 23, 2019 at 09:53:42AM +0000, S.j. Wang wrote:
-> > > > > +     /*
-> > > > > +      * Add fifo reset here, because the regcache_sync will
-> > > > > +      * write one more data to ETDR.
-> > > > > +      * Which will cause channel shift.
-> > > >
-> > > > Sounds like a bug to me...should fix it first by marking the data
-> > > > registers as volatile.
-> > > >
-> > > The ETDR is a writable register, it is not volatile. Even we change it
-> > > to Volatile, I don't think we can't avoid this issue. for the
-> > > regcache_sync Just to write this register, it is correct behavior.
-> > 
-> > Is that so? Quoting the comments of regcache_sync():
-> > "* regcache_sync - Sync the register cache with the hardware.
-> >  *
-> >  * @map: map to configure.
-> >  *
-> >  * Any registers that should not be synced should be marked as
-> >  * volatile."
-> > 
-> > If regcache_sync() does sync volatile registers too as you said, I don't mind
-> > having this FIFO reset WAR for now, though I think this mismatch between
-> > the comments and the actual behavior then should get people's attention.
-> > 
-> > Thank you
-> 
-> ETDR is not volatile,  if we mark it is volatile, is it correct?
+This is the second take on same problem of detecting when the HDaudio
+legacy driver can be used and when the SST or SOF drivers are
+required.
 
-Well, you have a point -- it might not be ideally true, but it sounds
-like a correct fix to me according to this comments.
+The previous attempt based on a the PCI Class information was a
+resounding failure and broke audio on Linus' laptop, so we need
+additional information to avoid enabling a DSP-based driver without a
+good reason to do so.
 
-We can wait for Mark's comments or just send a patch to the mail list 
-for review.
+This patchset suggests the use of the NHLT information which *in
+theory* exposes DMIC endpoints. The legacy HDaudio driver cannot
+handle DMICs and will not provide any capture capabilities. Since it's
+typically the first one to probe due to the Makefile order, aborting
+the probe will let the PCI subsystem look for the next driver which
+hopefully will support this capability.
 
-Thanks you
+I tested this patch on 5 devices (SKL, KBL, APL, GLK, WHL), three
+without DMICs and two with, and the detection seems to work as
+planned. I would appreciate it if HDaudio integrators and folks at
+Google/Canonical/Endless can give this a try. As usual I expect that
+we will have to use quirks and work-arounds, but it'd be a better idea
+than a build-time mutual exclusion. We could also make this optional
+(Kconfig and/or module parameters) if people prefer to muck with
+blacklists.
+
+Feedback and comments welcome!
+
+Pierre-Louis Bossart (6):
+  ASoC: Intel: boards: remove unnecessary inclusion of skl.h
+  ASoC: Intel: Skylake: move NHLT header to common directory
+  ASoC: Intel: common: move parts of NHLT code to new module
+  ASoC: Intel: Skylake: use common NHLT module
+  ALSA / hda: stop probe if DMICS are detected on Skylake+ platforms
+  [HACK] ASoC: Intel: NHLT: handle VENDOR_DEFINED DMIC geometry
+
+ sound/pci/hda/Kconfig                         |   1 +
+ sound/pci/hda/hda_intel.c                     |  30 ++++++
+ sound/soc/intel/Kconfig                       |   3 +
+ sound/soc/intel/boards/glk_rt5682_max98357a.c |   1 -
+ sound/soc/intel/boards/kbl_da7219_max98357a.c |   1 -
+ sound/soc/intel/boards/kbl_da7219_max98927.c  |   1 -
+ sound/soc/intel/boards/skl_hda_dsp_common.c   |   1 -
+ sound/soc/intel/common/Makefile               |   3 +
+ sound/soc/intel/common/intel-nhlt.c           | 101 ++++++++++++++++++
+ .../skl-nhlt.h => common/intel-nhlt.h}        |  28 +++++
+ sound/soc/intel/skylake/skl-nhlt.c            |  91 +---------------
+ sound/soc/intel/skylake/skl-ssp-clk.c         |   1 +
+ sound/soc/intel/skylake/skl-topology.c        |   1 +
+ sound/soc/intel/skylake/skl.c                 |  11 +-
+ sound/soc/intel/skylake/skl.h                 |   4 -
+ 15 files changed, 176 insertions(+), 102 deletions(-)
+ create mode 100644 sound/soc/intel/common/intel-nhlt.c
+ rename sound/soc/intel/{skylake/skl-nhlt.h => common/intel-nhlt.h} (83%)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

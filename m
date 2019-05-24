@@ -2,84 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31EDC294AC
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 11:32:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1B712962E
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 12:43:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A540016D0;
-	Fri, 24 May 2019 11:31:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A540016D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 506ED16C3;
+	Fri, 24 May 2019 12:43:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 506ED16C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558690324;
-	bh=h3Me0rkDrL2/IxSlhbvuRGe9Est7GcoBAakwMZjvgaA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IcUbOC4fDjKBmjGxiPg7hFSStgKTh/hQ4YvUi++WGy8jZRvGaIy/UqTcb7Cu+QmC2
-	 +4fWV8Gc5W0xtu/7VuhD/lnsLISifG3cZ7BxhenqkZUu7HnA6Fq5zQBn9i8/uwv60W
-	 4szMR46uSiHP6iRohHkAabtMGzZD0b1AO7jN5kR8=
+	s=default; t=1558694635;
+	bh=OLWRmtEzHm9rigy57t/aIjtFjP1Bs5of5eGNLAzLNM4=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kBRSiLAPkKIXDD+HshWnW6gsHIT3X+5omx+lUYKdV5ixEgjgAohw28aOYVL4232lt
+	 MNSg9pV8IpfTaUajI8xN1dAD0+jUZo9dhPV/kdcaJU3oePWxViMRLTm+Mlhainyfqq
+	 vQam4fpxZJI9DqQ0ogRzufvANi29v4qnv/vtxvwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE43AF8962F;
-	Fri, 24 May 2019 11:30:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20EDFF89718;
+	Fri, 24 May 2019 12:42:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BCA0F89630; Fri, 24 May 2019 11:30:17 +0200 (CEST)
+ id 4885FF8963E; Fri, 24 May 2019 12:42:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled
- version=3.4.0
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C20FAF89625
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 11:30:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C20FAF89625
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="GDQKpbEI"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5ce7b9a40000>; Fri, 24 May 2019 02:30:12 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Fri, 24 May 2019 02:30:12 -0700
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Fri, 24 May 2019 02:30:12 -0700
-Received: from [10.21.132.148] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 24 May
- 2019 09:30:10 +0000
-To: Gen Zhang <blackgod016574@gmail.com>, <broonie@kernel.org>,
- <tiwai@suse.com>
-References: <20190524021221.GA4753@zhanggen-UX430UQ>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <0fb5b294-99ba-bb73-a972-e1886dc6b792@nvidia.com>
-Date: Fri, 24 May 2019 10:30:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+X-Spam-Level: **
+X-Spam-Status: No, score=2.2 required=5.0 tests=PRX_BODYSUB_1,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 260D0F89630
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 12:42:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 260D0F89630
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4OAdRlQ005113; Fri, 24 May 2019 05:42:00 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail3.cirrus.com ([87.246.76.56])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2sjefn0pcn-1;
+ Fri, 24 May 2019 05:42:00 -0500
+Received: from EDIEX02.ad.cirrus.com (ediex02.ad.cirrus.com [198.61.84.81])
+ by mail3.cirrus.com (Postfix) with ESMTP id CC86B611DAE4;
+ Fri, 24 May 2019 05:42:39 -0500 (CDT)
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Fri, 24 May
+ 2019 11:41:58 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Fri, 24 May 2019 11:41:58 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D5EB544;
+ Fri, 24 May 2019 11:41:58 +0100 (BST)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Date: Fri, 24 May 2019 11:41:54 +0100
+Message-ID: <20190524104158.30731-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <20190524021221.GA4753@zhanggen-UX430UQ>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1558690212; bh=w7pLj2lJsq63RcVDdYEsNgQk2low9PPUZap3YYWNh/g=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=GDQKpbEIpRwC1xcUjvHajuI7CDlbwtFrYQzarWn9yc/JoVLo6g2ETuoiNWO34Cmqt
- aEQ7HHNL3f0qR5fnmTuEHuoDCnV7yzQcB4KedjBSUHjTfcJfFTAIhi80hv3KHuLgHI
- hp+ViKhAU9nAGaPaEbxkg111HDy4eXAo8O/XHqJx4qSCB94TzJwcCaYR+4ZMDWromQ
- tHoe1FpAmaZC+htMSX6vpXsxbhLVRo2NcnUXe3+zox/U1zCTEjEvEBHyuHU/RgjfCc
- K2iS+kIDya/HiZ80DR1rtTWIA76hF0146gtKPQMarw8y6PN521/E1XCg9rlD1A+vKO
- /cjAIXeJRRMKw==
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] pcm030-audio-fabric: Fix a memory leaking
- bug in pcm030_fabric_probe()
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905240073
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, lee.jones@linaro.org
+Subject: [alsa-devel] [PATCH 1/5] ASoC: madera: Add DT bindings for Cirrus
+	Logic Madera codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,26 +91,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
 
-On 24/05/2019 03:12, Gen Zhang wrote:
-> In pcm030_fabric_probe(), 'pdata->codec_device' is allocated by
-> platform_device_alloc(). When this allocation fails, ENOMEM is returned.
-> However, 'pdata' is allocated by devm_kzalloc() before this site. We
-> should free 'pdata' before function ends to prevent memory leaking.
-> 
-> Similarly, we should free 'pdata' when 'pdata->codec_device' is NULL.
-> And we should free 'pdata->codec_device' and 'pdata' when 'ret' is error
-> to prevent memory leaking.
-> 
-> Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
+The Cirrus Logic Madera codecs are a family of related codecs with
+extensive digital and analogue I/O, digital mixing and routing,
+signal processing and programmable DSPs.
 
-I have seen several of these patches now, and this is not correct. I
-think you need to understand how devm_kzalloc() works.
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ Documentation/devicetree/bindings/sound/madera.txt | 67 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ include/dt-bindings/sound/madera.h                 | 29 ++++++++++
+ 3 files changed, 97 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/madera.txt
+ create mode 100644 include/dt-bindings/sound/madera.h
 
-Jon
-
+diff --git a/Documentation/devicetree/bindings/sound/madera.txt b/Documentation/devicetree/bindings/sound/madera.txt
+new file mode 100644
+index 0000000000000..1114fcf1aa4c2
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/madera.txt
+@@ -0,0 +1,67 @@
++Cirrus Logic Madera class audio codecs
++
++This describes audio configuration bindings for these codecs.
++
++See also the core bindings for the parent MFD driver:
++See Documentation/devicetree/bindings/mfd/madera.txt
++
++and defines for values used in these bindings:
++include/dt-bindings/sound/madera.h
++
++These properties are all contained in the parent MFD node.
++
++Optional properties:
++  - cirrus,dmic-ref : Indicates how the MICBIAS pins have been externally
++    connected to DMICs on each input, one cell per input.
++    <IN1 IN2 IN3 ...>
++    A value of 0 indicates MICVDD and is the default, other values depend on the
++    codec:
++    For CS47L35 one of the CS47L35_DMIC_REF_xxx values
++    For all other codecs one of the MADERA_DMIC_REF_xxx values
++    Also see the datasheet for a description of the INn_DMIC_SUP field.
++
++  - cirrus,inmode : A list of input mode settings for each input. A maximum of
++    16 cells, with four cells per input in the order INnAL, INnAR INnBL INnBR.
++    For non-muxed inputs the first two cells for that input set the mode for
++    the left and right channel and the second two cells must be 0.
++    For muxed inputs the first two cells for that input set the mode of the
++    left and right A inputs and the second two cells set the mode of the left
++    and right B inputs.
++    Valid mode values are one of the MADERA_INMODE_xxx. If the array is shorter
++    than the number of inputs the unspecified inputs default to
++    MADERA_INMODE_DIFF.
++
++  - cirrus,out-mono : Mono bit for each output, must contain six cells if
++    specified. A non-zero value indicates the corresponding output is mono.
++
++  - cirrus,max-channels-clocked : Maximum number of channels that I2S clocks
++    will be generated for. Useful when clock master for systems where the I2S
++    bus has multiple data lines.
++    One cell for each AIF, use a value of zero for AIFs that should be handled
++    normally.
++
++  - cirrus,pdm-fmt : PDM speaker data format, must contain 2 cells
++    (OUT5 and OUT6). See the PDM_SPKn_FMT field in the datasheet for a
++    description of this value.
++    The second cell is ignored for codecs that do not have OUT6.
++
++  - cirrus,pdm-mute : PDM mute format, must contain 2 cells
++    (OUT5 and OUT6). See the PDM_SPKn_CTRL_1 register in the datasheet for a
++    description of this value.
++    The second cell is ignored for codecs that do not have OUT6.
++
++Example:
++
++cs47l35@0 {
++	compatible = "cirrus,cs47l35";
++
++	cirrus,dmic-ref = <0 0 CS47L35_DMIC_REF_MICBIAS1B 0>;
++	cirrus,inmode = <
++		MADERA_INMODE_DMIC MADERA_INMODE_DMIC /* IN1A digital */
++		MADERA_INMODE_SE   MADERA_INMODE_SE   /* IN1B single-ended */
++		MADERA_INMODE_DIFF MADERA_INMODE_DIFF /* IN2 differential */
++		0 0 	/* not used on this codec */
++	>;
++	cirrus,out-mono = <0 0 0 0 0 0>;
++	cirrus,max-channels-clocked = <2 0 0>;
++};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5cfbea4ce5750..642cb5610dd50 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3915,6 +3915,7 @@ W:	https://github.com/CirrusLogic/linux-drivers/wiki
+ S:	Supported
+ F:	Documentation/devicetree/bindings/mfd/madera.txt
+ F:	Documentation/devicetree/bindings/pinctrl/cirrus,madera-pinctrl.txt
++F:	include/dt-bindings/sound/madera*
+ F:	include/linux/irqchip/irq-madera*
+ F:	include/linux/mfd/madera/*
+ F:	drivers/gpio/gpio-madera*
+diff --git a/include/dt-bindings/sound/madera.h b/include/dt-bindings/sound/madera.h
+new file mode 100644
+index 0000000000000..9ff4eae5259b0
+--- /dev/null
++++ b/include/dt-bindings/sound/madera.h
+@@ -0,0 +1,29 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Device Tree defines for Madera codecs
++ *
++ * Copyright (C) 2016-2017 Cirrus Logic, Inc. and
++ *                         Cirrus Logic International Semiconductor Ltd.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
++ */
++
++#ifndef DT_BINDINGS_SOUND_MADERA_H
++#define DT_BINDINGS_SOUND_MADERA_H
++
++#define MADERA_INMODE_DIFF		0
++#define MADERA_INMODE_SE		1
++#define MADERA_INMODE_DMIC		2
++
++#define MADERA_DMIC_REF_MICVDD		0
++#define MADERA_DMIC_REF_MICBIAS1	1
++#define MADERA_DMIC_REF_MICBIAS2	2
++#define MADERA_DMIC_REF_MICBIAS3	3
++
++#define CS47L35_DMIC_REF_MICBIAS1B	1
++#define CS47L35_DMIC_REF_MICBIAS2A	2
++#define CS47L35_DMIC_REF_MICBIAS2B	3
++
++#endif
 -- 
-nvpublic
+2.11.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

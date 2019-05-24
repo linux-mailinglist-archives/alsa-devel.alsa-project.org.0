@@ -2,58 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 541E3290B8
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 08:05:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62A2F29118
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 08:39:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB3D01680;
-	Fri, 24 May 2019 08:05:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB3D01680
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFB2916A0;
+	Fri, 24 May 2019 08:38:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFB2916A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558677957;
-	bh=F7NKv+HkiyVn0xVN6vJ2YtZB/w4LKvB5w3Pxa8KU+c0=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1558679956;
+	bh=qUQ4qBeimDZdlrD03kKQ5rA/CnzKdvLIgVCtT/AawMw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AHPZoxyr8fO+pHthhx/yYZPeps328atLJ44UAJMXPHaMf6IaX6Wy79b+b74blFCrx
-	 5GHiKKdu5oP7RWSDbCdq0qJZknS5egpPT0+FAuorsnV5np4ICaPHnpDE+Ec5ltJw4A
-	 96FSLCC4aDnqxRIeI0FuPHTzlUXW/F0ZshIe6k7w=
+	b=f+jC8ytGE3NLhuL+6jSgy8JcrgrEfwxaa6ztJZIxQWj2UvDw0vnK7UBUvXMSb/BBB
+	 /0HagXErxJUBk2M9dZPDbaiKLqu5b4+DSIbCvKDWRB7nDuZJ0vT4ZXK8slnPNDM5Rc
+	 sSGInj2HQ1WNP+C4qARDzrJI1T60Dk1lenvevdzc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57A46F89633;
-	Fri, 24 May 2019 08:04:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F691F89636;
+	Fri, 24 May 2019 08:37:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8279F89630; Fri, 24 May 2019 08:04:10 +0200 (CEST)
+ id 9E62DF89630; Fri, 24 May 2019 08:37:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93A27F806F7
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 08:04:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93A27F806F7
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id AE8BFAEC3;
- Fri, 24 May 2019 06:04:06 +0000 (UTC)
-Date: Fri, 24 May 2019 08:04:06 +0200
-Message-ID: <s5hy32we6cp.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-In-Reply-To: <s5h1s0ofl60.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34E8DF80C0F
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 08:37:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34E8DF80C0F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="uNk4BubC"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="Z+ta5lLm"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0E97221AF2;
+ Fri, 24 May 2019 02:37:23 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Fri, 24 May 2019 02:37:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=/oc8Tj1PUwQftn98ZT97lm6Bl81
+ DZEz4M07Kl4JcrkM=; b=uNk4BubCiIIlphnnwkB2plw7mDPaLVY38jr9U1w0VRd
+ 55RJjpknTpRp6LK39y7p3LVfFWua0Jn32OoWkgqRNWRlZ+Iw5sS4sIczeirBFFZG
+ T2r+tKfy0Iw1MkZ4r2rSCImC8jfuQdfPu+cdfp6xvuhptWtxdAUfWENIfzTrcNF9
+ nTkGRQcRoG985/DR49RPUMyFztTYTL78FsJKad2SCiAorYbLlEFOd9yhWQ7LHwS1
+ ig2Ij42L62dUAcIljwB6FZ54wC0mjEDh4W2yRBYrgZoSeqWLMo6NbnsqAVoce3oB
+ gxeXoW7FrE/GlkyQ2zaNo1J0uqJRB3jo17XLTwtHHXw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=/oc8Tj
+ 1PUwQftn98ZT97lm6Bl81DZEz4M07Kl4JcrkM=; b=Z+ta5lLmigegpOFa+fgkrI
+ xirsr7zl1m/l8WGLirIWY2NdGCtMqCnAWsG6rldPM/RHDO3tEyO9Mfh2vDRVTt7Z
+ gHM3R45UpA65ZOzRIWEbmZXK0TpzbvYHRys6FHVdGvsoLTG6Py+Oaum7r/Nd1jbk
+ wpxwwoZsQLts8kKS5lXFINqQIPUgW5m7Y4OJZXhEhIveo8PAUfWVaZi8Kphe4GbS
+ Qch7To1GPthTQ1Szj7uS56nRKl++QxQAtMBZEaSriw7MIaehWyjHsRAXBVXYnqU6
+ nTgPs91jayNwwQ/GN2GrNdPfNmpQm18IIQLNrJ0H3LV6VjBC28LZzJbV5JdmQHYQ
+ ==
+X-ME-Sender: <xms:IZHnXMesSB1Guq0Uof4nIyZ3_JH9qMW7f6Ol9RJPkA23vAXSV--i6w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudduhedgudduvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujggfsehttdertddtredvnecuhfhrohhmpefvrghk
+ rghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhih
+ drjhhpqeenucffohhmrghinheprghlshgrqdhprhhojhgvtghtrdhorhhgnecukfhppedu
+ gedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshh
+ hisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:IZHnXKIZ5eWlR1xcoh25XFJOk5TUeUVifdmK2tdqGRSdF5ooeryHLQ>
+ <xmx:IZHnXDoSzZcsm7Y-UryEWO8eE5pJtyhR2VHesfvKAvAky14jIwLbQw>
+ <xmx:IZHnXIW3zhymFKzrJtRCgp4Q7jcMmsO_1Y5Mnp9Q7KvbQ_1I9N4aoQ>
+ <xmx:I5HnXF16smzonjM-sIxTPeEPDCCo_Yf-O9Jm4l6b9RRaieieGt0utg>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 561FE80060;
+ Fri, 24 May 2019 02:37:19 -0400 (EDT)
+Date: Fri, 24 May 2019 15:37:16 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190524063716.GA25133@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org
 References: <20190522141708.29159-1-o-takashi@sakamocchi.jp>
- <s5h1s0ofl60.wl-tiwai@suse.de>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5h1s0ofl60.wl-tiwai@suse.de> <s5hy32we6cp.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <s5hy32we6cp.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
 Subject: Re: [alsa-devel] [PATCH 0/6] ALSA: firewire-lib: unify handlers for
-	incoming packet
+ incoming packet
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,49 +116,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 May 2019 07:58:47 +0200,
-Takashi Iwai wrote:
+On Fri, May 24, 2019 at 08:04:06AM +0200, Takashi Iwai wrote:
+> > I already applied the previous patchset that had been submitted on
+> > Tuesday, and this seems conflicting.
 > 
-> On Wed, 22 May 2019 16:17:02 +0200,
-> Takashi Sakamoto wrote:
-> > 
-> > Hi,
-> > 
-> > In IR context of Linux FireWire subsystem, some quadlets of packet
-> > payload can be handled as a part of context header. As a result context
-> > payload can just include the rest of packet payload.
-> > 
-> > This patchset uses the mechanism to unify handlers of incoming packet
-> > for with-CIP and without-CIP headers.
-> > 
-> > Takashi Sakamoto (6):
-> >   ALSA: firewire-lib: use clear name for variable of CIP header
-> >   ALSA: firewire-lib: calculate the length of packet payload in packet
-> >     handler
-> >   ALSA: firewire-lib: compute pointer to payload buffer in context
-> >     handler
-> >   ALSA: firewire-lib: split helper function to check incoming CIP header
-> >   ALSA: firewire-lib: use 16 bytes IR context header to separate CIP
-> >     header
-> >   ALSA: firewire-lib: unify packet handler for IR context
-> 
-> I already applied the previous patchset that had been submitted on
-> Tuesday, and this seems conflicting.
+> Sorry, I replied to the wrong thread.  I meant the new one
+>   <20190523151440.5127-1-o-takashi@sakamocchi.jp>
+> conflicting with the current for-next branch.
 
-Sorry, I replied to the wrong thread.  I meant the new one
-  <20190523151440.5127-1-o-takashi@sakamocchi.jp>
-conflicting with the current for-next branch.
+It's the latest one:
+
+[alsa-devel] [PATCH 0/4] ALSA: firewire-lib: unify handlers for outgoing packet
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-May/149708.html
+
+I'll check them and resubmit after rebasing to current for-next.
 
 
-Takashi
+Thanks
 
-> 
-> Could you rebase and resubmit the additional fixes?
-> 
-> 
-> thanks,
-> 
-> Takashi
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

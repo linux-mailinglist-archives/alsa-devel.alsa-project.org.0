@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF1772A024
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 22:53:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C15C2A023
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 22:52:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4003F171F;
-	Fri, 24 May 2019 22:52:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4003F171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFB0D172E;
+	Fri, 24 May 2019 22:51:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFB0D172E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558731204;
-	bh=fbBktxRUwpwY/60Q78OSl40iiRFEfu+4Qpp2JgdFRv8=;
+	s=default; t=1558731165;
+	bh=mfmZ7c/j121HlWdlNYAJbdfqkwbRBhyGiBQeYqtMNvs=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=pCOHZtegDwLeQCkrqDYzfeCdE1QX+bpLxHyBVlpOJiK4/Fc2KBCcD4TneuEFI8mHL
-	 TvQUoi88cWHI1lO8rxNGtEbUbbJr2QDRKbOGDrVIt7lCFJ6JT5JippRpOO+zB/qZBN
-	 fCOhpnb30zB7hbZamnckJvJQ5PYftoQ8NnVSOsqM=
+	b=Rp6DfGhRdhePhnCgEQyCo2cZo5DITBWvrmM2mFEo9L4w+s8YgGan7ufpWn6gT+Kvm
+	 ooc+kyfmEjWik2Puu935gH6ZomeU5wFtlmEPYYmp/l82T1um2gu05XmY6zQU/Eeqi2
+	 SP/jW3tmGZZHDrY07PxWEqKjZPbkcYVmmF5mtP/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9E5AF89673;
-	Fri, 24 May 2019 22:51:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 756A3F806F7;
+	Fri, 24 May 2019 22:51:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03DB6F89636; Fri, 24 May 2019 22:50:57 +0200 (CEST)
+ id C99CDF8963E; Fri, 24 May 2019 22:50:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,51 +33,52 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 310BBF80C0F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35000F8962F
  for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 22:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 310BBF80C0F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35000F8962F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="JlzWU32F"; 
+ header.b="NM+AmP1b"; 
  dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="DhF739hA"
+ header.b="Q5MPMp42"
 Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id 1EA2660D0C; Fri, 24 May 2019 20:40:42 +0000 (UTC)
+ id 935D060256; Fri, 24 May 2019 20:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1558730443;
- bh=1rtby5Hx7aX1Icw+wA2MpY4vbTBzn0e374yLIU7OMpg=;
+ s=default; t=1558730454;
+ bh=gne908NtTubk5TiL/aykKkAesdYmaRXs+4vJQcGFdSQ=;
  h=From:To:Cc:Subject:Date:From;
- b=JlzWU32FveCujkR/3VpoYUX9lcRi9f+6XPd1PF10BdhJzrj/PJXvvKCxJISjru/l4
- ozjDMfpcwlvRDaB6uxie3lG0ZQXlWAiPa4LPbDFzh/dCT3KHfZhdFm+tQ8Fab51+aG
- pWSyTrRtt+s5biYVn3zZlTbt9VkK3rBCiWnkzSs0=
+ b=NM+AmP1b0A8P3Fmdtfc2On/2/yI2Zvsf2AujwNmWQSk5S+koC2y435XhTdszEgyml
+ urvh+y95XVXYZtlrDbba2ubB/kN5XS9q6EkJajU1Lpi4cCGE/Gy/QxvjckpCRB/X2x
+ uGOnn6PG8pQD+NgmUCHZ3U0dPfMLgAjZ0WQK7ATE=
 Received: from localhost (i-global254.qualcomm.com [199.106.103.254])
  (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
  (Authenticated sender: bgoswami@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 479B960AA8;
- Fri, 24 May 2019 20:40:41 +0000 (UTC)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 1751060907;
+ Fri, 24 May 2019 20:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1558730442;
- bh=1rtby5Hx7aX1Icw+wA2MpY4vbTBzn0e374yLIU7OMpg=;
+ s=default; t=1558730453;
+ bh=gne908NtTubk5TiL/aykKkAesdYmaRXs+4vJQcGFdSQ=;
  h=From:To:Cc:Subject:Date:From;
- b=DhF739hAn6m7eSqjcXHAGXzVGIxk5XcV/1Vasucrdv0Ef+7i4r3h/hzpNThXzkkCz
- sVmaKvYktcJ+DDidWlA+Igw6VLyJfQhiN5D0Sb5INHsb+0yqW0X4tiw8ziBLcUq/v5
- yNDUl1PJ7oTfof0BNGF+xKfd+NNcjz3Frr2Yn1k0=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 479B960AA8
+ b=Q5MPMp42IqtC8SZ10B1PNcllcRGOwUWDMBcXjAiAdijIkXQHsumEybiHuoIucyhSm
+ f8IF94IBgofgXBr/xPD/n7zuKcMoi4CAVPVwlDX++xR9IxgxG2iWYUrlkk9X9MsBn0
+ +NY68XFJCnk3jb8LJwJ+7V/VWYJyoWpYDfn2/5s4=
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 1751060907
 Authentication-Results: pdx-caf-mail.web.codeaurora.org;
  dmarc=none (p=none dis=none) header.from=codeaurora.org
 Authentication-Results: pdx-caf-mail.web.codeaurora.org;
  spf=none smtp.mailfrom=bgoswami@codeaurora.org
 From: bgoswami@codeaurora.org
-To: dmitry.torokhov@gmail.com
-Date: Fri, 24 May 2019 13:40:38 -0700
-Message-Id: <1558730438-16524-1-git-send-email-bgoswami@codeaurora.org>
+To: perex@perex.cz,
+	tiwai@suse.com
+Date: Fri, 24 May 2019 13:40:50 -0700
+Message-Id: <1558730450-16580-1-git-send-email-bgoswami@codeaurora.org>
 X-Mailer: git-send-email 1.9.1
 Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- plai@codeaurora.org, tiwai@suse.com, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, linux-input@vger.kernel.org,
- Gopikrishnaiah Anandan <agopik@codeaurora.org>
-Subject: [alsa-devel] [PATCH 2/3] input: Add SW_UNSUPPORT_INSERT define
+ plai@codeaurora.org, Gopikrishnaiah Anandan <agopik@codeaurora.org>,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org
+Subject: [alsa-devel] [PATCH 3/3] ALSA: jack: add switch event for
+	unsupported jack types
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,47 +99,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Banajit Goswami <bgoswami@codeaurora.org>
 
-Some devices may not support specific type of input devices. For example,
-when a headset or extension cable with GND/MIC swap is plugged into a
-headset jack that does not support the headset/cable, it needs to be
-reported with a corresponding input event. Also, increase the max values
-for INPUT_DEVICE_ID_SW_MAX and SW_MAX, to accommodate future extension of
-the number of event.
+Add a jack switch event to report unsupported plug type.
+This event can be used to report a headset or an extension
+cable with GND/MIC swap etc., which may not be supported by
+the device.
 
 Signed-off-by: Gopikrishnaiah Anandan <agopik@codeaurora.org>
 Signed-off-by: Banajit Goswami <bgoswami@codeaurora.org>
 ---
- include/linux/mod_devicetable.h        | 2 +-
- include/uapi/linux/input-event-codes.h | 3 ++-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ sound/core/jack.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
-index 448621c..7586099 100644
---- a/include/linux/mod_devicetable.h
-+++ b/include/linux/mod_devicetable.h
-@@ -299,7 +299,7 @@ struct pcmcia_device_id {
- #define INPUT_DEVICE_ID_LED_MAX		0x0f
- #define INPUT_DEVICE_ID_SND_MAX		0x07
- #define INPUT_DEVICE_ID_FF_MAX		0x7f
--#define INPUT_DEVICE_ID_SW_MAX		0x0f
-+#define INPUT_DEVICE_ID_SW_MAX		0x1f
- #define INPUT_DEVICE_ID_PROP_MAX	0x1f
+diff --git a/sound/core/jack.c b/sound/core/jack.c
+index 36b047b..4c21e48 100644
+--- a/sound/core/jack.c
++++ b/sound/core/jack.c
+@@ -40,6 +40,7 @@ struct snd_jack_kctl {
+ 	SW_JACK_PHYSICAL_INSERT,
+ 	SW_VIDEOOUT_INSERT,
+ 	SW_LINEIN_INSERT,
++	SW_UNSUPPORT_INSERT,
+ };
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
  
- #define INPUT_DEVICE_ID_MATCH_BUS	1
-diff --git a/include/uapi/linux/input-event-codes.h b/include/uapi/linux/input-event-codes.h
-index 85387c7..960fa86 100644
---- a/include/uapi/linux/input-event-codes.h
-+++ b/include/uapi/linux/input-event-codes.h
-@@ -808,7 +808,8 @@
- #define SW_LINEIN_INSERT	0x0d  /* set = inserted */
- #define SW_MUTE_DEVICE		0x0e  /* set = device disabled */
- #define SW_PEN_INSERTED		0x0f  /* set = pen inserted */
--#define SW_MAX			0x0f
-+#define SW_UNSUPPORT_INSERT	0x10  /* set = unsupported device inserted */
-+#define SW_MAX			0x1f
- #define SW_CNT			(SW_MAX+1)
- 
- /*
 -- 
 The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 a Linux Foundation Collaborative Project

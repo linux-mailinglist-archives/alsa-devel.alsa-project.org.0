@@ -2,61 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6265429F18
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 21:28:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FAAD29F25
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 21:35:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E28EF1777;
-	Fri, 24 May 2019 21:27:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E28EF1777
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02FE51788;
+	Fri, 24 May 2019 21:34:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02FE51788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558726104;
-	bh=f/MwJYf9oPblULBTr1QKb4XOnky4DGk7tzS0/9Rq3WI=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1558726538;
+	bh=8XW9Ck31gL7NREss+vGwFdXNJ2fVdwbdh/J8IOlc21c=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hWL//ML3JO7RyAFugB6npCyZ4ScuuDFxfgNEmQ8O+Zow8G3FjTB/vsT9n3rwCXRqD
-	 iuYb1oObs/iu3rXLApp/UQAcY1vU2WyFVhy0iVNEc4O4DyeBdzeJO1axW4jx6x1vOV
-	 WYIwzlgx1q65Dq1KmWStst0i5WQmpfd7/CRtW3I0=
+	b=r0+MHZ9h+HOqenmmB06b+IkqKkkdaE88rFUUCh9jVphP1lxq12PKAhuOsJLzRovlp
+	 Tz6mqAim2SAuEyQ86WKsGGNgKNM/i0JAHw1K1hKV5wkWL5r+SO/EjzgFYwYOZ671Ak
+	 Z10FpO4Dcjmli7YkagFs/rDok3y6FmV6m5X/iTdQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79AA1F89739;
-	Fri, 24 May 2019 21:23:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57875F89630;
+	Fri, 24 May 2019 21:33:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6853CF89725; Fri, 24 May 2019 21:23:27 +0200 (CEST)
+ id 72009F89630; Fri, 24 May 2019 21:33:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A92EF89673
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 21:23:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A92EF89673
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 May 2019 12:23:19 -0700
-X-ExtLoop1: 1
-Received: from tattafos-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.254.178.85])
- by orsmga002.jf.intel.com with ESMTP; 24 May 2019 12:23:19 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Fri, 24 May 2019 14:23:09 -0500
-Message-Id: <20190524192309.6359-6-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190524192309.6359-1-pierre-louis.bossart@linux.intel.com>
-References: <20190524192309.6359-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF35CF89625
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 21:33:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF35CF89625
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
+ header.i=@endlessm-com.20150623.gappssmtp.com header.b="PQX6vdao"
+Received: by mail-qk1-x741.google.com with SMTP id w25so9151473qkj.11
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 12:33:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ruzmONK94pQ7r2XtlvRV3qoOZG4epR4AnJ24kzc41ks=;
+ b=PQX6vdaoCzk+M6s3ahYA96Nr8aNfegynW/lGGdNkk4rT76oMmW3Bq2kQAPhBZMC/Kx
+ 4kcIuke2j5SbAmD8ZEaY0UxYwuaY8xaJXUWHVVhSLBRmwo0a+XnItkTrUdn1HiLMCkd3
+ SUFNh0s2X8hK3yKxOV1KkPAhn/jG6IpvjSdNKLm6puK30b1+deu0C9XJrtLYkelnFeZT
+ 1OTZfuaBQdKgIAts4cqK0NLDgGnDADuj0dEFpSXdLcgJg6bFm/NfNhSZ14kI3gbiALS8
+ Lk39Xh8Mu5HFIXLqGyGQEqYKwvYzHLRAQTtFvc+vF320J99WdhGTi3UI5tR5RUXsoYaP
+ QcuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ruzmONK94pQ7r2XtlvRV3qoOZG4epR4AnJ24kzc41ks=;
+ b=GC3+ScZ1+36Z374iG+DSCppbffHXPdhaf3kZBpU+XJvKvRIuQtxlCQkqCpZbJcu0HF
+ R9WFHv17dNuChIXPdHlfeFB3uz90gC/ovO5vZCTq2UFXUpKH31mp+DKd6HgLIOOScs5y
+ EHaZk73Z9vDJ+72CNJSlZ17R0ZoflMc918Yq0Vzd6mG4gGJOu4ISwwQG4QO1bTQxzhzi
+ 6fpzg2ONETDJgdTWm964oiuv9+monHVYWvDULROjduHTTNCNf9JEC+jX0943XVnruPpk
+ 1350NLks7rslxC6pGoYreWICyBsR8c5BSkhREfsSxUUG7OMbLNwxDJBu27kNtmwsBMfQ
+ v0uA==
+X-Gm-Message-State: APjAAAVUNdqHuAcwlpium8MMwyjlctgAtoacp7w6VN+c/FraOKUZe5f9
+ l2kd977JxCbuJ4f+Jh2Dv05QWyVF9/4Iyr8/j54n7Q==
+X-Google-Smtp-Source: APXvYqzNMq4QiSeMoa1rpXZIyoLU68AesCFbomA5dob2bjgLBRz2nSh6Vruy3gdL9hne6r8I2U7sdTwvHq5JrI2Bm0Y=
+X-Received: by 2002:ae9:c106:: with SMTP id z6mr19669835qki.65.1558726425900; 
+ Fri, 24 May 2019 12:33:45 -0700 (PDT)
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 5/5] ASoC: SOF: pci: add module param to
-	disable pm_runtime
+References: <20190523233951.31122-1-pierre-louis.bossart@linux.intel.com>
+ <s5hk1ege12p.wl-tiwai@suse.de>
+ <284f78d4-ec5a-0ff1-2b67-2977b3634692@linux.intel.com>
+ <CAD8Lp47qCbPh+aZjr0pjzZAcBXqRbMU+5Y_HPy7jrJhUgsD3Tg@mail.gmail.com>
+ <72729168-214a-264d-c704-f718d7cfde4b@linux.intel.com>
+ <CAD8Lp47Yc5CwkM-y=eqXdPDZ7+1=qa6m1sCELhBsidsYYSzfQQ@mail.gmail.com>
+ <d399bbcb-c094-d0b9-5ae3-8267ee613d6f@linux.intel.com>
+In-Reply-To: <d399bbcb-c094-d0b9-5ae3-8267ee613d6f@linux.intel.com>
+From: Daniel Drake <drake@endlessm.com>
+Date: Fri, 24 May 2019 13:33:34 -0600
+Message-ID: <CAD8Lp46B523hZ5jRya5HFcRK6ZHL7JxRFj=FiGPf47aaVuUbog@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, Hui Wang <hui.wang@canonical.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Curtis Malainey <cujomalainey@google.com>
+Subject: Re: [alsa-devel] [RFC PATCH 0/6] ALSA/HDA: abort probe when DMICs
+	are detected
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,54 +103,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add debug option to disable pm_runtime. This is not intended for
-production devices but is very useful for platform bringup.
+On Fri, May 24, 2019 at 12:38 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+> > In the case of DMICs attached to PCH and BIOS/NHLT reports DMIC, is
+> > the HDaudio legacy probe aborted by default or not?
+>
+> no.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/sof-pci-dev.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+Thanks for the clarification. The plan makes sense to me! I'll check
+if we have any more devices available with DMIC where we can test.
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index e2b19782f01a..7c0ae5aee600 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -29,6 +29,12 @@ static char *tplg_path;
- module_param(tplg_path, charp, 0444);
- MODULE_PARM_DESC(tplg_path, "alternate path for SOF topology.");
- 
-+static int sof_pci_debug;
-+module_param_named(sof_debug, sof_pci_debug, int, 0444);
-+MODULE_PARM_DESC(sof_debug, "SOF PCI debug options (0x0 all off)");
-+
-+#define SOF_PCI_DISABLE_PM_RUNTIME BIT(0)
-+
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
- static const struct sof_dev_desc bxt_desc = {
- 	.machines		= snd_soc_acpi_intel_bxt_machines,
-@@ -213,6 +219,9 @@ static void sof_pci_probe_complete(struct device *dev)
- {
- 	dev_dbg(dev, "Completing SOF PCI probe");
- 
-+	if (sof_pci_debug & SOF_PCI_DISABLE_PM_RUNTIME)
-+		return;
-+
- 	/* allow runtime_pm */
- 	pm_runtime_set_autosuspend_delay(dev, SND_SOF_SUSPEND_DELAY_MS);
- 	pm_runtime_use_autosuspend(dev);
-@@ -331,7 +340,8 @@ static void sof_pci_remove(struct pci_dev *pci)
- 	snd_sof_device_remove(&pci->dev);
- 
- 	/* follow recommendation in pci-driver.c to increment usage counter */
--	pm_runtime_get_noresume(&pci->dev);
-+	if (!(sof_pci_debug & SOF_PCI_DISABLE_PM_RUNTIME))
-+		pm_runtime_get_noresume(&pci->dev);
- 
- 	/* release pci regions and disable device */
- 	pci_release_regions(pci);
--- 
-2.20.1
-
+Daniel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

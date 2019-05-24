@@ -2,62 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C86D28E04
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 01:45:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648CB290D5
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 08:15:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7FCC1696;
-	Fri, 24 May 2019 01:44:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7FCC1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0AE01698;
+	Fri, 24 May 2019 08:14:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0AE01698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558655103;
-	bh=Eq5UEUCliZHKGeEJJn1W8anGlTMGM0kASlOzLNhI5Ew=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cO8Xugy+yig2YpA5oUnoME5922Lno4y/9dE/TgjRxzl6IMbDsY2lCI53B81/a6v6G
-	 DxpgHRmHkKl4W9L4QVb3+FRZCqxgqqbz6DbihuWKfozRpsGrmpz9jntlc9RSZ/Qqvk
-	 v+13FzJQmhYoNOqoJIW0Ad2A2WHfGrd8MQ2r5MkE=
+	s=default; t=1558678545;
+	bh=GWs3k7fuxtIDlZNcJ0fbsamhNN04qjOqzv85iTZOcuA=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hssDDQQmrNhhMtXcf92NmxesZ6ZlwrH7VtZMBBOrhZz+D90k00d4n+DEQwbf+G7ZC
+	 fgEpBOt8XHutqk3U2lC0P9Ueuq9ek7PJF4vhS667AfDuDphprtbcVS4UicfYJKiDAR
+	 CSAAHx75FPXjScCrDuX6VUtF9aotYApsI1Wo5vH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B60EF8973D;
-	Fri, 24 May 2019 01:40:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59416F80C0F;
+	Fri, 24 May 2019 08:14:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B13F3F8972E; Fri, 24 May 2019 01:40:44 +0200 (CEST)
+ id CCCF2F89674; Fri, 24 May 2019 02:50:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAF63F89718
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 01:40:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAF63F89718
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 May 2019 16:40:39 -0700
-X-ExtLoop1: 1
-Received: from mgastonx-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.251.128.35])
- by orsmga008.jf.intel.com with ESMTP; 23 May 2019 16:40:38 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Thu, 23 May 2019 18:39:51 -0500
-Message-Id: <20190523233951.31122-7-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190523233951.31122-1-pierre-louis.bossart@linux.intel.com>
-References: <20190523233951.31122-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE170F80C0F
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 02:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE170F80C0F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="WIkbsY/T"
+Received: by mail-pl1-x641.google.com with SMTP id g21so3445435plq.0
+ for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 17:50:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=vq5OscFiBg+c2cP1NzGhhjMT3RLQCBEIhZHhvje2x5I=;
+ b=WIkbsY/TDaVPI5z60Tn4ATxrtlgyarhuhzGl7tFy847LWwZlvijIngLI0XMBE9qCDb
+ pSWLCeQqhHiem7oNeT9m0DChmWEfd5DeLjg5K/Sj6NBAxypME8zGxfHGd4UfxoojMpye
+ qcRyjJropK5H1rp1yTvykFcrd2dxylvmLkk3ga1NZXe8PFOmdpzBxJTZeDuIvktKhwsR
+ 6uOraw9mlBinMu3w9myx+pjNB1C0+JcmVS2XOdmhNikr0cZOXnvrF/B+GOMmw8o3INqg
+ YB27G/Znkl3oBugcnN0yqr4hwZnSnvZ5NjN0ExmeabwWdmNXKpfyKgHRsGJCZagUh9M8
+ s4kw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=vq5OscFiBg+c2cP1NzGhhjMT3RLQCBEIhZHhvje2x5I=;
+ b=cm21RNBKGmJ6KFAWmsgLzjtytpAMqWlr0VnI+VYlySl6hw2+VjGdgJKqL7ICVFFBN4
+ GhkwdUB/nYfjp8GdfPNagTn6h0x0OGMzCIapcDu3sR9G7GKYI0BOn3e++l679r8ouVAV
+ YXn/RgrHXvKZLF8V8d5UapVyPVtWcfE79rLC6PSmsEaNTYupD+yCXRcQqBIl6NIg0eso
+ 9ObeoCLHKm6APoWTxtXlKkc9vu24U/njCHzYPIEqsuoxwbrQ40PUHCbNWti0Bf1m7tjl
+ 00tcasJWmnIqB9+EoR0hybR1CPEvvS8W2t3CIhTN2L4ikOU0R7RvjLK5sMtOYD18OPPi
+ DctQ==
+X-Gm-Message-State: APjAAAWyFiXc3n3UokkZrLiuAovScnuCnV0BgjikhwGkuXfnPYOgOUXT
+ PYbo9Md3Bb2bkFiS4uSirNc=
+X-Google-Smtp-Source: APXvYqyF047YsIZEkBz6n7WubO3vjZO5g0ZmOj56HpzuyWWN8qDAIdjpPPReYmER77uDaRH+jsnurw==
+X-Received: by 2002:a17:902:59c3:: with SMTP id
+ d3mr30818966plj.273.1558659033669; 
+ Thu, 23 May 2019 17:50:33 -0700 (PDT)
+Received: from zhanggen-UX430UQ ([66.42.35.75])
+ by smtp.gmail.com with ESMTPSA id d4sm468985pju.19.2019.05.23.17.50.27
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 23 May 2019 17:50:33 -0700 (PDT)
+Date: Fri, 24 May 2019 08:50:14 +0800
+From: Gen Zhang <blackgod016574@gmail.com>
+To: lgirdwood@gmail.com, perex@perex.cz
+Message-ID: <20190524005014.GA2289@zhanggen-UX430UQ>
 MIME-Version: 1.0
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
- Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
-Subject: [alsa-devel] [RFC PATCH 6/6] [HACK] ASoC: Intel: NHLT: handle
-	VENDOR_DEFINED DMIC geometry
+Content-Disposition: inline
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Mailman-Approved-At: Fri, 24 May 2019 08:13:59 +0200
+Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] tegra_wm9712: Fix a memory leaking bug in
+ tegra_wm9712_driver_probe()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,34 +101,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The NHLT spec defines a VENDOR_DEFINED geometry without defining how
-many microphones are supported. Fall back to 2ch until we have better
-information or experimental evidence on what to do.
+In tegra_wm9712_driver_probe(), 'machine->codec' is allocated by
+platform_device_alloc(). When it is NULL, function returns ENOMEM.
+However, 'machine' is allocated by devm_kzalloc() before this site.
+Thus we should free 'machine' before function ends to prevent memory
+leaking.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Further, we should free 'machine->util_data', 'machine->codec' and
+'machine' before this function normally ends to prevent memory leaking.
+
+Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
 ---
- sound/soc/intel/common/intel-nhlt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/intel/common/intel-nhlt.c b/sound/soc/intel/common/intel-nhlt.c
-index d93ecc32d996..86f8a7f3f059 100644
---- a/sound/soc/intel/common/intel-nhlt.c
-+++ b/sound/soc/intel/common/intel-nhlt.c
-@@ -81,7 +81,10 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
- 			case NHLT_MIC_ARRAY_4CH_2ND_GEOM:
- 				dmic_geo |= MIC_ARRAY_4CH;
- 				break;
--
-+			case NHLT_MIC_ARRAY_VENDOR_DEFINED:
-+				dev_dbg(dev, "VENDOR_DEFINED DMIC array_type, using 2CH_SMALL\n");
-+				dmic_geo |= NHLT_MIC_ARRAY_2CH_SMALL;
-+				break;
- 			default:
- 				dev_warn(dev, "undefined DMIC array_type 0x%0x\n",
- 					 cfg->array_type);
--- 
-2.20.1
-
+diff --git a/sound/soc/tegra/tegra_wm9712.c b/sound/soc/tegra/tegra_wm9712.c
+index 864a334..295c41d 100644
+--- a/sound/soc/tegra/tegra_wm9712.c
++++ b/sound/soc/tegra/tegra_wm9712.c
+@@ -86,7 +86,8 @@ static int tegra_wm9712_driver_probe(struct platform_device *pdev)
+ 	machine->codec = platform_device_alloc("wm9712-codec", -1);
+ 	if (!machine->codec) {
+ 		dev_err(&pdev->dev, "Can't allocate wm9712 platform device\n");
+-		return -ENOMEM;
++		ret = -ENOMEM;
++		goto codec_free;
+ 	}
+ 
+ 	ret = platform_device_add(machine->codec);
+@@ -127,6 +128,10 @@ static int tegra_wm9712_driver_probe(struct platform_device *pdev)
+ 		goto asoc_utils_fini;
+ 	}
+ 
++	tegra_asoc_utils_fini(&machine->util_data);
++	platform_device_del(machine->codec);
++	platform_device_put(machine->codec);
++	devm_kfree(&pdev->dev, machine);
+ 	return 0;
+ 
+ asoc_utils_fini:
+@@ -135,6 +140,8 @@ static int tegra_wm9712_driver_probe(struct platform_device *pdev)
+ 	platform_device_del(machine->codec);
+ codec_put:
+ 	platform_device_put(machine->codec);
++codec_free:
++	devm_kfree(&pdev->dev, machine);
+ 	return ret;
+ }
+ 
+---
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

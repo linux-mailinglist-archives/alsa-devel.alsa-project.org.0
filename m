@@ -2,74 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 657B0297A3
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 13:55:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C7E29868
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 14:59:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8AB016DC;
-	Fri, 24 May 2019 13:55:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8AB016DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7B6316DD;
+	Fri, 24 May 2019 14:59:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7B6316DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558698951;
-	bh=XJejhfUdkM2JFTwWstWdBVTCIyMr/Eup4dDqRcCMfhI=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=M4AkQfYtYgQubbS/XRCU4NcN0oww5xT3rQxI8epSZIbEbP+1RQnRwjZP9ZngDY+Wk
-	 F3Y5SEC2t2svgX+zCLcB2HHA/MhMRCWTZbkC2QfS4sgY08jv6yvfp1qQureFKUbOOp
-	 ylXw4hIuKZZolbCNRYzINlwG1vFpuHNdjVV4INhs=
+	s=default; t=1558702795;
+	bh=sQJDUH2Tvb7aiDxyEoBxzvpRSKGWQOePzWJuO4LfcE0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fSFEkTmSo3wpkhSjCnjW65WC/h39A0Q13SpZ2gyxFPV7I7E2oCyJaIhWwdplsVJ53
+	 Cy5NqHORB/I9go5tZ+BOGO92VYKPUyITrCFi7+eiDlaDDAyXt+Qwu+onlV6Teqs3wV
+	 9UPJsRvg/l1VY3PeZ6BNnKBw8VJShlZUuH1u/8j4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AC31F8962F;
-	Fri, 24 May 2019 13:54:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B220F89630;
+	Fri, 24 May 2019 14:58:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5BEAF89630; Fri, 24 May 2019 13:54:03 +0200 (CEST)
+ id EF456F89630; Fri, 24 May 2019 14:58:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
+ [217.70.183.194])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D274AF806F7
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 13:54:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D274AF806F7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bkLSWMfs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=oPkYfkJB6mpn6YUeEKWKRPYZz+SXsCRl+9QnAZj9RaY=; b=bkLSWMfsd9dFjvHxkGfMTKflv
- Yd0uu3ILxfaddHapH5pzwjz34ZSLyZKEpFC4Kp8mf8dAdTat46M+mIwANfCqLPrnpsvLaRpB01bUH
- FXS5RrRHRQ89HU9BvgAtj/mQNshAm7tuzATZ0J3BrZSD5wibXglCQo3aEVc28vmaGFI2E=;
-Received: from [176.12.107.140] (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hU8lq-0003B8-Qz; Fri, 24 May 2019 11:53:58 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id E2A54440046; Fri, 24 May 2019 12:29:31 +0100 (BST)
-Date: Fri, 24 May 2019 12:29:31 +0100
-From: Mark Brown <broonie@kernel.org>
-To: bgoswami@codeaurora.org
-Message-ID: <20190524112931.GB2456@sirena.org.uk>
-References: <1558684467-11333-1-git-send-email-bgoswami@codeaurora.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32448F89625
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 14:58:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32448F89625
+X-Originating-IP: 90.88.147.134
+Received: from localhost (aaubervilliers-681-1-27-134.w90-88.abo.wanadoo.fr
+ [90.88.147.134]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id 88DC340012;
+ Fri, 24 May 2019 12:58:00 +0000 (UTC)
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>
+Date: Fri, 24 May 2019 14:57:58 +0200
+Message-Id: <5f8095fbd5c2c34478792b9715059675251a30e6.1558702660.git-series.maxime.ripard@bootlin.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <1558684467-11333-1-git-send-email-bgoswami@codeaurora.org>
-X-Cookie: The other line moves faster.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, srinivas.kandagatla@linaro.org,
- plai@codeaurora.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Add a debug log to track DAPM widget
-	power up/down
+Cc: Maxime Ripard <maxime.ripard@bootlin.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Chen-Yu Tsai <wens@csie.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH 1/2] dt-bindings: sound: Convert Allwinner I2S
+	binding to YAML
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,59 +66,188 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2102980459712228591=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The Allwinner SoCs feature an I2S controller across multiple SoC
+generations.
 
---===============2102980459712228591==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wzJLGUyc3ArbnUjN"
-Content-Disposition: inline
+However, earlier generations were a bit simpler than the subsequent ones,
+and for example would always have RX and TX capabilities, and no reset
+lines.
 
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+---
+ Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml | 100 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ Documentation/devicetree/bindings/sound/sun4i-i2s.txt                |  45 +--------------------------------
+ 2 files changed, 100 insertions(+), 45 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/sun4i-i2s.txt
 
---wzJLGUyc3ArbnUjN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml
+new file mode 100644
+index 000000000000..85b2d6d84055
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0+ OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/allwinner,sun4i-a10-i2s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Allwinner A10 I2S Controller Device Tree Bindings
++
++maintainers:
++  - Chen-Yu Tsai <wens@csie.org>
++  - Maxime Ripard <maxime.ripard@bootlin.com>
++
++properties:
++  "#sound-dai-cells":
++    const: 0
++
++  compatible:
++    oneOf:
++      - const: allwinner,sun4i-a10-i2s
++      - const: allwinner,sun6i-a31-i2s
++      - const: allwinner,sun8i-a83t-i2s
++      - const: allwinner,sun8i-h3-i2s
++      - const: allwinner,sun50i-a64-codec-i2s
++      - items:
++          - const: allwinner,sun50i-a64-i2s
++          - const: allwinner,sun8i-h3-i2s
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: Bus Clock
++      - description: Module Clock
++
++  clock-names:
++    items:
++      - const: apb
++      - const: mod
++
++  dmas:
++    items:
++      - description: RX DMA Channel
++      - description: TX DMA Channel
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++  # Even though it only applies to subschemas under the conditionals,
++  # not listing them here will trigger a warning because of the
++  # additionalsProperties set to false.
++  resets:
++    maxItems: 1
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - allwinner,sun6i-a31-i2s
++              - allwinner,sun8i-a83t-i2s
++              - allwinner,sun8i-h3-i2s
++              - allwinner,sun50i-a64-codec-i2s
++
++    then:
++      required:
++        - resets
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    i2s0: i2s@1c22400 {
++        #sound-dai-cells = <0>;
++        compatible = "allwinner,sun4i-a10-i2s";
++        reg = <0x01c22400 0x400>;
++        interrupts = <0 16 4>;
++        clocks = <&apb0_gates 3>, <&i2s0_clk>;
++        clock-names = "apb", "mod";
++        dmas = <&dma 0 3>, <&dma 0 3>;
++        dma-names = "rx", "tx";
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/sound/sun4i-i2s.txt b/Documentation/devicetree/bindings/sound/sun4i-i2s.txt
+deleted file mode 100644
+index 61e71c1729e0..000000000000
+--- a/Documentation/devicetree/bindings/sound/sun4i-i2s.txt
++++ /dev/null
+@@ -1,45 +0,0 @@
+-* Allwinner A10 I2S controller
+-
+-The I2S bus (Inter-IC sound bus) is a serial link for digital
+-audio data transfer between devices in the system.
+-
+-Required properties:
+-
+-- compatible: should be one of the following:
+-   - "allwinner,sun4i-a10-i2s"
+-   - "allwinner,sun6i-a31-i2s"
+-   - "allwinner,sun8i-a83t-i2s"
+-   - "allwinner,sun8i-h3-i2s"
+-   - "allwinner,sun50i-a64-codec-i2s"
+-- reg: physical base address of the controller and length of memory mapped
+-  region.
+-- interrupts: should contain the I2S interrupt.
+-- dmas: DMA specifiers for tx and rx dma. See the DMA client binding,
+-	Documentation/devicetree/bindings/dma/dma.txt
+-- dma-names: should include "tx" and "rx".
+-- clocks: a list of phandle + clock-specifer pairs, one for each entry in clock-names.
+-- clock-names: should contain the following:
+-   - "apb" : clock for the I2S bus interface
+-   - "mod" : module clock for the I2S controller
+-- #sound-dai-cells : Must be equal to 0
+-
+-Required properties for the following compatibles:
+-	- "allwinner,sun6i-a31-i2s"
+-	- "allwinner,sun8i-a83t-i2s"
+-	- "allwinner,sun8i-h3-i2s"
+-	- "allwinner,sun50i-a64-codec-i2s"
+-- resets: phandle to the reset line for this codec
+-
+-Example:
+-
+-i2s0: i2s@1c22400 {
+-	#sound-dai-cells = <0>;
+-	compatible = "allwinner,sun4i-a10-i2s";
+-	reg = <0x01c22400 0x400>;
+-	interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
+-	clocks = <&apb0_gates 3>, <&i2s0_clk>;
+-	clock-names = "apb", "mod";
+-	dmas = <&dma SUN4I_DMA_NORMAL 3>,
+-	       <&dma SUN4I_DMA_NORMAL 3>;
+-	dma-names = "rx", "tx";
+-};
 
-On Fri, May 24, 2019 at 12:54:27AM -0700, bgoswami@codeaurora.org wrote:
-> From: Banajit Goswami <bgoswami@codeaurora.org>
->=20
-> Add a debug log to help track widgets being powered-up and powered-down
-> by DAPM.
-
-We already have huge amounts of trace available via tracepoints and
-having something on by default in the debug logs seems like it's going
-to get very verbose for people who aren't specifically working on audio.
-What's the advantage of adding dev_dbg() logs as well?
-
---wzJLGUyc3ArbnUjN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzn1ZsACgkQJNaLcl1U
-h9CL6Qf+P1bE2wDz1Z+mFlBUSWst8Df7vmXu/fK/uO0xkPH0B9Jw9fRe48G5RHeK
-EW37C6ORAGvJrqtTHJDJLw3Uarqu8o0S9pS8Y4/xye+B9RYtZDj5Poj4czl/O5ZL
-6gW1NzFlt64Cn0rLuvw92Pu3pete6jtrIf3p2Uzpr4/YWwo20x2879MOaZy/27hA
-7VDo1X1TZ/wYGdsBMj7y0VvkCaYsqFkPe0N3FocMA1Xpk7C/8zFRJym+zpfSMkAR
-fqwyz1xOxWmfxhduLL4rrZqcuK+9LmT44MzZgc9eu3BJz8BknXMmBWcqhtChWgzs
-GdeMtNjhcqZhkFXH92+IWuz708Sklg==
-=O7zi
------END PGP SIGNATURE-----
-
---wzJLGUyc3ArbnUjN--
-
---===============2102980459712228591==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+base-commit: 86c9acd4fdf5b2e1648a6cf3d6e99a7f0d35cb4f
+-- 
+git-series 0.9.1
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2102980459712228591==--

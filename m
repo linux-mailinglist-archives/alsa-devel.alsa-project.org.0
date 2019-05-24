@@ -2,86 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC89929B74
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 17:47:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 833E129E32
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 20:39:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24970172D;
-	Fri, 24 May 2019 17:46:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24970172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0925E1717;
+	Fri, 24 May 2019 20:38:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0925E1717
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558712845;
-	bh=9rN0pRrKTHm2Tf6a2CT3aLIxNKklHyeqs0mU2kIgF4A=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1558723140;
+	bh=9lAxoAGH7SB1iuikZxlsMN+/5rYGHRvcXUeQDcg/TH8=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X6Y+Bc1LJgztOKfeZixlzw3PIR/U3LIlWZPMSaKnT0rLoIjdN+yPVBIWeMPePAscb
-	 hrdwMgp9WKnPsDRgrYnzJ+1dsKwILFPD0s0Sn91MFZFWrCCEwWFBhcdPSRlwJWAeJz
-	 +BHZbnfWpo6PEWoLPGJ0GKnfreg+tNSDvLS93qYw=
+	b=Fccue/TKpLT0M5KjcJXgmoKEFy/SgAQnUVu5+GGaARzDtAi17UMd4qPLbMa9g1aLM
+	 VKu2tB49uktxpz/7sK7S0HD89aivDYAr+Kd04i5RTPruSPkiRmkxcFLmCblz9ikKed
+	 tCrN1o8nc8YNySk/1DmKI1b+CkNhLVN+pkyuLaKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95C80F89630;
-	Fri, 24 May 2019 17:45:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95D60F89636;
+	Fri, 24 May 2019 20:37:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2027F89630; Fri, 24 May 2019 17:45:37 +0200 (CEST)
+ id 89761F89633; Fri, 24 May 2019 20:37:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C05DF80C0F
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 17:45:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C05DF80C0F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
- header.i=@endlessm-com.20150623.gappssmtp.com header.b="GtXfc3B8"
-Received: by mail-qk1-x743.google.com with SMTP id o2so7897601qkb.3
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 08:45:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessm-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4mDXdA5QFT1GK/rp6a2sK6KGRVTROtdwlxMEQukyB7A=;
- b=GtXfc3B8+tIMIxyHOgHH1LCW5Vxs/MDK/UG/ssYT0Oq5pMgLUIrK51tvZrIF+cjf2I
- A7+/jbEdicwG1CxAnwle02Wfx3UMXWJG9FKO9ACEc0C1uQEiI8h6JRRS7ThJx+ahI8n+
- joIxDfWkssj3xcQR3buzR6JRjwLNLY+ST7M+wx/CzecjxWM/WcTrjKvyPV6opJZj2YPO
- 5tWiVb1vNsKcm0nYuk+mjdqe/FMWXH1jkq5DaQmfhrLZIFGnnB5mlxES0uL05ap82Yio
- 6yUfcpZVMnl92G738APA9TBq22u7/9jkgp9iVaiBSVCKfX+cbuRGW2HCgLDImcJtSucV
- mbWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4mDXdA5QFT1GK/rp6a2sK6KGRVTROtdwlxMEQukyB7A=;
- b=NumZVfJ905Xwia/q9Xsirp5bxRzBJxq6FpdZXIP4OVN40SbJJ5Z9PXtGpap6ZBg2O0
- 2eshZVHZ9RVSwdtQ2e7+h1F0LDfrjgCsIc9Tujw734YxcHNAJ73c3+xUUyrq2wNXy8a4
- wf2byH2jK2Sn69BXRq1ndq/zuQvRYj60tL84MX/V2N/SUzKf84nOROIrFFW08Y9V/mPw
- YLn2O2bzPx6lLHG7TG0FGIOT0NBCJnfy9W+a71zio0wFnUP476flQVG98KXmMHGyrXaH
- 6lLTx91uL6mCuDlZyNRbB0N76QvpZ2tQ6nfTJ52S9rdqz3JpSGu/agcwTv/wf42FoMaC
- aW5A==
-X-Gm-Message-State: APjAAAXEdipcODR0rVi19yP5NWczawkPr3lehp5cqgVUHk2kmR0KApDA
- zbsHMxyI6bOMCVGsrP4OMF59iS4OT5Z10SDC6/VDfQ==
-X-Google-Smtp-Source: APXvYqw80wZdw4rxHcHLLyXbfD50xCsXnZWLbllIT4zXYaqi5ltx3n2DCUUufCHbJKBnAQDJS4nvMcMV8gBnGI1rjao=
-X-Received: by 2002:a37:de07:: with SMTP id h7mr8496626qkj.41.1558712733119;
- Fri, 24 May 2019 08:45:33 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 996D4F89625
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 20:37:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 996D4F89625
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 May 2019 11:37:05 -0700
+X-ExtLoop1: 1
+Received: from dravindr-mobl1.amr.corp.intel.com (HELO [10.254.105.104])
+ ([10.254.105.104])
+ by fmsmga005.fm.intel.com with ESMTP; 24 May 2019 11:37:04 -0700
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87sgt7p3zo.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <03cf0a3b-3464-57fd-c313-cfe8db01d2cd@linux.intel.com>
+Date: Fri, 24 May 2019 10:58:29 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190523233951.31122-1-pierre-louis.bossart@linux.intel.com>
- <s5hk1ege12p.wl-tiwai@suse.de>
- <284f78d4-ec5a-0ff1-2b67-2977b3634692@linux.intel.com>
-In-Reply-To: <284f78d4-ec5a-0ff1-2b67-2977b3634692@linux.intel.com>
-From: Daniel Drake <drake@endlessm.com>
-Date: Fri, 24 May 2019 09:45:21 -0600
-Message-ID: <CAD8Lp47qCbPh+aZjr0pjzZAcBXqRbMU+5Y_HPy7jrJhUgsD3Tg@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>, Hui Wang <hui.wang@canonical.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Curtis Malainey <cujomalainey@google.com>
-Subject: Re: [alsa-devel] [RFC PATCH 0/6] ALSA/HDA: abort probe when DMICs
-	are detected
+In-Reply-To: <87sgt7p3zo.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH 000/145] ASoC: modern dai_link style support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,23 +70,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for the patches!
+Hi Morimoto-san,
 
-On Fri, May 24, 2019 at 7:26 AM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
-> I am not sure if it's a good idea to enable this by default, the
-> experience of the first round showed it's risky to make assumptions on
-> what BIOS vendors implemented.
+> These are for modern dai_link style support patches.
+> [001/145] adds missing modern dai_link style for CPU.
+> and others are switch to modern style from legacy style.
+> Last patch removes legacy style.
+> 
+> These are based on mark/for-5.3 + v5.2-rc1
+> 
+> I hope these work well for all sound card, but I can't test for all.
+> Please test these at each sound cards.
 
-Can you clarify what you mean here, are you saying you don't want to
-enable this new DMIC hardware support by default?
+We're testing for Intel stuff w/ SOF.
 
-Daniel
+One question: I try to enforce the use of checkpatch --strict to avoid 
+different styles in the Intel contributions, and your series generates a 
+ton of alignment warnings, e.g.
+
+CHECK: Alignment should match open parenthesis
+#45: FILE: sound/soc/intel/boards/sof_rt5682.c:373:
++		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
+  							"ssp%d-port",
+
+CHECK: Alignment should match open parenthesis
+#81: FILE: sound/soc/intel/boards/glk_rt5682_max98357a.c:378:
++SND_SOC_DAILINK_DEF(idisp3_codec,
++	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi3")));
+
+I am not too religious on style as long as there is a style.
+I'd be fine if the expectation is that all the dailink definitions use a 
+tab for readability (and it's a one-time change), but would like the 
+functional code changes to be aligned to avoid future warnings.
+Would that work for you? I can send you the Intel changes if that helps.
+
+Thanks
+-Pierre
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

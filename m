@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39C1D29432
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 11:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC99429435
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 11:08:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA49316B2;
-	Fri, 24 May 2019 11:06:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA49316B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 28ABD16C6;
+	Fri, 24 May 2019 11:07:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28ABD16C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558688848;
-	bh=qiH0sRc/nqdrmU4m9qHhYk/dQW8vYCydreDvQcmkASY=;
+	s=default; t=1558688894;
+	bh=gaxeNf26AyXaMHkmI3/Pzuz1s8Rajec11Jwi0T3ID5s=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vhEqdah3HqxH/2sFRKxnQp2yTXhQC3e8KC9PFaAYopn5SLw1NTj1EP7cXDyZ++oO3
-	 /2p9OkIg+t7kZKA6W2a8qxnzZTbzm8TTJBwsLMYLowNoxkdsF1kLQGYBzmj1PK9Mtx
-	 DRiAu9LstcoMzGJRcPCbenmJJ7CorjH9yjr8WEBY=
+	b=AQcJQDzVBDosci0f/6nEE6YGZwKjKtFK7exL32q8xxZZXoevOGRQBY3Pmq7V2Gx5t
+	 fTQkzuyR07BP/P1NEwDW7+gFWlRRPlR1me2R12ypon9PehRGVe6UMULTNHA7/FaZYC
+	 zDp5gxye4+Nf+hQX8IBg7UwWNB+WaxcZI9FSksLk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48345F89732;
-	Fri, 24 May 2019 11:04:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86D16F89734;
+	Fri, 24 May 2019 11:04:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F594F89725; Fri, 24 May 2019 11:03:57 +0200 (CEST)
+ id 398A1F8972A; Fri, 24 May 2019 11:03:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 75D8AF80C0F
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 11:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75D8AF80C0F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2825CF89636
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 11:03:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2825CF89636
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="oEibddYq"; 
+ header.b="PmvNv0BD"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="HHaNyYpK"
+ header.i=@messagingengine.com header.b="XwgZmzJt"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 8E34F21AFB;
- Fri, 24 May 2019 05:03:52 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 5C29221AF1;
+ Fri, 24 May 2019 05:03:54 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Fri, 24 May 2019 05:03:52 -0400
+ by compute1.internal (MEProxy); Fri, 24 May 2019 05:03:54 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=jQqJneHWNa4uj
- sIKD6THbAi4L8nhUmiCbJLst/CwjPs=; b=oEibddYq1oG77Lj3sA9dQbFbqg3tU
- FTMqfDIeCK8znCow0IkNLfd7YETnMIEZCAKKXYKOOutwu+3PtHXsSDlmf6fkm9F8
- hX6ySMf12i5GtEAI8rsZvdI95sWHD7buCX5kBXglzXKrFgNCP5ryEYkQ3PfuKeqP
- b3TypvjaTGrBL7LgC7xrtXc4+cKDWk6cPHo5k9E/Qp54crlwoLcw13AbhtIQ5hRb
- zc4RIxUMX+N9zvsXxJc13U/6aCrl9qiIyCQII7yZTJUYYi3j4FMVOFm8C+3g6NEW
- 33pXYg/ZFcu3kSRtxe74oy+YIiuFRc0gEcdux7oSP8xqGJ8yfEp+RyQZQ==
+ :mime-version:content-transfer-encoding; s=fm1; bh=JoOcGx6gohMA4
+ H6k8c/tLrttj8J0dkevgeR8nKrmBpg=; b=PmvNv0BDAO1VfEbICIvaZetjNKF3g
+ SZS27agth5vZjAd9QudkuibNwleHxdwIURuPzDT7+RTlZbGFo41qEBA/YD9wKYNi
+ I6NotyqEkFKw0xCqlVVuTZCab/4NFVUE11MTzqel+/Lvxn4Elsx55k3fmPB4z9yE
+ KQAHGmE88fxPgrm4jx/hEo2Selk2vZKijoGKYNS5p07i5rz13rGwhzPurIf6tA4c
+ u/3PQ6G0DOo+L5h8rqWepxkyGQKTPA5SJy2koPF95DSeBpOn23ZGusiJzR29lNBc
+ Bdm9lpTqPReHMS98a6kTO+XOPN19NzN4c9Wr2+YKik9mNNEHX5TB0IJDA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=jQqJneHWNa4ujsIKD6THbAi4L8nhUmiCbJLst/CwjPs=; b=HHaNyYpK
- DT+GAVWyBtKPD7fdhy3/moC2NPQ8U9dwR486cg35+EVgT+En0FxkiFm/qU64Hg+I
- OvjTMMV4thJEdJNAp/ucTNhb4S/4NNk3/PDpbAweW25Vwju7rk52ieyU2ixJt4h+
- 4HmEcl+MBAntEYNuA49UKV/YEVVBDZI4h/4zNYzvLTIrcyfQ9duAn/C3kx0d/cTG
- OfzSMzEfA9Fozh3WfH5uQ4heu7Pw1xtVfbUL8eJ8Qfb3pYczZyu01l+BPKrtI8HH
- 3ZzsnY8XhMl0A5ZGeYiL1sDJpaR8vILounFqy7guPF9kfGRP8dH9LKK02r1yQml3
- Ui1RSxAsCizUFw==
-X-ME-Sender: <xms:eLPnXJ9wGNU_H3d0cqcOQZmTQMxN75rG1RPDTGO1khsY82OkNIReuA>
+ fm2; bh=JoOcGx6gohMA4H6k8c/tLrttj8J0dkevgeR8nKrmBpg=; b=XwgZmzJt
+ fOHPiAD9JGHeEk+8ELo9MvcdqYQd3rkR+uU6Q4UgTG2ly3VDE/k2zO2chxBUUKmD
+ mkVQO4TKHg2VSQl3X8cnwqDI5qhfrp+pIKHEwiRsmFAqyiA6a4AVt5JBtywNYLbj
+ e+PBv5dAa2MK/fJoie3dckc1XS3YPdJ+NOzXJ7cG8wb9nQiQssl6sYxCTP6lB/Td
+ WnBwD9sG8tn0vW9cXjZjif7bfpF7dzIG5xRSY7b2be6TZg53cbouiUDgpsqskupL
+ MCV5EwDspNTrHNPrwcpoxU7vsqS7ZuPYO/eCUjqVrsV+WuV8J/6W+0lHboQSBdg8
+ oo3bGa5mFlOapw==
+X-ME-Sender: <xms:erPnXJXntKPze7222pkvLMOl20S_sYMGy3YpnRF_MmOsMh_GBqtpaQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudduiedgudduucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -76,26 +76,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudduiedgudduucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:eLPnXHiSipEmS7_GBkPvrWSiJY7sy7e4oBKKd6E9P9K9iCDeISakRA>
- <xmx:eLPnXDm1mZpMMLUvPh7xCT2M1t6H-csRCCGpNcBeNUXapGwxS-nh4A>
- <xmx:eLPnXK3ZF4Nda38kuZuOkUpn4iBMzoQeSx3g1hWwD2Oj6Gd627h1Dg>
- <xmx:eLPnXPRpMgoq79jxkXeft_mZwHVxsU0kk4uylOec2SbX8V2ORkf4Vg>
+X-ME-Proxy: <xmx:erPnXN1tl5Bhyc3VQY_sZcYoxdjaEAkz3kcRAAzYntj_Vzv1eeGiSQ>
+ <xmx:erPnXAZClUwvwQKd8udBWJt94vet3JpwPs3Uwg7H4IaF3Lu9um8RtQ>
+ <xmx:erPnXAqKZdVeF_U4wsXeaWaVLWoVmHh1E7JZRw9nX67R92Y84zw0QQ>
+ <xmx:erPnXCqtFk6B31HmN_0X84IMEO4X-fvEoeh6gUMN1FTm_pkdZpEASA>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 051EE80059;
- Fri, 24 May 2019 05:03:50 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id B67CC80059;
+ Fri, 24 May 2019 05:03:52 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Fri, 24 May 2019 18:03:41 +0900
-Message-Id: <20190524090342.15619-4-o-takashi@sakamocchi.jp>
+Date: Fri, 24 May 2019 18:03:42 +0900
+Message-Id: <20190524090342.15619-5-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190524090342.15619-1-o-takashi@sakamocchi.jp>
 References: <20190524090342.15619-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 3/4] ALSA: firewire-lib: refactoring to
-	obsolete IT packet handler
+Subject: [alsa-devel] [PATCH 4/4] ALSA: firewire-lib: refactoring to
+	obsolete IR packet handler
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,123 +113,134 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-As a result of heavy refactoring based on IT packet header, the packet
+As a result of heavy refactoring based on IR context header, the packet
 handler becomes simpler.
 
-This commit merges the packet handler into function for IT context
-callback. The logic to build IT packet header and tracepoints event is
+This commit merges the packet handler into function for IR context
+callback. The logic to parse IR context header and tracepoints event is
 split to a function.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 62 +++++++++++++++++------------------
- 1 file changed, 31 insertions(+), 31 deletions(-)
+ sound/firewire/amdtp-stream.c | 76 ++++++++++++++++++-----------------
+ 1 file changed, 39 insertions(+), 37 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 8a7da86650ea..03ed2757dfc8 100644
+index 03ed2757dfc8..3aef6a78a188 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -485,54 +485,36 @@ static void generate_cip_header(struct amdtp_stream *s, __be32 cip_header[2],
- 			(syt & CIP_SYT_MASK));
+@@ -619,59 +619,42 @@ static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
+ 	return 0;
  }
  
--static int handle_out_packet(struct amdtp_stream *s, unsigned int cycle,
--			     const __be32 *ctx_header, __be32 *buffer,
--			     unsigned int index)
-+static void build_it_pkt_header(struct amdtp_stream *s, unsigned int cycle,
-+				struct fw_iso_packet *params,
-+				unsigned int data_blocks, unsigned int syt,
-+				unsigned int index)
+-static int handle_in_packet(struct amdtp_stream *s, unsigned int cycle,
+-			    const __be32 *ctx_header, __be32 *buffer,
+-			    unsigned int index)
++static int parse_ir_ctx_header(struct amdtp_stream *s, unsigned int cycle,
++			       const __be32 *ctx_header,
++			       unsigned int *payload_length,
++			       unsigned int *data_blocks,
++			       unsigned int *syt, unsigned int index)
  {
+-	unsigned int payload_length;
+ 	const __be32 *cip_header;
 -	unsigned int syt;
 -	unsigned int data_blocks;
- 	__be32 *cip_header;
--	unsigned int pcm_frames;
 -	struct snd_pcm_substream *pcm;
--	struct {
--		struct fw_iso_packet params;
--		__be32 header[IT_PKT_HEADER_SIZE_CIP / sizeof(__be32)];
--	} template = { {0}, {0} };
+-	unsigned int pcm_frames;
+-	struct fw_iso_packet params = {0};
+ 	int err;
  
--	syt = calculate_syt(s, cycle);
--	data_blocks = calculate_data_blocks(s, syt);
--	pcm_frames = s->process_data_blocks(s, buffer, data_blocks, &syt);
--
--	if (s->flags & CIP_DBC_IS_END_EVENT)
-+	if (s->flags & CIP_DBC_IS_END_EVENT) {
- 		s->data_block_counter =
- 				(s->data_block_counter + data_blocks) & 0xff;
-+	}
- 
- 	if (!(s->flags & CIP_NO_HEADER)) {
--		cip_header = (__be32 *)template.params.header;
-+		cip_header = (__be32 *)params->header;
- 		generate_cip_header(s, cip_header, syt);
--		template.params.header_length = 2 * sizeof(__be32);
-+		params->header_length = 2 * sizeof(__be32);
- 	} else {
- 		cip_header = NULL;
+-	payload_length = be32_to_cpu(ctx_header[0]) >> ISO_DATA_LENGTH_SHIFT;
+-	if (payload_length > s->ctx_data.tx.ctx_header_size +
++	*payload_length = be32_to_cpu(ctx_header[0]) >> ISO_DATA_LENGTH_SHIFT;
++	if (*payload_length > s->ctx_data.tx.ctx_header_size +
+ 					s->ctx_data.tx.max_ctx_payload_length) {
+ 		dev_err(&s->unit->device,
+ 			"Detect jumbo payload: %04x %04x\n",
+-			payload_length, s->ctx_data.tx.max_ctx_payload_length);
++			*payload_length, s->ctx_data.tx.max_ctx_payload_length);
+ 		return -EIO;
  	}
  
--	if (!(s->flags & CIP_DBC_IS_END_EVENT))
-+	if (!(s->flags & CIP_DBC_IS_END_EVENT)) {
+-	cip_header = ctx_header + 2;
+ 	if (!(s->flags & CIP_NO_HEADER)) {
+-		cip_header = &ctx_header[2];
+-		err = check_cip_header(s, cip_header, payload_length,
+-				       &data_blocks, &syt);
+-		if (err < 0) {
+-			if (err != -EAGAIN)
+-				return err;
+-			pcm_frames = 0;
+-			goto end;
+-		}
++		cip_header = ctx_header + 2;
++		err = check_cip_header(s, cip_header, *payload_length,
++				       data_blocks, syt);
++		if (err < 0)
++			return err;
+ 	} else {
+ 		cip_header = NULL;
+-		data_blocks = payload_length / 4 / s->data_block_quadlets;
+-		syt = 0;
++		*data_blocks = *payload_length / sizeof(__be32) /
++			       s->data_block_quadlets;
++		*syt = 0;
  		s->data_block_counter =
- 				(s->data_block_counter + data_blocks) & 0xff;
-+	}
+-				(s->data_block_counter + data_blocks) & 0xff;
++				(s->data_block_counter + *data_blocks) & 0xff;
+ 	}
  
--	template.params.payload_length =
-+	params->payload_length =
- 			data_blocks * sizeof(__be32) * s->data_block_quadlets;
+-	trace_amdtp_packet(s, cycle, cip_header, payload_length, data_blocks,
++	trace_amdtp_packet(s, cycle, cip_header, *payload_length, *data_blocks,
+ 			   index);
  
--	trace_amdtp_packet(s, cycle, cip_header, template.params.payload_length,
-+	trace_amdtp_packet(s, cycle, cip_header, params->payload_length,
- 			   data_blocks, index);
--
--	if (queue_out_packet(s, &template.params) < 0)
+-	pcm_frames = s->process_data_blocks(s, buffer, data_blocks, &syt);
+-end:
+-	if (queue_in_packet(s, &params) < 0)
 -		return -EIO;
 -
 -	pcm = READ_ONCE(s->pcm);
 -	if (pcm && pcm_frames > 0)
 -		update_pcm_pointers(s, pcm, pcm_frames);
 -
--	return 0;
+ 	return 0;
  }
  
- static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
-@@ -741,16 +723,34 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
+@@ -773,14 +756,33 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
  
- 	for (i = 0; i < packets; ++i) {
+ 	for (i = 0; i < packets; i++) {
  		u32 cycle;
-+		unsigned int syt;
++		unsigned int payload_length;
 +		unsigned int data_block;
++		unsigned int syt;
  		__be32 *buffer;
-+		unsigned int pcm_frames;
-+		struct {
-+			struct fw_iso_packet params;
-+			__be32 header[IT_PKT_HEADER_SIZE_CIP / sizeof(__be32)];
-+		} template = { {0}, {0} };
++		unsigned int pcm_frames = 0;
++		struct fw_iso_packet params = {0};
 +		struct snd_pcm_substream *pcm;
++		int err;
  
- 		cycle = compute_it_cycle(*ctx_header);
-+		syt = calculate_syt(s, cycle);
-+		data_block = calculate_data_blocks(s, syt);
- 		buffer = s->buffer.packets[s->packet_index].buffer;
-+		pcm_frames = s->process_data_blocks(s, buffer, data_block, &syt);
+ 		cycle = compute_cycle_count(ctx_header[1]);
+-		buffer = s->buffer.packets[s->packet_index].buffer;
++		err = parse_ir_ctx_header(s, cycle, ctx_header, &payload_length,
++					  &data_block, &syt, i);
++		if (err < 0 && err != -EAGAIN)
++			break;
++		if (err >= 0) {
++			buffer = s->buffer.packets[s->packet_index].buffer;
++			pcm_frames = s->process_data_blocks(s, buffer,
++							    data_block, &syt);
++		}
  
--		if (handle_out_packet(s, cycle, ctx_header, buffer, i) < 0) {
-+		build_it_pkt_header(s, cycle, &template.params, data_block, syt,
-+				    i);
-+
-+		if (queue_out_packet(s, &template.params) < 0) {
- 			cancel_stream(s);
- 			return;
- 		}
+-		if (handle_in_packet(s, cycle, ctx_header, buffer, i) < 0)
++		if (queue_in_packet(s, &params) < 0)
+ 			break;
  
 +		pcm = READ_ONCE(s->pcm);
 +		if (pcm && pcm_frames > 0)
 +			update_pcm_pointers(s, pcm, pcm_frames);
 +
- 		++ctx_header;
+ 		ctx_header += s->ctx_data.tx.ctx_header_size / sizeof(*ctx_header);
  	}
  
 -- 

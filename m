@@ -2,88 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 648CB290D5
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 08:15:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF85C28E82
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 03:12:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0AE01698;
-	Fri, 24 May 2019 08:14:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0AE01698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38E7E1689;
+	Fri, 24 May 2019 03:11:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38E7E1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558678545;
-	bh=GWs3k7fuxtIDlZNcJ0fbsamhNN04qjOqzv85iTZOcuA=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hssDDQQmrNhhMtXcf92NmxesZ6ZlwrH7VtZMBBOrhZz+D90k00d4n+DEQwbf+G7ZC
-	 fgEpBOt8XHutqk3U2lC0P9Ueuq9ek7PJF4vhS667AfDuDphprtbcVS4UicfYJKiDAR
-	 CSAAHx75FPXjScCrDuX6VUtF9aotYApsI1Wo5vH4=
+	s=default; t=1558660363;
+	bh=2v5IfO6dvIzh3sc1ukAR4gTYg0CA0nFdcCN27pdx1PA=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZZUjcHpcB/HnsFYG8NuQuDn2Untd8yp1AutxALNPftpljE9HqtFHfqXKERklx9stu
+	 kk100elRI5/N0ohYyndvqqUPTAyz7GXBXCqmVPNPbrw+fYYt9gpnrvHa1Ih8u9Aixb
+	 xXo5MbmZNadcqvBvX7Aedmo0TeZo5wd8Pjz/747o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59416F80C0F;
-	Fri, 24 May 2019 08:14:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8868EF89709;
+	Fri, 24 May 2019 03:10:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCCF2F89674; Fri, 24 May 2019 02:50:38 +0200 (CEST)
+ id 4CC0BF89674; Fri, 24 May 2019 03:10:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE170F80C0F
- for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 02:50:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE170F80C0F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WIkbsY/T"
-Received: by mail-pl1-x641.google.com with SMTP id g21so3445435plq.0
- for <alsa-devel@alsa-project.org>; Thu, 23 May 2019 17:50:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=vq5OscFiBg+c2cP1NzGhhjMT3RLQCBEIhZHhvje2x5I=;
- b=WIkbsY/TDaVPI5z60Tn4ATxrtlgyarhuhzGl7tFy847LWwZlvijIngLI0XMBE9qCDb
- pSWLCeQqhHiem7oNeT9m0DChmWEfd5DeLjg5K/Sj6NBAxypME8zGxfHGd4UfxoojMpye
- qcRyjJropK5H1rp1yTvykFcrd2dxylvmLkk3ga1NZXe8PFOmdpzBxJTZeDuIvktKhwsR
- 6uOraw9mlBinMu3w9myx+pjNB1C0+JcmVS2XOdmhNikr0cZOXnvrF/B+GOMmw8o3INqg
- YB27G/Znkl3oBugcnN0yqr4hwZnSnvZ5NjN0ExmeabwWdmNXKpfyKgHRsGJCZagUh9M8
- s4kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=vq5OscFiBg+c2cP1NzGhhjMT3RLQCBEIhZHhvje2x5I=;
- b=cm21RNBKGmJ6KFAWmsgLzjtytpAMqWlr0VnI+VYlySl6hw2+VjGdgJKqL7ICVFFBN4
- GhkwdUB/nYfjp8GdfPNagTn6h0x0OGMzCIapcDu3sR9G7GKYI0BOn3e++l679r8ouVAV
- YXn/RgrHXvKZLF8V8d5UapVyPVtWcfE79rLC6PSmsEaNTYupD+yCXRcQqBIl6NIg0eso
- 9ObeoCLHKm6APoWTxtXlKkc9vu24U/njCHzYPIEqsuoxwbrQ40PUHCbNWti0Bf1m7tjl
- 00tcasJWmnIqB9+EoR0hybR1CPEvvS8W2t3CIhTN2L4ikOU0R7RvjLK5sMtOYD18OPPi
- DctQ==
-X-Gm-Message-State: APjAAAWyFiXc3n3UokkZrLiuAovScnuCnV0BgjikhwGkuXfnPYOgOUXT
- PYbo9Md3Bb2bkFiS4uSirNc=
-X-Google-Smtp-Source: APXvYqyF047YsIZEkBz6n7WubO3vjZO5g0ZmOj56HpzuyWWN8qDAIdjpPPReYmER77uDaRH+jsnurw==
-X-Received: by 2002:a17:902:59c3:: with SMTP id
- d3mr30818966plj.273.1558659033669; 
- Thu, 23 May 2019 17:50:33 -0700 (PDT)
-Received: from zhanggen-UX430UQ ([66.42.35.75])
- by smtp.gmail.com with ESMTPSA id d4sm468985pju.19.2019.05.23.17.50.27
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 23 May 2019 17:50:33 -0700 (PDT)
-Date: Fri, 24 May 2019 08:50:14 +0800
-From: Gen Zhang <blackgod016574@gmail.com>
-To: lgirdwood@gmail.com, perex@perex.cz
-Message-ID: <20190524005014.GA2289@zhanggen-UX430UQ>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A17A6F89625
+ for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 03:10:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A17A6F89625
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 May 2019 18:10:50 -0700
+X-ExtLoop1: 1
+Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
+ by fmsmga001.fm.intel.com with ESMTP; 23 May 2019 18:10:50 -0700
+Received: from FMSMSX110.amr.corp.intel.com (10.18.116.10) by
+ fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Thu, 23 May 2019 18:10:50 -0700
+Received: from shsmsx107.ccr.corp.intel.com (10.239.4.96) by
+ fmsmsx110.amr.corp.intel.com (10.18.116.10) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Thu, 23 May 2019 18:10:49 -0700
+Received: from shsmsx103.ccr.corp.intel.com ([169.254.4.70]) by
+ SHSMSX107.ccr.corp.intel.com ([169.254.9.7]) with mapi id 14.03.0415.000;
+ Fri, 24 May 2019 09:10:48 +0800
+From: "Yang, Libin" <libin.yang@intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Takashi Iwai
+ <tiwai@suse.de>
+Thread-Topic: [alsa-devel] [PATCH v2 12/12] ASoC: SOF: Intel: hda-codec: fix
+ memory allocation
+Thread-Index: AQHVELp8xHfh5vooqE+zpD1TQ3/5CKZ4GRrAgAAtZKD//5FsAIAAhlMggAAB6ED//69rgIABaLcQ
+Date: Fri, 24 May 2019 01:10:48 +0000
+Message-ID: <96A12704CE18D347B625EE2D4A099D1952841DCB@SHSMSX103.ccr.corp.intel.com>
+References: <20190522162142.11525-1-pierre-louis.bossart@linux.intel.com>
+ <20190522162142.11525-13-pierre-louis.bossart@linux.intel.com>
+ <96A12704CE18D347B625EE2D4A099D195284169B@SHSMSX103.ccr.corp.intel.com>
+ <s5hr28pfux1.wl-tiwai@suse.de>
+ <96A12704CE18D347B625EE2D4A099D19528416F0@SHSMSX103.ccr.corp.intel.com>
+ <31702c41-aef4-712a-d11b-ee44e446a6cb@linux.intel.com>
+In-Reply-To: <31702c41-aef4-712a-d11b-ee44e446a6cb@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOWEzOGQxMDctYTYwMi00N2VkLWJjZTQtMjAxZDZiNmFlN2ZhIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiSTRqV3ZDUmpIWmZuMkJNNjdVcU5peFVUTlVTREUwd1M3UktST0c2QTlLRCtidk1LQkxXWjBsKzB0RkNQcWRqRiJ9
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.0.600.7
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Mailman-Approved-At: Fri, 24 May 2019 08:13:59 +0200
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] tegra_wm9712: Fix a memory leaking bug in
- tegra_wm9712_driver_probe()
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "broonie@kernel.org" <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 12/12] ASoC: SOF: Intel: hda-codec: fix
+ memory allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,52 +100,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In tegra_wm9712_driver_probe(), 'machine->codec' is allocated by
-platform_device_alloc(). When it is NULL, function returns ENOMEM.
-However, 'machine' is allocated by devm_kzalloc() before this site.
-Thus we should free 'machine' before function ends to prevent memory
-leaking.
+Hi Peirre,
 
-Further, we should free 'machine->util_data', 'machine->codec' and
-'machine' before this function normally ends to prevent memory leaking.
+>>>>
+>>>> On Thu, 23 May 2019 10:03:03 +0200,
+>>>> Yang, Libin wrote:
+>>>>>
+>>>>> Please let me describe the issue here.
+>>>>>
+>>>>> The test case is:
+>>>>> 1) Unload module with script "sudo ./sof_remove.sh" ,
+>>>>> 2) reload module with script "sudo ./sof_insert.sh"
+>>>>>
+>>>>> After several rounds of removing and inserting kernel modules,
+>>>>> system will complain like below:
+>>>>> "BUG: unable to handle kernel paging request at 000000292a282031"
+>>>>
+>>>> Did you try some kernel debug options?  It might show what went wrong.
+>>>
+>>> No, I haven't. I'm not sure which options I can use for this case.
+>>> Could you please give me some suggestions?
+>>
+>> BTW: I have enabled DEBUG_DEVRES. Are there any other options I can try?
+>
+>There are already a set of kconfig fragments for debug, see
+>https://github.com/thesofproject/kconfig and select memory-debug-defconfig.
+>
+>I guess I will need to require this test in the SOF CI, I really don't get how this
+>issue was not seen earlier. Gah.
 
-Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
----
-diff --git a/sound/soc/tegra/tegra_wm9712.c b/sound/soc/tegra/tegra_wm9712.c
-index 864a334..295c41d 100644
---- a/sound/soc/tegra/tegra_wm9712.c
-+++ b/sound/soc/tegra/tegra_wm9712.c
-@@ -86,7 +86,8 @@ static int tegra_wm9712_driver_probe(struct platform_device *pdev)
- 	machine->codec = platform_device_alloc("wm9712-codec", -1);
- 	if (!machine->codec) {
- 		dev_err(&pdev->dev, "Can't allocate wm9712 platform device\n");
--		return -ENOMEM;
-+		ret = -ENOMEM;
-+		goto codec_free;
- 	}
- 
- 	ret = platform_device_add(machine->codec);
-@@ -127,6 +128,10 @@ static int tegra_wm9712_driver_probe(struct platform_device *pdev)
- 		goto asoc_utils_fini;
- 	}
- 
-+	tegra_asoc_utils_fini(&machine->util_data);
-+	platform_device_del(machine->codec);
-+	platform_device_put(machine->codec);
-+	devm_kfree(&pdev->dev, machine);
- 	return 0;
- 
- asoc_utils_fini:
-@@ -135,6 +140,8 @@ static int tegra_wm9712_driver_probe(struct platform_device *pdev)
- 	platform_device_del(machine->codec);
- codec_put:
- 	platform_device_put(machine->codec);
-+codec_free:
-+	devm_kfree(&pdev->dev, machine);
- 	return ret;
- }
- 
----
+This bug can't be reproduced easily sometimes. Sometimes, the bug will be hit 
+at the second or third round of the test. And sometimes, we need do more 
+rounds to reproduce this bug. This may be the reason we didn't hit this bug before.
+
+Regards,
+Libin
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

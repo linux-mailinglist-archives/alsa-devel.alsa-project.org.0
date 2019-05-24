@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00AE729EEE
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 21:16:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9834C29EF1
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 May 2019 21:17:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95E99172D;
-	Fri, 24 May 2019 21:15:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95E99172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33A841747;
+	Fri, 24 May 2019 21:16:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33A841747
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558725403;
-	bh=0RgHNUS/1I2zvScRLkpRS01kRMjaFOKaevCLzGfNHEA=;
+	s=default; t=1558725449;
+	bh=42nB854hrH6BNBo74AeWbJA6R5JMpeiBXy0lYC3AYTY=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WXDRQ6p8Rv6sx3LJRkqKQpmCnQAKHIvHAH+JqkyyJiJ0nqS4TLWKWk1bxXD6VO2g/
-	 ZGR0nFJ7Thql+nBoLI1Fd+hi+/OgfdahUCkvzl03GBvMdlKl0lzwmVZqne6AdAhSvn
-	 reXh9yjCoS4KJCWwt3qViqR0k5/Bpgbu2fQKzjXE=
+	b=Rn1eEtuhD55TXRWLubFkjVQ7T/f+zGl6TrykU41zYcf0xTT9jzxF4DGsG27k9qltT
+	 0LXzwb2BuWEzN7aZTSNZznEk1T15PPil0UQJkR+yoWVeJjW6EVeSNXwL2GbTGi2onw
+	 jrGxKKZULpI3WsRwtQtbEZEFtt+Rt0T+sQSs8OM0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25593F89751;
-	Fri, 24 May 2019 21:09:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8682CF89756;
+	Fri, 24 May 2019 21:10:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D07BAF8972E; Fri, 24 May 2019 21:09:47 +0200 (CEST)
+ id 76103F89731; Fri, 24 May 2019 21:09:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,32 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4CD64F89630
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87EF2F89718
  for <alsa-devel@alsa-project.org>; Fri, 24 May 2019 21:09:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CD64F89630
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87EF2F89718
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 May 2019 12:09:35 -0700
+ 24 May 2019 12:09:36 -0700
 X-ExtLoop1: 1
 Received: from tattafos-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.254.178.85])
- by fmsmga004.fm.intel.com with ESMTP; 24 May 2019 12:09:34 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 24 May 2019 12:09:35 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 24 May 2019 14:09:23 -0500
-Message-Id: <20190524190925.5931-8-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 24 May 2019 14:09:24 -0500
+Message-Id: <20190524190925.5931-9-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190524190925.5931-1-pierre-louis.bossart@linux.intel.com>
 References: <20190524190925.5931-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Cc: tiwai@suse.de,
- Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- broonie@kernel.org,
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Zhu Yingjiang <yingjiang.zhu@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH v3 7/9] ASoC: SOF: ipc: fix a race,
-	leading to IPC timeouts
+Subject: [alsa-devel] [PATCH v3 8/9] ASoC: SOF: Intel: hda: fix the hda init
+	chip
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,240 +75,308 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
 
-Currently on all supported platforms the IPC IRQ thread first signals
-the sender when an IPC response is received from the DSP, then unmasks
-the IPC interrupt. Those actions are performed without holding any
-locks, so the thread can be interrupted between them. IPC timeouts
-have been observed in such scenarios: if the sender is woken up and it
-proceeds with sending the next message without unmasking the IPC
-interrupt, it can miss the next response. This patch takes a spin-lock
-to prevent the IRQ thread from being preempted at that point. It also
-makes sure, that the next IPC transmission by the host cannot take
-place before the IRQ thread has finished updating all the required IPC
-registers.
+re-write hda_init_caps and remove the HDA reset, clean HDA
+streams and clear interrupt steps in hda_dsp_probe so the
+HDA init steps will not be called twice if the
+CONFIG_SND_SOC_SOF_HDA is true.
 
-Fixes: 53e0c72d98b ("ASoC: SOF: Add support for IPC IO between DSP and Host")
+Fixes: 8a300c8fb17 ("ASoC: SOF: Intel: Add HDA controller for Intel DSP")
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/bdw.c     |  9 ++++-----
- sound/soc/sof/intel/byt.c     | 10 +++++-----
- sound/soc/sof/intel/cnl.c     |  4 ++++
- sound/soc/sof/intel/hda-ipc.c | 17 ++++++++++++++---
- sound/soc/sof/ipc.c           | 13 -------------
- 5 files changed, 27 insertions(+), 26 deletions(-)
+ sound/soc/sof/intel/hda-ctrl.c | 102 ++++++++++++++++++++++++++++++---
+ sound/soc/sof/intel/hda.c      |  99 ++++++--------------------------
+ 2 files changed, 112 insertions(+), 89 deletions(-)
 
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index 065cb868bdfa..8ff3ee520aea 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -283,6 +283,8 @@ static irqreturn_t bdw_irq_thread(int irq, void *context)
- 						 SHIM_IMRX, SHIM_IMRX_DONE,
- 						 SHIM_IMRX_DONE);
- 
-+		spin_lock_irq(&sdev->ipc_lock);
-+
- 		/*
- 		 * handle immediate reply from DSP core. If the msg is
- 		 * found, set done bit in cmd_done which is called at the
-@@ -294,6 +296,8 @@ static irqreturn_t bdw_irq_thread(int irq, void *context)
- 		snd_sof_ipc_reply(sdev, ipcx);
- 
- 		bdw_dsp_done(sdev);
-+
-+		spin_unlock_irq(&sdev->ipc_lock);
- 	}
- 
- 	ipcd = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IPCD);
-@@ -485,7 +489,6 @@ static void bdw_get_reply(struct snd_sof_dev *sdev)
- {
- 	struct snd_sof_ipc_msg *msg = sdev->msg;
- 	struct sof_ipc_reply reply;
--	unsigned long flags;
- 	int ret = 0;
- 
- 	/*
-@@ -501,8 +504,6 @@ static void bdw_get_reply(struct snd_sof_dev *sdev)
- 	/* get reply */
- 	sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
- 
--	spin_lock_irqsave(&sdev->ipc_lock, flags);
--
- 	if (reply.error < 0) {
- 		memcpy(msg->reply_data, &reply, sizeof(reply));
- 		ret = reply.error;
-@@ -521,8 +522,6 @@ static void bdw_get_reply(struct snd_sof_dev *sdev)
- 	}
- 
- 	msg->reply_error = ret;
--
--	spin_unlock_irqrestore(&sdev->ipc_lock, flags);
- }
- 
- static void bdw_host_done(struct snd_sof_dev *sdev)
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 7bf9143d3106..9e4c07eb889b 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -329,6 +329,9 @@ static irqreturn_t byt_irq_thread(int irq, void *context)
- 						   SHIM_IMRX,
- 						   SHIM_IMRX_DONE,
- 						   SHIM_IMRX_DONE);
-+
-+		spin_lock_irq(&sdev->ipc_lock);
-+
- 		/*
- 		 * handle immediate reply from DSP core. If the msg is
- 		 * found, set done bit in cmd_done which is called at the
-@@ -340,6 +343,8 @@ static irqreturn_t byt_irq_thread(int irq, void *context)
- 		snd_sof_ipc_reply(sdev, ipcx);
- 
- 		byt_dsp_done(sdev);
-+
-+		spin_unlock_irq(&sdev->ipc_lock);
- 	}
- 
- 	/* new message from DSP */
-@@ -383,7 +388,6 @@ static void byt_get_reply(struct snd_sof_dev *sdev)
- {
- 	struct snd_sof_ipc_msg *msg = sdev->msg;
- 	struct sof_ipc_reply reply;
--	unsigned long flags;
- 	int ret = 0;
- 
- 	/*
-@@ -399,8 +403,6 @@ static void byt_get_reply(struct snd_sof_dev *sdev)
- 	/* get reply */
- 	sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
- 
--	spin_lock_irqsave(&sdev->ipc_lock, flags);
--
- 	if (reply.error < 0) {
- 		memcpy(msg->reply_data, &reply, sizeof(reply));
- 		ret = reply.error;
-@@ -419,8 +421,6 @@ static void byt_get_reply(struct snd_sof_dev *sdev)
- 	}
- 
- 	msg->reply_error = ret;
--
--	spin_unlock_irqrestore(&sdev->ipc_lock, flags);
- }
- 
- static void byt_host_done(struct snd_sof_dev *sdev)
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index c059d1170bab..e59d180da7e2 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -64,6 +64,8 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
- 					CNL_DSP_REG_HIPCCTL,
- 					CNL_DSP_REG_HIPCCTL_DONE, 0);
- 
-+		spin_lock_irq(&sdev->ipc_lock);
-+
- 		/* handle immediate reply from DSP core */
- 		hda_dsp_ipc_get_reply(sdev);
- 		snd_sof_ipc_reply(sdev, msg);
-@@ -75,6 +77,8 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
- 
- 		cnl_ipc_dsp_done(sdev);
- 
-+		spin_unlock_irq(&sdev->ipc_lock);
-+
- 		ret = IRQ_HANDLED;
- 	}
- 
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index 73ead7070cde..51b285103394 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -72,7 +72,6 @@ void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
- 	struct snd_sof_ipc_msg *msg = sdev->msg;
- 	struct sof_ipc_reply reply;
- 	struct sof_ipc_cmd_hdr *hdr;
--	unsigned long flags;
- 	int ret = 0;
- 
- 	/*
-@@ -84,7 +83,6 @@ void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
- 		dev_warn(sdev->dev, "unexpected ipc interrupt raised!\n");
- 		return;
- 	}
--	spin_lock_irqsave(&sdev->ipc_lock, flags);
- 
- 	hdr = msg->msg_data;
- 	if (hdr->cmd == (SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_CTX_SAVE)) {
-@@ -123,7 +121,6 @@ void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev)
- out:
- 	msg->reply_error = ret;
- 
--	spin_unlock_irqrestore(&sdev->ipc_lock, flags);
- }
- 
- static bool hda_dsp_ipc_is_sof(uint32_t msg)
-@@ -172,6 +169,18 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
- 					HDA_DSP_REG_HIPCCTL,
- 					HDA_DSP_REG_HIPCCTL_DONE, 0);
- 
-+		/*
-+		 * Make sure the interrupt thread cannot be preempted between
-+		 * waking up the sender and re-enabling the interrupt. Also
-+		 * protect against a theoretical race with sof_ipc_tx_message():
-+		 * if the DSP is fast enough to receive an IPC message, reply to
-+		 * it, and the host interrupt processing calls this function on
-+		 * a different core from the one, where the sending is taking
-+		 * place, the message might not yet be marked as expecting a
-+		 * reply.
-+		 */
-+		spin_lock_irq(&sdev->ipc_lock);
-+
- 		/* handle immediate reply from DSP core - ignore ROM messages */
- 		if (hda_dsp_ipc_is_sof(msg)) {
- 			hda_dsp_ipc_get_reply(sdev);
-@@ -187,6 +196,8 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
- 		/* set the done bit */
- 		hda_dsp_ipc_dsp_done(sdev);
- 
-+		spin_unlock_irq(&sdev->ipc_lock);
-+
- 		ret = IRQ_HANDLED;
- 	}
- 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 894e68cbd69d..10304a90cf25 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -308,19 +308,8 @@ EXPORT_SYMBOL(sof_ipc_tx_message);
- int snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
- {
- 	struct snd_sof_ipc_msg *msg = &sdev->ipc->msg;
--	unsigned long flags;
--
--	/*
--	 * Protect against a theoretical race with sof_ipc_tx_message(): if the
--	 * DSP is fast enough to receive an IPC message, reply to it, and the
--	 * host interrupt processing calls this function on a different core
--	 * from the one, where the sending is taking place, the message might
--	 * not yet be marked as expecting a reply.
--	 */
--	spin_lock_irqsave(&sdev->ipc_lock, flags);
- 
- 	if (msg->ipc_complete) {
--		spin_unlock_irqrestore(&sdev->ipc_lock, flags);
- 		dev_err(sdev->dev, "error: no reply expected, received 0x%x",
- 			msg_id);
- 		return -EINVAL;
-@@ -330,8 +319,6 @@ int snd_sof_ipc_reply(struct snd_sof_dev *sdev, u32 msg_id)
- 	msg->ipc_complete = true;
- 	wake_up(&msg->waitq);
- 
--	spin_unlock_irqrestore(&sdev->ipc_lock, flags);
--
+diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
+index 2c3645736e1f..07bc123112c9 100644
+--- a/sound/soc/sof/intel/hda-ctrl.c
++++ b/sound/soc/sof/intel/hda-ctrl.c
+@@ -161,21 +161,105 @@ int hda_dsp_ctrl_clock_power_gating(struct snd_sof_dev *sdev, bool enable)
  	return 0;
  }
- EXPORT_SYMBOL(snd_sof_ipc_reply);
+ 
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-/*
+- * While performing reset, controller may not come back properly and causing
+- * issues, so recommendation is to set CGCTL.MISCBDCGE to 0 then do reset
+- * (init chip) and then again set CGCTL.MISCBDCGE to 1
+- */
+ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev, bool full_reset)
+ {
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+-	int ret;
++	struct hdac_stream *stream;
++	int sd_offset, ret = 0;
++
++	if (bus->chip_init)
++		return 0;
+ 
+ 	hda_dsp_ctrl_misc_clock_gating(sdev, false);
+-	ret = snd_hdac_bus_init_chip(bus, full_reset);
++
++	if (full_reset) {
++		/* clear WAKESTS */
++		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_WAKESTS,
++					SOF_HDA_WAKESTS_INT_MASK,
++					SOF_HDA_WAKESTS_INT_MASK);
++
++		/* reset HDA controller */
++		ret = hda_dsp_ctrl_link_reset(sdev, true);
++		if (ret < 0) {
++			dev_err(sdev->dev, "error: failed to reset HDA controller\n");
++			return ret;
++		}
++
++		usleep_range(500, 1000);
++
++		/* exit HDA controller reset */
++		ret = hda_dsp_ctrl_link_reset(sdev, false);
++		if (ret < 0) {
++			dev_err(sdev->dev, "error: failed to exit HDA controller reset\n");
++			return ret;
++		}
++
++		usleep_range(1000, 1200);
++	}
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
++	/* check to see if controller is ready */
++	if (!snd_hdac_chip_readb(bus, GCTL)) {
++		dev_dbg(bus->dev, "controller not ready!\n");
++		return -EBUSY;
++	}
++
++	/* Accept unsolicited responses */
++	snd_hdac_chip_updatel(bus, GCTL, AZX_GCTL_UNSOL, AZX_GCTL_UNSOL);
++
++	/* detect codecs */
++	if (!bus->codec_mask) {
++		bus->codec_mask = snd_hdac_chip_readw(bus, STATESTS);
++		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", bus->codec_mask);
++	}
++#endif
++
++	/* clear stream status */
++	list_for_each_entry(stream, &bus->stream_list, list) {
++		sd_offset = SOF_STREAM_SD_OFFSET(stream);
++		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
++					sd_offset +
++					SOF_HDA_ADSP_REG_CL_SD_STS,
++					SOF_HDA_CL_DMA_SD_INT_MASK,
++					SOF_HDA_CL_DMA_SD_INT_MASK);
++	}
++
++	/* clear WAKESTS */
++	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_WAKESTS,
++				SOF_HDA_WAKESTS_INT_MASK,
++				SOF_HDA_WAKESTS_INT_MASK);
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
++	/* clear rirb status */
++	snd_hdac_chip_writeb(bus, RIRBSTS, RIRB_INT_MASK);
++#endif
++
++	/* clear interrupt status register */
++	snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS,
++			  SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_ALL_STREAM);
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
++	/* initialize the codec command I/O */
++	snd_hdac_bus_init_cmd_io(bus);
++#endif
++
++	/* enable CIE and GIE interrupts */
++	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL,
++				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN,
++				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN);
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
++	/* program the position buffer */
++	if (bus->use_posbuf && bus->posbuf.addr) {
++		snd_hdac_chip_writel(bus, DPLBASE, (u32)bus->posbuf.addr);
++		snd_hdac_chip_writel(bus, DPUBASE,
++				     upper_32_bits(bus->posbuf.addr));
++	}
++#endif
++
++	bus->chip_init = true;
++
+ 	hda_dsp_ctrl_misc_clock_gating(sdev, true);
+ 
+ 	return ret;
+ }
+-#endif
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 7e3980a2f7ba..e47f03dc62f0 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -264,9 +264,12 @@ static const char *fixup_tplg_name(struct snd_sof_dev *sdev,
+ 	return tplg_filename;
+ }
+ 
++#endif
++
+ static int hda_init_caps(struct snd_sof_dev *sdev)
+ {
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 	struct hdac_ext_link *hlink;
+ 	struct snd_soc_acpi_mach_params *mach_params;
+ 	struct snd_soc_acpi_mach *hda_mach;
+@@ -274,8 +277,9 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	struct snd_soc_acpi_mach *mach;
+ 	const char *tplg_filename;
+ 	int codec_num = 0;
+-	int ret = 0;
+ 	int i;
++#endif
++	int ret = 0;
+ 
+ 	device_disable_async_suspend(bus->dev);
+ 
+@@ -283,6 +287,14 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	if (bus->ppcap)
+ 		dev_dbg(sdev->dev, "PP capability, will probe DSP later.\n");
+ 
++	ret = hda_dsp_ctrl_init_chip(sdev, true);
++	if (ret < 0) {
++		dev_err(bus->dev, "error: init chip failed with ret: %d\n",
++			ret);
++		return ret;
++	}
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 	if (bus->mlcap)
+ 		snd_hdac_ext_bus_get_ml_capabilities(bus);
+ 
+@@ -293,12 +305,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 		return ret;
+ 	}
+ 
+-	ret = hda_dsp_ctrl_init_chip(sdev, true);
+-	if (ret < 0) {
+-		dev_err(bus->dev, "error: init chip failed with ret: %d\n", ret);
+-		goto out;
+-	}
+-
+ 	/* codec detection */
+ 	if (!bus->codec_mask) {
+ 		dev_info(bus->dev, "no hda codecs found!\n");
+@@ -339,8 +345,10 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 				/* use local variable for readability */
+ 				tplg_filename = pdata->tplg_filename;
+ 				tplg_filename = fixup_tplg_name(sdev, tplg_filename);
+-				if (!tplg_filename)
+-					goto out;
++				if (!tplg_filename) {
++					hda_codec_i915_exit(sdev);
++					return ret;
++				}
+ 				pdata->tplg_filename = tplg_filename;
+ 			}
+ 		}
+@@ -364,35 +372,10 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	 */
+ 	list_for_each_entry(hlink, &bus->hlink_list, list)
+ 		snd_hdac_ext_bus_link_put(bus, hlink);
+-
+-	return 0;
+-
+-out:
+-	hda_codec_i915_exit(sdev);
+-	return ret;
+-}
+-
+-#else
+-
+-static int hda_init_caps(struct snd_sof_dev *sdev)
+-{
+-	/*
+-	 * set CGCTL.MISCBDCGE to 0 during reset and set back to 1
+-	 * when reset finished.
+-	 * TODO: maybe no need for init_caps?
+-	 */
+-	hda_dsp_ctrl_misc_clock_gating(sdev, 0);
+-
+-	/* clear WAKESTS */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_WAKESTS,
+-				SOF_HDA_WAKESTS_INT_MASK,
+-				SOF_HDA_WAKESTS_INT_MASK);
+-
++#endif
+ 	return 0;
+ }
+ 
+-#endif
+-
+ static const struct sof_intel_dsp_desc
+ 	*get_chip_info(struct snd_sof_pdata *pdata)
+ {
+@@ -409,9 +392,8 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	struct sof_intel_hda_dev *hdev;
+ 	struct hdac_bus *bus;
+-	struct hdac_stream *stream;
+ 	const struct sof_intel_dsp_desc *chip;
+-	int sd_offset, ret = 0;
++	int ret = 0;
+ 
+ 	/*
+ 	 * detect DSP by checking class/subclass/prog-id information
+@@ -558,49 +540,6 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	if (ret < 0)
+ 		goto free_ipc_irq;
+ 
+-	/* reset HDA controller */
+-	ret = hda_dsp_ctrl_link_reset(sdev, true);
+-	if (ret < 0) {
+-		dev_err(sdev->dev, "error: failed to reset HDA controller\n");
+-		goto free_ipc_irq;
+-	}
+-
+-	/* exit HDA controller reset */
+-	ret = hda_dsp_ctrl_link_reset(sdev, false);
+-	if (ret < 0) {
+-		dev_err(sdev->dev, "error: failed to exit HDA controller reset\n");
+-		goto free_ipc_irq;
+-	}
+-
+-	/* clear stream status */
+-	list_for_each_entry(stream, &bus->stream_list, list) {
+-		sd_offset = SOF_STREAM_SD_OFFSET(stream);
+-		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
+-					sd_offset +
+-					SOF_HDA_ADSP_REG_CL_SD_STS,
+-					SOF_HDA_CL_DMA_SD_INT_MASK,
+-					SOF_HDA_CL_DMA_SD_INT_MASK);
+-	}
+-
+-	/* clear WAKESTS */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_WAKESTS,
+-				SOF_HDA_WAKESTS_INT_MASK,
+-				SOF_HDA_WAKESTS_INT_MASK);
+-
+-	/* clear interrupt status register */
+-	snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS,
+-			  SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_ALL_STREAM);
+-
+-	/* enable CIE and GIE interrupts */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL,
+-				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN,
+-				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN);
+-
+-	/* re-enable CGCTL.MISCBDCGE after reset */
+-	hda_dsp_ctrl_misc_clock_gating(sdev, true);
+-
+-	device_disable_async_suspend(&pci->dev);
+-
+ 	/* enable DSP features */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
+ 				SOF_HDA_PPCTL_GPROCEN, SOF_HDA_PPCTL_GPROCEN);
 -- 
 2.20.1
 

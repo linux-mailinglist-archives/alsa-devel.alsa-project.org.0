@@ -2,61 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3E472ADD8
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 07:01:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FDD72AB96
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 May 2019 20:24:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 504E31769;
-	Mon, 27 May 2019 07:01:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 504E31769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C50E1757;
+	Sun, 26 May 2019 20:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C50E1757
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558933313;
-	bh=SKBaLJuwrOC5vIWEeJ1+3Y+oB5HeIhVQpELprGIVyVg=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1558895056;
+	bh=XG4wleFfBLdeJPHeGOct4rO6EUozLV0l+fsuyFtQock=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YvBvL8WGnCdFznoAlm8NAusLpUgsB6BdrgcjymDb00JHb0MnvQP1l3WUYXHz86/W9
-	 VAKexTZJPKhETHDYo28TA1xs0F2mKHmEjIvq+cKRe7q+zuS4Mm3Qj7us8XTPvTmi2i
-	 JzL9W0V57JUhciewjEbAAumidJWflnygwMhKKCWg=
+	b=DnEGrxO0VCJkMBVJljHAUo+DsaG///ohquTbf4guJRQjZZflxuDCGV+mD2WeI7Rme
+	 Fgl8myJRMFsYzAHzlPcTvgHuYyd9pzNZYMgCPUz4cJoZqPFIIhMRiPY4XDmej90qiS
+	 4Iyt+pSAjbvc3viMBvHQbDJM1FJUPRiw9dziaqN4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EF6CF89735;
-	Mon, 27 May 2019 06:57:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B95A8F896B8;
+	Sun, 26 May 2019 20:22:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79575F8970C; Mon, 27 May 2019 06:57:37 +0200 (CEST)
+ id BF5D3F896EB; Sun, 26 May 2019 20:22:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=PRX_BODY_26,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
+ [217.70.183.199])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 624A9F896F7
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 06:57:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 624A9F896F7
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 May 2019 21:57:32 -0700
-X-ExtLoop1: 1
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga004.jf.intel.com with ESMTP; 26 May 2019 21:57:31 -0700
-From: Bard liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Date: Mon, 27 May 2019 00:58:36 +0800
-Message-Id: <20190526165836.10867-5-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190526165836.10867-1-yung-chuan.liao@linux.intel.com>
-References: <20190526165836.10867-1-yung-chuan.liao@linux.intel.com>
-Cc: liam.r.girdwood@linux.intel.com, libin.yang@intel.com,
- alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- bard.liao@intel.com
-Subject: [alsa-devel] [PATCH 5/5] ASoC: SOF: Force polling mode on CFL and
-	CNL
+ by alsa1.perex.cz (Postfix) with ESMTPS id F2CD0F89619
+ for <alsa-devel@alsa-project.org>; Sun, 26 May 2019 20:22:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2CD0F89619
+X-Originating-IP: 90.89.68.76
+Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
+ (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay9-d.mail.gandi.net (Postfix) with ESMTPSA id E0DAAFF803;
+ Sun, 26 May 2019 18:22:20 +0000 (UTC)
+Date: Sun, 26 May 2019 20:22:20 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Message-ID: <20190526182220.hgajlcyssujjkmiu@flea>
+References: <20190525162323.20216-1-peron.clem@gmail.com>
+ <20190525162323.20216-2-peron.clem@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20190525162323.20216-2-peron.clem@gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Rob Herring <robh@kernel.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ Jagan Teki <jagan@amarulasolutions.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v3 1/7] dt-bindings: sound: sun4i-spdif:
+ Add Allwinner H6 compatible
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,53 +71,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2194744725676524510=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-There is a workaround in legacy HDA codec for too long time respone
-with CFL machine. We need the same workaround on SOF driver. The same
-issue is also seen on CNL machine.
+--===============2194744725676524510==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="psc5odxto6fmnb22"
+Content-Disposition: inline
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/sof/intel/hda.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 5c78f4dde6f5..b9f3c802924b 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -32,6 +32,9 @@
- /* platform specific devices */
- #include "shim.h"
- 
-+#define IS_CFL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0xa348)
-+#define IS_CNL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0x9dc8)
-+
- /*
-  * Debug
-  */
-@@ -217,6 +220,11 @@ static int hda_init(struct snd_sof_dev *sdev)
- 	ext_ops = snd_soc_hdac_hda_get_ops();
- #endif
- 	sof_hda_bus_init(bus, &pci->dev, ext_ops);
-+
-+	/* Workaround for a communication error on CFL (bko#199007) and CNL */
-+	if (IS_CFL(pci) || IS_CNL(pci))
-+		bus->polling_mode = 1;
-+
- 	bus->use_posbuf = 1;
- 	bus->bdl_pos_adj = 0;
- 
--- 
-2.17.1
+--psc5odxto6fmnb22
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, May 25, 2019 at 06:23:17PM +0200, Cl=E9ment P=E9ron wrote:
+> Allwinner H6 has a SPDIF controller with an increase of the fifo
+> size and a sligher difference in memory mapping compare to H3/A64.
+>
+> This make it not compatible with the previous generation.
+>
+> Introduce a specific bindings for H6 SoC.
+>
+> Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
+> Acked-by: Maxime Ripard <maxime.ripard@bootlin.com>
+> ---
+>  Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.tx=
+t b/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
+> index 0c64a209c2e9..c0fbb50a4df9 100644
+> --- a/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
+> +++ b/Documentation/devicetree/bindings/sound/sunxi,sun4i-spdif.txt
+> @@ -7,10 +7,11 @@ For now only playback is supported.
+>
+>  Required properties:
+>
+> -  - compatible		: should be one of the following:
+> +  - compatible		: Should be one of the following:
+>      - "allwinner,sun4i-a10-spdif": for the Allwinner A10 SoC
+>      - "allwinner,sun6i-a31-spdif": for the Allwinner A31 SoC
+>      - "allwinner,sun8i-h3-spdif": for the Allwinner H3 SoC
+> +    - "allwinner,sun50i-h6-spdif": for the allwinner H6 SoC
+
+This won't apply anymore on top of next, we've moved to a YAML
+schemas.
+
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--psc5odxto6fmnb22
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXOrZXAAKCRDj7w1vZxhR
+xehgAQDOcuI0MFI4WlSZ6gB352Ad8vsUL9N1MElpyvk09ZwjRQEAt9hBwX5dJWpV
+oqCVDFu0/sZMMNzIZydtd7mLfyUf8AU=
+=Vygo
+-----END PGP SIGNATURE-----
+
+--psc5odxto6fmnb22--
+
+--===============2194744725676524510==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2194744725676524510==--

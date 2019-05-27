@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 987F82AF82
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 09:43:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBE3C2AF83
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 09:44:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B78A177C;
-	Mon, 27 May 2019 09:42:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B78A177C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 676C01791;
+	Mon, 27 May 2019 09:43:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 676C01791
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558943024;
-	bh=RxeRE1arECQ5Xc1Ql2EK/xWQ9BZ0GXDznlMt3P4ts2g=;
+	s=default; t=1558943070;
+	bh=w+39XdWAbGEndoqc9rgqN4H9hZq408FXz3F6gEVsHm4=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TSCabl9qnrKGRPQVE8L9dAChg9mYKZZ8iJ7V4xkNmijgYpLueUONMWgnndCrxB0Yp
-	 xOdpd5i28dd/6G5UdpglE3aIl7bYr5V+eeUZMOBaCCQEDuL+fdUFi21qW5Q+cFzV3z
-	 D3wdjbbggXggDCpyXyPiywiXlIek/hHwoIg+vmsA=
+	b=t7WRMV5VRtlROnupIlSFmQnTpRzQkdLS/y6I3AOB/pR91yoQt31CE+zdC5iNRF1EY
+	 oDfGS1km/ikSqpvb0MdENdOz4F+yNPMjNXVxTbIJPv+jxh6YueGL82stZNPC0KVT5w
+	 +xNz/CoStM6FTsqTar/MxrqLryrq3yVkiVeDTIDI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 652AFF896E5;
-	Mon, 27 May 2019 09:41:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9D994F896F8;
+	Mon, 27 May 2019 09:43:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B43CF896E4; Mon, 27 May 2019 09:41:57 +0200 (CEST)
+ id 3AEE1F896E8; Mon, 27 May 2019 09:43:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,19 +33,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1F31F80730
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 09:41:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1F31F80730
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC800F8065A
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 09:43:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC800F8065A
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 5DC09AF3A;
- Mon, 27 May 2019 07:41:54 +0000 (UTC)
-Date: Mon, 27 May 2019 09:41:54 +0200
-Message-ID: <s5h5zpw9we5.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 4FA50AF3A;
+ Mon, 27 May 2019 07:43:27 +0000 (UTC)
+Date: Mon, 27 May 2019 09:43:27 +0200
+Message-ID: <s5h4l5g9wbk.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: <bgoswami@codeaurora.org>
-In-Reply-To: <1558730423-16490-1-git-send-email-bgoswami@codeaurora.org>
-References: <1558730423-16490-1-git-send-email-bgoswami@codeaurora.org>
+In-Reply-To: <1558730450-16580-1-git-send-email-bgoswami@codeaurora.org>
+References: <1558730450-16580-1-git-send-email-bgoswami@codeaurora.org>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -54,8 +54,8 @@ Cc: alsa-devel@alsa-project.org, plai@codeaurora.org,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Gopikrishnaiah Anandan <agopik@codeaurora.org>, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, linux-input@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 1/3] ALSA: jack: Remove hard coding of
-	jack_switch_types array size
+Subject: Re: [alsa-devel] [PATCH 3/3] ALSA: jack: add switch event for
+	unsupported jack types
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,73 +73,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 24 May 2019 22:40:23 +0200,
+On Fri, 24 May 2019 22:40:50 +0200,
 <bgoswami@codeaurora.org> wrote:
 > 
 > From: Banajit Goswami <bgoswami@codeaurora.org>
 > 
-> The size for jack_switch_types array is currently controlled by
-> a MACRO 'SND_JACK_SWITCH_TYPES', whose value needs to be updated
-> everytime a new jack switch type is added. Remove this MACRO
-> and use ARRAY_SIZE instead to get size of the array.
+> Add a jack switch event to report unsupported plug type.
+> This event can be used to report a headset or an extension
+> cable with GND/MIC swap etc., which may not be supported by
+> the device.
 > 
 > Signed-off-by: Gopikrishnaiah Anandan <agopik@codeaurora.org>
 > Signed-off-by: Banajit Goswami <bgoswami@codeaurora.org>
 
-The changes in ALSA side (this one and patch 3) look good.
-
-Rather a bigger question is about the addition of the new input bit.
-This needs the review and ack from input subsystem people.
-
-Adding to Cc.
-
-
-thanks,
-
-Takashi
+Adding input people to Cc to get the whole picture.
 
 
 > ---
->  include/sound/jack.h | 3 ---
->  sound/core/jack.c    | 4 ++--
->  2 files changed, 2 insertions(+), 5 deletions(-)
+>  sound/core/jack.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/include/sound/jack.h b/include/sound/jack.h
-> index 1e84bfb..b0791c5 100644
-> --- a/include/sound/jack.h
-> +++ b/include/sound/jack.h
-> @@ -68,9 +68,6 @@ enum snd_jack_types {
->  	SND_JACK_BTN_5		= 0x0200,
->  };
->  
-> -/* Keep in sync with definitions above */
-> -#define SND_JACK_SWITCH_TYPES 6
-> -
->  struct snd_jack {
->  	struct list_head kctl_list;
->  	struct snd_card *card;
 > diff --git a/sound/core/jack.c b/sound/core/jack.c
-> index 84c2a17..36b047b 100644
+> index 36b047b..4c21e48 100644
 > --- a/sound/core/jack.c
 > +++ b/sound/core/jack.c
-> @@ -33,7 +33,7 @@ struct snd_jack_kctl {
+> @@ -40,6 +40,7 @@ struct snd_jack_kctl {
+>  	SW_JACK_PHYSICAL_INSERT,
+>  	SW_VIDEOOUT_INSERT,
+>  	SW_LINEIN_INSERT,
+> +	SW_UNSUPPORT_INSERT,
 >  };
+>  #endif /* CONFIG_SND_JACK_INPUT_DEV */
 >  
->  #ifdef CONFIG_SND_JACK_INPUT_DEV
-> -static int jack_switch_types[SND_JACK_SWITCH_TYPES] = {
-> +static int jack_switch_types[] = {
->  	SW_HEADPHONE_INSERT,
->  	SW_MICROPHONE_INSERT,
->  	SW_LINEOUT_INSERT,
-> @@ -250,7 +250,7 @@ int snd_jack_new(struct snd_card *card, const char *id, int type,
->  
->  		jack->type = type;
->  
-> -		for (i = 0; i < SND_JACK_SWITCH_TYPES; i++)
-> +		for (i = 0; i < ARRAY_SIZE(jack_switch_types); i++)
->  			if (type & (1 << i))
->  				input_set_capability(jack->input_dev, EV_SW,
->  						     jack_switch_types[i]);
 > -- 
 > The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
 > a Linux Foundation Collaborative Project

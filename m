@@ -2,67 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E56A2B54A
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 14:32:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A132B6FC
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 15:50:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A87C1795;
-	Mon, 27 May 2019 14:31:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A87C1795
+	by alsa0.perex.cz (Postfix) with ESMTPS id 209DD173F;
+	Mon, 27 May 2019 15:49:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 209DD173F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558960325;
-	bh=JrkPkwiQwajf/pfvWa7DAAeSry7yXVnBa8N/2/nYQrA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pL0CngWbFz4ASUP1sLVBquz9MlzC0D69eVJMeBGTBAbcmm5A4YtyeyyUW+TdYlxW7
-	 ndQfcTCoIVMvW/IHA4wc3HEnDmEM2TMHHkj+S64B8vrk3HXIvEpZHLbn6AbRkhh7m+
-	 q+hsRjuXb+AZfu9Nj9UOFR9Y7RmBQpSuE88XtZO8=
+	s=default; t=1558965029;
+	bh=9JWpxorj30at6DDTjYilsB9SAGZyw3DCeh0yxPlSy/k=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lXzn4VsjG59yW7aYSkQ0XQk4lgV77VpCZZnbNe0tsRMnlfOT2NLIkNnZqFAJgn27s
+	 GFSQfESVygpYneJgoP68pIR4WfqEBwlnO0/N8EeP/eGimATuPe7RNOKQuj0izFyg/U
+	 aK1CIf8/ou9rBYQ51+DmHuaojZg732vKoiBYzETw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8DFEEF80730;
-	Mon, 27 May 2019 14:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9813BF896E4;
+	Mon, 27 May 2019 15:48:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 46663F896E4; Mon, 27 May 2019 14:29:36 +0200 (CEST)
+ id B6789F896E8; Mon, 27 May 2019 15:48:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.6 required=5.0 tests=PRX_BODY_26, RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, PRX_BODY_13, PRX_BODY_78, SPF_HELO_NONE, SPF_PASS,
+ T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C68A2F8065A
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 14:29:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C68A2F8065A
-X-Originating-IP: 90.88.147.134
-Received: from localhost (aaubervilliers-681-1-27-134.w90-88.abo.wanadoo.fr
- [90.88.147.134]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id B5136C0003;
- Mon, 27 May 2019 12:28:57 +0000 (UTC)
-Date: Mon, 27 May 2019 14:28:57 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Message-ID: <20190527122857.lphlgr7dc5z4f5o3@flea>
-References: <20190525162323.20216-1-peron.clem@gmail.com>
- <20190525162323.20216-4-peron.clem@gmail.com>
- <20190526182410.soqb6bne6w66d5j6@flea>
- <CAJiuCce8UNbA+Ljkbw92ZJu3Ni6N9ciFKGsLtBYJ0_J8E1Gi2g@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB320F8072E
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 15:48:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB320F8072E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="m2GaaM/s"
+Received: from fllv0035.itg.ti.com ([10.64.41.0])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id x4RDm3H7012480;
+ Mon, 27 May 2019 08:48:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1558964883;
+ bh=sXYcD4XMlQBXTBpB0CQsMmBf9Lno5Nysqf8Tnwt8Cjk=;
+ h=From:To:CC:Subject:Date;
+ b=m2GaaM/spxeU5LaWXMCB+1hw3hKwko9mDalNCrSwdtKN1xrRhy6VxgMnqd5VaAKBf
+ ibOYXUjCYhJF19tjI+wXHSGo+xkz7QR4Qu0i+vHFGkBIqFger4ftDQzSuAW/9tCxwe
+ Q+kWWkQw1z2GJfCx5L7VCulFTAsfILDyQRxFuML8=
+Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
+ by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x4RDm2bt095715
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 27 May 2019 08:48:02 -0500
+Received: from DFLE104.ent.ti.com (10.64.6.25) by DFLE105.ent.ti.com
+ (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 27
+ May 2019 08:48:00 -0500
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE104.ent.ti.com
+ (10.64.6.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Mon, 27 May 2019 08:48:00 -0500
+Received: from jadmar.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x4RDlviD065947;
+ Mon, 27 May 2019 08:47:58 -0500
+From: Jyri Sarha <jsarha@ti.com>
+To: <alsa-devel@alsa-project.org>, <devicetree@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>
+Date: Mon, 27 May 2019 16:47:51 +0300
+Message-ID: <cover.1558964241.git.jsarha@ti.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <CAJiuCce8UNbA+Ljkbw92ZJu3Ni6N9ciFKGsLtBYJ0_J8E1Gi2g@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Mark Rutland <mark.rutland@arm.com>,
- devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Jagan Teki <jagan@amarulasolutions.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v3 3/7] ASoC: sun4i-spdif: Add TX fifo bit
-	flush quirks
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: peter.ujfalusi@ti.com, a.hajda@samsung.com, tomi.valkeinen@ti.com,
+ laurent.pinchart@ideasonboard.com, robh@kernel.org
+Subject: [alsa-devel] [PATCH v8 0/6] drm/bridge: sii902x: HDMI-audio support
+	and some fixes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,89 +87,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6288939068418559135=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+I think these should be ready for applying to drm-misc.
 
---===============6288939068418559135==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5fgdhizk55u3fsr6"
-Content-Disposition: inline
+Changes since v7:
+ - Debased on top of the lasts drm-misc-next and tested
+ - "dt-bindings: display: sii902x: Add HDMI audio bindings"
+   - Dropped off "or higher to avoid conflict with video ports"
+     and added "Reviewed-by: Rob Herring <robh@kernel.org>"
 
+Ther previous round:
+https://patchwork.kernel.org/cover/10919173/
 
---5fgdhizk55u3fsr6
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Jyri Sarha (5):
+  drm/bridge: sii902x: Set output mode to HDMI or DVI according to EDID
+  drm/bridge: sii902x: pixel clock unit is 10kHz instead of 1kHz
+  dt-bindings: display: sii902x: Remove trailing white space
+  dt-bindings: display: sii902x: Add HDMI audio bindings
+  drm/bridge: sii902x: Implement HDMI audio support
 
-On Sun, May 26, 2019 at 09:00:30PM +0200, Cl=E9ment P=E9ron wrote:
-> Hi Maxime,
->
-> On Sun, 26 May 2019 at 20:24, Maxime Ripard <maxime.ripard@bootlin.com> w=
-rote:
-> >
-> > On Sat, May 25, 2019 at 06:23:19PM +0200, Cl=E9ment P=E9ron wrote:
-> > > Allwinner H6 has a different bit to flush the TX FIFO.
-> > >
-> > > Add a quirks to prepare introduction of H6 SoC.
-> > >
-> > > Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
-> > > ---
-> > >  sound/soc/sunxi/sun4i-spdif.c | 11 ++++++++++-
-> > >  1 file changed, 10 insertions(+), 1 deletion(-)
-> > >
-> > > diff --git a/sound/soc/sunxi/sun4i-spdif.c b/sound/soc/sunxi/sun4i-sp=
-dif.c
-> > > index b6c66a62e915..8317bbee0712 100644
-> > > --- a/sound/soc/sunxi/sun4i-spdif.c
-> > > +++ b/sound/soc/sunxi/sun4i-spdif.c
-> > > @@ -166,10 +166,12 @@
-> > >   *
-> > >   * @reg_dac_tx_data: TX FIFO offset for DMA config.
-> > >   * @has_reset: SoC needs reset deasserted.
-> > > + * @reg_fctl_ftx: TX FIFO flush bitmask.
-> >
-> > It's a bit weird to use the same prefix for a register offset
-> > (reg_dac_tx_data) and a value (reg_fctl_ftx).
->
-> I just look at sun4i-codec and they use a regmap, But I think it's a
-> bit overkill no?
+Tomi Valkeinen (1):
+  drm/bridge: sii902x: add input_bus_flags
 
-For a single value, yeah
+ .../bindings/display/bridge/sii902x.txt       |  42 +-
+ drivers/gpu/drm/bridge/sii902x.c              | 488 +++++++++++++++++-
+ 2 files changed, 522 insertions(+), 8 deletions(-)
 
-> What do you think about val_fctl_ftx ?
-
-Looks good, thanks!
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---5fgdhizk55u3fsr6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXOvYCQAKCRDj7w1vZxhR
-xWpYAQDonSAGR8IIIJfCwN6P7pyQ5D2rskJl7lfFfD4Mo5WZ8QD/aAaog6/za5ta
-r3GfRL559CHukEIi7he29P416ycIjw0=
-=3d9d
------END PGP SIGNATURE-----
-
---5fgdhizk55u3fsr6--
-
---===============6288939068418559135==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki. Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============6288939068418559135==--

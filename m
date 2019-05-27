@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8189E2B968
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 19:26:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DC3A2BB29
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 22:12:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04BFF17A5;
-	Mon, 27 May 2019 19:25:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04BFF17A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CE5417AB;
+	Mon, 27 May 2019 22:11:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CE5417AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558977966;
-	bh=Rp3XZ/rtimWdbeQ+z27gWf6t9TYV9lbJb+rZPFzmJhw=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LLwviW2kgMKy1JPak5y5qQT5e26eIo7FIPHGrxezGAkfQ1gtDUCJtehV6hJvSyCnj
-	 zMDpxbZImxU6zy4SAjwO1k9SDYtoaEVMxKBd35peqdWfyPzxzaSgD3o7wp+JOiF8Eb
-	 6c6lK+38Y3AjmrVmQ/IwYmriVkRtxFuEvvDYo0UQ=
+	s=default; t=1558987928;
+	bh=07KB7gWiiBQ+nH0XRnGQxirGZ/oB8mUPWbI8x4vFy5A=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sbt0tU/KcK/e9jip4CZRG66lvUh57lfZP5+eFNBim3yfV9bd+RLxqp+jGBDYm3ixs
+	 uapwapKySaBBVqZkY56oTSdUdxz2aWUrJrDqrMv4iTpwc+zsL4AReWa+EF0SvpLpMA
+	 f6ARJ0v6zNvfKlw0f+C7T0bu5vUsODOg6MQZz3t8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E8A4F896E4;
-	Mon, 27 May 2019 19:24:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AA0FF896F8;
+	Mon, 27 May 2019 22:10:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4699F896E4; Mon, 27 May 2019 19:24:18 +0200 (CEST)
+ id 482ABF896E4; Mon, 27 May 2019 22:10:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-yw1-xc42.google.com (mail-yw1-xc42.google.com
- [IPv6:2607:f8b0:4864:20::c42])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42F64F8072E
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 19:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F64F8072E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F1C3F8065A
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 22:10:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F1C3F8065A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="PGJrELCk"
-Received: by mail-yw1-xc42.google.com with SMTP id t5so6880248ywf.10
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 10:24:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5BZbzXZc/W5smwk8w3+KGH8kuhga8mYWq6suT0ecrPk=;
- b=PGJrELCkKvSmEcgV+vZyoARuiPQZ3S50gRNt99perTupynCv1I03n+4PY/XQW5KESK
- Goz/IVUcIHheHZlYEccTQFYtrGcHQZ/I142vvbq0PoM22XojfZjiNHrEDKMO8svpVNPa
- AKqKjy04j1vp2ak8xhzJfjP8YDf41Wi6jD95v/+P/1NdBGVyxyD9EOp8rFKVtmH0m/BT
- yUBx7LP0qRvFFxo61hFKCS1Oeagg8rZW1/zU1LCXzz/WNlereoJxySaRwVFJ6ArBQqjK
- /euZ/rpC5oE6NfmrDUhAYZ3zvhI5/RLSXr+vRDac6UBwBvVhfotnK2Y6jQ+9bPA6nD5I
- 91aw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GZKzgwTs"
+Received: by mail-wr1-x442.google.com with SMTP id r7so17846281wrr.13
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 13:10:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IDHZvbW5fijbJYqS49AHo5wrH49+8LRhFk5frtH+czs=;
+ b=GZKzgwTsjl8oDnFeiCt7vuI5aKIZrQGAleaeM2RbFDLBcE9pCZz3wszFrErQsWBnev
+ xSbVzEZkH2YIhlzU20dYu8H/77rmwr3ucbJ/J1cuUJlE5C0VAX9rBpt20D39GCFY75wf
+ lYEKs/3NJdkjm+UP7hWIbHgH3wOipDJei5ZPnkCCbmVcVCYIekcFrMo+w26484791vB+
+ 7KFRFV3gUpScnOmLUqx2fD8JRCpt3zN9HWJLpQ9sauIyM17VnROccWPEBmyao3iCoWDd
+ sGOip2GMuXO9TSwCmuU+AHhg4P4He2itS162rxpyd9g6ZhUghIQmqJcRDcocS3sgVhqY
+ sA8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5BZbzXZc/W5smwk8w3+KGH8kuhga8mYWq6suT0ecrPk=;
- b=VMmnszMptYE1LzwcQgQT+7qAfs+jp8Gt2/CyDFxSUgNO5TlPqnNt7ifCWCuAiA1XUC
- 8KXuudAc2Du0RsjIBlNRWh/ukPKt+0QGEfX0+HKRbZTeu1aIa1ytVt4AS/SyELuG3iRL
- 4yb9RdoZsgeZFuJrNK1+8SR66c6kUdAu5tlWStki6x8YdsbPsE7Fj7NFFgSOf1hOX2UI
- UFZaw/i3RGtoXD90fHrc1sswvEsOheCSXhl9dtutRN6TMWkSa/N19/Sq90QSWa1XCN1x
- lBnxALJ08IzPI3rydg1YOdwEUTDWn/+ZVdC8Xod8fsCdppcYtN0My7x90M36ly2+olGL
- 5Zdw==
-X-Gm-Message-State: APjAAAWlsTjFiuE3av9PeFNIn4lCJrncyV0QSzNV6wo3h17zp8oq5oyO
- OOdavsJ1ynuvUvu3gOHyg5sR3ZBjAy03SUQw/rzwjw==
-X-Google-Smtp-Source: APXvYqwUT0nOK/t7Mi7IbarorSow4XPI6bgOUi0sGZ8g1Yi5LSSBbgZMe20VNRbjAYJAap3g4t20N36fBjX7kFntfO4=
-X-Received: by 2002:a81:2bc6:: with SMTP id
- r189mr22084970ywr.337.1558977854408; 
- Mon, 27 May 2019 10:24:14 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IDHZvbW5fijbJYqS49AHo5wrH49+8LRhFk5frtH+czs=;
+ b=BLPnyY61yFyf9ADsb2iFT6/sNW1C/dWBiTGNB/M/M4BUeMQ8cRHDqLILhwKoSXYhoY
+ bkXNvDK2IWLY2acPKyPK27WwfZZd5tqeFy2qyRA2o9De87m8/V0q3bfmx2Up+vOzVqQw
+ UpvDGjWjoufq2jgBVRZhUZoWVAMtDdqGq8hjGzaEDMfZ7VOMRHT4Dm9mTEzL9CnHY5bW
+ +/VcC4mUc8wJ+eWVds7E5Pt6ZRlnbsMy1xK38VKA6ZDXDtY/wF9VzqARKkW9reF64TtJ
+ dbXBixA+B/192ncD9vYfRSs/4GmSWMr0VUi46LSDT+6Tju57bWGbDie8Nz9MTr+6iwNZ
+ Vs5g==
+X-Gm-Message-State: APjAAAXwLiJO+5sbFcVmZs1AeEuFkS8cmxyKtVubVpBU+8Z7GSMnk5lP
+ AXZrnO5HQVyS8p3uP7WB09w=
+X-Google-Smtp-Source: APXvYqyqpFAqUTi8dpMrKnZvZz7bKtAJFVOE03EyjPbv+ISOjv5Cl5nD4sOql4lDIlCwc/mR9Ktrjg==
+X-Received: by 2002:adf:ff88:: with SMTP id j8mr1844331wrr.317.1558987812061; 
+ Mon, 27 May 2019 13:10:12 -0700 (PDT)
+Received: from localhost.localdomain ([2a01:e0a:1f1:d0f0::4e2b:d7ca])
+ by smtp.gmail.com with ESMTPSA id s127sm308523wmf.48.2019.05.27.13.10.11
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 May 2019 13:10:11 -0700 (PDT)
+From: =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Jagan Teki <jagan@amarulasolutions.com>
+Date: Mon, 27 May 2019 22:06:20 +0200
+Message-Id: <20190527200627.8635-1-peron.clem@gmail.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <CAOReqxjQAya8GQ4bOSBfTBHwXd38c33pOMc35rrSj4O4jMaMSQ@mail.gmail.com>
- <s5hwoii1rd3.wl-tiwai@suse.de>
- <6eb7cc4d-aa95-74b9-e849-22559737f47a@linux.intel.com>
- <CAOReqxjUk_6Fvc=CRnCWu7c=QvObxhwA_psWLz5gLO_v5Fc5Pg@mail.gmail.com>
-In-Reply-To: <CAOReqxjUk_6Fvc=CRnCWu7c=QvObxhwA_psWLz5gLO_v5Fc5Pg@mail.gmail.com>
-From: Guenter Roeck <groeck@google.com>
-Date: Mon, 27 May 2019 10:24:03 -0700
-Message-ID: <CABXOdTePNR=O0EhUgFNVCUvCbqaKtpdnZw=NtFLc6aNtAWUpKg@mail.gmail.com>
-To: Curtis Malainey <cujomalainey@google.com>
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] Cannot build broadwell on for-5.3
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@googlegroups.com,
+ =?UTF-8?q?Cl=C3=A9ment=20P=C3=A9ron?= <peron.clem@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v4 0/7] Allwinner H6 SPDIF support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,53 +99,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-FWIW, the Linux kernel still officially supports our version of gcc
-(4.9.4, I believe). "Your version of gcc is too old" is not a good
-argument to make.
-
-Guenter
-
-On Wed, May 22, 2019 at 11:30 AM Curtis Malainey
-<cujomalainey@google.com> wrote:
->
-> On Wed, May 22, 2019 at 8:22 AM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
-> >
-> >
-> > >> It appears the for-5.3 branch had some broken commits pulled in at
-> > >> 1c7c3237c0cc4ad3c7b0df458290c8e2a652f178 ("Merge tag 'v5.2-rc1' into
-> > >> asoc-5.3 ")
-> > >>
-> > >> building for the pixelbook I get the following build errors:
-> > >>
-> > >> Invalid absolute R_X86_64_32S relocation: _etext
-> > >> make[3]: *** [/mnt/host/source/src/third_party/kernel/v4.14/arch/x86/boot/compressed/Makefile:130:
-> > >> arch/x86/boot/compressed/vmlinux.relocs] Error 1
-> > >> make[3]: *** Deleting file 'arch/x86/boot/compressed/vmlinux.relocs'
-> > >>
-> > >> Mainline is still broken as well. Not sure how to propagate this up to
-> > >> the responsible parties, figured I would start a discussion here
-> > >> first. I am also open to suggestions if there is a chance I am missing
-> > >> something.
-> > >
-> > > Looks like some leftover interfering the build.
-> > > Try to cleanup your work directory, e.g. make distclean and rebuild.
-> >
-> > works for me with the attached .config.
-> > Likely an environment problem.
-> Yea, cleaning didn't help, Pierre is right, it appears to be tied to
-> our gcc version we are stuck on. I will see what I can do to work
-> around this. Thanks.
-> > _______________________________________________
-> > Alsa-devel mailing list
-> > Alsa-devel@alsa-project.org
-> > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Kkg2IERNQSBzdXBwb3J0IElTIFJFUVVJUkVEKgoKQWxsd2lubmVyIEg2IFNvQyBoYXMgYSBTUERJ
+RiBjb250cm9sbGVyIGNhbGxlZCBPbmUgV2lyZSBBdWRpbyAoT1dBKSB3aGljaAppcyBkaWZmZXJl
+bnQgZnJvbSB0aGUgcHJldmlvdXMgSDMgZ2VuZXJhdGlvbiBhbmQgbm90IGNvbXBhdGlibGUuCgpE
+aWZmZXJlbmNlIGFyZSBhbiBpbmNyZWFzZSBvZiBmaWZvIHNpemVzLCBzb21lIG1lbW9yeSBtYXBw
+aW5nIGFyZSBkaWZmZXJlbnQKYW5kIHRoZXJlIGlzIG5vdyB0aGUgcG9zc2liaWxpdHkgdG8gb3V0
+cHV0IHRoZSBtYXN0ZXIgY2xvY2sgb24gYSBwaW4uCgpBY3R1YWxseSBhbGwgdGhlc2UgZmVhdHVy
+ZXMgYXJlIHVudXNlZCBhbmQgb25seSBhIGJpdCBmb3IgZmx1c2hpbmcgdGhlIFRYCmZpZm8gaXMg
+cmVxdWlyZWQuCgpBbHNvIHRoaXMgc2VyaWVzIHJlcXVpcmVzIHRoZSBETUEgd29ya2luZyBvbiBI
+NiwgYSBmaXJzdCB2ZXJzaW9uIGhhcyBiZWVuCnN1Ym1pdHRlZCBieSBKZXJuZWogxaBrcmFiZWNb
+MV0gYnV0IGhhcyBub3QgYmVlbiBhY2NlcHRlZCB5ZXQuCgpbMV0gaHR0cHM6Ly9wYXRjaHdvcmsu
+a2VybmVsLm9yZy9wcm9qZWN0L2xpbnV4LWFybS1rZXJuZWwvbGlzdC8/c2VyaWVzPTg5MDExCgpD
+aGFuZ2VzIHNpbmNlIHYzOgogLSByZW5hbWUgcmVnX2ZjdGxfZnR4IHRvIHZhbF9mY3RsX2Z0eAog
+LSByZWJhc2UgdGhpcyBzZXJpZXMgb24gc291bmQtbmV4dAogLSBmaXggZHQtYmluZGluZ3MgZHVl
+IHRvIGNoYW5nZSBpbiBzb3VuZC1uZXh0CiAtIGNoYW5nZSBub2RlIG5hbWUgc291bmRfc3BkaWYg
+dG8gc291bmQtc3BkaWYKCkNoYW5nZXMgc2luY2UgdjI6CiAtIFNwbGl0IHF1aXJrcyBhbmQgSDYg
+c3VwcG9ydCBwYXRjaAogLSBBZGQgc3BlY2lmaWMgc2VjdGlvbiBmb3IgcXVpcmtzIGNvbW1lbnQK
+CkNoYW5nZXMgc2luY2UgdjE6CiAtIFJlbW92ZSBIMyBjb21wYXRpYmxlCiAtIEFkZCBUWCBmaWZv
+IGJpdCBmbHVzaCBxdWlya3MKIC0gQWRkIEg2IGJpbmRpbmdzIGluIFNQRElGIGRyaXZlcgoKQ2zD
+qW1lbnQgUMOpcm9uICg3KToKICBkdC1iaW5kaW5nczogc291bmQ6IHN1bjRpLXNwZGlmOiBBZGQg
+QWxsd2lubmVyIEg2IGNvbXBhdGlibGUKICBBU29DOiBzdW40aS1zcGRpZjogTW92ZSBxdWlya3Mg
+dG8gdGhlIHRvcAogIEFTb0M6IHN1bjRpLXNwZGlmOiBBZGQgVFggZmlmbyBiaXQgZmx1c2ggcXVp
+cmtzCiAgQVNvQzogc3VuNGktc3BkaWY6IEFkZCBzdXBwb3J0IGZvciBINiBTb0MKICBhcm02NDog
+ZHRzOiBhbGx3aW5uZXI6IEFkZCBTUERJRiBub2RlIGZvciBBbGx3aW5uZXIgSDYKICBhcm02NDog
+ZHRzOiBhbGx3aW5uZXI6IGg2OiBFbmFibGUgU1BESUYgZm9yIEJlZWxpbmsgR1MxCiAgYXJtNjQ6
+IGRlZmNvbmZpZzogRW5hYmxlIFN1bjRpIFNQRElGIG1vZHVsZQoKIC4uLi9zb3VuZC9hbGx3aW5u
+ZXIsc3VuNGktYTEwLXNwZGlmLnlhbWwgICAgICB8ICAxICsKIC4uLi9kdHMvYWxsd2lubmVyL3N1
+bjUwaS1oNi1iZWVsaW5rLWdzMS5kdHMgICB8ICA0ICsrCiBhcmNoL2FybTY0L2Jvb3QvZHRzL2Fs
+bHdpbm5lci9zdW41MGktaDYuZHRzaSAgfCAzOCArKysrKysrKysrKysrKwogYXJjaC9hcm02NC9j
+b25maWdzL2RlZmNvbmZpZyAgICAgICAgICAgICAgICAgIHwgIDEgKwogc291bmQvc29jL3N1bnhp
+L3N1bjRpLXNwZGlmLmMgICAgICAgICAgICAgICAgIHwgNDkgKysrKysrKysrKysrKysrKy0tLQog
+NSBmaWxlcyBjaGFuZ2VkLCA4NyBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoKLS0gCjIu
+MjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxz
+YS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8v
+bWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

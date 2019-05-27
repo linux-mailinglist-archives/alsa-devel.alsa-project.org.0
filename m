@@ -2,53 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616E42AF94
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 09:53:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 775A42B048
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 10:34:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE45F178D;
-	Mon, 27 May 2019 09:52:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE45F178D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F08951796;
+	Mon, 27 May 2019 10:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F08951796
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1558943608;
-	bh=RXwJoyTmoMBh0eJYXa+3ywkqzUaOGQ3Yplpfiguhk50=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Xtr1NllnDHNeceKPoi7a7lzfA4bwYDc9AwxiBwe938PEQeXoQpsqeH/OuaiX+KRby
-	 LEnGstuwOo3r33Yy/kNSLZKSwYkSPD48BAn30zMma2S1GSRqP8ml6rHq+pS8HUMUsa
-	 T7b25qroLO53Gz0HoD0n+gBthjuvuHWjPLfYpud4=
+	s=default; t=1558946073;
+	bh=DNRIlQUq+8TIXUwDgJPaSiMATF1kt4HxHNolFfL8UzI=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lB2pYELCxegr/KG/+pAku1wEgEm79np3DnvOTyLWJ/4SAz50Ksg/pu22BOVywx7Y3
+	 4ZqtL4geJw2ccpCWTLIcEQi1WF5WUo7+oyt0rEkXrfOIuJUVkJQABj2+QLOKTxQbUm
+	 2G9/GL8xPDS+S6DqcFeAHh1jtc8bEZKmcYClApkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43F4EF896E8;
-	Mon, 27 May 2019 09:51:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EC57F896E4;
+	Mon, 27 May 2019 10:32:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41F99F896E4; Mon, 27 May 2019 09:51:42 +0200 (CEST)
+ id B81F5F896E4; Mon, 27 May 2019 10:32:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 9A0EEF80730
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 09:51:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A0EEF80730
-Date: 27 May 2019 16:51:34 +0900
-X-IronPort-AV: E=Sophos;i="5.60,518,1549897200"; d="scan'208";a="17064348"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 27 May 2019 16:51:34 +0900
-Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 1F109400195E;
- Mon, 27 May 2019 16:51:34 +0900 (JST)
-Message-ID: <87zhn8s60h.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FF35F8072E
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 10:32:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FF35F8072E
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4R8TkHI000652; Mon, 27 May 2019 03:32:39 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2sq340hxxp-1;
+ Mon, 27 May 2019 03:32:39 -0500
+Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
+ by mail1.cirrus.com (Postfix) with ESMTP id 1CAFB611C8BD;
+ Mon, 27 May 2019 03:32:39 -0500 (CDT)
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 27 May
+ 2019 09:32:38 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Mon, 27 May 2019 09:32:38 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 733CF45;
+ Mon, 27 May 2019 09:32:38 +0100 (BST)
+Date: Mon, 27 May 2019 09:32:38 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
 To: Mark Brown <broonie@kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, stable@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: soc-core: fixup references at
-	soc_cleanup_card_resources()
+Message-ID: <20190527083238.GD28362@ediswmail.ad.cirrus.com>
+References: <20190524104158.30731-1-ckeepax@opensource.cirrus.com>
+ <20190524104158.30731-2-ckeepax@opensource.cirrus.com>
+ <20190524145603.GE2456@sirena.org.uk>
+ <2f4ab4ff-5b1e-8ef5-3ef7-8dfe413b4b95@opensource.cirrus.com>
+ <ae5eee88-0b79-1e58-5812-9e46e5bf3b75@opensource.cirrus.com>
+ <20190526121846.GG2456@sirena.org.uk>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190526121846.GG2456@sirena.org.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=838 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905270060
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, Richard Fitzgerald <rf@opensource.cirrus.com>,
+ robh+dt@kernel.org, lee.jones@linaro.org
+Subject: Re: [alsa-devel] [PATCH 2/5] ASoC: madera: Add common support for
+ Cirrus Logic Madera codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,76 +101,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+On Sun, May 26, 2019 at 01:18:46PM +0100, Mark Brown wrote:
+> On Fri, May 24, 2019 at 04:24:10PM +0100, Richard Fitzgerald wrote:
+> > On 24/05/19 16:21, Richard Fitzgerald wrote:
+> > > On 24/05/19 15:56, Mark Brown wrote:
+> > > > This will delay both before and after every power up and power down.
+> > > > Are you sure that makes sense?
+> 
+> > > I think that's correct but we can re-check with hardware people.
+> > > It's not just a delay, it needs to ensure there are always a
+> > > certain number of SYSCLK cycles in the hardware to avoid leaving
+> > > certain state machines in limbo.
+> 
+> That sounds like you might want both _POST_PMU and _POST_PMD but do you
+> really need the _PREs as well?
 
-commit 53e947a0e1f7 ("ASoC: soc-core: merge card resources cleanup
-method") merged cleanup method of snd_soc_instantiate_card() and
-soc_cleanup_card_resources().
+Yeah the requirement from the hardware guys was that we needed a
+guard band between changing the SYSCLK state and other things
+happening. So it has to happen both before and after the state of
+SYSCLK changes. It is certainly far from ideal but it is what it
+is.
 
-But, after this commit, if user uses unbind/bind to Component factor
-drivers, Kernel might indicates refcount error at
-soc_cleanup_card_resources().
-
-The 1st reason is card->snd_card is still exist even though
-snd_card_free() was called, but it is already cleaned.
-We need to set NULL to it.
-
-2nd is card->dapm and card create debugfs, but its dentry is still
-exist even though it was removed. We need to set NULL to it.
-
-Fixes: 53e947a0e1f7 ("ASoC: soc-core: merge card resources cleanup method")
-Cc: stable@vger.kernel.org # for v5.1
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
----
- sound/soc/soc-core.c | 7 ++++++-
- sound/soc/soc-dapm.c | 3 +++
- 2 files changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 46e3ab0..758159a 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -228,7 +228,10 @@ static void soc_init_card_debugfs(struct snd_soc_card *card)
- 
- static void soc_cleanup_card_debugfs(struct snd_soc_card *card)
- {
-+	if (!card->debugfs_card_root)
-+		return;
- 	debugfs_remove_recursive(card->debugfs_card_root);
-+	card->debugfs_card_root = NULL;
- }
- 
- static void snd_soc_debugfs_init(void)
-@@ -2034,8 +2037,10 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
- static int soc_cleanup_card_resources(struct snd_soc_card *card)
- {
- 	/* free the ALSA card at first; this syncs with pending operations */
--	if (card->snd_card)
-+	if (card->snd_card) {
- 		snd_card_free(card->snd_card);
-+		card->snd_card = NULL;
-+	}
- 
- 	/* remove and free each DAI */
- 	soc_remove_dai_links(card);
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 0382a47..5d9d767 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -2192,7 +2192,10 @@ static void dapm_debugfs_add_widget(struct snd_soc_dapm_widget *w)
- 
- static void dapm_debugfs_cleanup(struct snd_soc_dapm_context *dapm)
- {
-+	if (!dapm->debugfs_dapm)
-+		return;
- 	debugfs_remove_recursive(dapm->debugfs_dapm);
-+	dapm->debugfs_dapm = NULL;
- }
- 
- #else
--- 
-2.7.4
-
+Thanks,
+Charles
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

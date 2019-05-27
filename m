@@ -2,69 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA552BEF3
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 08:04:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CE6A2B931
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 18:40:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEF2917CB;
-	Tue, 28 May 2019 08:03:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEF2917CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id F11A117B1;
+	Mon, 27 May 2019 18:39:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F11A117B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559023473;
-	bh=6XG0TSdeOtmRGnWbH23ikk1QESkVyeHcNGe75YoQRbM=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1558975230;
+	bh=03WIMzK6Bo7lxtic5l12dBeaXA/c5q8UqHN1/Z641no=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Tw4MsUCDeshfffLOGJ6vq1dI6SzYOoBflZGFvLbQ8ej8As2d6kN72GyqPjzjaVDEI
-	 D8atBxcBBy8yUIzPVt3xK+irRvTDSNiDkHABvdS+CxG3VjndAEive8MC8Qsfn7TpWD
-	 D3bk04MYRUXEhZSMUl91aGU4ugYzAvuN+dYAq9SI=
+	b=oyluU6skQf5JEsdBbc4kDGOiM1qWuOuM0an3lkyDJx1BjUjYUglQfXbEkPsVLmnvD
+	 qqXJggGdoqr1TLsZStHmdIN7zHKgzUXuYWez32jjYds/u7gL0ZFJKFE1wjq8LFuQTr
+	 mXp6oLSEjkrEGTP9NpkWmLWQG7pUFhyPf2RmdlVI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8DF2F89728;
-	Tue, 28 May 2019 08:02:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EB5CF896E4;
+	Mon, 27 May 2019 18:38:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6745FF896E4; Mon, 27 May 2019 17:28:12 +0200 (CEST)
+ id 25A90F896E4; Mon, 27 May 2019 18:38:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
- [209.85.166.71])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10000F8072E
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 17:28:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10000F8072E
-Received: by mail-io1-f71.google.com with SMTP id b197so1476393iof.12
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 08:28:07 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8600FF8065A
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 18:38:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8600FF8065A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="t9o+VHkG"
+Received: by mail-wr1-x443.google.com with SMTP id w13so9039940wru.11
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 09:38:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4Bqi68PuSXLVEVLuO7LSaFlse4/AD2TLXqhrMO5+t/s=;
+ b=t9o+VHkGvIvT0HDb8ZjOiqBRLOoUc5kWeyRgmYho2RPGRmH0ZnuXzcqn3kg01UlU2j
+ JX39ymiB/xdXu3uAGlkcFCnYWbn6kS6rctKh+njpJV/Qey101yz+wlHe46vnii8ReG/X
+ l96Pl1jis1PIdZ5RMMvKa+WCa/2/yyqNQ+oB4MgCEjRF7XB6SD8AGKFN8jS24U6UCVg7
+ 2/bL/EGszKhFv7I03dnmDghnsDfKRRU3elOEVuIx5uC2mexaribalgCtbZBElxBH8Kra
+ VbFzUA2XBYYWEaq3QV740Zv2bULz7WdVS+ntoD7Cans8e5YEK9esPTHEGz7J0+YvNAkT
+ otOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=gsOsI1+w66XacgBQHklfTvf3k1T3GWu7vTDh59E4hxc=;
- b=XPsK4qWDdDWSJ61DKQZi8CLnI7zVrRaWd674q1s8PfX13YDukisz19AjeA4JdmOSH7
- QaIAiqs5ggReGqA6P4esbdtHPzIlzNGFmJCJaCDsv4CARkZOd7oqAuDEqfoa6yLsuPJ8
- cWQlfpS5L+WOmIzlw+Hi/rXKV502PWG/cKmI+/quK2/xYS5qQqwpJcAQy5StLuv1nl2u
- lLfYMUTO95YKRv9cq3h7SJKJ3qE5EkOgmwwvtjQrEd2grCgGjvq2It/bSXjk58g0l69h
- KwVfyXsbON1M+nCWJTC/BXvyGo9rBKvkderVycu0BtIDHIQwYW5CIfod8AyZV71nt/rB
- 9+Tw==
-X-Gm-Message-State: APjAAAVumbdyl7wT9IszaoWUiEhCfrM7RCz81UIKLk5yDuZSMne/8R54
- tHK8+mPPZKK7VYoEXerhUfVdqAzlw9938pDn1bf5mGGuCzgl
-X-Google-Smtp-Source: APXvYqzrZ/O/RowFsG6ZfOGxTVMSpJEnTdIdvqo9mh8nH/jskALOZBEWIe3src5ReKrEgvJD6nnuwT0sQ2VSJ8lyZ9gIqurU+nPY
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4Bqi68PuSXLVEVLuO7LSaFlse4/AD2TLXqhrMO5+t/s=;
+ b=llUlIXRdQ5i9bfS/y9wYqZcdrQ+kbRIE18IIzFELO1ZHFzp4QOKE/ZHH6JXQkTfEc7
+ PybqWNnfG5pb8Q33sK47cSPG5sZ04NDidiVDhvXlF8jBjlV4RczpgI3//ncebtxDBy/z
+ IelISJj5Bwrmx6QOtVn5CHbxBvbNktlIv/qj5FvX04LxVP6d1qYDCYbn0FessoSurNx0
+ LUuiiSPv7mT+mVc6LbWaSiyQz3GC+orY8DgEwgrqFDN/TT3W6fSWdIPbt9D5yc8Rk1x9
+ kgjWhD+Mib8yfVuCPIUdRl2q4s/zgfNz9MzSmcq41bamCPBSrTgN47VpovPXRSFfuHbB
+ FEnQ==
+X-Gm-Message-State: APjAAAWCti+buMjRjLB07AmNQLIjyiTiL7pSwjnZuetTq/adX264uZiC
+ /yGyLBCI61rq9cvs07v3RenDcg==
+X-Google-Smtp-Source: APXvYqwW5D2MiFDPr61jSEXTAG4KZCBQjmYLwJacCtcfEehqN4vs2Rft948Q6iSOpPvwE9NSns6L7w==
+X-Received: by 2002:a5d:6108:: with SMTP id v8mr19108589wrt.150.1558975119723; 
+ Mon, 27 May 2019 09:38:39 -0700 (PDT)
+Received: from mjourdan-pc.numericable.fr (abo-99-183-68.mtp.modulonet.fr.
+ [85.68.183.99])
+ by smtp.gmail.com with ESMTPSA id k8sm9483173wrp.74.2019.05.27.09.38.39
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 27 May 2019 09:38:39 -0700 (PDT)
+From: Maxime Jourdan <mjourdan@baylibre.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ alsa-devel@alsa-project.org
+Date: Mon, 27 May 2019 18:38:09 +0200
+Message-Id: <20190527163809.28104-1-mjourdan@baylibre.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-Received: by 2002:a24:81d4:: with SMTP id q203mr28497223itd.55.1558970885496; 
- Mon, 27 May 2019 08:28:05 -0700 (PDT)
-Date: Mon, 27 May 2019 08:28:05 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000d865de0589e0311f@google.com>
-From: syzbot <syzbot+5255458d5e0a2b10bbb9@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, andreyknvl@google.com, keescook@chromium.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tiwai@suse.com
-X-Mailman-Approved-At: Tue, 28 May 2019 08:02:07 +0200
-Subject: [alsa-devel] KASAN: null-ptr-deref Write in submit_audio_out_urb
+Cc: Maxime Jourdan <mjourdan@baylibre.com>, linux-kernel@vger.kernel.org,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] [PATCH] ASoC: max98357a: Show KConfig entry
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,94 +95,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+The SEI510 board features a standalone MAX98357A codec.
+Add a tristate prompt to allow selecting the codec.
 
-syzbot found the following crash on:
-
-HEAD commit:    69bbe8c7 usb-fuzzer: main usb gadget fuzzer driver
-git tree:       https://github.com/google/kasan.git usb-fuzzer
-console output: https://syzkaller.appspot.com/x/log.txt?x=118b0aa2a00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c309d28e15db39c5
-dashboard link: https://syzkaller.appspot.com/bug?extid=5255458d5e0a2b10bbb9
-compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11f4064ca00000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14d51982a00000
-
-IMPORTANT: if you fix the bug, please add the following tag to the commit:
-Reported-by: syzbot+5255458d5e0a2b10bbb9@syzkaller.appspotmail.com
-
-snd_usb_toneport 1-1:0.0: read request failed (error -110)
-snd_usb_toneport 1-1:0.0: read request failed (error -110)
-snd_usb_toneport 1-1:0.0: write request failed (error -110)
-usb 1-1: send failed (error -110)
-usb 1-1: send failed (error -110)
-snd_usb_toneport 1-1:0.0: Line 6 POD Studio UX2 now attached
-==================================================================
-BUG: KASAN: null-ptr-deref in memset include/linux/string.h:344 [inline]
-BUG: KASAN: null-ptr-deref in submit_audio_out_urb+0x919/0x1780  
-sound/usb/line6/playback.c:246
-Write of size 20 at addr 0000000000000010 by task kworker/1:2/2466
-
-CPU: 1 PID: 2466 Comm: kworker/1:2 Not tainted 5.2.0-rc1+ #9
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
-Google 01/01/2011
-Workqueue: events toneport_start_pcm
-Call Trace:
-  __dump_stack lib/dump_stack.c:77 [inline]
-  dump_stack+0xca/0x13e lib/dump_stack.c:113
-  __kasan_report.cold+0x5/0x32 mm/kasan/report.c:321
-  kasan_report+0xe/0x20 mm/kasan/common.c:614
-  memset+0x20/0x40 mm/kasan/common.c:107
-  memset include/linux/string.h:344 [inline]
-  submit_audio_out_urb+0x919/0x1780 sound/usb/line6/playback.c:246
-  line6_submit_audio_out_all_urbs+0xc9/0x120 sound/usb/line6/playback.c:295
-  line6_stream_start+0x156/0x1f0 sound/usb/line6/pcm.c:199
-  line6_pcm_acquire+0x134/0x210 sound/usb/line6/pcm.c:322
-  process_one_work+0x90a/0x1580 kernel/workqueue.c:2268
-  worker_thread+0x96/0xe20 kernel/workqueue.c:2414
-  kthread+0x30e/0x420 kernel/kthread.c:254
-  ret_from_fork+0x3a/0x50 arch/x86/entry/entry_64.S:352
-==================================================================
-Kernel panic - not syncing: panic_on_warn set ...
-CPU: 1 PID: 2466 Comm: kworker/1:2 Tainted: G    B             5.2.0-rc1+ #9
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
-Google 01/01/2011
-Workqueue: events toneport_start_pcm
-Call Trace:
-  __dump_stack lib/dump_stack.c:77 [inline]
-  dump_stack+0xca/0x13e lib/dump_stack.c:113
-  panic+0x292/0x6df kernel/panic.c:218
-  end_report+0x43/0x49 mm/kasan/report.c:95
-  __kasan_report.cold+0xd/0x32 mm/kasan/report.c:324
-  kasan_report+0xe/0x20 mm/kasan/common.c:614
-  memset+0x20/0x40 mm/kasan/common.c:107
-  memset include/linux/string.h:344 [inline]
-  submit_audio_out_urb+0x919/0x1780 sound/usb/line6/playback.c:246
-  line6_submit_audio_out_all_urbs+0xc9/0x120 sound/usb/line6/playback.c:295
-  line6_stream_start+0x156/0x1f0 sound/usb/line6/pcm.c:199
-  line6_pcm_acquire+0x134/0x210 sound/usb/line6/pcm.c:322
-  process_one_work+0x90a/0x1580 kernel/workqueue.c:2268
-  worker_thread+0x96/0xe20 kernel/workqueue.c:2414
-  kthread+0x30e/0x420 kernel/kthread.c:254
-  ret_from_fork+0x3a/0x50 arch/x86/entry/entry_64.S:352
-Kernel Offset: disabled
-Rebooting in 86400 seconds..
-
-
+Signed-off-by: Maxime Jourdan <mjourdan@baylibre.com>
 ---
-This bug is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ sound/soc/codecs/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-syzbot will keep track of this bug report. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-syzbot can test patches for this bug, for details see:
-https://goo.gl/tpsmEJ#testing-patches
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index e730d47ac85b..48c94065072a 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -708,7 +708,8 @@ config SND_SOC_MAX98095
+        tristate
+ 
+ config SND_SOC_MAX98357A
+-       tristate
++	tristate "Maxim MAX98357A CODEC"
++	depends on GPIOLIB
+ 
+ config SND_SOC_MAX98371
+        tristate
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

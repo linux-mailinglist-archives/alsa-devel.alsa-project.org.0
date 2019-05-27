@@ -2,69 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB2282BEF2
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 08:03:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E56A2B54A
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 May 2019 14:32:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 504E017D9;
-	Tue, 28 May 2019 08:03:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 504E017D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A87C1795;
+	Mon, 27 May 2019 14:31:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A87C1795
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559023434;
-	bh=k2+BkH/ELjppNYk8//YVpYp4ZRwKk9GTPoJZZQzExD4=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=lF1m0zPZ9NzjLhvkRB1kYpfNEo6/DhUQVuns7nWE+619eVF3oYmmqrCr2uT59pr2U
-	 kCgPRYpzfK9s33AbavFurVWMpscsZRhzNVcyXTUJ9Zb3gJ4PBE4i4fyTCBGDUmJ8wJ
-	 DcarBX2ojJNwKXgmXIqJF9zv7+BLBoIeT7SEr0Tw=
+	s=default; t=1558960325;
+	bh=JrkPkwiQwajf/pfvWa7DAAeSry7yXVnBa8N/2/nYQrA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pL0CngWbFz4ASUP1sLVBquz9MlzC0D69eVJMeBGTBAbcmm5A4YtyeyyUW+TdYlxW7
+	 ndQfcTCoIVMvW/IHA4wc3HEnDmEM2TMHHkj+S64B8vrk3HXIvEpZHLbn6AbRkhh7m+
+	 q+hsRjuXb+AZfu9Nj9UOFR9Y7RmBQpSuE88XtZO8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA816F896EB;
-	Tue, 28 May 2019 08:02:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DFEEF80730;
+	Mon, 27 May 2019 14:30:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EF60F896E0; Mon, 27 May 2019 13:38:11 +0200 (CEST)
+ id 46663F896E4; Mon, 27 May 2019 14:29:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.6 required=5.0 tests=PRX_BODY_26, RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
+ [217.70.183.198])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66F22F8065A
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 13:38:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66F22F8065A
-Received: by mail-io1-f72.google.com with SMTP id j26so8993777iog.19
- for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 04:38:07 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=3ofJz0VOtKLU8MeevgDTLa64a60th9mQF2FKBUhaEfo=;
- b=YAajYJd0VVLdRGlMTZ/t7+Inr8zGSwXUP3niyD+lGwzmN0Ht1a1Yinc659SrI9xpTT
- 8o3yrkEAkyaCaFEbEo6YLQMwDbPMKiMo0JpyN3f7iuM1ejj6Sk4PaKqZx5WUc/hk+LOM
- DXeQdWRATn8/dhXbsr1cGTiytbQBhE3BITnsY9kAw8jKIVvrRWGK9i0U1E529bGWQhAZ
- 3+CAk5uvSfVN4hIF0gZ44gD7oi6oK+Ofy021YjAmimNTJ4WKmtwsZwUnaG/6us6XwBTn
- pmziMAlrpr3K2Yk/UGNXWyUKkMvgQmwHQpmWswGdbf5NUTo+SA6bCDIWzT3ftKsDhUsv
- mQXg==
-X-Gm-Message-State: APjAAAXhTEkwvchWjy1mMSLWbr1iuc+EF/m+OQkTvCIUjiCP5CZsMWCh
- EZr+RN1qCrQfAGrlqiu/148fUMGDOwrmh3+SmOtltdbCIoH/
-X-Google-Smtp-Source: APXvYqx3RE6uJKijGeIKhmkzojrhR8IqNMfF5lo/O5KVrJ1mEjMuBtHdWc7JwKkln31iNhl+Vphvgo3ijbgtwRp9AlqVFXgYeGkv
+ by alsa1.perex.cz (Postfix) with ESMTPS id C68A2F8065A
+ for <alsa-devel@alsa-project.org>; Mon, 27 May 2019 14:29:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C68A2F8065A
+X-Originating-IP: 90.88.147.134
+Received: from localhost (aaubervilliers-681-1-27-134.w90-88.abo.wanadoo.fr
+ [90.88.147.134]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id B5136C0003;
+ Mon, 27 May 2019 12:28:57 +0000 (UTC)
+Date: Mon, 27 May 2019 14:28:57 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
+Message-ID: <20190527122857.lphlgr7dc5z4f5o3@flea>
+References: <20190525162323.20216-1-peron.clem@gmail.com>
+ <20190525162323.20216-4-peron.clem@gmail.com>
+ <20190526182410.soqb6bne6w66d5j6@flea>
+ <CAJiuCce8UNbA+Ljkbw92ZJu3Ni6N9ciFKGsLtBYJ0_J8E1Gi2g@mail.gmail.com>
 MIME-Version: 1.0
-X-Received: by 2002:a6b:5812:: with SMTP id m18mr1656876iob.13.1558957086368; 
- Mon, 27 May 2019 04:38:06 -0700 (PDT)
-Date: Mon, 27 May 2019 04:38:06 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <0000000000005a6b660589dcfb60@google.com>
-From: syzbot <syzbot+192a537b5c634febc6cf@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, andreyknvl@google.com, keescook@chromium.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tiwai@suse.com
-X-Mailman-Approved-At: Tue, 28 May 2019 08:02:07 +0200
-Subject: [alsa-devel] WARNING in line6_pcm_acquire
+In-Reply-To: <CAJiuCce8UNbA+Ljkbw92ZJu3Ni6N9ciFKGsLtBYJ0_J8E1Gi2g@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ devicetree <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ Jagan Teki <jagan@amarulasolutions.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v3 3/7] ASoC: sun4i-spdif: Add TX fifo bit
+	flush quirks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,119 +75,89 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
+Content-Type: multipart/mixed; boundary="===============6288939068418559135=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
 
-syzbot found the following crash on:
-
-HEAD commit:    43151d6c usb-fuzzer: main usb gadget fuzzer driver
-git tree:       https://github.com/google/kasan.git usb-fuzzer
-console output: https://syzkaller.appspot.com/x/log.txt?x=169fe1f8a00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=95aff7278e7ff25e
-dashboard link: https://syzkaller.appspot.com/bug?extid=192a537b5c634febc6cf
-compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-
-Unfortunately, I don't have any reproducer for this crash yet.
-
-IMPORTANT: if you fix the bug, please add the following tag to the commit:
-Reported-by: syzbot+192a537b5c634febc6cf@syzkaller.appspotmail.com
-
-------------[ cut here ]------------
-do not call blocking ops when !TASK_RUNNING; state=1 set at  
-[<000000009424b595>] do_nanosleep+0x107/0x6a0 kernel/time/hrtimer.c:1675
-WARNING: CPU: 0 PID: 4661 at kernel/sched/core.c:6136  
-__might_sleep+0x135/0x190 kernel/sched/core.c:6136
-Kernel panic - not syncing: panic_on_warn set ...
-CPU: 0 PID: 4661 Comm: syz-executor.4 Not tainted 5.1.0-rc3+ #8
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
-Google 01/01/2011
-Call Trace:
-  <IRQ>
-  __dump_stack lib/dump_stack.c:77 [inline]
-  dump_stack+0xca/0x13e lib/dump_stack.c:113
-  panic+0x292/0x5e1 kernel/panic.c:214
-  __warn.cold+0x20/0x53 kernel/panic.c:571
-  report_bug+0x262/0x2a0 lib/bug.c:186
-  fixup_bug arch/x86/kernel/traps.c:179 [inline]
-  fixup_bug arch/x86/kernel/traps.c:174 [inline]
-  do_error_trap+0x12b/0x1e0 arch/x86/kernel/traps.c:272
-  do_invalid_op+0x32/0x40 arch/x86/kernel/traps.c:291
-  invalid_op+0x14/0x20 arch/x86/entry/entry_64.S:973
-RIP: 0010:__might_sleep+0x135/0x190 kernel/sched/core.c:6136
-Code: 65 48 8b 1c 25 c0 de 01 00 48 8d 7b 10 48 89 fe 48 c1 ee 03 80 3c 06  
-00 75 2b 48 8b 73 10 48 c7 c7 c0 ec c5 85 e8 c6 4b f6 ff <0f> 0b e9 46 ff  
-ff ff e8 2f d0 45 00 e9 29 ff ff ff e8 25 d0 45 00
-RSP: 0018:ffff8881db207b48 EFLAGS: 00010286
-RAX: 0000000000000000 RBX: ffff8881c7d71800 RCX: 0000000000000000
-RDX: 0000000000000100 RSI: ffffffff8127bbcd RDI: ffffed103b640f5b
-RBP: ffffffff85c622c0 R08: ffff8881c7d71800 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: 000000000000038c
-R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff849f6d40
-  __mutex_lock_common kernel/locking/mutex.c:908 [inline]
-  __mutex_lock+0xc8/0x12b0 kernel/locking/mutex.c:1072
-  line6_pcm_acquire+0x30/0x210 sound/usb/line6/pcm.c:311
-  call_timer_fn+0x15c/0x5e0 kernel/time/timer.c:1325
-  expire_timers kernel/time/timer.c:1362 [inline]
-  __run_timers kernel/time/timer.c:1681 [inline]
-  __run_timers kernel/time/timer.c:1649 [inline]
-  run_timer_softirq+0x586/0x1400 kernel/time/timer.c:1694
-  __do_softirq+0x21f/0x8bc kernel/softirq.c:293
-  invoke_softirq kernel/softirq.c:374 [inline]
-  irq_exit+0x17c/0x1a0 kernel/softirq.c:414
-  exiting_irq arch/x86/include/asm/apic.h:536 [inline]
-  smp_apic_timer_interrupt+0xf1/0x490 arch/x86/kernel/apic/apic.c:1062
-  apic_timer_interrupt+0xf/0x20 arch/x86/entry/entry_64.S:807
-  </IRQ>
-RIP: 0010:arch_local_irq_restore arch/x86/include/asm/irqflags.h:81 [inline]
-RIP: 0010:__raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:160  
-[inline]
-RIP: 0010:_raw_spin_unlock_irqrestore+0x40/0x50  
-kernel/locking/spinlock.c:184
-Code: e8 25 19 bc fb 48 89 ef e8 dd f7 bc fb f6 c7 02 75 11 53 9d e8 a1 fd  
-d8 fb 65 ff 0d 0a 59 99 7a 5b 5d c3 e8 d2 fb d8 fb 53 9d <eb> ed 0f 1f 40  
-00 66 2e 0f 1f 84 00 00 00 00 00 55 48 89 fd 65 ff
-RSP: 0018:ffff8881b13ffba8 EFLAGS: 00000246 ORIG_RAX: ffffffffffffff13
-RAX: 0000000000000007 RBX: 0000000000000246 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000006 RDI: ffff8881c7d72034
-RBP: ffff8881db224a80 R08: ffff8881c7d71800 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: dffffc0000000000
-R13: ffff8881db224b00 R14: ffff8881db224b00 R15: ffff8881db224a80
-  unlock_hrtimer_base kernel/time/hrtimer.c:878 [inline]
-  hrtimer_start_range_ns+0x5b0/0xad0 kernel/time/hrtimer.c:1109
-  hrtimer_start_expires include/linux/hrtimer.h:409 [inline]
-  do_nanosleep+0x19b/0x6a0 kernel/time/hrtimer.c:1676
-  hrtimer_nanosleep+0x258/0x510 kernel/time/hrtimer.c:1733
-  __do_sys_nanosleep kernel/time/hrtimer.c:1767 [inline]
-  __se_sys_nanosleep kernel/time/hrtimer.c:1754 [inline]
-  __x64_sys_nanosleep+0x19d/0x220 kernel/time/hrtimer.c:1754
-  do_syscall_64+0xbd/0x500 arch/x86/entry/common.c:290
-  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-RIP: 0033:0x486570
-Code: 00 00 48 c7 c0 d4 ff ff ff 64 c7 00 16 00 00 00 31 c0 eb be 66 0f 1f  
-44 00 00 83 3d e1 01 5d 00 00 75 14 b8 23 00 00 00 0f 05 <48> 3d 01 f0 ff  
-ff 0f 83 b4 e0 f8 ff c3 48 83 ec 08 e8 ea 53 fd ff
-RSP: 002b:00007ffc588bb088 EFLAGS: 00000246 ORIG_RAX: 0000000000000023
-RAX: ffffffffffffffda RBX: 00000000000a95fa RCX: 0000000000486570
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 00007ffc588bb090
-RBP: 00000000000002d5 R08: 0000000000000001 R09: 00000000027fc940
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000008
-R13: 00007ffc588bb0e0 R14: 00000000000a8e2a R15: 00007ffc588bb0f0
-Kernel Offset: disabled
-Rebooting in 86400 seconds..
+--===============6288939068418559135==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="5fgdhizk55u3fsr6"
+Content-Disposition: inline
 
 
----
-This bug is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+--5fgdhizk55u3fsr6
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-syzbot will keep track of this bug report. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On Sun, May 26, 2019 at 09:00:30PM +0200, Cl=E9ment P=E9ron wrote:
+> Hi Maxime,
+>
+> On Sun, 26 May 2019 at 20:24, Maxime Ripard <maxime.ripard@bootlin.com> w=
+rote:
+> >
+> > On Sat, May 25, 2019 at 06:23:19PM +0200, Cl=E9ment P=E9ron wrote:
+> > > Allwinner H6 has a different bit to flush the TX FIFO.
+> > >
+> > > Add a quirks to prepare introduction of H6 SoC.
+> > >
+> > > Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+> > > ---
+> > >  sound/soc/sunxi/sun4i-spdif.c | 11 ++++++++++-
+> > >  1 file changed, 10 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/sound/soc/sunxi/sun4i-spdif.c b/sound/soc/sunxi/sun4i-sp=
+dif.c
+> > > index b6c66a62e915..8317bbee0712 100644
+> > > --- a/sound/soc/sunxi/sun4i-spdif.c
+> > > +++ b/sound/soc/sunxi/sun4i-spdif.c
+> > > @@ -166,10 +166,12 @@
+> > >   *
+> > >   * @reg_dac_tx_data: TX FIFO offset for DMA config.
+> > >   * @has_reset: SoC needs reset deasserted.
+> > > + * @reg_fctl_ftx: TX FIFO flush bitmask.
+> >
+> > It's a bit weird to use the same prefix for a register offset
+> > (reg_dac_tx_data) and a value (reg_fctl_ftx).
+>
+> I just look at sun4i-codec and they use a regmap, But I think it's a
+> bit overkill no?
+
+For a single value, yeah
+
+> What do you think about val_fctl_ftx ?
+
+Looks good, thanks!
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--5fgdhizk55u3fsr6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXOvYCQAKCRDj7w1vZxhR
+xWpYAQDonSAGR8IIIJfCwN6P7pyQ5D2rskJl7lfFfD4Mo5WZ8QD/aAaog6/za5ta
+r3GfRL559CHukEIi7he29P416ycIjw0=
+=3d9d
+-----END PGP SIGNATURE-----
+
+--5fgdhizk55u3fsr6--
+
+--===============6288939068418559135==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6288939068418559135==--

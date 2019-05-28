@@ -2,63 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE34B2C2E1
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 11:15:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A17392C4C9
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 12:49:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AEA817D4;
-	Tue, 28 May 2019 11:14:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AEA817D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23F1117D5;
+	Tue, 28 May 2019 12:49:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23F1117D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559034938;
-	bh=5oppqRiSJujqcM+CII0rCE4Btm7F5e/Jd990zHNJYS4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ptqeyGdKXlTXZBWFJsdQr0e0ptGkuMp+90pbbU8724UVOK5s0TWOYMaqyF8RutKrQ
-	 zbgffQNf2ZB0Duc1WGTAgEvz31jgv8EhDaWf5UrkEHJ43DyqaQN/rq8VfsVRutQYmM
-	 pH3qOZfkm8Iz3ul8sfxSc0dj9Omtc0nCpOBCtlvE=
+	s=default; t=1559040596;
+	bh=Pwy4xev1VQRirDtM1PRca80Du0SjCYL5G9piG9on9bE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iFr46VnJzTNDgkmqQ/kjNxPWSruSSDwH6IAytfU6iD52uyRDlfnCHxISdG8MWPVPZ
+	 OISNIAghkF+8byEfOJze9VFgZWOUDAr8ANrPpug03l2bxWj4ynulUC1WZgj0qeOg9s
+	 RSwCZhhfZ9vii5oUdu9L+ttT23+Vu27LlTrOhSjs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B4A4F89728;
-	Tue, 28 May 2019 11:13:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDFDFF89708;
+	Tue, 28 May 2019 12:48:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F641F8072E; Tue, 28 May 2019 11:13:24 +0200 (CEST)
+ id 67925F89706; Tue, 28 May 2019 12:48:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=PRX_BODY_26, RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net
- [217.70.183.198])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from forward102p.mail.yandex.net (forward102p.mail.yandex.net
+ [77.88.28.102])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F22E6F8072E
- for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 11:13:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F22E6F8072E
-X-Originating-IP: 90.89.68.76
-Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
- (Authenticated sender: maxime.ripard@bootlin.com)
- by relay6-d.mail.gandi.net (Postfix) with ESMTPSA id 80A60C0034;
- Tue, 28 May 2019 09:13:16 +0000 (UTC)
-Date: Tue, 28 May 2019 11:13:15 +0200
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-To: =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Message-ID: <20190528091315.ysfieiebn5gk53f5@flea>
-References: <20190527200627.8635-1-peron.clem@gmail.com>
- <20190527200627.8635-5-peron.clem@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20190527200627.8635-5-peron.clem@gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-sunxi@googlegroups.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- Jagan Teki <jagan@amarulasolutions.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v4 4/7] ASoC: sun4i-spdif: Add support for
-	H6 SoC
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAE0CF896B8
+ for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 12:47:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAE0CF896B8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=emlid.com header.i=@emlid.com
+ header.b="mk+kjWb0"
+Received: from mxback12j.mail.yandex.net (mxback12j.mail.yandex.net
+ [IPv6:2a02:6b8:0:1619::87])
+ by forward102p.mail.yandex.net (Yandex) with ESMTP id 880021D40BB7;
+ Tue, 28 May 2019 13:47:56 +0300 (MSK)
+Received: from smtp4p.mail.yandex.net (smtp4p.mail.yandex.net
+ [2a02:6b8:0:1402::15:6])
+ by mxback12j.mail.yandex.net (nwsmtp/Yandex) with ESMTP id FY1s6RDynA-ls9Gkqrn;
+ Tue, 28 May 2019 13:47:56 +0300
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emlid.com; s=mail;
+ t=1559040476; bh=Is/MIvi4jfDkUP+QCZKxpOOi4A6PloqEim41KKUSFQI=;
+ h=Subject:To:From:Message-Id:Cc:Date;
+ b=mk+kjWb0EdrqLncti5Yr4SSG1jWO9VAvGH5iMQZMPrtZ+uI2MwlatQNG6uTOVwWW2
+ p8XgkQy73ogqo768svZG8nEtCb90QcAUt2a4Xod2pz/QXuHnb8evEgpy5C2TPEvfdf
+ cEjPSQkeyKUEVj8/9nT0hk05qczAw1hhHeXtfiIo=
+Authentication-Results: mxback12j.mail.yandex.net;
+ dkim=pass header.i=@emlid.com
+Received: by smtp4p.mail.yandex.net (nwsmtp/Yandex) with ESMTPSA id
+ yGoKdH2rqr-lqmSh4ee; Tue, 28 May 2019 13:47:53 +0300
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+ (Client certificate not present)
+From: Georgii Staroselskii <georgii.staroselskii@emlid.com>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ maxime.ripard@bootlin.com, wens@csie.org, dannym@scratchpost.org
+Date: Tue, 28 May 2019 13:47:39 +0300
+Message-Id: <1559040459-16488-1-git-send-email-georgii.staroselskii@emlid.com>
+X-Mailer: git-send-email 2.7.4
+Cc: georgii.staroselskii@emlid.com, alsa-devel@alsa-project.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v2] ASoC: sun4i-codec: fix first delay on
+	Speaker
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,63 +82,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7370403711059565664=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Allwinner DAC seems to have a delay in the Speaker audio routing. When
+playing a sound for the first time, the sound gets chopped. On a second
+play the sound is played correctly. After some time (~5s) the issue gets
+back.
 
---===============7370403711059565664==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="chyxdzlab5sysxo6"
-Content-Disposition: inline
+This commit seems to be fixing the same issue as bf14da7 but
+for another codepath.
 
+This is the DTS that was used to debug the problem.
 
---chyxdzlab5sysxo6
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+&codec {
+        allwinner,pa-gpios = <&r_pio 0 11 GPIO_ACTIVE_HIGH>; /* PL11 */
+        allwinner,audio-routing =
+                "Speaker", "LINEOUT";
 
-On Mon, May 27, 2019 at 10:06:24PM +0200, Cl=E9ment P=E9ron wrote:
-> Allwinner H6 has a different mapping for the fifo register controller.
->
-> Actually only the fifo TX bit is used in the drivers.
->
-> Use the freshly introduced quirks to make this drivers compatible with
-> the Allwinner H6.
->
-> Signed-off-by: Cl=E9ment P=E9ron <peron.clem@gmail.com>
+        status = "okay";
+}
 
-Acked-by: Maxime Ripard <maxime.ripard@bootlin.com>
+Signed-off-by: Georgii Staroselskii <georgii.staroselskii@emlid.com>
+---
+ sound/soc/sunxi/sun4i-codec.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Maxime
-
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---chyxdzlab5sysxo6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXOz7qwAKCRDj7w1vZxhR
-xSIiAP9nmxuaqkOOSRfudhUw4zPITHUHtndI2JThUfrXTighbwEAyJjIFkev8yqr
-i6HikA6T6bWimgGAMVM9UxUwiD1Rdgc=
-=iAGv
------END PGP SIGNATURE-----
-
---chyxdzlab5sysxo6--
-
---===============7370403711059565664==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
+index f2deffe..9e1f00e 100644
+--- a/sound/soc/sunxi/sun4i-codec.c
++++ b/sound/soc/sunxi/sun4i-codec.c
+@@ -1320,6 +1320,15 @@ static int sun4i_codec_spk_event(struct snd_soc_dapm_widget *w,
+ 	gpiod_set_value_cansleep(scodec->gpio_pa,
+ 				 !!SND_SOC_DAPM_EVENT_ON(event));
+ 
++	if (SND_SOC_DAPM_EVENT_ON(event)) {
++		/*
++		 * Need a delay to wait for DAC to push the data. 700ms seems
++		 * to be the best compromise not to feel this delay while
++		 * playing a sound.
++		 */
++		msleep(700);
++	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7370403711059565664==--

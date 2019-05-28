@@ -2,59 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 367AF2CFED
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 22:05:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2EB92D108
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 23:34:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE74015E0;
-	Tue, 28 May 2019 22:04:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE74015E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A88D15E0;
+	Tue, 28 May 2019 23:33:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A88D15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559073914;
-	bh=huMWSRVtARs5V9psAWf7JXE1gmJZi4FbZM9vjol7LSk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NWXrpiwu68nglE9viKJkeLGlnPqyWX5QAMsNEIRmoozgTCU3T2IFnFMWNTD1fmCMn
-	 nxXR4fx4d8iECqURitYPwJCRkaI4vMECKYY0fMZkq6O62EMl8OK8YiQQZJKkBOyLF2
-	 R9vgMTmCv0RwnrWO0H/syeQMblaFIZv8b60xLeFw=
+	s=default; t=1559079240;
+	bh=DSlHbB7hPtL80mueDJ7nWlg0ccrNbJfCHXT1xXSkwIs=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bOO4Bt/Fe2qayXgv7uI4XPky5Ar+HrT9RNcmAaVbiC/rMgl4WpUrph8wmkwYE4aRB
+	 rGDKYrs4baRVl1zuC+3rVPETVFWwfrrTjxlmXcYMoRaAAqc/jPxCpvMSVd+fcMh9yT
+	 Abfd2196DCSSSGGt1d73dDhQBASH/7O7T73IEbUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8C4BF89706;
-	Tue, 28 May 2019 22:03:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87794F8065A;
+	Tue, 28 May 2019 23:32:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 643CAF8971D; Tue, 28 May 2019 22:03:10 +0200 (CEST)
+ id 1AD9CF89706; Tue, 28 May 2019 23:32:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4758CF89706
- for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 22:03:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4758CF89706
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E642F8065A
+ for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 23:32:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E642F8065A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 May 2019 13:03:01 -0700
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 May 2019 14:32:06 -0700
 X-ExtLoop1: 1
-Received: from aroush-mobl1.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.254.112.150])
- by fmsmga008.fm.intel.com with ESMTP; 28 May 2019 13:02:59 -0700
+Received: from linux.intel.com ([10.54.29.200])
+ by FMSMGA003.fm.intel.com with ESMTP; 28 May 2019 14:32:05 -0700
+Received: from msakib-mobl2.amr.corp.intel.com (unknown [10.254.189.121])
+ by linux.intel.com (Postfix) with ESMTP id 221FD5802C9;
+ Tue, 28 May 2019 14:32:05 -0700 (PDT)
+To: Jaroslav Kysela <perex@perex.cz>
+References: <s5hblzmvdcq.wl-tiwai@suse.de>
+ <9668d632-c5c9-5114-39cb-0e8a105a547c@perex.cz>
+ <9d5ef75c-9b28-3998-865d-a958b7aaaa75@linux.intel.com>
+ <b11570d9-6b46-e162-eb91-22e81bfa17bd@perex.cz>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 28 May 2019 15:02:55 -0500
-Message-Id: <20190528200255.15923-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
+Message-ID: <9e1dc0e5-dd6a-1f4a-b141-152e61fdbc03@linux.intel.com>
+Date: Tue, 28 May 2019 16:32:04 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Randy Dunlap <rdunlap@infradead.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [RFC PATCH] ASoC: Intel: use common helpers to detect
-	CPUs
+In-Reply-To: <b11570d9-6b46-e162-eb91-22e81bfa17bd@perex.cz>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] SOF firmware/ucm/topology packaging
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,638 +75,111 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We have duplicated code in multiple locations (atom, machine drivers,
-SOF) to detect Baytrail, Cherrytrail and other SOCs. This is not very
-elegant, and introduces dependencies on CONFIG_X86 that prevent
-COMPILE_TEST from working.
+On 5/28/19 2:15 PM, Jaroslav Kysela wrote:
+> I believe that we need to discuss this more.
 
-Add common helpers to provide same functionality in a cleaner
-way. This will also help support the DMI-based quirks being introduced
-to handle SOF/SST autodetection.
+Yep, absolutely!
 
-FIXME:
-0. does this fix COMPILE_TEST issues reported by Randy?
+> Dne 28. 05. 19 v 18:59 Pierre-Louis Bossart napsal(a):
+>>
+>>
+>> On 5/28/19 11:38 AM, Jaroslav Kysela wrote:
+>>
+>>> The same situation is for the SoC SOF firmware files (drivers are
+>>> in kernel, firmware files are missing). Perhaps, we can release those files
+>>> quickly in alsa-firmware and then migrate them slowly to linux-firmware.
+>>
+>> for SOF there are 4 cases
+>>
+>> 1. developers/integrators build from scratch themselves from the public
+>> tree.
+>> 2. integrators build from scratch with their own secret sauce added.
+>> 3. distros want a binary since they don't want to build from source
+>> and/or don't have access to all the DSP tools
+>> 4. distros needs a binary signed with the Intel production key (e.g. to
+>> run on devices initially designed for Windows).
+> 
+> Do you mean that the firmware should be signed because the hardware is doing a
+> check, if the hardware vendor enables it and rejects the unsigned binaries?
 
-1. should the include file moved to include/sound? this would be handy
-for the SOF/SST mutual exclusion?
+It depends on the platforms.
+Baytrail/Cherrytrail/Broadwell don't need any signature.
+Starting with Skylake, the firmware is authenticated and the DSP will 
+not boot unless it's signed with the relevant key, but different 
+platforms chose different protections. Most of the Windows platforms use 
+a strong authentication based on a non-public 'production key', which 
+prevents people from installing their own firmware. Other solutions such 
+as Up Squared boards or 2019 Chromebooks use a public key that is 
+already part of the SOF tree.
+Unfortunately I didn't find a way to detect which key is used, and it's 
+not wise to try multiple keys since it adds a lot of latency on startup, 
+so we are leaning to use DMI-based quirks to detect which key is used by 
+what.
 
-2. is there a better way to do this for all Intel chips or do we keep
-this in sound/? Andy?
+> 
+>> So far we were mostly dealing with case 1. Case 2 is allowed by the SOF
+>> permissive license and there's no need to look into this. We are
+>> planning releases for the last two cases, with a cadence aligned with
+>> kernel updates. It's not fully clear to me if the linux-firmware tree is
+>> the 'right' solution since ideally we'd want to have firmware, topology
+>> and UCM files released at the same time.
+> 
+> Do you plan to create a new package for this? I can eventually offer the space
+> / docker build system on the ALSA server, if you like. The github releases
+> work fine, too. The question is, if it's the right way. It seems that the
+> firmware/topology files are read-only chunks used by the driver (standard
+> usage) and the UCM config is for alsa-lib (the user space). It might make
+> probably sense to add compatibility IDs to link/check the correct parts
+> together at runtime and keep the standard (binary) code distribution for the
+> most of users (linux-firmware / alsa-lib).
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/atom/sst/sst_acpi.c           |  65 +---------
- sound/soc/intel/boards/bxt_da7219_max98357a.c |  11 +-
- sound/soc/intel/boards/bytcht_es8316.c        |  12 +-
- sound/soc/intel/boards/bytcr_rt5640.c         |  16 +--
- sound/soc/intel/boards/bytcr_rt5651.c         |  17 +--
- sound/soc/intel/boards/cht_bsw_rt5645.c       |  16 +--
- sound/soc/intel/boards/sof_rt5682.c           |  11 +-
- sound/soc/intel/common/soc-intel-quirks.h     | 115 ++++++++++++++++++
- sound/soc/sof/sof-acpi-dev.c                  |  57 +--------
- 9 files changed, 135 insertions(+), 185 deletions(-)
- create mode 100644 sound/soc/intel/common/soc-intel-quirks.h
+There is a connection mostly between topology and UCM: the device 
+numbers used for the PCM streams have to match. If you add/remove a 
+stream in the topology, then UCM will use numbers that aren't quite 
+right. Same if you have a volume control used in UCM, you need to make 
+sure that volume control is actually part of the topology.
 
-diff --git a/sound/soc/intel/atom/sst/sst_acpi.c b/sound/soc/intel/atom/sst/sst_acpi.c
-index ae17ce4677a5..06c4a2da900c 100644
---- a/sound/soc/intel/atom/sst/sst_acpi.c
-+++ b/sound/soc/intel/atom/sst/sst_acpi.c
-@@ -38,12 +38,11 @@
- #include <acpi/platform/aclinux.h>
- #include <acpi/actypes.h>
- #include <acpi/acpi_bus.h>
--#include <asm/cpu_device_id.h>
--#include <asm/iosf_mbi.h>
- #include <sound/soc-acpi.h>
- #include <sound/soc-acpi-intel-match.h>
- #include "../sst-mfld-platform.h"
- #include "../../common/sst-dsp.h"
-+#include "../../common/soc-intel-quirks.h"
- #include "sst.h"
- 
- /* LPE viewpoint addresses */
-@@ -243,64 +242,6 @@ static int sst_platform_get_resources(struct intel_sst_drv *ctx)
- 	return 0;
- }
- 
--static int is_byt(void)
--{
--	bool status = false;
--	static const struct x86_cpu_id cpu_ids[] = {
--		{ X86_VENDOR_INTEL, 6, 55 }, /* Valleyview, Bay Trail */
--		{}
--	};
--	if (x86_match_cpu(cpu_ids))
--		status = true;
--	return status;
--}
--
--static bool is_byt_cr(struct platform_device *pdev)
--{
--	struct device *dev = &pdev->dev;
--	int status = 0;
--
--	if (!is_byt())
--		return false;
--
--	if (iosf_mbi_available()) {
--		u32 bios_status;
--		status = iosf_mbi_read(BT_MBI_UNIT_PMC, /* 0x04 PUNIT */
--				       MBI_REG_READ, /* 0x10 */
--				       0x006, /* BIOS_CONFIG */
--				       &bios_status);
--
--		if (status) {
--			dev_err(dev, "could not read PUNIT BIOS_CONFIG\n");
--		} else {
--			/* bits 26:27 mirror PMIC options */
--			bios_status = (bios_status >> 26) & 3;
--
--			if (bios_status == 1 || bios_status == 3) {
--				dev_info(dev, "Detected Baytrail-CR platform\n");
--				return true;
--			}
--
--			dev_info(dev, "BYT-CR not detected\n");
--		}
--	} else {
--		dev_info(dev, "IOSF_MBI not available, no BYT-CR detection\n");
--	}
--
--	if (platform_get_resource(pdev, IORESOURCE_IRQ, 5) == NULL) {
--		/*
--		 * Some devices detected as BYT-T have only a single IRQ listed,
--		 * causing platform_get_irq with index 5 to return -ENXIO.
--		 * The correct IRQ in this case is at index 0, as on BYT-CR.
--		 */
--		dev_info(dev, "Falling back to Baytrail-CR platform\n");
--		return true;
--	}
--
--	return false;
--}
--
--
- static int sst_acpi_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -325,7 +266,7 @@ static int sst_acpi_probe(struct platform_device *pdev)
- 		return -ENODEV;
- 	}
- 
--	if (is_byt())
-+	if (soc_intel_is_byt())
- 		mach->pdata = &byt_rvp_platform_data;
- 	else
- 		mach->pdata = &chv_platform_data;
-@@ -343,7 +284,7 @@ static int sst_acpi_probe(struct platform_device *pdev)
- 	if (ret < 0)
- 		return ret;
- 
--	if (is_byt_cr(pdev)) {
-+	if (soc_intel_is_byt_cr(pdev)) {
- 		/* override resource info */
- 		byt_rvp_platform_data.res_info = &bytcr_res_info;
- 	}
-diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-index d8c7d64bb1d7..d476c55f2efe 100644
---- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-@@ -16,7 +16,6 @@
-  * GNU General Public License for more details.
-  */
- 
--#include <asm/cpu_device_id.h>
- #include <linux/input.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -29,6 +28,7 @@
- #include "../../codecs/hdac_hdmi.h"
- #include "../../codecs/da7219.h"
- #include "../../codecs/da7219-aad.h"
-+#include "../common/soc-intel-quirks.h"
- 
- #define BXT_DIALOG_CODEC_DAI	"da7219-hifi"
- #define BXT_MAXIM_CODEC_DAI	"HiFi"
-@@ -579,11 +579,6 @@ static struct snd_soc_dai_link broxton_dais[] = {
- 	},
- };
- 
--static const struct x86_cpu_id glk_ids[] = {
--	{ X86_VENDOR_INTEL, 6, 0x7A }, /* Geminilake CPU_ID */
--	{}
--};
--
- #define NAME_SIZE	32
- static int bxt_card_late_probe(struct snd_soc_card *card)
- {
-@@ -593,7 +588,7 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
- 	int err, i = 0;
- 	char jack_name[NAME_SIZE];
- 
--	if (x86_match_cpu(glk_ids))
-+	if (soc_intel_is_glk())
- 		snd_soc_dapm_add_routes(&card->dapm, gemini_map,
- 					ARRAY_SIZE(gemini_map));
- 	else
-@@ -656,7 +651,7 @@ static int broxton_audio_probe(struct platform_device *pdev)
- 
- 	broxton_audio_card.dev = &pdev->dev;
- 	snd_soc_card_set_drvdata(&broxton_audio_card, ctx);
--	if (x86_match_cpu(glk_ids)) {
-+	if (soc_intel_is_glk()) {
- 		unsigned int i;
- 
- 		broxton_audio_card.name = "glkda7219max";
-diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index e8c585ffd04d..d08715ac3945 100644
---- a/sound/soc/intel/boards/bytcht_es8316.c
-+++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -30,8 +30,6 @@
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
--#include <asm/cpu_device_id.h>
--#include <asm/intel-family.h>
- #include <asm/platform_sst_audio.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
-@@ -40,6 +38,7 @@
- #include <sound/soc-acpi.h>
- #include "../atom/sst-atom-controls.h"
- #include "../common/sst-dsp.h"
-+#include "../common/soc-intel-quirks.h"
- 
- /* jd-inv + terminating entry */
- #define MAX_NO_PROPS 2
-@@ -430,11 +429,6 @@ static struct snd_soc_card byt_cht_es8316_card = {
- 	.resume_post = byt_cht_es8316_resume,
- };
- 
--static const struct x86_cpu_id baytrail_cpu_ids[] = {
--	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ATOM_SILVERMONT }, /* Valleyview */
--	{}
--};
--
- static const struct acpi_gpio_params first_gpio = { 0, 0, false };
- 
- static const struct acpi_gpio_mapping byt_cht_es8316_gpios[] = {
-@@ -506,8 +500,8 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 	dmi_id = dmi_first_match(byt_cht_es8316_quirk_table);
- 	if (dmi_id) {
- 		quirk = (unsigned long)dmi_id->driver_data;
--	} else if (x86_match_cpu(baytrail_cpu_ids) &&
--	    mach->mach_params.acpi_ipc_irq_index == 0) {
-+	} else if (soc_intel_is_byt() &&
-+		   mach->mach_params.acpi_ipc_irq_index == 0) {
- 		/* On BYTCR default to SSP0, internal-mic-in2-map, mono-spk */
- 		quirk = BYT_CHT_ES8316_SSP0 | BYT_CHT_ES8316_INTMIC_IN2_MAP |
- 			BYT_CHT_ES8316_MONO_SPEAKER;
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index dc22df9a99fb..7aae7b78efba 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -28,7 +28,6 @@
- #include <linux/dmi.h>
- #include <linux/input.h>
- #include <linux/slab.h>
--#include <asm/cpu_device_id.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -38,6 +37,7 @@
- #include "../../codecs/rt5640.h"
- #include "../atom/sst-atom-controls.h"
- #include "../common/sst-dsp.h"
-+#include "../common/soc-intel-quirks.h"
- 
- enum {
- 	BYT_RT5640_DMIC1_MAP,
-@@ -1130,18 +1130,6 @@ static struct snd_soc_card byt_rt5640_card = {
- 	.resume_post = byt_rt5640_resume,
- };
- 
--static bool is_valleyview(void)
--{
--	static const struct x86_cpu_id cpu_ids[] = {
--		{ X86_VENDOR_INTEL, 6, 55 }, /* Valleyview, Bay Trail */
--		{}
--	};
--
--	if (!x86_match_cpu(cpu_ids))
--		return false;
--	return true;
--}
--
- struct acpi_chan_package {   /* ACPICA seems to require 64 bit integers */
- 	u64 aif_value;       /* 1: AIF1, 2: AIF2 */
- 	u64 mclock_value;    /* usually 25MHz (0x17d7940), ignored */
-@@ -1190,7 +1178,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 	 * swap SSP0 if bytcr is detected
- 	 * (will be overridden if DMI quirk is detected)
- 	 */
--	if (is_valleyview()) {
-+	if (soc_intel_is_byt()) {
- 		if (mach->mach_params.acpi_ipc_irq_index == 0)
- 			is_bytcr = true;
- 	}
-diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
-index ca657c3e5726..6df6435ea394 100644
---- a/sound/soc/intel/boards/bytcr_rt5651.c
-+++ b/sound/soc/intel/boards/bytcr_rt5651.c
-@@ -30,8 +30,6 @@
- #include <linux/gpio/consumer.h>
- #include <linux/gpio/machine.h>
- #include <linux/slab.h>
--#include <asm/cpu_device_id.h>
--#include <asm/intel-family.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -39,6 +37,7 @@
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt5651.h"
- #include "../atom/sst-atom-controls.h"
-+#include "../common/soc-intel-quirks.h"
- 
- enum {
- 	BYT_RT5651_DMIC_MAP,
-@@ -852,16 +851,6 @@ static struct snd_soc_card byt_rt5651_card = {
- 	.resume_post = byt_rt5651_resume,
- };
- 
--static const struct x86_cpu_id baytrail_cpu_ids[] = {
--	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ATOM_SILVERMONT }, /* Valleyview */
--	{}
--};
--
--static const struct x86_cpu_id cherrytrail_cpu_ids[] = {
--	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ATOM_AIRMONT },     /* Braswell */
--	{}
--};
--
- static const struct acpi_gpio_params ext_amp_enable_gpios = { 0, 0, false };
- 
- static const struct acpi_gpio_mapping cht_rt5651_gpios[] = {
-@@ -932,7 +921,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 	 * swap SSP0 if bytcr is detected
- 	 * (will be overridden if DMI quirk is detected)
- 	 */
--	if (x86_match_cpu(baytrail_cpu_ids)) {
-+	if (soc_intel_is_byt()) {
- 		if (mach->mach_params.acpi_ipc_irq_index == 0)
- 			is_bytcr = true;
- 	}
-@@ -1001,7 +990,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 	}
- 
- 	/* Cherry Trail devices use an external amplifier enable gpio */
--	if (x86_match_cpu(cherrytrail_cpu_ids) && !byt_rt5651_gpios)
-+	if (soc_intel_is_cht() && !byt_rt5651_gpios)
- 		byt_rt5651_gpios = cht_rt5651_gpios;
- 
- 	if (byt_rt5651_gpios) {
-diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
-index 32dbeaf1ab94..de5fe58ae3b4 100644
---- a/sound/soc/intel/boards/cht_bsw_rt5645.c
-+++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
-@@ -26,7 +26,6 @@
- #include <linux/clk.h>
- #include <linux/dmi.h>
- #include <linux/slab.h>
--#include <asm/cpu_device_id.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -34,6 +33,7 @@
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt5645.h"
- #include "../atom/sst-atom-controls.h"
-+#include "../common/soc-intel-quirks.h"
- 
- #define CHT_PLAT_CLK_3_HZ	19200000
- #define CHT_CODEC_DAI1	"rt5645-aif1"
-@@ -509,18 +509,6 @@ static char cht_rt5645_codec_name[SND_ACPI_I2C_ID_LEN];
- static char cht_rt5645_codec_aif_name[12]; /*  = "rt5645-aif[1|2]" */
- static char cht_rt5645_cpu_dai_name[10]; /*  = "ssp[0|2]-port" */
- 
--static bool is_valleyview(void)
--{
--	static const struct x86_cpu_id cpu_ids[] = {
--		{ X86_VENDOR_INTEL, 6, 55 }, /* Valleyview, Bay Trail */
--		{}
--	};
--
--	if (!x86_match_cpu(cpu_ids))
--		return false;
--	return true;
--}
--
- struct acpi_chan_package {   /* ACPICA seems to require 64 bit integers */
- 	u64 aif_value;       /* 1: AIF1, 2: AIF2 */
- 	u64 mclock_value;    /* usually 25MHz (0x17d7940), ignored */
-@@ -585,7 +573,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
- 	 * swap SSP0 if bytcr is detected
- 	 * (will be overridden if DMI quirk is detected)
- 	 */
--	if (is_valleyview()) {
-+	if (soc_intel_is_byt()) {
- 		if (mach->mach_params.acpi_ipc_irq_index == 0)
- 			is_bytcr = true;
- 	}
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index e441dc979966..355fd9730a44 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -10,8 +10,6 @@
- #include <linux/module.h>
- #include <linux/platform_device.h>
- #include <linux/dmi.h>
--#include <asm/cpu_device_id.h>
--#include <asm/intel-family.h>
- #include <sound/core.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
-@@ -21,6 +19,7 @@
- #include <sound/soc-acpi.h>
- #include "../../codecs/rt5682.h"
- #include "../../codecs/hdac_hdmi.h"
-+#include "../common/soc-intel-quirks.h"
- 
- #define NAME_SIZE 32
- 
-@@ -304,12 +303,6 @@ static struct snd_soc_card sof_audio_card_rt5682 = {
- 	.late_probe = sof_card_late_probe,
- };
- 
--static const struct x86_cpu_id legacy_cpi_ids[] = {
--	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ATOM_SILVERMONT }, /* Baytrail */
--	{ X86_VENDOR_INTEL, 6, INTEL_FAM6_ATOM_AIRMONT }, /* Cherrytrail */
--	{}
--};
--
- static struct snd_soc_dai_link_component rt5682_component[] = {
- 	{
- 		.name = "i2c-10EC5682:00",
-@@ -498,7 +491,7 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	if (!ctx)
- 		return -ENOMEM;
- 
--	if (x86_match_cpu(legacy_cpi_ids)) {
-+	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
- 		dmic_num = 0;
- 		hdmi_num = 0;
-diff --git a/sound/soc/intel/common/soc-intel-quirks.h b/sound/soc/intel/common/soc-intel-quirks.h
-new file mode 100644
-index 000000000000..4718fd3cf636
---- /dev/null
-+++ b/sound/soc/intel/common/soc-intel-quirks.h
-@@ -0,0 +1,115 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * soc-intel-quirks.h - prototypes for quirk autodetection
-+ *
-+ * Copyright (c) 2019, Intel Corporation.
-+ *
-+ */
-+
-+#ifndef _SND_SOC_INTEL_QUIRKS_H
-+#define _SND_SOC_INTEL_QUIRKS_H
-+
-+#if IS_ENABLED(CONFIG_X86)
-+
-+#include <asm/cpu_device_id.h>
-+#include <asm/intel-family.h>
-+#include <asm/iosf_mbi.h>
-+
-+#define ICPU(model)	{ X86_VENDOR_INTEL, 6, model, X86_FEATURE_ANY, }
-+
-+#define SOC_INTEL_IS_CPU(soc, type)				\
-+static inline bool soc_intel_is_##soc(void)			\
-+{								\
-+	static const struct x86_cpu_id soc##_cpu_ids[] = {	\
-+		ICPU(type),					\
-+		{}						\
-+	};							\
-+	const struct x86_cpu_id *id;				\
-+								\
-+	id = x86_match_cpu(soc##_cpu_ids);			\
-+	if (id)							\
-+		return true;					\
-+	return false;						\
-+}
-+
-+SOC_INTEL_IS_CPU(byt, INTEL_FAM6_ATOM_SILVERMONT);
-+SOC_INTEL_IS_CPU(cht, INTEL_FAM6_ATOM_AIRMONT);
-+SOC_INTEL_IS_CPU(apl, INTEL_FAM6_ATOM_GOLDMONT);
-+SOC_INTEL_IS_CPU(glk, INTEL_FAM6_ATOM_GOLDMONT_PLUS);
-+
-+static inline bool soc_intel_is_byt_cr(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	int status = 0;
-+
-+	if (!soc_intel_is_byt())
-+		return false;
-+
-+	if (iosf_mbi_available()) {
-+		u32 bios_status;
-+
-+		status = iosf_mbi_read(BT_MBI_UNIT_PMC, /* 0x04 PUNIT */
-+				       MBI_REG_READ, /* 0x10 */
-+				       0x006, /* BIOS_CONFIG */
-+				       &bios_status);
-+
-+		if (status) {
-+			dev_err(dev, "could not read PUNIT BIOS_CONFIG\n");
-+		} else {
-+			/* bits 26:27 mirror PMIC options */
-+			bios_status = (bios_status >> 26) & 3;
-+
-+			if (bios_status == 1 || bios_status == 3) {
-+				dev_info(dev, "Detected Baytrail-CR platform\n");
-+				return true;
-+			}
-+
-+			dev_info(dev, "BYT-CR not detected\n");
-+		}
-+	} else {
-+		dev_info(dev, "IOSF_MBI not available, no BYT-CR detection\n");
-+	}
-+
-+	if (!platform_get_resource(pdev, IORESOURCE_IRQ, 5)) {
-+		/*
-+		 * Some devices detected as BYT-T have only a single IRQ listed,
-+		 * causing platform_get_irq with index 5 to return -ENXIO.
-+		 * The correct IRQ in this case is at index 0, as on BYT-CR.
-+		 */
-+		dev_info(dev, "Falling back to Baytrail-CR platform\n");
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+#else
-+
-+static inline bool soc_intel_is_byt_cr(struct platform_device *pdev)
-+{
-+	return false;
-+}
-+
-+static inline bool soc_intel_is_byt(void)
-+{
-+	return false;
-+}
-+
-+static inline bool soc_intel_is_cht(void)
-+{
-+	return false;
-+}
-+
-+static inline bool soc_intel_is_apl(void)
-+{
-+	return false;
-+}
-+
-+static inline bool soc_intel_is_glk(void)
-+{
-+	return false;
-+}
-+
-+#endif
-+
-+ #endif /* _SND_SOC_INTEL_QUIRKS_H */
-diff --git a/sound/soc/sof/sof-acpi-dev.c b/sound/soc/sof/sof-acpi-dev.c
-index 38062dd00dd2..93a8e15bbd2c 100644
---- a/sound/soc/sof/sof-acpi-dev.c
-+++ b/sound/soc/sof/sof-acpi-dev.c
-@@ -15,10 +15,7 @@
- #include <sound/soc-acpi.h>
- #include <sound/soc-acpi-intel-match.h>
- #include <sound/sof.h>
--#ifdef CONFIG_X86
--#include <asm/iosf_mbi.h>
--#endif
--
-+#include "../intel/common/soc-intel-quirks.h"
- #include "ops.h"
- 
- /* platform specific devices */
-@@ -105,56 +102,6 @@ static const struct sof_dev_desc sof_acpi_baytrail_desc = {
- 	.arch_ops = &sof_xtensa_arch_ops
- };
- 
--#ifdef CONFIG_X86 /* TODO: move this to common helper */
--
--static bool is_byt_cr(struct platform_device *pdev)
--{
--	struct device *dev = &pdev->dev;
--	int status;
--
--	if (iosf_mbi_available()) {
--		u32 bios_status;
--		status = iosf_mbi_read(BT_MBI_UNIT_PMC, /* 0x04 PUNIT */
--				       MBI_REG_READ, /* 0x10 */
--				       0x006, /* BIOS_CONFIG */
--				       &bios_status);
--
--		if (status) {
--			dev_err(dev, "could not read PUNIT BIOS_CONFIG\n");
--		} else {
--			/* bits 26:27 mirror PMIC options */
--			bios_status = (bios_status >> 26) & 3;
--
--			if (bios_status == 1 || bios_status == 3) {
--				dev_info(dev, "Detected Baytrail-CR platform\n");
--				return true;
--			}
--
--			dev_info(dev, "BYT-CR not detected\n");
--		}
--	} else {
--		dev_info(dev, "IOSF_MBI not available, no BYT-CR detection\n");
--	}
--
--	if (platform_get_resource(pdev, IORESOURCE_IRQ, 5) == NULL) {
--		/*
--		 * Some devices detected as BYT-T have only a single IRQ listed,
--		 * causing platform_get_irq with index 5 to return -ENXIO.
--		 * The correct IRQ in this case is at index 0, as on BYT-CR.
--		 */
--		dev_info(dev, "Falling back to Baytrail-CR platform\n");
--		return true;
--	}
--
--	return false;
--}
--#else
--static int is_byt_cr(struct platform_device *pdev)
--{
--	return 0;
--}
--#endif
--
- static const struct sof_dev_desc sof_acpi_cherrytrail_desc = {
- 	.machines = snd_soc_acpi_intel_cherrytrail_machines,
- 	.resindex_lpe_base = 0,
-@@ -209,7 +156,7 @@ static int sof_acpi_probe(struct platform_device *pdev)
- 		return -ENODEV;
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_BAYTRAIL)
--	if (desc == &sof_acpi_baytrail_desc && is_byt_cr(pdev))
-+	if (desc == &sof_acpi_baytrail_desc && soc_intel_is_byt_cr(pdev))
- 		desc = &sof_acpi_baytrailcr_desc;
- #endif
- 
--- 
-2.20.1
+In the past, we discussed about moving UCM files and topology out of the 
+alsa-lib umbrella (and clarify what the license is for these 
+configuration files), it's probably a good time to revisit this.
+
+> 
+> Speaking for distributions, we need to correctly identify the driver which
+> will load the proper firmware files. From notes posted to the alsa-devel ML,
+> it seems that there are three drivers for similar hardware (sound bridges) now
+> and it is not easy to identify the proper driver, because the similar PCI ID
+> is registered in all of them:
+> 
+> 1) legacy HDA
+> 2) sound/soc/intel
+> 3) sound/soc/sof/intel
+> 
+> Do not forget that the distributions include all driver modules in their
+> universal kernels. It seems like a problem for the Intel hardware at the
+> moment. Perhaps, you may give us some recommendations / hints.
+
+Yes, I've started working on this, it's part of the same "distro 
+enabling" discussion.
+In most of the cases, the legacy HDaudio driver can be used, unless 
+there are DMICs attached. I submitted an RFC to try to add an 
+auto-detection.
+I also added a build-time exclusion between SOF and SST drivers, and a 
+smarter run-time detection I am still working on.
+
+> 
+> Totaly another topic is the on-demand installation of firmware files (and
+> eventually ALSA configuration files). The linux-firmware package has over
+> 180MB now and it's growing. It makes sense to install only useable firmware
+> files - ommit the files for hardware / drivers which are not detected and
+> used. It's probably a topic for linux-firmware rather then the ALSA project.
+
+Indeed, for SOF we already have 6 or 7 firmwares for different SOCs and 
+all the possible topologies.
 
 _______________________________________________
 Alsa-devel mailing list

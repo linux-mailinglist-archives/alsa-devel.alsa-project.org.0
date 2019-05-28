@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC7EF2C9E3
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 17:13:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7502D2C9A8
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 17:09:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62118180B;
-	Tue, 28 May 2019 17:12:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62118180B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BED22181A;
+	Tue, 28 May 2019 17:08:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BED22181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559056383;
-	bh=/4T3TG4yHtUP9LMEW68K6I8sUmwwuEeuahSxJrGfqMc=;
+	s=default; t=1559056146;
+	bh=60zbxhxoT6ucmkhwgmS8WCagYLvMhPn0L7gJ3u6tM2s=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=DPSow4liiHfcLo/GhANa3fG9axnD0I0H+eZtZBD5bwtcyADIZ55MXqbjcqy1qQsCv
-	 s3axNWJuKQyZXnRUQrp/2jbdm0XmtwoWUAkWCHQ1CycI5dP4mAdjEiDKTb39md3NLC
-	 qaX+0zl46AzMJZsArbM1M9phug0NWDO97R9smSUg=
+	b=qETEdkh7BPzLGLxzDpoRdERBPdEoULE/68UD079d75A+A9huCPpPNi+Mi2pU+DMYK
+	 SPUIULzA/IRdbaKXU1Zf2ZswlcjUL7Ij3S43B7zZlIDfk8sIEPckifN05HRQ01UzZj
+	 MaQ0GWC/2JKNM3QPPbUc0K9lQk2Ncg5JwJgpAIWo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90DBBF8974E;
-	Tue, 28 May 2019 17:07:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40EF9F89733;
+	Tue, 28 May 2019 17:07:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C761F8973F; Tue, 28 May 2019 17:07:11 +0200 (CEST)
+ id B1FDBF89719; Tue, 28 May 2019 17:07:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E37AF8970A
- for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 17:07:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E37AF8970A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A871F8065A
+ for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 17:06:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A871F8065A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="T2nwxDOI"
+ header.b="gnZ1JzN8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=lD31eoku3vRt5Ge3ug74axH4Ju4xcKQdmUJ79hzhrhs=; b=T2nwxDOISSVw
- VK7Vuj3cAmMhLEtdcxylX6QuxmpngwN+NNgLiTH1jXBJSxbtS8pCWJYCA4ncsyfWMW3U8NFQK19rK
- qJhfPkNqifqtWsEBwQPkG8zksc6qhn9ab4yDX2bs6XP/Hxae2htoHgiFf+gXHtAqTwIn34eGD2L9N
- gEXa8=;
+ List-Archive; bh=PUvnzbZrTZ31zd48XHGvEZHvYsigwu0xnoy3Ezetm/0=; b=gnZ1JzN8Sj4F
+ uwv4A+rAOJ5Gn9rPnW4+ArTSB2btmpcVIgGZIirNzUf73F6ED69MrAu/ycA+bi+4JphzFPii50s1k
+ Fm3hPCOTXPOn2tnTKWyW3r/+53g0rNXPqj+ilwZSkiH04E7eG1mgbi4NiFAbgeHEMDZ5kIEa9aO+U
+ Kq9/k=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hVdgm-0002ni-Mb; Tue, 28 May 2019 15:06:56 +0000
+ id 1hVdgm-0002nf-3V; Tue, 28 May 2019 15:06:56 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id D09C7440046; Tue, 28 May 2019 16:06:55 +0100 (BST)
+ id 5341D440049; Tue, 28 May 2019 16:06:55 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-In-Reply-To: <9b280f9ce894e4e2ea7259db505cbe1a3e00120e.1558702660.git-series.maxime.ripard@bootlin.com>
+To: Colin Ian King <colin.king@canonical.com>
+In-Reply-To: <20190524222551.26573-1-colin.king@canonical.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190528150655.D09C7440046@finisterre.sirena.org.uk>
+Message-Id: <20190528150655.5341D440049@finisterre.sirena.org.uk>
 Date: Tue, 28 May 2019 16:06:55 +0100 (BST)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "dt-bindings: sound: sun4i-i2s: Document that
-	the RX channel can be missing" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Simon Ho <simon.ho@conexant.com>,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: cx2072x: fix integer overflow on
+	unsigned int multiply" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   dt-bindings: sound: sun4i-i2s: Document that the RX channel can be missing
+   ASoC: cx2072x: fix integer overflow on unsigned int multiply
 
 has been applied to the asoc tree at
 
@@ -116,102 +115,39 @@ to this mail.
 Thanks,
 Mark
 
-From eb5b12843b067d685a8d7a191b928b07934b2d02 Mon Sep 17 00:00:00 2001
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-Date: Fri, 24 May 2019 14:57:59 +0200
-Subject: [PATCH] dt-bindings: sound: sun4i-i2s: Document that the RX channel
- can be missing
+From be0461048b60066eaba9046178fb96e78579af21 Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Fri, 24 May 2019 23:25:51 +0100
+Subject: [PATCH] ASoC: cx2072x: fix integer overflow on unsigned int multiply
 
-The A83t and compatibles controllers don't have any reception capabilities
-on some instances of the controllers, even though it was never documented
-as such in the binding before.
+In the case where frac_div larger than 96 the result of an unsigned
+multiplication overflows an unsigned int.  For example, this can
+happen when the sample_rate is 192000 and pll_input is 122.  Fix
+this by casing the first term of the mutiply to a u64. Also remove
+the extraneous parentheses around the expression.
 
-Therefore, on those controllers, we don't have the option to set an RX DMA
-channel.
-
-This was already done in the DTSI, but the binding itself was never
-updated. Let's add a special case in the schemas.
-
-Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
+Addresses-Coverity: ("Unintentional integer overflow")
+Fixes: a497a4363706 ("ASoC: Add support for Conexant CX2072X CODEC")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../sound/allwinner,sun4i-a10-i2s.yaml        | 52 +++++++++++++++----
- 1 file changed, 42 insertions(+), 10 deletions(-)
+ sound/soc/codecs/cx2072x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml
-index 85b2d6d84055..eb3992138eec 100644
---- a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml
-+++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-i2s.yaml
-@@ -41,19 +41,11 @@ properties:
-       - const: apb
-       - const: mod
- 
--  dmas:
--    items:
--      - description: RX DMA Channel
--      - description: TX DMA Channel
--
--  dma-names:
--    items:
--      - const: rx
--      - const: tx
--
-   # Even though it only applies to subschemas under the conditionals,
-   # not listing them here will trigger a warning because of the
-   # additionalsProperties set to false.
-+  dmas: true
-+  dma-names: true
-   resets:
-     maxItems: 1
- 
-@@ -72,6 +64,46 @@ allOf:
-       required:
-         - resets
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: allwinner,sun8i-a83t-i2s
-+
-+    then:
-+      properties:
-+        dmas:
-+          minItems: 1
-+          maxItems: 2
-+          items:
-+            - description: RX DMA Channel
-+            - description: TX DMA Channel
-+          description:
-+            Some controllers cannot receive but can only transmit
-+            data. In such a case, the RX DMA channel is to be omitted.
-+
-+        dma-names:
-+          oneOf:
-+            - items:
-+                - const: rx
-+                - const: tx
-+            - const: tx
-+          description:
-+            Some controllers cannot receive but can only transmit
-+            data. In such a case, the RX name is to be omitted.
-+
-+    else:
-+      properties:
-+        dmas:
-+          items:
-+            - description: RX DMA Channel
-+            - description: TX DMA Channel
-+
-+        dma-names:
-+          items:
-+            - const: rx
-+            - const: tx
-+
- required:
-   - "#sound-dai-cells"
-   - compatible
+diff --git a/sound/soc/codecs/cx2072x.c b/sound/soc/codecs/cx2072x.c
+index c11a585bbf70..ed762546eaee 100644
+--- a/sound/soc/codecs/cx2072x.c
++++ b/sound/soc/codecs/cx2072x.c
+@@ -627,7 +627,7 @@ static int cx2072x_config_pll(struct cx2072x_priv *cx2072x)
+ 	if (frac_div) {
+ 		frac_div *= 1000;
+ 		frac_div /= pll_input;
+-		frac_num = ((4000 + frac_div) * ((1 << 20) - 4));
++		frac_num = (u64)(4000 + frac_div) * ((1 << 20) - 4);
+ 		do_div(frac_num, 7);
+ 		frac = ((u32)frac_num + 499) / 1000;
+ 	}
 -- 
 2.20.1
 

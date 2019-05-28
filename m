@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14802BC70
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 02:11:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 513462BCC4
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 03:17:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E13017C6;
-	Tue, 28 May 2019 02:11:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E13017C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id C761F17C6;
+	Tue, 28 May 2019 03:16:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C761F17C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559002319;
-	bh=OcIqoICXFYT1myoAT8fzHtU1me7JVbofoFDrRBO/5Bs=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559006235;
+	bh=6kUfgeY5IZVIfrZJYICEzx5Fk/7DRDunwfjqQnysI9g=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BKsVCXXuQ0aecwgKu2nQ19N+UePE56iferkzGyx963MRTdRuXJl7hd7aFrXJZ8TkJ
-	 BOBp8wYVCyWwD+1dk9BX9deBZ84QAegG550lwCnYeAulU0WxcptZBkw2MOdSgegVCi
-	 aJikT3cJxaOnkTQNE/GTDzpxqW/W4mztXQALRAgo=
+	b=u2ny95a6nRs79E8Vo0h7O64hoCVhGblIYqkEZRYhEsPIILemZB9bYDzd493XQvjhH
+	 X9IbGW71eAwAMBQAFnzEtrU0KUBa70Dc0aItJOaxuY6vBXbnlVTlnjw/YAvonrg02R
+	 UqT45NDrBJYMFZIyLIj5Ci6RxJbG61WA3o9wXmFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C2DCF896E8;
-	Tue, 28 May 2019 02:10:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31926F896E0;
+	Tue, 28 May 2019 03:15:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 800C1F896E4; Tue, 28 May 2019 02:10:12 +0200 (CEST)
+ id C1098F896E4; Tue, 28 May 2019 03:15:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ACA7FF8065A
- for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 02:10:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA7FF8065A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 May 2019 17:10:06 -0700
-X-ExtLoop1: 1
-Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
- by orsmga006.jf.intel.com with ESMTP; 27 May 2019 17:10:06 -0700
-Received: from fmsmsx152.amr.corp.intel.com (10.18.125.5) by
- FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Mon, 27 May 2019 17:10:05 -0700
-Received: from shsmsx152.ccr.corp.intel.com (10.239.6.52) by
- FMSMSX152.amr.corp.intel.com (10.18.125.5) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Mon, 27 May 2019 17:10:05 -0700
-Received: from shsmsx101.ccr.corp.intel.com ([169.254.1.129]) by
- SHSMSX152.ccr.corp.intel.com ([169.254.6.18]) with mapi id 14.03.0415.000;
- Tue, 28 May 2019 08:10:03 +0800
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Takashi Iwai <tiwai@suse.de>, Bard liao <yung-chuan.liao@linux.intel.com>
-Thread-Topic: [PATCH 1/5] ALSA: hda - Force polling mode on CNL for fixing
- codec communication
-Thread-Index: AQHVFEixWNA3kWO/BU+fDK1ANpwxxKZ+D0cAgAGav0A=
-Date: Tue, 28 May 2019 00:10:02 +0000
-Message-ID: <567A313375B6F043A9BE3A1D9B8C6E7F0B43C750@SHSMSX101.ccr.corp.intel.com>
-References: <20190526165836.10867-1-yung-chuan.liao@linux.intel.com>
- <s5ha7f89wm7.wl-tiwai@suse.de>
-In-Reply-To: <s5ha7f89wm7.wl-tiwai@suse.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYTFmYzJjMzAtZDlmNi00ZjQ2LThjMmMtNDNkMDg3OWMzNzU4IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoidTdhSEgzeTJDQnJRMkRsZXZEbTBtcXZENzh0Rll0N1pLUDRlT3hCemVhODdZenk2bmpoQjFZblFGV3llalYrNCJ9
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.0.600.7
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3F2CF8072E
+ for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 03:15:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3F2CF8072E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
+ header.b="T1pOZQOa"; 
+ dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
+ header.b="T1pOZQOa"
+Received: by smtp.codeaurora.org (Postfix, from userid 1000)
+ id ED9D16087F; Tue, 28 May 2019 01:15:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
+ s=default; t=1559006121;
+ bh=FL1sv7z0DtNNU7NJWH/om9Nb33ulOXWRbeKjsNvPDU8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=T1pOZQOa9o79lDRwxq4hN8wq8bE4IQLGgjd/td898tqVsWDc6k/RAqEpUjimGcBDQ
+ gmIOinuZUMVbGjjBSWc2F4sj4GiUzdjzFQK8NJ/vPBqIfu/Ef2igV9GMTLOiUBjmdt
+ A4bxg5Ho0ZGDs5sHWaxsqYDxTT1n7b8nXWEJaRK4=
+Received: from [10.110.22.132] (i-global254.qualcomm.com [199.106.103.254])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ (Authenticated sender: bgoswami@smtp.codeaurora.org)
+ by smtp.codeaurora.org (Postfix) with ESMTPSA id 5A69A602F2;
+ Tue, 28 May 2019 01:15:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
+ s=default; t=1559006121;
+ bh=FL1sv7z0DtNNU7NJWH/om9Nb33ulOXWRbeKjsNvPDU8=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=T1pOZQOa9o79lDRwxq4hN8wq8bE4IQLGgjd/td898tqVsWDc6k/RAqEpUjimGcBDQ
+ gmIOinuZUMVbGjjBSWc2F4sj4GiUzdjzFQK8NJ/vPBqIfu/Ef2igV9GMTLOiUBjmdt
+ A4bxg5Ho0ZGDs5sHWaxsqYDxTT1n7b8nXWEJaRK4=
+DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 5A69A602F2
+Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ dmarc=none (p=none dis=none) header.from=codeaurora.org
+Authentication-Results: pdx-caf-mail.web.codeaurora.org;
+ spf=none smtp.mailfrom=bgoswami@codeaurora.org
+To: Mark Brown <broonie@kernel.org>
+References: <1558684467-11333-1-git-send-email-bgoswami@codeaurora.org>
+ <20190524112931.GB2456@sirena.org.uk>
+From: Banajit Goswami <bgoswami@codeaurora.org>
+Message-ID: <e65750b3-1fa6-e982-e695-4566f5e51e0c@codeaurora.org>
+Date: Mon, 27 May 2019 18:15:20 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Cc: "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>, "Yang,
- Libin" <libin.yang@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/5] ALSA: hda - Force polling mode on CNL
- for fixing codec communication
+In-Reply-To: <20190524112931.GB2456@sirena.org.uk>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, srinivas.kandagatla@linaro.org,
+ plai@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: Add a debug log to track DAPM widget
+	power up/down
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,85 +96,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> -----Original Message-----
-> From: Takashi Iwai [mailto:tiwai@suse.de]
-> Sent: Monday, May 27, 2019 3:37 PM
-> To: Bard liao <yung-chuan.liao@linux.intel.com>
-> Cc: broonie@kernel.org; alsa-devel@alsa-project.org;
-> liam.r.girdwood@linux.intel.com; pierre-louis.bossart@linux.intel.com; Liao,
-> Bard <bard.liao@intel.com>; Yang, Libin <libin.yang@intel.com>
-> Subject: Re: [PATCH 1/5] ALSA: hda - Force polling mode on CNL for fixing codec
-> communication
-> 
-> On Sun, 26 May 2019 18:58:32 +0200,
-> Bard liao wrote:
-> >
-> > From: Bard Liao <yung-chuan.liao@linux.intel.com>
-> >
-> > We observed the same issue as reported by commit
-> > a8d7bde23e7130686b7662
-> > ("ALSA: hda - Force polling mode on CFL for fixing codec
-> > communication") We don't have a better solution. So apply the same
-> workaround to CNL.
-> >
-> > Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> 
-> I think this should go to 5.2-rc, as it's a bug fix, so likely I'm going to take it soon
-> later.
-> 
-> The question is about the rest patches.  The patches 2-4 are basically to move
-> the polling handling into HDA-core, so they could be for 5.3.
-> And patch 5 is for SOF.  This is still an open question.  If this SOF fix is needed for
-> 5.2, all patches should go as well.
+Thanks Mark for the review!
 
-I am fine if patches 2-5 are for 5.3 :)
+On 5/24/2019 4:29 AM, Mark Brown wrote:
+> On Fri, May 24, 2019 at 12:54:27AM -0700, bgoswami@codeaurora.org wrote:
+>> From: Banajit Goswami <bgoswami@codeaurora.org>
+>>
+>> Add a debug log to help track widgets being powered-up and powered-down
+>> by DAPM.
+> We already have huge amounts of trace available via tracepoints and
+> having something on by default in the debug logs seems like it's going
+> to get very verbose for people who aren't specifically working on audio.
+> What's the advantage of adding dev_dbg() logs as well?
 
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> 
-> > ---
-> >  sound/pci/hda/hda_intel.c | 5 +++--
-> >  1 file changed, 3 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-> > index 2ec91085fa3e..a93468ffb85c 100644
-> > --- a/sound/pci/hda/hda_intel.c
-> > +++ b/sound/pci/hda/hda_intel.c
-> > @@ -375,6 +375,7 @@ enum {
-> >
-> >  #define IS_BXT(pci) ((pci)->vendor == 0x8086 && (pci)->device ==
-> > 0x5a98)  #define IS_CFL(pci) ((pci)->vendor == 0x8086 && (pci)->device
-> > == 0xa348)
-> > +#define IS_CNL(pci) ((pci)->vendor == 0x8086 && (pci)->device ==
-> > +0x9dc8)
-> >
-> >  static char *driver_short_names[] = {
-> >  	[AZX_DRIVER_ICH] = "HDA Intel",
-> > @@ -1700,8 +1701,8 @@ static int azx_create(struct snd_card *card, struct
-> pci_dev *pci,
-> >  	else
-> >  		chip->bdl_pos_adj = bdl_pos_adj[dev];
-> >
-> > -	/* Workaround for a communication error on CFL (bko#199007) */
-> > -	if (IS_CFL(pci))
-> > +	/* Workaround for a communication error on CFL (bko#199007) and
-> CNL */
-> > +	if (IS_CFL(pci) || IS_CNL(pci))
-> >  		chip->polling_mode = 1;
-> >
-> >  	err = azx_bus_init(chip, model[dev], &pci_hda_io_ops);
-> > --
-> > 2.17.1
-> >
+Having this debug statement helps collecting logs about DAPM widget power
+
+Up/Down sequence, which helps significantly during debugging. The 
+advantage of
+
+having the dev_dbg here are-
+
+1. Do not need to enable trace, which helps collecting logs, without 
+much know-how
+
+about audio or kernel
+
+2. Dynamic debug (using /sys/kernel/debug/dynamic_debug) can be enabled for
+
+either just this line of code, or, for the function containing this 
+debug statement.
+
+This way, logs can be collected just for the DAPM widget enable/disable, 
+and thereby
+
+avoid having the output logs filled with unwanted logs.
+
+3. Though I agree with you about the additional DAPM debug logs being 
+present for
+
+someone who may not be specifically working on Audio, based on the number of
+
+widgets in the audio path used, the number of prints should be limited 
+to only widget
+
+power on/off.
+
+-- 
+The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
+a Linux Foundation Collaborative Project
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

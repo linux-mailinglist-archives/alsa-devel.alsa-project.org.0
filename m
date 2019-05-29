@@ -2,67 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59882D12B
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 May 2019 23:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F44F2D386
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 03:55:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5442515E4;
-	Tue, 28 May 2019 23:46:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5442515E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2CEA1607;
+	Wed, 29 May 2019 03:54:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2CEA1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559080060;
-	bh=OdBwqzpgXXX/BkrFeCoW93K4u8ZSm/RmPs0SMRc5hY0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=m227ISN615dpg4QJA0G+FRvhGgRGcSzbqlYxJkG9/oZ/BB/d1P6FgO46bpJQTEjkE
-	 agkJfomkSty6pHcBKlfm5Pm714ozp98TG2lGLoBYVJJF9xh6gtYTQITwVzoYLOrrZP
-	 cabiPTkzfVNLoHahBU5u6Q2A6ij3I6AzaCe4d5AI=
+	s=default; t=1559094926;
+	bh=kBZhWVgbYejIAz8NClnuUrYhjcaaG7v1nFBFsSakYx8=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MlbGTFsOtp5lePZkpIeQ3k/2mU3OvawpCw3QFB4YCeABhk7ANSJL0z+9vDKuHRMlb
+	 vo1iH6LE0co6NhHoKmaBbuKtUUuZV8F7LfoERhEqPx/LJTTyD+L3frkbs9IB6i+lpa
+	 X9KMMybvDE640fRF+nc1hTG2BMrqHUopZH7wvDQs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D347BF89708;
-	Tue, 28 May 2019 23:45:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E58FDF896E0;
+	Wed, 29 May 2019 03:53:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85BC3F89706; Tue, 28 May 2019 23:45:53 +0200 (CEST)
+ id ECB9FF806E5; Wed, 29 May 2019 03:53:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8611F896B8
- for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 23:45:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8611F896B8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 May 2019 14:45:47 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga008.fm.intel.com with ESMTP; 28 May 2019 14:45:47 -0700
-Received: from msakib-mobl2.amr.corp.intel.com (unknown [10.254.189.121])
- by linux.intel.com (Postfix) with ESMTP id B0DDA580372;
- Tue, 28 May 2019 14:45:46 -0700 (PDT)
-To: Jaroslav Kysela <perex@perex.cz>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20190528200206.2793-1-perex@perex.cz>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2baa9302-3e1d-6710-ed3e-13122094f8b8@linux.intel.com>
-Date: Tue, 28 May 2019 16:45:46 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77F34F806E5
+ for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 03:53:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77F34F806E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Gf6uf9ZL"
+Received: by mail-pg1-x543.google.com with SMTP id w34so312196pga.12
+ for <alsa-devel@alsa-project.org>; Tue, 28 May 2019 18:53:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=GFkfdKcziRNK4G5X1v4GEXAK4KAxWzSyd1rG3iBhpqE=;
+ b=Gf6uf9ZLJFdbF2Tz3CtbEi5DpT7zoLEJswQZZlqfv62FlIUi96M62iFykxyCx2RZYV
+ C0EWTeRU33+5d03Ow2UeCv+x6g5nqmfFFS8E4ckBgSCnFQSrOu4oHjZQGBLMHlRlk/a0
+ xyKzPWHOb8+JXHFfNlpn7S5d70/n4j7ErVcoEuG8pyhICJeF1h7X8ynUwqEOgwNh/+4a
+ Wq7GggU3PYOAGWpkYx1bMMRvOAEqjCsY6JuY5zzUnCT1lwpm1+Y3zO1ABgcRm5TxbVBy
+ cKPdLbJvHwqb9VyIaVRYrS7ELRu2uxeerFeta0Mb/Mv76DWFRngOse4aSm1ZjdCgnHMW
+ fhjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=GFkfdKcziRNK4G5X1v4GEXAK4KAxWzSyd1rG3iBhpqE=;
+ b=M8Dqr+a2nd7HGX9X5gOJk6Qh2D+u3bJHy79zJzZDGtQtLIh1IJeWsYJVA4iKTnFtYK
+ DnCEu62OaAFZ7eZiYjTFSqc+q8QFdSxXg2iJKO08jbXc5HNjuQVqPUKaTZUPhaNzo3DT
+ 2WpVXjAV4yG4OCPrCiTVfkueTjyyvxT/T19MOpM4b/wBs7WmwlUEUK+NjP0u7/Myys/c
+ Wc74pQCJ84ZqkNDCityTRQG5KvAT0ePkGxA/803cYPT2S4XKwAiC1yrwfIquRGhCtnGO
+ /7yKGqG9tg40frHjF5Dpnxm/50uriNGyRcytPPaTEC8qX8SCQzUVpwoygB0m1t5RLg9s
+ 1N8g==
+X-Gm-Message-State: APjAAAWbMuwlCwyiXpnoS2ls9Vl8F5bw78rDxh7IBuZSMlw5udXJ4IJK
+ o9gTpX+BTuppzeUhYqdUnGs=
+X-Google-Smtp-Source: APXvYqxxWam7KfL/O/GisA3wPveL8l5MJwx68efl0AKePXCW1X8GjrVWOHqomHwq6xiE4jzisBH34g==
+X-Received: by 2002:a17:90a:35c1:: with SMTP id
+ r59mr2222430pjb.49.1559094809768; 
+ Tue, 28 May 2019 18:53:29 -0700 (PDT)
+Received: from zhanggen-UX430UQ ([66.42.35.75])
+ by smtp.gmail.com with ESMTPSA id l13sm3654097pjq.20.2019.05.28.18.53.18
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 May 2019 18:53:28 -0700 (PDT)
+Date: Wed, 29 May 2019 09:53:05 +0800
+From: Gen Zhang <blackgod016574@gmail.com>
+To: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
+ wen.yang99@zte.com.cn
+Message-ID: <20190529015305.GA4700@zhanggen-UX430UQ>
 MIME-Version: 1.0
-In-Reply-To: <20190528200206.2793-1-perex@perex.cz>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: uapi headers - add missing
- include for stdint.h
+Content-Disposition: inline
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] wcd9335: fix a incorrect use of kstrndup()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,115 +94,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+In wcd9335_codec_enable_dec(), 'widget_name' is allocated by kstrndup().
+However, according to doc: "Note: Use kmemdup_nul() instead if the size
+is known exactly." So we should use kmemdup_nul() here instead of
+kstrndup().
 
-On 5/28/19 3:02 PM, Jaroslav Kysela wrote:
-> The modified header files depend on types defined in <stdint.h>.
-
-Humm, not an objection but more a question: may I ask in which cases the 
-compilation would fail or what types were problematic? I see stdint.h 
-being used by only 3 files in include/uapi so not sure if we missed 
-something?
-Also we removed some of those files recently since they were not used by 
-the kernel, we only have abi.h, fw.h, header.h and tokens.h in this 
-directory, so that patch would not apply against Mark's tree.
-
-> 
-> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: Takashi Iwai <tiwai@suse.de>
-> Cc: Mark Brown <broonie@kernel.org>
-> ---
->   include/uapi/sound/sof/eq.h       | 4 ++++
->   include/uapi/sound/sof/fw.h       | 4 ++++
->   include/uapi/sound/sof/header.h   | 4 ++++
->   include/uapi/sound/sof/manifest.h | 4 ++++
->   include/uapi/sound/sof/trace.h    | 4 ++++
->   5 files changed, 20 insertions(+)
-> 
-> diff --git a/include/uapi/sound/sof/eq.h b/include/uapi/sound/sof/eq.h
-> index 666c2b6a3229..106d56e357e0 100644
-> --- a/include/uapi/sound/sof/eq.h
-> +++ b/include/uapi/sound/sof/eq.h
-> @@ -9,6 +9,10 @@
->   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_EQ_H__
->   #define __INCLUDE_UAPI_SOUND_SOF_USER_EQ_H__
->   
-> +#ifndef __KERNEL__
-> +#include <stdint.h>
-> +#endif
-> +
->   /* FIR EQ type */
->   
->   #define SOF_EQ_FIR_IDX_SWITCH	0
-> diff --git a/include/uapi/sound/sof/fw.h b/include/uapi/sound/sof/fw.h
-> index 1afca973eb09..4f2de19a3b86 100644
-> --- a/include/uapi/sound/sof/fw.h
-> +++ b/include/uapi/sound/sof/fw.h
-> @@ -13,6 +13,10 @@
->   #ifndef __INCLUDE_UAPI_SOF_FW_H__
->   #define __INCLUDE_UAPI_SOF_FW_H__
->   
-> +#ifndef __KERNEL__
-> +#include <stdint.h>
-> +#endif
-> +
->   #define SND_SOF_FW_SIG_SIZE	4
->   #define SND_SOF_FW_ABI		1
->   #define SND_SOF_FW_SIG		"Reef"
-> diff --git a/include/uapi/sound/sof/header.h b/include/uapi/sound/sof/header.h
-> index 7868990b0d6f..6a62ae8f0eb9 100644
-> --- a/include/uapi/sound/sof/header.h
-> +++ b/include/uapi/sound/sof/header.h
-> @@ -9,6 +9,10 @@
->   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_HEADER_H__
->   #define __INCLUDE_UAPI_SOUND_SOF_USER_HEADER_H__
->   
-> +#ifndef __KERNEL__
-> +#include <stdint.h>
-> +#endif
-> +
->   /*
->    * Header for all non IPC ABI data.
->    *
-> diff --git a/include/uapi/sound/sof/manifest.h b/include/uapi/sound/sof/manifest.h
-> index 2009ee30fad0..d57aa2bc4764 100644
-> --- a/include/uapi/sound/sof/manifest.h
-> +++ b/include/uapi/sound/sof/manifest.h
-> @@ -9,6 +9,10 @@
->   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_MANIFEST_H__
->   #define __INCLUDE_UAPI_SOUND_SOF_USER_MANIFEST_H__
->   
-> +#ifndef __KERNEL__
-> +#include <stdint.h>
-> +#endif
-> +
->   /* start offset for base FW module */
->   #define SOF_MAN_ELF_TEXT_OFFSET		0x2000
->   
-> diff --git a/include/uapi/sound/sof/trace.h b/include/uapi/sound/sof/trace.h
-> index ffa7288a0f16..1652bc08d576 100644
-> --- a/include/uapi/sound/sof/trace.h
-> +++ b/include/uapi/sound/sof/trace.h
-> @@ -9,6 +9,10 @@
->   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_TRACE_H__
->   #define __INCLUDE_UAPI_SOUND_SOF_USER_TRACE_H__
->   
-> +#ifndef __KERNEL__
-> +#include <stdint.h>
-> +#endif
-> +
->   /*
->    * Host system time.
->    *
-> 
-
+Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
+---
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index a04a7ce..85737fe 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -2734,7 +2734,7 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
+ 	char *dec;
+ 	u8 hpf_coff_freq;
+ 
+-	widget_name = kstrndup(w->name, 15, GFP_KERNEL);
++	widget_name = kmemdup_nul(w->name, 15, GFP_KERNEL);
+ 	if (!widget_name)
+ 		return -ENOMEM;
+ 
+---
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

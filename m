@@ -2,89 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 770AF2DC8C
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 14:17:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FCC72E084
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 17:06:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F1EC16DD;
-	Wed, 29 May 2019 14:16:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F1EC16DD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 000CE1667;
+	Wed, 29 May 2019 17:06:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 000CE1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559132227;
-	bh=uRnsYcmzEBnh6ndOne6oBvkGZCSB+9k1lnzj7c3Y2AU=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Aku9k4RALIbjcscV1e5uGuaOnvmA/sqW/PrS9qLtURQolfuZt5Dp6DN0k/+oCXVr7
-	 x3R1lFjOk6ysAR+1jtAUzS4JIimfiZ+3NOcpzVGt0O22eWBxNJr7T7pOIbG9bvFis/
-	 NRUiRlQqwkSyumPYWFld0B9lONkcMPhJ6VwDhjxg=
+	s=default; t=1559142417;
+	bh=XNzFf5zIT8x/OLmt9QXOPUMmFmhgx89JPoqNdsZj2Lw=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FWgBmKB07NIpzbUH6njTgtB9JZZhREhH5UDuCHKOQ2I5/v3ODbGN26M1Df37yu2ko
+	 lKWFaC/OjWpbBiZ8Sy75K0LvHi6fq3hm7whrT7dB+jKgX+4kucIs0pR5nS3k+OErqr
+	 f2oxmOuazR+0qovILYDEDThE+522KhKgJrLQz9Fg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 693BEF896E0;
-	Wed, 29 May 2019 14:15:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C3B7F896E4;
+	Wed, 29 May 2019 17:05:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8197BF896E4; Wed, 29 May 2019 14:15:20 +0200 (CEST)
+ id D4BBDF896E4; Wed, 29 May 2019 17:05:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-it1-f195.google.com (mail-it1-f195.google.com
- [209.85.166.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CC6FF8065A
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 14:15:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CC6FF8065A
-Received: by mail-it1-f195.google.com with SMTP id m141so3352757ita.3
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 05:15:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QZE90PbMQUMysN2cdrlqFeh9pTGQMp2qxHloA4A2Q7Q=;
- b=eoYW4MbAGVgsKwgivnyIt6wQQ5Pcfw+zXisjmMtQ1pZ0+JRPlCCDPoSPfSB78za+hO
- KVlCh4ajZD6M98ibw8SyqyKRqqOYtTxCKTcQBdzxij+9Exf/wQEKvtq2hI2/x+z0aIsU
- e61N/y4JmqqZGfrRCo2HSYJNWjU3D4ONsfyOk0bybBADLdhhSDINhgK+xxAuE36ftq9z
- wOejjriGxqbWS8o9VU0aL+LjTTIXd9Gw4pRn04QMvgMr5SQ5sXxEenEEVNgr7PZJC9R5
- iDM1WJt1BBCrAvlzLZnO07inB2Ck93g8Blrpdp4JKb+2hUW3tCuqeJJfxDJaUW5Zdr3i
- rX8w==
-X-Gm-Message-State: APjAAAWjBoqX+U90KP4angsLqAuWWOG4J+GOHdCmxc9FDOW8NrZh/IV8
- G6lh6auXpfVoD9Iq3OsWJAaJGBJzKEA=
-X-Google-Smtp-Source: APXvYqxJ+KiEHP8MHkOGl9EcPq5PtgtMmSfJ+OyQXBhrfkuYe+Xzm8fwN2a7fmn5rLHL87YYbX7uaQ==
-X-Received: by 2002:a24:53c4:: with SMTP id n187mr7296540itb.167.1559132113612; 
- Wed, 29 May 2019 05:15:13 -0700 (PDT)
-Received: from mail-it1-f179.google.com (mail-it1-f179.google.com.
- [209.85.166.179])
- by smtp.gmail.com with ESMTPSA id y7sm5759700ioa.77.2019.05.29.05.15.12
- for <alsa-devel@alsa-project.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 29 May 2019 05:15:12 -0700 (PDT)
-Received: by mail-it1-f179.google.com with SMTP id e184so3141550ite.1
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 05:15:12 -0700 (PDT)
-X-Received: by 2002:a24:5252:: with SMTP id d79mr6656156itb.14.1559132112561; 
- Wed, 29 May 2019 05:15:12 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A92BF806E5
+ for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 17:05:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A92BF806E5
+Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 5B4D2DBC006830ABF8D4;
+ Wed, 29 May 2019 23:05:00 +0800 (CST)
+Received: from localhost (10.177.31.96) by DGGEMS410-HUB.china.huawei.com
+ (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Wed, 29 May 2019
+ 23:04:53 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <matthias.bgg@gmail.com>, <kaichieh.chuang@mediatek.com>
+Date: Wed, 29 May 2019 23:04:37 +0800
+Message-ID: <20190529150437.19004-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-References: <1559040459-16488-1-git-send-email-georgii.staroselskii@emlid.com>
- <CAGb2v64osE5yVdpCxSRfpkaq2TqeUUiLUbr3wZWW1rawuqxW-Q@mail.gmail.com>
- <20190529102824.GN2456@sirena.org.uk>
-In-Reply-To: <20190529102824.GN2456@sirena.org.uk>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Wed, 29 May 2019 20:14:59 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67dFY+CYBLMe2p9tq6eS9J-SJqAgF-APGdXVjcqbp2Kxw@mail.gmail.com>
-Message-ID: <CAGb2v67dFY+CYBLMe2p9tq6eS9J-SJqAgF-APGdXVjcqbp2Kxw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- Danny Milosavljevic <dannym@scratchpost.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Georgii Staroselskii <georgii.staroselskii@emlid.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: sun4i-codec: fix first delay on
-	Speaker
+X-Originating-IP: [10.177.31.96]
+X-CFilter-Loop: Reflected
+Cc: YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH -next] ASoC: mediatek: Make some symbols static
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,22 +71,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, May 29, 2019 at 6:28 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Wed, May 29, 2019 at 10:34:25AM +0800, Chen-Yu Tsai wrote:
->
-> > I wonder if we shouldn't just keep the amplifier section powered up
-> > all the time.
-> > Also it seems not very many codec drivers go all out with DAPM.
->
-> Leaving the amplifier powered up all the time is going to burn a lot of
-> power and make any pop/click issues in the inputs more apparent.
+Fix sparse warnings:
 
-Sounds like this patch is a better compromise. Thanks for the insight.
+sound/soc/mediatek/common/mtk-btcvsd.c:410:5: warning: symbol 'mtk_btcvsd_write_to_bt' was not declared. Should it be static?
+sound/soc/mediatek/common/mtk-btcvsd.c:698:9: warning: symbol 'mtk_btcvsd_snd_read' was not declared. Should it be static?
+sound/soc/mediatek/common/mtk-btcvsd.c:779:9: warning: symbol 'mtk_btcvsd_snd_write' was not declared. Should it be static?
 
-The patch is
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ sound/soc/mediatek/common/mtk-btcvsd.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-Reviewed-by: Chen-Yu Tsai <wens@csie.org>
+diff --git a/sound/soc/mediatek/common/mtk-btcvsd.c b/sound/soc/mediatek/common/mtk-btcvsd.c
+index bd55c546e790..c7a81c4be068 100644
+--- a/sound/soc/mediatek/common/mtk-btcvsd.c
++++ b/sound/soc/mediatek/common/mtk-btcvsd.c
+@@ -407,11 +407,11 @@ static int mtk_btcvsd_read_from_bt(struct mtk_btcvsd_snd *bt,
+ 	return 0;
+ }
+ 
+-int mtk_btcvsd_write_to_bt(struct mtk_btcvsd_snd *bt,
+-			   enum bt_sco_packet_len packet_type,
+-			   unsigned int packet_length,
+-			   unsigned int packet_num,
+-			   unsigned int blk_size)
++static int mtk_btcvsd_write_to_bt(struct mtk_btcvsd_snd *bt,
++				  enum bt_sco_packet_len packet_type,
++				  unsigned int packet_length,
++				  unsigned int packet_num,
++				  unsigned int blk_size)
+ {
+ 	unsigned int i;
+ 	unsigned long flags;
+@@ -695,9 +695,9 @@ static int wait_for_bt_irq(struct mtk_btcvsd_snd *bt,
+ 	return 0;
+ }
+ 
+-ssize_t mtk_btcvsd_snd_read(struct mtk_btcvsd_snd *bt,
+-			    char __user *buf,
+-			    size_t count)
++static ssize_t mtk_btcvsd_snd_read(struct mtk_btcvsd_snd *bt,
++				   char __user *buf,
++				   size_t count)
+ {
+ 	ssize_t read_size = 0, read_count = 0, cur_read_idx, cont;
+ 	unsigned int cur_buf_ofs = 0;
+@@ -776,9 +776,9 @@ ssize_t mtk_btcvsd_snd_read(struct mtk_btcvsd_snd *bt,
+ 	return read_count;
+ }
+ 
+-ssize_t mtk_btcvsd_snd_write(struct mtk_btcvsd_snd *bt,
+-			     char __user *buf,
+-			     size_t count)
++static ssize_t mtk_btcvsd_snd_write(struct mtk_btcvsd_snd *bt,
++				    char __user *buf,
++				    size_t count)
+ {
+ 	int written_size = count, avail = 0, cur_write_idx, write_size, cont;
+ 	unsigned int cur_buf_ofs = 0;
+-- 
+2.17.1
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

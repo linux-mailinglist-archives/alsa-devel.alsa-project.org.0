@@ -2,72 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A58C32D608
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 09:15:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24C742D6D8
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 09:46:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCDBF1695;
-	Wed, 29 May 2019 09:14:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCDBF1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 996EA1698;
+	Wed, 29 May 2019 09:45:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 996EA1698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559114146;
-	bh=L7j1xhUk75MeNrWjRCPfCqj2I9VQocn/MDQiK61JWs8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559115962;
+	bh=UWWT/6NmKJjJEx8GaZXU8g5F5GeT5D65qhnia8uTj00=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HrJ72E2r5Pc+j6eS9fmlBVS9gTVPjCkkTJUADzc7Xr+oIbRst5hEC6zmL70fjY8+A
-	 w8aRiLe3MDKLIozA7R3f3smRf5R5dCfrZHo91Ic7PIKkdVfJltKMSLrZTQA7XDTNw1
-	 eBw57JbLOSc+QwfxUbSDiSy4gsg0+wYLG8FqdbmY=
+	b=bcpZHp8Rr8jjk7J33xE0NEsTg2/S9kyEOdDLTaw30aq2bzS8voAgLI0DvT/h9xnBQ
+	 WTmdNh9xGbPNDnVv3woAL5BV5RzinVo0EiN8H+u5LqXNL3yZCa3xucEEbUaYB98vnD
+	 NiK+wgFDTcF7QsrG4lYSAaAXLjRtGyh9j6961kE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0209AF8072E;
-	Wed, 29 May 2019 09:14:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDDFCF896E4;
+	Wed, 29 May 2019 09:44:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA22BF896E4; Wed, 29 May 2019 09:14:00 +0200 (CEST)
+ id 32B85F896E4; Wed, 29 May 2019 09:44:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 321BCF8065A
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 09:13:57 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5CB5CA003F;
- Wed, 29 May 2019 09:13:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5CB5CA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1559114037; bh=i8w/zRxpCTpqX4BDPhGHKKHNaz3IikIsBmgW7qF0Bo8=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=OgJZ97gWwpcKcV9lB9f1kkFjd7WCmod+PKnWGJgnrzzPoGyMotVGECQAF+DkQUH48
- 21ymm+HUkeEFXwCrlr2ttgqZ4aXqB+YWiy5FPfkQ4WB95FbPLitzz/9P+CfuqTsKCN
- YUgI0/wV53OHOME67cGGI+wl3RBYB7Um/iBUwF4U=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 29 May 2019 09:13:52 +0200 (CEST)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20190528200206.2793-1-perex@perex.cz>
- <2baa9302-3e1d-6710-ed3e-13122094f8b8@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <286ab50b-b0ac-3e98-b4c6-c0304b7414f7@perex.cz>
-Date: Wed, 29 May 2019 09:13:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <2baa9302-3e1d-6710-ed3e-13122094f8b8@linux.intel.com>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: uapi headers - add missing
- include for stdint.h
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 97E2CF8065A
+ for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 09:44:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97E2CF8065A
+Date: 29 May 2019 16:44:05 +0900
+X-IronPort-AV: E=Sophos;i="5.60,526,1549897200"; d="scan'208";a="17263108"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 29 May 2019 16:44:05 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DFD614001DCA
+ for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 16:44:05 +0900 (JST)
+Message-ID: <87r28hwwfp.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Linux-ALSA <alsa-devel@alsa-project.org>
+In-Reply-To: <87tvddx2wg.wl-kuninori.morimoto.gx@renesas.com>
+References: <87zhn5x5id.wl-kuninori.morimoto.gx@renesas.com>
+ <87tvddx2wg.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Subject: Re: [alsa-devel] Question about topology component probing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,126 +68,175 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 28. 05. 19 v 23:45 Pierre-Louis Bossart napsal(a):
-> Hi Jaroslav,
-> 
-> On 5/28/19 3:02 PM, Jaroslav Kysela wrote:
->> The modified header files depend on types defined in <stdint.h>.
-> 
-> Humm, not an objection but more a question: may I ask in which cases the 
-> compilation would fail or what types were problematic? I see stdint.h 
-> being used by only 3 files in include/uapi so not sure if we missed 
-> something?
 
-We have some automatic tests in our kernel integration, so the uapi headers
-should be useable standalone. But looking further to the uapi tree,
-uapi/scsi/scsi_bsg_fc.h does not have stdint.h include statement, too. So the
-situation is not black and white. I will recommend to add explicit include of
-stdint.h to our test. Please, ignore this patch.
+Hi ALSA ML, again
 
-					Thanks,
-						Jaroslav
+> Hmm... it seems my brain is broken today... (not only today ?)
+> Previous mail is mixing unrelated things...
+> Please ignore it.
 
-> Also we removed some of those files recently since they were not used by 
-> the kernel, we only have abi.h, fw.h, header.h and tokens.h in this 
-> directory, so that patch would not apply against Mark's tree.
-> 
->>
->> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
->> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
->> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> Cc: Takashi Iwai <tiwai@suse.de>
->> Cc: Mark Brown <broonie@kernel.org>
->> ---
->>   include/uapi/sound/sof/eq.h       | 4 ++++
->>   include/uapi/sound/sof/fw.h       | 4 ++++
->>   include/uapi/sound/sof/header.h   | 4 ++++
->>   include/uapi/sound/sof/manifest.h | 4 ++++
->>   include/uapi/sound/sof/trace.h    | 4 ++++
->>   5 files changed, 20 insertions(+)
->>
->> diff --git a/include/uapi/sound/sof/eq.h b/include/uapi/sound/sof/eq.h
->> index 666c2b6a3229..106d56e357e0 100644
->> --- a/include/uapi/sound/sof/eq.h
->> +++ b/include/uapi/sound/sof/eq.h
->> @@ -9,6 +9,10 @@
->>   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_EQ_H__
->>   #define __INCLUDE_UAPI_SOUND_SOF_USER_EQ_H__
->>   
->> +#ifndef __KERNEL__
->> +#include <stdint.h>
->> +#endif
->> +
->>   /* FIR EQ type */
->>   
->>   #define SOF_EQ_FIR_IDX_SWITCH	0
->> diff --git a/include/uapi/sound/sof/fw.h b/include/uapi/sound/sof/fw.h
->> index 1afca973eb09..4f2de19a3b86 100644
->> --- a/include/uapi/sound/sof/fw.h
->> +++ b/include/uapi/sound/sof/fw.h
->> @@ -13,6 +13,10 @@
->>   #ifndef __INCLUDE_UAPI_SOF_FW_H__
->>   #define __INCLUDE_UAPI_SOF_FW_H__
->>   
->> +#ifndef __KERNEL__
->> +#include <stdint.h>
->> +#endif
->> +
->>   #define SND_SOF_FW_SIG_SIZE	4
->>   #define SND_SOF_FW_ABI		1
->>   #define SND_SOF_FW_SIG		"Reef"
->> diff --git a/include/uapi/sound/sof/header.h b/include/uapi/sound/sof/header.h
->> index 7868990b0d6f..6a62ae8f0eb9 100644
->> --- a/include/uapi/sound/sof/header.h
->> +++ b/include/uapi/sound/sof/header.h
->> @@ -9,6 +9,10 @@
->>   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_HEADER_H__
->>   #define __INCLUDE_UAPI_SOUND_SOF_USER_HEADER_H__
->>   
->> +#ifndef __KERNEL__
->> +#include <stdint.h>
->> +#endif
->> +
->>   /*
->>    * Header for all non IPC ABI data.
->>    *
->> diff --git a/include/uapi/sound/sof/manifest.h b/include/uapi/sound/sof/manifest.h
->> index 2009ee30fad0..d57aa2bc4764 100644
->> --- a/include/uapi/sound/sof/manifest.h
->> +++ b/include/uapi/sound/sof/manifest.h
->> @@ -9,6 +9,10 @@
->>   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_MANIFEST_H__
->>   #define __INCLUDE_UAPI_SOUND_SOF_USER_MANIFEST_H__
->>   
->> +#ifndef __KERNEL__
->> +#include <stdint.h>
->> +#endif
->> +
->>   /* start offset for base FW module */
->>   #define SOF_MAN_ELF_TEXT_OFFSET		0x2000
->>   
->> diff --git a/include/uapi/sound/sof/trace.h b/include/uapi/sound/sof/trace.h
->> index ffa7288a0f16..1652bc08d576 100644
->> --- a/include/uapi/sound/sof/trace.h
->> +++ b/include/uapi/sound/sof/trace.h
->> @@ -9,6 +9,10 @@
->>   #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_TRACE_H__
->>   #define __INCLUDE_UAPI_SOUND_SOF_USER_TRACE_H__
->>   
->> +#ifndef __KERNEL__
->> +#include <stdint.h>
->> +#endif
->> +
->>   /*
->>    * Host system time.
->>    *
->>
-> 
+My spaghetti head becoming better, I believe.
+Then, I could sorting the question, thus, I renamed the Subject.
 
+I wonder about topology component doesn't need probing ?
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+(1) snd_soc_instantiate_card() binds all (normal) components
+(2) And binded components will be probed.
+(3) Some components with topology might be added
+(4) Find new (= topology added) DAI and bind them
+
+	static int snd_soc_instantiate_card(struct snd_soc_card *card)
+	{
+		...
+		/* probe normal components here */
+		for_each_card_prelinks(card, i, dai_link) {
+(1)=>			ret = soc_bind_dai_link(card, dai_link);
+			if (ret != 0)
+				goto probe_end;
+		}
+		...
+		/* add predefined DAI links to the list */
+		for_each_card_prelinks(card, i, dai_link)
+(A)=>			snd_soc_add_dai_link(card, dai_link);
+		...
+		/* probe all components used by DAI links on this card */
+		for_each_comp_order(order) {
+			for_each_card_rtds(card, rtd) {
+(2)=>				ret = soc_probe_link_components(card, rtd, order);
+				...
+				}
+			}
+		}
+		...
+		/* initialise the sound card only once */
+		if (card->probe) {
+(3)=>			ret = card->probe(card);
+			if (ret < 0)
+				goto probe_end;
+		}
+		...
+
+		for_each_card_links(card, dai_link) {
+			...
+(4)=>			ret = soc_bind_dai_link(card, dai_link);
+			...
+		}
+		...
+	}
+
+But, In my understanding, normal components are probed,
+but topology added components are not probed, because
+no one calls soc_probe_link_components() after (4).
+Does topology added components doesn't need probe ?
+
+It is checking the added component is already connected to card, or not.
+And it is calling try_module_get() for it.
+Currently, topology added component is no check for these, I think.
+
+This is very confusable for now
+(= I have plan to post cleanup patch around here...)
+so the pseudo code is like this
+
+	(1) normal component bind
+	(A) connect normal dai_link to card
+	(2) normal component probe
+	(3) topology might connect dai_link to card
+	(4) bind all component via card connected dai_link.
+	    But, the real target is topology added component.
+	(x) topology component probe is not called
+
+Here, (A) connects dai_link to card.
+This it is used here and from topology (3).
+This means, (1) and (4) can be merged, and all
+(= both normal and topology added) component can be probed
+if we can re-order like
+
+	(A) connect normal dai_link to card
+	(3) topology might connect dai_link to card
+	(4) bind all component via card connected dai_link.
+	(2) all component probe
+
+It works for me, but my board doesn't use topology.
+So I'm not sure topology side things.
+
+So my questions are
+
+	Q1 topology added component shouldn't be probed ?
+	Q2 normal component should be added before card probe / topology (= (3)) ?
+
+Or in other works, does attached patch works well under topology ?
+
+-----------------
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 2403bec..e3fce07 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2075,13 +2075,6 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 	/* check whether any platform is ignore machine FE and using topology */
+ 	soc_check_tplg_fes(card);
+ 
+-	/* bind DAIs */
+-	for_each_card_prelinks(card, i, dai_link) {
+-		ret = soc_bind_dai_link(card, dai_link);
+-		if (ret != 0)
+-			goto probe_end;
+-	}
+-
+ 	/* bind aux_devs too */
+ 	for (i = 0; i < card->num_aux_devs; i++) {
+ 		ret = soc_bind_aux_dev(card, i);
+@@ -2129,6 +2122,22 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 			goto probe_end;
+ 	}
+ 
++	/*
++	 * Find new DAI links added during probing components and bind them.
++	 * Components with topology may bring new DAIs and DAI links.
++	 */
++	for_each_card_links(card, dai_link) {
++		if (soc_is_dai_link_bound(card, dai_link))
++			continue;
++
++		ret = soc_init_dai_link(card, dai_link);
++		if (ret)
++			goto probe_end;
++		ret = soc_bind_dai_link(card, dai_link);
++		if (ret)
++			goto probe_end;
++	}
++
+ 	/* probe all components used by DAI links on this card */
+ 	for_each_comp_order(order) {
+ 		for_each_card_rtds(card, rtd) {
+@@ -2147,22 +2156,6 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 	if (ret < 0)
+ 		goto probe_end;
+ 
+-	/*
+-	 * Find new DAI links added during probing components and bind them.
+-	 * Components with topology may bring new DAIs and DAI links.
+-	 */
+-	for_each_card_links(card, dai_link) {
+-		if (soc_is_dai_link_bound(card, dai_link))
+-			continue;
+-
+-		ret = soc_init_dai_link(card, dai_link);
+-		if (ret)
+-			goto probe_end;
+-		ret = soc_bind_dai_link(card, dai_link);
+-		if (ret)
+-			goto probe_end;
+-	}
+-
+ 	/* probe all DAI links on this card */
+ 	for_each_comp_order(order) {
+ 		for_each_card_rtds(card, rtd) {
+-----------------
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

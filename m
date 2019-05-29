@@ -2,85 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B41D52D779
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 10:14:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 151EB2D96E
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 11:50:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EA05169C;
-	Wed, 29 May 2019 10:13:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EA05169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9457F169F;
+	Wed, 29 May 2019 11:49:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9457F169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559117688;
-	bh=+62ckRCn046fYD+jKp8qh9NqYsER9E19OOLQQ8uF0YE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1559123410;
+	bh=P2Kp9NLo29f0SEA97N1FpdNgMKk+HYzdv49dCjuGxGY=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V7cZvttqo+fGbAYggKj1rAKxb3i3WExBXoPh5RNlJJPiMIz9vU3se41WD+wwEpA9B
-	 H97sZZrVXfHPdkw7lL5g8aeir+oW1vj3AzP0fmBZuCJD+N5PMLZP8SxKTuUrwt2w99
-	 gE5BMnjPLqpGSl+KUg+CjhLRcyxQBOIqiO2kmnrM=
+	b=aQBg1K5AuHLvgeVTrGZbNorsip1sTNMkUoXv1e075zgCGLpQe15rHJyG4JWk4YdWD
+	 kLU0EcycRWKTWlHrMKyt1QhlG5eqhLFmXqomcBhGoB/lMHTmzw6PcfqLlmsR3+uw+H
+	 9Z3Y5CFWByVg41Pb76mbSh5+v7TkVAMDScBChjI0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C60BF896E4;
-	Wed, 29 May 2019 10:13:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06380F896E4;
+	Wed, 29 May 2019 11:48:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B52FF896E4; Wed, 29 May 2019 10:13:02 +0200 (CEST)
+ id 3BE18F896E4; Wed, 29 May 2019 11:48:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-f194.google.com (mail-lj1-f194.google.com
- [209.85.208.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 807CDF806E5
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 10:12:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 807CDF806E5
-Received: by mail-lj1-f194.google.com with SMTP id z5so1479627lji.10
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 01:12:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=a0don3TTA7MOPbrbjinj58BbWNizus2TjnpcpEnZ6h0=;
- b=LrwLRTLE38wyIqwA/6wExIQ47C1+PmT2rVAd1nm+NhDVS6is9MW9y4e7qEDiN8MEz3
- DEaHcqpA6FM2KWZJFTR1WaK3UfQ/s+oHlx0AaQOc8d7VU2gNzd3lBHHwJ8as/Fos+h17
- nPdXYZEB2sGIxYT0IiBOqKhhadEinUgyy4xricS4oA2HaCVbViW5VA1k+EbjDd5hS3um
- r0vhbMLHjOyD6+lE++ZbFNnOa89U853hAr6kegXCPzlXzAqoy9w1VMBTH2thqzQT4r2g
- wY4CEuVCgs4b7Yxyo2Pn0ZLFxuikrIURajoMpX7bpZtjrFmKI7mt4siC0x9FwBrfSM02
- jVmQ==
-X-Gm-Message-State: APjAAAVNNZuEspgXhGXfZJCBVBNEUKW2c17Cf0uIbSl/N/7wUOPxrPeq
- 6x6EbVPCzl80x6+g0aPPLQSkECu0610eFclp2+4=
-X-Google-Smtp-Source: APXvYqz+i9F0zk6NyMyWBavDhJq5T11k3LBK2MrgZ55YQ542TgvrWEs81N68J92wCzTKGRLDj79yXuvelmq9XTmatnU=
-X-Received: by 2002:a05:651c:150:: with SMTP id
- c16mr67589499ljd.65.1559117578478; 
- Wed, 29 May 2019 01:12:58 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4000FF8065A
+ for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 11:48:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4000FF8065A
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4T9dYYn017888; Wed, 29 May 2019 04:48:15 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail4.cirrus.com ([87.246.98.35])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2sq340mmgp-1;
+ Wed, 29 May 2019 04:48:15 -0500
+Received: from EDIEX01.ad.cirrus.com (ediex01.ad.cirrus.com [198.61.84.80])
+ by mail4.cirrus.com (Postfix) with ESMTP id 6B819611C8AC;
+ Wed, 29 May 2019 04:49:02 -0500 (CDT)
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 29 May
+ 2019 10:48:14 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Wed, 29 May 2019 10:48:14 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7EFE645;
+ Wed, 29 May 2019 10:48:14 +0100 (BST)
+Date: Wed, 29 May 2019 10:48:14 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Message-ID: <20190529094814.GH28362@ediswmail.ad.cirrus.com>
+References: <20190528154312.14435-1-ckeepax@opensource.cirrus.com>
+ <CAJZ5v0h28OAiT7KP=TLu069hNvYjCLoFndS+zx7_iE+jKfOF2w@mail.gmail.com>
 MIME-Version: 1.0
-References: <20190528142424.19626-1-geert@linux-m68k.org>
- <20190528142424.19626-2-geert@linux-m68k.org>
- <4b666e32-04b6-228a-691d-0745fa48a57f@lightnvm.io>
-In-Reply-To: <4b666e32-04b6-228a-691d-0745fa48a57f@lightnvm.io>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 29 May 2019 10:12:45 +0200
-Message-ID: <CAMuHMdVtM9NWSXbWE=XKOt3fiQdjWaDvLiYdXbbri-buDn7jpg@mail.gmail.com>
-To: =?UTF-8?Q?Matias_Bj=C3=B8rling?= <mb@lightnvm.io>
-Cc: linux-block@vger.kernel.org,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- linux-afs@lists.infradead.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, "David S . Miller" <davem@davemloft.net>,
- netdev <netdev@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Clemens Ladisch <clemens@ladisch.de>, Jamal Hadi Salim <jhs@mojatatu.com>,
- David Howells <dhowells@redhat.com>, Jiri Pirko <jiri@mellanox.com>,
- Cong Wang <xiyou.wangcong@gmail.com>, Joe Perches <joe@perches.com>,
- "Mohit P . Tahiliani" <tahiliani@nitk.edu.in>,
- Eran Ben Elisha <eranbe@mellanox.com>,
- Dan Carpenter <dan.carpenter@oracle.com>,
- Igor Konopko <igor.j.konopko@intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/5] lightnvm: Fix uninitialized pointer in
-	nvm_remove_tgt()
+Content-Disposition: inline
+In-Reply-To: <CAJZ5v0h28OAiT7KP=TLu069hNvYjCLoFndS+zx7_iE+jKfOF2w@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905290065
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, patches@opensource.cirrus.com,
+ Lee Jones <lee.jones@linaro.org>
+Subject: Re: [alsa-devel] [PATCH 1/6] device property: Add new array helper
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,43 +94,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgTWF0aWFzLAoKT24gV2VkLCBNYXkgMjksIDIwMTkgYXQgMTA6MDggQU0gTWF0aWFzIEJqw7hy
-bGluZyA8bWJAbGlnaHRudm0uaW8+IHdyb3RlOgo+IE9uIDUvMjgvMTkgNDoyNCBQTSwgR2VlcnQg
-VXl0dGVyaG9ldmVuIHdyb3RlOgo+ID4gV2l0aCBnY2MgNC4xOgo+ID4KPiA+ICAgICAgZHJpdmVy
-cy9saWdodG52bS9jb3JlLmM6IEluIGZ1bmN0aW9uIOKAmG52bV9yZW1vdmVfdGd04oCZOgo+ID4g
-ICAgICBkcml2ZXJzL2xpZ2h0bnZtL2NvcmUuYzo1MTA6IHdhcm5pbmc6IOKAmHTigJkgaXMgdXNl
-ZCB1bmluaXRpYWxpemVkIGluIHRoaXMgZnVuY3Rpb24KPiA+Cj4gPiBJbmRlZWQsIGlmIG5vIE5W
-TSBkZXZpY2VzIGhhdmUgYmVlbiByZWdpc3RlcmVkLCB0IHdpbGwgYmUgYW4KPiA+IHVuaW5pdGlh
-bGl6ZWQgcG9pbnRlciwgYW5kIG1heSBiZSBkZXJlZmVyZW5jZWQgbGF0ZXIuICBBIGNhbGwgdG8K
-PiA+IG52bV9yZW1vdmVfdGd0KCkgY2FuIGJlIHRyaWdnZXJlZCBmcm9tIHVzZXJzcGFjZSBieSBp
-c3N1aW5nIHRoZQo+ID4gTlZNX0RFVl9SRU1PVkUgaW9jdGwgb24gdGhlIGxpZ2h0bnZtIGNvbnRy
-b2wgZGV2aWNlLgo+ID4KPiA+IEZpeCB0aGlzIGJ5IHByZWluaXRpYWxpemluZyB0IHRvIE5VTEwu
-Cj4gPgo+ID4gRml4ZXM6IDg0M2YyZWRiZGRlMDg1YjQgKCJsaWdodG52bTogZG8gbm90IHJlbW92
-ZSBpbnN0YW5jZSB1bmRlciBnbG9iYWwgbG9jayIpCj4gPiBTaWduZWQtb2ZmLWJ5OiBHZWVydCBV
-eXR0ZXJob2V2ZW4gPGdlZXJ0QGxpbnV4LW02OGsub3JnPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMv
-bGlnaHRudm0vY29yZS5jIHwgMiArLQo+ID4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KyksIDEgZGVsZXRpb24oLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9saWdodG52bS9j
-b3JlLmMgYi9kcml2ZXJzL2xpZ2h0bnZtL2NvcmUuYwo+ID4gaW5kZXggMGRmNzQ1NDgzMmVmZTA4
-Mi4uYWEwMTdmNDhlYjhjNTg4YyAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvbGlnaHRudm0vY29y
-ZS5jCj4gPiArKysgYi9kcml2ZXJzL2xpZ2h0bnZtL2NvcmUuYwo+ID4gQEAgLTQ5Miw3ICs0OTIs
-NyBAQCBzdGF0aWMgdm9pZCBfX252bV9yZW1vdmVfdGFyZ2V0KHN0cnVjdCBudm1fdGFyZ2V0ICp0
-LCBib29sIGdyYWNlZnVsKQo+ID4gICAgKi8KPiA+ICAgc3RhdGljIGludCBudm1fcmVtb3ZlX3Rn
-dChzdHJ1Y3QgbnZtX2lvY3RsX3JlbW92ZSAqcmVtb3ZlKQo+ID4gICB7Cj4gPiAtICAgICBzdHJ1
-Y3QgbnZtX3RhcmdldCAqdDsKPiA+ICsgICAgIHN0cnVjdCBudm1fdGFyZ2V0ICp0ID0gTlVMTDsK
-PiA+ICAgICAgIHN0cnVjdCBudm1fZGV2ICpkZXY7Cj4gPgo+ID4gICAgICAgZG93bl9yZWFkKCZu
-dm1fbG9jayk7Cj4gPgo+Cj4gVGhhbmtzIEdlZXJ0LiBXb3VsZCB5b3UgbGlrZSBtZSB0byBjYXJy
-eSB0aGUgcGF0Y2g/CgpZZXMgcGxlYXNlLiBUaGFua3MhCgpHcntvZXRqZSxlZXRpbmd9cywKCiAg
-ICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0CgotLSAKR2VlcnQgVXl0dGVyaG9ldmVuIC0tIFRo
-ZXJlJ3MgbG90cyBvZiBMaW51eCBiZXlvbmQgaWEzMiAtLSBnZWVydEBsaW51eC1tNjhrLm9yZwoK
-SW4gcGVyc29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRlY2huaWNhbCBwZW9wbGUsIEkgY2FsbCBt
-eXNlbGYgYSBoYWNrZXIuIEJ1dAp3aGVuIEknbSB0YWxraW5nIHRvIGpvdXJuYWxpc3RzIEkganVz
-dCBzYXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBsaWtlIHRoYXQuCiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFsZHMKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1k
-ZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Tue, May 28, 2019 at 07:01:38PM +0200, Rafael J. Wysocki wrote:
+> On Tue, May 28, 2019 at 5:43 PM Charles Keepax
+> <ckeepax@opensource.cirrus.com> wrote:
+> >
+> > It is fairly common to want to read an integer array property
+> > that is composed of an unknown number of fixed size integer
+> > groups. For example, say each group consists of three values
+> > which correspond to the settings for one input on the device
+> > and the driver supports several chips with different numbers
+> > of inputs.
+> >
+> > Add a new helper function to provide this functionality, it
+> > differs for the existing helpers in that it allows reading a
+> > smaller number of values than the full array size and checks
+> > that the number of values read is a multiple of the group size.
+> 
+> As a rule, you need also CC all of the device property framework
+> changes to linux-acpi@vger.kernel.org, so please resend the series
+> with that taken into account.
+> 
+
+Sorry will resend with them included.
+
+Thanks,
+Charles
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

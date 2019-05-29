@@ -2,86 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151EB2D96E
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 11:50:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 440732D9CC
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 May 2019 11:59:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9457F169F;
-	Wed, 29 May 2019 11:49:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9457F169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4A8716A0;
+	Wed, 29 May 2019 11:58:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4A8716A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559123410;
-	bh=P2Kp9NLo29f0SEA97N1FpdNgMKk+HYzdv49dCjuGxGY=;
+	s=default; t=1559123973;
+	bh=EMX4qNrNh0y04KAljYj9fK+eKqhmz/pYzOijeESuo6E=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aQBg1K5AuHLvgeVTrGZbNorsip1sTNMkUoXv1e075zgCGLpQe15rHJyG4JWk4YdWD
-	 kLU0EcycRWKTWlHrMKyt1QhlG5eqhLFmXqomcBhGoB/lMHTmzw6PcfqLlmsR3+uw+H
-	 9Z3Y5CFWByVg41Pb76mbSh5+v7TkVAMDScBChjI0=
+	b=omM53/rCIsL708LyG9pun+mhrc3j6rnvOJDH4IWm0emHT5GYn/M7jCjCizEZQqMS3
+	 1MJS/3pVRUkBTOrrN8MPBiSVG0KtaQoR7u7xmOYd6W76s7ROwUTgHC5gm33SWDX7Q9
+	 6lxce/8rFf3tyb19mZJD9w3vjCl/WMX+bkIhCzQA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06380F896E4;
-	Wed, 29 May 2019 11:48:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CD6CF896E4;
+	Wed, 29 May 2019 11:57:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3BE18F896E4; Wed, 29 May 2019 11:48:23 +0200 (CEST)
+ id 7DB26F896E4; Wed, 29 May 2019 11:57:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4000FF8065A
- for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 11:48:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4000FF8065A
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4T9dYYn017888; Wed, 29 May 2019 04:48:15 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail4.cirrus.com ([87.246.98.35])
- by mx0a-001ae601.pphosted.com with ESMTP id 2sq340mmgp-1;
- Wed, 29 May 2019 04:48:15 -0500
-Received: from EDIEX01.ad.cirrus.com (ediex01.ad.cirrus.com [198.61.84.80])
- by mail4.cirrus.com (Postfix) with ESMTP id 6B819611C8AC;
- Wed, 29 May 2019 04:49:02 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 29 May
- 2019 10:48:14 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Wed, 29 May 2019 10:48:14 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 7EFE645;
- Wed, 29 May 2019 10:48:14 +0100 (BST)
-Date: Wed, 29 May 2019 10:48:14 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Message-ID: <20190529094814.GH28362@ediswmail.ad.cirrus.com>
-References: <20190528154312.14435-1-ckeepax@opensource.cirrus.com>
- <CAJZ5v0h28OAiT7KP=TLu069hNvYjCLoFndS+zx7_iE+jKfOF2w@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3EC2F8065A
+ for <alsa-devel@alsa-project.org>; Wed, 29 May 2019 11:57:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3EC2F8065A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="mn/7Y1LZ"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="XISi7eb0"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id A37261B2A;
+ Wed, 29 May 2019 05:57:41 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Wed, 29 May 2019 05:57:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:content-transfer-encoding:in-reply-to; s=fm1; bh=U
+ v/IO1lpsMhYefZCZE7IzUSu7PAH6TRG1LbnuRgviM4=; b=mn/7Y1LZeF5WEZX9C
+ kyxZtrcWF3ULGfrAWaVTCu5SVtlugVE3VqZmjWKq6xRLw16HfohMo8gWCyfoiTDU
+ 8ddDr3hcah8IDP6Hys4o8IC2EdotB5aWhP8EraoIMIJh7rSxM+BKMMZLl9NkVZnK
+ u8d8d3Tq/d+bMYPb6BDrLZqiB9tpWxyCpNDdk+W8+YDBdrWfUs98RZG9TU53K7Dz
+ JzBTbjFIf3kdd64Cj3KvVjOeVIk0m+zXZwZfm3VO+qvQIqvJ5VIncx8ff7FI9cB1
+ yNg71nTx/SLC0V1NRLStXOGxLLLNq2SftFdwZcoJwvxVzm0f9yJ9xJHcvbMQXOqS
+ f9JWA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=Uv/IO1lpsMhYefZCZE7IzUSu7PAH6TRG1LbnuRgvi
+ M4=; b=XISi7eb0l5udJyx94Grx8xbNBu9uDmTspw9Ab8MZI6lurhPep2RI+RxCG
+ ZQTte0gx97SzC5lbqL/OsmzePdtwqlKhCnCKwx+J0wQH/g8awSkdq4a1owukWtLA
+ pSl7na4swI9Jn5vGwVD9JNDTU+FqQo7zHiwOYrXVPzhmvKU0bhF2leedTKJqnsWJ
+ ZtZ3NyH7sqtqulHulH6p8cFT/inzGk9BoRibxUJQCqYn7HfABDtSJ4wgJtcE93Dn
+ ubSwIKAl5IYPjRHsfy/9y3A9uQnHlGjBxilfoFBwIobYLPZxf0MeJIy/dpZ66Cd6
+ VespO6do/dcNZaF/vdhqkw+ACdFLw==
+X-ME-Sender: <xms:k1fuXLxZbQcc-ANNiTUK7UBI2sL_vR5WZupSdrUc2A253Dtx8L_3pw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddruddvjedgvdefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtugfgjggfsehtkeertddtreejnecuhfhrohhmpefvrghk
+ rghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhih
+ drjhhpqeenucfkphepudegrdefrdejhedrudekudenucfrrghrrghmpehmrghilhhfrhho
+ mhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphenucevlhhushhtvghruf
+ hiiigvpedt
+X-ME-Proxy: <xmx:k1fuXDqJLSpSTXkTZTciZs27YxisYeoGB6fGIVbV6inmjPgmkZdzug>
+ <xmx:k1fuXDzlPHfLKSKrwsKOVVoZfcm6NUzgWaAMmPe5QrZQEgSnVBAz3g>
+ <xmx:k1fuXCurnFtFsjwzcDFGDUTFxiwmFbRMHUebTfAZecsGB5BQqUsLjQ>
+ <xmx:lVfuXHp1xBd2evfpTHfjZBexRzt3oLWMlb8KBbQqAvRZxYLnnEZERg>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 59261380084;
+ Wed, 29 May 2019 05:57:34 -0400 (EDT)
+Date: Wed, 29 May 2019 18:57:31 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20190529095730.GA7089@workstation>
+Mail-Followup-To: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Igor Konopko <igor.j.konopko@intel.com>,
+ David Howells <dhowells@redhat.com>,
+ "Mohit P . Tahiliani" <tahiliani@nitk.edu.in>,
+ Eran Ben Elisha <eranbe@mellanox.com>,
+ Matias Bjorling <mb@lightnvm.io>, Jiri Pirko <jiri@mellanox.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Jamal Hadi Salim <jhs@mojatatu.com>,
+ Cong Wang <xiyou.wangcong@gmail.com>,
+ Clemens Ladisch <clemens@ladisch.de>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Joe Perches <joe@perches.com>, Arnd Bergmann <arnd@arndb.de>,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ linux-block@vger.kernel.org, netdev@vger.kernel.org,
+ linux-afs@lists.infradead.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+References: <20190528142424.19626-1-geert@linux-m68k.org>
+ <20190528142424.19626-5-geert@linux-m68k.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAJZ5v0h28OAiT7KP=TLu069hNvYjCLoFndS+zx7_iE+jKfOF2w@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1905290065
-Cc: Mark Rutland <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, patches@opensource.cirrus.com,
- Lee Jones <lee.jones@linaro.org>
-Subject: Re: [alsa-devel] [PATCH 1/6] device property: Add new array helper
+In-Reply-To: <20190528142424.19626-5-geert@linux-m68k.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-block@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Clemens Ladisch <clemens@ladisch.de>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, "David S . Miller" <davem@davemloft.net>,
+ David Howells <dhowells@redhat.com>, Jiri Pirko <jiri@mellanox.com>,
+ Cong Wang <xiyou.wangcong@gmail.com>, Joe Perches <joe@perches.com>,
+ "Mohit P . Tahiliani" <tahiliani@nitk.edu.in>,
+ Matias Bjorling <mb@lightnvm.io>, Eran Ben Elisha <eranbe@mellanox.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Igor Konopko <igor.j.konopko@intel.com>
+Subject: Re: [alsa-devel] [PATCH 4/5] ALSA: fireface: Use ULL suffixes for
+	64-bit constants
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,37 +136,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, May 28, 2019 at 07:01:38PM +0200, Rafael J. Wysocki wrote:
-> On Tue, May 28, 2019 at 5:43 PM Charles Keepax
-> <ckeepax@opensource.cirrus.com> wrote:
-> >
-> > It is fairly common to want to read an integer array property
-> > that is composed of an unknown number of fixed size integer
-> > groups. For example, say each group consists of three values
-> > which correspond to the settings for one input on the device
-> > and the driver supports several chips with different numbers
-> > of inputs.
-> >
-> > Add a new helper function to provide this functionality, it
-> > differs for the existing helpers in that it allows reading a
-> > smaller number of values than the full array size and checks
-> > that the number of values read is a multiple of the group size.
-> 
-> As a rule, you need also CC all of the device property framework
-> changes to linux-acpi@vger.kernel.org, so please resend the series
-> with that taken into account.
-> 
-
-Sorry will resend with them included.
-
-Thanks,
-Charles
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGksCgpPbiBUdWUsIE1heSAyOCwgMjAxOSBhdCAwNDoyNDoyM1BNICswMjAwLCBHZWVydCBVeXR0
+ZXJob2V2ZW4gd3JvdGU6Cj4gV2l0aCBnY2MgNC4xOgo+IAo+ICAgICBzb3VuZC9maXJld2lyZS9m
+aXJlZmFjZS9mZi1wcm90b2NvbC1sYXR0ZXIuYzogSW4gZnVuY3Rpb24g4oCYbGF0dGVyX3N3aXRj
+aF9mZXRjaGluZ19tb2Rl4oCZOgo+ICAgICBzb3VuZC9maXJld2lyZS9maXJlZmFjZS9mZi1wcm90
+b2NvbC1sYXR0ZXIuYzo5Nzogd2FybmluZzogaW50ZWdlciBjb25zdGFudCBpcyB0b28gbGFyZ2Ug
+Zm9yIOKAmGxvbmfigJkgdHlwZQo+ICAgICBzb3VuZC9maXJld2lyZS9maXJlZmFjZS9mZi1wcm90
+b2NvbC1sYXR0ZXIuYzogSW4gZnVuY3Rpb24g4oCYbGF0dGVyX2JlZ2luX3Nlc3Npb27igJk6Cj4g
+ICAgIHNvdW5kL2ZpcmV3aXJlL2ZpcmVmYWNlL2ZmLXByb3RvY29sLWxhdHRlci5jOjE3MDogd2Fy
+bmluZzogaW50ZWdlciBjb25zdGFudCBpcyB0b28gbGFyZ2UgZm9yIOKAmGxvbmfigJkgdHlwZQo+
+ICAgICBzb3VuZC9maXJld2lyZS9maXJlZmFjZS9mZi1wcm90b2NvbC1sYXR0ZXIuYzoxOTc6IHdh
+cm5pbmc6IGludGVnZXIgY29uc3RhbnQgaXMgdG9vIGxhcmdlIGZvciDigJhsb25n4oCZIHR5cGUK
+PiAgICAgc291bmQvZmlyZXdpcmUvZmlyZWZhY2UvZmYtcHJvdG9jb2wtbGF0dGVyLmM6MjA1OiB3
+YXJuaW5nOiBpbnRlZ2VyIGNvbnN0YW50IGlzIHRvbyBsYXJnZSBmb3Ig4oCYbG9uZ+KAmSB0eXBl
+Cj4gICAgIHNvdW5kL2ZpcmV3aXJlL2ZpcmVmYWNlL2ZmLXByb3RvY29sLWxhdHRlci5jOiBJbiBm
+dW5jdGlvbiDigJhsYXR0ZXJfZmluaXNoX3Nlc3Npb27igJk6Cj4gICAgIHNvdW5kL2ZpcmV3aXJl
+L2ZpcmVmYWNlL2ZmLXByb3RvY29sLWxhdHRlci5jOjIxNDogd2FybmluZzogaW50ZWdlciBjb25z
+dGFudCBpcyB0b28gbGFyZ2UgZm9yIOKAmGxvbmfigJkgdHlwZQo+IAo+IEZpeCB0aGlzIGJ5IGFk
+ZGluZyB0aGUgbWlzc2luZyAiVUxMIiBzdWZmaXhlcy4KPiBBZGQgdGhlIHNhbWUgc3VmZml4IHRv
+IHRoZSBsYXN0IGNvbnN0YW50LCB0byBtYWludGFpbiBjb25zaXN0ZW5jeS4KPiAKPiBGaXhlczog
+ZmQxY2M5ZGU2NGMyY2E2YyAoIkFMU0E6IGZpcmVmYWNlOiBhZGQgc3VwcG9ydCBmb3IgRmlyZWZh
+Y2UgVUNYIikKPiBTaWduZWQtb2ZmLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0QGxpbnV4
+LW02OGsub3JnPgo+IC0tLQo+ICBzb3VuZC9maXJld2lyZS9maXJlZmFjZS9mZi1wcm90b2NvbC1s
+YXR0ZXIuYyB8IDEwICsrKysrLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygr
+KSwgNSBkZWxldGlvbnMoLSkKClRoYW5rcyBmb3IgeW91ciBjYXJlLgoKUmV2aWV3ZWQtYnk6IFRh
+a2FzaGkgU2FrYW1vdG8gPG8tdGFrYXNoaUBzYWthbW9jY2hpLmpwPgoKPiBkaWZmIC0tZ2l0IGEv
+c291bmQvZmlyZXdpcmUvZmlyZWZhY2UvZmYtcHJvdG9jb2wtbGF0dGVyLmMgYi9zb3VuZC9maXJl
+d2lyZS9maXJlZmFjZS9mZi1wcm90b2NvbC1sYXR0ZXIuYwo+IGluZGV4IGM4MjM2ZmY4OWI3ZmI5
+ZGUuLmIzMGQwMmQzNTliMWQyMWIgMTAwNjQ0Cj4gLS0tIGEvc291bmQvZmlyZXdpcmUvZmlyZWZh
+Y2UvZmYtcHJvdG9jb2wtbGF0dGVyLmMKPiArKysgYi9zb3VuZC9maXJld2lyZS9maXJlZmFjZS9m
+Zi1wcm90b2NvbC1sYXR0ZXIuYwo+IEBAIC05LDExICs5LDExIEBACj4gIAo+ICAjaW5jbHVkZSAi
+ZmYuaCIKPiAgCj4gLSNkZWZpbmUgTEFUVEVSX1NURgkJMHhmZmZmMDAwMDAwMDQKPiAtI2RlZmlu
+ZSBMQVRURVJfSVNPQ19DSEFOTkVMUwkweGZmZmYwMDAwMDAwOAo+IC0jZGVmaW5lIExBVFRFUl9J
+U09DX1NUQVJUCTB4ZmZmZjAwMDAwMDBjCj4gLSNkZWZpbmUgTEFUVEVSX0ZFVENIX01PREUJMHhm
+ZmZmMDAwMDAwMTAKPiAtI2RlZmluZSBMQVRURVJfU1lOQ19TVEFUVVMJMHgwMDAwODAxYzAwMDAK
+PiArI2RlZmluZSBMQVRURVJfU1RGCQkweGZmZmYwMDAwMDAwNFVMTAo+ICsjZGVmaW5lIExBVFRF
+Ul9JU09DX0NIQU5ORUxTCTB4ZmZmZjAwMDAwMDA4VUxMCj4gKyNkZWZpbmUgTEFUVEVSX0lTT0Nf
+U1RBUlQJMHhmZmZmMDAwMDAwMGNVTEwKPiArI2RlZmluZSBMQVRURVJfRkVUQ0hfTU9ERQkweGZm
+ZmYwMDAwMDAxMFVMTAo+ICsjZGVmaW5lIExBVFRFUl9TWU5DX1NUQVRVUwkweDAwMDA4MDFjMDAw
+MFVMTAo+ICAKPiAgc3RhdGljIGludCBwYXJzZV9jbG9ja19iaXRzKHUzMiBkYXRhLCB1bnNpZ25l
+ZCBpbnQgKnJhdGUsCj4gIAkJCSAgICBlbnVtIHNuZF9mZl9jbG9ja19zcmMgKnNyYykKPiAtLSAK
+PiAyLjE3LjEKPiAKCgpSZWdhcmRzCgpUYWthc2hpIFNha2Ftb3RvCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFs
+c2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

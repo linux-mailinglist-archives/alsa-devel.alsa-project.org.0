@@ -2,74 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7E8E2FBB2
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 14:43:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CDBC2FEAF
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 16:58:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6777286F;
-	Thu, 30 May 2019 14:42:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6777286F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94EE81612;
+	Thu, 30 May 2019 16:57:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94EE81612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559220197;
-	bh=Zi3ERW4EVrY4IdjUy3CfcQMUiVNeVMjGlw0DwY9QSU8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559228288;
+	bh=wojVYtolnmcDTzZ0JeYrOv/Gz0oj6SsxzEeou4aRNEE=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rGpTb8607sAJZHcUuaEFY5g6u2UPvJR4DPP5WBwK4kp7TjjsoM4uPreeKnSa3KcqD
-	 quf9cFCLNDZiZWodjqNKHZjMhcinHzDjeYZnnhzHI4GZ4G0kGATDJk8XtQceBsYMTf
-	 wk3JNI4eC8wwoqScWnXgj2tou3nXILR+p6OWx8e8=
+	b=ObFXbH71Gxrdw+KLBMJu0lQTA+tZNXqExXfYLsLTVKTSYlotYDsda3hnAuhzSvOkL
+	 0gFaYb/swNjpNQ0Vwqw611PChtUg003Z8ZF+u2wOxulSBpqNg5Ir/oVQRHA4gv4Wmx
+	 n9L6EyFWfnlofpJuj7LbFCD+o1m8WbrtWrgQWeNg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E046CF89708;
-	Thu, 30 May 2019 14:41:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2C957F89706;
+	Thu, 30 May 2019 16:56:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F245AF8065A; Thu, 30 May 2019 14:41:29 +0200 (CEST)
+ id E465EF896F8; Thu, 30 May 2019 16:56:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D1AFF8065A
- for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 14:41:26 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 46CB7A0042;
- Thu, 30 May 2019 14:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 46CB7A0042
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1559220086; bh=3m8n53lXrTxbN/WYAKdchrAB4VpRtm8qBxlAQKccrqU=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=ktmpuOdUPKfkWYqKmHy8fe0tEl2MTTvxP8MQcJoFa+wWm01D+dXxo8K97k5pBEGcX
- ldZv6zjhEi5ZgMeWixYtyYOALzh3LVVWSAAGGOZ/MEwfS6MIi3oH89pu4DnMf1wUao
- 09uwNJB7KRVOg8B7rxo4W2VxYnq+HMzeEwMQnZx8=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 30 May 2019 14:41:23 +0200 (CEST)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <s5hblzmvdcq.wl-tiwai@suse.de>
- <9668d632-c5c9-5114-39cb-0e8a105a547c@perex.cz>
- <9d5ef75c-9b28-3998-865d-a958b7aaaa75@linux.intel.com>
- <b11570d9-6b46-e162-eb91-22e81bfa17bd@perex.cz>
- <9e1dc0e5-dd6a-1f4a-b141-152e61fdbc03@linux.intel.com>
- <83fbde51-e6ad-9254-31c1-1ce6a343cb2c@perex.cz>
- <ee93ea27-1dd4-57ff-3b91-ac0576525b65@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <06e5b7d1-6b8f-7a96-f362-1d823294b8a9@perex.cz>
-Date: Thu, 30 May 2019 14:41:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C9ABF8072E
+ for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 16:56:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C9ABF8072E
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4UEnlnl015082; Thu, 30 May 2019 09:56:15 -0500
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2sq24q6b6t-1;
+ Thu, 30 May 2019 09:56:14 -0500
+Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
+ by mail1.cirrus.com (Postfix) with ESMTP id 562BE611E122;
+ Thu, 30 May 2019 09:56:14 -0500 (CDT)
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Thu, 30 May
+ 2019 15:56:13 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Thu, 30 May 2019 15:56:13 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B292D44;
+ Thu, 30 May 2019 15:56:13 +0100 (BST)
+Date: Thu, 30 May 2019 15:56:13 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Message-ID: <20190530145613.GJ28362@ediswmail.ad.cirrus.com>
+References: <87woi9x4ho.wl-kuninori.morimoto.gx@renesas.com>
+ <20190529103439.GI28362@ediswmail.ad.cirrus.com>
+ <87zhn4g6g3.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-In-Reply-To: <ee93ea27-1dd4-57ff-3b91-ac0576525b65@linux.intel.com>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] SOF firmware/ucm/topology packaging
+Content-Disposition: inline
+In-Reply-To: <87zhn4g6g3.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1905300106
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Question about dapm setup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,120 +94,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 30. 05. 19 v 13:21 Pierre-Louis Bossart napsal(a):
+On Thu, May 30, 2019 at 09:12:10AM +0900, Kuninori Morimoto wrote:
+> But, it was my fault, the question was not clear.
+> I wanted to know was that there are many non dapm functions
+> are called between dapm setup.
+> pseudo code is..
 > 
->>>>>> The same situation is for the SoC SOF firmware files (drivers are
->>>>>> in kernel, firmware files are missing). Perhaps, we can release those files
->>>>>> quickly in alsa-firmware and then migrate them slowly to linux-firmware.
->>>>>
->>>>> for SOF there are 4 cases
->>>>>
->>>>> 1. developers/integrators build from scratch themselves from the public
->>>>> tree.
->>>>> 2. integrators build from scratch with their own secret sauce added.
->>>>> 3. distros want a binary since they don't want to build from source
->>>>> and/or don't have access to all the DSP tools
->>>>> 4. distros needs a binary signed with the Intel production key (e.g. to
->>>>> run on devices initially designed for Windows).
->>>>
->>>> Do you mean that the firmware should be signed because the hardware is doing a
->>>> check, if the hardware vendor enables it and rejects the unsigned binaries?
->>>
->>> It depends on the platforms.
->>> Baytrail/Cherrytrail/Broadwell don't need any signature.
->>> Starting with Skylake, the firmware is authenticated and the DSP will
->>> not boot unless it's signed with the relevant key, but different
->>> platforms chose different protections. Most of the Windows platforms use
->>> a strong authentication based on a non-public 'production key', which
->>> prevents people from installing their own firmware. Other solutions such
->>> as Up Squared boards or 2019 Chromebooks use a public key that is
->>> already part of the SOF tree.
->>> Unfortunately I didn't find a way to detect which key is used, and it's
->>> not wise to try multiple keys since it adds a lot of latency on startup,
->>> so we are leaning to use DMI-based quirks to detect which key is used by
->>> what.
->>
->> Any ETA when then signed firmware will be available?
+> It looks very random. So my original question was
+> can we do like this (with keeping dapm order)?
 > 
-> it's being productized as we speak and it's my understanding that SOF 
-> 1.3 will provide a signed firmware for recent chipsets.
-> 
->>>>> So far we were mostly dealing with case 1. Case 2 is allowed by the SOF
->>>>> permissive license and there's no need to look into this. We are
->>>>> planning releases for the last two cases, with a cadence aligned with
->>>>> kernel updates. It's not fully clear to me if the linux-firmware tree is
->>>>> the 'right' solution since ideally we'd want to have firmware, topology
->>>>> and UCM files released at the same time.
->>>>
->>>> Do you plan to create a new package for this? I can eventually offer the space
->>>> / docker build system on the ALSA server, if you like. The github releases
->>>> work fine, too. The question is, if it's the right way. It seems that the
->>>> firmware/topology files are read-only chunks used by the driver (standard
->>>> usage) and the UCM config is for alsa-lib (the user space). It might make
->>>> probably sense to add compatibility IDs to link/check the correct parts
->>>> together at runtime and keep the standard (binary) code distribution for the
->>>> most of users (linux-firmware / alsa-lib).
->>>
->>> There is a connection mostly between topology and UCM: the device
->>> numbers used for the PCM streams have to match. If you add/remove a
->>> stream in the topology, then UCM will use numbers that aren't quite
->>> right. Same if you have a volume control used in UCM, you need to make
->>> sure that volume control is actually part of the topology.
->>>
->>> In the past, we discussed about moving UCM files and topology out of the
->>> alsa-lib umbrella (and clarify what the license is for these
->>> configuration files), it's probably a good time to revisit this.
->>
->> It is also the packaging issue. This situation complicates the package
->> dependency tree. Basically, it might not be ideal to force users to install
->> extra package to support the specific hardware platform with fw/ucm/tplg
->> files. On the other side, there is no reason to have those bits installed on
->> system where the hardware does not exist. There should be an automatic way to
->> install the required bits on demand in the distribution in my opinion. I know,
->> it's not your issue.
->>
->> I see those ways:
->>
->> 1) package everything hw specific to one package (fw/ucm/tplg), let distros to
->> handle the automatic installation when the hardware is detected or the
->> integration to the current alsa-lib/linux-firmware packages to avoid on-demand
->> installation
->>
->> 2) use some versioning / linking IDs for the firmware/topology/ucm, so we can
->> have more topology/ucm files for one hardware; the driver can use the
->> component field in the ALSA's control interface to notify the user space which
->> firmware / topology was loaded, so the correct UCM files can be used
-> 
-> Unfortunately that would not work. The UCM file needs to be aligned with 
-> the topology but also with the hardware peripherals used. The topology 
-> file only describes the DSP graph, all the way from PCM streams to DAIs. 
-> The platform hardware can be very different even when you use the same 
-> topology file. A simple example is that some platforms have a single 
-> speaker or others two. The mics may be analog or digital. That 
-> hardware-level information that UCM needs to know is not discoverable 
-> and we have to rely on DMI-based quirks to set a long name. Knowing 
-> which topology file was used will not help.
-> Even finding out which topology file is needed is not obvious. We 
-> currently use the codec ACPI ID as a key to look-up a set of static 
-> tables to figure out which firmware and topology files need to be used, 
-> but it's likely we will have multiple platforms which will end-up using 
-> the same generic topology even though they'd need a different one to 
-> account for form-factor or acoustics. Again we will have to use quirks here.
 
-I think that we're talking about different components. We have
-snd_component_add() function in the ALSA kernel core interface which can send
-any ASCII identification of used components to the user space (ALSA card
-level). So the driver can detect and describe the hardware in a more verbose
-way. We can use this string later in alsa-lib/ucm and load and use the proper
-UCM config based on the driver detection. So you may use quirks in the driver,
-compose the runtime ASCII component list and let alsa-lib to choose the right
-UCM config.
+Ah ok I see, sorry I understand now.
 
-					Jaroslav
+> 	static int snd_soc_instantiate_card(struct snd_soc_card *card)
+> 	{
+> 
+> =>		snd_soc_dapm_debugfs_init()
+> =>		snd_soc_dapm_new_controls(...)
+> =>		snd_soc_dapm_link_dai_widgets()
+> =>		snd_soc_dapm_connect_dai_link_widgets()
+> =>		snd_soc_add_card_controls()
+> =>		snd_soc_dapm_add_routes()
+> =>		snd_soc_dapm_new_widgets()
+> =>		dapm_mark_endpoints_dirty()
+> =>		snd_soc_dapm_sync()
+> 
+> 		card->probe(..)
+> 		soc_probe_link_components(...)
+> 		soc_probe_aux_device(...)
+> 		soc_bind_dai_link(...)
+> 		soc_probe_link_dais
+> 		snprintf(...)
+> 		card->late_probe()
+> 		snd_card_register()
+> 
+> =>		/* or dapm setup here instead ? */
+> 	}
+> 
+> For example, snd_soc_dapm_xxx() should be called before/after
+> card->probe() etc, etc...
+> 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+There are definitely some dependencies for example component probes
+will add widgets, controls and routes from those components so
+those will need to be done before the card level routes are
+added. The card level routes may link to widgets on individual
+components.
+
+Also the DAPM sync definitely needs to be after everything has
+been setup.
+
+I wouldn't be surprised if there are others as well, things like
+creating the DAI link widgets are probably done through some
+of these helpers and probably need to be at certain points in the
+process.
+
+Thanks,
+Charles
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

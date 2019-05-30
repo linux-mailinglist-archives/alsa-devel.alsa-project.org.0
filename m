@@ -2,72 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6CF22F7E0
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 09:25:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D7882F7EF
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 09:34:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7DD62950;
-	Thu, 30 May 2019 09:24:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DD62950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85A8B15E0;
+	Thu, 30 May 2019 09:33:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A8B15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559201103;
-	bh=1RzGS72zplzhbWkjdq3eGwe4c4gOq0nazyh5KdwI268=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pJMeTJVARkWxIZYv2TO4ZX/XrNzd/r1v330ft/WD0Joe0I+XG7QHGTXG4Kq+2o7kO
-	 vLphcZmvgNUXv7ySAmxbJ1EJj5wvwwNJdD8mPXr+ekRPdQ4B11hn/mc9xtzrnrff2R
-	 b9+DGppBQ6qszlQEI9EAJ6xTnKIowQlZhyEblr2M=
+	s=default; t=1559201667;
+	bh=s8L3lWuGJ1lufFLawYom5FbKbVe3iaWdD8K802NddWk=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hO3io+r5q2OLM5VU6+aRjCyWOtvwJHFk+55Huaj7DznKaiUc2GOU4ZIwzuuR8bfGC
+	 MS2Hp/J4//KirFwrBUWm8NpYV7Y2OwOpB0sX5ethIlj+uKVWnzda+xQ34/wB93jbbh
+	 I1pMXoHSMthzrbVKoRN64CyvhG8c2j1r5xlPmrOY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFD66F896F8;
-	Thu, 30 May 2019 09:23:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E777AF896F8;
+	Thu, 30 May 2019 09:32:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A97D1F896F8; Thu, 30 May 2019 09:23:16 +0200 (CEST)
+ id BAEC4F896F8; Thu, 30 May 2019 09:32:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EEA4F8065A
- for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 09:23:12 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 25E84A0040;
- Thu, 30 May 2019 09:23:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 25E84A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1559200992; bh=QLX4WA4M7swNPGmfknp2qXnAH6yMWfmcTQ4UKwjLMik=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=1VLKrfhv8eFOpj7CupZ2X6dSJ+Eoiln8GMUQWHLZ1gEe+F63yxu2K7g4TEGcLOlkD
- /0laojWOKPOjU7GvURQl3nNeAwtf9yHZ1muRC30VwyCzx/c6k4Vos+M2MNbRiVVxVG
- AP0zSBpn57YQ6KsLPwUdwEYkuGkAOjFY9jt/3jw8=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
+ [IPv6:2607:f8b0:4864:20::749])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu, 30 May 2019 09:23:09 +0200 (CEST)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <s5hblzmvdcq.wl-tiwai@suse.de>
- <9668d632-c5c9-5114-39cb-0e8a105a547c@perex.cz>
- <9d5ef75c-9b28-3998-865d-a958b7aaaa75@linux.intel.com>
- <b11570d9-6b46-e162-eb91-22e81bfa17bd@perex.cz>
- <9e1dc0e5-dd6a-1f4a-b141-152e61fdbc03@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <83fbde51-e6ad-9254-31c1-1ce6a343cb2c@perex.cz>
-Date: Thu, 30 May 2019 09:23:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <9e1dc0e5-dd6a-1f4a-b141-152e61fdbc03@linux.intel.com>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] SOF firmware/ucm/topology packaging
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1EE31F80C1B
+ for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 09:32:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1EE31F80C1B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="kUJ5K8gu"
+Received: by mail-qk1-x749.google.com with SMTP id v4so4115667qkj.10
+ for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 00:32:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=219G1yaUiFQwKLKEtOKl7xs5zD2F+rhj4otlu2je6yc=;
+ b=kUJ5K8guv5j1d4QtWJlNLiDo7XEY8OQOS+JhUihN0fJOCxdmQUdrNjd3fs3SyQx3lQ
+ DsOgnfDHDvkSi+YRu7fTSyjgCbhrdi1wZT2n5E1w/tUMFoZvQfr+D6Hv2ePvF6gdJeBp
+ 2muWdXDYnBW5ePwSz+bXyvy1v1rx+/oPPlHLr4AL0AN16zfIyOXUtEwcBSbWYyF1U26B
+ RYvnQSuOXQQlncbU05KjL6O5S2O8jLG5o0b+a2I4AfmbIYIhC1jkGE5RW+WJ6ywuvGiQ
+ ZtWJrrslgC6+/vARZba38UtIUZerwHzcKRh8O3O/Z4H6xflsbqfVCbhZY4if9WMyKvyP
+ pWPQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=219G1yaUiFQwKLKEtOKl7xs5zD2F+rhj4otlu2je6yc=;
+ b=aOz5l3qHSSwj4S843qCQjeT+HNXyp7d8RXaXDTiNuSCYP5Nv+EYnp0h2qs/EGVpGDE
+ zT6/3mhAThxwqys+n6o7gCoYBgeQxnm1NsvZ7j+3Hk5UMhnuH6ZkRZWpUB6GD0c/6Y9K
+ WHpBCVAB3r4GeRt4oR2ZP6TNBVEQf2ZgCNGOlbDwsa71qgTxXJuBmG6gSRDVNqnzSe4a
+ +D/t9vHwPkxSpd6T/2B5n3IY6RiNPK7c5nb++ia7f2cUvUIfDq7Zq+tqzuNwKpV8EjSl
+ cd8GCgDTbcyfQ6ckAunQcKpJNVHuXs7VMz+rfxPSxpGvl9x+EarWiKuwqKZLD0MhaESC
+ lELA==
+X-Gm-Message-State: APjAAAXJJye3Ea3tl3DTsGK7QVV9GVTyaGmuS3geh6x7NKNWh6rBuLv6
+ mHwCpu28tb9mYDipapM8XA3NL8IzYtPK
+X-Google-Smtp-Source: APXvYqyOFSxLf7qlGYHO3tVAtyGUi6ZjCBj4bjelpbLo2/wjLNYzeO18UR68ybDuwGbAlvw88lTFIfgxNlEq
+X-Received: by 2002:ac8:85b:: with SMTP id x27mr2024164qth.324.1559201555032; 
+ Thu, 30 May 2019 00:32:35 -0700 (PDT)
+Date: Thu, 30 May 2019 15:32:29 +0800
+Message-Id: <20190530073229.121032-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.22.0.rc1.257.g3120a18244-goog
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
+ cychiang@google.com
+Subject: [alsa-devel] [PATCH] ASoC: core: move DAI pre-links initiation to
+	snd_soc_instantiate_card
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,126 +93,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 28. 05. 19 v 23:32 Pierre-Louis Bossart napsal(a):
-> On 5/28/19 2:15 PM, Jaroslav Kysela wrote:
->> I believe that we need to discuss this more.
-> 
-> Yep, absolutely!
-> 
->> Dne 28. 05. 19 v 18:59 Pierre-Louis Bossart napsal(a):
->>>
->>>
->>> On 5/28/19 11:38 AM, Jaroslav Kysela wrote:
->>>
->>>> The same situation is for the SoC SOF firmware files (drivers are
->>>> in kernel, firmware files are missing). Perhaps, we can release those files
->>>> quickly in alsa-firmware and then migrate them slowly to linux-firmware.
->>>
->>> for SOF there are 4 cases
->>>
->>> 1. developers/integrators build from scratch themselves from the public
->>> tree.
->>> 2. integrators build from scratch with their own secret sauce added.
->>> 3. distros want a binary since they don't want to build from source
->>> and/or don't have access to all the DSP tools
->>> 4. distros needs a binary signed with the Intel production key (e.g. to
->>> run on devices initially designed for Windows).
->>
->> Do you mean that the firmware should be signed because the hardware is doing a
->> check, if the hardware vendor enables it and rejects the unsigned binaries?
-> 
-> It depends on the platforms.
-> Baytrail/Cherrytrail/Broadwell don't need any signature.
-> Starting with Skylake, the firmware is authenticated and the DSP will 
-> not boot unless it's signed with the relevant key, but different 
-> platforms chose different protections. Most of the Windows platforms use 
-> a strong authentication based on a non-public 'production key', which 
-> prevents people from installing their own firmware. Other solutions such 
-> as Up Squared boards or 2019 Chromebooks use a public key that is 
-> already part of the SOF tree.
-> Unfortunately I didn't find a way to detect which key is used, and it's 
-> not wise to try multiple keys since it adds a lot of latency on startup, 
-> so we are leaning to use DMI-based quirks to detect which key is used by 
-> what.
+Kernel crashes when an ASoC component rebinding.
 
-Any ETA when then signed firmware will be available?
+As an example, by using the following commands:
+- echo -n max98357a > /sys/bus/platform/drivers/max98357a/unbind
+- echo -n max98357a > /sys/bus/platform/drivers/max98357a/bind
 
->>> So far we were mostly dealing with case 1. Case 2 is allowed by the SOF
->>> permissive license and there's no need to look into this. We are
->>> planning releases for the last two cases, with a cadence aligned with
->>> kernel updates. It's not fully clear to me if the linux-firmware tree is
->>> the 'right' solution since ideally we'd want to have firmware, topology
->>> and UCM files released at the same time.
->>
->> Do you plan to create a new package for this? I can eventually offer the space
->> / docker build system on the ALSA server, if you like. The github releases
->> work fine, too. The question is, if it's the right way. It seems that the
->> firmware/topology files are read-only chunks used by the driver (standard
->> usage) and the UCM config is for alsa-lib (the user space). It might make
->> probably sense to add compatibility IDs to link/check the correct parts
->> together at runtime and keep the standard (binary) code distribution for the
->> most of users (linux-firmware / alsa-lib).
-> 
-> There is a connection mostly between topology and UCM: the device 
-> numbers used for the PCM streams have to match. If you add/remove a 
-> stream in the topology, then UCM will use numbers that aren't quite 
-> right. Same if you have a volume control used in UCM, you need to make 
-> sure that volume control is actually part of the topology.
-> 
-> In the past, we discussed about moving UCM files and topology out of the 
-> alsa-lib umbrella (and clarify what the license is for these 
-> configuration files), it's probably a good time to revisit this.
+Got the error message:
+"Unable to handle kernel NULL pointer dereference at virtual address".
 
-It is also the packaging issue. This situation complicates the package
-dependency tree. Basically, it might not be ideal to force users to install
-extra package to support the specific hardware platform with fw/ucm/tplg
-files. On the other side, there is no reason to have those bits installed on
-system where the hardware does not exist. There should be an automatic way to
-install the required bits on demand in the distribution in my opinion. I know,
-it's not your issue.
+The call trace:
+snd_soc_is_matching_component+0x30/0x6c
+soc_bind_dai_link+0x16c/0x240
+snd_soc_bind_card+0x1e4/0xb10
+snd_soc_add_component+0x270/0x300
+snd_soc_register_component+0x54/0x6c
+devm_snd_soc_register_component+0x68/0xac
+max98357a_platform_probe+0x7c/0x94
 
-I see those ways:
+The dai_link->platforms has been reset to NULL by soc_cleanup_platform()
+in soc_cleanup_card_resources() when un-registering component.  However,
+it has no chance to re-allocate the dai_link->platforms when registering
+the component again.
 
-1) package everything hw specific to one package (fw/ucm/tplg), let distros to
-handle the automatic installation when the hardware is detected or the
-integration to the current alsa-lib/linux-firmware packages to avoid on-demand
-installation
+Move the DAI pre-links initiation from snd_soc_register_card() to
+snd_soc_instantiate_card() to make sure all DAI pre-links get initiated
+when component rebinding.
 
-2) use some versioning / linking IDs for the firmware/topology/ucm, so we can
-have more topology/ucm files for one hardware; the driver can use the
-component field in the ALSA's control interface to notify the user space which
-firmware / topology was loaded, so the correct UCM files can be used
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ sound/soc/soc-core.c | 28 ++++++++++------------------
+ 1 file changed, 10 insertions(+), 18 deletions(-)
 
->> Speaking for distributions, we need to correctly identify the driver which
->> will load the proper firmware files. From notes posted to the alsa-devel ML,
->> it seems that there are three drivers for similar hardware (sound bridges) now
->> and it is not easy to identify the proper driver, because the similar PCI ID
->> is registered in all of them:
->>
->> 1) legacy HDA
->> 2) sound/soc/intel
->> 3) sound/soc/sof/intel
->>
->> Do not forget that the distributions include all driver modules in their
->> universal kernels. It seems like a problem for the Intel hardware at the
->> moment. Perhaps, you may give us some recommendations / hints.
-> 
-> Yes, I've started working on this, it's part of the same "distro 
-> enabling" discussion.
-> In most of the cases, the legacy HDaudio driver can be used, unless 
-> there are DMICs attached. I submitted an RFC to try to add an 
-> auto-detection.
-> I also added a build-time exclusion between SOF and SST drivers, and a 
-> smarter run-time detection I am still working on.
-
-Great. Thanks. It seems that the DMIC support is sensitive for the hardware
-vendors now.
-
-					Jaroslav
-
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 2d3520fca613..82ff384753c7 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2072,6 +2072,15 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 	mutex_lock(&client_mutex);
+ 	mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_INIT);
+ 
++	for_each_card_prelinks(card, i, dai_link) {
++		ret = soc_init_dai_link(card, dai_link);
++		if (ret) {
++			dev_err(card->dev, "ASoC: failed to init link %s: %d\n",
++				dai_link->name, ret);
++			goto probe_end;
++		}
++	}
++
+ 	card->dapm.bias_level = SND_SOC_BIAS_OFF;
+ 	card->dapm.dev = card->dev;
+ 	card->dapm.card = card;
+@@ -2241,7 +2250,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 	snd_soc_dapm_sync(&card->dapm);
+ 
+ probe_end:
+-	if (ret < 0)
++	if (ret < 0 && ret != -EPROBE_DEFER)
+ 		soc_cleanup_card_resources(card);
+ 
+ 	mutex_unlock(&card->mutex);
+@@ -2794,26 +2803,9 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+  */
+ int snd_soc_register_card(struct snd_soc_card *card)
+ {
+-	int i, ret;
+-	struct snd_soc_dai_link *link;
+-
+ 	if (!card->name || !card->dev)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&client_mutex);
+-	for_each_card_prelinks(card, i, link) {
+-
+-		ret = soc_init_dai_link(card, link);
+-		if (ret) {
+-			soc_cleanup_platform(card);
+-			dev_err(card->dev, "ASoC: failed to init link %s\n",
+-				link->name);
+-			mutex_unlock(&client_mutex);
+-			return ret;
+-		}
+-	}
+-	mutex_unlock(&client_mutex);
+-
+ 	dev_set_drvdata(card->dev, card);
+ 
+ 	snd_soc_initialize_card_lists(card);
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.22.0.rc1.257.g3120a18244-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

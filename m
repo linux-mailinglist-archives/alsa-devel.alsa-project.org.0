@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 771DB2EBE8
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 05:16:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E822EC01
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 05:17:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAA0415E4;
-	Thu, 30 May 2019 05:16:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA0415E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2EAC86F;
+	Thu, 30 May 2019 05:16:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2EAC86F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559186218;
-	bh=s286sBYSrdqc2DahKF4tGWNTbP7lN5s2y49R02n35Sc=;
+	s=default; t=1559186256;
+	bh=PCfTZD/XX4+HbPjkhHQ69mU7yq3Z1d/i23dTpRTvaOo=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YCcC49UPcfBI9PO5rF5rU0LmMBepeomgXw6uKtWqQRyH6x4vMIHIFaa485THaGCHr
-	 kzDzSk1sFKNE9temQCfXW6ZyYtcwaDhhFGJIs3Pvnoaw28UhK9pV76nOEEoTvkctQ8
-	 HX+KRr7FFktTiU7/BhlaezeghelrhdGSCqO+tz8w=
+	b=NOTXcKKm6U6iwkRTSFctXn4Zvc3UsthEJVa/Qkj4ciXbENiFRvsnJGgpxf958k5Bq
+	 CWF3qGh9AEl4X+RtnfZWmKuiC3Ekgho0SDe9bdV/kF8HcS0h+E0VucwHtMbsav/WQ5
+	 n14NDBAjLOK1joAEu1EbUrqvlqNDLAqlbo1dilRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7772DF89706;
-	Thu, 30 May 2019 05:15:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AFF6F8972B;
+	Thu, 30 May 2019 05:15:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9361F89706; Thu, 30 May 2019 05:15:10 +0200 (CEST)
+ id 1573CF896F8; Thu, 30 May 2019 05:15:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,42 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 703E2F8072E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7DD1DF896EB
  for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 05:15:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 703E2F8072E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7DD1DF896EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NdaVn3nA"
+ header.b="KK4ZkzRt"
 Received: from localhost (ip67-88-213-2.z213-88-67.customer.algx.net
  [67.88.213.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C73DC23D83;
- Thu, 30 May 2019 03:15:06 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 24501245A9;
+ Thu, 30 May 2019 03:15:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1559186106;
- bh=PrASumR4TwpvbI9yKAcKLsEX+QBbVstRS6VbOrnSOUg=;
+ s=default; t=1559186107;
+ bh=dI6k68iBI9a6EZae/YyfhT5m9Df2yEszOFsOyZfW4Ow=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NdaVn3nAwlvm4uiYCS/859f+hi8MWZnjo+cLiv3iGflQpiOZF7hFwcvHmE7KoErQx
- hdqPK9P8MV39g6dGXr+gfUlmiyvNb+jLSgSleT5O70yMrhf6Sg+Wu2fIU0i50P7CNo
- 5J2RtyiAGm3bjFGEntQj6QIDQF8tsuFEMZuaf3d8=
+ b=KK4ZkzRtLClBod2RShs6A9t7BLwDGSrWEc8/Tn8aW/thY+yb4oxM4CXKKAeGpb0mJ
+ 5CR50bjxfix8Ge6DLkcy3pEThJce46VrcOE3WPUxnd78P7yM3Z9oyuHcwWBb9xMC69
+ t8eDIDmmPpXnJPY1/rBJFIhnAWwY4Rr9EFoiodd8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Date: Wed, 29 May 2019 20:05:21 -0700
-Message-Id: <20190530030553.592279120@linuxfoundation.org>
+Date: Wed, 29 May 2019 20:05:22 -0700
+Message-Id: <20190530030553.640391239@linuxfoundation.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190530030540.363386121@linuxfoundation.org>
 References: <20190530030540.363386121@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Wen Yang <wen.yang99@zte.com.cn>
-Subject: [alsa-devel] [PATCH 5.0 248/346] ASoC: eukrea-tlv320: fix a leaked
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>, Wen Yang <wen.yang99@zte.com.cn>
+Subject: [alsa-devel] [PATCH 5.0 249/346] ASoC: fsl_utils: fix a leaked
 	reference by adding missing of_node_put
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -85,49 +88,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[ Upstream commit b820d52e7eed7b30b2dfef5f4213a2bc3cbea6f3 ]
+[ Upstream commit c705247136a523488eac806bd357c3e5d79a7acd ]
 
 The call to of_parse_phandle returns a node pointer with refcount
 incremented thus it must be explicitly decremented after the last
 usage.
 
 Detected by coccinelle with the following warnings:
-./sound/soc/fsl/eukrea-tlv320.c:121:3-9: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 102, but without a correspo    nding object release within this function.
-./sound/soc/fsl/eukrea-tlv320.c:127:3-9: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 102, but without a correspo    nding object release within this function.
+./sound/soc/fsl/fsl_utils.c:74:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 38, but without a corresponding     object release within this function.
 
 Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
+Cc: Timur Tabi <timur@kernel.org>
+Cc: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Xiubo Li <Xiubo.Lee@gmail.com>
+Cc: Fabio Estevam <festevam@gmail.com>
 Cc: Liam Girdwood <lgirdwood@gmail.com>
 Cc: Mark Brown <broonie@kernel.org>
 Cc: Jaroslav Kysela <perex@perex.cz>
 Cc: Takashi Iwai <tiwai@suse.com>
 Cc: alsa-devel@alsa-project.org
+Cc: linuxppc-dev@lists.ozlabs.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/fsl/eukrea-tlv320.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/fsl/fsl_utils.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/fsl/eukrea-tlv320.c b/sound/soc/fsl/eukrea-tlv320.c
-index 191426a6d9adf..30a3d68b5c033 100644
---- a/sound/soc/fsl/eukrea-tlv320.c
-+++ b/sound/soc/fsl/eukrea-tlv320.c
-@@ -118,13 +118,13 @@ static int eukrea_tlv320_probe(struct platform_device *pdev)
- 		if (ret) {
- 			dev_err(&pdev->dev,
- 				"fsl,mux-int-port node missing or invalid.\n");
--			return ret;
-+			goto err;
- 		}
- 		ret = of_property_read_u32(np, "fsl,mux-ext-port", &ext_port);
- 		if (ret) {
- 			dev_err(&pdev->dev,
- 				"fsl,mux-ext-port node missing or invalid.\n");
--			return ret;
-+			goto err;
- 		}
- 
- 		/*
+diff --git a/sound/soc/fsl/fsl_utils.c b/sound/soc/fsl/fsl_utils.c
+index 9981668ab5909..040d06b89f00a 100644
+--- a/sound/soc/fsl/fsl_utils.c
++++ b/sound/soc/fsl/fsl_utils.c
+@@ -71,6 +71,7 @@ int fsl_asoc_get_dma_channel(struct device_node *ssi_np,
+ 	iprop = of_get_property(dma_np, "cell-index", NULL);
+ 	if (!iprop) {
+ 		of_node_put(dma_np);
++		of_node_put(dma_channel_np);
+ 		return -EINVAL;
+ 	}
+ 	*dma_id = be32_to_cpup(iprop);
 -- 
 2.20.1
 

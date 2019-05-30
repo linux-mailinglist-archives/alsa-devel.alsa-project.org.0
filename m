@@ -2,77 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 716AC2FFD8
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 18:03:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42ACA30038
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 18:35:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAA671667;
-	Thu, 30 May 2019 18:02:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA671667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49336166C;
+	Thu, 30 May 2019 18:34:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49336166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559232180;
-	bh=mV/LtgmOG4fR90+huhxKNZBv/LGhtkCT/z95YbjP0HU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hpRYdkOHVlOzxj1XAb0wvQuvEpmf5/7LHtG/thgriU/61gdv2e2EzVsUIMs8Bx0xR
-	 kG3xiqsrXil49fY6ygoYQn5YgT6kAVKYGCXyujABsiynDLsHn8P23EFOi2q1OORZq9
-	 /jo6srf3VO319wzCBZOKEL6BQES5FAZMACzn/L8s=
+	s=default; t=1559234102;
+	bh=Ap+RxWeG/s/uvXaMoKJe8wIc2OyH+U5Vr0q7rxjlCiQ=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=WcJUy2B+32P7f9SemJam/Ll/piZhCOBgcH0OLJX6cJ6ysTIVjyInbRNQREt5KtQWk
+	 dHAFstIrLnA/G+6FG/YsVIXk8xgo6ZF9zjXvmpdhZiFpcheQ/C8PepouXKX5Ql/SmD
+	 HtADWk6vXcFHoc0LC35q/TlVqzshfEPUjdrkvJ0Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31328F8072E;
-	Thu, 30 May 2019 18:01:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 919FFF89706;
+	Thu, 30 May 2019 18:33:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21A57F896F8; Thu, 30 May 2019 18:01:13 +0200 (CEST)
+ id 6CF83F896F8; Thu, 30 May 2019 18:33:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E77AF8072E
- for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 18:01:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E77AF8072E
+ by alsa1.perex.cz (Postfix) with ESMTPS id E70B0F80C1B
+ for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 18:33:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E70B0F80C1B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="cdCmRmdS"
+ header.b="GrIh/B5A"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3AgLvFFPVCY5eGzzBkz1roLmxH2e7oZrCgiDzCAcCUQ=; b=cdCmRmdS36vnnRstytPQWmZXi
- Gw25YUFt2VB73budqhCNwAT8U/bsbkrJeOUE4B/Vni0SnemjNc4G7z2nRCV/Aslr760trB7c8pEcO
- dYE/7KVQSncTQZxjNrtpatqCBeeLr99HNTDi721N7Y4HzrBluGdC9UbzYFHK1DHykNawo=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=+gsuBOM2GnDVK4pIwCI++ETpzPs482WQVae+OEzJ/C8=; b=GrIh/B5A2IQ1
+ HpjY75WRpLDJ1AVXOFMBU65/qCph5NYItXClp2fz13yOX7d9UfKf0RJZOLUurH9ll8mcN9LdFUIyM
+ Nkpq9WGdISecscKChGA2SPPycca0cQPNH9gdwTtpfCMSq1wPt1ox8S2bNRbzlvl3EyLn0LXmcPiaQ
+ iv17Y=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hWNUH-0007D4-SC; Thu, 30 May 2019 16:01:05 +0000
+ id 1hWNzK-0007GE-Hv; Thu, 30 May 2019 16:33:10 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 1EE72440046; Thu, 30 May 2019 17:01:05 +0100 (BST)
-Date: Thu, 30 May 2019 17:01:04 +0100
+ id C5DFA440046; Thu, 30 May 2019 17:33:09 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <20190530160104.GT2456@sirena.org.uk>
-References: <20190528200206.2793-1-perex@perex.cz>
-MIME-Version: 1.0
-In-Reply-To: <20190528200206.2793-1-perex@perex.cz>
-X-Cookie: The other line moves faster.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- ALSA development <alsa-devel@alsa-project.org>,
+To: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+In-Reply-To: <20190524190925.5931-10-pierre-louis.bossart@linux.intel.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190530163309.C5DFA440046@finisterre.sirena.org.uk>
+Date: Thu, 30 May 2019 17:33:09 +0100 (BST)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: uapi headers - add missing
- include for stdint.h
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: use the defined ppcap
+	functions" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,52 +80,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4259184781253772828=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============4259184781253772828==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Ep5m4srWGXPl6O+g"
-Content-Disposition: inline
+   ASoC: SOF: Intel: hda: use the defined ppcap functions
 
+has been applied to the asoc tree at
 
---Ep5m4srWGXPl6O+g
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
-On Tue, May 28, 2019 at 10:02:06PM +0200, Jaroslav Kysela wrote:
-> The modified header files depend on types defined in <stdint.h>.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-This doesn't apply against current code, please check and resend.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---Ep5m4srWGXPl6O+g
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlzv/kAACgkQJNaLcl1U
-h9Chzgf45u8mFRSS2x91VfzxXpKA182jYEMSNfLkABrgLvzgyJqXGiO/32nNdEOe
-LMhpwVDUdsw15uFPRaGDpbwZKFRaMgnqDhNyDxrmOFCuKdBGXoxiTkIs/oBKZXM3
-zRyJ7ROQrFYYL0PY/zhuQ2ws+VifNYKMC/kIp0mIg4p6fVCCyK/QqlirvkYt61iE
-VAE3Z5figOtl1+rcSuMC7anbpzKTRQ2WEN2Keruk9pNpSYA3aXY9voLzXMctNNt0
-q4Fbn3oPDxyuuOZ4WCGdBs7hvrExU5nv5cpfgFZM9TLDHenVy6kjgSGdd45xwBOm
-O7v2y0LeCmMiDjNBHylSX+KEmwYM
-=H0Gd
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---Ep5m4srWGXPl6O+g--
+From 970c43d1783539b75a5e234ff5e51fc5c888112f Mon Sep 17 00:00:00 2001
+From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Date: Fri, 24 May 2019 14:09:25 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: use the defined ppcap functions
 
---===============4259184781253772828==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+There are already defined ppcap and ppcap interrupt functions, use
+the already defined functions for easy code read.
+
+Fixes: 8a300c8fb17 ("ASoC: SOF: Intel: Add HDA controller for Intel DSP")
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/sof/intel/hda.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
+
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index b1f4db0a6895..92c546e93400 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -544,13 +544,9 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	if (ret < 0)
+ 		goto free_ipc_irq;
+ 
+-	/* enable DSP features */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
+-				SOF_HDA_PPCTL_GPROCEN, SOF_HDA_PPCTL_GPROCEN);
+-
+-	/* enable DSP IRQ */
+-	snd_sof_dsp_update_bits(sdev, HDA_DSP_PP_BAR, SOF_HDA_REG_PP_PPCTL,
+-				SOF_HDA_PPCTL_PIE, SOF_HDA_PPCTL_PIE);
++	/* enable ppcap interrupt */
++	hda_dsp_ctrl_ppcap_enable(sdev, true);
++	hda_dsp_ctrl_ppcap_int_enable(sdev, true);
+ 
+ 	/* initialize waitq for code loading */
+ 	init_waitqueue_head(&sdev->waitq);
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4259184781253772828==--

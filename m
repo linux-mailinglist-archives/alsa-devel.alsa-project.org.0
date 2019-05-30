@@ -2,80 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE9062E907
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 01:25:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3E8A2E9A5
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 02:14:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B22715F2;
-	Thu, 30 May 2019 01:25:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B22715F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19A09950;
+	Thu, 30 May 2019 02:13:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A09950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559172356;
-	bh=igQke9KDTYy9lBLdX0R2CDbwlwl01CjvqZ2T4ykHofM=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1559175246;
+	bh=4+Ye2YrSh7DYtK8t9gPTbS/lc464n0oJmwE4nIVY/B0=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=csNtVLhTfUKWkJJgFj2kW61WIxlHBnNRzwZvtLL+0EFyOwXE2xD+QjV+/NRDizmtp
-	 rNg4XxNCKXU+m6esnD014PH+ZUHkk1tqA+PBCToCGRVQPlb0qqT9eFVgWrpjmX0w9J
-	 eF6sIvdZu2wSIhEX5158vRcCzDHGS3QogdzkgxPc=
+	b=BCinCYc8/cw9qvrbx9HTL3B1A8nHHRhgrNSyLA4VfuBK86WmQvDvOhA1Ga0bQ/8jx
+	 k4d8qFHvvn4s/W500juonO6ka/L2FtZJ3csWIAU+QYTANSGxpnzjR32U1Gpqrsecj7
+	 HtPvt/TfN/AgelmVS27jcbmiF1Xlud6GY05+qzZs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63536F806E5;
-	Thu, 30 May 2019 01:24:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC75AF8072E;
+	Thu, 30 May 2019 02:12:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11EADF8072E; Thu, 30 May 2019 01:24:09 +0200 (CEST)
+ id 24B91F896E0; Thu, 30 May 2019 02:12:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 90DA5F8072E
- for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 01:24:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90DA5F8072E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="NrCxhwQ1"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=86CajaIHJg8+BksH0RmyeOvwTcywacFuhQ+inbaD7cg=; b=NrCxhwQ11L1nDZZSZVSHwbjCS/
- kr5Sb9j+nl6IJEd0NsxEhhzNIL3FRCISgo13IN/d6PGTygPo5KIRw4C/friX06Sm0ry07CEGIXR3D
- hFQMguSHDcuq0iLp51B8+nBYKUp3dsEqYHM/jK/R5v9uWQHoT8AfFOziPNAEPQ0DI6/eVCLAFCox9
- Q1tyHsBsIbq14Es0q3oXoRvM2qFg5KkhvelJ5YXfq7Qy1uo/sSF8CNUTAzfswO+ICbq60iFsTcu5m
- A1CfGB/Qp6VI0hIMD6aWm3hLAuzJvB1hE5T+D/RhtIbooNqrNHkBHH83imDQG3Xxkt6tbYrJKa1gj
- Qv24v5eg==;
-Received: from 177.132.232.81.dynamic.adsl.gvt.net.br ([177.132.232.81]
- helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.90_1 #2 (Red Hat Linux))
- id 1hW7vL-0005Rn-AH; Wed, 29 May 2019 23:23:59 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hW7vI-0007xp-Tw; Wed, 29 May 2019 20:23:56 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Wed, 29 May 2019 20:23:48 -0300
-Message-Id: <e27b6a1699b366feb03d50cc1bc0cbbc15c881a2.1559171394.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1559171394.git.mchehab+samsung@kernel.org>
-References: <cover.1559171394.git.mchehab+samsung@kernel.org>
-MIME-Version: 1.0
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@infradead.org>,
- Vinod Koul <vkoul@kernel.org>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [alsa-devel] [PATCH 17/22] docs: soundwire: locking: fix tags for a
-	code-block
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7D98FF8065A
+ for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 02:12:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D98FF8065A
+Date: 30 May 2019 09:12:10 +0900
+X-IronPort-AV: E=Sophos;i="5.60,527,1549897200"; d="scan'208";a="17313706"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 30 May 2019 09:12:10 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 755814008552;
+ Thu, 30 May 2019 09:12:10 +0900 (JST)
+Message-ID: <87zhn4g6g3.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20190529103439.GI28362@ediswmail.ad.cirrus.com>
+References: <87woi9x4ho.wl-kuninori.morimoto.gx@renesas.com>
+ <20190529103439.GI28362@ediswmail.ad.cirrus.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Question about dapm setup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,37 +69,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There's an ascii artwork at Example 1 whose code-block is not properly
-idented, causing those warnings.
 
-    Documentation/driver-api/soundwire/locking.rst:50: WARNING: Inconsistent literal block quoting.
-    Documentation/driver-api/soundwire/locking.rst:51: WARNING: Line block ends without a blank line.
-    Documentation/driver-api/soundwire/locking.rst:55: WARNING: Inline substitution_reference start-string without end-string.
-    Documentation/driver-api/soundwire/locking.rst:56: WARNING: Line block ends without a blank line.
+Hi Charles
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+> > snd_soc_instantiate_card() setups dapm, but its timing seems
+> > very randomly for me.
+> > In my understanding, dapm setup timing is not so serious.
+> > So, I think we can do it in one place,
+> > but are there some reasons ?
+> > For example, "xxxx should be called after yyyy"
+> > 
+> 
+> There are certainly reasons for some of it, but might be easier
+> to explain what you are thinking of moving, rather than trying to
+> list all dependencies.
+(snip)
+> For example we need the calls to snd_soc_dapm_new_controls to
+> be before these two so that the widgets exist for linking them.
+(snip)
+> This needs to be before the routes are added so that the routes
+> can find their associated controls.
+(snip)
+> And the routes also obviously need to be after the widgets are
+> added as well.
+(snip)
+> Hope that is roughly the sort of thing you were interested in.
+
+Thanks !! Nice to know !!
+It is very clear for dapm setup timing.
+
+But, it was my fault, the question was not clear.
+I wanted to know was that there are many non dapm functions
+are called between dapm setup.
+pseudo code is..
+
+	static int snd_soc_instantiate_card(struct snd_soc_card *card)
+	{
+		...
+
+=>		snd_soc_dapm_debugfs_init()
+=>		snd_soc_dapm_new_controls(...)
+
+		card->probe(..)
+		soc_probe_link_components(...)
+		soc_probe_aux_device(...)
+		soc_bind_dai_link(...)
+		soc_probe_link_dais
+
+=>		snd_soc_dapm_link_dai_widgets()
+=>		snd_soc_dapm_connect_dai_link_widgets()
+=>		snd_soc_add_card_controls()
+=>		snd_soc_dapm_add_routes()
+
+		snprintf(...)
+		card->late_probe()
+
+=>		snd_soc_dapm_new_widgets()
+	
+		snd_card_register()
+
+=>		dapm_mark_endpoints_dirty()
+=>		snd_soc_dapm_sync()
+		...
+	}
+
+It looks very random. So my original question was
+can we do like this (with keeping dapm order)?
+
+	static int snd_soc_instantiate_card(struct snd_soc_card *card)
+	{
+
+=>		snd_soc_dapm_debugfs_init()
+=>		snd_soc_dapm_new_controls(...)
+=>		snd_soc_dapm_link_dai_widgets()
+=>		snd_soc_dapm_connect_dai_link_widgets()
+=>		snd_soc_add_card_controls()
+=>		snd_soc_dapm_add_routes()
+=>		snd_soc_dapm_new_widgets()
+=>		dapm_mark_endpoints_dirty()
+=>		snd_soc_dapm_sync()
+
+		card->probe(..)
+		soc_probe_link_components(...)
+		soc_probe_aux_device(...)
+		soc_bind_dai_link(...)
+		soc_probe_link_dais
+		snprintf(...)
+		card->late_probe()
+		snd_card_register()
+
+=>		/* or dapm setup here instead ? */
+	}
+
+For example, snd_soc_dapm_xxx() should be called before/after
+card->probe() etc, etc...
+
+
+Thank you for your help !!
+Best regards
 ---
- Documentation/driver-api/soundwire/locking.rst | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/driver-api/soundwire/locking.rst b/Documentation/driver-api/soundwire/locking.rst
-index 253f73555255..3a7ffb3d87f3 100644
---- a/Documentation/driver-api/soundwire/locking.rst
-+++ b/Documentation/driver-api/soundwire/locking.rst
-@@ -44,7 +44,9 @@ Message transfer.
-      b. Transfer message (Read/Write) to Slave1 or broadcast message on
-         Bus in case of bank switch.
- 
--     c. Release Message lock ::
-+     c. Release Message lock
-+
-+     ::
- 
- 	+----------+                    +---------+
- 	|          |                    |         |
--- 
-2.21.0
-
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

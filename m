@@ -2,92 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 196B12F91C
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 11:18:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD7BF2FAD0
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 May 2019 13:23:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92D3E1668;
-	Thu, 30 May 2019 11:17:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92D3E1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5909C15F2;
+	Thu, 30 May 2019 13:22:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5909C15F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559207894;
-	bh=eJBwSC841AzzYdsfg4ykXHw3Sgcl/xEfFwaGt9JLnuE=;
-	h=Date:To:From:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=p67uRkjSFEuBTKsRX9p7qkb4QlY+77y0oCnAeuM7S7v8TSq43FHQ3dHQvpX1USxuA
-	 lOYqBqVLRnHFP41pY+nWYF2W2nnhFHkZoemPUO5alWor88yozAb+tv8qVRg3X7FTNb
-	 SY/goh8z/CWumtk64Q+uBp7gATlRj+p3BvHRli2I=
+	s=default; t=1559215413;
+	bh=NSgOwOuqTnRRq1zj75g7iPOkuo8UmVN5NnyzPNsbEGg=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=R0UAafpS6m/Zqgk/9NhanMtjnXW4huyL6Y2zYfRJ3R+3eQc9gFVHDOMP6mB1P5B1Y
+	 T5vWdCS62rHrhLnJiLLO26Jw4OOegagPBPYk2WGTFUHZyFKZRtdYU5ZKwA3UMj+tJ2
+	 oWCfs/8TVdJim3ZAcFzmfDwTZFBCBWlc+nMrVzzI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3C7BF896EB;
-	Thu, 30 May 2019 11:16:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1734F896F8;
+	Thu, 30 May 2019 13:21:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1094F896F8; Thu, 30 May 2019 11:16:26 +0200 (CEST)
+ id A10DFF896F8; Thu, 30 May 2019 13:21:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FC4DF8065A
- for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 11:16:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FC4DF8065A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=kernelci-org.20150623.gappssmtp.com
- header.i=@kernelci-org.20150623.gappssmtp.com header.b="T/zpFN2m"
-Received: by mail-wr1-x442.google.com with SMTP id r7so3650286wrr.13
- for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 02:16:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernelci-org.20150623.gappssmtp.com; s=20150623;
- h=message-id:date:mime-version:content-transfer-encoding:subject:to
- :from:cc; bh=I1S45cdBL20CvsZSK3Vkt5vNQs2upcXyMnAlHyCghAk=;
- b=T/zpFN2mPAF3SQ6lAYgD6tKWR5rWJJKb+Vg78eR5EnH6kVWssEFzfrz7I2myTpjEdB
- uRkmZO+NoVexKFmHUeXkljCY5nm83dRV0RLjjrLfznDqneZnA9sWlGMJamwGwHCigzkE
- 7+Alug2hguo3mnDp+AwCxnHvvkK15NWLUoixFH0SSYGC8rYghtuVOVtqfqCk5Hm1E9GU
- eBJ8gUfitrYtKDyJA0iUIUvWm3+Ea31uPaBLHH44p/Eta5cZ1lA7r3dUIkKybPRU5Ka3
- BAoMB1z/wGTYzDScpSzI43QCMknpV1PmB5x7nxwTrfXAa6sGKd7kJzpjfOBor6+SWLUV
- 7X9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:date:mime-version
- :content-transfer-encoding:subject:to:from:cc;
- bh=I1S45cdBL20CvsZSK3Vkt5vNQs2upcXyMnAlHyCghAk=;
- b=g28s1Si2gmx9IHmjaQ+NO7d/uW82WQieggfC2OuJTPl1+1aUZg7cMhQ8fCWL0u36jM
- Z+6f+/RDModUGTRWb29t6u6E8hx2Ro2rW+rGtXN0uRXgwJTLx1STbk9reD6LjgrHM6T9
- tDMXFyXS4K54AkvQfaVe9tKMyEW8a45qQBnPz1+D+mCfp3Hnw3nC/EtAyqrmuFkr+9/0
- Nqfz0dxLGUnTk2GH5pdorc2NFeq+rGqaf74ADbJkrX+qndDIV/Qnw/drUDnsBFuPuMMD
- rEu5N8eBPCO2fa+CsGvLtFnu+ijWWhzoy7eyWBf1+2ZQHQfm4u0JGsMcPHIEGo4fZXpm
- sHcw==
-X-Gm-Message-State: APjAAAXQHEnghovroEr1hHl3H+aldGgfp8+htGeym840ySrpQ8axNZdn
- pDaeq8ZPCEa9VtNRuxLKwLQMNA==
-X-Google-Smtp-Source: APXvYqxPO+aU4NLmBYmMxBYv7zcWu35kkFoFjlVAjNqdxL18t/kYSZuTrJJ9GNOUC02j/lF4ntsIyw==
-X-Received: by 2002:adf:cf0c:: with SMTP id o12mr1865157wrj.182.1559207783309; 
- Thu, 30 May 2019 02:16:23 -0700 (PDT)
-Received: from [148.251.42.114] ([2a01:4f8:201:9271::2])
- by smtp.gmail.com with ESMTPSA id y132sm3504881wmd.35.2019.05.30.02.16.22
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 30 May 2019 02:16:22 -0700 (PDT)
-Message-ID: <5cef9f66.1c69fb81.39f30.21e8@mx.google.com>
-Date: Thu, 30 May 2019 02:16:22 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A34F7F8065A
+ for <alsa-devel@alsa-project.org>; Thu, 30 May 2019 13:21:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A34F7F8065A
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 May 2019 04:21:39 -0700
+X-ExtLoop1: 1
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga008.jf.intel.com with ESMTP; 30 May 2019 04:21:39 -0700
+Received: from msakib-mobl2.amr.corp.intel.com (unknown [10.254.189.121])
+ by linux.intel.com (Postfix) with ESMTP id 0C89D5804BA;
+ Thu, 30 May 2019 04:21:38 -0700 (PDT)
+To: Jaroslav Kysela <perex@perex.cz>
+References: <s5hblzmvdcq.wl-tiwai@suse.de>
+ <9668d632-c5c9-5114-39cb-0e8a105a547c@perex.cz>
+ <9d5ef75c-9b28-3998-865d-a958b7aaaa75@linux.intel.com>
+ <b11570d9-6b46-e162-eb91-22e81bfa17bd@perex.cz>
+ <9e1dc0e5-dd6a-1f4a-b141-152e61fdbc03@linux.intel.com>
+ <83fbde51-e6ad-9254-31c1-1ce6a343cb2c@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <ee93ea27-1dd4-57ff-3b91-ac0576525b65@linux.intel.com>
+Date: Thu, 30 May 2019 06:21:33 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-X-Kernelci-Report-Type: bisect
-X-Kernelci-Tree: next
-X-Kernelci-Lab-Name: lab-baylibre
-X-Kernelci-Branch: master
-X-Kernelci-Kernel: next-20190528
-To: Mark Brown <broonie@kernel.org>, tomeu.vizoso@collabora.com,
- guillaume.tucker@collabora.com, mgalka@collabora.com, broonie@kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, matthew.hart@linaro.org,
- khilman@baylibre.com, enric.balletbo@collabora.com
-From: "kernelci.org bot" <bot@kernelci.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] next/master boot bisection: next-20190528 on
- sun8i-h3-libretech-all-h3-cc
+In-Reply-To: <83fbde51-e6ad-9254-31c1-1ce6a343cb2c@perex.cz>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] SOF firmware/ucm/topology packaging
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,116 +77,139 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-* This automated bisection report was sent to you on the basis  *
-* that you may be involved with the breaking commit it has      *
-* found.  No manual investigation has been done to verify it,   *
-* and the root cause of the problem may be somewhere else.      *
-* Hope this helps!                                              *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-next/master boot bisection: next-20190528 on sun8i-h3-libretech-all-h3-cc
+>>>>> The same situation is for the SoC SOF firmware files (drivers are
+>>>>> in kernel, firmware files are missing). Perhaps, we can release those files
+>>>>> quickly in alsa-firmware and then migrate them slowly to linux-firmware.
+>>>>
+>>>> for SOF there are 4 cases
+>>>>
+>>>> 1. developers/integrators build from scratch themselves from the public
+>>>> tree.
+>>>> 2. integrators build from scratch with their own secret sauce added.
+>>>> 3. distros want a binary since they don't want to build from source
+>>>> and/or don't have access to all the DSP tools
+>>>> 4. distros needs a binary signed with the Intel production key (e.g. to
+>>>> run on devices initially designed for Windows).
+>>>
+>>> Do you mean that the firmware should be signed because the hardware is doing a
+>>> check, if the hardware vendor enables it and rejects the unsigned binaries?
+>>
+>> It depends on the platforms.
+>> Baytrail/Cherrytrail/Broadwell don't need any signature.
+>> Starting with Skylake, the firmware is authenticated and the DSP will
+>> not boot unless it's signed with the relevant key, but different
+>> platforms chose different protections. Most of the Windows platforms use
+>> a strong authentication based on a non-public 'production key', which
+>> prevents people from installing their own firmware. Other solutions such
+>> as Up Squared boards or 2019 Chromebooks use a public key that is
+>> already part of the SOF tree.
+>> Unfortunately I didn't find a way to detect which key is used, and it's
+>> not wise to try multiple keys since it adds a lot of latency on startup,
+>> so we are leaning to use DMI-based quirks to detect which key is used by
+>> what.
+> 
+> Any ETA when then signed firmware will be available?
 
-Summary:
-  Start:      531b0a360899 Add linux-next specific files for 20190528
-  Details:    https://kernelci.org/boot/id/5cece0fd59b5144bc47a362b
-  Plain log:  https://storage.kernelci.org//next/master/next-20190528/arm/sunxi_defconfig/gcc-8/lab-baylibre/boot-sun8i-h3-libretech-all-h3-cc.txt
-  HTML log:   https://storage.kernelci.org//next/master/next-20190528/arm/sunxi_defconfig/gcc-8/lab-baylibre/boot-sun8i-h3-libretech-all-h3-cc.html
-  Result:     34ac3c3eb8f0 ASoC: core: lock client_mutex while removing link components
+it's being productized as we speak and it's my understanding that SOF 
+1.3 will provide a signed firmware for recent chipsets.
 
-Checks:
-  revert:     PASS
-  verify:     PASS
+>>>> So far we were mostly dealing with case 1. Case 2 is allowed by the SOF
+>>>> permissive license and there's no need to look into this. We are
+>>>> planning releases for the last two cases, with a cadence aligned with
+>>>> kernel updates. It's not fully clear to me if the linux-firmware tree is
+>>>> the 'right' solution since ideally we'd want to have firmware, topology
+>>>> and UCM files released at the same time.
+>>>
+>>> Do you plan to create a new package for this? I can eventually offer the space
+>>> / docker build system on the ALSA server, if you like. The github releases
+>>> work fine, too. The question is, if it's the right way. It seems that the
+>>> firmware/topology files are read-only chunks used by the driver (standard
+>>> usage) and the UCM config is for alsa-lib (the user space). It might make
+>>> probably sense to add compatibility IDs to link/check the correct parts
+>>> together at runtime and keep the standard (binary) code distribution for the
+>>> most of users (linux-firmware / alsa-lib).
+>>
+>> There is a connection mostly between topology and UCM: the device
+>> numbers used for the PCM streams have to match. If you add/remove a
+>> stream in the topology, then UCM will use numbers that aren't quite
+>> right. Same if you have a volume control used in UCM, you need to make
+>> sure that volume control is actually part of the topology.
+>>
+>> In the past, we discussed about moving UCM files and topology out of the
+>> alsa-lib umbrella (and clarify what the license is for these
+>> configuration files), it's probably a good time to revisit this.
+> 
+> It is also the packaging issue. This situation complicates the package
+> dependency tree. Basically, it might not be ideal to force users to install
+> extra package to support the specific hardware platform with fw/ucm/tplg
+> files. On the other side, there is no reason to have those bits installed on
+> system where the hardware does not exist. There should be an automatic way to
+> install the required bits on demand in the distribution in my opinion. I know,
+> it's not your issue.
+> 
+> I see those ways:
+> 
+> 1) package everything hw specific to one package (fw/ucm/tplg), let distros to
+> handle the automatic installation when the hardware is detected or the
+> integration to the current alsa-lib/linux-firmware packages to avoid on-demand
+> installation
+> 
+> 2) use some versioning / linking IDs for the firmware/topology/ucm, so we can
+> have more topology/ucm files for one hardware; the driver can use the
+> component field in the ALSA's control interface to notify the user space which
+> firmware / topology was loaded, so the correct UCM files can be used
 
-Parameters:
-  Tree:       next
-  URL:        git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-  Branch:     master
-  Target:     sun8i-h3-libretech-all-h3-cc
-  CPU arch:   arm
-  Lab:        lab-baylibre
-  Compiler:   gcc-8
-  Config:     sunxi_defconfig
-  Test suite: boot
+Unfortunately that would not work. The UCM file needs to be aligned with 
+the topology but also with the hardware peripherals used. The topology 
+file only describes the DSP graph, all the way from PCM streams to DAIs. 
+The platform hardware can be very different even when you use the same 
+topology file. A simple example is that some platforms have a single 
+speaker or others two. The mics may be analog or digital. That 
+hardware-level information that UCM needs to know is not discoverable 
+and we have to rely on DMI-based quirks to set a long name. Knowing 
+which topology file was used will not help.
+Even finding out which topology file is needed is not obvious. We 
+currently use the codec ACPI ID as a key to look-up a set of static 
+tables to figure out which firmware and topology files need to be used, 
+but it's likely we will have multiple platforms which will end-up using 
+the same generic topology even though they'd need a different one to 
+account for form-factor or acoustics. Again we will have to use quirks here.
 
-Breaking commit found:
+> 
+>>> Speaking for distributions, we need to correctly identify the driver which
+>>> will load the proper firmware files. From notes posted to the alsa-devel ML,
+>>> it seems that there are three drivers for similar hardware (sound bridges) now
+>>> and it is not easy to identify the proper driver, because the similar PCI ID
+>>> is registered in all of them:
+>>>
+>>> 1) legacy HDA
+>>> 2) sound/soc/intel
+>>> 3) sound/soc/sof/intel
+>>>
+>>> Do not forget that the distributions include all driver modules in their
+>>> universal kernels. It seems like a problem for the Intel hardware at the
+>>> moment. Perhaps, you may give us some recommendations / hints.
+>>
+>> Yes, I've started working on this, it's part of the same "distro
+>> enabling" discussion.
+>> In most of the cases, the legacy HDaudio driver can be used, unless
+>> there are DMICs attached. I submitted an RFC to try to add an
+>> auto-detection.
+>> I also added a build-time exclusion between SOF and SST drivers, and a
+>> smarter run-time detection I am still working on.
+> 
+> Great. Thanks. It seems that the DMIC support is sensitive for the hardware
+> vendors now.
 
--------------------------------------------------------------------------------
-commit 34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb
-Author: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date:   Thu May 23 10:12:01 2019 -0700
+Indeed, the combination of HDAudio codecs+ DMIC keeps most of the SOF 
+team busy at the moment.
 
-    ASoC: core: lock client_mutex while removing link components
-    
-    Removing link components results in topology unloading. So,
-    acquire the client_mutex before removing components in
-    soc_remove_link_components. This will prevent the lockdep warning
-    seen when dai links are removed during topology removal.
-    
-    Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-    Signed-off-by: Mark Brown <broonie@kernel.org>
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 2403bec2fccf..7c9415987ac7 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1005,12 +1005,14 @@ static void soc_remove_link_components(struct snd_soc_card *card,
- 	struct snd_soc_component *component;
- 	struct snd_soc_rtdcom_list *rtdcom;
- 
-+	mutex_lock(&client_mutex);
- 	for_each_rtdcom(rtd, rtdcom) {
- 		component = rtdcom->component;
- 
- 		if (component->driver->remove_order == order)
- 			soc_remove_component(component);
- 	}
-+	mutex_unlock(&client_mutex);
- }
- 
- static void soc_remove_dai_links(struct snd_soc_card *card)
--------------------------------------------------------------------------------
-
-
-Git bisection log:
-
--------------------------------------------------------------------------------
-git bisect start
-# good: [cd6c84d8f0cdc911df435bb075ba22ce3c605b07] Linux 5.2-rc2
-git bisect good cd6c84d8f0cdc911df435bb075ba22ce3c605b07
-# bad: [531b0a360899269bd99a38ba9852a8ba46852bcd] Add linux-next specific files for 20190528
-git bisect bad 531b0a360899269bd99a38ba9852a8ba46852bcd
-# bad: [0b61d4c3b7d7938ef0014778c328e3f65c0d6d57] Merge remote-tracking branch 'crypto/master'
-git bisect bad 0b61d4c3b7d7938ef0014778c328e3f65c0d6d57
-# bad: [6179e21b065dc0f592cd3d9d3676bd64d4278025] Merge remote-tracking branch 'xtensa/xtensa-for-next'
-git bisect bad 6179e21b065dc0f592cd3d9d3676bd64d4278025
-# bad: [3e085f66fe7e93575f2a583a3d434415cef2d860] Merge remote-tracking branch 'amlogic/for-next'
-git bisect bad 3e085f66fe7e93575f2a583a3d434415cef2d860
-# bad: [b9afa223a3420432bc483d2b43429c88c6a5d0e0] Merge remote-tracking branch 'staging.current/staging-linus'
-git bisect bad b9afa223a3420432bc483d2b43429c88c6a5d0e0
-# good: [fc6557648e19dbd207dc815c6e09fc6452f01e63] Merge remote-tracking branch 'bpf/master'
-git bisect good fc6557648e19dbd207dc815c6e09fc6452f01e63
-# bad: [6c3f2a0e0f236f31b47d63ab7d3f4ec889821d0d] Merge remote-tracking branch 'spi-fixes/for-linus'
-git bisect bad 6c3f2a0e0f236f31b47d63ab7d3f4ec889821d0d
-# bad: [20a5f9c8649d74407aa657ce5b76cf8b0bbb17e3] Merge branch 'asoc-5.2' into asoc-linus
-git bisect bad 20a5f9c8649d74407aa657ce5b76cf8b0bbb17e3
-# good: [ad6eecbfc01c987e0253371f274c3872042e4350] ASoC: cs42xx8: Add regcache mask dirty
-git bisect good ad6eecbfc01c987e0253371f274c3872042e4350
-# good: [069d037aea98ffa64c26d4b1dc958fb8f39f5c2b] ASoC: simple-card: Fix configuration of DAI format
-git bisect good 069d037aea98ffa64c26d4b1dc958fb8f39f5c2b
-# good: [df9366131a452296d040a7a496d93108f1fc240c] ASoC: Intel: sof-rt5682: fix AMP quirk support
-git bisect good df9366131a452296d040a7a496d93108f1fc240c
-# bad: [34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb] ASoC: core: lock client_mutex while removing link components
-git bisect bad 34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb
-# good: [4819d06292c9b57eabdd6d1603e49a27baf183be] ASoC: simple-card: Restore original configuration of DAI format
-git bisect good 4819d06292c9b57eabdd6d1603e49a27baf183be
-# first bad commit: [34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb] ASoC: core: lock client_mutex while removing link components
--------------------------------------------------------------------------------
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

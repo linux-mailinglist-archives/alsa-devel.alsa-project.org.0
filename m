@@ -2,55 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7BA33052F
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 01:08:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0626D30607
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 02:59:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07D92166E;
-	Fri, 31 May 2019 01:07:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07D92166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74B891607;
+	Fri, 31 May 2019 02:58:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74B891607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559257685;
-	bh=PAMAZdqWAFrHIyKrm2BxS3FlveNIkWU0yb0Lsp/prbA=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=U2tR8HguLj21lBLjpx2f7wdRJYC2R3PYpy1E67PgS5NBaOUmOV2rq2yTSAUKrbuS9
-	 fTLBny7obJrbdh5alc5thrdHw86cel4M4CVi4oSWf6dyw0K7L0kLsD27PXYosan4cZ
-	 W4hGiDo72wiu5a2GEgTUlRmdHVJwQhSQzMB4ViGo=
+	s=default; t=1559264385;
+	bh=b3eeQ09VYAiGYZLQc/Q6DOdR1ZZW1rPPLiUMrG9mvDE=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BeGIOx3bOylFwzaMojsWoB6c1gJWyTTzaiCYGCIGVZLSyrueiL34zQuD2faJEstD7
+	 x7WtpU6p8qh4iAU98w+ln30Ix+auYceC9S8N668CZUVxMVJpMh5IRAqWnRRh6hpFK9
+	 Or1D/KhIg7O1JJTEo3I+h1DRI21Nlln9OS6aewa8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C46F4F896EB;
-	Fri, 31 May 2019 01:06:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30958F89708;
+	Fri, 31 May 2019 02:58:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 613C7F896F8; Fri, 31 May 2019 01:06:17 +0200 (CEST)
+ id 4F26CF896F8; Fri, 31 May 2019 02:57:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=HDRS_LCASE,SPF_HELO_NONE,
- SPF_NEUTRAL,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail3-relais-sop.national.inria.fr
- (mail3-relais-sop.national.inria.fr [192.134.164.104])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8DF7F8065A
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 01:06:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8DF7F8065A
-X-IronPort-AV: E=Sophos;i="5.60,532,1549926000"; d="scan'208";a="307713717"
-Received: from unknown (HELO hadrien) ([207.96.196.254])
- by mail3-relais-sop.national.inria.fr with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 May 2019 01:06:12 +0200
-Date: Thu, 30 May 2019 19:06:11 -0400 (EDT)
-From: Julia Lawall <julia.lawall@lip6.fr>
-X-X-Sender: jll@hadrien
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Message-ID: <alpine.DEB.2.21.1905301904530.2500@hadrien>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, kbuild-all@01.org
-Subject: [alsa-devel] [PATCH] ASoC: soc-core: fix ifnullfree.cocci warnings
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 476AFF80C1B
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 02:57:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 476AFF80C1B
+Date: 31 May 2019 09:57:48 +0900
+X-IronPort-AV: E=Sophos;i="5.60,533,1549897200"; d="scan'208";a="17419463"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 31 May 2019 09:57:48 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 92DA241272AA;
+ Fri, 31 May 2019 09:57:48 +0900 (JST)
+Message-ID: <87y32nqws3.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20190530145613.GJ28362@ediswmail.ad.cirrus.com>
+References: <87woi9x4ho.wl-kuninori.morimoto.gx@renesas.com>
+ <20190529103439.GI28362@ediswmail.ad.cirrus.com>
+ <87zhn4g6g3.wl-kuninori.morimoto.gx@renesas.com>
+ <20190530145613.GJ28362@ediswmail.ad.cirrus.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Question about dapm setup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,46 +71,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: kbuild test robot <lkp@intel.com>
 
-sound/soc/soc-core.c:391:2-7: WARNING: NULL check before some freeing functions is not needed.
+Hi Charles
 
- NULL check before some freeing functions is not needed.
+Thank you for your help
 
- Based on checkpatch warning
- "kfree(NULL) is safe this check is probably not required"
- and kfreeaddr.cocci by Julia Lawall.
+> > 	static int snd_soc_instantiate_card(struct snd_soc_card *card)
+> > 	{
+> > 
+> > =>		snd_soc_dapm_debugfs_init()
+> > =>		snd_soc_dapm_new_controls(...)
+> > =>		snd_soc_dapm_link_dai_widgets()
+> > =>		snd_soc_dapm_connect_dai_link_widgets()
+> > =>		snd_soc_add_card_controls()
+> > =>		snd_soc_dapm_add_routes()
+> > =>		snd_soc_dapm_new_widgets()
+> > =>		dapm_mark_endpoints_dirty()
+> > =>		snd_soc_dapm_sync()
+> > 
+> > 		card->probe(..)
+> > 		soc_probe_link_components(...)
+> > 		soc_probe_aux_device(...)
+> > 		soc_bind_dai_link(...)
+> > 		soc_probe_link_dais
+> > 		snprintf(...)
+> > 		card->late_probe()
+> > 		snd_card_register()
+> > 
+> > =>		/* or dapm setup here instead ? */
+> > 	}
+(snip)
+> There are definitely some dependencies for example component probes
+> will add widgets, controls and routes from those components so
+> those will need to be done before the card level routes are
+> added. The card level routes may link to widgets on individual
+> components.
+> 
+> Also the DAPM sync definitely needs to be after everything has
+> been setup.
+> 
+> I wouldn't be surprised if there are others as well, things like
+> creating the DAI link widgets are probably done through some
+> of these helpers and probably need to be at certain points in the
+> process.
 
-Generated by: scripts/coccinelle/free/ifnullfree.cocci
+Thank for your information !
+I think we can do some cleanup there, but need more investigation.
+I guess, the point is card->probe, and card->late_probe (?)
 
-Fixes: 8e144273005d ("ASoC: soc-core: merge soc_new_pcm_runtime() and soc_rtd_init()")
-Signed-off-by: kbuild test robot <lkp@intel.com>
-Signed-off-by: Julia Lawall <julia.lawall@lip6.fr>
+Thank you for your help !!
+Best regards
 ---
-
-tree:   https://github.com/morimoto/linux fw-cleanup-2019-05-30-v3
-head:   7f2c61a9097fcf25dac44865db31e7eab5c8fc9d
-commit: 8e144273005d3caf8b9978e407e3d00b6180dd49 [96/103] ASoC: soc-core: merge soc_new_pcm_runtime() and soc_rtd_init()
-:::::: branch date: 12 hours ago
-:::::: commit date: 12 hours ago
-
-Please take the patch only if it's a positive warning. Thanks!
-
- soc-core.c |    3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -387,8 +387,7 @@ static void soc_free_pcm_runtime(struct
-
- 	snd_soc_rtdcom_del_all(rtd);
-
--	if (rtd->codec_dais)
--		kfree(rtd->codec_dais);
-+	kfree(rtd->codec_dais);
-
- 	list_del(&rtd->list);
- 	kfree(rtd);
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

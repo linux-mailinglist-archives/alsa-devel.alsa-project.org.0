@@ -2,78 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A5B5315E6
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 22:10:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C167313C9
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 19:26:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD3FB1662;
-	Fri, 31 May 2019 22:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD3FB1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2F01950;
+	Fri, 31 May 2019 19:25:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2F01950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559333453;
-	bh=vYrqt+4DsY7H/XoqfWZcVRlbPall0UUHjdOn5Tc0zC4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hVK9JgtqCrhgdqvTwt+KKDQ3JHDUjPJuDGeLLd9t4Rlof6cbh2Wp7zJTZKtS980jS
-	 TDHpeUcqb4FN4/HOLmSHGr5n+6T2DEGPWAWn7U6AIh8eIEnUDCeQckIhBXa3l/XAZv
-	 Awkm9wHd4fpPTSIph2z1733UYK6lZlQRNwmXs3CY=
+	s=default; t=1559323565;
+	bh=zLh3iV8sRP9jtDxSnAaCDNfOxtUqDc3qKfc4y46XLKk=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=h+GSY53UscaWWvc2Wl2avNc09oZoaemxWHEL9eNznd+2YCieT7bc07s60YO8XYUZb
+	 EbG2aClFk3+XDG6VILBTnCjWPqUzsWTqqWZy3JYGuu47HJ9hzeUeaQJ35/guwXRdJd
+	 uvMMLiI8eDGRoW/oWspfpdrBm1f2Ng7RV1c2+dxQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B8EDF89739;
-	Fri, 31 May 2019 22:06:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57E5DF896F2;
+	Fri, 31 May 2019 19:24:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 597C6F896E5; Fri, 31 May 2019 19:22:47 +0200 (CEST)
+ id 5BD76F896E5; Fri, 31 May 2019 19:24:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from sender-pp-o92.zoho.eu (sender-pp-o92.zoho.eu [185.20.209.252])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88183F80757
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 19:22:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88183F80757
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=zohomail.eu header.i=kepszlok@zohomail.eu
- header.b="clN3QEcm"
-ARC-Seal: i=1; a=rsa-sha256; t=1559323348; cv=none; d=zohomail.eu; s=zohoarc; 
- b=E58o/XrFTn8Ru3bmbqNEgTLjPWX0RN2Wklqv1TgXurEj6fzgiIlxdaKhaP3YnBbWxaIqR7+ZLRJb74SeiO6hW9EdVgVhn93wbx/oJ8LqPqRFddJorklUqqWSFb4l2POXLYHQOx8u/XC3OG0ySwkctTQfz4rIyvjIiSv3IfPY6o8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1559323348;
- h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To:ARC-Authentication-Results;
- bh=PbS0a0jBl/QnE9XC3SJoOulWsbJRwsGlz3VNwnOVN7o=; 
- b=KC2WKGHqA4L+YIoJWwkLcvWPIagtVIBsQZ0fg26Rnr4l8k17bFxuXaxUXRwdFwrKipidgs5y/DdMMK7/r9wL1d1SfWDO50pp4dzNeDvfhfBNlra8V+dCkTNQBSqPmSUqZzIUVvwKB1IMpHHKyskrHMlyTIyuS2XXUAEzGTMMSeA=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- dkim=pass  header.i=zohomail.eu;
- spf=pass  smtp.mailfrom=kepszlok@zohomail.eu;
- dmarc=pass header.from=<kepszlok@zohomail.eu>
- header.from=<kepszlok@zohomail.eu>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1559323348; 
- s=zoho; d=zohomail.eu; i=kepszlok@zohomail.eu;
- h=From:To:Cc:Message-ID:Subject:Date:MIME-Version:Content-Type:Content-Transfer-Encoding;
- l=3180; bh=PbS0a0jBl/QnE9XC3SJoOulWsbJRwsGlz3VNwnOVN7o=;
- b=clN3QEcmv5Da+Dd3f3OuOJ4xmZ7UzxsH5359CKmu6YRlAVwoyaK6J9R3K7Kv1y3p
- GCylHf6XuPoYgSfEbFvi0xQOEpmi630qUlsO8pyFwY0ofWymji+kaPdRDcpnnbzfa/4
- u4snimIEBe2nX6VeGMf+kTa9pwUA2Yo9GDQz0htI=
-Received: from pop-os.lan (217-197-176-148.pool.digikabel.hu
- [217.197.176.148]) by mx.zoho.eu
- with SMTPS id 1559323348030366.9107900563978;
- Fri, 31 May 2019 19:22:28 +0200 (CEST)
-From: =?UTF-8?q?Kov=C3=A1cs=20Tam=C3=A1s?= <kepszlok@zohomail.eu>
-To: alsa-devel@alsa-project.org
-Message-ID: <20190531172226.7114-1-kepszlok@zohomail.eu>
-Date: Fri, 31 May 2019 19:22:26 +0200
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC050F80C1B
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 19:24:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC050F80C1B
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 May 2019 10:24:11 -0700
+X-ExtLoop1: 1
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga002.jf.intel.com with ESMTP; 31 May 2019 10:24:11 -0700
+Received: from mayurda-mobl.amr.corp.intel.com (unknown [10.252.130.8])
+ by linux.intel.com (Postfix) with ESMTP id 8F7C35802C9;
+ Fri, 31 May 2019 10:24:10 -0700 (PDT)
+To: YueHaibing <yuehaibing@huawei.com>, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ yingjiang.zhu@linux.intel.com
+References: <20190531142526.12712-1-yuehaibing@huawei.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <63b3a080-60c4-64e2-6f72-8075bb3bb45a@linux.intel.com>
+Date: Fri, 31 May 2019 12:24:09 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-X-ZohoMailClient: External
-X-Mailman-Approved-At: Fri, 31 May 2019 22:06:35 +0200
-Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com,
- =?UTF-8?q?Kov=C3=A1cs=20Tam=C3=A1s?= <kepszlok@zohomail.eu>
-Subject: [alsa-devel] [PATCH V3] ASoC: Intel: Baytrail: add quirk for Aegex
-	10 (RU2) tablet
+In-Reply-To: <20190531142526.12712-1-yuehaibing@huawei.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: hda: Fix COMPILE_TEST
+ build error
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,62 +74,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhpcyB0YWJsZXQgaGFzIGFuIGluY29ycmVjdCBhY3BpIGlkZW50aWZpZXIganVzdCBsaWtlClRo
-aW5rcGFkMTAgdGFibGV0LCB3aGljaCBpcyB3aHkgaXQgaXMgdHJ5aW5nIHRvIGxvYWQgdGhlIFJU
-NTY0MCBkcml2ZXIKaW5zdGVhZCBvZiB0aGUgUlQ1NzYyIGRyaXZlci4gVGhlIFJUNTY0MCBkcml2
-ZXIsIG9uIHRoZSBvdGhlciBoYW5kLCBjaGVja3MKdGhlIGhhcmR3YXJlIElELCBzbyBubyBkcml2
-ZXIgYXJlIGxvYWRlZCBkdXJpbmcgYm9vdC4gVGhpcyBmaXggcmVzb2x2ZXMgdG8KbG9hZCB0aGUg
-UlQ1NjcyIGRyaXZlciBvbiB0aGlzIHRhYmxldCBkdXJpbmcgYm9vdC4gSXQgYWxzbyBwcm92aWRl
-cyB0aGUKY29ycmVjdCBJTyBjb25maWd1cmF0aW9uLCBsaWtlIHRoZSBqYWNrIGRldGVjdCBtb2Rl
-IDMsIGZvciAxLjhWIHB1bGx1cC4gSQp3b3VsZCBsaWtlIHRvIHRoYW5rIFBpZXJyZS1Mb3VpcyBC
-b3NzYXJ0IGZvciBoZWxwaW5nIHdpdGggdGhpcyBwYXRjaC4KClNpZ25lZC1vZmYtYnk6IEtvdsOh
-Y3MgVGFtw6FzIDxrZXBzemxva0B6b2hvbWFpbC5ldT4KLS0tCiBzb3VuZC9zb2MvY29kZWNzL3J0
-NTY3MC5jICAgICAgICAgICAgICAgICAgICAgICB8IDEyICsrKysrKysrKysrKwogLi4uL3NvYy9p
-bnRlbC9jb21tb24vc29jLWFjcGktaW50ZWwtYnl0LW1hdGNoLmMgfCAxNyArKysrKysrKysrKysr
-KysrKwogMiBmaWxlcyBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvc291
-bmQvc29jL2NvZGVjcy9ydDU2NzAuYyBiL3NvdW5kL3NvYy9jb2RlY3MvcnQ1NjcwLmMKaW5kZXgg
-OWEwMzcxMDhiMWFlLi5hNzQ2ZTExY2NmZTMgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9jb2RlY3Mv
-cnQ1NjcwLmMKKysrIGIvc291bmQvc29jL2NvZGVjcy9ydDU2NzAuYwpAQCAtMjg4Miw2ICsyODgy
-LDE4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1pX3N5c3RlbV9pZCBkbWlfcGxhdGZvcm1faW50
-ZWxfcXVpcmtzW10gPSB7CiAJCQkJCQkgUlQ1NjcwX0RFVl9HUElPIHwKIAkJCQkJCSBSVDU2NzBf
-SkRfTU9ERTMpLAogCX0sCisJeworCQkuY2FsbGJhY2sgPSBydDU2NzBfcXVpcmtfY2IsCisJCS5p
-ZGVudCA9ICJBZWdleCAxMCB0YWJsZXQgKFJVMikiLAorCQkubWF0Y2hlcyA9IHsKKwkJCURNSV9N
-QVRDSChETUlfU1lTX1ZFTkRPUiwgIkFFR0VYIiksCisJCQlETUlfTUFUQ0goRE1JX1BST0RVQ1Rf
-VkVSU0lPTiwgIlJVMiIpLAorCQl9LAorCQkuZHJpdmVyX2RhdGEgPSAodW5zaWduZWQgbG9uZyAq
-KShSVDU2NzBfRE1JQ19FTiB8CisJCQkJCQkgUlQ1NjcwX0RNSUMyX0lOUiB8CisJCQkJCQkgUlQ1
-NjcwX0RFVl9HUElPIHwKKwkJCQkJCSBSVDU2NzBfSkRfTU9ERTMpLAorCX0sCiAJe30KIH07CiAK
-ZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9pbnRlbC9jb21tb24vc29jLWFjcGktaW50ZWwtYnl0LW1h
-dGNoLmMgYi9zb3VuZC9zb2MvaW50ZWwvY29tbW9uL3NvYy1hY3BpLWludGVsLWJ5dC1tYXRjaC5j
-CmluZGV4IDBjZmFiMjQ3ODc2YS4uOWZiNThmMWYwOTVmIDEwMDY0NAotLS0gYS9zb3VuZC9zb2Mv
-aW50ZWwvY29tbW9uL3NvYy1hY3BpLWludGVsLWJ5dC1tYXRjaC5jCisrKyBiL3NvdW5kL3NvYy9p
-bnRlbC9jb21tb24vc29jLWFjcGktaW50ZWwtYnl0LW1hdGNoLmMKQEAgLTIyLDYgKzIyLDcgQEAg
-c3RhdGljIHVuc2lnbmVkIGxvbmcgYnl0X21hY2hpbmVfaWQ7CiAKICNkZWZpbmUgQllUX1RISU5L
-UEFEXzEwICAxCiAjZGVmaW5lIEJZVF9QT1ZfUDEwMDZXICAgMgorI2RlZmluZSBCWVRfQUVHRVhf
-MTAgICAgIDMKIAogc3RhdGljIGludCBieXRfdGhpbmtwYWQxMF9xdWlya19jYihjb25zdCBzdHJ1
-Y3QgZG1pX3N5c3RlbV9pZCAqaWQpCiB7CkBAIC0zNSw2ICszNiwxMiBAQCBzdGF0aWMgaW50IGJ5
-dF9wb3ZfcDEwMDZ3X3F1aXJrX2NiKGNvbnN0IHN0cnVjdCBkbWlfc3lzdGVtX2lkICppZCkKIAly
-ZXR1cm4gMTsKIH0KIAorc3RhdGljIGludCBieXRfYWVnZXgxMF9xdWlya19jYihjb25zdCBzdHJ1
-Y3QgZG1pX3N5c3RlbV9pZCAqaWQpCit7CisJYnl0X21hY2hpbmVfaWQgPSBCWVRfQUVHRVhfMTA7
-CisJcmV0dXJuIDE7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1pX3N5c3RlbV9pZCBieXRf
-dGFibGVbXSA9IHsKIAl7CiAJCS5jYWxsYmFjayA9IGJ5dF90aGlua3BhZDEwX3F1aXJrX2NiLApA
-QCAtNzUsOSArODIsMTggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkbWlfc3lzdGVtX2lkIGJ5dF90
-YWJsZVtdID0gewogCQkJRE1JX0VYQUNUX01BVENIKERNSV9CT0FSRF9OQU1FLCAiMEU1NyIpLAog
-CQl9LAogCX0sCisJeworCQkvKiBBZWdleCAxMCB0YWJsZXQgKFJVMikgKi8KKwkJLmNhbGxiYWNr
-ID0gYnl0X2FlZ2V4MTBfcXVpcmtfY2IsCisJCS5tYXRjaGVzID0geworCQkJRE1JX01BVENIKERN
-SV9TWVNfVkVORE9SLCAiQUVHRVgiKSwKKwkJCURNSV9NQVRDSChETUlfUFJPRFVDVF9WRVJTSU9O
-LCAiUlUyIiksCisJCX0sCisJfSwKIAl7IH0KIH07CiAKKy8qIFRoZSBUaGlua2FwZCAxMCBhbmQg
-QWVnZXggMTAgdGFibGV0cyBoYXZlIHRoZSBzYW1lIElEIHByb2JsZW0gKi8KIHN0YXRpYyBzdHJ1
-Y3Qgc25kX3NvY19hY3BpX21hY2ggYnl0X3RoaW5rcGFkXzEwID0gewogCS5pZCA9ICIxMEVDNTY0
-MCIsCiAJLmRydl9uYW1lID0gImNodC1ic3ctcnQ1NjcyIiwKQEAgLTEwNCw2ICsxMjAsNyBAQCBz
-dGF0aWMgc3RydWN0IHNuZF9zb2NfYWNwaV9tYWNoICpieXRfcXVpcmsodm9pZCAqYXJnKQogCiAJ
-c3dpdGNoIChieXRfbWFjaGluZV9pZCkgewogCWNhc2UgQllUX1RISU5LUEFEXzEwOgorCWNhc2Ug
-QllUX0FFR0VYXzEwOgogCQlyZXR1cm4gJmJ5dF90aGlua3BhZF8xMDsKIAljYXNlIEJZVF9QT1Zf
-UDEwMDZXOgogCQlyZXR1cm4gJmJ5dF9wb3ZfcDEwMDZ3OwoKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2Et
-ZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+On 5/31/19 9:25 AM, YueHaibing wrote:
+> while building without PCI:
+> 
+> sound/soc/sof/intel/hda.o: In function `hda_dsp_probe':
+> hda.c:(.text+0x79c): undefined reference to `pci_ioremap_bar'
+> hda.c:(.text+0x79c): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `pci_ioremap_bar'
+> hda.c:(.text+0x7c4): undefined reference to `pci_ioremap_bar'
+> hda.c:(.text+0x7c4): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `pci_ioremap_bar'
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Fixes: e13ef82a9ab8 ("ASoC: SOF: add COMPILE_TEST for PCI options")
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+
+Gah, my bad. My cross-compilation script assumed sound was enabled with 
+defconfig but it's not in all cases, thanks for the fix.
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+
+> ---
+>   sound/soc/sof/intel/hda.c | 4 ++++
+>   1 file changed, 4 insertions(+)
+> 
+> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+> index 68db2ac..c1703c4 100644
+> --- a/sound/soc/sof/intel/hda.c
+> +++ b/sound/soc/sof/intel/hda.c
+> @@ -231,7 +231,9 @@ static int hda_init(struct snd_sof_dev *sdev)
+>   
+>   	/* initialise hdac bus */
+>   	bus->addr = pci_resource_start(pci, 0);
+> +#if IS_ENABLED(CONFIG_PCI)
+>   	bus->remap_addr = pci_ioremap_bar(pci, 0);
+> +#endif
+>   	if (!bus->remap_addr) {
+>   		dev_err(bus->dev, "error: ioremap error\n");
+>   		return -ENXIO;
+> @@ -458,7 +460,9 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>   		goto hdac_bus_unmap;
+>   
+>   	/* DSP base */
+> +#if IS_ENABLED(CONFIG_PCI)
+>   	sdev->bar[HDA_DSP_BAR] = pci_ioremap_bar(pci, HDA_DSP_BAR);
+> +#endif
+>   	if (!sdev->bar[HDA_DSP_BAR]) {
+>   		dev_err(sdev->dev, "error: ioremap error\n");
+>   		ret = -ENXIO;
+> 
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

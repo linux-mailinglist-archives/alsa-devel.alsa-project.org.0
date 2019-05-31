@@ -2,46 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 856D730DBF
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 14:04:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C8C30EC0
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 15:19:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2996C85D;
-	Fri, 31 May 2019 14:03:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2996C85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEABE1612;
+	Fri, 31 May 2019 15:19:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEABE1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559304245;
-	bh=9htYBI/+BbyFKrKwFZIjBdFyafX0FQtt7IOcnILS8sE=;
-	h=From:To:In-Reply-To:References:Date:Subject:List-Id:
+	s=default; t=1559308798;
+	bh=11y87ZDxnG1DaThsDPRVKIYO/7ptXKNGsKAJHoh9fJU=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NVqa4iF5Vj8M07EYDXCUO7k7Ljkllb/y5TCbBRE5YW7Qjd+TB4wmT7iZ9kF4Kfh52
-	 tKJQdxxVVWO9kDb3JFUqdxS9kbluH5xpJK+2klJmagb//SLcBBvNpSWQCCcLu4RUC+
-	 E/aaq1GZA0IoEZnYfrOTdjOiKDRrh2frTvl4C4Bg=
+	b=acw7sLbl6AMOH4lpwWG8sl0ZGRfogTxdRdf0pTMDZCq4TXQsHAmSZLr/KGzicdwz9
+	 Wq4dCG1wpwspdln9EejKi+k3TLeHCQ8rfi/15SL56vvgntcIgW0hnGsxxH+V6dBUNd
+	 8copnOXPRPLmlZRuoDkSZIJ+8kAu2cbkG1elgPeA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B70A8F80C1B;
-	Fri, 31 May 2019 14:02:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40615F896F2;
+	Fri, 31 May 2019 15:18:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5370F8972A; Fri, 31 May 2019 14:02:24 +0200 (CEST)
+ id 85E16F896E5; Fri, 31 May 2019 15:18:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 6A530F80C1B
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 14:02:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A530F80C1B
-MIME-Version: 1.0
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1559304142272198915-webhooks-bot@alsa-project.org>
-References: <1559304142272198915-webhooks-bot@alsa-project.org>
-Message-Id: <20190531120224.B5370F8972A@alsa1.perex.cz>
-Date: Fri, 31 May 2019 14:02:24 +0200 (CEST)
-Subject: [alsa-devel] aplay - pcm_read: Input/output error
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D24AAF8072E
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 15:18:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D24AAF8072E
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 May 2019 06:18:04 -0700
+X-ExtLoop1: 1
+Received: from hoangng2-mobl.amr.corp.intel.com ([10.254.19.252])
+ by orsmga002.jf.intel.com with ESMTP; 31 May 2019 06:18:03 -0700
+Message-ID: <e8bdeb7b299a11932ec98df805045a2871c0f79d.camel@linux.intel.com>
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>, Pierre-Louis Bossart
+ <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 31 May 2019 06:18:03 -0700
+In-Reply-To: <s5hftovtaq0.wl-tiwai@suse.de>
+References: <20190530201828.2648-1-ranjani.sridharan@linux.intel.com>
+ <684fe069-d2fb-f716-bd3e-67f0c7a52de0@linux.intel.com>
+ <s5hftovtaq0.wl-tiwai@suse.de>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: hda: increment codec device refcount
+ when it is added to the card
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,34 +75,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #7 was edited from mrajwa:
+On Fri, 2019-05-31 at 08:11 +0200, Takashi Iwai wrote:
+> On Thu, 30 May 2019 23:00:10 +0200,
+> Pierre-Louis Bossart wrote:
+> > 
+> > 
+> > 
+> > On 5/30/19 3:18 PM, Ranjani Sridharan wrote:
+> > > Calling snd_device_new() makes the codec devices managed by the
+> > > card.
+> > > So, when the card is removed, the refcount for the codec
+> > > device is decremented and results in the codec device's kobject
+> > > being cleaned up if the refcount is 0. But, this leads to a NULL
+> > > pointer exception while attempting to remove the symlinks when
+> > > the
+> > > codec driver is released later on. Therefore, increment the codec
+> > > device's refcount before adding it to the card to prevent this.
+> > 
+> > Ranjani, you should add a bit of context for the rest of the
+> > list...
+> > 
+> > This patch suggest a solution to a set of sightings occurring when
+> > removing/adding modules in a loop, and the current analysis points
+> > to
+> > a difference between the way the HDMI and HDaudio codecs are
+> > handled.
+> > 
+> > https://github.com/thesofproject/linux/issues/981
+> > https://github.com/thesofproject/linux/issues/966
+> > https://github.com/thesofproject/linux/pull/988
+> > 
+> > Since it's not SOF specific it's better to get feedback directly
+> > from
+> > the large ALSA community/maintainers. We probably want to focus on
+> > the
+> > platform-specific/vendor-specific stuff on GitHub and use the
+> > mailing
+> > list for such framework-level changes.
+> 
+> Hm, I still wonder why this doens't happen with the HDA legacy.
+> 
+> What is the shortest way to trigger the bug manually without a
+> script?
+Hi Takashi,
 
-Hello,
+With SOF, I can reproduce the issue if I just unload the sof_pci_dev
+module with rmmod. 
 
-I came across an issue with custom built aplay (system one works OK on Ubuntu 18.04):
+Basically, the remove routine for the SOF pci device, unregisters the
+machine driver and then removes the codec device. So the first step of
+unregistering the machine driver frees the card which decrements the
+refcount for the HDA codec's kobject. In the case of HDMI codec, since
+it is not managed by the card, the refcount is not decremented when the
+card is removed. 
 
-I have fetched both alsa-lib and alsa-utils repositories, built them now try to run:
+Thanks,
+Ranjani
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+> 
 
-`path_to_aplay/aplay -C -D hw:0,8 -r 16000 -f S16_LE -c 2 tmp.wav -vvv`
-
-Immediately after the start it prints hw params and the error message saying:
-
-`arecord: pcm_read:2103: read errorL Input/output error`
-
-As I said system aplay works fine. Moreover I compared hw params for both system and this custom built aplay and they are exactly the same!
-
-I also tried to built alsa-utils from debian package here I did:
-
-`apt source alsa-lib && sudo apt build-dep alsa-utils && fakeroot debian/rules clean && fakeroot debian/rules build && fakeroot debian/rules binary`
-
-All finished fine, now I repeated above steps for alsa-utils and here is a problem at `fakeroot debian/rules binary` step. At some point it stops with an error message saying:
-
-`dpkg-shlibdeps: error: no dependency information found for /usr/lib/libasound.co.s2 (used by debian/alsa-utils/usr/bin/alsaucm)`
-
-Does anybody have any idea what is going on here?
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/7
-Repository URL: https://github.com/alsa-project/alsa-lib
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

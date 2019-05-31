@@ -2,82 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F192D315DE
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 22:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC68B30B87
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 11:29:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB8EB1680;
-	Fri, 31 May 2019 22:09:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB8EB1680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2F7BB1654;
+	Fri, 31 May 2019 11:29:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F7BB1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559333407;
-	bh=sz0H6GK5dT4EZuTg8zgezQAIEf5pB9GfP+ilArDj6/M=;
-	h=References:In-Reply-To:From:Date:To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uPJcYeD7byTrffwxw3nHdaBEzAHE+TOTQNIoOroEb6XKqCKrzEZy4xjozAef1uad6
-	 gaZLJ96xgjOi9kmzkFDFNqZQIJzuds4/W6SZ2KLuOTduBRWcDjfdOESw+5zgpIBmFH
-	 cPe0eDIKqzpn2N0N2WFzDsMujfwmMVtB0LX2Sly0=
+	s=default; t=1559294991;
+	bh=D8kTPPywpKJ8IwzlPRtO2E5cLnGbRNnS0HVGpq1qXxk=;
+	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qolGa8DSlLFA1W+5WLn3dqwF6+a+kfsBkGQA4Am/miFu2ZSzKTgNsfTELdnp1Ikei
+	 NM10ORcphLM/ZmeDZp6EOWJd0zZNv5zuvEpdx0YyEdPluEzYueT0C3uJhiYepsKcCD
+	 Vem4BufOjHE889TRCjO/CS+kw4NFACRnxCqrky9s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8CE8F89732;
-	Fri, 31 May 2019 22:06:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85432F896F2;
+	Fri, 31 May 2019 11:28:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B7AEF896E5; Fri, 31 May 2019 11:19:02 +0200 (CEST)
+ id 3C7DAF896E5; Fri, 31 May 2019 11:28:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 782A1F8072E
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 11:27:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 782A1F8072E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="rRXvqsqS"
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05A52F8072E
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 11:18:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05A52F8072E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="up4pZ9za"
-Received: by mail-ot1-x32f.google.com with SMTP id n14so8515226otk.2
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 02:18:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=J9tS0afbQeGMMsxpoThhYftM8X7KtmtGxUFKWwShBBk=;
- b=up4pZ9zakN9gXZzAICrHYbk6VGfB2xfGhcKlsWBVgIzyesNIaZ7iqpU3DTcA1Q0kvG
- 72+vYoQGQipRpq6o9DKIak+DV08DbrA6ThAoAWknF6krCF9JnEiuRlTgYa/gcZ9ReA4Q
- kAJqE6cVSzqFrVoIRKumntEDHCqmutN7h9bqYaIegZdoIejg6dN8NlucPbwtmwEszaT9
- 24Pl7GaqgIvXn40YqgsfExSQ3LSS8hxh/khkx6a1neVEmlZ7kzl/oGryq7ge9b58qa4K
- ZKpCpaqmb6wtxqfH++FRJJSXDOeu9wNs0PKJRUatDiQl38DW1PRTq7/EszA1u9FMEumr
- ekzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=J9tS0afbQeGMMsxpoThhYftM8X7KtmtGxUFKWwShBBk=;
- b=irK433qUF73XuEOPaXH8F680W5UnpVRWu2uhrVoVaHVP0TJ6BlKlZiBpKgdfSCmzJn
- GM+cmSUAtq6VNhm5GgaxsRkiy7CUGUDH41lRYGZbwT+xzYoX/bODGoXkmc02rbWimSYw
- zCPkUOtJJttlz6m8i5OXnL7NndqFg5RD3lweFmMr4Oq3XgMX+ntx6xW+10w4uqkrg84i
- 6n729wXXCKOW0mEmlt9WyjMc9pJFJ/ptWmJwxU9myz0XovzYjsh2myxxkHY0D3UCCKpL
- K3vmYW2++GwbO1GyA2hEaxVUHhMaJz1QzIofbML05MekPGPG9X4REWKG/5A0b+00br7V
- 8usQ==
-X-Gm-Message-State: APjAAAVmFPYpI7whFS7jm0okNp9ex7A5VbjsI8EIlOGZfUE5Ym/M+H6M
- UGI8CRHMQ3TjZsldYTgTBc9/YXQ3mcfiC+U2ZxC5CQ8I
-X-Google-Smtp-Source: APXvYqz6p9vijUBDHiKhJsGMtyyRi2e2u5lPNI2BZyXXz80IgSKCFlPxO8m3vOnP3NVkM/RQQHUwgkdQYJ9Jq6MVan0=
-X-Received: by 2002:a9d:3ba4:: with SMTP id k33mr1004340otc.68.1559294337759; 
- Fri, 31 May 2019 02:18:57 -0700 (PDT)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4F01E266D6
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 09:27:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1559294875;
+ bh=8ioYcrS5zNqXZCoF0MDDoNs+KB/u0y2k7wiOQtbqdwU=;
+ h=From:Date:Subject:To:Cc:From;
+ b=rRXvqsqSkMv+5uNcjorixP9OQ/A9sXvcIolEmFXXDeJ0CIPy1MWNSPlgFkijG/xDd
+ JLwudD1WDqmIng8QTmERVwdvFX1+RZboJZoyqYg26krjFNoXZCPXrLfUr9vJmOeYBH
+ jSzTqQJwf6ZuGH1Uu7nuHnO6o35ipNSPEYWqjxow=
+Received: by mail-lf1-f52.google.com with SMTP id l26so7318628lfh.13
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 02:27:55 -0700 (PDT)
+X-Gm-Message-State: APjAAAWg7KTekjhLRK6MII6PXF54+04dyi6LefNoT6GT5xdMIYbO+16L
+ Ks5dZpiYKDiNh1IpqTIEQjyG7cRxIjvxsItOPfw=
+X-Google-Smtp-Source: APXvYqzVa4BrT5sCgmPbiMdySvHjx9aAPSDvSfLEhbdMMAjEp6CKvWokGkyQ8IL4e6xxsMN20X6ZVSeWNFb5fs7EwqM=
+X-Received: by 2002:a19:4f50:: with SMTP id a16mr4880904lfk.24.1559294873357; 
+ Fri, 31 May 2019 02:27:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAEMX6L2gUUTTtQ9OPfPZe0JkUk_ur+d9+Tk7yymcWZesmmsUjA@mail.gmail.com>
-In-Reply-To: <CAEMX6L2gUUTTtQ9OPfPZe0JkUk_ur+d9+Tk7yymcWZesmmsUjA@mail.gmail.com>
-From: Martin R <martin.rajwa@gmail.com>
-Date: Fri, 31 May 2019 11:18:46 +0200
-Message-ID: <CAEMX6L3USMp8d4OAot-8MdC_2nRidi6NHZXz90oLWF6G3XYbfg@mail.gmail.com>
-To: alsa-devel@alsa-project.org
-X-Mailman-Approved-At: Fri, 31 May 2019 22:06:35 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: [alsa-devel] Fwd: Problem with aplay params
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Fri, 31 May 2019 11:27:42 +0200
+X-Gmail-Original-Message-ID: <CAJKOXPfREyt3P2H8bL9=6+EQ1S3Ja7Urkhy1x7sCHaaubMqV1Q@mail.gmail.com>
+Message-ID: <CAJKOXPfREyt3P2H8bL9=6+EQ1S3Ja7Urkhy1x7sCHaaubMqV1Q@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>
+Cc: alsa-devel@alsa-project.org,
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: [alsa-devel] [BISECT] No audio after "ASoC: core: use component
+ driver name as component name"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,22 +89,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+Hi,
 
-I have built aplay using github repository
-https://github.com/alsa-project/alsa-utils/ as well as
-https://github.com/thesofproject/alsa-lib. Now when I try to run it by
-"./path_to_aplay/aplay -C -D hw:0,8 -r 16000 -f S16_LE -c 2 tmp.wav -vvv I
-get immediate error message saying: arecord: pcm_read:2150 read error:
-Input/output error.
+Bisect points to commit b19671d6caf1ac393681864d5d85dda9fa99a448
+Author: Tzung-Bi Shih <tzungbi@google.com>
+Date:   Wed May 29 14:22:14 2019 +0800
+    ASoC: core: use component driver name as component name
 
-Why is it failing? The system aplay/arecord works OK - only the one I built
-fails with above error.
+as a reason of failure of missing Audio card on Odroid XU3 board
+(ARMv7, Exynos5422,
+max98090 codec). Full kernel log:
+https://krzk.eu/#/builders/1/builds/3349/steps/14/logs/serial0
 
-PS: system aplay version is 1.1.8 while the one built by me is 1.19
+The problem might be in component name. The driver->name and
+fmt_single_name(dev, &component->id) are:
+snd_dmaengine_pcm != 3830000.i2s
+snd_dmaengine_pcm != 3830000.i2s-sec
+samsung-i2s != 3830000.i2s
 
-Regards,
-Marcin
+This commit should not go in without fixing the users of old
+behavior... I could adjust the platform names for primary and
+secondary links... but now it looks like two components will have the
+same name.
+
+Best regards,
+Krzysztof
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

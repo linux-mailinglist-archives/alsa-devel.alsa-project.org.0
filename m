@@ -2,66 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C19D31132
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 17:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEBDD31160
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 17:33:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16663165F;
-	Fri, 31 May 2019 17:21:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16663165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32DA515F2;
+	Fri, 31 May 2019 17:32:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32DA515F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559316149;
-	bh=ToqeKsuCCvvQEGAQFtArhKBj36XP9YWBng1cU9Uaqfg=;
+	s=default; t=1559316787;
+	bh=6zVewXmsU1Hc0b7I/qDh2kAJ2KAYXsFIgS542PglVEg=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Brj5zxpNS/VRW1OM8MiIaHOJx4mEYpKus+RyFVEefWL/BeCkYjZexszDWYK3McQpU
-	 0Y6FnT+wIziaMC29K0wbL77mrMlmGqZqw58MHQTknlJiHmIEFQo86VYKQ+BbMdURLi
-	 Nz/n0sQhp8IHfPTC7BBjoCcVv+nEkN4xQ6uya/xA=
+	b=hcLNtNATlpLq0eXmfYHxerCpy2Si1OxguCwCSTJtB2Ewy9LlGEYTWmbDogYvNsqZ7
+	 tPNCMiGYD36J4tMiVhkV1lb0RQz5pZHKAgD2sG4iZ2MoGZHRn9znD4vRiYF/AoVuiy
+	 6Pkvndc15R/m1Wz/K/p3uwx27DLlsPQoMWH4G1n8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0B98F896E8;
-	Fri, 31 May 2019 17:20:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4D4CF896E8;
+	Fri, 31 May 2019 17:31:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2063EF896E5; Fri, 31 May 2019 17:20:42 +0200 (CEST)
+ id 0F3F6F896E5; Fri, 31 May 2019 17:31:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9B025F80757
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 17:20:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B025F80757
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9D558F80757
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 17:31:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D558F80757
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 May 2019 08:20:35 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 May 2019 08:31:12 -0700
 X-ExtLoop1: 1
 Received: from hoangng2-mobl.amr.corp.intel.com ([10.254.19.252])
- by orsmga003.jf.intel.com with ESMTP; 31 May 2019 08:20:34 -0700
-Message-ID: <6e0653565e70e877974f92e94cf4ae49caee3e15.camel@linux.intel.com>
+ by orsmga005.jf.intel.com with ESMTP; 31 May 2019 08:31:10 -0700
+Message-ID: <c62fb44c59b2a417a8ec721af542f584519dee49.camel@linux.intel.com>
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Fri, 31 May 2019 08:20:33 -0700
-In-Reply-To: <s5hmuj2sno7.wl-tiwai@suse.de>
-References: <20190530201828.2648-1-ranjani.sridharan@linux.intel.com>
- <684fe069-d2fb-f716-bd3e-67f0c7a52de0@linux.intel.com>
- <s5hftovtaq0.wl-tiwai@suse.de>
- <e8bdeb7b299a11932ec98df805045a2871c0f79d.camel@linux.intel.com>
- <s5hef4en4ct.wl-tiwai@suse.de>
- <0f75caffee97f7cec5a1bd31e9f3eb3ea1a12948.camel@linux.intel.com>
- <s5hr28esow9.wl-tiwai@suse.de> <s5hmuj2sno7.wl-tiwai@suse.de>
+To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
+Date: Fri, 31 May 2019 08:31:10 -0700
+In-Reply-To: <20190531143820.10142-1-tiwai@suse.de>
+References: <20190531143820.10142-1-tiwai@suse.de>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+Cc: alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: hda: increment codec device refcount
- when it is added to the card
+Subject: Re: [alsa-devel] [PATCH] ASoC: hdac_hda: Fix unbalanced bus link
+ refcount at probe error
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,181 +73,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2019-05-31 at 16:28 +0200, Takashi Iwai wrote:
-> On Fri, 31 May 2019 16:02:30 +0200,
-> Takashi Iwai wrote:
-> > 
-> > On Fri, 31 May 2019 15:52:27 +0200,
-> > Ranjani Sridharan wrote:
-> > > 
-> > > On Fri, 2019-05-31 at 15:25 +0200, Takashi Iwai wrote:
-> > > > On Fri, 31 May 2019 15:18:03 +0200,
-> > > > Ranjani Sridharan wrote:
-> > > > > 
-> > > > > On Fri, 2019-05-31 at 08:11 +0200, Takashi Iwai wrote:
-> > > > > > On Thu, 30 May 2019 23:00:10 +0200,
-> > > > > > Pierre-Louis Bossart wrote:
-> > > > > > > 
-> > > > > > > 
-> > > > > > > 
-> > > > > > > On 5/30/19 3:18 PM, Ranjani Sridharan wrote:
-> > > > > > > > Calling snd_device_new() makes the codec devices
-> > > > > > > > managed by
-> > > > > > > > the
-> > > > > > > > card.
-> > > > > > > > So, when the card is removed, the refcount for the
-> > > > > > > > codec
-> > > > > > > > device is decremented and results in the codec device's
-> > > > > > > > kobject
-> > > > > > > > being cleaned up if the refcount is 0. But, this leads
-> > > > > > > > to a
-> > > > > > > > NULL
-> > > > > > > > pointer exception while attempting to remove the
-> > > > > > > > symlinks
-> > > > > > > > when
-> > > > > > > > the
-> > > > > > > > codec driver is released later on. Therefore, increment
-> > > > > > > > the
-> > > > > > > > codec
-> > > > > > > > device's refcount before adding it to the card to
-> > > > > > > > prevent
-> > > > > > > > this.
-> > > > > > > 
-> > > > > > > Ranjani, you should add a bit of context for the rest of
-> > > > > > > the
-> > > > > > > list...
-> > > > > > > 
-> > > > > > > This patch suggest a solution to a set of sightings
-> > > > > > > occurring
-> > > > > > > when
-> > > > > > > removing/adding modules in a loop, and the current
-> > > > > > > analysis
-> > > > > > > points
-> > > > > > > to
-> > > > > > > a difference between the way the HDMI and HDaudio codecs
-> > > > > > > are
-> > > > > > > handled.
-> > > > > > > 
-> > > > > > > https://github.com/thesofproject/linux/issues/981
-> > > > > > > https://github.com/thesofproject/linux/issues/966
-> > > > > > > https://github.com/thesofproject/linux/pull/988
-> > > > > > > 
-> > > > > > > Since it's not SOF specific it's better to get feedback
-> > > > > > > directly
-> > > > > > > from
-> > > > > > > the large ALSA community/maintainers. We probably want to
-> > > > > > > focus
-> > > > > > > on
-> > > > > > > the
-> > > > > > > platform-specific/vendor-specific stuff on GitHub and use
-> > > > > > > the
-> > > > > > > mailing
-> > > > > > > list for such framework-level changes.
-> > > > > > 
-> > > > > > Hm, I still wonder why this doens't happen with the HDA
-> > > > > > legacy.
-> > > > > > 
-> > > > > > What is the shortest way to trigger the bug manually
-> > > > > > without a
-> > > > > > script?
-> > > > > 
-> > > > > Hi Takashi,
-> > > > > 
-> > > > > With SOF, I can reproduce the issue if I just unload the
-> > > > > sof_pci_dev
-> > > > > module with rmmod. 
-> > > > > 
-> > > > > Basically, the remove routine for the SOF pci device,
-> > > > > unregisters
-> > > > > the
-> > > > > machine driver and then removes the codec device. So the
-> > > > > first step
-> > > > > of
-> > > > > unregistering the machine driver frees the card which
-> > > > > decrements
-> > > > > the
-> > > > > refcount for the HDA codec's kobject. In the case of HDMI
-> > > > > codec,
-> > > > > since
-> > > > > it is not managed by the card, the refcount is not
-> > > > > decremented when
-> > > > > the
-> > > > > card is removed. 
-> > > > 
-> > > > So it's only about hdac_hdmi codec, or only about hdac_hda
-> > > > codec?
-> > > 
-> > > It is only about the hdac_hda codec. 
-> > > > 
-> > > > And why HDMI codec isn't managed by the card...?  IOW, isn't it
-> > > > dangerous -- it means the codec being always removable after
-> > > > bound to
-> > > > the card?
-> > > 
-> > > That is a good point. Probably this needs to be fixed as well. I
-> > > can
-> > > include the change for that if you think it is the right thing to
-> > > do.
-> > > 
-> > > But I was wondering if it makes sense to increment the refcount
-> > > when
-> > > the device is added to the card with snd_device_new()? 
-> > > I'm not sure how it affects the other devices so didnt go down
-> > > this
-> > > route.
-> > 
-> > If you mean really snd_device_new() calls generically, not specific
-> > to
-> > snd_hda_codec_device_new() -- then no, something must be wrong.
-> > 
-> > And even for snd_hda_codec_device_new(), I'm not sure about it.
-> > 
-> > Actually, who decrements the device refcount at which timing...?
-> > It'd be helpful if you can clarify it, then we might see a better
-> > solution or a better explanation.
-> 
-> Now I'm reading the code again.  Is it about the put_device() in
-> snd_hdac_ext_bus_device_remove()?
-> 
-> void snd_hdac_ext_bus_device_remove(struct hdac_bus *bus)
-> {
-> 	struct hdac_device *codec, *__codec;
-> 	/*
-> 	 * we need to remove all the codec devices objects created in
-> the
-> 	 * snd_hdac_ext_bus_device_init
-> 	 */
-> 	list_for_each_entry_safe(codec, __codec, &bus->codec_list,
-> list) {
-> 		snd_hdac_device_unregister(codec);
-> 		put_device(&codec->dev);
-> 	}
-> }
-> 
-> I don't figure out why put_device() is needed at this place...
+On Fri, 2019-05-31 at 16:38 +0200, Takashi Iwai wrote:
+> The error paths in hdac_hda_codec_probe() don't take care of the bus
+> link refcount properly, which leave the refcount still high.
+> This patch addresses them.
 Hi Takashi,
 
-No, this actually comes at the second step in the case of SOF (ie after
-the machine driver is unregistered).
- 
-Actually, I just found out what's causing the issue. It is the call to
-snd_hda_codec_dev_free() which calls put_device() when snd_card_free()
-is invoked. So, adding a get_device() in snd_hda_codec_device_new()
-would make the refcount balanced. 
+Thanks for this. But I looked into hdac_hdmi probe and we have a
+similar problem there as well. 
 
-On the other hand, removing the put_device() in
-snd_hda_codec_dev_free() would also address the problem. I'm not sure
-which would be the preferred route.
-
-THanks,
+Thanks,
 Ranjani
+
+
+> Fixes: 6bae5ea94989 ("ASoC: hdac_hda: add asoc extension for legacy
+> HDA codec drivers")
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
 > 
+> A bug I found while digging for another problem :)
 > 
-> Takashi
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>  sound/soc/codecs/hdac_hda.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/hdac_hda.c
+> b/sound/soc/codecs/hdac_hda.c
+> index 7d4940256914..b55deaeb1ebf 100644
+> --- a/sound/soc/codecs/hdac_hda.c
+> +++ b/sound/soc/codecs/hdac_hda.c
+> @@ -475,8 +475,10 @@ static int hdac_hda_dev_probe(struct hdac_device
+> *hdev)
+>  	snd_hdac_ext_bus_link_get(hdev->bus, hlink);
+>  
+>  	hda_pvt = hdac_to_hda_priv(hdev);
+> -	if (!hda_pvt)
+> -		return -ENOMEM;
+> +	if (!hda_pvt) {
+> +		ret = -ENOMEM;
+> +		goto error;
+> +	}
+>  
+>  	/* ASoC specific initialization */
+>  	ret = devm_snd_soc_register_component(&hdev->dev,
+> @@ -484,12 +486,13 @@ static int hdac_hda_dev_probe(struct
+> hdac_device *hdev)
+>  					 ARRAY_SIZE(hdac_hda_dais));
+>  	if (ret < 0) {
+>  		dev_err(&hdev->dev, "failed to register HDA codec
+> %d\n", ret);
+> -		return ret;
+> +		goto error;
+>  	}
+>  
+>  	dev_set_drvdata(&hdev->dev, hda_pvt);
+> -	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
+>  
+> + error:
+> +	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
+>  	return ret;
+>  }
+>  
 
 _______________________________________________
 Alsa-devel mailing list

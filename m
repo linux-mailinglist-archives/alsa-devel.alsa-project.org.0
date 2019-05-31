@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A71731512
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 21:08:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D34E531595
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 21:46:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A66171607;
-	Fri, 31 May 2019 21:07:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A66171607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41E6915E5;
+	Fri, 31 May 2019 21:45:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41E6915E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559329695;
-	bh=L03khzx+k+3jatYkRUOdvrK1zXLA3FG9ry/Cuk1AlQk=;
+	s=default; t=1559331964;
+	bh=X3EtesZQrLh4hWK/n50aEBbEHRygTSBj7/Ws0+3ER8w=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Soun+d8akX6ePd7SAtWv0rDCXu9ITdCTB+w8ty2fc2DBye3CUyck8e/Q+G/giRnw0
-	 rAnI1lfxwRhAdm4GSWjGxISzSGVSq2Y/a0FwgBKosfHQcwc1+4aRzIxrtzQ1GAS2s2
-	 b7ur5x5zzNSNgJRPdUJLTf0Lc0GsBnw066DU24xU=
+	b=hlJLAVdigxFXwI2985wyx6ILDz5ScL/bGgfVTwAfMihkGGPhhU0By52sBVaZntgpY
+	 j8fP4iP8fEV4HAqex/uUJYPK2B6NalFWxbFyDCQrFoCoNTqF6bJoAA4iRLLK60V8Jn
+	 rOymnn7jbwFThBI89/XAG9bT/RlV8ogOOPGJWg0Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27C3FF896E4;
-	Fri, 31 May 2019 21:06:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B3E9F896E4;
+	Fri, 31 May 2019 21:44:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58280F896E5; Fri, 31 May 2019 21:06:29 +0200 (CEST)
+ id EAB1FF896E5; Fri, 31 May 2019 21:44:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,22 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91C45F80757
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 21:06:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91C45F80757
+ by alsa1.perex.cz (Postfix) with ESMTPS id E65DBF80C1B
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 21:44:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E65DBF80C1B
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B7BE4AEB2;
- Fri, 31 May 2019 19:06:25 +0000 (UTC)
-Date: Fri, 31 May 2019 21:06:25 +0200
-Message-ID: <s5hzhn2jvf2.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id D884CAC50;
+ Fri, 31 May 2019 19:44:12 +0000 (UTC)
+Date: Fri, 31 May 2019 21:44:12 +0200
+Message-ID: <s5hv9xqjto3.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <a2737284-ee55-59e5-cab7-2503d27c92bb@linux.intel.com>
+In-Reply-To: <s5hzhn2jvf2.wl-tiwai@suse.de>
 References: <s5h7ea6lfaa.wl-tiwai@suse.de>
  <1f3059d6-b271-f612-c670-e7214674892f@linux.intel.com>
  <s5h36kulc07.wl-tiwai@suse.de>
  <a2737284-ee55-59e5-cab7-2503d27c92bb@linux.intel.com>
+ <s5hzhn2jvf2.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,59 +73,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 31 May 2019 20:31:33 +0200,
-Pierre-Louis Bossart wrote:
+On Fri, 31 May 2019 21:06:25 +0200,
+Takashi Iwai wrote:
 > 
-> On 5/31/19 1:22 PM, Takashi Iwai wrote:
-> > On Fri, 31 May 2019 19:43:59 +0200,
-> > Pierre-Louis Bossart wrote:
-> >>
-> >> On 5/31/19 12:11 PM, Takashi Iwai wrote:
-> >>> Hi,
-> >>>
-> >>> while looking at SOF code due to the recent debugging session, I
-> >>> noticed that sof_hda_bus_init() is basically an open-code of the
-> >>> existing snd_hdac_ext_bus_init().  Why don't we simply call
-> >>> snd_hdac_ext_bus_init() like below?
-> >>
-> >> It's intentional.
-> >> We've been asked since Day1 of SOF on ApolloLake to provide a
-> >> 'self-contained' controller-only support that has no dependency on the
-> >> snd_hdac library for solutions where HDaudio links+codecs are not used
-> >> (typically IOT devices). This was driven by the lack of separation
-> >> between layers in that library as well as a desire to have a
-> >> dual-license. That's why you see the init and some of the basic
-> >> utilities re-implemented for SOF.
-> >>
-> >> However for cases where HDaudio+HDMI are required, we didn't want to
-> >> reinvent the wheel - HDaudio is complicated enough - and do make use
-> >> of this snd_hdac library.
-> >>
-> >> We have a config SND_SOC_SOF_HDA that controls in which mode we
-> >> operate, and it enables HDMI by default (for I2S+HDMI solutions). To
-> >> get external HDaudio codecs you need the additional SOF_HDAUDIO_CODEC
-> >> kconfig.
-> >>
-> >> Does this help?
-> >
-> > Well, what's wrong with the conditional build with Kconfig?
-> > You can just wrap the call snd_hdac_ext_bus_init() with #if/endif,
-> > e.g. in soc/sof/intel/hda.h,
-> >
-> > static inline void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev,
-> > 				    const struct hdac_ext_bus_ops *ext_ops)
-> > {
-> > #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-> > 	snd_hdac_ext_bus_init(bus, dev, NULL, NULL, ext_ops);
-> > #endif
-> > }
+> On Fri, 31 May 2019 20:31:33 +0200,
+> Pierre-Louis Bossart wrote:
+> > 
+> > On 5/31/19 1:22 PM, Takashi Iwai wrote:
+> > > On Fri, 31 May 2019 19:43:59 +0200,
+> > > Pierre-Louis Bossart wrote:
+> > >>
+> > >> On 5/31/19 12:11 PM, Takashi Iwai wrote:
+> > >>> Hi,
+> > >>>
+> > >>> while looking at SOF code due to the recent debugging session, I
+> > >>> noticed that sof_hda_bus_init() is basically an open-code of the
+> > >>> existing snd_hdac_ext_bus_init().  Why don't we simply call
+> > >>> snd_hdac_ext_bus_init() like below?
+> > >>
+> > >> It's intentional.
+> > >> We've been asked since Day1 of SOF on ApolloLake to provide a
+> > >> 'self-contained' controller-only support that has no dependency on the
+> > >> snd_hdac library for solutions where HDaudio links+codecs are not used
+> > >> (typically IOT devices). This was driven by the lack of separation
+> > >> between layers in that library as well as a desire to have a
+> > >> dual-license. That's why you see the init and some of the basic
+> > >> utilities re-implemented for SOF.
+> > >>
+> > >> However for cases where HDaudio+HDMI are required, we didn't want to
+> > >> reinvent the wheel - HDaudio is complicated enough - and do make use
+> > >> of this snd_hdac library.
+> > >>
+> > >> We have a config SND_SOC_SOF_HDA that controls in which mode we
+> > >> operate, and it enables HDMI by default (for I2S+HDMI solutions). To
+> > >> get external HDaudio codecs you need the additional SOF_HDAUDIO_CODEC
+> > >> kconfig.
+> > >>
+> > >> Does this help?
+> > >
+> > > Well, what's wrong with the conditional build with Kconfig?
+> > > You can just wrap the call snd_hdac_ext_bus_init() with #if/endif,
+> > > e.g. in soc/sof/intel/hda.h,
+> > >
+> > > static inline void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev,
+> > > 				    const struct hdac_ext_bus_ops *ext_ops)
+> > > {
+> > > #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+> > > 	snd_hdac_ext_bus_init(bus, dev, NULL, NULL, ext_ops);
+> > > #endif
+> > > }
+> > 
+> > We still need initializations for some of the data structures when
+> > SOF_HDA is not defined.
 > 
-> We still need initializations for some of the data structures when
-> SOF_HDA is not defined.
+> Which data structure?  The function above is only initializing the
+> given struct hdac_bus object.  I'm not suggesting to change the caller
+> site, hda_init() of sound/soc/sof/intel/hda.c.
 
-Which data structure?  The function above is only initializing the
-given struct hdac_bus object.  I'm not suggesting to change the caller
-site, hda_init() of sound/soc/sof/intel/hda.c.
+Also, if the size matters: we can split hda-core code between the thin
+bus accessor and the rest.  Basically what you need unconditionally is
+the functions in sound/hda/hdac_bus.c, and they are fairly independent
+from other HD-audio functios, so it can be its own module.  And the
+recent ext_bus init and exit implementations are very close to the
+bare init/exit code, too, so they can be simply moved into the
+hdac-core-bus or provided as a static inline, too.
+
+
+In anyway, my point is that there are tons better way than the open
+code of such a complex object initialization.
 
 
 thanks,

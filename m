@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 628CE314C9
-	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 20:33:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CDA0314E4
+	for <lists+alsa-devel@lfdr.de>; Fri, 31 May 2019 20:46:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC6E5165E;
-	Fri, 31 May 2019 20:32:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC6E5165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D608B15E5;
+	Fri, 31 May 2019 20:45:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D608B15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559327608;
-	bh=GpO12wq9Jgm+0Xn1fa8YOvhxCfwDz8nWYJekCJe0tsc=;
+	s=default; t=1559328393;
+	bh=LVCatPoyE+wBbWSmii4vYIMGSvNeI4KkAhqBO0NGgVQ=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=srJR7CjbUNkx2iM6wgJ8RrSPXcu//dZd2QCbyqmfLiK1VbOhBpahDfNZxjatxTPpc
-	 RddTXM0rcC7/4SxgFNuUHtuHrgrSpC7Og6QHJPs6K3fGGcd+YV2AgdxCLAwsUDwko3
-	 9uRtRE4LYaqleT0jt/Jv8bOpRbhTNudP68EVehoA=
+	b=AZvt8as3lSf3oEzOeS+KUEIHd2a/L/YqrEO4wFXePAaUhGIn5arIWwKmHctGH4mwF
+	 xGxyrcnPAK+AyuALCDMXhsJHs82ZEIrG02xkBp+pVTU3dybVjm6m8coUC0kSWIwchQ
+	 5+IeAC/z/LOGJrlZ109t2XZ4mlonBizQvcfCYajM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A5D0F896F2;
-	Fri, 31 May 2019 20:31:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 45D8CF896E4;
+	Fri, 31 May 2019 20:44:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15735F896E5; Fri, 31 May 2019 20:31:41 +0200 (CEST)
+ id A38ECF896E5; Fri, 31 May 2019 20:44:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38D56F80C1B
- for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 20:31:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38D56F80C1B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6D4CF8072E
+ for <alsa-devel@alsa-project.org>; Fri, 31 May 2019 20:44:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6D4CF8072E
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 May 2019 11:31:34 -0700
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 May 2019 11:44:41 -0700
 X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga001.jf.intel.com with ESMTP; 31 May 2019 11:31:34 -0700
-Received: from mayurda-mobl.amr.corp.intel.com (unknown [10.252.130.8])
- by linux.intel.com (Postfix) with ESMTP id D51C3580105;
- Fri, 31 May 2019 11:31:33 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>
-References: <s5h7ea6lfaa.wl-tiwai@suse.de>
- <1f3059d6-b271-f612-c670-e7214674892f@linux.intel.com>
- <s5h36kulc07.wl-tiwai@suse.de>
+Received: from gpanchal-mobl.amr.corp.intel.com (HELO [10.254.189.1])
+ ([10.254.189.1])
+ by fmsmga008.fm.intel.com with ESMTP; 31 May 2019 11:44:40 -0700
+To: Takashi Iwai <tiwai@suse.de>, YueHaibing <yuehaibing@huawei.com>
+References: <20190531142526.12712-1-yuehaibing@huawei.com>
+ <s5hlfymsnfa.wl-tiwai@suse.de>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a2737284-ee55-59e5-cab7-2503d27c92bb@linux.intel.com>
-Date: Fri, 31 May 2019 13:31:33 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
+Message-ID: <e20ff9a0-0928-2864-c451-a24d86ccfc5c@linux.intel.com>
+Date: Fri, 31 May 2019 13:44:40 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <s5h36kulc07.wl-tiwai@suse.de>
+In-Reply-To: <s5hlfymsnfa.wl-tiwai@suse.de>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, Keyon Jie <yang.jie@linux.intel.com>
-Subject: Re: [alsa-devel] Why open-coding in sof_hda_bus_init()?
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ linux-kernel@vger.kernel.org, yingjiang.zhu@linux.intel.com,
+ lgirdwood@gmail.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: hda: Fix COMPILE_TEST
+ build error
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,63 +78,92 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 5/31/19 1:22 PM, Takashi Iwai wrote:
-> On Fri, 31 May 2019 19:43:59 +0200,
-> Pierre-Louis Bossart wrote:
->>
->> On 5/31/19 12:11 PM, Takashi Iwai wrote:
->>> Hi,
->>>
->>> while looking at SOF code due to the recent debugging session, I
->>> noticed that sof_hda_bus_init() is basically an open-code of the
->>> existing snd_hdac_ext_bus_init().  Why don't we simply call
->>> snd_hdac_ext_bus_init() like below?
->>
->> It's intentional.
->> We've been asked since Day1 of SOF on ApolloLake to provide a
->> 'self-contained' controller-only support that has no dependency on the
->> snd_hdac library for solutions where HDaudio links+codecs are not used
->> (typically IOT devices). This was driven by the lack of separation
->> between layers in that library as well as a desire to have a
->> dual-license. That's why you see the init and some of the basic
->> utilities re-implemented for SOF.
->>
->> However for cases where HDaudio+HDMI are required, we didn't want to
->> reinvent the wheel - HDaudio is complicated enough - and do make use
->> of this snd_hdac library.
->>
->> We have a config SND_SOC_SOF_HDA that controls in which mode we
->> operate, and it enables HDMI by default (for I2S+HDMI solutions). To
->> get external HDaudio codecs you need the additional SOF_HDAUDIO_CODEC
->> kconfig.
->>
->> Does this help?
-> 
-> Well, what's wrong with the conditional build with Kconfig?
-> You can just wrap the call snd_hdac_ext_bus_init() with #if/endif,
-> e.g. in soc/sof/intel/hda.h,
-> 
-> static inline void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev,
-> 				    const struct hdac_ext_bus_ops *ext_ops)
-> {
-> #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-> 	snd_hdac_ext_bus_init(bus, dev, NULL, NULL, ext_ops);
-> #endif
-> }
 
-We still need initializations for some of the data structures when 
-SOF_HDA is not defined.
+
+On 5/31/19 9:34 AM, Takashi Iwai wrote:
+> On Fri, 31 May 2019 16:25:26 +0200,
+> YueHaibing wrote:
+>>
+>> while building without PCI:
+>>
+>> sound/soc/sof/intel/hda.o: In function `hda_dsp_probe':
+>> hda.c:(.text+0x79c): undefined reference to `pci_ioremap_bar'
+>> hda.c:(.text+0x79c): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `pci_ioremap_bar'
+>> hda.c:(.text+0x7c4): undefined reference to `pci_ioremap_bar'
+>> hda.c:(.text+0x7c4): relocation truncated to fit: R_AARCH64_CALL26 against undefined symbol `pci_ioremap_bar'
+>>
+>> Reported-by: Hulk Robot <hulkci@huawei.com>
+>> Fixes: e13ef82a9ab8 ("ASoC: SOF: add COMPILE_TEST for PCI options")
+>> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+>> ---
+>>   sound/soc/sof/intel/hda.c | 4 ++++
+>>   1 file changed, 4 insertions(+)
+>>
+>> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+>> index 68db2ac..c1703c4 100644
+>> --- a/sound/soc/sof/intel/hda.c
+>> +++ b/sound/soc/sof/intel/hda.c
+>> @@ -231,7 +231,9 @@ static int hda_init(struct snd_sof_dev *sdev)
+>>   
+>>   	/* initialise hdac bus */
+>>   	bus->addr = pci_resource_start(pci, 0);
+>> +#if IS_ENABLED(CONFIG_PCI)
+>>   	bus->remap_addr = pci_ioremap_bar(pci, 0);
+>> +#endif
+>>   	if (!bus->remap_addr) {
+>>   		dev_err(bus->dev, "error: ioremap error\n");
+>>   		return -ENXIO;
+>> @@ -458,7 +460,9 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+>>   		goto hdac_bus_unmap;
+>>   
+>>   	/* DSP base */
+>> +#if IS_ENABLED(CONFIG_PCI)
+>>   	sdev->bar[HDA_DSP_BAR] = pci_ioremap_bar(pci, HDA_DSP_BAR);
+>> +#endif
+>>   	if (!sdev->bar[HDA_DSP_BAR]) {
+>>   		dev_err(sdev->dev, "error: ioremap error\n");
+>>   		ret = -ENXIO;
+> 
+> IMO, this should be better addressed by fixing in linux/pci.h
+> instead, something like below (totally untested).
+
+Indeed. I wanted to first enable COMPILE_TEST for SOF and do a PCI 
+cleanup in a second stage. It might take a while to synchronize those 
+changes and check if there are additional functions needed by others.
 
 > 
-> In genral, the open-code is very bad from the maintenance POV.  And,
-> even worse, currently the hda-bus.c does only initialization, and the
-> release is with the hda-bus code.
-
-I agree, it's not ideal at all, but the snd_hdac library isn't great 
-either...
-We'll see what we can do, the hda code in SOF is being revisited since 
-there's just too much duplications between the two modes, we can rework 
-the init while we're at it.
+> 
+> thanks,
+> 
+> Takashi
+> 
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -2005,8 +2005,19 @@ static inline void pci_mmcfg_late_init(void) { }
+>   
+>   int pci_ext_cfg_avail(void);
+>   
+> +#ifdef CONFIG_PCI
+>   void __iomem *pci_ioremap_bar(struct pci_dev *pdev, int bar);
+>   void __iomem *pci_ioremap_wc_bar(struct pci_dev *pdev, int bar);
+> +#else
+> +static inline void __iomem *pci_ioremap_bar(struct pci_dev *pdev, int bar)
+> +{
+> +	return NULL;
+> +}
+> +static inline void __iomem *pci_ioremap_wc_bar(struct pci_dev *pdev, int bar)
+> +{
+> +	return NULL;
+> +}
+> +#endif
+>   
+>   #ifdef CONFIG_PCI_IOV
+>   int pci_iov_virtfn_bus(struct pci_dev *dev, int id);
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

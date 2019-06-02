@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793833225C
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Jun 2019 09:15:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB93C3225D
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Jun 2019 09:15:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 662C41682;
-	Sun,  2 Jun 2019 09:14:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 662C41682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A3BF1695;
+	Sun,  2 Jun 2019 09:14:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A3BF1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559459700;
-	bh=uj61RTtSUgLUC2hWVpkObIgO+NLXJKWviFksATWjwg4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IbMMSGzEyUx8z+uYf9b0G1GlfoN4LtBt7dvmci2rkvuF6ySBt7vXGcV7XeplSqxha
-	 QLEXqW3J+pV+FEX6lxmVTWmZhY+k2jl0DyqOD+WEw5088Rcs8yG2f9z/WekbTKVQeY
-	 O8EQ4scl/uEdrLCSclahxdcUHmyeyOBJUzM3MmVI=
+	s=default; t=1559459738;
+	bh=P6fNsNXrTb3Mdhsz1WCAmx5CaIUs+InpgR0MdTPouKQ=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KYlvK2ryL0brjPjChGHyBFlLJP+KcTDG8O3+C7YM12/fPLR7j4snyGInlTaUdb1rc
+	 S2GEwYyuKLrPNBijBocnkbGhZp16nB0bf5lIiqj+bSortwbmonBpW1phbe0UnjjD5V
+	 TgrKLkk00wToFMZvdDqmv9kFhW+193taJzdiVpF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23BF9F89703;
-	Sun,  2 Jun 2019 09:13:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09372F896FE;
+	Sun,  2 Jun 2019 09:13:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2659CF896F8; Sun,  2 Jun 2019 09:13:11 +0200 (CEST)
+ id 9EC5FF896FE; Sun,  2 Jun 2019 09:13:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,65 +34,67 @@ Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B28EF80C06
- for <alsa-devel@alsa-project.org>; Sun,  2 Jun 2019 09:13:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B28EF80C06
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7CADF80CC4
+ for <alsa-devel@alsa-project.org>; Sun,  2 Jun 2019 09:13:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7CADF80CC4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="hgComBLx"; 
+ header.b="pGOLdQjO"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="DoRRba7i"
+ header.i=@messagingengine.com header.b="V2W99xQN"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id A79A221947;
- Sun,  2 Jun 2019 03:13:05 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 855E221CFD;
+ Sun,  2 Jun 2019 03:13:06 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sun, 02 Jun 2019 03:13:05 -0400
+ by compute1.internal (MEProxy); Sun, 02 Jun 2019 03:13:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=ciCY3rtjZyI5FQGaulKX69TZth
- mQhGDiiB3mq7cyc3Q=; b=hgComBLxtLtqrcfZqI5JiXF1L4Sjsl9i6/hZy2jHnk
- ZF7pKCYs6RUPF1Oc9C6aPnjNWCtrivMt8TBFCZWxntwQYuDXXuMIcbL9us1OgO0s
- zo9+YxkLQl+4WS7QBajZ8mD/xd2Adv1Kpkl2/p5EmNEFqZ3Z0yD3AfUaO/Cnzlnq
- UAEfE7eSJFvtJaW+PdULIdpuv3df05URoXPuQGG7miycKRfEcT1gBC0gZfgL21iR
- Rx4ZKL3erisK6FYJobmupIOVVbwfauerB1OczfvPxQcMn8vwW39kFzM75QGA2qwN
- ChTq4OFXzO79aDLe4mnYFh2tRg/S1h+I/HkoX7fK15DA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=jV3hbp/+4NoTs
+ y43bHdYD3K6BsP7h71m+9lOuMoXjTs=; b=pGOLdQjOumCHUWGCnxFduBDDc/G80
+ XTGuThyXfljQU63nYczurfsIjVazUvIUVDsBY2g90fSJo6Uj/4v8/Y7QuAntyiuj
+ sUFJUZ4zcqNfXyUdk80LO6aE42KAVF0Hfjj5UIbx11xQXKU9pN54LoxZxLCeibh9
+ 2dOmLIoo8LKYgz2Ni5BmiQ8FAklTOUd7ApjvEmat71SUqjELkHp0aBBOj4ktzpDS
+ 0uZ9Wi76ICIGWkY9HAR377+lJGKQg7bkpICTBE+9VtKHft/66huxzxzWzA+wggHA
+ 1zWrnvXkWrTGnsM31QtHIQtKJO428PsmNL+TSZ6dEkHWtSyTPBQWUeDMA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=ciCY3rtjZyI5FQGau
- lKX69TZthmQhGDiiB3mq7cyc3Q=; b=DoRRba7ixlc9dj2I05sEwe2HlhEwVz20F
- AxTZGb+bjUBTK73Sjap+SxSoZJjng5OWCL0rLqSdGdBv6ta8VTDzP5OvbVGj9t+h
- +O8sLwBPRVcxp1eKIYseeB2qnhlo97PFeqUPzIHwrBqRviCTip2ILH7E7Br3jJeQ
- o2OEba4tBFtFXHaAhuYxC7MFp2zffHOVxFDVrsI4Jkx5FCH2WpnYBAAAM01wAjRf
- uJG8avB9kKTZ7kciiPx/j97RFvZwPfFbswDT17kkwj+ic0BXxhfcdbBLIUj2bC1x
- NCaTPdeTMTOZ/raqSv1AOoAwi4TllT8QH0k7n/hq0zvWToJ+tgKEA==
-X-ME-Sender: <xms:AHfzXBUToIWtdvdQjZH0TzyaXvsU8PpWlsOoQiBqcAbuQC_kIuRM1A>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=jV3hbp/+4NoTsy43bHdYD3K6BsP7h71m+9lOuMoXjTs=; b=V2W99xQN
+ sjfLxIBGHDt5WIqhZhhJdttfM0A8fbrbOYGq7zjvNntGu6n6P1HGHeqshqMZ2J7s
+ ZL6UQUtfV7JdOJMIc/letZYMGErI+q+bZbGJPbepLVIR6BpB3O2qHr9IFH7tpqYw
+ YBAlqzQ4f0hFWLTGuKVrGu1dYZ1f1c/4Oljv838ixEE+hPSL27icakn5QWhFq7kg
+ Hzmio9kOtmr4+Ku9gjBO3VK9SXzHaTJSAtXoJuzpssf4qKrt9XbGEIqEmXDzsgE7
+ 0rmjmhHpE7+4MT1F9L5N6L6nPSqqgsjhv1AgU6LifrdWpd3N8fONiFQzI3uKJYjY
+ Gy3CICwJeWjhRQ==
+X-ME-Sender: <xms:AnfzXNokzkweVNT7EO1vUq8YVbkQMMGFU0FJWSjQXaVoAqW8WyCk0Q>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudefgedguddukecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
- frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:AHfzXNgT1vyOULMBMjbcCp8QaG4E9z6fG7tV494oKqNKw2IX9tAkow>
- <xmx:AHfzXAegqzUt3y2G80zZ2EMEA3nU_3i0P0S6YBCAVmPJ_eS8nt9Q8A>
- <xmx:AHfzXPscHdQgKQAnVf2PWcGjnWGH0IRkXHOY9R4Rjgu_umdA_UGfEg>
- <xmx:AXfzXL7Zh_3_UPa_YaugSzNjnExqPxOqhk2F37YX92UnkrUJ-Hjpvg>
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
+ ertdertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
+ rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekud
+ enucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggt
+ hhhirdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:AnfzXKB0SozRmgIkPdtk3UYJIiEyznaZ47WQ6HXQoa1F45DURQFEjA>
+ <xmx:AnfzXFzp1H-L0jepOmwQm24gTNdN_yNdFfK88FFfis-OPw-3l9lvsg>
+ <xmx:AnfzXC6_v-15d46G82lI-eWtO3Lo3CRETCYSNP6M0weQfUNOB1mrHA>
+ <xmx:AnfzXPviKvsTq9YinHlDjShMsLej2mm8XahUjcJ7rc3fmWBdBqYSxw>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8BC288005A;
- Sun,  2 Jun 2019 03:13:03 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1B72C80060;
+ Sun,  2 Jun 2019 03:13:04 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun,  2 Jun 2019 16:12:44 +0900
-Message-Id: <20190602071259.21622-1-o-takashi@sakamocchi.jp>
+Date: Sun,  2 Jun 2019 16:12:45 +0900
+Message-Id: <20190602071259.21622-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190602071259.21622-1-o-takashi@sakamocchi.jp>
+References: <20190602071259.21622-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 00/15] ALSA: firewire-tascam/fireface:
-	reserve/release isochronous resources in
-	pcm.hw_params/hw_free callbacks
+Subject: [alsa-devel] [PATCH 01/15] ALSA: firewire-tascam: code refactoring
+	for registration of isochronous channels
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,70 +112,154 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+This commit is a part of preparation to perform allocation/release
+of isochronous channels in pcm.hw_params/hw_free callbacks.
 
-This patchset is a part of series of patches for all of drivers in
-ALSA firewire stack to reserve/release isochronous resources in
-pcm.hw_params/hw_free callbacks.
+The registration of isochronous channels is done just after allocation
+of isochronous resources. This commit separates the registration just
+before starting packet streaming.
 
-In current implementation, the resources are reserved at the same time
-to start packet streaming, and released at the same time to stop packet
-streaming. However, once allocated, the resources are available
-independent of lifetime of packet streaming.
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/tascam/tascam-stream.c | 84 +++++++++++++--------------
+ 1 file changed, 40 insertions(+), 44 deletions(-)
 
-The isochronous resources are the resources of IEEE 1394 bus. On the
-other side of view, it's a kind of resources of hardware to maintain
-the bus (isochronous resource manager). For this kind of reservation and
-release, hw_params and hw_free operations are suitable in ALSA PCM
-interface.
-
-Ideally, the operation to reserve/release isochronous resource should
-be separated from the operation to start/stop packet streaming. However,
-IEEE 1394 bus has reset event. Once reset occurs, isochronous resource
-manager releases allocated resources. The resources should be
-reallocated by requesters themselves. For this reason, in this patchset,
-bus generation is checked before starting packet streaming. If
-generation is updated, reallocation is requested to isochronous
-resource manager, then packet streaming starts.
-
-Takashi Sakamoto (15):
-  ALSA: firewire-tascam: code refactoring for registration of
-    isochronous channels
-  ALSA: firewire-tascam: code refactoring for reservation of isochronous
-    resources
-  ALSA: firewire-tascam: code refactoring for release of isochronous
-    resources
-  ALSA: firewire-tascam: reserve/release isochronous resources in
-    pcm.hw_params/hw_free callbacks
-  ALSA: firewire-tascam: update isochronous resources when starting
-    packet streaming after bus reset
-  ALSA: firewire-tascam: minor code refactoring to finish streaming
-    session
-  ALSA: firewire-tascam: code refactoring for pcm.hw_params/hw_free
-    callbacks
-  ALSA: fireface: add protocol-specific operation to allocate
-    isochronous resources
-  ALSA: fireface: support allocate_resources operation in ff800 protocol
-  ALSA: fireface: support allocate_resources operation in ff400 protocol
-  ALSA: fireface: support allocate_resources operation in latter
-    protocol
-  ALSA: fireface: reserve/release isochronous resources in
-    pcm.hw_params/hw_free callbacks
-  ALSA: fireface: update isochronous resources when starting packet
-    streaming after bus-reset
-  ALSA: fireface: minor code refactoring to finish streaming session
-  ALSA: fireface: code refactoring for pcm.hw_params/hw_free callbacks
-
- sound/firewire/fireface/ff-pcm.c             |  57 ++---
- sound/firewire/fireface/ff-protocol-former.c | 112 +++++-----
- sound/firewire/fireface/ff-protocol-latter.c | 114 +++++-----
- sound/firewire/fireface/ff-stream.c          |  85 ++++----
- sound/firewire/fireface/ff.h                 |   3 +
- sound/firewire/tascam/tascam-pcm.c           |  59 ++----
- sound/firewire/tascam/tascam-stream.c        | 209 ++++++++++---------
- sound/firewire/tascam/tascam.h               |   2 +
- 8 files changed, 306 insertions(+), 335 deletions(-)
-
+diff --git a/sound/firewire/tascam/tascam-stream.c b/sound/firewire/tascam/tascam-stream.c
+index f1657a4e0621..7cddd9ece4ee 100644
+--- a/sound/firewire/tascam/tascam-stream.c
++++ b/sound/firewire/tascam/tascam-stream.c
+@@ -195,6 +195,19 @@ static void finish_session(struct snd_tscm *tscm)
+ 			   TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_RX_ON,
+ 			   &reg, sizeof(reg), 0);
+ 
++	// Unregister channels.
++	reg = cpu_to_be32(0x00000000);
++	snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
++			   TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_TX_CH,
++			   &reg, sizeof(reg), 0);
++	reg = cpu_to_be32(0x00000000);
++	snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
++			   TSCM_ADDR_BASE + TSCM_OFFSET_UNKNOWN,
++			   &reg, sizeof(reg), 0);
++	reg = cpu_to_be32(0x00000000);
++	snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
++			   TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_RX_CH,
++			   &reg, sizeof(reg), 0);
+ }
+ 
+ static int begin_session(struct snd_tscm *tscm)
+@@ -202,6 +215,30 @@ static int begin_session(struct snd_tscm *tscm)
+ 	__be32 reg;
+ 	int err;
+ 
++	// Register the isochronous channel for transmitting stream.
++	reg = cpu_to_be32(tscm->tx_resources.channel);
++	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
++				 TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_TX_CH,
++				 &reg, sizeof(reg), 0);
++	if (err < 0)
++		return err;
++
++	// Unknown.
++	reg = cpu_to_be32(0x00000002);
++	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
++				 TSCM_ADDR_BASE + TSCM_OFFSET_UNKNOWN,
++				 &reg, sizeof(reg), 0);
++	if (err < 0)
++		return err;
++
++	// Register the isochronous channel for receiving stream.
++	reg = cpu_to_be32(tscm->rx_resources.channel);
++	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
++				 TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_RX_CH,
++				 &reg, sizeof(reg), 0);
++	if (err < 0)
++		return err;
++
+ 	reg = cpu_to_be32(0x00000001);
+ 	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+ 				 TSCM_ADDR_BASE + TSCM_OFFSET_START_STREAMING,
+@@ -216,7 +253,7 @@ static int begin_session(struct snd_tscm *tscm)
+ 	if (err < 0)
+ 		return err;
+ 
+-	/* Set an option for unknown purpose. */
++	// Set an option for unknown purpose.
+ 	reg = cpu_to_be32(0x00002000);
+ 	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+ 				 TSCM_ADDR_BASE + TSCM_OFFSET_SET_OPTION,
+@@ -224,7 +261,7 @@ static int begin_session(struct snd_tscm *tscm)
+ 	if (err < 0)
+ 		return err;
+ 
+-	/* Start multiplexing PCM samples on packets. */
++	// Start multiplexing PCM samples on packets.
+ 	reg = cpu_to_be32(0x00000001);
+ 	return snd_fw_transaction(tscm->unit,
+ 				  TCODE_WRITE_QUADLET_REQUEST,
+@@ -234,30 +271,13 @@ static int begin_session(struct snd_tscm *tscm)
+ 
+ static void release_resources(struct snd_tscm *tscm)
+ {
+-	__be32 reg;
+-
+-	/* Unregister channels. */
+-	reg = cpu_to_be32(0x00000000);
+-	snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+-			   TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_TX_CH,
+-			   &reg, sizeof(reg), 0);
+-	reg = cpu_to_be32(0x00000000);
+-	snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+-			   TSCM_ADDR_BASE + TSCM_OFFSET_UNKNOWN,
+-			   &reg, sizeof(reg), 0);
+-	reg = cpu_to_be32(0x00000000);
+-	snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+-			   TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_RX_CH,
+-			   &reg, sizeof(reg), 0);
+-
+-	/* Release isochronous resources. */
++	// Release isochronous resources.
+ 	fw_iso_resources_free(&tscm->tx_resources);
+ 	fw_iso_resources_free(&tscm->rx_resources);
+ }
+ 
+ static int keep_resources(struct snd_tscm *tscm, unsigned int rate)
+ {
+-	__be32 reg;
+ 	int err;
+ 
+ 	/* Keep resources for in-stream. */
+@@ -280,30 +300,6 @@ static int keep_resources(struct snd_tscm *tscm, unsigned int rate)
+ 	if (err < 0)
+ 		return err;
+ 
+-	/* Register the isochronous channel for transmitting stream. */
+-	reg = cpu_to_be32(tscm->tx_resources.channel);
+-	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+-				 TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_TX_CH,
+-				 &reg, sizeof(reg), 0);
+-	if (err < 0)
+-		goto error;
+-
+-	/* Unknown */
+-	reg = cpu_to_be32(0x00000002);
+-	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+-				 TSCM_ADDR_BASE + TSCM_OFFSET_UNKNOWN,
+-				 &reg, sizeof(reg), 0);
+-	if (err < 0)
+-		goto error;
+-
+-	/* Register the isochronous channel for receiving stream. */
+-	reg = cpu_to_be32(tscm->rx_resources.channel);
+-	err = snd_fw_transaction(tscm->unit, TCODE_WRITE_QUADLET_REQUEST,
+-				 TSCM_ADDR_BASE + TSCM_OFFSET_ISOC_RX_CH,
+-				 &reg, sizeof(reg), 0);
+-	if (err < 0)
+-		goto error;
+-
+ 	return 0;
+ error:
+ 	release_resources(tscm);
 -- 
 2.20.1
 

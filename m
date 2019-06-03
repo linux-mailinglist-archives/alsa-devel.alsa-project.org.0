@@ -2,98 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D6F32B38
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 10:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 242AF32B74
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 11:07:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A54A71665;
-	Mon,  3 Jun 2019 10:55:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54A71665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BD291668;
+	Mon,  3 Jun 2019 11:06:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BD291668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559552174;
-	bh=KwwGGDAkm6yBroRTZJ8Z3be73pypae/L5bOZA+0fQU4=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1559552849;
+	bh=eIRXalTToXYFHsIrug7hkDVmUD3jaM00AnyH4nRChNw=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RswlmsgxekRIMdovlLcR6jNfXvRPl0/UUdLOVgrzeREYrVcWmC6ZOqc8Jd36Mzfgx
-	 j6RX5nmRVnlJs6DO+CBOqe6Er9Ngda7iuXAIcq024OMl0k3ZVKmjclMhmYGlNKaVnz
-	 g0LDR78JwBVxM2V0vH/QVZcsz0xw5Z34EFLA+rlY=
+	b=jDSQhZsEoloKnmCr6xMXnjD/Vz4F7Ost6Tv/5zOdwUYD9ZO/7jE87NrM5+b0xFkYm
+	 mD2eUNoUer8Ghbv5bXDDglYI2EN1nLi8NN99hwaPytkyAf1tl44+x2NPK+QAm0+YVq
+	 yayDr8ZEzLIqqrQHAXXQvTNuzpw8pZHPbfZDiXnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 292F6F896DD;
-	Mon,  3 Jun 2019 10:54:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12499F896DD;
+	Mon,  3 Jun 2019 11:05:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A890FF896CE; Mon,  3 Jun 2019 10:54:27 +0200 (CEST)
+ id 4905DF896DD; Mon,  3 Jun 2019 11:05:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
- T_DKIMWL_WL_HIGH,URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
- [IPv6:2607:f8b0:4864:20::a44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lb2-smtp-cloud8.xs4all.net (lb2-smtp-cloud8.xs4all.net
+ [194.109.24.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD04FF896CE
- for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 10:54:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD04FF896CE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="M5LBwXeW"
-Received: by mail-vk1-xa44.google.com with SMTP id f6so1625638vka.6
- for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 01:54:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=wdJEk7xoPcDvx0rL8FHQp9oPvWZRTtNsGybP0RtSagY=;
- b=M5LBwXeW8e3O+PDSsi9zCXscQ8y1vbRUSJsU1dQVFrSJjRzc0XEsTIijLOFvdIySua
- +OCo46JIId3hfB8wKxv+MCF7fVRzIDejRA2kyMLDpDQwCzug1Ciird69sGvwMmk1d8Mo
- XsEJ3E2hVFq6TKZA01pfKGQ+jF0WA1WjOA96Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=wdJEk7xoPcDvx0rL8FHQp9oPvWZRTtNsGybP0RtSagY=;
- b=mSjT/DvSH4bKMrxvmvjxms1fw/tdNcfXtgVg821YbJ9HnoEqsbpdqOuia9Ex8gvTDU
- o3tS4vb5Dk4Ps35DrnS7wsAweqiuG9U2ZE6H0z2so5+SgQvj2S1FFjmNWCDsklL06rr7
- OG9vO+9TTAhuTEes/gVf8+OssDScIdTqWxU6HvffNk/O5VkYA60KPuOIHCcA64Wme8IN
- 8qc/br7HPiv0GyPhHJTHvHXwCPIEpgts/0vrDFiEmA9Ows3qx97tgpV1kOBwrSIPrbnE
- UplQvHN0FHaq/8xhsj5LK+JlTA/J1ncLj56ye75OK0gCTVhQ0cXryKX67/shBTKyH/rt
- Rxzw==
-X-Gm-Message-State: APjAAAUsCGH1WQD7rmq0+3ozQ/0Mk0TQTH2gXeAfeZwOcSbkr1dEKgSs
- Y/y9i1v++naMaqRHvaXvFzWcBXMImtv4ernNxk8csw==
-X-Google-Smtp-Source: APXvYqzW5LQtHHySgqxIQwZwXTkV349/aO/EZ86HUpABwdgeY6YY1BGiVYaBh3z0RzEL+55rfLwERjYPN8UokbeRX/Y=
-X-Received: by 2002:a1f:a003:: with SMTP id j3mr5105438vke.74.1559552062071;
- Mon, 03 Jun 2019 01:54:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190603043251.226549-1-cychiang@chromium.org>
- <20190603043251.226549-3-cychiang@chromium.org> <20190603100301.00d68690@xxx>
-In-Reply-To: <20190603100301.00d68690@xxx>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Mon, 3 Jun 2019 16:53:55 +0800
-Message-ID: <CAFv8Nw+g2SZ00FTH969AbpPBBm_jeN9C-7_Mz5Vr7xc+qs0UfQ@mail.gmail.com>
-To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- linux-rockchip@lists.infradead.org, Dylan Reid <dgreid@chromium.org>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, tzungbi@chromium.org,
- Daniel Vetter <daniel@ffwll.ch>,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B870F80774
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 11:05:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B870F80774
+Received: from [192.168.2.10] ([46.9.252.75])
+ by smtp-cloud8.xs4all.net with ESMTPA
+ id Xiu7hREQo0YQeXiuAhOHgi; Mon, 03 Jun 2019 11:05:37 +0200
+To: Cheng-Yi Chiang <cychiang@chromium.org>, linux-kernel@vger.kernel.org,
  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Russell King <rmk+kernel@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Doug Anderson <dianders@chromium.org>,
- linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH 2/7] ASoC: hdmi-codec: use HDMI state
- notifier to add jack support
+ Philipp Zabel <p.zabel@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jaroslav Kysela <perex@perex.cz>, Russell King <rmk+kernel@armlinux.org.uk>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ David Airlie <airlied@linux.ie>, Rob Herring <robh+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, dianders@chromium.org,
+ dgreid@chromium.org, tzungbi@chromium.org, linux-media@vger.kernel.org,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, Dariusz Marcinkiewicz <darekm@google.com>
+References: <20190603043251.226549-1-cychiang@chromium.org>
+ <20190603043251.226549-2-cychiang@chromium.org>
+ <41e7052b-a58c-5a8c-5d94-37237e0c2070@xs4all.nl>
+ <20190603080931.GG21222@phenom.ffwll.local>
+From: Hans Verkuil <hverkuil@xs4all.nl>
+Message-ID: <fdb22eb1-f9c9-93fc-5da4-28bae87eeea3@xs4all.nl>
+Date: Mon, 3 Jun 2019 11:05:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <20190603080931.GG21222@phenom.ffwll.local>
+Content-Language: en-US
+X-CMAE-Envelope: MS4wfHjbpPfT63L6930VQY9+3PRzudUqK+7LXVEQSScq83SIGpTwZlq7lm2oGYNjLK2GFvRJVtPbuFtAM8hBPS2N8J0nG5ZUbcqs+yaPLr34DnBE/6p9F9Om
+ NPkoZhIpgLU7gu5vkBU9wrF79ax8qgqtaZILOZc5jaWLP1c56YonJcCTIJlCvHvj10vlS+5XzIctcUqmyifdUoKo/Ed+rP0eCPQ4UQGz9670pMBLXPkr9OtP
+ tS83Qbyb1Sq/4ISzT2DYkg5AxXrpHIJ0bnFNXJXDrZx9To+M/SCYM14ho4qyyrWSqcoXhMDLJ550G4sM4KRj9r6fGmY4REsgJ4zTOt7EpluOcsDxgg79CCGO
+ zfkMIkueTWFeoz2Vn5dvmaeW5uWRKwUoL9KbKgFVfbLSYspfb4XnfySZxzFIiEQCEmE0edFu6g8JZj5OlJWI/u/2+cZr8U5QcnLhAb9LQ6dihC2ZUg2jcmf/
+ zGe5d5Iml7akgA4ySyb349zFFukV+jPs/IPR+BsJYkoU8Hi9l2V6Wa5GyyJrWAehhc/Cq3zin260p4cyWLhH/LF8unwHrFy74D0w8UWx8M3xEHDs9PAIDjT/
+ UxMUkyp/YEbmwT1UsEQLsI5fjElIeWHvc2M2zlgVNttrV7p/lEnbTHQpSkJp59tRDn+tWX1L0Lvai3lEA8+8unTj23tc8+hG+50Qlv7Uo6/kh2/2rs2h5K9f
+ oi/X6TGCt1JN0MZnA/ynRELaZFz4tyjQUAsfnWt6vr3FgjuIxQwReS/thDZOnZWYxXFqNpvQsw1HFt3uVPvjkptJP1yJzt9dJ0PsCiRP/1f1DbB9il8D18r7
+ /wRyy0ABl5FtPrlkDZHK1IdqgVEan0ZVQHIzm+vw6TyiN3b6nM8VhotKywBDs0gUHX3msz3THWNJjxsyoCbBU6ol9QAzq6+fbTn0n7xMGjgX20tqDrvQ86k0
+ Zmlu4KwCItg0zePkP/gIG4JUng26JLupYtF0Z3T8wCK7ITFt7iF5xtGpaHB+uk8+8UrX88nSesvF5/2PNlj9nGQNzYU=
+Subject: Re: [alsa-devel] [PATCH 1/7] video: add HDMI state notifier support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,168 +88,435 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCBKdW4gMywgMjAxOSBhdCAzOjU5IFBNIEFtYWRldXN6IFPFgmF3acWEc2tpCjxhbWFk
-ZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj4KPiBPbiBNb24sICAzIEp1
-biAyMDE5IDEyOjMyOjQ2ICswODAwCj4gQ2hlbmctWWkgQ2hpYW5nIDxjeWNoaWFuZ0BjaHJvbWl1
-bS5vcmc+IHdyb3RlOgo+Cj4gPiBGcm9tOiBQaGlsaXBwIFphYmVsIDxwLnphYmVsQHBlbmd1dHJv
-bml4LmRlPgo+ID4KPiA+IFVzZSBIRE1JIGNvbm5lY3Rpb24gLyBkaXNjb25uZWN0aW9uIG5vdGlm
-aWNhdGlvbnMgdG8gdXBkYXRlIGFuIEFMU0EKPiA+IGphY2sgb2JqZWN0LiBBbHNvIG1ha2UgYSBj
-b3B5IG9mIHRoZSBFTEQgYmxvY2sgYWZ0ZXIgZXZlcnkgY2hhbmdlLgo+ID4KPiA+IFRoaXMgd2Fz
-IHBvc3RlZCBieSBQaGlsaXBwIFphYmVsIGF0Cj4gPgo+ID4gaHR0cHM6Ly9wYXRjaHdvcmsua2Vy
-bmVsLm9yZy9wYXRjaC85NDMwNzQ3Lwo+ID4KPiA+IE1vZGlmaWVkIGJ5IENoZW5nLVlpIENoaWFu
-ZzoKPiA+IC0gRml4IHRoZSBjb25mbGljdCBvZiByZW1vdmVkIGhkbWlfY29kZWNfcmVtb3ZlIG9w
-cy4KPiA+IC0gT3RoZXIgbWlub3IgZml4IGZvciB0aGUgY29uZmxpY3Qgd2l0aCBsYXRlc3QgaGRt
-aS1jb2RlYyBvbiBBU29DCj4gPiAgIGZvci1uZXh0IHRyZWUuCj4gPgo+ID4gU2lnbmVkLW9mZi1i
-eTogUGhpbGlwcCBaYWJlbCA8cC56YWJlbEBwZW5ndXRyb25peC5kZT4KPiA+IFNpZ25lZC1vZmYt
-Ynk6IENoZW5nLVlpIENoaWFuZyA8Y3ljaGlhbmdAY2hyb21pdW0ub3JnPgo+ID4gLS0tCj4gPiBU
-aGUgb3JpZ2luYWwgcGF0Y2ggaXMgYXQgaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRj
-aC85NDMwNzQ3Lwo+ID4gSSBjb3VsZCBub3QgZmluZCB0aGUgTEtNTCBsaW5rIGZvciB0aGUgcGF0
-Y2guCj4gPgo+ID4gIGluY2x1ZGUvc291bmQvaGRtaS1jb2RlYy5oICAgIHwgICA3ICsrKwo+ID4g
-IHNvdW5kL3NvYy9jb2RlY3MvS2NvbmZpZyAgICAgIHwgICAxICsKPiA+ICBzb3VuZC9zb2MvY29k
-ZWNzL2hkbWktY29kZWMuYyB8IDEwNAo+ID4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrLSAzIGZpbGVzIGNoYW5nZWQsIDExMAo+ID4gaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
-LSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmggYi9pbmNs
-dWRlL3NvdW5kL2hkbWktY29kZWMuaAo+ID4gaW5kZXggOTQ4M2M1NWY4NzFiLi40ZmEzOWM5MzM2
-M2YgMTAwNjQ0Cj4gPiAtLS0gYS9pbmNsdWRlL3NvdW5kL2hkbWktY29kZWMuaAo+ID4gKysrIGIv
-aW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmgKPiA+IEBAIC0xMDcsNiArMTA3LDEzIEBAIHN0cnVj
-dCBoZG1pX2NvZGVjX3BkYXRhIHsKPiA+ICAgICAgIHZvaWQgKmRhdGE7Cj4gPiAgfTsKPiA+Cj4g
-PiArc3RydWN0IHNuZF9zb2NfY29tcG9uZW50Owo+ID4gK3N0cnVjdCBzbmRfc29jX2phY2s7Cj4g
-PiArCj4gPiAraW50IGhkbWlfY29kZWNfc2V0X2phY2tfZGV0ZWN0KHN0cnVjdCBzbmRfc29jX2Nv
-bXBvbmVudCAqY29tcG9uZW50LAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1
-Y3Qgc25kX3NvY19qYWNrICpqYWNrLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
-dHJ1Y3QgZGV2aWNlICpkZXYpOwo+ID4gKwo+ID4gICNkZWZpbmUgSERNSV9DT0RFQ19EUlZfTkFN
-RSAiaGRtaS1hdWRpby1jb2RlYyIKPiA+Cj4gPiAgI2VuZGlmIC8qIF9fSERNSV9DT0RFQ19IX18g
-Ki8KPiA+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL0tjb25maWcgYi9zb3VuZC9zb2Mv
-Y29kZWNzL0tjb25maWcKPiA+IGluZGV4IDhmNTc3MjU4MDgwYi4uZjVmNmRkMDQyMzRjIDEwMDY0
-NAo+ID4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9LY29uZmlnCj4gPiArKysgYi9zb3VuZC9zb2Mv
-Y29kZWNzL0tjb25maWcKPiA+IEBAIC02MzksNiArNjM5LDcgQEAgY29uZmlnIFNORF9TT0NfSERN
-SV9DT0RFQwo+ID4gICAgICAgc2VsZWN0IFNORF9QQ01fRUxECj4gPiAgICAgICBzZWxlY3QgU05E
-X1BDTV9JRUM5NTgKPiA+ICAgICAgIHNlbGVjdCBIRE1JCj4gPiArICAgICBzZWxlY3QgSERNSV9O
-T1RJRklFUlMKPiA+Cj4gPiAgY29uZmlnIFNORF9TT0NfRVM3MTM0Cj4gPiAgICAgICAgIHRyaXN0
-YXRlICJFdmVyZXN0IFNlbWkgRVM3MTM0IENPREVDIgo+ID4gZGlmZiAtLWdpdCBhL3NvdW5kL3Nv
-Yy9jb2RlY3MvaGRtaS1jb2RlYy5jCj4gPiBiL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5j
-IGluZGV4IDZhMGNjOGQ3ZTE0MS4uZmU3OTZhNzQ3NWE1Cj4gPiAxMDA2NDQgLS0tIGEvc291bmQv
-c29jL2NvZGVjcy9oZG1pLWNvZGVjLmMKPiA+ICsrKyBiL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1j
-b2RlYy5jCj4gPiBAQCAtMTIsOSArMTIsMTIgQEAKPiA+ICAgKiBNRVJDSEFOVEFCSUxJVFkgb3Ig
-RklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuICAgICAgIFNlZQo+ID4gdGhlIEdOVQo+
-ID4gICAqIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy4KPiA+ICAgKi8K
-PiA+ICsjaW5jbHVkZSA8bGludXgvaGRtaS1ub3RpZmllci5oPgo+ID4gICNpbmNsdWRlIDxsaW51
-eC9tb2R1bGUuaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvbm90aWZpZXIuaD4KPiA+ICAjaW5jbHVk
-ZSA8bGludXgvc3RyaW5nLmg+Cj4gPiAgI2luY2x1ZGUgPHNvdW5kL2NvcmUuaD4KPiA+ICsjaW5j
-bHVkZSA8c291bmQvamFjay5oPgo+ID4gICNpbmNsdWRlIDxzb3VuZC9wY20uaD4KPiA+ICAjaW5j
-bHVkZSA8c291bmQvcGNtX3BhcmFtcy5oPgo+ID4gICNpbmNsdWRlIDxzb3VuZC9zb2MuaD4KPiA+
-IEBAIC0yODIsNiArMjg1LDEzIEBAIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgewo+ID4gICAgICAg
-c3RydWN0IHNuZF9wY21fY2htYXAgKmNobWFwX2luZm87Cj4gPiAgICAgICB1bnNpZ25lZCBpbnQg
-Y2htYXBfaWR4Owo+ID4gICAgICAgc3RydWN0IG11dGV4IGxvY2s7Cj4gPiArICAgICBzdHJ1Y3Qg
-c25kX3NvY19qYWNrICpqYWNrOwo+ID4gKyAgICAgLyogTG9jayB0byBwcm90ZWN0IHNldHRpbmcg
-YW5kIGdldHRpbmcgZWxkLiAqLwo+ID4gKyAgICAgc3RydWN0IG11dGV4IGVsZF9sb2NrOwo+ID4g
-KyAgICAgc3RydWN0IGRldmljZSAqZGV2Owo+ID4gKyAgICAgc3RydWN0IGhkbWlfbm90aWZpZXIg
-Km5vdGlmaWVyOwo+ID4gKyAgICAgc3RydWN0IG5vdGlmaWVyX2Jsb2NrIG5iOwo+ID4gKyAgICAg
-dW5zaWduZWQgaW50IGphY2tfc3RhdHVzOwo+ID4gIH07Cj4gPgo+ID4gIHN0YXRpYyBjb25zdCBz
-dHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldCBoZG1pX3dpZGdldHNbXSA9IHsKPiA+IEBAIC0zMDgs
-NyArMzE4LDkgQEAgc3RhdGljIGludCBoZG1pX2VsZF9jdGxfZ2V0KHN0cnVjdCBzbmRfa2NvbnRy
-b2wKPiA+ICprY29udHJvbCwgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPQo+
-ID4gc25kX2tjb250cm9sX2NoaXAoa2NvbnRyb2wpOyBzdHJ1Y3QgaGRtaV9jb2RlY19wcml2ICpo
-Y3AgPQo+ID4gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsKPiA+ICsg
-ICAgIG11dGV4X2xvY2soJmhjcC0+ZWxkX2xvY2spOwo+ID4gICAgICAgbWVtY3B5KHVjb250cm9s
-LT52YWx1ZS5ieXRlcy5kYXRhLCBoY3AtPmVsZCwKPiA+IHNpemVvZihoY3AtPmVsZCkpOwo+ID4g
-KyAgICAgbXV0ZXhfdW5sb2NrKCZoY3AtPmVsZF9sb2NrKTsKPiA+Cj4gPiAgICAgICByZXR1cm4g
-MDsKPiA+ICB9Cj4gPiBAQCAtMzkzLDcgKzQwNSw3IEBAIHN0YXRpYyBpbnQgaGRtaV9jb2RlY19z
-dGFydHVwKHN0cnVjdAo+ID4gc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwgc3RydWN0IHNu
-ZF9zb2NfZGFpICpkYWkpCj4gPiAgewo+ID4gICAgICAgc3RydWN0IGhkbWlfY29kZWNfcHJpdiAq
-aGNwID0gc25kX3NvY19kYWlfZ2V0X2RydmRhdGEoZGFpKTsKPiA+IC0gICAgIGludCByZXQgPSAw
-Owo+ID4gKyAgICAgaW50IHJldDsKPiA+Cj4gPiAgICAgICByZXQgPSBtdXRleF90cnlsb2NrKCZo
-Y3AtPmxvY2spOwo+ID4gICAgICAgaWYgKCFyZXQpIHsKPiA+IEBAIC00MDgsOSArNDIwLDkgQEAg
-c3RhdGljIGludCBoZG1pX2NvZGVjX3N0YXJ0dXAoc3RydWN0Cj4gPiBzbmRfcGNtX3N1YnN0cmVh
-bSAqc3Vic3RyZWFtLCB9Cj4gPgo+ID4gICAgICAgaWYgKGhjcC0+aGNkLm9wcy0+Z2V0X2VsZCkg
-ewo+ID4gKyAgICAgICAgICAgICBtdXRleF9sb2NrKCZoY3AtPmVsZF9sb2NrKTsKPiA+ICAgICAg
-ICAgICAgICAgcmV0ID0gaGNwLT5oY2Qub3BzLT5nZXRfZWxkKGRhaS0+ZGV2LT5wYXJlbnQsCj4g
-PiBoY3AtPmhjZC5kYXRhLCBoY3AtPmVsZCwgc2l6ZW9mKGhjcC0+ZWxkKSk7Cj4gPiAtCj4gPiAg
-ICAgICAgICAgICAgIGlmICghcmV0KSB7Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgcmV0ID0K
-PiA+IHNuZF9wY21faHdfY29uc3RyYWludF9lbGQoc3Vic3RyZWFtLT5ydW50aW1lLCBoY3AtPmVs
-ZCk7Cj4KPiBTZWVtcyB0byBtZSBsaWtlIHlvdSBtaXNzZWQgdW5sb2NrIGhlcmUuIFRoZXJlIGlz
-IHJldHVybiBpbnNpZGUgdGhpcwo+IGlmKCkuCj4KClRoYW5rcyBmb3IgY2hlY2tpbmchClRoZSBs
-YXRlc3QgcGF0Y2ggb24gaGRtaS1jb2RlYy5jIG9uIEFTb0MgdHJlZSBoYXMgYSBjaGFuZ2UgdG8g
-cmVwbGFjZQp0aGF0IHJldHVybiB0byBnb3RvIGVyci4KCmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5l
-bC5vcmcvcGF0Y2gvMTA5MzA4NzUvCgpNeSBwYXRjaCBpcyBiYXNlZCBvbiB0aGF0IHNvIGl0IHNo
-b3VsZCBiZSBva2F5LgpUaGFua3MhCgo+ID4gQEAgLTQxOSw2ICs0MzEsNyBAQCBzdGF0aWMgaW50
-IGhkbWlfY29kZWNfc3RhcnR1cChzdHJ1Y3QKPiA+IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJl
-YW0sIH0KPiA+ICAgICAgICAgICAgICAgLyogU2VsZWN0IGNobWFwIHN1cHBvcnRlZCAqLwo+ID4g
-ICAgICAgICAgICAgICBoZG1pX2NvZGVjX2VsZF9jaG1hcChoY3ApOwo+ID4gKyAgICAgICAgICAg
-ICBtdXRleF91bmxvY2soJmhjcC0+ZWxkX2xvY2spOwo+ID4gICAgICAgfQo+ID4gICAgICAgcmV0
-dXJuIDA7Cj4gPgo+ID4gQEAgLTc0Nyw2ICs3NjAsNzcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBz
-bmRfc29jX2NvbXBvbmVudF9kcml2ZXIKPiA+IGhkbWlfZHJpdmVyID0geyAubm9uX2xlZ2FjeV9k
-YWlfbmFtaW5nICAgICAgICA9IDEsCj4gPiAgfTsKPiA+Cj4gPiArc3RhdGljIHZvaWQgaGRtaV9j
-b2RlY19qYWNrX3JlcG9ydChzdHJ1Y3QgaGRtaV9jb2RlY19wcml2ICpoY3AsCj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgamFja19zdGF0dXMpCj4gPiAr
-ewo+ID4gKyAgICAgaWYgKCFoY3AtPmphY2spCj4gPiArICAgICAgICAgICAgIHJldHVybjsKPiA+
-ICsKPiA+ICsgICAgIGlmIChqYWNrX3N0YXR1cyAhPSBoY3AtPmphY2tfc3RhdHVzKSB7Cj4gPiAr
-ICAgICAgICAgICAgIHNuZF9zb2NfamFja19yZXBvcnQoaGNwLT5qYWNrLCBqYWNrX3N0YXR1cywK
-PiA+IFNORF9KQUNLX0xJTkVPVVQpOwo+ID4gKyAgICAgICAgICAgICBoY3AtPmphY2tfc3RhdHVz
-ID0gamFja19zdGF0dXM7Cj4gPiArICAgICB9Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyBpbnQg
-aGRtaV9jb2RlY19ub3RpZnkoc3RydWN0IG5vdGlmaWVyX2Jsb2NrICpuYiwgdW5zaWduZWQKPiA+
-IGxvbmcgZXZlbnQsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkICpkYXRhKQo+
-ID4gK3sKPiA+ICsgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9IGNvbnRhaW5lcl9v
-ZihuYiwgc3RydWN0Cj4gPiBoZG1pX2NvZGVjX3ByaXYsCj4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmIpOwo+ID4gKyAgICAgc3RydWN0IGhkbWlf
-bm90aWZpZXIgKm4gPSBkYXRhOwo+ID4gKwo+ID4gKyAgICAgaWYgKCFoY3AtPmphY2spCj4gPiAr
-ICAgICAgICAgICAgIHJldHVybiBOT1RJRllfT0s7Cj4gPiArCj4gPiArICAgICBzd2l0Y2ggKGV2
-ZW50KSB7Cj4gPiArICAgICBjYXNlIEhETUlfTkVXX0VMRDoKPiA+ICsgICAgICAgICAgICAgbXV0
-ZXhfbG9jaygmaGNwLT5lbGRfbG9jayk7Cj4gPiArICAgICAgICAgICAgIG1lbWNweShoY3AtPmVs
-ZCwgbi0+ZWxkLCBzaXplb2YoaGNwLT5lbGQpKTsKPiA+ICsgICAgICAgICAgICAgbXV0ZXhfdW5s
-b2NrKCZoY3AtPmVsZF9sb2NrKTsKPiA+ICsgICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoICov
-Cj4gPiArICAgICBjYXNlIEhETUlfQ09OTkVDVEVEOgo+ID4gKyAgICAgICAgICAgICBoZG1pX2Nv
-ZGVjX2phY2tfcmVwb3J0KGhjcCwgU05EX0pBQ0tfTElORU9VVCk7Cj4gPiArICAgICAgICAgICAg
-IGJyZWFrOwo+ID4gKyAgICAgY2FzZSBIRE1JX0RJU0NPTk5FQ1RFRDoKPiA+ICsgICAgICAgICAg
-ICAgaGRtaV9jb2RlY19qYWNrX3JlcG9ydChoY3AsIDApOwo+ID4gKyAgICAgICAgICAgICBicmVh
-azsKPiA+ICsgICAgIH0KPiA+ICsKPiA+ICsgICAgIHJldHVybiBOT1RJRllfT0s7Cj4gPiArfQo+
-ID4gKwo+ID4gKy8qKgo+ID4gKyAqIGhkbWlfY29kZWNfc2V0X2phY2tfZGV0ZWN0IC0gcmVnaXN0
-ZXIgSERNSSBzdGF0ZSBub3RpZmllciBjYWxsYmFjawo+ID4gKyAqIEBjb21wb25lbnQ6IHRoZSBo
-ZG1pLWNvZGVjIGluc3RhbmNlCj4gPiArICogQGphY2s6IEFTb0MgamFjayB0byByZXBvcnQgKGRp
-cyljb25uZWN0aW9uIGV2ZW50cyBvbgo+ID4gKyAqIEBkZXY6IGhkbWlfbm90aWZpZXIgZGV2aWNl
-LCB1c3VhbGx5IEhETUlfVFggb3IgQ0VDIGRldmljZQo+ID4gKyAqLwo+ID4gK2ludCBoZG1pX2Nv
-ZGVjX3NldF9qYWNrX2RldGVjdChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwK
-PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfamFjayAqamFj
-aywKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZSAqZGV2KQo+
-ID4gK3sKPiA+ICsgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9Cj4gPiBzbmRfc29j
-X2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOwo+ID4gKyAgICAgaW50IHJldDsKPiA+
-ICsKPiA+ICsgICAgIGhjcC0+bm90aWZpZXIgPSBoZG1pX25vdGlmaWVyX2dldChkZXYpOwo+ID4g
-KyAgICAgaWYgKCFoY3AtPm5vdGlmaWVyKQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gLUVOT01F
-TTsKPiA+ICsKPiA+ICsgICAgIGhjcC0+amFjayA9IGphY2s7Cj4gPiArICAgICBoY3AtPm5iLm5v
-dGlmaWVyX2NhbGwgPSBoZG1pX2NvZGVjX25vdGlmeTsKPiA+ICsgICAgIHJldCA9IGhkbWlfbm90
-aWZpZXJfcmVnaXN0ZXIoaGNwLT5ub3RpZmllciwgJmhjcC0+bmIpOwo+ID4gKyAgICAgaWYgKHJl
-dCkKPiA+ICsgICAgICAgICAgICAgZ290byBlcnJfbm90aWZpZXJfcHV0Owo+ID4gKwo+ID4gKyAg
-ICAgcmV0dXJuIDA7Cj4gPiArCj4gPiArZXJyX25vdGlmaWVyX3B1dDoKPiA+ICsgICAgIGhkbWlf
-bm90aWZpZXJfcHV0KGhjcC0+bm90aWZpZXIpOwo+ID4gKyAgICAgaGNwLT5ub3RpZmllciA9IE5V
-TEw7Cj4gPiArICAgICByZXR1cm4gcmV0Owo+ID4gK30KPiA+ICtFWFBPUlRfU1lNQk9MX0dQTCho
-ZG1pX2NvZGVjX3NldF9qYWNrX2RldGVjdCk7Cj4gPiArCj4gPiAgc3RhdGljIGludCBoZG1pX2Nv
-ZGVjX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAgewo+ID4gICAgICAg
-c3RydWN0IGhkbWlfY29kZWNfcGRhdGEgKmhjZCA9IHBkZXYtPmRldi5wbGF0Zm9ybV9kYXRhOwo+
-ID4gQEAgLTc3NCw2ICs4NTgsNyBAQCBzdGF0aWMgaW50IGhkbWlfY29kZWNfcHJvYmUoc3RydWN0
-Cj4gPiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAgICAgICBoY3AtPmhjZCA9ICpoY2Q7Cj4g
-PiAgICAgICBtdXRleF9pbml0KCZoY3AtPmxvY2spOwo+ID4gKyAgICAgbXV0ZXhfaW5pdCgmaGNw
-LT5lbGRfbG9jayk7Cj4gPgo+ID4gICAgICAgZGFpZHJ2ID0gZGV2bV9rY2FsbG9jKGRldiwgZGFp
-X2NvdW50LCBzaXplb2YoKmRhaWRydiksCj4gPiBHRlBfS0VSTkVMKTsgaWYgKCFkYWlkcnYpCj4g
-PiBAQCAtNzk3LDYgKzg4MiwyMCBAQCBzdGF0aWMgaW50IGhkbWlfY29kZWNfcHJvYmUoc3RydWN0
-Cj4gPiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpIF9fZnVuY19fLCByZXQpOwo+ID4gICAgICAgICAg
-ICAgICByZXR1cm4gcmV0Owo+ID4gICAgICAgfQo+ID4gKwo+ID4gKyAgICAgaGNwLT5kZXYgPSBk
-ZXY7Cj4gPiArCj4gPiArICAgICByZXR1cm4gMDsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIGlu
-dCBoZG1pX2NvZGVjX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gK3sK
-PiA+ICsgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9IHBsYXRmb3JtX2dldF9kcnZk
-YXRhKHBkZXYpOwo+ID4gKwo+ID4gKyAgICAgaWYgKGhjcC0+bm90aWZpZXIpIHsKPiA+ICsgICAg
-ICAgICAgICAgaGRtaV9ub3RpZmllcl91bnJlZ2lzdGVyKGhjcC0+bm90aWZpZXIsICZoY3AtPm5i
-KTsKPiA+ICsgICAgICAgICAgICAgaGRtaV9ub3RpZmllcl9wdXQoaGNwLT5ub3RpZmllcik7Cj4g
-PiArICAgICB9Cj4gPiAgICAgICByZXR1cm4gMDsKPiA+ICB9Cj4gPgo+ID4gQEAgLTgwNSw2ICs5
-MDQsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBoZG1pX2NvZGVjX2RyaXZlciA9
-Cj4gPiB7IC5uYW1lID0gSERNSV9DT0RFQ19EUlZfTkFNRSwKPiA+ICAgICAgIH0sCj4gPiAgICAg
-ICAucHJvYmUgPSBoZG1pX2NvZGVjX3Byb2JlLAo+ID4gKyAgICAgLnJlbW92ZSA9IGhkbWlfY29k
-ZWNfcmVtb3ZlLAo+ID4gIH07Cj4gPgo+ID4gIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoaGRtaV9j
-b2RlY19kcml2ZXIpOwo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9y
-ZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2Et
-ZGV2ZWwK
+On 6/3/19 10:09 AM, Daniel Vetter wrote:
+> On Mon, Jun 03, 2019 at 09:45:49AM +0200, Hans Verkuil wrote:
+>> On 6/3/19 6:32 AM, Cheng-Yi Chiang wrote:
+>>> From: Hans Verkuil <hans.verkuil@cisco.com>
+>>>
+>>> Add support for HDMI hotplug and EDID notifiers, which is used to convey
+>>> information from HDMI drivers to their CEC and audio counterparts.
+>>>
+>>> Based on an earlier version from Russell King:
+>>>
+>>> https://patchwork.kernel.org/patch/9277043/
+>>>
+>>> The hdmi_notifier is a reference counted object containing the HDMI state
+>>> of an HDMI device.
+>>>
+>>> When a new notifier is registered the current state will be reported to
+>>> that notifier at registration time.
+>>>
+>>> Based on Hans Verkuil's patch:
+>>>
+>>> https://patchwork.kernel.org/patch/9472521/
+>>
+>> Erm, you are aware that this patch morphed into a CEC-specific notifier
+>> found in drivers/media/cec/cec-notifier.c?
+>>
+>> I don't think it makes sense to have two notifier implementations in the kernel.
+>> The original intention was to have the notifier deal with both CEC and ASoC
+>> notifications, but there was not enough interest for the ASoC bits at the time
+>> and it was dropped.
+>>
+>> I am planning changes to the cec-notifier API, I hope to work on that this
+>> week. I'll CC you when I post those. Those might be a good starting point
+>> to convert the cec-notifier to an hdmi-notifier as was originally intended.
+>>
+>> I've added your colleague Dariusz Marcinkiewicz to the CC list since he's been
+>> working on some nice cec-notifier improvements as well.
+> 
+> We also have some interfaces for drm/alsa interactions around hdmi
+> already in drm/drm_audio_component.h, but it's not used by anything
+> outside of i915. Imo we should extend that, not reinvent a new wheel.
+
+If that can be used instead of this hdmi-notifier, then that's fine by me.
+
+> Another note: notifiers considered evil, imo. Gets the job done for one
+> case, as soon as you have multiple devices and need to make sure you get
+> the update for the right one it all comes crashing down. Please create an
+> api which registers for updates from a specific device only, plus
+> something that has real callbacks (like the drm_audio_component.h thing we
+> started already).
+
+For CEC the notifier works very well. But CEC has some special requirements
+that ASoC doesn't have:
+
+- The cec-notifier can be used by both HDMI transmitters and receivers (so
+has to work with two different subsystems).
+
+- There may be multiple CEC devices connected to one HDMI transmitter: one
+that is used when the system is in Standby, and a more capable CEC device
+used when the system is powered up. This isn't supported yet, but it is likely
+that we'll need this.
+
+- HDMI and CEC devices are often completely independent and one or the other
+(or both) can be unbound at any time. A real-world example is when an FPGA
+containing the HDMI and/or CEC support is unloaded to save power when in standby.
+
+- In some cases you want to register a CEC device via a notifier to an HDMI
+connector based on userspace information. E.g. the popular USB Pulse-Eight CEC
+device can be connected to any HDMI output by the user, there is no way to know
+this in the kernel. An application that knows about the Pulse-Eight currently
+has to parse the EDID and set the Physical Address of the Pulse-Eight accordingly.
+I want to make it possible that the user can just tell the Pulse-Eight which HDMI
+output is used and have it connect to that output using the notifier. I have a
+proof-of-concept, but this needs Dariusz' series to make it work.
+
+Regards,
+
+	Hans
+
+> -Daniel
+> 
+>>
+>> Regards,
+>>
+>> 	Hans
+>>
+>>>
+>>> Modified by Cheng-Yi Chiang:
+>>>  - Add a section in MAINTAINER.
+>>>  - Changes connected and has_eld to bitfield of unsigned int.
+>>>  - Other minor fixes to pass checkpatch.pl --strict checks.
+>>>
+>>> Signed-off-by: Hans Verkuil <hans.verkuil@cisco.com>
+>>> Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
+>>> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+>>> ---
+>>> The original patch is at
+>>> https://lore.kernel.org/linux-arm-kernel/20161213150813.37966-2-hverkuil@xs4all.nl
+>>>
+>>>  MAINTAINERS                   |   6 ++
+>>>  drivers/video/Kconfig         |   3 +
+>>>  drivers/video/Makefile        |   1 +
+>>>  drivers/video/hdmi-notifier.c | 145 ++++++++++++++++++++++++++++++++++
+>>>  include/linux/hdmi-notifier.h | 112 ++++++++++++++++++++++++++
+>>>  5 files changed, 267 insertions(+)
+>>>  create mode 100644 drivers/video/hdmi-notifier.c
+>>>  create mode 100644 include/linux/hdmi-notifier.h
+>>>
+>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>> index 5cfbea4ce575..ffb7376f9509 100644
+>>> --- a/MAINTAINERS
+>>> +++ b/MAINTAINERS
+>>> @@ -16676,6 +16676,12 @@ W:	https://linuxtv.org
+>>>  S:	Maintained
+>>>  F:	drivers/media/platform/vicodec/*
+>>>  
+>>> +VIDEO FRAMEWORK
+>>> +M:	Hans Verkuil <hverkuil@xs4all.nl>
+>>> +L:	linux-media@vger.kernel.org
+>>> +F:	drivers/video/hdmi-notifier.*
+>>> +S:	Maintained
+>>> +
+>>>  VIDEO MULTIPLEXER DRIVER
+>>>  M:	Philipp Zabel <p.zabel@pengutronix.de>
+>>>  L:	linux-media@vger.kernel.org
+>>> diff --git a/drivers/video/Kconfig b/drivers/video/Kconfig
+>>> index 83d3d271ca15..000ba9bc0ae7 100644
+>>> --- a/drivers/video/Kconfig
+>>> +++ b/drivers/video/Kconfig
+>>> @@ -34,6 +34,9 @@ config VIDEOMODE_HELPERS
+>>>  config HDMI
+>>>  	bool
+>>>  
+>>> +config HDMI_NOTIFIERS
+>>> +	bool
+>>> +
+>>>  endif # HAS_IOMEM
+>>>  
+>>>  if VT
+>>> diff --git a/drivers/video/Makefile b/drivers/video/Makefile
+>>> index df7650adede9..eff4736102ca 100644
+>>> --- a/drivers/video/Makefile
+>>> +++ b/drivers/video/Makefile
+>>> @@ -1,6 +1,7 @@
+>>>  # SPDX-License-Identifier: GPL-2.0
+>>>  obj-$(CONFIG_VGASTATE)            += vgastate.o
+>>>  obj-$(CONFIG_HDMI)                += hdmi.o
+>>> +obj-$(CONFIG_HDMI_NOTIFIERS)      += hdmi-notifier.o
+>>>  
+>>>  obj-$(CONFIG_VT)		  += console/
+>>>  obj-$(CONFIG_FB_STI)		  += console/
+>>> diff --git a/drivers/video/hdmi-notifier.c b/drivers/video/hdmi-notifier.c
+>>> new file mode 100644
+>>> index 000000000000..d1eedf661648
+>>> --- /dev/null
+>>> +++ b/drivers/video/hdmi-notifier.c
+>>> @@ -0,0 +1,145 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +/* hdmi-notifier.c - notify interested parties of (dis)connect and EDID
+>>> + * events
+>>> + *
+>>> + * Copyright 2016 Russell King <rmk+kernel@arm.linux.org.uk>
+>>> + * Copyright 2016 Cisco Systems, Inc. and/or its affiliates.
+>>> + * All rights reserved.
+>>> + */
+>>> +
+>>> +#include <linux/export.h>
+>>> +#include <linux/hdmi-notifier.h>
+>>> +#include <linux/string.h>
+>>> +#include <linux/slab.h>
+>>> +#include <linux/list.h>
+>>> +
+>>> +static LIST_HEAD(hdmi_notifiers);
+>>> +static DEFINE_MUTEX(hdmi_notifiers_lock);
+>>> +
+>>> +struct hdmi_notifier *hdmi_notifier_get(struct device *dev)
+>>> +{
+>>> +	struct hdmi_notifier *n;
+>>> +
+>>> +	mutex_lock(&hdmi_notifiers_lock);
+>>> +	list_for_each_entry(n, &hdmi_notifiers, head) {
+>>> +		if (n->dev == dev) {
+>>> +			mutex_unlock(&hdmi_notifiers_lock);
+>>> +			kref_get(&n->kref);
+>>> +			return n;
+>>> +		}
+>>> +	}
+>>> +	n = kzalloc(sizeof(*n), GFP_KERNEL);
+>>> +	if (!n)
+>>> +		goto unlock;
+>>> +	n->dev = dev;
+>>> +	mutex_init(&n->lock);
+>>> +	BLOCKING_INIT_NOTIFIER_HEAD(&n->notifiers);
+>>> +	kref_init(&n->kref);
+>>> +	list_add_tail(&n->head, &hdmi_notifiers);
+>>> +unlock:
+>>> +	mutex_unlock(&hdmi_notifiers_lock);
+>>> +	return n;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_notifier_get);
+>>> +
+>>> +static void hdmi_notifier_release(struct kref *kref)
+>>> +{
+>>> +	struct hdmi_notifier *n =
+>>> +		container_of(kref, struct hdmi_notifier, kref);
+>>> +
+>>> +	mutex_lock(&hdmi_notifiers_lock);
+>>> +	list_del(&n->head);
+>>> +	mutex_unlock(&hdmi_notifiers_lock);
+>>> +	kfree(n->edid);
+>>> +	kfree(n);
+>>> +}
+>>> +
+>>> +void hdmi_notifier_put(struct hdmi_notifier *n)
+>>> +{
+>>> +	kref_put(&n->kref, hdmi_notifier_release);
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_notifier_put);
+>>> +
+>>> +int hdmi_notifier_register(struct hdmi_notifier *n, struct notifier_block *nb)
+>>> +{
+>>> +	int ret = blocking_notifier_chain_register(&n->notifiers, nb);
+>>> +
+>>> +	if (ret)
+>>> +		return ret;
+>>> +	kref_get(&n->kref);
+>>> +	mutex_lock(&n->lock);
+>>> +	if (n->connected) {
+>>> +		blocking_notifier_call_chain(&n->notifiers, HDMI_CONNECTED, n);
+>>> +		if (n->edid_size)
+>>> +			blocking_notifier_call_chain(&n->notifiers,
+>>> +						     HDMI_NEW_EDID, n);
+>>> +		if (n->has_eld)
+>>> +			blocking_notifier_call_chain(&n->notifiers,
+>>> +						     HDMI_NEW_ELD, n);
+>>> +	}
+>>> +	mutex_unlock(&n->lock);
+>>> +	return 0;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_notifier_register);
+>>> +
+>>> +int hdmi_notifier_unregister(struct hdmi_notifier *n, struct notifier_block *nb)
+>>> +{
+>>> +	int ret = blocking_notifier_chain_unregister(&n->notifiers, nb);
+>>> +
+>>> +	if (ret == 0)
+>>> +		hdmi_notifier_put(n);
+>>> +	return ret;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_notifier_unregister);
+>>> +
+>>> +void hdmi_event_connect(struct hdmi_notifier *n)
+>>> +{
+>>> +	mutex_lock(&n->lock);
+>>> +	n->connected = true;
+>>> +	blocking_notifier_call_chain(&n->notifiers, HDMI_CONNECTED, n);
+>>> +	mutex_unlock(&n->lock);
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_event_connect);
+>>> +
+>>> +void hdmi_event_disconnect(struct hdmi_notifier *n)
+>>> +{
+>>> +	mutex_lock(&n->lock);
+>>> +	n->connected = false;
+>>> +	n->has_eld = false;
+>>> +	n->edid_size = 0;
+>>> +	blocking_notifier_call_chain(&n->notifiers, HDMI_DISCONNECTED, n);
+>>> +	mutex_unlock(&n->lock);
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_event_disconnect);
+>>> +
+>>> +int hdmi_event_new_edid(struct hdmi_notifier *n, const void *edid, size_t size)
+>>> +{
+>>> +	mutex_lock(&n->lock);
+>>> +	if (n->edid_allocated_size < size) {
+>>> +		void *p = kmalloc(size, GFP_KERNEL);
+>>> +
+>>> +		if (!p) {
+>>> +			mutex_unlock(&n->lock);
+>>> +			return -ENOMEM;
+>>> +		}
+>>> +		kfree(n->edid);
+>>> +		n->edid = p;
+>>> +		n->edid_allocated_size = size;
+>>> +	}
+>>> +	memcpy(n->edid, edid, size);
+>>> +	n->edid_size = size;
+>>> +	blocking_notifier_call_chain(&n->notifiers, HDMI_NEW_EDID, n);
+>>> +	mutex_unlock(&n->lock);
+>>> +	return 0;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_event_new_edid);
+>>> +
+>>> +void hdmi_event_new_eld(struct hdmi_notifier *n, const u8 eld[128])
+>>> +{
+>>> +	mutex_lock(&n->lock);
+>>> +	memcpy(n->eld, eld, sizeof(n->eld));
+>>> +	n->has_eld = true;
+>>> +	blocking_notifier_call_chain(&n->notifiers, HDMI_NEW_ELD, n);
+>>> +	mutex_unlock(&n->lock);
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(hdmi_event_new_eld);
+>>> diff --git a/include/linux/hdmi-notifier.h b/include/linux/hdmi-notifier.h
+>>> new file mode 100644
+>>> index 000000000000..c8f35110e3e3
+>>> --- /dev/null
+>>> +++ b/include/linux/hdmi-notifier.h
+>>> @@ -0,0 +1,112 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0
+>>> + * hdmi-notifier.h - notify interested parties of (dis)connect and EDID
+>>> + * events
+>>> + *
+>>> + * Copyright 2016 Russell King <rmk+kernel@arm.linux.org.uk>
+>>> + * Copyright 2016 Cisco Systems, Inc. and/or its affiliates.
+>>> + * All rights reserved.
+>>> + */
+>>> +
+>>> +#ifndef LINUX_HDMI_NOTIFIER_H
+>>> +#define LINUX_HDMI_NOTIFIER_H
+>>> +
+>>> +#include <linux/types.h>
+>>> +#include <linux/notifier.h>
+>>> +#include <linux/kref.h>
+>>> +
+>>> +enum {
+>>> +	HDMI_CONNECTED,
+>>> +	HDMI_DISCONNECTED,
+>>> +	HDMI_NEW_EDID,
+>>> +	HDMI_NEW_ELD,
+>>> +};
+>>> +
+>>> +struct device;
+>>> +
+>>> +struct hdmi_notifier {
+>>> +	/* Lock to protect callback registration and notification. */
+>>> +	struct mutex lock;
+>>> +	struct list_head head;
+>>> +	struct kref kref;
+>>> +	struct blocking_notifier_head notifiers;
+>>> +	struct device *dev;
+>>> +
+>>> +	/* Current state */
+>>> +	unsigned int connected : 1;
+>>> +	unsigned int has_eld : 1;
+>>> +	unsigned char eld[128];
+>>> +	void *edid;
+>>> +	size_t edid_size;
+>>> +	size_t edid_allocated_size;
+>>> +};
+>>> +
+>>> +/**
+>>> + * hdmi_notifier_get - find or create a new hdmi_notifier for the given device.
+>>> + * @dev: device that sends the events.
+>>> + *
+>>> + * If a notifier for device @dev already exists, then increase the refcount
+>>> + * and return that notifier.
+>>> + *
+>>> + * If it doesn't exist, then allocate a new notifier struct and return a
+>>> + * pointer to that new struct.
+>>> + *
+>>> + * Return NULL if the memory could not be allocated.
+>>> + */
+>>> +struct hdmi_notifier *hdmi_notifier_get(struct device *dev);
+>>> +
+>>> +/**
+>>> + * hdmi_notifier_put - decrease refcount and delete when the refcount reaches 0.
+>>> + * @n: notifier
+>>> + */
+>>> +void hdmi_notifier_put(struct hdmi_notifier *n);
+>>> +
+>>> +/**
+>>> + * hdmi_notifier_register - register the notifier with the notifier_block.
+>>> + * @n: the HDMI notifier
+>>> + * @nb: the notifier_block
+>>> + */
+>>> +int hdmi_notifier_register(struct hdmi_notifier *n, struct notifier_block *nb);
+>>> +
+>>> +/**
+>>> + * hdmi_notifier_unregister - unregister the notifier with the notifier_block.
+>>> + * @n: the HDMI notifier
+>>> + * @nb: the notifier_block
+>>> + */
+>>> +int hdmi_notifier_unregister(struct hdmi_notifier *n,
+>>> +			     struct notifier_block *nb);
+>>> +
+>>> +/**
+>>> + * hdmi_event_connect - send a connect event.
+>>> + * @n: the HDMI notifier
+>>> + *
+>>> + * Send an HDMI_CONNECTED event to any registered parties.
+>>> + */
+>>> +void hdmi_event_connect(struct hdmi_notifier *n);
+>>> +
+>>> +/**
+>>> + * hdmi_event_disconnect - send a disconnect event.
+>>> + * @n: the HDMI notifier
+>>> + *
+>>> + * Send an HDMI_DISCONNECTED event to any registered parties.
+>>> + */
+>>> +void hdmi_event_disconnect(struct hdmi_notifier *n);
+>>> +
+>>> +/**
+>>> + * hdmi_event_new_edid - send a new EDID event.
+>>> + * @n: the HDMI notifier
+>>> + *
+>>> + * Send an HDMI_NEW_EDID event to any registered parties.
+>>> + * This function will make a copy the EDID so it can return -ENOMEM if
+>>> + * no memory could be allocated.
+>>> + */
+>>> +int hdmi_event_new_edid(struct hdmi_notifier *n, const void *edid, size_t size);
+>>> +
+>>> +/**
+>>> + * hdmi_event_new_eld - send a new ELD event.
+>>> + * @n: the HDMI notifier
+>>> + *
+>>> + * Send an HDMI_NEW_ELD event to any registered parties.
+>>> + */
+>>> +void hdmi_event_new_eld(struct hdmi_notifier *n, const u8 eld[128]);
+>>> +
+>>> +#endif
+>>>
+>>
+> 
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

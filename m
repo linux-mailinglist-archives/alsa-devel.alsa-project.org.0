@@ -2,71 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5149A33167
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 15:47:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36DD333388
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 17:29:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B92EE165F;
-	Mon,  3 Jun 2019 15:46:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B92EE165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ED2D165F;
+	Mon,  3 Jun 2019 17:28:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ED2D165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559569641;
-	bh=m4JZ37G7JOFhWBAGzAsqS2qY/kbgLbQq6iNg7s83vzQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559575765;
+	bh=ZN/JyQc1X0a5VhCpH7qJYYdtofIe30Vg6JZb3al1sug=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KOt8YWIO7SLpsPQBDoJtAJ/TkgadSIMmvvjM+apzP0WT2xBEbbnNHOY+sngeNmAM/
-	 IUOqpSI82WXpNsVn1UANvKxmvK6vxvWCCmq2iMv/bt/ZBlETk/xy492z80QYnEmtjw
-	 e55X18DPDFKKygaZUdtfEgvhBWBZgsGfUpI7ohlE=
+	b=fVDcWEjGbEhbh9GK+HRlrzZgGYe0eGPI+S8QcJYIMVCiEDc27NrQmYzG3+I69KEfm
+	 hY1EtlBu3Rr01M2DyRLSd2aenPQIoatRaYwDzyB9wvv1Ot3tKF3aofkP7X2af+8+Rx
+	 29wppr4C+KLTdVXnH97Uj005w6Tbr1b1ef6kWOvU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17905F896DB;
-	Mon,  3 Jun 2019 15:45:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA492F896ED;
+	Mon,  3 Jun 2019 17:27:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6731CF896DD; Mon,  3 Jun 2019 15:45:34 +0200 (CEST)
+ id CB5DFF896DD; Mon,  3 Jun 2019 17:27:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B1BCF80774
- for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 15:45:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B1BCF80774
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2019 06:45:28 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga005.fm.intel.com with ESMTP; 03 Jun 2019 06:45:27 -0700
-Received: from kwong4-mobl.amr.corp.intel.com (unknown [10.252.203.122])
- by linux.intel.com (Postfix) with ESMTP id 1705D5800BD;
- Mon,  3 Jun 2019 06:45:27 -0700 (PDT)
-To: "Yang, Libin" <libin.yang@intel.com>, Takashi Iwai <tiwai@suse.de>
-References: <20190522162142.11525-1-pierre-louis.bossart@linux.intel.com>
- <20190522162142.11525-13-pierre-louis.bossart@linux.intel.com>
- <96A12704CE18D347B625EE2D4A099D195284169B@SHSMSX103.ccr.corp.intel.com>
- <s5hr28pfux1.wl-tiwai@suse.de>
- <96A12704CE18D347B625EE2D4A099D19528416D3@SHSMSX103.ccr.corp.intel.com>
- <s5ho93tfuea.wl-tiwai@suse.de>
- <96A12704CE18D347B625EE2D4A099D195285B18B@SHSMSX103.ccr.corp.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <475384fa-718f-14f4-7f5f-8257240163f6@linux.intel.com>
-Date: Mon, 3 Jun 2019 08:45:26 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55596F80CC4
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 17:27:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55596F80CC4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="xfE05/ki"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=iEWFECNWEoRXHdke6havOY+8o53ZmeWbffO16u0RrZA=; b=xfE05/kilw0Y6BZLHtPD9FVK6
+ 62ltCKphRfOyqNZePrg/XtYAowVIxrQ+G7gM5apeB/BvedYY4mVGEZgMkI3ZgJm2kV10K0W/sDnyM
+ Y6u2mIcR5iwBdSChCjobF2zBCFwdiWitghbQKKzgnYr2i9zC/aHTU7IDUR0beb8dhBYAs=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hXorw-0002EH-9r; Mon, 03 Jun 2019 15:27:28 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 6B345440046; Mon,  3 Jun 2019 16:27:27 +0100 (BST)
+Date: Mon, 3 Jun 2019 16:27:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Message-ID: <20190603152727.GU2456@sirena.org.uk>
+References: <1559298842-15059-1-git-send-email-krzk@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <96A12704CE18D347B625EE2D4A099D195285B18B@SHSMSX103.ccr.corp.intel.com>
-Content-Language: en-US
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "broonie@kernel.org" <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2 12/12] ASoC: SOF: Intel: hda-codec: fix
- memory allocation
+In-Reply-To: <1559298842-15059-1-git-send-email-krzk@kernel.org>
+X-Cookie: The other line moves faster.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: Re: [alsa-devel] [PATCH v2] Revert "ASoC: core: use component
+ driver name as component name"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,96 +85,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============7279592808088772076=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Libin,
 
->>>>> Please let me describe the issue here.
->>>>>
->>>>> The test case is:
->>>>> 1) Unload module with script "sudo ./sof_remove.sh" ,
->>>>> 2) reload module with script "sudo ./sof_insert.sh"
->>>>>
->>>>> After several rounds of removing and inserting kernel modules,
->>>>> system will complain like below:
->>>>> "BUG: unable to handle kernel paging request at 000000292a282031"
->>>>
->>>> Did you try some kernel debug options?  It might show what went wrong.
->>>
->>> No, I haven't. I'm not sure which options I can use for this case.
->>> Could you please give me some suggestions?
->>
->> You can enable CONFIG_DEBUG_DEVRES and adjust the devres.log option for
->> showing each devres allocation and removal.  And I'd try
->> CONFIG_DEBUG_SLAB and CONFIG_DEBUG_KMEMLEAK or whatever
->> interesting in CONFIG_DEBUG section, too.
-> 
-> Thanks for your suggestion. After more than 1 week debug, I think maybe
-> I have root caused this issue from the devres.log message.
-> 
-> Below is my finding.
-> 1. When initialing the codecs, snd_hdac_ext_bus_device_init() will be called,
-> and it will set hdev->dev.release = default_release.
-> However, for analog codec (not hdac_hdmi codec), hdac_hda_codec_probe()
-> will be called later. And it will call snd_hda_codec_device_new(), which will
-> reset codec->code.dev.release = snd_hda_codec_dev_release;
-> This means hdac_hdmi's hdev dev release is default_release() defined in
-> hdac_ext_bus.c, and other hda codec's hdev dev release is
-> snd_hda_codec_dev_release().
-> 
-> Both default_release() and snd_hda_codec_dev_release() will call kfree()
-> to free the hdac_device (or its container) in the current code.
-> 
-> 2. When we run rmmod sof_pci_dev, it will free the sdev. If we use
-> Struct hdac_device *hdev = devm_kzalloc(sdev->dev...). This means
-> hdev will also be freed automatically.
-> 
-> In the removal, snd_hdac_ext_bus_device_remove() will be called
-> to remove the hdev (in this function it is struct hdac_device *codec.
-> The name is not aligned in different places).
-> However for hdac_hdmi, the hdev->dev is used by other code.
+--===============7279592808088772076==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s9pXJW6w71JX4l3T"
+Content-Disposition: inline
 
-what other code? Can you elaborate on why the release is delayed?
 
-> So calling device.release() (the function default_release()) will
-> be postponed. After after sdev is freed, the device.release() will
-> be called. But for devm_xxx, hdev will also be freed when sdev is
-> freed. This means hdev.dev after sdev is freed is invalid now as
-> hdev has already freed. It will access invalid memory. This will cause the bug.
+--s9pXJW6w71JX4l3T
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This is very hard to follow. 4 lines above you wrote the release is 
-postponed but the way you describe is looks completely sequential.
+On Fri, May 31, 2019 at 12:34:02PM +0200, Krzysztof Kozlowski wrote:
+> Using component driver as a name is not unique and it breaks audio in
+> certain configurations, e.g. Hardkernel Odroid XU3 board where following
+> components are registered:
 
-> 
-> So I think we should not use devm_xxx, and let's free the hdev manually.
-> 
-> At the end of this topic, I still found 2 suspicious code in the current code.
-> 1. in sound/soc/intel/skylate/skl.c
-> it calls hdev = devm_kazlloc() or hda_codec = devm_kzalloc().
-> As we will call kfree() in the current code, should we replace it with
-> kzalloc()? Maybe we need cavs drivers owner's help on it.
+Please use subject lines matching the style for the subsystem.  This
+makes it easier for people to identify relevant patches.
 
-maybe you should send a diff suggestion to help everyone understand the 
-changes you are referring to?
+--s9pXJW6w71JX4l3T
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> 2. in snd_hdac_ext_bus_device_remove()
-> It will call snd_hdac_device_unregister() to unregister the hdac_devices
-> and put_device(&codec->dev) to release the dev.
-> For analog codec, snd_hdac_device_unregister()  will free the codec->dev's
-> kobject. And snd_hda_codec_dev_release() will be called to free the
-> hdac_device.
-> So it is invalid to call put_device(&codec->dev). If you print
-> refcound_read(&(codec->dev.kobj.kref.refcount)) for analog codec before
-> put_device(), you will find the refcount has already been 0.
+-----BEGIN PGP SIGNATURE-----
 
-Isn't it a different problem though? Does this cause a freeze or is this 
-just a bad refcount?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz1PFwACgkQJNaLcl1U
+h9DFewf+Nrpc5dIbkdtpXJkd+/r3A72X4Qa3bSaqMe32ihQnjGEheNTX/QRKVJRI
+2CPV6hCZ21/kjRHjjPZh7wnz3/2ICFPbVFT0oqw7ODSgYB9mbKfJG22awJVr1xtY
+jncb8BwIddJhKu2wmP0kFqvZZ4bUhspqeQ5pStUhlrkpy2Vgk3KCzvhDcOaDaMv1
+1/+eGxpQfFQyHD6MFK+ilSePDl9ZYm+tnzjtAP7ztdjJaRQRiRhwHTUEHUf+ViAL
+Gd789UwaU9no7R0/MxgHHWB/0+qd/JTp91XzVCTJBFu7dlwoLynN4kVAIVrvUDTl
+mhhtur3Rm0khwJ2jfqvuVqv8Rwq5ag==
+=vsht
+-----END PGP SIGNATURE-----
+
+--s9pXJW6w71JX4l3T--
+
+--===============7279592808088772076==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7279592808088772076==--

@@ -2,83 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A61A326B6
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 04:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37E2C327BD
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 06:35:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 55167166C;
-	Mon,  3 Jun 2019 04:41:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55167166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B99201669;
+	Mon,  3 Jun 2019 06:34:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B99201669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559529759;
-	bh=yQas8m2qKEFuJt2R/gWjwNvv0bkiHYqYW3wPQNVohzw=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=khtHrhcZU4ahOLXLZiOaTrQcm+BwWPrntghQ6pWxxuHFxiQyPJVC+kLFthfMtaD7K
-	 OOtfe6KfOYiBnKc4KMsHRz6SRe3Hl6kxmK60E7eP1GolDnNe2Ho4cO5mvSPe6kQ+bf
-	 U27cSXIgn6u/i9FvH1zgkZAK/6GwReCAYZgOyHV8=
+	s=default; t=1559536507;
+	bh=FFHKl4qy5lWuOrnpF6Y6cAh5Qc8LxscEytKpq2ZaHqI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=l/YrPAIW8Aj6GpnEu5p61MrfzpLKaSSyzAgAsH9nXanwCY2lQfGo6aXWNH2RyZr0N
+	 uhdyJGppW0QEYbsQCfiY+QeaolmsqTbUFTThcuVno/EZ7WCy6CDANSkQKwp6djx01p
+	 dpnPb92e3zdIvHso7A2oCTNiLGS723hJHuWH6EoM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E7FFF896DD;
-	Mon,  3 Jun 2019 04:40:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14AB7F896ED;
+	Mon,  3 Jun 2019 06:33:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80FDCF896DD; Mon,  3 Jun 2019 04:40:52 +0200 (CEST)
+ id 03FD1F896CE; Mon,  3 Jun 2019 06:33:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
- [IPv6:2607:f8b0:4864:20::341])
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21FD5F896CE
- for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 04:40:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21FD5F896CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 192E4F896CE
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 06:33:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 192E4F896CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="uBjlWOWP"
-Received: by mail-ot1-x341.google.com with SMTP id t24so916685otl.12
- for <alsa-devel@alsa-project.org>; Sun, 02 Jun 2019 19:40:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=msRd4Zqrxk2OyewuRLkWcGgNJMQJ2hXWuTvwLrPzKqc=;
- b=uBjlWOWPTtHI6/Dqndy6ku+MaLduUT33LhfdLBwlVeDNa2IQHDE7rfJ0AvWwXBP0po
- BSulF80P6VAgvLgmR5QY+X4fMMZYHzdUVqYSl0yg+iGs44YeMaSglZn/bW7bq3cAcDFJ
- o0y+9DN+Vj+tJkMweUVUpzDB7XWzQEZQL1gQa4tz3beJQoYguv0ibX+L8CYse+YQsPbI
- rlDAEXG4rS8ykuXRSDi2ra1d9E5CEP2WPaMwPUN2r4OKXWN57+0uziuIA93o+ANdwBPh
- GiTgIa4REToNPPEfEJjslfvT4nFJqw/zSy5mlW5aSF1udINwtX9oZeSULnywaYs6Z6xs
- AIFg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="VeaP4rlc"
+Received: by mail-pl1-x641.google.com with SMTP id x7so5471152plr.12
+ for <alsa-devel@alsa-project.org>; Sun, 02 Jun 2019 21:33:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gbBoXtkybCih+d0Fl03vwDQsITr3snGAAM8qh+nRjII=;
+ b=VeaP4rlcKfdj36YiD4gQN5PLFZoAC42M84KJTEVRE31jLss30T+2akFEYuIFscw/ch
+ osRR3hmV4eFkOymM8RI/dzrIeWeqmeCdj51ANhdIi8KizrDsWOPaglP+WSVFVgD9Tnl7
+ MddyM0pP/JzICG9T/EMHkZSnnKGiIZeN7crL8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=msRd4Zqrxk2OyewuRLkWcGgNJMQJ2hXWuTvwLrPzKqc=;
- b=tXKQwswfsIJ5dyWAvWjG76MywfGWHtOK09YAIXGB+vlro1cK85yC5lLqtD2NVOTicb
- Vj6wwawGaHVX6eh/zF/zLuOrKj/VeBaA/GfY17MWpzXo5Y781rLlwm2o7eD9XyEo1lrn
- pbjGf7ddNqvl3pgCjyLK9CzadfNU4OMPsrzBC+a/IG/VkNrli1A6EIdYqLqB18J2IzhB
- S32VxpP2MQUdPC3kDqF7bvkQGvY8hWhZMqmr07zJqPtJkk0Cn0DHQQAgJHvG2CfldPkP
- VGO0kAicF7oW0psH+2b1/qHO9gAtbXw+xg3qnye+cvOwjqoM3t9NYajzc7mUO+w1lI6Y
- oh6g==
-X-Gm-Message-State: APjAAAXYcqEg0vY6qdDBPuiwL0Y7RquP9v5o/3ijHKpDMZktUwhsh/re
- kWoaMm2RPuzqsx31WHsjfE/glfTwa2C/GJ3+qEv4yQ==
-X-Google-Smtp-Source: APXvYqx67FhIhL4Qy/eFKYvg/uadJjTZGiV0fRNkUKwgxWuAakpx0KO+vTcaUdb6E66zs+VfxdExz8eBroGHEKIjy1o=
-X-Received: by 2002:a9d:7a54:: with SMTP id z20mr857231otm.103.1559529647672; 
- Sun, 02 Jun 2019 19:40:47 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gbBoXtkybCih+d0Fl03vwDQsITr3snGAAM8qh+nRjII=;
+ b=HGqpZAU3vX+guY0ADdzD53d7CqCjF6whl8CceXkmkciwCoHeFyZB6dCRa9m5/qihqA
+ dz0n9mrzpWWfqpWmFeGocjyPgYZQLIHm4CZpbRiCK3cC82LaZB+oHfXDVM4hFzB4OrfS
+ OlGwn0DnxdS7g2ZXveDMIlwC40lDF0wzZLhczzRi5U9q/LOWE/eOL4+ooXc+46vCv50l
+ HZNtWV4tHUaHal6eqUUeV+oDKCwlYK8+o4M7fpN0C+BEoaJBZnjlgUsDtRneW6GtM9OE
+ YnZQMAb5vFmQmmN1tmQKBbeIyYlDJv5//7LMXA2Rp2Pfy5tAIBkfEUKvU3w43Wp23afl
+ ZyfA==
+X-Gm-Message-State: APjAAAW1sEp7yWrk9z/FH9F0qg7Gf+pqAYnYfou0oG/hMjBV5dN7O53j
+ zdHeo3010oooN2/3aI54LZh0ew==
+X-Google-Smtp-Source: APXvYqwHPRACAb2NVy4vT95TjNhB37pT6HfXrPSfjEO5DvIiqn/QoGGQisMAL1weRQlGa/4txReURQ==
+X-Received: by 2002:a17:902:54f:: with SMTP id
+ 73mr27187074plf.246.1559536392351; 
+ Sun, 02 Jun 2019 21:33:12 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
+ by smtp.gmail.com with ESMTPSA id d19sm11382053pjs.22.2019.06.02.21.33.07
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 02 Jun 2019 21:33:11 -0700 (PDT)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Mon,  3 Jun 2019 12:32:44 +0800
+Message-Id: <20190603043251.226549-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.22.0.rc1.257.g3120a18244-goog
 MIME-Version: 1.0
-References: <20190530073229.121032-1-tzungbi@google.com>
-In-Reply-To: <20190530073229.121032-1-tzungbi@google.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Mon, 3 Jun 2019 10:40:36 +0800
-Message-ID: <CA+Px+wXJsar1X=1EdDvMDvPv4DzDG+BmOgSopAqU48Y3Qa=acg@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: alsa-devel@alsa-project.org, Dylan Reid <dgreid@google.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: core: move DAI pre-links initiation
-	to snd_soc_instantiate_card
+Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Hans Verkuil <hverkuil@xs4all.nl>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-rockchip@lists.infradead.org, dgreid@chromium.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, tzungbi@chromium.org,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, dianders@chromium.org,
+ Mark Brown <broonie@kernel.org>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [alsa-devel] [PATCH 0/7] Add HDMI audio support on RK3288 veyron
+	board
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,41 +109,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Please ignore this patch.
+This patch series is to support HDMI audio on RK3288 veyron board.
 
-On Thu, May 30, 2019 at 3:32 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 2d3520fca613..82ff384753c7 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -2072,6 +2072,15 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
->         mutex_lock(&client_mutex);
->         mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_INIT);
->
-> +       for_each_card_prelinks(card, i, dai_link) {
-> +               ret = soc_init_dai_link(card, dai_link);
-> +               if (ret) {
-> +                       dev_err(card->dev, "ASoC: failed to init link %s: %d\n",
-> +                               dai_link->name, ret);
-> +                       goto probe_end;
-> +               }
-> +       }
-> +
->         card->dapm.bias_level = SND_SOC_BIAS_OFF;
->         card->dapm.dev = card->dev;
->         card->dapm.card = card;
-> @@ -2241,7 +2250,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
->         snd_soc_dapm_sync(&card->dapm);
->
->  probe_end:
-> -       if (ret < 0)
-> +       if (ret < 0 && ret != -EPROBE_DEFER)
->                 soc_cleanup_card_resources(card);
-Should not call soc_cleanup_card_resources() if soc_init_dai_link()
-returns fail.  Some context has not initialized yet in the case.
+To support jack reporting, there are two old patches:
 
->
->         mutex_unlock(&card->mutex);
+video: add HDMI state notifier support
+
+<https://lore.kernel.org/linux-media/20161213150813.37966-2-hverkuil@xs4all.nl/>
+
+ASoC: hdmi-codec: use HDMI state notifier to add jack support
+
+<https://patchwork.kernel.org/patch/9430355/>
+
+They are modified to pass checkpatch checking based on latest ASoC tree
+
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
+
+for-next branch.
+
+With these two patches at hand, hdmi-notifier support is then added to dw-hdmi
+driver so the plug/unplug event can be passed to codec driver.
+
+The rest patches are about machine driver rockchip_max98090.
+A HDMI DAI link is added for HDMI playback so there will be two devices on
+this sound card. One for max98090 and one for HDMI.
+The HDMI node is passed from DTS so machine driver can set the correct
+hdmi-notifier on codec driver.
+
+Cheng-Yi Chiang (5):
+  drm/bridge/synopsys: dw-hdmi: Add HDMI notifier support
+  ASoC: rockchip_max98090: Add dai_link for HDMI
+  ASoC: rockchip: rockchip-max98090: Add node for HDMI
+  ASoC: rockchip_max98090: Add HDMI jack support
+  ARM: dts: rockchip: Specify HDMI node to sound card node
+
+Hans Verkuil (1):
+  video: add HDMI state notifier support
+
+Philipp Zabel (1):
+  ASoC: hdmi-codec: use HDMI state notifier to add jack support
+
+ .../bindings/sound/rockchip-max98090.txt      |   2 +
+ MAINTAINERS                                   |   6 +
+ .../boot/dts/rk3288-veyron-analog-audio.dtsi  |   1 +
+ drivers/gpu/drm/bridge/synopsys/Kconfig       |   1 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  28 +++-
+ drivers/video/Kconfig                         |   3 +
+ drivers/video/Makefile                        |   1 +
+ drivers/video/hdmi-notifier.c                 | 145 ++++++++++++++++++
+ include/linux/hdmi-notifier.h                 | 112 ++++++++++++++
+ include/sound/hdmi-codec.h                    |   7 +
+ sound/soc/codecs/Kconfig                      |   1 +
+ sound/soc/codecs/hdmi-codec.c                 | 104 ++++++++++++-
+ sound/soc/rockchip/rockchip_max98090.c        | 123 ++++++++++++---
+ 13 files changed, 508 insertions(+), 26 deletions(-)
+ create mode 100644 drivers/video/hdmi-notifier.c
+ create mode 100644 include/linux/hdmi-notifier.h
+
+-- 
+2.22.0.rc1.257.g3120a18244-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

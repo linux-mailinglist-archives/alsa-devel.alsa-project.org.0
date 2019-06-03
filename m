@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 201E233785
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 20:08:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9839533796
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 20:11:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B052A168A;
-	Mon,  3 Jun 2019 20:07:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B052A168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D6021688;
+	Mon,  3 Jun 2019 20:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D6021688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559585303;
-	bh=H2IVZLp8nH2E2h5xAatrBMa/uW//DVDLqZPWA4PQoeQ=;
+	s=default; t=1559585508;
+	bh=O3yaKwvEP1NonTATQxUQlOjJEnp85B6jW3RStQ5NsPM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=F1hVXcgQ/jOOU8CctgdfGpGiwDxZUosLRUhfLp4zvdpQAlaiq77hR6NUkLZb/koch
-	 sd/5oZxC7xaj1bfYe40Yh+DKjrZ3Z1dq3yjf9aJOaWTjSEEGkxGzahJXb5rR/YZATf
-	 gxU/s2tyycYoH3ErWO4qtX79rZd+k0le8enOBWrE=
+	b=RB2UXIMpl6zP5nR7l1ZhYuC9BUhJZUwJ+vdeYqvlddcLbJucvPW9sVd1+l/3SGN8G
+	 VTTTDzoSPf9idB67Tj6ry+RL31VUpAvuyppuxu149u/MXvp23lYS2DgZvuqKPduXpm
+	 66+EzMdGTcM0RmHne6VgtDDIcKR3EEkeUtvaIW5Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75E59F89758;
-	Mon,  3 Jun 2019 20:02:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06466F89777;
+	Mon,  3 Jun 2019 20:02:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F148F8973B; Mon,  3 Jun 2019 20:02:07 +0200 (CEST)
+ id 91A87F89748; Mon,  3 Jun 2019 20:02:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20CB9F80CC4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89A8DF89735
  for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 20:02:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20CB9F80CC4
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A8DF89735
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="aAwkripc"
+ header.b="UJ6uTVVJ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=cRHTL5muTxJlsDAHCTKwd6PCs1BSN5ZrCZGjgiVkNwI=; b=aAwkripc75GT
- 7y6kUOZ9VZgaVBe4Wqrt0j5IkiCZB2P9ZdGgu/7r28Ahcz8naW4nQVhV14sM/3SwGxRQujhSuLGIa
- bXuTTV2xjAE9HtO8PJhLsXnEXAamcC2ui+Zgoiw4K45zzSd5hWi4mn7tPDuyIAoAwoHhOUnUmGj4n
- 1WARs=;
+ List-Archive; bh=8yQRWlh3Xl1FFPk6l7h4e1Dq3jngM9rY6tuJFJmjdzU=; b=UJ6uTVVJvzQQ
+ HDYQHmSlLwfnOjRSbfI8DC2T9uGQPKGXXCJ/JX2s+bIy1C4kc4MUDGBe7Aj6d/mG5bu1fOEhi9JJh
+ Rv2awVMGndTMX6Ta0dmwKdcJTXKsfAWOBBdwCL3wUebKfJrn8wuDoxYkC181j+hPcVkbUkWU8MdfF
+ 7DYI8=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hXrHV-0003Yw-34; Mon, 03 Jun 2019 18:02:01 +0000
+ id 1hXrHV-0003Z3-KW; Mon, 03 Jun 2019 18:02:01 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 3D368440046; Mon,  3 Jun 2019 19:02:00 +0100 (BST)
+ id D90AB440049; Mon,  3 Jun 2019 19:02:00 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-In-Reply-To: <20190603162032.7626-2-pierre-louis.bossart@linux.intel.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20190603161821.7486-7-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190603180200.3D368440046@finisterre.sirena.org.uk>
+Message-Id: <20190603180200.D90AB440049@finisterre.sirena.org.uk>
 Date: Mon,  3 Jun 2019 19:02:00 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Do not send cmd via SHIM register"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: add mode parameter for
+	snd_sof_debugfs_buf_item" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Do not send cmd via SHIM register
+   ASoC: SOF: add mode parameter for snd_sof_debugfs_buf_item
 
 has been applied to the asoc tree at
 
@@ -113,84 +113,76 @@ to this mail.
 Thanks,
 Mark
 
-From 6fbbc18ead0f4f64a722f7e325046e5860d2c52b Mon Sep 17 00:00:00 2001
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 3 Jun 2019 11:20:25 -0500
-Subject: [PATCH] ASoC: SOF: Do not send cmd via SHIM register
+From 5c9714f637365a84e05f0532cd9ae00c65b70dc1 Mon Sep 17 00:00:00 2001
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Date: Mon, 3 Jun 2019 11:18:18 -0500
+Subject: [PATCH] ASoC: SOF: add mode parameter for snd_sof_debugfs_buf_item
 
-We use shim registers only to notify the other
-side that a message was sent. The actual information
-for the message is transmitted via mailbox.
+Add mode parameter for snd_sof_debugfs_buf_item() to specify
+the mode while creating debugfs entries.
 
-cmd information inside shim register is not used by
-the DSP, so we remove it to avoid confusion.
-
-Signed-off-by: Daniel Baluta <daniel.baluta@gmail.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/byt.c     | 5 +----
- sound/soc/sof/intel/cnl.c     | 4 +---
- sound/soc/sof/intel/hda-ipc.c | 4 +---
- 3 files changed, 3 insertions(+), 10 deletions(-)
+ sound/soc/sof/debug.c    | 4 ++--
+ sound/soc/sof/loader.c   | 4 ++--
+ sound/soc/sof/sof-priv.h | 2 +-
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 9e4c07eb889b..8765eedfcf54 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -373,13 +373,10 @@ static irqreturn_t byt_irq_thread(int irq, void *context)
- 
- static int byt_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index 55f1d808dba0..219c3becf670 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -161,7 +161,7 @@ EXPORT_SYMBOL_GPL(snd_sof_debugfs_io_item);
+ /* create FS entry for debug files to expose kernel memory */
+ int snd_sof_debugfs_buf_item(struct snd_sof_dev *sdev,
+ 			     void *base, size_t size,
+-			     const char *name)
++			     const char *name, mode_t mode)
  {
--	u64 cmd = msg->header;
--
- 	/* send the message */
- 	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
- 			  msg->msg_size);
--	snd_sof_dsp_write64(sdev, BYT_DSP_BAR, SHIM_IPCX,
--			    cmd | SHIM_BYT_IPCX_BUSY);
-+	snd_sof_dsp_write64(sdev, BYT_DSP_BAR, SHIM_IPCX, SHIM_BYT_IPCX_BUSY);
+ 	struct snd_sof_dfsentry *dfse;
  
- 	return 0;
- }
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index e59d180da7e2..fd86269b5037 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -151,13 +151,11 @@ static void cnl_ipc_dsp_done(struct snd_sof_dev *sdev)
- static int cnl_ipc_send_msg(struct snd_sof_dev *sdev,
- 			    struct snd_sof_ipc_msg *msg)
- {
--	u32 cmd = msg->header;
--
- 	/* send the message */
- 	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
- 			  msg->msg_size);
- 	snd_sof_dsp_write(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDR,
--			  cmd | CNL_DSP_REG_HIPCIDR_BUSY);
-+			  CNL_DSP_REG_HIPCIDR_BUSY);
+@@ -177,7 +177,7 @@ int snd_sof_debugfs_buf_item(struct snd_sof_dev *sdev,
+ 	dfse->size = size;
+ 	dfse->sdev = sdev;
  
- 	return 0;
- }
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index 51b285103394..728dd1e075a4 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -56,13 +56,11 @@ static void hda_dsp_ipc_dsp_done(struct snd_sof_dev *sdev)
+-	dfse->dfsentry = debugfs_create_file(name, 0444, sdev->debugfs_root,
++	dfse->dfsentry = debugfs_create_file(name, mode, sdev->debugfs_root,
+ 					     dfse, &sof_dfs_fops);
+ 	if (!dfse->dfsentry) {
+ 		/* can't rely on debugfs, only log error and keep going */
+diff --git a/sound/soc/sof/loader.c b/sound/soc/sof/loader.c
+index 16b016b76fd8..952a19091c58 100644
+--- a/sound/soc/sof/loader.c
++++ b/sound/soc/sof/loader.c
+@@ -335,11 +335,11 @@ int snd_sof_run_firmware(struct snd_sof_dev *sdev)
+ 	init_waitqueue_head(&sdev->boot_wait);
+ 	sdev->boot_complete = false;
  
- int hda_dsp_ipc_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- {
--	u32 cmd = msg->header;
--
- 	/* send IPC message to DSP */
- 	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
- 			  msg->msg_size);
- 	snd_sof_dsp_write(sdev, HDA_DSP_BAR, HDA_DSP_REG_HIPCI,
--			  cmd | HDA_DSP_REG_HIPCI_BUSY);
-+			  HDA_DSP_REG_HIPCI_BUSY);
- 
- 	return 0;
- }
+-	/* create fw_version debugfs to store boot version info */
++	/* create read-only fw_version debugfs to store boot version info */
+ 	if (sdev->first_boot) {
+ 		ret = snd_sof_debugfs_buf_item(sdev, &sdev->fw_version,
+ 					       sizeof(sdev->fw_version),
+-					       "fw_version");
++					       "fw_version", 0444);
+ 		/* errors are only due to memory allocation, not debugfs */
+ 		if (ret < 0) {
+ 			dev_err(sdev->dev, "error: snd_sof_debugfs_buf_item failed\n");
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 01a6219c326b..ce22240cd93a 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -546,7 +546,7 @@ int snd_sof_debugfs_io_item(struct snd_sof_dev *sdev,
+ 			    enum sof_debugfs_access_type access_type);
+ int snd_sof_debugfs_buf_item(struct snd_sof_dev *sdev,
+ 			     void *base, size_t size,
+-			     const char *name);
++			     const char *name, mode_t mode);
+ int snd_sof_trace_update_pos(struct snd_sof_dev *sdev,
+ 			     struct sof_ipc_dma_trace_posn *posn);
+ void snd_sof_trace_notify_for_error(struct snd_sof_dev *sdev);
 -- 
 2.20.1
 

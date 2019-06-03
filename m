@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 390DD3378F
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 20:10:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24073378A
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 20:09:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C203D166A;
-	Mon,  3 Jun 2019 20:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C203D166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40F1D1669;
+	Mon,  3 Jun 2019 20:08:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40F1D1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559585422;
-	bh=NfEsQqra4njt8TSZNWvtqosF8rU2uPa+qIhuIFKGM7k=;
+	s=default; t=1559585344;
+	bh=EVyMnTyEmlyi6jxldC/ZLGSYAZjq1WzfMhTbc3J9hIY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bq3hfZRwllSLAZkc/x02P730hA5t0NfipraCzC4lKYr4+130/Bt0xC3aLMrb+F2V2
-	 9wAw0AZbZYjJBNxfyKEqYuZ8meQG0k5Ktz+NiqdceMus48aWVmP+660gdLXQpiOiOz
-	 TM74qvd446z9NAsy/LyfirMqByBLAUpQwBWuQuh8=
+	b=fytqQ98y5E9CXl7FAMImlhDSeGffKgkP7CeuhRWNyaH0f3bmV1eewWL+p/6gLbvpv
+	 fhwLk/Z5oSPaeyVwAsumSg2K138d0U0hwLJPq/rIV1oSjEOPbhUX519YkZMdaCkR+f
+	 5ZSZEoKdvQ4iNQ9WrsryJwfqwyfptCwYDXUvwjdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5794F89767;
-	Mon,  3 Jun 2019 20:02:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 868FCF8975D;
+	Mon,  3 Jun 2019 20:02:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14EB5F8972F; Mon,  3 Jun 2019 20:02:09 +0200 (CEST)
+ id 13C97F8973F; Mon,  3 Jun 2019 20:02:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39C02F896DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED8E7F896DD
  for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 20:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39C02F896DB
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED8E7F896DD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="G3J//+Zf"
+ header.b="bNBpQPYw"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=7fYSZR9PWg3JcZ0oCpV8fOeLvStxc6mjCEH+3MIkcfk=; b=G3J//+ZfLiLQ
- 9WojA7aOkJCXEuSB6K/DoJs88iviKHOzpnm8bVrMmgO6eBgBuXRukB5o0iN6oy10ociXu/imY4uof
- P/gPPaMkU5QV7hJYu+8Kvz+NDvLL5fCsuPBNWXkiRYGMPZnOSVTZrlAtY9VdWyRMwI8/VtqRHHN4L
- MbIJo=;
+ List-Archive; bh=fLkQpvvpXGXH9LFbHn5uzTGda9NLEp90W2Oxyay6rqY=; b=bNBpQPYwHMfM
+ s9MfhnMWIivyAbARXeM4ZfmsWTd8lUqNKqPcasH68mjIrVlQhwAJEx/9NcfDT8KMaXiTAP/0QKtfI
+ WsHRtXYwVXotJrJcnPgANJWpJEZBknhq/hY7E7gdEnv1j+1zmWka13iCE05V1JMnRUy5QtNTo6MsC
+ P4Lvk=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hXrHT-0003Yk-J4; Mon, 03 Jun 2019 18:01:59 +0000
+ id 1hXrHU-0003Yr-7P; Mon, 03 Jun 2019 18:02:00 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 06297440046; Mon,  3 Jun 2019 19:01:59 +0100 (BST)
+ id 99960440049; Mon,  3 Jun 2019 19:01:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190603162032.7626-4-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190603162032.7626-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190603180159.06297440046@finisterre.sirena.org.uk>
-Date: Mon,  3 Jun 2019 19:01:58 +0100 (BST)
+Message-Id: <20190603180159.99960440049@finisterre.sirena.org.uk>
+Date: Mon,  3 Jun 2019 19:01:59 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: cnl-ipc: move code around
-	for clarity" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: cnl-ipc: read all IPC
+	registers first" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: cnl-ipc: move code around for clarity
+   ASoC: SOF: Intel: cnl-ipc: read all IPC registers first
 
 has been applied to the asoc tree at
 
@@ -112,55 +112,55 @@ to this mail.
 Thanks,
 Mark
 
-From ddbe9223393e4d067f010de65a05c9a6cb7790c1 Mon Sep 17 00:00:00 2001
+From c24b1b7279398c9140a8130b4c20db0c06d5dfc4 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Mon, 3 Jun 2019 11:20:27 -0500
-Subject: [PATCH] ASoC: SOF: Intel: cnl-ipc: move code around for clarity
+Date: Mon, 3 Jun 2019 11:20:26 -0500
+Subject: [PATCH] ASoC: SOF: Intel: cnl-ipc: read all IPC registers first
 
-Move all register access to cnl_ipc_host_done()
-No functionality change.
+Align with hardware recommended sequences, and read all IPC registers
+before doing any other actions. Playing with BUSY and DONE bits may
+invalidate values.
+
+The values read may not actually be necessary but at least this
+provides a snapshot of the IPC registers with no consistency issues.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/cnl.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ sound/soc/sof/intel/cnl.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 1fae75fc313f..4ecba1d8ec7f 100644
+index fd86269b5037..1fae75fc313f 100644
 --- a/sound/soc/sof/intel/cnl.c
 +++ b/sound/soc/sof/intel/cnl.c
-@@ -99,15 +99,6 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
- 			snd_sof_ipc_msgs_rx(sdev);
- 		}
+@@ -42,6 +42,8 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
+ 	hipcida = snd_sof_dsp_read(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDA);
+ 	hipcctl = snd_sof_dsp_read(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCCTL);
+ 	hipctdr = snd_sof_dsp_read(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCTDR);
++	hipctdd = snd_sof_dsp_read(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCTDD);
++	hipci = snd_sof_dsp_read(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDR);
  
--		/*
--		 * clear busy interrupt to tell dsp controller this
--		 * interrupt has been accepted, not trigger it again
--		 */
--		snd_sof_dsp_update_bits_forced(sdev, HDA_DSP_BAR,
--					       CNL_DSP_REG_HIPCTDR,
--					       CNL_DSP_REG_HIPCTDR_BUSY,
--					       CNL_DSP_REG_HIPCTDR_BUSY);
--
- 		cnl_ipc_host_done(sdev);
+ 	/* reenable IPC interrupt */
+ 	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC,
+@@ -50,8 +52,6 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
+ 	/* reply message from DSP */
+ 	if (hipcida & CNL_DSP_REG_HIPCIDA_DONE &&
+ 	    hipcctl & CNL_DSP_REG_HIPCCTL_DONE) {
+-		hipci = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
+-					 CNL_DSP_REG_HIPCIDR);
+ 		msg_ext = hipci & CNL_DSP_REG_HIPCIDR_MSG_MASK;
+ 		msg = hipcida & CNL_DSP_REG_HIPCIDA_MSG_MASK;
  
- 		ret = IRQ_HANDLED;
-@@ -118,6 +109,14 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
+@@ -84,8 +84,6 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
  
- static void cnl_ipc_host_done(struct snd_sof_dev *sdev)
- {
-+	/*
-+	 * clear busy interrupt to tell dsp controller this
-+	 * interrupt has been accepted, not trigger it again
-+	 */
-+	snd_sof_dsp_update_bits_forced(sdev, HDA_DSP_BAR,
-+				       CNL_DSP_REG_HIPCTDR,
-+				       CNL_DSP_REG_HIPCTDR_BUSY,
-+				       CNL_DSP_REG_HIPCTDR_BUSY);
- 	/*
- 	 * set done bit to ack dsp the msg has been
- 	 * processed and send reply msg to dsp
+ 	/* new message from DSP */
+ 	if (hipctdr & CNL_DSP_REG_HIPCTDR_BUSY) {
+-		hipctdd = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
+-					   CNL_DSP_REG_HIPCTDD);
+ 		msg = hipctdr & CNL_DSP_REG_HIPCTDR_MSG_MASK;
+ 		msg_ext = hipctdd & CNL_DSP_REG_HIPCTDD_MSG_MASK;
+ 
 -- 
 2.20.1
 

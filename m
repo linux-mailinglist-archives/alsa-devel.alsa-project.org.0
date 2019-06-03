@@ -2,82 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E0203374B
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 19:52:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6079A3374D
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 19:53:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7ECA166C;
-	Mon,  3 Jun 2019 19:52:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7ECA166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9DD81660;
+	Mon,  3 Jun 2019 19:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9DD81660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559584371;
-	bh=2EjqcWh77PE17uAOpuDm8v9ZZjcImCzWFWjlCuKf0Ho=;
+	s=default; t=1559584409;
+	bh=yIJTz9JTpxw1PM5LHiLUjLDOH/U80kBEPJQGoQn9vU8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=McOgL791inyPrKznmvdh+7/AY27g0Zn/zBbFt0a2Co6M5ECZcsqKgEO45bzaq61M0
-	 Dbh/MyD+yvzvURARsVgoK3O557CA4/k4eUjACx+BkBhKnxEgbRDer23yJRuiaEkEfq
-	 o62n7DbPXUwQj2DCf8i+Tp5+z3B7ptf812QHxQMA=
+	b=q//FGpkoqpY2b5Zkk+9+UxNXM0nXWOwR4cZ8xpisnmSZXu2QQG8zeC+W93G2HaGGH
+	 ZHhHoiyiSSlTTZ1I1GN7yDALHYHZvMG0lRgKYq0S76GixjyV113UNAzB1ucnTPElZ/
+	 /VWZuv++ANpMX1jkIxwCusu8GR8U8CM6uneyak10=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64A32F89745;
-	Mon,  3 Jun 2019 19:47:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 516F7F8974B;
+	Mon,  3 Jun 2019 19:47:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03067F89732; Mon,  3 Jun 2019 19:47:45 +0200 (CEST)
+ id 90AE9F89738; Mon,  3 Jun 2019 19:47:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5895EF896EE
- for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 19:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5895EF896EE
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2F36F89730
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 19:47:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2F36F89730
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VB7x2Efd"
-Received: by mail-lj1-x244.google.com with SMTP id t28so5948453lje.9
- for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 10:47:42 -0700 (PDT)
+ header.b="OAgRJox6"
+Received: by mail-lj1-x243.google.com with SMTP id v29so5784981ljv.0
+ for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 10:47:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4qDu9sgTgZn0ixKovZtDdWsY36CDb/LQcyeDWdfScG8=;
- b=VB7x2EfdwROpsggAChY65dDFdT4snrzfhIsqFYJismvsXq0mLGWEpQPGANo6GZ86WD
- EhluPWYQPbQI/VFt/GMWVZTgyYHqszB0rLOaGRMVg4VjXS18RqJW09eEmeXOXKqQcm31
- omLCWC5Mh3F3Y0cq0FGe9FoX3NMaq3Ek60AZkyyAxJI/PVrudcafQaC1CcwU/zP0+PFm
- X162LXhajyp+9zrRGf/vq0gBV6Uj4Lp9j1a2J4KZYbtmiywJ1hIvGs18iNVcojXLfNjM
- 2v0tYS+Bywfe4G3RLDioJokRUvLQbkLXF3/T6eNyQo3HxlZRXWV+avdLO2X9ZAJVAtYk
- ccqQ==
+ bh=+dU3J6vSB6rrSmznGSHAJH8TKN9OO1b+UvKtsB3mqw0=;
+ b=OAgRJox6KpAoi7IKo7tD5dHGkky2hlNqvyaujK1utMnRUoKiedl7nyAASuM24/Aiki
+ st5JKW5/rZbJzL5D3hJLlU31T1de7hW7gWJA4sNI8DrwYMnEKV86vvz8FDfdo3urs2OE
+ xDpZOKVjmBjCSFOSE2XBv2LKIBgrIbli6DGARQ9LTg/eEEuD0Kjed5FawfT/L3xoGmNm
+ 2hIdMzfl2Yj+N/UqaGcv5LT6TMtSiFyz4PqY4ZzytQIsldhU3oPnolntRK6bi0cYaZhw
+ 59BQiDH1aa9L0oLybmLCjP0YoKUGMQIQtigs7bFEvtS7e2ldBqQFmgUEYIolSV/nsHEQ
+ HJUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=4qDu9sgTgZn0ixKovZtDdWsY36CDb/LQcyeDWdfScG8=;
- b=kbZUwqKoVg4c77u2eAttM4a5vnuVNQVfQgs7j85rbtZSMYHUps7HHbURjK42If7N+X
- g25PFUTjysKLaCUyWBhzXTZnyfrN4541MlBx9c3FncP7yoeQfE1GIidh4yOX7+nyZg4X
- qRrysJzQg0qB+rPF3Y5J6DS0eWiyfgBDjY0GeegUEspHDJKuN+EC6M9hY8Ngjhr0UqYk
- EijPetAA0aUxlZ2Lte0Z54Ax2ifRsFkYxtj7IZhfMBYFOO6Hicm6C6Fw/InwQlY7dnjN
- Z0lOzE7gpX2wu6ydIsj5vfOQyABvMFKyYncZ4O7CEFuEtPrwCC7blxqQkN8eOVdYJtOm
- YdwQ==
-X-Gm-Message-State: APjAAAXit4/AjktOy10SDEffjlnTbjCQRxI29VkTNKaKkkGyi/W90nzp
- XXvy3q4qNCBu2qPCdgudMPSIkcaM
-X-Google-Smtp-Source: APXvYqz2F0PyDNUFtpD+QUjxtj9ZHAQF3f3fXBXumc+SWsHJ+iRNTuzAyPXaNJZS7kycwtwb/Rn35A==
-X-Received: by 2002:a2e:91d7:: with SMTP id u23mr14465389ljg.150.1559584062466; 
- Mon, 03 Jun 2019 10:47:42 -0700 (PDT)
+ bh=+dU3J6vSB6rrSmznGSHAJH8TKN9OO1b+UvKtsB3mqw0=;
+ b=KB1raFOP8uhwpmRJkBdPUJ8knwxRGQ64OC/MxYlxfiRFdPfzNJAr8RP7p6pqpcVLN+
+ yEzzGQKOiTLWB4VK61BVzdjLQOiDPFZV/0VGTZN6XF85XBElBFjkAA+ekcdBne39udDb
+ gbWHIEQAcUutkgQTiB/Dy7wfeJfPZpXirqdBllXS9gPcUH8ZbvnQtzog19Pzyb7inwXR
+ 9uRQFyszCFPJ6l40/0N6mV7cE6XhFT5Hr4kHfeE9IsPJ9DbICY1eVHT1xbjr+0AfOWB9
+ AY1LS81Xo5+lmJMNTO3HoPBYYSbOuz+/FhUy7paKx7CA+i8pYurJeBz/1ulisincIJp2
+ Y8CQ==
+X-Gm-Message-State: APjAAAXxZ7L+jE5ETTJi/ujC4wCP86SNJpx9IcI7vrm+0kaRV+wJ0OXK
+ piijnVyBLjIm9kCc/1NlgDubMi+/
+X-Google-Smtp-Source: APXvYqwROrB7Vb+pbcTPCi0P/yuE7aA4w2nDEZebnoQXexL+Iy3qCA6eOa42yRSvYnC8WznFmmt7LQ==
+X-Received: by 2002:a2e:2f12:: with SMTP id v18mr14171586ljv.196.1559584063684; 
+ Mon, 03 Jun 2019 10:47:43 -0700 (PDT)
 Received: from localhost.localdomain ([188.150.253.81])
- by smtp.gmail.com with ESMTPSA id n7sm2803532lfi.68.2019.06.03.10.47.41
+ by smtp.gmail.com with ESMTPSA id n7sm2803532lfi.68.2019.06.03.10.47.42
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 03 Jun 2019 10:47:41 -0700 (PDT)
+ Mon, 03 Jun 2019 10:47:42 -0700 (PDT)
 From: codekipper@gmail.com
 To: maxime.ripard@free-electrons.com, wens@csie.org,
  linux-sunxi@googlegroups.com
-Date: Mon,  3 Jun 2019 19:47:31 +0200
-Message-Id: <20190603174735.21002-6-codekipper@gmail.com>
+Date: Mon,  3 Jun 2019 19:47:32 +0200
+Message-Id: <20190603174735.21002-7-codekipper@gmail.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190603174735.21002-1-codekipper@gmail.com>
 References: <20190603174735.21002-1-codekipper@gmail.com>
@@ -85,7 +85,7 @@ MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, Marcus Cooper <codekipper@gmail.com>,
  lgirdwood@gmail.com, linux-kernel@vger.kernel.org, be17068@iperbole.bo.it,
  broonie@kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v4 5/9] ASoC: sun4i-i2s: Add set_tdm_slot
+Subject: [alsa-devel] [PATCH v4 6/9] ASoC: sun4i-i2s: Add multi-lane
 	functionality
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -106,74 +106,118 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Marcus Cooper <codekipper@gmail.com>
 
-Some codecs require a different amount of a bit clocks per frame than
-what is calculated by the sample width. Use the tdm slot bindings to
-provide this mechanism.
+The i2s block supports multi-lane i2s output however this functionality
+is only possible in earlier SoCs where the pins are exposed and for
+the i2s block used for HDMI audio on the later SoCs.
+
+To enable this functionality, an optional property has been added to
+the bindings.
 
 Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ sound/soc/sunxi/sun4i-i2s.c | 44 ++++++++++++++++++++++++++++++++-----
+ 1 file changed, 39 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 329883750d6f..bca73b3c0d74 100644
+index bca73b3c0d74..75217fb52bfa 100644
 --- a/sound/soc/sunxi/sun4i-i2s.c
 +++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -186,6 +186,9 @@ struct sun4i_i2s {
- 	struct regmap_field	*field_rxchansel;
+@@ -23,7 +23,7 @@
  
- 	const struct sun4i_i2s_quirks	*variant;
+ #define SUN4I_I2S_CTRL_REG		0x00
+ #define SUN4I_I2S_CTRL_SDO_EN_MASK		GENMASK(11, 8)
+-#define SUN4I_I2S_CTRL_SDO_EN(sdo)			BIT(8 + (sdo))
++#define SUN4I_I2S_CTRL_SDO_EN(lines)		(((1 << lines) - 1) << 8)
+ #define SUN4I_I2S_CTRL_MODE_MASK		BIT(5)
+ #define SUN4I_I2S_CTRL_MODE_SLAVE			(1 << 5)
+ #define SUN4I_I2S_CTRL_MODE_MASTER			(0 << 5)
+@@ -355,14 +355,23 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+ 	int sr, wss, channels;
+ 	u32 width;
++	int lines;
+ 
+ 	channels = params_channels(params);
+-	if (channels != 2) {
++	if ((channels > dai->driver->playback.channels_max) ||
++		(channels < dai->driver->playback.channels_min)) {
+ 		dev_err(dai->dev, "Unsupported number of channels: %d\n",
+ 			channels);
+ 		return -EINVAL;
+ 	}
+ 
++	lines = (channels + 1) / 2;
 +
-+	unsigned int	tdm_slots;
-+	unsigned int	slot_width;
- };
- 
- struct sun4i_i2s_clk_div {
-@@ -337,7 +340,7 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
- 	if (i2s->variant->is_h3_i2s_based)
- 		regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT0_REG,
- 				   SUN8I_I2S_FMT0_LRCK_PERIOD_MASK,
--				   SUN8I_I2S_FMT0_LRCK_PERIOD(32));
-+				   SUN8I_I2S_FMT0_LRCK_PERIOD(word_size));
- 
- 	/* Set sign extension to pad out LSB with 0 */
- 	regmap_field_write(i2s->field_fmt_sext, 0);
-@@ -414,7 +417,8 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
- 			   sr + i2s->variant->fmt_offset);
- 
- 	return sun4i_i2s_set_clk_rate(dai, params_rate(params),
--				      params_width(params));
-+				      i2s->tdm_slots ?
-+				      i2s->slot_width : params_width(params));
- }
- 
- static int sun4i_i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-@@ -657,11 +661,25 @@ static int sun4i_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
- 	return 0;
- }
- 
-+static int sun4i_i2s_set_dai_tdm_slot(struct snd_soc_dai *dai,
-+	unsigned int tx_mask, unsigned int rx_mask,
-+	int slots, int width)
-+{
-+	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
++	/* Enable the required output lines */
++	regmap_update_bits(i2s->regmap, SUN4I_I2S_CTRL_REG,
++			   SUN4I_I2S_CTRL_SDO_EN_MASK,
++			   SUN4I_I2S_CTRL_SDO_EN(lines));
 +
-+	i2s->tdm_slots = slots;
-+
-+	i2s->slot_width = width;
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dai_ops sun4i_i2s_dai_ops = {
- 	.hw_params	= sun4i_i2s_hw_params,
- 	.set_fmt	= sun4i_i2s_set_fmt,
- 	.set_sysclk	= sun4i_i2s_set_sysclk,
- 	.trigger	= sun4i_i2s_trigger,
-+	.set_tdm_slot	= sun4i_i2s_set_dai_tdm_slot,
- };
+ 	if (i2s->variant->is_h3_i2s_based) {
+ 		regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
+ 				   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM_MASK,
+@@ -373,8 +382,19 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+ 	}
  
- static int sun4i_i2s_dai_probe(struct snd_soc_dai *dai)
+ 	/* Map the channels for playback and capture */
+-	regmap_field_write(i2s->field_txchanmap, 0x76543210);
+ 	regmap_field_write(i2s->field_rxchanmap, 0x00003210);
++	regmap_field_write(i2s->field_txchanmap, 0x10);
++	if (i2s->variant->is_h3_i2s_based) {
++		if (channels > 2)
++			regmap_write(i2s->regmap,
++				     SUN8I_I2S_TX_CHAN_MAP_REG+4, 0x32);
++		if (channels > 4)
++			regmap_write(i2s->regmap,
++				     SUN8I_I2S_TX_CHAN_MAP_REG+8, 0x54);
++		if (channels > 6)
++			regmap_write(i2s->regmap,
++				     SUN8I_I2S_TX_CHAN_MAP_REG+12, 0x76);
++	}
+ 
+ 	/* Configure the channels */
+ 	regmap_field_write(i2s->field_txchansel,
+@@ -1057,9 +1077,10 @@ static int sun4i_i2s_init_regmap_fields(struct device *dev,
+ static int sun4i_i2s_probe(struct platform_device *pdev)
+ {
+ 	struct sun4i_i2s *i2s;
++	struct snd_soc_dai_driver *soc_dai;
+ 	struct resource *res;
+ 	void __iomem *regs;
+-	int irq, ret;
++	int irq, ret, val;
+ 
+ 	i2s = devm_kzalloc(&pdev->dev, sizeof(*i2s), GFP_KERNEL);
+ 	if (!i2s)
+@@ -1126,6 +1147,19 @@ static int sun4i_i2s_probe(struct platform_device *pdev)
+ 	i2s->capture_dma_data.addr = res->start + SUN4I_I2S_FIFO_RX_REG;
+ 	i2s->capture_dma_data.maxburst = 8;
+ 
++	soc_dai = devm_kmemdup(&pdev->dev, &sun4i_i2s_dai,
++			       sizeof(*soc_dai), GFP_KERNEL);
++	if (!soc_dai) {
++		ret = -ENOMEM;
++		goto err_pm_disable;
++	}
++
++	if (!of_property_read_u32(pdev->dev.of_node,
++				  "allwinner,playback-channels", &val)) {
++		if (val >= 2 && val <= 8)
++			soc_dai->playback.channels_max = val;
++	}
++
+ 	pm_runtime_enable(&pdev->dev);
+ 	if (!pm_runtime_enabled(&pdev->dev)) {
+ 		ret = sun4i_i2s_runtime_resume(&pdev->dev);
+@@ -1135,7 +1169,7 @@ static int sun4i_i2s_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_snd_soc_register_component(&pdev->dev,
+ 					      &sun4i_i2s_component,
+-					      &sun4i_i2s_dai, 1);
++					      soc_dai, 1);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Could not register DAI\n");
+ 		goto err_suspend;
 -- 
 2.21.0
 

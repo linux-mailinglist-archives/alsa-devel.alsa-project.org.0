@@ -2,88 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD21338A3
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 20:56:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 864DD338B5
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 21:00:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F14F116CA;
-	Mon,  3 Jun 2019 20:55:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F14F116CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id F264B1682;
+	Mon,  3 Jun 2019 20:59:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F264B1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559588188;
-	bh=t5Jeveue3Eqz8BY/zACLv4NiGDr9CBb5rEGQkRrsiDA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1559588410;
+	bh=FJ3hHznUY8PxnoIaKADWqN/8LtOcImPc8mjCw60wwC0=;
+	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PPsE1QN4t+9ui95Zm79iBm0mmh9Z2L4LSUGpOwP1Bnr0TpGLiGmwmjMO7B253PrEI
-	 XWl9dvjRKb2+1UXm/cang9JGbqvkoXNskTR/u8mlU8XAmoLHOTbrmaI06degzSd20J
-	 TGdK77g5diXfGyt5o1CN19BurlBhhYP50dQh+dYM=
+	b=ML3R89nXliIvx5349aywhA47jxUi7myz6mz268ODKutzISgnvrwUubxft9qVh37Te
+	 uASkzy9sExszbY6T0p0/6Jje3P9p3dlMjzobUsnub0zoyQh/co/wmACCz9ThdQj4yR
+	 YKwsx6y+nkScwQYXFkQfW1IybU44WGTgqgqNd+vY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E549CF897E9;
-	Mon,  3 Jun 2019 20:35:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DD92F896DD;
+	Mon,  3 Jun 2019 20:58:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55924F897AB; Mon,  3 Jun 2019 20:34:59 +0200 (CEST)
+ id D96D7F896DD; Mon,  3 Jun 2019 20:58:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3D66F897A4
- for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 20:34:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3D66F897A4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="hZJjb2cj"
-Received: by mail-pl1-x643.google.com with SMTP id i2so2966651plt.1
- for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 11:34:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=f7iJhfSxbvGyPbdfrmcAg8sSv8WMS29kN5cUgY35bNE=;
- b=hZJjb2cjBN8UboJnQL/09SGjONAOq1PWgb3KWui9VazwtHPQ4+NS56/5G51CM3jh1X
- 1eH2Fo63O6qfWxnI8vOCjxQhhBwM7306sKNN8GaFW+EP1836t0OhyY5B08n5rPgSszdR
- zqJJDmZmK9AmvR0G4yo7dj9pifJ+0NkL9nuBc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=f7iJhfSxbvGyPbdfrmcAg8sSv8WMS29kN5cUgY35bNE=;
- b=gzgoGq0elWfse4kXhM6g0IwLMkX/CaSFedlpnscbpZr7uVANUZUrFlPA/DXHiiKMRu
- Z5Ufcx4ukprArv9D3eqiIiCN/s0FfTobYbqYwtxx9aiULCg27BOtMv5XFpTxJBktmDrj
- 4gy/GhWRfwQffnfnyBFtBHY7ZbE0ljmGzzngQHLN+iMW8vM7kxl1UfHBokMn2uqLf5Hs
- wbakwkEph2h7X4gJ70Sy97zUfxFhQkkT3m5MXcK0L+02chdRx4YM+6qLfQ1XRqIfgYe8
- 4kVlZm3J+DEMYJnQ3H1vZo4SpUKcPLuPxqpO15sZEg3eKKkFs/H0sICejjn/KQYFnID3
- 5erQ==
-X-Gm-Message-State: APjAAAUnU+Ix7Qjnmjw3ATkTGGWGAmePL8jYPxRM3tMbha5cmtYgASjD
- zrKNmQRlLYb/nW01aq9Zo/BtGQ==
-X-Google-Smtp-Source: APXvYqx8jFEMmF7hlpd037c6zysXKhYr/YrSXZJeqz6j71siPIMBbQ25Ain08xLw9CPbQpOffhY7LA==
-X-Received: by 2002:a17:902:4481:: with SMTP id
- l1mr32255226pld.121.1559586893829; 
- Mon, 03 Jun 2019 11:34:53 -0700 (PDT)
-Received: from localhost ([2620:15c:202:1:3c8f:512b:3522:dfaf])
- by smtp.gmail.com with ESMTPSA id s24sm2930237pfh.133.2019.06.03.11.34.52
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 03 Jun 2019 11:34:53 -0700 (PDT)
-From: Gwendal Grignou <gwendal@chromium.org>
-To: enric.balletbo@collabora.com, bleung@chromium.org, groeck@chromium.org,
- lee.jones@linaro.org, jic23@kernel.org, broonie@kernel.org,
- cychiang@chromium.org, tiwai@suse.com, fabien.lahoudere@collabora.com
-Date: Mon,  3 Jun 2019 11:34:01 -0700
-Message-Id: <20190603183401.151408-31-gwendal@chromium.org>
-X-Mailer: git-send-email 2.22.0.rc1.311.g5d7573a151-goog
-In-Reply-To: <20190603183401.151408-1-gwendal@chromium.org>
-References: <20190603183401.151408-1-gwendal@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52CFDF80CC4
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 20:58:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52CFDF80CC4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2019 11:58:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,547,1549958400"; d="scan'208";a="181263887"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga002.fm.intel.com with ESMTP; 03 Jun 2019 11:58:16 -0700
+Received: from kwong4-mobl.amr.corp.intel.com (unknown [10.252.203.122])
+ by linux.intel.com (Postfix) with ESMTP id 98C885800BD;
+ Mon,  3 Jun 2019 11:58:15 -0700 (PDT)
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+References: <20190524192309.6359-1-pierre-louis.bossart@linux.intel.com>
+ <436681ea-6ffb-93f5-9bae-1f01d98e072f@linux.intel.com>
+Message-ID: <5a6ddd11-5fb8-d11a-7765-a4f483c67ec5@linux.intel.com>
+Date: Mon, 3 Jun 2019 13:58:15 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.7.0
 MIME-Version: 1.0
-Cc: linux-iio@vger.kernel.org, Gwendal Grignou <gwendal@chromium.org>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [RESEND PATCH v3 30/30] mfd: cros_ec: Update I2S API
+In-Reply-To: <436681ea-6ffb-93f5-9bae-1f01d98e072f@linux.intel.com>
+Content-Language: en-US
+Cc: tiwai@suse.de, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH 0/5] ASoC: SOF: suspend/resume debug tools
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,163 +73,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Improve I2S API.
-Rename ec_response_codec_gain into ec_codec_i2s_gain,
-update caller accordlingly.
-
-Acked-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Acked-by: Benson Leung <bleung@chromium.org>
-Reviewed-by: Fabien Lahoudere <fabien.lahoudere@collabora.com>
-Signed-off-by: Gwendal Grignou <gwendal@chromium.org>
----
- include/linux/mfd/cros_ec_commands.h | 44 +++++++++++++---------------
- sound/soc/codecs/cros_ec_codec.c     |  8 ++---
- 2 files changed, 24 insertions(+), 28 deletions(-)
-
-diff --git a/include/linux/mfd/cros_ec_commands.h b/include/linux/mfd/cros_ec_commands.h
-index fc8babce1576..fa397722f17e 100644
---- a/include/linux/mfd/cros_ec_commands.h
-+++ b/include/linux/mfd/cros_ec_commands.h
-@@ -4471,6 +4471,7 @@ enum mkbp_cec_event {
- /* Commands for I2S recording on audio codec. */
- 
- #define EC_CMD_CODEC_I2S 0x00BC
-+#define EC_WOV_I2S_SAMPLE_RATE 48000
- 
- enum ec_codec_i2s_subcmd {
- 	EC_CODEC_SET_SAMPLE_DEPTH = 0x0,
-@@ -4480,6 +4481,7 @@ enum ec_codec_i2s_subcmd {
- 	EC_CODEC_I2S_SET_CONFIG = 0x4,
- 	EC_CODEC_I2S_SET_TDM_CONFIG = 0x5,
- 	EC_CODEC_I2S_SET_BCLK = 0x6,
-+	EC_CODEC_I2S_SUBCMD_COUNT = 0x7,
- };
- 
- enum ec_sample_depth_value {
-@@ -4496,6 +4498,21 @@ enum ec_i2s_config {
- 	EC_DAI_FMT_PCM_TDM = 5,
- };
- 
-+/*
-+ * For subcommand EC_CODEC_GET_GAIN.
-+ */
-+struct __ec_align1 ec_codec_i2s_gain {
-+	uint8_t left;
-+	uint8_t right;
-+};
-+
-+struct __ec_todo_unpacked ec_param_codec_i2s_tdm {
-+	int16_t ch0_delay; /* 0 to 496 */
-+	int16_t ch1_delay; /* -1 to 496 */
-+	uint8_t adjacent_to_ch0;
-+	uint8_t adjacent_to_ch1;
-+};
-+
- struct __ec_todo_packed ec_param_codec_i2s {
- 	/* enum ec_codec_i2s_subcmd */
- 	uint8_t cmd;
-@@ -4510,10 +4527,7 @@ struct __ec_todo_packed ec_param_codec_i2s {
- 		 * EC_CODEC_SET_GAIN
- 		 * Value should be 0~43 for both channels.
- 		 */
--		struct __ec_align1 ec_param_codec_i2s_set_gain {
--			uint8_t left;
--			uint8_t right;
--		} gain;
-+		struct ec_codec_i2s_gain gain;
- 
- 		/*
- 		 * EC_CODEC_I2S_ENABLE
-@@ -4522,7 +4536,7 @@ struct __ec_todo_packed ec_param_codec_i2s {
- 		uint8_t i2s_enable;
- 
- 		/*
--		 * EC_CODEC_I2S_SET_COFNIG
-+		 * EC_CODEC_I2S_SET_CONFIG
- 		 * Value should be one of ec_i2s_config.
- 		 */
- 		uint8_t i2s_config;
-@@ -4531,18 +4545,7 @@ struct __ec_todo_packed ec_param_codec_i2s {
- 		 * EC_CODEC_I2S_SET_TDM_CONFIG
- 		 * Value should be one of ec_i2s_config.
- 		 */
--		struct __ec_todo_unpacked ec_param_codec_i2s_tdm {
--			/*
--			 * 0 to 496
--			 */
--			int16_t ch0_delay;
--			/*
--			 * -1 to 496
--			 */
--			int16_t ch1_delay;
--			uint8_t adjacent_to_ch0;
--			uint8_t adjacent_to_ch1;
--		} tdm_param;
-+		struct ec_param_codec_i2s_tdm tdm_param;
- 
- 		/*
- 		 * EC_CODEC_I2S_SET_BCLK
-@@ -4551,13 +4554,6 @@ struct __ec_todo_packed ec_param_codec_i2s {
- 	};
- };
- 
--/*
-- * For subcommand EC_CODEC_GET_GAIN.
-- */
--struct ec_response_codec_gain {
--	uint8_t left;
--	uint8_t right;
--} __ec_align1;
- 
- /*****************************************************************************/
- /* System commands */
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index 99a3af8a15ff..87830ed5ebf4 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -38,21 +38,21 @@ static const DECLARE_TLV_DB_SCALE(ec_mic_gain_tlv, 0, 100, 0);
- 
- static int ec_command_get_gain(struct snd_soc_component *component,
- 			       struct ec_param_codec_i2s *param,
--			       struct ec_response_codec_gain *resp)
-+			       struct ec_codec_i2s_gain *resp)
- {
- 	struct cros_ec_codec_data *codec_data =
- 		snd_soc_component_get_drvdata(component);
- 	struct cros_ec_device *ec_device = codec_data->ec_device;
- 	u8 buffer[sizeof(struct cros_ec_command) +
- 		  max(sizeof(struct ec_param_codec_i2s),
--		      sizeof(struct ec_response_codec_gain))];
-+		      sizeof(struct ec_codec_i2s_gain))];
- 	struct cros_ec_command *msg = (struct cros_ec_command *)&buffer;
- 	int ret;
- 
- 	msg->version = 0;
- 	msg->command = EC_CMD_CODEC_I2S;
- 	msg->outsize = sizeof(struct ec_param_codec_i2s);
--	msg->insize = sizeof(struct ec_response_codec_gain);
-+	msg->insize = sizeof(struct ec_codec_i2s_gain);
- 
- 	memcpy(msg->data, param, msg->outsize);
- 
-@@ -226,7 +226,7 @@ static int get_ec_mic_gain(struct snd_soc_component *component,
- 			   u8 *left, u8 *right)
- {
- 	struct ec_param_codec_i2s param;
--	struct ec_response_codec_gain resp;
-+	struct ec_codec_i2s_gain resp;
- 	int ret;
- 
- 	param.cmd = EC_CODEC_GET_GAIN;
--- 
-2.21.0.1020.gf2820cf01a-goog
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gNi8zLzE5IDEwOjQ1IEFNLCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKPiAKPiAKPiBP
+biA1LzI0LzE5IDI6MjMgUE0sIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+PiBObyBuZXcg
+ZnVuY3Rpb25hbGl0eSBwZXIgc2UsIGp1c3QgdXRpbGl0aWVzIGZvciBkZXZlbG9wZXJzLiBUaGUg
+dmFzdAo+PiBtYWpvcml0eSBvZiBjdXJyZW50IGludGVncmF0aW9uIGlzc3VlcyBhcmUgcmVsYXRl
+ZCB0byBIREF1ZGlvICsgdHJhY2UKPj4gc3VwcG9ydCBjb21iaW5lZCB3aXRoIHJ1bnRpbWUgc3Vz
+cGVuZC9yZXN1bWUuCj4+Cj4+IEFkZCBhIGNvdXBsZSBvZiBjaGFuZ2VzIHRvIG1ha2UgaXQgZWFz
+aWVyIGZvciBkZXZlbG9wZXJzIHRvIHNlZSB0aGUKPj4gZmlybXdhcmUgbG9ncyBhY3Jvc3Mgc3Vz
+cGVuZC9yZXN1bWUgdHJhbnNpdGlvbnMsIGRpc2FibGUgdGhlIHRyYWNlCj4+IGFuZC9vciBkaXNh
+YmxlIHJ1bnRpbWVfcG0gdG8gaGVscCBuYXJyb3cgZG93biB0aGUgcHJvYmxlbXMuCj4+Cj4+IEth
+aSBWZWhtYW5lbiAoMik6Cj4+IMKgwqAgQVNvQzogU09GOiB0cmFjZTogcmVtb3ZlIGNvZGUgZHVw
+bGljYXRpb24gaW4gc29mX3dhaXRfdHJhY2VfYXZhaWwoKQo+PiDCoMKgIEFTb0M6IFNPRjogZm9y
+Y2UgZW5kLW9mLWZpbGUgZm9yIGRlYnVnZnMgdHJhY2UgYXQgc3VzcGVuZAo+IAo+IEhpIE1hcmss
+IHlvdSBhcHBsaWVkIHRoZSBmaXJzdCB0d28gcGF0Y2hlcyBpbiB0aGlzIHNlcmllcyBidXQgdGhl
+IGxhc3QgMyAKPiBwYXRjaGVzIHdlcmUgbGVmdCBvdXQuIFdlcmUgdGhleSBtaXNzZWQgc29tZWhv
+dyBvciBpcyB0aGVyZSBhbnkgb2JqZWN0aW9uPwoKTmV2ZXIgbWluZCwgSSdsbCBoYXZlIHRvIHJl
+c3VibWl0IHRoaXMgc2VyaWVzIHNpbmNlIGl0IG5vIGxvbmdlciBhcHBsaWVzIAoob3RoZXIgcGF0
+Y2hlcyBtZXJnZWQgZmlyc3QpLiBObyBiaWcgZGVhbC4KCj4gCj4+IFBpZXJyZS1Mb3VpcyBCb3Nz
+YXJ0ICgzKToKPj4gwqDCoCBBU29DOiBTT0Y6IHRyYWNlOiBtb3ZlIHRvIG9wdC1pbiB3aXRoIEtj
+b25maWcgYW5kIG1vZHVsZSBwYXJhbWV0ZXIKPj4gwqDCoCBBU29DOiBTT0Y6IGFjcGk6IGFkZCBt
+b2R1bGUgcGFyYW0gdG8gZGlzYWJsZSBwbV9ydW50aW1lCj4+IMKgwqAgQVNvQzogU09GOiBwY2k6
+IGFkZCBtb2R1bGUgcGFyYW0gdG8gZGlzYWJsZSBwbV9ydW50aW1lCj4+Cj4+IMKgIHNvdW5kL3Nv
+Yy9zb2YvS2NvbmZpZ8KgwqDCoMKgwqDCoMKgIHzCoCA4ICsrKysrCj4+IMKgIHNvdW5kL3NvYy9z
+b2YvY29yZS5jwqDCoMKgwqDCoMKgwqDCoCB8IDI2ICsrKysrKysrKystLS0tCj4+IMKgIHNvdW5k
+L3NvYy9zb2Yvc29mLWFjcGktZGV2LmMgfCAxMiArKysrKystCj4+IMKgIHNvdW5kL3NvYy9zb2Yv
+c29mLXBjaS1kZXYuY8KgIHwgMTIgKysrKysrLQo+PiDCoCBzb3VuZC9zb2Mvc29mL3NvZi1wcml2
+LmjCoMKgwqDCoCB8wqAgMyArKwo+PiDCoCBzb3VuZC9zb2Mvc29mL3RyYWNlLmPCoMKgwqDCoMKg
+wqDCoCB8IDY3ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLQo+PiDCoCA2IGZp
+bGVzIGNoYW5nZWQsIDExMCBpbnNlcnRpb25zKCspLCAxOCBkZWxldGlvbnMoLSkKPj4KPj4KPj4g
+YmFzZS1jb21taXQ6IDE4OGQ0NWZlNzc5ZWViOGUzNTIxYjU5ZmNiMTJjYzQ4YTZmMmMyMDMKPj4K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IEFsc2Et
+ZGV2ZWwgbWFpbGluZyBsaXN0Cj4gQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCj4gaHR0cHM6
+Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVs
+IG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFu
+LmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

@@ -2,89 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5070D32A9E
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 10:18:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28D6F32B38
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Jun 2019 10:56:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D93AF1688;
-	Mon,  3 Jun 2019 10:17:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D93AF1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id A54A71665;
+	Mon,  3 Jun 2019 10:55:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A54A71665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559549912;
-	bh=moXfK9SkVklRFoeDoxb4ScQGF7KqHbYKhS3shocoKkI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=H4jyNbPRlbynRDQVA/4GnNCZVuh5VaW46MAA6h/hxArMdn6n99+OVepxlsJiV2WU3
-	 FkHXgcIo5RcC0OyKv5zlulDLlqlmIQlWLc4OQRscc+4ehy9JYOzefWMHIeyNjk2kD7
-	 cArKTlNaAFwcnW5hvsnYnyKh92caBuKDtS78PBgk=
+	s=default; t=1559552174;
+	bh=KwwGGDAkm6yBroRTZJ8Z3be73pypae/L5bOZA+0fQU4=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RswlmsgxekRIMdovlLcR6jNfXvRPl0/UUdLOVgrzeREYrVcWmC6ZOqc8Jd36Mzfgx
+	 j6RX5nmRVnlJs6DO+CBOqe6Er9Ngda7iuXAIcq024OMl0k3ZVKmjclMhmYGlNKaVnz
+	 g0LDR78JwBVxM2V0vH/QVZcsz0xw5Z34EFLA+rlY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E1E5F896ED;
-	Mon,  3 Jun 2019 10:16:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 292F6F896DD;
+	Mon,  3 Jun 2019 10:54:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8376F896DD; Mon,  3 Jun 2019 10:16:43 +0200 (CEST)
+ id A890FF896CE; Mon,  3 Jun 2019 10:54:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
+ T_DKIMWL_WL_HIGH,URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
+ [IPv6:2607:f8b0:4864:20::a44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14889F80774
- for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 10:16:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14889F80774
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD04FF896CE
+ for <alsa-devel@alsa-project.org>; Mon,  3 Jun 2019 10:54:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD04FF896CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="tCByvdYs"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x538GSkA019279; Mon, 3 Jun 2019 10:16:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=nJJR92I5ibVaH2yVpxa8sBGMNjPbjpb7V7G3xIRyUhE=;
- b=tCByvdYsqRDPa8blOzVu31JMEuWi4EHrVKY8o2bNne9PsClKlfMiwa3c1Xt2cKV6elMm
- QwBRJWCoOYUnxB6solkDSEFRTsKW+ipZGIp0ReYQBbxoSL6IbLdEgIUhUGvaUc2H4uFo
- nIzM5Xkf/AXz+R7hFSYmMU03Grirw26kTSfq6NT2S7ZSiK5X2nLA+jBhBhC4INtB16Zb
- Doodo/qISSSjJ4atFgjyjWfRIfgX5VDpoNF+3/zk/FUmAkRz9KD/yoNHlLcaJ0+mSYHk
- Y0Y1rWdmoc2eI0IcWwujNp+AjZwYGEf6KTBQj29eNO68yiyNY7vanjUQDb1Edjh6GL7i qw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2sunme9150-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 03 Jun 2019 10:16:39 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D937A34;
- Mon,  3 Jun 2019 08:16:37 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas23.st.com [10.75.90.46])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 6BB7E2489;
- Mon,  3 Jun 2019 08:16:37 +0000 (GMT)
-Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by SAFEX1HUBCAS23.st.com
- (10.75.90.46) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019
- 10:16:37 +0200
-Received: from localhost (10.201.23.16) by webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 3 Jun 2019 10:16:36
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
- <arnaud.pouliquen@st.com>
-Date: Mon, 3 Jun 2019 10:16:34 +0200
-Message-ID: <1559549794-7246-1-git-send-email-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="M5LBwXeW"
+Received: by mail-vk1-xa44.google.com with SMTP id f6so1625638vka.6
+ for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 01:54:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=wdJEk7xoPcDvx0rL8FHQp9oPvWZRTtNsGybP0RtSagY=;
+ b=M5LBwXeW8e3O+PDSsi9zCXscQ8y1vbRUSJsU1dQVFrSJjRzc0XEsTIijLOFvdIySua
+ +OCo46JIId3hfB8wKxv+MCF7fVRzIDejRA2kyMLDpDQwCzug1Ciird69sGvwMmk1d8Mo
+ XsEJ3E2hVFq6TKZA01pfKGQ+jF0WA1WjOA96Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=wdJEk7xoPcDvx0rL8FHQp9oPvWZRTtNsGybP0RtSagY=;
+ b=mSjT/DvSH4bKMrxvmvjxms1fw/tdNcfXtgVg821YbJ9HnoEqsbpdqOuia9Ex8gvTDU
+ o3tS4vb5Dk4Ps35DrnS7wsAweqiuG9U2ZE6H0z2so5+SgQvj2S1FFjmNWCDsklL06rr7
+ OG9vO+9TTAhuTEes/gVf8+OssDScIdTqWxU6HvffNk/O5VkYA60KPuOIHCcA64Wme8IN
+ 8qc/br7HPiv0GyPhHJTHvHXwCPIEpgts/0vrDFiEmA9Ows3qx97tgpV1kOBwrSIPrbnE
+ UplQvHN0FHaq/8xhsj5LK+JlTA/J1ncLj56ye75OK0gCTVhQ0cXryKX67/shBTKyH/rt
+ Rxzw==
+X-Gm-Message-State: APjAAAUsCGH1WQD7rmq0+3ozQ/0Mk0TQTH2gXeAfeZwOcSbkr1dEKgSs
+ Y/y9i1v++naMaqRHvaXvFzWcBXMImtv4ernNxk8csw==
+X-Google-Smtp-Source: APXvYqzW5LQtHHySgqxIQwZwXTkV349/aO/EZ86HUpABwdgeY6YY1BGiVYaBh3z0RzEL+55rfLwERjYPN8UokbeRX/Y=
+X-Received: by 2002:a1f:a003:: with SMTP id j3mr5105438vke.74.1559552062071;
+ Mon, 03 Jun 2019 01:54:22 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.16]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-03_06:, , signatures=0
-Cc: benjamin.gaignard@st.com
-Subject: [alsa-devel] [PATCH] ASoC: stm32: sai: manage identification
-	registers
+References: <20190603043251.226549-1-cychiang@chromium.org>
+ <20190603043251.226549-3-cychiang@chromium.org> <20190603100301.00d68690@xxx>
+In-Reply-To: <20190603100301.00d68690@xxx>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Mon, 3 Jun 2019 16:53:55 +0800
+Message-ID: <CAFv8Nw+g2SZ00FTH969AbpPBBm_jeN9C-7_Mz5Vr7xc+qs0UfQ@mail.gmail.com>
+To: =?UTF-8?B?QW1hZGV1c3ogU8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux-rockchip@lists.infradead.org, Dylan Reid <dgreid@chromium.org>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, tzungbi@chromium.org,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Doug Anderson <dianders@chromium.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Subject: Re: [alsa-devel] [PATCH 2/7] ASoC: hdmi-codec: use HDMI state
+ notifier to add jack support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,268 +106,168 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support of identification registers in STM32 SAI.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_sai.c     | 44 +++++++++++++++++++++++++++++++----
- sound/soc/stm/stm32_sai.h     | 54 ++++++++++++++++++++++++++++++++-----------
- sound/soc/stm/stm32_sai_sub.c | 14 ++++++-----
- 3 files changed, 88 insertions(+), 24 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
-index 7550d5f08be3..98b29f712831 100644
---- a/sound/soc/stm/stm32_sai.c
-+++ b/sound/soc/stm/stm32_sai.c
-@@ -30,13 +30,20 @@
- #include "stm32_sai.h"
- 
- static const struct stm32_sai_conf stm32_sai_conf_f4 = {
--	.version = SAI_STM32F4,
--	.has_spdif = false,
-+	.version = STM_SAI_STM32F4,
-+	.fifo_size = 8,
-+	.has_spdif_pdm = false,
- };
- 
-+/*
-+ * Default settings for stm32 H7 socs and next.
-+ * These default settings will be overridden if the soc provides
-+ * support of hardware configuration registers.
-+ */
- static const struct stm32_sai_conf stm32_sai_conf_h7 = {
--	.version = SAI_STM32H7,
--	.has_spdif = true,
-+	.version = STM_SAI_STM32H7,
-+	.fifo_size = 8,
-+	.has_spdif_pdm = true,
- };
- 
- static const struct of_device_id stm32_sai_ids[] = {
-@@ -157,6 +164,8 @@ static int stm32_sai_probe(struct platform_device *pdev)
- 	struct reset_control *rst;
- 	struct resource *res;
- 	const struct of_device_id *of_id;
-+	u32 val;
-+	int ret;
- 
- 	sai = devm_kzalloc(&pdev->dev, sizeof(*sai), GFP_KERNEL);
- 	if (!sai)
-@@ -169,7 +178,8 @@ static int stm32_sai_probe(struct platform_device *pdev)
- 
- 	of_id = of_match_device(stm32_sai_ids, &pdev->dev);
- 	if (of_id)
--		sai->conf = (struct stm32_sai_conf *)of_id->data;
-+		memcpy(&sai->conf, (const struct stm32_sai_conf *)of_id->data,
-+		       sizeof(struct stm32_sai_conf));
- 	else
- 		return -EINVAL;
- 
-@@ -208,6 +218,30 @@ static int stm32_sai_probe(struct platform_device *pdev)
- 		reset_control_deassert(rst);
- 	}
- 
-+	/* Enable peripheral clock to allow register access */
-+	ret = clk_prepare_enable(sai->pclk);
-+	if (ret) {
-+		dev_err(&pdev->dev, "failed to enable clock: %d\n", ret);
-+		return ret;
-+	}
-+
-+	val = FIELD_GET(SAI_IDR_ID_MASK,
-+			readl_relaxed(sai->base + STM_SAI_IDR));
-+	if (val == SAI_IPIDR_NUMBER) {
-+		val = readl_relaxed(sai->base + STM_SAI_HWCFGR);
-+		sai->conf.fifo_size = FIELD_GET(SAI_HWCFGR_FIFO_SIZE, val);
-+		sai->conf.has_spdif_pdm = !!FIELD_GET(SAI_HWCFGR_SPDIF_PDM,
-+						      val);
-+
-+		val = readl_relaxed(sai->base + STM_SAI_VERR);
-+		sai->conf.version = val;
-+
-+		dev_dbg(&pdev->dev, "SAI version: %lu.%lu registered\n",
-+			FIELD_GET(SAI_VERR_MAJ_MASK, val),
-+			FIELD_GET(SAI_VERR_MIN_MASK, val));
-+	}
-+	clk_disable_unprepare(sai->pclk);
-+
- 	sai->pdev = pdev;
- 	sai->set_sync = &stm32_sai_set_sync;
- 	platform_set_drvdata(pdev, sai);
-diff --git a/sound/soc/stm/stm32_sai.h b/sound/soc/stm/stm32_sai.h
-index 9c36a393ab7b..158c73f557f7 100644
---- a/sound/soc/stm/stm32_sai.h
-+++ b/sound/soc/stm/stm32_sai.h
-@@ -37,6 +37,12 @@
- #define STM_SAI_PDMCR_REGX	0x40
- #define STM_SAI_PDMLY_REGX	0x44
- 
-+/* Hardware configuration registers */
-+#define STM_SAI_HWCFGR		0x3F0
-+#define STM_SAI_VERR		0x3F4
-+#define STM_SAI_IDR		0x3F8
-+#define STM_SAI_SIDR		0x3FC
-+
- /******************** Bit definition for SAI_GCR register *******************/
- #define SAI_GCR_SYNCIN_SHIFT	0
- #define SAI_GCR_SYNCIN_WDTH	2
-@@ -82,7 +88,7 @@
- #define SAI_XCR1_NODIV		BIT(SAI_XCR1_NODIV_SHIFT)
- 
- #define SAI_XCR1_MCKDIV_SHIFT	20
--#define SAI_XCR1_MCKDIV_WIDTH(x)	(((x) == SAI_STM32F4) ? 4 : 6)
-+#define SAI_XCR1_MCKDIV_WIDTH(x)	(((x) == STM_SAI_STM32F4) ? 4 : 6)
- #define SAI_XCR1_MCKDIV_MASK(x) GENMASK((SAI_XCR1_MCKDIV_SHIFT + (x) - 1),\
- 				SAI_XCR1_MCKDIV_SHIFT)
- #define SAI_XCR1_MCKDIV_SET(x)	((x) << SAI_XCR1_MCKDIV_SHIFT)
-@@ -234,8 +240,33 @@
- #define SAI_PDMDLY_4R_MASK	GENMASK(30, SAI_PDMDLY_4R_SHIFT)
- #define SAI_PDMDLY_4R_WIDTH	3
- 
--#define STM_SAI_IS_F4(ip)	((ip)->conf->version == SAI_STM32F4)
--#define STM_SAI_IS_H7(ip)	((ip)->conf->version == SAI_STM32H7)
-+/* Registers below apply to SAI version 2.1 and more */
-+
-+/* Bit definition for SAI_HWCFGR register */
-+#define SAI_HWCFGR_FIFO_SIZE	GENMASK(7, 0)
-+#define SAI_HWCFGR_SPDIF_PDM	GENMASK(11, 8)
-+#define SAI_HWCFGR_REGOUT	GENMASK(19, 12)
-+
-+/* Bit definition for SAI_VERR register */
-+#define SAI_VERR_MIN_MASK	GENMASK(3, 0)
-+#define SAI_VERR_MAJ_MASK	GENMASK(7, 4)
-+
-+/* Bit definition for SAI_IDR register */
-+#define SAI_IDR_ID_MASK		GENMASK(31, 0)
-+
-+/* Bit definition for SAI_SIDR register */
-+#define SAI_SIDR_ID_MASK	GENMASK(31, 0)
-+
-+#define SAI_IPIDR_NUMBER	0x00130031
-+
-+/* SAI version numbers are 1.x for F4. Major version number set to 1 for F4 */
-+#define STM_SAI_STM32F4		BIT(4)
-+/* Dummy version number for H7 socs and next */
-+#define STM_SAI_STM32H7		0x0
-+
-+#define STM_SAI_IS_F4(ip)	((ip)->conf.version == STM_SAI_STM32F4)
-+#define STM_SAI_HAS_SPDIF_PDM(ip)\
-+				((ip)->pdata->conf.has_spdif_pdm)
- 
- enum stm32_sai_syncout {
- 	STM_SAI_SYNC_OUT_NONE,
-@@ -243,19 +274,16 @@ enum stm32_sai_syncout {
- 	STM_SAI_SYNC_OUT_B,
- };
- 
--enum stm32_sai_version {
--	SAI_STM32F4,
--	SAI_STM32H7
--};
--
- /**
-  * struct stm32_sai_conf - SAI configuration
-  * @version: SAI version
-- * @has_spdif: SAI S/PDIF support flag
-+ * @fifo_size: SAI fifo size as words number
-+ * @has_spdif_pdm: SAI S/PDIF and PDM features support flag
-  */
- struct stm32_sai_conf {
--	int version;
--	bool has_spdif;
-+	u32 version;
-+	u32 fifo_size;
-+	bool has_spdif_pdm;
- };
- 
- /**
-@@ -265,7 +293,7 @@ struct stm32_sai_conf {
-  * @pclk: SAI bus clock
-  * @clk_x8k: SAI parent clock for sampling frequencies multiple of 8kHz
-  * @clk_x11k: SAI parent clock for sampling frequencies multiple of 11kHz
-- * @version: SOC version
-+ * @conf: SAI hardware capabitilites
-  * @irq: SAI interrupt line
-  * @set_sync: pointer to synchro mode configuration callback
-  * @gcr: SAI Global Configuration Register
-@@ -276,7 +304,7 @@ struct stm32_sai_data {
- 	struct clk *pclk;
- 	struct clk *clk_x8k;
- 	struct clk *clk_x11k;
--	struct stm32_sai_conf *conf;
-+	struct stm32_sai_conf conf;
- 	int irq;
- 	int (*set_sync)(struct stm32_sai_data *sai,
- 			struct device_node *np_provider, int synco, int synci);
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 2a74ce7c9440..7d27efb19380 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -45,7 +45,6 @@
- #define SAI_DATASIZE_24		0x6
- #define SAI_DATASIZE_32		0x7
- 
--#define STM_SAI_FIFO_SIZE	8
- #define STM_SAI_DAI_NAME_SIZE	15
- 
- #define STM_SAI_IS_PLAYBACK(ip)	((ip)->dir == SNDRV_PCM_STREAM_PLAYBACK)
-@@ -63,7 +62,8 @@
- #define SAI_SYNC_EXTERNAL	0x2
- 
- #define STM_SAI_PROTOCOL_IS_SPDIF(ip)	((ip)->spdif)
--#define STM_SAI_HAS_SPDIF(x)	((x)->pdata->conf->has_spdif)
-+#define STM_SAI_HAS_SPDIF(x)	((x)->pdata->conf.has_spdif_pdm)
-+#define STM_SAI_HAS_PDM(x)	((x)->pdata->conf.has_spdif_pdm)
- #define STM_SAI_HAS_EXT_SYNC(x) (!STM_SAI_IS_F4(sai->pdata))
- 
- #define SAI_IEC60958_BLOCK_FRAMES	192
-@@ -274,7 +274,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
- 				 unsigned long input_rate,
- 				 unsigned long output_rate)
- {
--	int version = sai->pdata->conf->version;
-+	int version = sai->pdata->conf.version;
- 	int div;
- 
- 	div = DIV_ROUND_CLOSEST(input_rate, output_rate);
-@@ -295,7 +295,7 @@ static int stm32_sai_get_clk_div(struct stm32_sai_sub_data *sai,
- static int stm32_sai_set_clk_div(struct stm32_sai_sub_data *sai,
- 				 unsigned int div)
- {
--	int version = sai->pdata->conf->version;
-+	int version = sai->pdata->conf.version;
- 	int ret, cr1, mask;
- 
- 	if (div > SAI_XCR1_MCKDIV_MAX(version)) {
-@@ -1148,6 +1148,8 @@ static int stm32_sai_dai_probe(struct snd_soc_dai *cpu_dai)
- 	 * constraints).
- 	 */
- 	sai->dma_params.maxburst = 4;
-+	if (sai->pdata->conf.fifo_size < 8)
-+		sai->dma_params.maxburst = 1;
- 	/* Buswidth will be set by framework at runtime */
- 	sai->dma_params.addr_width = DMA_SLAVE_BUSWIDTH_UNDEFINED;
- 
-@@ -1315,8 +1317,8 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 	sai->phys_addr = res->start;
- 
- 	sai->regmap_config = &stm32_sai_sub_regmap_config_f4;
--	/* Note: PDM registers not available for H7 sub-block B */
--	if (STM_SAI_IS_H7(sai->pdata) && STM_SAI_IS_SUB_A(sai))
-+	/* Note: PDM registers not available for sub-block B */
-+	if (STM_SAI_HAS_PDM(sai) && STM_SAI_IS_SUB_A(sai))
- 		sai->regmap_config = &stm32_sai_sub_regmap_config_h7;
- 
- 	sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "sai_ck",
--- 
-2.7.4
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gTW9uLCBKdW4gMywgMjAxOSBhdCAzOjU5IFBNIEFtYWRldXN6IFPFgmF3acWEc2tpCjxhbWFk
+ZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj4KPiBPbiBNb24sICAzIEp1
+biAyMDE5IDEyOjMyOjQ2ICswODAwCj4gQ2hlbmctWWkgQ2hpYW5nIDxjeWNoaWFuZ0BjaHJvbWl1
+bS5vcmc+IHdyb3RlOgo+Cj4gPiBGcm9tOiBQaGlsaXBwIFphYmVsIDxwLnphYmVsQHBlbmd1dHJv
+bml4LmRlPgo+ID4KPiA+IFVzZSBIRE1JIGNvbm5lY3Rpb24gLyBkaXNjb25uZWN0aW9uIG5vdGlm
+aWNhdGlvbnMgdG8gdXBkYXRlIGFuIEFMU0EKPiA+IGphY2sgb2JqZWN0LiBBbHNvIG1ha2UgYSBj
+b3B5IG9mIHRoZSBFTEQgYmxvY2sgYWZ0ZXIgZXZlcnkgY2hhbmdlLgo+ID4KPiA+IFRoaXMgd2Fz
+IHBvc3RlZCBieSBQaGlsaXBwIFphYmVsIGF0Cj4gPgo+ID4gaHR0cHM6Ly9wYXRjaHdvcmsua2Vy
+bmVsLm9yZy9wYXRjaC85NDMwNzQ3Lwo+ID4KPiA+IE1vZGlmaWVkIGJ5IENoZW5nLVlpIENoaWFu
+ZzoKPiA+IC0gRml4IHRoZSBjb25mbGljdCBvZiByZW1vdmVkIGhkbWlfY29kZWNfcmVtb3ZlIG9w
+cy4KPiA+IC0gT3RoZXIgbWlub3IgZml4IGZvciB0aGUgY29uZmxpY3Qgd2l0aCBsYXRlc3QgaGRt
+aS1jb2RlYyBvbiBBU29DCj4gPiAgIGZvci1uZXh0IHRyZWUuCj4gPgo+ID4gU2lnbmVkLW9mZi1i
+eTogUGhpbGlwcCBaYWJlbCA8cC56YWJlbEBwZW5ndXRyb25peC5kZT4KPiA+IFNpZ25lZC1vZmYt
+Ynk6IENoZW5nLVlpIENoaWFuZyA8Y3ljaGlhbmdAY2hyb21pdW0ub3JnPgo+ID4gLS0tCj4gPiBU
+aGUgb3JpZ2luYWwgcGF0Y2ggaXMgYXQgaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRj
+aC85NDMwNzQ3Lwo+ID4gSSBjb3VsZCBub3QgZmluZCB0aGUgTEtNTCBsaW5rIGZvciB0aGUgcGF0
+Y2guCj4gPgo+ID4gIGluY2x1ZGUvc291bmQvaGRtaS1jb2RlYy5oICAgIHwgICA3ICsrKwo+ID4g
+IHNvdW5kL3NvYy9jb2RlY3MvS2NvbmZpZyAgICAgIHwgICAxICsKPiA+ICBzb3VuZC9zb2MvY29k
+ZWNzL2hkbWktY29kZWMuYyB8IDEwNAo+ID4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLSAzIGZpbGVzIGNoYW5nZWQsIDExMAo+ID4gaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmggYi9pbmNs
+dWRlL3NvdW5kL2hkbWktY29kZWMuaAo+ID4gaW5kZXggOTQ4M2M1NWY4NzFiLi40ZmEzOWM5MzM2
+M2YgMTAwNjQ0Cj4gPiAtLS0gYS9pbmNsdWRlL3NvdW5kL2hkbWktY29kZWMuaAo+ID4gKysrIGIv
+aW5jbHVkZS9zb3VuZC9oZG1pLWNvZGVjLmgKPiA+IEBAIC0xMDcsNiArMTA3LDEzIEBAIHN0cnVj
+dCBoZG1pX2NvZGVjX3BkYXRhIHsKPiA+ICAgICAgIHZvaWQgKmRhdGE7Cj4gPiAgfTsKPiA+Cj4g
+PiArc3RydWN0IHNuZF9zb2NfY29tcG9uZW50Owo+ID4gK3N0cnVjdCBzbmRfc29jX2phY2s7Cj4g
+PiArCj4gPiAraW50IGhkbWlfY29kZWNfc2V0X2phY2tfZGV0ZWN0KHN0cnVjdCBzbmRfc29jX2Nv
+bXBvbmVudCAqY29tcG9uZW50LAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1
+Y3Qgc25kX3NvY19qYWNrICpqYWNrLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+dHJ1Y3QgZGV2aWNlICpkZXYpOwo+ID4gKwo+ID4gICNkZWZpbmUgSERNSV9DT0RFQ19EUlZfTkFN
+RSAiaGRtaS1hdWRpby1jb2RlYyIKPiA+Cj4gPiAgI2VuZGlmIC8qIF9fSERNSV9DT0RFQ19IX18g
+Ki8KPiA+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL0tjb25maWcgYi9zb3VuZC9zb2Mv
+Y29kZWNzL0tjb25maWcKPiA+IGluZGV4IDhmNTc3MjU4MDgwYi4uZjVmNmRkMDQyMzRjIDEwMDY0
+NAo+ID4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9LY29uZmlnCj4gPiArKysgYi9zb3VuZC9zb2Mv
+Y29kZWNzL0tjb25maWcKPiA+IEBAIC02MzksNiArNjM5LDcgQEAgY29uZmlnIFNORF9TT0NfSERN
+SV9DT0RFQwo+ID4gICAgICAgc2VsZWN0IFNORF9QQ01fRUxECj4gPiAgICAgICBzZWxlY3QgU05E
+X1BDTV9JRUM5NTgKPiA+ICAgICAgIHNlbGVjdCBIRE1JCj4gPiArICAgICBzZWxlY3QgSERNSV9O
+T1RJRklFUlMKPiA+Cj4gPiAgY29uZmlnIFNORF9TT0NfRVM3MTM0Cj4gPiAgICAgICAgIHRyaXN0
+YXRlICJFdmVyZXN0IFNlbWkgRVM3MTM0IENPREVDIgo+ID4gZGlmZiAtLWdpdCBhL3NvdW5kL3Nv
+Yy9jb2RlY3MvaGRtaS1jb2RlYy5jCj4gPiBiL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1jb2RlYy5j
+IGluZGV4IDZhMGNjOGQ3ZTE0MS4uZmU3OTZhNzQ3NWE1Cj4gPiAxMDA2NDQgLS0tIGEvc291bmQv
+c29jL2NvZGVjcy9oZG1pLWNvZGVjLmMKPiA+ICsrKyBiL3NvdW5kL3NvYy9jb2RlY3MvaGRtaS1j
+b2RlYy5jCj4gPiBAQCAtMTIsOSArMTIsMTIgQEAKPiA+ICAgKiBNRVJDSEFOVEFCSUxJVFkgb3Ig
+RklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UuICAgICAgIFNlZQo+ID4gdGhlIEdOVQo+
+ID4gICAqIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yIG1vcmUgZGV0YWlscy4KPiA+ICAgKi8K
+PiA+ICsjaW5jbHVkZSA8bGludXgvaGRtaS1ub3RpZmllci5oPgo+ID4gICNpbmNsdWRlIDxsaW51
+eC9tb2R1bGUuaD4KPiA+ICsjaW5jbHVkZSA8bGludXgvbm90aWZpZXIuaD4KPiA+ICAjaW5jbHVk
+ZSA8bGludXgvc3RyaW5nLmg+Cj4gPiAgI2luY2x1ZGUgPHNvdW5kL2NvcmUuaD4KPiA+ICsjaW5j
+bHVkZSA8c291bmQvamFjay5oPgo+ID4gICNpbmNsdWRlIDxzb3VuZC9wY20uaD4KPiA+ICAjaW5j
+bHVkZSA8c291bmQvcGNtX3BhcmFtcy5oPgo+ID4gICNpbmNsdWRlIDxzb3VuZC9zb2MuaD4KPiA+
+IEBAIC0yODIsNiArMjg1LDEzIEBAIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgewo+ID4gICAgICAg
+c3RydWN0IHNuZF9wY21fY2htYXAgKmNobWFwX2luZm87Cj4gPiAgICAgICB1bnNpZ25lZCBpbnQg
+Y2htYXBfaWR4Owo+ID4gICAgICAgc3RydWN0IG11dGV4IGxvY2s7Cj4gPiArICAgICBzdHJ1Y3Qg
+c25kX3NvY19qYWNrICpqYWNrOwo+ID4gKyAgICAgLyogTG9jayB0byBwcm90ZWN0IHNldHRpbmcg
+YW5kIGdldHRpbmcgZWxkLiAqLwo+ID4gKyAgICAgc3RydWN0IG11dGV4IGVsZF9sb2NrOwo+ID4g
+KyAgICAgc3RydWN0IGRldmljZSAqZGV2Owo+ID4gKyAgICAgc3RydWN0IGhkbWlfbm90aWZpZXIg
+Km5vdGlmaWVyOwo+ID4gKyAgICAgc3RydWN0IG5vdGlmaWVyX2Jsb2NrIG5iOwo+ID4gKyAgICAg
+dW5zaWduZWQgaW50IGphY2tfc3RhdHVzOwo+ID4gIH07Cj4gPgo+ID4gIHN0YXRpYyBjb25zdCBz
+dHJ1Y3Qgc25kX3NvY19kYXBtX3dpZGdldCBoZG1pX3dpZGdldHNbXSA9IHsKPiA+IEBAIC0zMDgs
+NyArMzE4LDkgQEAgc3RhdGljIGludCBoZG1pX2VsZF9jdGxfZ2V0KHN0cnVjdCBzbmRfa2NvbnRy
+b2wKPiA+ICprY29udHJvbCwgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQgPQo+
+ID4gc25kX2tjb250cm9sX2NoaXAoa2NvbnRyb2wpOyBzdHJ1Y3QgaGRtaV9jb2RlY19wcml2ICpo
+Y3AgPQo+ID4gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRhdGEoY29tcG9uZW50KTsKPiA+ICsg
+ICAgIG11dGV4X2xvY2soJmhjcC0+ZWxkX2xvY2spOwo+ID4gICAgICAgbWVtY3B5KHVjb250cm9s
+LT52YWx1ZS5ieXRlcy5kYXRhLCBoY3AtPmVsZCwKPiA+IHNpemVvZihoY3AtPmVsZCkpOwo+ID4g
+KyAgICAgbXV0ZXhfdW5sb2NrKCZoY3AtPmVsZF9sb2NrKTsKPiA+Cj4gPiAgICAgICByZXR1cm4g
+MDsKPiA+ICB9Cj4gPiBAQCAtMzkzLDcgKzQwNSw3IEBAIHN0YXRpYyBpbnQgaGRtaV9jb2RlY19z
+dGFydHVwKHN0cnVjdAo+ID4gc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwgc3RydWN0IHNu
+ZF9zb2NfZGFpICpkYWkpCj4gPiAgewo+ID4gICAgICAgc3RydWN0IGhkbWlfY29kZWNfcHJpdiAq
+aGNwID0gc25kX3NvY19kYWlfZ2V0X2RydmRhdGEoZGFpKTsKPiA+IC0gICAgIGludCByZXQgPSAw
+Owo+ID4gKyAgICAgaW50IHJldDsKPiA+Cj4gPiAgICAgICByZXQgPSBtdXRleF90cnlsb2NrKCZo
+Y3AtPmxvY2spOwo+ID4gICAgICAgaWYgKCFyZXQpIHsKPiA+IEBAIC00MDgsOSArNDIwLDkgQEAg
+c3RhdGljIGludCBoZG1pX2NvZGVjX3N0YXJ0dXAoc3RydWN0Cj4gPiBzbmRfcGNtX3N1YnN0cmVh
+bSAqc3Vic3RyZWFtLCB9Cj4gPgo+ID4gICAgICAgaWYgKGhjcC0+aGNkLm9wcy0+Z2V0X2VsZCkg
+ewo+ID4gKyAgICAgICAgICAgICBtdXRleF9sb2NrKCZoY3AtPmVsZF9sb2NrKTsKPiA+ICAgICAg
+ICAgICAgICAgcmV0ID0gaGNwLT5oY2Qub3BzLT5nZXRfZWxkKGRhaS0+ZGV2LT5wYXJlbnQsCj4g
+PiBoY3AtPmhjZC5kYXRhLCBoY3AtPmVsZCwgc2l6ZW9mKGhjcC0+ZWxkKSk7Cj4gPiAtCj4gPiAg
+ICAgICAgICAgICAgIGlmICghcmV0KSB7Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgcmV0ID0K
+PiA+IHNuZF9wY21faHdfY29uc3RyYWludF9lbGQoc3Vic3RyZWFtLT5ydW50aW1lLCBoY3AtPmVs
+ZCk7Cj4KPiBTZWVtcyB0byBtZSBsaWtlIHlvdSBtaXNzZWQgdW5sb2NrIGhlcmUuIFRoZXJlIGlz
+IHJldHVybiBpbnNpZGUgdGhpcwo+IGlmKCkuCj4KClRoYW5rcyBmb3IgY2hlY2tpbmchClRoZSBs
+YXRlc3QgcGF0Y2ggb24gaGRtaS1jb2RlYy5jIG9uIEFTb0MgdHJlZSBoYXMgYSBjaGFuZ2UgdG8g
+cmVwbGFjZQp0aGF0IHJldHVybiB0byBnb3RvIGVyci4KCmh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5l
+bC5vcmcvcGF0Y2gvMTA5MzA4NzUvCgpNeSBwYXRjaCBpcyBiYXNlZCBvbiB0aGF0IHNvIGl0IHNo
+b3VsZCBiZSBva2F5LgpUaGFua3MhCgo+ID4gQEAgLTQxOSw2ICs0MzEsNyBAQCBzdGF0aWMgaW50
+IGhkbWlfY29kZWNfc3RhcnR1cChzdHJ1Y3QKPiA+IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJl
+YW0sIH0KPiA+ICAgICAgICAgICAgICAgLyogU2VsZWN0IGNobWFwIHN1cHBvcnRlZCAqLwo+ID4g
+ICAgICAgICAgICAgICBoZG1pX2NvZGVjX2VsZF9jaG1hcChoY3ApOwo+ID4gKyAgICAgICAgICAg
+ICBtdXRleF91bmxvY2soJmhjcC0+ZWxkX2xvY2spOwo+ID4gICAgICAgfQo+ID4gICAgICAgcmV0
+dXJuIDA7Cj4gPgo+ID4gQEAgLTc0Nyw2ICs3NjAsNzcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBz
+bmRfc29jX2NvbXBvbmVudF9kcml2ZXIKPiA+IGhkbWlfZHJpdmVyID0geyAubm9uX2xlZ2FjeV9k
+YWlfbmFtaW5nICAgICAgICA9IDEsCj4gPiAgfTsKPiA+Cj4gPiArc3RhdGljIHZvaWQgaGRtaV9j
+b2RlY19qYWNrX3JlcG9ydChzdHJ1Y3QgaGRtaV9jb2RlY19wcml2ICpoY3AsCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgamFja19zdGF0dXMpCj4gPiAr
+ewo+ID4gKyAgICAgaWYgKCFoY3AtPmphY2spCj4gPiArICAgICAgICAgICAgIHJldHVybjsKPiA+
+ICsKPiA+ICsgICAgIGlmIChqYWNrX3N0YXR1cyAhPSBoY3AtPmphY2tfc3RhdHVzKSB7Cj4gPiAr
+ICAgICAgICAgICAgIHNuZF9zb2NfamFja19yZXBvcnQoaGNwLT5qYWNrLCBqYWNrX3N0YXR1cywK
+PiA+IFNORF9KQUNLX0xJTkVPVVQpOwo+ID4gKyAgICAgICAgICAgICBoY3AtPmphY2tfc3RhdHVz
+ID0gamFja19zdGF0dXM7Cj4gPiArICAgICB9Cj4gPiArfQo+ID4gKwo+ID4gK3N0YXRpYyBpbnQg
+aGRtaV9jb2RlY19ub3RpZnkoc3RydWN0IG5vdGlmaWVyX2Jsb2NrICpuYiwgdW5zaWduZWQKPiA+
+IGxvbmcgZXZlbnQsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICB2b2lkICpkYXRhKQo+
+ID4gK3sKPiA+ICsgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9IGNvbnRhaW5lcl9v
+ZihuYiwgc3RydWN0Cj4gPiBoZG1pX2NvZGVjX3ByaXYsCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmIpOwo+ID4gKyAgICAgc3RydWN0IGhkbWlf
+bm90aWZpZXIgKm4gPSBkYXRhOwo+ID4gKwo+ID4gKyAgICAgaWYgKCFoY3AtPmphY2spCj4gPiAr
+ICAgICAgICAgICAgIHJldHVybiBOT1RJRllfT0s7Cj4gPiArCj4gPiArICAgICBzd2l0Y2ggKGV2
+ZW50KSB7Cj4gPiArICAgICBjYXNlIEhETUlfTkVXX0VMRDoKPiA+ICsgICAgICAgICAgICAgbXV0
+ZXhfbG9jaygmaGNwLT5lbGRfbG9jayk7Cj4gPiArICAgICAgICAgICAgIG1lbWNweShoY3AtPmVs
+ZCwgbi0+ZWxkLCBzaXplb2YoaGNwLT5lbGQpKTsKPiA+ICsgICAgICAgICAgICAgbXV0ZXhfdW5s
+b2NrKCZoY3AtPmVsZF9sb2NrKTsKPiA+ICsgICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoICov
+Cj4gPiArICAgICBjYXNlIEhETUlfQ09OTkVDVEVEOgo+ID4gKyAgICAgICAgICAgICBoZG1pX2Nv
+ZGVjX2phY2tfcmVwb3J0KGhjcCwgU05EX0pBQ0tfTElORU9VVCk7Cj4gPiArICAgICAgICAgICAg
+IGJyZWFrOwo+ID4gKyAgICAgY2FzZSBIRE1JX0RJU0NPTk5FQ1RFRDoKPiA+ICsgICAgICAgICAg
+ICAgaGRtaV9jb2RlY19qYWNrX3JlcG9ydChoY3AsIDApOwo+ID4gKyAgICAgICAgICAgICBicmVh
+azsKPiA+ICsgICAgIH0KPiA+ICsKPiA+ICsgICAgIHJldHVybiBOT1RJRllfT0s7Cj4gPiArfQo+
+ID4gKwo+ID4gKy8qKgo+ID4gKyAqIGhkbWlfY29kZWNfc2V0X2phY2tfZGV0ZWN0IC0gcmVnaXN0
+ZXIgSERNSSBzdGF0ZSBub3RpZmllciBjYWxsYmFjawo+ID4gKyAqIEBjb21wb25lbnQ6IHRoZSBo
+ZG1pLWNvZGVjIGluc3RhbmNlCj4gPiArICogQGphY2s6IEFTb0MgamFjayB0byByZXBvcnQgKGRp
+cyljb25uZWN0aW9uIGV2ZW50cyBvbgo+ID4gKyAqIEBkZXY6IGhkbWlfbm90aWZpZXIgZGV2aWNl
+LCB1c3VhbGx5IEhETUlfVFggb3IgQ0VDIGRldmljZQo+ID4gKyAqLwo+ID4gK2ludCBoZG1pX2Nv
+ZGVjX3NldF9qYWNrX2RldGVjdChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwK
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHNuZF9zb2NfamFjayAqamFj
+aywKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZSAqZGV2KQo+
+ID4gK3sKPiA+ICsgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9Cj4gPiBzbmRfc29j
+X2NvbXBvbmVudF9nZXRfZHJ2ZGF0YShjb21wb25lbnQpOwo+ID4gKyAgICAgaW50IHJldDsKPiA+
+ICsKPiA+ICsgICAgIGhjcC0+bm90aWZpZXIgPSBoZG1pX25vdGlmaWVyX2dldChkZXYpOwo+ID4g
+KyAgICAgaWYgKCFoY3AtPm5vdGlmaWVyKQo+ID4gKyAgICAgICAgICAgICByZXR1cm4gLUVOT01F
+TTsKPiA+ICsKPiA+ICsgICAgIGhjcC0+amFjayA9IGphY2s7Cj4gPiArICAgICBoY3AtPm5iLm5v
+dGlmaWVyX2NhbGwgPSBoZG1pX2NvZGVjX25vdGlmeTsKPiA+ICsgICAgIHJldCA9IGhkbWlfbm90
+aWZpZXJfcmVnaXN0ZXIoaGNwLT5ub3RpZmllciwgJmhjcC0+bmIpOwo+ID4gKyAgICAgaWYgKHJl
+dCkKPiA+ICsgICAgICAgICAgICAgZ290byBlcnJfbm90aWZpZXJfcHV0Owo+ID4gKwo+ID4gKyAg
+ICAgcmV0dXJuIDA7Cj4gPiArCj4gPiArZXJyX25vdGlmaWVyX3B1dDoKPiA+ICsgICAgIGhkbWlf
+bm90aWZpZXJfcHV0KGhjcC0+bm90aWZpZXIpOwo+ID4gKyAgICAgaGNwLT5ub3RpZmllciA9IE5V
+TEw7Cj4gPiArICAgICByZXR1cm4gcmV0Owo+ID4gK30KPiA+ICtFWFBPUlRfU1lNQk9MX0dQTCho
+ZG1pX2NvZGVjX3NldF9qYWNrX2RldGVjdCk7Cj4gPiArCj4gPiAgc3RhdGljIGludCBoZG1pX2Nv
+ZGVjX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAgewo+ID4gICAgICAg
+c3RydWN0IGhkbWlfY29kZWNfcGRhdGEgKmhjZCA9IHBkZXYtPmRldi5wbGF0Zm9ybV9kYXRhOwo+
+ID4gQEAgLTc3NCw2ICs4NTgsNyBAQCBzdGF0aWMgaW50IGhkbWlfY29kZWNfcHJvYmUoc3RydWN0
+Cj4gPiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAgICAgICBoY3AtPmhjZCA9ICpoY2Q7Cj4g
+PiAgICAgICBtdXRleF9pbml0KCZoY3AtPmxvY2spOwo+ID4gKyAgICAgbXV0ZXhfaW5pdCgmaGNw
+LT5lbGRfbG9jayk7Cj4gPgo+ID4gICAgICAgZGFpZHJ2ID0gZGV2bV9rY2FsbG9jKGRldiwgZGFp
+X2NvdW50LCBzaXplb2YoKmRhaWRydiksCj4gPiBHRlBfS0VSTkVMKTsgaWYgKCFkYWlkcnYpCj4g
+PiBAQCAtNzk3LDYgKzg4MiwyMCBAQCBzdGF0aWMgaW50IGhkbWlfY29kZWNfcHJvYmUoc3RydWN0
+Cj4gPiBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpIF9fZnVuY19fLCByZXQpOwo+ID4gICAgICAgICAg
+ICAgICByZXR1cm4gcmV0Owo+ID4gICAgICAgfQo+ID4gKwo+ID4gKyAgICAgaGNwLT5kZXYgPSBk
+ZXY7Cj4gPiArCj4gPiArICAgICByZXR1cm4gMDsKPiA+ICt9Cj4gPiArCj4gPiArc3RhdGljIGlu
+dCBoZG1pX2NvZGVjX3JlbW92ZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gK3sK
+PiA+ICsgICAgIHN0cnVjdCBoZG1pX2NvZGVjX3ByaXYgKmhjcCA9IHBsYXRmb3JtX2dldF9kcnZk
+YXRhKHBkZXYpOwo+ID4gKwo+ID4gKyAgICAgaWYgKGhjcC0+bm90aWZpZXIpIHsKPiA+ICsgICAg
+ICAgICAgICAgaGRtaV9ub3RpZmllcl91bnJlZ2lzdGVyKGhjcC0+bm90aWZpZXIsICZoY3AtPm5i
+KTsKPiA+ICsgICAgICAgICAgICAgaGRtaV9ub3RpZmllcl9wdXQoaGNwLT5ub3RpZmllcik7Cj4g
+PiArICAgICB9Cj4gPiAgICAgICByZXR1cm4gMDsKPiA+ICB9Cj4gPgo+ID4gQEAgLTgwNSw2ICs5
+MDQsNyBAQCBzdGF0aWMgc3RydWN0IHBsYXRmb3JtX2RyaXZlciBoZG1pX2NvZGVjX2RyaXZlciA9
+Cj4gPiB7IC5uYW1lID0gSERNSV9DT0RFQ19EUlZfTkFNRSwKPiA+ICAgICAgIH0sCj4gPiAgICAg
+ICAucHJvYmUgPSBoZG1pX2NvZGVjX3Byb2JlLAo+ID4gKyAgICAgLnJlbW92ZSA9IGhkbWlfY29k
+ZWNfcmVtb3ZlLAo+ID4gIH07Cj4gPgo+ID4gIG1vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoaGRtaV9j
+b2RlY19kcml2ZXIpOwo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9y
+ZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2Et
+ZGV2ZWwK

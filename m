@@ -2,86 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F27033D95
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 05:39:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9690533E95
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 07:49:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89D6384D;
-	Tue,  4 Jun 2019 05:38:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89D6384D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F3DA166C;
+	Tue,  4 Jun 2019 07:49:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F3DA166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559619553;
-	bh=t/2aGQU22uhNpFiHEH5qRxDur4mNEewD702ReDXXobc=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1559627399;
+	bh=inUj7rPApH++iq9sVHyHkAMwoaaYCXBA5YupSscI3I4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dMyBnizQVJCMd/VwP7yus057raA7mYyUe/hff3yOheizP1Dk3tS9Ad8EIDAvQDGTZ
-	 ZhtnY1bld9lRAKeznr5DT3DP4P8/HDa23qzpILgkV3W9XA+UpZ/dZ+H/WEmc7Zg8gf
-	 VJ+8yZHrB7jK6cxYEKBF8ff3ul3q/uICWkI0Cwlc=
+	b=elgdgVE9mYwEx7r/hZezrf7d169BXP22e20eOR+cBzzk7pl4bXVXltuOMMSQ0bzZC
+	 LpKsxhMQsboS5kXUQ7fzyV9UsK+1+u7HL+xT9WzyiajhFY9fp61TUfp44vyPXZcAga
+	 CJo3gUcLlWoaT+zkNRAioCMkY4QKkTM4eMQhp0NY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21A56F896F7;
-	Tue,  4 Jun 2019 05:37:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68113F89673;
+	Tue,  4 Jun 2019 07:48:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B40BCF896F7; Tue,  4 Jun 2019 05:37:26 +0200 (CEST)
+ id 6D7D7F896F7; Tue,  4 Jun 2019 07:48:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
- [IPv6:2607:f8b0:4864:20::242])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42A13F896CE
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 05:37:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42A13F896CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4651BF80054
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 07:48:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4651BF80054
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="eEzxZ+ci"
-Received: by mail-oi1-x242.google.com with SMTP id b21so10571104oic.8
- for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 20:37:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/B0Fo/CQclHMkpSGbbQNFwxoM4w8GhS11bPznj3s5WY=;
- b=eEzxZ+ci/DrZSmjaz+ekmTz0kYTviVN3f6n891MbF2VpToDsXr5D7cBg2WmnMoPv9c
- rtKjEKmTjuodMMXlUJVbKZc+Xr1fyP0svHzxPFaM1xBRWrWFNSw/MiiPoIQffCc46o7s
- q/Rtmi0VMahX+cr/2R+336Y2W/5uS5UEcRIYQ54kt79qbsA9s90eg+FZhXXvOkatPSJI
- /rWKtbGWNfEdQkGlG0Ztkf0/teweinoMwWPzlGE6DnUAVwJzPZ8o1xeZimWVHfgnYvda
- BBISYZk3URTziXos023bU29KbTbO2cXqZOo4cFZbvxiEJhZmWMrQvuqlIMS1SkrRfN/9
- lNog==
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="AprUw2fU"
+Received: by mail-wm1-x341.google.com with SMTP id d17so5684684wmb.3
+ for <alsa-devel@alsa-project.org>; Mon, 03 Jun 2019 22:48:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=d0PHWADGUTRHP3RbtVmcCFQIV5Xx7EXkRTIqij8bmTU=;
+ b=AprUw2fUY0LjS5Diu/tR2Pmn7vwhaxX8wO278qS0E1kpmPhfqoJ0SXgBwesswQaVj1
+ 8PK7CdzlaqoLFTCdNpyPgYKJiTifXUzb7GhCqfnJ6N/EE9NUs7tNdhJ2uxK5+rDjUaBJ
+ t2T42Okzeb79umghXaLPG4nfl0wp2e7t7KThJk2vD2Y6jbt5zzprKHpoAdfhMCbn1WcR
+ v2cr1nwtmyUGeQfjsfAab/OslH0UZawmNrfbyyqZ1s1NEfYWnumslps++LeCw3VIhhyp
+ sjPlWOQ75u6UuUF6C9guxJgimDoB9IPQFkMSHf9aYodOQwamPQubvdlKUlGoeisaMxAh
+ Kwgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/B0Fo/CQclHMkpSGbbQNFwxoM4w8GhS11bPznj3s5WY=;
- b=TBsK035AXn80GUY95mcVB/ssXaKTR86AzLGJXabn9UiGflkAD5K6510mvGY1RvVrl1
- d1wwQPfSoD8hXfSulEYu8HXb25lAazHQRHZWmH6B/+64jnLNR2eeSQ87SflHgg28rUgv
- 2fy/ZD5OFmMQKzshypxIDs8j7Qjg/aVSNlRcqzBS4EwUPmrkjvIN7QBop6nKdsi3CkaB
- pkfgQZ4g30OL1X9eNaGdFHlhCILGFcFiIQRScHo7UXL0wAmrroQDem5K6kDrUPbXjGLA
- pNyDDKDKy6tHoPnMqfMk+NWaBxjnFVTHZCo6uFoyPkQB6mDXxsAnYcKjLaBZdkn4T8wa
- 78Ng==
-X-Gm-Message-State: APjAAAVWcg3aHWbwUH9etOyAL4h5UiS4tZ+NHOsGZb3KpeHvh3VPPzta
- mfu9kyOJFc2lh+h3Kf3rWrNz9ePLmTfxPtFXJEtniA==
-X-Google-Smtp-Source: APXvYqyCR0bpmTzvaoqJ+GhRr2ZoHRPYxobfhwKOsRhvYLfZBQjCqS3eqmAM9zAnGnovjDBj5bW4acdjDpF+gB15AlY=
-X-Received: by 2002:aca:3b82:: with SMTP id i124mr3108218oia.82.1559619442199; 
- Mon, 03 Jun 2019 20:37:22 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=d0PHWADGUTRHP3RbtVmcCFQIV5Xx7EXkRTIqij8bmTU=;
+ b=obcaYngcgs4qJffY3Y1ciuuZdpIhbVcO4tUudvRNFrWImVLNYIVFQkjlQm0zCXze7n
+ TosjMxdALJYFZLI+yYXm4oqiNbRqZxO7T2toWKqkKszWKac7tLZIbEdmP2kNDcNaOoDh
+ Gl73glrRHQ5TVWlxO8YKdpNtL5Phmv1zET7ZvKASrqZ4Vj+lb7T9FaNbdHx9Q4aZRHHd
+ h47htzgs4bySW03Ed+g27CY+cNCu9btaDaipMINLUfLx4G15/w2eSB0CsAiS81b+Hmjl
+ pV0vGGQshoY0SYWSO+sDq2tg04tDuZ3UzxkLY/XVLZ1CR8aQAyz15VCWBEMLX4L17Ru5
+ HEWg==
+X-Gm-Message-State: APjAAAWyUw2JDOBkKsEopO3zbes3/cRdnhjTlmW/nOOOTaROefQA3rrS
+ QAr/CuzjFpFSm01nmSGb+fcdBA==
+X-Google-Smtp-Source: APXvYqwIIlQozIHS1omANt46ZYA1k5oV3Ls5bT0crSJhfYkQnCeDPC78T92R6f4ncEyKrlsTMbBaHQ==
+X-Received: by 2002:a1c:305:: with SMTP id 5mr17363067wmd.101.1559627287208;
+ Mon, 03 Jun 2019 22:48:07 -0700 (PDT)
+Received: from dell ([2.27.167.43])
+ by smtp.gmail.com with ESMTPSA id x8sm5149737wmc.5.2019.06.03.22.48.00
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 03 Jun 2019 22:48:06 -0700 (PDT)
+Date: Tue, 4 Jun 2019 06:47:56 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20190604054756.GZ4797@dell>
+References: <20190603183401.151408-1-gwendal@chromium.org>
+ <20190603194249.GD2456@sirena.org.uk>
 MIME-Version: 1.0
-References: <20190530073229.121032-1-tzungbi@google.com>
- <CA+Px+wXJsar1X=1EdDvMDvPv4DzDG+BmOgSopAqU48Y3Qa=acg@mail.gmail.com>
- <CAOReqxiJGEsEBR7g3sK57d_b3SZJZBCmfrARpCSWBiEm6sNk6w@mail.gmail.com>
-In-Reply-To: <CAOReqxiJGEsEBR7g3sK57d_b3SZJZBCmfrARpCSWBiEm6sNk6w@mail.gmail.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 4 Jun 2019 11:37:10 +0800
-Message-ID: <CA+Px+wXYMyQvcrLkabsXQYdFroBqBSMpz2Jj-w6MxWR1kHot7Q@mail.gmail.com>
-To: Curtis Malainey <cujomalainey@google.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: core: move DAI pre-links initiation
-	to snd_soc_instantiate_card
+Content-Disposition: inline
+In-Reply-To: <20190603194249.GD2456@sirena.org.uk>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: Gwendal Grignou <gwendal@chromium.org>, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, fabien.lahoudere@collabora.com, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, groeck@chromium.org,
+ enric.balletbo@collabora.com, bleung@chromium.org, jic23@kernel.org,
+ cychiang@chromium.org
+Subject: Re: [alsa-devel] [RESEND PATCH v3 00/30] Update cros_ec_commands.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,25 +102,21 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 4, 2019 at 1:10 AM Curtis Malainey <cujomalainey@google.com> wrote:
->
-> > >  probe_end:
-> > > -       if (ret < 0)
-> > > +       if (ret < 0 && ret != -EPROBE_DEFER)
-> > >                 soc_cleanup_card_resources(card);
-> > Should not call soc_cleanup_card_resources() if soc_init_dai_link()
-> > returns fail.  Some context has not initialized yet in the case.
-> Why not? You need to clean up the platform naming if links fails which
-> will causes a use-after-free bug if you don't clean it up.
-Some context may have not initialized if soc_init_dai_link() returns
-fail.  See v2 https://patchwork.kernel.org/patch/10974149/ if it would
-help.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gTW9uLCAwMyBKdW4gMjAxOSwgTWFyayBCcm93biB3cm90ZToKCj4gT24gTW9uLCBKdW4gMDMs
+IDIwMTkgYXQgMTE6MzM6MzFBTSAtMDcwMCwgR3dlbmRhbCBHcmlnbm91IHdyb3RlOgo+ID4gVGhl
+IGludGVyZmFjZSBiZXR3ZWVuIENyb3NFQyBlbWJlZGRlZCBjb250cm9sbGVyIGFuZCB0aGUgaG9z
+dCwKPiA+IGRlc2NyaWJlZCBieSBjcm9zX2VjX2NvbW1hbmRzLmgsIGFzIGRpdmVyZ2VkIGZyb20g
+d2hhdCB0aGUgZW1iZWRkZWQKPiA+IGNvbnRyb2xsZXIgcmVhbGx5IHN1cHBvcnQuCj4gCj4gSSdt
+IG5vdCBjbGVhciB3aHkgSSBrZWVwIGdldHRpbmcgY29waWVkIG9uIHRoaXMgc2VyaWVzIG9yIHdo
+eSBpdCdzIGJlaW5nCj4gcmVzZW50PwoKTm90IHN1cmUgd2h5IHlvdSdyZSBjb3BpZWQgaW4sIGJ1
+dCBJIGFza2VkIGhpbSB0byByZXNlbmQuCgotLSAKTGVlIEpvbmVzIFvmnY7nkLzmlq9dCkxpbmFy
+byBTZXJ2aWNlcyBUZWNobmljYWwgTGVhZApMaW5hcm8ub3JnIOKUgiBPcGVuIHNvdXJjZSBzb2Z0
+d2FyZSBmb3IgQVJNIFNvQ3MKRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0dGVyIHwgQmxv
+ZwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRl
+dmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWls
+bWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

@@ -2,88 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50B3634A2F
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 16:20:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87C5134AC5
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 16:47:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF2871686;
-	Tue,  4 Jun 2019 16:19:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF2871686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 071DC166A;
+	Tue,  4 Jun 2019 16:46:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 071DC166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559658039;
-	bh=0iF72xY8uL0dfzjJxff3jkrJQL8sKMEQnGbkHi7acTM=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1559659632;
+	bh=fZkqOMkMxSeZJQCFqVRxIlrbYcaK00MyuI1KkmWAUhw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jM4Arfr4ikEiDGksjSzh1Ot6mc99qPBZOBu9SPPF177wbJ0Ogv4tBcS2//DxELzx1
-	 4n2cY/0MqQZsuNSROXILdAJ8KuaNUMo92bfxEk/6YZYtBPXQAdwD6HdCrTOZzlZNja
-	 pF3HvMLEI37+JL/bKHvw+LmtVQb+M6ESwlsG7ft4=
+	b=Nq+bgmwyXlCYyq97SKiFFqBwisNZv7ADSHgRhDpFW1VpmvwnSxxRR5Ajp/gdTDHJF
+	 uR1D1/rOT5eP41KbJziWqaYmi1za4IMKLU2XTfSlie4QVjywmcdgLWZtlkFzrSrf9z
+	 l3hNEnfA63c+eHIK1+dJrIqmKbo5yYq5d/fZi3g0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8419F89700;
-	Tue,  4 Jun 2019 16:18:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96048F896F8;
+	Tue,  4 Jun 2019 16:45:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08F67F896EF; Tue,  4 Jun 2019 16:18:15 +0200 (CEST)
+ id 2F755F896F7; Tue,  4 Jun 2019 16:45:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A0F3F80054
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 16:18:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A0F3F80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8132FF89673
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 16:45:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8132FF89673
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="mZBNRm0N"
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="IINgz0Wv"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mg43HsbuIUpIY3IZlyoqhA6BT/bTMdQva0Wd1znkidQ=; b=mZBNRm0NbpbBZmnL/j+lOVKrJD
- ec/CqZkcU8Tn0FANuPI9rDCxmHE6x388Bg07ZRLESUJeiSMxzWAS/NwdxAkxYQSqBhRYYxm7ljyIF
- RDB7puPWazquTOozeiI6hM1i0fqqM68aEUCPAOYyJaHrpYASlRqTNghQnDcKwgwvq4Smb3wbRtswp
- nj64T47Mt4vC42bGlVpSvdFWnEqgQJAtJO63EI1llPpaacKJxt6bVPDbLqhFNn+iyzUf4EoarOQiz
- Bo4SuauI6J7/pG/TgUuQNLeEKowQtQ8J4aNee8EdIpoN5lzipPWLprpKZob2gEoGsfs2DjWzGZHWE
- MdMnATYQ==;
-Received: from [179.182.172.34] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.90_1 #2 (Red Hat Linux))
- id 1hYAGH-0001S0-U2; Tue, 04 Jun 2019 14:18:01 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hYAGF-0002m9-15; Tue, 04 Jun 2019 11:17:59 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Tue,  4 Jun 2019 11:17:54 -0300
-Message-Id: <92db0dbd37803154475fc73948fe59893ea041e8.1559656538.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1559656538.git.mchehab+samsung@kernel.org>
-References: <cover.1559656538.git.mchehab+samsung@kernel.org>
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=N28LjJkz/Mx7r43eirlH7u4WWvO5iyeKXFG3ckomDW0=; b=IINgz0Wv1nxvpFB4EdBRt3GPR
+ BIgOEMg69TUSP8LNtkgFxC5fQtoAn7quvxOvuYgNCQn8VE21LD84sKKNii1mNXZu3NxcigGTLP13L
+ Nv6NmS0WC3v7cTI0CWqgzKX6MQkEPW0ADhZMT5kjmtn3smBZkvsLBO8mmASeuS3hPweM4=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hYAgg-0006D5-Eu; Tue, 04 Jun 2019 14:45:18 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id AD932440046; Tue,  4 Jun 2019 15:45:17 +0100 (BST)
+Date: Tue, 4 Jun 2019 15:45:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Ripard <maxime.ripard@bootlin.com>
+Message-ID: <20190604144517.GF2456@sirena.org.uk>
+References: <20190604085449.13195-1-maxime.ripard@bootlin.com>
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, alsa-devel@alsa-project.org,
- Olivier Moysan <olivier.moysan@st.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- "Paul E. McKenney" <paulmck@linux.ibm.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jonathan Corbet <corbet@lwn.net>,
- devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@st.com>,
- Mauro Carvalho Chehab <mchehab@infradead.org>, Mark Brown <broonie@kernel.org>,
- Hugues Fruchet <hugues.fruchet@st.com>, linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [alsa-devel] [PATCH v2 20/22] dt: bindings: fix some broken links
-	from txt->yaml conversion
+In-Reply-To: <20190604085449.13195-1-maxime.ripard@bootlin.com>
+X-Cookie: The other line moves faster.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Marcus Cooper <codekipper@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
+ Rob Herring <robh+dt@kernel.org>, Frank Rowand <frowand.list@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: sun4i-i2s: Change SR and WSS
+	computation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,78 +86,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6868209092444212989=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some new files got converted to yaml, but references weren't
-updated accordingly.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
----
- Documentation/devicetree/bindings/media/st,stm32-dcmi.txt | 2 +-
- Documentation/devicetree/bindings/sound/st,stm32-i2s.txt  | 2 +-
- Documentation/devicetree/bindings/sound/st,stm32-sai.txt  | 2 +-
- MAINTAINERS                                               | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+--===============6868209092444212989==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PLVMksexArUZ/iL3"
+Content-Disposition: inline
 
-diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt b/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-index 249790a93017..3122ded82eb4 100644
---- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-+++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
-@@ -11,7 +11,7 @@ Required properties:
- - clock-names: must contain "mclk", which is the DCMI peripherial clock
- - pinctrl: the pincontrol settings to configure muxing properly
-            for pins that connect to DCMI device.
--           See Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.txt.
-+           See Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml.
- - dmas: phandle to DMA controller node,
-         see Documentation/devicetree/bindings/dma/stm32-dma.txt
- - dma-names: must contain "tx", which is the transmit channel from DCMI to DMA
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-index 58c341300552..cbf24bcd1b8d 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-@@ -18,7 +18,7 @@ Required properties:
-     See Documentation/devicetree/bindings/dma/stm32-dma.txt.
-   - dma-names: Identifier for each DMA request line. Must be "tx" and "rx".
-   - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.txt
-+  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
- 
- Optional properties:
-   - resets: Reference to a reset controller asserting the reset controller
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-index 3f4467ff0aa2..944743dd9212 100644
---- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
-@@ -41,7 +41,7 @@ SAI subnodes required properties:
- 	"tx": if sai sub-block is configured as playback DAI
- 	"rx": if sai sub-block is configured as capture DAI
-   - pinctrl-names: should contain only value "default"
--  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.txt
-+  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
- 
- SAI subnodes Optional properties:
-   - st,sync: specify synchronization mode.
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0dc7c3c5ddb0..2ab2337a029c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1298,7 +1298,7 @@ ARM PRIMECELL SSP PL022 SPI DRIVER
- M:	Linus Walleij <linus.walleij@linaro.org>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
--F:	Documentation/devicetree/bindings/spi/spi_pl022.txt
-+F:	Documentation/devicetree/bindings/spi/spi-pl022.yaml
- F:	drivers/spi/spi-pl022.c
- 
- ARM PRIMECELL UART PL010 AND PL011 DRIVERS
--- 
-2.21.0
+
+--PLVMksexArUZ/iL3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jun 04, 2019 at 10:54:49AM +0200, Maxime Ripard wrote:
+> The current computation for the SR (sample resolution) and the WSS (word
+> slot size) register parameters is based on a switch returning the matching
+> parameters for a given params width.
+
+This doesn't build for me with current code:
+
+  CC      sound/soc/sunxi/sun4i-i2s.o
+sound/soc/sunxi/sun4i-i2s.c:169:28: warning: =E2=80=98struct sun4i_i2s=E2=
+=80=99 declared inside parameter list will not be visible outside of this d=
+efinition or declaration
+  s8 (*get_sr)(const struct sun4i_i2s *, int);
+                            ^~~~~~~~~
+sound/soc/sunxi/sun4i-i2s.c:170:29: warning: =E2=80=98struct sun4i_i2s=E2=
+=80=99 declared inside parameter list will not be visible outside of this d=
+efinition or declaration
+  s8 (*get_wss)(const struct sun4i_i2s *, int);
+                             ^~~~~~~~~
+
+and lots of similar stuff.
+
+--PLVMksexArUZ/iL3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz2g/wACgkQJNaLcl1U
+h9BCIgf/WLTKo7F+GH5yembRxj+jHQz35TZZPqb9mhx/Hyogn+/+bF5LeqEi8hKq
+L7Mpzf0KyzhKz/VDRGc3TlsLihsQ0okqybE+/PlOS3Y7DRvd115KYLsOdfVYOucD
+bF48im6bMWWARcoIyK6B2vAYx9y28Z4qUgLcJGOcLVwwCC1K/nq6A9kFul0lXXs6
+44SRqWz911MOpt3VCP2FHpMnjiHcJP9nZ0pRZTmaV057lQCthPaCNuz+r5nzGy/Z
+Oh8Q+0DbkTmOriia5YZ6OY83lRYHBKFEPtc3nf3zuxgesObEJdvPVRur6ZGZSNDL
+tKXQOFITXAVWrTfyE+Z809Bz1jgX5g==
+=cwPD
+-----END PGP SIGNATURE-----
+
+--PLVMksexArUZ/iL3--
+
+--===============6868209092444212989==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6868209092444212989==--

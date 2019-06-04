@@ -2,90 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A554D34195
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 10:17:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04247341AA
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 10:21:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C99716DB;
-	Tue,  4 Jun 2019 10:16:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C99716DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9140516D8;
+	Tue,  4 Jun 2019 10:20:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9140516D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559636244;
-	bh=paGoDttXvvX1zgMgQ3QbQkN6UTt/eXjA7rUwyThKl6M=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1559636492;
+	bh=Xfda7kYkQ/+dOhi+v4wYTxAM02TxfeqXB4Vi6f73ybk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fp9rcpIYWfzsyaSR9VEZQc4Gfski2I4DZiN2Wlhm0s5aSFOs4DhT/ryVn5UvHnO0q
-	 QVMzbKXdv3GX/HXHzH+GQjprOgznxu5v3sFYpwJthF09+vywVRuu2QX7tqyxJ5iS0r
-	 ix+dOuyHsXzgqF6QyWJuS+I+m1jWap8p9LV7OWNY=
+	b=oDxQLyBwWXOaqEZpPh+w20PDYpGqiTZFU9ArgJKzxSuWrgJwQUkJJLpCmFwTmRCe5
+	 WP90519HIJpbTHumrmDYmyF83H3ZkC0puCXP6lTllbKxBHYXR1PeNmLrMCtxPzgoTD
+	 tNQsZjmNjWmrDstzyyRwrtknroiXXdndf8qU6n/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9722EF896CE;
-	Tue,  4 Jun 2019 10:15:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17CF2F896F8;
+	Tue,  4 Jun 2019 10:19:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A91FF896CE; Tue,  4 Jun 2019 10:15:37 +0200 (CEST)
+ id 4BEFBF896F7; Tue,  4 Jun 2019 10:19:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.3 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8504F896CE
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 10:15:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8504F896CE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="gg5NaBQk"
-Received: by mail-lj1-x241.google.com with SMTP id j24so18814397ljg.1
- for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 01:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dLlcBHBLLtHstGlRzl9TA6x38HKIxAAJAQ+NO6ZQeWw=;
- b=gg5NaBQkvVlyEjdj76PxCTZ1E9NORC9Uvd2TwtPXwamT631BYBINpO1n7lK40xKlDO
- YF75M03YPHv++3XvpBenhsCevE5QP7jrqgBlPPpsxQf51yLY6i1cDVealPzeWuUeOETM
- Ln8JFOLHaVnUBWlqWtttsyLypGE2AUK6dJbQPwWb8IaMS2uov9Ribb9tr0Px/NPd77BZ
- Vq/ZUbvc7w1hd3O2czGTLEIl+HviRJodECXWHyuwPhv+2YED4WlErKwRwgz0j/FSpbNQ
- BTyOuHsVjmHZEuUOPLjDQWOR3mp4KfA/QHcX/64K8vTFTQx8TqPMWoAJLp6RCAYNkKyw
- 5Liw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dLlcBHBLLtHstGlRzl9TA6x38HKIxAAJAQ+NO6ZQeWw=;
- b=ZyXxTxWTpknHwEMvjNq0bKLZ0h71B/wpE9lxIYmp4dN9x5hhNPrHJSapUT0kMufVaE
- HdZYBKcZq5Rp1awxeiCDKwjpUIUzcxWswqpB2AWqSXo08SOAjrRn0GfEpd5G4jiRWoH8
- HJr29qFON+jKG20Zf9MJcrcZQj1Sf2wni9Vq5apaUY5h+Iac8Yggwug4sT6uaXj76w4m
- bbSlpJeH75m1BwwNVe1nFc0KIsq9rUwp+IU6nieZtFaa+CN5fg3VscTQg1WVkqzg5IWA
- yt8jL28ek7fVReq7b7LUtVDVxMxF6X8iTF1tPgNSn9bewOhEhX63+E+titveRiaaBQGI
- ZzsQ==
-X-Gm-Message-State: APjAAAV6eyD1NxS+nPvLa+69n9ILHH4pLHnsjGhh45lXcqKUlqPnr3xm
- UEWRD0qKoB+yOJbmhmJBuPUFiDH8KnzetajxzQw=
-X-Google-Smtp-Source: APXvYqzP1NG5gWwqUWs2RU4TEYclgqRL9GlvmJKeApSsoDlNeSku/Zjez2PSP00HTB0NSoYWsCg5La13x7bHF3bdJrY=
-X-Received: by 2002:a2e:91c3:: with SMTP id u3mr16042008ljg.130.1559636134081; 
- Tue, 04 Jun 2019 01:15:34 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3328F89673
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 10:19:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3328F89673
+X-Originating-IP: 90.88.144.139
+Received: from localhost (aaubervilliers-681-1-24-139.w90-88.abo.wanadoo.fr
+ [90.88.144.139]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id D55676001C;
+ Tue,  4 Jun 2019 08:19:38 +0000 (UTC)
+Date: Tue, 4 Jun 2019 10:19:38 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: codekipper@gmail.com
+Message-ID: <20190604081938.npye7brtjv7c7noj@flea>
 References: <20190603174735.21002-1-codekipper@gmail.com>
- <20190603174735.21002-2-codekipper@gmail.com>
- <20190604073443.cnnqd7ucbaehxdvj@flea>
- <CAGb2v64T5MypDD9A5FNfyikB9vFJZf9+TiQaXi_o2K53QmfaQg@mail.gmail.com>
-In-Reply-To: <CAGb2v64T5MypDD9A5FNfyikB9vFJZf9+TiQaXi_o2K53QmfaQg@mail.gmail.com>
-From: Code Kipper <codekipper@gmail.com>
-Date: Tue, 4 Jun 2019 10:15:22 +0200
-Message-ID: <CAEKpxBn-XX+GRrMuCccwcC9TFKXGYV4S2ZwX+jBV==33RsW-aQ@mail.gmail.com>
-To: Chen-Yu Tsai <wens@csie.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [linux-sunxi] Re: [PATCH v4 1/9] ASoC: sun4i-i2s:
- Fix sun8i tx channel offset mask
+ <20190603174735.21002-9-codekipper@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20190603174735.21002-9-codekipper@gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: alsa-devel@alsa-project.org, linux-sunxi@googlegroups.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, be17068@iperbole.bo.it,
+ wens@csie.org, broonie@kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v4 8/9] ASoc: sun4i-i2s: Add 20,
+	24 and 32 bit support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,37 +68,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0309896864317488131=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 4 Jun 2019 at 09:39, Chen-Yu Tsai <wens@csie.org> wrote:
+
+--===============0309896864317488131==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="6wxkr4ordbttpslj"
+Content-Disposition: inline
+
+
+--6wxkr4ordbttpslj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Jun 03, 2019 at 07:47:34PM +0200, codekipper@gmail.com wrote:
+> From: Marcus Cooper <codekipper@gmail.com>
 >
-> On Tue, Jun 4, 2019 at 3:34 PM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
-> >
-> > On Mon, Jun 03, 2019 at 07:47:27PM +0200, codekipper@gmail.com wrote:
-> > > From: Marcus Cooper <codekipper@gmail.com>
-> > >
-> > > Although not causing any noticeable issues, the mask for the
-> > > channel offset is covering too many bits.
-> > >
-> > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> >
-> > Acked-by: Maxime Ripard <maxime.ripard@bootlin.com>
+> Extend the functionality of the driver to include support of 20 and
+> 24 bits per sample for the earlier SoCs.
 >
-> Would be nice to have
+> Newer SoCs can also handle 32bit samples.
 >
-> Fixes: 7d2993811a1e ("ASoC: sun4i-i2s: Add support for H3")
-Thanks....I'll keep this in mind for future reference as jernej also
-mention this to me.
-BR,
-CK
+> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> ---
+>  sound/soc/sunxi/sun4i-i2s.c | 34 +++++++++++++++++++++++++++++++---
+>  1 file changed, 31 insertions(+), 3 deletions(-)
 >
-> But otherwise,
->
-> Acked-by: Chen-Yu Tsai <wens@csie.org>
+> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+> index 3549a87ed9e9..351b8021173b 100644
+> --- a/sound/soc/sunxi/sun4i-i2s.c
+> +++ b/sound/soc/sunxi/sun4i-i2s.c
+> @@ -428,6 +428,11 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+>  	case 16:
+>  		width = DMA_SLAVE_BUSWIDTH_2_BYTES;
+>  		break;
+> +	case 20:
+> +	case 24:
+> +	case 32:
+> +		width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+> +		break;
+
+Doesn't this test the physical width? If so, then I'm not sure that 20
+even exists, and that we can support 24.
+
+>  	default:
+>  		dev_err(dai->dev, "Unsupported physical sample width: %d\n",
+>  			params_physical_width(params));
+> @@ -440,7 +445,18 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+>  		sr = 0;
+>  		wss = 0;
+>  		break;
+> -
+> +	case 20:
+> +		sr = 1;
+> +		wss = 1;
+> +		break;
+> +	case 24:
+> +		sr = 2;
+> +		wss = 2;
+> +		break;
+> +	case 32:
+> +		sr = 4;
+> +		wss = 4;
+> +		break;
+
+This doesn't really works, wss being the slot size, and you can have a
+different slot size and sample size. I have a patch that reworks this,
+I'll send it.
+
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--6wxkr4ordbttpslj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXPYpmgAKCRDj7w1vZxhR
+xa21AQCOpQgoV29jgv0RoMH3aHTxjdGgvHs09RTrroaqdpxRWgEA02ukNRDWozBj
+j4PRdKMEMXcX9YvD//OOJzSeiWrRJwc=
+=ykij
+-----END PGP SIGNATURE-----
+
+--6wxkr4ordbttpslj--
+
+--===============0309896864317488131==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0309896864317488131==--

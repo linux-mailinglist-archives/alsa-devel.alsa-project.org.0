@@ -2,104 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C4DA3A0B9
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:46:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3AE3A0BA
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:47:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9F21950;
-	Sat,  8 Jun 2019 18:46:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9F21950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 527E5166D;
+	Sat,  8 Jun 2019 18:46:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 527E5166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560012418;
-	bh=k+/daIVF7ZzzUi2L/slEGSUYVtkAX8yQwRJLRrwGQFo=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=V+C6XUwqzFYmhxay0B/PW9ngOtj0x6D5w2kwMLjAmX4Lc0wdVvimLpg76xwf2MGte
-	 pvuEze/w0ubHzoDe8F5Inzq7/XmC7RqDlVd57/1OzySeeMe5HuWOouISrfDCOJBmoH
-	 lTgJAloZQoKNdm1k3c0iA69sqB4gc1MSa025Hn9M=
+	s=default; t=1560012455;
+	bh=OkMAeG+OUgqBMMbIXUyJ3/yjpeXLHoxI1UoKkmtEXyE=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=aT+uXdGY4zI5gi/4avHIYid7tFb6YwETLRtQ1jdOHP7C62aO/RFoN2pKazFDSHPjI
+	 lBiErwDeBHz0bHUny61CcI1QTk+K7AfG6gupqf2nYpF5u89LdEk76KoFv423d94+lj
+	 1SOax0EaQDMykGYu1/vaKDO14D+g0y0sNtwCViIU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECA2FF89757;
-	Sat,  8 Jun 2019 18:40:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED457F8975C;
+	Sat,  8 Jun 2019 18:40:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A341EF896F7; Tue,  4 Jun 2019 17:20:35 +0200 (CEST)
+ id 50C09F896F7; Tue,  4 Jun 2019 17:20:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
  [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42CC9F89673
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 17:20:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42CC9F89673
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F0FBF89673
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 17:20:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F0FBF89673
 Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: eballetbo) with ESMTPSA id D262326C0BD
+ (Authenticated sender: eballetbo) with ESMTPSA id 4B25B285366
 From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 To: linux-kernel@vger.kernel.org
-Date: Tue,  4 Jun 2019 17:20:09 +0200
-Message-Id: <20190604152019.16100-1-enric.balletbo@collabora.com>
+Date: Tue,  4 Jun 2019 17:20:11 +0200
+Message-Id: <20190604152019.16100-3-enric.balletbo@collabora.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190604152019.16100-1-enric.balletbo@collabora.com>
+References: <20190604152019.16100-1-enric.balletbo@collabora.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:51 +0200
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- Enno Luebbers <enno.luebbers@intel.com>, gwendal@chromium.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-doc@vger.kernel.org,
- Wolfram Sang <wsa@the-dreams.de>, Mark Brown <broonie@kernel.org>,
- Juergen Fitschen <jfi@ssv-embedded.de>, alsa-devel@alsa-project.org,
- Stefan Agner <stefan@agner.ch>, Douglas Anderson <dianders@chromium.org>,
- Jilayne Lovejoy <opensource@jilayne.com>,
+Cc: gwendal@chromium.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Vignesh R <vigneshr@ti.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Wolfram Sang <wsa@the-dreams.de>, linux-iio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Juergen Fitschen <jfi@ssv-embedded.de>,
+ alsa-devel@alsa-project.org, Stefan Agner <stefan@agner.ch>,
+ Douglas Anderson <dianders@chromium.org>,
  Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-i2c@vger.kernel.org,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
+ linux-i2c@vger.kernel.org, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Guenter Roeck <groeck@chromium.org>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Ravi Chandra Sadineni <ravisadineni@chromium.org>, kernel@collabora.com,
- dtor@chromium.org, Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
- Jean Delvare <jdelvare@suse.de>, Vignesh R <vigneshr@ti.com>,
- linux-rtc@vger.kernel.org, Tycho Andersen <tycho@tycho.ws>,
+ Guenter Roeck <groeck@chromium.org>, kernel@collabora.com, dtor@chromium.org,
+ Lars-Peter Clausen <lars@metafoo.de>, Jean Delvare <jdelvare@suse.de>,
+ Jacky Bai <ping.bai@nxp.com>, linux-rtc@vger.kernel.org,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Sean Young <sean@mess.org>, Lee Jones <lee.jones@linaro.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
  Shreesha Rajashekar <shreesha.rajashekar@broadcom.com>,
- Sean Young <sean@mess.org>, Jonathan Corbet <corbet@lwn.net>,
- Lee Jones <lee.jones@linaro.org>, Patrick Lai <plai@codeaurora.org>,
- Brian Norris <briannorris@chromium.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- Evan Green <evgreen@chromium.org>, Kishon Vijay Abraham I <kishon@ti.com>,
  Neil Armstrong <narmstrong@baylibre.com>, Chanwoo Choi <cw00.choi@samsung.com>,
  MyungJoo Ham <myungjoo.ham@samsung.com>, Hans Verkuil <hans.verkuil@cisco.com>,
- Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
  linux-input@vger.kernel.org, Elie Morisse <syniurge@gmail.com>,
- Cheng-Yi Chiang <cychiang@chromium.org>, Wu Hao <hao.wu@intel.com>,
- Ettore Chimenti <ek5.chimenti@gmail.com>, linux-pwm@vger.kernel.org,
- Jiri Kosina <jikos@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ linux-media@vger.kernel.org, Ettore Chimenti <ek5.chimenti@gmail.com>,
+ linux-pwm@vger.kernel.org, Sakari Ailus <sakari.ailus@linux.intel.com>,
  Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Hartmut Knaack <knaack.h@gmx.de>, Marco Felsch <m.felsch@pengutronix.de>,
- Guido Kiener <guido@kiener-muenchen.de>,
- Florian Fainelli <f.fainelli@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Thomas Gleixner <tglx@linutronix.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Florian Fainelli <f.fainelli@gmail.com>, Thomas Gleixner <tglx@linutronix.de>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
  Dong Aisheng <aisheng.dong@nxp.com>, Alessandro Zummo <a.zummo@towertech.it>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Ajay Gupta <ajayg@nvidia.com>, Randy Dunlap <rdunlap@infradead.org>,
- Sebastian Reichel <sre@kernel.org>, linux-iio@vger.kernel.org,
- Jacky Bai <ping.bai@nxp.com>,
- Fabien Lahoudere <fabien.lahoudere@collabora.com>,
- Thierry Reding <thierry.reding@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ajay Gupta <ajayg@nvidia.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Sebastian Reichel <sre@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
  Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>,
- Colin Ian King <colin.king@canonical.com>, linux-media@vger.kernel.org,
- Eddie James <eajames@linux.vnet.ibm.com>, Jonathan Cameron <jic23@kernel.org>,
- Gerd Hoffmann <kraxel@redhat.com>
-Subject: [alsa-devel] [PATCH 00/10] Move part of cros-ec out of MFD subsystem
+ Philipp Zabel <p.zabel@pengutronix.de>, Hartmut Knaack <knaack.h@gmx.de>,
+ Eddie James <eajames@linux.vnet.ibm.com>, Jonathan Cameron <jic23@kernel.org>
+Subject: [alsa-devel] [PATCH 02/10] mfd / platform: cros_ec: Move cros-ec
+	core driver out from MFD
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,108 +101,274 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Now, the ChromeOS EC core driver has nothing related to an MFD device, so
+move that driver from the MFD subsystem to the platform/chrome subsystem.
 
-This is the first attempt to clean up a bit more the cros-ec drivers
-to have a better separation on what is part of the MFD subsystem and what
-is part of platform/chrome.
+Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+---
 
-It'd be really nice have some reviews, acks and tested on different
-platforms from the chromiumos people before merge all this patchset, as
-this moves a lot of code.
+ drivers/extcon/Kconfig                     |  2 +-
+ drivers/hid/Kconfig                        |  2 +-
+ drivers/i2c/busses/Kconfig                 |  2 +-
+ drivers/iio/common/cros_ec_sensors/Kconfig |  2 +-
+ drivers/input/keyboard/Kconfig             |  2 +-
+ drivers/media/platform/Kconfig             |  3 +--
+ drivers/mfd/Kconfig                        | 14 +-------------
+ drivers/mfd/Makefile                       |  2 --
+ drivers/platform/chrome/Kconfig            | 21 +++++++++++++++++----
+ drivers/platform/chrome/Makefile           |  1 +
+ drivers/{mfd => platform/chrome}/cros_ec.c |  0
+ drivers/power/supply/Kconfig               |  2 +-
+ drivers/pwm/Kconfig                        |  2 +-
+ drivers/rtc/Kconfig                        |  2 +-
+ sound/soc/qcom/Kconfig                     |  2 +-
+ 15 files changed, 29 insertions(+), 30 deletions(-)
+ rename drivers/{mfd => platform/chrome}/cros_ec.c (100%)
 
-The major changes introduced by this patchset are:
-1. Move the core driver to platform/chrome, as is not really related to
-an MFD device driver.
-2. Create a new misc chardev driver to replace the chardev bits from
-cros-ec-dev (MFD)
-3. Added some convenience structs in cros-ec-dev (MFD) to easy add more
-subdrivers and avoid to add more boiler plate.
-
-Once applied we have moved all the code to platform/chrome except the
-cros-ec-dev driver, which is the one that instantiates the different
-subdrivers as cells of the MFD device.
-
-I tested the following patches on Veyron, Kevin, Samus, Peach Pi and
-Peach Pit without noticing any problem, but they would need a lot of
-more tests. I'll continue testing while the reviewing process of this
-patchset.
-
-Waiting for your feedback,
- Enric
-
-
-Enric Balletbo i Serra (10):
-  mfd / platform: cros_ec: Handle chained ECs as platform devices
-  mfd / platform: cros_ec: Move cros-ec core driver out from MFD
-  mfd / platform: cros_ec: Miscellaneous character device to talk with
-    the EC
-  mfd: cros_ec: Switch to use the new cros-ec-chardev driver
-  mfd / platform: cros_ec: Rename config to a better name
-  mfd / platform: cros_ec: Reorganize platform and mfd includes
-  mfd: cros_ec: Update with SPDX Licence identifier and fix description
-  mfd: cros_ec: Use kzalloc and cros_ec_cmd_xfer_status helper
-  mfd: cros_ec: Add convenience struct to define dedicated CrOS EC MCUs
-  mfd: cros_ec: Add convenience struct to define autodetectable CrOS EC
-    subdevices
-
- Documentation/ioctl/ioctl-number.txt          |   2 +-
- drivers/extcon/Kconfig                        |   2 +-
- drivers/extcon/extcon-usbc-cros-ec.c          |   3 +-
- drivers/hid/Kconfig                           |   2 +-
- drivers/hid/hid-google-hammer.c               |   4 +-
- drivers/i2c/busses/Kconfig                    |   2 +-
- drivers/i2c/busses/i2c-cros-ec-tunnel.c       |   4 +-
- drivers/iio/accel/cros_ec_accel_legacy.c      |   3 +-
- drivers/iio/common/cros_ec_sensors/Kconfig    |   2 +-
- .../common/cros_ec_sensors/cros_ec_sensors.c  |   3 +-
- .../cros_ec_sensors/cros_ec_sensors_core.c    |   3 +-
- drivers/iio/light/cros_ec_light_prox.c        |   3 +-
- drivers/iio/pressure/cros_ec_baro.c           |   3 +-
- drivers/input/keyboard/Kconfig                |   2 +-
- drivers/input/keyboard/cros_ec_keyb.c         |   4 +-
- drivers/media/platform/Kconfig                |   3 +-
- .../media/platform/cros-ec-cec/cros-ec-cec.c  |   4 +-
- drivers/mfd/Kconfig                           |  26 +-
- drivers/mfd/Makefile                          |   4 +-
- drivers/mfd/cros_ec_dev.c                     | 433 +++++-------------
- drivers/platform/chrome/Kconfig               |  48 +-
- drivers/platform/chrome/Makefile              |   2 +
- drivers/{mfd => platform/chrome}/cros_ec.c    |  64 +--
- drivers/platform/chrome/cros_ec_chardev.c     | 279 +++++++++++
- drivers/platform/chrome/cros_ec_debugfs.c     |   3 +-
- drivers/platform/chrome/cros_ec_i2c.c         |  12 +-
- drivers/platform/chrome/cros_ec_lightbar.c    |   3 +-
- drivers/platform/chrome/cros_ec_lpc.c         |   7 +-
- drivers/platform/chrome/cros_ec_lpc_reg.c     |   4 +-
- drivers/platform/chrome/cros_ec_proto.c       |   3 +-
- drivers/platform/chrome/cros_ec_rpmsg.c       |   6 +-
- drivers/platform/chrome/cros_ec_spi.c         |  12 +-
- drivers/platform/chrome/cros_ec_sysfs.c       |   3 +-
- drivers/platform/chrome/cros_ec_trace.c       |   2 +-
- drivers/platform/chrome/cros_ec_trace.h       |   4 +-
- drivers/platform/chrome/cros_ec_vbc.c         |   3 +-
- drivers/platform/chrome/cros_usbpd_logger.c   |   5 +-
- drivers/power/supply/Kconfig                  |   2 +-
- drivers/power/supply/cros_usbpd-charger.c     |   5 +-
- drivers/pwm/Kconfig                           |   2 +-
- drivers/pwm/pwm-cros-ec.c                     |   4 +-
- drivers/rtc/Kconfig                           |   2 +-
- drivers/rtc/rtc-cros-ec.c                     |   3 +-
- .../linux/iio/common/cros_ec_sensors_core.h   |   3 +-
- include/linux/mfd/cros_ec.h                   | 302 +-----------
- .../{mfd => platform_data}/cros_ec_commands.h |   0
- include/linux/platform_data/cros_ec_proto.h   | 315 +++++++++++++
- .../uapi/linux/cros_ec_chardev.h              |  18 +-
- sound/soc/codecs/cros_ec_codec.c              |   4 +-
- sound/soc/qcom/Kconfig                        |   2 +-
- 50 files changed, 902 insertions(+), 732 deletions(-)
- rename drivers/{mfd => platform/chrome}/cros_ec.c (85%)
- create mode 100644 drivers/platform/chrome/cros_ec_chardev.c
- rename include/linux/{mfd => platform_data}/cros_ec_commands.h (100%)
- create mode 100644 include/linux/platform_data/cros_ec_proto.h
- rename drivers/mfd/cros_ec_dev.h => include/uapi/linux/cros_ec_chardev.h (70%)
-
+diff --git a/drivers/extcon/Kconfig b/drivers/extcon/Kconfig
+index 6f5af4196b8d..0ebc599c5e51 100644
+--- a/drivers/extcon/Kconfig
++++ b/drivers/extcon/Kconfig
+@@ -169,7 +169,7 @@ config EXTCON_USB_GPIO
+ 
+ config EXTCON_USBC_CROS_EC
+ 	tristate "ChromeOS Embedded Controller EXTCON support"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	help
+ 	  Say Y here to enable USB Type C cable detection extcon support when
+ 	  using Chrome OS EC based USB Type-C ports.
+diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+index 3872e03d9a59..a958b9625bba 100644
+--- a/drivers/hid/Kconfig
++++ b/drivers/hid/Kconfig
+@@ -376,7 +376,7 @@ config HOLTEK_FF
+ 
+ config HID_GOOGLE_HAMMER
+ 	tristate "Google Hammer Keyboard"
+-	depends on USB_HID && LEDS_CLASS && MFD_CROS_EC
++	depends on USB_HID && LEDS_CLASS && CROS_EC
+ 	---help---
+ 	Say Y here if you have a Google Hammer device.
+ 
+diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+index ee5dfb5aee2a..42a224d08ec7 100644
+--- a/drivers/i2c/busses/Kconfig
++++ b/drivers/i2c/busses/Kconfig
+@@ -1336,7 +1336,7 @@ config I2C_SIBYTE
+ 
+ config I2C_CROS_EC_TUNNEL
+ 	tristate "ChromeOS EC tunnel I2C bus"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	help
+ 	  If you say yes here you get an I2C bus that will tunnel i2c commands
+ 	  through to the other side of the ChromeOS EC to the i2c bus
+diff --git a/drivers/iio/common/cros_ec_sensors/Kconfig b/drivers/iio/common/cros_ec_sensors/Kconfig
+index f9bf7ff7fcaf..55999104cd44 100644
+--- a/drivers/iio/common/cros_ec_sensors/Kconfig
++++ b/drivers/iio/common/cros_ec_sensors/Kconfig
+@@ -4,7 +4,7 @@
+ #
+ config IIO_CROS_EC_SENSORS_CORE
+ 	tristate "ChromeOS EC Sensors Core"
+-	depends on SYSFS && MFD_CROS_EC
++	depends on SYSFS && CROS_EC
+ 	select IIO_BUFFER
+ 	select IIO_TRIGGERED_BUFFER
+ 	help
+diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kconfig
+index 7c4f19dab34f..64555cc8d83e 100644
+--- a/drivers/input/keyboard/Kconfig
++++ b/drivers/input/keyboard/Kconfig
+@@ -729,7 +729,7 @@ config KEYBOARD_W90P910
+ config KEYBOARD_CROS_EC
+ 	tristate "ChromeOS EC keyboard"
+ 	select INPUT_MATRIXKMAP
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	help
+ 	  Say Y here to enable the matrix keyboard used by ChromeOS devices
+ 	  and implemented on the ChromeOS EC. You must enable one bus option
+diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
+index f2b5f27ebacb..adec7a0bfe1e 100644
+--- a/drivers/media/platform/Kconfig
++++ b/drivers/media/platform/Kconfig
+@@ -558,10 +558,9 @@ if CEC_PLATFORM_DRIVERS
+ 
+ config VIDEO_CROS_EC_CEC
+ 	tristate "ChromeOS EC CEC driver"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	select CEC_CORE
+ 	select CEC_NOTIFIER
+-	select CHROME_PLATFORMS
+ 	select CROS_EC_PROTO
+ 	help
+ 	  If you say yes here you will get support for the
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index a17d275bf1d4..ad0a5de74ef2 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -211,21 +211,9 @@ config MFD_AXP20X_RSB
+ 	  components like regulators or the PEK (Power Enable Key) under the
+ 	  corresponding menus.
+ 
+-config MFD_CROS_EC
+-	tristate "ChromeOS Embedded Controller"
+-	select MFD_CORE
+-	select CHROME_PLATFORMS
+-	select CROS_EC_PROTO
+-	depends on X86 || ARM || ARM64 || COMPILE_TEST
+-	help
+-	  If you say Y here you get support for the ChromeOS Embedded
+-	  Controller (EC) providing keyboard, battery and power services.
+-	  You also need to enable the driver for the bus you are using. The
+-	  protocol for talking to the EC is defined by the bus driver.
+-
+ config MFD_CROS_EC_CHARDEV
+ 	tristate "Chrome OS Embedded Controller userspace device interface"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	---help---
+ 	  This driver adds support to talk with the ChromeOS EC from userspace.
+ 
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index 52b1a90ff515..32327dc6bb45 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -13,8 +13,6 @@ obj-$(CONFIG_MFD_ASIC3)		+= asic3.o tmio_core.o
+ obj-$(CONFIG_ARCH_BCM2835)	+= bcm2835-pm.o
+ obj-$(CONFIG_MFD_BCM590XX)	+= bcm590xx.o
+ obj-$(CONFIG_MFD_BD9571MWV)	+= bd9571mwv.o
+-cros_ec_core-objs		:= cros_ec.o
+-obj-$(CONFIG_MFD_CROS_EC)	+= cros_ec_core.o
+ obj-$(CONFIG_MFD_CROS_EC_CHARDEV) += cros_ec_dev.o
+ obj-$(CONFIG_MFD_EXYNOS_LPASS)	+= exynos-lpass.o
+ 
+diff --git a/drivers/platform/chrome/Kconfig b/drivers/platform/chrome/Kconfig
+index 35bb5a2663f0..9417b982ad92 100644
+--- a/drivers/platform/chrome/Kconfig
++++ b/drivers/platform/chrome/Kconfig
+@@ -50,9 +50,22 @@ config CHROMEOS_TBMC
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called chromeos_tbmc.
+ 
++config CROS_EC
++	tristate "ChromeOS Embedded Controller"
++	select CROS_EC_PROTO
++	depends on X86 || ARM || ARM64 || COMPILE_TEST
++	help
++	  If you say Y here you get support for the ChromeOS Embedded
++	  Controller (EC) providing keyboard, battery and power services.
++	  You also need to enable the driver for the bus you are using. The
++	  protocol for talking to the EC is defined by the bus driver.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called cros_ec.
++
+ config CROS_EC_I2C
+ 	tristate "ChromeOS Embedded Controller (I2C)"
+-	depends on MFD_CROS_EC && I2C
++	depends on CROS_EC && I2C
+ 
+ 	help
+ 	  If you say Y here, you get support for talking to the ChromeOS
+@@ -62,7 +75,7 @@ config CROS_EC_I2C
+ 
+ config CROS_EC_RPMSG
+ 	tristate "ChromeOS Embedded Controller (rpmsg)"
+-	depends on MFD_CROS_EC && RPMSG && OF
++	depends on CROS_EC && RPMSG && OF
+ 	help
+ 	  If you say Y here, you get support for talking to the ChromeOS EC
+ 	  through rpmsg. This uses a simple byte-level protocol with a
+@@ -87,7 +100,7 @@ config CROS_EC_ISHTP
+ 
+ config CROS_EC_SPI
+ 	tristate "ChromeOS Embedded Controller (SPI)"
+-	depends on MFD_CROS_EC && SPI
++	depends on CROS_EC && SPI
+ 
+ 	---help---
+ 	  If you say Y here, you get support for talking to the ChromeOS EC
+@@ -97,7 +110,7 @@ config CROS_EC_SPI
+ 
+ config CROS_EC_LPC
+         tristate "ChromeOS Embedded Controller (LPC)"
+-        depends on MFD_CROS_EC && ACPI && (X86 || COMPILE_TEST)
++        depends on CROS_EC && ACPI && (X86 || COMPILE_TEST)
+         help
+           If you say Y here, you get support for talking to the ChromeOS EC
+           over an LPC bus. This uses a simple byte-level protocol with a
+diff --git a/drivers/platform/chrome/Makefile b/drivers/platform/chrome/Makefile
+index c5583c48d1e5..ebb57e21923b 100644
+--- a/drivers/platform/chrome/Makefile
++++ b/drivers/platform/chrome/Makefile
+@@ -6,6 +6,7 @@ CFLAGS_cros_ec_trace.o:=		-I$(src)
+ obj-$(CONFIG_CHROMEOS_LAPTOP)		+= chromeos_laptop.o
+ obj-$(CONFIG_CHROMEOS_PSTORE)		+= chromeos_pstore.o
+ obj-$(CONFIG_CHROMEOS_TBMC)		+= chromeos_tbmc.o
++obj-$(CONFIG_CROS_EC)			+= cros_ec.o
+ obj-$(CONFIG_CROS_EC_I2C)		+= cros_ec_i2c.o
+ obj-$(CONFIG_CROS_EC_ISHTP)		+= cros_ec_ishtp.o
+ obj-$(CONFIG_CROS_EC_RPMSG)		+= cros_ec_rpmsg.o
+diff --git a/drivers/mfd/cros_ec.c b/drivers/platform/chrome/cros_ec.c
+similarity index 100%
+rename from drivers/mfd/cros_ec.c
+rename to drivers/platform/chrome/cros_ec.c
+diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
+index dd7da41f230c..e05140771845 100644
+--- a/drivers/power/supply/Kconfig
++++ b/drivers/power/supply/Kconfig
+@@ -656,7 +656,7 @@ config CHARGER_RT9455
+ 
+ config CHARGER_CROS_USBPD
+ 	tristate "ChromeOS EC based USBPD charger"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	default n
+ 	help
+ 	  Say Y here to enable ChromeOS EC based USBPD charger
+diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+index dff5a93f7daa..99946e1bcc73 100644
+--- a/drivers/pwm/Kconfig
++++ b/drivers/pwm/Kconfig
+@@ -145,7 +145,7 @@ config PWM_CRC
+ 
+ config PWM_CROS_EC
+ 	tristate "ChromeOS EC PWM driver"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	help
+ 	  PWM driver for exposing a PWM attached to the ChromeOS Embedded
+ 	  Controller.
+diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+index 5c0790eed656..4eb311569fc4 100644
+--- a/drivers/rtc/Kconfig
++++ b/drivers/rtc/Kconfig
+@@ -1265,7 +1265,7 @@ config RTC_DRV_ZYNQMP
+ 
+ config RTC_DRV_CROS_EC
+ 	tristate "Chrome OS EC RTC driver"
+-	depends on MFD_CROS_EC
++	depends on CROS_EC
+ 	help
+ 	  If you say yes here you will get support for the
+ 	  Chrome OS Embedded Controller's RTC.
+diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+index 8e3e86619b35..60086858e920 100644
+--- a/sound/soc/qcom/Kconfig
++++ b/sound/soc/qcom/Kconfig
+@@ -99,7 +99,7 @@ config SND_SOC_MSM8996
+ 
+ config SND_SOC_SDM845
+ 	tristate "SoC Machine driver for SDM845 boards"
+-	depends on QCOM_APR && MFD_CROS_EC && I2C
++	depends on QCOM_APR && CROS_EC && I2C
+ 	select SND_SOC_QDSP6
+ 	select SND_SOC_QCOM_COMMON
+ 	select SND_SOC_RT5663
 -- 
 2.20.1
 

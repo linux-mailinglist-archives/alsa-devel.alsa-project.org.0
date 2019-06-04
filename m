@@ -2,87 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 546A0342E3
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 11:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B28F034344
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 11:35:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 897FE16A0;
-	Tue,  4 Jun 2019 11:13:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 897FE16A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 199C7166A;
+	Tue,  4 Jun 2019 11:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 199C7166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559639643;
-	bh=xr20imOPIVqpv/1e9KYOL/k81g7o7e+prno+hvyh5s4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=LwO5ZhvT+SZpJw6oyFca0WOUe+fFgGqjuCAG/XhFlGwXS3BP2Or1o5MYR5YC9qnrV
-	 VI8jZNikhhSh1CtLtDc1/1WCtanQqP7tnN/eG/aLzeh4WxJZ3L/zaEOfNccwph5As2
-	 /E+j5TzFYCTgk6Ogwawb9aNUpz0eBHlnbJmD1EBc=
+	s=default; t=1559640918;
+	bh=J5xYmMgFP/0qddXOzbUDn2oZk+v1BPZG6E3ujbc0lgY=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pV8VsUpS6OGdJSaN8V+5tfjRTKIdvDy2Lfhl4pA0HRyyYw+YMBfjKMf95yPPVbzxf
+	 QJuhKRlzgKgsYUYI9jIedVrCPrl5j49A1TvzXlFNo4btFb1Apb8cadTYUZFPOYnW9R
+	 ch5p0GV0Xf+b6OZz3M621WSRQ6dNFkeaIhVm3dd0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7DC1F896FE;
-	Tue,  4 Jun 2019 11:12:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A953F896FE;
+	Tue,  4 Jun 2019 11:33:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0383F80054; Tue,  4 Jun 2019 11:12:14 +0200 (CEST)
+ id A3C29F896F7; Tue,  4 Jun 2019 11:33:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 101DAF80054
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 11:12:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 101DAF80054
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73125F89673
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 11:33:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73125F89673
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="XLsvONrF"
-Received: by mail-pl1-x641.google.com with SMTP id d21so8103944plr.3
- for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 02:12:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PkvAy0HG/cZzH7p73LTDgLYGpVT1MehWvYFfFdnT2Fc=;
- b=XLsvONrFeGHoW3EfQRkoyPM7lWU3JuUCXY3/sd7tNiIwxHShI/cMEKKFLrma4d6TQ3
- fpgQ+RtwMent0S3STZcQk5dhjKKKDFKirRchZ0nxX+tawmlWqJZMILnadviSRkJMxLth
- gfA6mrJ6r3qG+GBkDg9Yl9yjjJtsvmkyYNNqc=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="UHwD7GKH"
+Received: by mail-lj1-x241.google.com with SMTP id a21so3776819ljh.7
+ for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 02:33:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=wRCxsdtOibuHWniTvRjkJuYuUvyqKwna7YBc0m5IVcc=;
+ b=UHwD7GKHxC3C5X5dgPpu/iqjCdsjNVRqtDVIZyaKoba6XS4suf7QIjYuluxqRmsabz
+ /na8yIjIbRR2VvAEiYtFN4sFn2ubGUcjRtDDs6b44BFKKv89nR86UO2jGy52hnPvfx46
+ 4oVE59EdezY5g7xj2cuElXA0cXOdc0U1RSgws5SO6hKWeHFnhl4IlWzvnRokLndGSJ4k
+ NWW+1Bn/BReSoBJcimTTt5B0bJ4a6DfEBAcMaJgJFwLOb8BnoUq+c0EJKkGLdxiCGm9y
+ MkjmrHA1bXauhHh4cdgwY30/0XNzTZLLILPyPoGvN6NW67TjMLDAHmxJp9A0E7iZN4R+
+ Hz1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PkvAy0HG/cZzH7p73LTDgLYGpVT1MehWvYFfFdnT2Fc=;
- b=BFzICHADDCMGQyz6ta3lwOeLqndaF/ffn4VKiS73GN+cDIEyVJkOmdAd5bDq0gFYP9
- fxjPuxqRkm/wOofB3+CZQ6VDhuhk07/XxUaNsJpwUvbFzWhoTE7f0ynTCCVAIElDCozA
- VFtV8xLAmDCDaxqhYzM6P/Y3EANfM9BnjfRJVzFXR/QNv6yioWk/y3rmsg4b8O+/2yRV
- PNAB5N47GAfMmr+biVgHvWq0Zsna8/yWMnHmC2E3OyKJdF60LTvQevTT82WBNg2ZDN0/
- sXCpg2o0yMfD7vcvNBIZXBSQc3eI152SDzuofqK4rBVHq9OwfRnHNxhFUvcD44ULfVve
- afDA==
-X-Gm-Message-State: APjAAAWUlfjB2rzvffDBuXq4s1FtKwJVRBzNqKF3ak0OrEKsEo82zC/Q
- p1abZzfNfu5M+Gz0BjvPUQDipA==
-X-Google-Smtp-Source: APXvYqxDyY0ozrmSHzomFvWje7xUaWGpFIWh42pUXi1Mg8hI3/M46iMnwG1Ys2iAiNUMGp3qdug8tg==
-X-Received: by 2002:a17:902:9f93:: with SMTP id
- g19mr20221589plq.223.1559639530118; 
- Tue, 04 Jun 2019 02:12:10 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:845f:e35d:e30c:4b47])
- by smtp.gmail.com with ESMTPSA id x21sm773591pfi.91.2019.06.04.02.12.07
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 04 Jun 2019 02:12:09 -0700 (PDT)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Tue,  4 Jun 2019 17:11:50 +0800
-Message-Id: <20190604091150.154384-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.22.0.rc1.311.g5d7573a151-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=wRCxsdtOibuHWniTvRjkJuYuUvyqKwna7YBc0m5IVcc=;
+ b=Q1sQWr4Z2ErMQUU1kEoGTqSrYQmVgfOLsCu/sOILx5Ho/yFaP/CYDVOWgPwLXNS8ca
+ xDwe6KrNGa6jvAIEXEy2EDfvYSkNAtuB53+eIFAY/I1viQ0N6BMmTnoo1+1Addj7QwOZ
+ dox1A6pzRdTZs88lDeDFiJGvGladgJgJQ0ZyDkx00Vq8mIkstKP8eY13UmG8AFxA9r1a
+ Di8SC4+RAi872o/kl2hjwqRDRFbxS9q0/TaYB8qX+WMPRV/XW6C1zg+apWmRPXLmqe1y
+ Z2f5/uLX/BL3QNM37LVSMeeruP5TrkbII998xPmGy/07nvWPzO0KtPMZYr273e/N5azJ
+ PcEQ==
+X-Gm-Message-State: APjAAAUJ+xE4SBKKzhVTgk4eKJsKastfnJkkZmM5II2JOtAc5luFm826
+ ZcyIOuDKDAASTV6a90dpF49hOfnHtiiA0RvXYpc=
+X-Google-Smtp-Source: APXvYqyrP8pdeVtz07P1IH9BWhta46YZkJ5Sm9D06iqPl5VqTf3sKI7zXgP9mwg/IgoNozHT4gWj90zU9nhRoUdXHKI=
+X-Received: by 2002:a2e:9255:: with SMTP id v21mr9392465ljg.178.1559640803528; 
+ Tue, 04 Jun 2019 02:33:23 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- dgreid@chromium.org, cychiang@chromium.org
-Subject: [alsa-devel] [PATCH v2] ASoC: max98090: remove 24-bit format
-	support if RJ is 0
+References: <20190603174735.21002-1-codekipper@gmail.com>
+ <20190603174735.21002-5-codekipper@gmail.com>
+ <20190604074632.tby6r57vjehb4jne@flea>
+In-Reply-To: <20190604074632.tby6r57vjehb4jne@flea>
+From: Code Kipper <codekipper@gmail.com>
+Date: Tue, 4 Jun 2019 11:33:12 +0200
+Message-ID: <CAEKpxBmP6UJkfzqP-AkW5sDzRcb6W9J6vM7C6DAqYVvpEKfxcQ@mail.gmail.com>
+To: Maxime Ripard <maxime.ripard@bootlin.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-sunxi <linux-sunxi@googlegroups.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v4 4/9] ASoC: sun4i-i2s: Reduce quirks for
+	sun8i-h3
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,53 +103,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The supported formats are S16_LE and S24_LE now. However, by datasheet
-of max98090, S24_LE is only supported when it is in the right justified
-mode. We should remove 24-bit format if it is not in that mode to avoid
-triggering error.
-
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
----
- sound/soc/codecs/max98090.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 7619ea31ab50..a6c2cb89767c 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -1909,6 +1909,21 @@ static int max98090_configure_dmic(struct max98090_priv *max98090,
- 	return 0;
- }
- 
-+static int max98090_dai_startup(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = codec_dai->component;
-+	struct max98090_priv *max98090 = snd_soc_component_get_drvdata(component);
-+	unsigned int fmt = max98090->dai_fmt;
-+
-+	/* Remove 24-bit format support if it is not in right justified mode. */
-+	if ((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_RIGHT_J) {
-+		runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
-+		snd_pcm_hw_constraint_msbits(substream->runtime, 0, 16, 16);
-+	}
-+	return 0;
-+}
-+
- static int max98090_dai_hw_params(struct snd_pcm_substream *substream,
- 				   struct snd_pcm_hw_params *params,
- 				   struct snd_soc_dai *dai)
-@@ -2316,6 +2331,7 @@ EXPORT_SYMBOL_GPL(max98090_mic_detect);
- #define MAX98090_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
- 
- static const struct snd_soc_dai_ops max98090_dai_ops = {
-+	.startup = max98090_dai_startup,
- 	.set_sysclk = max98090_dai_set_sysclk,
- 	.set_fmt = max98090_dai_set_fmt,
- 	.set_tdm_slot = max98090_set_tdm_slot,
--- 
-2.22.0.rc1.311.g5d7573a151-goog
-
+On Tue, 4 Jun 2019 at 09:46, Maxime Ripard <maxime.ripard@bootlin.com> wrote:
+>
+> On Mon, Jun 03, 2019 at 07:47:30PM +0200, codekipper@gmail.com wrote:
+> > From: Marcus Cooper <codekipper@gmail.com>
+> >
+> > We have a number of flags used to identify the functionality
+> > of the IP block found on the sun8i-h3 and later devices. As it
+> > is only neccessary to identify this new block then replace
+> > these flags with just one.
+> >
+> > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+>
+> This carries exactly the same meaning than the compatible, so this is
+> entirely redundant.
+>
+> The more I think of it, the more I fell like we should have function
+> pointers instead, and have hooks to deal with these kind of things.
+>
+> I've been working a lot on that driver recently, and there's some many
+> parameters and regmap_fields that it becomes pretty hard to work on.
+Hi Maxime,
+let's sync with what you're doing as you're more lightly to see it
+through to delivery!
+I was trying to clean up the driver as some of this seemed a bit unnecessary,
+hooks sounds like the way forward,
+CK
+>
+> Maxime
+>
+> --
+> Maxime Ripard, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

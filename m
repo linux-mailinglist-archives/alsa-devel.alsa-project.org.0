@@ -2,89 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF13A3408B
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 09:41:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022BF34095
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 09:44:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45EBD16B6;
-	Tue,  4 Jun 2019 09:40:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45EBD16B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D89516AF;
+	Tue,  4 Jun 2019 09:44:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D89516AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559634093;
-	bh=cCxMWOe+ZnUvEFoKwUWXjt4o8GklQCK1KAGG2gc3N7M=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1559634295;
+	bh=gmsi6FJUj0PIyFxB9geInw5AP4kcxyzEKvGGwE/hECk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kDjpOTj8KLVwHMwcI6NG+j58I6fkL6rgXhSx9yljs8EY8POtwyjeDVt+/7mjbpPKz
-	 jYD4EGpKywMd3G2X+I4/vnuptb/yWjNwh/cdmhgCIkgReCxZeFhGLUm5r+biLcXYFE
-	 HtexYpX3Cy1idxBjHmM8kAKQDToJVTlX0pg/WUYY=
+	b=C8YVe4X90q94K/7OsmzyRhtE6Dgc4YxbsKCoPyvXZjVU2A+AQQ5HgiJDgoUhHSaTe
+	 AwpxaBS7CkxmC/gEM3zT0/Pq/QOtTsRIlifq0vknv/tU/+LEdiqrZg45O37KfRWg0G
+	 uwz3O821jyMU96V9v2+TNBFGPpLhfb7WGhPe5MQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E52DF896EF;
-	Tue,  4 Jun 2019 09:40:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05EB2F896FE;
+	Tue,  4 Jun 2019 09:43:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09A45F896F8; Tue,  4 Jun 2019 09:40:00 +0200 (CEST)
+ id 6A0E6F896F7; Tue,  4 Jun 2019 09:43:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net
+ [217.70.183.200])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F8B5F896F7
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 09:39:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F8B5F896F7
-Received: by mail-ed1-f66.google.com with SMTP id a8so30611863edx.3
- for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 00:39:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HPZoKEpxMdZA3Cy+DOvZz+UKiVos8Da/MXX9dJMPwts=;
- b=nHwcTVZBbC2RkjVURFTZOV/U0JBpyFX01odXhElzxGW621slmW/GMijwQnsS3TmoHQ
- pZHrZ1i/EKwpxu7pBo0vl9XqSvtEvynKymlTqhu8PdLZ9xIU5/P+NseiMMTsX184jgvm
- l2HI+3eL9AU0FaLJ9Z5sRDZHkoaMjIGu27UrG+xEOJU6oPbw9WL+KR881aZYOcuQRrFv
- uH9zQAYDfnRXxSQGFWrJVIDvPpe0S2+Ved1mJVvpTneB+4xEu6c8n4ZSvaWwZgqWO14j
- CroKxLynrrZrM2G5bAHQVXJ88CKtazsy5t6aapYbuDNvTerwUTMGQ7adE7xjKdHQ6BpO
- 0i3w==
-X-Gm-Message-State: APjAAAV1RMVC3U0iHC/DXqj5H4PUR2DnFfOnYXtv2WrfImEKmnLDtqzq
- vpBGhLRKFuV6Vy7J0VDZzwXX4O9wVaw=
-X-Google-Smtp-Source: APXvYqx4wKh7tl6R8bfdItV6V2cypAUTfzuWC7DwLomvDT8k8tp58TIiD82rIzVUYkOqG6v8/veu+A==
-X-Received: by 2002:aa7:c991:: with SMTP id c17mr2993454edt.282.1559633997276; 
- Tue, 04 Jun 2019 00:39:57 -0700 (PDT)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com.
- [209.85.221.44])
- by smtp.gmail.com with ESMTPSA id b10sm3025895eja.58.2019.06.04.00.39.56
- for <alsa-devel@alsa-project.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 04 Jun 2019 00:39:56 -0700 (PDT)
-Received: by mail-wr1-f44.google.com with SMTP id o12so7540606wrj.9
- for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 00:39:56 -0700 (PDT)
-X-Received: by 2002:a5d:4311:: with SMTP id h17mr19701241wrq.9.1559633996367; 
- Tue, 04 Jun 2019 00:39:56 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0DD02F896CE
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 09:43:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DD02F896CE
+X-Originating-IP: 90.88.144.139
+Received: from localhost (aaubervilliers-681-1-24-139.w90-88.abo.wanadoo.fr
+ [90.88.144.139]) (Authenticated sender: maxime.ripard@bootlin.com)
+ by relay7-d.mail.gandi.net (Postfix) with ESMTPSA id 5D1EF20007;
+ Tue,  4 Jun 2019 07:43:02 +0000 (UTC)
+Date: Tue, 4 Jun 2019 09:43:01 +0200
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+To: codekipper@gmail.com
+Message-ID: <20190604074301.p27e5towgehmraoy@flea>
 References: <20190603174735.21002-1-codekipper@gmail.com>
- <20190603174735.21002-3-codekipper@gmail.com>
- <20190604073651.gst57ki7ohzxcrqz@flea>
-In-Reply-To: <20190604073651.gst57ki7ohzxcrqz@flea>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Tue, 4 Jun 2019 15:39:44 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67ch3F23q-SSxU01Mvkt-x8LL5HfwnZb4NdJcMMkN2H+w@mail.gmail.com>
-Message-ID: <CAGb2v67ch3F23q-SSxU01Mvkt-x8LL5HfwnZb4NdJcMMkN2H+w@mail.gmail.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Code Kipper <codekipper@gmail.com>, linux-sunxi <linux-sunxi@googlegroups.com>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [linux-sunxi] Re: [PATCH v4 2/9] ASoC: sun4i-i2s:
- Add offset to RX channel select
+ <20190603174735.21002-4-codekipper@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20190603174735.21002-4-codekipper@gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: alsa-devel@alsa-project.org, linux-sunxi@googlegroups.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, be17068@iperbole.bo.it,
+ wens@csie.org, broonie@kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v4 3/9] ASoC: sun4i-i2s: Add regmap field
+ to sign extend sample
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,33 +68,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4300984769156885538=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 4, 2019 at 3:37 PM Maxime Ripard <maxime.ripard@bootlin.com> wrote:
+
+--===============4300984769156885538==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4iu232naw3x4dexg"
+Content-Disposition: inline
+
+
+--4iu232naw3x4dexg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Jun 03, 2019 at 07:47:29PM +0200, codekipper@gmail.com wrote:
+> From: Marcus Cooper <codekipper@gmail.com>
 >
-> On Mon, Jun 03, 2019 at 07:47:28PM +0200, codekipper@gmail.com wrote:
-> > From: Marcus Cooper <codekipper@gmail.com>
-> >
-> > Whilst testing the capture functionality of the i2s on the newer
-> > SoCs it was noticed that the recording was somewhat distorted.
-> > This was due to the offset not being set correctly on the receiver
-> > side.
-> >
-> > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> On the newer SoCs this is set by default to transfer a 0 after
+
+Which SoCs?
+
+> each sample in each slot. However the platform that this driver
+
+Which platform?
+
+> was developed on had the default setting where it padded the audio
+> gain with zeros. This isn't a problem whilst we have only support
+> for 16bit audio but with larger sample resolution rates in the
+> pipeline then it should be fixed to also pad. Without this the audio
+> gets distorted.
 >
-> Acked-by: Maxime Ripard <maxime.ripard@bootlin.com>
+> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 
-Would be nice to have
+Once the commit log fixed,
+Acked-by: Maxime Ripard <maxime.ripard@bootlin.com>
 
-Fixes: 7d2993811a1e ("ASoC: sun4i-i2s: Add support for H3")
+Maxime
 
-But otherwise,
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-Acked-by: Chen-Yu Tsai <wens@csie.org>
+--4iu232naw3x4dexg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXPYhBQAKCRDj7w1vZxhR
+xcVmAQDSGaycvO/U1wpX1Ai6mvSxxamMb37KG7EScFKOC3oa5gEAzJ68Gg6XPP/O
+EBu14S2afGHTqLHHKTGeLzVHp5ZKHwU=
+=1Yj6
+-----END PGP SIGNATURE-----
+
+--4iu232naw3x4dexg--
+
+--===============4300984769156885538==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============4300984769156885538==--

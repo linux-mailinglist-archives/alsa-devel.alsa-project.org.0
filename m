@@ -2,94 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3CA33A0B0
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:42:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BDE333FD5
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Jun 2019 09:19:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8180015E4;
-	Sat,  8 Jun 2019 18:41:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8180015E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC01167E;
+	Tue,  4 Jun 2019 09:18:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC01167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560012138;
-	bh=vBwfncCr/B9+ZFKFNMwc3KnLafSkSkPw+XcNNN2AGpw=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1559632766;
+	bh=iOjUraZ/qENDMnDYM6cO1LBrQ6S4CeALZoCK+6TAM2o=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qny+EBBsqen4qJtwZBVvQNp3sg9GwYU+gSY+damPWSWoKBYQrWKvqNYqRQjIEGwHH
-	 azhBHREG6QdsZADQPXH4yNBH63QjOdfuCUE1wVMhpkJJWsZo2ufVQwYq2Jmf48TVTL
-	 byq3OcY7FBEhK4R3smW8K18hc7izyZgx2lDKRWdU=
+	b=sAUCk3Qa6DJ1aSY1ZnoEuceRdU3gIxOwGekVlIiLJw7K3RuON+gL3wtv4FPE0T2Wj
+	 t2oUHw7M++kR6ZqQSdstOsPT2dDy7Ay1xjwwBn8OaCRaXCSz4nutvC/Oc4MESkiRAZ
+	 JBZfVlYh76Wox/4Kt1pB22Qum0d2YZbzPiRX+Kw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56A70F89710;
-	Sat,  8 Jun 2019 18:39:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06B61F896F8;
+	Tue,  4 Jun 2019 09:17:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A42E9F896F7; Tue,  4 Jun 2019 09:15:39 +0200 (CEST)
+ id 844E6F896F7; Tue,  4 Jun 2019 09:17:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from filter04.hostcontrol.com (filter04.hostcontrol.com
- [5.157.86.29])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
+ [209.85.208.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8203F80054
- for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 09:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8203F80054
-Received: from [5.157.86.17] (helo=webmail-us2-yh01.yourhosting.nl)
- by filter04.hostcontrol.com with esmtp (Exim 4.89)
- (envelope-from <willemromkes@rose-es.nl>)
- id 1hY3fO-0003qA-6s; Tue, 04 Jun 2019 09:15:34 +0200
-Received: from _ (localhost [IPv6:::1])
- by webmail-us2-yh01.yourhosting.nl (Postfix) with ESMTP id DB5B24586E0;
- Tue,  4 Jun 2019 09:15:28 +0200 (CEST)
-Received: from mail01a.alfen.com ([92.64.175.146])
- via mail01a.alfen.com ([92.64.175.146]) by webmail.us2.yourhosting.nl
- with HTTP (HTTP/1.1 POST); Tue, 04 Jun 2019 09:15:28 +0200
+ by alsa1.perex.cz (Postfix) with ESMTPS id 190C5F80054
+ for <alsa-devel@alsa-project.org>; Tue,  4 Jun 2019 09:17:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 190C5F80054
+Received: by mail-lj1-f196.google.com with SMTP id a21so3421391ljh.7
+ for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 00:17:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=uXFhS7Fhht2cVxXQgdevMCQkg9IO5A4+7VWwz6q4IHQ=;
+ b=R39j+Y3SljEr/BbqegeBYeisRqEFavSHZDy0elXJNxMjSBj3rPbrCEQn86shcd1WaU
+ vwQhPNjGLNqfy77Up53FixrgaNMFIuie3AT4hfugvKCEuVQsFwgZp/r0rq5tKuIqWj37
+ YxDYLH03VcxzBprUsbYq+JXxjAWnTwq8RNcnwbfQNJHCspaQZmVBv0ihyrwomU26UcJa
+ JGM1b4DtJ60AnBKYMd8y86OAovu0aPxlWe8C9W9cUsgluhF1rxV58hFvCG+PQyc8OUcM
+ 9Lk6xUCXRvtDpFofkgkJeUc4l7DodDsAj3rpS03cO1/TejtZ8yOYlaWRcVOoYIQY5/IW
+ 2mog==
+X-Gm-Message-State: APjAAAU1aQLfah9JLzAbKeWceEfwCK8RfmZA9UQ5dmkRicOQq0R6vkdc
+ 6Z3HQFIjLOnEirPad+CUfkSIo+07Db5AqBX9iUk=
+X-Google-Smtp-Source: APXvYqyyZ2LjfsWzKbQvADxUxY+XiY/8hXkqr4Kstn7jTiKw8xfdZP/KjDVpKZALARnI7yGQkBB7ySKrnAGa0wizxpk=
+X-Received: by 2002:a2e:91c5:: with SMTP id u5mr4591585ljg.65.1559632655971;
+ Tue, 04 Jun 2019 00:17:35 -0700 (PDT)
 MIME-Version: 1.0
-Date: Tue, 04 Jun 2019 09:15:28 +0200
-From: Willem Romkes <willemromkes@rose-es.nl>
-To: Codrin.Ciubotariu@microchip.com
-Organization: Rose Engineering Services
-In-Reply-To: <155857e2-1fbd-f154-5316-a4426a74b7b4@microchip.com>
-References: <8d2cb6d3212c82c5b1430dc5e13c79c1@rose-es.nl>
- <155857e2-1fbd-f154-5316-a4426a74b7b4@microchip.com>
-Message-ID: <089a90e9c111e7a8bdd2b0d57ce05ea4@rose-es.nl>
-X-Sender: willemromkes@rose-es.nl
-User-Agent: Roundcube Webmail
-X-Remote-Browser: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:67.0)
- Gecko/20100101 Firefox/67.0
-X-Originating-IP: 92.64.175.146
-X-RoundCube-Server: webmail-us2-yh01.yourhosting.nl
-X-Originating-IP: 5.157.86.17
-X-SpamExperts-Domain: out.hostedox.com
-X-SpamExperts-Username: 5.157.86.17
-Authentication-Results: hostcontrol.com;
- auth=pass smtp.auth=5.157.86.17@out.hostedox.com
-X-SpamExperts-Outgoing-Class: ham
-X-SpamExperts-Outgoing-Evidence: Combined (0.02)
-X-Recommended-Action: accept
-X-Filter-ID: Mvzo4OR0dZXEDF/gcnlw0WF37iHSchYgKnNGmAxHYR+pSDasLI4SayDByyq9LIhVO7o/mkMnZTe+
- aODunw7ZykTNWdUk1Ol2OGx3IfrIJKyP9eGNFz9TW9u+Jt8z2T3KA3cw1J65cwSoj5qE1x3r4xzv
- L33JtnMaEpy1xmt900a0EktcRh/qR/MdvA9f1tjAwzAKmOz5yp/Fzg2ZpvN8BXzQCZfCmDFO7p8r
- brhof+tFZ9Cs2/f+pDxTvQoAaLByzGv0m4lC3sMQmcFI+/JnFkkolOTFML5N3rwgT/vCedCEQY3n
- 6mqkXcs9aV/zzo2KiZxo8QGBI/Sd7ZEOglxE5vP+Fj7IYIKEeIf2UrpGmTZp0ugtZlkw9p/AQdIE
- 0knwqxNq2x6ZGoHd8jLhzKkCSIgKyEWnnpk3TSoBsqHH8iZY4iedii5TS5Cer+5peBUk071nk5ze
- NA2Y8By34NoXIV6HNEMJ4fLINP1heXvlujc+EX7LXnIbKpjoQ7b2aCdGmJ4jp2IEK1+tbyRLmkZA
- x/PF3GUV+KdBBqrnCX8j0Gi8Ksk+aedMfNWSnJswrtlNJjFNRpcZwFFhFmVD3qfA5TKO14DCsdqZ
- Zc6iu8G5JsXcG6hsRQZiAIgw+z837AqgX7ewI8e1h7RITgN14BHmGVt/ReJ9MfhzzmbKTH7wI9GE
- U1utNskUAORCV2WFZX0jv0Ts3MxV1cJ0YGKBVsYo2VeIvqlZdI7T24bXVk2Q61kphQdd0jgwrcK3
- bbhJq9pyVMZOq3K2yuzyfgONwYnI/mh/oiSBx8mt6nsX60vLm1YTKgAQriuw1aTia+0Fz1FRhWPS
- 5rCwisa/BQLhiuybU0w9LUZfl7b/8HrhZ+zknieqTkn0vKtTlqfK1N2T78zyxaLKNTDjTCxJthrv
- tAlx0iub+zLPVv6PaOLwXKWE6Px+pvlHhV6a5QjptwQBGybQXYomp7ujh41hIcWQ8HYS4WxBc6u0
- QBTDbEB/hV9r9TeDl9+AMsSJDcUCUZHuO2jX9DbQWTHztn1qdSXCnE2JZTKO14DCsdqZZc6iu8G5
- JsWwIgD/xDehea09OpnwSuobamwN2fJ4nYmpvo0vR8reAJanfcoq9IsR6l/OZb9VMEM=
-X-Report-Abuse-To: spam@filterapi.hostcontrol.com
-X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:50 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, nicolas.ferre@atmel.com
-Subject: Re: [alsa-devel] atmel SSC DSP A mode
+References: <20190528142424.19626-1-geert@linux-m68k.org>
+ <20190528142424.19626-3-geert@linux-m68k.org>
+ <15499.1559298884@warthog.procyon.org.uk>
+In-Reply-To: <15499.1559298884@warthog.procyon.org.uk>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 4 Jun 2019 09:17:23 +0200
+Message-ID: <CAMuHMdX57DKCMpLXdtZPE-w0esUNVv9-SwYjmT5=m+u9ryAiHQ@mail.gmail.com>
+To: David Howells <dhowells@redhat.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ linux-afs@lists.infradead.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, "David S . Miller" <davem@davemloft.net>,
+ netdev <netdev@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Clemens Ladisch <clemens@ladisch.de>, Jamal Hadi Salim <jhs@mojatatu.com>,
+ linux-block@vger.kernel.org, Jiri Pirko <jiri@mellanox.com>,
+ Cong Wang <xiyou.wangcong@gmail.com>, Joe Perches <joe@perches.com>,
+ "Mohit P . Tahiliani" <tahiliani@nitk.edu.in>,
+ Matias Bjorling <mb@lightnvm.io>, Eran Ben Elisha <eranbe@mellanox.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ Igor Konopko <igor.j.konopko@intel.com>
+Subject: Re: [alsa-devel] [PATCH] rxrpc: Fix uninitialized error code in
+	rxrpc_send_data_packet()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,138 +91,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Codrin, 
-
-Thank you for responding. 
-
-We are using the tlv320aic3107 with the tlv320aic3x codec driver. You
-are correct that we could use DSP B mode. but the atmel_ssc_dai driver
-doesn't support DSP B mode. On the other hand, the tlv320aic3x driver
-does support DSP A mode where it just applies an offset of one bit. 
-
-I have continued investigating this issue and I think the whole issue is
-caused by our soundcard driver setting the SND_SOC_DAIFMT_IB_NF in the
-DAI format, which is correct if I refer to figure 25 of the tlv320aic33
-datasheet and the tlv320aic3x driver. The atmel_ssc_dai driver however
-doesn't check on this and has the clock settings hard-coded and in the
-current master branch it expects you to use SND_SOC_DAIFMT_NB_NF
-instead. It would be a good idea to add support for the different
-SND_SOC_DAIFMT_xB_xF DAI formats to the atmel_ssc_dai driver.
-
-Best regards, 
-
----
-Willem Romkes
- Rose Engineering Services 
-
- 		M
- 		06-48013381
-
- 		E
- 		willemromkes@rose-es.nl
-
- 		I
- 		www.rose-es.nl
-
-On 03-06-2019 18:05, Codrin.Ciubotariu@microchip.com wrote:
-
-> On 03.06.2019 13:19, Willem Romkes wrote: 
-> 
->> *
->> *
->> 
->> Hi,
->> 
->> We are using linux-at91 and lately I have been working on adding support 
->> for a custom soundcard, a dual tlv320aic3x codec on SAMA5D3 platform. 
->> This soundcard uses DSP A mode.
->> 
->> We are facing audio issues: When we playback a WAV file with a sine 
->> wave, the codec outputs far from a clean sine wave. The problem I think 
->> is that the CKI settings for the TMCR register isn't set correctly. 
->> see commit 20cf2603b122bf71fb54def1de6a2ad73d5ddb0b
->> Author: Bo Shen <voice.shen@atmel.com>
->> Date:   Fri Jan 30 17:38:42 2015 +0800
->> 
->> ASoC: atmel_ssc_dai: fix the setting for DSP mode
->> 
->> When SCC work in DSP A mode, the data outputs/inputs are shift out on
->> falling edge, the frame sync are sample on the rising edge.
->> 
->> Reported-by: Songjun Wu <songjun.wu@atmel.com>
->> Signed-off-by: Bo Shen <voice.shen@atmel.com>
->> Signed-off-by: Mark Brown <broonie@kernel.org>
->> 
->> diff --git a/sound/soc/atmel/atmel_ssc_dai.c 
->> b/sound/soc/atmel/atmel_ssc_dai.c
->> index e691aab..35e44e4 100644
->> --- a/sound/soc/atmel/atmel_ssc_dai.c
->> +++ b/sound/soc/atmel/atmel_ssc_dai.c
->> @@ -502,7 +502,7 @@ static int atmel_ssc_hw_params(struct 
->> snd_pcm_substream *substream,
->> rcmr =    SSC_BF(RCMR_PERIOD, ssc_p->rcmr_period)
->> | SSC_BF(RCMR_STTDLY, 1)
->> | SSC_BF(RCMR_START, SSC_START_RISING_RF)
->> -                       | SSC_BF(RCMR_CKI, SSC_CKI_RISING)
->> +                       | SSC_BF(RCMR_CKI, SSC_CKI_FALLING)
->> | SSC_BF(RCMR_CKO, SSC_CKO_NONE)
->> | SSC_BF(RCMR_CKS, SSC_CKS_DIV);
->> 
->> @@ -517,7 +517,7 @@ static int atmel_ssc_hw_params(struct 
->> snd_pcm_substream *substream,
->> tcmr =    SSC_BF(TCMR_PERIOD, ssc_p->tcmr_period)
->> | SSC_BF(TCMR_STTDLY, 1)
->> | SSC_BF(TCMR_START, SSC_START_RISING_RF)
->> -                       | SSC_BF(TCMR_CKI, SSC_CKI_RISING)
->> +                       | SSC_BF(TCMR_CKI, SSC_CKI_FALLING)
->> | SSC_BF(TCMR_CKO, SSC_CKO_CONTINUOUS)
->> | SSC_BF(TCMR_CKS, SSC_CKS_DIV);
->> 
->> @@ -546,7 +546,7 @@ static int atmel_ssc_hw_params(struct 
->> snd_pcm_substream *substream,
->> rcmr =    SSC_BF(RCMR_PERIOD, 0)
->> | SSC_BF(RCMR_STTDLY, START_DELAY)
->> | SSC_BF(RCMR_START, SSC_START_RISING_RF)
->> -                       | SSC_BF(RCMR_CKI, SSC_CKI_RISING)
->> +                       | SSC_BF(RCMR_CKI, SSC_CKI_FALLING)
->> | SSC_BF(RCMR_CKO, SSC_CKO_NONE)
->> | SSC_BF(RCMR_CKS, ssc->clk_from_rk_pin ?
->> SSC_CKS_PIN : SSC_CKS_CLOCK);
->> 
->> For both the TCMR and RCMR the CKI is set to SSC_CKI_FALLING, but I 
->> think for the TCMR the CKI should be set to SSC_CKI_RISING. See datasheet:
->> 
->> TCMR CKI: "1: The data outputs (Data and Frame Sync signals) are shifted 
->> out on Transmit Clock rising edge. The Frame sync signal
->> input is sampled on Transmit clock falling edge."
->> 
->> RCMR CKI: "0: The data inputs (Data and Frame Sync signals) are sampled 
->> on Receive Clock falling edge. The Frame Sync signal out-
->> put is shifted out on Receive Clock rising edge."
->> 
->> Setting the CKI in TCMR to SSC_CKI_RISING to fixes our issues.
-> 
-> Hi Willem,
-> 
-> It this DS of the codec you are using?
-> http://www.ti.com/lit/ds/symlink/tlv320aic33.pd [1] 
-> 
-> Are you using the DSP mode described in figure 25 DSP Serial Bus Mode 
-> Operation? If yes, then you should use the DSP_B mode...
-> 
-> Thanks and best regards,
-> Codrin
- 
-
-Links:
-------
-[1] http://www.ti.com/lit/ds/symlink/tlv320aic33.pdf
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGkgRGF2aWQsCgpPbiBGcmksIE1heSAzMSwgMjAxOSBhdCAxMjozNSBQTSBEYXZpZCBIb3dlbGxz
+IDxkaG93ZWxsc0ByZWRoYXQuY29tPiB3cm90ZToKPiBIZXJlJ3MgbXkgdGFrZSBvbiB0aGUgcGF0
+Y2guCj4KPiBEYXZpZAo+IC0tLQo+IHJ4cnBjOiBGaXggdW5pbml0aWFsaXplZCBlcnJvciBjb2Rl
+IGluIHJ4cnBjX3NlbmRfZGF0YV9wYWNrZXQoKQo+Cj4gV2l0aCBnY2MgNC4xOgo+Cj4gICAgIG5l
+dC9yeHJwYy9vdXRwdXQuYzogSW4gZnVuY3Rpb24g4oCYcnhycGNfc2VuZF9kYXRhX3BhY2tldOKA
+mToKPiAgICAgbmV0L3J4cnBjL291dHB1dC5jOjMzODogd2FybmluZzog4oCYcmV04oCZIG1heSBi
+ZSB1c2VkIHVuaW5pdGlhbGl6ZWQgaW4gdGhpcyBmdW5jdGlvbgo+Cj4gSW5kZWVkLCBpZiB0aGUg
+Zmlyc3QganVtcCB0byB0aGUgc2VuZF9mcmFnbWVudGFibGUgbGFiZWwgaXMgbWFkZSwgYW5kCj4g
+dGhlIGFkZHJlc3MgZmFtaWx5IGlzIG5vdCBoYW5kbGVkIGluIHRoZSBzd2l0Y2goKSBzdGF0ZW1l
+bnQsIHJldCB3aWxsIGJlCj4gdXNlZCB1bmluaXRpYWxpemVkLgo+Cj4gRml4IHRoaXMgYnkgQlVH
+KCknaW5nIGFzIGlzIGRvbmUgaW4gb3RoZXIgcGxhY2VzIGluIHJ4cnBjIHdoZXJlIGludGVybmFs
+Cj4gc3VwcG9ydCBmb3IgZnV0dXJlIGFkZHJlc3MgZmFtaWxpZXMgd2lsbCBuZWVkIGFkZGluZy4g
+IEl0IHNob3VsZCBub3QgYmUKPiBwb3NzaWJsZSB0byByZWFjaCB0aGlzIG5vcm1hbGx5IGFzIHRo
+ZSBhZGRyZXNzIGZhbWlsaWVzIGFyZSBjaGVja2VkCj4gdXAtZnJvbnQuCj4KPiBGaXhlczogNWE5
+MjRiODk1MWY4MzViNSAoInJ4cnBjOiBEb24ndCBzdG9yZSB0aGUgcnhycGMgaGVhZGVyIGluIHRo
+ZSBUeCBxdWV1ZSBza19idWZmcyIpCj4gUmVwb3J0ZWQtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8
+Z2VlcnRAbGludXgtbTY4ay5vcmc+Cj4gU2lnbmVkLW9mZi1ieTogRGF2aWQgSG93ZWxscyA8ZGhv
+d2VsbHNAcmVkaGF0LmNvbT4KCkknbSBub3Qgc3VjaCBhIGJpZyBmYW4gb2YgQlVHKCksIHNvIEkn
+ZCBnbyBmb3IgcmV0ID0gLUVBRk5PU1VQUE9SVCwgYnV0IGdpdmVuCnJ4cnBjIGlzIGFscmVhZHkg
+ZnVsbCBvZiBCVUcoKSBjYWxscywgSSBndWVzcyBpdCBpcyBhbiBhY2NlcHRhYmxlIHNvbHV0aW9u
+LgoKPiAtLS0KPiBkaWZmIC0tZ2l0IGEvbmV0L3J4cnBjL291dHB1dC5jIGIvbmV0L3J4cnBjL291
+dHB1dC5jCj4gaW5kZXggMDA0Yzc2MmMyZThkLi42ZjJiNGZiNGIwYWEgMTAwNjQ0Cj4gLS0tIGEv
+bmV0L3J4cnBjL291dHB1dC5jCj4gKysrIGIvbmV0L3J4cnBjL291dHB1dC5jCj4gQEAgLTUyMyw2
+ICs1MjMsOSBAQCBpbnQgcnhycGNfc2VuZF9kYXRhX3BhY2tldChzdHJ1Y3QgcnhycGNfY2FsbCAq
+Y2FsbCwgc3RydWN0IHNrX2J1ZmYgKnNrYiwKPiAgICAgICAgICAgICAgICAgfQo+ICAgICAgICAg
+ICAgICAgICBicmVhazsKPiAgI2VuZGlmCj4gKwo+ICsgICAgICAgZGVmYXVsdDoKPiArICAgICAg
+ICAgICAgICAgQlVHKCk7Cj4gICAgICAgICB9Cj4KPiAgICAgICAgIGlmIChyZXQgPCAwKQoKR3J7
+b2V0amUsZWV0aW5nfXMsCgogICAgICAgICAgICAgICAgICAgICAgICBHZWVydAoKLS0gCkdlZXJ0
+IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxvdHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0gZ2Vl
+cnRAbGludXgtbTY4ay5vcmcKCkluIHBlcnNvbmFsIGNvbnZlcnNhdGlvbnMgd2l0aCB0ZWNobmlj
+YWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQKd2hlbiBJJ20gdGFsa2luZyB0
+byBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJwcm9ncmFtbWVyIiBvciBzb21ldGhpbmcgbGlrZSB0
+aGF0LgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0tIExpbnVzIFRvcnZhbGRzCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwg
+bWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4u
+YWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

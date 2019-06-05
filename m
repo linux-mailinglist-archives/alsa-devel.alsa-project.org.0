@@ -2,121 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A28B935614
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2019 06:58:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72FD73A0B3
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:43:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 017FB1654;
-	Wed,  5 Jun 2019 06:58:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 017FB1654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06F86166C;
+	Sat,  8 Jun 2019 18:42:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06F86166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559710739;
-	bh=zeZ1N2Wby0ixIZ+TGGgFG1nVvp53b4qXa0X3JpPAv3I=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1560012205;
+	bh=n6KLnXQwrT6VP5AyEMxoQJiP5ZOHLPwFoIuilfnZw6Y=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OYFoYIhsAq0pbIuaghpBrwEgSurCFxR8a3wGSiNFEzJawR3FbFj7qFgtSMT7R56Uw
-	 0yLJpRm4PbHvE8DHwLVQWy1nbLXSO9QeCdzjImkdbQTc6ORKDdtJbz/8RWqNtfTHS0
-	 n4jluu3OtJ5j5y1QbyHnmKTbIVinvo6suwhFF5/s=
+	b=jYbiiWwiats6cwEvb3SkAr6tEcvq0kjiAhS2QL4R5H6yD3gfTmXTZsb8FsEWiglDT
+	 M302pEnKpfmEiyHum/wefq8seg4s6Tkrr8O9Vjg97g6LD49tmlAuJRSKbN7fgp4Yn2
+	 SRcoORKcf22cJZ5IKVaJ056aBnmuJKsJJ4f7Cu0A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4915FF896DD;
-	Wed,  5 Jun 2019 06:57:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE307F80709;
+	Sat,  8 Jun 2019 18:39:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5B43F896DD; Wed,  5 Jun 2019 06:57:09 +0200 (CEST)
+ id EE101F896DD; Wed,  5 Jun 2019 10:31:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
- [209.85.221.67])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D1DDF808E7
- for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 06:57:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D1DDF808E7
-Received: by mail-wr1-f67.google.com with SMTP id c2so18001935wrm.8
- for <alsa-devel@alsa-project.org>; Tue, 04 Jun 2019 21:57:05 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F346F808E7
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 10:31:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F346F808E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="i9sPC396"
+Received: by mail-wr1-x442.google.com with SMTP id f9so3791266wre.12
+ for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 01:31:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=OYOtyICLqyElpOBMvK8sf5u8hIXZLfqDtcEf0oFHn+M=;
+ b=i9sPC396sQApX0FetBF/xqpDWPii7WGxLnEoXTyiPO4YWr4RbsJqLQx/NTQ4GYaBS9
+ /seSi/+evHpl9mPiTRZfhvMSmt3fsNZz6etj2bM1du91T0nm9EgMS7QRQ+PKzz45hKVc
+ rmy3CtEtqJZn9SSBpvtkPunSF3rWb4B2n1miAVbCnd4D7sw0ANab/AHVb/YHpm7RTLUd
+ e5CZA+ROOAAN2Rx8Pbk9wJS6XnC1mtLmKzX1VEmmLyuaVpKHXgRO+eCibIYg3T2d5Vtc
+ 7wuVWYBl49v+lC7iE65GQR/TJz1vLCAai22OyOruqm30VnwH1CgXSPY+y4Op2Ftw8rb5
+ 3nlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=G3o44A9+gEGot8gIpQ6nWR7VSfa60cI0rlZugeFfA2Q=;
- b=aY5zwxDpYiBGE7U0exVe6uWJSYROSvsPbZV38mXLkFOuCVT12GDZLPjSsdRZjrRHwA
- VLhMUgby0IZwuoHLOyZqNZ6ZVskCG4zmMbSIZRdtRidKVyUEL7KMif303MjWqejJQqO/
- mw9O8lKYSmCQDqRNSzZtEOdn4MtjO7pE50ZDRekJk9PhZvpi8Boi8D9L6Q+qtIZlNenM
- DbYVeh41nsENl1+fzVzf3zjuwezCegF0WC5ypSkfzF4vVsLvgzdGupi3uHH5MjWx6rMn
- V8nMlAUN0uXrCZjmVtP2TLMjkBsZAyXNGPYH+vimpjNvx4bjxUNzxaUds5GVH7ux2T5K
- njHw==
-X-Gm-Message-State: APjAAAVpd8KE7xcUpUWseIn0DXqVY5asiu10+P/Y2gqOjUlNmLArMRas
- bMtOkpYKjRKgp4xuz8/qYUg=
-X-Google-Smtp-Source: APXvYqzeq5l8Pp91hKxBpPE99EvUCworMnHfjWhF4ZsmBZygB4zfnTzsh0R4Lh5nrmb1O+zSPa5t+A==
-X-Received: by 2002:adf:dd51:: with SMTP id u17mr9071452wrm.218.1559710624636; 
- Tue, 04 Jun 2019 21:57:04 -0700 (PDT)
-Received: from [192.168.1.49] (185-219-167-24-static.vivo.cz. [185.219.167.24])
- by smtp.gmail.com with ESMTPSA id y132sm29699531wmd.35.2019.06.04.21.57.03
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Tue, 04 Jun 2019 21:57:03 -0700 (PDT)
-To: Gen Zhang <blackgod016574@gmail.com>, broonie@kernel.org,
- lgirdwood@gmail.com, perex@perex.cz, wen.yang99@zte.com.cn
-References: <20190529015305.GA4700@zhanggen-UX430UQ>
-From: Jiri Slaby <jslaby@suse.cz>
-Openpgp: preference=signencrypt
-Autocrypt: addr=jslaby@suse.cz; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <7573d8ce-7160-39b1-8901-be9155c451a1@suse.cz>
-Date: Wed, 5 Jun 2019 06:57:02 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=OYOtyICLqyElpOBMvK8sf5u8hIXZLfqDtcEf0oFHn+M=;
+ b=g5vT77zSAKXkC/OQLFagjNntHIaeptZHiw8JKhmkmOglDLW0RkpXwO1M7ky8Q7fbuR
+ qoryY4u2CI62OLkECuTF8d3racGZQ2G7cywSN2VzzETWlqM9wyzXaiIOfWEnAumXVgbw
+ itW+3xOozeVv5TLyEcFZlcKM7akYMhhTsFWxEEbOdU6UjllV2ogewUtJjsum8pZ4AWyw
+ r2DM1TUtV6XH1ZaceTCT7KrHcMcmj520h6fsIkEjgQjGIjYP/rDnS//rw2vRMK+584a4
+ clP5jv7khdE6/OnVDiGyiuldXSgZOo6G4d4wiD9nBk/iJ/fnkbsXaV8ZdY+RCBLn+3Ml
+ MwEw==
+X-Gm-Message-State: APjAAAVYK1pNj2VZ3AmFV2V2MdnYUHNEsJ//iowCr3UjJS6vmjfV7qey
+ 5UDFDHdVHfbrm4ldoB6Ccvw=
+X-Google-Smtp-Source: APXvYqxEOIme15Xi7/9IcpKgAWqdBx9GyA0v+jTnUU+rvChfSatxYZjtVWMR1woo04IBEFFCG0MKpQ==
+X-Received: by 2002:a5d:4f8b:: with SMTP id d11mr8093347wru.264.1559723492580; 
+ Wed, 05 Jun 2019 01:31:32 -0700 (PDT)
+Received: from localhost (p2E5BEF36.dip0.t-ipconnect.de. [46.91.239.54])
+ by smtp.gmail.com with ESMTPSA id 197sm19703374wma.36.2019.06.05.01.31.31
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 05 Jun 2019 01:31:31 -0700 (PDT)
+Date: Wed, 5 Jun 2019 10:31:30 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <20190605083130.GC10944@ulmo>
+References: <20190604152019.16100-1-enric.balletbo@collabora.com>
+ <20190604152019.16100-3-enric.balletbo@collabora.com>
 MIME-Version: 1.0
-In-Reply-To: <20190529015305.GA4700@zhanggen-UX430UQ>
-Content-Language: en-GB
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] wcd9335: fix a incorrect use of kstrndup()
+In-Reply-To: <20190604152019.16100-3-enric.balletbo@collabora.com>
+User-Agent: Mutt/1.11.4 (2019-03-13)
+X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:50 +0200
+Cc: gwendal@chromium.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Vignesh R <vigneshr@ti.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Wolfram Sang <wsa@the-dreams.de>, linux-iio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Juergen Fitschen <jfi@ssv-embedded.de>,
+ alsa-devel@alsa-project.org, Stefan Agner <stefan@agner.ch>,
+ Sebastian Reichel <sre@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
+ linux-i2c@vger.kernel.org, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Guenter Roeck <groeck@chromium.org>, kernel@collabora.com, dtor@chromium.org,
+ Lars-Peter Clausen <lars@metafoo.de>, Jean Delvare <jdelvare@suse.de>,
+ Jacky Bai <ping.bai@nxp.com>, linux-rtc@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Sean Young <sean@mess.org>, Lee Jones <lee.jones@linaro.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ Shreesha Rajashekar <shreesha.rajashekar@broadcom.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Hans Verkuil <hans.verkuil@cisco.com>,
+ linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+ Ettore Chimenti <ek5.chimenti@gmail.com>, linux-pwm@vger.kernel.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-pm@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Jiri Kosina <jikos@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>,
+ Florian Fainelli <f.fainelli@gmail.com>, Dong Aisheng <aisheng.dong@nxp.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ajay Gupta <ajayg@nvidia.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Elie Morisse <syniurge@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Hartmut Knaack <knaack.h@gmx.de>,
+ Eddie James <eajames@linux.vnet.ibm.com>, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 02/10] mfd / platform: cros_ec: Move
+ cros-ec core driver out from MFD
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,42 +132,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============9163445621879607833=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29. 05. 19, 3:53, Gen Zhang wrote:
-> In wcd9335_codec_enable_dec(), 'widget_name' is allocated by kstrndup().
-> However, according to doc: "Note: Use kmemdup_nul() instead if the size
-> is known exactly."
 
-Except the size is not known exactly. It is at most 15, not 15. Right?
+--===============9163445621879607833==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="i7F3eY7HS/tUJxUd"
+Content-Disposition: inline
 
-> So we should use kmemdup_nul() here instead of
-> kstrndup().
-> 
-> Signed-off-by: Gen Zhang <blackgod016574@gmail.com>
+
+--i7F3eY7HS/tUJxUd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jun 04, 2019 at 05:20:11PM +0200, Enric Balletbo i Serra wrote:
+> Now, the ChromeOS EC core driver has nothing related to an MFD device, so
+> move that driver from the MFD subsystem to the platform/chrome subsystem.
+>=20
+> Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 > ---
-> diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-> index a04a7ce..85737fe 100644
-> --- a/sound/soc/codecs/wcd9335.c
-> +++ b/sound/soc/codecs/wcd9335.c
-> @@ -2734,7 +2734,7 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
->  	char *dec;
->  	u8 hpf_coff_freq;
->  
-> -	widget_name = kstrndup(w->name, 15, GFP_KERNEL);
-> +	widget_name = kmemdup_nul(w->name, 15, GFP_KERNEL);
->  	if (!widget_name)
->  		return -ENOMEM;
->  
+>=20
+>  drivers/extcon/Kconfig                     |  2 +-
+>  drivers/hid/Kconfig                        |  2 +-
+>  drivers/i2c/busses/Kconfig                 |  2 +-
+>  drivers/iio/common/cros_ec_sensors/Kconfig |  2 +-
+>  drivers/input/keyboard/Kconfig             |  2 +-
+>  drivers/media/platform/Kconfig             |  3 +--
+>  drivers/mfd/Kconfig                        | 14 +-------------
+>  drivers/mfd/Makefile                       |  2 --
+>  drivers/platform/chrome/Kconfig            | 21 +++++++++++++++++----
+>  drivers/platform/chrome/Makefile           |  1 +
+>  drivers/{mfd =3D> platform/chrome}/cros_ec.c |  0
+>  drivers/power/supply/Kconfig               |  2 +-
+>  drivers/pwm/Kconfig                        |  2 +-
+>  drivers/rtc/Kconfig                        |  2 +-
+>  sound/soc/qcom/Kconfig                     |  2 +-
+>  15 files changed, 29 insertions(+), 30 deletions(-)
+>  rename drivers/{mfd =3D> platform/chrome}/cros_ec.c (100%)
+[...]
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index dff5a93f7daa..99946e1bcc73 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -145,7 +145,7 @@ config PWM_CRC
+> =20
+>  config PWM_CROS_EC
+>  	tristate "ChromeOS EC PWM driver"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	help
+>  	  PWM driver for exposing a PWM attached to the ChromeOS Embedded
+>  	  Controller.
 
-thanks,
--- 
-js
-suse labs
+Acked-by: Thierry Reding <thierry.reding@gmail.com>
+
+--i7F3eY7HS/tUJxUd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAlz3feIACgkQ3SOs138+
+s6Gy8BAAkwnYWSW1eAUYvq+hgX/m5frnbMQpHfgHuzP1fIoXXZAIP2aZmQ8jzens
+bbiMtRR63rGaYjCMdalUKbxtH6ogZFHx+aiH/cZVHNr+rW198oW3/nGoWG05uVBq
+WH0mlDsfAQ3/sR1hcUUhvCiPh+oExShLhOYz8zTJKHIHwtSDt8ep0yIOKPVKwknW
+mIT7n2RFSSRvXaJ7RnuG61YPKk+BoJZ2X7BKkYKynAsBAQgyFSHOqOSLl6+JiNRZ
+6pKL0uxqbf/x7b0FxrbToI0h8KzTi6kzccBznW/wgs92Ta/rxHx//7NZmFlNMuIR
+c6nAIXY2msir5vVnflr2wn5tdzaQN35lWchGOEyiIiBgJntYAlR1AOPpdCSpkcUU
+6BBH6YfFfvsBmioBshMFiFM7gVYRMvE1FSPJjfqWXe4qjyTZN2Yi/oaD6FkB9HoW
+T8p9ORKVUKsRCt11RF1tt6AnpZoSXBYMZOaENDTIsS+PDyXdYJNLqPHWo6S1C5qh
+Mb8zCBwgoxRek4DUsvi5l4QFiJ/I28zrwDq5cyMqVn8IJCNfGezRIgLpvN4E6LHn
+tIWlBwUiVzsoCRy0OpQ5xPLn4H2ExNgVN+tc8P83kAmw9wPyo5agzN24dywWGvEI
+kDcf6Sw7cyd0yyR7XTjglPxQHb5t2UX/HHXEoSeXY7TBfGU1YgY=
+=oUZw
+-----END PGP SIGNATURE-----
+
+--i7F3eY7HS/tUJxUd--
+
+--===============9163445621879607833==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============9163445621879607833==--

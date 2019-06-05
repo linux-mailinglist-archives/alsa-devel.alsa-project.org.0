@@ -2,81 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2996D36176
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2019 18:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C95B23676F
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 00:26:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DA2F16A0;
-	Wed,  5 Jun 2019 18:37:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DA2F16A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5057F15E4;
+	Thu,  6 Jun 2019 00:25:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5057F15E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559752710;
-	bh=W9BMMVMWNnh/vknU9eUpiOvbGDs3P/iL1yzlT/q2Pa8=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559773590;
+	bh=stmadraBd6UETBnhlkSF8DdoS9h04GoXpauyPyo/W10=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LAOzoTXUJ017rNTGRn6y5x0AvhS9nRXJfi/fUPBwFD7VqGcsS/gRmKK58p2NF8m70
-	 hrfnmwaRk/r8CgxwohqDEMINCgpnmOcDWNyia9ZttBYZHs96zxObOIgFvjbleXvlPb
-	 7nCl/aNED5Vnw7Nd9ypoEsXeGRt/hhfWzjiFkIkU=
+	b=eD72wGmlERiYuK6DYE0x4anDvLAY8cC7TWI9fuXFcWW4W1jHFdzRkjDafnG+lq4JC
+	 qQp7z+SVPF/fVofwrEvwTpA59Z/3JRGzzFnhRyllrGslzqyVQGFCWhVnLL2cCqN3fw
+	 xXQ3MD+ycSsPvgy9222LowV/6/9GqRIiSpfKGyvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4CB2F896DE;
-	Wed,  5 Jun 2019 18:36:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93468F896CE;
+	Thu,  6 Jun 2019 00:24:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03E0BF896DD; Wed,  5 Jun 2019 18:36:42 +0200 (CEST)
+ id 7D159F896DD; Thu,  6 Jun 2019 00:24:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled
+ version=3.4.0
+Received: from mail-it1-x144.google.com (mail-it1-x144.google.com
+ [IPv6:2607:f8b0:4864:20::144])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09EEAF8072A
- for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 18:36:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09EEAF8072A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2019 09:36:31 -0700
-X-ExtLoop1: 1
-Received: from irsmsx103.ger.corp.intel.com ([163.33.3.157])
- by FMSMGA003.fm.intel.com with ESMTP; 05 Jun 2019 09:36:29 -0700
-Received: from irsmsx104.ger.corp.intel.com ([169.254.5.93]) by
- IRSMSX103.ger.corp.intel.com ([169.254.3.200]) with mapi id 14.03.0415.000;
- Wed, 5 Jun 2019 17:36:28 +0100
-From: "Rojewski, Cezary" <cezary.rojewski@intel.com>
-To: Maxime Ripard <maxime.ripard@bootlin.com>, Mark Brown
- <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Mark Rutland
- <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>, Frank Rowand
- <frowand.list@gmail.com>
-Thread-Topic: [alsa-devel] [PATCH v2] ASoC: sun4i-i2s: Change SR and WSS
- computation
-Thread-Index: AQHVG4bgmCHrbSha2Eu49nUgFR9xEaaNPoxA
-Date: Wed, 5 Jun 2019 16:36:28 +0000
-Message-ID: <3BD9CEE4EBD5E74B98FE2D277EB60E0B38FF8117@IRSMSX104.ger.corp.intel.com>
-References: <20190605100801.2488-1-maxime.ripard@bootlin.com>
-In-Reply-To: <20190605100801.2488-1-maxime.ripard@bootlin.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNmZlYTAwMjYtM2E5Mi00M2FjLTg4MDAtYzFlOTQ0NDcyN2E2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiTmdWQmRKSVVsVzVMaUMrVlwvNGhzNGJxbGRFc2d1bWZyOG5cL3Qrd2U5MXhWREN3aWM1c3krcndZd2lBVlBzeCsrIn0=
-dlp-product: dlpe-windows
-dlp-version: 11.0.600.7
-dlp-reaction: no-action
-x-originating-ip: [163.33.239.181]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F736F808E7
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 00:24:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F736F808E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="fwuqB6Ok"
+Received: by mail-it1-x144.google.com with SMTP id n189so116291itd.0
+ for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 15:24:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=eg/tHqhTtymCWtVp4klUI5heciNe2OPuOOg9xhW9fd4=;
+ b=fwuqB6OkAcQAzt2t1vqjNOoHH8r9rtwoZ/9qB2UzqNTmkPrfoxGvdHxCOd9fLWR5ee
+ jgBvK6Stp9bY+Fv8DAzdhvJIy2kYURn+aFJj7t9Xhx+uFGkQIpz1xS9ADd2GTLyWMrac
+ RxoRhHsXHEmSYQ3t5vbDQp9UwP8c1gq07g1ok=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=eg/tHqhTtymCWtVp4klUI5heciNe2OPuOOg9xhW9fd4=;
+ b=JrHbU3Y+cT7+nu87yq46a7UeveEJcjrJzpOh70GGPldWbQmeWRgnOxbNAoY2OxJ4UJ
+ 8p01t1ZYXqwD8eQJJlKlnK/uqoEBbbXmBD1ovOH4Ekm6M383z2ryJHqFl1/vIJGj3ezI
+ rdUwHTGID2g2v3/yC0Agum2i3SeBF2zimAJ8WI1+w/RXpEaJyQsmmSgl9gISgeay45rs
+ oJ6VZObWScQbMwUfPSld4B7iihwIXdf56Ys+tlUL7FPBvq7OSW8f27qn0D3o8pD6OugG
+ N36bUTV6Ev8zBkP2xYeMn0a6nNX9pNZ3O1iaqlck9WiZfN1Nfj14f9M0YHXseDMXf35c
+ 4QyQ==
+X-Gm-Message-State: APjAAAXPfqlI6LKOjgtZCU8JdJ9sL8UL3G+wogMmcuC3jPelv/Mmt3Mz
+ MKDzM96zKDezUQdwkKETr7HvKg==
+X-Google-Smtp-Source: APXvYqwCuMjfRwW0T7+YoLiD23jxJzgzcbIrrBRdF0nXe44r2Q3l+hqztUJKPTWw6dKjNh8lIRKXsw==
+X-Received: by 2002:a24:7f0d:: with SMTP id r13mr26288230itc.28.1559773479042; 
+ Wed, 05 Jun 2019 15:24:39 -0700 (PDT)
+Received: from localhost ([2620:15c:183:200:33ce:f5cf:f863:d3a6])
+ by smtp.gmail.com with ESMTPSA id n13sm17120ioa.28.2019.06.05.15.24.37
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 05 Jun 2019 15:24:38 -0700 (PDT)
+From: Fletcher Woodruff <fletcherw@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Wed,  5 Jun 2019 16:24:15 -0600
+Message-Id: <20190605222419.54479-1-fletcherw@chromium.org>
+X-Mailer: git-send-email 2.22.0.rc1.311.g5d7573a151-goog
+In-Reply-To: <20190507220115.90395-1-fletcherw@chromium.org>
+References: <20190507220115.90395-1-fletcherw@chromium.org>
 MIME-Version: 1.0
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Chen-Yu Tsai <wens@csie.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Marcus Cooper <codekipper@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: sun4i-i2s: Change SR and
-	WSS	computation
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>,
+ Fletcher Woodruff <fletcherw@chromium.org>,
+ Curtis Malainey <cujomalainey@chromium.org>
+Subject: [alsa-devel] [PATCH v6 0/4] Fix jack detection for Chromebook Pixel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,253 +101,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->From: Alsa-devel [mailto:alsa-devel-bounces@alsa-project.org] On Behalf Of
->Maxime Ripard
->Sent: Wednesday, June 5, 2019 12:08 PM
->To: Mark Brown <broonie@kernel.org>; Liam Girdwood
-><lgirdwood@gmail.com>; Mark Rutland <mark.rutland@arm.com>; Rob
->Herring <robh+dt@kernel.org>; Frank Rowand <frowand.list@gmail.com>
->Cc: devicetree@vger.kernel.org; alsa-devel@alsa-project.org; Maxime Ripard
-><maxime.ripard@bootlin.com>; Marcus Cooper <codekipper@gmail.com>;
->Chen-Yu Tsai <wens@csie.org>; linux-arm-kernel@lists.infradead.org
->Subject: [alsa-devel] [PATCH v2] ASoC: sun4i-i2s: Change SR and WSS
->computation
->
->The current computation for the SR (sample resolution) and the WSS (word
->slot size) register parameters is based on a switch returning the matching
->parameters for a given params width.
->
->Later SoCs (A83t, H3, A64) changed that calculation, which was loosely the
->same with an offset. Therefore, an offset was added to adjust those
->parameters.
->
->However, the calculation is a bit less trivial than initially thought.
->Indeed, while we assumed that SR and WSS were always the same, on older
->SoCs, SR will max at 24 (since those SoCs do not support 32 bits formats),
->but the word size can be 32.
->
->Newer SoCs can also support a much larger range (8 bits to 32 bits, by
->increments of 4) of size than the older SoCs could.
->
->Finally, the A64 and A83t were never adjusted to have that offset in the
->first place, and were therefore broken from that point of view.
->
->In order to fix all those issues, let's introduce two functions, get_wss
->and get_sr, with their respective implementations for all the SoCs
->supported so far.
->
->Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
->Fixes: 66ecce332538 ("ASoC: sun4i-i2s: Add compatibility with A64 codec I2S")
->Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
->
->---
->
->Changes from v1:
->  - Declare the structure sun4i_i2s to fix compilation errors
->---
-> sound/soc/sunxi/sun4i-i2s.c | 71 ++++++++++++++++++++++++++++---------
-> 1 file changed, 55 insertions(+), 16 deletions(-)
->
->diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
->index c53bfed8d4c2..78d44dbc6373 100644
->--- a/sound/soc/sunxi/sun4i-i2s.c
->+++ b/sound/soc/sunxi/sun4i-i2s.c
->@@ -114,6 +114,8 @@
-> #define SUN8I_I2S_RX_CHAN_SEL_REG	0x54
-> #define SUN8I_I2S_RX_CHAN_MAP_REG	0x58
->
->+struct sun4i_i2s;
->+
-> /**
->  * struct sun4i_i2s_quirks - Differences between SoC variants.
->  *
->@@ -127,7 +129,6 @@
->  * @sun4i_i2s_regmap: regmap config to use.
->  * @mclk_offset: Value by which mclkdiv needs to be adjusted.
->  * @bclk_offset: Value by which bclkdiv needs to be adjusted.
->- * @fmt_offset: Value by which wss and sr needs to be adjusted.
->  * @field_clkdiv_mclk_en: regmap field to enable mclk output.
->  * @field_fmt_wss: regmap field to set word select size.
->  * @field_fmt_sr: regmap field to set sample resolution.
->@@ -150,7 +151,6 @@ struct sun4i_i2s_quirks {
-> 	const struct regmap_config	*sun4i_i2s_regmap;
-> 	unsigned int			mclk_offset;
-> 	unsigned int			bclk_offset;
->-	unsigned int			fmt_offset;
->
-> 	/* Register fields for i2s */
-> 	struct reg_field		field_clkdiv_mclk_en;
->@@ -163,6 +163,9 @@ struct sun4i_i2s_quirks {
-> 	struct reg_field		field_rxchanmap;
-> 	struct reg_field		field_txchansel;
-> 	struct reg_field		field_rxchansel;
->+
->+	s8	(*get_sr)(const struct sun4i_i2s *, int);
->+	s8	(*get_wss)(const struct sun4i_i2s *, int);
-> };
->
-> struct sun4i_i2s {
->@@ -345,6 +348,39 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai
->*dai,
-> 	return 0;
-> }
->
->+static s8 sun4i_i2s_get_sr(const struct sun4i_i2s *i2s, int width)
->+{
->+	if (width < 16 || width > 24)
->+		return -EINVAL;
->+
->+	if (width % 4)
->+		return -EINVAL;
->+
->+	return (width - 16) / 4;
->+}
->+
->+static s8 sun4i_i2s_get_wss(const struct sun4i_i2s *i2s, int width)
->+{
->+	if (width < 16 || width > 32)
->+		return -EINVAL;
->+
->+	if (width % 4)
->+		return -EINVAL;
->+
->+	return (width - 16) / 4;
->+}
->+
->+static s8 sun8i_i2s_get_sr_wss(const struct sun4i_i2s *i2s, int width)
->+{
->+	if (width % 4)
->+		return -EINVAL;
->+
+Headphone/mic jack detection doesn't work on the Chromebook Pixel 2015.
 
-In the two above you start with boundary check before mod yet in this one the order is reversed.
-Keeping the same order should prove more cohesive.
+This patch changes the irq implementation to support polarity flipping
+and fixes the configuration code so that correct GPIO pins are read
+from ACPI.
 
->+	if (width < 8 || width > 32)
->+		return -EINVAL;
->+
->+	return (width - 8) / 4 + 1;
->+}
->+
+With this series, plugging and unplugging the headphone jack switches
+between headphones and speakers automatically, and headset microphones 
+are also detected.
 
-Other, probably less welcome suggestion is introduction of unified function which ones listed here would simply invoke.
-All of these "computations" differ in fact only in: min and max boundary. The +1 for _sr_wss is negligible, you can append it on return.
+v6:
+  - Move refactoring into its own patch
+  - Reorder patches so that DT property names patch is first
+  - Clarify commit message for patch which implements irq handler
+  - Remove unused work struct 
+  - Make IRQ function return IRQ_HANDLED only if IRQs actually fire
 
-> static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
-> 			       struct snd_pcm_hw_params *params,
-> 			       struct snd_soc_dai *dai)
->@@ -396,22 +432,16 @@ static int sun4i_i2s_hw_params(struct
->snd_pcm_substream *substream,
-> 	}
-> 	i2s->playback_dma_data.addr_width = width;
->
->-	switch (params_width(params)) {
->-	case 16:
->-		sr = 0;
->-		wss = 0;
->-		break;
->+	sr = i2s->variant->get_sr(i2s, params_width(params));
->+	if (sr < 0)
->+		return -EINVAL;
->
->-	default:
->-		dev_err(dai->dev, "Unsupported sample width: %d\n",
->-			params_width(params));
->+	wss = i2s->variant->get_wss(i2s, params_width(params));
->+	if (wss < 0)
-> 		return -EINVAL;
->-	}
->
->-	regmap_field_write(i2s->field_fmt_wss,
->-			   wss + i2s->variant->fmt_offset);
->-	regmap_field_write(i2s->field_fmt_sr,
->-			   sr + i2s->variant->fmt_offset);
->+	regmap_field_write(i2s->field_fmt_wss, wss);
->+	regmap_field_write(i2s->field_fmt_sr, sr);
->
-> 	return sun4i_i2s_set_clk_rate(dai, params_rate(params),
-> 				      params_width(params));
->@@ -887,6 +917,8 @@ static const struct sun4i_i2s_quirks
->sun4i_a10_i2s_quirks = {
-> 	.field_rxchanmap	=
->REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
-> 	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG,
->0, 2),
-> 	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG,
->0, 2),
->+	.get_sr			= sun4i_i2s_get_sr,
->+	.get_wss		= sun4i_i2s_get_wss,
-> };
->
-> static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
->@@ -904,6 +936,8 @@ static const struct sun4i_i2s_quirks
->sun6i_a31_i2s_quirks = {
-> 	.field_rxchanmap	=
->REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
-> 	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG,
->0, 2),
-> 	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG,
->0, 2),
->+	.get_sr			= sun4i_i2s_get_sr,
->+	.get_wss		= sun4i_i2s_get_wss,
-> };
->
-> static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
->@@ -921,6 +955,8 @@ static const struct sun4i_i2s_quirks
->sun8i_a83t_i2s_quirks = {
-> 	.field_rxchanmap	=
->REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
-> 	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG,
->0, 2),
-> 	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG,
->0, 2),
->+	.get_sr			= sun8i_i2s_get_sr_wss,
->+	.get_wss		= sun8i_i2s_get_sr_wss,
-> };
->
-> static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
->@@ -929,7 +965,6 @@ static const struct sun4i_i2s_quirks
->sun8i_h3_i2s_quirks = {
-> 	.sun4i_i2s_regmap	= &sun8i_i2s_regmap_config,
-> 	.mclk_offset		= 1,
-> 	.bclk_offset		= 2,
->-	.fmt_offset		= 3,
-> 	.has_fmt_set_lrck_period = true,
-> 	.has_chcfg		= true,
-> 	.has_chsel_tx_chen	= true,
->@@ -944,6 +979,8 @@ static const struct sun4i_i2s_quirks
->sun8i_h3_i2s_quirks = {
-> 	.field_rxchanmap	=
->REG_FIELD(SUN8I_I2S_RX_CHAN_MAP_REG, 0, 31),
-> 	.field_txchansel	= REG_FIELD(SUN8I_I2S_TX_CHAN_SEL_REG,
->0, 2),
-> 	.field_rxchansel	= REG_FIELD(SUN8I_I2S_RX_CHAN_SEL_REG,
->0, 2),
->+	.get_sr			= sun8i_i2s_get_sr_wss,
->+	.get_wss		= sun8i_i2s_get_sr_wss,
-> };
->
-> static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
->@@ -961,6 +998,8 @@ static const struct sun4i_i2s_quirks
->sun50i_a64_codec_i2s_quirks = {
-> 	.field_rxchanmap	=
->REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
-> 	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG,
->0, 2),
-> 	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG,
->0, 2),
->+	.get_sr			= sun8i_i2s_get_sr_wss,
->+	.get_wss		= sun8i_i2s_get_sr_wss,
-> };
->
-> static int sun4i_i2s_init_regmap_fields(struct device *dev,
->--
->2.21.0
->
->_______________________________________________
->Alsa-devel mailing list
->Alsa-devel@alsa-project.org
->https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+v5:
+  - Fix void* parameter to devm_request_threaded_irq
+
+v4:
+  - Fix incorrect void* cast in rt5677_irq() 
+
+v3:
+  - Update commit message for patch 1/3 to clarify why we implement
+    our own irq_chip.
+
+v2:
+  - Split IRQ change into two patches: adding and fixing potential race
+  - Change config reading code to try both DT and ACPI style names
+
+Ben Zhang (2):
+  ASoC: rt5677: clear interrupts by polarity flip
+  ASoC: rt5677: handle concurrent interrupts
+
+Fletcher Woodruff (2):
+  ASoC: rt5677: fall back to DT prop names on error
+  ASoC: rt5677: move jack-detect init to i2c probe
+
+ sound/soc/codecs/rt5677.c | 317 ++++++++++++++++++++++++++------------
+ sound/soc/codecs/rt5677.h |  13 +-
+ 2 files changed, 234 insertions(+), 96 deletions(-)
+
+-- 
+2.22.0.rc1.311.g5d7573a151-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

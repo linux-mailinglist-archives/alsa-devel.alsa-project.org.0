@@ -2,91 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5893736776
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 00:29:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02A7A367B3
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 01:11:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E503A165D;
-	Thu,  6 Jun 2019 00:28:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E503A165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8239E950;
+	Thu,  6 Jun 2019 01:10:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8239E950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559773747;
-	bh=clYNjGyaWUM4PP1OvYNB3m0h6ObqYRcqNJ5YCsVBd0g=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1559776290;
+	bh=Ryl6wBC+gFEpUObWn/m8IUVer6OvRCC01HFRe+06EmI=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gcbyt0VEdOtociZOxbm+MtgZYoGdMj8Zj2ZqWYLg4qr2KeK9llqucJylhWzRqisfC
-	 uJLWMmFcptZcKl/+SX1PRnUFf9P2cVxCVNc57ZX4WvNFdeID8N1SJP5uKxWZCnfBUP
-	 lJhy2IrUGaydgskqWOPA2HmjOQVzGxAO1aVWNN7I=
+	b=jm99VtFvLXEX0MAk/vDsDZ/hDotohYLygYbuCCbzvY1JmFLprZ1XKkwQObCI5y+BA
+	 lyvHstUK+m5dtlsdqBBva1UNQWJCOSi7m/J2FzcMBUtvs851zD14FmYng5PE4FDhTI
+	 ENmUjA3TeWhGR0cnBL4Sg99DTPy933k/Froo0saU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71457F89743;
-	Thu,  6 Jun 2019 00:25:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 075E1F896DD;
+	Thu,  6 Jun 2019 01:09:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2D48F8973B; Thu,  6 Jun 2019 00:25:00 +0200 (CEST)
+ id 795ECF896DD; Thu,  6 Jun 2019 01:09:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ T_DKIMWL_WL_MED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
+Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
+ [IPv6:2a00:1450:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A337F8971C
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 00:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A337F8971C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 005A1F8072A
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 01:09:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 005A1F8072A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="PH7N9pU/"
-Received: by mail-io1-xd44.google.com with SMTP id k13so267901iop.5
- for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 15:24:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=ENEfQXnBKgsiB2d36L6+P4CJJ9i3migBmA1QXIq3dJc=;
- b=PH7N9pU/PcBPixEKjGT9dOemu7GSJnSM5tyYxvbdDhRJejXacgwteNTBAACtytrbZP
- weVzwsXbz/aCam4SwCAzGMilMDQnThHw0SaOYdk8yU11bL11E1rJPMz91S58rggIkF5j
- oaoYF+qjcdjYhWtebt8cZhNeV4F7XrOYpnaNE=
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="duSQ1cQk"
+Received: by mail-ed1-x543.google.com with SMTP id f20so318547edt.12
+ for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 16:09:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=D6Mx78yMtykv03eQKD/IYBoJNslQF4P/LwqmHAh1Lo4=;
+ b=duSQ1cQkuFKG8VjGEjG4fMu2hnQsRKZ9YhXxc3S2Ew7MGMLbpOMxOkcH90V+n4T6u9
+ p6qDLfvaxdm5tWLYG5zgp9raT3k6L5AxIzpXnMb5R5jfsbfjDmaXiF1xR21Nmlms9cdJ
+ PD70/jRAiKHWNc9jh0SC5Lxffcxh2If0QU6K4xtoXRRT/Sf6TuuzNHKclcFLGMm6CLgO
+ pw2XseKXCDPQUw08MAo7N+NkPGgObRdEFo5hz7OQyYKjXnBW3j8UtZXFcAd4F42y/Sax
+ wk9KdMJ6CNs++0w9pOwZS68CC9CzCpR2MLXSzWuUcPZIOAMSga0AgL0DWw+msA5YkNlH
+ tKeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=ENEfQXnBKgsiB2d36L6+P4CJJ9i3migBmA1QXIq3dJc=;
- b=psBzQWvQr42ZbAwrB2cocHzjYkf2IAZs6UdOxDr85lzGavzXAzueUbKGKt/J55ZrAi
- vnrZRIgR0NBa3UgBSTsUKh+AAh+H3YHW8aUFq7KVUGKeY0/uVx5wdTYcvbfL6fOaXAgy
- AInU/PHplPIKXbXsLNyxssgw2f1GpBvOaLGIde3lsx0Z6UZiPCEaP1TBTyL75CdwVIeO
- drUZOhkJ3kO+els5+PbOcCONo1FrJhQQc14T6dvr0Nl+N3MILao1dSkKYujk7kozWvDd
- 8L+pNYb0aoaYlU/tZPYKDa/gnKdwWVYsPO/MZzM/BinjScQwV/sOFFKJwGmxTZaM9cgk
- JqEw==
-X-Gm-Message-State: APjAAAUA2ltifNCAr5/flkHGOrPv0sFxkjH4syULpnFR5QhUOcam7P1P
- EMe3TV9wPJtVaWB8B0YBx8G5+g==
-X-Google-Smtp-Source: APXvYqwRcLhms5KzGFYcR9J+QtVNHLs9QmL3/RVh5ejTxlCMOAxyTHOOr/FR6F0PlBk41XT1AnPjsg==
-X-Received: by 2002:a6b:b602:: with SMTP id g2mr12815416iof.54.1559773496152; 
- Wed, 05 Jun 2019 15:24:56 -0700 (PDT)
-Received: from localhost ([2620:15c:183:200:33ce:f5cf:f863:d3a6])
- by smtp.gmail.com with ESMTPSA id e3sm81783ith.18.2019.06.05.15.24.55
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 05 Jun 2019 15:24:55 -0700 (PDT)
-From: Fletcher Woodruff <fletcherw@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Wed,  5 Jun 2019 16:24:19 -0600
-Message-Id: <20190605222419.54479-5-fletcherw@chromium.org>
-X-Mailer: git-send-email 2.22.0.rc1.311.g5d7573a151-goog
-In-Reply-To: <20190605222419.54479-1-fletcherw@chromium.org>
-References: <20190507220115.90395-1-fletcherw@chromium.org>
- <20190605222419.54479-1-fletcherw@chromium.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D6Mx78yMtykv03eQKD/IYBoJNslQF4P/LwqmHAh1Lo4=;
+ b=b5KTLDhnDcnQ7qRal6wcfa6+/9/DU+2Mm5pR94xQr9ep0b/8GUM7YqX2VREkZwSw+b
+ CuQQSckEq043e7ebFu7w7nf3wT4JPzrbFSpXbX8OkjvF0p1teeDn1YewRiNVRQ+Yg/zl
+ 700S4lVsnY7wGRloAJMvLCRcDRArA/hQSc3BuoauPVJsHh+sfrN2xnDnD9avZgSGhPAJ
+ GIN1Xi/dwXvplVWzrRtjpbKwystW3BzqtlQGPoTe75fXStLNTNLFg+Lm9JhKJxmLmaee
+ 40K3fTHQIhRAEmfCHkkGRc4g4wKmhw/T5jvk+ERS2EbDwBOVz0DdlYepcTWG95aJXipd
+ O2TQ==
+X-Gm-Message-State: APjAAAVJME+PONT8WjhFxHNXjlbCGoH3VOQbyl00CrYLBUnqqOi16zQp
+ 8/2k0hYCB3K7M+ihiK2yYhIQbBFDVPWWPw/uyICx6Q==
+X-Google-Smtp-Source: APXvYqxGoyPA2EeAPtBwGw1qGilkiP0J+TpzZR1AbYUpDc8W/GWZWVtOxjqCfSKXcTlYNy5McBOnZF09bU/BBCn9KLQ=
+X-Received: by 2002:aa7:d4cc:: with SMTP id t12mr13942343edr.257.1559776179425; 
+ Wed, 05 Jun 2019 16:09:39 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+References: <20190604104909.112984-1-yuhsuan@chromium.org>
+ <5de28b91-2d87-f013-3438-8708160db63d@linux.intel.com>
+In-Reply-To: <5de28b91-2d87-f013-3438-8708160db63d@linux.intel.com>
+From: Yu-hsuan Hsu <yuhsuan@google.com>
+Date: Thu, 6 Jun 2019 07:09:28 +0800
+Message-ID: <CAEy1m_DNbqsMTODHm+o-+-1J-+tbfXJgnNJ_=jBkkx6YWQUdGg@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Ross Zwisler <zwisler@chromium.org>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Fletcher Woodruff <fletcherw@chromium.org>
-Subject: [alsa-devel] [PATCH v6 4/4] ASoC: rt5677: handle concurrent
-	interrupts
+ Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ dgreid@chromium.org, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
+ cychiang@chromium.org
+Subject: Re: [alsa-devel] [PATCH v4] ASoC: max98090: remove 24-bit format
+ support if RJ is 0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,112 +102,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ben Zhang <benzh@chromium.org>
+Thanks!
+How about adding a new condition to check whether tdm_slots is 0?
+If true, we can remove 24 bit format. Is it acceptable?
 
-The rt5677 driver writes to the IRQ control register within the IRQ
-handler in order to flip the polarity of the interrupts that have been
-signalled.  If an interrupt fires in the interval between the
-regmap_read and the regmap_write, it will not trigger a new call to
-rt5677_irq.
+On Tue, Jun 4, 2019 at 10:48 PM Pierre-Louis Bossart <
+pierre-louis.bossart@linux.intel.com> wrote:
 
-Add a bounded loop to rt5677_irq that keeps checking interrupts until
-none are seen, so that any interrupts that are signalled in that
-interval are correctly handled.
-
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Fletcher Woodruff <fletcherw@chromium.org>
----
- sound/soc/codecs/rt5677.c | 67 ++++++++++++++++++++++++---------------
- 1 file changed, 42 insertions(+), 25 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 86555d7ec9ea8d..7f7e60aceb49d3 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -5071,38 +5071,55 @@ static const struct rt5677_irq_desc rt5677_irq_descs[] = {
- static irqreturn_t rt5677_irq(int unused, void *data)
- {
- 	struct rt5677_priv *rt5677 = data;
--	int ret = 0, i, reg_irq, virq;
-+	int ret = 0, loop, i, reg_irq, virq;
- 	bool irq_fired = false;
- 
- 	mutex_lock(&rt5677->irq_lock);
--	/* Read interrupt status */
--	ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
--	if (ret) {
--		pr_err("rt5677: failed reading IRQ status: %d\n", ret);
--		goto exit;
--	}
- 
--	for (i = 0; i < RT5677_IRQ_NUM; i++) {
--		if (reg_irq & rt5677_irq_descs[i].status_mask) {
--			irq_fired = true;
--			virq = irq_find_mapping(rt5677->domain, i);
--			if (virq)
--				handle_nested_irq(virq);
--
--			/* Clear the interrupt by flipping the polarity of the
--			 * interrupt source line that fired
--			 */
--			reg_irq ^= rt5677_irq_descs[i].polarity_mask;
-+	/*
-+	 * Loop to handle interrupts until the last i2c read shows no pending
-+	 * irqs. The interrupt line is shared by multiple interrupt sources.
-+	 * After the regmap_read() below, a new interrupt source line may
-+	 * become high before the regmap_write() finishes, so there isn't a
-+	 * rising edge on the shared interrupt line for the new interrupt. Thus,
-+	 * the loop is needed to avoid missing irqs.
-+	 *
-+	 * A safeguard of 20 loops is used to avoid hanging in the irq handler
-+	 * if there is something wrong with the interrupt status update. The
-+	 * interrupt sources here are audio jack plug/unplug events which
-+	 * shouldn't happen at a high frequency for a long period of time.
-+	 * Empirically, more than 3 loops have never been seen.
-+	 */
-+	for (loop = 0; loop < 20; loop++) {
-+		/* Read interrupt status */
-+		ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
-+		if (ret) {
-+			pr_err("rt5677: failed reading IRQ status: %d\n", ret);
-+			goto exit;
- 		}
--	}
- 
--	if (!irq_fired)
--		goto exit;
-+		irq_fired = false;
-+		for (i = 0; i < RT5677_IRQ_NUM; i++) {
-+			if (reg_irq & rt5677_irq_descs[i].status_mask) {
-+				irq_fired = true;
-+				virq = irq_find_mapping(rt5677->domain, i);
-+				if (virq)
-+					handle_nested_irq(virq);
-+
-+				/* Clear the interrupt by flipping the polarity
-+				 * of the interrupt source line that fired
-+				 */
-+				reg_irq ^= rt5677_irq_descs[i].polarity_mask;
-+			}
-+		}
-+		if (!irq_fired)
-+			goto exit;
- 
--	ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
--	if (ret) {
--		pr_err("rt5677: failed updating IRQ status: %d\n", ret);
--		goto exit;
-+		ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
-+		if (ret) {
-+			pr_err("rt5677: failed updating IRQ status: %d\n", ret);
-+			goto exit;
-+		}
- 	}
- exit:
- 	mutex_unlock(&rt5677->irq_lock);
--- 
-2.22.0.rc1.311.g5d7573a151-goog
-
+> On 6/4/19 5:49 AM, Yu-Hsuan Hsu wrote:
+> > The supported formats are S16_LE and S24_LE now. However, by datasheet
+> > of max98090, S24_LE is only supported when it is in the right justified
+> > mode. We should remove 24-bit format if it is not in that mode to avoid
+> > triggering error.
+> >
+> > Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+> > ---
+> >   Remove Change-Id.
+> >
+> >   sound/soc/codecs/max98090.c | 16 ++++++++++++++++
+> >   1 file changed, 16 insertions(+)
+> >
+> > diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+> > index 7619ea31ab50..ada8c25e643d 100644
+> > --- a/sound/soc/codecs/max98090.c
+> > +++ b/sound/soc/codecs/max98090.c
+> > @@ -1909,6 +1909,21 @@ static int max98090_configure_dmic(struct
+> max98090_priv *max98090,
+> >       return 0;
+> >   }
+> >
+> > +static int max98090_dai_startup(struct snd_pcm_substream *substream,
+> > +                             struct snd_soc_dai *dai)
+> > +{
+> > +     struct snd_soc_component *component = dai->component;
+> > +     struct max98090_priv *max98090 =
+> snd_soc_component_get_drvdata(component);
+> > +     unsigned int fmt = max98090->dai_fmt;
+> > +
+> > +     /* Remove 24-bit format support if it is not in right justified
+> mode. */
+> > +     if ((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_RIGHT_J) {
+> > +             substream->runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
+> > +             snd_pcm_hw_constraint_msbits(substream->runtime, 0, 16,
+> 16);
+> > +     }
+> > +     return 0;
+> > +}
+>
+> The data sheet is ambiguous, it states that 24-bit data is supported in
+> RJ mode when TDM is 0. It doesn't say TDM can only support 16 bits.
+>
+> That said, it's not clear to me if TDM is supported or not in this
+> driver, there are multiple references to tdm_slots but DSP_A and DSP_B
+> are not supported.
+>
+> > +
+> >   static int max98090_dai_hw_params(struct snd_pcm_substream *substream,
+> >                                  struct snd_pcm_hw_params *params,
+> >                                  struct snd_soc_dai *dai)
+> > @@ -2316,6 +2331,7 @@ EXPORT_SYMBOL_GPL(max98090_mic_detect);
+> >   #define MAX98090_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |
+> SNDRV_PCM_FMTBIT_S24_LE)
+> >
+> >   static const struct snd_soc_dai_ops max98090_dai_ops = {
+> > +     .startup = max98090_dai_startup,
+> >       .set_sysclk = max98090_dai_set_sysclk,
+> >       .set_fmt = max98090_dai_set_fmt,
+> >       .set_tdm_slot = max98090_set_tdm_slot,
+> >
+>
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

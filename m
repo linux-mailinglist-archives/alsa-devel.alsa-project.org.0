@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89CDC35E3F
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2019 15:48:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1D9035E55
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2019 15:50:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F766166E;
-	Wed,  5 Jun 2019 15:48:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F766166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B77D166E;
+	Wed,  5 Jun 2019 15:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B77D166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559742533;
-	bh=Y/ejzInhJg7YVGqYlfAaaM97CDtaJlRVKOvxTOgsjx0=;
+	s=default; t=1559742611;
+	bh=4oIs3JMO2NLj6r4RUX2vU1RhpWuOj89cboTUOBIaqfI=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bP3D30sqHAwfaETuYEIUni3lB/60XcxrEMHKjUvvbwaKnpeMoOrRxjSTnG81RAb24
-	 7UD4SzevVFpMej6J31KMAJI5CabBA7LEC1/hFagmWIjVsf4irI7ICuNHNbm2dHE0eP
-	 NL3if3pwcc4mO+CUJB6oHOHn+dRZlVOAO89cRHz8=
+	b=r5xX4sZT5sMI6Z/BafK7UcNMGDZnwmdcp8o+5i8LFxrLjUngnA5Y9sz2WuQYJCubQ
+	 lzBXwX/t3+fsDbAnoy0hrsx+dUOAmXcqAhcTLjMmXGfQVJoLAK5QuniCgqVn7zxNWj
+	 tgKmRD+HZS/LbHX5Kkj7huL/XSYijz8Vjh995lz8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32340F8974F;
-	Wed,  5 Jun 2019 15:42:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF28BF8975D;
+	Wed,  5 Jun 2019 15:42:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 251F8F89751; Wed,  5 Jun 2019 15:42:43 +0200 (CEST)
+ id A4F05F8975A; Wed,  5 Jun 2019 15:42:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD6F8F8974D
- for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 15:42:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD6F8F8974D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80734F89750
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 15:42:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80734F89750
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Jun 2019 06:42:39 -0700
+ 05 Jun 2019 06:42:41 -0700
 X-ExtLoop1: 1
 Received: from xxx.igk.intel.com ([10.237.93.170])
- by orsmga004.jf.intel.com with ESMTP; 05 Jun 2019 06:42:36 -0700
+ by orsmga004.jf.intel.com with ESMTP; 05 Jun 2019 06:42:39 -0700
 From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed,  5 Jun 2019 15:45:50 +0200
-Message-Id: <20190605134556.10322-9-amadeuszx.slawinski@linux.intel.com>
+Date: Wed,  5 Jun 2019 15:45:51 +0200
+Message-Id: <20190605134556.10322-10-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190605134556.10322-1-amadeuszx.slawinski@linux.intel.com>
 References: <20190605134556.10322-1-amadeuszx.slawinski@linux.intel.com>
@@ -59,8 +59,8 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
  <amadeuszx.slawinski@linux.intel.com>
-Subject: [alsa-devel] [PATCH 08/14] ASoC: Intel: Skylake: Properly cleanup
-	on component removal
+Subject: [alsa-devel] [PATCH 09/14] ASoC: Intel: Skylake: Fix NULL ptr
+	dereference when unloading clk dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,65 +78,37 @@ Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-V2hlbiB3ZSByZW1vdmUgY29tcG9uZW50IHdlIG5lZWQgdG8gcmV2ZXJzZSB0aGluZ3Mgd2hpY2gg
-d2VyZSBkb25lIG9uCmluaXQsIHRoaXMgY29uc2lzdHMgb2YgdG9wb2xvZ3kgY2xlYW51cCwgbGlz
-dHMgY2xlYW51cCBhbmQgcmVsZWFzaW5nCmZpcm13YXJlLgoKQ3VycmVudGx5IGNsZWFudXAgaGFu
-ZGxlcnMgYXJlIHB1dCBpbiB3cm9uZyBwbGFjZXMgb3Igb3RoZXJ3aXNlIG1pc3NpbmcuClNvIGFk
-ZCBwcm9wZXIgY29tcG9uZW50IGNsZWFudXAgZnVuY3Rpb24gYW5kIHBlcmZvcm0gY2xlYW51cHMg
-aW4gaXQuCgpTaWduZWQtb2ZmLWJ5OiBBbWFkZXVzeiBTxYJhd2nFhHNraSA8YW1hZGV1c3p4LnNs
-YXdpbnNraUBsaW51eC5pbnRlbC5jb20+Ci0tLQogc291bmQvc29jL2ludGVsL3NreWxha2Uvc2ts
-LXBjbS5jICAgICAgfCAgOCArKysrKystLQogc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXRv
-cG9sb2d5LmMgfCAxNSArKysrKysrKysrKysrKysKIHNvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3Nr
-bC10b3BvbG9neS5oIHwgIDIgKysKIHNvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC5jICAgICAg
-ICAgIHwgIDIgLS0KIDQgZmlsZXMgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtcGNtLmMgYi9z
-b3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtcGNtLmMKaW5kZXggNDQwNjI4MDZmYmVkLi43ZTgx
-MTBjMTUyNTggMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC1wY20uYwor
-KysgYi9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtcGNtLmMKQEAgLTE0NTksOCArMTQ1OSwx
-MiBAQCBzdGF0aWMgaW50IHNrbF9wbGF0Zm9ybV9zb2NfcHJvYmUoc3RydWN0IHNuZF9zb2NfY29t
-cG9uZW50ICpjb21wb25lbnQpCiAKIHN0YXRpYyB2b2lkIHNrbF9wY21fcmVtb3ZlKHN0cnVjdCBz
-bmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQogewotCS8qIHJlbW92ZSB0b3BvbG9neSAqLwot
-CXNuZF9zb2NfdHBsZ19jb21wb25lbnRfcmVtb3ZlKGNvbXBvbmVudCwgU05EX1NPQ19UUExHX0lO
-REVYX0FMTCk7CisJc3RydWN0IGhkYWNfYnVzICpidXMgPSBkZXZfZ2V0X2RydmRhdGEoY29tcG9u
-ZW50LT5kZXYpOworCXN0cnVjdCBza2wgKnNrbCA9IGJ1c190b19za2woYnVzKTsKKworCXNrbF90
-cGxnX2V4aXQoY29tcG9uZW50LCBidXMpOworCisJc2tsX2RlYnVnZnNfZXhpdChza2wpOwogfQog
-CiBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfY29tcG9uZW50X2RyaXZlciBza2xfY29tcG9u
-ZW50ICA9IHsKZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC10b3BvbG9n
-eS5jIGIvc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXRvcG9sb2d5LmMKaW5kZXggNDRmM2Iy
-OWE3MjEwLi4zOTY0MjYyMTA5YWMgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtl
-L3NrbC10b3BvbG9neS5jCisrKyBiL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC10b3BvbG9n
-eS5jCkBAIC0zNzQ4LDMgKzM3NDgsMTggQEAgaW50IHNrbF90cGxnX2luaXQoc3RydWN0IHNuZF9z
-b2NfY29tcG9uZW50ICpjb21wb25lbnQsIHN0cnVjdCBoZGFjX2J1cyAqYnVzKQogCiAJcmV0dXJu
-IDA7CiB9CisKK3ZvaWQgc2tsX3RwbGdfZXhpdChzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNv
-bXBvbmVudCwgc3RydWN0IGhkYWNfYnVzICpidXMpCit7CisJc3RydWN0IHNrbCAqc2tsID0gYnVz
-X3RvX3NrbChidXMpOworCXN0cnVjdCBza2xfcGlwZWxpbmUgKnBwbCwgKnRtcDsKKworCWlmICgh
-bGlzdF9lbXB0eSgmc2tsLT5wcGxfbGlzdCkpCisJCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShw
-cGwsIHRtcCwgJnNrbC0+cHBsX2xpc3QsIG5vZGUpCisJCQlsaXN0X2RlbCgmcHBsLT5ub2RlKTsK
-KworCS8qIGNsZWFuIHVwIHRvcG9sb2d5ICovCisJc25kX3NvY190cGxnX2NvbXBvbmVudF9yZW1v
-dmUoY29tcG9uZW50LCBTTkRfU09DX1RQTEdfSU5ERVhfQUxMKTsKKworCXJlbGVhc2VfZmlybXdh
-cmUoc2tsLT50cGxnKTsKK30KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3Nr
-bC10b3BvbG9neS5oIGIvc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXRvcG9sb2d5LmgKaW5k
-ZXggODIyODJjYWM5NzUxLi43ZDMyYzYxYzczZTcgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9pbnRl
-bC9za3lsYWtlL3NrbC10b3BvbG9neS5oCisrKyBiL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3Nr
-bC10b3BvbG9neS5oCkBAIC00NzEsNiArNDcxLDggQEAgdm9pZCBza2xfdHBsZ19zZXRfYmVfZG1p
-Y19jb25maWcoc3RydWN0IHNuZF9zb2NfZGFpICpkYWksCiAJc3RydWN0IHNrbF9waXBlX3BhcmFt
-cyAqcGFyYW1zLCBpbnQgc3RyZWFtKTsKIGludCBza2xfdHBsZ19pbml0KHN0cnVjdCBzbmRfc29j
-X2NvbXBvbmVudCAqY29tcG9uZW50LAogCQkJCXN0cnVjdCBoZGFjX2J1cyAqZWJ1cyk7Cit2b2lk
-IHNrbF90cGxnX2V4aXQoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsCisJCQkJ
-c3RydWN0IGhkYWNfYnVzICpidXMpOwogc3RydWN0IHNrbF9tb2R1bGVfY2ZnICpza2xfdHBsZ19m
-ZV9nZXRfY3ByX21vZHVsZSgKIAkJc3RydWN0IHNuZF9zb2NfZGFpICpkYWksIGludCBzdHJlYW0p
-OwogaW50IHNrbF90cGxnX3VwZGF0ZV9waXBlX3BhcmFtcyhzdHJ1Y3QgZGV2aWNlICpkZXYsCmRp
-ZmYgLS1naXQgYS9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wuYyBiL3NvdW5kL3NvYy9pbnRl
-bC9za3lsYWtlL3NrbC5jCmluZGV4IDZkNjQwMTQxMDI1MC4uZTQ4ODFmZjQyN2VhIDEwMDY0NAot
-LS0gYS9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wuYworKysgYi9zb3VuZC9zb2MvaW50ZWwv
-c2t5bGFrZS9za2wuYwpAQCAtMTExOSwxNCArMTExOSwxMiBAQCBzdGF0aWMgdm9pZCBza2xfcmVt
-b3ZlKHN0cnVjdCBwY2lfZGV2ICpwY2kpCiAJc3RydWN0IHNrbCAqc2tsID0gYnVzX3RvX3NrbChi
-dXMpOwogCiAJY2FuY2VsX3dvcmtfc3luYygmc2tsLT5wcm9iZV93b3JrKTsKLQlyZWxlYXNlX2Zp
-cm13YXJlKHNrbC0+dHBsZyk7CiAKIAlwbV9ydW50aW1lX2dldF9ub3Jlc3VtZSgmcGNpLT5kZXYp
-OwogCiAJLyogY29kZWMgcmVtb3ZhbCwgaW52b2tlIGJ1c19kZXZpY2VfcmVtb3ZlICovCiAJc25k
-X2hkYWNfZXh0X2J1c19kZXZpY2VfcmVtb3ZlKGJ1cyk7CiAKLQlza2wtPmRlYnVnZnMgPSBOVUxM
-OwogCXNrbF9wbGF0Zm9ybV91bnJlZ2lzdGVyKCZwY2ktPmRldik7CiAJc2tsX2ZyZWVfZHNwKHNr
-bCk7CiAJc2tsX21hY2hpbmVfZGV2aWNlX3VucmVnaXN0ZXIoc2tsKTsKLS0gCjIuMTcuMQoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBt
-YWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5h
-bHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+V2hlbiBkcml2ZXIgaXMgcHJvYmVkLCB3ZSBpdGVyYXRlIG92ZXIgTkhMVCBhbmQgY2hlY2sgaWYg
+Y2xrIGVudHJpZXMgYXJlCnByZXNlbnQuIEZvciBlYWNoIHN1Y2ggZW50cnkgd2UgY2FsbCByZWdp
+c3Rlcl9za2xfY2xrIGFuZCBrZWVwIHRoZQpyZXN1bHQgaW4gZGF0YS0+Y2xrW10uCkN1cnJlbnRs
+eSBkYXRhLT5jbGsgaXMgc3BhcnNlbHkgaW5kZXhlZCB1c2luZyBOSExUIHRhYmxlIGl0ZXJhdG9y
+LCB3aGlsZQp3aGVuIGZyZWVpbmcgd2UgdXNlIG51bWJlciBvZiByZWdpc3RlcmVkIGVudHJpZXMu
+IExldCdzIGp1c3QgdXNlCmRhdGEtPmF2YWlsX2Nsa19jbnQgYXMgaW5kZXgsIHNvIGl0IGNhbiBi
+ZSByZXNldCBiYWNrIGluCnVucmVnaXN0ZXJfc3JjX2Nsay4KClNpZ25lZC1vZmYtYnk6IEFtYWRl
+dXN6IFPFgmF3acWEc2tpIDxhbWFkZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbT4KLS0t
+CiBzb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtc3NwLWNsay5jIHwgMTYgKysrKysrKy0tLS0t
+LS0tLQogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtc3NwLWNsay5jIGIvc291bmQv
+c29jL2ludGVsL3NreWxha2Uvc2tsLXNzcC1jbGsuYwppbmRleCBjZGExYjVmYTc0MzYuLjViYjZl
+NDBkNGQzZSAxMDA2NDQKLS0tIGEvc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXNzcC1jbGsu
+YworKysgYi9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtc3NwLWNsay5jCkBAIC0yNzYsMTAg
+KzI3Niw4IEBAIHN0YXRpYyB2b2lkIHVucmVnaXN0ZXJfcGFyZW50X3NyY19jbGsoc3RydWN0IHNr
+bF9jbGtfcGFyZW50ICpwY2xrLAogCiBzdGF0aWMgdm9pZCB1bnJlZ2lzdGVyX3NyY19jbGsoc3Ry
+dWN0IHNrbF9jbGtfZGF0YSAqZGNsaykKIHsKLQl1OCBjbnQgPSBkY2xrLT5hdmFpbF9jbGtfY250
+OwotCi0Jd2hpbGUgKGNudC0tKQotCQljbGtkZXZfZHJvcChkY2xrLT5jbGtbY250XS0+bG9va3Vw
+KTsKKwl3aGlsZSAoZGNsay0+YXZhaWxfY2xrX2NudC0tKQorCQljbGtkZXZfZHJvcChkY2xrLT5j
+bGtbZGNsay0+YXZhaWxfY2xrX2NudF0tPmxvb2t1cCk7CiB9CiAKIHN0YXRpYyBpbnQgc2tsX3Jl
+Z2lzdGVyX3BhcmVudF9jbGtzKHN0cnVjdCBkZXZpY2UgKmRldiwKQEAgLTM4MSwxMyArMzc5LDEz
+IEBAIHN0YXRpYyBpbnQgc2tsX2Nsa19kZXZfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAq
+cGRldikKIAkJaWYgKGNsa3NbaV0ucmF0ZV9jZmdbMF0ucmF0ZSA9PSAwKQogCQkJY29udGludWU7
+CiAKLQkJZGF0YS0+Y2xrW2ldID0gcmVnaXN0ZXJfc2tsX2NsayhkZXYsICZjbGtzW2ldLCBjbGtf
+cGRhdGEsIGkpOwotCQlpZiAoSVNfRVJSKGRhdGEtPmNsa1tpXSkpIHsKLQkJCXJldCA9IFBUUl9F
+UlIoZGF0YS0+Y2xrW2ldKTsKKwkJZGF0YS0+Y2xrW2RhdGEtPmF2YWlsX2Nsa19jbnRdID0gcmVn
+aXN0ZXJfc2tsX2NsayhkZXYsCisJCQkJJmNsa3NbaV0sIGNsa19wZGF0YSwgaSk7CisKKwkJaWYg
+KElTX0VSUihkYXRhLT5jbGtbZGF0YS0+YXZhaWxfY2xrX2NudF0pKSB7CisJCQlyZXQgPSBQVFJf
+RVJSKGRhdGEtPmNsa1tkYXRhLT5hdmFpbF9jbGtfY250KytdKTsKIAkJCWdvdG8gZXJyX3VucmVn
+X3NrbF9jbGs7CiAJCX0KLQotCQlkYXRhLT5hdmFpbF9jbGtfY250Kys7CiAJfQogCiAJcGxhdGZv
+cm1fc2V0X2RydmRhdGEocGRldiwgZGF0YSk7Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFs
+c2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

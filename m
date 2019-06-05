@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2AE33A0C6
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:51:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EBD03A0B7
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:45:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 491341616;
-	Sat,  8 Jun 2019 18:50:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 491341616
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC6B9167D;
+	Sat,  8 Jun 2019 18:44:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC6B9167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560012689;
-	bh=fftuieQ6Rv6PQKMSnXVd+7c8qIgQdll+Tjv3eNTbwHU=;
+	s=default; t=1560012340;
+	bh=R+bVBDoIHlwXdz99918ez/sSrXgVQyHrn0ePA/4C1Sk=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e3HD2Nv3LcVDK0ImLzZXD5HeSklSAoklvn4Ey5ttJxwiYl3k63iz7U+aNg0LFK95W
-	 HYr+lC2hy+VknuXLrEIBDwKjSDvu9OY28v7R8W9MtHtKU93Ob/WWkxuwgjG5Z8L9jm
-	 gQh/qPYuPmFl/CudRBPqZeXGagtjw0slf9lCeSjQ=
+	b=vNAGUl5ty/0xhS+XHtllFZnX0SZicuYrAx0LIJwwD+hDsyeDu5K5tKsMOvwLVmY6U
+	 3oBY7G++mj/8941cOanpYlsJzpVMja4cQskuikU8SAzGmWpz3jCN8g3AvYwdMAXR6Q
+	 16g1OTFjh+39O0YY14OcvauBdinX1Rb3hDrPbbyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BEEFF89779;
-	Sat,  8 Jun 2019 18:40:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2058F8974D;
+	Sat,  8 Jun 2019 18:40:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84CBCF896DB; Wed,  5 Jun 2019 16:23:52 +0200 (CEST)
+ id 66FCEF896DB; Wed,  5 Jun 2019 16:26:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF27DF808E7
- for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 16:23:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF27DF808E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7087F8072A
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 16:26:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7087F8072A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="D5RrwRxA"
-Received: by mail-wr1-x441.google.com with SMTP id x4so19689192wrt.6
- for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 07:23:49 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="AekuQ7Te"
+Received: by mail-wr1-x443.google.com with SMTP id p11so14858415wre.7
+ for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 07:26:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=subject:to:cc:references:from:openpgp:autocrypt:organization
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=1Mp6jYLst8Yk0lz/HyNQES05v+vlvG2xa0p/5swn9cM=;
- b=D5RrwRxA75SYHjaPRUNyCT9HA3i/Avv2thLP865YDJ3PKf0uYxNEbLwzKQZgRGBrHQ
- lKt9H0wiDc9+JCJDjTlOIrLAuQ9UrFJAC6pGmJRr+3WbyF/jEwgaft8oxA1IU9Ze4VTA
- A8UQoqnQpK9l/xKV5cfDG512YbsdYSnAdtJO9tJ4wc7SGc7ELsNH00R8mW5r7ghwPqDH
- jZELZ0ks44oHLM5CRyF9iSqx0rSGViYCLYeVQ56fRmfk2BBM0IrP1/TGKQeFa9XfZapb
- AutwGlrHD5w695tHdyJq1QraWki9AoTr3j7QTAd1NbeOI9dPM3foVPGTmXxA2nZpUnrY
- plGQ==
+ bh=Bs+tzef5D9LsAaEUKxOI16OSgzvoEEZ28efFCeNQDyg=;
+ b=AekuQ7TelbxpyxkUVaQL1mo/Jz3B3kFc6SB94xlJidg0qBETRYuoFvfTQbpddgiER9
+ BOkpUOD+pYfobI+oosehosQ+7HK7h0kM3LSe1VHM7M+zBBNCz1Q0ze0Kveo3mbCFAtGl
+ xcm/lCgWkWF+wnTx9hk0djex4IITvRoMQiA8/qnbiJSl4rE1Is1he/M6Yq2RR1tfB9nw
+ F8Ps7j/ErOyzxXaUK1q3y7t9EQruZkagN9LbFJ8JrmylDkqe+L1vuzvqySCxUkorKXdh
+ 3eAKtmuwe4Vw0k0bVvgYDlPXWyUT7e5BcWD8xuKzFi0qZX5KBMgwCr0GGZxnx224Iieo
+ W/Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
  :organization:message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=1Mp6jYLst8Yk0lz/HyNQES05v+vlvG2xa0p/5swn9cM=;
- b=rgA/YWC+/H0p0+5oYjmGQ4yIT5nvkT6Ud61n7zjt2y/SHz6+4xiYkaoERMOop3hRhU
- JgZe8obEIj/fUCGnfn9p9Pg64I/tFRr4hRk+hH56NaDwJgmejaNp1TKI1sRssH0Q8HO4
- QaXVzJcGihHdWjqS76fkkB5cjW2Tp2ahV8x5l8KXJpiEGzvBewo1qiP6+jDQMRqMxdFR
- bFzsoVvtvL8UGSa1Ozol67DwsiEBuzf+8Ycs/m2+blZ1Yb9A7CbDhZ2WcavhIrFz2MAp
- J2FyrMK8Qzf8jB/D5p3dk8xj19CTSKwVIKJMb4EBDzueGydvRgtMIC88tKVPxQ8Vikdx
- 9M+w==
-X-Gm-Message-State: APjAAAUqIcHblh5ZWXUb1IdWtDo4uw3ysK+FyhUK80L+MBFahrIZYQJi
- gDVJcYXrPFySugYopyE5K1YAJA==
-X-Google-Smtp-Source: APXvYqzmWbsvJk4mydBIYtwaPiVo9+Nb9vk5Rc9bEz6Byx4QeMcoIr2tarqjeqT9FTihYCZzch1XRg==
-X-Received: by 2002:a5d:5542:: with SMTP id g2mr11188711wrw.232.1559744628857; 
- Wed, 05 Jun 2019 07:23:48 -0700 (PDT)
+ bh=Bs+tzef5D9LsAaEUKxOI16OSgzvoEEZ28efFCeNQDyg=;
+ b=GG2dzDDXNZAbH1yeThfekTmt05UrQs52LZQITM8nJ82herwZoqDEvAZ3eOkvg2M4kF
+ 9tWOoJkcPioMscjckWRCofCEuQCbIQ/UGtpRPCnbDMoASND5LyJb3GyuDP+Fc3YRW8GD
+ 7xSrrdtIWUwkmdSvNFESl/eQnFVWqR5K2PIyY2Xm2KjYvde0TD/7CCWXrI0G/j8fxjZB
+ dDoZeonY908Tm/FjOCPYdEOxiob/dYy6ZUyQFJgWs1VWNJDeH7xody6iPYdGyUM2cxmx
+ ToYYLctmsSkjNjWeo75vUSOLFMJqxH3xyn4yZdhtGzxqfcgUUNZHmorsVv6P9hgz74JY
+ JcFQ==
+X-Gm-Message-State: APjAAAUwFZbwuOJipY1lftSTzOs8fBhsqdp96BCW7dURW+SYh3nr0vdb
+ ZySRcSQWxHEZsCltWXzDTyEkVg==
+X-Google-Smtp-Source: APXvYqwnNsmI8DAgrs9Y/2ugZHRMHhGYeAIvoMNeCngZoSw/6mAsAmnoYC8X1pd+TGthPq4tRXMHvA==
+X-Received: by 2002:a5d:610e:: with SMTP id v14mr26142418wrt.343.1559744812814; 
+ Wed, 05 Jun 2019 07:26:52 -0700 (PDT)
 Received: from [10.1.2.12] (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
  [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id y12sm18027744wrh.40.2019.06.05.07.23.46
+ by smtp.gmail.com with ESMTPSA id v63sm1961072wmb.30.2019.06.05.07.26.42
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 05 Jun 2019 07:23:48 -0700 (PDT)
+ Wed, 05 Jun 2019 07:26:52 -0700 (PDT)
 To: Enric Balletbo i Serra <enric.balletbo@collabora.com>,
  linux-kernel@vger.kernel.org
 References: <20190604152019.16100-1-enric.balletbo@collabora.com>
- <20190604152019.16100-3-enric.balletbo@collabora.com>
+ <20190604152019.16100-7-enric.balletbo@collabora.com>
 From: Neil Armstrong <narmstrong@baylibre.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
@@ -132,49 +132,41 @@ Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  VsbXrP9BZ6snXyHfebPnno/te5XRqZTL9aJOytB/1iUna+1MAwBxGFPvqeEUUyT+gx1l3Acl
  ZaTUOEkgIor5losDrePdPgE=
 Organization: Baylibre
-Message-ID: <cd3d87d2-46eb-2f4f-283b-d984c2cdc2bf@baylibre.com>
-Date: Wed, 5 Jun 2019 16:23:46 +0200
+Message-ID: <9054d7c4-883b-b9b5-4c94-02b8d627c337@baylibre.com>
+Date: Wed, 5 Jun 2019 16:26:11 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <20190604152019.16100-3-enric.balletbo@collabora.com>
+In-Reply-To: <20190604152019.16100-7-enric.balletbo@collabora.com>
 Content-Language: en-US
 X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:50 +0200
-Cc: gwendal@chromium.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Vignesh R <vigneshr@ti.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Wolfram Sang <wsa@the-dreams.de>, linux-iio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Juergen Fitschen <jfi@ssv-embedded.de>,
- alsa-devel@alsa-project.org, Stefan Agner <stefan@agner.ch>,
- Douglas Anderson <dianders@chromium.org>,
- Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
- linux-i2c@vger.kernel.org, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
- Guenter Roeck <groeck@chromium.org>, kernel@collabora.com, dtor@chromium.org,
- Lars-Peter Clausen <lars@metafoo.de>, Jean Delvare <jdelvare@suse.de>,
- Jacky Bai <ping.bai@nxp.com>, linux-rtc@vger.kernel.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Sean Young <sean@mess.org>, Lee Jones <lee.jones@linaro.org>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Shreesha Rajashekar <shreesha.rajashekar@broadcom.com>,
+Cc: gwendal@chromium.org, Heiko Stuebner <heiko@sntech.de>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-iio@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>, linux-i2c@vger.kernel.org,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Guenter Roeck <groeck@chromium.org>,
+ Ravi Chandra Sadineni <ravisadineni@chromium.org>, kernel@collabora.com,
+ Fabien Lahoudere <fabien.lahoudere@collabora.com>,
+ Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, linux-rtc@vger.kernel.org,
+ Lars-Peter Clausen <lars@metafoo.de>, dtor@chromium.org,
+ Brian Norris <briannorris@chromium.org>, Evan Green <evgreen@chromium.org>,
  Chanwoo Choi <cw00.choi@samsung.com>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Hans Verkuil <hans.verkuil@cisco.com>, linux-input@vger.kernel.org,
- Elie Morisse <syniurge@gmail.com>, linux-media@vger.kernel.org,
- Ettore Chimenti <ek5.chimenti@gmail.com>, linux-pwm@vger.kernel.org,
- Sakari Ailus <sakari.ailus@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ Wolfram Sang <wsa@the-dreams.de>, linux-input@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pwm@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, alsa-devel@alsa-project.org,
  linux-pm@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Jiri Kosina <jikos@kernel.org>, Marco Felsch <m.felsch@pengutronix.de>,
- Florian Fainelli <f.fainelli@gmail.com>, Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
- Dong Aisheng <aisheng.dong@nxp.com>, Alessandro Zummo <a.zummo@towertech.it>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ajay Gupta <ajayg@nvidia.com>,
+ Jiri Kosina <jikos@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Lee Jones <lee.jones@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Benson Leung <bleung@chromium.org>, Alessandro Zummo <a.zummo@towertech.it>,
  Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Sebastian Reichel <sre@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Hartmut Knaack <knaack.h@gmx.de>,
- Eddie James <eajames@linux.vnet.ibm.com>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 02/10] mfd / platform: cros_ec: Move
- cros-ec core driver out from MFD
+ Hartmut Knaack <knaack.h@gmx.de>, Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Colin Ian King <colin.king@canonical.com>, Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 06/10] mfd / platform: cros_ec: Reorganize
+ platform and mfd includes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -193,32 +185,75 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On 04/06/2019 17:20, Enric Balletbo i Serra wrote:
-> Now, the ChromeOS EC core driver has nothing related to an MFD device, so
-> move that driver from the MFD subsystem to the platform/chrome subsystem.
+> There is a bit of mess between cros-ec mfd includes and platform
+> includes. For example, we have a linux/mfd/cros_ec.h include that
+> exports the interface implemented in platform/chrome/cros_ec_proto.c. Or
+> we have a linux/mfd/cros_ec_commands.h file that is non related to the
+> multifunction device (in the sense that is not exporting any function of
+> the mfd device). This causes crossed includes between mfd and
+> platform/chrome subsystems and makes the code difficult to read, apart
+> from creating 'curious' situations where a platform/chrome driver includes
+> a linux/mfd/cros_ec.h file just to get the exported functions that are
+> implemented in another platform/chrome driver.
+> 
+> In order to have a better separation on what the cros-ec multifunction
+> driver does and what the cros-ec core provides move and rework the
+> affected includes doing:
+> 
+>  - Move cros_ec_commands.h to include/linux/platform_data/cros_ec_commands.h
+>  - Get rid of the parts that are implemented in the platform/chrome/cros_ec_proto.c
+>    driver from include/linux/mfd/cros_ec.h to a new file
+>    include/linux/platform_data/cros_ec_proto.h
+>  - Update all the drivers with the new includes, so
+>    - Drivers that only need to know about the protocol include
+>      - linux/platform_data/cros_ec_proto.h
+>      - linux/platform_data/cros_ec_commands.h
+>    - Drivers that need to know about the cros-ec mfd device also include
+>      - linux/mfd/cros_ec.h
 > 
 > Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
 > ---
 > 
->  drivers/extcon/Kconfig                     |  2 +-
->  drivers/hid/Kconfig                        |  2 +-
->  drivers/i2c/busses/Kconfig                 |  2 +-
->  drivers/iio/common/cros_ec_sensors/Kconfig |  2 +-
->  drivers/input/keyboard/Kconfig             |  2 +-
->  drivers/media/platform/Kconfig             |  3 +--
->  drivers/mfd/Kconfig                        | 14 +-------------
->  drivers/mfd/Makefile                       |  2 --
->  drivers/platform/chrome/Kconfig            | 21 +++++++++++++++++----
->  drivers/platform/chrome/Makefile           |  1 +
->  drivers/{mfd => platform/chrome}/cros_ec.c |  0
->  drivers/power/supply/Kconfig               |  2 +-
->  drivers/pwm/Kconfig                        |  2 +-
->  drivers/rtc/Kconfig                        |  2 +-
->  sound/soc/qcom/Kconfig                     |  2 +-
->  15 files changed, 29 insertions(+), 30 deletions(-)
->  rename drivers/{mfd => platform/chrome}/cros_ec.c (100%)
+>  drivers/extcon/extcon-usbc-cros-ec.c          |   3 +-
+>  drivers/hid/hid-google-hammer.c               |   4 +-
+>  drivers/i2c/busses/i2c-cros-ec-tunnel.c       |   4 +-
+>  drivers/iio/accel/cros_ec_accel_legacy.c      |   3 +-
+>  .../common/cros_ec_sensors/cros_ec_sensors.c  |   3 +-
+>  .../cros_ec_sensors/cros_ec_sensors_core.c    |   3 +-
+>  drivers/iio/light/cros_ec_light_prox.c        |   3 +-
+>  drivers/iio/pressure/cros_ec_baro.c           |   3 +-
+>  drivers/input/keyboard/cros_ec_keyb.c         |   4 +-
+>  .../media/platform/cros-ec-cec/cros-ec-cec.c  |   4 +-
+>  drivers/mfd/cros_ec_dev.c                     |   3 +-
+>  drivers/platform/chrome/cros_ec.c             |   3 +-
+>  drivers/platform/chrome/cros_ec_chardev.c     |   4 +-
+>  drivers/platform/chrome/cros_ec_debugfs.c     |   3 +-
+>  drivers/platform/chrome/cros_ec_i2c.c         |   4 +-
+>  drivers/platform/chrome/cros_ec_lightbar.c    |   3 +-
+>  drivers/platform/chrome/cros_ec_lpc.c         |   4 +-
+>  drivers/platform/chrome/cros_ec_lpc_reg.c     |   4 +-
+>  drivers/platform/chrome/cros_ec_proto.c       |   3 +-
+>  drivers/platform/chrome/cros_ec_rpmsg.c       |   4 +-
+>  drivers/platform/chrome/cros_ec_spi.c         |   4 +-
+>  drivers/platform/chrome/cros_ec_sysfs.c       |   3 +-
+>  drivers/platform/chrome/cros_ec_trace.c       |   2 +-
+>  drivers/platform/chrome/cros_ec_trace.h       |   4 +-
+>  drivers/platform/chrome/cros_ec_vbc.c         |   3 +-
+>  drivers/platform/chrome/cros_usbpd_logger.c   |   5 +-
+>  drivers/power/supply/cros_usbpd-charger.c     |   5 +-
+>  drivers/pwm/pwm-cros-ec.c                     |   4 +-
+>  drivers/rtc/rtc-cros-ec.c                     |   3 +-
+>  .../linux/iio/common/cros_ec_sensors_core.h   |   3 +-
+>  include/linux/mfd/cros_ec.h                   | 306 -----------------
+>  .../{mfd => platform_data}/cros_ec_commands.h |   0
+>  include/linux/platform_data/cros_ec_proto.h   | 315 ++++++++++++++++++
+>  sound/soc/codecs/cros_ec_codec.c              |   4 +-
+>  34 files changed, 379 insertions(+), 351 deletions(-)
+>  rename include/linux/{mfd => platform_data}/cros_ec_commands.h (100%)
+>  create mode 100644 include/linux/platform_data/cros_ec_proto.h
 > 
 
-Acked-by: Neil Armstrong <narmstrong@baylibre.com> # for the cros-cec part
+Acked-by: Neil Armstrong <narmstrong@baylibre.com> # for the cros-ec-cec part
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,84 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D95C835A5D
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2019 12:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 084A635A73
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Jun 2019 12:31:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5BABA1665;
-	Wed,  5 Jun 2019 12:18:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BABA1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 805F71665;
+	Wed,  5 Jun 2019 12:30:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 805F71665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559729973;
-	bh=RXBVCu6b9EqUa8E0CakGrtw44kyNhLuuW8FUOuMxP6s=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GKdnnzTQrLqgQwsSn8ZDtLzxyiLB3JveVoRJ++icccoAZX0Pg1o2h4OkDy2KApWob
-	 Yv8HZfN8GW6jnFishT9K+xrhoDeQYl6+S0A0GR0OoYpG1gdQEWrRYutdNbmo2Nymuo
-	 8qX5gsxbYKUlxYGA1GNG0F8NYpVrMjYtb2FvuWEI=
+	s=default; t=1559730692;
+	bh=9sBiVNKkZj+pcl28rlS+++rVer7/799J9mEXExACp3k=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SqIai9ZN4SFbuwiqPzHvTyLxaQbiE1FX5MQU7W/CZylX/vwvwH+jDoF1TDRszQ2N0
+	 TqlQZ2z3RPSn/+ztT7FW6jx0iwXwRRf6uHe86LRK7nJ/CVG0K7iEjLU7w4tZuxjEAB
+	 et0BGOHzok6sM7aRKcaDCmBYIex5bv2h3UNLSuNU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA479F896ED;
-	Wed,  5 Jun 2019 12:17:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E41D5F896ED;
+	Wed,  5 Jun 2019 12:29:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9544F896DD; Wed,  5 Jun 2019 12:17:46 +0200 (CEST)
+ id CEC81F896DD; Wed,  5 Jun 2019 12:29:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-eopbgr60075.outbound.protection.outlook.com [40.107.6.75])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1083F808E7
- for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 12:17:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1083F808E7
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x559xQaX032740; Wed, 5 Jun 2019 05:17:41 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0a-001ae601.pphosted.com with ESMTP id 2sups14rba-1;
- Wed, 05 Jun 2019 05:17:41 -0500
-Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
- by mail1.cirrus.com (Postfix) with ESMTP id B4464611C8B4;
- Wed,  5 Jun 2019 05:17:40 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 5 Jun
- 2019 11:17:40 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Wed, 5 Jun 2019 11:17:40 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 12A112A1;
- Wed,  5 Jun 2019 11:17:40 +0100 (BST)
-Date: Wed, 5 Jun 2019 11:17:40 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Message-ID: <20190605101740.GN28362@ediswmail.ad.cirrus.com>
-References: <20190528154312.14435-1-ckeepax@opensource.cirrus.com>
- <20190528154312.14435-3-ckeepax@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E5F8F8072A
+ for <alsa-devel@alsa-project.org>; Wed,  5 Jun 2019 12:29:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E5F8F8072A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="nwkC+QF6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=93zaW02zuIjpnvTLQWsbo123yZtcIUuZGTGSXVRFxSs=;
+ b=nwkC+QF6UuZDlA7RENtn7ZNzQUqYgSKT5XFuiMN+TIF9SFISsKtHSrjummyh91sCTjIaTNy8KhBKbnz7Wh00mkuJgDWMlo0jtlZKoBO2F6WVgteTqg1LxwzsBKoBptF5Bz5GAVr+JYk0OFnVet7+6upaTB5xaJy2JMMkQpna4mY=
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.233.80) by
+ VE1PR04MB6448.eurprd04.prod.outlook.com (20.179.232.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1965.12; Wed, 5 Jun 2019 10:29:37 +0000
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::a5b5:13f5:f89c:9a30]) by VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::a5b5:13f5:f89c:9a30%7]) with mapi id 15.20.1943.018; Wed, 5 Jun 2019
+ 10:29:37 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>, "broonie@kernel.org"
+ <broonie@kernel.org>
+Thread-Topic: [PATCH] ASoC: fsl_esai: fix the channel swap issue after xrun
+Thread-Index: AdUbiN9oFE5912rCR4S4j98+QHq3YA==
+Date: Wed, 5 Jun 2019 10:29:37 +0000
+Message-ID: <VE1PR04MB6479D7512EDE1217228033CAE3160@VE1PR04MB6479.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-originating-ip: [119.31.174.66]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: fb2a07fc-8f8d-41d9-1519-08d6e9a0b5e4
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:VE1PR04MB6448; 
+x-ms-traffictypediagnostic: VE1PR04MB6448:
+x-microsoft-antispam-prvs: <VE1PR04MB6448106546CC88F90CEEFEE8E3160@VE1PR04MB6448.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 00594E8DBA
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(136003)(39860400002)(396003)(366004)(346002)(376002)(199004)(189003)(53936002)(110136005)(54906003)(6246003)(25786009)(316002)(52536014)(478600001)(5660300002)(14454004)(4326008)(7696005)(68736007)(2501003)(66066001)(33656002)(9686003)(55016002)(3846002)(6116002)(229853002)(186003)(2906002)(71190400001)(256004)(71200400001)(6506007)(66446008)(99286004)(8936002)(102836004)(66556008)(64756008)(73956011)(66946007)(26005)(86362001)(486006)(476003)(66476007)(74316002)(76116006)(6436002)(8676002)(305945005)(81166006)(81156014)(7736002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6448;
+ H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: Nd5VNJAsdiAZAun34cLpBHKiidakPYTTVH+fUcBaaCwRZ+328ICws/ANXPLJACEkYV8V0UwVKGHHdjBKaZWlvzK+7vZSwggt01c8Ootlf2v6GxaEFO0dRI//DzVr7c2BT6lvNEGi9WFjW58tbjxM2m2P1HJXNf1pQcvY24jAXz7IVNn6nmxbfn02WoqqN0HoYRzKrMJgGM2OsjknalPsjIPVTDXtTdTj2GnSITuktIUlho4WarxJrfBPDVPlyasRfsPVI8zzEuzYk+Kns4MGYdPMaRikEzOuG7Dn0Sfc75vYrhDO9PskTFzICHN1JJ0KAGAcULANvjBWlcBRP8Q5ba2DWcurLaCH25J/YRSzlHg/spFkQSjoI9i+Gclw6TDhDkmRzR0se7smXlGJLdqHYSqiSJnK4cCUYHeH2OeOV4A=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190528154312.14435-3-ckeepax@opensource.cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=821 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1906050063
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, rafael@kernel.org, gregkh@linuxfoundation.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, patches@opensource.cirrus.com,
- lee.jones@linaro.org
-Subject: Re: [alsa-devel] [PATCH v2 3/6] ASoC: madera: Add common support
- for Cirrus Logic Madera codecs
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb2a07fc-8f8d-41d9-1519-08d6e9a0b5e4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jun 2019 10:29:37.4157 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: shengjiu.wang@nxp.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6448
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "timur@kernel.org" <timur@kernel.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_esai: fix the channel swap issue
+	after xrun
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,34 +118,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, May 28, 2019 at 04:43:09PM +0100, Charles Keepax wrote:
-> From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Hi
+> > > > > Sounds like a bug to me...should fix it first by marking the
+> > > > > data registers as volatile.
+> > > > >
+> > > > The ETDR is a writable register, it is not volatile. Even we
+> > > > change it to Volatile, I don't think we can't avoid this issue.
+> > > > for the regcache_sync Just to write this register, it is correct behavior.
+> > >
+> > > Is that so? Quoting the comments of regcache_sync():
+> > > "* regcache_sync - Sync the register cache with the hardware.
+> > >  *
+> > >  * @map: map to configure.
+> > >  *
+> > >  * Any registers that should not be synced should be marked as
+> > >  * volatile."
+> > >
+> > > If regcache_sync() does sync volatile registers too as you said, I
+> > > don't mind having this FIFO reset WAR for now, though I think this
+> > > mismatch between the comments and the actual behavior then should
+> get people's attention.
+> > >
+> > > Thank you
+> >
+> > ETDR is not volatile,  if we mark it is volatile, is it correct?
 > 
-> The Cirrus Logic Madera codecs are a family of related codecs with
-> extensive digital and analogue I/O, digital mixing and routing,
-> signal processing and programmable DSPs. This patch adds common
-> support code shared by all Madera codecs.
+> Well, you have a point -- it might not be ideally true, but it sounds like a
+> correct fix to me according to this comments.
 > 
-> This patch also adds the pdata to the parent mfd pdata struct.
-> Since there is a circular build dependency it's convenient to
-> patch them both atomically.
+> We can wait for Mark's comments or just send a patch to the mail list for
+> review.
 > 
-> Signed-off-by: Nariman Poushin <nariman@opensource.cirrus.com>
-> Signed-off-by: Nikesh Oswal <Nikesh.Oswal@cirrus.com>
-> Signed-off-by: Piotr Stankiewicz <piotrs@opensource.cirrus.com>
-> Signed-off-by: Ajit Pandey <ajit.pandey@incubesol.com>
-> Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
-> +static int madera_inmux_put(struct snd_kcontrol *kcontrol,
-> +			    struct snd_ctl_elem_value *ucontrol)
-> +{
+> Thanks you
 
-Looks like there are still some issues with the inmux handling
-here, afraid I will probably need to do a v3 to fix them up.
+I test this patch, we don't need to reset the FIFO, and regcache_sync didn't
+Write the ETDR even the EDTR is not volatile.  This fault maybe caused by
+Legacy, in the beginning we add this patch in internal branch, there maybe
+Something cause this issue, but now can't reproduced. 
 
-Thanks,
-Charles
+So I will remove the reset of FIFO.
+
+Best regards
+Wang Shengjiu  
+
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

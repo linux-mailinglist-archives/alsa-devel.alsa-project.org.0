@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 474D038040
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:06:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEDB938047
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:08:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0D1816D0;
-	Fri,  7 Jun 2019 00:05:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0D1816D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50EF416D9;
+	Fri,  7 Jun 2019 00:07:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50EF416D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559858795;
-	bh=LIMIqJR0yHcZQUul9vz2+aDH3ElmglqxhoHA0ED+Z4c=;
+	s=default; t=1559858887;
+	bh=wWelDVGcJabiAIHvTKLQpVICsddUNeoBnh79P0PowYU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=o6FCFnwfa0/i3UmhGmvq2MiqM6wKYmo19xeRrqXTNRM+IJ4FkqAbYb4ZWzslzb8Cj
-	 S8BYyJEskdllpcw1alNpbOC5mRCUsY3YXC0WpWdVQfS5pGWs2YiVm1AC36lT4CW663
-	 Usy7KHbAEjRpbudBbhIWgZXOCCVjvOcyVXpQH82Q=
+	b=oZmppDR0aDkt9e1SxokGESqidAPaxMrfnN904Sw1hPb7Nq+hhh0cNIPEI8q6zCcHW
+	 uA7qY3LRgWPfm9nR2l8zRimRsTLlVvhhSLS7090QeSy9G7QNiYc62uLLFbJ8CAfscg
+	 ushiZ+wCge58jnAknQtumeB1baK5oj7UjHAxKS/o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 794DFF89752;
-	Thu,  6 Jun 2019 23:29:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90E3AF89769;
+	Thu,  6 Jun 2019 23:29:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D909F8982D; Thu,  6 Jun 2019 23:27:35 +0200 (CEST)
+ id 05638F8982E; Thu,  6 Jun 2019 23:27:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4AD53F8978C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A83E8F8978D
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AD53F8978C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A83E8F8978D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="OllEJShL"
+ header.b="PDn/uPH1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Apca0O5QJdJ+0KxI3OK1YBbWcsC+g3mD1RNyYPUu7UI=; b=OllEJShLVdM7
- 5fmucAEs/3Ov2Xdb1qT6lueSECY/jn9V+x/L3UA8GvVPO7T1O8/x7UGbGLlVN17SGE/q9xnq6ch1t
- 937dgxP6HCVORSuqMC/fI6Cnm6Z6fIqrIXdVtBReKPtuYWr8oqIvBWjYi9i9qxqN/bj8AZ+xGtwsm
- 9seZU=;
+ List-Archive; bh=WPrLOKFDQyH6ioNT+OkSQPb9yWLhTPsvQ0JTBqwoQ9E=; b=PDn/uPH1BaVH
+ LeBd+c++xiAsUaq21iMRLukPevHaAfLalHavocqjrmzo819Sp+otqygY9JnX4MlEekoMntR8h279z
+ Uu8f3mlHk4+aTvZSk5q0l37Zv37AFkm/RiFDQi1MUu3uE6KKqoS5agmP2viyaOqDcK4CnX612kfEh
+ 4S5Lk=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzu1-0007Md-U3; Thu, 06 Jun 2019 21:26:29 +0000
+ id 1hYzu2-0007Ml-F8; Thu, 06 Jun 2019 21:26:30 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 63B4D440049; Thu,  6 Jun 2019 22:26:29 +0100 (BST)
+ id E6975440046; Thu,  6 Jun 2019 22:26:29 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87y32fgy64.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87zhmvgy6b.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212629.63B4D440049@finisterre.sirena.org.uk>
+Message-Id: <20190606212629.E6975440046@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:26:29 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: fsl: pcm030-audio-fabric: use modern
-	dai_link style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: fsl: imx-mc13783: use modern dai_link
+	style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl: pcm030-audio-fabric: use modern dai_link style
+   ASoC: fsl: imx-mc13783: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 61c29313cb812a6de3dc7bfd7baa3d20cf7e3e83 Mon Sep 17 00:00:00 2001
+From 8a147e503dd622fe744759bf6199b2a6da45e893 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:16:14 +0900
-Subject: [PATCH] ASoC: fsl: pcm030-audio-fabric: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:16:08 +0900
+Subject: [PATCH] ASoC: fsl: imx-mc13783: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,55 +124,37 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/pcm030-audio-fabric.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ sound/soc/fsl/imx-mc13783.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/fsl/pcm030-audio-fabric.c b/sound/soc/fsl/pcm030-audio-fabric.c
-index a7fe4ad25c52..af3c3b90c0ac 100644
---- a/sound/soc/fsl/pcm030-audio-fabric.c
-+++ b/sound/soc/fsl/pcm030-audio-fabric.c
-@@ -23,20 +23,26 @@ struct pcm030_audio_data {
- 	struct platform_device *codec_device;
+diff --git a/sound/soc/fsl/imx-mc13783.c b/sound/soc/fsl/imx-mc13783.c
+index 545815a27074..2b679680c93f 100644
+--- a/sound/soc/fsl/imx-mc13783.c
++++ b/sound/soc/fsl/imx-mc13783.c
+@@ -46,17 +46,19 @@ static const struct snd_soc_ops imx_mc13783_hifi_ops = {
+ 	.hw_params = imx_mc13783_hifi_hw_params,
  };
  
-+SND_SOC_DAILINK_DEFS(analog,
-+	DAILINK_COMP_ARRAY(COMP_CPU("mpc5200-psc-ac97.0")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm9712-codec", "wm9712-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++SND_SOC_DAILINK_DEFS(hifi,
++	DAILINK_COMP_ARRAY(COMP_CPU("imx-ssi.0")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("mc13783-codec", "mc13783-hifi")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("imx-ssi.0")));
 +
-+SND_SOC_DAILINK_DEFS(iec958,
-+	DAILINK_COMP_ARRAY(COMP_CPU("mpc5200-psc-ac97.1")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm9712-codec", "wm9712-aux")),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
- static struct snd_soc_dai_link pcm030_fabric_dai[] = {
- {
- 	.name = "AC97.0",
- 	.stream_name = "AC97 Analog",
--	.codec_dai_name = "wm9712-hifi",
--	.cpu_dai_name = "mpc5200-psc-ac97.0",
--	.codec_name = "wm9712-codec",
-+	SND_SOC_DAILINK_REG(analog),
- },
- {
- 	.name = "AC97.1",
- 	.stream_name = "AC97 IEC958",
--	.codec_dai_name = "wm9712-aux",
--	.cpu_dai_name = "mpc5200-psc-ac97.1",
--	.codec_name = "wm9712-codec",
-+	SND_SOC_DAILINK_REG(iec958),
- },
+ static struct snd_soc_dai_link imx_mc13783_dai_mc13783[] = {
+ 	{
+ 		.name = "MC13783",
+ 		.stream_name	 = "Sound",
+-		.codec_dai_name	 = "mc13783-hifi",
+-		.codec_name	 = "mc13783-codec",
+-		.cpu_dai_name	 = "imx-ssi.0",
+-		.platform_name	 = "imx-ssi.0",
+ 		.ops		 = &imx_mc13783_hifi_ops,
+ 		.symmetric_rates = 1,
+ 		.dai_fmt 	 = FMT_SSI,
++		SND_SOC_DAILINK_REG(hifi),
+ 	},
  };
  
-@@ -76,7 +82,7 @@ static int pcm030_fabric_probe(struct platform_device *op)
- 	}
- 
- 	for_each_card_prelinks(card, i, dai_link)
--		dai_link->platform_of_node = platform_np;
-+		dai_link->platforms->of_node = platform_np;
- 
- 	ret = request_module("snd-soc-wm9712");
- 	if (ret)
 -- 
 2.20.1
 

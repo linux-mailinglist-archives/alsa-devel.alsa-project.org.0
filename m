@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49477380AA
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:29:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0DFA380CD
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:31:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D755716F5;
-	Fri,  7 Jun 2019 00:28:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D755716F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 762C11701;
+	Fri,  7 Jun 2019 00:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762C11701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559860146;
-	bh=MDaS4/Kax38WXQJOZu9c8QggSJynwngtI+Mdakdq+18=;
+	s=default; t=1559860301;
+	bh=V69BJodl1LUCkyobWp6y4aFT31uS3iWHI6la17eZFe4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=imH1WO3GDiCUAVXYCHjXCbQbptHMio30aC64z1FXo7rZhlNXhQt41CfvgMhXDZJ9D
-	 SvdK1GfWMFoGxDxmNbioS2SEbhM9bnqyA8c0n+pUeVAYsE0Y78nDlNzvOBj3vUzM6l
-	 LO3RLkwc0+v0kC7Zr2CJUhleg5h0qwjGGd8ArtGs=
+	b=oPMVrhkxse4MvdC3D/U+iOmNJ+NVnQpiIfIZUxBi3/OAfqX6tp9WToKU/t9nTsE9M
+	 hNaGq+xYibVJXtLSiu765mS3n+5COHmEt0SSU2RJz44HFMmn1jzd+PQn2C9rG6ck8N
+	 0sfym3B7lhnjCJNaMAZ4AuIGrmdGemVxnzdeP1rM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D7D6F89941;
-	Thu,  6 Jun 2019 23:30:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14C86F89955;
+	Thu,  6 Jun 2019 23:30:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74A8FF8984E; Thu,  6 Jun 2019 23:28:24 +0200 (CEST)
+ id 2A191F89852; Thu,  6 Jun 2019 23:28:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B35E0F897B9
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B35E0F897B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id B23DEF897C1
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B23DEF897C1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="GKJ92g11"
+ header.b="q8akvF+P"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=O6Qel74vq+rdKlmKSwiYgkqZjidov9R8sY7v76gggxY=; b=GKJ92g114DsQ
- t24Jbuhrjw6sCAKR1PpgHh30OE8APTlWogcD+6YbMhP+cyZKETP4zXiLZdGMSdzzm4XJVoZZjkFMx
- 1ui03VOTks4N1dwEKdvy1AZAFIu4xMYYzKQ4FKafhTFCaVGYhqCSUkorNsOpS3FQOF16ZUcTKt+K6
- XVCDc=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=tpTnf941JdWMZXaSUaBHoCbPcGgn4zMJp+1F5mvyrRo=; b=q8akvF+P2Fhk
+ p/3HBDXh/SEsKFfCmPvRtI6v7IYcnwOaEM2QUUa20ihqsPYZTSdoJxMoiANujKh79oBTwZSWYNFle
+ jobR0S2XBeL763T93zLrw2KkIhcfEefchl5x1oREBIBk8J3tmJV2ItpJKIz5g3/UNLhYyXAzSsYXQ
+ qrgQw=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuK-0007Pu-De; Thu, 06 Jun 2019 21:26:48 +0000
+ id 1hYzuL-0007Q6-GF; Thu, 06 Jun 2019 21:26:49 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id DB483440049; Thu,  6 Jun 2019 22:26:47 +0100 (BST)
+ id 04CEB440049; Thu,  6 Jun 2019 22:26:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a7evjrgm.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87d0jrjrgv.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212647.DB483440049@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:47 +0100 (BST)
+Message-Id: <20190606212649.04CEB440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:48 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: ti: omap3pandora: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: ti: osk5912: use modern dai_link style"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: ti: omap3pandora: use modern dai_link style
+   ASoC: ti: osk5912: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 77723f1c262f39b4d82eb5fda7ac045c0aea8e3d Mon Sep 17 00:00:00 2001
+From 5cffc237432d47084add97e42f13dbd055c107a8 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:12:52 +0900
-Subject: [PATCH] ASoC: ti: omap3pandora: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:12:43 +0900
+Subject: [PATCH] ASoC: ti: osk5912: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,55 +124,37 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/ti/omap3pandora.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ sound/soc/ti/osk5912.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/ti/omap3pandora.c b/sound/soc/ti/omap3pandora.c
-index 4e3de712159c..3d52b6b008ce 100644
---- a/sound/soc/ti/omap3pandora.c
-+++ b/sound/soc/ti/omap3pandora.c
-@@ -189,29 +189,33 @@ static const struct snd_soc_ops omap3pandora_ops = {
+diff --git a/sound/soc/ti/osk5912.c b/sound/soc/ti/osk5912.c
+index e4096779ca05..0144f91f4778 100644
+--- a/sound/soc/ti/osk5912.c
++++ b/sound/soc/ti/osk5912.c
+@@ -91,16 +91,19 @@ static const struct snd_soc_dapm_route audio_map[] = {
  };
  
  /* Digital audio interface glue - connects codec <--> CPU */
-+SND_SOC_DAILINK_DEFS(out,
-+	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.2")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.2")));
++SND_SOC_DAILINK_DEFS(aic23,
++	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.1")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic23-codec",
++				      "tlv320aic23-hifi")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.1")));
 +
-+SND_SOC_DAILINK_DEFS(in,
-+	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.4")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.4")));
-+
- static struct snd_soc_dai_link omap3pandora_dai[] = {
- 	{
- 		.name = "PCM1773",
- 		.stream_name = "HiFi Out",
--		.cpu_dai_name = "omap-mcbsp.2",
--		.codec_dai_name = "twl4030-hifi",
--		.platform_name = "omap-mcbsp.2",
--		.codec_name = "twl4030-codec",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			   SND_SOC_DAIFMT_CBS_CFS,
- 		.ops = &omap3pandora_ops,
- 		.init = omap3pandora_out_init,
-+		SND_SOC_DAILINK_REG(out),
- 	}, {
- 		.name = "TWL4030",
- 		.stream_name = "Line/Mic In",
--		.cpu_dai_name = "omap-mcbsp.4",
--		.codec_dai_name = "twl4030-hifi",
--		.platform_name = "omap-mcbsp.4",
--		.codec_name = "twl4030-codec",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			   SND_SOC_DAIFMT_CBS_CFS,
- 		.ops = &omap3pandora_ops,
- 		.init = omap3pandora_in_init,
-+		SND_SOC_DAILINK_REG(in),
- 	}
+ static struct snd_soc_dai_link osk_dai = {
+ 	.name = "TLV320AIC23",
+ 	.stream_name = "AIC23",
+-	.cpu_dai_name = "omap-mcbsp.1",
+-	.codec_dai_name = "tlv320aic23-hifi",
+-	.platform_name = "omap-mcbsp.1",
+-	.codec_name = "tlv320aic23-codec",
+ 	.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_NB_NF |
+ 		   SND_SOC_DAIFMT_CBM_CFM,
+ 	.ops = &osk_ops,
++	SND_SOC_DAILINK_REG(aic23),
  };
  
+ /* Audio machine driver */
 -- 
 2.20.1
 

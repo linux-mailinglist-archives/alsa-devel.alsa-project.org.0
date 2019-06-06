@@ -2,89 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A7A367B3
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 01:11:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05D9B368B4
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 02:18:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8239E950;
-	Thu,  6 Jun 2019 01:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8239E950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E280950;
+	Thu,  6 Jun 2019 02:17:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E280950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559776290;
-	bh=Ryl6wBC+gFEpUObWn/m8IUVer6OvRCC01HFRe+06EmI=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1559780317;
+	bh=uFciYS9lMV2C3wg0UaL4gEYYmjtVHV1IRpVttfWVOis=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jm99VtFvLXEX0MAk/vDsDZ/hDotohYLygYbuCCbzvY1JmFLprZ1XKkwQObCI5y+BA
-	 lyvHstUK+m5dtlsdqBBva1UNQWJCOSi7m/J2FzcMBUtvs851zD14FmYng5PE4FDhTI
-	 ENmUjA3TeWhGR0cnBL4Sg99DTPy933k/Froo0saU=
+	b=MqH7ntohpeRyxEqJBxKCArxd7P629uQ6rm1Zs9Z95SdHgjhY4q/X93vWt0IXCx65N
+	 NFFKDUf6KHSOzH4bqcFbNLN62b4vsNoY271TRGdoTcETLZFJVYFG2wXCtQDkLiLTsp
+	 EMNjKZqjCD3aWGblsRctTw52S5yBqzolOZnOT+Ho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 075E1F896DD;
-	Thu,  6 Jun 2019 01:09:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16D00F896ED;
+	Thu,  6 Jun 2019 02:16:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 795ECF896DD; Thu,  6 Jun 2019 01:09:43 +0200 (CEST)
+ id 77370F896DD; Thu,  6 Jun 2019 02:16:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
- T_DKIMWL_WL_MED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.0
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 005A1F8072A
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 01:09:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 005A1F8072A
+ by alsa1.perex.cz (Postfix) with ESMTPS id A61ACF8072A
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 02:16:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A61ACF8072A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="duSQ1cQk"
-Received: by mail-ed1-x543.google.com with SMTP id f20so318547edt.12
- for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 16:09:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=D6Mx78yMtykv03eQKD/IYBoJNslQF4P/LwqmHAh1Lo4=;
- b=duSQ1cQkuFKG8VjGEjG4fMu2hnQsRKZ9YhXxc3S2Ew7MGMLbpOMxOkcH90V+n4T6u9
- p6qDLfvaxdm5tWLYG5zgp9raT3k6L5AxIzpXnMb5R5jfsbfjDmaXiF1xR21Nmlms9cdJ
- PD70/jRAiKHWNc9jh0SC5Lxffcxh2If0QU6K4xtoXRRT/Sf6TuuzNHKclcFLGMm6CLgO
- pw2XseKXCDPQUw08MAo7N+NkPGgObRdEFo5hz7OQyYKjXnBW3j8UtZXFcAd4F42y/Sax
- wk9KdMJ6CNs++0w9pOwZS68CC9CzCpR2MLXSzWuUcPZIOAMSga0AgL0DWw+msA5YkNlH
- tKeQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ay6RwqsM"
+Received: by mail-pg1-x542.google.com with SMTP id s27so265859pgl.2
+ for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 17:16:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=cK/gGt5PDimlIevfbs8g1ARiYxKpO3It4jGHeUdOAXQ=;
+ b=Ay6RwqsM05DNTHbEStXHw3SHZKFvhBkjCx8hE4XKG0cWnEjcpqh9Jb33U70NaQK5P5
+ JRB8pq/Yv1iSxEVJIdwTFVeT956CEFAyRS+KdKadsqMAOE1dxxx+kkZc0J6ibY/EiQyk
+ T9Y5dPWUBdYx++K6X+6MKeB2LVaUPXV+C4qmTvSoXFCUYIy/2stW9i01QSf95M6u7QZS
+ yOWMQZbN/65Ot9oZZLwrgeVSLMaOpkZZHSFhYVwnf0bi9BYjcCMKc2jmCZTqpbWUoaaD
+ hN0xLeFv976DkIpB+bXcUTrk7gNaxhhJrKKpNfMfJZGgFogEMT2CIntoAluVsBdoA8Xi
+ m6RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=D6Mx78yMtykv03eQKD/IYBoJNslQF4P/LwqmHAh1Lo4=;
- b=b5KTLDhnDcnQ7qRal6wcfa6+/9/DU+2Mm5pR94xQr9ep0b/8GUM7YqX2VREkZwSw+b
- CuQQSckEq043e7ebFu7w7nf3wT4JPzrbFSpXbX8OkjvF0p1teeDn1YewRiNVRQ+Yg/zl
- 700S4lVsnY7wGRloAJMvLCRcDRArA/hQSc3BuoauPVJsHh+sfrN2xnDnD9avZgSGhPAJ
- GIN1Xi/dwXvplVWzrRtjpbKwystW3BzqtlQGPoTe75fXStLNTNLFg+Lm9JhKJxmLmaee
- 40K3fTHQIhRAEmfCHkkGRc4g4wKmhw/T5jvk+ERS2EbDwBOVz0DdlYepcTWG95aJXipd
- O2TQ==
-X-Gm-Message-State: APjAAAVJME+PONT8WjhFxHNXjlbCGoH3VOQbyl00CrYLBUnqqOi16zQp
- 8/2k0hYCB3K7M+ihiK2yYhIQbBFDVPWWPw/uyICx6Q==
-X-Google-Smtp-Source: APXvYqxGoyPA2EeAPtBwGw1qGilkiP0J+TpzZR1AbYUpDc8W/GWZWVtOxjqCfSKXcTlYNy5McBOnZF09bU/BBCn9KLQ=
-X-Received: by 2002:aa7:d4cc:: with SMTP id t12mr13942343edr.257.1559776179425; 
- Wed, 05 Jun 2019 16:09:39 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=cK/gGt5PDimlIevfbs8g1ARiYxKpO3It4jGHeUdOAXQ=;
+ b=g7q4+mEgWoxCSGNz95cNdyBJ2Y4a0AW9INvFVd85s3Gl6c4/Ttwun1rngzcZ79cKCG
+ P73nW/DNivVUf1lV9GvNdERsWXOLCwxr9LtLxXfX7pGgX1iMGvhg2m3YrC6zfyzk8lLW
+ 1kY7QvTpxDO4EoGHrTx7gLs/9aWkjzE3VyQ9QgHIY+UaJcL91mpG9oLpGJ8JB5Kp6yc8
+ +CqOn3lE03Rn8nGJ2yTYRT+/sfEZHcFIunotrlR/xrOibM27C3MMCO4VakFEwtbC9qb/
+ TxpGo5EWDANdo0UvxF09zRLpJ8VOhxa52b7wZYYJdmhXVQ1DTGeYR6mEXP+OTzZPAal3
+ 3IXA==
+X-Gm-Message-State: APjAAAWx2agSzQJsN3Ya8cbrdBNIfl1vdf6iVSf0Ov3wZDYKXwf8FerZ
+ yBLYx96tC8B8/SzTyevmPT0=
+X-Google-Smtp-Source: APXvYqxwKRXiNuveG7RIUpRL8Y8GH4zg3HqUKLfaIlbElDmZUZU2dbjjzlJ33UBzpFgTEcuhwJbeAA==
+X-Received: by 2002:a17:90a:338e:: with SMTP id
+ n14mr46596229pjb.35.1559780204786; 
+ Wed, 05 Jun 2019 17:16:44 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id 10sm93476pfh.179.2019.06.05.17.16.43
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 05 Jun 2019 17:16:44 -0700 (PDT)
+Date: Wed, 5 Jun 2019 17:16:45 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: "S.j. Wang" <shengjiu.wang@nxp.com>
+Message-ID: <20190606001644.GA20103@Asurada-Nvidia.nvidia.com>
+References: <VE1PR04MB6479D7512EDE1217228033CAE3160@VE1PR04MB6479.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-References: <20190604104909.112984-1-yuhsuan@chromium.org>
- <5de28b91-2d87-f013-3438-8708160db63d@linux.intel.com>
-In-Reply-To: <5de28b91-2d87-f013-3438-8708160db63d@linux.intel.com>
-From: Yu-hsuan Hsu <yuhsuan@google.com>
-Date: Thu, 6 Jun 2019 07:09:28 +0800
-Message-ID: <CAEy1m_DNbqsMTODHm+o-+-1J-+tbfXJgnNJ_=jBkkx6YWQUdGg@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- dgreid@chromium.org, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- cychiang@chromium.org
-Subject: Re: [alsa-devel] [PATCH v4] ASoC: max98090: remove 24-bit format
- support if RJ is 0
+Content-Disposition: inline
+In-Reply-To: <VE1PR04MB6479D7512EDE1217228033CAE3160@VE1PR04MB6479.eurprd04.prod.outlook.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "timur@kernel.org" <timur@kernel.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_esai: fix the channel swap issue
+	after xrun
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,76 +110,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks!
-How about adding a new condition to check whether tdm_slots is 0?
-If true, we can remove 24 bit format. Is it acceptable?
+Hello Shengjiu,
 
-On Tue, Jun 4, 2019 at 10:48 PM Pierre-Louis Bossart <
-pierre-louis.bossart@linux.intel.com> wrote:
+On Wed, Jun 05, 2019 at 10:29:37AM +0000, S.j. Wang wrote:
+> > > ETDR is not volatile,  if we mark it is volatile, is it correct?
+> > 
+> > Well, you have a point -- it might not be ideally true, but it sounds like a
+> > correct fix to me according to this comments.
+> > 
+> > We can wait for Mark's comments or just send a patch to the mail list for
+> > review.
+> 
+> I test this patch, we don't need to reset the FIFO, and regcache_sync didn't
+> Write the ETDR even the EDTR is not volatile.  This fault maybe caused by
 
-> On 6/4/19 5:49 AM, Yu-Hsuan Hsu wrote:
-> > The supported formats are S16_LE and S24_LE now. However, by datasheet
-> > of max98090, S24_LE is only supported when it is in the right justified
-> > mode. We should remove 24-bit format if it is not in that mode to avoid
-> > triggering error.
-> >
-> > Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-> > ---
-> >   Remove Change-Id.
-> >
-> >   sound/soc/codecs/max98090.c | 16 ++++++++++++++++
-> >   1 file changed, 16 insertions(+)
-> >
-> > diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-> > index 7619ea31ab50..ada8c25e643d 100644
-> > --- a/sound/soc/codecs/max98090.c
-> > +++ b/sound/soc/codecs/max98090.c
-> > @@ -1909,6 +1909,21 @@ static int max98090_configure_dmic(struct
-> max98090_priv *max98090,
-> >       return 0;
-> >   }
-> >
-> > +static int max98090_dai_startup(struct snd_pcm_substream *substream,
-> > +                             struct snd_soc_dai *dai)
-> > +{
-> > +     struct snd_soc_component *component = dai->component;
-> > +     struct max98090_priv *max98090 =
-> snd_soc_component_get_drvdata(component);
-> > +     unsigned int fmt = max98090->dai_fmt;
-> > +
-> > +     /* Remove 24-bit format support if it is not in right justified
-> mode. */
-> > +     if ((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_RIGHT_J) {
-> > +             substream->runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
-> > +             snd_pcm_hw_constraint_msbits(substream->runtime, 0, 16,
-> 16);
-> > +     }
-> > +     return 0;
-> > +}
->
-> The data sheet is ambiguous, it states that 24-bit data is supported in
-> RJ mode when TDM is 0. It doesn't say TDM can only support 16 bits.
->
-> That said, it's not clear to me if TDM is supported or not in this
-> driver, there are multiple references to tdm_slots but DSP_A and DSP_B
-> are not supported.
->
-> > +
-> >   static int max98090_dai_hw_params(struct snd_pcm_substream *substream,
-> >                                  struct snd_pcm_hw_params *params,
-> >                                  struct snd_soc_dai *dai)
-> > @@ -2316,6 +2331,7 @@ EXPORT_SYMBOL_GPL(max98090_mic_detect);
-> >   #define MAX98090_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |
-> SNDRV_PCM_FMTBIT_S24_LE)
-> >
-> >   static const struct snd_soc_dai_ops max98090_dai_ops = {
-> > +     .startup = max98090_dai_startup,
-> >       .set_sysclk = max98090_dai_set_sysclk,
-> >       .set_fmt = max98090_dai_set_fmt,
-> >       .set_tdm_slot = max98090_set_tdm_slot,
-> >
->
->
+The fsl_esai driver uses FLAT type cache so regcache_sync() would
+go through regcache_default_sync() that would bypass cache sync at
+the regcache_reg_needs_sync() check when the cached register value
+matches its default value: in case of ETDR who has a default value
+0x0, it'd just "continue" without doing that _regmap_write() when
+the cached value equals to 0x0.
+
+> Legacy, in the beginning we add this patch in internal branch, there maybe
+> Something cause this issue, but now can't reproduced. 
+
+The "legacy" case might happen to have two mismatched ETDR values
+between the cached value and default 0x0. And I am worried it may
+appear once again someday.
+
+So I feel we still need to change ETDR to volatile type. And for
+your question "ETDR is not volatile,  if we mark it is volatile,
+is it correct?", I double checked the definition of volatile_reg,
+and it says:
+ * @volatile_reg: Optional callback returning true if the register
+ *		  value can't be cached. If this field is NULL but
+
+So it seems correct to me then, as the "volatile" should be also
+transcribed as "non-cacheable".
+
+Thanks
+Nicolin
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

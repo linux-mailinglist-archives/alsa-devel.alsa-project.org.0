@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4767380D4
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:32:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F394E380DF
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:33:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5ED2016F8;
-	Fri,  7 Jun 2019 00:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ED2016F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A2581724;
+	Fri,  7 Jun 2019 00:32:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A2581724
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559860378;
-	bh=N/4g0Dz1zDj0t4/eHIVIHHbP5XtcL7FuYkPCPBioU80=;
+	s=default; t=1559860417;
+	bh=r+IgOsoJ0xY41g6NgW9fpq3XqhTosOfbWXTcrX4WX+A=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Qgj6QfGPrUkQiPBWKKLXs5p09a9GnN0R/5QBnBrVu7KxeDqcR+9sOOfbOxAsuseQe
-	 uPYu7lYPlngsFPRm65hryf83LkqBrWF4YT9JI36q/SXMV/dP5A8LC20Lj7IMtFKoMJ
-	 UkC37SA0XIt2UBIIjJ8fTVjoUDKZRn0KvlcZjMo4=
+	b=pYJUCo/cwVXWGzWLN3QQRscmkXIZcFU9HCBdKvveRe2yt4QIQryniOU2mYcjwpOpy
+	 wPTjp2PKUU2GqiMs+xHnfAYSTAz3LZGDuzPMCTNrrbCJ0IW0CxVuoyNnt0ltezzV3X
+	 osqfIp+pWWxfVSpuUOKVnp3pobripnozrMGRTy/I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F3F8F8995C;
-	Thu,  6 Jun 2019 23:30:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6146EF89961;
+	Thu,  6 Jun 2019 23:30:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3A3DF89853; Thu,  6 Jun 2019 23:28:32 +0200 (CEST)
+ id 1A1E4F897CD; Thu,  6 Jun 2019 23:28:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC699F897C8
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC699F897C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60EC9F897CD
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60EC9F897CD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="QX+eD7lW"
+ header.b="dTaX1JPJ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=xMN/TNg5BYbXQ9j6V2brbwmGwt1g6r7HafsjoQr4rgM=; b=QX+eD7lW9gCf
- BpzMWo/lhVBID5TR0f5HE/7LeG6nsTNmcRxos/lpoGw6hUdMbfiIdjl/fG9O7zjMk6RGDFI3dDLr8
- Wy9v0C3MRoBPQGm5GgVYuyli9lkA22zU6ukyQoVtS1x9IETYrwpfBYmPwwrdVjj7dAxthJ6u++GTO
- ONi+Y=;
+ List-Archive; bh=9vX+RCU4pb/Nn33TswcQ7d3ZrlMPvL8cdVfYifJL67I=; b=dTaX1JPJ5RJr
+ UXK86pphF2EGM/AvGGDHa7Y9JZrmFs/+fN2Rt3CbOLSQiGbUJh8KXyleYv1EunYk+MrVYg5oUPuxM
+ sP5CUC15xeH7eQ4l2fgyVHqCG9HyW3dig01GqYLw/0oPDomC64W5UyPgFU51nOi5Nk1fz96J6oJiK
+ 8iQcY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuM-0007QI-J6; Thu, 06 Jun 2019 21:26:50 +0000
+ id 1hYzuN-0007QO-4L; Thu, 06 Jun 2019 21:26:51 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 1F35D440046; Thu,  6 Jun 2019 22:26:50 +0100 (BST)
+ id A5B09440046; Thu,  6 Jun 2019 22:26:50 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ftonjrh4.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h893jrh9.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212650.1F35D440046@finisterre.sirena.org.uk>
+Message-Id: <20190606212650.A5B09440046@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:26:50 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: kirkwood: armada-370-db: use modern
-	dai_link style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: pxa: poodle: use modern dai_link style"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: kirkwood: armada-370-db: use modern dai_link style
+   ASoC: pxa: poodle: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 1d17821f79ae0fe6960231d38aaac66eed707b5f Mon Sep 17 00:00:00 2001
+From 8ba9c5cbe9f27808346927bf173b263e2552f80f Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:12:34 +0900
-Subject: [PATCH] ASoC: kirkwood: armada-370-db: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:12:29 +0900
+Subject: [PATCH] ASoC: pxa: poodle: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,96 +124,36 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/kirkwood/armada-370-db.c | 42 +++++++++++++++++++-----------
- 1 file changed, 27 insertions(+), 15 deletions(-)
+ sound/soc/pxa/poodle.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/kirkwood/armada-370-db.c b/sound/soc/kirkwood/armada-370-db.c
-index 677a48d7b891..b2d735b610b8 100644
---- a/sound/soc/kirkwood/armada-370-db.c
-+++ b/sound/soc/kirkwood/armada-370-db.c
-@@ -58,28 +58,40 @@ static const struct snd_soc_dapm_route a370db_route[] = {
- 	{ "AIN1L",	NULL,	"In Jack" },
+diff --git a/sound/soc/pxa/poodle.c b/sound/soc/pxa/poodle.c
+index b6693f32fc02..2a564187b2ce 100644
+--- a/sound/soc/pxa/poodle.c
++++ b/sound/soc/pxa/poodle.c
+@@ -224,16 +224,18 @@ static const struct snd_kcontrol_new wm8731_poodle_controls[] = {
  };
  
-+SND_SOC_DAILINK_DEFS(analog,
-+	DAILINK_COMP_ARRAY(COMP_CPU("i2s")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "cs42l51-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ /* poodle digital audio interface glue - connects codec <--> CPU */
++SND_SOC_DAILINK_DEFS(wm8731,
++	DAILINK_COMP_ARRAY(COMP_CPU("pxa2xx-i2s")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("wm8731.0-001b", "wm8731-hifi")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("pxa-pcm-audio")));
 +
-+SND_SOC_DAILINK_DEFS(spdif_out,
-+	DAILINK_COMP_ARRAY(COMP_CPU("spdif")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "dit-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(spdif_in,
-+	DAILINK_COMP_ARRAY(COMP_CPU("spdif")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "dir-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
- static struct snd_soc_dai_link a370db_dai[] = {
- {
- 	.name = "CS42L51",
- 	.stream_name = "analog",
--	.cpu_dai_name = "i2s",
--	.codec_dai_name = "cs42l51-hifi",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_CBS_CFS,
- 	.ops = &a370db_ops,
-+	SND_SOC_DAILINK_REG(analog),
- },
- {
- 	.name = "S/PDIF out",
- 	.stream_name = "spdif-out",
--	.cpu_dai_name = "spdif",
--	.codec_dai_name = "dit-hifi",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_CBS_CFS,
-+	SND_SOC_DAILINK_REG(spdif_out),
- },
- {
- 	.name = "S/PDIF in",
- 	.stream_name = "spdif-in",
--	.cpu_dai_name = "spdif",
--	.codec_dai_name = "dir-hifi",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_CBS_CFS,
-+	SND_SOC_DAILINK_REG(spdif_in),
- },
+ static struct snd_soc_dai_link poodle_dai = {
+ 	.name = "WM8731",
+ 	.stream_name = "WM8731",
+-	.cpu_dai_name = "pxa2xx-i2s",
+-	.codec_dai_name = "wm8731-hifi",
+-	.platform_name = "pxa-pcm-audio",
+-	.codec_name = "wm8731.0-001b",
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 		   SND_SOC_DAIFMT_CBS_CFS,
+ 	.ops = &poodle_ops,
++	SND_SOC_DAILINK_REG(wm8731),
  };
  
-@@ -100,26 +112,26 @@ static int a370db_probe(struct platform_device *pdev)
- 
- 	card->dev = &pdev->dev;
- 
--	a370db_dai[0].cpu_of_node =
-+	a370db_dai[0].cpus->of_node =
- 		of_parse_phandle(pdev->dev.of_node,
- 				 "marvell,audio-controller", 0);
--	a370db_dai[0].platform_of_node = a370db_dai[0].cpu_of_node;
-+	a370db_dai[0].platforms->of_node = a370db_dai[0].cpus->of_node;
- 
--	a370db_dai[0].codec_of_node =
-+	a370db_dai[0].codecs->of_node =
- 		of_parse_phandle(pdev->dev.of_node,
- 				 "marvell,audio-codec", 0);
- 
--	a370db_dai[1].cpu_of_node = a370db_dai[0].cpu_of_node;
--	a370db_dai[1].platform_of_node = a370db_dai[0].cpu_of_node;
-+	a370db_dai[1].cpus->of_node = a370db_dai[0].cpus->of_node;
-+	a370db_dai[1].platforms->of_node = a370db_dai[0].cpus->of_node;
- 
--	a370db_dai[1].codec_of_node =
-+	a370db_dai[1].codecs->of_node =
- 		of_parse_phandle(pdev->dev.of_node,
- 				 "marvell,audio-codec", 1);
- 
--	a370db_dai[2].cpu_of_node = a370db_dai[0].cpu_of_node;
--	a370db_dai[2].platform_of_node = a370db_dai[0].cpu_of_node;
-+	a370db_dai[2].cpus->of_node = a370db_dai[0].cpus->of_node;
-+	a370db_dai[2].platforms->of_node = a370db_dai[0].cpus->of_node;
- 
--	a370db_dai[2].codec_of_node =
-+	a370db_dai[2].codecs->of_node =
- 		of_parse_phandle(pdev->dev.of_node,
- 				 "marvell,audio-codec", 2);
- 
+ /* poodle audio machine driver */
 -- 
 2.20.1
 

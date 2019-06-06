@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0068538088
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C05E38093
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:25:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AFA01709;
-	Fri,  7 Jun 2019 00:23:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AFA01709
+	by alsa0.perex.cz (Postfix) with ESMTPS id D011C16F5;
+	Fri,  7 Jun 2019 00:24:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D011C16F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559859837;
-	bh=0OQ73P/Npw0kaPUmOFfaF7dqRrAEKV5xrohhjmU7o+A=;
+	s=default; t=1559859949;
+	bh=KXvcyEwQw135C7os7ojxOzs2sH9yUzmexBgDGeaL0ew=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=swhPBxvZ9axsiBfdN5MRG/94e8Sn1qCJB8J2828nM/SQE9CMdailfDnaH0TAOk3iY
-	 1uT0susRUcy9A8SihuRT5gMMmnxhpMG3HvOPg1xV1hHTScR99dB/z1Kb+jGl45Pl/p
-	 ciV/lr9lBRiPcH9Ff7HIr/X9bL8j/8aByD+ip7X4=
+	b=D2OBKLXJX/yPoAM7CgbaYGBetBfNjMPp7EQh4CYrnl5etCSJFId/wlXVn0kFyYhUs
+	 968ofwRhkNkCYV9WmAAaEZzHrPr0LPX1nlZcjBiI2i3ahqJOzDZZewI2BDAgFRj2VE
+	 MS7bL9Uq8QNnKi7o810ZrKGE19texv5pif3osPl8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 209EFF89908;
-	Thu,  6 Jun 2019 23:30:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A656F89925;
+	Thu,  6 Jun 2019 23:30:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0ACF9F897AF; Thu,  6 Jun 2019 23:28:15 +0200 (CEST)
+ id 1F375F89731; Thu,  6 Jun 2019 23:28:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AADE4F897B0
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AADE4F897B0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F8B2F897A7
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8B2F897A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="gqRMBDEt"
+ header.b="FGQpx6oa"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Uy6VNWt+42VizXJHLMYcs3m0a/nyfgfhhqX8obYthq0=; b=gqRMBDEt2uTV
- kx/InrreNlvmFtihWV/SHYL3FWL9zc0sEU/2I4mhlBdDkqnnvqVORSD5v4kF4AdMJfZffrAGadRJC
- vz1lthk924+7505vclTISTTB2TVXJYCTEJ4C4s9Bqdh/mE3sTV6kUPxFD/2bb68KDglOKom+18/gN
- DSefA=;
+ List-Archive; bh=03NIhMinLVFB0v5y7Yh2NF6v+j7M2wvIbkiCPQJ5r1s=; b=FGQpx6oaKNWn
+ 1eQ6rZWrI7Tvfckk+CDgk3ng2G19Lze5dKgOu3mNdSAWjaFUoOiBOkFuMfAfJlCdxZYJmHAzpL9yX
+ VRu3heOAnPufMm3+cGl1BE0RpKZqbw+Eq6A6gx2G9bbpvbSIi2rZwcW/R6ugNm47tnOjKho5GY9uK
+ pJDoA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuG-0007PD-Et; Thu, 06 Jun 2019 21:26:44 +0000
+ id 1hYzuH-0007PJ-0Q; Thu, 06 Jun 2019 21:26:45 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id F0457440046; Thu,  6 Jun 2019 22:26:43 +0100 (BST)
+ id 8674B440046; Thu,  6 Jun 2019 22:26:44 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87zhmvicva.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871s07jrfu.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212643.F0457440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:43 +0100 (BST)
+Message-Id: <20190606212644.8674B440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:44 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sh: sh7760-ac97: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: sh: migor: use modern dai_link style"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sh: sh7760-ac97: use modern dai_link style
+   ASoC: sh: migor: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From f9aaa1929b2e828d87aee9adb003cd19fbf18f57 Mon Sep 17 00:00:00 2001
+From 4f209c5142dcdd4db29f734d652fba4d2ab6da71 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:13:24 +0900
-Subject: [PATCH] ASoC: sh: sh7760-ac97: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:13:20 +0900
+Subject: [PATCH] ASoC: sh: migor: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,34 +124,36 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sh/sh7760-ac97.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ sound/soc/sh/migor.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sh/sh7760-ac97.c b/sound/soc/sh/sh7760-ac97.c
-index 4bb4c13cf860..d267243a159b 100644
---- a/sound/soc/sh/sh7760-ac97.c
-+++ b/sound/soc/sh/sh7760-ac97.c
-@@ -14,14 +14,15 @@
- 
- #define IPSEL 0xFE400034
- 
-+SND_SOC_DAILINK_DEFS(ac97,
-+	DAILINK_COMP_ARRAY(COMP_CPU("hac-dai.0")),	/* HAC0 */
-+	DAILINK_COMP_ARRAY(COMP_CODEC("ac97-codec", "ac97-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("sh7760-pcm-audio")));
-+
- static struct snd_soc_dai_link sh7760_ac97_dai = {
- 	.name = "AC97",
- 	.stream_name = "AC97 HiFi",
--	.cpu_dai_name = "hac-dai.0",	/* HAC0 */
--	.codec_dai_name = "ac97-hifi",
--	.platform_name = "sh7760-pcm-audio",
--	.codec_name = "ac97-codec",
--	.ops = NULL,
-+	SND_SOC_DAILINK_REG(ac97),
+diff --git a/sound/soc/sh/migor.c b/sound/soc/sh/migor.c
+index 8739c9f60672..991557e25eba 100644
+--- a/sound/soc/sh/migor.c
++++ b/sound/soc/sh/migor.c
+@@ -123,16 +123,18 @@ static const struct snd_soc_dapm_route audio_map[] = {
  };
  
- static struct snd_soc_card sh7760_ac97_soc_machine  = {
+ /* migor digital audio interface glue - connects codec <--> CPU */
++SND_SOC_DAILINK_DEFS(wm8978,
++	DAILINK_COMP_ARRAY(COMP_CPU("siu-pcm-audio")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("wm8978.0-001a", "wm8978-hifi")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("siu-pcm-audio")));
++
+ static struct snd_soc_dai_link migor_dai = {
+ 	.name = "wm8978",
+ 	.stream_name = "WM8978",
+-	.cpu_dai_name = "siu-pcm-audio",
+-	.codec_dai_name = "wm8978-hifi",
+-	.platform_name = "siu-pcm-audio",
+-	.codec_name = "wm8978.0-001a",
+ 	.dai_fmt = SND_SOC_DAIFMT_NB_IF | SND_SOC_DAIFMT_I2S |
+ 		   SND_SOC_DAIFMT_CBS_CFS,
+ 	.ops = &migor_dai_ops,
++	SND_SOC_DAILINK_REG(wm8978),
+ };
+ 
+ /* migor audio machine driver */
 -- 
 2.20.1
 

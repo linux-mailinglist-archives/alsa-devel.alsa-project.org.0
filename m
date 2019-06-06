@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA48B38184
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 01:03:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3727A3817D
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 01:01:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 46A2D178F;
-	Fri,  7 Jun 2019 01:02:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46A2D178F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0EC1174E;
+	Fri,  7 Jun 2019 01:01:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0EC1174E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559862192;
-	bh=aO3ECHVGVOb2AOwol8Cwh4GFhKBHsIUQlWgWxWhiwR4=;
+	s=default; t=1559862113;
+	bh=QtEmIDAHO158NI3dCmzLZB95bBOKyj7T44ruZZhBf/Q=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=eKDrMxQNiWFOQTlOLpoOH4Jd4pGWKCDHHlIlU+G8ocRLR4s3WyncSTFP5fVTCmsjr
-	 lMlswLUgallyIzEPg7uDpXjlasi2FWqEJDxYTyfAKHPCMHvYvsGGB+cFhqRXcvYPVh
-	 6NYEKKCvbsi6V41aCUgcXWeP8a+ZZTFBmUP9j7K4=
+	b=UeUOFps+OQBLSSe0wDBiHuskC/AAffiBNJjxKtfYAqWu6y31UzAHawdYYmTTrwxFT
+	 jLiNWFKCXK+U2fDtL3MSwTBwDtLkEPRGKFnuXJ1YcqfJYl6krfbpvq4Eh0KoG15fOL
+	 7mIwYyyJ8uMneBZfx8B3rxBllwkTda+diVK4Qs4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55790F89A5D;
-	Thu,  6 Jun 2019 23:32:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B14F0F8977F;
+	Thu,  6 Jun 2019 23:31:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 027DCF898A9; Thu,  6 Jun 2019 23:29:37 +0200 (CEST)
+ id D3314F898A2; Thu,  6 Jun 2019 23:29:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 18028F8980A
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2D42F89764
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18028F8980A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D42F89764
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Ndm4ogJU"
+ header.b="W3/Ox5Qi"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ruQEkmO9u6jsEb8Hx/S7Rf+0w7edy0c7411IPdYkSp4=; b=Ndm4ogJUfVzk
- FjNuNUjFh//pzNp5RBiAeQM+fhSfBZNmA8sQikDJREFWfglQPZXBT9LWwCUTCmYiCp4zg/Q+xjlBL
- 6aDorcXXjRY1F4DW+k9w16GSuIAc9NjBq0FO2t785GwVrB0SCaMrmUfoZCIMMcwC1ObX6pp2oNjgM
- f80Qc=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=PEp/tPO7wcml9HMyuE2R1YAITDS1siC5+TfYLoa9PXs=; b=W3/Ox5Qi3hRK
+ N1dNkLTyCNWBnFP/Zx1WctASPV/0yCwLiyvFbHVdd4hTVPGw4q1os+NSN/qhcnLA2YpJz42dQY02l
+ qQ7VA3WemK3KJOrIue7uimiVKhLXfz6l/Hb48P+u5YzOz/JrsXQ42frW77JwUfUnGEZppPpaIxvJ9
+ iXDU8=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuk-0007UP-Oq; Thu, 06 Jun 2019 21:27:14 +0000
+ id 1hYzul-0007UY-Dr; Thu, 06 Jun 2019 21:27:15 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 496F3440049; Thu,  6 Jun 2019 22:27:14 +0100 (BST)
+ id E0985440046; Thu,  6 Jun 2019 22:27:14 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zpjmkt6.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <877e9zmktb.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212714.496F3440049@finisterre.sirena.org.uk>
+Message-Id: <20190606212714.E0985440046@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:27:14 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: mediatek: mt8173-rt5650: use modern
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt8173-max98090: use modern
 	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mt8173-rt5650: use modern dai_link style
+   ASoC: mediatek: mt8173-max98090: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 166b3f052d3e6b7afd3759797cbd4e4d5fdaef17 Mon Sep 17 00:00:00 2001
+From 1ea15792bc477e100ac2340b7db3c69c95423d23 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:08:16 +0900
-Subject: [PATCH] ASoC: mediatek: mt8173-rt5650: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:08:11 +0900
+Subject: [PATCH] ASoC: mediatek: mt8173-max98090: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,34 +124,16 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/mediatek/mt8173/mt8173-rt5650.c | 74 +++++++++++++----------
- 1 file changed, 41 insertions(+), 33 deletions(-)
+ sound/soc/mediatek/mt8173/mt8173-max98090.c | 34 +++++++++++++--------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-index 7edf250c8fb1..ef6f23675286 100644
---- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-+++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
-@@ -144,17 +144,6 @@ static int mt8173_rt5650_init(struct snd_soc_pcm_runtime *runtime)
- 				      &mt8173_rt5650_jack);
+diff --git a/sound/soc/mediatek/mt8173/mt8173-max98090.c b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+index 4d6596d5cb07..22c00600c999 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-max98090.c
++++ b/sound/soc/mediatek/mt8173/mt8173-max98090.c
+@@ -82,41 +82,51 @@ static int mt8173_max98090_init(struct snd_soc_pcm_runtime *runtime)
+ 	return max98090_mic_detect(component, &mt8173_max98090_jack);
  }
- 
--static struct snd_soc_dai_link_component mt8173_rt5650_codecs[] = {
--	{
--		/* Playback */
--		.dai_name = "rt5645-aif1",
--	},
--	{
--		/* Capture */
--		.dai_name = "rt5645-aif1",
--	},
--};
--
- enum {
- 	DAI_LINK_PLAYBACK,
- 	DAI_LINK_CAPTURE,
-@@ -163,46 +152,63 @@ enum {
- 	DAI_LINK_HDMI_I2S,
- };
  
 +SND_SOC_DAILINK_DEFS(playback,
 +	DAILINK_COMP_ARRAY(COMP_CPU("DL1")),
@@ -163,28 +145,17 @@ index 7edf250c8fb1..ef6f23675286 100644
 +	DAILINK_COMP_ARRAY(COMP_DUMMY()),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
-+SND_SOC_DAILINK_DEFS(hdmi_pcm,
-+	DAILINK_COMP_ARRAY(COMP_CPU("HDMI")),
-+	DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(codec,
++SND_SOC_DAILINK_DEFS(hifi,
 +	DAILINK_COMP_ARRAY(COMP_CPU("I2S")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "rt5645-aif1"), /* Playback */
-+			   COMP_CODEC(NULL, "rt5645-aif1")),/* Capture */
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(hdmi_be,
-+	DAILINK_COMP_ARRAY(COMP_CPU("HDMIO")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "i2s-hifi")),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
  /* Digital audio interface glue - connects codec <---> CPU */
- static struct snd_soc_dai_link mt8173_rt5650_dais[] = {
+ static struct snd_soc_dai_link mt8173_max98090_dais[] = {
  	/* Front End DAI links */
- 	[DAI_LINK_PLAYBACK] = {
- 		.name = "rt5650 Playback",
- 		.stream_name = "rt5650 Playback",
+ 	{
+ 		.name = "MAX98090 Playback",
+ 		.stream_name = "MAX98090 Playback",
 -		.cpu_dai_name = "DL1",
 -		.codec_name = "snd-soc-dummy",
 -		.codec_dai_name = "snd-soc-dummy-dai",
@@ -193,9 +164,9 @@ index 7edf250c8fb1..ef6f23675286 100644
  		.dpcm_playback = 1,
 +		SND_SOC_DAILINK_REG(playback),
  	},
- 	[DAI_LINK_CAPTURE] = {
- 		.name = "rt5650 Capture",
- 		.stream_name = "rt5650 Capture",
+ 	{
+ 		.name = "MAX98090 Capture",
+ 		.stream_name = "MAX98090 Capture",
 -		.cpu_dai_name = "VUL",
 -		.codec_name = "snd-soc-dummy",
 -		.codec_dai_name = "snd-soc-dummy-dai",
@@ -204,46 +175,25 @@ index 7edf250c8fb1..ef6f23675286 100644
  		.dpcm_capture = 1,
 +		SND_SOC_DAILINK_REG(capture),
  	},
- 	[DAI_LINK_HDMI] = {
- 		.name = "HDMI",
- 		.stream_name = "HDMI PCM",
--		.cpu_dai_name = "HDMI",
--		.codec_name = "snd-soc-dummy",
--		.codec_dai_name = "snd-soc-dummy-dai",
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
- 		.dynamic = 1,
- 		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(hdmi_pcm),
- 	},
  	/* Back End DAI links */
- 	[DAI_LINK_CODEC_I2S] = {
+ 	{
  		.name = "Codec",
 -		.cpu_dai_name = "I2S",
  		.no_pcm = 1,
--		.codecs = mt8173_rt5650_codecs,
--		.num_codecs = 2,
- 		.init = mt8173_rt5650_init,
+-		.codec_dai_name = "HiFi",
+ 		.init = mt8173_max98090_init,
+ 		.ops = &mt8173_max98090_ops,
  		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
  			   SND_SOC_DAIFMT_CBS_CFS,
-@@ -210,13 +216,13 @@ static struct snd_soc_dai_link mt8173_rt5650_dais[] = {
- 		.ignore_pmdown_time = 1,
  		.dpcm_playback = 1,
  		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(codec),
- 	},
- 	[DAI_LINK_HDMI_I2S] = {
- 		.name = "HDMI BE",
--		.cpu_dai_name = "HDMIO",
- 		.no_pcm = 1,
--		.codec_dai_name = "i2s-hifi",
- 		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(hdmi_be),
++		SND_SOC_DAILINK_REG(hifi),
  	},
  };
  
-@@ -250,19 +256,20 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
+@@ -147,9 +157,9 @@ static int mt8173_max98090_dev_probe(struct platform_device *pdev)
+ 		return -EINVAL;
  	}
- 
  	for_each_card_prelinks(card, i, dai_link) {
 -		if (dai_link->platform_name)
 +		if (dai_link->platforms->name)
@@ -252,43 +202,19 @@ index 7edf250c8fb1..ef6f23675286 100644
 +		dai_link->platforms->of_node = platform_node;
  	}
  
--	mt8173_rt5650_codecs[0].of_node =
-+	mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node =
- 		of_parse_phandle(pdev->dev.of_node, "mediatek,audio-codec", 0);
--	if (!mt8173_rt5650_codecs[0].of_node) {
-+	if (!mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node) {
- 		dev_err(&pdev->dev,
- 			"Property 'audio-codec' missing or invalid\n");
+ 	codec_node = of_parse_phandle(pdev->dev.of_node,
+@@ -160,9 +170,9 @@ static int mt8173_max98090_dev_probe(struct platform_device *pdev)
  		return -EINVAL;
  	}
--	mt8173_rt5650_codecs[1].of_node = mt8173_rt5650_codecs[0].of_node;
-+	mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[1].of_node =
-+		mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[0].of_node;
- 
- 	np = of_get_child_by_name(pdev->dev.of_node, "codec-capture");
- 	if (np) {
-@@ -274,7 +281,8 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
- 				__func__, ret);
- 			return ret;
- 		}
--		mt8173_rt5650_codecs[1].dai_name = codec_capture_dai;
-+		mt8173_rt5650_dais[DAI_LINK_CODEC_I2S].codecs[1].dai_name =
-+			codec_capture_dai;
+ 	for_each_card_prelinks(card, i, dai_link) {
+-		if (dai_link->codec_name)
++		if (dai_link->codecs->name)
+ 			continue;
+-		dai_link->codec_of_node = codec_node;
++		dai_link->codecs->of_node = codec_node;
  	}
+ 	card->dev = &pdev->dev;
  
- 	if (device_property_present(&pdev->dev, "mediatek,mclk")) {
-@@ -288,9 +296,9 @@ static int mt8173_rt5650_dev_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	mt8173_rt5650_dais[DAI_LINK_HDMI_I2S].codec_of_node =
-+	mt8173_rt5650_dais[DAI_LINK_HDMI_I2S].codecs->of_node =
- 		of_parse_phandle(pdev->dev.of_node, "mediatek,audio-codec", 1);
--	if (!mt8173_rt5650_dais[DAI_LINK_HDMI_I2S].codec_of_node) {
-+	if (!mt8173_rt5650_dais[DAI_LINK_HDMI_I2S].codecs->of_node) {
- 		dev_err(&pdev->dev,
- 			"Property 'audio-codec' missing or invalid\n");
- 		return -EINVAL;
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915EC380E0
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:34:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28647380E2
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:34:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27B9316DF;
-	Fri,  7 Jun 2019 00:33:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27B9316DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id B12E91701;
+	Fri,  7 Jun 2019 00:34:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B12E91701
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559860456;
-	bh=cc8At9Ci62GyhAWDijyxLQ5OTLDVO1xvn6kaaxJkVU8=;
+	s=default; t=1559860495;
+	bh=Zo/1O2SV8PCjP8D6OEX9Pn/A9QoSld+DNI4+47tTtRU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=MWf56ezzlW7ivxO+5G2FEEFJTjifhtrMq7wSMmWciI6y+29UCRue129np4mdz1td7
-	 IutVETc6Wj3O1ixK6RNsntuzPa//hsJcSq5mxMA4V3k0cJJY+OaTpoF4iS82dzOoWr
-	 9wHan/rYUQhZ1OF3xlgsvL/0BWCqlljqmWT9RA3A=
+	b=NDlTb7zbhrILw8mn8zhofUYiZlDWXEwhKhTlJWQQ8xqPHuTUEGJCbz6bE4mpIRupZ
+	 a8IQI1I0eQEC69NHWE+aPde0O6/dNjFlxHAGl7pIwP9j4pTS23WqcQB22OAjkznErj
+	 pBUi+t6VmdrKpZ4P7sbHl1zSNelxLWU1N92ZzWBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86EA5F89969;
-	Thu,  6 Jun 2019 23:30:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BF85F8996E;
+	Thu,  6 Jun 2019 23:30:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47500F89859; Thu,  6 Jun 2019 23:28:36 +0200 (CEST)
+ id 4443EF8985D; Thu,  6 Jun 2019 23:28:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9873AF897D3
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9873AF897D3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D3ECF897D5
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D3ECF897D5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="UnMVL0gS"
+ header.b="R7RvsB6m"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=whiBtY5O2TJfiCNCMPiP8hRltREX23uytufzValhBFo=; b=UnMVL0gSeoBW
- 8vcbrJs+jR+sIVT0RkUvACr1KoieuFP1XT8UwbwzGd8vCKTQd/fyPo/ixf3975R9yd+dt3p4RDBOY
- xLMVb0Tw0qYZoCT1ye1MrXlcDxwt5Gv7fxf6UDCFQ/rjOrsZRUUWrd5j/Pv39kT+p8JxMLcVWRjEJ
- sya4A=;
+ List-Archive; bh=krRHs3WDJda6iLd3z3Jo5TWqFRlLPbjGsnjZnnYUBXs=; b=R7RvsB6mfZdM
+ V2ZPTHwk+NQs7EqBrvPAJBXZLCceMj+NiuQrWorDC68ubdOOboB7wYet/KTc99AfETkY+tV0Bx7pm
+ BXCqUEThu0n6RbPcaOBX7kr2R/VMcE23fQ4iYGPMf2WSj6EGIRHjSjX4BxNvBpjGiMnL0joQhSEtR
+ Iahfw=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuO-0007Qa-CU; Thu, 06 Jun 2019 21:26:52 +0000
+ id 1hYzuO-0007Qe-T4; Thu, 06 Jun 2019 21:26:52 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id C5FBF440046; Thu,  6 Jun 2019 22:26:51 +0100 (BST)
+ id 55CF9440049; Thu,  6 Jun 2019 22:26:52 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87k1dzjrhi.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87lfyfjrhn.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212651.C5FBF440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:51 +0100 (BST)
+Message-Id: <20190606212652.55CF9440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:52 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: pxa: tosa: use modern dai_link style"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: pxa: ttc-dkb: use modern dai_link
+	style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: pxa: tosa: use modern dai_link style
+   ASoC: pxa: ttc-dkb: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From cc7b2401cd93a884813af224cc24c8d8f31f39cd Mon Sep 17 00:00:00 2001
+From 0d246384cae61ad45940cacf3960bed29f1cd30c Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:12:20 +0900
-Subject: [PATCH] ASoC: pxa: tosa: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:12:16 +0900
+Subject: [PATCH] ASoC: pxa: ttc-dkb: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,47 +124,34 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/pxa/tosa.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ sound/soc/pxa/ttc-dkb.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/pxa/tosa.c b/sound/soc/pxa/tosa.c
-index ae9c12e1ea2a..e7cb450d9e8a 100644
---- a/sound/soc/pxa/tosa.c
-+++ b/sound/soc/pxa/tosa.c
-@@ -182,24 +182,28 @@ static const struct snd_kcontrol_new tosa_controls[] = {
- 		tosa_set_spk),
- };
+diff --git a/sound/soc/pxa/ttc-dkb.c b/sound/soc/pxa/ttc-dkb.c
+index 5d6e61a4bb7e..5a13e36a2499 100644
+--- a/sound/soc/pxa/ttc-dkb.c
++++ b/sound/soc/pxa/ttc-dkb.c
+@@ -94,17 +94,19 @@ static int ttc_pm860x_init(struct snd_soc_pcm_runtime *rtd)
+ }
  
-+SND_SOC_DAILINK_DEFS(ac97,
-+	DAILINK_COMP_ARRAY(COMP_CPU("pxa2xx-ac97")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm9712-codec", "wm9712-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("pxa-pcm-audio")));
+ /* ttc/td-dkb digital audio interface glue - connects codec <--> CPU */
++SND_SOC_DAILINK_DEFS(i2s,
++	DAILINK_COMP_ARRAY(COMP_CPU("pxa-ssp-dai.1")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("88pm860x-codec", "88pm860x-i2s")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("mmp-pcm-audio")));
 +
-+SND_SOC_DAILINK_DEFS(ac97_aux,
-+	DAILINK_COMP_ARRAY(COMP_CPU("pxa2xx-ac97-aux")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm9712-codec", "wm9712-aux")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("pxa-pcm-audio")));
-+
- static struct snd_soc_dai_link tosa_dai[] = {
+ static struct snd_soc_dai_link ttc_pm860x_hifi_dai[] = {
  {
- 	.name = "AC97",
- 	.stream_name = "AC97 HiFi",
--	.cpu_dai_name = "pxa2xx-ac97",
--	.codec_dai_name = "wm9712-hifi",
--	.platform_name = "pxa-pcm-audio",
--	.codec_name = "wm9712-codec",
- 	.ops = &tosa_ops,
-+	SND_SOC_DAILINK_REG(ac97),
- },
- {
- 	.name = "AC97 Aux",
- 	.stream_name = "AC97 Aux",
--	.cpu_dai_name = "pxa2xx-ac97-aux",
--	.codec_dai_name = "wm9712-aux",
--	.platform_name = "pxa-pcm-audio",
--	.codec_name = "wm9712-codec",
- 	.ops = &tosa_ops,
-+	SND_SOC_DAILINK_REG(ac97_aux),
+ 	 .name = "88pm860x i2s",
+ 	 .stream_name = "audio playback",
+-	 .codec_name = "88pm860x-codec",
+-	 .platform_name = "mmp-pcm-audio",
+-	 .cpu_dai_name = "pxa-ssp-dai.1",
+-	 .codec_dai_name = "88pm860x-i2s",
+ 	 .dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 			SND_SOC_DAIFMT_CBM_CFM,
+ 	 .init = ttc_pm860x_init,
++	 SND_SOC_DAILINK_REG(i2s),
  },
  };
  

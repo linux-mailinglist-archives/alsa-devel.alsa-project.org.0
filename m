@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D78337AF1
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 19:23:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9326637AF4
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 19:23:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13742850;
-	Thu,  6 Jun 2019 19:22:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13742850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25DD983A;
+	Thu,  6 Jun 2019 19:23:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25DD983A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559841787;
-	bh=Mn1hqWm8qDSl2v45Dh7BXPpbx6NaGResSvofTaWKubY=;
+	s=default; t=1559841833;
+	bh=QMtmUW0NgLktCtvKVzoIQ8gWeXRn6DbmvSCyRPDpA68=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M7uH6SDWpJE2D14Ac5OvEbkBQ4g42H2VX7YusVZdKi5aZvzV69JxRuG6N6W4ESEwe
-	 bgbvhEOYlnJ9a1f7wBMPTyXsxfeC9fL96kr0j7KnxCXZgSJkAeAn8klVXfPOtbhc0V
-	 Aqc5Lwgf/crVKZgV/19awOKYfq6F3DlE+eY4FlXE=
+	b=g9aMYg9B7UKC0D7t+cftrENEcBBrJwRDY47C8yUdH1Vcag2UuJsirUFzXjKbHxW9v
+	 uAYxg0+h3oHDb2ukyTan2wRGjLoSUuFv+pN1DzCK1F0RAzznNPAa65ru3q5Y9WF7jv
+	 HaA4upz4IFGepcze3iCpDuS8c9vmst8U9qyJ8ZSY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3709CF896EF;
-	Thu,  6 Jun 2019 19:21:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68AEAF896FE;
+	Thu,  6 Jun 2019 19:22:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68084F896F7; Thu,  6 Jun 2019 19:21:20 +0200 (CEST)
+ id 1A54BF896FE; Thu,  6 Jun 2019 19:22:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,37 +34,37 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DBEDF80768
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 19:21:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DBEDF80768
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4E01F80768
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 19:22:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4E01F80768
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="GZaszXjp"
+ header.b="hsRfXDNJ"
 Received: from localhost (unknown [106.200.230.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 623B62083E;
- Thu,  6 Jun 2019 17:21:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 72BD4206BB;
+ Thu,  6 Jun 2019 17:22:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1559841676;
- bh=I/rvHo9bLLx0LGwz77STImMguRJWk3J4MC7sA4wpYxw=;
+ s=default; t=1559841747;
+ bh=E8GVDj8jZE9ZEb/ZBfEk+g3I/3sRmQxNRSfSky732xI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=GZaszXjpaZrArJSQLPce12MPD86tSIVaqGz2hdOSxmJlIj7O+M2xosutN40by5PGL
- heaic1LuOVfW8s2Pb2mcv3baxvaSIqMHSpzm1hbIbNJzGBnOwN+ZMHt2lbJUY74DPS
- UvL2671Grg0zPs81woOYLKnZc69jg186SJarydzI=
-Date: Thu, 6 Jun 2019 22:48:07 +0530
+ b=hsRfXDNJpiokqV0wIXjGvkYOs1hjY/Ed2GRNadr2ixmtxhDa+tNiuWPkczANgXbhk
+ 6nIrrby24diROrNhr3zdla26hFwFr6t01BEOm/Zf/jYmDv4S6sDN2VZACyQXvGvKSu
+ p31prIJ9UgISoccSrbnBn0QvPxJJRzx/M6nsBILs=
+Date: Thu, 6 Jun 2019 22:49:18 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190606171807.GB9160@vkoul-mobl.Dlink>
-References: <20190606112222.16502-1-srinivas.kandagatla@linaro.org>
+Message-ID: <20190606171918.GC9160@vkoul-mobl.Dlink>
+References: <20190606112304.16560-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190606112222.16502-1-srinivas.kandagatla@linaro.org>
+In-Reply-To: <20190606112304.16560-1-srinivas.kandagatla@linaro.org>
 User-Agent: Mutt/1.11.3 (2019-02-01)
 Cc: alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
  linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v2] soundwire: stream: fix bad unlock
-	balance
+Subject: Re: [alsa-devel] [PATCH] soundwire: intel: set dai min and max
+	channels correctly
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,20 +82,12 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 06-06-19, 12:22, Srinivas Kandagatla wrote:
-> multi bank switching code takes lock on condition but releases without
-> any check resulting in below warning.
-> This patch fixes this.
-> 
->  =====================================
->  WARNING: bad unlock balance detected!
->  5.1.0-16506-gc1c383a6f0a2-dirty #1523 Tainted: G        W
->  -------------------------------------
->  aplay/2954 is trying to release lock (&bus->msg_lock) at:
->  do_bank_switch+0x21c/0x480
->  but there are no more locks to release!
+On 06-06-19, 12:23, Srinivas Kandagatla wrote:
+> Looks like there is a copy paste error.
+> This patch fixes it!
 
-Applied after changing the log suggested by Pierre, thanks
+Applied, thanks
+
 -- 
 ~Vinod
 _______________________________________________

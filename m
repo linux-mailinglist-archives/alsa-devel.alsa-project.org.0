@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C836438000
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:54:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2143938008
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:55:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65F46166D;
-	Thu,  6 Jun 2019 23:53:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65F46166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A819116AD;
+	Thu,  6 Jun 2019 23:54:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A819116AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559858073;
-	bh=4CXK+WphKVNXRL/6FVeTlKDnFCr+4hci0sspqbJEJ9g=;
+	s=default; t=1559858113;
+	bh=lZP+ucwsOn/fgsp8/HgdA96TIYQVVj2bWXNY+NpYeMU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=WrBuipVGkqrQFOV6kbBWyH+sNgSCyWjmlZAyQtEOceI7GWiB1TZ40i6OGyRPd9oTx
-	 +mlciPhC42uMhIcy4XHqHsTtjvkwlQwBu8wcZam4Qi/ex89749DcIgxRsYDUXagXuA
-	 WHLneXWvXpQk9LexHpC2MsYdpsKriXDmgVxLAS/k=
+	b=sJ1F6jOgwe+Hwq3XNAYWHHmshTLwn6arb8SZVXDzemUUKwea2NscqLQM48Y2mKfj4
+	 kgIOLyQAz2aaO6Fm6JZC/uF1jT7XoqXogQZvGBAYsZHafEuqMDPxSWGDSguZn9ozds
+	 inEY8VOzAK2dogSwjUMmD3TV7PIHgK7HcBFQkYPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C2D8F89853;
-	Thu,  6 Jun 2019 23:28:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31425F89857;
+	Thu,  6 Jun 2019 23:28:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45AFBF897EF; Thu,  6 Jun 2019 23:27:07 +0200 (CEST)
+ id A162AF89802; Thu,  6 Jun 2019 23:27:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 155E2F896EF
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 155E2F896EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59FC0F89766
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59FC0F89766
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="KqE6dnmA"
+ header.b="w4e8LD6a"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=TiHZ6JX+Hz+mjtWYhVOoM+4JBtqLL42tsYDc897FbZ4=; b=KqE6dnmAzxWL
- +VH+70mzoUGzilYSXDEy5TudFGx6DwPaOs9zqOJpwYEV8YDdSqSSESodcicAUw/MS+031nWh0I6RE
- DgFCgXRQhGRU7tipWCv0RS7QZdw2Gal6DUn/jmetvlwdXabGaPRRXOa4hBfmM0LCnaAVr/e5GJAWJ
- bsaSo=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=J71ECwRXrqoRlBzDhWllnl9/qj0W3NP/wWNuDF5aDiw=; b=w4e8LD6aqt41
+ XhToKkgY3x+uJl9DT534L/+XErwFp/QVvMCAJcxS4aBSwk+f68lEgY3JoyDkUaZJhd95B9hHbHBge
+ CmBRm7KR+yUtGr5fjSsGxAgIuTKFoWw/VdeLo5KQJfnqwL+0gf8+h523A7XEPWgqEgFKpBxMOwins
+ +4mFM=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztq-0007Kl-Rt; Thu, 06 Jun 2019 21:26:18 +0000
+ id 1hYzts-0007Kx-1k; Thu, 06 Jun 2019 21:26:20 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 6BFBD440046; Thu,  6 Jun 2019 22:26:18 +0100 (BST)
+ id 82C4A440046; Thu,  6 Jun 2019 22:26:19 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zpjgy21.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <878sufgy2c.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212618.6BFBD440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:18 +0100 (BST)
+Message-Id: <20190606212619.82C4A440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:19 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: tegra: trimslice: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: tegra: tegra_rt5677: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tegra: trimslice: use modern dai_link style
+   ASoC: tegra: tegra_rt5677: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 706e20515ef6a370afb31ac49f897c2d2459011a Mon Sep 17 00:00:00 2001
+From 9b4f646a3aed26f4cb7f310013d1dda61aab9b47 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:18:41 +0900
-Subject: [PATCH] ASoC: tegra: trimslice: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:18:30 +0900
+Subject: [PATCH] ASoC: tegra: tegra_rt5677: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,67 +124,99 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/tegra/trimslice.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ sound/soc/tegra/tegra_rt5677.c | 37 +++++++++++++++++++---------------
+ 1 file changed, 21 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/tegra/trimslice.c b/sound/soc/tegra/trimslice.c
-index 99bcdd979eb2..a553daa34e87 100644
---- a/sound/soc/tegra/trimslice.c
-+++ b/sound/soc/tegra/trimslice.c
-@@ -91,14 +91,19 @@ static const struct snd_soc_dapm_route trimslice_audio_map[] = {
- 	{"RLINEIN", NULL, "Line In"},
- };
+diff --git a/sound/soc/tegra/tegra_rt5677.c b/sound/soc/tegra/tegra_rt5677.c
+index 7081f15302cc..7edf6c7838f5 100644
+--- a/sound/soc/tegra/tegra_rt5677.c
++++ b/sound/soc/tegra/tegra_rt5677.c
+@@ -169,14 +169,19 @@ static int tegra_rt5677_asoc_init(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ }
  
-+SND_SOC_DAILINK_DEFS(single_dsp,
++SND_SOC_DAILINK_DEFS(pcm,
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "tlv320aic23-hifi")),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "rt5677-aif1")),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
- static struct snd_soc_dai_link trimslice_tlv320aic23_dai = {
- 	.name = "TLV320AIC23",
- 	.stream_name = "AIC23",
--	.codec_dai_name = "tlv320aic23-hifi",
- 	.ops = &trimslice_asoc_ops,
- 	.dai_fmt = SND_SOC_DAIFMT_I2S |
- 		   SND_SOC_DAIFMT_NB_NF |
- 		   SND_SOC_DAIFMT_CBS_CFS,
-+	SND_SOC_DAILINK_REG(single_dsp),
+ static struct snd_soc_dai_link tegra_rt5677_dai = {
+ 	.name = "RT5677",
+ 	.stream_name = "RT5677 PCM",
+-	.codec_dai_name = "rt5677-aif1",
+ 	.init = tegra_rt5677_asoc_init,
+ 	.ops = &tegra_rt5677_ops,
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 			SND_SOC_DAIFMT_CBS_CFS,
++	SND_SOC_DAILINK_REG(pcm),
  };
  
- static struct snd_soc_card snd_soc_trimslice = {
-@@ -129,26 +134,26 @@ static int tegra_snd_trimslice_probe(struct platform_device *pdev)
- 	card->dev = &pdev->dev;
- 	snd_soc_card_set_drvdata(card, trimslice);
+ static struct snd_soc_card snd_soc_tegra_rt5677 = {
+@@ -249,24 +254,24 @@ static int tegra_rt5677_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		goto err;
  
--	trimslice_tlv320aic23_dai.codec_of_node = of_parse_phandle(np,
-+	trimslice_tlv320aic23_dai.codecs->of_node = of_parse_phandle(np,
+-	tegra_rt5677_dai.codec_of_node = of_parse_phandle(np,
++	tegra_rt5677_dai.codecs->of_node = of_parse_phandle(np,
  			"nvidia,audio-codec", 0);
--	if (!trimslice_tlv320aic23_dai.codec_of_node) {
-+	if (!trimslice_tlv320aic23_dai.codecs->of_node) {
+-	if (!tegra_rt5677_dai.codec_of_node) {
++	if (!tegra_rt5677_dai.codecs->of_node) {
  		dev_err(&pdev->dev,
  			"Property 'nvidia,audio-codec' missing or invalid\n");
  		ret = -EINVAL;
  		goto err;
  	}
  
--	trimslice_tlv320aic23_dai.cpu_of_node = of_parse_phandle(np,
-+	trimslice_tlv320aic23_dai.cpus->of_node = of_parse_phandle(np,
+-	tegra_rt5677_dai.cpu_of_node = of_parse_phandle(np,
++	tegra_rt5677_dai.cpus->of_node = of_parse_phandle(np,
  			"nvidia,i2s-controller", 0);
--	if (!trimslice_tlv320aic23_dai.cpu_of_node) {
-+	if (!trimslice_tlv320aic23_dai.cpus->of_node) {
+-	if (!tegra_rt5677_dai.cpu_of_node) {
++	if (!tegra_rt5677_dai.cpus->of_node) {
  		dev_err(&pdev->dev,
  			"Property 'nvidia,i2s-controller' missing or invalid\n");
  		ret = -EINVAL;
- 		goto err;
+ 		goto err_put_codec_of_node;
  	}
+-	tegra_rt5677_dai.platform_of_node = tegra_rt5677_dai.cpu_of_node;
++	tegra_rt5677_dai.platforms->of_node = tegra_rt5677_dai.cpus->of_node;
  
--	trimslice_tlv320aic23_dai.platform_of_node =
--			trimslice_tlv320aic23_dai.cpu_of_node;
-+	trimslice_tlv320aic23_dai.platforms->of_node =
-+			trimslice_tlv320aic23_dai.cpus->of_node;
- 
- 	ret = tegra_asoc_utils_init(&trimslice->util_data, &pdev->dev);
+ 	ret = tegra_asoc_utils_init(&machine->util_data, &pdev->dev);
  	if (ret)
+@@ -284,12 +289,12 @@ static int tegra_rt5677_probe(struct platform_device *pdev)
+ err_fini_utils:
+ 	tegra_asoc_utils_fini(&machine->util_data);
+ err_put_cpu_of_node:
+-	of_node_put(tegra_rt5677_dai.cpu_of_node);
+-	tegra_rt5677_dai.cpu_of_node = NULL;
+-	tegra_rt5677_dai.platform_of_node = NULL;
++	of_node_put(tegra_rt5677_dai.cpus->of_node);
++	tegra_rt5677_dai.cpus->of_node = NULL;
++	tegra_rt5677_dai.platforms->of_node = NULL;
+ err_put_codec_of_node:
+-	of_node_put(tegra_rt5677_dai.codec_of_node);
+-	tegra_rt5677_dai.codec_of_node = NULL;
++	of_node_put(tegra_rt5677_dai.codecs->of_node);
++	tegra_rt5677_dai.codecs->of_node = NULL;
+ err:
+ 	return ret;
+ }
+@@ -303,11 +308,11 @@ static int tegra_rt5677_remove(struct platform_device *pdev)
+ 
+ 	tegra_asoc_utils_fini(&machine->util_data);
+ 
+-	tegra_rt5677_dai.platform_of_node = NULL;
+-	of_node_put(tegra_rt5677_dai.codec_of_node);
+-	tegra_rt5677_dai.codec_of_node = NULL;
+-	of_node_put(tegra_rt5677_dai.cpu_of_node);
+-	tegra_rt5677_dai.cpu_of_node = NULL;
++	tegra_rt5677_dai.platforms->of_node = NULL;
++	of_node_put(tegra_rt5677_dai.codecs->of_node);
++	tegra_rt5677_dai.codecs->of_node = NULL;
++	of_node_put(tegra_rt5677_dai.cpus->of_node);
++	tegra_rt5677_dai.cpus->of_node = NULL;
+ 
+ 	return 0;
+ }
 -- 
 2.20.1
 

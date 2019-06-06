@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126FE37FD1
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:46:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 082C537FDA
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:47:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B645169E;
-	Thu,  6 Jun 2019 23:45:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B645169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9309C11C;
+	Thu,  6 Jun 2019 23:46:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9309C11C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559857582;
-	bh=L2tWwvj9H1nZYkG7ARFe/SHHvThgEHlj8LSawkTEAfA=;
+	s=default; t=1559857658;
+	bh=5rbYF5FzZoTnpAp1XvixEsCZcOuiVMl43K0Zbt1PCt0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=V7K6UeeJHwlP/gz+vB+m+Ag4+CKMBQr7dNDD3fTwGrNw6T8mNMt2AhEyOzUA5E8PV
-	 2T7gy7G77CG9cfXTOFPw3MH5vh8fLoSCB/vKJdR3wqesVm7ylxt3OBF+jQ+VP0rzOe
-	 c5WiWHc2Aib9bAoXLt6EUyMZUEAjJE/gA06tQp+Y=
+	b=Ho7vsh7y/AHxUY37yfYYtZZsPYeZH/dcc09cWc0Vatx4oHKu/gb5SpFZHZMuZMwHO
+	 QQ8b2SUUF5x8knlK6w1AOCZatXa+B7R4imG4wbPpoV1upQS/5lrbkq7VyQ5FKaFjP+
+	 e2B1kRdPMDM89I5CHrX4iqt93fim8yIgHh57DPAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0789EF8978E;
-	Thu,  6 Jun 2019 23:27:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C868BF89743;
+	Thu,  6 Jun 2019 23:27:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7A9DF8974A; Thu,  6 Jun 2019 23:26:47 +0200 (CEST)
+ id 471C0F897C5; Thu,  6 Jun 2019 23:26:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88B67F8974C
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88B67F8974C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8388F8974E
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8388F8974E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="uMTwwLL1"
+ header.b="sMYEP9rs"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=AvD0uRV9VeQNEr76s3G37Tlnm1KTH219OsyX5Emha5A=; b=uMTwwLL1s7kj
- gJKh4sX55G+WTetuqfKmNW8es7ifg4362XJ4JReRYY6NfSZZxLrJJr+PNES82m70lXf/B9fS9koBA
- arSpo8mQDwIRx5S3k+lJk22VXZmisfWhZEV2sn9p4KVlr3lLOS4jSNBPyVnlQqx7Nj1j6BnaPeJTo
- nGseM=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=4J37ThSsd/NaBK2zh5SltMA/dnVsWmUGQEgVs94ICpY=; b=sMYEP9rsNlpz
+ U46OW6LeY6+5SVTyBWQ2wPBdBUHYt9xTEU4w3/IMBAyyoMcDQzsOJJl00MkxLthL3ECWiOuQfSS7F
+ tVogv25kQNsc+8kzTqNQl6VETWV8mZvcuQTiAvrYQd0R6fVozS1nqtedlu+CdYxFPk5Z+D4kt+kaF
+ +ToMI=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztk-0007JW-8w; Thu, 06 Jun 2019 21:26:12 +0000
+ id 1hYztl-0007Jj-D5; Thu, 06 Jun 2019 21:26:13 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id C0560440049; Thu,  6 Jun 2019 22:26:11 +0100 (BST)
+ id DA5C1440049; Thu,  6 Jun 2019 22:26:12 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87o93bfjfy.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r287fjg8.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212611.C0560440049@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:11 +0100 (BST)
+Message-Id: <20190606212612.DA5C1440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:12 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: broadwell: use modern dai_link
+Subject: [alsa-devel] Applied "ASoC: Intel: bdw-rt5677: use modern dai_link
 	style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: broadwell: use modern dai_link style
+   ASoC: Intel: bdw-rt5677: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 4c3db473f77ddb8a632c4b66a35ae1855de3a1b7 Mon Sep 17 00:00:00 2001
+From 3f6c2a2e9abe1ac636a49ad96dfbb42ce8d39be9 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:19:40 +0900
-Subject: [PATCH] ASoC: Intel: broadwell: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:19:30 +0900
+Subject: [PATCH] ASoC: Intel: bdw-rt5677: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,40 +124,30 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/broadwell.c | 46 +++++++++++++++++-------------
- 1 file changed, 26 insertions(+), 20 deletions(-)
+ sound/soc/intel/boards/bdw-rt5677.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-index 0f18f8964f51..fd8d88550d0b 100644
---- a/sound/soc/intel/boards/broadwell.c
-+++ b/sound/soc/intel/boards/broadwell.c
-@@ -152,67 +152,72 @@ static int broadwell_rtd_init(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index 6520a8ea5537..ff32be5af019 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -257,16 +257,24 @@ static int bdw_rt5677_init(struct snd_soc_pcm_runtime *rtd)
  }
- #endif
  
-+SND_SOC_DAILINK_DEF(system,
-+	DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
-+
-+SND_SOC_DAILINK_DEF(offload0,
-+	DAILINK_COMP_ARRAY(COMP_CPU("Offload0 Pin")));
-+
-+SND_SOC_DAILINK_DEF(offload1,
-+	DAILINK_COMP_ARRAY(COMP_CPU("Offload1 Pin")));
-+
-+SND_SOC_DAILINK_DEF(loopback,
-+	DAILINK_COMP_ARRAY(COMP_CPU("Loopback Pin")));
-+
+ /* broadwell digital audio interface glue - connects codec <--> CPU */
 +SND_SOC_DAILINK_DEF(dummy,
 +	DAILINK_COMP_ARRAY(COMP_DUMMY()));
++
++SND_SOC_DAILINK_DEF(fe,
++	DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
 +
 +SND_SOC_DAILINK_DEF(platform,
 +	DAILINK_COMP_ARRAY(COMP_PLATFORM("haswell-pcm-audio")));
 +
-+SND_SOC_DAILINK_DEF(codec,
-+	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-INT343A:00", "rt286-aif1")));
++SND_SOC_DAILINK_DEF(be,
++	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RT5677CE:00", "rt5677-aif1")));
 +
- /* broadwell digital audio interface glue - connects codec <--> CPU */
- static struct snd_soc_dai_link broadwell_rt286_dais[] = {
+ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
  	/* Front End DAI links */
  	{
  		.name = "System PCM",
@@ -168,67 +158,33 @@ index 0f18f8964f51..fd8d88550d0b 100644
 -		.codec_name = "snd-soc-dummy",
 -		.codec_dai_name = "snd-soc-dummy-dai",
  #if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
- 		.init = broadwell_rtd_init,
+ 		.init = bdw_rt5677_rtd_init,
  #endif
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
- 		.dpcm_playback = 1,
+@@ -276,6 +284,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+ 		},
  		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(system, dummy, platform),
- 	},
- 	{
- 		.name = "Offload0",
- 		.stream_name = "Offload0 Playback",
--		.cpu_dai_name = "Offload0 Pin",
--		.platform_name = "haswell-pcm-audio",
- 		.dynamic = 1,
--		.codec_name = "snd-soc-dummy",
--		.codec_dai_name = "snd-soc-dummy-dai",
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
  		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(offload0, dummy, platform),
++		SND_SOC_DAILINK_REG(fe, dummy, platform),
  	},
- 	{
- 		.name = "Offload1",
- 		.stream_name = "Offload1 Playback",
--		.cpu_dai_name = "Offload1 Pin",
--		.platform_name = "haswell-pcm-audio",
- 		.dynamic = 1,
--		.codec_name = "snd-soc-dummy",
--		.codec_dai_name = "snd-soc-dummy-dai",
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
- 		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(offload1, dummy, platform),
- 	},
- 	{
- 		.name = "Loopback PCM",
- 		.stream_name = "Loopback",
--		.cpu_dai_name = "Loopback Pin",
--		.platform_name = "haswell-pcm-audio",
- 		.dynamic = 1,
--		.codec_name = "snd-soc-dummy",
--		.codec_dai_name = "snd-soc-dummy-dai",
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST, SND_SOC_DPCM_TRIGGER_POST},
- 		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(loopback, dummy, platform),
- 	},
+ 
  	/* Back End DAI links */
- 	{
+@@ -283,11 +292,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
  		/* SSP0 - Codec */
  		.name = "Codec",
  		.id = 0,
 -		.cpu_dai_name = "snd-soc-dummy-dai",
 -		.platform_name = "snd-soc-dummy",
  		.no_pcm = 1,
--		.codec_name = "i2c-INT343A:00",
--		.codec_dai_name = "rt286-aif1",
- 		.init = broadwell_rt286_codec_init,
+-		.codec_name = "i2c-RT5677CE:00",
+-		.codec_dai_name = "rt5677-aif1",
  		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
  			SND_SOC_DAIFMT_CBS_CFS,
-@@ -222,6 +227,7 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
- 		.ops = &broadwell_rt286_ops,
+ 		.ignore_suspend = 1,
+@@ -297,6 +302,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
  		.dpcm_playback = 1,
  		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(dummy, codec, dummy),
+ 		.init = bdw_rt5677_init,
++		SND_SOC_DAILINK_REG(dummy, be, dummy),
  	},
  };
  

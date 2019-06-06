@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC7F38066
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:17:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D793806F
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:19:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73E0016C8;
-	Fri,  7 Jun 2019 00:16:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73E0016C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06AB116F4;
+	Fri,  7 Jun 2019 00:19:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06AB116F4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559859439;
-	bh=UGkLIhfSP4oSPRPE2JkjYh6iwYRRzDKiGbXkHNTDvKk=;
+	s=default; t=1559859596;
+	bh=XbYeBpiVTy9KMkn4gGxc5hGH28tiXU8yMYZh+FPVMTM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=c2YoUlLs3EfCFmOvwb0hYkaTYS/GInax4GrmONp7/fMJWUT59/l4snYox4DVeBKil
-	 hBJiwaKRwSv5AhBWZ2OXovbTTcr38/hyRhCIJFddjVq2/qVOnjm/ku0xLThXwq13MU
-	 oBvz45JO64kYKoy9QIbdTf4cgzd6IiSefaCBAub0=
+	b=D1ciEghLusvECw/KqlWY9ZAFPCRsq17VDlUQ14IQ3dPFnzH7+SYzgT51Y5uD0VyzW
+	 XrNWt9XuCaoENCxS/0d1ZJNASTafvk6oX/8HP1gCgPyjHe1hUpamrte7umkeL31SEd
+	 QlO2AYDejlsFmzz3mbE58EZxG12205bnts77sa14=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38694F898D2;
-	Thu,  6 Jun 2019 23:30:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 558CCF8975B;
+	Thu,  6 Jun 2019 23:30:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08B5EF8983D; Thu,  6 Jun 2019 23:27:58 +0200 (CEST)
+ id 364DBF89741; Thu,  6 Jun 2019 23:28:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29BB8F89747
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8736F89741
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29BB8F89747
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8736F89741
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="XiTnt41Y"
+ header.b="ht64aEJ2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=wVNOHdPT7u75AjhJEsVfsBgrfSK7PHmcoPFz2I1ff4c=; b=XiTnt41YeRe9
- ikMCLm6oBRRR5KzsnsE5h7bbfr+1amuUinnd4lL1FzgVCqUOnbcKOepLttiyssXc7weouLO2DCuWB
- nuRVrGExNjiqKSGzQsEmD72J8Pj4Ms+jrIWTgDYecu9p0l+ZSWCdc1BPwpFWXEvG7YvhN2OdW4/yw
- HCyJY=;
+ List-Archive; bh=/ewrFSb14pmFfd3H7k5FqjQZ9ZJ3InO1gKotq5xuLuI=; b=ht64aEJ29agd
+ RPt1CS2W7+oL1yPoODdbatgUrjoNdkJ/c7czuCxTSF0wTNXEZRV9d0h8rq/dlmLBm044sa3GacbLI
+ xVCnlrXOmJkHyuU7M5JEXwm+zBOvamW0xQpBoLRIvY+qf8qjuTYCsheW2H25SI1KoidN8ha0kZDUB
+ u+4nM=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuA-0007OD-Th; Thu, 06 Jun 2019 21:26:38 +0000
+ id 1hYzuB-0007OJ-Ev; Thu, 06 Jun 2019 21:26:39 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 6064A440049; Thu,  6 Jun 2019 22:26:38 +0100 (BST)
+ id E9AE9440046; Thu,  6 Jun 2019 22:26:38 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lfyficu1.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87muivicu6.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212638.6064A440049@finisterre.sirena.org.uk>
+Message-Id: <20190606212638.E9AE9440046@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:26:38 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: au1x: db1000: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: atmel: atmel-classd: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: au1x: db1000: use modern dai_link style
+   ASoC: atmel: atmel-classd: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 34592f7ecb4e0b1c79ab5669ed3fcbee0ae4b835 Mon Sep 17 00:00:00 2001
+From 3d14a1df7d301eb12592297c4b4ec0a00d76b0f2 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:14:09 +0900
-Subject: [PATCH] ASoC: au1x: db1000: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:14:04 +0900
+Subject: [PATCH] ASoC: atmel: atmel-classd: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,33 +124,48 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/au1x/db1000.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ sound/soc/atmel/atmel-classd.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/au1x/db1000.c b/sound/soc/au1x/db1000.c
-index e97c32798e98..5819b897bdd8 100644
---- a/sound/soc/au1x/db1000.c
-+++ b/sound/soc/au1x/db1000.c
-@@ -18,13 +18,15 @@
+diff --git a/sound/soc/atmel/atmel-classd.c b/sound/soc/atmel/atmel-classd.c
+index 3d70061901a0..cfebbeb92ef1 100644
+--- a/sound/soc/atmel/atmel-classd.c
++++ b/sound/soc/atmel/atmel-classd.c
+@@ -500,17 +500,30 @@ static int atmel_classd_asoc_card_init(struct device *dev,
+ {
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct atmel_classd *dd = snd_soc_card_get_drvdata(card);
++	struct snd_soc_dai_link_component *comp;
  
- #include "psc.h"
+ 	dai_link = devm_kzalloc(dev, sizeof(*dai_link), GFP_KERNEL);
+ 	if (!dai_link)
+ 		return -ENOMEM;
  
-+SND_SOC_DAILINK_DEFS(hifi,
-+	DAILINK_COMP_ARRAY(COMP_CPU("alchemy-ac97c")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("ac97-codec", "ac97-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("alchemy-pcm-dma.0")));
++	comp = devm_kzalloc(dev, 3 * sizeof(*comp), GFP_KERNEL);
++	if (!comp)
++		return -ENOMEM;
 +
- static struct snd_soc_dai_link db1000_ac97_dai = {
- 	.name		= "AC97",
- 	.stream_name	= "AC97 HiFi",
--	.codec_dai_name	= "ac97-hifi",
--	.cpu_dai_name	= "alchemy-ac97c",
--	.platform_name	= "alchemy-pcm-dma.0",
--	.codec_name	= "ac97-codec",
-+	SND_SOC_DAILINK_REG(hifi),
- };
++	dai_link->cpus		= &comp[0];
++	dai_link->codecs	= &comp[1];
++	dai_link->platforms	= &comp[2];
++
++	dai_link->num_cpus	= 1;
++	dai_link->num_codecs	= 1;
++	dai_link->num_platforms	= 1;
++
+ 	dai_link->name			= "CLASSD";
+ 	dai_link->stream_name		= "CLASSD PCM";
+-	dai_link->codec_dai_name	= ATMEL_CLASSD_CODEC_DAI_NAME;
+-	dai_link->cpu_dai_name		= dev_name(dev);
+-	dai_link->codec_name		= dev_name(dev);
+-	dai_link->platform_name		= dev_name(dev);
++	dai_link->codecs->dai_name	= ATMEL_CLASSD_CODEC_DAI_NAME;
++	dai_link->cpus->dai_name	= dev_name(dev);
++	dai_link->codecs->name		= dev_name(dev);
++	dai_link->platforms->name	= dev_name(dev);
  
- static struct snd_soc_card db1000_ac97 = {
+ 	card->dai_link	= dai_link;
+ 	card->num_links	= 1;
 -- 
 2.20.1
 

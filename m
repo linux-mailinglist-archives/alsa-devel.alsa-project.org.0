@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B3938069
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:18:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2451538071
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:20:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11B9316DF;
-	Fri,  7 Jun 2019 00:17:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11B9316DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD35916F7;
+	Fri,  7 Jun 2019 00:19:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD35916F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559859518;
-	bh=FW9p3gcQkKzOu9r+Dr/LN8B2Q5C4gVpqBzmP80Wgs9Y=;
+	s=default; t=1559859634;
+	bh=BiRZPo9leffPCuoPG4Y6YiLmNEgyZUyXcz/jAxVa7KU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=say8av7XwtO4lN53p3sC+6ieB9H/Z2EnGZe0d3lhh2DMvUH24oPOk/Zu2ATjEcSnH
-	 nc4D0PLCU0LEgjc9HzY6iuM+YBLxdLzrJjcVDlNWPVFn20rpzxMxcfdYNx008+J131
-	 BpCA0oMV9nyJPilasKrAqHTMTXF5diFqCEYxiUnk=
+	b=cYX60xRwQkuaCaGrcBqqzDCb9JybjvSnGrjBvp4KtTzU/4EiVzx4hnRPE2HvLLukI
+	 OeN5yEqFYhFwjJGi7OK8Ez3ZIERJH63If6iBnBYRp4OW7fSuLFjfBwNap8hWkiAnxg
+	 8RQtWpnjn8HYhZZEb9fNCxJ2j3zID3oOH7nqB6Eg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BD94F898DC;
-	Thu,  6 Jun 2019 23:30:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF20EF898EA;
+	Thu,  6 Jun 2019 23:30:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2D22F89849; Thu,  6 Jun 2019 23:28:04 +0200 (CEST)
+ id E7EEDF89745; Thu,  6 Jun 2019 23:28:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 495AFF897A6
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0F0AF897A8
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 495AFF897A6
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0F0AF897A8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="EcWbVOUn"
+ header.b="nG8mY91U"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=8JvFGQ8uCKHqTUj2vqCcaJXaj130xK4YX+jAZ19+SB8=; b=EcWbVOUnXtvi
- syqX1Lqwl8XW+Fl/XmRTtlGagFvqzBR4hGdr83avG0nfYZn4gAx4Yux0XAsVjEv4BP5SZfsRpTOga
- R0aAMi4r3TZmFmWt9vn/lW973f+eVjRzmQTqNNjTzXLv6DceMb06le5F85mR4bACfaGnZJhByCeNp
- FZgOY=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=+hoUB5aXWZrm/UK7AYqqYZl+wTSbT675YMCqWFwtx5o=; b=nG8mY91UzL9Y
+ PGQkYTfEYr6yg/Zb2w7aYoHH9M7acCkdGMjVPRfHEKPZJpR6Jv9vQ79aKHVC1CO2o634R/alkAGB1
+ aHYHk+fO4MZlsggLZKSfof/rjQN0Rzi8uzlmIhLJTKHreFOqjF5YAVGiRFk7BewwacKzPu7npQ0Ad
+ BSO1M=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuC-0007OP-0I; Thu, 06 Jun 2019 21:26:40 +0000
+ id 1hYzuC-0007OV-ML; Thu, 06 Jun 2019 21:26:40 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 8321E440049; Thu,  6 Jun 2019 22:26:39 +0100 (BST)
+ id 19065440046; Thu,  6 Jun 2019 22:26:40 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87o93bicua.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pnnricuf.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212639.8321E440049@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:39 +0100 (BST)
+Message-Id: <20190606212640.19065440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:40 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: atmel: atmel-pdmic: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: atmel: atmel-wm8904: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: atmel: atmel-pdmic: use modern dai_link style
+   ASoC: atmel: atmel-wm8904: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From f62da10aba7cc7971dace102ad5cc129e4dfbd94 Mon Sep 17 00:00:00 2001
+From 079878be6fea4e5671e9fb9020985e4f2b45289c Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:14:00 +0900
-Subject: [PATCH] ASoC: atmel: atmel-pdmic: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:13:55 +0900
+Subject: [PATCH] ASoC: atmel: atmel-wm8904: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,48 +124,72 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/atmel/atmel-pdmic.c | 21 +++++++++++++++++----
- 1 file changed, 17 insertions(+), 4 deletions(-)
+ sound/soc/atmel/atmel_wm8904.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/atmel/atmel-pdmic.c b/sound/soc/atmel/atmel-pdmic.c
-index 915c2b064de1..f53213402d94 100644
---- a/sound/soc/atmel/atmel-pdmic.c
-+++ b/sound/soc/atmel/atmel-pdmic.c
-@@ -511,17 +511,30 @@ static int atmel_pdmic_asoc_card_init(struct device *dev,
- {
- 	struct snd_soc_dai_link *dai_link;
- 	struct atmel_pdmic *dd = snd_soc_card_get_drvdata(card);
-+	struct snd_soc_dai_link_component *comp;
+diff --git a/sound/soc/atmel/atmel_wm8904.c b/sound/soc/atmel/atmel_wm8904.c
+index fbc10f61eb55..084788ed328c 100644
+--- a/sound/soc/atmel/atmel_wm8904.c
++++ b/sound/soc/atmel/atmel_wm8904.c
+@@ -57,14 +57,19 @@ static const struct snd_soc_ops atmel_asoc_wm8904_ops = {
+ 	.hw_params = atmel_asoc_wm8904_hw_params,
+ };
  
- 	dai_link = devm_kzalloc(dev, sizeof(*dai_link), GFP_KERNEL);
- 	if (!dai_link)
- 		return -ENOMEM;
++SND_SOC_DAILINK_DEFS(pcm,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8904-hifi")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
+ static struct snd_soc_dai_link atmel_asoc_wm8904_dailink = {
+ 	.name = "WM8904",
+ 	.stream_name = "WM8904 PCM",
+-	.codec_dai_name = "wm8904-hifi",
+ 	.dai_fmt = SND_SOC_DAIFMT_I2S
+ 		| SND_SOC_DAIFMT_NB_NF
+ 		| SND_SOC_DAIFMT_CBM_CFM,
+ 	.ops = &atmel_asoc_wm8904_ops,
++	SND_SOC_DAILINK_REG(pcm),
+ };
  
-+	comp = devm_kzalloc(dev, 3 * sizeof(*comp), GFP_KERNEL);
-+	if (!comp)
-+		return -ENOMEM;
-+
-+	dai_link->cpus		= &comp[0];
-+	dai_link->codecs	= &comp[1];
-+	dai_link->platforms	= &comp[2];
-+
-+	dai_link->num_cpus	= 1;
-+	dai_link->num_codecs	= 1;
-+	dai_link->num_platforms	= 1;
-+
- 	dai_link->name			= "PDMIC";
- 	dai_link->stream_name		= "PDMIC PCM";
--	dai_link->codec_dai_name	= ATMEL_PDMIC_CODEC_DAI_NAME;
--	dai_link->cpu_dai_name		= dev_name(dev);
--	dai_link->codec_name		= dev_name(dev);
--	dai_link->platform_name		= dev_name(dev);
-+	dai_link->codecs->dai_name	= ATMEL_PDMIC_CODEC_DAI_NAME;
-+	dai_link->cpus->dai_name	= dev_name(dev);
-+	dai_link->codecs->name		= dev_name(dev);
-+	dai_link->platforms->name	= dev_name(dev);
+ static struct snd_soc_card atmel_asoc_wm8904_card = {
+@@ -108,8 +113,8 @@ static int atmel_asoc_wm8904_dt_init(struct platform_device *pdev)
+ 		ret = -EINVAL;
+ 		return ret;
+ 	}
+-	dailink->cpu_of_node = cpu_np;
+-	dailink->platform_of_node = cpu_np;
++	dailink->cpus->of_node = cpu_np;
++	dailink->platforms->of_node = cpu_np;
+ 	of_node_put(cpu_np);
  
- 	card->dai_link	= dai_link;
- 	card->num_links	= 1;
+ 	codec_np = of_parse_phandle(np, "atmel,audio-codec", 0);
+@@ -118,7 +123,7 @@ static int atmel_asoc_wm8904_dt_init(struct platform_device *pdev)
+ 		ret = -EINVAL;
+ 		return ret;
+ 	}
+-	dailink->codec_of_node = codec_np;
++	dailink->codecs->of_node = codec_np;
+ 	of_node_put(codec_np);
+ 
+ 	return 0;
+@@ -137,7 +142,7 @@ static int atmel_asoc_wm8904_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	id = of_alias_get_id((struct device_node *)dailink->cpu_of_node, "ssc");
++	id = of_alias_get_id((struct device_node *)dailink->cpus->of_node, "ssc");
+ 	ret = atmel_ssc_set_audio(id);
+ 	if (ret != 0) {
+ 		dev_err(&pdev->dev, "failed to set SSC %d for audio\n", id);
+@@ -163,7 +168,7 @@ static int atmel_asoc_wm8904_remove(struct platform_device *pdev)
+ 	struct snd_soc_dai_link *dailink = &atmel_asoc_wm8904_dailink;
+ 	int id;
+ 
+-	id = of_alias_get_id((struct device_node *)dailink->cpu_of_node, "ssc");
++	id = of_alias_get_id((struct device_node *)dailink->cpus->of_node, "ssc");
+ 
+ 	snd_soc_unregister_card(card);
+ 	atmel_ssc_put_audio(id);
 -- 
 2.20.1
 

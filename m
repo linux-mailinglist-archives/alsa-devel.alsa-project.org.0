@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0107238061
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:15:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 354DD38064
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:16:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F4DA16BF;
-	Fri,  7 Jun 2019 00:14:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F4DA16BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF1AA16DF;
+	Fri,  7 Jun 2019 00:15:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF1AA16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559859323;
-	bh=bUBJX8xjYwzp93Mb/0d87V7K8qGlR5QYeD0zZzvjWuU=;
+	s=default; t=1559859399;
+	bh=l+mCBEDAHLoE+vJ/FMLJbZMCK7ULSbf3TjKE/p/e1zA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bah1VxsS0GRqto+PDYBWnDPJKbtQFd7PAYJnbxXtCMHFnfVrJopzdctDZV4hnxA6Q
-	 EuJuAry3Reo9ANFBHcoI1LadZQOhFjhOji3E+uc28kRIkj1vw8AzSA2T9WnQbiM8fJ
-	 NLsxIkDnB71aeYO+b1zfU+p9nwFEOM3dAVPS/CZE=
+	b=nOyS0ypLQ/IPn4bTj2o6olbA+qj8aYbQMv20B899v0iF+Gii6yitdGtY5Z3VN8Sy8
+	 4bwC/c0Mps1zqU+QpDkno9vxMom9VHSKZBumKxO7uDJUJSFIcrA2L7O5vLCvBgSw8/
+	 ij/dVWEPZmHc31xPAUgdH89tFxo/odkaYuVnOze4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D635F897B9;
-	Thu,  6 Jun 2019 23:30:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC02DF898CE;
+	Thu,  6 Jun 2019 23:30:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81601F8983D; Thu,  6 Jun 2019 23:27:53 +0200 (CEST)
+ id 4027FF8983C; Thu,  6 Jun 2019 23:27:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D5B9CF897A2
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5B9CF897A2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9C52F897A5
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9C52F897A5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="XfvwmMOm"
+ header.b="ZfB+SF2B"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=OQ1qLxQkoSo+IAj/7hCCZ4IIWo8cmFx4kNwx068nxSk=; b=XfvwmMOmBHi8
- BadVVrkKFN5lcv23/s/5xVyoZt4zJrfq1iFgXtx3Du9PFkjKdp/N9HgE3iK2HK3VExYHHJgYxUjRV
- X8wc2L5WRWp1gvRVVnWEyL7y0z9hAS/5jzggKkDicAjrTIvHlZ48u+y4hZUqILf21P9R7ykff8Dqo
- MN05E=;
+ List-Archive; bh=JsYlXUmYZVuR0oHNpBAok6di9WLkuuIV0EO6RnXPWfQ=; b=ZfB+SF2Bto+n
+ f4VK+DzlapSZz2pTHLCR1qq+y6ODtw+OKzcDto6YBppaMish1vUm/X5nvC0cp8K1nqI/BBqnbopzi
+ cXq5FkuBt7+mx6Gi/cmM/86V4rmDAU7J3rME/DR9D+2upYW7sls5EorgHl6S4LtfyaxnQUnhC3D3V
+ ISxis=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzu8-0007Np-IG; Thu, 06 Jun 2019 21:26:36 +0000
+ id 1hYzu9-0007O1-Na; Thu, 06 Jun 2019 21:26:37 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 2078B440046; Thu,  6 Jun 2019 22:26:36 +0100 (BST)
+ id 443DE440046; Thu,  6 Jun 2019 22:26:37 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ftonictj.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87imtjicts.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212636.2078B440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:36 +0100 (BST)
+Message-Id: <20190606212637.443DE440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:37 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: cirrus: snappercl15: use modern
-	dai_link style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: cirrus: edb93xx: use modern dai_link
+	style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: cirrus: snappercl15: use modern dai_link style
+   ASoC: cirrus: edb93xx: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 40989980bf4b9483ad2fb99c58324123a8c74c92 Mon Sep 17 00:00:00 2001
+From 5e883ff15fc079a8004a104209e2ecb14e5b4bb0 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:14:28 +0900
-Subject: [PATCH] ASoC: cirrus: snappercl15: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:14:18 +0900
+Subject: [PATCH] ASoC: cirrus: edb93xx: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,37 +124,36 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/cirrus/snappercl15.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ sound/soc/cirrus/edb93xx.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/cirrus/snappercl15.c b/sound/soc/cirrus/snappercl15.c
-index dea4909154c8..0b4efcc51232 100644
---- a/sound/soc/cirrus/snappercl15.c
-+++ b/sound/soc/cirrus/snappercl15.c
-@@ -65,16 +65,19 @@ static const struct snd_soc_dapm_route audio_map[] = {
- 	{"MICIN", NULL, "Mic Jack"},
+diff --git a/sound/soc/cirrus/edb93xx.c b/sound/soc/cirrus/edb93xx.c
+index f678b4c1514a..1528d1410ff2 100644
+--- a/sound/soc/cirrus/edb93xx.c
++++ b/sound/soc/cirrus/edb93xx.c
+@@ -60,16 +60,18 @@ static const struct snd_soc_ops edb93xx_ops = {
+ 	.hw_params	= edb93xx_hw_params,
  };
  
-+SND_SOC_DAILINK_DEFS(aic23,
++SND_SOC_DAILINK_DEFS(hifi,
 +	DAILINK_COMP_ARRAY(COMP_CPU("ep93xx-i2s")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic23-codec.0-001a",
-+				      "tlv320aic23-hifi")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("spi0.0", "cs4271-hifi")),
 +	DAILINK_COMP_ARRAY(COMP_PLATFORM("ep93xx-i2s")));
 +
- static struct snd_soc_dai_link snappercl15_dai = {
- 	.name		= "tlv320aic23",
- 	.stream_name	= "AIC23",
--	.cpu_dai_name	= "ep93xx-i2s",
--	.codec_dai_name	= "tlv320aic23-hifi",
--	.codec_name	= "tlv320aic23-codec.0-001a",
+ static struct snd_soc_dai_link edb93xx_dai = {
+ 	.name		= "CS4271",
+ 	.stream_name	= "CS4271 HiFi",
 -	.platform_name	= "ep93xx-i2s",
+-	.cpu_dai_name	= "ep93xx-i2s",
+-	.codec_name	= "spi0.0",
+-	.codec_dai_name	= "cs4271-hifi",
  	.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
  			  SND_SOC_DAIFMT_CBS_CFS,
- 	.ops		= &snappercl15_ops,
-+	SND_SOC_DAILINK_REG(aic23),
+ 	.ops		= &edb93xx_ops,
++	SND_SOC_DAILINK_REG(hifi),
  };
  
- static struct snd_soc_card snd_soc_snappercl15 = {
+ static struct snd_soc_card snd_soc_edb93xx = {
 -- 
 2.20.1
 

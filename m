@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D603137FDC
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:48:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE6E37FE8
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:51:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E61F16C6;
-	Thu,  6 Jun 2019 23:47:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E61F16C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 624041687;
+	Thu,  6 Jun 2019 23:50:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 624041687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559857710;
-	bh=m/1C7jYBxrr6rRwmKC1DE4OZ+TmZr1yU43Gi4cv83hA=;
+	s=default; t=1559857871;
+	bh=CK7hBMmTsn21qmCaWhNjz0LvmTt+Pz1xeeDZ2bosO5A=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=uq7eG7IJvRCd6A4SLf4tt1q6hEU9TsEYGIsWr6pDR8C44PQA64GSQuvksbx9DebFR
-	 GZ6O8ri7RzoakqiwsDZO3WmM5IDOpbGrJ28eMAxiEum41PBNdU/BMN/ZOoJ/X9u5O+
-	 MXyLEO1dB5FVle7A4CwZ+ckKW3E5ZCkk6zjVxDC4=
+	b=veLBGb+2Lje6lhNGKIYMzkpjK4kJ+T+KEa9WvEqu19QbP+59EvO7QCpG+fYOUSbsM
+	 iL3REAnny6avc7KIer7jCODR/Sv2HpL3FgfbWesgzx/UVzJ6yw1OPFxWmyVuL/23qT
+	 7iBO2rHbvepL7z0r/9CPmYbTKS8XrlHyzIYh2+v4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BE4FF89747;
-	Thu,  6 Jun 2019 23:27:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC7B3F897AD;
+	Thu,  6 Jun 2019 23:28:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F923F897D7; Thu,  6 Jun 2019 23:26:53 +0200 (CEST)
+ id 12586F897DB; Thu,  6 Jun 2019 23:26:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F4EBF89751
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F4EBF89751
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B3B6F89755
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B3B6F89755
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="qsSYg0eu"
+ header.b="oYbFt+VT"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Veq1BgJTe4ZThvgn8K4bxs1zht+InXcFI5WacdbhRPI=; b=qsSYg0euEyjm
- o11o11dwsT+jkrAQGEpeRnJmJVqgUdwdoFBGkLxitg8q41VVdvZ8c18fvgrH+9M+PdL/XeZBCP0pa
- uFa3/WA6i+wTakRhPA7qrDiHUZt0mwF6oLHLnfA8KOjOuRWTaFHQqrmi9pVfFofp+xOgRfRvCA52S
- T24jo=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=iYFzcHFw4QUY5Hfe5pxBXv3lf9aYycDWVLbqkMLfcGQ=; b=oYbFt+VTNe3m
+ 70aAQCLaKhL/jPOpf94g78VA1UrrhOYZwq8jBRL4JKG8ILzcLQTTiEqdiqGOu55wSHpNx498tX3//
+ 8Xi/VxagwCmAQ5wg9pORqiSFaGkNYKBu1r+ogoI3MVvF8R2Yit6QwIMhONFLUtA77bNTJhjW7l5El
+ Vf9aY=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztm-0007Jt-0c; Thu, 06 Jun 2019 21:26:14 +0000
+ id 1hYztn-0007K5-1u; Thu, 06 Jun 2019 21:26:15 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 73D2F440046; Thu,  6 Jun 2019 22:26:13 +0100 (BST)
+ id 91D92440046; Thu,  6 Jun 2019 22:26:14 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87sgsnfjge.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87v9xjfjgo.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212613.73D2F440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:13 +0100 (BST)
+Message-Id: <20190606212614.91D92440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:14 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sof: use modern dai_link style" to the
-	asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-topology: use modern dai_link
+	style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sof: use modern dai_link style
+   ASoC: soc-topology: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 7ba06110de2628137554cf4da849ef08f255f385 Mon Sep 17 00:00:00 2001
+From 23b946ce2808bd4f1bfca1bae1fafbf552be18a4 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:19:24 +0900
-Subject: [PATCH] ASoC: sof: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:19:14 +0900
+Subject: [PATCH] ASoC: soc-topology: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,122 +124,69 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/nocodec.c  | 21 +++++++++++++++++----
- sound/soc/sof/topology.c | 20 +++++++++-----------
- 2 files changed, 26 insertions(+), 15 deletions(-)
+ sound/soc/soc-topology.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/sof/nocodec.c b/sound/soc/sof/nocodec.c
-index f84b4344dcc3..3d128e5a132c 100644
---- a/sound/soc/sof/nocodec.c
-+++ b/sound/soc/sof/nocodec.c
-@@ -21,6 +21,7 @@ static int sof_nocodec_bes_setup(struct device *dev,
- 				 struct snd_soc_dai_link *links,
- 				 int link_num, struct snd_soc_card *card)
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index 3299ebb48c1a..f485f7f751a1 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -560,7 +560,7 @@ static void remove_link(struct snd_soc_component *comp,
+ 
+ 	kfree(link->name);
+ 	kfree(link->stream_name);
+-	kfree(link->cpu_dai_name);
++	kfree(link->cpus->dai_name);
+ 
+ 	list_del(&dobj->list);
+ 	snd_soc_remove_dai_link(comp->card, link);
+@@ -1879,12 +1879,22 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+ 	struct snd_soc_tplg_pcm *pcm)
  {
+ 	struct snd_soc_dai_link *link;
 +	struct snd_soc_dai_link_component *dlc;
- 	int i;
- 
- 	if (!ops || !links || !card)
-@@ -28,17 +29,29 @@ static int sof_nocodec_bes_setup(struct device *dev,
- 
- 	/* set up BE dai_links */
- 	for (i = 0; i < link_num; i++) {
-+		dlc = devm_kzalloc(dev, 3 * sizeof(*dlc), GFP_KERNEL);
-+		if (!dlc)
-+			return -ENOMEM;
-+
- 		links[i].name = devm_kasprintf(dev, GFP_KERNEL,
- 					       "NoCodec-%d", i);
- 		if (!links[i].name)
- 			return -ENOMEM;
- 
-+		links[i].cpus = &dlc[0];
-+		links[i].codecs = &dlc[1];
-+		links[i].platforms = &dlc[2];
-+
-+		links[i].num_cpus = 1;
-+		links[i].num_codecs = 1;
-+		links[i].num_platforms = 1;
-+
- 		links[i].id = i;
- 		links[i].no_pcm = 1;
--		links[i].cpu_dai_name = ops->drv[i].name;
--		links[i].platform_name = dev_name(dev);
--		links[i].codec_dai_name = "snd-soc-dummy-dai";
--		links[i].codec_name = "snd-soc-dummy";
-+		links[i].cpus->dai_name = ops->drv[i].name;
-+		links[i].platforms->name = dev_name(dev);
-+		links[i].codecs->dai_name = "snd-soc-dummy-dai";
-+		links[i].codecs->name = "snd-soc-dummy";
- 		links[i].dpcm_playback = 1;
- 		links[i].dpcm_capture = 1;
- 	}
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index b969686f954f..a13233ae6d0e 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -2639,7 +2639,6 @@ static int sof_link_hda_load(struct snd_soc_component *scomp, int index,
- 			     struct sof_ipc_dai_config *config)
- {
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct snd_soc_dai_link_component dai_component;
- 	struct snd_soc_tplg_private *private = &cfg->priv;
- 	struct snd_soc_dai *dai;
- 	u32 size = sizeof(*config);
-@@ -2650,7 +2649,6 @@ static int sof_link_hda_load(struct snd_soc_component *scomp, int index,
  	int ret;
  
- 	/* init IPC */
--	memset(&dai_component, 0, sizeof(dai_component));
- 	memset(&config->hda, 0, sizeof(struct sof_ipc_dai_hda_params));
- 	config->hdr.size = size;
+-	link = kzalloc(sizeof(struct snd_soc_dai_link), GFP_KERNEL);
++	/* link + cpu + codec */
++	link = kzalloc(sizeof(*link) + (2 * sizeof(*dlc)), GFP_KERNEL);
+ 	if (link == NULL)
+ 		return -ENOMEM;
  
-@@ -2664,11 +2662,10 @@ static int sof_link_hda_load(struct snd_soc_component *scomp, int index,
++	dlc = (struct snd_soc_dai_link_component *)(link + 1);
++
++	link->cpus	= &dlc[0];
++	link->codecs	= &dlc[1];
++
++	link->num_cpus	 = 1;
++	link->num_codecs = 1;
++
+ 	if (strlen(pcm->pcm_name)) {
+ 		link->name = kstrdup(pcm->pcm_name, GFP_KERNEL);
+ 		link->stream_name = kstrdup(pcm->pcm_name, GFP_KERNEL);
+@@ -1892,10 +1902,10 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+ 	link->id = le32_to_cpu(pcm->pcm_id);
+ 
+ 	if (strlen(pcm->dai_name))
+-		link->cpu_dai_name = kstrdup(pcm->dai_name, GFP_KERNEL);
++		link->cpus->dai_name = kstrdup(pcm->dai_name, GFP_KERNEL);
+ 
+-	link->codec_name = "snd-soc-dummy";
+-	link->codec_dai_name = "snd-soc-dummy-dai";
++	link->codecs->name = "snd-soc-dummy";
++	link->codecs->dai_name = "snd-soc-dummy-dai";
+ 
+ 	/* enable DPCM */
+ 	link->dynamic = 1;
+@@ -1912,7 +1922,7 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
+ 		dev_err(tplg->comp->dev, "ASoC: FE link loading failed\n");
+ 		kfree(link->name);
+ 		kfree(link->stream_name);
+-		kfree(link->cpu_dai_name);
++		kfree(link->cpus->dai_name);
+ 		kfree(link);
  		return ret;
  	}
- 
--	dai_component.dai_name = link->cpu_dai_name;
--	dai = snd_soc_find_dai(&dai_component);
-+	dai = snd_soc_find_dai(link->cpus);
- 	if (!dai) {
- 		dev_err(sdev->dev, "error: failed to find dai %s in %s",
--			dai_component.dai_name, __func__);
-+			link->cpus->dai_name, __func__);
- 		return -EINVAL;
- 	}
- 
-@@ -2708,7 +2705,11 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 	int ret;
- 	int i = 0;
- 
--	link->platform_name = dev_name(sdev->dev);
-+	if (!link->platforms) {
-+		dev_err(sdev->dev, "error: no platforms\n");
-+		return -EINVAL;
-+	}
-+	link->platforms->name = dev_name(sdev->dev);
- 
- 	/*
- 	 * Set nonatomic property for FE dai links as their trigger action
-@@ -2801,16 +2802,13 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- static int sof_link_hda_unload(struct snd_sof_dev *sdev,
- 			       struct snd_soc_dai_link *link)
- {
--	struct snd_soc_dai_link_component dai_component;
- 	struct snd_soc_dai *dai;
- 	int ret = 0;
- 
--	memset(&dai_component, 0, sizeof(dai_component));
--	dai_component.dai_name = link->cpu_dai_name;
--	dai = snd_soc_find_dai(&dai_component);
-+	dai = snd_soc_find_dai(link->cpus);
- 	if (!dai) {
- 		dev_err(sdev->dev, "error: failed to find dai %s in %s",
--			dai_component.dai_name, __func__);
-+			link->cpus->dai_name, __func__);
- 		return -EINVAL;
- 	}
- 
 -- 
 2.20.1
 

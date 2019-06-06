@@ -2,75 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56C6637396
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 13:56:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD93373AB
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 13:59:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C63731684;
-	Thu,  6 Jun 2019 13:55:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C63731684
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1B471688;
+	Thu,  6 Jun 2019 13:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1B471688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559822193;
-	bh=mAup9VucY4L6irU8Xp0eWYNGYRXPFmUJxXXKD3wngYE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=VA2Zf2Y44XMS95d9zSmg8JnNFUfxnajDWF/ExQsOVX8sLFRLbQ4FXuh+CaLqzxzRP
-	 jLatWZsPvYjmpsRZRSCcDw/nbmmH/vDzM2x9u+lQtyByyZdDREgXhmQlG49EE9AF6R
-	 3WUpTttXuNpYrvGrRcf+EDT1Y78xKdWeWmJ05Fjw=
+	s=default; t=1559822343;
+	bh=J+4BW97FhdCz6wpkvILm0acm3HD8bs92KtCVFeBNPlQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=H4MaUZwtZoU2MRStzXGebWOTHNBhv5ZZDRWsWW0/3J+1IMh8f1Lc0m0n0OJPdPxMp
+	 PS4IASq8QmGo8IG6Tr6EUNvjcODpKGkBu8HwDFu4hF0rEzTBNW5rHNgaILsDUa3w8X
+	 zqBIeB9+Kyrc0Y8DImvwfSFbcAJXyQ3Ama6aH9Lw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8045EF896F8;
-	Thu,  6 Jun 2019 13:54:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38778F896EF;
+	Thu,  6 Jun 2019 13:57:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B06AF896EF; Thu,  6 Jun 2019 13:54:47 +0200 (CEST)
+ id E9025F896EF; Thu,  6 Jun 2019 13:57:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E805F80768
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 13:54:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E805F80768
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Z1ghBiSs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gTBkVmHAheLzIjg20ZEgj9XJEkLrz4Bi4GDSG+PTTSU=; b=Z1ghBiSsZHjuzORBJfhzyx5pw
- fw272Vt1FcBSp1I6+Hg2sQewRs2GqIic+xjaUhu8i9diVc6DcVwyu8RJFvdQx8YThumh2ui/ZrN1q
- RlWlWN7WZCIEDMknmFSkEO1xRraTFLSbgjTuXQplqBuJVYB3VhOrZiKUv+eJlJTBvyr00=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hYqyh-0005ST-2g; Thu, 06 Jun 2019 11:54:43 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 44A95440046; Thu,  6 Jun 2019 12:54:42 +0100 (BST)
-Date: Thu, 6 Jun 2019 12:54:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190606115441.GB2456@sirena.org.uk>
-References: <20190606114002.17251-1-srinivas.kandagatla@linaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D34CF80768
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 13:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D34CF80768
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Jun 2019 04:57:10 -0700
+X-ExtLoop1: 1
+Received: from irsmsx110.ger.corp.intel.com ([163.33.3.25])
+ by orsmga001.jf.intel.com with ESMTP; 06 Jun 2019 04:57:08 -0700
+Received: from irsmsx111.ger.corp.intel.com (10.108.20.4) by
+ irsmsx110.ger.corp.intel.com (163.33.3.25) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Thu, 6 Jun 2019 12:57:08 +0100
+Received: from irsmsx104.ger.corp.intel.com ([169.254.5.227]) by
+ irsmsx111.ger.corp.intel.com ([169.254.2.175]) with mapi id 14.03.0415.000;
+ Thu, 6 Jun 2019 12:57:07 +0100
+From: "Ser, Simon" <simon.ser@intel.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: Sending DC offsets to an ALSA device: dangerous?
+Thread-Index: AQHVHF72q26QQ4sleEaoHSYsE0saUg==
+Date: Thu, 6 Jun 2019 11:57:06 +0000
+Message-ID: <74b57974c339abb4e45be3bec2364ccf417d2967.camel@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.237.72.181]
+Content-ID: <A928624AA0EEF9439115F21DB3140290@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20190606114002.17251-1-srinivas.kandagatla@linaro.org>
-X-Cookie: The other line moves faster.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: msm8916-wcd-digital: Add sidetone
-	support
+Cc: "tvrtko.ursulin@linux.intel.com" <tvrtko.ursulin@linux.intel.com>,
+ "martin.peres@linux.intel.com" <martin.peres@linux.intel.com>
+Subject: [alsa-devel] Sending DC offsets to an ALSA device: dangerous?
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,64 +77,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2254145262380331356=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
---===============2254145262380331356==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9Ox1BgGQfTDeiDFL"
-Content-Disposition: inline
+I've been writing some audio HDMI/DisplayPort tests in the IGT test
+suite. As part of the tests I send 200ms DC offsets at 90% of the
+maximum amplitude.
 
+Do you know whether doing so is dangerous for some TV speakers? Would
+sending the same DC offsets at 25% of the max amplitude be better?
 
---9Ox1BgGQfTDeiDFL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks,
 
-On Thu, Jun 06, 2019 at 12:40:02PM +0100, Srinivas Kandagatla wrote:
-
-> +	default:
-> +		pr_err("%s: event = %d not expected\n", __func__, event);
-> +	}
-
-dev_err() please (and a break; as well, it isn't strictly needed but
-stops people having to check that it isn't needed).
-
-> +	SOC_SINGLE_EXT("IIR1 Enable Band1", IIR1, BAND1, 1, 0,
-> +	msm8x16_wcd_get_iir_enable_audio_mixer,
-> +	msm8x16_wcd_put_iir_enable_audio_mixer),
-
-The indentation here is *really* messed up.  What are these controls,
-with names like "Enable" they sound like on/off controls in which case
-they should be standard Switch controls.
-
---9Ox1BgGQfTDeiDFL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz4/wEACgkQJNaLcl1U
-h9CHXgf9ELgAnvcZKwTjonidDRb4OSre9kePfh4H+mFw7tR6ZR9tmBAT2jbsVbGZ
-WvScbpmCOfn++MhbvUy/EPYBm2WKdhiVRzT7K4m40Z/FJI3ZsZcKmR6WXaQnml9u
-xkTXA6na7ohZkJ4lpkmN1GMo/3pE0XjQudzjSEUBlY3/ZbLhEf1uOke3Fphilxb7
-y2QF6JumJj9Zb1SBYIy30NV738gGDGmQY4A4Dtj1nm1Z4beiB079IxOXTRCoZ15+
-fzJ61eL4qFymDuuJ0NTNsvos01adD0vGWVLhR+ngBDILwNatpwJ0gP+gK7XhxKWQ
-9JDBbNRSzsgduDJnCk4IIC+A38m0HA==
-=3Tnd
------END PGP SIGNATURE-----
-
---9Ox1BgGQfTDeiDFL--
-
---===============2254145262380331356==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Simon Ser
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2254145262380331356==--

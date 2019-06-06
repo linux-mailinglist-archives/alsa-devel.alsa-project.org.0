@@ -2,62 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A04A36C2A
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 08:24:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2E4C3A0C9
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:52:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 006F7169E;
-	Thu,  6 Jun 2019 08:23:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 006F7169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50BD5166A;
+	Sat,  8 Jun 2019 18:52:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50BD5166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559802278;
-	bh=rA8cu9+6VNEZbYDDKMZb4OGbaLeC7nfgLf324VjwqgI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Hp2n4dGb7av1EBPCH94nwqddtJVRQ4or3lQlWA8jMg2wPTIFYC39wsr8YPhmmlodW
-	 hsdLIcMMeclLSlAzmi41OKUf0C8N7rwOudl37Y4JhHk75efIiSw05YTo9OnEq1hNe5
-	 oFy+9whAhhMgL/2oDHajNF4uG/ZrTHpYPmC3FvQc=
+	s=default; t=1560012770;
+	bh=5UtbFVBanUnv6DaKpPt4e6jOlk0nZP6hc1l0wYo56X8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZlZ/91mkeuluEZYfL1kOwthaMDgt2VtOd4DcT5jjWJJLOBdy/VmHzTr3pHEmnW3qR
+	 0lrTZzjMb/yj9JetDfXTZpaTQbks0ZUDJTiDYkNiCg+C0Pjk0mhYBZ3Zos5KAnv6FE
+	 o+lAttCZqqIfkXsEwHcieS4EiJ7IJcJsoKXh7tjM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96B66F896FE;
-	Thu,  6 Jun 2019 08:22:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F225F89783;
+	Sat,  8 Jun 2019 18:40:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08568F896F7; Thu,  6 Jun 2019 08:22:51 +0200 (CEST)
+ id 56D69F896F7; Thu,  6 Jun 2019 08:28:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15758F896CE
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 08:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15758F896CE
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x566MbIP025789,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (rtitcasv02.realtek.com.tw[172.21.6.19])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x566MbIP025789
- (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 6 Jun 2019 14:22:37 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTITCASV02.realtek.com.tw (172.21.6.19) with Microsoft SMTP Server id
- 14.3.439.0; Thu, 6 Jun 2019 14:22:36 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Date: Thu, 6 Jun 2019 14:22:32 +0800
-Message-ID: <20190606062232.3753-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.21.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8F76F80768
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 08:28:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8F76F80768
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3AA2AAF50;
+ Thu,  6 Jun 2019 06:28:24 +0000 (UTC)
+Date: Thu, 6 Jun 2019 08:28:18 +0200
+From: Jean Delvare <jdelvare@suse.de>
+To: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <20190606082818.424c783c@endymion>
+In-Reply-To: <0a5acc33-40f9-9235-505e-92f534ddc7e2@infradead.org>
+References: <20190604152019.16100-1-enric.balletbo@collabora.com>
+ <0a5acc33-40f9-9235-505e-92f534ddc7e2@infradead.org>
+Organization: SUSE Linux
+X-Mailer: Claws Mail 3.13.2 (GTK+ 2.24.31; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-X-Originating-IP: [172.22.102.1]
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, cychiang@google.com, derek.fang@realtek.com,
- Shuming Fan <shumingf@realtek.com>, mingjane_hsieh@realtek.com,
- flove@realtek.com, hychao@google.com
-Subject: [alsa-devel] [PATCH] ASoC: rt1011: fix warning reported by kbuild
-	test robot and minor issue
+X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:50 +0200
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Enno Luebbers <enno.luebbers@intel.com>, gwendal@chromium.org,
+ Banajit Goswami <bgoswami@codeaurora.org>, Heiko Stuebner <heiko@sntech.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, linux-doc@vger.kernel.org,
+ Wolfram Sang <wsa@the-dreams.de>, Mark Brown <broonie@kernel.org>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Juergen Fitschen <jfi@ssv-embedded.de>, alsa-devel@alsa-project.org,
+ Stefan Agner <stefan@agner.ch>, Sebastian Reichel <sre@kernel.org>,
+ Jilayne Lovejoy <opensource@jilayne.com>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Guido Kiener <guido@kiener-muenchen.de>, linux-i2c@vger.kernel.org,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Dong Aisheng <aisheng.dong@nxp.com>, Guenter Roeck <groeck@chromium.org>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Ravi Chandra Sadineni <ravisadineni@chromium.org>, kernel@collabora.com,
+ dtor@chromium.org, Rushikesh S Kadam <rushikesh.s.kadam@intel.com>,
+ Vignesh R <vigneshr@ti.com>, linux-rtc@vger.kernel.org,
+ Tycho Andersen <tycho@tycho.ws>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Shreesha Rajashekar <shreesha.rajashekar@broadcom.com>,
+ Sean Young <sean@mess.org>, Jonathan Corbet <corbet@lwn.net>,
+ Lee Jones <lee.jones@linaro.org>, Patrick Lai <plai@codeaurora.org>,
+ Brian Norris <briannorris@chromium.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ Evan Green <evgreen@chromium.org>, Kishon Vijay Abraham I <kishon@ti.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Hans Verkuil <hans.verkuil@cisco.com>,
+ Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
+ linux-input@vger.kernel.org, Elie Morisse <syniurge@gmail.com>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, Wu Hao <hao.wu@intel.com>,
+ Ettore Chimenti <ek5.chimenti@gmail.com>, linux-pwm@vger.kernel.org,
+ Jiri Kosina <jikos@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ Kees Cook <keescook@chromium.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Hartmut Knaack <knaack.h@gmx.de>, Marco Felsch <m.felsch@pengutronix.de>,
+ Hans Verkuil <hverkuil-cisco@xs4all.nl>,
+ Florian Fainelli <f.fainelli@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Alessandro Zummo <a.zummo@towertech.it>, Lars-Peter Clausen <lars@metafoo.de>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ Ajay Gupta <ajayg@nvidia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ Jacky Bai <ping.bai@nxp.com>,
+ Fabien Lahoudere <fabien.lahoudere@collabora.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Colin Ian King <colin.king@canonical.com>, linux-media@vger.kernel.org,
+ Eddie James <eajames@linux.vnet.ibm.com>, Jonathan Cameron <jic23@kernel.org>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Subject: Re: [alsa-devel] [PATCH 00/10] Move part of cros-ec out of MFD
+	subsystem
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,72 +124,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+Hi Randy,
 
-This patch fixes following issues:
-- warning: this decimal constant is unsigned only in ISO C90
-- sparse: incorrect type in assignment
-- check if value.integer.value is zero for "R0 Load Mode" control
+On Tue, 4 Jun 2019 15:18:43 -0700, Randy Dunlap wrote:
+> Was there a patch 02/10?  I didn't see it.
+> What mailing list(s) was it sent to?
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
----
- sound/soc/codecs/rt1011.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+There was, but I can't find it in list archives, probably because there
+were too many recipients.
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index 349d6db7ecd4..5605b660f4bf 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -1145,8 +1145,8 @@ static int rt1011_bq_drc_coeff_get(struct snd_kcontrol *kcontrol,
- 	bq_drc_info = rt1011->bq_drc_params[mode_idx];
- 
- 	for (i = 0; i < RT1011_BQ_DRC_NUM; i++) {
--		params[i].reg = cpu_to_le16(bq_drc_info[i].reg);
--		params[i].val = cpu_to_le16(bq_drc_info[i].val);
-+		params[i].reg = bq_drc_info[i].reg;
-+		params[i].val = bq_drc_info[i].val;
- 	}
- 
- 	return 0;
-@@ -1187,8 +1187,8 @@ static int rt1011_bq_drc_coeff_put(struct snd_kcontrol *kcontrol,
- 	pr_info("%s, id.name=%s, mode_idx=%d\n", __func__,
- 		ucontrol->id.name, mode_idx);
- 	for (i = 0; i < RT1011_BQ_DRC_NUM; i++) {
--		bq_drc_info[i].reg =	le16_to_cpu(params[i].reg);
--		bq_drc_info[i].val =	le16_to_cpu(params[i].val);
-+		bq_drc_info[i].reg = params[i].reg;
-+		bq_drc_info[i].val = params[i].val;
- 	}
- 
- 	for (i = 0; i < RT1011_BQ_DRC_NUM; i++) {
-@@ -1284,11 +1284,14 @@ static int rt1011_r0_load_mode_put(struct snd_kcontrol *kcontrol,
- 	if (!component->card->instantiated)
- 		return 0;
- 
-+	if (ucontrol->value.integer.value[0] == 0)
-+		return -EINVAL;
-+
- 	dev = regmap_get_device(rt1011->regmap);
- 	if (snd_soc_component_get_bias_level(component) == SND_SOC_BIAS_OFF) {
- 		rt1011->r0_reg = ucontrol->value.integer.value[0];
- 
--		format = 2147483648; /* 2^24 * 128 */
-+		format = 2147483648U; /* 2^24 * 128 */
- 		r0_integer = format / rt1011->r0_reg / 128;
- 		r0_factor = ((format / rt1011->r0_reg * 100) / 128)
- 						- (r0_integer * 100);
-@@ -2120,7 +2123,7 @@ static int rt1011_calibrate(struct rt1011_priv *rt1011, unsigned char cali_flag)
- 			dev_err(dev,	"Calibrate R0 Failure\n");
- 			ret = -EAGAIN;
- 		} else {
--			format = 2147483648; /* 2^24 * 128 */
-+			format = 2147483648U; /* 2^24 * 128 */
- 			r0_integer = format / r0[0] / 128;
- 			r0_factor = ((format / r0[0] * 100) / 128)
- 							- (r0_integer * 100);
+I'll bounce the copy I received to you.
+
 -- 
-2.21.0
-
+Jean Delvare
+SUSE L3 Support
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3718F38144
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:51:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D3ED38152
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:54:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE21B1721;
-	Fri,  7 Jun 2019 00:50:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE21B1721
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94B11176C;
+	Fri,  7 Jun 2019 00:53:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94B11176C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559861484;
-	bh=h6zyfKVmjg0Rrug62tEM2MgXDGcwLgUk4GGoreUMt0k=;
+	s=default; t=1559861647;
+	bh=JJJVoz5WdhCHURVbJSZOyUwQdPKRqQmIx+6j9hz9g6c=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=GO7SELG/HN9dEwV8IFtUnRzkon9Wi5MfnBz4wRuUKOWD+5410RsglDk1U9TlHd+eg
-	 E99cAHoYffD1gXnRanJ2SzJdSEPZMIeM8HLC8Srxf6848e1RBzinDZ8mU4Ni5k/zN/
-	 3YFGa5lvEovjdBfUzvjrZh7XuSL0u0xZJwuAcycU=
+	b=DHzo2OZH0gYZrrryeZ8hs66V81TkFqu7Yh6Hemj/08Hw2PoULIw0HLHhT+F/sp/jL
+	 joXgih6hPNPovTNUZVnZZDIz7ge6RCCFjFOAI6uFNHBASDHbut6DM+lOLvWg9i1W3T
+	 pcwWd6765Sa0U/a3SBiu0MPnGs5RFACrFefftF/A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 792D4F899FE;
-	Thu,  6 Jun 2019 23:31:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63149F89A1A;
+	Thu,  6 Jun 2019 23:31:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03EDAF89883; Thu,  6 Jun 2019 23:29:09 +0200 (CEST)
+ id 5179DF89881; Thu,  6 Jun 2019 23:29:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68918F897F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4B6EF897EE
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68918F897F0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4B6EF897EE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="l8Q/F9jJ"
+ header.b="qLffRlm2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=jjH/nSQ7tt9s2ZTp5Qrvm0YDNS+dnVBIk/fCKfFTmX0=; b=l8Q/F9jJI8iJ
- 0TzCVlUButBwkt5hkgjMt/tTFVe1tZAAQO3HFKi3eK3ooKlpv1khRjv2FrGQKCJHQlE7H7tuwWUap
- VUHGqC4GcbQ9TqPzlhrV70sfKdh9UNgDxVHCHduoZzwyXIIfTi5c6w+KjNb1Fkrpk2NWvFWPPKM76
- dH9/4=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=GdbiAZwMMJ+krAJ0qKMyrfbjRvMD444N0+SNeZLtD+Q=; b=qLffRlm2HU5e
+ GjE1G0Q4G+VTmJJ0geZtey1lL6r09z87a8Uwf6b9OyZY/JkdzkiDbJPiphvjOpkaElf/gVOyP1fRi
+ dTfq1Tcg2EuMXT1m9w5XjFhEgehgD6B2ukGpQVC69vpC8g4lHXG2jNNqRW95Oz/DRGNeDjrOiG8ZV
+ GhD8U=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuc-0007T6-VT; Thu, 06 Jun 2019 21:27:07 +0000
+ id 1hYzud-0007TA-Ea; Thu, 06 Jun 2019 21:27:07 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 6E952440049; Thu,  6 Jun 2019 22:27:06 +0100 (BST)
+ id 01CB5440046; Thu,  6 Jun 2019 22:27:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lfyfl664.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87muivl66a.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212706.6E952440049@finisterre.sirena.org.uk>
+Message-Id: <20190606212707.01CB5440046@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:27:06 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: samsung: speyside: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: samsung: tm2_wm5110: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: speyside: use modern dai_link style
+   ASoC: samsung: tm2_wm5110: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 3f60911771a10a8f87e56e61deb501a054c2ea0c Mon Sep 17 00:00:00 2001
+From f1d26f2b947ea6cc3265b0e3c0a265c57a43f945 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:09:50 +0900
-Subject: [PATCH] ASoC: samsung: speyside: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:09:44 +0900
+Subject: [PATCH] ASoC: samsung: tm2_wm5110: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,69 +124,106 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/samsung/speyside.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
+ sound/soc/samsung/tm2_wm5110.c | 42 ++++++++++++++++++++++++----------
+ 1 file changed, 30 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/samsung/speyside.c b/sound/soc/samsung/speyside.c
-index 15465c84daa3..51e4c976c8be 100644
---- a/sound/soc/samsung/speyside.c
-+++ b/sound/soc/samsung/speyside.c
-@@ -189,39 +189,45 @@ static const struct snd_soc_pcm_stream dsp_codec_params = {
- 	.channels_max = 2,
- };
- 
-+SND_SOC_DAILINK_DEFS(cpu_dsp,
-+	DAILINK_COMP_ARRAY(COMP_CPU("samsung-i2s.0")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("spi0.0", "wm0010-sdi1")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("samsung-i2s.0")));
-+
-+SND_SOC_DAILINK_DEFS(dsp_codec,
-+	DAILINK_COMP_ARRAY(COMP_CPU("wm0010-sdi2")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm8996.1-001a", "wm8996-aif1")));
-+
-+SND_SOC_DAILINK_DEFS(baseband,
-+	DAILINK_COMP_ARRAY(COMP_CPU("wm8996-aif2")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm1250-ev1.1-0027", "wm1250-ev1")));
-+
- static struct snd_soc_dai_link speyside_dai[] = {
- 	{
- 		.name = "CPU-DSP",
- 		.stream_name = "CPU-DSP",
--		.cpu_dai_name = "samsung-i2s.0",
--		.codec_dai_name = "wm0010-sdi1",
--		.platform_name = "samsung-i2s.0",
--		.codec_name = "spi0.0",
- 		.init = speyside_wm0010_init,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
- 				| SND_SOC_DAIFMT_CBM_CFM,
-+		SND_SOC_DAILINK_REG(cpu_dsp),
- 	},
- 	{
- 		.name = "DSP-CODEC",
- 		.stream_name = "DSP-CODEC",
--		.cpu_dai_name = "wm0010-sdi2",
--		.codec_dai_name = "wm8996-aif1",
--		.codec_name = "wm8996.1-001a",
- 		.init = speyside_wm8996_init,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
- 				| SND_SOC_DAIFMT_CBM_CFM,
- 		.params = &dsp_codec_params,
- 		.ignore_suspend = 1,
-+		SND_SOC_DAILINK_REG(dsp_codec),
- 	},
- 	{
- 		.name = "Baseband",
- 		.stream_name = "Baseband",
--		.cpu_dai_name = "wm8996-aif2",
--		.codec_dai_name = "wm1250-ev1",
--		.codec_name = "wm1250-ev1.1-0027",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
- 				| SND_SOC_DAIFMT_CBM_CFM,
- 		.ignore_suspend = 1,
-+		SND_SOC_DAILINK_REG(baseband),
+diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
+index 31f4256c6c65..c091033d17ad 100644
+--- a/sound/soc/samsung/tm2_wm5110.c
++++ b/sound/soc/samsung/tm2_wm5110.c
+@@ -427,38 +427,56 @@ static struct snd_soc_dai_driver tm2_ext_dai[] = {
  	},
  };
  
++SND_SOC_DAILINK_DEFS(aif1,
++	DAILINK_COMP_ARRAY(COMP_CPU(SAMSUNG_I2S_DAI)),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif1")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(voice,
++	DAILINK_COMP_ARRAY(COMP_CPU(SAMSUNG_I2S_DAI)),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif2")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(bt,
++	DAILINK_COMP_ARRAY(COMP_CPU(SAMSUNG_I2S_DAI)),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif3")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(hdmi,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
+ static struct snd_soc_dai_link tm2_dai_links[] = {
+ 	{
+ 		.name		= "WM5110 AIF1",
+ 		.stream_name	= "HiFi Primary",
+-		.cpu_dai_name   = SAMSUNG_I2S_DAI,
+-		.codec_dai_name = "wm5110-aif1",
+ 		.ops		= &tm2_aif1_ops,
+ 		.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 				  SND_SOC_DAIFMT_CBM_CFM,
++		SND_SOC_DAILINK_REG(aif1),
+ 	}, {
+ 		.name		= "WM5110 Voice",
+ 		.stream_name	= "Voice call",
+-		.cpu_dai_name   = SAMSUNG_I2S_DAI,
+-		.codec_dai_name = "wm5110-aif2",
+ 		.ops		= &tm2_aif2_ops,
+ 		.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 				  SND_SOC_DAIFMT_CBM_CFM,
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(voice),
+ 	}, {
+ 		.name		= "WM5110 BT",
+ 		.stream_name	= "Bluetooth",
+-		.cpu_dai_name   = SAMSUNG_I2S_DAI,
+-		.codec_dai_name = "wm5110-aif3",
+ 		.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 				  SND_SOC_DAIFMT_CBM_CFM,
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(bt),
+ 	}, {
+ 		.name		= "HDMI",
+ 		.stream_name	= "i2s1",
+ 		.ops		= &tm2_hdmi_ops,
+ 		.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 				  SND_SOC_DAIFMT_CBS_CFS,
++		SND_SOC_DAILINK_REG(hdmi),
+ 	}
+ };
+ 
+@@ -557,15 +575,15 @@ static int tm2_probe(struct platform_device *pdev)
+ 	for_each_card_prelinks(card, i, dai_link) {
+ 		unsigned int dai_index = 0; /* WM5110 */
+ 
+-		dai_link->cpu_name = NULL;
+-		dai_link->platform_name = NULL;
++		dai_link->cpus->name = NULL;
++		dai_link->platforms->name = NULL;
+ 
+ 		if (num_codecs > 1 && i == card->num_links - 1)
+ 			dai_index = 1; /* HDMI */
+ 
+-		dai_link->codec_of_node = codec_dai_node[dai_index];
+-		dai_link->cpu_of_node = cpu_dai_node[dai_index];
+-		dai_link->platform_of_node = cpu_dai_node[dai_index];
++		dai_link->codecs->of_node = codec_dai_node[dai_index];
++		dai_link->cpus->of_node = cpu_dai_node[dai_index];
++		dai_link->platforms->of_node = cpu_dai_node[dai_index];
+ 	}
+ 
+ 	if (num_codecs > 1) {
+@@ -579,7 +597,7 @@ static int tm2_probe(struct platform_device *pdev)
+ 			goto dai_node_put;
+ 		}
+ 
+-		ret = snd_soc_get_dai_name(&args, &card->dai_link[i].codec_dai_name);
++		ret = snd_soc_get_dai_name(&args, &card->dai_link[i].codecs->dai_name);
+ 		if (ret) {
+ 			dev_err(dev, "Unable to get codec_dai_name\n");
+ 			goto dai_node_put;
 -- 
 2.20.1
 

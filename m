@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB71D38163
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:57:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7898938169
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:58:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 82A1D176C;
-	Fri,  7 Jun 2019 00:57:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82A1D176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EE07177D;
+	Fri,  7 Jun 2019 00:57:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EE07177D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559861879;
-	bh=umq8NMYfdtnq3NvRwQaKP3rpz3PTwKR08TGVq/UUvSk=;
+	s=default; t=1559861920;
+	bh=pqkO3BnzrvjYHdQnSR6O2bjhtO4P4ul5yTz5dSTjVaI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=QQ/MAC9Xfaek3jw3Lif2Y8w57QyDWsvPgz9afhXDcrecwbNO4BWlltslI4x6jAVzH
-	 beS+rZYLh52SUptOBCYL0VApMUjH+REo1pZs1wimr6EHooCSxy6DoaIkaZqzvuAYgh
-	 FMv5vydFEtRtQTHn98pEOdgbmDHdPA7yl/RrV2mk=
+	b=XyMy9JXU/Uv5xnkOtyzTt5CTtqD3mx0+Wq5iwrnAjC/mJSc2X1q1dUAItGnQmU3dB
+	 G4y/P161V6cdLPxKCNXrHvj4QQUktAaS6k4aRqAuykqgybHzwGBDq1TR/btxF1iNBz
+	 zJ0x/9eur+9T0vQWbv5c8EYAnbVLa7C5xW3V6BaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DFE5F89A37;
-	Thu,  6 Jun 2019 23:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 376B1F89A39;
+	Thu,  6 Jun 2019 23:31:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2B46F8989A; Thu,  6 Jun 2019 23:29:27 +0200 (CEST)
+ id 48766F8989B; Thu,  6 Jun 2019 23:29:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C20EFF89805
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C20EFF89805
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A55BF89762
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A55BF89762
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bd2AW3lT"
+ header.b="ffNXpFlL"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=D8TcNWlorPhEkeZ+wekm960VQ550cySiD0ty3baPeSM=; b=bd2AW3lTT4Nn
- uQ49l/h8abz+n3FiZhqArmG+120swLZvi0zCZTfAv15DANSME3sg3DijJgk070GisyZ7yDDaMEKLz
- u7QoMO25rQUfazQrajqQJ8Sf2rZf7hxdz0y8WNv3WunV6BQcxa3iLsEnYoaxYKtrz7NN1mgbdLDhn
- X3GtY=;
+ List-Archive; bh=g2DCI0UE00RhfPCNtUoU6yy149FH0kA/heAhExknMME=; b=ffNXpFlL3ItJ
+ 1m/4Qz6cZ0/ztQYJ3mULslnO9jjJSKhhMpTuwG7krq6pnY0lSFo6px2wa0sGnfYej6/1FvIBlBSD9
+ oAz6CNs2KqAb2zCcwr6Tzd8blb2LpWjnZftP9pKbmDRJIT7XUmTi0EH6QM2wWcg9DNP3TzbUk8Jlj
+ s/Dmw=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzui-0007U4-G6; Thu, 06 Jun 2019 21:27:12 +0000
+ id 1hYzuj-0007UA-0r; Thu, 06 Jun 2019 21:27:13 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 0464D440046; Thu,  6 Jun 2019 22:27:12 +0100 (BST)
+ id 8EF71440049; Thu,  6 Jun 2019 22:27:12 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87zhmvl67t.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871s07mksf.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212712.0464D440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:27:11 +0100 (BST)
+Message-Id: <20190606212712.8EF71440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:27:12 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: mediatek:
-	mt8183-mt6358-ts3a227-max98357: use modern dai_link style" to
-	the asoc tree
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt8183-da7219-max98357: use
+	modern dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: use modern dai_link style
+   ASoC: mediatek: mt8183-da7219-max98357: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -113,11 +112,11 @@ to this mail.
 Thanks,
 Mark
 
-From fa284fd002477d5e96bd96f638fbebd65316a750 Mon Sep 17 00:00:00 2001
+From 4b99064229b426260d6873e865cd9f6732074f6f Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:08:49 +0900
-Subject: [PATCH] ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: use modern
- dai_link style
+Date: Thu, 6 Jun 2019 13:08:43 +0900
+Subject: [PATCH] ASoC: mediatek: mt8183-da7219-max98357: use modern dai_link
+ style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -126,15 +125,34 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c   | 168 +++++++++++-------
- 1 file changed, 106 insertions(+), 62 deletions(-)
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  | 182 ++++++++++--------
+ 1 file changed, 107 insertions(+), 75 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index 23c422f13808..887c932229d0 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -96,193 +96,246 @@ static const struct snd_soc_ops mt8183_mt6358_ts3a227_max98357_bt_sco_ops = {
- 	.startup = mt8183_mt6358_ts3a227_max98357_bt_sco_startup,
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 231fb49d79b9..59076e21cb47 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -18,18 +18,6 @@
+ 
+ static struct snd_soc_jack headset_jack;
+ 
+-static struct snd_soc_dai_link_component
+-mt8183_da7219_max98357_external_codecs[] = {
+-	{
+-		.name = "max98357a",
+-		.dai_name = "HiFi",
+-	},
+-	{
+-		.name = "da7219.5-001a",
+-		.dai_name = "da7219-hifi",
+-	},
+-};
+-
+ static int mt8183_mt6358_i2s_hw_params(struct snd_pcm_substream *substream,
+ 				       struct snd_pcm_hw_params *params)
+ {
+@@ -137,191 +125,244 @@ static const struct snd_soc_dapm_route mt8183_da7219_max98357_dapm_routes[] = {
+ 	{"IT6505_8CH", NULL, "TDM"},
  };
  
 +/* FE */
@@ -206,12 +224,13 @@ index 23c422f13808..887c932229d0 100644
 +
 +SND_SOC_DAILINK_DEFS(i2s2,
 +	DAILINK_COMP_ARRAY(COMP_CPU("I2S2")),
-+	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC("da7219.5-001a", "da7219-hifi")),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
 +SND_SOC_DAILINK_DEFS(i2s3,
 +	DAILINK_COMP_ARRAY(COMP_CPU("I2S3")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("max98357a", "HiFi")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("max98357a", "HiFi"),
++			 COMP_CODEC("da7219.5-001a", "da7219-hifi")),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
 +SND_SOC_DAILINK_DEFS(i2s5,
@@ -224,8 +243,7 @@ index 23c422f13808..887c932229d0 100644
 +	DAILINK_COMP_ARRAY(COMP_DUMMY()),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
- static struct snd_soc_dai_link
- mt8183_mt6358_ts3a227_max98357_dai_links[] = {
+ static struct snd_soc_dai_link mt8183_da7219_max98357_dai_links[] = {
  	/* FE */
  	{
  		.name = "Playback_1",
@@ -249,7 +267,6 @@ index 23c422f13808..887c932229d0 100644
  			    SND_SOC_DPCM_TRIGGER_PRE},
  		.dynamic = 1,
  		.dpcm_playback = 1,
- 		.ops = &mt8183_mt6358_ts3a227_max98357_bt_sco_ops,
 +		SND_SOC_DAILINK_REG(playback2),
  	},
  	{
@@ -274,7 +291,6 @@ index 23c422f13808..887c932229d0 100644
  			    SND_SOC_DPCM_TRIGGER_PRE},
  		.dynamic = 1,
  		.dpcm_capture = 1,
- 		.ops = &mt8183_mt6358_ts3a227_max98357_bt_sco_ops,
 +		SND_SOC_DAILINK_REG(capture1),
  	},
  	{
@@ -386,25 +402,26 @@ index 23c422f13808..887c932229d0 100644
  	{
  		.name = "I2S2",
 -		.cpu_dai_name = "I2S2",
--		.codec_dai_name = "snd-soc-dummy-dai",
--		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "da7219-hifi",
+-		.codec_name = "da7219.5-001a",
  		.no_pcm = 1,
  		.dpcm_capture = 1,
  		.ignore_suspend = 1,
  		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
- 		.ops = &mt8183_mt6358_i2s_ops,
+ 		.ops = &mt8183_da7219_i2s_ops,
 +		SND_SOC_DAILINK_REG(i2s2),
  	},
  	{
  		.name = "I2S3",
 -		.cpu_dai_name = "I2S3",
--		.codec_dai_name = "HiFi",
--		.codec_name = "max98357a",
+-		.codecs = mt8183_da7219_max98357_external_codecs,
+-		.num_codecs =
+-			ARRAY_SIZE(mt8183_da7219_max98357_external_codecs),
  		.no_pcm = 1,
  		.dpcm_playback = 1,
  		.ignore_suspend = 1,
  		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
- 		.ops = &mt8183_mt6358_i2s_ops,
+ 		.ops = &mt8183_da7219_i2s_ops,
 +		SND_SOC_DAILINK_REG(i2s3),
  	},
  	{
@@ -431,7 +448,7 @@ index 23c422f13808..887c932229d0 100644
  	},
  };
  
-@@ -343,18 +396,9 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
+@@ -390,18 +431,9 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
  	}
  
  	for_each_card_prelinks(card, i, dai_link) {
@@ -451,7 +468,7 @@ index 23c422f13808..887c932229d0 100644
 +		dai_link->platforms->of_node = platform_node;
  	}
  
- 	mt8183_mt6358_ts3a227_max98357_headset_dev.codec_of_node =
+ 	mt8183_da7219_max98357_headset_dev.codec_of_node =
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24FDA37FB3
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:38:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C212737FC1
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:41:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B249311C;
-	Thu,  6 Jun 2019 23:37:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B249311C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CDEE832;
+	Thu,  6 Jun 2019 23:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CDEE832
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559857094;
-	bh=+o3PZ3wWjPhMnVS/Xxer2dqq1wGq2QTWO0LmVQu1998=;
+	s=default; t=1559857298;
+	bh=Z99OgdzuzL/NJK3CEFvtohkiEur6vF0sBmO59hj6d4A=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gcQe+uzi33ECWvxTNdei8pauveTvVc8D95dlcrSPYZ+1MR/uz1FTdrFQHuiSqdXQC
-	 llKJVgSbMRjsFNx7UVflKVdPIQM/Dk/VuFEadl4G/oIYTnQl7NVPFhLgWK0ARP6Sx2
-	 0dI/V0UNL2hr/8Yrn1PHAg2jYL9Bo/I0v6FXJY8g=
+	b=TL7ZBT7ZrqIdXGP60YK2uRBvJ4mJTraCUZOItGwzta+LaHinebfPSQLtReOOOHC6k
+	 U2C/gGxmHTD2b/5c+6eheoNv+AO2PVYm1s/TCDC84p5yQs1T0IZq9jqvkJO4ZeQYLB
+	 BI0PH4XPELsRRWuBQZsfFpOC75Ij+3dwnOmxDjHo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 276D4F89756;
-	Thu,  6 Jun 2019 23:26:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62D95F8980E;
+	Thu,  6 Jun 2019 23:27:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00479F8978E; Thu,  6 Jun 2019 23:26:30 +0200 (CEST)
+ id 6463CF897A5; Thu,  6 Jun 2019 23:26:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 026E3F8973D
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 026E3F8973D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FD0CF89730
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FD0CF89730
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="LPWgj5j4"
+ header.b="w5YsqtHp"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=CHyhBUaySunTBUxO6UTddWhVvVcg6hMcmXffktSlU9E=; b=LPWgj5j4P7xd
- LvLhpUcn+rC3WBoLtvHTtlpLeDjyMUcD8FPqI1Blc1QBlUGE6iqr9OwsQuBqp5k53d3NE4Q9+0cx8
- CHc6VrRByD9oFVdXDPGhOggUlF1LhJv8sUQ1KcD0ha9UK4i1DQ6+4Lh4HLrAaYUrWmoSj+U8ehUSK
- WcfWw=;
+ List-Archive; bh=uQZK3royTNAaZt18I1RVMvEgdk4wP+9BkeEYb4x01wU=; b=w5YsqtHpzUpi
+ 26DTDTt19aRv+A/CeRs7l/UhBOcn5C00dI1ttwoSsgIBdTtFAqeCRZszEw/tkDufmtxONh0Jo3TSk
+ q4rE8UUZO94MytN8+wf0voOke5EJhkb65XfEIa8fshaiwnFnQIuSxLUsIA3uC5lQcYfi1mcZmr6p9
+ lsRpA=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzte-0007IY-Kp; Thu, 06 Jun 2019 21:26:06 +0000
+ id 1hYztg-0007Is-9v; Thu, 06 Jun 2019 21:26:08 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 19A69440049; Thu,  6 Jun 2019 22:26:06 +0100 (BST)
+ id C01F9440046; Thu,  6 Jun 2019 22:26:07 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a7evfje6.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ef47fjel.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212606.19A69440049@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:06 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: bytcr_rt5640: use modern
+Message-Id: <20190606212607.C01F9440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:07 +0100 (BST)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: Intel: bytcht_da7213: use modern
 	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -88,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: bytcr_rt5640: use modern dai_link style
+   ASoC: Intel: bytcht_da7213: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -113,28 +112,27 @@ to this mail.
 Thanks,
 Mark
 
-From e7a712889b299ea4a28c58605baa827396ce973e Mon Sep 17 00:00:00 2001
+From fb1d4861f28e750739f73a59067ea18cadbc56c3 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:20:44 +0900
-Subject: [PATCH] ASoC: Intel: bytcr_rt5640: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:20:30 +0900
+Subject: [PATCH] ASoC: Intel: bytcht_da7213: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
 This patch switches to use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 44 +++++++++++++++++----------
- 1 file changed, 28 insertions(+), 16 deletions(-)
+ sound/soc/intel/boards/bytcht_da7213.c | 37 ++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 7aae7b78efba..bd747495ef3c 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -1026,41 +1026,51 @@ static const struct snd_soc_ops byt_rt5640_be_ssp2_ops = {
- 	.hw_params = byt_rt5640_aif1_hw_params,
+diff --git a/sound/soc/intel/boards/bytcht_da7213.c b/sound/soc/intel/boards/bytcht_da7213.c
+index 9091ee697fbe..7fa2fa0ded6e 100644
+--- a/sound/soc/intel/boards/bytcht_da7213.c
++++ b/sound/soc/intel/boards/bytcht_da7213.c
+@@ -158,42 +158,50 @@ static const struct snd_soc_ops ssp2_ops = {
+ 
  };
  
 +SND_SOC_DAILINK_DEF(dummy,
@@ -147,20 +145,18 @@ index 7aae7b78efba..bd747495ef3c 100644
 +	DAILINK_COMP_ARRAY(COMP_CPU("deepbuffer-cpu-dai")));
 +
 +SND_SOC_DAILINK_DEF(ssp2_port,
-+	/* overwritten for ssp0 routing */
 +	DAILINK_COMP_ARRAY(COMP_CPU("ssp2-port")));
 +SND_SOC_DAILINK_DEF(ssp2_codec,
-+	DAILINK_COMP_ARRAY(COMP_CODEC(
-+	/* overwritten with HID */ "i2c-10EC5640:00",
-+	/* changed w/ quirk */	"rt5640-aif1")));
++	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-DLGS7213:00",
++				      "da7213-hifi")));
 +
 +SND_SOC_DAILINK_DEF(platform,
 +	DAILINK_COMP_ARRAY(COMP_PLATFORM("sst-mfld-platform")));
 +
- static struct snd_soc_dai_link byt_rt5640_dais[] = {
+ static struct snd_soc_dai_link dailink[] = {
  	[MERR_DPCM_AUDIO] = {
- 		.name = "Baytrail Audio Port",
- 		.stream_name = "Baytrail Audio",
+ 		.name = "Audio Port",
+ 		.stream_name = "Audio",
 -		.cpu_dai_name = "media-cpu-dai",
 -		.codec_dai_name = "snd-soc-dummy-dai",
 -		.codec_name = "snd-soc-dummy",
@@ -169,7 +165,7 @@ index 7aae7b78efba..bd747495ef3c 100644
  		.dynamic = 1,
  		.dpcm_playback = 1,
  		.dpcm_capture = 1,
- 		.ops = &byt_rt5640_aif1_ops,
+ 		.ops = &aif1_ops,
 +		SND_SOC_DAILINK_REG(media, dummy, platform),
  	},
  	[MERR_DPCM_DEEP_BUFFER] = {
@@ -182,66 +178,48 @@ index 7aae7b78efba..bd747495ef3c 100644
  		.nonatomic = true,
  		.dynamic = 1,
  		.dpcm_playback = 1,
- 		.ops = &byt_rt5640_aif1_ops,
+ 		.ops = &aif1_ops,
 +		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
  	},
- 		/* back ends */
+ 	/* CODEC<->CODEC link */
+ 	/* back ends */
  	{
  		.name = "SSP2-Codec",
  		.id = 0,
--		.cpu_dai_name = "ssp2-port", /* overwritten for ssp0 routing */
+-		.cpu_dai_name = "ssp2-port",
 -		.platform_name = "sst-mfld-platform",
  		.no_pcm = 1,
--		.codec_dai_name = "rt5640-aif1", /* changed w/ quirk */
--		.codec_name = "i2c-10EC5640:00", /* overwritten with HID */
+-		.codec_dai_name = "da7213-hifi",
+-		.codec_name = "i2c-DLGS7213:00",
  		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
  						| SND_SOC_DAIFMT_CBS_CFS,
- 		.be_hw_params_fixup = byt_rt5640_codec_fixup,
-@@ -1070,6 +1080,7 @@ static struct snd_soc_dai_link byt_rt5640_dais[] = {
+ 		.be_hw_params_fixup = codec_fixup,
+@@ -201,6 +209,7 @@ static struct snd_soc_dai_link dailink[] = {
+ 		.dpcm_playback = 1,
  		.dpcm_capture = 1,
- 		.init = byt_rt5640_init,
- 		.ops = &byt_rt5640_be_ssp2_ops,
+ 		.ops = &ssp2_ops,
 +		SND_SOC_DAILINK_REG(ssp2_port, ssp2_codec, platform),
  	},
  };
  
-@@ -1159,7 +1170,8 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+@@ -236,7 +245,7 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
  
  	/* fix index of codec dai */
- 	for (i = 0; i < ARRAY_SIZE(byt_rt5640_dais); i++) {
--		if (!strcmp(byt_rt5640_dais[i].codec_name, "i2c-10EC5640:00")) {
-+		if (!strcmp(byt_rt5640_dais[i].codecs->name,
-+			    "i2c-10EC5640:00")) {
+ 	for (i = 0; i < ARRAY_SIZE(dailink); i++) {
+-		if (!strcmp(dailink[i].codec_name, "i2c-DLGS7213:00")) {
++		if (!strcmp(dailink[i].codecs->name, "i2c-DLGS7213:00")) {
  			dai_index = i;
  			break;
  		}
-@@ -1171,7 +1183,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 		snprintf(byt_rt5640_codec_name, sizeof(byt_rt5640_codec_name),
+@@ -248,7 +257,7 @@ static int bytcht_da7213_probe(struct platform_device *pdev)
+ 		snprintf(codec_name, sizeof(codec_name),
  			 "i2c-%s", acpi_dev_name(adev));
  		put_device(&adev->dev);
--		byt_rt5640_dais[dai_index].codec_name = byt_rt5640_codec_name;
-+		byt_rt5640_dais[dai_index].codecs->name = byt_rt5640_codec_name;
+-		dailink[dai_index].codec_name = codec_name;
++		dailink[dai_index].codecs->name = codec_name;
  	}
  
- 	/*
-@@ -1263,7 +1275,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 			sizeof(byt_rt5640_codec_aif_name),
- 			"%s", "rt5640-aif2");
- 
--		byt_rt5640_dais[dai_index].codec_dai_name =
-+		byt_rt5640_dais[dai_index].codecs->dai_name =
- 			byt_rt5640_codec_aif_name;
- 	}
- 
-@@ -1275,7 +1287,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 			sizeof(byt_rt5640_cpu_dai_name),
- 			"%s", "ssp0-port");
- 
--		byt_rt5640_dais[dai_index].cpu_dai_name =
-+		byt_rt5640_dais[dai_index].cpus->dai_name =
- 			byt_rt5640_cpu_dai_name;
- 	}
- 
+ 	/* override plaform name, if required */
 -- 
 2.20.1
 

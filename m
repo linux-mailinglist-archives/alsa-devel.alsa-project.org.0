@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C75D37FA9
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:35:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C1137FAE
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:36:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A666E850;
-	Thu,  6 Jun 2019 23:34:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A666E850
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E14E1663;
+	Thu,  6 Jun 2019 23:35:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E14E1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559856914;
-	bh=9ug123xap7GalXpn6bLh/6ksfDfufvdn8mLxOShXZLQ=;
+	s=default; t=1559856989;
+	bh=M5FIfkX+Wxktg+71o7o8TD2vaw+I9du9ZZlauEdWtQs=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rbntwzHsg6lwwsBjPKoHbYvqvdxKD3xYJ4L/PLoDq4UF1JyjOMapJW0JcP2Ct9PMZ
-	 7CGVmiTjuCgsja9egpFthWb+zTqDX/DOlZbpjFd/ui12OlZwHdtH9ec92xWCsI9qkC
-	 AGbOEtcsBBHPc0UyYz1DIzZcXtU3gPw8VPiI3wwA=
+	b=KkVBnn9ymqEdhHFdlVZs+apEQ5Hn8pJYOO7u4s+pW68GENIiMh32l5Nz2Mzmk8ESH
+	 2xzR/o87M6FqgwvaH/ni7u2LQpxGzyxWB/jZA0uiudXUXU773tV+y7Miie3++XPhQx
+	 kCZ5YmPKw/3c8i4roFAMs3B/PYCmbufM8gHtURGs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DD3EF8979D;
-	Thu,  6 Jun 2019 23:26:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3216AF897B1;
+	Thu,  6 Jun 2019 23:26:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94E70F89770; Thu,  6 Jun 2019 23:26:23 +0200 (CEST)
+ id 4C9ECF89771; Thu,  6 Jun 2019 23:26:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 842ADF89732
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 842ADF89732
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CF4FF89737
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CF4FF89737
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="SZEaqsXh"
+ header.b="Ag0YYJ8+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=1zCPitcmSIIZeVi9Aq71I+jAbegji0OHF3UpMutHx/8=; b=SZEaqsXhtDcH
- DyuMN75DCVUBaHiczGeGZerKReb5nlLNb7xZfwOJ4DMP1paZgtWW+JItyqJ3lfYjO79ji7XRjeNe2
- cL+FEsFTnyLQ+NccD2hY/lX+6bu+qGSWC/n5wGfnzfVRSnSQ2GMdDQVaMPRQTGJGlWpNF8TwZj09s
- ttaOI=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=IEyvoebmiaXi7oEb/72vl3LIofM4jNLW/ONBfI3HQXk=; b=Ag0YYJ8+yeGc
+ X13PXjJxq6mI8EQiFfjXlSph+x4aWwtvv2wRys/QiVOeYVdk5oWJwcLLzbItYxSbRlD2tpdtFm4E/
+ 4neFUvzEokm/I5okF58S4ot+mcA9eAA76ZyBignYiWW40uJKpj3VSENoTyKhKE/DCmOxrxL7pFHur
+ DFHhI=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztc-0007I9-71; Thu, 06 Jun 2019 21:26:04 +0000
+ id 1hYztc-0007IF-UA; Thu, 06 Jun 2019 21:26:05 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id BA6BA440046; Thu,  6 Jun 2019 22:26:03 +0100 (BST)
+ id 58C0F440046; Thu,  6 Jun 2019 22:26:04 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <874l53fjdj.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <875zpjfjdp.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212603.BA6BA440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:03 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: cht_bsw_nau8824: use modern
+Message-Id: <20190606212604.58C0F440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:04 +0100 (BST)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: cht_bsw_rt5672: use modern
 	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: cht_bsw_nau8824: use modern dai_link style
+   ASoC: Intel: cht_bsw_rt5672: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,26 +113,27 @@ to this mail.
 Thanks,
 Mark
 
-From 5ae4641f5a2b2d83adfb51988961ab76f94fd51e Mon Sep 17 00:00:00 2001
+From a61142bb0aa04ccc26409d91ad9060fbe2f1b926 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:21:07 +0900
-Subject: [PATCH] ASoC: Intel: cht_bsw_nau8824: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:21:01 +0900
+Subject: [PATCH] ASoC: Intel: cht_bsw_rt5672: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
 This patch switches to use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/cht_bsw_nau8824.c | 41 +++++++++++++++---------
- 1 file changed, 25 insertions(+), 16 deletions(-)
+ sound/soc/intel/boards/cht_bsw_rt5672.c | 39 +++++++++++++++----------
+ 1 file changed, 24 insertions(+), 15 deletions(-)
 
-diff --git a/sound/soc/intel/boards/cht_bsw_nau8824.c b/sound/soc/intel/boards/cht_bsw_nau8824.c
-index 02c2fa239331..5165e5d13a8a 100644
---- a/sound/soc/intel/boards/cht_bsw_nau8824.c
-+++ b/sound/soc/intel/boards/cht_bsw_nau8824.c
-@@ -175,51 +175,59 @@ static const struct snd_soc_ops cht_be_ssp2_ops = {
+diff --git a/sound/soc/intel/boards/cht_bsw_rt5672.c b/sound/soc/intel/boards/cht_bsw_rt5672.c
+index 0f7770822388..270d5705c542 100644
+--- a/sound/soc/intel/boards/cht_bsw_rt5672.c
++++ b/sound/soc/intel/boards/cht_bsw_rt5672.c
+@@ -295,32 +295,44 @@ static const struct snd_soc_ops cht_be_ssp2_ops = {
  	.hw_params = cht_aif1_hw_params,
  };
  
@@ -144,14 +146,11 @@ index 02c2fa239331..5165e5d13a8a 100644
 +SND_SOC_DAILINK_DEF(deepbuffer,
 +	DAILINK_COMP_ARRAY(COMP_CPU("deepbuffer-cpu-dai")));
 +
-+SND_SOC_DAILINK_DEF(compress,
-+	DAILINK_COMP_ARRAY(COMP_CPU("compress-cpu-dai")));
-+
 +SND_SOC_DAILINK_DEF(ssp2_port,
 +	DAILINK_COMP_ARRAY(COMP_CPU("ssp2-port")));
 +SND_SOC_DAILINK_DEF(ssp2_codec,
-+	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10508824:00",
-+				      NAU8824_CODEC_DAI)));
++	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5670:00",
++				      "rt5670-aif1")));
 +
 +SND_SOC_DAILINK_DEF(platform,
 +	DAILINK_COMP_ARRAY(COMP_PLATFORM("sst-mfld-platform")));
@@ -185,29 +184,20 @@ index 02c2fa239331..5165e5d13a8a 100644
  		.ops = &cht_aif1_ops,
 +		SND_SOC_DAILINK_REG(deepbuffer, dummy, platform),
  	},
- 	[MERR_DPCM_COMPR] = {
- 		.name = "Compressed Port",
- 		.stream_name = "Compress",
--		.cpu_dai_name = "compress-cpu-dai",
--		.codec_dai_name = "snd-soc-dummy-dai",
--		.codec_name = "snd-soc-dummy",
--		.platform_name = "sst-mfld-platform",
-+		SND_SOC_DAILINK_REG(compress, dummy, platform),
- 	},
+ 
  	/* Back End DAI links */
- 	{
+@@ -328,17 +340,14 @@ static struct snd_soc_dai_link cht_dailink[] = {
  		/* SSP2 - Codec */
  		.name = "SSP2-Codec",
- 		.id = 1,
+ 		.id = 0,
 -		.cpu_dai_name = "ssp2-port",
 -		.platform_name = "sst-mfld-platform",
  		.no_pcm = 1,
--		.codec_dai_name = NAU8824_CODEC_DAI,
--		.codec_name = "i2c-10508824:00",
- 		.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_IB_NF
- 			| SND_SOC_DAIFMT_CBS_CFS,
+ 		.nonatomic = true,
+-		.codec_dai_name = "rt5670-aif1",
+-		.codec_name = "i2c-10EC5670:00",
  		.init = cht_codec_init,
-@@ -227,6 +235,7 @@ static struct snd_soc_dai_link cht_dailink[] = {
+ 		.be_hw_params_fixup = cht_codec_fixup,
  		.dpcm_playback = 1,
  		.dpcm_capture = 1,
  		.ops = &cht_be_ssp2_ops,
@@ -215,6 +205,19 @@ index 02c2fa239331..5165e5d13a8a 100644
  	},
  };
  
+@@ -417,9 +426,9 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ 			 "i2c-%s", acpi_dev_name(adev));
+ 		put_device(&adev->dev);
+ 		for (i = 0; i < ARRAY_SIZE(cht_dailink); i++) {
+-			if (!strcmp(cht_dailink[i].codec_name,
+-				RT5672_I2C_DEFAULT)) {
+-				cht_dailink[i].codec_name = drv->codec_name;
++			if (!strcmp(cht_dailink[i].codecs->name,
++				    RT5672_I2C_DEFAULT)) {
++				cht_dailink[i].codecs->name = drv->codec_name;
+ 				break;
+ 			}
+ 		}
 -- 
 2.20.1
 

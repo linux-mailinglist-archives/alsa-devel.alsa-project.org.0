@@ -2,97 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05D9B368B4
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 02:18:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 249FF36A9B
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 06:08:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8E280950;
-	Thu,  6 Jun 2019 02:17:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E280950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AA241607;
+	Thu,  6 Jun 2019 06:08:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AA241607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559780317;
-	bh=uFciYS9lMV2C3wg0UaL4gEYYmjtVHV1IRpVttfWVOis=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MqH7ntohpeRyxEqJBxKCArxd7P629uQ6rm1Zs9Z95SdHgjhY4q/X93vWt0IXCx65N
-	 NFFKDUf6KHSOzH4bqcFbNLN62b4vsNoY271TRGdoTcETLZFJVYFG2wXCtQDkLiLTsp
-	 EMNjKZqjCD3aWGblsRctTw52S5yBqzolOZnOT+Ho=
+	s=default; t=1559794131;
+	bh=5r8ZC08Xeg0tA+9yVXeukJavaBku4GMsUGSA+3TA5Ec=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vO3WSHDpsx98XAzdP+ZGXnD49ClS+3ZK6+uGHfL0LQtsJiC6oq28CK1bGjGunnOpA
+	 psXDkmLzpXe7zLHtkWJuLFUGpt4MzLc/zOEA2/wbcvP4ECZmd1Pa5DVhqkRwqtJuzJ
+	 TzBX8O+OtmuCIY6v3hrCkwaETATxaEfpp0j+j0Z8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16D00F896ED;
-	Thu,  6 Jun 2019 02:16:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1556CF896F8;
+	Thu,  6 Jun 2019 06:07:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77370F896DD; Thu,  6 Jun 2019 02:16:51 +0200 (CEST)
+ id A3284F896F7; Thu,  6 Jun 2019 06:07:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A61ACF8072A
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 02:16:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A61ACF8072A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Ay6RwqsM"
-Received: by mail-pg1-x542.google.com with SMTP id s27so265859pgl.2
- for <alsa-devel@alsa-project.org>; Wed, 05 Jun 2019 17:16:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=cK/gGt5PDimlIevfbs8g1ARiYxKpO3It4jGHeUdOAXQ=;
- b=Ay6RwqsM05DNTHbEStXHw3SHZKFvhBkjCx8hE4XKG0cWnEjcpqh9Jb33U70NaQK5P5
- JRB8pq/Yv1iSxEVJIdwTFVeT956CEFAyRS+KdKadsqMAOE1dxxx+kkZc0J6ibY/EiQyk
- T9Y5dPWUBdYx++K6X+6MKeB2LVaUPXV+C4qmTvSoXFCUYIy/2stW9i01QSf95M6u7QZS
- yOWMQZbN/65Ot9oZZLwrgeVSLMaOpkZZHSFhYVwnf0bi9BYjcCMKc2jmCZTqpbWUoaaD
- hN0xLeFv976DkIpB+bXcUTrk7gNaxhhJrKKpNfMfJZGgFogEMT2CIntoAluVsBdoA8Xi
- m6RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=cK/gGt5PDimlIevfbs8g1ARiYxKpO3It4jGHeUdOAXQ=;
- b=g7q4+mEgWoxCSGNz95cNdyBJ2Y4a0AW9INvFVd85s3Gl6c4/Ttwun1rngzcZ79cKCG
- P73nW/DNivVUf1lV9GvNdERsWXOLCwxr9LtLxXfX7pGgX1iMGvhg2m3YrC6zfyzk8lLW
- 1kY7QvTpxDO4EoGHrTx7gLs/9aWkjzE3VyQ9QgHIY+UaJcL91mpG9oLpGJ8JB5Kp6yc8
- +CqOn3lE03Rn8nGJ2yTYRT+/sfEZHcFIunotrlR/xrOibM27C3MMCO4VakFEwtbC9qb/
- TxpGo5EWDANdo0UvxF09zRLpJ8VOhxa52b7wZYYJdmhXVQ1DTGeYR6mEXP+OTzZPAal3
- 3IXA==
-X-Gm-Message-State: APjAAAWx2agSzQJsN3Ya8cbrdBNIfl1vdf6iVSf0Ov3wZDYKXwf8FerZ
- yBLYx96tC8B8/SzTyevmPT0=
-X-Google-Smtp-Source: APXvYqxwKRXiNuveG7RIUpRL8Y8GH4zg3HqUKLfaIlbElDmZUZU2dbjjzlJ33UBzpFgTEcuhwJbeAA==
-X-Received: by 2002:a17:90a:338e:: with SMTP id
- n14mr46596229pjb.35.1559780204786; 
- Wed, 05 Jun 2019 17:16:44 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id 10sm93476pfh.179.2019.06.05.17.16.43
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 05 Jun 2019 17:16:44 -0700 (PDT)
-Date: Wed, 5 Jun 2019 17:16:45 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: "S.j. Wang" <shengjiu.wang@nxp.com>
-Message-ID: <20190606001644.GA20103@Asurada-Nvidia.nvidia.com>
-References: <VE1PR04MB6479D7512EDE1217228033CAE3160@VE1PR04MB6479.eurprd04.prod.outlook.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <VE1PR04MB6479D7512EDE1217228033CAE3160@VE1PR04MB6479.eurprd04.prod.outlook.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_esai: fix the channel swap issue
-	after xrun
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1D0BAF8072A
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 06:06:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D0BAF8072A
+Date: 06 Jun 2019 13:06:52 +0900
+X-IronPort-AV: E=Sophos;i="5.60,557,1549897200"; d="scan'208";a="17945261"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 06 Jun 2019 13:06:52 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id F04C6400A0E4;
+ Thu,  6 Jun 2019 13:06:52 +0900 (JST)
+Message-ID: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Mark Brown <broonie@kernel.org>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH v2 000/146] ASoC: modern dai_link style support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,46 +65,326 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Shengjiu,
 
-On Wed, Jun 05, 2019 at 10:29:37AM +0000, S.j. Wang wrote:
-> > > ETDR is not volatile,  if we mark it is volatile, is it correct?
-> > 
-> > Well, you have a point -- it might not be ideally true, but it sounds like a
-> > correct fix to me according to this comments.
-> > 
-> > We can wait for Mark's comments or just send a patch to the mail list for
-> > review.
-> 
-> I test this patch, we don't need to reset the FIFO, and regcache_sync didn't
-> Write the ETDR even the EDTR is not volatile.  This fault maybe caused by
+Hi Mark
 
-The fsl_esai driver uses FLAT type cache so regcache_sync() would
-go through regcache_default_sync() that would bypass cache sync at
-the regcache_reg_needs_sync() check when the cached register value
-matches its default value: in case of ETDR who has a default value
-0x0, it'd just "continue" without doing that _regmap_write() when
-the cached value equals to 0x0.
+These are v2 for modern dai_link style support patches.
+[001/146] adds missing modern dai_link style for CPU.
+and others are switch to modern style from legacy style.
+Last patch removes legacy style.
 
-> Legacy, in the beginning we add this patch in internal branch, there maybe
-> Something cause this issue, but now can't reproduced. 
+These are based on mark/for-5.3 + linus/master
 
-The "legacy" case might happen to have two mismatched ETDR values
-between the cached value and default 0x0. And I am worried it may
-appear once again someday.
+I added posted Tested-by at ateml mikroe-proto,
+and Signed-off-by Pierre-Louis for some Intel patches,
+and new patch for new Intel bytcht_cx2072x
 
-So I feel we still need to change ETDR to volatile type. And for
-your question "ETDR is not volatile,  if we mark it is volatile,
-is it correct?", I double checked the definition of volatile_reg,
-and it says:
- * @volatile_reg: Optional callback returning true if the register
- *		  value can't be cached. If this field is NULL but
+Kuninori Morimoto (146):
+  ASoC: soc-core: use snd_soc_dai_link_component for CPU
+  ASoC: simple-card: support snd_soc_dai_link_component style for cpu
+  ASoC: soc.h: add sound dai_link connection macro
+  ASoC: mediatek: mt6797-mt6351: use modern dai_link style
+  ASoC: mediatek: mt2701-wm8960: use modern dai_link style
+  ASoC: mediatek: mt2701-cs42448: use modern dai_link style
+  ASoC: mediatek: mt8173-max98090: use modern dai_link style
+  ASoC: mediatek: mt8173-rt5650: use modern dai_link style
+  ASoC: mediatek: mt8173-rt5650-rt5676: use modern dai_link style
+  ASoC: mediatek: mt8173-rt5650-rt5514: use modern dai_link style
+  ASoC: mediatek: mt8183-da7219-max98357: use modern dai_link style
+  ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: use modern dai_link style
+  ASoC: samsung: bells: use modern dai_link style
+  ASoC: samsung: smdk_wm8580: use modern dai_link style
+  ASoC: samsung: smdk_wm8994: use modern dai_link style
+  ASoC: samsung: smdk_wm8994pcm: use modern dai_link style
+  ASoC: samsung: smdk_spdif: use modern dai_link style
+  ASoC: samsung: h1940_uda1380: use modern dai_link style
+  ASoC: samsung: arndale_rt5631: use modern dai_link style
+  ASoC: samsung: tobermory: use modern dai_link style
+  ASoC: samsung: tm2_wm5110: use modern dai_link style
+  ASoC: samsung: speyside: use modern dai_link style
+  ASoC: samsung: snow: use modern dai_link style
+  ASoC: samsung: smartq_wm8987: use modern dai_link style
+  ASoC: samsung: s3c24xx_uda134x: use modern dai_link style
+  ASoC: samsung: s3c24xx_simtec_tlv320aic23: use modern dai_link style
+  ASoC: samsung: s3c24xx_simtec_hermes: use modern dai_link style
+  ASoC: samsung: rx1950_uda1380: use modern dai_link style
+  ASoC: samsung: odroid: use modern dai_link style
+  ASoC: samsung: neo1973_wm8753: use modern dai_link style
+  ASoC: samsung: lowland: use modern dai_link style
+  ASoC: samsung: littlemill: use modern dai_link style
+  ASoC: samsung: jive_wm8750: use modern dai_link style
+  ASoC: pxa: brownstone: use modern dai_link style
+  ASoC: pxa: corgi: use modern dai_link style
+  ASoC: pxa: e740_wm9705: use modern dai_link style
+  ASoC: pxa: e750_wm9705: use modern dai_link style
+  ASoC: pxa: e800_wm9712: use modern dai_link style
+  ASoC: pxa: em-x270: use modern dai_link style
+  ASoC: pxa: hx4700: use modern dai_link style
+  ASoC: pxa: imote2: use modern dai_link style
+  ASoC: pxa: magician: use modern dai_link style
+  ASoC: pxa: mioa701_wm9713: use modern dai_link style
+  ASoC: pxa: palm27x: use modern dai_link style
+  ASoC: pxa: zylonite: use modern dai_link style
+  ASoC: pxa: z2: use modern dai_link style
+  ASoC: pxa: ttc-dkb: use modern dai_link style
+  ASoC: pxa: tosa: use modern dai_link style
+  ASoC: pxa: spitz: use modern dai_link style
+  ASoC: pxa: poodle: use modern dai_link style
+  ASoC: kirkwood: armada-370-db: use modern dai_link style
+  ASoC: ti: n810: use modern dai_link style
+  ASoC: ti: osk5912: use modern dai_link style
+  ASoC: ti: ams-delta: use modern dai_link style
+  ASoC: ti: omap3pandora: use modern dai_link style
+  ASoC: ti: davinci-evm: use modern dai_link style
+  ASoC: ti: omap-hdmi: use modern dai_link style
+  ASoC: ti: omap-abe-twl6040: use modern dai_link style
+  ASoC: ti: omap-twl4030: use modern dai_link style
+  ASoC: ti: rx51: use modern dai_link style
+  ASoC: sh: migor: use modern dai_link style
+  ASoC: sh: sh7760-ac97: use modern dai_link style
+  ASoC: amd: acp-da7219-max98357a: use modern dai_link style
+  ASoC: amd: acp-rt5645: use modern dai_link style
+  ASoC: atmel: mikroe-proto: use modern dai_link style
+  ASoC: atmel: sam9x5_wm8731: use modern dai_link style
+  ASoC: atmel: sam9g20_wm8731: use modern dai_link style
+  ASoC: atmel: tse850-pcm5142: use modern dai_link style
+  ASoC: atmel: atmel-wm8904: use modern dai_link style
+  ASoC: atmel: atmel-pdmic: use modern dai_link style
+  ASoC: atmel: atmel-classd: use modern dai_link style
+  ASoC: au1x: db1000: use modern dai_link style
+  ASoC: au1x: db1200: use modern dai_link style
+  ASoC: cirrus: edb93xx: use modern dai_link style
+  ASoC: cirrus: simone: use modern dai_link style
+  ASoC: cirrus: snappercl15: use modern dai_link style
+  ASoC: fsl: efika-audio-fabric: use modern dai_link style
+  ASoC: fsl: imx-spdif: use modern dai_link style
+  ASoC: fsl: mx27vis-aic32x4: use modern dai_link style
+  ASoC: fsl: phycore-ac97: use modern dai_link style
+  ASoC: fsl: wm1133-ev1: use modern dai_link style
+  ASoC: fsl: fsl-asoc-card: use modern dai_link style
+  ASoC: fsl: mpc8610_hpcd/p1022_ds/p1022_rdk: use modern dai_link style
+  ASoC: fsl: imx-es8328: use modern dai_link style
+  ASoC: fsl: eukrea-tlv320: use modern dai_link style
+  ASoC: fsl: imx-sgtl5000: use modern dai_link style
+  ASoC: fsl: imx-mc13783: use modern dai_link style
+  ASoC: fsl: pcm030-audio-fabric: use modern dai_link style
+  ASoC: fsl: imx-audmix: use modern dai_link style
+  ASoC: jz4740: qi_lb60: use modern dai_link style
+  ASoC: meson: axg-card: use modern dai_link style
+  ASoC: mxs: mxs-sgtl5000: use modern dai_link style
+  ASoC: nuc900: nuc900-audio: use modern dai_link style
+  ASoC: qcom: storm: use modern dai_link style
+  ASoC: qcom: common: use modern dai_link style
+  ASoC: qcom: apq8016_sbc: use modern dai_link style
+  ASoC: rockchip: rk3399_gru_sound: use modern dai_link style
+  ASoC: rockchip: rk3288_hdmi_analog: use modern dai_link style
+  ASoC: rockchip: rockchip_rt5645: use modern dai_link style
+  ASoC: rockchip: rockchip_max98090: use modern dai_link style
+  ASoC: sirf: sirf-audio: use modern dai_link style
+  ASoC: ux500: mop500: use modern dai_link style
+  ASoC: sunxi: sun4i-codec: use modern dai_link style
+  ASoC: txx9: txx9aclc-generic: use modern dai_link style
+  ASoC: tegra: tegra_rt5677: use modern dai_link style
+  ASoC: tegra: tegra_wm8753: use modern dai_link style
+  ASoC: tegra: trimslice: use modern dai_link style
+  ASoC: tegra: tegra_alc5632: use modern dai_link style
+  ASoC: tegra: tegra_sgtl5000: use modern dai_link style
+  ASoC: tegra: tegra_rt5640: use modern dai_link style
+  ASoC: tegra: tegra_wm8903: use modern dai_link style
+  ASoC: tegra: tegra_wm9712: use modern dai_link style
+  ASoC: tegra: tegra_max98090: use modern dai_link style
+  ASoC: soc-topology: use modern dai_link style
+  ASoC: vc4: vc4_htmi: use modern dai_link style
+  ASoC: sof: use modern dai_link style
+  ASoC: Intel: bdw-rt5677: use modern dai_link style
+  ASoC: Intel: haswell: use modern dai_link style
+  ASoC: Intel: broadwell: use modern dai_link style
+  ASoC: Intel: bxt_da7219_max98357a: use modern dai_link style
+  ASoC: Intel: bxt_rt298: use modern dai_link style
+  ASoC: Intel: byt-rt5640: use modern dai_link style
+  ASoC: Intel: byt-max98090: use modern dai_link style
+  ASoC: Intel: bytcht_es8316: use modern dai_link style
+  ASoC: Intel: bytcht_nocodec: use modern dai_link style
+  ASoC: Intel: bytcht_da7213: use modern dai_link style
+  ASoC: Intel: bytcht_cx2072x: use modern dai_link style
+  ASoC: Intel: bytcr_rt5651: use modern dai_link style
+  ASoC: Intel: bytcr_rt5640: use modern dai_link style
+  ASoC: Intel: cht_bsw_rt5645: use modern dai_link style
+  ASoC: Intel: cht_bsw_max98090_ti: use modern dai_link style
+  ASoC: Intel: cht_bsw_rt5672: use modern dai_link style
+  ASoC: Intel: cht_bsw_nau8824: use modern dai_link style
+  ASoC: Intel: kbl_rt5660: use modern dai_link style
+  ASoC: Intel: kbl_rt5663_max98927: use modern dai_link style
+  ASoC: Intel: kbl_rt5663_rt5514_max98927: use modern dai_link style
+  ASoC: Intel: kbl_da7219_max98927: use modern dai_link style
+  ASoC: Intel: kbl_da7219_max98357a: use modern dai_link style
+  ASoC: Intel: skl_nau88l25_ssm4567: use modern dai_link style
+  ASoC: Intel: skl_rt286: use modern dai_link style
+  ASoC: Intel: skl_nau88l25_max98357a: use modern dai_link style
+  ASoC: Intel: skl-pcm: use modern dai_link style
+  ASoC: Intel: skl_hda_dsp_common: use modern dai_link style
+  ASoC: Intel: glk_rt5682_max98357a: use modern dai_link style
+  ASoC: Intel: sof_rt5682: use modern dai_link style
+  ASoC: soc-core: remove legacy style dai_link
 
-So it seems correct to me then, as the "volatile" should be also
-transcribed as "non-cacheable".
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |  19 +-
+ include/sound/simple_card_utils.h                  |  20 +-
+ include/sound/soc.h                                | 153 +++++++++------
+ sound/soc/amd/acp-da7219-max98357a.c               |  42 ++--
+ sound/soc/amd/acp-rt5645.c                         |  21 +-
+ sound/soc/atmel/atmel-classd.c                     |  21 +-
+ sound/soc/atmel/atmel-pdmic.c                      |  21 +-
+ sound/soc/atmel/atmel_wm8904.c                     |  17 +-
+ sound/soc/atmel/mikroe-proto.c                     |  21 +-
+ sound/soc/atmel/sam9g20_wm8731.c                   |  22 ++-
+ sound/soc/atmel/sam9x5_wm8731.c                    |  20 +-
+ sound/soc/atmel/tse850-pcm5142.c                   |  13 +-
+ sound/soc/au1x/db1000.c                            |  10 +-
+ sound/soc/au1x/db1200.c                            |  50 +++--
+ sound/soc/cirrus/edb93xx.c                         |  10 +-
+ sound/soc/cirrus/simone.c                          |  10 +-
+ sound/soc/cirrus/snappercl15.c                     |  11 +-
+ sound/soc/fsl/efika-audio-fabric.c                 |  22 ++-
+ sound/soc/fsl/eukrea-tlv320.c                      |  19 +-
+ sound/soc/fsl/fsl-asoc-card.c                      |  47 +++--
+ sound/soc/fsl/fsl_utils.c                          |   2 +-
+ sound/soc/fsl/imx-audmix.c                         |  45 ++++-
+ sound/soc/fsl/imx-es8328.c                         |  23 ++-
+ sound/soc/fsl/imx-mc13783.c                        |  10 +-
+ sound/soc/fsl/imx-sgtl5000.c                       |  23 ++-
+ sound/soc/fsl/imx-spdif.c                          |  20 +-
+ sound/soc/fsl/mpc8610_hpcd.c                       |  33 +++-
+ sound/soc/fsl/mx27vis-aic32x4.c                    |  11 +-
+ sound/soc/fsl/p1022_ds.c                           |  36 +++-
+ sound/soc/fsl/p1022_rdk.c                          |  35 +++-
+ sound/soc/fsl/pcm030-audio-fabric.c                |  20 +-
+ sound/soc/fsl/phycore-ac97.c                       |  10 +-
+ sound/soc/fsl/wm1133-ev1.c                         |  10 +-
+ sound/soc/generic/audio-graph-card.c               |  30 +--
+ sound/soc/generic/simple-card-utils.c              |  21 +-
+ sound/soc/generic/simple-card.c                    |  39 ++--
+ sound/soc/intel/boards/bdw-rt5677.c                |  22 ++-
+ sound/soc/intel/boards/broadwell.c                 |  46 +++--
+ sound/soc/intel/boards/bxt_da7219_max98357a.c      | 140 ++++++++------
+ sound/soc/intel/boards/bxt_rt298.c                 | 135 +++++++------
+ sound/soc/intel/boards/byt-max98090.c              |  10 +-
+ sound/soc/intel/boards/byt-rt5640.c                |  10 +-
+ sound/soc/intel/boards/bytcht_cx2072x.c            |  37 ++--
+ sound/soc/intel/boards/bytcht_da7213.c             |  37 ++--
+ sound/soc/intel/boards/bytcht_es8316.c             |  38 ++--
+ sound/soc/intel/boards/bytcht_nocodec.c            |  30 +--
+ sound/soc/intel/boards/bytcr_rt5640.c              |  44 +++--
+ sound/soc/intel/boards/bytcr_rt5651.c              |  41 ++--
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c       |  32 ++--
+ sound/soc/intel/boards/cht_bsw_nau8824.c           |  41 ++--
+ sound/soc/intel/boards/cht_bsw_rt5645.c            |  43 +++--
+ sound/soc/intel/boards/cht_bsw_rt5672.c            |  39 ++--
+ sound/soc/intel/boards/glk_rt5682_max98357a.c      | 137 +++++++------
+ sound/soc/intel/boards/haswell.c                   |  46 +++--
+ sound/soc/intel/boards/kbl_da7219_max98357a.c      | 114 ++++++-----
+ sound/soc/intel/boards/kbl_da7219_max98927.c       | 212 +++++++++------------
+ sound/soc/intel/boards/kbl_rt5660.c                |  83 ++++----
+ sound/soc/intel/boards/kbl_rt5663_max98927.c       | 184 +++++++++---------
+ .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 126 ++++++------
+ sound/soc/intel/boards/skl_hda_dsp_common.c        |  66 ++++---
+ sound/soc/intel/boards/skl_hda_dsp_generic.c       |   4 +-
+ sound/soc/intel/boards/skl_nau88l25_max98357a.c    | 120 +++++++-----
+ sound/soc/intel/boards/skl_nau88l25_ssm4567.c      | 132 +++++++------
+ sound/soc/intel/boards/skl_rt286.c                 | 118 ++++++------
+ sound/soc/intel/boards/sof_rt5682.c                |  57 +++---
+ sound/soc/intel/skylake/skl-pcm.c                  |   2 +-
+ sound/soc/jz4740/qi_lb60.c                         |  10 +-
+ sound/soc/kirkwood/armada-370-db.c                 |  42 ++--
+ sound/soc/mediatek/mt2701/mt2701-cs42448.c         |  95 ++++++---
+ sound/soc/mediatek/mt2701/mt2701-wm8960.c          |  34 ++--
+ sound/soc/mediatek/mt6797/mt6797-mt6351.c          | 115 +++++++----
+ sound/soc/mediatek/mt8173/mt8173-max98090.c        |  34 ++--
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c   |  51 ++---
+ sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c   |  85 +++++----
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c          |  74 +++----
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 182 ++++++++++--------
+ .../mt8183/mt8183-mt6358-ts3a227-max98357.c        | 168 ++++++++++------
+ sound/soc/meson/axg-card.c                         |  57 ++++--
+ sound/soc/mxs/mxs-sgtl5000.c                       |  27 ++-
+ sound/soc/nuc900/nuc900-audio.c                    |  10 +-
+ sound/soc/pxa/brownstone.c                         |  10 +-
+ sound/soc/pxa/corgi.c                              |  10 +-
+ sound/soc/pxa/e740_wm9705.c                        |  20 +-
+ sound/soc/pxa/e750_wm9705.c                        |  20 +-
+ sound/soc/pxa/e800_wm9712.c                        |  21 +-
+ sound/soc/pxa/em-x270.c                            |  20 +-
+ sound/soc/pxa/hx4700.c                             |  10 +-
+ sound/soc/pxa/imote2.c                             |  11 +-
+ sound/soc/pxa/magician.c                           |  22 ++-
+ sound/soc/pxa/mioa701_wm9713.c                     |  20 +-
+ sound/soc/pxa/palm27x.c                            |  20 +-
+ sound/soc/pxa/poodle.c                             |  10 +-
+ sound/soc/pxa/spitz.c                              |  10 +-
+ sound/soc/pxa/tosa.c                               |  20 +-
+ sound/soc/pxa/ttc-dkb.c                            |  10 +-
+ sound/soc/pxa/z2.c                                 |  10 +-
+ sound/soc/pxa/zylonite.c                           |  30 +--
+ sound/soc/qcom/apq8016_sbc.c                       |  19 +-
+ sound/soc/qcom/common.c                            |  33 +++-
+ sound/soc/qcom/storm.c                             |  17 +-
+ sound/soc/rockchip/rk3288_hdmi_analog.c            |  21 +-
+ sound/soc/rockchip/rk3399_gru_sound.c              |  51 +++--
+ sound/soc/rockchip/rockchip_max98090.c             |  17 +-
+ sound/soc/rockchip/rockchip_rt5645.c               |  33 ++--
+ sound/soc/samsung/arndale_rt5631.c                 |  25 ++-
+ sound/soc/samsung/bells.c                          |  87 +++++----
+ sound/soc/samsung/h1940_uda1380.c                  |  10 +-
+ sound/soc/samsung/jive_wm8750.c                    |  10 +-
+ sound/soc/samsung/littlemill.c                     |  19 +-
+ sound/soc/samsung/lowland.c                        |  26 ++-
+ sound/soc/samsung/neo1973_wm8753.c                 |  18 +-
+ sound/soc/samsung/odroid.c                         |  29 ++-
+ sound/soc/samsung/rx1950_uda1380.c                 |  11 +-
+ sound/soc/samsung/s3c24xx_simtec_hermes.c          |  11 +-
+ sound/soc/samsung/s3c24xx_simtec_tlv320aic23.c     |  11 +-
+ sound/soc/samsung/s3c24xx_uda134x.c                |  10 +-
+ sound/soc/samsung/smartq_wm8987.c                  |  10 +-
+ sound/soc/samsung/smdk_spdif.c                     |  10 +-
+ sound/soc/samsung/smdk_wm8580.c                    |  20 +-
+ sound/soc/samsung/smdk_wm8994.c                    |  30 +--
+ sound/soc/samsung/smdk_wm8994pcm.c                 |  10 +-
+ sound/soc/samsung/snow.c                           |  40 ++--
+ sound/soc/samsung/speyside.c                       |  26 ++-
+ sound/soc/samsung/tm2_wm5110.c                     |  42 ++--
+ sound/soc/samsung/tobermory.c                      |  10 +-
+ sound/soc/sh/migor.c                               |  10 +-
+ sound/soc/sh/sh7760-ac97.c                         |  11 +-
+ sound/soc/sirf/sirf-audio.c                        |  13 +-
+ sound/soc/soc-core.c                               | 149 +++------------
+ sound/soc/soc-topology.c                           |  22 ++-
+ sound/soc/sof/nocodec.c                            |  21 +-
+ sound/soc/sof/topology.c                           |  20 +-
+ sound/soc/sunxi/sun4i-codec.c                      |  20 +-
+ sound/soc/tegra/tegra_alc5632.c                    |  37 ++--
+ sound/soc/tegra/tegra_max98090.c                   |  17 +-
+ sound/soc/tegra/tegra_rt5640.c                     |  17 +-
+ sound/soc/tegra/tegra_rt5677.c                     |  37 ++--
+ sound/soc/tegra/tegra_sgtl5000.c                   |  37 ++--
+ sound/soc/tegra/tegra_wm8753.c                     |  17 +-
+ sound/soc/tegra/tegra_wm8903.c                     |  17 +-
+ sound/soc/tegra/tegra_wm9712.c                     |  14 +-
+ sound/soc/tegra/trimslice.c                        |  19 +-
+ sound/soc/ti/ams-delta.c                           |  10 +-
+ sound/soc/ti/davinci-evm.c                         | 105 ++++++----
+ sound/soc/ti/n810.c                                |  11 +-
+ sound/soc/ti/omap-abe-twl6040.c                    |  36 +++-
+ sound/soc/ti/omap-hdmi.c                           |  20 +-
+ sound/soc/ti/omap-twl4030.c                        |  36 ++--
+ sound/soc/ti/omap3pandora.c                        |  20 +-
+ sound/soc/ti/osk5912.c                             |  11 +-
+ sound/soc/ti/rx51.c                                |  23 ++-
+ sound/soc/txx9/txx9aclc-generic.c                  |  10 +-
+ sound/soc/ux500/mop500.c                           |  36 ++--
+ 153 files changed, 3421 insertions(+), 2372 deletions(-)
 
-Thanks
-Nicolin
+-- 
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

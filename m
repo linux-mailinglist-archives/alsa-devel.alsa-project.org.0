@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD44F3811D
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:44:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6553238121
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:44:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4690C171E;
-	Fri,  7 Jun 2019 00:43:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4690C171E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F259D1687;
+	Fri,  7 Jun 2019 00:43:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F259D1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559861041;
-	bh=PchuuNQZ65NwhnoaGf8gVHZr3vCwXtESCALylF8wUAE=;
+	s=default; t=1559861081;
+	bh=dKslKDbUIWcbL6oiKiGF1yMs3PbOCUhk3+Y35EdM0o0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=vHGeNeK9vVXIf5nz6c95D2uQJ9vT4Mbkcb/ypIOrAFeoiAzwD+8t3nbHats+fKJvl
-	 SB1Ju+yEhfLo4eCFpZHMWyh6z/eUiEwZciCK13mPx79mpmafB9j9dQEExBaXSZ58Px
-	 bwIxCBbRIQ6Bmzj+uFvqsntvFhpqVVYGhBMwg6/M=
+	b=OSonVFtaGehvmQYZxy7SztJg5rMI5y2XjJFfrF+qAfSXKbfPQAFJyf/Bjh0vsCYVK
+	 JBmMrIugrg5Y177EYyPeDotBwFfng7J6DPZiVDhperJQTW0Q202RmL5ZPI4vkoyEfw
+	 5U+HdR2N1tbL3v/wEJKfqqeTYxSYPxXlMD0rFNNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84280F899AB;
-	Thu,  6 Jun 2019 23:31:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF2CAF899B0;
+	Thu,  6 Jun 2019 23:31:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7717F89870; Thu,  6 Jun 2019 23:28:56 +0200 (CEST)
+ id 04C17F8986E; Thu,  6 Jun 2019 23:28:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE70FF897E1
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE70FF897E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83205F897E3
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83205F897E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Sr0sGcyr"
+ header.b="XzQ8TB9J"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=qOJfniH0Xtz5+kK/inH4Tsjlnj+AQ3qpJ7z6GEUDX0w=; b=Sr0sGcyrQXt2
- mS77noyvskNRcNYhV7HUy1KjXsvO5buNyPTbfOr8+AwyrzXtj64eKJP7EmJ8T9P9dw1C7A1r8hxi8
- 5NjZiux6+qfCY9VarRenAI//eNu2LUNbpSkZHvAqLpGFljxxPCLXH957K2BdG7Am2ELJE+kKUnNAJ
- gCHB8=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=nhNSZVm4P1H5x5fbLPkxxW5SbL5WpzoS9bJ9jkPQd5c=; b=XzQ8TB9JAzea
+ Y+V5hJo87wyBoFRq8jUwMrhVNR67Nx5jFYlX2wxUCt3JLs1838H87/jbWfFa6YypZWM53MT5Hdthp
+ Dk9iGJkaSBFe9+gb4pnntjCwmfnh9QZWI7xZOP+urLR+28cLI5U3yBxdr7nAK/ZUS/yI68126ykO1
+ vT8uI=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuW-0007S2-L0; Thu, 06 Jun 2019 21:27:00 +0000
+ id 1hYzuX-0007S8-9U; Thu, 06 Jun 2019 21:27:01 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 31733440046; Thu,  6 Jun 2019 22:27:00 +0100 (BST)
+ id BE7D4440046; Thu,  6 Jun 2019 22:27:00 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zpjl64k.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <877e9zl64p.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212700.31733440046@finisterre.sirena.org.uk>
+Message-Id: <20190606212700.BE7D4440046@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:27:00 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: samsung: jive_wm8750: use modern
+Subject: [alsa-devel] Applied "ASoC: samsung: littlemill: use modern
 	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: jive_wm8750: use modern dai_link style
+   ASoC: samsung: littlemill: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 9423082951be26bd60d9fc1133d2ea9014aade6b Mon Sep 17 00:00:00 2001
+From e28d6e02889c7448b470e55ea8440b65fd2ddf75 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:10:46 +0900
-Subject: [PATCH] ASoC: samsung: jive_wm8750: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:10:41 +0900
+Subject: [PATCH] ASoC: samsung: littlemill: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,36 +124,54 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/samsung/jive_wm8750.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ sound/soc/samsung/littlemill.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/samsung/jive_wm8750.c b/sound/soc/samsung/jive_wm8750.c
-index f05f9e03f07d..949d2e029962 100644
---- a/sound/soc/samsung/jive_wm8750.c
-+++ b/sound/soc/samsung/jive_wm8750.c
-@@ -78,16 +78,18 @@ static const struct snd_soc_ops jive_ops = {
- 	.hw_params	= jive_hw_params,
+diff --git a/sound/soc/samsung/littlemill.c b/sound/soc/samsung/littlemill.c
+index cd70b06cc99d..6132cee8550b 100644
+--- a/sound/soc/samsung/littlemill.c
++++ b/sound/soc/samsung/littlemill.c
+@@ -142,28 +142,33 @@ static const struct snd_soc_pcm_stream baseband_params = {
+ 	.channels_max = 2,
  };
  
-+SND_SOC_DAILINK_DEFS(wm8750,
-+	DAILINK_COMP_ARRAY(COMP_CPU("s3c2412-i2s")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm8750.0-001a", "wm8750-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("s3c2412-i2s")));
++SND_SOC_DAILINK_DEFS(cpu,
++	DAILINK_COMP_ARRAY(COMP_CPU("samsung-i2s.0")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("wm8994-codec", "wm8994-aif1")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("samsung-i2s.0")));
 +
- static struct snd_soc_dai_link jive_dai = {
- 	.name		= "wm8750",
- 	.stream_name	= "WM8750",
--	.cpu_dai_name	= "s3c2412-i2s",
--	.codec_dai_name = "wm8750-hifi",
--	.platform_name	= "s3c2412-i2s",
--	.codec_name	= "wm8750.0-001a",
- 	.dai_fmt	= SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			  SND_SOC_DAIFMT_CBS_CFS,
- 	.ops		= &jive_ops,
-+	SND_SOC_DAILINK_REG(wm8750),
++SND_SOC_DAILINK_DEFS(baseband,
++	DAILINK_COMP_ARRAY(COMP_CPU("wm8994-aif2")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("wm1250-ev1.1-0027",
++				      "wm1250-ev1")));
++
+ static struct snd_soc_dai_link littlemill_dai[] = {
+ 	{
+ 		.name = "CPU",
+ 		.stream_name = "CPU",
+-		.cpu_dai_name = "samsung-i2s.0",
+-		.codec_dai_name = "wm8994-aif1",
+-		.platform_name = "samsung-i2s.0",
+-		.codec_name = "wm8994-codec",
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 				| SND_SOC_DAIFMT_CBM_CFM,
+ 		.ops = &littlemill_ops,
++		SND_SOC_DAILINK_REG(cpu),
+ 	},
+ 	{
+ 		.name = "Baseband",
+ 		.stream_name = "Baseband",
+-		.cpu_dai_name = "wm8994-aif2",
+-		.codec_dai_name = "wm1250-ev1",
+-		.codec_name = "wm1250-ev1.1-0027",
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
+ 				| SND_SOC_DAIFMT_CBM_CFM,
+ 		.ignore_suspend = 1,
+ 		.params = &baseband_params,
++		SND_SOC_DAILINK_REG(baseband),
+ 	},
  };
  
- /* jive audio machine driver */
 -- 
 2.20.1
 

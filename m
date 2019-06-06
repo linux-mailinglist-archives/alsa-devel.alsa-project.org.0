@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0937138030
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:02:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DECEE38035
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:03:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AE5116E0;
-	Fri,  7 Jun 2019 00:01:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AE5116E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 736FF1697;
+	Fri,  7 Jun 2019 00:02:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 736FF1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559858548;
-	bh=Fi5uY7+cxlPUsJujuWCwKFN5hlhSdAlX2fai+hTCv+Y=;
+	s=default; t=1559858629;
+	bh=GJLXw9N+EWrYWAO796p532CITmPFv7Tf3ZKlPP9Vqnc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gBjwWCghdqyag6CPlYyRCyVF2RxK/lhGdwM/dJM1PIws7WJPNo2M4M3Dpvax92pv9
-	 JdIYXJ4g9kzdjANrvRYgAzSzwcfmmVkHttCkYIBLw2JfX9hUw/bCConDWVquAZ/pNq
-	 md1Qf1cF0/Z9QQDkQ8KqXc4nkJ8pH0vzA0tE7Uxg=
+	b=HQtaUyzR1pa6/GcqqT0LgdxJrUpGrJVxJidOXVNdy1iNGeEgCOBtflSevPmelEk9D
+	 sERR7vnJZ1+pwKY/tGd+YBsMM6H1nGv3fFyluDJAssR1xgof++ocJWp0DG5RHus9Lr
+	 xz+7Ts+GCB5EfDC2e8RRK3PfuUJstl1INzcAgRgE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DF21F897EB;
-	Thu,  6 Jun 2019 23:29:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 282AFF897F0;
+	Thu,  6 Jun 2019 23:29:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCC1DF8981F; Thu,  6 Jun 2019 23:27:25 +0200 (CEST)
+ id B2EDCF8973A; Thu,  6 Jun 2019 23:27:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC237F89779
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC237F89779
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29BD0F89771
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29BD0F89771
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="LP8FvdWR"
+ header.b="ZZkt9EfR"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=rC8ZHvLN1YIytqHTV4XwcmSc5vAf1u377rP/REen58Q=; b=LP8FvdWRLj3E
- bxY/vILMgSgm3UL35bnBQlVo93HW6N6jEml1OUHq57eRK3M9jcSWAtd3NQ4vXuGpjg77sSAou6blS
- 3Eh7E1VCI5L+UYTV9fbdbD9Vk859O2uTUsP2bPN21TzQS2bPRc1xiz/KNo0djbgMsz7I+T1rvHFRf
- 0jsBw=;
+ List-Archive; bh=X27Hlh5QJs3OPwRyz8CfUgdOzL+euTTxvy0hFOVeV34=; b=ZZkt9EfROu6h
+ yyx8JsYu0JmrU4Jw1efxJMw9GU05G/zfVBTPhOgqX3N0Edj62786FgpN9TLMlj9desRLP0oKpFkiX
+ 7B7GfTU3o52fI1zgIc0km1e/bG01o5CHY/jetELh5f/ipfThGgqlEJxG+g1QTcKL8JoMHS6F4Ux04
+ FoTmU=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztx-0007Lp-EY; Thu, 06 Jun 2019 21:26:25 +0000
+ id 1hYztx-0007Lx-V8; Thu, 06 Jun 2019 21:26:26 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id EEF31440046; Thu,  6 Jun 2019 22:26:24 +0100 (BST)
+ id 82B3E440046; Thu,  6 Jun 2019 22:26:25 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87muivgy4q.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o93bgy4w.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212624.EEF31440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:24 +0100 (BST)
+Message-Id: <20190606212625.82B3E440046@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:25 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: qcom: apq8016_sbc: use modern dai_link
+Subject: [alsa-devel] Applied "ASoC: qcom: common: use modern dai_link
 	style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: apq8016_sbc: use modern dai_link style
+   ASoC: qcom: common: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 98b232ca9e0e7fb0f3be80653f647c8ce369556d Mon Sep 17 00:00:00 2001
+From 1e36ea360ab98e9c20329a3d9364705d1347e411 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:17:04 +0900
-Subject: [PATCH] ASoC: qcom: apq8016_sbc: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:16:58 +0900
+Subject: [PATCH] ASoC: qcom: common: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,28 +124,29 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/apq8016_sbc.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
+ sound/soc/qcom/common.c | 33 ++++++++++++++++++++++++++-------
+ 1 file changed, 26 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index 4b559932adc3..717542c61d04 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -126,6 +126,7 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 5661025e8cec..c7a878507220 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -14,6 +14,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 	struct device *dev = card->dev;
  	struct snd_soc_dai_link *link;
- 	struct device_node *np, *codec, *cpu, *node  = dev->of_node;
- 	struct apq8016_sbc_data *data;
+ 	struct of_phandle_args args;
 +	struct snd_soc_dai_link_component *dlc;
  	int ret, num_links;
  
- 	ret = snd_soc_of_parse_card_name(card, "qcom,model");
-@@ -158,6 +159,16 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
+ 	ret = snd_soc_of_parse_card_name(card, "model");
+@@ -40,6 +41,17 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
  
- 	link = data->dai_link;
- 
+ 	card->num_links = num_links;
+ 	link = card->dai_link;
++
 +	dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
 +	if (!dlc)
-+		return ERR_PTR(-ENOMEM);
++		return -ENOMEM;
 +
 +	link->cpus	= &dlc[0];
 +	link->platforms	= &dlc[1];
@@ -153,36 +154,54 @@ index 4b559932adc3..717542c61d04 100644
 +	link->num_cpus		= 1;
 +	link->num_platforms	= 1;
 +
- 	for_each_child_of_node(node, np) {
+ 	for_each_child_of_node(dev->of_node, np) {
  		cpu = of_get_child_by_name(np, "cpu");
- 		codec = of_get_child_by_name(np, "codec");
-@@ -168,14 +179,14 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
- 			goto error;
- 		}
- 
--		link->cpu_of_node = of_parse_phandle(cpu, "sound-dai", 0);
--		if (!link->cpu_of_node) {
-+		link->cpus->of_node = of_parse_phandle(cpu, "sound-dai", 0);
-+		if (!link->cpus->of_node) {
+ 		platform = of_get_child_by_name(np, "platform");
+@@ -57,20 +69,20 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
  			dev_err(card->dev, "error getting cpu phandle\n");
- 			ret = -EINVAL;
- 			goto error;
+ 			goto err;
  		}
+-		link->cpu_of_node = args.np;
++		link->cpus->of_node = args.np;
+ 		link->id = args.args[0];
  
 -		ret = snd_soc_of_get_dai_name(cpu, &link->cpu_dai_name);
 +		ret = snd_soc_of_get_dai_name(cpu, &link->cpus->dai_name);
  		if (ret) {
  			dev_err(card->dev, "error getting cpu dai name\n");
- 			goto error;
-@@ -188,7 +199,7 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
- 			goto error;
+ 			goto err;
  		}
  
--		link->platform_of_node = link->cpu_of_node;
-+		link->platforms->of_node = link->cpus->of_node;
- 		ret = of_property_read_string(np, "link-name", &link->name);
- 		if (ret) {
- 			dev_err(card->dev, "error getting codec dai_link name\n");
+ 		if (codec && platform) {
+-			link->platform_of_node = of_parse_phandle(platform,
++			link->platforms->of_node = of_parse_phandle(platform,
+ 					"sound-dai",
+ 					0);
+-			if (!link->platform_of_node) {
++			if (!link->platforms->of_node) {
+ 				dev_err(card->dev, "platform dai not found\n");
+ 				ret = -EINVAL;
+ 				goto err;
+@@ -84,9 +96,16 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 			link->no_pcm = 1;
+ 			link->ignore_pmdown_time = 1;
+ 		} else {
+-			link->platform_of_node = link->cpu_of_node;
+-			link->codec_dai_name = "snd-soc-dummy-dai";
+-			link->codec_name = "snd-soc-dummy";
++			dlc = devm_kzalloc(dev, sizeof(*dlc), GFP_KERNEL);
++			if (!dlc)
++				return -ENOMEM;
++
++			link->codecs	 = dlc;
++			link->num_codecs = 1;
++
++			link->platforms->of_node = link->cpus->of_node;
++			link->codecs->dai_name = "snd-soc-dummy-dai";
++			link->codecs->name = "snd-soc-dummy";
+ 			link->dynamic = 1;
+ 		}
+ 
 -- 
 2.20.1
 

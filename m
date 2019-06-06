@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BECF3806E
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:19:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2481C3807B
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:21:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A864616E8;
-	Fri,  7 Jun 2019 00:18:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A864616E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD07816CC;
+	Fri,  7 Jun 2019 00:21:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD07816CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559859556;
-	bh=jZ7WU/2/TVCGpeLQyJT8SoAP8cnxTPXIeloCWkFlu3k=;
+	s=default; t=1559859713;
+	bh=MUBueTQbpZAPbVpFRjNVNaPT57lSwhwVpInUvrcMCSY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pP5tuNjm2xTSohg40+iQY66lBUzR3Lfjgp3aDL+OuzV7ftj2c8bUZEcPqxJ6Dti14
-	 Il57gSeI41pW9XWdBeznVFldFSJdwc4zJAFXs0nk76kAwvHKAKFKgw+RCaqV3dU5ex
-	 FuTvrUgrDDL6CcTH5/QpPgknvEjCTrLBjrB2qOSk=
+	b=KnysBxaBgAdjWs6BiCpE0+N8JKZhLLZCCcTXIrEoWjWqWCIEpGQpaW0EUBlLfKBfR
+	 xo5SwZRjwUcKeZsm2mt74VV7n0eh9J8UtSo2iy7q+A1lJ7pVfsnrxSfMdNc7b1uPfm
+	 Dy/6PgBYFoZ6Ip2O1mvG9vlJN3Yf2E52BAciKsiI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33F8FF898DF;
-	Thu,  6 Jun 2019 23:30:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5FDAF898F4;
+	Thu,  6 Jun 2019 23:30:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB934F8984A; Thu,  6 Jun 2019 23:28:04 +0200 (CEST)
+ id 649A0F89848; Thu,  6 Jun 2019 23:28:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F230F897AA
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F230F897AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93BC6F897AD
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93BC6F897AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="mK+CTdJW"
+ header.b="qs2Rk0Hr"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=hBA7WZIFjG0xDlJmVgEouNpxbtFeuNtfI/1L1bSZLdA=; b=mK+CTdJWHjBh
- 7f+R7d9PaL3+XcI5lTvaDGwMb3omjWx2SAZi56AKPFC8N/EGRT3dkiJYpVkaJFNwswL7knSg1mZvm
- UJSKC0AXNKTUf4rYwesb+BIC0yMcB5eyeGyt0yK4WNIeGBluRgwQygU/fc7Ups6NTwM2teg1d3tXE
- rDPWc=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=iDz0R2Wx6BjQDTKYQ8SoLfvkGzeDchoRDcevsLrTo54=; b=qs2Rk0HrbHx8
+ YfH0BMv1r2OQ5w9K29Vxb1yGQt0kSvLgzE0ZrOjUwQltkyHFOCjDx29G43G1TKh6gnINo/SGsQ7iH
+ syCq7sPfIJHIsDgL7naBlPAaU5heBW6o2DFBQr/RU3ppxD2G2W0XuFDLdDk5uboNG64hDZP2uoeOZ
+ 6116w=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzuD-0007OX-3V; Thu, 06 Jun 2019 21:26:41 +0000
+ id 1hYzuE-0007On-9l; Thu, 06 Jun 2019 21:26:42 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 9E293440049; Thu,  6 Jun 2019 22:26:40 +0100 (BST)
+ id BC6B4440049; Thu,  6 Jun 2019 22:26:41 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87r287icuj.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87tvd3icus.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212640.9E293440049@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:26:40 +0100 (BST)
+Message-Id: <20190606212641.BC6B4440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:26:41 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: atmel: tse850-pcm5142: use modern
+Subject: [alsa-devel] Applied "ASoC: atmel: sam9x5_wm8731: use modern
 	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: atmel: tse850-pcm5142: use modern dai_link style
+   ASoC: atmel: sam9x5_wm8731: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 1199dd99ddf699dd81c764016b8b6a9fd599d0d4 Mon Sep 17 00:00:00 2001
+From 35617d8262c49a1d63a36ef291c5b1a8fdc86bc8 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:13:51 +0900
-Subject: [PATCH] ASoC: atmel: tse850-pcm5142: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:13:42 +0900
+Subject: [PATCH] ASoC: atmel: sam9x5_wm8731: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,53 +124,70 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/atmel/tse850-pcm5142.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ sound/soc/atmel/sam9x5_wm8731.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/atmel/tse850-pcm5142.c b/sound/soc/atmel/tse850-pcm5142.c
-index ae445184614a..59e2edb22b3a 100644
---- a/sound/soc/atmel/tse850-pcm5142.c
-+++ b/sound/soc/atmel/tse850-pcm5142.c
-@@ -294,13 +294,18 @@ static const struct snd_soc_dapm_route tse850_intercon[] = {
- 	{ "DAC", NULL, "OUTL" },
- };
+diff --git a/sound/soc/atmel/sam9x5_wm8731.c b/sound/soc/atmel/sam9x5_wm8731.c
+index e6c303ab869d..36917acc161f 100644
+--- a/sound/soc/atmel/sam9x5_wm8731.c
++++ b/sound/soc/atmel/sam9x5_wm8731.c
+@@ -82,6 +82,7 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card;
+ 	struct snd_soc_dai_link *dai;
+ 	struct sam9x5_drvdata *priv;
++	struct snd_soc_dai_link_component *comp;
+ 	int ret;
  
-+SND_SOC_DAILINK_DEFS(pcm,
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "pcm512x-hifi")),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 	if (!np) {
+@@ -92,7 +93,8 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 	card = devm_kzalloc(&pdev->dev, sizeof(*card), GFP_KERNEL);
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	dai = devm_kzalloc(&pdev->dev, sizeof(*dai), GFP_KERNEL);
+-	if (!dai || !card || !priv) {
++	comp = devm_kzalloc(&pdev->dev, 3 * sizeof(*comp), GFP_KERNEL);
++	if (!dai || !card || !priv || !comp) {
+ 		ret = -ENOMEM;
+ 		goto out;
+ 	}
+@@ -105,9 +107,17 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 	card->num_links = 1;
+ 	card->dapm_widgets = sam9x5_dapm_widgets;
+ 	card->num_dapm_widgets = ARRAY_SIZE(sam9x5_dapm_widgets);
 +
- static struct snd_soc_dai_link tse850_dailink = {
- 	.name = "TSE-850",
- 	.stream_name = "TSE-850-PCM",
--	.codec_dai_name = "pcm512x-hifi",
- 	.dai_fmt = SND_SOC_DAIFMT_I2S
- 		 | SND_SOC_DAIFMT_NB_NF
- 		 | SND_SOC_DAIFMT_CBM_CFS,
-+	SND_SOC_DAILINK_REG(pcm),
- };
- 
- static struct snd_soc_card tse850_card = {
-@@ -331,8 +336,8 @@ static int tse850_dt_init(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "failed to get cpu dai\n");
- 		return -EINVAL;
++	dai->cpus = &comp[0];
++	dai->num_cpus = 1;
++	dai->codecs = &comp[1];
++	dai->num_codecs = 1;
++	dai->platforms = &comp[2];
++	dai->num_platforms = 1;
++
+ 	dai->name = "WM8731";
+ 	dai->stream_name = "WM8731 PCM";
+-	dai->codec_dai_name = "wm8731-hifi";
++	dai->codecs->dai_name = "wm8731-hifi";
+ 	dai->init = sam9x5_wm8731_init;
+ 	dai->dai_fmt = SND_SOC_DAIFMT_DSP_A | SND_SOC_DAIFMT_NB_NF
+ 		| SND_SOC_DAIFMT_CBM_CFM;
+@@ -131,7 +141,7 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 		goto out;
  	}
--	dailink->cpu_of_node = cpu_np;
--	dailink->platform_of_node = cpu_np;
-+	dailink->cpus->of_node = cpu_np;
-+	dailink->platforms->of_node = cpu_np;
- 	of_node_put(cpu_np);
  
- 	codec_np = of_parse_phandle(np, "axentia,audio-codec", 0);
-@@ -340,7 +345,7 @@ static int tse850_dt_init(struct platform_device *pdev)
- 		dev_err(&pdev->dev, "failed to get codec info\n");
- 		return -EINVAL;
+-	dai->codec_of_node = codec_np;
++	dai->codecs->of_node = codec_np;
+ 
+ 	cpu_np = of_parse_phandle(np, "atmel,ssc-controller", 0);
+ 	if (!cpu_np) {
+@@ -139,8 +149,8 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 		ret = -EINVAL;
+ 		goto out;
  	}
--	dailink->codec_of_node = codec_np;
-+	dailink->codecs->of_node = codec_np;
- 	of_node_put(codec_np);
+-	dai->cpu_of_node = cpu_np;
+-	dai->platform_of_node = cpu_np;
++	dai->cpus->of_node = cpu_np;
++	dai->platforms->of_node = cpu_np;
  
- 	return 0;
+ 	priv->ssc_id = of_alias_get_id(cpu_np, "ssc");
+ 
 -- 
 2.20.1
 

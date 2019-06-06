@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3282238178
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 01:01:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D640038187
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 01:05:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB7D1177E;
-	Fri,  7 Jun 2019 01:00:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7D1177E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 697DF175A;
+	Fri,  7 Jun 2019 01:04:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 697DF175A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559862075;
-	bh=A0O5SYRneo8MHSSlNpPij/5irVWMYSQEKmQE4KBQvfE=;
+	s=default; t=1559862308;
+	bh=plDJ86ild104R5qReD8pXzU8nboKVAjvC1CYjdbdjLM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IrD7YXiMtv2zopJe8UoetlW/KPHLjTdUY2wo1h1LaUeQto4Zt84Ac3jBp8afohlgE
-	 aWnmB8L1hnfGfkcRPeHBc//A9X3419ZWlze/IMEEfEicnCtTk5LVi2+WFCvvOr4aHO
-	 Q375QRxf0yNBOFbjL8WEHBhpsJG3PWIru7N3IQ5M=
+	b=nG7SHLrhqS62v7SyQd9+n+lc43yjUHH+6g/eK3APhoxkWgPCrWDKFpP1VfBqAagyN
+	 V16kak0J3ZBd4JLnVLlzKHQqzGydj4S/sz3dnkUsYkp6pyxY3Alg2SdZ+4bswRbxSy
+	 2NE7bRLlU9AUzUEiRXwXUZqKWV6iwa2O3xy7/Lto=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E128DF89A4F;
-	Thu,  6 Jun 2019 23:31:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88DDCF89A68;
+	Thu,  6 Jun 2019 23:32:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A124FF898A2; Thu,  6 Jun 2019 23:29:34 +0200 (CEST)
+ id 9A64EF898B5; Thu,  6 Jun 2019 23:29:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8366F89769
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8366F89769
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63282F89810
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63282F89810
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="wnDYpJFV"
+ header.b="pR6zJ/jz"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=OaZqxVpAV4p2X4yq9PScSdkwETo658Cm6fl6A9S/ovU=; b=wnDYpJFVRoqZ
- wSwBvYcAGSjpW63lL6iZZ5xwF105VL2Wq0+MGKnI3eFZogYnnWi5+2sf7LjmWbBksnqeAXGt9Ttkx
- Oqp6mvAJH5QsJJP9Ig+x5ksEUjLML2d/ZGUP+okGPsjhB3+fT3vhzZGNfk8y/le51y83A2fesLh/M
- ZibnE=;
+ List-Archive; bh=8+ptJLYGWvldMlwr9LmT7MaXElYstvE4h7RzCaZVh54=; b=pR6zJ/jzRipR
+ meHjwFDzQDyK0c2JUQyaI1YkpSnNaWktKWHBAjxfxEV/XuAeWHa8WcdMEUG0DuY7MSOllFrecN+Vo
+ urx7ZBCj9hHSjxagFbZPDAo3IOvyhw6+5KKgcl3cv8OeFNcLiTgLfNzwqlxy5lzDlvWooblzEn/uA
+ 0w1qs=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzum-0007Uk-Iu; Thu, 06 Jun 2019 21:27:16 +0000
+ id 1hYzun-0007Uo-4X; Thu, 06 Jun 2019 21:27:17 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 126BC440046; Thu,  6 Jun 2019 22:27:16 +0100 (BST)
+ id 9726D440049; Thu,  6 Jun 2019 22:27:16 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a7evmktq.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87blzbmktx.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212716.126BC440046@finisterre.sirena.org.uk>
+Message-Id: <20190606212716.9726D440049@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:27:16 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: mediatek: mt2701-wm8960: use modern
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt6797-mt6351: use modern
 	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mt2701-wm8960: use modern dai_link style
+   ASoC: mediatek: mt6797-mt6351: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From b664e06d530eba6c5f2f1a9571c2bc78e9fb783f Mon Sep 17 00:00:00 2001
+From 9ded5f71114bcf935051db12f0ad1abe4ef497b1 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:07:57 +0900
-Subject: [PATCH] ASoC: mediatek: mt2701-wm8960: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:07:49 +0900
+Subject: [PATCH] ASoC: mediatek: mt6797-mt6351: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,74 +124,227 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/mediatek/mt2701/mt2701-wm8960.c | 34 +++++++++++++++--------
- 1 file changed, 22 insertions(+), 12 deletions(-)
+ sound/soc/mediatek/mt6797/mt6797-mt6351.c | 115 ++++++++++++++--------
+ 1 file changed, 76 insertions(+), 39 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt2701/mt2701-wm8960.c b/sound/soc/mediatek/mt2701/mt2701-wm8960.c
-index 6bc1d3d58e64..8c4c89e4c616 100644
---- a/sound/soc/mediatek/mt2701/mt2701-wm8960.c
-+++ b/sound/soc/mediatek/mt2701/mt2701-wm8960.c
-@@ -44,41 +44,51 @@ static struct snd_soc_ops mt2701_wm8960_be_ops = {
- 	.hw_params = mt2701_wm8960_be_ops_hw_params
- };
+diff --git a/sound/soc/mediatek/mt6797/mt6797-mt6351.c b/sound/soc/mediatek/mt6797/mt6797-mt6351.c
+index cc41eb531653..496f32bcfb5e 100644
+--- a/sound/soc/mediatek/mt6797/mt6797-mt6351.c
++++ b/sound/soc/mediatek/mt6797/mt6797-mt6351.c
+@@ -10,140 +10,177 @@
  
-+SND_SOC_DAILINK_DEFS(playback,
-+	DAILINK_COMP_ARRAY(COMP_CPU("PCMO0")),
+ #include "mt6797-afe-common.h"
+ 
++SND_SOC_DAILINK_DEFS(playback_1,
++	DAILINK_COMP_ARRAY(COMP_CPU("DL1")),
 +	DAILINK_COMP_ARRAY(COMP_DUMMY()),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
-+SND_SOC_DAILINK_DEFS(capture,
-+	DAILINK_COMP_ARRAY(COMP_CPU("PCM0")),
++SND_SOC_DAILINK_DEFS(playback_2,
++	DAILINK_COMP_ARRAY(COMP_CPU("DL2")),
 +	DAILINK_COMP_ARRAY(COMP_DUMMY()),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
-+SND_SOC_DAILINK_DEFS(codec,
-+	DAILINK_COMP_ARRAY(COMP_CPU("I2S0")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm8960-hifi")),
++SND_SOC_DAILINK_DEFS(playback_3,
++	DAILINK_COMP_ARRAY(COMP_CPU("DL3")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
- static struct snd_soc_dai_link mt2701_wm8960_dai_links[] = {
++SND_SOC_DAILINK_DEFS(capture_1,
++	DAILINK_COMP_ARRAY(COMP_CPU("UL1")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(capture_2,
++	DAILINK_COMP_ARRAY(COMP_CPU("UL2")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(capture_3,
++	DAILINK_COMP_ARRAY(COMP_CPU("UL3")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(capture_mono_1,
++	DAILINK_COMP_ARRAY(COMP_CPU("UL_MONO_1")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(hostless_lpbk,
++	DAILINK_COMP_ARRAY(COMP_CPU("Hostless LPBK DAI")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(hostless_speech,
++	DAILINK_COMP_ARRAY(COMP_CPU("Hostless Speech DAI")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(primary_codec,
++	DAILINK_COMP_ARRAY(COMP_CPU("ADDA")),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "mt6351-snd-codec-aif1")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(pcm1,
++	DAILINK_COMP_ARRAY(COMP_CPU("PCM 1")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
++SND_SOC_DAILINK_DEFS(pcm2,
++	DAILINK_COMP_ARRAY(COMP_CPU("PCM 2")),
++	DAILINK_COMP_ARRAY(COMP_DUMMY()),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++
+ static struct snd_soc_dai_link mt6797_mt6351_dai_links[] = {
  	/* FE */
  	{
- 		.name = "wm8960-playback",
- 		.stream_name = "wm8960-playback",
--		.cpu_dai_name = "PCMO0",
+ 		.name = "Playback_1",
+ 		.stream_name = "Playback_1",
+-		.cpu_dai_name = "DL1",
 -		.codec_name = "snd-soc-dummy",
 -		.codec_dai_name = "snd-soc-dummy-dai",
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
- 			    SND_SOC_DPCM_TRIGGER_POST},
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
  		.dynamic = 1,
  		.dpcm_playback = 1,
-+		SND_SOC_DAILINK_REG(playback),
++		SND_SOC_DAILINK_REG(playback_1),
  	},
  	{
- 		.name = "wm8960-capture",
- 		.stream_name = "wm8960-capture",
--		.cpu_dai_name = "PCM0",
+ 		.name = "Playback_2",
+ 		.stream_name = "Playback_2",
+-		.cpu_dai_name = "DL2",
 -		.codec_name = "snd-soc-dummy",
 -		.codec_dai_name = "snd-soc-dummy-dai",
- 		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
- 			    SND_SOC_DPCM_TRIGGER_POST},
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_playback = 1,
++		SND_SOC_DAILINK_REG(playback_2),
+ 	},
+ 	{
+ 		.name = "Playback_3",
+ 		.stream_name = "Playback_3",
+-		.cpu_dai_name = "DL3",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_playback = 1,
++		SND_SOC_DAILINK_REG(playback_3),
+ 	},
+ 	{
+ 		.name = "Capture_1",
+ 		.stream_name = "Capture_1",
+-		.cpu_dai_name = "UL1",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
  		.dynamic = 1,
  		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(capture),
++		SND_SOC_DAILINK_REG(capture_1),
+ 	},
+ 	{
+ 		.name = "Capture_2",
+ 		.stream_name = "Capture_2",
+-		.cpu_dai_name = "UL2",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_capture = 1,
++		SND_SOC_DAILINK_REG(capture_2),
+ 	},
+ 	{
+ 		.name = "Capture_3",
+ 		.stream_name = "Capture_3",
+-		.cpu_dai_name = "UL3",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_capture = 1,
++		SND_SOC_DAILINK_REG(capture_3),
+ 	},
+ 	{
+ 		.name = "Capture_Mono_1",
+ 		.stream_name = "Capture_Mono_1",
+-		.cpu_dai_name = "UL_MONO_1",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_capture = 1,
++		SND_SOC_DAILINK_REG(capture_mono_1),
+ 	},
+ 	{
+ 		.name = "Hostless_LPBK",
+ 		.stream_name = "Hostless_LPBK",
+-		.cpu_dai_name = "Hostless LPBK DAI",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(hostless_lpbk),
+ 	},
+ 	{
+ 		.name = "Hostless_Speech",
+ 		.stream_name = "Hostless_Speech",
+-		.cpu_dai_name = "Hostless Speech DAI",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.trigger = {SND_SOC_DPCM_TRIGGER_PRE,
+ 			    SND_SOC_DPCM_TRIGGER_PRE},
+ 		.dynamic = 1,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(hostless_speech),
  	},
  	/* BE */
  	{
- 		.name = "wm8960-codec",
--		.cpu_dai_name = "I2S0",
+ 		.name = "Primary Codec",
+-		.cpu_dai_name = "ADDA",
+-		.codec_dai_name = "mt6351-snd-codec-aif1",
  		.no_pcm = 1,
--		.codec_dai_name = "wm8960-hifi",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_CBS_CFS
- 			| SND_SOC_DAIFMT_GATED,
- 		.ops = &mt2701_wm8960_be_ops,
  		.dpcm_playback = 1,
  		.dpcm_capture = 1,
-+		SND_SOC_DAILINK_REG(codec),
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(primary_codec),
+ 	},
+ 	{
+ 		.name = "PCM 1",
+-		.cpu_dai_name = "PCM 1",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.no_pcm = 1,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(pcm1),
+ 	},
+ 	{
+ 		.name = "PCM 2",
+-		.cpu_dai_name = "PCM 2",
+-		.codec_name = "snd-soc-dummy",
+-		.codec_dai_name = "snd-soc-dummy-dai",
+ 		.no_pcm = 1,
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.ignore_suspend = 1,
++		SND_SOC_DAILINK_REG(pcm2),
  	},
  };
  
-@@ -107,9 +117,9 @@ static int mt2701_wm8960_machine_probe(struct platform_device *pdev)
+@@ -170,9 +207,9 @@ static int mt6797_mt6351_dev_probe(struct platform_device *pdev)
  		return -EINVAL;
  	}
  	for_each_card_prelinks(card, i, dai_link) {
@@ -202,8 +355,8 @@ index 6bc1d3d58e64..8c4c89e4c616 100644
 +		dai_link->platforms->of_node = platform_node;
  	}
  
- 	card->dev = &pdev->dev;
-@@ -122,9 +132,9 @@ static int mt2701_wm8960_machine_probe(struct platform_device *pdev)
+ 	codec_node = of_parse_phandle(pdev->dev.of_node,
+@@ -183,9 +220,9 @@ static int mt6797_mt6351_dev_probe(struct platform_device *pdev)
  		return -EINVAL;
  	}
  	for_each_card_prelinks(card, i, dai_link) {
@@ -214,7 +367,7 @@ index 6bc1d3d58e64..8c4c89e4c616 100644
 +		dai_link->codecs->of_node = codec_node;
  	}
  
- 	ret = snd_soc_of_parse_audio_routing(card, "audio-routing");
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
 -- 
 2.20.1
 

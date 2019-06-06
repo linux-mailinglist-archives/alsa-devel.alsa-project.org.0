@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2810038017
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:57:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D14338010
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:57:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B70151690;
-	Thu,  6 Jun 2019 23:56:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B70151690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 11A8C1697;
+	Thu,  6 Jun 2019 23:56:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11A8C1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559858267;
-	bh=NP7NbZy6VfA+56EwUCKfXitPzUDEzQyW2We4Aj+aKBg=;
+	s=default; t=1559858228;
+	bh=zOHtNIYGreoMhgui0EM9CciAYUuHvcQVfEt80C5FaTU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=LkFNYL0CkOuGli3z59rB1BIo05FYe5llD9tkpu13Ox1YAchLKAaU7haRRt9/AfBSb
-	 1Z+ra47aPagH85hUokPC0uIaRcH2NGpE2k2Q7DLWRgbeVYPKpRnRzhetKedEiEVf35
-	 LaEuUQf2gukZXiYOyOHQgByl57kmHYODWbu9R3Yo=
+	b=SU/K9irLEju5k+AYRWBLJewm2VV/T+RIg2UJH1HhRNnH9wnKz+82gf3q1RgmIQta8
+	 u7cLUAjtnK9aNYQHClZLNenu3ZJia0+uYpVGgk6F/WLn8DpW7G6tNU2ZAnuTwlyF0i
+	 Vmlb6G3qe7YOVHtZg8ylH7KD1hKC67U7vzgXbeS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9209F89862;
-	Thu,  6 Jun 2019 23:28:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 850A1F89860;
+	Thu,  6 Jun 2019 23:28:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B5782F89764; Thu,  6 Jun 2019 23:27:15 +0200 (CEST)
+ id 824C6F8980D; Thu,  6 Jun 2019 23:27:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77262F89769
- for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77262F89769
+ by alsa1.perex.cz (Postfix) with ESMTPS id C07CFF89764
+ for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:26:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C07CFF89764
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="hmFz9k2C"
+ header.b="gHPrfy1Y"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=TvX6enaPPDb+qXTRorQElUC1+V9EdpdUnWJwXX3YZpE=; b=hmFz9k2C1cOe
- ZVwj/eHlsbJhKzmnSOy9DhJdtrtR5M0GE5GVjxTGSQ7UxYkrf0LgfP7xpY+AtjgR6f7tljF2bUT3h
- jFg/3r9PB/8GmP7m4N/Qk9NdvWHWLHhWYzJTQ52tfM5+lPnpGCc4jdnMJF/7ZN8Om1OV4pV6FDMQd
- CMOM0=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=GadfSktQCF9al7kXwKq9dTDN3fqLR4WXHShJ+ygB/Dg=; b=gHPrfy1YNdGz
+ owMVmQ3rf1Uq73ctH3/B8UUsIc6ObVOKTB/lv7t+LTc1445rsyBsGLkMVtnCeIX01DXLbk2B6l1qE
+ cL+F3E7F9T7ac5jB2hiQbzq0xIvYl14S6egLFGqUHT9zB0xcA0cr6vGFLBamRG9Psi0R2AW6i+zqW
+ gS5Og=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztt-0007L9-8d; Thu, 06 Jun 2019 21:26:21 +0000
+ id 1hYzts-0007L1-H5; Thu, 06 Jun 2019 21:26:20 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id B7354440046; Thu,  6 Jun 2019 22:26:20 +0100 (BST)
+ id 1477A440049; Thu,  6 Jun 2019 22:26:20 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87blzbgy2n.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87a7evgy2h.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212620.B7354440046@finisterre.sirena.org.uk>
+Message-Id: <20190606212620.1477A440049@finisterre.sirena.org.uk>
 Date: Thu,  6 Jun 2019 22:26:20 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sunxi: sun4i-codec: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: txx9: txx9aclc-generic: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sunxi: sun4i-codec: use modern dai_link style
+   ASoC: txx9: txx9aclc-generic: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 950d10e879d4a263ca10ab1ff9657a258208e7b9 Mon Sep 17 00:00:00 2001
+From f4010b4c8b382c2acb024fd91e2734323e457f98 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:18:19 +0900
-Subject: [PATCH] ASoC: sunxi: sun4i-codec: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:18:25 +0900
+Subject: [PATCH] ASoC: txx9: txx9aclc-generic: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,44 +124,33 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sunxi/sun4i-codec.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+ sound/soc/txx9/txx9aclc-generic.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 28d2f7713f8d..161444fe4518 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -1305,15 +1305,25 @@ static struct snd_soc_dai_link *sun4i_codec_create_link(struct device *dev,
- {
- 	struct snd_soc_dai_link *link = devm_kzalloc(dev, sizeof(*link),
- 						     GFP_KERNEL);
--	if (!link)
-+	struct snd_soc_dai_link_component *dlc = devm_kzalloc(dev,
-+						3 * sizeof(*dlc), GFP_KERNEL);
-+	if (!link || !dlc)
- 		return NULL;
+diff --git a/sound/soc/txx9/txx9aclc-generic.c b/sound/soc/txx9/txx9aclc-generic.c
+index d0b1e7759968..c5aaad158280 100644
+--- a/sound/soc/txx9/txx9aclc-generic.c
++++ b/sound/soc/txx9/txx9aclc-generic.c
+@@ -21,13 +21,15 @@
+ #include <sound/soc.h>
+ #include "txx9aclc.h"
  
-+	link->cpus	= &dlc[0];
-+	link->codecs	= &dlc[1];
-+	link->platforms	= &dlc[2];
++SND_SOC_DAILINK_DEFS(hifi,
++	DAILINK_COMP_ARRAY(COMP_CPU("txx9aclc-ac97")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("ac97-codec", "ac97-hifi")),
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("txx9aclc-pcm-audio")));
 +
-+	link->num_cpus		= 1;
-+	link->num_codecs	= 1;
-+	link->num_platforms	= 1;
-+
- 	link->name		= "cdc";
- 	link->stream_name	= "CDC PCM";
--	link->codec_dai_name	= "Codec";
--	link->cpu_dai_name	= dev_name(dev);
--	link->codec_name	= dev_name(dev);
--	link->platform_name	= dev_name(dev);
-+	link->codecs->dai_name	= "Codec";
-+	link->cpus->dai_name	= dev_name(dev);
-+	link->codecs->name	= dev_name(dev);
-+	link->platforms->name	= dev_name(dev);
- 	link->dai_fmt		= SND_SOC_DAIFMT_I2S;
+ static struct snd_soc_dai_link txx9aclc_generic_dai = {
+ 	.name = "AC97",
+ 	.stream_name = "AC97 HiFi",
+-	.cpu_dai_name = "txx9aclc-ac97",
+-	.codec_dai_name = "ac97-hifi",
+-	.platform_name	= "txx9aclc-pcm-audio",
+-	.codec_name	= "ac97-codec",
++	SND_SOC_DAILINK_REG(hifi),
+ };
  
- 	*num_links = 1;
+ static struct snd_soc_card txx9aclc_generic_card = {
 -- 
 2.20.1
 

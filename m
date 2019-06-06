@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16DF338157
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:55:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C73C638158
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 00:56:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB8261745;
-	Fri,  7 Jun 2019 00:54:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB8261745
+	by alsa0.perex.cz (Postfix) with ESMTPS id 599C01771;
+	Fri,  7 Jun 2019 00:55:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 599C01771
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559861726;
-	bh=uvVOWVuxKnrDuBr4dc+tcf/MUc+eMnQCjHYdKOdLzpI=;
+	s=default; t=1559861765;
+	bh=DKVnqvhEWDYk93GdTvJkoYg90ptI+xQHCsuI9j8uyAI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jNO5PnbFQwxQFURyfUVhT+ZMF/98GJKcNmouq5dbn+SFaeybUHMGFHxQEVPaVnzco
-	 CYRr7HdHfC4nXjgvHLm4ulWTb9ePGBCYfmH4gkV5ngvPieWIvANN8nZQFR268yr/vS
-	 KSKAN9+mI10v6zUDB9xarQVDF3ilyBenISHIojnE=
+	b=ON6DIgo6DowxZmd3wEsM8NHeHCAzD1LIMnKwJnLxEqoHyRhee2Gd+CuwNUzoTtvrT
+	 sva3EkQnQiw9ZpmQp7dUIM+fPP840Sn4JMp7nJ8fkpLnlbO7yYJWaEjBXQmq1m3BS2
+	 tr+qoETXhm3d0Cqc4J3U1MN2Pt5qMsFVsyVg36EQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5155DF89A24;
-	Thu,  6 Jun 2019 23:31:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33858F89A26;
+	Thu,  6 Jun 2019 23:31:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEDCAF89883; Thu,  6 Jun 2019 23:29:14 +0200 (CEST)
+ id CB3AAF89886; Thu,  6 Jun 2019 23:29:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 519BAF897F2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B953AF897F3
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:27:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 519BAF897F2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B953AF897F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="h0n3u5zN"
+ header.b="J7OZobaC"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=vT1ZwSysQKaY+v0hb6flMGjSKno1Zo6lhCD0OXl3cqc=; b=h0n3u5zNJyYf
- SMsXl9n4FCNVKVgMwS69JguKWfezVV15RPphTa/kLHQx0tr9ClSOBTdcIOKG0QRg7YKqoGbv6QEVM
- bcMKVuDwBDFaa9vKh+6P62NnPIcn+pnUYgBUYgw7GKghqg3NyACPclLK61NE9aoZnDYeQYuhdloyR
- i/bc4=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=H0DOtFIEldX9NnNmYoydoZVZxy8WCZckAKDrPdWo6b8=; b=J7OZobaC33+g
+ Z/6mbPXqaXUentUyAV6QXwzD+0YlJas41qYwI5k/ynQAHMGF6W4dOF0ZSCKPOVxgXNXv/6Vx/B5zg
+ aTHfMj+fRcCuGd6jcLZSx/mxRBof3mubzcoU8DTOiEfQAtjCVQZorThYTg/pMMagfs1deMvfp3v8i
+ qaqtY=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYzue-0007TI-3Y; Thu, 06 Jun 2019 21:27:08 +0000
+ id 1hYzue-0007TO-Hy; Thu, 06 Jun 2019 21:27:08 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 8AB67440046; Thu,  6 Jun 2019 22:27:07 +0100 (BST)
+ id 1B994440049; Thu,  6 Jun 2019 22:27:08 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87o93bl66i.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pnnrl66o.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212707.8AB67440046@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:27:07 +0100 (BST)
+Message-Id: <20190606212708.1B994440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:27:08 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: samsung: tobermory: use modern dai_link
-	style" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: samsung: arndale_rt5631: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: tobermory: use modern dai_link style
+   ASoC: samsung: arndale_rt5631: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 19bca225e7202710529a14e916a783b1aa42720b Mon Sep 17 00:00:00 2001
+From 930f74a171f5f3a5acc551568c6a1515344ceef1 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:09:36 +0900
-Subject: [PATCH] ASoC: samsung: tobermory: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:09:30 +0900
+Subject: [PATCH] ASoC: samsung: arndale_rt5631: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
@@ -124,37 +124,69 @@ This patch switches to use it.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/samsung/tobermory.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ sound/soc/samsung/arndale_rt5631.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/samsung/tobermory.c b/sound/soc/samsung/tobermory.c
-index 14b11acb12a4..ef51f289fbc7 100644
---- a/sound/soc/samsung/tobermory.c
-+++ b/sound/soc/samsung/tobermory.c
-@@ -109,17 +109,19 @@ static struct snd_soc_ops tobermory_ops = {
- 	.hw_params = tobermory_hw_params,
+diff --git a/sound/soc/samsung/arndale_rt5631.c b/sound/soc/samsung/arndale_rt5631.c
+index cc334e1866f6..c213913eb984 100644
+--- a/sound/soc/samsung/arndale_rt5631.c
++++ b/sound/soc/samsung/arndale_rt5631.c
+@@ -50,15 +50,20 @@ static struct snd_soc_ops arndale_ops = {
+ 	.hw_params = arndale_hw_params,
  };
  
-+SND_SOC_DAILINK_DEFS(cpu,
-+	DAILINK_COMP_ARRAY(COMP_CPU("samsung-i2s.0")),
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm8962.1-001a", "wm8962")),
-+	DAILINK_COMP_ARRAY(COMP_PLATFORM("samsung-i2s.0")));
++SND_SOC_DAILINK_DEFS(rt5631_hifi,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "rt5631-hifi")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
 +
- static struct snd_soc_dai_link tobermory_dai[] = {
+ static struct snd_soc_dai_link arndale_rt5631_dai[] = {
  	{
- 		.name = "CPU",
- 		.stream_name = "CPU",
--		.cpu_dai_name = "samsung-i2s.0",
--		.codec_dai_name = "wm8962",
--		.platform_name = "samsung-i2s.0",
--		.codec_name = "wm8962.1-001a",
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
- 				| SND_SOC_DAIFMT_CBM_CFM,
- 		.ops = &tobermory_ops,
-+		SND_SOC_DAILINK_REG(cpu),
+ 		.name = "RT5631 HiFi",
+ 		.stream_name = "Primary",
+-		.codec_dai_name = "rt5631-hifi",
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S
+ 			| SND_SOC_DAIFMT_NB_NF
+ 			| SND_SOC_DAIFMT_CBS_CFS,
+ 		.ops = &arndale_ops,
++		SND_SOC_DAILINK_REG(rt5631_hifi),
  	},
  };
  
+@@ -78,24 +83,24 @@ static int arndale_audio_probe(struct platform_device *pdev)
+ 	card->dev = &pdev->dev;
+ 
+ 	for (n = 0; np && n < ARRAY_SIZE(arndale_rt5631_dai); n++) {
+-		if (!arndale_rt5631_dai[n].cpu_dai_name) {
+-			arndale_rt5631_dai[n].cpu_of_node = of_parse_phandle(np,
++		if (!arndale_rt5631_dai[n].cpus->dai_name) {
++			arndale_rt5631_dai[n].cpus->of_node = of_parse_phandle(np,
+ 					"samsung,audio-cpu", n);
+ 
+-			if (!arndale_rt5631_dai[n].cpu_of_node) {
++			if (!arndale_rt5631_dai[n].cpus->of_node) {
+ 				dev_err(&pdev->dev,
+ 				"Property 'samsung,audio-cpu' missing or invalid\n");
+ 				return -EINVAL;
+ 			}
+ 		}
+-		if (!arndale_rt5631_dai[n].platform_name)
+-			arndale_rt5631_dai[n].platform_of_node =
+-					arndale_rt5631_dai[n].cpu_of_node;
++		if (!arndale_rt5631_dai[n].platforms->name)
++			arndale_rt5631_dai[n].platforms->of_node =
++					arndale_rt5631_dai[n].cpus->of_node;
+ 
+-		arndale_rt5631_dai[n].codec_name = NULL;
+-		arndale_rt5631_dai[n].codec_of_node = of_parse_phandle(np,
++		arndale_rt5631_dai[n].codecs->name = NULL;
++		arndale_rt5631_dai[n].codecs->of_node = of_parse_phandle(np,
+ 					"samsung,audio-codec", n);
+-		if (!arndale_rt5631_dai[0].codec_of_node) {
++		if (!arndale_rt5631_dai[0].codecs->of_node) {
+ 			dev_err(&pdev->dev,
+ 			"Property 'samsung,audio-codec' missing or invalid\n");
+ 			return -EINVAL;
 -- 
 2.20.1
 

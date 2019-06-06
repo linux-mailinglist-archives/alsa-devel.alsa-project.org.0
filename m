@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4069537F93
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C26EB37F9B
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Jun 2019 23:30:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 786CB1607;
-	Thu,  6 Jun 2019 23:28:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 786CB1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id C07F01657;
+	Thu,  6 Jun 2019 23:29:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C07F01657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559856556;
-	bh=AGCDXFUE9aoxgDwzl/aa/D+NmKqvS0MYB6Arr6yJSbI=;
+	s=default; t=1559856626;
+	bh=nkCUBAbX+7aHqpxvC9pDKtc3hQvHrLM5qw/igxiFzkA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=r0LGR7sy8QabibsI0MpYKBSUWfX4Th+MHVaXu3d+8VpKW/5PbO4KyYht5l8OXyPcJ
-	 P/b088GpYwj5iVZlUmxjhK7qOJnisT8FyU+RzFTvI4TWdQWUukgNT5wrDcE3OFV9BC
-	 60DhlknZTaPJIvEpok03d1JrkCdk5CxkrdsPYHx8=
+	b=ftCSI8fXU3a18JomYZxJYEyQ891EIIiGnlE7qJc+DRW89H1+12QpcAIR304TDqVE2
+	 3eyeSdy8HibKSI+/LtgfMGtQK2uTwkdqr2Xrid41L8rNd2QyHpqO/Rko0RFT/kFbIt
+	 1tJ9Dd6MWDRfBgo5zULYJVAnjz0csBhHcdwXZ5/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7F44F8974F;
-	Thu,  6 Jun 2019 23:26:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A21E2F8975F;
+	Thu,  6 Jun 2019 23:26:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB619F89744; Thu,  6 Jun 2019 23:26:09 +0200 (CEST)
+ id ACAD8F89748; Thu,  6 Jun 2019 23:26:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E027BF8072A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F367F896F7
  for <alsa-devel@alsa-project.org>; Thu,  6 Jun 2019 23:25:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E027BF8072A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F367F896F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="FefpjuQl"
+ header.b="M4/QJoJ4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=lZo4Mn7VYejy94fsgZWU46d0sBpBd6XKku+WfRNlGVw=; b=FefpjuQl8gYp
- mpePVe8pl0LAzo1H3KnP35zNLQZCqpGIiJBgcrFMZt17PmREIMSO+Vv3o1+tbTVJr5yIM/D1mcZ8P
- SrPO8k9cd85qgbz4QKyX1+tyqT/u/BIWeQgsa3r56L9keLccJ0/TY6EEwDklOSLHphYIhLRNIMqWb
- TUiWs=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=7nbKVA7+nKwYSgqDFe95Hu77Q5mbWUWfdPQ548gc3Sw=; b=M4/QJoJ4/LhM
+ 3OekGLyZgqbadUPY6esJOj8O9VNgzXWasl9soRSSgUauoWX5sHx35ZzFnV1pDEXoqQ2JDrmyc+45Y
+ DbIs+F29wP2l5oIL3m03Remi01Mon5cGwEKRzeom0RnYMoSR1MGz2XIwhFF1RurVCksYAnq4OKXYs
+ eMan0=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hYztV-0007Gu-68; Thu, 06 Jun 2019 21:25:57 +0000
+ id 1hYztW-0007H2-CP; Thu, 06 Jun 2019 21:25:58 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id A8D89440049; Thu,  6 Jun 2019 22:25:56 +0100 (BST)
+ id D55CE440049; Thu,  6 Jun 2019 22:25:57 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87muive4r8.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pnnre4ri.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190606212556.A8D89440049@finisterre.sirena.org.uk>
-Date: Thu,  6 Jun 2019 22:25:56 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: sof_rt5682: use modern dai_link
-	style" to the asoc tree
+Message-Id: <20190606212557.D55CE440049@finisterre.sirena.org.uk>
+Date: Thu,  6 Jun 2019 22:25:57 +0100 (BST)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: Intel: skl_hda_dsp_common: use modern
+	dai_link style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: sof_rt5682: use modern dai_link style
+   ASoC: Intel: skl_hda_dsp_common: use modern dai_link style
 
 has been applied to the asoc tree at
 
@@ -113,135 +112,167 @@ to this mail.
 Thanks,
 Mark
 
-From e1684073ef2142c241375487b1e158abe169ce61 Mon Sep 17 00:00:00 2001
+From a78959f407e66b2f74fb72b47b252f4ed8b1671e Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 6 Jun 2019 13:22:14 +0900
-Subject: [PATCH] ASoC: Intel: sof_rt5682: use modern dai_link style
+Date: Thu, 6 Jun 2019 13:22:04 +0900
+Subject: [PATCH] ASoC: Intel: skl_hda_dsp_common: use modern dai_link style
 
 ASoC is now supporting modern style dai_link
 (= snd_soc_dai_link_component) for CPU/Codec/Platform.
 This patch switches to use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 57 +++++++++++++++++------------
- 1 file changed, 34 insertions(+), 23 deletions(-)
+ sound/soc/intel/boards/skl_hda_dsp_common.c  | 66 ++++++++++++--------
+ sound/soc/intel/boards/skl_hda_dsp_generic.c |  4 +-
+ 2 files changed, 43 insertions(+), 27 deletions(-)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 355fd9730a44..e2e5f97d9920 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -331,12 +331,15 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 							  int hdmi_num)
- {
- 	struct snd_soc_dai_link_component *idisp_components;
-+	struct snd_soc_dai_link_component *cpus;
- 	struct snd_soc_dai_link *links;
- 	int i, id = 0;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
+index 82f10bf2abb2..55fd82e05e2c 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
+@@ -38,77 +38,93 @@ int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device)
+ 	return 0;
+ }
  
- 	links = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link) *
- 			     sof_audio_card_rt5682.num_links, GFP_KERNEL);
--	if (!links)
-+	cpus = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link_component) *
-+			     sof_audio_card_rt5682.num_links, GFP_KERNEL);
-+	if (!links || !cpus)
- 		goto devm_err;
++SND_SOC_DAILINK_DEFS(idisp1,
++	DAILINK_COMP_ARRAY(COMP_CPU("iDisp1 Pin")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi1")));
++
++SND_SOC_DAILINK_DEFS(idisp2,
++	DAILINK_COMP_ARRAY(COMP_CPU("iDisp2 Pin")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi2")));
++
++SND_SOC_DAILINK_DEFS(idisp3,
++	DAILINK_COMP_ARRAY(COMP_CPU("iDisp3 Pin")),
++	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi3")));
++
++SND_SOC_DAILINK_DEF(analog_cpu,
++	DAILINK_COMP_ARRAY(COMP_CPU("Analog CPU DAI")));
++SND_SOC_DAILINK_DEF(analog_codec,
++	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D0", "Analog Codec DAI")));
++
++SND_SOC_DAILINK_DEF(digital_cpu,
++	DAILINK_COMP_ARRAY(COMP_CPU("Digital CPU DAI")));
++SND_SOC_DAILINK_DEF(digital_codec,
++	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D0", "Digital Codec DAI")));
++
++SND_SOC_DAILINK_DEF(dmic_pin,
++	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
++
++SND_SOC_DAILINK_DEF(dmic_codec,
++	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
++
++SND_SOC_DAILINK_DEF(dmic16k,
++	DAILINK_COMP_ARRAY(COMP_CPU("DMIC16k Pin")));
++
++SND_SOC_DAILINK_DEF(platform,
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("0000:00:1f.3")));
++
+ /* skl_hda_digital audio interface glue - connects codec <--> CPU */
+ struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS] = {
+ 	/* Back End DAI links */
+ 	{
+ 		.name = "iDisp1",
+ 		.id = 1,
+-		.cpu_dai_name = "iDisp1 Pin",
+-		.codec_name = "ehdaudio0D2",
+-		.codec_dai_name = "intel-hdmi-hifi1",
+ 		.dpcm_playback = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(idisp1),
+ 	},
+ 	{
+ 		.name = "iDisp2",
+ 		.id = 2,
+-		.cpu_dai_name = "iDisp2 Pin",
+-		.codec_name = "ehdaudio0D2",
+-		.codec_dai_name = "intel-hdmi-hifi2",
+ 		.dpcm_playback = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(idisp2),
+ 	},
+ 	{
+ 		.name = "iDisp3",
+ 		.id = 3,
+-		.cpu_dai_name = "iDisp3 Pin",
+-		.codec_name = "ehdaudio0D2",
+-		.codec_dai_name = "intel-hdmi-hifi3",
+ 		.dpcm_playback = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(idisp3),
+ 	},
+ 	{
+ 		.name = "Analog Playback and Capture",
+ 		.id = 4,
+-		.cpu_dai_name = "Analog CPU DAI",
+-		.codec_name = "ehdaudio0D0",
+-		.codec_dai_name = "Analog Codec DAI",
+-		.platform_name = "0000:00:1f.3",
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(analog_cpu, analog_codec, platform),
+ 	},
+ 	{
+ 		.name = "Digital Playback and Capture",
+ 		.id = 5,
+-		.cpu_dai_name = "Digital CPU DAI",
+-		.codec_name = "ehdaudio0D0",
+-		.codec_dai_name = "Digital Codec DAI",
+-		.platform_name = "0000:00:1f.3",
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(digital_cpu, digital_codec, platform),
+ 	},
+ 	{
+ 		.name = "dmic01",
+ 		.id = 6,
+-		.cpu_dai_name = "DMIC01 Pin",
+-		.codec_name = "dmic-codec",
+-		.codec_dai_name = "dmic-hifi",
+-		.platform_name = "0000:00:1f.3",
+ 		.dpcm_capture = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
+ 	},
+ 	{
+ 		.name = "dmic16k",
+ 		.id = 7,
+-		.cpu_dai_name = "DMIC16k Pin",
+-		.codec_name = "dmic-codec",
+-		.codec_dai_name = "dmic-hifi",
+-		.platform_name = "0000:00:1f.3",
+ 		.dpcm_capture = 1,
+ 		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(dmic16k, dmic_codec, platform),
+ 	},
+ };
  
- 	/* codec SSP */
-@@ -356,11 +359,13 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	links[id].dpcm_playback = 1;
- 	links[id].dpcm_capture = 1;
- 	links[id].no_pcm = 1;
-+	links[id].cpus = &cpus[id];
-+	links[id].num_cpus = 1;
- 	if (is_legacy_cpu) {
--		links[id].cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL,
--							"ssp%d-port",
--							ssp_codec);
--		if (!links[id].cpu_dai_name)
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "ssp%d-port",
-+							  ssp_codec);
-+		if (!links[id].cpus->dai_name)
- 			goto devm_err;
- 	} else {
- 		/*
-@@ -373,10 +378,10 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		 * It can be removed once we can control MCLK by driver.
- 		 */
- 		links[id].ignore_pmdown_time = 1;
--		links[id].cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL,
--							"SSP%d Pin",
--							ssp_codec);
--		if (!links[id].cpu_dai_name)
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "SSP%d Pin",
-+							  ssp_codec);
-+		if (!links[id].cpus->dai_name)
- 			goto devm_err;
- 	}
- 	id++;
-@@ -389,9 +394,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 			goto devm_err;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index fc52d3a32354..9ed68eb4f058 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -69,7 +69,7 @@ skl_hda_add_dai_link(struct snd_soc_card *card, struct snd_soc_dai_link *link)
+ 	int ret = 0;
  
- 		links[id].id = id;
--		links[id].cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL,
--							"DMIC%02d Pin", i);
--		if (!links[id].cpu_dai_name)
-+		links[id].cpus = &cpus[id];
-+		links[id].num_cpus = 1;
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "DMIC%02d Pin", i);
-+		if (!links[id].cpus->dai_name)
- 			goto devm_err;
+ 	dev_dbg(card->dev, "%s: dai link name - %s\n", __func__, link->name);
+-	link->platform_name = ctx->platform_name;
++	link->platforms->name = ctx->platform_name;
+ 	link->nonatomic = 1;
  
- 		links[id].codecs = dmic_component;
-@@ -419,9 +426,11 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 			goto devm_err;
+ 	if (strstr(link->name, "HDMI")) {
+@@ -142,7 +142,7 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ 	card->num_dapm_routes = num_route;
  
- 		links[id].id = id;
--		links[id].cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL,
--							"iDisp%d Pin", i);
--		if (!links[id].cpu_dai_name)
-+		links[id].cpus = &cpus[id];
-+		links[id].num_cpus = 1;
-+		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+							  "iDisp%d Pin", i);
-+		if (!links[id].cpus->dai_name)
- 			goto devm_err;
+ 	for_each_card_prelinks(card, i, dai_link)
+-		dai_link->platform_name = mach_params->platform;
++		dai_link->platforms->name = mach_params->platform;
  
- 		idisp_components[i - 1].name = "ehdaudio0D2";
-@@ -458,18 +467,20 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 		links[id].nonatomic = true;
- 		links[id].dpcm_playback = 1;
- 		links[id].no_pcm = 1;
-+		links[id].cpus = &cpus[id];
-+		links[id].num_cpus = 1;
- 		if (is_legacy_cpu) {
--			links[id].cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL,
--								"ssp%d-port",
--								ssp_amp);
--			if (!links[id].cpu_dai_name)
-+			links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+								  "ssp%d-port",
-+								  ssp_amp);
-+			if (!links[id].cpus->dai_name)
- 				goto devm_err;
- 
- 		} else {
--			links[id].cpu_dai_name = devm_kasprintf(dev, GFP_KERNEL,
--								"SSP%d Pin",
--								ssp_amp);
--			if (!links[id].cpu_dai_name)
-+			links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
-+								  "SSP%d Pin",
-+								  ssp_amp);
-+			if (!links[id].cpus->dai_name)
- 				goto devm_err;
- 		}
- 	}
+ 	return 0;
+ }
 -- 
 2.20.1
 

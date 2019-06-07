@@ -2,133 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A659E38EF0
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 17:25:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E101A38F29
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 17:34:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DEE1950;
-	Fri,  7 Jun 2019 17:24:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DEE1950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BD3C1661;
+	Fri,  7 Jun 2019 17:33:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BD3C1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559921133;
-	bh=0f3xDmMNfFi2Xp+xlIM4HOg8K67lqTskpdHXh+6EwjQ=;
-	h=To:From:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1559921647;
+	bh=FYX0TjGRkju56YHG14sh8xZd2kCRKulA2qz5CrSln0c=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eD/6DO3OrvBzI6eBO+mysydQt21gufog/6JrrvIEIDejR4JNNgBfFtSL9l8hkcqWJ
-	 mnt37mVv4I1Ds2XYq+h/gJ4yIREzML+QZOPu+M9QO3f5qUqrAqlg6A1BTUG5rMze6r
-	 /9JxppKZGOvlCV+KVV+/JKN+YJmbC5mINkZyO+VA=
+	b=Ubd9er2uR9yDXorcv5VbzKLZBmeeXUGR0Ypefg7DuI0z3aWAOJIPjexjCabQcpWDh
+	 iJij9WHgZaZ1kjVQ5NebwoO+42m99McgB5gRow1k/uaNPA2Phhf0KY1xbB67fI/xrO
+	 h4LGXZkSlQrpG8nM1p0CbfR+eHI0Fm7LCwBTQQLE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B051DF896ED;
-	Fri,  7 Jun 2019 17:23:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16EAAF896DD;
+	Fri,  7 Jun 2019 17:32:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B671F896DD; Fri,  7 Jun 2019 17:23:46 +0200 (CEST)
+ id 1F17FF896DD; Fri,  7 Jun 2019 17:32:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A3A2F896CE
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 17:23:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A3A2F896CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id F22A5F896CE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 17:32:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F22A5F896CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="dwo+ESBS"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20190607152337euoutp01e2aafe5a7cf75810576430941fa91c95~l8_aNfMot2226322263euoutp01c
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 15:23:37 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20190607152337euoutp01e2aafe5a7cf75810576430941fa91c95~l8_aNfMot2226322263euoutp01c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1559921017;
- bh=AnxWjz7LzD+6Z9kZ/m9tjKJvjEZvx3zd1nNGGOVwEOE=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=dwo+ESBSYJDrb6yVZJVKMiDnigtAltUuss4SjnYdYrUay67nu1hDCPNhf8FlQvrS3
- +TWrNfDecStKd57wgxw0Ew4LfVWCrVn+IkdURqnG8BRwZsKuk/YXM6c6vi5cCwjEDH
- upIwj+8X6X/l5zJT4m6ZmhbtelVY4q57dbLAnD3c=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20190607152336eucas1p2ee7610a6bd717f7913882918740db41f~l8_Zj0G-t1546415464eucas1p2g;
- Fri,  7 Jun 2019 15:23:36 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 79.75.04325.8718AFC5; Fri,  7
- Jun 2019 16:23:36 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20190607152335eucas1p2c22226b6ae0c7517384bd866d67d75d5~l8_YsAl501426414264eucas1p21;
- Fri,  7 Jun 2019 15:23:35 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20190607152335eusmtrp1e450f47d627e3afbac673a1521054a2b~l8_YcLURJ0882908829eusmtrp18;
- Fri,  7 Jun 2019 15:23:35 +0000 (GMT)
-X-AuditID: cbfec7f5-b75ff700000010e5-32-5cfa81780143
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 85.AA.04146.7718AFC5; Fri,  7
- Jun 2019 16:23:35 +0100 (BST)
-Received: from [106.120.51.75] (unknown [106.120.51.75]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20190607152335eusmtip21b9ca33cdf5471dd1d0ffd1d3fa48643~l8_X7vFrS2340423404eusmtip29;
- Fri,  7 Jun 2019 15:23:35 +0000 (GMT)
-To: Tzung-Bi Shih <tzungbi@google.com>
-From: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Message-ID: <11aad80c-bdde-9a09-c74f-8082e6ee50c4@samsung.com>
-Date: Fri, 7 Jun 2019 17:23:22 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="c9AVefrV"
+Received: by mail-ot1-x343.google.com with SMTP id p4so2253493oti.0
+ for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 08:32:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RiCAYMeO+A7bsPx/+hgB7b6SKPexKeC2tbDhDeDQUaM=;
+ b=c9AVefrVXC//LjQYtyx4dOnLm2OEEJ7Fv3XzVTNOxqOqgqNkck3JXyJMqAqWe8BLCX
+ IjQLJhR8rKEYLixBAfOf+TT3b2+o3gXLLT+PPCoLfDTO3ZoI4+2g1tloffWFkliR7N6E
+ uVHEHUcb5CWEJr0qCvT7wixOtWUIURW3p1h5CY4G+ZDE8ND0SsZQ8HbUSLPq+LMSKVyX
+ y4XnC3zay0ekJRQM5NtrZG9uaCeHP/JiQld+iYks7hkrab0AU9VEu+W6vohmi9sflHAm
+ qk2Tkf63bAaCUBDr8CjXyzUZ9d8oCf7n7XAVAGuncsJi9VbMmGzKHqV2pU37kV2rX2fr
+ TNMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RiCAYMeO+A7bsPx/+hgB7b6SKPexKeC2tbDhDeDQUaM=;
+ b=m9vS4kgdFTuLj1GHB/4RYoce7q+jJqRE2nkmZKagYJeg7yB+qYmS+q5UQsdiI225qW
+ GAciOL8ppmFz2YElfx3eW3upXHUUilxzEtNJ+x/Os7LOjHjb4yIH53WCIFkzOYhjr61Y
+ 2sisA2VZQ4MUu1YC5wJHpVuJ0FJLMW4yZnGe27AoKfuHb2JYuAOU4wkKwGPEUDyd5ibz
+ lSRk4ymb1TQz12WRnb8rSbvkqunX0QtXOzIJXQK4F24JoPvgK3qi5Coj8EjItQA0YH8t
+ WDMt21/2WCv0C1SQQ/SJcuXb8urWY3Zkh2kv0Nr/ClaBbfR8tcWd5A+mFN4vJe//wdfX
+ dm2g==
+X-Gm-Message-State: APjAAAXL7sOmchecf1L69EkV8jBEwa1cjb24ONOBNlFulqb9o6pFHOQw
+ RwKGBFzfy7rPIwhrkqPOQl6n4N5Dy+/B0tmAOVBciw==
+X-Google-Smtp-Source: APXvYqxWDdBwyrOYFn8YqwR53+lIj5+7RLdoR5n0czhOkd7gwOlH5lB6YdOzz9RHZafDiIAbsgnu5d8htCo4Yk/9egU=
+X-Received: by 2002:a9d:4f02:: with SMTP id d2mr2737659otl.328.1559921534355; 
+ Fri, 07 Jun 2019 08:32:14 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CA+Px+wUOjG9YvDrPud7TH1xdBVDX50Y9f3mA8hgyFQBVTgM==A@mail.gmail.com>
-Content-Language: en-GB
-X-Brightmail-Tracker: H4sIAAAAAAAAA01SbUhTYRj13b3brqPJ6zR80kAYElikmVaXFCkyGBGhP6I0I6fe1HIqmzNN
- Cqei8zOzbLqC9E+mYdrSlR+JbOqqZXMllF+kw6wGSuEHZp9ud5H/znvOeTjPeXgpQvSM60ul
- ZWQz8gxpupgnIPXD31/vzlWtx++5pvKnx6wGDv2ovp1L183O8ejnRhVBlzaoEW2xdPBpu7EH
- 0atjag7dNjjNp/usdv4hgaRjqZAn6dZO8yWNOqVE11rGk6y+uk5KqjtbUTQvThCRzKSn5TDy
- 4MgEQart2xA3axHlLj6wcAqQEZUjdwpwGKzYSshyJKBE+D4Cc5POKYjwMoLlz+GssITANjVB
- /Jtoapl2mZoRWB9Gs6YFBNM3fzkFLxwLH20zTuyNd0CRuZdwmAj8kgNTKgvpEHg4BKqGqp0m
- IY6Ed5pxZwKJA2C+WsNz4K34NCx361weT3jRMLcxS1HuOAYeG+McNIF9oHC5hctif3iycMe1
- 6Bs+dI2dZXEUjM53u3gvsJs6+SzeDuYblc76gIsQVPZO8tlHDYIPpkbXkcLBaLJyHcEEDoT2
- nmCWPgyzahPHQQP2gPcLnuwOHlCr1xAsLQR1iYh1B8CPVg2Hxb5QMfeHrEFi7aZi2k1ttJva
- aP/nNiKyFfkwSoUshVGEZjCXghRSmUKZkRKUlCnToY1PZf5tWnmK+n8mGhCmkHiL8Gv+eryI
- K81R5MkMCChC7C3MGV2LFwmTpXmXGXnmObkynVEYkB9Fin2E+W4zZ0Q4RZrNXGSYLEb+T+VQ
- 7r4FiHeg2XI7KHV4wlAcY6xMTNCkXdhnSbhXN7FUiicrBvXKiOhbB1W1oTXnjxki9icF5h0N
- aJNX9ld9WtCvSSIKwgb0Nsla1cmr/X4+hYuzfcUjb3N21ayvHu+y2OvHw62xSXR+2hF11OLe
- kbbygGxLpn1AL3erKvuiPLFt4FTR3StiUpEqDdlJyBXSv9SSbptQAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrIIsWRmVeSWpSXmKPExsVy+t/xe7rljb9iDNruyVpcuXiIyWLjjPWs
- FlMfPmGzOHG4kdmifWYHo8X58xvYLV4d3sVo8e1KB5PF2iN32S32XHzF7sDlseFzE5vHzll3
- 2T0WbCr12LSqk83j25mJLB59W1YxBrBF6dkU5ZeWpCpk5BeX2CpFG1oY6RlaWugZmVjqGRqb
- x1oZmSrp29mkpOZklqUW6dsl6GU8+niUteAdY8W71eeZGhgPM3YxcnJICJhILFx5F8jm4hAS
- WMoo8aZxAnsXIwdQQkpifosSRI2wxJ9rXWwQNa8ZJXo2dzGDJIQFIiWePnoANkhEQE2i+fRu
- ZpAiZoFTTBKNE49ATb3CKHHl9St2kCo2AUOJ3qN9YB28AnYS16ffBJvEIqAi8axvOhuILSoQ
- ITF7VwMLRI2gxMmZT1hALuIUCJTYfDgKJMwsoC7xZ94lZghbXKLpy0pWCFteYvvbOcwTGIVm
- IemehaRlFpKWWUhaFjCyrGIUSS0tzk3PLTbUK07MLS7NS9dLzs/dxAiMzm3Hfm7ewXhpY/Ah
- RgEORiUe3hclv2KEWBPLiitzDzFKcDArifCWXfgRI8SbklhZlVqUH19UmpNafIjRFOi3icxS
- osn5wMSRVxJvaGpobmFpaG5sbmxmoSTO2yFwMEZIID2xJDU7NbUgtQimj4mDU6qBcUrZxv/M
- vbxP383pXvSYs3JVMPvaRokGf1+FpZHOf2bObopuCfKer/Ku5JSszvzAj1tvGRV318peONSb
- FhVTt6i6ZVnY7AnzHS+ollzv+6bPX7Vq09WnWmvOrXrNsWjehltzN/EkT3e2b1seeLXowUHF
- 9qje4My2Nemmvyo/7v1hPUEuddby5UosxRmJhlrMRcWJAGvfJdLkAgAA
-X-CMS-MailID: 20190607152335eucas1p2c22226b6ae0c7517384bd866d67d75d5
-X-Msg-Generator: CA
-X-RootMTR: 20190607141821epcas2p120786c8cc5a1f1b71dbd1828b0a9d837
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20190607141821epcas2p120786c8cc5a1f1b71dbd1828b0a9d837
-References: <CGME20190607141821epcas2p120786c8cc5a1f1b71dbd1828b0a9d837@epcas2p1.samsung.com>
- <20190607141745.759-1-s.nawrocki@samsung.com>
- <CA+Px+wUOjG9YvDrPud7TH1xdBVDX50Y9f3mA8hgyFQBVTgM==A@mail.gmail.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>, kuninori.morimoto.gx@renesas.com,
- b.zolnierkie@samsung.com, Liam Girdwood <lgirdwood@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
- Dylan Reid <dgreid@google.com>, m.szyprowski@samsung.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: Fix freeing of incompletely
- initialized snd_soc_dapm_context
+References: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
+ <CAOMZO5A=zi_6OtjwWXJcbHn+AKz3SvmKgQrSemd6qWjAePuqXQ@mail.gmail.com>
+In-Reply-To: <CAOMZO5A=zi_6OtjwWXJcbHn+AKz3SvmKgQrSemd6qWjAePuqXQ@mail.gmail.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Fri, 7 Jun 2019 23:32:02 +0800
+Message-ID: <CA+Px+wVQ_MWL6wnycqxksD2K4iJ7OfQ3vCbBYrp86W0s_E5vKQ@mail.gmail.com>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [alsa-devel] [PATCH v2 000/146] ASoC: modern dai_link style
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -146,12 +98,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/7/19 17:02, Tzung-Bi Shih wrote:
-> Based on current for-next branch, we could simply remove the
-> soc_cleanup_card_resources() call.
-
-Thank you for looking into this, I will post a patch removing that
-unnecessary call instead.
+On Fri, Jun 7, 2019 at 9:23 PM Fabio Estevam <festevam@gmail.com> wrote:
+> We are seeing kernel crash in today's linux-next and it looks like it
+> is related to this series:
+> https://storage.kernelci.org/next/master/next-20190607/arm/imx_v6_v7_defconfig/gcc-8/lab-pengutronix/boot-imx53-qsrb.html
+The kernel crash is caused by a merge conflict was not resolved
+correctly.  See this series
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-June/150747.html
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,73 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BEDF3967D
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 22:10:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA2F139831
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 00:07:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 84DB01664;
-	Fri,  7 Jun 2019 22:09:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84DB01664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD50165E;
+	Sat,  8 Jun 2019 00:06:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD50165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559938240;
-	bh=AkPgUEc/eMdREhbHHVBFnGwP//8QsA054v3YBUzOKTc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559945229;
+	bh=04yU7NdCF8Sj+3poQZeGkSO9GOKTo6QW42lOfWv8dZs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YlZjyaHrgrepmTGl762tpjPgQqiIuevqtEFAk6op8f2Y+tDgeVruwF1z5H32sEX2M
-	 rmF7O2LsVAeQ5VCMZ+itH9vaxe1GUIYhypMPf/2eHLy/zXbvzSZJdHf1wu3n5ohRvi
-	 DE/qZ/8RdBewpFN8K9smXcsNbKfQfvepb/L/Kwfc=
+	b=OsgC67vDJj9JdAjg5vUkUFxW0Rv8sxC1byb0/27ySXqU0q3bp3KjKvg/60mDJjX3K
+	 AJqaiCEGzom+kFI7TB2+IHljrW+ayAoLnGi7KPD+kpCWUwQuoIyTslmLL3FP8sijBz
+	 /ajYRX/tpO8XUTvHEX8LpecSmMIUrRDtxTvYDFns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11EDEF896CE;
-	Fri,  7 Jun 2019 22:08:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CD9CCF80709;
+	Sat,  8 Jun 2019 00:05:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E1EF2F80709; Fri,  7 Jun 2019 22:08:53 +0200 (CEST)
+ id BD76CF896DD; Sat,  8 Jun 2019 00:05:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55F63F80709
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 22:08:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55F63F80709
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2019 13:08:47 -0700
-X-ExtLoop1: 1
-Received: from sbreyer-mobl.amr.corp.intel.com (HELO [10.252.201.95])
- ([10.252.201.95])
- by orsmga004.jf.intel.com with ESMTP; 07 Jun 2019 13:08:45 -0700
-To: Mark Brown <broonie@kernel.org>,
- Guillaume Tucker <guillaume.tucker@collabora.com>
-References: <5cef9f66.1c69fb81.39f30.21e8@mx.google.com>
- <s5hr28gszvj.wl-tiwai@suse.de>
- <8ca25787-fc03-7942-0705-3ec7d88862a6@collabora.com>
- <20190607190021.GK2456@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <6959db6d-1ab4-8f94-7e58-57606b8b42f6@linux.intel.com>
-Date: Fri, 7 Jun 2019 15:08:45 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24CFBF896CE
+ for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2019 00:05:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24CFBF896CE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="eQ8X5t7S"
+Received: by mail-pl1-x643.google.com with SMTP id bi6so915301plb.12
+ for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 15:05:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=C3WCTEPJuMhnDtyj4nCQQWf8hst+6hFcFTW9HCjkuQc=;
+ b=eQ8X5t7ShcbHZ2iAaeihT56yVGm93DJwoGdLe+RAL+T33ZJeM5dpHTBSOFHnV6exd2
+ McjPg9HRK4VzL2d97TDKLdk4cgN6l4tkjv6zJgwUwj1poxqn1D4faGt9f0dgLEJvD4kI
+ nlj2hFdkXuXE9V6dflG5xHbpe+pelkqjFJDVStQgh4TZr8C3CXVWdShiPtMOmz92io3F
+ G/7PZiS1LCcwJLyHB6DMjE+r1mSTqQMSaVXt4uniH3d8iUxxoPLLsGtjpKOqkzsTcqbY
+ izGdDivK3ySoKFH5HXbVfJ1MkBO+mwjFUh9lObsesRKIEoo/4P5NBkxPi/L9gGPIPE7F
+ GoDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=C3WCTEPJuMhnDtyj4nCQQWf8hst+6hFcFTW9HCjkuQc=;
+ b=Fg9DscO8oW55qIXFQ7qozcP1mAzy4Lj0M6aRiA70S7+63gZHdh62moPGZKKihXrfap
+ Rw9PsBfK/BIwdQuB1Rl4Ozpu4mX9pQZxlfrnjiu9JAwcA2fXgtfCWFhH5zG+t/uE50rg
+ 13GbNJk1GiY5P3S/sL1+ep0+hCbeGroIrr/2t8kPlfuB6JRvT5OAOzHruSoDJtogXobO
+ UANfmaCyw/g/XW+hNpE10Ez1pc+YV2s56AToAOmzg9YrgzWGBhJ4D6+acJ/D+zasScc9
+ aVJdZK05ujn2yymxdP0D7NOCOwAM9gsoDfK0RpIl7i+75pFxPMQaUruJ9VQcEFSFpxDz
+ hsFw==
+X-Gm-Message-State: APjAAAV6BrUiYc4nel5EZtuPGdIy8lil2bYQXLkMiTIh1RX6AZU7Cs5R
+ SaApJkNOuJTJl+X1P9paBgE=
+X-Google-Smtp-Source: APXvYqw79sGEGu7vaJbDLnMprFiFeHzfXZWGcQnVHInNP3xeYbkjRgBIAgRsCI7J7qswMroRiib5FA==
+X-Received: by 2002:a17:902:6ac6:: with SMTP id
+ i6mr44253449plt.233.1559945116817; 
+ Fri, 07 Jun 2019 15:05:16 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id d3sm3843748pfa.176.2019.06.07.15.05.15
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 07 Jun 2019 15:05:16 -0700 (PDT)
+Date: Fri, 7 Jun 2019 15:05:18 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20190607220517.GA3824@Asurada-Nvidia.nvidia.com>
+References: <20190606230105.4385-1-nicoleotsuka@gmail.com>
+ <20190607111244.GE2456@sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20190607190021.GK2456@sirena.org.uk>
-Content-Type: multipart/mixed; boundary="------------00ECFFF18126FC8F2B9D28E7"
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, "kernelci.org bot" <bot@kernelci.org>,
- tomeu.vizoso@collabora.com, Takashi Iwai <tiwai@suse.de>, khilman@baylibre.com,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, matthew.hart@linaro.org,
- mgalka@collabora.com, enric.balletbo@collabora.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] next/master boot bisection: next-20190528 on
- sun8i-h3-libretech-all-h3-cc
+Content-Disposition: inline
+In-Reply-To: <20190607111244.GE2456@sirena.org.uk>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, shengjiu.wang@nxp.com, tiwai@suse.com,
+ lgirdwood@gmail.com, festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [RFC/RFT PATCH] Revert "ASoC: fsl_esai: ETDR and
+ TX0~5 registers are non volatile"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,110 +102,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
---------------00ECFFF18126FC8F2B9D28E7
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 7bit
+Hello Mark,
 
-
-
-On 6/7/19 2:00 PM, Mark Brown wrote:
-> On Fri, Jun 07, 2019 at 05:31:12PM +0100, Guillaume Tucker wrote:
->> On 30/05/2019 16:53, Takashi Iwai wrote:
+On Fri, Jun 07, 2019 at 12:12:44PM +0100, Mark Brown wrote:
+> On Thu, Jun 06, 2019 at 04:01:05PM -0700, Nicolin Chen wrote:
+> > This reverts commit 8973112aa41b8ad956a5b47f2fe17bc2a5cf2645.
 > 
->>>> +	mutex_lock(&client_mutex);
->>>>   	for_each_rtdcom(rtd, rtdcom) {
->>>>   		component = rtdcom->component;
->>>>   
->>>>   		if (component->driver->remove_order == order)
->>>>   			soc_remove_component(component);
->>>>   	}
->>>> +	mutex_unlock(&client_mutex);
+> Please use subject lines matching the style for the subsystem.  This
+> makes it easier for people to identify relevant patches.
 > 
->>> Ranjani, which code path your patch tries to address?  Maybe better to
->>> wrap client_mutex() in the caller side like snd_soc_unbind_card()?
+> > 1) Though ETDR and TX0~5 are not volatile but write-only registers,
+> >    they should not be cached either. According to the definition of
+> >    "volatile_reg", one should be put in the volatile list if it can
+> >    not be cached.
 > 
->> Is anyone looking into this issue?
-> 
->> It is still occurring in next-20190606, there was a bisection
->> today which landed on the same commit.  There just hasn't been
->> any new bisection reports because they have been temporarily
->> disabled while we fix some issues on kernelci.org.
-> 
-> I was expecting that Ranjani or one of the other Intel people was
-> looking into it...
+> There's no problem with caching write only registers, having a cache
+> allows one to do read/modify/write cycles on them and can help with
+> debugging.  The original reason we had cache code in ASoC was for write
+> only devices.
 
-Ack. We've all been underwater this week and this wasn't addressed, 
-sorry about the delay. It's probably wise to revert this commit at this 
-point while we look for an alternate solution?
+Maybe because my paragraph doesn't state it clearly -- it's nothing
+wrong with regmap caching write-only registers; but it caching data
+registers would potentially cause dirty data or channel swap/shift.
+So the reason (1) here is "cannot cached" == "should be volatile".
 
-There was an initial proposal submitted on GitHub [1] (patch attached) 
-which implemented what Takashi suggested in his comments. This proposal 
-was later optimized further, it could be that the optimization was one 
-bridge too far.
+I will revise the commit message for review and fix the subject.
 
-Could you let us know if this attached patch has any negative effects on 
-non-Intel platforms?
-
-Thanks!
-
-[1] 
-https://github.com/thesofproject/linux/commit/9fd09dd417bc8be7a4a8bdd1621558151f8d117b
-
---------------00ECFFF18126FC8F2B9D28E7
-Content-Type: text/x-patch;
- name="9fd09dd417bc8be7a4a8bdd1621558151f8d117b.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename="9fd09dd417bc8be7a4a8bdd1621558151f8d117b.patch"
-
-From 9fd09dd417bc8be7a4a8bdd1621558151f8d117b Mon Sep 17 00:00:00 2001
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date: Wed, 22 May 2019 10:52:40 -0700
-Subject: [PATCH] ASoC: core: lock client_mutex while removing link components
-
-Removing link components results in topology unloading. So,
-acquire the client_mutex before removing components in
-snd_soc_unbind_card(). This will prevent lockdep warning
-when the dai link is removed.
-
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/soc/soc-core.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 2403bec2fccf3..5609398f05d80 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2839,12 +2839,14 @@ static void snd_soc_unbind_card(struct snd_soc_card *card, bool unregister)
- 		snd_soc_dapm_shutdown(card);
- 		snd_soc_flush_all_delayed_work(card);
- 
-+		mutex_lock(&client_mutex);
- 		/* remove all components used by DAI links on this card */
- 		for_each_comp_order(order) {
- 			for_each_card_rtds(card, rtd) {
- 				soc_remove_link_components(card, rtd, order);
- 			}
- 		}
-+		mutex_unlock(&client_mutex);
- 
- 		soc_cleanup_card_resources(card);
- 		if (!unregister)
-
---------------00ECFFF18126FC8F2B9D28E7
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thank you
+Nicolin
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---------------00ECFFF18126FC8F2B9D28E7--

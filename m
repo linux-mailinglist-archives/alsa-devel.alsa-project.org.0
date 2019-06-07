@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90346388BD
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 13:14:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22683388E0
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 13:20:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03888950;
-	Fri,  7 Jun 2019 13:13:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03888950
+	by alsa0.perex.cz (Postfix) with ESMTPS id B06B2950;
+	Fri,  7 Jun 2019 13:19:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B06B2950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559906078;
-	bh=0Kf2ry9knjkZ/hCHEGFuse+PUqAWP9ampuRqm4YkOew=;
+	s=default; t=1559906449;
+	bh=4QChvf6L/nuO2aREMzYBqPWI4OjQs6Vp+QkrzYx5Ze8=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YXzqUWs9FWbqUBa52GDbwsxFwj/csUhhFdO6xAhW4UmkV0oCuCr6gxmmY857MIOMa
-	 TNYpFwv2r7mO1z935ht52/CkHVWRIFswkxdp+2cmJ/zWfvxYPXqzzJXCSuRWyJyGj5
-	 7G4q8BIACtjr0t/Wv/kSWUNyK8FpiSyPVtMquq5Q=
+	b=S8qIG5384jlYP1hRQ3E+vtGjp3qKBSkUVDPuUXHHNyttXWZAKfRKfnTeeD2ty4Sfc
+	 a26IPX9fV0wLzFJoOROFU72T2C1IEihlqUO4ktU8HVv67XAiHojIzzXltfXQl885Hl
+	 Tli2mQOh0klB1/CYfV8aHwOS5emgZnmRk8y2nfcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72C29F80709;
-	Fri,  7 Jun 2019 13:12:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58029F896DB;
+	Fri,  7 Jun 2019 13:19:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 316FBF896DD; Fri,  7 Jun 2019 13:12:51 +0200 (CEST)
+ id A37FDF896DD; Fri,  7 Jun 2019 13:19:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,46 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A482EF80709
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 13:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A482EF80709
+ by alsa1.perex.cz (Postfix) with ESMTPS id 513AFF80709
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 13:18:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 513AFF80709
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="AWxRGyzY"
+ header.b="FIM8ynCv"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=AspmKVjY7mJ8HlX6+G0jU6RWDgqTyzyWO77BW5lTioo=; b=AWxRGyzYu+UByYRVNF7xUoTci
- K9YJ7T+ee4KHFo/QooSYiSQYK+GMd9yWh6ldoSQK+1uBDAtTov4FoBIII1Z6AwYjhDhX7/7bJV4uK
- +OI9NFxvCnZIOTyDT+ITbW5MQ2wOj5DEQV7XTUtGeasr5KyirCok5/hC6m8n9KyfKSJFM=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ bh=lKBUT3HYWFjGoFbm4/A9Mdr1p7Ltp+8Tx+FLv4hb0no=; b=FIM8ynCvIqKNkAXLTJxqc/t42
+ DXpzIFn+O+ljS6I/Py+fo6xOkBeTXN74oqFXgqYeTDr8UHEbaSbpjgbBiY7mA8eJx9uHjr+1ls4pf
+ RiiXalcDxiXdMH46wJHZnt/65+5qYjlTzO16vkxd+F05Sr+i1DPu/snYzOFvWL6mLJ35A=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hZCnd-0001iM-BW; Fri, 07 Jun 2019 11:12:45 +0000
+ id 1hZCtb-0001ja-CE; Fri, 07 Jun 2019 11:18:55 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 4F0CA440046; Fri,  7 Jun 2019 12:12:44 +0100 (BST)
-Date: Fri, 7 Jun 2019 12:12:44 +0100
+ id 46A99440046; Fri,  7 Jun 2019 12:18:54 +0100 (BST)
+Date: Fri, 7 Jun 2019 12:18:54 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Message-ID: <20190607111244.GE2456@sirena.org.uk>
-References: <20190606230105.4385-1-nicoleotsuka@gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190607111854.GF2456@sirena.org.uk>
+References: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
+ <87lfyfe4r3.wl-kuninori.morimoto.gx@renesas.com>
+ <3BD9CEE4EBD5E74B98FE2D277EB60E0B3900FE91@IRSMSX104.ger.corp.intel.com>
+ <c0d5fa8a-ae0d-6d3c-b4a5-7010640683b8@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20190606230105.4385-1-nicoleotsuka@gmail.com>
+In-Reply-To: <c0d5fa8a-ae0d-6d3c-b4a5-7010640683b8@linux.intel.com>
 X-Cookie: The other line moves faster.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, shengjiu.wang@nxp.com, tiwai@suse.com,
- lgirdwood@gmail.com, festevam@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [RFC/RFT PATCH] Revert "ASoC: fsl_esai: ETDR and
- TX0~5 registers are non volatile"
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [alsa-devel] [PATCH v2 146/146] ASoC: soc-core: remove legacy
+ style dai_link
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,55 +87,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5212468185962620602=="
+Content-Type: multipart/mixed; boundary="===============2825456607391510002=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============5212468185962620602==
+--===============2825456607391510002==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cnnC1+vf4lqgEF19"
+	protocol="application/pgp-signature"; boundary="I5PYSK0R2Sa5XBHe"
 Content-Disposition: inline
 
 
---cnnC1+vf4lqgEF19
+--I5PYSK0R2Sa5XBHe
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Jun 06, 2019 at 04:01:05PM -0700, Nicolin Chen wrote:
-> This reverts commit 8973112aa41b8ad956a5b47f2fe17bc2a5cf2645.
+On Thu, Jun 06, 2019 at 02:08:50PM -0500, Pierre-Louis Bossart wrote:
+> Please don't top-post.
+>=20
+> On 6/6/19 1:25 PM, Rojewski, Cezary wrote:
+> > Hmm, guess reviewing 001 proved redundant after all. Unless I got it wr=
+ong, you are removing code implemented in that very patch (the 001).
 
-Please use subject lines matching the style for the subsystem.  This
-makes it easier for people to identify relevant patches.
+> > Any chance for eliminating ping-pong effect and doing the "right" chang=
+es from the get-go? Especially the renames are confusing here (s/cleanup_pl=
+atform/cleanup_legacy/) if you intend to remove them soon after.
 
-> 1) Though ETDR and TX0~5 are not volatile but write-only registers,
->    they should not be cached either. According to the definition of
->    "volatile_reg", one should be put in the volatile list if it can
->    not be cached.
+Please fix your mail client to word wrap within paragraphs at something
+substantially less than 80 columns.  Doing this makes your messages much
+easier to read and reply to.
 
-There's no problem with caching write only registers, having a cache
-allows one to do read/modify/write cycles on them and can help with
-debugging.  The original reason we had cache code in ASoC was for write
-only devices.
+> Using a ping-pong analogy for a 146-patch series is pushing it. It's first
+> make then break to avoid bisect issues. And the names match what is used =
+in
+> the existing code. maybe the naming isn't to your liking but it's what has
+> been used for a while.
 
---cnnC1+vf4lqgEF19
+> Note that the last patch is going to break all the non-upstream machine
+> drivers so you will have quite a bit of work to do on your own when you
+> rebase.
+
+Right, avoiding build breaks is important here - it helps future
+bisectability if we don't have commits (and especially long serieses of
+commits) that just randomly fail to build.  That's *way* more useful
+than dropping the initial patch would've been.
+
+> > If there is no other way around it and solution is accepted, a note, pe=
+rhaps in 001 would be helpful for future readers.
+
+There's no guarantee that a patch series will be applied at once, if
+there's a problem part way through the series the earlier bits might get
+applied to save future review.
+
+--I5PYSK0R2Sa5XBHe
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz6RqkACgkQJNaLcl1U
-h9Co7Qf7Bkg3ndyaPGB0nY7y53/txpehf1drjHOKGiWoZ0+zJMVKS1VxMRflVs5s
-/jl1lph0ebC8gfz/UipI3j7ZrLPd1tRsasfmuIpa4aDTAd5h3ekJe2uMHyxDiATf
-+riYjRV5ZiBQ5EFVZQN2j9VMvtJGfaLsDD6Wkc4laIvAevPThDKrs5YLyiH/ncrn
-q1RktO/C3gfdAuUd0x0oGbHOlpXuMw8AaT0I6NNonOM5GlLqDq0jUw9Or/WdOepk
-UMskpFmlTMYNm9AcJGvZ2JemvZ+fYCZUs+1nU2h6+MgEBIs1DqvdYagwnFXb4K1J
-ZkaAUBJ2IdDf+r2aYfr+BVFEUIjuPA==
-=AgxG
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAlz6SB0ACgkQJNaLcl1U
+h9A/kAf/YElb9Yj5Sf0ThOQKW0/byzPpMRLDjxf5MCnX0ixINTG1Gji/JRzX5M9g
+iBkz3cnypcIOtZNcXfxjYy+LJewpNFXRLPdl62sNaNJyC7wyh9fnBBGtuiSLep3J
+zAX20LvO4nVJKTZoqMqkDZiP6TsS3FpkYLbZynrj9ahGJRIQ0s+h9jtnLv2sQQ+U
+hZlNFhDGBdfWZ2ZaS/6XnrlQVCeDYXC57kI5CfLDNvfZybKYHZTOqFOVPxAmhK1Q
+tdUEBZVuo0yQ0FbrhzVHm7b+pGCoec0hquRiECOgzcSobvLz/R+mQ75HmovxfUUz
+bNpl61jA7HW91adAIZ1cSuJMpjLDVQ==
+=3adO
 -----END PGP SIGNATURE-----
 
---cnnC1+vf4lqgEF19--
+--I5PYSK0R2Sa5XBHe--
 
---===============5212468185962620602==
+--===============2825456607391510002==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -143,4 +168,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============5212468185962620602==--
+--===============2825456607391510002==--

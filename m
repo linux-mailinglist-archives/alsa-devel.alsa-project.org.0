@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 136E1391BF
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 18:17:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B06B391C0
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 18:18:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 864541686;
-	Fri,  7 Jun 2019 18:16:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 864541686
+	by alsa0.perex.cz (Postfix) with ESMTPS id B540E165F;
+	Fri,  7 Jun 2019 18:17:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B540E165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559924258;
-	bh=pCEvIkMAz3pOg5JyGj369II1rfkIVZY/tD5hN7Sfuws=;
+	s=default; t=1559924304;
+	bh=rpoThw+CjnzZmWB1vd92dGFYQ8L3yJuXV7FmjqFovTc=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=upTHIJb8NwxdWNYM0MbUMhgASgVRqDIN735o1A9cWQC3jVbSXaCk3AN7khTR6KUq9
-	 c7L9Wr61/TGwyolvSEstLrLWOazvpdsD1ugfQog7vizHEN3rCLaZFWyxSrGeD7jrSN
-	 JOBriDNRGhqfrj8ul8YN4DkMcohTKYICYYoz5i5w=
+	b=IFzOx/AZRvU0ZJ0ntvXkFxXk/2Fc+2ADNnyWlp03ru2g3j0iim1DQHfW2DD8TY8lG
+	 rI+kJOuhV/GcQQHwi5Y8OJ4NAeRogdIn/ievN6ghS2+mI7KwCbCNjBCFVztoHxYZDI
+	 P01sE8S8FbIAdBTuu22I6tIwn6czAsCWlznu3xH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A469AF8972F;
-	Fri,  7 Jun 2019 18:15:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83C34F89734;
+	Fri,  7 Jun 2019 18:15:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9335CF896DD; Fri,  7 Jun 2019 18:15:12 +0200 (CEST)
+ id 27423F896DB; Fri,  7 Jun 2019 18:15:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE4A5F80709
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 18:15:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE4A5F80709
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BFB6F896DE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 18:15:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BFB6F896DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="QqYoPdcO"
+ header.b="frky9jDc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1559924108; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1559924109; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=LD3D3GMmh6oZn/yovGkBRET4CaZLI7sJLLT+O64xYqs=;
- b=QqYoPdcOw+DqdYdw1guIArXBtY29hpCJomqVLBzFMBc5qG8RxqPo5SofTLkPpfMC8ry3CU
- 9gkqZajkejAlkD3JKiiaUUauuclN9qzlAWBHSD4zxm1/3a0jenGSvIFuftRhEboajy0zii
- oMB8HFm3IFeCjOtdiREFLRyFtVE4z2M=
+ bh=doKixQ7W0O1D5yIB0/xlxEE1qSMkwghu0cqqt9JXGok=;
+ b=frky9jDcJVgbnbbm9pGfN8fmnoOcJwhU8U2XmVkgGPqBOWNUF699DMPM+fckGPglNpqt4x
+ +QHPzDFwIjmBhC0oSq0QoqbEOo+HuDcGcklRNNB7BB5u6IXrEGiR73ZgmK/wNq7c8m1Cte
+ jvbLwe3O5D6TYKLZl6VvkQ9aIk6HI/A=
 From: Paul Cercueil <paul@crapouillou.net>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
-Date: Fri,  7 Jun 2019 18:14:59 +0200
-Message-Id: <20190607161500.17379-2-paul@crapouillou.net>
+Date: Fri,  7 Jun 2019 18:15:00 +0200
+Message-Id: <20190607161500.17379-3-paul@crapouillou.net>
 In-Reply-To: <20190607161500.17379-1-paul@crapouillou.net>
 References: <20190607161500.17379-1-paul@crapouillou.net>
 MIME-Version: 1.0
 Cc: Paul Cercueil <paul@crapouillou.net>, alsa-devel@alsa-project.org,
  od@zcrc.me, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH 2/3] ASoC/codecs: jz4740: Make probe function
+Subject: [alsa-devel] [PATCH 3/3] ASoC/codecs: jz4725b: Make probe function
 	__init_or_module
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -84,22 +84,22 @@ module.
 
 Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 ---
- sound/soc/codecs/jz4740.c | 2 +-
+ sound/soc/codecs/jz4725b.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/jz4740.c b/sound/soc/codecs/jz4740.c
-index 974e17fa1911..f7293004971d 100644
---- a/sound/soc/codecs/jz4740.c
-+++ b/sound/soc/codecs/jz4740.c
-@@ -314,7 +314,7 @@ static const struct regmap_config jz4740_codec_regmap_config = {
- 	.cache_type = REGCACHE_RBTREE,
+diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
+index 766354c73076..eef7221e4acd 100644
+--- a/sound/soc/codecs/jz4725b.c
++++ b/sound/soc/codecs/jz4725b.c
+@@ -541,7 +541,7 @@ static const struct regmap_config jz4725b_codec_regmap_config = {
+ 	.cache_type = REGCACHE_FLAT,
  };
  
--static int jz4740_codec_probe(struct platform_device *pdev)
-+static int __init_or_module jz4740_codec_probe(struct platform_device *pdev)
+-static int jz4725b_codec_probe(struct platform_device *pdev)
++static int __init_or_module jz4725b_codec_probe(struct platform_device *pdev)
  {
- 	int ret;
- 	struct jz4740_codec *jz4740_codec;
+ 	struct device *dev = &pdev->dev;
+ 	struct jz_icdc *icdc;
 -- 
 2.21.0.593.g511ec345e18
 

@@ -2,90 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BA27398AD
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 00:29:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 176893991D
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 00:49:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD71A165D;
-	Sat,  8 Jun 2019 00:28:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD71A165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E0F9166C;
+	Sat,  8 Jun 2019 00:48:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E0F9166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559946553;
-	bh=wpMu2/WQZdoHjxISHL5isAwGnQBmMxicIUkKpnG1dG8=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=sZkw9Zizym8jPH/DoDGj5/VMJXjAVVs7K1PN8/R4j22sYvmlWhr1E2gF2i1i/t9fB
-	 idDksutXuMeWGaEJOjqy3XE+UzqP9T5B/Wga80Nd4qNJZazlFBp3bUGT6vT/29K454
-	 +gHFiJp8L7Dzb7aIpHFbeoleEriqN7rKZMJmccjk=
+	s=default; t=1559947752;
+	bh=W82nOo4452SkRjhOZGPO2TFnkJAmSV31Sue9ekeNf18=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=rKufB1yccUz8QDnFkrTo9HozHtnkLyowE+CYEFjA0AtRmbgZFXBm/hPITdmQbFs3o
+	 cuLM8FkgR4Eut/MlHXpiJvoQxh8IMQdDDPSQFNMgtwrMsaEJ9on9/zPYuJadP1L57q
+	 YceqpkgcMTa4MJayvRiaiLxpt4GlPQc4/VdytJIw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AFEAF896DB;
-	Sat,  8 Jun 2019 00:27:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35D91F896DB;
+	Sat,  8 Jun 2019 00:47:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09BB4F896DD; Sat,  8 Jun 2019 00:27:27 +0200 (CEST)
+ id CE81CF896DD; Sat,  8 Jun 2019 00:47:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E183F80709
- for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2019 00:27:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E183F80709
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32D9AF8072A
+ for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2019 00:47:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32D9AF8072A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="HDqNDDQA"
-Received: by mail-lj1-x243.google.com with SMTP id k18so3016296ljc.11
- for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 15:27:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sk6hPvdH3BWSbBnwR/y7MxMwBKDXfZfimHiTdJQ7FFU=;
- b=HDqNDDQA5OUvAfv5ErMrdJxAulMyLpON958EjMhIAcyGxIJUP1kb+B46jbNu0+4dXM
- 5Je9yjehnmD7Zv2NuCq70LI794rhd3OCrwrPAK2Bkq2fZdvsFT2e0EUreoRTCKdqUNBy
- XeC/Abhkf6qZX9ErnfN+DKKGYDP9BqOAMPDJEyVWmZBYnLbnj9lHzYM+xfbmcyghxFIM
- iDyWCycTTXrddQxoi07tpAReu4/aquRc0gmhS34qgcA/nvw0K3lYoiapKHBYvyoBHyJ2
- hGUc4WOp43VV2dlm8rPsQBSFipPR3Y4zM8jx8jOGLVvhPfSfpqX55bcf+3kNVzT/0qNF
- zsVQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ZLv6Z5QL"
+Received: by mail-pf1-x444.google.com with SMTP id u22so1961350pfm.3
+ for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 15:47:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=ICW3GL2Jj3l3TI0uaeVmL4hkLsOez9fNWXiS/c/eQfY=;
+ b=ZLv6Z5QLrJ+vdWNUCHtqlqCZG0PHFSaqt+Py5Y89czZ4uyL/hKmWBXnoebJ3oaJi2z
+ fNsp68F8q2R9N96Bd9A/jI8d3QiZw8dMUUbqt6I47PD341BnMyAh7g7AHqEGCO2357IC
+ CNMz4FlFehqaX9xTiVgvKTM+1QSBUuGtarJE+wv+JrlMPcZulqB+f1XYstR1FktPqjMR
+ /lUqqQ+RIogrZ2xOFaoX85DHtBzOfnEWeK8DbD9KKBh2VlKWSEuOVRTez+2Z7ahvASP1
+ 9yI02X006pLDHxGt7czFz+UL2a2a6OFZ56XtvR2B4GWpYPikdJVhqV2yYSE3I7xSwHso
+ 8F0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sk6hPvdH3BWSbBnwR/y7MxMwBKDXfZfimHiTdJQ7FFU=;
- b=o+IiA2jriYm+VMwgL3CzqrrDpV0uv5KD2jRR4qwEmuSw19L8yYV9BjDFuzK/jnU9Ae
- lee4vFCiP0eleH3NVwO7eqyEujYf1ltL0DG0et+Tvw1/RfW8MiThEaN5g+fnPAez7ZXJ
- aKuZv4/ErsU74WTqF7oUCpF4X02M/LRh7EyW2YXe5UbXGp+V2rKRfRSD5RIFJYfCjwNF
- g7GU7JQxk2V8PDnhfqM/sw/Vvz9almW2eWL/QCUHAmMwXXHIV1g5LlpguT/amg1SjRJc
- bo3iuNFbdXQEnyuQmaBp3OB50lEteaEnEXBdpaJG34i61YJX1bl1/ruvgzFnXndBdmL0
- mWIg==
-X-Gm-Message-State: APjAAAWHqqzdrQ/XhI+jtVIyPee9rtE5fyJujNsrN61n2LlNRuwTgvv4
- JRErWtTOMXz8xukHt8L7X9rnBkAe535tBiXJvTNnsw==
-X-Google-Smtp-Source: APXvYqy/UI46+O5OT6qX2Cn14OJJPA3iOf6898d4EJfNCD4loFfPrXXvFp4sT2CgeK3eVLnXph8b+W0IiI28NUGwJXo=
-X-Received: by 2002:a05:651c:92:: with SMTP id 18mr1717937ljq.35.1559946442977; 
- Fri, 07 Jun 2019 15:27:22 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190607221911.118136-1-levinale@chromium.org>
-In-Reply-To: <20190607221911.118136-1-levinale@chromium.org>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Fri, 7 Jun 2019 15:27:11 -0700
-Message-ID: <CAOReqxi45h20K4aSfnGC7kQFx-nOyLrDCknKG_Lc5iyGS4+zrA@mail.gmail.com>
-To: Alex Levin <levinale@chromium.org>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: sst: fix kmalloc call with
-	wrong flags
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=ICW3GL2Jj3l3TI0uaeVmL4hkLsOez9fNWXiS/c/eQfY=;
+ b=taZjlDz46vTRXdfN0NIZxnKqAjSWqxQZhkgt3wFHn3qa4mR1QuWUxwQ3NjT0xyVKHg
+ rjC3+Wm/jsZ9j95J/Y1JJMAmHbLQfqqiHxu3IzTn/NcI5JB1j+mybFne0HHO0rJjIkHM
+ lN6FwDIA24BHo70ijrPq7IQvFSfgQBHYB+axsPvdCIWT3aXx9kWgJGg2S1XSvLPBUv8+
+ JRmGJqbQQ3jhJziMfieIB16ccJ47UNPW9Xypm4RtvJwOgwS4NBLC7IfFzRHgiZwXmQxk
+ 4N4X9HYnFTuQ0Qd43+hmaYzGqVOjK2ACbRkVejePrbKOT3WzXSSNfH7pUqRjWaKEm9xM
+ TQyw==
+X-Gm-Message-State: APjAAAXdvQJ9WVQeaPH/tcg0LvILqziqygZiPCMjv1xQjIhwOfnduQt0
+ RkMT6rCD0rttBQn3Rl4vuCY=
+X-Google-Smtp-Source: APXvYqx0Kqdu7J8mgnnETb2JJBsOuRoR+vWceEaG9gGl0GEJ6BSdxg5yX5SJDiBQSiluCmXucSjmXQ==
+X-Received: by 2002:a62:4d03:: with SMTP id a3mr62510491pfb.2.1559947640754;
+ Fri, 07 Jun 2019 15:47:20 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id o70sm3684607pfo.33.2019.06.07.15.47.19
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 07 Jun 2019 15:47:20 -0700 (PDT)
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: shengjiu.wang@nxp.com,
+	broonie@kernel.org
+Date: Fri,  7 Jun 2019 15:47:14 -0700
+Message-Id: <20190607224714.13933-1-nicoleotsuka@gmail.com>
+X-Mailer: git-send-email 2.17.1
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, lgirdwood@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, Xiubo.Lee@gmail.com, tiwai@suse.com,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [RFC/RFT PATCH v2] ASoC: fsl_esai: Revert "ETDR and
+	TX0~5 registers are non volatile"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,36 +94,92 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jun 7, 2019 at 3:19 PM Alex Levin <levinale@chromium.org> wrote:
->
-> When calling kmalloc with GFP_KERNEL in case CONFIG_SLOB is unset,
-> kmem_cache_alloc_trace is called.
->
-> In case CONFIG_TRACING is set, kmem_cache_alloc_trace will ball
-nit: *call
-> slab_alloc, which will call slab_pre_alloc_hook which might_sleep_if.
->
-> The context in which it is called in this case, the
-> intel_sst_interrupt_mrfld, calling a sleeping kmalloc generates a BUG():
->
-> Fixes: 972b0d456e64 ("ASoC: Intel: remove GFP_ATOMIC, use GFP_KERNEL")
->
-> [   20.250671] BUG: sleeping function called from invalid context at mm/slab.h:422
-> [   20.250683] in_atomic(): 1, irqs_disabled(): 1, pid: 1791, name: Chrome_IOThread
-> [   20.250690] CPU: 0 PID: 1791 Comm: Chrome_IOThread Tainted: G        W         4.19.43 #61
-> [   20.250693] Hardware name: GOOGLE Kefka, BIOS Google_Kefka.7287.337.0 03/02/2017
-> [   20.250893] R10: 0000562dd1064d30 R11: 00003c8cc825b908 R12: 00003c8cc966d3c0
-> [   20.250896] R13: 00003c8cc9e280c0 R14: 0000000000000000 R15: 0000000000000000
->
-> Signed-off-by: Alex Levin <levinale@chromium.org>
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-> ---
->
+Commit 8973112aa41b ("ASoC: fsl_esai: ETDR and TX0~5 registers are
+non volatile") removed TX data registers from the volatile_reg list
+and appended default values for them. However, being data registers
+of TX, they should not have been removed from the list because they
+should not be cached -- see the following reason.
+
+When doing regcache_sync(), this operation might accidentally write
+some dirty data to these registers, in case that cached data happen
+to be different from the default ones, which might also result in a
+channel shift or swap situation, since the number of write-via-sync
+operations at ETDR would very unlikely match the channel number.
+
+So this patch reverts the original commit to keep TX data registers
+in volatile_reg list in order to prevent them from being written by
+regcache_sync().
+
+Note: this revert is not a complete revert as it keeps those macros
+of registers remaining in the default value list while the original
+commit also changed other entries in the list. And this patch isn't
+very necessary to Cc stable tree since there has been always a FIFO
+reset operation around the regcache_sync() call, even prior to this
+reverted commit.
+
+Signed-off-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+Hi Mark,
+In case there's no objection against the patch, I'd still like to
+wait for a Tested-by from NXP folks before submitting it. Thanks!
+
+Changelog
+v1->v2
+ * Fixed subject by following subsystem format.
+ * Revised commit message to emphasize the real issue.
+
+ sound/soc/fsl/fsl_esai.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index 10d2210c91ef..8f0a86335f73 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -652,16 +652,9 @@ static const struct snd_soc_component_driver fsl_esai_component = {
+ };
+ 
+ static const struct reg_default fsl_esai_reg_defaults[] = {
+-	{REG_ESAI_ETDR,	 0x00000000},
+ 	{REG_ESAI_ECR,	 0x00000000},
+ 	{REG_ESAI_TFCR,	 0x00000000},
+ 	{REG_ESAI_RFCR,	 0x00000000},
+-	{REG_ESAI_TX0,	 0x00000000},
+-	{REG_ESAI_TX1,	 0x00000000},
+-	{REG_ESAI_TX2,	 0x00000000},
+-	{REG_ESAI_TX3,	 0x00000000},
+-	{REG_ESAI_TX4,	 0x00000000},
+-	{REG_ESAI_TX5,	 0x00000000},
+ 	{REG_ESAI_TSR,	 0x00000000},
+ 	{REG_ESAI_SAICR, 0x00000000},
+ 	{REG_ESAI_TCR,	 0x00000000},
+@@ -711,10 +704,17 @@ static bool fsl_esai_readable_reg(struct device *dev, unsigned int reg)
+ static bool fsl_esai_volatile_reg(struct device *dev, unsigned int reg)
+ {
+ 	switch (reg) {
++	case REG_ESAI_ETDR:
+ 	case REG_ESAI_ERDR:
+ 	case REG_ESAI_ESR:
+ 	case REG_ESAI_TFSR:
+ 	case REG_ESAI_RFSR:
++	case REG_ESAI_TX0:
++	case REG_ESAI_TX1:
++	case REG_ESAI_TX2:
++	case REG_ESAI_TX3:
++	case REG_ESAI_TX4:
++	case REG_ESAI_TX5:
+ 	case REG_ESAI_RX0:
+ 	case REG_ESAI_RX1:
+ 	case REG_ESAI_RX2:
+-- 
+2.17.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

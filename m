@@ -2,89 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 329D5386A8
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 10:58:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC965386AD
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 11:00:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B36115E4;
-	Fri,  7 Jun 2019 10:58:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B36115E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 523681654;
+	Fri,  7 Jun 2019 10:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 523681654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559897937;
-	bh=Mp5A9+a63pa5iXFawwsEXROARZTLzwmL8CJ4Z9Q3QEQ=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kLXaxkTmBR56AEVV74X/JR6p4wUOCQfwu/bEOupSA4WCfEzFpVEFlSpGolU6XmrLC
-	 z6vtuvAI3+VZW3xmifJpwU3Bey1Qi6WCplJJZrD+SSnPEQHeSchOLQXXI8+a/N+JBx
-	 vp5N+5JURZ45ETJAOgOQwDnzorOogrYiOhyjHtbA=
+	s=default; t=1559898043;
+	bh=9DPW7U6UTjWzLhqfPhcuEE78NywxO7yCqQHHftI+a8A=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mbNEyXH9HeL6eDptuyPsviWSx222p/Xto07iNVarrDk2b2lzvbgJUZbKIEqf/B95E
+	 11ytUrOPWDyQBTlhfW01Ub+fzq8QWtspCkcbE0duo0KVAt8B1+9iwsWQZc+x39IKiC
+	 g4dVaJaYhv4s1bSFncS09RERTum/M3caJyaCeeMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E99B6F896DB;
-	Fri,  7 Jun 2019 10:57:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65371F89738;
+	Fri,  7 Jun 2019 10:57:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E40D1F896DD; Fri,  7 Jun 2019 10:57:10 +0200 (CEST)
+ id EDA29F8972F; Fri,  7 Jun 2019 10:57:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33B8EF80709
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 10:57:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33B8EF80709
+ by alsa1.perex.cz (Postfix) with ESMTPS id 095F6F896CE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 10:57:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 095F6F896CE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="UtFYE8HX"
-Received: by mail-wm1-x344.google.com with SMTP id a15so1174495wmj.5
- for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 01:57:07 -0700 (PDT)
+ header.b="lGf990GU"
+Received: by mail-wr1-x444.google.com with SMTP id v14so1320495wrr.4
+ for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 01:57:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6oaxDiNI3V3Y1FcG5gCLYWig+jTKPdpgP/iJOfNbmxQ=;
- b=UtFYE8HXQeDyMoOUEyIiC8jHexlyvpIeLNTRUprfHZT1sLKojwFJIAAQcXaz3MtAVW
- Fk8CHPEf0eKC3aTQBxmsvbwWqHwHK+K5ppaxYz53eJb5SGUiiXgcUUj/Z/ePSsvuifhO
- pDw96ayeUi3yqpur5/U+VIDZGlmLK70TFOTXU+JEbQ3uBvyHbItfjIQagS3TCeh5/Q7J
- cMYanxgK42yIq9X7rbZvUOGbebPci6MBgt+3PM74c1XLBwAubEQU+iVsaLk2kU3iC51d
- BXviQ4+Pkn/vC4vRDZ3LO6aQCjXEtEp4Vd/Db7f696mklhwzUVIB2E7VMSnsSiktCgHd
- /M6g==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=3Nk/ajWW2fVH/9L9yBJ6zZfHfEglcI3MSG9DcJjyJ+A=;
+ b=lGf990GUa32z0NWIrq3IT6/tA3Tr8dWI3lrZM3jaURZmclg6wXHKJYFjEWQHzF3XIg
+ /m/7PkryJ8qIuEbig95LkE1ACJ7vLBmvws+COjHV+uc5rLqRm40f7TDDINmKXQquq7s7
+ W5SkXYwzLakiKIMVw/RMB9xwCfM0uhLqzlxAULjh8N78xMuyizZS4nojgOYLt0c9LUjn
+ qZrx1OdGESo+38kl0Enl+Gp4WMpsRkxPx/y60Vd8NvYLkHJs0Cfq0ZhqWjYwlw606Pos
+ wS77pebk39PKtajivrkP1jwJ1U94AyJUtC+grClHgRgbn0tbUqbqnTvZlInDE8HmL6N7
+ ETyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=6oaxDiNI3V3Y1FcG5gCLYWig+jTKPdpgP/iJOfNbmxQ=;
- b=ZYuHdZoOVsqpyLQ9slxGes0Uxb6weZUC1Kb8BKip7cy7cNmTuSuPAQxJCX2/1dSdu0
- nWuhxFA81s+jVF0BU9tP8PohaAQxG7LMvCCLfESp4SFdwXoVl86t7MHqcrrXv/MaAnEa
- rntlGVjgHKlyvuwZWJQcSUoSixfwleYsQcuG5T61glnkd72EckToj/a2tA3J+0IuE1y8
- DpWJNWsn2CzmO4BiArnIu32Gu10YbXBiO8kgAosFoldZ1ZDOsWCRQ3JFZ5QPcatcAvmq
- SjsNU0+HDbaVk32wS62uLUptEUwG7qXzOvAHpKr+dm4lo/QpI39Hl1pifWzSxv4pv7VY
- IUnA==
-X-Gm-Message-State: APjAAAXZ3Y1+k87GioYGSdVqFOev4iqNd+8ImhfMwKIjyKJegYQrSTo4
- sOSV87dtuzdxHHgCt+fJCNQErA==
-X-Google-Smtp-Source: APXvYqwLMDVCNl5uQgvplPXCm62/RRTWw4niXyTJwh05YHHXxpnhloJtxM8sGpE1uyEofQ+ZzKOsGA==
-X-Received: by 2002:a7b:c74a:: with SMTP id w10mr2642243wmk.99.1559897827098; 
- Fri, 07 Jun 2019 01:57:07 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=3Nk/ajWW2fVH/9L9yBJ6zZfHfEglcI3MSG9DcJjyJ+A=;
+ b=Aq6j/tm2xZef/grXjUFseiD4aVZTpXhrn3UZKN2to/6SSqmTFkAMoFgupOq5bvSp1K
+ IefAUiwk65oDSYqrSQ9EGGH626O4gWqJo+xGx5wuuGL2+7L2taekEvi1L3IPcFlOiElz
+ j326yNDiOvO5nHZ/QWEht28RTZj3Q4233yd490vM8l35DYYtT1RxKYkjhV7R8aAEwyiO
+ TCcUgARqdgtXF+sdydN0rEr5YLLqXCt+drPD4sba3nznv2qrry6pMsyhWw/fPVVgC4Pi
+ jn2pt3eEnRgSCKcLDhRc7ecKqVyLzhYBA0Qcp8Sp8ErZ5PxNSESC8kxxlpySls7TZTtQ
+ F5UQ==
+X-Gm-Message-State: APjAAAXBQ4RB8t7P7oMS2eccp0dLoneM8I+X0TPXun0JPxhOK1mWEkFj
+ 2DrD/xuazQUEn0hGvVlHqQO/sA==
+X-Google-Smtp-Source: APXvYqz4IVNqNRbjq+XkvxaB+gbUjrylYR3ZBRzgq2RaTUqsgoCPlp1OgQmHsCNzGYDFiJsh9GGXLw==
+X-Received: by 2002:adf:ee49:: with SMTP id w9mr9789849wro.112.1559897828100; 
+ Fri, 07 Jun 2019 01:57:08 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id d10sm2035308wrh.91.2019.06.07.01.57.06
+ by smtp.gmail.com with ESMTPSA id d10sm2035308wrh.91.2019.06.07.01.57.07
  (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Fri, 07 Jun 2019 01:57:06 -0700 (PDT)
+ Fri, 07 Jun 2019 01:57:07 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org,
 	vkoul@kernel.org
-Date: Fri,  7 Jun 2019 09:56:37 +0100
-Message-Id: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
+Date: Fri,  7 Jun 2019 09:56:38 +0100
+Message-Id: <20190607085643.932-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
+References: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
  linux-kernel@vger.kernel.org, robh+dt@kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] [RFC PATCH 0/6] soundwire: Add support to Qualcomm
-	SoundWire master
+Subject: [alsa-devel] [RFC PATCH 1/6] ASoC: core: add support to
+	snd_soc_dai_get_sdw_stream()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,50 +106,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi All, 
+On platforms which have smart speaker amplifiers connected via
+soundwire and modeled as aux devices in ASoC, in such usecases machine
+driver should be able to get sdw master stream from dai so that it can
+use the runtime stream to setup slave streams.
 
-This patchset is very first version of Qualcomm SoundWire Master Controller
-found in most of Qualcomm SoCs and WCD audio codecs.
+soundwire already as a set function, get function would provide more
+flexibility to above configurations.
 
-This driver along with WCD934x codec and WSA881x Class-D Smart Speaker Amplifier
-drivers is on DragonBoard DB845c based of SDM845 SoC.
-WCD934x and WSA881x patches will be posted soon.
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ include/sound/soc-dai.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-SoundWire controller on SDM845 is integrated in WCD934x audio codec via
-SlimBus interface.
-
-Currently this driver is very minimal and only supports PDM.
-
-Most of the code in this driver is rework of Qualcomm downstream drivers
-used in Andriod. Credits to Banajit Goswami and Patrick Lai's Team.
-
-TODO:
-	Test and add PCM support.
-
-Thanks,
-srini
-
-Srinivas Kandagatla (5):
-  ASoC: core: add support to snd_soc_dai_get_sdw_stream()
-  soundwire: core: define SDW_MAX_PORT
-  soundwire: stream: make stream name a const pointer
-  dt-bindings: soundwire: add bindings for Qcom controller
-  soundwire: qcom: add support for SoundWire controller
-
-Vinod Koul (1):
-  soundwire: Add compute_params callback
-
- .../bindings/soundwire/qcom,swr.txt           |  62 ++
- drivers/soundwire/Kconfig                     |   9 +
- drivers/soundwire/Makefile                    |   4 +
- drivers/soundwire/qcom.c                      | 983 ++++++++++++++++++
- drivers/soundwire/stream.c                    |  11 +-
- include/linux/soundwire/sdw.h                 |   7 +-
- include/sound/soc-dai.h                       |  10 +
- 7 files changed, 1083 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,swr.txt
- create mode 100644 drivers/soundwire/qcom.c
-
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index f5d70041108f..9f90b936fd9a 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -177,6 +177,7 @@ struct snd_soc_dai_ops {
+ 
+ 	int (*set_sdw_stream)(struct snd_soc_dai *dai,
+ 			void *stream, int direction);
++	void *(*get_sdw_stream)(struct snd_soc_dai *dai, int direction);
+ 	/*
+ 	 * DAI digital mute - optional.
+ 	 * Called by soc-core to minimise any pops.
+@@ -385,4 +386,13 @@ static inline int snd_soc_dai_set_sdw_stream(struct snd_soc_dai *dai,
+ 		return -ENOTSUPP;
+ }
+ 
++static inline void *snd_soc_dai_get_sdw_stream(struct snd_soc_dai *dai, int direction)
++{
++	if (dai->driver->ops->get_sdw_stream)
++		return dai->driver->ops->get_sdw_stream(dai, direction);
++	else
++		return NULL;
++
++}
++
+ #endif
 -- 
 2.21.0
 

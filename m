@@ -2,67 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E24538AB5
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 14:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F64C38B93
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 15:23:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 254DE15E5;
-	Fri,  7 Jun 2019 14:51:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 254DE15E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF7191657;
+	Fri,  7 Jun 2019 15:23:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF7191657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559911936;
-	bh=49msPqBaFozBgl3RPdtyuHpqzvHrJp3DEBZp/5mIAug=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1559913832;
+	bh=xmFzW+wz9mXmxrwczU5GmZvTy+cdO6TA0iTm3iN8adM=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qXB36xgUgeatICxRh6fQ2/WYTo2W3esVQC6T9mfR+L1J+6gQh6fUcilMgJUApn7Yw
-	 fj+gHoGkWluupqSUeI76QrQ2fbSjsicDOJkjbeFeulmFVhmWy1B/D/6da/IHxcDlIG
-	 4FI5FtqEPRxE/iqSW7j9Z37HX6Q5yyhsSqah0MPg=
+	b=LL1sfYfZBhiG24UW95tx5FgNkxevNygrhI8/3tXY0R5HPPqaB6j43zcfeDXNXooDc
+	 K/H4/Wuc2D097pGKiL94xX1BjqzIdRLI0DV0Kv610edUcj7GpIWQ6B15RNbsvUfTI/
+	 znIMAY1gFHt+9sDeqh2phD/iG46GF0og7Q9EVrj8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E7EEF896DE;
-	Fri,  7 Jun 2019 14:50:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7892F896ED;
+	Fri,  7 Jun 2019 15:22:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C87BF896CE; Fri,  7 Jun 2019 14:50:29 +0200 (CEST)
+ id 1BD15F896DD; Fri,  7 Jun 2019 15:22:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21970F896CE
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 14:50:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21970F896CE
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Jun 2019 05:50:23 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga001.fm.intel.com with ESMTP; 07 Jun 2019 05:50:23 -0700
-Received: from kwong4-mobl.amr.corp.intel.com (unknown [10.252.203.122])
- by linux.intel.com (Postfix) with ESMTP id 76DB058044F;
- Fri,  7 Jun 2019 05:50:22 -0700 (PDT)
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org, 
- vkoul@kernel.org
-References: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
- <20190607085643.932-6-srinivas.kandagatla@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f2ea97b2-935d-0c7d-cb55-6e16a19c2060@linux.intel.com>
-Date: Fri, 7 Jun 2019 07:50:10 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77EF6F896CE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 15:22:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77EF6F896CE
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YPuvd10a"
+Received: by mail-lf1-x143.google.com with SMTP id a9so1600744lff.7
+ for <alsa-devel@alsa-project.org>; Fri, 07 Jun 2019 06:22:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=zglteuaazaqBthCmVMbShzAeX2Opukt4XjIfNYWzrcI=;
+ b=YPuvd10a/GlBuRZauyY3uwuOo8uVd03efjQVxBcFaDP3ugheNaioXfTtZV4m2Rd1g7
+ SCgomz4OsJVN4ncRqJD2+x3a4nctPsmFX1Cz9Jah8DA1UiqQXoBfcVsejVsXN+c+19zD
+ QF7rHSSknjrPJ6IV5Rhrhq9PtZultP6r6sVBvDamo5PS+ci0/KG0fKxz1fNjevOBs0Ja
+ SwSDcJL5Ldlt4/MVsFFZ7kRgDgp0jttIKHFMRYOcpxmk+t+gBEd1GrqFDHKuZ7nxBTFK
+ QLYKlnLhk9OyXpV+hTuiV9p1fP3Yryj62rzqdbqOVCQeL8xpKriB48a1KeH9REQsfYKP
+ wTmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=zglteuaazaqBthCmVMbShzAeX2Opukt4XjIfNYWzrcI=;
+ b=n06M3PTMxkZwyeY02DInh7b/QNJFgrQGpYG4x1ZOJVyQE3DUHRerYiEYPIgi7V4xIq
+ Z5GUGjOaSdrj0qHBgxt/Cj8qAgRxjRIwCrpwSzlRsHIRSp089DCWI2urzGy9mpYMiM8D
+ +ee6LjSEL8cJj7e4qO/D5stbjNQ4PBWuSeFbjWKP36xhkMBkGWwlNUyHIMjnSaHnjNtp
+ Qa4TIUJPraj0n+iR8Ugj/fs2vuk6AgI6eTe+/lor2gOiKv3dCiUhAnVxbG8jd8JxTorc
+ ZF/WI+rkzLNVFpi42k0oUSK8r7B1FiypPEhpSW+xvLXCEq1oChdW4wLSe3tyasIjQTjf
+ sw+w==
+X-Gm-Message-State: APjAAAVwhlYWsGgEBQa2NotTc3E6i1Y3MIJnEHgLcTzsO0U/bSzHSRCW
+ jFY5V7Uw0+TPsbAUzYByxAqw3XYOsvrZ2VKyDYM=
+X-Google-Smtp-Source: APXvYqxxReNZ3qAxPeqi6EUFqz5+SU/zntxpvZKDkD/5xLHnrZ4bWT05EVa9zL3hfa7rvU+YEqSff6TBRm/G+Xwcesw=
+X-Received: by 2002:ac2:597c:: with SMTP id h28mr2892984lfp.90.1559913722203; 
+ Fri, 07 Jun 2019 06:22:02 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190607085643.932-6-srinivas.kandagatla@linaro.org>
-Content-Language: en-US
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [RFC PATCH 5/6] dt-bindings: soundwire: add
- bindings for Qcom controller
+References: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
+From: Fabio Estevam <festevam@gmail.com>
+Date: Fri, 7 Jun 2019 10:21:55 -0300
+Message-ID: <CAOMZO5A=zi_6OtjwWXJcbHn+AKz3SvmKgQrSemd6qWjAePuqXQ@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 000/146] ASoC: modern dai_link style
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,117 +90,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/7/19 3:56 AM, Srinivas Kandagatla wrote:
-> This patch adds bindings for Qualcomm soundwire controller.
-> 
-> Qualcomm SoundWire Master controller is present in most Qualcomm SoCs
-> either integrated as part of WCD audio codecs via slimbus or
-> as part of SOC I/O.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->   .../bindings/soundwire/qcom,swr.txt           | 62 +++++++++++++++++++
->   1 file changed, 62 insertions(+)
->   create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,swr.txt
+Hi Kuninori-san and Mark,
 
-you seem to use the 'swr' prefix in this patch. Most implementers use 
-'sdw', and that's the default also used in the MIPI DisCo spec for 
-properties. Can we align on the same naming conventions?
+On Thu, Jun 6, 2019 at 1:08 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+>
+>
+> Hi Mark
+>
+> These are v2 for modern dai_link style support patches.
+> [001/146] adds missing modern dai_link style for CPU.
+> and others are switch to modern style from legacy style.
+> Last patch removes legacy style.
+>
+> These are based on mark/for-5.3 + linus/master
+>
+> I added posted Tested-by at ateml mikroe-proto,
+> and Signed-off-by Pierre-Louis for some Intel patches,
+> and new patch for new Intel bytcht_cx2072x
 
-> 
-> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,swr.txt b/Documentation/devicetree/bindings/soundwire/qcom,swr.txt
-> new file mode 100644
-> index 000000000000..eb84d0f4f36f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soundwire/qcom,swr.txt
-> @@ -0,0 +1,62 @@
-> +Qualcomm SoundWire Controller
-> +
-> +This binding describes the Qualcomm SoundWire Controller Bindings.
-> +
-> +Required properties:
-> +
-> +- compatible:		Must be "qcom,soundwire-v<MAJOR>.<MINOR>.<STEP>",
-> +	 		example:
-> +			"qcom,soundwire-v1.3.0"
-> +			"qcom,soundwire-v1.5.0"
-> +			"qcom,soundwire-v1.6.0"
-> +- reg:			SoundWire controller address space.
-> +- interrupts:		SoundWire controller interrupt.
-> +- clock-names:		Must contain "iface".
-> +- clocks:		Interface clocks needed for controller.
-> +- #sound-dai-cells:	Must be 1 for digital audio interfaces on the controllers.
-> +- #address-cells:	Must be 1 for SoundWire devices;
-> +- #size-cells:		Must be <0> as SoundWire addresses have no size component.
-> +- qcom,dout-ports: 	Must be count of data out ports
-> +- qcom,din-ports: 	Must be count of data in ports
-> +- qcom,ports-offset1:	Must be frame offset1 of each data port.
-> +			Out followed by In. Used for Block size calculation.
-> +- qcom,ports-offset2: 	Must be frame offset2 of each data port.
-> +			Out followed by In. Used for Block size calculation.
-> +- qcom,ports-sinterval-low: Must be sample interval low of each data port.
-> +			Out followed by In. Used for Sample Interval calculation.
+We are seeing kernel crash in today's linux-next and it looks like it
+is related to this series:
+https://storage.kernelci.org/next/master/next-20190607/arm/imx_v6_v7_defconfig/gcc-8/lab-pengutronix/boot-imx53-qsrb.html
 
-These definitions are valid only for specific types of ports, I believe 
-here it's a 'reduced' port since offset2 is not required for simpler 
-ports and you don't have Hstart/Hstop.
+I haven't investigated yet, but just wanted to let you know.
 
-so if you state that all of these properties are required, you are 
-explicitly ruling out future implementations of simple ports or will 
-have to redefine them later.
-
-Also the definition 'frame offset1/2' is incorrect. the offset is 
-defined within each Payload Transport Window - not each frame - and its 
-definition depends on the packing mode used, which isn't defined or 
-stated here.
-
-And last it looks like you assume a fixed frame shape - likely 50 rows 
-by 8 columns, it might be worth adding a note on the max values for 
-offset1/2 implied by this frame shape.
-
-> +
-> += SoundWire devices
-> +Each subnode of the bus represents SoundWire device attached to it.
-> +The properties of these nodes are defined by the individual bindings.
-> +
-> += EXAMPLE
-> +The following example represents a SoundWire controller on DB845c board
-> +which has controller integrated inside WCD934x codec on SDM845 SoC.
-> +
-> +soundwire: soundwire@c85 {
-> +	compatible = "qcom,soundwire-v1.3.0";
-> +	reg = <0xc85 0x20>;
-> +	interrupts = <20 IRQ_TYPE_EDGE_RISING>;
-> +	clocks = <&wcc>;
-> +	clock-names = "iface";
-> +	#sound-dai-cells = <1>;
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	qcom,dout-ports	= <6>;
-> +	qcom,din-ports	= <2>;
-> +	qcom,ports-sinterval-low =/bits/ 8  <0x07 0x1F 0x3F 0x7 0x1F 0x3F 0x0F 0x0F>;
-> +	qcom,ports-offset1 = /bits/ 8 <0x01 0x02 0x0C 0x6 0x12 0x0D 0x07 0x0A >;
-> +	qcom,ports-offset2 = /bits/ 8 <0x00 0x00 0x1F 0x00 0x00 0x1F 0x00 0x00>;
-> +
-> +	/* Left Speaker */
-> +	wsa8810@1{
-> +		....
-> +		reg = <1>;
-> +	};
-> +
-> +	/* Right Speaker */
-> +	wsa8810@2{
-> +		....
-> +		reg = <2>;
-> +	};
-> +};
-> 
-
+Thanks
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

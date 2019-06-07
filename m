@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B06B391C0
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Jun 2019 18:18:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5CD93A0CD
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:54:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B540E165F;
-	Fri,  7 Jun 2019 18:17:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B540E165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B54C16AD;
+	Sat,  8 Jun 2019 18:53:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B54C16AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559924304;
-	bh=rpoThw+CjnzZmWB1vd92dGFYQ8L3yJuXV7FmjqFovTc=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560012884;
+	bh=DI827wQoAaJAemR313KEcvcyk67tXzQjFWyKS5yDrf8=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IFzOx/AZRvU0ZJ0ntvXkFxXk/2Fc+2ADNnyWlp03ru2g3j0iim1DQHfW2DD8TY8lG
-	 rI+kJOuhV/GcQQHwi5Y8OJ4NAeRogdIn/ievN6ghS2+mI7KwCbCNjBCFVztoHxYZDI
-	 P01sE8S8FbIAdBTuu22I6tIwn6czAsCWlznu3xH8=
+	b=E0Jed6ICv20thY6IJd2bzRA5Er9Z0g/lypg0p9HC77TXqY9FKE0+6fwR/jpNGw12y
+	 rvShS92ob5yHZylwgOaWNPQZGsIERReUKLWScQy7hOyPecddAotjc8K/F4Qx4JVi4G
+	 ROjbqwA4kfZ3hHXf9ZAHXkalVJMOIafURlPLUqG8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83C34F89734;
-	Fri,  7 Jun 2019 18:15:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FF23F89792;
+	Sat,  8 Jun 2019 18:40:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27423F896DB; Fri,  7 Jun 2019 18:15:13 +0200 (CEST)
+ id 563A0F896DD; Fri,  7 Jun 2019 18:31:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9BFB6F896DE
- for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 18:15:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BFB6F896DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
- header.b="frky9jDc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1559924109; h=from:from:sender:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=doKixQ7W0O1D5yIB0/xlxEE1qSMkwghu0cqqt9JXGok=;
- b=frky9jDcJVgbnbbm9pGfN8fmnoOcJwhU8U2XmVkgGPqBOWNUF699DMPM+fckGPglNpqt4x
- +QHPzDFwIjmBhC0oSq0QoqbEOo+HuDcGcklRNNB7BB5u6IXrEGiR73ZgmK/wNq7c8m1Cte
- jvbLwe3O5D6TYKLZl6VvkQ9aIk6HI/A=
-From: Paul Cercueil <paul@crapouillou.net>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>
-Date: Fri,  7 Jun 2019 18:15:00 +0200
-Message-Id: <20190607161500.17379-3-paul@crapouillou.net>
-In-Reply-To: <20190607161500.17379-1-paul@crapouillou.net>
-References: <20190607161500.17379-1-paul@crapouillou.net>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E8FAF896CE
+ for <alsa-devel@alsa-project.org>; Fri,  7 Jun 2019 18:31:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E8FAF896CE
+Received: from [IPv6:2a00:5f00:102:0:6dae:eb08:2e0f:5281] (unknown
+ [IPv6:2a00:5f00:102:0:6dae:eb08:2e0f:5281])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: gtucker)
+ by bhuna.collabora.co.uk (Postfix) with ESMTPSA id 0AA1D28530C;
+ Fri,  7 Jun 2019 17:31:16 +0100 (BST)
+To: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <5cef9f66.1c69fb81.39f30.21e8@mx.google.com>
+ <s5hr28gszvj.wl-tiwai@suse.de>
+From: Guillaume Tucker <guillaume.tucker@collabora.com>
+Message-ID: <8ca25787-fc03-7942-0705-3ec7d88862a6@collabora.com>
+Date: Fri, 7 Jun 2019 17:31:12 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Cc: Paul Cercueil <paul@crapouillou.net>, alsa-devel@alsa-project.org,
- od@zcrc.me, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH 3/3] ASoC/codecs: jz4725b: Make probe function
-	__init_or_module
+In-Reply-To: <s5hr28gszvj.wl-tiwai@suse.de>
+Content-Language: en-US
+X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:50 +0200
+Cc: alsa-devel@alsa-project.org, "kernelci.org bot" <bot@kernelci.org>,
+ tomeu.vizoso@collabora.com, khilman@baylibre.com,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ matthew.hart@linaro.org, mgalka@collabora.com, enric.balletbo@collabora.com
+Subject: Re: [alsa-devel] next/master boot bisection: next-20190528 on
+ sun8i-h3-libretech-all-h3-cc
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,30 +78,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This allows the probe function to be dropped after the kernel finished
-its initialization, in the case where the driver was not compiled as a
-module.
+On 30/05/2019 16:53, Takashi Iwai wrote:
+> On Thu, 30 May 2019 11:16:22 +0200,
+> kernelci.org bot wrote:
+>>
+>> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+>> * This automated bisection report was sent to you on the basis  *
+>> * that you may be involved with the breaking commit it has      *
+>> * found.  No manual investigation has been done to verify it,   *
+>> * and the root cause of the problem may be somewhere else.      *
+>> * Hope this helps!                                              *
+>> * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+>>
+>> next/master boot bisection: next-20190528 on sun8i-h3-libretech-all-h3-cc
+>>
+>> Summary:
+>>   Start:      531b0a360899 Add linux-next specific files for 20190528
+>>   Details:    https://kernelci.org/boot/id/5cece0fd59b5144bc47a362b
+>>   Plain log:  https://storage.kernelci.org//next/master/next-20190528/arm/sunxi_defconfig/gcc-8/lab-baylibre/boot-sun8i-h3-libretech-all-h3-cc.txt
+>>   HTML log:   https://storage.kernelci.org//next/master/next-20190528/arm/sunxi_defconfig/gcc-8/lab-baylibre/boot-sun8i-h3-libretech-all-h3-cc.html
+>>   Result:     34ac3c3eb8f0 ASoC: core: lock client_mutex while removing link components
+>>
+>> Checks:
+>>   revert:     PASS
+>>   verify:     PASS
+>>
+>> Parameters:
+>>   Tree:       next
+>>   URL:        git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+>>   Branch:     master
+>>   Target:     sun8i-h3-libretech-all-h3-cc
+>>   CPU arch:   arm
+>>   Lab:        lab-baylibre
+>>   Compiler:   gcc-8
+>>   Config:     sunxi_defconfig
+>>   Test suite: boot
+>>
+>> Breaking commit found:
+>>
+>> -------------------------------------------------------------------------------
+>> commit 34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb
+>> Author: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>> Date:   Thu May 23 10:12:01 2019 -0700
+>>
+>>     ASoC: core: lock client_mutex while removing link components
+>>     
+>>     Removing link components results in topology unloading. So,
+>>     acquire the client_mutex before removing components in
+>>     soc_remove_link_components. This will prevent the lockdep warning
+>>     seen when dai links are removed during topology removal.
+>>     
+>>     Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+>>     Signed-off-by: Mark Brown <broonie@kernel.org>
+>>
+>> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+>> index 2403bec2fccf..7c9415987ac7 100644
+>> --- a/sound/soc/soc-core.c
+>> +++ b/sound/soc/soc-core.c
+>> @@ -1005,12 +1005,14 @@ static void soc_remove_link_components(struct snd_soc_card *card,
+>>  	struct snd_soc_component *component;
+>>  	struct snd_soc_rtdcom_list *rtdcom;
+>>  
+>> +	mutex_lock(&client_mutex);
+>>  	for_each_rtdcom(rtd, rtdcom) {
+>>  		component = rtdcom->component;
+>>  
+>>  		if (component->driver->remove_order == order)
+>>  			soc_remove_component(component);
+>>  	}
+>> +	mutex_unlock(&client_mutex);
+>>  }
+> 
+> Indeed this dead-locks in the error path of
+> snd_soc_instantiate_card():
+> 
+> snd_soc_instantiate_card() ->
+>   mutex_lock(&client_mutex);
+>   ....
+>   -> soc_cleanup_card_resources();
+>     -> soc_remove_dai_links();
+>       -> soc_remove_link_components();
+>          mutex_lock(&client_mutex);
+> 
+> 
+> Ranjani, which code path your patch tries to address?  Maybe better to
+> wrap client_mutex() in the caller side like snd_soc_unbind_card()?
 
-Signed-off-by: Paul Cercueil <paul@crapouillou.net>
----
- sound/soc/codecs/jz4725b.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Is anyone looking into this issue?
 
-diff --git a/sound/soc/codecs/jz4725b.c b/sound/soc/codecs/jz4725b.c
-index 766354c73076..eef7221e4acd 100644
---- a/sound/soc/codecs/jz4725b.c
-+++ b/sound/soc/codecs/jz4725b.c
-@@ -541,7 +541,7 @@ static const struct regmap_config jz4725b_codec_regmap_config = {
- 	.cache_type = REGCACHE_FLAT,
- };
- 
--static int jz4725b_codec_probe(struct platform_device *pdev)
-+static int __init_or_module jz4725b_codec_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct jz_icdc *icdc;
--- 
-2.21.0.593.g511ec345e18
+It is still occurring in next-20190606, there was a bisection
+today which landed on the same commit.  There just hasn't been
+any new bisection reports because they have been temporarily
+disabled while we fix some issues on kernelci.org.
+
+Thanks,
+Guillaume
+
+>>  static void soc_remove_dai_links(struct snd_soc_card *card)
+>> -------------------------------------------------------------------------------
+>>
+>>
+>> Git bisection log:
+>>
+>> -------------------------------------------------------------------------------
+>> git bisect start
+>> # good: [cd6c84d8f0cdc911df435bb075ba22ce3c605b07] Linux 5.2-rc2
+>> git bisect good cd6c84d8f0cdc911df435bb075ba22ce3c605b07
+>> # bad: [531b0a360899269bd99a38ba9852a8ba46852bcd] Add linux-next specific files for 20190528
+>> git bisect bad 531b0a360899269bd99a38ba9852a8ba46852bcd
+>> # bad: [0b61d4c3b7d7938ef0014778c328e3f65c0d6d57] Merge remote-tracking branch 'crypto/master'
+>> git bisect bad 0b61d4c3b7d7938ef0014778c328e3f65c0d6d57
+>> # bad: [6179e21b065dc0f592cd3d9d3676bd64d4278025] Merge remote-tracking branch 'xtensa/xtensa-for-next'
+>> git bisect bad 6179e21b065dc0f592cd3d9d3676bd64d4278025
+>> # bad: [3e085f66fe7e93575f2a583a3d434415cef2d860] Merge remote-tracking branch 'amlogic/for-next'
+>> git bisect bad 3e085f66fe7e93575f2a583a3d434415cef2d860
+>> # bad: [b9afa223a3420432bc483d2b43429c88c6a5d0e0] Merge remote-tracking branch 'staging.current/staging-linus'
+>> git bisect bad b9afa223a3420432bc483d2b43429c88c6a5d0e0
+>> # good: [fc6557648e19dbd207dc815c6e09fc6452f01e63] Merge remote-tracking branch 'bpf/master'
+>> git bisect good fc6557648e19dbd207dc815c6e09fc6452f01e63
+>> # bad: [6c3f2a0e0f236f31b47d63ab7d3f4ec889821d0d] Merge remote-tracking branch 'spi-fixes/for-linus'
+>> git bisect bad 6c3f2a0e0f236f31b47d63ab7d3f4ec889821d0d
+>> # bad: [20a5f9c8649d74407aa657ce5b76cf8b0bbb17e3] Merge branch 'asoc-5.2' into asoc-linus
+>> git bisect bad 20a5f9c8649d74407aa657ce5b76cf8b0bbb17e3
+>> # good: [ad6eecbfc01c987e0253371f274c3872042e4350] ASoC: cs42xx8: Add regcache mask dirty
+>> git bisect good ad6eecbfc01c987e0253371f274c3872042e4350
+>> # good: [069d037aea98ffa64c26d4b1dc958fb8f39f5c2b] ASoC: simple-card: Fix configuration of DAI format
+>> git bisect good 069d037aea98ffa64c26d4b1dc958fb8f39f5c2b
+>> # good: [df9366131a452296d040a7a496d93108f1fc240c] ASoC: Intel: sof-rt5682: fix AMP quirk support
+>> git bisect good df9366131a452296d040a7a496d93108f1fc240c
+>> # bad: [34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb] ASoC: core: lock client_mutex while removing link components
+>> git bisect bad 34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb
+>> # good: [4819d06292c9b57eabdd6d1603e49a27baf183be] ASoC: simple-card: Restore original configuration of DAI format
+>> git bisect good 4819d06292c9b57eabdd6d1603e49a27baf183be
+>> # first bad commit: [34ac3c3eb8f0c07252ceddf0a22dd240e5c91ccb] ASoC: core: lock client_mutex while removing link components
+>> -------------------------------------------------------------------------------
+>> _______________________________________________
+>> Alsa-devel mailing list
+>> Alsa-devel@alsa-project.org
+>> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>>
 
 _______________________________________________
 Alsa-devel mailing list

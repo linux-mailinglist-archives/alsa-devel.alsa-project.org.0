@@ -2,63 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D644E3A13F
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 20:40:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 528153A179
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 21:24:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32C8B166D;
-	Sat,  8 Jun 2019 20:39:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32C8B166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7E9D1660;
+	Sat,  8 Jun 2019 21:23:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7E9D1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560019209;
-	bh=+F9AWce5D0UZjbPzqZHCQg90xqAnBag8ANjXjI7mscc=;
+	s=default; t=1560021848;
+	bh=MHOkHiHJSJijNC9wGh0lvPgJEr7EODYGPYzS0vsFCjY=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gCXg6qX63oaZb+rLVRi8k+C3YbiyxaASSLnOTrbsDZvYi2mzaGotoyubTVc+OvBaT
-	 v7hfYrdBNbf8Ujs2PS4eZE3/X9sMtDc34mj/v1FoZkhrjC40HTbLvPR00xl4Mw3nkM
-	 i9L3wWXL4utbE0j7Svo9WDwtqoOHeJ2IbJp+ALnk=
+	b=MF3nBcFWlJUPH0vcS1eo8/wuF5eUYNqsfWANTtUuPjKA3JRwrgOy14d1TBq386x0i
+	 9yvBNeWnSUsO3AoDHzTMlESuMKYODf6zc1VB/dyfNKthLH9MMZDDlrDToXSBzncGZW
+	 0TLOxrI+CbALq9qR2TLlgJc6E3JpyL/LqJepdYTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7205EF896F8;
-	Sat,  8 Jun 2019 20:38:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CBCAF896EF;
+	Sat,  8 Jun 2019 21:22:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3777F896F7; Sat,  8 Jun 2019 20:38:20 +0200 (CEST)
+ id 65FAEF896F7; Sat,  8 Jun 2019 21:22:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12F29F896CE;
- Sat,  8 Jun 2019 20:38:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F29F896CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81C90F896CE
+ for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2019 21:22:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81C90F896CE
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2019 11:38:11 -0700
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Jun 2019 12:22:14 -0700
 X-ExtLoop1: 1
 Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.251.93.16])
  ([10.251.93.16])
- by orsmga006.jf.intel.com with ESMTP; 08 Jun 2019 11:38:09 -0700
-To: Adam Miartus <amiartus@de.adit-jv.com>, patch@alsa-project.org
-References: <1559910203-29795-1-git-send-email-amiartus@de.adit-jv.com>
- <1559910203-29795-2-git-send-email-amiartus@de.adit-jv.com>
+ by orsmga006.jf.intel.com with ESMTP; 08 Jun 2019 12:22:10 -0700
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
+ <20190607085643.932-2-srinivas.kandagatla@linaro.org>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <4418bd15-24a0-401a-9d86-709fc99d7b49@intel.com>
-Date: Sat, 8 Jun 2019 20:38:07 +0200
+Message-ID: <13bfb632-f743-c416-2224-c7acb5b28604@intel.com>
+Date: Sat, 8 Jun 2019 21:22:08 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <1559910203-29795-2-git-send-email-amiartus@de.adit-jv.com>
+In-Reply-To: <20190607085643.932-2-srinivas.kandagatla@linaro.org>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH 1/2] pcm_file: do not disrupt playback on
- output file write fail
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ broonie@kernel.org
+Subject: Re: [alsa-devel] [RFC PATCH 1/6] ASoC: core: add support to
+ snd_soc_dai_get_sdw_stream()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,125 +79,56 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-06-07 14:23, Adam Miartus wrote:
-> previously playback could be interrupted by snd_pcm_file_add_frames:
->      assert(file->wbuf_used_bytes < file->wbuf_size_bytes)
+On 2019-06-07 10:56, Srinivas Kandagatla wrote:
+> On platforms which have smart speaker amplifiers connected via
+> soundwire and modeled as aux devices in ASoC, in such usecases machine
+> driver should be able to get sdw master stream from dai so that it can
+> use the runtime stream to setup slave streams.
 > 
-> in case snd_pcm_file_write_bytes fails to write full amount of bytes
-> to file, variable wbuf_used_bytes would not be fully decremented by
-> requested amount of bytes function was called with
+> soundwire already as a set function, get function would provide more
+> flexibility to above configurations.
 > 
-> for the assert to trigger, multiple write fails need to happen, so
-> that wbuf_used_bytes overflows wbuf_size_bytes,
-> 
-> this patch will allow application to report error code to api user
-> who might have an idea how to recover, before assert is triggered,
-> also reporting error along with the print out message might give user
-> a better idea of what is going on, where previously reason for
-> mentioned assert was not immediately clear
-> 
-> Signed-off-by: Adam Miartus <amiartus@de.adit-jv.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 > ---
->   src/pcm/pcm_file.c | 36 ++++++++++++++++++++++++------------
->   1 file changed, 24 insertions(+), 12 deletions(-)
+>   include/sound/soc-dai.h | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
 > 
-> diff --git a/src/pcm/pcm_file.c b/src/pcm/pcm_file.c
-> index 1ef80b5..a1d15d6 100644
-> --- a/src/pcm/pcm_file.c
-> +++ b/src/pcm/pcm_file.c
-> @@ -381,27 +381,31 @@ static void fixup_wav_header(snd_pcm_t *pcm)
+> diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+> index f5d70041108f..9f90b936fd9a 100644
+> --- a/include/sound/soc-dai.h
+> +++ b/include/sound/soc-dai.h
+> @@ -177,6 +177,7 @@ struct snd_soc_dai_ops {
 >   
+>   	int (*set_sdw_stream)(struct snd_soc_dai *dai,
+>   			void *stream, int direction);
+> +	void *(*get_sdw_stream)(struct snd_soc_dai *dai, int direction);
+>   	/*
+>   	 * DAI digital mute - optional.
+>   	 * Called by soc-core to minimise any pops.
+> @@ -385,4 +386,13 @@ static inline int snd_soc_dai_set_sdw_stream(struct snd_soc_dai *dai,
+>   		return -ENOTSUPP;
+>   }
 >   
->   
-> -static void snd_pcm_file_write_bytes(snd_pcm_t *pcm, size_t bytes)
-> +/* return error code in case write failed */
-> +static int snd_pcm_file_write_bytes(snd_pcm_t *pcm, size_t bytes)
->   {
->   	snd_pcm_file_t *file = pcm->private_data;
-> +	snd_pcm_sframes_t err = 0;
->   	assert(bytes <= file->wbuf_used_bytes);
->   
->   	if (file->format == SND_PCM_FILE_FORMAT_WAV &&
->   	    !file->wav_header.fmt) {
-> -		if (write_wav_header(pcm) < 0)
-> -			return;
-> +		err = write_wav_header(pcm);
-> +		if (err < 0) {
-> +			SYSERR("%s write failed, file data may be corrupt", file->fname);
-> +			return err;
-> +		}
+> +static inline void *snd_soc_dai_get_sdw_stream(struct snd_soc_dai *dai, int direction)
 
-write_wav_header already dumps "Write error" on failure. Both messages 
-are quite similar. Your message dumps filename though, so it's clearly 
-more descriptive - consider updating write_wav_header SYSERR message all 
-along while simplifying code here.
+Exceeds character limit?
 
->   	}
->   
->   	while (bytes > 0) {
-> -		snd_pcm_sframes_t err;
->   		size_t n = bytes;
->   		size_t cont = file->wbuf_size_bytes - file->file_ptr_bytes;
->   		if (n > cont)
->   			n = cont;
->   		err = write(file->fd, file->wbuf + file->file_ptr_bytes, n);
->   		if (err < 0) {
-> -			SYSERR("write failed");
-> -			break;
-> +			SYSERR("%s write failed, file data may be corrupt", file->fname);
-> +			return err;
->   		}
->   		bytes -= err;
->   		file->wbuf_used_bytes -= err;
-> @@ -412,15 +416,18 @@ static void snd_pcm_file_write_bytes(snd_pcm_t *pcm, size_t bytes)
->   		if ((snd_pcm_uframes_t)err != n)
->   			break;
->   	}
+> +{
+> +	if (dai->driver->ops->get_sdw_stream)
+> +		return dai->driver->ops->get_sdw_stream(dai, direction);
+> +	else
+> +		return NULL;
+
+set_ equivalent returns -ENOTSUPP instead.
+ERR_PTR seems to make more sense here.
+
 > +
-> +	return 0;
->   }
->   
-> -static void snd_pcm_file_add_frames(snd_pcm_t *pcm,
-> -				    const snd_pcm_channel_area_t *areas,
-> -				    snd_pcm_uframes_t offset,
-> -				    snd_pcm_uframes_t frames)
-> +static int snd_pcm_file_add_frames(snd_pcm_t *pcm,
-> +				   const snd_pcm_channel_area_t *areas,
-> +				   snd_pcm_uframes_t offset,
-> +				   snd_pcm_uframes_t frames)
->   {
->   	snd_pcm_file_t *file = pcm->private_data;
->   	while (frames > 0) {
-> +		int err = 0;
->   		snd_pcm_uframes_t n = frames;
->   		snd_pcm_uframes_t cont = file->wbuf_size - file->appl_ptr;
->   		snd_pcm_uframes_t avail = file->wbuf_size - snd_pcm_bytes_to_frames(pcm, file->wbuf_used_bytes);
-> @@ -437,10 +444,15 @@ static void snd_pcm_file_add_frames(snd_pcm_t *pcm,
->   		if (file->appl_ptr == file->wbuf_size)
->   			file->appl_ptr = 0;
->   		file->wbuf_used_bytes += snd_pcm_frames_to_bytes(pcm, n);
-> -		if (file->wbuf_used_bytes > file->buffer_bytes)
-> -			snd_pcm_file_write_bytes(pcm, file->wbuf_used_bytes - file->buffer_bytes);
-> +		if (file->wbuf_used_bytes > file->buffer_bytes) {
-> +			err = snd_pcm_file_write_bytes(pcm, file->wbuf_used_bytes - file->buffer_bytes);
-> +			if (err < 0) {
-> +				return err;
-> +			}
 
-Suggestion: drop unnecessary brackets.
+Unnecessary newline.
 
-> +		}
->   		assert(file->wbuf_used_bytes < file->wbuf_size_bytes);
->   	}
-> +	return 0;
-
-Hmm. For snd_pcm_file_write_bytes you've chosen a different form: 
-newline + return. Code looks more cohesive if it's "formatted" in the 
-same fashion.
-
->   }
->   
->   static int snd_pcm_file_close(snd_pcm_t *pcm)
+> +}
+> +
+>   #endif
 > 
 _______________________________________________
 Alsa-devel mailing list

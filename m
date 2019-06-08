@@ -2,81 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 857F939C83
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 12:53:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A105C3A0D1
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Jun 2019 18:56:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECEE3166D;
-	Sat,  8 Jun 2019 12:52:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECEE3166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 21FBC167D;
+	Sat,  8 Jun 2019 18:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21FBC167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1559991211;
-	bh=Bh0rh8tKvQ282Gq8IpmZP8V0ow2thrykG3i1FeZ1DRA=;
+	s=default; t=1560012999;
+	bh=UMmsdjPRk0TOpQ0/bGFLk8CyftVYmxvWPFmZKnqLJAY=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=leWK+2Gv2qeSQw50mPLOC785eN7LDG/Heyoo54my9xDb4UrSYWH4EUmjrESq6OfGG
-	 1RWCCgcBw2XiVj5pMtfft6j19L+arvpt3lKFeZfAIaRxCz+qmzz2a65xGYc/2Ptd6S
-	 X8R9WWiijUv0e300jtsT66MFdDM1heyuRRlJbUXY=
+	b=qTpt4EsyxHOg0xp1tbRzXRzjIzGz+dzYOZDDFwrmRZUN6BeYINEQl+uhlXn70tRo7
+	 0D6wQS2p3IfI2gi6SMctsQ1F332G0bAz3PsvynaCQQodvAD4KF1qkyCCoS4WPJaMDO
+	 v4L8uyZCtoUPrMzDKj3ZSAAmiGaFM9sCRCbxhRu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3BE26F896F8;
-	Sat,  8 Jun 2019 12:51:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EF41F897A0;
+	Sat,  8 Jun 2019 18:40:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6421FF896F7; Sat,  8 Jun 2019 12:51:42 +0200 (CEST)
+ id BB48DF896F7; Sat,  8 Jun 2019 14:03:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from casper.infradead.org (casper.infradead.org
- [IPv6:2001:8b0:10b:1236::1])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7835EF80709
+ for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2019 14:03:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7835EF80709
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="wMccLC+H"
+Received: from archlinux (cpc149474-cmbg20-2-0-cust94.5-4.cable.virginm.net
+ [82.4.196.95])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF082F80709
- for <alsa-devel@alsa-project.org>; Sat,  8 Jun 2019 12:51:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF082F80709
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="GyrjwBj0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=casper.20170209; h=Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mgeScMz6rj/dz5CujtnU7v335CfKeHECqxwDNtzgkgY=; b=GyrjwBj00gZE9eaLRKHfky58Co
- YsT7v1zKxGTRvz3OUQxC2wRK3KGwYNzVaJd373H4vT21rbQ+uXfQf4Fbu1PcDWukxtxDdy4EW14F/
- jFrRYnMRazPXuy3XfTL0BR39hlBuk5CA1M0gb8F4nCw4LMsdqfsVJAibH+ocVsdtyBqxlznRDB68R
- 7dqTfCETv2iBfVGkcAVSH85f5+Dd1+4flbQ+VBoWD6GJSXFYBHPZ7rnCcXLlObMLw84xH332yK0G9
- vxf9/2dI2KqhBMn8sWr67PA1PKVI2eFqEOQy0vU6C0DXIcf+ptS4nvZ6myRKE0bfWnXL9BkXQT2FN
- I5k5Swcg==;
-Received: from [179.181.119.115] (helo=coco.lan)
- by casper.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hZYwS-0002D7-9q; Sat, 08 Jun 2019 10:51:20 +0000
-Date: Sat, 8 Jun 2019 07:51:13 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20190608075113.32f2c7bb@coco.lan>
-In-Reply-To: <20190607185728.GJ2456@sirena.org.uk>
-References: <ff457774d46d96e8fe56b45409aba39d87a8672a.1559933665.git.mchehab+samsung@kernel.org>
- <effeafed3023d8dc5f2440c8d5637ea31c02a533.1559933665.git.mchehab+samsung@kernel.org>
- <20190607185728.GJ2456@sirena.org.uk>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+ by mail.kernel.org (Postfix) with ESMTPSA id BD0E121537;
+ Sat,  8 Jun 2019 12:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1559995393;
+ bh=eFMJ/Waj92lGCUfougmwV7u3fpG965I+h9lkaiiWxuM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=wMccLC+HBfMdRXf6LGrBb/0d5JZqPGpws1tvMWw3l5gbwvH810rxCNWJRvf+3hnxx
+ tknZFfvQ5FFOO86mQyeXJxAW0+EW5yJferKaDgmk1UMvw1SlKb53lML6VTcpNTOWLh
+ ubzT7eJTqo3N9X4gbKdfRnh/vwWf7gujZiENEZWk=
+Date: Sat, 8 Jun 2019 13:02:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <20190608130259.338a13a7@archlinux>
+In-Reply-To: <20190604152019.16100-3-enric.balletbo@collabora.com>
+References: <20190604152019.16100-1-enric.balletbo@collabora.com>
+ <20190604152019.16100-3-enric.balletbo@collabora.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Olivier Moysan <olivier.moysan@st.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Jonathan Corbet <corbet@lwn.net>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>, linux-kernel@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@infradead.org>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Hugues Fruchet <hugues.fruchet@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v3 17/20] dt: bindings: fix some broken
- links from txt->yaml conversion
+X-Mailman-Approved-At: Sat, 08 Jun 2019 18:39:51 +0200
+Cc: gwendal@chromium.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Vignesh R <vigneshr@ti.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Wolfram Sang <wsa@the-dreams.de>, linux-iio@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Juergen Fitschen <jfi@ssv-embedded.de>,
+ alsa-devel@alsa-project.org, Stefan Agner <stefan@agner.ch>,
+ Sebastian Reichel <sre@kernel.org>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Karthikeyan Ramasubramanian <kramasub@codeaurora.org>,
+ linux-i2c@vger.kernel.org, Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Guenter Roeck <groeck@chromium.org>, kernel@collabora.com, dtor@chromium.org,
+ Lars-Peter Clausen <lars@metafoo.de>, Jean Delvare <jdelvare@suse.de>,
+ Jacky Bai <ping.bai@nxp.com>, linux-rtc@vger.kernel.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Sean Young <sean@mess.org>, Lee Jones <lee.jones@linaro.org>,
+ Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
+ Shreesha Rajashekar <shreesha.rajashekar@broadcom.com>,
+ Neil Armstrong <narmstrong@baylibre.com>, Chanwoo Choi <cw00.choi@samsung.com>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>, Hans Verkuil <hans.verkuil@cisco.com>,
+ linux-input@vger.kernel.org, Elie Morisse <syniurge@gmail.com>,
+ linux-media@vger.kernel.org, Ettore Chimenti <ek5.chimenti@gmail.com>,
+ linux-pwm@vger.kernel.org, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, linux-pm@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Marco Felsch <m.felsch@pengutronix.de>,
+ Florian Fainelli <f.fainelli@gmail.com>, Dong Aisheng <aisheng.dong@nxp.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Benson Leung <bleung@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ Alessandro Zummo <a.zummo@towertech.it>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Ajay Gupta <ajayg@nvidia.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Hartmut Knaack <knaack.h@gmx.de>,
+ Eddie James <eajames@linux.vnet.ibm.com>
+Subject: Re: [alsa-devel] [PATCH 02/10] mfd / platform: cros_ec: Move
+ cros-ec core driver out from MFD
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,31 +118,279 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Fri, 7 Jun 2019 19:57:28 +0100
-Mark Brown <broonie@kernel.org> escreveu:
+On Tue,  4 Jun 2019 17:20:11 +0200
+Enric Balletbo i Serra <enric.balletbo@collabora.com> wrote:
 
-> On Fri, Jun 07, 2019 at 03:54:33PM -0300, Mauro Carvalho Chehab wrote:
-> > Some new files got converted to yaml, but references weren't
-> > updated accordingly.  
+> Now, the ChromeOS EC core driver has nothing related to an MFD device, so
+> move that driver from the MFD subsystem to the platform/chrome subsystem.
 > 
-> These should probably just be sent as normal patches rather than tied in
-> with the rest of this series...
+> Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Acked-by: Jonathan Cameron <Jonathan.Cameron@huawei.com> #for the IIO parts.
+> ---
+> 
+>  drivers/extcon/Kconfig                     |  2 +-
+>  drivers/hid/Kconfig                        |  2 +-
+>  drivers/i2c/busses/Kconfig                 |  2 +-
+>  drivers/iio/common/cros_ec_sensors/Kconfig |  2 +-
+>  drivers/input/keyboard/Kconfig             |  2 +-
+>  drivers/media/platform/Kconfig             |  3 +--
+>  drivers/mfd/Kconfig                        | 14 +-------------
+>  drivers/mfd/Makefile                       |  2 --
+>  drivers/platform/chrome/Kconfig            | 21 +++++++++++++++++----
+>  drivers/platform/chrome/Makefile           |  1 +
+>  drivers/{mfd => platform/chrome}/cros_ec.c |  0
+>  drivers/power/supply/Kconfig               |  2 +-
+>  drivers/pwm/Kconfig                        |  2 +-
+>  drivers/rtc/Kconfig                        |  2 +-
+>  sound/soc/qcom/Kconfig                     |  2 +-
+>  15 files changed, 29 insertions(+), 30 deletions(-)
+>  rename drivers/{mfd => platform/chrome}/cros_ec.c (100%)
+> 
+> diff --git a/drivers/extcon/Kconfig b/drivers/extcon/Kconfig
+> index 6f5af4196b8d..0ebc599c5e51 100644
+> --- a/drivers/extcon/Kconfig
+> +++ b/drivers/extcon/Kconfig
+> @@ -169,7 +169,7 @@ config EXTCON_USB_GPIO
+>  
+>  config EXTCON_USBC_CROS_EC
+>  	tristate "ChromeOS Embedded Controller EXTCON support"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	help
+>  	  Say Y here to enable USB Type C cable detection extcon support when
+>  	  using Chrome OS EC based USB Type-C ports.
+> diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
+> index 3872e03d9a59..a958b9625bba 100644
+> --- a/drivers/hid/Kconfig
+> +++ b/drivers/hid/Kconfig
+> @@ -376,7 +376,7 @@ config HOLTEK_FF
+>  
+>  config HID_GOOGLE_HAMMER
+>  	tristate "Google Hammer Keyboard"
+> -	depends on USB_HID && LEDS_CLASS && MFD_CROS_EC
+> +	depends on USB_HID && LEDS_CLASS && CROS_EC
+>  	---help---
+>  	Say Y here if you have a Google Hammer device.
+>  
+> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
+> index ee5dfb5aee2a..42a224d08ec7 100644
+> --- a/drivers/i2c/busses/Kconfig
+> +++ b/drivers/i2c/busses/Kconfig
+> @@ -1336,7 +1336,7 @@ config I2C_SIBYTE
+>  
+>  config I2C_CROS_EC_TUNNEL
+>  	tristate "ChromeOS EC tunnel I2C bus"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	help
+>  	  If you say yes here you get an I2C bus that will tunnel i2c commands
+>  	  through to the other side of the ChromeOS EC to the i2c bus
+> diff --git a/drivers/iio/common/cros_ec_sensors/Kconfig b/drivers/iio/common/cros_ec_sensors/Kconfig
+> index f9bf7ff7fcaf..55999104cd44 100644
+> --- a/drivers/iio/common/cros_ec_sensors/Kconfig
+> +++ b/drivers/iio/common/cros_ec_sensors/Kconfig
+> @@ -4,7 +4,7 @@
+>  #
+>  config IIO_CROS_EC_SENSORS_CORE
+>  	tristate "ChromeOS EC Sensors Core"
+> -	depends on SYSFS && MFD_CROS_EC
+> +	depends on SYSFS && CROS_EC
+>  	select IIO_BUFFER
+>  	select IIO_TRIGGERED_BUFFER
+>  	help
+> diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kconfig
+> index 7c4f19dab34f..64555cc8d83e 100644
+> --- a/drivers/input/keyboard/Kconfig
+> +++ b/drivers/input/keyboard/Kconfig
+> @@ -729,7 +729,7 @@ config KEYBOARD_W90P910
+>  config KEYBOARD_CROS_EC
+>  	tristate "ChromeOS EC keyboard"
+>  	select INPUT_MATRIXKMAP
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	help
+>  	  Say Y here to enable the matrix keyboard used by ChromeOS devices
+>  	  and implemented on the ChromeOS EC. You must enable one bus option
+> diff --git a/drivers/media/platform/Kconfig b/drivers/media/platform/Kconfig
+> index f2b5f27ebacb..adec7a0bfe1e 100644
+> --- a/drivers/media/platform/Kconfig
+> +++ b/drivers/media/platform/Kconfig
+> @@ -558,10 +558,9 @@ if CEC_PLATFORM_DRIVERS
+>  
+>  config VIDEO_CROS_EC_CEC
+>  	tristate "ChromeOS EC CEC driver"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	select CEC_CORE
+>  	select CEC_NOTIFIER
+> -	select CHROME_PLATFORMS
+>  	select CROS_EC_PROTO
+>  	help
+>  	  If you say yes here you will get support for the
+> diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+> index a17d275bf1d4..ad0a5de74ef2 100644
+> --- a/drivers/mfd/Kconfig
+> +++ b/drivers/mfd/Kconfig
+> @@ -211,21 +211,9 @@ config MFD_AXP20X_RSB
+>  	  components like regulators or the PEK (Power Enable Key) under the
+>  	  corresponding menus.
+>  
+> -config MFD_CROS_EC
+> -	tristate "ChromeOS Embedded Controller"
+> -	select MFD_CORE
+> -	select CHROME_PLATFORMS
+> -	select CROS_EC_PROTO
+> -	depends on X86 || ARM || ARM64 || COMPILE_TEST
+> -	help
+> -	  If you say Y here you get support for the ChromeOS Embedded
+> -	  Controller (EC) providing keyboard, battery and power services.
+> -	  You also need to enable the driver for the bus you are using. The
+> -	  protocol for talking to the EC is defined by the bus driver.
+> -
+>  config MFD_CROS_EC_CHARDEV
+>  	tristate "Chrome OS Embedded Controller userspace device interface"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	---help---
+>  	  This driver adds support to talk with the ChromeOS EC from userspace.
+>  
+> diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+> index 52b1a90ff515..32327dc6bb45 100644
+> --- a/drivers/mfd/Makefile
+> +++ b/drivers/mfd/Makefile
+> @@ -13,8 +13,6 @@ obj-$(CONFIG_MFD_ASIC3)		+= asic3.o tmio_core.o
+>  obj-$(CONFIG_ARCH_BCM2835)	+= bcm2835-pm.o
+>  obj-$(CONFIG_MFD_BCM590XX)	+= bcm590xx.o
+>  obj-$(CONFIG_MFD_BD9571MWV)	+= bd9571mwv.o
+> -cros_ec_core-objs		:= cros_ec.o
+> -obj-$(CONFIG_MFD_CROS_EC)	+= cros_ec_core.o
+>  obj-$(CONFIG_MFD_CROS_EC_CHARDEV) += cros_ec_dev.o
+>  obj-$(CONFIG_MFD_EXYNOS_LPASS)	+= exynos-lpass.o
+>  
+> diff --git a/drivers/platform/chrome/Kconfig b/drivers/platform/chrome/Kconfig
+> index 35bb5a2663f0..9417b982ad92 100644
+> --- a/drivers/platform/chrome/Kconfig
+> +++ b/drivers/platform/chrome/Kconfig
+> @@ -50,9 +50,22 @@ config CHROMEOS_TBMC
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called chromeos_tbmc.
+>  
+> +config CROS_EC
+> +	tristate "ChromeOS Embedded Controller"
+> +	select CROS_EC_PROTO
+> +	depends on X86 || ARM || ARM64 || COMPILE_TEST
+> +	help
+> +	  If you say Y here you get support for the ChromeOS Embedded
+> +	  Controller (EC) providing keyboard, battery and power services.
+> +	  You also need to enable the driver for the bus you are using. The
+> +	  protocol for talking to the EC is defined by the bus driver.
+> +
+> +	  To compile this driver as a module, choose M here: the
+> +	  module will be called cros_ec.
+> +
+>  config CROS_EC_I2C
+>  	tristate "ChromeOS Embedded Controller (I2C)"
+> -	depends on MFD_CROS_EC && I2C
+> +	depends on CROS_EC && I2C
+>  
+>  	help
+>  	  If you say Y here, you get support for talking to the ChromeOS
+> @@ -62,7 +75,7 @@ config CROS_EC_I2C
+>  
+>  config CROS_EC_RPMSG
+>  	tristate "ChromeOS Embedded Controller (rpmsg)"
+> -	depends on MFD_CROS_EC && RPMSG && OF
+> +	depends on CROS_EC && RPMSG && OF
+>  	help
+>  	  If you say Y here, you get support for talking to the ChromeOS EC
+>  	  through rpmsg. This uses a simple byte-level protocol with a
+> @@ -87,7 +100,7 @@ config CROS_EC_ISHTP
+>  
+>  config CROS_EC_SPI
+>  	tristate "ChromeOS Embedded Controller (SPI)"
+> -	depends on MFD_CROS_EC && SPI
+> +	depends on CROS_EC && SPI
+>  
+>  	---help---
+>  	  If you say Y here, you get support for talking to the ChromeOS EC
+> @@ -97,7 +110,7 @@ config CROS_EC_SPI
+>  
+>  config CROS_EC_LPC
+>          tristate "ChromeOS Embedded Controller (LPC)"
+> -        depends on MFD_CROS_EC && ACPI && (X86 || COMPILE_TEST)
+> +        depends on CROS_EC && ACPI && (X86 || COMPILE_TEST)
+>          help
+>            If you say Y here, you get support for talking to the ChromeOS EC
+>            over an LPC bus. This uses a simple byte-level protocol with a
+> diff --git a/drivers/platform/chrome/Makefile b/drivers/platform/chrome/Makefile
+> index c5583c48d1e5..ebb57e21923b 100644
+> --- a/drivers/platform/chrome/Makefile
+> +++ b/drivers/platform/chrome/Makefile
+> @@ -6,6 +6,7 @@ CFLAGS_cros_ec_trace.o:=		-I$(src)
+>  obj-$(CONFIG_CHROMEOS_LAPTOP)		+= chromeos_laptop.o
+>  obj-$(CONFIG_CHROMEOS_PSTORE)		+= chromeos_pstore.o
+>  obj-$(CONFIG_CHROMEOS_TBMC)		+= chromeos_tbmc.o
+> +obj-$(CONFIG_CROS_EC)			+= cros_ec.o
+>  obj-$(CONFIG_CROS_EC_I2C)		+= cros_ec_i2c.o
+>  obj-$(CONFIG_CROS_EC_ISHTP)		+= cros_ec_ishtp.o
+>  obj-$(CONFIG_CROS_EC_RPMSG)		+= cros_ec_rpmsg.o
+> diff --git a/drivers/mfd/cros_ec.c b/drivers/platform/chrome/cros_ec.c
+> similarity index 100%
+> rename from drivers/mfd/cros_ec.c
+> rename to drivers/platform/chrome/cros_ec.c
+> diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
+> index dd7da41f230c..e05140771845 100644
+> --- a/drivers/power/supply/Kconfig
+> +++ b/drivers/power/supply/Kconfig
+> @@ -656,7 +656,7 @@ config CHARGER_RT9455
+>  
+>  config CHARGER_CROS_USBPD
+>  	tristate "ChromeOS EC based USBPD charger"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	default n
+>  	help
+>  	  Say Y here to enable ChromeOS EC based USBPD charger
+> diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
+> index dff5a93f7daa..99946e1bcc73 100644
+> --- a/drivers/pwm/Kconfig
+> +++ b/drivers/pwm/Kconfig
+> @@ -145,7 +145,7 @@ config PWM_CRC
+>  
+>  config PWM_CROS_EC
+>  	tristate "ChromeOS EC PWM driver"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	help
+>  	  PWM driver for exposing a PWM attached to the ChromeOS Embedded
+>  	  Controller.
+> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+> index 5c0790eed656..4eb311569fc4 100644
+> --- a/drivers/rtc/Kconfig
+> +++ b/drivers/rtc/Kconfig
+> @@ -1265,7 +1265,7 @@ config RTC_DRV_ZYNQMP
+>  
+>  config RTC_DRV_CROS_EC
+>  	tristate "Chrome OS EC RTC driver"
+> -	depends on MFD_CROS_EC
+> +	depends on CROS_EC
+>  	help
+>  	  If you say yes here you will get support for the
+>  	  Chrome OS Embedded Controller's RTC.
+> diff --git a/sound/soc/qcom/Kconfig b/sound/soc/qcom/Kconfig
+> index 8e3e86619b35..60086858e920 100644
+> --- a/sound/soc/qcom/Kconfig
+> +++ b/sound/soc/qcom/Kconfig
+> @@ -99,7 +99,7 @@ config SND_SOC_MSM8996
+>  
+>  config SND_SOC_SDM845
+>  	tristate "SoC Machine driver for SDM845 boards"
+> -	depends on QCOM_APR && MFD_CROS_EC && I2C
+> +	depends on QCOM_APR && CROS_EC && I2C
+>  	select SND_SOC_QDSP6
+>  	select SND_SOC_QCOM_COMMON
+>  	select SND_SOC_RT5663
 
-Thanks for applying it!
-
-Yeah, but the problem with documentation patches is that sometimes
-the patches are merged via docs tree, and sometimes via maintainer's
-tree, depending on the subsystem.
-
-Anyway, Jon merged this week a patch that should produce warnings
-on COMPILE_TEST builds when a file has a broken link.
-
-Hopefully, this will help a lot to warn people against regressions
-related to it.
-
-
-Thanks,
-Mauro
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

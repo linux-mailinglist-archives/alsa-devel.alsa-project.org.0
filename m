@@ -2,90 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30D6F3B54B
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 14:55:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF2983B6A2
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 16:00:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2F501698;
-	Mon, 10 Jun 2019 14:54:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2F501698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 555FC15E2;
+	Mon, 10 Jun 2019 15:59:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 555FC15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560171344;
-	bh=LehyMnvlquSbkanH8R2ZmmVr/0apzlXmQppnZv0GHgg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ff7J0qcwSdA/mlLxpcfiR2kAkQaBcP46TIGDaM1aUeXf4jiEFqsUHooaojLLLPjCE
-	 0NQU0CC6RpRK6CITSagQqN94gw08V3ZcSW12+jzHppo0yCD13Q1AOAKN2Vqg1WJ8Bt
-	 nz++I4I+zF4fWc7FLLIFws3g3Q9SeNB0aA7tfpBs=
+	s=default; t=1560175241;
+	bh=aaVwrKLEf57luzzSm2Bmh82MaPftIK72HKoZ2nVeA8M=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FlG2qlpFJGgw4Puj0lwC0Z4aPHWhwDFQBYRvCI6vKG5bHq2SgfNjGD3xDYAus9D6i
+	 3X+f5uSoyVgMMo0v+PfhgSgaMjnJ/nDo5cketASgDixHc8w+6P/rPuj8NUULrPmcw2
+	 dQrihHaFF+mURtZoVfIk7AAYQf2k4ptBY3SO2CiI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17A2BF896E0;
-	Mon, 10 Jun 2019 14:54:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2F13F896EA;
+	Mon, 10 Jun 2019 15:58:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38EF0F896E0; Mon, 10 Jun 2019 14:53:57 +0200 (CEST)
+ id E37EAF896E0; Mon, 10 Jun 2019 15:58:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88B0FF8070E
- for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 14:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88B0FF8070E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="n3Fu5kN6"
-Received: by mail-wr1-x442.google.com with SMTP id m3so9093834wrv.2
- for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 05:53:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8T69aUvAi+maIZ8yBvTWOJzaeXiOR3Dqg9+a+MoRXDA=;
- b=n3Fu5kN6wdtGKh9YWexo8ZjfsnSBwADVRCC+C4XPOPSXHT5eKEAqT5i79KL9bKa4wd
- c0hqIJpI7gTWCxibbx6XId2oyRuITeCfXqD/vuxY73kQof26ZidBERPABjLwlljWAlZv
- /RaBmnpuINADHE0WgkCb9CXCUgwj4Yxvz2Ql+sdrVda1v3DhaMUlSuiQFVX9hxE2M59c
- 2v8lzULQ5grpGHh307iNtaYcW5R1JoPcHlI5ob+LjUqV8Yn8AMYEPWaBB5TBDRQZQhyb
- tXVbYg6wQvy59GmMAsTdVK+sHPTjGUCBNjYtFOVx9d4p2BBvJ5leqMnY4TuY0XvTNUme
- i8Ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8T69aUvAi+maIZ8yBvTWOJzaeXiOR3Dqg9+a+MoRXDA=;
- b=BWtGNJHbadUASVhUUFWjZHRyn/RwucRlmT40wlwZ64k7JS9M4lxPW9T77e9Malzoyw
- m76IB3/6cECttvRD6sow4x11gUFZNwDsJwAh48Jr8YDqijNGh9nvQ4AS8yCuN5W3AL/P
- j8oh5HRWCUG4vBVA+eHJhnjrMNVUt2giKnjDfUaDQnr2SPIbmSaD87B4oOCsgKAcxRgj
- mOj+E0Z9k69DsG636yUvU49ujWWzREr6ErAP0a41uqACUTDKoLm+CMFKCpRBmmzYyRV4
- I76lhqmklMkp9YRuUiNnowwbsMpGVNs51lZFM8in7vN1KjPWHSuyoQZD10PDS1kW1cYu
- rrNg==
-X-Gm-Message-State: APjAAAXzj2+Kgso6KB2g7aDEdlSpNEqmeU38TvOFAwKf8Qk4cI0RqLHX
- 10UWSeyEoLhAq1P020FRE/N93g==
-X-Google-Smtp-Source: APXvYqyF38CXjmJlFWQvmC/4HOPRMLGbV8IW7oGgE73werPfKioCG3d1XJdAyRcyyO0juNIRqqCB+Q==
-X-Received: by 2002:adf:9267:: with SMTP id 94mr22877356wrj.338.1560171233499; 
- Mon, 10 Jun 2019 05:53:53 -0700 (PDT)
-Received: from boomer.local ([2a01:e34:eeb6:4690:106b:bae3:31ed:7561])
- by smtp.googlemail.com with ESMTPSA id 135sm11871603wmb.28.2019.06.10.05.53.52
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Mon, 10 Jun 2019 05:53:53 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>
-Date: Mon, 10 Jun 2019 14:53:44 +0200
-Message-Id: <20190610125344.18221-1-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DE61F896C7
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 15:58:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DE61F896C7
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Jun 2019 06:58:47 -0700
+X-ExtLoop1: 1
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga005.fm.intel.com with ESMTP; 10 Jun 2019 06:58:47 -0700
+Received: from achugh-mobl.amr.corp.intel.com (unknown [10.254.100.69])
+ by linux.intel.com (Postfix) with ESMTP id 6192E5800FF;
+ Mon, 10 Jun 2019 06:58:46 -0700 (PDT)
+To: Vinod Koul <vkoul@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+References: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
+ <20190607085643.932-6-srinivas.kandagatla@linaro.org>
+ <20190610045150.GJ9160@vkoul-mobl.Dlink>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <c6829f76-f119-31d5-c3eb-506e2d50f298@linux.intel.com>
+Date: Mon, 10 Jun 2019 08:58:55 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.7.0
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH] ASoC: meson: axg-card: fix null pointer
-	dereference in clean up
+In-Reply-To: <20190610045150.GJ9160@vkoul-mobl.Dlink>
+Content-Language: en-US
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ broonie@kernel.org
+Subject: Re: [alsa-devel] [RFC PATCH 5/6] dt-bindings: soundwire: add
+ bindings for Qcom controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,45 +77,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When using modern dai_link style, we must first make sure the
-struct snd_soc_dai_link_component exists before accessing its members.
 
-In case of early probe deferral, some of the '.cpus' or '.codecs' may not
-have been allocated yet. Check this before calling of_node_put() on the
-structure member.
+>> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,swr.txt b/Documentation/devicetree/bindings/soundwire/qcom,swr.txt
+>> new file mode 100644
+>> index 000000000000..eb84d0f4f36f
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/soundwire/qcom,swr.txt
+>> @@ -0,0 +1,62 @@
+>> +Qualcomm SoundWire Controller
+>> +
+>> +This binding describes the Qualcomm SoundWire Controller Bindings.
+>> +
+>> +Required properties:
+>> +
+>> +- compatible:		Must be "qcom,soundwire-v<MAJOR>.<MINOR>.<STEP>",
+>> +	 		example:
+>> +			"qcom,soundwire-v1.3.0"
+>> +			"qcom,soundwire-v1.5.0"
+>> +			"qcom,soundwire-v1.6.0"
+>> +- reg:			SoundWire controller address space.
+>> +- interrupts:		SoundWire controller interrupt.
+>> +- clock-names:		Must contain "iface".
+>> +- clocks:		Interface clocks needed for controller.
+>> +- #sound-dai-cells:	Must be 1 for digital audio interfaces on the controllers.
+>> +- #address-cells:	Must be 1 for SoundWire devices;
+>> +- #size-cells:		Must be <0> as SoundWire addresses have no size component.
+>> +- qcom,dout-ports: 	Must be count of data out ports
+>> +- qcom,din-ports: 	Must be count of data in ports
+> 
+> On these I think we should have specified dpn properties as specified in
+> DisCo, but then looking at spec we do not define that for master, but
+> bus seems to have it.
+> 
+> Pierre do you why master does not have dpn properties in DisCo?
 
-Fixes: c84836d7f650 ("ASoC: meson: axg-card: use modern dai_link style")
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- sound/soc/meson/axg-card.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Because there are no DP0 or DPn registers defined for Masters in the 
+SoundWire 1.x spec. DisCo is about specifying properties for standard 
+registers, when they are not standard vendor extensions need to come 
+into play.
 
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index fb03258d00ae..70bb0cbad233 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -115,9 +115,11 @@ static void axg_card_clean_references(struct axg_card *priv)
- 
- 	if (card->dai_link) {
- 		for_each_card_prelinks(card, i, link) {
--			of_node_put(link->cpus->of_node);
-+			if (link->cpus)
-+				of_node_put(link->cpus->of_node);
- 			for_each_link_codecs(link, j, codec)
--				of_node_put(codec->of_node);
-+				if (codec)
-+					of_node_put(codec->of_node);
- 		}
- 	}
- 
--- 
-2.20.1
+> 
+>> +- qcom,ports-offset1:	Must be frame offset1 of each data port.
+>> +			Out followed by In. Used for Block size calculation.
+>> +- qcom,ports-offset2: 	Must be frame offset2 of each data port.
+>> +			Out followed by In. Used for Block size calculation.
+>> +- qcom,ports-sinterval-low: Must be sample interval low of each data port.
+>> +			Out followed by In. Used for Sample Interval calculation.
+> 
+> These are software so do not belong here
+
+Not necessarily. They define the allocation expected on that link and I 
+see no problem specifying those values here. It's the moral equivalent 
+of specifying which TDM slots and the bit depth of one slot you'd use 
+for DSP_A/B.
+And if you push back, then what would be your alternate proposal on 
+where those values might be stored? This is a very specific usage of the 
+link and it makes sense to me to have the information in firmware - 
+exposed with properties - rather than hard-coded in a pretend bus 
+allocation routine in the kernel. Either the allocation is fully dynamic 
+and it's handled by the kernel or it's static and it's better to store 
+it in firmware to deal with platform-to-platform variations.
 
 _______________________________________________
 Alsa-devel mailing list

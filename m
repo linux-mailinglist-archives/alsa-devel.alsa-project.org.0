@@ -2,81 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63FF93C843
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 12:11:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30D6F3B54B
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 14:55:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E108A16EE;
-	Tue, 11 Jun 2019 12:11:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E108A16EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id B2F501698;
+	Mon, 10 Jun 2019 14:54:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2F501698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560247914;
-	bh=ialmlRZTFKM1v//Lg2IxcyTwBsw1osdw017ElaqcaxU=;
-	h=To:From:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1560171344;
+	bh=LehyMnvlquSbkanH8R2ZmmVr/0apzlXmQppnZv0GHgg=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=bK7tasZ3CIjC60lZJKstPJ4h9DezIGsyqB03hmL+WMCTsrIwFgEZ/cVzRJXrZLWmo
-	 R8jB6JlqLDmtJZpRvwRn/d0rksYxou+0wgSbx6+pUHtMA8u8jQzZKjpJOhlO99eQ95
-	 rdJSA+iO2LfN9yvVlyPUizyQsKq6Gh5K01XDjLIc=
+	b=ff7J0qcwSdA/mlLxpcfiR2kAkQaBcP46TIGDaM1aUeXf4jiEFqsUHooaojLLLPjCE
+	 0NQU0CC6RpRK6CITSagQqN94gw08V3ZcSW12+jzHppo0yCD13Q1AOAKN2Vqg1WJ8Bt
+	 nz++I4I+zF4fWc7FLLIFws3g3Q9SeNB0aA7tfpBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B10AAF8972F;
-	Tue, 11 Jun 2019 12:09:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17A2BF896E0;
+	Mon, 10 Jun 2019 14:54:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8A3BF896CE; Mon, 10 Jun 2019 11:51:51 +0200 (CEST)
+ id 38EF0F896E0; Mon, 10 Jun 2019 14:53:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from smtp.hora-obscura.de (hora-obscura.de [213.133.109.209])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24793F896C7;
- Mon, 10 Jun 2019 11:51:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24793F896C7
-Received: from smtp.hora-obscura.de (localhost [127.0.0.1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by smtp.hora-obscura.de (Postfix) with ESMTPS id 38306AF824B;
- Mon, 10 Jun 2019 11:51:47 +0200 (CEST)
-Received: from ada.local (ipbcc14466.dynamic.kabel-deutschland.de
- [188.193.68.102])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by smtp.hora-obscura.de (Postfix) with ESMTPSA id DFBA0AF801E;
- Mon, 10 Jun 2019 11:51:46 +0200 (CEST)
-To: patch@alsa-project.org
-From: Stefan Sauer <ensonic@hora-obscura.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=ensonic@hora-obscura.de; prefer-encrypt=mutual; keydata=
- mQGiBDiW1zARBADnMiXRu0ZRcbWAw4NefyeZej5pRX/mzBAvplIhAeJ5vA0zfzd3aIyAxYv1
- iA+/p7QwGVAMZ9Gio8ZLvgfDYjrHbez7Bc4TWuTck6hmQAIBI7ptyWhOrePMiQ8b4yN8KP7I
- PoJHBpC0jLbuwmwC+/2yQPT4V9AQ+Unqe8xvuBJczwCgnAo6JpYIZDpy/vt4soFG3o38OrME
- AOPzt7SdyuzVp9w3mO/2XCzyJcn1fpUGlChbljayKvrDvPJEZtm5d65zBV6iYSSpF8GtdX1q
- znSF5siMSvF7DljZT4oIDqYTJAEZXDYYM7aYyTXeZ1hk9YoiRaMiT84AvQRvQVwYUqlygNMO
- q14zkcdhSpk5i1HDum+i1/T/RSFDBACcpdlqjvg4AoMbyf9UNr/tmfcITEKkLkYtPzmF4DIK
- Tqbq+FgqB5ltPPgTffJ6yWfTQAt1dr+XZeivdgyCX3bo6784rtOc7/ICjBdOktKj6zb88tPp
- kYw16Fr5OcNollJxm+/pY+JXwAl5IsbN3ysoBuBOBbu+pAC1Py39D/+af7QvU3RlZmFuIEtv
- c3QgKGVuc29uaWMpIDxlbnNvbmljQGhvcmEtb2JzY3VyYS5kZT6IXwQTEQIAHwIbAwQLBwMC
- AxUCAwMWAgECHgECF4ACGQEFAkKMY0QACgkQITDA+qr9gcydpwCfbGuNpfw+hge7Xcp9FerJ
- 35fMMY0An0vvOJG3ORIUHE1VvfoC0ITb6heFuQENBDiW11IQBACUp8q45lLmzHujYh7w8fd4
- cjkb57oScfcD+lliCOmKHZOxRa8Ew3ULtgSze1JPnDT6a5jgnxMKPIHjqlTCpEyTxcMHOi3L
- 8BBft2YzdB3cLnrMXx1mPU//vkT93VOnXTFjxKbMEK8OHSh+JpzgySjmXfwVfn/EiyXkroEV
- Lip92wADBQP/ej1uwM//zfKumDRJskyMCOfSAUfwRZhHkLWPvBQfPgUqdU7NcYACItAFVbIK
- tSES1Vd3L0kbBtnygCf4SwGMRARUALipof4DxVMxaK46igLGC+UkiTz8swUV/81+EUfKEqdd
- QjRv6Gp7VZSDkv4sBcjIMydr8o2Mc8P/ByKvUPWIRgQYEQIABgUCOJbXUgAKCRAhMMD6qv2B
- zLilAJ4jS2hqfeEbZxvmr1+0FxBx2/x9CQCaA5vugvJQg8PXRT7ScAnoGgCf994=
-Message-ID: <9f5efc6f-5256-6a2d-d095-fcb4b6eabd46@hora-obscura.de>
-Date: Mon, 10 Jun 2019 11:51:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88B0FF8070E
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 14:53:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88B0FF8070E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="n3Fu5kN6"
+Received: by mail-wr1-x442.google.com with SMTP id m3so9093834wrv.2
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 05:53:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8T69aUvAi+maIZ8yBvTWOJzaeXiOR3Dqg9+a+MoRXDA=;
+ b=n3Fu5kN6wdtGKh9YWexo8ZjfsnSBwADVRCC+C4XPOPSXHT5eKEAqT5i79KL9bKa4wd
+ c0hqIJpI7gTWCxibbx6XId2oyRuITeCfXqD/vuxY73kQof26ZidBERPABjLwlljWAlZv
+ /RaBmnpuINADHE0WgkCb9CXCUgwj4Yxvz2Ql+sdrVda1v3DhaMUlSuiQFVX9hxE2M59c
+ 2v8lzULQ5grpGHh307iNtaYcW5R1JoPcHlI5ob+LjUqV8Yn8AMYEPWaBB5TBDRQZQhyb
+ tXVbYg6wQvy59GmMAsTdVK+sHPTjGUCBNjYtFOVx9d4p2BBvJ5leqMnY4TuY0XvTNUme
+ i8Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8T69aUvAi+maIZ8yBvTWOJzaeXiOR3Dqg9+a+MoRXDA=;
+ b=BWtGNJHbadUASVhUUFWjZHRyn/RwucRlmT40wlwZ64k7JS9M4lxPW9T77e9Malzoyw
+ m76IB3/6cECttvRD6sow4x11gUFZNwDsJwAh48Jr8YDqijNGh9nvQ4AS8yCuN5W3AL/P
+ j8oh5HRWCUG4vBVA+eHJhnjrMNVUt2giKnjDfUaDQnr2SPIbmSaD87B4oOCsgKAcxRgj
+ mOj+E0Z9k69DsG636yUvU49ujWWzREr6ErAP0a41uqACUTDKoLm+CMFKCpRBmmzYyRV4
+ I76lhqmklMkp9YRuUiNnowwbsMpGVNs51lZFM8in7vN1KjPWHSuyoQZD10PDS1kW1cYu
+ rrNg==
+X-Gm-Message-State: APjAAAXzj2+Kgso6KB2g7aDEdlSpNEqmeU38TvOFAwKf8Qk4cI0RqLHX
+ 10UWSeyEoLhAq1P020FRE/N93g==
+X-Google-Smtp-Source: APXvYqyF38CXjmJlFWQvmC/4HOPRMLGbV8IW7oGgE73werPfKioCG3d1XJdAyRcyyO0juNIRqqCB+Q==
+X-Received: by 2002:adf:9267:: with SMTP id 94mr22877356wrj.338.1560171233499; 
+ Mon, 10 Jun 2019 05:53:53 -0700 (PDT)
+Received: from boomer.local ([2a01:e34:eeb6:4690:106b:bae3:31ed:7561])
+ by smtp.googlemail.com with ESMTPSA id 135sm11871603wmb.28.2019.06.10.05.53.52
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Mon, 10 Jun 2019 05:53:53 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>
+Date: Mon, 10 Jun 2019 14:53:44 +0200
+Message-Id: <20190610125344.18221-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Language: en-US
-X-Mailman-Approved-At: Tue, 11 Jun 2019 12:09:18 +0200
-Cc: outreachy-kernel@googlegroups.com, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Enable .product_name override
- for Emagic, Unitor 8.
+X-Patchwork-Bot: notify
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] [PATCH] ASoC: meson: axg-card: fix null pointer
+	dereference in clean up
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,41 +103,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From a41303935608e9a98653d4dff1e10baf1ce07e05 Mon Sep 17 00:00:00 2001
-From: Stefan Sauer <ensonic@google.com>
-Date: Mon, 10 Jun 2019 11:26:53 +0200
-Subject: [PATCH] ALSA: usb-audio: Enable .product_name override for Emagic
- Unitor 8.
+When using modern dai_link style, we must first make sure the
+struct snd_soc_dai_link_component exists before accessing its members.
 
-The Emagic Unitor 8 does not provide iManufacturer and iProduct fields
-in its device descriptor. These fields are used by alsa to make build the
-device name. Thus uncomment the .product-name in the quirks-table.
+In case of early probe deferral, some of the '.cpus' or '.codecs' may not
+have been allocated yet. Check this before calling of_node_put() on the
+structure member.
 
-Without this change the device shows up as 'USB Device 0x86a:0x01'.
-
-Output of lsusb and amidi:
-https://gist.github.com/ensonic/7820a102e91f31575be355da2b6b33bc
-
-Signed-off-by: Stefan Sauer <ensonic@google.com>
+Fixes: c84836d7f650 ("ASoC: meson: axg-card: use modern dai_link style")
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- sound/usb/quirks-table.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/meson/axg-card.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 9e049f60e80e..e918ce346027 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -2408,7 +2408,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
- 	USB_DEVICE(0x086a, 0x0001),
- 	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
- 		.vendor_name = "Emagic",
--		/* .product_name = "Unitor8", */
-+		.product_name = "Unitor8",
- 		.ifnum = 2,
- 		.type = QUIRK_MIDI_EMAGIC,
- 		.data = & (const struct snd_usb_midi_endpoint_info) {
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index fb03258d00ae..70bb0cbad233 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -115,9 +115,11 @@ static void axg_card_clean_references(struct axg_card *priv)
+ 
+ 	if (card->dai_link) {
+ 		for_each_card_prelinks(card, i, link) {
+-			of_node_put(link->cpus->of_node);
++			if (link->cpus)
++				of_node_put(link->cpus->of_node);
+ 			for_each_link_codecs(link, j, codec)
+-				of_node_put(codec->of_node);
++				if (codec)
++					of_node_put(codec->of_node);
+ 		}
+ 	}
+ 
 -- 
-2.21.0
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

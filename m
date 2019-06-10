@@ -2,63 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CE03AD23
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 04:44:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC1F53AD27
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 04:44:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCD491699;
-	Mon, 10 Jun 2019 04:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCD491699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A9BB16A8;
+	Mon, 10 Jun 2019 04:44:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A9BB16A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560134654;
-	bh=dSe6dBwp4/VtLkWE9GmSwdLH6QR0YALbcO3Si29g1y4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560134699;
+	bh=GrEpWfkMrVh9QWTSjervQPQ9hUHWCBWVrho/k4maATs=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mrQ0OusXzCnus1sSxhY/ZmQPKxGH2T2izParlCts5mKZ/14wny/2RUSqmu2Mj5dCw
-	 061fjxyHICJSvbpHr2lQl3kaUF6WfOYYzN1FZGKVJaxfDlfN6/vKxP1T/JUFZE6xk2
-	 StK1gWHgEXZ0ouT87LQNPjMR8GaR54EPeqMTRzPk=
+	b=OebrInXuVhmhn8Kp97O2tRtO5RhGu7DuEwY8hRK6zkxHCsU8SXD2S32U6wgw1EeNE
+	 WgV4z66tryjvRLrc82HPb7VphsUcbIG58kQR5/A8mS9fgp4D++7npSPiDM2o+nlgK8
+	 uzsnbrnfAvqVd6DzqReOX3nld4PhXe/6kZg3UadE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F420F896EA;
-	Mon, 10 Jun 2019 04:42:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69CF0F89728;
+	Mon, 10 Jun 2019 04:42:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB397F896E0; Mon, 10 Jun 2019 04:40:46 +0200 (CEST)
+ id E6FB3F896E0; Mon, 10 Jun 2019 04:40:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
- by alsa1.perex.cz (Postfix) with ESMTP id 0BA8AF8070E
- for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 04:40:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BA8AF8070E
-Received: from NTHCCAS02.nuvoton.com (nthccas02.nuvoton.com [10.1.8.29])
- by maillog.nuvoton.com (Postfix) with ESMTP id 2112B1C80D29;
- Mon, 10 Jun 2019 10:40:32 +0800 (CST)
-Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCCAS02.nuvoton.com
- (10.1.8.29) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Mon, 10 Jun 2019
- 10:40:32 +0800
-Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
- (10.1.8.177) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Mon, 10 Jun
- 2019 10:40:31 +0800
-Received: from localhost.localdomain (10.4.36.27) by NTHCCAS01.nuvoton.com
- (10.1.12.25) with Microsoft SMTP Server id 15.0.1130.7 via Frontend
- Transport; Mon, 10 Jun 2019 10:40:31 +0800
-From: John Hsu <KCHSU0@nuvoton.com>
-To: <broonie@kernel.org>
-Date: Mon, 10 Jun 2019 10:40:29 +0800
-Message-ID: <20190610024029.12193-1-KCHSU0@nuvoton.com>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190610021229.12005-1-KCHSU0@nuvoton.com>
-References: <20190610021229.12005-1-KCHSU0@nuvoton.com>
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_MED,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
+ [IPv6:2607:f8b0:4864:20::344])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16B80F8070E
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 04:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16B80F8070E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="mruAvH1l"
+Received: by mail-ot1-x344.google.com with SMTP id d17so6948366oth.5
+ for <alsa-devel@alsa-project.org>; Sun, 09 Jun 2019 19:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kK5AOmUUQAc+a3K/cfpHGlxWFy5yC3EASTVQQpPse3M=;
+ b=mruAvH1lXzGk8uhMFAulohCg43C1rjsvBjxD/u0FRcZei8AkjA1q9ZKxz7s8SGl7Sb
+ En9SzquEaEwnhk6keLJfysSN/fSPapVCdoWa4xmMLShswwDAV3THrJeaeVpMxpB6grUw
+ VaXlPf9sXvxyz3VcEXfNgSe5C+2yiZqhOlCxHBfu1uXdXgECKlzWgFLMXmzq3g5XIZvt
+ zjP5dhkFm93y/1aZRlwjSWKgqAhyV8E7l+2R7r2WWYG+CMVI75i3dWD+LS/VxB87aJau
+ SwCmEXMIXT6rvxouk//1RfFudhqEil7rd4Leet2hf+uw8T0HkB3vDY3vjQ3VtR5UpZoW
+ ErfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kK5AOmUUQAc+a3K/cfpHGlxWFy5yC3EASTVQQpPse3M=;
+ b=kEqKpAyw2/MSF+GnyqNo+luyv3+0zKyOKIcagektMtPA/Ltv0C1v0lkSQdx8cB1qqN
+ 54EmzNE6thgwztdds4yCoj8PmSslFstto+NK5wSgwx24f+A5ZQxaSiqgI/aglh+r+9nO
+ OrtQya8zdrpBI2UmG9izTO1HIsuxRI76qWPZ6Mi/GdPfreim1YrwfEhZulK1B5UNphDP
+ QeeL6+wdZP7tY7CdoJhvjvqNTg+3XfJoJ3oh6Y31xchBI3JsRUnYXFPmlx0Axz/KwQtN
+ ilDgE1ubolaw9YRRcl7PV/cRPWIDE2TeVbBfTdWCkpN0wJDogVjjBH9eR9RHBiOvAtyr
+ 5QQg==
+X-Gm-Message-State: APjAAAXOdUJpl681xSqxVnGfj6iGEYPetUtZ1Oo+07mmIbk/A99G/ORh
+ wQOZb/4/6X+zJyXfr04lvuZQfZ/jIGuU7ByLS60nzw==
+X-Google-Smtp-Source: APXvYqxSOslpqk9JEx6IbFPPVPuD+bbZdJ80yg6mlJv3PuYdqh1PQL0pjALOflgQmdzkR8m8oTCQXwQVe5amB8TwywM=
+X-Received: by 2002:a9d:6a08:: with SMTP id g8mr2078350otn.344.1560134448569; 
+ Sun, 09 Jun 2019 19:40:48 -0700 (PDT)
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, cychiang@google.com, WTLI@nuvoton.com,
- John Hsu <KCHSU0@nuvoton.com>, lgirdwood@gmail.com, yuhsuan@google.com,
- YHCHuang@nuvoton.com, CTLIN0@nuvoton.com, mhkuo@nuvoton.com
-Subject: [alsa-devel] [PATCH] ASoC: nau8825: fix fake interruption when
-	booting
+References: <87ef42uzgd.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ef42uzgd.wl-kuninori.morimoto.gx@renesas.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Mon, 10 Jun 2019 10:40:37 +0800
+Message-ID: <CA+Px+wWX3eLQuvPFA=nJ7kn=fGa6yaR5CzgGkPjac_zKT4K-dw@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Fabio Estevam <festevam@gmail.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: don't call
+	soc_cleanup_card_resources() at snd_soc_instantiate_card()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,60 +96,9 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is no pull-up resistor at IRQ line where it connects from
-the codec to SoC. When booting, the signal of IRQ pin will keep low
-which makes the SoC invoke the ISR repeatedly because the IRQ is
-registered trigger low. It will not stop until the codec sets up
-the interruption and pulls the signal high. In the patch,
-nau8825 will internally pull the signal to high at booting in case
-the fake interrupts happen.
-
-What steps will reproduce the problem?
-Boot device
-What is the expected output?
-A lot of interrupts without any events
-What do you see instead?
-The fake interrupts are gone
-How frequently does this problem reproduce?
-Always
-
-Signed-off-by: John Hsu <KCHSU0@nuvoton.com>
----
- sound/soc/codecs/nau8825.c | 4 ++++
- sound/soc/codecs/nau8825.h | 2 ++
- 2 files changed, 6 insertions(+)
-
-diff --git a/sound/soc/codecs/nau8825.c b/sound/soc/codecs/nau8825.c
-index 47e65cf99879..83ec841f7865 100644
---- a/sound/soc/codecs/nau8825.c
-+++ b/sound/soc/codecs/nau8825.c
-@@ -1881,6 +1881,10 @@ static void nau8825_init_regs(struct nau8825 *nau8825)
- 		NAU8825_JACK_EJECT_DEBOUNCE_MASK,
- 		nau8825->jack_eject_debounce << NAU8825_JACK_EJECT_DEBOUNCE_SFT);
- 
-+	/* Pull up IRQ pin */
-+	regmap_update_bits(regmap, NAU8825_REG_INTERRUPT_MASK,
-+		NAU8825_IRQ_PIN_PULLUP | NAU8825_IRQ_PIN_PULL_EN,
-+		NAU8825_IRQ_PIN_PULLUP | NAU8825_IRQ_PIN_PULL_EN);
- 	/* Mask unneeded IRQs: 1 - disable, 0 - enable */
- 	regmap_update_bits(regmap, NAU8825_REG_INTERRUPT_MASK, 0x7ff, 0x7ff);
- 
-diff --git a/sound/soc/codecs/nau8825.h b/sound/soc/codecs/nau8825.h
-index f6074c618569..3f41897ed3f6 100644
---- a/sound/soc/codecs/nau8825.h
-+++ b/sound/soc/codecs/nau8825.h
-@@ -171,6 +171,8 @@
- #define NAU8825_JACK_POLARITY	(1 << 1) /* 0 - active low, 1 - active high */
- 
- /* INTERRUPT_MASK (0xf) */
-+#define NAU8825_IRQ_PIN_PULLUP (1 << 14)
-+#define NAU8825_IRQ_PIN_PULL_EN (1 << 13)
- #define NAU8825_IRQ_OUTPUT_EN (1 << 11)
- #define NAU8825_IRQ_HEADSET_COMPLETE_EN (1 << 10)
- #define NAU8825_IRQ_RMS_EN (1 << 8)
--- 
-2.21.0
-
+The same change has been made and applied to for-next in commit
+0779935938b1 ("ASoC: Remove erroneous soc_cleanup_card_resources()
+call").
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

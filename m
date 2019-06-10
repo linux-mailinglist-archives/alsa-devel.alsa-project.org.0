@@ -2,74 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 612293A8E7
-	for <lists+alsa-devel@lfdr.de>; Sun,  9 Jun 2019 19:05:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EE433AC98
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 02:51:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D844F1668;
-	Sun,  9 Jun 2019 19:04:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D844F1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8C6D1670;
+	Mon, 10 Jun 2019 02:50:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8C6D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560099930;
-	bh=1wKSa+dTUHtCCLdhP9k8ag5YaoPWSSAJqVNBI5ttqjE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NpqlIKpZQeVlfs3Twb+nSBpGIf8TtkylKFtu2FUeIVIEDY2bvABt/ZjI7OepK1/ZL
-	 DYgYuVpxYPfWUXItjD3fXbyYECjmzpx1pIAuy8JYA22ey5hQV4020p+pxsKHWV1Rgo
-	 RLoaweb+99S2zW8uGfu0pnoXUnxye4IbevEJKF/4=
+	s=default; t=1560127862;
+	bh=zTWq9AiQMnA30K8hnL5KyR1KuNhJAf58hbuQwZzIAzM=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TzKJzNxY9sQ5NlKNeZkfHA7i5YOW4CLvhf/jYDIaf0glY4wSmYmtRRxA5zScUBkvH
+	 +kIgw9DkzBYNe6Vvlro2YPdrw8IOhFq/fjjytk66L8UJiWkACQo4rwBS23jvJA9DbH
+	 /RnoGDQgpOdenYci/I2IDzuHncrwRfIFpUaHF/ho=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86264F8972F;
-	Sun,  9 Jun 2019 19:03:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B316F8070E;
+	Mon, 10 Jun 2019 02:49:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 80F50F89711; Sun,  9 Jun 2019 19:03:04 +0200 (CEST)
+ id 28126F8970F; Mon, 10 Jun 2019 02:49:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,T_DKIMWL_WL_HIGH autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E11BDF807C3
- for <alsa-devel@alsa-project.org>; Sun,  9 Jun 2019 19:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E11BDF807C3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="x161tVJR"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8E9AD206DF;
- Sun,  9 Jun 2019 17:02:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560099780;
- bh=7HI6N91vbKXJrX1wN4OS7tsYTq/hOQxF0ZkTbp8oJ14=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=x161tVJRBTfpEDOCDUs0HOmh43kCEmmqCBqpt/i/RIt19IQYo816+460CO/p4uNUa
- HMypRMkQDH1f5raiDqgpbj5ghV0OfWCSXw5dEevbP97DxJzZtrfvKaC56ZtGmDHYmb
- eSFTHpnRdBX2CmEjUXD0ei06D6Yy2nKf2OSJZflk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Date: Sun,  9 Jun 2019 18:41:45 +0200
-Message-Id: <20190609164152.477243008@linuxfoundation.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190609164147.729157653@linuxfoundation.org>
-References: <20190609164147.729157653@linuxfoundation.org>
-User-Agent: quilt/0.66
-MIME-Version: 1.0
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, stable@vger.kernel.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, Wen Yang <wen.yang99@zte.com.cn>
-Subject: [alsa-devel] [PATCH 4.4 163/241] ASoC: fsl_utils: fix a leaked
-	reference by adding missing of_node_put
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id DE2C8F8070E
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 02:49:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE2C8F8070E
+Date: 10 Jun 2019 09:49:06 +0900
+X-IronPort-AV: E=Sophos;i="5.60,573,1549897200"; d="scan'208";a="18008009"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 10 Jun 2019 09:49:06 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id CAA404108E56;
+ Mon, 10 Jun 2019 09:49:06 +0900 (JST)
+Message-ID: <87imtev0l2.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH] ASoC: soc-core: call snd_soc_unbind_card()
+	under mutex_lock; 
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,49 +67,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[ Upstream commit c705247136a523488eac806bd357c3e5d79a7acd ]
 
-The call to of_parse_phandle returns a node pointer with refcount
-incremented thus it must be explicitly decremented after the last
-usage.
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Detected by coccinelle with the following warnings:
-./sound/soc/fsl/fsl_utils.c:74:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 38, but without a corresponding     object release within this function.
+commit 34ac3c3eb8f0c07 ("ASoC: core: lock client_mutex while removing
+link components") added mutex_lock() at soc_remove_link_components().
 
-Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
-Cc: Timur Tabi <timur@kernel.org>
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>
-Cc: Xiubo Li <Xiubo.Lee@gmail.com>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: alsa-devel@alsa-project.org
-Cc: linuxppc-dev@lists.ozlabs.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Is is called from snd_soc_unbind_card()
+
+	snd_soc_unbind_card()
+=>		soc_remove_link_components()
+		soc_cleanup_card_resources()
+			soc_remove_dai_links()
+=>				soc_remove_link_components()
+
+And, there are 2 way to call it.
+
+(1)
+	snd_soc_unregister_component()
+**		mutex_lock()
+			snd_soc_component_del_unlocked()
+=>				snd_soc_unbind_card()
+**		mutex_unlock()
+
+(2)
+	snd_soc_unregister_card()
+=>		snd_soc_unbind_card()
+
+(1) case is already using mutex_lock() when it calles
+snd_soc_unbind_card(), thus, we will get lockdep warning.
+We need mutex_lock() under snd_soc_unregister_card()
+instead of snd_remove_link_components().
+
+Fixes: 34ac3c3eb8f0c07 ("ASoC: core: lock client_mutex while removing link components")
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/fsl/fsl_utils.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/soc-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_utils.c b/sound/soc/fsl/fsl_utils.c
-index b9e42b503a377..4f8bdb7650e84 100644
---- a/sound/soc/fsl/fsl_utils.c
-+++ b/sound/soc/fsl/fsl_utils.c
-@@ -75,6 +75,7 @@ int fsl_asoc_get_dma_channel(struct device_node *ssi_np,
- 	iprop = of_get_property(dma_np, "cell-index", NULL);
- 	if (!iprop) {
- 		of_node_put(dma_np);
-+		of_node_put(dma_channel_np);
- 		return -EINVAL;
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 94a36ee..1679990 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1018,14 +1018,12 @@ static void soc_remove_link_components(struct snd_soc_card *card,
+ 	struct snd_soc_component *component;
+ 	struct snd_soc_rtdcom_list *rtdcom;
+ 
+-	mutex_lock(&client_mutex);
+ 	for_each_rtdcom(rtd, rtdcom) {
+ 		component = rtdcom->component;
+ 
+ 		if (component->driver->remove_order == order)
+ 			soc_remove_component(component);
  	}
- 	*dma_id = be32_to_cpup(iprop);
+-	mutex_unlock(&client_mutex);
+ }
+ 
+ static void soc_remove_dai_links(struct snd_soc_card *card)
+@@ -2774,7 +2772,9 @@ static void snd_soc_unbind_card(struct snd_soc_card *card, bool unregister)
+  */
+ int snd_soc_unregister_card(struct snd_soc_card *card)
+ {
++	mutex_lock(&client_mutex);
+ 	snd_soc_unbind_card(card, true);
++	mutex_unlock(&client_mutex);
+ 	dev_dbg(card->dev, "ASoC: Unregistered card '%s'\n", card->name);
+ 
+ 	return 0;
 -- 
-2.20.1
-
-
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

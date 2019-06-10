@@ -2,96 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0BBB3B0BA
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 10:29:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D66733B12D
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Jun 2019 10:47:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C2B016C7;
-	Mon, 10 Jun 2019 10:28:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C2B016C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EA0C16C2;
+	Mon, 10 Jun 2019 10:46:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EA0C16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560155370;
-	bh=WL9wxL66lcs0ln3idhCFkYenWTiLgeZTQ9CxOK/2BUI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1560156438;
+	bh=6XOJKyX68uQDTWDgWvBY8djbU04lBhxCztnC6rcZUmQ=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dR64yBhm8oRRJfF4Pv06GzhfvnP1Z72eKiC5S/cm7sCRPEVczpgm4jOP+2I0awqgz
-	 WoDBq9e6ZzhOkf6OpZhSUBvO27q0ZvuTropW878fprgGOYkr3/JuyhZ6oy6POlYN89
-	 qIDJL4zWJbwEaM0OULKTngHhW9I2EDvLtOncAyZw=
+	b=XaMRS32p2xxPRyL9f6/9j+gAy8gKXE7VtAMI8Q/Zuff1bcsh7azybPTNaMpfL41n8
+	 mMi7eyLVnUdGRSrDj+z0KUxL09QudOxgP27UX4kRmzBbnpqrcDXaLpR8UXbaNyWo2v
+	 zwcUhkP7HdrPQR9UdXAEVHPFWfeIML6AZo6UlHfs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF9B8F896E0;
-	Mon, 10 Jun 2019 10:27:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9967F896E3;
+	Mon, 10 Jun 2019 10:45:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C09CCF896E0; Mon, 10 Jun 2019 10:27:42 +0200 (CEST)
+ id 7EBE9F896E0; Mon, 10 Jun 2019 10:45:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1880EF8070E
- for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 10:27:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1880EF8070E
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB9F9F80791
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 10:45:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB9F9F80791
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="GfwAcreq"
-Received: by mail-wr1-x441.google.com with SMTP id b17so8190491wrq.11
- for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 01:27:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=A37KVk/TxifJsVNalXVoRHH861G3sRXMWjHmk2uFY2M=;
- b=GfwAcreqPVer5VZpTnACEitJnXlm0m+ZJTICWWGT8anLZ0XG5b2OYbIHY7/wfXcNWv
- lmzjOOm23dCDWC1KALbuTOzbWGCBrbBP66+ldH0WNYApE3GXys1W5oPwYpfMlwKXfcz6
- ucxS2IGC0hGnZyaEGkviU2eyJGicMkqr4JRnMf068/JTszGTaDJjowjC4tEKgEoDaVMr
- 3QEALegKlofNNsRgt8NTGeetL6unawnjTvQf6hGUiMfHFvEH4u49OUMSo/MDSdGdbIqe
- Bgua22q3EUnAmEBskpe8GLbq2fAdmn8lVxG9JCmWcHMfiJB6KX/jfyXTSQohi2bXHl2W
- WfRA==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bRZsnI/y"
+Received: by mail-qk1-x742.google.com with SMTP id d15so5060374qkl.4
+ for <alsa-devel@alsa-project.org>; Mon, 10 Jun 2019 01:45:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=mg3aSfJBuVduU4VNPluxDXCyjmsixqOgJYW+XgD2lXY=;
+ b=bRZsnI/y5+a24CCyEpHu5g85JrLnk+kCQ4csaKYuDD7NjNGXJQ4RYET471WVVRsWLr
+ KpYKWOJgJN2lDFoNg6eLa2OFmx9gIujjclUYuTWPLDiT34u1HBr6tV5NYwltlf3s6Buk
+ fhsLiGivPOQjpGY+/mcGsKuhM/fKEAGXT3y6MGbiZkbryYw/+R5XOnsOq7WW7ouRkia5
+ KqA6n9IpuzZQTiKOPqNeXckHSY1X7CW2EWRedosL/YXvu4g2Eo2ZML7R0YCHzw4ea3xv
+ 5jGwYUju2d3e/4/41/Vu34qCW88ne5PMxYpi0cmom7wgfSCMFCX+WnkyxTDBUP0XQm4m
+ pnhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=A37KVk/TxifJsVNalXVoRHH861G3sRXMWjHmk2uFY2M=;
- b=ns3oVGEMzHvhj6wK8cKwvYx7/kpDCicBIAqBd+nVcuoqg6dnPMq4mhKLriz+wR44vH
- 4zLHqWLm25MLqrNC1a0biTmS3rH9bXYhznlayCvvlYiVHrgA/goyo4wc3y4VCCq7APxl
- eHLF5eGq0aHmz2yVXrm5zCcLRsKhQleUIRCuFmpgZzXDDHBlokmMVeXLj7RokX/7Pk5N
- oEPcMOJgnY0kjLo75FaeoDC1yH8fPxre/2BwLYcSbvC2ZRx/74CvlSdaujOnIxBHl1Cl
- kXBi78sxqk4Zd0T5FZnt+QyXVG9/ymw160vFmAOQShQuuStpryryjDbkyprS7YsHuJ2i
- GG0Q==
-X-Gm-Message-State: APjAAAVCk7qbVo2mdqu/9GFpmbHC14JsR46VQxTCugZaIkn9t+L85ujs
- frxcCQXxsQSeD+D+jy4+nboCkQ==
-X-Google-Smtp-Source: APXvYqyU0P1s2pRG5AtbsgnoLVeAozBW9+nm5u6a2qJdGzEp/UYtuWum3mqTg5H52gD7qEe/59GjRA==
-X-Received: by 2002:a5d:4992:: with SMTP id r18mr29891457wrq.107.1560155259056; 
- Mon, 10 Jun 2019 01:27:39 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id
- f204sm12730331wme.18.2019.06.10.01.27.38
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 10 Jun 2019 01:27:38 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>
-References: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
- <20190607085643.932-7-srinivas.kandagatla@linaro.org>
- <20190610064025.GK9160@vkoul-mobl.Dlink>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <2938660d-81e1-d6b2-4179-9f32c6ca1644@linaro.org>
-Date: Mon, 10 Jun 2019 09:27:37 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=mg3aSfJBuVduU4VNPluxDXCyjmsixqOgJYW+XgD2lXY=;
+ b=Ob33qi7mrTnBzprxP4epwH80MpviWzxapA+06QI6a5raJmGrbvJfBvws8ddmk0nWCD
+ 1SnC8p9LYMdHu0vS8rAFVIVMFUTYroNmafqv/HoDSooXBhErYvUTTSkrSW8sl15tKzTF
+ 4rwd2EX4CSB964df15x359PJ2zU3vP913/CACY3pYWCL6tA1wEFp0dbeE2eg2EDI8qVo
+ FlaFViVol5Pacfk1a/IqBH5+Amb85oXbgtjBnTSdmMrWkD0z4rmdkmBNpY+JKdgRoUw1
+ obEgSE1jUdINoyExJjSaMmrfc92zUQmdu1ixpP9w4hdWkmAfZ8wmNns2gP4CJyb5veYW
+ 9zAA==
+X-Gm-Message-State: APjAAAV/5cc+PPRTO/mcCu29lplZ6UdMhzZGCCBdCNpJGX8jWoElvg8/
+ IcZ5+v/xGdky36+GCuPcJGcbLM+qQUtnS8Jd2FU=
+X-Google-Smtp-Source: APXvYqwOdQ8P2Ew3Mk3oGOxjm0eqXygeSpRp3gbJMPVswit25JDiJQ7ZHeMuJkIf6k835tU672Pnazl1f0Z1doVdvP0=
+X-Received: by 2002:a37:5fc2:: with SMTP id
+ t185mr12884844qkb.206.1560156326605; 
+ Mon, 10 Jun 2019 01:45:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190610064025.GK9160@vkoul-mobl.Dlink>
-Content-Language: en-US
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org
-Subject: Re: [alsa-devel] [RFC PATCH 6/6] soundwire: qcom: add support for
- SoundWire controller
+References: <20190603183401.151408-1-gwendal@chromium.org>
+ <20190604055908.GA4797@dell>
+ <CAFqH_51gMu81f=VFQaF4u9-tAWDMocGAwM_fOPT3Cctv6KWniw@mail.gmail.com>
+ <20190610082012.GK4797@dell>
+In-Reply-To: <20190610082012.GK4797@dell>
+From: Enric Balletbo Serra <eballetbo@gmail.com>
+Date: Mon, 10 Jun 2019 10:45:15 +0200
+Message-ID: <CAFqH_50J1wqdhWw5nW+D=crfg=JjUrSh2it=JORx5Wn8LfNTQg@mail.gmail.com>
+To: Lee Jones <lee.jones@linaro.org>
+Cc: Gwendal Grignou <gwendal@chromium.org>, alsa-devel@alsa-project.org,
+ linux-iio@vger.kernel.org, Benson Leung <bleung@chromium.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Mark Brown <broonie@kernel.org>, Guenter Roeck <groeck@chromium.org>,
+ fabien.lahoudere@collabora.com, Jonathan Cameron <jic23@kernel.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: Re: [alsa-devel] [GIT PULL] Immutable branch between MFD and Cros
+ due for the v5.3 merge window
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,309 +101,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for taking time to review!
-
-
-On 10/06/2019 07:40, Vinod Koul wrote:
-> On 07-06-19, 09:56, Srinivas Kandagatla wrote:
->> Qualcomm SoundWire Master controller is present in most Qualcomm SoCs
->> either integrated as part of WCD audio codecs via slimbus or
->> as part of SOC I/O.
->>
->> This patchset adds support to a very basic controller which has been
->> tested with WCD934x SoundWire controller connected to WSA881x smart
->> speaker amplifiers.
->>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> ---
->>   drivers/soundwire/Kconfig  |   9 +
->>   drivers/soundwire/Makefile |   4 +
->>   drivers/soundwire/qcom.c   | 983 +++++++++++++++++++++++++++++++++++++
-> 
-> Can you split this to two patches (at least), master driver followed by
-> DAI driver
-
-Sure.
-
-> 
->> +
->> +#define SWRM_COMP_HW_VERSION					0x00
-> 
-> What does COMP stand for?
-
-Controller splits registers into "Component(core configuration 
-registers)", "Interrupt" "Command Fifo" and so on...
-
-> 
->> +#define SWRM_COMP_CFG_ADDR					0x04
->> +#define SWRM_COMP_CFG_IRQ_LEVEL_OR_PULSE_MSK			BIT(1)
->> +#define SWRM_COMP_CFG_ENABLE_MSK				BIT(0)
->> +#define SWRM_COMP_PARAMS					0x100
->> +#define SWRM_COMP_PARAMS_DOUT_PORTS_MASK			GENMASK(4, 0)
->> +#define SWRM_COMP_PARAMS_DIN_PORTS_MASK				GENMASK(9, 5)
->> +#define SWRM_COMP_PARAMS_WR_FIFO_DEPTH				GENMASK(14, 10)
->> +#define SWRM_COMP_PARAMS_RD_FIFO_DEPTH				GENMASK(19, 15)
->> +#define SWRM_COMP_PARAMS_AUTO_ENUM_SLAVES			GENMASK(32. 20)
-> 
-> Thats a lot of text, So as others have said we need to rethink the
-> naming conventions, perhaps QC_SDW_PARAM_AUTO_ENUM (feel free to drop
-> SDW as well from here as it QC specific!
-> 
-> Also move common ones to core..
-> 
->> +#define SWRM_INTERRUPT_STATUS					0x200
->> +#define SWRM_INTERRUPT_STATUS_RMSK				GENMASK(16, 0)
->> +#define SWRM_INTERRUPT_STATUS_SLAVE_PEND_IRQ			BIT(0)
->> +#define SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED		BIT(1)
->> +#define SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS		BIT(2)
->> +#define SWRM_INTERRUPT_STATUS_MASTER_CLASH_DET			BIT(3)
->> +#define SWRM_INTERRUPT_STATUS_RD_FIFO_OVERFLOW			BIT(4)
->> +#define SWRM_INTERRUPT_STATUS_RD_FIFO_UNDERFLOW			BIT(5)
->> +#define SWRM_INTERRUPT_STATUS_WR_CMD_FIFO_OVERFLOW		BIT(6)
->> +#define SWRM_INTERRUPT_STATUS_CMD_ERROR				BIT(7)
->> +#define SWRM_INTERRUPT_STATUS_DOUT_PORT_COLLISION		BIT(8)
->> +#define SWRM_INTERRUPT_STATUS_READ_EN_RD_VALID_MISMATCH		BIT(9)
->> +#define SWRM_INTERRUPT_STATUS_SPECIAL_CMD_ID_FINISHED		BIT(10)
->> +#define SWRM_INTERRUPT_STATUS_NEW_SLAVE_AUTO_ENUM_FINISHED	BIT(11)
->> +#define SWRM_INTERRUPT_STATUS_AUTO_ENUM_FAILED			BIT(12)
->> +#define SWRM_INTERRUPT_STATUS_AUTO_ENUM_TABLE_IS_FULL		BIT(13)
->> +#define SWRM_INTERRUPT_STATUS_BUS_RESET_FINISHED		BIT(14)
->> +#define SWRM_INTERRUPT_STATUS_CLK_STOP_FINISHED			BIT(15)
->> +#define SWRM_INTERRUPT_STATUS_ERROR_PORT_TEST			BIT(16)
->> +#define SWRM_INTERRUPT_MASK_ADDR				0x204
->> +#define SWRM_INTERRUPT_CLEAR					0x208
->> +#define SWRM_CMD_FIFO_WR_CMD					0x300
->> +#define SWRM_CMD_FIFO_RD_CMD					0x304
->> +#define SWRM_CMD_FIFO_CMD					0x308
->> +#define SWRM_CMD_FIFO_STATUS					0x30C
->> +#define SWRM_CMD_FIFO_CFG_ADDR					0x314
->> +#define SWRM_CMD_FIFO_CFG_NUM_OF_CMD_RETRY_SHFT			0x0
->> +#define SWRM_CMD_FIFO_RD_FIFO_ADDR				0x318
->> +#define SWRM_ENUMERATOR_CFG_ADDR				0x500
->> +#define SWRM_MCP_FRAME_CTRL_BANK_ADDR(m)		(0x101C + 0x40 * (m))
->> +#define SWRM_MCP_FRAME_CTRL_BANK_SSP_PERIOD_SHFT		16
->> +#define SWRM_MCP_FRAME_CTRL_BANK_ROW_CTRL_SHFT			3
->> +#define SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_BMSK			GENMASK(2, 0)
->> +#define SWRM_MCP_FRAME_CTRL_BANK_COL_CTRL_SHFT			0
->> +#define SWRM_MCP_CFG_ADDR					0x1048
->> +#define SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_BMSK		GENMASK(21, 17)
->> +#define SWRM_MCP_CFG_MAX_NUM_OF_CMD_NO_PINGS_SHFT		0x11
->> +#define SWRM_MCP_STATUS						0x104C
->> +#define SWRM_MCP_STATUS_BANK_NUM_MASK				BIT(0)
->> +#define SWRM_MCP_SLV_STATUS					0x1090
->> +#define SWRM_MCP_SLV_STATUS_MASK				GENMASK(1, 0)
->> +#define SWRM_DP_PORT_CTRL_BANK(n, m)	(0x1124 + 0x100 * (n - 1) + 0x40 * m)
->> +#define SWRM_DP_PORT_CTRL2_BANK(n, m)	(0x1126 + 0x100 * (n - 1) + 0x40 * m)
->> +#define SWRM_DP_PORT_CTRL_EN_CHAN_SHFT				0x18
->> +#define SWRM_DP_PORT_CTRL_OFFSET2_SHFT				0x10
->> +#define SWRM_DP_PORT_CTRL_OFFSET1_SHFT				0x08
->> +#define SWRM_AHB_BRIDGE_WR_DATA_0				0xc885
->> +#define SWRM_AHB_BRIDGE_WR_ADDR_0				0xc889
->> +#define SWRM_AHB_BRIDGE_RD_ADDR_0				0xc88d
->> +#define SWRM_AHB_BRIDGE_RD_DATA_0				0xc891
->> +
->> +#define SWRM_REG_VAL_PACK(data, dev, id, reg)	\
->> +			((reg) | ((id) << 16) | ((dev) << 20) | ((data) << 24))
->> +
->> +#define SWRM_MAX_ROW_VAL	0 /* Rows = 48 */
->> +#define SWRM_DEFAULT_ROWS	48
->> +#define SWRM_MIN_COL_VAL	0 /* Cols = 2 */
->> +#define SWRM_DEFAULT_COL	16
->> +#define SWRM_SPECIAL_CMD_ID	0xF
->> +#define MAX_FREQ_NUM		1
->> +#define TIMEOUT_MS		1000
->> +#define QCOM_SWRM_MAX_RD_LEN	0xf
->> +#define DEFAULT_CLK_FREQ	9600000
->> +#define SWRM_MAX_DAIS		0xF
-> 
-> I was thinking it would make sense to move this to DT, DAI is after all
-> a hw property!
-
-I will give that a try before sending out next version.
-> 
->> +static int qcom_swrm_cmd_fifo_wr_cmd(struct qcom_swrm_ctrl *ctrl, u8 cmd_data,
->> +				     u8 dev_addr, u16 reg_addr)
->> +{
->> +	int ret = 0;
->> +	u8 cmd_id;
->> +	u32 val;
->> +
->> +	mutex_lock(&ctrl->lock);
->> +	if (dev_addr == SDW_BROADCAST_DEV_NUM) {
->> +		cmd_id = SWRM_SPECIAL_CMD_ID;
->> +	} else {
->> +		if (++ctrl->wr_cmd_id == SWRM_SPECIAL_CMD_ID)
->> +			ctrl->wr_cmd_id = 0;
->> +
->> +		cmd_id = ctrl->wr_cmd_id;
->> +	}
->> +
->> +	val = SWRM_REG_VAL_PACK(cmd_data, dev_addr, cmd_id, reg_addr);
->> +	ret = ctrl->reg_write(ctrl, SWRM_CMD_FIFO_WR_CMD, val);
->> +	if (ret < 0) {
->> +		dev_err(ctrl->dev, "%s: reg 0x%x write failed, err:%d\n",
->> +			__func__, val, ret);
->> +		goto err;
->> +	}
->> +
->> +	if (dev_addr == SDW_BROADCAST_DEV_NUM) {
->> +		ctrl->fifo_status = 0;
->> +		ret = wait_for_completion_timeout(&ctrl->sp_cmd_comp,
->> +						  msecs_to_jiffies(TIMEOUT_MS));
-> 
-> why not wait for completion on non broadcast?
-> 
-
-This could lead to dead-lock if we endup reading registers from 
-interrupt handler.
-
->> +static int qcom_swrm_cmd_fifo_rd_cmd(struct qcom_swrm_ctrl *ctrl,
->> +				     u8 dev_addr, u16 reg_addr,
->> +				     u32 len, u8 *rval)
->> +{
->> +	int i, ret = 0;
-> 
-> Superfluous initialization of ret
-> 
-I agree.
->> +static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->> +{
->> +	struct qcom_swrm_ctrl *ctrl = dev_id;
->> +	u32 sts, value;
->> +
->> +	sts = ctrl->reg_read(ctrl, SWRM_INTERRUPT_STATUS);
->> +
->> +	if (sts & SWRM_INTERRUPT_STATUS_SPECIAL_CMD_ID_FINISHED)
->> +		complete(&ctrl->sp_cmd_comp);
->> +
->> +	if (sts & SWRM_INTERRUPT_STATUS_CMD_ERROR) {
->> +		value = ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS);
->> +		dev_err_ratelimited(ctrl->dev,
->> +				    "CMD error, fifo status 0x%x\n",
->> +				     value);
->> +		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CMD, 0x1);
->> +		if ((value & 0xF) == 0xF) {
->> +			ctrl->fifo_status = -ENODATA;
->> +			complete(&ctrl->sp_cmd_comp);
->> +		}
->> +	}
->> +
->> +	if ((sts & SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED) ||
->> +	    sts & SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS) {
->> +		if (sts & SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED)
->> +			ctrl->status[0] = SDW_SLAVE_ATTACHED;
->> +
->> +		schedule_work(&ctrl->slave_work);
-> 
-> So why are we scheduling work, you are the thread handler so I think it
-> should be okay and better to invoke bus for status update.
-
-I had seen lockup issues as this would trigger broadcast messages which 
-would wait on completion interrupt!
-
-> 
->> +	}
->> +
->> +	if (sts & SWRM_INTERRUPT_STATUS_SLAVE_PEND_IRQ)
->> +		dev_dbg(ctrl->dev, "Slave pend irq\n");
->> +
->> +	if (sts & SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED)
->> +		dev_dbg(ctrl->dev, "New slave attached\n");
-> 
-> No updating bus on the status?
-> 
-Its done down below this function! These are debug messages only!
-looks redundant, will remove it.
-
->> +static enum sdw_command_response qcom_swrm_xfer_msg(struct sdw_bus *bus,
->> +						    struct sdw_msg *msg)
->> +{
->> +	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->> +	int ret, i, len;
->> +
->> +	if (msg->flags == SDW_MSG_FLAG_READ) {
->> +		for (i = 0; i < msg->len;) {
->> +			if ((msg->len - i) < QCOM_SWRM_MAX_RD_LEN)
->> +				len = msg->len - i;
->> +			else
->> +				len = QCOM_SWRM_MAX_RD_LEN;
->> +
->> +			ret = qcom_swrm_cmd_fifo_rd_cmd(ctrl, msg->dev_num,
->> +							msg->addr + i, len,
->> +						       &msg->buf[i]);
->> +			if (ret < 0) {
->> +				if (ret == -ENODATA)
->> +					return SDW_CMD_IGNORED;
->> +
->> +				return ret;
->> +			}
->> +
->> +			i = i + len;
->> +		}
->> +	} else if (msg->flags == SDW_MSG_FLAG_WRITE) {
->> +		for (i = 0; i < msg->len; i++) {
->> +			ret = qcom_swrm_cmd_fifo_wr_cmd(ctrl, msg->buf[i],
->> +							msg->dev_num,
->> +						       msg->addr + i);
->> +			if (ret < 0) {
->> +				if (ret == -ENODATA)
->> +					return SDW_CMD_IGNORED;
->> +
->> +				return ret;
-> 
-> So we need to convert this to sdw_command_response before returning.
-> 
-Sure!
-
->> +static int qcom_swrm_prepare(struct snd_pcm_substream *substream,
->> +			     struct snd_soc_dai *dai)
->> +{
->> +	struct qcom_swrm_ctrl *ctrl = dev_get_drvdata(dai->dev);
->> +
->> +	if (!ctrl->sruntime[dai->id])
->> +		return -EINVAL;
->> +
->> +	return sdw_enable_stream(ctrl->sruntime[dai->id]);
-> 
-> Hmm you need to handle dai prepare being called for multiple times.
-> Thanks for pointing this out, Will fix this.
-
->> +static int qcom_pdm_set_sdw_stream(struct snd_soc_dai *dai,
->> +				   void *stream, int direction)
->> +{
->> +	return 0;
->> +}
-> 
-> lets remove if we dont intend to do anything!
-> 
-Hm, not sure how I missed this one!
-
->> +static int qcom_swrm_runtime_suspend(struct device *device)
->> +{
->> +	/* TBD */
->> +	return 0;
->> +}
->> +
->> +static int qcom_swrm_runtime_resume(struct device *device)
->> +{
->> +	/* TBD */
->> +	return 0;
->> +}
-> 
-> Again, lets remove these, add when we have the functionality
-We have issues without this, as soundwire bus would return error on 
-runtime pm get/set. For RFC, I had to make this dummy, I will be able to 
-add and test some code in next 1/2 spins.
-
-Thanks,
-srini
-> 
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGksCgpUaGFua3MgZm9yIHRoZSBpYiBMZWUuCgpEb2luZyBteSBNb25kYXkgcmViYXNlIEkganVz
+dCBub3RpY2VkIHdlIHdpbGwgaGF2ZSBhIHRyaXZpYWwgY29uZmxpY3QKZm9yIHRoZSBtZXJnZSB3
+aW5kb3cuCgpNaXNzYXRnZSBkZSBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5hcm8ub3JnPiBkZWwg
+ZGlhIGRsLiwgMTAgZGUganVueQoyMDE5IGEgbGVzIDEwOjIwOgo+Cj4gQXMgcmVxdWVzdGVkLgo+
+Cj4gRW5qb3khCj4KPiBUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IGExODgzMzlj
+YTVhMzk2YWNjNTg4ZTU4NTFlZDdlMTlmNjZiMGViZDk6Cj4KPiAgIExpbnV4IDUuMi1yYzEgKDIw
+MTktMDUtMTkgMTU6NDc6MDkgLTA3MDApCj4KPiBhcmUgYXZhaWxhYmxlIGluIHRoZSBHaXQgcmVw
+b3NpdG9yeSBhdDoKPgo+ICAgZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJu
+ZWwvZ2l0L2xlZS9tZmQuZ2l0IGliLW1mZC1jcm9zLXY1LjMKPgo+IGZvciB5b3UgdG8gZmV0Y2gg
+Y2hhbmdlcyB1cCB0byAzYWE2YmUzMGRhODk5NjE5YzQ0YWE2NTQzMTNiYTY2ZWI0NGU3MjkxOgo+
+Cj4gICBtZmQ6IGNyb3NfZWM6IFVwZGF0ZSBJMlMgQVBJICgyMDE5LTA2LTEwIDA5OjE1OjA4ICsw
+MTAwKQo+Cj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQo+IEltbXV0YWJsZSBicmFuY2ggYmV0d2VlbiBNRkQgYW5kIENyb3Mg
+ZHVlIGZvciB0aGUgdjUuMyBtZXJnZSB3aW5kb3cKPgo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiBHd2VuZGFsIEdyaWdu
+b3UgKDMwKToKPiAgICAgICBtZmQ6IGNyb3NfZWM6IFVwZGF0ZSBsaWNlbnNlIHRlcm0KClRoYXQn
+cyB0aGUgY29tbWl0IHdpbGwgaGF2ZSBwcm9ibGVtcyBkdWUKCmNvbW1pdCA5YzkyYWI2MTkxNDE1
+NzY2NGEyZmJkZjkyNmRmMGViOTM3ODM4ZTQ1CkF1dGhvcjogVGhvbWFzIEdsZWl4bmVyIDx0Z2x4
+QGxpbnV0cm9uaXguZGU+CkRhdGU6ICAgV2VkIE1heSAyOSAwNzoxNzo1NiAyMDE5IC0wNzAwCgog
+ICAgdHJlZXdpZGU6IFJlcGxhY2UgR1BMdjIgYm9pbGVycGxhdGUvcmVmZXJlbmNlIHdpdGggU1BE
+WCAtIHJ1bGUgMjgyCgpUaGF0IHdhcyBpbnRyb2R1Y2VkIGluIHY1LjItcmM0CgpKdXN0IHRvIGxl
+dCB5b3Uga25vdy4KIEVucmljCgo+ICAgICAgIG1mZDogY3Jvc19lYzogWmVybyBCVUlMRF8gbWFj
+cm8KPiAgICAgICBtZmQ6IGNyb3NfZWM6IHNldCBjb21tZW50cyBwcm9wZXJseQo+ICAgICAgIG1m
+ZDogY3Jvc19lYzogYWRkIGVjX2FsaWduIG1hY3Jvcwo+ICAgICAgIG1mZDogY3Jvc19lYzogRGVm
+aW5lIGNvbW1hbmRzIGFzIDQtZGlnaXQgVVBQRVIgQ0FTRSBoZXggdmFsdWVzCj4gICAgICAgbWZk
+OiBjcm9zX2VjOiB1c2UgQklUIG1hY3JvCj4gICAgICAgbWZkOiBjcm9zX2VjOiBVcGRhdGUgQUNQ
+SSBpbnRlcmZhY2UgZGVmaW5pdGlvbgo+ICAgICAgIG1mZDogY3Jvc19lYzogbW92ZSBIRE1JIENF
+QyBBUEkgZGVmaW5pdGlvbgo+ICAgICAgIG1mZDogY3Jvc19lYzogUmVtb3ZlIHplcm8tc2l6ZSBz
+dHJ1Y3RzCj4gICAgICAgbWZkOiBjcm9zX2VjOiBBZGQgRmxhc2ggVjIgY29tbWFuZHMgQVBJCj4g
+ICAgICAgbWZkOiBjcm9zX2VjOiBBZGQgUFdNX1NFVF9EVVRZIEFQSQo+ICAgICAgIG1mZDogY3Jv
+c19lYzogQWRkIGxpZ2h0YmFyIHYyIEFQSQo+ICAgICAgIG1mZDogY3Jvc19lYzogRXhwYW5kIGhh
+c2ggQVBJCj4gICAgICAgbWZkOiBjcm9zX2VjOiBBZGQgRUMgdHJhbnNwb3J0IHByb3RvY29sIHY0
+Cj4gICAgICAgbWZkOiBjcm9zX2VjOiBDb21wbGV0ZSBNRU1TIHNlbnNvciBBUEkKPiAgICAgICBt
+ZmQ6IGNyb3NfZWM6IEZpeCBldmVudCBwcm9jZXNzaW5nIEFQSQo+ICAgICAgIG1mZDogY3Jvc19l
+YzogQWRkIGZpbmdlcnByaW50IEFQSQo+ICAgICAgIG1mZDogY3Jvc19lYzogRml4IHRlbXBlcmF0
+dXJlIEFQSQo+ICAgICAgIG1mZDogY3Jvc19lYzogQ29tcGxldGUgUG93ZXIgYW5kIFVTQiBQRCBB
+UEkKPiAgICAgICBtZmQ6IGNyb3NfZWM6IEFkZCBBUEkgZm9yIGtleWJvYXJkIHRlc3RpbmcKPiAg
+ICAgICBtZmQ6IGNyb3NfZWM6IEFkZCBIaWJlcm5hdGUgQVBJCj4gICAgICAgbWZkOiBjcm9zX2Vj
+OiBBZGQgU21hcnQgQmF0dGVyeSBGaXJtd2FyZSB1cGRhdGUgQVBJCj4gICAgICAgbWZkOiBjcm9z
+X2VjOiBBZGQgSTJDIHBhc3N0aHJ1IHByb3RlY3Rpb24gQVBJCj4gICAgICAgbWZkOiBjcm9zX2Vj
+OiBBZGQgQVBJIGZvciBFQy1FQyBjb21tdW5pY2F0aW9uCj4gICAgICAgbWZkOiBjcm9zX2VjOiBB
+ZGQgQVBJIGZvciBUb3VjaHBhZCBzdXBwb3J0Cj4gICAgICAgbWZkOiBjcm9zX2VjOiBBZGQgQVBJ
+IGZvciBGaW5nZXJwcmludCBzdXBwb3J0Cj4gICAgICAgbWZkOiBjcm9zX2VjOiBBZGQgQVBJIGZv
+ciByd3NpZwo+ICAgICAgIG1mZDogY3Jvc19lYzogQWRkIFNLVSBJRCBhbmQgU2VjdXJlIHN0b3Jh
+Z2UgQVBJCj4gICAgICAgbWZkOiBjcm9zX2VjOiBBZGQgTWFuYWdlbWVudCBBUEkgZW50cnkgcG9p
+bnRzCj4gICAgICAgbWZkOiBjcm9zX2VjOiBVcGRhdGUgSTJTIEFQSQo+Cj4gIGluY2x1ZGUvbGlu
+dXgvbWZkL2Nyb3NfZWNfY29tbWFuZHMuaCB8IDM2NTggKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLS0tLS0tLQo+ICBzb3VuZC9zb2MvY29kZWNzL2Nyb3NfZWNfY29kZWMuYyAgICAgfCAgICA4
+ICstCj4gIDIgZmlsZXMgY2hhbmdlZCwgMjkxNSBpbnNlcnRpb25zKCspLCA3NTEgZGVsZXRpb25z
+KC0pCj4KPiAtLQo+IExlZSBKb25lcyBb5p2O55C85pavXQo+IExpbmFybyBTZXJ2aWNlcyBUZWNo
+bmljYWwgTGVhZAo+IExpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0g
+U29Dcwo+IEZvbGxvdyBMaW5hcm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5n
+IGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXBy
+b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A8A542046
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 11:08:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4107242052
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 11:11:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DBD2176C;
-	Wed, 12 Jun 2019 11:07:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DBD2176C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D5DD168B;
+	Wed, 12 Jun 2019 11:11:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D5DD168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560330529;
-	bh=KKfjxMW1lIIqr2b1ccTzEuRIzL4zBPiOvO0dcW9tFC4=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=cRzbXMowjFD/s8knwaJvaBRCy6SE3yWcCQtJfc42myByujodg4mtTdKpTioSHS1V8
-	 amDAl+dP0FUGqaDeQca2EvCIaK1sBPkiRfoNY8ycwRTeVHaa2V+Zq8x7i2brdYv4lj
-	 TBxXbHhNBi/jMnnIJLXAmqgIBrtpmq3Ta+8omexw=
+	s=default; t=1560330714;
+	bh=6vgRwkawCnNhyhc0CKPA6GeYXNziNzQH/bynfYuMPIw=;
+	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=DjbuwlvY3vt9TiJoNI0GYg8FYnhkLr6cE648gl8nQ5uyKZERxLrcx8PKmllFsrYmi
+	 aRnmB7JlLY2G/NP+9iBdqGDFnownB4/dILAO2tiDofsnHAgS2JH0i/7CIT5pxLjPeX
+	 prqz77uQ9ahu7mTWZEJS0pB/+jLLIadTrbvW0biE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D76FBF89739;
-	Wed, 12 Jun 2019 11:04:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A847F89763;
+	Wed, 12 Jun 2019 11:04:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64279F89714; Tue, 11 Jun 2019 19:49:52 +0200 (CEST)
+ id CD36EF8970F; Tue, 11 Jun 2019 19:50:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
@@ -32,12 +33,12 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
 Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFCC8F806F5
- for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 19:49:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFCC8F806F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C0A8F806F5
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 19:49:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C0A8F806F5
 Received: from [167.98.27.226] (helo=ct-lt-1124.office.codethink.co.uk)
  by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1haktd-0001PN-DW; Tue, 11 Jun 2019 18:49:21 +0100
+ id 1hakte-0001PN-2s; Tue, 11 Jun 2019 18:49:22 +0100
 From: Thomas Preston <thomas.preston@codethink.co.uk>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
@@ -54,11 +55,13 @@ To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Thomas Preston <thomas.preston@codethink.co.uk>,
  alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Tue, 11 Jun 2019 18:49:05 +0100
-Message-Id: <20190611174909.12162-1-thomas.preston@codethink.co.uk>
+Date: Tue, 11 Jun 2019 18:49:06 +0100
+Message-Id: <20190611174909.12162-2-thomas.preston@codethink.co.uk>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20190611174909.12162-1-thomas.preston@codethink.co.uk>
+References: <20190611174909.12162-1-thomas.preston@codethink.co.uk>
 X-Mailman-Approved-At: Wed, 12 Jun 2019 11:04:31 +0200
-Subject: [alsa-devel] [PATCH v1 0/4] ASoC: Codecs: Add TDA7802 codec
+Subject: [alsa-devel] [PATCH v1 1/4] dt-bindings: ASoC: Add TDA7802 amplifier
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,29 +80,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch series adds a driver for the ST TDA7802 amplifier.
-
-Thanks,
-Thomas
-
+Signed-off-by: Thomas Preston <thomas.preston@codethink.co.uk>
 Cc: Patrick Glaser <pglaser@tesla.com>
 Cc: Rob Duncan <rduncan@tesla.com>
 Cc: Nate Case <ncase@tesla.com>
-
-Thomas Preston (4):
-  dt-bindings: ASoC: Add TDA7802 amplifier
-  ASoC: Add codec driver for ST TDA7802
-  ASoC: tda7802: Add enable device attribute
-  ASoC: tda7802: Add speaker-test sysfs
-
- .../devicetree/bindings/sound/tda7802.txt          |  26 +
- sound/soc/codecs/Kconfig                           |   6 +
- sound/soc/codecs/Makefile                          |   2 +
- sound/soc/codecs/tda7802.c                         | 815 +++++++++++++++++++++
- 4 files changed, 849 insertions(+)
+---
+ .../devicetree/bindings/sound/tda7802.txt          | 26 ++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/tda7802.txt
- create mode 100644 sound/soc/codecs/tda7802.c
 
+diff --git a/Documentation/devicetree/bindings/sound/tda7802.txt b/Documentation/devicetree/bindings/sound/tda7802.txt
+new file mode 100644
+index 000000000000..f80aaf4f1ba0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/tda7802.txt
+@@ -0,0 +1,26 @@
++ST TDA7802 audio processor
++
++This device supports I2C only.
++
++Required properties:
++
++- compatible : "st,tda7802"
++- reg : the I2C address of the device
++- enable-supply : a regulator spec for the PLLen pin
++
++Optional properties:
++
++- st,gain-ch13 : gain for channels 1 and 3 (range: 1-4)
++- st,gain-ch24 : gain for channels 2 and 3 (range: 1-4)
++- st,diagnostic-mode-ch13 : diagnotic mode for channels 1 and 3
++                            values: "Speaker" (default), "Booster"
++- st,diagnostic-mode-ch24 : diagnotic mode for channels 2 and 4
++                            values: "Speaker" (default), "Booster"
++
++Example:
++
++amp: tda7802@6c {
++	compatible = "st,tda7802";
++	reg = <0x6c>;
++	enable-supply = <&amp_enable_reg>;
++};
 -- 
 2.11.0
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A4913CCD3
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 15:23:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5034C3CCD7
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 15:24:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 156C41724;
-	Tue, 11 Jun 2019 15:22:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 156C41724
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBAD6172C;
+	Tue, 11 Jun 2019 15:23:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBAD6172C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560259398;
-	bh=7QCBL1U+PizB2s7eLDr1kQ8m+XkL1TIUl4E2UTnDMjU=;
+	s=default; t=1560259485;
+	bh=gG1NLXJbldLcmPIAirry9QMqoyjW3DFC508MTmGjEi4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BamuFJk8/0ttVhNo6Jj61VTZ4VQkQ3PzFAMsffpmasYYzrGlID9Waylc3tgJpXdZh
-	 TN33tbi9EhoY5Nhqvf/3qC4s3iTa7yZJnd7FuCclS8418+d+LTYgD+RCbx8x+sp3Dw
-	 Xyv1iAwBV5nXnTvOwMUrJuMTk6af6a4gliTaE1No=
+	b=TxN8v0YI0D7STllgjxvcPsrZsUXUut4YwmsksmDXnbwmrlEHILzGiPQr/8LVzk7ka
+	 Xx4jIEZDVcPqFz1UnmKGVRrNyaa2PmisRoMgYcGZIhiR7APXHUdH5uqtWXkdx+l0MX
+	 BFDYS+WjyG76YGr6ARygqa0RTZkgLplb/c0PQzkU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14D4CF89728;
-	Tue, 11 Jun 2019 15:21:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F19EF89734;
+	Tue, 11 Jun 2019 15:21:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EA1BF89712; Tue, 11 Jun 2019 15:21:30 +0200 (CEST)
+ id C5A07F89711; Tue, 11 Jun 2019 15:21:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78628F80791
- for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 15:21:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78628F80791
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52E7FF8970F
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 15:21:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52E7FF8970F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="VsxGackJ"; 
+ header.b="Gxm2QdoN"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="QMJ3XTaS"
+ header.i=@messagingengine.com header.b="EW2RFDDf"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 356632013C;
- Tue, 11 Jun 2019 09:21:25 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id F1C5C22256;
+ Tue, 11 Jun 2019 09:21:26 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 11 Jun 2019 09:21:25 -0400
+ by compute1.internal (MEProxy); Tue, 11 Jun 2019 09:21:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=zHP2ikiueJY3W
- koNHv9uBkWxPy8gCojVxFj0VjLQ75k=; b=VsxGackJ+YHHvQNU03m0Z7O4XbBff
- NJWREyJFru3RaRDOv3p/vkWQtuKFrK0v2ZNdmOjJlOz5XZJzZzrT8PP3OWwaPfXN
- Uq4HdA9R0WfxPzKlm9l6FQf+4C3JGS/CFkdYkJWCljYizg8vOH3OJ6MJSKFdBZPf
- hJu0E0y/To0kAf9UYxIrZf2CvDFcuVE6+M3qmtCCAgLsGTyMbwkaO7I1pI7ungFI
- q5Joy8C7Sw7caGzk/2TWbi8xfOnljypP+npvIewAFihW/a3dbJd0GJuqHKNCYKXK
- 9OmVghtWg1ixjOd+fGR8XT4vjyQqUcBggWVyufFzjyjuiPP5wkWH9r6Dg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=rg35FcbTk0R96
+ OnTOj3dmE7xiAT+JSxYJI3H115XBB8=; b=Gxm2QdoNyD+LKUVcfwZPLzH7NERWL
+ V4zbSoGVXBbtndD+OkrMbxdc/OMbFDW9tAs+ee6qQ+3dVoqi55EC5viKU72ZPSDU
+ 5hTrmKyg4H56oTsPsuxvB+0wPM3Eb6Esr8QWvKIp8rPmMNjfJ4AJqWrQkMeRRmJD
+ 2MQkHWPoIH3fRXXZu01PAzuZmWs9uDMHl1VsMafXqC+FjYyaUCGBspHyx3Co9H3k
+ vx7K5ibSPZPJT0jksKwsnvnKMrmiAe5FYRNgoudN12GS6uq2S1Cu6rdwcMs59fpm
+ 3Utt5EVdaV+vferpWcoLRwPUTnRs4tOWTSbidl67A57kMvIgh2I6dIfpg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=zHP2ikiueJY3WkoNHv9uBkWxPy8gCojVxFj0VjLQ75k=; b=QMJ3XTaS
- qVxnvMYE+HTbfxRIv8qL6WK5kjUsFumnDhWX/hAPHuxn0FfxJj0/zneRN9b2ystp
- T7dgeCADDyFlpP9NZmWLdNW9V3kCWqY0tCwDY7tkakIDfodJdLRmD8yY5WAJDj4e
- brkVptxXXvPURlONz9vzS7yvd8a0dxDRAeAocvbkQk0AwiEydLQwRQFOZBELWstH
- wzPqkEJwS/AYi5zS4jC2yTiJejCmzATXQ9jXgLOjf76/hSQF44K7yD1OtKEisUAi
- RpKJ5u5Q8I8coo3gFuqr643bWexbMoor7eQerd5niwB/GkFssCfoGjIGqXKAwZHT
- NGLoaNAgexeovA==
-X-ME-Sender: <xms:1Kr_XHaK921p_7HC7d11S-d1Z3m-t2geiFMdfA3h8OdCT1w0y2GezQ>
+ fm3; bh=rg35FcbTk0R96OnTOj3dmE7xiAT+JSxYJI3H115XBB8=; b=EW2RFDDf
+ PTTlkB8ZvbqbQAF82ettkfVNjFHao4sH221q/oNT9C1LFbwrwc8EAwcw7gjTQzm/
+ zaxn75Bn9ewpGih0Kd4Xo2svUcGtfd8KAuGuNk9aZgSQ6ATojl0Iw3fFlH+Zg1se
+ Zy7ECIOijQykdglzb11bX0FXdYzuwmdA5tXzQS+J1IIHYgJbRsYemul2kFr64hDG
+ EdNFFJm2YZxVtngArvnqjqqOKr/ZamjDFkEgK6WMCanbFnIF2Ph+a1eny6QSSiep
+ 6QMKKMD/mUhybhEKBsb1vmXGGBUw5BHeyZT3m4iLjCV6IzabTrhv4IFEbJqH7Q7m
+ qzAP/T+j+KlaBg==
+X-ME-Sender: <xms:1qr_XBzC0JQWPF7PoB1HRKbjkWcK1czPverCGRXB1s9JqnSJHaEqFA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehhedggeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -75,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehhedggeekucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:1ar_XFxPyPKR9SV8CyGo1sGZdsibTZ0vJl3a0ic5mUQsllxH3OiYKg>
- <xmx:1ar_XMjePwm8V58HG6nNlIGMPi5_Kowy3A122thJ0MjaFUDNQmeM9g>
- <xmx:1ar_XO1PGU_Z-bBdVoPPRyrPnEqEJ5XZUb2lsxAltaCs-cKUatnTLQ>
- <xmx:1ar_XLrzeODuDicYeH-erCS1Fq7medafgURYA2WV2O2wZeVMJh6x-w>
+X-ME-Proxy: <xmx:1qr_XH3XvTrqKtN8KVoPej2HCmzEf-KgJ9cDfup3LK-OpcFcdR4Ekg>
+ <xmx:1qr_XNBrjrQbsCIAv8kO9DZIjH_Op4CzEQH7-974YYQu4VpMv3J7mg>
+ <xmx:1qr_XM8ZMEt6VfRokd3AdL3LCKKfDwwA2-swF47fNwQ2fjYhrt2WeQ>
+ <xmx:1qr_XKC7V_R7qO6Q23hsjd8w430_veSn9bxMIYdf9XhLp5DOzX-hpA>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id A2A25380087;
- Tue, 11 Jun 2019 09:21:23 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4A0B6380087;
+ Tue, 11 Jun 2019 09:21:25 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Tue, 11 Jun 2019 22:21:07 +0900
-Message-Id: <20190611132118.8378-2-o-takashi@sakamocchi.jp>
+Date: Tue, 11 Jun 2019 22:21:08 +0900
+Message-Id: <20190611132118.8378-3-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190611132118.8378-1-o-takashi@sakamocchi.jp>
 References: <20190611132118.8378-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 01/12] ALSA: firewire-digi00x: refactoring to
-	move timing of registration for isochronous channel
+Subject: [alsa-devel] [PATCH 02/12] ALSA: firewire-digi00x: code refactoring
+	to finish streaming session
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,97 +115,79 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 This commit is a part of preparation to perform allocation/release
 of isochronous resources in pcm.hw_params/hw_free callbacks.
 
-The registration of isochronous channels is done just after allocation
-of isochronous resources. This commit separates the registration just
-before starting packet streaming.
+The operation to finish packet streaming corresponds to stopping
+isochronous contexts. This commit applies code refactoring to
+move codes to stop into a helper function to finish the session.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/digi00x/digi00x-stream.c | 41 ++++++++++++-------------
- 1 file changed, 19 insertions(+), 22 deletions(-)
+ sound/firewire/digi00x/digi00x-stream.c | 22 +++++++++-------------
+ 1 file changed, 9 insertions(+), 13 deletions(-)
 
 diff --git a/sound/firewire/digi00x/digi00x-stream.c b/sound/firewire/digi00x/digi00x-stream.c
-index 4d3b4ebbdd49..455c43e81850 100644
+index 455c43e81850..90e31b63ac2f 100644
 --- a/sound/firewire/digi00x/digi00x-stream.c
 +++ b/sound/firewire/digi00x/digi00x-stream.c
-@@ -130,6 +130,12 @@ static void finish_session(struct snd_dg00x *dg00x)
+@@ -125,8 +125,12 @@ int snd_dg00x_stream_get_external_rate(struct snd_dg00x *dg00x,
+ 
+ static void finish_session(struct snd_dg00x *dg00x)
+ {
+-	__be32 data = cpu_to_be32(0x00000003);
++	__be32 data;
++
++	amdtp_stream_stop(&dg00x->tx_stream);
++	amdtp_stream_stop(&dg00x->rx_stream);
+ 
++	data = cpu_to_be32(0x00000003);
  	snd_fw_transaction(dg00x->unit, TCODE_WRITE_QUADLET_REQUEST,
  			   DG00X_ADDR_BASE + DG00X_OFFSET_STREAMING_SET,
  			   &data, sizeof(data), 0);
+@@ -136,6 +140,10 @@ static void finish_session(struct snd_dg00x *dg00x)
+ 	snd_fw_transaction(dg00x->unit, TCODE_WRITE_QUADLET_REQUEST,
+ 			   DG00X_ADDR_BASE + DG00X_OFFSET_ISOC_CHANNELS,
+ 			   &data, sizeof(data), 0);
 +
-+	// Unregister isochronous channels for both direction.
-+	data = 0;
-+	snd_fw_transaction(dg00x->unit, TCODE_WRITE_QUADLET_REQUEST,
-+			   DG00X_ADDR_BASE + DG00X_OFFSET_ISOC_CHANNELS,
-+			   &data, sizeof(data), 0);
++	// Just after finishing the session, the device may lost transmitting
++	// functionality for a short time.
++	msleep(50);
  }
  
  static int begin_session(struct snd_dg00x *dg00x)
-@@ -138,6 +144,15 @@ static int begin_session(struct snd_dg00x *dg00x)
- 	u32 curr;
- 	int err;
+@@ -289,8 +297,6 @@ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x, unsigned int rate)
+ 	    amdtp_streaming_error(&dg00x->rx_stream)) {
+ 		finish_session(dg00x);
  
-+	// Register isochronous channels for both direction.
-+	data = cpu_to_be32((dg00x->tx_resources.channel << 16) |
-+			   dg00x->rx_resources.channel);
-+	err = snd_fw_transaction(dg00x->unit, TCODE_WRITE_QUADLET_REQUEST,
-+				 DG00X_ADDR_BASE + DG00X_OFFSET_ISOC_CHANNELS,
-+				 &data, sizeof(data), 0);
-+	if (err < 0)
-+		goto error;
-+
- 	err = snd_fw_transaction(dg00x->unit, TCODE_READ_QUADLET_REQUEST,
- 				 DG00X_ADDR_BASE + DG00X_OFFSET_STREAMING_STATE,
- 				 &data, sizeof(data), 0);
-@@ -171,13 +186,6 @@ static int begin_session(struct snd_dg00x *dg00x)
+-		amdtp_stream_stop(&dg00x->tx_stream);
+-		amdtp_stream_stop(&dg00x->rx_stream);
+ 		release_resources(dg00x);
+ 	}
  
- static void release_resources(struct snd_dg00x *dg00x)
- {
--	__be32 data = 0;
+@@ -346,8 +352,6 @@ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x, unsigned int rate)
+ error:
+ 	finish_session(dg00x);
+ 
+-	amdtp_stream_stop(&dg00x->tx_stream);
+-	amdtp_stream_stop(&dg00x->rx_stream);
+ 	release_resources(dg00x);
+ 
+ 	return err;
+@@ -358,16 +362,8 @@ void snd_dg00x_stream_stop_duplex(struct snd_dg00x *dg00x)
+ 	if (dg00x->substreams_counter > 0)
+ 		return;
+ 
+-	amdtp_stream_stop(&dg00x->tx_stream);
+-	amdtp_stream_stop(&dg00x->rx_stream);
+ 	finish_session(dg00x);
+ 	release_resources(dg00x);
 -
--	/* Unregister isochronous channels for both direction. */
--	snd_fw_transaction(dg00x->unit, TCODE_WRITE_QUADLET_REQUEST,
--			   DG00X_ADDR_BASE + DG00X_OFFSET_ISOC_CHANNELS,
--			   &data, sizeof(data), 0);
--
- 	/* Release isochronous resources. */
- 	fw_iso_resources_free(&dg00x->tx_resources);
- 	fw_iso_resources_free(&dg00x->rx_resources);
-@@ -186,7 +194,6 @@ static void release_resources(struct snd_dg00x *dg00x)
- static int keep_resources(struct snd_dg00x *dg00x, unsigned int rate)
- {
- 	unsigned int i;
--	__be32 data;
- 	int err;
- 
- 	/* Check sampling rate. */
-@@ -216,22 +223,12 @@ static int keep_resources(struct snd_dg00x *dg00x, unsigned int rate)
- 	err = fw_iso_resources_allocate(&dg00x->tx_resources,
- 				amdtp_stream_get_max_payload(&dg00x->tx_stream),
- 				fw_parent_device(dg00x->unit)->max_speed);
--	if (err < 0)
--		goto error;
--
--	/* Register isochronous channels for both direction. */
--	data = cpu_to_be32((dg00x->tx_resources.channel << 16) |
--			   dg00x->rx_resources.channel);
--	err = snd_fw_transaction(dg00x->unit, TCODE_WRITE_QUADLET_REQUEST,
--				 DG00X_ADDR_BASE + DG00X_OFFSET_ISOC_CHANNELS,
--				 &data, sizeof(data), 0);
--	if (err < 0)
--		goto error;
-+	if (err < 0) {
-+		fw_iso_resources_free(&dg00x->rx_resources);
-+		return err;
-+	}
- 
- 	return 0;
--error:
--	release_resources(dg00x);
--	return err;
+-	/*
+-	 * Just after finishing the session, the device may lost transmitting
+-	 * functionality for a short time.
+-	 */
+-	msleep(50);
  }
  
- int snd_dg00x_stream_init_duplex(struct snd_dg00x *dg00x)
+ void snd_dg00x_stream_update_duplex(struct snd_dg00x *dg00x)
 -- 
 2.20.1
 

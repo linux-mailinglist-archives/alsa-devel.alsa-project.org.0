@@ -2,102 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98BB53C7F9
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 12:01:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 956493C802
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 12:03:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E34E16CA;
-	Tue, 11 Jun 2019 12:00:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E34E16CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CDC116D2;
+	Tue, 11 Jun 2019 12:02:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CDC116D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560247268;
-	bh=lQVfWePTLYM/tabFJZwXnBkNS6T7zQGJojhyNkC0q3w=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1560247393;
+	bh=eiYQP4sSiWIdfL1pIrXESgVln/jAFlgheIhWCR49xgg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BZ3vqYjyKfs4tN4fCNR0JojVuwst6wBjnpRz3dsBt4rssOpr23laKaMXlfelIlQyV
-	 9ExE+OMZpApbi1EUWVGxEYAuoON43/DBo8MxsRjZGCjfNkW6jVLD3HW2N9jExgpYUU
-	 nDFEFE2TysfgyliwsVZO+3frewfTSnmShDdq/3RM=
+	b=CAxErOUGsajOtZDvn9rHC3pakeUnqJPRQYbBrvkASLBqQdJxRaRN2Le1A0JB+KJlz
+	 P/TCZ6q5iYb/j4sYCMIt7F9uS1Ju30ibii9GzQB16iMaI64dDD+i36Z4+cGryjqt79
+	 nKF5ilZBfOvAsfdTt57PLBEl3zbyjJCvvY3VQxts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E9CCF89711;
-	Tue, 11 Jun 2019 11:59:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 983CFF89711;
+	Tue, 11 Jun 2019 12:01:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95103F8970F; Tue, 11 Jun 2019 11:59:21 +0200 (CEST)
+ id 4FEDFF89711; Tue, 11 Jun 2019 12:01:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71CA3F806F5
- for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 11:59:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71CA3F806F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="orVQeVq+"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="FN/vuRDI"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 85BC821D51;
- Tue, 11 Jun 2019 05:59:15 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 11 Jun 2019 05:59:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=eL40BhETybV7qfNl5GXtNsQ7UXA
- aZCPiaSPNyjHHymk=; b=orVQeVq+UDYfILzAsU6x7Sd3wfQgvlTADr49SSvF6x5
- OMjhKz2fZQytfy18EowhG7k5X2tRLpWXdwfQyl+A93Pe5IAS7UvjMHT7DtQ0ckwz
- sEEgQhZ5CMOKFvzIU3pTDBttX4VIK1SCWvyYPdTbbONHgTCJPkZmij7cX13IdIGt
- +wVsfpTC4N7VJkqSRNCtcbvxu9wyRPqKiGlpEuQBXw1nOvAemCX4g6g5M2UVvp/d
- v5hW0iFUdg0YyPC33SifFxVuFw6xOFFLB19XzJ8u2xOl/8TqcNurUlB7ovsPe0bH
- F10azF73undcXO+DfFHThuraFNIL/rINCIAXnb7luUQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=eL40Bh
- ETybV7qfNl5GXtNsQ7UXAaZCPiaSPNyjHHymk=; b=FN/vuRDI56ApSJGGVVCILz
- /o2jwZp0F3R+Fmz2EqQp+pwDgPjrdjno2FFl1SD41WyaTkPtQ4bXOA/+4chDZhzS
- sJklGghW+GcTvMeqJFlGIa1g/XUyDHYRbiSQqCpvGuvPPPo0ED8Q3QPHwQn7qMH2
- CLj5pTwb6dgjxHpyuHNMJvlqxAOg13bszEnTJBhHhDzX8hRSHzCBoIcUUecWYuS9
- uUPnViOmdDAWDq/Kf1cJZg0eIfTunT49f53FVl4jQmuJSHcouL0eRGyvN8Fsa1Cu
- KJoLHnG76I9eSOG7LiepdJszyIVji0K4ib4TzmPxWIqnI7bj4Zhc+R+dbqlo3sPw
- ==
-X-ME-Sender: <xms:cnv_XOT7QjholOVJz-qfjnnI4cUL11TUcD7ccNt25iL2YCBS9XDOBA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehhedgtdeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjfgesthdtredttdervdenucfhrhhomhepvfgrkhgr
- shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjpheqnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhm
- pehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuih
- iivgeptd
-X-ME-Proxy: <xmx:cnv_XJQOY7nPv7BFQTr1qgsYDPUt38OTa2zJfyK1jkpQElmyupfxbQ>
- <xmx:cnv_XOiWONHvPpOIeL6U6tklrZubFy5dQ_G0aJ4tmotpE72SGnzUJA>
- <xmx:cnv_XHYwuzq5ZxTYnUDQWbxOhyRhKpnytKMQRauiAc-tLX4iRDum5w>
- <xmx:c3v_XBNlk8GpL5IDjS5_q8Bb-Tz7PLjGwXROcoa8m0PA5JtWj_SrXQ>
-Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id EC765380084;
- Tue, 11 Jun 2019 05:59:12 -0400 (EDT)
-Date: Tue, 11 Jun 2019 18:59:10 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190611095909.GA19071@workstation>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
- alsa-devel@alsa-project.org
-References: <20190602071259.21622-1-o-takashi@sakamocchi.jp>
- <s5hblz4bgyy.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5hblz4bgyy.wl-tiwai@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
-Subject: Re: [alsa-devel] [PATCH 00/15] ALSA: firewire-tascam/fireface:
- reserve/release isochronous resources in pcm.hw_params/hw_free callbacks
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09D95F896F1
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 12:01:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09D95F896F1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 121BAAFD3;
+ Tue, 11 Jun 2019 10:01:22 +0000 (UTC)
+Date: Tue, 11 Jun 2019 12:01:20 +0200
+Message-ID: <s5h5zpcbfv3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+In-Reply-To: <20190604162553.GG5942@intel.com>
+References: <f69f48bd4b9b2dc6f8228cd47406882c71758cdf.camel@intel.com>
+ <157c9015-32c8-2c1d-236f-48da16f43399@gmail.com>
+ <CAKMK7uHQ-hS7s_OZuyGjn19tqmz3f-DtcRiD=bjujK1oYHO9tA@mail.gmail.com>
+ <20190604162553.GG5942@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, "Ser,
+ Simon" <simon.ser@intel.com>, Daniel Vetter <daniel@ffwll.ch>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas@amd.com>
+Subject: Re: [alsa-devel] Linking ALSA playback devices and DRM connectors
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,82 +72,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 11, 2019 at 11:37:25AM +0200, Takashi Iwai wrote:
-> On Sun, 02 Jun 2019 09:12:44 +0200,
-> Takashi Sakamoto wrote:
-> > 
-> > Hi,
-> > 
-> > This patchset is a part of series of patches for all of drivers in
-> > ALSA firewire stack to reserve/release isochronous resources in
-> > pcm.hw_params/hw_free callbacks.
-> > 
-> > In current implementation, the resources are reserved at the same time
-> > to start packet streaming, and released at the same time to stop packet
-> > streaming. However, once allocated, the resources are available
-> > independent of lifetime of packet streaming.
-> > 
-> > The isochronous resources are the resources of IEEE 1394 bus. On the
-> > other side of view, it's a kind of resources of hardware to maintain
-> > the bus (isochronous resource manager). For this kind of reservation and
-> > release, hw_params and hw_free operations are suitable in ALSA PCM
-> > interface.
-> > 
-> > Ideally, the operation to reserve/release isochronous resource should
-> > be separated from the operation to start/stop packet streaming. However,
-> > IEEE 1394 bus has reset event. Once reset occurs, isochronous resource
-> > manager releases allocated resources. The resources should be
-> > reallocated by requesters themselves. For this reason, in this patchset,
-> > bus generation is checked before starting packet streaming. If
-> > generation is updated, reallocation is requested to isochronous
-> > resource manager, then packet streaming starts.
-> > 
-> > Takashi Sakamoto (15):
-> >   ALSA: firewire-tascam: code refactoring for registration of
-> >     isochronous channels
-> >   ALSA: firewire-tascam: code refactoring for reservation of isochronous
-> >     resources
-> >   ALSA: firewire-tascam: code refactoring for release of isochronous
-> >     resources
-> >   ALSA: firewire-tascam: reserve/release isochronous resources in
-> >     pcm.hw_params/hw_free callbacks
-> >   ALSA: firewire-tascam: update isochronous resources when starting
-> >     packet streaming after bus reset
-> >   ALSA: firewire-tascam: minor code refactoring to finish streaming
-> >     session
-> >   ALSA: firewire-tascam: code refactoring for pcm.hw_params/hw_free
-> >     callbacks
-> >   ALSA: fireface: add protocol-specific operation to allocate
-> >     isochronous resources
-> >   ALSA: fireface: support allocate_resources operation in ff800 protocol
-> >   ALSA: fireface: support allocate_resources operation in ff400 protocol
-> >   ALSA: fireface: support allocate_resources operation in latter
-> >     protocol
-> >   ALSA: fireface: reserve/release isochronous resources in
-> >     pcm.hw_params/hw_free callbacks
-> >   ALSA: fireface: update isochronous resources when starting packet
-> >     streaming after bus-reset
-> >   ALSA: fireface: minor code refactoring to finish streaming session
-> >   ALSA: fireface: code refactoring for pcm.hw_params/hw_free callbacks
-> 
-> Applied all 15 patches now.  Thanks.
-
-Welcome back ;)
-
-I've already prepared similar patchsets for the other drivers in ALSA
-firewire stack. You'll receive the patchset several times in this week.
-I'm happy if you review and apply them.
-
-
-Thanks
-
-Takashi Sakamoto
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVHVlLCAwNCBKdW4gMjAxOSAxODoyNTo1MyArMDIwMCwKVmlsbGUgU3lyasOkbMOkIHdyb3Rl
+Ogo+IAo+IE9uIFR1ZSwgSnVuIDA0LCAyMDE5IGF0IDA1OjI0OjM1UE0gKzAyMDAsIERhbmllbCBW
+ZXR0ZXIgd3JvdGU6Cj4gPiBPbiBUdWUsIEp1biA0LCAyMDE5IGF0IDU6MTUgUE0gQ2hyaXN0aWFu
+IEvDtm5pZwo+ID4gPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiB3cm90ZToKPiA+
+ID4KPiA+ID4gQW0gMDQuMDYuMTkgdW0gMTc6MDUgc2NocmllYiBTZXIsIFNpbW9uOgo+ID4gPiA+
+IEhpLAo+ID4gPiA+Cj4gPiA+ID4gSSdtIHRyeWluZyB0byBsaW5rIEFMU0EgcGxheWJhY2sgZGV2
+aWNlcyBhbmQgRFJNIGNvbm5lY3RvcnMuIEluIG90aGVyCj4gPiA+ID4gd29yZHMsIEknZCBsaWtl
+IHRvIGJlIGFibGUgdG8ga25vdyB3aGljaCBBTFNBIGRldmljZSBJIHNob3VsZCBvcGVuIHRvCj4g
+PiA+ID4gcGxheSBhdWRpbyBvbiBhIGdpdmVuIGNvbm5lY3Rvci4KPiA+ID4gPgo+ID4gPiA+IFVu
+Zm9ydHVuYXRlbHksIEkgaGF2ZW4ndCBmb3VuZCBhIHdheSB0byBleHRyYWN0IHRoaXMgaW5mb3Jt
+YXRpb24uIEkKPiA+ID4gPiBrbm93IC9wcm9jL2Fzb3VuZC9jYXJkTi9lbGQqIGV4cG9zZSB0aGUg
+RURJRC1saWtlIGRhdGEuIEhvd2V2ZXIgYnkKPiA+ID4gPiBsb29raW5nIGF0IHRoZSBBTFNBIEFQ
+SSAoYWxzbzogYXBsYXkgLWwgYW5kIC1MKSBJIGNhbid0IGZpbmQgYSB3YXkgdG8KPiA+ID4gPiBm
+aWd1cmUgb3V0IHdoaWNoIFBDTSBkZXZpY2UgbWFwcyB0byB0aGUgRUxELgo+ID4gPiA+Cj4gPiA+
+ID4gQW0gSSBtaXNzaW5nIHNvbWV0aGluZz8KPiA+ID4KPiA+ID4gSXMgdGhhdCBhY3R1YWxseSBm
+aXhlZCBvbiBhbGwgaGFyZHdhcmU/IE9yIGRvIHdlIG1heWJlIGhhdmUgc29tZQo+ID4gPiBoYXJk
+d2FyZSB3aXRoIG9ubHkgb25lIGF1ZGlvIGNvZGVjIGFuZCBtdWx0aXBsZSBjb25uZWN0b3JzPwo+
+IAo+IENlcnRhaW4gb2xkIGk5MTUgaGFyZHdhcmUgaXMgbGlrZSB0aGF0LiBZb3UgY2FuIGRyaXZl
+Cj4gbXVsdGlwbGUgSERNSSBjb25uZWN0b3JzIGF0IG9uY2UgYnV0IG9ubHkgb25lIG9mIHRoZW0g
+Cj4gY2FuIGdldCB0aGUgYXVkaW8uIElmIHlvdSB0cnkgdG8gb3V0cHV0IGF1ZGlvIHRvIG11bHRp
+cGxlCj4gcG9ydHMgYXQgb25jZSB5b3UgZ2V0IG5vIGF1ZGlvIHdoYXRzb2V2ZXIuIEFUTSB3ZSBk
+b24ndAo+IHJlYWxseSBoYW5kbGUgdGhhdCBjYXNlIHByb3Blcmx5Lgo+IAo+ID4gPgo+ID4gPiA+
+Cj4gPiA+ID4gSWYgbm90LCB3aGF0IHdvdWxkIGJlIHRoZSBiZXN0IHdheSB0byBleHBvc2UgdGhp
+cz8KPiA+ID4gPgo+ID4gPiA+IC0gQSBzeW1saW5rIHRvIHRoZSBBTFNBIGF1ZGlvIFBDTSBkZXZp
+Y2UgaW4KPiA+ID4gPiAgICAvc3lzL2NsYXNzL2RybS9jYXJkTi1DT05ORUNUT1I/Cj4gPiA+ID4g
+LSBBIHN5bWxpbmsgdG8gdGhlIERSTSBjb25uZWN0b3IgaW4gL3N5cy9jbGFzcy9zb3VuZC9wY20q
+Pwo+ID4gPgo+ID4gPiBJZiBpdCdzIGZpeGVkIHRoYW4gdGhvc2UgdHdvIG9wdGlvbnMgc291bmQg
+c2FuZSB0byBtZS4KPiA+ID4KPiA+ID4gPiAtIEEgRFJNIGNvbm5lY3RvciBwcm9wZXJ0eT8KPiA+
+ID4KPiA+ID4gSWYgaXQncyBjb25maWd1cmFibGUgdGhhbiB0aGF0IHNvdW5kcyBsaWtlIGEgZ29v
+ZCBvcHRpb24gdG8gbWUuCj4gPiA+Cj4gPiA+IEFueXdheSBhZGRlZCBvdXIgREMgdGVhbSwgc3R1
+ZmYgbGlrZSB0aGF0IGlzIHRoZWlyIGNvbnN0cnVjdGlvbiBzaXRlLgo+ID4gPgo+ID4gPiBSZWdh
+cmRzLAo+ID4gPiBDaHJpc3RpYW4uCj4gPiA+Cj4gPiA+ID4gLSBTb21laG93IGV4cG9zZSB0aGUg
+Y29ubmVjdG9yIG5hbWUgdmlhIHRoZSBBTFNBIEFQST8KPiA+ID4gPiAtIEV4cG9zZSB0aGUgY29u
+bmVjdG9yIEVESUQgdmlhIEFMU0E/Cj4gPiA+ID4gLSBPdGhlciBpZGVhcz8KPiA+IAo+ID4gSSB0
+aGluayBvbiBvdXIgTVNUIGh3IHlvdSBnZXQgYSBjb21iaW5hdGlvbiBvZiBDUlRDcyB4IENPTk5F
+Q1RPUnMgb24KPiA+IHRoZSBhbHNhIHNpZGUuIEkuZS4gZm9yIGV2ZXJ5IHBhaXIgb2YgY29ubmVj
+dG9yIGFuZCBjcnRjIHlvdSBnZXQgYQo+ID4gc2VwYXJhdGUgYWxzYSBwaW4uIFRoaXMgaXMgYmVj
+YXVzZSB3aXRoIG1zdCwgeW91IGNvdWxkIGhhdmUgdXAgdG8KPiA+IG51bV9jcnRjcyBzdHJlYW1z
+IG9uIGEgc2luZ2xlIGNvbm5lY3Rvci4gTm90IHN1cmUgaG93IHRvIG1vZGVsIHRoYXQuCj4gCj4g
+SUlSQyB0aGUgY3VycmVudCBpOTE1IHZzLiBhbHNhIG1vZGVsIGlzIHRoYXQgZm9yIFNTVC9IRE1J
+IHlvdSBoYXZlCj4gYSAxOjEgcmVsYXRpb25zaGlwIGJldHdlZW4gdGhlIHBvcnQgYW5kIHRoZSBw
+Y20gZGV2aWNlLCBidXQgd2l0aCBNU1QKPiB5b3UgbmF2ZSBhIDE6MSByZWxhdGlvbnNoaXAgYmV0
+d2VlbiB0aGUgcGlwZSBhbmQgdGhlIHBjbSBkZXZpY2UuCj4gCj4gSSB0aGluayB0aGUgb25seSB3
+YXkgdG8gaGF2ZSBhbnkga2luZCBvZiBzdGF0aWMgY29ubmVjdG9yPC0+cGNtCj4gcmVsYXRpb25z
+aGlwIHdpdGggTVNUIHdvdWxkIGludm9sdmUgZHluYW1pY2FsbHkgYWRkaW5nL3JlbW92aW5nCj4g
+cGNtIGRldmljZXMgd2hlbiB0aGUgY29ycmVjcG9uZGluZyBkcm0gY29ubmVjdG9yIGlzIGFkZGVk
+L3JlbW92ZWQuCj4gSWYgd2UgZG9uJ3Qgd2FudCB0by9jYW4ndCBhZGQgc3VjaCBwY20gZGV2aWNl
+cyB0aGVuIHdlJ2QgbmVlZCB0bwo+IGR5bmFtaWNhbGx5IGNoYW5nZSB0aGUgc3ltbGlua3Mvd2hh
+dGV2ZXIgd2hlbmV2ZXIgYW4gTVNUIHN0cmVhbQo+IGlzIHN0YXJ0ZWQvc3RvcHBlZC4gQW5kIHBy
+b2JhYmx5IHdlIHNob3VsZCBkbyB0aGUgc2FtZSBmb3IgU1NUL0hETUkKPiBhcyB3ZWxsLCBpZiBm
+b3Igbm8gb3RoZXIgcmVhc29uIHRoYW4gdG8gbWFrZSBzdXJlIHVzZXJzcGFjZSBpcwo+IHByZXBh
+cmVkIGZvciBpdCBldmVuIGlmIHRoZXkgZGlkbid0IHRlc3Qgd2l0aCBNU1QuCgpUaGUgaWRlYSB3
+aXRoIHRoZSBkeW5hbWljIFBDTSBkZXZpY2UgY3JlYXRpb24gcG9wcyB1cCBvY2Nhc2lvbmFsbHks
+CmJ1dCBpdCBuZXZlciBmbGllcy4gIFRoZSBiaWdnZXN0IHJlYXNvbiBzbyBmYXIgaXMgdGhlIHN1
+cHBvcnQgb2YKUHVsc2VBdWRpbyBhbmQgb3RoZXJzOyBhbHRob3VnaCBQQSBjYW4gZGVhbCB3aXRo
+IHRoZSBob3RwbHVnICpjYXJkKgpkZXZpY2UsIHRoZSBkZXZpY2VzIGJlbG93IHRoZSBjYXJkIGxl
+dmVsIGFyZW4ndCBtYW5hZ2VkIGR5bmFtaWNhbGx5LApoZW5jZSB0aGUgZHluYW1pYyBjcmVhdGlv
+biBvZiBQQ00gZGV2aWNlIGRvZXNuJ3Qgd29yayBmb3IgdGhlbS4KCiBGcm9tIEFQSSBQT1YsIHRo
+ZSBjbGVhbmVzdCB3YXkgd291bGQgYmUgdG8gcHJvdmlkZSBzb21lIGluZm9ybWF0aW9uCm92ZXIg
+QUxTQSBjb250cm9sIGVsZW1lbnQgZm9yIGVhY2ggUENNIHN0cmVhbSB0aGF0IGluZGljYXRlcyB0
+aGUKY29ycmVzcG9uZGluZyBEUk0gY29ubmVjdG9yLiAgQnV0IG90aGVyIG1ldGhvZHMgc2hvdWxk
+bid0IGJlIHRvbyBoYXJkCnRvIGltcGxlbWVudCAtLSBvbmNlIHdoZW4gd2UgaGF2ZSBhIGNlcnRh
+aW4gd2F5IHRvIG9idGFpbiB0aGUgRFJNCmNvbm5lY3RvciAvIFBDTSByZWxhdGlvbnNoaXAgOikK
+Cgp0aGFua3MsCgpUYWthc2hpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0
+Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fs
+c2EtZGV2ZWwK

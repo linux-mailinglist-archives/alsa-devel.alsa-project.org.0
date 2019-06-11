@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCD923CCFD
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 15:30:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52E5F3CCFE
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 15:31:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5483D1753;
-	Tue, 11 Jun 2019 15:29:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5483D1753
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAE311763;
+	Tue, 11 Jun 2019 15:30:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAE311763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560259843;
-	bh=cu9bVeY7S1hTpRpwhqtzgAYqIplNTzaJ7wLiXNQuBYc=;
+	s=default; t=1560259887;
+	bh=ax8cv2jb86vX52ppq11mgWsE0r6IZWNzIMUBRIurU9s=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vru/OwaKVj6MmS7Svvj4QzIvlfJCRhfSospuhKq+VxuQTdwIxDRtJhWC3Xf+vjCOr
-	 f44l1SUKLhNquCs7mtexx01IG1WvmG8Asnq875B7ospvYu8cMiCb6iVW66fFAGKdtO
-	 Eb7euQOyevbDVATnqMwOqF9Oe2TGk1oEvLVdbVPE=
+	b=dCeOf5Fd/gyS9V/xzVBb0URLwqjiLp26nQ+EqOO40QZL+EO3lPCAGwLQfz3K6XbIx
+	 CDTHZnLxk200MuFoMCE3xYylG48BZcEQihCRu0SRcIwOcpZ53T/y8fBlr8+YhVmiuT
+	 op3ifgNQl33Fwu4tiSt+OqVrjH65btCRMQgA6QAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE312F8976C;
-	Tue, 11 Jun 2019 15:21:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDA40F8976E;
+	Tue, 11 Jun 2019 15:22:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45764F89744; Tue, 11 Jun 2019 15:21:47 +0200 (CEST)
+ id 7D5A6F8974A; Tue, 11 Jun 2019 15:21:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36D74F8973D
- for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 15:21:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36D74F8973D
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6B36F89733
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 15:21:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6B36F89733
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="qkUQChX2"; 
+ header.b="lDB32E6U"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="HZmArF87"
+ header.i=@messagingengine.com header.b="ECBRU5f2"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 657832228E;
- Tue, 11 Jun 2019 09:21:43 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id DCB8420A3C;
+ Tue, 11 Jun 2019 09:21:44 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 11 Jun 2019 09:21:43 -0400
+ by compute1.internal (MEProxy); Tue, 11 Jun 2019 09:21:44 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=N/mkCm+VdODK2
- ZbeMzU7uYgzL+a9z91xp0AtRFXEbVY=; b=qkUQChX2hucAiznOkEHUK/+jJGK3c
- vjJpYbOnqfYBanncpOI9B04eB2u9sCBPsl1lEkwlzBZWnCSSugUXqHHkpKxtaMBa
- Btl+6pnO3EpZWZ0fj/zTQmUDBM7wwXL6igVZspBMg1K3O9hX9wSYPr3WZX4hUzOF
- isDweNfsoetlR/C9Fom1BRg5zLv+eukbZeqpDurYS8smlHKn/n6JIX+zzxzH/yIV
- JqursAy2kR37dlYhf59C7YsrEQrCqeU64FWXmXtoDAa+y6BHxYUE+LzrL5TeAaIi
- j1bMvb2mR2MBis8RH/YhB63jtzc6A2yppLDFCCXl7XJ/6CX44eXGCrEqg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=asBHAlIE0CZ8Q
+ 0Zgidif0+AmrxXvFh7uvx3Su/8Lxzc=; b=lDB32E6U6+7HtXFAXSPBMxcZh4jP3
+ WlgsBHeJCocfwXMx59aYHF2sRbt3/8rlP2YTOYqbS556Y8mMdeq23ONUJUPdVY2X
+ GAyJYT9OxnMCfoJornSJZQMq0/u9y4qdZpWkq5lJgJsbSM/Fsj+OrASXaCa8j898
+ WhQqY2/Dy/ps7HwP4BFL3NtwZ+ISGO4wsJQ1j6lb30QtqwgMTZLmLo/ceS6ke7Gl
+ YJ1iMN6xgPVIOXO8toeFtFOw7fULEfR1Gi62QRkBxamzYe/o2UCrypeXmq8ApaHs
+ zJ1xvdvfV9+V0UOQA2PVUieuFnLTedeWfm6Tv8Ma4p10s7hXHSKWVWn+g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=N/mkCm+VdODK2ZbeMzU7uYgzL+a9z91xp0AtRFXEbVY=; b=HZmArF87
- 7v7rjsZ3sMxuhImpG/VGrfC1BKqXNGEfIFvzoPc07KL2hN8xTj3kRPd6ipm7sfKs
- /zPqAB0URJFdD0GPrp2dLoVAKjH7KeeGvpFKkyQ1p2whbRNXlriX2UqtAV544iPA
- myPhRJgEE+nID0rqK6I4EMREXuPWkbO9/iyaZBNcwZrlgk+SCUMztWyMCamJgFPh
- JwPbTk2BxBvqIMuO0hrT1+SqeWjBn9PcMiGiw+3JRtE/lA1Ak3jfJStiJmK7A50s
- rz4zFGwXmQaxS32IlSM8VXE/Eo/buMLYuxX6lYImD2ioAEvpSBYUs8iK8WTrPHPa
- +O2xFCV19LwueQ==
-X-ME-Sender: <xms:56r_XLQKM-pPcRc9xfDOzU8jGoQ71FbV2tw7LJA8ay8DIV_W5xZGtQ>
+ fm3; bh=asBHAlIE0CZ8Q0Zgidif0+AmrxXvFh7uvx3Su/8Lxzc=; b=ECBRU5f2
+ ObpjPgJ/FSnM7QgCKbRXkrAi8WYNQ8Av73RyLPHMnQZ7Rt0WdLmmDbdLgyCvHNe2
+ Oi0bmgdwY/jRrtPc1fnuV8fKFzfoKQrlpOOeVMpuenD0ijWerUExZbcLO65oa489
+ 2wXOOctDOV61yb5jBv6v7bEQNDqiR+TbNHOexbMAISCSMLCoF0ZqDUKCdAuPBo8w
+ /sxo482SFdmLjS2pGgUk014jAqHawWZfzxkmtY6+O/KpdCsRdFPo+UIHpdV4smMt
+ o6XNL3NI6Z9GYAZxyhxb7aMGDPtSoaYuDDvTieb7TIAgePTnuhzgOC2kvgwBC/D1
+ WJsk88ligBX8VQ==
+X-ME-Sender: <xms:6Kr_XC2CKSGgtkXKezQBs8g3Umf16ihgbSAGh9ckaciQvc8UTTR4Rg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehhedggeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -75,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehhedggeekucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgeple
-X-ME-Proxy: <xmx:56r_XKQ-u1V5Vdm2dyZQLGSK8uk1cq41OUokkRq3UVcmuHXiQGzgMw>
- <xmx:56r_XHLEHQCM_AYxKvUnWahEquiHhbZixz8uPMdqiKEnTMvgNKGfxQ>
- <xmx:56r_XCI4M-cnGRMkU8B_7elfrrgzprcF3bdYNVHY8gckW2SNJF9J9w>
- <xmx:56r_XJ5OHbeiG0XDONTvalZygPNROguCNvQdlaZlYZRPnNruu4s_Og>
+X-ME-Proxy: <xmx:6Kr_XN7pd8Hjwd7V3jPGZkp8Jxm9bwi_yNinx8v4n8qOq-82LvSM5w>
+ <xmx:6Kr_XBf1-sjRFfvh3JSzByq8QVH_3DXqSRsJ1S3-lVrA9l7xeQU-zg>
+ <xmx:6Kr_XBOaRN6z-8s5H0t8BW1ydSDkUvygAv11TrNsGcoK18TWFkKyLQ>
+ <xmx:6Kr_XAnQiEpoFVzPYoNHV0-z8Puq0LPaD6sPni8ydu7EbNy2bAM44A>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 772A138008A;
- Tue, 11 Jun 2019 09:21:41 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7FA6238008F;
+ Tue, 11 Jun 2019 09:21:43 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Tue, 11 Jun 2019 22:21:17 +0900
-Message-Id: <20190611132118.8378-12-o-takashi@sakamocchi.jp>
+Date: Tue, 11 Jun 2019 22:21:18 +0900
+Message-Id: <20190611132118.8378-13-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190611132118.8378-1-o-takashi@sakamocchi.jp>
 References: <20190611132118.8378-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 11/12] ALSA: dice: update isochronous resources
-	when starting packet streaming after bus-reset
+Subject: [alsa-devel] [PATCH 12/12] ALSA: dice: code refactoring for
+	pcm.hw_params/hw_free callbacks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,54 +112,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-After bus reset, isochronous resource manager releases all of allocated
-isochronous resources. The nodes to transfer isochronous packet should
-request reallocation of the resources.
+The pairs of pcm.hw_params callbacks and .hw_free callbacks for both
+direction have no differences.
 
-However, between the bus-reset and invocation of 'struct fw_driver.update'
-handler, ALSA PCM application can detect this situation by XRUN because
-the target device cancelled to transmit packets once bus-reset occurs.
-
-Due to the above mechanism, ALSA fireface driver just stops packet
-streaming in the update handler, thus pcm.prepare handler should
-request the reallocation.
-
-This commit requests the reallocation in pcm.prepare callback when
-bus generation is changed.
+This commit unifies the pairs.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/dice/dice-stream.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/firewire/dice/dice-pcm.c | 54 +++++-----------------------------
+ 1 file changed, 7 insertions(+), 47 deletions(-)
 
-diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
-index 6bbf7421a53c..f61b99a72655 100644
---- a/sound/firewire/dice/dice-stream.c
-+++ b/sound/firewire/dice/dice-stream.c
-@@ -399,6 +399,7 @@ static int start_streams(struct snd_dice *dice, enum amdtp_stream_direction dir,
-  */
- int snd_dice_stream_start_duplex(struct snd_dice *dice)
- {
-+	unsigned int generation = dice->rx_resources[0].generation;
- 	struct reg_params tx_params, rx_params;
- 	unsigned int i;
- 	unsigned int rate;
-@@ -421,6 +422,15 @@ int snd_dice_stream_start_duplex(struct snd_dice *dice)
- 		}
- 	}
+diff --git a/sound/firewire/dice/dice-pcm.c b/sound/firewire/dice/dice-pcm.c
+index 6c7a6b7ed743..00b55dfc3b2c 100644
+--- a/sound/firewire/dice/dice-pcm.c
++++ b/sound/firewire/dice/dice-pcm.c
+@@ -231,8 +231,8 @@ static int pcm_close(struct snd_pcm_substream *substream)
+ 	return 0;
+ }
  
-+	if (generation != fw_parent_device(dice->unit)->card->generation) {
-+		for (i = 0; i < MAX_STREAMS; ++i) {
-+			if (i < tx_params.count)
-+				fw_iso_resources_update(dice->tx_resources + i);
-+			if (i < rx_params.count)
-+				fw_iso_resources_update(dice->rx_resources + i);
-+		}
-+	}
-+
- 	// Check required streams are running or not.
- 	err = snd_dice_transaction_get_rate(dice, &rate);
- 	if (err < 0)
+-static int capture_hw_params(struct snd_pcm_substream *substream,
+-			     struct snd_pcm_hw_params *hw_params)
++static int pcm_hw_params(struct snd_pcm_substream *substream,
++			 struct snd_pcm_hw_params *hw_params)
+ {
+ 	struct snd_dice *dice = substream->private_data;
+ 	int err;
+@@ -254,48 +254,8 @@ static int capture_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	return err;
+ }
+-static int playback_hw_params(struct snd_pcm_substream *substream,
+-			      struct snd_pcm_hw_params *hw_params)
+-{
+-	struct snd_dice *dice = substream->private_data;
+-	int err;
+-
+-	err = snd_pcm_lib_alloc_vmalloc_buffer(substream,
+-					       params_buffer_bytes(hw_params));
+-	if (err < 0)
+-		return err;
+-
+-	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
+-		unsigned int rate = params_rate(hw_params);
+-
+-		mutex_lock(&dice->mutex);
+-		err = snd_dice_stream_reserve_duplex(dice, rate);
+-		if (err >= 0)
+-			++dice->substreams_counter;
+-		mutex_unlock(&dice->mutex);
+-	}
+-
+-	return err;
+-}
+-
+-static int capture_hw_free(struct snd_pcm_substream *substream)
+-{
+-	struct snd_dice *dice = substream->private_data;
+-
+-	mutex_lock(&dice->mutex);
+-
+-	if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
+-		--dice->substreams_counter;
+-
+-	snd_dice_stream_stop_duplex(dice);
+-	snd_dice_stream_release_duplex(dice);
+-
+-	mutex_unlock(&dice->mutex);
+-
+-	return snd_pcm_lib_free_vmalloc_buffer(substream);
+-}
+ 
+-static int playback_hw_free(struct snd_pcm_substream *substream)
++static int pcm_hw_free(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_dice *dice = substream->private_data;
+ 
+@@ -415,8 +375,8 @@ int snd_dice_create_pcm(struct snd_dice *dice)
+ 		.open      = pcm_open,
+ 		.close     = pcm_close,
+ 		.ioctl     = snd_pcm_lib_ioctl,
+-		.hw_params = capture_hw_params,
+-		.hw_free   = capture_hw_free,
++		.hw_params = pcm_hw_params,
++		.hw_free   = pcm_hw_free,
+ 		.prepare   = capture_prepare,
+ 		.trigger   = capture_trigger,
+ 		.pointer   = capture_pointer,
+@@ -427,8 +387,8 @@ int snd_dice_create_pcm(struct snd_dice *dice)
+ 		.open      = pcm_open,
+ 		.close     = pcm_close,
+ 		.ioctl     = snd_pcm_lib_ioctl,
+-		.hw_params = playback_hw_params,
+-		.hw_free   = playback_hw_free,
++		.hw_params = pcm_hw_params,
++		.hw_free   = pcm_hw_free,
+ 		.prepare   = playback_prepare,
+ 		.trigger   = playback_trigger,
+ 		.pointer   = playback_pointer,
 -- 
 2.20.1
 

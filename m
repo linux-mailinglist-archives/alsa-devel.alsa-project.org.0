@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2D133C92D
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 12:42:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0600D3C92E
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Jun 2019 12:43:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FCE316F7;
-	Tue, 11 Jun 2019 12:42:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FCE316F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8508B16EA;
+	Tue, 11 Jun 2019 12:42:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8508B16EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560249770;
-	bh=xsaE6JruiT3WCwpJUcQm4zImmdcNDFV2zQAvSH5+A+Y=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tUMPTUmwTmn0qM8lCL4ElvH3gteaPLH+O5AKnPfPmXoo9t0VFeJ37RG4CwyupbJTO
-	 g/UAaCxBrfxbaiSpd8Y6YYG3c+4IEGPtBQUJDtZQOmEq+0zoK5EOBdnqwPgwRCfVxx
-	 jkIukP8aOByadN1FcB9BXLNYtpgLOmnCQy2jb0B4=
+	s=default; t=1560249814;
+	bh=PTFlq/0wzjZn+NfPSdPK/I/zWaIg5pYX7e2lu4fZILo=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=skz8wQ2CbnUMRPnG6WtYagnUSuvIpb59hYkAuRda4Xn7OhIQ4SShBRJa6vyOlkA49
+	 fso0LydukFwFHG39BCYMEStPBL7eXNt6FWpHBUPQkDKNU08xhUyqF0AtZynBdFfWJQ
+	 U4Cth1LxWkND96z6TZevq2gH3pEqPiqILBLD+mgM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9BF8F89714;
-	Tue, 11 Jun 2019 12:41:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 362A0F89728;
+	Tue, 11 Jun 2019 12:41:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 883F8F89711; Tue, 11 Jun 2019 12:41:02 +0200 (CEST)
+ id 54471F89711; Tue, 11 Jun 2019 12:41:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4F94F80791
- for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 12:40:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4F94F80791
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D84DF8961D
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 12:41:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D84DF8961D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="O6TxbJgN"
-Received: by mail-wr1-x443.google.com with SMTP id p11so12436028wre.7
- for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 03:40:59 -0700 (PDT)
+ header.b="yz9mV4N+"
+Received: by mail-wr1-x444.google.com with SMTP id n4so12390052wrw.13
+ for <alsa-devel@alsa-project.org>; Tue, 11 Jun 2019 03:41:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7Us0ePqajLzv9F8VyyEgnx7luzsoyG4vzsDlEA+qZoA=;
- b=O6TxbJgNNzTRHvhsHcPcpFSEUN11tv3n1CNF50tCukacGTLqdUAK+DDEWaCElbVabt
- QU5pBOco5tJX+h0zDpfzd3H/8MttD0lp+YNl+n1tW3scb6cYp1Y52CS4GL173QcZvDe9
- vlXriA5EQNVgXnNONNVP5E/xr35kQmk9KzJU6KRcU8DfJcYIgitGm3jQI9fH0t2iMJSh
- oIYQAJzZJyH8UnnP/kwMuy97Jdv5Qjy94LWHpg/5MzSLC1Dsy3NpfFGuLIddsyGNONrx
- RhYU2n+dd0ezUTpaYFnf8DqqZxYnSlvR8apoS0Kj35ayKcKtbbFM6uXVsee9Yeu95JUc
- kOgQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=4Gpz9OAv6XE5jXE+cWS3impQo2MFLCRNnAJiI/H46i8=;
+ b=yz9mV4N+vItMSb0ZebnnzAvl58O0ImcBvJpG+VgMse/+oVEetTdiTMgqrMARsDg4Ca
+ /Pflabz2rgCT3/eYvf/xJWmONndZxu8tpveX6p7Lz8wpb4m53mr2+vyltKqHt/l5Dkr3
+ qDPFzKHCkgMXSXmb2L+53zNmiTYUhnJi/qI3IPPH/TmGuN2hUQZvBFW63jmx9tKBTo8P
+ ySQkITia6tY0svstKyHYwb1Vvd+a1uVeDm2C1Naxm5VdQ1acAJe7lXFxQ/M70CiSq/u5
+ G5yL3SXtZ3dTXs6TQ1zFJ+axj3T4s8IkMUSoYO5wiO07q183uZ2Ma+cT/OFkUV1TEDHs
+ jfWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7Us0ePqajLzv9F8VyyEgnx7luzsoyG4vzsDlEA+qZoA=;
- b=UzyhZT67ae0kK5PXdc90Sf0fgj2KHsFaNwtD13dBi7kzostZADRlv+QcqQEunGocvm
- KPVJ0OZijpFM6mxm4BJgIp8Rbzpw40YkUCRYclsiCsj7YIXrdOxkrxECbrmVsI5wHZ2X
- LiP6mStn+6CNxfiidy/z+blGSZVn10tnrmswqQ5RUPX6i3oPufij5u1wd0RwHdeowCZt
- KOgzahWyFPy40R0IGhkx4KdigWcdogJP2L9qPo3J8nIavqKoSQ2ASVhBVOnvbdatbrAI
- GFmFMmZFm1BMHMQXKdgFoWBylxmRrlDsUbKP1IQzS0oU+J0+uuG1uCk1LNYgo/17BrZN
- 9DMw==
-X-Gm-Message-State: APjAAAUOiIn3kdH71bW7hzoyuvLX95iAX/oWD6sXrcr0vmXqNVsYvo4B
- ei9cMRz43J0JA8Y8IupaKePO1A==
-X-Google-Smtp-Source: APXvYqwKnDzyF9xodu2F8D8uakDUS7/kq2b5T0SBVt6AAGazCrBBaf6zY+sVXP/lUzeZyCqpx23H9A==
-X-Received: by 2002:a5d:6207:: with SMTP id y7mr29651668wru.265.1560249658630; 
- Tue, 11 Jun 2019 03:40:58 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=4Gpz9OAv6XE5jXE+cWS3impQo2MFLCRNnAJiI/H46i8=;
+ b=I4IUHqCmKtRIpNZvQgbqqlRz+zVwMCU/WHaExhnjPsa2BoqJEd9Nzaqm0/cV0mkQps
+ OoL46436qX05y6mmQMy6EjVVj9dvX6SmHPLSq+tDHtAq6YaYLKb3tAZ0/subLr0BH6wi
+ ah0rHPgXY6NDXHCde1FlnZM9VPugWq8i6B7qUDm69iBxa7pfHpXGpSrN1IIbPhj7iYsU
+ Q/XX8hmnHgQB0uiKdr0ZD5Rf0D8cqa3vcS6fISSgZgQYL3yZUP2CSajmUzR/5TGycjTn
+ OdIdWegXDtssP3acEx/3sjSHdCoHGLj7aJgNWPrjpweg97Rz8rrD26BgHbDREIKTYIyj
+ 0Q6w==
+X-Gm-Message-State: APjAAAWdk5q2cZtmTmo9LysLjPeIMWor8cC9vCNmG5/kUXm9zuQDp/N2
+ 1Pv+EdfZ4KVt1zzd6OjEY7pmgw==
+X-Google-Smtp-Source: APXvYqw0VHgX1azWWjQDETpNylE10g6+4P3bUZ01iGYUimXj1pqhrwetgi3EVywiQlTKCKQS9Y0+Xg==
+X-Received: by 2002:a5d:4f81:: with SMTP id d1mr25750987wru.156.1560249659592; 
+ Tue, 11 Jun 2019 03:40:59 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id c65sm2359614wma.44.2019.06.11.03.40.57
+ by smtp.gmail.com with ESMTPSA id c65sm2359614wma.44.2019.06.11.03.40.58
  (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Tue, 11 Jun 2019 03:40:58 -0700 (PDT)
+ Tue, 11 Jun 2019 03:40:59 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org,
 	vkoul@kernel.org
-Date: Tue, 11 Jun 2019 11:40:38 +0100
-Message-Id: <20190611104043.22181-1-srinivas.kandagatla@linaro.org>
+Date: Tue, 11 Jun 2019 11:40:39 +0100
+Message-Id: <20190611104043.22181-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190611104043.22181-1-srinivas.kandagatla@linaro.org>
+References: <20190611104043.22181-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
  linux-kernel@vger.kernel.org, robh+dt@kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, bgoswami@quicinc.com
-Subject: [alsa-devel] [RFC PATCH 0/5] ASoC: codecs: Add WSA881x Smart
-	Speaker amplifier support
+Subject: [alsa-devel] [RFC PATCH 1/5] dt-bindings: soundwire: add slave
+	bindings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,45 +105,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patchset adds support to WSA8810/WSA8815 Class-D Smart Speaker
-Amplifier which is SoundWire interfaced.
-This also adds support to some missing bits in SoundWire bus layer like
-Device Tree support and module_sdw_driver macro.
+This patch adds bindings for Soundwire Slave devices which includes how
+SoundWire enumeration address is represented in SoundWire slave device
+tree nodes.
 
-This patchset along with DB845c machine driver and WCD934x codec driver
-has been tested on SDM845 SoC based DragonBoard DB845c with two
-WSA8810 speakers.
-
-Most of the code in this driver is rework of Qualcomm downstream drivers
-used in Andriod. Credits to Banajit Goswami and Patrick Lai's Team.
-
-TODO:
-	Add thermal sensor support in WSA881x.
-
-Thanks,
-srini
-
-Srinivas Kandagatla (5):
-  dt-bindings: soundwire: add slave bindings
-  soundwire: core: add device tree support for slave devices
-  soundwire: add module_sdw_driver helper macro
-  dt-bindings: ASoC: Add WSA881x bindings
-  ASoC: codecs: add wsa881x amplifier support
-
- .../bindings/sound/qcom,wsa881x.txt           |   27 +
- .../devicetree/bindings/soundwire/bus.txt     |   48 +
- drivers/soundwire/bus.c                       |    2 +-
- drivers/soundwire/bus.h                       |    1 +
- drivers/soundwire/slave.c                     |   54 +-
- include/linux/soundwire/sdw_type.h            |   11 +
- sound/soc/codecs/Kconfig                      |    9 +
- sound/soc/codecs/Makefile                     |    2 +
- sound/soc/codecs/wsa881x.c                    | 1160 +++++++++++++++++
- 9 files changed, 1312 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa881x.txt
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ .../devicetree/bindings/soundwire/bus.txt     | 48 +++++++++++++++++++
+ 1 file changed, 48 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/soundwire/bus.txt
- create mode 100644 sound/soc/codecs/wsa881x.c
 
+diff --git a/Documentation/devicetree/bindings/soundwire/bus.txt b/Documentation/devicetree/bindings/soundwire/bus.txt
+new file mode 100644
+index 000000000000..19a672b0d528
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soundwire/bus.txt
+@@ -0,0 +1,48 @@
++SoundWire bus bindings.
++
++SoundWire is a 2-pin multi-drop interface with data and clock line.
++It facilitates development of low cost, efficient, high performance systems.
++
++SoundWire controller bindings are very much specific to vendor.
++
++Child nodes(SLAVE devices):
++Every SoundWire controller node can contain zero or more child nodes
++representing slave devices on the bus. Every SoundWire slave device is
++uniquely determined by the enumeration address containing 5 fields:
++SoundWire Version, Instance ID, Manufacturer ID, Part ID and Class ID
++for a device. Addition to below required properties, child nodes can
++have device specific bindings.
++
++Required property for SoundWire child node if it is present:
++- compatible:	 "sdwVER,MFD,PID,CID". The textual representation of
++		  SoundWire Enumeration address comprising SoundWire
++		  Version, Manufacturer ID, Part ID and Class ID,
++		  shall be in lower-case hexadecimal with leading
++		  zeroes suppressed.
++		  Version number '0x10' represents SoundWire 1.0
++		  Version number '0x11' represents SoundWire 1.1
++		  ex: "sdw10,0217,2010,0"
++
++- sdw-instance-id: Should be ('Instance ID') from SoundWire
++		  Enumeration Address. Instance ID is for the cases
++		  where multiple Devices of the same type or Class
++		  are attached to the bus.
++
++SoundWire example for Qualcomm's SoundWire controller:
++
++soundwire@c2d0000 {
++	compatible = "qcom,soundwire-v1.5.0"
++	reg = <0x0c2d0000 0x2000>;
++
++	spkr_left:wsa8810-left{
++		compatible = "sdw10,0217,2010,0";
++		sdw-instance-id = <1>;
++		...
++	};
++
++	spkr_right:wsa8810-right{
++		compatible = "sdw10,0217,2010,0";
++		sdw-instance-id = <2>;
++		...
++	};
++};
 -- 
 2.21.0
 

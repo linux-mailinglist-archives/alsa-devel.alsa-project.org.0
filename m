@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72C6942B9F
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 18:01:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B6D542BA5
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 18:01:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC482177F;
-	Wed, 12 Jun 2019 18:00:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC482177F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD81D176E;
+	Wed, 12 Jun 2019 18:01:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD81D176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560355279;
-	bh=blBpEErjhJ0PMhZctqgXpzGfUGAzitjqQi6jQuzoAUc=;
+	s=default; t=1560355318;
+	bh=i+Pyu+xFCU7CcJZG5hc4vq0RA3H/irAeZ3JUs2KkN/I=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=OznnDiE7lcnn0rEvfNKDGnHbVl1Blh40TzCAbK0c9p63aaO+K0OPYq1F2fTbVh8Fp
-	 p/0mNr111uGnyDbc7WCnkirlKFAa+KVt1YhdOR3O80HL/gqXbgj58eYIJ2MrM7cyeO
-	 wr2VCL9PajcsRqfuGF7FAf1s3B4r9UhwFA99z2VE=
+	b=DK8Dx0sVe0+sjAQINPpu9p0y5QfZOzA13B7ioD7czXuh2oFqNDfuMTNBNQdbUIO/F
+	 LrCoY84XsG6t0iN4/3clJfA7M5XnKVuZ+eu8Vj4+EdKeiBh8fAuVjA19y4Qe+TZBGm
+	 6RxD+N+LmEKBpU8fgmLsgK2qgWr5eWogJvLUfjT8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE8E1F806F5;
-	Wed, 12 Jun 2019 17:59:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 173D1F8972F;
+	Wed, 12 Jun 2019 17:59:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7756AF896E3; Wed, 12 Jun 2019 17:59:31 +0200 (CEST)
+ id B204CF896E0; Wed, 12 Jun 2019 17:59:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C17D2F806F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 091CFF80794
  for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 17:59:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C17D2F806F5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 091CFF80794
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="lz9BXByn"
+ header.b="uqWfxXgc"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=YA2MYBNBMatcq9Mz5KnNb8V+dC8ifZ7eYiCOOwL6tbo=; b=lz9BXByn6KgX
- Eutanqm/JEhXdOmdzvZvsoooBh6ZUcu94QNmg8Ibi05s02nTg3zGQvw4lUNqzgfV5wnBoIaJMkYkY
- /DbaHmcGaONCxNJH4e21H6w6/bV0hroU40xOE6biJPyPjx6FqY4lwQqkBk1hTvG6F4uXkrGyWFvfm
- zsi70=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=F4hBM2hnudeTw3rmBj2H/vr2wvVOT3QCsFB/lvau9Gc=; b=uqWfxXgcMiTw
+ X3AY60kodtH7UiiyRr8zVSRRMMe+Psd5GnL8JcvB0NmMNaVe1wX+VUSU+VYBjKA6RE8brRnk9mZRx
+ 2A9e0liTKkyGumR9rRKLzInOhI0faJd1eQViAJUfMyRItaRvALFsmTLgIos/ROtJyUIquAyTgsNcZ
+ 1vcQg=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hb5ep-000366-NJ; Wed, 12 Jun 2019 15:59:27 +0000
+ id 1hb5eq-000367-DK; Wed, 12 Jun 2019 15:59:28 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 04CC7440046; Wed, 12 Jun 2019 16:59:26 +0100 (BST)
+ id 970D7440049; Wed, 12 Jun 2019 16:59:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20190611122941.10708-3-peter.ujfalusi@ti.com>
+In-Reply-To: <20190611122941.10708-2-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190612155927.04CC7440046@finisterre.sirena.org.uk>
-Date: Wed, 12 Jun 2019 16:59:26 +0100 (BST)
+Message-Id: <20190612155927.970D7440049@finisterre.sirena.org.uk>
+Date: Wed, 12 Jun 2019 16:59:27 +0100 (BST)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  lgirdwood@gmail.com, jsarha@ti.com, linux-kernel@vger.kernel.org,
  robh+dt@kernel.org, Mark Brown <broonie@kernel.org>, misael.lopez@ti.com
-Subject: [alsa-devel] Applied "ASoC: ti: davinci-mcasp: Support for
-	auxclk-fs-ratio" to the asoc tree
+Subject: [alsa-devel] Applied "bindings: sound: davinci-mcasp: Add support
+	for optional auxclk-fs-ratio" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: ti: davinci-mcasp: Support for auxclk-fs-ratio
+   bindings: sound: davinci-mcasp: Add support for optional auxclk-fs-ratio
 
 has been applied to the asoc tree at
 
@@ -114,138 +114,35 @@ to this mail.
 Thanks,
 Mark
 
-From 764958f2b5239cbf174e70cad4c3f19a8c1081ba Mon Sep 17 00:00:00 2001
+From b7e47f48f1197c24f5347327afc2a4f7f6da9ca5 Mon Sep 17 00:00:00 2001
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Date: Tue, 11 Jun 2019 15:29:41 +0300
-Subject: [PATCH] ASoC: ti: davinci-mcasp: Support for auxclk-fs-ratio
+Date: Tue, 11 Jun 2019 15:29:40 +0300
+Subject: [PATCH] bindings: sound: davinci-mcasp: Add support for optional
+ auxclk-fs-ratio
 
-When McASP is bus master and it's AUXCLK clock is not static, but it is
-a multiple of the frame sync the constraint rules should take it account
-when validating possible stream formats.
+When McASP is bus master it's reference clock (AUXCLK) might not be a
+static clock, but running at a specific FS ratio.
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/ti/davinci-mcasp.c | 52 ++++++++++++++++++++++++++++++------
- 1 file changed, 44 insertions(+), 8 deletions(-)
+ .../devicetree/bindings/sound/davinci-mcasp-audio.txt          | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
-index 9fbc759fdefe..a8378d223a9e 100644
---- a/sound/soc/ti/davinci-mcasp.c
-+++ b/sound/soc/ti/davinci-mcasp.c
-@@ -100,6 +100,7 @@ struct davinci_mcasp {
+diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
+index a58f79f5345c..c483dcec01f8 100644
+--- a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
++++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
+@@ -44,6 +44,9 @@ Optional properties:
+   		 please refer to pinctrl-bindings.txt
+ - fck_parent : Should contain a valid clock name which will be used as parent
+ 	       for the McASP fck
++- auxclk-fs-ratio: When McASP is bus master indicates the ratio between AUCLK
++		   and FS rate if applicable:
++		   AUCLK rate = auxclk-fs-ratio * FS rate
  
- 	int	sysclk_freq;
- 	bool	bclk_master;
-+	u32	auxclk_fs_ratio;
- 
- 	unsigned long pdir; /* Pin direction bitfield */
- 
-@@ -1064,13 +1065,13 @@ static int mcasp_dit_hw_param(struct davinci_mcasp *mcasp,
- }
- 
- static int davinci_mcasp_calc_clk_div(struct davinci_mcasp *mcasp,
-+				      unsigned int sysclk_freq,
- 				      unsigned int bclk_freq, bool set)
- {
--	int error_ppm;
--	unsigned int sysclk_freq = mcasp->sysclk_freq;
- 	u32 reg = mcasp_get_reg(mcasp, DAVINCI_MCASP_AHCLKXCTL_REG);
- 	int div = sysclk_freq / bclk_freq;
- 	int rem = sysclk_freq % bclk_freq;
-+	int error_ppm;
- 	int aux_div = 1;
- 
- 	if (div > (ACLKXDIV_MASK + 1)) {
-@@ -1175,7 +1176,8 @@ static int davinci_mcasp_hw_params(struct snd_pcm_substream *substream,
- 		if (mcasp->slot_width)
- 			sbits = mcasp->slot_width;
- 
--		davinci_mcasp_calc_clk_div(mcasp, rate * sbits * slots, true);
-+		davinci_mcasp_calc_clk_div(mcasp, mcasp->sysclk_freq,
-+					   rate * sbits * slots, true);
- 	}
- 
- 	ret = mcasp_common_hw_param(mcasp, substream->stream,
-@@ -1282,12 +1284,19 @@ static int davinci_mcasp_hw_rule_rate(struct snd_pcm_hw_params *params,
- 
- 	for (i = 0; i < ARRAY_SIZE(davinci_mcasp_dai_rates); i++) {
- 		if (snd_interval_test(ri, davinci_mcasp_dai_rates[i])) {
--			uint bclk_freq = sbits*slots*
--				davinci_mcasp_dai_rates[i];
-+			uint bclk_freq = sbits * slots *
-+					 davinci_mcasp_dai_rates[i];
-+			unsigned int sysclk_freq;
- 			int ppm;
- 
--			ppm = davinci_mcasp_calc_clk_div(rd->mcasp, bclk_freq,
--							 false);
-+			if (rd->mcasp->auxclk_fs_ratio)
-+				sysclk_freq =  davinci_mcasp_dai_rates[i] *
-+					       rd->mcasp->auxclk_fs_ratio;
-+			else
-+				sysclk_freq = rd->mcasp->sysclk_freq;
-+
-+			ppm = davinci_mcasp_calc_clk_div(rd->mcasp, sysclk_freq,
-+							 bclk_freq, false);
- 			if (abs(ppm) < DAVINCI_MAX_RATE_ERROR_PPM) {
- 				if (range.empty) {
- 					range.min = davinci_mcasp_dai_rates[i];
-@@ -1321,12 +1330,19 @@ static int davinci_mcasp_hw_rule_format(struct snd_pcm_hw_params *params,
- 	for (i = 0; i <= SNDRV_PCM_FORMAT_LAST; i++) {
- 		if (snd_mask_test(fmt, i)) {
- 			uint sbits = snd_pcm_format_width(i);
-+			unsigned int sysclk_freq;
- 			int ppm;
- 
-+			if (rd->mcasp->auxclk_fs_ratio)
-+				sysclk_freq =  rate *
-+					       rd->mcasp->auxclk_fs_ratio;
-+			else
-+				sysclk_freq = rd->mcasp->sysclk_freq;
-+
- 			if (rd->mcasp->slot_width)
- 				sbits = rd->mcasp->slot_width;
- 
--			ppm = davinci_mcasp_calc_clk_div(rd->mcasp,
-+			ppm = davinci_mcasp_calc_clk_div(rd->mcasp, sysclk_freq,
- 							 sbits * slots * rate,
- 							 false);
- 			if (abs(ppm) < DAVINCI_MAX_RATE_ERROR_PPM) {
-@@ -1991,6 +2007,22 @@ static inline int davinci_mcasp_init_gpiochip(struct davinci_mcasp *mcasp)
- }
- #endif /* CONFIG_GPIOLIB */
- 
-+static int davinci_mcasp_get_dt_params(struct davinci_mcasp *mcasp)
-+{
-+	struct device_node *np = mcasp->dev->of_node;
-+	int ret;
-+	u32 val;
-+
-+	if (!np)
-+		return 0;
-+
-+	ret = of_property_read_u32(np, "auxclk-fs-ratio", &val);
-+	if (ret >= 0)
-+		mcasp->auxclk_fs_ratio = val;
-+
-+	return 0;
-+}
-+
- static int davinci_mcasp_probe(struct platform_device *pdev)
- {
- 	struct snd_dmaengine_dai_dma_data *dma_data;
-@@ -2224,6 +2256,10 @@ static int davinci_mcasp_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err;
- 
-+	ret = davinci_mcasp_get_dt_params(mcasp);
-+	if (ret)
-+		return -EINVAL;
-+
- 	ret = devm_snd_soc_register_component(&pdev->dev,
- 					&davinci_mcasp_component,
- 					&davinci_mcasp_dai[pdata->op_mode], 1);
+ Optional GPIO support:
+ If any McASP pin need to be used as GPIO then the McASP node must have:
 -- 
 2.20.1
 

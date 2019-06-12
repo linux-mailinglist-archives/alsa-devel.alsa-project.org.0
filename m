@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C75D41FFC
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:55:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CBBF42010
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:56:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E546E1772;
-	Wed, 12 Jun 2019 10:54:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E546E1772
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99AF91770;
+	Wed, 12 Jun 2019 10:55:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99AF91770
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560329719;
-	bh=UzHoGJGJHQoJTKDt71c9BpDUUgRDlx0PmCrNtaGJhLo=;
+	s=default; t=1560329784;
+	bh=CPyt8ZWlsqTGaHW3316Iv8WM30Ib7p02BV88nAH7Fhk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RlYlST9D83DWssQyAf2udHfgKmSGt6jiZBzpBbabVy1D8aHZ28CNETPn4xK/2ehWw
-	 tihb1wmIc5WHsxcSvl+UmhqNTcuN1pOP04zCUh0RQHw9qkBIWZSvFbivAXuZ24w//b
-	 57lWFKDrsap8qRgPW5oLqFsIvM1uKNS6kmyExi+M=
+	b=LcYYHFaU+PdFL8PHO+kQYqIUMa/TjfEtOhf1bmX9XYGUaZdy+91H1du3jWqZkjxSp
+	 PteEoHdYPi8QTvRKZMBWOhApQRJ+1gnCIMWn4KvM4MCXvhYrOXcGzVZ/zq4NmSk5oX
+	 1l7hCJ4FJaf550C9eqF4GUVivva2optimHTOXAQg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA567F8977C;
-	Wed, 12 Jun 2019 10:45:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 777C3F89781;
+	Wed, 12 Jun 2019 10:45:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EABD0F8974D; Wed, 12 Jun 2019 10:44:52 +0200 (CEST)
+ id C6AD1F89751; Wed, 12 Jun 2019 10:44:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F29DCF89743
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F29DCF89743
+ by alsa1.perex.cz (Postfix) with ESMTPS id 231CCF8973E
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 231CCF8973E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="r7byWZIo"; 
+ header.b="GUlDf4xM"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="xKhcS4vi"
+ header.i=@messagingengine.com header.b="1N6f5wMH"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 229215BF;
- Wed, 12 Jun 2019 04:44:47 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 8BDA421D;
+ Wed, 12 Jun 2019 04:44:48 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:47 -0400
+ by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:48 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=g8+Qqh/9bnxeg
- Su9gduOIS5HQ9i6iULxNGeGJEYQ+rE=; b=r7byWZIoQ1pjn1rexYYNgPsjORobu
- Q1DEy/djzUjjpjJR3SOCljso/4qgtIWZz1dkzlvb/j1PP1yifU1OhgLB0zd3t5mv
- 1O42UwbdtQuqlnU6cLSfiFTQQhQebT1TsYM4j0/SAFKOWjIbl9lpKxTiVc+52mWr
- 9KNQQChNx0eLsX1GPoB9E1grpegB8NUI56iAGepEGanvS9ZhUxfK6wuJCTMJuvVd
- s6hQMQ7aiEN0W5a28nF3iRYMEh2e8fUWXPPtPN9HGBImfws4dj3+i7pO9iZ9Un1R
- bcpCx7njiYcU8RoiuObctaPPzbij/uVB6sFO4GnEcK5zQe5I2Rv4QOh5A==
+ :mime-version:content-transfer-encoding; s=fm1; bh=WyHxZZP1vSBSn
+ aX6JUP4Oeis0hAsDQE8+WylllKiCnI=; b=GUlDf4xM3fXN/dvJdu7OfJb8Wa/ZG
+ PUz2nZRsvJB+UhDPB5fmrS6l9wQy282/WrpH55/xgXtgr1u2oldhdMtucVXQXIZl
+ Lv3NQo5k+PzJw7ahfK4iT9PzLDmDZM/XT3q/pV5pFnsByuzTj9PWSRbhnxs7ZRtk
+ FwuHALMiGrK/KHpqMmo9hDij2f/3A6cnPVL9y8oABbaHvXrxkLw73VeKS0coJsGd
+ oaWSyCKlpGT47iiuUisH4tZz4ch0DlO5C1/GIOq9+gWdzogwwKNUqQswU1Mz0m6o
+ dy51WmxJCcqGFr6jpjHNigHQ845TnykcP5rI2G56Ly75ici4pPCkL43Ng==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=g8+Qqh/9bnxegSu9gduOIS5HQ9i6iULxNGeGJEYQ+rE=; b=xKhcS4vi
- RgJAAgtk/oU1rChDWFh2LLhYOnxJEJ1mezaXv46CxQG5/Hsw+qCGmD7ONQsxx56Y
- sRoLnHNaoNympb/4yztRPJkstrvPe+o+eTy/+BRa1u+pnF7O0PnH6A64AElns/4S
- RR3mclFWoRf2oQVVX9sfyzi5MCEUjvpowg8aOIKaIDRJHXdbXUvQSYTVNDHr6f7g
- V/PV6rPPukzHJuQN3n7idaBqZHDJr/RlMQL0r3+Rtxda9/kwlT8FEHUgtLN7rbY8
- 0k2PCuzuOGy/B2YaFKMaTEIdKa2eVnVC6cPjlTT2hjkqU/+Q0GMcUj/5yw1/NB37
- t5lvbFtYVKO+8w==
-X-ME-Sender: <xms:frsAXUSkTSRY1EyK48ffCOAjw8f6MvPTSI68hF0YwTmR5fNFeXCe2Q>
+ fm3; bh=WyHxZZP1vSBSnaX6JUP4Oeis0hAsDQE8+WylllKiCnI=; b=1N6f5wMH
+ ZHsJ3Qze869sQWsRb8Ot98+AQWLzka13A9Ou+dNveo+t0ooDH45o8FczU42W17no
+ mJ7TkklFejlIEdfqlWBZbmUxMuLgTy6jXCqgCVHpydL9SUFIGTC5Op9+XHt/2hn5
+ fUlHQ5Zs3G8NjyNc87RDMUhQb5tMZTJBcx/OdR4Xe0dOBq/DRnMWCFppu9LxTJ9u
+ /Rrz+/EunuRL/CMwgjhBI4M93tNc3+1atcSJxzPAxMbQMyI4K1CGt4MTiTiPJpsk
+ oRMSbHR6kchV7K717rFZCX61nJa0d6b44x9dWBBZAtaeHcZrnr1DIeEo5I3NG+ez
+ f3tfaqWJf1gBpQ==
+X-ME-Sender: <xms:gLsAXTlVnc2mWtMExHje2RYtcrJUGX_mcIfR4ELapLPSCwQYzomLMQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -75,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgepuddu
-X-ME-Proxy: <xmx:frsAXW9hXATISFLMHuHBumYEg9i8GwGTL9tNAi4TiAOX9Ed9T7rkRQ>
- <xmx:frsAXSYNgIqPkCOjM8fbb33UbV_r2rac11jxuo1jPCNoF_9utUIDsw>
- <xmx:frsAXS61z-PlK3sIRds_hRCQE3RfUnFKq_pbrFuDqktlD-T9HKHDEA>
- <xmx:frsAXaFh9y2MbgqhLCkGSikRMaWZkJi0jIyVFsv7mTEYSlHlfuksZg>
+X-ME-Proxy: <xmx:gLsAXZErX-KMIeTSSFqbkiZIs8uBT9OIsRJprDHGXsdZ0PiN2ZutNw>
+ <xmx:gLsAXZvxlOlWLJVOxvUqqPgpqQD6T3oqmjM2Z7afqZ-EonnTyqeJag>
+ <xmx:gLsAXUgnEZdZ27z0soRAE0haa4XXD-fYBVIDjq_agyjKAnCzcH0E4Q>
+ <xmx:gLsAXSZHltbP7iGY9IQh6UKIc2SEVAl0lrvOvrN3q6hWR9xeCX1wew>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5FAF0380089;
- Wed, 12 Jun 2019 04:44:45 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id DE330380083;
+ Wed, 12 Jun 2019 04:44:46 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Wed, 12 Jun 2019 17:44:16 +0900
-Message-Id: <20190612084422.5344-14-o-takashi@sakamocchi.jp>
+Date: Wed, 12 Jun 2019 17:44:17 +0900
+Message-Id: <20190612084422.5344-15-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 References: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 13/19] ALSA: oxfw: start duplex streams if
-	supported
+Subject: [alsa-devel] [PATCH 14/19] ALSA: oxfw: break packet streaming at
+	bus-reset handler
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,165 +112,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It's inconvenient to handle two isochronous context separately
-each other. This commit unifies the counters to handle the two
-at the same time.
+In most cases, recovery from bus reset is not successful. This commit
+aborts packet streaming in bus reset handler.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw-stream.c | 102 ++++++++++++++----------------
- 1 file changed, 49 insertions(+), 53 deletions(-)
+ sound/firewire/oxfw/oxfw-stream.c | 13 +++----------
+ 1 file changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 1691fdc1a575..bb4ba6c196ea 100644
+index bb4ba6c196ea..806a7fded99d 100644
 --- a/sound/firewire/oxfw/oxfw-stream.c
 +++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -254,96 +254,92 @@ int snd_oxfw_stream_start_simplex(struct snd_oxfw *oxfw,
- 				  struct amdtp_stream *stream,
- 				  unsigned int rate, unsigned int pcm_channels)
+@@ -363,17 +363,10 @@ void snd_oxfw_stream_destroy_simplex(struct snd_oxfw *oxfw,
+ void snd_oxfw_stream_update_simplex(struct snd_oxfw *oxfw,
+ 				    struct amdtp_stream *stream)
  {
--	struct amdtp_stream *opposite;
- 	struct snd_oxfw_stream_formation formation;
- 	enum avc_general_plug_dir dir;
--	unsigned int substreams, opposite_substreams;
- 	int err = 0;
- 
--	if (stream == &oxfw->tx_stream) {
--		substreams = oxfw->capture_substreams;
--		opposite = &oxfw->rx_stream;
--		opposite_substreams = oxfw->playback_substreams;
--		dir = AVC_GENERAL_PLUG_DIR_OUT;
--	} else {
--		substreams = oxfw->playback_substreams;
--		opposite_substreams = oxfw->capture_substreams;
-+	if (oxfw->capture_substreams == 0 && oxfw->playback_substreams == 0)
-+		return -EIO;
- 
--		if (oxfw->has_output)
--			opposite = &oxfw->rx_stream;
--		else
--			opposite = NULL;
+-	struct cmp_connection *conn;
 -
--		dir = AVC_GENERAL_PLUG_DIR_IN;
-+	// Considering JACK/FFADO streaming:
-+	// TODO: This can be removed hwdep functionality becomes popular.
-+	err = check_connection_used_by_others(oxfw, &oxfw->rx_stream);
-+	if (err < 0)
-+		return err;
-+	if (oxfw->has_output) {
-+		err = check_connection_used_by_others(oxfw, &oxfw->tx_stream);
-+		if (err < 0)
-+			return err;
- 	}
- 
--	if (substreams == 0)
--		goto end;
--
--	/*
--	 * Considering JACK/FFADO streaming:
--	 * TODO: This can be removed hwdep functionality becomes popular.
--	 */
--	err = check_connection_used_by_others(oxfw, stream);
--	if (err < 0)
--		goto end;
-+	if (stream == &oxfw->tx_stream)
-+		dir = AVC_GENERAL_PLUG_DIR_OUT;
-+	else
-+		dir = AVC_GENERAL_PLUG_DIR_IN;
- 
- 	err = snd_oxfw_stream_get_current_formation(oxfw, dir, &formation);
- 	if (err < 0)
--		goto end;
-+		return err;
- 	if (rate == 0)
- 		rate = formation.rate;
- 	if (pcm_channels == 0)
- 		pcm_channels = formation.pcm;
- 
- 	if (formation.rate != rate || formation.pcm != pcm_channels ||
--	    amdtp_streaming_error(stream)) {
--		if (opposite != NULL) {
--			err = check_connection_used_by_others(oxfw, opposite);
--			if (err < 0)
--				goto end;
--			stop_stream(oxfw, opposite);
--		}
--		stop_stream(oxfw, stream);
-+	    amdtp_streaming_error(&oxfw->rx_stream) ||
-+	    amdtp_streaming_error(&oxfw->tx_stream)) {
-+		stop_stream(oxfw, &oxfw->rx_stream);
-+		if (oxfw->has_output)
-+			stop_stream(oxfw, &oxfw->tx_stream);
- 
- 		err = set_stream_format(oxfw, stream, rate, pcm_channels);
- 		if (err < 0) {
- 			dev_err(&oxfw->unit->device,
- 				"fail to set stream format: %d\n", err);
--			goto end;
-+			return err;
-+		}
-+	}
-+
-+	if (!amdtp_stream_running(&oxfw->rx_stream)) {
-+		err = start_stream(oxfw, &oxfw->rx_stream);
-+		if (err < 0) {
-+			dev_err(&oxfw->unit->device,
-+				"fail to start rx stream: %d\n", err);
-+			goto error;
- 		}
-+	}
- 
--		/* Start opposite stream if needed. */
--		if (opposite && !amdtp_stream_running(opposite) &&
--		    (opposite_substreams > 0)) {
--			err = start_stream(oxfw, opposite);
-+	if (oxfw->has_output) {
-+		if (!amdtp_stream_running(&oxfw->tx_stream)) {
-+			err = start_stream(oxfw, &oxfw->tx_stream);
- 			if (err < 0) {
- 				dev_err(&oxfw->unit->device,
--					"fail to restart stream: %d\n", err);
--				goto end;
-+					"fail to start tx stream: %d\n", err);
-+				goto error;
- 			}
- 		}
- 	}
- 
--	/* Start requested stream. */
--	if (!amdtp_stream_running(stream)) {
--		err = start_stream(oxfw, stream);
--		if (err < 0)
--			dev_err(&oxfw->unit->device,
--				"fail to start stream: %d\n", err);
-+	return 0;
-+error:
+-	if (stream == &oxfw->tx_stream)
+-		conn = &oxfw->out_conn;
+-	else
+-		conn = &oxfw->in_conn;
 +	stop_stream(oxfw, &oxfw->rx_stream);
-+	cmp_connection_break(&oxfw->in_conn);
-+	if (oxfw->has_output) {
+ 
+-	if (cmp_connection_update(conn) < 0)
+-		stop_stream(oxfw, stream);
+-	else
+-		amdtp_stream_update(stream);
++	if (oxfw->has_output)
 +		stop_stream(oxfw, &oxfw->tx_stream);
-+		cmp_connection_break(&oxfw->out_conn);
- 	}
--end:
- 	return err;
  }
  
- void snd_oxfw_stream_stop_simplex(struct snd_oxfw *oxfw,
- 				  struct amdtp_stream *stream)
- {
--	if (((stream == &oxfw->tx_stream) && (oxfw->capture_substreams > 0)) ||
--	    ((stream == &oxfw->rx_stream) && (oxfw->playback_substreams > 0)))
--		return;
-+	if (oxfw->capture_substreams == 0 && oxfw->playback_substreams == 0) {
-+		stop_stream(oxfw, &oxfw->rx_stream);
- 
--	stop_stream(oxfw, stream);
-+		if (oxfw->has_output)
-+			stop_stream(oxfw, &oxfw->tx_stream);
-+	}
- }
- 
- /*
+ int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,
 -- 
 2.20.1
 

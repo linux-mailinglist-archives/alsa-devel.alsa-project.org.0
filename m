@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FFE642016
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3CB242025
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:58:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1673178C;
-	Wed, 12 Jun 2019 10:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1673178C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DA68178D;
+	Wed, 12 Jun 2019 10:57:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DA68178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560329830;
-	bh=HLRd+vt459t1LFpfB2wj3y7jj0gAuvKhXEvxfi3icDI=;
+	s=default; t=1560329884;
+	bh=5EwQOQp/BwMJ6LDxfvTclZT2d4fE+buqi/gq56Hsuew=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hBz91mZ/OiBtt5ehW9Qu/5ZCb7XJaUJTcWyj6jbsUU0CunHSmD8rPgy+muGkCJX3w
-	 psp/ZhyeOCoxlijHZ23BhHywVof9vO5P9JKoQ73/R+yHJvyYYBvhH4jU1qX6w0uSUz
-	 e0LoGSAq8glHusv/Wc5tuao28aj35S9Ri9+hFaMc=
+	b=jiAJhjfhACK/1JaeR2DfSvlL4CQELJImPdfbYgu3cMCESyYiI99VMEoRkBOgZwdYU
+	 9MoNrp3YTkGLzXWxUkYXhTsiHS6Ckn5T2Xb/vYAKa99Bv7KyOjTsOg9lCAG/g3Yi1U
+	 E0Jwv7vTSNk88Lxi/oGdZGdyXC1oXqy1CiXihGZA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43F3BF8978B;
-	Wed, 12 Jun 2019 10:45:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 11FCEF89796;
+	Wed, 12 Jun 2019 10:45:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E364F89760; Wed, 12 Jun 2019 10:44:57 +0200 (CEST)
+ id 334BAF89764; Wed, 12 Jun 2019 10:44:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,67 +34,66 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89C94F89754
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89C94F89754
+ by alsa1.perex.cz (Postfix) with ESMTPS id D33FDF89759
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D33FDF89759
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="CSfDKcrM"; 
+ header.b="ggPWv8zH"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="fptUbOoR"
+ header.i=@messagingengine.com header.b="rh0p4dpw"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id EC40D21D;
- Wed, 12 Jun 2019 04:44:51 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 4732D5B1;
+ Wed, 12 Jun 2019 04:44:53 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:52 -0400
+ by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=cWYalOXHWASkL
- ZajJvE2lTioZizjGQTYczjF9jXX6vc=; b=CSfDKcrM0RLAWiVPWovDQ80qsxl0J
- tv+jhm1gNUGbsw5EWWr2aoWX3s1/Cz0fbWZtAFGfPEQOtKYeMWBvSb8cAsq1W/7K
- hQ+DefOzqjOFqaWpnJoaJPDfHtRgmpVQJ1KMPpHK8PfiBy7rBwmajijGa9AIzipw
- 4VwgWhZDi6j/ozm04rqbMLvnmBWlrXJqUtbzqPFa13LBWoCeYDJr60bu2QUlcujQ
- gE3yeLoSgVwhZ+V+0AU35Z0FOKzFkC3hC7cls7CLaF1scR/XMhbtpH9bLr8Lfvsx
- RsqOTpyEx60N3QFBdG1Zqoyhpk2GXZd0FJePG/Fvib9oDyJeqLS3HMu2A==
+ :mime-version:content-transfer-encoding; s=fm1; bh=fqFmvPAiCbq3u
+ CuDpmR1GoW82G22IpRp25VQfrE1DqU=; b=ggPWv8zHI6j4HCxyFeyGcWqA2IjGE
+ HwDX8bwbBSl8wG2UVgNVeC21pknPnDs6hmMHlqcxvGzaZX5ZGZfdgYpYpSjJyzvp
+ SbpEF4cLHyeS9EcdSAyvQz5TtKuRRj591HyGEVxCOspWswY3U9sBfgpDuaKKGitF
+ JBfwKyLP2dZdJo/XDk2RuzSQg0RXdUL7m90DXfNvzPYWFDWOoXDaSchNM3QT4ZRR
+ 3X5g/mvEmQlA7JFRnxLEUqdUY4noE1yyyx88Ho4muCZnaB98T7uVI6uO5K+VcR9W
+ WpvzWJkzQF5v9eZxWFvNnje3slkuPfk4CLMMJ2bJEaH2CmJOAC710c+Dg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=cWYalOXHWASkLZajJvE2lTioZizjGQTYczjF9jXX6vc=; b=fptUbOoR
- s/hI2FQd5cjmg1zJk+gvmVTvjvjvz9hwEdKZSGkEjiYDbrLNnUp8j+yEo3+0vSIi
- v2tNIcmW+jlQNTsqHPsQ6KTh6LSNVYb/829bvkUabRAvkitGl9jJpvVWO+PIT/fF
- eblbiA1VN8IHnQWb63hV3/oAfpXW+WanBfSQ2VDn43fSoxHnARW24m3kO50Btf1s
- JIQxhbrtGWayBi+s+pXi/tT7JWmWJBphccrtL4F1ERixOgntx8MAtqIinjwpqK8I
- aN9IQkeD6XwXfB/x/N9Dg0rKj8Dq6aMAQkKCjnIufctbW6f9hYWo70q4cdtjPAVQ
- FSqR1ewptnX5Rw==
-X-ME-Sender: <xms:g7sAXbbHqcNk0g1MJB2h5h6fXb_LEwDqRvfbcyj2OU7tJqAoE1b7UQ>
+ fm3; bh=fqFmvPAiCbq3uCuDpmR1GoW82G22IpRp25VQfrE1DqU=; b=rh0p4dpw
+ iJZWcwve8KwH2FhKEWy300eyT5CWQt5KW3cL7tJFSb4ZIYSlT7wwc/8fU2rEA7lS
+ gw3aG0hpo0NGejz1Y682jSVnacDSYEuuAcBq6J6487/1/2lZGTIVdaLK6FHT0ZkT
+ D+IwW1gz/G6x0/wlvZt4tiTs30LubMBN0PUqywjae6M61AQpqTUCvY5NRJAV4doV
+ d52suZWuHkTycOmG8hQkm90C1W2IGjajU6lU8RPxFQlKyCUL5x8hK7qVbr4s4okv
+ dNF7/nUh1vDChxRjNKNPjEEZlf6je2mhx7O/7w9RLzhbsEc6HVICI19WhsG/5tmG
+ za6wQI3TkuOq5w==
+X-ME-Sender: <xms:hLsAXQ0KQBHxUZtlUVyZIj074h1Wrz9_HECHmIriTU228w1UYqAC3A>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
- ihdrjhhpnecuvehluhhsthgvrhfuihiivgepuddu
-X-ME-Proxy: <xmx:g7sAXWWfhvmPIVrwAZv_Dze3llJ6YXbt1IQZLJe4FWAxQqpvFDgTzw>
- <xmx:g7sAXZwLX-9QQYjjDaJmPhCU0hd1FRw2Chfidank0OX45A1fe0jJbg>
- <xmx:g7sAXZl5Ai7OoRLFDd5-13S-YvgJIiVENiuKrFnZFb271R0S2kbX9Q>
- <xmx:g7sAXfTaU6kaKCgh7NAmSATIJVJXXXgUp8Qi4E0tfw6LliAIwemNbw>
+ ihdrjhhpnecuvehluhhsthgvrhfuihiivgepudeh
+X-ME-Proxy: <xmx:hLsAXS6xmImOKGsaa_oB3TW6rq9M-xDEmlKHTlBU8xNsi3V5KWm3AQ>
+ <xmx:hLsAXURd32lvFycba8wCBa8eOvwEnzd3yQF0xzq3yxa0xkdkGZbDYA>
+ <xmx:hLsAXTomWt9Mj7t9GIVGofe9-DUa_fxPGq6qYRfIHrPC52ykCXuh-g>
+ <xmx:hLsAXRGFxuJ-EdQSQiv2D6lCJHxShO36ny7oS8ev2XODB6J8eeEYNw>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id E2CC7380083;
- Wed, 12 Jun 2019 04:44:49 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9DB8238008B;
+ Wed, 12 Jun 2019 04:44:51 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Wed, 12 Jun 2019 17:44:19 +0900
-Message-Id: <20190612084422.5344-17-o-takashi@sakamocchi.jp>
+Date: Wed, 12 Jun 2019 17:44:20 +0900
+Message-Id: <20190612084422.5344-18-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 References: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 16/19] ALSA: oxfw: rename helper functions for
-	duplex streams
+Subject: [alsa-devel] [PATCH 17/19] ALSA: oxfw: unify substreams counter
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,289 +111,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In former commits, ALSA oxfw driver handles two isochronous contexts
-at the same time, except for some devices which supports one endpoint
-of isochronous packet stream.
-
-This commit renames some helper functions so that they handles duplex
-streams.
+In former commits, two isochronous contexts are handles at the same
+time. This commit unifies stream counters to obsolete them.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw-midi.c   |  8 ++---
- sound/firewire/oxfw/oxfw-pcm.c    | 12 +++----
- sound/firewire/oxfw/oxfw-stream.c | 60 ++++++++++++++++++++-----------
- sound/firewire/oxfw/oxfw.c        | 17 ++-------
- sound/firewire/oxfw/oxfw.h        | 14 +++-----
- 5 files changed, 58 insertions(+), 53 deletions(-)
+ sound/firewire/oxfw/oxfw-midi.c   | 8 ++++----
+ sound/firewire/oxfw/oxfw-pcm.c    | 8 ++++----
+ sound/firewire/oxfw/oxfw-stream.c | 4 ++--
+ sound/firewire/oxfw/oxfw.h        | 3 +--
+ 4 files changed, 11 insertions(+), 12 deletions(-)
 
 diff --git a/sound/firewire/oxfw/oxfw-midi.c b/sound/firewire/oxfw/oxfw-midi.c
-index b7bbd77dfff1..31352cebdfe9 100644
+index 31352cebdfe9..092493497f1a 100644
 --- a/sound/firewire/oxfw/oxfw-midi.c
 +++ b/sound/firewire/oxfw/oxfw-midi.c
-@@ -20,7 +20,7 @@ static int midi_capture_open(struct snd_rawmidi_substream *substream)
+@@ -19,7 +19,7 @@ static int midi_capture_open(struct snd_rawmidi_substream *substream)
+ 
  	mutex_lock(&oxfw->mutex);
  
- 	oxfw->capture_substreams++;
--	err = snd_oxfw_stream_start_simplex(oxfw, &oxfw->tx_stream, 0, 0);
-+	err = snd_oxfw_stream_start_duplex(oxfw, &oxfw->tx_stream, 0, 0);
+-	oxfw->capture_substreams++;
++	++oxfw->substreams_count;
+ 	err = snd_oxfw_stream_start_duplex(oxfw, &oxfw->tx_stream, 0, 0);
  
  	mutex_unlock(&oxfw->mutex);
+@@ -41,7 +41,7 @@ static int midi_playback_open(struct snd_rawmidi_substream *substream)
  
-@@ -42,7 +42,7 @@ static int midi_playback_open(struct snd_rawmidi_substream *substream)
  	mutex_lock(&oxfw->mutex);
  
- 	oxfw->playback_substreams++;
--	err = snd_oxfw_stream_start_simplex(oxfw, &oxfw->rx_stream, 0, 0);
-+	err = snd_oxfw_stream_start_duplex(oxfw, &oxfw->rx_stream, 0, 0);
+-	oxfw->playback_substreams++;
++	++oxfw->substreams_count;
+ 	err = snd_oxfw_stream_start_duplex(oxfw, &oxfw->rx_stream, 0, 0);
  
  	mutex_unlock(&oxfw->mutex);
+@@ -58,7 +58,7 @@ static int midi_capture_close(struct snd_rawmidi_substream *substream)
  
-@@ -59,7 +59,7 @@ static int midi_capture_close(struct snd_rawmidi_substream *substream)
  	mutex_lock(&oxfw->mutex);
  
- 	oxfw->capture_substreams--;
--	snd_oxfw_stream_stop_simplex(oxfw, &oxfw->tx_stream);
-+	snd_oxfw_stream_stop_duplex(oxfw);
+-	oxfw->capture_substreams--;
++	--oxfw->substreams_count;
+ 	snd_oxfw_stream_stop_duplex(oxfw);
  
  	mutex_unlock(&oxfw->mutex);
+@@ -73,7 +73,7 @@ static int midi_playback_close(struct snd_rawmidi_substream *substream)
  
-@@ -74,7 +74,7 @@ static int midi_playback_close(struct snd_rawmidi_substream *substream)
  	mutex_lock(&oxfw->mutex);
  
- 	oxfw->playback_substreams--;
--	snd_oxfw_stream_stop_simplex(oxfw, &oxfw->rx_stream);
-+	snd_oxfw_stream_stop_duplex(oxfw);
+-	oxfw->playback_substreams--;
++	--oxfw->substreams_count;
+ 	snd_oxfw_stream_stop_duplex(oxfw);
  
  	mutex_unlock(&oxfw->mutex);
- 
 diff --git a/sound/firewire/oxfw/oxfw-pcm.c b/sound/firewire/oxfw/oxfw-pcm.c
-index b3f6503dd34d..253d79607bdf 100644
+index 253d79607bdf..79c8e514bed9 100644
 --- a/sound/firewire/oxfw/oxfw-pcm.c
 +++ b/sound/firewire/oxfw/oxfw-pcm.c
-@@ -255,7 +255,7 @@ static int pcm_capture_hw_free(struct snd_pcm_substream *substream)
- 	if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
- 		oxfw->capture_substreams--;
+@@ -220,7 +220,7 @@ static int pcm_capture_hw_params(struct snd_pcm_substream *substream,
  
--	snd_oxfw_stream_stop_simplex(oxfw, &oxfw->tx_stream);
-+	snd_oxfw_stream_stop_duplex(oxfw);
+ 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
+ 		mutex_lock(&oxfw->mutex);
+-		oxfw->capture_substreams++;
++		++oxfw->substreams_count;
+ 		mutex_unlock(&oxfw->mutex);
+ 	}
  
- 	mutex_unlock(&oxfw->mutex);
+@@ -239,7 +239,7 @@ static int pcm_playback_hw_params(struct snd_pcm_substream *substream,
  
-@@ -270,7 +270,7 @@ static int pcm_playback_hw_free(struct snd_pcm_substream *substream)
- 	if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
- 		oxfw->playback_substreams--;
+ 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
+ 		mutex_lock(&oxfw->mutex);
+-		oxfw->playback_substreams++;
++		++oxfw->substreams_count;
+ 		mutex_unlock(&oxfw->mutex);
+ 	}
  
--	snd_oxfw_stream_stop_simplex(oxfw, &oxfw->rx_stream);
-+	snd_oxfw_stream_stop_duplex(oxfw);
- 
- 	mutex_unlock(&oxfw->mutex);
- 
-@@ -284,8 +284,8 @@ static int pcm_capture_prepare(struct snd_pcm_substream *substream)
- 	int err;
- 
+@@ -253,7 +253,7 @@ static int pcm_capture_hw_free(struct snd_pcm_substream *substream)
  	mutex_lock(&oxfw->mutex);
--	err = snd_oxfw_stream_start_simplex(oxfw, &oxfw->tx_stream,
--					    runtime->rate, runtime->channels);
-+	err = snd_oxfw_stream_start_duplex(oxfw, &oxfw->tx_stream,
-+					   runtime->rate, runtime->channels);
- 	mutex_unlock(&oxfw->mutex);
- 	if (err < 0)
- 		goto end;
-@@ -301,8 +301,8 @@ static int pcm_playback_prepare(struct snd_pcm_substream *substream)
- 	int err;
  
+ 	if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
+-		oxfw->capture_substreams--;
++		--oxfw->substreams_count;
+ 
+ 	snd_oxfw_stream_stop_duplex(oxfw);
+ 
+@@ -268,7 +268,7 @@ static int pcm_playback_hw_free(struct snd_pcm_substream *substream)
  	mutex_lock(&oxfw->mutex);
--	err = snd_oxfw_stream_start_simplex(oxfw, &oxfw->rx_stream,
--					    runtime->rate, runtime->channels);
-+	err = snd_oxfw_stream_start_duplex(oxfw, &oxfw->rx_stream,
-+					   runtime->rate, runtime->channels);
- 	mutex_unlock(&oxfw->mutex);
- 	if (err < 0)
- 		goto end;
+ 
+ 	if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
+-		oxfw->playback_substreams--;
++		--oxfw->substreams_count;
+ 
+ 	snd_oxfw_stream_stop_duplex(oxfw);
+ 
 diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 561ceb09d927..52cf815c27f7 100644
+index 52cf815c27f7..ebfe0777773b 100644
 --- a/sound/firewire/oxfw/oxfw-stream.c
 +++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -194,8 +194,7 @@ static int check_connection_used_by_others(struct snd_oxfw *oxfw,
- 	return err;
- }
- 
--int snd_oxfw_stream_init_simplex(struct snd_oxfw *oxfw,
--				 struct amdtp_stream *stream)
-+static int init_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- {
- 	struct cmp_connection *conn;
- 	enum cmp_direction c_dir;
-@@ -214,13 +213,12 @@ int snd_oxfw_stream_init_simplex(struct snd_oxfw *oxfw,
- 
- 	err = cmp_connection_init(conn, oxfw->unit, c_dir, 0);
- 	if (err < 0)
--		goto end;
-+		return err;
- 
- 	err = amdtp_am824_init(stream, oxfw->unit, s_dir, CIP_NONBLOCKING);
- 	if (err < 0) {
--		amdtp_stream_destroy(stream);
- 		cmp_connection_destroy(conn);
--		goto end;
-+		return err;
- 	}
- 
- 	/*
-@@ -234,13 +232,13 @@ int snd_oxfw_stream_init_simplex(struct snd_oxfw *oxfw,
- 		if (oxfw->wrong_dbs)
- 			oxfw->tx_stream.flags |= CIP_WRONG_DBS;
- 	}
--end:
--	return err;
-+
-+	return 0;
- }
- 
--int snd_oxfw_stream_start_simplex(struct snd_oxfw *oxfw,
--				  struct amdtp_stream *stream,
--				  unsigned int rate, unsigned int pcm_channels)
-+int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw,
-+				 struct amdtp_stream *stream,
-+				 unsigned int rate, unsigned int pcm_channels)
- {
- 	struct snd_oxfw_stream_formation formation;
+@@ -244,7 +244,7 @@ int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw,
  	enum avc_general_plug_dir dir;
-@@ -323,8 +321,7 @@ int snd_oxfw_stream_start_simplex(struct snd_oxfw *oxfw,
- 	return err;
- }
+ 	int err = 0;
  
--void snd_oxfw_stream_stop_simplex(struct snd_oxfw *oxfw,
--				  struct amdtp_stream *stream)
-+void snd_oxfw_stream_stop_duplex(struct snd_oxfw *oxfw)
+-	if (oxfw->capture_substreams == 0 && oxfw->playback_substreams == 0)
++	if (oxfw->substreams_count == 0)
+ 		return -EIO;
+ 
+ 	// Considering JACK/FFADO streaming:
+@@ -323,7 +323,7 @@ int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw,
+ 
+ void snd_oxfw_stream_stop_duplex(struct snd_oxfw *oxfw)
  {
- 	if (oxfw->capture_substreams == 0 && oxfw->playback_substreams == 0) {
+-	if (oxfw->capture_substreams == 0 && oxfw->playback_substreams == 0) {
++	if (oxfw->substreams_count == 0) {
  		amdtp_stream_stop(&oxfw->rx_stream);
-@@ -337,12 +334,7 @@ void snd_oxfw_stream_stop_simplex(struct snd_oxfw *oxfw,
- 	}
- }
+ 		cmp_connection_break(&oxfw->in_conn);
  
--/*
-- * This function should be called before starting the stream or after stopping
-- * the streams.
-- */
--void snd_oxfw_stream_destroy_simplex(struct snd_oxfw *oxfw,
--				     struct amdtp_stream *stream)
-+static void destroy_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- {
- 	struct cmp_connection *conn;
- 
-@@ -355,8 +347,36 @@ void snd_oxfw_stream_destroy_simplex(struct snd_oxfw *oxfw,
- 	cmp_connection_destroy(conn);
- }
- 
--void snd_oxfw_stream_update_simplex(struct snd_oxfw *oxfw,
--				    struct amdtp_stream *stream)
-+int snd_oxfw_stream_init_duplex(struct snd_oxfw *oxfw)
-+{
-+	int err;
-+
-+	err = init_stream(oxfw, &oxfw->rx_stream);
-+	if (err < 0)
-+		return err;
-+
-+	if (oxfw->has_output) {
-+		err = init_stream(oxfw, &oxfw->tx_stream);
-+		if (err < 0) {
-+			destroy_stream(oxfw, &oxfw->rx_stream);
-+			return err;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+// This function should be called before starting the stream or after stopping
-+// the streams.
-+void snd_oxfw_stream_destroy_duplex(struct snd_oxfw *oxfw)
-+{
-+	destroy_stream(oxfw, &oxfw->rx_stream);
-+
-+	if (oxfw->has_output)
-+		destroy_stream(oxfw, &oxfw->tx_stream);
-+}
-+
-+void snd_oxfw_stream_update_duplex(struct snd_oxfw *oxfw)
- {
- 	amdtp_stream_stop(&oxfw->rx_stream);
- 	cmp_connection_break(&oxfw->in_conn);
-diff --git a/sound/firewire/oxfw/oxfw.c b/sound/firewire/oxfw/oxfw.c
-index 3d27f3378d5d..2de26a9987f8 100644
---- a/sound/firewire/oxfw/oxfw.c
-+++ b/sound/firewire/oxfw/oxfw.c
-@@ -118,9 +118,7 @@ static void oxfw_card_free(struct snd_card *card)
- {
- 	struct snd_oxfw *oxfw = card->private_data;
- 
--	snd_oxfw_stream_destroy_simplex(oxfw, &oxfw->rx_stream);
--	if (oxfw->has_output)
--		snd_oxfw_stream_destroy_simplex(oxfw, &oxfw->tx_stream);
-+	snd_oxfw_stream_destroy_duplex(oxfw);
- }
- 
- static int detect_quirks(struct snd_oxfw *oxfw)
-@@ -211,14 +209,9 @@ static void do_registration(struct work_struct *work)
- 	if (err < 0)
- 		goto error;
- 
--	err = snd_oxfw_stream_init_simplex(oxfw, &oxfw->rx_stream);
-+	err = snd_oxfw_stream_init_duplex(oxfw);
- 	if (err < 0)
- 		goto error;
--	if (oxfw->has_output) {
--		err = snd_oxfw_stream_init_simplex(oxfw, &oxfw->tx_stream);
--		if (err < 0)
--			goto error;
--	}
- 
- 	err = snd_oxfw_create_pcm(oxfw);
- 	if (err < 0)
-@@ -285,11 +278,7 @@ static void oxfw_bus_reset(struct fw_unit *unit)
- 
- 	if (oxfw->registered) {
- 		mutex_lock(&oxfw->mutex);
--
--		snd_oxfw_stream_update_simplex(oxfw, &oxfw->rx_stream);
--		if (oxfw->has_output)
--			snd_oxfw_stream_update_simplex(oxfw, &oxfw->tx_stream);
--
-+		snd_oxfw_stream_update_duplex(oxfw);
- 		mutex_unlock(&oxfw->mutex);
- 
- 		if (oxfw->entry->vendor_id == OUI_STANTON)
 diff --git a/sound/firewire/oxfw/oxfw.h b/sound/firewire/oxfw/oxfw.h
-index d54d4a9ac4a1..911a452f94db 100644
+index 911a452f94db..e0c825288a24 100644
 --- a/sound/firewire/oxfw/oxfw.h
 +++ b/sound/firewire/oxfw/oxfw.h
-@@ -99,17 +99,13 @@ int avc_general_inquiry_sig_fmt(struct fw_unit *unit, unsigned int rate,
- 				enum avc_general_plug_dir dir,
- 				unsigned short pid);
+@@ -52,8 +52,7 @@ struct snd_oxfw {
+ 	struct cmp_connection in_conn;
+ 	struct amdtp_stream tx_stream;
+ 	struct amdtp_stream rx_stream;
+-	unsigned int capture_substreams;
+-	unsigned int playback_substreams;
++	unsigned int substreams_count;
  
--int snd_oxfw_stream_init_simplex(struct snd_oxfw *oxfw,
--				 struct amdtp_stream *stream);
--int snd_oxfw_stream_start_simplex(struct snd_oxfw *oxfw,
-+int snd_oxfw_stream_init_duplex(struct snd_oxfw *oxfw);
-+int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw,
- 				  struct amdtp_stream *stream,
- 				  unsigned int rate, unsigned int pcm_channels);
--void snd_oxfw_stream_stop_simplex(struct snd_oxfw *oxfw,
--				  struct amdtp_stream *stream);
--void snd_oxfw_stream_destroy_simplex(struct snd_oxfw *oxfw,
--				     struct amdtp_stream *stream);
--void snd_oxfw_stream_update_simplex(struct snd_oxfw *oxfw,
--				    struct amdtp_stream *stream);
-+void snd_oxfw_stream_stop_duplex(struct snd_oxfw *oxfw);
-+void snd_oxfw_stream_destroy_duplex(struct snd_oxfw *oxfw);
-+void snd_oxfw_stream_update_duplex(struct snd_oxfw *oxfw);
- 
- struct snd_oxfw_stream_formation {
- 	unsigned int rate;
+ 	unsigned int midi_input_ports;
+ 	unsigned int midi_output_ports;
 -- 
 2.20.1
 

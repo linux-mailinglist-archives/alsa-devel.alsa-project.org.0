@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B6D542BA5
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 18:01:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F54E42BAE
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 18:02:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD81D176E;
-	Wed, 12 Jun 2019 18:01:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD81D176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6E7D1789;
+	Wed, 12 Jun 2019 18:01:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6E7D1789
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560355318;
-	bh=i+Pyu+xFCU7CcJZG5hc4vq0RA3H/irAeZ3JUs2KkN/I=;
+	s=default; t=1560355364;
+	bh=LPpXTQfd3NtYQ+3ew67ScPicbLBYs+v8oZficswwYEo=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=DK8Dx0sVe0+sjAQINPpu9p0y5QfZOzA13B7ioD7czXuh2oFqNDfuMTNBNQdbUIO/F
-	 LrCoY84XsG6t0iN4/3clJfA7M5XnKVuZ+eu8Vj4+EdKeiBh8fAuVjA19y4Qe+TZBGm
-	 6RxD+N+LmEKBpU8fgmLsgK2qgWr5eWogJvLUfjT8=
+	b=C8tHFZTwuZC2MRonp71ji33CHS4toK4c2aOYbaD8Xn++JjzUxvDQsJCTrsaGOMnYZ
+	 /06gmZM2vDnZrYxEI5UTQpG4LWP5S6REGiISsrgKbqZo4e+OcTeZucj2p2MVa5UdAJ
+	 7YzfB+9jzuFGUxkOses3oC7c0SmnhHCXrB/P0BLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 173D1F8972F;
-	Wed, 12 Jun 2019 17:59:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54B07F89733;
+	Wed, 12 Jun 2019 17:59:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B204CF896E0; Wed, 12 Jun 2019 17:59:31 +0200 (CEST)
+ id 2B8DFF806F5; Wed, 12 Jun 2019 17:59:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 091CFF80794
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 17:59:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 091CFF80794
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4008AF806F5
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 17:59:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4008AF806F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="uqWfxXgc"
+ header.b="ElN8j0z5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=F4hBM2hnudeTw3rmBj2H/vr2wvVOT3QCsFB/lvau9Gc=; b=uqWfxXgcMiTw
- X3AY60kodtH7UiiyRr8zVSRRMMe+Psd5GnL8JcvB0NmMNaVe1wX+VUSU+VYBjKA6RE8brRnk9mZRx
- 2A9e0liTKkyGumR9rRKLzInOhI0faJd1eQViAJUfMyRItaRvALFsmTLgIos/ROtJyUIquAyTgsNcZ
- 1vcQg=;
+ List-Archive; bh=SYZDePDU3YZPbmR4xYANRSv7T7jQQpPlVKtgbxQ3uHI=; b=ElN8j0z5Pvrw
+ VkNzX7Es9Jmb2Yj50MGe/hqnPP8htiUEa332hujH8ruLEF1AcGS65W/FKEZizpKbPUO75l6/0eTFL
+ xFmdKTenoHwEFJyia5qv+7vZToB2RFsZe4+fG+orVDkQ+DTOVj2PBTbI3e7RdpZ7e8TeP2JnICG1G
+ zuocI=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hb5eq-000367-DK; Wed, 12 Jun 2019 15:59:28 +0000
+ id 1hb5eq-00036C-R7; Wed, 12 Jun 2019 15:59:28 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 970D7440049; Wed, 12 Jun 2019 16:59:27 +0100 (BST)
+ id 3C126440046; Wed, 12 Jun 2019 16:59:28 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20190611122941.10708-2-peter.ujfalusi@ti.com>
+To: David Lin <CTLIN0@nuvoton.com>
+In-Reply-To: <20190610030523.12408-1-KCHSU0@nuvoton.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190612155927.970D7440049@finisterre.sirena.org.uk>
-Date: Wed, 12 Jun 2019 16:59:27 +0100 (BST)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, jsarha@ti.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, Mark Brown <broonie@kernel.org>, misael.lopez@ti.com
-Subject: [alsa-devel] Applied "bindings: sound: davinci-mcasp: Add support
-	for optional auxclk-fs-ratio" to the asoc tree
+Message-Id: <20190612155928.3C126440046@finisterre.sirena.org.uk>
+Date: Wed, 12 Jun 2019 16:59:28 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, WTLI@nuvoton.com,
+ John Hsu <KCHSU0@nuvoton.com>, lgirdwood@gmail.com, YHCHuang@nuvoton.com,
+ Mark Brown <broonie@kernel.org>, CTLIN0@nuvoton.com
+Subject: [alsa-devel] Applied "ASoC: nau8822: support master mode" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   bindings: sound: davinci-mcasp: Add support for optional auxclk-fs-ratio
+   ASoC: nau8822: support master mode
 
 has been applied to the asoc tree at
 
@@ -114,35 +114,73 @@ to this mail.
 Thanks,
 Mark
 
-From b7e47f48f1197c24f5347327afc2a4f7f6da9ca5 Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Date: Tue, 11 Jun 2019 15:29:40 +0300
-Subject: [PATCH] bindings: sound: davinci-mcasp: Add support for optional
- auxclk-fs-ratio
+From 2e927ad7981db6765a2a0e8694371e0154b6e820 Mon Sep 17 00:00:00 2001
+From: David Lin <CTLIN0@nuvoton.com>
+Date: Mon, 10 Jun 2019 11:05:23 +0800
+Subject: [PATCH] ASoC: nau8822: support master mode
 
-When McASP is bus master it's reference clock (AUXCLK) might not be a
-static clock, but running at a specific FS ratio.
+The driver selects the proper BCLK divide through the BCLK and FS
+at the hardware parameter when the I2S master mode.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Signed-off-by: David Lin <CTLIN0@nuvoton.com>
+Signed-off-by: John Hsu <KCHSU0@nuvoton.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../devicetree/bindings/sound/davinci-mcasp-audio.txt          | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/codecs/nau8822.c | 18 ++++++++++++++++++
+ sound/soc/codecs/nau8822.h |  7 +++++++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
-index a58f79f5345c..c483dcec01f8 100644
---- a/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
-+++ b/Documentation/devicetree/bindings/sound/davinci-mcasp-audio.txt
-@@ -44,6 +44,9 @@ Optional properties:
-   		 please refer to pinctrl-bindings.txt
- - fck_parent : Should contain a valid clock name which will be used as parent
- 	       for the McASP fck
-+- auxclk-fs-ratio: When McASP is bus master indicates the ratio between AUCLK
-+		   and FS rate if applicable:
-+		   AUCLK rate = auxclk-fs-ratio * FS rate
+diff --git a/sound/soc/codecs/nau8822.c b/sound/soc/codecs/nau8822.c
+index c6152a044416..78db3bd0b3bc 100644
+--- a/sound/soc/codecs/nau8822.c
++++ b/sound/soc/codecs/nau8822.c
+@@ -828,6 +828,24 @@ static int nau8822_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct nau8822 *nau8822 = snd_soc_component_get_drvdata(component);
+ 	int val_len = 0, val_rate = 0;
++	unsigned int ctrl_val, bclk_fs, bclk_div;
++
++	/* make BCLK and LRC divide configuration if the codec as master. */
++	snd_soc_component_read(component, NAU8822_REG_CLOCKING, &ctrl_val);
++	if (ctrl_val & NAU8822_CLK_MASTER) {
++		/* get the bclk and fs ratio */
++		bclk_fs = snd_soc_params_to_bclk(params) / params_rate(params);
++		if (bclk_fs <= 32)
++			bclk_div = NAU8822_BCLKDIV_8;
++		else if (bclk_fs <= 64)
++			bclk_div = NAU8822_BCLKDIV_4;
++		else if (bclk_fs <= 128)
++			bclk_div = NAU8822_BCLKDIV_2;
++		else
++			return -EINVAL;
++		snd_soc_component_update_bits(component, NAU8822_REG_CLOCKING,
++				NAU8822_BCLKSEL_MASK, bclk_div);
++	}
  
- Optional GPIO support:
- If any McASP pin need to be used as GPIO then the McASP node must have:
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_S16_LE:
+diff --git a/sound/soc/codecs/nau8822.h b/sound/soc/codecs/nau8822.h
+index 9c552983a293..489191ff187e 100644
+--- a/sound/soc/codecs/nau8822.h
++++ b/sound/soc/codecs/nau8822.h
+@@ -107,10 +107,17 @@
+ 
+ /* NAU8822_REG_CLOCKING (0x6) */
+ #define NAU8822_CLKIOEN_MASK			0x1
++#define NAU8822_CLK_MASTER			0x1
++#define NAU8822_CLK_SLAVE			0x0
+ #define NAU8822_MCLKSEL_SFT			5
+ #define NAU8822_MCLKSEL_MASK			(0x7 << 5)
+ #define NAU8822_BCLKSEL_SFT			2
+ #define NAU8822_BCLKSEL_MASK			(0x7 << 2)
++#define NAU8822_BCLKDIV_1			(0x0 << 2)
++#define NAU8822_BCLKDIV_2			(0x1 << 2)
++#define NAU8822_BCLKDIV_4			(0x2 << 2)
++#define NAU8822_BCLKDIV_8			(0x3 << 2)
++#define NAU8822_BCLKDIV_16			(0x4 << 2)
+ #define NAU8822_CLKM_MASK			(0x1 << 8)
+ #define NAU8822_CLKM_MCLK			(0x0 << 8)
+ #define NAU8822_CLKM_PLL			(0x1 << 8)
 -- 
 2.20.1
 

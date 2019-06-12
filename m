@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E2BC42CF1
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 19:03:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6B6A42CF2
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 19:04:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A1C917BB;
-	Wed, 12 Jun 2019 19:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A1C917BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E32F017B5;
+	Wed, 12 Jun 2019 19:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E32F017B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560359032;
-	bh=ZUE09X4sVw5nbKBxHcIOetAjqGF95M3HOYCOJNMRV1g=;
+	s=default; t=1560359083;
+	bh=LZuxnsPzlcukukZDV6NFz6Pbx38HgqKk9crVMjKJFa0=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IIVZqwTWE9s8tDWyFiGvRUqhQzTWvEdIYCppjzwDuAWv4pmRZEPznRzRSxNShdgiy
-	 mUwI1a7DiyJd72zXpTOeJWc2tL+k0+wejG2QNEr9TxdXKT5EWXX9dfZNS2A7DL8EvS
-	 fBb7e5STm4ubkQ2okn/keJo3FbujGS3Qnu92fLo4=
+	b=T2QO5eid4dddurK8lXU5bcEzfjTxI9lX606C3dai+BEBq98hfCnkrcsMh2HkcLwqB
+	 hRKFhPoQSofbxme4zfaQAPybDW4n/+6FZbpx2k83uvzTIY6kpNVnzEL25smp8iqYi6
+	 JIVb/3jADi+LdDOB/hgcJAgBHOKuV62qv5kXdHeo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C99F7F896E3;
-	Wed, 12 Jun 2019 19:02:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 990A5F8973A;
+	Wed, 12 Jun 2019 19:02:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5BC93F89728; Wed, 12 Jun 2019 19:02:11 +0200 (CEST)
+ id CBF4FF89730; Wed, 12 Jun 2019 19:02:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E97D2F806F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24E6BF896E0
  for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 19:02:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E97D2F806F5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24E6BF896E0
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2019 10:02:03 -0700
+ 12 Jun 2019 10:02:04 -0700
 X-ExtLoop1: 1
 Received: from adorrell-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.251.133.122])
- by fmsmga001.fm.intel.com with ESMTP; 12 Jun 2019 10:02:03 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 12 Jun 2019 10:02:04 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed, 12 Jun 2019 12:01:46 -0500
-Message-Id: <20190612170148.15327-3-pierre-louis.bossart@linux.intel.com>
+Date: Wed, 12 Jun 2019 12:01:47 -0500
+Message-Id: <20190612170148.15327-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190612170148.15327-1-pierre-louis.bossart@linux.intel.com>
 References: <20190612170148.15327-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org,
- Zhu Yingjiang <yingjiang.zhu@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 2/4] ASoC: SOF: topology: pass volume min/max
-	linear value to FW
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+Subject: [alsa-devel] [PATCH 3/4] ASoC: SOF: Add DMIC token for unmute gain
+	ramp time
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,52 +75,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+From: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
 
-The driver currently passes the volume ramp type and length
-topology tokens to firmware, but the min and max volume are
-not set. This patch provides a correction to convert the
-information from the topology file and pass the linear volume
-min/max value to the firmware to improve transitions.
+The settling time of DMIC DC level is both platform and used
+microphone model specific. The unmute gain ramp is used to conceal
+most of the large DC level seen in beginning of capture. This patch
+adds into the DMIC DAI IPC struct a new field called unmute_ramp_time
+and a new token SOF_TKN_INTEL_DMIC_UNMUTE_RAMP_TIME. The value is the
+ramp length in milliseconds (ms).
 
-Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+The ABI minor version is incremented for this backwards compatible
+change.
+
+Signed-off-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/topology.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ include/sound/sof/dai-intel.h   | 3 ++-
+ include/uapi/sound/sof/abi.h    | 2 +-
+ include/uapi/sound/sof/tokens.h | 1 +
+ sound/soc/sof/topology.c        | 4 ++++
+ 4 files changed, 8 insertions(+), 2 deletions(-)
 
+diff --git a/include/sound/sof/dai-intel.h b/include/sound/sof/dai-intel.h
+index 4bd83f7adddf..4bb8ee138ba7 100644
+--- a/include/sound/sof/dai-intel.h
++++ b/include/sound/sof/dai-intel.h
+@@ -167,9 +167,10 @@ struct sof_ipc_dai_dmic_params {
+ 
+ 	uint32_t wake_up_time;      /**< Time from clock start to data (us) */
+ 	uint32_t min_clock_on_time; /**< Min. time that clk is kept on (us) */
++	uint32_t unmute_ramp_time;  /**< Length of logarithmic gain ramp (ms) */
+ 
+ 	/* reserved for future use */
+-	uint32_t reserved[6];
++	uint32_t reserved[5];
+ 
+ 	/**< variable number of pdm controller config */
+ 	struct sof_ipc_dai_dmic_pdm_ctrl pdm[0];
+diff --git a/include/uapi/sound/sof/abi.h b/include/uapi/sound/sof/abi.h
+index 92eee681bc62..4a9c24434f42 100644
+--- a/include/uapi/sound/sof/abi.h
++++ b/include/uapi/sound/sof/abi.h
+@@ -26,7 +26,7 @@
+ 
+ /* SOF ABI version major, minor and patch numbers */
+ #define SOF_ABI_MAJOR 3
+-#define SOF_ABI_MINOR 7
++#define SOF_ABI_MINOR 8
+ #define SOF_ABI_PATCH 0
+ 
+ /* SOF ABI version number. Format within 32bit word is MMmmmppp */
+diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
+index 53ea94bf1c08..dc1b27daaac6 100644
+--- a/include/uapi/sound/sof/tokens.h
++++ b/include/uapi/sound/sof/tokens.h
+@@ -85,6 +85,7 @@
+ #define SOF_TKN_INTEL_DMIC_NUM_PDM_ACTIVE	605
+ #define SOF_TKN_INTEL_DMIC_SAMPLE_RATE		608
+ #define SOF_TKN_INTEL_DMIC_FIFO_WORD_LENGTH	609
++#define SOF_TKN_INTEL_DMIC_UNMUTE_RAMP_TIME_MS  610
+ 
+ /* DMIC PDM */
+ #define SOF_TKN_INTEL_DMIC_PDM_CTRL_ID		700
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 1c661dec8dd4..bbad8053b1bc 100644
+index bbad8053b1bc..8e00f829bfdb 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -1552,6 +1552,9 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
- 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
- 	struct snd_soc_tplg_private *private = &tw->priv;
- 	struct sof_ipc_comp_volume *volume;
-+	struct snd_sof_control *scontrol;
-+	int min_step;
-+	int max_step;
- 	int ret;
- 
- 	volume = kzalloc(sizeof(*volume), GFP_KERNEL);
-@@ -1594,6 +1597,17 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
- 
- 	swidget->private = volume;
- 
-+	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
-+		if (scontrol->comp_id == swidget->comp_id) {
-+			min_step = scontrol->min_volume_step;
-+			max_step = scontrol->max_volume_step;
-+			volume->min_value = scontrol->volume_table[min_step];
-+			volume->max_value = scontrol->volume_table[max_step];
-+			volume->channels = scontrol->num_channels;
-+			break;
-+		}
-+	}
+@@ -779,6 +779,10 @@ static const struct sof_topology_token dmic_tokens[] = {
+ 	{SOF_TKN_INTEL_DMIC_FIFO_WORD_LENGTH,
+ 		SND_SOC_TPLG_TUPLE_TYPE_SHORT, get_token_u16,
+ 		offsetof(struct sof_ipc_dai_dmic_params, fifo_bits), 0},
++	{SOF_TKN_INTEL_DMIC_UNMUTE_RAMP_TIME_MS,
++		SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
++		offsetof(struct sof_ipc_dai_dmic_params, unmute_ramp_time), 0},
 +
- 	ret = sof_ipc_tx_message(sdev->ipc, volume->comp.hdr.cmd, volume,
- 				 sizeof(*volume), r, sizeof(*r));
- 	if (ret >= 0)
+ };
+ 
+ /*
 -- 
 2.20.1
 

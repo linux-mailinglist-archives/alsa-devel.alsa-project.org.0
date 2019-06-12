@@ -2,90 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03CE741EB8
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:12:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A23341F89
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:46:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E3EA1709;
-	Wed, 12 Jun 2019 10:11:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E3EA1709
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14ED61714;
+	Wed, 12 Jun 2019 10:45:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14ED61714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560327150;
-	bh=ApDF9kkJazXyvzduQEkU1rDNLMzFkBLCLIfDH6O2xxQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Q/h7FQ9t+FvKKIQ+LPellJO1kyNPwsj7dDwg5lNH90USl6I9STyrn4+OpnutydKYq
-	 JuZ/sgHmQjmvVT08pFI+an8sK6kRSe5u/QbqkGi4uob4PN9lcY4IxdKcQisqZ3ggdt
-	 om3awTOAGkLumg8DG5lgvaGG1AhdO7eYKUuiHCik=
+	s=default; t=1560329182;
+	bh=QMhYS9PbMVFoi+bPG8Zr6zSLFS7JMpabphtYb5pHe5Y=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Lz/bTUupiWrq510MT5i4Gx8Iy697/aYYuZD9mfrMIUvbSVo92oif8LVNuX7Yh64Rc
+	 EvtWPy7D5iBkfLrsqTqJiquA8SjK0BSXmJYX+JZ1mH2urV+HebN1ZGeFpe+CKTt/w5
+	 doCWRNak/voty8fPEg3h+6FJtK7Y6EgcEwhWoyTI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC4BCF80791;
-	Wed, 12 Jun 2019 10:10:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83D45F89728;
+	Wed, 12 Jun 2019 10:44:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A603F896E0; Wed, 12 Jun 2019 10:10:45 +0200 (CEST)
+ id E8BB1F896EA; Wed, 12 Jun 2019 10:44:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59DB3F80794
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:10:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59DB3F80794
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5C88tEa031260; Wed, 12 Jun 2019 03:10:35 -0500
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail3.cirrus.com ([87.246.76.56])
- by mx0a-001ae601.pphosted.com with ESMTP id 2t0ae2wjrf-1;
- Wed, 12 Jun 2019 03:10:35 -0500
-Received: from EDIEX02.ad.cirrus.com (ediex02.ad.cirrus.com [198.61.84.81])
- by mail3.cirrus.com (Postfix) with ESMTP id C05F4611E3BA;
- Wed, 12 Jun 2019 03:11:19 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 12 Jun
- 2019 09:10:34 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Wed, 12 Jun 2019 09:10:34 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3DE8444;
- Wed, 12 Jun 2019 09:10:34 +0100 (BST)
-Date: Wed, 12 Jun 2019 09:10:34 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Thomas Preston <thomas.preston@codethink.co.uk>
-Message-ID: <20190612081034.GS28362@ediswmail.ad.cirrus.com>
-References: <20190611174909.12162-1-thomas.preston@codethink.co.uk>
- <20190611174909.12162-2-thomas.preston@codethink.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40D8FF806F5
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40D8FF806F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="XDnFtSv5"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="p1LjE/8o"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 09D8446C;
+ Wed, 12 Jun 2019 04:44:27 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=uXhL/3Q1lFrwX07rw9Dp2p/lia
+ WwCxYkfcaqr2L1tsQ=; b=XDnFtSv5x8iD9wUvrratOHOko39tufe6vyTcy6EP+N
+ ZDI2/ZVQQA7ehnpTXxpUznYznz7l7jM2bpv101i0rRYFWNVVf6HSPv82W8aLBugY
+ ysNmNJyW7vUC10l+2NF1e4067FnOAqFkg+w/dl7uTu4DWlvYHyC9ThkJFvgWCmNQ
+ u1AhSAdNRMfUt+VWIrFdpcsvlstMwL25A5/G2ki5KTq/9Q3ysM/4cND9EnHATlFN
+ zTNJfuFyVQSY+BunkRcPcdo7BN5u/j7cvpOhQ41LGG9Pxve9q+Uc9V1yjuo9w6bo
+ dz5yEdm0xlV3gYfymjzSF+SR1ZRAMiGU654HXlY8ofKg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=uXhL/3Q1lFrwX07rw
+ 9Dp2p/liaWwCxYkfcaqr2L1tsQ=; b=p1LjE/8oZmC9Pj1MIsyB7tGKcdDFTYS2f
+ gy49zoBfOYbwHsioX3pTNUElYtXAJpnqfVqVo9U/KhPiDkoS8g5QloxrDFZWSP1N
+ FSl07iZjQfGjjVJR+mfZPfBUDQDKfG53Zm0jJBU+zEo8UgikERTkUoBtRYg5AS7G
+ 2uPMfOZqOFCkOj0vRXGjPmernmgrUWk5f+JjoCa77EG+jSqj9bYI88g3oW+4+rg3
+ nOC2Fh5nyPJQA2oEjXAMttiH81p1PeswEWEVOhWMOagxEQUGTRjzl1BhKxsC3wRT
+ T8Hybek7Cuw+e9k5ChXsTyrt7OlUJHxDFo6mCbmsudR94Ig5FAC7g==
+X-ME-Sender: <xms:arsAXf3APDqABGh0Pb-gUWXZSyAs6bFpdYK_DzCNByMnVsUgD7xsjg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuffhomhgrihhnpehrrgifmhhiughirdhoph
+ gvnhdprghlshgrqdhprhhojhgvtghtrdhorhhgnecukfhppedugedrfedrjeehrddukedu
+ necurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttg
+ hhihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:arsAXSVvolHHqix1Pzo19l25umc2piqzt36da0k8pavH7OsYDEJayg>
+ <xmx:arsAXa59y_-GFQZoPMKm-UxCf1Sghf_eorQ1p3b0FkbMI8ofAko_yQ>
+ <xmx:arsAXZLg9YvrjKdwFTAayEZIB9KOdNgfwrOQhY4frLJC21ZsRdW0bw>
+ <xmx:a7sAXXKPte0tONNVPZ58u1yaQmXWwrvAwaJVqzvCZR3YF5MkX2TiMQ>
+Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 66941380089;
+ Wed, 12 Jun 2019 04:44:25 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Date: Wed, 12 Jun 2019 17:44:03 +0900
+Message-Id: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190611174909.12162-2-thomas.preston@codethink.co.uk>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1906120057
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Marco Felsch <m.felsch@pengutronix.de>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kirill Marinushkin <kmarinushkin@birdec.tech>,
- Cheng-Yi Chiang <cychiang@chromium.org>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Paul Cercueil <paul@crapouillou.net>,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [alsa-devel] [PATCH v1 1/4] dt-bindings: ASoC: Add TDA7802
-	amplifier
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 00/19] ALSA: bebob/fireworks/oxfw: code
+	refactoring toward rework for reservation of isochronous resources
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,43 +109,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jun 11, 2019 at 06:49:06PM +0100, Thomas Preston wrote:
-> Signed-off-by: Thomas Preston <thomas.preston@codethink.co.uk>
-> Cc: Patrick Glaser <pglaser@tesla.com>
-> Cc: Rob Duncan <rduncan@tesla.com>
-> Cc: Nate Case <ncase@tesla.com>
-> ---
->  .../devicetree/bindings/sound/tda7802.txt          | 26 ++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/tda7802.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/tda7802.txt b/Documentation/devicetree/bindings/sound/tda7802.txt
-> new file mode 100644
-> index 000000000000..f80aaf4f1ba0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/tda7802.txt
-> @@ -0,0 +1,26 @@
-> +ST TDA7802 audio processor
-> +
-> +This device supports I2C only.
-> +
-> +Required properties:
-> +
-> +- compatible : "st,tda7802"
-> +- reg : the I2C address of the device
-> +- enable-supply : a regulator spec for the PLLen pin
-> +
-> +Optional properties:
-> +
-> +- st,gain-ch13 : gain for channels 1 and 3 (range: 1-4)
-> +- st,gain-ch24 : gain for channels 2 and 3 (range: 1-4)
+Hi,
 
-Does it make sense to have the gains in device tree? Are these
-expected to be fixed by the system design, normally the gain
-would be controlled through an ALSA control.
+This patchset is a part of patches to reserve/release isochronous
+resources in pcm.hw_params/hw_free callbacks, like posted patchsets
+below:
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-June/150118.html
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-June/150863.html
 
-Thanks,
-Charles
+However, in this patchset, I focus on code refactoring, due to kernel
+API implementation in firewire-lib.
+
+The target devices supported by ALSA bebob, fireworks and oxfw drivers
+implements Connection Management Procedure (CMP) in IEC 61883-1. For
+CMP, the drivers use kernel API in firewire-lib. This API has private
+data including the data for isochronous resources, and its
+implementation is tightly-coupled to maintenance of isochronous
+resources.
+
+This patchset is a preparation for future work to change the CMP
+implementation.
+
+Takashi Sakamoto (19):
+  ALSA: bebob: configure sampling transfer frequency in pcm.hw_params
+    callback
+  ALSA: bebob: don't set XRUN in stop streaming
+  ALSA: bebob: obsolete useless member of private structure
+  ALSA: bebob: code refactoring to initialize/destroy stream data
+  ALSA: fireworks: unify substream counter
+  ALSA: fireworks: code refactoring for rawmidi.open/close
+  ALSA: fireworks: code refactoring for pcm.hw_params/hw_free
+  ALSA: fireworks: configure sampling transfer frequency in
+    pcm.hw_params callback
+  ALSA: fireworks: configure stream parameters in pcm.hw_params callback
+  ALSA: fireworks: don't set XRUN in stop streaming
+  ALSA: oxfw: code refactoring for stop condition of packet streaming
+  ALSA: oxfw: set packet parameter according to current configuration
+  ALSA: oxfw: start duplex streams if supported
+  ALSA: oxfw: break packet streaming at bus-reset handler
+  ALSA: oxfw: expand stop procedure for packet streaming
+  ALSA: oxfw: rename helper functions for duplex streams
+  ALSA: oxfw: unify substreams counter
+  ALSA: oxfw: configure packet format in pcm.hw_params callback
+  ALSA: oxfw: configure stream parameter in pcm.hw_params callback
+
+ sound/firewire/bebob/bebob.h                |   5 +-
+ sound/firewire/bebob/bebob_midi.c           |  22 +-
+ sound/firewire/bebob/bebob_pcm.c            |  22 +-
+ sound/firewire/bebob/bebob_stream.c         | 339 ++++++++++----------
+ sound/firewire/fireworks/fireworks.h        |   6 +-
+ sound/firewire/fireworks/fireworks_midi.c   |  54 +---
+ sound/firewire/fireworks/fireworks_pcm.c    |  59 +---
+ sound/firewire/fireworks/fireworks_stream.c | 159 +++++----
+ sound/firewire/oxfw/oxfw-midi.c             |  22 +-
+ sound/firewire/oxfw/oxfw-pcm.c              |  34 +-
+ sound/firewire/oxfw/oxfw-stream.c           | 335 ++++++++++---------
+ sound/firewire/oxfw/oxfw.c                  |  17 +-
+ sound/firewire/oxfw/oxfw.h                  |  22 +-
+ 13 files changed, 553 insertions(+), 543 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

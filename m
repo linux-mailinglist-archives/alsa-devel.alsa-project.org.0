@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6131741FAA
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:50:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC48041FAE
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:51:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 002881760;
-	Wed, 12 Jun 2019 10:49:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 002881760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 652AA16C2;
+	Wed, 12 Jun 2019 10:50:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 652AA16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560329431;
-	bh=9GTK2Dy4UJDlH+zfHdqV3Zm9tLhtt9YimHm9WI5wts4=;
+	s=default; t=1560329470;
+	bh=hXwI+8KvpxW+6u/iJfEflRVMBLLKWC9gaIh/RJuIFR4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tZ4SL0U82eZRlgO4BzskTBHWy3tF2kGS3Hi+99RnJgZ9MrAhjU3GIlCSDQR+B4YbY
-	 FuHuYjyYMNVv0mztI8sHJ+499V9IZ101K2HiIAJqjtj5pCRKsmuNQPZsD52R5j8/7X
-	 hnqDaLQ3g2YnlOokGrH65R+4EEFEymSsspzFMSU4=
+	b=c1IzsX1IU5zpqHM9mKB7qhWje2/Bezk7uRDN5EnF7BEiusNWr9v8xyqgvfN2SGkjl
+	 4lL5qZJqCERed0xhX9lrDY6e4Oo2cKPrD3Ihhr8G0pcSxle9kit/mvSOS+Bk4lRcBE
+	 1terapUfDHUoRngZZY9gMQyNVhs9G8md/wlJHxHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0268DF89756;
-	Wed, 12 Jun 2019 10:44:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 332BCF89755;
+	Wed, 12 Jun 2019 10:44:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB644F89738; Wed, 12 Jun 2019 10:44:42 +0200 (CEST)
+ id 552E1F8973A; Wed, 12 Jun 2019 10:44:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,68 +34,67 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07B05F89731
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07B05F89731
+ by alsa1.perex.cz (Postfix) with ESMTPS id B78E5F896CE
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B78E5F896CE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="NjXvHJO8"; 
+ header.b="GAunMQoe"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="gRibVIKi"
+ header.i=@messagingengine.com header.b="UwWgLdDM"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 761B95B3;
- Wed, 12 Jun 2019 04:44:36 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 1DEA3571;
+ Wed, 12 Jun 2019 04:44:38 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:36 -0400
+ by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=fvU/ADFICi6Q8
- mSRBV3xog/q6Xd0VjtIxX3GW4nA64o=; b=NjXvHJO8PszS7E2tPtEsCNX5S9kZO
- cZ4lZ9gK8UGSWNxMKx7v7w/QLdXH/vOZplWxjsO9+dE91ZxH9OKA9G9fgsbQ2pq9
- LThnF7h0Sr8wsQfbz0D+AOZeA9RGFZaeBTdxaC1k9n1FSHs7NX1HEKvfwViYMgHM
- 1ANajBtWFoUM/PHjB2e7bQ4VmUitzIUlfwVkR95LhDVLpb7GyrmjGEwCqqUpsvq7
- Od4my+X7t+NPilcYdCTR4zdIIKi31XduoJ9rmgnCth+TvP7JjddmR9T1XaarUwMy
- rm3LMOEHE5Bl5HOxfHatees3qKUSNYrq/5WqFwbrx2NiH0sUn4HqydPcw==
+ :mime-version:content-transfer-encoding; s=fm1; bh=FUTGoQ7x1584K
+ MF/g9Rzh6+f5kYFFKQqfEaEGsNUfSg=; b=GAunMQoePSdvcNCC1pbBhKCfYv9cq
+ w0DV/qSel2bEo3skEaueWy3vtXS/kE8iKik3nbD2Scx+86AlngXLwQ1yQrUCxZbl
+ Ewfno7fN+CQ00KHvH/ROyeA+LFRHm2I4fe8mACNqt+VTqNfbi8wx2NxZlEFXiRGw
+ syyDOj4DvKfvnKXBWIzkdZ9cAC0VWZKi9NiYqXnSAsM6whl6437BsrW7g7csj+9G
+ YDCog2EtmY1wgnI59vJNJo988/2m7xiyEdCUIr1CVelQnM7Ocq180Ehs/1Xry6q1
+ 67pCaAMCg0KUggX1RVyu2TOM8jHBOjFQQ3SeoCPBsEoRWdALMFrbFOWxA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=fvU/ADFICi6Q8mSRBV3xog/q6Xd0VjtIxX3GW4nA64o=; b=gRibVIKi
- TW/gb9YlwMWfrE9SUrw7qjAJl2+l1CIqro0+mhEJ6L4l4E8lTBIiaAnfbiS7cpmY
- q1e2GR6cxgMC04mD4JxrX5KA/HLVqpW6rBwz5jr3cbQ7fv7o94guT2NmIiHHuCeX
- R6DE0SCuyNcX2m90+GPNqenBGOUDCcAzeO0WYAHLnClBd93YtylQwv4704UsQmvo
- JDgpJBMd1aBjNyet91B1fC1O9ZUQT9Jl3rQgn5cszcK4CstvGN3gjCRu8RS8ljzh
- Lma0Dxnl6bVhJKhmmwRZZ7iUH2MRvlfMBCcuXAoEqT7fzfexApNfo/3cXKNZcyif
- 5VxU4/RWG0M5xQ==
-X-ME-Sender: <xms:c7sAXcOWJH6BzF_W23Dw6oBU4zVP4GVZIUGJFIgoYqyjpu4OIUR5GA>
+ fm3; bh=FUTGoQ7x1584KMF/g9Rzh6+f5kYFFKQqfEaEGsNUfSg=; b=UwWgLdDM
+ pwu71P+3Bzlt0S34ZuBBP+1Y9OX0Upn8hSBwws1M2ZuUd+K0buD+lrLtNV3T9MbQ
+ bK1NwdAmV+HRY7qOv3kEQ5D2TVJptnslWiysfVQWZFZjGRMkUJp7Wl6MUvuIABsT
+ ZJUrOY74psEu9msbHpfMf39KmrJrSUz1IuXhUIbDlgMZuaNi0J8rJ/4FZpdkmAnR
+ ALFxvtR5bK0UaA7bjWnMXDc0vqGpX48ZpfCqD5vWCAHOHi2HwTn369csxvkFjmTs
+ 6WqjTOf5LEGfjiwCHH/z4K6a0//vuxgWmu2GI3UAG4SUmTBYFAiOTS4UsQeLG0Sl
+ jgo6uwuWjrXFyw==
+X-ME-Sender: <xms:dbsAXZgcCyDLHTEr5O2NABrqEbBAxRVnjaCRN8HprV3z7xYrDGHVWw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuffhomhgrihhnpehrrgifmhhiughird
- hophgvnhenucfkphepudegrdefrdejhedrudekudenucfrrghrrghmpehmrghilhhfrhho
- mhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphenucevlhhushhtvghruf
- hiiigvpedt
-X-ME-Proxy: <xmx:c7sAXXEFwWR2OryDObgZwK63phlIdIvn9nAOIPk6MvPSHbzH_6DOkA>
- <xmx:c7sAXQSWg5y4HzKRx745VqoBd8tn_YZxgpOwstqwVBvakWS0SeDfSQ>
- <xmx:c7sAXfQTYGMdMc0dfEEQscv9oyQCZ5AasA0vKrZlXZYV-3LZOhlKwQ>
- <xmx:dLsAXbi8E4Gn6mhn2v1OYEP6MyvBnYBP4wOppyXOoyGNtEPWfzF1Fw>
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
+ curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
+ ihdrjhhpnecuvehluhhsthgvrhfuihiivgepge
+X-ME-Proxy: <xmx:dbsAXdn7qWqubs_R7hPGDeoVptUsNorciV_v4mUC7PLkhdh3zjnC9Q>
+ <xmx:dbsAXdbELF_6iF4shbNSH58wPwYFw_0SJldQvcxqkV0h8qzIAGxG5g>
+ <xmx:dbsAXQyTEAmfZViWi3ssLgrpy9wJevRmPcuzCThi3Fwr5WIYfXYIQA>
+ <xmx:dbsAXfZ0b_6YPcv1qLf0f5IWv_RfqYEUTBHhKAc0aI2hWgF5drwApA>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id BD04E380089;
- Wed, 12 Jun 2019 04:44:34 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 47F1038008A;
+ Wed, 12 Jun 2019 04:44:36 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Wed, 12 Jun 2019 17:44:09 +0900
-Message-Id: <20190612084422.5344-7-o-takashi@sakamocchi.jp>
+Date: Wed, 12 Jun 2019 17:44:10 +0900
+Message-Id: <20190612084422.5344-8-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 References: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 06/19] ALSA: fireworks: code refactoring for
-	rawmidi.open/close
+Subject: [alsa-devel] [PATCH 07/19] ALSA: fireworks: code refactoring for
+	pcm.hw_params/hw_free
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,91 +112,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Two sets of callbacks for rawmidi.open/close but they have the same
+Two sets of callbacks for pcm.hw_params/hw_free but they have the same
 codes. This commit unifies each of the callbacks.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/fireworks/fireworks_midi.c | 45 +++--------------------
+ sound/firewire/fireworks/fireworks_pcm.c | 45 ++++--------------------
  1 file changed, 6 insertions(+), 39 deletions(-)
 
-diff --git a/sound/firewire/fireworks/fireworks_midi.c b/sound/firewire/fireworks/fireworks_midi.c
-index 7e78cdfe699e..ee5dc7be70b6 100644
---- a/sound/firewire/fireworks/fireworks_midi.c
-+++ b/sound/firewire/fireworks/fireworks_midi.c
-@@ -8,7 +8,7 @@
-  */
- #include "fireworks.h"
- 
--static int midi_capture_open(struct snd_rawmidi_substream *substream)
-+static int midi_open(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_efw *efw = substream->rmidi->private_data;
- 	int err;
-@@ -23,44 +23,11 @@ static int midi_capture_open(struct snd_rawmidi_substream *substream)
- 	mutex_unlock(&efw->mutex);
- 	if (err < 0)
- 		snd_efw_stream_lock_release(efw);
--
- end:
- 	return err;
+diff --git a/sound/firewire/fireworks/fireworks_pcm.c b/sound/firewire/fireworks/fireworks_pcm.c
+index a66f6a381dac..398a6ad04c5f 100644
+--- a/sound/firewire/fireworks/fireworks_pcm.c
++++ b/sound/firewire/fireworks/fireworks_pcm.c
+@@ -219,7 +219,7 @@ static int pcm_close(struct snd_pcm_substream *substream)
+ 	return 0;
  }
  
--static int midi_playback_open(struct snd_rawmidi_substream *substream)
+-static int pcm_capture_hw_params(struct snd_pcm_substream *substream,
++static int pcm_hw_params(struct snd_pcm_substream *substream,
+ 				 struct snd_pcm_hw_params *hw_params)
+ {
+ 	struct snd_efw *efw = substream->private_data;
+@@ -238,41 +238,8 @@ static int pcm_capture_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	return 0;
+ }
+-static int pcm_playback_hw_params(struct snd_pcm_substream *substream,
+-				  struct snd_pcm_hw_params *hw_params)
 -{
--	struct snd_efw *efw = substream->rmidi->private_data;
+-	struct snd_efw *efw = substream->private_data;
 -	int err;
 -
--	err = snd_efw_stream_lock_try(efw);
+-	err = snd_pcm_lib_alloc_vmalloc_buffer(substream,
+-					       params_buffer_bytes(hw_params));
 -	if (err < 0)
--		goto end;
+-		return err;
 -
--	mutex_lock(&efw->mutex);
--	++efw->substreams_counter;
--	err = snd_efw_stream_start_duplex(efw, 0);
--	mutex_unlock(&efw->mutex);
--	if (err < 0)
--		snd_efw_stream_lock_release(efw);
--end:
--	return err;
--}
+-	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
+-		mutex_lock(&efw->mutex);
+-		++efw->substreams_counter;
+-		mutex_unlock(&efw->mutex);
+-	}
 -
--static int midi_capture_close(struct snd_rawmidi_substream *substream)
--{
--	struct snd_efw *efw = substream->rmidi->private_data;
--
--	mutex_lock(&efw->mutex);
--	--efw->substreams_counter;
--	snd_efw_stream_stop_duplex(efw);
--	mutex_unlock(&efw->mutex);
--
--	snd_efw_stream_lock_release(efw);
 -	return 0;
 -}
 -
--static int midi_playback_close(struct snd_rawmidi_substream *substream)
-+static int midi_close(struct snd_rawmidi_substream *substream)
- {
- 	struct snd_efw *efw = substream->rmidi->private_data;
+-static int pcm_capture_hw_free(struct snd_pcm_substream *substream)
+-{
+-	struct snd_efw *efw = substream->private_data;
  
-@@ -121,13 +88,13 @@ static void set_midi_substream_names(struct snd_efw *efw,
- int snd_efw_create_midi_devices(struct snd_efw *efw)
+-	if (substream->runtime->status->state != SNDRV_PCM_STATE_OPEN) {
+-		mutex_lock(&efw->mutex);
+-		--efw->substreams_counter;
+-		mutex_unlock(&efw->mutex);
+-	}
+-
+-	snd_efw_stream_stop_duplex(efw);
+-
+-	return snd_pcm_lib_free_vmalloc_buffer(substream);
+-}
+-static int pcm_playback_hw_free(struct snd_pcm_substream *substream)
++static int pcm_hw_free(struct snd_pcm_substream *substream)
  {
- 	static const struct snd_rawmidi_ops capture_ops = {
--		.open		= midi_capture_open,
--		.close		= midi_capture_close,
-+		.open		= midi_open,
-+		.close		= midi_close,
- 		.trigger	= midi_capture_trigger,
- 	};
- 	static const struct snd_rawmidi_ops playback_ops = {
--		.open		= midi_playback_open,
--		.close		= midi_playback_close,
-+		.open		= midi_open,
-+		.close		= midi_close,
- 		.trigger	= midi_playback_trigger,
- 	};
- 	struct snd_rawmidi *rmidi;
+ 	struct snd_efw *efw = substream->private_data;
+ 
+@@ -378,8 +345,8 @@ int snd_efw_create_pcm_devices(struct snd_efw *efw)
+ 		.open		= pcm_open,
+ 		.close		= pcm_close,
+ 		.ioctl		= snd_pcm_lib_ioctl,
+-		.hw_params	= pcm_capture_hw_params,
+-		.hw_free	= pcm_capture_hw_free,
++		.hw_params	= pcm_hw_params,
++		.hw_free	= pcm_hw_free,
+ 		.prepare	= pcm_capture_prepare,
+ 		.trigger	= pcm_capture_trigger,
+ 		.pointer	= pcm_capture_pointer,
+@@ -390,8 +357,8 @@ int snd_efw_create_pcm_devices(struct snd_efw *efw)
+ 		.open		= pcm_open,
+ 		.close		= pcm_close,
+ 		.ioctl		= snd_pcm_lib_ioctl,
+-		.hw_params	= pcm_playback_hw_params,
+-		.hw_free	= pcm_playback_hw_free,
++		.hw_params	= pcm_hw_params,
++		.hw_free	= pcm_hw_free,
+ 		.prepare	= pcm_playback_prepare,
+ 		.trigger	= pcm_playback_trigger,
+ 		.pointer	= pcm_playback_pointer,
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAFE641FBC
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:52:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 505D041FC4
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:53:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 48D841744;
-	Wed, 12 Jun 2019 10:51:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48D841744
+	by alsa0.perex.cz (Postfix) with ESMTPS id E42E91763;
+	Wed, 12 Jun 2019 10:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E42E91763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560329548;
-	bh=Dimhi0Dx7tU3+aZPoIUiVvEx/vzwiGP0qOZqUQKPdvg=;
+	s=default; t=1560329585;
+	bh=EwW0rhFznz/mT4GOOuVTjSRumAmplZILuYcTfWNn5Yw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NJA7LZf41TUB+c+xXGtnleGuiB1/uycW/GsijL5fD9O5ogqTtyz2xQTzhErPg1ZaX
-	 R0LXH07qaeYfqMbiOIf2KI6OA142wR5dzYvQgU+084YhHv2gxmgFkfD5C0UrL8eTGH
-	 zzUzMZDbFKCSpJXoRS/GDTvwV82Kj1gYUMrv56WI=
+	b=NeM0H6X3cqmm0UDx+lWMP3qhqTMYEMUdJ8owJO958fGBHI2SW7xxWbqi4D1Pzotbo
+	 8FUbZnjsMQptxwr4kXz4zzkEWrilHqNdZY45ahvPBxYQuL3X9NsYvirbUC7LGILow8
+	 8C6RwKO5/fJfcrPyoqPfnwfYFMLL9xqklTBrd34w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 959D3F89763;
-	Wed, 12 Jun 2019 10:45:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44F6CF89767;
+	Wed, 12 Jun 2019 10:45:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8AA5DF8973E; Wed, 12 Jun 2019 10:44:46 +0200 (CEST)
+ id B6287F89745; Wed, 12 Jun 2019 10:44:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9815EF89731
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9815EF89731
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12936F8973B
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12936F8973B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Iaau/Th+"; 
+ header.b="rs2XmIfz"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="lIdXnUW/"
+ header.i=@messagingengine.com header.b="IxNs3VzF"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 0D21B5B1;
- Wed, 12 Jun 2019 04:44:40 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 6E0D9582;
+ Wed, 12 Jun 2019 04:44:42 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:41 -0400
+ by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:42 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=pCQU+kDFwttBr
- v3B04Mbo1hyII5etQNZYUUiI0OlZ/E=; b=Iaau/Th+2OgGOmQ03RnjhYZKv6xxp
- v4PgriXdtdJKIMizb4yARS6ijTRUyoxJv1jXnsSqYogL3vJfSXOAQB2+J+fjhWss
- VNh98/5TfHP5WXFqIb0gaGmGoYrOq3pkxXBZzSrYhCvgnkDm5nsq2SJjV/UNKgLZ
- /hYO4h9PSDlwyqx6I4XtfnzWFFeoqE8BX+5DW3bBKW8CCupy3/j2S5VwPFKJshHy
- LwcvG8lVhjGnOEWO9YLajYlnLwJXjHmMYefVQLCzI0gGWdvCNB+t19Intl7GpxJa
- 27EppmzgBp27557lvD4CZiVWHkpajAxS5Ogz/gMYa78/pu4kxq1j86hoA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=OQbk5DVWuYm8n
+ lFxcIB+Ho18mpF1tPogpwy7L3e6avs=; b=rs2XmIfz3FBmBnXbjzwW++m/Yqm+j
+ BrFD/IJgMQ/KxmDjbpFda10GsvdgMubFsIVPncLJIcDuUi8d/yueC+mVUSY3LT1V
+ 3iY0FSU/rXqhyvv4qp63L9KT8S34YGQJiWqVza3YV29AjWJTJOd1b8mihSiRk3aU
+ 5e4TlhQrH89Nncrbf+9FBhoaA/TBs6qMmNqzfqB7n92kpt2QzO3+ZiSbnl9mCOmy
+ ek3LP+5WI8iN5h9/ywBiubn2Jf4vUac2DkJfr/BNgaQJ1bwY4ZWpPQG2DzCZgLBG
+ XkeTcCva7UD4H3unync0IabWDBiKagWhYEksKG4KredHTI8HDYfj7APyA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=pCQU+kDFwttBrv3B04Mbo1hyII5etQNZYUUiI0OlZ/E=; b=lIdXnUW/
- im2rTMN5R8t21GKcbrih/x2PuN6ko0OdB96OxQ9RzzgKqiQfBUj2tP50JhAvJ4cX
- djSkPnuw6ZVh7/Cs7UVGob36LKC4ENzS6NCWcHXIX+T1j1mdWVJL8E1EP/inqcui
- HKZdOZQRfRbW3JZuB9hi2MjafzWa2LBqXA4onhbfvG1sZ7sEA+c/1W1v3O2TqOPE
- P/CNClO/1UA5wDhvyhIayyv97QsE6DI16p/ocb9JdtISO+8xZgsNsmBKIQd9PDwc
- tSKrliRTAU07ZXGZikvvTGb1BHkIMYnsfrp7Fpl9XwEgbVZDJjsgZ021YzQt2Aqj
- pd0ZjdIin7Z0Vg==
-X-ME-Sender: <xms:eLsAXTKVwxoeFfVWn51zMiGC4GJa2d58q4G0jTLZ7fE3SSI-VIBtTw>
+ fm3; bh=OQbk5DVWuYm8nlFxcIB+Ho18mpF1tPogpwy7L3e6avs=; b=IxNs3VzF
+ 4WcqR4AFo8K7zwAfLQ4+mOvMyapAxJuMd864WKk5RoVSqt2/53Fbn2gywSflvZyj
+ 4rIN6XSrBE8Dm1/8rEitVuQCiCTfgS6M/8S0nKql3ZlFtejqPv6KuYdl/5+r9032
+ eOkqiQzXhe7bIbs+IQyF7l9BpwcGNf3SeTa7Hz5qb/yO603iqq8UidoUppmSuzV1
+ tSonR+EovwqFAqi5Dat5ITurOopmzMquVprX6QwlYJh+Z6e6/WTeeo0XCqPpeT2r
+ pXZDKp2VuIeRZrhR7Uh+bv4BgobtaesiXrrisVa6+smby96tvZhjEpeTNv7pm7RH
+ OQXAAXPJfaNRDw==
+X-ME-Sender: <xms:ebsAXWRfYX7Xx0Adz-rWGlrKTdL4vzVnvxP_41o5E80HOw09FPZVaw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -75,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgepje
-X-ME-Proxy: <xmx:eLsAXbwTmHja_no35GMEBpGVl_gvg71YnEX9Ft13M-a5kKPIv2CLWA>
- <xmx:eLsAXT3mW-9EnFHk4sy1YAqRO_mQwQhjy7Jqyx_UsmhqEcod-1pEGg>
- <xmx:eLsAXWjkFPVbHWpUCOmsvkDNDkkLnn0xvwPeG8YfHejSAVg_LdaZfA>
- <xmx:eLsAXVc7EttJg75gqUKarok8GPxGAcUKq1nbsAiaAl0NnZgqa_wWnQ>
+X-ME-Proxy: <xmx:ersAXWp_LGHqCQ6egqx0gx5Oz_1aCwO0u0-dCONb8m8UB1a5n6CvCQ>
+ <xmx:ersAXbo8Uh_jqhk3a3GsxrV8QB0yEA7H-yNNkbDNptYejLoKtsrstw>
+ <xmx:ersAXQMF9e2IhHI1pW0JujsJQNWzvjrHpHAog7ZnUIus5CLLhKhhCg>
+ <xmx:ersAXeKYO8YR40g87iRwYQhh6nJVCTCFX6HvXQn28dq4z9VzI012cg>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5562E38008B;
- Wed, 12 Jun 2019 04:44:39 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id D2B20380087;
+ Wed, 12 Jun 2019 04:44:40 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Wed, 12 Jun 2019 17:44:12 +0900
-Message-Id: <20190612084422.5344-10-o-takashi@sakamocchi.jp>
+Date: Wed, 12 Jun 2019 17:44:13 +0900
+Message-Id: <20190612084422.5344-11-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 References: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 09/19] ALSA: fireworks: configure stream
-	parameters in pcm.hw_params callback
+Subject: [alsa-devel] [PATCH 10/19] ALSA: fireworks: don't set XRUN in stop
+	streaming
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,143 +112,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit is a part of preparation to perform allocation/release
-of isochronous resources in pcm.hw_params/hw_free callbacks.
-
-This commit splits out an operation to configure stream parameters into
-pcm.hw_params callback. In pcm.prepare callback, establishing
-connections and start isochronous contexts.
+When stopping packet streaming, no need to stop PCM substream with XRUN
+state. This commit suppresses it.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/fireworks/fireworks_stream.c | 82 ++++++++++++---------
- 1 file changed, 49 insertions(+), 33 deletions(-)
+ sound/firewire/fireworks/fireworks_stream.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
-index e1ebead583e9..1abc15760513 100644
+index 1abc15760513..61342c49dc38 100644
 --- a/sound/firewire/fireworks/fireworks_stream.c
 +++ b/sound/firewire/fireworks/fireworks_stream.c
-@@ -52,54 +52,38 @@ stop_stream(struct snd_efw *efw, struct amdtp_stream *stream)
- 		cmp_connection_break(&efw->in_conn);
- }
- 
--static int
--start_stream(struct snd_efw *efw, struct amdtp_stream *stream,
--	     unsigned int sampling_rate)
-+static int start_stream(struct snd_efw *efw, struct amdtp_stream *stream,
-+			unsigned int rate)
+@@ -43,7 +43,6 @@ init_stream(struct snd_efw *efw, struct amdtp_stream *stream)
+ static void
+ stop_stream(struct snd_efw *efw, struct amdtp_stream *stream)
  {
- 	struct cmp_connection *conn;
--	unsigned int mode, pcm_channels, midi_ports;
- 	int err;
+-	amdtp_stream_pcm_abort(stream);
+ 	amdtp_stream_stop(stream);
  
--	err = snd_efw_get_multiplier_mode(sampling_rate, &mode);
--	if (err < 0)
--		goto end;
--	if (stream == &efw->tx_stream) {
-+	if (stream == &efw->tx_stream)
- 		conn = &efw->out_conn;
--		pcm_channels = efw->pcm_capture_channels[mode];
--		midi_ports = efw->midi_out_ports;
--	} else {
-+	else
- 		conn = &efw->in_conn;
--		pcm_channels = efw->pcm_playback_channels[mode];
--		midi_ports = efw->midi_in_ports;
--	}
- 
--	err = amdtp_am824_set_parameters(stream, sampling_rate,
--					 pcm_channels, midi_ports, false);
--	if (err < 0)
--		goto end;
--
--	/*  establish connection via CMP */
-+	// Establish connection via CMP.
- 	err = cmp_connection_establish(conn,
--				amdtp_stream_get_max_payload(stream));
-+				       amdtp_stream_get_max_payload(stream));
- 	if (err < 0)
--		goto end;
-+		return err;
- 
--	/* start amdtp stream */
--	err = amdtp_stream_start(stream,
--				 conn->resources.channel,
--				 conn->speed);
-+	// Start amdtp stream.
-+	err = amdtp_stream_start(stream, conn->resources.channel, conn->speed);
- 	if (err < 0) {
--		stop_stream(efw, stream);
--		goto end;
-+		cmp_connection_break(conn);
-+		return err;
- 	}
- 
--	/* wait first callback */
-+	// Wait first callback.
- 	if (!amdtp_stream_wait_callback(stream, CALLBACK_TIMEOUT)) {
--		stop_stream(efw, stream);
--		err = -ETIMEDOUT;
-+		amdtp_stream_stop(stream);
-+		cmp_connection_break(conn);
-+		return -ETIMEDOUT;
- 	}
--end:
--	return err;
-+
-+	return 0;
- }
- 
- /*
-@@ -189,6 +173,24 @@ int snd_efw_stream_init_duplex(struct snd_efw *efw)
- 	return err;
- }
- 
-+static int keep_resources(struct snd_efw *efw, struct amdtp_stream *stream,
-+			  unsigned int rate, unsigned int mode)
-+{
-+	unsigned int pcm_channels;
-+	unsigned int midi_ports;
-+
-+	if (stream == &efw->tx_stream) {
-+		pcm_channels = efw->pcm_capture_channels[mode];
-+		midi_ports = efw->midi_out_ports;
-+	} else {
-+		pcm_channels = efw->pcm_playback_channels[mode];
-+		midi_ports = efw->midi_in_ports;
-+	}
-+
-+	return amdtp_am824_set_parameters(stream, rate, pcm_channels,
-+					  midi_ports, false);
-+}
-+
- int snd_efw_stream_reserve_duplex(struct snd_efw *efw, unsigned int rate)
- {
- 	unsigned int curr_rate;
-@@ -212,9 +214,23 @@ int snd_efw_stream_reserve_duplex(struct snd_efw *efw, unsigned int rate)
- 	}
- 
- 	if (efw->substreams_counter == 0 || rate != curr_rate) {
-+		unsigned int mode;
-+
- 		err = snd_efw_command_set_sampling_rate(efw, rate);
- 		if (err < 0)
- 			return err;
-+
-+		err = snd_efw_get_multiplier_mode(rate, &mode);
-+		if (err < 0)
-+			return err;
-+
-+		err = keep_resources(efw, &efw->tx_stream, rate, mode);
-+		if (err < 0)
-+			return err;
-+
-+		err = keep_resources(efw, &efw->rx_stream, rate, mode);
-+		if (err < 0)
-+			return err;
- 	}
- 
- 	return 0;
+ 	if (stream == &efw->tx_stream)
 -- 
 2.20.1
 

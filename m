@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CBBF42010
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:56:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 322B542012
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 10:56:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99AF91770;
-	Wed, 12 Jun 2019 10:55:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99AF91770
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8BD7172B;
+	Wed, 12 Jun 2019 10:55:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8BD7172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560329784;
-	bh=CPyt8ZWlsqTGaHW3316Iv8WM30Ib7p02BV88nAH7Fhk=;
+	s=default; t=1560329793;
+	bh=3YgI+qrdBTq3XYPSFsU+VGfiX/CofvFE6wVE3bYrI84=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LcYYHFaU+PdFL8PHO+kQYqIUMa/TjfEtOhf1bmX9XYGUaZdy+91H1du3jWqZkjxSp
-	 PteEoHdYPi8QTvRKZMBWOhApQRJ+1gnCIMWn4KvM4MCXvhYrOXcGzVZ/zq4NmSk5oX
-	 1l7hCJ4FJaf550C9eqF4GUVivva2optimHTOXAQg=
+	b=b5RDzWpV+T+DTpF7xSrpH0OVs7VIZQSx4LIVdW7wUuwBH3a+LuvYoECLYNHs3kiGK
+	 vLa1LTKbOO7SISPqO0Zh3xXq2JN8gOFDoeLZp7SeIEBqjQHKjDb4hKwEHpFk02+rTx
+	 gyLWDDCzwMuRaylTuPCF/E51zt90WZUFi3/iVd4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 777C3F89781;
-	Wed, 12 Jun 2019 10:45:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AF10F89783;
+	Wed, 12 Jun 2019 10:45:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6AD1F89751; Wed, 12 Jun 2019 10:44:53 +0200 (CEST)
+ id 07F96F89755; Wed, 12 Jun 2019 10:44:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 231CCF8973E
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 231CCF8973E
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2A8FF8974B
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 10:44:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2A8FF8974B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="GUlDf4xM"; 
+ header.b="JdjXrchn"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="1N6f5wMH"
+ header.i=@messagingengine.com header.b="0liaYlv5"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 8BDA421D;
- Wed, 12 Jun 2019 04:44:48 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 30E755BE;
+ Wed, 12 Jun 2019 04:44:50 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:48 -0400
+ by compute1.internal (MEProxy); Wed, 12 Jun 2019 04:44:50 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=WyHxZZP1vSBSn
- aX6JUP4Oeis0hAsDQE8+WylllKiCnI=; b=GUlDf4xM3fXN/dvJdu7OfJb8Wa/ZG
- PUz2nZRsvJB+UhDPB5fmrS6l9wQy282/WrpH55/xgXtgr1u2oldhdMtucVXQXIZl
- Lv3NQo5k+PzJw7ahfK4iT9PzLDmDZM/XT3q/pV5pFnsByuzTj9PWSRbhnxs7ZRtk
- FwuHALMiGrK/KHpqMmo9hDij2f/3A6cnPVL9y8oABbaHvXrxkLw73VeKS0coJsGd
- oaWSyCKlpGT47iiuUisH4tZz4ch0DlO5C1/GIOq9+gWdzogwwKNUqQswU1Mz0m6o
- dy51WmxJCcqGFr6jpjHNigHQ845TnykcP5rI2G56Ly75ici4pPCkL43Ng==
+ :mime-version:content-transfer-encoding; s=fm1; bh=A0qwqHoFsaSB+
+ D41n7uiPfx2eXXUyor27ucHlopk74w=; b=JdjXrchn9D09bob3dPhbKd7c72Ias
+ fdh4w/tA3jQVK0r+MsrqH/1HFx6L897flyW0Az05X1df6j5Q2Qa2d1d4RRf1mzG1
+ FrHMpc1EUYYNAsYGGVc7ZIKPIBzByO3Yel6GWbHNR+qg7ReVhNVTDxLlkodL+CVf
+ QDb0L+N6KxOh4gxqcndPcPLJVo2Sl8R/GCNAs3vVBq/GYrlVZwfiO6mjMisLt9Lo
+ +oIHFdYhzRJIpdReh0FiESBHJ5QgeHQGDwzAzOlfq1v0uYV5zgTXFWSGFF4FV2H4
+ KjtE4w7Yc++4vhJs5oRHduHqbJx2wF0pXkJW6y5+Oh5auUwHiFNB1m7pQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=WyHxZZP1vSBSnaX6JUP4Oeis0hAsDQE8+WylllKiCnI=; b=1N6f5wMH
- ZHsJ3Qze869sQWsRb8Ot98+AQWLzka13A9Ou+dNveo+t0ooDH45o8FczU42W17no
- mJ7TkklFejlIEdfqlWBZbmUxMuLgTy6jXCqgCVHpydL9SUFIGTC5Op9+XHt/2hn5
- fUlHQ5Zs3G8NjyNc87RDMUhQb5tMZTJBcx/OdR4Xe0dOBq/DRnMWCFppu9LxTJ9u
- /Rrz+/EunuRL/CMwgjhBI4M93tNc3+1atcSJxzPAxMbQMyI4K1CGt4MTiTiPJpsk
- oRMSbHR6kchV7K717rFZCX61nJa0d6b44x9dWBBZAtaeHcZrnr1DIeEo5I3NG+ez
- f3tfaqWJf1gBpQ==
-X-ME-Sender: <xms:gLsAXTlVnc2mWtMExHje2RYtcrJUGX_mcIfR4ELapLPSCwQYzomLMQ>
+ fm3; bh=A0qwqHoFsaSB+D41n7uiPfx2eXXUyor27ucHlopk74w=; b=0liaYlv5
+ wVRaTkds+8cLjxLAkAwl67I/PtqV+e1OjAQZqYW1oUX97W3TkWuRKCXvAFDzk3xC
+ kgA1Y6Bfp+1R7Wlk/1MSPvcbEola9DPjRyUquu54//csLBjoWIx9EaNM6BFbBDPw
+ 4x2cjKNDPIjKzBp6E6W1BRRh690cCClJTnceM+572ycJV9Q+jIiTWugb+pkQb7rZ
+ ytRFi+gbteVbT/BElgz4b7qWYGhBgsThyGM0o9gyKp02B+4LF9R59FZy6KYPF2Q0
+ VEW6PgRQkuywCkJUmoxVoTInQzfDZmpieqJtibCarR1PwD4zP/cIWDrF3CmmMBN/
+ 3vD9w3ARD3pzsg==
+X-ME-Sender: <xms:gbsAXffgZp7x9qqoouAnDqLMr7FRHIs8oCufmXe6K8AK2MSUeqBp6Q>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -75,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudehjedgtdelucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgepuddu
-X-ME-Proxy: <xmx:gLsAXZErX-KMIeTSSFqbkiZIs8uBT9OIsRJprDHGXsdZ0PiN2ZutNw>
- <xmx:gLsAXZvxlOlWLJVOxvUqqPgpqQD6T3oqmjM2Z7afqZ-EonnTyqeJag>
- <xmx:gLsAXUgnEZdZ27z0soRAE0haa4XXD-fYBVIDjq_agyjKAnCzcH0E4Q>
- <xmx:gLsAXSZHltbP7iGY9IQh6UKIc2SEVAl0lrvOvrN3q6hWR9xeCX1wew>
+X-ME-Proxy: <xmx:gbsAXWoFjyepxb14KhMdS_vNAxs3l_jxKTP05kQ8E0X0iMAoIAjrPQ>
+ <xmx:gbsAXT7CMGXFh6cJyYNLEjibIg6_hEEFd3HowaQHRtVEAxa_hjvGQw>
+ <xmx:gbsAXeBczdMSDZA2p--5-Czs72FncUdhFK22XDUHeamOiZMq3DeQWQ>
+ <xmx:gbsAXZTN0lo-Xn4Etacvp6g9OQvOLygj1ZHAUyQvnmXG1k7Y1UYRJA>
 Received: from localhost.localdomain (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id DE330380083;
- Wed, 12 Jun 2019 04:44:46 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 654A8380087;
+ Wed, 12 Jun 2019 04:44:48 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Wed, 12 Jun 2019 17:44:17 +0900
-Message-Id: <20190612084422.5344-15-o-takashi@sakamocchi.jp>
+Date: Wed, 12 Jun 2019 17:44:18 +0900
+Message-Id: <20190612084422.5344-16-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 References: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 14/19] ALSA: oxfw: break packet streaming at
-	bus-reset handler
+Subject: [alsa-devel] [PATCH 15/19] ALSA: oxfw: expand stop procedure for
+	packet streaming
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,36 +112,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In most cases, recovery from bus reset is not successful. This commit
-aborts packet streaming in bus reset handler.
+The helper function stop packet streaming is not enough useful. This
+commit obsoletes it and expands its code.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/oxfw/oxfw-stream.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ sound/firewire/oxfw/oxfw-stream.c | 68 ++++++++++++++++---------------
+ 1 file changed, 35 insertions(+), 33 deletions(-)
 
 diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index bb4ba6c196ea..806a7fded99d 100644
+index 806a7fded99d..561ceb09d927 100644
 --- a/sound/firewire/oxfw/oxfw-stream.c
 +++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -363,17 +363,10 @@ void snd_oxfw_stream_destroy_simplex(struct snd_oxfw *oxfw,
+@@ -101,17 +101,6 @@ static int set_stream_format(struct snd_oxfw *oxfw, struct amdtp_stream *s,
+ 	return 0;
+ }
+ 
+-static void stop_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+-{
+-	amdtp_stream_pcm_abort(stream);
+-	amdtp_stream_stop(stream);
+-
+-	if (stream == &oxfw->tx_stream)
+-		cmp_connection_break(&oxfw->out_conn);
+-	else
+-		cmp_connection_break(&oxfw->in_conn);
+-}
+-
+ static int start_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+ {
+ 	u8 **formats;
+@@ -158,28 +147,27 @@ static int start_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
+ 	err = amdtp_am824_set_parameters(stream, formation.rate, formation.pcm,
+ 					 formation.midi * 8, false);
+ 	if (err < 0)
+-		goto end;
++		return err;
+ 
+ 	err = cmp_connection_establish(conn,
+ 				       amdtp_stream_get_max_payload(stream));
+ 	if (err < 0)
+-		goto end;
++		return err;
+ 
+-	err = amdtp_stream_start(stream,
+-				 conn->resources.channel,
+-				 conn->speed);
++	err = amdtp_stream_start(stream, conn->resources.channel, conn->speed);
+ 	if (err < 0) {
+ 		cmp_connection_break(conn);
+-		goto end;
++		return err;
+ 	}
+ 
+-	/* Wait first packet */
++	// Wait first packet.
+ 	if (!amdtp_stream_wait_callback(stream, CALLBACK_TIMEOUT)) {
+-		stop_stream(oxfw, stream);
+-		err = -ETIMEDOUT;
++		amdtp_stream_stop(stream);
++		cmp_connection_break(conn);
++		return -ETIMEDOUT;
+ 	}
+-end:
+-	return err;
++
++	return 0;
+ }
+ 
+ static int check_connection_used_by_others(struct snd_oxfw *oxfw,
+@@ -288,9 +276,13 @@ int snd_oxfw_stream_start_simplex(struct snd_oxfw *oxfw,
+ 	if (formation.rate != rate || formation.pcm != pcm_channels ||
+ 	    amdtp_streaming_error(&oxfw->rx_stream) ||
+ 	    amdtp_streaming_error(&oxfw->tx_stream)) {
+-		stop_stream(oxfw, &oxfw->rx_stream);
+-		if (oxfw->has_output)
+-			stop_stream(oxfw, &oxfw->tx_stream);
++		amdtp_stream_stop(&oxfw->rx_stream);
++		cmp_connection_break(&oxfw->in_conn);
++
++		if (oxfw->has_output) {
++			amdtp_stream_stop(&oxfw->tx_stream);
++			cmp_connection_break(&oxfw->out_conn);
++		}
+ 
+ 		err = set_stream_format(oxfw, stream, rate, pcm_channels);
+ 		if (err < 0) {
+@@ -322,10 +314,10 @@ int snd_oxfw_stream_start_simplex(struct snd_oxfw *oxfw,
+ 
+ 	return 0;
+ error:
+-	stop_stream(oxfw, &oxfw->rx_stream);
++	amdtp_stream_stop(&oxfw->rx_stream);
+ 	cmp_connection_break(&oxfw->in_conn);
+ 	if (oxfw->has_output) {
+-		stop_stream(oxfw, &oxfw->tx_stream);
++		amdtp_stream_stop(&oxfw->tx_stream);
+ 		cmp_connection_break(&oxfw->out_conn);
+ 	}
+ 	return err;
+@@ -335,10 +327,13 @@ void snd_oxfw_stream_stop_simplex(struct snd_oxfw *oxfw,
+ 				  struct amdtp_stream *stream)
+ {
+ 	if (oxfw->capture_substreams == 0 && oxfw->playback_substreams == 0) {
+-		stop_stream(oxfw, &oxfw->rx_stream);
++		amdtp_stream_stop(&oxfw->rx_stream);
++		cmp_connection_break(&oxfw->in_conn);
+ 
+-		if (oxfw->has_output)
+-			stop_stream(oxfw, &oxfw->tx_stream);
++		if (oxfw->has_output) {
++			amdtp_stream_stop(&oxfw->tx_stream);
++			cmp_connection_break(&oxfw->out_conn);
++		}
+ 	}
+ }
+ 
+@@ -363,10 +358,17 @@ void snd_oxfw_stream_destroy_simplex(struct snd_oxfw *oxfw,
  void snd_oxfw_stream_update_simplex(struct snd_oxfw *oxfw,
  				    struct amdtp_stream *stream)
  {
--	struct cmp_connection *conn;
--
--	if (stream == &oxfw->tx_stream)
--		conn = &oxfw->out_conn;
--	else
--		conn = &oxfw->in_conn;
-+	stop_stream(oxfw, &oxfw->rx_stream);
+-	stop_stream(oxfw, &oxfw->rx_stream);
++	amdtp_stream_stop(&oxfw->rx_stream);
++	cmp_connection_break(&oxfw->in_conn);
  
--	if (cmp_connection_update(conn) < 0)
--		stop_stream(oxfw, stream);
--	else
--		amdtp_stream_update(stream);
-+	if (oxfw->has_output)
-+		stop_stream(oxfw, &oxfw->tx_stream);
+-	if (oxfw->has_output)
+-		stop_stream(oxfw, &oxfw->tx_stream);
++	amdtp_stream_pcm_abort(&oxfw->rx_stream);
++
++	if (oxfw->has_output) {
++		amdtp_stream_stop(&oxfw->tx_stream);
++		cmp_connection_break(&oxfw->out_conn);
++
++		amdtp_stream_pcm_abort(&oxfw->tx_stream);
++	}
  }
  
  int snd_oxfw_stream_get_current_formation(struct snd_oxfw *oxfw,

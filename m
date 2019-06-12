@@ -2,64 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BE3742758
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 15:21:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CAC542791
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Jun 2019 15:32:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C76D31737;
-	Wed, 12 Jun 2019 15:20:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C76D31737
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3A29175F;
+	Wed, 12 Jun 2019 15:31:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3A29175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560345685;
-	bh=eX+6oMiHecZgaahU3S1mVHqN2lYcXvdAxfo77m6k26c=;
+	s=default; t=1560346328;
+	bh=uKBipQ1K7nF6dsaI88XTxRtkuE2jl2ivY44S4t9IPbA=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kBDD8VEHS4bumqkmfam+viqUKFd6n+e2Mi8JdcN63ZponQVrLj1ZdTsHeJr3XLlMW
-	 yFuL3C916Lsm6ed1y6IhgaFWXcqKH8tUSUyMzaTRGEDLnfHx32jX1ixY/abaFts78Q
-	 Hsf6F/vu9fAQRkR18berl/zhE1HIPgDXUbJ352B8=
+	b=vXtIT6SIEspYvnl1AwTd0kyLs0RkYkumESXms2I+SnaHWLgXE/quE1AG//cXT0Wa0
+	 1KVB+K0ktiAj8zA1vpsUjm2O3onhCJH1aMQ6vR80BxqOtA6QiKxR5F0x/I4abDD7eW
+	 PujrQsC3jgcCyTFw0i/9e4ZGCCy0WuHra/bWcTbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3824FF896EA;
-	Wed, 12 Jun 2019 15:19:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70A10F896EA;
+	Wed, 12 Jun 2019 15:30:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22ED2F896E0; Wed, 12 Jun 2019 15:19:39 +0200 (CEST)
+ id 6FD87F896E0; Wed, 12 Jun 2019 15:30:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E973F80794
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 15:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E973F80794
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2019 06:19:33 -0700
-X-ExtLoop1: 1
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Jun 2019 06:19:31 -0700
-Date: Wed, 12 Jun 2019 16:20:29 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <s5hzhmnm287.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.21.1906121615310.4409@eliteleevi>
-References: <20190612115509.3400-1-kai.vehmanen@linux.intel.com>
- <s5hzhmnm287.wl-tiwai@suse.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
-Cc: libin.yang@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: codec: hdac_hdmi: fix pin
- connections at cvt enable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0475DF806F5
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 15:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0475DF806F5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id BF348AD29;
+ Wed, 12 Jun 2019 13:30:15 +0000 (UTC)
+Date: Wed, 12 Jun 2019 15:30:15 +0200
+Message-ID: <s5htvcvlymw.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+In-Reply-To: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
+References: <20190612084422.5344-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Subject: Re: [alsa-devel] [PATCH 00/19] ALSA: bebob/fireworks/oxfw: code
+	refactoring toward rework for reservation of isochronous resources
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,36 +70,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-
-On Wed, 12 Jun 2019, Takashi Iwai wrote:
-
-> On Wed, 12 Jun 2019 13:55:09 +0200,
-> Kai Vehmanen wrote:
-> > +			curr = snd_hdac_codec_read(hdev, port->pin->nid,
-> > +						   0, AC_VERB_GET_CONNECT_SEL,
-> > +						   0);
-> > +			if (curr != cvt_idx) {
-> > +				snd_hdac_codec_write(hdev,
-> > +						     port->pin->nid, 0,
-> > +						     AC_VERB_SET_CONNECT_SEL,
-> > +						     cvt_idx);
-> > +				dev_dbg(&hdev->dev,
-> > +					"%s: %s set connect %d -> %d\n",
-> > +					__func__, cvt->name, port->pin->nid,
-> > +					cvt_idx);
+On Wed, 12 Jun 2019 10:44:03 +0200,
+Takashi Sakamoto wrote:
 > 
-> You can simply restore all pins without reading.  The read costs much
-> more time than writes.
+> Hi,
+> 
+> This patchset is a part of patches to reserve/release isochronous
+> resources in pcm.hw_params/hw_free callbacks, like posted patchsets
+> below:
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-June/150118.html
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-June/150863.html
+> 
+> However, in this patchset, I focus on code refactoring, due to kernel
+> API implementation in firewire-lib.
+> 
+> The target devices supported by ALSA bebob, fireworks and oxfw drivers
+> implements Connection Management Procedure (CMP) in IEC 61883-1. For
+> CMP, the drivers use kernel API in firewire-lib. This API has private
+> data including the data for isochronous resources, and its
+> implementation is tightly-coupled to maintenance of isochronous
+> resources.
+> 
+> This patchset is a preparation for future work to change the CMP
+> implementation.
+> 
+> Takashi Sakamoto (19):
+>   ALSA: bebob: configure sampling transfer frequency in pcm.hw_params
+>     callback
+>   ALSA: bebob: don't set XRUN in stop streaming
+>   ALSA: bebob: obsolete useless member of private structure
+>   ALSA: bebob: code refactoring to initialize/destroy stream data
+>   ALSA: fireworks: unify substream counter
+>   ALSA: fireworks: code refactoring for rawmidi.open/close
+>   ALSA: fireworks: code refactoring for pcm.hw_params/hw_free
+>   ALSA: fireworks: configure sampling transfer frequency in
+>     pcm.hw_params callback
+>   ALSA: fireworks: configure stream parameters in pcm.hw_params callback
+>   ALSA: fireworks: don't set XRUN in stop streaming
+>   ALSA: oxfw: code refactoring for stop condition of packet streaming
+>   ALSA: oxfw: set packet parameter according to current configuration
+>   ALSA: oxfw: start duplex streams if supported
+>   ALSA: oxfw: break packet streaming at bus-reset handler
+>   ALSA: oxfw: expand stop procedure for packet streaming
+>   ALSA: oxfw: rename helper functions for duplex streams
+>   ALSA: oxfw: unify substreams counter
+>   ALSA: oxfw: configure packet format in pcm.hw_params callback
+>   ALSA: oxfw: configure stream parameter in pcm.hw_params callback
 
-aa, thanks, you are probably right. I actually had just the write in my 
-first version of the patch, but I ended up adding the read just be on the 
-safe side. But true, write with same connection should not have any 
-side-effects. I'll change this in v2.
+Applied all 19 patches now.  Thanks.
 
-Br, Kai
 
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,81 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F52B434AE
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 11:30:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C34B5431ED
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 01:57:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA62317F9;
-	Thu, 13 Jun 2019 11:29:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA62317F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3888417CB;
+	Thu, 13 Jun 2019 01:56:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3888417CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560418233;
-	bh=ur7FFVO8+7IocqqlpYSLlRwk57PVS0kLF+uDxQdrg5c=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nIVXS2duTe5DptNBnszLqDVSCDNHFHDnZCaQIlnCaJQ6mi83TxYQdPNHMQ37BYT8m
-	 9XU/VFgIKiEs4yAuAZfA52PaXeUYGXl0O4fPr8q7ljUpCLRizFlitv4VHE7ocbXOgs
-	 Sl17hbfaxsV/m7Fd0HXdbLyWFT7yv4bGGMFpcJiw=
+	s=default; t=1560383843;
+	bh=zUJx6XFXsWxCdvd3R004vNbhR35rvfA63o/WdOV7Nlk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dFKGwJjYRT0QPASVnFoLM4DOdfjaZbGcFHgnPcHFQgPpyTpRmHGEsNTklAy9gqrS5
+	 j79TPg+e/Q/VOeRSDj4KNmpBo9m0lAj6282XWVIbmkVHb5sNxZM6PXKnqlID2HIDgJ
+	 pa/B9HAkIbrWEtnXueqtortafinca6FGrpDmbsCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DA72F8972F;
-	Thu, 13 Jun 2019 11:28:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA818F896EA;
+	Thu, 13 Jun 2019 01:55:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C40FBF896E0; Thu, 13 Jun 2019 01:25:48 +0200 (CEST)
+ id D8903F896E0; Thu, 13 Jun 2019 01:55:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-yw1-xc49.google.com (mail-yw1-xc49.google.com
- [IPv6:2607:f8b0:4864:20::c49])
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 687F1F80791
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 01:25:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 687F1F80791
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4BD9F80791
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 01:55:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4BD9F80791
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="ZX6h/m/C"
-Received: by mail-yw1-xc49.google.com with SMTP id d135so11912733ywd.0
- for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 16:25:44 -0700 (PDT)
+ header.b="J8KjiXy8"
+Received: by mail-pg1-x542.google.com with SMTP id k187so9299460pga.0
+ for <alsa-devel@alsa-project.org>; Wed, 12 Jun 2019 16:55:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=c4y2pZiaN2WhmN/OxTBjUr2bY3qKhiFt2vrnSnjnBeU=;
- b=ZX6h/m/Ccz3D08OR8zobi4ldZ1jS6PwWzVR/t+WFD6v0/Fss+beVWhFf3zeZ82ESbD
- JnDV0SUioVotRseLuOCQjBJLHc6Uk0pBrTXhoZGSLVaiSZdExpDDf2i2/rIyMYZlsF70
- qFSP5TrwsByiyXtw3w02BWlG1wBzSWk/vy0A0IrFOW0FYgFOCrryf7dyHBTlBJtuaKKG
- ERMoWPBQK1FwgW7tltk/GtzR+Be390NfVB6tt1uV6i3acZq1aasmD19TVthHF8qX8Rml
- 6a5JDLxHclFpku0vjZ4XD/CW1AMslRend4jJ1Ln+Ot1bhEXU2bNv+/yI4qPlSB866sPf
- QLGA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=FncTW9icD+cnLcX19bpYZpu4vyVjhu2JKDPqZ1+/Ryk=;
+ b=J8KjiXy8uN1Jio07urQegYh7uz7/hdHT44kn6jPisJgD36SZ4NpMJ9DpnYXd61rR0W
+ ZgZB+aaCLNkcvkS1mR+ww55lBlgpvH7IOej2m9KkCeDY6KYntmYDpVxmm1HW+vIRVS6U
+ 3gm3Y6KzDfgCo3727cxs0HpFf3/LIxveAPITaqEiw+0euI/lFA3D8H8TPnG/gL0yfeiS
+ iIH6Xv4f2L9/EPgrGFS/NIsAXZ7o3b3yYUbzfzovcyOR+7iPI7DWa0g+VjRI4ifw8ewD
+ 1gc8bHzgJ1xxq/fi5fh99VVLXhI8BVUAU1Mh/lxx1dVK88biFgNTao1VF6jmpj2rAaF1
+ GJKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=c4y2pZiaN2WhmN/OxTBjUr2bY3qKhiFt2vrnSnjnBeU=;
- b=K6XA3PuexAt1/+P0/Xh7GxUK/sY44XwGNBibi7fS2uDyRtjMzD7CziIG3GcPzTbOgn
- 6ZmlF7/plb+SEklzG2vbQLLEu85PKEhWBkQldriJXPSFKPAbDoU/QtoOGThlATE3CNhz
- HppUZ6mScy3Ha9MSqw00QTYFhkGi24rVrOQeEc7O7JGS1hcfbwkyJCiq5mfQlEKN/rOR
- yTd1aoHIB1fLoAFzWMh07+xrzdZL9w3cQ2s7CJiSkcn+MLQlyeC1r9llMcebptRjiw8w
- 941ABoe2lNjm5crESTJc6ApuJvXCxF3QAYGP31uaSTDrPAavilg3tZgigPextIXCijgH
- VnmA==
-X-Gm-Message-State: APjAAAVC+UZcRctDFQozf6gO6nSWSo3mra/bKzxy3B8mw1/WCRzSkztR
- 6qc/8kkjOU816HeR2qUETH5w3RpFvg==
-X-Google-Smtp-Source: APXvYqzXnzX8wpDiqygjRAk3N1+TcIw2/ksV0H9K5MlzkDv4+dJxv87avsDznM1QwBlHmYu3EINw3LGE/A==
-X-Received: by 2002:a25:ef10:: with SMTP id g16mr40616532ybd.510.1560381942993; 
- Wed, 12 Jun 2019 16:25:42 -0700 (PDT)
-Date: Wed, 12 Jun 2019 16:25:02 -0700
-Message-Id: <20190612232502.256846-1-nhuck@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.22.0.rc2.383.gf4fbbf30c2-goog
-From: Nathan Huckleberry <nhuck@google.com>
-To: cernekee@chromium.org, lgirdwood@gmail.com, broonie@kernel.org, 
- perex@perex.cz, tiwai@suse.com
-X-Mailman-Approved-At: Thu, 13 Jun 2019 11:27:56 +0200
-Cc: clang-built-linux@googlegroups.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Nathan Huckleberry <nhuck@google.com>
-Subject: [alsa-devel] [PATCH] ASoC: tas571x: Fix -Wunused-const-variable
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=FncTW9icD+cnLcX19bpYZpu4vyVjhu2JKDPqZ1+/Ryk=;
+ b=R3wU7syhReo71LczWYerZ15fbRdeCYMPirgjUjNnkJ3L1CcbtqOsihkOK4nHmNxGh2
+ Gev2WO0PHP/NWBfSCXUsjpHtAEtTgZXmGrvbW/5LPHONQ2alC7ZAR2Pq722kcQY7epre
+ bOOFE1ZZ7Mp47L7lsp/GRg4FdzDZGcTsR8D+aUrkfOrw9BOkWgtA3yuWEG4nvql4HZP0
+ 8WfdmsOxXN0ws0rBD5rFu+umgABNEwmm8Qd0fluteRrfuB1e4n0PmR3VAC3+KSzi6q8y
+ WZxa8N2+XSkEr//kCAElLDoucjdYpRVhgr7Mc5kZXQmG12qN0ALb6oWpJVjcYCojoW9h
+ SteA==
+X-Gm-Message-State: APjAAAXabbANfFN5UBxCxaX6viGv4IXljrtxFztiOsu1EA1AA2WlqQcr
+ FUkOgR7petP58Fk1CJxWDDsEcBo7GlU9DZShLlpvPA==
+X-Google-Smtp-Source: APXvYqzfk1eRAHeNvQHbEfSZQi08QiYeoNKjd0uOd+Z+Hzx93yW3+4v31GBjDP2vyoJttKOK2Cwdpk4fRPLwanoJ+PQ=
+X-Received: by 2002:a63:1d5c:: with SMTP id d28mr27102833pgm.10.1560383729952; 
+ Wed, 12 Jun 2019 16:55:29 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190612232502.256846-1-nhuck@google.com>
+In-Reply-To: <20190612232502.256846-1-nhuck@google.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 12 Jun 2019 16:55:18 -0700
+Message-ID: <CAKwvOdkPQyK3oJk0qPQyfwVcvtdBSF6oN83VOW8kcy3zWyBkgA@mail.gmail.com>
+To: Nathan Huckleberry <nhuck@google.com>, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ LKML <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ clang-built-linux <clang-built-linux@googlegroups.com>, cernekee@chromium.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: tas571x: Fix -Wunused-const-variable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,42 +96,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clang produces the following warning
+On Wed, Jun 12, 2019 at 4:25 PM 'Nathan Huckleberry' via Clang Built
+Linux <clang-built-linux@googlegroups.com> wrote:
+> Since tac5711_controls is identical to tas5721_controls we can just swap
+> them
 
-sound/soc/codecs/tas571x.c:666:38: warning: unused variable
-'tas5721_controls' [-Wunused-const-variable]
+380 static const struct snd_kcontrol_new tas5711_controls[] = {
+381   SOC_SINGLE_TLV("Master Volume",
+382            TAS571X_MVOL_REG,
+383            0, 0xff, 1, tas5711_volume_tlv),
+384   SOC_DOUBLE_R_TLV("Speaker Volume",
+385        TAS571X_CH1_VOL_REG,
+386        TAS571X_CH2_VOL_REG,
+387        0, 0xff, 1, tas5711_volume_tlv),
+388   SOC_DOUBLE("Speaker Switch",
+389        TAS571X_SOFT_MUTE_REG,
+390        TAS571X_SOFT_MUTE_CH1_SHIFT, TAS571X_SOFT_MUTE_CH2_SHIFT,
+391        1, 1),
+392 };
 
-In the chip struct definition tas5711_controls is used rather than
-tac5712_controls. Looks like a typo was made in the original commit.
+vs
 
-Since tac5711_controls is identical to tas5721_controls we can just swap
-them
+666 static const struct snd_kcontrol_new tas5721_controls[] = {
+667   SOC_SINGLE_TLV("Master Volume",
+668            TAS571X_MVOL_REG,
+669            0, 0xff, 1, tas5711_volume_tlv),
+670   SOC_DOUBLE_R_TLV("Speaker Volume",
+671        TAS571X_CH1_VOL_REG,
+672        TAS571X_CH2_VOL_REG,
+673        0, 0xff, 1, tas5711_volume_tlv),
+674   SOC_DOUBLE("Speaker Switch",
+675        TAS571X_SOFT_MUTE_REG,
+676        TAS571X_SOFT_MUTE_CH1_SHIFT, TAS571X_SOFT_MUTE_CH2_SHIFT,
+677        1, 1),
+678 };
 
-Cc: clang-built-linux@googlegroups.com
-Link: https://github.com/ClangBuiltLinux/linux/issues/522
-Signed-off-by: Nathan Huckleberry <nhuck@google.com>
----
- sound/soc/codecs/tas571x.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks for the patch!
 
-diff --git a/sound/soc/codecs/tas571x.c b/sound/soc/codecs/tas571x.c
-index 20798fa2988a..1554631cb397 100644
---- a/sound/soc/codecs/tas571x.c
-+++ b/sound/soc/codecs/tas571x.c
-@@ -721,8 +721,8 @@ static const struct regmap_config tas5721_regmap_config = {
- static const struct tas571x_chip tas5721_chip = {
- 	.supply_names			= tas5721_supply_names,
- 	.num_supply_names		= ARRAY_SIZE(tas5721_supply_names),
--	.controls			= tas5711_controls,
--	.num_controls			= ARRAY_SIZE(tas5711_controls),
-+	.controls			= tas5721_controls,
-+	.num_controls			= ARRAY_SIZE(tas5721_controls),
- 	.regmap_config			= &tas5721_regmap_config,
- 	.vol_reg_size			= 1,
- };
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+
+Alternatively, we could make 2 variables w/ the same variable, 1
+variable.  It seems there's at least 4 `_control` variables:
+tas5711_controls
+tas5707_controls
+tas5717_controls
+tas5721_controls
+
+so maybe `tas57X1_controls` would be appropriate?  Not sure if the
+maintainers have a preference here?
+
+(Looks like L669 also refers to tas5711, but it seems there no tas5721
+equivalent for `_volume_tlv`.)
 -- 
-2.22.0.rc2.383.gf4fbbf30c2-goog
-
+Thanks,
+~Nick Desaulniers
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

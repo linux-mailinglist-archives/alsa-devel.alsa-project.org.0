@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2486744BFD
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 21:18:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85FB744C05
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 21:19:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A989D1891;
-	Thu, 13 Jun 2019 21:17:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A989D1891
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2921A1850;
+	Thu, 13 Jun 2019 21:18:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2921A1850
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560453508;
-	bh=9JiAXptXlLFn42uMb4ERLJz/7qQ2FGLi8OmPrPOmwBg=;
+	s=default; t=1560453545;
+	bh=wst7fqLYMSa6Mb2UBDMDZPpKBgX13fCRFtCFLIleIx0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=RsvY7tJj4JeUjfgy/zKIkPbActyNDXTm9dG+YOTvc0jsyQ13nkrHrNQfxPOi+UqRE
-	 MuCsB9RGEiU+v+6J70BsT8FB2V4rVZGYKIhqXYr2Gm0CCiv0eyUaZ/Fvl+P6Myx4LD
-	 UCQMYFP9JxxCMtuPjSa+LrbYiPy9LON3xIEroxu4=
+	b=rXVF101yopqwFR2sG7Wqy2XdGfO8CTWYWkwX3X/W2d44aG313gDRnEtI4UNpUhhR3
+	 ktN3racctOI9P6HJZbGHzzeY0GCw9f5PiAviYoI/rac731Z2Ez3WLI7NP3dP9dpN5D
+	 cfu7sVyrFJLUTzrBc9K17Ic1GGe6TuRF0PNIEqxU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9A04F8978C;
-	Thu, 13 Jun 2019 21:06:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA7B4F89793;
+	Thu, 13 Jun 2019 21:06:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6EE7F89779; Thu, 13 Jun 2019 21:06:17 +0200 (CEST)
+ id B9459F89779; Thu, 13 Jun 2019 21:06:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F065F8976B
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 21:06:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F065F8976B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87B7AF89770
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 21:06:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87B7AF89770
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="v9jS57oQ"
+ header.b="mE+4SSbn"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=mV5DL2PhP1T8j6RaJqkA27A4PzyuhrTsvjuEr+FW/VI=; b=v9jS57oQ2b1m
- 7Bv5XE+gfpPNiG18U0nZvQOPqNcSPWnS/Td52OydUZlnHkcMH+7jwS26OFYMeNLqJoQ3QL5dvudXD
- w7AU1SLInnAZqDosE2QMo+EksYnjQY5LK6nbBiteIfbOEIY2LKdA2ZoNQ/aFG6ZLWih/25hqAvmgb
- ryO0E=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=odYH5jh5iqYcEq0WcQQwpiFTomDVAY1DZTeNz2YF128=; b=mE+4SSbntrcj
+ IkbdRgfjFG2i5xCWfgECoVM2enoZflxejdTzlhPVGny3Ux8q9EPXi2rGDvKBoyrRAaMQxoQ023Djy
+ 3Y8VY/Vazltmyjph9+zQaiRQwnbCQkkdji3UFTMVLuaJJTlJcB4kxGKPEY/GDfpvsDGqsaBlw/Nnr
+ 2sokc=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hbV33-0005SH-C9; Thu, 13 Jun 2019 19:06:09 +0000
+ id 1hbV33-0005SQ-Tg; Thu, 13 Jun 2019 19:06:09 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id D1A29440049; Thu, 13 Jun 2019 20:06:08 +0100 (BST)
+ id 6F9F5440046; Thu, 13 Jun 2019 20:06:09 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190612163845.10671-1-pierre-louis.bossart@linux.intel.com>
+To: Nathan Huckleberry <nhuck@google.com>
+In-Reply-To: <20190612232502.256846-1-nhuck@google.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190613190608.D1A29440049@finisterre.sirena.org.uk>
-Date: Thu, 13 Jun 2019 20:06:08 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-topology: fix modern dai link
-	style" to the asoc tree
+Message-Id: <20190613190609.6F9F5440046@finisterre.sirena.org.uk>
+Date: Thu, 13 Jun 2019 20:06:09 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ lgirdwood@gmail.com, clang-built-linux@googlegroups.com,
+ Mark Brown <broonie@kernel.org>, cernekee@chromium.org
+Subject: [alsa-devel] Applied "ASoC: tas571x: Fix -Wunused-const-variable"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-topology: fix modern dai link style
+   ASoC: tas571x: Fix -Wunused-const-variable
 
 has been applied to the asoc tree at
 
@@ -112,58 +114,45 @@ to this mail.
 Thanks,
 Mark
 
-From 3e6de89409bf7ad149bfb05dd0dce6c5678ea0a8 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Wed, 12 Jun 2019 11:38:45 -0500
-Subject: [PATCH] ASoC: soc-topology: fix modern dai link style
+From 2f7e015c1f20cfdbe97df25868abbfa8b7514778 Mon Sep 17 00:00:00 2001
+From: Nathan Huckleberry <nhuck@google.com>
+Date: Wed, 12 Jun 2019 16:25:02 -0700
+Subject: [PATCH] ASoC: tas571x: Fix -Wunused-const-variable
 
-The topology code can create a FE DAI link but did not allocate the
-memory for a platform component - whose name can be overridden at a
-later time.
+Clang produces the following warning
 
-Fixes: 23b946ce2808b ("ASoC: soc-topology: use modern dai_link style")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+sound/soc/codecs/tas571x.c:666:38: warning: unused variable
+'tas5721_controls' [-Wunused-const-variable]
+
+In the chip struct definition tas5711_controls is used rather than
+tac5712_controls. Looks like a typo was made in the original commit.
+
+Since tac5711_controls is identical to tas5721_controls we can just swap
+them
+
+Cc: clang-built-linux@googlegroups.com
+Link: https://github.com/ClangBuiltLinux/linux/issues/522
+Signed-off-by: Nathan Huckleberry <nhuck@google.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-topology.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/codecs/tas571x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index f485f7f751a1..b538412e4bcf 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -1882,8 +1882,8 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
- 	struct snd_soc_dai_link_component *dlc;
- 	int ret;
- 
--	/* link + cpu + codec */
--	link = kzalloc(sizeof(*link) + (2 * sizeof(*dlc)), GFP_KERNEL);
-+	/* link + cpu + codec + platform */
-+	link = kzalloc(sizeof(*link) + (3 * sizeof(*dlc)), GFP_KERNEL);
- 	if (link == NULL)
- 		return -ENOMEM;
- 
-@@ -1891,9 +1891,11 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
- 
- 	link->cpus	= &dlc[0];
- 	link->codecs	= &dlc[1];
-+	link->platforms	= &dlc[2];
- 
- 	link->num_cpus	 = 1;
- 	link->num_codecs = 1;
-+	link->num_platforms = 1;
- 
- 	if (strlen(pcm->pcm_name)) {
- 		link->name = kstrdup(pcm->pcm_name, GFP_KERNEL);
-@@ -1907,6 +1909,8 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
- 	link->codecs->name = "snd-soc-dummy";
- 	link->codecs->dai_name = "snd-soc-dummy-dai";
- 
-+	link->platforms->name = "snd-soc-dummy";
-+
- 	/* enable DPCM */
- 	link->dynamic = 1;
- 	link->dpcm_playback = le32_to_cpu(pcm->playback);
+diff --git a/sound/soc/codecs/tas571x.c b/sound/soc/codecs/tas571x.c
+index ca2dfe12344e..684b7afa9252 100644
+--- a/sound/soc/codecs/tas571x.c
++++ b/sound/soc/codecs/tas571x.c
+@@ -725,8 +725,8 @@ static const struct regmap_config tas5721_regmap_config = {
+ static const struct tas571x_chip tas5721_chip = {
+ 	.supply_names			= tas5721_supply_names,
+ 	.num_supply_names		= ARRAY_SIZE(tas5721_supply_names),
+-	.controls			= tas5711_controls,
+-	.num_controls			= ARRAY_SIZE(tas5711_controls),
++	.controls			= tas5721_controls,
++	.num_controls			= ARRAY_SIZE(tas5721_controls),
+ 	.regmap_config			= &tas5721_regmap_config,
+ 	.vol_reg_size			= 1,
+ };
 -- 
 2.20.1
 

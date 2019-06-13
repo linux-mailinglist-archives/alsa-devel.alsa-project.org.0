@@ -2,93 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D319435A9
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 13:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 683F1435B2
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 13:55:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27E6B1838;
-	Thu, 13 Jun 2019 13:46:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27E6B1838
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3552182F;
+	Thu, 13 Jun 2019 13:54:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3552182F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560426423;
-	bh=4oGUFylfAf4oP+tHY5VEcZHtZqdi6R6zC0ZZvG4neb8=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=hgxw6RnzuccFwqwoEG9p1S0OaLJffr7jfjYmlxPMj5uk4ikUi4nmBWO04UdjhXfjq
-	 4q39RYBYj+VLfsSzmvIM7S/5pwA9R6iHxLJJslMzGo0dkL4RE6fA3q66xC1qlsY36x
-	 LA2UiyUzt634gjSkmDDH4Vcw695fqCwTuR3V+idg=
+	s=default; t=1560426916;
+	bh=LtGjacGgeS3lRDel3qakjQsg50LdIhDeBWCOHAU8v9k=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=cZf+ELDGUYHN2Sp55lR07EwwlDDowWHD4cEkRvQgfFHnPP9YrZwcioUZnLhVzd1wR
+	 wTjFQPToGvZVn2bKIJSCPIMYux5Y4+EqQTWUNva7KYJ4tj6ZHpude3Rp4OKJPoGDr8
+	 4+XOCmxJalR1jrd+fIOZKYodHKrQjbrCohQiMhIQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF397F8973D;
-	Thu, 13 Jun 2019 13:42:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DFE2F89711;
+	Thu, 13 Jun 2019 13:53:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5457EF80791; Thu, 13 Jun 2019 13:42:46 +0200 (CEST)
+ id C540DF89703; Thu, 13 Jun 2019 13:53:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77811F80791
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 13:42:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77811F80791
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="Ok5DOoG/"
-Received: by mail-wm1-x342.google.com with SMTP id a15so9826692wmj.5
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 04:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Tw+9nr0k/SQ4+6C+T7NQWdtgxVemIU5O6qgx24DY8vo=;
- b=Ok5DOoG/v42T5p/NULeH/QnUtOj3y3bgwt/tHoF5P/QfLizFjo2FteTJhShh/SJZlr
- Nmlqr3KRJRhMsWo6pVvAXVbul1OayENODZ5gcGgO5C7JDGHK9U+PzWdA/jg93WjfgrBX
- 3aPLgeJJNFVLG2B/rgjiiSmhS+VPDiaQJtZu9Yj5qNZsnJJwZOWKrk3hKiDrwVwOJa46
- DJ8yGbCY355E06ytD2Ad5rB+zWuOJWxU5VFLulOd9U0WSoao+makMDcH1cw103nSXVwm
- WvwvNjZS5YfcP6dgfELXmWKxdmNFba7TWuBCTXVwsvhillQ7D9Jrl3egEbQtgmyPgiVH
- 5Z9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Tw+9nr0k/SQ4+6C+T7NQWdtgxVemIU5O6qgx24DY8vo=;
- b=pB1nN+YBiv5HFP0AKtLcFqimIJvLSDWyq8RMIoznbZk084zf0VnBZ1g5qK8dYk6xjO
- atC1vefTfyNcBwHWPACfhKQTwQ7W+nJirQLAaOLQzSeCCpWpv9X0gKlBEDHzE5gkM1oy
- UmyuM2/BqNiQ80kbUukEZo+DMheENt5HDRRKNcE/iKnnNZyvetwTLcod1n5lZZiWiHvR
- GqK3sF95ryYOUogHjr07TbmuSonHgHZKaQClUfYw4GbR6y3WHRJbyU/x5qdgdmQ3fjTy
- 5TgHG7kAW6FCGlKYnkh8CB262CE0go93DteorJp1rpkrO/JBbQ+rxDLVimpWVOUoQe9d
- kuAw==
-X-Gm-Message-State: APjAAAUxK6ZNQIHb81Q11WrEXobwoE9tnN0KByBgNcRD27Mu7o3Juuej
- NEtOYcvr6kAV7TE44K/Y1ok3Cg==
-X-Google-Smtp-Source: APXvYqzEpIcfbKY9VmOQOlh4gHR44pyPiRNjVhiHDFIUMTdcrq2NBX4iOv+SXfr3SjTejuF07/m1hA==
-X-Received: by 2002:a1c:9cd1:: with SMTP id f200mr3280189wme.157.1560426163056; 
- Thu, 13 Jun 2019 04:42:43 -0700 (PDT)
-Received: from boomer.local (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id b5sm2598490wru.69.2019.06.13.04.42.42
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Thu, 13 Jun 2019 04:42:42 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>
-Date: Thu, 13 Jun 2019 13:42:33 +0200
-Message-Id: <20190613114233.21130-5-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190613114233.21130-1-jbrunet@baylibre.com>
-References: <20190613114233.21130-1-jbrunet@baylibre.com>
-MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH 4/4] ASoC: meson: axg-tdm: consistently use
-	SND_SOC_DAIFMT defines
+ by alsa1.perex.cz (Postfix) with ESMTPS id B84ACF80791
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 13:53:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B84ACF80791
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Jun 2019 04:53:23 -0700
+X-ExtLoop1: 1
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga008.jf.intel.com with ESMTP; 13 Jun 2019 04:53:20 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	broonie@kernel.org
+Date: Thu, 13 Jun 2019 14:54:12 +0300
+Message-Id: <20190613115412.13921-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: libin.yang@intel.com, tiwai@suse.de, pierre-louis.bossart@linux.intel.com,
+ kai.vehmanen@linux.intel.com
+Subject: [alsa-devel] [PATCH v3] ASoC: codec: hdac_hdmi: fix pin connections
+	at cvt enable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,37 +65,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There a mix of SND_SOC_DAIFMT_ and SND_SOC_DAI_FORMAT_ in
-axg-tdm-interface.c. Even, if this is currently the same thing, lets use
-the same group consistently.
+In display codecs supported by hdac_hdmi, the connection indices are
+shared by all converters. At boot and resume from suspend,
+the connection state may be reset to default values.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+In case of multiple connected pins (multiple monitors connected
+with audio capability), routing and mute status of pins that
+are not connected to any PCM, may interfere with other pins.
+E.g. after resume from S3 with multiple monitors, unless
+all converters are in active use, playback to some PCMs may
+be muted due to the default settings of unrelated converters.
+
+Avoid this by ensuring all pin:cvt selections are correct
+in codec whenever a converter is enabled for playback.
+
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/meson/axg-tdm-interface.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/hdac_hdmi.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/sound/soc/meson/axg-tdm-interface.c b/sound/soc/meson/axg-tdm-interface.c
-index 585ce030b79b..d51f3344be7c 100644
---- a/sound/soc/meson/axg-tdm-interface.c
-+++ b/sound/soc/meson/axg-tdm-interface.c
-@@ -306,8 +306,8 @@ static int axg_tdm_iface_hw_params(struct snd_pcm_substream *substream,
- 		}
+diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+index 660e0587f3999..7eba57157bb94 100644
+--- a/sound/soc/codecs/hdac_hdmi.c
++++ b/sound/soc/codecs/hdac_hdmi.c
+@@ -546,6 +546,29 @@ static struct hdac_hdmi_port *hdac_hdmi_get_port_from_cvt(
+ 	return NULL;
+ }
+ 
++/*
++ * Go through all converters and ensure connection is set to
++ * the correct pin as set via kcontrols.
++ */
++static void hdac_hdmi_verify_connect_sel_all_pins(struct hdac_device *hdev)
++{
++	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
++	struct hdac_hdmi_port *port;
++	struct hdac_hdmi_cvt *cvt;
++	int cvt_idx = 0;
++
++	list_for_each_entry(cvt, &hdmi->cvt_list, head) {
++		port = hdac_hdmi_get_port_from_cvt(hdev, hdmi, cvt);
++		if (port && port->pin) {
++			snd_hdac_codec_write(hdev, port->pin->nid, 0,
++					     AC_VERB_SET_CONNECT_SEL, cvt_idx);
++			dev_dbg(&hdev->dev, "%s: %s set connect %d -> %d\n",
++				__func__, cvt->name, port->pin->nid, cvt_idx);
++		}
++		++cvt_idx;
++	}
++}
++
+ /*
+  * This tries to get a valid pin and set the HW constraints based on the
+  * ELD. Even if a valid pin is not found return success so that device open
+@@ -806,6 +829,14 @@ static int hdac_hdmi_cvt_output_widget_event(struct snd_soc_dapm_widget *w,
+ 				AC_VERB_SET_CHANNEL_STREAMID, pcm->stream_tag);
+ 		snd_hdac_codec_write(hdev, cvt->nid, 0,
+ 				AC_VERB_SET_STREAM_FORMAT, pcm->format);
++
++		/*
++		 * The connection indices are shared by all converters and
++		 * may interfere with each other. Ensure correct
++		 * routing for all converters at stream start.
++		 */
++		hdac_hdmi_verify_connect_sel_all_pins(hdev);
++
  		break;
  
--	case SND_SOC_DAI_FORMAT_DSP_A:
--	case SND_SOC_DAI_FORMAT_DSP_B:
-+	case SND_SOC_DAIFMT_DSP_A:
-+	case SND_SOC_DAIFMT_DSP_B:
- 		break;
- 
- 	default:
+ 	case SND_SOC_DAPM_POST_PMD:
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A44F644C0C
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 21:22:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1195244C08
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 21:20:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A60918BE;
-	Thu, 13 Jun 2019 21:21:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A60918BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A4791883;
+	Thu, 13 Jun 2019 21:19:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A4791883
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560453742;
-	bh=hH2ensWMaqkBSvrAqqog6F0iWS/UoM42H7Cm06CbwTQ=;
+	s=default; t=1560453624;
+	bh=isMq6Huk0n92c7B0yAbbf37nC7JCZDv3uh4RH6n0NCM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=doWRRZbl4KGworaQklb2bEp2i9eG2kzOS5y48AdufLmqU6481z3hLjU9Sj6vz6YG0
-	 i0/W2F90qsSG4lgT0/p52zZmw2//8KGUMZ6IlTLmKzXF++GH2OPG8Wr6DOjRWiuYoD
-	 lFEyv7kYSoGU21po9GcHSWkpDP60pCz54jBrZv84=
+	b=hIRhbH6baNlm/ai0I3pTtPGe5IR4dsCGfAkFpoTqTqkUEb9lw90Fo5MCNxeBZLZ5a
+	 L6EnNiSu0BnMKN9Gk1TultAKrwjIzroqmIRMxOPgBj2w23rBZz7B2ziIDtR46bYaHU
+	 N6goQfpMwQLM43V51kQpJSqNyC/QA6cI3AwYf+4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE0B2F897A7;
-	Thu, 13 Jun 2019 21:06:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32315F89799;
+	Thu, 13 Jun 2019 21:06:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37221F8977A; Thu, 13 Jun 2019 21:06:23 +0200 (CEST)
+ id D7592F8977B; Thu, 13 Jun 2019 21:06:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0FC6F896F1
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 21:06:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0FC6F896F1
+ by alsa1.perex.cz (Postfix) with ESMTPS id F086CF89773
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 21:06:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F086CF89773
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="sZFcb5N2"
+ header.b="AamoX4xl"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=jb16YznCRE5HQevibjg2W3ZxpsXNXm+H9zfkc7IoFH8=; b=sZFcb5N2bfJk
- OWCnj9w/pjqmt8LZcTYh/VpmB0fX5w72xJn59RGqIHIRDQHaXdpoolg2FMoTiTl6cmgnpSfmrM+sk
- O4OmSn4hXfXk22OVA51xwnsdAfEV45gQe83S4Tkoje65xLslWNczRYQRrSrOH82ikQ/+Tfdr0dlUK
- l56TI=;
+ List-Archive; bh=WSE7yNQsm03MTgTQi5FtnSUc0fzbzrQUr5rqxoBdVH8=; b=AamoX4xlwYcc
+ ZZBIkG1hCjPmLRzhBT2o7ySKVarvQXFSnAFkYn0FA2iIWQK12NOjPAo02X5GiGIQW7R2oZSFYzcYd
+ /l0PdVH/4jyfSEKhDh+wwHi3yHw2ToGDUFRTc70I82U0PWHyqjgo0Wh5rjS3PVue5GNaqNkM9qnkM
+ +b9Og=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hbV35-0005SX-4z; Thu, 13 Jun 2019 19:06:11 +0000
+ id 1hbV35-0005Sg-Mf; Thu, 13 Jun 2019 19:06:11 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id A220B440046; Thu, 13 Jun 2019 20:06:10 +0100 (BST)
+ id 3AA0B440046; Thu, 13 Jun 2019 20:06:11 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20190613115412.13921-1-kai.vehmanen@linux.intel.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20190613114233.21130-4-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190613190610.A220B440046@finisterre.sirena.org.uk>
-Date: Thu, 13 Jun 2019 20:06:10 +0100 (BST)
-Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, tiwai@suse.de,
- pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: codec: hdac_hdmi: fix pin connections
-	at cvt enable" to the asoc tree
+Message-Id: <20190613190611.3AA0B440046@finisterre.sirena.org.uk>
+Date: Thu, 13 Jun 2019 20:06:11 +0100 (BST)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: meson: axg-tdm: fix sample clock
+	inversion" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: codec: hdac_hdmi: fix pin connections at cvt enable
+   ASoC: meson: axg-tdm: fix sample clock inversion
 
 has been applied to the asoc tree at
 
@@ -114,80 +115,38 @@ to this mail.
 Thanks,
 Mark
 
-From 489f231e0f4c44d4d019aa5c26e1c3f147875f13 Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Thu, 13 Jun 2019 14:54:12 +0300
-Subject: [PATCH] ASoC: codec: hdac_hdmi: fix pin connections at cvt enable
+From cb36ff785e868992e96e8b9e5a0c2822b680a9e2 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Thu, 13 Jun 2019 13:42:32 +0200
+Subject: [PATCH] ASoC: meson: axg-tdm: fix sample clock inversion
 
-In display codecs supported by hdac_hdmi, the connection indices are
-shared by all converters. At boot and resume from suspend,
-the connection state may be reset to default values.
+The content of SND_SOC_DAIFMT_FORMAT_MASK is a number, not a bitfield,
+so the test to check if the format is i2s is wrong. Because of this the
+clock setting may be wrong. For example, the sample clock gets inverted
+in DSP B mode, when it should not.
 
-In case of multiple connected pins (multiple monitors connected
-with audio capability), routing and mute status of pins that
-are not connected to any PCM, may interfere with other pins.
-E.g. after resume from S3 with multiple monitors, unless
-all converters are in active use, playback to some PCMs may
-be muted due to the default settings of unrelated converters.
+Fix the lrclk invert helper function
 
-Avoid this by ensuring all pin:cvt selections are correct
-in codec whenever a converter is enabled for playback.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Fixes: 1a11d88f499c ("ASoC: meson: add tdm formatter base driver")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/hdac_hdmi.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ sound/soc/meson/axg-tdm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-index 660e0587f399..7eba57157bb9 100644
---- a/sound/soc/codecs/hdac_hdmi.c
-+++ b/sound/soc/codecs/hdac_hdmi.c
-@@ -546,6 +546,29 @@ static struct hdac_hdmi_port *hdac_hdmi_get_port_from_cvt(
- 	return NULL;
+diff --git a/sound/soc/meson/axg-tdm.h b/sound/soc/meson/axg-tdm.h
+index e578b6f40a07..5774ce0916d4 100644
+--- a/sound/soc/meson/axg-tdm.h
++++ b/sound/soc/meson/axg-tdm.h
+@@ -40,7 +40,7 @@ struct axg_tdm_iface {
+ 
+ static inline bool axg_tdm_lrclk_invert(unsigned int fmt)
+ {
+-	return (fmt & SND_SOC_DAIFMT_I2S) ^
++	return ((fmt & SND_SOC_DAIFMT_FORMAT_MASK) == SND_SOC_DAIFMT_I2S) ^
+ 		!!(fmt & (SND_SOC_DAIFMT_IB_IF | SND_SOC_DAIFMT_NB_IF));
  }
  
-+/*
-+ * Go through all converters and ensure connection is set to
-+ * the correct pin as set via kcontrols.
-+ */
-+static void hdac_hdmi_verify_connect_sel_all_pins(struct hdac_device *hdev)
-+{
-+	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
-+	struct hdac_hdmi_port *port;
-+	struct hdac_hdmi_cvt *cvt;
-+	int cvt_idx = 0;
-+
-+	list_for_each_entry(cvt, &hdmi->cvt_list, head) {
-+		port = hdac_hdmi_get_port_from_cvt(hdev, hdmi, cvt);
-+		if (port && port->pin) {
-+			snd_hdac_codec_write(hdev, port->pin->nid, 0,
-+					     AC_VERB_SET_CONNECT_SEL, cvt_idx);
-+			dev_dbg(&hdev->dev, "%s: %s set connect %d -> %d\n",
-+				__func__, cvt->name, port->pin->nid, cvt_idx);
-+		}
-+		++cvt_idx;
-+	}
-+}
-+
- /*
-  * This tries to get a valid pin and set the HW constraints based on the
-  * ELD. Even if a valid pin is not found return success so that device open
-@@ -806,6 +829,14 @@ static int hdac_hdmi_cvt_output_widget_event(struct snd_soc_dapm_widget *w,
- 				AC_VERB_SET_CHANNEL_STREAMID, pcm->stream_tag);
- 		snd_hdac_codec_write(hdev, cvt->nid, 0,
- 				AC_VERB_SET_STREAM_FORMAT, pcm->format);
-+
-+		/*
-+		 * The connection indices are shared by all converters and
-+		 * may interfere with each other. Ensure correct
-+		 * routing for all converters at stream start.
-+		 */
-+		hdac_hdmi_verify_connect_sel_all_pins(hdev);
-+
- 		break;
- 
- 	case SND_SOC_DAPM_POST_PMD:
 -- 
 2.20.1
 

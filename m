@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3353044BD6
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 21:12:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E05844BE3
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 21:13:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B5F031878;
-	Thu, 13 Jun 2019 21:11:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B5F031878
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEA62188B;
+	Thu, 13 Jun 2019 21:12:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEA62188B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560453137;
-	bh=4EkIXnlaEtMltSknAEACh+66HvZyoBVUZiQjar4iikw=;
+	s=default; t=1560453225;
+	bh=SjGm0RaANUZyIQgXgyIhcIccpzV/9dMSiRiQBybU3/k=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=uffAuoK2RqG4cotwnaum55WILjE0HOUMybpnvtVqb7yVtffJqE18l6S88oH+/sZek
-	 gLUsxNNU21zZsvoJOvYI5TiUw3AocQVM+d0e+1XUk9i9IQccrEurE6nlHC2G4SRiBA
-	 ToJx6pFKeIEtPV3066bzVFDqm/Z4rXSzv59EA/ag=
+	b=j9tCRf+I8mf2Tj1xOrqZDdNKRJMPVtTjf0+cEkOMi9wc3N9+NMyCW4wF1SWtJxEU6
+	 oNWDOyzxgSknF43S/aEIRUW6DK0khkrodtdheegW6AEAgNWoCGiKaxuPYS+AQedqCN
+	 q7VxXp0zWG206+Ws2hI3Girxi77UebM0YzyN7er8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 335C7F89759;
-	Thu, 13 Jun 2019 21:06:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DE91F89764;
+	Thu, 13 Jun 2019 21:06:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7106CF89759; Thu, 13 Jun 2019 21:06:03 +0200 (CEST)
+ id 8AF28F89759; Thu, 13 Jun 2019 21:06:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50672F89755
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 21:05:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50672F89755
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0197EF89757
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 21:06:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0197EF89757
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="v/r2t1ar"
+ header.b="eaYucUde"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=kO2nYPvI6ZKQ3ZaZlyIIZQ7pBg9vcnyXCwRGCzNOg8Y=; b=v/r2t1argtxJ
- 5jsqDPi5xbrWG3yChCtY3v8JT6hn4wQPxm68y4dL1pfOSJFXH65n3qv71Q0WG2Pyb3CWOUz7xo790
- 3x/S1fgkme9XO255cWWYDAlrj6zr1Nevg7RAbFApa5gcHkPqJaXsPGZqCJfWrubOg37tuEOEtg1US
- cd3DQ=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=s3bNUMk3Q7lK0oMLNQ1uz7dxiyMVKdvfLsQtIQ5fBuM=; b=eaYucUdeyo8X
+ GkK1zJmsIzcQGSZdFDngWSjzg+LLME7ZLYP+Y2A+M4x1l2ZUej4k+stTQ7K6iSTqxnouMpprgVrB9
+ ERg122nuuLDChty5o2Gaie4SGpa+AyitaDj2075BVrBwkE0kcSer6YXmT7gYjwI0I2DKSyDcsMm8+
+ ug9Tc=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hbV2t-0005RO-F5; Thu, 13 Jun 2019 19:05:59 +0000
+ id 1hbV2t-0005RT-UX; Thu, 13 Jun 2019 19:05:59 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id D05F4440049; Thu, 13 Jun 2019 20:05:58 +0100 (BST)
+ id 7B02E440046; Thu, 13 Jun 2019 20:05:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-In-Reply-To: <20190612170148.15327-4-pierre-louis.bossart@linux.intel.com>
+To: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+In-Reply-To: <20190612170148.15327-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190613190558.D05F4440049@finisterre.sirena.org.uk>
-Date: Thu, 13 Jun 2019 20:05:58 +0100 (BST)
+Message-Id: <20190613190559.7B02E440046@finisterre.sirena.org.uk>
+Date: Thu, 13 Jun 2019 20:05:59 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Add DMIC token for unmute gain
-	ramp time" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: topology: pass volume min/max
+	linear value to FW" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Add DMIC token for unmute gain ramp time
+   ASoC: SOF: topology: pass volume min/max linear value to FW
 
 has been applied to the asoc tree at
 
@@ -113,87 +113,56 @@ to this mail.
 Thanks,
 Mark
 
-From 7df43911e92aa2137ae77ae60efaa9d6656df3fe Mon Sep 17 00:00:00 2001
-From: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
-Date: Wed, 12 Jun 2019 12:01:47 -0500
-Subject: [PATCH] ASoC: SOF: Add DMIC token for unmute gain ramp time
+From 65a18a46b274e64012fcf19d79ac62c8fb2a12e9 Mon Sep 17 00:00:00 2001
+From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Date: Wed, 12 Jun 2019 12:01:46 -0500
+Subject: [PATCH] ASoC: SOF: topology: pass volume min/max linear value to FW
 
-The settling time of DMIC DC level is both platform and used
-microphone model specific. The unmute gain ramp is used to conceal
-most of the large DC level seen in beginning of capture. This patch
-adds into the DMIC DAI IPC struct a new field called unmute_ramp_time
-and a new token SOF_TKN_INTEL_DMIC_UNMUTE_RAMP_TIME. The value is the
-ramp length in milliseconds (ms).
+The driver currently passes the volume ramp type and length
+topology tokens to firmware, but the min and max volume are
+not set. This patch provides a correction to convert the
+information from the topology file and pass the linear volume
+min/max value to the firmware to improve transitions.
 
-The ABI minor version is incremented for this backwards compatible
-change.
-
-Signed-off-by: Seppo Ingalsuo <seppo.ingalsuo@linux.intel.com>
+Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof/dai-intel.h   | 3 ++-
- include/uapi/sound/sof/abi.h    | 2 +-
- include/uapi/sound/sof/tokens.h | 1 +
- sound/soc/sof/topology.c        | 4 ++++
- 4 files changed, 8 insertions(+), 2 deletions(-)
+ sound/soc/sof/topology.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/include/sound/sof/dai-intel.h b/include/sound/sof/dai-intel.h
-index 4bd83f7adddf..4bb8ee138ba7 100644
---- a/include/sound/sof/dai-intel.h
-+++ b/include/sound/sof/dai-intel.h
-@@ -167,9 +167,10 @@ struct sof_ipc_dai_dmic_params {
- 
- 	uint32_t wake_up_time;      /**< Time from clock start to data (us) */
- 	uint32_t min_clock_on_time; /**< Min. time that clk is kept on (us) */
-+	uint32_t unmute_ramp_time;  /**< Length of logarithmic gain ramp (ms) */
- 
- 	/* reserved for future use */
--	uint32_t reserved[6];
-+	uint32_t reserved[5];
- 
- 	/**< variable number of pdm controller config */
- 	struct sof_ipc_dai_dmic_pdm_ctrl pdm[0];
-diff --git a/include/uapi/sound/sof/abi.h b/include/uapi/sound/sof/abi.h
-index 92eee681bc62..4a9c24434f42 100644
---- a/include/uapi/sound/sof/abi.h
-+++ b/include/uapi/sound/sof/abi.h
-@@ -26,7 +26,7 @@
- 
- /* SOF ABI version major, minor and patch numbers */
- #define SOF_ABI_MAJOR 3
--#define SOF_ABI_MINOR 7
-+#define SOF_ABI_MINOR 8
- #define SOF_ABI_PATCH 0
- 
- /* SOF ABI version number. Format within 32bit word is MMmmmppp */
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index 53ea94bf1c08..dc1b27daaac6 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -85,6 +85,7 @@
- #define SOF_TKN_INTEL_DMIC_NUM_PDM_ACTIVE	605
- #define SOF_TKN_INTEL_DMIC_SAMPLE_RATE		608
- #define SOF_TKN_INTEL_DMIC_FIFO_WORD_LENGTH	609
-+#define SOF_TKN_INTEL_DMIC_UNMUTE_RAMP_TIME_MS  610
- 
- /* DMIC PDM */
- #define SOF_TKN_INTEL_DMIC_PDM_CTRL_ID		700
 diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index bbad8053b1bc..8e00f829bfdb 100644
+index 1c661dec8dd4..bbad8053b1bc 100644
 --- a/sound/soc/sof/topology.c
 +++ b/sound/soc/sof/topology.c
-@@ -779,6 +779,10 @@ static const struct sof_topology_token dmic_tokens[] = {
- 	{SOF_TKN_INTEL_DMIC_FIFO_WORD_LENGTH,
- 		SND_SOC_TPLG_TUPLE_TYPE_SHORT, get_token_u16,
- 		offsetof(struct sof_ipc_dai_dmic_params, fifo_bits), 0},
-+	{SOF_TKN_INTEL_DMIC_UNMUTE_RAMP_TIME_MS,
-+		SND_SOC_TPLG_TUPLE_TYPE_WORD, get_token_u32,
-+		offsetof(struct sof_ipc_dai_dmic_params, unmute_ramp_time), 0},
-+
- };
+@@ -1552,6 +1552,9 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_private *private = &tw->priv;
+ 	struct sof_ipc_comp_volume *volume;
++	struct snd_sof_control *scontrol;
++	int min_step;
++	int max_step;
+ 	int ret;
  
- /*
+ 	volume = kzalloc(sizeof(*volume), GFP_KERNEL);
+@@ -1594,6 +1597,17 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 
+ 	swidget->private = volume;
+ 
++	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
++		if (scontrol->comp_id == swidget->comp_id) {
++			min_step = scontrol->min_volume_step;
++			max_step = scontrol->max_volume_step;
++			volume->min_value = scontrol->volume_table[min_step];
++			volume->max_value = scontrol->volume_table[max_step];
++			volume->channels = scontrol->num_channels;
++			break;
++		}
++	}
++
+ 	ret = sof_ipc_tx_message(sdev->ipc, volume->comp.hdr.cmd, volume,
+ 				 sizeof(*volume), r, sizeof(*r));
+ 	if (ret >= 0)
 -- 
 2.20.1
 

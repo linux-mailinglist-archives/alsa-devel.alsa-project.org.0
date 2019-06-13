@@ -2,77 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008CE43576
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 13:22:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C6C84359E
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 13:44:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75BAA1806;
-	Thu, 13 Jun 2019 13:21:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75BAA1806
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7DB391812;
+	Thu, 13 Jun 2019 13:43:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7DB391812
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560424958;
-	bh=rbRJkuIY+2jR+svnt4O1MNkfyvo8ujt9xD3NEzXViNg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=r3AJVwVccWQK5LW4Mg65nx71vCk2/IxE/0dTkxx0qD03Imf5KXEFozPukb76ssU9H
-	 1SLh/4Wp0bBXy7DYutzjMTkwz2MXCDdPprwrTxU0ibdDgFY0uP4i2Y+UEG6Yo5kL32
-	 kwlVRYFCEm7iIii5mWYTepWOYstGuwXn+Vqwl+yY=
+	s=default; t=1560426271;
+	bh=FCdAGp6ljzbkFA8ex3Fey5yndwrSfjNCVTm+0qZGChM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=GXVdNN9xtv+Wl+Kf+TJi1QU6GWeYaMYqANUw/2J+hzaI9bLCTyIWCH2OoX6PT3oZX
+	 luS6LR/zweKUIrKXX24E6XymVuWFPMaWOPZWQ5TXaOMZiCes+1Bki1419uetCDg+Yc
+	 GCtTe4BH0EUPC6pwtXBmZoqEi9F3ZAWZkuOABw5w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF2F6F896F1;
-	Thu, 13 Jun 2019 13:20:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D57B6F80794;
+	Thu, 13 Jun 2019 13:42:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15A52F89703; Thu, 13 Jun 2019 13:20:51 +0200 (CEST)
+ id 72BA9F89711; Thu, 13 Jun 2019 13:42:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FF1DF80791
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 13:20:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FF1DF80791
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20F18F80794
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 13:42:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20F18F80794
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="he3S8JaW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eIHgfBJlbK9FwcvaP6T9TaD/ipuA6s2QoSklhh3hLCo=; b=he3S8JaWx+2Fpu56yFYvyrwJY
- rGWv6yPWwblRKDmSS01ZlZPPSfiUNDWDJnDFi9o5K0hWfWL489VxIMoWdVDy9D/22isuIL9OpJ8qg
- L2Yx8k272yMFuAa9pN60TKK1cJeQYJ35YUq+ykZyge6YdsSAzQXkRZQ6qOA+fYFe2R5AY=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hbNmd-0004sN-GB; Thu, 13 Jun 2019 11:20:43 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id F030B440046; Thu, 13 Jun 2019 12:20:42 +0100 (BST)
-Date: Thu, 13 Jun 2019 12:20:42 +0100
-From: Mark Brown <broonie@kernel.org>
-To: John Hsu <KCHSU0@nuvoton.com>
-Message-ID: <20190613112042.GJ5316@sirena.org.uk>
-References: <20190610024029.12193-1-KCHSU0@nuvoton.com>
- <20190610034040.12629-1-KCHSU0@nuvoton.com>
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="JX7JAnlp"
+Received: by mail-wr1-x436.google.com with SMTP id r16so1268980wrl.11
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 04:42:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=M0ZsHoiBuMTfOtADEzvR2C+3smzJtpOELu9NU33cfes=;
+ b=JX7JAnlpC/5ro2x6Z+UAAbgxEG6zPqcxepO1yDEMKgXmun2iUYPZZfOtSXWXCup0J2
+ zQ5Xe7sW3kEQ+83pe2ATBIcTRs1j6rTohOJedQT7LPzqQVJqqWw4cqOIqPrUC+oAYMRk
+ lRLwy91wlqN1FX84m0R+znr/UC86Lr5yuqkcyi3aApJz65ybTrTPXb09MIBe+bXscuAB
+ +i1cKAAKpK0cdVBUcEeMUL7sAZ0AusGK2aTVK03bSsf1eKp3xeWyvOtSra0UCKR+22Uf
+ Cg/Trn/YM21oupZfSfYVEdr7taJjnDZ1a1IJQ+bQ0wAaKtLMgSdqPzI8AVk+MWDmcIsV
+ t6PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=M0ZsHoiBuMTfOtADEzvR2C+3smzJtpOELu9NU33cfes=;
+ b=hMFo+aGX9rnFE9KA+J3fGGgc4xMx+33gGfiidV2RJsA5GQqsYcxKw7IPvdQyXzsCOK
+ rdEyIJuv/wZNr8h6jlt1Bqex8oR2BpG4lTQQRJ1JB36/lU4yxW1etgOIVTrPruPBYpfM
+ 6RLL0xlFM0erwP07Nc7ujwYiHKMTd6Kn4YEktCrXFUB/7xI4/kfITKFuXx3v2Jy0CbNn
+ eel5gCS0i+KtgosvGwdKpUTigrtf7zpplqCcXIqIY5gl5RylzHK/bJPmQ8S3rF+b2Owi
+ icQeJTLwui8GATCjqkxYuDUuwgBVuBNRBKCciitNaHgu5b3T+pHsm9cHtA20IR/ncurp
+ HZxQ==
+X-Gm-Message-State: APjAAAWpwFYShGXiy8KbqPwBd4eTxcGLTSjZI8NQU+1PpoASsy6GoQZe
+ mi4uZVy08Qv/cJhrX+MNWecmcA==
+X-Google-Smtp-Source: APXvYqxsB0lJVQCFeg50GG0zAhStyAzrsN1OVM00ronb52Gz/5ZCc1kOTBrm5qHA0vi5//v9WpyGEg==
+X-Received: by 2002:a5d:624c:: with SMTP id m12mr41557303wrv.354.1560426159084; 
+ Thu, 13 Jun 2019 04:42:39 -0700 (PDT)
+Received: from boomer.local (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.googlemail.com with ESMTPSA id b5sm2598490wru.69.2019.06.13.04.42.38
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Thu, 13 Jun 2019 04:42:38 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>
+Date: Thu, 13 Jun 2019 13:42:29 +0200
+Message-Id: <20190613114233.21130-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190610034040.12629-1-KCHSU0@nuvoton.com>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, cychiang@google.com, WTLI@nuvoton.com,
- lgirdwood@gmail.com, yuhsuan@google.com, YHCHuang@nuvoton.com,
- CTLIN0@nuvoton.com, Cheng-Yi Chiang <cychiang@chromium.org>, mhkuo@nuvoton.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: nau8825: fix fake interruption when
-	booting
+X-Patchwork-Bot: notify
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] [PATCH 0/4] ASoC: meson: axg-tdm: i2s format fixups
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,56 +97,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3410610475068703505=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patchset fixes a few mistakes regarding the format on the i2s bus
+on the Amlogic axg tdm drivers.
 
---===============3410610475068703505==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="KjX7LgAomYr70Ka9"
-Content-Disposition: inline
+Jerome Brunet (4):
+  ASoC: meson: axg-tdmin: right_j is not supported
+  ASoC: meson: axg-tdmout: right_j is not supported
+  ASoC: meson: axg-tdm: fix sample clock inversion
+  ASoC: meson: axg-tdm: consistently use SND_SOC_DAIFMT defines
 
+ sound/soc/meson/axg-tdm-interface.c | 4 ++--
+ sound/soc/meson/axg-tdm.h           | 2 +-
+ sound/soc/meson/axg-tdmin.c         | 1 -
+ sound/soc/meson/axg-tdmout.c        | 1 -
+ 4 files changed, 3 insertions(+), 5 deletions(-)
 
---KjX7LgAomYr70Ka9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Jun 10, 2019 at 11:40:40AM +0800, John Hsu wrote:
-> There is no pull-up resistor at IRQ line where it connects from
-> the codec to SoC. When booting, the signal of IRQ pin will keep low
-
-On some specific system?
-
-Please don't send new patches in the middle of old threads, it makes it
-hard to spot them and work out what the current version is.
-
---KjX7LgAomYr70Ka9
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0CMYoACgkQJNaLcl1U
-h9BCTAf+Mjb6YCp4CTitdaG9w5US+Xpm8f5gKjJxQYAlSzwm721Yd8d6uEYHUvJe
-jwZmsPyWSyVD8BgnElrfqzW+8i8JjwWgBjbuUMy5nMvT+5aldnWUvFaUvVT9eBuh
-Ce8oQPd3OtRkjGlSeOhTbBLmNb4qnWJ1I0G2uXnEnTWKdZ7P+may3cZXCP0S/2DD
-VS7E6oSF948Ny3dxI/eFzwPIBvOqdUQdUHau/f99DfuyrGnwjSmLTBmte5smq44b
-2Aja3m8do+SL1Z6MjZbHgB2gU3BJGWLmbvngkrUT78Oc0KeQ3AdPGbxVuIKEbiOe
-PECljUe44PsQ1hcVA3TD76nG1k7Z9A==
-=CDGm
------END PGP SIGNATURE-----
-
---KjX7LgAomYr70Ka9--
-
---===============3410610475068703505==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3410610475068703505==--

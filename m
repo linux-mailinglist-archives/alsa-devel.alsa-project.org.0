@@ -2,62 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C2F443EB4
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 17:53:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A9943F89
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Jun 2019 17:58:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1B0C1809;
-	Thu, 13 Jun 2019 17:52:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1B0C1809
+	by alsa0.perex.cz (Postfix) with ESMTPS id 407E017F6;
+	Thu, 13 Jun 2019 17:57:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 407E017F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560441186;
-	bh=RNf0O6KNlnCzE74KXLLWueJSCY7/IDAfjWeBcgybCU0=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Meq72989UDDHcP1aNyhUCZ6R9GSEmjIG9J7kjYjlECw98OwCa64tJfnuNQ1NrvETr
-	 +nBxNh5lRABYLcCd260b95H1OEd9f9C0yiOBLJ1MTe+8G2D8AaAwIFUCuTQ8ScQws5
-	 +v7K8lhmwL0C8EhKWycXVWxus9kMrIHbjiun4QW8=
+	s=default; t=1560441510;
+	bh=U2+BM68D57eoDo3jldf8SkfrHvXbaTVRloZ9H/fiKTM=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=X94Ak8A4XpadrgXUXpJzEOvLHBuWDjKfYi/+21dZfnbg5V6fOtyGD83s3986hKMJ3
+	 UueK/fNO+7e57veLCnwVM28XIL892s97T04YtGQpNRqAoueS6mvu0Jnc+Iz8Cl/l9D
+	 6YHpgutLd7Yj+PzWXwYDvpzfcymiIH7h98Pgn0m8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AA3BF80794;
-	Thu, 13 Jun 2019 17:51:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC7CDF8970F;
+	Thu, 13 Jun 2019 17:56:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57A0EF8076F; Thu, 13 Jun 2019 17:51:19 +0200 (CEST)
+ id BCB1DF8970F; Thu, 13 Jun 2019 17:56:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E486F8076F
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 17:51:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E486F8076F
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Jun 2019 08:51:09 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga008.fm.intel.com with ESMTP; 13 Jun 2019 08:51:09 -0700
-Received: from aurena-mobl.amr.corp.intel.com (unknown [10.254.19.21])
- by linux.intel.com (Postfix) with ESMTP id A6F815801A8;
- Thu, 13 Jun 2019 08:51:08 -0700 (PDT)
-To: Ralf Beck <musical_snake@gmx.de>, alsa-devel@alsa-project.org
-References: <trinity-bf4e0eb4-e575-4dfc-9315-bc322b7b7f19-1560405271802@3c-app-gmx-bs72>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a00b46af-30c6-fba5-096b-62d88f66ae37@linux.intel.com>
-Date: Thu, 13 Jun 2019 10:51:07 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.0
-MIME-Version: 1.0
-In-Reply-To: <trinity-bf4e0eb4-e575-4dfc-9315-bc322b7b7f19-1560405271802@3c-app-gmx-bs72>
-Content-Language: en-US
-Subject: Re: [alsa-devel] (no subject)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 464E5F80794
+ for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 17:56:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 464E5F80794
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="XJcckipD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=nAFc25kUtYG0NCGhYgq5P5W/mNezHsZLyaTwyKYQopw=; b=XJcckipDkKWX
+ f08gc2o7uxamNlghkqo1Z2KN/1QH67FN9GaIgYZH2pHHDMQoEVvgNmh4lpWVgn556HWwV2JC+OlT8
+ 0Vd8qWeM/IQICukg6mBR5CYrfzE3TyoviUIJfklV2ZvFbQcLFqmDu40YUc0j0PcSUbFrwPRJgK4ZL
+ uUcCE=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hbS5e-0005H5-MP; Thu, 13 Jun 2019 15:56:38 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id C2742440046; Thu, 13 Jun 2019 16:56:37 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <20190612163958.17068-1-pierre-louis.bossart@linux.intel.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190613155637.C2742440046@finisterre.sirena.org.uk>
+Date: Thu, 13 Jun 2019 16:56:37 +0100 (BST)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: bxt-da7219-max98357a: add BE
+	dailink for dmic16k" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,67 +80,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/13/19 12:54 AM, Ralf Beck wrote:
-> 
-> Jaroslav Kysela wrote:
->> I just don't think that the mmap transfer mode is the culprit of the problems.
->> The problem is that the PCI cards off-loads the DMA transfers completely
->> without the extra framing required for those serial hardware interfaces which
->> are handled in the audio driver and the other kernel stacks (USB etc.).
-> 
-> The source of all evil is the ring buffer.
-> It prevents all devices that require packet headers (Firewire/network based solutions) or that
-> use a variable amount of frames per packet (all asynchronous devices, especially asynchronous USB ISO endpoints)
-> from mapping their data directly into userspas memory without ever touching the audio data in it.
-> 
-> While this doesn't hurt performance to much with devices that offer only a few channels,
-> it has a massive effect on network based devices with possibly hundreds of channels of which only
-> a small number is used (e.g. record enabled) at a time.
-> 
-> The ringbuffer should be replaced by a buffer that holds the packets and a descriptor for how to find the data in it. Btw, alsa uses something similar already for the mmap handling.
-> 
-> The descriptor should consist of
-> x periods, containing y chunks with a max size, containing z channels, each of the channel described by a start address and step value within that chunk.
+The patch
 
-You're assuming a reliable network where not a single packet is missing. 
-I can bet that if you start adding support for packet-based audio some 
-folks are going to want to support timestamps and missing packets, which 
-would throw a large size monkey-wrench in your ideas of time reporting 
-below.
-Also note that you could rely on the compressed API to deal with packets 
-as an interface between your applications and your hardware - even if 
-the actual data is PCM. It's still based on a ring buffer but it doesn't 
-have the built-in bytes-to-time relationship that the ALSA PCM API 
-relies on.
+   ASoC: Intel: bxt-da7219-max98357a: add BE dailink for dmic16k
 
-> Examples:
-> PCI device; 2 periods, 1 chunks per period, max size 64 frames per chunk, 2 channels per chunk
-> USB device: 2 periods, 8 chunks (microframes) max size 8 frames (if at 44.1/48kHz), 2 channels per chunk,
-> Same for Firewire, AVB (each chunk possibly containing several AVB streams, i.e. ethernet packets), etc.
-> 
-> Period elapsed => the number of chunks forming a period have been received
-> 
-> snd_pcm_avail(_update) => return the sum of actual frames of the period
-> 
-> snd_pcm_mmap_commit => return the descriptor for one chunk, the number of frames of the chunk and a channel map for the chunk. The reason for the latter is that on ethernet based devices (AVB) there is bo guarantee that streams of different endpoints are received in the same order (but in the same interval window).
-> Alsa clients should then loop until they have processed all frames thar have been reported by snd_pcm_avail (instead of a period size number of frames).
-> 
-> Ah, and AM824 raw audio format, used by firewire and AVB, should by added to the list of audio formats, so conversion can be done in userspace.
-> 
-> Ralf
-> 
-> 
->   
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> 
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From fc30f2adb621aa6d6c59f0276d06004dcb204a56 Mon Sep 17 00:00:00 2001
+From: Keyon Jie <yang.jie@linux.intel.com>
+Date: Wed, 12 Jun 2019 11:39:58 -0500
+Subject: [PATCH] ASoC: Intel: bxt-da7219-max98357a: add BE dailink for dmic16k
+
+We need dmic16k BE(and FE, in tplg file) dailink for keyword detection
+feature on bxt-da7219-max98357a machine, here add it in driver side.
+
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/intel/boards/bxt_da7219_max98357a.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+index d712623854a3..0f7610c5fd53 100644
+--- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
++++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+@@ -412,6 +412,10 @@ SND_SOC_DAILINK_DEF(ssp1_codec,
+ 
+ SND_SOC_DAILINK_DEF(dmic_pin,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
++
++SND_SOC_DAILINK_DEF(dmic16k_pin,
++	DAILINK_COMP_ARRAY(COMP_CPU("DMIC16k Pin")));
++
+ SND_SOC_DAILINK_DEF(dmic_codec,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
+ 
+@@ -586,6 +590,14 @@ static struct snd_soc_dai_link broxton_dais[] = {
+ 		.no_pcm = 1,
+ 		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
+ 	},
++	{
++		.name = "dmic16k",
++		.id = 6,
++		.be_hw_params_fixup = broxton_dmic_fixup,
++		.dpcm_capture = 1,
++		.no_pcm = 1,
++		SND_SOC_DAILINK_REG(dmic16k_pin, dmic_codec, platform),
++	},
+ };
+ 
+ #define NAME_SIZE	32
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

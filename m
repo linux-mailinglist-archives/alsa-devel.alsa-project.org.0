@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 848EB45A1B
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 12:12:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 266FE45A59
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 12:26:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B2941878;
-	Fri, 14 Jun 2019 12:11:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B2941878
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE704186B;
+	Fri, 14 Jun 2019 12:25:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE704186B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560507157;
-	bh=N0OhtNSwEtnR5Bu/XrqFABpD+P7xLGWQosMDht1L830=;
+	s=default; t=1560507980;
+	bh=qpxJ4mH+W7+MZR2Y7LPv8DGWZ5+3YuH6Mn0jMBpnqkw=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bLfMugluutgx3e7NpHYshAk3gNtvnipUOmtIKt7BqlXfv3CcTSNhWLYFWqT9SjTOh
-	 8s5B+5CZhPOsB/bqIQoYv7AcNDiGxXgHTj6/MqyBbEAc7pUsQOBeauEMH5WB6JMDuH
-	 UneINE3Js2RDt8OOzG95Xr0nFS7C6F4j3PpCSQSM=
+	b=CkY8vEB0HfhRyNDDkFjiTca/+gwbFrKBPfTxsQg5iO206lLgd1EcQaRST0tPkVv7/
+	 meXykt9+wlox8+vvh6NFSkhXddXcMPzNe3OVny9mQrz/LiR5zftkIGfqVE7CqAjJX7
+	 THWZaBTgXA3Nb01hdzHyVRHQ280V+BgXW+oK5RQ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FDC1F896EA;
-	Fri, 14 Jun 2019 12:11:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51A63F896E0;
+	Fri, 14 Jun 2019 12:24:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AEBE7F896E0; Fri, 14 Jun 2019 12:11:28 +0200 (CEST)
+ id 6526FF896E0; Fri, 14 Jun 2019 12:24:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D889BF80794
- for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 12:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D889BF80794
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3CC55F80794
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 12:24:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3CC55F80794
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jun 2019 03:11:23 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2019 03:24:27 -0700
 X-ExtLoop1: 1
 Received: from linux.intel.com ([10.54.29.200])
- by fmsmga004.fm.intel.com with ESMTP; 14 Jun 2019 03:11:22 -0700
+ by orsmga001.jf.intel.com with ESMTP; 14 Jun 2019 03:24:26 -0700
 Received: from jhoenked-mobl.ger.corp.intel.com (unknown [10.252.48.113])
- by linux.intel.com (Postfix) with ESMTP id 5D5075803E4;
- Fri, 14 Jun 2019 03:11:18 -0700 (PDT)
-To: Mark Brown <broonie@kernel.org>
+ by linux.intel.com (Postfix) with ESMTP id 171255803E4;
+ Fri, 14 Jun 2019 03:24:24 -0700 (PDT)
+To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>
 References: <20190612164726.26768-1-pierre-louis.bossart@linux.intel.com>
- <20190612164726.26768-2-pierre-louis.bossart@linux.intel.com>
- <20190613184431.GU5316@sirena.org.uk>
+ <20190612164726.26768-3-pierre-louis.bossart@linux.intel.com>
+ <20190613184801.GV5316@sirena.org.uk> <s5hk1dpe283.wl-tiwai@suse.de>
+ <20190613191303.GX5316@sirena.org.uk>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <da825e8e-e960-2a08-3ddb-608b4991d150@linux.intel.com>
-Date: Fri, 14 Jun 2019 12:11:16 +0200
+Message-ID: <3e1f9a13-02db-5524-3457-935b34db4115@linux.intel.com>
+Date: Fri, 14 Jun 2019 12:24:22 +0200
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
  Gecko/20100101 Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <20190613184431.GU5316@sirena.org.uk>
+In-Reply-To: <20190613191303.GX5316@sirena.org.uk>
 Content-Language: en-US
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH v2 1/3] ASoC: SOF: trace: move to opt-in
- with Kconfig and module parameter
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v2 2/3] ASoC: SOF: acpi: add module param
+ to disable pm_runtime
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,18 +80,34 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/13/19 8:44 PM, Mark Brown wrote:
-> On Wed, Jun 12, 2019 at 11:47:24AM -0500, Pierre-Louis Bossart wrote:
-> 
->> +	    (sof_core_debug & SOF_CORE_ENABLE_TRACE)) {
->> +		sdev->dtrace_is_supported = true;
-> 
-> Given that dtrace is a widely known product with a Linux implementation
-> can we not call this dtrace?  use_dma_trace or something?  A long name
-> doesn't seem too bad here but a collision with the more common usage of
-> the name isn't great.
 
-Sure, we can rename these fields. I'll send a v3.
+>>> I can't immediately find it right now but isn't there some generic way
+>>> of doing this in the runtime PM framework?  If not it seems like it'd be
+>>> a good thing to add, these can't be the only devices where it'd be
+>>> useful.
+> 
+>> Well, runtime PM can be fully controlled via sysfs, but the problem is
+>> that the driver declares itself being runtime-enabled.
+>> So, either we leave it default and let user-space enabling it (via
+>> udev or other way), or introduce some condition in the driver side.
+> 
+> I thought someone had added a command line parameter to do it based on
+> dev_name(), perhaps they were just talking about it or it was in some
+> BSP somewhere though.
+
+If there is a better way I am all ears. It's indeed not very elegant to 
+duplicate the same parameter for two different modules and it's not an 
+SOF-specific need.
+
+The only way I am aware of is to play with 
+/sys/bus/pci/devices/xyz/power/ files but it's not very useful if you 
+want to disable the initial runtime pm transition which is often the 
+more problematic one. Completely removing runtime_pm support from all 
+drivers at compile time is also not very good either.
+
+
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

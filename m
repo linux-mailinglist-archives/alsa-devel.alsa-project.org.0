@@ -2,86 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDD8E45119
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 03:17:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CB804519C
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 04:04:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D3EA1851;
-	Fri, 14 Jun 2019 03:16:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D3EA1851
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDECD1854;
+	Fri, 14 Jun 2019 04:03:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDECD1854
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560475065;
-	bh=RG8u+AEBr7/ixWJi8Jg6zGm7J0wD5JT/5i/FeZAGcOo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560477843;
+	bh=/SpFtSON0ZiKG83+/bIUY4UrUyFw65IYkYYO1ZQkaaU=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=As0AfpN/di7LItxJ1PK7PtS8sa/I8AcNW7rQC/V7V1l2u/92/X1hyGPhjxwwAWXgv
-	 SwPFsEFBksDUDO/nXE9zSBAe5IOUDga7JSko4FObwXwPA298g6hDGGHBXDreVCPsle
-	 YVF8cVT26U9Ye5TmzghP4fEgkbihsa1Wf6nTqXWY=
+	b=qvFLi3ERhAThVGWkC6UWOkTeC3+zqxhtFESKV4h/k0qU6P8ynIb4vJJJJZbwqC3Iv
+	 Y9iQb2wZNkrp4Jyz+/iF1OKznY5EZoqH3xto5nfwjKHJqqCSTHPCfxwUcjY70/nvih
+	 cD2v9zcP6UtyQrenE2s7GKcUOCTW3Cg6zIwb8q+Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B846F8970F;
-	Fri, 14 Jun 2019 03:16:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3819F896E0;
+	Fri, 14 Jun 2019 04:02:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F39EF89703; Fri, 14 Jun 2019 03:15:58 +0200 (CEST)
+ id 4D273F896E0; Fri, 14 Jun 2019 04:02:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CD71F8076F
- for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 03:15:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CD71F8076F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="L4zXcNlw"
-Received: by mail-pl1-x642.google.com with SMTP id a93so263253pla.7
- for <alsa-devel@alsa-project.org>; Thu, 13 Jun 2019 18:15:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=A5UM5bucRn/Tvx21/M4vc9khDISAfR62KkRAVRbXIxw=;
- b=L4zXcNlwAHYv9XuYuEwSaEUAN+5JlSWPODMAShxI9B4r7PJsCOJHV4jEJQc0pLmpXQ
- X5U24EKzRk3i4b/YJXo6tj+oZQUE0IKkSGjZKEowZjtZnwEm11DO+W0AIrVfUGoXm+i9
- zeZn2p20Mb1/+DZY5Cecrtnc5y063rifCPhD0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=A5UM5bucRn/Tvx21/M4vc9khDISAfR62KkRAVRbXIxw=;
- b=tF9vVwMaQ/bXvX4GTg5BYSNZrinyNxBDQcoyQk1Ww/Ex8xJfp522a0aRCtXOzIZm3R
- HUJlT5yXQOjoyrKvquwO6WYEMLhdBwBnochqZTXevRbMcLx0EuSM1KF8nzHm1YFr5JUM
- mFR1erJIfh9u4uvelTaEkaVSWoKKmb2KIO5x98VgZisJS4U3j+Bl3JaDo8DeUdM3ntB0
- MGadvy994oGdIHyjO9nnqdwFMfc7O9/0ZeQIHLErijE037Iqnen3sk5HDU/rEAr1R8ES
- tCgel0w8QqkRX7S9b8deT/9ut322ifaAWWum5R9TrzsYwEf37j/8f9Qs9L0OL+hoL8R+
- atlw==
-X-Gm-Message-State: APjAAAXEDMBd3zunc4lerLB/b3czo/GmZx7rg4l+bCYeMqDHOm2RN/j4
- WBl6CKuUsx+dlCtuk1/PdAoimJMuyA==
-X-Google-Smtp-Source: APXvYqx5u2DWKavPxzHOGyrazONZmx+kAjjelwzJK7ar2nbAbqpSjuirjXGU2iwEK062wKmAecP74Q==
-X-Received: by 2002:a17:902:205:: with SMTP id
- 5mr84770616plc.165.1560474952768; 
- Thu, 13 Jun 2019 18:15:52 -0700 (PDT)
-Received: from localhost ([2620:15c:202:201:c87a:31ae:9107:f63d])
- by smtp.gmail.com with ESMTPSA id o20sm857401pgj.70.2019.06.13.18.15.51
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 13 Jun 2019 18:15:52 -0700 (PDT)
-From: Curtis Malainey <cujomalainey@chromium.org>
-To: alsa-devel@alsa-project.org
-Date: Thu, 13 Jun 2019 18:15:31 -0700
-Message-Id: <20190614011530.33465-1-cujomalainey@chromium.org>
-X-Mailer: git-send-email 2.22.0.rc2.383.gf4fbbf30c2-goog
-In-Reply-To: <20190613235309.30984-1-cujomalainey@chromium.org>
-References: <20190613235309.30984-1-cujomalainey@chromium.org>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HTML_MESSAGE,PRX_BODY_78,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from maillog.nuvoton.com (maillog.nuvoton.com [202.39.227.15])
+ by alsa1.perex.cz (Postfix) with ESMTP id 846ABF80764
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 04:02:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 846ABF80764
+Received: from NTHCCAS02.nuvoton.com (nthccas02.nuvoton.com [10.1.8.29])
+ by maillog.nuvoton.com (Postfix) with ESMTP id C85421C80DED;
+ Fri, 14 Jun 2019 10:02:04 +0800 (CST)
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCCAS02.nuvoton.com
+ (10.1.8.29) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Fri, 14 Jun 2019
+ 10:02:04 +0800
+Received: from [10.4.60.63] (10.4.60.63) by NTHCML01A.nuvoton.com (10.1.8.176)
+ with Microsoft SMTP Server (TLS) id 15.0.1130.7;
+ Fri, 14 Jun 2019 10:02:04 +0800
+To: Mark Brown <broonie@kernel.org>
+References: <20190610024029.12193-1-KCHSU0@nuvoton.com>
+ <20190610034040.12629-1-KCHSU0@nuvoton.com>
+ <20190613112042.GJ5316@sirena.org.uk>
+From: AS50 KCHsu0 <KCHSU0@nuvoton.com>
+Organization: AS50, Nuvoton Technology Corp.
+Message-ID: <cb856871-aa10-d67d-4900-823578f2f40e@nuvoton.com>
+Date: Fri, 14 Jun 2019 10:02:04 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-Cc: Curtis Malainey <cujomalainey@chromium.org>, Crag Wang <crag.wang@dell.com>,
- Dylan Reid <dgreid@chromium.org>
-Subject: [alsa-devel] [PATCH v2] ucm: Dell WD15 set lineout controls
+In-Reply-To: <20190613112042.GJ5316@sirena.org.uk>
+Content-Language: en-US
+X-Originating-IP: [10.4.60.63]
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, cychiang@google.com, WTLI@nuvoton.com,
+ lgirdwood@gmail.com, yuhsuan@google.com, YHCHuang@nuvoton.com,
+ CTLIN0@nuvoton.com, Cheng-Yi Chiang <cychiang@chromium.org>, mhkuo@nuvoton.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: nau8825: fix fake interruption when
+	booting
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,45 +75,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The lineout playback switch should be enabled and disabled when enabling
-and disabling the device.
 
-This commit needs to be tested by dell.
+On 6/13/2019 7:20 PM, Mark Brown wrote:
 
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Cc: Dylan Reid <dgreid@chromium.org>
-Cc: Crag Wang <crag.wang@dell.com>
----
- src/conf/ucm/Dell-WD15-Dock/HiFi.conf | 8 ++++++++
- 1 file changed, 8 insertions(+)
+On Mon, Jun 10, 2019 at 11:40:40AM +0800, John Hsu wrote:
 
-diff --git a/src/conf/ucm/Dell-WD15-Dock/HiFi.conf b/src/conf/ucm/Dell-WD15-Dock/HiFi.conf
-index 1b6bd212..8e8c0140 100644
---- a/src/conf/ucm/Dell-WD15-Dock/HiFi.conf
-+++ b/src/conf/ucm/Dell-WD15-Dock/HiFi.conf
-@@ -14,6 +14,14 @@ SectionDevice."LineOut" {
- 		PlaybackChannels "2"
- 		PlaybackPCM "hw:Dock,1"
- 	}
-+	EnableSequence [
-+		cdev "hw:Dock"
-+		cset "name='Line Playback Switch' on"
-+	]
-+	DisableSequence [
-+		cdev "hw:Dock"
-+		cset "name='Line Playback Switch' off"
-+	]
- }
- 
- SectionDevice."Mic" {
--- 
-2.22.0.rc2.383.gf4fbbf30c2-goog
 
+There is no pull-up resistor at IRQ line where it connects from
+the codec to SoC. When booting, the signal of IRQ pin will keep low
+
+
+
+On some specific system?
+
+
+No, not really.
+The ISR is made for active low. The setup decreases the risk of
+system damage, in case the hardware has no pull-up resistor.
+
+
+
+Please don't send new patches in the middle of old threads, it makes it
+hard to spot them and work out what the current version is.
+
+
+I understand. Thanks for reminding. Sorry for a little pushy.
+
+
+
+
+
+===========================================================================================
+The privileged confidential information contained in this email is intended for use only by the addressees as indicated by the original sender of this email. If you are not the addressee indicated in this email or are not responsible for delivery of the email to such a person, please kindly reply to the sender indicating this fact and delete all copies of it from your computer and network server immediately. Your cooperation is highly appreciated. It is advised that any unauthorized use of confidential information of Nuvoton is strictly prohibited; and any information in this email irrelevant to the official business of Nuvoton shall be deemed as neither given nor endorsed by Nuvoton.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

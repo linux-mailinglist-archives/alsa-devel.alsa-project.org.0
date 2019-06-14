@@ -2,98 +2,113 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0369345A5C
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 12:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4843F45B03
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 12:57:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 816B71865;
-	Fri, 14 Jun 2019 12:26:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 816B71865
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBC7F1865;
+	Fri, 14 Jun 2019 12:57:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBC7F1865
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560508021;
-	bh=Ln0AlCnRcoeWIAX0GMwp3k/bX4olw2OTSb83ZJtdNqE=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=OCmst78HtucFgcD5qFPzR2NIj2jpaGuZ62whyU5+2r+pc+MmgBvp3gWAVzCVL9myK
-	 fdnX8CjDttj8WLmetYnEx162JFW0QdH/6+AxaRtKtfTrxOWgISLVovFgb/Ltjtn0Kz
-	 5Xpm2tNePbmRbbC8Oi9oo7kdAKXTgh6ecvTpGgK4=
+	s=default; t=1560509878;
+	bh=JdjMHfewLns+v+h0zQcHd+k0D9t7giSHgH+dvxljanM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XMlZNpuvGIYAsGZYwSlyLvGRPybZ330iyHr9RH75mbkF1SxtiYKkxxpj/gRwM/r/7
+	 sEmK22NqIbsgz+dwkD2CWoQsVLnS4DvXoewDkuGET6AajblhecT03qQ3chonQVhktz
+	 JgNwaPh2kM6xfTRILAQoHX49DIQ7ZU+gf0yIBqUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4EADF89728;
-	Fri, 14 Jun 2019 12:24:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23F65F89717;
+	Fri, 14 Jun 2019 12:55:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 879E7F89717; Fri, 14 Jun 2019 12:24:45 +0200 (CEST)
+ id 121E8F80794; Fri, 14 Jun 2019 12:55:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com
+ (mail-eopbgr810045.outbound.protection.outlook.com [40.107.81.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE755F896EA
- for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 12:24:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE755F896EA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7042FF896CE
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 12:55:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7042FF896CE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="btknUZos"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5EAONNV022074; Fri, 14 Jun 2019 05:24:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=m9IUtCvcQ8JcWzDh5m7QU8ffEnFJYlH4SZ1yqAxCaDk=;
- b=btknUZosmkEroC3yVUFvZj6bB69vBm9fPkzFIcb8SEn0G+QhcqAlo/07nh5m3u91OwMa
- AaFR0snxXXGB/ZAMoUypjKfkHTEujkyPwSvk1uukOKnwvCGMvSupi0gP0wWfzcJcqpav
- 8r69jX1UToGXdWOf/F/Y+3IqnQYdVyeK0zBQXiVA4N4rtezu9DpcwIJzESDR/zXtSYSu
- b2UsqX2/5nO2Z5BqzLkkHW7zdRzles01QuhymcvEo/mSIag7DnDe7+z/IadjFzS8mmfB
- G76o3iHQnbPxUO6nvEFTEH36qmoUNSHtoQaNtWrY51/UG5cUI/5Cj+12xjyTwl5crD2w 3A== 
-Authentication-Results: ppops.net;
- spf=none smtp.mailfrom=rf@opensource.cirrus.com
-Received: from mail4.cirrus.com ([87.246.98.35])
- by mx0b-001ae601.pphosted.com with ESMTP id 2t09ep8x1w-1;
- Fri, 14 Jun 2019 05:24:39 -0500
-Received: from EDIEX02.ad.cirrus.com (ediex02.ad.cirrus.com [198.61.84.81])
- by mail4.cirrus.com (Postfix) with ESMTP id C9480611C8AC;
- Fri, 14 Jun 2019 05:24:50 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Fri, 14 Jun
- 2019 11:24:39 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Fri, 14 Jun 2019 11:24:39 +0100
-Received: from [198.90.251.101] (edi-sw-dsktp006.ad.cirrus.com
- [198.90.251.101])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2AB122A1;
- Fri, 14 Jun 2019 11:24:39 +0100 (BST)
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-References: <20190614094756.2965-1-gregkh@linuxfoundation.org>
- <20190614094756.2965-3-gregkh@linuxfoundation.org>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <acbebcc1-810a-c16e-0413-84bb1c5417ca@opensource.cirrus.com>
-Date: Fri, 14 Jun 2019 11:24:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
+ header.i=@analog.onmicrosoft.com header.b="63ESMWRJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=analog.onmicrosoft.com; s=selector1-analog-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VRoMDNeuwBHuBGENHSrz3jAzsQyCFdwhjmR/X3cnOw0=;
+ b=63ESMWRJAoVyC4BK1w9d+9LQum38eAsmNsNaScTDEuxffm0fGWWjOBudEbfUu+FOySISXwIeGJ1DMSxtBf83+QuJtbzkJkBQojC0bH9HO2OTXOfmUi31gaJ5VW+m+FcRYtj58LpDj5eYK/hRVKBbp0hs77pLtCMOQc95q24ZBVg=
+Received: from BY5PR03CA0002.namprd03.prod.outlook.com (2603:10b6:a03:1e0::12)
+ by BLUPR03MB549.namprd03.prod.outlook.com (2a01:111:e400:880::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.1987.13; Fri, 14 Jun
+ 2019 10:55:21 +0000
+Received: from CY1NAM02FT056.eop-nam02.prod.protection.outlook.com
+ (2a01:111:f400:7e45::201) by BY5PR03CA0002.outlook.office365.com
+ (2603:10b6:a03:1e0::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.1987.12 via Frontend
+ Transport; Fri, 14 Jun 2019 10:55:20 +0000
+Authentication-Results: spf=pass (sender IP is 137.71.25.57)
+ smtp.mailfrom=analog.com; alsa-project.org; dkim=none (message not signed)
+ header.d=none;alsa-project.org; dmarc=bestguesspass action=none
+ header.from=analog.com;
+Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
+ 137.71.25.57 as permitted sender) receiver=protection.outlook.com;
+ client-ip=137.71.25.57; helo=nwd2mta2.analog.com;
+Received: from nwd2mta2.analog.com (137.71.25.57) by
+ CY1NAM02FT056.mail.protection.outlook.com (10.152.74.160) with Microsoft SMTP
+ Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.1987.11
+ via Frontend Transport; Fri, 14 Jun 2019 10:55:19 +0000
+Received: from NWD2HUBCAS7.ad.analog.com (nwd2hubcas7.ad.analog.com
+ [10.64.69.107])
+ by nwd2mta2.analog.com (8.13.8/8.13.8) with ESMTP id x5EAtIIG010077
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
+ Fri, 14 Jun 2019 03:55:18 -0700
+Received: from saturn.ad.analog.com (10.48.65.129) by
+ NWD2HUBCAS7.ad.analog.com (10.64.69.107) with Microsoft SMTP Server id
+ 14.3.408.0; Fri, 14 Jun 2019 06:55:17 -0400
+From: Alexandru Ardelean <alexandru.ardelean@analog.com>
+To: <alsa-devel@alsa-project.org>
+Date: Fri, 14 Jun 2019 13:55:12 +0300
+Message-ID: <20190614105513.6894-1-alexandru.ardelean@analog.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190614094756.2965-3-gregkh@linuxfoundation.org>
-Content-Language: en-US
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1906140087
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [alsa-devel] [PATCH 3/5] sound: soc: codecs: wm_adsp: no need
- to check return value of debugfs_create functions
+X-ADIRoutedOnPrem: True
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:137.71.25.57; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(396003)(136003)(376002)(346002)(39860400002)(2980300002)(199004)(189003)(50466002)(48376002)(5660300002)(36756003)(4326008)(70586007)(106002)(478600001)(426003)(336012)(70206006)(356004)(6666004)(2351001)(86362001)(54906003)(2616005)(107886003)(8936002)(2906002)(476003)(7636002)(50226002)(2870700001)(6916009)(8676002)(47776003)(486006)(246002)(44832011)(305945005)(1076003)(7696005)(77096007)(26005)(51416003)(126002)(186003)(14444005)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BLUPR03MB549; H:nwd2mta2.analog.com; FPR:;
+ SPF:Pass; LANG:en; PTR:nwd2mail11.analog.com; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 04f4583a-fed9-4037-fcc1-08d6f0b6cae0
+X-Microsoft-Antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(4709080)(1401327)(2017052603328);
+ SRVR:BLUPR03MB549; 
+X-MS-TrafficTypeDiagnostic: BLUPR03MB549:
+X-Microsoft-Antispam-PRVS: <BLUPR03MB54964FF924B3175DC5D7A71F9EE0@BLUPR03MB549.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:243;
+X-Forefront-PRVS: 0068C7E410
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Message-Info: 5ESigOuj1lly4VABFD8c/4Ia66DFfrH8CKXLptlA2NtG3Es3yZEH9hsTz+ZxynXHM9QnBPHqzN8htwdeKAt6fdqHWhCaQQaJKfFbO8uTQa9eHymFWsRyp0Fg9yTrv/XHawRqMY5kvL1izloWfnLf0/bjOam7kV/e5I8RGvuRtDgtlBeQgMUVu0lOQNd+S4lke/DITIJ1vzYioJv41wzhMQgdLyDVRVB/sfprqsYec9Ea16lFYAjjxPbAf8hWbQwQrHzgM+jAfU5oZ6CV6n5XqBZoSPSaiF1THEBeWDkaLuNdizGuBgJeLmcDP06Hbuq/7/ExIbcYBnbs6t8lozentwLvVmrBNMcrCfgyq6gGOUy/5CjWYpxXVk766IufK5pjc5fJklTtwRPFShnMhpcf9bz+kUr419wDTkVlYTok0Us=
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Jun 2019 10:55:19.5067 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04f4583a-fed9-4037-fcc1-08d6f0b6cae0
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.57];
+ Helo=[nwd2mta2.analog.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLUPR03MB549
+Cc: Alexandru Ardelean <alexandru.ardelean@analog.com>,
+ Lars-Peter Clausen <lars@metafoo.de>
+Subject: [alsa-devel] [PATCH 1/2] ASoC: adau1761: Add PGA Slew time control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,83 +121,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14/06/19 10:47, Greg Kroah-Hartman wrote:
-> When calling debugfs functions, there is no need to ever check the
-> return value.  The function can work or not, but the code logic should
-> never do something different based on this.
-> 
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: <patches@opensource.cirrus.com>
-> Cc: <alsa-devel@alsa-project.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
->   sound/soc/codecs/wm_adsp.c | 37 +++++++------------------------------
->   1 file changed, 7 insertions(+), 30 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-> index b26e6b825a90..8f301cb07745 100644
-> --- a/sound/soc/codecs/wm_adsp.c
-> +++ b/sound/soc/codecs/wm_adsp.c
-> @@ -731,41 +731,18 @@ static void wm_adsp2_init_debugfs(struct wm_adsp *dsp,
->   	struct dentry *root = NULL;
->   	int i;
->   
-> -	if (!component->debugfs_root) {
-> -		adsp_err(dsp, "No codec debugfs root\n");
-> -		goto err;
-> -	}
-> -
->   	root = debugfs_create_dir(dsp->name, component->debugfs_root);
->   
-> -	if (!root)
-> -		goto err;
-> -
-> -	if (!debugfs_create_bool("booted", 0444, root, &dsp->booted))
-> -		goto err;
-> +	debugfs_create_bool("booted", 0444, root, &dsp->booted);
-> +	debugfs_create_bool("running", 0444, root, &dsp->running);
-> +	debugfs_create_x32("fw_id", 0444, root, &dsp->fw_id);
-> +	debugfs_create_x32("fw_version", 0444, root, &dsp->fw_id_version);
->   
-> -	if (!debugfs_create_bool("running", 0444, root, &dsp->running))
-> -		goto err;
-> -
-> -	if (!debugfs_create_x32("fw_id", 0444, root, &dsp->fw_id))
-> -		goto err;
-> -
-> -	if (!debugfs_create_x32("fw_version", 0444, root, &dsp->fw_id_version))
-> -		goto err;
-> -
-> -	for (i = 0; i < ARRAY_SIZE(wm_adsp_debugfs_fops); ++i) {
-> -		if (!debugfs_create_file(wm_adsp_debugfs_fops[i].name,
-> -					 0444, root, dsp,
-> -					 &wm_adsp_debugfs_fops[i].fops))
-> -			goto err;
-> -	}
-> +	for (i = 0; i < ARRAY_SIZE(wm_adsp_debugfs_fops); ++i)
-> +		debugfs_create_file(wm_adsp_debugfs_fops[i].name, 0444, root,
-> +				    dsp, &wm_adsp_debugfs_fops[i].fops);
->   
->   	dsp->debugfs_root = root;
-> -	return;
-> -
-> -err:
-> -	debugfs_remove_recursive(root);
-> -	adsp_err(dsp, "Failed to create debugfs\n");
->   }
->   
->   static void wm_adsp2_cleanup_debugfs(struct wm_adsp *dsp)
-> 
+From: Lars-Peter Clausen <lars@metafoo.de>
 
-Reviewed-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+The PGA Slew Time control allows to configure the rate with which the PGA
+gain control ramps up/down to the target setting.
+
+The PGA slew control is done via the ALC Control 0 register. There are 2
+bits on that reg, that control PGA slew time, while the other bits control
+parts of the ALC (automatic level control) block.
+
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
+---
+ sound/soc/codecs/adau1761.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/sound/soc/codecs/adau1761.c b/sound/soc/codecs/adau1761.c
+index bef3e9e74c26..428bf95ea648 100644
+--- a/sound/soc/codecs/adau1761.c
++++ b/sound/soc/codecs/adau1761.c
+@@ -29,6 +29,7 @@
+ #define ADAU1761_REC_MIXER_RIGHT1	0x400d
+ #define ADAU1761_LEFT_DIFF_INPUT_VOL	0x400e
+ #define ADAU1761_RIGHT_DIFF_INPUT_VOL	0x400f
++#define ADAU1761_ALC_CTRL0		0x4011
+ #define ADAU1761_PLAY_LR_MIXER_LEFT	0x4020
+ #define ADAU1761_PLAY_MIXER_LEFT0	0x401c
+ #define ADAU1761_PLAY_MIXER_LEFT1	0x401d
+@@ -72,6 +73,7 @@ static const struct reg_default adau1761_reg_defaults[] = {
+ 	{ ADAU1761_REC_MIXER_RIGHT0,		0x00 },
+ 	{ ADAU1761_REC_MIXER_RIGHT1,		0x00 },
+ 	{ ADAU1761_LEFT_DIFF_INPUT_VOL,		0x00 },
++	{ ADAU1761_ALC_CTRL0,			0x00 },
+ 	{ ADAU1761_RIGHT_DIFF_INPUT_VOL,	0x00 },
+ 	{ ADAU1761_PLAY_LR_MIXER_LEFT,		0x00 },
+ 	{ ADAU1761_PLAY_MIXER_LEFT0,		0x00 },
+@@ -148,6 +150,21 @@ static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_capture_bias_enum,
+ 		ADAU17X1_REC_POWER_MGMT, 1, 0x3, adau1761_bias_select_text,
+ 		adau1761_bias_select_values);
+ 
++static const unsigned int adau1761_pga_slew_time_values[] = {
++	3, 0, 1, 2,
++};
++
++static const char * const adau1761_pga_slew_time_text[] = {
++	"Off",
++	"24 ms",
++	"48 ms",
++	"96 ms",
++};
++
++static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_pga_slew_time_enum,
++		ADAU1761_ALC_CTRL0, 6, 0x3, adau1761_pga_slew_time_text,
++		adau1761_pga_slew_time_values);
++
+ static const struct snd_kcontrol_new adau1761_jack_detect_controls[] = {
+ 	SOC_SINGLE("Speaker Auto-mute Switch", ADAU1761_DIGMIC_JACKDETECT,
+ 		4, 1, 0),
+@@ -162,6 +179,8 @@ static const struct snd_kcontrol_new adau1761_differential_mode_controls[] = {
+ 
+ 	SOC_DOUBLE_R_TLV("PGA Boost Capture Volume", ADAU1761_REC_MIXER_LEFT1,
+ 		ADAU1761_REC_MIXER_RIGHT1, 3, 2, 0, adau1761_pga_boost_tlv),
++
++	SOC_ENUM("PGA Capture Slew Time", adau1761_pga_slew_time_enum),
+ };
+ 
+ static const struct snd_kcontrol_new adau1761_single_mode_controls[] = {
+@@ -633,6 +652,7 @@ static bool adau1761_readable_register(struct device *dev, unsigned int reg)
+ 	case ADAU1761_DEJITTER:
+ 	case ADAU1761_CLK_ENABLE0:
+ 	case ADAU1761_CLK_ENABLE1:
++	case ADAU1761_ALC_CTRL0:
+ 		return true;
+ 	default:
+ 		break;
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

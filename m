@@ -2,89 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01CBD467D1
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 20:46:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5556D467D2
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 20:46:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E4A81868;
-	Fri, 14 Jun 2019 20:45:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E4A81868
+	by alsa0.perex.cz (Postfix) with ESMTPS id E03E71878;
+	Fri, 14 Jun 2019 20:46:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E03E71878
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560537967;
-	bh=GVSEwtaWaRustPlSriWNjbu1DC/koNdRd5KK35NZGYA=;
+	s=default; t=1560538014;
+	bh=/mNVs8UwyIVGOacQRzNYpZuqg/PGWBd/gCs675Detyk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=We+HUuPR9ahkvwGCRSuONi3S+6htsIEKqWI1sJL15ZdfKaHrtBPhuE1Kc1qqvsDr0
-	 nImdvpYZeaeAJwpSUx4JfTWXbQZmetdwWyairlKT2uezw/BmSW56/fkoxeV2KAAwdY
-	 gB3G5Jg0QQAT/QXVpor0pGcKXLqeJUTv5xq8MLwk=
+	b=WpqTW6FYf4cXGuhqtQ3IktAtO1rnJbEWUPZJ4nFQZKiEPIZloxdRIpB602IUYE4e2
+	 9Fy9e6BTwXDte12B3L72tVCAfFzF8FEZqjS1MpQBBTW78NBsYdx0hJNVGfYptsnHtG
+	 aPYU9RInMPeUdO4tAr+EiP25O0eRkXC0oxqNOk4k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB33EF8972F;
-	Fri, 14 Jun 2019 20:43:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1432AF89732;
+	Fri, 14 Jun 2019 20:43:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7B4DF896E3; Fri, 14 Jun 2019 20:43:41 +0200 (CEST)
+ id 83BBBF89719; Fri, 14 Jun 2019 20:43:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D44B3F80794
- for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 20:43:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D44B3F80794
+ by alsa1.perex.cz (Postfix) with ESMTPS id B5648F896EA
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 20:43:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5648F896EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Boy/fMbo"
-Received: by mail-io1-xd41.google.com with SMTP id k13so7948613iop.5
- for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 11:43:38 -0700 (PDT)
+ header.b="ktJ4GD1L"
+Received: by mail-io1-xd44.google.com with SMTP id k20so7866830ios.10
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 11:43:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TKOU5/QG7HDd7I0ABDKPRdJPLDsTX1/0xBbtCwEaRXI=;
- b=Boy/fMbohwlITd6mc8nqg+LUATuM4f8SJh5L9lP6FCDLZ2D4dOL9FPP/Di00Z6acIV
- Meio9yNykkvR+UmOCf2n5AYYcNnPFcBijUkKJD+NPGfCycT8WtUc0D8C647y/c77VNNb
- 0khjOKaNGgIvsOSGTe53/lMwaCWZX4EXIKiU4=
+ bh=6A6QO3r9JA5KqQ6BQwgPWC4SMx29ox8Mc2UBAF9Zkc0=;
+ b=ktJ4GD1Likw1JDUZGK66z/qklGDtukOpRSIRnOv7OUixKXUPsp3sv9hStDuzMgofIg
+ yfAPuDRoElV/ZWVrumi4fE+B1Ugm+oZvakOHEl2R2NRIHyOnC/s376GCY2a0w2k4IeUj
+ sPMt0RzMlUsjRNaZCWds0+dxFkJkkY6gmR8fg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TKOU5/QG7HDd7I0ABDKPRdJPLDsTX1/0xBbtCwEaRXI=;
- b=D1M1F7tVNHugRxksbIGRkriYR9XaBxP67TwEzC1vYcASdqggVIrJbYY8rFBH3+b0OQ
- +saJ4rCQ7GBxcPulcnAZ3KBtxj0NDmrCjFnjf209rKHFYLO8hwRTRl0iK2Dpcdqvfavt
- Jn/16QvX9d6HFXj3B1at3vq6NJqjqfgy4scHgMt57IFdWwu6gOdbi4d8ua/fpj6xn1px
- iHa3Ee7xjMBDpzEbnn44R6g9ENg32XUlaSh4WoTiwr/aXmFfxzBWhiNJtPoXRb1mRMHW
- FgwBqfz6g3NlJBDcQZqfOQxHrVrVcbWmPqmswqVDxpveSjHoO2Jt9orIc9qJno+hmcmZ
- poGg==
-X-Gm-Message-State: APjAAAUWxY87cEogwpmzeesEqZoNuyDf8pxB7CshA1C+xFBtfQcIAthR
- rhmY9PM7EmihNS1i55SeZUxDMA==
-X-Google-Smtp-Source: APXvYqwP7UFnV4i96t35gUmMPNIk79NGil0pJ/o82yMx/pTXKnSJZkb6YF3C71JF4oY2DIrmNXqYlw==
-X-Received: by 2002:a5e:c241:: with SMTP id w1mr1685672iop.58.1560537817451;
- Fri, 14 Jun 2019 11:43:37 -0700 (PDT)
+ bh=6A6QO3r9JA5KqQ6BQwgPWC4SMx29ox8Mc2UBAF9Zkc0=;
+ b=qKCB2cQUROFDSJQ4N4bFrUR3TmTcQAtpJ/1fsxpvWHLO16MU2zq7E/lnnoroSVMdZl
+ 1sfnULmfT8amxM6nAbYtTBXafZ2CDHoyKKMvi63xl22CgWv5PFRk6D0ELP3fdhaLjl1h
+ piYxnxfaidPQyEU7xFiL5UUj+vMGy9psreqQM2lFy0XpCroVbY0c24t4gylHS5DS5yw4
+ hjMAfmA1uF5r2dJ7nM0Td9jXzUpDJUGktjnGkV7zV/8Lj6LIhBxn9yBIwvKePnt4gmEr
+ UPKRy5jWvRX4rLL9vBG2T3YxzQJuNTInKCD7bJ2urrGI3hQpR8QNwqKCbG8vh4iMzxAf
+ 4Lvw==
+X-Gm-Message-State: APjAAAUpAry0VBEVozdPv3ffE7M/v95BQBGLlDUHrCXtvbEMsor6o891
+ xQoI0K9/hYW7GCpz/R+BMOqc+w==
+X-Google-Smtp-Source: APXvYqylOc2xey4BQlNYjacg1WRDQrlQN1KClGUxcCArhbK6foWGkXY5Gks93tcYO07zuQ8YlqQ0rQ==
+X-Received: by 2002:a02:c519:: with SMTP id s25mr63894181jam.11.1560537820734; 
+ Fri, 14 Jun 2019 11:43:40 -0700 (PDT)
 Received: from localhost ([2620:15c:183:200:33ce:f5cf:f863:d3a6])
- by smtp.gmail.com with ESMTPSA id f20sm3913678ioh.17.2019.06.14.11.43.36
+ by smtp.gmail.com with ESMTPSA id c23sm4245686iod.11.2019.06.14.11.43.39
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 14 Jun 2019 11:43:36 -0700 (PDT)
+ Fri, 14 Jun 2019 11:43:40 -0700 (PDT)
 From: Fletcher Woodruff <fletcherw@chromium.org>
 To: linux-kernel@vger.kernel.org
-Date: Fri, 14 Jun 2019 12:43:12 -0600
-Message-Id: <20190614184315.252945-2-fletcherw@chromium.org>
+Date: Fri, 14 Jun 2019 12:43:13 -0600
+Message-Id: <20190614184315.252945-3-fletcherw@chromium.org>
 X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
 In-Reply-To: <20190614184315.252945-1-fletcherw@chromium.org>
 References: <20190614184315.252945-1-fletcherw@chromium.org>
 MIME-Version: 1.0
 Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>,
+ Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Ross Zwisler <zwisler@chromium.org>,
  Fletcher Woodruff <fletcherw@chromium.org>,
  Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] [PATCH v6 1/4] ASoC: rt5677: fall back to DT prop
-	names on error
+Subject: [alsa-devel] [PATCH v6 2/4] ASoC: rt5677: move jack-detect init to
+	i2c probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,131 +103,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The rt5677 driver uses ACPI-style property names to read from the
-device API. However, these do not match the property names in _DSD
-used on the Chromebook Pixel 2015, which are closer to the Device Tree
-style.  Unify the two functions for reading from the device API so that
-they try ACPI-style names first and fall back to the DT names on error.
+This patch moves the code to select the gpios for jack detection
+from rt5677_probe to rt5677_init_irq (called from rt5677_i2c_probe).
 
-With this patch, plugging and unplugging the headphone jack switches
-between headphones and speakers automatically.
+It also sets some registers to fix bugs related to jack detection, and
+adds some constants and comments to make it easier to understand what
+certain register settings are controlling.
 
+Signed-off-by: Ben Zhang <benzh@chromium.org>
 Signed-off-by: Fletcher Woodruff <fletcherw@chromium.org>
 ---
- sound/soc/codecs/rt5677.c | 74 +++++++++++++++++++--------------------
- 1 file changed, 37 insertions(+), 37 deletions(-)
+ sound/soc/codecs/rt5677.c | 60 ++++++++++++++++++++++-----------------
+ sound/soc/codecs/rt5677.h |  6 ++++
+ 2 files changed, 40 insertions(+), 26 deletions(-)
 
 diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 6fc70e441458de..63e28eaf1f40ba 100644
+index 63e28eaf1f40ba..b508fd9b7d4536 100644
 --- a/sound/soc/codecs/rt5677.c
 +++ b/sound/soc/codecs/rt5677.c
-@@ -5019,48 +5019,50 @@ static const struct acpi_device_id rt5677_acpi_match[] = {
- };
- MODULE_DEVICE_TABLE(acpi, rt5677_acpi_match);
+@@ -4716,37 +4716,13 @@ static int rt5677_probe(struct snd_soc_component *component)
  
--static void rt5677_read_acpi_properties(struct rt5677_priv *rt5677,
-+static void rt5677_read_device_properties(struct rt5677_priv *rt5677,
- 		struct device *dev)
+ 	snd_soc_component_force_bias_level(component, SND_SOC_BIAS_OFF);
+ 
+-	regmap_write(rt5677->regmap, RT5677_DIG_MISC, 0x0020);
++	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC,
++			~RT5677_IRQ_DEBOUNCE_SEL_MASK, 0x0020);
+ 	regmap_write(rt5677->regmap, RT5677_PWR_DSP2, 0x0c00);
+ 
+ 	for (i = 0; i < RT5677_GPIO_NUM; i++)
+ 		rt5677_gpio_config(rt5677, i, rt5677->pdata.gpio_config[i]);
+ 
+-	if (rt5677->irq_data) {
+-		regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1, 0x8000,
+-			0x8000);
+-		regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC, 0x0018,
+-			0x0008);
+-
+-		if (rt5677->pdata.jd1_gpio)
+-			regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1,
+-				RT5677_SEL_GPIO_JD1_MASK,
+-				rt5677->pdata.jd1_gpio <<
+-				RT5677_SEL_GPIO_JD1_SFT);
+-
+-		if (rt5677->pdata.jd2_gpio)
+-			regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1,
+-				RT5677_SEL_GPIO_JD2_MASK,
+-				rt5677->pdata.jd2_gpio <<
+-				RT5677_SEL_GPIO_JD2_SFT);
+-
+-		if (rt5677->pdata.jd3_gpio)
+-			regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1,
+-				RT5677_SEL_GPIO_JD3_MASK,
+-				rt5677->pdata.jd3_gpio <<
+-				RT5677_SEL_GPIO_JD3_SFT);
+-	}
+-
+ 	mutex_init(&rt5677->dsp_cmd_lock);
+ 	mutex_init(&rt5677->dsp_pri_lock);
+ 
+@@ -5095,6 +5071,7 @@ static int rt5677_init_irq(struct i2c_client *i2c)
  {
- 	u32 val;
+ 	int ret;
+ 	struct rt5677_priv *rt5677 = i2c_get_clientdata(i2c);
++	unsigned int jd_mask = 0, jd_val = 0;
  
--	if (!device_property_read_u32(dev, "DCLK", &val))
--		rt5677->pdata.dmic2_clk_pin = val;
-+	rt5677->pdata.in1_diff =
-+		device_property_read_bool(dev, "IN1") ||
-+		device_property_read_bool(dev, "realtek,in1-differential");
- 
--	rt5677->pdata.in1_diff = device_property_read_bool(dev, "IN1");
--	rt5677->pdata.in2_diff = device_property_read_bool(dev, "IN2");
--	rt5677->pdata.lout1_diff = device_property_read_bool(dev, "OUT1");
--	rt5677->pdata.lout2_diff = device_property_read_bool(dev, "OUT2");
--	rt5677->pdata.lout3_diff = device_property_read_bool(dev, "OUT3");
-+	rt5677->pdata.in2_diff =
-+		device_property_read_bool(dev, "IN2") ||
-+		device_property_read_bool(dev, "realtek,in2-differential");
- 
--	device_property_read_u32(dev, "JD1", &rt5677->pdata.jd1_gpio);
--	device_property_read_u32(dev, "JD2", &rt5677->pdata.jd2_gpio);
--	device_property_read_u32(dev, "JD3", &rt5677->pdata.jd3_gpio);
--}
-+	rt5677->pdata.lout1_diff =
-+		device_property_read_bool(dev, "OUT1") ||
-+		device_property_read_bool(dev, "realtek,lout1-differential");
- 
--static void rt5677_read_device_properties(struct rt5677_priv *rt5677,
--		struct device *dev)
--{
--	rt5677->pdata.in1_diff = device_property_read_bool(dev,
--			"realtek,in1-differential");
--	rt5677->pdata.in2_diff = device_property_read_bool(dev,
--			"realtek,in2-differential");
--	rt5677->pdata.lout1_diff = device_property_read_bool(dev,
--			"realtek,lout1-differential");
--	rt5677->pdata.lout2_diff = device_property_read_bool(dev,
--			"realtek,lout2-differential");
--	rt5677->pdata.lout3_diff = device_property_read_bool(dev,
--			"realtek,lout3-differential");
-+	rt5677->pdata.lout2_diff =
-+		device_property_read_bool(dev, "OUT2") ||
-+		device_property_read_bool(dev, "realtek,lout2-differential");
-+
-+	rt5677->pdata.lout3_diff =
-+		device_property_read_bool(dev, "OUT3") ||
-+		device_property_read_bool(dev, "realtek,lout3-differential");
- 
- 	device_property_read_u8_array(dev, "realtek,gpio-config",
--			rt5677->pdata.gpio_config, RT5677_GPIO_NUM);
--
--	device_property_read_u32(dev, "realtek,jd1-gpio",
--			&rt5677->pdata.jd1_gpio);
--	device_property_read_u32(dev, "realtek,jd2-gpio",
--			&rt5677->pdata.jd2_gpio);
--	device_property_read_u32(dev, "realtek,jd3-gpio",
--			&rt5677->pdata.jd3_gpio);
-+				      rt5677->pdata.gpio_config,
-+				      RT5677_GPIO_NUM);
-+
-+	if (!device_property_read_u32(dev, "DCLK", &val) ||
-+	    !device_property_read_u32(dev, "realtek,dmic2_clk_pin", &val))
-+		rt5677->pdata.dmic2_clk_pin = val;
-+
-+	if (!device_property_read_u32(dev, "JD1", &val) ||
-+	    !device_property_read_u32(dev, "realtek,jd1-gpio", &val))
-+		rt5677->pdata.jd1_gpio = val;
-+
-+	if (!device_property_read_u32(dev, "JD2", &val) ||
-+	    !device_property_read_u32(dev, "realtek,jd2-gpio", &val))
-+		rt5677->pdata.jd2_gpio = val;
-+
-+	if (!device_property_read_u32(dev, "JD3", &val) ||
-+	    !device_property_read_u32(dev, "realtek,jd3-gpio", &val))
-+		rt5677->pdata.jd3_gpio = val;
- }
- 
- static struct regmap_irq rt5677_irqs[] = {
-@@ -5143,20 +5145,18 @@ static int rt5677_i2c_probe(struct i2c_client *i2c)
- 		match_id = of_match_device(rt5677_of_match, &i2c->dev);
- 		if (match_id)
- 			rt5677->type = (enum rt5677_type)match_id->data;
--
--		rt5677_read_device_properties(rt5677, &i2c->dev);
- 	} else if (ACPI_HANDLE(&i2c->dev)) {
- 		const struct acpi_device_id *acpi_id;
- 
- 		acpi_id = acpi_match_device(rt5677_acpi_match, &i2c->dev);
- 		if (acpi_id)
- 			rt5677->type = (enum rt5677_type)acpi_id->driver_data;
--
--		rt5677_read_acpi_properties(rt5677, &i2c->dev);
- 	} else {
+ 	if (!rt5677->pdata.jd1_gpio &&
+ 		!rt5677->pdata.jd2_gpio &&
+@@ -5106,6 +5083,37 @@ static int rt5677_init_irq(struct i2c_client *i2c)
  		return -EINVAL;
  	}
  
-+	rt5677_read_device_properties(rt5677, &i2c->dev);
++	/*
++	 * Select RC as the debounce clock so that GPIO works even when
++	 * MCLK is gated which happens when there is no audio stream
++	 * (SND_SOC_BIAS_OFF).
++	 */
++	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC,
++			RT5677_IRQ_DEBOUNCE_SEL_MASK,
++			RT5677_IRQ_DEBOUNCE_SEL_RC);
 +
- 	/* pow-ldo2 and reset are optional. The codec pins may be statically
- 	 * connected on the board without gpios. If the gpio device property
- 	 * isn't specified, devm_gpiod_get_optional returns NULL.
++	/* Enable auto power on RC when GPIO states are changed */
++	regmap_update_bits(rt5677->regmap, RT5677_GEN_CTRL1, 0xff, 0xff);
++
++	/* Select and enable jack detection sources per platform data */
++	if (rt5677->pdata.jd1_gpio) {
++		jd_mask	|= RT5677_SEL_GPIO_JD1_MASK;
++		jd_val	|= rt5677->pdata.jd1_gpio << RT5677_SEL_GPIO_JD1_SFT;
++	}
++	if (rt5677->pdata.jd2_gpio) {
++		jd_mask	|= RT5677_SEL_GPIO_JD2_MASK;
++		jd_val	|= rt5677->pdata.jd2_gpio << RT5677_SEL_GPIO_JD2_SFT;
++	}
++	if (rt5677->pdata.jd3_gpio) {
++		jd_mask	|= RT5677_SEL_GPIO_JD3_MASK;
++		jd_val	|= rt5677->pdata.jd3_gpio << RT5677_SEL_GPIO_JD3_SFT;
++	}
++	regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1, jd_mask, jd_val);
++
++	/* Set GPIO1 pin to be IRQ output */
++	regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1,
++			RT5677_GPIO1_PIN_MASK, RT5677_GPIO1_PIN_IRQ);
++
+ 	ret = regmap_add_irq_chip(rt5677->regmap, i2c->irq,
+ 		IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT, 0,
+ 		&rt5677_irq_chip, &rt5677->irq_data);
+diff --git a/sound/soc/codecs/rt5677.h b/sound/soc/codecs/rt5677.h
+index 183d92b030459f..7a89bfa95dc0bf 100644
+--- a/sound/soc/codecs/rt5677.h
++++ b/sound/soc/codecs/rt5677.h
+@@ -1636,6 +1636,12 @@
+ #define RT5677_GPIO6_P_NOR			(0x0 << 0)
+ #define RT5677_GPIO6_P_INV			(0x1 << 0)
+ 
++/* General Control (0xfa) */
++#define RT5677_IRQ_DEBOUNCE_SEL_MASK		(0x3 << 3)
++#define RT5677_IRQ_DEBOUNCE_SEL_MCLK		(0x0 << 3)
++#define RT5677_IRQ_DEBOUNCE_SEL_RC		(0x1 << 3)
++#define RT5677_IRQ_DEBOUNCE_SEL_SLIM		(0x2 << 3)
++
+ /* Virtual DSP Mixer Control (0xf7 0xf8 0xf9) */
+ #define RT5677_DSP_IB_01_H			(0x1 << 15)
+ #define RT5677_DSP_IB_01_H_SFT			15
 -- 
 2.22.0.410.gd8fdbe21b5-goog
 

@@ -2,76 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F211A462FB
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 17:35:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF9CA46335
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Jun 2019 17:46:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C91C1886;
-	Fri, 14 Jun 2019 17:35:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C91C1886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79B7018A2;
+	Fri, 14 Jun 2019 17:45:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79B7018A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560526558;
-	bh=jpCCjR+NgZ6mmnbX8fXmHoy2riXo0QlP/wCdPMIq/Iw=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=twL3z9bCIGVT9zHVt6SX32sjHepoQ/bauqrN6l2NWtRD6XY40Na3dRU+S1BhVRHQX
-	 b5FVp36FG5ji9++bXJI/mw7IfC222BcGhXeLrjwRHP4OiPwZnz+V4wtJow3QRrTpH+
-	 UZ1Qyd4WyS9q7UWCbwAaMvvmMSlczhDEvw6lmshs=
+	s=default; t=1560527156;
+	bh=5VOfr3kCHGDEf6dgFclLb5RscCTHVy4mi3MCrHOz+Cs=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=FLtljwQub2orVbQ94plIi/OT+GTP6wi6PfRh1ZyHOF9VnQ9aIC1pVzipw6KT/nUjg
+	 wvvfyc7v/ZYdXumeuOxlbXfrSMhj6yS20YHw4B2N33RHKzN0v+5AyzbpW5gSjthKys
+	 rRZuYBKhY6AqTYxXavp7nUzdDldhGxkjyROCCbSE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFE99F896E0;
-	Fri, 14 Jun 2019 17:34:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A4D6F89719;
+	Fri, 14 Jun 2019 17:43:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC6C4F896E0; Fri, 14 Jun 2019 17:34:10 +0200 (CEST)
+ id B98F5F89733; Fri, 14 Jun 2019 17:43:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A15DCF80794
- for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 17:34:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A15DCF80794
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53206F89719
+ for <alsa-devel@alsa-project.org>; Fri, 14 Jun 2019 17:43:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53206F89719
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="klrZsteh"
+ header.b="OVza4ee4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=33FxBZ977NQBNk2WlOtnKxomAAduLfNpQe7M0y2MoBQ=; b=klrZstehWMpQAjmjUAjVkBYvf
- xjg6GOlz996Rh2EPwNMiY3MEoc/rnkSrCelGzOtmnk3k/7II7PjN/hmwhDPzXCJJORAUYKKVO20de
- nL7n1f/Ld8A9ljW3JZuLUdXC88O1d7V6KFU8Cpjvv2jFJbEiB8Q7InjDT3RnizmEijlP0=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=nw6RmIHYkn+nKtlL98Zn6OhVuqC594OUeyqBpWnGegc=; b=OVza4ee4KtED
+ 5hWuqpbiAg5Mb5FeLtP9HMIcfi/VWdWl6UYWaEif3PJJKxsd6R9zGq0pMJbFCkmBzR/wkA0yPLPnf
+ r+E2KBFmcWgqqzij+yL0+JOjEtpxdp3MzcAgZedx9GHold1/mSsLB4KXGvXW6xWLfsCxZZDNA2HAD
+ mM0PE=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hboDO-0008AG-P6; Fri, 14 Jun 2019 15:34:06 +0000
+ id 1hboMI-0008Bj-Ke; Fri, 14 Jun 2019 15:43:18 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id EE64C440046; Fri, 14 Jun 2019 16:34:05 +0100 (BST)
-Date: Fri, 14 Jun 2019 16:34:05 +0100
+ id 0B8A7440046; Fri, 14 Jun 2019 16:43:18 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <20190614153405.GD5316@sirena.org.uk>
-References: <20190614094756.2965-1-gregkh@linuxfoundation.org>
- <20190614094756.2965-5-gregkh@linuxfoundation.org>
-MIME-Version: 1.0
-In-Reply-To: <20190614094756.2965-5-gregkh@linuxfoundation.org>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>
-Subject: Re: [alsa-devel] [PATCH 5/5] sound: soc: core: no need to check
- return value of debugfs_create functions
+In-Reply-To: <20190614094756.2965-4-gregkh@linuxfoundation.org>
+X-Patchwork-Hint: ignore
+Message-Id: <20190614154318.0B8A7440046@finisterre.sirena.org.uk>
+Date: Fri, 14 Jun 2019 16:43:17 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>
+Subject: [alsa-devel] Applied "ASoC: fsl: no need to check return value of
+	debugfs_create functions" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,80 +85,169 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0326700869374457899=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============0326700869374457899==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YgGp9RfepglW4nsE"
-Content-Disposition: inline
+   ASoC: fsl: no need to check return value of debugfs_create functions
 
+has been applied to the asoc tree at
 
---YgGp9RfepglW4nsE
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
-On Fri, Jun 14, 2019 at 11:47:56AM +0200, Greg Kroah-Hartman wrote:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> Note, the soc-pcm "state" file has now moved to a subdirectory, as it is
-> only a good idea to save the dentries for debugfs directories, not
-> individual files, as the individual file debugfs functions are changing
-> to not return a dentry.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-It'd be better to split this out into a separate change for ease of
-review.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> -	d = debugfs_create_file(w->name, 0444,
-> -				dapm->debugfs_dapm, w,
-> -				&dapm_widget_power_fops);
-> -	if (!d)
-> -		dev_warn(w->dapm->dev,
-> -			"ASoC: Failed to create %s debugfs file\n",
-> -			w->name);
-> +	debugfs_create_file(w->name, 0444, dapm->debugfs_dapm, w,
-> +			    &dapm_widget_power_fops);
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-The majority of this is removing error prints rather than code that
-actively does something different.  If this was like kmalloc() where the
-API is itself reported errors then this wouldn't be an issue but unless
-I'm missing something debugfs fails silently so this means that if
-something goes wrong it's going to be harder for the user to figure out
-where the debugfs files they wanted to check went to.  I'm guessing you
-don't want to add error prints in debugfs itself so I'd rather they
-stayed here.
+Thanks,
+Mark
 
-Yes, the error check is looking for NULL not an error pointer - it was
-correct when written but I see that the debugfs API changed earlier this
-year to return error pointers so we ought to fix that up.
+From 227ab8baa15bdd7a48acfb7b61c52a7a5eb87e72 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Date: Fri, 14 Jun 2019 11:47:55 +0200
+Subject: [PATCH] ASoC: fsl: no need to check return value of debugfs_create
+ functions
 
---YgGp9RfepglW4nsE
-Content-Type: application/pgp-signature; name="signature.asc"
+When calling debugfs functions, there is no need to ever check the
+return value.  The function can work or not, but the code logic should
+never do something different based on this.
 
------BEGIN PGP SIGNATURE-----
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/fsl/fsl_ssi.c     |  4 +---
+ sound/soc/fsl/fsl_ssi.h     |  8 +++-----
+ sound/soc/fsl/fsl_ssi_dbg.c | 18 ++++--------------
+ sound/soc/fsl/imx-audmux.c  | 10 ++--------
+ 4 files changed, 10 insertions(+), 30 deletions(-)
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0DvmkACgkQJNaLcl1U
-h9C10Af/WWWQ0hXp7Kjf67OffaL0vmLFaq46sMjEYEyBCtiv7o+GusnMCNhRIlEG
-4+tQgsu7wbGxclJaerAzGCzlaBAvjS9yCYbqrFZJzSETGZ0VaKjrw7MlepYUPB94
-CBkKwCHoFTQpRm/b36BJd8hV5o8uhTlsf/gpbUFXJjPjH/20UWVCmi7Gonh8rTBU
-L1It2817gidMIhiFg4Hc86WUGGK+JGM3ekyTvXd5zQix9tx1fmsiqmJs9Pr9s09F
-HEnX9c4xmQLVtXNQOgD72KI7zCIrcAsTtcZd09rl+qOIN1DzCuEDemtqKN2/r8c6
-7IQIKP/GluG2A/b9VhRgrXb41zS3Cw==
-=ATS+
------END PGP SIGNATURE-----
-
---YgGp9RfepglW4nsE--
-
---===============0326700869374457899==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
+index 09b2967befd9..fa862af25c1a 100644
+--- a/sound/soc/fsl/fsl_ssi.c
++++ b/sound/soc/fsl/fsl_ssi.c
+@@ -1582,9 +1582,7 @@ static int fsl_ssi_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	ret = fsl_ssi_debugfs_create(&ssi->dbg_stats, dev);
+-	if (ret)
+-		goto error_asoc_register;
++	fsl_ssi_debugfs_create(&ssi->dbg_stats, dev);
+ 
+ 	/* Initially configures SSI registers */
+ 	fsl_ssi_hw_init(ssi);
+diff --git a/sound/soc/fsl/fsl_ssi.h b/sound/soc/fsl/fsl_ssi.h
+index 0bdda608d414..db57cad80449 100644
+--- a/sound/soc/fsl/fsl_ssi.h
++++ b/sound/soc/fsl/fsl_ssi.h
+@@ -270,7 +270,6 @@ struct device;
+ 
+ struct fsl_ssi_dbg {
+ 	struct dentry *dbg_dir;
+-	struct dentry *dbg_stats;
+ 
+ 	struct {
+ 		unsigned int rfrc;
+@@ -299,7 +298,7 @@ struct fsl_ssi_dbg {
+ 
+ void fsl_ssi_dbg_isr(struct fsl_ssi_dbg *ssi_dbg, u32 sisr);
+ 
+-int fsl_ssi_debugfs_create(struct fsl_ssi_dbg *ssi_dbg, struct device *dev);
++void fsl_ssi_debugfs_create(struct fsl_ssi_dbg *ssi_dbg, struct device *dev);
+ 
+ void fsl_ssi_debugfs_remove(struct fsl_ssi_dbg *ssi_dbg);
+ 
+@@ -312,10 +311,9 @@ static inline void fsl_ssi_dbg_isr(struct fsl_ssi_dbg *stats, u32 sisr)
+ {
+ }
+ 
+-static inline int fsl_ssi_debugfs_create(struct fsl_ssi_dbg *ssi_dbg,
+-					 struct device *dev)
++static inline void fsl_ssi_debugfs_create(struct fsl_ssi_dbg *ssi_dbg,
++					  struct device *dev)
+ {
+-	return 0;
+ }
+ 
+ static inline void fsl_ssi_debugfs_remove(struct fsl_ssi_dbg *ssi_dbg)
+diff --git a/sound/soc/fsl/fsl_ssi_dbg.c b/sound/soc/fsl/fsl_ssi_dbg.c
+index 6f6294149476..2a20ee23dc52 100644
+--- a/sound/soc/fsl/fsl_ssi_dbg.c
++++ b/sound/soc/fsl/fsl_ssi_dbg.c
+@@ -126,25 +126,15 @@ static int fsl_ssi_stats_show(struct seq_file *s, void *unused)
+ 
+ DEFINE_SHOW_ATTRIBUTE(fsl_ssi_stats);
+ 
+-int fsl_ssi_debugfs_create(struct fsl_ssi_dbg *ssi_dbg, struct device *dev)
++void fsl_ssi_debugfs_create(struct fsl_ssi_dbg *ssi_dbg, struct device *dev)
+ {
+ 	ssi_dbg->dbg_dir = debugfs_create_dir(dev_name(dev), NULL);
+-	if (!ssi_dbg->dbg_dir)
+-		return -ENOMEM;
+ 
+-	ssi_dbg->dbg_stats = debugfs_create_file("stats", 0444,
+-						 ssi_dbg->dbg_dir, ssi_dbg,
+-						 &fsl_ssi_stats_fops);
+-	if (!ssi_dbg->dbg_stats) {
+-		debugfs_remove(ssi_dbg->dbg_dir);
+-		return -ENOMEM;
+-	}
+-
+-	return 0;
++	debugfs_create_file("stats", 0444, ssi_dbg->dbg_dir, ssi_dbg,
++			    &fsl_ssi_stats_fops);
+ }
+ 
+ void fsl_ssi_debugfs_remove(struct fsl_ssi_dbg *ssi_dbg)
+ {
+-	debugfs_remove(ssi_dbg->dbg_stats);
+-	debugfs_remove(ssi_dbg->dbg_dir);
++	debugfs_remove_recursive(ssi_dbg->dbg_dir);
+ }
+diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
+index 04e59e66711d..b2351cd33b0f 100644
+--- a/sound/soc/fsl/imx-audmux.c
++++ b/sound/soc/fsl/imx-audmux.c
+@@ -141,17 +141,11 @@ static void audmux_debugfs_init(void)
+ 	char buf[20];
+ 
+ 	audmux_debugfs_root = debugfs_create_dir("audmux", NULL);
+-	if (!audmux_debugfs_root) {
+-		pr_warning("Failed to create AUDMUX debugfs root\n");
+-		return;
+-	}
+ 
+ 	for (i = 0; i < MX31_AUDMUX_PORT7_SSI_PINS_7 + 1; i++) {
+ 		snprintf(buf, sizeof(buf), "ssi%lu", i);
+-		if (!debugfs_create_file(buf, 0444, audmux_debugfs_root,
+-					 (void *)i, &audmux_debugfs_fops))
+-			pr_warning("Failed to create AUDMUX port %lu debugfs file\n",
+-				   i);
++		debugfs_create_file(buf, 0444, audmux_debugfs_root,
++				    (void *)i, &audmux_debugfs_fops);
+ 	}
+ }
+ 
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0326700869374457899==--

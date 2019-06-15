@@ -2,100 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDFEF46F3F
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jun 2019 11:16:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C0184702B
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Jun 2019 15:26:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E049189B;
-	Sat, 15 Jun 2019 11:15:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E049189B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 083D41833;
+	Sat, 15 Jun 2019 15:25:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 083D41833
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560590182;
-	bh=Vd80hOSVRCsf4V1Mkk8741hVCbwBH367NS/wPQLcJ2I=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560605180;
+	bh=eEbjQbBPUNDq0YopoTZeROzVD4LvmbnE0aRR9Voxgt4=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NNSzF/LaFc/Px8+Z2C8lmNgvisiH7zK7Hnc9IrdaRZyCuXKAw3WrC/jIQepFuTzUp
-	 RRJ7AAANrsS2z4TbMzIYvyJCZ2IwadAwuAfPRZL7Olu0EyzjlOoJiPbYAf53GzQr6P
-	 4XcvzBZRfI4RK0l1KBUG+c+Y+OzFUaanCKPOzXLM=
+	b=ABs6dlC8cPrPVDHT0Jsfpm532ZSeKUgvbrrD3KYvlh0xrk61IJvist4Q2PDoQTjMy
+	 HlmrRE/Jl4pqghmi8v77Yo3X0i72yK60HPr9JFO9oUIvjPoJuD0GjeaUGxodoxGM3Y
+	 Tz2Q8ttj3ltPXS/tFRP8XUYD80V0bUQR3Mw2z8bg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6383F89743;
-	Sat, 15 Jun 2019 11:11:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C49BF89703;
+	Sat, 15 Jun 2019 15:24:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBF8EF89734; Sat, 15 Jun 2019 11:11:23 +0200 (CEST)
+ id EDDF9F80764; Sat, 15 Jun 2019 15:24:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43675F89731
- for <alsa-devel@alsa-project.org>; Sat, 15 Jun 2019 11:11:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43675F89731
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A77BF80764
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jun 2019 15:24:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A77BF80764
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="nhVJuCMB"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="0kcxARqs"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id A007F46A;
- Sat, 15 Jun 2019 05:11:18 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sat, 15 Jun 2019 05:11:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=/81eNqMiRUtz5
- 0ppyzO9NsO6fuyB/SBws34Szbj79t0=; b=nhVJuCMBuY2sj5XhDyw51FsbxsW8+
- PRTajmS1nuW3TNqUq2mEPQz4GE27oVYkcXRoVZHN/E7rqiIPWXg1ic5TG6a4ZX3j
- FCS5qaYexs++ZZhdj6BavCZArr+gaadXUMafS6HUDBiYLPMHXQbte0xgXGmu3Ofe
- pFUjfHQqZZhYk1GTLggmexMy4+/e2fMnNy+7YgxFkF+9tKqJD/6OJaFTGp6tvmna
- e3n/+3hDWkN923+DoSwSTJdBFlXlMWbXbSE4YcjwRFmsP5rOopLDz4gpOnHRjxrd
- 8oXWCyHwHQXFwZYFdxPLzdAwfDa9L+irTxReLeMWH5jpgtb0CDr4Ruaaw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=/81eNqMiRUtz50ppyzO9NsO6fuyB/SBws34Szbj79t0=; b=0kcxARqs
- /aHolQ0t5xQH7R0VkOpx7t2Dx7nz4YNGg0guC4fo07WhstciEV0ReUb3A0e4t+dY
- QsikVyE+l/TT+WIynvZSXVfgkxKptvBi1XuWz1BZfo/TnoA11IzJoVATlIzi5cVT
- ROLuTSTo8BnoV7wudFKSqv3TweeAMN2Hr/Jn31O6u4siaDt99KUEAtDFOoNTFZCq
- 1wqsxwv6yQaqVh+4A3JinQmINLSqEs/6BjnWph2gughi/OH/EbQH/JY721yJ/zDX
- 7dGnK46I9ddltEuc0ckNEm8eJajHURZek1I2VwB/SxPRoHpgw1tICN43clwNT01w
- iGSiNix4QBE1ZA==
-X-ME-Sender: <xms:NrYEXflC3cC3gWljKN6sGQxciNZUSH_enuXbHVh9e7ArrpgKajed4A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudeifedguddvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
- curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
- ihdrjhhpnecuvehluhhsthgvrhfuihiivgepge
-X-ME-Proxy: <xmx:NrYEXbd9O4uRyQakRcOhptPW1BG97W5m3QxYlX5w-CxvEtcITdyxBg>
- <xmx:NrYEXdHD30iyr1Ifde3hvBgrx3D91HMXbBkRQHqavKWn7CsQXBChGw>
- <xmx:NrYEXRhBq6OFkPjgGMRlR55tUpUbRu0au-AOJx79wTinKwS27oNBcw>
- <xmx:NrYEXd2vtcAOtMDeZgxexK0H_UbnzaMg4y39Lf-vnW7wxmVabIp3nA>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 847CA8005A;
- Sat, 15 Jun 2019 05:11:16 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Sat, 15 Jun 2019 18:11:01 +0900
-Message-Id: <20190615091101.7515-7-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190615091101.7515-1-o-takashi@sakamocchi.jp>
-References: <20190615091101.7515-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="hrZAMjX8"
+Received: by mail-wr1-x441.google.com with SMTP id n4so5306709wrs.3
+ for <alsa-devel@alsa-project.org>; Sat, 15 Jun 2019 06:24:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Vz/q3yDMdsUzgeQCzBXnpHKRw3aqbJ8VhrbofM0uGw8=;
+ b=hrZAMjX8YAKjXxrPN9i4Ujy9ygbBRPJb7TBLpsXbIqdZpmx97Burm7sDohZe3gWnGF
+ TpUVrUBYaelBUWac1wtnJih7fFCi36VlNHA0e3nFzUJuiQJhTe3pYWGswTK5rzHW85KD
+ qcptH5g/EkwFUCv47c9uRFBpc2NGsez4A3/aBJnlybU95E2aY8F8DXzaB2vsTLfFwVA5
+ PLa+dFmYzjuHdJSjcWWeO7ysyhLn1TnxbLMmP7Avh6u1ZqdeErA1Fodt6pOIMQ8DJJXB
+ 8rIChl80ANLmmnIjLwfoHD9EAhoiyDqlcExmWgSZNc2v2Du1hU+2obs+6DOufaJlTpLa
+ iZgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Vz/q3yDMdsUzgeQCzBXnpHKRw3aqbJ8VhrbofM0uGw8=;
+ b=I22l+WZrlJER3wHYC2qjXvvDPPg6EG98WRA7WFBf43EFqij6hnpmDDNxtqkDLIIK1K
+ qfYjk8VEy9ozy8xcKu//A2vY0guMLg5zJZAjCVCxFoa1oKkJv1ZvqwT6uqxPYaM7TawE
+ POidY6ma70BJPS9T8ZjBeR+GjRbRaG7Tmt33+qFuVUcnzU+p4M3CfqRk262wGJgQ3XNt
+ pgegPYeWEemkL+HAkY9QXatHzIS4KyAV10hVLdCnrDjBDydJyG8dMPD5Wt8hC26MOCIG
+ JRdjm6+6PC8e9enncn+sjljeuseGFn3HeEzPXnQDAL8TJNFWo8JZXMKE1VNp0NdxvJkS
+ 5pbQ==
+X-Gm-Message-State: APjAAAWTVjzSNPtr6jf+sz/t282x8nQpgILGleoFKjGAX0w0gHOqUBSF
+ Ns9j7yP4Srcl9Ioja2OMSNvcWA==
+X-Google-Smtp-Source: APXvYqzT26v+cM8CuCpyQsf55a1zh1osMb6x36j5wWGQDXrAaSY2Q/a3yv9uJOPSOvdp22hdne9ejA==
+X-Received: by 2002:a5d:4286:: with SMTP id k6mr6384669wrq.151.1560605069518; 
+ Sat, 15 Jun 2019 06:24:29 -0700 (PDT)
+Received: from [192.168.86.29]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id x16sm6168247wmj.4.2019.06.15.06.24.25
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 15 Jun 2019 06:24:28 -0700 (PDT)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ broonie@kernel.org, vkoul@kernel.org
+References: <20190607085643.932-1-srinivas.kandagatla@linaro.org>
+ <20190607085643.932-7-srinivas.kandagatla@linaro.org>
+ <249f9647-94d0-41d7-3b95-64c36d90f8e8@linux.intel.com>
+ <40ea774c-8aa8-295d-e91e-71423b03c88d@linaro.org>
+ <7269521a-ac89-3856-c18c-ffaaf64c0806@linux.intel.com>
+ <462620fc-ac91-6a36-46c7-7af0080f06cb@linaro.org>
+ <0e836692-2297-4cb7-d681-76692db78a56@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <d3ccd866-7bc5-9635-4bb4-6b0765f89835@linaro.org>
+Date: Sat, 15 Jun 2019 14:24:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 6/6] ALSA: firewire-lib: split allocation of
-	isochronous resources from establishment of connection
+In-Reply-To: <0e836692-2297-4cb7-d681-76692db78a56@linux.intel.com>
+Content-Language: en-US
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, robh+dt@kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [RFC PATCH 6/6] soundwire: qcom: add support for
+ SoundWire controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,386 +107,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In current implementation, establishment connection corresponds to
-allocation of isochronous resources. Although this is an ideal
-implementation of CMP described in IEC 61883-1, it's not enough
-efficient to recover PCM substream multiplexed in packet streaming.
-The packet streaming can always restart on the same allocated
-isochronous resources even if the previous packet streaming
-corrupted.
-
-This commit splits allocation of isochronous resources from
-establishment of connection so that CMP runs with allocated
-isochronous resources.
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/bebob/bebob_stream.c         | 30 ++++++---
- sound/firewire/cmp.c                        | 74 ++++++++++++---------
- sound/firewire/cmp.h                        |  7 +-
- sound/firewire/fireworks/fireworks_stream.c | 22 ++++--
- sound/firewire/oxfw/oxfw-stream.c           | 18 +++--
- 5 files changed, 100 insertions(+), 51 deletions(-)
-
-diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
-index 9ef4663d13e5..1070a675179d 100644
---- a/sound/firewire/bebob/bebob_stream.c
-+++ b/sound/firewire/bebob/bebob_stream.c
-@@ -404,13 +404,11 @@ static int make_both_connections(struct snd_bebob *bebob)
- {
- 	int err = 0;
- 
--	err = cmp_connection_establish(&bebob->out_conn,
--			amdtp_stream_get_max_payload(&bebob->tx_stream));
-+	err = cmp_connection_establish(&bebob->out_conn);
- 	if (err < 0)
- 		return err;
- 
--	err = cmp_connection_establish(&bebob->in_conn,
--			amdtp_stream_get_max_payload(&bebob->rx_stream));
-+	err = cmp_connection_establish(&bebob->in_conn);
- 	if (err < 0) {
- 		cmp_connection_break(&bebob->out_conn);
- 		return err;
-@@ -533,14 +531,23 @@ static int keep_resources(struct snd_bebob *bebob, struct amdtp_stream *stream,
- 			  unsigned int rate, unsigned int index)
- {
- 	struct snd_bebob_stream_formation *formation;
-+	struct cmp_connection *conn;
-+	int err;
- 
--	if (stream == &bebob->tx_stream)
-+	if (stream == &bebob->tx_stream) {
- 		formation = bebob->tx_stream_formations + index;
--	else
-+		conn = &bebob->out_conn;
-+	} else {
- 		formation = bebob->rx_stream_formations + index;
-+		conn = &bebob->in_conn;
-+	}
-+
-+	err = amdtp_am824_set_parameters(stream, rate, formation->pcm,
-+					 formation->midi, false);
-+	if (err < 0)
-+		return err;
- 
--	return amdtp_am824_set_parameters(stream, rate, formation->pcm,
--					  formation->midi, false);
-+	return cmp_connection_reserve(conn, amdtp_stream_get_max_payload(stream));
- }
- 
- int snd_bebob_stream_reserve_duplex(struct snd_bebob *bebob, unsigned int rate)
-@@ -591,8 +598,10 @@ int snd_bebob_stream_reserve_duplex(struct snd_bebob *bebob, unsigned int rate)
- 			return err;
- 
- 		err = keep_resources(bebob, &bebob->rx_stream, rate, index);
--		if (err < 0)
-+		if (err < 0) {
-+			cmp_connection_release(&bebob->out_conn);
- 			return err;
-+		}
- 	}
- 
- 	return 0;
-@@ -685,6 +694,9 @@ void snd_bebob_stream_stop_duplex(struct snd_bebob *bebob)
- 		amdtp_stream_stop(&bebob->tx_stream);
- 
- 		break_both_connections(bebob);
-+
-+		cmp_connection_release(&bebob->out_conn);
-+		cmp_connection_release(&bebob->in_conn);
- 	}
- }
- 
-diff --git a/sound/firewire/cmp.c b/sound/firewire/cmp.c
-index ae3bc1940efa..5dedc4f31842 100644
---- a/sound/firewire/cmp.c
-+++ b/sound/firewire/cmp.c
-@@ -185,6 +185,37 @@ void cmp_connection_destroy(struct cmp_connection *c)
- }
- EXPORT_SYMBOL(cmp_connection_destroy);
- 
-+int cmp_connection_reserve(struct cmp_connection *c,
-+			   unsigned int max_payload_bytes)
-+{
-+	int err;
-+
-+	mutex_lock(&c->mutex);
-+
-+	if (WARN_ON(c->resources.allocated)) {
-+		err = -EBUSY;
-+		goto end;
-+	}
-+
-+	c->speed = min(c->max_speed,
-+		       fw_parent_device(c->resources.unit)->max_speed);
-+
-+	err = fw_iso_resources_allocate(&c->resources, max_payload_bytes,
-+					c->speed);
-+end:
-+	mutex_unlock(&c->mutex);
-+
-+	return err;
-+}
-+EXPORT_SYMBOL(cmp_connection_reserve);
-+
-+void cmp_connection_release(struct cmp_connection *c)
-+{
-+	mutex_lock(&c->mutex);
-+	fw_iso_resources_free(&c->resources);
-+	mutex_unlock(&c->mutex);
-+}
-+EXPORT_SYMBOL(cmp_connection_release);
- 
- static __be32 ipcr_set_modify(struct cmp_connection *c, __be32 ipcr)
- {
-@@ -270,25 +301,18 @@ static int pcr_set_check(struct cmp_connection *c, __be32 pcr)
-  * When this function succeeds, the caller is responsible for starting
-  * transmitting packets.
-  */
--int cmp_connection_establish(struct cmp_connection *c,
--			     unsigned int max_payload_bytes)
-+int cmp_connection_establish(struct cmp_connection *c)
- {
- 	int err;
- 
--	if (WARN_ON(c->connected))
--		return -EISCONN;
--
--	c->speed = min(c->max_speed,
--		       fw_parent_device(c->resources.unit)->max_speed);
--
- 	mutex_lock(&c->mutex);
- 
--retry_after_bus_reset:
--	err = fw_iso_resources_allocate(&c->resources,
--					max_payload_bytes, c->speed);
--	if (err < 0)
--		goto err_mutex;
-+	if (WARN_ON(c->connected)) {
-+		mutex_unlock(&c->mutex);
-+		return -EISCONN;
-+	}
- 
-+retry_after_bus_reset:
- 	if (c->direction == CMP_OUTPUT)
- 		err = pcr_modify(c, opcr_set_modify, pcr_set_check,
- 				 ABORT_ON_BUS_RESET);
-@@ -297,21 +321,13 @@ int cmp_connection_establish(struct cmp_connection *c,
- 				 ABORT_ON_BUS_RESET);
- 
- 	if (err == -EAGAIN) {
--		fw_iso_resources_free(&c->resources);
--		goto retry_after_bus_reset;
-+		err = fw_iso_resources_update(&c->resources);
-+		if (err >= 0)
-+			goto retry_after_bus_reset;
- 	}
--	if (err < 0)
--		goto err_resources;
--
--	c->connected = true;
--
--	mutex_unlock(&c->mutex);
--
--	return 0;
-+	if (err >= 0)
-+		c->connected = true;
- 
--err_resources:
--	fw_iso_resources_free(&c->resources);
--err_mutex:
- 	mutex_unlock(&c->mutex);
- 
- 	return err;
-@@ -351,14 +367,12 @@ int cmp_connection_update(struct cmp_connection *c)
- 				 SUCCEED_ON_BUS_RESET);
- 
- 	if (err < 0)
--		goto err_resources;
-+		goto err_unconnect;
- 
- 	mutex_unlock(&c->mutex);
- 
- 	return 0;
- 
--err_resources:
--	fw_iso_resources_free(&c->resources);
- err_unconnect:
- 	c->connected = false;
- 	mutex_unlock(&c->mutex);
-@@ -395,8 +409,6 @@ void cmp_connection_break(struct cmp_connection *c)
- 	if (err < 0)
- 		cmp_error(c, "plug is still connected\n");
- 
--	fw_iso_resources_free(&c->resources);
--
- 	c->connected = false;
- 
- 	mutex_unlock(&c->mutex);
-diff --git a/sound/firewire/cmp.h b/sound/firewire/cmp.h
-index b60b415caa8f..26ab88000e34 100644
---- a/sound/firewire/cmp.h
-+++ b/sound/firewire/cmp.h
-@@ -42,8 +42,11 @@ int cmp_connection_init(struct cmp_connection *connection,
- int cmp_connection_check_used(struct cmp_connection *connection, bool *used);
- void cmp_connection_destroy(struct cmp_connection *connection);
- 
--int cmp_connection_establish(struct cmp_connection *connection,
--			     unsigned int max_payload);
-+int cmp_connection_reserve(struct cmp_connection *connection,
-+			   unsigned int max_payload);
-+void cmp_connection_release(struct cmp_connection *connection);
-+
-+int cmp_connection_establish(struct cmp_connection *connection);
- int cmp_connection_update(struct cmp_connection *connection);
- void cmp_connection_break(struct cmp_connection *connection);
- 
-diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
-index 61342c49dc38..81c1bb209a89 100644
---- a/sound/firewire/fireworks/fireworks_stream.c
-+++ b/sound/firewire/fireworks/fireworks_stream.c
-@@ -63,8 +63,7 @@ static int start_stream(struct snd_efw *efw, struct amdtp_stream *stream,
- 		conn = &efw->in_conn;
- 
- 	// Establish connection via CMP.
--	err = cmp_connection_establish(conn,
--				       amdtp_stream_get_max_payload(stream));
-+	err = cmp_connection_establish(conn);
- 	if (err < 0)
- 		return err;
- 
-@@ -177,17 +176,25 @@ static int keep_resources(struct snd_efw *efw, struct amdtp_stream *stream,
- {
- 	unsigned int pcm_channels;
- 	unsigned int midi_ports;
-+	struct cmp_connection *conn;
-+	int err;
- 
- 	if (stream == &efw->tx_stream) {
- 		pcm_channels = efw->pcm_capture_channels[mode];
- 		midi_ports = efw->midi_out_ports;
-+		conn = &efw->out_conn;
- 	} else {
- 		pcm_channels = efw->pcm_playback_channels[mode];
- 		midi_ports = efw->midi_in_ports;
-+		conn = &efw->in_conn;
- 	}
- 
--	return amdtp_am824_set_parameters(stream, rate, pcm_channels,
--					  midi_ports, false);
-+	err = amdtp_am824_set_parameters(stream, rate, pcm_channels,
-+					 midi_ports, false);
-+	if (err < 0)
-+		return err;
-+
-+	return cmp_connection_reserve(conn, amdtp_stream_get_max_payload(stream));
- }
- 
- int snd_efw_stream_reserve_duplex(struct snd_efw *efw, unsigned int rate)
-@@ -228,8 +235,10 @@ int snd_efw_stream_reserve_duplex(struct snd_efw *efw, unsigned int rate)
- 			return err;
- 
- 		err = keep_resources(efw, &efw->rx_stream, rate, mode);
--		if (err < 0)
-+		if (err < 0) {
-+			cmp_connection_release(&efw->in_conn);
- 			return err;
-+		}
- 	}
- 
- 	return 0;
-@@ -285,6 +294,9 @@ void snd_efw_stream_stop_duplex(struct snd_efw *efw)
- 	if (efw->substreams_counter == 0) {
- 		stop_stream(efw, &efw->tx_stream);
- 		stop_stream(efw, &efw->rx_stream);
-+
-+		cmp_connection_release(&efw->out_conn);
-+		cmp_connection_release(&efw->in_conn);
- 	}
- }
- 
-diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 837733f10736..a8bc798731ff 100644
---- a/sound/firewire/oxfw/oxfw-stream.c
-+++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -111,8 +111,7 @@ static int start_stream(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- 	else
- 		conn = &oxfw->out_conn;
- 
--	err = cmp_connection_establish(conn,
--				       amdtp_stream_get_max_payload(stream));
-+	err = cmp_connection_establish(conn);
- 	if (err < 0)
- 		return err;
- 
-@@ -203,15 +202,18 @@ static int keep_resources(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- 	enum avc_general_plug_dir dir;
- 	u8 **formats;
- 	struct snd_oxfw_stream_formation formation;
-+	struct cmp_connection *conn;
- 	int i;
- 	int err;
- 
- 	if (stream == &oxfw->rx_stream) {
- 		dir = AVC_GENERAL_PLUG_DIR_IN;
- 		formats = oxfw->rx_stream_formats;
-+		conn = &oxfw->in_conn;
- 	} else {
- 		dir = AVC_GENERAL_PLUG_DIR_OUT;
- 		formats = oxfw->tx_stream_formats;
-+		conn = &oxfw->out_conn;
- 	}
- 
- 	err = snd_oxfw_stream_get_current_formation(oxfw, dir, &formation);
-@@ -239,8 +241,12 @@ static int keep_resources(struct snd_oxfw *oxfw, struct amdtp_stream *stream)
- 	if (formation.pcm == 0)
- 		return -EINVAL;
- 
--	return amdtp_am824_set_parameters(stream, formation.rate, formation.pcm,
-+	err = amdtp_am824_set_parameters(stream, formation.rate, formation.pcm,
- 					 formation.midi * 8, false);
-+	if (err < 0)
-+		return err;
-+
-+	return cmp_connection_reserve(conn, amdtp_stream_get_max_payload(stream));
- }
- 
- int snd_oxfw_stream_reserve_duplex(struct snd_oxfw *oxfw,
-@@ -299,8 +305,10 @@ int snd_oxfw_stream_reserve_duplex(struct snd_oxfw *oxfw,
- 
- 		if (oxfw->has_output) {
- 			err = keep_resources(oxfw, &oxfw->tx_stream);
--			if (err < 0)
-+			if (err < 0) {
-+				cmp_connection_release(&oxfw->in_conn);
- 				return err;
-+			}
- 		}
- 	}
- 
-@@ -361,10 +369,12 @@ void snd_oxfw_stream_stop_duplex(struct snd_oxfw *oxfw)
- 	if (oxfw->substreams_count == 0) {
- 		amdtp_stream_stop(&oxfw->rx_stream);
- 		cmp_connection_break(&oxfw->in_conn);
-+		cmp_connection_release(&oxfw->in_conn);
- 
- 		if (oxfw->has_output) {
- 			amdtp_stream_stop(&oxfw->tx_stream);
- 			cmp_connection_break(&oxfw->out_conn);
-+			cmp_connection_release(&oxfw->out_conn);
- 		}
- 	}
- }
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CgpPbiAxMS8wNi8yMDE5IDEzOjIxLCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKPiAKPiAK
+PiBPbiA2LzExLzE5IDU6MjkgQU0sIFNyaW5pdmFzIEthbmRhZ2F0bGEgd3JvdGU6Cj4+Cj4+Cj4+
+IE9uIDEwLzA2LzIwMTkgMTU6MTIsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+Pj4+Pj4g
+Kwo+Pj4+Pj4gK8KgwqDCoCBpZiAoZGV2X2FkZHIgPT0gU0RXX0JST0FEQ0FTVF9ERVZfTlVNKSB7
+Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgY3RybC0+Zmlmb19zdGF0dXMgPSAwOwo+Pj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIHJldCA9IHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCgmY3RybC0+c3Bf
+Y21kX2NvbXAsCj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgbXNlY3NfdG9famlmZmllcyhUSU1FT1VUX01TKSk7Cj4+Pj4+Cj4+Pj4+IFRo
+aXMgaXMgb2RkLiBUaGUgU291bmRXaXJlIHNwZWMgZG9lcyBub3QgaGFuZGxlIHdyaXRlcyB0byBh
+IHNpbmdsZSAKPj4+Pj4gZGV2aWNlIG9yIGJyb2FkY2FzdCB3cml0ZXMgZGlmZmVyZW50bHkuIEkg
+ZG9uJ3Qgc2VlIGEgY2xlYXIgcmVhc29uIAo+Pj4+PiB3aHkgeW91IHdvdWxkIG9ubHkgdGltZW91
+dCBmb3IgYSBicm9hZGNhc3Qgd3JpdGUuCj4+Pj4+Cj4+Pj4KPj4+PiBUaGVyZSBpcyBkYW5nZXIg
+b2YgYmxvY2tpbmcgaGVyZSB3aXRob3V0IHRpbWVvdXQuCj4+Pgo+Pj4gUmlnaHQsIGFuZCBpdCdz
+IGZpbmUgdG8gYWRkIGEgdGltZW91dC4gVGhlIHF1ZXN0aW9uIGlzIHdoeSBhZGQgYSAKPj4+IHRp
+bWVvdXQgKm9ubHkqIGZvciBhIGJyb2FkY2FzdCBvcGVyYXRpb24/IEl0IHNob3VsZCBiZSBhZGRl
+ZCBmb3IgCj4+PiBldmVyeSB0cmFuc2FjdGlvbiBJTU8sIHVubGVzcyB5b3UgaGF2ZSBhIHJlYXNv
+biBub3QgdG8gZG8gc28uCj4+Pgo+Pgo+PiBJIGRpZCB0cnkgdGhpcyBiZWZvcmUsIHRoZSBpc3N1
+ZSBpcyB3aGVuIHdlIHJlYWQvd3JpdGUgcmVnaXN0ZXJzIGZyb20gCj4+IGludGVycnVwdCBoYW5k
+bGVyLCB0aGVzZSBjYW4gYmUgZGVhZGxvY2tlZCBhcyB3ZSB3aWxsIGJlIGludGVycnVwdCAKPj4g
+aGFuZGxlciB3YWl0aW5nIGZvciBhbm90aGVyIGNvbXBsZXRpb24gaW50ZXJydXB0LCB3aGljaCB3
+aWxsIG5ldmVyIAo+PiBoYXBwZW4gdW5sZXNzIHdlIHJldHVybiBmcm9tIHRoZSBmaXJzdCBpbnRl
+cnJ1cHQuCj4gCj4gSSBkb24ndCBxdWl0ZSBnZXQgdGhlIGlzc3VlLiBXaXRoIHRoZSBJbnRlbCBo
+YXJkd2FyZSB3ZSBvbmx5IGRlYWwgd2l0aCAKPiBNYXN0ZXIgcmVnaXN0ZXJzIChzb21lIG9mIHdo
+aWNoIG1pcnJvciB0aGUgYnVzIHN0YXRlKSBpbiB0aGUgaGFuZGxlciBhbmQgCj4gd2lsbCBvbmx5
+IG1vZGlmeSBTbGF2ZSByZWdpc3RlcnMgaW4gdGhlIHRocmVhZC4gQWxsIGNoYW5nZXMgdG8gU2xh
+dmUgCj4gcmVnaXN0ZXJzIHdpbGwgYmUgc3ViamVjdCB0byBhIHRpbWVvdXQgYXMgd2VsbCBhcyBh
+IGNoZWNrIGZvciBubyAKPiByZXNwb25zZSBvciBOQUsuIE5vdCBzdXJlIHdoYXQgaXMgc3BlY2lm
+aWMgYWJvdXQgeW91ciBzb2x1dGlvbiB0aGF0IAo+IHJlcXVpcmVzIGEgZGlmZmVyZW50IGhhbmRs
+aW5nIG9mIGNvbW1hbmRzIGRlcGVuZGluZyBvbiB3aGljaCBkZXZpY2UgCj4gbnVtYmVyIGlzIHVz
+ZWQuIEl0IGNvdWxkIHZlcnkgd2VsbCBiZSB0aGF0IHlvdSd2ZSB1bmNvdmVyZWQgYSBmbGF3IGlu
+IAo+IHRoZSBidXMgZGVzaWduIGJ1dCBJIHN0aWxsIGRvbid0IHNlZSBob3cgaXQgd291bGQgYmUg
+UXVhbGNvbW0tc3BlY2lmaWM/CgpTb3JyeSBJdCB0b29rIGJpdCBtb3JlIHRpbWUgZm9yIGRpZ2dp
+bmcgdXAgdGhlIGlzc3VlIHdoaWNoIEkgZmFjZWQgCnByZXZpb3VzbHkgdG8gYW5zd2VyIHRoaXMg
+cXVlcnkuIFRoaXMgaXMgbm93IGZpeGVkIGFuZCB2MiBwYXRjaHNldCBoYXMgCnNhbWUgaGFuZGxp
+bmcgZm9yIGFsbCB0aGUgc2xhdmUgcmVnaXN0ZXJzIHJlYWQvd3JpdGVzIHdpdGggbm8gc3BlY2lh
+bCAKY2FzaW5nLgoKVGhhbmtzLApzcmluaQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2Et
+cHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbHNhLWRldmVsCg==

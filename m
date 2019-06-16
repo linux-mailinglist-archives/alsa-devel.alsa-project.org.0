@@ -2,58 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5576475E2
-	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jun 2019 18:21:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFD8E47601
+	for <lists+alsa-devel@lfdr.de>; Sun, 16 Jun 2019 18:58:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C8911787;
-	Sun, 16 Jun 2019 18:20:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C8911787
+	by alsa0.perex.cz (Postfix) with ESMTPS id 578B21779;
+	Sun, 16 Jun 2019 18:58:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 578B21779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560702079;
-	bh=M/BGO8jxEPFDVNo1Ww6StUBHDs+CzzA/MbNZ0IXm13A=;
-	h=To:From:In-Reply-To:Date:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ikJ+Yo3XDQEuRKH9wjmEZLRDmZSjiECr/kUQCtq/MTo3l+QsYc65EE3jkKfRwEq73
-	 6w+omcT7dsEudtHIgw1Xlp5ydYyiJyU/ABj7/THCMFkOBTAq/Ow9bBtMo7Gs3fouCC
-	 LZGUIUyKeRHkeAooqc+eoS1WgDkeRL++prGrT8CE=
+	s=default; t=1560704335;
+	bh=unz2TddaSD+uoxo7/OxbaA9smuP8isAMhK7BDH+wwpo=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sYZXup3lMlCvirqUlPyISzwy3p5F2c+KX3TvEc0bv06HPQK3LPf8Z3U5tXHPMSoPw
+	 g8ukHVy2V7WD58JhSSSrRD0vwxAO2d8m3rP3ccFF5+skAS+AU0WoPttm2CcaFnVwVi
+	 9oiY8JkxZPk/8N5qAOdAlm6K53AqieI0oBCPTbj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B43AF896F4;
-	Sun, 16 Jun 2019 18:19:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3380F8971F;
+	Sun, 16 Jun 2019 18:57:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 082CAF896F4; Sun, 16 Jun 2019 18:19:30 +0200 (CEST)
+ id 153BCF896DB; Sun, 16 Jun 2019 18:57:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=HTML_MESSAGE,SPF_FAIL,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from p3plwbeout03-03.prod.phx3.secureserver.net
- (p3plsmtp03-03-2.prod.phx3.secureserver.net [72.167.218.215])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 541C9F896C7
- for <alsa-devel@alsa-project.org>; Sun, 16 Jun 2019 18:19:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 541C9F896C7
-Received: from p3plgemwbe03-02.prod.phx3.secureserver.net ([72.167.218.130])
- by :WBEOUT: with SMTP
- id cXrqh4TjKIoaacXrqhWnWe; Sun, 16 Jun 2019 09:18:54 -0700
-X-SID: cXrqh4TjKIoaa
-Received: (qmail 156975 invoked by uid 99); 16 Jun 2019 16:18:54 -0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EE09F896C7
+ for <alsa-devel@alsa-project.org>; Sun, 16 Jun 2019 18:57:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EE09F896C7
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jun 2019 09:56:57 -0700
+X-ExtLoop1: 1
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.23.51])
+ ([10.252.23.51])
+ by orsmga005.jf.intel.com with ESMTP; 16 Jun 2019 09:56:53 -0700
+To: Fletcher Woodruff <fletcherw@chromium.org>
+References: <20190614194854.208436-1-fletcherw@chromium.org>
+ <20190614194854.208436-4-fletcherw@chromium.org>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <4e560e12-4c20-8d5d-b3f9-587a55da279d@intel.com>
+Date: Sun, 16 Jun 2019 18:56:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-To: "Jaroslav Kysela" <perex@perex.cz>, alsa-devel@alsa-project.org
-From: "scott andrew franco" <samiam@moorecad.com>
-In-Reply-To: <f016bbb5-d3bb-06ae-d2de-6597aefc851f@perex.cz>
-Date: Sun, 16 Jun 2019 09:18:54 -0700
-Message-Id: <20190616091854.6c61c97e98fe7bb02193b2d6dca4a85a.9759151e16.mailapi@email03.godaddy.com>
-X-Originating-IP: 73.93.93.31
-User-Agent: MailAPI 
-X-Sender: samiam@moorecad.com
-X-CMAE-Envelope: MS4wfAy/3bxwF1hJf/of7sLWxL+USKJKk0rfYdtvFBRz9sZEHV0N6d/kZGYmhFPiRKeHL8eQBTMmDjp7B5ymPAM+G8zSEuYKuIEupS+WkLTmUiaDwaJ27MJN
- VSpiRv+4WEAe9cKuPk7y8yq23wfuS67u9eUMfQ+LuH3s6qglaV1ByKEHOucyI/el7lrPFhONHvxurmD6h5Xy2D21MTqyv9+p0tJspZ/boXzUaf9FAi/5ubLY
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: Re: [alsa-devel] Building the alsa library
+In-Reply-To: <20190614194854.208436-4-fletcherw@chromium.org>
+Content-Language: en-US
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Ben Zhang <benzh@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>,
+ Curtis Malainey <cujomalainey@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v7 3/4] ASoC: rt5677: clear interrupts by
+	polarity flip
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,51 +75,329 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks!
- 
---------- Original Message --------- Subject: Re: [alsa-devel] Building the alsa library
-From: "Jaroslav Kysela" <perex@perex.cz>
-Date: 6/16/19 5:11 am
-To: "scott andrew franco" <samiam@moorecad.com>, alsa-devel@alsa-project.org
 
-Dne 15. 06. 19 v 22:41 scott andrew franco napsal(a):
- > Hi,
- > 
- > I have been trying to solve a difficult issue using the ALSA library. To solve it, I need to be able to
- > debug into the ALSA library.
- > 
- > I tried to build it from the sources, from the alsa-lib-1.1.9 library source to be specific.
- > 
- > Problems:
- > 
- > Using the build procedure in the INSTALL file, it appeared to build but I could not find a libasound.so file
- > anywhere.
- > 
- > I also tried the recommended procedure for static linking, also from the INSTALL file. That gives a 
- > ./src/.libs/libasound.a file (indeed, this gets generated on a dynamic link as well, which I don't understand).
- > However, linking with that produces (after adding back a few missing libs):
- > samiam@samiam-linux-pc:~/scratch$ ./hello
- > This is a test program
- > ALSA lib conf.c:3558:(snd_config_hooks_call) Cannot open shared library libasound_module_conf_pulse.so (/usr/lib/alsa-lib/libasound_module_conf_pulse.so: libasound_module_conf_pulse.so: cannot open shared object file: No such file or directory)
- 
- Your config files (perhaps from the distribution?) refer to the ALSA pulse
- plugin which is in the alsa-plugins package. Fix the configuration files or
- compile alsa-plugins, too.
- 
- Jaroslav
- 
- -- 
- Jaroslav Kysela <perex@perex.cz>
- Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
- _______________________________________________
- Alsa-devel mailing list
- Alsa-devel@alsa-project.org
- https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+On 2019-06-14 21:48, Fletcher Woodruff wrote:
+> From: Ben Zhang <benzh@chromium.org>
+> 
+> The rt5677 jack detection function has a requirement that the polarity
+> of an interrupt be flipped after it fires in order to clear the
+> interrupt.
+> 
+> This patch implements an irq_chip with irq_domain directly instead of
+> using regmap-irq, so that interrupt source line polarities can be
+> flipped in the irq handler.
+> 
+> The reason that this patch does not add this feature within regmap-irq
+> is that future patches will add hotword detection support to this irq
+> handler. Those patches will require adding additional logic that would
+> not make sense to have in regmap-irq.
+> 
+> Signed-off-by: Ben Zhang <benzh@chromium.org>
+> Signed-off-by: Fletcher Woodruff <fletcherw@chromium.org>
+> ---
+>   sound/soc/codecs/rt5677.c | 170 ++++++++++++++++++++++++++++++--------
+>   sound/soc/codecs/rt5677.h |   7 +-
+>   2 files changed, 143 insertions(+), 34 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+> index 87a92ba0d040b7..87466ee222ee59 100644
+> --- a/sound/soc/codecs/rt5677.c
+> +++ b/sound/soc/codecs/rt5677.c
+> @@ -23,6 +23,10 @@
+>   #include <linux/firmware.h>
+>   #include <linux/of_device.h>
+>   #include <linux/property.h>
+> +#include <linux/irq.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/irqdomain.h>
+> +#include <linux/workqueue.h>
+>   #include <sound/core.h>
+>   #include <sound/pcm.h>
+>   #include <sound/pcm_params.h>
+> @@ -4620,7 +4624,6 @@ static void rt5677_gpio_config(struct rt5677_priv *rt5677, unsigned offset,
+>   static int rt5677_to_irq(struct gpio_chip *chip, unsigned offset)
+>   {
+>   	struct rt5677_priv *rt5677 = gpiochip_get_data(chip);
+> -	struct regmap_irq_chip_data *data = rt5677->irq_data;
+>   	int irq;
+>   
+>   	if ((rt5677->pdata.jd1_gpio == 1 && offset == RT5677_GPIO1) ||
+> @@ -4646,7 +4649,7 @@ static int rt5677_to_irq(struct gpio_chip *chip, unsigned offset)
+>   		return -ENXIO;
+>   	}
+>   
+> -	return regmap_irq_get_virq(data, irq);
+> +	return irq_create_mapping(rt5677->domain, irq);
+>   }
+>   
+>   static const struct gpio_chip rt5677_template_chip = {
+> @@ -5042,30 +5045,130 @@ static void rt5677_read_device_properties(struct rt5677_priv *rt5677,
+>   		rt5677->pdata.jd3_gpio = val;
+>   }
+>   
+> -static struct regmap_irq rt5677_irqs[] = {
+> +struct rt5677_irq_desc {
+> +	unsigned int enable_mask;
+> +	unsigned int status_mask;
+> +	unsigned int polarity_mask;
+> +};
+> +
+> +static const struct rt5677_irq_desc rt5677_irq_descs[] = {
+>   	[RT5677_IRQ_JD1] = {
+> -		.reg_offset = 0,
+> -		.mask = RT5677_EN_IRQ_GPIO_JD1,
+> +		.enable_mask = RT5677_EN_IRQ_GPIO_JD1,
+> +		.status_mask = RT5677_STA_GPIO_JD1,
+> +		.polarity_mask = RT5677_INV_GPIO_JD1,
+>   	},
+>   	[RT5677_IRQ_JD2] = {
+> -		.reg_offset = 0,
+> -		.mask = RT5677_EN_IRQ_GPIO_JD2,
+> +		.enable_mask = RT5677_EN_IRQ_GPIO_JD2,
+> +		.status_mask = RT5677_STA_GPIO_JD2,
+> +		.polarity_mask = RT5677_INV_GPIO_JD2,
+>   	},
+>   	[RT5677_IRQ_JD3] = {
+> -		.reg_offset = 0,
+> -		.mask = RT5677_EN_IRQ_GPIO_JD3,
+> +		.enable_mask = RT5677_EN_IRQ_GPIO_JD3,
+> +		.status_mask = RT5677_STA_GPIO_JD3,
+> +		.polarity_mask = RT5677_INV_GPIO_JD3,
+>   	},
+>   };
+>   
+> -static struct regmap_irq_chip rt5677_irq_chip = {
+> -	.name = RT5677_DRV_NAME,
+> -	.irqs = rt5677_irqs,
+> -	.num_irqs = ARRAY_SIZE(rt5677_irqs),
+> +static irqreturn_t rt5677_irq(int unused, void *data)
+> +{
+> +	struct rt5677_priv *rt5677 = data;
+> +	int ret = 0, i, reg_irq, virq;
+> +	bool irq_fired = false;
+> +
+> +	mutex_lock(&rt5677->irq_lock);
+> +	/* Read interrupt status */
+> +	ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
+> +	if (ret) {
+> +		pr_err("rt5677: failed reading IRQ status: %d\n", ret);
+
+The entire rt5677 makes use of dev_XXX with the exception of.. this very 
+function. Consider reusing "component" field which is already part of 
+struct rt5677_priv and removing pr_XXX.
+
+> +		goto exit;
+> +	}
+> +
+> +	for (i = 0; i < RT5677_IRQ_NUM; i++) {
+> +		if (reg_irq & rt5677_irq_descs[i].status_mask) {
+> +			irq_fired = true;
+> +			virq = irq_find_mapping(rt5677->domain, i);
+> +			if (virq)
+> +				handle_nested_irq(virq);
+> +
+> +			/* Clear the interrupt by flipping the polarity of the
+> +			 * interrupt source line that fired
+> +			 */
+> +			reg_irq ^= rt5677_irq_descs[i].polarity_mask;
+> +		}
+> +	}
+> +
+> +	if (!irq_fired)
+> +		goto exit;
+> +
+> +	ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
+> +	if (ret) {
+> +		pr_err("rt5677: failed updating IRQ status: %d\n", ret);
+
+Same here.
+
+> +		goto exit;
+> +	}
+> +exit:
+> +	mutex_unlock(&rt5677->irq_lock);
+> +	if (irq_fired)
+> +		return IRQ_HANDLED;
+> +	else
+> +		return IRQ_NONE;
+> +}
+>   
+> -	.num_regs = 1,
+> -	.status_base = RT5677_IRQ_CTRL1,
+> -	.mask_base = RT5677_IRQ_CTRL1,
+> -	.mask_invert = 1,
+> +static void rt5677_irq_bus_lock(struct irq_data *data)
+> +{
+> +	struct rt5677_priv *rt5677 = irq_data_get_irq_chip_data(data);
+> +
+> +	mutex_lock(&rt5677->irq_lock);
+> +}
+> +
+> +static void rt5677_irq_bus_sync_unlock(struct irq_data *data)
+> +{
+> +	struct rt5677_priv *rt5677 = irq_data_get_irq_chip_data(data);
+> +
+> +	// Set the enable/disable bits for the jack detect IRQs.
+> +	regmap_update_bits(rt5677->regmap, RT5677_IRQ_CTRL1,
+> +			RT5677_EN_IRQ_GPIO_JD1 | RT5677_EN_IRQ_GPIO_JD2 |
+> +			RT5677_EN_IRQ_GPIO_JD3, rt5677->irq_en);
+> +	mutex_unlock(&rt5677->irq_lock);
+> +}
+> +
+> +static void rt5677_irq_enable(struct irq_data *data)
+> +{
+> +	struct rt5677_priv *rt5677 = irq_data_get_irq_chip_data(data);
+> +
+> +	rt5677->irq_en |= rt5677_irq_descs[data->hwirq].enable_mask;
+> +}
+> +
+> +static void rt5677_irq_disable(struct irq_data *data)
+> +{
+> +	struct rt5677_priv *rt5677 = irq_data_get_irq_chip_data(data);
+> +
+> +	rt5677->irq_en &= ~rt5677_irq_descs[data->hwirq].enable_mask;
+> +}
+> +
+> +static struct irq_chip rt5677_irq_chip = {
+> +	.name			= "rt5677_irq_chip",
+> +	.irq_bus_lock		= rt5677_irq_bus_lock,
+> +	.irq_bus_sync_unlock	= rt5677_irq_bus_sync_unlock,
+> +	.irq_disable		= rt5677_irq_disable,
+> +	.irq_enable		= rt5677_irq_enable,
+> +};
+> +
+> +static int rt5677_irq_map(struct irq_domain *h, unsigned int virq,
+> +			  irq_hw_number_t hw)
+> +{
+> +	struct rt5677_priv *rt5677 = h->host_data;
+> +
+> +	irq_set_chip_data(virq, rt5677);
+> +	irq_set_chip(virq, &rt5677_irq_chip);
+> +	irq_set_nested_thread(virq, 1);
+> +	irq_set_noprobe(virq);
+> +	return 0;
+> +}
+> +
+> +
+> +static const struct irq_domain_ops rt5677_domain_ops = {
+> +	.map	= rt5677_irq_map,
+> +	.xlate	= irq_domain_xlate_twocell,
+>   };
+>   
+>   static int rt5677_init_irq(struct i2c_client *i2c)
+> @@ -5084,6 +5187,8 @@ static int rt5677_init_irq(struct i2c_client *i2c)
+>   		return -EINVAL;
+>   	}
+>   
+> +	mutex_init(&rt5677->irq_lock);
+> +
+>   	/*
+>   	 * Select RC as the debounce clock so that GPIO works even when
+>   	 * MCLK is gated which happens when there is no audio stream
+> @@ -5092,7 +5197,6 @@ static int rt5677_init_irq(struct i2c_client *i2c)
+>   	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC,
+>   			RT5677_IRQ_DEBOUNCE_SEL_MASK,
+>   			RT5677_IRQ_DEBOUNCE_SEL_RC);
+> -
+>   	/* Enable auto power on RC when GPIO states are changed */
+>   	regmap_update_bits(rt5677->regmap, RT5677_GEN_CTRL1, 0xff, 0xff);
+>   
+> @@ -5115,26 +5219,25 @@ static int rt5677_init_irq(struct i2c_client *i2c)
+>   	regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1,
+>   			RT5677_GPIO1_PIN_MASK, RT5677_GPIO1_PIN_IRQ);
+>   
+> -	ret = regmap_add_irq_chip(rt5677->regmap, i2c->irq,
+> -		IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT, 0,
+> -		&rt5677_irq_chip, &rt5677->irq_data);
+> +	/* Ready to listen for interrupts */
+> +	rt5677->domain = irq_domain_add_linear(i2c->dev.of_node,
+> +			RT5677_IRQ_NUM, &rt5677_domain_ops, rt5677);
+> +	if (!rt5677->domain) {
+> +		dev_err(&i2c->dev, "Failed to create IRQ domain\n");
+> +		return -ENOMEM;
+> +	}
+>   
+> -	if (ret != 0) {
+> -		dev_err(&i2c->dev, "Failed to register IRQ chip: %d\n", ret);
+> +	ret = devm_request_threaded_irq(&i2c->dev, i2c->irq, NULL, rt5677_irq,
+> +			IRQF_TRIGGER_RISING | IRQF_ONESHOT,
+> +			"rt5677", rt5677);
+> +	if (ret) {
+> +		dev_err(&i2c->dev, "Failed to request IRQ: %d\n", ret);
+>   		return ret;
+
+You may want to simplify this, similarly to how's it done in your 
+rt5677_i2c_probe - leave message alone and return "ret" explicitly at 
+the end.
+
+>   	}
+>   
+>   	return 0;
+>   }
+>   
+> -static void rt5677_free_irq(struct i2c_client *i2c)
+> -{
+> -	struct rt5677_priv *rt5677 = i2c_get_clientdata(i2c);
+> -
+> -	if (rt5677->irq_data)
+> -		regmap_del_irq_chip(i2c->irq, rt5677->irq_data);
+> -}
+> -
+>   static int rt5677_i2c_probe(struct i2c_client *i2c)
+>   {
+>   	struct rt5677_priv *rt5677;
+> @@ -5259,7 +5362,9 @@ static int rt5677_i2c_probe(struct i2c_client *i2c)
+>   			RT5677_MICBIAS1_CTRL_VDD_3_3V);
+>   
+>   	rt5677_init_gpio(i2c);
+> -	rt5677_init_irq(i2c);
+> +	ret = rt5677_init_irq(i2c);
+> +	if (ret)
+> +		dev_err(&i2c->dev, "Failed to initialize irq: %d\n", ret);
+>   
+>   	return devm_snd_soc_register_component(&i2c->dev,
+>   				      &soc_component_dev_rt5677,
+> @@ -5268,7 +5373,6 @@ static int rt5677_i2c_probe(struct i2c_client *i2c)
+>   
+>   static int rt5677_i2c_remove(struct i2c_client *i2c)
+>   {
+> -	rt5677_free_irq(i2c);
+>   	rt5677_free_gpio(i2c);
+>   
+>   	return 0;
+> diff --git a/sound/soc/codecs/rt5677.h b/sound/soc/codecs/rt5677.h
+> index c26edd387e340b..d0ac26e562eb5f 100644
+> --- a/sound/soc/codecs/rt5677.h
+> +++ b/sound/soc/codecs/rt5677.h
+> @@ -1749,6 +1749,7 @@ enum {
+>   	RT5677_IRQ_JD1,
+>   	RT5677_IRQ_JD2,
+>   	RT5677_IRQ_JD3,
+> +	RT5677_IRQ_NUM,
+>   };
+>   
+>   enum rt5677_type {
+> @@ -1847,9 +1848,13 @@ struct rt5677_priv {
+>   	struct gpio_chip gpio_chip;
+>   #endif
+>   	bool dsp_vad_en;
+> -	struct regmap_irq_chip_data *irq_data;
+>   	bool is_dsp_mode;
+>   	bool is_vref_slow;
+> +
+> +	/* Interrupt handling */
+> +	struct irq_domain *domain;
+> +	struct mutex irq_lock;
+> +	unsigned int irq_en;
+>   };
+>   
+>   int rt5677_sel_asrc_clk_src(struct snd_soc_component *component,
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

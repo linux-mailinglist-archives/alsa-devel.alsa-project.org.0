@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C29448714
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:27:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1093548717
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:28:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B9BF1730;
-	Mon, 17 Jun 2019 17:26:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B9BF1730
+	by alsa0.perex.cz (Postfix) with ESMTPS id A32F81711;
+	Mon, 17 Jun 2019 17:27:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A32F81711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560785254;
-	bh=akDvfizlcu/8fIv5sKc6MkTvImrPi7wWU8QwcTg9lzA=;
+	s=default; t=1560785290;
+	bh=6LOve05vP9YQdsn8FvcIF78RuMuVWnafnJAEs3EH01k=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ZGAONpF7XZgetB1Gdo9NUvVfSrW3w3biISk1Ev5MllwZK/WmtcYI1mMPFVHA+xAis
-	 /pqLLhQ2d1h8X++fzQv1gdcTVnrTqKw3hmleMLjTeoBYjHWkDZJmPAMJ6r9pU2vkAt
-	 1lwHTSnInEkQ0NiEoSdg4quojwnQ+rm7k5o4f4TQ=
+	b=Ad6mxJVbCrZfOTPQguNRYQj2E6MUS/DR6tKiU/UOHSSNvECZB8k7r2OoTJqP4g0eh
+	 d11cdt78OTBeCq2HeI7pBemvfSaYELDM5edunrwAsRrBYaRYqkpMIZXWAL3GgSA5D7
+	 Xe0kaLPlzpvDX2kTpaz6boV+bQ4SPjetRfa70RM0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3143F80764;
-	Mon, 17 Jun 2019 17:24:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCB50F89744;
+	Mon, 17 Jun 2019 17:24:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55AAAF89739; Mon, 17 Jun 2019 17:24:25 +0200 (CEST)
+ id D9558F8973A; Mon, 17 Jun 2019 17:24:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 058EFF80764
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DA4FF896DA
  for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 058EFF80764
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DA4FF896DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="N7RxbLBU"
+ header.b="SBSudCfs"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=wOd9Qi3GjEKts3WISLUYsBotXm/VRmWrNM78cMe3Cjw=; b=N7RxbLBUWdzg
- PeQTW1bRfWlwWuT6qrA66B6HGk8eyu8HgivLsK2yq3RXzouBzUwcdzFMDxtq+rBmObnFRm0oQkclL
- 0edfnJ5iGch3mRGWSg+sOGqJvh3gQ1/5mvJtwn/HFG6NVSy6d/PSHKXwLgFYzPK//1vc1eJbumoo9
- fMyXE=;
+ List-Archive; bh=UJRWJ09xP8ootXMPZbq+lZFFHZl9CzFTpyiDR3ZdmWY=; b=SBSudCfs52nT
+ rQwg8QArgmgTqBMDqy1eqmjMImJfunmIiiVoAhHVL15oPz/wqMH4LYzExDvsR9X33l25FaUdaGmtp
+ UOG0oaK3L2sh8y3RaGUGp3yaYytPbJ+2xs042nC8k37o2VBFCyfH6dk3cW62sYgP7ygE+NiT3ChWd
+ LOBV4=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hctUX-0001wr-0D; Mon, 17 Jun 2019 15:24:17 +0000
+ id 1hctUY-0001x0-5u; Mon, 17 Jun 2019 15:24:18 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 5C81C440046; Mon, 17 Jun 2019 16:24:16 +0100 (BST)
+ id 9FBC0440046; Mon, 17 Jun 2019 16:24:17 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Fletcher Woodruff <fletcherw@chromium.org>
-In-Reply-To: <20190614194854.208436-3-fletcherw@chromium.org>
+To: Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <20190617124632.1176809-1-arnd@arndb.de>
 X-Patchwork-Hint: ignore
-Message-Id: <20190617152416.5C81C440046@finisterre.sirena.org.uk>
-Date: Mon, 17 Jun 2019 16:24:16 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Ben Zhang <benzh@chromium.org>,
- Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>,
- Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] Applied "ASoC: rt5677: move jack-detect init to i2c
-	probe" to the asoc tree
+Message-Id: <20190617152417.9FBC0440046@finisterre.sirena.org.uk>
+Date: Mon, 17 Jun 2019 16:24:17 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: disallow building without
+	CONFIG_PCI again" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5677: move jack-detect init to i2c probe
+   ASoC: SOF: disallow building without CONFIG_PCI again
 
 has been applied to the asoc tree at
 
@@ -116,133 +116,137 @@ to this mail.
 Thanks,
 Mark
 
-From 241800642ea3482ab3f80a2a3662e9f2e6a82208 Mon Sep 17 00:00:00 2001
-From: Fletcher Woodruff <fletcherw@chromium.org>
-Date: Fri, 14 Jun 2019 13:48:52 -0600
-Subject: [PATCH] ASoC: rt5677: move jack-detect init to i2c probe
+From 9de7eaddfa7f47fbb1cd9cdb9aab405599ef414e Mon Sep 17 00:00:00 2001
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 17 Jun 2019 14:45:49 +0200
+Subject: [PATCH] ASoC: SOF: disallow building without CONFIG_PCI again
 
-This patch moves the code to select the gpios for jack detection
-from rt5677_probe to rt5677_init_irq (called from rt5677_i2c_probe).
+Compile-testing without PCI just causes warnings:
 
-It also sets some registers to fix bugs related to jack detection, and
-adds some constants and comments to make it easier to understand what
-certain register settings are controlling.
+sound/soc/sof/sof-pci-dev.c:330:13: error: 'sof_pci_remove' defined but not used [-Werror=unused-function]
+ static void sof_pci_remove(struct pci_dev *pci)
+             ^~~~~~~~~~~~~~
+sound/soc/sof/sof-pci-dev.c:230:12: error: 'sof_pci_probe' defined but not used [-Werror=unused-function]
+ static int sof_pci_probe(struct pci_dev *pci,
+            ^~~~~~~~~~~~~
 
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Fletcher Woodruff <fletcherw@chromium.org>
+I tried to fix this in a way that would still allow compile
+tests, but it got too ugly, so this just reverts the patch
+that allowed it in the first place.
+
+Most architectures do allow enabling PCI, so the value of the
+COMPILE_TEST alternative was not very high to start with.
+
+Fixes: e13ef82a9ab8 ("ASoC: SOF: add COMPILE_TEST for PCI options")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 60 ++++++++++++++++++++++-----------------
- sound/soc/codecs/rt5677.h |  6 ++++
- 2 files changed, 40 insertions(+), 26 deletions(-)
+ sound/soc/sof/Kconfig       |  2 +-
+ sound/soc/sof/intel/hda.c   | 13 ++-----------
+ sound/soc/sof/sof-pci-dev.c |  4 ----
+ 3 files changed, 3 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index fe000f30b9ad..87a92ba0d040 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -4716,37 +4716,13 @@ static int rt5677_probe(struct snd_soc_component *component)
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index 1d4b4dced4b6..bc6d7b311af4 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -10,7 +10,7 @@ if SND_SOC_SOF_TOPLEVEL
  
- 	snd_soc_component_force_bias_level(component, SND_SOC_BIAS_OFF);
- 
--	regmap_write(rt5677->regmap, RT5677_DIG_MISC, 0x0020);
-+	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC,
-+			~RT5677_IRQ_DEBOUNCE_SEL_MASK, 0x0020);
- 	regmap_write(rt5677->regmap, RT5677_PWR_DSP2, 0x0c00);
- 
- 	for (i = 0; i < RT5677_GPIO_NUM; i++)
- 		rt5677_gpio_config(rt5677, i, rt5677->pdata.gpio_config[i]);
- 
--	if (rt5677->irq_data) {
--		regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1, 0x8000,
--			0x8000);
--		regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC, 0x0018,
--			0x0008);
--
--		if (rt5677->pdata.jd1_gpio)
--			regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1,
--				RT5677_SEL_GPIO_JD1_MASK,
--				rt5677->pdata.jd1_gpio <<
--				RT5677_SEL_GPIO_JD1_SFT);
--
--		if (rt5677->pdata.jd2_gpio)
--			regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1,
--				RT5677_SEL_GPIO_JD2_MASK,
--				rt5677->pdata.jd2_gpio <<
--				RT5677_SEL_GPIO_JD2_SFT);
--
--		if (rt5677->pdata.jd3_gpio)
--			regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1,
--				RT5677_SEL_GPIO_JD3_MASK,
--				rt5677->pdata.jd3_gpio <<
--				RT5677_SEL_GPIO_JD3_SFT);
--	}
--
- 	mutex_init(&rt5677->dsp_cmd_lock);
- 	mutex_init(&rt5677->dsp_pri_lock);
- 
-@@ -5096,6 +5072,7 @@ static int rt5677_init_irq(struct i2c_client *i2c)
+ config SND_SOC_SOF_PCI
+ 	tristate "SOF PCI enumeration support"
+-	depends on PCI || COMPILE_TEST
++	depends on PCI
+ 	select SND_SOC_SOF
+ 	select SND_SOC_ACPI if ACPI
+ 	select SND_SOC_SOF_OPTIONS
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index af546e42e1d9..8754dfe75000 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -525,9 +525,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	 * TODO: support interrupt mode selection with kernel parameter
+ 	 *       support msi multiple vectors
+ 	 */
+-#if IS_ENABLED(CONFIG_PCI)
+ 	ret = pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI);
+-#endif
+ 	if (ret < 0) {
+ 		dev_info(sdev->dev, "use legacy interrupt mode\n");
+ 		/*
+@@ -539,9 +537,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 		sdev->msi_enabled = 0;
+ 	} else {
+ 		dev_info(sdev->dev, "use msi interrupt mode\n");
+-#if IS_ENABLED(CONFIG_PCI)
+ 		hdev->irq = pci_irq_vector(pci, 0);
+-#endif
+ 		/* ipc irq number is the same of hda irq */
+ 		sdev->ipc_irq = hdev->irq;
+ 		sdev->msi_enabled = 1;
+@@ -598,10 +594,8 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ free_hda_irq:
+ 	free_irq(hdev->irq, bus);
+ free_irq_vector:
+-#if IS_ENABLED(CONFIG_PCI)
+ 	if (sdev->msi_enabled)
+ 		pci_free_irq_vectors(pci);
+-#endif
+ free_streams:
+ 	hda_dsp_stream_free(sdev);
+ /* dsp_unmap: not currently used */
+@@ -616,6 +610,7 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
  {
- 	int ret;
- 	struct rt5677_priv *rt5677 = i2c_get_clientdata(i2c);
-+	unsigned int jd_mask = 0, jd_val = 0;
+ 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
++	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	const struct sof_intel_dsp_desc *chip = hda->desc;
  
- 	if (!rt5677->pdata.jd1_gpio &&
- 		!rt5677->pdata.jd2_gpio &&
-@@ -5107,6 +5084,37 @@ static int rt5677_init_irq(struct i2c_client *i2c)
- 		return -EINVAL;
- 	}
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+@@ -644,12 +639,8 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
  
-+	/*
-+	 * Select RC as the debounce clock so that GPIO works even when
-+	 * MCLK is gated which happens when there is no audio stream
-+	 * (SND_SOC_BIAS_OFF).
-+	 */
-+	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC,
-+			RT5677_IRQ_DEBOUNCE_SEL_MASK,
-+			RT5677_IRQ_DEBOUNCE_SEL_RC);
-+
-+	/* Enable auto power on RC when GPIO states are changed */
-+	regmap_update_bits(rt5677->regmap, RT5677_GEN_CTRL1, 0xff, 0xff);
-+
-+	/* Select and enable jack detection sources per platform data */
-+	if (rt5677->pdata.jd1_gpio) {
-+		jd_mask	|= RT5677_SEL_GPIO_JD1_MASK;
-+		jd_val	|= rt5677->pdata.jd1_gpio << RT5677_SEL_GPIO_JD1_SFT;
-+	}
-+	if (rt5677->pdata.jd2_gpio) {
-+		jd_mask	|= RT5677_SEL_GPIO_JD2_MASK;
-+		jd_val	|= rt5677->pdata.jd2_gpio << RT5677_SEL_GPIO_JD2_SFT;
-+	}
-+	if (rt5677->pdata.jd3_gpio) {
-+		jd_mask	|= RT5677_SEL_GPIO_JD3_MASK;
-+		jd_val	|= rt5677->pdata.jd3_gpio << RT5677_SEL_GPIO_JD3_SFT;
-+	}
-+	regmap_update_bits(rt5677->regmap, RT5677_JD_CTRL1, jd_mask, jd_val);
-+
-+	/* Set GPIO1 pin to be IRQ output */
-+	regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1,
-+			RT5677_GPIO1_PIN_MASK, RT5677_GPIO1_PIN_IRQ);
-+
- 	ret = regmap_add_irq_chip(rt5677->regmap, i2c->irq,
- 		IRQF_TRIGGER_RISING | IRQF_TRIGGER_FALLING | IRQF_ONESHOT, 0,
- 		&rt5677_irq_chip, &rt5677->irq_data);
-diff --git a/sound/soc/codecs/rt5677.h b/sound/soc/codecs/rt5677.h
-index 076e5161d8da..c26edd387e34 100644
---- a/sound/soc/codecs/rt5677.h
-+++ b/sound/soc/codecs/rt5677.h
-@@ -1664,6 +1664,12 @@
- #define RT5677_GPIO6_P_NOR			(0x0 << 0)
- #define RT5677_GPIO6_P_INV			(0x1 << 0)
+ 	free_irq(sdev->ipc_irq, sdev);
+ 	free_irq(hda->irq, bus);
+-#if IS_ENABLED(CONFIG_PCI)
+-	if (sdev->msi_enabled) {
+-		struct pci_dev *pci = to_pci_dev(sdev->dev);
++	if (sdev->msi_enabled)
+ 		pci_free_irq_vectors(pci);
+-	}
+-#endif
  
-+/* General Control (0xfa) */
-+#define RT5677_IRQ_DEBOUNCE_SEL_MASK		(0x3 << 3)
-+#define RT5677_IRQ_DEBOUNCE_SEL_MCLK		(0x0 << 3)
-+#define RT5677_IRQ_DEBOUNCE_SEL_RC		(0x1 << 3)
-+#define RT5677_IRQ_DEBOUNCE_SEL_SLIM		(0x2 << 3)
-+
- /* Virtual DSP Mixer Control (0xf7 0xf8 0xf9) */
- #define RT5677_DSP_IB_01_H			(0x1 << 15)
- #define RT5677_DSP_IB_01_H_SFT			15
+ 	hda_dsp_stream_free(sdev);
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index ab58d4f9119f..e2b19782f01a 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -251,11 +251,9 @@ static int sof_pci_probe(struct pci_dev *pci,
+ 	if (!sof_pdata)
+ 		return -ENOMEM;
+ 
+-#if IS_ENABLED(CONFIG_PCI)
+ 	ret = pcim_enable_device(pci);
+ 	if (ret < 0)
+ 		return ret;
+-#endif
+ 
+ 	ret = pci_request_regions(pci, "Audio DSP");
+ 	if (ret < 0)
+@@ -388,7 +386,6 @@ static const struct pci_device_id sof_pci_ids[] = {
+ };
+ MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+ 
+-#if IS_ENABLED(CONFIG_PCI)
+ /* pci_driver definition */
+ static struct pci_driver snd_sof_pci_driver = {
+ 	.name = "sof-audio-pci",
+@@ -400,6 +397,5 @@ static struct pci_driver snd_sof_pci_driver = {
+ 	},
+ };
+ module_pci_driver(snd_sof_pci_driver);
+-#endif
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
 -- 
 2.20.1
 

@@ -2,65 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 578704811D
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 13:44:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC4C482ED
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 14:48:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E329A172D;
-	Mon, 17 Jun 2019 13:43:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E329A172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F39401719;
+	Mon, 17 Jun 2019 14:47:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F39401719
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560771842;
-	bh=d68w/6cG7Lb+NZFTPo5FlPpuRNeFXzL4cODBeHXgqyE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=D7PirIlSt0aNtRTVOzFjjQ2/4XBVr59Rx344pLZ6+9jfOgGPp2nna3KDkVILKrov6
-	 b3M+8VdWmCwk/7z1Us2UgjL36dOHlYVLEyxqRl6bp3B1TDdd3jBBHoEH6d2fZvOnDG
-	 iBACfhVfoALsg4oKxbG2UpQOgr8Hl3Gm0L0YMNIs=
+	s=default; t=1560775709;
+	bh=dhJjIJIuYV0UW8idGA8n44z8ETb3DFCMhbJbSmWlR0U=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=C2Ze8HeHPzPcQlBlkig1mviblihTBJfQa6oBDlrr7eAMkMolNcURSWS2re9WIU4Ky
+	 uNxLFa5U9UJ/WVzyTlwP/aMVgJzb5vxERU3K0Bh1VhmiNJpnnWyAkuuT/0UFbvUJm8
+	 DYGKNoALsWfzwAQGTV2MgXMzIQRboHTedzUub5jQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2966BF89763;
-	Mon, 17 Jun 2019 13:35:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42168F896C7;
+	Mon, 17 Jun 2019 14:46:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CEADF8975F; Mon, 17 Jun 2019 13:35:24 +0200 (CEST)
+ id E3913F896C7; Mon, 17 Jun 2019 14:46:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0B3FF89757
- for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 13:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0B3FF89757
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Jun 2019 04:35:20 -0700
-X-ExtLoop1: 1
-Received: from xxx.igk.intel.com ([10.237.93.170])
- by fmsmga006.fm.intel.com with ESMTP; 17 Jun 2019 04:35:18 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Mon, 17 Jun 2019 13:36:44 +0200
-Message-Id: <20190617113644.25621-12-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
-References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4742EF8075C
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 14:46:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4742EF8075C
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue010 [212.227.15.129]) with ESMTPA (Nemesis) id
+ 1M3UlW-1hcInY2a26-000Zk4; Mon, 17 Jun 2019 14:46:34 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Mark Brown <broonie@kernel.org>
+Date: Mon, 17 Jun 2019 14:45:49 +0200
+Message-Id: <20190617124632.1176809-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.20.0
 MIME-Version: 1.0
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
+X-Provags-ID: V03:K1:zjguk+EiCZ7J5N0uQo6ZqiNPElZuXOt1JmScjIIsUYFVLDr+9l2
+ 6jPbjPtFVh6fk1dmrRxqCABnkWPFFhuQ8rA5k5vWSGtFnJKwFyoqugs3mAoILldbdPzmIQI
+ 2elb639HYkY17SSSWlhxO4nf0Gg3tIwacC5rA0wdaFZ+GU1KoayiiCEMBKQGxKaBp/sslc4
+ I7i8qEKMpLpEbZ54YqZAg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Xi+POJeJJtM=:przZadmzFqStofKh6Jr1O9
+ G6BVw6EN74EjTxnSCeQs+Vg4hgtLd+PBD6nlpNahr+kKDrWfM5ztjGOIN9GO93RXRFQLdtLi2
+ HWvB0mM0H75OcQFRO2cGskKzb6xKfKVPv6rZvN8p5tWCKDRR0OWK5iNJh5ygqjW4AwMif5zgP
+ K7ioiNYbMWFm4gfMfdhdAh7X0o1cqti8MY3eGvo1JwovwniXaCVmUa+2EAfyBLe2tDyn5JMvU
+ +A3nQoBvz9BP+9uQSS/cUrFeXF+93V8LXkpvlQsC5Yrqssmd/3zGEm0sH2f/jmiaDJZqaTpvq
+ urTNlxOM/oT9xgBEMmgmh/wLd9xBA8C9pZy4762x5UQTrqGITnb2eoWu8Nn4NF4rMahEMHQ2k
+ ktugDiYH2d3nRjI64eYy8ILRyEx4ivYX7BvSqx3C7M9NiVX1xPxnKyty547SGeq9yfbDlJKuC
+ OFqTdhgwX6FJupH8hzrfcg7kx1MoOFdepA17h3rwZ9+wZ+KH2vyc13QFyAHYe2458ApZ+qukS
+ cw6KsJUgICP5fVJEbfqyMjgI+WB4WsEyONSuK62cnmEDXKREQI2xyJW4nFuAaFTNF1Km1JnkY
+ +0PZrLxCm8zQIQ4OmoTa38IyLx3JmQz6JSj9nrT0d4C81kx9IANAnvidfSeUIXbrox/UStLVw
+ SIBRJnaH817Fs/OWZrQYQ4RIobSblZ6ZW/0kFXdr0P4IO3b9xWpNOpbEESg7eTd13A9ogdZZW
+ Q93FKw6TKgfIT38unKPp6NTu2SRZlm/UePOc6A==
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-Subject: [alsa-devel] [PATCH v2 11/11] ASoC: topology: Consolidate and fix
-	asoc_tplg_dapm_widget_*_create flow
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Subject: [alsa-devel] [PATCH] ASoC: SOF: disallow building without
+	CONFIG_PCI again
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,112 +79,140 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhlcmUgYXJlIGEgZmV3IHNvY190cGxnX2RhcG1fd2lkZ2V0XypfY3JlYXRlIGZ1bmN0aW9ucyB3
-aXRoIHNpbWlsYXIKY29udGVudCwgYnV0IHNsaWdodGx5IGRpZmZlcmVudCBmbG93LCB1bmlmeSB0
-aGVpciBmbG93IGFuZCBtYWtlIHN1cmUKdGhhdCB3ZSBnbyB0byBlcnJvciBoYW5kbGVyIGFuZCBm
-cmVlIG1lbW9yeSBpbiBjYXNlIG9mIGZhaWx1cmUuCgpTaWduZWQtb2ZmLWJ5OiBBbWFkZXVzeiBT
-xYJhd2nFhHNraSA8YW1hZGV1c3p4LnNsYXdpbnNraUBsaW51eC5pbnRlbC5jb20+Ci0tLQogc291
-bmQvc29jL3NvYy10b3BvbG9neS5jIHwgNzcgKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKyksIDQyIGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zb2MtdG9wb2xvZ3kuYyBiL3NvdW5kL3NvYy9z
-b2MtdG9wb2xvZ3kuYwppbmRleCBhOTI2YzJhZmJlMDUuLmZjMWYxZDZmOWU5MiAxMDA2NDQKLS0t
-IGEvc291bmQvc29jL3NvYy10b3BvbG9neS5jCisrKyBiL3NvdW5kL3NvYy9zb2MtdG9wb2xvZ3ku
-YwpAQCAtMTMxMCwxNCArMTMxMCwxNSBAQCBzdGF0aWMgc3RydWN0IHNuZF9rY29udHJvbF9uZXcg
-KnNvY190cGxnX2RhcG1fd2lkZ2V0X2RtaXhlcl9jcmVhdGUoCiAKIAlmb3IgKGkgPSAwOyBpIDwg
-bnVtX2tjb250cm9sczsgaSsrKSB7CiAJCW1jID0gKHN0cnVjdCBzbmRfc29jX3RwbGdfbWl4ZXJf
-Y29udHJvbCAqKXRwbGctPnBvczsKLQkJc20gPSBremFsbG9jKHNpemVvZigqc20pLCBHRlBfS0VS
-TkVMKTsKLQkJaWYgKHNtID09IE5VTEwpCi0JCQlnb3RvIGVycjsKIAogCQkvKiB2YWxpZGF0ZSBr
-Y29udHJvbCAqLwogCQlpZiAoc3RybmxlbihtYy0+aGRyLm5hbWUsIFNORFJWX0NUTF9FTEVNX0lE
-X05BTUVfTUFYTEVOKSA9PQogCQkJU05EUlZfQ1RMX0VMRU1fSURfTkFNRV9NQVhMRU4pCi0JCQln
-b3RvIGVycl9zdHI7CisJCQlnb3RvIGVycl9zbTsKKworCQlzbSA9IGt6YWxsb2Moc2l6ZW9mKCpz
-bSksIEdGUF9LRVJORUwpOworCQlpZiAoc20gPT0gTlVMTCkKKwkJCWdvdG8gZXJyX3NtOwogCiAJ
-CXRwbGctPnBvcyArPSAoc2l6ZW9mKHN0cnVjdCBzbmRfc29jX3RwbGdfbWl4ZXJfY29udHJvbCkg
-KwogCQkJICAgICAgbGUzMl90b19jcHUobWMtPnByaXYuc2l6ZSkpOwpAQCAtMTMyNyw3ICsxMzI4
-LDcgQEAgc3RhdGljIHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3ICpzb2NfdHBsZ19kYXBtX3dpZGdl
-dF9kbWl4ZXJfY3JlYXRlKAogCiAJCWtjW2ldLm5hbWUgPSBrc3RyZHVwKG1jLT5oZHIubmFtZSwg
-R0ZQX0tFUk5FTCk7CiAJCWlmIChrY1tpXS5uYW1lID09IE5VTEwpCi0JCQlnb3RvIGVycl9zdHI7
-CisJCQlnb3RvIGVycl9zbTsKIAkJa2NbaV0ucHJpdmF0ZV92YWx1ZSA9IChsb25nKXNtOwogCQlr
-Y1tpXS5pZmFjZSA9IFNORFJWX0NUTF9FTEVNX0lGQUNFX01JWEVSOwogCQlrY1tpXS5hY2Nlc3Mg
-PSBtYy0+aGRyLmFjY2VzczsKQEAgLTEzNTMsOCArMTM1NCw3IEBAIHN0YXRpYyBzdHJ1Y3Qgc25k
-X2tjb250cm9sX25ldyAqc29jX3RwbGdfZGFwbV93aWRnZXRfZG1peGVyX2NyZWF0ZSgKIAkJZXJy
-ID0gc29jX3RwbGdfa2NvbnRyb2xfYmluZF9pbygmbWMtPmhkciwgJmtjW2ldLCB0cGxnKTsKIAkJ
-aWYgKGVycikgewogCQkJc29jX2NvbnRyb2xfZXJyKHRwbGcsICZtYy0+aGRyLCBtYy0+aGRyLm5h
-bWUpOwotCQkJa2ZyZWUoc20pOwotCQkJY29udGludWU7CisJCQlnb3RvIGVycl9zbTsKIAkJfQog
-CiAJCS8qIGNyZWF0ZSBhbnkgVExWIGRhdGEgKi8KQEAgLTEzNjcsMjAgKzEzNjcsMTkgQEAgc3Rh
-dGljIHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kbWl4ZXJf
-Y3JlYXRlKAogCQkJZGV2X2Vycih0cGxnLT5kZXYsICJBU29DOiBmYWlsZWQgdG8gaW5pdCAlc1xu
-IiwKIAkJCQltYy0+aGRyLm5hbWUpOwogCQkJc29jX3RwbGdfZnJlZV90bHYodHBsZywgJmtjW2ld
-KTsKLQkJCWtmcmVlKHNtKTsKLQkJCWNvbnRpbnVlOworCQkJZ290byBlcnJfc207CiAJCX0KIAl9
-CiAJcmV0dXJuIGtjOwogCi1lcnJfc3RyOgotCWtmcmVlKHNtKTsKLWVycjoKLQlmb3IgKC0taTsg
-aSA+PSAwOyBpLS0pIHsKLQkJa2ZyZWUoKHZvaWQgKilrY1tpXS5wcml2YXRlX3ZhbHVlKTsKK2Vy
-cl9zbToKKwlmb3IgKDsgaSA+PSAwOyBpLS0pIHsKKwkJc20gPSAoc3RydWN0IHNvY19taXhlcl9j
-b250cm9sICopa2NbaV0ucHJpdmF0ZV92YWx1ZTsKKwkJa2ZyZWUoc20pOwogCQlrZnJlZShrY1tp
-XS5uYW1lKTsKIAl9CiAJa2ZyZWUoa2MpOworCiAJcmV0dXJuIE5VTEw7CiB9CiAKQEAgLTE0MDEs
-MTEgKzE0MDAsMTEgQEAgc3RhdGljIHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3ICpzb2NfdHBsZ19k
-YXBtX3dpZGdldF9kZW51bV9jcmVhdGUoCiAJCS8qIHZhbGlkYXRlIGtjb250cm9sICovCiAJCWlm
-IChzdHJubGVuKGVjLT5oZHIubmFtZSwgU05EUlZfQ1RMX0VMRU1fSURfTkFNRV9NQVhMRU4pID09
-CiAJCQkgICAgU05EUlZfQ1RMX0VMRU1fSURfTkFNRV9NQVhMRU4pCi0JCQlnb3RvIGVycjsKKwkJ
-CWdvdG8gZXJyX3NlOwogCiAJCXNlID0ga3phbGxvYyhzaXplb2YoKnNlKSwgR0ZQX0tFUk5FTCk7
-CiAJCWlmIChzZSA9PSBOVUxMKQotCQkJZ290byBlcnI7CisJCQlnb3RvIGVycl9zZTsKIAogCQl0
-cGxnLT5wb3MgKz0gKHNpemVvZihzdHJ1Y3Qgc25kX3NvY190cGxnX2VudW1fY29udHJvbCkgKwog
-CQkJCWVjLT5wcml2LnNpemUpOwpAQCAtMTQxNCwxMCArMTQxMyw4IEBAIHN0YXRpYyBzdHJ1Y3Qg
-c25kX2tjb250cm9sX25ldyAqc29jX3RwbGdfZGFwbV93aWRnZXRfZGVudW1fY3JlYXRlKAogCQkJ
-ZWMtPmhkci5uYW1lKTsKIAogCQlrY1tpXS5uYW1lID0ga3N0cmR1cChlYy0+aGRyLm5hbWUsIEdG
-UF9LRVJORUwpOwotCQlpZiAoa2NbaV0ubmFtZSA9PSBOVUxMKSB7Ci0JCQlrZnJlZShzZSk7CisJ
-CWlmIChrY1tpXS5uYW1lID09IE5VTEwpCiAJCQlnb3RvIGVycl9zZTsKLQkJfQogCQlrY1tpXS5w
-cml2YXRlX3ZhbHVlID0gKGxvbmcpc2U7CiAJCWtjW2ldLmlmYWNlID0gU05EUlZfQ1RMX0VMRU1f
-SUZBQ0VfTUlYRVI7CiAJCWtjW2ldLmFjY2VzcyA9IGVjLT5oZHIuYWNjZXNzOwpAQCAtMTQ4Miw0
-NCArMTQ3OSw0MyBAQCBzdGF0aWMgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgKnNvY190cGxnX2Rh
-cG1fd2lkZ2V0X2RlbnVtX2NyZWF0ZSgKIAlmb3IgKDsgaSA+PSAwOyBpLS0pIHsKIAkJLyogZnJl
-ZSB2YWx1ZXMgYW5kIHRleHRzICovCiAJCXNlID0gKHN0cnVjdCBzb2NfZW51bSAqKWtjW2ldLnBy
-aXZhdGVfdmFsdWU7Ci0JCWlmICghc2UpCi0JCQljb250aW51ZTsKIAotCQlzb2NfdHBsZ19kZW51
-bV9yZW1vdmVfdmFsdWVzKHNlKTsKLQkJc29jX3RwbGdfZGVudW1fcmVtb3ZlX3RleHRzKHNlKTsK
-KwkJaWYgKHNlKSB7CisJCQlzb2NfdHBsZ19kZW51bV9yZW1vdmVfdmFsdWVzKHNlKTsKKwkJCXNv
-Y190cGxnX2RlbnVtX3JlbW92ZV90ZXh0cyhzZSk7CisJCX0KIAogCQlrZnJlZShzZSk7CiAJCWtm
-cmVlKGtjW2ldLm5hbWUpOwogCX0KLWVycjoKIAlrZnJlZShrYyk7CiAKIAlyZXR1cm4gTlVMTDsK
-IH0KIAogc3RhdGljIHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3ICpzb2NfdHBsZ19kYXBtX3dpZGdl
-dF9kYnl0ZXNfY3JlYXRlKAotCXN0cnVjdCBzb2NfdHBsZyAqdHBsZywgaW50IGNvdW50KQorCXN0
-cnVjdCBzb2NfdHBsZyAqdHBsZywgaW50IG51bV9rY29udHJvbHMpCiB7CiAJc3RydWN0IHNuZF9z
-b2NfdHBsZ19ieXRlc19jb250cm9sICpiZTsKLQlzdHJ1Y3Qgc29jX2J5dGVzX2V4dCAgKnNiZTsK
-KwlzdHJ1Y3Qgc29jX2J5dGVzX2V4dCAqc2JlOwogCXN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3ICpr
-YzsKIAlpbnQgaSwgZXJyOwogCi0Ja2MgPSBrY2FsbG9jKGNvdW50LCBzaXplb2YoKmtjKSwgR0ZQ
-X0tFUk5FTCk7CisJa2MgPSBrY2FsbG9jKG51bV9rY29udHJvbHMsIHNpemVvZigqa2MpLCBHRlBf
-S0VSTkVMKTsKIAlpZiAoIWtjKQogCQlyZXR1cm4gTlVMTDsKIAotCWZvciAoaSA9IDA7IGkgPCBj
-b3VudDsgaSsrKSB7CisJZm9yIChpID0gMDsgaSA8IG51bV9rY29udHJvbHM7IGkrKykgewogCQli
-ZSA9IChzdHJ1Y3Qgc25kX3NvY190cGxnX2J5dGVzX2NvbnRyb2wgKil0cGxnLT5wb3M7CiAKIAkJ
-LyogdmFsaWRhdGUga2NvbnRyb2wgKi8KIAkJaWYgKHN0cm5sZW4oYmUtPmhkci5uYW1lLCBTTkRS
-Vl9DVExfRUxFTV9JRF9OQU1FX01BWExFTikgPT0KIAkJCVNORFJWX0NUTF9FTEVNX0lEX05BTUVf
-TUFYTEVOKQotCQkJZ290byBlcnI7CisJCQlnb3RvIGVycl9zYmU7CiAKIAkJc2JlID0ga3phbGxv
-YyhzaXplb2YoKnNiZSksIEdGUF9LRVJORUwpOwogCQlpZiAoc2JlID09IE5VTEwpCi0JCQlnb3Rv
-IGVycjsKKwkJCWdvdG8gZXJyX3NiZTsKIAogCQl0cGxnLT5wb3MgKz0gKHNpemVvZihzdHJ1Y3Qg
-c25kX3NvY190cGxnX2J5dGVzX2NvbnRyb2wpICsKIAkJCSAgICAgIGxlMzJfdG9fY3B1KGJlLT5w
-cml2LnNpemUpKTsKQEAgLTE1MjksMTAgKzE1MjUsOCBAQCBzdGF0aWMgc3RydWN0IHNuZF9rY29u
-dHJvbF9uZXcgKnNvY190cGxnX2RhcG1fd2lkZ2V0X2RieXRlc19jcmVhdGUoCiAJCQliZS0+aGRy
-Lm5hbWUsIGJlLT5oZHIuYWNjZXNzKTsKIAogCQlrY1tpXS5uYW1lID0ga3N0cmR1cChiZS0+aGRy
-Lm5hbWUsIEdGUF9LRVJORUwpOwotCQlpZiAoa2NbaV0ubmFtZSA9PSBOVUxMKSB7Ci0JCQlrZnJl
-ZShzYmUpOwotCQkJZ290byBlcnI7Ci0JCX0KKwkJaWYgKGtjW2ldLm5hbWUgPT0gTlVMTCkKKwkJ
-CWdvdG8gZXJyX3NiZTsKIAkJa2NbaV0ucHJpdmF0ZV92YWx1ZSA9IChsb25nKXNiZTsKIAkJa2Nb
-aV0uaWZhY2UgPSBTTkRSVl9DVExfRUxFTV9JRkFDRV9NSVhFUjsKIAkJa2NbaV0uYWNjZXNzID0g
-YmUtPmhkci5hY2Nlc3M7CkBAIC0xNTQ0LDggKzE1MzgsNyBAQCBzdGF0aWMgc3RydWN0IHNuZF9r
-Y29udHJvbF9uZXcgKnNvY190cGxnX2RhcG1fd2lkZ2V0X2RieXRlc19jcmVhdGUoCiAJCWVyciA9
-IHNvY190cGxnX2tjb250cm9sX2JpbmRfaW8oJmJlLT5oZHIsICZrY1tpXSwgdHBsZyk7CiAJCWlm
-IChlcnIpIHsKIAkJCXNvY19jb250cm9sX2Vycih0cGxnLCAmYmUtPmhkciwgYmUtPmhkci5uYW1l
-KTsKLQkJCWtmcmVlKHNiZSk7Ci0JCQljb250aW51ZTsKKwkJCWdvdG8gZXJyX3NiZTsKIAkJfQog
-CiAJCS8qIHBhc3MgY29udHJvbCB0byBkcml2ZXIgZm9yIG9wdGlvbmFsIGZ1cnRoZXIgaW5pdCAq
-LwpAQCAtMTU1NCwyMCArMTU0NywyMCBAQCBzdGF0aWMgc3RydWN0IHNuZF9rY29udHJvbF9uZXcg
-KnNvY190cGxnX2RhcG1fd2lkZ2V0X2RieXRlc19jcmVhdGUoCiAJCWlmIChlcnIgPCAwKSB7CiAJ
-CQlkZXZfZXJyKHRwbGctPmRldiwgIkFTb0M6IGZhaWxlZCB0byBpbml0ICVzXG4iLAogCQkJCWJl
-LT5oZHIubmFtZSk7Ci0JCQlrZnJlZShzYmUpOwotCQkJY29udGludWU7CisJCQlnb3RvIGVycl9z
-YmU7CiAJCX0KIAl9CiAKIAlyZXR1cm4ga2M7CiAKLWVycjoKLQlmb3IgKC0taTsgaSA+PSAwOyBp
-LS0pIHsKLQkJa2ZyZWUoKHZvaWQgKilrY1tpXS5wcml2YXRlX3ZhbHVlKTsKK2Vycl9zYmU6CisJ
-Zm9yICg7IGkgPj0gMDsgaS0tKSB7CisJCXNiZSA9IChzdHJ1Y3Qgc29jX2J5dGVzX2V4dCAqKWtj
-W2ldLnByaXZhdGVfdmFsdWU7CisJCWtmcmVlKHNiZSk7CiAJCWtmcmVlKGtjW2ldLm5hbWUpOwog
-CX0KLQogCWtmcmVlKGtjKTsKKwogCXJldHVybiBOVUxMOwogfQogCi0tIAoyLjE3LjEKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFp
-bGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxz
-YS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Compile-testing without PCI just causes warnings:
+
+sound/soc/sof/sof-pci-dev.c:330:13: error: 'sof_pci_remove' defined but not used [-Werror=unused-function]
+ static void sof_pci_remove(struct pci_dev *pci)
+             ^~~~~~~~~~~~~~
+sound/soc/sof/sof-pci-dev.c:230:12: error: 'sof_pci_probe' defined but not used [-Werror=unused-function]
+ static int sof_pci_probe(struct pci_dev *pci,
+            ^~~~~~~~~~~~~
+
+I tried to fix this in a way that would still allow compile
+tests, but it got too ugly, so this just reverts the patch
+that allowed it in the first place.
+
+Most architectures do allow enabling PCI, so the value of the
+COMPILE_TEST alternative was not very high to start with.
+
+Fixes: e13ef82a9ab8 ("ASoC: SOF: add COMPILE_TEST for PCI options")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/sof/Kconfig       |  2 +-
+ sound/soc/sof/intel/hda.c   | 13 ++-----------
+ sound/soc/sof/sof-pci-dev.c |  4 ----
+ 3 files changed, 3 insertions(+), 16 deletions(-)
+
+diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
+index 41f79cdcbf47..fb01f0ca6027 100644
+--- a/sound/soc/sof/Kconfig
++++ b/sound/soc/sof/Kconfig
+@@ -11,7 +11,7 @@ if SND_SOC_SOF_TOPLEVEL
+ 
+ config SND_SOC_SOF_PCI
+ 	tristate "SOF PCI enumeration support"
+-	depends on PCI || COMPILE_TEST
++	depends on PCI
+ 	select SND_SOC_SOF
+ 	select SND_SOC_ACPI if ACPI
+ 	select SND_SOC_SOF_OPTIONS
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 140b1424f291..51c1c1787de7 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -533,9 +533,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	 * TODO: support interrupt mode selection with kernel parameter
+ 	 *       support msi multiple vectors
+ 	 */
+-#if IS_ENABLED(CONFIG_PCI)
+ 	ret = pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI);
+-#endif
+ 	if (ret < 0) {
+ 		dev_info(sdev->dev, "use legacy interrupt mode\n");
+ 		/*
+@@ -547,9 +545,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 		sdev->msi_enabled = 0;
+ 	} else {
+ 		dev_info(sdev->dev, "use msi interrupt mode\n");
+-#if IS_ENABLED(CONFIG_PCI)
+ 		hdev->irq = pci_irq_vector(pci, 0);
+-#endif
+ 		/* ipc irq number is the same of hda irq */
+ 		sdev->ipc_irq = hdev->irq;
+ 		sdev->msi_enabled = 1;
+@@ -606,10 +602,8 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ free_hda_irq:
+ 	free_irq(hdev->irq, bus);
+ free_irq_vector:
+-#if IS_ENABLED(CONFIG_PCI)
+ 	if (sdev->msi_enabled)
+ 		pci_free_irq_vectors(pci);
+-#endif
+ free_streams:
+ 	hda_dsp_stream_free(sdev);
+ /* dsp_unmap: not currently used */
+@@ -624,6 +618,7 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ {
+ 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
++	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	const struct sof_intel_dsp_desc *chip = hda->desc;
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+@@ -652,12 +647,8 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ 
+ 	free_irq(sdev->ipc_irq, sdev);
+ 	free_irq(hda->irq, bus);
+-#if IS_ENABLED(CONFIG_PCI)
+-	if (sdev->msi_enabled) {
+-		struct pci_dev *pci = to_pci_dev(sdev->dev);
++	if (sdev->msi_enabled)
+ 		pci_free_irq_vectors(pci);
+-	}
+-#endif
+ 
+ 	hda_dsp_stream_free(sdev);
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index ab58d4f9119f..e2b19782f01a 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -251,11 +251,9 @@ static int sof_pci_probe(struct pci_dev *pci,
+ 	if (!sof_pdata)
+ 		return -ENOMEM;
+ 
+-#if IS_ENABLED(CONFIG_PCI)
+ 	ret = pcim_enable_device(pci);
+ 	if (ret < 0)
+ 		return ret;
+-#endif
+ 
+ 	ret = pci_request_regions(pci, "Audio DSP");
+ 	if (ret < 0)
+@@ -388,7 +386,6 @@ static const struct pci_device_id sof_pci_ids[] = {
+ };
+ MODULE_DEVICE_TABLE(pci, sof_pci_ids);
+ 
+-#if IS_ENABLED(CONFIG_PCI)
+ /* pci_driver definition */
+ static struct pci_driver snd_sof_pci_driver = {
+ 	.name = "sof-audio-pci",
+@@ -400,6 +397,5 @@ static struct pci_driver snd_sof_pci_driver = {
+ 	},
+ };
+ module_pci_driver(snd_sof_pci_driver);
+-#endif
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
+-- 
+2.20.0
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

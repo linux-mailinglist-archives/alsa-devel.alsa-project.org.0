@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2B6948760
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:35:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45F4D48780
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:39:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9396117A8;
-	Mon, 17 Jun 2019 17:34:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9396117A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD14517B0;
+	Mon, 17 Jun 2019 17:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD14517B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560785726;
-	bh=n6pPfg25Pw1q553+/uACY7X9cRx8cVk/eNFG1ZoSqok=;
+	s=default; t=1560785963;
+	bh=hm+t4dlThGKWKBiLhwHito0HLyb+6c4ZvPhrF/1X3fc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=aXqxmL7HiiRog6Il+nrfWDW3aoqHYJWnR37FLS2P61uXI0QPr0InK7l3DI/kXdfq9
-	 lXcYghm+fw61VvEtCX6ICQybeVrbii40nMZZXTLJiEissssTPEAwq4DUPvaehxqHMG
-	 xVUqd6Rd3W12VYCZznFw7GeLfWE6rjVuGWnEJtAc=
+	b=nLb1T+dwa97P2bUNkZ4unwNOcMF7D9w4IlbxHWgSoi17OxETGRRIAgxGknV1vTCVk
+	 6q9mm+/GCeCsAuy5p+AHw4lIjNZBZKLV/GIc22oiIj4NfUtpny7snNbkM7Ou38b3Ly
+	 tF5wV7l6GWeMDOabYNOWbOUB6t3TpHsgEt31qgrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9785F8977B;
-	Mon, 17 Jun 2019 17:24:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACD81F89794;
+	Mon, 17 Jun 2019 17:25:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5C0EF89737; Mon, 17 Jun 2019 17:24:35 +0200 (CEST)
+ id 55A9BF8973F; Mon, 17 Jun 2019 17:24:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54D92F89717
- for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54D92F89717
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42695F8973C
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42695F8973C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="TqIrw+I9"
+ header.b="ZIml7VLW"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=1MsCQ2hQ7izF7FO5bVAzO/2S9WbWG02IipvTL6MKXjM=; b=TqIrw+I9j8kC
- 2pgfhQu0y+yV0lUr/s9CoQkEkUbZ8Id/m8i0LooUT7mUoneyERTrtxJfM/x+KQ2BeSaTTZSJ2U6CM
- S4ficvcW6n2zlRllvw4OWOmV7tUHkJCYUIucc18q2DNGdcTL99999s4TGqPx+/sbz0Sh3tyPRGWCD
- 370UA=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=8OSDSC7hIKFHbCYXO3vI5GRzTAuOlTZpxyRksd6Ci0g=; b=ZIml7VLWLy3n
+ jiWffqSDavji1K4jdjqWO5UzHAkefQc7/xHRUGzfZbxtCS/lcHxbmE8+mti0uyrBVTEhh9qMhv1rb
+ YhjP19Em+9rmhYMzFzAItWLfZBv+MZ3d3TXDOAV4fSQMZsYQJBrgGQjQ9Tw7Qmb1VShRXEKX6B+Bz
+ CdQow=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hctUe-0001yQ-T9; Mon, 17 Jun 2019 15:24:24 +0000
+ id 1hctUh-0001ym-Ul; Mon, 17 Jun 2019 15:24:28 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 5C143440046; Mon, 17 Jun 2019 16:24:24 +0100 (BST)
+ id 7EDFA440046; Mon, 17 Jun 2019 16:24:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20190612172347.22338-7-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190612172347.22338-5-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190617152424.5C143440046@finisterre.sirena.org.uk>
-Date: Mon, 17 Jun 2019 16:24:24 +0100 (BST)
+Message-Id: <20190617152427.7EDFA440046@finisterre.sirena.org.uk>
+Date: Mon, 17 Jun 2019 16:24:27 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: release link DMA for
-	paused streams during suspend" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: assign link DMA
+	channel at run-time" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +88,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: release link DMA for paused streams during suspend
+   ASoC: SOF: Intel: hda: assign link DMA channel at run-time
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,181 +113,526 @@ to this mail.
 Thanks,
 Mark
 
-From 7077a07a72d38a78040873bbc13a77d1e45f8aa0 Mon Sep 17 00:00:00 2001
+From bdf4ad3fd01f5dc53c5d6d3b17afc98cd76d8988 Mon Sep 17 00:00:00 2001
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date: Wed, 12 Jun 2019 12:23:38 -0500
-Subject: [PATCH] ASoC: SOF: Intel: hda: release link DMA for paused streams
- during suspend
+Date: Wed, 12 Jun 2019 12:23:36 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: assign link DMA channel at run-time
 
-Paused streams do not get suspended when the system enters S3.
-So, clear and release link DMA channel for such streams in the
-hda_dsp_set_hw_params_upon_resume() callback. Also, invalidate
-the link DMA channel in the DAI config before restoring the
-dai config upon resume. Also, modify the signature for the
-set_hw_params_upon_resume() op to return an int.
+The recommended HDA HW programming sequence for setting
+the DMA format requires that the link DMA and host DMA
+channels be coupled before setting the format. This
+change means that host DMA or link DMA channels be
+reserved even if only one is used.
+
+Statically assigned link DMA channels would mean that
+all the corresponding host DMA channels will need to be
+reserved, leaving only a few channels available at run-time.
+So, the suggestion here is to switch to dynamically assigning
+both host DMA channels and link DMA channels are run-time.
+
+The host DMA channel is assigned when the pcm
+is opened as before. While choosing the link DMA channel,
+if the host DMA channel corresponding to the link DMA channel
+is already taken, the proposed method checks to make
+sure that the BE is connected to the FE that has been assigned
+this host DMA channel. Once the link DMA channel is assigned,
+an IPC is sent to the DSP to set the link DMA channel.
+
+The link DMA channel is freed during hw_free() and also in the
+SUSPEND trigger callback. It will be re-assigned when hw_params
+are set upon resume.
 
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-dsp.c | 29 ++++++++++++++++++++++++++++-
- sound/soc/sof/intel/hda.h     |  2 +-
- sound/soc/sof/ops.h           |  5 +++--
- sound/soc/sof/pm.c            | 24 ++++++++++++++++++++----
- sound/soc/sof/sof-priv.h      |  2 +-
- 5 files changed, 53 insertions(+), 9 deletions(-)
+ sound/soc/sof/intel/hda-dai.c | 284 ++++++++++++++++++++++------------
+ sound/soc/sof/sof-priv.h      |   2 +
+ sound/soc/sof/topology.c      |  51 +-----
+ 3 files changed, 189 insertions(+), 148 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 5b73115a0b78..c6eea3079ab7 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -454,18 +454,45 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, int state)
- 	return 0;
- }
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index e1decf25aeac..c270fd7a0878 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -30,62 +30,84 @@ struct hda_pipe_params {
+ };
  
--void hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
-+int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
+ /*
+- * Unlike GP dma, there is a set of stream registers in hda controller
+- * to control the link dma channels. Each register controls one link
+- * dma channel and the relation is fixed. To make sure FW uses correct
+- * link dma channels, host allocates stream registers and sends the
+- * corresponding link dma channels to FW to allocate link dma channel
+- *
+- * FIXME: this API is abused in the sense that tx_num and rx_num are
+- * passed as arguments, not returned. We need to find a better way to
+- * retrieve the stream tag allocated for the link DMA
++ * This function checks if the host dma channel corresponding
++ * to the link DMA stream_tag argument is assigned to one
++ * of the FEs connected to the BE DAI.
+  */
+-static int hda_link_dma_get_channels(struct snd_soc_dai *dai,
+-				     unsigned int *tx_num,
+-				     unsigned int *tx_slot,
+-				     unsigned int *rx_num,
+-				     unsigned int *rx_slot)
++static bool hda_check_fes(struct snd_soc_pcm_runtime *rtd,
++			  int dir, int stream_tag)
  {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	struct sof_intel_hda_stream *hda_stream;
- 	struct hdac_ext_stream *stream;
- 	struct hdac_stream *s;
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+	struct snd_soc_pcm_runtime *rtd;
-+	struct hdac_ext_link *link;
-+	const char *name;
-+	int stream_tag;
-+#endif
+-	struct hdac_bus *bus;
+-	struct hdac_ext_stream *stream;
+-	struct snd_pcm_substream substream;
+-	struct snd_sof_dev *sdev =
+-		snd_soc_component_get_drvdata(dai->component);
+-
+-	bus = sof_to_bus(sdev);
+-
+-	memset(&substream, 0, sizeof(substream));
+-	if (*tx_num == 1) {
+-		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
+-		stream = snd_hdac_ext_stream_assign(bus, &substream,
+-						    HDAC_EXT_STREAM_TYPE_LINK);
+-		if (!stream) {
+-			dev_err(bus->dev, "error: failed to find a free hda ext stream for playback");
+-			return -EBUSY;
+-		}
++	struct snd_pcm_substream *fe_substream;
++	struct hdac_stream *fe_hstream;
++	struct snd_soc_dpcm *dpcm;
 +
- 	/* set internal flag for BE */
- 	list_for_each_entry(s, &bus->stream_list, list) {
- 		stream = stream_to_hdac_ext_stream(s);
- 		hda_stream = container_of(stream, struct sof_intel_hda_stream,
- 					  hda_stream);
- 		hda_stream->hw_params_upon_resume = 1;
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+		/*
-+		 * clear and release stream. This should already be taken care
-+		 * for running streams when the SUSPEND trigger is called.
-+		 * But paused streams do not get suspended, so this needs to be
-+		 * done explicitly during suspend.
-+		 */
-+		if (stream->link_substream) {
-+			rtd = snd_pcm_substream_chip(stream->link_substream);
-+			name = rtd->codec_dai->component->name;
-+			link = snd_hdac_ext_bus_get_link(bus, name);
-+			if (!link)
-+				return -EINVAL;
-+			stream_tag = hdac_stream(stream)->stream_tag;
-+			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
-+			snd_hdac_ext_stream_release(stream,
-+						    HDAC_EXT_STREAM_TYPE_LINK);
-+		}
-+#endif
++	for_each_dpcm_fe(rtd, dir, dpcm) {
++		fe_substream = snd_soc_dpcm_get_substream(dpcm->fe, dir);
++		fe_hstream = fe_substream->runtime->private_data;
++		if (fe_hstream->stream_tag == stream_tag)
++			return true;
++	}
+ 
+-		snd_soc_dai_set_dma_data(dai, &substream, stream);
+-		*tx_slot = hdac_stream(stream)->stream_tag - 1;
++	return false;
++}
++
++static struct hdac_ext_stream *
++	hda_link_stream_assign(struct hdac_bus *bus,
++			       struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct sof_intel_hda_stream *hda_stream;
++	struct hdac_ext_stream *res = NULL;
++	struct hdac_stream *stream = NULL;
+ 
+-		dev_dbg(bus->dev, "link dma channel %d for playback", *tx_slot);
++	int stream_dir = substream->stream;
++
++	if (!bus->ppcap) {
++		dev_err(bus->dev, "stream type not supported\n");
++		return NULL;
  	}
-+	return 0;
- }
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 2862b4b3b07c..327621ef5cf3 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -451,7 +451,7 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, int state);
- int hda_dsp_resume(struct snd_sof_dev *sdev);
- int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev, int state);
- int hda_dsp_runtime_resume(struct snd_sof_dev *sdev);
--void hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev);
-+int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev);
- void hda_dsp_dump_skl(struct snd_sof_dev *sdev, u32 flags);
- void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags);
- void hda_ipc_dump(struct snd_sof_dev *sdev);
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index 80fc3b374c2b..a23297353750 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -134,10 +134,11 @@ static inline int snd_sof_dsp_runtime_suspend(struct snd_sof_dev *sdev,
- 	return 0;
- }
  
--static inline void snd_sof_dsp_hw_params_upon_resume(struct snd_sof_dev *sdev)
-+static inline int snd_sof_dsp_hw_params_upon_resume(struct snd_sof_dev *sdev)
- {
- 	if (sof_ops(sdev)->set_hw_params_upon_resume)
--		sof_ops(sdev)->set_hw_params_upon_resume(sdev);
-+		return sof_ops(sdev)->set_hw_params_upon_resume(sdev);
-+	return 0;
- }
- 
- static inline int snd_sof_dsp_set_clk(struct snd_sof_dev *sdev, u32 freq)
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index b7843f02ef67..8eeb3a1029f2 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -153,6 +153,15 @@ static int sof_restore_pipelines(struct snd_sof_dev *sdev)
- 			continue;
+-	if (*rx_num == 1) {
+-		substream.stream = SNDRV_PCM_STREAM_CAPTURE;
+-		stream = snd_hdac_ext_stream_assign(bus, &substream,
+-						    HDAC_EXT_STREAM_TYPE_LINK);
+-		if (!stream) {
+-			dev_err(bus->dev, "error: failed to find a free hda ext stream for capture");
+-			return -EBUSY;
++	list_for_each_entry(stream, &bus->stream_list, list) {
++		struct hdac_ext_stream *hstream =
++			stream_to_hdac_ext_stream(stream);
++		if (stream->direction != substream->stream)
++			continue;
++
++		hda_stream = hstream_to_sof_hda_stream(hstream);
++
++		/* check if available */
++		if (!hstream->link_locked) {
++			if (stream->opened) {
++				/*
++				 * check if the stream tag matches the stream
++				 * tag of one of the connected FEs
++				 */
++				if (hda_check_fes(rtd, stream_dir,
++						  stream->stream_tag)) {
++					res = hstream;
++					break;
++				}
++			} else {
++				res = hstream;
++				break;
++			}
  		}
++	}
  
+-		snd_soc_dai_set_dma_data(dai, &substream, stream);
+-		*rx_slot = hdac_stream(stream)->stream_tag - 1;
+-
+-		dev_dbg(bus->dev, "link dma channel %d for capture", *rx_slot);
++	if (res) {
 +		/*
-+		 * The link DMA channel would be invalidated for running
-+		 * streams but not for streams that were in the PAUSED
-+		 * state during suspend. So invalidate it here before setting
-+		 * the dai config in the DSP.
++		 * Decouple host and link DMA. The decoupled flag
++		 * is updated in snd_hdac_ext_stream_decouple().
 +		 */
-+		if (config->type == SOF_DAI_INTEL_HDA)
-+			config->hda.link_dma_ch = DMA_CHAN_INVALID;
-+
- 		ret = sof_ipc_tx_message(sdev->ipc,
- 					 config->hdr.cmd, config,
- 					 config->hdr.size,
-@@ -204,7 +213,7 @@ static int sof_send_pm_ipc(struct snd_sof_dev *sdev, int cmd)
- 				 sizeof(pm_ctx), &reply, sizeof(reply));
- }
- 
--static void sof_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
-+static int sof_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
- {
- 	struct snd_pcm_substream *substream;
- 	struct snd_sof_pcm *spcm;
-@@ -229,7 +238,7 @@ static void sof_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
++		if (!res->decoupled)
++			snd_hdac_ext_stream_decouple(bus, res, true);
++		spin_lock_irq(&bus->reg_lock);
++		res->link_locked = 1;
++		res->link_substream = substream;
++		spin_unlock_irq(&bus->reg_lock);
  	}
  
- 	/* set internal flag for BE */
--	snd_sof_dsp_hw_params_upon_resume(sdev);
-+	return snd_sof_dsp_hw_params_upon_resume(sdev);
+-	return 0;
++	return res;
  }
  
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_ENABLE_DEBUGFS_CACHE)
-@@ -333,8 +342,15 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 	snd_sof_release_trace(sdev);
+ static int hda_link_dma_params(struct hdac_ext_stream *stream,
+@@ -122,6 +144,51 @@ static int hda_link_dma_params(struct hdac_ext_stream *stream,
+ 	return 0;
+ }
  
- 	/* set restore_stream for all streams during system suspend */
--	if (!runtime_suspend)
--		sof_set_hw_params_upon_resume(sdev);
-+	if (!runtime_suspend) {
-+		ret = sof_set_hw_params_upon_resume(sdev);
-+		if (ret < 0) {
-+			dev_err(sdev->dev,
-+				"error: setting hw_params flag during suspend %d\n",
-+				ret);
++/* Send DAI_CONFIG IPC to the DAI that matches the dai_name and direction */
++static int hda_link_config_ipc(struct sof_intel_hda_stream *hda_stream,
++			       const char *dai_name, int channel, int dir)
++{
++	struct sof_ipc_dai_config *config;
++	struct snd_sof_dai *sof_dai;
++	struct sof_ipc_reply reply;
++	int ret = 0;
++
++	list_for_each_entry(sof_dai, &hda_stream->sdev->dai_list, list) {
++		if (!sof_dai->cpu_dai_name)
++			continue;
++
++		if (!strcmp(dai_name, sof_dai->cpu_dai_name) &&
++		    dir == sof_dai->comp_dai.direction) {
++			config = sof_dai->dai_config;
++
++			if (!config) {
++				dev_err(hda_stream->sdev->dev,
++					"error: no config for DAI %s\n",
++					sof_dai->name);
++				return -EINVAL;
++			}
++
++			/* update config with stream tag */
++			config->hda.link_dma_ch = channel;
++
++			/* send IPC */
++			ret = sof_ipc_tx_message(hda_stream->sdev->ipc,
++						 config->hdr.cmd,
++						 config,
++						 config->hdr.size,
++						 &reply, sizeof(reply));
++
++			if (ret < 0)
++				dev_err(hda_stream->sdev->dev,
++					"error: failed to set dai config for %s\n",
++					sof_dai->name);
 +			return ret;
 +		}
 +	}
++
++	return -EINVAL;
++}
++
+ static int hda_link_hw_params(struct snd_pcm_substream *substream,
+ 			      struct snd_pcm_hw_params *params,
+ 			      struct snd_soc_dai *dai)
+@@ -135,20 +202,31 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
+ 	struct hda_pipe_params p_params = {0};
+ 	struct hdac_ext_link *link;
+ 	int stream_tag;
++	int ret;
  
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_ENABLE_DEBUGFS_CACHE)
- 	/* cache debugfs contents during runtime suspend */
+-	link_dev = snd_soc_dai_get_dma_data(dai, substream);
++	link_dev = hda_link_stream_assign(bus, substream);
++	if (!link_dev)
++		return -EBUSY;
++
++	stream_tag = hdac_stream(link_dev)->stream_tag;
++
++	hda_stream = hstream_to_sof_hda_stream(link_dev);
++
++	/* update the DSP with the new tag */
++	ret = hda_link_config_ipc(hda_stream, dai->name, stream_tag - 1,
++				  substream->stream);
++	if (ret < 0)
++		return ret;
++
++	snd_soc_dai_set_dma_data(dai, substream, (void *)link_dev);
+ 
+-	hda_stream = container_of(link_dev, struct sof_intel_hda_stream,
+-				  hda_stream);
+ 	hda_stream->hw_params_upon_resume = 0;
+ 
+ 	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
+ 	if (!link)
+ 		return -EINVAL;
+ 
+-	stream_tag = hdac_stream(link_dev)->stream_tag;
+-
+-	/* set the stream tag in the codec dai dma params  */
++	/* set the stream tag in the codec dai dma params */
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 		snd_soc_dai_set_tdm_slot(codec_dai, stream_tag, 0, 0, 0);
+ 	else
+@@ -181,8 +259,7 @@ static int hda_link_pcm_prepare(struct snd_pcm_substream *substream,
+ 	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
+ 	int stream = substream->stream;
+ 
+-	hda_stream = container_of(link_dev, struct sof_intel_hda_stream,
+-				  hda_stream);
++	hda_stream = hstream_to_sof_hda_stream(link_dev);
+ 
+ 	/* setup hw_params again only if resuming from system suspend */
+ 	if (!hda_stream->hw_params_upon_resume)
+@@ -199,8 +276,24 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
+ {
+ 	struct hdac_ext_stream *link_dev =
+ 				snd_soc_dai_get_dma_data(dai, substream);
++	struct sof_intel_hda_stream *hda_stream;
++	struct snd_soc_pcm_runtime *rtd;
++	struct hdac_ext_link *link;
++	struct hdac_stream *hstream;
++	struct hdac_bus *bus;
++	int stream_tag;
+ 	int ret;
+ 
++	hstream = substream->runtime->private_data;
++	bus = hstream->bus;
++	rtd = snd_pcm_substream_chip(substream);
++
++	link = snd_hdac_ext_bus_get_link(bus, rtd->codec_dai->component->name);
++	if (!link)
++		return -EINVAL;
++
++	hda_stream = hstream_to_sof_hda_stream(link_dev);
++
+ 	dev_dbg(dai->dev, "In %s cmd=%d\n", __func__, cmd);
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+@@ -217,8 +310,22 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 		snd_hdac_ext_link_stream_start(link_dev);
+ 		break;
+-	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
++		/*
++		 * clear and release link DMA channel. It will be assigned when
++		 * hw_params is set up again after resume.
++		 */
++		ret = hda_link_config_ipc(hda_stream, dai->name,
++					  DMA_CHAN_INVALID, substream->stream);
++		if (ret < 0)
++			return ret;
++		stream_tag = hdac_stream(link_dev)->stream_tag;
++		snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++		snd_hdac_ext_stream_release(link_dev,
++					    HDAC_EXT_STREAM_TYPE_LINK);
++
++		/* fallthrough */
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 		snd_hdac_ext_link_stream_clear(link_dev);
+ 		break;
+@@ -228,62 +335,38 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-/*
+- * FIXME: This API is also abused since it's used for two purposes.
+- * when the substream argument is NULL this function is used for cleanups
+- * that aren't necessarily required, and called explicitly by handling
+- * ASoC core structures, which is not recommended.
+- * This part will be reworked in follow-up patches.
+- */
+ static int hda_link_hw_free(struct snd_pcm_substream *substream,
+ 			    struct snd_soc_dai *dai)
+ {
+-	const char *name;
+ 	unsigned int stream_tag;
++	struct sof_intel_hda_stream *hda_stream;
+ 	struct hdac_bus *bus;
+ 	struct hdac_ext_link *link;
+ 	struct hdac_stream *hstream;
+-	struct hdac_ext_stream *stream;
+ 	struct snd_soc_pcm_runtime *rtd;
+ 	struct hdac_ext_stream *link_dev;
+-	struct snd_pcm_substream pcm_substream;
+-
+-	memset(&pcm_substream, 0, sizeof(pcm_substream));
+-	if (substream) {
+-		hstream = substream->runtime->private_data;
+-		bus = hstream->bus;
+-		rtd = snd_pcm_substream_chip(substream);
+-		link_dev = snd_soc_dai_get_dma_data(dai, substream);
+-		snd_hdac_ext_stream_decouple(bus, link_dev, false);
+-		name = rtd->codec_dai->component->name;
+-		link = snd_hdac_ext_bus_get_link(bus, name);
+-		if (!link)
+-			return -EINVAL;
+-
+-		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-			stream_tag = hdac_stream(link_dev)->stream_tag;
+-			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
+-		}
++	int ret;
+ 
+-		link_dev->link_prepared = 0;
+-	} else {
+-		/* release all hda streams when dai link is unloaded */
+-		pcm_substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
+-		stream = snd_soc_dai_get_dma_data(dai, &pcm_substream);
+-		if (stream) {
+-			snd_soc_dai_set_dma_data(dai, &pcm_substream, NULL);
+-			snd_hdac_ext_stream_release(stream,
+-						    HDAC_EXT_STREAM_TYPE_LINK);
+-		}
++	hstream = substream->runtime->private_data;
++	bus = hstream->bus;
++	rtd = snd_pcm_substream_chip(substream);
++	link_dev = snd_soc_dai_get_dma_data(dai, substream);
++	hda_stream = hstream_to_sof_hda_stream(link_dev);
+ 
+-		pcm_substream.stream = SNDRV_PCM_STREAM_CAPTURE;
+-		stream = snd_soc_dai_get_dma_data(dai, &pcm_substream);
+-		if (stream) {
+-			snd_soc_dai_set_dma_data(dai, &pcm_substream, NULL);
+-			snd_hdac_ext_stream_release(stream,
+-						    HDAC_EXT_STREAM_TYPE_LINK);
+-		}
+-	}
++	/* free the link DMA channel in the FW */
++	ret = hda_link_config_ipc(hda_stream, dai->name, DMA_CHAN_INVALID,
++				  substream->stream);
++	if (ret < 0)
++		return ret;
++
++	link = snd_hdac_ext_bus_get_link(bus, rtd->codec_dai->component->name);
++	if (!link)
++		return -EINVAL;
++
++	stream_tag = hdac_stream(link_dev)->stream_tag;
++	snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++	snd_hdac_ext_stream_release(link_dev, HDAC_EXT_STREAM_TYPE_LINK);
++	link_dev->link_prepared = 0;
+ 
+ 	return 0;
+ }
+@@ -293,7 +376,6 @@ static const struct snd_soc_dai_ops hda_link_dai_ops = {
+ 	.hw_free = hda_link_hw_free,
+ 	.trigger = hda_link_pcm_trigger,
+ 	.prepare = hda_link_pcm_prepare,
+-	.get_channel_map = hda_link_dma_get_channels,
+ };
+ #endif
+ 
 diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index b80d93e5df2f..cf1b047f8cb6 100644
+index 8c3ac149bbb9..b80d93e5df2f 100644
 --- a/sound/soc/sof/sof-priv.h
 +++ b/sound/soc/sof/sof-priv.h
-@@ -172,7 +172,7 @@ struct snd_sof_dsp_ops {
- 	int (*runtime_suspend)(struct snd_sof_dev *sof_dev,
- 			       int state); /* optional */
- 	int (*runtime_resume)(struct snd_sof_dev *sof_dev); /* optional */
--	void (*set_hw_params_upon_resume)(struct snd_sof_dev *sdev); /* optional */
-+	int (*set_hw_params_upon_resume)(struct snd_sof_dev *sdev); /* optional */
+@@ -60,6 +60,8 @@
+ 	(IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_ENABLE_DEBUGFS_CACHE) || \
+ 	 IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST))
  
- 	/* DSP clocking */
- 	int (*set_clk)(struct snd_sof_dev *sof_dev, u32 freq); /* optional */
++#define DMA_CHAN_INVALID	0xFFFFFFFF
++
+ struct snd_sof_dev;
+ struct snd_sof_ipc_msg;
+ struct snd_sof_ipc;
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 178256e338b1..432ae343f960 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -2591,9 +2591,7 @@ static int sof_link_dmic_load(struct snd_soc_component *scomp, int index,
+  */
+ static int sof_link_hda_process(struct snd_sof_dev *sdev,
+ 				struct snd_soc_dai_link *link,
+-				struct sof_ipc_dai_config *config,
+-				int tx_slot,
+-				int rx_slot)
++				struct sof_ipc_dai_config *config)
+ {
+ 	struct sof_ipc_reply reply;
+ 	u32 size = sizeof(*config);
+@@ -2606,22 +2604,11 @@ static int sof_link_hda_process(struct snd_sof_dev *sdev,
+ 			continue;
+ 
+ 		if (strcmp(link->name, sof_dai->name) == 0) {
+-			if (sof_dai->comp_dai.direction ==
+-			    SNDRV_PCM_STREAM_PLAYBACK) {
+-				if (!link->dpcm_playback)
+-					return -EINVAL;
+-
+-				config->hda.link_dma_ch = tx_slot;
+-			} else {
+-				if (!link->dpcm_capture)
+-					return -EINVAL;
+-
+-				config->hda.link_dma_ch = rx_slot;
+-			}
+-
+ 			config->dai_index = sof_dai->comp_dai.dai_index;
+ 			found = 1;
+ 
++			config->hda.link_dma_ch = DMA_CHAN_INVALID;
++
+ 			/* save config in dai component */
+ 			sof_dai->dai_config = kmemdup(config, size, GFP_KERNEL);
+ 			if (!sof_dai->dai_config)
+@@ -2667,10 +2654,6 @@ static int sof_link_hda_load(struct snd_soc_component *scomp, int index,
+ 	struct snd_soc_tplg_private *private = &cfg->priv;
+ 	struct snd_soc_dai *dai;
+ 	u32 size = sizeof(*config);
+-	u32 tx_num = 0;
+-	u32 tx_slot = 0;
+-	u32 rx_num = 0;
+-	u32 rx_slot = 0;
+ 	int ret;
+ 
+ 	/* init IPC */
+@@ -2694,22 +2677,7 @@ static int sof_link_hda_load(struct snd_soc_component *scomp, int index,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (link->dpcm_playback)
+-		tx_num = 1;
+-
+-	if (link->dpcm_capture)
+-		rx_num = 1;
+-
+-	ret = snd_soc_dai_get_channel_map(dai, &tx_num, &tx_slot,
+-					  &rx_num, &rx_slot);
+-	if (ret < 0) {
+-		dev_err(sdev->dev, "error: failed to get dma channel for HDA%d\n",
+-			config->dai_index);
+-
+-		return ret;
+-	}
+-
+-	ret = sof_link_hda_process(sdev, link, config, tx_slot, rx_slot);
++	ret = sof_link_hda_process(sdev, link, config);
+ 	if (ret < 0)
+ 		dev_err(sdev->dev, "error: failed to process hda dai link %s",
+ 			link->name);
+@@ -2837,17 +2805,6 @@ static int sof_link_hda_unload(struct snd_sof_dev *sdev,
+ 		return -EINVAL;
+ 	}
+ 
+-	/*
+-	 * FIXME: this call to hw_free is mainly to release the link DMA ID.
+-	 * This is abusing the API and handling SOC internals is not
+-	 * recommended. This part will be reworked.
+-	 */
+-	if (dai->driver->ops->hw_free)
+-		ret = dai->driver->ops->hw_free(NULL, dai);
+-	if (ret < 0)
+-		dev_err(sdev->dev, "error: failed to free hda resource for %s\n",
+-			link->name);
+-
+ 	return ret;
+ }
+ 
 -- 
 2.20.1
 

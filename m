@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1910E4877D
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:38:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11A5148769
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:38:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A7E2517CE;
-	Mon, 17 Jun 2019 17:37:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7E2517CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98D5B17AB;
+	Mon, 17 Jun 2019 17:37:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D5B17AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560785922;
-	bh=2rTIWFWNEHhvCbIh4aOBPLADi4OfsDVoTFsrRYKqu7s=;
+	s=default; t=1560785885;
+	bh=cUB1Z3n4/8WpOfvvpbUEZNGVn6ovRt+wPDSVsbvFwkg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dDJa79LUlrpwX20uUzcQrVffTtFZ52js/qNpsxuAPqYTEMDlWDslbIXpB/bGDKBpk
-	 +eDw1+xi6ExRRKIDfl9SLIn2rnN87jv73nHqLjuEV3A/ArXKVk2qVigHbXzyLDo25A
-	 frSanuB6ClLuZJxL99677tiEothAoysr4G2Tmle0=
+	b=IpJF3UB0bWGe1sxdgOvi6DOaBJNzCCapY10Dvg6yMC3FvHo/L+lt2c0gN2zTcfpMj
+	 8uj4XS3imsI5yzJzSEK2Y/bWyasJbdkun65g4f2HsBBloquzYAI2GiJv8MwLbQLzWq
+	 ZVcz/d6RUo+YudlzPZtpjQ+U6ZqKuh+KuOZGZzDo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40A7DF896F9;
-	Mon, 17 Jun 2019 17:25:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FA3DF8978D;
+	Mon, 17 Jun 2019 17:25:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EAC2F8974C; Mon, 17 Jun 2019 17:24:41 +0200 (CEST)
+ id D0EF3F896DF; Mon, 17 Jun 2019 17:24:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35825F8972F
- for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35825F8972F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 50C33F896DF
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50C33F896DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dMRGx3X8"
+ header.b="k4a61Fsm"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=oVYaaE5x3SpjpnMztAmjYf0dtAejL+FE+nj+QeA2Flw=; b=dMRGx3X8XEeO
- DvGH1kJAUq5Lk8X6tBjSJJAqQ1kD/2LmNtr/Cn4gMccL0EMPYzQiO9X09LyvyzdWiua+DfMlu4MLa
- 3wz/BnFbddMnW45jvbF343lT8h7VdP66BwJyL66Q1iIo+bsUzAbp/R4Z3SsUnhn7KUFYIz5n5JcBi
- Y5h9s=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=CIY51a7RXn+3BakapD28ylMMASdeoR+L+pX2WrJ2130=; b=k4a61FsmCo7X
+ ILeku7cXPaNGUbrKgAyZYzc+VMKe4+0PhcAWqPU9T5jp1sJFUDUvSMaG2xmVaS+xPeUE5GhoohZ2D
+ y+9SMNSF6w41Lqe6BNxtXr25k+eHrHzdBXpgIIZaIK+2J05wUCoxYGCinVgtMT4wY4K2O8WJQ9tat
+ pBxWM=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hctUj-0001z4-Tn; Mon, 17 Jun 2019 15:24:29 +0000
+ id 1hctUk-0001zC-H4; Mon, 17 Jun 2019 15:24:30 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 6281A440046; Mon, 17 Jun 2019 16:24:29 +0100 (BST)
+ id 031FB440046; Mon, 17 Jun 2019 16:24:29 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20190612172347.22338-2-pierre-louis.bossart@linux.intel.com>
+To: Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <20190617110615.2084748-1-arnd@arndb.de>
 X-Patchwork-Hint: ignore
-Message-Id: <20190617152429.6281A440046@finisterre.sirena.org.uk>
+Message-Id: <20190617152430.031FB440046@finisterre.sirena.org.uk>
 Date: Mon, 17 Jun 2019 16:24:29 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: save handle to sdev in
-	sof_intel_hda_stream" to the asoc tree
+Cc: simon.ho@synaptics.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: cx2072x: mark PM function as
+	__maybe_unused" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: save handle to sdev in sof_intel_hda_stream
+   ASoC: cx2072x: mark PM function as __maybe_unused
 
 has been applied to the asoc tree at
 
@@ -113,57 +113,39 @@ to this mail.
 Thanks,
 Mark
 
-From 7623ae793c28cc0928c5d1292542dbb92fc2e9e2 Mon Sep 17 00:00:00 2001
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date: Wed, 12 Jun 2019 12:23:33 -0500
-Subject: [PATCH] ASoC: SOF: Intel: hda: save handle to sdev in
- sof_intel_hda_stream
+From 83ee240aad9147ed5dac5a7c7b4c559d134072e7 Mon Sep 17 00:00:00 2001
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 17 Jun 2019 13:06:15 +0200
+Subject: [PATCH] ASoC: cx2072x: mark PM function as __maybe_unused
 
-Add a snd_sof_dev member to sof_intel_hda_stream. This will be
-used to access the snd_sof_dev during link hw_params callback.
+While the suspend function is already marked __maybe_unused,
+the resume function is not, which leads to a warning when
+CONFIG_PM is disabled:
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+sound/soc/codecs/cx2072x.c:1625:12: error: unused function 'cx2072x_runtime_resume' [-Werror,-Wunused-function]
+
+Mark this one like the other one.
+
+Fixes: a497a4363706 ("ASoC: Add support for Conexant CX2072X CODEC")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-stream.c | 4 ++++
- sound/soc/sof/intel/hda.h        | 1 +
- 2 files changed, 5 insertions(+)
+ sound/soc/codecs/cx2072x.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index c92006f89499..1cd94e7631a8 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -564,6 +564,8 @@ int hda_dsp_stream_init(struct snd_sof_dev *sdev)
- 		if (!hda_stream)
- 			return -ENOMEM;
- 
-+		hda_stream->sdev = sdev;
-+
- 		stream = &hda_stream->hda_stream;
- 
- 		stream->pphc_addr = sdev->bar[HDA_DSP_PP_BAR] +
-@@ -617,6 +619,8 @@ int hda_dsp_stream_init(struct snd_sof_dev *sdev)
- 		if (!hda_stream)
- 			return -ENOMEM;
- 
-+		hda_stream->sdev = sdev;
-+
- 		stream = &hda_stream->hda_stream;
- 
- 		/* we always have DSP support */
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 6c7dee2627d0..502b0a3c2e3c 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -409,6 +409,7 @@ static inline struct hda_bus *sof_to_hbus(struct snd_sof_dev *s)
+diff --git a/sound/soc/codecs/cx2072x.c b/sound/soc/codecs/cx2072x.c
+index f2cb35a50726..1c1ba7bea4d8 100644
+--- a/sound/soc/codecs/cx2072x.c
++++ b/sound/soc/codecs/cx2072x.c
+@@ -1622,7 +1622,7 @@ static int __maybe_unused cx2072x_runtime_suspend(struct device *dev)
+ 	return 0;
  }
  
- struct sof_intel_hda_stream {
-+	struct snd_sof_dev *sdev;
- 	struct hdac_ext_stream hda_stream;
- 	struct sof_intel_stream stream;
- 	int hw_params_upon_resume; /* set up hw_params upon resume */
+-static int cx2072x_runtime_resume(struct device *dev)
++static int __maybe_unused cx2072x_runtime_resume(struct device *dev)
+ {
+ 	struct cx2072x_priv *cx2072x = dev_get_drvdata(dev);
+ 
 -- 
 2.20.1
 

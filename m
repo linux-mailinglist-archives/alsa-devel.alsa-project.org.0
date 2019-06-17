@@ -2,76 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EADDA47F97
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 12:24:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D917F48033
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 13:06:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E55E1723;
-	Mon, 17 Jun 2019 12:23:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E55E1723
+	by alsa0.perex.cz (Postfix) with ESMTPS id 518A31729;
+	Mon, 17 Jun 2019 13:05:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 518A31729
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560767067;
-	bh=eLmtJFlV6/qMoX3ld9VuQW/XaGKDW8od02BZ5wUJ1IM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tJSphjDvdYl/DnXQpQm9bVXRwSA62VINSTmzFwc6tmpfHKWoi+ooBWZooFYS2s1gj
-	 X3E4d+DTp8IPOtM1/OfHXOHm4GeBmS5dh6mW/E6YAzKNNyJ0pZgsO6BH3DE99rUX0Y
-	 4bvyA2f1RbIsGZEl6BVzTKgrhgkndqlyzede+628=
+	s=default; t=1560769580;
+	bh=2FEdqnRsacrhIPbf3NoHpya7mCPGbx4G1gZ0Qddy0rs=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TYrRvfqRhVhxMyUvktHzNsuCeHjnQ6bMx9zwAbrnyAqdsbLUTrOdvI2O45cnTKb5I
+	 mZzerkuCTyprKzFuKHx4NWF/gw/U9Jxz2sgXpcBke2rby7AIFVm8INO9dqOvJty5W8
+	 RAKT3w76C3F1XUybPl7/mQHjBHUhF2V0Y0N3EZGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC396F89693;
-	Mon, 17 Jun 2019 12:22:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44DB2F896C7;
+	Mon, 17 Jun 2019 13:04:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5D96F8075C; Mon, 17 Jun 2019 12:22:39 +0200 (CEST)
+ id 29887F896C7; Mon, 17 Jun 2019 13:04:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C1CFF8075C
- for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 12:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C1CFF8075C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="cffCdzYU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ilfB1GzwpRP4d0btlnGbTN8aieBoCHd9HwCnnniW1fo=; b=cffCdzYUEjI8ujp4cer5t3T/W
- zZuFl42uTTM4vTq1PALuvSV6PVETyg14VDwnOkCHY7iNywWSB4y8iSYKcYq0DVaD10YXEWsM8UCUd
- ttQ4j+yMB21pZwlw/ppF4iCXSWbfADZ5Zbp2hvFgNLMG9qfFHGAowZaw7CdsOeKcMl9BA=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hcomX-0001MH-HV; Mon, 17 Jun 2019 10:22:33 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 00B45440046; Mon, 17 Jun 2019 11:22:32 +0100 (BST)
-Date: Mon, 17 Jun 2019 11:22:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: derek.fang@realtek.com
-Message-ID: <20190617102232.GL5316@sirena.org.uk>
-References: <1560589487-6610-1-git-send-email-derek.fang@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A47D6F89682
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 13:04:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A47D6F89682
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue109 [212.227.15.145]) with ESMTPA (Nemesis) id
+ 1Mj8eB-1iFAr734RJ-00fBNP; Mon, 17 Jun 2019 13:04:24 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Mark Brown <broonie@kernel.org>
+Date: Mon, 17 Jun 2019 13:03:51 +0200
+Message-Id: <20190617110415.2084205-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.20.0
 MIME-Version: 1.0
-In-Reply-To: <1560589487-6610-1-git-send-email-derek.fang@realtek.com>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, lgirdwood@gmail.com, albertchen@realtek.com,
- bard.liao@intel.com, shumingf@realtek.com, flove@realtek.com
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: rt1308: Add RT1308 amplifier
-	driver
+X-Provags-ID: V03:K1:RQUeaFNGGn1EAUOJ+4Zq3U9Xg93dFdoGITN3ZKm3Mt4YbKTsksr
+ /Nb5nKnunoTBlLqFGpZWA9oXu9HPZ4ooTs1PKfIUNNUH5c8OdpM9y5ix03RPi90uP8mhFUV
+ 9sef2XlRxJsu4Em1+4Jl7xTmRcNS727kWov9tH/9ugCaLfPF+pyKE/2opwfYI1/uTAULabq
+ C5OfVG/T7vycW0msxCGig==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:TgeddKwT1bQ=:+0nAmfdfN0DrHy0szFSDxd
+ E97/qsS1VXgSEQ9Kd9UM8LUmS2rDvT8u8ENSePmCM8L5TPoigst9b5PpOt5gQXY4w/6/k2vdi
+ GPlMTAQjWQxxHAqcUyyrFwNr0A7jljiNSZ4XPoTUTSHp4P8mYysAR4i4kVQrTuWSqtpcshFAx
+ frleG1h6TqhiR3kn/x6UQhrQlpJwKeiXqQSjicC5pldL/n3LULCpGxPuwoGnz9UHMLHA8u8vY
+ /K1ftN31dtrN73VQ+S7TsxRcjiD5c1JRn93SdwhuFs0cAF0BS2xmBdzcX+M5Y3QH5t4hau+ug
+ RnKA/CzG9cS1KOVvA/sfahClyagQHFGXk9ZKHark+8g/7E0EJ5lQSsbRlUL1np++MmiwP6Z90
+ eTezWa9VSrMf1PzATR8+/V7X/OmPlwDjJxbSh4hwYKXbhIKWgAsF2Dx0Himn6AUOdBVaAPTkC
+ agTTz1y0ppeyET6Vd5JHfjc9a8SnYJph9o0Y+mLvjyxp6VMvemow0EMxGeIR4C1wdpwI4WC4w
+ 7ADR9bijyRaq4WT/0OLwqdeFQ7M2uVHMqd3e4J9B9q1E5dH3gHnPV09SAmC++ybSYOjA9MIIL
+ tdG8aPKFXJDyEnH9SiUWWzlu1rixOSpRQo8e2fseE6D8GmQVz6CnJJCmJRHnDwE16yfU4dJX7
+ JKGaLRDElTyJ/ehi37iXnQAULGay4vAx+KpY2/tvxZH+wixT05wCB93gM6RfdxNk2/+c3sgdC
+ ikEUF7R9U1+VpjOcGVmdFJ579sUlQGHYws5bFQ==
+Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
+ Arnd Bergmann <arnd@arndb.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Sugar Zhang <sugar.zhang@rock-chips.com>,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH] ASoC: rockchip: pdm: select CONFIG_RATIONAL
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,79 +77,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7047203550953115447=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Without this, we get a link error:
 
---===============7047203550953115447==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="a8i0lXXx49qphuFT"
-Content-Disposition: inline
+sound/soc/rockchip/rockchip_pdm.o: In function `rockchip_pdm_hw_params':
+rockchip_pdm.c:(.text+0x754): undefined reference to `rational_best_approximation'
 
+Fixes: 624e8e00acaf ("ASoC: rockchip: pdm: fixup pdm fractional div")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/rockchip/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
---a8i0lXXx49qphuFT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sat, Jun 15, 2019 at 05:04:47PM +0800, derek.fang@realtek.com wrote:
-
-This looks mostly good, a couple of really small things which should be
-easy to fix:
-
-> +	return devm_snd_soc_register_component(&i2c->dev,
-> +			&soc_component_dev_rt1308,
-> +			rt1308_dai, ARRAY_SIZE(rt1308_dai));
-> +}
-> +
-> +static int rt1308_i2c_remove(struct i2c_client *i2c)
-> +{
-> +	snd_soc_unregister_component(&i2c->dev);
-> +
-> +	return 0;
-> +}
-
-You used devm_snd_soc_register_component() so no need to explicitly
-unregister and this function can go.
-
-> +#if defined(CONFIG_OF)
-> +		.of_match_table = rt1308_of_match,
-> +#endif
-
-of_match_ptr()
-
-> +#if defined(CONFIG_ACPI)
-> +		.acpi_match_table = ACPI_PTR(rt1308_acpi_match)
-> +#endif
-
-No need for the ifdef, that's what ACPI_PTR() does.
-
---a8i0lXXx49qphuFT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0HaegACgkQJNaLcl1U
-h9CmlAf+N0YZDWtmDfQNB6YcGo68TkrITIn4ggltcQBiRUyRgyTGKNJk3WMLLbRN
-z/rln7P2qEsILlvg7ANob+8nqONjtxYp+DrwL4sFgRBqPASG8eqnYhNkeW9GlRFP
-Ns3LfGOAijTAMl35NIwD7qaonAaKQq4WPmbcDSp8SYSDAWf/G5KrG5RX05rMyTKv
-Acbb4zbJfqtuPX1L6v+0rQjTGj/PYQTpjYUedyFc3xro8Ta5VriTc7UCHLdJG8pu
-ceLO2SqmnE1eFxCgrKiJezC99ZrCgXn7BnD1/5SCvqlG3cvRco8fJxQBtASoEfcX
-CVhKt9rU8bgJl4TIP5WpBLAHGSBprA==
-=7JV6
------END PGP SIGNATURE-----
-
---a8i0lXXx49qphuFT--
-
---===============7047203550953115447==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/soc/rockchip/Kconfig b/sound/soc/rockchip/Kconfig
+index 28a80c1cb41d..b43657e6e655 100644
+--- a/sound/soc/rockchip/Kconfig
++++ b/sound/soc/rockchip/Kconfig
+@@ -20,6 +20,7 @@ config SND_SOC_ROCKCHIP_PDM
+ 	tristate "Rockchip PDM Controller Driver"
+ 	depends on CLKDEV_LOOKUP && SND_SOC_ROCKCHIP
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
++	select RATIONAL
+ 	help
+ 	  Say Y or M if you want to add support for PDM driver for
+ 	  Rockchip PDM Controller. The Controller supports up to maximum of
+-- 
+2.20.0
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7047203550953115447==--

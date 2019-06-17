@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1093548717
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:28:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AE034874B
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Jun 2019 17:32:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A32F81711;
-	Mon, 17 Jun 2019 17:27:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A32F81711
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07BD7175D;
+	Mon, 17 Jun 2019 17:32:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07BD7175D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560785290;
-	bh=6LOve05vP9YQdsn8FvcIF78RuMuVWnafnJAEs3EH01k=;
+	s=default; t=1560785575;
+	bh=vwngQPcFPfGz8LILO7dbnGYrzeEO4SRxKERfwnZdFDI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Ad6mxJVbCrZfOTPQguNRYQj2E6MUS/DR6tKiU/UOHSSNvECZB8k7r2OoTJqP4g0eh
-	 d11cdt78OTBeCq2HeI7pBemvfSaYELDM5edunrwAsRrBYaRYqkpMIZXWAL3GgSA5D7
-	 Xe0kaLPlzpvDX2kTpaz6boV+bQ4SPjetRfa70RM0=
+	b=bYGIqgfmr7Q/quR0zkDg6LwVI10aGr6HMBWt/FW2tY5Q/QcIouGYkMHHdSrlqB+jj
+	 l6BmdM2R2zfeLtxtUIYRbwxVqF5drKWYnfU1ICnIk9G5Z/uJUNl7oRp9ckKOQKvN2m
+	 wws6CKrMgIYKM7ZN4R6s81ggkYk7LfNfgufhNXL0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCB50F89744;
-	Mon, 17 Jun 2019 17:24:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52EE1F89767;
+	Mon, 17 Jun 2019 17:24:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9558F8973A; Mon, 17 Jun 2019 17:24:25 +0200 (CEST)
+ id 0F212F89740; Mon, 17 Jun 2019 17:24:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DA4FF896DA
- for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DA4FF896DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79806F8971E
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 17:24:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79806F8971E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="SBSudCfs"
+ header.b="aUhcux1+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=UJRWJ09xP8ootXMPZbq+lZFFHZl9CzFTpyiDR3ZdmWY=; b=SBSudCfs52nT
- rQwg8QArgmgTqBMDqy1eqmjMImJfunmIiiVoAhHVL15oPz/wqMH4LYzExDvsR9X33l25FaUdaGmtp
- UOG0oaK3L2sh8y3RaGUGp3yaYytPbJ+2xs042nC8k37o2VBFCyfH6dk3cW62sYgP7ygE+NiT3ChWd
- LOBV4=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=yybeDBRAWsVBF10VVY/tL9XqYmKyoUH+tT2+Ysdxv5Y=; b=aUhcux1+BCAM
+ zTBtbgBYUWFFrio7xxetp9/hsPSlwGe/oAmGVBcPPLrVMmJX4qFDGYDAZZLjJeZSSWqkA/J7v3Wwz
+ /L9NleNUjsVNu9tgoYEz4R7DwnbYGWESXRpnnPUqBzL88DsO7JKHgSytRtRwcnGQxJurVm8os7ROu
+ rbqOw=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hctUY-0001x0-5u; Mon, 17 Jun 2019 15:24:18 +0000
+ id 1hctUZ-0001xL-PW; Mon, 17 Jun 2019 15:24:19 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 9FBC0440046; Mon, 17 Jun 2019 16:24:17 +0100 (BST)
+ id 4F3AF440046; Mon, 17 Jun 2019 16:24:18 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-In-Reply-To: <20190617124632.1176809-1-arnd@arndb.de>
+To: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+In-Reply-To: <20190612172347.22338-15-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190617152417.9FBC0440046@finisterre.sirena.org.uk>
-Date: Mon, 17 Jun 2019 16:24:17 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: disallow building without
-	CONFIG_PCI again" to the asoc tree
+Message-Id: <20190617152419.4F3AF440046@finisterre.sirena.org.uk>
+Date: Mon, 17 Jun 2019 16:24:18 +0100 (BST)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: make sure DMA is
+	start/stop by read the RUN bit" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: disallow building without CONFIG_PCI again
+   ASoC: SOF: Intel: hda: make sure DMA is start/stop by read the RUN bit
 
 has been applied to the asoc tree at
 
@@ -116,137 +113,89 @@ to this mail.
 Thanks,
 Mark
 
-From 9de7eaddfa7f47fbb1cd9cdb9aab405599ef414e Mon Sep 17 00:00:00 2001
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 17 Jun 2019 14:45:49 +0200
-Subject: [PATCH] ASoC: SOF: disallow building without CONFIG_PCI again
+From 7bcaf0f2cdfacca2226eee8895f64bc019d5a8be Mon Sep 17 00:00:00 2001
+From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Date: Wed, 12 Jun 2019 12:23:46 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: make sure DMA is start/stop by read
+ the RUN bit
 
-Compile-testing without PCI just causes warnings:
+As per the HW recommendation, after setting the RUN bit
+(start as 1, stop as 0), software must read the bit back
+to make sure the bit is set right, before modifying related
+control registers/re-starting the DMA engine.
 
-sound/soc/sof/sof-pci-dev.c:330:13: error: 'sof_pci_remove' defined but not used [-Werror=unused-function]
- static void sof_pci_remove(struct pci_dev *pci)
-             ^~~~~~~~~~~~~~
-sound/soc/sof/sof-pci-dev.c:230:12: error: 'sof_pci_probe' defined but not used [-Werror=unused-function]
- static int sof_pci_probe(struct pci_dev *pci,
-            ^~~~~~~~~~~~~
-
-I tried to fix this in a way that would still allow compile
-tests, but it got too ugly, so this just reverts the patch
-that allowed it in the first place.
-
-Most architectures do allow enabling PCI, so the value of the
-COMPILE_TEST alternative was not very high to start with.
-
-Fixes: e13ef82a9ab8 ("ASoC: SOF: add COMPILE_TEST for PCI options")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/Kconfig       |  2 +-
- sound/soc/sof/intel/hda.c   | 13 ++-----------
- sound/soc/sof/sof-pci-dev.c |  4 ----
- 3 files changed, 3 insertions(+), 16 deletions(-)
+ sound/soc/sof/intel/hda-stream.c | 22 ++++++++++++++++++++++
+ sound/soc/sof/intel/hda.h        |  6 ++++++
+ 2 files changed, 28 insertions(+)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index 1d4b4dced4b6..bc6d7b311af4 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -10,7 +10,7 @@ if SND_SOC_SOF_TOPLEVEL
- 
- config SND_SOC_SOF_PCI
- 	tristate "SOF PCI enumeration support"
--	depends on PCI || COMPILE_TEST
-+	depends on PCI
- 	select SND_SOC_SOF
- 	select SND_SOC_ACPI if ACPI
- 	select SND_SOC_SOF_OPTIONS
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index af546e42e1d9..8754dfe75000 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -525,9 +525,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 	 * TODO: support interrupt mode selection with kernel parameter
- 	 *       support msi multiple vectors
- 	 */
--#if IS_ENABLED(CONFIG_PCI)
- 	ret = pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI);
--#endif
- 	if (ret < 0) {
- 		dev_info(sdev->dev, "use legacy interrupt mode\n");
- 		/*
-@@ -539,9 +537,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 		sdev->msi_enabled = 0;
- 	} else {
- 		dev_info(sdev->dev, "use msi interrupt mode\n");
--#if IS_ENABLED(CONFIG_PCI)
- 		hdev->irq = pci_irq_vector(pci, 0);
--#endif
- 		/* ipc irq number is the same of hda irq */
- 		sdev->ipc_irq = hdev->irq;
- 		sdev->msi_enabled = 1;
-@@ -598,10 +594,8 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- free_hda_irq:
- 	free_irq(hdev->irq, bus);
- free_irq_vector:
--#if IS_ENABLED(CONFIG_PCI)
- 	if (sdev->msi_enabled)
- 		pci_free_irq_vectors(pci);
--#endif
- free_streams:
- 	hda_dsp_stream_free(sdev);
- /* dsp_unmap: not currently used */
-@@ -616,6 +610,7 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index 23cff5aca007..13d114993f96 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -217,6 +217,9 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
  {
- 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
- 	struct hdac_bus *bus = sof_to_bus(sdev);
-+	struct pci_dev *pci = to_pci_dev(sdev->dev);
- 	const struct sof_intel_dsp_desc *chip = hda->desc;
+ 	struct hdac_stream *hstream = &stream->hstream;
+ 	int sd_offset = SOF_STREAM_SD_OFFSET(hstream);
++	u32 dma_start = SOF_HDA_SD_CTL_DMA_START;
++	int ret;
++	u32 run;
  
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-@@ -644,12 +639,8 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ 	/* cmd must be for audio stream */
+ 	switch (cmd) {
+@@ -234,6 +237,16 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
+ 					SOF_HDA_SD_CTL_DMA_START |
+ 					SOF_HDA_CL_DMA_SD_INT_MASK);
  
- 	free_irq(sdev->ipc_irq, sdev);
- 	free_irq(hda->irq, bus);
--#if IS_ENABLED(CONFIG_PCI)
--	if (sdev->msi_enabled) {
--		struct pci_dev *pci = to_pci_dev(sdev->dev);
-+	if (sdev->msi_enabled)
- 		pci_free_irq_vectors(pci);
--	}
--#endif
++		ret = snd_sof_dsp_read_poll_timeout(sdev,
++					HDA_DSP_HDA_BAR,
++					sd_offset, run,
++					((run &	dma_start) == dma_start),
++					HDA_DSP_REG_POLL_INTERVAL_US,
++					HDA_DSP_STREAM_RUN_TIMEOUT);
++
++		if (ret)
++			return ret;
++
+ 		hstream->running = true;
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+@@ -244,6 +257,15 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
+ 					SOF_HDA_SD_CTL_DMA_START |
+ 					SOF_HDA_CL_DMA_SD_INT_MASK, 0x0);
  
- 	hda_dsp_stream_free(sdev);
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index ab58d4f9119f..e2b19782f01a 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -251,11 +251,9 @@ static int sof_pci_probe(struct pci_dev *pci,
- 	if (!sof_pdata)
- 		return -ENOMEM;
++		ret = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_HDA_BAR,
++						sd_offset, run,
++						!(run &	dma_start),
++						HDA_DSP_REG_POLL_INTERVAL_US,
++						HDA_DSP_STREAM_RUN_TIMEOUT);
++
++		if (ret)
++			return ret;
++
+ 		snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR, sd_offset +
+ 				  SOF_HDA_ADSP_REG_CL_SD_STS,
+ 				  SOF_HDA_CL_DMA_SD_INT_MASK);
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 50653859e0a0..73d7cc08afc2 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -159,6 +159,12 @@
+ #define HDA_DSP_MBOX_UPLINK_OFFSET		0x81000
  
--#if IS_ENABLED(CONFIG_PCI)
- 	ret = pcim_enable_device(pci);
- 	if (ret < 0)
- 		return ret;
--#endif
+ #define HDA_DSP_STREAM_RESET_TIMEOUT		300
++/*
++ * Timeout in us, for setting the stream RUN bit, during
++ * start/stop the stream. The timeout expires if new RUN bit
++ * value cannot be read back within the specified time.
++ */
++#define HDA_DSP_STREAM_RUN_TIMEOUT		300
+ #define HDA_DSP_CL_TRIGGER_TIMEOUT		300
  
- 	ret = pci_request_regions(pci, "Audio DSP");
- 	if (ret < 0)
-@@ -388,7 +386,6 @@ static const struct pci_device_id sof_pci_ids[] = {
- };
- MODULE_DEVICE_TABLE(pci, sof_pci_ids);
- 
--#if IS_ENABLED(CONFIG_PCI)
- /* pci_driver definition */
- static struct pci_driver snd_sof_pci_driver = {
- 	.name = "sof-audio-pci",
-@@ -400,6 +397,5 @@ static struct pci_driver snd_sof_pci_driver = {
- 	},
- };
- module_pci_driver(snd_sof_pci_driver);
--#endif
- 
- MODULE_LICENSE("Dual BSD/GPL");
+ #define HDA_DSP_SPIB_ENABLE			1
 -- 
 2.20.1
 

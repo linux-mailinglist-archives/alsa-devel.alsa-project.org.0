@@ -2,61 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E2814A0B6
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 14:24:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 522A34977C
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 04:26:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 189E916D2;
-	Tue, 18 Jun 2019 14:24:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189E916D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D7C4170B;
+	Tue, 18 Jun 2019 04:25:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D7C4170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560860691;
-	bh=udwWbjni2JY4Wk9bZHtRoHH62lJuz3m0YRq25yOlhjA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iZRG1ks8SdnQj5rWqibd1ocpKax4rA31jFzAdmT+haBASHOIhMrzc6wQ09jn/GIwb
-	 /IV7YzLDax9Hc0lKsl3u3gTO/kPIC1HHjur5D99rATNp4n0ZoOQ8H3MwQXP95qct6w
-	 Zxh8FMhYBXdStVvuk92oum564CFkAUPAPTEsnFis=
+	s=default; t=1560824773;
+	bh=oMqjsABOU+wBEUCMGhUhCS0m0cpN9x9nLLUQgV/2XeQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UE3bWUkU9OJGQZYb9SUphj9CnjVrNMTOhiTwPsEBAyPyZuFIjyp3TjQVtA9GTBXDt
+	 HdU6BWKVODNRJ1UNoAtqrwrJk4YTs72iaE5VNm3F/0EdCXHj+vk5yvz3iiAzdD/VPv
+	 reF4gx9qSjwBFGrBlzfK71eMxlrl+13wji0F4QSg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E376CF8075C;
-	Tue, 18 Jun 2019 14:22:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85911F896DB;
+	Tue, 18 Jun 2019 04:24:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F03BBF896F4; Tue, 18 Jun 2019 14:22:24 +0200 (CEST)
+ id EECD6F896F4; Tue, 18 Jun 2019 04:24:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2332F89682
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 14:22:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2332F89682
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 05:22:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,389,1557212400"; d="scan'208";a="161727614"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by fmsmga007.fm.intel.com with ESMTP; 18 Jun 2019 05:22:18 -0700
-From: Bard liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Date: Tue, 18 Jun 2019 08:23:36 +0800
-Message-Id: <20190618002336.5734-2-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190618002336.5734-1-yung-chuan.liao@linux.intel.com>
-References: <20190618002336.5734-1-yung-chuan.liao@linux.intel.com>
-Cc: liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
-Subject: [alsa-devel] [PATCH 2/2] ASoC: Intel: sof-rt5682: correct naming
-	for dmic16k
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2CDFAF89682
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 04:24:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CDFAF89682
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="LVk29ML2"
+Received: by mail-pl1-x642.google.com with SMTP id f97so5028287plb.5
+ for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 19:24:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Yw03RFVQcw38KaDua5lfZL2d94vDmgCgBzJoqXkOo3o=;
+ b=LVk29ML2Mk7TxhTiFLm8J7/YvF/o+CR7DzBBXQPGajlXfqUxXGXJ4EhHkqq5u4Lc16
+ YugCinbdUozD6ADaCMon/inXwIx77+du+fQc6e0aD5WwA6cZJQYREkJdz1/MUIWPda3y
+ pJkmCgvOHdNqJt9VZoHIq6UaUIKh9IBP8aybQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Yw03RFVQcw38KaDua5lfZL2d94vDmgCgBzJoqXkOo3o=;
+ b=KC/mAM7JJrmFYKktzWwUo0h0NE5GV4kqWoqj+sa2GwOnKultLxOo4BSlCO4T0w6MSC
+ 3PXlwVqDuYnItpeqIk8vKV72mAtKOQ3qKJV3uqQ1YT9Y0W7FiP+cxIKMf2TgIIXKVzjh
+ c/DEY2GIiquvyjxmyhtVwOMbcNi3f9G7su2/N0uKXWVr9yIhWWg1SquvDNhy//7utv9y
+ x8Irc4c907w62OQUy81zsEzjeema1ZVd7fLOyNGGJm95oYWAd0tZfYEUzQGDGRtEXqlm
+ VZz1bPIj9KV3Sn/mhXwRrsnpGbV5W9o6zQ0F5FEgxVk8ZigrRUhq2LSRVedlXXiaY/8E
+ n3bQ==
+X-Gm-Message-State: APjAAAXZjSb800tOEZNtwLjo5dtYPZnrKmSlK+d53WyyRsDAdpuX5CXc
+ n13/bWSFS2G952Kq0eZw/D66tw==
+X-Google-Smtp-Source: APXvYqw2i5AMM/87XCpRxxTyAuhe6pnkw8RyEuhbtxI/wc3tynKJvEOPZRHYiDLNxEM4jR0p2mVDxA==
+X-Received: by 2002:a17:902:1566:: with SMTP id
+ b35mr113961401plh.147.1560824660939; 
+ Mon, 17 Jun 2019 19:24:20 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:10:845f:e35d:e30c:4b47])
+ by smtp.gmail.com with ESMTPSA id y185sm13173222pfy.110.2019.06.17.19.24.18
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 17 Jun 2019 19:24:20 -0700 (PDT)
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 18 Jun 2019 10:24:11 +0800
+Message-Id: <20190618022411.208156-1-yuhsuan@chromium.org>
+X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
+MIME-Version: 1.0
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
+ Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ dgreid@chromium.org, cychiang@chromium.org
+Subject: [alsa-devel] [PATCH v6] ASoC: max98090: remove 24-bit format
+	support if RJ is 0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,113 +95,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Keyon Jie <yang.jie@linux.intel.com>
+The supported formats are S16_LE and S24_LE now. However, S24_LE is
+not supported when TDM is 0 and it is not in the right justified mode.
+We should remove 24-bit format in that situation to avoid triggering
+error.
 
-Change the link name to be "dmic16k", the cpu_dai_name to be "DMIC16k
-Pin", to be aligned with other machine drivers.
-
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 34 +++++++++++++++--------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
+Changed the order of the conditional.
+Remove the snd_pcm_hw_constraint_msbits function.
+Use removing 24 bits format instead of fixing at 16 bits format.
+ sound/soc/codecs/max98090.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index f3d481b75b15..919cf6fafe75 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -377,7 +377,7 @@ static struct snd_soc_dai_link_component max98357a_component[] = {
- static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 							  int ssp_codec,
- 							  int ssp_amp,
--							  int dmic_num,
-+							  int dmic_be_num,
- 							  int hdmi_num)
- {
- 	struct snd_soc_dai_link_component *idisp_components;
-@@ -437,20 +437,22 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	id++;
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index 7619ea31ab50..9fbb4c31bcf1 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -1909,6 +1909,24 @@ static int max98090_configure_dmic(struct max98090_priv *max98090,
+ 	return 0;
+ }
  
- 	/* dmic */
--	for (i = 1; i <= dmic_num; i++) {
--		links[id].name = devm_kasprintf(dev, GFP_KERNEL,
--						"dmic%02d", i);
--		if (!links[id].name)
--			goto devm_err;
-+	if (dmic_be_num > 0) {
-+		/* at least we have dmic01 */
-+		links[id].name = "dmic01";
-+		links[id].cpus->dai_name = "DMIC01 Pin";
-+		if (dmic_be_num > 1) {
-+			/* set up 2 BE links at most */
-+			links[id + 1].name = "dmic16k";
-+			links[id + 1].cpus->dai_name = "DMIC16k Pin";
-+			dmic_be_num = 2;
-+		}
-+	}
++static int max98090_dai_startup(struct snd_pcm_substream *substream,
++				struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct max98090_priv *max98090 = snd_soc_component_get_drvdata(component);
++	unsigned int fmt = max98090->dai_fmt;
++
++	/*
++	 * When TDM = 0, remove 24-bit format support if it is not in right
++	 * justified mode.
++	 */
++	if ((fmt & SND_SOC_DAIFMT_FORMAT_MASK) != SND_SOC_DAIFMT_RIGHT_J &&
++			!max98090->tdm_slots)
++		substream->runtime->hw.formats &= ~SNDRV_PCM_FMTBIT_S24_LE;
++
++	return 0;
++}
++
+ static int max98090_dai_hw_params(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_hw_params *params,
+ 				   struct snd_soc_dai *dai)
+@@ -2316,6 +2334,7 @@ EXPORT_SYMBOL_GPL(max98090_mic_detect);
+ #define MAX98090_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
  
-+	for (i = 0; i < dmic_be_num; i++) {
- 		links[id].id = id;
- 		links[id].cpus = &cpus[id];
- 		links[id].num_cpus = 1;
--		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
--							  "DMIC%02d Pin", i);
--		if (!links[id].cpus->dai_name)
--			goto devm_err;
--
- 		links[id].codecs = dmic_component;
- 		links[id].num_codecs = ARRAY_SIZE(dmic_component);
- 		links[id].platforms = platform_component;
-@@ -545,7 +547,7 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	struct snd_soc_dai_link *dai_links;
- 	struct snd_soc_acpi_mach *mach;
- 	struct sof_card_private *ctx;
--	int dmic_num, hdmi_num;
-+	int dmic_be_num, hdmi_num;
- 	int ret, ssp_amp, ssp_codec;
- 
- 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
-@@ -554,14 +556,14 @@ static int sof_audio_probe(struct platform_device *pdev)
- 
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
--		dmic_num = 0;
-+		dmic_be_num = 0;
- 		hdmi_num = 0;
- 		/* default quirk for legacy cpu */
- 		sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
- 						SOF_RT5682_MCLK_BYTCHT_EN |
- 						SOF_RT5682_SSP_CODEC(2);
- 	} else {
--		dmic_num = 1;
-+		dmic_be_num = 2;
- 		hdmi_num = 3;
- 	}
- 
-@@ -586,13 +588,13 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	ssp_codec = sof_rt5682_quirk & SOF_RT5682_SSP_CODEC_MASK;
- 
- 	/* compute number of dai links */
--	sof_audio_card_rt5682.num_links = 1 + dmic_num + hdmi_num;
-+	sof_audio_card_rt5682.num_links = 1 + dmic_be_num + hdmi_num;
- 
- 	if (sof_rt5682_quirk & SOF_SPEAKER_AMP_PRESENT)
- 		sof_audio_card_rt5682.num_links++;
- 
- 	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec, ssp_amp,
--					      dmic_num, hdmi_num);
-+					      dmic_be_num, hdmi_num);
- 	if (!dai_links)
- 		return -ENOMEM;
- 
+ static const struct snd_soc_dai_ops max98090_dai_ops = {
++	.startup = max98090_dai_startup,
+ 	.set_sysclk = max98090_dai_set_sysclk,
+ 	.set_fmt = max98090_dai_set_fmt,
+ 	.set_tdm_slot = max98090_set_tdm_slot,
 -- 
-2.17.1
+2.22.0.410.gd8fdbe21b5-goog
 
 _______________________________________________
 Alsa-devel mailing list

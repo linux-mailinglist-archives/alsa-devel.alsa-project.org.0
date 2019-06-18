@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 300154A224
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 15:30:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 444194A22B
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 15:30:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD49716EF;
-	Tue, 18 Jun 2019 15:29:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD49716EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDCD616F2;
+	Tue, 18 Jun 2019 15:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDCD616F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560864609;
-	bh=VLkydJJwtAKi1xQ8+IE19gWi6ZI4yI18N65RDieDuCQ=;
+	s=default; t=1560864654;
+	bh=bNPnh9C8r6mGcz/5JoAygOIik802/YPBIP/WCuwzJPI=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NEpJeUYMbaY5NS7HBvazGyHpzURzZrdKiLQIcZ+RDZX+dqpULHqg4r4wtKbla8oUV
-	 dtN/oTrDY5F2J/YhNkqHzsF9mHal0xaHXlHqzhl89bpbu1VOVtoUds/7ijqp2mQI7v
-	 4fp4FLqoYGverG+O7olMKy+VCs4tflBgmlQIfzWM=
+	b=iT5Kwos+URcp4th2TVk8/+fo/BlvAE6YbuRHSIijBO7dLiXXrYoZAFKzbdIZ0e2KT
+	 NJ3o49WRFBPentnTmeujnpmoD73G0Zb9bwh3IWgGcOwuMe5xV1U+tbcdF9gdvSDxmr
+	 4LE4DVOz8jzd35324JtPR9Jc4M6Dst4NdMnlO5Ao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B32C5F89736;
-	Tue, 18 Jun 2019 15:26:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DB03F8973D;
+	Tue, 18 Jun 2019 15:26:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97661F89729; Tue, 18 Jun 2019 15:26:37 +0200 (CEST)
+ id B3883F89731; Tue, 18 Jun 2019 15:26:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,66 +35,66 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 690C4F8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 15:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 690C4F8075C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12F6CF80CC4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 15:26:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F6CF80CC4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="XfUyOZms"; 
+ header.b="njC5afhx"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="YyQWlbzR"
+ header.i=@messagingengine.com header.b="exKe5BiG"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 934D322243;
- Tue, 18 Jun 2019 09:26:32 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 3A9F32229C;
+ Tue, 18 Jun 2019 09:26:34 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 18 Jun 2019 09:26:32 -0400
+ by compute1.internal (MEProxy); Tue, 18 Jun 2019 09:26:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=HDuOf3QkBQFxM
- e1v3VUKzdugYI31cafIz2JSzxn6n6M=; b=XfUyOZmsgd8Za5jB13t6z0paWZOvv
- 2AhUBdq/XKcdzcEVBsXdQwGs+6rB56nketx8W8YQ+psjRgtFes3e08mVcFzq35Uw
- wmb3OD0DJjdd6tl/wciZ7zATx83fu+rdFCzP/a3JJqJs/03dqHofppH04Og9gfGX
- 93yxDDFVyzDyU6XFoPW1Z1V2SddXW0b7p/TqTqUF7povDpo/MIaxyfiM4QZceTch
- PhK4e94stLr1hcDINbAj91jowMKHm8FhYWZD71KgYQ71AG551WpGhwrbkzeCvCOE
- +rlH6iR9/cPV+vdvmrMtlTYfD5m+p2KvqXFbg7fLyaqm7iRTRyZV2cIVg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=EVcmC5qZDBJTH
+ rUqv/yi3h5vwPjZ7Dxb1YBLISjfqAE=; b=njC5afhxh3X0PnXoV09374XFA6bV4
+ Fk0sL0z+LGqgU/LtEH3TmL4nVgPAYRfv/OLEmOayDB+OfpmXql6ce1+Ew9nf916x
+ aNYBiTuH/sqKsfh9Cg4tKIPxMcR57rBC5p3/4kI1cCmyV2fGKipkVv4ua7dgUShC
+ X2whig6mzs19mGgDrBd7eBPdwIrXm8Zow1L9vcJK4rV2XyT0aXjwBKWdTfAjGGnj
+ PcPzWaJQPRSQ3Zt0fszD19YjJOEMW9GBvZhfwTCKq91Tx92vlfcFbfSQC8XyfqHV
+ uaw1zRqyJ+KMOYSuXLaHovLttfluNacl6aPZZ+ldH7abtm0NCH3x+TEpA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=HDuOf3QkBQFxMe1v3VUKzdugYI31cafIz2JSzxn6n6M=; b=YyQWlbzR
- SWwEEfWWVAy0IyJTHzioNAbN+NNkblprdPgB4g25XmAiA/anKifuJI3b19C5wNeM
- Fh5kH5kGUNCsn2TPoawt5RQ5jNWz1+uCPAWGq/jwC7ztMoUuTYEQMKJEywSRIXs6
- wRhYWeOwFNi5oYfTIPnFdPcaRWow3ZqwsfAEsgUt9Ovv6cRvzkJCifOGN6GCA7Zu
- GDvCfR7BvQZ42kDd6oWpSvGibAUPZO1ol6BnMb9/lYCljuhbSyHO/ehvC8RQid5U
- hrVG+kfHe1N5dCvxmJcQe9XIJOdIEjMiRyFDGDwmUb8/QBYGg82RGtazG9AO+wgU
- okgOfYsWDub4pA==
-X-ME-Sender: <xms:iOYIXcbZpVjmwIlb7eUrDg88PPIlI-UlswwFnD93v4Mpstrf1RDmVw>
+ fm3; bh=EVcmC5qZDBJTHrUqv/yi3h5vwPjZ7Dxb1YBLISjfqAE=; b=exKe5BiG
+ u6TUpNNNPBSqJg5gzkfM3vLXgvNiHWnr4P1NEK0KQYN4LswxmjabVtXNF41Aeoje
+ OoeDfu8dd5Xej0QMrkzop7wfzDdpD8uT1+2ugksat3vqQ5gueD6pjKAXRP8ZAY7V
+ 5a8FZQKJ6enoiyfoKgfZexsP2HbDVhOfhrPBFgYzSzbolSCCxfF7aJs31ADu9G7L
+ +JhxLyaoZOeVszVxoGGRjKQ3OowbYAJU+MbC09U28xglUkc04+hGkmhnokXVTwbA
+ 1iLYkOvGIKMK3tetlVtENT+B7ydyi8NpQxjH/bhyZFszdm254HGmnqitqsrrKyoC
+ Mu5E08TyV/mwnQ==
+X-ME-Sender: <xms:iuYIXYdHRbPxUbk8PtMcSaNR8LsJHUe6Mp1LDCXYlvFO1oXtBhMFrQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtddtgdefgecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
  ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:iOYIXR3sDWpWNnenhg0p_WWCXmbCBZwBTONeGE_QTerPBt8FseRGeQ>
- <xmx:iOYIXXbE9JvZccE0ZCANCMbllPRt4sK_Qb5F6TwJyP53lDAF-O3fEA>
- <xmx:iOYIXY1kyvTqA_rYes9sweaoNFCy6NnhXuh9bZbA3f8saQYakW-oOg>
- <xmx:iOYIXdilj2n67-8c_roi4elvl-ufc3QUFCVjpITtCdM_DGrrklO0KA>
+ rdhjphenucevlhhushhtvghrufhiiigvpeef
+X-ME-Proxy: <xmx:iuYIXeezWzbGw0D2Qph0UbOF9CEAmNXsEoQsMRuAj31GXUmV1yuDuw>
+ <xmx:iuYIXUgQTHWZEONRRTt9Dyc1lXgEUIfE3IWaK23SQY-f5aH7VeOo0A>
+ <xmx:iuYIXSSoYsnIcAY0tsTMcaynlVen233bBn6jvJ9fmUE4A1haYXRE4w>
+ <xmx:iuYIXXTqVemfndEDkqrK7eFcx_jAu_hJLgSXDHX_zUzxKa8M7WkDiA>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id F1F00380084;
- Tue, 18 Jun 2019 09:26:30 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id BD545380083;
+ Tue, 18 Jun 2019 09:26:32 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Tue, 18 Jun 2019 22:26:17 +0900
-Message-Id: <20190618132622.32659-4-o-takashi@sakamocchi.jp>
+Date: Tue, 18 Jun 2019 22:26:18 +0900
+Message-Id: <20190618132622.32659-5-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190618132622.32659-1-o-takashi@sakamocchi.jp>
 References: <20190618132622.32659-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 3/8] ALSA: firewire-motu: unify stop and
+Subject: [alsa-devel] [PATCH 4/8] ALSA: firewire-digi00x: unify stop and
 	release method for duplex streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -119,81 +119,81 @@ merges the two functions.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/motu/motu-midi.c   |  1 -
- sound/firewire/motu/motu-pcm.c    |  1 -
- sound/firewire/motu/motu-stream.c | 14 +++++---------
- sound/firewire/motu/motu.h        |  1 -
+ sound/firewire/digi00x/digi00x-midi.c   |  1 -
+ sound/firewire/digi00x/digi00x-pcm.c    |  1 -
+ sound/firewire/digi00x/digi00x-stream.c | 14 +++++---------
+ sound/firewire/digi00x/digi00x.h        |  1 -
  4 files changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/sound/firewire/motu/motu-midi.c b/sound/firewire/motu/motu-midi.c
-index a463730c72bc..4520c0060b83 100644
---- a/sound/firewire/motu/motu-midi.c
-+++ b/sound/firewire/motu/motu-midi.c
-@@ -40,7 +40,6 @@ static int midi_close(struct snd_rawmidi_substream *substream)
+diff --git a/sound/firewire/digi00x/digi00x-midi.c b/sound/firewire/digi00x/digi00x-midi.c
+index cca888cce0d3..ca06ad318ed6 100644
+--- a/sound/firewire/digi00x/digi00x-midi.c
++++ b/sound/firewire/digi00x/digi00x-midi.c
+@@ -37,7 +37,6 @@ static int midi_close(struct snd_rawmidi_substream *substream)
+ 	mutex_lock(&dg00x->mutex);
+ 	--dg00x->substreams_counter;
+ 	snd_dg00x_stream_stop_duplex(dg00x);
+-	snd_dg00x_stream_release_duplex(dg00x);
+ 	mutex_unlock(&dg00x->mutex);
  
- 	--motu->substreams_counter;
- 	snd_motu_stream_stop_duplex(motu);
--	snd_motu_stream_release_duplex(motu);
+ 	snd_dg00x_stream_lock_release(dg00x);
+diff --git a/sound/firewire/digi00x/digi00x-pcm.c b/sound/firewire/digi00x/digi00x-pcm.c
+index 9ed2ebdcf23a..c38fbd6ded9f 100644
+--- a/sound/firewire/digi00x/digi00x-pcm.c
++++ b/sound/firewire/digi00x/digi00x-pcm.c
+@@ -189,7 +189,6 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
+ 		--dg00x->substreams_counter;
  
- 	mutex_unlock(&motu->mutex);
+ 	snd_dg00x_stream_stop_duplex(dg00x);
+-	snd_dg00x_stream_release_duplex(dg00x);
  
-diff --git a/sound/firewire/motu/motu-pcm.c b/sound/firewire/motu/motu-pcm.c
-index b9852c911b98..60c691d18952 100644
---- a/sound/firewire/motu/motu-pcm.c
-+++ b/sound/firewire/motu/motu-pcm.c
-@@ -224,7 +224,6 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 		--motu->substreams_counter;
+ 	mutex_unlock(&dg00x->mutex);
  
- 	snd_motu_stream_stop_duplex(motu);
--	snd_motu_stream_release_duplex(motu);
- 
- 	mutex_unlock(&motu->mutex);
- 
-diff --git a/sound/firewire/motu/motu-stream.c b/sound/firewire/motu/motu-stream.c
-index 82891583b736..8aab5db71c0f 100644
---- a/sound/firewire/motu/motu-stream.c
-+++ b/sound/firewire/motu/motu-stream.c
-@@ -200,14 +200,6 @@ int snd_motu_stream_reserve_duplex(struct snd_motu *motu, unsigned int rate)
+diff --git a/sound/firewire/digi00x/digi00x-stream.c b/sound/firewire/digi00x/digi00x-stream.c
+index 3c5e1c5a2e11..7c8e7ad48d03 100644
+--- a/sound/firewire/digi00x/digi00x-stream.c
++++ b/sound/firewire/digi00x/digi00x-stream.c
+@@ -293,14 +293,6 @@ int snd_dg00x_stream_reserve_duplex(struct snd_dg00x *dg00x, unsigned int rate)
  	return 0;
  }
  
--void snd_motu_stream_release_duplex(struct snd_motu *motu)
+-void snd_dg00x_stream_release_duplex(struct snd_dg00x *dg00x)
 -{
--	if (motu->substreams_counter == 0) {
--		fw_iso_resources_free(&motu->tx_resources);
--		fw_iso_resources_free(&motu->rx_resources);
+-	if (dg00x->substreams_counter == 0) {
+-		fw_iso_resources_free(&dg00x->tx_resources);
+-		fw_iso_resources_free(&dg00x->rx_resources);
 -	}
 -}
 -
- static int ensure_packet_formats(struct snd_motu *motu)
+ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x)
  {
- 	__be32 reg;
-@@ -301,8 +293,12 @@ int snd_motu_stream_start_duplex(struct snd_motu *motu)
+ 	unsigned int generation = dg00x->rx_resources.generation;
+@@ -372,8 +364,12 @@ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x)
  
- void snd_motu_stream_stop_duplex(struct snd_motu *motu)
+ void snd_dg00x_stream_stop_duplex(struct snd_dg00x *dg00x)
  {
--	if (motu->substreams_counter == 0)
-+	if (motu->substreams_counter == 0) {
- 		finish_session(motu);
+-	if (dg00x->substreams_counter == 0)
++	if (dg00x->substreams_counter == 0) {
+ 		finish_session(dg00x);
 +
-+		fw_iso_resources_free(&motu->tx_resources);
-+		fw_iso_resources_free(&motu->rx_resources);
++		fw_iso_resources_free(&dg00x->tx_resources);
++		fw_iso_resources_free(&dg00x->rx_resources);
 +	}
  }
  
- static int init_stream(struct snd_motu *motu, enum amdtp_stream_direction dir)
-diff --git a/sound/firewire/motu/motu.h b/sound/firewire/motu/motu.h
-index 32cd42873fd0..a4ac320f2c9e 100644
---- a/sound/firewire/motu/motu.h
-+++ b/sound/firewire/motu/motu.h
-@@ -154,7 +154,6 @@ int snd_motu_stream_init_duplex(struct snd_motu *motu);
- void snd_motu_stream_destroy_duplex(struct snd_motu *motu);
- int snd_motu_stream_cache_packet_formats(struct snd_motu *motu);
- int snd_motu_stream_reserve_duplex(struct snd_motu *motu, unsigned int rate);
--void snd_motu_stream_release_duplex(struct snd_motu *motu);
- int snd_motu_stream_start_duplex(struct snd_motu *motu);
- void snd_motu_stream_stop_duplex(struct snd_motu *motu);
- int snd_motu_stream_lock_try(struct snd_motu *motu);
+ void snd_dg00x_stream_update_duplex(struct snd_dg00x *dg00x)
+diff --git a/sound/firewire/digi00x/digi00x.h b/sound/firewire/digi00x/digi00x.h
+index 3fb1c49f6f9e..2d026b5b0079 100644
+--- a/sound/firewire/digi00x/digi00x.h
++++ b/sound/firewire/digi00x/digi00x.h
+@@ -143,7 +143,6 @@ int snd_dg00x_stream_init_duplex(struct snd_dg00x *dg00x);
+ int snd_dg00x_stream_reserve_duplex(struct snd_dg00x *dg00x, unsigned int rate);
+ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x);
+ void snd_dg00x_stream_stop_duplex(struct snd_dg00x *dg00x);
+-void snd_dg00x_stream_release_duplex(struct snd_dg00x *dg00x);
+ void snd_dg00x_stream_update_duplex(struct snd_dg00x *dg00x);
+ void snd_dg00x_stream_destroy_duplex(struct snd_dg00x *dg00x);
+ 
 -- 
 2.20.1
 

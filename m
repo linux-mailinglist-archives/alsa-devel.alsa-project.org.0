@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDC1049E23
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 12:20:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D2B49E25
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 12:20:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6119C16C4;
-	Tue, 18 Jun 2019 12:19:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6119C16C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68FD21708;
+	Tue, 18 Jun 2019 12:20:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68FD21708
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560853234;
-	bh=6nCfSEALeafE+PGWrLTk17Sn2IAZSlx8FvytsmrtwE0=;
+	s=default; t=1560853253;
+	bh=ImcjcgftCJeJetg37BQYRkUgnv0PPmrZtmBcwuA4Cgw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=t3WBQl5DxKR696p21kYXYfoIXwksC6Y9HvYOofbmggVZIOFXHSCJQ9Ydr09K0Qvg4
-	 J0InqSPAYBF1QBDN0hwqU8eVXhzDOfBZdRi2sB7bW/BHllNv4rCu20BULpS6UT6IEu
-	 G6nMBxXJaWZ1KntOtmPFL6qlP6heH7vj4KDJNOX8=
+	b=jhdlT67Z8SlQTAZjicdlXOjbsNRKL5YN8vWZig+AuXnFENpNmnGkM6g1l6nHKI498
+	 +/cNM8Gl+5mFZDVZ9hNvq3oRofWHOG3i9RWo/pKOxEdDFLkVgPsqG0d7CqGuXV/cFI
+	 QbINIx/EhIEii5ILDu/2ulXxwrMxYX9XcH8DORiM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1270F89732;
-	Tue, 18 Jun 2019 12:17:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02A95F89735;
+	Tue, 18 Jun 2019 12:17:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A3C4F89729; Tue, 18 Jun 2019 12:17:25 +0200 (CEST)
+ id C3F0AF89731; Tue, 18 Jun 2019 12:17:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0C21F89682
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 12:17:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0C21F89682
+ by alsa1.perex.cz (Postfix) with ESMTPS id 955EEF89729
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 12:17:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 955EEF89729
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 03:17:21 -0700
+ 18 Jun 2019 03:17:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,388,1557212400"; d="scan'208";a="153420208"
+X-IronPort-AV: E=Sophos;i="5.63,388,1557212400"; d="scan'208";a="153420216"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga008.jf.intel.com with ESMTP; 18 Jun 2019 03:17:19 -0700
+ by orsmga008.jf.intel.com with ESMTP; 18 Jun 2019 03:17:23 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Date: Tue, 18 Jun 2019 13:18:03 +0300
-Message-Id: <20190618101804.21670-3-kai.vehmanen@linux.intel.com>
+Date: Tue, 18 Jun 2019 13:18:04 +0300
+Message-Id: <20190618101804.21670-4-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190618101804.21670-1-kai.vehmanen@linux.intel.com>
 References: <20190618101804.21670-1-kai.vehmanen@linux.intel.com>
 Cc: tiwai@suse.de, libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
  kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH v2 2/3] ASoC: SOF: add runtime idle callback
+Subject: [alsa-devel] [PATCH v2 3/3] ASoC: SOF: Intel: implement runtime
+	idle for CNL/APL
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,116 +75,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add ability to implement a SOF device level runtime idle callback.
+Implement runtime idle for CNL/APL devices using similar runtime
+PM idle logic as the Intel AZX HDA driver. If any HDA codecs are
+powered when runtime suspend request comes, return -EBUSY. By doing
+this, strict ordering is enforced between HDA codec and the HDA
+controller.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/sof/intel/hda.h    | 1 +
- sound/soc/sof/ops.h          | 8 ++++++++
- sound/soc/sof/pm.c           | 8 ++++++++
- sound/soc/sof/sof-acpi-dev.c | 2 +-
- sound/soc/sof/sof-pci-dev.c  | 2 +-
- sound/soc/sof/sof-priv.h     | 2 ++
- 6 files changed, 21 insertions(+), 2 deletions(-)
+ sound/soc/sof/intel/apl.c     |  1 +
+ sound/soc/sof/intel/cnl.c     |  1 +
+ sound/soc/sof/intel/hda-dsp.c | 13 +++++++++++++
+ 3 files changed, 15 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 73d7cc08afc22..d9c17146200b3 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -457,6 +457,7 @@ int hda_dsp_suspend(struct snd_sof_dev *sdev, int state);
- int hda_dsp_resume(struct snd_sof_dev *sdev);
- int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev, int state);
- int hda_dsp_runtime_resume(struct snd_sof_dev *sdev);
-+int hda_dsp_runtime_idle(struct snd_sof_dev *sdev);
- int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev);
- void hda_dsp_dump_skl(struct snd_sof_dev *sdev, u32 flags);
- void hda_dsp_dump(struct snd_sof_dev *sdev, u32 flags);
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index 45a3d10911634..b9bdf45889da1 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -134,6 +134,14 @@ static inline int snd_sof_dsp_runtime_suspend(struct snd_sof_dev *sdev,
- 	return 0;
+diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
+index 43d1c9f31ec4c..fd2e26d797961 100644
+--- a/sound/soc/sof/intel/apl.c
++++ b/sound/soc/sof/intel/apl.c
+@@ -93,6 +93,7 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
+ 	.resume			= hda_dsp_resume,
+ 	.runtime_suspend	= hda_dsp_runtime_suspend,
+ 	.runtime_resume		= hda_dsp_runtime_resume,
++	.runtime_idle		= hda_dsp_runtime_idle,
+ 	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
+ };
+ EXPORT_SYMBOL(sof_apl_ops);
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index 3840f81767fab..f2b392998f20d 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -251,6 +251,7 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
+ 	.resume			= hda_dsp_resume,
+ 	.runtime_suspend	= hda_dsp_runtime_suspend,
+ 	.runtime_resume		= hda_dsp_runtime_resume,
++	.runtime_idle		= hda_dsp_runtime_idle,
+ 	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
+ };
+ EXPORT_SYMBOL(sof_cnl_ops);
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index f2c5a12db930a..91de4785b6a3e 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -418,6 +418,19 @@ int hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
+ 	return hda_resume(sdev);
  }
  
-+static inline int snd_sof_dsp_runtime_idle(struct snd_sof_dev *sdev)
++int hda_dsp_runtime_idle(struct snd_sof_dev *sdev)
 +{
-+	if (sof_ops(sdev)->runtime_idle)
-+		return sof_ops(sdev)->runtime_idle(sdev);
++	struct hdac_bus *hbus = sof_to_bus(sdev);
++
++	if (hbus->codec_powered) {
++		dev_dbg(sdev->dev, "some codecs still powered (%08X), not idle\n",
++			(unsigned int)hbus->codec_powered);
++		return -EBUSY;
++	}
 +
 +	return 0;
 +}
 +
- static inline int snd_sof_dsp_hw_params_upon_resume(struct snd_sof_dev *sdev)
+ int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev, int state)
  {
- 	if (sof_ops(sdev)->set_hw_params_upon_resume)
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index 8eeb3a1029f24..278abfd10490d 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -394,6 +394,14 @@ int snd_sof_runtime_suspend(struct device *dev)
- }
- EXPORT_SYMBOL(snd_sof_runtime_suspend);
- 
-+int snd_sof_runtime_idle(struct device *dev)
-+{
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+
-+	return snd_sof_dsp_runtime_idle(sdev);
-+}
-+EXPORT_SYMBOL(snd_sof_runtime_idle);
-+
- int snd_sof_runtime_resume(struct device *dev)
- {
- 	return sof_resume(dev, true);
-diff --git a/sound/soc/sof/sof-acpi-dev.c b/sound/soc/sof/sof-acpi-dev.c
-index c8dafb1ac54e2..ea7b8b8954128 100644
---- a/sound/soc/sof/sof-acpi-dev.c
-+++ b/sound/soc/sof/sof-acpi-dev.c
-@@ -116,7 +116,7 @@ static const struct sof_dev_desc sof_acpi_cherrytrail_desc = {
- static const struct dev_pm_ops sof_acpi_pm = {
- 	SET_SYSTEM_SLEEP_PM_OPS(snd_sof_suspend, snd_sof_resume)
- 	SET_RUNTIME_PM_OPS(snd_sof_runtime_suspend, snd_sof_runtime_resume,
--			   NULL)
-+			   snd_sof_runtime_idle)
- };
- 
- static void sof_acpi_probe_complete(struct device *dev)
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index e2b19782f01ac..65d1bac4c6b8b 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -206,7 +206,7 @@ static const struct sof_dev_desc kbl_desc = {
- static const struct dev_pm_ops sof_pci_pm = {
- 	SET_SYSTEM_SLEEP_PM_OPS(snd_sof_suspend, snd_sof_resume)
- 	SET_RUNTIME_PM_OPS(snd_sof_runtime_suspend, snd_sof_runtime_resume,
--			   NULL)
-+			   snd_sof_runtime_idle)
- };
- 
- static void sof_pci_probe_complete(struct device *dev)
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 58621db4fd31a..b8c0b2a226845 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -176,6 +176,7 @@ struct snd_sof_dsp_ops {
- 	int (*runtime_suspend)(struct snd_sof_dev *sof_dev,
- 			       int state); /* optional */
- 	int (*runtime_resume)(struct snd_sof_dev *sof_dev); /* optional */
-+	int (*runtime_idle)(struct snd_sof_dev *sof_dev); /* optional */
- 	int (*set_hw_params_upon_resume)(struct snd_sof_dev *sdev); /* optional */
- 
- 	/* DSP clocking */
-@@ -446,6 +447,7 @@ int snd_sof_device_remove(struct device *dev);
- 
- int snd_sof_runtime_suspend(struct device *dev);
- int snd_sof_runtime_resume(struct device *dev);
-+int snd_sof_runtime_idle(struct device *dev);
- int snd_sof_resume(struct device *dev);
- int snd_sof_suspend(struct device *dev);
- 
+ 	/* stop hda controller and power dsp off */
 -- 
 2.17.1
 

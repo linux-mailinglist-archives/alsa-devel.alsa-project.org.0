@@ -2,68 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0BD64A9AD
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 20:20:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D788B4A9FF
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 20:35:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 425F416D0;
-	Tue, 18 Jun 2019 20:19:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 425F416D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6336716F5;
+	Tue, 18 Jun 2019 20:34:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6336716F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560882041;
-	bh=Kp7aRPfRlMSsqry9M86lnwKoTBEu9igtAyMjA99Trlw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XdCnFu0DwVPyjV4kCA9n2Ruir1AnQBVENczYbcW2cZZclOM7WIcOkUn+uaffJV6Sc
-	 /KQiFZE0AidD97uRmMABmXIpyxYugjE+DHnbP+gf5eGMMJTpDc1QT2oHgqfLI0Hw2q
-	 qg4I8rbvDbe6y1s8CLDZXK25h1787NB9UbsqLeQ4=
+	s=default; t=1560882944;
+	bh=SSFh7usG0AA9b3gBKoiXMOENXvf2rKlXOt8Zumr2pvQ=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=WNKDVnpfnGC9cZVIpS1toNLCWJfo56/p4O3U7p0EIvumrhrmZeVo8l4U70bmgktGo
+	 plWwgvSdByA508VWelcZHjdN7Xwdzv0ZhblphvlJlpkRdGwOvxSI0++qxsO9EOjmDC
+	 dgyuMP8GdMlNb2K0LXau16Y15aNbCzAOBZQA7fQE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8C98F89682;
-	Tue, 18 Jun 2019 20:18:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EA93F8075C;
+	Tue, 18 Jun 2019 20:33:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27788F896F4; Tue, 18 Jun 2019 20:18:55 +0200 (CEST)
+ id E7366F89726; Tue, 18 Jun 2019 20:33:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9A36F8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 20:18:52 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 092BCA0042;
- Tue, 18 Jun 2019 20:18:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 092BCA0042
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1560881932; bh=1IGWyXnt8od9bRCq6Iyb/R4hTRVHKTHe9Ad5j5vHVyo=;
- h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
- b=Hxa8uCBDgdqwovwelNTSySs6a4dB4bOryN6+V15T0I6I4H6nBS9PuzyXYQKkRACWz
- pQSUs7pzVItBcXSlHtnDBYu//eK2Jzv3xrEvV+8o96J5X5usUT1kXj9+6Iqml47+K6
- Ny8FM6p9uzmUPNt7nxlgkSWvm1RfaB6EROkeX9FA=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 18 Jun 2019 20:18:49 +0200 (CEST)
-To: scott andrew franco <samiam@moorecad.com>
-References: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <3fa68de3-c77e-7c26-b848-416cc1108c9c@perex.cz>
-Date: Tue, 18 Jun 2019 20:18:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so
- vs. .o file
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FA6BF8971C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 20:33:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FA6BF8971C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="EOXCX6Bx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=9jVltIl21FZuPZEOLXycKl4a9yd+tYMkYLMqll/9ksI=; b=EOXCX6BxMA7B
+ apNQnpN1fb+5MCytdunf+6VnzPPbNyBkbBEYu6PMeh96kfipAQBlRn2y7xYMIhUbcw79haquTvqcH
+ 5SF9dIdWw+N3+yV1Ls0K8o4JMv5Kl4MXyHvNHSkmqpNRVcmlW1Ws77ovVqQ1Vbx84joOeQLaWCvBx
+ /Fns4=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hdIus-0005K8-SE; Tue, 18 Jun 2019 18:33:10 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 19CE7440046; Tue, 18 Jun 2019 19:33:10 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Nilkanth Ahirrao <anilkanth@jp.adit-jv.com>
+In-Reply-To: <20190618051953.13419-1-jiada_wang@mentor.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190618183310.19CE7440046@finisterre.sirena.org.uk>
+Date: Tue, 18 Jun 2019 19:33:10 +0100 (BST)
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, jiada_wang@mentor.com,
+ tiwai@suse.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Suresh Udipi <sudipi@jp.adit-jv.com>
+Subject: [alsa-devel] Applied "ASoC: rsnd: fixup mod ID calculation in
+	rsnd_ctu_probe_" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,121 +82,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 18. 06. 19 v 17:16 scott andrew franco napsal(a):
-> Hello,
->  
-> The issue:
->  
-> calling across .so (dynamic linking) produces different behavior in ALSA library calls than normal,
-> and causes ALSA to malfunction.
->  
-> I have minimized my issue to as small a code section as possible. Note the code is from commonly available
-> internet examples, including Free Electrons "Audio in embedded linux systems".
+The patch
 
-It seems like a linker issue. I think that you must link .so to -lasound, too.
-(add -lasound to the command producing your .so library to satisfy the
-versioned symbols)
+   ASoC: rsnd: fixup mod ID calculation in rsnd_ctu_probe_
 
-						Jaroslav
+has been applied to the asoc tree at
 
->  
-> The run is:
->  
-> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
-> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
-> samiam@samiam-home-pc:~/projeclufthansa check reservationts/petit_ami$ ./playwav
-> alsaplaywave: rate: 1
-> alsaplaywave: rate: 0
-> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
-> samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
-> alsaplaywave: rate: 1
-> alsaplaywave: rate: 1
->   
->  Note the only difference between the two runs of "playwave" is if the second module, test2, is linked as a .so or
->  linked as a .o.
->   
->  The code is:
->  =======================================================================================
->  playwav.c
->  #include <alsa/asoundlib.h>
-> #include <stdio.h>
->  void alsaplaywave1(void)
->  {
->  snd_pcm_t *pcm_handle;
->  snd_pcm_hw_params_t *params;
->  unsigned int val;
->  unsigned int rate;
->  int r;
->  /* open pcm device */
->  r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
->  if (r < 0) printf("Cannot open PCM output device");
->  snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
->  snd_pcm_hw_params_any(pcm_handle, params);
->  r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
->  if (r < 0) printf("Cannot set interleaved mode");
->  r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
->  if (r < 0) printf("Cannot set format");
->  r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
->  if (r < 0) printf("Cannot set channels number");
->  val = 44100;
->  r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
->  if (r < 0) printf("Cannot set rate");
->  snd_pcm_hw_params_get_rate(params, &rate, 0);
->  printf("alsaplaywave: rate: %d\n", rate);
->  snd_pcm_close(pcm_handle);
->  }
->  extern void alsaplaywave2(void);
->  int main(int argc, char **argv)
->  {
->  alsaplaywave1();
->  alsaplaywave2();
->  return 0;
-> }
->   
->  ==================================================================================
->  test2.c
->  #include <alsa/asoundlib.h>
-> #include <stdio.h>
->  void alsaplaywave2(void)
->  {
->  snd_pcm_t *pcm_handle;
->  snd_pcm_hw_params_t *params;
->  unsigned int val;
->  unsigned int rate;
->  int r;
->  /* open pcm device */
->  r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
->  if (r < 0) printf("Cannot open PCM output device");
->  snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
->  snd_pcm_hw_params_any(pcm_handle, params);
->  r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
->  if (r < 0) printf("Cannot set interleaved mode");
->  r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
->  if (r < 0) printf("Cannot set format");
->  r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
->  if (r < 0) printf("Cannot set channels number");
->  val = 44100;
->  r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
->  if (r < 0) printf("Cannot set rate");
->  snd_pcm_hw_params_get_rate(params, &rate, 0);
->  printf("alsaplaywave: rate: %d\n", rate);
->  snd_pcm_close(pcm_handle);
->  }
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From ac28ec07ae1c5c1e18ed6855eb105a328418da88 Mon Sep 17 00:00:00 2001
+From: Nilkanth Ahirrao <anilkanth@jp.adit-jv.com>
+Date: Tue, 18 Jun 2019 14:19:53 +0900
+Subject: [PATCH] ASoC: rsnd: fixup mod ID calculation in rsnd_ctu_probe_
+
+commit c16015f36cc1 ("ASoC: rsnd: add .get_id/.get_id_sub")
+introduces rsnd_ctu_id which calcualates and gives
+the main Device id of the CTU by dividing the id by 4.
+rsnd_mod_id uses this interface to get the CTU main
+Device id. But this commit forgets to revert the main
+Device id calcution previously done in rsnd_ctu_probe_
+which also divides the id by 4. This path corrects the
+same to get the correct main Device id.
+
+The issue is observered when rsnd_ctu_probe_ is done for CTU1
+
+Fixes: c16015f36cc1 ("ASoC: rsnd: add .get_id/.get_id_sub")
+
+Signed-off-by: Nilkanth Ahirrao <anilkanth@jp.adit-jv.com>
+Signed-off-by: Suresh Udipi <sudipi@jp.adit-jv.com>
+Signed-off-by: Jiada Wang <jiada_wang@mentor.com>
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/sh/rcar/ctu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/sh/rcar/ctu.c b/sound/soc/sh/rcar/ctu.c
+index 8cb06dab234e..7647b3d4c0ba 100644
+--- a/sound/soc/sh/rcar/ctu.c
++++ b/sound/soc/sh/rcar/ctu.c
+@@ -108,7 +108,7 @@ static int rsnd_ctu_probe_(struct rsnd_mod *mod,
+ 			   struct rsnd_dai_stream *io,
+ 			   struct rsnd_priv *priv)
+ {
+-	return rsnd_cmd_attach(io, rsnd_mod_id(mod) / 4);
++	return rsnd_cmd_attach(io, rsnd_mod_id(mod));
+ }
+ 
+ static void rsnd_ctu_value_init(struct rsnd_dai_stream *io,
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

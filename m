@@ -2,65 +2,97 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8358449BAD
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 10:04:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5308749BCF
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 10:14:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDBB516F3;
-	Tue, 18 Jun 2019 10:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDBB516F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3EB316F7;
+	Tue, 18 Jun 2019 10:14:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3EB316F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560845093;
-	bh=rFnTNGWH+Dc/hQd+0S36XqftGs3b70CPIAlbfpqZgZY=;
+	s=default; t=1560845690;
+	bh=mO5OjtFkGKuUit4jNqhN72SPgP6WRyqx1ul0KndZ/WA=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PBKEnhoNzlze1aKfUx+yth4zrLNBrzBPrSQQmaNnfa9RbAcmfSrkDAxy5W8cqbUNL
-	 peKQeg8NNvwRQWK0nyApgto8Dveo2d/8H2CRAnfqJQ8pb0lxeNCpJwoatdAJ7wUfw8
-	 huvR3P+OZbrxsAdDoVzQPhgNtqWzP6BRm6y/9z10=
+	b=Ff2342OW9ylcqOCSi3FXeBmuEGNEDZZ4lCjfunfgVn/FNCeXHDtLYJrEafNAQVx7G
+	 iCFp04aLh0KbfxizHTjojB/ocjZIqnM9jFX+2mi3SrBN7L6kyQ1HSkbKzavz+ZtHkU
+	 aiVKZnW919CQ4fM2TrtfcSsn0O5Sl4cO46G4YNzk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57340F896DB;
-	Tue, 18 Jun 2019 10:03:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F36BF8971B;
+	Tue, 18 Jun 2019 10:13:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5DFC0F896F4; Tue, 18 Jun 2019 10:03:06 +0200 (CEST)
+ id 9CBBDF896F4; Tue, 18 Jun 2019 10:13:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57B3DF89682
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 10:03:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57B3DF89682
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 01:03:01 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 18 Jun 2019 01:03:00 -0700
-Received: from rkammarx-mobl3.ger.corp.intel.com (unknown [10.252.61.163])
- by linux.intel.com (Postfix) with ESMTP id 028A258028E;
- Tue, 18 Jun 2019 01:02:58 -0700 (PDT)
-To: bgoswami@codeaurora.org, vkoul@kernel.org
-References: <1560843846-4631-1-git-send-email-bgoswami@codeaurora.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <18a6f0ec-d34c-e45b-9db8-2950f4ab95d6@linux.intel.com>
-Date: Tue, 18 Jun 2019 10:02:59 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 415E3F89682
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 10:13:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 415E3F89682
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="fVFXPhPq"
+Received: by mail-wm1-x342.google.com with SMTP id 207so2141526wma.1
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 01:13:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=A1EQqhov8GIAHcRALyrTo95BX/wMNvkrcX1BAH+gcHU=;
+ b=fVFXPhPqKIKjaT2O6gcVuMT+Bp6qsx0D3k8Zab+TsU468kSMjEi7t1AsBPaFFPoVGz
+ YFt/t7e/lBHvir+0dDviw50OaKw8BoS1n8ag7dkiF8QctNTnM1PtVwTt2klkB1GC/GPi
+ 3uhFkk5SmeidcOT84y94qnWZY2C1t+NVDsRq2nj8hNuTpsnkgvubcHK/ibV6f7gWWDiS
+ nE4AEYUnk6DAPts40QJ2RSBxr0lSGkNGeR/Aw79iXvFYWUeKgls21JHuI6X3sT+2du3/
+ kHUsei92oxxLKcb+ZgCYHddMVQZMUiuHD7uUFiICCl0LydhP4PX9hRpuY/+6F64V2C88
+ qC6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=A1EQqhov8GIAHcRALyrTo95BX/wMNvkrcX1BAH+gcHU=;
+ b=GrwDHoAZf8ktziWqU5SYp+0zs5xBHFffij/Kw+aCR3ANyXdK2Tc6M83ekwQ/m/3jGp
+ Qk1p4w0EPk7bUpAAD0S1W/eHuk7LO9Xd3z6dmcjCFkKn94qqhc8JC9HCIib6uS6gpdgg
+ EkN2FtDwSsowiJDVSkpKqwhitbS/0+pWuLToSKEMlOwM9tl+A4KLIgEc18PZ5RDumWlv
+ e9rH15ArakxRB2+18/DoQsmnAVAL5dscbttP9nm37UZXU/zx2u9AG2k3+5dfqqRIjVqe
+ Hq3oyl8p9MYhpKB2BZGrLuwY+kmGYWf8qPEiPXv8ctS5niD2dTjAdKTkP8A19Ik6YAUw
+ SRgQ==
+X-Gm-Message-State: APjAAAXQU1RyxKHxB8WKL6vckCplydYbfiaIYQ1eDaS6V8KYnEVXhtgQ
+ CMkboCsNim5RRfdK6PETW5pyhA==
+X-Google-Smtp-Source: APXvYqzIrn8u/txhtI7DRk2qYrbC/FWvYlvylHwE4xyIyB3aOYH2N7Zh2XTDr4RKjkCNwWcHIIYflw==
+X-Received: by 2002:a1c:dc45:: with SMTP id t66mr2360140wmg.63.1560845579797; 
+ Tue, 18 Jun 2019 01:12:59 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id 32sm30733908wra.35.2019.06.18.01.12.58
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 18 Jun 2019 01:12:59 -0700 (PDT)
+To: Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Patrick Lai <plai@codeaurora.org>, Banajit Goswami
+ <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20190618052813.32523-1-bjorn.andersson@linaro.org>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <ad8ef1b1-a69c-df2f-cec4-d69278b570dc@linaro.org>
+Date: Tue, 18 Jun 2019 09:12:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <1560843846-4631-1-git-send-email-bgoswami@codeaurora.org>
+In-Reply-To: <20190618052813.32523-1-bjorn.andersson@linaro.org>
 Content-Language: en-US
-Cc: Dhananjay Kumar <dhakumar@codeaurora.org>, alsa-devel@alsa-project.org,
- srinivas.kandagatla@linaro.org, plai@codeaurora.org, tiwai@suse.com
-Subject: Re: [alsa-devel] [PATCH] ALSA: compress: avoid integer overflow for
- long duration offload playback
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: qcom: common: Fix NULL pointer in of
+	parser
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,60 +110,22 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/18/19 9:44 AM, bgoswami@codeaurora.org wrote:
-> From: Banajit Goswami <bgoswami@codeaurora.org>
+Thanks Bjorn for this patch.
+
+On 18/06/2019 06:28, Bjorn Andersson wrote:
+> A snd_soc_dai_link_component is allocated and associated with the first
+> link, so when the code tries to assign the of_node of the second link's
+> "cpu" member it dereferences a NULL pointer.
 > 
-> Currently a 32 bit variable is used for storing number of bytes
-> copied to DSP, which can overflow when playback continues for a long
-> duration.
-> Change data type for this variable to __u64 to prevent overflow.
-
-This clearly looks like a bug, the number of bytes transferred is stored 
-as u64 in the runtime. I have no memories of this being intentional.
-
-That said, it seems odd to me that you have an overflow on the number of 
-bytes but not on the number of PCM frames. Shouldn't both the pcm_frames 
-and pcm_io_frames fields also be changed to u64 while we are at it?
-
-And the second issue is that this may impact apps. This is a ABI change, 
-isn't it?
-
+> Fix this by moving the allocation and assignement of
+> snd_soc_dai_link_components into the loop, giving us one pair per link.
 > 
-> Signed-off-by: Dhananjay Kumar <dhakumar@codeaurora.org>
-> Signed-off-by: Banajit Goswami <bgoswami@codeaurora.org>
-> ---
->   include/uapi/sound/compress_offload.h | 2 +-
->   sound/core/compress_offload.c         | 2 +-
->   2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
-> index 56d9567..db5edf3 100644
-> --- a/include/uapi/sound/compress_offload.h
-> +++ b/include/uapi/sound/compress_offload.h
-> @@ -67,7 +67,7 @@ struct snd_compr_params {
->    */
->   struct snd_compr_tstamp {
->   	__u32 byte_offset;
-> -	__u32 copied_total;
-> +	__u64 copied_total;
->   	__u32 pcm_frames;
->   	__u32 pcm_io_frames;
->   	__u32 sampling_rate;
-> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-> index a1a6fd7..2d0a709 100644
-> --- a/sound/core/compress_offload.c
-> +++ b/sound/core/compress_offload.c
-> @@ -184,7 +184,7 @@ static int snd_compr_update_tstamp(struct snd_compr_stream *stream,
->   	if (!stream->ops->pointer)
->   		return -ENOTSUPP;
->   	stream->ops->pointer(stream, tstamp);
-> -	pr_debug("dsp consumed till %d total %d bytes\n",
-> +	pr_debug("dsp consumed till %d total %llu bytes\n",
->   		tstamp->byte_offset, tstamp->copied_total);
->   	if (stream->direction == SND_COMPRESS_PLAYBACK)
->   		stream->runtime->total_bytes_transferred = tstamp->copied_total;
-> 
+> Fixes: 1e36ea360ab9 ("ASoC: qcom: common: use modern dai_link style")
+> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
+I think the original patch did not realize that there are multiple links!
+
+Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,97 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5308749BCF
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 10:14:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ED2B49C24
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 10:38:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3EB316F7;
-	Tue, 18 Jun 2019 10:14:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3EB316F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7CDC170F;
+	Tue, 18 Jun 2019 10:37:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7CDC170F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560845690;
-	bh=mO5OjtFkGKuUit4jNqhN72SPgP6WRyqx1ul0KndZ/WA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1560847114;
+	bh=Dr4oxC1uHjZv4+x6AjRQr2KwlMN67u1/GU3WwJ0wJk4=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ff2342OW9ylcqOCSi3FXeBmuEGNEDZZ4lCjfunfgVn/FNCeXHDtLYJrEafNAQVx7G
-	 iCFp04aLh0KbfxizHTjojB/ocjZIqnM9jFX+2mi3SrBN7L6kyQ1HSkbKzavz+ZtHkU
-	 aiVKZnW919CQ4fM2TrtfcSsn0O5Sl4cO46G4YNzk=
+	b=XUUwm7WOXGquZUiOoy7Mpu+qeIgMEVZMjTteEpFf0WJ50MMi0v3lM36IMGMt6ITXh
+	 DWf4mKugBQGr5KiR294qcYuFa8oIBxKHqmcgI36q/y99PnCI3eDcJyR4d7FQgfB+Oy
+	 KQRmw7Ke1gYDvkOyoFcjzNLiQcxfXIB31ueyIdEg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F36BF8971B;
-	Tue, 18 Jun 2019 10:13:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19935F896F4;
+	Tue, 18 Jun 2019 10:36:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CBBDF896F4; Tue, 18 Jun 2019 10:13:03 +0200 (CEST)
+ id 3918FF896F4; Tue, 18 Jun 2019 10:36:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
+ [IPv6:2607:f8b0:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 415E3F89682
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 10:13:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 415E3F89682
+ by alsa1.perex.cz (Postfix) with ESMTPS id 695F9F8075C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 10:36:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 695F9F8075C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="fVFXPhPq"
-Received: by mail-wm1-x342.google.com with SMTP id 207so2141526wma.1
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 01:13:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=A1EQqhov8GIAHcRALyrTo95BX/wMNvkrcX1BAH+gcHU=;
- b=fVFXPhPqKIKjaT2O6gcVuMT+Bp6qsx0D3k8Zab+TsU468kSMjEi7t1AsBPaFFPoVGz
- YFt/t7e/lBHvir+0dDviw50OaKw8BoS1n8ag7dkiF8QctNTnM1PtVwTt2klkB1GC/GPi
- 3uhFkk5SmeidcOT84y94qnWZY2C1t+NVDsRq2nj8hNuTpsnkgvubcHK/ibV6f7gWWDiS
- nE4AEYUnk6DAPts40QJ2RSBxr0lSGkNGeR/Aw79iXvFYWUeKgls21JHuI6X3sT+2du3/
- kHUsei92oxxLKcb+ZgCYHddMVQZMUiuHD7uUFiICCl0LydhP4PX9hRpuY/+6F64V2C88
- qC6A==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="p0WPnBbl"
+Received: by mail-ot1-x342.google.com with SMTP id i8so13167810oth.10
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 01:36:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SbI2arzCVB15iIHFaXJeK2OXjaF6EvzNPl33ojaSqJg=;
+ b=p0WPnBblUtd0qMo69IDfSj1ocjF5blFjAnv2yH/8FPkiuR3GiN3qOKy+m1gZ1ACgAB
+ UY2yVFu7ZKMG1s9S7hqhVC04j1LIBPKY+8e+hi3LKQdn8cKAC8u+jnhDAH7177JWrwmB
+ 0cFtE17rm1eqkKPLx/roa2PSNSxdr2IohIogF3F2MCMdWh3tztg7r0JLN8FAGl26loRY
+ vtVsvd/XFHQ/knLffpCDKUIQ3sKZztfjCzdla7wVEn79jtyle35G8YUKE1YkfA5K7HYa
+ kvK4WjvehQH41ivD3XsJVDiOQzDSeI1f+pnkD/R8Q2TElG46jCWMoZPvn3tJmOFaTJi0
+ TH4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=A1EQqhov8GIAHcRALyrTo95BX/wMNvkrcX1BAH+gcHU=;
- b=GrwDHoAZf8ktziWqU5SYp+0zs5xBHFffij/Kw+aCR3ANyXdK2Tc6M83ekwQ/m/3jGp
- Qk1p4w0EPk7bUpAAD0S1W/eHuk7LO9Xd3z6dmcjCFkKn94qqhc8JC9HCIib6uS6gpdgg
- EkN2FtDwSsowiJDVSkpKqwhitbS/0+pWuLToSKEMlOwM9tl+A4KLIgEc18PZ5RDumWlv
- e9rH15ArakxRB2+18/DoQsmnAVAL5dscbttP9nm37UZXU/zx2u9AG2k3+5dfqqRIjVqe
- Hq3oyl8p9MYhpKB2BZGrLuwY+kmGYWf8qPEiPXv8ctS5niD2dTjAdKTkP8A19Ik6YAUw
- SRgQ==
-X-Gm-Message-State: APjAAAXQU1RyxKHxB8WKL6vckCplydYbfiaIYQ1eDaS6V8KYnEVXhtgQ
- CMkboCsNim5RRfdK6PETW5pyhA==
-X-Google-Smtp-Source: APXvYqzIrn8u/txhtI7DRk2qYrbC/FWvYlvylHwE4xyIyB3aOYH2N7Zh2XTDr4RKjkCNwWcHIIYflw==
-X-Received: by 2002:a1c:dc45:: with SMTP id t66mr2360140wmg.63.1560845579797; 
- Tue, 18 Jun 2019 01:12:59 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id 32sm30733908wra.35.2019.06.18.01.12.58
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 18 Jun 2019 01:12:59 -0700 (PDT)
-To: Bjorn Andersson <bjorn.andersson@linaro.org>,
- Patrick Lai <plai@codeaurora.org>, Banajit Goswami
- <bgoswami@codeaurora.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-References: <20190618052813.32523-1-bjorn.andersson@linaro.org>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <ad8ef1b1-a69c-df2f-cec4-d69278b570dc@linaro.org>
-Date: Tue, 18 Jun 2019 09:12:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SbI2arzCVB15iIHFaXJeK2OXjaF6EvzNPl33ojaSqJg=;
+ b=W8iNhfo/C+LNZmnqhdHVuydNjUAWT2PSpqTDb054WyHR2DJT7gPx1jXmyyIB8boEdo
+ u9qs+NOUeUYa5RWgfdHVGO5NNHY1oQ2PwDhWNKRHwLRW7nlhgiVM73WsdNq1Q0ssY0CY
+ v06QU6FZT/9sLuhGcX62mp9njg8GQ947qVbeZZ0vaG5Jr5ZEZmJ+z35lzwQOxFUT9RP3
+ qysPvEQ3ZiZuboV6KXdjXbY753hzYKTELURLrIuZcDeYqwN51fytvF7zJhFwwHwNvVNf
+ mLzR9twxk4Xz87cm3ZXnE9FufdEQeI5UwtFjOIgy3Nl7XzZhYWgaPEkT9Tq2Lm2LWmnO
+ u47w==
+X-Gm-Message-State: APjAAAUn5L5hIgjBhL9PcKyaIRCI/RJ1XPj21JfWMoma4Ql9wyb3IA7+
+ ETV3JINbGRROrtaZkc7MuMRqhRkq6W6pz/EGmNjgQQ==
+X-Google-Smtp-Source: APXvYqwJHA+l65cr7Qm4XvzkJ/OvW0fnAlKcWpx6iwFeTXj3WL9Scho1vx1wH7dilslT5POm36lvreXRf14XMkA5zvs=
+X-Received: by 2002:a9d:4f02:: with SMTP id d2mr3447698otl.328.1560847002104; 
+ Tue, 18 Jun 2019 01:36:42 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190618052813.32523-1-bjorn.andersson@linaro.org>
-Content-Language: en-US
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: qcom: common: Fix NULL pointer in of
-	parser
+References: <20190618070503.36310-1-tzungbi@google.com>
+ <f3ccd6a2-a9b1-15a6-6b0f-b044a2def5d7@linux.intel.com>
+In-Reply-To: <f3ccd6a2-a9b1-15a6-6b0f-b044a2def5d7@linux.intel.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Tue, 18 Jun 2019 16:36:30 +0800
+Message-ID: <CA+Px+wX+KwV8e9ugoB_pkdvWBJD_A26v4JTNmA0nTC_S8oSs4w@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: skl: extract common function
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,27 +93,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Bjorn for this patch.
+On Tue, Jun 18, 2019 at 3:46 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+> HDMI support is a mess for sure, but I am not sure this is the right way
+> to refactor the code. See e.g. bxt_da7219_max98357a, a single init
+> callback was used. you can use dai->id to manage the right offset,
+>
+> pcm->device = SKL_DPCM_AUDIO_HDMI1_PB + dai->id; or
+> pcm->device = dai->id;
+>
+> instead of hard-coding the values in a parameter.
+>
+Yeah, I noticed that and I am very confused.
 
-On 18/06/2019 06:28, Bjorn Andersson wrote:
-> A snd_soc_dai_link_component is allocated and associated with the first
-> link, so when the code tries to assign the of_node of the second link's
-> "cpu" member it dereferences a NULL pointer.
-> 
-> Fix this by moving the allocation and assignement of
-> snd_soc_dai_link_components into the loop, giving us one pair per link.
-> 
-> Fixes: 1e36ea360ab9 ("ASoC: qcom: common: use modern dai_link style")
-> Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+But after following the call sequence, _late_probe() ->
+hdac_hdmi_jack_init() -> hdac_hdmi_get_pcm_from_id(), it seems the ID
+is merely a unique key to perform linear search in
+hdac_hdmi_get_pcm_from_id().  It looks like the follower
+snd_hdac_add_chmap_ctls() does not use the ID too seriously.
 
-I think the original patch did not realize that there are multiple links!
-
-Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+TBH, I am not very sure either.  But if either way is fine, simpler is
+better (i.e. pcm->device = dai->id;).
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

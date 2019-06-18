@@ -2,100 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F162F4A242
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 15:33:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8BB14A38F
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 16:12:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F7A516EC;
-	Tue, 18 Jun 2019 15:32:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F7A516EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DD5916D8;
+	Tue, 18 Jun 2019 16:11:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DD5916D8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560864821;
-	bh=nkzh5BUDoKEmim8Klx8z+W90wWDCg4zDIjsF3LP7Abo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560867137;
+	bh=JmWzCbvRDz0fLGQ4Zo+M76Xw9T2GehXfJSUzXeFoH+c=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TlxZHbtyjuPHBtu44i7k/jQQkiRMihWVAWGoJSYSDXxw/PlxCZ2tyI7B0JcfPxuOA
-	 y1p6fDHT5HMyP+PL4YoXPtqxnN5knAJIXoFyEWAVXtOz69SN38vzxD2GG2OvdemgsY
-	 Iv+IQa9J5nnHiP3Xd+1PZf4MZ/OwA6hO4EZp4DHs=
+	b=Z6ylqymVh7YSuj1RO4D8Q71aHdPF40hwuttUfLvPiNahMqrGPpCBLH8U4tjH3E5as
+	 cy+jVZAkwC2Wr0606KHe4Cw5iSeeedbfGlrHEIXU4oKqHxoP59WC8JL5lBK0BwBd9s
+	 AWavbSw2fH8dpUFfJH6Dj397q9FjcRpDaTbJ5REc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AB0CF89754;
-	Tue, 18 Jun 2019 15:26:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C90E0F8971C;
+	Tue, 18 Jun 2019 16:10:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6EDD1F8973A; Tue, 18 Jun 2019 15:26:44 +0200 (CEST)
+ id 1792AF896F4; Tue, 18 Jun 2019 16:10:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-qk1-f193.google.com (mail-qk1-f193.google.com
+ [209.85.222.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 495B2F89732
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 15:26:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 495B2F89732
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Uvwg7yFQ"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="iLXo61NI"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 70FC022201;
- Tue, 18 Jun 2019 09:26:40 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 18 Jun 2019 09:26:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=XcJuu0yIYhTZ2
- ARU4mxufPmxgfNHZiDt7U/grRJHqFU=; b=Uvwg7yFQcfUGbcN5KJJJW7POc9aCm
- VedECMogzWZcl5DmyCsP4+RU4v70ioo8zO55QVtE1uWbpLsTdcyAahQkhmHeryED
- tqXIz2Btr6Q4HB7CzQ94+NLY1hXfYfmUZa5J/jnCE9a96BH9SEwDHcWbesQ/SdH1
- ZinpX57YNDP0VeiaTcHHwnrRmXF+hp4iO2p8RY+TJnd1uV9PbIiL8NwSPw5povQc
- 37Hy3zobHAZTSBiAPZNoDgFhrD10hpT6gq4A0TB/oIzzMasfzQKsAZQrSDzDAD5/
- iuP20dlu48dKek5g3Ja62vx5t87eotaIZTm+6SAIdduT8Zc/5lLj1mP8Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=XcJuu0yIYhTZ2ARU4mxufPmxgfNHZiDt7U/grRJHqFU=; b=iLXo61NI
- 4WoeGy0JiRiIfRfMqiy68bGlbY6dtj6xuZ2r9Mhq6EoaYHa011gLlgZRCs8Jb2JN
- /+OCVF/2sJJRTO5IK9nB6hCohN03uTTwStyrUTKG+U8GCeGsTD59lL7CMEWn44gX
- FXcj+gKWVu4uTCh1IQHT1ki5NSAoO7NHmfeZzUxfcPYhRLZQXy2+WynCe+HXlBru
- ZJWDEO8GXA4P0iqDwMGf0cw8AN8FN+V+QB6OXlSidQHfeEj4iD08Cr+vegV1xTsr
- y3muyPyqXkMCLSmebOmNvOuybH9P2yHFAfIzBwEZ8GEGPu4zzfSIPQbkQrTIeJhW
- Wk/Jd/8laYeeXA==
-X-ME-Sender: <xms:kOYIXcJSoRRxJD58oPJgW0LHboChQxUrQ9g_vbREfzbjjIdF21z9CQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtddtgdefgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
- ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
- frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpeej
-X-ME-Proxy: <xmx:kOYIXTrg2fdUMD5UeJTTRGnfuOmoniun1qfzOwRq2-YWnd1TD3vxmA>
- <xmx:kOYIXSyrVNLXh5XuJOqmMxH5ky285UPySfOU0pGDZxnJMPfSH8XA5w>
- <xmx:kOYIXXdzF-RClHW8wVRkY5V6lBtGh7sBO99fi9LHffYpFEM_VX_-Dg>
- <xmx:kOYIXSXNgFxkWb4l4fwsV_q2ihzZRosPmvKGZn5d5m1s0xNxRf0G3g>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0395A380083;
- Tue, 18 Jun 2019 09:26:38 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Tue, 18 Jun 2019 22:26:22 +0900
-Message-Id: <20190618132622.32659-9-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190618132622.32659-1-o-takashi@sakamocchi.jp>
-References: <20190618132622.32659-1-o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69E91F8075C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 16:10:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69E91F8075C
+Received: by mail-qk1-f193.google.com with SMTP id t8so8642274qkt.1
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 07:10:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=ymzVRv+HbWASk9IbK9IR5jfXe4p30txsWn7MI2aWfko=;
+ b=gfgOZiddTTP0jZ2XmbiZsR1SFnNhQ5Rpw0Jp6P58WXuHBUZKef2WJDuoWK9iD2NE1s
+ rHV2kDhysCjYK1lfKIKCBdTsVh5lF5tk84K9yUBnBv5CiP+OV/z2ZsWA7UKWpVS5QRaK
+ OOIs6hwESbFzYlAvPkoosqla4XXT2wdewz4LaHftVExpjhGf0kF79ZeQibRikj/PzRh/
+ tiVHX/c/HqIDO9c7D8VpIbAAkxtUfKog6FKwBlQEineeYfCHGFP+/F2KGicY6/yihN1I
+ xrlF9n7IzjxtHApGXmjJeIz1ZFNOH169oBsrS+YX1fvhdF6PSnG5/KZGM2ihOAzUeLl6
+ +NWg==
+X-Gm-Message-State: APjAAAWAm20SJG0HhkiuK13hsOk/cOpAnn8vLDRzA0biRYETJsHIIyyv
+ ddiEM/3cIeFly0ia3wOx2w==
+X-Google-Smtp-Source: APXvYqzTd+SUScnI+raBK375orxhwOZtIjBl7LTQ+SrdOuzX+fB6KoQ7w06WVT6SBK2QaP+LwnqcBg==
+X-Received: by 2002:a37:9ece:: with SMTP id h197mr75339469qke.50.1560867025673; 
+ Tue, 18 Jun 2019 07:10:25 -0700 (PDT)
+Received: from localhost ([64.188.179.192])
+ by smtp.gmail.com with ESMTPSA id s11sm9602685qte.49.2019.06.18.07.10.24
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Tue, 18 Jun 2019 07:10:25 -0700 (PDT)
+Date: Tue, 18 Jun 2019 08:10:23 -0600
+From: Rob Herring <robh@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Message-ID: <20190618141023.GA20154@bogus>
+References: <20190617143322.4332-1-geert+renesas@glider.be>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 8/8] ALSA: oxfw: ensure to release isochronous
-	resources in pcm.hw_params callback
+Content-Disposition: inline
+In-Reply-To: <20190617143322.4332-1-geert+renesas@glider.be>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, openipmi-developer@lists.sourceforge.net
+Subject: Re: [alsa-devel] [PATCH] dt-bindings: Add missing newline at end of
+	file
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,35 +93,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When stopping packet streaming in reserve function for duplex streams,
-isochronous resources should be released.
+On Mon, 17 Jun 2019 16:33:22 +0200, Geert Uytterhoeven wrote:
+> "git diff" says:
+> 
+>     \ No newline at end of file
+> 
+> after modifying the files.
+> 
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> ---
+>  Documentation/devicetree/bindings/ipmi/npcm7xx-kcs-bmc.txt      | 2 +-
+>  .../devicetree/bindings/pinctrl/nuvoton,npcm7xx-pinctrl.txt     | 2 +-
+>  Documentation/devicetree/bindings/regulator/pv88060.txt         | 2 +-
+>  Documentation/devicetree/bindings/sound/cs42l73.txt             | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+> 
 
-Fixes: 7bc93821a70a ("ALSA: firewire-lib: split allocation of isochronous resources from establishment of connection")
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/oxfw/oxfw-stream.c | 2 ++
- 1 file changed, 2 insertions(+)
+Applied, thanks.
 
-diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index a8bc798731ff..a7502810a3ad 100644
---- a/sound/firewire/oxfw/oxfw-stream.c
-+++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -283,10 +283,12 @@ int snd_oxfw_stream_reserve_duplex(struct snd_oxfw *oxfw,
- 	if (formation.rate != rate || formation.pcm != pcm_channels) {
- 		amdtp_stream_stop(&oxfw->rx_stream);
- 		cmp_connection_break(&oxfw->in_conn);
-+		cmp_connection_release(&oxfw->in_conn);
- 
- 		if (oxfw->has_output) {
- 			amdtp_stream_stop(&oxfw->tx_stream);
- 			cmp_connection_break(&oxfw->out_conn);
-+			cmp_connection_release(&oxfw->out_conn);
- 		}
- 	}
- 
--- 
-2.20.1
-
+Rob
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

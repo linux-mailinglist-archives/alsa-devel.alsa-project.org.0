@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444194A22B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 15:30:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AEFF4A231
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 15:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDCD616F2;
-	Tue, 18 Jun 2019 15:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDCD616F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE7501670;
+	Tue, 18 Jun 2019 15:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE7501670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560864654;
-	bh=bNPnh9C8r6mGcz/5JoAygOIik802/YPBIP/WCuwzJPI=;
+	s=default; t=1560864700;
+	bh=eIf/Fg7sCNh6a+EDmqSRObxMIF75qZj6X0oXb3rz0Oo=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iT5Kwos+URcp4th2TVk8/+fo/BlvAE6YbuRHSIijBO7dLiXXrYoZAFKzbdIZ0e2KT
-	 NJ3o49WRFBPentnTmeujnpmoD73G0Zb9bwh3IWgGcOwuMe5xV1U+tbcdF9gdvSDxmr
-	 4LE4DVOz8jzd35324JtPR9Jc4M6Dst4NdMnlO5Ao=
+	b=YxkH7cPW2Sg5VFuwlYtLLDwUtuA2CMmOKEIGJfsIQvjndHDx2RZyIkKp2p3yl/R4W
+	 nqrY/lUSpju8tF5aNgHNYpFtZSi1N22nYkFaTI3Fy73YXUidPQMMhKSGr4kKFmgKWh
+	 3iP6Xd/HQvWQr8WLA73gVU7nO7j5JAzj+OEhHCxk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DB03F8973D;
-	Tue, 18 Jun 2019 15:26:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88328F8973F;
+	Tue, 18 Jun 2019 15:26:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3883F89731; Tue, 18 Jun 2019 15:26:39 +0200 (CEST)
+ id 57185F89730; Tue, 18 Jun 2019 15:26:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12F6CF80CC4
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 15:26:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12F6CF80CC4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 79D6CF89724
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 15:26:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79D6CF89724
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="njC5afhx"; 
+ header.b="HkCm0hHu"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="exKe5BiG"
+ header.i=@messagingengine.com header.b="W1WPSIqE"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 3A9F32229C;
- Tue, 18 Jun 2019 09:26:34 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id A2B0721FE2;
+ Tue, 18 Jun 2019 09:26:35 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 18 Jun 2019 09:26:34 -0400
+ by compute1.internal (MEProxy); Tue, 18 Jun 2019 09:26:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=EVcmC5qZDBJTH
- rUqv/yi3h5vwPjZ7Dxb1YBLISjfqAE=; b=njC5afhxh3X0PnXoV09374XFA6bV4
- Fk0sL0z+LGqgU/LtEH3TmL4nVgPAYRfv/OLEmOayDB+OfpmXql6ce1+Ew9nf916x
- aNYBiTuH/sqKsfh9Cg4tKIPxMcR57rBC5p3/4kI1cCmyV2fGKipkVv4ua7dgUShC
- X2whig6mzs19mGgDrBd7eBPdwIrXm8Zow1L9vcJK4rV2XyT0aXjwBKWdTfAjGGnj
- PcPzWaJQPRSQ3Zt0fszD19YjJOEMW9GBvZhfwTCKq91Tx92vlfcFbfSQC8XyfqHV
- uaw1zRqyJ+KMOYSuXLaHovLttfluNacl6aPZZ+ldH7abtm0NCH3x+TEpA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=XYuflg2hhb+E7
+ JF2UenhcCvwqwGvcxXnRtvjt2muL4k=; b=HkCm0hHuOnjwN86wlYEGC9a72XcXV
+ AsEjQ2he4uWPHHSUl2DYSfSA6IzLke1RcaYQH0E04RdgCnYihWX8ET1AbM6SUNx+
+ kNy2XwPYxUAk+xynFOk3usNAxYz6zlz/98kSTydnFlbVNcpFMkkyh/uqQIucAeRO
+ iW/HoVR4sTtfPL9LqFAJvs3myxkd+8qUFr+6GucTW9JpjnNA1twtc0p7cf33FXlR
+ cjWeq6w8XaygamkB0CwIyLx18tjugbtIL9Od3whPhucwmbq5EnG1Gndcou8IZ+u0
+ tqiADMc1yYFO/DWx8K66WVfREcbRac0JrJkIa3r2vw9pYT7AxEkfe8W3Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=EVcmC5qZDBJTHrUqv/yi3h5vwPjZ7Dxb1YBLISjfqAE=; b=exKe5BiG
- u6TUpNNNPBSqJg5gzkfM3vLXgvNiHWnr4P1NEK0KQYN4LswxmjabVtXNF41Aeoje
- OoeDfu8dd5Xej0QMrkzop7wfzDdpD8uT1+2ugksat3vqQ5gueD6pjKAXRP8ZAY7V
- 5a8FZQKJ6enoiyfoKgfZexsP2HbDVhOfhrPBFgYzSzbolSCCxfF7aJs31ADu9G7L
- +JhxLyaoZOeVszVxoGGRjKQ3OowbYAJU+MbC09U28xglUkc04+hGkmhnokXVTwbA
- 1iLYkOvGIKMK3tetlVtENT+B7ydyi8NpQxjH/bhyZFszdm254HGmnqitqsrrKyoC
- Mu5E08TyV/mwnQ==
-X-ME-Sender: <xms:iuYIXYdHRbPxUbk8PtMcSaNR8LsJHUe6Mp1LDCXYlvFO1oXtBhMFrQ>
+ fm3; bh=XYuflg2hhb+E7JF2UenhcCvwqwGvcxXnRtvjt2muL4k=; b=W1WPSIqE
+ q6vJe+gVGyJf8CXt2ZHgnbYErAxpyTzJ+YBvVQZ0OZkHNQMcq1Dvr87Mv58VNfXS
+ PdA0aqLFDU0nxDva+fcKr3n+3LGU7ZG/hwHNqFxdMDmzEOEmPGW5xnVga2k/9Eow
+ ZbOu9dI3MbRITHCPGECcjYbrfs3Y1sdr6bGzUIEPMMTGraRogxcwFsBkNOW31YXY
+ bemuIsDHOSA+K3kZzclHjSepYoe2H4iZw7i0TGCzGJp4soZyheoTsEtVCceKbq3c
+ F/b4yOZPcxzDiEDymPETnEO01BektaWXLFLMIOtrcBfrvHhtAn3aITh5vKy12q6U
+ wKvnUckDDNZC1Q==
+X-ME-Sender: <xms:i-YIXQiDzmpAR6Q9p-RMm1AzEmz4GOQpYfheLI6tKYDGZXcTmjpxCA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtddtgdefgecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
@@ -76,26 +76,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtddtgdefgecutefuodetggdote
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
  rdhjphenucevlhhushhtvghrufhiiigvpeef
-X-ME-Proxy: <xmx:iuYIXeezWzbGw0D2Qph0UbOF9CEAmNXsEoQsMRuAj31GXUmV1yuDuw>
- <xmx:iuYIXUgQTHWZEONRRTt9Dyc1lXgEUIfE3IWaK23SQY-f5aH7VeOo0A>
- <xmx:iuYIXSSoYsnIcAY0tsTMcaynlVen233bBn6jvJ9fmUE4A1haYXRE4w>
- <xmx:iuYIXXTqVemfndEDkqrK7eFcx_jAu_hJLgSXDHX_zUzxKa8M7WkDiA>
+X-ME-Proxy: <xmx:i-YIXdnbO8yjUwRLIwPoZiADeJXukiX8ai29IMle41lDh-VT5pSF2w>
+ <xmx:i-YIXT-C9A2l2Fht9_OAyXndKxfNdrMYNS1pEwtrt7IMX7VFO13azQ>
+ <xmx:i-YIXd8-qClHptBGde37zCIa7PxsfPjG5lDaTVYM6is4TUjzntGuvw>
+ <xmx:i-YIXRkfvAtLMU2ly-Tb8hnEFelTHrN2zGZqyaukjW15eqAxxSSB9Q>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id BD545380083;
- Tue, 18 Jun 2019 09:26:32 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4A522380083;
+ Tue, 18 Jun 2019 09:26:34 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Tue, 18 Jun 2019 22:26:18 +0900
-Message-Id: <20190618132622.32659-5-o-takashi@sakamocchi.jp>
+Date: Tue, 18 Jun 2019 22:26:19 +0900
+Message-Id: <20190618132622.32659-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190618132622.32659-1-o-takashi@sakamocchi.jp>
 References: <20190618132622.32659-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 4/8] ALSA: firewire-digi00x: unify stop and
-	release method for duplex streams
+Subject: [alsa-devel] [PATCH 5/8] ALSA: dice: unify stop and release method
+	for duplex streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,80 +119,73 @@ merges the two functions.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/digi00x/digi00x-midi.c   |  1 -
- sound/firewire/digi00x/digi00x-pcm.c    |  1 -
- sound/firewire/digi00x/digi00x-stream.c | 14 +++++---------
- sound/firewire/digi00x/digi00x.h        |  1 -
- 4 files changed, 5 insertions(+), 12 deletions(-)
+ sound/firewire/dice/dice-midi.c   | 1 -
+ sound/firewire/dice/dice-pcm.c    | 1 -
+ sound/firewire/dice/dice-stream.c | 8 ++------
+ sound/firewire/dice/dice.h        | 1 -
+ 4 files changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/sound/firewire/digi00x/digi00x-midi.c b/sound/firewire/digi00x/digi00x-midi.c
-index cca888cce0d3..ca06ad318ed6 100644
---- a/sound/firewire/digi00x/digi00x-midi.c
-+++ b/sound/firewire/digi00x/digi00x-midi.c
-@@ -37,7 +37,6 @@ static int midi_close(struct snd_rawmidi_substream *substream)
- 	mutex_lock(&dg00x->mutex);
- 	--dg00x->substreams_counter;
- 	snd_dg00x_stream_stop_duplex(dg00x);
--	snd_dg00x_stream_release_duplex(dg00x);
- 	mutex_unlock(&dg00x->mutex);
+diff --git a/sound/firewire/dice/dice-midi.c b/sound/firewire/dice/dice-midi.c
+index 6172dad87c4e..436f0c3c0fbb 100644
+--- a/sound/firewire/dice/dice-midi.c
++++ b/sound/firewire/dice/dice-midi.c
+@@ -40,7 +40,6 @@ static int midi_close(struct snd_rawmidi_substream *substream)
  
- 	snd_dg00x_stream_lock_release(dg00x);
-diff --git a/sound/firewire/digi00x/digi00x-pcm.c b/sound/firewire/digi00x/digi00x-pcm.c
-index 9ed2ebdcf23a..c38fbd6ded9f 100644
---- a/sound/firewire/digi00x/digi00x-pcm.c
-+++ b/sound/firewire/digi00x/digi00x-pcm.c
-@@ -189,7 +189,6 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 		--dg00x->substreams_counter;
+ 	--dice->substreams_counter;
+ 	snd_dice_stream_stop_duplex(dice);
+-	snd_dice_stream_release_duplex(dice);
  
- 	snd_dg00x_stream_stop_duplex(dg00x);
--	snd_dg00x_stream_release_duplex(dg00x);
+ 	mutex_unlock(&dice->mutex);
  
- 	mutex_unlock(&dg00x->mutex);
+diff --git a/sound/firewire/dice/dice-pcm.c b/sound/firewire/dice/dice-pcm.c
+index 00b55dfc3b2c..8368073f7fa0 100644
+--- a/sound/firewire/dice/dice-pcm.c
++++ b/sound/firewire/dice/dice-pcm.c
+@@ -265,7 +265,6 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
+ 		--dice->substreams_counter;
  
-diff --git a/sound/firewire/digi00x/digi00x-stream.c b/sound/firewire/digi00x/digi00x-stream.c
-index 3c5e1c5a2e11..7c8e7ad48d03 100644
---- a/sound/firewire/digi00x/digi00x-stream.c
-+++ b/sound/firewire/digi00x/digi00x-stream.c
-@@ -293,14 +293,6 @@ int snd_dg00x_stream_reserve_duplex(struct snd_dg00x *dg00x, unsigned int rate)
- 	return 0;
+ 	snd_dice_stream_stop_duplex(dice);
+-	snd_dice_stream_release_duplex(dice);
+ 
+ 	mutex_unlock(&dice->mutex);
+ 
+diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
+index e9e5c5fffb70..433714a117a0 100644
+--- a/sound/firewire/dice/dice-stream.c
++++ b/sound/firewire/dice/dice-stream.c
+@@ -336,12 +336,6 @@ int snd_dice_stream_reserve_duplex(struct snd_dice *dice, unsigned int rate)
+ 	return err;
  }
  
--void snd_dg00x_stream_release_duplex(struct snd_dg00x *dg00x)
+-void snd_dice_stream_release_duplex(struct snd_dice *dice)
 -{
--	if (dg00x->substreams_counter == 0) {
--		fw_iso_resources_free(&dg00x->tx_resources);
--		fw_iso_resources_free(&dg00x->rx_resources);
--	}
+-	if (dice->substreams_counter == 0)
+-		release_resources(dice);
 -}
 -
- int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x)
+ static int start_streams(struct snd_dice *dice, enum amdtp_stream_direction dir,
+ 			 unsigned int rate, struct reg_params *params)
  {
- 	unsigned int generation = dg00x->rx_resources.generation;
-@@ -372,8 +364,12 @@ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x)
- 
- void snd_dg00x_stream_stop_duplex(struct snd_dg00x *dg00x)
- {
--	if (dg00x->substreams_counter == 0)
-+	if (dg00x->substreams_counter == 0) {
- 		finish_session(dg00x);
+@@ -494,6 +488,8 @@ void snd_dice_stream_stop_duplex(struct snd_dice *dice)
+ 	if (dice->substreams_counter == 0) {
+ 		if (get_register_params(dice, &tx_params, &rx_params) >= 0)
+ 			finish_session(dice, &tx_params, &rx_params);
 +
-+		fw_iso_resources_free(&dg00x->tx_resources);
-+		fw_iso_resources_free(&dg00x->rx_resources);
-+	}
++		release_resources(dice);
+ 	}
  }
  
- void snd_dg00x_stream_update_duplex(struct snd_dg00x *dg00x)
-diff --git a/sound/firewire/digi00x/digi00x.h b/sound/firewire/digi00x/digi00x.h
-index 3fb1c49f6f9e..2d026b5b0079 100644
---- a/sound/firewire/digi00x/digi00x.h
-+++ b/sound/firewire/digi00x/digi00x.h
-@@ -143,7 +143,6 @@ int snd_dg00x_stream_init_duplex(struct snd_dg00x *dg00x);
- int snd_dg00x_stream_reserve_duplex(struct snd_dg00x *dg00x, unsigned int rate);
- int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x);
- void snd_dg00x_stream_stop_duplex(struct snd_dg00x *dg00x);
--void snd_dg00x_stream_release_duplex(struct snd_dg00x *dg00x);
- void snd_dg00x_stream_update_duplex(struct snd_dg00x *dg00x);
- void snd_dg00x_stream_destroy_duplex(struct snd_dg00x *dg00x);
+diff --git a/sound/firewire/dice/dice.h b/sound/firewire/dice/dice.h
+index f95073b85010..fd3f483283d5 100644
+--- a/sound/firewire/dice/dice.h
++++ b/sound/firewire/dice/dice.h
+@@ -210,7 +210,6 @@ void snd_dice_stream_stop_duplex(struct snd_dice *dice);
+ int snd_dice_stream_init_duplex(struct snd_dice *dice);
+ void snd_dice_stream_destroy_duplex(struct snd_dice *dice);
+ int snd_dice_stream_reserve_duplex(struct snd_dice *dice, unsigned int rate);
+-void snd_dice_stream_release_duplex(struct snd_dice *dice);
+ void snd_dice_stream_update_duplex(struct snd_dice *dice);
+ int snd_dice_stream_detect_current_formats(struct snd_dice *dice);
  
 -- 
 2.20.1

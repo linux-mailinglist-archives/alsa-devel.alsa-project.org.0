@@ -2,81 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD4F49B75
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 09:49:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8358449BAD
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 10:04:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 025E116EA;
-	Tue, 18 Jun 2019 09:48:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 025E116EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDBB516F3;
+	Tue, 18 Jun 2019 10:04:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDBB516F3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560844144;
-	bh=qzq4HURb9jah3rWCpPzJ7xQRPZn1rJhAb32HXgwpBds=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=QPl9K9eEMcLy3UfBRzn0zxupPbl14qxN+kp3ArTOZreG6G2VctlXKJaed8IiIg63l
-	 IcrEGXSj1GauQNk2AzQU30F7HGS27P6hAnrmXXGLURl6Qz76rJJS4xpmNu8gegKlUX
-	 AYFrSvScG0UnrHteT63q1nTUbuymCcTTocN77qkg=
+	s=default; t=1560845093;
+	bh=rFnTNGWH+Dc/hQd+0S36XqftGs3b70CPIAlbfpqZgZY=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PBKEnhoNzlze1aKfUx+yth4zrLNBrzBPrSQQmaNnfa9RbAcmfSrkDAxy5W8cqbUNL
+	 peKQeg8NNvwRQWK0nyApgto8Dveo2d/8H2CRAnfqJQ8pb0lxeNCpJwoatdAJ7wUfw8
+	 huvR3P+OZbrxsAdDoVzQPhgNtqWzP6BRm6y/9z10=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 271FDF8971C;
-	Tue, 18 Jun 2019 09:47:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57340F896DB;
+	Tue, 18 Jun 2019 10:03:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3A25F8971C; Tue, 18 Jun 2019 09:47:47 +0200 (CEST)
+ id 5DFC0F896F4; Tue, 18 Jun 2019 10:03:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F8AAF89682
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 09:47:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F8AAF89682
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="Ha8bMCN3"; 
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="AJRlHDpQ"
-Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id 3D1C861196; Tue, 18 Jun 2019 07:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1560844063;
- bh=D8JyNyYQMG42MJKDGfv6oBPbBafP5TQu0Vg1i4fF/j0=;
- h=From:To:Cc:Subject:Date:From;
- b=Ha8bMCN3EhFA1SmOCFa+el/IhVGWGCPwsT3ct9Wr/XOU9ejrslVf6yuqzuunGSv2b
- 5b+yvBFd/OcaA1sXb2bmIrvpYUW8jGeHcCA2/nZ5jtJyivzQTGSNTVnsWaoQ9hEwuG
- fxQl3TFy29bU+UQuT7mn4nlgXk3vfJINO5dIPzCU=
-Received: from localhost (i-global254.qualcomm.com [199.106.103.254])
- (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: bgoswami@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 765D66090F;
- Tue, 18 Jun 2019 07:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1560844061;
- bh=D8JyNyYQMG42MJKDGfv6oBPbBafP5TQu0Vg1i4fF/j0=;
- h=From:To:Cc:Subject:Date:From;
- b=AJRlHDpQw4AyFOvhVGf+Z38mi1+SuBYvY+znuAL5l9ztuzau3dwQ+QEvPui7onQbk
- O9Q/zmJQ4dv9nVrIaRTbkBFi8sJqSmJSIZHUw9HVoBWDrd5P1rwLt7WD8y4UaGwYmk
- IS+0mwZE46a2C5OUV5U+yLvT7d3QegdSJ5vf+uX4=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 765D66090F
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- spf=none smtp.mailfrom=bgoswami@codeaurora.org
-From: bgoswami@codeaurora.org
-To: broonie@kernel.org
-Date: Tue, 18 Jun 2019 00:47:38 -0700
-Message-Id: <1560844059-5897-1-git-send-email-bgoswami@codeaurora.org>
-X-Mailer: git-send-email 1.9.1
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- srinivas.kandagatla@linaro.org, plai@codeaurora.org
-Subject: [alsa-devel] [PATCH] ASoC: soc-core: export function to find
-	components
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57B3DF89682
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 10:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57B3DF89682
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2019 01:03:01 -0700
+X-ExtLoop1: 1
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga007.jf.intel.com with ESMTP; 18 Jun 2019 01:03:00 -0700
+Received: from rkammarx-mobl3.ger.corp.intel.com (unknown [10.252.61.163])
+ by linux.intel.com (Postfix) with ESMTP id 028A258028E;
+ Tue, 18 Jun 2019 01:02:58 -0700 (PDT)
+To: bgoswami@codeaurora.org, vkoul@kernel.org
+References: <1560843846-4631-1-git-send-email-bgoswami@codeaurora.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <18a6f0ec-d34c-e45b-9db8-2950f4ab95d6@linux.intel.com>
+Date: Tue, 18 Jun 2019 10:02:59 +0200
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.7.1
+MIME-Version: 1.0
+In-Reply-To: <1560843846-4631-1-git-send-email-bgoswami@codeaurora.org>
+Content-Language: en-US
+Cc: Dhananjay Kumar <dhakumar@codeaurora.org>, alsa-devel@alsa-project.org,
+ srinivas.kandagatla@linaro.org, plai@codeaurora.org, tiwai@suse.com
+Subject: Re: [alsa-devel] [PATCH] ALSA: compress: avoid integer overflow for
+ long duration offload playback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,73 +73,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Banajit Goswami <bgoswami@codeaurora.org>
+On 6/18/19 9:44 AM, bgoswami@codeaurora.org wrote:
+> From: Banajit Goswami <bgoswami@codeaurora.org>
+> 
+> Currently a 32 bit variable is used for storing number of bytes
+> copied to DSP, which can overflow when playback continues for a long
+> duration.
+> Change data type for this variable to __u64 to prevent overflow.
 
-Drivers may need to use the ASoC core function to
-find out whether a particular component is already
-registered with ASoC core or not.
-Export the function so that drivers can use it outside
-of the file.
+This clearly looks like a bug, the number of bytes transferred is stored 
+as u64 in the runtime. I have no memories of this being intentional.
 
-Signed-off-by: Banajit Goswami <bgoswami@codeaurora.org>
----
- include/sound/soc.h  |  2 ++
- sound/soc/soc-core.c | 13 ++++++++++++-
- 2 files changed, 14 insertions(+), 1 deletion(-)
+That said, it seems odd to me that you have an overflow on the number of 
+bytes but not on the number of PCM frames. Shouldn't both the pcm_frames 
+and pcm_io_frames fields also be changed to u64 while we are at it?
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 482b4ea..def975f 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1405,6 +1405,8 @@ int snd_soc_component_update_bits_async(struct snd_soc_component *component,
- void snd_soc_component_async_complete(struct snd_soc_component *component);
- int snd_soc_component_test_bits(struct snd_soc_component *component,
- 	unsigned int reg, unsigned int mask, unsigned int value);
-+struct snd_soc_component *soc_find_component(
-+	const struct device_node *of_node, const char *name);
- 
- /* component wide operations */
- int snd_soc_component_set_sysclk(struct snd_soc_component *component,
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 41c0cfa..50a9977 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -741,7 +741,17 @@ int snd_soc_resume(struct device *dev)
- static const struct snd_soc_dai_ops null_dai_ops = {
- };
- 
--static struct snd_soc_component *soc_find_component(
-+/**
-+ * soc_find_component: find a component from component_list in ASoC core
-+ *
-+ * @of_node: of_node of the component to query.
-+ * @name: name of the component to query.
-+ *
-+ * function to find out if a component is already registered with ASoC core.
-+ *
-+ * Returns component handle for success, else NULL error.
-+ */
-+struct snd_soc_component *soc_find_component(
- 	const struct device_node *of_node, const char *name)
- {
- 	struct snd_soc_component *component;
-@@ -764,6 +774,7 @@ static struct snd_soc_component *soc_find_component(
- 
- 	return NULL;
- }
-+EXPORT_SYMBOL(soc_find_component);
- 
- static int snd_soc_is_matching_component(
- 	const struct snd_soc_dai_link_component *dlc,
--- 
-The Qualcomm Innovation Center, Inc. is a member of the Code Aurora Forum,
-a Linux Foundation Collaborative Project
+And the second issue is that this may impact apps. This is a ABI change, 
+isn't it?
+
+> 
+> Signed-off-by: Dhananjay Kumar <dhakumar@codeaurora.org>
+> Signed-off-by: Banajit Goswami <bgoswami@codeaurora.org>
+> ---
+>   include/uapi/sound/compress_offload.h | 2 +-
+>   sound/core/compress_offload.c         | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/include/uapi/sound/compress_offload.h b/include/uapi/sound/compress_offload.h
+> index 56d9567..db5edf3 100644
+> --- a/include/uapi/sound/compress_offload.h
+> +++ b/include/uapi/sound/compress_offload.h
+> @@ -67,7 +67,7 @@ struct snd_compr_params {
+>    */
+>   struct snd_compr_tstamp {
+>   	__u32 byte_offset;
+> -	__u32 copied_total;
+> +	__u64 copied_total;
+>   	__u32 pcm_frames;
+>   	__u32 pcm_io_frames;
+>   	__u32 sampling_rate;
+> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> index a1a6fd7..2d0a709 100644
+> --- a/sound/core/compress_offload.c
+> +++ b/sound/core/compress_offload.c
+> @@ -184,7 +184,7 @@ static int snd_compr_update_tstamp(struct snd_compr_stream *stream,
+>   	if (!stream->ops->pointer)
+>   		return -ENOTSUPP;
+>   	stream->ops->pointer(stream, tstamp);
+> -	pr_debug("dsp consumed till %d total %d bytes\n",
+> +	pr_debug("dsp consumed till %d total %llu bytes\n",
+>   		tstamp->byte_offset, tstamp->copied_total);
+>   	if (stream->direction == SND_COMPRESS_PLAYBACK)
+>   		stream->runtime->total_bytes_transferred = tstamp->copied_total;
+> 
 
 _______________________________________________
 Alsa-devel mailing list

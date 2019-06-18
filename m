@@ -2,88 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1246B498B0
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 07:30:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D170498BA
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 07:50:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0E4E1714;
-	Tue, 18 Jun 2019 07:29:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0E4E1714
+	by alsa0.perex.cz (Postfix) with ESMTPS id 722ED1704;
+	Tue, 18 Jun 2019 07:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 722ED1704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560835810;
-	bh=qKGt6ovEO2iegOW3q+Z5Q69RLjXu578/8HbD84Rk6QU=;
+	s=default; t=1560837038;
+	bh=8RETSe57EN333/zLmvREPCrfjgPZXhDWhR0vxxt8lF8=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=euzQ5aIspEWotlZiGQromBCXWYXbJCJPiGV71ZWCXm9jrfb3j1D2abVu9gdeVt95m
-	 voy3PQZLeRyld6Kdi9VArMPIJwWjUZa9cWE409wGgdbcbF9bDTiWqj1srsqFL0QlIH
-	 8ddQleRCyG2D5699FXCtpReaBOV4KmE1BzgcMFGE=
+	b=q6qWHOx9dk6vc0/UcX9SlR2vUvQ1WXqDhuR0Xlh4kvuIXlSyBU0iYyxWW0YlhbAIn
+	 Q0ZGsFuaAs4hen8f7AVv23wg7CXFgv/xjTqqOSPm+Vgyrn/bjWba0h/q7ELXtEH25P
+	 26ZDtTA3biKJdM3q47t3KZlvRTCswO7Bjo0J2N7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A8A6F89682;
-	Tue, 18 Jun 2019 07:29:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9838F896F4;
+	Tue, 18 Jun 2019 07:48:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CFB3BF896F4; Tue, 18 Jun 2019 07:29:17 +0200 (CEST)
+ id 68B8AF896F4; Tue, 18 Jun 2019 07:48:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4B04F8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 07:29:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4B04F8075C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="mPvW2e6m"
-Received: by mail-pf1-x444.google.com with SMTP id r7so6956347pfl.3
- for <alsa-devel@alsa-project.org>; Mon, 17 Jun 2019 22:29:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id;
- bh=Lj4Or491uCz2tJJXb3WzbO2VXWNk3Hk7nTOtYQN43sI=;
- b=mPvW2e6mcV/CIqhidFpo+Yurn5TdvkXOW1QdaK3u5WTFGziti+wTCsJW/eOOr02fqG
- J9JT0PVET8S1CLVBiYeXo2sKcEPICn18rwWbomdjPf2FiLN4VjQzlUsjJufdGHsHnIl/
- yucipCljbwALWRVvWM6KF4m8FqUC2+lBTG3jYhsyOODebLlB5k6xtqgnNbW6rZWsrHBN
- +ls1KOFsQeRhllGKvOrw9dfca9T45nBQEH7T4VCNFlpTSgvYvAJ3jh+83VBphd3ftRIL
- nZl+2bwQZIS7GAI/obVHxanKvqbfkrHlqkWTaG4cJGi3M4vUQGG4EWgtvcuI2qzN5EqR
- RdqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Lj4Or491uCz2tJJXb3WzbO2VXWNk3Hk7nTOtYQN43sI=;
- b=LPwAm1KWUWIBw9Wc3zKw1ETp4fMT3Ltcyrs+tvtdoprYvrp7sGRWGO6j4OcsS+8FE5
- CNlfPKhV7Dn76F6PstVzphmi5m/y7ZMLothj3vtwoSZNoSOYDDFMV9hWmHKJGm6Y5zZ+
- A6E3A33Ii+8A2zHRc5PcX9cqF5SCyTNyEH3SC/9LwuzBxAQPjP6RxuAeMAF/NPSYk8md
- 9sTrU1XrNkAqKSX8gmlMeJJ9RH8fbu7gJwRVNQWYs0bxrq+kz/Pg35/NW/r72dnk5TKs
- Fr+pmFFGLRnpfbA/1FQNGCJcl7sUQkqVcdFmByqZGq0acPx4TMQiLEB9rT5kPBo8+vtK
- oF4Q==
-X-Gm-Message-State: APjAAAV+cIhvPk0VNCdOsVioHOlp2Rg0pJn56ngk7vRpXQkwKmkSHySi
- RE61NHyozbOm9xhqiCoaE3HR8w==
-X-Google-Smtp-Source: APXvYqzVQmDQx7MS4P1iKQ8RlVJhSS2xJyaB9wF2eydxpDgmsaFQMWNabJZt0GUQO5Ds3AbcW/Ei9Q==
-X-Received: by 2002:a17:90a:a385:: with SMTP id
- x5mr3088727pjp.76.1560835753055; 
- Mon, 17 Jun 2019 22:29:13 -0700 (PDT)
-Received: from localhost.localdomain
- (104-188-17-28.lightspeed.sndgca.sbcglobal.net. [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id b6sm13477601pgd.5.2019.06.17.22.29.12
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 17 Jun 2019 22:29:12 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Patrick Lai <plai@codeaurora.org>,
- Banajit Goswami <bgoswami@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Date: Mon, 17 Jun 2019 22:29:09 -0700
-Message-Id: <20190618052909.32586-1-bjorn.andersson@linaro.org>
-X-Mailer: git-send-email 2.18.0
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: qcom: common: Mark links as nonatomic
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FC72F8075C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 07:48:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FC72F8075C
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Jun 2019 22:48:46 -0700
+X-ExtLoop1: 1
+Received: from macchian.itwn.intel.com ([10.5.230.135])
+ by orsmga002.jf.intel.com with ESMTP; 17 Jun 2019 22:48:44 -0700
+From: mac.chiang@intel.com
+To: alsa-devel@alsa-project.org
+Date: Tue, 18 Jun 2019 13:48:46 +0800
+Message-Id: <1560836926-27055-1-git-send-email-mac.chiang@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: harshapriya.n@intel.com, mac.chiang@intel.com, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com, yong.zhi@intel.com
+Subject: [alsa-devel] [PATCH] ASoC: Intel: boards: add dmic format constraint
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,30 +69,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The interface used to communicate with the DSP can sleep, so mark the
-links as nonatomic. This prevents various sleep while atomic errors when
-bringing up the audio interface.
+From: Mac Chiang <mac.chiang@intel.com>
 
-Suggested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+platform dmic recording fixup 16bits
+
+Signed-off-by: Mac Chiang <mac.chiang@intel.com>
 ---
- sound/soc/qcom/common.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/intel/boards/bxt_da7219_max98357a.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index 97488b5cc515..2c7348ddbbb3 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -116,6 +116,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- 			goto err;
- 		}
+diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+index 5cadb7f..ac06408 100644
+--- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
++++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+@@ -330,6 +330,9 @@ static int broxton_dmic_startup(struct snd_pcm_substream *substream)
+ 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
+ 			&constraints_channels_quad);
  
-+		link->nonatomic = 1;
- 		link->dpcm_playback = 1;
- 		link->dpcm_capture = 1;
- 		link->stream_name = link->name;
++	runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
++	snd_pcm_hw_constraint_msbits(runtime, 0, 16, 16);
++
+ 	return snd_pcm_hw_constraint_list(substream->runtime, 0,
+ 			SNDRV_PCM_HW_PARAM_RATE, &constraints_rates);
+ }
 -- 
-2.18.0
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,85 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86EA64AA3B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 20:49:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 609534AA89
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 21:01:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E23016F8;
-	Tue, 18 Jun 2019 20:48:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E23016F8
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3DCC16F2;
+	Tue, 18 Jun 2019 21:00:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3DCC16F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560883746;
-	bh=RMkcDUh1T+jVPhUQT5+JSfBK0lyrR6powKCZztdsRP0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FuRuI+OLGNBNNB+MWDunAl8VN9qiT33FHAerD/igFIzRQA0E1mhAc38Rlr6p67A+U
-	 GfjtBojKZfyp040KhvE/yZ7Z4hTRV3ib5NxVxB0n79AIC/rZ1kMDjKP8WMDOKsowiT
-	 UucKAsNDF43ZogjjyH5UnmS2kjealtGL6KfkM/rg=
+	s=default; t=1560884503;
+	bh=+pXM6Pc8dlCZ4wT0VhIWvaPyemnSsesTzngbLeVXb7g=;
+	h=To:From:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=fBvAlSQNX+zDBBXgm06faYh/nJpvQVtv6HLeIu8EWvI+SECp2B5uAepjXA/L5B5Fs
+	 WR7bMJRoqu0+as+OhL19sGJ8n+zF38NSAgjIcUQB2zKabPbr0HdtuNXjldvDbMvXeq
+	 IvoQJt/47PDOsa/zgH2hpHZOv2WKVkNu++QV7y9g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F15BF8971C;
-	Tue, 18 Jun 2019 20:47:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D8AAF896F4;
+	Tue, 18 Jun 2019 20:59:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B4C4F896F4; Tue, 18 Jun 2019 20:47:19 +0200 (CEST)
+ id 6C4A9F896F4; Tue, 18 Jun 2019 20:59:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Status: No, score=0.9 required=5.0 tests=HTML_MESSAGE,SPF_FAIL,
+ SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from p3plwbeout03-04.prod.phx3.secureserver.net
+ (p3plsmtp03-04-2.prod.phx3.secureserver.net [72.167.218.216])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4DA1F80CC4
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 20:47:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4DA1F80CC4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="b7Qz7KSS"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2GybvW+pvKzG30g9GQw9L9iwbdt1DhKvlt4DtJh360k=; b=b7Qz7KSSZmxUpMZGWWHLF/qPy
- Uh/Abr8TZ673wGtXFfudJl1y/K7E4W8HXP/+s41ygKirEKIhzJT5eAxS18YynY2vFz/Uj0FOUatgK
- s0dc6mT6tLv4CFDqS2GkyCX3hksbgV+QqUQhyc+JsXZJQoyBSUh8h0C3cdsdFF66iTNyg=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hdJ8R-0005Ms-30; Tue, 18 Jun 2019 18:47:11 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 61995440046; Tue, 18 Jun 2019 19:47:10 +0100 (BST)
-Date: Tue, 18 Jun 2019 19:47:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@google.com>
-Message-ID: <20190618184710.GP5316@sirena.org.uk>
-References: <20190614194854.208436-1-fletcherw@chromium.org>
- <20190614194854.208436-4-fletcherw@chromium.org>
- <4e560e12-4c20-8d5d-b3f9-587a55da279d@intel.com>
- <CAN-6NYZzMqwDaw2oDyms4P9uKFPJvuQOtGbqMWLtFV3kDyQHJQ@mail.gmail.com>
- <CAOReqxhETC9xAojXyDWLMOJ3W22Zn4GNGry44=XC=t_k7SCHqA@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15B02F80CC4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 20:59:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15B02F80CC4
+Received: from p3plgemwbe03-02.prod.phx3.secureserver.net ([72.167.218.130])
+ by :WBEOUT: with SMTP
+ id dJKChGoYU5iD0dJKCh0ess; Tue, 18 Jun 2019 11:59:20 -0700
+X-SID: dJKChGoYU5iD0
+Received: (qmail 105733 invoked by uid 99); 18 Jun 2019 18:59:19 -0000
 MIME-Version: 1.0
-In-Reply-To: <CAOReqxhETC9xAojXyDWLMOJ3W22Zn4GNGry44=XC=t_k7SCHqA@mail.gmail.com>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ross Zwisler <zwisler@chromium.org>,
- Fletcher Woodruff <fletcherw@chromium.org>,
- Curtis Malainey <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [PATCH v7 3/4] ASoC: rt5677: clear interrupts by
-	polarity flip
+To: "Jaroslav Kysela" <perex@perex.cz>
+From: "scott andrew franco" <samiam@moorecad.com>
+In-Reply-To: <20190618113358.6c61c97e98fe7bb02193b2d6dca4a85a.ed0e6629be.mailapi@email03.godaddy.com>
+Date: Tue, 18 Jun 2019 11:59:19 -0700
+Message-Id: <20190618115919.6c61c97e98fe7bb02193b2d6dca4a85a.e791232afd.mailapi@email03.godaddy.com>
+X-Originating-IP: 73.162.255.67
+User-Agent: MailAPI 
+X-Sender: samiam@moorecad.com
+X-CMAE-Envelope: MS4wfOE2poZGfwA33aXXUzMftCACi7xMEAMzrSSEIcIn+alu0a2AFoc4MeQoK+iZRPesmv/WkIAd1/RqaCsSWqRB2/XLShJziabN5G9zmaeF04iiNSpgHOXm
+ JAzIlD2kIrTUjieU53XJYBvhBxfONe//Z+anKlIDK7KxBoeXomCUGlcEd/LQaWVz1zMKRDdxZdc3m19dnT5aCgEQwe8P5/KPiHzbJdFJ8xS0JHR3qECDxWW5
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so
+ vs. .o file
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,71 +68,172 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1443304482481674605=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+PS. I really appreciate the help, I have spent more than a week on this, it is a serious blocking issue.
+ 
+I've gone over the example I posted quite carefully. I recommend you try the example out. You just need the
+two source files below (test2.c and playwav.c). and execute the commands shown below.
+ 
+The fact that it fails only in the .so file can explain why this bug hasn't affected more user code, since most
+people don't call alsa from another library. However, it does not explain everything since I believe there must
+be a few users who do put the calling code in a library.
+ 
+Thanks,
+ 
+Scott Franco
+ 
+--------- Original Message --------- Subject: RE: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so vs. .o file
+From: "scott andrew franco" <samiam@moorecad.com>
+Date: 6/18/19 11:33 am
+To: "Jaroslav Kysela" <perex@perex.cz>
+Cc: alsa-devel@alsa-project.org
 
---===============1443304482481674605==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BQstn4t8nd6twlV3"
-Content-Disposition: inline
+ Hi, and thanks for the reply.
+ 
+>I think that you must link .so to -lasound, too.
+ 
+This was done and shows in the command line example below, IE,
+ 
+ samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
+> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
+> samiam@samiam-home-pc:~/projeclufthansa check reservationts/petit_ami$ ./playwav
+> alsaplaywave: rate: 1
+> alsaplaywave: rate: 0
+> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
+> samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
+> alsaplaywave: rate: 1
+> alsaplaywave: rate: 1
+ 
+Note that in both the "succeeds" case and the "fails" case carry the -lasound option. It would not compile
+if not.
+ 
+Scott Franco
+ 
+--------- Original Message --------- Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so vs. .o file
+From: "Jaroslav Kysela" <perex@perex.cz>
+Date: 6/18/19 11:18 am
+To: "scott andrew franco" <samiam@moorecad.com>
+Cc: alsa-devel@alsa-project.org
 
-
---BQstn4t8nd6twlV3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Jun 18, 2019 at 11:12:58AM -0700, Curtis Malainey wrote:
-> On Tue, Jun 18, 2019 at 11:01 AM Fletcher Woodruff
-> > On Sun, Jun 16, 2019 at 10:56 AM Cezary Rojewski
-> > > On 2019-06-14 21:48, Fletcher Woodruff wrote:
-
-> > > > +     ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
-> > > > +     if (ret) {
-> > > > +             pr_err("rt5677: failed reading IRQ status: %d\n", ret);
-
-> > > The entire rt5677 makes use of dev_XXX with the exception of.. this very
-> > > function. Consider reusing "component" field which is already part of
-> > > struct rt5677_priv and removing pr_XXX.
-
-> > I was using dev_XXX, but I believe Curtis found that 'component' was
-> > sometimes uninitialized when this function was called, so I switched
-> > back to pr_XXX. I may be misremembering though, so I'll let Curtis
-> > comment as well.
-
-> The issue here is that the IRQ is setup in the i2c probe and the
-> component is setup in the codec probe. In theory if the hardware is in
-
-The component is not needed for a struct device, you must have a struct
-device if you have a regmap or have probed at all.
-
---BQstn4t8nd6twlV3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0JMa0ACgkQJNaLcl1U
-h9DZcQf/ccl646Fq6MOoLNN1gJ8spcWeyqqS0N9BX8AF0sxJxnubO0NtjYtWNrqS
-yRwufehgJtFHiEubQEyDR75hAO69qzV/vdYOMyohwCo2wcS8c/l3pZqKomHdRsBb
-UJQbxFdW1M1nlgfOWza83Ko9dT7cV/DnXQZquAKmwbLYaAp0BrBEoDIcjIuD7GdN
-pKnmw6/oAcpcVahvg/uVSriAcRjjvaykpzXnmDB78vqJ5yRs0thrTlBtkvlE3b4B
-lkymwUB3X1rSbrIMP2+8RC9vEsS96D0uyp4uL4IHFPqeOGxcdOd7k6dV/qbj8OH2
-LRRkK3adUQg1tGf/ksckR/q/1Em4Rw==
-=AmR9
------END PGP SIGNATURE-----
-
---BQstn4t8nd6twlV3--
-
---===============1443304482481674605==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Dne 18. 06. 19 v 17:16 scott andrew franco napsal(a):
+ > Hello,
+ > 
+ > The issue:
+ > 
+ > calling across .so (dynamic linking) produces different behavior in ALSA library calls than normal,
+ > and causes ALSA to malfunction.
+ > 
+ > I have minimized my issue to as small a code section as possible. Note the code is from commonly available
+ > internet examples, including Free Electrons "Audio in embedded linux systems".
+ 
+ It seems like a linker issue. I think that you must link .so to -lasound, too.
+ (add -lasound to the command producing your .so library to satisfy the
+ versioned symbols)
+ 
+ Jaroslav
+ 
+ > 
+ > The run is:
+ > 
+ > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
+ > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
+ > samiam@samiam-home-pc:~/projeclufthansa check reservationts/petit_ami$ ./playwav
+ > alsaplaywave: rate: 1
+ > alsaplaywave: rate: 0
+ > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
+ > samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
+ > alsaplaywave: rate: 1
+ > alsaplaywave: rate: 1
+ > 
+ > Note the only difference between the two runs of "playwave" is if the second module, test2, is linked as a .so or
+ > linked as a .o.
+ > 
+ > The code is:
+ > =======================================================================================
+ > playwav.c
+ > #include <alsa/asoundlib.h>
+ > #include <stdio.h>
+ > void alsaplaywave1(void)
+ > {
+ > snd_pcm_t *pcm_handle;
+ > snd_pcm_hw_params_t *params;
+ > unsigned int val;
+ > unsigned int rate;
+ > int r;
+ > /* open pcm device */
+ > r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
+ > if (r < 0) printf("Cannot open PCM output device");
+ > snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
+ > snd_pcm_hw_params_any(pcm_handle, params);
+ > r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
+ > if (r < 0) printf("Cannot set interleaved mode");
+ > r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
+ > if (r < 0) printf("Cannot set format");
+ > r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
+ > if (r < 0) printf("Cannot set channels number");
+ > val = 44100;
+ > r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
+ > if (r < 0) printf("Cannot set rate");
+ > snd_pcm_hw_params_get_rate(params, &rate, 0);
+ > printf("alsaplaywave: rate: %d\n", rate);
+ > snd_pcm_close(pcm_handle);
+ > }
+ > extern void alsaplaywave2(void);
+ > int main(int argc, char **argv)
+ > {
+ > alsaplaywave1();
+ > alsaplaywave2();
+ > return 0;
+ > }
+ > 
+ > ==================================================================================
+ > test2.c
+ > #include <alsa/asoundlib.h>
+ > #include <stdio.h>
+ > void alsaplaywave2(void)
+ > {
+ > snd_pcm_t *pcm_handle;
+ > snd_pcm_hw_params_t *params;
+ > unsigned int val;
+ > unsigned int rate;
+ > int r;
+ > /* open pcm device */
+ > r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
+ > if (r < 0) printf("Cannot open PCM output device");
+ > snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
+ > snd_pcm_hw_params_any(pcm_handle, params);
+ > r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
+ > if (r < 0) printf("Cannot set interleaved mode");
+ > r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
+ > if (r < 0) printf("Cannot set format");
+ > r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
+ > if (r < 0) printf("Cannot set channels number");
+ > val = 44100;
+ > r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
+ > if (r < 0) printf("Cannot set rate");
+ > snd_pcm_hw_params_get_rate(params, &rate, 0);
+ > printf("alsaplaywave: rate: %d\n", rate);
+ > snd_pcm_close(pcm_handle);
+ > }
+ > _______________________________________________
+ > Alsa-devel mailing list
+ > Alsa-devel@alsa-project.org
+ > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+ > 
+ 
+ 
+ -- 
+ Jaroslav Kysela <perex@perex.cz>
+ Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+ _______________________________________________
+ Alsa-devel mailing list
+ Alsa-devel@alsa-project.org
+ https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============1443304482481674605==--

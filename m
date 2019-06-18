@@ -2,60 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B539B4AD3D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 23:22:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E254AED7
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 01:48:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3136E16A5;
-	Tue, 18 Jun 2019 23:21:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3136E16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC27516AE;
+	Wed, 19 Jun 2019 01:47:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC27516AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560892967;
-	bh=86CEPoYsw4SR4EBCxEE/ynHD3ztjqjskImX9JkuRpgk=;
-	h=To:From:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bVMdliaz0zMFZAFXqFz595CKkLDomS7/Rlw3NoehBCUD/cb7NmGClvEdJMebfoTFW
-	 1ERMVp0m9fxhztcPItN4+D1qh2WM5q0UhCoznnXok+BfDMJiuDhWkzClwa4vhiOrsN
-	 xlnwe3gf0T4bBWTdjYo4G1tBAFGlU204ogC3wO4k=
+	s=default; t=1560901681;
+	bh=jdEt79tYfwgFtyAyWWp+eZNqmyIFa2wwjlhJmbd9TyQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qi60K8WAoY7mli4ETHnOnGpaayry+MUTeK9k4DPOThmO6geak5t331ZsCnRGKTXgf
+	 +ARQqfMNpEqCGXlJa5BkFBm+i2eKz8iVlG+eBXIg0yGS7tT2JGYqcOXVON5HUg3z6m
+	 +obXwyUg60dw+eMRQ0H3+eCYsjuE6dOxvFJuVTYE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6001F896DB;
-	Tue, 18 Jun 2019 23:21:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A75AF8971B;
+	Wed, 19 Jun 2019 01:46:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D172BF896DB; Tue, 18 Jun 2019 23:20:59 +0200 (CEST)
+ id 68ADEF896F4; Wed, 19 Jun 2019 01:46:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=HTML_MESSAGE,PRX_BODY_30,
- SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from p3plwbeout03-03.prod.phx3.secureserver.net
- (p3plsmtp03-03-2.prod.phx3.secureserver.net [72.167.218.215])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57B3FF8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 23:20:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57B3FF8075C
-Received: from p3plgemwbe03-03.prod.phx3.secureserver.net ([72.167.218.131])
- by :WBEOUT: with SMTP
- id dLWhh6kk4IoaadLWhhXEm6; Tue, 18 Jun 2019 14:20:23 -0700
-X-SID: dLWhh6kk4Ioaa
-Received: (qmail 189400 invoked by uid 99); 18 Jun 2019 21:20:23 -0000
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6ABBCF8075C
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 01:46:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ABBCF8075C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="Fw5Pyth5"
+Received: by mail-io1-xd44.google.com with SMTP id u19so33871361ior.9
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 16:46:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=P6OiHApPpuHFcXqpPL0yqvZnshiOzXZvGcLbs7dM2ic=;
+ b=Fw5Pyth5dnuVNp0vDCXr26K5dYvEdk35TgTo4Kp3aiX5j8Icz85fstmHGai3mKRtb3
+ 8jR57qQM62+JFhSKNzwtWC5BN59Evz5Hr4HHXePpBZUIp7icD/N6vFwbKN96uYLhCRbu
+ jcjA5hmiE3S/1RzV2Jhl0fyk5yRgUyeP26RrM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=P6OiHApPpuHFcXqpPL0yqvZnshiOzXZvGcLbs7dM2ic=;
+ b=HizP8t32E4OlbZdctdcpRMjPvpBBPnvkH+fsygXyREK0w3pkVBC880z5a2BgREtnm8
+ qbf3KZgBCBbkLDU387olNmIEIkpH1tmkpwpGokQ07FFphuFq041ezKtmqiTEHhLRzNpv
+ XdWaHqQiGb8JbIrgs8M5CE41go/ld5TTY3onHiNETv5ClVyn5M2V77/xps2kBTUzcKRN
+ k1GlnEIpiar1jMaaMuYjj3UkN18fOu+3g53tIghicjQY9o9hSbIoLO+r2vJSebx+LtYc
+ pOh79h85LGmVB2MOzXqpp74kZIWwTmAiUHse7frkU/bHRql7GYKpc7tGGzMtcqfOQ3lO
+ AIWg==
+X-Gm-Message-State: APjAAAXPT4kMX8vHlxi2Wcxfz0CLq+4WrBliRACJab0OBmfp11mCeYT/
+ gx6WkPkBRlS6fLIG0EUKfSZ4Hg==
+X-Google-Smtp-Source: APXvYqx0XYE1ACE0khO5y6o8MbcH4AOi8bn5I0VI230YUYijlmFsiPNXdCuhPosL71GP7ed8k2DOgA==
+X-Received: by 2002:a5d:94d7:: with SMTP id y23mr5967649ior.296.1560901569308; 
+ Tue, 18 Jun 2019 16:46:09 -0700 (PDT)
+Received: from localhost ([2620:15c:183:200:33ce:f5cf:f863:d3a6])
+ by smtp.gmail.com with ESMTPSA id y20sm15562673iol.34.2019.06.18.16.46.07
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 18 Jun 2019 16:46:08 -0700 (PDT)
+From: Fletcher Woodruff <fletcherw@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 18 Jun 2019 17:45:53 -0600
+Message-Id: <20190618234555.188955-1-fletcherw@chromium.org>
+X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
 MIME-Version: 1.0
-To: "Takashi Iwai" <tiwai@suse.de>
-From: "scott andrew franco" <samiam@moorecad.com>
-In-Reply-To: <20190618141048.6c61c97e98fe7bb02193b2d6dca4a85a.fda560ce55.mailapi@email03.godaddy.com>
-Date: Tue, 18 Jun 2019 14:20:23 -0700
-Message-Id: <20190618142023.6c61c97e98fe7bb02193b2d6dca4a85a.66840bb3fa.mailapi@email03.godaddy.com>
-X-Originating-IP: 73.162.255.67
-User-Agent: MailAPI 
-X-Sender: samiam@moorecad.com
-X-CMAE-Envelope: MS4wfBUcSOgC+P5npRFrTTnO6sikoe8AnajXcqHoCmjAACrmqtYNPwTCFk1OzM/UgTa2IA+qzchgycfUx1HoRI4Y2/zXLNhd0XwWIvvrCBw/VzmSKrMvlJrQ
- aY4/02vybLoRIkmQ+Jnba1usOawB4IUcTWFJZysZBQUFOVPSISWmJ+ideDg8gIrisKJVUzfeBPtqoThSvaFVot3pFMUz8N0fDDur3T3rm3IbCXzyACiO5yO1
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so
- vs. .o file
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>,
+ Fletcher Woodruff <fletcherw@chromium.org>,
+ Curtis Malainey <cujomalainey@chromium.org>
+Subject: [alsa-devel] [PATCH v8 0/2] Fix jack detection for Chromebook Pixel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,218 +98,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixed.
- 
-Again, apologies for my being dense there.
- 
-This is *great* it all works now. I don't think I would have figured out that link issue on my own.
- 
-Scott Franco
- 
---------- Original Message --------- Subject: RE: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so vs. .o file
-From: "scott andrew franco" <samiam@moorecad.com>
-Date: 6/18/19 2:10 pm
-To: "Takashi Iwai" <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org
+Headphone/mic jack detection doesn't work on the Chromebook Pixel 2015.
 
- Ok I see, apologies. Will try that.
- 
-Scott
- 
---------- Original Message --------- Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so vs. .o file
-From: "Takashi Iwai" <tiwai@suse.de>
-Date: 6/18/19 1:49 pm
-To: "scott andrew franco" <samiam@moorecad.com>
-Cc: alsa-devel@alsa-project.org
+These patches change the irq implementation to support polarity flipping.
+With this series, plugging and unplugging the headphone jack switches
+between headphones and speakers automatically, and headset microphones
+are also detected.
 
-On Tue, 18 Jun 2019 20:59:19 +0200,
- scott andrew franco wrote:
- > 
- > PS. I really appreciate the help, I have spent more than a week on this, it is a serious blocking issue.
- > 
- > I've gone over the example I posted quite carefully. I recommend you try the example out. You just need the
- > two source files below (test2.c and playwav.c). and execute the commands shown below.
- > 
- > The fact that it fails only in the .so file can explain why this bug hasn't affected more user code, since most
- > people don't call alsa from another library. However, it does not explain everything since I believe there must
- > be a few users who do put the calling code in a library.
- 
- What Jaroslav pointed is to pass -lasound2 at creating the *.so file,
- not at linking to the final binary. That is,
- 
- % gcc -shared test2.o -o test2.so -lasound
- 
- Otherwise the linker won't get the proper versioned symbol, hence an
- incorrect symbol may be taken instead of the expected versioned one.
- 
- Calling ALSA library from a shared object is commonly done,
- e.g. PulseAudio. The tricky part is the versioned symbol handling,
- and it's not specific to ALSA-lib but a generic problem.
- 
- 
- Takashi
- 
- > 
- > Thanks,
- > 
- > Scott Franco
- > 
- > --------- Original Message --------- Subject: RE: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so vs. .o file
- > From: "scott andrew franco" <samiam@moorecad.com>
- > Date: 6/18/19 11:33 am
- > To: "Jaroslav Kysela" <perex@perex.cz>
- > Cc: alsa-devel@alsa-project.org
- > 
- > Hi, and thanks for the reply.
- > 
- > >I think that you must link .so to -lasound, too.
- > 
- > This was done and shows in the command line example below, IE,
- > 
- > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
- > > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
- > > samiam@samiam-home-pc:~/projeclufthansa check reservationts/petit_ami$ ./playwav
- > > alsaplaywave: rate: 1
- > > alsaplaywave: rate: 0
- > > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
- > > samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
- > > alsaplaywave: rate: 1
- > > alsaplaywave: rate: 1
- > 
- > Note that in both the "succeeds" case and the "fails" case carry the -lasound option. It would not compile
- > if not.
- > 
- > Scott Franco
- > 
- > --------- Original Message --------- Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so vs. .o file
- > From: "Jaroslav Kysela" <perex@perex.cz>
- > Date: 6/18/19 11:18 am
- > To: "scott andrew franco" <samiam@moorecad.com>
- > Cc: alsa-devel@alsa-project.org
- > 
- > Dne 18. 06. 19 v 17:16 scott andrew franco napsal(a):
- > > Hello,
- > > 
- > > The issue:
- > > 
- > > calling across .so (dynamic linking) produces different behavior in ALSA library calls than normal,
- > > and causes ALSA to malfunction.
- > > 
- > > I have minimized my issue to as small a code section as possible. Note the code is from commonly available
- > > internet examples, including Free Electrons "Audio in embedded linux systems".
- > 
- > It seems like a linker issue. I think that you must link .so to -lasound, too.
- > (add -lasound to the command producing your .so library to satisfy the
- > versioned symbols)
- > 
- > Jaroslav
- > 
- > > 
- > > The run is:
- > > 
- > > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
- > > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
- > > samiam@samiam-home-pc:~/projeclufthansa check reservationts/petit_ami$ ./playwav
- > > alsaplaywave: rate: 1
- > > alsaplaywave: rate: 0
- > > samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
- > > samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
- > > alsaplaywave: rate: 1
- > > alsaplaywave: rate: 1
- > > 
- > > Note the only difference between the two runs of "playwave" is if the second module, test2, is linked as a .so or
- > > linked as a .o.
- > > 
- > > The code is:
- > > =======================================================================================
- > > playwav.c
- > > #include <alsa/asoundlib.h>
- > > #include <stdio.h>
- > > void alsaplaywave1(void)
- > > {
- > > snd_pcm_t *pcm_handle;
- > > snd_pcm_hw_params_t *params;
- > > unsigned int val;
- > > unsigned int rate;
- > > int r;
- > > /* open pcm device */
- > > r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
- > > if (r < 0) printf("Cannot open PCM output device");
- > > snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
- > > snd_pcm_hw_params_any(pcm_handle, params);
- > > r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
- > > if (r < 0) printf("Cannot set interleaved mode");
- > > r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
- > > if (r < 0) printf("Cannot set format");
- > > r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
- > > if (r < 0) printf("Cannot set channels number");
- > > val = 44100;
- > > r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
- > > if (r < 0) printf("Cannot set rate");
- > > snd_pcm_hw_params_get_rate(params, &rate, 0);
- > > printf("alsaplaywave: rate: %d\n", rate);
- > > snd_pcm_close(pcm_handle);
- > > }
- > > extern void alsaplaywave2(void);
- > > int main(int argc, char **argv)
- > > {
- > > alsaplaywave1();
- > > alsaplaywave2();
- > > return 0;
- > > }
- > > 
- > > ==================================================================================
- > > test2.c
- > > #include <alsa/asoundlib.h>
- > > #include <stdio.h>
- > > void alsaplaywave2(void)
- > > {
- > > snd_pcm_t *pcm_handle;
- > > snd_pcm_hw_params_t *params;
- > > unsigned int val;
- > > unsigned int rate;
- > > int r;
- > > /* open pcm device */
- > > r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
- > > if (r < 0) printf("Cannot open PCM output device");
- > > snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
- > > snd_pcm_hw_params_any(pcm_handle, params);
- > > r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
- > > if (r < 0) printf("Cannot set interleaved mode");
- > > r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
- > > if (r < 0) printf("Cannot set format");
- > > r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
- > > if (r < 0) printf("Cannot set channels number");
- > > val = 44100;
- > > r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
- > > if (r < 0) printf("Cannot set rate");
- > > snd_pcm_hw_params_get_rate(params, &rate, 0);
- > > printf("alsaplaywave: rate: %d\n", rate);
- > > snd_pcm_close(pcm_handle);
- > > }
- > > _______________________________________________
- > > Alsa-devel mailing list
- > > Alsa-devel@alsa-project.org
- > > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
- > > 
- > 
- > 
- > -- 
- > Jaroslav Kysela <perex@perex.cz>
- > Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
- > _______________________________________________
- > Alsa-devel mailing list
- > Alsa-devel@alsa-project.org
- > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
- > _______________________________________________
- > Alsa-devel mailing list
- > Alsa-devel@alsa-project.org
- > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
- > 
- _______________________________________________
- Alsa-devel mailing list
- Alsa-devel@alsa-project.org
- https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+v8:
+  - Remove first two patches since they've been merged
+  - Add pointer to i2c->dev in rt5677_priv for use in dev_err functions
+  - Convert pr_err to dev_err in irq function
+
+v7:
+  - Rebase onto for-next branch of broonie/sound.git
+
+v6:
+  - Move refactoring into its own patch
+  - Reorder patches so that DT property names patch is first
+  - Clarify commit message for patch which implements irq handler
+  - Remove unused work struct
+  - Make IRQ function return IRQ_HANDLED only if IRQs actually fire
+
+v5:
+  - Fix void* parameter to devm_request_threaded_irq
+
+v4:
+  - Fix incorrect void* cast in rt5677_irq()
+
+v3:
+  - Update commit message for patch 1/3 to clarify why we implement
+    our own irq_chip.
+
+v2:
+  - Split IRQ change into two patches: adding and fixing potential race
+  - Change config reading code to try both DT and ACPI style names
+
+Ben Zhang (2):
+  ASoC: rt5677: clear interrupts by polarity flip
+  ASoC: rt5677: handle concurrent interrupts
+
+ sound/soc/codecs/rt5677.c | 192 +++++++++++++++++++++++++++++++-------
+ sound/soc/codecs/rt5677.h |   8 +-
+ 2 files changed, 164 insertions(+), 36 deletions(-)
+
+--
+2.22.0.410.gd8fdbe21b5-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

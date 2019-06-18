@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFC6B4A50B
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 17:18:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B22D4A5F2
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 17:56:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5685E16D8;
-	Tue, 18 Jun 2019 17:17:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5685E16D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CCF916D7;
+	Tue, 18 Jun 2019 17:55:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CCF916D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560871118;
-	bh=U7gqvhuDg/j9GmigFsZ3qQSbz7Qpjskmr7z91I3sT98=;
+	s=default; t=1560873388;
+	bh=vGmU497BxPS3M/vYH/MjYCfAZLrunnyTJaq6S9LGr+g=;
 	h=To:From:In-Reply-To:Date:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=k6HIR/uSBCpS76a2VJFV/+Ua1UczG6j2yVA3RQvudRQGvzwF5gvgn13wXLcV5DB7H
-	 8OzW41d38u5wCI6YyxDhQm84dZffEgysBioX61N1Fju6GlgsxXqshCfke9WwvoUdIg
-	 RSKlwhB5bMJX4yebebKXJ1t6P93iIRwLAXPlk1IQ=
+	b=ELeApVM6VSnYJSzZ5aHQbPVZbVG4SDJtrMFxegUw3EYtmaRTwQnt/xKw2sc4AmR3w
+	 lrxX3Zt8VYBzFeKrx0rXyNmI3/ybdIKRtlkEaZuPArNmcHv9Iqq5WgX+5YHxPfNpfv
+	 gVt6ZW63sGRRb7q2RAdhnpGozfltJMsf1iQSDOk4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FE6AF896F4;
-	Tue, 18 Jun 2019 17:16:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56332F896DB;
+	Tue, 18 Jun 2019 17:54:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 944A9F896F4; Tue, 18 Jun 2019 17:16:50 +0200 (CEST)
+ id 7CC8FF896F4; Tue, 18 Jun 2019 17:54:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=HTML_MESSAGE,SPF_FAIL,
@@ -33,25 +33,25 @@ Received: from p3plwbeout03-03.prod.phx3.secureserver.net
  (p3plsmtp03-03-2.prod.phx3.secureserver.net [72.167.218.215])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3A67F8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 17:16:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3A67F8075C
-Received: from p3plgemwbe03-04.prod.phx3.secureserver.net ([72.167.218.132])
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AC93F8075C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 17:54:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AC93F8075C
+Received: from p3plgemwbe03-07.prod.phx3.secureserver.net ([72.167.218.135])
  by :WBEOUT: with SMTP
- id dFqIh6IcmIoaadFqIhX9Nb; Tue, 18 Jun 2019 08:16:14 -0700
-X-SID: dFqIh6IcmIoaa
-Received: (qmail 77682 invoked by uid 99); 18 Jun 2019 15:16:14 -0000
+ id dGQsh6LU7IoaadGQshX9sj; Tue, 18 Jun 2019 08:54:02 -0700
+X-SID: dGQsh6LU7Ioaa
+Received: (qmail 150242 invoked by uid 99); 18 Jun 2019 15:54:02 -0000
 MIME-Version: 1.0
 To: alsa-devel@alsa-project.org
 From: "scott andrew franco" <samiam@moorecad.com>
-In-Reply-To: <20190617232429.6c61c97e98fe7bb02193b2d6dca4a85a.19b5fd637d.mailapi@email03.godaddy.com>
-Date: Tue, 18 Jun 2019 08:16:14 -0700
-Message-Id: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
+In-Reply-To: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
+Date: Tue, 18 Jun 2019 08:54:02 -0700
+Message-Id: <20190618085402.6c61c97e98fe7bb02193b2d6dca4a85a.c62264622a.mailapi@email03.godaddy.com>
 X-Originating-IP: 73.93.93.31
 User-Agent: MailAPI 
 X-Sender: samiam@moorecad.com
-X-CMAE-Envelope: MS4wfIWjFv7YfSAcDsLiiX8/fczrSFJXQZ73KlQ62Voti+fmDT/KP/oRlDn941x8oFHJFdG0LYCCQWxT1GJecWjXsYud62apWcmuCucdZe+o1flRI1zrHvOB
- zV6m6/thGZtUMtCebao41S8BIG/9RLejGW7O9EfDTSjr/V0kSOaCc2lzLTphzcR8enMXyxA/Lj++ix5kj/Ik1H5L97GxAie6GgrYrEblqMdHYe9eOOz+oK8t
+X-CMAE-Envelope: MS4wfN5T4HIoPi28zt2WIYubVG3x0IdokSqraAXvPkOn95wgkkZFXRPJknX+VgOk4aLjNh99a4rFPPL/JK5/gTIS+IxnVHo/Pi6hR97XLFclFKgYnBueIVRW
+ PUweX0QoFt4sdwzjtHQEsIxE4MVCBoQ14nGyKr9j9z5YH6652hQedUVURIamnNdnyHfh6KM72Ijt6Z7FKWo8MnR4F7jtHuFXC2Vhf0dixQMQoTqL4ok1I7wG
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so
 	vs. .o file
@@ -72,7 +72,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+ uname -a
+Linux samiam-home-pc 4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+  
+ 
+samiam@samiam-home-pc:/usr/lib/x86_64-linux-gnu$ ls -l libasound*
+lrwxrwxrwx 1 root root 18 Dec 18 20:25 libasound.so -> libasound.so.2.0.0
+lrwxrwxrwx 1 root root 18 Dec 18 20:25 libasound.so.2 -> libasound.so.2.0.0
+-rw-r--r-- 1 root root 1075496 Dec 18 20:25 libasound.so.2.0.0
+samiam@samiam-home-pc:/usr/lib/x86_64-linux-gnu$
+  
+ 
+--------- Original Message --------- Subject: RE: Serious bug calling ALSA lib functions from .so vs. .o file
+From: "scott andrew franco" <samiam@moorecad.com>
+Date: 6/18/19 8:16 am
+To: alsa-devel@alsa-project.org
+
+ Hello,
  
 The issue:
  

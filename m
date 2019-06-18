@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F944A0B3
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 14:24:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E2814A0B6
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 14:24:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DD9F16DB;
-	Tue, 18 Jun 2019 14:23:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DD9F16DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 189E916D2;
+	Tue, 18 Jun 2019 14:24:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 189E916D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560860650;
-	bh=dhrNpkyGjZ6aFzKgxuTrsRFwwT+zUYuk/G7ILOf27kE=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=G/4EKO+UtxfJ9tawmUfujdfavivPoV2dFS82hgHDs4CefBSU6dNnHrsUqDUOyJhCb
-	 eT9L5ZpaVN8mLV8Xvls25MHIsU4fninxxj6jlDoF8hFZnzS/RH81LAlzazd1UT8Xmy
-	 qK6u2gpg5OJaHd18J8VXSygNM/Nd8qJ1tn31neZo=
+	s=default; t=1560860691;
+	bh=udwWbjni2JY4Wk9bZHtRoHH62lJuz3m0YRq25yOlhjA=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iZRG1ks8SdnQj5rWqibd1ocpKax4rA31jFzAdmT+haBASHOIhMrzc6wQ09jn/GIwb
+	 /IV7YzLDax9Hc0lKsl3u3gTO/kPIC1HHjur5D99rATNp4n0ZoOQ8H3MwQXP95qct6w
+	 Zxh8FMhYBXdStVvuk92oum564CFkAUPAPTEsnFis=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8C51F896F4;
-	Tue, 18 Jun 2019 14:22:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E376CF8075C;
+	Tue, 18 Jun 2019 14:22:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 212FCF8971B; Tue, 18 Jun 2019 14:22:24 +0200 (CEST)
+ id F03BBF896F4; Tue, 18 Jun 2019 14:22:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -32,28 +33,30 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEE27F8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 14:22:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEE27F8075C
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2332F89682
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 14:22:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2332F89682
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 05:22:18 -0700
+ 18 Jun 2019 05:22:19 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,389,1557212400"; d="scan'208";a="161727608"
+X-IronPort-AV: E=Sophos;i="5.63,389,1557212400"; d="scan'208";a="161727614"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by fmsmga007.fm.intel.com with ESMTP; 18 Jun 2019 05:22:17 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 18 Jun 2019 05:22:18 -0700
 From: Bard liao <yung-chuan.liao@linux.intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.de
-Date: Tue, 18 Jun 2019 08:23:35 +0800
-Message-Id: <20190618002336.5734-1-yung-chuan.liao@linux.intel.com>
+Date: Tue, 18 Jun 2019 08:23:36 +0800
+Message-Id: <20190618002336.5734-2-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20190618002336.5734-1-yung-chuan.liao@linux.intel.com>
+References: <20190618002336.5734-1-yung-chuan.liao@linux.intel.com>
 Cc: liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
  pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
-Subject: [alsa-devel] [PATCH 1/2] ASoC: Intel: sof-rt5682: add MCLK support
-	for BYT platform
+Subject: [alsa-devel] [PATCH 2/2] ASoC: Intel: sof-rt5682: correct naming
+	for dmic16k
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,147 +75,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Xun Zhang <xun2.zhang@intel.com>
+From: Keyon Jie <yang.jie@linux.intel.com>
 
-The sof-rt5682 machine driver currently uses BCLK on BYT/Minnowboard
-platform. The MCLK signal is available since the Turbot revision, so
-enable MCLK on BYT/Minnowboard Turbot platform.
+Change the link name to be "dmic16k", the cpu_dai_name to be "DMIC16k
+Pin", to be aligned with other machine drivers.
 
-Signed-off-by: Xun Zhang <xun2.zhang@intel.com>
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 65 ++++++++++++++++++++++++++++-
- 1 file changed, 64 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/sof_rt5682.c | 34 +++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 16 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index e2e5f97d9920..f3d481b75b15 100644
+index f3d481b75b15..919cf6fafe75 100644
 --- a/sound/soc/intel/boards/sof_rt5682.c
 +++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -9,6 +9,7 @@
- #include <linux/input.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/clk.h>
- #include <linux/dmi.h>
- #include <sound/core.h>
- #include <sound/jack.h>
-@@ -32,6 +33,7 @@
- #define SOF_RT5682_SSP_AMP_MASK                 (GENMASK(8, 6))
- #define SOF_RT5682_SSP_AMP(quirk)	\
- 	(((quirk) << SOF_RT5682_SSP_AMP_SHIFT) & SOF_RT5682_SSP_AMP_MASK)
-+#define SOF_RT5682_MCLK_BYTCHT_EN		BIT(9)
- 
- /* Default: MCLK on, MCLK 19.2M, SSP0  */
- static unsigned long sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
-@@ -48,6 +50,7 @@ struct sof_hdmi_pcm {
- };
- 
- struct sof_card_private {
-+	struct clk *mclk;
- 	struct snd_soc_jack sof_headset;
- 	struct list_head hdmi_pcm_list;
- };
-@@ -59,6 +62,22 @@ static int sof_rt5682_quirk_cb(const struct dmi_system_id *id)
- }
- 
- static const struct dmi_system_id sof_rt5682_quirk_table[] = {
-+	{
-+		.callback = sof_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "Circuitco"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Minnowboard Max"),
-+		},
-+		.driver_data = (void *)(SOF_RT5682_SSP_CODEC(2)),
-+	},
-+	{
-+		.callback = sof_rt5682_quirk_cb,
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "AAEON"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "UP-CHT01"),
-+		},
-+		.driver_data = (void *)(SOF_RT5682_SSP_CODEC(2)),
-+	},
- 	{
- 		.callback = sof_rt5682_quirk_cb,
- 		.matches = {
-@@ -127,6 +146,27 @@ static int sof_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
- 					RT5682_CLK_SEL_I2S1_ASRC);
- 	}
- 
-+	if (sof_rt5682_quirk & SOF_RT5682_MCLK_BYTCHT_EN) {
-+		/*
-+		 * The firmware might enable the clock at
-+		 * boot (this information may or may not
-+		 * be reflected in the enable clock register).
-+		 * To change the rate we must disable the clock
-+		 * first to cover these cases. Due to common
-+		 * clock framework restrictions that do not allow
-+		 * to disable a clock that has not been enabled,
-+		 * we need to enable the clock first.
-+		 */
-+		ret = clk_prepare_enable(ctx->mclk);
-+		if (!ret)
-+			clk_disable_unprepare(ctx->mclk);
-+
-+		ret = clk_set_rate(ctx->mclk, 19200000);
-+
-+		if (ret)
-+			dev_err(rtd->dev, "unable to set MCLK rate\n");
-+	}
-+
- 	/*
- 	 * Headset buttons map to the google Reference headset.
- 	 * These can be configured by userspace.
-@@ -161,10 +201,20 @@ static int sof_rt5682_hw_params(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
+@@ -377,7 +377,7 @@ static struct snd_soc_dai_link_component max98357a_component[] = {
+ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 							  int ssp_codec,
+ 							  int ssp_amp,
+-							  int dmic_num,
++							  int dmic_be_num,
+ 							  int hdmi_num)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct sof_card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
- 	struct snd_soc_dai *codec_dai = rtd->codec_dai;
- 	int clk_id, clk_freq, pll_out, ret;
+ 	struct snd_soc_dai_link_component *idisp_components;
+@@ -437,20 +437,22 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 	id++;
  
- 	if (sof_rt5682_quirk & SOF_RT5682_MCLK_EN) {
-+		if (sof_rt5682_quirk & SOF_RT5682_MCLK_BYTCHT_EN) {
-+			ret = clk_prepare_enable(ctx->mclk);
-+			if (ret < 0) {
-+				dev_err(rtd->dev,
-+					"could not configure MCLK state");
-+				return ret;
-+			}
+ 	/* dmic */
+-	for (i = 1; i <= dmic_num; i++) {
+-		links[id].name = devm_kasprintf(dev, GFP_KERNEL,
+-						"dmic%02d", i);
+-		if (!links[id].name)
+-			goto devm_err;
++	if (dmic_be_num > 0) {
++		/* at least we have dmic01 */
++		links[id].name = "dmic01";
++		links[id].cpus->dai_name = "DMIC01 Pin";
++		if (dmic_be_num > 1) {
++			/* set up 2 BE links at most */
++			links[id + 1].name = "dmic16k";
++			links[id + 1].cpus->dai_name = "DMIC16k Pin";
++			dmic_be_num = 2;
 +		}
-+
- 		clk_id = RT5682_PLL1_S_MCLK;
- 		if (sof_rt5682_quirk & SOF_RT5682_MCLK_24MHZ)
- 			clk_freq = 24000000;
-@@ -507,7 +557,9 @@ static int sof_audio_probe(struct platform_device *pdev)
- 		dmic_num = 0;
++	}
+ 
++	for (i = 0; i < dmic_be_num; i++) {
+ 		links[id].id = id;
+ 		links[id].cpus = &cpus[id];
+ 		links[id].num_cpus = 1;
+-		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
+-							  "DMIC%02d Pin", i);
+-		if (!links[id].cpus->dai_name)
+-			goto devm_err;
+-
+ 		links[id].codecs = dmic_component;
+ 		links[id].num_codecs = ARRAY_SIZE(dmic_component);
+ 		links[id].platforms = platform_component;
+@@ -545,7 +547,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	struct snd_soc_dai_link *dai_links;
+ 	struct snd_soc_acpi_mach *mach;
+ 	struct sof_card_private *ctx;
+-	int dmic_num, hdmi_num;
++	int dmic_be_num, hdmi_num;
+ 	int ret, ssp_amp, ssp_codec;
+ 
+ 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
+@@ -554,14 +556,14 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 
+ 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
+ 		is_legacy_cpu = 1;
+-		dmic_num = 0;
++		dmic_be_num = 0;
  		hdmi_num = 0;
  		/* default quirk for legacy cpu */
--		sof_rt5682_quirk = SOF_RT5682_SSP_CODEC(2);
-+		sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
-+						SOF_RT5682_MCLK_BYTCHT_EN |
-+						SOF_RT5682_SSP_CODEC(2);
+ 		sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
+ 						SOF_RT5682_MCLK_BYTCHT_EN |
+ 						SOF_RT5682_SSP_CODEC(2);
  	} else {
- 		dmic_num = 1;
+-		dmic_num = 1;
++		dmic_be_num = 2;
  		hdmi_num = 3;
-@@ -515,6 +567,17 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	}
  
- 	dmi_check_system(sof_rt5682_quirk_table);
+@@ -586,13 +588,13 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	ssp_codec = sof_rt5682_quirk & SOF_RT5682_SSP_CODEC_MASK;
  
-+	/* need to get main clock from pmc */
-+	if (sof_rt5682_quirk & SOF_RT5682_MCLK_BYTCHT_EN) {
-+		ctx->mclk = devm_clk_get(&pdev->dev, "pmc_plt_clk_3");
-+		ret = clk_prepare_enable(ctx->mclk);
-+		if (ret < 0) {
-+			dev_err(&pdev->dev,
-+				"could not configure MCLK state");
-+			return ret;
-+		}
-+	}
-+
- 	dev_dbg(&pdev->dev, "sof_rt5682_quirk = %lx\n", sof_rt5682_quirk);
+ 	/* compute number of dai links */
+-	sof_audio_card_rt5682.num_links = 1 + dmic_num + hdmi_num;
++	sof_audio_card_rt5682.num_links = 1 + dmic_be_num + hdmi_num;
  
- 	ssp_amp = (sof_rt5682_quirk & SOF_RT5682_SSP_AMP_MASK) >>
+ 	if (sof_rt5682_quirk & SOF_SPEAKER_AMP_PRESENT)
+ 		sof_audio_card_rt5682.num_links++;
+ 
+ 	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec, ssp_amp,
+-					      dmic_num, hdmi_num);
++					      dmic_be_num, hdmi_num);
+ 	if (!dai_links)
+ 		return -ENOMEM;
+ 
 -- 
 2.17.1
 

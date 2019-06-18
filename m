@@ -2,65 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4379449A15
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 09:13:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAB3449A3F
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 09:17:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE27A1720;
-	Tue, 18 Jun 2019 09:12:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE27A1720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6076B1722;
+	Tue, 18 Jun 2019 09:17:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6076B1722
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560842007;
-	bh=eWbDgEp8JiAAMx2FRXHkLxj3Y2Oto6QiPxZfCaUtXWs=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1560842274;
+	bh=tx8Ig5c2TtaoS5i+n/v4AUxfCSgYr8G+X+nYSsNsV6s=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nSiRZqHZn94ZMwo70my7CFu7znKWWP12qmJozXnM2y9ZvuHX4/nFJ7rRNzHNiLLOH
-	 jvDDpd7cW1w63gZLPS0GA5BN1KTqZtOsB+xWpFX+bBiEscdR0Ak+x3Q5SN+DAIMuVQ
-	 mMW9GSHvk86tJpmw49IaXIr6RGRmknY8VOLmyRfk=
+	b=TblLsh+VjC/eyuKuR3wriWsm0ALiGAH7okA12QfMLiQpZIQ/2s7W0XOOAXNHZjvCW
+	 xM2WA5+MDE5p2i4DruGWRp/xFI25oxZofrWUKCU/wgZ91h0tf5slmGQzR+jrTozW5W
+	 YnvLs79AWJQt0zgcVtJ9J1NgP2jbCuH3lMnA9Hs0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F425F896F4;
-	Tue, 18 Jun 2019 09:11:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1775F896F4;
+	Tue, 18 Jun 2019 09:16:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F029F896F4; Tue, 18 Jun 2019 09:11:41 +0200 (CEST)
+ id 72FA5F896F4; Tue, 18 Jun 2019 09:16:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E1C5F89682
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 09:11:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E1C5F89682
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 00:11:36 -0700
-X-ExtLoop1: 1
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga004.jf.intel.com with ESMTP; 18 Jun 2019 00:11:36 -0700
-Received: from rkammarx-mobl3.ger.corp.intel.com (unknown [10.252.61.163])
- by linux.intel.com (Postfix) with ESMTP id 8F63558028E;
- Tue, 18 Jun 2019 00:11:34 -0700 (PDT)
-To: Tzung-Bi Shih <tzungbi@google.com>, broonie@kernel.org
-References: <20190618070426.35405-1-tzungbi@google.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <cdb8d180-808f-62d2-4227-10e661e2f9ea@linux.intel.com>
-Date: Tue, 18 Jun 2019 09:11:37 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.1
-MIME-Version: 1.0
-In-Reply-To: <20190618070426.35405-1-tzungbi@google.com>
-Content-Language: en-US
-Cc: yung-chuan.liao@linux.intel.com, alsa-devel@alsa-project.org,
- dgreid@google.com, cychiang@google.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: sof_rt5682: use GFP_KERNEL
- instead of GFP_ATOMIC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 049F6F80CC4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 09:16:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 049F6F80CC4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 926DAAEB5;
+ Tue, 18 Jun 2019 07:16:02 +0000 (UTC)
+Date: Tue, 18 Jun 2019 09:16:02 +0200
+Message-ID: <s5ho92v9xe5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <b1f81597-41d5-73f8-81c4-9d75f1cf0dad@linux.intel.com>
+References: <20190523233951.31122-1-pierre-louis.bossart@linux.intel.com>
+ <s5hk1ege12p.wl-tiwai@suse.de>
+ <284f78d4-ec5a-0ff1-2b67-2977b3634692@linux.intel.com>
+ <CAD8Lp47qCbPh+aZjr0pjzZAcBXqRbMU+5Y_HPy7jrJhUgsD3Tg@mail.gmail.com>
+ <72729168-214a-264d-c704-f718d7cfde4b@linux.intel.com>
+ <210f78be-7988-0daf-1563-513a3da0ba06@canonical.com>
+ <a1ba33bb-d33d-669f-861b-17f2ed1f94b1@canonical.com>
+ <b1f81597-41d5-73f8-81c4-9d75f1cf0dad@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Hui Wang <hui.wang@canonical.com>,
+ Curtis Malainey <cujomalainey@google.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [RFC PATCH 0/6] ALSA/HDA: abort probe when DMICs
+	are detected
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,44 +74,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/18/19 9:04 AM, Tzung-Bi Shih wrote:
-> Change the memory allocation flag from GFP_ATOMIC to GFP_KERNEL because
-> probe of platform device is unlikely a place where cannot sleep.
-> 
-> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-> ---
-> It might be a typo introduced from copied-and-pasted.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-We noticed this issue yesterday while reviewing additional changes for 
-this machine driver but you beat us to it. Thanks!
-
-> 
->   sound/soc/intel/boards/sof_rt5682.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-> index e2e5f97d9920..02138aa8a850 100644
-> --- a/sound/soc/intel/boards/sof_rt5682.c
-> +++ b/sound/soc/intel/boards/sof_rt5682.c
-> @@ -498,7 +498,7 @@ static int sof_audio_probe(struct platform_device *pdev)
->   	int dmic_num, hdmi_num;
->   	int ret, ssp_amp, ssp_codec;
->   
-> -	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
-> +	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
->   	if (!ctx)
->   		return -ENOMEM;
->   
-> 
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVHVlLCAxOCBKdW4gMjAxOSAwODo1MToyNyArMDIwMCwKUGllcnJlLUxvdWlzIEJvc3NhcnQg
+d3JvdGU6Cj4gCj4gCj4gPj4+Pj4gSSBhbSBub3Qgc3VyZSBpZiBpdCdzIGEgZ29vZCBpZGVhIHRv
+IGVuYWJsZSB0aGlzIGJ5IGRlZmF1bHQsIHRoZQo+ID4+Pj4+IGV4cGVyaWVuY2Ugb2YgdGhlIGZp
+cnN0IHJvdW5kIHNob3dlZCBpdCdzIHJpc2t5IHRvIG1ha2UgYXNzdW1wdGlvbnMgb24KPiA+Pj4+
+PiB3aGF0IEJJT1MgdmVuZG9ycyBpbXBsZW1lbnRlZC4KPiA+Pj4+Cj4gPj4+PiBDYW4geW91IGNs
+YXJpZnkgd2hhdCB5b3UgbWVhbiBoZXJlLCBhcmUgeW91IHNheWluZyB5b3UgZG9uJ3Qgd2FudCB0
+bwo+ID4+Pj4gZW5hYmxlIHRoaXMgbmV3IERNSUMgaGFyZHdhcmUgc3VwcG9ydCBieSBkZWZhdWx0
+Pwo+ID4+Pgo+ID4+PiBOby4gV2hhdCBJIGFtIHNheWluZyBpcyB0aGF0Cj4gPj4+IGEpIHRoZSBs
+ZWdhY3kgSERhdWRpbyBkcml2ZXIgZG9lcyBub3Qgc3VwcG9ydCBETUlDcwo+ID4+PiBiKSB0aGUg
+ZGVjaXNpb24gdG8gYWJvcnQgdGhlIEhEYXVkaW8gbGVnYWN5IGRyaXZlciBwcm9iZSBzaG91bGQK
+PiA+Pj4gbm90IGJlIHRoZSBkZWZhdWx0LCBzaW5jZSBpdCBkZXBlbmRzIG9uIEJJT1MgaW5mb3Jt
+YXRpb24gdGhhdCBtYXkKPiA+Pj4gYmUgd3JvbmcgYW5kIG9uIHdoaWNoIEkgaGF2ZSAqemVybyog
+Y29udHJvbC4KPiA+Pj4KPiA+Pj4gVGhlcmUgYXJlIDQgY2FzZXMgcmVhbGx5Ogo+ID4+Pgo+ID4+
+PiAxLiBETUlDcyBhdHRhY2hlZCB0byBQQ0ggYW5kIEJJT1MvTkhMVCByZXBvcnRzIERNSUNTIC0+
+IGFib3J0Cj4gPj4+IEhEYXVkaW8gbGVnYWN5IHByb2JlCj4gPj4+IDIuIE5vIERNSUNzIGF0dGFj
+aGVkIHRvIFBDSCBhbmQgQklPUy9OSExUIGRvZXMgbm90IHJlcG9ydCBETUlDcyAtPiAKPiA+Pj4g
+Y29udGludWUgcHJvYmUgYW5kIHVzZSBIREF1ZGlvIGxlZ2FjeS4KPiA+Pj4gMy4gRE1JQ3MgYXR0
+YWNoZWQgdG8gUENIIGFuZCBCSU9TL05ITFQgZG9lcyBub3QgcmVwb3J0IERNSUNzIC0+IAo+ID4+
+PiBicm9rZW4gY29uZmlnLCB3ZSB3aWxsIG5lZWQgYW4gb3B0aW9uIHRvIGFib3J0IHRoZSBwcm9i
+ZSBieSBmb3JjZQo+ID4+PiBhbmQgaWdub3JlIHRoZSBCSU9TIGlmIHlvdSBjYXJlIGFib3V0IGF1
+ZGlvIGNhcHR1cmUuCj4gPj4+IDQuIG5vIERNSUNzIGF0dGFjaGVkIHRvIFBDSCBhbmQgQklPUy9O
+SExUIHJlcG9ydHMgRE1JQ3MgLT4gYnJva2VuCj4gPj4+IGNvbmZpZywgd2UgbmVlZCBhbiBvcHRp
+b24gdG8gaWdub3JlIHRoZSBCSU9TIGFuZCBjb250aW51ZSB0aGUKPiA+Pj4gcHJvYmUuCj4gPj4K
+PiA+PiBHb3QgaXQswqAgd2Ugd2lsbCBkbyBhIHRlc3Qgb24gYSBjb3VwbGUgb2YgbWFjaGluZXMs
+IGxldCB1cyBzZWUgaWYKPiA+PiB3ZSBjYW4gbWVldCAzIGFuZCA0IGluIHJlYWxpdHkuCj4gPgo+
+ID4gSSBiYWNrcG9ydGVkIHRoZXNlIDYgcGF0Y2hlcyB0byBvdXIgNS4wIGtlcm5lbCB3aXRoIHRo
+ZSBzb2YgZHJpdmVyCj4gPiBpbiBpdCwgYW5kIHRlc3RlZCBvbiAzIG1hY2hpbmVzIHdoaWNoIGhh
+dmUgZG1pYyBjb25uZWN0ZWQgdG8gUENICj4gPiAoYXVkaW8gY29udHJvbGxlciBwY2lpZCAweDlk
+YzgpLCB3aXRob3V0IHRoZXNlIDYgcGF0Y2hlcywgSSBuZWVkIHRvCj4gPiBibGFja2xpc3Qgc25k
+X2hkYV9pbnRlbC5rbyBhbmQgc25kX3NvY19za2wua28gdG8gbWFrZSB0aGUgc29mIGRyaXZlcgo+
+ID4gd29yaywgYWZ0ZXIgYmFja3BvcnRpbmcgdGhlc2UgNiBwYXRjaGVzLCBJIGRvbid0IG5lZWQg
+dG8gYmxhY2tsaXN0Cj4gPiBzbmRfaGRhX2ludGVsLmtvLCBidXQgc3RpbGwgbmVlZCB0byBibGFj
+a2xpc3Qgc25kX3NvY19za2wua28sCj4gPiBvdGhlcndpc2UgdGhlIHNvZiBkcml2ZXIgZG9lc24n
+dCB3b3JrLgo+ID4KPiAKPiBUaGFua3MgZm9yIHRlc3RpbmcuIEkndmUgZG9uZSBhZGRpdGlvbmFs
+IHVwZGF0ZXMgb24gbXkgc2lkZSBhbmQgSSBhbQo+IHJlYXNvbmFibHkgY29uZmlkZW50IHdlIGNh
+biBtYWtlIHRoaXMgU09GL2xlZ2FjeSBhdXRvZGV0ZWN0IHdvcmsuCj4gCj4gPiBBbmQgSSBhbHNv
+IHRlc3RlZCB0aGVzZSA2IHBhdGNoZXMgb24gMyBtYWNoaW5lcyB3aXRob3V0IGRtaWMsIEkKPiA+
+IGRvbid0IG5lZWQgdG8gYmxhY2tsaXN0IGFueXRoaW5nLCB0aGUgYXVkaW8gd29ya3Mgd2VsbCB2
+aWEgbGVnYWN5Cj4gPiBoZGF1ZGlvLgo+ID4KPiA+IFNvIGZvciBjb2V4aXN0ZW5jZcKgIG9mIHNv
+Y19za2wgYW5kIHNvY19zb2YgZHJpdmVycywgZG8gd2UgaGF2ZSBhbnkgcGxhbj8KPiAKPiBIRGF1
+ZGlvIGlzIG5vdCB3ZWxsIHN1cHBvcnRlZCBieSB0aGUgU0tMIGRyaXZlci4gV2UgaW50cm9kdWNl
+ZCB0aGlzCj4gc3VwcG9ydCBpbiB2NC4xOSwgYnV0IHRoZXJlIGFyZSBxdWl0ZSBhIGZldyBpc3N1
+ZXMgb24gc3BlY2lmaWMKPiBwbGF0Zm9ybXMgdGhhdCBhcmUgbm90IHdlbGwgaGFuZGxlZCAocXVl
+c3Rpb25hYmxlIHByb2JlIHdoaWNoIGxlYWQgdG8KPiBicmVha2luZyBhdWRpbyBvbiBMaW51cycg
+bGFwdG9wLCBpbnRlcnJ1cHQgaXNzdWVzIGZpeGVkIHdpdGggU09GIGFuZAo+IGxlZ2FjeSwgZXRj
+KS4gU2luY2UgU09GIGlzIHdlbGwgc3VwcG9ydGVkIG9uIHRob3NlIHBsYXRmb3JtcywgSSBhbQo+
+IGhvbmVzdGx5IGxlYW5pbmcgdG8gZGUtZmVhdHVyZSBIREF1ZGlvIHN1cHBvcnQgZnJvbSB0aGUg
+U0tMIGRyaXZlciAoYXMKPiBpbiBtYWtlIHRoZSBIRGF1ZGlvIGNvZGVjIEtjb25maWcgb3B0aW9u
+IG5vdCByZWNvbW1lbmRlZCkgYW5kIGFwcGx5Cj4gdGhlIHNhbWUgdHJpY2sgYXMgZm9yIHRoZSBs
+ZWdhY3kgdG8gYWJvcnQgdGhlIHByb2JlIGlmIHRoZXJlIGlzIG5vIEkyUwo+IGNvZGVjIGFuZCBE
+TUlDcyBhcmUgZGV0ZWN0ZWQuIEl0IHdvdWxkIGhhdmUgbm8gZWZmZWN0IG9uIGFueSB1c2VycyBh
+bmQKPiB3b3VsZCBoZWxwIGRpc3Ryb3MgbGlrZSBVYnVudHUgYXZvaWQgdGhlIG5lZWQgZm9yIGJs
+YWNrbGlzdHMuIFdlIGNhbgo+IGFsc28gYXBwbHkgRE1JLWJhc2VkIHF1aXJrcyBmb3IgQ2hyb21l
+LCBlLmcuIGZvciBub3cgYWxsIHBsYXRmb3Jtcwo+IHByaW9yIHRvIEdMSyBzaG91bGQgdXNlIFNL
+TCBhbmQgbW9yZSByZWNlbnQgb25lcyBTT0YuCgpBcyBmYXIgYXMgdGhlIGZ1bmN0aW9uYWxpdHkg
+aXMga2VwdCBmcm9tIHVzZSBQT1YsIGl0IHNob3VsZCBiZSBmaW5lLgpBbmQgeWVzLCBibGFja2xp
+c3RpbmcgaXMgbm8gcHJpbWFyeSBvcHRpb24uCgpJIGd1ZXNzIHdlIGNhbiBzdGFydCB0d2Vha2lu
+ZyBLY29uZmlnIHRvIGRpc2FibGUgSEQtYXVkaW8gb24gU0tMIFNTTAp3aGlsZSBrZWVwaW5nIHRo
+ZSBjb2RlIGludGFjdC4KCgp0aGFua3MsCgpUYWthc2hpCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2
+ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

@@ -2,66 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B82D049EBB
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 12:58:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33A7449EC8
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 13:00:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4608E16DE;
-	Tue, 18 Jun 2019 12:57:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4608E16DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 318E616EA;
+	Tue, 18 Jun 2019 12:59:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 318E616EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560855493;
-	bh=mmFi6cpLfHABvbBlJkCx9ftxTPwExxCpYaYsIKDBrI8=;
+	s=default; t=1560855604;
+	bh=iL16yn/qTaYiKO2hmziGc9zgGW54oVxcY+9h0ul+KJ0=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VLb+wGpSsecs2xeNEvqwzLWsraLIHejBgZCk57m6lmkn4oitjoHBvjkvwnSpDn+Ky
-	 5TuBSRSDIVZOKHOogni6JveOnuQmx83jV92NBubVTQlhDA1j3/h9u4Ru4schy+9KqS
-	 f7Kheg0RwenJGEvw+cbq+K1vRpC7+1lGatk8gkPQ=
+	b=hpcH79gN577kvKK3qwZv6HUtIsJQz+ARtZmidzJ2ejONdqw0fBc+gv7Us1JZLdsBn
+	 ug1ovNSHT1IhcU1OJL+QExx07ulQz5V44x5G8IiPr2mMqotbmVQ42/mQc8c5Rofs9N
+	 b64weNQCguJzm5QIVhU/QOwYqXn0UfxQO10u37yw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B80D0F8971C;
-	Tue, 18 Jun 2019 12:56:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD30BF896F4;
+	Tue, 18 Jun 2019 12:58:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C342F896F4; Tue, 18 Jun 2019 12:56:26 +0200 (CEST)
+ id C6555F896F4; Tue, 18 Jun 2019 12:58:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FROM_EXCESS_BASE64,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=FROM_EXCESS_BASE64, PRX_BODY_30,
  SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EDA4F80CC4
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 12:56:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EDA4F80CC4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E2D7F80CC4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 12:58:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E2D7F80CC4
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 03:56:20 -0700
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2019 03:58:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,388,1557212400"; d="scan'208";a="161833962"
+X-IronPort-AV: E=Sophos;i="5.63,388,1557212400"; d="scan'208";a="161834251"
 Received: from xxx.igk.intel.com (HELO xxx) ([10.237.93.170])
- by orsmga003.jf.intel.com with ESMTP; 18 Jun 2019 03:56:18 -0700
-Date: Tue, 18 Jun 2019 13:00:15 +0200
+ by orsmga003.jf.intel.com with ESMTP; 18 Jun 2019 03:58:08 -0700
+Date: Tue, 18 Jun 2019 13:02:06 +0200
 From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?=
  <amadeuszx.slawinski@linux.intel.com>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Message-ID: <20190618130015.0fc388b4@xxx>
-In-Reply-To: <75be86354032f4886cbaf7d430de2aa89eaab573.camel@linux.intel.com>
-References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
- <20190617113644.25621-10-amadeuszx.slawinski@linux.intel.com>
- <75be86354032f4886cbaf7d430de2aa89eaab573.camel@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <20190618130206.2c2ad38c@xxx>
+In-Reply-To: <20190617161827.GH9224@smile.fi.intel.com>
+References: <20190528200255.15923-1-pierre-louis.bossart@linux.intel.com>
+ <20190617144727.GR5316@sirena.org.uk>
+ <29ad7270-9aa4-a002-0f0e-21b7a61fe8a4@linux.intel.com>
+ <20190617161827.GH9224@smile.fi.intel.com>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2 09/11] ASoC: Intel: hdac_hdmi: Set ops
- to NULL on remove
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH] ASoC: Intel: use common helpers to
+ detect CPUs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,100 +73,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCAxNyBKdW4gMjAxOSAxMzo1MTo0MiAtMDcwMApSYW5qYW5pIFNyaWRoYXJhbiA8cmFu
-amFuaS5zcmlkaGFyYW5AbGludXguaW50ZWwuY29tPiB3cm90ZToKCj4gT24gTW9uLCAyMDE5LTA2
-LTE3IGF0IDEzOjM2ICswMjAwLCBBbWFkZXVzeiBTxYJhd2nFhHNraSB3cm90ZToKPiA+IFdoZW4g
-d2UgdW5sb2FkIFNreWxha2UgZHJpdmVyIHdlIG1heSBlbmQgdXAgY2FsbGluZwo+ID4gaGRhY19j
-b21wb25lbnRfbWFzdGVyX3VuYmluZCgpLCBpdCB1c2VzIGFjb21wLT5hdWRpb19vcHMsIHdoaWNo
-IHdlCj4gPiBzZXQKPiA+IGluIGhkbWlfY29kZWNfcHJvYmUoKSwgc28gd2UgbmVlZCB0byBzZXQg
-aXQgdG8gTlVMTCBpbgo+ID4gaGRtaV9jb2RlY19yZW1vdmUoKSwKPiA+IG90aGVyd2lzZSB3ZSB3
-aWxsIGRlcmVmZXJlbmNlIG5vIGxvbmdlciBleGlzdGluZyBwb2ludGVyLiAgCj4gCj4gSGkgQW1h
-ZGV1c3osCj4gCj4gSXQgbG9va3MgbGlrZSB0aGUgYXVkaW9fb3BzIHNob3VsZCBiZSBkZWxldGVk
-IHNuZF9oZGFjX2Fjb21wX2V4aXQoKS4KPiBBbHNvLCB0aGlzIGRvZXNudCBzZWVtIHRvIGJlIHRo
-ZSBjYXNlIHdpdGggd2hlbiB0aGUgU09GIGRyaXZlciBpcwo+IHJlbW92ZWQuCj4gQ291bGQgeW91
-IHBsZWFzZSBnaXZlIGEgYml0IG1vcmUgY29udGV4dCBvbiB3aGF0IGVycm9yIHlvdSBzZWUgd2hl
-bgo+IHRoaXMgaGFwcGVucz8KCkhpLAoKSSBnZXQgT29wcy4gVGhpcyBpcyB3aGF0IGhhcHBlbnMg
-d2l0aCBhbGwgb3RoZXIgcGF0Y2hlcyBpbiB0aGlzIHNlcmllcyBhbmQgb25seSB0aGlzIG9uZSBy
-ZXZlcnRlZDoKCnJvb3RAQVBMOn4jIHJtbW9kIHNuZF9zb2Nfc3N0X2J4dF9ydDI5OApyb290QEFQ
-TDp+IyBybW1vZCBzbmRfc29jX2hkYWNfaGRtaQpyb290QEFQTDp+IyBybW1vZCBzbmRfc29jX3Nr
-bApLaWxsZWQKClsgICA1Ny4wMDc3ODNdIEJVRzogdW5hYmxlIHRvIGhhbmRsZSBwYWdlIGZhdWx0
-IGZvciBhZGRyZXNzOiBmZmZmZmJmZmY0MDY3MDM4ClsgICA1Ny4wMDc5NTZdICNQRjogc3VwZXJ2
-aXNvciByZWFkIGFjY2VzcyBpbiBrZXJuZWwgbW9kZQpbICAgNTcuMDA4MDY1XSAjUEY6IGVycm9y
-X2NvZGUoMHgwMDAwKSAtIG5vdC1wcmVzZW50IHBhZ2UKWyAgIDU3LjAwODE3M10gUEdEIDI2ODI2
-NjA2NyBQNEQgMjY4MjY2MDY3IFBVRCAyMzgwOWEwNjcgUE1EIDIyYjU0NTA2NyBQVEUgMApbICAg
-NTcuMDA4MzIyXSBPb3BzOiAwMDAwIFsjMV0gUFJFRU1QVCBTTVAgREVCVUdfUEFHRUFMTE9DIEtB
-U0FOIFBUSQpbICAgNTcuMDA4NDUzXSBDUFU6IDMgUElEOiAxMDQ1IENvbW06IHJtbW9kIFRhaW50
-ZWQ6IEcgICAgICAgICAgICAgICAgVCA1LjIuMC1yYzQtZGV2ICM4MjQKWyAgIDU3LjAwODYxN10g
-SGFyZHdhcmUgbmFtZTogSW50ZWwgQ29ycC4gQnJveHRvbiBQL0Fwb2xsb2xha2UgUlZQMUMsIEJJ
-T1MgQVBMS1JWUEEuWDY0LjAxNTEuQjI1LjE2MDkxNTE0MTEgMDkvMTUvMjAxNgpbICAgNTcuMDA4
-ODM0XSBSSVA6IDAwMTA6X19hc2FuX2xvYWQ4KzB4MzkvMHg5MApbICAgNTcuMDA4OTMxXSBDb2Rl
-OiBmZiBmZiBmZiBmZiA3ZiBmZiBmZiA0OCAzOSBjMyA3NiA0MCA0OCA4ZCA0MyAwNyA0OCA4OSBj
-MiA4MyBlMiAwNyA0OCA4MyBmYSAwNyA3NSAxOSA0OCBiYSAwMCAwMCAwMCAwMCAwMCBmYyBmZiBk
-ZiA0OCBjMSBlOCAwMyA8MGY+IGI2IDA0IDEwIDg0IGMwIDc1IDJjIDViIDVkIGMzIDQ4IGJlIDAw
-IDAwIDAwIDAwIDAwIGYKYyBmZiBkZiA0OApbICAgNTcuMDA5Mjk5XSBSU1A6IDAwMTg6ZmZmZjg4
-ODIyNDMxZmE2OCBFRkxBR1M6IDAwMDEwMjAzClsgICA1Ny4wMDk0MTFdIFJBWDogMWZmZmZmZmZm
-NDA2NzAzOCBSQlg6IGZmZmZmZmZmYTAzMzgxYzAgUkNYOiBmZmZmZmZmZmEwMWJkOGE0ClsgICA1
-Ny4wMDk1NTddIFJEWDogZGZmZmZjMDAwMDAwMDAwMCBSU0k6IGRmZmZmYzAwMDAwMDAwMDAgUkRJ
-OiBmZmZmZmZmZmEwMzM4MWMwClsgICA1Ny4wMDk3MDRdIFJCUDogZmZmZjg4ODIyNDMxZmE3MCBS
-MDg6IGZmZmZlZDEwNDZhNmQ4ZjMgUjA5OiBmZmZmZWQxMDQ2YTZkOGYzClsgICA1Ny4wMDk4NTFd
-IFIxMDogZmZmZmVkMTA0NmE2ZDhmMyBSMTE6IDAwMDAwMDAwMDAwMDAwMDAgUjEyOiBmZmZmODg4
-MjM1MzZjNGIwClsgICA1Ny4wMDk5OThdIFIxMzogZmZmZmZmZmZhMDMzODFhMCBSMTQ6IGZmZmZm
-ZmZmYTAxYmQ4NjAgUjE1OiBmZmZmODg4MjIzMTA4NTM4ClsgICA1Ny4wMTAxNDddIEZTOiAgMDAw
-MDdmZWRiNTc5ZjU0MCgwMDAwKSBHUzpmZmZmODg4MjM3NzgwMDAwKDAwMDApIGtubEdTOjAwMDAw
-MDAwMDAwMDAwMDAKWyAgIDU3LjAxMDMxMl0gQ1M6ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENS
-MDogMDAwMDAwMDA4MDA1MDAzMwpbICAgNTcuMDEwNDMzXSBDUjI6IGZmZmZmYmZmZjQwNjcwMzgg
-Q1IzOiAwMDAwMDAwMjIyNjBhMDAwIENSNDogMDAwMDAwMDAwMDM0MDZlMApbICAgNTcuMDEwNTgw
-XSBDYWxsIFRyYWNlOgpbICAgNTcuMDEwNjY3XSAgaGRhY19jb21wb25lbnRfbWFzdGVyX3VuYmlu
-ZCsweDQ0LzB4YjAgW3NuZF9oZGFfY29yZV0KWyAgIDU3LjAxMDgyMl0gID8gc25kX2hkYWNfYWNv
-bXBfZXhpdCsweDEzMC8weDEzMCBbc25kX2hkYV9jb3JlXQpbICAgNTcuMDEwOTQ5XSAgdGFrZV9k
-b3duX21hc3RlcisweDUzLzB4ODAKWyAgIDU3LjAxMTAzN10gIGNvbXBvbmVudF9tYXN0ZXJfZGVs
-KzB4NzYvMHhhMApbICAgNTcuMDExMTQ0XSAgc25kX2hkYWNfYWNvbXBfZXhpdCsweDk3LzB4MTMw
-IFtzbmRfaGRhX2NvcmVdClsgICA1Ny4wMTEyNzVdICA/IHNuZF9oZGFjX2Rpc3BsYXlfcG93ZXIr
-MHgxMmUvMHgxZDAgW3NuZF9oZGFfY29yZV0KWyAgIDU3LjAxMTQxNF0gIHNrbF9mcmVlKzB4YmYv
-MHhkMCBbc25kX3NvY19za2xdClsgICA1Ny4wMTE1MTldICBza2xfcmVtb3ZlKzB4ZjEvMHgxMTAg
-W3NuZF9zb2Nfc2tsXQpbICAgNTcuMDExNjIzXSAgcGNpX2RldmljZV9yZW1vdmUrMHhkOS8weDFm
-MApbICAgNTcuMDExNzE0XSAgPyBwY2liaW9zX2ZyZWVfaXJxKzB4MTAvMHgxMApbICAgNTcuMDEx
-ODA2XSAgPyBwcmVlbXB0X2NvdW50X3N1YisweDE4LzB4ZDAKWyAgIDU3LjAxMTg5OF0gID8gX3Jh
-d19zcGluX3VubG9ja19pcnFyZXN0b3JlKzB4MjYvMHg0MApbICAgNTcuMDEyMDA5XSAgZGV2aWNl
-X3JlbGVhc2VfZHJpdmVyX2ludGVybmFsKzB4MTQwLzB4MjcwClsgICA1Ny4wMTIxMjRdICBkcml2
-ZXJfZGV0YWNoKzB4N2EvMHhlMApbICAgNTcuMDEyMjA3XSAgYnVzX3JlbW92ZV9kcml2ZXIrMHg5
-NS8weDE2MApbICAgNTcuMDEyMzAzXSAgZHJpdmVyX3VucmVnaXN0ZXIrMHg0My8weDYwClsgICA1
-Ny4wMTIzOTJdICBwY2lfdW5yZWdpc3Rlcl9kcml2ZXIrMHgyOS8weDExMApbICAgNTcuMDEyNTAx
-XSAgc2tsX2RyaXZlcl9leGl0KzB4MTAvMHgxYiBbc25kX3NvY19za2xdClsgICA1Ny4wMTI2MTBd
-ICBfX3g2NF9zeXNfZGVsZXRlX21vZHVsZSsweDIzNS8weDNkMApbICAgNTcuMDEyNzEyXSAgPyBm
-cmVlX21vZHVsZSsweDM4MC8weDM4MApbICAgNTcuMDEyODA0XSAgZG9fc3lzY2FsbF82NCsweGNk
-LzB4NjUwClsgICA1Ny4wMTI4ODddICA/IHN5c2NhbGxfcmV0dXJuX3Nsb3dwYXRoKzB4MWUwLzB4
-MWUwClsgICA1Ny4wMTI5OThdICBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg0NC8w
-eGE5ClsgICA1Ny4wMTMxMDddIFJJUDogMDAzMzoweDdmZWRiNTJiYzFiNwpbICAgNTcuMDEzMTg5
-XSBDb2RlOiA3MyAwMSBjMyA0OCA4YiAwZCBkMSA4YyAyYyAwMCBmNyBkOCA2NCA4OSAwMSA0OCA4
-MyBjOCBmZiBjMyA2NiAyZSAwZiAxZiA4NCAwMCAwMCAwMCAwMCAwMCAwZiAxZiA0NCAwMCAwMCBi
-OCBiMCAwMCAwMCAwMCAwZiAwNSA8NDg+IDNkIDAxIGYwIGZmIGZmIDczIDAxIGMzIDQ4IDhiIDBk
-IGExIDhjIDJjIDAwIGY3IGQ4IDY0IDg5IDAxIDQ4ClsgICA1Ny4wMTM1NTZdIFJTUDogMDAyYjow
-MDAwN2ZmY2ZjMTdjZTE4IEVGTEFHUzogMDAwMDAyMDYgT1JJR19SQVg6IDAwMDAwMDAwMDAwMDAw
-YjAKWyAgIDU3LjAxMzcxMl0gUkFYOiBmZmZmZmZmZmZmZmZmZmRhIFJCWDogMDAwMDdmZmNmYzE3
-Y2U3OCBSQ1g6IDAwMDA3ZmVkYjUyYmMxYjcKWyAgIDU3LjAxMzg1OF0gUkRYOiAwMDAwMDAwMDAw
-MDAwMDBhIFJTSTogMDAwMDAwMDAwMDAwMDgwMCBSREk6IDAwMDA1NjQ5YTUzMDlhOTgKWyAgIDU3
-LjAxNDAwNF0gUkJQOiAwMDAwNTY0OWE1MzA5YTMwIFIwODogMDAwMDdmZmNmYzE3YmQ5MSBSMDk6
-IDAwMDAwMDAwMDAwMDAwMDAKWyAgIDU3LjAxNDE0OV0gUjEwOiAwMDAwN2ZlZGI1MzM4Y2MwIFIx
-MTogMDAwMDAwMDAwMDAwMDIwNiBSMTI6IDAwMDA3ZmZjZmMxN2QwNDAKWyAgIDU3LjAxNDI5NF0g
-UjEzOiAwMDAwN2ZmY2ZjMTdlNzliIFIxNDogMDAwMDU2NDlhNTMwOTI2MCBSMTU6IDAwMDA1NjQ5
-YTUzMDlhMzAKWyAgIDU3LjAxNDQ0Nl0gTW9kdWxlcyBsaW5rZWQgaW46IGkyY19kZXNpZ253YXJl
-X3BsYXRmb3JtIGkyY19kZXNpZ253YXJlX2NvcmUgc25kX3NvY19kbWljIGpveWRldiB4ODZfcGtn
-X3RlbXBfdGhlcm1hbCBpbnRlbF9wb3dlcmNsYW1wIGNvcmV0ZW1wIGNyYzMyY19pbnRlbCBzZXJp
-b19yYXcgcHdtX2xwc3NfcGNpIHB3bV9scHNzIGludGVsX2xwc3NfcGNpIGludGVsX2xwc3Mgc25k
-X3NvY19ydDI5OCBtZWlfbWUgbWVpIHNuZF9zb2NfcnQyODYgc25kX3NvY19ybDYzNDdhIHNuZF9z
-b2Nfc2tsKC0pIHNuZF9zb2Nfc2tsX2lwYyBzbmRfc29jX3NzdF9pcGMgc25kX3NvY19zc3RfZHNw
-IHNuZF9oZGFfZXh0X2NvcmUgc25kX2hkYV9jb3JlIHNuZF9zb2NfYWNwaV9pbnRlbF9tYXRjaCBz
-bmRfc29jX2FjcGkgc25kX3NvY19jb3JlIHNuZF9jb21wcmVzcyBzbmRfcGNtX2RtYWVuZ2luZSBz
-bmRfcGNtIHNuZF90aW1lciBwYXJwb3J0X3BjIGxwIHBhcnBvcnQgaXBfdGFibGVzIHhfdGFibGVz
-IGlnYiBkY2EgcGluY3RybF9icm94dG9uIHBpbmN0cmxfaW50ZWwgW2xhc3QgdW5sb2FkZWQ6IHNu
-ZF9zb2NfaGRhY19oZG1pXQpbICAgNTcuMDE1NDc3XSBDUjI6IGZmZmZmYmZmZjQwNjcwMzgKWyAg
-IDU3LjAxNTU1Nl0gLS0tWyBlbmQgdHJhY2UgNzk0YmY5ZmIwODYyOTY1YiBdLS0tCgpBbWFkZXVz
-egpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRl
-dmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWls
-bWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+On Mon, 17 Jun 2019 19:18:27 +0300
+Andy Shevchenko <andriy.shevchenko@linux.intel.com> wrote:
+
+> On Mon, Jun 17, 2019 at 05:31:53PM +0200, Pierre-Louis Bossart wrote:
+> > On 6/17/19 4:47 PM, Mark Brown wrote:  
+> > > On Tue, May 28, 2019 at 03:02:55PM -0500, Pierre-Louis Bossart
+> > > wrote: 
+> > > > 2. is there a better way to do this for all Intel chips or do
+> > > > we keep this in sound/? Andy?  
+> 
+> It's better to discuss with x86 maintainers.
+> 
+> > > ARM has platform detection stuff in the architecture code,
+> > > something similar seems sensible for x86?  
+> > 
+> > Well yes, we already have x86_match_cpu() but that won't work with
+> > COMPILE_TEST (asm/ headers don't exist) and this leads to
+> > duplication of code. All we really need here is a yeah/nay answer
+> > from a help that hides those details away.  
+> 
+> I don't see much advantage here. Without specific driver data it will
+> be degraded to something like:
+> 
+> 	if (bootcpu.model == INTEL_CPU_...)
+> 		...
+> 
+> with slight exception to heterogeneous SoCs.
+> 
+> In order to be compile tested we might introduce a header under
+> include/platform_data/x86 with these inliners like:
+> 
+> static inline bool is_x86_model_XX(void)
+> {
+> 	return bootcpu.model == XX; // it might be done in more
+> generic way? }
+> 
+
+You might also want to look at other drivers that do some kind of
+platform detection.
+
+There is:
+tools/power/x86/turbostat/turbostat.c
+which has few is_xxx() functions, and:
+drivers/gpu/drm/i915/i915_drv.h
+which has quite a lot of IS_XXX macros, although they are used to
+detect PCI VGA devices, but maybe some code could be shared, with
+separate device specific ids.
+
+Amadeusz
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

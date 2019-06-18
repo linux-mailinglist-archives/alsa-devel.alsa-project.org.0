@@ -2,59 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B22D4A5F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 17:56:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C2574A606
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 18:00:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CCF916D7;
-	Tue, 18 Jun 2019 17:55:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CCF916D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DF1916EC;
+	Tue, 18 Jun 2019 17:59:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DF1916EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560873388;
-	bh=vGmU497BxPS3M/vYH/MjYCfAZLrunnyTJaq6S9LGr+g=;
-	h=To:From:In-Reply-To:Date:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ELeApVM6VSnYJSzZ5aHQbPVZbVG4SDJtrMFxegUw3EYtmaRTwQnt/xKw2sc4AmR3w
-	 lrxX3Zt8VYBzFeKrx0rXyNmI3/ybdIKRtlkEaZuPArNmcHv9Iqq5WgX+5YHxPfNpfv
-	 gVt6ZW63sGRRb7q2RAdhnpGozfltJMsf1iQSDOk4=
+	s=default; t=1560873616;
+	bh=UnV4anonQ8eBpwzhGtEOt3NQYDkd7neIdwECi0O9hnM=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lUowMt/Em4TXxYA9Jj+/NV/K8Rne6OMFHuZCQ2dzWmGyV2Q702dxY7Qtffe/Hqth5
+	 r16XubKop1a+NUJormW/13OB+5r0P6PKMDiFfdN5aWSzYlFok9B38WNutqA8lYtCYF
+	 2+hUq8NYIu3MNreBrfplaMOrZybP/Nlb+AhyVMRo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56332F896DB;
-	Tue, 18 Jun 2019 17:54:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15324F8971C;
+	Tue, 18 Jun 2019 17:58:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CC8FF896F4; Tue, 18 Jun 2019 17:54:38 +0200 (CEST)
+ id 2E409F896F4; Tue, 18 Jun 2019 17:58:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=HTML_MESSAGE,SPF_FAIL,
- SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from p3plwbeout03-03.prod.phx3.secureserver.net
- (p3plsmtp03-03-2.prod.phx3.secureserver.net [72.167.218.215])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AC93F8075C
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 17:54:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AC93F8075C
-Received: from p3plgemwbe03-07.prod.phx3.secureserver.net ([72.167.218.135])
- by :WBEOUT: with SMTP
- id dGQsh6LU7IoaadGQshX9sj; Tue, 18 Jun 2019 08:54:02 -0700
-X-SID: dGQsh6LU7Ioaa
-Received: (qmail 150242 invoked by uid 99); 18 Jun 2019 15:54:02 -0000
-MIME-Version: 1.0
-To: alsa-devel@alsa-project.org
-From: "scott andrew franco" <samiam@moorecad.com>
-In-Reply-To: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
-Date: Tue, 18 Jun 2019 08:54:02 -0700
-Message-Id: <20190618085402.6c61c97e98fe7bb02193b2d6dca4a85a.c62264622a.mailapi@email03.godaddy.com>
-X-Originating-IP: 73.93.93.31
-User-Agent: MailAPI 
-X-Sender: samiam@moorecad.com
-X-CMAE-Envelope: MS4wfN5T4HIoPi28zt2WIYubVG3x0IdokSqraAXvPkOn95wgkkZFXRPJknX+VgOk4aLjNh99a4rFPPL/JK5/gTIS+IxnVHo/Pi6hR97XLFclFKgYnBueIVRW
- PUweX0QoFt4sdwzjtHQEsIxE4MVCBoQ14nGyKr9j9z5YH6652hQedUVURIamnNdnyHfh6KM72Ijt6Z7FKWo8MnR4F7jtHuFXC2Vhf0dixQMQoTqL4ok1I7wG
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so
-	vs. .o file
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01433F8075C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 17:58:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01433F8075C
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jun 2019 08:58:23 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,389,1557212400"; d="scan'208";a="164740610"
+Received: from rmbutler-mobl.amr.corp.intel.com ([10.255.231.126])
+ by orsmga006.jf.intel.com with ESMTP; 18 Jun 2019 08:58:23 -0700
+Message-ID: <bd8855a7ab7a9958113631b76706120fd4427631.camel@linux.intel.com>
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Amadeusz =?UTF-8?Q?S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Date: Tue, 18 Jun 2019 08:58:22 -0700
+In-Reply-To: <20190618130015.0fc388b4@xxx>
+References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
+ <20190617113644.25621-10-amadeuszx.slawinski@linux.intel.com>
+ <75be86354032f4886cbaf7d430de2aa89eaab573.camel@linux.intel.com>
+ <20190618130015.0fc388b4@xxx>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 09/11] ASoC: Intel: hdac_hdmi: Set ops
+ to NULL on remove
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,120 +76,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- uname -a
-Linux samiam-home-pc 4.15.0-51-generic #55-Ubuntu SMP Wed May 15 14:27:21 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
-  
- 
-samiam@samiam-home-pc:/usr/lib/x86_64-linux-gnu$ ls -l libasound*
-lrwxrwxrwx 1 root root 18 Dec 18 20:25 libasound.so -> libasound.so.2.0.0
-lrwxrwxrwx 1 root root 18 Dec 18 20:25 libasound.so.2 -> libasound.so.2.0.0
--rw-r--r-- 1 root root 1075496 Dec 18 20:25 libasound.so.2.0.0
-samiam@samiam-home-pc:/usr/lib/x86_64-linux-gnu$
-  
- 
---------- Original Message --------- Subject: RE: Serious bug calling ALSA lib functions from .so vs. .o file
-From: "scott andrew franco" <samiam@moorecad.com>
-Date: 6/18/19 8:16 am
-To: alsa-devel@alsa-project.org
-
- Hello,
- 
-The issue:
- 
-calling across .so (dynamic linking) produces different behavior in ALSA library calls than normal,
-and causes ALSA to malfunction.
- 
-I have minimized my issue to as small a code section as possible. Note the code is from commonly available
-internet examples, including Free Electrons "Audio in embedded linux systems".
- 
-The run is:
- 
-samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
-samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
-samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
-alsaplaywave: rate: 1
-alsaplaywave: rate: 0
-samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
-samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
-alsaplaywave: rate: 1
-alsaplaywave: rate: 1
-  
- Note the only difference between the two runs of "playwave" is if the second module, test2, is linked as a .so or
- linked as a .o.
-  
- The code is:
- =======================================================================================
- playwav.c
- #include <alsa/asoundlib.h>
-#include <stdio.h>
- void alsaplaywave1(void)
- {
- snd_pcm_t *pcm_handle;
- snd_pcm_hw_params_t *params;
- unsigned int val;
- unsigned int rate;
- int r;
- /* open pcm device */
- r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
- if (r < 0) printf("Cannot open PCM output device");
- snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
- snd_pcm_hw_params_any(pcm_handle, params);
- r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
- if (r < 0) printf("Cannot set interleaved mode");
- r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
- if (r < 0) printf("Cannot set format");
- r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
- if (r < 0) printf("Cannot set channels number");
- val = 44100;
- r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
- if (r < 0) printf("Cannot set rate");
- snd_pcm_hw_params_get_rate(params, &rate, 0);
- printf("alsaplaywave: rate: %d\n", rate);
- snd_pcm_close(pcm_handle);
- }
- extern void alsaplaywave2(void);
- int main(int argc, char **argv)
- {
- alsaplaywave1();
- alsaplaywave2();
- return 0;
-}
-  
- ==================================================================================
- test2.c
- #include <alsa/asoundlib.h>
-#include <stdio.h>
- void alsaplaywave2(void)
- {
- snd_pcm_t *pcm_handle;
- snd_pcm_hw_params_t *params;
- unsigned int val;
- unsigned int rate;
- int r;
- /* open pcm device */
- r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
- if (r < 0) printf("Cannot open PCM output device");
- snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
- snd_pcm_hw_params_any(pcm_handle, params);
- r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
- if (r < 0) printf("Cannot set interleaved mode");
- r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
- if (r < 0) printf("Cannot set format");
- r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
- if (r < 0) printf("Cannot set channels number");
- val = 44100;
- r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
- if (r < 0) printf("Cannot set rate");
- snd_pcm_hw_params_get_rate(params, &rate, 0);
- printf("alsaplaywave: rate: %d\n", rate);
- snd_pcm_close(pcm_handle);
- }
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVHVlLCAyMDE5LTA2LTE4IGF0IDEzOjAwICswMjAwLCBBbWFkZXVzeiBTxYJhd2nFhHNraSB3
+cm90ZToKPiBPbiBNb24sIDE3IEp1biAyMDE5IDEzOjUxOjQyIC0wNzAwCj4gUmFuamFuaSBTcmlk
+aGFyYW4gPHJhbmphbmkuc3JpZGhhcmFuQGxpbnV4LmludGVsLmNvbT4gd3JvdGU6Cj4gCj4gPiBP
+biBNb24sIDIwMTktMDYtMTcgYXQgMTM6MzYgKzAyMDAsIEFtYWRldXN6IFPFgmF3acWEc2tpIHdy
+b3RlOgo+ID4gPiBXaGVuIHdlIHVubG9hZCBTa3lsYWtlIGRyaXZlciB3ZSBtYXkgZW5kIHVwIGNh
+bGxpbmcKPiA+ID4gaGRhY19jb21wb25lbnRfbWFzdGVyX3VuYmluZCgpLCBpdCB1c2VzIGFjb21w
+LT5hdWRpb19vcHMsIHdoaWNoCj4gPiA+IHdlCj4gPiA+IHNldAo+ID4gPiBpbiBoZG1pX2NvZGVj
+X3Byb2JlKCksIHNvIHdlIG5lZWQgdG8gc2V0IGl0IHRvIE5VTEwgaW4KPiA+ID4gaGRtaV9jb2Rl
+Y19yZW1vdmUoKSwKPiA+ID4gb3RoZXJ3aXNlIHdlIHdpbGwgZGVyZWZlcmVuY2Ugbm8gbG9uZ2Vy
+IGV4aXN0aW5nIHBvaW50ZXIuICAKPiA+IAo+ID4gSGkgQW1hZGV1c3osCj4gPiAKPiA+IEl0IGxv
+b2tzIGxpa2UgdGhlIGF1ZGlvX29wcyBzaG91bGQgYmUgZGVsZXRlZAo+ID4gc25kX2hkYWNfYWNv
+bXBfZXhpdCgpLgo+ID4gQWxzbywgdGhpcyBkb2VzbnQgc2VlbSB0byBiZSB0aGUgY2FzZSB3aXRo
+IHdoZW4gdGhlIFNPRiBkcml2ZXIgaXMKPiA+IHJlbW92ZWQuCj4gPiBDb3VsZCB5b3UgcGxlYXNl
+IGdpdmUgYSBiaXQgbW9yZSBjb250ZXh0IG9uIHdoYXQgZXJyb3IgeW91IHNlZSB3aGVuCj4gPiB0
+aGlzIGhhcHBlbnM/Cj4gCj4gSGksCj4gCj4gSSBnZXQgT29wcy4gVGhpcyBpcyB3aGF0IGhhcHBl
+bnMgd2l0aCBhbGwgb3RoZXIgcGF0Y2hlcyBpbiB0aGlzCj4gc2VyaWVzIGFuZCBvbmx5IHRoaXMg
+b25lIHJldmVydGVkOgo+IAo+IHJvb3RAQVBMOn4jIHJtbW9kIHNuZF9zb2Nfc3N0X2J4dF9ydDI5
+OAo+IHJvb3RAQVBMOn4jIHJtbW9kIHNuZF9zb2NfaGRhY19oZG1pCj4gcm9vdEBBUEw6fiMgcm1t
+b2Qgc25kX3NvY19za2wKClRoYW5rcywgQW1hZGV1c3ouIEkgdGhpbmsgdGhlIG9yZGVyIGluIHdo
+aWNoIHRoZSBkcml2ZXJzIGFyZSByZW1vdmVkIGlzCndoYXQncyBjYXVzaW5nIHRoZSBvb3BzIGlu
+IHlvdXIgY2FzZS4gV2l0aCBTT0YsIHRoZSBvcmRlciB3ZSByZW1vdmUgaXMKCjEuIHJtbW9kIHNv
+Zl9wY2lfZGV2CjIuIHJtbW9kIHNuZF9zb2Nfc3N0X2J4dF9ydDI5OAozLiBybW1vZCBzbmRfc29j
+X2hkYWNfaGRtaQoKVGhhbmtzLApSYW5qYW5pCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFs
+c2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbHNhLWRldmVsCg==

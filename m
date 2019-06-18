@@ -2,60 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11F664B203
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 08:17:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0BD64A9AD
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 20:20:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 709EF16B5;
-	Wed, 19 Jun 2019 08:16:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 709EF16B5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 425F416D0;
+	Tue, 18 Jun 2019 20:19:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 425F416D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560925046;
-	bh=o+mqoEtYxvohB6+CI1m6t06dGanHuwSDLKzYWfxnaAA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560882041;
+	bh=Kp7aRPfRlMSsqry9M86lnwKoTBEu9igtAyMjA99Trlw=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uM/Jse8XjzM3MMo66oe6HYruXXw0PN+oWW9x9Wc4jGyh7gRK/XaY1ZBBinIgZi/ZT
-	 UFHh45mIirAsJ4rhmUqqjVu5e2ONdNz+Ap/Rh2Mzr0hPjxgCqlorh0ZqFYMLLhILkG
-	 +8WCfvLabwj26IEHGIWN/7XjtYK+RtSLC+zjPfMU=
+	b=XdCnFu0DwVPyjV4kCA9n2Ruir1AnQBVENczYbcW2cZZclOM7WIcOkUn+uaffJV6Sc
+	 /KQiFZE0AidD97uRmMABmXIpyxYugjE+DHnbP+gf5eGMMJTpDc1QT2oHgqfLI0Hw2q
+	 qg4I8rbvDbe6y1s8CLDZXK25h1787NB9UbsqLeQ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E0ECF896F9;
-	Wed, 19 Jun 2019 08:16:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8C98F89682;
+	Tue, 18 Jun 2019 20:18:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 155FAF896F9; Wed, 19 Jun 2019 08:14:58 +0200 (CEST)
+ id 27788F896F4; Tue, 18 Jun 2019 20:18:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED08BF80CC4
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 08:14:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED08BF80CC4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 23:14:22 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,392,1557212400"; d="scan'208";a="150514307"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga007.jf.intel.com with ESMTP; 18 Jun 2019 23:14:21 -0700
-From: Bard liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org
-Date: Wed, 19 Jun 2019 02:15:39 +0800
-Message-Id: <20190618181539.9169-2-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190618181539.9169-1-yung-chuan.liao@linux.intel.com>
-References: <20190618181539.9169-1-yung-chuan.liao@linux.intel.com>
-Cc: tiwai@suse.de, liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
-Subject: [alsa-devel] [PATCH v2 2/2] ASoC: Intel: sof-rt5682: correct naming
-	for dmic16k
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9A36F8075C
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 20:18:52 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 092BCA0042;
+ Tue, 18 Jun 2019 20:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 092BCA0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1560881932; bh=1IGWyXnt8od9bRCq6Iyb/R4hTRVHKTHe9Ad5j5vHVyo=;
+ h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
+ b=Hxa8uCBDgdqwovwelNTSySs6a4dB4bOryN6+V15T0I6I4H6nBS9PuzyXYQKkRACWz
+ pQSUs7pzVItBcXSlHtnDBYu//eK2Jzv3xrEvV+8o96J5X5usUT1kXj9+6Iqml47+K6
+ Ny8FM6p9uzmUPNt7nxlgkSWvm1RfaB6EROkeX9FA=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 18 Jun 2019 20:18:49 +0200 (CEST)
+To: scott andrew franco <samiam@moorecad.com>
+References: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <3fa68de3-c77e-7c26-b848-416cc1108c9c@perex.cz>
+Date: Tue, 18 Jun 2019 20:18:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <20190618081614.6c61c97e98fe7bb02193b2d6dca4a85a.a95f05e421.mailapi@email03.godaddy.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Serious bug calling ALSA lib functions from .so
+ vs. .o file
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,118 +76,121 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Keyon Jie <yang.jie@linux.intel.com>
+Dne 18. 06. 19 v 17:16 scott andrew franco napsal(a):
+> Hello,
+>  
+> The issue:
+>  
+> calling across .so (dynamic linking) produces different behavior in ALSA library calls than normal,
+> and causes ALSA to malfunction.
+>  
+> I have minimized my issue to as small a code section as possible. Note the code is from commonly available
+> internet examples, including Free Electrons "Audio in embedded linux systems".
 
-Change the link name to be "dmic16k", the cpu_dai_name to be "DMIC16k
-Pin", to be aligned with other machine drivers.
+It seems like a linker issue. I think that you must link .so to -lasound, too.
+(add -lasound to the command producing your .so library to satisfy the
+versioned symbols)
 
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
----
-links[id].cpus = &cpus[id]; was missing on the first version
----
- sound/soc/intel/boards/sof_rt5682.c | 37 ++++++++++++++++-------------
- 1 file changed, 20 insertions(+), 17 deletions(-)
+						Jaroslav
 
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index f3d481b75b15..64db00353e18 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -377,7 +377,7 @@ static struct snd_soc_dai_link_component max98357a_component[] = {
- static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 							  int ssp_codec,
- 							  int ssp_amp,
--							  int dmic_num,
-+							  int dmic_be_num,
- 							  int hdmi_num)
- {
- 	struct snd_soc_dai_link_component *idisp_components;
-@@ -437,20 +437,23 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
- 	id++;
- 
- 	/* dmic */
--	for (i = 1; i <= dmic_num; i++) {
--		links[id].name = devm_kasprintf(dev, GFP_KERNEL,
--						"dmic%02d", i);
--		if (!links[id].name)
--			goto devm_err;
-+	if (dmic_be_num > 0) {
-+		/* at least we have dmic01 */
-+		links[id].name = "dmic01";
-+		links[id].cpus = &cpus[id];
-+		links[id].cpus->dai_name = "DMIC01 Pin";
-+		if (dmic_be_num > 1) {
-+			/* set up 2 BE links at most */
-+			links[id + 1].name = "dmic16k";
-+			links[id + 1].cpus = &cpus[id + 1];
-+			links[id + 1].cpus->dai_name = "DMIC16k Pin";
-+			dmic_be_num = 2;
-+		}
-+	}
- 
-+	for (i = 0; i < dmic_be_num; i++) {
- 		links[id].id = id;
--		links[id].cpus = &cpus[id];
- 		links[id].num_cpus = 1;
--		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
--							  "DMIC%02d Pin", i);
--		if (!links[id].cpus->dai_name)
--			goto devm_err;
--
- 		links[id].codecs = dmic_component;
- 		links[id].num_codecs = ARRAY_SIZE(dmic_component);
- 		links[id].platforms = platform_component;
-@@ -545,7 +548,7 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	struct snd_soc_dai_link *dai_links;
- 	struct snd_soc_acpi_mach *mach;
- 	struct sof_card_private *ctx;
--	int dmic_num, hdmi_num;
-+	int dmic_be_num, hdmi_num;
- 	int ret, ssp_amp, ssp_codec;
- 
- 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
-@@ -554,14 +557,14 @@ static int sof_audio_probe(struct platform_device *pdev)
- 
- 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
- 		is_legacy_cpu = 1;
--		dmic_num = 0;
-+		dmic_be_num = 0;
- 		hdmi_num = 0;
- 		/* default quirk for legacy cpu */
- 		sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
- 						SOF_RT5682_MCLK_BYTCHT_EN |
- 						SOF_RT5682_SSP_CODEC(2);
- 	} else {
--		dmic_num = 1;
-+		dmic_be_num = 2;
- 		hdmi_num = 3;
- 	}
- 
-@@ -586,13 +589,13 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	ssp_codec = sof_rt5682_quirk & SOF_RT5682_SSP_CODEC_MASK;
- 
- 	/* compute number of dai links */
--	sof_audio_card_rt5682.num_links = 1 + dmic_num + hdmi_num;
-+	sof_audio_card_rt5682.num_links = 1 + dmic_be_num + hdmi_num;
- 
- 	if (sof_rt5682_quirk & SOF_SPEAKER_AMP_PRESENT)
- 		sof_audio_card_rt5682.num_links++;
- 
- 	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec, ssp_amp,
--					      dmic_num, hdmi_num);
-+					      dmic_be_num, hdmi_num);
- 	if (!dai_links)
- 		return -ENOMEM;
- 
+>  
+> The run is:
+>  
+> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -fPIC -c test2.c -o test2.o
+> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.so -lasound -o playwav
+> samiam@samiam-home-pc:~/projeclufthansa check reservationts/petit_ami$ ./playwav
+> alsaplaywave: rate: 1
+> alsaplaywave: rate: 0
+> samiam@samiam-home-pc:~/projects/petit_ami$ gcc -g3 -Iinclude linux/playwav.c ./test2.o -lasound -o playwav
+> samiam@samiam-home-pc:~/projects/petit_ami$ ./playwav
+> alsaplaywave: rate: 1
+> alsaplaywave: rate: 1
+>   
+>  Note the only difference between the two runs of "playwave" is if the second module, test2, is linked as a .so or
+>  linked as a .o.
+>   
+>  The code is:
+>  =======================================================================================
+>  playwav.c
+>  #include <alsa/asoundlib.h>
+> #include <stdio.h>
+>  void alsaplaywave1(void)
+>  {
+>  snd_pcm_t *pcm_handle;
+>  snd_pcm_hw_params_t *params;
+>  unsigned int val;
+>  unsigned int rate;
+>  int r;
+>  /* open pcm device */
+>  r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
+>  if (r < 0) printf("Cannot open PCM output device");
+>  snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
+>  snd_pcm_hw_params_any(pcm_handle, params);
+>  r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
+>  if (r < 0) printf("Cannot set interleaved mode");
+>  r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
+>  if (r < 0) printf("Cannot set format");
+>  r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
+>  if (r < 0) printf("Cannot set channels number");
+>  val = 44100;
+>  r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
+>  if (r < 0) printf("Cannot set rate");
+>  snd_pcm_hw_params_get_rate(params, &rate, 0);
+>  printf("alsaplaywave: rate: %d\n", rate);
+>  snd_pcm_close(pcm_handle);
+>  }
+>  extern void alsaplaywave2(void);
+>  int main(int argc, char **argv)
+>  {
+>  alsaplaywave1();
+>  alsaplaywave2();
+>  return 0;
+> }
+>   
+>  ==================================================================================
+>  test2.c
+>  #include <alsa/asoundlib.h>
+> #include <stdio.h>
+>  void alsaplaywave2(void)
+>  {
+>  snd_pcm_t *pcm_handle;
+>  snd_pcm_hw_params_t *params;
+>  unsigned int val;
+>  unsigned int rate;
+>  int r;
+>  /* open pcm device */
+>  r = snd_pcm_open(&pcm_handle, "default", SND_PCM_STREAM_PLAYBACK, 0);
+>  if (r < 0) printf("Cannot open PCM output device");
+>  snd_pcm_hw_params_alloca(&params); /* get hw parameter block */
+>  snd_pcm_hw_params_any(pcm_handle, params);
+>  r = snd_pcm_hw_params_set_access(pcm_handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
+>  if (r < 0) printf("Cannot set interleaved mode");
+>  r = snd_pcm_hw_params_set_format(pcm_handle, params, SND_PCM_FORMAT_S16_LE);
+>  if (r < 0) printf("Cannot set format");
+>  r = snd_pcm_hw_params_set_channels(pcm_handle, params, 2);
+>  if (r < 0) printf("Cannot set channels number");
+>  val = 44100;
+>  r = snd_pcm_hw_params_set_rate_near(pcm_handle, params, &rate, 0);
+>  if (r < 0) printf("Cannot set rate");
+>  snd_pcm_hw_params_get_rate(params, &rate, 0);
+>  printf("alsaplaywave: rate: %d\n", rate);
+>  snd_pcm_close(pcm_handle);
+>  }
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> 
+
+
 -- 
-2.17.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

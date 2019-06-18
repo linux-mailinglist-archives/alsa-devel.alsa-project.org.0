@@ -2,61 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D2B49E25
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 12:20:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F079249E8B
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Jun 2019 12:48:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68FD21708;
-	Tue, 18 Jun 2019 12:20:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68FD21708
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F13316DE;
+	Tue, 18 Jun 2019 12:47:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F13316DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560853253;
-	bh=ImcjcgftCJeJetg37BQYRkUgnv0PPmrZtmBcwuA4Cgw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560854887;
+	bh=Eye3r+S/hsk8MP4PSQrEnXt2AstZlOgXlHSCHRKOiNI=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jhdlT67Z8SlQTAZjicdlXOjbsNRKL5YN8vWZig+AuXnFENpNmnGkM6g1l6nHKI498
-	 +/cNM8Gl+5mFZDVZ9hNvq3oRofWHOG3i9RWo/pKOxEdDFLkVgPsqG0d7CqGuXV/cFI
-	 QbINIx/EhIEii5ILDu/2ulXxwrMxYX9XcH8DORiM=
+	b=WX4IkLuAhY0VXHgsAussGKGMJ7OMI14rh+BZAZiTOJnmrpEKCz2uUzeY07RMtUEKj
+	 Dgtoy9oGHDgttXzzneNtn6s/iDS1JLtV5/q8Nmrai6E4UM0OgkBspC9sg9CBlEpMdz
+	 JTPzsrsrASeMBLon1SFN+0eZRVeERKg6Npd9xkI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02A95F89735;
-	Tue, 18 Jun 2019 12:17:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD07DF896DB;
+	Tue, 18 Jun 2019 12:46:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C3F0AF89731; Tue, 18 Jun 2019 12:17:28 +0200 (CEST)
+ id 4A699F896F4; Tue, 18 Jun 2019 12:46:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 955EEF89729
- for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 12:17:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 955EEF89729
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jun 2019 03:17:25 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,388,1557212400"; d="scan'208";a="153420216"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga008.jf.intel.com with ESMTP; 18 Jun 2019 03:17:23 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Date: Tue, 18 Jun 2019 13:18:04 +0300
-Message-Id: <20190618101804.21670-4-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190618101804.21670-1-kai.vehmanen@linux.intel.com>
-References: <20190618101804.21670-1-kai.vehmanen@linux.intel.com>
-Cc: tiwai@suse.de, libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH v2 3/3] ASoC: SOF: Intel: implement runtime
-	idle for CNL/APL
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3CC0F80CC4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Jun 2019 12:46:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3CC0F80CC4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="VAiPzhlL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=aVLmUSE1bjHNRpYTochsxHsqiLIVHQiO1axTK/WImOw=; b=VAiPzhlLlNqvLBVWH2Z1tnJw0
+ LxAFFL9Di3IskZ1o5eSzaJ5+P2Ja68D61IwTjLy3HcKkS/XqKX7fBcxYG0B7D9hoRzNr6VQ4vOHVw
+ s2F0ZOHiqx8kq89qLcbFPyM/JNb778BP9wZYR5SFnH/b73UYvM7cHwB2teHofly5wFhkg=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hdBd2-0004vV-ON; Tue, 18 Jun 2019 10:46:16 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 2D23F440046; Tue, 18 Jun 2019 11:46:16 +0100 (BST)
+Date: Tue, 18 Jun 2019 11:46:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190618104616.GK5316@sirena.org.uk>
+References: <1560844059-5897-1-git-send-email-bgoswami@codeaurora.org>
+ <s5hsgs7e0wr.wl-tiwai@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <s5hsgs7e0wr.wl-tiwai@suse.de>
+X-Cookie: Editing is a rewording activity.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ srinivas.kandagatla@linaro.org, plai@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: export function to find
+ components
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,79 +84,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4386972750024376590=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Implement runtime idle for CNL/APL devices using similar runtime
-PM idle logic as the Intel AZX HDA driver. If any HDA codecs are
-powered when runtime suspend request comes, return -EBUSY. By doing
-this, strict ordering is enforced between HDA codec and the HDA
-controller.
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
----
- sound/soc/sof/intel/apl.c     |  1 +
- sound/soc/sof/intel/cnl.c     |  1 +
- sound/soc/sof/intel/hda-dsp.c | 13 +++++++++++++
- 3 files changed, 15 insertions(+)
+--===============4386972750024376590==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HEgoE9Ku6Eog9oq6"
+Content-Disposition: inline
 
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 43d1c9f31ec4c..fd2e26d797961 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -93,6 +93,7 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
- 	.resume			= hda_dsp_resume,
- 	.runtime_suspend	= hda_dsp_runtime_suspend,
- 	.runtime_resume		= hda_dsp_runtime_resume,
-+	.runtime_idle		= hda_dsp_runtime_idle,
- 	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
- };
- EXPORT_SYMBOL(sof_apl_ops);
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 3840f81767fab..f2b392998f20d 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -251,6 +251,7 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
- 	.resume			= hda_dsp_resume,
- 	.runtime_suspend	= hda_dsp_runtime_suspend,
- 	.runtime_resume		= hda_dsp_runtime_resume,
-+	.runtime_idle		= hda_dsp_runtime_idle,
- 	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
- };
- EXPORT_SYMBOL(sof_cnl_ops);
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index f2c5a12db930a..91de4785b6a3e 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -418,6 +418,19 @@ int hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
- 	return hda_resume(sdev);
- }
- 
-+int hda_dsp_runtime_idle(struct snd_sof_dev *sdev)
-+{
-+	struct hdac_bus *hbus = sof_to_bus(sdev);
-+
-+	if (hbus->codec_powered) {
-+		dev_dbg(sdev->dev, "some codecs still powered (%08X), not idle\n",
-+			(unsigned int)hbus->codec_powered);
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
- int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev, int state)
- {
- 	/* stop hda controller and power dsp off */
--- 
-2.17.1
+
+--HEgoE9Ku6Eog9oq6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Jun 18, 2019 at 10:46:28AM +0200, Takashi Iwai wrote:
+> bgoswami@codeaurora.org wrote:
+
+> > Drivers may need to use the ASoC core function to
+> > find out whether a particular component is already
+> > registered with ASoC core or not.
+> > Export the function so that drivers can use it outside
+> > of the file.
+
+Why might they need to do that?
+
+> Why not EXPORT_SYMBOL_GPL()?
+
+All the other ASoC exports are GPL, any new ones should be too.
+
+--HEgoE9Ku6Eog9oq6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0IwPcACgkQJNaLcl1U
+h9A2Hgf+MLN+CcPHI83z4dawcdkQR9dkXmxPPnBx/+6qohSXV8XhWaclTwZnF3S9
+OlcFavt5pJZrMSjiK8aP5ddu4/YCEUocw2+iz6QfpFTg+FGMKEmqBA/9iQJ4nzOK
+Rni3N11FRaWz8c8pMrGHqZJYfsSBN4x9ujfMGC4Gz+Rfidv39bv/bE5wgEriVtoI
+WfRQwEGqyGPE/caYbtjr6iAm/RecpQdj+TsAjgYrKCnISKFChwXapzOw6zBa+LiF
+Iv8LdXvEAXRJ0ESIDWwK1EDxfjhvB0NfEdfIa9CedUw6Jc5VYxE2iMJgBVWAmgyz
+ZbDyXdWW8qEzyvsU1wPlGPw6tugTrg==
+=bPzC
+-----END PGP SIGNATURE-----
+
+--HEgoE9Ku6Eog9oq6--
+
+--===============4386972750024376590==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============4386972750024376590==--

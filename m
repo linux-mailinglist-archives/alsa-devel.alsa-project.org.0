@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3854A4B832
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:27:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC2154B82E
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:26:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB64B16A5;
-	Wed, 19 Jun 2019 14:26:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB64B16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64C8016B5;
+	Wed, 19 Jun 2019 14:25:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64C8016B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560947236;
-	bh=/R/gzhNbS7GtF0pad9WXNkBzvcI+RBdIoh8yi5JABVc=;
+	s=default; t=1560947193;
+	bh=zme9BWXRVsooasw72u5ghMn6ZpR6Skf9gPn4ws+SZI8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=S2NZ7zl+eGdWhT+6mksf+0vZQTRNZlOsLwv2OsX6OJrH7+3XSrSuXCrqbToxathQJ
-	 13wGesz20P+iu9l0CDaxrdxU0m37t0TVEMYVUvgV8A7diZQ/BpzFLVhwFCL1UV+kPR
-	 DSPNMu5GdIAvWy1H8lDEQXln5zIy+BMpkgSsjJ/8=
+	b=dhIXyTYHf5bEqIq5mKOGsSnrEkfd8KhAban5T9vb5fz42CPVHIhlm42PHR3tCCwvT
+	 hWxAsbbANrLrw/0DtdmGDA5GarDLt+nLRkGwOeRpLkjwqR15OEfJlwrF/kgG5OBg9l
+	 ej7MwOpPj+coCRAdRI1TmWd+lbUve8V7GovwFTNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55CF7F89794;
-	Wed, 19 Jun 2019 14:13:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D3A0F89792;
+	Wed, 19 Jun 2019 14:13:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 462F8F89766; Wed, 19 Jun 2019 14:12:28 +0200 (CEST)
+ id 4BADFF89766; Wed, 19 Jun 2019 14:12:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD656F8973A
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD656F8973A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 092F6F89737
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 092F6F89737
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="lFRmRsoB"
+ header.b="PDMpihCE"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=K1UEYHuxyvMlZ4UTqT6AjIdN8ngM6ysZsLFpr516Fds=; b=lFRmRsoB4Ig5
- YxwsAjDtjIscl924CNYA5wBoLBZUXSRM0IxZrZdDUMUmxdJfDPUJp0iwKQgSJoQe4CddJgQjIkryG
- wsAX2xGfIiPppi+R/7MLct/kriDav9pd61zh1xrcuu0WALNZJEsOpj7m9c82dVTDX8Gj01ySme1QA
- /JiAg=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=Oz1BQQzNnxbtwRp9UF3VGmNAprevNID7p3Qx8tTRyxY=; b=PDMpihCE8O38
+ BF7uXHZqBl3eMLrbVd3/NKCtwTTmPN8cTQaGK4flzsCnLprFJ207iA1UvcDRU/P9Z55PmSA97n7Xh
+ uWvR/lZ2t4k0qlcIs1oToMnraG4szElM6ZrcZe3OOBarjUieYofMPUfw1XO7tYulzxzfFaDNTbHyC
+ IUe3M=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRZ-00079m-Ik; Wed, 19 Jun 2019 12:12:01 +0000
+ id 1hdZRZ-00079l-Hp; Wed, 19 Jun 2019 12:12:01 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 22A77440046; Wed, 19 Jun 2019 13:12:01 +0100 (BST)
+ id 09F42440049; Wed, 19 Jun 2019 13:12:01 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87zhmetlwd.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87y31ytlw9.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121201.22A77440046@finisterre.sirena.org.uk>
+Message-Id: <20190619121201.09F42440049@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:01 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sunxi: sun4i-codec: don't select
+Subject: [alsa-devel] Applied "ASoC: tegra: tegra_alc5632: don't select
 	unnecessary Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sunxi: sun4i-codec: don't select unnecessary Platform
+   ASoC: tegra: tegra_alc5632: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 3f780533bac9025f3e569ebf5ebdc02bd860b27e Mon Sep 17 00:00:00 2001
+From e7fc99e641da1f0da50328c98e7aa890b49d35d3 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:18:27 +0900
-Subject: [PATCH] ASoC: sunxi: sun4i-codec: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:18:31 +0900
+Subject: [PATCH] ASoC: tegra: tegra_alc5632: don't select unnecessary Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,39 +125,48 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sunxi/sun4i-codec.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ sound/soc/tegra/tegra_alc5632.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 161444fe4518..a5de4011235f 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -1306,24 +1306,21 @@ static struct snd_soc_dai_link *sun4i_codec_create_link(struct device *dev,
- 	struct snd_soc_dai_link *link = devm_kzalloc(dev, sizeof(*link),
- 						     GFP_KERNEL);
- 	struct snd_soc_dai_link_component *dlc = devm_kzalloc(dev,
--						3 * sizeof(*dlc), GFP_KERNEL);
-+						2 * sizeof(*dlc), GFP_KERNEL);
- 	if (!link || !dlc)
- 		return NULL;
+diff --git a/sound/soc/tegra/tegra_alc5632.c b/sound/soc/tegra/tegra_alc5632.c
+index 5a63249ae812..2c1f1311278d 100644
+--- a/sound/soc/tegra/tegra_alc5632.c
++++ b/sound/soc/tegra/tegra_alc5632.c
+@@ -126,8 +126,7 @@ static int tegra_alc5632_asoc_init(struct snd_soc_pcm_runtime *rtd)
  
- 	link->cpus	= &dlc[0];
- 	link->codecs	= &dlc[1];
--	link->platforms	= &dlc[2];
+ SND_SOC_DAILINK_DEFS(pcm,
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "alc5632-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "alc5632-hifi")));
  
- 	link->num_cpus		= 1;
- 	link->num_codecs	= 1;
--	link->num_platforms	= 1;
+ static struct snd_soc_dai_link tegra_alc5632_dai = {
+ 	.name = "ALC5632",
+@@ -198,8 +197,6 @@ static int tegra_alc5632_probe(struct platform_device *pdev)
+ 		goto err_put_codec_of_node;
+ 	}
  
- 	link->name		= "cdc";
- 	link->stream_name	= "CDC PCM";
- 	link->codecs->dai_name	= "Codec";
- 	link->cpus->dai_name	= dev_name(dev);
- 	link->codecs->name	= dev_name(dev);
--	link->platforms->name	= dev_name(dev);
- 	link->dai_fmt		= SND_SOC_DAIFMT_I2S;
+-	tegra_alc5632_dai.platforms->of_node = tegra_alc5632_dai.cpus->of_node;
+-
+ 	ret = tegra_asoc_utils_init(&alc5632->util_data, &pdev->dev);
+ 	if (ret)
+ 		goto err_put_cpu_of_node;
+@@ -218,7 +215,6 @@ static int tegra_alc5632_probe(struct platform_device *pdev)
+ err_put_cpu_of_node:
+ 	of_node_put(tegra_alc5632_dai.cpus->of_node);
+ 	tegra_alc5632_dai.cpus->of_node = NULL;
+-	tegra_alc5632_dai.platforms->of_node = NULL;
+ err_put_codec_of_node:
+ 	of_node_put(tegra_alc5632_dai.codecs->of_node);
+ 	tegra_alc5632_dai.codecs->of_node = NULL;
+@@ -237,7 +233,6 @@ static int tegra_alc5632_remove(struct platform_device *pdev)
  
- 	*num_links = 1;
+ 	of_node_put(tegra_alc5632_dai.cpus->of_node);
+ 	tegra_alc5632_dai.cpus->of_node = NULL;
+-	tegra_alc5632_dai.platforms->of_node = NULL;
+ 	of_node_put(tegra_alc5632_dai.codecs->of_node);
+ 	tegra_alc5632_dai.codecs->of_node = NULL;
+ 
 -- 
 2.20.1
 

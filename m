@@ -2,68 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BF194B428
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 10:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7CD24B5CA
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 12:02:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAD0116A1;
-	Wed, 19 Jun 2019 10:36:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAD0116A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 338FB1697;
+	Wed, 19 Jun 2019 12:01:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 338FB1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560933421;
-	bh=6WHLKeBNje6v+5/lBoU2Ry4B1OcJ2swd2cKgLKcMTS8=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1560938530;
+	bh=/IN40An0eAX8EHxPONSyoBhmfLhuqp8OqQoImoymUl0=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=brZIR2PL8Ani4POq1Lp0hRwnBSc9OqDh/6CGFbWFCO2E9McsK/HulqQobZJcTATPH
-	 0hYYbSSd05zI7gH3a1tkg2z/cZ4Lffv0PNRrWjAv7/H3/fgGgyiDYlg8WTQVb7TZBI
-	 7BQ3+/hvUbZOGzxxdHshu+SXbghtBQgekx+FTARM=
+	b=b1ocC7AQdoz0XemiFtp4U+WPh9k4Pg8Vc2dOW8PO0/zIiFFnNfkJJriZzFbxqZXDt
+	 PFyPd/Ez6enntaPpy7gXv8UiAMnwGwMGpRTyHELfRXQ7vEXiCczCPE6uY8xLJeYtLH
+	 YTfATjUGZRd4YOTTPSq2z211PYHBp+9ogVIyfZx4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EA85F89682;
-	Wed, 19 Jun 2019 10:35:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C21ADF896DF;
+	Wed, 19 Jun 2019 12:00:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5E96F896B8; Wed, 19 Jun 2019 10:35:14 +0200 (CEST)
+ id CE3E4F896C7; Wed, 19 Jun 2019 12:00:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FROM_EXCESS_BASE64,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03on071f.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe09::71f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4FAFF80C87
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 10:35:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4FAFF80C87
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2019 01:35:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,392,1557212400"; d="scan'208";a="162147085"
-Received: from xxx.igk.intel.com (HELO xxx) ([10.237.93.170])
- by orsmga003.jf.intel.com with ESMTP; 19 Jun 2019 01:35:05 -0700
-Date: Wed, 19 Jun 2019 10:38:59 +0200
-From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?=
- <amadeuszx.slawinski@linux.intel.com>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Message-ID: <20190619103859.15bf51c5@xxx>
-In-Reply-To: <bd8855a7ab7a9958113631b76706120fd4427631.camel@linux.intel.com>
-References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
- <20190617113644.25621-10-amadeuszx.slawinski@linux.intel.com>
- <75be86354032f4886cbaf7d430de2aa89eaab573.camel@linux.intel.com>
- <20190618130015.0fc388b4@xxx>
- <bd8855a7ab7a9958113631b76706120fd4427631.camel@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B348BF80CC4
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 12:00:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B348BF80CC4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
+ header.b="NDuLEA8C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qr6g1cm7ng129IYm1V5p86lHZWyWhhQWJmuI0SaSofM=;
+ b=NDuLEA8C9AHGHTduW81jcH2VjmIA55/33qP+lFuePToq/neYUx9ikFJeA55wJkzikwDlP7oHycCoB3/NNeZMg/lmhUEESrs8sePRIVxirsRMJnjSqUfhQ4kSjgyOj58unCtTznTP5hInFZiZov/RWAxXvETl5i07GAt7sTB2a1s=
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com (20.179.18.16) by
+ AM6PR05MB6120.eurprd05.prod.outlook.com (20.179.3.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1987.10; Wed, 19 Jun 2019 10:00:30 +0000
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::2c23:fdba:9ce4:7397]) by AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::2c23:fdba:9ce4:7397%7]) with mapi id 15.20.1987.014; Wed, 19 Jun 2019
+ 10:00:30 +0000
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+To: Marcel Ziswiler <marcel.ziswiler@toradex.com>, "festevam@gmail.com"
+ <festevam@gmail.com>
+Thread-Topic: [PATCH v1 1/6] ASoC: sgtl5000: Fix definition of VAG Ramp Control
+Thread-Index: AQHVD9BbLTSN4sMG+UK9nZhF2PRISKaZbpKAgAl3jbA=
+Date: Wed, 19 Jun 2019 10:00:30 +0000
+Message-ID: <AM6PR05MB65351FF540C6CD22167A6F90F9E50@AM6PR05MB6535.eurprd05.prod.outlook.com>
+References: <20190521103619.4707-1-oleksandr.suvorov@toradex.com>
+ <20190521103619.4707-2-oleksandr.suvorov@toradex.com>,
+ <79fa1a0855bfcc1abad348aa047e7a69fffb8225.camel@toradex.com>
+In-Reply-To: <79fa1a0855bfcc1abad348aa047e7a69fffb8225.camel@toradex.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandr.suvorov@toradex.com; 
+x-originating-ip: [194.105.145.90]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6b0ffbc8-b4b5-4fe2-9ead-08d6f49cf66c
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:AM6PR05MB6120; 
+x-ms-traffictypediagnostic: AM6PR05MB6120:
+x-microsoft-antispam-prvs: <AM6PR05MB612012650CD52848148D1F00F9E50@AM6PR05MB6120.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0073BFEF03
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(136003)(396003)(39850400004)(346002)(366004)(189003)(199004)(6506007)(305945005)(110136005)(316002)(86362001)(74316002)(76176011)(53546011)(26005)(6246003)(66476007)(64756008)(71200400001)(66446008)(486006)(73956011)(66946007)(3846002)(7696005)(478600001)(6116002)(99286004)(66556008)(102836004)(44832011)(76116006)(4326008)(71190400001)(33656002)(81166006)(446003)(8936002)(68736007)(14444005)(54906003)(25786009)(5660300002)(256004)(8676002)(7736002)(66066001)(11346002)(186003)(476003)(229853002)(2906002)(81156014)(9686003)(52536014)(53936002)(6436002)(55016002)(14454004)(2501003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR05MB6120;
+ H:AM6PR05MB6535.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: woUE+ynWcg3JxzWku8Gwy4huTEeW0kF8K+u69tv4kYgOMjfXPmtxwj7TX00L4ls0+AjuJjpmCBd9HZDKCBtejflZdZ9t7JpL0HurcRXm7UkNHmLfKJkzbmr7aM8xyPBLKPDayY+i6Z1eBXaQaObCkqPn+H7+gbvwBvB4eWQd0hNMr5RrYxBEOLSqswsZFzjSoY/uuVOpDCQHm7qTeR/szX+NZQ9ZGauUz/AvyHO+fqg53GDnDEIBVeCQONF32zAEUrL9sE6MQA7xORJS7Q4XW6o9cytZ1dWmEls/QsS3ro+p69wuiiUHVjK4wOscQBw8XYkCqIMTGtBKavjTJhyxm2muUtfVL45XivRfwrCuEfJKGfPyYdpYb+/e3xVC0wBrP/RZCdtbjWK17urASSkvMKeXDfPJYObYaQ5IG9yRpBg=
 MIME-Version: 1.0
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2 09/11] ASoC: Intel: hdac_hdmi: Set ops
- to NULL on remove
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b0ffbc8-b4b5-4fe2-9ead-08d6f49cf66c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jun 2019 10:00:30.3894 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oleksandr.suvorov@toradex.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR05MB6120
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH v1 1/6] ASoC: sgtl5000: Fix definition of
+	VAG Ramp Control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,61 +117,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVHVlLCAxOCBKdW4gMjAxOSAwODo1ODoyMiAtMDcwMApSYW5qYW5pIFNyaWRoYXJhbiA8cmFu
-amFuaS5zcmlkaGFyYW5AbGludXguaW50ZWwuY29tPiB3cm90ZToKCj4gT24gVHVlLCAyMDE5LTA2
-LTE4IGF0IDEzOjAwICswMjAwLCBBbWFkZXVzeiBTxYJhd2nFhHNraSB3cm90ZToKPiA+IE9uIE1v
-biwgMTcgSnVuIDIwMTkgMTM6NTE6NDIgLTA3MDAKPiA+IFJhbmphbmkgU3JpZGhhcmFuIDxyYW5q
-YW5pLnNyaWRoYXJhbkBsaW51eC5pbnRlbC5jb20+IHdyb3RlOgo+ID4gICAKPiA+ID4gT24gTW9u
-LCAyMDE5LTA2LTE3IGF0IDEzOjM2ICswMjAwLCBBbWFkZXVzeiBTxYJhd2nFhHNraSB3cm90ZTog
-IAo+ID4gPiA+IFdoZW4gd2UgdW5sb2FkIFNreWxha2UgZHJpdmVyIHdlIG1heSBlbmQgdXAgY2Fs
-bGluZwo+ID4gPiA+IGhkYWNfY29tcG9uZW50X21hc3Rlcl91bmJpbmQoKSwgaXQgdXNlcyBhY29t
-cC0+YXVkaW9fb3BzLCB3aGljaAo+ID4gPiA+IHdlCj4gPiA+ID4gc2V0Cj4gPiA+ID4gaW4gaGRt
-aV9jb2RlY19wcm9iZSgpLCBzbyB3ZSBuZWVkIHRvIHNldCBpdCB0byBOVUxMIGluCj4gPiA+ID4g
-aGRtaV9jb2RlY19yZW1vdmUoKSwKPiA+ID4gPiBvdGhlcndpc2Ugd2Ugd2lsbCBkZXJlZmVyZW5j
-ZSBubyBsb25nZXIgZXhpc3RpbmcgcG9pbnRlci4gICAgCj4gPiA+IAo+ID4gPiBIaSBBbWFkZXVz
-eiwKPiA+ID4gCj4gPiA+IEl0IGxvb2tzIGxpa2UgdGhlIGF1ZGlvX29wcyBzaG91bGQgYmUgZGVs
-ZXRlZAo+ID4gPiBzbmRfaGRhY19hY29tcF9leGl0KCkuCj4gPiA+IEFsc28sIHRoaXMgZG9lc250
-IHNlZW0gdG8gYmUgdGhlIGNhc2Ugd2l0aCB3aGVuIHRoZSBTT0YgZHJpdmVyIGlzCj4gPiA+IHJl
-bW92ZWQuCj4gPiA+IENvdWxkIHlvdSBwbGVhc2UgZ2l2ZSBhIGJpdCBtb3JlIGNvbnRleHQgb24g
-d2hhdCBlcnJvciB5b3Ugc2VlCj4gPiA+IHdoZW4gdGhpcyBoYXBwZW5zPyAgCj4gPiAKPiA+IEhp
-LAo+ID4gCj4gPiBJIGdldCBPb3BzLiBUaGlzIGlzIHdoYXQgaGFwcGVucyB3aXRoIGFsbCBvdGhl
-ciBwYXRjaGVzIGluIHRoaXMKPiA+IHNlcmllcyBhbmQgb25seSB0aGlzIG9uZSByZXZlcnRlZDoK
-PiA+IAo+ID4gcm9vdEBBUEw6fiMgcm1tb2Qgc25kX3NvY19zc3RfYnh0X3J0Mjk4Cj4gPiByb290
-QEFQTDp+IyBybW1vZCBzbmRfc29jX2hkYWNfaGRtaQo+ID4gcm9vdEBBUEw6fiMgcm1tb2Qgc25k
-X3NvY19za2wgIAo+IAo+IFRoYW5rcywgQW1hZGV1c3ouIEkgdGhpbmsgdGhlIG9yZGVyIGluIHdo
-aWNoIHRoZSBkcml2ZXJzIGFyZSByZW1vdmVkCj4gaXMgd2hhdCdzIGNhdXNpbmcgdGhlIG9vcHMg
-aW4geW91ciBjYXNlLiBXaXRoIFNPRiwgdGhlIG9yZGVyIHdlCj4gcmVtb3ZlIGlzCj4gCj4gMS4g
-cm1tb2Qgc29mX3BjaV9kZXYKPiAyLiBybW1vZCBzbmRfc29jX3NzdF9ieHRfcnQyOTgKPiAzLiBy
-bW1vZCBzbmRfc29jX2hkYWNfaGRtaQo+IAoKV2VsbCwgdGhlcmUgaXMgbm90aGluZyBlbmZvcmNp
-bmcgdGhlIG9yZGVyIGluIHdoaWNoIG1vZHVsZXMgY2FuIGJlCnVubG9hZGVkIChhbmQgSSBzZWUg
-bm8gcmVhc29uIHRvIGZvcmNlIGl0KSwgYXMgeW91IGNhbiBzZWUgZnJvbQpmb2xsb3dpbmcgZXhj
-ZXJwdCwgeW91IGNhbiBlaXRoZXIgc3RhcnQgdW5sb2FkaW5nIGZyb20Kc25kX3NvY19zc3RfYnh0
-X3J0Mjk4IG9yIHNuZF9zb2Nfc2tsLCBhbmQgeWVzIGlmIHlvdSBzdGFydCBmcm9tCnNuZF9zb2Nf
-c2tsLCB0aGVyZSBpcyBubyBwcm9ibGVtLgoKc25kX3NvY19zc3RfYnh0X3J0Mjk4ICAgIDQwOTYw
-ICAwCnNuZF9zb2NfaGRhY19oZG1pICAgICAgNDUwNTYgIDEgc25kX3NvY19zc3RfYnh0X3J0Mjk4
-CnNuZF9zb2NfZG1pYyAgICAgICAgICAgMTYzODQgIDEKc25kX3NvY19ydDI5OCAgICAgICAgICA2
-NTUzNiAgMiBzbmRfc29jX3NzdF9ieHRfcnQyOTgKc25kX3NvY19ydDI4NiAgICAgICAgICA2MTQ0
-MCAgMApzbmRfc29jX3JsNjM0N2EgICAgICAgIDE2Mzg0ICAyIHNuZF9zb2NfcnQyOTgsc25kX3Nv
-Y19ydDI4NgpzbmRfc29jX3NrbCAgICAgICAgICAgMzcyNzM2ICAwCnNuZF9zb2Nfc3N0X2lwYyAg
-ICAgICAgMjA0ODAgIDEgc25kX3NvY19za2wKc25kX3NvY19zc3RfZHNwICAgICAgICAzNjg2NCAg
-MSBzbmRfc29jX3NrbApzbmRfaGRhX2V4dF9jb3JlICAgICAgIDI4NjcyICAyIHNuZF9zb2NfaGRh
-Y19oZG1pLHNuZF9zb2Nfc2tsCnNuZF9oZGFfY29yZSAgICAgICAgICAxMzkyNjQgIDMKc25kX2hk
-YV9leHRfY29yZSxzbmRfc29jX2hkYWNfaGRtaSxzbmRfc29jX3NrbApzbmRfc29jX2FjcGlfaW50
-ZWxfbWF0Y2ggICAgNTMyNDggIDEgc25kX3NvY19za2wgc25kX3NvY19hY3BpCjE2Mzg0ICAyIHNu
-ZF9zb2NfYWNwaV9pbnRlbF9tYXRjaCxzbmRfc29jX3NrbCBzbmRfc29jX2NvcmUKNDA1NTA0ICA2
-CnNuZF9zb2NfcnQyOTgsc25kX3NvY19ydDI4NixzbmRfc29jX2hkYWNfaGRtaSxzbmRfc29jX3Nr
-bCxzbmRfc29jX2RtaWMsc25kX3NvY19zc3RfYnh0X3J0Mjk4CnNuZF9jb21wcmVzcyAgICAgICAg
-ICAgMzY4NjQgIDIgc25kX3NvY19jb3JlLHNuZF9zb2Nfc2tsCnNuZF9wY21fZG1hZW5naW5lICAg
-ICAgMTYzODQgIDEgc25kX3NvY19jb3JlIHNuZF9wY20KMTYzODQwICAxMApzbmRfc29jX3J0Mjk4
-LHNuZF9zb2NfcnQyODYsc25kX2hkYV9leHRfY29yZSxzbmRfc29jX2hkYWNfaGRtaSxzbmRfY29t
-cHJlc3Msc25kX3NvY19jb3JlLHNuZF9zb2Nfc2tsLHNuZF9oZGFfY29yZSxzbmRfc29jX3NzdF9i
-eHRfcnQyOTgsc25kX3BjbV9kbWFlbmdpbmUKc25kX3RpbWVyICAgICAgICAgICAgICA1MzI0OCAg
-MSBzbmRfcGNtCgpBbWFkZXVzegpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVj
-dC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bHNhLWRldmVsCg==
+> ________________________________________
+> From: Marcel Ziswiler
+> Sent: Thursday, June 13, 2019 12:05
+> To: festevam@gmail.com; Oleksandr Suvorov
+> Cc: Igor Opaniuk; linux-kernel@vger.kernel.org; alsa-devel@alsa-project.org
+> Subject: Re: [PATCH v1 1/6] ASoC: sgtl5000: Fix definition of VAG Ramp Control
+> 
+> On Tue, 2019-05-21 at 13:36 +0300, Oleksandr Suvorov wrote:
+> > SGTL5000_SMALL_POP is a bit mask, not a value. Usage of
+> > correct definition makes device probing code more clear.
+> >
+> > Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> 
+> Reviewed-by: Marcel Ziswiler <marcel.ziswiler@toradex.com>
+> 
+> > ---
+> >
+> >  sound/soc/codecs/sgtl5000.c | 2 +-
+> >  sound/soc/codecs/sgtl5000.h | 2 +-
+> >  2 files changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git sound/soc/codecs/sgtl5000.c sound/soc/codecs/sgtl5000.c
+> 
+> I'm not sure how exactly you generated this patch set but usually git
+> format-patch inserts an additional folder level called a/b which is
+> what git am accepts by default e.g.
+
+I just used patman to generate this set of patches. But my .gitconfig included diff option "noprefix".
+Thanks for pointing me! Fixed. Should I resent regenerated patchset with the prefix?
+ 
+> diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+> 
+> > index a6a4748c97f9..5e49523ee0b6 100644
+> > --- sound/soc/codecs/sgtl5000.c
+> > +++ sound/soc/codecs/sgtl5000.c
+> 
+> Of course, the same a/b stuff applies here:
+> 
+> --- a/sound/soc/codecs/sgtl5000.c
+> +++ b/sound/soc/codecs/sgtl5000.c
+> 
+> > @@ -1296,7 +1296,7 @@ static int sgtl5000_probe(struct
+> > snd_soc_component *component)
+> >
+> >       /* enable small pop, introduce 400ms delay in turning off */
+> >       snd_soc_component_update_bits(component,
+> > SGTL5000_CHIP_REF_CTRL,
+> > -                             SGTL5000_SMALL_POP, 1);
+> > +                             SGTL5000_SMALL_POP,
+> > SGTL5000_SMALL_POP);
+> >
+> >       /* disable short cut detector */
+> >       snd_soc_component_write(component, SGTL5000_CHIP_SHORT_CTRL,
+> > 0);
+> > diff --git sound/soc/codecs/sgtl5000.h sound/soc/codecs/sgtl5000.h
+> > index 18cae08bbd3a..a4bf4bca95bf 100644
+> > --- sound/soc/codecs/sgtl5000.h
+> > +++ sound/soc/codecs/sgtl5000.h
+> > @@ -273,7 +273,7 @@
+> >  #define SGTL5000_BIAS_CTRL_MASK                      0x000e
+> >  #define SGTL5000_BIAS_CTRL_SHIFT             1
+> >  #define SGTL5000_BIAS_CTRL_WIDTH             3
+> > -#define SGTL5000_SMALL_POP                   1
+> > +#define SGTL5000_SMALL_POP                   0x0001
+> >
+> >  /*
+> >   * SGTL5000_CHIP_MIC_CTRL
+> > --
+> > 2.20.1
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

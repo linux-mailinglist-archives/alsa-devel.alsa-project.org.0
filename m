@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A6E44B8AF
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:35:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 895D74B8C2
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:38:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9AED16A4;
-	Wed, 19 Jun 2019 14:34:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9AED16A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19BF016DE;
+	Wed, 19 Jun 2019 14:37:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19BF016DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560947745;
-	bh=3HOBwNKEn7kCi4+GzbHZjWKBZp4r8i9Mhifh6qhZmNU=;
+	s=default; t=1560947913;
+	bh=xEI23nvIofdLJo5CouSDLUjU8m0Cf2V2XB43k9iEXCI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Cuh1k306UdiXzwVWzcK6KxUQwqJxSHJfXm3Yk8mfCZ7FLi6XQ1V2P1Xyj3mEURZdf
-	 sA9Haf75edfWi9NvmQkoSwUe9HCCZ+y19PEedHlv2vMV5oIfm6heEkr9fGGCZwK0X2
-	 0lAgdStYupA+jLHRrVAx3StqM4Kn3xxYAxKSIWug=
+	b=F1mYmu0aAaFBQQs7VpifVKdKk6x8/j2nf9HfmrynaURvcgnV8ee3BXvWTG6jDjMM2
+	 nz/K3Su9PbNM9HkYXBW+beslo4/ZusJ5lz7DFYAS5bgJTw8ZibPdMSKwEhhOeA39WY
+	 LuGYb+Zh/M4H64MGYNReJL5Z/dZGRujinU44JkV0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D18CFF897D7;
-	Wed, 19 Jun 2019 14:13:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0424F897F7;
+	Wed, 19 Jun 2019 14:13:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6225AF89771; Wed, 19 Jun 2019 14:12:42 +0200 (CEST)
+ id D851BF89775; Wed, 19 Jun 2019 14:12:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 76F8EF89746
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F8EF89746
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A9FFF89749
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A9FFF89749
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="peWD3YFa"
+ header.b="AhYDT27W"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+poEkVHtd0Ia5OqSa44ia8jXjoVZSlTXzOTu4fnuX/g=; b=peWD3YFaBQnS
- 88QDo5MV3EgZPn4SBUmszAuAp1IscmrpQ4sgTL6nw6EFeNUx6PONN8tOTR4zNSscX4siBJ37jKYDs
- jFQTV7STsHe5W70aAZXD+VavpfsQQ46Zr02g0hbFFOmsqoeLoGCwHYsY8yDLVE9ggUnRp4mkSroxG
- +C/Co=;
+ List-Archive; bh=6Xpnlf3JO1Boi63PQ/gEDKcrD4ouXXrxFCqthNqby8c=; b=AhYDT27WIziq
+ 5prhHE3OCeGXfVubuAmXL0/jwNeL7AvzODYh3SJcKOql8Uv37IvnWSedufBL7ryQOrsblwOiiwI1N
+ yQ+zgjuyZr2G/QfqL9oRNs5AIhVm5TasxiugPADSLeCigYm3RjM4s5s3ynUYJ0E2GreaGnUGCpstr
+ 3SMs0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRb-0007BC-4j; Wed, 19 Jun 2019 12:12:03 +0000
+ id 1hdZRa-0007As-To; Wed, 19 Jun 2019 12:12:02 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id B0E9B44004A; Wed, 19 Jun 2019 13:12:02 +0100 (BST)
+ id 7A62F44004C; Wed, 19 Jun 2019 13:12:02 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87k1div0j2.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h88mv0iu.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121202.B0E9B44004A@finisterre.sirena.org.uk>
+Message-Id: <20190619121202.7A62F44004C@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:02 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: fsl: imx-spdif: don't select
+Subject: [alsa-devel] Applied "ASoC: kirkwood: armada-370-db: don't select
 	unnecessary Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl: imx-spdif: don't select unnecessary Platform
+   ASoC: kirkwood: armada-370-db: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,11 @@ to this mail.
 Thanks,
 Mark
 
-From 014f07ca1cb12947aea7c9132efe920c5b003b29 Mon Sep 17 00:00:00 2001
+From 717f163317127bc5fdc0d90ad42e3d309dac0df0 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:17:06 +0900
-Subject: [PATCH] ASoC: fsl: imx-spdif: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:17:14 +0900
+Subject: [PATCH] ASoC: kirkwood: armada-370-db: don't select unnecessary
+ Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,41 +126,57 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/imx-spdif.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ sound/soc/kirkwood/armada-370-db.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/fsl/imx-spdif.c b/sound/soc/fsl/imx-spdif.c
-index 6c4dadf60355..393c5a31f494 100644
---- a/sound/soc/fsl/imx-spdif.c
-+++ b/sound/soc/fsl/imx-spdif.c
-@@ -26,7 +26,7 @@ static int imx_spdif_audio_probe(struct platform_device *pdev)
- 	}
+diff --git a/sound/soc/kirkwood/armada-370-db.c b/sound/soc/kirkwood/armada-370-db.c
+index b2d735b610b8..14f41ea874ef 100644
+--- a/sound/soc/kirkwood/armada-370-db.c
++++ b/sound/soc/kirkwood/armada-370-db.c
+@@ -60,18 +60,15 @@ static const struct snd_soc_dapm_route a370db_route[] = {
  
- 	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
--	comp = devm_kzalloc(&pdev->dev, 3 * sizeof(*comp), GFP_KERNEL);
-+	comp = devm_kzalloc(&pdev->dev, 2 * sizeof(*comp), GFP_KERNEL);
- 	if (!data || !comp) {
- 		ret = -ENOMEM;
- 		goto end;
-@@ -34,18 +34,15 @@ static int imx_spdif_audio_probe(struct platform_device *pdev)
+ SND_SOC_DAILINK_DEFS(analog,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("i2s")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "cs42l51-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "cs42l51-hifi")));
  
- 	data->dai.cpus		= &comp[0];
- 	data->dai.codecs	= &comp[1];
--	data->dai.platforms	= &comp[2];
+ SND_SOC_DAILINK_DEFS(spdif_out,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("spdif")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "dit-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "dit-hifi")));
  
- 	data->dai.num_cpus	= 1;
- 	data->dai.num_codecs	= 1;
--	data->dai.num_platforms	= 1;
+ SND_SOC_DAILINK_DEFS(spdif_in,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("spdif")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "dir-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_EMPTY()));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "dir-hifi")));
  
- 	data->dai.name = "S/PDIF PCM";
- 	data->dai.stream_name = "S/PDIF PCM";
- 	data->dai.codecs->dai_name = "snd-soc-dummy-dai";
- 	data->dai.codecs->name = "snd-soc-dummy";
- 	data->dai.cpus->of_node = spdif_np;
--	data->dai.platforms->of_node = spdif_np;
- 	data->dai.playback_only = true;
- 	data->dai.capture_only = true;
+ static struct snd_soc_dai_link a370db_dai[] = {
+ {
+@@ -115,21 +112,18 @@ static int a370db_probe(struct platform_device *pdev)
+ 	a370db_dai[0].cpus->of_node =
+ 		of_parse_phandle(pdev->dev.of_node,
+ 				 "marvell,audio-controller", 0);
+-	a370db_dai[0].platforms->of_node = a370db_dai[0].cpus->of_node;
  
+ 	a370db_dai[0].codecs->of_node =
+ 		of_parse_phandle(pdev->dev.of_node,
+ 				 "marvell,audio-codec", 0);
+ 
+ 	a370db_dai[1].cpus->of_node = a370db_dai[0].cpus->of_node;
+-	a370db_dai[1].platforms->of_node = a370db_dai[0].cpus->of_node;
+ 
+ 	a370db_dai[1].codecs->of_node =
+ 		of_parse_phandle(pdev->dev.of_node,
+ 				 "marvell,audio-codec", 1);
+ 
+ 	a370db_dai[2].cpus->of_node = a370db_dai[0].cpus->of_node;
+-	a370db_dai[2].platforms->of_node = a370db_dai[0].cpus->of_node;
+ 
+ 	a370db_dai[2].codecs->of_node =
+ 		of_parse_phandle(pdev->dev.of_node,
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 741324B8C0
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:37:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EED34B8D9
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:40:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E344216CC;
-	Wed, 19 Jun 2019 14:37:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E344216CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD5BA16CD;
+	Wed, 19 Jun 2019 14:39:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5BA16CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560947871;
-	bh=r+KAb5ZSta3MJSryteojms25OiS+xVgUWWhNpOKjN3c=;
+	s=default; t=1560948014;
+	bh=MNgyEPFdy+z5V+bpg5TOqe4qmOg9Z+Vl0D4gONpOakk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=oxM/O/DpvO+ic2f6bAe/iKxHUhFYmtwEBoTQ7++P987W8QinYii+FNDhKGXLXxJIx
-	 OWD4/8zqFtaGhiEB6slwOTNF0TWREQuGpiuUF3Mj7GwiRexFpEUAK96K1yw56Fsetl
-	 DxeM/mmlQOyaHR4+RaBxB3h3acWYpnyiSDKvugWE=
+	b=rb4HzW9Oa7N8IjLTwx4K5EvdEeZ0NVsyeyYnGq0Ex/kdKiNZ5XYsBLs50IssEybNH
+	 MFTuuF5+KSb8hlXYeIrkAY+7mDp8twzr/+8qRZ2MsJVAcK4tUsdPzKwzRb8U8XMXvl
+	 RQXmKE+K7a3M7QvLE3xGB6+eCqVliPXZ+a87Dbmk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 952B8F897EC;
-	Wed, 19 Jun 2019 14:13:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 91502F89813;
+	Wed, 19 Jun 2019 14:13:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3DCBF89775; Wed, 19 Jun 2019 14:12:44 +0200 (CEST)
+ id 58EF1F8974C; Wed, 19 Jun 2019 14:12:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BECF6F8974B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C21B1F8974C
  for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BECF6F8974B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C21B1F8974C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bwhttrdA"
+ header.b="uFMGueHp"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=70E+mHY3Q6qDtPM4sgzugh82I3ILtOQ5JzJWqjoMr5U=; b=bwhttrdAYidM
- l+BMGSMKcxGvwX1SKHxzwiUrhs6FsQIqOhvT0FMobv+rYxEF0eahSIfGyoP0vAkjbeNS7ADLy/WUN
- ehm3aM7jPNGTAXV8fG0Cu+LJE1L8CL9K+XgWL3C/IvGKs/IIMlYn7d1CBf6nKvkMwQDOlLKku2kph
- L6sTM=;
+ List-Archive; bh=Urj4kYv5es5Vz/R0IouL0hKZP+vYuRpT6JAnU+OIAxY=; b=uFMGueHpePuC
+ kl44EcZHuXj7UWER6FY93twtv347jShiShHwsZKXEMZMYekgFexG9eQ1OIbFUK36QejYGNdhsC4Ze
+ WOg22zXiY12AWPYwPpm0lOjNIfsIM7m/1NtXCQcLzdreQQhsPe6Ybifd+oI+7vBAt6v0et41UlHCb
+ zc1k0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRb-0007BX-Lc; Wed, 19 Jun 2019 12:12:03 +0000
+ id 1hdZRc-0007Bo-3Y; Wed, 19 Jun 2019 12:12:04 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 2C8F6440049; Wed, 19 Jun 2019 13:12:03 +0100 (BST)
+ id 7EE8A44004F; Wed, 19 Jun 2019 13:12:03 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87pnnav0jr.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87v9x2v0lu.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121203.2C8F6440049@finisterre.sirena.org.uk>
+Message-Id: <20190619121203.7EE8A44004F@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:03 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: fsl: eukrea-tlv320: don't select
+Subject: [alsa-devel] Applied "ASoC: atmel: sam9g20_wm8731: don't select
 	unnecessary Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl: eukrea-tlv320: don't select unnecessary Platform
+   ASoC: atmel: sam9g20_wm8731: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,11 @@ to this mail.
 Thanks,
 Mark
 
-From 2058ea1c4f514a01bc0eba68ffe193d6f39bee43 Mon Sep 17 00:00:00 2001
+From bfc7938e58142a583a8141f55e453fa1bb68439d Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:16:42 +0900
-Subject: [PATCH] ASoC: fsl: eukrea-tlv320: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:15:26 +0900
+Subject: [PATCH] ASoC: atmel: sam9g20_wm8731: don't select unnecessary
+ Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,34 +126,38 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/eukrea-tlv320.c | 5 +----
+ sound/soc/atmel/sam9g20_wm8731.c | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/sound/soc/fsl/eukrea-tlv320.c b/sound/soc/fsl/eukrea-tlv320.c
-index 6f3b768489f6..1ed409d423c3 100644
---- a/sound/soc/fsl/eukrea-tlv320.c
-+++ b/sound/soc/fsl/eukrea-tlv320.c
-@@ -63,8 +63,7 @@ static const struct snd_soc_ops eukrea_tlv320_snd_ops = {
+diff --git a/sound/soc/atmel/sam9g20_wm8731.c b/sound/soc/atmel/sam9g20_wm8731.c
+index a5b4c3905ae8..e723153b8437 100644
+--- a/sound/soc/atmel/sam9g20_wm8731.c
++++ b/sound/soc/atmel/sam9g20_wm8731.c
+@@ -131,8 +131,7 @@ static int at91sam9g20ek_wm8731_init(struct snd_soc_pcm_runtime *rtd)
  
- SND_SOC_DAILINK_DEFS(hifi,
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
--	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "tlv320aic23-hifi")),
--	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "tlv320aic23-hifi")));
+ SND_SOC_DAILINK_DEFS(pcm,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("at91rm9200_ssc.0")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("wm8731.0-001b", "wm8731-hifi")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("at91rm9200_ssc.0")));
++	DAILINK_COMP_ARRAY(COMP_CODEC("wm8731.0-001b", "wm8731-hifi")));
  
- static struct snd_soc_dai_link eukrea_tlv320_dai = {
- 	.name		= "tlv320aic23",
-@@ -134,10 +133,8 @@ static int eukrea_tlv320_probe(struct platform_device *pdev)
- 		ext_port--;
+ static struct snd_soc_dai_link at91sam9g20ek_dai = {
+ 	.name = "WM8731",
+@@ -223,14 +222,12 @@ static int at91sam9g20ek_audio_probe(struct platform_device *pdev)
  
- 		eukrea_tlv320_dai.cpus->of_node = ssi_np;
--		eukrea_tlv320_dai.platforms->of_node = ssi_np;
- 	} else {
- 		eukrea_tlv320_dai.cpus->dai_name = "imx-ssi.0";
--		eukrea_tlv320_dai.platforms->name = "imx-ssi.0";
- 		eukrea_tlv320_dai.codecs->name = "tlv320aic23-codec.0-001a";
- 		eukrea_tlv320.name = "cpuimx-audio";
+ 	/* Parse dai and platform info */
+ 	at91sam9g20ek_dai.cpus->dai_name = NULL;
+-	at91sam9g20ek_dai.platforms->name = NULL;
+ 	cpu_np = of_parse_phandle(np, "atmel,ssc-controller", 0);
+ 	if (!cpu_np) {
+ 		dev_err(&pdev->dev, "dai and pcm info missing\n");
+ 		return -EINVAL;
  	}
+ 	at91sam9g20ek_dai.cpus->of_node = cpu_np;
+-	at91sam9g20ek_dai.platforms->of_node = cpu_np;
+ 
+ 	of_node_put(codec_np);
+ 	of_node_put(cpu_np);
 -- 
 2.20.1
 

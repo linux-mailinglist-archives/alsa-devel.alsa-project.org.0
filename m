@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76B7F4B8A0
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:33:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6270B4B849
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:30:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C33C1685;
-	Wed, 19 Jun 2019 14:32:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C33C1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7E2F16A2;
+	Wed, 19 Jun 2019 14:29:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E2F16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560947589;
-	bh=6gbfRYmt8mzmWi1TNplgHOzmPDV3/ayqHw+bNhWqXQY=;
+	s=default; t=1560947428;
+	bh=/HcGfbTYXBFJN09FY2GQXr3RfcnMptXN1RGD93kaD/E=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gChcpuSDRKByUJ+19RllaU97ewXcyEV1r0R7catBD0W2hLZ/Zt0Usis7db1+q/t5Z
-	 dSSGkKjI5zfQGbL3g1BMwoVmQTX19QJBYbvZ6az/ZcmaGxVB/YWQj38tmCVM1eNxQr
-	 TJBx9+FFmJQ+y6/JMqUbpIYLskM3Brh3N0RsLcb8=
+	b=NV1Abr/gGCzIbghbI7Iab0zxfm+njjjIr1+hzx/2L/nQyWpE2cIZ/DSWhe9wi8wUO
+	 pdtdozQTlSTXvW1Foa38NYYGqPO56Gr4X7Qff+aBnYq72EYIGGfUmoZBMKXcVTAPUL
+	 cIiZ6Sg5EwH5oligvfo0pQ3L5UsJOqRS0rNYYIIo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EBCFF897C3;
-	Wed, 19 Jun 2019 14:13:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E744FF897AD;
+	Wed, 19 Jun 2019 14:13:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1255BF89771; Wed, 19 Jun 2019 14:12:40 +0200 (CEST)
+ id BA750F89768; Wed, 19 Jun 2019 14:12:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20C6AF89743
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD22FF80C87
  for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20C6AF89743
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD22FF80C87
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="XtzyIXfc"
+ header.b="hRY9vYa0"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=MTAQU8+f82H0BvDtdETDpobFkO4HLN4wJ0fbFM8wkvk=; b=XtzyIXfcdw+E
- kgTMtC2TDEwTCGNhU/6ZGGJdiq0YlvWt00ngR/C+YDYbU+AYaqxm1Di03LmFENy1xoFIkGClSiXZZ
- 9xTNYE0BSmsKPVu5aNEoCa2sccDw7dXPzB2QuPoR7CZO0nTR3o4I3PMFPQOUtgIwss8PHLqT2dVKP
- I2iqc=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=r87CdG2ve4BolB1awxkuhp+bBS491GKoHcDjn7T5SKQ=; b=hRY9vYa0Sh+f
+ tdh4V0nF1k9ATl2UD9td1NHnlj7heYKgH8mrm+M5aml1gfkaUVfsNj9XxGcpGWGRFEqooZGowFKgL
+ z8zYAXI9k01JwASL4W242ZsjIQoyF/x6NLD/qHcWiTux/+o7f0reEEnl0+LDN8f89ITEtBIzQHUcA
+ whZfI=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRa-0007Ac-J6; Wed, 19 Jun 2019 12:12:02 +0000
+ id 1hdZRa-0007AV-Ig; Wed, 19 Jun 2019 12:12:02 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 26D4A440050; Wed, 19 Jun 2019 13:12:02 +0100 (BST)
+ id 0E4F444004F; Wed, 19 Jun 2019 13:12:02 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87d0jav0ii.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87blyuv0ht.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121202.26D4A440050@finisterre.sirena.org.uk>
+Message-Id: <20190619121202.0E4F444004F@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:02 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: qcom: storm: don't select unnecessary
-	Platform" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: rockchip: rk3288_hdmi_analog: don't
+	select unnecessary Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: storm: don't select unnecessary Platform
+   ASoC: rockchip: rk3288_hdmi_analog: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,11 @@ to this mail.
 Thanks,
 Mark
 
-From 3caf11fa88a954916c14c719b89478f4d89386d5 Mon Sep 17 00:00:00 2001
+From 9c21e82c165c009563928f4c0fe21a579352ae5b Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:17:26 +0900
-Subject: [PATCH] ASoC: qcom: storm: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:17:51 +0900
+Subject: [PATCH] ASoC: rockchip: rk3288_hdmi_analog: don't select unnecessary
+ Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,31 +126,32 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/storm.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ sound/soc/rockchip/rk3288_hdmi_analog.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
-index 672edee2ea93..9c67e42a1f00 100644
---- a/sound/soc/qcom/storm.c
-+++ b/sound/soc/qcom/storm.c
-@@ -63,8 +63,7 @@ static const struct snd_soc_ops storm_soc_ops = {
- 
- SND_SOC_DAILINK_DEFS(hifi,
+diff --git a/sound/soc/rockchip/rk3288_hdmi_analog.c b/sound/soc/rockchip/rk3288_hdmi_analog.c
+index 71ee16d7bde6..7e4bf3323fb1 100644
+--- a/sound/soc/rockchip/rk3288_hdmi_analog.c
++++ b/sound/soc/rockchip/rk3288_hdmi_analog.c
+@@ -154,8 +154,7 @@ static const struct snd_soc_ops rk_ops = {
+ SND_SOC_DAILINK_DEFS(audio,
  	DAILINK_COMP_ARRAY(COMP_EMPTY()),
--	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")),
+ 	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, NULL),
+-			   COMP_CODEC("hdmi-audio-codec.2.auto", "i2s-hifi")),
 -	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")));
++			   COMP_CODEC("hdmi-audio-codec.2.auto", "i2s-hifi")));
  
- static struct snd_soc_dai_link storm_dai_link = {
- 	.name		= "Primary",
-@@ -83,7 +82,6 @@ static int storm_parse_of(struct snd_soc_card *card)
- 		dev_err(card->dev, "error getting cpu phandle\n");
+ static struct snd_soc_dai_link rk_dailink = {
+ 	.name = "Codecs",
+@@ -249,8 +248,6 @@ static int snd_rk_mc_probe(struct platform_device *pdev)
  		return -EINVAL;
  	}
--	dai_link->platforms->of_node = dai_link->cpus->of_node;
  
- 	dai_link->codecs->of_node = of_parse_phandle(np, "codec", 0);
- 	if (!dai_link->codecs->of_node) {
+-	rk_dailink.platforms->of_node = rk_dailink.cpus->of_node;
+-
+ 	ret = snd_soc_of_parse_audio_routing(card, "rockchip,routing");
+ 	if (ret) {
+ 		dev_err(&pdev->dev,
 -- 
 2.20.1
 

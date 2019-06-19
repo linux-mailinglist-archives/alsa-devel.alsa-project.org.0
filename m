@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E8B54B7D7
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:16:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553004B7C2
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:14:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 139CF16C2;
-	Wed, 19 Jun 2019 14:15:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139CF16C2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D34F416BC;
+	Wed, 19 Jun 2019 14:13:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D34F416BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560946588;
-	bh=WMbqg5ao6Uc2rroK1lSXJouAtgDzP5WrurKB+CBpogQ=;
+	s=default; t=1560946477;
+	bh=KNMZslleoZ1YIDSAZ9KrzB8PyJ3lKVV67X1PaArmUGA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=LyzKr4ULYg9Byza5655r4Q3pXDwdkqOlfNLWpqKNk8mnS4KaVDtORyk+Px06YkwDv
-	 u1Wg8xiRdkp9XsN9Kb0tVix+z+aaee14qWdP+45ZWu/KZUyI/J5N4pr2FWweOT7ie0
-	 y6Hpw8ga/DbeX3d7p5WD5M5wZ2hko1AqcDe+ux6I=
+	b=jHUTRW1NRHIxY0DC3KyiLOUekp6y2mI/RVXitWgRnPHsnqBIx1GlC7H0bl3li7rFb
+	 jgydZZt4p5z+DxreuurPE+AyN2lSPp9JTdGQderq2DbgPHCgIFPguFyuwv453wnB0t
+	 j7XsmC4ZXRpKPTuYr+EIEFrpkQPPrUsfxtZZg0MY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BEF1AF89761;
-	Wed, 19 Jun 2019 14:12:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE148F8975C;
+	Wed, 19 Jun 2019 14:12:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9F5A8F8975B; Wed, 19 Jun 2019 14:12:09 +0200 (CEST)
+ id 00B92F80CC4; Wed, 19 Jun 2019 14:12:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DE0EF896DA
+ by alsa1.perex.cz (Postfix) with ESMTPS id F13DFF80CC4
  for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE0EF896DA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F13DFF80CC4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="TA8Ljy/R"
+ header.b="DkFi8+ZE"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=wPyflAxAoP8/46k8NBpEWg3az0ML3DRTgVFgG1o/G8E=; b=TA8Ljy/Rznl9
- jelna5EGx/rwpurx4gFDueXX0qyeUkbvcg0TA6g7apbgewhQDnJt4bO/rPr+xBV16PRR/N2DfdGOI
- o7ywx4jOiu4d3AP5gSeWQXx0QAZq241sUesgeTM4lUjyw9tq7AK/w6HaPhw7EioyXxbz3sukwCobV
- N9x2I=;
+ List-Archive; bh=iTs8/zZH10SaAt1cK6hS48K6z1mnUXBRTNPI4fNHMsU=; b=DkFi8+ZEHF5V
+ qL2ttVr3zWdIPHhfwLrAeODpLIKYQsKC5WytsefD026gF6Ywmz/CngpL7ZLspJEAtUHRX8Nl1iw5O
+ LUrnmo9PDQ1RWXY7P+7LtkIDEn9XY4YelI6pKcFby7CvFqy3yqlnUcoKjeXES5zHU1K6pJB2rm7ZL
+ f6VLk=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRX-00078T-Lf; Wed, 19 Jun 2019 12:11:59 +0000
+ id 1hdZRY-00078c-5F; Wed, 19 Jun 2019 12:12:00 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 3C7F544004B; Wed, 19 Jun 2019 13:11:59 +0100 (BST)
+ id 73C5C44004F; Wed, 19 Jun 2019 13:11:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87blyutluh.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ef3qtluo.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121159.3C7F544004B@finisterre.sirena.org.uk>
+Message-Id: <20190619121159.73C5C44004F@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:11:59 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: qcom: don't select unnecessary
+Subject: [alsa-devel] Applied "ASoC: ux500: mop500: don't select unnecessary
 	Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: don't select unnecessary Platform
+   ASoC: ux500: mop500: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 0814c6412967bac140ef9878ad48e1f30e5afba3 Mon Sep 17 00:00:00 2001
+From 9ae6cdb184b651bf48b9feed4f947468ff1c3c1f Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:19:35 +0900
-Subject: [PATCH] ASoC: qcom: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:19:28 +0900
+Subject: [PATCH] ASoC: ux500: mop500: don't select unnecessary Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,24 +125,38 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/common.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/ux500/mop500.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index 97488b5cc515..adf49b198754 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -103,7 +103,9 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- 			link->codecs	 = dlc;
- 			link->num_codecs = 1;
+diff --git a/sound/soc/ux500/mop500.c b/sound/soc/ux500/mop500.c
+index 20552e9d9217..12b2260efaf4 100644
+--- a/sound/soc/ux500/mop500.c
++++ b/sound/soc/ux500/mop500.c
+@@ -29,13 +29,11 @@
+ /* Define the whole MOP500 soundcard, linking platform to the codec-drivers  */
+ SND_SOC_DAILINK_DEFS(link1,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("ux500-msp-i2s.1")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("ab8500-codec.0", "ab8500-codec-dai.0")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("ux500-msp-i2s.1")));
++	DAILINK_COMP_ARRAY(COMP_CODEC("ab8500-codec.0", "ab8500-codec-dai.0")));
  
--			link->platforms->of_node = link->cpus->of_node;
-+			link->platforms = NULL;
-+			link->num_platforms = 0;
-+
- 			link->codecs->dai_name = "snd-soc-dummy-dai";
- 			link->codecs->name = "snd-soc-dummy";
- 			link->dynamic = 1;
+ SND_SOC_DAILINK_DEFS(link2,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("ux500-msp-i2s.3")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC("ab8500-codec.0", "ab8500-codec-dai.1")),
+-	DAILINK_COMP_ARRAY(COMP_PLATFORM("ux500-msp-i2s.3")));
++	DAILINK_COMP_ARRAY(COMP_CODEC("ab8500-codec.0", "ab8500-codec-dai.1")));
+ 
+ static struct snd_soc_dai_link mop500_dai_links[] = {
+ 	{
+@@ -91,8 +89,6 @@ static int mop500_of_probe(struct platform_device *pdev,
+ 	for (i = 0; i < 2; i++) {
+ 		mop500_dai_links[i].cpus->of_node = msp_np[i];
+ 		mop500_dai_links[i].cpus->dai_name = NULL;
+-		mop500_dai_links[i].platforms->of_node = msp_np[i];
+-		mop500_dai_links[i].platforms->name = NULL;
+ 		mop500_dai_links[i].codecs->of_node = codec_np;
+ 		mop500_dai_links[i].codecs->name = NULL;
+ 	}
 -- 
 2.20.1
 

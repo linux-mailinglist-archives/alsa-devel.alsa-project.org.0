@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EED34B8D9
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:40:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11CE04B8DC
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:41:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD5BA16CD;
-	Wed, 19 Jun 2019 14:39:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD5BA16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A72E216A6;
+	Wed, 19 Jun 2019 14:40:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A72E216A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560948014;
-	bh=MNgyEPFdy+z5V+bpg5TOqe4qmOg9Z+Vl0D4gONpOakk=;
+	s=default; t=1560948061;
+	bh=McS2f5lF6PT3PzdelDjOLQyWGN+O9DFZt0aCycrPvwg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rb4HzW9Oa7N8IjLTwx4K5EvdEeZ0NVsyeyYnGq0Ex/kdKiNZ5XYsBLs50IssEybNH
-	 MFTuuF5+KSb8hlXYeIrkAY+7mDp8twzr/+8qRZ2MsJVAcK4tUsdPzKwzRb8U8XMXvl
-	 RQXmKE+K7a3M7QvLE3xGB6+eCqVliPXZ+a87Dbmk=
+	b=V3+tM1YU10nCemskb6pM20HFixrL6ZtxSkdhvp9VYkDrVxIiA24b/5x8gba1HHgUY
+	 kuUqK9dpqQz0ocoPKeKWxJRsmLkDyKQq1qDWgQqlNRNd+uGuJE742IyCD7bRk9DsSW
+	 D9M6Fnfa6cVf1LCkSyXBoXgbZ1L2/HH40Fe9XyJM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 91502F89813;
-	Wed, 19 Jun 2019 14:13:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F197CF89816;
+	Wed, 19 Jun 2019 14:13:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58EF1F8974C; Wed, 19 Jun 2019 14:12:49 +0200 (CEST)
+ id EFAF2F8977B; Wed, 19 Jun 2019 14:12:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C21B1F8974C
+ by alsa1.perex.cz (Postfix) with ESMTPS id EC02EF8974A
  for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C21B1F8974C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC02EF8974A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="uFMGueHp"
+ header.b="gbtdA5wv"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Urj4kYv5es5Vz/R0IouL0hKZP+vYuRpT6JAnU+OIAxY=; b=uFMGueHpePuC
- kl44EcZHuXj7UWER6FY93twtv347jShiShHwsZKXEMZMYekgFexG9eQ1OIbFUK36QejYGNdhsC4Ze
- WOg22zXiY12AWPYwPpm0lOjNIfsIM7m/1NtXCQcLzdreQQhsPe6Ybifd+oI+7vBAt6v0et41UlHCb
- zc1k0=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=esr3pfmxNnkuRQkm6ALOy9ZGZ+bAOQkxUG6c8KUQL8Y=; b=gbtdA5wv31Se
+ YA1QwInRi2kSvg/pYE53JeUMXuYtoQAIIntjwEZ+Gk9q5XuE2Iq6kQfg/LRf6pxFuZ5DkW2Nlb3LU
+ KWOQXs2hnqpVE2ko9odRazMcGQKPFMT5JbJQn5jiTHr+MhA1zKZQroPBIM1NBwNxVY3+fDpqaSeDe
+ xBzWc=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRc-0007Bo-3Y; Wed, 19 Jun 2019 12:12:04 +0000
+ id 1hdZRc-0007Bf-1U; Wed, 19 Jun 2019 12:12:04 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 7EE8A44004F; Wed, 19 Jun 2019 13:12:03 +0100 (BST)
+ id 5FECD44004C; Wed, 19 Jun 2019 13:12:03 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87v9x2v0lu.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87sgs6v0km.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121203.7EE8A44004F@finisterre.sirena.org.uk>
+Message-Id: <20190619121203.5FECD44004C@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:03 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: atmel: sam9g20_wm8731: don't select
+Subject: [alsa-devel] Applied "ASoC: atmel: sam9x5_wm8731: don't select
 	unnecessary Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: atmel: sam9g20_wm8731: don't select unnecessary Platform
+   ASoC: atmel: sam9x5_wm8731: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,11 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From bfc7938e58142a583a8141f55e453fa1bb68439d Mon Sep 17 00:00:00 2001
+From ced5b08020cdd4e2bed194dc35dba504221006ae Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:15:26 +0900
-Subject: [PATCH] ASoC: atmel: sam9g20_wm8731: don't select unnecessary
- Platform
+Date: Wed, 19 Jun 2019 10:16:10 +0900
+Subject: [PATCH] ASoC: atmel: sam9x5_wm8731: don't select unnecessary Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -126,38 +125,39 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/atmel/sam9g20_wm8731.c | 5 +----
+ sound/soc/atmel/sam9x5_wm8731.c | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/sound/soc/atmel/sam9g20_wm8731.c b/sound/soc/atmel/sam9g20_wm8731.c
-index a5b4c3905ae8..e723153b8437 100644
---- a/sound/soc/atmel/sam9g20_wm8731.c
-+++ b/sound/soc/atmel/sam9g20_wm8731.c
-@@ -131,8 +131,7 @@ static int at91sam9g20ek_wm8731_init(struct snd_soc_pcm_runtime *rtd)
+diff --git a/sound/soc/atmel/sam9x5_wm8731.c b/sound/soc/atmel/sam9x5_wm8731.c
+index 36917acc161f..8e8390d6b778 100644
+--- a/sound/soc/atmel/sam9x5_wm8731.c
++++ b/sound/soc/atmel/sam9x5_wm8731.c
+@@ -93,7 +93,7 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 	card = devm_kzalloc(&pdev->dev, sizeof(*card), GFP_KERNEL);
+ 	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	dai = devm_kzalloc(&pdev->dev, sizeof(*dai), GFP_KERNEL);
+-	comp = devm_kzalloc(&pdev->dev, 3 * sizeof(*comp), GFP_KERNEL);
++	comp = devm_kzalloc(&pdev->dev, 2 * sizeof(*comp), GFP_KERNEL);
+ 	if (!dai || !card || !priv || !comp) {
+ 		ret = -ENOMEM;
+ 		goto out;
+@@ -112,8 +112,6 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 	dai->num_cpus = 1;
+ 	dai->codecs = &comp[1];
+ 	dai->num_codecs = 1;
+-	dai->platforms = &comp[2];
+-	dai->num_platforms = 1;
  
- SND_SOC_DAILINK_DEFS(pcm,
- 	DAILINK_COMP_ARRAY(COMP_CPU("at91rm9200_ssc.0")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("wm8731.0-001b", "wm8731-hifi")),
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("at91rm9200_ssc.0")));
-+	DAILINK_COMP_ARRAY(COMP_CODEC("wm8731.0-001b", "wm8731-hifi")));
- 
- static struct snd_soc_dai_link at91sam9g20ek_dai = {
- 	.name = "WM8731",
-@@ -223,14 +222,12 @@ static int at91sam9g20ek_audio_probe(struct platform_device *pdev)
- 
- 	/* Parse dai and platform info */
- 	at91sam9g20ek_dai.cpus->dai_name = NULL;
--	at91sam9g20ek_dai.platforms->name = NULL;
- 	cpu_np = of_parse_phandle(np, "atmel,ssc-controller", 0);
- 	if (!cpu_np) {
- 		dev_err(&pdev->dev, "dai and pcm info missing\n");
- 		return -EINVAL;
+ 	dai->name = "WM8731";
+ 	dai->stream_name = "WM8731 PCM";
+@@ -150,7 +148,6 @@ static int sam9x5_wm8731_driver_probe(struct platform_device *pdev)
+ 		goto out;
  	}
- 	at91sam9g20ek_dai.cpus->of_node = cpu_np;
--	at91sam9g20ek_dai.platforms->of_node = cpu_np;
+ 	dai->cpus->of_node = cpu_np;
+-	dai->platforms->of_node = cpu_np;
  
- 	of_node_put(codec_np);
- 	of_node_put(cpu_np);
+ 	priv->ssc_id = of_alias_get_id(cpu_np, "ssc");
+ 
 -- 
 2.20.1
 

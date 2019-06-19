@@ -2,96 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819394BBC3
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 16:36:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F7BF4BC4B
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 17:04:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D179169F;
-	Wed, 19 Jun 2019 16:35:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D179169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3EEF41698;
+	Wed, 19 Jun 2019 17:03:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EEF41698
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560954979;
-	bh=Ka+fTwof4nCwaiMJ6AlgSSPByB5l6LNio/2j4qM7bcQ=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1560956658;
+	bh=kMQwSRJYvvlSP6RGBCYtBu0RWBabmIjZwnk3Jufy3w4=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ZYIDbrc8z24VDN8pqiRYQRwMHOwNAWgNKZbLK5wEjd1yC23Gbj3LZBzZpfB0wKZ9v
-	 iE7PNt/aRVovos0NL4qE1HrX28m0j7pke+ImAClvnty1Zumjux+vrCBe4LhwZ9lFmF
-	 m0GnYJEsK/RUaVAqUwHEW5TIwlIJ0fgp0yE7q36w=
+	b=f34Q3PMiOk+FGaaAkMdLw/lGeJCgPjORHX+POPxS/OR4BM9w6elA3mZVfjHJgmiyD
+	 YZODwguFFsUsFI83evK8btWuSICQ2Y2llJVSSMMA+rxsqXkdDcr6QbHqGv128tuNJN
+	 V6VdxgdC9n+I1/DHkGFVC5G3Ty6/zbSW0SRfKp3A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 713ACF896DA;
-	Wed, 19 Jun 2019 16:34:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 710E8F896DA;
+	Wed, 19 Jun 2019 17:02:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B61BF896B8; Wed, 19 Jun 2019 16:34:32 +0200 (CEST)
+ id 4CD8EF896B8; Wed, 19 Jun 2019 17:02:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C642F808AF
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 16:34:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C642F808AF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="EYFdyfli"
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x5JEY1DA043144;
- Wed, 19 Jun 2019 14:34:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2018-07-02;
- bh=oYczuqmsavZDyQnx5ipOp1iY2U6P0wOD9kNRjBPn+uM=;
- b=EYFdyfli9mvW78RBwsd4+AAVDY1FNZafxpYEQc18H1Fiq1Hy99YFAEIiTjjUyat5xMcj
- x9h84+7jc5FlLuYgoNX/wZRaTDPrlosBkd01YPBFwXipTYDs0eBC99XeqwqspOInFd0r
- 1WiiguWkzQA1m8Np19rWbAIR8QpNNnJrmxD38gciua+OIsE2qJCvLVY8OxTyuq/q3sq8
- So8/Pk09+VXgyY42IrD2rjnC575RQzLstmzT4k6cns8FQddE2+HxgBHs1i5eJkTTxKDA
- TY0D6L+w3ECWDvstcNimdAXymjSIhSKPOOjNHFCfZx25jN7AIPVWk7vybrJqgc3bdcbQ 9A== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 2t7809buy1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 19 Jun 2019 14:34:24 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x5JEXbPJ028660;
- Wed, 19 Jun 2019 14:34:24 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 2t77yn4tty-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 19 Jun 2019 14:34:24 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x5JEYJcZ017606;
- Wed, 19 Jun 2019 14:34:23 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 19 Jun 2019 07:34:19 -0700
-Date: Wed, 19 Jun 2019 17:34:14 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: codrin.ciubotariu@microchip.com
-Message-ID: <20190619143414.GA26033@mwanda>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0747BF80CC4
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 17:02:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0747BF80CC4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Jun 2019 08:02:26 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,392,1557212400"; d="scan'208";a="160392438"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by fmsmga008.fm.intel.com with ESMTP; 19 Jun 2019 08:02:17 -0700
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 9515614B; Wed, 19 Jun 2019 18:02:13 +0300 (EEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Date: Wed, 19 Jun 2019 18:02:13 +0300
+Message-Id: <20190619150213.87691-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9292
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=933
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1810050000 definitions=main-1906190119
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9292
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=986 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1906190119
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [bug report] ASoC: codecs: ad193x: Fix frame polarity
- for DSP_A format
+Cc: Vinod Koul <vkoul@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: [alsa-devel] [PATCH v1] ASoC: Intel: Skylake: Switch to modern UUID
+	API
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,87 +78,340 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Codrin,
+Switch the driver to use modern UUID API, i.e. guid_t type and
+accompanying functions, such as guid_equal().
 
-Linus recently corrected me on one of my patches and I said I would
-look through the kernel and fix similar bugs as well.  The problem I
-realized is that I'm really stupid and I have forgot how to do math...
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ sound/soc/intel/skylake/skl-pcm.c       | 12 ++++++------
+ sound/soc/intel/skylake/skl-sst-dsp.h   |  6 +++---
+ sound/soc/intel/skylake/skl-sst-utils.c | 23 +++++++----------------
+ sound/soc/intel/skylake/skl-sst.c       |  4 +---
+ sound/soc/intel/skylake/skl-topology.c  | 24 ++++++++++++------------
+ sound/soc/intel/skylake/skl-topology.h  |  6 +++---
+ 6 files changed, 32 insertions(+), 43 deletions(-)
 
-The patch 90f6e6803139: "ASoC: codecs: ad193x: Fix frame polarity for
-DSP_A format" from Feb 18, 2019, leads to the following static
-checker warning:
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+index 8b7232d3ffee..b2b9958605d1 100644
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ b/sound/soc/intel/skylake/skl-pcm.c
+@@ -1310,12 +1310,12 @@ static int skl_get_module_info(struct skl *skl, struct skl_module_cfg *mconfig)
+ {
+ 	struct skl_sst *ctx = skl->skl_sst;
+ 	struct skl_module_inst_id *pin_id;
+-	uuid_le *uuid_mod, *uuid_tplg;
++	guid_t *uuid_mod, *uuid_tplg;
+ 	struct skl_module *skl_module;
+ 	struct uuid_module *module;
+ 	int i, ret = -EIO;
+ 
+-	uuid_mod = (uuid_le *)mconfig->guid;
++	uuid_mod = (guid_t *)mconfig->guid;
+ 
+ 	if (list_empty(&ctx->uuid_list)) {
+ 		dev_err(ctx->dev, "Module list is empty\n");
+@@ -1323,7 +1323,7 @@ static int skl_get_module_info(struct skl *skl, struct skl_module_cfg *mconfig)
+ 	}
+ 
+ 	list_for_each_entry(module, &ctx->uuid_list, list) {
+-		if (uuid_le_cmp(*uuid_mod, module->uuid) == 0) {
++		if (guid_equal(uuid_mod, &module->uuid)) {
+ 			mconfig->id.module_id = module->id;
+ 			if (mconfig->module)
+ 				mconfig->module->loadable = module->is_loadable;
+@@ -1340,7 +1340,7 @@ static int skl_get_module_info(struct skl *skl, struct skl_module_cfg *mconfig)
+ 	for (i = 0; i < skl->nr_modules; i++) {
+ 		skl_module = skl->modules[i];
+ 		uuid_tplg = &skl_module->uuid;
+-		if (!uuid_le_cmp(*uuid_mod, *uuid_tplg)) {
++		if (guid_equal(uuid_mod, uuid_tplg)) {
+ 			mconfig->module = skl_module;
+ 			ret = 0;
+ 			break;
+@@ -1352,13 +1352,13 @@ static int skl_get_module_info(struct skl *skl, struct skl_module_cfg *mconfig)
+ 	list_for_each_entry(module, &ctx->uuid_list, list) {
+ 		for (i = 0; i < MAX_IN_QUEUE; i++) {
+ 			pin_id = &mconfig->m_in_pin[i].id;
+-			if (!uuid_le_cmp(pin_id->mod_uuid, module->uuid))
++			if (guid_equal(&pin_id->mod_uuid, &module->uuid))
+ 				pin_id->module_id = module->id;
+ 		}
+ 
+ 		for (i = 0; i < MAX_OUT_QUEUE; i++) {
+ 			pin_id = &mconfig->m_out_pin[i].id;
+-			if (!uuid_le_cmp(pin_id->mod_uuid, module->uuid))
++			if (guid_equal(&pin_id->mod_uuid, &module->uuid))
+ 				pin_id->module_id = module->id;
+ 		}
+ 	}
+diff --git a/sound/soc/intel/skylake/skl-sst-dsp.h b/sound/soc/intel/skylake/skl-sst-dsp.h
+index e1d6f6719f7e..cbc7a93d56c2 100644
+--- a/sound/soc/intel/skylake/skl-sst-dsp.h
++++ b/sound/soc/intel/skylake/skl-sst-dsp.h
+@@ -177,7 +177,7 @@ struct skl_dsp_loader_ops {
+ #define MAX_INSTANCE_BUFF 2
+ 
+ struct uuid_module {
+-	uuid_le uuid;
++	guid_t uuid;
+ 	int id;
+ 	int is_loadable;
+ 	int max_instance;
+@@ -241,8 +241,8 @@ void bxt_sst_dsp_cleanup(struct device *dev, struct skl_sst *ctx);
+ 
+ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+ 				unsigned int offset, int index);
+-int skl_get_pvt_id(struct skl_sst *ctx, uuid_le *uuid_mod, int instance_id);
+-int skl_put_pvt_id(struct skl_sst *ctx, uuid_le *uuid_mod, int *pvt_id);
++int skl_get_pvt_id(struct skl_sst *ctx, guid_t *uuid_mod, int instance_id);
++int skl_put_pvt_id(struct skl_sst *ctx, guid_t *uuid_mod, int *pvt_id);
+ int skl_get_pvt_instance_id_map(struct skl_sst *ctx,
+ 				int module_id, int instance_id);
+ void skl_freeup_uuid_list(struct skl_sst *ctx);
+diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
+index 2ae405617876..85551321c35b 100644
+--- a/sound/soc/intel/skylake/skl-sst-utils.c
++++ b/sound/soc/intel/skylake/skl-sst-utils.c
+@@ -21,17 +21,11 @@
+ #include "../common/sst-dsp-priv.h"
+ #include "skl-sst-ipc.h"
+ 
+-
+-#define UUID_STR_SIZE 37
+ #define DEFAULT_HASH_SHA256_LEN 32
+ 
+ /* FW Extended Manifest Header id = $AE1 */
+ #define SKL_EXT_MANIFEST_HEADER_MAGIC   0x31454124
+ 
+-struct UUID {
+-	u8 id[16];
+-};
+-
+ union seg_flags {
+ 	u32 ul;
+ 	struct {
+@@ -65,7 +59,7 @@ struct module_type {
+ struct adsp_module_entry {
+ 	u32 struct_id;
+ 	u8  name[8];
+-	struct UUID uuid;
++	u8  uuid[16];
+ 	struct module_type type;
+ 	u8  hash1[DEFAULT_HASH_SHA256_LEN];
+ 	u32 entry_point;
+@@ -184,13 +178,13 @@ static inline int skl_pvtid_128(struct uuid_module *module)
+  * This generates a 128 bit private unique id for a module TYPE so that
+  * module instance is unique
+  */
+-int skl_get_pvt_id(struct skl_sst *ctx, uuid_le *uuid_mod, int instance_id)
++int skl_get_pvt_id(struct skl_sst *ctx, guid_t *uuid_mod, int instance_id)
+ {
+ 	struct uuid_module *module;
+ 	int pvt_id;
+ 
+ 	list_for_each_entry(module, &ctx->uuid_list, list) {
+-		if (uuid_le_cmp(*uuid_mod, module->uuid) == 0) {
++		if (guid_equal(uuid_mod, &module->uuid)) {
+ 
+ 			pvt_id = skl_pvtid_128(module);
+ 			if (pvt_id >= 0) {
+@@ -214,13 +208,13 @@ EXPORT_SYMBOL_GPL(skl_get_pvt_id);
+  *
+  * This frees a 128 bit private unique id previously generated
+  */
+-int skl_put_pvt_id(struct skl_sst *ctx, uuid_le *uuid_mod, int *pvt_id)
++int skl_put_pvt_id(struct skl_sst *ctx, guid_t *uuid_mod, int *pvt_id)
+ {
+ 	int i;
+ 	struct uuid_module *module;
+ 
+ 	list_for_each_entry(module, &ctx->uuid_list, list) {
+-		if (uuid_le_cmp(*uuid_mod, module->uuid) == 0) {
++		if (guid_equal(uuid_mod, &module->uuid)) {
+ 
+ 			if (*pvt_id != 0)
+ 				i = (*pvt_id) / 64;
+@@ -247,7 +241,6 @@ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+ 	struct adsp_fw_hdr *adsp_hdr;
+ 	struct adsp_module_entry *mod_entry;
+ 	int i, num_entry, size;
+-	uuid_le *uuid_bin;
+ 	const char *buf;
+ 	struct skl_sst *skl = ctx->thread_context;
+ 	struct uuid_module *module;
+@@ -279,8 +272,7 @@ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+ 		return -EINVAL;
+ 	}
+ 
+-	mod_entry = (struct adsp_module_entry *)
+-		(buf + offset + adsp_hdr->len);
++	mod_entry = (struct adsp_module_entry *)(buf + offset + adsp_hdr->len);
+ 
+ 	num_entry = adsp_hdr->num_modules;
+ 
+@@ -307,8 +299,7 @@ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+ 			goto free_uuid_list;
+ 		}
+ 
+-		uuid_bin = (uuid_le *)mod_entry->uuid.id;
+-		memcpy(&module->uuid, uuid_bin, sizeof(module->uuid));
++		guid_copy(&module->uuid, (guid_t *)&mod_entry->uuid);
+ 
+ 		module->id = (i | (index << 12));
+ 		module->is_loadable = mod_entry->type.load_type;
+diff --git a/sound/soc/intel/skylake/skl-sst.c b/sound/soc/intel/skylake/skl-sst.c
+index 5951bbdf1f1a..13c636dece56 100644
+--- a/sound/soc/intel/skylake/skl-sst.c
++++ b/sound/soc/intel/skylake/skl-sst.c
+@@ -420,11 +420,9 @@ static int skl_load_module(struct sst_dsp *ctx, u16 mod_id, u8 *guid)
+ 	struct skl_module_table *module_entry = NULL;
+ 	int ret = 0;
+ 	char mod_name[64]; /* guid str = 32 chars + 4 hyphens */
+-	uuid_le *uuid_mod;
+ 
+-	uuid_mod = (uuid_le *)guid;
+ 	snprintf(mod_name, sizeof(mod_name), "%s%pUL%s",
+-				"intel/dsp_fw_", uuid_mod, ".bin");
++					     "intel/dsp_fw_", guid, ".bin");
+ 
+ 	module_entry = skl_module_get_from_id(ctx, mod_id);
+ 	if (module_entry == NULL) {
+diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
+index c69d999d7bf1..9fd756bcc740 100644
+--- a/sound/soc/intel/skylake/skl-topology.c
++++ b/sound/soc/intel/skylake/skl-topology.c
+@@ -580,7 +580,7 @@ skl_tplg_init_pipe_modules(struct skl *skl, struct skl_pipe *pipe)
+ 	int ret = 0;
+ 
+ 	list_for_each_entry(w_module, &pipe->w_list, node) {
+-		uuid_le *uuid_mod;
++		guid_t *uuid_mod;
+ 		w = w_module->w;
+ 		mconfig = w->priv;
+ 
+@@ -588,7 +588,7 @@ skl_tplg_init_pipe_modules(struct skl *skl, struct skl_pipe *pipe)
+ 		if (mconfig->id.module_id < 0) {
+ 			dev_err(skl->skl_sst->dev,
+ 					"module %pUL id not populated\n",
+-					(uuid_le *)mconfig->guid);
++					(guid_t *)mconfig->guid);
+ 			return -EIO;
+ 		}
+ 
+@@ -622,7 +622,7 @@ skl_tplg_init_pipe_modules(struct skl *skl, struct skl_pipe *pipe)
+ 		 * FE/BE params
+ 		 */
+ 		skl_tplg_update_module_params(w, ctx);
+-		uuid_mod = (uuid_le *)mconfig->guid;
++		uuid_mod = (guid_t *)mconfig->guid;
+ 		mconfig->id.pvt_id = skl_get_pvt_id(ctx, uuid_mod,
+ 						mconfig->id.instance_id);
+ 		if (mconfig->id.pvt_id < 0)
+@@ -661,9 +661,9 @@ static int skl_tplg_unload_pipe_modules(struct skl_sst *ctx,
+ 	struct skl_module_cfg *mconfig = NULL;
+ 
+ 	list_for_each_entry(w_module, &pipe->w_list, node) {
+-		uuid_le *uuid_mod;
++		guid_t *uuid_mod;
+ 		mconfig  = w_module->w->priv;
+-		uuid_mod = (uuid_le *)mconfig->guid;
++		uuid_mod = (guid_t *)mconfig->guid;
+ 
+ 		if (mconfig->module->loadable && ctx->dsp->fw_ops.unload_mod &&
+ 			mconfig->m_state > SKL_MODULE_UNINIT) {
+@@ -918,12 +918,12 @@ static int skl_tplg_set_module_bind_params(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
+-static int skl_get_module_id(struct skl_sst *ctx, uuid_le *uuid)
++static int skl_get_module_id(struct skl_sst *ctx, guid_t *uuid)
+ {
+ 	struct uuid_module *module;
+ 
+ 	list_for_each_entry(module, &ctx->uuid_list, list) {
+-		if (uuid_le_cmp(*uuid, module->uuid) == 0)
++		if (guid_equal(uuid, &module->uuid))
+ 			return module->id;
+ 	}
+ 
+@@ -2121,11 +2121,11 @@ static int skl_tplg_add_pipe(struct device *dev,
+ 	return 0;
+ }
+ 
+-static int skl_tplg_get_uuid(struct device *dev, u8 *guid,
++static int skl_tplg_get_uuid(struct device *dev, guid_t *guid,
+ 	      struct snd_soc_tplg_vendor_uuid_elem *uuid_tkn)
+ {
+ 	if (uuid_tkn->token == SKL_TKN_UUID) {
+-		memcpy(guid, &uuid_tkn->uuid, 16);
++		guid_copy(guid, (guid_t *)&uuid_tkn->uuid);
+ 		return 0;
+ 	}
+ 
+@@ -2151,7 +2151,7 @@ static int skl_tplg_fill_pin(struct device *dev,
+ 		break;
+ 
+ 	case SKL_TKN_UUID:
+-		ret = skl_tplg_get_uuid(dev, m_pin[pin_index].id.mod_uuid.b,
++		ret = skl_tplg_get_uuid(dev, &m_pin[pin_index].id.mod_uuid,
+ 			(struct snd_soc_tplg_vendor_uuid_elem *)tkn_elem);
+ 		if (ret < 0)
+ 			return ret;
+@@ -2667,7 +2667,7 @@ static int skl_tplg_get_tokens(struct device *dev,
+ 
+ 		case SND_SOC_TPLG_TUPLE_TYPE_UUID:
+ 			if (is_module_guid) {
+-				ret = skl_tplg_get_uuid(dev, mconfig->guid,
++				ret = skl_tplg_get_uuid(dev, (guid_t *)mconfig->guid,
+ 							array->uuid);
+ 				is_module_guid = false;
+ 			} else {
+@@ -3486,7 +3486,7 @@ static int skl_tplg_get_manifest_uuid(struct device *dev,
+ 
+ 	if (uuid_tkn->token == SKL_TKN_UUID) {
+ 		mod = skl->modules[ref_count];
+-		memcpy(&mod->uuid, &uuid_tkn->uuid, sizeof(uuid_tkn->uuid));
++		guid_copy(&mod->uuid, (guid_t *)&uuid_tkn->uuid);
+ 		ref_count++;
+ 	} else {
+ 		dev_err(dev, "Not an UUID token tkn %d\n", uuid_tkn->token);
+diff --git a/sound/soc/intel/skylake/skl-topology.h b/sound/soc/intel/skylake/skl-topology.h
+index b66e3a728853..5d2047114db0 100644
+--- a/sound/soc/intel/skylake/skl-topology.h
++++ b/sound/soc/intel/skylake/skl-topology.h
+@@ -215,7 +215,7 @@ struct skl_mod_inst_map {
+ struct skl_uuid_inst_map {
+ 	u16 inst_id;
+ 	u16 reserved;
+-	uuid_le mod_uuid;
++	guid_t mod_uuid;
+ } __packed;
+ 
+ struct skl_kpb_params {
+@@ -227,7 +227,7 @@ struct skl_kpb_params {
+ };
+ 
+ struct skl_module_inst_id {
+-	uuid_le mod_uuid;
++	guid_t mod_uuid;
+ 	int module_id;
+ 	u32 instance_id;
+ 	int pvt_id;
+@@ -360,7 +360,7 @@ struct skl_module_res {
+ };
+ 
+ struct skl_module {
+-	uuid_le uuid;
++	guid_t uuid;
+ 	u8 loadable;
+ 	u8 input_pin_type;
+ 	u8 output_pin_type;
+-- 
+2.20.1
 
-	sound/soc/codecs/ad193x.c:244 ad193x_set_dai_fmt()
-	warn: passing casted pointer '&dac_fmt' to 'change_bit()' 32 vs 64.
-
-sound/soc/codecs/ad193x.c
-   194  static int ad193x_set_dai_fmt(struct snd_soc_dai *codec_dai,
-   195                  unsigned int fmt)
-   196  {
-   197          struct ad193x_priv *ad193x = snd_soc_component_get_drvdata(codec_dai->component);
-   198          unsigned int adc_serfmt = 0;
-   199          unsigned int dac_serfmt = 0;
-   200          unsigned int adc_fmt = 0;
-   201          unsigned int dac_fmt = 0;
-                ^^^^^^^^^^^^^^^^^^^^^^^^
-This is a u32.
-
-   202  
-   203          /* At present, the driver only support AUX ADC mode(SND_SOC_DAIFMT_I2S
-   204           * with TDM), ADC&DAC TDM mode(SND_SOC_DAIFMT_DSP_A) and DAC I2S mode
-   205           * (SND_SOC_DAIFMT_I2S)
-   206           */
-   207          switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-   208          case SND_SOC_DAIFMT_I2S:
-   209                  adc_serfmt |= AD193X_ADC_SERFMT_TDM;
-   210                  dac_serfmt |= AD193X_DAC_SERFMT_STEREO;
-   211                  break;
-   212          case SND_SOC_DAIFMT_DSP_A:
-   213                  adc_serfmt |= AD193X_ADC_SERFMT_AUX;
-   214                  dac_serfmt |= AD193X_DAC_SERFMT_TDM;
-   215                  break;
-   216          default:
-   217                  if (ad193x_has_adc(ad193x))
-   218                          return -EINVAL;
-   219          }
-   220  
-   221          switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-   222          case SND_SOC_DAIFMT_NB_NF: /* normal bit clock + frame */
-   223                  break;
-   224          case SND_SOC_DAIFMT_NB_IF: /* normal bclk + invert frm */
-   225                  adc_fmt |= AD193X_ADC_LEFT_HIGH;
-   226                  dac_fmt |= AD193X_DAC_LEFT_HIGH;
-   227                  break;
-   228          case SND_SOC_DAIFMT_IB_NF: /* invert bclk + normal frm */
-   229                  adc_fmt |= AD193X_ADC_BCLK_INV;
-   230                  dac_fmt |= AD193X_DAC_BCLK_INV;
-   231                  break;
-   232          case SND_SOC_DAIFMT_IB_IF: /* invert bclk + frm */
-   233                  adc_fmt |= AD193X_ADC_LEFT_HIGH;
-   234                  adc_fmt |= AD193X_ADC_BCLK_INV;
-   235                  dac_fmt |= AD193X_DAC_LEFT_HIGH;
-   236                  dac_fmt |= AD193X_DAC_BCLK_INV;
-   237                  break;
-   238          default:
-   239                  return -EINVAL;
-   240          }
-   241  
-   242          /* For DSP_*, LRCLK's polarity must be inverted */
-   243          if (fmt & SND_SOC_DAIFMT_DSP_A) {
-   244                  change_bit(ffs(AD193X_DAC_LEFT_HIGH) - 1,
-   245                             (unsigned long *)&dac_fmt);
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This change_bit() will work on little endian systems but on 64 bit big
-endian systems it will corrupt memory.  I *think* the correct code looks
-like this, but again, I'm feeling dumb so I might be wrong:
-
-			dac_fmt ^= 1 << (ffs(AD193X_DAC_LEFT_HIGH) - 1);
-
-   246          }
-   247  
-
-regards,
-dan carpenter
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

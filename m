@@ -2,89 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C8194B73B
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 13:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95674B74F
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 13:45:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC7DD16A1;
-	Wed, 19 Jun 2019 13:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC7DD16A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68AAD16A8;
+	Wed, 19 Jun 2019 13:44:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68AAD16A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560944518;
-	bh=tP+k1IUZuC1FO0Oit+F7g9UaxsHQXeIwgfQsW8BXdGc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RaAjxW9nLFyIfcS+/WsnUJu2peorP3xHvCOG+Lxe/mfYX9j4vs4ymu0+QN5LctCTT
-	 IlpM2YAEX04ZgezwPOn9wIpgQV1BVq9BxWeGMkKezhadMpl3FEDPJ9otaSBTBuu00e
-	 CHZt/oZmGraD6FArQ1hka7k0tn3tJt10tBqjXuKU=
+	s=default; t=1560944723;
+	bh=u1b3Nn6ER60q6fzQhr+pf8JcEGMOP2c0jxUAyzlRu90=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XSWO+ff6VX9Tz6yTavuEhfmPpM0MrjDBckn/AjMi26JYSNkCZCMq6y8y3oT8LIYPL
+	 7jL0tI6ZAOo1VwT2qBc2yHLsUhHG68PQzL2d/TnPM+8LofIZnZsTE97CGIZbw4SVJC
+	 26kFF280uN7qasNI56j+UXUTs49LF6azy6c34UdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30BC8F89682;
-	Wed, 19 Jun 2019 13:40:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9763F896C7;
+	Wed, 19 Jun 2019 13:43:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8C5D1F896B8; Wed, 19 Jun 2019 13:40:10 +0200 (CEST)
+ id 80179F896B8; Wed, 19 Jun 2019 13:43:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1138EF808AF
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 13:40:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1138EF808AF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7396CF808AF
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 13:43:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7396CF808AF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="kFj2Lc1x"
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x5JBV2Qb027524; Wed, 19 Jun 2019 13:40:07 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=STywHjeMiZssNI+UTkVh5oLxGP1CkwSOM/Df8W6afIc=;
- b=kFj2Lc1xJjAFkVEonzO/1hpGabemD/IxS2GvtHTU1BMV3Fivl7IpaHhW3INs+YX1kOHN
- Y+XBU6LSjqGikqRXPxjawzWrgXRWjnF1H2ukTZmpFl/r69C7wOJ5NiwxIZqRKbsmA7x9
- ls0Mr4Nt5N922wdRW6QYM7sj+vikuuSl+XQRSnA6nP07iHWeoumOzTwXMKkANWjLANlC
- uz2L0bwNxPVD8y9BtEmpml+1vdz+8wayCToZhD594HDY+y8a3whiMoCgQ/x4BJWSkZre
- 77yEGx6wOGouhBmOR7X14GxWNktWodim7UPRef7TG8Qh4uLJLaHE0uTYrwEuO7yaiG+l 4g== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2t7813bkt4-1
- (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 19 Jun 2019 13:40:06 +0200
-Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F017731;
- Wed, 19 Jun 2019 11:40:05 +0000 (GMT)
-Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
- by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF8A826C0;
- Wed, 19 Jun 2019 11:40:05 +0000 (GMT)
-Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas22.st.com
- (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 19 Jun
- 2019 13:40:05 +0200
-Received: from localhost (10.201.23.16) by Webmail-ga.st.com (10.75.90.48)
- with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 19 Jun 2019 13:40:05
- +0200
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
- <arnaud.pouliquen@st.com>
-Date: Wed, 19 Jun 2019 13:40:02 +0200
-Message-ID: <1560944402-8115-1-git-send-email-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="GPOoCb7K"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=57qp21Rd838Utpx7s3eIN20MCkxADteDRKa8Zj+uohI=; b=GPOoCb7K6ltdmH0BLZGkDz5dV
+ habLFNHzSrNDMsqw5zCSHoM0JCGbT45o158vZP9vCTk+YLG9zhonAeaaHWR48viol9wddv1rW6LfC
+ KEjq1/c9EEBYnnGiGY6weypzGkif8XepKfu15qZmaSYRm7GyUml8f0i+o8Gs7YnCSUbgM=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hdZ01-00075Z-5V; Wed, 19 Jun 2019 11:43:33 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id A06D6440046; Wed, 19 Jun 2019 12:43:32 +0100 (BST)
+Date: Wed, 19 Jun 2019 12:43:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Message-ID: <20190619114332.GR5316@sirena.org.uk>
+References: <874l4mt525.wl-kuninori.morimoto.gx@renesas.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.201.23.16]
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-06-19_07:, , signatures=0
-Cc: benjamin.gaignard@st.com
-Subject: [alsa-devel] [PATCH] ASoC: stm32: dfsdm: add 16 bits audio record
-	support
+In-Reply-To: <874l4mt525.wl-kuninori.morimoto.gx@renesas.com>
+X-Cookie: Editing is a rewording activity.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Question about pinctrl_pm_select_xxx()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,113 +81,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8581529270060174900=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support of audio 16 bits format record to STM32
-DFSDM driver.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_adfsdm.c | 49 +++++++++++++++++++++++++++++++++++---------
- 1 file changed, 39 insertions(+), 10 deletions(-)
+--===============8581529270060174900==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YzytRCpZNWCht94M"
+Content-Disposition: inline
 
-diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
-index cc517e007039..3c9a9deec9af 100644
---- a/sound/soc/stm/stm32_adfsdm.c
-+++ b/sound/soc/stm/stm32_adfsdm.c
-@@ -45,7 +45,7 @@ struct stm32_adfsdm_priv {
- static const struct snd_pcm_hardware stm32_adfsdm_pcm_hw = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_PAUSE,
--	.formats = SNDRV_PCM_FMTBIT_S32_LE,
-+	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
- 
- 	.rate_min = 8000,
- 	.rate_max = 32000,
-@@ -141,7 +141,8 @@ static const struct snd_soc_dai_driver stm32_adfsdm_dai = {
- 	.capture = {
- 		    .channels_min = 1,
- 		    .channels_max = 1,
--		    .formats = SNDRV_PCM_FMTBIT_S32_LE,
-+		    .formats = SNDRV_PCM_FMTBIT_S16_LE |
-+			       SNDRV_PCM_FMTBIT_S32_LE,
- 		    .rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
- 			      SNDRV_PCM_RATE_32000),
- 		    },
-@@ -152,30 +153,58 @@ static const struct snd_soc_component_driver stm32_adfsdm_dai_component = {
- 	.name = "stm32_dfsdm_audio",
- };
- 
-+static void memcpy_32to16(void *dest, const void *src, size_t n)
-+{
-+	unsigned int i = 0;
-+	u16 *d = (u16 *)dest, *s = (u16 *)src;
-+
-+	s++;
-+	for (i = n; i > 0; i--) {
-+		*d++ = *s++;
-+		s++;
-+	}
-+}
-+
- static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
- {
- 	struct stm32_adfsdm_priv *priv = private;
- 	struct snd_soc_pcm_runtime *rtd = priv->substream->private_data;
- 	u8 *pcm_buff = priv->pcm_buff;
- 	u8 *src_buff = (u8 *)data;
--	unsigned int buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
--	unsigned int period_size = snd_pcm_lib_period_bytes(priv->substream);
- 	unsigned int old_pos = priv->pos;
--	unsigned int cur_size = size;
-+	size_t buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
-+	size_t period_size = snd_pcm_lib_period_bytes(priv->substream);
-+	size_t cur_size, src_size = size;
-+	snd_pcm_format_t format = priv->substream->runtime->format;
-+
-+	if (format == SNDRV_PCM_FORMAT_S16_LE)
-+		src_size >>= 1;
-+	cur_size = src_size;
- 
- 	dev_dbg(rtd->dev, "%s: buff_add :%pK, pos = %d, size = %zu\n",
--		__func__, &pcm_buff[priv->pos], priv->pos, size);
-+		__func__, &pcm_buff[priv->pos], priv->pos, src_size);
- 
--	if ((priv->pos + size) > buff_size) {
--		memcpy(&pcm_buff[priv->pos], src_buff, buff_size - priv->pos);
-+	if ((priv->pos + src_size) > buff_size) {
-+		if (format == SNDRV_PCM_FORMAT_S16_LE)
-+			memcpy_32to16(&pcm_buff[priv->pos], src_buff,
-+				      buff_size - priv->pos);
-+		else
-+			memcpy(&pcm_buff[priv->pos], src_buff,
-+			       buff_size - priv->pos);
- 		cur_size -= buff_size - priv->pos;
- 		priv->pos = 0;
- 	}
- 
--	memcpy(&pcm_buff[priv->pos], &src_buff[size - cur_size], cur_size);
-+	if (format == SNDRV_PCM_FORMAT_S16_LE)
-+		memcpy_32to16(&pcm_buff[priv->pos],
-+			      &src_buff[src_size - cur_size], cur_size);
-+	else
-+		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size],
-+		       cur_size);
-+
- 	priv->pos = (priv->pos + cur_size) % buff_size;
- 
--	if (cur_size != size || (old_pos && (old_pos % period_size < size)))
-+	if (cur_size != src_size || (old_pos && (old_pos % period_size < size)))
- 		snd_pcm_period_elapsed(priv->substream);
- 
- 	return 0;
--- 
-2.7.4
+
+--YzytRCpZNWCht94M
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Jun 19, 2019 at 04:22:11PM +0900, Kuninori Morimoto wrote:
+
+> But, I can't find its paired pinctrl_pm_select_default_state().
+> It looks strange for me. Is this really needed ??
+
+It's in snd_soc_resume() for active DAIs, or otherwise when we open the
+PCM.
+
+--YzytRCpZNWCht94M
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0KH+MACgkQJNaLcl1U
+h9D7xQf+J95/dL5j3qJ5ylzIeHLWVUu/SZ5qfyDs5QXW3br7N8YztMFEYsusOPaW
+DZ4DhuAZj64+5gxh/NnVXjAXvt34rXqHe7xYDbaQ6xIyjT8mvpuk1yvl3oD+94Yd
+he9IMUso2q34RdRec6h1mqUxai+TdVHZPr5o2y0oGkyS2ojNKHV6ASg+2w78fcqO
+gKJr5QNYEBqlnb/riaA4AbVzj08Qa2LTn+iCsG8bvbZhqJD3Rnqa7riDVdICmDfz
+u9kU/cGIOwiH73ZzCbeg/7Cdu0IcXPRZpgkqy5J47bhKqaXeJFnYx/YvhMxOp3/B
+pYG7C3ajtoleOQ8/K28rBVkfICqz7Q==
+=H6sC
+-----END PGP SIGNATURE-----
+
+--YzytRCpZNWCht94M--
+
+--===============8581529270060174900==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8581529270060174900==--

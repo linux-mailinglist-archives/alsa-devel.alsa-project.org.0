@@ -2,62 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 985C94B722
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 13:35:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C8194B73B
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 13:41:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 187821698;
-	Wed, 19 Jun 2019 13:34:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 187821698
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC7DD16A1;
+	Wed, 19 Jun 2019 13:41:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC7DD16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560944109;
-	bh=NH5BCj7B5TCJAc2UU5fJrS9VnQvUB0zeL+4T7YzlwJA=;
+	s=default; t=1560944518;
+	bh=tP+k1IUZuC1FO0Oit+F7g9UaxsHQXeIwgfQsW8BXdGc=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=XzS5Ew6sDbh5d4fDy+OKy86Y5E8Udko8EqfuHJh+pkX/knpuwRAgi87D6ypXvSvIz
-	 Mh3Tdf2C3u0ML9qhTpDol3JBej5x+VQHs7U2JAfN4CYMjHqCcQdpZqtEbvTChUcd8a
-	 NDxPQaJQVSv0Il2QYAoEsOoGeWRJuOKbu9pSetos=
+	b=RaAjxW9nLFyIfcS+/WsnUJu2peorP3xHvCOG+Lxe/mfYX9j4vs4ymu0+QN5LctCTT
+	 IlpM2YAEX04ZgezwPOn9wIpgQV1BVq9BxWeGMkKezhadMpl3FEDPJ9otaSBTBuu00e
+	 CHZt/oZmGraD6FArQ1hka7k0tn3tJt10tBqjXuKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FBC5F896C7;
-	Wed, 19 Jun 2019 13:33:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30BC8F89682;
+	Wed, 19 Jun 2019 13:40:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2641F896B8; Wed, 19 Jun 2019 13:33:21 +0200 (CEST)
+ id 8C5D1F896B8; Wed, 19 Jun 2019 13:40:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from srv6.fidu.org (srv6.fidu.org [159.69.62.71])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57A64F808AF
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 13:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57A64F808AF
-Received: from localhost (localhost.localdomain [127.0.0.1])
- by srv6.fidu.org (Postfix) with ESMTP id B8E29C80EF6;
- Wed, 19 Jun 2019 13:33:18 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at srv6.fidu.org
-Received: from srv6.fidu.org ([127.0.0.1])
- by localhost (srv6.fidu.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id VnS4eypSwKtQ; Wed, 19 Jun 2019 13:33:18 +0200 (CEST)
-Received: from yang.nibelungen (unknown [188.193.2.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: rs@tuxedocomputers.com)
- by srv6.fidu.org (Postfix) with ESMTPSA id 6817FC80EF5;
- Wed, 19 Jun 2019 13:33:18 +0200 (CEST)
-From: Richard Sailer <rs@tuxedocomputers.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.com
-Date: Wed, 19 Jun 2019 13:33:11 +0200
-Message-Id: <20190619113311.31656-1-rs@tuxedocomputers.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1138EF808AF
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 13:40:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1138EF808AF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="kFj2Lc1x"
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5JBV2Qb027524; Wed, 19 Jun 2019 13:40:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=STywHjeMiZssNI+UTkVh5oLxGP1CkwSOM/Df8W6afIc=;
+ b=kFj2Lc1xJjAFkVEonzO/1hpGabemD/IxS2GvtHTU1BMV3Fivl7IpaHhW3INs+YX1kOHN
+ Y+XBU6LSjqGikqRXPxjawzWrgXRWjnF1H2ukTZmpFl/r69C7wOJ5NiwxIZqRKbsmA7x9
+ ls0Mr4Nt5N922wdRW6QYM7sj+vikuuSl+XQRSnA6nP07iHWeoumOzTwXMKkANWjLANlC
+ uz2L0bwNxPVD8y9BtEmpml+1vdz+8wayCToZhD594HDY+y8a3whiMoCgQ/x4BJWSkZre
+ 77yEGx6wOGouhBmOR7X14GxWNktWodim7UPRef7TG8Qh4uLJLaHE0uTYrwEuO7yaiG+l 4g== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2t7813bkt4-1
+ (version=TLSv1 cipher=ECDHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Wed, 19 Jun 2019 13:40:06 +0200
+Received: from zeta.dmz-eu.st.com (zeta.dmz-eu.st.com [164.129.230.9])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id F017731;
+ Wed, 19 Jun 2019 11:40:05 +0000 (GMT)
+Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
+ by zeta.dmz-eu.st.com (STMicroelectronics) with ESMTP id AF8A826C0;
+ Wed, 19 Jun 2019 11:40:05 +0000 (GMT)
+Received: from SAFEX1HUBCAS21.st.com (10.75.90.45) by Safex1hubcas22.st.com
+ (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 19 Jun
+ 2019 13:40:05 +0200
+Received: from localhost (10.201.23.16) by Webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Wed, 19 Jun 2019 13:40:05
+ +0200
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
+ <arnaud.pouliquen@st.com>
+Date: Wed, 19 Jun 2019 13:40:02 +0200
+Message-ID: <1560944402-8115-1-git-send-email-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Cc: jeremy@system76.com
-Subject: [alsa-devel] [PATCH v2] ALSA: hda/realtek: Add quirks for several
-	Clevo notebook barebones
+X-Originating-IP: [10.201.23.16]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-19_07:, , signatures=0
+Cc: benjamin.gaignard@st.com
+Subject: [alsa-devel] [PATCH] ASoC: stm32: dfsdm: add 16 bits audio record
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,46 +102,106 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds 4 SND_PCI_QUIRK(...) lines for several barebone models of the ODM
-Clevo. The model names are written in regex syntax to describe/match all clevo
-models that are similar enough and use the same PCI SSID that this fixup works
-for them.
+Add support of audio 16 bits format record to STM32
+DFSDM driver.
 
-Additionally the lines regarding SSID 0x96e1 and 0x97e1 didn't fix audio for the
-all our Clevo notebooks using these SSIDs (models Clevo P960* and P970*) since
-ALC1220_FIXP_CLEVO_PB51ED_PINS swapped pins that are not necesarry to be
-swapped. This patch initiates ALC1220_FIXUP_CLEVO_P950 instead for these model
-and fixes the audio.
-
-This is strange since the System76 Oryx Pro also seems to be a P960 and
-P970 barebone, so the original fixup should also not have worked for
-them. @Jeremy: What's your take on this?
-
-Signed-off-by: Richard Sailer <rs@tuxedocomputers.com>
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 ---
- sound/pci/hda/patch_realtek.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/soc/stm/stm32_adfsdm.c | 49 +++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 39 insertions(+), 10 deletions(-)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 1afb268f3da0..61dcd293afb1 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -2461,9 +2461,10 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1558, 0x9501, "Clevo P950HR", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1558, 0x95e1, "Clevo P95xER", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1558, 0x95e2, "Clevo P950ER", ALC1220_FIXUP_CLEVO_P950),
--	SND_PCI_QUIRK(0x1558, 0x96e1, "System76 Oryx Pro (oryp5)", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
--	SND_PCI_QUIRK(0x1558, 0x97e1, "System76 Oryx Pro (oryp5)", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
--	SND_PCI_QUIRK(0x1558, 0x65d1, "Tuxedo Book XC1509", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
-+	SND_PCI_QUIRK(0x1558, 0x96e1, "Clevo P960[ER][CDFN]-K", ALC1220_FIXUP_CLEVO_P950),
-+	SND_PCI_QUIRK(0x1558, 0x97e1, "Clevo P970[ER][CDFN]", ALC1220_FIXUP_CLEVO_P950),
-+	SND_PCI_QUIRK(0x1558, 0x65d1, "Clevo PB51[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
-+	SND_PCI_QUIRK(0x1558, 0x67d1, "Clevo PB71[ER][CDF]", ALC1220_FIXUP_CLEVO_PB51ED_PINS),
- 	SND_PCI_QUIRK_VENDOR(0x1558, "Clevo laptop", ALC882_FIXUP_EAPD),
- 	SND_PCI_QUIRK(0x161f, 0x2054, "Medion laptop", ALC883_FIXUP_EAPD),
- 	SND_PCI_QUIRK(0x17aa, 0x3a0d, "Lenovo Y530", ALC882_FIXUP_LENOVO_Y530),
+diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
+index cc517e007039..3c9a9deec9af 100644
+--- a/sound/soc/stm/stm32_adfsdm.c
++++ b/sound/soc/stm/stm32_adfsdm.c
+@@ -45,7 +45,7 @@ struct stm32_adfsdm_priv {
+ static const struct snd_pcm_hardware stm32_adfsdm_pcm_hw = {
+ 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_BLOCK_TRANSFER |
+ 		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_PAUSE,
+-	.formats = SNDRV_PCM_FMTBIT_S32_LE,
++	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
+ 
+ 	.rate_min = 8000,
+ 	.rate_max = 32000,
+@@ -141,7 +141,8 @@ static const struct snd_soc_dai_driver stm32_adfsdm_dai = {
+ 	.capture = {
+ 		    .channels_min = 1,
+ 		    .channels_max = 1,
+-		    .formats = SNDRV_PCM_FMTBIT_S32_LE,
++		    .formats = SNDRV_PCM_FMTBIT_S16_LE |
++			       SNDRV_PCM_FMTBIT_S32_LE,
+ 		    .rates = (SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000 |
+ 			      SNDRV_PCM_RATE_32000),
+ 		    },
+@@ -152,30 +153,58 @@ static const struct snd_soc_component_driver stm32_adfsdm_dai_component = {
+ 	.name = "stm32_dfsdm_audio",
+ };
+ 
++static void memcpy_32to16(void *dest, const void *src, size_t n)
++{
++	unsigned int i = 0;
++	u16 *d = (u16 *)dest, *s = (u16 *)src;
++
++	s++;
++	for (i = n; i > 0; i--) {
++		*d++ = *s++;
++		s++;
++	}
++}
++
+ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
+ {
+ 	struct stm32_adfsdm_priv *priv = private;
+ 	struct snd_soc_pcm_runtime *rtd = priv->substream->private_data;
+ 	u8 *pcm_buff = priv->pcm_buff;
+ 	u8 *src_buff = (u8 *)data;
+-	unsigned int buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
+-	unsigned int period_size = snd_pcm_lib_period_bytes(priv->substream);
+ 	unsigned int old_pos = priv->pos;
+-	unsigned int cur_size = size;
++	size_t buff_size = snd_pcm_lib_buffer_bytes(priv->substream);
++	size_t period_size = snd_pcm_lib_period_bytes(priv->substream);
++	size_t cur_size, src_size = size;
++	snd_pcm_format_t format = priv->substream->runtime->format;
++
++	if (format == SNDRV_PCM_FORMAT_S16_LE)
++		src_size >>= 1;
++	cur_size = src_size;
+ 
+ 	dev_dbg(rtd->dev, "%s: buff_add :%pK, pos = %d, size = %zu\n",
+-		__func__, &pcm_buff[priv->pos], priv->pos, size);
++		__func__, &pcm_buff[priv->pos], priv->pos, src_size);
+ 
+-	if ((priv->pos + size) > buff_size) {
+-		memcpy(&pcm_buff[priv->pos], src_buff, buff_size - priv->pos);
++	if ((priv->pos + src_size) > buff_size) {
++		if (format == SNDRV_PCM_FORMAT_S16_LE)
++			memcpy_32to16(&pcm_buff[priv->pos], src_buff,
++				      buff_size - priv->pos);
++		else
++			memcpy(&pcm_buff[priv->pos], src_buff,
++			       buff_size - priv->pos);
+ 		cur_size -= buff_size - priv->pos;
+ 		priv->pos = 0;
+ 	}
+ 
+-	memcpy(&pcm_buff[priv->pos], &src_buff[size - cur_size], cur_size);
++	if (format == SNDRV_PCM_FORMAT_S16_LE)
++		memcpy_32to16(&pcm_buff[priv->pos],
++			      &src_buff[src_size - cur_size], cur_size);
++	else
++		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size],
++		       cur_size);
++
+ 	priv->pos = (priv->pos + cur_size) % buff_size;
+ 
+-	if (cur_size != size || (old_pos && (old_pos % period_size < size)))
++	if (cur_size != src_size || (old_pos && (old_pos % period_size < size)))
+ 		snd_pcm_period_elapsed(priv->substream);
+ 
+ 	return 0;
 -- 
-2.20.1
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

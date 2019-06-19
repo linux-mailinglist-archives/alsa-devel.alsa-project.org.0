@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 600F24B8F8
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:45:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C61E4B8F7
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:44:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9DF716B6;
-	Wed, 19 Jun 2019 14:44:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9DF716B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F7A91682;
+	Wed, 19 Jun 2019 14:44:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F7A91682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560948335;
-	bh=4zXFoLuU82Z9GwR/AfaWYYKyqwHbeu1PT1gDwsdckYU=;
+	s=default; t=1560948297;
+	bh=Ao87cQgmMQfDE1h6JqfIhsEffAy8imAAjRvYxq0JKn8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Cvgmw4EzNsCIAOZom4NHQBksiN6LnSUvfaSSxg35om/YFacdgSj8N5AeTtx4jsFCh
-	 Owiv9ivaTKPO5wMTGvG0IdQjbYFfUspLq5SwxUyLxbADEjArgGZTpTgUQ+ZGBjsuUX
-	 Gb9GljrcXiu9kT0+OU0To690oOK7z8r0T2Zc/gF4=
+	b=sJSKwig806t0Ibas9DywGvd4+X044oSrredBeugJqhgpdPqjYGsgA9XdmjX5x4hbA
+	 uz4yOnLnymrdve1EtT0U8dZ4FqKmwWTuu3h1upBehBBJkZTi0hjzjKt2F15u1x1ROR
+	 YGz1EfJRLBozX9+UXP4mhaP6ccP0itxqoALeIGX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0DC4F89839;
-	Wed, 19 Jun 2019 14:13:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4C81F89835;
+	Wed, 19 Jun 2019 14:13:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2F48F8978B; Wed, 19 Jun 2019 14:12:59 +0200 (CEST)
+ id 58826F89789; Wed, 19 Jun 2019 14:12:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47DF5F89754
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47DF5F89754
+ by alsa1.perex.cz (Postfix) with ESMTPS id E3C5FF89752
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3C5FF89752
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="PAAtCXyc"
+ header.b="BedFW0wB"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Vx8I+bsO0Nrv82AoF/3bhniSe8YwVZKW+Vv3Am/EV04=; b=PAAtCXycd2bE
- 771GayGvNaRqpb57uVu37MPQrWFPpn1jTPq5pv9/TkWF4Yp3bZI1H0+nRgCA9YZXquiezEkO8s9Ts
- rfjRPVyLsBc+gqfSlnsRnHTHyVZ4GYgpjQMZq6iwWC+CZgzuP3xzi2JlsvIZDC0XQvCHnWcrSFCnJ
- 243KA=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=+/OxKd3DDcA37jU3C3ZujQr8/xM0okIA7ss42VgZ/IA=; b=BedFW0wB6KHk
+ ETgkIOFab+uDret4Pbz7z5pybYb+Cn3pbfkrvSckN+/0dyk86OHYdW1XQOntOsk2h2Ld3ntsKOwm6
+ bgB7omH7jJqBfMi+UxOYQ2iJxaC7WTIxvlm2wtWHrvyziZGADBpAPNqOZHAbqnHeHl4TgYAsReGuo
+ 0Xgrw=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRc-0007CN-Os; Wed, 19 Jun 2019 12:12:04 +0000
+ id 1hdZRd-0007Cv-Dy; Wed, 19 Jun 2019 12:12:05 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 5633D440046; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
+ id E6E7B44004C; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Ben Zhang <benzh@chromium.org>
-In-Reply-To: <20190618234555.188955-3-fletcherw@chromium.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <877e9itlgo.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121204.5633D440046@finisterre.sirena.org.uk>
+Message-Id: <20190619121204.E6E7B44004C@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:04 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Ross Zwisler <zwisler@chromium.org>,
- Fletcher Woodruff <fletcherw@chromium.org>,
- Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] Applied "ASoC: rt5677: handle concurrent interrupts"
-	to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc.h: fixup for_each_card_links()
+	macro" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5677: handle concurrent interrupts
+   ASoC: soc.h: fixup for_each_card_links() macro
 
 has been applied to the asoc tree at
 
@@ -117,116 +112,32 @@ to this mail.
 Thanks,
 Mark
 
-From df9091e9d3f4500bc6fb15f5d2a1c2614f67004c Mon Sep 17 00:00:00 2001
-From: Ben Zhang <benzh@chromium.org>
-Date: Tue, 18 Jun 2019 17:45:55 -0600
-Subject: [PATCH] ASoC: rt5677: handle concurrent interrupts
+From 5f174cf75a8cb14d50c1cecfb3884ae82f754058 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 19 Jun 2019 10:27:52 +0900
+Subject: [PATCH] ASoC: soc.h: fixup for_each_card_links() macro
 
-The rt5677 driver writes to the IRQ control register within the IRQ
-handler in order to flip the polarity of the interrupts that have been
-signalled.  If an interrupt fires in the interval between the
-regmap_read and the regmap_write, it will not trigger a new call to
-rt5677_irq.
+Macro is using "link", not "dai_link"
 
-Add a bounded loop to rt5677_irq that keeps checking interrupts until
-none are seen, so that any interrupts that are signalled in that
-interval are correctly handled.
-
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Fletcher Woodruff <fletcherw@chromium.org>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 71 +++++++++++++++++++++++++--------------
- 1 file changed, 45 insertions(+), 26 deletions(-)
+ include/sound/soc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index b5ae61ff87af..202af7135f07 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -5072,38 +5072,57 @@ static const struct rt5677_irq_desc rt5677_irq_descs[] = {
- static irqreturn_t rt5677_irq(int unused, void *data)
- {
- 	struct rt5677_priv *rt5677 = data;
--	int ret = 0, i, reg_irq, virq;
-+	int ret = 0, loop, i, reg_irq, virq;
- 	bool irq_fired = false;
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 055e6d035e04..80c1ca3a62c7 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1230,7 +1230,7 @@ struct snd_soc_card {
+ 	     (i)++)
  
- 	mutex_lock(&rt5677->irq_lock);
--	/* Read interrupt status */
--	ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
--	if (ret) {
--		dev_err(rt5677->dev, "failed reading IRQ status: %d\n", ret);
--		goto exit;
--	}
+ #define for_each_card_links(card, link)				\
+-	list_for_each_entry(dai_link, &(card)->dai_link_list, list)
++	list_for_each_entry(link, &(card)->dai_link_list, list)
+ #define for_each_card_links_safe(card, link, _link)			\
+ 	list_for_each_entry_safe(link, _link, &(card)->dai_link_list, list)
  
--	for (i = 0; i < RT5677_IRQ_NUM; i++) {
--		if (reg_irq & rt5677_irq_descs[i].status_mask) {
--			irq_fired = true;
--			virq = irq_find_mapping(rt5677->domain, i);
--			if (virq)
--				handle_nested_irq(virq);
--
--			/* Clear the interrupt by flipping the polarity of the
--			 * interrupt source line that fired
--			 */
--			reg_irq ^= rt5677_irq_descs[i].polarity_mask;
-+	/*
-+	 * Loop to handle interrupts until the last i2c read shows no pending
-+	 * irqs. The interrupt line is shared by multiple interrupt sources.
-+	 * After the regmap_read() below, a new interrupt source line may
-+	 * become high before the regmap_write() finishes, so there isn't a
-+	 * rising edge on the shared interrupt line for the new interrupt. Thus,
-+	 * the loop is needed to avoid missing irqs.
-+	 *
-+	 * A safeguard of 20 loops is used to avoid hanging in the irq handler
-+	 * if there is something wrong with the interrupt status update. The
-+	 * interrupt sources here are audio jack plug/unplug events which
-+	 * shouldn't happen at a high frequency for a long period of time.
-+	 * Empirically, more than 3 loops have never been seen.
-+	 */
-+	for (loop = 0; loop < 20; loop++) {
-+		/* Read interrupt status */
-+		ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
-+		if (ret) {
-+			dev_err(rt5677->dev, "failed reading IRQ status: %d\n",
-+				ret);
-+			goto exit;
- 		}
--	}
- 
--	if (!irq_fired)
--		goto exit;
--
--	ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
--	if (ret) {
--		dev_err(rt5677->dev, "failed updating IRQ status: %d\n", ret);
--		goto exit;
-+		irq_fired = false;
-+		for (i = 0; i < RT5677_IRQ_NUM; i++) {
-+			if (reg_irq & rt5677_irq_descs[i].status_mask) {
-+				irq_fired = true;
-+				virq = irq_find_mapping(rt5677->domain, i);
-+				if (virq)
-+					handle_nested_irq(virq);
-+
-+				/* Clear the interrupt by flipping the polarity
-+				 * of the interrupt source line that fired
-+				 */
-+				reg_irq ^= rt5677_irq_descs[i].polarity_mask;
-+			}
-+		}
-+		if (!irq_fired)
-+			goto exit;
-+
-+		ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
-+		if (ret) {
-+			dev_err(rt5677->dev, "failed updating IRQ status: %d\n",
-+				ret);
-+			goto exit;
-+		}
- 	}
- exit:
- 	mutex_unlock(&rt5677->irq_lock);
 -- 
 2.20.1
 

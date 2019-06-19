@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA3C4B900
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:46:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42A994B914
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:49:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6975F16EB;
-	Wed, 19 Jun 2019 14:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6975F16EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D61D71704;
+	Wed, 19 Jun 2019 14:48:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D61D71704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560948372;
-	bh=zBmZHLTh8mvCoqDLFr3t04eMK7EPQ7bOh+ZiEl/0X9k=;
+	s=default; t=1560948568;
+	bh=TEcV3dyOVzoH7+AgmA8CP1ZcS0EgnKr/qnfM5FFt3zA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mC18hCvjK+BYyhuXdm2OhI6agwPhOmCmnune9jQdMuQdgmHZ6InIsbWdDahb0QKnI
-	 upVIQEI84KOEW5wwcTir3/EQr/zi1lFA2Zl7hRI5OqHdGWvn0gbI4Tnu2b8gwupj48
-	 6F868Q2cOjxzBTnOET2V3cUp1KjY8fH2zdWHBw/c=
+	b=t0ETuE85gDmd3KsRb2LLWhZnFZKaoucZysmOUPxpth3A7NV1hdFmA1NUSsw0htBMY
+	 R5kDmhD9kfRn1Rv3ZZ5xb82oi+xycTQ8Ilee/iScNsdwIxYo0xyJpsgEnLURfwfwE5
+	 QU1JRDpu8ii88E1EL5D3+X3Pl3d49VQIL+W6eq44=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 245B1F8983E;
-	Wed, 19 Jun 2019 14:13:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D108F89852;
+	Wed, 19 Jun 2019 14:13:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45FE3F89789; Wed, 19 Jun 2019 14:13:01 +0200 (CEST)
+ id 1EF7DF808AF; Wed, 19 Jun 2019 14:13:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D58FF8974F
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D58FF8974F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 364B2F808AF
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 364B2F808AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Gzud2BYE"
+ header.b="ehovhVsX"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=KsVUVPFQSt4YdSE0JrBFYWec/Nl7s39JWoWi0hS5mGo=; b=Gzud2BYECkQY
- UUEpjnMelyyubd5o1uU9C2CHaHEB+AvoqYdaZOlep0ECsp7VtB2vPpvrdeAEfbWAc8N457ugSGxsj
- FY2t6vPNpkgsZGcl63Mao4kvE7OvrGaJ56GU084JEdo9xvDXQ6v15mKIfUYEEwvMP7NVhVOQsRUVB
- Vwb8w=;
+ List-Archive; bh=mwtinfG1F7f6B+PqVVOiIBuP7C73v64L4DWmefHlq2I=; b=ehovhVsXZlTG
+ RZXqy3fwpzNavH6PWM70eUo8C7Beqfh2bX91LSWrqBj+41V3vqTHcCZ/EjsF8S2sbIScShABefIJZ
+ kFIn3+EgUVD9Cxp0CKVCl6xT+I43ZiAQOZBdUoO+WGY7AKtXjSWouWl40aEmE6UwiO19YRsZF7AYL
+ TJ/Fo=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRd-0007Ci-4L; Wed, 19 Jun 2019 12:12:05 +0000
+ id 1hdZRd-0007Ck-7N; Wed, 19 Jun 2019 12:12:05 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 933A144004F; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
+ id B2C72440049; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Bjorn Andersson <bjorn.andersson@linaro.org>
-In-Reply-To: <20190618052813.32523-1-bjorn.andersson@linaro.org>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <20190618181539.9169-2-yung-chuan.liao@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121204.933A144004F@finisterre.sirena.org.uk>
+Message-Id: <20190619121204.B2C72440049@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:04 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] Applied "ASoC: qcom: common: Fix NULL pointer in of
-	parser" to the asoc tree
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ liam.r.girdwood@linux.intel.com, Mark Brown <broonie@kernel.org>,
+ Bard liao <yung-chuan.liao@linux.intel.com>, bard.liao@intel.com
+Subject: [alsa-devel] Applied "ASoC: Intel: sof-rt5682: correct naming for
+	dmic16k" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: common: Fix NULL pointer in of parser
+   ASoC: Intel: sof-rt5682: correct naming for dmic16k
 
 has been applied to the asoc tree at
 
@@ -116,56 +115,112 @@ to this mail.
 Thanks,
 Mark
 
-From 16395ceee11f8f8af764bac76adc20a43ba1a153 Mon Sep 17 00:00:00 2001
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Mon, 17 Jun 2019 22:28:13 -0700
-Subject: [PATCH] ASoC: qcom: common: Fix NULL pointer in of parser
+From e711223ad35b326a597ebd3a6acc8276fd38e25c Mon Sep 17 00:00:00 2001
+From: Keyon Jie <yang.jie@linux.intel.com>
+Date: Wed, 19 Jun 2019 02:15:39 +0800
+Subject: [PATCH] ASoC: Intel: sof-rt5682: correct naming for dmic16k
 
-A snd_soc_dai_link_component is allocated and associated with the first
-link, so when the code tries to assign the of_node of the second link's
-"cpu" member it dereferences a NULL pointer.
+Change the link name to be "dmic16k", the cpu_dai_name to be "DMIC16k
+Pin", to be aligned with other machine drivers.
 
-Fix this by moving the allocation and assignement of
-snd_soc_dai_link_components into the loop, giving us one pair per link.
-
-Fixes: 1e36ea360ab9 ("ASoC: qcom: common: use modern dai_link style")
-Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
-Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/common.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/intel/boards/sof_rt5682.c | 37 ++++++++++++++++-------------
+ 1 file changed, 20 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-index c7a878507220..97488b5cc515 100644
---- a/sound/soc/qcom/common.c
-+++ b/sound/soc/qcom/common.c
-@@ -42,17 +42,17 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
- 	card->num_links = num_links;
- 	link = card->dai_link;
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index f3d481b75b15..64db00353e18 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -377,7 +377,7 @@ static struct snd_soc_dai_link_component max98357a_component[] = {
+ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 							  int ssp_codec,
+ 							  int ssp_amp,
+-							  int dmic_num,
++							  int dmic_be_num,
+ 							  int hdmi_num)
+ {
+ 	struct snd_soc_dai_link_component *idisp_components;
+@@ -437,20 +437,23 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 	id++;
  
--	dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
--	if (!dlc)
--		return -ENOMEM;
-+	for_each_child_of_node(dev->of_node, np) {
-+		dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
-+		if (!dlc)
-+			return -ENOMEM;
+ 	/* dmic */
+-	for (i = 1; i <= dmic_num; i++) {
+-		links[id].name = devm_kasprintf(dev, GFP_KERNEL,
+-						"dmic%02d", i);
+-		if (!links[id].name)
+-			goto devm_err;
++	if (dmic_be_num > 0) {
++		/* at least we have dmic01 */
++		links[id].name = "dmic01";
++		links[id].cpus = &cpus[id];
++		links[id].cpus->dai_name = "DMIC01 Pin";
++		if (dmic_be_num > 1) {
++			/* set up 2 BE links at most */
++			links[id + 1].name = "dmic16k";
++			links[id + 1].cpus = &cpus[id + 1];
++			links[id + 1].cpus->dai_name = "DMIC16k Pin";
++			dmic_be_num = 2;
++		}
++	}
  
--	link->cpus	= &dlc[0];
--	link->platforms	= &dlc[1];
-+		link->cpus	= &dlc[0];
-+		link->platforms	= &dlc[1];
++	for (i = 0; i < dmic_be_num; i++) {
+ 		links[id].id = id;
+-		links[id].cpus = &cpus[id];
+ 		links[id].num_cpus = 1;
+-		links[id].cpus->dai_name = devm_kasprintf(dev, GFP_KERNEL,
+-							  "DMIC%02d Pin", i);
+-		if (!links[id].cpus->dai_name)
+-			goto devm_err;
+-
+ 		links[id].codecs = dmic_component;
+ 		links[id].num_codecs = ARRAY_SIZE(dmic_component);
+ 		links[id].platforms = platform_component;
+@@ -545,7 +548,7 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	struct snd_soc_dai_link *dai_links;
+ 	struct snd_soc_acpi_mach *mach;
+ 	struct sof_card_private *ctx;
+-	int dmic_num, hdmi_num;
++	int dmic_be_num, hdmi_num;
+ 	int ret, ssp_amp, ssp_codec;
  
--	link->num_cpus		= 1;
--	link->num_platforms	= 1;
-+		link->num_cpus		= 1;
-+		link->num_platforms	= 1;
+ 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
+@@ -554,14 +557,14 @@ static int sof_audio_probe(struct platform_device *pdev)
  
--	for_each_child_of_node(dev->of_node, np) {
- 		cpu = of_get_child_by_name(np, "cpu");
- 		platform = of_get_child_by_name(np, "platform");
- 		codec = of_get_child_by_name(np, "codec");
+ 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
+ 		is_legacy_cpu = 1;
+-		dmic_num = 0;
++		dmic_be_num = 0;
+ 		hdmi_num = 0;
+ 		/* default quirk for legacy cpu */
+ 		sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
+ 						SOF_RT5682_MCLK_BYTCHT_EN |
+ 						SOF_RT5682_SSP_CODEC(2);
+ 	} else {
+-		dmic_num = 1;
++		dmic_be_num = 2;
+ 		hdmi_num = 3;
+ 	}
+ 
+@@ -586,13 +589,13 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	ssp_codec = sof_rt5682_quirk & SOF_RT5682_SSP_CODEC_MASK;
+ 
+ 	/* compute number of dai links */
+-	sof_audio_card_rt5682.num_links = 1 + dmic_num + hdmi_num;
++	sof_audio_card_rt5682.num_links = 1 + dmic_be_num + hdmi_num;
+ 
+ 	if (sof_rt5682_quirk & SOF_SPEAKER_AMP_PRESENT)
+ 		sof_audio_card_rt5682.num_links++;
+ 
+ 	dai_links = sof_card_dai_links_create(&pdev->dev, ssp_codec, ssp_amp,
+-					      dmic_num, hdmi_num);
++					      dmic_be_num, hdmi_num);
+ 	if (!dai_links)
+ 		return -ENOMEM;
+ 
 -- 
 2.20.1
 

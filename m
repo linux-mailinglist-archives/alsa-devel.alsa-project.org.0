@@ -2,71 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81CD64B8EB
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:42:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B07D4B916
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:50:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 147B616B4;
-	Wed, 19 Jun 2019 14:42:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 147B616B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2840E1727;
+	Wed, 19 Jun 2019 14:49:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2840E1727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560948176;
-	bh=e6Wt74yzJDPnwCKLbfmAd3WG1FN1gmYzhWZtxo6wRfo=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ADyWsfihsQgFaG1EwGbIg+twBq73YkEUq/5Oo3FxouttZ5xHq4HpsJh9d1rzpReeJ
-	 QlAWKOiySFuWBqYbprFDpgGp68UFQbymzRfklvaLaLCAKb9Q810cn2cIreuelfHdhv
-	 mfeMPiIiQqoh4CATlsQxff/vCHZplY3L5WrcOzBM=
+	s=default; t=1560948633;
+	bh=tAFeCOP/vs6KAcp2FLfiNrV/QbGgTmNUXhpYU8uR4pI=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SS/Gq1CSY/z3bF190swPI0Dwdwi0Cgm/q6WiqhFux5JO/0OImbB8qJfAxKoIo4z3Z
+	 y2XoTDXTue7Vfr/fDJLfJSQYzqsIKj8Pu50wK1jfg0hVdrilAaI5R06teCBdUB6BtJ
+	 ++p6+g0EMVQi/HV7cWhTIivpeFR0yPzKowtvkvBA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FFA5F89824;
-	Wed, 19 Jun 2019 14:13:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07200F8972F;
+	Wed, 19 Jun 2019 14:25:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E36C1F8977D; Wed, 19 Jun 2019 14:12:53 +0200 (CEST)
+ id 071A9F896F9; Wed, 19 Jun 2019 14:25:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_14,SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-x935.google.com (mail-ua1-x935.google.com
+ [IPv6:2607:f8b0:4864:20::935])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C620F80CC4
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C620F80CC4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 935E1F80C87
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:25:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 935E1F80C87
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ss+HRyP0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=lQCYkeeEr3vEier5sBb7KYBrSjVbCENP1DCiiz2r/LQ=; b=ss+HRyP0kZwW
- TloiWlKarz6EIowkFfeb0KvQvENzeI3jW+Sm2KoH24XG8zNGzjr9udj1fqCf+oSwtcH6C+t19ejQZ
- o2tWef0ZWJdkKCl5TGGZS3em6GJNswiTbQc5NFImuYD9cyIn19kMaikk6oohdZJzsmYY6F1Vgzq/l
- gMQ/o=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRc-0007CH-OS; Wed, 19 Jun 2019 12:12:04 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 3636D44004C; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zp2wf8h.wl-kuninori.morimoto.gx@renesas.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190619121204.3636D44004C@finisterre.sirena.org.uk>
-Date: Wed, 19 Jun 2019 13:12:04 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: allow no Platform on
-	dai_link" to the asoc tree
+ dkim=pass (2048-bit key) header.d=dvsn.net header.i=@dvsn.net
+ header.b="g7sUhNRs"
+Received: by mail-ua1-x935.google.com with SMTP id 8so9554860uaz.11
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 05:25:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dvsn.net; s=dvsn;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=aaxm/AA1h0GP/QlcT6aEEiohB1phQXeeO/yDGE22hBs=;
+ b=g7sUhNRs1OUuhoaY6aZ+WxS1/j+L58L6R6mzuxGxF7wbubXgyUC6rwfKkxjVZ8F5G6
+ geUwBEP25wwXBDmGd24tEP7I4oXJteCVCebjJKlrNFs4/JsHB8vLFzZlDSw9svD2bulO
+ Q2hkCeiBa+pFkVR32az1o2wFGwBut6bO7yppH+lWiW/OSDUwZAcYbxtXv01kq1enTY5T
+ 5wZ6kIynuciH/mgRWcnYopOtRKQIEwz9rrgqWBUqVeHP6cE6XKmgQDWSFW9XUQC+aZ8v
+ XGCsfKx357H3pw+B/DQFbDbgLWuCGUemAXccLIho/s0OE4DRd6wmx4le9Y7NhirBYdID
+ Nmjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=aaxm/AA1h0GP/QlcT6aEEiohB1phQXeeO/yDGE22hBs=;
+ b=a16V4BR6/h027RLlhfea6VHc1Bp7uJCSBcpHawPyXT7nMGLDVzfysnIq/CpmOBW6Iw
+ JfhQCQlcF+r2G2qbk0kHihbMYgwQQxZXj5/IMK7UJd9HAGGYIbz7JEeiUa/XQX7NOmEz
+ fPToN/x+8cthtn9ZpYXJLXf0gt7MbGo8kVG/OhqLzGAwmUS8jFqB3TisSkcrjsGFc9yL
+ 4ZzkDYbHVo4KXFiA/Nyvz9t+w6KKzxWDyoyjBtqru0oSbIV+3xgSae1p9Wpg2SMbF/xC
+ VxIT9vL/n9GhJIWvtZczOgqkQXCsmROzhqvSP4vPXPh3DtPB+q0dnb+Yi59MKmVYGjeF
+ We/Q==
+X-Gm-Message-State: APjAAAXCKevF7ltpHei5wzAssyp3gI7RUKgC0rP4TTNhpKKFmIymxsbe
+ 4NEkznS+zxxtQvXMmpcPnb5vWFjcMVPIwaFPAIileaUnpVhAmg==
+X-Google-Smtp-Source: APXvYqzvjjfwN/xW+6M3iH8Uz6KAhbkAkXclyUf17g780B+/WBI0bnKA1tNZ6tI8qQ8gWX8tDabtX8G6G7qhUHkxZLI=
+X-Received: by 2002:a67:e3da:: with SMTP id k26mr26489822vsm.131.1560947148155; 
+ Wed, 19 Jun 2019 05:25:48 -0700 (PDT)
+MIME-Version: 1.0
+From: Andy Davison <andy@dvsn.net>
+Date: Wed, 19 Jun 2019 13:25:37 +0100
+Message-ID: <CAPk8ziH=P8ST6Ao54NycgiZePDr=T0+L6uVxA=c+pvhjZZCbPA@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] Patch Update for OpenFrame Sigmatel STAC9202
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,207 +85,30 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hi all,
 
-   ASoC: soc-core: allow no Platform on dai_link
+Would anybody on this list have a little time to investigate this patch and
+bring it up to date for application against the latest 5.1 kernel, or
+indeed anything being actively developed?
 
-has been applied to the asoc tree at
+https://gist.github.com/andydvsn/c0c159f99bf19d5b30b5e5e156dcac3e
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+This applies correctly against the 2.6.33 kernel, but I I lack the
+necessary ALSA knowledge and programming skills to make the appropriate
+corrections for anything more recent.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+Alternatively, any other advice on where I could seek help with this would
+be much appreciated. It is the only outstanding kernel issue for this
+device and would love to have it fixed.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+All the best,
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 1d76898928783d79bfd7c465e891b6cf957c839a Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:14:07 +0900
-Subject: [PATCH] ASoC: soc-core: allow no Platform on dai_link
-
-dai_link is used to selecting Component (= CPU/Codec/Platform) and
-DAI (= CPU/Codec). And selected CPU/Codec/Platform components are
-*listed* on Card.
-
-Many drivers don't need special Platform component, but was
-mandatory at legacy style ALSA SoC.
-Thus, there is this kind of settings on many drivers.
-
-	dai_link->platform_of_node = dai_link->cpu_of_node;
-
-In this case, soc_bind_dai_link() will pick-up "CPU component" as
-"Platform component", and try to add it to snd_soc_pcm_runtime.
-But it will be ignored, because it is already added when CPU bindings.
-
-Historically, this kind of "CPU component" is used/selected as
-"Platform" on many ALSA SoC drivers.
-OTOH, Dummy Platform will be selected automatically by ALSA SoC if
-driver doesn't have Platform settings.
-
-These indicates that there are 2 type of Platforms exist at current
-ALSA SoC if driver doesn't need special Platform.
-
-	1) use Dummy Platform as Platform component
-	2) use CPU component  as Platform component
-
-ALSA SoC will call Dummy Platform callback function if it is using
-Dummy Platform, but it is completely pointless. Because it is the
-sound card which doesn't need special Platform.
-
-Thus, the behavior we request to ALSA SoC is selecting 2) automatically
-instead of 1) if sound card doesn't need special Platform.
-And, 2) means "do nothing" as above explain.
-
-These were needed at legacy style dai_link, but is no longer needed
-at modern style dai_link anymore.
-
-This patch allows "no Platform" settings on dai_link, and will do
-nothing for it if there was no platform settings. This is same as 2).
-
-By this patch, all drivers which is selecting "CPU component" as
-"Platform" can remove such settings.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- include/sound/soc.h  |  2 +-
- sound/soc/soc-core.c | 64 +++++++++++++++++++++++---------------------
- 2 files changed, 34 insertions(+), 32 deletions(-)
-
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 80c1ca3a62c7..64405cdab8bb 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -926,7 +926,7 @@ struct snd_soc_dai_link {
- 	/*
- 	 * You MAY specify the link's platform/PCM/DMA driver, either by
- 	 * device name, or by DT/OF node, but not both. Some forms of link
--	 * do not need a platform.
-+	 * do not need a platform. In such case, platforms are not mandatory.
- 	 */
- 	struct snd_soc_dai_link_component *platforms;
- 	unsigned int num_platforms;
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index f0fa289c90d8..4cd77cd6c864 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -788,6 +788,9 @@ static int snd_soc_is_matching_component(
- {
- 	struct device_node *component_of_node;
- 
-+	if (!dlc)
-+		return 0;
-+
- 	component_of_node = soc_component_to_node(component);
- 
- 	if (dlc->of_node && component_of_node != dlc->of_node)
-@@ -1053,20 +1056,12 @@ static void soc_remove_dai_links(struct snd_soc_card *card)
- 	}
- }
- 
--static struct snd_soc_dai_link_component dummy_link = COMP_DUMMY();
--
- static int soc_init_dai_link(struct snd_soc_card *card,
- 			     struct snd_soc_dai_link *link)
- {
- 	int i;
- 	struct snd_soc_dai_link_component *codec;
- 
--	/* default Platform */
--	if (!link->platforms || !link->num_platforms) {
--		link->platforms = &dummy_link;
--		link->num_platforms = 1;
--	}
--
- 	for_each_link_codecs(link, i, codec) {
- 		/*
- 		 * Codec must be specified by 1 of name or OF node,
-@@ -1086,32 +1081,39 @@ static int soc_init_dai_link(struct snd_soc_card *card,
- 		}
- 	}
- 
--	/* FIXME */
--	if (link->num_platforms > 1) {
--		dev_err(card->dev,
--			"ASoC: multi platform is not yet supported %s\n",
--			link->name);
--		return -EINVAL;
--	}
--
- 	/*
--	 * Platform may be specified by either name or OF node, but
--	 * can be left unspecified, and a dummy platform will be used.
-+	 * Platform may be specified by either name or OF node,
-+	 * or no Platform.
-+	 *
-+	 * FIXME
-+	 *
-+	 * We need multi-platform support
- 	 */
--	if (link->platforms->name && link->platforms->of_node) {
--		dev_err(card->dev,
--			"ASoC: Both platform name/of_node are set for %s\n",
--			link->name);
--		return -EINVAL;
--	}
-+	if (link->num_platforms > 0) {
- 
--	/*
--	 * Defer card registartion if platform dai component is not added to
--	 * component list.
--	 */
--	if ((link->platforms->of_node || link->platforms->name) &&
--	    !soc_find_component(link->platforms->of_node, link->platforms->name))
--		return -EPROBE_DEFER;
-+		if (link->num_platforms > 1) {
-+			dev_err(card->dev,
-+				"ASoC: multi platform is not yet supported %s\n",
-+				link->name);
-+			return -EINVAL;
-+		}
-+
-+		if (link->platforms->name && link->platforms->of_node) {
-+			dev_err(card->dev,
-+				"ASoC: Both platform name/of_node are set for %s\n",
-+				link->name);
-+			return -EINVAL;
-+		}
-+
-+		/*
-+		 * Defer card registartion if platform dai component is not
-+		 * added to component list.
-+		 */
-+		if ((link->platforms->of_node || link->platforms->name) &&
-+		    !soc_find_component(link->platforms->of_node,
-+					link->platforms->name))
-+			return -EPROBE_DEFER;
-+	}
- 
- 	/* FIXME */
- 	if (link->num_cpus > 1) {
--- 
-2.20.1
-
+     Andy.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

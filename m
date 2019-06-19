@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EB4A4B8EC
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:43:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 600F24B8F8
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:45:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A779916DE;
-	Wed, 19 Jun 2019 14:42:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A779916DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9DF716B6;
+	Wed, 19 Jun 2019 14:44:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9DF716B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560948216;
-	bh=roYv9JGbVLR9/+2X6VUebneLN3y84jHkSGjcnjW50c0=;
+	s=default; t=1560948335;
+	bh=4zXFoLuU82Z9GwR/AfaWYYKyqwHbeu1PT1gDwsdckYU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=N0JsQdMmJVi2IMv3ydceoyRK8EoC0RAdm9hYsTYcA7NgWqIUmWg325I4yRKUDm+9f
-	 y2Sb2iupUm7jH+pD43M8+kiy9NITgEzyT06o8bLSBYXmxuSpoHO2ZrIGX4vZhpwKt2
-	 2PZo7st7dzuA4UTdqYOgu0uBO0o7JMQnTIFeNZIY=
+	b=Cvgmw4EzNsCIAOZom4NHQBksiN6LnSUvfaSSxg35om/YFacdgSj8N5AeTtx4jsFCh
+	 Owiv9ivaTKPO5wMTGvG0IdQjbYFfUspLq5SwxUyLxbADEjArgGZTpTgUQ+ZGBjsuUX
+	 Gb9GljrcXiu9kT0+OU0To690oOK7z8r0T2Zc/gF4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 742F9F8982C;
-	Wed, 19 Jun 2019 14:13:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0DC4F89839;
+	Wed, 19 Jun 2019 14:13:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59FBAF89781; Wed, 19 Jun 2019 14:12:54 +0200 (CEST)
+ id D2F48F8978B; Wed, 19 Jun 2019 14:12:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7331DF89751
- for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7331DF89751
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47DF5F89754
+ for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47DF5F89754
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="UgJh3woz"
+ header.b="PAAtCXyc"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=6ZOxjxazSVNzf8AMreLCpzbXTLSZL0qENL5IizxR7xA=; b=UgJh3wozv3yn
- NdWB7B+JPv4STw14SKtNzd1laA9UggI+CSpCl2vjowcIndC8nfVJeboKs9iOLX58nMXP+7QP6MFjX
- +RcKw6/+k8bHsLhLKSk8PkatfsPv8i6+/+igSTwAxa09GP54Z2F0qw+2V87G2f3aQzjljYReFg/3D
- K4Lio=;
+ List-Archive; bh=Vx8I+bsO0Nrv82AoF/3bhniSe8YwVZKW+Vv3Am/EV04=; b=PAAtCXycd2bE
+ 771GayGvNaRqpb57uVu37MPQrWFPpn1jTPq5pv9/TkWF4Yp3bZI1H0+nRgCA9YZXquiezEkO8s9Ts
+ rfjRPVyLsBc+gqfSlnsRnHTHyVZ4GYgpjQMZq6iwWC+CZgzuP3xzi2JlsvIZDC0XQvCHnWcrSFCnJ
+ 243KA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRc-0007CE-GV; Wed, 19 Jun 2019 12:12:04 +0000
+ id 1hdZRc-0007CN-Os; Wed, 19 Jun 2019 12:12:04 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 1929A44004A; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
+ id 5633D440046; Wed, 19 Jun 2019 13:12:04 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <874l4mwf8c.wl-kuninori.morimoto.gx@renesas.com>
+To: Ben Zhang <benzh@chromium.org>
+In-Reply-To: <20190618234555.188955-3-fletcherw@chromium.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121204.1929A44004A@finisterre.sirena.org.uk>
+Message-Id: <20190619121204.5633D440046@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:12:04 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: vc4: vc4_hdmi: don't select unnecessary
-	Platform" to the asoc tree
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Ross Zwisler <zwisler@chromium.org>,
+ Fletcher Woodruff <fletcherw@chromium.org>,
+ Curtis Malainey <cujomalainey@chromium.org>
+Subject: [alsa-devel] Applied "ASoC: rt5677: handle concurrent interrupts"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: vc4: vc4_hdmi: don't select unnecessary Platform
+   ASoC: rt5677: handle concurrent interrupts
 
 has been applied to the asoc tree at
 
@@ -112,53 +117,116 @@ to this mail.
 Thanks,
 Mark
 
-From 6c6de1c9e2bf2a0901ca1f2a169d1a2f9fd27958 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:14:12 +0900
-Subject: [PATCH] ASoC: vc4: vc4_hdmi: don't select unnecessary Platform
+From df9091e9d3f4500bc6fb15f5d2a1c2614f67004c Mon Sep 17 00:00:00 2001
+From: Ben Zhang <benzh@chromium.org>
+Date: Tue, 18 Jun 2019 17:45:55 -0600
+Subject: [PATCH] ASoC: rt5677: handle concurrent interrupts
 
-ALSA SoC is now supporting "no Platform". Sound card doesn't need to
-select "CPU component" as "Platform" anymore if it doesn't need
-special Platform.
-This patch removes such settings.
+The rt5677 driver writes to the IRQ control register within the IRQ
+handler in order to flip the polarity of the interrupts that have been
+signalled.  If an interrupt fires in the interval between the
+regmap_read and the regmap_write, it will not trigger a new call to
+rt5677_irq.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Add a bounded loop to rt5677_irq that keeps checking interrupts until
+none are seen, so that any interrupts that are signalled in that
+interval are correctly handled.
+
+Signed-off-by: Ben Zhang <benzh@chromium.org>
+Signed-off-by: Fletcher Woodruff <fletcherw@chromium.org>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 4 ----
- 1 file changed, 4 deletions(-)
+ sound/soc/codecs/rt5677.c | 71 +++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 6beac1ca1f27..de05ac8dca12 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -71,7 +71,6 @@ struct vc4_hdmi_audio {
- 	struct snd_soc_dai_link link;
- 	struct snd_soc_dai_link_component cpu;
- 	struct snd_soc_dai_link_component codec;
--	struct snd_soc_dai_link_component platform;
- 	int samplerate;
- 	int channels;
- 	struct snd_dmaengine_dai_dma_data dma_data;
-@@ -1101,18 +1100,15 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *hdmi)
+diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+index b5ae61ff87af..202af7135f07 100644
+--- a/sound/soc/codecs/rt5677.c
++++ b/sound/soc/codecs/rt5677.c
+@@ -5072,38 +5072,57 @@ static const struct rt5677_irq_desc rt5677_irq_descs[] = {
+ static irqreturn_t rt5677_irq(int unused, void *data)
+ {
+ 	struct rt5677_priv *rt5677 = data;
+-	int ret = 0, i, reg_irq, virq;
++	int ret = 0, loop, i, reg_irq, virq;
+ 	bool irq_fired = false;
  
- 	dai_link->cpus		= &hdmi->audio.cpu;
- 	dai_link->codecs	= &hdmi->audio.codec;
--	dai_link->platforms	= &hdmi->audio.platform;
+ 	mutex_lock(&rt5677->irq_lock);
+-	/* Read interrupt status */
+-	ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
+-	if (ret) {
+-		dev_err(rt5677->dev, "failed reading IRQ status: %d\n", ret);
+-		goto exit;
+-	}
  
- 	dai_link->num_cpus	= 1;
- 	dai_link->num_codecs	= 1;
--	dai_link->num_platforms	= 1;
+-	for (i = 0; i < RT5677_IRQ_NUM; i++) {
+-		if (reg_irq & rt5677_irq_descs[i].status_mask) {
+-			irq_fired = true;
+-			virq = irq_find_mapping(rt5677->domain, i);
+-			if (virq)
+-				handle_nested_irq(virq);
+-
+-			/* Clear the interrupt by flipping the polarity of the
+-			 * interrupt source line that fired
+-			 */
+-			reg_irq ^= rt5677_irq_descs[i].polarity_mask;
++	/*
++	 * Loop to handle interrupts until the last i2c read shows no pending
++	 * irqs. The interrupt line is shared by multiple interrupt sources.
++	 * After the regmap_read() below, a new interrupt source line may
++	 * become high before the regmap_write() finishes, so there isn't a
++	 * rising edge on the shared interrupt line for the new interrupt. Thus,
++	 * the loop is needed to avoid missing irqs.
++	 *
++	 * A safeguard of 20 loops is used to avoid hanging in the irq handler
++	 * if there is something wrong with the interrupt status update. The
++	 * interrupt sources here are audio jack plug/unplug events which
++	 * shouldn't happen at a high frequency for a long period of time.
++	 * Empirically, more than 3 loops have never been seen.
++	 */
++	for (loop = 0; loop < 20; loop++) {
++		/* Read interrupt status */
++		ret = regmap_read(rt5677->regmap, RT5677_IRQ_CTRL1, &reg_irq);
++		if (ret) {
++			dev_err(rt5677->dev, "failed reading IRQ status: %d\n",
++				ret);
++			goto exit;
+ 		}
+-	}
  
- 	dai_link->name = "MAI";
- 	dai_link->stream_name = "MAI PCM";
- 	dai_link->codecs->dai_name = vc4_hdmi_audio_codec_dai_drv.name;
- 	dai_link->cpus->dai_name = dev_name(dev);
- 	dai_link->codecs->name = dev_name(dev);
--	dai_link->platforms->name = dev_name(dev);
- 
- 	card->dai_link = dai_link;
- 	card->num_links = 1;
+-	if (!irq_fired)
+-		goto exit;
+-
+-	ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
+-	if (ret) {
+-		dev_err(rt5677->dev, "failed updating IRQ status: %d\n", ret);
+-		goto exit;
++		irq_fired = false;
++		for (i = 0; i < RT5677_IRQ_NUM; i++) {
++			if (reg_irq & rt5677_irq_descs[i].status_mask) {
++				irq_fired = true;
++				virq = irq_find_mapping(rt5677->domain, i);
++				if (virq)
++					handle_nested_irq(virq);
++
++				/* Clear the interrupt by flipping the polarity
++				 * of the interrupt source line that fired
++				 */
++				reg_irq ^= rt5677_irq_descs[i].polarity_mask;
++			}
++		}
++		if (!irq_fired)
++			goto exit;
++
++		ret = regmap_write(rt5677->regmap, RT5677_IRQ_CTRL1, reg_irq);
++		if (ret) {
++			dev_err(rt5677->dev, "failed updating IRQ status: %d\n",
++				ret);
++			goto exit;
++		}
+ 	}
+ exit:
+ 	mutex_unlock(&rt5677->irq_lock);
 -- 
 2.20.1
 

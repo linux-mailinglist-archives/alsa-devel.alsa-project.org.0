@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CC84B7C8
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:15:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A07764B811
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:22:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4C6616C9;
-	Wed, 19 Jun 2019 14:14:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C6616C9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3910116A1;
+	Wed, 19 Jun 2019 14:21:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3910116A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560946543;
-	bh=fNj4E+BfmPmSEBmBWDbFVBIP7+LZ+wkLdp59+mBwoxc=;
+	s=default; t=1560946957;
+	bh=FVPWo5iGBdBACTkj6zye8z/xGRgebslvRjWtQFPmf9U=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=RJ8GwGsXrMTya2g6MW7bzQqGzggmpZ0veW7oDhSPapeMKsPXGeREj+a5OV8GiTm+V
-	 Zw0fHAcSII+0XNW2c6KPpoLTJ0FHrAJeiVOaHDtb/hI+LUbkKZ8yUTuYOmb3Cvv3Jf
-	 bGdEEUdLsoSXI5gXGWIsAfyy5VmOnjDGxyuido+s=
+	b=Q2ebhwdYhsUeSAlKr8f5VwBdUNJVFVO4EnCkul70X30UNJF1mJ4wMCQg03/ZfGbVt
+	 kBdYoi3Fv4qaeo008KXCn5eFTKCKFIDODps6Rhykfu3faA0U752znOD4cEJt9hrR/X
+	 0xpKcu52ylY+Fc1qDYbmlXsOMMpmeAlqzKGjhbPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 345D3F8975F;
-	Wed, 19 Jun 2019 14:12:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3135F89780;
+	Wed, 19 Jun 2019 14:12:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3ABEF89756; Wed, 19 Jun 2019 14:12:08 +0200 (CEST)
+ id 18D39F89736; Wed, 19 Jun 2019 14:12:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46062F896DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49727F89702
  for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46062F896DF
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49727F89702
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="lQScYM9y"
+ header.b="jsdANTsu"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=IlIgArrLehmooTlElC+PdBLknPfvFV7JzV5qDsDAmk4=; b=lQScYM9y9Mqz
- W8j8a9WLcJp2yOaBFTbvdmSq36PbP3xzvsyzmxTTfQ48nlTm8wT6kPKtFaTUjr7t3dSr417Ez3Cpp
- ez+/lbaQadN8SjnKaaeCAIyFuZFKOrJ1nb1YA0POEFCYV8Vqjy9VkMcFWIG//kN2/tXiK1BGcfFAt
- E1yQk=;
+ List-Archive; bh=SKNEvj5L4JcYmcmVDSWI324CkqCJ4p7CEFeQNE/Ok/k=; b=jsdANTsuAXce
+ 0oARKb92xcECvozEZwi9hv9cGhkWJfXON/ZAEA/6RZ52KwH5QsJe6po2W3FfdMUmumiDhhNC4QSGY
+ GAVVpCIuNVPQ4g1JeBRndSk+XxO27ry4iWm8I+pmPEEioBtCKQVNapkfKoSjH/awDBx7QKouFXpSg
+ K1zYk=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRY-00078i-GA; Wed, 19 Jun 2019 12:12:00 +0000
+ id 1hdZRY-00078e-CB; Wed, 19 Jun 2019 12:12:00 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 026A244004B; Wed, 19 Jun 2019 13:11:59 +0100 (BST)
+ id BFEF7440046; Wed, 19 Jun 2019 13:11:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lfxytlv8.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87imt2tlv2.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121200.026A244004B@finisterre.sirena.org.uk>
+Message-Id: <20190619121159.BFEF7440046@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:11:59 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: ti: davinci-evm: don't select
-	unnecessary Platform" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: ti: omap-hdmi: don't select unnecessary
+	Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: ti: davinci-evm: don't select unnecessary Platform
+   ASoC: ti: omap-hdmi: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From f46da1b9046ed80748a58e9b3c701fb7297a50e2 Mon Sep 17 00:00:00 2001
+From edba13aeae88feda7b689bccbbcdc911377a3fdd Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:19:08 +0900
-Subject: [PATCH] ASoC: ti: davinci-evm: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:19:14 +0900
+Subject: [PATCH] ASoC: ti: omap-hdmi: don't select unnecessary Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,32 +125,35 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/ti/davinci-evm.c | 5 +----
+ sound/soc/ti/omap-hdmi.c | 5 +----
  1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/sound/soc/ti/davinci-evm.c b/sound/soc/ti/davinci-evm.c
-index bd822bc8040f..d920befc3e10 100644
---- a/sound/soc/ti/davinci-evm.c
-+++ b/sound/soc/ti/davinci-evm.c
-@@ -356,8 +356,7 @@ static struct snd_soc_card da850_snd_soc_card = {
-  */
- SND_SOC_DAILINK_DEFS(evm,
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
--	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "tlv320aic3x-hifi")),
--	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "tlv320aic3x-hifi")));
+diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
+index 11c1440da226..58207ba3b02a 100644
+--- a/sound/soc/ti/omap-hdmi.c
++++ b/sound/soc/ti/omap-hdmi.c
+@@ -373,20 +373,17 @@ static int omap_hdmi_audio_probe(struct platform_device *pdev)
+ 	if (!card->dai_link)
+ 		return -ENOMEM;
  
- static struct snd_soc_dai_link evm_dai_tlv320aic3x = {
- 	.name		= "TLV320AIC3X",
-@@ -411,8 +410,6 @@ static int davinci_evm_probe(struct platform_device *pdev)
- 	if (!dai->cpus->of_node)
- 		return -EINVAL;
+-	compnent = devm_kzalloc(dev, 3 * sizeof(*compnent), GFP_KERNEL);
++	compnent = devm_kzalloc(dev, 2 * sizeof(*compnent), GFP_KERNEL);
+ 	if (!compnent)
+ 		return -ENOMEM;
+ 	card->dai_link->cpus		= &compnent[0];
+ 	card->dai_link->num_cpus	= 1;
+ 	card->dai_link->codecs		= &compnent[1];
+ 	card->dai_link->num_codecs	= 1;
+-	card->dai_link->platforms	= &compnent[2];
+-	card->dai_link->num_platforms	= 1;
  
--	dai->platforms->of_node = dai->cpus->of_node;
--
- 	evm_soc_card.dev = &pdev->dev;
- 	ret = snd_soc_of_parse_card_name(&evm_soc_card, "ti,model");
- 	if (ret)
+ 	card->dai_link->name = card->name;
+ 	card->dai_link->stream_name = card->name;
+ 	card->dai_link->cpus->dai_name = dev_name(ad->dssdev);
+-	card->dai_link->platforms->name = dev_name(ad->dssdev);
+ 	card->dai_link->codecs->name = "snd-soc-dummy";
+ 	card->dai_link->codecs->dai_name = "snd-soc-dummy-dai";
+ 	card->num_links = 1;
 -- 
 2.20.1
 

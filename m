@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 263004B800
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:19:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FF844B7C6
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Jun 2019 14:15:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B144416BD;
-	Wed, 19 Jun 2019 14:18:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B144416BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E100C16A1;
+	Wed, 19 Jun 2019 14:14:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E100C16A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1560946750;
-	bh=3WprPBfD/PjRfLqwxgOZU6nU3X2u8CQ3qxNcy6wAayY=;
+	s=default; t=1560946523;
+	bh=1bhZayEUaPL7wY4HTU2BGVZCiJDC6AaAEkl7orVjetg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mO3nMK074XTzrzJLObhRkhMHc0ALLxKwj7rmlG8MLA/KyNFPjhv3D6ttBtNPOq1Uw
-	 AWwJnBb8U6bBVsjJ8WFNErH9/RB4BzQ2gnP1hGv2XJ0DXAXgUuwHtIChy/RWH52PBF
-	 oHtG9WzChIxVNhjAnaqOTAx20dcaRurYc3OyiHRw=
+	b=GsSopGzTMMmqi93SqRoBWn8Hszqz9Rv9J60BwGC2kGr1GKQ8AGo2en8QQ1PaA0u1j
+	 ey8okKoirH/pZJIzUN959bSg2Dbh5+MslISZRxKUwp+Z+VSdbexwhx9nRZiT4VexjJ
+	 xX+vjxR20S1Y7/fmMHRfOFJoA7VRp880ZD8xIly4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 965F2F89743;
-	Wed, 19 Jun 2019 14:12:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 298F5F89702;
+	Wed, 19 Jun 2019 14:12:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67716F8975E; Wed, 19 Jun 2019 14:12:15 +0200 (CEST)
+ id 94DCBF89757; Wed, 19 Jun 2019 14:12:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8102CF8972F
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB93DF89682
  for <alsa-devel@alsa-project.org>; Wed, 19 Jun 2019 14:12:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8102CF8972F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB93DF89682
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="RUV058c1"
+ header.b="tSXO5t2n"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+KEeyASMzruzKVXuMBknfABumRCn8sp9QXMqmdRmFGI=; b=RUV058c1UlEA
- z9GX6T1L6GZrqEyyd2ARofAX8z+IKCaLL/2S0vhVlGItJVLA5jVYmXxMUATHdd/SCSMuhTBske/FA
- vO3EnEvAF/mktUH2IWzcyaj2h0tRQiBsaOfw8mzbw5kyYVGk0dOFcAd1KkC4qnVNkG7WUJxtIxBIR
- yQJYQ=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
+ List-Archive; bh=Nul+lW+gneTlK5pY+hhb1FjLZxAfP1LDD13Pifwfatw=; b=tSXO5t2nxHiE
+ RBBPntHEgEOv4Jg9WG9zDV8kYCTnxKoC0wLOFEN1SbotHr7tetktEDaAPEdyDVNq52BDMYI4Z/MVa
+ fUWNJjEx/Ntxf+lF9if/wen8ECbfN6fLFM346Vxx9NRltiC3kc6d/zXU2fovITxiCX6Q2V9VB8+v9
+ XmWTo=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hdZRY-00078d-AS; Wed, 19 Jun 2019 12:12:00 +0000
+ id 1hdZRY-00078b-4w; Wed, 19 Jun 2019 12:12:00 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id A27FC440052; Wed, 19 Jun 2019 13:11:59 +0100 (BST)
+ id 8B235440050; Wed, 19 Jun 2019 13:11:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87h88mtluy.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87fto6tlus.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190619121159.A27FC440052@finisterre.sirena.org.uk>
+Message-Id: <20190619121159.8B235440050@finisterre.sirena.org.uk>
 Date: Wed, 19 Jun 2019 13:11:59 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: ti: omap-twl4030: don't select
-	unnecessary Platform" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: ti: rx51: don't select unnecessary
+	Platform" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: ti: omap-twl4030: don't select unnecessary Platform
+   ASoC: ti: rx51: don't select unnecessary Platform
 
 has been applied to the asoc tree at
 
@@ -112,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From bfe1273c65e1c97ed3861fecd4812f2feeb67800 Mon Sep 17 00:00:00 2001
+From f0edc6c1ee48c947d762b0e21b8d3f61858f47f0 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Jun 2019 10:19:18 +0900
-Subject: [PATCH] ASoC: ti: omap-twl4030: don't select unnecessary Platform
+Date: Wed, 19 Jun 2019 10:19:24 +0900
+Subject: [PATCH] ASoC: ti: rx51: don't select unnecessary Platform
 
 ALSA SoC is now supporting "no Platform". Sound card doesn't need to
 select "CPU component" as "Platform" anymore if it doesn't need
@@ -125,48 +125,33 @@ This patch removes such settings.
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/ti/omap-twl4030.c | 12 ++----------
- 1 file changed, 2 insertions(+), 10 deletions(-)
+ sound/soc/ti/rx51.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/sound/soc/ti/omap-twl4030.c b/sound/soc/ti/omap-twl4030.c
-index ddd24b2809b8..266999804cfd 100644
---- a/sound/soc/ti/omap-twl4030.c
-+++ b/sound/soc/ti/omap-twl4030.c
-@@ -211,13 +211,11 @@ static int omap_twl4030_init(struct snd_soc_pcm_runtime *rtd)
- /* Digital audio interface glue - connects codec <--> CPU */
- SND_SOC_DAILINK_DEFS(hifi,
+diff --git a/sound/soc/ti/rx51.c b/sound/soc/ti/rx51.c
+index 0684f961de76..dff751c45b52 100644
+--- a/sound/soc/ti/rx51.c
++++ b/sound/soc/ti/rx51.c
+@@ -315,8 +315,7 @@ static int rx51_aic34_init(struct snd_soc_pcm_runtime *rtd)
+ SND_SOC_DAILINK_DEFS(aic34,
  	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.2")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")),
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("tlv320aic3x-codec.2-0018",
+-				      "tlv320aic3x-hifi")),
 -	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.2")));
-+	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-hifi")));
++				      "tlv320aic3x-hifi")));
  
- SND_SOC_DAILINK_DEFS(voice,
- 	DAILINK_COMP_ARRAY(COMP_CPU("omap-mcbsp.3")),
--	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-voice")),
--	DAILINK_COMP_ARRAY(COMP_PLATFORM("omap-mcbsp.3")));
-+	DAILINK_COMP_ARRAY(COMP_CODEC("twl4030-codec", "twl4030-voice")));
- 
- static struct snd_soc_dai_link omap_twl4030_dai_links[] = {
+ static struct snd_soc_dai_link rx51_dai[] = {
  	{
-@@ -279,18 +277,12 @@ static int omap_twl4030_probe(struct platform_device *pdev)
- 		omap_twl4030_dai_links[0].cpus->dai_name  = NULL;
- 		omap_twl4030_dai_links[0].cpus->of_node = dai_node;
- 
--		omap_twl4030_dai_links[0].platforms->name  = NULL;
--		omap_twl4030_dai_links[0].platforms->of_node = dai_node;
--
- 		dai_node = of_parse_phandle(node, "ti,mcbsp-voice", 0);
- 		if (!dai_node) {
- 			card->num_links = 1;
- 		} else {
- 			omap_twl4030_dai_links[1].cpus->dai_name  = NULL;
- 			omap_twl4030_dai_links[1].cpus->of_node = dai_node;
--
--			omap_twl4030_dai_links[1].platforms->name  = NULL;
--			omap_twl4030_dai_links[1].platforms->of_node = dai_node;
+@@ -393,9 +392,7 @@ static int rx51_soc_probe(struct platform_device *pdev)
+ 			return -EINVAL;
  		}
+ 		rx51_dai[0].cpus->dai_name = NULL;
+-		rx51_dai[0].platforms->name = NULL;
+ 		rx51_dai[0].cpus->of_node = dai_node;
+-		rx51_dai[0].platforms->of_node = dai_node;
  
- 		priv->jack_detect = of_get_named_gpio(node,
+ 		dai_node = of_parse_phandle(np, "nokia,audio-codec", 0);
+ 		if (!dai_node) {
 -- 
 2.20.1
 

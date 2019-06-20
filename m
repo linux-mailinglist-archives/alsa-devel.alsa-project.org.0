@@ -2,70 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 596974D1BB
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 17:11:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5D184D25E
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 17:43:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C91591673;
-	Thu, 20 Jun 2019 17:10:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C91591673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 647241654;
+	Thu, 20 Jun 2019 17:42:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 647241654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561043462;
-	bh=ktpFi/el0X2Qwi11RiEQR1D/LwLcnBQMafx5axXFQ8s=;
+	s=default; t=1561045424;
+	bh=KmcDCSlShvNj1QPmY61S5qS9rl9b32ERdvjVpqWdsUg=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y1+vDG408v+i6lf1kZpRiI1moLNz9t/X9LXp8bAL9Ow7rk2ou3TW79vnXgPWdrGIJ
-	 2sqKtMHakDG1lnIeyF3bXbj/Fk2ZZ1YB32+0Dqz8Hq+WMMG+BClkoC55d5nI+JrFiN
-	 +zZb88QCZQbAs6ZucnpgABY5rfNs5bzlpDhb1Q/k=
+	b=CkB7+Jrrlk7Ywu4qbbk3g4OgJZsPsgrRO2GcQ6m6GL7Jiofj8KT20rgUDYmxe78h3
+	 204dECdcCaZxO90OdsmdVPrGri7molyuDhoDiyrgNCbyLodxjGiGHOEV2DlNgv6poe
+	 yqU7ZX9+vekwlylh1TyjKSZEpfmrxydEyHE2qvP0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19719F8971B;
-	Thu, 20 Jun 2019 17:09:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 772DCF896F4;
+	Thu, 20 Jun 2019 17:41:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 47357F8971C; Thu, 20 Jun 2019 17:09:16 +0200 (CEST)
+ id C5FBBF89717; Thu, 20 Jun 2019 17:41:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D295BF80C15
- for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 17:09:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D295BF80C15
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2019 08:09:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,397,1557212400"; d="scan'208";a="168541068"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
- by FMSMGA003.fm.intel.com with ESMTP; 20 Jun 2019 08:09:08 -0700
-Received: from andy by smile with local (Exim 4.92)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1hdygV-0001TD-A2; Thu, 20 Jun 2019 18:09:07 +0300
-Date: Thu, 20 Jun 2019 18:09:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190620150907.GG9224@smile.fi.intel.com>
-References: <20190619150213.87691-1-andriy.shevchenko@linux.intel.com>
- <a987bd54-5364-f046-a928-44a97ed0307f@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F36EF80C15
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 17:41:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F36EF80C15
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="jov01KPU"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=6s6aZu8b9dqDAqPoq81Bk78Hj/YlZ9Zu2gddBiQR0jA=; b=jov01KPU7Ey0HCtDvL/bMfUvM
+ q+kHss2+okCgunU54lbz7AUEXxS2cz7t6hVp3TCiDXLIBSddCYMcK66KsNAYrByHqXzLdYmj5E8ms
+ s98+kDkEwIFNMnhf/WgI7uAcAm8nRSMA5EA0gm8aA9dNtYxJ/3JhRSD6SoNS961M86AwU=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hdzCB-0000qH-N9; Thu, 20 Jun 2019 15:41:51 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id AF546440046; Thu, 20 Jun 2019 16:41:50 +0100 (BST)
+Date: Thu, 20 Jun 2019 16:41:50 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <20190620154150.GE5316@sirena.org.uk>
+References: <20190620134708.28311-1-enric.balletbo@collabora.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a987bd54-5364-f046-a928-44a97ed0307f@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <20190620134708.28311-1-enric.balletbo@collabora.com>
+X-Cookie: Editing is a rewording activity.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v1] ASoC: Intel: Skylake: Switch to modern
- UUID API
+Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
+ Xing Zheng <zhengxing@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Collabora Kernel ML <kernel@collabora.com>,
+ Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: rk3399_gru_sound: Support 32,
+ 44.1 and 88.2 kHz sample rates
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,52 +86,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6577941388436981295=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 19, 2019 at 05:46:34PM +0200, Pierre-Louis Bossart wrote:
-> On 6/19/19 5:02 PM, Andy Shevchenko wrote:
-> > Switch the driver to use modern UUID API, i.e. guid_t type and
-> > accompanying functions, such as guid_equal().
-> > 
-> > Cc: Liam Girdwood <lgirdwood@gmail.com>
-> > Cc: Mark Brown <broonie@kernel.org>
-> > Cc: Vinod Koul <vkoul@kernel.org>
-> > Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> 
-> Looks good to me - couple of nit-picks below on unrelated indentation
-> changes.
-> 
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Thanks for review!
+--===============6577941388436981295==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rOnZ5ITIX7GHaQD9"
+Content-Disposition: inline
 
-> >   	char mod_name[64]; /* guid str = 32 chars + 4 hyphens */
-> > -	uuid_le *uuid_mod;
-> > -	uuid_mod = (uuid_le *)guid;
-> >   	snprintf(mod_name, sizeof(mod_name), "%s%pUL%s",
-> > -				"intel/dsp_fw_", uuid_mod, ".bin");
-> > +					     "intel/dsp_fw_", guid, ".bin");
-> 
-> indentation looks off, not sure if this is a diff effect.
 
-Ah, this can be modified to the below (by a separate patch, since Mark applied
-this one already):
+--rOnZ5ITIX7GHaQD9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-	snprintf(mod_name, sizeof(mod_name), "intel/dsp_fw_%pUL.bin", guid);
+On Thu, Jun 20, 2019 at 03:47:08PM +0200, Enric Balletbo i Serra wrote:
+> According to the datasheet the max98357a also supports 32, 44.1 and
+> 88.2 kHz sample rate. This support was also introduced recently by
+> commit fdf34366d324 ("ASoC: max98357a: add missing supported rates").
+> This patch adds support for these rates also for the machine driver so
+> we get rid of the errors like the below and we are able to play files
+> using these sample rates.
 
-What do you think?
+Does the machine actually need to validate this at all?  The component
+drivers can all apply whatever constraints are needed and do their own
+validation, the machine driver is just getting in the way here.
 
-P.S. And it will take only one line.
+--rOnZ5ITIX7GHaQD9
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-With Best Regards,
-Andy Shevchenko
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0LqT0ACgkQJNaLcl1U
+h9Aomwf+IWYRVucBBZvhsm/gdBVe/B8CpBjmp/2qlcOTbdBRiwV3TGlwjFiWqyNF
+a/7criDs2zMUCDb4Ad2Xh7FoRj24dC+1QikkP64iwyN/Y5wJLwQhRRDuM60vjRGp
+waQP/rQ86h14cWtTi/+IE8Rm3nFcs/0J0S+87SVuW8kIifVcEAzUGYH8fhTwgkki
+SerVWbkR+weSZLJVq/cvR2CKQvt4qPaQ2AT2V7W9pCRzBJRza8CLIg+t7jaFUuLP
+EefouE+9/aOgtVf4NT+BPfcy7pptkMZwAsbX0Obcm6+1dmIpjffWRdRzki4AVnJD
+wUUi0N6O0HWIkSLhMnqzgBaOrZBMjg==
+=cr78
+-----END PGP SIGNATURE-----
+
+--rOnZ5ITIX7GHaQD9--
+
+--===============6577941388436981295==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6577941388436981295==--

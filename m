@@ -2,76 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D184D25E
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 17:43:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 034014D2DC
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 18:10:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 647241654;
-	Thu, 20 Jun 2019 17:42:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 647241654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F9E3851;
+	Thu, 20 Jun 2019 18:09:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F9E3851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561045424;
-	bh=KmcDCSlShvNj1QPmY61S5qS9rl9b32ERdvjVpqWdsUg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1561047020;
+	bh=+OZsQ6bIpe+44DL8lE9jqyxySNauuSJRGcelrXeahyM=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CkB7+Jrrlk7Ywu4qbbk3g4OgJZsPsgrRO2GcQ6m6GL7Jiofj8KT20rgUDYmxe78h3
-	 204dECdcCaZxO90OdsmdVPrGri7molyuDhoDiyrgNCbyLodxjGiGHOEV2DlNgv6poe
-	 yqU7ZX9+vekwlylh1TyjKSZEpfmrxydEyHE2qvP0=
+	b=RM50Jy5IiMYEBCNQRLhP7Jpk2OPS2XOlnqGxF6WKhMDL9yCSQf49w1pOHwJd3mb32
+	 4JYMpMSwJhArXMZWQMasnDdLx+lIGTy69n486JzpDcr4DqIORFB7VFHhPmGgFU+EgF
+	 IwkEK4wKBHD0Wl551xzGL3nixmXSeHJKWPUShoHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 772DCF896F4;
-	Thu, 20 Jun 2019 17:41:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E557F80C15;
+	Thu, 20 Jun 2019 18:08:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5FBBF89717; Thu, 20 Jun 2019 17:41:57 +0200 (CEST)
+ id 733ABF89717; Thu, 20 Jun 2019 18:08:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F36EF80C15
- for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 17:41:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F36EF80C15
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF3DFF8070D
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 18:08:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF3DFF8070D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="jov01KPU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=6s6aZu8b9dqDAqPoq81Bk78Hj/YlZ9Zu2gddBiQR0jA=; b=jov01KPU7Ey0HCtDvL/bMfUvM
- q+kHss2+okCgunU54lbz7AUEXxS2cz7t6hVp3TCiDXLIBSddCYMcK66KsNAYrByHqXzLdYmj5E8ms
- s98+kDkEwIFNMnhf/WgI7uAcAm8nRSMA5EA0gm8aA9dNtYxJ/3JhRSD6SoNS961M86AwU=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hdzCB-0000qH-N9; Thu, 20 Jun 2019 15:41:51 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id AF546440046; Thu, 20 Jun 2019 16:41:50 +0100 (BST)
-Date: Thu, 20 Jun 2019 16:41:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Message-ID: <20190620154150.GE5316@sirena.org.uk>
-References: <20190620134708.28311-1-enric.balletbo@collabora.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="CCS/nz0h"
+Received: by mail-qt1-x841.google.com with SMTP id d17so3700012qtj.8
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 09:08:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZRLTstn1uH4xoAiOrvyBM/9FFvAo+8BIlcktIv+nkjc=;
+ b=CCS/nz0hku8hGuhkjK6KYWjdMpaGphU8wH+TZBBIxWr/1ytT908qf1jGJmv50EUhid
+ cCpSZE7w14Dz7/3e/Aec9rzY381NRnLSowrPG1josN80sE6k3/A4lHcde1d3MIib86ur
+ ohblVxNSesRF2PSufua7wr2grW3EkYbDrYavkYg8WOt0krt90YqiMMSQswxjhHqoy5Je
+ kp81zHJNTw88zKOCPlap6NwUr6MMRZxkCAvrD2QVm+IcriRMWt+Vm6E4skL3tDYG0QTG
+ 57UR5XfLCaCa1b7dq0eDLTbNmn70CklbJHSBczdlMycBQPZhLGCyL7ZKRQjgLTxqr0e6
+ opeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZRLTstn1uH4xoAiOrvyBM/9FFvAo+8BIlcktIv+nkjc=;
+ b=dNTuTfXqyjOCMo/3xHEi7NKy7IQiM4q+G2F8P2RHQaY1KfKZEBzYcYcmsWty7jK4mV
+ nj2H+r4pRitSpRo2JYMoQYFW+WVaRtW7SEpKJ+9yMQ25V055QLe+XLT7kahHwUkt3HNG
+ PZMK0bHWB4pcOM7FB1HakNJ0JN1e2DxEVdqVXZ9hoRxQWvBkykixRMfxDBdJoL+U5VIq
+ k6aIpVl16izRRz+VRv1CYo9y2cS00wjcb+/H+qMJrutVriAGBHs3Gb/l/ZWhWx8969DA
+ TiUnc1SJpJKncxvcqaUu7FPJ1GCGa+iAM1JWBrIo/TKSlxobod+fzCUW8y450jiPoWqq
+ 7c1Q==
+X-Gm-Message-State: APjAAAVuEhdDpi/DbUtxdrbsSDrKm0pzHteuU03Uz/OgHsXPqIzATPWm
+ 5EzgMGJW5HdzhLWj7tvm33EZuWyU4EeHAvZiY0M=
+X-Google-Smtp-Source: APXvYqxHBeodrFoAFIOXLEADpgqqMN5M0vUe2+Ac9VSRt+mgyN8DSm5aKvJf8irOp9uottIdu+z7UBTkzQVBY5AJPbU=
+X-Received: by 2002:ac8:2439:: with SMTP id c54mr80219281qtc.160.1561046906007; 
+ Thu, 20 Jun 2019 09:08:26 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190620134708.28311-1-enric.balletbo@collabora.com>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Xing Zheng <zhengxing@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Collabora Kernel ML <kernel@collabora.com>,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org
+References: <20190620134708.28311-1-enric.balletbo@collabora.com>
+ <20190620154150.GE5316@sirena.org.uk>
+In-Reply-To: <20190620154150.GE5316@sirena.org.uk>
+From: Enric Balletbo Serra <eballetbo@gmail.com>
+Date: Thu, 20 Jun 2019 18:08:14 +0200
+Message-ID: <CAFqH_50RN0xXfzMDNRjQpk8egCEcxH7NEXr8KVYsh04mSLQEiQ@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Collabora Kernel ML <kernel@collabora.com>,
+ Heiko Stuebner <heiko@sntech.de>, Xing Zheng <zhengxing@rock-chips.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [alsa-devel] [PATCH] ASoC: rk3399_gru_sound: Support 32,
  44.1 and 88.2 kHz sample rates
 X-BeenThere: alsa-devel@alsa-project.org
@@ -86,59 +98,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6577941388436981295=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark,
 
---===============6577941388436981295==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rOnZ5ITIX7GHaQD9"
-Content-Disposition: inline
+Missatge de Mark Brown <broonie@kernel.org> del dia dj., 20 de juny
+2019 a les 17:42:
+>
+> On Thu, Jun 20, 2019 at 03:47:08PM +0200, Enric Balletbo i Serra wrote:
+> > According to the datasheet the max98357a also supports 32, 44.1 and
+> > 88.2 kHz sample rate. This support was also introduced recently by
+> > commit fdf34366d324 ("ASoC: max98357a: add missing supported rates").
+> > This patch adds support for these rates also for the machine driver so
+> > we get rid of the errors like the below and we are able to play files
+> > using these sample rates.
+>
+> Does the machine actually need to validate this at all?  The component
+> drivers can all apply whatever constraints are needed and do their own
+> validation, the machine driver is just getting in the way here.
 
+I think you have reason, I'll test by removing these validation and
+respin the patch.
 
---rOnZ5ITIX7GHaQD9
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks,
+~ Enric
 
-On Thu, Jun 20, 2019 at 03:47:08PM +0200, Enric Balletbo i Serra wrote:
-> According to the datasheet the max98357a also supports 32, 44.1 and
-> 88.2 kHz sample rate. This support was also introduced recently by
-> commit fdf34366d324 ("ASoC: max98357a: add missing supported rates").
-> This patch adds support for these rates also for the machine driver so
-> we get rid of the errors like the below and we are able to play files
-> using these sample rates.
-
-Does the machine actually need to validate this at all?  The component
-drivers can all apply whatever constraints are needed and do their own
-validation, the machine driver is just getting in the way here.
-
---rOnZ5ITIX7GHaQD9
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0LqT0ACgkQJNaLcl1U
-h9Aomwf+IWYRVucBBZvhsm/gdBVe/B8CpBjmp/2qlcOTbdBRiwV3TGlwjFiWqyNF
-a/7criDs2zMUCDb4Ad2Xh7FoRj24dC+1QikkP64iwyN/Y5wJLwQhRRDuM60vjRGp
-waQP/rQ86h14cWtTi/+IE8Rm3nFcs/0J0S+87SVuW8kIifVcEAzUGYH8fhTwgkki
-SerVWbkR+weSZLJVq/cvR2CKQvt4qPaQ2AT2V7W9pCRzBJRza8CLIg+t7jaFUuLP
-EefouE+9/aOgtVf4NT+BPfcy7pptkMZwAsbX0Obcm6+1dmIpjffWRdRzki4AVnJD
-wUUi0N6O0HWIkSLhMnqzgBaOrZBMjg==
-=cr78
------END PGP SIGNATURE-----
-
---rOnZ5ITIX7GHaQD9--
-
---===============6577941388436981295==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============6577941388436981295==--

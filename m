@@ -2,76 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1C04C76A
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 08:20:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 462CF4C7D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 09:05:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6B43166F;
-	Thu, 20 Jun 2019 08:19:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6B43166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9B0B1662;
+	Thu, 20 Jun 2019 09:04:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9B0B1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561011639;
-	bh=zHmwDyD3eVulwU7UzeEqU5Jq+o/O+QugeZGiCK92tqw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qhNDrkHWqXhCzFxqDEtY2gbG7g9kSrTxokzI2upYEeVgsPEHRoeu7LaoKaJ36WSl5
-	 O5vRSBIUOYf4ZZ51Y2qYGb9CU2q7PEpTVIMNtDZNLAVG7uqPF1W8qqGGtRkmixuej2
-	 lbAWFK/QmGhRSvTxa2iteHNeSnIGC/rxRQXwiuGc=
+	s=default; t=1561014336;
+	bh=M3InEBD7/OBs8Rs8QHW1cTFuJRhmYhUyiYf0wpnyaIY=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Pc7zEe4x3uRgTiNJGCySR3BPZ/EmdssIHHhIHT0L3fcoP5rob3o9d9NnYt7mWJOwi
+	 Jej3MMW4Xvy74j+EQKZ8ny0NtoZQ1ox5rqg7XbWaelh42qXeVfYZkpAO3PmAsid6zL
+	 1gK0juTRbhwb8DA96Jz3XubyBRMITwxNH5yZWLSw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07F72F89717;
-	Thu, 20 Jun 2019 08:18:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CC45F8971C;
+	Thu, 20 Jun 2019 09:03:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EE4AF89717; Thu, 20 Jun 2019 08:18:48 +0200 (CEST)
+ id 40745F89717; Thu, 20 Jun 2019 09:03:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82089F80C15
- for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 08:17:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82089F80C15
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2019 23:17:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,395,1557212400"; d="scan'208";a="168426635"
-Received: from linux.intel.com ([10.54.29.200])
- by FMSMGA003.fm.intel.com with ESMTP; 19 Jun 2019 23:17:36 -0700
-Received: from xyang32-mobl.amr.corp.intel.com (unknown [10.252.27.214])
- by linux.intel.com (Postfix) with ESMTP id 6C453580418;
- Wed, 19 Jun 2019 23:17:34 -0700 (PDT)
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
- <20190617113644.25621-10-amadeuszx.slawinski@linux.intel.com>
- <75be86354032f4886cbaf7d430de2aa89eaab573.camel@linux.intel.com>
- <20190618130015.0fc388b4@xxx>
- <bd8855a7ab7a9958113631b76706120fd4427631.camel@linux.intel.com>
- <20190619103859.15bf51c5@xxx>
- <0c939329d17c50c353acacf164583ba259a775c0.camel@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <26946ff4-1c91-a7e0-4354-132cbd06235a@linux.intel.com>
-Date: Thu, 20 Jun 2019 08:17:33 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.1
-MIME-Version: 1.0
-In-Reply-To: <0c939329d17c50c353acacf164583ba259a775c0.camel@linux.intel.com>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Jie Yang <yang.jie@linux.intel.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2 09/11] ASoC: Intel: hdac_hdmi: Set ops
- to NULL on remove
+X-Spam-Level: **
+X-Spam-Status: No, score=2.8 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id AA6DAF80C15
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 09:03:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA6DAF80C15
+Date: 20 Jun 2019 16:03:41 +0900
+X-IronPort-AV: E=Sophos;i="5.62,395,1554735600"; d="scan'208";a="19160360"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 20 Jun 2019 16:03:41 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 04EC9400C44A;
+ Thu, 20 Jun 2019 16:03:41 +0900 (JST)
+Message-ID: <87imt0spti.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>,
+ Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH] ASoC: rt5514-spi: don't use
+	snd_soc_lookup_component()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,60 +64,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>>>> Could you please give a bit more context on what error you see
->>>>> when this happens?
->>>>
->>>> Hi,
->>>>
->>>> I get Oops. This is what happens with all other patches in this
->>>> series and only this one reverted:
->>>>
->>>> root@APL:~# rmmod snd_soc_sst_bxt_rt298
->>>> root@APL:~# rmmod snd_soc_hdac_hdmi
->>>> root@APL:~# rmmod snd_soc_skl
->>>
->>> Thanks, Amadeusz. I think the order in which the drivers are
->>> removed
->>> is what's causing the oops in your case. With SOF, the order we
->>> remove is
->>>
->>> 1. rmmod sof_pci_dev
->>> 2. rmmod snd_soc_sst_bxt_rt298
->>> 3. rmmod snd_soc_hdac_hdmi
->>>
->>
->> Well, there is nothing enforcing the order in which modules can be
->> unloaded (and I see no reason to force it), as you can see from
->> following excerpt, you can either start unloading from
->> snd_soc_sst_bxt_rt298 or snd_soc_skl, and yes if you start from
->> snd_soc_skl, there is no problem.
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-there is a fundamental dependency that you are ignoring: the module 
-snd_soc_sst_bxt_rt298 is a machine driver which will be probed when 
-snd_soc_skl creates a platform_device.
-Sure you can remove modules in a different order, but that's a bit of an 
-artificial/academic exercise isn't it?
+rt5514-spi can use dev_get_drvdata() to get its component
+because it is using snd_soc_component_set_drvdata();
 
->>
-> I am good with this patch. I just wanted to understand why we werent
-> seeing this error with SOF. Sure, there's nothing enforcing the order
-> in which modules are unloaded  but there must be a logical order for
-> testing purposes.
-> 
-> Pierre, can you please comment on it. I vaguely remember discussing
-> this with you last year.
+	static int rt5514_spi_pcm_probe(...)
+	{
+		...
+=>		snd_soc_component_set_drvdata(component, ...);
+		...
+	}
 
-Our tests remove the modules by taking care of dependencies and it's 
-already unveiled dozens of issues.
-We could add a sequence similar to Amadeusz and unbind the modules which 
-are loaded with the creation of a platform_device (machine driver, 
-dmic), I am just not sure how of useful this would be.
+We don't need to use snd_soc_lookup_component() for it.
+This patch uses dev_get_drvdata() instead of snd_soc_lookup_component().
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+ sound/soc/codecs/rt5514-spi.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/rt5514-spi.c b/sound/soc/codecs/rt5514-spi.c
+index 94c8149..d62c185 100644
+--- a/sound/soc/codecs/rt5514-spi.c
++++ b/sound/soc/codecs/rt5514-spi.c
+@@ -474,9 +474,7 @@ static int __maybe_unused rt5514_suspend(struct device *dev)
+ 
+ static int __maybe_unused rt5514_resume(struct device *dev)
+ {
+-	struct snd_soc_component *component = snd_soc_lookup_component(dev, DRV_NAME);
+-	struct rt5514_dsp *rt5514_dsp =
+-		snd_soc_component_get_drvdata(component);
++	struct rt5514_dsp *rt5514_dsp = dev_get_drvdata(dev);
+ 	int irq = to_spi_device(dev)->irq;
+ 	u8 buf[8];
+ 
+-- 
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

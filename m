@@ -2,55 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79E144CF82
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 15:49:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C29C4D1A7
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Jun 2019 17:08:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 070F51681;
-	Thu, 20 Jun 2019 15:48:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 070F51681
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAAE7166B;
+	Thu, 20 Jun 2019 17:07:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAAE7166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561038547;
-	bh=+4kxe9piJ58UIXKoo+UAWe0ecN7VarmeyeLtzTX0MpY=;
+	s=default; t=1561043287;
+	bh=O2N750noiJ8waqfzwCtRDwSRyYRPmx+k1Ay6XXLhyEU=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=mvWQncdf0nB99f8KEUDvak9eqfbPTIYmSVgdWMp9HvXElgqe7iJIYbHZzdN3H+u0M
-	 pK8hI7GoNQBjN0DOdo0hyiH1Cva5/Cri9Jn9/MAoG+zpHDjtSGU3iiHxC/QrI+GUxF
-	 wMJEi2reXkJFWaRAEaIZ5B9ogk4KvEgz9UVXofEk=
+	b=P3Xew2+s4bFLSJ/ipRXD6TpGy9KJLUgZoMwC3pVtwC9R4244OX4GpbMi2bV1YBMrf
+	 RZbCEVHJh+tcENj1fwodHuytZqM7soXllwXVLfOoggQcInF/zr+AVUyRABsrdRvlvX
+	 iOaJTs0WYWNsywyY8ufBmvcwAsr/nMi87PzrC85w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16FBCF80C15;
-	Thu, 20 Jun 2019 15:47:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09CDAF89717;
+	Thu, 20 Jun 2019 17:06:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF88EF89717; Thu, 20 Jun 2019 15:47:19 +0200 (CEST)
+ id C387AF89717; Thu, 20 Jun 2019 17:06:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EACEF80C15
- for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 15:47:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EACEF80C15
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: eballetbo) with ESMTPSA id C036826126D
-From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-To: linux-kernel@vger.kernel.org
-Date: Thu, 20 Jun 2019 15:47:08 +0200
-Message-Id: <20190620134708.28311-1-enric.balletbo@collabora.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15950F80C15
+ for <alsa-devel@alsa-project.org>; Thu, 20 Jun 2019 17:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15950F80C15
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 00E8BD69FDD3116E966A;
+ Thu, 20 Jun 2019 22:50:06 +0800 (CST)
+Received: from localhost.localdomain.localdomain (10.175.113.25) by
+ DGGEMS409-HUB.china.huawei.com (10.3.19.209) with Microsoft SMTP Server id
+ 14.3.439.0; Thu, 20 Jun 2019 22:49:56 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Bard Liao
+ <yung-chuan.liao@linux.intel.com>, Arnd Bergmann <arnd@arndb.de>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Zhu Yingjiang
+ <yingjiang.zhu@linux.intel.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Thu, 20 Jun 2019 14:57:09 +0000
+Message-ID: <20190620145709.122498-1-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Xing Zheng <zhengxing@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, Collabora Kernel ML <kernel@collabora.com>,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH] ASoC: rk3399_gru_sound: Support 32,
-	44.1 and 88.2 kHz sample rates
+X-Originating-IP: [10.175.113.25]
+X-CFilter-Loop: Reflected
+Cc: kernel-janitors@vger.kernel.org, alsa-devel@alsa-project.org,
+ YueHaibing <yuehaibing@huawei.com>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH -next] ASoC: SOF: Intel: hda: remove duplicated
+	include from hda.c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,39 +74,29 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-According to the datasheet the max98357a also supports 32, 44.1 and
-88.2 kHz sample rate. This support was also introduced recently by
-commit fdf34366d324 ("ASoC: max98357a: add missing supported rates").
-This patch adds support for these rates also for the machine driver so
-we get rid of the errors like the below and we are able to play files
-using these sample rates.
+Remove duplicated include.
 
-  rk3399-gru-sound sound: rockchip_sound_max98357a_hw_params() doesn't support this sample rate: 44100
-  rk3399-gru-sound sound: ASoC: machine hw_params failed: -22
-
-Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
+ sound/soc/sof/intel/hda.c | 1 -
+ 1 file changed, 1 deletion(-)
 
- sound/soc/rockchip/rk3399_gru_sound.c | 3 +++
- 1 file changed, 3 insertions(+)
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 51c1c1787de7..7f665392618f 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -19,7 +19,6 @@
+ #include <sound/hda_register.h>
+ 
+ #include <linux/module.h>
+-#include <sound/hdaudio_ext.h>
+ #include <sound/sof.h>
+ #include <sound/sof/xtensa.h>
+ #include "../ops.h"
 
-diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
-index 3d0cc6e90d7b..8dfe1a560e42 100644
---- a/sound/soc/rockchip/rk3399_gru_sound.c
-+++ b/sound/soc/rockchip/rk3399_gru_sound.c
-@@ -59,7 +59,10 @@ static int rockchip_sound_max98357a_hw_params(struct snd_pcm_substream *substrea
- 	switch (params_rate(params)) {
- 	case 8000:
- 	case 16000:
-+	case 32000:
-+	case 44100:
- 	case 48000:
-+	case 88200:
- 	case 96000:
- 		mclk = params_rate(params) * SOUND_FS;
- 		break;
--- 
-2.20.1
+
+
+
 
 _______________________________________________
 Alsa-devel mailing list

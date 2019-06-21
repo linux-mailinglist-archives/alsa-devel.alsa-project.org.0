@@ -2,55 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 769304ECC3
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2019 18:00:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 672FA4F073
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2019 23:22:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E8B54846;
-	Fri, 21 Jun 2019 17:59:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8B54846
+	by alsa0.perex.cz (Postfix) with ESMTPS id E50BE83A;
+	Fri, 21 Jun 2019 23:21:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E50BE83A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561132809;
-	bh=eGkrKCGfguY+27YGfgUNCacAkGcBm/lo0+7L+A8FKgA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=J7HaCzlNOI78CmNUkwsoibcJE0Pz5vkCAoTlzVsW38MGksZ0IuNFLK0tR9L14jK4b
-	 3vv1ZUuMvltoinGhjSj9UPaghqzRUe8oh9daPIuOEk7BTuZKDRzwt070m2RrT6S4Hg
-	 RpnpdqFGn4AJTU2P0UVS7xQbWxuA/i3bMyoXBq6k=
+	s=default; t=1561152121;
+	bh=NK0nJxzkDC3hjJtleypgpSbKGe759ZV+y3coWqOOyG8=;
+	h=From:To:In-Reply-To:References:Date:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PQKElIzoYGt8p6XDYn+Bj3PavoW3M3WxqYa88ei8UDXIpvzSNuHQb/3UfDUgTjPFp
+	 7M66JyUkWcn7//VhtyiV0ClCrePpSBEoOrmxmvg1/fKnhItPth+xYHlDmDmBz3YuPK
+	 Ce3S83HbExROUXuElZtaPVj0msEVgJSaCrh7A7U0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 476E1F89682;
-	Fri, 21 Jun 2019 17:58:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 203CAF8070D;
+	Fri, 21 Jun 2019 23:20:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDE01F896B8; Fri, 21 Jun 2019 17:58:19 +0200 (CEST)
+ id D1958F896B8; Fri, 21 Jun 2019 23:20:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FE39F80059
- for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2019 17:58:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FE39F80059
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: eballetbo) with ESMTPSA id E48D9260D87
-From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 21 Jun 2019 17:58:08 +0200
-Message-Id: <20190621155808.17182-1-enric.balletbo@collabora.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Xing Zheng <zhengxing@rock-chips.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, kernel@collabora.com,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v2] ASoC: rk3399_gru_sound: Support 32,
-	44.1 and 88.2 kHz sample rates
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61B2AF8070D
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2019 23:20:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61B2AF8070D
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2019 14:20:06 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,401,1557212400"; d="scan'208";a="187319124"
+Received: from advira-mobl1.amr.corp.intel.com ([10.254.29.243])
+ by fmsmga002.fm.intel.com with ESMTP; 21 Jun 2019 14:20:07 -0700
+Message-ID: <c137f6ce9cc8d4ffb26f0ca432845b41d5f5acae.camel@linux.intel.com>
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o92r92p6.wl-kuninori.morimoto.gx@renesas.com>
+References: <878stywfjt.wl-kuninori.morimoto.gx@renesas.com>
+ <87o92r92p6.wl-kuninori.morimoto.gx@renesas.com>
+Mime-Version: 1.0
+Date: Fri, 21 Jun 2019 14:19:59 -0700
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: call snd_soc_unbind_card()
+ under mutex_lock; 
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,57 +74,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-According to the datasheet the max98357a also supports 32, 44.1 and
-88.2 kHz sample rate. This support was also introduced recently by
-commit fdf34366d324 ("ASoC: max98357a: add missing supported rates").
+> > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > 
+> > commit 34ac3c3eb8f0c07 ("ASoC: core: lock client_mutex while
+> > removing
+> > link components") added mutex_lock() at
+> > soc_remove_link_components().
+> > 
+> > Is is called from snd_soc_unbind_card()
+> > 
+> > 	snd_soc_unbind_card()
+> > =>		soc_remove_link_components()
+> > 		soc_cleanup_card_resources()
+> > 			soc_remove_dai_links()
+> > =>				soc_remove_link_components()
+> > 
+> > And, there are 2 way to call it.
+> > 
+> > (1)
+> > 	snd_soc_unregister_component()
+> > **		mutex_lock()
+> > 			snd_soc_component_del_unlocked()
+> > =>				snd_soc_unbind_card()
+> > **		mutex_unlock()
+> > 
+> > (2)
+> > 	snd_soc_unregister_card()
+> > =>		snd_soc_unbind_card()
+> > 
+> > (1) case is already using mutex_lock() when it calles
+> > snd_soc_unbind_card(), thus, we will get lockdep warning.
 
-Actually the machine driver validates the supported sample rates but
-this is not really needed because the component driver can all apply
-whatever constraints are needed and do their own validation. So, remove
-the checks from the machine driver as are not needed at all. This way,
-we also support 32, 44.1 and 88.2 kHz sample rates and we get rid of the
-errors like the below.
+Thanks, morimoto-san. You are correct. Case 1 will result in a lockdep
+warning. This patch looks good. 
 
-  rk3399-gru-sound sound: rockchip_sound_max98357a_hw_params() doesn't support this sample rate: 44100
-  rk3399-gru-sound sound: ASoC: machine hw_params failed: -22
-
-Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
----
-
-Changes in v2:
-- Instead of add supported sample rates, relegate the work to the
-  component drivers (Mark)
-
- sound/soc/rockchip/rk3399_gru_sound.c | 14 +-------------
- 1 file changed, 1 insertion(+), 13 deletions(-)
-
-diff --git a/sound/soc/rockchip/rk3399_gru_sound.c b/sound/soc/rockchip/rk3399_gru_sound.c
-index 3d0cc6e90d7b..8cbeeb013a1a 100644
---- a/sound/soc/rockchip/rk3399_gru_sound.c
-+++ b/sound/soc/rockchip/rk3399_gru_sound.c
-@@ -55,19 +55,7 @@ static int rockchip_sound_max98357a_hw_params(struct snd_pcm_substream *substrea
- 	unsigned int mclk;
- 	int ret;
- 
--	/* max98357a supports these sample rates */
--	switch (params_rate(params)) {
--	case 8000:
--	case 16000:
--	case 48000:
--	case 96000:
--		mclk = params_rate(params) * SOUND_FS;
--		break;
--	default:
--		dev_err(rtd->card->dev, "%s() doesn't support this sample rate: %d\n",
--				__func__, params_rate(params));
--		return -EINVAL;
--	}
-+	mclk = params_rate(params) * SOUND_FS;
- 
- 	ret = snd_soc_dai_set_sysclk(rtd->cpu_dai, 0, mclk, 0);
- 	if (ret) {
--- 
-2.20.1
+Thanks,
+Ranjani
+> > 
+> > commit 495f926c68ddb90 ("ASoC: core: Fix deadlock in
+> > snd_soc_instantiate_card()") tried to fixup it, but still not
+> > enough. We still have lockdep warning when we try unbind/bind.
+> > 
+> > We need mutex_lock() under snd_soc_unregister_card()
+> > instead of snd_remove_link_components()/snd_soc_unbind_card().
+> > 
+> > Fixes: 34ac3c3eb8f0c07 ("ASoC: core: lock client_mutex while
+> > removing link components")
+> > Fixes: 495f926c68ddb90 ("ASoC: core: Fix deadlock in
+> > snd_soc_instantiate_card()")
+> > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > ---
+> >  sound/soc/soc-core.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> > index 2353886..2a408cc 100644
+> > --- a/sound/soc/soc-core.c
+> > +++ b/sound/soc/soc-core.c
+> > @@ -2747,14 +2747,12 @@ static void snd_soc_unbind_card(struct
+> > snd_soc_card *card, bool unregister)
+> >  		snd_soc_dapm_shutdown(card);
+> >  		snd_soc_flush_all_delayed_work(card);
+> >  
+> > -		mutex_lock(&client_mutex);
+> >  		/* remove all components used by DAI links on this card
+> > */
+> >  		for_each_comp_order(order) {
+> >  			for_each_card_rtds(card, rtd) {
+> >  				soc_remove_link_components(card, rtd,
+> > order);
+> >  			}
+> >  		}
+> > -		mutex_unlock(&client_mutex);
+> >  
+> >  		soc_cleanup_card_resources(card);
+> >  		if (!unregister)
+> > @@ -2773,7 +2771,9 @@ static void snd_soc_unbind_card(struct
+> > snd_soc_card *card, bool unregister)
+> >   */
+> >  int snd_soc_unregister_card(struct snd_soc_card *card)
+> >  {
+> > +	mutex_lock(&client_mutex);
+> >  	snd_soc_unbind_card(card, true);
+> > +	mutex_unlock(&client_mutex);
+> >  	dev_dbg(card->dev, "ASoC: Unregistered card '%s'\n", card-
+> > >name);
+> >  
+> >  	return 0;
+> > -- 
+> > 2.7.4
+> > 
 
 _______________________________________________
 Alsa-devel mailing list

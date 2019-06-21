@@ -2,63 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C951C4E723
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2019 13:33:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C73414E738
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2019 13:36:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4232B166C;
-	Fri, 21 Jun 2019 13:32:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4232B166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64F451662;
+	Fri, 21 Jun 2019 13:35:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64F451662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561116795;
-	bh=tEPvjzJx4TWx6usQFnxtn0T1BR3RzC6aDujogSBP7yI=;
+	s=default; t=1561116990;
+	bh=QodDNJvWOq63QcDD4veTdE7J++i7YPenkRxBaAwMB8k=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Tez5PTTJURJfT+WNY56ZMLTlFk+TspOuQe8jXyZUcoNbGJjVGjRotAXfyJAvvfBhe
-	 /yUUJsGlFOpCp727zp1BWZYVZgVf0AxdkGbhltQHxlr5YuCv3UKbhFJfoTIACdfBPz
-	 s3tcXmMRbxX7cmf4Q6+L3u9VI/iDvtD4xv/y9/bU=
+	b=TL3yCiYcBHu+yYcY0QjH2Og3Yugd+eY1GOsAGnBFycp6iVtN2zrblE8KMYbaE6T7d
+	 fkyQTYnrsc2/EUvEE7MzrXGL76KuUeLi5apylohjScAUB9AM581bdRcao1t3GHpqgh
+	 ejpVlE6g8EIJxF5nsX0msgKB3pWeDThyo2BI3hF8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60C4DF896B8;
-	Fri, 21 Jun 2019 13:31:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66F7AF896F9;
+	Fri, 21 Jun 2019 13:34:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4A16F896B8; Fri, 21 Jun 2019 13:31:27 +0200 (CEST)
+ id 19832F896B8; Fri, 21 Jun 2019 13:34:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF24CF808AF
- for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2019 13:31:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF24CF808AF
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Jun 2019 04:31:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,400,1557212400"; d="scan'208";a="168799438"
-Received: from black.fi.intel.com ([10.237.72.28])
- by FMSMGA003.fm.intel.com with ESMTP; 21 Jun 2019 04:31:18 -0700
-Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 47D0914B; Fri, 21 Jun 2019 14:31:17 +0300 (EEST)
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Date: Fri, 21 Jun 2019 14:31:16 +0300
-Message-Id: <20190621113116.47525-1-andriy.shevchenko@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5C1AF89682
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2019 13:33:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5C1AF89682
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="jr2yPJFj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3FBFeMMQbHDljCo0ysZt4E1/LLDovdIwQ1oyGOMfxow=; b=jr2yPJFjv8wsFKWBZQ1VqKv4b
+ r6VdXmrj7q6VoPktD+/CgPd2w9HVxnPFyH+OF06FZhZd5chqZWLEMbj0z5JTVRYz2/my8YoYBuP2r
+ tX6/gLSEEuiECdfOxv+JGyJJwUA7bMmSzRKEZ8W36anj5eZJH8dRl3EfO9QX2mbXY95xU=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1heHnq-0002PW-H8; Fri, 21 Jun 2019 11:33:58 +0000
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+ id 4305A440046; Fri, 21 Jun 2019 12:33:57 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Date: Fri, 21 Jun 2019 12:33:56 +0100
+Message-Id: <20190621113357.8264-1-broonie@kernel.org>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Cc: Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: [alsa-devel] [PATCH v1] ASoC: Intel: Skylake: Print constant
-	literals from format specifier
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ stable@vger.kernel.org
+Subject: [alsa-devel] [PATCH 1/2] ASoC: core: Adapt for debugfs API change
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,31 +83,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Instead of using two additional "%s" specifiers, put the constant string
-literals directly to the format specifier.
+Back in ff9fb72bc07705c (debugfs: return error values, not NULL) the
+debugfs APIs were changed to return error pointers rather than NULL
+pointers on error, breaking the error checking in ASoC. Update the
+code to use IS_ERR() and log the codes that are returned as part of
+the error messages.
 
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Fixes: ff9fb72bc07705c (debugfs: return error values, not NULL)
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Cc: stable@vger.kernel.org
 ---
- sound/soc/intel/skylake/skl-sst.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/soc-core.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/intel/skylake/skl-sst.c b/sound/soc/intel/skylake/skl-sst.c
-index 13c636dece56..f3e1399450db 100644
---- a/sound/soc/intel/skylake/skl-sst.c
-+++ b/sound/soc/intel/skylake/skl-sst.c
-@@ -421,8 +421,7 @@ static int skl_load_module(struct sst_dsp *ctx, u16 mod_id, u8 *guid)
- 	int ret = 0;
- 	char mod_name[64]; /* guid str = 32 chars + 4 hyphens */
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index c510da2d4af6..6d5c09493f4b 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -165,9 +165,10 @@ static void soc_init_component_debugfs(struct snd_soc_component *component)
+ 				component->card->debugfs_card_root);
+ 	}
  
--	snprintf(mod_name, sizeof(mod_name), "%s%pUL%s",
--					     "intel/dsp_fw_", guid, ".bin");
-+	snprintf(mod_name, sizeof(mod_name), "intel/dsp_fw_%pUL.bin", guid);
+-	if (!component->debugfs_root) {
++	if (IS_ERR(component->debugfs_root)) {
+ 		dev_warn(component->dev,
+-			"ASoC: Failed to create component debugfs directory\n");
++			"ASoC: Failed to create component debugfs directory: %ld\n",
++			PTR_ERR(component->debugfs_root));
+ 		return;
+ 	}
  
- 	module_entry = skl_module_get_from_id(ctx, mod_id);
- 	if (module_entry == NULL) {
+@@ -219,18 +220,21 @@ static void soc_init_card_debugfs(struct snd_soc_card *card)
+ 
+ 	card->debugfs_card_root = debugfs_create_dir(card->name,
+ 						     snd_soc_debugfs_root);
+-	if (!card->debugfs_card_root) {
++	if (IS_ERR(card->debugfs_card_root)) {
+ 		dev_warn(card->dev,
+-			 "ASoC: Failed to create card debugfs directory\n");
++			 "ASoC: Failed to create card debugfs directory: %ld\n",
++			 PTR_ERR(card->debugfs_card_root));
++		card->debugfs_card_root = NULL;
+ 		return;
+ 	}
+ 
+ 	card->debugfs_pop_time = debugfs_create_u32("dapm_pop_time", 0644,
+ 						    card->debugfs_card_root,
+ 						    &card->pop_time);
+-	if (!card->debugfs_pop_time)
++	if (IS_ERR(card->debugfs_pop_time))
+ 		dev_warn(card->dev,
+-			 "ASoC: Failed to create pop time debugfs file\n");
++			 "ASoC: Failed to create pop time debugfs file: %ld\n",
++			 PTR_ERR(card->debugfs_pop_time));
+ }
+ 
+ static void soc_cleanup_card_debugfs(struct snd_soc_card *card)
 -- 
 2.20.1
 

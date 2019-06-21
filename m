@@ -2,73 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A14274EAD1
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2019 16:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E17B4EB42
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Jun 2019 16:55:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16F5315E2;
-	Fri, 21 Jun 2019 16:34:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16F5315E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 056E282C;
+	Fri, 21 Jun 2019 16:54:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 056E282C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561127725;
-	bh=KAO4rFSnIVzLZacsfrvDC5ea4ELXFWhlweO5qUnsExs=;
+	s=default; t=1561128911;
+	bh=4IjlT6YC1O44qPqQFho/l98HD4BqGP/MWarfXm2enaw=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HaiPAg0rVDvC4kqYcyEQDIgScKGP8i0YBFnZAgunXSELAiKTS1SQWj7L96R+xS6YQ
-	 93OatXSosuk3uB6HU0BNe+0+AfMhOwqi3vBmdFkbSlOf3dOXu61Jqz16Fb7NWGuLQs
-	 ZolSzyQWoxTBDh59x+AYLe0UqENDYCnxOskJYEL0=
+	b=EuK7/BV2rFE5LTZ9M+L26IXtbYjFDkl+e6ui1OVhqZhX+W/vJhYtMXH0VqLueNuuF
+	 EP4aS/kOY0WpTvERhmQC/XDGl8W3I9O6Lvd/WlpTtSAjQXHLTHAtb9HcEAcCi+Q+M9
+	 82bA9atTvkYBd/7nL3TahPHI7Eppu0C4wZUahi+8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 326C2F896DA;
-	Fri, 21 Jun 2019 16:33:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7522FF8070D;
+	Fri, 21 Jun 2019 16:53:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38820F8070D; Fri, 21 Jun 2019 16:32:35 +0200 (CEST)
+ id A44ACF8070D; Fri, 21 Jun 2019 16:53:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5903F8070D
- for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2019 16:30:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5903F8070D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02983F8070D
+ for <alsa-devel@alsa-project.org>; Fri, 21 Jun 2019 16:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02983F8070D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="G6A6WZOm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hxG4OzKJll+CUOuLlcP/6L1BRl/sjRJOcnpnlIt2izg=; b=G6A6WZOmQTJlzMKdN63KDKI8R
- 3j/1J1Y9dPK+PHFgwDlXca8WROH+SGyJriWhC2dbK4K2dylvXlrOyO7kAH4lxNDIh4r5vUTxd0yv4
- 5JO/rJPyY6YClQAlrcZ7+J8OnWcW9ZOKxoQ3e2SseJiI45A1CRGKIDxLHQ/8VtHGbok7A=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1heKZ4-0002ZU-0o; Fri, 21 Jun 2019 14:30:54 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 87D56440046; Fri, 21 Jun 2019 15:30:53 +0100 (BST)
-Date: Fri, 21 Jun 2019 15:30:53 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Greg KH <greg@kroah.com>
-Message-ID: <20190621143053.GH5316@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
+ header.b="DHhdBTH+"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="qYfHNKCr"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id EE916222C2;
+ Fri, 21 Jun 2019 10:53:12 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Fri, 21 Jun 2019 10:53:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=JCbEYoxmzy3ql8hBWp6kET6t/A+
+ euvi2knEYE6fh5v4=; b=DHhdBTH+9Hji4Ox0n+JuF3cdqFyf2S/G9xhsYFJSUbE
+ IV+gAQvp1ZZyxOhxELng7ccBcfJBf/ezjvIBIsApkkpYHZn23J6mLqcbdl0p9dpj
+ zzI7sP2lvi+T6l0RJURXD4BpRrElL34hjos6QbQvbOL/pNnJWKKAVeNlrk4bsHU0
+ 9PR6fCtP9W7dm0g31+3rRzfjJA4jbtVxANcHqU6XUxeBKNqO7RpAW2BjzGjFyQwB
+ kay72Uqvub0J68oBXhFa3RWqhDDWa7sEWfQBCO7NAKnP+qSPZzvtJ3Nq2A4OW9VX
+ ffv1UmxHza8TOOeZ7VjCp1aj94teASPMwQtNs+abbkA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=JCbEYo
+ xmzy3ql8hBWp6kET6t/A+euvi2knEYE6fh5v4=; b=qYfHNKCrqVEerzjmUWncTx
+ KHdS/0h4qwWhhMR15OM7qm6Sx64VbFUBcL6WFUA63u9mDpkZT+pDYU445s5QfIBS
+ HMpjnURZnaHxZHslhilHmrNNu9B3o6AJnVP4ZxSmXa7RMTnll9wq0szfaRR1sncP
+ mejP0GL9Xe4A4F2nHtVfQKKA13P6oy8pjxxbQVH7POHNhPGpnb+wxfuhMZscwbWL
+ bvqQUghOctsyiqvMozfSqpqwPLGoKwvSSiRhN+V4+puoF/TZclEOiUM9stiU6Yj0
+ 6DI2Z1iCG0/uTw2L2zhzu8aJbqYYbAGOA6scdK3NcK/PVTwLxiquZpoLvMmrokYQ
+ ==
+X-ME-Sender: <xms:WO8MXcYr1itAYpvrwcykV7S2iP77pX4ZLEfCANyiHuGuO4ad3f6c-Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtdeigdekhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehttdertddtredvnecuhfhrohhmpefirhgvghcu
+ mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucfkphepkeefrdekiedrkeelrddutd
+ ejnecurfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvgheskhhrohgrhhdrtghomhenucev
+ lhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:WO8MXRWo2A3xOQNZumOn1N5pqM94LQCVxCs76kM8MTMyXWFQ0Icdyg>
+ <xmx:WO8MXdSYyZMW7SoqbZkUGW2vQmvSTMKK-ckmbOr8ooCX_5CIcqWt_g>
+ <xmx:WO8MXdIgt4Udh1z56peFriYkDN0ANFbht4X0HhxznfMAT8ltS0IH4A>
+ <xmx:WO8MXeGQ9CbVfWj1GJTJLWHY1Jo-G2vVvSbOHgzegFPNrj3Gj1ex-g>
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B9F7C380086;
+ Fri, 21 Jun 2019 10:53:11 -0400 (EDT)
+Date: Fri, 21 Jun 2019 16:53:09 +0200
+From: Greg KH <greg@kroah.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20190621145309.GA6313@kroah.com>
 References: <20190621113357.8264-1-broonie@kernel.org>
  <20190621113357.8264-2-broonie@kernel.org>
  <20190621132222.GB10459@kroah.com>
+ <20190621143053.GH5316@sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20190621132222.GB10459@kroah.com>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Disposition: inline
+In-Reply-To: <20190621143053.GH5316@sirena.org.uk>
+User-Agent: Mutt/1.12.1 (2019-06-15)
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  stable@vger.kernel.org
 Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: dapm: Adapt for debugfs API
@@ -85,76 +111,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2998356202950043939=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jun 21, 2019 at 03:30:53PM +0100, Mark Brown wrote:
+> On Fri, Jun 21, 2019 at 03:22:22PM +0200, Greg KH wrote:
+> > On Fri, Jun 21, 2019 at 12:33:57PM +0100, Mark Brown wrote:
+> 
+> > >  	struct dentry *d;
+> > >  
+> > > -	if (!parent)
+> > > +	if (!parent || IS_ERR(parent))
+> > >  		return;
+> 
+> > How can parent be NULL?
+> 
+> It was more effort than it was worth to check to see if it could
+> actually be NULL through default initialization or something and fix it
+> than just not delete the check so I just left it there.  I'll probably
+> go back and clean it up more thorougly at some point.
+> 
+> > I am trying to make it so that debugfs doesn't return anything for when
+> > a file is created.  Now if that will ever be possible or not, I don't
+> > know, but I am pretty close in one of the branches in my driver-core
+> > tree...
+> 
+> You mentioned this in a mail last week, I then replied pointing out that
+> this is not helpful as it reduces the robustness and quality of our
+> debugging tools and you then did not respond.
 
---===============2998356202950043939==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GyBFFrpYHGV4SYp0"
-Content-Disposition: inline
+Sorry, had lots of other stuff to work on, it's in my queue to respond
+to still...
 
+> This is a view I still hold and in any case debugfs as it stands (and
+> was in the kernel versions since this was broken) is still capable of
+> reporting errors so we should fix that.
 
---GyBFFrpYHGV4SYp0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Sort story is, I am trying to change it so that it can not report errors :)
 
-On Fri, Jun 21, 2019 at 03:22:22PM +0200, Greg KH wrote:
-> On Fri, Jun 21, 2019 at 12:33:57PM +0100, Mark Brown wrote:
+And even then, no kernel code should be doing anything different if
+debugfs calls fail or not, that is why I am I making these changes.  No
+"real" code should ever be affected, and right now, it is, if something
+goes wrong with debugfs.
 
-> >  	struct dentry *d;
-> > =20
-> > -	if (!parent)
-> > +	if (!parent || IS_ERR(parent))
-> >  		return;
+So removing those checks is the goal here.  Your driver code should not
+care if debugfs is working at all or not.
 
-> How can parent be NULL?
+thanks,
 
-It was more effort than it was worth to check to see if it could
-actually be NULL through default initialization or something and fix it
-than just not delete the check so I just left it there.  I'll probably
-go back and clean it up more thorougly at some point.
-
-> I am trying to make it so that debugfs doesn't return anything for when
-> a file is created.  Now if that will ever be possible or not, I don't
-> know, but I am pretty close in one of the branches in my driver-core
-> tree...
-
-You mentioned this in a mail last week, I then replied pointing out that
-this is not helpful as it reduces the robustness and quality of our
-debugging tools and you then did not respond.  This is a view I still
-hold and in any case debugfs as it stands (and was in the kernel
-versions since this was broken) is still capable of reporting errors so
-we should fix that.
-
---GyBFFrpYHGV4SYp0
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0M6hwACgkQJNaLcl1U
-h9CVfgf/Zvf50vTJSnV4Ifjlc60r5s/W7eTpQGayjvn9PD0gkjA4+G5hVAEjeV5u
-qRvkDMZwgld9zIa08UvfBb7J7Cr+HV5RgQGnYBjcwXJwQ2bDecBUUhXjlNgcMRos
-NwA99IiRefpwluCcD4Tc7jom/y/XyuIh07rvZyvGcrObNVytaRWToAjumnIT/tM0
-DINLjqjXAHQNeNs3cpNea2HvjTxk524bEMm075hc87KWaqYZqfjL+PNyJthE9Psc
-tVee93MX3iLcNfxeJe0XXhKZ4fNJh1KgREynpzNfKm3j+EPGS75BR66uimNtoS6J
-4LLlg1ZRASBNPaIeHXVCk1u9MCpVGQ==
-=27li
------END PGP SIGNATURE-----
-
---GyBFFrpYHGV4SYp0--
-
---===============2998356202950043939==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2998356202950043939==--

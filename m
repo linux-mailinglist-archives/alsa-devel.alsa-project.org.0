@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FF874F96E
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2019 03:25:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEB4F4F96F
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Jun 2019 03:33:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCDC41615;
-	Sun, 23 Jun 2019 03:24:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCDC41615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B97D1654;
+	Sun, 23 Jun 2019 03:33:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B97D1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561253132;
-	bh=bYhRbxYxrgls7NVcxb+M6cZNAUtElqYrlExZFTxUJ0E=;
+	s=default; t=1561253637;
+	bh=+IakiaOScG5oYO3PiiTTGuwyXg74/1/ZMV5G9KZiCvg=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=EFMNO6D3gkGh2zexsNEArcRfh3jFX/LM1rTUZAqHs7BC+OJ7oa0DnXUBzLwpgqhV6
-	 Vx5QiarcZuMWD5YMrDephZNwRiJIXXp6SogMY+2jwK0ZSIekXM7Vnf5dPZ6MFR0cQ7
-	 WyKlYB8w0q0mDLhjQFeOo46i7RSWNvwJHopYDzR4=
+	b=Z/KvISBKvpM71VjNIpDbv9Pn6J0SycRcW5HxDTLBXlcG3GnZnAXkIXGEV/m2inimt
+	 e/X6ktM9NQezr0Iy2T1I0WMIKXz9qUtfdrPoEwSYy+p2ht3oyP20mET12LmcxeoLTJ
+	 OB32fbFV8D2mYH+kSjwGokR6c6tqXraeV/SaSrjY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08B1AF89717;
-	Sun, 23 Jun 2019 03:23:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F277F806ED;
+	Sun, 23 Jun 2019 03:32:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1404EF89717; Sun, 23 Jun 2019 03:23:45 +0200 (CEST)
+ id 37F49F89717; Sun, 23 Jun 2019 03:32:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,64 +33,64 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45492F8070D
- for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2019 03:23:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45492F8070D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD744F806ED
+ for <alsa-devel@alsa-project.org>; Sun, 23 Jun 2019 03:32:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD744F806ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Ondh8F2q"; 
+ header.b="Gob4msBp"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="LL8AZt/C"
+ header.i=@messagingengine.com header.b="D4I1pfnE"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id E033821FA9;
- Sat, 22 Jun 2019 21:23:38 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 251B521DFB;
+ Sat, 22 Jun 2019 21:32:04 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sat, 22 Jun 2019 21:23:38 -0400
+ by compute1.internal (MEProxy); Sat, 22 Jun 2019 21:32:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=K7D0Mhr6zenKp8zhWN+MZLVeBH
- DSf/lhDPH+YFI217A=; b=Ondh8F2qgvfUZTC5Ky1EoK7WpWHLt681FPhqIvZZZG
- uNLKiBPxVOlWtG9IRu1CTX6mufpZisd4oEmhIGOpKJXWnUrQxSZXpGARSBKYe7ru
- eVEreuXdNxJjhhnMYTvPrOLcXTKyH84u+3KUuAZAmT9jxw7NUErNB5r9wx+1JpFA
- AmgqheNVgn877I4iFEz5GR1+UBd3PHjkRizDE2wV0Vo9OenlXRMeul9rDkKj9HN7
- uzqVwrAeN3Z28MFhLtTGkuGiLjjJF+5rmdduL5h4EkdtGmFT3e2YK1txo0VbeLLp
- 0y1hJ9M968p8GmggWEOdD4ByxohpZz2FsxPgxor18FkA==
+ :content-transfer-encoding; s=fm1; bh=3e/+6FUETT0rpILXPZUk/g5/xD
+ tJXkmG5FwICk6U7vA=; b=Gob4msBpsyA1iRpb717XE64kfyP30BAIKN7ruv7NUA
+ dBkTzGY8r5Hx4hzP7OBfHvCoOQsOTEhq08jPCtGCP6mk0LQkwlxhjSv4Tta8xsSK
+ 7WdGYvTaZgKe4ZQCnML+e8/tipfzXbqY/ywumGn558T9WmXcMY//eNoOBnZPCmBl
+ 72pgcRWCMovRlvEXr+T2KNYnFhjeCzXYMhd7IuJGlIqc/11jYwhUfCuc4d6h8Cb0
+ 4970MHjUAcWqnPAqq6sSfFaN47YCmkjA2neLzC3ahQTUkja2G+9ySjImnn2UPrkh
+ TJOcac7e0M8jBPEVlDRzoY3HCMSCc66iioRdTGt0Lqdg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=K7D0Mhr6zenKp8zhW
- N+MZLVeBHDSf/lhDPH+YFI217A=; b=LL8AZt/C1saSaCA9r9rTtyv8/Z4DyZsVi
- qOF9aYDTRf8xYu9RR0Z0dQO6trrP2f0xqd/Bd6fza6hZAPij/klDiP2oUSI2QXiB
- yY6nYCq+xx438i2Avd8QM78HlfKESmani8hX4uUiXn46VMNsm3nG4epEODm2gaim
- opIzVV+2qQhZvXTsFam/29O3z/BkyMIUe6skNu2kHI37FpEG2Bz0E/O96igP853P
- kOOfiB01s4loRY+gPpRkSt9qPGb9PWfTrX/0Ove2onYjL9Y+zoO4cgmrR7UmedVJ
- sfi5rvZsXywKYJH6W5v8gDsDSvNXUpX7YBwYKMN9v6DhOD+PZiMLA==
-X-ME-Sender: <xms:mdQOXbqam6rQkTu41GsbLTpNxdqmhUadRqT2vwQxZCTWH9pXi4jnRg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtdelgdeggecutefuodetggdotefrodftvf
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=3e/+6FUETT0rpILXP
+ ZUk/g5/xDtJXkmG5FwICk6U7vA=; b=D4I1pfnEQZPwDVtGkoAKssQR/KyHQnoqH
+ MKA3JLcgrSGrpYUkrwpuuZ9y85mXzIvno7mKX4KLfTdx/lVYas1k1jAf1LRtaaNB
+ FbvSUx22ThzGD93Wfyfg7ZAjCuugQrZuXA7DsBxGP1zYIpN+65owox+ZJ7kz87us
+ w9HC6HeucgVfR63R8/5nbznD6zZD08u6v8oE306txe9/IUhiWSoBbjsWDyhcVNYp
+ x9G6bArHf1Q/wBKvlIz4QTCX3a2qZDv/EUJas0svidLdFxIpTZxdWO7sqpSe6oLG
+ tMrUgl/JafN1VgsY99ogCTVymoorw62ETDBKGgCG2rfyxh6ZwYEzg==
+X-ME-Sender: <xms:k9YOXRATvwsKZObUFKYpbalKKC-eM6WwV-2OyU6X12aLjXoGaUy1rg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrtdelgdegiecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
  dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
  sehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenucfrrg
  hrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhj
  phenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:mdQOXTSIcX3IzE2Bh_SRrfgz1gBfMRUlU6CqK0LEL-B_Sgri8WYp1A>
- <xmx:mdQOXdx7HGlvIVTQJTZdxqI0kNE2zEalv66FWu2ew15R85F9FJtueg>
- <xmx:mdQOXSh4FQYGioCjZibmcQBIRQE9vNUJUA757uxhZZD7es3x1l0evQ>
- <xmx:mtQOXdOE0-oLNGf6W_kagnliNUNysLGWPydO-icCV9-m8fFBSWGvpA>
+X-ME-Proxy: <xmx:k9YOXdzwptNI4Ij07JsEjrgXxdp1o9JTgi4pPsy7zq5sSzZmg347Kg>
+ <xmx:k9YOXWu5NvT9QYJiMjq9hkmuQ_T7sptXxow-mrE_A0KW5v25FNo3RQ>
+ <xmx:k9YOXYJvaa47gddFcKIQmr6NRU0HqaxdBQ4JFsCLSa9CwXkSfNr_8w>
+ <xmx:lNYOXVwOt69h1KvnSZIEbZyEq0CIeDh-15oGs7vtsBGPmWzQ7izhOw>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8B5618005C;
- Sat, 22 Jun 2019 21:23:36 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 103CE80063;
+ Sat, 22 Jun 2019 21:32:01 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun, 23 Jun 2019 10:23:33 +0900
-Message-Id: <20190623012333.12056-1-o-takashi@sakamocchi.jp>
+Date: Sun, 23 Jun 2019 10:31:59 +0900
+Message-Id: <20190623013159.17280-1-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH] Revert "ALSA: firewire-lib: fix inverted node
-	IDs for amdtp_packet events"
+Subject: [alsa-devel] [PATCH] ALSA: firewire-motu: unify common tracepoints
+	for both direction
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,35 +108,147 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This reverts commit e703965a129cdd72ff74e248f8fbf0d617844527.
+In ALSA firewire-motu driver, some tracepoints are supported to probe
+vendor-specific data fields for SPH and status/control messages in
+payload of isochronous packet. At present, the events of tracepoints
+are unique each of direction, however the pair of events has the
+same structure and print format. It's possible to unify the pair.
 
-When creating this patch, I compared the value of src field to the
-value of first byte of cip_header field (SID) in tracing event.
-But in this test I used a device which has a quirk to transfer
-isochronous packet with invalid SID.
+This commit unifies the pair. From userspace, direction is specified
+by filtering for src/dst fields in the structure.
 ---
- sound/firewire/amdtp-stream-trace.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/firewire/motu/amdtp-motu-trace.h | 70 ++++++--------------------
+ sound/firewire/motu/amdtp-motu.c       |  8 +--
+ 2 files changed, 20 insertions(+), 58 deletions(-)
 
-diff --git a/sound/firewire/amdtp-stream-trace.h b/sound/firewire/amdtp-stream-trace.h
-index 5fe0920f04e5..ab708857979f 100644
---- a/sound/firewire/amdtp-stream-trace.h
-+++ b/sound/firewire/amdtp-stream-trace.h
-@@ -35,11 +35,11 @@ TRACE_EVENT(amdtp_packet,
- 		__entry->cycle = cycles % CYCLES_PER_SECOND;
- 		__entry->channel = s->context->channel;
- 		if (s->direction == AMDTP_IN_STREAM) {
--			__entry->src = fw_parent_device(s->unit)->card->node_id;
--			__entry->dest = fw_parent_device(s->unit)->node_id;
--		} else {
- 			__entry->src = fw_parent_device(s->unit)->node_id;
- 			__entry->dest = fw_parent_device(s->unit)->card->node_id;
+diff --git a/sound/firewire/motu/amdtp-motu-trace.h b/sound/firewire/motu/amdtp-motu-trace.h
+index cd0cbfa9f96f..edc551d4ca50 100644
+--- a/sound/firewire/motu/amdtp-motu-trace.h
++++ b/sound/firewire/motu/amdtp-motu-trace.h
+@@ -18,7 +18,7 @@ static void copy_sph(u32 *frame, __be32 *buffer, unsigned int data_blocks,
+ static void copy_message(u64 *frames, __be32 *buffer, unsigned int data_blocks,
+ 			 unsigned int data_block_quadlets);
+ 
+-TRACE_EVENT(in_data_block_sph,
++TRACE_EVENT(data_block_sph,
+ 	TP_PROTO(struct amdtp_stream *s, unsigned int data_blocks, __be32 *buffer),
+ 	TP_ARGS(s, data_blocks, buffer),
+ 	TP_STRUCT__entry(
+@@ -28,8 +28,13 @@ TRACE_EVENT(in_data_block_sph,
+ 		__dynamic_array(u32, tstamps, data_blocks)
+ 	),
+ 	TP_fast_assign(
+-		__entry->src = fw_parent_device(s->unit)->node_id;
+-		__entry->dst = fw_parent_device(s->unit)->card->node_id;
++		if (s->direction == AMDTP_IN_STREAM) {
++			__entry->src = fw_parent_device(s->unit)->node_id;
++			__entry->dst = fw_parent_device(s->unit)->card->node_id;
 +		} else {
 +			__entry->src = fw_parent_device(s->unit)->card->node_id;
-+			__entry->dest = fw_parent_device(s->unit)->node_id;
- 		}
- 		if (cip_header) {
- 			memcpy(__get_dynamic_array(cip_header), cip_header,
++			__entry->dst = fw_parent_device(s->unit)->node_id;
++		}
+ 		__entry->data_blocks = data_blocks;
+ 		copy_sph(__get_dynamic_array(tstamps), buffer, data_blocks, s->data_block_quadlets);
+ 	),
+@@ -42,55 +47,7 @@ TRACE_EVENT(in_data_block_sph,
+ 	)
+ );
+ 
+-TRACE_EVENT(out_data_block_sph,
+-	TP_PROTO(struct amdtp_stream *s, unsigned int data_blocks, __be32 *buffer),
+-	TP_ARGS(s, data_blocks, buffer),
+-	TP_STRUCT__entry(
+-		__field(int, src)
+-		__field(int, dst)
+-		__field(unsigned int, data_blocks)
+-		__dynamic_array(u32, tstamps, data_blocks)
+-	),
+-	TP_fast_assign(
+-		__entry->src = fw_parent_device(s->unit)->card->node_id;
+-		__entry->dst = fw_parent_device(s->unit)->node_id;
+-		__entry->data_blocks = data_blocks;
+-		copy_sph(__get_dynamic_array(tstamps), buffer, data_blocks, s->data_block_quadlets);
+-	),
+-	TP_printk(
+-		"%04x %04x %u %s",
+-		__entry->src,
+-		__entry->dst,
+-		__entry->data_blocks,
+-		__print_array(__get_dynamic_array(tstamps), __entry->data_blocks, 4)
+-	)
+-);
+-
+-TRACE_EVENT(in_data_block_message,
+-	TP_PROTO(struct amdtp_stream *s, unsigned int data_blocks, __be32 *buffer),
+-	TP_ARGS(s, data_blocks, buffer),
+-	TP_STRUCT__entry(
+-		__field(int, src)
+-		__field(int, dst)
+-		__field(unsigned int, data_blocks)
+-		__dynamic_array(u64, messages, data_blocks)
+-	),
+-	TP_fast_assign(
+-		__entry->src = fw_parent_device(s->unit)->node_id;
+-		__entry->dst = fw_parent_device(s->unit)->card->node_id;
+-		__entry->data_blocks = data_blocks;
+-		copy_message(__get_dynamic_array(messages), buffer, data_blocks, s->data_block_quadlets);
+-	),
+-	TP_printk(
+-		"%04x %04x %u %s",
+-		__entry->src,
+-		__entry->dst,
+-		__entry->data_blocks,
+-		__print_array(__get_dynamic_array(messages), __entry->data_blocks, 8)
+-	)
+-);
+-
+-TRACE_EVENT(out_data_block_message,
++TRACE_EVENT(data_block_message,
+ 	TP_PROTO(struct amdtp_stream *s, unsigned int data_blocks, __be32 *buffer),
+ 	TP_ARGS(s, data_blocks, buffer),
+ 	TP_STRUCT__entry(
+@@ -100,8 +57,13 @@ TRACE_EVENT(out_data_block_message,
+ 		__dynamic_array(u64, messages, data_blocks)
+ 	),
+ 	TP_fast_assign(
+-		__entry->src = fw_parent_device(s->unit)->card->node_id;
+-		__entry->dst = fw_parent_device(s->unit)->node_id;
++		if (s->direction == AMDTP_IN_STREAM) {
++			__entry->src = fw_parent_device(s->unit)->node_id;
++			__entry->dst = fw_parent_device(s->unit)->card->node_id;
++		} else {
++			__entry->src = fw_parent_device(s->unit)->card->node_id;
++			__entry->dst = fw_parent_device(s->unit)->node_id;
++		}
+ 		__entry->data_blocks = data_blocks;
+ 		copy_message(__get_dynamic_array(messages), buffer, data_blocks, s->data_block_quadlets);
+ 	),
+diff --git a/sound/firewire/motu/amdtp-motu.c b/sound/firewire/motu/amdtp-motu.c
+index 62685f2528ce..1c9ce04a2e89 100644
+--- a/sound/firewire/motu/amdtp-motu.c
++++ b/sound/firewire/motu/amdtp-motu.c
+@@ -306,8 +306,8 @@ static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
+ 	struct amdtp_motu *p = s->protocol;
+ 	struct snd_pcm_substream *pcm;
+ 
+-	trace_in_data_block_sph(s, data_blocks, buffer);
+-	trace_in_data_block_message(s, data_blocks, buffer);
++	trace_data_block_sph(s, data_blocks, buffer);
++	trace_data_block_message(s, data_blocks, buffer);
+ 
+ 	if (p->midi_ports)
+ 		read_midi_messages(s, buffer, data_blocks);
+@@ -384,8 +384,8 @@ static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
+ 
+ 	write_sph(s, buffer, data_blocks);
+ 
+-	trace_out_data_block_sph(s, data_blocks, buffer);
+-	trace_out_data_block_message(s, data_blocks, buffer);
++	trace_data_block_sph(s, data_blocks, buffer);
++	trace_data_block_message(s, data_blocks, buffer);
+ 
+ 	return data_blocks;
+ }
 -- 
 2.20.1
 

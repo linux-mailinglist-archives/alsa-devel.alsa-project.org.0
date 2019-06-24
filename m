@@ -2,67 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB74750A90
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2019 14:17:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9484503FA
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2019 09:49:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39577166B;
-	Mon, 24 Jun 2019 14:16:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39577166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E0E61654;
+	Mon, 24 Jun 2019 09:48:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E0E61654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561378637;
-	bh=JQxd6Hk8c8xRb9i+JsPzwjpnb1/yI67i1KvHb8ovsF0=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ktlM8VsWknrpYYJ+A5ThlRvR5Xis17WjSqqWTQ7FT7yNDh47DJaPrzb3b1xX/bDlC
-	 PSJQru1dOPPINNhLjHI5iwRYp6UX+BzzRXzEibO4cELFTUI9xZ9JyzKtaD595ZX4RP
-	 HHrD2FY6bYr0fhgy9G6umHnh/Quk3YVYKQVF2dhQ=
+	s=default; t=1561362542;
+	bh=mSSPn5EpnBo1byunE6LOfDP/xCQ5dXG9WtB5peORJLc=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Or68RhKiS6pbqJXTbjTBZuaHrOsTjqwjWeAZZOIMaE85xHF5qdWAtH7i9WPJOdVkG
+	 f4PESN5Ph8K1EJ7CONbXLWwAa0F8hhgPFJCXHWZYrpgXGCikxjqfOUPBB05pP25oJB
+	 dF/c4M4Dmugq1gusjGwVk6+26zuhNcfNhbw6xW1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5949FF89735;
-	Mon, 24 Jun 2019 14:14:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5595F896B6;
+	Mon, 24 Jun 2019 09:47:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC71BF896B6; Mon, 24 Jun 2019 07:07:35 +0200 (CEST)
+ id 7A6D8F896B7; Mon, 24 Jun 2019 09:46:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 807A6F80717
- for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2019 07:07:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 807A6F80717
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="MlLP8CVt"
-Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net
- [24.5.143.220])
+X-Spam-Status: No, score=0.0 required=5.0 tests=FROM_EXCESS_BASE64,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 84FEE208C3;
- Mon, 24 Jun 2019 05:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1561352849;
- bh=lJObKbnxOH/e9b32wZv3giuefDbj7/1m9Gd+m7m2qNs=;
- h=Date:From:To:Cc:Subject:From;
- b=MlLP8CVtBLhOMwXG1sgTmFGt2cBiEx1CcNEVZxBuCuff6jc35Gvq5OXzJSsmHf96h
- j2i+GHV4YvWC7jVsoaDuAyLFbOuZ5GmJfZ/JGL7sxeMg7/Z1AgvLK/Gp9HvfGH8Gme
- GYHpj6foRM8ukCnOcRGiBp7Lp98QmsvL++e4/2i4=
-Date: Sun, 23 Jun 2019 22:07:28 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Message-ID: <20190624050728.GB30702@sol.localdomain>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 848EEF8071F
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2019 09:46:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 848EEF8071F
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Jun 2019 00:46:35 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,411,1557212400"; d="scan'208";a="312629841"
+Received: from xxx.igk.intel.com (HELO xxx) ([10.237.93.170])
+ by orsmga004.jf.intel.com with ESMTP; 24 Jun 2019 00:46:33 -0700
+Date: Mon, 24 Jun 2019 09:50:36 +0200
+From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190624095036.034ab575@xxx>
+In-Reply-To: <26946ff4-1c91-a7e0-4354-132cbd06235a@linux.intel.com>
+References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
+ <20190617113644.25621-10-amadeuszx.slawinski@linux.intel.com>
+ <75be86354032f4886cbaf7d430de2aa89eaab573.camel@linux.intel.com>
+ <20190618130015.0fc388b4@xxx>
+ <bd8855a7ab7a9958113631b76706120fd4427631.camel@linux.intel.com>
+ <20190619103859.15bf51c5@xxx>
+ <0c939329d17c50c353acacf164583ba259a775c0.camel@linux.intel.com>
+ <26946ff4-1c91-a7e0-4354-132cbd06235a@linux.intel.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.12.1 (2019-06-15)
-X-Mailman-Approved-At: Mon, 24 Jun 2019 14:14:37 +0200
-Cc: syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Reminder: 9 open syzbot bugs in sound subsystem
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 09/11] ASoC: Intel: hdac_hdmi: Set ops
+ to NULL on remove
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,268 +79,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[This email was generated by a script.  Let me know if you have any suggest=
-ions
-to make it better.]
+On Thu, 20 Jun 2019 08:17:33 +0200
+Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com> wrote:
 
-Of the currently open syzbot reports against the upstream kernel, I've manu=
-ally
-marked 9 of them as possibly being bugs in the sound subsystem.  I've listed
-these reports below, sorted by an algorithm that tries to list first the re=
-ports
-most likely to be still valid, important, and actionable.
+> >>>>> Could you please give a bit more context on what error you see
+> >>>>> when this happens?  
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> I get Oops. This is what happens with all other patches in this
+> >>>> series and only this one reverted:
+> >>>>
+> >>>> root@APL:~# rmmod snd_soc_sst_bxt_rt298
+> >>>> root@APL:~# rmmod snd_soc_hdac_hdmi
+> >>>> root@APL:~# rmmod snd_soc_skl  
+> >>>
+> >>> Thanks, Amadeusz. I think the order in which the drivers are
+> >>> removed
+> >>> is what's causing the oops in your case. With SOF, the order we
+> >>> remove is
+> >>>
+> >>> 1. rmmod sof_pci_dev
+> >>> 2. rmmod snd_soc_sst_bxt_rt298
+> >>> 3. rmmod snd_soc_hdac_hdmi
+> >>>  
+> >>
+> >> Well, there is nothing enforcing the order in which modules can be
+> >> unloaded (and I see no reason to force it), as you can see from
+> >> following excerpt, you can either start unloading from
+> >> snd_soc_sst_bxt_rt298 or snd_soc_skl, and yes if you start from
+> >> snd_soc_skl, there is no problem.  
+> 
+> there is a fundamental dependency that you are ignoring: the module 
+> snd_soc_sst_bxt_rt298 is a machine driver which will be probed when 
+> snd_soc_skl creates a platform_device.
+> Sure you can remove modules in a different order, but that's a bit of
+> an artificial/academic exercise isn't it?
+> 
+> >>  
+> > I am good with this patch. I just wanted to understand why we werent
+> > seeing this error with SOF. Sure, there's nothing enforcing the
+> > order in which modules are unloaded  but there must be a logical
+> > order for testing purposes.
+> > 
+> > Pierre, can you please comment on it. I vaguely remember discussing
+> > this with you last year.  
+> 
+> Our tests remove the modules by taking care of dependencies and it's 
+> already unveiled dozens of issues.
+> We could add a sequence similar to Amadeusz and unbind the modules
+> which are loaded with the creation of a platform_device (machine
+> driver, dmic), I am just not sure how of useful this would be.
 
-Of these 9 bugs, 1 was bisected to a commit from the following person:
-
-	Takashi Iwai <tiwai@suse.de>
-
-If you believe a bug is no longer valid, please close the syzbot report by
-sending a '#syz fix', '#syz dup', or '#syz invalid' command in reply to the
-original thread, as explained at https://goo.gl/tpsmEJ#status
-
-If you believe I misattributed a bug to the sound subsystem, please let me =
-know,
-and if possible forward the report to the correct people or mailing list.
-
-Here are the bugs:
-
----------------------------------------------------------------------------=
------
-Title:              KASAN: slab-out-of-bounds Write in default_read_copy_ke=
-rnel
-Last occurred:      119 days ago
-Reported:           195 days ago
-Branches:           Mainline
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3D04933ddeeb1b542e=
-df54b88ceccdac34de747a40
-Original thread:    https://lkml.kernel.org/lkml/0000000000004a6256057ca3b6=
-bd@google.com/T/#u
-
-This bug has a C reproducer.
-
-This bug was bisected to:
-
-	commit 65766ee0bf7fe8b3be80e2e1c3ef54ad59b29476
-	Author: Takashi Iwai <tiwai@suse.de>
-	Date:   Fri Nov 9 10:59:45 2018 +0000
-
-	=A0=A0ALSA: oss: Use kvzalloc() for local buffer allocations
-
-The original thread for this bug received 1 reply, 96 days ago.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+12f17c177de05efea72d@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000004a6256057ca3b6bd@google.com
-
----------------------------------------------------------------------------=
------
-Title:              WARNING: proc registration bug in snd_info_card_register
-Last occurred:      27 days ago
-Reported:           72 days ago
-Branches:           Mainline (with usb-fuzzer patches)
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3D0cf36d8457554bf0=
-3c3cacc44d31ff145a0c1a11
-Original thread:    https://lkml.kernel.org/lkml/0000000000007f693a058653d9=
-0c@google.com/T/#u
-
-This bug has a C reproducer.
-
-No one has replied to the original thread for this bug yet.
-
-This looks like a bug in a sound USB driver.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+2e782bf6a60d0fcb932d@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000007f693a058653d90c@google.com
-
----------------------------------------------------------------------------=
------
-Title:              WARNING in snd_usb_motu_microbookii_communicate/usb_sub=
-mit_urb
-Last occurred:      15 days ago
-Reported:           12 days ago
-Branches:           Mainline (with usb-fuzzer patches)
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3D125081d1f7eba4b9=
-b25f53aaae53176cd4abb2b7
-Original thread:    https://lkml.kernel.org/lkml/000000000000acb99a058b0d57=
-41@google.com/T/#u
-
-This bug has a syzkaller reproducer only.
-
-No one has replied to the original thread for this bug yet.
-
-This looks like a bug in a sound USB driver.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+d952e5e28f5fb7718d23@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please reply to the original
-thread.  For the git send-email command to use, or tips on how to reply if =
-the
-thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/000000000000acb99a058b0d5741@google.com
-
----------------------------------------------------------------------------=
------
-Title:              INFO: rcu detected stall in snd_seq_write
-Last occurred:      57 days ago
-Reported:           300 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3D33501520944e11ad=
-edf1c454eec4cb818bee16c8
-Original thread:    https://lkml.kernel.org/lkml/000000000000e5050205746dcb=
-b0@google.com/T/#u
-
-This bug has a syzkaller reproducer only.
-
-The original thread for this bug received 1 reply, 300 days ago.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+97aae04ce27e39cbfca9@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/000000000000e5050205746dcbb0@google.com
-
----------------------------------------------------------------------------=
------
-Title:              KASAN: use-after-free Write in check_and_subscribe_port
-Last occurred:      54 days ago
-Reported:           47 days ago
-Branches:           Mainline
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3D2c039ed96840fcfe=
-469c2c5c5fc0bef92e5c9a23
-Original thread:    https://lkml.kernel.org/lkml/0000000000008af53105884907=
-e9@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one has replied to the original thread for this bug yet.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+20ab495fadf081e8a2b0@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000008af53105884907e9@google.com
-
----------------------------------------------------------------------------=
------
-Title:              WARNING: suspicious RCU usage in line6_pcm_acquire
-Last occurred:      28 days ago
-Reported:           59 days ago
-Branches:           Mainline (with usb-fuzzer patches)
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3Da0ea128a37bfe562=
-08042c02d080873dcbdf69a0
-Original thread:    https://lkml.kernel.org/lkml/0000000000007cb1ee05875915=
-49@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one has replied to the original thread for this bug yet.
-
-This looks like a bug in a sound USB driver.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+06b7a5a8c4acc0445995@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000007cb1ee0587591549@google.com
-
----------------------------------------------------------------------------=
------
-Title:              KASAN: use-after-free Read in wake_up_if_idle
-Last occurred:      101 days ago
-Reported:           237 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3Db1e300cd7b124fc8=
-3dd4199d4d1df26310111b0f
-Original thread:    https://lkml.kernel.org/lkml/00000000000066ab7105795f24=
-5e@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one replied to the original thread for this bug.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+2c1253bc508adef78a7f@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/00000000000066ab7105795f245e@google.com
-
----------------------------------------------------------------------------=
------
-Title:              INFO: task hung in snd_seq_write
-Last occurred:      95 days ago
-Reported:           300 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3D9366cef8455b0325=
-53567ce096a5b31d8307b7dc
-Original thread:    https://lkml.kernel.org/lkml/0000000000001f74de0574710d=
-3e@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one replied to the original thread for this bug.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+4c595632b98bb8ffcc66@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000001f74de0574710d3e@google.com
-
----------------------------------------------------------------------------=
------
-Title:              KASAN: slab-out-of-bounds Read in linear_transfer (2)
-Last occurred:      70 days ago
-Reported:           61 days ago
-Branches:           linux-next
-Dashboard link:     https://syzkaller.appspot.com/bug?id=3De76ec5e68d0556a5=
-eed9c0565fd5535ecc60300b
-Original thread:    https://lkml.kernel.org/lkml/0000000000000f7c8105873507=
-b5@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one has replied to the original thread for this bug yet.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+e28a58bb80f4c67a2b89@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to =
-reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000000f7c8105873507b5@google.com
-
+You work under the assumption that users will remove modules in
+"correct" order. Because it is not enforced by modules dependencies you
+can expect users to do everything possible at some point in time. In
+this case unloading modules in not expected order will lead to kernel
+Oops, which is not what should happen.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

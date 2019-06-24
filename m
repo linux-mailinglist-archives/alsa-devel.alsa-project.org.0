@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2028850552
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2019 11:16:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 135FC50576
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2019 11:16:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACC3015E5;
-	Mon, 24 Jun 2019 11:15:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACC3015E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97FDE166B;
+	Mon, 24 Jun 2019 11:15:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97FDE166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561367761;
-	bh=30LZXBmAf5JwuDyhe/5AWGhBYCGBdz8xGmavuAmupNE=;
+	s=default; t=1561367809;
+	bh=J1ht9+OcJI+8NJpDbQj8Hlfv840GWOskgVXrwEjwE70=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qgx+n5rQ/lmTkkbggzBmMxji+MErkHuyvJ4TPNK9O5rUcl96NDj39IfI/n3+hA5FV
-	 VYtZ5e0UtvFMGeEAu2taP5mNj3dQ8WEvAotpGAzcgQl4g6S5/m7qxxb8QNhlYNCH98
-	 3goM0sNPLZIvjeeVu6/cuwyIFNijtRQHV8eIhaM0=
+	b=RGDN+2p39V7GoHbl8rJI9+gm4Nkf71UhIlYFxiGdREvHyWf6+u1/oxcI/RLEZHKjM
+	 MEJtbiWvuiT1hYs3NG4tjsxQWjpZFekH/cObaKYkF67NcSgZxOX4pBPga3XM5nSZDe
+	 j/gaLxr3/Y8jPL8hBHt50FpttxC6N8d6Lcqxs5kk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DC3CF896B6;
-	Mon, 24 Jun 2019 11:14:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2033AF89731;
+	Mon, 24 Jun 2019 11:15:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0FD52F896B7; Mon, 24 Jun 2019 11:14:14 +0200 (CEST)
+ id E6E2BF89731; Mon, 24 Jun 2019 11:14:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02E46F8065B
- for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2019 11:14:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02E46F8065B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 073A4F89721
+ for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2019 11:14:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 073A4F89721
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="SsIZPf+F"; 
+ header.b="g8ylYw93"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="j2Zp8LPg"
+ header.i=@messagingengine.com header.b="Sku65r6e"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 55A1E22223;
- Mon, 24 Jun 2019 05:14:07 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 24 Jun 2019 05:14:07 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id B28DB22205;
+ Mon, 24 Jun 2019 05:14:54 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Mon, 24 Jun 2019 05:14:54 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=6fRI4nZFR7BrqnupomnCiEbO5Ky
- K22WI0fSi8Gd+xvw=; b=SsIZPf+FEYgmP76P6FTWwdFtgEEryrIJniPih/0s4Tx
- bPheNs2ZPdB7ZdHEgVtJysA0VY/JtN1PYw7Ix+XTgfvD0mpK6qBeuGIKcBgSs+QU
- Amg1QDJYDvS5h7Xno9Nm+pkbhMS1GkmWYjQbfBs+xaJsZ7oRP8WGfiMZD+CCVbZg
- oIjfhT5+bGepOnQHkvKDDW7sYq/mzM1qwI6IPjhYJrkWpvdMI0FOlsjg5/JvtRTa
- 0/tgS+bWLc+lH6/L2Zf4b4OpxMiURpZK3Sr47+9M+P/1pSJd2Gxlj9/yqmyEWpL5
- lXU2TXDg5O229QfE55lyMKLaNCBM+GLyGyGQ5s4fQ1g==
+ :content-type:in-reply-to; s=fm1; bh=ngX52QuSqq0VOWmDD4NdmvgwgIe
+ Q4dfoBxNtZIFjL80=; b=g8ylYw936BxBnKIw5CRV/nqfWNJBhaFTyyXCTs8ynTf
+ kShtC9BuATB93o3IimEnZbAUL5s6KMqrsd57v9wuS2qvbk7iALWB2Qmq/iQ+apR3
+ YqjOsBO54vaHszEsk/KAlyfcotc8Dt4pNy4yjUFhWaTdR+F5GjR56LIr2SBV6I/D
+ 86CR3Dj6QXRCPg+KvXlNvcasF0LYG31gcej6l4r9skTfW6jIaAwRn4BmCwJYt9Cs
+ cowvnAP4QD5/9Sxk2QmVQChruziMTx4Gg02EE+Y+6tuMRUhsUcWag2Wt9NnLLZUS
+ pi3UVEygPxCIkxNgtRQIpAy8xj6uesbX5Xbx/u3Tstg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=6fRI4n
- ZFR7BrqnupomnCiEbO5KyK22WI0fSi8Gd+xvw=; b=j2Zp8LPgXGtKrH5fiNL2aW
- +SP0RrhdGFTdt9RQufeha7P9pU0JmQ7bvQYT+1iX9UOAFcr0S+9/lzeRx2939IC6
- iZGRDd33c1GITCTYo/bUTalp3dxFomR4csd2huEasbMnx9u1n1hYmWDQCtGPJ4Yw
- D759phGkVbdnB5x9/eOtQZ1+xoeWtNqlF4Y4b1nvcATOZ+JbdH1nQxWDZSNIqdHx
- Mfy+YCuyh0Tme8qAKluHv6viHGnClZPz1f2jfxAjPzou/QkJmKAviM8pGAU6I17z
- o2ZK5GGoXoicGt5WXf4O//6v7ivUC4tsbsvICUR6fDln9BoTRZ/rJyUpTJUZ/V4g
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ngX52Q
+ uSqq0VOWmDD4NdmvgwgIeQ4dfoBxNtZIFjL80=; b=Sku65r6eiLj/Vv4NOio1lt
+ sVd00PM1OT5eeuDWSanV/1CXT/gueYbq4vVknr0OKb9UC5cwQaVRRh0ZajIlcJpJ
+ dSDxxojT1DNRojjDYlUku4zayEkU/XPR9dCeuwJ8/bFKsZGfyWKt4UUKSxFNBjyT
+ p1Qi57zEkEqDx0s6LX52owWQN7mrj5RrAMEs0V2TbOpGt0oaP984ECvHYHi0OKto
+ 3KqiYRY7gdDKmbl0kGSDnwdSslMrJTPmwJI37MkYsM3OEFiFTutJymZaX9t8eBlJ
+ 2s+KVNAqHc/uS+d70N1JjLtbgU0qn7dyLnc7cBrt9y6OzxF10diFNIBasqbpie4A
  ==
-X-ME-Sender: <xms:XpQQXbqydUj8eLgTuIvuyYt6YwFpms2D3MUmlbc0G4iQoNj3OijeTA>
+X-ME-Sender: <xms:jpQQXTlg4_n5_D-Fewufje_b3LJipcNi0Mg-YOJTodqPF0uD43C8lA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddvgddufecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -75,29 +75,29 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddvgddufecutefuodetggdote
  hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
  hpqeenucfkphepudegrdefrdejhedrudekudenucfrrghrrghmpehmrghilhhfrhhomhep
  ohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphenucevlhhushhtvghrufhiii
- gvpedt
-X-ME-Proxy: <xmx:XpQQXeGP6_CnX_DZ4H1JncDtF43UhRBjUQN3IiYLtZg-8a83GdqRhw>
- <xmx:XpQQXYrY6dybGixpEugZhXhbJkA1ls5sfSh92QC6nqsoU3v3GxXQ9g>
- <xmx:XpQQXfb9ytlni6yspuXQhJ42VqGbWshhCceic9ol2PNPnAlaZYR3vQ>
- <xmx:X5QQXUCs20GXJ192fmn_FiZ3hLC20xRfW8XlQY3mloJWpfUo_9DkVw>
+ gvpedu
+X-ME-Proxy: <xmx:jpQQXSU1pycRdwuTFahsv43d8ESmLXlJixp8cKw8jLKaL8iLXHIXCQ>
+ <xmx:jpQQXfqVvRd7rSxL9INHv4h4KgH-NygX7Ps0NSzqn-WdRzbsZ__6kA>
+ <xmx:jpQQXZVMd7VfVWGIHLT7k4WOY6BIvQlMrAdPLN4oObLbyNos75te6Q>
+ <xmx:jpQQXRrPo7FNHJaZAkYawu_zPbzL54Pxkw53OvDlvhkwqrymwUw3qg>
 Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 27721380084;
- Mon, 24 Jun 2019 05:14:04 -0400 (EDT)
-Date: Mon, 24 Jun 2019 18:14:02 +0900
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6BD418006F;
+ Mon, 24 Jun 2019 05:14:53 -0400 (EDT)
+Date: Mon, 24 Jun 2019 18:14:51 +0900
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190624091401.GA7004@workstation>
+Message-ID: <20190624091450.GB7004@workstation>
 Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
  alsa-devel@alsa-project.org
-References: <20190623013159.17280-1-o-takashi@sakamocchi.jp>
- <s5hv9wvz7a8.wl-tiwai@suse.de>
+References: <20190623012333.12056-1-o-takashi@sakamocchi.jp>
+ <s5hwohbz7ax.wl-tiwai@suse.de>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <s5hv9wvz7a8.wl-tiwai@suse.de>
+In-Reply-To: <s5hwohbz7ax.wl-tiwai@suse.de>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
-Subject: Re: [alsa-devel] [PATCH] ALSA: firewire-motu: unify common
- tracepoints for both direction
+Subject: Re: [alsa-devel] [PATCH] Revert "ALSA: firewire-lib: fix inverted
+ node IDs for amdtp_packet events"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,22 +115,20 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jun 24, 2019 at 11:01:19AM +0200, Takashi Iwai wrote:
-> On Sun, 23 Jun 2019 03:31:59 +0200,
+On Mon, Jun 24, 2019 at 11:00:54AM +0200, Takashi Iwai wrote:
+> On Sun, 23 Jun 2019 03:23:33 +0200,
 > Takashi Sakamoto wrote:
 > > 
-> > In ALSA firewire-motu driver, some tracepoints are supported to probe
-> > vendor-specific data fields for SPH and status/control messages in
-> > payload of isochronous packet. At present, the events of tracepoints
-> > are unique each of direction, however the pair of events has the
-> > same structure and print format. It's possible to unify the pair.
+> > This reverts commit e703965a129cdd72ff74e248f8fbf0d617844527.
 > > 
-> > This commit unifies the pair. From userspace, direction is specified
-> > by filtering for src/dst fields in the structure.
+> > When creating this patch, I compared the value of src field to the
+> > value of first byte of cip_header field (SID) in tracing event.
+> > But in this test I used a device which has a quirk to transfer
+> > isochronous packet with invalid SID.
 > 
-> Don't forget your sign-off.
+> Could you give your sign-off and fixes tags?
 
-Oops... I'll resubmit with my sign-off later.
+I'll resubmit with them...
 
 
 Thanks

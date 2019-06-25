@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 068DE55A69
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 23:56:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FDDF55B69
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 00:40:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BDC215F2;
-	Tue, 25 Jun 2019 23:55:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BDC215F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 648B91662;
+	Wed, 26 Jun 2019 00:39:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 648B91662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561499801;
-	bh=CC89f7sfuduN7xjkvP/6qGh06va5ni1IwUw7jY5SGXA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=lRFnBUHQWNiF8itAF9vhS2nnzRAprdRLcbB3CYiRNTndlIYcqkPt26aSTxSnIOMcp
-	 mDa+Dz/yTAgneSDW/A9zVnqZ5+ogbW0yfg/ku3LYy4le96CUF/12atWVtcT543pvJH
-	 U+YKdKZdqSNdXdSMLNW+mJIJKDZBd2OpMlVI8WXc=
+	s=default; t=1561502412;
+	bh=lokXh4DlgTqQ/y/ibj9wCrkurSsCUi74ZG3TA5WENhc=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BtF1l3C6+Xna1KGbANFmG1slf1SimfnykGB8+IlEk6bslLKx11kTjcCTse/wZ69Gb
+	 Pt3WhCRkri2Wzs6asacVKDmT55YTDGjhAiRbs63AygKCuNq5KZSQ0wGJr928O4rFa0
+	 LViB9qyaCZgzClpG/Hes3iApRVsjJ2TK7VtogVvA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88ED7F896F0;
-	Tue, 25 Jun 2019 23:54:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A56E1F896FC;
+	Wed, 26 Jun 2019 00:38:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1111F896F9; Tue, 25 Jun 2019 23:54:40 +0200 (CEST)
+ id DCA9EF896F9; Wed, 26 Jun 2019 00:38:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35BCFF8071F
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 23:54:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35BCFF8071F
+Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BB76F8071F
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 00:38:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BB76F8071F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="UesSR29a"
-Received: by mail-pg1-x541.google.com with SMTP id z19so88277pgl.12
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 14:54:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=vsGWDFoWq4uZ/izmiqzm3s9U3XUZ/ujUeAWfcSTnPsI=;
- b=UesSR29a5IFIuc0hyMCBgsdCpOxynypkCiFRqYozIgNG/K/lWoaIv8Q0k5evk2YCOg
- a7x2+Wfn2fpF+ZZzuk1XBLAkUF94JvNMR6wnfMrzpOYgARROrAjfxTtBXD9VflGseCh0
- RVUqMA8jClZ+MVwTPckC253koxYm9b1uT7WJ0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=vsGWDFoWq4uZ/izmiqzm3s9U3XUZ/ujUeAWfcSTnPsI=;
- b=Xn3U+JlWANAFRiFrC5zUfmdQRxREOeczD4UE+hgkkZjwEHS0pop0XPiHKsuOmgB77L
- LBZmHej4vHGfdSGdOi8gC67FPjZe2Ow/wR8N+WinZvkd2n3cdEev/H6mfh8Up3pG0P/S
- vii58cA4sDKXla5x61mCj71+PWXLycDY4/22E/M/eON5ZuQSXhYiOs3uiE7X7u++IYN7
- BPdtmtr169tyaFjJOjfwYZ5lPoVL8ySsHU8U+G2QZlEaBw98ZnLWcgEW8B8kJUOoNVmI
- wSoIcJAVcQQUatr25LbDU7Eb9aN5ZCu4ofRQqwtaTF9nZNibDgILPUEyA91rZTOeXsjz
- vEDw==
-X-Gm-Message-State: APjAAAVB9RH40vRkg4mkiSNBx+Ca9dHjajEYG/JmNcQUDZtKHjeXsMJp
- OcBBBputpMvcIG7YTaRUQt4gjg==
-X-Google-Smtp-Source: APXvYqzrbRCyU6uNFX4Fzu3bs7912MYOeqI57YLkIIa0Rj6Wth90r/dxWvgegP/mrMUDw701GVwUvQ==
-X-Received: by 2002:a63:1322:: with SMTP id i34mr41786825pgl.424.1561499674675; 
- Tue, 25 Jun 2019 14:54:34 -0700 (PDT)
-Received: from evgreen2.mtv.corp.google.com
- ([2620:15c:202:201:ffda:7716:9afc:1301])
- by smtp.gmail.com with ESMTPSA id w22sm16669343pfi.175.2019.06.25.14.54.33
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Tue, 25 Jun 2019 14:54:34 -0700 (PDT)
-From: Evan Green <evgreen@chromium.org>
-To: Takashi Iwai <tiwai@suse.com>
-Date: Tue, 25 Jun 2019 14:54:18 -0700
-Message-Id: <20190625215418.17548-1-evgreen@chromium.org>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="lCGuudjL"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d12a25d0000>; Tue, 25 Jun 2019 15:38:21 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Tue, 25 Jun 2019 15:38:18 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Tue, 25 Jun 2019 15:38:18 -0700
+Received: from [10.26.11.186] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 25 Jun
+ 2019 22:38:17 +0000
+To: Dmitry Osipenko <digetx@gmail.com>, Kuninori Morimoto
+ <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>
+References: <87y33aaluu.wl-kuninori.morimoto.gx@renesas.com>
+ <87r292alro.wl-kuninori.morimoto.gx@renesas.com>
+ <cb3a6d0a-ca7b-d6b6-72db-5dff520acfc9@gmail.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <374e71f7-b49c-ec79-f3ca-ae630a383521@nvidia.com>
+Date: Tue, 25 Jun 2019 23:38:14 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Evan Green <evgreen@chromium.org>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>
-Subject: [alsa-devel] [PATCH] ALSA: hda: Use correct start/count for sysfs
-	init
+In-Reply-To: <cb3a6d0a-ca7b-d6b6-72db-5dff520acfc9@gmail.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1561502301; bh=IbMAqbxmQOxup47m/oBr9tWB4Q6AVv96KeE9VVQ8/qQ=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=lCGuudjLKmUyNe6FOqomnuqJbu0X/uhag1pKzh1E80ZFkXTSBeZYXI6SgpFCAapCm
+ 5jFa/y5Ik00Oj0GB35kRTt4UYSdiTwob/zsX/BE/mHak01DtCMmlNrCr2CIrcCE0sd
+ 7GBvtAkKRXjHrA+zVcGRd++NtoGdIovyGsgHGftuDGZX6hOHxXumPGLOGBW/Orc1tt
+ +rGt26mv8Nlux/ne347CI3cJ4HAmpbhypqSI4Jhg9XjnK/deKCIgVH2Oes0LSXokfS
+ WwQbC8RaumY0NgeT66iQyVFIYQ6Y5qeb34bavdWrXME33kLcQrKhNTd/OVZiuiJTU2
+ 9i4cgeGIuXgSA==
+Cc: "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH 5/9] ASoC: soc-core: use
+ soc_find_component() at snd_soc_get_dai_id()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,130 +95,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The normal flow through the widget sysfs codepath is that
-snd_hdac_refresh_widgets() is called once without the sysfs bool set
-to set up codec->num_nodes and friends, then another time with the
-bool set to actually allocate all the sysfs widgets. However, during
-the first time allocation, hda_widget_sysfs_reinit() ignores the new
-num_nodes passed in via parameter and just calls hda_widget_sysfs_init(),
-using whatever was in codec->num_nodes before the update. This is not
-correct in cases where num_nodes changes. Here's an example:
-
-Sometime earlier:
-snd_hdac_refresh_widgets(hdac, false)
-  sets codec->num_nodes to 2, widgets is still not allocated
-
-Now:
-snd_hdac_refresh_widgets(hdac, true)
-  hda_widget_sysfs_reinit(num_nodes=7)
-    hda_widget_sysfs_init()
-      widget_tree_create()
-        alloc(codec->num_nodes) // this is still 2
-  codec->num_nodes = 7
-
-Pass num_nodes and start_nid down into widget_tree_create() so that
-the right number of nodes are allocated in all cases.
-
-Signed-off-by: Evan Green <evgreen@chromium.org>
----
-
- sound/hda/hdac_device.c |  2 +-
- sound/hda/hdac_sysfs.c  | 14 ++++++++------
- sound/hda/local.h       |  3 ++-
- 3 files changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-index 6907dbefd08c..5e74acf45c81 100644
---- a/sound/hda/hdac_device.c
-+++ b/sound/hda/hdac_device.c
-@@ -144,7 +144,7 @@ int snd_hdac_device_register(struct hdac_device *codec)
- 	if (err < 0)
- 		return err;
- 	mutex_lock(&codec->widget_lock);
--	err = hda_widget_sysfs_init(codec);
-+	err = hda_widget_sysfs_init(codec, codec->start_nid, codec->num_nodes);
- 	mutex_unlock(&codec->widget_lock);
- 	if (err < 0) {
- 		device_del(&codec->dev);
-diff --git a/sound/hda/hdac_sysfs.c b/sound/hda/hdac_sysfs.c
-index 909d5ef1179c..1c4b98929d9c 100644
---- a/sound/hda/hdac_sysfs.c
-+++ b/sound/hda/hdac_sysfs.c
-@@ -358,7 +358,8 @@ static int add_widget_node(struct kobject *parent, hda_nid_t nid,
- 	return 0;
- }
- 
--static int widget_tree_create(struct hdac_device *codec)
-+static int widget_tree_create(struct hdac_device *codec,
-+			      hda_nid_t start_nid, int num_nodes)
- {
- 	struct hdac_widget_tree *tree;
- 	int i, err;
-@@ -372,12 +373,12 @@ static int widget_tree_create(struct hdac_device *codec)
- 	if (!tree->root)
- 		return -ENOMEM;
- 
--	tree->nodes = kcalloc(codec->num_nodes + 1, sizeof(*tree->nodes),
-+	tree->nodes = kcalloc(num_nodes + 1, sizeof(*tree->nodes),
- 			      GFP_KERNEL);
- 	if (!tree->nodes)
- 		return -ENOMEM;
- 
--	for (i = 0, nid = codec->start_nid; i < codec->num_nodes; i++, nid++) {
-+	for (i = 0, nid = start_nid; i < num_nodes; i++, nid++) {
- 		err = add_widget_node(tree->root, nid, &widget_node_group,
- 				      &tree->nodes[i]);
- 		if (err < 0)
-@@ -396,14 +397,15 @@ static int widget_tree_create(struct hdac_device *codec)
- }
- 
- /* call with codec->widget_lock held */
--int hda_widget_sysfs_init(struct hdac_device *codec)
-+int hda_widget_sysfs_init(struct hdac_device *codec,
-+			  hda_nid_t start_nid, int num_nodes)
- {
- 	int err;
- 
- 	if (codec->widgets)
- 		return 0; /* already created */
- 
--	err = widget_tree_create(codec);
-+	err = widget_tree_create(codec, start_nid, num_nodes);
- 	if (err < 0) {
- 		widget_tree_free(codec);
- 		return err;
-@@ -428,7 +430,7 @@ int hda_widget_sysfs_reinit(struct hdac_device *codec,
- 	int i;
- 
- 	if (!codec->widgets)
--		return hda_widget_sysfs_init(codec);
-+		return hda_widget_sysfs_init(codec, start_nid, num_nodes);
- 
- 	tree = kmemdup(codec->widgets, sizeof(*tree), GFP_KERNEL);
- 	if (!tree)
-diff --git a/sound/hda/local.h b/sound/hda/local.h
-index 877631e39373..8936120ab4d9 100644
---- a/sound/hda/local.h
-+++ b/sound/hda/local.h
-@@ -28,7 +28,8 @@ static inline unsigned int get_wcaps_channels(u32 wcaps)
- }
- 
- extern const struct attribute_group *hdac_dev_attr_groups[];
--int hda_widget_sysfs_init(struct hdac_device *codec);
-+int hda_widget_sysfs_init(struct hdac_device *codec,
-+			  hda_nid_t start_nid, int num_nodes);
- int hda_widget_sysfs_reinit(struct hdac_device *codec, hda_nid_t start_nid,
- 			    int num_nodes);
- void hda_widget_sysfs_exit(struct hdac_device *codec);
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Ck9uIDI1LzA2LzIwMTkgMjE6NDcsIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPiAxMy4wNS4yMDE5
+IDEwOjA3LCBLdW5pbm9yaSBNb3JpbW90byDQv9C40YjQtdGCOgo+PiBGcm9tOiBLdW5pbm9yaSBN
+b3JpbW90byA8a3VuaW5vcmkubW9yaW1vdG8uZ3hAcmVuZXNhcy5jb20+Cj4+Cj4+IHNvYy1jb3Jl
+IGNvcmUgYWxyZWFkeSBoYXMgc29jX2ZpbmRfY29tcG9uZW50KCkgd2hpY2ggZmluZAo+PiBjb21w
+b25lbnQgZnJvbSBkZXZpY2Ugbm9kZS4KPj4gTGV0J3MgdXNlIGV4aXN0aW5nIGZ1bmN0aW9uIHRv
+IGZpbmQgY29tcG9uZW50Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBLdW5pbm9yaSBNb3JpbW90byA8
+a3VuaW5vcmkubW9yaW1vdG8uZ3hAcmVuZXNhcy5jb20+Cj4+IC0tLQo+PiAgc291bmQvc29jL3Nv
+Yy1jb3JlLmMgfCAxNyArKysrKy0tLS0tLS0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5z
+ZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2Mv
+c29jLWNvcmUuYyBiL3NvdW5kL3NvYy9zb2MtY29yZS5jCj4+IGluZGV4IGU1NTE3MGMuLmU4M2Vk
+YmUgMTAwNjQ0Cj4+IC0tLSBhL3NvdW5kL3NvYy9zb2MtY29yZS5jCj4+ICsrKyBiL3NvdW5kL3Nv
+Yy9zb2MtY29yZS5jCj4+IEBAIC0zNzUxLDcgKzM3NTEsNyBAQCBFWFBPUlRfU1lNQk9MX0dQTChz
+bmRfc29jX29mX3BhcnNlX2RhaWZtdCk7Cj4+ICAKPj4gIGludCBzbmRfc29jX2dldF9kYWlfaWQo
+c3RydWN0IGRldmljZV9ub2RlICplcCkKPj4gIHsKPj4gLQlzdHJ1Y3Qgc25kX3NvY19jb21wb25l
+bnQgKnBvczsKPj4gKwlzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudDsKPj4gIAlz
+dHJ1Y3QgZGV2aWNlX25vZGUgKm5vZGU7Cj4+ICAJaW50IHJldDsKPj4gIAo+PiBAQCAtMzc2NSwx
+NyArMzc2NSwxMCBAQCBpbnQgc25kX3NvY19nZXRfZGFpX2lkKHN0cnVjdCBkZXZpY2Vfbm9kZSAq
+ZXApCj4+ICAJICovCj4+ICAJcmV0ID0gLUVOT1RTVVBQOwo+PiAgCW11dGV4X2xvY2soJmNsaWVu
+dF9tdXRleCk7Cj4+IC0JZm9yX2VhY2hfY29tcG9uZW50KHBvcykgewo+PiAtCQlzdHJ1Y3QgZGV2
+aWNlX25vZGUgKmNvbXBvbmVudF9vZl9ub2RlID0gc29jX2NvbXBvbmVudF90b19ub2RlKHBvcyk7
+Cj4+IC0KPj4gLQkJaWYgKGNvbXBvbmVudF9vZl9ub2RlICE9IG5vZGUpCj4+IC0JCQljb250aW51
+ZTsKPj4gLQo+PiAtCQlpZiAocG9zLT5kcml2ZXItPm9mX3hsYXRlX2RhaV9pZCkKPj4gLQkJCXJl
+dCA9IHBvcy0+ZHJpdmVyLT5vZl94bGF0ZV9kYWlfaWQocG9zLCBlcCk7Cj4+IC0KPj4gLQkJYnJl
+YWs7Cj4+IC0JfQo+PiArCWNvbXBvbmVudCA9IHNvY19maW5kX2NvbXBvbmVudChub2RlLCBOVUxM
+KTsKPj4gKwlpZiAoY29tcG9uZW50ICYmCj4+ICsJICAgIGNvbXBvbmVudC0+ZHJpdmVyLT5vZl94
+bGF0ZV9kYWlfaWQpCj4+ICsJCXJldCA9IGNvbXBvbmVudC0+ZHJpdmVyLT5vZl94bGF0ZV9kYWlf
+aWQoY29tcG9uZW50LCBlcCk7Cj4+ICAJbXV0ZXhfdW5sb2NrKCZjbGllbnRfbXV0ZXgpOwo+PiAg
+Cj4+ICAJb2Zfbm9kZV9wdXQobm9kZSk7Cj4+Cj4gCj4gSGksCj4gCj4gVGhpcyBwYXRjaCBjYXVz
+ZXMgY3Jhc2ggb24gdG9kYXkncyBsaW51eC1uZXh0IGFwcGFyZW50bHkgYmVjYXVzZSAiQ1BVIERB
+SSIgaXMgbm90Cj4gcmVnaXN0ZXJlZCBub3csIGFueSBpZGVhcz8KCkZXSVcgSSBhbSBzZWVpbmcg
+dGhlIHNhbWUgY3Jhc2gvcmVncmVzc2lvbiwgaG93ZXZlciwgdGhlIGJpc2VjdCBpcwpwb2ludGlu
+ZyB0byBjb21taXQgYjlmMmUyNWM1OTliYmJmMDY0Njk1N2UwN2ViYjcyYjk0MmMyODZjYyAoIkFT
+b0M6CnNvYy1jb3JlOiB1c2Ugc29jX2ZpbmRfY29tcG9uZW50KCkgYXQgc25kX3NvY19maW5kX2Rh
+aSgpIikgYW5kIHJldmVydGluZwp0aGlzIGNvbW1pdCBmaXhlcyB0aGUgcHJvYmxlbSBmb3IgbWUu
+CgpEbWl0cnksIGFyZSB5b3Ugc3VyZSBpdCBpcyB0aGlzIGNvbW1pdD8gVGhleSBkbyBoYXZlIGEg
+c2ltaWxhciBuYW1lLgoKQ2hlZXJzCkpvbgoKLS0gCm52cHVibGljCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFs
+c2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

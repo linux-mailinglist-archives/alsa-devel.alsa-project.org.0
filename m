@@ -2,92 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4493251CE2
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Jun 2019 23:15:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 468E752025
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 02:53:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 959E315F2;
-	Mon, 24 Jun 2019 23:14:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 959E315F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id B73D51614;
+	Tue, 25 Jun 2019 02:52:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B73D51614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561410924;
-	bh=ACCuLK+IQxr3tFfGJplapRMVROmIIMXI11EGpgJn4CQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1561424016;
+	bh=NkpzaiFlLAtSa4pePftT2+HhdllwVVLAPugPK5nsJco=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MoZNQFN4sr0ZZ36+EFQMsWaYdElWI8KYXne4YcrEck6CgON0opucIU4prxCoCQH3i
-	 4uFrGQ9PFGZWl+rU83D2jBgFj1Gb0RHCGKKbPKQy2errikU0eiWAoIZeUkmO0M2CYd
-	 N75HVWvAC60Akal53wQeM+a88kSZUYq6esuVLg64=
+	b=gpkR4HwTlKyb02lMYMsWC/rIeos5on8ANoZ0ZoLZkzgje5TTi/gv+LdZQ8lQYr28O
+	 SMjQ1RVyGUyq+hFz2qzwrUlxc+gRPp2pFnmZT7ih4iyVcb+T0kelURMuSm1K1ojJ9y
+	 cyIqxSGJVP1Lwzwypfxo7t9S0ZfV+o2eAl+S3BYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0620BF896B7;
-	Mon, 24 Jun 2019 23:13:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09BF2F896B7;
+	Tue, 25 Jun 2019 02:51:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42DEDF896B7; Mon, 24 Jun 2019 23:13:37 +0200 (CEST)
+ id 3B1E4F896B7; Tue, 25 Jun 2019 02:51:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-12.4 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,FSL_HELO_FAKE,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
- [IPv6:2607:f8b0:4864:20::d44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9392FF8071F
- for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2019 23:13:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9392FF8071F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="KYiOOAa4"
-Received: by mail-io1-xd44.google.com with SMTP id n5so61285ioc.7
- for <alsa-devel@alsa-project.org>; Mon, 24 Jun 2019 14:13:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=TaoFP7RoPHP/mewfLzTbrkirIyTlEEz0wR3IG3gPD14=;
- b=KYiOOAa47nunOtSXr41xWbSvXqYnE8v7PDyTmtpy/ZsgZ4m9LT4vdSG4/v/am4Xalz
- w71arpxurJeDQAxAhQm1l6rrD8W3gob6WxW7vnT9wo9Wa+LeQh3VvxMgcbHuMIbvX8Cd
- 5/hnbGnswvvueLybIiWyEfVOjfegIoNM6qjUoxX7gzioUtLJSL3S3tQXFsoiTSzFXyAj
- OMyqFD9aeht4jWHcDZB65MZLJE00WYhE/S1jOg/oBKjv70PT0Znq1ZqjUK1hBvlPRRHq
- 7w2SM5IdZLv6jqVy5ZTCLlJljCgJP43RRz+9W2i6nJgrSePYcd5bwZlvXHJ7+iTiluwl
- Gcfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=TaoFP7RoPHP/mewfLzTbrkirIyTlEEz0wR3IG3gPD14=;
- b=tRMS9rx5jzq86t3PUrV1kwrP+2S+6ElKwTYHNsJNuexKB+VA8SBgMhJ0yf1/jEF7NV
- YJcZlCdDRg3/U0gtnwBAk1SbuxkW6NwydIRQTVS4IJtcTga4eo+7zP7HetdmUiZXoZRV
- O9iO0vU5xzbE4jjD5M/hyqCP8zV+D5x93ul5UmyysoLeqRa6DOwAe76upGEj2svK2rBL
- i7VtjcBiIwr/ZVQA/o/L1DTcCeVXxsQKqSAPxVvE59GNObMhbxuwyKV1Cdo1S2pJ23Ua
- CVgimsG2jm/L8618LBdkj/wvO9dCcSKmUl7orRIy3qSs8GlCCj+SLMcBCUZHHpSKgTxK
- pKow==
-X-Gm-Message-State: APjAAAVTcipvlfVtqZLVfZa4FTAyDHvOw2PM6zOhpNutzoa5VgLs0sLV
- zSxNqbsj+no9mdbD2v9Lge9xHw==
-X-Google-Smtp-Source: APXvYqzb4oUHRS9AUHLzfe7iEYkTz3ViFg4DCBBe7tHbvavg+kNtAb4UdceEJDagDM7ciXwHniyXEw==
-X-Received: by 2002:a6b:6b0d:: with SMTP id g13mr513834ioc.55.1561410812400;
- Mon, 24 Jun 2019 14:13:32 -0700 (PDT)
-Received: from google.com ([2620:15c:183:200:855f:8919:84a7:4794])
- by smtp.gmail.com with ESMTPSA id w23sm13468829iod.12.2019.06.24.14.13.31
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Mon, 24 Jun 2019 14:13:31 -0700 (PDT)
-Date: Mon, 24 Jun 2019 15:13:29 -0600
-From: Ross Zwisler <zwisler@google.com>
-To: Curtis Malainey <cujomalainey@chromium.org>
-Message-ID: <20190624211329.GA241793@google.com>
-References: <20190624205239.150516-1-cujomalainey@chromium.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190624205239.150516-1-cujomalainey@chromium.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Ross Zwisler <zwisler@chromium.org>,
- Bard Liao <bardliao@realtek.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt5677: depop stereo dac
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 098A4F8071F
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 02:51:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 098A4F8071F
+Date: 25 Jun 2019 09:51:40 +0900
+X-IronPort-AV: E=Sophos;i="5.62,413,1554735600"; d="scan'208";a="19357142"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 25 Jun 2019 09:51:40 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id D36204002C2A;
+ Tue, 25 Jun 2019 09:51:40 +0900 (JST)
+Message-ID: <87d0j232wg.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <9cfc8505-2903-033f-f68b-8ccc1c70132b@samsung.com>
+References: <877e9iwf9f.wl-kuninori.morimoto.gx@renesas.com>
+ <874l4mv0h8.wl-kuninori.morimoto.gx@renesas.com>
+ <CGME20190624131905eucas1p2cf4335b4d1483b7e62d0c9e7b5223a3c@eucas1p2.samsung.com>
+ <9cfc8505-2903-033f-f68b-8ccc1c70132b@samsung.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: 'Linux Samsung SOC' <linux-samsung-soc@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: Re: [alsa-devel] [PATCH resend 25/47] ASoC: samsung: snow: don't
+	select unnecessary Platform
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,21 +70,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jun 24, 2019 at 01:52:39PM -0700, Curtis Malainey wrote:
-> Upon enabling the ASRC DAC we need a delay to avoid popping the
-> speakers.
-> 
-> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-> Cc: Ross Zwisler <zwisler@chromium.org>
 
-This solves the popping issue for me.
+Hi Marek
 
-Tested-by: Ross Zwisler <zwisler@google.com>
+Thank you for your report.
+
+> > ALSA SoC is now supporting "no Platform". Sound card doesn't need to
+> > select "CPU component" as "Platform" anymore if it doesn't need
+> > special Platform.
+> > This patch removes such settings.
+> >
+> > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> =
+
+> This patch causes regression on Samsung Exynos-based boards: Snow, =
+
+> Peach-Pi and Peach-Pit (all that use snow machine driver) since linux =
+
+> next-20190620. ASoC device is properly registered, but it is not usable:
+> =
+
+> [=A0=A0=A0 3.203006] samsung-i2s 3830000.i2s-sec: DMA channels sourced fr=
+om =
+
+> device 3830000.i2s
+> [=A0=A0=A0 3.213440] snow-audio sound: Failed parsing codec node
+> [=A0=A0=A0 3.423241] snow-audio sound: multicodec <-> samsung-i2s mapping=
+ ok
+> [=A0=A0=A0 3.429776] max98095 7-0011: ASoC: mux External MIC has no paths
+> [=A0=A0=A0 3.434513] max98095 7-0011: ASoC: mux Linein Mux has no paths
+> [=A0=A0=A0 4.043488] ALSA device list:
+> [=A0=A0=A0 4.047171]=A0=A0 #0: Snow-I2S-MAX98095
+> =
+
+> # speaker-test -l1
+> =
+
+> speaker-test 1.1.3
+> =
+
+> Playback device is default
+> Stream parameters are 48000Hz, S16_LE, 1 channels
+> Using 16 octaves of pink noise
+> Playback open error: -22,Invalid argument
+
+Hmm.. strange...
+Can you test normal aplay here ? I'm not familiar with speaker-test.
+
+I have no idea so far, but one capability is that if your system
+used / based dummy platform, and if your CPU driver didn't use/have
+snd_soc_set_runtime_hwparams() / snd_pcm_lib_ioctl,
+it might be happen, but this patch seems not related to it...
+
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

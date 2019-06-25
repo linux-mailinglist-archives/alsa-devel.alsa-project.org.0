@@ -2,89 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F02052343
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 08:05:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0552C52546
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 09:51:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 631DC1612;
-	Tue, 25 Jun 2019 08:04:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 631DC1612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 553EC1663;
+	Tue, 25 Jun 2019 09:50:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 553EC1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561442734;
-	bh=x6QKNM4dUduhMC5T7ducAsgZGvJU2llFFFMH56FqnhE=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fLtcNVSNYF5OMKXn2/9aP96YseO1MuaqGEIl+/9fByvEGqxojvyIYpPbCmt2swPNg
-	 mkNTxLNNuhPZT61D0Woj2Sk02iBL9DJHmTFjba1kNMP8LT6YZTPX/lHwKc7V+vxknP
-	 CZMXzblbaug0YHBR/hP51YJ1X5fdAXyh5g7KarJs=
+	s=default; t=1561449100;
+	bh=OzOMzdlqcDPff1O/QTHdsQBhJpJ5rhpuoeSO/OzIecQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aZHPaTPUm4n4yBDKCyQvaMqqI2ZJATrA2JZRSdxtcdXAN4RQGfguV4B16XbzAfOPK
+	 J+hcaUIYTL/UEGTfqEoXNs9pno6nGxAaLxbrp+Uwcw5dOick/ek4rmm32a8qQdlXNT
+	 BqvJHZzRQg1tWvPIScMqmTdg4dcGNgnxPl6MKLl0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99511F896F0;
-	Tue, 25 Jun 2019 08:03:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81F1DF896F0;
+	Tue, 25 Jun 2019 09:49:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF82DF896F9; Tue, 25 Jun 2019 08:03:47 +0200 (CEST)
+ id 0454EF896FC; Tue, 25 Jun 2019 09:49:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-eopbgr40102.outbound.protection.outlook.com [40.107.4.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 743C5F8075C
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 08:03:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 743C5F8075C
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2019 23:03:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,413,1557212400"; d="scan'208";a="312959090"
-Received: from fmsmsx108.amr.corp.intel.com ([10.18.124.206])
- by orsmga004.jf.intel.com with ESMTP; 24 Jun 2019 23:03:37 -0700
-Received: from fmsmsx152.amr.corp.intel.com (10.18.125.5) by
- FMSMSX108.amr.corp.intel.com (10.18.124.206) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Mon, 24 Jun 2019 23:03:37 -0700
-Received: from shsmsx105.ccr.corp.intel.com (10.239.4.158) by
- FMSMSX152.amr.corp.intel.com (10.18.125.5) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Mon, 24 Jun 2019 23:03:36 -0700
-Received: from shsmsx103.ccr.corp.intel.com ([169.254.4.83]) by
- SHSMSX105.ccr.corp.intel.com ([169.254.11.72]) with mapi id 14.03.0439.000;
- Tue, 25 Jun 2019 14:02:44 +0800
-From: "Yang, Libin" <libin.yang@intel.com>
-To: 'Takashi Iwai' <tiwai@suse.de>
-Thread-Topic: [alsa-devel] [RFC PATCH 3/4] ASoC: hdac_hdmi: refine hdmi jacks
-Thread-Index: AQHVFG5wpg37HjgRpkesT50Q0sKADaaCv0uAgADqFbD//56WAIABPtqwgBZdwWCAESBxIA==
-Date: Tue, 25 Jun 2019 06:02:45 +0000
-Message-ID: <96A12704CE18D347B625EE2D4A099D19528A2E44@SHSMSX103.ccr.corp.intel.com>
-References: <1558948047-18930-1-git-send-email-libin.yang@intel.com>
- <1558948047-18930-4-git-send-email-libin.yang@intel.com>
- <s5hftowv2ii.wl-tiwai@suse.de>
- <96A12704CE18D347B625EE2D4A099D195285809B@SHSMSX103.ccr.corp.intel.com>
- <s5hsgswt1at.wl-tiwai@suse.de>
- <96A12704CE18D347B625EE2D4A099D19528582FD@SHSMSX103.ccr.corp.intel.com>
- <96A12704CE18D347B625EE2D4A099D195289BC7B@SHSMSX103.ccr.corp.intel.com>
-In-Reply-To: <96A12704CE18D347B625EE2D4A099D195289BC7B@SHSMSX103.ccr.corp.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D1CFF8075C
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 09:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D1CFF8075C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
+ header.b="tK3riVJh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YHR/0vJ9DW+Tr9a7Xxa0r8CDIijW+9BsGtKkpiiJgpg=;
+ b=tK3riVJh1c3Zx0M489pyCqsP9RipMHN3bipulWvW3T/hOZQRNZhx9CQvBWAABk2VW5RcC97e9/NC77j7GgShbaRwQL9KFMDeNeoQn4j5tHn6PiOuNsUJNJTN3jrQ8FJF4o4IKhk1hQNDB34eH8zkgCKFyDbX5xLY2Sr2RStf3/4=
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com (20.179.18.16) by
+ AM6PR05MB4150.eurprd05.prod.outlook.com (52.135.161.19) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2008.16; Tue, 25 Jun 2019 07:49:45 +0000
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::2c23:fdba:9ce4:7397]) by AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::2c23:fdba:9ce4:7397%7]) with mapi id 15.20.2008.007; Tue, 25 Jun 2019
+ 07:49:45 +0000
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+To: Fabio Estevam <festevam@gmail.com>
+Thread-Topic: [PATCH v2 0/6] VAG power control improvement for sgtl5000 codec
+Thread-Index: AQHVKyqOVMQ54KRKhUyEgktDhHywAw==
+Date: Tue, 25 Jun 2019 07:49:45 +0000
+Message-ID: <20190625074937.2621-1-oleksandr.suvorov@toradex.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiYjAwNDc1NTMtZTczYi00OTY0LWJlNWYtYjFlOGE1NzRiMzFkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiUkNTck5EV1lqUUFcL1JYckpmR3ZrRmxORmFOZkhwRWV6eUdVTmJwYlhpMmVteEpiOWlPdVRmWTRpbXhMc1wvbnFTIn0=
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+x-clientproxiedby: AM0PR10CA0001.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:17c::11) To AM6PR05MB6535.eurprd05.prod.outlook.com
+ (2603:10a6:20b:71::16)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandr.suvorov@toradex.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-mailer: git-send-email 2.20.1
+x-originating-ip: [194.105.145.90]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b592082c-aae5-4036-ce2f-08d6f941b02d
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:AM6PR05MB4150; 
+x-ms-traffictypediagnostic: AM6PR05MB4150:
+x-microsoft-antispam-prvs: <AM6PR05MB4150189D5D3FE0DDF2B392B9F9E30@AM6PR05MB4150.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3044;
+x-forefront-prvs: 0079056367
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(396003)(366004)(39850400004)(136003)(346002)(376002)(189003)(199004)(6436002)(86362001)(8936002)(6116002)(3846002)(186003)(6486002)(81166006)(81156014)(102836004)(6506007)(386003)(26005)(486006)(2616005)(478600001)(44832011)(8676002)(476003)(305945005)(71190400001)(7736002)(6512007)(54906003)(2906002)(316002)(4326008)(68736007)(71200400001)(66066001)(53936002)(25786009)(50226002)(66946007)(36756003)(73956011)(64756008)(66446008)(14454004)(66556008)(1076003)(66476007)(6916009)(5660300002)(52116002)(99286004)(256004)(14444005)(1411001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR05MB4150;
+ H:AM6PR05MB6535.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: fG8wenrS1ASyMNXxEaqmp8aKTpY/yCbzzUJgAzIk9krWv9LeoAqesacu9ToypRAl1oXS9gsgPCw/pKqorqbeqcHEM6sJoDWymN2u5VlXTpCxtA0OnRaHOTb8GfTeydB+yWLULbNSIn03s2zi68n5bqy9pnpykz6dqI70CYcxeAANNkcimVU/JdKaSC2AbpB9FRemqiIJ9AiGESWFJlKdWx/eNiVKvf2PxVQZlGXM7RPYMKMcFGhCfK2aJW5Mjx7C0nE3KSIjt1uHGtpB4ho0zfIO6FdQol1FNttvrMd5NnW19BLu5t+XbGGzjAPKSfz36TwZGrGWPv2PCU30FAeRKDi8zbUlQIcroFvI0C4q6EQAWnUtvO3V3bTN9TsnrtfrZPJGTOYkzc0YO31d6sVpkD/IytdCkfHX/HxORdgO+KM=
 MIME-Version: 1.0
-Cc: 'Hui Wang' <hui.wang@canonical.com>,
- "'alsa-devel@alsa-project.org'" <alsa-devel@alsa-project.org>,
- "'broonie@kernel.org'" <broonie@kernel.org>,
- "'pierre-louis.bossart@linux.intel.com'"
- <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 3/4] ASoC: hdac_hdmi: refine hdmi jacks
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b592082c-aae5-4036-ce2f-08d6f941b02d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Jun 2019 07:49:45.4509 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oleksandr.suvorov@toradex.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR05MB4150
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] [PATCH v2 0/6] VAG power control improvement for
+	sgtl5000 codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,921 +123,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->
->Sorry for a long delay for the hdmi jacks. I was busy on another critical issue
->last 2 weeks. I have worked out the UCM configuration files. Please check the
->attachment. It is a long file, so I use the attachment instead of the patch mode.
->Based on my test, it works well. Could you please help review if the
->configuration file is OK or not. I will do more test on the meantime, including
->DPMST and NON-DPMST.
 
-With some more tests on the new hdmi jack with UCM configuration, I found
-that the kernel patch can always notify the jack hotplug event to userspace
-correctly. However, the userspace can't set the amixer correctly based on
-the UCM configurations sometimes.
+VAG power control is improved to fit the manual. This fixes as
+minimum one bug: if customer muxes Headphone to Line-In right after boot
+w/o playing any sound, the VAG power remains off that leads to poor
+sound quality from line-in.
 
-Here is the details:
-There are 3 PCMs on Intel platforms. Let's call them pcm1, pcm2, pcm3.
-And there are 3 pins (pin5, pin6, pin7). For DPMST, and each pin has 3 ports:
-port0, port1, port2.
+I.e. after boot:
+- Connect sound source to Line-In jack;
+- Connect headphone to HP jack;
+- Run following commands:
+$ amixer set 'Headphone' 80%
+$ amixer set 'Headphone Mux' LINE_IN
 
-For non-DPMST, we can set pin5 <=> pcm1, pin6 <=> pcm2, pin7 <=> pcm3.
-This can always work.
+Also this series includes fixes of non-important bugs in sgtl5000 codec
+driver.
 
-For DPMST, as there are 9 ports using 3 pcms. So we should assign
-1 pcm to 3 ports. For example, pin5-port0, pin6-port1 and pin7-port2
-are using pcm1;  pin5-port1, pin6-port2 and pin7-port0 are using
-pcm2; pin5-port2; pin6-port3 and pin7-port1 are using pcm3.
-In this setting, we should setting the ConflictingDevice in UCM.
-For example, pin5-port0 is conflicting with pin6-port1 and pin7-port2.
-Hui and I found if we set one device conflicting with 2 devices, the
-amixer setting will be wrong and it will not following UCM configuration
-setting when we are hotplugging the monitors.
-Hui and I thought this may be the alsa-lib or pulseaudio issue.
-Do you have some ideas that if we can fix the issue of 3 devices
-are conflicting? Thanks.
+Fix patch formatting in patchset v2.
 
-Regards,
-Libin
 
->
->Regards,
->Libin
->
->
->>-----Original Message-----
->>From: Yang, Libin
->>Sent: Friday, May 31, 2019 10:27 AM
->>To: Takashi Iwai <tiwai@suse.de>
->>Cc: alsa-devel@alsa-project.org; broonie@kernel.org; pierre-
->>louis.bossart@linux.intel.com
->>Subject: RE: [alsa-devel] [RFC PATCH 3/4] ASoC: hdac_hdmi: refine hdmi
->>jacks
->>
->>Hi Takashi,
->>
->>>
->>>On Thu, 30 May 2019 17:00:24 +0200,
->>>Yang, Libin wrote:
->>>>
->>>> Hi Takashi,
->>>>
->>>> >-----Original Message-----
->>>> >From: Takashi Iwai [mailto:tiwai@suse.de]
->>>> >Sent: Thursday, May 30, 2019 3:13 PM
->>>> >To: Yang, Libin <libin.yang@intel.com>
->>>> >Cc: alsa-devel@alsa-project.org; broonie@kernel.org; pierre-
->>>> >louis.bossart@linux.intel.com
->>>> >Subject: Re: [alsa-devel] [RFC PATCH 3/4] ASoC: hdac_hdmi: refine
->>>> >hdmi jacks
->>>> >
->>>> >On Mon, 27 May 2019 11:07:26 +0200, libin.yang@intel.com wrote:
->>>> >>
->>>> >> From: Libin Yang <libin.yang@intel.com>
->>>> >>
->>>> >> This patch does the following actions:
->>>> >> 1) move snd_soc_card_jack_new() from machine driver to codec driver.
->>>> >>    This is because the jack information is more lated to the codec
->>>> >>    Also this patch calls snd_jack_add_new_kctl() to export the jack kctl
->>>> >>    to userspace.
->>>> >>
->>>> >> 2) jack is bound to pcm in origal code. The patch binds jack to pin-port.
->>>> >>    This mean each pin-port (3x3) has a jack. pin-port is used for DP-MST
->>>> >>    mode. The port means device entry for DP-MST in hdac_hdmi
->>>> >>    As hdac_hdmi allows user to map the pin-port to a pcm
->>>> >> manually, the
->>>jack
->>>> >>    is bound to pcm is not accurate.
->>>> >>    However, PA assumes jack is bound to PCM for the legacy mode.
->>>> >>    For example, for ubuntu, in
->>>> >>    /usr/share/pulseaudio/alsa-mixer/paths/hdmi-output-x.conf uses
->>>> >>    "Jack HDMI/DP,pcm=n" to find which jack event is used.
->>>> >>    This main issue is: pcm number is fixed (3, 7, 8, 9, 10) for hdmi in
->>>> >>    legacy mode. But it is not always the same for ASoC hdmi audio.
->>>> >
->>>> >The question is what brings this change practically.  On the legacy
->>>> >driver, as the jack is bound with the PCM, user-space (typically
->>>> >PA) who receives a jack connection event opens simply the
->>>> >corresponding PCM substream.  Now, for
->>>> >ASoC:
->>>> >  1. Which PCM substream?
->>>> >  2. How to set up the routing?
->>>> >
->>>> >I assume the 1 doens't matter, any substream, unlike the legacy case.
->>>> >But how is 2 done automatically?
->>>>
->>>> For the legacy HDA, there are 2 mode (dynamic pcm assignment (DPMST)
->>>> and static pcm assignment (NON-DPMST)).
->>>> 1) For static pcm assignment, pcm is always statically mapped to pin.
->>>> For example, pcm1 <=> pin 1; pcm <=> pin 2 and so on. So it is the
->>>> same to bind jack to pcm or to pin.
->>>> 2) For dynamic pcm assignment, in generic_hdmi_build_jack(), the
->>>> jack is bound to PCM when it is created
->>>> (spec->pcm_rec[pcm_idx].jack). We will find the jack by pcm_idx. And
->>>> when monitor is connected to a pin,
->>>> update_eld() will be called. In update_eld(), it will call
->>>> hdmi_attach_hda_pcm() to find a pcm to bind to the pin. So it can
->>>> find a jack (from the pcm) and report its status to userspace.
->>>>
->>>> So in a word for legacy HDA, it can always find a PCM (no matter in
->>>> static mode or in dynamic mode) when the monitor is connected to a
->>>> pin. This means it can always update the status of to userspace that
->>>> the pcm status is changed.
->>>
->>>Right, that's why the jack control has a pcm suffix.  It is bound with
->>>the PCM stream in the end, so user-space can simply open it.
->>>
->>>> However, in hdac_hdmi, there is no such dynamic pcm assignment. And
->>>> it is not statically assignment of pcm to pin. PCM is statically bound to cvt.
->>>> hdac_hdmi allows user to assign a cvt to a pin with alsamixer ( in
->>>> function hdac_hdmi_set_pin_port_mux(), so this function maps the pin
->>>> to
->>>the pcm).
->>>> As user may assign NONE pcm to a pin in alsamixer, this means a pin
->>>> can be assigned none of pcms. So if we mapped jack to pcm, we may
->>>> not find any jack for the pin when a monitor is connected to the pin.
->>>> This means driver can't notify userspace of the monitor connection.
->>>> As you know, PA will use the monitor connection status to decide
->>>> whether to user it or not. So this is the problem. The root cause is
->>>> pcm is bound to cvt. And pin may be not bound to any pcm (This is
->>>> the difference from the legacy hda).
->>>>
->>>> In my patch, as jack is bound to pin-port, so it can always notify
->>>> userspace that a monitor is connected. We can use configuration in
->>>> /usr/share/alsa/ ucm or /usr/share/pulseaudio to configure the
->>>> amixer to assign a pcm to the pin (monitor). And userspace can
->>>> playback on the
->>>monitor now.
->>>
->>>Then please prepare the UCM stuff at first and make sure that
->>>everything works with the proposed change.  The kernel changes can be
->>>merged once after all things get ready.
->>
->>OK. I will prepare the UCM and PA configurations to check it works well
->>and the purpose is patch should be compatible with the old drivers.
->>
->>Regards,
->>Libin
->>
->>>
->>>
->>>thanks,
->>>
->>>Takashi
->>>
->>>>
->>>> Regards,
->>>> Libin
->>>>
->>>> >
->>>> >
->>>> >thanks,
->>>> >
->>>> >Takashi
->>>> >
->>>> >>
->>>> >> Signed-off-by: Libin Yang <libin.yang@intel.com>
->>>> >> ---
->>>> >>  sound/soc/codecs/hdac_hdmi.c                       | 127 ++++++++++++-------
->--
->>>> >>  sound/soc/intel/boards/bxt_da7219_max98357a.c      |  10 --
->>>> >>  sound/soc/intel/boards/bxt_rt298.c                 |  10 --
->>>> >>  sound/soc/intel/boards/glk_rt5682_max98357a.c      |  10 --
->>>> >>  sound/soc/intel/boards/kbl_da7219_max98357a.c      |  10 --
->>>> >>  sound/soc/intel/boards/kbl_da7219_max98927.c       |  10 --
->>>> >>  sound/soc/intel/boards/kbl_rt5660.c                |  10 --
->>>> >>  sound/soc/intel/boards/kbl_rt5663_max98927.c       |  10 --
->>>> >>  .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  |   9 --
->>>> >>  sound/soc/intel/boards/skl_hda_dsp_common.c        |   9 --
->>>> >>  sound/soc/intel/boards/skl_nau88l25_max98357a.c    |  11 --
->>>> >>  sound/soc/intel/boards/skl_nau88l25_ssm4567.c      |  11 --
->>>> >>  sound/soc/intel/boards/skl_rt286.c                 |  10 --
->>>> >>  sound/soc/intel/boards/sof_rt5682.c                |  11 --
->>>> >>  14 files changed, 74 insertions(+), 184 deletions(-)
->>>> >>
->>>> >> diff --git a/sound/soc/codecs/hdac_hdmi.c
->>>> >> b/sound/soc/codecs/hdac_hdmi.c index 90c2ee3..ed267fa 100644
->>>> >> --- a/sound/soc/codecs/hdac_hdmi.c
->>>> >> +++ b/sound/soc/codecs/hdac_hdmi.c
->>>> >> @@ -4,6 +4,7 @@
->>>> >>   *  Copyright (C) 2014-2015 Intel Corp
->>>> >>   *  Author: Samreen Nilofer <samreen.nilofer@intel.com>
->>>> >>   *	    Subhransu S. Prusty <subhransu.s.prusty@intel.com>
->>>> >> + *	    Libin Yang <libin.yang@intel.com>
->>>> >>   *
->>>> >~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->~
->>~
->>>~~~
->>>> >~~~~~~~~~
->>>> >>   *
->>>> >>   *  This program is free software; you can redistribute it
->>>> >> and/or modify @@ -30,6 +31,7 @@  #include <sound/hda_i915.h>
->>>> >> #include <sound/pcm_drm_eld.h>  #include <sound/hda_chmap.h>
->>>> >> +#include <sound/hda_codec.h>
->>>> >>  #include "../../hda/local.h"
->>>> >>  #include "hdac_hdmi.h"
->>>> >>
->>>> >> @@ -95,6 +97,8 @@ struct hdac_hdmi_port {
->>>> >>  	int num_mux_nids;
->>>> >>  	hda_nid_t mux_nids[HDA_MAX_CONNECTIONS];
->>>> >>  	struct hdac_hdmi_eld eld;
->>>> >> +	struct snd_soc_jack jack;
->>>> >> +	int jack_event;
->>>> >>  	const char *jack_pin;
->>>> >>  	struct snd_soc_dapm_context *dapm;
->>>> >>  	const char *output_pin;
->>>> >> @@ -105,14 +109,12 @@ struct hdac_hdmi_pcm {
->>>> >>  	int pcm_id;
->>>> >>  	struct list_head port_list;
->>>> >>  	struct hdac_hdmi_cvt *cvt;
->>>> >> -	struct snd_soc_jack *jack;
->>>> >>  	int stream_tag;
->>>> >>  	int channels;
->>>> >>  	int format;
->>>> >>  	bool chmap_set;
->>>> >>  	unsigned char chmap[8]; /* ALSA API channel-map */
->>>> >>  	struct mutex lock;
->>>> >> -	int jack_event;
->>>> >>  };
->>>> >>
->>>> >>  struct hdac_hdmi_dai_port_map {
->>>> >> @@ -166,8 +168,7 @@ hdac_hdmi_get_pcm_from_cvt(struct
->>>> >hdac_hdmi_priv *hdmi,
->>>> >>  	return pcm;
->>>> >>  }
->>>> >>
->>>> >> -static void hdac_hdmi_jack_report(struct hdac_hdmi_pcm *pcm,
->>>> >> -		struct hdac_hdmi_port *port, bool is_connect)
->>>> >> +static void hdac_hdmi_jack_report(struct hdac_hdmi_port *port,
->>>> >> +bool
->>>> >> +is_connect)
->>>> >>  {
->>>> >>  	struct hdac_device *hdev = port->pin->hdev;
->>>> >>
->>>> >> @@ -176,19 +177,25 @@ static void hdac_hdmi_jack_report(struct
->>>> >hdac_hdmi_pcm *pcm,
->>>> >>  	else
->>>> >>  		snd_soc_dapm_disable_pin(port->dapm, port->jack_pin);
->>>> >>
->>>> >> +	/* if jack is not ready, skip reporting jack status */
->>>> >> +	if (!port->jack.jack) {
->>>> >> +		snd_soc_dapm_sync(port->dapm);
->>>> >> +		return;
->>>> >> +	}
->>>> >> +
->>>> >>  	if (is_connect) {
->>>> >> -		if (pcm->jack_event == 0) {
->>>> >> +		if (port->jack_event == 0) {
->>>> >>  			dev_dbg(&hdev->dev,
->>>> >> -					"jack report for pcm=%d\n",
->>>> >> -					pcm->pcm_id);
->>>> >> -			snd_soc_jack_report(pcm->jack,
->SND_JACK_AVOUT,
->>>> >> -						SND_JACK_AVOUT);
->>>> >> +				"jack report for pin:port = %d:%d\n",
->>>> >> +				port->id, port->pin->nid);
->>>> >> +			snd_soc_jack_report(&port->jack,
->SND_JACK_AVOUT,
->>>> >> +					    SND_JACK_AVOUT);
->>>> >>  		}
->>>> >> -		pcm->jack_event = 1;
->>>> >> +		port->jack_event = 1;
->>>> >>  	} else {
->>>> >> -		if (pcm->jack_event == 1)
->>>> >> -			snd_soc_jack_report(pcm->jack, 0,
->SND_JACK_AVOUT);
->>>> >> -		pcm->jack_event = 0;
->>>> >> +		if (port->jack_event == 1)
->>>> >> +			snd_soc_jack_report(&port->jack, 0,
->>>> >SND_JACK_AVOUT);
->>>> >> +		port->jack_event = 0;
->>>> >>  	}
->>>> >>
->>>> >>  	snd_soc_dapm_sync(port->dapm);
->>>> >> @@ -1235,26 +1242,15 @@ static void
->>hdac_hdmi_present_sense(struct
->>>> >hdac_hdmi_pin *pin,
->>>> >>  	pcm = hdac_hdmi_get_pcm(hdev, port);
->>>> >>
->>>> >>  	if (!port->eld.monitor_present || !port->eld.eld_valid) {
->>>> >> -
->>>> >>  		dev_err(&hdev->dev, "%s: disconnect for pin:port %d:%d\n",
->>>> >>  						__func__, pin->nid, port->id);
->>>> >> -
->>>> >> -		/*
->>>> >> -		 * PCMs are not registered during device probe, so
->don't
->>>> >> -		 * report jack here. It will be done in usermode mux
->>>> >> -		 * control select.
->>>> >> -		 */
->>>> >> -		if (pcm)
->>>> >> -			hdac_hdmi_jack_report(pcm, port, false);
->>>> >> -
->>>> >> +		hdac_hdmi_jack_report(port, false);
->>>> >>  		mutex_unlock(&hdmi->pin_mutex);
->>>> >>  		return;
->>>> >>  	}
->>>> >>
->>>> >>  	if (port->eld.monitor_present && port->eld.eld_valid) {
->>>> >> -		if (pcm)
->>>> >> -			hdac_hdmi_jack_report(pcm, port, true);
->>>> >> -
->>>> >> +		hdac_hdmi_jack_report(port, true);
->>>> >>  		print_hex_dump_debug("ELD: ", DUMP_PREFIX_OFFSET, 16, 1,
->>>> >>  			  port->eld.eld_buffer, port->eld.eld_size, false);
->>>> >>
->>>> >> @@ -1650,6 +1646,30 @@ static int
->>>> >> create_fill_jack_kcontrols(struct
->>>> >snd_soc_card *card,
->>>> >>  	return snd_soc_add_card_controls(card, kc, i);  }
->>>> >>
->>>> >> +static void hdac_hdmi_present_sense_all_pins(struct hdac_device
->>>*hdev,
->>>> >> +			struct hdac_hdmi_priv *hdmi, bool
->detect_pin_caps) {
->>>> >> +	int i;
->>>> >> +	struct hdac_hdmi_pin *pin;
->>>> >> +
->>>> >> +	list_for_each_entry(pin, &hdmi->pin_list, head) {
->>>> >> +		if (detect_pin_caps) {
->>>> >> +
->>>> >> +			if (hdac_hdmi_get_port_len(hdev, pin->nid)
->== 0)
->>>> >> +				pin->mst_capable = false;
->>>> >> +			else
->>>> >> +				pin->mst_capable = true;
->>>> >> +		}
->>>> >> +
->>>> >> +		for (i = 0; i < pin->num_ports; i++) {
->>>> >> +			if (!pin->mst_capable && i > 0)
->>>> >> +				continue;
->>>> >> +
->>>> >> +			hdac_hdmi_present_sense(pin, &pin-
->>ports[i]);
->>>> >> +		}
->>>> >> +	}
->>>> >> +}
->>>> >> +
->>>> >>  int hdac_hdmi_jack_port_init(struct snd_soc_component *component,
->>>> >>  			struct snd_soc_dapm_context *dapm)  { @@ -1659,6
->>>> >+1679,7 @@ int
->>>> >> hdac_hdmi_jack_port_init(struct snd_soc_component *component,
->>>> >>  	struct snd_soc_dapm_widget *widgets;
->>>> >>  	struct snd_soc_dapm_route *route;
->>>> >>  	char w_name[NAME_SIZE];
->>>> >> +	char jack_name[NAME_SIZE];
->>>> >>  	int i = 0, j, ret;
->>>> >>
->>>> >>  	widgets = devm_kcalloc(dapm->dev, hdmi->num_ports, @@ -1687,6
->>>> >> +1708,30 @@ int hdac_hdmi_jack_port_init(struct
->snd_soc_component
->>>> >*component,
->>>> >>  			pin->ports[j].jack_pin = widgets[i].name;
->>>> >>  			pin->ports[j].dapm = dapm;
->>>> >>
->>>> >> +			/*
->>>> >> +			 * Create pin-port jack. Each port (device entry)
->of
->>>> >> +			 * the pin has a corresponding jack
->>>> >> +			 */
->>>> >> +			snprintf(jack_name, sizeof(jack_name),
->>>> >> +				 "HDMI/DP, pin:port=%d:%d Jack",
->>>> >> +				  pin->nid, pin->ports[j].id);
->>>> >> +			ret = snd_soc_card_jack_new(dapm->card,
->jack_name,
->>>> >> +						    SND_JACK_AVOUT,
->>>> >> +						    &(pin->ports[j].jack),
->>>> >> +						    NULL, 0);
->>>> >> +			if (ret)
->>>> >> +				return ret;
->>>> >> +
->>>> >> +			/* create the jack kctl */
->>>> >> +			ret = snd_jack_add_new_kctl(pin-
->>ports[j].jack.jack,
->>>> >> +						    jack_name,
->>>> >SND_JACK_AVOUT);
->>>> >> +			/*
->>>> >> +			 * It's not a critical issue if driver fails to
->>>> >> +			 * create jack kctl.
->>>> >> +			 */
->>>> >> +			if (ret)
->>>> >> +				dev_warn(&hdev->dev, "failed
->creating Jack
->>>> >kctl\n");
->>>> >> +
->>>> >>  			/* add to route from Jack widget to output */
->>>> >>  			hdac_hdmi_fill_route(&route[i], pin->ports[j].jack_pin,
->>>> >>  					NULL, pin->ports[j].output_pin, NULL);
->>>> >@@ -1695,6 +1740,9 @@ int
->>>> >> hdac_hdmi_jack_port_init(struct snd_soc_component *component,
->>>> >>  		}
->>>> >>  	}
->>>> >>
->>>> >> +	/* now jack is ready, let's update the status */
->>>> >> +	hdac_hdmi_present_sense_all_pins(hdev, hdmi, true);
->>>> >> +
->>>> >>  	/* Add Route from Jack widget to the output widget */
->>>> >>  	ret = snd_soc_dapm_new_controls(dapm, widgets, hdmi- num_ports);
->>>> >>  	if (ret < 0)
->>>> >> @@ -1744,8 +1792,6 @@ int hdac_hdmi_jack_init(struct snd_soc_dai
->>>> >>*dai,
->>>> >int device,
->>>> >>  		return -ENOMEM;
->>>> >>  	pcm->pcm_id = device;
->>>> >>  	pcm->cvt = hdmi->dai_map[dai->id].cvt;
->>>> >> -	pcm->jack_event = 0;
->>>> >> -	pcm->jack = jack;
->>>> >>  	mutex_init(&pcm->lock);
->>>> >>  	INIT_LIST_HEAD(&pcm->port_list);
->>>> >>  	snd_pcm = hdac_hdmi_get_pcm_from_id(dai->component->card,
->>>> >device);
->>>> >> @@ -1765,30 +1811,6 @@ int hdac_hdmi_jack_init(struct snd_soc_dai
->>>> >> *dai, int device,  }  EXPORT_SYMBOL_GPL(hdac_hdmi_jack_init);
->>>> >>
->>>> >> -static void hdac_hdmi_present_sense_all_pins(struct hdac_device
->>*hdev,
->>>> >> -			struct hdac_hdmi_priv *hdmi, bool
->detect_pin_caps)
->>>> >> -{
->>>> >> -	int i;
->>>> >> -	struct hdac_hdmi_pin *pin;
->>>> >> -
->>>> >> -	list_for_each_entry(pin, &hdmi->pin_list, head) {
->>>> >> -		if (detect_pin_caps) {
->>>> >> -
->>>> >> -			if (hdac_hdmi_get_port_len(hdev, pin->nid)
->== 0)
->>>> >> -				pin->mst_capable = false;
->>>> >> -			else
->>>> >> -				pin->mst_capable = true;
->>>> >> -		}
->>>> >> -
->>>> >> -		for (i = 0; i < pin->num_ports; i++) {
->>>> >> -			if (!pin->mst_capable && i > 0)
->>>> >> -				continue;
->>>> >> -
->>>> >> -			hdac_hdmi_present_sense(pin, &pin-
->>ports[i]);
->>>> >> -		}
->>>> >> -	}
->>>> >> -}
->>>> >> -
->>>> >>  static int hdmi_codec_probe(struct snd_soc_component *component)
->>{
->>>> >>  	struct hdac_hdmi_priv *hdmi =
->>>> >> snd_soc_component_get_drvdata(component);
->>>> >> @@ -1823,7 +1845,6 @@ static int hdmi_codec_probe(struct
->>>> >snd_soc_component *component)
->>>> >>  		return ret;
->>>> >>  	}
->>>> >>
->>>> >> -	hdac_hdmi_present_sense_all_pins(hdev, hdmi, true);
->>>> >>  	/* Imp: Store the card pointer in hda_codec */
->>>> >>  	hdmi->card = dapm->card->snd_card;
->>>> >>
->>>> >> diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c
->>>> >> b/sound/soc/intel/boards/bxt_da7219_max98357a.c
->>>> >> index 5cadb7f..c69cfa9 100644
->>>> >> --- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
->>>> >> +++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
->>>> >> @@ -573,14 +573,12 @@ static const struct x86_cpu_id glk_ids[] = {
->>>> >>  	{}
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int bxt_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct bxt_card_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct bxt_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	if (x86_match_cpu(glk_ids))
->>>> >>  		snd_soc_dapm_add_routes(&card->dapm, gemini_map, @@
->>>> >-591,14 +589,6
->>>> >> @@ static int bxt_card_late_probe(struct snd_soc_card *card)
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&broxton_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&broxton_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/bxt_rt298.c
->>>> >> b/sound/soc/intel/boards/bxt_rt298.c
->>>> >> index e91057f..d1372891 100644
->>>> >> --- a/sound/soc/intel/boards/bxt_rt298.c
->>>> >> +++ b/sound/soc/intel/boards/bxt_rt298.c
->>>> >> @@ -507,25 +507,15 @@ static struct snd_soc_dai_link
->>>> >> broxton_rt298_dais[]
->>>> >= {
->>>> >>  	},
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int bxt_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct bxt_rt286_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct bxt_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&broxton_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&broxton_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c
->>>> >> b/sound/soc/intel/boards/glk_rt5682_max98357a.c
->>>> >> index d17126f..2a35974 100644
->>>> >> --- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
->>>> >> +++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
->>>> >> @@ -29,7 +29,6 @@
->>>> >>  #define MAXIM_DEV0_NAME "MX98357A:00"
->>>> >>  #define DUAL_CHANNEL 2
->>>> >>  #define QUAD_CHANNEL 4
->>>> >> -#define NAME_SIZE 32
->>>> >>
->>>> >>  static struct snd_soc_jack geminilake_hdmi[3];
->>>> >>
->>>> >> @@ -523,21 +522,12 @@ static int glk_card_late_probe(struct
->>>> >> snd_soc_card *card)  {
->>>> >>  	struct glk_card_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>  	struct glk_hdmi_pcm *pcm;
->>>> >>  	int err = 0;
->>>> >>  	int i = 0;
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->>>> >&geminilake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&geminilake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>>> >> b/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>>> >> index 07491a0..f293307 100644
->>>> >> --- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>>> >> +++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>>> >> @@ -519,25 +519,15 @@ static struct snd_soc_dai_link
->>>> >> kabylake_dais[] =
->>>{
->>>> >>  	},
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int kabylake_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct kbl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&skylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  				&skylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c
->>>> >> b/sound/soc/intel/boards/kbl_da7219_max98927.c
->>>> >> index f72a7bf..84d3609 100644
->>>> >> --- a/sound/soc/intel/boards/kbl_da7219_max98927.c
->>>> >> +++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
->>>> >> @@ -34,7 +34,6 @@
->>>> >>
->>>> >>  #define DUAL_CHANNEL	2
->>>> >>  #define QUAD_CHANNEL	4
->>>> >> -#define NAME_SIZE	32
->>>> >>
->>>> >>  static struct snd_soc_card *kabylake_audio_card;  static struct
->>>> >> snd_soc_jack kabylake_hdmi[3]; @@ -952,18 +951,9 @@ static int
->>>> >> kabylake_card_late_probe(struct snd_soc_card *card)
->>>> >>  	struct kbl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&kabylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&kabylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/kbl_rt5660.c
->>>> >> b/sound/soc/intel/boards/kbl_rt5660.c
->>>> >> index 3255e00..06411bf 100644
->>>> >> --- a/sound/soc/intel/boards/kbl_rt5660.c
->>>> >> +++ b/sound/soc/intel/boards/kbl_rt5660.c
->>>> >> @@ -447,25 +447,15 @@ static struct snd_soc_dai_link
->>>> >> kabylake_rt5660_dais[] = {  };
->>>> >>
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int kabylake_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct kbl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&skylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  				&skylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c
->>>> >> b/sound/soc/intel/boards/kbl_rt5663_max98927.c
->>>> >> index d714752..9c43c6c 100644
->>>> >> --- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
->>>> >> +++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
->>>> >> @@ -898,25 +898,15 @@ static struct snd_soc_dai_link
->>>> >kabylake_5663_dais[] = {
->>>> >>  	},
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int kabylake_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct kbl_rt5663_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct kbl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&skylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&skylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
->>>> >> b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
->>>> >> index 879f142..8fe4007 100644
->>>> >> --- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
->>>> >> +++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
->>>> >> @@ -40,7 +40,6 @@
->>>> >>  #define RT5663_DEV_NAME "i2c-10EC5663:00"
->>>> >>  #define RT5514_AIF1_BCLK_FREQ (48000 * 8 * 16)  #define
->>>> >> RT5514_AIF1_SYSCLK_FREQ 12288000 -#define NAME_SIZE 32
->>>> >>
->>>> >>  #define DMIC_CH(p) p->list[p->count-1]
->>>> >>
->>>> >> @@ -600,18 +599,10 @@ static int kabylake_card_late_probe(struct
->>>> >snd_soc_card *card)
->>>> >>  	struct kbl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP,pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -				SND_JACK_AVOUT, &ctx-
->>kabylake_hdmi[i],
->>>> >> -				NULL, 0);
->>>> >>
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&ctx->kabylake_hdmi[i]);
->>>> >>  		if (err < 0)
->>>> >> diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c
->>>> >> b/sound/soc/intel/boards/skl_hda_dsp_common.c
->>>> >> index 8b68f41..0f57fc2 100644
->>>> >> --- a/sound/soc/intel/boards/skl_hda_dsp_common.c
->>>> >> +++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
->>>> >> @@ -118,19 +118,10 @@ int skl_hda_hdmi_jack_init(struct
->>>> >> snd_soc_card
->>>> >*card)
->>>> >>  	struct skl_hda_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	struct skl_hda_hdmi_pcm *pcm;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>  	int err;
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			 "HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					    SND_JACK_AVOUT, &pcm-
->>>> >>hdmi_jack,
->>>> >> -					    NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  					  &pcm->hdmi_jack);
->>>> >> diff --git a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
->>>> >> b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
->>>> >> index 0922106..aca426f 100644
->>>> >> --- a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
->>>> >> +++ b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
->>>> >> @@ -587,26 +587,15 @@ static struct snd_soc_dai_link
->>>> >> skylake_dais[] =
->>{
->>>> >>  	},
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int skylake_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct skl_nau8825_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct skl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->>>> >> -					&skylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&skylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
->>>> >> b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
->>>> >> index 8433c52..788a837 100644
->>>> >> --- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
->>>> >> +++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
->>>> >> @@ -638,26 +638,15 @@ static struct snd_soc_dai_link
->>>> >> skylake_dais[] =
->>{
->>>> >>  	},
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int skylake_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct skl_nau88125_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct skl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->>>> >> -					&skylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&skylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/skl_rt286.c
->>>> >> b/sound/soc/intel/boards/skl_rt286.c
->>>> >> index 0e1818d..5d245f5 100644
->>>> >> --- a/sound/soc/intel/boards/skl_rt286.c
->>>> >> +++ b/sound/soc/intel/boards/skl_rt286.c
->>>> >> @@ -473,25 +473,15 @@ static struct snd_soc_dai_link
->>>> >> skylake_rt286_dais[]
->>>> >= {
->>>> >>  	},
->>>> >>  };
->>>> >>
->>>> >> -#define NAME_SIZE	32
->>>> >>  static int skylake_card_late_probe(struct snd_soc_card *card)  {
->>>> >>  	struct skl_rt286_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct skl_hdmi_pcm *pcm;
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >>  	int err, i = 0;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					SND_JACK_AVOUT,
->&skylake_hdmi[i],
->>>> >> -					NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  						&skylake_hdmi[i]);
->>>> >> diff --git a/sound/soc/intel/boards/sof_rt5682.c
->>>> >> b/sound/soc/intel/boards/sof_rt5682.c
->>>> >> index f28fb98..660e4a6 100644
->>>> >> --- a/sound/soc/intel/boards/sof_rt5682.c
->>>> >> +++ b/sound/soc/intel/boards/sof_rt5682.c
->>>> >> @@ -22,8 +22,6 @@
->>>> >>  #include "../../codecs/rt5682.h"
->>>> >>  #include "../../codecs/hdac_hdmi.h"
->>>> >>
->>>> >> -#define NAME_SIZE 32
->>>> >> -
->>>> >>  #define SOF_RT5682_SSP_CODEC(quirk)		((quirk) &
->GENMASK(2,
->>>> >0))
->>>> >>  #define SOF_RT5682_SSP_CODEC_MASK
->	(GENMASK(2,
->>>> >0))
->>>> >>  #define SOF_RT5682_MCLK_EN			BIT(3)
->>>> >> @@ -216,7 +214,6 @@ static int sof_card_late_probe(struct
->>>> >> snd_soc_card
->>>> >> *card)  {
->>>> >>  	struct sof_card_private *ctx = snd_soc_card_get_drvdata(card);
->>>> >>  	struct snd_soc_component *component = NULL;
->>>> >> -	char jack_name[NAME_SIZE];
->>>> >>  	struct sof_hdmi_pcm *pcm;
->>>> >>  	int err = 0;
->>>> >>  	int i = 0;
->>>> >> @@ -227,14 +224,6 @@ static int sof_card_late_probe(struct
->>>> >> snd_soc_card *card)
->>>> >>
->>>> >>  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
->>>> >>  		component = pcm->codec_dai->component;
->>>> >> -		snprintf(jack_name, sizeof(jack_name),
->>>> >> -			 "HDMI/DP, pcm=%d Jack", pcm->device);
->>>> >> -		err = snd_soc_card_jack_new(card, jack_name,
->>>> >> -					    SND_JACK_AVOUT,
->&sof_hdmi[i],
->>>> >> -					    NULL, 0);
->>>> >> -
->>>> >> -		if (err)
->>>> >> -			return err;
->>>> >>
->>>> >>  		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
->>>> >>  					  &sof_hdmi[i]);
->>>> >> --
->>>> >> 2.7.4
->>>> >>
->>>>
+Oleksandr Suvorov (6):
+  ASoC: sgtl5000: Fix definition of VAG Ramp Control
+  ASoC: sgtl5000: add ADC mute control
+  ASoC: sgtl5000: Fix of unmute outputs on probe
+  ASoC: sgtl5000: Fix charge pump source assignment
+  ASoC: Define a set of DAPM pre/post-up events
+  ASoC: sgtl5000: Improve VAG power and mute control
+
+ include/sound/soc-dapm.h    |   2 +
+ sound/soc/codecs/sgtl5000.c | 250 ++++++++++++++++++++++++++++++------
+ sound/soc/codecs/sgtl5000.h |   2 +-
+ 3 files changed, 212 insertions(+), 42 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

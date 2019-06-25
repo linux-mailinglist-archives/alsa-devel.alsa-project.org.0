@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304B852045
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 03:15:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F13095204D
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 03:19:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 852C815F2;
-	Tue, 25 Jun 2019 03:14:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 852C815F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6391657;
+	Tue, 25 Jun 2019 03:18:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6391657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561425304;
-	bh=55hZ+UHSZZpnjN/bqH1t47dIDa3qYA70VOWcCYvRGFM=;
+	s=default; t=1561425572;
+	bh=oNqGxZ4C7PHpyB1f4x2GH0bMDNNUZr8Q6B3hccku46U=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WoDlDSt9xmYAQxzYVjQfQUS2h7A48qNR3usFO9g2Xyumvj5pcL5QtP34CXpKJu3nr
-	 M7fBYtu+DpgDPPC2bxKpp/6NjurPHk/xxuuS7S9cIZ8w+84f6+EcwrQNRh1fcqL4bB
-	 P90nEyWcue8IOVFpoOqvYGVIxfoO2EE/3kjKloyM=
+	b=JtXhVW6TexcsEif5JBMfpEtaHorXlsyZYTt6z7Xt9OWPhkGNBkrZu/SU9mX+D7s5E
+	 0K//Tn+arPByseQRXR1ArQiofxU4qdT437Sf6T7vLnfhYC+J9PILyV/6ES7iamytLA
+	 /WUNuz7xTFnmD4ylMf1Mil2gljxaZaXTQ5txpeqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 229D7F896B7;
-	Tue, 25 Jun 2019 03:13:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B26EEF896F9;
+	Tue, 25 Jun 2019 03:17:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7955EF896B7; Tue, 25 Jun 2019 03:13:17 +0200 (CEST)
+ id 9F01DF896F9; Tue, 25 Jun 2019 03:17:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,34 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCBC1F8065B
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 03:13:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCBC1F8065B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DDB1F896EA
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 03:17:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDB1F896EA
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
  by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Jun 2019 18:13:10 -0700
+ 24 Jun 2019 18:17:39 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,413,1557212400"; d="scan'208";a="360203030"
+X-IronPort-AV: E=Sophos;i="5.63,413,1557212400"; d="scan'208";a="244904706"
 Received: from advira-mobl1.amr.corp.intel.com ([10.254.29.243])
- by fmsmga006.fm.intel.com with ESMTP; 24 Jun 2019 18:13:08 -0700
-Message-ID: <c98d6db0d63f8ecb51a87209432f5f00d76eac78.camel@linux.intel.com>
+ by orsmga001.jf.intel.com with ESMTP; 24 Jun 2019 18:17:38 -0700
+Message-ID: <9342daddfcf90e177b9b74aa15484655328b1fb9.camel@linux.intel.com>
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Date: Mon, 24 Jun 2019 18:13:08 -0700
-In-Reply-To: <878stywfjt.wl-kuninori.morimoto.gx@renesas.com>
-References: <878stywfjt.wl-kuninori.morimoto.gx@renesas.com>
+To: Amadeusz =?UTF-8?Q?S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
+Date: Mon, 24 Jun 2019 18:17:38 -0700
+In-Reply-To: <20190617113644.25621-12-amadeuszx.slawinski@linux.intel.com>
+References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
+ <20190617113644.25621-12-amadeuszx.slawinski@linux.intel.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: call snd_soc_unbind_card()
- under mutex_lock; 
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 11/11] ASoC: topology: Consolidate and
+ fix asoc_tplg_dapm_widget_*_create flow
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,95 +73,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2019-06-19 at 10:07 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> commit 34ac3c3eb8f0c07 ("ASoC: core: lock client_mutex while removing
-> link components") added mutex_lock() at soc_remove_link_components().
-> 
-> Is is called from snd_soc_unbind_card()
-> 
-> 	snd_soc_unbind_card()
-> =>		soc_remove_link_components()
-> 		soc_cleanup_card_resources()
-> 			soc_remove_dai_links()
-> =>				soc_remove_link_components()
-> 
-> And, there are 2 way to call it.
-> 
-> (1)
-> 	snd_soc_unregister_component()
-> **		mutex_lock()
-> 			snd_soc_component_del_unlocked()
-> =>				snd_soc_unbind_card()
-> **		mutex_unlock()
-> 
-> (2)
-> 	snd_soc_unregister_card()
-> =>		snd_soc_unbind_card()
-> 
-> (1) case is already using mutex_lock() when it calles
-> snd_soc_unbind_card(), thus, we will get lockdep warning.
-> 
-> commit 495f926c68ddb90 ("ASoC: core: Fix deadlock in
-> snd_soc_instantiate_card()") tried to fixup it, but still not
-> enough. We still have lockdep warning when we try unbind/bind.
-> 
-> We need mutex_lock() under snd_soc_unregister_card()
-> instead of snd_remove_link_components()/snd_soc_unbind_card().
-> 
-> Fixes: 34ac3c3eb8f0c07 ("ASoC: core: lock client_mutex while removing
-> link components")
-> Fixes: 495f926c68ddb90 ("ASoC: core: Fix deadlock in
-> snd_soc_instantiate_card()")
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Acked-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-
-> ---
->  sound/soc/soc-core.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 2353886..2a408cc 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -2747,14 +2747,12 @@ static void snd_soc_unbind_card(struct
-> snd_soc_card *card, bool unregister)
->  		snd_soc_dapm_shutdown(card);
->  		snd_soc_flush_all_delayed_work(card);
->  
-> -		mutex_lock(&client_mutex);
->  		/* remove all components used by DAI links on this card
-> */
->  		for_each_comp_order(order) {
->  			for_each_card_rtds(card, rtd) {
->  				soc_remove_link_components(card, rtd,
-> order);
->  			}
->  		}
-> -		mutex_unlock(&client_mutex);
->  
->  		soc_cleanup_card_resources(card);
->  		if (!unregister)
-> @@ -2773,7 +2771,9 @@ static void snd_soc_unbind_card(struct
-> snd_soc_card *card, bool unregister)
->   */
->  int snd_soc_unregister_card(struct snd_soc_card *card)
->  {
-> +	mutex_lock(&client_mutex);
->  	snd_soc_unbind_card(card, true);
-> +	mutex_unlock(&client_mutex);
->  	dev_dbg(card->dev, "ASoC: Unregistered card '%s'\n", card-
-> >name);
->  
->  	return 0;
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gTW9uLCAyMDE5LTA2LTE3IGF0IDEzOjM2ICswMjAwLCBBbWFkZXVzeiBTxYJhd2nFhHNraSB3
+cm90ZToKPiBUaGVyZSBhcmUgYSBmZXcgc29jX3RwbGdfZGFwbV93aWRnZXRfKl9jcmVhdGUgZnVu
+Y3Rpb25zIHdpdGggc2ltaWxhcgo+IGNvbnRlbnQsIGJ1dCBzbGlnaHRseSBkaWZmZXJlbnQgZmxv
+dywgdW5pZnkgdGhlaXIgZmxvdyBhbmQgbWFrZSBzdXJlCj4gdGhhdCB3ZSBnbyB0byBlcnJvciBo
+YW5kbGVyIGFuZCBmcmVlIG1lbW9yeSBpbiBjYXNlIG9mIGZhaWx1cmUuCj4gCj4gU2lnbmVkLW9m
+Zi1ieTogQW1hZGV1c3ogU8WCYXdpxYRza2kgPAo+IGFtYWRldXN6eC5zbGF3aW5za2lAbGludXgu
+aW50ZWwuY29tPgpBY2tlZC1ieTogUmFuamFuaSBTcmlkaGFyYW4gPHJhbmphbmkuc3JpZGhhcmFu
+QGxpbnV4LmludGVsLmNvbT4KCkknbSBnb29kIHdpdGggYWxsIHRoZSBwYXRjaGVzIGluIHRoZSBz
+ZXJpZXMuCgpUaGFua3MsClJhbmphbmkKCj4gLS0tCj4gIHNvdW5kL3NvYy9zb2MtdG9wb2xvZ3ku
+YyB8IDc3ICsrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLQo+IC0tLS0KPiAgMSBm
+aWxlIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKyksIDQyIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYg
+LS1naXQgYS9zb3VuZC9zb2Mvc29jLXRvcG9sb2d5LmMgYi9zb3VuZC9zb2Mvc29jLXRvcG9sb2d5
+LmMKPiBpbmRleCBhOTI2YzJhZmJlMDUuLmZjMWYxZDZmOWU5MiAxMDA2NDQKPiAtLS0gYS9zb3Vu
+ZC9zb2Mvc29jLXRvcG9sb2d5LmMKPiArKysgYi9zb3VuZC9zb2Mvc29jLXRvcG9sb2d5LmMKPiBA
+QCAtMTMxMCwxNCArMTMxMCwxNSBAQCBzdGF0aWMgc3RydWN0IHNuZF9rY29udHJvbF9uZXcKPiAq
+c29jX3RwbGdfZGFwbV93aWRnZXRfZG1peGVyX2NyZWF0ZSgKPiAgCj4gIAlmb3IgKGkgPSAwOyBp
+IDwgbnVtX2tjb250cm9sczsgaSsrKSB7Cj4gIAkJbWMgPSAoc3RydWN0IHNuZF9zb2NfdHBsZ19t
+aXhlcl9jb250cm9sICopdHBsZy0+cG9zOwo+IC0JCXNtID0ga3phbGxvYyhzaXplb2YoKnNtKSwg
+R0ZQX0tFUk5FTCk7Cj4gLQkJaWYgKHNtID09IE5VTEwpCj4gLQkJCWdvdG8gZXJyOwo+ICAKPiAg
+CQkvKiB2YWxpZGF0ZSBrY29udHJvbCAqLwo+ICAJCWlmIChzdHJubGVuKG1jLT5oZHIubmFtZSwK
+PiBTTkRSVl9DVExfRUxFTV9JRF9OQU1FX01BWExFTikgPT0KPiAgCQkJU05EUlZfQ1RMX0VMRU1f
+SURfTkFNRV9NQVhMRU4pCj4gLQkJCWdvdG8gZXJyX3N0cjsKPiArCQkJZ290byBlcnJfc207Cj4g
+Kwo+ICsJCXNtID0ga3phbGxvYyhzaXplb2YoKnNtKSwgR0ZQX0tFUk5FTCk7Cj4gKwkJaWYgKHNt
+ID09IE5VTEwpCj4gKwkJCWdvdG8gZXJyX3NtOwo+ICAKPiAgCQl0cGxnLT5wb3MgKz0gKHNpemVv
+ZihzdHJ1Y3Qgc25kX3NvY190cGxnX21peGVyX2NvbnRyb2wpCj4gKwo+ICAJCQkgICAgICBsZTMy
+X3RvX2NwdShtYy0+cHJpdi5zaXplKSk7Cj4gQEAgLTEzMjcsNyArMTMyOCw3IEBAIHN0YXRpYyBz
+dHJ1Y3Qgc25kX2tjb250cm9sX25ldwo+ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kbWl4ZXJfY3Jl
+YXRlKAo+ICAKPiAgCQlrY1tpXS5uYW1lID0ga3N0cmR1cChtYy0+aGRyLm5hbWUsIEdGUF9LRVJO
+RUwpOwo+ICAJCWlmIChrY1tpXS5uYW1lID09IE5VTEwpCj4gLQkJCWdvdG8gZXJyX3N0cjsKPiAr
+CQkJZ290byBlcnJfc207Cj4gIAkJa2NbaV0ucHJpdmF0ZV92YWx1ZSA9IChsb25nKXNtOwo+ICAJ
+CWtjW2ldLmlmYWNlID0gU05EUlZfQ1RMX0VMRU1fSUZBQ0VfTUlYRVI7Cj4gIAkJa2NbaV0uYWNj
+ZXNzID0gbWMtPmhkci5hY2Nlc3M7Cj4gQEAgLTEzNTMsOCArMTM1NCw3IEBAIHN0YXRpYyBzdHJ1
+Y3Qgc25kX2tjb250cm9sX25ldwo+ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kbWl4ZXJfY3JlYXRl
+KAo+ICAJCWVyciA9IHNvY190cGxnX2tjb250cm9sX2JpbmRfaW8oJm1jLT5oZHIsICZrY1tpXSwK
+PiB0cGxnKTsKPiAgCQlpZiAoZXJyKSB7Cj4gIAkJCXNvY19jb250cm9sX2Vycih0cGxnLCAmbWMt
+PmhkciwgbWMtPmhkci5uYW1lKTsKPiAtCQkJa2ZyZWUoc20pOwo+IC0JCQljb250aW51ZTsKPiAr
+CQkJZ290byBlcnJfc207Cj4gIAkJfQo+ICAKPiAgCQkvKiBjcmVhdGUgYW55IFRMViBkYXRhICov
+Cj4gQEAgLTEzNjcsMjAgKzEzNjcsMTkgQEAgc3RhdGljIHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3
+Cj4gKnNvY190cGxnX2RhcG1fd2lkZ2V0X2RtaXhlcl9jcmVhdGUoCj4gIAkJCWRldl9lcnIodHBs
+Zy0+ZGV2LCAiQVNvQzogZmFpbGVkIHRvIGluaXQgJXNcbiIsCj4gIAkJCQltYy0+aGRyLm5hbWUp
+Owo+ICAJCQlzb2NfdHBsZ19mcmVlX3Rsdih0cGxnLCAma2NbaV0pOwo+IC0JCQlrZnJlZShzbSk7
+Cj4gLQkJCWNvbnRpbnVlOwo+ICsJCQlnb3RvIGVycl9zbTsKPiAgCQl9Cj4gIAl9Cj4gIAlyZXR1
+cm4ga2M7Cj4gIAo+IC1lcnJfc3RyOgo+IC0Ja2ZyZWUoc20pOwo+IC1lcnI6Cj4gLQlmb3IgKC0t
+aTsgaSA+PSAwOyBpLS0pIHsKPiAtCQlrZnJlZSgodm9pZCAqKWtjW2ldLnByaXZhdGVfdmFsdWUp
+Owo+ICtlcnJfc206Cj4gKwlmb3IgKDsgaSA+PSAwOyBpLS0pIHsKPiArCQlzbSA9IChzdHJ1Y3Qg
+c29jX21peGVyX2NvbnRyb2wgKilrY1tpXS5wcml2YXRlX3ZhbHVlOwo+ICsJCWtmcmVlKHNtKTsK
+PiAgCQlrZnJlZShrY1tpXS5uYW1lKTsKPiAgCX0KPiAgCWtmcmVlKGtjKTsKPiArCj4gIAlyZXR1
+cm4gTlVMTDsKPiAgfQo+ICAKPiBAQCAtMTQwMSwxMSArMTQwMCwxMSBAQCBzdGF0aWMgc3RydWN0
+IHNuZF9rY29udHJvbF9uZXcKPiAqc29jX3RwbGdfZGFwbV93aWRnZXRfZGVudW1fY3JlYXRlKAo+
+ICAJCS8qIHZhbGlkYXRlIGtjb250cm9sICovCj4gIAkJaWYgKHN0cm5sZW4oZWMtPmhkci5uYW1l
+LAo+IFNORFJWX0NUTF9FTEVNX0lEX05BTUVfTUFYTEVOKSA9PQo+ICAJCQkgICAgU05EUlZfQ1RM
+X0VMRU1fSURfTkFNRV9NQVhMRU4pCj4gLQkJCWdvdG8gZXJyOwo+ICsJCQlnb3RvIGVycl9zZTsK
+PiAgCj4gIAkJc2UgPSBremFsbG9jKHNpemVvZigqc2UpLCBHRlBfS0VSTkVMKTsKPiAgCQlpZiAo
+c2UgPT0gTlVMTCkKPiAtCQkJZ290byBlcnI7Cj4gKwkJCWdvdG8gZXJyX3NlOwo+ICAKPiAgCQl0
+cGxnLT5wb3MgKz0gKHNpemVvZihzdHJ1Y3Qgc25kX3NvY190cGxnX2VudW1fY29udHJvbCkKPiAr
+Cj4gIAkJCQllYy0+cHJpdi5zaXplKTsKPiBAQCAtMTQxNCwxMCArMTQxMyw4IEBAIHN0YXRpYyBz
+dHJ1Y3Qgc25kX2tjb250cm9sX25ldwo+ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kZW51bV9jcmVh
+dGUoCj4gIAkJCWVjLT5oZHIubmFtZSk7Cj4gIAo+ICAJCWtjW2ldLm5hbWUgPSBrc3RyZHVwKGVj
+LT5oZHIubmFtZSwgR0ZQX0tFUk5FTCk7Cj4gLQkJaWYgKGtjW2ldLm5hbWUgPT0gTlVMTCkgewo+
+IC0JCQlrZnJlZShzZSk7Cj4gKwkJaWYgKGtjW2ldLm5hbWUgPT0gTlVMTCkKPiAgCQkJZ290byBl
+cnJfc2U7Cj4gLQkJfQo+ICAJCWtjW2ldLnByaXZhdGVfdmFsdWUgPSAobG9uZylzZTsKPiAgCQlr
+Y1tpXS5pZmFjZSA9IFNORFJWX0NUTF9FTEVNX0lGQUNFX01JWEVSOwo+ICAJCWtjW2ldLmFjY2Vz
+cyA9IGVjLT5oZHIuYWNjZXNzOwo+IEBAIC0xNDgyLDQ0ICsxNDc5LDQzIEBAIHN0YXRpYyBzdHJ1
+Y3Qgc25kX2tjb250cm9sX25ldwo+ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kZW51bV9jcmVhdGUo
+Cj4gIAlmb3IgKDsgaSA+PSAwOyBpLS0pIHsKPiAgCQkvKiBmcmVlIHZhbHVlcyBhbmQgdGV4dHMg
+Ki8KPiAgCQlzZSA9IChzdHJ1Y3Qgc29jX2VudW0gKilrY1tpXS5wcml2YXRlX3ZhbHVlOwo+IC0J
+CWlmICghc2UpCj4gLQkJCWNvbnRpbnVlOwo+ICAKPiAtCQlzb2NfdHBsZ19kZW51bV9yZW1vdmVf
+dmFsdWVzKHNlKTsKPiAtCQlzb2NfdHBsZ19kZW51bV9yZW1vdmVfdGV4dHMoc2UpOwo+ICsJCWlm
+IChzZSkgewo+ICsJCQlzb2NfdHBsZ19kZW51bV9yZW1vdmVfdmFsdWVzKHNlKTsKPiArCQkJc29j
+X3RwbGdfZGVudW1fcmVtb3ZlX3RleHRzKHNlKTsKPiArCQl9Cj4gIAo+ICAJCWtmcmVlKHNlKTsK
+PiAgCQlrZnJlZShrY1tpXS5uYW1lKTsKPiAgCX0KPiAtZXJyOgo+ICAJa2ZyZWUoa2MpOwo+ICAK
+PiAgCXJldHVybiBOVUxMOwo+ICB9Cj4gIAo+ICBzdGF0aWMgc3RydWN0IHNuZF9rY29udHJvbF9u
+ZXcgKnNvY190cGxnX2RhcG1fd2lkZ2V0X2RieXRlc19jcmVhdGUoCj4gLQlzdHJ1Y3Qgc29jX3Rw
+bGcgKnRwbGcsIGludCBjb3VudCkKPiArCXN0cnVjdCBzb2NfdHBsZyAqdHBsZywgaW50IG51bV9r
+Y29udHJvbHMpCj4gIHsKPiAgCXN0cnVjdCBzbmRfc29jX3RwbGdfYnl0ZXNfY29udHJvbCAqYmU7
+Cj4gLQlzdHJ1Y3Qgc29jX2J5dGVzX2V4dCAgKnNiZTsKPiArCXN0cnVjdCBzb2NfYnl0ZXNfZXh0
+ICpzYmU7Cj4gIAlzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyAqa2M7Cj4gIAlpbnQgaSwgZXJyOwo+
+ICAKPiAtCWtjID0ga2NhbGxvYyhjb3VudCwgc2l6ZW9mKCprYyksIEdGUF9LRVJORUwpOwo+ICsJ
+a2MgPSBrY2FsbG9jKG51bV9rY29udHJvbHMsIHNpemVvZigqa2MpLCBHRlBfS0VSTkVMKTsKPiAg
+CWlmICgha2MpCj4gIAkJcmV0dXJuIE5VTEw7Cj4gIAo+IC0JZm9yIChpID0gMDsgaSA8IGNvdW50
+OyBpKyspIHsKPiArCWZvciAoaSA9IDA7IGkgPCBudW1fa2NvbnRyb2xzOyBpKyspIHsKPiAgCQli
+ZSA9IChzdHJ1Y3Qgc25kX3NvY190cGxnX2J5dGVzX2NvbnRyb2wgKil0cGxnLT5wb3M7Cj4gIAo+
+ICAJCS8qIHZhbGlkYXRlIGtjb250cm9sICovCj4gIAkJaWYgKHN0cm5sZW4oYmUtPmhkci5uYW1l
+LAo+IFNORFJWX0NUTF9FTEVNX0lEX05BTUVfTUFYTEVOKSA9PQo+ICAJCQlTTkRSVl9DVExfRUxF
+TV9JRF9OQU1FX01BWExFTikKPiAtCQkJZ290byBlcnI7Cj4gKwkJCWdvdG8gZXJyX3NiZTsKPiAg
+Cj4gIAkJc2JlID0ga3phbGxvYyhzaXplb2YoKnNiZSksIEdGUF9LRVJORUwpOwo+ICAJCWlmIChz
+YmUgPT0gTlVMTCkKPiAtCQkJZ290byBlcnI7Cj4gKwkJCWdvdG8gZXJyX3NiZTsKPiAgCj4gIAkJ
+dHBsZy0+cG9zICs9IChzaXplb2Yoc3RydWN0IHNuZF9zb2NfdHBsZ19ieXRlc19jb250cm9sKQo+
+ICsKPiAgCQkJICAgICAgbGUzMl90b19jcHUoYmUtPnByaXYuc2l6ZSkpOwo+IEBAIC0xNTI5LDEw
+ICsxNTI1LDggQEAgc3RhdGljIHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3Cj4gKnNvY190cGxnX2Rh
+cG1fd2lkZ2V0X2RieXRlc19jcmVhdGUoCj4gIAkJCWJlLT5oZHIubmFtZSwgYmUtPmhkci5hY2Nl
+c3MpOwo+ICAKPiAgCQlrY1tpXS5uYW1lID0ga3N0cmR1cChiZS0+aGRyLm5hbWUsIEdGUF9LRVJO
+RUwpOwo+IC0JCWlmIChrY1tpXS5uYW1lID09IE5VTEwpIHsKPiAtCQkJa2ZyZWUoc2JlKTsKPiAt
+CQkJZ290byBlcnI7Cj4gLQkJfQo+ICsJCWlmIChrY1tpXS5uYW1lID09IE5VTEwpCj4gKwkJCWdv
+dG8gZXJyX3NiZTsKPiAgCQlrY1tpXS5wcml2YXRlX3ZhbHVlID0gKGxvbmcpc2JlOwo+ICAJCWtj
+W2ldLmlmYWNlID0gU05EUlZfQ1RMX0VMRU1fSUZBQ0VfTUlYRVI7Cj4gIAkJa2NbaV0uYWNjZXNz
+ID0gYmUtPmhkci5hY2Nlc3M7Cj4gQEAgLTE1NDQsOCArMTUzOCw3IEBAIHN0YXRpYyBzdHJ1Y3Qg
+c25kX2tjb250cm9sX25ldwo+ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kYnl0ZXNfY3JlYXRlKAo+
+ICAJCWVyciA9IHNvY190cGxnX2tjb250cm9sX2JpbmRfaW8oJmJlLT5oZHIsICZrY1tpXSwKPiB0
+cGxnKTsKPiAgCQlpZiAoZXJyKSB7Cj4gIAkJCXNvY19jb250cm9sX2Vycih0cGxnLCAmYmUtPmhk
+ciwgYmUtPmhkci5uYW1lKTsKPiAtCQkJa2ZyZWUoc2JlKTsKPiAtCQkJY29udGludWU7Cj4gKwkJ
+CWdvdG8gZXJyX3NiZTsKPiAgCQl9Cj4gIAo+ICAJCS8qIHBhc3MgY29udHJvbCB0byBkcml2ZXIg
+Zm9yIG9wdGlvbmFsIGZ1cnRoZXIgaW5pdCAqLwo+IEBAIC0xNTU0LDIwICsxNTQ3LDIwIEBAIHN0
+YXRpYyBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldwo+ICpzb2NfdHBsZ19kYXBtX3dpZGdldF9kYnl0
+ZXNfY3JlYXRlKAo+ICAJCWlmIChlcnIgPCAwKSB7Cj4gIAkJCWRldl9lcnIodHBsZy0+ZGV2LCAi
+QVNvQzogZmFpbGVkIHRvIGluaXQgJXNcbiIsCj4gIAkJCQliZS0+aGRyLm5hbWUpOwo+IC0JCQlr
+ZnJlZShzYmUpOwo+IC0JCQljb250aW51ZTsKPiArCQkJZ290byBlcnJfc2JlOwo+ICAJCX0KPiAg
+CX0KPiAgCj4gIAlyZXR1cm4ga2M7Cj4gIAo+IC1lcnI6Cj4gLQlmb3IgKC0taTsgaSA+PSAwOyBp
+LS0pIHsKPiAtCQlrZnJlZSgodm9pZCAqKWtjW2ldLnByaXZhdGVfdmFsdWUpOwo+ICtlcnJfc2Jl
+Ogo+ICsJZm9yICg7IGkgPj0gMDsgaS0tKSB7Cj4gKwkJc2JlID0gKHN0cnVjdCBzb2NfYnl0ZXNf
+ZXh0ICopa2NbaV0ucHJpdmF0ZV92YWx1ZTsKPiArCQlrZnJlZShzYmUpOwo+ICAJCWtmcmVlKGtj
+W2ldLm5hbWUpOwo+ICAJfQo+IC0KPiAgCWtmcmVlKGtjKTsKPiArCj4gIAlyZXR1cm4gTlVMTDsK
+PiAgfQo+ICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRw
+czovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

@@ -2,95 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C47D45595F
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 22:49:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 068DE55A69
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 23:56:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AD081657;
-	Tue, 25 Jun 2019 22:48:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AD081657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6BDC215F2;
+	Tue, 25 Jun 2019 23:55:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BDC215F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561495775;
-	bh=C64LlbNvgZp3tRR7k9K/5eYvcP0iJZHL7ghJ0LXQrow=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pPfXK1LpmYpZ7LqKbm6tCN16EmKjBiAk3E/oSvYVqpsL+r+ZAi7sgAxjremiUuC3F
-	 uaAJB4SYjcY6PkWVI31Xcw+lGsnSojpztnKP4g+5S8NiD1e3AkFW4spmv4Z5nSMEBS
-	 OsRNhXd7OXV5OxeuevVAK9eYZLELzDQ66mOCCWvI=
+	s=default; t=1561499801;
+	bh=CC89f7sfuduN7xjkvP/6qGh06va5ni1IwUw7jY5SGXA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lRFnBUHQWNiF8itAF9vhS2nnzRAprdRLcbB3CYiRNTndlIYcqkPt26aSTxSnIOMcp
+	 mDa+Dz/yTAgneSDW/A9zVnqZ5+ogbW0yfg/ku3LYy4le96CUF/12atWVtcT543pvJH
+	 U+YKdKZdqSNdXdSMLNW+mJIJKDZBd2OpMlVI8WXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42C9AF896EA;
-	Tue, 25 Jun 2019 22:47:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 88ED7F896F0;
+	Tue, 25 Jun 2019 23:54:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88BE4F896F9; Tue, 25 Jun 2019 22:47:47 +0200 (CEST)
+ id C1111F896F9; Tue, 25 Jun 2019 23:54:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EAD0F8075C
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 22:47:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EAD0F8075C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35BCFF8071F
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 23:54:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35BCFF8071F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="bF3P1xYb"
-Received: by mail-qk1-x744.google.com with SMTP id g18so13832616qkl.3
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 13:47:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=74NB5e0BktWwqROEL4z+u+DizinOx965eL+OUXpvhXA=;
- b=bF3P1xYbQdj+T6PZ+Pee4HjUvY4yPutalZ/eFo++WYh0ak9PxgO8R7nc8miVNTT8Q4
- ggBv2CATU+JxgHiH8enn17S8LeXfgH7912UO16DdrdbsVSoGo/+Wj9OqsR267oEYBn2t
- ZvZFAkdhty6RDWDRFPUb0f3Sdi4u/ytcP/GgH5lsjFCWwLm0ffmgcbHDJEoVFlwHdwwL
- WyVGmq54WmvdjIbbvojRwgdjDlh1DZP/YVlIu7MmKRrAw7bReAsFVDt98SHAffdbBrNH
- jhl4s7/KLzgJCPs75JbLfU1sJygMPXTZEE6jGuJfaoX1tL9c1Jl8UFsN2veVwB8dU4Yl
- +XIg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="UesSR29a"
+Received: by mail-pg1-x541.google.com with SMTP id z19so88277pgl.12
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 14:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=vsGWDFoWq4uZ/izmiqzm3s9U3XUZ/ujUeAWfcSTnPsI=;
+ b=UesSR29a5IFIuc0hyMCBgsdCpOxynypkCiFRqYozIgNG/K/lWoaIv8Q0k5evk2YCOg
+ a7x2+Wfn2fpF+ZZzuk1XBLAkUF94JvNMR6wnfMrzpOYgARROrAjfxTtBXD9VflGseCh0
+ RVUqMA8jClZ+MVwTPckC253koxYm9b1uT7WJ0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=74NB5e0BktWwqROEL4z+u+DizinOx965eL+OUXpvhXA=;
- b=c+iLqix0Jg46BxigSirjDBiIUcsZBuNfHh6rb0nTjuup5/wjLSKzzmaRafyAPT7S3y
- d/bVoaZMrBXjNqb+FfPFsfsCaLdIPMWnX1+jB5duaKi4Dg6GEZJI9OK6iH5Gydu8SZDT
- cGZiq8l5f3/+OHXkqtpbSCABG1Xw3iDPKOhmot9pz7LV/z8k7U/q+8tZxjwp5pyUV3H8
- PI8BU4MlZv+jlarPlseEo/J3GDjCecHMCy//FKjbrIe7In+c3NObQXS+F8G4NGi/1U74
- P6/B3AM/25Fdk7x8f3md4C8EdFydzxYMG32blcLI9dYPmvhwdu2d2+geizkdbPVLUBmv
- Fqzw==
-X-Gm-Message-State: APjAAAV4AFV1IJbRLcdAylaTb0G+feKbP3cFBotzIWT21is80tTp3lqX
- HFxR+vMmCQ8//bzGJQdijgQ=
-X-Google-Smtp-Source: APXvYqyTQteDUcGWVT/lMLQ8IvzjkTTzILjoDpYrc/84DS4ZGqmnsXNCq5bqnTtlNJkw/xsPYTI/iQ==
-X-Received: by 2002:a37:6813:: with SMTP id d19mr649112qkc.454.1561495662659; 
- Tue, 25 Jun 2019 13:47:42 -0700 (PDT)
-Received: from [192.168.2.145] (ppp91-79-162-197.pppoe.mtu-net.ru.
- [91.79.162.197])
- by smtp.googlemail.com with ESMTPSA id a21sm8075158qkg.47.2019.06.25.13.47.41
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 25 Jun 2019 13:47:42 -0700 (PDT)
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87y33aaluu.wl-kuninori.morimoto.gx@renesas.com>
- <87r292alro.wl-kuninori.morimoto.gx@renesas.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <cb3a6d0a-ca7b-d6b6-72db-5dff520acfc9@gmail.com>
-Date: Tue, 25 Jun 2019 23:47:39 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ bh=vsGWDFoWq4uZ/izmiqzm3s9U3XUZ/ujUeAWfcSTnPsI=;
+ b=Xn3U+JlWANAFRiFrC5zUfmdQRxREOeczD4UE+hgkkZjwEHS0pop0XPiHKsuOmgB77L
+ LBZmHej4vHGfdSGdOi8gC67FPjZe2Ow/wR8N+WinZvkd2n3cdEev/H6mfh8Up3pG0P/S
+ vii58cA4sDKXla5x61mCj71+PWXLycDY4/22E/M/eON5ZuQSXhYiOs3uiE7X7u++IYN7
+ BPdtmtr169tyaFjJOjfwYZ5lPoVL8ySsHU8U+G2QZlEaBw98ZnLWcgEW8B8kJUOoNVmI
+ wSoIcJAVcQQUatr25LbDU7Eb9aN5ZCu4ofRQqwtaTF9nZNibDgILPUEyA91rZTOeXsjz
+ vEDw==
+X-Gm-Message-State: APjAAAVB9RH40vRkg4mkiSNBx+Ca9dHjajEYG/JmNcQUDZtKHjeXsMJp
+ OcBBBputpMvcIG7YTaRUQt4gjg==
+X-Google-Smtp-Source: APXvYqzrbRCyU6uNFX4Fzu3bs7912MYOeqI57YLkIIa0Rj6Wth90r/dxWvgegP/mrMUDw701GVwUvQ==
+X-Received: by 2002:a63:1322:: with SMTP id i34mr41786825pgl.424.1561499674675; 
+ Tue, 25 Jun 2019 14:54:34 -0700 (PDT)
+Received: from evgreen2.mtv.corp.google.com
+ ([2620:15c:202:201:ffda:7716:9afc:1301])
+ by smtp.gmail.com with ESMTPSA id w22sm16669343pfi.175.2019.06.25.14.54.33
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Tue, 25 Jun 2019 14:54:34 -0700 (PDT)
+From: Evan Green <evgreen@chromium.org>
+To: Takashi Iwai <tiwai@suse.com>
+Date: Tue, 25 Jun 2019 14:54:18 -0700
+Message-Id: <20190625215418.17548-1-evgreen@chromium.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <87r292alro.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH 5/9] ASoC: soc-core: use
- soc_find_component() at snd_soc_get_dai_id()
+Cc: alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Evan Green <evgreen@chromium.org>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>
+Subject: [alsa-devel] [PATCH] ALSA: hda: Use correct start/count for sysfs
+	init
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,157 +95,130 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MTMuMDUuMjAxOSAxMDowNywgS3VuaW5vcmkgTW9yaW1vdG8g0L/QuNGI0LXRgjoKPiBGcm9tOiBL
-dW5pbm9yaSBNb3JpbW90byA8a3VuaW5vcmkubW9yaW1vdG8uZ3hAcmVuZXNhcy5jb20+Cj4gCj4g
-c29jLWNvcmUgY29yZSBhbHJlYWR5IGhhcyBzb2NfZmluZF9jb21wb25lbnQoKSB3aGljaCBmaW5k
-Cj4gY29tcG9uZW50IGZyb20gZGV2aWNlIG5vZGUuCj4gTGV0J3MgdXNlIGV4aXN0aW5nIGZ1bmN0
-aW9uIHRvIGZpbmQgY29tcG9uZW50Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IEt1bmlub3JpIE1vcmlt
-b3RvIDxrdW5pbm9yaS5tb3JpbW90by5neEByZW5lc2FzLmNvbT4KPiAtLS0KPiAgc291bmQvc29j
-L3NvYy1jb3JlLmMgfCAxNyArKysrKy0tLS0tLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNSBp
-bnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvc291bmQvc29j
-L3NvYy1jb3JlLmMgYi9zb3VuZC9zb2Mvc29jLWNvcmUuYwo+IGluZGV4IGU1NTE3MGMuLmU4M2Vk
-YmUgMTAwNjQ0Cj4gLS0tIGEvc291bmQvc29jL3NvYy1jb3JlLmMKPiArKysgYi9zb3VuZC9zb2Mv
-c29jLWNvcmUuYwo+IEBAIC0zNzUxLDcgKzM3NTEsNyBAQCBFWFBPUlRfU1lNQk9MX0dQTChzbmRf
-c29jX29mX3BhcnNlX2RhaWZtdCk7Cj4gIAo+ICBpbnQgc25kX3NvY19nZXRfZGFpX2lkKHN0cnVj
-dCBkZXZpY2Vfbm9kZSAqZXApCj4gIHsKPiAtCXN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqcG9z
-Owo+ICsJc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQ7Cj4gIAlzdHJ1Y3QgZGV2
-aWNlX25vZGUgKm5vZGU7Cj4gIAlpbnQgcmV0Owo+ICAKPiBAQCAtMzc2NSwxNyArMzc2NSwxMCBA
-QCBpbnQgc25kX3NvY19nZXRfZGFpX2lkKHN0cnVjdCBkZXZpY2Vfbm9kZSAqZXApCj4gIAkgKi8K
-PiAgCXJldCA9IC1FTk9UU1VQUDsKPiAgCW11dGV4X2xvY2soJmNsaWVudF9tdXRleCk7Cj4gLQlm
-b3JfZWFjaF9jb21wb25lbnQocG9zKSB7Cj4gLQkJc3RydWN0IGRldmljZV9ub2RlICpjb21wb25l
-bnRfb2Zfbm9kZSA9IHNvY19jb21wb25lbnRfdG9fbm9kZShwb3MpOwo+IC0KPiAtCQlpZiAoY29t
-cG9uZW50X29mX25vZGUgIT0gbm9kZSkKPiAtCQkJY29udGludWU7Cj4gLQo+IC0JCWlmIChwb3Mt
-PmRyaXZlci0+b2ZfeGxhdGVfZGFpX2lkKQo+IC0JCQlyZXQgPSBwb3MtPmRyaXZlci0+b2ZfeGxh
-dGVfZGFpX2lkKHBvcywgZXApOwo+IC0KPiAtCQlicmVhazsKPiAtCX0KPiArCWNvbXBvbmVudCA9
-IHNvY19maW5kX2NvbXBvbmVudChub2RlLCBOVUxMKTsKPiArCWlmIChjb21wb25lbnQgJiYKPiAr
-CSAgICBjb21wb25lbnQtPmRyaXZlci0+b2ZfeGxhdGVfZGFpX2lkKQo+ICsJCXJldCA9IGNvbXBv
-bmVudC0+ZHJpdmVyLT5vZl94bGF0ZV9kYWlfaWQoY29tcG9uZW50LCBlcCk7Cj4gIAltdXRleF91
-bmxvY2soJmNsaWVudF9tdXRleCk7Cj4gIAo+ICAJb2Zfbm9kZV9wdXQobm9kZSk7Cj4gCgpIaSwK
-ClRoaXMgcGF0Y2ggY2F1c2VzIGNyYXNoIG9uIHRvZGF5J3MgbGludXgtbmV4dCBhcHBhcmVudGx5
-IGJlY2F1c2UgIkNQVSBEQUkiIGlzIG5vdApyZWdpc3RlcmVkIG5vdywgYW55IGlkZWFzPwoKICAg
-IDguMTc2MzE5XSB0ZWdyYS1zbmQtd204OTAzIHNvdW5kOiBBU29DOiBDUFUgREFJIChudWxsKSBu
-b3QgcmVnaXN0ZXJlZApbICAgIDguMTc2NTQ5XSA4PC0tLSBjdXQgaGVyZSAtLS0KWyAgICA4LjE3
-Njc2M10gVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0
-IHZpcnR1YWwgYWRkcmVzcwowMDAwMDU3MApbICAgIDguMTc2OTM5XSBwZ2QgPSBlZjRiNGFmOApb
-ICAgIDguMTc3MDA0XSBbMDAwMDA1NzBdICpwZ2Q9MDAwMDAwMDAKWyAgICA4LjE3NzA5MV0gSW50
-ZXJuYWwgZXJyb3I6IE9vcHM6IDUgWyMxXSBQUkVFTVBUIFNNUCBUSFVNQjIKWyAgICA4LjE3NzIx
-Ml0gTW9kdWxlcyBsaW5rZWQgaW46IHNuZF9zb2NfdGVncmFfd204OTAzKCspIHNuZF9zb2NfdGVn
-cmFfdXRpbHMKc25kX3NvY190ZWdyYTIwX2kycyBzbmRfc29jX3RlZ3JhMjBfZGFzIHNuZF9zb2Nf
-dGVncmFfcGNtClsgICAgOC4xNzc0NjddIENQVTogMCBQSUQ6IDE3NyBDb21tOiBzeXN0ZW1kLXVk
-ZXZkIFRhaW50ZWQ6IEcgICAgICAgIFcKNS4yLjAtcmM2LW5leHQtMjAxOTA2MjUtMDAxNDktZzEw
-MDA1YTljNDgxMiAjMTA2OApbICAgIDguMTc3NzA4XSBIYXJkd2FyZSBuYW1lOiBOVklESUEgVGVn
-cmEgU29DIChGbGF0dGVuZWQgRGV2aWNlIFRyZWUpClsgICAgOC4xNzc4NjldIFBDIGlzIGF0IHRl
-Z3JhX3dtODkwM19yZW1vdmUrMHgxOC8weDI4IFtzbmRfc29jX3RlZ3JhX3dtODkwM10KWyAgICA4
-LjE3ODAxOV0gTFIgaXMgYXQgdGVncmFfd204OTAzX3JlbW92ZSsweDEzLzB4MjggW3NuZF9zb2Nf
-dGVncmFfd204OTAzXQpbICAgIDguMTc4MTYwXSBwYyA6IFs8YmY4MTcxZDg+XSAgICBsciA6IFs8
-YmY4MTcxZDM+XSAgICBwc3I6IDYwMDEwMTMzClsgICAgOC4xNzgyOTRdIHNwIDogZDU5NzljMTgg
-IGlwIDogNjAwMTAxMTMgIGZwIDogYzExYWNlZjgKWyAgICA4LjE3ODQwNl0gcjEwOiAwMDAwMDEw
-MCAgcjkgOiAwMDAwMDEyMiAgcjggOiBiZjgxOTFhNApbICAgIDguMTc4NTIwXSByNyA6IDAwMDAw
-MDAzICByNiA6IGJmODE5MTgwICByNSA6IGJmODE5MTgwICByNCA6IGJmODE5MDkwClsgICAgOC4x
-Nzg2NjJdIHIzIDogMDAwMDAwMDAgIHIyIDogMDAwMDAwMDAgIHIxIDogMDAwMDAwMDAgIHIwIDog
-MDAwMDAwMDAKWyAgICA4LjE3ODgwNF0gRmxhZ3M6IG5aQ3YgIElSUXMgb24gIEZJUXMgb24gIE1v
-ZGUgU1ZDXzMyICBJU0EgVGh1bWIgIFNlZ21lbnQgbm9uZQpbICAgIDguMTc4OTU2XSBDb250cm9s
-OiA1MGM1Mzg3ZCAgVGFibGU6IDE1OWY0MDRhICBEQUM6IDAwMDAwMDUxClsgICAgOC4xNzkyMDVd
-IFByb2Nlc3Mgc3lzdGVtZC11ZGV2ZCAocGlkOiAxNzcsIHN0YWNrIGxpbWl0ID0gMHgxMzIyZDE4
-ZikKWyAgICA4LjE3OTQ1MV0gU3RhY2s6ICgweGQ1OTc5YzE4IHRvIDB4ZDU5N2EwMDApClsgICAg
-OC4xNzk2NTRdIDljMDA6ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGJmODE3MWMxCmMwNmRmMWRkClsgICAgOC4xNzk4MzNdIDljMjA6IGJmODE5
-MDkwIDAwMDAwMDAwIDAwMDAwMDc4IGMwYmNlMzgwIGMxMWFjZjFjIGZmZmZmZGZiIDAwMDAwMDAx
-CmMwNmRmNTk3ClsgICAgOC4xODAwMDZdIDljNDA6IGMwNDQ1MDI5IGQ2ZTJjOWMwIDAwMDAwMDAw
-IGJmODE5MTE4IGQ1OTc4MDAwIGMwZTMzZDA4IGMwZTZkMmIwCmMwZTZkMmQwClsgICAgOC4xODAx
-NzddIDljNjA6IDAwMDAwMDAxIDAwMDAwMDAwIDYwMDEwMTEzIGY3Y2EyNTA0IDAwMDAwMDAwIGJm
-ODE5MDkwIDAwMDAwMDAwCmQ3MzM0NjI0ClsgICAgOC4xODAzNDhdIDljODA6IGQ2NGUxZTEwIGJm
-ODE5MDAwIGJmODE5NjY0IDAwMDAwMDBkIGQ1OTc4MDAwIGMwNmRmYzEzIGQ3MzI0ODM0CjAwMDAw
-MDAwClsgICAgOC4xODA1MjBdIDljYTA6IGQ1OTE2YmQ0IGJmODE3M2VkIGJmODE3MWU5IDAwMDAw
-MDAwIGQ2NGUxZTEwIGJmODE5MzA0IGMxMjFmZjY0CjAwMDAwMDAwClsgICAgOC4xODA2OTFdIDlj
-YzA6IGJmODE5MzA0IGMwNGVhMDJiIGMwNGU5ZmY5IGQ2NGUxZTEwIGMxMjFmZjYwIDAwMDAwMDAw
-IGMxMjFmZjY0CmMwNGU4OTI5ClsgICAgOC4xODA4NjJdIDljZTA6IGQ2NGUxZTEwIGJmODE5MzA0
-IGJmODE5MzA0IGQ1OTc4MDAwIDAwMDAwMDAyIDAwMDAwMDAwIGJmODE5MzgwCmMwNGU4YjhmClsg
-ICAgOC4xODEwMzNdIDlkMDA6IGQ3MzM0NjI0IDAwMDAwMDAwIGJmODE5MzgwIGMwOTBhN2I3IGJm
-ODE4MDNjIGQ2NGUxZTEwIDAwMDAwMDAwCmJmODE5MzA0ClsgICAgOC4xODEyMDRdIDlkMjA6IGQ1
-OTc4MDAwIDAwMDAwMDAyIDAwMDAwMDAwIGJmODE5MzgwIGQ1OTc4MDAwIGMwNGU4ZDdkIDAwMDAw
-MDAwCmJmODE5MzA0ClsgICAgOC4xODEzNzVdIDlkNDA6IGQ2NGUxZTEwIGMwNGU4ZGI3IDAwMDAw
-MDAwIGJmODE5MzA0IGMwNGU4ZDgxIGMwNGU3NWJiIGQ1OTc5ZDgwCmQ2ZTUwNTU4ClsgICAgOC4x
-ODE1NDZdIDlkNjA6IGQ2NGNlMTM0IGY3Y2EyNTA0IDAwMDAwMDAwIGJmODE5MzA0IGQ1OTE2MTgw
-IDAwMDAwMDAwIGMxMTg0MWM4CmMwNGU4MGZiClsgICAgOC4xODE3MTddIDlkODA6IGJmODE4Njcw
-IGJmODE5MzA0IGMxMWQ2YzAwIGJmODE5MzA0IGMxMWQ2YzAwIGJmODFjMDAxIGZmZmZlMDAwCmMw
-NGU5NTU5ClsgICAgOC4xODE4ODldIDlkYTA6IDAwMDAwMDAwIGQ1OTc4MDAwIGMxMWQ2YzAwIGJm
-ODFjMDE3IDAwMDAwMDAwIGMwMTAyYzgxIGQ1YWJhNWMwCmZmZmZmZmY0ClsgICAgOC4xODIwNjBd
-IDlkYzA6IGQ1ZjU4Y2MwIGMwOGZjMTI5IGJmODE5M2M4IGMwMjE2ZGM3IGQ1OWExNjAwIGYwOTU3
-ZmZmIDgwNDAwMDNmCmQ2YzAxZTQwClsgICAgOC4xODIyMzFdIDlkZTA6IDAwMDAwY2MwIGMwMThl
-ZjdkIDAwMDAwMDA4IGMwMjE2Y2YxIGQ3NWVhNzQwIGQ1YWJhNWMwIGQ2YzAxZTQwCmMwMTkwODdk
-ClsgICAgOC4xODI0MDJdIDllMDA6IGQ1OTc4MDAwIGY3Y2EyNTA0IGQ1ZmJmOTQwIGJmODE5Mzgw
-IGQ1ZWNiYjQwIDAwMDAwMDAyIGQ1ZmJmOTgwCjAwMDAwMDAyClsgICAgOC4xODI1NzJdIDllMjA6
-IGQ1ZmJmOTgwIGMwMThlZmE5IDAwMDAwMDAyIGQ1ZmJmOTgwIGQ1OTc5ZjM4IGQ1ZmJmOTQwIDAw
-MDAwMDAyCmMwMTkwODkxClsgICAgOC4xODI3NDRdIDllNDA6IGJmODE5MzhjIDAwMDA3ZmZmIGJm
-ODE5MzgwIGMwMThlNDAxIGQ1ZmQ5MzAwIGJmODE5NDk0IGJmODE5M2M4CmMwZGI0ZmRjClsgICAg
-OC4xODI5MTRdIDllNjA6IGJmODE5NTgwIGMwYTA3NGU0IGJmODE5MzhjIGJmODFlMGFlIGMwZGI0
-OTFjIGQ1OTc4MDAwIGMwZGI0ZjM0CjAwMDAwMDAwClsgICAgOC4xODMwODVdIDllODA6IDAwMDAw
-Y2MwIGZmZmZlMDAwIGQ1OTc4MDAwIGJmMDAwMDAwIDAwMDAwMDAwIGQ1OTc4MDAwIDAwMDAwMDAw
-CjAwMDAwMDAwClsgICAgOC4xODMyNTVdIDllYTA6IDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAw
-IDAwMDAwMDAwIDZlNzI2NTZiIDAwMDA2YzY1IDAwMDAwMDAwCjAwMDAwMDAwClsgICAgOC4xODM0
-MjVdIDllYzA6IDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAw
-MDAwMDAwIDAwMDAwMDAwCjAwMDAwMDAwClsgICAgOC4xODM1OTZdIDllZTA6IDAwMDAwMDAwIDAw
-MDAwMDAwIDAwMDAwMDAwIGY3Y2EyNTA0IDdmZmZmZmZmIGQ1OTc4MDAwIDAwMDAwMDAwCmI2ZDI1
-MTg4ClsgICAgOC4xODg0NzFdIDlmMDA6IGYwOTFmMDAwIGMwMTAxMWU0IGQ1OTc4MDAwIDAwMDAw
-MTdiIDAwNDhkYjU4IGMwMTkwZDJmIDdmZmZmZmZmCjAwMDAwMDAwClsgICAgOC4xOTMzNTldIDlm
-MjA6IDAwMDAwMDAzIDAwMDM3Yjc0IDAwMDAwMDAxIGYwOTFmMDAwIDAwMDM3Yjc0IDAwMDAwMDAw
-IGYwOTFmY2JlCmYwOTIwMGMwClsgICAgOC4xOTgyNTVdIDlmNDA6IGYwOTFmMDAwIDAwMDM3Yjc0
-IGYwOTU2MzdjIGYwOTU2MTkwIGYwOTQ5ZDkwIDAwMDAzMDAwIDAwMDAzNGEwCjAwMDAyMDM4Clsg
-ICAgOC4yMDMyMjFdIDlmNjA6IDAwMDAzN2I4IDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAw
-MDAyMDI4IDAwMDAwMDMxIDAwMDAwMDMyCjAwMDAwMDE4ClsgICAgOC4yMDgxMzFdIDlmODA6IDAw
-MDAwMDAwIDAwMDAwMDEyIDAwMDAwMDAwIGY3Y2EyNTA0IDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAw
-MDAwCjY5ZWEzMzAwClsgICAgOC4yMTI5NDldIDlmYTA6IDAwMDAwMTdiIGMwMTAxMDAxIDAwMDAw
-MDAwIDAwMDAwMDAwIDAwMDAwMDBlIGI2ZDI1MTg4IDAwMDAwMDAwCjAwMDAwMDAwClsgICAgOC4y
-MTc3MTldIDlmYzA6IDAwMDAwMDAwIDAwMDAwMDAwIDY5ZWEzMzAwIDAwMDAwMTdiIDAwNDhmMjkw
-IDAwMDAwMDAwIDAwNDg2Njk4CjAwNDhkYjU4ClsgICAgOC4yMjI0NDRdIDlmZTA6IGJlZjk4Yzcw
-IGJlZjk4YzYwIGI2ZDFjNWM4IGI2YmZmMzIwIDYwMGQwMDEwIDAwMDAwMDBlIDAwMDAwMDAwCjAw
-MDAwMDAwClsgICAgOC4yMjcxODNdIFs8YmY4MTcxZDg+XSAodGVncmFfd204OTAzX3JlbW92ZSBb
-c25kX3NvY190ZWdyYV93bTg5MDNdKSBmcm9tCls8YzA2ZGYxZGQ+XSAoc29jX2NsZWFudXBfY2Fy
-ZF9yZXNvdXJjZXMrMHgxZTEvMHgxZjgpClsgICAgOC4yMzIwMzddIFs8YzA2ZGYxZGQ+XSAoc29j
-X2NsZWFudXBfY2FyZF9yZXNvdXJjZXMpIGZyb20gWzxjMDZkZjU5Nz5dCihzbmRfc29jX2luc3Rh
-bnRpYXRlX2NhcmQrMHgzYTMvMHg5NTgpClsgICAgOC4yMzY5ODBdIFs8YzA2ZGY1OTc+XSAoc25k
-X3NvY19pbnN0YW50aWF0ZV9jYXJkKSBmcm9tIFs8YzA2ZGZjMTM+XQooc25kX3NvY19yZWdpc3Rl
-cl9jYXJkKzB4YzcvMHhlMCkKWyAgICA4LjI0MTk3NV0gWzxjMDZkZmMxMz5dIChzbmRfc29jX3Jl
-Z2lzdGVyX2NhcmQpIGZyb20gWzxiZjgxNzNlZD5dCih0ZWdyYV93bTg5MDNfZHJpdmVyX3Byb2Jl
-KzB4MjA1LzB4MjZjIFtzbmRfc29jX3RlZ3JhX3dtODkwM10pClsgICAgOC4yNDY5OTFdIFs8YmY4
-MTczZWQ+XSAodGVncmFfd204OTAzX2RyaXZlcl9wcm9iZSBbc25kX3NvY190ZWdyYV93bTg5MDNd
-KSBmcm9tCls8YzA0ZWEwMmI+XSAocGxhdGZvcm1fZHJ2X3Byb2JlKzB4MzMvMHg2OCkKWyAgICA4
-LjI1MTk3NF0gWzxjMDRlYTAyYj5dIChwbGF0Zm9ybV9kcnZfcHJvYmUpIGZyb20gWzxjMDRlODky
-OT5dCihyZWFsbHlfcHJvYmUrMHhhOS8weDFlYykKWyAgICA4LjI1NjkwMF0gWzxjMDRlODkyOT5d
-IChyZWFsbHlfcHJvYmUpIGZyb20gWzxjMDRlOGI4Zj5dCihkcml2ZXJfcHJvYmVfZGV2aWNlKzB4
-NDMvMHgxMjQpClsgICAgOC4yNjE4MzZdIFs8YzA0ZThiOGY+XSAoZHJpdmVyX3Byb2JlX2Rldmlj
-ZSkgZnJvbSBbPGMwNGU4ZDdkPl0KKGRldmljZV9kcml2ZXJfYXR0YWNoKzB4M2QvMHg0MCkKWyAg
-ICA4LjI2Njg4NV0gWzxjMDRlOGQ3ZD5dIChkZXZpY2VfZHJpdmVyX2F0dGFjaCkgZnJvbSBbPGMw
-NGU4ZGI3Pl0KKF9fZHJpdmVyX2F0dGFjaCsweDM3LzB4NzgpClsgICAgOC4yNzE5NTBdIFs8YzA0
-ZThkYjc+XSAoX19kcml2ZXJfYXR0YWNoKSBmcm9tIFs8YzA0ZTc1YmI+XQooYnVzX2Zvcl9lYWNo
-X2RldisweDQzLzB4NmMpClsgICAgOC4yNzcwMzddIFs8YzA0ZTc1YmI+XSAoYnVzX2Zvcl9lYWNo
-X2RldikgZnJvbSBbPGMwNGU4MGZiPl0KKGJ1c19hZGRfZHJpdmVyKzB4ZTMvMHgxNDgpClsgICAg
-OC4yODIxNzVdIFs8YzA0ZTgwZmI+XSAoYnVzX2FkZF9kcml2ZXIpIGZyb20gWzxjMDRlOTU1OT5d
-Cihkcml2ZXJfcmVnaXN0ZXIrMHgzOS8weGEwKQpbICAgIDguMjg3MzczXSBbPGMwNGU5NTU5Pl0g
-KGRyaXZlcl9yZWdpc3RlcikgZnJvbSBbPGJmODFjMDE3Pl0KKHRlZ3JhX3dtODkwM19kcml2ZXJf
-aW5pdCsweDE3LzB4MTAwMCBbc25kX3NvY190ZWdyYV93bTg5MDNdKQpbICAgIDguMjkyNzMxXSBb
-PGJmODFjMDE3Pl0gKHRlZ3JhX3dtODkwM19kcml2ZXJfaW5pdCBbc25kX3NvY190ZWdyYV93bTg5
-MDNdKSBmcm9tCls8YzAxMDJjODE+XSAoZG9fb25lX2luaXRjYWxsKzB4NDUvMHgxZTQpClsgICAg
-OC4yOTgxNDRdIFs8YzAxMDJjODE+XSAoZG9fb25lX2luaXRjYWxsKSBmcm9tIFs8YzAxOGVmYTk+
-XQooZG9faW5pdF9tb2R1bGUrMHg0ZC8weDFhMCkKWyAgICA4LjMwMzU1NV0gWzxjMDE4ZWZhOT5d
-IChkb19pbml0X21vZHVsZSkgZnJvbSBbPGMwMTkwODkxPl0KKGxvYWRfbW9kdWxlKzB4MTczOS8w
-eDFhMjgpClsgICAgOC4zMDg5NzRdIFs8YzAxOTA4OTE+XSAobG9hZF9tb2R1bGUpIGZyb20gWzxj
-MDE5MGQyZj5dIChzeXNfZmluaXRfbW9kdWxlKzB4N2IvMHg4YykKWyAgICA4LjMxNDQwNF0gWzxj
-MDE5MGQyZj5dIChzeXNfZmluaXRfbW9kdWxlKSBmcm9tIFs8YzAxMDEwMDE+XQoocmV0X2Zhc3Rf
-c3lzY2FsbCsweDEvMHgyOCkKWyAgICA4LjMxOTg1NF0gRXhjZXB0aW9uIHN0YWNrKDB4ZDU5Nzlm
-YTggdG8gMHhkNTk3OWZmMCkKWyAgICA4LjMyNTI2NV0gOWZhMDogICAgICAgICAgICAgICAgICAg
-MDAwMDAwMDAgMDAwMDAwMDAgMDAwMDAwMGUgYjZkMjUxODggMDAwMDAwMDAKMDAwMDAwMDAKWyAg
-ICA4LjMzMDc1OF0gOWZjMDogMDAwMDAwMDAgMDAwMDAwMDAgNjllYTMzMDAgMDAwMDAxN2IgMDA0
-OGYyOTAgMDAwMDAwMDAgMDA0ODY2OTgKMDA0OGRiNTgKWyAgICA4LjMzNjY0M10gOWZlMDogYmVm
-OThjNzAgYmVmOThjNjAgYjZkMWM1YzggYjZiZmYzMjAKWyAgICA4LjM0MjA5N10gQ29kZTogZDZj
-ZiAyMzAwIDQ2MWEgNDYxOSAoZjhkMCkgMDU3MApbICAgIDguMzUxODU3XSAtLS1bIGVuZCB0cmFj
-ZSBlMzczYmVkYjVlOTU5MWE2IF0tLS0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXBy
-b2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYWxzYS1kZXZlbAo=
+The normal flow through the widget sysfs codepath is that
+snd_hdac_refresh_widgets() is called once without the sysfs bool set
+to set up codec->num_nodes and friends, then another time with the
+bool set to actually allocate all the sysfs widgets. However, during
+the first time allocation, hda_widget_sysfs_reinit() ignores the new
+num_nodes passed in via parameter and just calls hda_widget_sysfs_init(),
+using whatever was in codec->num_nodes before the update. This is not
+correct in cases where num_nodes changes. Here's an example:
+
+Sometime earlier:
+snd_hdac_refresh_widgets(hdac, false)
+  sets codec->num_nodes to 2, widgets is still not allocated
+
+Now:
+snd_hdac_refresh_widgets(hdac, true)
+  hda_widget_sysfs_reinit(num_nodes=7)
+    hda_widget_sysfs_init()
+      widget_tree_create()
+        alloc(codec->num_nodes) // this is still 2
+  codec->num_nodes = 7
+
+Pass num_nodes and start_nid down into widget_tree_create() so that
+the right number of nodes are allocated in all cases.
+
+Signed-off-by: Evan Green <evgreen@chromium.org>
+---
+
+ sound/hda/hdac_device.c |  2 +-
+ sound/hda/hdac_sysfs.c  | 14 ++++++++------
+ sound/hda/local.h       |  3 ++-
+ 3 files changed, 11 insertions(+), 8 deletions(-)
+
+diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+index 6907dbefd08c..5e74acf45c81 100644
+--- a/sound/hda/hdac_device.c
++++ b/sound/hda/hdac_device.c
+@@ -144,7 +144,7 @@ int snd_hdac_device_register(struct hdac_device *codec)
+ 	if (err < 0)
+ 		return err;
+ 	mutex_lock(&codec->widget_lock);
+-	err = hda_widget_sysfs_init(codec);
++	err = hda_widget_sysfs_init(codec, codec->start_nid, codec->num_nodes);
+ 	mutex_unlock(&codec->widget_lock);
+ 	if (err < 0) {
+ 		device_del(&codec->dev);
+diff --git a/sound/hda/hdac_sysfs.c b/sound/hda/hdac_sysfs.c
+index 909d5ef1179c..1c4b98929d9c 100644
+--- a/sound/hda/hdac_sysfs.c
++++ b/sound/hda/hdac_sysfs.c
+@@ -358,7 +358,8 @@ static int add_widget_node(struct kobject *parent, hda_nid_t nid,
+ 	return 0;
+ }
+ 
+-static int widget_tree_create(struct hdac_device *codec)
++static int widget_tree_create(struct hdac_device *codec,
++			      hda_nid_t start_nid, int num_nodes)
+ {
+ 	struct hdac_widget_tree *tree;
+ 	int i, err;
+@@ -372,12 +373,12 @@ static int widget_tree_create(struct hdac_device *codec)
+ 	if (!tree->root)
+ 		return -ENOMEM;
+ 
+-	tree->nodes = kcalloc(codec->num_nodes + 1, sizeof(*tree->nodes),
++	tree->nodes = kcalloc(num_nodes + 1, sizeof(*tree->nodes),
+ 			      GFP_KERNEL);
+ 	if (!tree->nodes)
+ 		return -ENOMEM;
+ 
+-	for (i = 0, nid = codec->start_nid; i < codec->num_nodes; i++, nid++) {
++	for (i = 0, nid = start_nid; i < num_nodes; i++, nid++) {
+ 		err = add_widget_node(tree->root, nid, &widget_node_group,
+ 				      &tree->nodes[i]);
+ 		if (err < 0)
+@@ -396,14 +397,15 @@ static int widget_tree_create(struct hdac_device *codec)
+ }
+ 
+ /* call with codec->widget_lock held */
+-int hda_widget_sysfs_init(struct hdac_device *codec)
++int hda_widget_sysfs_init(struct hdac_device *codec,
++			  hda_nid_t start_nid, int num_nodes)
+ {
+ 	int err;
+ 
+ 	if (codec->widgets)
+ 		return 0; /* already created */
+ 
+-	err = widget_tree_create(codec);
++	err = widget_tree_create(codec, start_nid, num_nodes);
+ 	if (err < 0) {
+ 		widget_tree_free(codec);
+ 		return err;
+@@ -428,7 +430,7 @@ int hda_widget_sysfs_reinit(struct hdac_device *codec,
+ 	int i;
+ 
+ 	if (!codec->widgets)
+-		return hda_widget_sysfs_init(codec);
++		return hda_widget_sysfs_init(codec, start_nid, num_nodes);
+ 
+ 	tree = kmemdup(codec->widgets, sizeof(*tree), GFP_KERNEL);
+ 	if (!tree)
+diff --git a/sound/hda/local.h b/sound/hda/local.h
+index 877631e39373..8936120ab4d9 100644
+--- a/sound/hda/local.h
++++ b/sound/hda/local.h
+@@ -28,7 +28,8 @@ static inline unsigned int get_wcaps_channels(u32 wcaps)
+ }
+ 
+ extern const struct attribute_group *hdac_dev_attr_groups[];
+-int hda_widget_sysfs_init(struct hdac_device *codec);
++int hda_widget_sysfs_init(struct hdac_device *codec,
++			  hda_nid_t start_nid, int num_nodes);
+ int hda_widget_sysfs_reinit(struct hdac_device *codec, hda_nid_t start_nid,
+ 			    int num_nodes);
+ void hda_widget_sysfs_exit(struct hdac_device *codec);
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,75 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E5CF54E58
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 14:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEEA754FAF
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Jun 2019 15:04:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 802011612;
-	Tue, 25 Jun 2019 14:05:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 802011612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B64F1607;
+	Tue, 25 Jun 2019 15:03:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B64F1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561464405;
-	bh=pTim+pChNtoTp6Iha6n2dhuTDkrWsCCY6qHhtffRmNQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1561467849;
+	bh=3UoiZG59w13VbwiJQxh63Ajyro76knXRJ5er2gFi6Qg=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aNfV4wVGx8iTiFZslBPeZnRu4mpaYcYWDRdB2BTACspmFwmxVY3LIwZRfg6d0M/z1
-	 trItaedmAayCOprIKeCEKSrFJR6loE2Am+UglWunF3c9Uwn+lg22J3c/JAHXypsT9N
-	 rBFHGPnvSNWXOfe/DuuOy+Swv+xGxvCaNBnXv2jY=
+	b=Wvv7q6lu/d3u/1+n0bIhw2SPWST8FUKT3KoJaYQNWqJwbyPwh11MO+Gdn4bz9zxlD
+	 XconClHLsYB6LmUnyqfo8cVJOimRFv2zty3TzB4Xe7sWq2GsqFFcuNJFo0UtTS1XLv
+	 4dQQTeWRBwXbSpaGnCohPLHmqPj3ugU19L2oAkHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E225DF896FD;
-	Tue, 25 Jun 2019 14:05:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59752F896F9;
+	Tue, 25 Jun 2019 15:02:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE34CF896F9; Tue, 25 Jun 2019 14:04:57 +0200 (CEST)
+ id 09E3FF896F9; Tue, 25 Jun 2019 15:02:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A50A5F8071F
- for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 14:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A50A5F8071F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="YL9CFYho"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=DWICQ0zpYKRYMlBGBW8GJ1QjmjM3KJwVVYOSzyrALl0=; b=YL9CFYhoDEySP6EpxF75BmGLG
- mkb0s15KBJDC1IA08M14Xy4TViWorkCjLWg+9zCkblSFG00RZcaQw9zWKLUKYw3P3ba0zsEHE+oNu
- RLqXUbmsDmilnpZWPe0Qja5G+WABPM3FzMvD/FKfbizP3n2HoC/cZwCPKTtvHbEzT3q7M=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hfkBv-0005EI-1f; Tue, 25 Jun 2019 12:04:51 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 7CFA5440046; Tue, 25 Jun 2019 13:04:50 +0100 (BST)
-Date: Tue, 25 Jun 2019 13:04:50 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Amadeusz =?utf-8?B?U8WCYXdpxYRza2k=?= <amadeuszx.slawinski@linux.intel.com>
-Message-ID: <20190625120450.GR5316@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1D93F8071F
+ for <alsa-devel@alsa-project.org>; Tue, 25 Jun 2019 15:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1D93F8071F
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Jun 2019 06:02:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,415,1557212400"; d="scan'208";a="184480030"
+Received: from pbossart-mobl3.igk.intel.com (HELO [10.237.142.180])
+ ([10.237.142.180])
+ by fmsmga004.fm.intel.com with ESMTP; 25 Jun 2019 06:02:11 -0700
+To: Mark Brown <broonie@kernel.org>, =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
 References: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
+ <20190625120450.GR5316@sirena.org.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <f50433de-279a-cbc8-d91f-4e3a04bae450@linux.intel.com>
+Date: Tue, 25 Jun 2019 08:02:10 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <20190617113644.25621-1-amadeuszx.slawinski@linux.intel.com>
-X-Cookie: Editing is a rewording activity.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20190625120450.GR5316@sirena.org.uk>
+Content-Language: en-US
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
  Jie Yang <yang.jie@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ Takashi Iwai <tiwai@suse.com>
 Subject: Re: [alsa-devel] [PATCH v2 00/11] Fix driver reload issues
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -84,61 +75,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8603057543414505178=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============8603057543414505178==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eCam2inYEBLywDwW"
-Content-Disposition: inline
-
-
---eCam2inYEBLywDwW
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jun 17, 2019 at 01:36:33PM +0200, Amadeusz S=C5=82awi=C5=84ski wrot=
-e:
-> Hi,
->=20
-> This series of patches introduces fixes to various issues found while
-> trying to unload all snd* modules and then loading them again. This
-> allows for modules to be really _modules_ and be unloaded and loaded on
-> demand, making it easier to develop and test them without constant
-> system reboots.
-
-Pierre?  You did comment on the general concept in one of the patches
-but not on any of the patches directly.
-
---eCam2inYEBLywDwW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0SDeEACgkQJNaLcl1U
-h9Aszgf/ZJcrZYUqHzmeb3usoo7uoPZKU3yDTW95/KnXa232hRqc+j9GhPGFxXh5
-gZjfJzHgyW/51JU+fGwPfMUP4EF/QgSzBBleqChmxPxmnmuD8MPi81bcSLHAtj0e
-O2xQ4PJ0FM/FjaZaCWVjSxq0WQf22K4gfZjcRa6GmbYtourQgMPPQVbz3nXREqQc
-PCgSV8UyoLC8xR72b0eUIks0UFuR7NVhKJSirPAmdspgdDdPT9WI3pFRmWUeZjno
-gVLToJw2hJ9oNp0HIk2fHH/LuAyF6HRWJHQFCJypSWuz3btq/G9b5zgaQYKNxNaT
-2XJRfIR7ang8lYLECK/8CnCxS6ZVgA==
-=j2NT
------END PGP SIGNATURE-----
-
---eCam2inYEBLywDwW--
-
---===============8603057543414505178==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8603057543414505178==--
+CgpPbiA2LzI1LzE5IDc6MDQgQU0sIE1hcmsgQnJvd24gd3JvdGU6Cj4gT24gTW9uLCBKdW4gMTcs
+IDIwMTkgYXQgMDE6MzY6MzNQTSArMDIwMCwgQW1hZGV1c3ogU8WCYXdpxYRza2kgd3JvdGU6Cj4+
+IEhpLAo+Pgo+PiBUaGlzIHNlcmllcyBvZiBwYXRjaGVzIGludHJvZHVjZXMgZml4ZXMgdG8gdmFy
+aW91cyBpc3N1ZXMgZm91bmQgd2hpbGUKPj4gdHJ5aW5nIHRvIHVubG9hZCBhbGwgc25kKiBtb2R1
+bGVzIGFuZCB0aGVuIGxvYWRpbmcgdGhlbSBhZ2Fpbi4gVGhpcwo+PiBhbGxvd3MgZm9yIG1vZHVs
+ZXMgdG8gYmUgcmVhbGx5IF9tb2R1bGVzXyBhbmQgYmUgdW5sb2FkZWQgYW5kIGxvYWRlZCBvbgo+
+PiBkZW1hbmQsIG1ha2luZyBpdCBlYXNpZXIgdG8gZGV2ZWxvcCBhbmQgdGVzdCB0aGVtIHdpdGhv
+dXQgY29uc3RhbnQKPj4gc3lzdGVtIHJlYm9vdHMuCj4gCj4gUGllcnJlPyAgWW91IGRpZCBjb21t
+ZW50IG9uIHRoZSBnZW5lcmFsIGNvbmNlcHQgaW4gb25lIG9mIHRoZSBwYXRjaGVzCj4gYnV0IG5v
+dCBvbiBhbnkgb2YgdGhlIHBhdGNoZXMgZGlyZWN0bHkuCgpJIGRpZCByZXZpZXcgdGhlIHBhdGNo
+ZXMgaW50ZXJuYWxseSBhbmQgdGhlIHYxLiBGb3IgdGhlIHYyIEkgY291bGQgb25seSAKZG8gYW4g
+YWlycG9ydCBsb3VuZ2UgcmV2aWV3IGFuZCBkaWRuJ3Qgc2VlIGFueSBibGF0YW50IGlzc3Vlcywg
+c28gZmVlbCAKZnJlZSB0byB0YWtlIHRoZSBmb2xsb3dpbmcgdGFnIGZvciB0aGUgc2VyaWVzLgoK
+UmV2aWV3ZWQtYnk6IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDxwaWVycmUtbG91aXMuYm9zc2FydEBs
+aW51eC5pbnRlbC5jb20+CgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0
+Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fs
+c2EtZGV2ZWwK

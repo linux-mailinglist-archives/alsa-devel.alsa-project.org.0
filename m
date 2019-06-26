@@ -2,68 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D5A057386
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 23:22:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CE257394
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 23:25:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1FAB16A5;
-	Wed, 26 Jun 2019 23:21:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1FAB16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id A231D16B6;
+	Wed, 26 Jun 2019 23:24:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A231D16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561584145;
-	bh=TKZhmoa43fBOiPpaR/7dWhvQfZuty5EGaIalQlHZfkU=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=V8Vr3+kl3DoWkoS+fJID40rg4yWXXe6TrUTY1509tPLVs9uWOYc7MSfhJ1fIV4jP8
-	 IJKj+09hFCl6RHtL+gQ2+e2mznukRigh4uvo6zeX70Mk8xupQ4XANbFLCzlsHxJ9Hq
-	 xDO/HGMQCY4mbzIgc81pMVVKniFOQIPGEhXgMYks=
+	s=default; t=1561584325;
+	bh=h2zK9bXI59qNs9seColfW5hsk2jP/52OTdxCMJ7qx0k=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ibbG1kaEDMpGM64JOZH89RZ2S04yh0D/00Q+N58mLzCltMak20Y5jsyqR/eNhMGOW
+	 0lWrcJ7abtMfrYqHJJjopy+C8hD7ohnBrkowzPm9grsfhA0SH2PxH0ySInZrtr8A5H
+	 QW776134M/bN7E6DablR0pDRCqAfviIA3sJj08+Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38AB0F896B7;
-	Wed, 26 Jun 2019 23:20:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA505F8972F;
+	Wed, 26 Jun 2019 23:23:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC44AF896B9; Wed, 26 Jun 2019 23:20:33 +0200 (CEST)
+ id 0461DF89701; Wed, 26 Jun 2019 23:22:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
+ [IPv6:2607:f8b0:4864:20::643])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4BCC5F806F0
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 23:20:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BCC5F806F0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2019 14:20:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,421,1557212400"; d="scan'208";a="188793233"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga002.fm.intel.com with ESMTP; 26 Jun 2019 14:20:26 -0700
-Received: from iriji-mobl1.ger.corp.intel.com (unknown [10.252.28.127])
- by linux.intel.com (Postfix) with ESMTP id A171658046A;
- Wed, 26 Jun 2019 14:20:23 -0700 (PDT)
-To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Kevin Hilman <khilman@baylibre.com>
-References: <20190626133617.25959-1-jbrunet@baylibre.com>
- <20190626133617.25959-2-jbrunet@baylibre.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8b4822f7-6671-1c23-572d-37f7e94ea8cc@linux.intel.com>
-Date: Wed, 26 Jun 2019 23:20:22 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DCE0F896B7
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 23:22:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DCE0F896B7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="AxObSdEA"
+Received: by mail-pl1-x643.google.com with SMTP id e5so10889pls.13
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 14:22:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ij4y5UDfEbG2jo5JYyvAwzXVxT7kJpB2+6FE5/HNPYw=;
+ b=AxObSdEA5QIyp/BHvcsUBVQDhF9QON4UnumA5yV/WsAbRMHm19Cbi9O/ddxhZKwrLa
+ VC/rG0o3A6HrcSOJkJZW3gaqzTLNMaxZk0ItDnArCuNTT0UhYrQF4IX0OpjGvgMuWHro
+ SbE7n5O3FQV3LK5Ye8V7EoZrh/Iylzxd8wRwA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ij4y5UDfEbG2jo5JYyvAwzXVxT7kJpB2+6FE5/HNPYw=;
+ b=ClLERVzmSbZtGlGy6lEqZT5YfuoGytDr2xEUGFOlxidCq5bV8n415+SL2nmWYvlNTy
+ BhSttzNXaUR5uVtXo4yVuAu8YVC0pX2lQKg9qPlgxyc5KGpZGENP3EjPYPAkOdJJFS8B
+ YgsoEuCRIiRZwCHG3AWUryoSDVBIF13Kd71CBwJ58XQaG7gyY4zUk5jUOcTHoxQJVtoI
+ qUwIpJ8bORRNdD6+XpPrHHIDwRrmAnW3JyjIuZhoDJ69Ei1YwexWEYI+KEJF0AF3X2Xs
+ DSlsU2BmxwwIvu9+3jzcm6fO671p+hbSn6GHeOOp/vl/mWqj8KAa7G5Ow6qOkc9Q1rxO
+ 45tg==
+X-Gm-Message-State: APjAAAVYf56d5d7nrYHxYLz4U21nMZRiNOgK6t7SiRPyDSU+EPs9WmxF
+ 9KcazEYKdJ18flYX4bWAcgJqsA==
+X-Google-Smtp-Source: APXvYqyQMLLaw2qO9OPg0J5QL+TcHGSSxLFnpN4KkIk93CubD3Dw4953ZpgAbVu9v74l3nBfiMJ7+g==
+X-Received: by 2002:a17:902:8649:: with SMTP id
+ y9mr190931plt.289.1561584163195; 
+ Wed, 26 Jun 2019 14:22:43 -0700 (PDT)
+Received: from evgreen2.mtv.corp.google.com
+ ([2620:15c:202:201:ffda:7716:9afc:1301])
+ by smtp.gmail.com with ESMTPSA id h6sm170323pfn.79.2019.06.26.14.22.42
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Wed, 26 Jun 2019 14:22:42 -0700 (PDT)
+From: Evan Green <evgreen@chromium.org>
+To: Takashi Iwai <tiwai@suse.com>
+Date: Wed, 26 Jun 2019 14:22:18 -0700
+Message-Id: <20190626212220.239897-1-evgreen@chromium.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190626133617.25959-2-jbrunet@baylibre.com>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: soc-core: defer card
- registration if codec component is missing
+Cc: alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Evan Green <evgreen@chromium.org>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>
+Subject: [alsa-devel] [PATCH v2 0/2] ALSA: hda: Widget memory fixes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,49 +95,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/26/19 3:36 PM, Jerome Brunet wrote:
-> Like cpus and platforms, defer sound card initialization if the codec
-> component is missing when initializing the dai_link
-> 
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-> ---
->   sound/soc/soc-core.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index 358f1fbf9a30..002ddbf4e5a3 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -1064,12 +1064,20 @@ static int soc_init_dai_link(struct snd_soc_card *card,
->   				link->name);
->   			return -EINVAL;
->   		}
-> +
->   		/* Codec DAI name must be specified */
->   		if (!codec->dai_name) {
->   			dev_err(card->dev, "ASoC: codec_dai_name not set for %s\n",
->   				link->name);
->   			return -EINVAL;
->   		}
-> +
-> +		/*
-> +		 * Defer card registartion if codec component is not added to
 
-registration
+This series fixes concurrency issues with the sysfs widget array. The first
+function patches up the locking that was introduced recently to protect more
+of the data structure. The second patch fixes a race between a reinit and the
+initial population of the array which could result in a length and array
+getting out of sync.
 
-> +		 * component list.
-> +		 */
-> +		if (!soc_find_component(codec))
-> +			return -EPROBE_DEFER;
->   	}
->   
->   	/*
-> 
+
+Changes in v2:
+- Introduced widget_mutex relocation
+
+Evan Green (2):
+  ALSA: hda: Fix widget_mutex incomplete protection
+  ALSA: hda: Use correct start/count for sysfs init
+
+ sound/hda/hdac_device.c | 21 ++++++++++++++-------
+ sound/hda/hdac_sysfs.c  | 18 ++++++++++--------
+ sound/hda/local.h       |  3 ++-
+ 3 files changed, 26 insertions(+), 16 deletions(-)
+
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,84 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5BB157265
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 22:14:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D27D95728B
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 22:25:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 559FA1696;
-	Wed, 26 Jun 2019 22:14:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 559FA1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4FDE516AE;
+	Wed, 26 Jun 2019 22:24:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FDE516AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561580092;
-	bh=Je4OXac+rILytuVeRui6keV2mVWZaVKfgFLIkM4ehPU=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Tww8UNj5XY8i/2H3t33QNuDjeUqq1KlK7j/TbcU9xe81fPFWQy7gcmECkhIbslb5X
-	 bRmhLi/aRXhCPGSTB2H6Jk5rtuInxo2bPSBeZs+Jxb/DUdlL5iAdCkszXskRGHBYGl
-	 L/kXbAkwW6x/51+qIo7s9aBfkfiJRL/dHuVUa7LI=
+	s=default; t=1561580707;
+	bh=XVwpj1F6AWl36S8nnIydKLhH+kJ6NZt116041Sjz4nQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=J8Tij30iG7+hqYQkA5xzCyAfJvXndG8CPonO3Oiaz7fzwHxg0TzmRGVZBFvoxquJA
+	 hPIobRmM1Zm8cA1Z+2MAhF7Xt6YZP2y6Mvl9z13TMp3lcodRT8AiNY+wSiRXlf6y0w
+	 ijT/pbZR9RZUT4xnbcbd3JsfPgPxMlGc+EXUHzt4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE519F896B9;
-	Wed, 26 Jun 2019 22:13:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F18E1F8972F;
+	Wed, 26 Jun 2019 22:22:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEA92F896B9; Wed, 26 Jun 2019 22:13:04 +0200 (CEST)
+ id 5C9C6F896CC; Wed, 26 Jun 2019 22:22:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp.hora-obscura.de (hora-obscura.de [213.133.109.209])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42E31F806F0
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 22:13:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42E31F806F0
-Received: from smtp.hora-obscura.de (localhost [127.0.0.1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by smtp.hora-obscura.de (Postfix) with ESMTPS id 9FFCBAF8081
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 22:13:01 +0200 (CEST)
-Received: from ada.local (ipbcc14466.dynamic.kabel-deutschland.de
- [188.193.68.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by smtp.hora-obscura.de (Postfix) with ESMTPSA id 7104AAF801E
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 22:13:01 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBC24F806F0
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 22:22:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBC24F806F0
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2019 13:22:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,421,1557212400"; d="scan'208";a="155984481"
+Received: from byang2-mobl1.amr.corp.intel.com (HELO
+ ranjani-desktop.hsd1.ca.comcast.net) ([10.252.140.110])
+ by orsmga008.jf.intel.com with ESMTP; 26 Jun 2019 13:22:29 -0700
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 To: alsa-devel@alsa-project.org
-References: <65ad9ddb-bb67-2dc0-d5f5-e0c518641db2@hora-obscura.de>
- <s5hwohat80v.wl-tiwai@suse.de>
- <0f7f9e91-2c7e-d292-8ca1-a74b52607aea@hora-obscura.de>
-From: Stefan Sauer <ensonic@hora-obscura.de>
-Openpgp: preference=signencrypt
-Autocrypt: addr=ensonic@hora-obscura.de; prefer-encrypt=mutual; keydata=
- mQGiBDiW1zARBADnMiXRu0ZRcbWAw4NefyeZej5pRX/mzBAvplIhAeJ5vA0zfzd3aIyAxYv1
- iA+/p7QwGVAMZ9Gio8ZLvgfDYjrHbez7Bc4TWuTck6hmQAIBI7ptyWhOrePMiQ8b4yN8KP7I
- PoJHBpC0jLbuwmwC+/2yQPT4V9AQ+Unqe8xvuBJczwCgnAo6JpYIZDpy/vt4soFG3o38OrME
- AOPzt7SdyuzVp9w3mO/2XCzyJcn1fpUGlChbljayKvrDvPJEZtm5d65zBV6iYSSpF8GtdX1q
- znSF5siMSvF7DljZT4oIDqYTJAEZXDYYM7aYyTXeZ1hk9YoiRaMiT84AvQRvQVwYUqlygNMO
- q14zkcdhSpk5i1HDum+i1/T/RSFDBACcpdlqjvg4AoMbyf9UNr/tmfcITEKkLkYtPzmF4DIK
- Tqbq+FgqB5ltPPgTffJ6yWfTQAt1dr+XZeivdgyCX3bo6784rtOc7/ICjBdOktKj6zb88tPp
- kYw16Fr5OcNollJxm+/pY+JXwAl5IsbN3ysoBuBOBbu+pAC1Py39D/+af7QvU3RlZmFuIEtv
- c3QgKGVuc29uaWMpIDxlbnNvbmljQGhvcmEtb2JzY3VyYS5kZT6IXwQTEQIAHwIbAwQLBwMC
- AxUCAwMWAgECHgECF4ACGQEFAkKMY0QACgkQITDA+qr9gcydpwCfbGuNpfw+hge7Xcp9FerJ
- 35fMMY0An0vvOJG3ORIUHE1VvfoC0ITb6heFuQENBDiW11IQBACUp8q45lLmzHujYh7w8fd4
- cjkb57oScfcD+lliCOmKHZOxRa8Ew3ULtgSze1JPnDT6a5jgnxMKPIHjqlTCpEyTxcMHOi3L
- 8BBft2YzdB3cLnrMXx1mPU//vkT93VOnXTFjxKbMEK8OHSh+JpzgySjmXfwVfn/EiyXkroEV
- Lip92wADBQP/ej1uwM//zfKumDRJskyMCOfSAUfwRZhHkLWPvBQfPgUqdU7NcYACItAFVbIK
- tSES1Vd3L0kbBtnygCf4SwGMRARUALipof4DxVMxaK46igLGC+UkiTz8swUV/81+EUfKEqdd
- QjRv6Gp7VZSDkv4sBcjIMydr8o2Mc8P/ByKvUPWIRgQYEQIABgUCOJbXUgAKCRAhMMD6qv2B
- zLilAJ4jS2hqfeEbZxvmr1+0FxBx2/x9CQCaA5vugvJQg8PXRT7ScAnoGgCf994=
-Message-ID: <2c14e724-4a66-0998-a4a6-a424aee36424@hora-obscura.de>
-Date: Wed, 26 Jun 2019 22:13:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
-MIME-Version: 1.0
-In-Reply-To: <0f7f9e91-2c7e-d292-8ca1-a74b52607aea@hora-obscura.de>
-Content-Language: en-US
-Subject: Re: [alsa-devel] focusrite scarlett 18i20 : Mixer controls with
- corrupted names for
+Date: Wed, 26 Jun 2019 13:22:26 -0700
+Message-Id: <20190626202229.16312-1-ranjani.sridharan@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: tiwai@suse.de, broonie@kernel.org, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] [PATCH 0/3] SOF PM and jack detection fixes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,110 +64,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-QW0gMjYuMDYuMTkgdW0gMjI6MDYgc2NocmllYiBTdGVmYW4gU2F1ZXI6Cj4gQW0gMjUuMDYuMTkg
-dW0gMDk6NTQgc2NocmllYiBUYWthc2hpIEl3YWk6Cj4+IE9uIFNhdCwgMjIgSnVuIDIwMTkgMjI6
-NTU6MjUgKzAyMDAsCj4+IFN0ZWZhbiBTYXVlciB3cm90ZToKPj4+Cj4+PiBTbyB0aGUgZmlyc3Qg
-OCBjb250cm9scyBhcmUgYWRkZWQgc29tZXdoZXJlIGVsc2UuIExvb2tzIGxpa2UgdGhpcyBpcyBm
-cm9tCj4+PiBtaXhlci5jIGFuZCBhZnRlcgo+Pj4gZWNobyAtbiAnZmlsZSBzb3VuZC91c2IvbWl4
-ZXIuYyArcCcgPi9zeXMva2VybmVsL2RlYnVnL2R5bmFtaWNfZGVidWcvY29udHJvbAo+Pj4gSSBn
-ZXQKPj4+IFsgNDQwNS44NTU0MzJdIHVzYiAxLTI6IFs1MV0gUFUgW0tLS0tLS0tLS0tLS0vDg8OD
-w4PDg8ODw4PDg8ODw4PDg8ODIFN3aXRjaF0gY2ggPSAxLCB2YWwgPSAwLzEKPj4+IFsgNDQwNS44
-NTY0MjNdIHVzYiAxLTI6IFs1Ml0gUFUgWyBTd2l0Y2hdIGNoID0gMSwgdmFsID0gMC8xCj4+Cj4+
-IFRoaXMgaW5kaWNhdGVzIHRoYXQgdGhlc2Ugd2VpcmQgbmFtZXMgY29tZSBmcm9tIHRoZSB0d28g
-ZXh0ZW5zaW9uCj4+IHVuaXRzIGlkIDUxIGFuZCA1Mi4KPj4gQ291bGQgeW91IHB1dCBzb21lIGRl
-YnVnIHByaW50IGluIGJ1aWxkX2F1ZGlvX3Byb2N1bml0KCkgbGlrZSBiZWxvdz8KPiAKPiBJIHRy
-YWNlZCBpdCBkb3duIHRvIHRoaXMgcGFydCBmcm9tIHNvdW5kL3VzYi9taXhlci5jOgo+IG5hbWVp
-ZCA9IHVhY19wcm9jZXNzaW5nX3VuaXRfaVByb2Nlc3NpbmcoZGVzYywgc3RhdGUtPm1peGVyLT5w
-cm90b2NvbCk7Cj4gdXNiX2F1ZGlvX2RiZyhzdGF0ZS0+Y2hpcCwgImRlc2MtPmJVbml0SUQ9JWQs
-IHByb3RvPSVkLCBuYW1laWQ9JWRcbiIsCj4gIAkgICAgICBkZXNjLT5iVW5pdElELCBzdGF0ZS0+
-bWl4ZXItPnByb3RvY29sLCBuYW1laWQpOwo+IGxlbiA9IDA7Cj4gaWYgKG5hbWVpZCkgewo+IAls
-ZW4gPSBzbmRfdXNiX2NvcHlfc3RyaW5nX2Rlc2Moc3RhdGUtPmNoaXAsCj4gCQkJCSAgICAgICBu
-YW1laWQsCj4gCQkJCSAgICAgICBrY3RsLT5pZC5uYW1lLAo+IAkJCQkgICAgICAgc2l6ZW9mKGtj
-dGwtPmlkLm5hbWUpKTsKPiAJdXNiX2F1ZGlvX2RiZyhzdGF0ZS0+Y2hpcCwgIm5hbWVpZD0lZCwg
-bGVuPSVkLCBmYWxsYmFjayBuYW1lPSclcydcbiIsCj4gIAkJICAgICAgbmFtZWlkLCBsZW4sIG5h
-bWUpOwo+IH0KPiAKPiBbIDYyNDEuMDQ1NzM0XSB1c2IgMS0yOiBkZXNjLT5iVW5pdElEPTUxLCBw
-cm90bz0zMiwgbmFtZWlkPTkwCj4gWyA2MjQxLjA0NTg2MV0gdXNiIDEtMjogbmFtZWlkPTkwLCBs
-ZW49MzUsIGZhbGxiYWNrIG5hbWU9J0V4dGVuc2lvbiBVbml0Jwo+IFsgNjI0MS4wNDU4NjhdIHVz
-YiAxLTI6IFs1MV0gUFUgW0tLS0tLS0tLS0tLS0vDg8ODw4PDg8ODw4PDg8ODw4PDg8ODIFN3aXRj
-aF0gY2ggPSAxLCB2YWwgPSAwLzEKPiBbIDYyNDEuMDQ2NzQ1XSB1c2IgMS0yOiBkZXNjLT5iVW5p
-dElEPTUyLCBwcm90bz0zMiwgbmFtZWlkPTgyCj4gWyA2MjQxLjA0Njg1N10gdXNiIDEtMjogbmFt
-ZWlkPTgyLCBsZW49MSwgZmFsbGJhY2sgbmFtZT0nRXh0ZW5zaW9uIFVuaXQnCj4gWyA2MjQxLjA0
-Njg2Ml0gdXNiIDEtMjogWzUyXSBQVSBbIFN3aXRjaF0gY2ggPSAxLCB2YWwgPSAwLzEKCmFuZCB3
-aXRoIHRoZSBiVW5pdElEIEkgZ2V0IHRvIHRoZXNlIGRlc2NyaXB0b3JzIGZyb20gbHN1c2I6CgpB
-dWRpb0NvbnRyb2wgSW50ZXJmYWNlIERlc2NyaXB0b3I6CiAgICAgICAgYkxlbmd0aCAgICAgICAg
-ICAgICAgICAxNgogICAgICAgIGJEZXNjcmlwdG9yVHlwZSAgICAgICAgMzYKICAgICAgICBiRGVz
-Y3JpcHRvclN1YnR5cGUgICAgICA5IChFWFRFTlNJT05fVU5JVCkKICAgICAgICBiVW5pdElEICAg
-ICAgICAgICAgICAgIDUxCiAgICAgICAgd0V4dGVuc2lvbkNvZGUgICAgIDB4MDAwMAogICAgICAg
-IGJOckluUGlucyAgICAgICAgICAgICAgIDEKICAgICAgICBiYVNvdXJjZUlEKDApICAgICAgICAg
-ICAyCiAgICAgICAgYk5yQ2hhbm5lbHMgICAgICAgICAgICAyMAogICAgICAgIGJtQ2hhbm5lbENv
-bmZpZyAgICAweDAwMDAwMDAwCiAgICAgICAgaUNoYW5uZWxOYW1lcyAgICAgICAgICAgMAogICAg
-ICAgIGJtQ29udHJvbHMgICAgICAgICAgIDB4MDMKICAgICAgICAgIEVuYWJsZSBDb250cm9sIChy
-ZWFkL3dyaXRlKQogICAgICAgIGlFeHRlbnNpb24gICAgICAgICAgICAgIDAKQXVkaW9Db250cm9s
-IEludGVyZmFjZSBEZXNjcmlwdG9yOgogICAgICAgIGJMZW5ndGggICAgICAgICAgICAgICAgMTYK
-ICAgICAgICBiRGVzY3JpcHRvclR5cGUgICAgICAgIDM2CiAgICAgICAgYkRlc2NyaXB0b3JTdWJ0
-eXBlICAgICAgOSAoRVhURU5TSU9OX1VOSVQpCiAgICAgICAgYlVuaXRJRCAgICAgICAgICAgICAg
-ICA1MgogICAgICAgIHdFeHRlbnNpb25Db2RlICAgICAweDAwMDAKICAgICAgICBiTnJJblBpbnMg
-ICAgICAgICAgICAgICAxCiAgICAgICAgYmFTb3VyY2VJRCgwKSAgICAgICAgICAgMQogICAgICAg
-IGJOckNoYW5uZWxzICAgICAgICAgICAgMjAKICAgICAgICBibUNoYW5uZWxDb25maWcgICAgMHgw
-MDAwMDAwMAogICAgICAgIGlDaGFubmVsTmFtZXMgICAgICAgICAgIDAKICAgICAgICBibUNvbnRy
-b2xzICAgICAgICAgICAweDAzCiAgICAgICAgICBFbmFibGUgQ29udHJvbCAocmVhZC93cml0ZSkK
-ICAgICAgICBpRXh0ZW5zaW9uICAgICAgICAgICAgICAwCgo+IAo+IFRoZSBkZXZpY2UgaXMgdXNp
-bmcgVUFDX1ZFUlNJT05fMi4gVGhlIGNvZGUgaW4gaW5jbHVkZS91YXBpL2xpbnV4L3VzYi9hdWRp
-by5oIGlzCj4gYSBiaXQgaGFyZCB0byByZWFkIHNpbmNlIHVhY19taXhlcl91bml0X2Rlc2NyaXB0
-b3IgaGFzIGEgdmFyaWFibGUgbGVuZ3RoIGFuZCB0aGUKPiBjb2RlIGlzIGFkZGluZyBzZXZlcmFs
-IG9mZnNldCwgSSdsbCBuZWVkIHRvIGFkZCBtb3JlIHByaW50ZnMgdGhlcmUgdG8gY2hlY2sgaWYK
-PiBpdCBpcyBjb3JyZWN0LiBJIGFtIGNvbnN1bHRpbmcKPiBodHRwczovL3d3dy51c2Iub3JnL3Np
-dGVzL2RlZmF1bHQvZmlsZXMvYXVkaW8xMC5wZGYgYnV0IEkgYW0gbm90IHN1cmUgaWYgdGhpcwo+
-IGNvdmVycyBVQUMyLgo+IAo+IFN0ZWZhbgo+IAo+Pgo+Pgo+PiB0aGFua3MsCj4+Cj4+IFRha2Fz
-aGkKPj4KPj4gLS0tIGEvc291bmQvdXNiL21peGVyLmMKPj4gKysrIGIvc291bmQvdXNiL21peGVy
-LmMKPj4gQEAgLTIzNTgsOCArMjM1OCwxMCBAQCBzdGF0aWMgaW50IGJ1aWxkX2F1ZGlvX3Byb2N1
-bml0KHN0cnVjdCBtaXhlcl9idWlsZCAqc3RhdGUsIGludCB1bml0aWQsCj4+ICAJZm9yIChpbmZv
-ID0gbGlzdDsgaW5mbyAmJiBpbmZvLT50eXBlOyBpbmZvKyspCj4+ICAJCWlmIChpbmZvLT50eXBl
-ID09IHR5cGUpCj4+ICAJCQlicmVhazsKPj4gLQlpZiAoIWluZm8gfHwgIWluZm8tPnR5cGUpCj4+
-ICsJaWYgKCFpbmZvIHx8ICFpbmZvLT50eXBlKSB7Cj4+ICsJCXByX2luZm8oIlhYWCB1bml0ICVk
-IHRvIGRlZmF1bHRfaW5mb1xuIiwgdW5pdGlkKTsKPj4gIAkJaW5mbyA9ICZkZWZhdWx0X2luZm87
-Cj4+ICsJfQo+PiAgCj4+ICAJZm9yICh2YWxpbmZvID0gaW5mby0+dmFsdWVzOyB2YWxpbmZvLT5j
-b250cm9sOyB2YWxpbmZvKyspIHsKPj4gIAkJX191OCAqY29udHJvbHMgPSB1YWNfcHJvY2Vzc2lu
-Z191bml0X2JtQ29udHJvbHMoZGVzYywgc3RhdGUtPm1peGVyLT5wcm90b2NvbCk7Cj4+IEBAIC0y
-Mzc1LDggKzIzNzcsMTEgQEAgc3RhdGljIGludCBidWlsZF9hdWRpb19wcm9jdW5pdChzdHJ1Y3Qg
-bWl4ZXJfYnVpbGQgKnN0YXRlLCBpbnQgdW5pdGlkLAo+PiAgCQl9Cj4+ICAKPj4gIAkJbWFwID0g
-ZmluZF9tYXAoc3RhdGUtPm1hcCwgdW5pdGlkLCB2YWxpbmZvLT5jb250cm9sKTsKPj4gKwkJaWYg
-KG1hcCkKPj4gKwkJCXByX2luZm8oIlhYWCBtYXAgZm91bmQgZm9yIHVuaXQgJWRcbiIsIHVuaXRp
-ZCk7Cj4+ICAJCWlmIChjaGVja19pZ25vcmVkX2N0bChtYXApKQo+PiAgCQkJY29udGludWU7Cj4+
-ICsKPj4gIAkJY3ZhbCA9IGt6YWxsb2Moc2l6ZW9mKCpjdmFsKSwgR0ZQX0tFUk5FTCk7Cj4+ICAJ
-CWlmICghY3ZhbCkKPj4gIAkJCXJldHVybiAtRU5PTUVNOwo+PiBAQCAtMjQ0NCwxOSArMjQ0OSwy
-NiBAQCBzdGF0aWMgaW50IGJ1aWxkX2F1ZGlvX3Byb2N1bml0KHN0cnVjdCBtaXhlcl9idWlsZCAq
-c3RhdGUsIGludCB1bml0aWQsCj4+ICAJCWtjdGwtPnByaXZhdGVfZnJlZSA9IHNuZF91c2JfbWl4
-ZXJfZWxlbV9mcmVlOwo+PiAgCj4+ICAJCWlmIChjaGVja19tYXBwZWRfbmFtZShtYXAsIGtjdGwt
-PmlkLm5hbWUsIHNpemVvZihrY3RsLT5pZC5uYW1lKSkpIHsKPj4gKwkJCXByX2luZm8oIlhYWCBu
-YW1lIGNvcGllZCBmcm9tIG1hcDogJyVzJyBmb3IgdW5pdCAlZFxuIiwga2N0bC0+aWQubmFtZSwg
-dW5pdGlkKTsKPj4gIAkJCS8qIG5vdGhpbmcgKi8gOwo+PiAgCQl9IGVsc2UgaWYgKGluZm8tPm5h
-bWUpIHsKPj4gIAkJCXN0cmxjcHkoa2N0bC0+aWQubmFtZSwgaW5mby0+bmFtZSwgc2l6ZW9mKGtj
-dGwtPmlkLm5hbWUpKTsKPj4gKwkJCXByX2luZm8oIlhYWCBuYW1lIGNvcGllZCBmcm9tIGluZm86
-ICclcycgZm9yIHVuaXQgJWRcbiIsIGtjdGwtPmlkLm5hbWUsIHVuaXRpZCk7Cj4+ICAJCX0gZWxz
-ZSB7Cj4+ICAJCQluYW1laWQgPSB1YWNfcHJvY2Vzc2luZ191bml0X2lQcm9jZXNzaW5nKGRlc2Ms
-IHN0YXRlLT5taXhlci0+cHJvdG9jb2wpOwo+PiArCQkJcHJfaW5mbygiWFhYIG5hbWVpZD0lZCwg
-dW5pdCAlZFxuIiwgbmFtZWlkLCB1bml0aWQpOwo+PiAgCQkJbGVuID0gMDsKPj4gLQkJCWlmIChu
-YW1laWQpCj4+ICsJCQlpZiAobmFtZWlkKSB7Cj4+ICAJCQkJbGVuID0gc25kX3VzYl9jb3B5X3N0
-cmluZ19kZXNjKHN0YXRlLT5jaGlwLAo+PiAgCQkJCQkJCSAgICAgICBuYW1laWQsCj4+ICAJCQkJ
-CQkJICAgICAgIGtjdGwtPmlkLm5hbWUsCj4+ICAJCQkJCQkJICAgICAgIHNpemVvZihrY3RsLT5p
-ZC5uYW1lKSk7Cj4+IC0JCQlpZiAoIWxlbikKPj4gKwkJCQlwcl9pbmZvKCJYWFggY29weSBzdHJp
-bmcgZGVzYyAnJXMnXG4iLCBrY3RsLT5pZC5uYW1lKTsKPj4gKwkJCX0KPj4gKwkJCWlmICghbGVu
-KSB7Cj4+ICAJCQkJc3RybGNweShrY3RsLT5pZC5uYW1lLCBuYW1lLCBzaXplb2Yoa2N0bC0+aWQu
-bmFtZSkpOwo+PiArCQkJCXByX2luZm8oIlhYWCBjb3B5IGRlZmF1bHQgbmFtZSAnJXMnXG4iLCBr
-Y3RsLT5pZC5uYW1lKTsKPj4gKwkJCX0KPj4gIAkJfQo+PiAgCQlhcHBlbmRfY3RsX25hbWUoa2N0
-bCwgIiAiKTsKPj4gIAkJYXBwZW5kX2N0bF9uYW1lKGtjdGwsIHZhbGluZm8tPnN1ZmZpeCk7Cj4+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+IEFsc2Et
-ZGV2ZWwgbWFpbGluZyBsaXN0Cj4+IEFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwo+PiBodHRw
-czovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
-Pj4KPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
-IEFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0Cj4gQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCj4g
-aHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRl
-dmVsCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpB
-bHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6
-Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+This set of patches addresses issues related to runtime
+suspend and jack detection during runtime suspend.
+
+The first 2 patches handle enabling WAKEEN in the SOF
+driver to address issue with jack detection when the
+SOF device is runtime suspended. More details about the
+issue can be found here:
+https://github.com/thesofproject/linux/issues/909
+
+The third patch allows the SOF driver to suspend after
+the autosuspend delay instead of suspending immediately
+upon boot.
+
+Pan Xiuli (1):
+  ASoC: SOF: mark last_busy value at runtime PM init
+
+Rander Wang (2):
+  ASoC: SOF: Intel: hda: reduce ifdef usage for hda
+  ASoC: SOF: Intel: hda: Enable jack detection in sof hda driver
+
+ sound/soc/sof/intel/hda-codec.c | 45 +++++++++++++++++++++++++++--
+ sound/soc/sof/intel/hda-dsp.c   | 51 +++++++++++++++++++++------------
+ sound/soc/sof/intel/hda.h       |  4 +++
+ sound/soc/sof/sof-pci-dev.c     |  3 ++
+ 4 files changed, 83 insertions(+), 20 deletions(-)
+
+-- 
+2.17.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

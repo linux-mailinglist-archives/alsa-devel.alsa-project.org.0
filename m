@@ -2,72 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCEAD567C5
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 13:38:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5D656874
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 14:18:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6926E1692;
-	Wed, 26 Jun 2019 13:37:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6926E1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 479E41686;
+	Wed, 26 Jun 2019 14:17:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 479E41686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561549080;
-	bh=iU1FJlXJTC1aVK8MjriaVWtqLisKtFoZKl5FN/Z+J5Q=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Cz8n2VrMqnFygDA5w41ho+XTZxYYbnYBZqw0Z++ICZSCMgek1vvV6CmdzltjNtz6v
-	 V3UTDn7dy2+HUY1RXkI4InUhzlqnHpIY7IZPhYapZYvjkLYr7g6U7aXYfjYPbSKLQf
-	 ueu/L8nnMayBjSvcxasz52MsMWStJqsJbaQ6V3p4=
+	s=default; t=1561551511;
+	bh=SOA4GmkyessaxRZ3kwbx3xlERFUUKIWmMMOZ9KE1PC0=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IKarkNL6wGINFbwpww3+QCrbYEwVcyAnLG5r/zNXPWfM1POEVweA6cD+xfg9cdsjv
+	 cftV8K22SKYp30S+biSP9cxKhbbKzfukeH5AieXF38AKSfkwMzJW3yFbBZ6u5e/zyw
+	 I6zEnl510PfMjkPD+bIuQQmaxZ2kkMtPKD3DfakU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97513F89748;
-	Wed, 26 Jun 2019 13:33:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0106F896B9;
+	Wed, 26 Jun 2019 14:16:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CE4AF89721; Wed, 26 Jun 2019 13:32:53 +0200 (CEST)
+ id AC842F896B9; Wed, 26 Jun 2019 14:16:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from esa3.microchip.iphmx.com (esa3.microchip.iphmx.com
+ [68.232.153.233])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DFCCF896EC
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 13:32:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DFCCF896EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43CB0F806F0
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 14:16:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43CB0F806F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ENV5OxqN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=4I+AHzJnKieZO2LKAAebHVSoVhaWOv3vNYTz6WzbvgM=; b=ENV5OxqNSmLE
- ZH4mGFjOiXvXUt/fisRpfG7O7s+aqpx7Y8nXAr6Al8+79Ly6NIzNljDehYAI5j8zPlDZ5GEoViLkd
- wBzLTo7a/UCHgqGUZP10Qh94E/ABWWsr/T4G+mS0Q47uTxxsmDSaZmrLLV6tLjFyZ/N3vdvVZBAJ6
- i/pcs=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hg6AP-0007nL-IG; Wed, 26 Jun 2019 11:32:45 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 16FC3440050; Wed, 26 Jun 2019 12:32:45 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20190613190436.20156-4-cezary.rojewski@intel.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190626113245.16FC3440050@finisterre.sirena.org.uk>
-Date: Wed, 26 Jun 2019 12:32:45 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- tiwai@suse.com, lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] Applied "ASoC: Intel: Skylake: Read HIPCT extension
-	before clearing DONE bit" to the asoc tree
+ dkim=pass (1024-bit key) header.d=microchiptechnology.onmicrosoft.com
+ header.i=@microchiptechnology.onmicrosoft.com header.b="3/c4QrXA"
+Received-SPF: Pass (esa3.microchip.iphmx.com: domain of
+ Codrin.Ciubotariu@microchip.com designates 198.175.253.82 as
+ permitted sender) identity=mailfrom;
+ client-ip=198.175.253.82; receiver=esa3.microchip.iphmx.com;
+ envelope-from="Codrin.Ciubotariu@microchip.com";
+ x-sender="Codrin.Ciubotariu@microchip.com";
+ x-conformance=spf_only; x-record-type="v=spf1";
+ x-record-text="v=spf1 mx a:ushub1.microchip.com
+ a:smtpout.microchip.com a:mx1.microchip.iphmx.com
+ a:mx2.microchip.iphmx.com include:servers.mcsv.net
+ include:mktomail.com include:spf.protection.outlook.com ~all"
+Received-SPF: None (esa3.microchip.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@email.microchip.com) identity=helo;
+ client-ip=198.175.253.82; receiver=esa3.microchip.iphmx.com;
+ envelope-from="Codrin.Ciubotariu@microchip.com";
+ x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
+Authentication-Results: esa3.microchip.iphmx.com;
+ spf=Pass smtp.mailfrom=Codrin.Ciubotariu@microchip.com;
+ spf=None smtp.helo=postmaster@email.microchip.com;
+ dkim=pass (signature verified) header.i=@microchiptechnology.onmicrosoft.com;
+ dmarc=pass (p=none dis=none) d=microchip.com
+X-IronPort-AV: E=Sophos;i="5.63,419,1557212400"; d="scan'208";a="39089860"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa3.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 26 Jun 2019 05:16:37 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex03.mchp-main.com (10.10.87.152) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Wed, 26 Jun 2019 05:17:48 -0700
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com (10.10.215.89) by
+ email.microchip.com (10.10.87.151) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
+ via Frontend Transport; Wed, 26 Jun 2019 05:17:47 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=microchiptechnology.onmicrosoft.com;
+ s=selector1-microchiptechnology-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kKJdxR4RNBZ/w1GwTev91D/A1GAl3Zh0jIGu607L+fY=;
+ b=3/c4QrXAnWkg1I2o8nIyxFR9PbZPnCQjfo5d8wGTiQ54p6Dx+UxDzggZybktDhCcH4n1bEXBEP1B221TBKsxfHj6h/xe/6Q/3XyiIyT0eKacxu/CmYHUmmlZP3msRjUsfdnYjHeDgYJ1nvmJvuKYXnUm8lKNdk7QlGj+tX8APQg=
+Received: from BN6PR11MB0051.namprd11.prod.outlook.com (10.161.153.153) by
+ BN6PR11MB1602.namprd11.prod.outlook.com (10.172.22.8) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2008.16; Wed, 26 Jun 2019 12:16:36 +0000
+Received: from BN6PR11MB0051.namprd11.prod.outlook.com
+ ([fe80::b979:a7e7:97e:7098]) by BN6PR11MB0051.namprd11.prod.outlook.com
+ ([fe80::b979:a7e7:97e:7098%2]) with mapi id 15.20.2008.017; Wed, 26 Jun 2019
+ 12:16:36 +0000
+From: <Codrin.Ciubotariu@microchip.com>
+To: <broonie@kernel.org>
+Thread-Topic: [PATCH 2/2] ASoC: codecs: ad193x: Reset DAC Control 1 register
+ at probe
+Thread-Index: AQHVLA0AdrFhnpOmb06sug+VlL6ySaatyxCAgAAOyoA=
+Date: Wed, 26 Jun 2019 12:16:35 +0000
+Message-ID: <60a36381-f2f3-18de-3f7c-4e51fc75445e@microchip.com>
+References: <20190626104947.26547-1-codrin.ciubotariu@microchip.com>
+ <20190626104947.26547-2-codrin.ciubotariu@microchip.com>
+ <20190626112331.GB5316@sirena.org.uk>
+In-Reply-To: <20190626112331.GB5316@sirena.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: VI1PR0701CA0035.eurprd07.prod.outlook.com
+ (2603:10a6:800:90::21) To BN6PR11MB0051.namprd11.prod.outlook.com
+ (2603:10b6:405:65::25)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [94.177.32.154]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 45910852-91f0-421c-e1a3-08d6fa30220a
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:BN6PR11MB1602; 
+x-ms-traffictypediagnostic: BN6PR11MB1602:
+x-microsoft-antispam-prvs: <BN6PR11MB160219AF8C1F36FE31E062C5E7E20@BN6PR11MB1602.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 00808B16F3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(136003)(396003)(346002)(366004)(376002)(39860400002)(199004)(189003)(14454004)(6486002)(8936002)(26005)(99286004)(76176011)(36756003)(72206003)(53936002)(4744005)(316002)(102836004)(186003)(256004)(6436002)(3846002)(8676002)(2906002)(6116002)(478600001)(52116002)(68736007)(81166006)(81156014)(305945005)(486006)(6916009)(4326008)(86362001)(54906003)(7736002)(31696002)(66066001)(31686004)(229853002)(6246003)(25786009)(71190400001)(66556008)(71200400001)(6512007)(6506007)(386003)(53546011)(66946007)(73956011)(66476007)(11346002)(476003)(446003)(2616005)(66446008)(5660300002)(64756008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR11MB1602;
+ H:BN6PR11MB0051.namprd11.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: microchip.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: gls5iOkaOOg4oHV6RDmtB+lmhrHxIJD3XZ7okAssKazrqPnrlFLdsen5FL5YnKfzsAlAf6biPRgoU4M6+TTUBOuTYXes9y6jEV1jxQ3cct2beSXPE2R8F9g7CUFCJThMxUuYMWdIMz6pgLb51HDUaTSjYuZE7h7ELUlyp9EWs5DrnJQuvvnqknbZGeV4FLPjkxmaNhNhQ/ByMTkQiBN72AgDVlp0Tx74+S9vm4M4mfwrTbAvdUTK1QcMM7aRWRyWx76FTpdxSP/2gLyXKAy+RrVB37eecWEtuhOWLFXOoi2PrQDyzR6BElo8vzSRNqlZKOSAAjJfILf2c2NKxxwylyeATqPpewmpTQ7UJdEIg5AK4OoLjUdvJD3hFEH+66KsrLRZAlD0iGhC3MoukCRoJc2SnH7onrQ1heeuEqJ9NwE=
+Content-ID: <56F9F74196D8B244A690BADBF5F0899C@namprd11.prod.outlook.com>
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45910852-91f0-421c-e1a3-08d6fa30220a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Jun 2019 12:16:36.0074 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3f4057f3-b418-4d4e-ba84-d55b4e897d88
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Codrin.Ciubotariu@microchip.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR11MB1602
+Cc: alsa-devel@alsa-project.org, lars@metafoo.de, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com
+Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: codecs: ad193x: Reset DAC
+ Control 1 register at probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,104 +152,31 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On 26.06.2019 14:23, Mark Brown wrote:
+> On Wed, Jun 26, 2019 at 01:49:47PM +0300, Codrin Ciubotariu wrote:
+>> Since the ad193x codecs have no software reset, we have to reinitialize the
+>> registers after a hardware reset. For example, if we change the
+>> device-tree between these resets, changing the audio format of the DAI link
+>> from DSP_A with 8 TDM channels to I2S 2 channels, DAC Control 1 register
+>> will remain configured for 8 channels. This patch resets this register at
+>> probe to its default value.
+> 
+> Would it not be more robust/complete to have a set of register defaults
+> and write the whole lot out rather than individually going through and
+> adding writes for specific registers as needed?
+> 
 
-   ASoC: Intel: Skylake: Read HIPCT extension before clearing DONE bit
+It would indeed. I will make two patches, one that implements what you 
+suggested, for the registers that we touch only, and another one that 
+will add AD193X_DAC_CTRL1 to these defaults. You can drop this patch.
 
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 078759399ff74e2e6f5e208c61924d1b7d66e5d8 Mon Sep 17 00:00:00 2001
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Date: Thu, 13 Jun 2019 21:04:32 +0200
-Subject: [PATCH] ASoC: Intel: Skylake: Read HIPCT extension before clearing
- DONE bit
-
-Host clears DONE bit to signal IPC target it has completed the
-operation. Once this is done, IPC target i.e. DSP may proceed with the
-next reply, filling registers with new portion of data.
-
-Because of this, host should always read all registers prior to clearing
-DONE and BUSY bits to ensure no desynchronization happens the time in
-between clearing bits and reading message data (here, extension).
-
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/intel/skylake/cnl-sst.c     | 2 +-
- sound/soc/intel/skylake/skl-sst-ipc.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/intel/skylake/cnl-sst.c b/sound/soc/intel/skylake/cnl-sst.c
-index 245df1067ba8..759ea59615ca 100644
---- a/sound/soc/intel/skylake/cnl-sst.c
-+++ b/sound/soc/intel/skylake/cnl-sst.c
-@@ -313,6 +313,7 @@ static irqreturn_t cnl_dsp_irq_thread_handler(int irq, void *context)
- 
- 	hipcida = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCIDA);
- 	hipctdr = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCTDR);
-+	hipctdd = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCTDD);
- 
- 	/* reply message from dsp */
- 	if (hipcida & CNL_ADSP_REG_HIPCIDA_DONE) {
-@@ -332,7 +333,6 @@ static irqreturn_t cnl_dsp_irq_thread_handler(int irq, void *context)
- 
- 	/* new message from dsp */
- 	if (hipctdr & CNL_ADSP_REG_HIPCTDR_BUSY) {
--		hipctdd = sst_dsp_shim_read_unlocked(dsp, CNL_ADSP_REG_HIPCTDD);
- 		header.primary = hipctdr;
- 		header.extension = hipctdd;
- 		dev_dbg(dsp->dev, "IPC irq: Firmware respond primary:%x",
-diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
-index 9f3ce73593ae..5c9206dc7932 100644
---- a/sound/soc/intel/skylake/skl-sst-ipc.c
-+++ b/sound/soc/intel/skylake/skl-sst-ipc.c
-@@ -511,6 +511,7 @@ irqreturn_t skl_dsp_irq_thread_handler(int irq, void *context)
- 
- 	hipcie = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCIE);
- 	hipct = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCT);
-+	hipcte = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCTE);
- 
- 	/* reply message from DSP */
- 	if (hipcie & SKL_ADSP_REG_HIPCIE_DONE) {
-@@ -530,7 +531,6 @@ irqreturn_t skl_dsp_irq_thread_handler(int irq, void *context)
- 
- 	/* New message from DSP */
- 	if (hipct & SKL_ADSP_REG_HIPCT_BUSY) {
--		hipcte = sst_dsp_shim_read_unlocked(dsp, SKL_ADSP_REG_HIPCTE);
- 		header.primary = hipct;
- 		header.extension = hipcte;
- 		dev_dbg(dsp->dev, "IPC irq: Firmware respond primary:%x\n",
--- 
-2.20.1
-
+Thanks and best regards,
+Codrin
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

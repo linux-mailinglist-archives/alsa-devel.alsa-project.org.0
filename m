@@ -2,58 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D63562E1
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 09:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B2C562E6
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 09:09:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22BF71614;
-	Wed, 26 Jun 2019 09:05:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22BF71614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83D1D1679;
+	Wed, 26 Jun 2019 09:08:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83D1D1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561532790;
-	bh=ZxicDke8PcGhOzdJQbH0htp/WgN9R5NgLymMSr6P+jI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oBVCQsFryWiB2Vz2Fm3h/XFw5oRQnO5ktba89iNLSjw1Q3lKeGf3Y3z0l0nV/QVDH
-	 MOWjfyihBb1f4Y8n5xPOZS4qRLJXL6NTm34lZMB6Cr+kPbp+rXZ0KabZtLtO3dosMN
-	 dSQS1B/46A4zcwLWL6VG/+nEpqwf3M3XnumNquFw=
+	s=default; t=1561532941;
+	bh=sH4dWx3nSOFU/c7VLvHFSe8qewb1DTxTkUo7xEORLLc=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JBf+buozTDJOB+n69Zf4NLq/FZ7chK1g8rfJiIF+OyGp4jj9Wxp05x3MA2EI7O51Y
+	 ssvJvI9U5uKq4exptgl6a1h6hmv3yyAdyrVj6yPcmNmQJwxDQ8qf0VzGD+XbPVSZDU
+	 B8s7EUjp38imbV52X0aXLD6cyNMdsWpsVITgJM/w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9C77F896EC;
-	Wed, 26 Jun 2019 09:05:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CB98F896CC;
+	Wed, 26 Jun 2019 09:07:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91D6DF8070C; Wed, 26 Jun 2019 09:05:07 +0200 (CEST)
+ id 3538EF896B9; Wed, 26 Jun 2019 09:07:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30638F8070C
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 09:05:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30638F8070C
+ by alsa1.perex.cz (Postfix) with ESMTPS id C37C3F8070C
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 09:07:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C37C3F8070C
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2019 00:05:00 -0700
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2019 00:07:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,418,1557212400"; d="scan'208";a="152549183"
-Received: from rlanex-mobl.amr.corp.intel.com (HELO
- ranjani-desktop.hsd1.ca.comcast.net) ([10.251.157.231])
- by orsmga007.jf.intel.com with ESMTP; 26 Jun 2019 00:04:50 -0700
+X-IronPort-AV: E=Sophos;i="5.63,418,1557212400"; d="scan'208";a="188559958"
+Received: from rlanex-mobl.amr.corp.intel.com ([10.251.157.231])
+ by fmsmga002.fm.intel.com with ESMTP; 26 Jun 2019 00:07:09 -0700
+Message-ID: <d6868e311421d8b2e77a67787ad10b7bc4c0829b.camel@linux.intel.com>
 From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Wed, 26 Jun 2019 00:04:50 -0700
-Message-Id: <20190626070450.7229-1-ranjani.sridharan@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: tiwai@suse.de, libin.yang@intel.com, broonie@kernel.org,
+To: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 26 Jun 2019 00:07:08 -0700
+In-Reply-To: <s5h7e98u9q5.wl-tiwai@suse.de>
+References: <20190626062935.5549-1-ranjani.sridharan@linux.intel.com>
+ <s5h7e98u9q5.wl-tiwai@suse.de>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Cc: libin.yang@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH v2] ASoC: SOF: Intel: hda: Make hdac_device
-	device-managed
+Subject: Re: [alsa-devel] [PATCH 0/2] Fixes for SOF module unload/reload
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,77 +69,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_hdac_ext_bus_device_exit() has been recently modified
-to no longer free the hdac device. SOF allocates memory for
-hdac_device and hda_hda_priv with kzalloc. Make them
-device-managed instead so that they will be freed when the
-SOF driver is unloaded.
+On Wed, 2019-06-26 at 08:44 +0200, Takashi Iwai wrote:
+> On Wed, 26 Jun 2019 08:29:33 +0200,
+> Ranjani Sridharan wrote:
+> > 
+> > A recent commit "ALSA: hdac: fix memory release for SST and SOF
+> > drivers"
+> > removed the kfree call for the hdac device in
+> > snd_hdac_ext_bus_device_exit(). This requires that the SOF driver
+> > also make the hdac_device and hdac_hda_priv device-managed so
+> > that they can be freed when the SOF module in unloaded. The first
+> > patch takes care of this change.
+> > 
+> > Additionally, because of the above change, the hda_codec is
+> > device-managed and freeing it in snd_hda_codec_dev_release() leads
+> > to kernel panic with module unload/reload stress tests. The second
+> > patch includes the change to avoid freeing hda_codec for ASoC
+> > driver.
+> 
+> In such a case, both patch need to be put into a single patch.
+> Otherwise it leads to a bisection failure.
+Thanks, Takashi. Just sent a v2 combining both the changes.
 
-Because of the above change, hda_codec is device-managed and
-it will be freed when the ASoC device is removed. Freeing
-the codec in snd_hda_codec_dev_release() leads to kernel
-panic while unloading and reloading the ASoC driver. So,
-avoid freeing the hda_codec for ASoC driver. This is done in
-the same patch to avoid bisect failure.
-
-Signed-off-by: Libin Yang <libin.yang@intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
----
- sound/pci/hda/hda_codec.c       | 8 +++++++-
- sound/soc/sof/intel/hda-codec.c | 6 ++----
- 2 files changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index 6c51b8363f8b..a2e23d7e768f 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -846,7 +846,13 @@ static void snd_hda_codec_dev_release(struct device *dev)
- 	snd_hda_sysfs_clear(codec);
- 	kfree(codec->modelname);
- 	kfree(codec->wcaps);
--	kfree(codec);
-+
-+	/*
-+	 * In the case of ASoC HD-audio, hda_codec is device managed.
-+	 * It will be freed when the ASoC device is removed.
-+	 */
-+	if (codec->core.type == HDA_DEV_LEGACY)
-+		kfree(codec);
- }
- 
- #define DEV_NAME_LEN 31
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index b8b37f082309..0d8437b080bf 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -62,8 +62,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- 		address, resp);
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
--	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
--	hda_priv = kzalloc(sizeof(*hda_priv), GFP_KERNEL);
-+	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
- 	if (!hda_priv)
- 		return -ENOMEM;
- 
-@@ -82,8 +81,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- 
- 	return 0;
- #else
--	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
--	hdev = kzalloc(sizeof(*hdev), GFP_KERNEL);
-+	hdev = devm_kzalloc(sdev->dev, sizeof(*hdev), GFP_KERNEL);
- 	if (!hdev)
- 		return -ENOMEM;
- 
--- 
-2.17.1
+Thanks,
+Ranjani
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+> > 
+> > More details for the module unload/reload test failures can be
+> > found
+> > here: https://github.com/thesofproject/linux/issues/966
+> > 
+> > Ranjani Sridharan (2):
+> >   ASoC: SOF: Intel: hda: Make hdac_device device-managed
+> >   ASoC: hda: don't free hda_codec for HDA_DEV_ASOC type
+> > 
+> >  sound/pci/hda/hda_codec.c       | 8 +++++++-
+> >  sound/soc/sof/intel/hda-codec.c | 6 ++----
+> >  2 files changed, 9 insertions(+), 5 deletions(-)
+> > 
+> > -- 
+> > 2.17.1
+> > 
+> 
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
 _______________________________________________
 Alsa-devel mailing list

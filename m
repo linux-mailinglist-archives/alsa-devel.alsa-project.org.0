@@ -2,61 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24B2C562E6
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 09:09:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95C8A56337
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 09:22:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83D1D1679;
-	Wed, 26 Jun 2019 09:08:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83D1D1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 084FE1675;
+	Wed, 26 Jun 2019 09:21:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 084FE1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561532941;
-	bh=sH4dWx3nSOFU/c7VLvHFSe8qewb1DTxTkUo7xEORLLc=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1561533766;
+	bh=HK2Wc6fuyccpru+PGjRIM/qPUMDq/U9kz86CphQNhbo=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JBf+buozTDJOB+n69Zf4NLq/FZ7chK1g8rfJiIF+OyGp4jj9Wxp05x3MA2EI7O51Y
-	 ssvJvI9U5uKq4exptgl6a1h6hmv3yyAdyrVj6yPcmNmQJwxDQ8qf0VzGD+XbPVSZDU
-	 B8s7EUjp38imbV52X0aXLD6cyNMdsWpsVITgJM/w=
+	b=ib9YqvmArrQx311DgyTSN0+sWm+OSpRi6TAXl8phXXhRCOP2ZuXpCJ0ML89l6A6FP
+	 bLLGZO3xJuYatQAM3tuaYM65S4ADEoZ9I8R+fQAhGx+6dmsVdIqiRhBe1j5f6g7WVe
+	 BIYoz5MaSgeof/hdPOavR5r1bePSZSEqn9/RN6UM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2CB98F896CC;
-	Wed, 26 Jun 2019 09:07:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FACCF896CC;
+	Wed, 26 Jun 2019 09:21:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3538EF896B9; Wed, 26 Jun 2019 09:07:15 +0200 (CEST)
+ id A091DF896B9; Wed, 26 Jun 2019 09:20:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C37C3F8070C
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 09:07:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C37C3F8070C
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jun 2019 00:07:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,418,1557212400"; d="scan'208";a="188559958"
-Received: from rlanex-mobl.amr.corp.intel.com ([10.251.157.231])
- by fmsmga002.fm.intel.com with ESMTP; 26 Jun 2019 00:07:09 -0700
-Message-ID: <d6868e311421d8b2e77a67787ad10b7bc4c0829b.camel@linux.intel.com>
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Wed, 26 Jun 2019 00:07:08 -0700
-In-Reply-To: <s5h7e98u9q5.wl-tiwai@suse.de>
-References: <20190626062935.5549-1-ranjani.sridharan@linux.intel.com>
- <s5h7e98u9q5.wl-tiwai@suse.de>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Cc: libin.yang@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [alsa-devel] [PATCH 0/2] Fixes for SOF module unload/reload
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 14BE3F806F0
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 09:20:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14BE3F806F0
+Date: 26 Jun 2019 16:20:51 +0900
+X-IronPort-AV: E=Sophos;i="5.62,418,1554735600"; d="scan'208";a="19524726"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 26 Jun 2019 16:20:51 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 79ED641F8BFB;
+ Wed, 26 Jun 2019 16:20:51 +0900 (JST)
+Message-ID: <874l4czuez.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <df7a5c52-177c-a15f-ac64-3af88d97b65f@samsung.com>
+References: <877e9iwf9f.wl-kuninori.morimoto.gx@renesas.com>
+ <874l4mv0h8.wl-kuninori.morimoto.gx@renesas.com>
+ <CGME20190624131905eucas1p2cf4335b4d1483b7e62d0c9e7b5223a3c@eucas1p2.samsung.com>
+ <9cfc8505-2903-033f-f68b-8ccc1c70132b@samsung.com>
+ <87d0j232wg.wl-kuninori.morimoto.gx@renesas.com>
+ <80c5c575-6f28-c6a6-91b2-d701bb9fbce8@samsung.com>
+ <877e9a2hvn.wl-kuninori.morimoto.gx@renesas.com>
+ <c4bb4599-e5d5-926b-75d5-d5c349ed8076@samsung.com>
+ <87ef3hz0yn.wl-kuninori.morimoto.gx@renesas.com>
+ <87a7e5ywqs.wl-kuninori.morimoto.gx@renesas.com>
+ <7a96b050-4ad7-0a9f-41a1-adf27704bf61@samsung.com>
+ <df7a5c52-177c-a15f-ac64-3af88d97b65f@samsung.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: 'Linux Samsung SOC' <linux-samsung-soc@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: Re: [alsa-devel] [PATCH resend 25/47] ASoC: samsung: snow: don't
+	select unnecessary Platform
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,63 +78,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2019-06-26 at 08:44 +0200, Takashi Iwai wrote:
-> On Wed, 26 Jun 2019 08:29:33 +0200,
-> Ranjani Sridharan wrote:
-> > 
-> > A recent commit "ALSA: hdac: fix memory release for SST and SOF
-> > drivers"
-> > removed the kfree call for the hdac device in
-> > snd_hdac_ext_bus_device_exit(). This requires that the SOF driver
-> > also make the hdac_device and hdac_hda_priv device-managed so
-> > that they can be freed when the SOF module in unloaded. The first
-> > patch takes care of this change.
-> > 
-> > Additionally, because of the above change, the hda_codec is
-> > device-managed and freeing it in snd_hda_codec_dev_release() leads
-> > to kernel panic with module unload/reload stress tests. The second
-> > patch includes the change to avoid freeing hda_codec for ASoC
-> > driver.
-> 
-> In such a case, both patch need to be put into a single patch.
-> Otherwise it leads to a bisection failure.
-Thanks, Takashi. Just sent a v2 combining both the changes.
 
-Thanks,
-Ranjani
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> > 
-> > More details for the module unload/reload test failures can be
-> > found
-> > here: https://github.com/thesofproject/linux/issues/966
-> > 
-> > Ranjani Sridharan (2):
-> >   ASoC: SOF: Intel: hda: Make hdac_device device-managed
-> >   ASoC: hda: don't free hda_codec for HDA_DEV_ASOC type
-> > 
-> >  sound/pci/hda/hda_codec.c       | 8 +++++++-
-> >  sound/soc/sof/intel/hda-codec.c | 6 ++----
-> >  2 files changed, 9 insertions(+), 5 deletions(-)
-> > 
-> > -- 
-> > 2.17.1
-> > 
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Hi Marek
 
+Thank you for your report
+
+> [=A0=A0=A0 2.970127] -----3830000.i2s : samsung-i2s
+> [=A0=A0=A0 2.973029] -----snd-soc-dummy : (null)
+> [=A0=A0=A0 2.976851] -----hdmi-audio-codec.0.auto : (null)
+> [=A0=A0=A0 2.981476] -----3830000.i2s-sec : snd_dmaengine_pcm
+> [=A0=A0=A0 2.986459] -----3830000.i2s : snd_dmaengine_pcm
+> [=A0=A0=A0 2.991022] -----max98090.1-0010 : (null)
+> [=A0=A0=A0 2.995065] -----snd-soc-dummy : (null)
+> [=A0=A0=A0 2.998866] -----hdmi-audio-codec.0.auto : (null)
+> [=A0=A0=A0 3.003523] -----max98090.1-0010 : (null)
+
+Ahh, OK...
+Unfortunately, alternative idea will add extra component to
+rtd in your case.
+This means, my patches were totally buggy.
+I need to negotiate Mark revert/remove all buggy patches.
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

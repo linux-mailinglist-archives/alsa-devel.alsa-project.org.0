@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8666D567CE
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 13:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCFB567CC
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 13:38:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FEDD1685;
-	Wed, 26 Jun 2019 13:39:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FEDD1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id D2F611697;
+	Wed, 26 Jun 2019 13:37:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2F611697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561549199;
-	bh=Spr54r8oZxbMUbRK+JkXEjA9odED8seeMpDwiIR3kbU=;
+	s=default; t=1561549123;
+	bh=LNjuVAxrrWVMuo8D2d8ynMUAWS1RAD5MoIIwPAahyA4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=l8ireWSmFSaxlZjZn8N1PcBDGrr6hJ4eOP+zZyQJYIVbG0sLe3PQhPuAhOMawe0y8
-	 OQO6ajcqtS3BAVNutd5wHEsoDUGJ8vTdDn56TZfS3NO7SAD2EMQ6/k3V5qJDzy6M8N
-	 qYvVLhu916OMsNTacE8rTRkP9DXd53AYD81ylsrk=
+	b=RCH31y9F34RolBweuSxmks4RAmSU+GwYfswkA/6QdbZ16TtgL5J0tQtUc7SAp0THX
+	 OByB8xK4cX9iRod5mbjpzkmH+EU+MMFojSL+L/ZxA2U9ul+Fsu2BlB1KUU/wciIPEB
+	 7Yae7gGk3t5kaDOGAg73qNWc4VZLbWvEiFu4ACTw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2456BF89757;
-	Wed, 26 Jun 2019 13:33:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5D43F8974A;
+	Wed, 26 Jun 2019 13:33:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 642E4F8972F; Wed, 26 Jun 2019 13:32:55 +0200 (CEST)
+ id E4BBCF89721; Wed, 26 Jun 2019 13:32:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A01FAF896CC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B10BF896EA
  for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 13:32:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A01FAF896CC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B10BF896EA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="VJhpgF/D"
+ header.b="FO3VoThz"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=qEjEgksLlMMIOq5PIg2XtE8U7QX+SJUnlG+Ii63uk9c=; b=VJhpgF/DlZQi
- GenQPE5WC0uALJkznHeivhw3Feu/xRXQuU0X4Dyt7/n2B6R2NnaoioDgVdFUu6JK16le+TRf0X9vM
- ELSp+lomSQOqNQCqhep2Iq4itDq5A+Vt9JjZN/x3Y/sA1KmiImvrBBnC57AUHiA1bsnjOLKaG0tVY
- Ny9WM=;
+ List-Archive; bh=8dwMSiqjt0dkWgoksIvDOmL2daqTMuMeEI0GqX18IU4=; b=FO3VoThzvERU
+ TqrLMx3XwPt681TObrRHfNzImq5TRtvH3CEV0LIFdNaGA6ZmbvJvz5+r776J8iO1RMAjrHsmfvIZZ
+ PxVxDwjDIHQ8DCnS5O+Y+ThTeirBE3byMx/TQbfsUz2ZdMWgNoVem+1YREtyG9bX1yy4BI3peaIPb
+ 4UUG4=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hg6AP-0007n3-2f; Wed, 26 Jun 2019 11:32:45 +0000
+ id 1hg6AP-0007nI-Ec; Wed, 26 Jun 2019 11:32:45 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 83D0B44004F; Wed, 26 Jun 2019 12:32:44 +0100 (BST)
+ id E543D44004B; Wed, 26 Jun 2019 12:32:44 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kamil Lulko <kamilx.lulko@intel.com>
-In-Reply-To: <20190613190436.20156-8-cezary.rojewski@intel.com>
+To: Gustaw Lewandowski <gustaw.lewandowski@intel.com>
+In-Reply-To: <20190613190436.20156-5-cezary.rojewski@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190626113244.83D0B44004F@finisterre.sirena.org.uk>
+Message-Id: <20190626113244.E543D44004B@finisterre.sirena.org.uk>
 Date: Wed, 26 Jun 2019 12:32:44 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: Skylake: Strip T and L from TLV
-	IPCs" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ tiwai@suse.com, lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] Applied "ASoC: Intel: Fix race condition in IPC rx
+	list" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: Skylake: Strip T and L from TLV IPCs
+   ASoC: Intel: Fix race condition in IPC rx list
 
 has been applied to the asoc tree at
 
@@ -115,61 +113,47 @@ to this mail.
 Thanks,
 Mark
 
-From a8cd7066f0422f378902770034ddac1720d0e032 Mon Sep 17 00:00:00 2001
-From: Kamil Lulko <kamilx.lulko@intel.com>
-Date: Thu, 13 Jun 2019 21:04:36 +0200
-Subject: [PATCH] ASoC: Intel: Skylake: Strip T and L from TLV IPCs
+From 26ae20490809db30677dfd54f81a73ce77ba2df1 Mon Sep 17 00:00:00 2001
+From: Gustaw Lewandowski <gustaw.lewandowski@intel.com>
+Date: Thu, 13 Jun 2019 21:04:33 +0200
+Subject: [PATCH] ASoC: Intel: Fix race condition in IPC rx list
 
-cAVS modules do not require Type and Length header within the
-set_module_params IPC. This is also true for Vendor modules. The
-userspace (like tinymix) always appends this header to TLV controls
-which are used for set_module_params. Simply assume this header is
-always present in the payload and omit it from the IPC.
+Since there are multiple IPCs being sent in a short span of time, there
+is a possibility of more than one message being on the Rx list after
+receiving response from firmware. In such cases, when the first
+notification of interrupt from firmware is received, driver retrieves
+the message from the Rx list but does not delete it from the list till
+the next lock. In the meantime, when another interrupt is received from
+the firmware, driver is reading the previous message again since the
+previous message has not been removed from the list.
 
-Signed-off-by: Kamil Lulko <kamilx.lulko@intel.com>
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Gustaw Lewandowski <gustaw.lewandowski@intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/skylake/skl-topology.c | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+ sound/soc/intel/skylake/skl-sst-ipc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/skylake/skl-topology.c b/sound/soc/intel/skylake/skl-topology.c
-index 99825dda34af..c353eb14ce36 100644
---- a/sound/soc/intel/skylake/skl-topology.c
-+++ b/sound/soc/intel/skylake/skl-topology.c
-@@ -1492,22 +1492,18 @@ static int skl_tplg_tlv_control_set(struct snd_kcontrol *kcontrol,
- 	struct skl *skl = get_skl_ctx(w->dapm->dev);
+diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
+index 5c9206dc7932..5094205a243f 100644
+--- a/sound/soc/intel/skylake/skl-sst-ipc.c
++++ b/sound/soc/intel/skylake/skl-sst-ipc.c
+@@ -344,6 +344,7 @@ static struct ipc_message *skl_ipc_reply_get_msg(struct sst_generic_ipc *ipc,
  
- 	if (ac->params) {
-+		/*
-+		 * Widget data is expected to be stripped of T and L
-+		 */
-+		size -= 2 * sizeof(unsigned int);
-+		data += 2;
-+
- 		if (size > ac->max)
- 			return -EINVAL;
--
- 		ac->size = size;
--		/*
--		 * if the param_is is of type Vendor, firmware expects actual
--		 * parameter id and size from the control.
--		 */
--		if (ac->param_id == SKL_PARAM_VENDOR_ID) {
--			if (copy_from_user(ac->params, data, size))
--				return -EFAULT;
--		} else {
--			if (copy_from_user(ac->params,
--					   data + 2, size))
--				return -EFAULT;
--		}
-+
-+		if (copy_from_user(ac->params, data, size))
-+			return -EFAULT;
+ 	msg = list_first_entry(&ipc->rx_list, struct ipc_message, list);
  
- 		if (w->power)
- 			return skl_set_module_params(skl->skl_sst,
++	list_del(&msg->list);
+ out:
+ 	return msg;
+ 
+@@ -488,7 +489,6 @@ void skl_ipc_process_reply(struct sst_generic_ipc *ipc,
+ 	}
+ 
+ 	spin_lock_irqsave(&ipc->dsp->spinlock, flags);
+-	list_del(&msg->list);
+ 	sst_ipc_tx_msg_reply_complete(ipc, msg);
+ 	spin_unlock_irqrestore(&ipc->dsp->spinlock, flags);
+ }
 -- 
 2.20.1
 

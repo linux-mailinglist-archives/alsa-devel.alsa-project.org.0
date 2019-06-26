@@ -2,94 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51C9B56AD8
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 15:39:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E801C56BFD
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 16:31:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1C7F1699;
-	Wed, 26 Jun 2019 15:39:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1C7F1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55361168E;
+	Wed, 26 Jun 2019 16:30:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55361168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561556393;
-	bh=xP+7a9vK1m3wAbUbfrBaALeIQOMWQ+MNpc6pt8tiDlI=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Q6MIT/20TCysvfJb++CmJWShZFT+ftRi9GFY4Xxtdp9esqCG59LM+USQI+d/yJh9N
-	 v6z/YfslfzV8nJLGwypxM92zAsaDuDkQClLmRKjBChOM0fHfatDAbG+E51Bv/c+YcU
-	 DdFqtZE/d8+Syph6Y/V1o0hffW4yK7V2H97QI+F4=
+	s=default; t=1561559487;
+	bh=1nLRPIKu4/LxwnbsTpL9UMsfqviXhSWcUMsnlZvaEiA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DvCS3UgnY+O5TMPONMIMvZyp1NyxQoGarKGkD4Gnmz3KTpDp9I8orv5ZhECJlDhN9
+	 1pYetxfwa8cD3E9QrNlDlZELQH2mCtdVluGwF/GFpNqjBRUxj7wO1qDX0hKffkaRDn
+	 f2jWv4XPim4/WR5DcxVsCoHOviKCHapLSsuzxz4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E77A1F89733;
-	Wed, 26 Jun 2019 15:36:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB040F8070C;
+	Wed, 26 Jun 2019 16:29:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27272F89701; Wed, 26 Jun 2019 15:36:41 +0200 (CEST)
+ id 75C29F896B9; Wed, 26 Jun 2019 16:29:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDB26F896B7
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 15:36:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDB26F896B7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="TWguFFAX"
-Received: by mail-wr1-x442.google.com with SMTP id n4so2741170wrw.13
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 06:36:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=T7ZRClmFeqyZ4D18CQN6W27UJDdTkTXzm4pfq532FJg=;
- b=TWguFFAXrPN64W+X4eBYlZPZH2QrZ3RtaEk2RtjrznN+tIo2MHrKBmJuHOYO0Uxo82
- CFP2HHb8vbibDiKipegaJwcQALrm2NrxCXayWfVXmKAcXmPvc89FzlJn27GwnE9dp9Jn
- TOmD7Y531MOUW4bMYKxXAlil3CTluuV2QY2Ocwu8EhCb9Ddn60MQ4rZjV5KStJJJZEny
- g1ynMXpyyM6tb5symDm+PSC0EgIq5hVwtlbTPNM1Yc333p5mIi/fL9jVfe4gbsAqYZDn
- xi7Sho9UEBe6Y+B41ZD6Fh4xckuLJjEvfvy8pec2lLenRMJaJVqr9uOUMwAgWUFtQMv5
- uFxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=T7ZRClmFeqyZ4D18CQN6W27UJDdTkTXzm4pfq532FJg=;
- b=rNyvwsbk4OgTAtPq4Ze3eqCKzkAPCL+8cXH0eKZ3yYVWNOu6yz6Gb9aOZqK+51sNFN
- XNau6gi6WlzurtUgBhxbqPcJWez7SazbQZS1YcCImzqa9460kzHiNQcdVXHe4GGzie/I
- LHipq8yXVU5uoJQn+zJw5K4LNcGnW8XSB9MT5ewqg/CMeKSjadiqzYnxruKChZr64XAa
- RoACkqHCdmZelkT3bRt4w0W2u/4R3Zu+D2RaXWEyyqNpNsE+ZZRX34EUvOYvO75s0W02
- C+AtgEHBR58Af6J3xT41KQpvZs5f7bD5TRZKOOKSkrGFKn4ZJFrvLsjlmQs3hsJtXLIr
- pTNg==
-X-Gm-Message-State: APjAAAWZsk2VCuwuZJAQL+4sVxVORBAJRSuFn9LY9IKnZTWHx6gQzD/L
- rMkbbDlWvzZA91lOjawBenPTWg==
-X-Google-Smtp-Source: APXvYqyQoNCoBKyM9obg5usRFdzjH1ex5bqDtX67GdFzjV+14hTLDxL2tfEZx8cpYrkZQuJiZNlvnw==
-X-Received: by 2002:a5d:4949:: with SMTP id r9mr3595411wrs.289.1561556196920; 
- Wed, 26 Jun 2019 06:36:36 -0700 (PDT)
-Received: from starbuck.baylibre.local
- (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id w185sm2877880wma.39.2019.06.26.06.36.35
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Wed, 26 Jun 2019 06:36:36 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>
-Date: Wed, 26 Jun 2019 15:36:17 +0200
-Message-Id: <20190626133617.25959-3-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190626133617.25959-1-jbrunet@baylibre.com>
-References: <20190626133617.25959-1-jbrunet@baylibre.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B7BEF8070C
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 16:29:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B7BEF8070C
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jun 2019 07:29:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,420,1557212400"; d="scan'208";a="183181947"
+Received: from xxx.igk.intel.com ([10.237.93.170])
+ by fmsmga001.fm.intel.com with ESMTP; 26 Jun 2019 07:29:29 -0700
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Wed, 26 Jun 2019 16:33:26 +0200
+Message-Id: <20190626143326.22515-1-amadeuszx.slawinski@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH 2/2] ASoC: soc-core: support dai_link with
-	platforms_num != 1
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Subject: [alsa-devel] [PATCH v3 1/1] ASoC: Intel: Skylake: Remove static
+	table index when parsing topology
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,181 +71,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support platforms_num != 1 in dai_link. Initially, the main purpose of
-this change was to make the platform optional in the dai_link, instead of
-inserting the dummy platform driver.
-
-This particular case had just been solved by Kuninori Morimoto with
-commit 1d7689892878 ("ASoC: soc-core: allow no Platform on dai_link").
-
-However, this change may still be useful for those who need multiple
-platform components on a single dai_link (it solves one of the FIXME
-note in soc-core)
-
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- include/sound/soc.h  |  6 ++++
- sound/soc/soc-core.c | 66 +++++++++++++++++++-------------------------
- 2 files changed, 34 insertions(+), 38 deletions(-)
-
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 64405cdab8bb..4e8071269639 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -997,6 +997,12 @@ struct snd_soc_dai_link {
- 	     ((i) < link->num_codecs) && ((codec) = &link->codecs[i]);	\
- 	     (i)++)
- 
-+#define for_each_link_platforms(link, i, platform)			\
-+	for ((i) = 0;							\
-+	     ((i) < link->num_platforms) &&				\
-+	     ((platform) = &link->platforms[i]);			\
-+	     (i)++)
-+
- /*
-  * Sample 1 : Single CPU/Codec/Platform
-  *
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 002ddbf4e5a3..3053a4a461b3 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -887,7 +887,7 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
- 	struct snd_soc_dai_link *dai_link)
- {
- 	struct snd_soc_pcm_runtime *rtd;
--	struct snd_soc_dai_link_component *codecs;
-+	struct snd_soc_dai_link_component *dlc;
- 	struct snd_soc_component *component;
- 	int i;
- 
-@@ -917,13 +917,14 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
- 
- 	/* Find CODEC from registered CODECs */
- 	rtd->num_codecs = dai_link->num_codecs;
--	for_each_link_codecs(dai_link, i, codecs) {
--		rtd->codec_dais[i] = snd_soc_find_dai(codecs);
-+	for_each_link_codecs(dai_link, i, dlc) {
-+		rtd->codec_dais[i] = snd_soc_find_dai(dlc);
- 		if (!rtd->codec_dais[i]) {
- 			dev_info(card->dev, "ASoC: CODEC DAI %s not registered\n",
--				 codecs->dai_name);
-+				 dlc->dai_name);
- 			goto _err_defer;
- 		}
-+
- 		snd_soc_rtdcom_add(rtd, rtd->codec_dais[i]->component);
- 	}
- 
-@@ -931,12 +932,13 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
- 	rtd->codec_dai = rtd->codec_dais[0];
- 
- 	/* Find PLATFORM from registered PLATFORMs */
--	for_each_component(component) {
--		if (!snd_soc_is_matching_component(dai_link->platforms,
--						   component))
--			continue;
-+	for_each_link_platforms(dai_link, i, dlc) {
-+		for_each_component(component) {
-+			if (!snd_soc_is_matching_component(dlc, component))
-+				continue;
- 
--		snd_soc_rtdcom_add(rtd, component);
-+			snd_soc_rtdcom_add(rtd, component);
-+		}
- 	}
- 
- 	soc_add_pcm_runtime(card, rtd);
-@@ -1051,22 +1053,22 @@ static int soc_init_dai_link(struct snd_soc_card *card,
- 			     struct snd_soc_dai_link *link)
- {
- 	int i;
--	struct snd_soc_dai_link_component *codec;
-+	struct snd_soc_dai_link_component *dlc;
- 
--	for_each_link_codecs(link, i, codec) {
-+	for_each_link_codecs(link, i, dlc) {
- 		/*
- 		 * Codec must be specified by 1 of name or OF node,
- 		 * not both or neither.
- 		 */
--		if (!!codec->name ==
--		    !!codec->of_node) {
-+		if (!!dlc->name ==
-+		    !!dlc->of_node) {
- 			dev_err(card->dev, "ASoC: Neither/both codec name/of_node are set for %s\n",
- 				link->name);
- 			return -EINVAL;
- 		}
- 
- 		/* Codec DAI name must be specified */
--		if (!codec->dai_name) {
-+		if (!dlc->dai_name) {
- 			dev_err(card->dev, "ASoC: codec_dai_name not set for %s\n",
- 				link->name);
- 			return -EINVAL;
-@@ -1076,40 +1078,28 @@ static int soc_init_dai_link(struct snd_soc_card *card,
- 		 * Defer card registartion if codec component is not added to
- 		 * component list.
- 		 */
--		if (!soc_find_component(codec))
-+		if (!soc_find_component(dlc))
- 			return -EPROBE_DEFER;
- 	}
- 
--	/*
--	 * Platform may be specified by either name or OF node,
--	 * or no Platform.
--	 *
--	 * FIXME
--	 *
--	 * We need multi-platform support
--	 */
--	if (link->num_platforms > 0) {
--
--		if (link->num_platforms > 1) {
--			dev_err(card->dev,
--				"ASoC: multi platform is not yet supported %s\n",
--				link->name);
--			return -EINVAL;
--		}
--
--		if (link->platforms->name && link->platforms->of_node) {
-+	for_each_link_platforms(link, i, dlc) {
-+		/*
-+		 * Platform may be specified by either name or OF node, but it
-+		 * can be left unspecified, then no components will be inserted
-+		 * in the rtdcom list
-+		 */
-+		if (!!dlc->name == !!dlc->of_node) {
- 			dev_err(card->dev,
--				"ASoC: Both platform name/of_node are set for %s\n",
-+				"ASoC: Neither/both platform name/of_node are set for %s\n",
- 				link->name);
- 			return -EINVAL;
- 		}
- 
- 		/*
--		 * Defer card registartion if platform dai component is not
--		 * added to component list.
-+		 * Defer card registartion if platform component is not added to
-+		 * component list.
- 		 */
--		if ((link->platforms->of_node || link->platforms->name) &&
--		    !soc_find_component(link->platforms))
-+		if (!soc_find_component(dlc))
- 			return -EPROBE_DEFER;
- 	}
- 
--- 
-2.21.0
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Q3VycmVudGx5IHdoZW4gd2UgcmVtb3ZlIGFuZCByZWxvYWQgZHJpdmVyIHdlIHVzZSBwcmV2aW91
+cyByZWZfY291bnQKdmFsdWUgdG8gc3RhcnQgaXRlcmF0aW5nIG92ZXIgc2tsLT5tb2R1bGVzIHdo
+aWNoIGxlYWRzIHRvIG91dCBvZiB0YWJsZQphY2Nlc3MuIFRvIGZpeCB0aGlzIGp1c3QgaW5saW5l
+IHRoZSBmdW5jdGlvbiBhbmQgY2FsY3VsYXRlIGluZGV4ZXMKZXZlcnl0aW1lIHdlIHBhcnNlIFVV
+SUQgdG9rZW4uCgpDaGFuZ2UtSWQ6IEljMWRlMDYxNDM1NzljMTJlYjE1MTIwZDVkN2MyMTk3Njdh
+OTM5MDQyClNpZ25lZC1vZmYtYnk6IEFtYWRldXN6IFPFgmF3acWEc2tpIDxhbWFkZXVzenguc2xh
+d2luc2tpQGxpbnV4LmludGVsLmNvbT4KLS0tCiBzb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wt
+dG9wb2xvZ3kuYyB8IDM0ICsrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdl
+ZCwgMTIgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc291bmQv
+c29jL2ludGVsL3NreWxha2Uvc2tsLXRvcG9sb2d5LmMgYi9zb3VuZC9zb2MvaW50ZWwvc2t5bGFr
+ZS9za2wtdG9wb2xvZ3kuYwppbmRleCA2MjQxZTM1MjEzYWYuLjZmOTkxYWY3YWYyMyAxMDA2NDQK
+LS0tIGEvc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXRvcG9sb2d5LmMKKysrIGIvc291bmQv
+c29jL2ludGVsL3NreWxha2Uvc2tsLXRvcG9sb2d5LmMKQEAgLTM0NjUsMjUgKzM0NjUsNiBAQCBz
+dGF0aWMgaW50IHNrbF90cGxnX2dldF9pbnRfdGtuKHN0cnVjdCBkZXZpY2UgKmRldiwKIAlyZXR1
+cm4gdGtuX2NvdW50OwogfQogCi1zdGF0aWMgaW50IHNrbF90cGxnX2dldF9tYW5pZmVzdF91dWlk
+KHN0cnVjdCBkZXZpY2UgKmRldiwKLQkJCQlzdHJ1Y3Qgc2tsICpza2wsCi0JCQkJc3RydWN0IHNu
+ZF9zb2NfdHBsZ192ZW5kb3JfdXVpZF9lbGVtICp1dWlkX3RrbikKLXsKLQlzdGF0aWMgaW50IHJl
+Zl9jb3VudDsKLQlzdHJ1Y3Qgc2tsX21vZHVsZSAqbW9kOwotCi0JaWYgKHV1aWRfdGtuLT50b2tl
+biA9PSBTS0xfVEtOX1VVSUQpIHsKLQkJbW9kID0gc2tsLT5tb2R1bGVzW3JlZl9jb3VudF07Ci0J
+CWd1aWRfY29weSgmbW9kLT51dWlkLCAoZ3VpZF90ICopJnV1aWRfdGtuLT51dWlkKTsKLQkJcmVm
+X2NvdW50Kys7Ci0JfSBlbHNlIHsKLQkJZGV2X2VycihkZXYsICJOb3QgYW4gVVVJRCB0b2tlbiB0
+a24gJWRcbiIsIHV1aWRfdGtuLT50b2tlbik7Ci0JCXJldHVybiAtRUlOVkFMOwotCX0KLQotCXJl
+dHVybiAwOwotfQotCiAvKgogICogRmlsbCB0aGUgbWFuaWZlc3Qgc3RydWN0dXJlIGJ5IHBhcnNp
+bmcgdGhlIHRva2VucyBiYXNlZCBvbiB0aGUKICAqIHR5cGUuCkBAIC0zNDk0LDYgKzM0NzUsNyBA
+QCBzdGF0aWMgaW50IHNrbF90cGxnX2dldF9tYW5pZmVzdF90a24oc3RydWN0IGRldmljZSAqZGV2
+LAogewogCWludCB0a25fY291bnQgPSAwLCByZXQ7CiAJaW50IG9mZiA9IDAsIHR1cGxlX3NpemUg
+PSAwOworCXU4IHV1aWRfaW5kZXggPSAwOwogCXN0cnVjdCBzbmRfc29jX3RwbGdfdmVuZG9yX2Fy
+cmF5ICphcnJheTsKIAlzdHJ1Y3Qgc25kX3NvY190cGxnX3ZlbmRvcl92YWx1ZV9lbGVtICp0a25f
+ZWxlbTsKIApAQCAtMzUxNiw5ICszNDk4LDE3IEBAIHN0YXRpYyBpbnQgc2tsX3RwbGdfZ2V0X21h
+bmlmZXN0X3RrbihzdHJ1Y3QgZGV2aWNlICpkZXYsCiAJCQljb250aW51ZTsKIAogCQljYXNlIFNO
+RF9TT0NfVFBMR19UVVBMRV9UWVBFX1VVSUQ6Ci0JCQlyZXQgPSBza2xfdHBsZ19nZXRfbWFuaWZl
+c3RfdXVpZChkZXYsIHNrbCwgYXJyYXktPnV1aWQpOwotCQkJaWYgKHJldCA8IDApCi0JCQkJcmV0
+dXJuIHJldDsKKwkJCWlmIChhcnJheS0+dXVpZC0+dG9rZW4gIT0gU0tMX1RLTl9VVUlEKSB7CisJ
+CQkJZGV2X2VycihkZXYsICJOb3QgYW4gVVVJRCB0b2tlbjogJWRcbiIsCisJCQkJCWFycmF5LT51
+dWlkLT50b2tlbik7CisJCQkJcmV0dXJuIC1FSU5WQUw7CisJCQl9CisJCQlpZiAodXVpZF9pbmRl
+eCA+PSBza2wtPm5yX21vZHVsZXMpIHsKKwkJCQlkZXZfZXJyKGRldiwgIlRvbyBtYW55IFVVSUQg
+dG9rZW5zXG4iKTsKKwkJCQlyZXR1cm4gLUVJTlZBTDsKKwkJCX0KKwkJCWd1aWRfY29weSgmc2ts
+LT5tb2R1bGVzW3V1aWRfaW5kZXgrK10tPnV1aWQsCisJCQkJICAoZ3VpZF90ICopJmFycmF5LT51
+dWlkLT51dWlkKTsKIAogCQkJdHVwbGVfc2l6ZSArPSBzaXplb2YoKmFycmF5LT51dWlkKTsKIAkJ
+CWNvbnRpbnVlOwotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJv
+amVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbHNhLWRldmVsCg==

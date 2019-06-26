@@ -2,67 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04BC155D4B
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 03:17:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED1EA55DDD
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 03:42:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B67B15E4;
-	Wed, 26 Jun 2019 03:17:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B67B15E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56FB01616;
+	Wed, 26 Jun 2019 03:42:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56FB01616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561511870;
-	bh=sU8tm4j2H7phRBP3HgX1tmypexmt/g4h0bjXsXG3Bug=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cT5sVg7IYRomP1dRdTiwb5/InOP68TsqBEo2mAnjwGa0HTkv1J91MLEgmCKgma9Wz
-	 lzKIgpjuYqoahKStbnDm93oyEJYZru7y6/mNzCn3KQ7+VNHqmWXsikman7+ChDJ0/S
-	 PFhuNvUCnkMalfYi2ULcRwiva1B2eVI5WSVF6Pn0=
+	s=default; t=1561513376;
+	bh=dzDiNGJS+5joZJ8z0IyzXGjydTrDAxhlfwfLmxrlkYU=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=gCA/WPF4LQHW+MM8pgDlqKcFyMBR9OPQiw+nqoC+RxVTI96+JqDCiFBb1g46ou2Ij
+	 EpD3pBsjvGLfLxDM9dNbX0cVAr6Nxghd8ACmVvf+iKxRFss2CYC+pdzWaacE5CVmV1
+	 IE2uS3qw33/oBtGkES27AGuPUXeFzURoHoOa3MU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AF4EF896FD;
-	Wed, 26 Jun 2019 03:16:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74AB8F896F9;
+	Wed, 26 Jun 2019 03:41:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7562CF896F9; Wed, 26 Jun 2019 03:16:02 +0200 (CEST)
+ id D70D6F896F9; Wed, 26 Jun 2019 03:41:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 0F02AF8071F
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 03:15:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F02AF8071F
-Date: 26 Jun 2019 10:15:53 +0900
-X-IronPort-AV: E=Sophos;i="5.62,417,1554735600"; d="scan'208";a="19692380"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 26 Jun 2019 10:15:53 +0900
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id E0985F896EA
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 03:41:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0985F896EA
+Date: 26 Jun 2019 10:40:59 +0900
+X-IronPort-AV: E=Sophos;i="5.62,418,1554735600"; d="scan'208";a="19482302"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 26 Jun 2019 10:40:59 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id DFF6D40041A0;
- Wed, 26 Jun 2019 10:15:53 +0900 (JST)
-Message-ID: <87a7e5ywqs.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id D218D4155066;
+ Wed, 26 Jun 2019 10:40:59 +0900 (JST)
+Message-ID: <878stpyvky.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Mark Brown <broonie@kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, 'Linux Samsung SOC'
- <linux-samsung-soc@vger.kernel.org>
-In-Reply-To: <87ef3hz0yn.wl-kuninori.morimoto.gx@renesas.com>
-References: <877e9iwf9f.wl-kuninori.morimoto.gx@renesas.com>
- <874l4mv0h8.wl-kuninori.morimoto.gx@renesas.com>
- <CGME20190624131905eucas1p2cf4335b4d1483b7e62d0c9e7b5223a3c@eucas1p2.samsung.com>
- <9cfc8505-2903-033f-f68b-8ccc1c70132b@samsung.com>
- <87d0j232wg.wl-kuninori.morimoto.gx@renesas.com>
- <80c5c575-6f28-c6a6-91b2-d701bb9fbce8@samsung.com>
- <877e9a2hvn.wl-kuninori.morimoto.gx@renesas.com>
- <c4bb4599-e5d5-926b-75d5-d5c349ed8076@samsung.com>
- <87ef3hz0yn.wl-kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Dmitry Osipenko <digetx@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
+ Mark Brown <broonie@kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Subject: Re: [alsa-devel] [PATCH resend 25/47] ASoC: samsung: snow: don't
-	select unnecessary Platform
+Cc: "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH] ASoC: soc-core: don't use soc_find_component()
+	at snd_soc_find_dai()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,51 +68,61 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-Hi Marek, again
+commit b9f2e25c599bb ("ASoC: soc-core: use soc_find_component() at
+snd_soc_find_dai()") used soc_find_component() at snd_soc_find_dai(),
+but, some CPU driver has CPU component for DAI and Platform component,
+for example generic DMAEngine component.
+In such case, CPU component and Platform component have same
+of_node / name.
 
-> Thank you for your test.
-> And so sorry to bother you.
-> I will fixup this issue.
-> 
-> > >>> I have no idea so far, but one capability is that if your system
-> > >>> used / based dummy platform, and if your CPU driver didn't use/have
-> > >>> snd_soc_set_runtime_hwparams() / snd_pcm_lib_ioctl,
-> > >>> it might be happen, but this patch seems not related to it...
-> > >> Reverting this patch fixes the issue, so it is definitely related somehow.
-> > > Ahh... OK now I think I could understand your issue.
-> > > Your CPU is using devm_snd_dmaengine_pcm_register() with same *dev.
-> > > In such case, indeed this patch breaks sound card.
+Here soc_find_component() returns *1st* found component.
+Thus, we shouldn't use soc_find_component() at snd_soc_find_dai().
+This patch fixup this it, and add comment to indicate this limitation.
 
-I'm now negotiating to Mark to reverting issue patches.
-But, as alternative idea, I think below patch can solve this issue.
-Can you please test it ?
+Fixes: commit b9f2e25c599bb ("ASoC: soc-core: use soc_find_component() at snd_soc_find_dai()")
+Reported-by: Dmitry Osipenko <digetx@gmail.com>
+Reported-by: Jon Hunter <jonathanh@nvidia.com>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+---
+ sound/soc/soc-core.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-----------------------
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 358f1fb..79b9cc4 100644
+index 358f1fb..8ccaf63 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -931,9 +931,11 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
- 	rtd->codec_dai = rtd->codec_dais[0];
+@@ -786,6 +786,14 @@ static struct snd_soc_component *soc_find_component(
  
- 	/* Find PLATFORM from registered PLATFORMs */
-+	/* CPU driver might has both DAI and PLATFORM */
- 	for_each_component(component) {
- 		if (!snd_soc_is_matching_component(dai_link->platforms,
--						   component))
-+						   component) &&
-+		    !snd_soc_is_matching_component(dai_link->cpus, component))
- 			continue;
+ 	lockdep_assert_held(&client_mutex);
  
- 		snd_soc_rtdcom_add(rtd, component);
-----------------------
++	/*
++	 * NOTE
++	 *
++	 * It returns *1st* found component, but some driver
++	 * has few components by same of_node/name
++	 * ex)
++	 *	CPU component and generic DMAEngine component
++	 */
+ 	for_each_component(component)
+ 		if (snd_soc_is_matching_component(dlc, component))
+ 			return component;
+@@ -813,8 +821,9 @@ struct snd_soc_dai *snd_soc_find_dai(
+ 	lockdep_assert_held(&client_mutex);
+ 
+ 	/* Find CPU DAI from registered DAIs */
+-	component = soc_find_component(dlc);
+-	if (component) {
++	for_each_component(component) {
++		if (!snd_soc_is_matching_component(dlc, component))
++			continue;
+ 		for_each_component_dais(component, dai) {
+ 			if (dlc->dai_name && strcmp(dai->name, dlc->dai_name)
+ 			    && (!dai->driver->name
+-- 
+2.7.4
 
-
-Thank you for your help !!
-Best regards
----
-Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

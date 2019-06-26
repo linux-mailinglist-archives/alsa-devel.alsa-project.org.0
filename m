@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BF35565E4
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 11:48:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E9585672E
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Jun 2019 12:52:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F9671614;
-	Wed, 26 Jun 2019 11:47:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F9671614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5BF21657;
+	Wed, 26 Jun 2019 12:51:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5BF21657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561542518;
-	bh=91GP0qiUtwPVvLsNuFUHmu1fyw9UUQIm4rNQiOgWQkk=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jU51nP/f1GCG5vABxx5zCJZoz7Je5QaYSNXda99i4kD/b1WuXNmqKt1baj2TSMt4M
-	 TSvUI/2nC9ipwbv/XUw0ny5ghfLjV4vyfs4SnqZeoF5BrMplOImRrN1WDc/NEQWfbj
-	 YTATn9EWOJ8eO9C9ziBmgpfd5ylKF1dy4A1kq6lA=
+	s=default; t=1561546324;
+	bh=B1uFVOmasTiRSxvGTSRylIihIql6aN33NidB79Vhseo=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YA1Gs1RWKK2yfxmGaZDbBEYZLKtL2xukl2xEnaeyDAn5q+m3bPVVY8BDyTmK7m4TZ
+	 R5bxkBzTCegXy8zi3NIkCqsO+A0psuC/GHHzAyPnWk/7fWkxcNAdL2BYZhSILErT4V
+	 V4SjVHOmHd65mzzo63lC4sWBZQ0Efw0MSZgsQQOY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31C7EF896B7;
-	Wed, 26 Jun 2019 11:46:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 554D5F896B7;
+	Wed, 26 Jun 2019 12:50:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9C4BF896B9; Wed, 26 Jun 2019 11:46:50 +0200 (CEST)
+ id 9C38BF896B9; Wed, 26 Jun 2019 12:50:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9A78F806F0
- for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 11:46:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9A78F806F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="nQeuJjRi"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5d133f070000>; Wed, 26 Jun 2019 02:46:47 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Wed, 26 Jun 2019 02:46:45 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Wed, 26 Jun 2019 02:46:45 -0700
-Received: from [10.21.132.148] (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 26 Jun
- 2019 09:46:43 +0000
-To: Dmitry Osipenko <digetx@gmail.com>, Kuninori Morimoto
- <kuninori.morimoto.gx@renesas.com>, Mark Brown <broonie@kernel.org>
-References: <878stpyvky.wl-kuninori.morimoto.gx@renesas.com>
- <8291b20f-8926-8089-0507-36b8b1025b35@gmail.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <c4587ef2-0cec-ddad-f3ae-2b271505569c@nvidia.com>
-Date: Wed, 26 Jun 2019 10:46:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa4.microchip.iphmx.com (esa4.microchip.iphmx.com
+ [68.232.154.123])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45C73F8071F
+ for <alsa-devel@alsa-project.org>; Wed, 26 Jun 2019 12:50:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45C73F8071F
+Received-SPF: Pass (esa4.microchip.iphmx.com: domain of
+ Codrin.Ciubotariu@microchip.com designates 198.175.253.82 as
+ permitted sender) identity=mailfrom;
+ client-ip=198.175.253.82; receiver=esa4.microchip.iphmx.com;
+ envelope-from="Codrin.Ciubotariu@microchip.com";
+ x-sender="Codrin.Ciubotariu@microchip.com";
+ x-conformance=spf_only; x-record-type="v=spf1";
+ x-record-text="v=spf1 mx a:ushub1.microchip.com
+ a:smtpout.microchip.com a:mx1.microchip.iphmx.com
+ a:mx2.microchip.iphmx.com include:servers.mcsv.net
+ include:mktomail.com include:spf.protection.outlook.com ~all"
+Received-SPF: None (esa4.microchip.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@email.microchip.com) identity=helo;
+ client-ip=198.175.253.82; receiver=esa4.microchip.iphmx.com;
+ envelope-from="Codrin.Ciubotariu@microchip.com";
+ x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
+Authentication-Results: esa4.microchip.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=Pass smtp.mailfrom=Codrin.Ciubotariu@microchip.com;
+ spf=None smtp.helo=postmaster@email.microchip.com;
+ dmarc=pass (p=none dis=none) d=microchip.com
+X-IronPort-AV: E=Sophos;i="5.63,419,1557212400"; d="scan'208";a="38419469"
+Received: from smtpout.microchip.com (HELO email.microchip.com)
+ ([198.175.253.82])
+ by esa4.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
+ 26 Jun 2019 03:50:09 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex01.mchp-main.com (10.10.87.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Wed, 26 Jun 2019 03:50:08 -0700
+Received: from rob-ult-m19940.microchip.com (10.10.85.251) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
+ 15.1.1713.5 via Frontend Transport; Wed, 26 Jun 2019 03:50:04 -0700
+From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Date: Wed, 26 Jun 2019 13:49:46 +0300
+Message-ID: <20190626104947.26547-1-codrin.ciubotariu@microchip.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <8291b20f-8926-8089-0507-36b8b1025b35@gmail.com>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL103.nvidia.com (172.20.187.11) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1561542407; bh=kOuHvF4pFuFql+uak+NdzZIhDUvLPSYVA2iwgAPBa4A=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=nQeuJjRis+7fHfAF1qy2MQUg5yfCmmM4vi/ylcuFz7pFkuEeUOSgbG1s06ymueho7
- P1qsxtSlh61UDNrC5j9XxeVe+kef80Zyg/IdcMVQaXMa81KPOK565NM/WJKqYjej0i
- qlz5C4hheCceOwejJP4tz2s3nTxQNlf2BqY83ysAVw8OEkayKS9Mdo1Prn8EKxFXkQ
- tS8kFm703GyyL0PnLAZe11GcsNFvd2gyMP2YXMoRtWfvtLZsRSOoQDeTw2JcAYz/Gp
- 6/xETyhb11+VT45b0H3FgpnNU2RgEdIP7WUUzhgmDoLeFCPa5SESSH6KdVa/UUxNL7
- +VgrzScgXR2YQ==
-Cc: "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: don't use
- soc_find_component() at snd_soc_find_dai()
+Cc: lars@metafoo.de, tiwai@suse.com, lgirdwood@gmail.com, broonie@kernel.org,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH 1/2] ASoC: codecs: ad193x: Fix memory
+	corruption on BE 64b systems
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,52 +93,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ck9uIDI2LzA2LzIwMTkgMDI6NTQsIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPiAyNi4wNi4yMDE5
-IDQ6NDAsIEt1bmlub3JpIE1vcmltb3RvINC/0LjRiNC10YI6Cj4+IEZyb206IEt1bmlub3JpIE1v
-cmltb3RvIDxrdW5pbm9yaS5tb3JpbW90by5neEByZW5lc2FzLmNvbT4KPj4KPj4gY29tbWl0IGI5
-ZjJlMjVjNTk5YmIgKCJBU29DOiBzb2MtY29yZTogdXNlIHNvY19maW5kX2NvbXBvbmVudCgpIGF0
-Cj4+IHNuZF9zb2NfZmluZF9kYWkoKSIpIHVzZWQgc29jX2ZpbmRfY29tcG9uZW50KCkgYXQgc25k
-X3NvY19maW5kX2RhaSgpLAo+PiBidXQsIHNvbWUgQ1BVIGRyaXZlciBoYXMgQ1BVIGNvbXBvbmVu
-dCBmb3IgREFJIGFuZCBQbGF0Zm9ybSBjb21wb25lbnQsCj4+IGZvciBleGFtcGxlIGdlbmVyaWMg
-RE1BRW5naW5lIGNvbXBvbmVudC4KPj4gSW4gc3VjaCBjYXNlLCBDUFUgY29tcG9uZW50IGFuZCBQ
-bGF0Zm9ybSBjb21wb25lbnQgaGF2ZSBzYW1lCj4+IG9mX25vZGUgLyBuYW1lLgo+Pgo+PiBIZXJl
-IHNvY19maW5kX2NvbXBvbmVudCgpIHJldHVybnMgKjFzdCogZm91bmQgY29tcG9uZW50Lgo+PiBU
-aHVzLCB3ZSBzaG91bGRuJ3QgdXNlIHNvY19maW5kX2NvbXBvbmVudCgpIGF0IHNuZF9zb2NfZmlu
-ZF9kYWkoKS4KPj4gVGhpcyBwYXRjaCBmaXh1cCB0aGlzIGl0LCBhbmQgYWRkIGNvbW1lbnQgdG8g
-aW5kaWNhdGUgdGhpcyBsaW1pdGF0aW9uLgo+Pgo+PiBGaXhlczogY29tbWl0IGI5ZjJlMjVjNTk5
-YmIgKCJBU29DOiBzb2MtY29yZTogdXNlIHNvY19maW5kX2NvbXBvbmVudCgpIGF0IHNuZF9zb2Nf
-ZmluZF9kYWkoKSIpCj4+IFJlcG9ydGVkLWJ5OiBEbWl0cnkgT3NpcGVua28gPGRpZ2V0eEBnbWFp
-bC5jb20+Cj4+IFJlcG9ydGVkLWJ5OiBKb24gSHVudGVyIDxqb25hdGhhbmhAbnZpZGlhLmNvbT4K
-Pj4gU2lnbmVkLW9mZi1ieTogS3VuaW5vcmkgTW9yaW1vdG8gPGt1bmlub3JpLm1vcmltb3RvLmd4
-QHJlbmVzYXMuY29tPgo+PiAtLS0KPj4gIHNvdW5kL3NvYy9zb2MtY29yZS5jIHwgMTMgKysrKysr
-KysrKystLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc29jLWNvcmUuYyBiL3NvdW5kL3NvYy9z
-b2MtY29yZS5jCj4+IGluZGV4IDM1OGYxZmIuLjhjY2FmNjMgMTAwNjQ0Cj4+IC0tLSBhL3NvdW5k
-L3NvYy9zb2MtY29yZS5jCj4+ICsrKyBiL3NvdW5kL3NvYy9zb2MtY29yZS5jCj4+IEBAIC03ODYs
-NiArNzg2LDE0IEBAIHN0YXRpYyBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKnNvY19maW5kX2Nv
-bXBvbmVudCgKPj4gIAo+PiAgCWxvY2tkZXBfYXNzZXJ0X2hlbGQoJmNsaWVudF9tdXRleCk7Cj4+
-ICAKPj4gKwkvKgo+PiArCSAqIE5PVEUKPj4gKwkgKgo+PiArCSAqIEl0IHJldHVybnMgKjFzdCog
-Zm91bmQgY29tcG9uZW50LCBidXQgc29tZSBkcml2ZXIKPj4gKwkgKiBoYXMgZmV3IGNvbXBvbmVu
-dHMgYnkgc2FtZSBvZl9ub2RlL25hbWUKPj4gKwkgKiBleCkKPj4gKwkgKglDUFUgY29tcG9uZW50
-IGFuZCBnZW5lcmljIERNQUVuZ2luZSBjb21wb25lbnQKPj4gKwkgKi8KPj4gIAlmb3JfZWFjaF9j
-b21wb25lbnQoY29tcG9uZW50KQo+PiAgCQlpZiAoc25kX3NvY19pc19tYXRjaGluZ19jb21wb25l
-bnQoZGxjLCBjb21wb25lbnQpKQo+PiAgCQkJcmV0dXJuIGNvbXBvbmVudDsKPj4gQEAgLTgxMyw4
-ICs4MjEsOSBAQCBzdHJ1Y3Qgc25kX3NvY19kYWkgKnNuZF9zb2NfZmluZF9kYWkoCj4+ICAJbG9j
-a2RlcF9hc3NlcnRfaGVsZCgmY2xpZW50X211dGV4KTsKPj4gIAo+PiAgCS8qIEZpbmQgQ1BVIERB
-SSBmcm9tIHJlZ2lzdGVyZWQgREFJcyAqLwo+PiAtCWNvbXBvbmVudCA9IHNvY19maW5kX2NvbXBv
-bmVudChkbGMpOwo+PiAtCWlmIChjb21wb25lbnQpIHsKPj4gKwlmb3JfZWFjaF9jb21wb25lbnQo
-Y29tcG9uZW50KSB7Cj4+ICsJCWlmICghc25kX3NvY19pc19tYXRjaGluZ19jb21wb25lbnQoZGxj
-LCBjb21wb25lbnQpKQo+PiArCQkJY29udGludWU7Cj4+ICAJCWZvcl9lYWNoX2NvbXBvbmVudF9k
-YWlzKGNvbXBvbmVudCwgZGFpKSB7Cj4+ICAJCQlpZiAoZGxjLT5kYWlfbmFtZSAmJiBzdHJjbXAo
-ZGFpLT5uYW1lLCBkbGMtPmRhaV9uYW1lKQo+PiAgCQkJICAgICYmICghZGFpLT5kcml2ZXItPm5h
-bWUKPj4KPiAKPiBUaGFuayB5b3UgdmVyeSBtdWNoIQo+IAo+IFRlc3RlZC1ieTogRG1pdHJ5IE9z
-aXBlbmtvIDxkaWdldHhAZ21haWwuY29tPgoKVGVzdGVkLWJ5OiBKb24gSHVudGVyIDxqb25hdGhh
-bmhAbnZpZGlhLmNvbT4KClRoYW5rcyEKSm9uCgotLSAKbnZwdWJsaWMKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QK
-QWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+Since change_bit() requires unsigned long*, making this cast on an
+unsigned int variable will change a wrong bit on BE platforms, causing
+memory corruption. Replace this function with a simple XOR.
+
+Fixes: 90f6e6803139 ("ASoC: codecs: ad193x: Fix frame polarity for DSP_A format")
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+---
+ sound/soc/codecs/ad193x.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/codecs/ad193x.c b/sound/soc/codecs/ad193x.c
+index 05f4514048e2..3ebc0524f4b2 100644
+--- a/sound/soc/codecs/ad193x.c
++++ b/sound/soc/codecs/ad193x.c
+@@ -240,10 +240,8 @@ static int ad193x_set_dai_fmt(struct snd_soc_dai *codec_dai,
+ 	}
+ 
+ 	/* For DSP_*, LRCLK's polarity must be inverted */
+-	if (fmt & SND_SOC_DAIFMT_DSP_A) {
+-		change_bit(ffs(AD193X_DAC_LEFT_HIGH) - 1,
+-			   (unsigned long *)&dac_fmt);
+-	}
++	if (fmt & SND_SOC_DAIFMT_DSP_A)
++		dac_fmt ^= AD193X_DAC_LEFT_HIGH;
+ 
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+ 	case SND_SOC_DAIFMT_CBM_CFM: /* codec clk & frm master */
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

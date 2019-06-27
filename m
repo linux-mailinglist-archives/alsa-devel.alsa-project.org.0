@@ -2,71 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98B6257F75
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jun 2019 11:41:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 151115802A
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jun 2019 12:25:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF2B9172C;
-	Thu, 27 Jun 2019 11:40:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF2B9172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B9E31727;
+	Thu, 27 Jun 2019 12:24:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B9E31727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561628475;
-	bh=QRHTAy4+b9NFs9Oe45vBcVNAG4hIXcIgOyctKqJ4EQ4=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1561631140;
+	bh=Ouo0sC6/F/goeHp42J5Bev3fmzUZydm3WEnNzvsktYY=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kr3EErKwCbC7XeYONpvCwpanBDE+eg9Vri85BmOGutqv4pkI18Zcfmroez0hTJPrQ
-	 hDna7wORfGcdX79hpu1Zsy6gsahfwEWJnpFOlYDb2rISsQfMHU7ulVCS6e8tTGFxdX
-	 j9GtGOgs23Wo2zCYpjwvcNzeHtna8cTraSjPGYeo=
+	b=vL2CYHEXHhjYXwp823LW/Hc+5teOvTZxTyJUAhFmEYS+Uaojy0Vqlm7WTkjQGi/po
+	 p5iWKImCz4FaHYlmNRHI92ejlW89YkBGBDHLVDH6KN8d1/5t5jJRuot9QJ24EREmt1
+	 hTWi0jJrYEdB9ocfTng6Z5RjsucoDWDWj7oVReRw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D367BF806F0;
-	Thu, 27 Jun 2019 11:39:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B9FCF896F0;
+	Thu, 27 Jun 2019 12:23:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D053F896F6; Thu, 27 Jun 2019 11:39:26 +0200 (CEST)
+ id AD4F5F896F6; Thu, 27 Jun 2019 12:23:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ KHOP_DYNAMIC,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
- [209.85.210.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28A84F89678
- for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 11:39:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28A84F89678
-Received: by mail-ot1-f68.google.com with SMTP id s20so1616708otp.4
- for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 02:39:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=w2ekETM4fKeRevTrixLm0mXW0oYRCPcem5D5CxK1aEY=;
- b=Na9XfH6GANkJ1MTqS9Gm10mgVUnD1j6wgmP224Mwy0JQt0kuHAEYzJ5Z7JfTNjboja
- rKPxCyw0mXyEXfAGK23XpXjvflW23hFezflXpYaUoiv/w0ctFv4oyHW0h6ihu0+9Md8E
- bOSMNl0zGBS1dYHhO29WjaqOFNjrebe+W01dIv0AVPpDz/R/SdyrigHFftf2qqD9wlYC
- Hq3KWNYXiNDGrWUpoAj/85wy6RZv31r8wuWeYPHnlZZR5PtAMwsqyByeCW4xWaSbEgZ6
- L4mhHV6pjq5ej/YIWUb5KdA2zxF0fygcP9Kmra5j+agj/doSnW29ZGdkWilaIbbPSl5T
- HoqA==
-X-Gm-Message-State: APjAAAVOXXyTBEoAP1+nywhA5MTiJaafEMhdLFUBrxVUZ7jYWyMyUGe7
- 77nesRqVdIK7HAOfywjVS9B/uBfdR+/0I1AGwYY=
-X-Google-Smtp-Source: APXvYqx1vC+G2STtO3Oiq49V6CCXxRaqEQC67XDLklK1lL7gL6P31xV2IO7NENn/6uSCBQwk1NUjtJrCr+mUAv9hZJI=
-X-Received: by 2002:a9d:5d15:: with SMTP id b21mr2648855oti.262.1561628361346; 
- Thu, 27 Jun 2019 02:39:21 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCFA6F89678
+ for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 12:23:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCFA6F89678
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="JqyMctuV"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5RAEd0O016069; Thu, 27 Jun 2019 05:23:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=/SLbXZX6AA9C3wW/Ho9qCV4/4q0Ztya7LGeYh/278XY=;
+ b=JqyMctuVjCGHFHl64x+dZNe66l/9dW0RGadWfeeyp7LHQ8MlpKmjopPnGW2QY05k4qMg
+ LyICL60PsEIh8NnsT7biQ77kq9/pdEmiDxtdHsE4LTNcrms9+firwghwF3S5pgPGDLH9
+ FPH1CcgHwjUQSBrYpjFbk8T+xu8yvbcmx+EpOx/lTEUA9bj1jebAjDS4x/2iJG9mY4cH
+ FyTfV/jHNLYgEUhhsEjKy+SYzNe628E7HP28wEW2Z5otsGUUl5QwE/HfR+gzWEKjn+Oo
+ h7Cu1zs46lJ1P9QoV5/7nxpa7LWVirwJLj947Hnu8CkluNrlmW6IK8pHFdcPQ5qBQ/4c tw== 
+Authentication-Results: ppops.net;
+ spf=none smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2t9hr2gtsm-1;
+ Thu, 27 Jun 2019 05:23:46 -0500
+Received: from EDIEX01.ad.cirrus.com (unknown [198.61.84.80])
+ by mail1.cirrus.com (Postfix) with ESMTP id 3034F611C8B2;
+ Thu, 27 Jun 2019 05:23:46 -0500 (CDT)
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Thu, 27 Jun
+ 2019 11:23:45 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Thu, 27 Jun 2019 11:23:45 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 860DF2A1;
+ Thu, 27 Jun 2019 11:23:45 +0100 (BST)
+Date: Thu, 27 Jun 2019 11:23:45 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Message-ID: <20190627102345.GG54126@ediswmail.ad.cirrus.com>
 References: <20190626153611.10170-1-ckeepax@opensource.cirrus.com>
-In-Reply-To: <20190626153611.10170-1-ckeepax@opensource.cirrus.com>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 27 Jun 2019 11:39:10 +0200
-Message-ID: <CAJZ5v0hvN=8YmF+v6wKx9mQ=DRosAtK7QU=EWYf5PXEDsn4FEQ@mail.gmail.com>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+ <CAJZ5v0hvN=8YmF+v6wKx9mQ=DRosAtK7QU=EWYf5PXEDsn4FEQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAJZ5v0hvN=8YmF+v6wKx9mQ=DRosAtK7QU=EWYf5PXEDsn4FEQ@mail.gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1906270120
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ <alsa-devel@alsa-project.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Liam Girdwood <lgirdwood@gmail.com>,
  ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
  Mark Brown <broonie@kernel.org>, patches@opensource.cirrus.com
@@ -88,126 +111,88 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jun 26, 2019 at 5:36 PM Charles Keepax
-<ckeepax@opensource.cirrus.com> wrote:
+On Thu, Jun 27, 2019 at 11:39:10AM +0200, Rafael J. Wysocki wrote:
+> On Wed, Jun 26, 2019 at 5:36 PM Charles Keepax
+> <ckeepax@opensource.cirrus.com> wrote:
+> > +       n = device_property_read_u32_array(dev, propname, NULL, 0);
+> > +       if (n == -EINVAL) {
+> > +               return 0;       /* missing, ignore */
+> 
+> Why can't the caller use the (scheduled for merging in the 5.3 cycle)
+> new device_property_count_u32() to get the size of the array?
+> 
+
+I wasn't aware of it, am now.
+
+> > +       } else if (n < 0) {
+> > +               dev_warn(dev, "%s malformed (%d)\n", propname, n);
+> 
+> Why dev_warn()?  Is there any reason real for anything higher-level
+> that dev_dbg() here?
+> 
+
+Nice to know that your DT wasn't valid, but could be left to the
+caller I guess.
+
+> > +               return n;
+> > +       } else if ((n % multiple) != 0) {
+> 
+> I guess the reason why this matters is that the caller expects a
+> certain number of full "rows" and n values are read.  Why not to
+> discard the extra values instead of returning an error here?
 >
-> It is fairly common to want to read an integer array property
-> that is composed of an unknown number of fixed size integer
-> groups. For example, say each group consists of three values
-> which correspond to the settings for one input on the device
-> and the driver supports several chips with different numbers
-> of inputs.
->
-> Add a new helper function to provide this functionality, it
-> differs for the existing helpers in that it allows reading a
-> smaller number of values than the full array size and checks
-> that the number of values read is a multiple of the group size.
 
-I'm not convinced.
+No reason really why it couldn't. Although my expectation would
+generally be this helper is for reading a variable number of
+fixed size groups. As in each group represents a "whole" item but
+you don't know how many of those you have.
 
-> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> ---
->  drivers/base/property.c  | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
->  include/linux/property.h |  2 ++
->  2 files changed, 50 insertions(+)
->
-> diff --git a/drivers/base/property.c b/drivers/base/property.c
-> index 348b37e64944c..656d21e01a648 100644
-> --- a/drivers/base/property.c
-> +++ b/drivers/base/property.c
-> @@ -133,6 +133,54 @@ int device_property_read_u32_array(struct device *dev, const char *propname,
->  EXPORT_SYMBOL_GPL(device_property_read_u32_array);
->
->  /**
-> + * device_property_read_u32_2darray - return a 2d u32 array property of a device
-> + * @dev: Device to get the property of
-> + * @propname: Name of the property
-> + * @val: The values are stored here or %NULL to return the number of values
-> + * @nval: Size of the @val array
-> + * @multiple: Number of entries in each block of data
-> + *
-> + * Function reads an array of u32 properties split up into fixed size
-> + * sub-groups, with @propname from the device firmware description and
-> + * stores them to @val if found.
-> + *
-> + * Return: Number of values read
-> + *        %0 if the property was not found,
-> + *        %-EINVAL if given arguments are not valid,
-> + *        %-ENODATA if the property does not have a value,
-> + *        %-EPROTO if the property is not an array of numbers,
-> + *        %-EOVERFLOW if the size of the property is not as expected.
-> + *        %-ENXIO if no suitable firmware interface is present.
-> + */
-> +int device_property_read_u32_2darray(struct device *dev, const char *propname,
-> +                                    u32 *val, size_t nval, int multiple)
-> +{
-> +       int n, ret;
-> +
-> +       n = device_property_read_u32_array(dev, propname, NULL, 0);
-> +       if (n == -EINVAL) {
-> +               return 0;       /* missing, ignore */
+> > +               dev_warn(dev, "%s not a multiple of %d entries\n",
+> > +                        propname, multiple);
+> > +               return -EOVERFLOW;
+> 
+> Why this error code?
+> 
 
-Why can't the caller use the (scheduled for merging in the 5.3 cycle)
-new device_property_count_u32() to get the size of the array?
+As that is the error code all the device_property functions
+return when the size is not as expected.
 
-> +       } else if (n < 0) {
-> +               dev_warn(dev, "%s malformed (%d)\n", propname, n);
+> > +       if (n > nval)
+> > +               n = nval;
+> > +
+> > +       ret = device_property_read_u32_array(dev, propname, val, n);
+> 
+> So this reads "copy at most nval values from the array property".
+> 
+> If that's really what you need, it can be done in two lines of code in
+> prospective callers of this wrapper.
+> 
 
-Why dev_warn()?  Is there any reason real for anything higher-level
-that dev_dbg() here?
+Indeed the helper here is basically exactly what would be done in
+the caller if no helper existed.
 
-> +               return n;
-> +       } else if ((n % multiple) != 0) {
+> > +int device_property_read_u32_2darray(struct device *dev, const char *propname,
+> > +                                    u32 *val, size_t nval, int multiple);
+> >  int device_property_read_u64_array(struct device *dev, const char *propname,
+> >                                    u64 *val, size_t nval);
+> >  int device_property_read_string_array(struct device *dev, const char *propname,
+> > --
+> 
+> I don't see much value in this change, sorry.
 
-I guess the reason why this matters is that the caller expects a
-certain number of full "rows" and n values are read.  Why not to
-discard the extra values instead of returning an error here?
+That is fine, I don't have any problem with the helper living
+within our driver instead. Basically the issue from my side is I
+need to read 6 different device tree properties all of which
+require this behaviour, ie. read a variable number of fixed
+groups and check I have whole groups. Open coding this for each
+call is indeed only going to be 5-10 lines of code for each one
+but since there are 6 of them it makes sense to put those 5-10
+lines into a helper and have 5-10 lines not 30-60 lines. Seemed
+the helper might be generally more useful, but if it is not then
+it can go back into the driver.
 
-> +               dev_warn(dev, "%s not a multiple of %d entries\n",
-> +                        propname, multiple);
-> +               return -EOVERFLOW;
-
-Why this error code?
-
-> +       }
-> +
-> +       if (n > nval)
-> +               n = nval;
-> +
-> +       ret = device_property_read_u32_array(dev, propname, val, n);
-
-So this reads "copy at most nval values from the array property".
-
-If that's really what you need, it can be done in two lines of code in
-prospective callers of this wrapper.
-
-> +       if (ret < 0)
-> +               return ret;
-> +       else
-> +               return n;
-> +}
-> +EXPORT_SYMBOL_GPL(device_property_read_u32_2darray);
-> +
-> +/**
->   * device_property_read_u64_array - return a u64 array property of a device
->   * @dev: Device to get the property of
->   * @propname: Name of the property
-> diff --git a/include/linux/property.h b/include/linux/property.h
-> index e9caa290cda52..5ab0b4a7d34a2 100644
-> --- a/include/linux/property.h
-> +++ b/include/linux/property.h
-> @@ -40,6 +40,8 @@ int device_property_read_u16_array(struct device *dev, const char *propname,
->                                    u16 *val, size_t nval);
->  int device_property_read_u32_array(struct device *dev, const char *propname,
->                                    u32 *val, size_t nval);
-> +int device_property_read_u32_2darray(struct device *dev, const char *propname,
-> +                                    u32 *val, size_t nval, int multiple);
->  int device_property_read_u64_array(struct device *dev, const char *propname,
->                                    u64 *val, size_t nval);
->  int device_property_read_string_array(struct device *dev, const char *propname,
-> --
-
-I don't see much value in this change, sorry.
+Thanks,
+Charles
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

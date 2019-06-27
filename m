@@ -2,79 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D7157D74
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jun 2019 09:47:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFCD857D7E
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Jun 2019 09:53:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8234916FE;
-	Thu, 27 Jun 2019 09:46:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8234916FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 276DE1714;
+	Thu, 27 Jun 2019 09:52:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 276DE1714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561621650;
-	bh=0+gdn8F1ML90bPGLYiBqi1NRW+wT7oaj/hugr0Vq2xA=;
-	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZMx18cGokzSEf3xPV4bWLf/OYHVXtM31KpjufNF9Kq6/egW4Z644P5auX43Paldzz
-	 ZhfxDQALcIUI1/TSTdbbCYZhmGqHisSGMpde7bsCbsZDYs8yY+Mt1oYaxTiGBdG3kD
-	 FLlzr/fW1m3Y5QpQ4STAhX391WNhebawVYNUCsDE=
+	s=default; t=1561621991;
+	bh=C6Go0zW7b8w6XNVakpnEcz6rPOfzE10H+dsvTcHjaEE=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uLOSVqau8lW2P8h0m1C2C1J9T1yQKO/ti5gXrBIgVWcitjDKTwQUqeK7N9fs+uKpA
+	 zUFEtLIN9HKO8VnjJjwmqFK9i8/k01zSWAv9tU9W3t4bpxPfir+TfIdQlOEvb/HvKS
+	 h/KRoM2O2/d3qBqGF2S3lnIIaZY2imUOwdCm30xQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D48A4F896F9;
-	Thu, 27 Jun 2019 09:45:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 954FCF896F6;
+	Thu, 27 Jun 2019 09:51:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71ADCF896F6; Thu, 27 Jun 2019 09:45:43 +0200 (CEST)
+ id 81270F896F6; Thu, 27 Jun 2019 09:51:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [IPv6:2a00:1450:4864:20::12b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A0069F80C0B
- for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 09:45:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0069F80C0B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="nR+t+dxi"
-Received: by mail-lf1-x12b.google.com with SMTP id 136so873695lfa.8
- for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 00:45:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=8NAWQn/PJbynOZwoj/0AAzzKzDSA51BaXvYXs5uutik=;
- b=nR+t+dxiP0YEr+U3Xjgjl8Nj0RygdQJ+zlgFBQORBSPQ2sJWwF8fVbH8T3N3iQLBB2
- xz0I25BrT9pYMH8OBjlYV56ZoOBR17bAMWUYRZRcFzTRqVXUaD/ndfSjUHjkxTZrTMoy
- wFt5h2RI5qM2aLIHkXwblcTHS4a28o1ln48oktXSHmguWPt3wjuVDzkPKYdS2hc2XM4d
- Y4ChzjPBZBmsBFIbuxKslnfRoZY6KTTwtU6baTaHBjDHkxrIq67DOXnif7pg3tCdgRja
- x4yZxKXYnPd5iENoleHvtyQXQu1kRtXQZRaLII99OjMHZJ+nZOUg+6jrMrB/EO5eQyTQ
- 5b2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=8NAWQn/PJbynOZwoj/0AAzzKzDSA51BaXvYXs5uutik=;
- b=DQ58rIPDudoCghnoulbyuQxPG2WLfKZ7SLXvMfwmQeqPntZJRe1mb9YoxxG351o5VG
- LW6vyRJK6mLPUZTrxzIn+1UqEOxAH+ZsWAMbZ3vY/MOg/9ekJLUPjbyVIT1RtdcPppIM
- RkRIJNNSsWLVpBjM4xelQrP91SNjj7vuWMCtokJYP9t72dYoZcp+aAkNLhpZQb45LCFc
- 7eWSjhaLNDQpM58uCSkcNLas6B1o8WgndEORrgmtaPSVoa7m0WNuTo+ycyYxsTFatgFT
- f2E7aQLk9OMX6cynp4SFMRTNBHZuz5ts8F/GC00wHMfyf8wBojCY8GUCxpgoA7Mhveck
- +EiA==
-X-Gm-Message-State: APjAAAVzydelcLm+SVdZvfmtNNOb+5lhDEdkYKhBcwQ/bnWJAQ6yA8UC
- SORM8EFl1iIq0b7/y0T9POzQ+VuEGfPZLeF12m5LBqS4
-X-Google-Smtp-Source: APXvYqyZ52tO3DeOmzBqUqn8fjobGypMgeFuOt+T/rBu5c1iscU4fdaU17vCBMWYtsJ7Mza4YVh5vyZpvu70WWuKUfg=
-X-Received: by 2002:ac2:41d7:: with SMTP id d23mr1297120lfi.118.1561621539079; 
- Thu, 27 Jun 2019 00:45:39 -0700 (PDT)
-MIME-Version: 1.0
-From: nick83ola <nick83ola@gmail.com>
-Date: Thu, 27 Jun 2019 08:45:27 +0100
-Message-ID: <CABPh3UNCZhssHLmZF2paU4EKOK1WKScbC7Vw=uGfJn7WUeXO3Q@mail.gmail.com>
-To: alsa-devel@alsa-project.org
-Cc: info@jensverwiebe.de
-Subject: [alsa-devel] [BUG] Line6 Helix / X Stomp:
- parse_audio_format_rates_v2v3(): unable to retrieve number of sample rates
- (clock 16)
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 15823F80C0B
+ for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 09:51:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15823F80C0B
+Date: 27 Jun 2019 16:51:15 +0900
+X-IronPort-AV: E=Sophos;i="5.62,423,1554735600"; d="scan'208";a="19859901"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 27 Jun 2019 16:51:15 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id A15B241F71D1;
+ Thu, 27 Jun 2019 16:51:15 +0900 (JST)
+Message-ID: <87y31nh3j0.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Amadeusz =?ISO-8859-2?Q?S=B3awi=F1ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <20190627094356.51ed48b4@xxx>
+References: <8736jvkcy1.wl-kuninori.morimoto.gx@renesas.com>
+ <87lfxniybh.wl-kuninori.morimoto.gx@renesas.com>
+ <20190627094356.51ed48b4@xxx>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 12/23] ASoC: ak4118: use
+	devm_snd_soc_register_component()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,39 +72,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all,
-I just purchased an HX stomp and when I connect to linux I get the
-following error message:
 
-    [  322.404503] usb 1-6: new high-speed USB device number 13 using xhci_hcd
-    [  322.531804] usb 1-6: New USB device found, idVendor=0e41,
-idProduct=4246, bcdDevice= 2.00
-    [  322.531806] usb 1-6: New USB device strings: Mfr=1, Product=3,
-SerialNumber=2
-    [  322.531806] usb 1-6: Product: HX Stomp
-    [  322.531807] usb 1-6: Manufacturer: LINE 6
-    [  322.531808] usb 1-6: SerialNumber:    3021888
-    [  322.535789] usb 1-6: parse_audio_format_rates_v2v3(): unable to
-retrieve number of sample rates (clock 16)
-    [  322.535907] usb 1-6: parse_audio_format_rates_v2v3(): unable to
-retrieve number of sample rates (clock 16)
+Hi Amadeusz
 
-I have some kernel development experience but not a lot with usb so
-can someone point me where to start looking?
+Thank you for your feedback.
+This patch is focusing to using devm_xxx().
+Removing empty funcion can be other patch series.
+But, I can create v2 to remove empty funcion, of course.
+I'm very open. Mark what is your opinion ?
 
-there was a previous discussion on the mailing list related to this by
-Jens Verwiebe (and other request for help).
-Here are the relevant patches/discussion
-
-    https://www.spinics.net/lists/alsa-devel/msg71459.html
-    https://patchwork.kernel.org/patch/10113121/
-
-If someone can help me I have an HX stomp here and time to do some debugging.
-
-Also if someone from Line6 is listening would be helpful to have some hints.
-
-Cheers
-Nicola Lunghi
+> On 27 Jun 2019 11:00:50 +0900
+> Kuninori Morimoto <kuninori.morimoto.gx@renesas.com> wrote:
+> 
+> > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > 
+> > We have devm_xxx version of snd_soc_register_component,
+> > let's use it.
+> > 
+> > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > ---
+> >  sound/soc/codecs/ak4118.c | 5 ++---
+> >  1 file changed, 2 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/sound/soc/codecs/ak4118.c b/sound/soc/codecs/ak4118.c
+> > index ce419e8..efbe2d6 100644
+> > --- a/sound/soc/codecs/ak4118.c
+> > +++ b/sound/soc/codecs/ak4118.c
+> > @@ -400,13 +400,12 @@ static int ak4118_i2c_probe(struct i2c_client
+> > *i2c, return ret;
+> >  	}
+> >  
+> > -	return snd_soc_register_component(&i2c->dev,
+> > &soc_component_drv_ak4118,
+> > -					  &ak4118_dai, 1);
+> > +	return devm_snd_soc_register_component(&i2c->dev,
+> > +				&soc_component_drv_ak4118,
+> > &ak4118_dai, 1); }
+> >  
+> >  static int ak4118_i2c_remove(struct i2c_client *i2c)
+> >  {
+> > -	snd_soc_unregister_component(&i2c->dev);
+> >  	return 0;
+> >  }
+> >  
+> 
+> Remove whole function.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

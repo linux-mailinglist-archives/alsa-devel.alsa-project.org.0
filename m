@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F83B5A219
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 19:17:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A0D5A202
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 19:12:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D07BA16C4;
-	Fri, 28 Jun 2019 19:16:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D07BA16C4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04E0B16C2;
+	Fri, 28 Jun 2019 19:11:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04E0B16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561742254;
-	bh=4VO6rh5YwhORSRyUQqYTEYtfZ92zQZgelzNg0jFpLAw=;
+	s=default; t=1561741969;
+	bh=LxmWAFkzCS+9dhYpXhWXCI+RsKWwhLp0JGZ0cXYCvlI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=aKLVWgi7VjDh9C3JSPpCk3+0UIUP/1SOk3fACdo5SCcfU8kvkFcBxWfuuSGoixNYY
-	 MN8sEVy/KL/MgX5HeMQzv7hjTZuAMdhGp0MJRuSi31kCPRtIYdUyA7EVAKOxLGlxDJ
-	 uqHF3wm07JI/fw8rcOOs2w76njcguOmQElNppMUQ=
+	b=hrfBUPTKmI9TIFbQv/ZbK+/ydDcTvgVWzLJDP22y4+osyHqUH+pa2vtvvgayigq7p
+	 jfd/SQHIxi2F6yQe9UAtB3uCuKmvUHvo2Lj3GVM7R/MIR10CADm5iVs4Eg5uGZv5fw
+	 ShaoeT6I2AvSm20iS9CrRDCF933dJZNiYjhr5ieU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF0BEF897C9;
-	Fri, 28 Jun 2019 18:57:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 278D5F897A0;
+	Fri, 28 Jun 2019 18:57:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C32CEF80058; Fri, 28 Jun 2019 18:57:04 +0200 (CEST)
+ id 0CD52F8976F; Fri, 28 Jun 2019 18:56:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57B52F8973E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32C04F8973F
  for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 18:56:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57B52F8973E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32C04F8973F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ZIarUsis"
+ header.b="BbFy4iP3"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=7oIKfyveCFjlCT9LwS8sOLI/zLjC4Mvx8LCX6CBVII8=; b=ZIarUsismpkP
- G9pYNphKn7Z88JCUjJLxQCA10a9omgaNjzj0IoIetKIIRFqD5dEjCqmEo/CQfvZtsBMXIkQj6Iee4
- JmZhDQGG0v38vTtXhZG6IpoYAvtDwZg3bhAf9Qln+8ESOsQqVsPpqs4zOimYlIFMoT3iaULJrK9TO
- TVHLQ=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=ofI212d58LINWXwqezAU4nAJ1kKgbMje26X44EIbPk0=; b=BbFy4iP3qz0o
+ 0QwJh8wNl+oXhI8+wNMdrV4cOb3PfbIYBCv94URgT5kSHy5qmqp8kbho9s6Mcn4yQRrxVEeH82ax/
+ exPYR/6ZeVMPE3pbRR598v2T0AHjWq6OgezqHH7Nbu5UyScoZe8R+2rsR2GQJwTWVDz1lYJ7wjr+i
+ ODHUg=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hguAk-00079L-9I; Fri, 28 Jun 2019 16:56:26 +0000
+ id 1hguAj-00078t-R1; Fri, 28 Jun 2019 16:56:25 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id CECD244004B; Fri, 28 Jun 2019 17:56:25 +0100 (BST)
+ id 3C00844004C; Fri, 28 Jun 2019 17:56:25 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87imsqv5xk.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87a7e2v5wn.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190628165625.CECD244004B@finisterre.sirena.org.uk>
+Message-Id: <20190628165625.3C00844004C@finisterre.sirena.org.uk>
 Date: Fri, 28 Jun 2019 17:56:25 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: rockchip: rk3288_hdmi_analog: consider
+Subject: [alsa-devel] Applied "ASoC: samsung: tm2_wm5110: consider
 	CPU-Platform possibility" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rockchip: rk3288_hdmi_analog: consider CPU-Platform possibility
+   ASoC: samsung: tm2_wm5110: consider CPU-Platform possibility
 
 has been applied to the asoc tree at
 
@@ -112,14 +112,13 @@ to this mail.
 Thanks,
 Mark
 
-From 418e12fcaa53532aeeaf502dc787eb2a26b11f17 Mon Sep 17 00:00:00 2001
+From 74a25f36ba7af991c1133a5ce75d8f0a65ed3c7c Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 28 Jun 2019 10:47:54 +0900
-Subject: [PATCH] ASoC: rockchip: rk3288_hdmi_analog: consider CPU-Platform
- possibility
+Date: Fri, 28 Jun 2019 10:48:27 +0900
+Subject: [PATCH] ASoC: samsung: tm2_wm5110: consider CPU-Platform possibility
 
-commit 9c21e82c165c ("ASoC: rockchip: rk3288_hdmi_analog: don't select
-unnecessary Platform")
+commit ae7cbcc43b8c ("ASoC: samsung: tm2_wm5110: don't select unnecessary
+Platform")
 
 Current ALSA SoC avoid to add duplicate component to rtd,
 and this driver was selecting CPU component as Platform component.
@@ -136,36 +135,57 @@ though it is same as CPU.
 It is depends on CPU driver, but is difficult to know it from Card driver.
 This patch reverts above patch.
 
-Fixes: commit 9c21e82c165c ("ASoC: rockchip: rk3288_hdmi_analog: don't select unnecessary Platform")
+Fixes: commit ae7cbcc43b8c ("ASoC: samsung: tm2_wm5110: don't select unnecessary Platform")
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/rockchip/rk3288_hdmi_analog.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/soc/samsung/tm2_wm5110.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/rockchip/rk3288_hdmi_analog.c b/sound/soc/rockchip/rk3288_hdmi_analog.c
-index 731f75d5dc7d..767700c34ee2 100644
---- a/sound/soc/rockchip/rk3288_hdmi_analog.c
-+++ b/sound/soc/rockchip/rk3288_hdmi_analog.c
-@@ -142,7 +142,8 @@ static const struct snd_soc_ops rk_ops = {
- SND_SOC_DAILINK_DEFS(audio,
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
- 	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, NULL),
--			   COMP_CODEC("hdmi-audio-codec.2.auto", "i2s-hifi")));
-+			   COMP_CODEC("hdmi-audio-codec.2.auto", "i2s-hifi")),
+diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
+index a80781031f62..c091033d17ad 100644
+--- a/sound/soc/samsung/tm2_wm5110.c
++++ b/sound/soc/samsung/tm2_wm5110.c
+@@ -429,17 +429,21 @@ static struct snd_soc_dai_driver tm2_ext_dai[] = {
+ 
+ SND_SOC_DAILINK_DEFS(aif1,
+ 	DAILINK_COMP_ARRAY(COMP_CPU(SAMSUNG_I2S_DAI)),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif1")));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif1")),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
  
- static struct snd_soc_dai_link rk_dailink = {
- 	.name = "Codecs",
-@@ -236,6 +237,8 @@ static int snd_rk_mc_probe(struct platform_device *pdev)
- 		return -EINVAL;
+ SND_SOC_DAILINK_DEFS(voice,
+ 	DAILINK_COMP_ARRAY(COMP_CPU(SAMSUNG_I2S_DAI)),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif2")));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif2")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+ SND_SOC_DAILINK_DEFS(bt,
+ 	DAILINK_COMP_ARRAY(COMP_CPU(SAMSUNG_I2S_DAI)),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif3")));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "wm5110-aif3")),
++	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+ SND_SOC_DAILINK_DEFS(hdmi,
++	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()),
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+@@ -572,12 +576,14 @@ static int tm2_probe(struct platform_device *pdev)
+ 		unsigned int dai_index = 0; /* WM5110 */
+ 
+ 		dai_link->cpus->name = NULL;
++		dai_link->platforms->name = NULL;
+ 
+ 		if (num_codecs > 1 && i == card->num_links - 1)
+ 			dai_index = 1; /* HDMI */
+ 
+ 		dai_link->codecs->of_node = codec_dai_node[dai_index];
+ 		dai_link->cpus->of_node = cpu_dai_node[dai_index];
++		dai_link->platforms->of_node = cpu_dai_node[dai_index];
  	}
  
-+	rk_dailink.platforms->of_node = rk_dailink.cpus->of_node;
-+
- 	ret = snd_soc_of_parse_audio_routing(card, "rockchip,routing");
- 	if (ret) {
- 		dev_err(&pdev->dev,
+ 	if (num_codecs > 1) {
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 847F35A268
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 19:31:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24BD5A270
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 19:31:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09ACA172C;
-	Fri, 28 Jun 2019 19:30:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09ACA172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AA0B174B;
+	Fri, 28 Jun 2019 19:31:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AA0B174B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561743072;
-	bh=9nQXMwcmugAbiJpeOe9cPqno5TiZEQbC+PxaqhuhCOk=;
+	s=default; t=1561743112;
+	bh=A8icDG9Oawt7pUXRVsiI5Evnnv89SXI5j6q02Xc+V8I=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=vbLPrnvYAYuZimIPoON8DDV4I/OEQM9coYje7cFIoaMbKUwxRXOGI2iZrx7nc/l2N
-	 +BgwEQ0W/MnYCP7fLupBvSUgp13kGZRtetpktwU8GfqCw7ABL4SVyxd6IPSNM+9Kgn
-	 JimLWcF3FsKwhrjsCVhZBojF8kz0knH6xMda6sYw=
+	b=bvUZTDFSt7AEUCfdrxulvu9B9tqHwYVxy7DNAOUqyDmF2g9/2uXkY3zsCmr8qDMR1
+	 qX0jtHy4AQhBm7hNpwa8TrO9nqMfsGGJl4PRJ5a1H7JogQHdec+NNu1gkQ4SHRbPON
+	 9hegcHBxEe2Zvxy+cdK/4xF9DIxv5AfP19KQBCEs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58BA2F8982D;
-	Fri, 28 Jun 2019 18:58:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20D0FF89832;
+	Fri, 28 Jun 2019 18:58:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A07BEF89787; Fri, 28 Jun 2019 18:57:32 +0200 (CEST)
+ id AB50BF80768; Fri, 28 Jun 2019 18:57:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3173AF8975B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C433F89758
  for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 18:56:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3173AF8975B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C433F89758
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oizzJDZe"
+ header.b="ick8YSwu"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=mYuORRk0xZXGAWkQXTq6m8XNKxs2qCDzQm+6I1NqhnA=; b=oizzJDZervGt
- YTWIgsRMqL3Dqr7hn6RVOCvCy7jlmab0rI3PEucGwSVR96Bm7x+yCRvHY95FqAKhfMGa18nrxbs21
- hN9arErAgXa5Yv/BJ8HuwT6mL4Q5UOy7XwWfmivMa2WbDb6UWxn07IgyNud6hkWq1me8kIabUiWum
- 5QkL0=;
+ List-Archive; bh=9kUAjdy2iW6Uc+2HQD3Freg59GbE2w/VGxT6YCQv6To=; b=ick8YSwuhryY
+ 5UBEv9SG1hZuPf6yMSWnq94/a1Wi1LmaElRJNXqPrvTro+V9oaaky59JgmSTAk6XjFjsYK4DEKvDM
+ mI+cAGLv8FVuhHmh/KdEa2lk8upP6cxQ4G0wsP2wgqB/P5Yikb7RUJ7/fQ5SavHin8uS+Dl29aVzb
+ cyoK8=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hguAn-0007Br-25; Fri, 28 Jun 2019 16:56:29 +0000
+ id 1hguAm-0007BX-NQ; Fri, 28 Jun 2019 16:56:28 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 72AE544004F; Fri, 28 Jun 2019 17:56:28 +0100 (BST)
+ id 26843440046; Fri, 28 Jun 2019 17:56:28 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-In-Reply-To: <20190627120208.4661-1-codrin.ciubotariu@microchip.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20190627121350.21027-3-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190628165628.72AE544004F@finisterre.sirena.org.uk>
+Message-Id: <20190628165628.26843440046@finisterre.sirena.org.uk>
 Date: Fri, 28 Jun 2019 17:56:28 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, lgirdwood@gmail.com,
- tiwai@suse.com, linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: codecs: ad193x: Group register
-	initialization at probe" to the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: soc-core: support dai_link with
+	platforms_num != 1" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: codecs: ad193x: Group register initialization at probe
+   ASoC: soc-core: support dai_link with platforms_num != 1
 
 has been applied to the asoc tree at
 
@@ -113,90 +116,163 @@ to this mail.
 Thanks,
 Mark
 
-From bc0a5f43d7d6ba5258a65cf00fa692845f128d3c Mon Sep 17 00:00:00 2001
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Date: Thu, 27 Jun 2019 15:02:07 +0300
-Subject: [PATCH] ASoC: codecs: ad193x: Group register initialization at probe
+From 34614739988ad60c3493da66dd856002ee93edf9 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Thu, 27 Jun 2019 14:13:50 +0200
+Subject: [PATCH] ASoC: soc-core: support dai_link with platforms_num != 1
 
-Create a structure with the register initialization values at probe and
-use it to initialize all the registers at once.
+Add support platforms_num != 1 in dai_link. Initially, the main purpose of
+this change was to make the platform optional in the dai_link, instead of
+inserting the dummy platform driver.
 
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+This particular case had just been solved by Kuninori Morimoto with
+commit 1d7689892878 ("ASoC: soc-core: allow no Platform on dai_link").
+
+However, this change may still be useful for those who need multiple
+platform components on a single dai_link (it solves one of the FIXME
+note in soc-core)
+
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/ad193x.c | 52 +++++++++++++++++++++++++--------------
- 1 file changed, 33 insertions(+), 19 deletions(-)
+ include/sound/soc.h  |  6 +++++
+ sound/soc/soc-core.c | 59 ++++++++++++++++++--------------------------
+ 2 files changed, 30 insertions(+), 35 deletions(-)
 
-diff --git a/sound/soc/codecs/ad193x.c b/sound/soc/codecs/ad193x.c
-index 05f4514048e2..f3bab8fe3579 100644
---- a/sound/soc/codecs/ad193x.c
-+++ b/sound/soc/codecs/ad193x.c
-@@ -415,6 +415,38 @@ static struct snd_soc_dai_driver ad193x_no_adc_dai = {
- 	.ops = &ad193x_dai_ops,
- };
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 64405cdab8bb..4e8071269639 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -997,6 +997,12 @@ struct snd_soc_dai_link {
+ 	     ((i) < link->num_codecs) && ((codec) = &link->codecs[i]);	\
+ 	     (i)++)
  
-+struct ad193x_reg_default {
-+	unsigned int reg;
-+	unsigned int val;
-+};
++#define for_each_link_platforms(link, i, platform)			\
++	for ((i) = 0;							\
++	     ((i) < link->num_platforms) &&				\
++	     ((platform) = &link->platforms[i]);			\
++	     (i)++)
 +
-+/* codec register values to set after reset */
-+static void ad193x_reg_default_init(struct ad193x_priv *ad193x)
-+{
-+	const struct ad193x_reg_default reg_init[] = {
-+		{  0, 0x99 },	/* PLL_CLK_CTRL0: pll input: mclki/xi 12.288Mhz */
-+		{  1, 0x04 },	/* PLL_CLK_CTRL1: no on-chip Vref */
-+		{  2, 0x40 },	/* DAC_CTRL0: TDM mode */
-+		{  4, 0x1A },	/* DAC_CTRL2: 48kHz de-emphasis, unmute dac */
-+		{  5, 0x00 },	/* DAC_CHNL_MUTE: unmute DAC channels */
-+	};
-+	const struct ad193x_reg_default reg_adc_init[] = {
-+		{ 14, 0x03 },	/* ADC_CTRL0: high-pass filter enable */
-+		{ 15, 0x43 },	/* ADC_CTRL1: sata delay=1, adc aux mode */
-+	};
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(reg_init); i++)
-+		regmap_write(ad193x->regmap, reg_init[i].reg, reg_init[i].val);
-+
-+	if (ad193x_has_adc(ad193x)) {
-+		for (i = 0; i < ARRAY_SIZE(reg_adc_init); i++) {
-+			regmap_write(ad193x->regmap, reg_adc_init[i].reg,
-+				     reg_adc_init[i].val);
-+		}
-+	}
-+}
-+
- static int ad193x_component_probe(struct snd_soc_component *component)
+ /*
+  * Sample 1 : Single CPU/Codec/Platform
+  *
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index b5f3c09311c3..b9061cd8d787 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -896,7 +896,7 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
+ 	struct snd_soc_dai_link *dai_link)
  {
- 	struct ad193x_priv *ad193x = snd_soc_component_get_drvdata(component);
-@@ -422,25 +454,7 @@ static int ad193x_component_probe(struct snd_soc_component *component)
- 	int num, ret;
+ 	struct snd_soc_pcm_runtime *rtd;
+-	struct snd_soc_dai_link_component *codecs;
++	struct snd_soc_dai_link_component *codec, *platform;
+ 	struct snd_soc_component *component;
+ 	int i;
  
- 	/* default setting for ad193x */
--
--	/* unmute dac channels */
--	regmap_write(ad193x->regmap, AD193X_DAC_CHNL_MUTE, 0x0);
--	/* de-emphasis: 48kHz, powedown dac */
--	regmap_write(ad193x->regmap, AD193X_DAC_CTRL2, 0x1A);
--	/* dac in tdm mode */
--	regmap_write(ad193x->regmap, AD193X_DAC_CTRL0, 0x40);
--
--	/* adc only */
--	if (ad193x_has_adc(ad193x)) {
--		/* high-pass filter enable */
--		regmap_write(ad193x->regmap, AD193X_ADC_CTRL0, 0x3);
--		/* sata delay=1, adc aux mode */
--		regmap_write(ad193x->regmap, AD193X_ADC_CTRL1, 0x43);
--	}
--
--	/* pll input: mclki/xi */
--	regmap_write(ad193x->regmap, AD193X_PLL_CLK_CTRL0, 0x99); /* mclk=24.576Mhz: 0x9D; mclk=12.288Mhz: 0x99 */
--	regmap_write(ad193x->regmap, AD193X_PLL_CLK_CTRL1, 0x04);
-+	ad193x_reg_default_init(ad193x);
+@@ -926,13 +926,14 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
  
- 	/* adc only */
- 	if (ad193x_has_adc(ad193x)) {
+ 	/* Find CODEC from registered CODECs */
+ 	rtd->num_codecs = dai_link->num_codecs;
+-	for_each_link_codecs(dai_link, i, codecs) {
+-		rtd->codec_dais[i] = snd_soc_find_dai(codecs);
++	for_each_link_codecs(dai_link, i, codec) {
++		rtd->codec_dais[i] = snd_soc_find_dai(codec);
+ 		if (!rtd->codec_dais[i]) {
+ 			dev_info(card->dev, "ASoC: CODEC DAI %s not registered\n",
+-				 codecs->dai_name);
++				 codec->dai_name);
+ 			goto _err_defer;
+ 		}
++
+ 		snd_soc_rtdcom_add(rtd, rtd->codec_dais[i]->component);
+ 	}
+ 
+@@ -940,12 +941,13 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
+ 	rtd->codec_dai = rtd->codec_dais[0];
+ 
+ 	/* Find PLATFORM from registered PLATFORMs */
+-	for_each_component(component) {
+-		if (!snd_soc_is_matching_component(dai_link->platforms,
+-						   component))
+-			continue;
++	for_each_link_platforms(dai_link, i, platform) {
++		for_each_component(component) {
++			if (!snd_soc_is_matching_component(platform, component))
++				continue;
+ 
+-		snd_soc_rtdcom_add(rtd, component);
++			snd_soc_rtdcom_add(rtd, component);
++		}
+ 	}
+ 
+ 	soc_add_pcm_runtime(card, rtd);
+@@ -1058,15 +1060,14 @@ static int soc_init_dai_link(struct snd_soc_card *card,
+ 			     struct snd_soc_dai_link *link)
+ {
+ 	int i;
+-	struct snd_soc_dai_link_component *codec;
++	struct snd_soc_dai_link_component *codec, *platform;
+ 
+ 	for_each_link_codecs(link, i, codec) {
+ 		/*
+ 		 * Codec must be specified by 1 of name or OF node,
+ 		 * not both or neither.
+ 		 */
+-		if (!!codec->name ==
+-		    !!codec->of_node) {
++		if (!!codec->name == !!codec->of_node) {
+ 			dev_err(card->dev, "ASoC: Neither/both codec name/of_node are set for %s\n",
+ 				link->name);
+ 			return -EINVAL;
+@@ -1087,36 +1088,24 @@ static int soc_init_dai_link(struct snd_soc_card *card,
+ 			return -EPROBE_DEFER;
+ 	}
+ 
+-	/*
+-	 * Platform may be specified by either name or OF node,
+-	 * or no Platform.
+-	 *
+-	 * FIXME
+-	 *
+-	 * We need multi-platform support
+-	 */
+-	if (link->num_platforms > 0) {
+-
+-		if (link->num_platforms > 1) {
+-			dev_err(card->dev,
+-				"ASoC: multi platform is not yet supported %s\n",
+-				link->name);
+-			return -EINVAL;
+-		}
+-
+-		if (link->platforms->name && link->platforms->of_node) {
++	for_each_link_platforms(link, i, platform) {
++		/*
++		 * Platform may be specified by either name or OF node, but it
++		 * can be left unspecified, then no components will be inserted
++		 * in the rtdcom list
++		 */
++		if (!!platform->name == !!platform->of_node) {
+ 			dev_err(card->dev,
+-				"ASoC: Both platform name/of_node are set for %s\n",
++				"ASoC: Neither/both platform name/of_node are set for %s\n",
+ 				link->name);
+ 			return -EINVAL;
+ 		}
+ 
+ 		/*
+-		 * Defer card registartion if platform dai component is not
+-		 * added to component list.
++		 * Defer card registration if platform component is not added to
++		 * component list.
+ 		 */
+-		if ((link->platforms->of_node || link->platforms->name) &&
+-		    !soc_find_component(link->platforms))
++		if (!soc_find_component(platform))
+ 			return -EPROBE_DEFER;
+ 	}
+ 
 -- 
 2.20.1
 

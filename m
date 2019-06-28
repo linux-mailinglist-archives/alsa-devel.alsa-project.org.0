@@ -2,71 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C17D58ED5
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 01:55:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91FF958FD8
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 03:47:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BC0F1657;
-	Fri, 28 Jun 2019 01:54:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BC0F1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5CBD166C;
+	Fri, 28 Jun 2019 03:46:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5CBD166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561679725;
-	bh=/aJz6URTzLPBXMn1zHaer66EIMXc7bV3ZfRz83MesPw=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=i2RznFTdQD1ioU+7shWGvfAcnZLfll98ezhWMPZ6LtjUe1Z47tPj5+WIziygtr+t9
-	 PIeEqYcnFvdFeSQx9twTIe65joHDVK6EhR9Ibw4AD0XR2YG0qVNJoQsyCoY+Li0Ljr
-	 +btu4+QFvNa4hBiXqQFcRvq05nTudnIpQFi+/fJI=
+	s=default; t=1561686464;
+	bh=yj1tNBCjwAnjSJ3FDZFGWGT+vPoI/nPcpynA8n2t+w8=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mdTlso7N8f3F3xJRhtkCJyWmeTMednniTY+F8btp4hGbHlHmDRttr231GhVyrMEGv
+	 X6otCzgDgnA6RaA+ngTXQ6lx32/3MPb7A116dWytc6JT43+11LJOuzz6DSNu91ZmhJ
+	 DKJ1T1ZJ6oYs5uR953SLrryYP+ngcQQfrMMEsNr0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9114F896F6;
-	Fri, 28 Jun 2019 01:53:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC5BCF896B9;
+	Fri, 28 Jun 2019 03:45:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00083F896F6; Fri, 28 Jun 2019 01:53:37 +0200 (CEST)
+ id 28C2EF896B9; Fri, 28 Jun 2019 03:45:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 6B057F89678
- for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 01:53:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B057F89678
-Date: 28 Jun 2019 08:53:28 +0900
-X-IronPort-AV: E=Sophos;i="5.62,425,1554735600"; d="scan'208";a="19914370"
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id AC01AF80C0B
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 03:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC01AF80C0B
+Date: 28 Jun 2019 10:45:45 +0900
+X-IronPort-AV: E=Sophos;i="5.62,425,1554735600"; d="scan'208";a="19712397"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 28 Jun 2019 08:53:28 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 28 Jun 2019 10:45:45 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id E553C400C425;
- Fri, 28 Jun 2019 08:53:27 +0900 (JST)
-Message-ID: <87d0iywpsq.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4C495400C4D0;
+ Fri, 28 Jun 2019 10:45:45 +0900 (JST)
+Message-ID: <87a7e2wkll.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <8ad6f826-4a83-4f2b-72d2-4bc7f363f141@samsung.com>
-References: <877e9iwf9f.wl-kuninori.morimoto.gx@renesas.com>
- <874l4mv0h8.wl-kuninori.morimoto.gx@renesas.com>
- <CGME20190624131905eucas1p2cf4335b4d1483b7e62d0c9e7b5223a3c@eucas1p2.samsung.com>
- <9cfc8505-2903-033f-f68b-8ccc1c70132b@samsung.com>
- <87d0j232wg.wl-kuninori.morimoto.gx@renesas.com>
- <80c5c575-6f28-c6a6-91b2-d701bb9fbce8@samsung.com>
- <877e9a2hvn.wl-kuninori.morimoto.gx@renesas.com>
- <c4bb4599-e5d5-926b-75d5-d5c349ed8076@samsung.com>
- <87ef3hz0yn.wl-kuninori.morimoto.gx@renesas.com>
- <87a7e5ywqs.wl-kuninori.morimoto.gx@renesas.com>
- <7a96b050-4ad7-0a9f-41a1-adf27704bf61@samsung.com>
- <df7a5c52-177c-a15f-ac64-3af88d97b65f@samsung.com>
- <8ad6f826-4a83-4f2b-72d2-4bc7f363f141@samsung.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Cc: 'Linux Samsung SOC' <linux-samsung-soc@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [alsa-devel] [PATCH resend 25/47] ASoC: samsung: snow: don't
-	select unnecessary Platform
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH 00/46] ASoC: consider CPU-Platform possibility
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,29 +66,124 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Marek
+Hi Mark
 
-sorry for bother you
+My posted patch (= "ASoC: xxx: don't select unnecessary Platform")
+removed Platform component settings from Card driver if it selects CPU as Platform.
+ALSA SoC will ignore duplicate component.
 
-> I've noticed your "ASoC: soc-core: don't use soc_find_component() at 
-> snd_soc_find_dai()" patch, but sadly it doesn't fix any issue with the 
-> Samsung I2S and Snow ASoC driver. Do you want me to send revert to all 
-> the needed commits to restore audio on Samsung Chromebooks: Snow, Pit 
-> and Pi, Odroid XU and Samsung TM2 boards?
+I thought these Card driver don't need Platform, but it was wrong.
+Some CPU component is using generic DMAEngine component.
+In such case, CPU and Platform have same name but different component,
+and some Card needs both.
 
-It and your issue are both from my miss-understanding
-(= some CPU is using generic DMAEngine), but needs different patch.
+My posted above patch breaks (not all but) few Cards.
+We can revert one-by-one if we get report, but better to revert all from stable
+kernel point of view.
 
-I'm now negotiating to Mark about it,
-and I will post revert/fixup patch, soon.
+These patches revert all patches.
+I'm so sorry to bother you and users.
+I hope these can fixup issue.
 
-Again, I'm so sorry to bother you.
+Kuninori Morimoto (46):
+  ASoC: vc4: vc4_htmi: consider CPU-Platform possibility
+  ASoC: atmel: atmel-classd: consider CPU-Platform possibility
+  ASoC: atmel: atmel-pdmic: consider CPU-Platform possibility
+  ASoC: atmel: atmel_wm8904: consider CPU-Platform possibility unnecessary Platform"
+  ASoC: amtel: mikroe-proto: consider CPU-Platform possibility
+  ASoC: atmel: sam9g20_wm8731: consider CPU-Platform possibility
+  ASoC: atmel: sam9x5_wm8731: consider CPU-Platform possibility
+  ASoC: atmel: tse850-pcm5142: consider CPU-Platform possibility
+  ASoC: fsl: eukrea-tlv320: consider CPU-Platform possibility
+  ASoC: fsl: fsl-asoc-card: consider CPU-Platform possibility
+  ASoC: fsl: imx-es8328: consider CPU-Platform possibility
+  ASoC: fsl: imx-sgtl5000: consider CPU-Platform possibility
+  ASoC: fsl: imx-spdif: consider CPU-Platform possibility
+  ASoC: fsl: imx-audmix: consider CPU-Platform possibility
+  ASoC: kirkwood: armada-370-db: consider CPU-Platform possibility
+  ASoC: mxs: mxs-sgtl5000: consider CPU-Platform possibility
+  ASoC: qcom: apq8016_sbc: consider CPU-Platform possibility
+  ASoC: qcom: storm: consider CPU-Platform possibility
+  ASoC: rockchip: rk3288_hdmi_analog: consider CPU-Platform possibility
+  ASoC: rockchip: rockchip_max98090: consider CPU-Platform possibility
+  ASoC: rockchip: rockchip_rt5645: consider CPU-Platform possibility
+  ASoC: samsung: arndale_rt5631: consider CPU-Platform possibility
+  ASoC: samsung: smdk_wm8994: consider CPU-Platform possibility
+  ASoC: samsung: snow: consider CPU-Platform possibility
+  ASoC: samsung: tm2_wm5110: consider CPU-Platform possibility
+  ASoC: sirf: sirf-audio: consider CPU-Platform possibility
+  ASoC: sunxi: sun4i-codec: consider CPU-Platform possibility
+  ASoC: tegra: tegra_alc5632: consider CPU-Platform possibility
+  ASoC: tegra: tegra_max98090: consider CPU-Platform possibility
+  ASoC: tegra: tegra_rt5640: consider CPU-Platform possibility
+  ASoC: tegra: tegra_rt5677: consider CPU-Platform possibility
+  ASoC: tegra: tegra_sgtl5000: consider CPU-Platform possibility
+  ASoC: tegra: tegra_wm8753: consider CPU-Platform possibility
+  ASoC: tegra: tegra_wm8903: consider CPU-Platform possibility
+  ASoC: tegra: tegra_wm9712: consider CPU-Platform possibility
+  ASoC: tegra: trimslice: consider CPU-Platform possibility
+  ASoC: ti: davinci-evm: consider CPU-Platform possibility
+  ASoC: ti: omap-abe-twl6040: consider CPU-Platform possibility
+  ASoC: ti: omap-hdmi: consider CPU-Platform possibility
+  ASoC: ti: omap-twl4030: consider CPU-Platform possibility
+  ASoC: ti: rx51: consider CPU-Platform possibility
+  ASoC: ux500: mop500: consider CPU-Platform possibility
+  ASoC: simple-card-utils: consider CPU-Platform possibility
+  ASoC: qcom: consider CPU-Platform possibility
+  ASoC: rockchip: rk3399_gru_sound: consider CPU-Platform possibility
+  ASoC: soc-utils: respawn dummy Platform
 
+ drivers/gpu/drm/vc4/vc4_hdmi.c          |  4 ++++
+ sound/soc/atmel/atmel-classd.c          |  5 ++++-
+ sound/soc/atmel/atmel-pdmic.c           |  5 ++++-
+ sound/soc/atmel/atmel_wm8904.c          |  4 +++-
+ sound/soc/atmel/mikroe-proto.c          |  7 +++++--
+ sound/soc/atmel/sam9g20_wm8731.c        |  5 ++++-
+ sound/soc/atmel/sam9x5_wm8731.c         |  5 ++++-
+ sound/soc/atmel/tse850-pcm5142.c        |  4 +++-
+ sound/soc/fsl/eukrea-tlv320.c           |  5 ++++-
+ sound/soc/fsl/fsl-asoc-card.c           |  6 +++++-
+ sound/soc/fsl/imx-audmix.c              | 14 ++++++++++----
+ sound/soc/fsl/imx-es8328.c              |  5 ++++-
+ sound/soc/fsl/imx-sgtl5000.c            |  5 ++++-
+ sound/soc/fsl/imx-spdif.c               |  5 ++++-
+ sound/soc/generic/simple-card-utils.c   | 15 +++------------
+ sound/soc/kirkwood/armada-370-db.c      | 12 +++++++++---
+ sound/soc/mxs/mxs-sgtl5000.c            |  8 ++++++--
+ sound/soc/qcom/apq8016_sbc.c            | 10 +++++++---
+ sound/soc/qcom/common.c                 |  4 +---
+ sound/soc/qcom/storm.c                  |  4 +++-
+ sound/soc/rockchip/rk3288_hdmi_analog.c |  5 ++++-
+ sound/soc/rockchip/rk3399_gru_sound.c   | 19 +++++++++++++------
+ sound/soc/rockchip/rockchip_max98090.c  |  5 ++++-
+ sound/soc/rockchip/rockchip_rt5645.c    |  5 ++++-
+ sound/soc/samsung/arndale_rt5631.c      |  6 +++++-
+ sound/soc/samsung/smdk_wm8994.c         |  9 +++++++--
+ sound/soc/samsung/snow.c                | 10 +++++++---
+ sound/soc/samsung/tm2_wm5110.c          | 12 +++++++++---
+ sound/soc/sirf/sirf-audio.c             |  5 ++++-
+ sound/soc/soc-utils.c                   | 25 +++++++++++++++++++++++++
+ sound/soc/sunxi/sun4i-codec.c           |  5 ++++-
+ sound/soc/tegra/tegra_alc5632.c         |  7 ++++++-
+ sound/soc/tegra/tegra_max98090.c        |  5 ++++-
+ sound/soc/tegra/tegra_rt5640.c          |  5 ++++-
+ sound/soc/tegra/tegra_rt5677.c          |  6 +++++-
+ sound/soc/tegra/tegra_sgtl5000.c        |  7 ++++++-
+ sound/soc/tegra/tegra_wm8753.c          |  5 ++++-
+ sound/soc/tegra/tegra_wm8903.c          |  5 ++++-
+ sound/soc/tegra/tegra_wm9712.c          |  5 ++++-
+ sound/soc/tegra/trimslice.c             |  6 +++++-
+ sound/soc/ti/davinci-evm.c              |  5 ++++-
+ sound/soc/ti/omap-abe-twl6040.c         | 22 ++++++++++++++--------
+ sound/soc/ti/omap-hdmi.c                |  5 ++++-
+ sound/soc/ti/omap-twl4030.c             | 12 ++++++++++--
+ sound/soc/ti/rx51.c                     |  5 ++++-
+ sound/soc/ux500/mop500.c                |  8 ++++++--
+ 46 files changed, 261 insertions(+), 85 deletions(-)
 
-Thank you for your help !!
-Best regards
----
-Kuninori Morimoto
+-- 
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

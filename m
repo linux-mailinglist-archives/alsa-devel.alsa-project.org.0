@@ -2,86 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69ABB59444
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 08:37:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B403459459
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 08:45:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBD1D167B;
-	Fri, 28 Jun 2019 08:36:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD1D167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D858E1683;
+	Fri, 28 Jun 2019 08:44:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D858E1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561703867;
-	bh=N00NySHaUL5L8Vie8z0d7/DzHo54tWpEa8nsO8fNTYs=;
-	h=From:In-Reply-To:Date:References:To:Cc:Subject:List-Id:
+	s=default; t=1561704344;
+	bh=MNtVFtUUtd57Y8rRbVA+HxQm2aYWJH5ekx3oDolBE4M=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NjTyqs3yEGaJuMtd7eL62V3U2Em0FI1joGExLxwKofI6AhPQ2uFTOS1Z/aR53EbT8
-	 Nth2IRb1ap4VKpx83HHdBH2IcoDJ65iipEVYP6OUuVYgah4tuCJuFUiD3LHu1miJT5
-	 WL2c3k8zkfEOXt8zPcpHEEeWnAeX5Q26usaJapdM=
+	b=oGhhe3jADvcG88dKD1VYPL9NhdC8WxteODC6Fv1DbIe6DgJ52bGubygtzQ3iP4TlK
+	 /g1NKq3Nwz+V8MHo21sSdUId1mn9XUI2+D37AeGt65qnf8lEbulRKLObN1MQ8YlBbo
+	 NGv/cQd2YjD/f9w/rVoWp7K6ZUbE7I/3qwvZ2Ly4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 589EAF896CB;
-	Fri, 28 Jun 2019 08:36:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8344F896B7;
+	Fri, 28 Jun 2019 08:43:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E57DEF896B9; Fri, 28 Jun 2019 08:35:59 +0200 (CEST)
+ id A0B82F896B9; Fri, 28 Jun 2019 08:43:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F0B7F80C0B
- for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 08:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F0B7F80C0B
-Received: from mail-pl1-f198.google.com ([209.85.214.198])
- by youngberry.canonical.com with esmtps (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <kai.heng.feng@canonical.com>)
- id 1hgkUF-0006YW-JB
- for alsa-devel@alsa-project.org; Fri, 28 Jun 2019 06:35:55 +0000
-Received: by mail-pl1-f198.google.com with SMTP id bb9so2942459plb.2
- for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 23:35:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=rg763IUCOLn//QYbXaACukPUtIg7NLpq/IpQFYmUqJE=;
- b=XzoK3VsYRP8TOGH9YEDcRs10Zp8KDaNcnCCWEDjhAQRJpOuE6WMcm8zyMkl/znmGfV
- kUyq+laD2yRu1T7McquaIQKR5SX28odVH95kK/jXvjJbmqSkBWL6YHF+ZJuN1XKbIgOk
- mdhIoFRyImIOPLbxoEdURSvD1EOnDxG3lYLwK4RutPwxW/l8XOwj2z/GCuWUPS5Fmv5E
- 8DDaA4Eg4GsnKsWlB8VWhwvCF8FToEppMSf13NeU1mM4osm0Uben+AIrKyPyy+5tCvDD
- KCtp4o8MhX7GcDw0WFRNI2fewTb3IpNu41KwtWAEam1gPoZhP1vzppQvgGTrkPW4CCdS
- +PEg==
-X-Gm-Message-State: APjAAAU8TFZxD0OwcoB5hfxsj2o0W1RSf6EmuXxwSXNyn49czyrNIpcz
- PPwjDzv/z7EPnmU49EjD4pTV24fa/rot45XOkGQny+z10uHel94JouLt8tWRYXnUMGpqAOQbmg6
- Rf2b/pSGHZWJNGvDUogB5gNl7RCEYwodtHz3yZwTf
-X-Received: by 2002:a17:902:b187:: with SMTP id
- s7mr9423324plr.309.1561703754366; 
- Thu, 27 Jun 2019 23:35:54 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqz/yhCRthlAYn0qft94ePOe14fr0LxwjUI5ovriF1juSlUqvtRTiY4W+tbeXRLlc/X6/7OijQ==
-X-Received: by 2002:a17:902:b187:: with SMTP id
- s7mr9423296plr.309.1561703753996; 
- Thu, 27 Jun 2019 23:35:53 -0700 (PDT)
-Received: from 2001-b011-380f-3511-c09f-cbfd-7c09-2630.dynamic-ip6.hinet.net
- (2001-b011-380f-3511-c09f-cbfd-7c09-2630.dynamic-ip6.hinet.net.
- [2001:b011:380f:3511:c09f:cbfd:7c09:2630])
- by smtp.gmail.com with ESMTPSA id s43sm1175750pjb.10.2019.06.27.23.35.52
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 27 Jun 2019 23:35:53 -0700 (PDT)
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-In-Reply-To: <156113479576.29306.8491703251507627705.malone@gac.canonical.com>
-Date: Fri, 28 Jun 2019 14:35:51 +0800
-Message-Id: <B0FDD5B2-EA6F-4ABC-8BF5-6231AA31EB70@canonical.com>
-References: <156097935391.32250.14918304155094222078.malonedeb@chaenomeles.canonical.com>
- <156113479576.29306.8491703251507627705.malone@gac.canonical.com>
-To: conmanx360@gmail.com
-X-Mailer: Apple Mail (2.3445.104.11)
-Cc: alsa-devel@alsa-project.org, linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [alsa-devel] ca0132 audio in Ubuntu 19.04 only after Windows 10
- started, missing ctefx-r3di.bin
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id CAB57F80768
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 08:43:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAB57F80768
+Date: 28 Jun 2019 15:43:47 +0900
+X-IronPort-AV: E=Sophos;i="5.62,426,1554735600"; d="scan'208";a="19745182"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 28 Jun 2019 15:43:47 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C475E4152BF9;
+ Fri, 28 Jun 2019 15:43:47 +0900 (JST)
+Message-ID: <87blyirz3j.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <288441e7-eaa7-8005-4026-97c31125375b@linux.intel.com>
+References: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
+ <87sgsnfjge.wl-kuninori.morimoto.gx@renesas.com>
+ <CAEnQRZBnvfuZDbnvbmqAavh9DAbA_EeRc6OuH6OOiR1WB4zUrg@mail.gmail.com>
+ <8761d853-2b3f-7b26-0073-05d0c3ce1362@linux.intel.com>
+ <87d0iytqi8.wl-kuninori.morimoto.gx@renesas.com>
+ <288441e7-eaa7-8005-4026-97c31125375b@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Daniel Baluta <daniel.baluta@gmail.com>, "Sridharan,
+ Ranjani" <ranjani.sridharan@intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ paul.olaru@nxp.com, Mark Brown <broonie@kernel.org>,
+ Daniel Baluta <daniel.baluta@nxp.com>
+Subject: Re: [alsa-devel] [PATCH v2 116/146] ASoC: sof: use modern dai_link
+	style
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,18 +73,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"; DelSp="yes"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgQ29ubm9yLAoKVGhlIGJ1ZyB3YXMgZmlsZWQgYXQgTGF1bmNocGFkIFsxXSwgSSB0aGluayB0
-aGUgbW9zdCBub3RhYmxlIGVycm9yIGlzClsgICAgMy43Njg2NjddIHNuZF9oZGFfaW50ZWwgMDAw
-MDowMDoxZi4zOiBEaXJlY3QgZmlybXdhcmUgbG9hZCBmb3IgIApjdGVmeC1yM2RpLmJpbiBmYWls
-ZWQgd2l0aCBlcnJvciAtMgoKVGhlIGZpcm13YXJlIGlzIGluZGVlZCBsaXN0ZWQgaW4gcGF0Y2hf
-Y2EwMTMyLmMsIGJ1dCBsb29rcyBsaWtlIHRoZXJl4oCZcyBubyAgCmNvcnJlc3BvbmRpbmcgZmls
-ZSBpbiBsaW51eC1maXJtd2FyZS4KCkNhbiB5b3UgcGxlYXNlIHRha2UgYSBsb29rIGF0IHRoZSBi
-dWc/CgpbMV0gaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvYnVncy8xODMzNDcwCgpLYWktSGVu
-ZwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFp
-bG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+
+Hi Pierre-Louis
+
+> > This is very impertinent comment, but it is possible to allow NULL platform
+> > instead of dummy platform by this or similar code ?
+> > I guess it is nice for SOF future.
+> > I can't test and not familiar with SOF thought...
+> > 
+> > 	if (link->platforms)
+> > 		link->platforms->name = dev_name(sdev->dev);
+> 
+> It's a good question. To be honest I don't fully understand what this
+> 'platform' field is needed for... I was just trying to maintain
+> 'as-is' functionality. If anyone has a good explanation on when this
+> field might be required and for what purpose, and when it can be made
+> optional, I am all ears.
+
+I can try to explain.
+
+Originally "Platform" component is for "DMA" transfer
+(But I'm not sure detail. It had been exist when I started to work for ALSA SoC...)
+But in many SoC, "CPU" component is doing it.
+Some SoC needs special "Platform" in my understanding.
+
+Before, if Card didn't select "Platform",
+ALSA SoC had selects "dummy platform" automatically.
+
+Today, if Card didn't select it,
+ALSA SoC will just igore it.
+
+I guess you added "dummy platform" patch because SOF had this code
+
+	if (!link->platforms) {
+		dev_err(...);
+		...
+	}
+	
+This come from my patch, but it is just wrong guess.
+I don't remember why I did it, but I thought SOF has it.
+I'm not familiar with SOF, but it can accept NULL Platform
+if we can fix above code to like this ?
+
+	if (link->platforms)
+		link->platforms-> ...
+
+But, selecting dummy Platforms itself is not wrong idea.
+# 100% wrong idea was my patch orz
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

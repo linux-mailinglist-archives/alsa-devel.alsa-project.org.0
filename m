@@ -2,102 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D7BE59DB6
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 16:28:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62B0595EA
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 10:19:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 190B91662;
-	Fri, 28 Jun 2019 16:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 190B91662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51DD31657;
+	Fri, 28 Jun 2019 10:18:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51DD31657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561732101;
-	bh=ZKNEw3FtNwzS/u8eJqYcMYY3xW55g5qmi7jFPSIkKb0=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kF8JXZiUOvIQ6+dlfWo9LoccNRuqFufyVrnMy8xFaKzSUrdh8dRS7yCYy5sg4L2ix
-	 F9fmydupmIA+DzqHyEodgF5rmVNHV27OqY2lLeyrqd65Ygvo/JDRZZTKNyQgn4Eg2C
-	 AMZ4EK3rv+6gZWccxbOiv1nbs4/vOgz5cUnHCFMk=
+	s=default; t=1561709943;
+	bh=6MdkDNPc8HV+hP8/No3hEK/YKa3KBHulDKm3fbLwao0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ODlJ+WlJVW2fsJ1xyWLweMk8r38eCnXwOzMPnEV87I57EbF0tPQOO1vkHerFnF/1L
+	 gbmYng9A+56a5AV6LKuhc/S5ETyL4sHARj+jJtIROREp27kbEwvh6jKwx7/LfS3lid
+	 Jhd8/0aJOu+gkwDhKu/aK55eacgBV/HZdpB0XXqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7EF0AF896B9;
-	Fri, 28 Jun 2019 16:26:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA17FF896CB;
+	Fri, 28 Jun 2019 10:17:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 344E5F896B9; Fri, 28 Jun 2019 16:26:34 +0200 (CEST)
+ id 5C564F896B9; Fri, 28 Jun 2019 10:17:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DATE_IN_PAST_06_12, DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 928D7F80058
- for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 16:26:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 928D7F80058
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9ADF1F80C0B
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 10:17:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9ADF1F80C0B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="UVDpVvs6"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="FbjhzHQG"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id D88B321448;
- Fri, 28 Jun 2019 10:26:28 -0400 (EDT)
-Received: from imap5 ([10.202.2.55])
- by compute1.internal (MEProxy); Fri, 28 Jun 2019 10:26:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=mime-version:message-id:in-reply-to:references:date:from:to
- :cc:subject:content-type; s=fm1; bh=Ow1/fltrpvTqI++jLPkstJ3FxDDY
- PwyEP957qyWFDh4=; b=UVDpVvs6GLi5e0VoR1u7gIaFmvwgLSrs0G2GqR4/WVMO
- NshtNHpG+yIXHfo3yjEFzYxAdVqeQ5g6ku39Zif/rAfcShsA35GuhsgJD2yk3vxs
- 1/Eqk00nBDhNVHOX0l6vYo2W/+zr3tV7wvgbPFM9+eKxtvhP58RBJvEoAwMRYgZn
- g0LXuOxFAs5Q8cNzHnfQKNsfqT4V4K2R4sMVO8sXG9AJ3ol/QK55a3XiHX6tNNPz
- +5eeHOWoTWugBRlF3df00t49YzQC4XcKzVxRcWgtkhGdkDb2av6Wa03jXbmgxBqm
- uAgSDnEVp8L0fC1DTBUCYbKLKtBT8UOzsINwNPiMkw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Ow1/fl
- trpvTqI++jLPkstJ3FxDDYPwyEP957qyWFDh4=; b=FbjhzHQGm6hoB9SIy1e61A
- XbsRZNCWnhK9M+IAICxy7g0oNearM1k/rVdqo3+9qQmhrpSVUBkjAo2BD2STPrFR
- xkZIhzKfY52W+A9LstCbEX7dZjgFrmjBADOKgioY6PUIJVICoWkGjCMmpzbh5ilL
- VtxqnL1JW+pWlk4ea9RXyDigLw3HjTutfco28/U6s5xXa/LRfxqtlGC57W4Rkatj
- 54ssf5qIuA1BBkzyfb3QSpMe1PsBlUohxHjWR6SLUZkh6tUaUFrmntP88cUqLRGM
- WmGQUqvidbQxVuY7fJv+A4vnk6G1kSh9bST5LFiBNWJ0dd6c6sljaUtiw7z1LGQg
- ==
-X-ME-Sender: <xms:kyMWXdh8U_bbD7064HIGVUWpDK5_COuDUgBdS7_MJE-rojCpplSAxQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrvddtgdejkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedfvfgrkhgr
- shhhihcuufgrkhgrmhhothhofdcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhih
- drjhhpqeenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecurfgrrhgrmhepmhgrihhl
- fhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsth
- gvrhfuihiivgeptd
-X-ME-Proxy: <xmx:kyMWXSLx7YpI5GBplDRlydoIxYhekV_6wvdJsKBDJSMHaWwsxHfhBw>
- <xmx:kyMWXdVE7wHWaHlRkVQI9Z4HrgDae5PW2d4M_vlvFnWEn2vj63Bk4A>
- <xmx:kyMWXWVEdXiuTHgeRApz_UFeq9Vqwkc7YlGVlbq5WkdARX2yiWrS5w>
- <xmx:lCMWXX-lAHoiMharWCJ6Qkp9yJzBs84_lvq1FMGLXpZpTAiX7oVW1A>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 2E89B5C009B; Fri, 28 Jun 2019 10:26:27 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-731-g19d3b16-fmstable-20190627v1
-Mime-Version: 1.0
-Message-Id: <bd65234a-9963-4e25-938f-1e79b053c4e1@www.fastmail.com>
-In-Reply-To: <s5ho92i6qhi.wl-tiwai@suse.de>
-References: <20190628052158.27693-1-o-takashi@sakamocchi.jp>
- <s5ho92i6qhi.wl-tiwai@suse.de>
-Date: Fri, 28 Jun 2019 16:34:00 +0900
-From: "Takashi Sakamoto" <o-takashi@sakamocchi.jp>
-To: "Takashi Iwai" <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Clemens Ladisch <clemens@ladisch.de>,
- stable@vger.kernel.org
-Subject: Re: [alsa-devel]
- =?utf-8?q?=5BPATCH=5D_ALSA=3A_firewire-lib/fireworks?=
- =?utf-8?q?=3A_fix_miss_detection_of_received_MIDI_messages?=
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="pqUrZZrH"
+Received: by mail-wr1-x442.google.com with SMTP id v14so5294242wrr.4
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 01:17:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0iX4GoXUMjYo0yWAqnak7nWNu9SahWjJ+qIlyX2DjnA=;
+ b=pqUrZZrHnpMwYQiyu/1jCW1Vn1dbIBUApoVZMhyhBwvnhvhfumKMpGn/HD06hkyLKV
+ mAr70tgH1UWNF40M5i4Iu7TZyBCOF9E4DVrgXNhfgFoe68UERxt7W4BtnpD/aXQbHgrr
+ KSKRFDsze0oQlGIrrEesEJEXxvjGoX7ByoMNidbjknRj4Bylt+bqRjjgIIVO6eX4pKnN
+ 1AmfDbD/NeC/4Z9WHyrLlNhDEE1EW62NsHUnaW1L+cOpLHwoL1tVmmD214BJEgmzEGJp
+ UBCPbzQkK8BSlSG9gz7fGNCBlajjvLjh/2C21gkCh6AjXCuIST7i+hrq6mn684QyGZ60
+ KhUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0iX4GoXUMjYo0yWAqnak7nWNu9SahWjJ+qIlyX2DjnA=;
+ b=Kt/BblyFTlyFgavyM01ayMi0F/+353oZ6r5Vcl1YwyP+mNR9f5XlXPz9c4w7dWCV6L
+ jY8KHrwq5jC1x9htBQEu5cF4w4ykiifca6zaJeYBkAGbQFKwsFdKIIEA8lvp/EioMCnM
+ 1A4dGLWaNYDpKqrYAyh0+pY+rubPlhkT+t6K5m3DE2hvGHakZ442edFbVcYxzHUMxojN
+ 1Lr5cZ+MNRwabYWoyAwVQ/Ocno4EDWEqVwr6V9MCjJHzcJTrjyHybuQ3bzDtJVGvqx3J
+ Tm54SrWm58BbokevNJQ0tVexD8IJL8WGUSEeXGRcgOD+fCCckgGpyKUQKRXyaLjWKnYH
+ Crlg==
+X-Gm-Message-State: APjAAAV7o2Bcam9EaOafSwLntlHCNMd+C1WDRqn0CfbOSrN/kQ0zsgDh
+ NoIh0YyR3XHyYWNo31DU5otfsw==
+X-Google-Smtp-Source: APXvYqw+rkcyh3PTU9URJjuIKiu4kZ97NgtKOX3PAukWMiU12hf7kxkJIrnT5wyWxV6LyDzzRWcw8A==
+X-Received: by 2002:a05:6000:124a:: with SMTP id
+ j10mr6749454wrx.191.1561709832291; 
+ Fri, 28 Jun 2019 01:17:12 -0700 (PDT)
+Received: from starbuck.baylibre.local
+ (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
+ by smtp.googlemail.com with ESMTPSA id r5sm2819216wrg.10.2019.06.28.01.17.11
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Fri, 28 Jun 2019 01:17:11 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>
+Date: Fri, 28 Jun 2019 10:17:08 +0200
+Message-Id: <20190628081708.22039-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.21.0
+MIME-Version: 1.0
+X-Patchwork-Bot: notify
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ Dan Carpenter <dan.carpenter@oracle.com>, Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] [PATCH] ASoC: meson: axg-card: remove useless check on
+	codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,51 +104,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+While checking cpus before dereferencing the pointer is required, it is
+not necessary for codecs. 'codec' can't possibly be NULL in the loop
 
-On Fri, Jun 28, 2019, at 17:53, Takashi Iwai wrote:
-> On Fri, 28 Jun 2019 07:21:58 +0200,
-> Takashi Sakamoto wrote:
-> > 
-> > In IEC 61883-6, 8 MIDI data streams are multiplexed into single
-> > MIDI conformant data channel. The index of stream is calculated by
-> > modulo 8 of the value of data block counter.
-> > 
-> > In fireworks, the value of data block counter in CIP header has a quirk
-> > with firmware version v5.0.0, v5.7.3 and v5.8.0. This brings ALSA
-> > IEC 61883-1/6 packet streaming engine to miss detection of MIDI
-> > messages.
-> > 
-> > This commit fixes the miss detection to modify the value of data block
-> > counter for the modulo calculation.
-> > 
-> > For maintainers, this bug exists since a commit 18f5ed365d3f ("ALSA:
-> > fireworks/firewire-lib: add support for recent firmware quirk") in Linux
-> > kernel v4.2. There're many changes since the commit.  This fix can be
-> > backported to Linux kernel v4.4 or later. I tagged a base commit to the
-> > backport for your convenience.
-> > 
-> > Fixes: df075feefbd3 ("ALSA: firewire-lib: complete AM824 data block processing layer")
-> > Cc: <stable@vger.kernel.org> # v4.4+
-> > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> 
-> This doesn't seem applicable to the latest 5.2-rc tree due to your
-> recent refactoring.  Could you resubmit the fix for 5.2?  I'll resolve
-> the merge conflict in my side.
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ sound/soc/meson/axg-card.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Mmm. Do you actually encounter any conflict when applying this patch to
-your v5.2 tree?
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 70bb0cbad233..14a8321744da 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -118,8 +118,7 @@ static void axg_card_clean_references(struct axg_card *priv)
+ 			if (link->cpus)
+ 				of_node_put(link->cpus->of_node);
+ 			for_each_link_codecs(link, j, codec)
+-				if (codec)
+-					of_node_put(codec->of_node);
++				of_node_put(codec->of_node);
+ 		}
+ 	}
+ 
+-- 
+2.21.0
 
-This patch includes changes for `sound/firewire/amdtp-am824.c`. On the other
-hand, my recent work is mainly for `sound/firewire/amdtp-stream.c`. Actually,
-the last change for `amdtp-am824.c` was done 2017-10-25.
-https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/log/sound/firewire/amdtp-am824.c?h=for-linus
-
-
-Thanks
-
-
-Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

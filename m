@@ -2,73 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88E21593E2
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 07:57:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69ABB59444
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 08:37:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E6DE1675;
-	Fri, 28 Jun 2019 07:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E6DE1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBD1D167B;
+	Fri, 28 Jun 2019 08:36:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBD1D167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561701457;
-	bh=bV0dm29uLpFRXpueAR/LVjpFyX/tI/WF4eA1BM0kJsU=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1561703867;
+	bh=N00NySHaUL5L8Vie8z0d7/DzHo54tWpEa8nsO8fNTYs=;
+	h=From:In-Reply-To:Date:References:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qOFt3Mf3hEdfLTVg1jLeBPRUSM1lXRB2aQxNwwMucMg/kdlpIXIjLHb1J98y6u2Zk
-	 sK79dy6UKFzaveOm2uUzTqtGFXvVBrqh0hQQthbuiKAdKgM5MCKQFzSxx/mdrZpRxF
-	 xY4xE41ldRGY3n7C4sKu4M4bMW2PVa2XFd1iUnzs=
+	b=NjTyqs3yEGaJuMtd7eL62V3U2Em0FI1joGExLxwKofI6AhPQ2uFTOS1Z/aR53EbT8
+	 Nth2IRb1ap4VKpx83HHdBH2IcoDJ65iipEVYP6OUuVYgah4tuCJuFUiD3LHu1miJT5
+	 WL2c3k8zkfEOXt8zPcpHEEeWnAeX5Q26usaJapdM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4B97F896CB;
-	Fri, 28 Jun 2019 07:56:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 589EAF896CB;
+	Fri, 28 Jun 2019 08:36:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43157F896B9; Fri, 28 Jun 2019 07:56:16 +0200 (CEST)
+ id E57DEF896B9; Fri, 28 Jun 2019 08:35:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA697F80768
- for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 07:56:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA697F80768
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Jun 2019 22:56:09 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,426,1557212400"; d="scan'208";a="153273755"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga007.jf.intel.com with ESMTP; 27 Jun 2019 22:56:09 -0700
-Received: from pbossart-mac01.local (unknown [10.237.140.61])
- by linux.intel.com (Postfix) with ESMTP id 96CA158047D;
- Thu, 27 Jun 2019 22:56:07 -0700 (PDT)
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <87h893mkvi.wl-kuninori.morimoto.gx@renesas.com>
- <87sgsnfjge.wl-kuninori.morimoto.gx@renesas.com>
- <CAEnQRZBnvfuZDbnvbmqAavh9DAbA_EeRc6OuH6OOiR1WB4zUrg@mail.gmail.com>
- <8761d853-2b3f-7b26-0073-05d0c3ce1362@linux.intel.com>
- <87d0iytqi8.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <288441e7-eaa7-8005-4026-97c31125375b@linux.intel.com>
-Date: Fri, 28 Jun 2019 07:56:06 +0200
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.2
-MIME-Version: 1.0
-In-Reply-To: <87d0iytqi8.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Daniel Baluta <daniel.baluta@gmail.com>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- paul.olaru@nxp.com, Mark Brown <broonie@kernel.org>,
- Daniel Baluta <daniel.baluta@nxp.com>
-Subject: Re: [alsa-devel] [PATCH v2 116/146] ASoC: sof: use modern dai_link
- style
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F0B7F80C0B
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 08:35:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F0B7F80C0B
+Received: from mail-pl1-f198.google.com ([209.85.214.198])
+ by youngberry.canonical.com with esmtps (TLS1.0:RSA_AES_128_CBC_SHA1:16)
+ (Exim 4.76) (envelope-from <kai.heng.feng@canonical.com>)
+ id 1hgkUF-0006YW-JB
+ for alsa-devel@alsa-project.org; Fri, 28 Jun 2019 06:35:55 +0000
+Received: by mail-pl1-f198.google.com with SMTP id bb9so2942459plb.2
+ for <alsa-devel@alsa-project.org>; Thu, 27 Jun 2019 23:35:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=rg763IUCOLn//QYbXaACukPUtIg7NLpq/IpQFYmUqJE=;
+ b=XzoK3VsYRP8TOGH9YEDcRs10Zp8KDaNcnCCWEDjhAQRJpOuE6WMcm8zyMkl/znmGfV
+ kUyq+laD2yRu1T7McquaIQKR5SX28odVH95kK/jXvjJbmqSkBWL6YHF+ZJuN1XKbIgOk
+ mdhIoFRyImIOPLbxoEdURSvD1EOnDxG3lYLwK4RutPwxW/l8XOwj2z/GCuWUPS5Fmv5E
+ 8DDaA4Eg4GsnKsWlB8VWhwvCF8FToEppMSf13NeU1mM4osm0Uben+AIrKyPyy+5tCvDD
+ KCtp4o8MhX7GcDw0WFRNI2fewTb3IpNu41KwtWAEam1gPoZhP1vzppQvgGTrkPW4CCdS
+ +PEg==
+X-Gm-Message-State: APjAAAU8TFZxD0OwcoB5hfxsj2o0W1RSf6EmuXxwSXNyn49czyrNIpcz
+ PPwjDzv/z7EPnmU49EjD4pTV24fa/rot45XOkGQny+z10uHel94JouLt8tWRYXnUMGpqAOQbmg6
+ Rf2b/pSGHZWJNGvDUogB5gNl7RCEYwodtHz3yZwTf
+X-Received: by 2002:a17:902:b187:: with SMTP id
+ s7mr9423324plr.309.1561703754366; 
+ Thu, 27 Jun 2019 23:35:54 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqz/yhCRthlAYn0qft94ePOe14fr0LxwjUI5ovriF1juSlUqvtRTiY4W+tbeXRLlc/X6/7OijQ==
+X-Received: by 2002:a17:902:b187:: with SMTP id
+ s7mr9423296plr.309.1561703753996; 
+ Thu, 27 Jun 2019 23:35:53 -0700 (PDT)
+Received: from 2001-b011-380f-3511-c09f-cbfd-7c09-2630.dynamic-ip6.hinet.net
+ (2001-b011-380f-3511-c09f-cbfd-7c09-2630.dynamic-ip6.hinet.net.
+ [2001:b011:380f:3511:c09f:cbfd:7c09:2630])
+ by smtp.gmail.com with ESMTPSA id s43sm1175750pjb.10.2019.06.27.23.35.52
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 27 Jun 2019 23:35:53 -0700 (PDT)
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <156113479576.29306.8491703251507627705.malone@gac.canonical.com>
+Date: Fri, 28 Jun 2019 14:35:51 +0800
+Message-Id: <B0FDD5B2-EA6F-4ABC-8BF5-6231AA31EB70@canonical.com>
+References: <156097935391.32250.14918304155094222078.malonedeb@chaenomeles.canonical.com>
+ <156113479576.29306.8491703251507627705.malone@gac.canonical.com>
+To: conmanx360@gmail.com
+X-Mailer: Apple Mail (2.3445.104.11)
+Cc: alsa-devel@alsa-project.org, linux-kernel <linux-kernel@vger.kernel.org>
+Subject: [alsa-devel] ca0132 audio in Ubuntu 19.04 only after Windows 10
+ started, missing ctefx-r3di.bin
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,53 +94,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"; DelSp="yes"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 6/28/19 4:06 AM, Kuninori Morimoto wrote:
-> 
-> Hi Pierre-Louis
-> 
->>> @@ -1883,7 +1883,7 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
->>>           int ret;
->>>
->>>           /* link + cpu + codec */
->>> -       link = kzalloc(sizeof(*link) + (2 * sizeof(*dlc)), GFP_KERNEL);
->>> +       link = kzalloc(sizeof(*link) + (3 * sizeof(*dlc)), GFP_KERNEL);
->>>           if (link == NULL)
->>>                   return -ENOMEM;
->>>
->>> @@ -1891,9 +1891,11 @@ static int soc_tplg_fe_link_create(struct soc_tplg *tplg,
->>>
->>>           link->cpus      = &dlc[0];
->>>           link->codecs    = &dlc[1];
->>> +       link->platforms = &dlc[2];
->>>
->>>           link->num_cpus   = 1;
->>>           link->num_codecs = 1;
->>> +       link->num_platforms = 1;
->>>
->>> Can you please help me figure this out?
->>
->> Isn't this fixed by my patch "ASoC: soc-topology: fix modern dai link
->> style" applied on 6/13? Looks like the same issue to me.
-> 
-> This is very impertinent comment, but it is possible to allow NULL platform
-> instead of dummy platform by this or similar code ?
-> I guess it is nice for SOF future.
-> I can't test and not familiar with SOF thought...
-> 
-> 	if (link->platforms)
-> 		link->platforms->name = dev_name(sdev->dev);
-
-It's a good question. To be honest I don't fully understand what this 
-'platform' field is needed for... I was just trying to maintain 'as-is' 
-functionality. If anyone has a good explanation on when this field might 
-be required and for what purpose, and when it can be made optional, I am 
-all ears.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGkgQ29ubm9yLAoKVGhlIGJ1ZyB3YXMgZmlsZWQgYXQgTGF1bmNocGFkIFsxXSwgSSB0aGluayB0
+aGUgbW9zdCBub3RhYmxlIGVycm9yIGlzClsgICAgMy43Njg2NjddIHNuZF9oZGFfaW50ZWwgMDAw
+MDowMDoxZi4zOiBEaXJlY3QgZmlybXdhcmUgbG9hZCBmb3IgIApjdGVmeC1yM2RpLmJpbiBmYWls
+ZWQgd2l0aCBlcnJvciAtMgoKVGhlIGZpcm13YXJlIGlzIGluZGVlZCBsaXN0ZWQgaW4gcGF0Y2hf
+Y2EwMTMyLmMsIGJ1dCBsb29rcyBsaWtlIHRoZXJl4oCZcyBubyAgCmNvcnJlc3BvbmRpbmcgZmls
+ZSBpbiBsaW51eC1maXJtd2FyZS4KCkNhbiB5b3UgcGxlYXNlIHRha2UgYSBsb29rIGF0IHRoZSBi
+dWc/CgpbMV0gaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvYnVncy8xODMzNDcwCgpLYWktSGVu
+ZwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFp
+bG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C185A216
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 19:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6DDB5A1FB
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Jun 2019 19:10:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC21416E8;
-	Fri, 28 Jun 2019 19:16:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC21416E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F4CC16C2;
+	Fri, 28 Jun 2019 19:10:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F4CC16C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561742215;
-	bh=ptF9xf9f4lrG/pgIECS+j+D/QQCHFx63EFncLRxGBWo=;
+	s=default; t=1561741852;
+	bh=cJojl6CSVkjxLw0PQnB3HNkytmOXNho2WahOFFbSoa0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=SctHdF106/JppI39h5DFaYplVhHyiIMEhkxX8FSVBHHvcVwgNVHO0fPzYhItPHv5G
-	 jY6nYmmORuNpdJKm+XkwNUN6FHMHXusSD4a60SL8W4ueO2JVYd4nVdCIz9f15sTmLp
-	 TJH9vG7oRHAOoRDW3E3IeZU8345awJ/R+tT/jEm0=
+	b=De8sLLo9TNkixew4zaaYuNJ+ghduW8EGVbWCvKj8uOQb8yN+Uk22MAlQpg79LYIsa
+	 4zrXGFMDXqu8Oj3Pqj1cmfvdmYf+Pf6BVpI2Rx+RugA5bKqEkSbnqFVodNNiIiESqg
+	 J0pHe2FVgLzfLpFxzKCreZgQmdVCNPokafCY0ZGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEED4F897C4;
-	Fri, 28 Jun 2019 18:57:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DDC5F89791;
+	Fri, 28 Jun 2019 18:57:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8CE0F8976F; Fri, 28 Jun 2019 18:57:04 +0200 (CEST)
+ id 878DEF89765; Fri, 28 Jun 2019 18:56:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54F4BF80058
- for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 18:56:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54F4BF80058
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF7D6F89739
+ for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 18:56:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF7D6F89739
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oPx2qDVh"
+ header.b="czfHcZ50"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=xOQ4bqwtfNgdRYyRSjJXcMltWXmDjM1FZzVhwmyQ8UI=; b=oPx2qDVhpEpk
- 9vLKIlnyHbVcFCsc5gfytRDMhN6QhDxl2Gw5E+sY7ubIqwc3le4w0ZsJl9b3OSpOwiNYPqlnwrROf
- +cevC+gwS9fYtH11f6IpBKkv3mYyUwJcpFoB9mYytn/v+YivRFYzOQ1fa82zKNTgWgaxJ4bBvNIqy
- n8rAs=;
+ List-Archive; bh=EWFqnHBfJLT7bQNUKqC0cBCqrumFVZHPKqURPxD0PaQ=; b=czfHcZ50StjV
+ fhX9Bc9jVJL8o6VlLVRVENjzKa/VEF/aXGffDUvZBzqabxni67WRDGpg4I60QX4K4efVZfJDeuQH8
+ hiIuGzop6YQprbm9Kpd1WWEHi3e532qb/Z/NLoQo+lZmcrS5fL9xmVB6EImw5npbTXmAnwufaPD6A
+ iC0h4=;
 Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
  (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hguAk-00079Z-GD; Fri, 28 Jun 2019 16:56:26 +0000
+ id 1hguAj-00078o-Lz; Fri, 28 Jun 2019 16:56:25 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id E8448440046; Fri, 28 Jun 2019 17:56:25 +0100 (BST)
+ id 2312344004B; Fri, 28 Jun 2019 17:56:25 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87k1d6v5xo.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <878stmv5wj.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190628165625.E8448440046@finisterre.sirena.org.uk>
+Message-Id: <20190628165625.2312344004B@finisterre.sirena.org.uk>
 Date: Fri, 28 Jun 2019 17:56:25 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: qcom: storm: consider CPU-Platform
+Subject: [alsa-devel] Applied "ASoC: sirf: sirf-audio: consider CPU-Platform
 	possibility" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: storm: consider CPU-Platform possibility
+   ASoC: sirf: sirf-audio: consider CPU-Platform possibility
 
 has been applied to the asoc tree at
 
@@ -112,12 +112,12 @@ to this mail.
 Thanks,
 Mark
 
-From 9522e94749d1eb2e88ca4fb1ed20dbbf6ac381d1 Mon Sep 17 00:00:00 2001
+From e22c32e1d41b69501ab04c1ec865eea606f7ebe2 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 28 Jun 2019 10:47:50 +0900
-Subject: [PATCH] ASoC: qcom: storm: consider CPU-Platform possibility
+Date: Fri, 28 Jun 2019 10:48:31 +0900
+Subject: [PATCH] ASoC: sirf: sirf-audio: consider CPU-Platform possibility
 
-commit 3caf11fa88a9 ("ASoC: qcom: storm: don't select unnecessary
+commit e562a5f13c94 ("ASoC: sirf: sirf-audio: don't select unnecessary
 Platform")
 
 Current ALSA SoC avoid to add duplicate component to rtd,
@@ -135,35 +135,36 @@ though it is same as CPU.
 It is depends on CPU driver, but is difficult to know it from Card driver.
 This patch reverts above patch.
 
-Fixes: commit 3caf11fa88a9 ("ASoC: qcom: storm: don't select unnecessary Platform")
+Fixes: commit e562a5f13c94 ("ASoC: sirf: sirf-audio: don't select unnecessary Platform")
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/storm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/sirf/sirf-audio.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/storm.c b/sound/soc/qcom/storm.c
-index e6aeed7b6b97..e6666e597265 100644
---- a/sound/soc/qcom/storm.c
-+++ b/sound/soc/qcom/storm.c
-@@ -55,7 +55,8 @@ static const struct snd_soc_ops storm_soc_ops = {
- 
- SND_SOC_DAILINK_DEFS(hifi,
+diff --git a/sound/soc/sirf/sirf-audio.c b/sound/soc/sirf/sirf-audio.c
+index 45ad23638bdc..c923b6772b22 100644
+--- a/sound/soc/sirf/sirf-audio.c
++++ b/sound/soc/sirf/sirf-audio.c
+@@ -62,7 +62,8 @@ static const struct snd_soc_dapm_route intercon[] = {
+ /* Digital audio interface glue - connects codec <--> CPU */
+ SND_SOC_DAILINK_DEFS(sirf,
  	DAILINK_COMP_ARRAY(COMP_EMPTY()),
--	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")));
-+	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")),
+-	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "sirf-audio-codec")));
++	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "sirf-audio-codec")),
 +	DAILINK_COMP_ARRAY(COMP_EMPTY()));
  
- static struct snd_soc_dai_link storm_dai_link = {
- 	.name		= "Primary",
-@@ -74,6 +75,7 @@ static int storm_parse_of(struct snd_soc_card *card)
- 		dev_err(card->dev, "error getting cpu phandle\n");
- 		return -EINVAL;
- 	}
-+	dai_link->platforms->of_node = dai_link->cpus->of_node;
+ static struct snd_soc_dai_link sirf_audio_dai_link[] = {
+ 	{
+@@ -97,6 +98,8 @@ static int sirf_audio_probe(struct platform_device *pdev)
  
- 	dai_link->codecs->of_node = of_parse_phandle(np, "codec", 0);
- 	if (!dai_link->codecs->of_node) {
+ 	sirf_audio_dai_link[0].cpus->of_node =
+ 		of_parse_phandle(pdev->dev.of_node, "sirf,audio-platform", 0);
++	sirf_audio_dai_link[0].platforms->of_node =
++		of_parse_phandle(pdev->dev.of_node, "sirf,audio-platform", 0);
+ 	sirf_audio_dai_link[0].codecs->of_node =
+ 		of_parse_phandle(pdev->dev.of_node, "sirf,audio-codec", 0);
+ 	sirf_audio_card->gpio_spk_pa = of_get_named_gpio(pdev->dev.of_node,
 -- 
 2.20.1
 

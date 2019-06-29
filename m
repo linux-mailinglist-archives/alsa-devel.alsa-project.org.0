@@ -2,57 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C6D15D62E
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 20:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E05F5D630
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 20:34:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 924C016A0;
-	Tue,  2 Jul 2019 20:33:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 924C016A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 190CD1690;
+	Tue,  2 Jul 2019 20:33:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 190CD1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562092448;
-	bh=vDnA4j9WXnoBN+Jw1dwhywo0D1tsmBaX8S7T57XOZnk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1562092489;
+	bh=It6B4Y1Wu4JjC0z9vA0Gds9gU4wDF+Drc6heEUNrF8U=;
+	h=To:From:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=po8Nhp5EkPn2dWGs+zzFHtv/nw00XV7DvAnWmZH5uQ5AUOsH9h5BiRqsUpSoZkL5A
-	 r3nC1stBC8rAGcv+IyK6IJDBAevAX7AtPp08o3gAcS7Ra9058630G9cEsSVzsMi/IQ
-	 bD39hBfZlSLfTLPfPp8Edt7GX0brcEioKOM+us1k=
+	b=SImASTs/J/b6xD1KBWSS/EndDBPQIkFphc+supxPBe+TIe3l6hiCs9uy2Px2RDx5d
+	 kxviBHy/VbeFfi2x9fVjuyC/3z+1WhD+ZIAQvRsYznJGd0C7AUXQqf809C1FK5Nabd
+	 W+Rl3NRqOSq5kk1/GWNwwY3w60FqFSFHouSzQEck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB361F800C7;
-	Tue,  2 Jul 2019 20:32:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46A3BF800E6;
+	Tue,  2 Jul 2019 20:32:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E33A1F896B9; Fri, 28 Jun 2019 14:34:40 +0200 (CEST)
+ id E0B0CF896F0; Sat, 29 Jun 2019 13:07:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.steuer-voss.de (mail.steuer-voss.de [85.183.69.95])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10596F80058
- for <alsa-devel@alsa-project.org>; Fri, 28 Jun 2019 14:34:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10596F80058
-X-Virus-Scanned: Debian amavisd-new at mail.steuer-voss.de
-Received: from pc-niv.weinmann.com (localhost [127.0.0.1])
- by mail.steuer-voss.de (Postfix) with ESMTP id 7C1514D3ED;
- Fri, 28 Jun 2019 14:34:35 +0200 (CEST)
-From: Nikolaus Voss <nikolaus.voss@loewensteinmedical.de>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Andreas Dannenberg <dannenberg@ti.com>, "Andrew F. Davis" <afd@ti.com>,
- Kate Stewart <kstewart@linuxfoundation.org>
-Date: Fri, 28 Jun 2019 14:34:16 +0200
-Message-Id: <20190628123416.16298-1-nikolaus.voss@loewensteinmedical.de>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Tue, 02 Jul 2019 20:32:20 +0200
-Cc: linux-acpi@vger.kernel.org, alsa-devel@alsa-project.org, nv@vosn.de,
- linux-kernel@vger.kernel.org,
- Nikolaus Voss <nikolaus.voss@loewensteinmedical.de>
-Subject: [alsa-devel] [PATCH] sound/soc/codecs/tas5720.c: add ACPI support
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3424FF80750;
+ Sat, 29 Jun 2019 13:07:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3424FF80750
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="aZAAC0wM"
+Received: by mail-pg1-x533.google.com with SMTP id w10so3744725pgj.7;
+ Sat, 29 Jun 2019 04:07:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:from:subject:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=3gf90tCNLtIA9ySodIN10CHwpilsUcVFO37AxVFNTjM=;
+ b=aZAAC0wMyzcaMA3mq3tY7TxUStUp64UNgRztDAkpHfmFlJL1rFue/VBgems2uTbRJa
+ mPNfey5YGxnahYiZRBcscMoqkb0s3gHMjYLsTRhUdmoxPAcGjqO8QzP+vvKmLaZHbXr/
+ gVknaQl5lSuvRnH0KmIlcLjmulEK1h5i0JXgRNLtaPF1/IQFr9wzfqFPurXsmFk4TRnd
+ hmTV6VH7vo7oFr+zxUwIBiDTxA1X2/vVjnvUuCxmX+gzqbNhY3i2nfkgdeGi/dtWeOeu
+ 3i70WX7l/mXxIIlNJbbK158ohQkPksE58bMOAdM+bd4fhEL0u4Jmu7PEV3ZuK57NoV+I
+ 9BBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=3gf90tCNLtIA9ySodIN10CHwpilsUcVFO37AxVFNTjM=;
+ b=JLTX708IksbklKAHKiMlNfmOupKwzPsoD82MbHsXxQ8K/kNo7tl988mg5O497X5QpN
+ tWRLiSNHwaN46fwuO9Bgaa5jnjVZujnuR8tljcJ3ogWYUkb0zFbEbBRRHCikCTad0Vmi
+ ji1VU0IlcFwjsmmzVJ1s9+QIoI0BBdPbvaJZsTbz21b7iw+IAibLhixkAMxYbgHPkXQx
+ uO1QTQ4yABMNrwztX1goh4wTfX77K3zIVvdubGa86dNHQrETiqOhrGZt/pjFgbAWS+2Z
+ yaKPpJnZLeP3dgi0+W1hYOr+19xDQZjcYdzxdbQPjaXXoGq8CuvE/MIBwS13Zl5Vd1ax
+ boTA==
+X-Gm-Message-State: APjAAAWPofImwoXQ3Ws00sx0JSilgcjqq9ThSUO81MqUzn1RZ1wGWNLf
+ n2qc9uDtJ01U8IHxkBd1QR7Uwl3GC/o=
+X-Google-Smtp-Source: APXvYqyvf9YiD7st90cX/g8tCIYN5MQayI3mt+PI9s/VU1ew1pKrx/jxgCJSzX6pyNTrMGVdX/qwhw==
+X-Received: by 2002:a63:f346:: with SMTP id t6mr14559370pgj.203.1561806426335; 
+ Sat, 29 Jun 2019 04:07:06 -0700 (PDT)
+Received: from ?IPv6:2406:3003:2001:2d3a:1a1d:eaff:fe01:d3ee?
+ ([2406:3003:2001:2d3a:1a1d:eaff:fe01:d3ee])
+ by smtp.gmail.com with ESMTPSA id d192sm6015783pgc.80.2019.06.29.04.07.04
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Sat, 29 Jun 2019 04:07:05 -0700 (PDT)
+To: patch@alsa-project.org
+From: Ding Xiang Fei <dingxiangfei2009@gmail.com>
+Message-ID: <dc15537e-6c63-5fa6-7ef6-0b16050dad70@gmail.com>
+Date: Sat, 29 Jun 2019 19:07:04 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
+MIME-Version: 1.0
+Content-Language: en-US
+X-Mailman-Approved-At: Tue, 02 Jul 2019 20:32:21 +0200
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH - use build platform compiler while cross
+ compilation 1/1] use build compilers in cross compilation setup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,350 +97,268 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for ACPI enumeration for tas5720 and tas5722.
-Use device_match API to unify access to driver data for DT and ACPI.
-Aggregate variant stuff into its own struct and directly reference
-it in variant data for i2c/of/acpi_device_id.
-
-Signed-off-by: Nikolaus Voss <nikolaus.voss@loewensteinmedical.de>
----
- sound/soc/codecs/tas5720.c | 215 +++++++++++++++++--------------------
- 1 file changed, 99 insertions(+), 116 deletions(-)
-
-diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
-index 37fab8f22800..ea973764c745 100644
---- a/sound/soc/codecs/tas5720.c
-+++ b/sound/soc/codecs/tas5720.c
-@@ -7,6 +7,7 @@
-  * Author: Andreas Dannenberg <dannenberg@ti.com>
-  */
- 
-+#include <linux/acpi.h>
- #include <linux/module.h>
- #include <linux/errno.h>
- #include <linux/device.h>
-@@ -28,9 +29,10 @@
- /* Define how often to check (and clear) the fault status register (in ms) */
- #define TAS5720_FAULT_CHECK_INTERVAL		200
- 
--enum tas572x_type {
--	TAS5720,
--	TAS5722,
-+struct tas5720_variant {
-+	const int device_id;
-+	const struct regmap_config reg_config;
-+	const struct snd_soc_component_driver comp_drv;
- };
- 
- static const char * const tas5720_supply_names[] = {
-@@ -44,7 +46,7 @@ struct tas5720_data {
- 	struct snd_soc_component *component;
- 	struct regmap *regmap;
- 	struct i2c_client *tas5720_client;
--	enum tas572x_type devtype;
-+	const struct tas5720_variant *variant;
- 	struct regulator_bulk_data supplies[TAS5720_NUM_SUPPLIES];
- 	struct delayed_work fault_check_work;
- 	unsigned int last_fault;
-@@ -179,17 +181,13 @@ static int tas5720_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 		goto error_snd_soc_component_update_bits;
- 
- 	/* Configure TDM slot width. This is only applicable to TAS5722. */
--	switch (tas5720->devtype) {
--	case TAS5722:
-+	if (tas5720->variant->device_id == TAS5722_DEVICE_ID) {
- 		ret = snd_soc_component_update_bits(component, TAS5722_DIGITAL_CTRL2_REG,
- 						    TAS5722_TDM_SLOT_16B,
- 						    slot_width == 16 ?
- 						    TAS5722_TDM_SLOT_16B : 0);
- 		if (ret < 0)
- 			goto error_snd_soc_component_update_bits;
--		break;
--	default:
--		break;
- 	}
- 
- 	return 0;
-@@ -277,7 +275,7 @@ static void tas5720_fault_check_work(struct work_struct *work)
- static int tas5720_codec_probe(struct snd_soc_component *component)
- {
- 	struct tas5720_data *tas5720 = snd_soc_component_get_drvdata(component);
--	unsigned int device_id, expected_device_id;
-+	unsigned int device_id;
- 	int ret;
- 
- 	tas5720->component = component;
-@@ -301,21 +299,9 @@ static int tas5720_codec_probe(struct snd_soc_component *component)
- 		goto probe_fail;
- 	}
- 
--	switch (tas5720->devtype) {
--	case TAS5720:
--		expected_device_id = TAS5720_DEVICE_ID;
--		break;
--	case TAS5722:
--		expected_device_id = TAS5722_DEVICE_ID;
--		break;
--	default:
--		dev_err(component->dev, "unexpected private driver data\n");
--		return -EINVAL;
--	}
--
--	if (device_id != expected_device_id)
-+	if (device_id != tas5720->variant->device_id)
- 		dev_warn(component->dev, "wrong device ID. expected: %u read: %u\n",
--			 expected_device_id, device_id);
-+			 tas5720->variant->device_id, device_id);
- 
- 	/* Set device to mute */
- 	ret = snd_soc_component_update_bits(component, TAS5720_DIGITAL_CTRL2_REG,
-@@ -462,24 +448,6 @@ static bool tas5720_is_volatile_reg(struct device *dev, unsigned int reg)
- 	}
- }
- 
--static const struct regmap_config tas5720_regmap_config = {
--	.reg_bits = 8,
--	.val_bits = 8,
--
--	.max_register = TAS5720_MAX_REG,
--	.cache_type = REGCACHE_RBTREE,
--	.volatile_reg = tas5720_is_volatile_reg,
--};
--
--static const struct regmap_config tas5722_regmap_config = {
--	.reg_bits = 8,
--	.val_bits = 8,
--
--	.max_register = TAS5722_MAX_REG,
--	.cache_type = REGCACHE_RBTREE,
--	.volatile_reg = tas5720_is_volatile_reg,
--};
--
- /*
-  * DAC analog gain. There are four discrete values to select from, ranging
-  * from 19.2 dB to 26.3dB.
-@@ -558,40 +526,6 @@ static const struct snd_soc_dapm_route tas5720_audio_map[] = {
- 	{ "OUT", NULL, "DAC" },
- };
- 
--static const struct snd_soc_component_driver soc_component_dev_tas5720 = {
--	.probe			= tas5720_codec_probe,
--	.remove			= tas5720_codec_remove,
--	.suspend		= tas5720_suspend,
--	.resume			= tas5720_resume,
--	.controls		= tas5720_snd_controls,
--	.num_controls		= ARRAY_SIZE(tas5720_snd_controls),
--	.dapm_widgets		= tas5720_dapm_widgets,
--	.num_dapm_widgets	= ARRAY_SIZE(tas5720_dapm_widgets),
--	.dapm_routes		= tas5720_audio_map,
--	.num_dapm_routes	= ARRAY_SIZE(tas5720_audio_map),
--	.idle_bias_on		= 1,
--	.use_pmdown_time	= 1,
--	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
--};
--
--static const struct snd_soc_component_driver soc_component_dev_tas5722 = {
--	.probe = tas5720_codec_probe,
--	.remove = tas5720_codec_remove,
--	.suspend = tas5720_suspend,
--	.resume = tas5720_resume,
--	.controls = tas5722_snd_controls,
--	.num_controls = ARRAY_SIZE(tas5722_snd_controls),
--	.dapm_widgets = tas5720_dapm_widgets,
--	.num_dapm_widgets = ARRAY_SIZE(tas5720_dapm_widgets),
--	.dapm_routes = tas5720_audio_map,
--	.num_dapm_routes = ARRAY_SIZE(tas5720_audio_map),
--	.idle_bias_on		= 1,
--	.use_pmdown_time	= 1,
--	.endianness		= 1,
--	.non_legacy_dai_naming	= 1,
--};
--
- /* PCM rates supported by the TAS5720 driver */
- #define TAS5720_RATES	(SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000 |\
- 			 SNDRV_PCM_RATE_88200 | SNDRV_PCM_RATE_96000)
-@@ -637,29 +571,25 @@ static int tas5720_probe(struct i2c_client *client,
- {
- 	struct device *dev = &client->dev;
- 	struct tas5720_data *data;
--	const struct regmap_config *regmap_config;
-+	const struct tas5720_variant *type;
- 	int ret;
- 	int i;
- 
-+	type = device_get_match_data(&client->dev);
-+	if (!type && id)
-+		type = (const struct tas5720_variant *)id->driver_data;
-+
-+	if (!type)
-+		return -EINVAL;
-+
- 	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
- 	if (!data)
- 		return -ENOMEM;
- 
- 	data->tas5720_client = client;
--	data->devtype = id->driver_data;
-+	data->variant = type;
- 
--	switch (id->driver_data) {
--	case TAS5720:
--		regmap_config = &tas5720_regmap_config;
--		break;
--	case TAS5722:
--		regmap_config = &tas5722_regmap_config;
--		break;
--	default:
--		dev_err(dev, "unexpected private driver data\n");
--		return -EINVAL;
--	}
--	data->regmap = devm_regmap_init_i2c(client, regmap_config);
-+	data->regmap = devm_regmap_init_i2c(client, &type->reg_config);
- 	if (IS_ERR(data->regmap)) {
- 		ret = PTR_ERR(data->regmap);
- 		dev_err(dev, "failed to allocate register map: %d\n", ret);
-@@ -678,51 +608,104 @@ static int tas5720_probe(struct i2c_client *client,
- 
- 	dev_set_drvdata(dev, data);
- 
--	switch (id->driver_data) {
--	case TAS5720:
--		ret = devm_snd_soc_register_component(&client->dev,
--					&soc_component_dev_tas5720,
--					tas5720_dai,
--					ARRAY_SIZE(tas5720_dai));
--		break;
--	case TAS5722:
--		ret = devm_snd_soc_register_component(&client->dev,
--					&soc_component_dev_tas5722,
--					tas5720_dai,
--					ARRAY_SIZE(tas5720_dai));
--		break;
--	default:
--		dev_err(dev, "unexpected private driver data\n");
--		return -EINVAL;
--	}
--	if (ret < 0) {
--		dev_err(dev, "failed to register component: %d\n", ret);
--		return ret;
--	}
-+	ret = devm_snd_soc_register_component(&client->dev,
-+					      &type->comp_drv,
-+					      tas5720_dai,
-+					      ARRAY_SIZE(tas5720_dai));
- 
--	return 0;
-+	if (ret < 0)
-+		dev_err(dev, "failed to register component: %d\n", ret);
-+
-+	return ret;
- }
- 
-+static const struct tas5720_variant variant[] = {
-+	{
-+		.device_id = TAS5720_DEVICE_ID,
-+		.reg_config = {
-+			.reg_bits = 8,
-+			.val_bits = 8,
-+
-+			.max_register = TAS5720_MAX_REG,
-+			.cache_type = REGCACHE_RBTREE,
-+			.volatile_reg = tas5720_is_volatile_reg,
-+		},
-+		.comp_drv = {
-+			.probe = tas5720_codec_probe,
-+			.remove = tas5720_codec_remove,
-+			.suspend = tas5720_suspend,
-+			.resume = tas5720_resume,
-+			.controls = tas5720_snd_controls,
-+			.num_controls = ARRAY_SIZE(tas5720_snd_controls),
-+			.dapm_widgets = tas5720_dapm_widgets,
-+			.num_dapm_widgets = ARRAY_SIZE(tas5720_dapm_widgets),
-+			.dapm_routes = tas5720_audio_map,
-+			.num_dapm_routes = ARRAY_SIZE(tas5720_audio_map),
-+			.idle_bias_on = 1,
-+			.use_pmdown_time = 1,
-+			.endianness = 1,
-+			.non_legacy_dai_naming = 1
-+		},
-+	},
-+	{
-+		.device_id = TAS5722_DEVICE_ID,
-+		.reg_config = {
-+			.reg_bits = 8,
-+			.val_bits = 8,
-+
-+			.max_register = TAS5722_MAX_REG,
-+			.cache_type = REGCACHE_RBTREE,
-+			.volatile_reg = tas5720_is_volatile_reg,
-+		},
-+		.comp_drv = {
-+			.probe = tas5720_codec_probe,
-+			.remove = tas5720_codec_remove,
-+			.suspend = tas5720_suspend,
-+			.resume = tas5720_resume,
-+			.controls = tas5722_snd_controls,
-+			.num_controls = ARRAY_SIZE(tas5722_snd_controls),
-+			.dapm_widgets = tas5720_dapm_widgets,
-+			.num_dapm_widgets = ARRAY_SIZE(tas5720_dapm_widgets),
-+			.dapm_routes = tas5720_audio_map,
-+			.num_dapm_routes = ARRAY_SIZE(tas5720_audio_map),
-+			.idle_bias_on = 1,
-+			.use_pmdown_time = 1,
-+			.endianness = 1,
-+			.non_legacy_dai_naming = 1,
-+		},
-+	},
-+};
-+
- static const struct i2c_device_id tas5720_id[] = {
--	{ "tas5720", TAS5720 },
--	{ "tas5722", TAS5722 },
-+	{ "tas5720", (kernel_ulong_t)&variant[0] },
-+	{ "tas5722", (kernel_ulong_t)&variant[1] },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, tas5720_id);
- 
- #if IS_ENABLED(CONFIG_OF)
- static const struct of_device_id tas5720_of_match[] = {
--	{ .compatible = "ti,tas5720", },
--	{ .compatible = "ti,tas5722", },
-+	{ .compatible = "ti,tas5720", .data = &variant[0], },
-+	{ .compatible = "ti,tas5722", .data = &variant[1], },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, tas5720_of_match);
- #endif
- 
-+#if IS_ENABLED(CONFIG_ACPI)
-+static const struct acpi_device_id tas5720_acpi_match[] = {
-+	{ "10TI5720", (kernel_ulong_t)&variant[0] },
-+	{ "10TI5722", (kernel_ulong_t)&variant[1] },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(acpi, tas5720_acpi_match);
-+#endif
-+
- static struct i2c_driver tas5720_i2c_driver = {
- 	.driver = {
- 		.name = "tas5720",
- 		.of_match_table = of_match_ptr(tas5720_of_match),
-+		.acpi_match_table = ACPI_PTR(tas5720_acpi_match),
- 	},
- 	.probe = tas5720_probe,
- 	.id_table = tas5720_id,
--- 
-2.17.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+ClRoaXMgcGF0Y2ggaXMgdG8gbWFrZSB0aGUgYnVpbGQgc2NyaXB0IGFsd2F5cyB1c2UgdGhlIGJ1
+aWxkIHBsYXRmb3JtCmNvbXBpbGVycywgZXNwZWNpYWxseSBkdXJpbmcgdGhlIGNyb3NzIGNvbXBp
+bGF0aW9uIHByb2Nlc3MsIHNpbmNlIHRoZQpNYWtlZmlsZSB3aWxsIHBpY2sgdXAgdGhlIGNyb3Nz
+IGNvbXBpbGVycyBpbnN0ZWFkIG9mIHRoZSBjb21waWxlcnMgb24KdGhlIGJ1aWxkIG1hY2hpbmUu
+CgpTaWduZWQtb2ZmLWJ5OiBEaW5nIFhpYW5nIEZlaSA8ZGluZ3hpYW5nZmVpMjAwOUBnbWFpbC5j
+b20+CgpkaWZmIC0tZ2l0IGEvY29tcGlsZSBiL2NvbXBpbGUKbmV3IGZpbGUgbW9kZSAxMjAwMDAK
+aW5kZXggMDAwMDAwMC4uMzQ5YWM2NgotLS0gL2Rldi9udWxsCisrKyBiL2NvbXBpbGUKQEAgLTAs
+MCArMSBAQAorL25peC9zdG9yZS9od2Ntdnp2NTNqendzNXZuYWdhMTZsNWRtcXZzbHdrei1hdXRv
+bWFrZS0xLjE2LjEvc2hhcmUvYXV0b21ha2UtMS4xNi9jb21waWxlClwgTm8gbmV3bGluZSBhdCBl
+bmQgb2YgZmlsZQpkaWZmIC0tZ2l0IGEvY29uZmlndXJlLmFjIGIvY29uZmlndXJlLmFjCmluZGV4
+IDM2ODg1NGUuLmVlMGUyNDIgMTAwNjQ0Ci0tLSBhL2NvbmZpZ3VyZS5hYworKysgYi9jb25maWd1
+cmUuYWMKQEAgLTEsNiArMSw4IEBACsKgQUNfUFJFUkVRKDIuNTkpCsKgQUNfSU5JVChhbHNhLWZp
+cm13YXJlLCAxLjAuMjkpCitBQ19DT05GSUdfTUFDUk9fRElSKFttNF0pCsKgQUNfUFJPR19DQwor
+QUNfUFJPR19DQ19GT1JfQlVJTEQKwqBBQ19QUk9HX0lOU1RBTEwKwqBBQ19QUk9HX0xOX1MKwqBB
+Q19IRUFERVJfU1REQwpkaWZmIC0tZ2l0IGEvZWNob2F1ZGlvL01ha2VmaWxlLmFtIGIvZWNob2F1
+ZGlvL01ha2VmaWxlLmFtCmluZGV4IDgxNTc0MmYuLjVlZjYwODYgMTAwNjQ0Ci0tLSBhL2VjaG9h
+dWRpby9NYWtlZmlsZS5hbQorKysgYi9lY2hvYXVkaW8vTWFrZWZpbGUuYW0KQEAgLTc0LDMzICs3
+NCw0MiBAQCBob3RwbHVnZndkaXIgPQrCoGhvdHBsdWdmd19EQVRBID0KwqBlbmRpZgrCoAotJChm
+aXJtd2FyZV9maWxlcyk6IGZ3X3dyaXRlcgotwqDCoCDCoC4vZndfd3JpdGVyIERTUC9Mb2FkZXJE
+U1AuYyBsb2FkZXJfZHNwLmZ3Ci3CoMKgIMKgLi9md193cml0ZXIgRFNQL0RhcmxhMjBEU1AuYyBk
+YXJsYTIwX2RzcC5mdwotwqDCoCDCoC4vZndfd3JpdGVyIERTUC9HaW5hMjBEU1AuYyBnaW5hMjBf
+ZHNwLmZ3Ci3CoMKgIMKgLi9md193cml0ZXIgRFNQL0xheWxhMjBEU1AuYyBsYXlsYTIwX2RzcC5m
+dwotwqDCoCDCoC4vZndfd3JpdGVyIEFTSUMvTGF5bGFBU0lDLmMgbGF5bGEyMF9hc2ljLmZ3Ci3C
+oMKgIMKgLi9md193cml0ZXIgRFNQL0RhcmxhMjREU1AuYyBkYXJsYTI0X2RzcC5mdwotwqDCoCDC
+oC4vZndfd3JpdGVyIERTUC9HaW5hMjREU1AuYyBnaW5hMjRfMzAxX2RzcC5mdwotwqDCoCDCoC4v
+Zndfd3JpdGVyIEFTSUMvR2luYTI0QVNJQy5jIGdpbmEyNF8zMDFfYXNpYy5mdwotwqDCoCDCoC4v
+Zndfd3JpdGVyIERTUC9HaW5hMjRfMzYxRFNQLmMgZ2luYTI0XzM2MV9kc3AuZncKLcKgwqAgwqAu
+L2Z3X3dyaXRlciBBU0lDL0dpbmEyNEFTSUNfMzYxLmMgZ2luYTI0XzM2MV9hc2ljLmZ3Ci3CoMKg
+IMKgLi9md193cml0ZXIgRFNQL0xheWxhMjREU1AuYyBsYXlsYTI0X2RzcC5mdwotwqDCoCDCoC4v
+Zndfd3JpdGVyIEFTSUMvTGF5bGEyNF8xQVNJQy5jIGxheWxhMjRfMV9hc2ljLmZ3Ci3CoMKgIMKg
+Li9md193cml0ZXIgQVNJQy9MYXlsYTI0XzJBX0FTSUMuYyBsYXlsYTI0XzJBX2FzaWMuZncKLcKg
+wqAgwqAuL2Z3X3dyaXRlciBBU0lDL0xheWxhMjRfMlNfQVNJQy5jIGxheWxhMjRfMlNfYXNpYy5m
+dwotwqDCoCDCoC4vZndfd3JpdGVyIERTUC9Nb25hRFNQLmMgbW9uYV8zMDFfZHNwLmZ3Ci3CoMKg
+IMKgLi9md193cml0ZXIgQVNJQy9Nb25hMUFTSUM0OC5jIG1vbmFfMzAxXzFfYXNpY180OC5mdwot
+wqDCoCDCoC4vZndfd3JpdGVyIEFTSUMvTW9uYTFBU0lDOTYuYyBtb25hXzMwMV8xX2FzaWNfOTYu
+ZncKLcKgwqAgwqAuL2Z3X3dyaXRlciBEU1AvTW9uYTM2MURTUC5jIG1vbmFfMzYxX2RzcC5mdwot
+wqDCoCDCoC4vZndfd3JpdGVyIEFTSUMvTW9uYTFBU0lDNDhfMzYxLmMgbW9uYV8zNjFfMV9hc2lj
+XzQ4LmZ3Ci3CoMKgIMKgLi9md193cml0ZXIgQVNJQy9Nb25hMUFTSUM5Nl8zNjEuYyBtb25hXzM2
+MV8xX2FzaWNfOTYuZncKLcKgwqAgwqAuL2Z3X3dyaXRlciBBU0lDL01vbmEyQVNJQy5jIG1vbmFf
+Ml9hc2ljLmZ3Ci3CoMKgIMKgLi9md193cml0ZXIgRFNQL01pYURTUC5jIG1pYV9kc3AuZncKLcKg
+wqAgwqAuL2Z3X3dyaXRlciBEU1AvRWNobzNnRFNQLmMgZWNobzNnX2RzcC5mdwotwqDCoCDCoC4v
+Zndfd3JpdGVyIEFTSUMvM0dfQVNJQy5jIDNnX2FzaWMuZncKLcKgwqAgwqAuL2Z3X3dyaXRlciBE
+U1AvSW5kaWdvRFNQLmMgaW5kaWdvX2RzcC5mdwotwqDCoCDCoC4vZndfd3JpdGVyIERTUC9JbmRp
+Z29JT0RTUC5jIGluZGlnb19pb19kc3AuZncKLcKgwqAgwqAuL2Z3X3dyaXRlciBEU1AvSW5kaWdv
+SU94RFNQLmMgaW5kaWdvX2lveF9kc3AuZncKLcKgwqAgwqAuL2Z3X3dyaXRlciBEU1AvSW5kaWdv
+REpEU1AuYyBpbmRpZ29fZGpfZHNwLmZ3Ci3CoMKgIMKgLi9md193cml0ZXIgRFNQL0luZGlnb0RK
+eERTUC5jIGluZGlnb19kanhfZHNwLmZ3CitMSU5LX0ZPUl9CVUlMRC5jID0gJChDQ19GT1JfQlVJ
+TEQpICQoQ0ZMQUdTX0ZPUl9CVUlMRCkgJChDUFBGTEFHU19GT1JfQlVJTEQpICQoTERGTEFHU19G
+T1JfQlVJTEQpICQoVEFSR0VUX0FSQ0hfRk9SX0JVSUxEKQorCiskKGZ3X3dyaXRlcl9PQkpFQ1RT
+KSA6IENDPSQoQ0NfRk9SX0JVSUxEKQorJChmd193cml0ZXJfT0JKRUNUUykgOiBDRkxBR1M9JChD
+RkxBR1NfRk9SX0JVSUxEKQorJChmd193cml0ZXJfT0JKRUNUUykgOiBDUFBGTEFHUz0kKENQUEZM
+QUdTX0ZPUl9CVUlMRCkKKworZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpOiAkKHRvYmluX09CSkVD
+VFMpCivCoMKgIMKgJChMSU5LX0ZPUl9CVUlMRC5jKSAkXiAkKExPQURMSUJFU19GT1JfQlVJTEQp
+ICQoTERMSUJTX0ZPUl9CVUlMRCkgLW8gJEAKKworJChmaXJtd2FyZV9maWxlcyk6IGZ3X3dyaXRl
+ciQoQlVJTERfRVhFRVhUKQorwqDCoCDCoC4vZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpIERTUC9M
+b2FkZXJEU1AuYyBsb2FkZXJfZHNwLmZ3CivCoMKgIMKgLi9md193cml0ZXIkKEJVSUxEX0VYRUVY
+VCkgRFNQL0RhcmxhMjBEU1AuYyBkYXJsYTIwX2RzcC5mdworwqDCoCDCoC4vZndfd3JpdGVyJChC
+VUlMRF9FWEVFWFQpIERTUC9HaW5hMjBEU1AuYyBnaW5hMjBfZHNwLmZ3CivCoMKgIMKgLi9md193
+cml0ZXIkKEJVSUxEX0VYRUVYVCkgRFNQL0xheWxhMjBEU1AuYyBsYXlsYTIwX2RzcC5mdworwqDC
+oCDCoC4vZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpIEFTSUMvTGF5bGFBU0lDLmMgbGF5bGEyMF9h
+c2ljLmZ3CivCoMKgIMKgLi9md193cml0ZXIkKEJVSUxEX0VYRUVYVCkgRFNQL0RhcmxhMjREU1Au
+YyBkYXJsYTI0X2RzcC5mdworwqDCoCDCoC4vZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpIERTUC9H
+aW5hMjREU1AuYyBnaW5hMjRfMzAxX2RzcC5mdworwqDCoCDCoC4vZndfd3JpdGVyJChCVUlMRF9F
+WEVFWFQpIEFTSUMvR2luYTI0QVNJQy5jIGdpbmEyNF8zMDFfYXNpYy5mdworwqDCoCDCoC4vZndf
+d3JpdGVyJChCVUlMRF9FWEVFWFQpIERTUC9HaW5hMjRfMzYxRFNQLmMgZ2luYTI0XzM2MV9kc3Au
+ZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKSBBU0lDL0dpbmEyNEFTSUNfMzYx
+LmMgZ2luYTI0XzM2MV9hc2ljLmZ3CivCoMKgIMKgLi9md193cml0ZXIkKEJVSUxEX0VYRUVYVCkg
+RFNQL0xheWxhMjREU1AuYyBsYXlsYTI0X2RzcC5mdworwqDCoCDCoC4vZndfd3JpdGVyJChCVUlM
+RF9FWEVFWFQpIEFTSUMvTGF5bGEyNF8xQVNJQy5jIGxheWxhMjRfMV9hc2ljLmZ3CivCoMKgIMKg
+Li9md193cml0ZXIkKEJVSUxEX0VYRUVYVCkgQVNJQy9MYXlsYTI0XzJBX0FTSUMuYyBsYXlsYTI0
+XzJBX2FzaWMuZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKSBBU0lDL0xheWxh
+MjRfMlNfQVNJQy5jIGxheWxhMjRfMlNfYXNpYy5mdworwqDCoCDCoC4vZndfd3JpdGVyJChCVUlM
+RF9FWEVFWFQpIERTUC9Nb25hRFNQLmMgbW9uYV8zMDFfZHNwLmZ3CivCoMKgIMKgLi9md193cml0
+ZXIkKEJVSUxEX0VYRUVYVCkgQVNJQy9Nb25hMUFTSUM0OC5jIG1vbmFfMzAxXzFfYXNpY180OC5m
+dworwqDCoCDCoC4vZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpIEFTSUMvTW9uYTFBU0lDOTYuYyBt
+b25hXzMwMV8xX2FzaWNfOTYuZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKSBE
+U1AvTW9uYTM2MURTUC5jIG1vbmFfMzYxX2RzcC5mdworwqDCoCDCoC4vZndfd3JpdGVyJChCVUlM
+RF9FWEVFWFQpIEFTSUMvTW9uYTFBU0lDNDhfMzYxLmMgbW9uYV8zNjFfMV9hc2ljXzQ4LmZ3CivC
+oMKgIMKgLi9md193cml0ZXIkKEJVSUxEX0VYRUVYVCkgQVNJQy9Nb25hMUFTSUM5Nl8zNjEuYyBt
+b25hXzM2MV8xX2FzaWNfOTYuZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKSBB
+U0lDL01vbmEyQVNJQy5jIG1vbmFfMl9hc2ljLmZ3CivCoMKgIMKgLi9md193cml0ZXIkKEJVSUxE
+X0VYRUVYVCkgRFNQL01pYURTUC5jIG1pYV9kc3AuZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJ
+TERfRVhFRVhUKSBEU1AvRWNobzNnRFNQLmMgZWNobzNnX2RzcC5mdworwqDCoCDCoC4vZndfd3Jp
+dGVyJChCVUlMRF9FWEVFWFQpIEFTSUMvM0dfQVNJQy5jIDNnX2FzaWMuZncKK8KgwqAgwqAuL2Z3
+X3dyaXRlciQoQlVJTERfRVhFRVhUKSBEU1AvSW5kaWdvRFNQLmMgaW5kaWdvX2RzcC5mdworwqDC
+oCDCoC4vZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpIERTUC9JbmRpZ29JT0RTUC5jIGluZGlnb19p
+b19kc3AuZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKSBEU1AvSW5kaWdvSU94
+RFNQLmMgaW5kaWdvX2lveF9kc3AuZncKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhU
+KSBEU1AvSW5kaWdvREpEU1AuYyBpbmRpZ29fZGpfZHNwLmZ3CivCoMKgIMKgLi9md193cml0ZXIk
+KEJVSUxEX0VYRUVYVCkgRFNQL0luZGlnb0RKeERTUC5jIGluZGlnb19kanhfZHNwLmZ3CmRpZmYg
+LS1naXQgYS9lbXUvTWFrZWZpbGUuYW0gYi9lbXUvTWFrZWZpbGUuYW0KaW5kZXggM2E2MzNjMC4u
+ZTVhMzAxNyAxMDA2NDQKLS0tIGEvZW11L01ha2VmaWxlLmFtCisrKyBiL2VtdS9NYWtlZmlsZS5h
+bQpAQCAtMjIsNSArMjIsMTQgQEAgaG90cGx1Z2Z3ZGlyID0KwqBob3RwbHVnZndfREFUQSA9CsKg
+ZW5kaWYKwqAKLSQoZmlybXdhcmVfZmlsZXMpOiBmd193cml0ZXIKLcKgwqAgwqAuL2Z3X3dyaXRl
+cgorTElOS19GT1JfQlVJTEQuYyA9ICQoQ0NfRk9SX0JVSUxEKSAkKENGTEFHU19GT1JfQlVJTEQp
+ICQoQ1BQRkxBR1NfRk9SX0JVSUxEKSAkKExERkxBR1NfRk9SX0JVSUxEKSAkKFRBUkdFVF9BUkNI
+X0ZPUl9CVUlMRCkKKworJChmd193cml0ZXJfT0JKRUNUUykgOiBDQz0kKENDX0ZPUl9CVUlMRCkK
+KyQoZndfd3JpdGVyX09CSkVDVFMpIDogQ0ZMQUdTPSQoQ0ZMQUdTX0ZPUl9CVUlMRCkKKyQoZndf
+d3JpdGVyX09CSkVDVFMpIDogQ1BQRkxBR1M9JChDUFBGTEFHU19GT1JfQlVJTEQpCisKK2Z3X3dy
+aXRlciQoQlVJTERfRVhFRVhUKTogJCh0b2Jpbl9PQkpFQ1RTKQorwqDCoCDCoCQoTElOS19GT1Jf
+QlVJTEQuYykgJF4gJChMT0FETElCRVNfRk9SX0JVSUxEKSAkKExETElCU19GT1JfQlVJTEQpIC1v
+ICRACisKKyQoZmlybXdhcmVfZmlsZXMpOiBmd193cml0ZXIkKEJVSUxEX0VYRUVYVCkKK8KgwqAg
+wqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKQpkaWZmIC0tZ2l0IGEvaGRzcGxvYWRlci9NYWtl
+ZmlsZS5hbSBiL2hkc3Bsb2FkZXIvTWFrZWZpbGUuYW0KaW5kZXggNDg4MDJhNi4uYjEzMjQ1YiAx
+MDA2NDQKLS0tIGEvaGRzcGxvYWRlci9NYWtlZmlsZS5hbQorKysgYi9oZHNwbG9hZGVyL01ha2Vm
+aWxlLmFtCkBAIC0zMiw1ICszMiwxNCBAQCBFWFRSQV9ESVNUID0gJChkc3BfaGV4X2ZpbGVzOiUu
+YmluPSUuZGF0KSBcCsKgwqDCoCDCoMKgwqDCoMKgIHRvYmluLmMKwqBDTEVBTkZJTEVTID0gJChk
+c3BfaGV4X2ZpbGVzKQrCoAotJChkc3BfaGV4X2ZpbGVzKTogdG9iaW4KLcKgwqAgwqAuL3RvYmlu
+CitMSU5LX0ZPUl9CVUlMRC5jID0gJChDQ19GT1JfQlVJTEQpICQoQ0ZMQUdTX0ZPUl9CVUlMRCkg
+JChDUFBGTEFHU19GT1JfQlVJTEQpICQoTERGTEFHU19GT1JfQlVJTEQpICQoVEFSR0VUX0FSQ0hf
+Rk9SX0JVSUxEKQorCiskKHRvYmluX09CSkVDVFMpIDogQ0M9JChDQ19GT1JfQlVJTEQpCiskKHRv
+YmluX09CSkVDVFMpIDogQ0ZMQUdTPSQoQ0ZMQUdTX0ZPUl9CVUlMRCkKKyQodG9iaW5fT0JKRUNU
+UykgOiBDUFBGTEFHUz0kKENQUEZMQUdTX0ZPUl9CVUlMRCkKKwordG9iaW4kKEJVSUxEX0VYRUVY
+VCk6ICQodG9iaW5fT0JKRUNUUykKK8KgwqAgwqAkKExJTktfRk9SX0JVSUxELmMpICReICQoTE9B
+RExJQkVTX0ZPUl9CVUlMRCkgJChMRExJQlNfRk9SX0JVSUxEKSAtbyAkQAorCiskKGRzcF9oZXhf
+ZmlsZXMpOiB0b2JpbiQoQlVJTERfRVhFRVhUKQorwqDCoCDCoC4vJDwKZGlmZiAtLWdpdCBhL200
+L2F4X3Byb2dfY2NfZm9yX2J1aWxkLm00IGIvbTQvYXhfcHJvZ19jY19mb3JfYnVpbGQubTQKbmV3
+IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMC4uMTJjYjAwNQotLS0gL2Rldi9udWxsCisr
+KyBiL200L2F4X3Byb2dfY2NfZm9yX2J1aWxkLm00CkBAIC0wLDAgKzEsMTI1IEBACisjID09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PQorI8KgwqAgaHR0cHM6Ly93d3cuZ251Lm9yZy9zb2Z0d2FyZS9hdXRvY29u
+Zi1hcmNoaXZlL2F4X3Byb2dfY2NfZm9yX2J1aWxkLmh0bWwKKyMgPT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+CisjCisjIFNZTk9QU0lTCisjCisjwqDCoCBBWF9QUk9HX0NDX0ZPUl9CVUlMRAorIworIyBERVND
+UklQVElPTgorIworI8KgwqAgVGhpcyBtYWNybyBzZWFyY2hlcyBmb3IgYSBDIGNvbXBpbGVyIHRo
+YXQgZ2VuZXJhdGVzIG5hdGl2ZSBleGVjdXRhYmxlcywKKyPCoMKgIHRoYXQgaXMgYSBDIGNvbXBp
+bGVyIHRoYXQgc3VyZWx5IGlzIG5vdCBhIGNyb3NzLWNvbXBpbGVyLiBUaGlzIGNhbiBiZQorI8Kg
+wqAgdXNlZnVsIGlmIHlvdSBoYXZlIHRvIGdlbmVyYXRlIHNvdXJjZSBjb2RlIGF0IGNvbXBpbGUt
+dGltZSBsaWtlIGZvcgorI8KgwqAgZXhhbXBsZSBHQ0MgZG9lcy4KKyMKKyPCoMKgIFRoZSBtYWNy
+byBzZXRzIHRoZSBDQ19GT1JfQlVJTEQgYW5kIENQUF9GT1JfQlVJTEQgbWFjcm9zIHRvIGFueXRo
+aW5nCisjwqDCoCBuZWVkZWQgdG8gY29tcGlsZSBvciBsaW5rIChDQ19GT1JfQlVJTEQpIGFuZCBw
+cmVwcm9jZXNzIChDUFBfRk9SX0JVSUxEKS4KKyPCoMKgIFRoZSB2YWx1ZSBvZiB0aGVzZSB2YXJp
+YWJsZXMgY2FuIGJlIG92ZXJyaWRkZW4gYnkgdGhlIHVzZXIgYnkgc3BlY2lmeWluZworI8KgwqAg
+YSBjb21waWxlciB3aXRoIGFuIGVudmlyb25tZW50IHZhcmlhYmxlIChsaWtlIHlvdSBkbyBmb3Ig
+c3RhbmRhcmQgQ0MpLgorIworI8KgwqAgSXQgYWxzbyBzZXRzIEJVSUxEX0VYRUVYVCBhbmQgQlVJ
+TERfT0JKRVhUIHRvIHRoZSBleGVjdXRhYmxlIGFuZCBvYmplY3QKKyPCoMKgIGZpbGUgZXh0ZW5z
+aW9ucyBmb3IgdGhlIGJ1aWxkIHBsYXRmb3JtLCBhbmQgR0NDX0ZPUl9CVUlMRCB0byBgeWVzJyBp
+ZgorI8KgwqAgdGhlIGNvbXBpbGVyIHdlIGZvdW5kIGlzIEdDQy4gQWxsIHRoZXNlIHZhcmlhYmxl
+cyBidXQgR0NDX0ZPUl9CVUlMRCBhcmUKKyPCoMKgIHN1YnN0aXR1dGVkIGluIHRoZSBNYWtlZmls
+ZS4KKyMKKyMgTElDRU5TRQorIworI8KgwqAgQ29weXJpZ2h0IChjKSAyMDA4IFBhb2xvIEJvbnpp
+bmkgPGJvbnppbmlAZ251Lm9yZz4KKyMKKyPCoMKgIENvcHlpbmcgYW5kIGRpc3RyaWJ1dGlvbiBv
+ZiB0aGlzIGZpbGUsIHdpdGggb3Igd2l0aG91dCBtb2RpZmljYXRpb24sIGFyZQorI8KgwqAgcGVy
+bWl0dGVkIGluIGFueSBtZWRpdW0gd2l0aG91dCByb3lhbHR5IHByb3ZpZGVkIHRoZSBjb3B5cmln
+aHQgbm90aWNlCisjwqDCoCBhbmQgdGhpcyBub3RpY2UgYXJlIHByZXNlcnZlZC4gVGhpcyBmaWxl
+IGlzIG9mZmVyZWQgYXMtaXMsIHdpdGhvdXQgYW55CisjwqDCoCB3YXJyYW50eS4KKworI3Nlcmlh
+bCA5CisKK0FVX0FMSUFTKFtBQ19QUk9HX0NDX0ZPUl9CVUlMRF0sIFtBWF9QUk9HX0NDX0ZPUl9C
+VUlMRF0pCitBQ19ERUZVTihbQVhfUFJPR19DQ19GT1JfQlVJTERdLCBbZG5sCitBQ19SRVFVSVJF
+KFtBQ19QUk9HX0NDXSlkbmwKK0FDX1JFUVVJUkUoW0FDX1BST0dfQ1BQXSlkbmwKK0FDX1JFUVVJ
+UkUoW0FDX0VYRUVYVF0pZG5sCitBQ19SRVFVSVJFKFtBQ19DQU5PTklDQUxfSE9TVF0pZG5sCisK
+K2RubCBVc2UgdGhlIHN0YW5kYXJkIG1hY3JvcywgYnV0IG1ha2UgdGhlbSB1c2Ugb3RoZXIgdmFy
+aWFibGUgbmFtZXMKK2RubAorcHVzaGRlZihbYWNfY3ZfcHJvZ19DUFBdLCBhY19jdl9idWlsZF9w
+cm9nX0NQUClkbmwKK3B1c2hkZWYoW2FjX2N2X3Byb2dfZ2NjXSwgYWNfY3ZfYnVpbGRfcHJvZ19n
+Y2MpZG5sCitwdXNoZGVmKFthY19jdl9wcm9nX2NjX3dvcmtzXSwgYWNfY3ZfYnVpbGRfcHJvZ19j
+Y193b3JrcylkbmwKK3B1c2hkZWYoW2FjX2N2X3Byb2dfY2NfY3Jvc3NdLCBhY19jdl9idWlsZF9w
+cm9nX2NjX2Nyb3NzKWRubAorcHVzaGRlZihbYWNfY3ZfcHJvZ19jY19nXSwgYWNfY3ZfYnVpbGRf
+cHJvZ19jY19nKWRubAorcHVzaGRlZihbYWNfY3ZfZXhlZXh0XSwgYWNfY3ZfYnVpbGRfZXhlZXh0
+KWRubAorcHVzaGRlZihbYWNfY3Zfb2JqZXh0XSwgYWNfY3ZfYnVpbGRfb2JqZXh0KWRubAorcHVz
+aGRlZihbYWNfZXhlZXh0XSwgYWNfYnVpbGRfZXhlZXh0KWRubAorcHVzaGRlZihbYWNfb2JqZXh0
+XSwgYWNfYnVpbGRfb2JqZXh0KWRubAorcHVzaGRlZihbQ0NdLCBDQ19GT1JfQlVJTEQpZG5sCitw
+dXNoZGVmKFtDUFBdLCBDUFBfRk9SX0JVSUxEKWRubAorcHVzaGRlZihbQ0ZMQUdTXSwgQ0ZMQUdT
+X0ZPUl9CVUlMRClkbmwKK3B1c2hkZWYoW0NQUEZMQUdTXSwgQ1BQRkxBR1NfRk9SX0JVSUxEKWRu
+bAorcHVzaGRlZihbTERGTEFHU10sIExERkxBR1NfRk9SX0JVSUxEKWRubAorcHVzaGRlZihbaG9z
+dF0sIGJ1aWxkKWRubAorcHVzaGRlZihbaG9zdF9hbGlhc10sIGJ1aWxkX2FsaWFzKWRubAorcHVz
+aGRlZihbaG9zdF9jcHVdLCBidWlsZF9jcHUpZG5sCitwdXNoZGVmKFtob3N0X3ZlbmRvcl0sIGJ1
+aWxkX3ZlbmRvcilkbmwKK3B1c2hkZWYoW2hvc3Rfb3NdLCBidWlsZF9vcylkbmwKK3B1c2hkZWYo
+W2FjX2N2X2hvc3RdLCBhY19jdl9idWlsZClkbmwKK3B1c2hkZWYoW2FjX2N2X2hvc3RfYWxpYXNd
+LCBhY19jdl9idWlsZF9hbGlhcylkbmwKK3B1c2hkZWYoW2FjX2N2X2hvc3RfY3B1XSwgYWNfY3Zf
+YnVpbGRfY3B1KWRubAorcHVzaGRlZihbYWNfY3ZfaG9zdF92ZW5kb3JdLCBhY19jdl9idWlsZF92
+ZW5kb3IpZG5sCitwdXNoZGVmKFthY19jdl9ob3N0X29zXSwgYWNfY3ZfYnVpbGRfb3MpZG5sCitw
+dXNoZGVmKFthY19jcHBdLCBhY19idWlsZF9jcHApZG5sCitwdXNoZGVmKFthY19jb21waWxlXSwg
+YWNfYnVpbGRfY29tcGlsZSlkbmwKK3B1c2hkZWYoW2FjX2xpbmtdLCBhY19idWlsZF9saW5rKWRu
+bAorCitzYXZlX2Nyb3NzX2NvbXBpbGluZz0kY3Jvc3NfY29tcGlsaW5nCitzYXZlX2FjX3Rvb2xf
+cHJlZml4PSRhY190b29sX3ByZWZpeAorY3Jvc3NfY29tcGlsaW5nPW5vCithY190b29sX3ByZWZp
+eD0KKworQUNfUFJPR19DQworQUNfUFJPR19DUFAKK0FDX0VYRUVYVAorCithY190b29sX3ByZWZp
+eD0kc2F2ZV9hY190b29sX3ByZWZpeAorY3Jvc3NfY29tcGlsaW5nPSRzYXZlX2Nyb3NzX2NvbXBp
+bGluZworCitkbmwgUmVzdG9yZSB0aGUgb2xkIGRlZmluaXRpb25zCitkbmwKK3BvcGRlZihbYWNf
+bGlua10pZG5sCitwb3BkZWYoW2FjX2NvbXBpbGVdKWRubAorcG9wZGVmKFthY19jcHBdKWRubAor
+cG9wZGVmKFthY19jdl9ob3N0X29zXSlkbmwKK3BvcGRlZihbYWNfY3ZfaG9zdF92ZW5kb3JdKWRu
+bAorcG9wZGVmKFthY19jdl9ob3N0X2NwdV0pZG5sCitwb3BkZWYoW2FjX2N2X2hvc3RfYWxpYXNd
+KWRubAorcG9wZGVmKFthY19jdl9ob3N0XSlkbmwKK3BvcGRlZihbaG9zdF9vc10pZG5sCitwb3Bk
+ZWYoW2hvc3RfdmVuZG9yXSlkbmwKK3BvcGRlZihbaG9zdF9jcHVdKWRubAorcG9wZGVmKFtob3N0
+X2FsaWFzXSlkbmwKK3BvcGRlZihbaG9zdF0pZG5sCitwb3BkZWYoW0xERkxBR1NdKWRubAorcG9w
+ZGVmKFtDUFBGTEFHU10pZG5sCitwb3BkZWYoW0NGTEFHU10pZG5sCitwb3BkZWYoW0NQUF0pZG5s
+Citwb3BkZWYoW0NDXSlkbmwKK3BvcGRlZihbYWNfb2JqZXh0XSlkbmwKK3BvcGRlZihbYWNfZXhl
+ZXh0XSlkbmwKK3BvcGRlZihbYWNfY3Zfb2JqZXh0XSlkbmwKK3BvcGRlZihbYWNfY3ZfZXhlZXh0
+XSlkbmwKK3BvcGRlZihbYWNfY3ZfcHJvZ19jY19nXSlkbmwKK3BvcGRlZihbYWNfY3ZfcHJvZ19j
+Y19jcm9zc10pZG5sCitwb3BkZWYoW2FjX2N2X3Byb2dfY2Nfd29ya3NdKWRubAorcG9wZGVmKFth
+Y19jdl9wcm9nX2djY10pZG5sCitwb3BkZWYoW2FjX2N2X3Byb2dfQ1BQXSlkbmwKKworZG5sIEZp
+bmFsbHksIHNldCBNYWtlZmlsZSB2YXJpYWJsZXMKK2RubAorQlVJTERfRVhFRVhUPSRhY19idWls
+ZF9leGVleHQKK0JVSUxEX09CSkVYVD0kYWNfYnVpbGRfb2JqZXh0CitBQ19TVUJTVChCVUlMRF9F
+WEVFWFQpZG5sCitBQ19TVUJTVChCVUlMRF9PQkpFWFQpZG5sCitBQ19TVUJTVChbQ0ZMQUdTX0ZP
+Ul9CVUlMRF0pZG5sCitBQ19TVUJTVChbQ1BQRkxBR1NfRk9SX0JVSUxEXSlkbmwKK0FDX1NVQlNU
+KFtMREZMQUdTX0ZPUl9CVUlMRF0pZG5sCitdKQpkaWZmIC0tZ2l0IGEvbWFlc3RybzMvTWFrZWZp
+bGUuYW0gYi9tYWVzdHJvMy9NYWtlZmlsZS5hbQppbmRleCA3NTQ0ZjEyLi4wODI2NTcwIDEwMDY0
+NAotLS0gYS9tYWVzdHJvMy9NYWtlZmlsZS5hbQorKysgYi9tYWVzdHJvMy9NYWtlZmlsZS5hbQpA
+QCAtMTcsNSArMTcsMTQgQEAgaG90cGx1Z2Z3ZGlyID0KwqBob3RwbHVnZndfREFUQSA9CsKgZW5k
+aWYKwqAKLSQoZmlybXdhcmVfZmlsZXMpOiBmd193cml0ZXIKLcKgwqAgwqAuL2Z3X3dyaXRlcgor
+TElOS19GT1JfQlVJTEQuYyA9ICQoQ0NfRk9SX0JVSUxEKSAkKENGTEFHU19GT1JfQlVJTEQpICQo
+Q1BQRkxBR1NfRk9SX0JVSUxEKSAkKExERkxBR1NfRk9SX0JVSUxEKSAkKFRBUkdFVF9BUkNIX0ZP
+Ul9CVUlMRCkKKworJChmd193cml0ZXJfT0JKRUNUUykgOiBDQz0kKENDX0ZPUl9CVUlMRCkKKyQo
+Zndfd3JpdGVyX09CSkVDVFMpIDogQ0ZMQUdTPSQoQ0ZMQUdTX0ZPUl9CVUlMRCkKKyQoZndfd3Jp
+dGVyX09CSkVDVFMpIDogQ1BQRkxBR1M9JChDUFBGTEFHU19GT1JfQlVJTEQpCisKK2Z3X3dyaXRl
+ciQoQlVJTERfRVhFRVhUKTogJCh0b2Jpbl9PQkpFQ1RTKQorwqDCoCDCoCQoTElOS19GT1JfQlVJ
+TEQuYykgJF4gJChMT0FETElCRVNfRk9SX0JVSUxEKSAkKExETElCU19GT1JfQlVJTEQpIC1vICRA
+CisKKyQoZmlybXdhcmVfZmlsZXMpOiBmd193cml0ZXIkKEJVSUxEX0VYRUVYVCkKK8KgwqAgwqAu
+L2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKQpkaWZmIC0tZ2l0IGEvc2IxNi9NYWtlZmlsZS5hbSBi
+L3NiMTYvTWFrZWZpbGUuYW0KaW5kZXggMTdlZWFkOS4uNThkMDAzMiAxMDA2NDQKLS0tIGEvc2Ix
+Ni9NYWtlZmlsZS5hbQorKysgYi9zYjE2L01ha2VmaWxlLmFtCkBAIC0xOCw1ICsxOCwxNCBAQCBo
+b3RwbHVnZndkaXIgPQrCoGhvdHBsdWdmd19EQVRBID0KwqBlbmRpZgrCoAotJChmaXJtd2FyZV9m
+aWxlcyk6IGZ3X3dyaXRlcgotwqDCoCDCoC4vZndfd3JpdGVyCitMSU5LX0ZPUl9CVUlMRC5jID0g
+JChDQ19GT1JfQlVJTEQpICQoQ0ZMQUdTX0ZPUl9CVUlMRCkgJChDUFBGTEFHU19GT1JfQlVJTEQp
+ICQoTERGTEFHU19GT1JfQlVJTEQpICQoVEFSR0VUX0FSQ0hfRk9SX0JVSUxEKQorCiskKGZ3X3dy
+aXRlcl9PQkpFQ1RTKSA6IENDPSQoQ0NfRk9SX0JVSUxEKQorJChmd193cml0ZXJfT0JKRUNUUykg
+OiBDRkxBR1M9JChDRkxBR1NfRk9SX0JVSUxEKQorJChmd193cml0ZXJfT0JKRUNUUykgOiBDUFBG
+TEFHUz0kKENQUEZMQUdTX0ZPUl9CVUlMRCkKKworZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpOiAk
+KHRvYmluX09CSkVDVFMpCivCoMKgIMKgJChMSU5LX0ZPUl9CVUlMRC5jKSAkXiAkKExPQURMSUJF
+U19GT1JfQlVJTEQpICQoTERMSUJTX0ZPUl9CVUlMRCkgLW8gJEAKKworJChmaXJtd2FyZV9maWxl
+cyk6IGZ3X3dyaXRlciQoQlVJTERfRVhFRVhUKQorwqDCoCDCoC4vZndfd3JpdGVyJChCVUlMRF9F
+WEVFWFQpCmRpZmYgLS1naXQgYS92eGxvYWRlci9NYWtlZmlsZS5hbSBiL3Z4bG9hZGVyL01ha2Vm
+aWxlLmFtCmluZGV4IGNhMjE0OTQuLmFkY2MyMDQgMTAwNjQ0Ci0tLSBhL3Z4bG9hZGVyL01ha2Vm
+aWxlLmFtCisrKyBiL3Z4bG9hZGVyL01ha2VmaWxlLmFtCkBAIC00Myw1ICs0MywxNCBAQCBob3Rw
+bHVnZndkaXIgPQrCoGhvdHBsdWdmd19EQVRBID0KwqBlbmRpZgrCoAotJS54bHg6ICUucmJ0IHRv
+eGx4Ci3CoMKgIMKgLi90b3hseCA8ICQ8ID4gJEAKK0xJTktfRk9SX0JVSUxELmMgPSAkKENDX0ZP
+Ul9CVUlMRCkgJChDRkxBR1NfRk9SX0JVSUxEKSAkKENQUEZMQUdTX0ZPUl9CVUlMRCkgJChMREZM
+QUdTX0ZPUl9CVUlMRCkgJChUQVJHRVRfQVJDSF9GT1JfQlVJTEQpCisKKyQodG94bHhfT0JKRUNU
+UykgOiBDQz0kKENDX0ZPUl9CVUlMRCkKKyQodG94bHhfT0JKRUNUUykgOiBDRkxBR1M9JChDRkxB
+R1NfRk9SX0JVSUxEKQorJCh0b3hseF9PQkpFQ1RTKSA6IENQUEZMQUdTPSQoQ1BQRkxBR1NfRk9S
+X0JVSUxEKQorCit0b3hseCQoQlVJTERfRVhFRVhUKTogJCh0b3hseF9PQkpFQ1RTKQorwqDCoCDC
+oCQoTElOS19GT1JfQlVJTEQuYykgJF4gJChMT0FETElCRVNfRk9SX0JVSUxEKSAkKExETElCU19G
+T1JfQlVJTEQpIC1vICRACisKKyUueGx4OiAlLnJidCB0b3hseCQoQlVJTERfRVhFRVhUKQorwqDC
+oCDCoC4vdG94bHgkKEJVSUxEX0VYRUVYVCkgPCAkPCA+ICRACmRpZmYgLS1naXQgYS93YXZlZnJv
+bnQvTWFrZWZpbGUuYW0gYi93YXZlZnJvbnQvTWFrZWZpbGUuYW0KaW5kZXggZThjOWZlMS4uOGY2
+N2I1OSAxMDA2NDQKLS0tIGEvd2F2ZWZyb250L01ha2VmaWxlLmFtCisrKyBiL3dhdmVmcm9udC9N
+YWtlZmlsZS5hbQpAQCAtMTcsNSArMTcsMTQgQEAgaG90cGx1Z2Z3ZGlyID0KwqBob3RwbHVnZndf
+REFUQSA9CsKgZW5kaWYKwqAKLSQoZmlybXdhcmVfZmlsZXMpOiBmd193cml0ZXIKLcKgwqAgwqAu
+L2Z3X3dyaXRlcgorTElOS19GT1JfQlVJTEQuYyA9ICQoQ0NfRk9SX0JVSUxEKSAkKENGTEFHU19G
+T1JfQlVJTEQpICQoQ1BQRkxBR1NfRk9SX0JVSUxEKSAkKExERkxBR1NfRk9SX0JVSUxEKSAkKFRB
+UkdFVF9BUkNIX0ZPUl9CVUlMRCkKKworJChmd193cml0ZXJfT0JKRUNUUykgOiBDQz0kKENDX0ZP
+Ul9CVUlMRCkKKyQoZndfd3JpdGVyX09CSkVDVFMpIDogQ0ZMQUdTPSQoQ0ZMQUdTX0ZPUl9CVUlM
+RCkKKyQoZndfd3JpdGVyX09CSkVDVFMpIDogQ1BQRkxBR1M9JChDUFBGTEFHU19GT1JfQlVJTEQp
+CisKK2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKTogJCh0b2Jpbl9PQkpFQ1RTKQorwqDCoCDCoCQo
+TElOS19GT1JfQlVJTEQuYykgJF4gJChMT0FETElCRVNfRk9SX0JVSUxEKSAkKExETElCU19GT1Jf
+QlVJTEQpIC1vICRACisKKyQoZmlybXdhcmVfZmlsZXMpOiBmd193cml0ZXIkKEJVSUxEX0VYRUVY
+VCkKK8KgwqAgwqAuL2Z3X3dyaXRlciQoQlVJTERfRVhFRVhUKQpkaWZmIC0tZ2l0IGEveW1mcGNp
+L01ha2VmaWxlLmFtIGIveW1mcGNpL01ha2VmaWxlLmFtCmluZGV4IDg3OTVmYmMuLjY0NWI0NzEg
+MTAwNjQ0Ci0tLSBhL3ltZnBjaS9NYWtlZmlsZS5hbQorKysgYi95bWZwY2kvTWFrZWZpbGUuYW0K
+QEAgLTE3LDUgKzE3LDE0IEBAIGhvdHBsdWdmd2RpciA9CsKgaG90cGx1Z2Z3X0RBVEEgPQrCoGVu
+ZGlmCsKgCi0kKGZpcm13YXJlX2ZpbGVzKTogZndfd3JpdGVyCi3CoMKgIMKgLi9md193cml0ZXIK
+K0xJTktfRk9SX0JVSUxELmMgPSAkKENDX0ZPUl9CVUlMRCkgJChDRkxBR1NfRk9SX0JVSUxEKSAk
+KENQUEZMQUdTX0ZPUl9CVUlMRCkgJChMREZMQUdTX0ZPUl9CVUlMRCkgJChUQVJHRVRfQVJDSF9G
+T1JfQlVJTEQpCisKKyQoZndfd3JpdGVyX09CSkVDVFMpIDogQ0M9JChDQ19GT1JfQlVJTEQpCisk
+KGZ3X3dyaXRlcl9PQkpFQ1RTKSA6IENGTEFHUz0kKENGTEFHU19GT1JfQlVJTEQpCiskKGZ3X3dy
+aXRlcl9PQkpFQ1RTKSA6IENQUEZMQUdTPSQoQ1BQRkxBR1NfRk9SX0JVSUxEKQorCitmd193cml0
+ZXIkKEJVSUxEX0VYRUVYVCk6ICQodG9iaW5fT0JKRUNUUykKK8KgwqAgwqAkKExJTktfRk9SX0JV
+SUxELmMpICReICQoTE9BRExJQkVTX0ZPUl9CVUlMRCkgJChMRExJQlNfRk9SX0JVSUxEKSAtbyAk
+QAorCiskKGZpcm13YXJlX2ZpbGVzKTogZndfd3JpdGVyJChCVUlMRF9FWEVFWFQpCivCoMKgIMKg
+Li9md193cml0ZXIkKEJVSUxEX0VYRUVYVCkKLS0gCjIuMjIuMAoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxz
+YS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3Jn
+L21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

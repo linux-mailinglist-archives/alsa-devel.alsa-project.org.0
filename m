@@ -2,58 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 524CF5BE95
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2019 16:45:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15C4F5BE57
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2019 16:32:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6EC51699;
-	Mon,  1 Jul 2019 16:44:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6EC51699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3907216A2;
+	Mon,  1 Jul 2019 16:32:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3907216A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561992336;
-	bh=72VwwH0f0E2rEtIrAZsvLh1gWnM43Ht83n8RTd69IU8=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1561991571;
+	bh=q/dbAwoOQerxQqyjBXK/Ud1Um7WkH2LgD+bvNs3cK0c=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jpOxV10uQZG3O8Rsiut04hwAUnVt0Mj5JTYuXnfzBWZQQ4zqy2TQcEdUY19lmKmJe
-	 a355JiMc9nYs8lVRtBLgsrgny1jeigDn/xS6wpU1z+H7e+iPIs5fiACbRG9vtZolLz
-	 VHqqdQjEPXPMqpkLf6ROxuyc5ksMmxZKF0OcQ/+8=
+	b=XxZlN/GkYvZDVDIR2d8vk3YEGFjL0T5cuizSkHC9/vwk+9rpuRvpyDgjJWPteaP/O
+	 a/44M2bI97ZICreTezQf/VeigihVln/7Hap5JRTsBX7XAXhCi3SSAzDYVn4tI9Vvpc
+	 oN23a9w5ULQ0CSYLvJifUSg7v9qlk7abtn9OD7/g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3870F80096;
-	Mon,  1 Jul 2019 16:43:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CBA5F80058;
+	Mon,  1 Jul 2019 16:31:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 989E4F80096; Mon,  1 Jul 2019 16:43:50 +0200 (CEST)
+ id AC40DF800AB; Mon,  1 Jul 2019 16:31:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1482F80058
- for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2019 16:43:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1482F80058
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A7EBCB025;
- Mon,  1 Jul 2019 14:26:51 +0000 (UTC)
-Date: Mon, 01 Jul 2019 16:26:51 +0200
-Message-ID: <s5hh8856das.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-In-Reply-To: <20190701142304.GA18769@workstation>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0462F80058
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2019 16:31:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0462F80058
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Ad/LD/mF"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="1DRAUWhI"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id ADA4D22015;
+ Mon,  1 Jul 2019 10:31:19 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Mon, 01 Jul 2019 10:31:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=9b4duh/uvKh++eDW41sXnja/4R3
+ uhnmB1qzSWWoYpJM=; b=Ad/LD/mFhp5VbsOVNkuznGBH91CUjbbsZr1yF1hbj2m
+ 6iAU+mOrJAfGk15ybtym/8qFzngJnMzEHVktB+g+zYgPhXZZAeF1M8VAjJJ9TPh5
+ LUgKPJEfI3/23U5y8yL05BCvCi9V51bI6GmGuXV8Ryo9dtCGTUnwppqp67/fjWRp
+ Ya6vw4kcpVjQNhiX4DHI5HbXkW32UeVxIEwJ+KdQ6gN/LPR5eBvWAOFeO1F+D9eO
+ 6ZrWHmpK5FPRrre5KByQjTIPbr2RpVk9W+9Kv0PHMPxU90hhJAijP3pVTiEbDw6C
+ wmtHTrjJJO7UTjUd6pjH/3m46CrCmh5vvj2tJRjEi7A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=9b4duh
+ /uvKh++eDW41sXnja/4R3uhnmB1qzSWWoYpJM=; b=1DRAUWhI/B6+t1wsejz0Fm
+ 87nOvBV0y78DY7dPCOzLvl3kHtUfk4erxCb3L5gRWOa7cl05df5EDol/URqr/PBZ
+ UPSqq1p2Omn7PsWbJIq1B2LUxwZevkzE4LFTaDbmSd+uT3QpvH3CIKSNqbcLqvzw
+ FPitZSxIizQ+n/NYpkkFLL87YMx6S1O1R6QadlWgeopH1TV+o7E0q1xvo2qATx4+
+ uKzywtEcr/U54VUIzfyOiOzTyN/lw/H0mY7wk+jbZlRILcXsfyAO3PWBfILC3MrE
+ gmCg6s9lMfOxFi4LPk48nSVPQu3HrLcVSiiUB3W9apyCcBpVngToF6mh8emtLvGA
+ ==
+X-ME-Sender: <xms:NhkaXXxchu1qZWLFwJTGgDJTYgsw0n0_3PADOXx7G-K_UaHIdCzQmw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrvdeigdejkecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehttdertddtredvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucfkphepudegrdefrdejhedrudekudenucfrrghrrghmpehmrghilhhfrhhomhep
+ ohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphenucevlhhushhtvghrufhiii
+ gvpedt
+X-ME-Proxy: <xmx:NhkaXfs7R9cBoIgz16NH9RZQWFxR-MGbskDHRSGU6VG9cK_sIH6OjQ>
+ <xmx:NhkaXRF8f_8JLVELfjiEkcFK3h2CezOyMjYHH5iBLKKIjjWRDXQ96A>
+ <xmx:NhkaXd7o_Mas3cs2yTRrJ1ZzckrJOb7lbtCYAtrX4ta7JLqCKrcOgQ>
+ <xmx:NxkaXZX49vzX3FlyJnoIIPgmfvhh1twb2qI0JBpGzoW_P5iMKngUbg>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B483280076;
+ Mon,  1 Jul 2019 10:31:16 -0400 (EDT)
+Date: Mon, 1 Jul 2019 23:31:12 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190701143111.GA28103@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org, stable@vger.kernel.org
 References: <20190701105927.13998-1-o-takashi@sakamocchi.jp>
  <s5hk1d16dw5.wl-tiwai@suse.de> <20190701142304.GA18769@workstation>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5hh8856das.wl-tiwai@suse.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <s5hh8856das.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, clemens@ladisch.de, stable@vger.kernel.org
 Subject: Re: [alsa-devel] [PATCH] ALSA: firewire-lib/fireworks: fix miss
-	detection of received MIDI messages
+ detection of received MIDI messages
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,64 +117,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 01 Jul 2019 16:23:05 +0200,
-Takashi Sakamoto wrote:
-> 
-> On Mon, Jul 01, 2019 at 04:14:02PM +0200, Takashi Iwai wrote:
-> > On Mon, 01 Jul 2019 12:59:27 +0200,
-> > Takashi Sakamoto wrote:
-> > > 
-> > > In IEC 61883-6, 8 MIDI data streams are multiplexed into single
-> > > MIDI conformant data channel. The index of stream is calculated by
-> > > modulo 8 of the value of data block counter.
-> > > 
-> > > In fireworks, the value of data block counter in CIP header has a quirk
-> > > with firmware version v5.0.0, v5.7.3 and v5.8.0. This brings ALSA
-> > > IEC 61883-1/6 packet streaming engine to miss detection of MIDI
-> > > messages.
-> > > 
-> > > This commit fixes the miss detection to modify the value of data block
-> > > counter for the modulo calculation.
-> > > 
-> > > For maintainers, this bug exists since a commit 18f5ed365d3f ("ALSA:
-> > > fireworks/firewire-lib: add support for recent firmware quirk") in Linux
-> > > kernel v4.2. There're many changes since the commit.  This fix can be
-> > > backported to Linux kernel v4.4 or later. I tagged a base commit to the
-> > > backport for your convenience.
-> > > 
-> > > Besides, my work for Linux kernel v5.3 brings heavy code refactoring and
-> > > some structure members are renamed in 'sound/firewire/amdtp-stream.h'.
-> > > The content of this patch brings conflict when merging -rc tree with
-> > > this patch to the latest tree. I request maintainers to solve the
-> > > conflict by replacing 'tx_first_dbc' with 'ctx_data.tx.first_dbc'.
-> > > 
-> > > Fixes: df075feefbd3 ("ALSA: firewire-lib: complete AM824 data block processing layer")
-> > > Cc: <stable@vger.kernel.org> # v4.4+
-> > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Hi,
+
+On Mon, Jul 01, 2019 at 04:26:51PM +0200, Takashi Iwai wrote:
+> On Mon, 01 Jul 2019 16:23:05 +0200,
+> Takashi Sakamoto wrote:
 > > 
-> > Thanks, applied.
+> > On Mon, Jul 01, 2019 at 04:14:02PM +0200, Takashi Iwai wrote:
+> > > On Mon, 01 Jul 2019 12:59:27 +0200,
+> > > Takashi Sakamoto wrote:
+> > > > 
+> > > > In IEC 61883-6, 8 MIDI data streams are multiplexed into single
+> > > > MIDI conformant data channel. The index of stream is calculated by
+> > > > modulo 8 of the value of data block counter.
+> > > > 
+> > > > In fireworks, the value of data block counter in CIP header has a quirk
+> > > > with firmware version v5.0.0, v5.7.3 and v5.8.0. This brings ALSA
+> > > > IEC 61883-1/6 packet streaming engine to miss detection of MIDI
+> > > > messages.
+> > > > 
+> > > > This commit fixes the miss detection to modify the value of data block
+> > > > counter for the modulo calculation.
+> > > > 
+> > > > For maintainers, this bug exists since a commit 18f5ed365d3f ("ALSA:
+> > > > fireworks/firewire-lib: add support for recent firmware quirk") in Linux
+> > > > kernel v4.2. There're many changes since the commit.  This fix can be
+> > > > backported to Linux kernel v4.4 or later. I tagged a base commit to the
+> > > > backport for your convenience.
+> > > > 
+> > > > Besides, my work for Linux kernel v5.3 brings heavy code refactoring and
+> > > > some structure members are renamed in 'sound/firewire/amdtp-stream.h'.
+> > > > The content of this patch brings conflict when merging -rc tree with
+> > > > this patch to the latest tree. I request maintainers to solve the
+> > > > conflict by replacing 'tx_first_dbc' with 'ctx_data.tx.first_dbc'.
+> > > > 
+> > > > Fixes: df075feefbd3 ("ALSA: firewire-lib: complete AM824 data block processing layer")
+> > > > Cc: <stable@vger.kernel.org> # v4.4+
+> > > > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > > 
+> > > Thanks, applied.
+> > 
+> > Thanks for your application, however I found my mistake in this patch.
+> > Would you please reset your application if possible?
+> > 
+> > diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
+> > index 4210e5c6262e..4d677fcb4fc2 100644
+> > --- a/sound/firewire/amdtp-am824.c
+> > +++ b/sound/firewire/amdtp-am824.c
+> > @@ -321,6 +321,7 @@ static void read_midi_messages(struct amdtp_stream *s,
+> >         u8 *b;
+> >  
+> >         for (f = 0; f < frames; f++) {
+> > +               port = (8 - s->tx_first_dbc + s->data_block_counter + f) % 8;
+> >                 port = (s->data_block_counter + f) % 8;
+> >                 b = (u8 *)&buffer[p->midi_position];
+> > 
+> > Just inserting the above line has no meaning itself...
 > 
-> Thanks for your application, however I found my mistake in this patch.
-> Would you please reset your application if possible?
-> 
-> diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
-> index 4210e5c6262e..4d677fcb4fc2 100644
-> --- a/sound/firewire/amdtp-am824.c
-> +++ b/sound/firewire/amdtp-am824.c
-> @@ -321,6 +321,7 @@ static void read_midi_messages(struct amdtp_stream *s,
->         u8 *b;
->  
->         for (f = 0; f < frames; f++) {
-> +               port = (8 - s->tx_first_dbc + s->data_block_counter + f) % 8;
->                 port = (s->data_block_counter + f) % 8;
->                 b = (u8 *)&buffer[p->midi_position];
-> 
-> Just inserting the above line has no meaning itself...
+> Ah yes.  OK, will reset the repo.  Please resubmit the fix patch.
 
-Ah yes.  OK, will reset the repo.  Please resubmit the fix patch.
+Thanks for your accepting the reset. I'm ease to hear it ;)
+I'll post the revised patch later with enough pre-check.
 
 
-Takashi
+Thanks
+
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

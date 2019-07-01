@@ -2,72 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EFF65B57B
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2019 09:04:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B9265B627
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2019 09:54:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 387D51685;
-	Mon,  1 Jul 2019 09:04:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 387D51685
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1025166F;
+	Mon,  1 Jul 2019 09:53:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1025166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561964695;
-	bh=Fl/jIwrEysXxs1PHdwuvX/ZaCJcN12q6twTmz4H/XZU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WLWzBb45l7LdHuUk4nlwQdpUsyrNdlVBlfqM7yFFzKfWrwo8BYvhCZqEv0Yji8VDY
-	 GE6HMqdGDLBMDQ9b+owqv4A5IsarIYa9EBMYz1y2s1MLqjgTP6f7i2IA4XG3ioekv/
-	 cgqa5MKKk/drex9/2PVvMCoBvBkmfoGWtjnjBVU0=
+	s=default; t=1561967662;
+	bh=noPUjTBjWjE1FvCGTyN6tFTP3gAr/K4LEq7ka3Gdl/Y=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=izTdlEKrp4U4VNh/vSE+xoOAEU6OFtHHzlQaBHdB31ow9eSYaVgPAvb1FvBOH6Jx9
+	 Hbi+dP1SJwLhiAFbMAa7vzdcYIIWs/hTGauAQFVLEdvTMsX7F8q0B1F4BvWNG7+cIi
+	 zy7ASsqTn+VLYKzU88/nqLI97azmyhk9GJ25uwwM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B866F896EC;
-	Mon,  1 Jul 2019 09:03:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F4D4F89674;
+	Mon,  1 Jul 2019 09:52:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EED6F896EC; Mon,  1 Jul 2019 09:03:08 +0200 (CEST)
+ id 0239CF896EC; Mon,  1 Jul 2019 09:52:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96BD8F89670
- for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2019 09:03:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96BD8F89670
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZIPCW9Z+"
-Received: from localhost (unknown [122.167.76.109])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4D294208E4;
- Mon,  1 Jul 2019 06:26:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1561962378;
- bh=Z6vFclLDtr2AoU8Vp/xJdqBe4Z3jocZDSO6y16utDDM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZIPCW9Z+lUgyeWItAJlvT0JsYrb1wgnMKoM3MFZTwidBNPr9O3AOh9rzBzlEfGeBG
- cg6N8LltVJu42futYsOGC9duSKK01q1ykbjoAyN6zy06EJ/jUz/KEn6ejCE5TYvEg3
- u7BesR045CuWo20adDyD1Mih+wylLxE+JpTKU9y8=
-Date: Mon, 1 Jul 2019 11:53:04 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190701062304.GL2911@vkoul-mobl>
-References: <20190611104043.22181-1-srinivas.kandagatla@linaro.org>
- <20190611104043.22181-4-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190611104043.22181-4-srinivas.kandagatla@linaro.org>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, pierre-louis.bossart@linux.intel.com,
- robh+dt@kernel.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
- bgoswami@quicinc.com
-Subject: Re: [alsa-devel] [RFC PATCH 3/5] soundwire: add module_sdw_driver
-	helper macro
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8098DF89670
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2019 09:52:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8098DF89670
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Jul 2019 00:43:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,437,1557212400"; d="scan'208";a="171352418"
+Received: from rander-i9.sh.intel.com ([10.239.14.114])
+ by FMSMGA003.fm.intel.com with ESMTP; 01 Jul 2019 00:43:35 -0700
+From: Rander Wang <rander.wang@linux.intel.com>
+To: tiwai@suse.de,
+	alsa-devel@alsa-project.org
+Date: Mon,  1 Jul 2019 15:46:30 +0800
+Message-Id: <20190701074630.51472-1-rander.wang@linux.intel.com>
+X-Mailer: git-send-email 2.14.1
+Cc: Rander Wang <rander.wang@linux.intel.com>
+Subject: [alsa-devel] [PATCH] ALSA: hda: Fix a headphone detection issue
+	when using SOF
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,48 +65,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11-06-19, 11:40, Srinivas Kandagatla wrote:
-> This Helper macro is for SoundWire drivers which do not do anything special in
-> module init/exit. This eliminates a lot of boilerplate. Each module may only
-> use this macro once, and calling it replaces module_init() and module_exit()
+To save power, the hda hdmi driver in ASoC invokes snd_hdac_ext_bus_link_put
+to disable CORB/RIRB buffers DMA if there is no user of bus and invokes
+snd_hdac_ext_bus_link_get to set up CORB/RIRB buffers when it is used.
+Unsolicited responses is disabled in snd_hdac_bus_stop_cmd_io called by
+snd_hdac_ext_bus_link_put , but it is not enabled in snd_hdac_bus_init_cmd_io
+called by snd_hdac_ext_bus_link_get. So for put-get sequence, Unsolicited
+responses is disabled and headphone can't be detected by hda codecs.
 
-Applied, thanks
+Now unsolicited responses is only enabled in snd_hdac_bus_reset_link
+which resets controller. The function is only called for setup of
+controller. This patch enables Unsolicited responses after RIRB is
+initialized in snd_hdac_bus_init_cmd_io which works together with
+snd_hdac_bus_reset_link to set up controller.
 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  include/linux/soundwire/sdw_type.h | 11 +++++++++++
->  1 file changed, 11 insertions(+)
-> 
-> diff --git a/include/linux/soundwire/sdw_type.h b/include/linux/soundwire/sdw_type.h
-> index 9c756b5a0dfe..aaa7f4267c14 100644
-> --- a/include/linux/soundwire/sdw_type.h
-> +++ b/include/linux/soundwire/sdw_type.h
-> @@ -16,4 +16,15 @@ void sdw_unregister_driver(struct sdw_driver *drv);
->  
->  int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
->  
-> +/**
-> + * module_sdw_driver() - Helper macro for registering a Soundwire driver
-> + * @__sdw_driver: soundwire slave driver struct
-> + *
-> + * Helper macro for Soundwire drivers which do not do anything special in
-> + * module init/exit. This eliminates a lot of boilerplate. Each module may only
-> + * use this macro once, and calling it replaces module_init() and module_exit()
-> + */
-> +#define module_sdw_driver(__sdw_driver) \
-> +	module_driver(__sdw_driver, sdw_register_driver, \
-> +			sdw_unregister_driver)
->  #endif /* __SOUNDWIRE_TYPES_H */
-> -- 
-> 2.21.0
+Tested legacy hda driver and SOF driver on intel whiskeylake.
 
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
+---
+ sound/hda/hdac_controller.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
+index d6a91429c058..c24fc8d266a9 100644
+--- a/sound/hda/hdac_controller.c
++++ b/sound/hda/hdac_controller.c
+@@ -78,6 +78,8 @@ void snd_hdac_bus_init_cmd_io(struct hdac_bus *bus)
+ 	snd_hdac_chip_writew(bus, RINTCNT, 1);
+ 	/* enable rirb dma and response irq */
+ 	snd_hdac_chip_writeb(bus, RIRBCTL, AZX_RBCTL_DMA_EN | AZX_RBCTL_IRQ_EN);
++	/* Accept unsolicited responses */
++	snd_hdac_chip_updatel(bus, GCTL, AZX_GCTL_UNSOL, AZX_GCTL_UNSOL);
+ 	spin_unlock_irq(&bus->reg_lock);
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_bus_init_cmd_io);
+@@ -416,9 +418,6 @@ int snd_hdac_bus_reset_link(struct hdac_bus *bus, bool full_reset)
+ 		return -EBUSY;
+ 	}
+ 
+-	/* Accept unsolicited responses */
+-	snd_hdac_chip_updatel(bus, GCTL, AZX_GCTL_UNSOL, AZX_GCTL_UNSOL);
+-
+ 	/* detect codecs */
+ 	if (!bus->codec_mask) {
+ 		bus->codec_mask = snd_hdac_chip_readw(bus, STATESTS);
 -- 
-~Vinod
+2.14.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

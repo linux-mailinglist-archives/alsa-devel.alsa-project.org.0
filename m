@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D90985C0EA
-	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2019 18:11:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C409D5C201
+	for <lists+alsa-devel@lfdr.de>; Mon,  1 Jul 2019 19:32:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F69F168C;
-	Mon,  1 Jul 2019 18:10:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F69F168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 493DC1696;
+	Mon,  1 Jul 2019 19:31:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 493DC1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1561997480;
-	bh=l+RJZPYAVk6w/l7pOjQFY8aYnBnzse3IPIy2aH8Ao7s=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Hl0ybBJZrVRTAAr07sKGjnFWgfCD/dkJySNxJV0si3pz5HdiavSsA5Au1MJpKidie
-	 XP7yYafRh3nIgExjYKNNcVY3xrixL+6SJ4WkPzX5HKsBAR/qEJDN6EFVMkCQWkPI7v
-	 8TIw2sPwZUyY8Il+kKW8IxjOvH0j4TS7uvI+jQCE=
+	s=default; t=1562002358;
+	bh=xeB61s49OdLDT1ZggR/nWkww0tg3nx3Q+3mCaXqHe8k=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LSq0Kdt//MMs6byu/h7vAASZWw/HdSRPk6DDWc7CZ6ukxTJZgVdxo0LJqEU6HcQ5b
+	 D9fCJwfEvT/ugFrItj/OKc7u6cdjuDZFA2XuDRwITD+vMK1WGZ8f4oKJ4xurkUo166
+	 CNoLXPT+ARafrgBX5K5xUszgK29T6+SHuD48Y+zc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7033EF80096;
-	Mon,  1 Jul 2019 18:09:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87100F80090;
+	Mon,  1 Jul 2019 19:30:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 438F2F80096; Mon,  1 Jul 2019 18:09:34 +0200 (CEST)
+ id 503F3F80096; Mon,  1 Jul 2019 19:30:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83E19F80058
- for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2019 18:09:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83E19F80058
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3244EF8008E
+ for <alsa-devel@alsa-project.org>; Mon,  1 Jul 2019 19:30:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3244EF8008E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="tGUDkh36"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id x61G9SnO015847;
- Mon, 1 Jul 2019 11:09:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1561997368;
- bh=ixfn7gQUtri7Y9CCAmDSFpwM7z7aSLkphJr5dTPDQxc=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=tGUDkh36ZBl89CZvXFFudsm4Grp7FslFPggpycdwvSZoNToDvSTA7X4w4vAAThrAG
- kPCWoVKuYxRuTxai3KxdSPK20J7yS4lnAeUFiEGcdTmJ5mcls+4SH9EzF74z/mEDen
- VhkGNqb6JrZ4qg+GDyrudeRCZNmchinnBtAs3npc=
-Received: from DFLE101.ent.ti.com (dfle101.ent.ti.com [10.64.6.22])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x61G9SuO045363
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 1 Jul 2019 11:09:28 -0500
-Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE101.ent.ti.com
- (10.64.6.22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 1 Jul
- 2019 11:09:27 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE108.ent.ti.com
- (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Mon, 1 Jul 2019 11:09:27 -0500
-Received: from [10.250.68.219] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x61G9RrT021815;
- Mon, 1 Jul 2019 11:09:27 -0500
-To: Nikolaus Voss <nv@vosn.de>
-References: <20190628143037.GH5379@sirena.org.uk>
- <cover.1561988282.git.nikolaus.voss@loewensteinmedical.de>
- <c79df50175d59265a37c5e7c8a0cfbf8119bcf78.1561988282.git.nikolaus.voss@loewensteinmedical.de>
- <80af3fca-f71b-c118-e5d8-fde8b7d21705@ti.com>
- <alpine.DEB.2.20.1907011633310.4353@fox.voss.local>
-From: "Andrew F. Davis" <afd@ti.com>
-Message-ID: <074d4df3-51d8-6e20-869d-5f88b46cc172@ti.com>
-Date: Mon, 1 Jul 2019 12:09:26 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="awfBR53c"
+Received: by mail-pl1-x644.google.com with SMTP id m7so7665780pls.8
+ for <alsa-devel@alsa-project.org>; Mon, 01 Jul 2019 10:30:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SbjyLgOhtDSopoLbQRya8z6cDiEX3QnPAyeC6iTDsA0=;
+ b=awfBR53cYYeNdAmUC6qRCyNuCBq5Gn2U5ktWi0DUNSiBQWFot1XhV5VGK4sbk/MFwU
+ ky2Sa+/a0NTwiIPa3hqvnAIkkzfBsqD7ZoJzBHJSfgMx1jdZDX8fSsuRzuqN7G8putue
+ XmUQwpNoeWMI32y5wZq6n5r4jpu73EXLoMtdk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SbjyLgOhtDSopoLbQRya8z6cDiEX3QnPAyeC6iTDsA0=;
+ b=Sanw6HP7RoZ1O5F71dlkjKleN+iUTvzglHF8G0TSBtD9fiJa5ojfK6J0sBVb5FiVJu
+ v5+jo316dyRs2fxP5XFvV7iJgLW/AbFRKPB0fdtmv/R998sPvXSG2/EjVjhUQt/n6o6e
+ Opiq3QsNt+mAHSH5fav3uDdmp02qs5Tzj8Kq6yeZQMlyMNKIFpdxAu+7r3ULeni8ari2
+ VxjN8QbCLpwC2DzenL/bg47wdBKQx4KsZ9ZZ6cTfTVDvZounAxqWZ75hPJCr6wJNABvw
+ iphRFRb4mKrrrgaEdXigHggRW3fw+pOBzwrlwYqOCB8byOFeRzSVlTkJHG5MOmb2JsGR
+ aGGg==
+X-Gm-Message-State: APjAAAXiouq5DhKYfI7WcoC8w0AvwH9OEJARJwmZGHcdDXYMQnE/wR56
+ hHvaqJOTPnN8YyXC3z1qlFAmrw==
+X-Google-Smtp-Source: APXvYqwJmfJtaeEEUAjJY21fEcsc6H+J501S5pJOv3Ogy74WItHaVtEmV14wGfUAV6Z+V1lvyGiIDw==
+X-Received: by 2002:a17:902:8d97:: with SMTP id
+ v23mr3403051plo.157.1562002246821; 
+ Mon, 01 Jul 2019 10:30:46 -0700 (PDT)
+Received: from evgreen2.mtv.corp.google.com
+ ([2620:15c:202:201:ffda:7716:9afc:1301])
+ by smtp.gmail.com with ESMTPSA id h11sm11791289pfn.170.2019.07.01.10.30.45
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 01 Jul 2019 10:30:45 -0700 (PDT)
+From: Evan Green <evgreen@chromium.org>
+To: Takashi Iwai <tiwai@suse.com>
+Date: Mon,  1 Jul 2019 10:30:30 -0700
+Message-Id: <20190701173030.168346-1-evgreen@chromium.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.20.1907011633310.4353@fox.voss.local>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Kate Stewart <kstewart@linuxfoundation.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-acpi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Andreas Dannenberg <dannenberg@ti.com>
-Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: tas5720.c: cleanup variant
-	management
+Cc: alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Evan Green <evgreen@chromium.org>,
+ =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, Thomas Gleixner <tglx@linutronix.de>
+Subject: [alsa-devel] [PATCH v3] ALSA: hda: Fix widget_mutex incomplete
+	protection
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,179 +96,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gNy8xLzE5IDExOjM1IEFNLCBOaWtvbGF1cyBWb3NzIHdyb3RlOgo+IE9uIE1vbiwgMSBKdWwg
-MjAxOSwgQW5kcmV3IEYuIERhdmlzIHdyb3RlOgo+PiBPbiA3LzEvMTkgOTo0MiBBTSwgTmlrb2xh
-dXMgVm9zcyB3cm90ZToKPj4+IFJlcGxhY2UgZW51bSB0YXM1NzJ4X3R5cGUgd2l0aCBzdHJ1Y3Qg
-dGFzNTcyMF92YXJpYW50IHdoaWNoIGFnZ3JlZ2F0ZXMKPj4+IHZhcmlhbnQgc3BlY2lmaWMgc3R1
-ZmYgYW5kIGNhbiBiZSBkaXJlY3RseSByZWZlcmVuY2VkIGZyb20gYW4gaWQgdGFibGUuCj4+Pgo+
-Pj4gU2lnbmVkLW9mZi1ieTogTmlrb2xhdXMgVm9zcyA8bmlrb2xhdXMudm9zc0Bsb2V3ZW5zdGVp
-bm1lZGljYWwuZGU+Cj4+PiAtLS0KPj4+IMKgc291bmQvc29jL2NvZGVjcy90YXM1NzIwLmMgfCA5
-OCArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+Pj4gwqAxIGZpbGUgY2hh
-bmdlZCwgMzMgaW5zZXJ0aW9ucygrKSwgNjUgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdp
-dCBhL3NvdW5kL3NvYy9jb2RlY3MvdGFzNTcyMC5jIGIvc291bmQvc29jL2NvZGVjcy90YXM1NzIw
-LmMKPj4+IGluZGV4IDM3ZmFiOGYyMjgwMC4uYjJlODk3ZjA5NGI0IDEwMDY0NAo+Pj4gLS0tIGEv
-c291bmQvc29jL2NvZGVjcy90YXM1NzIwLmMKPj4+ICsrKyBiL3NvdW5kL3NvYy9jb2RlY3MvdGFz
-NTcyMC5jCj4+PiBAQCAtMjgsOSArMjgsMTAgQEAKPj4+IMKgLyogRGVmaW5lIGhvdyBvZnRlbiB0
-byBjaGVjayAoYW5kIGNsZWFyKSB0aGUgZmF1bHQgc3RhdHVzIHJlZ2lzdGVyCj4+PiAoaW4gbXMp
-ICovCj4+PiDCoCNkZWZpbmUgVEFTNTcyMF9GQVVMVF9DSEVDS19JTlRFUlZBTMKgwqDCoMKgwqDC
-oMKgIDIwMAo+Pj4KPj4+IC1lbnVtIHRhczU3MnhfdHlwZSB7Cj4+PiAtwqDCoMKgIFRBUzU3MjAs
-Cj4+PiAtwqDCoMKgIFRBUzU3MjIsCj4+PiArc3RydWN0IHRhczU3MjBfdmFyaWFudCB7Cj4+PiAr
-wqDCoMKgIGNvbnN0IGludCBkZXZpY2VfaWQ7Cj4+PiArwqDCoMKgIGNvbnN0IHN0cnVjdCByZWdt
-YXBfY29uZmlnICpyZWdfY29uZmlnOwo+Pj4gK8KgwqDCoCBjb25zdCBzdHJ1Y3Qgc25kX3NvY19j
-b21wb25lbnRfZHJpdmVyICpjb21wX2RydjsKPj4+IMKgfTsKPj4+Cj4+PiDCoHN0YXRpYyBjb25z
-dCBjaGFyICogY29uc3QgdGFzNTcyMF9zdXBwbHlfbmFtZXNbXSA9IHsKPj4+IEBAIC00NCw3ICs0
-NSw3IEBAIHN0cnVjdCB0YXM1NzIwX2RhdGEgewo+Pj4gwqDCoMKgwqAgc3RydWN0IHNuZF9zb2Nf
-Y29tcG9uZW50ICpjb21wb25lbnQ7Cj4+PiDCoMKgwqDCoCBzdHJ1Y3QgcmVnbWFwICpyZWdtYXA7
-Cj4+PiDCoMKgwqDCoCBzdHJ1Y3QgaTJjX2NsaWVudCAqdGFzNTcyMF9jbGllbnQ7Cj4+PiAtwqDC
-oMKgIGVudW0gdGFzNTcyeF90eXBlIGRldnR5cGU7Cj4+PiArwqDCoMKgIGNvbnN0IHN0cnVjdCB0
-YXM1NzIwX3ZhcmlhbnQgKnZhcmlhbnQ7Cj4+Cj4+IFdoeSBhZGQgYSBuZXcgc3RydWN0PyBBY3R1
-YWxseSBJIGRvbid0IHNlZSB0aGUgbmVlZCBmb3IgdGhpcyBwYXRjaCBhdAo+PiBhbGwsIHRoZSBj
-b21taXQgbWVzc2FnZSBvbmx5IGV4cGxhaW5zIHRoZSAnd2hhdCcgbm90IHRoZSAnd2h5Jy4gV2Ug
-Y2FuCj4+IGFuZCBkbyBhbHJlYWR5IGJ1aWxkIHRoaXMgaW5mbyBmcm9tIHRoZSB0YXM1NzJ4X3R5
-cGUuCj4gCj4gQXMgdGhlIGNvbW1pdCBtZXNzYWdlIHNheXMsIHRoZSBwdXJwb3NlIGlzIHRvIGFn
-Z3JlZ2F0ZSB0aGUgdmFyaWFudAo+IHNwZWNpZmljcyBhbmQgbWFrZSBpdCBhY2Nlc3NpYmxlIHZp
-YSBvbmUgcG9pbnRlci4gVGhpcyBpcyBhIHN0YW5kYXJkCj4gYXBwcm9hY2ggZm9yIG9mL2FjcGlf
-ZGV2aWNlX2lkIHRhYmxlcyBhbmQgdGh1cyBtYWtlcyB0aGUgY29kZSBzaW1wbGVyCj4gYW5kIGlt
-cHJvdmVzIHJlYWRhYmlsaXR5LiBUaGlzIGlzIGEgbWFpbnRlbmFuY2UgcGF0Y2ggdG8gcHJlcGFy
-ZSB1c2luZwo+IHRoZSBkZXZpY2UgbWF0Y2ggQVBJIGluIGEgcHJvcGVyIHdheS4KPiAKCgoibWFr
-ZSBpdCBhY2Nlc3NpYmxlIHZpYSBvbmUgcG9pbnRlciIgaXMgYWdhaW4gYSAid2hhdCIsIHRoZSAi
-d2h5IiBpczoKCiJUaGlzIGlzIGEgc3RhbmRhcmQgYXBwcm9hY2giCiJtYWtlcyB0aGUgY29kZSBz
-aW1wbGVyIGFuZCBpbXByb3ZlcyByZWFkYWJpbGl0eSIKClRob3NlIGFyZSB2YWxpZCByZWFzb25z
-IGFuZCBzaG91bGQgYmUgd2hhdCB5b3UgcHV0IGluIHRoZSBjb21taXQgbWVzc2FnZS4KCgo+Pgo+
-PiBBbHNvIGJlbG93IGFyZSBzZXZlcmFsIGZ1bmN0aW9uYWwgY2hhbmdlcywgdGhlIGNvdmVyIGxl
-dHRlciBzYXlzIHRoaXMgaXMKPj4gbm90IGEgZnVuY3Rpb25hbCBjaGFuZ2UsIHlldCB0aGUgZHJp
-dmVyIGJlaGF2ZXMgZGlmZmVyZW50bHkgbm93Lgo+IAo+IENhbiB5b3UgYmUgYSBsaXR0bGUgYml0
-IG1vcmUgc3BlY2lmaWM/IFRoZSBjb2RlIHNob3VsZCBiZWhhdmUgZXhhY3RseSBhcwo+IGJlZm9y
-ZS4KPiAKCgpTdXJlLCBmb3IgaW5zdGFuY2UgdGhlIGxpbmUgInVuZXhwZWN0ZWQgcHJpdmF0ZSBk
-cml2ZXIgZGF0YSIgaXMgcmVtb3ZlZCwKdGhpcyBjYW4gbm93IG5ldmVyIGhhcHBlbiwgdGhhdCBp
-cyBhIGZ1bmN0aW9uYWwgY2hhbmdlLiBUaGUgcGhyYXNlICJubwpmdW5jdGlvbmFsIGNoYW5nZSIs
-IHNob3VsZCBiZSByZXNlcnZlZCBmb3Igb25seSBjaGFuZ2VzIHRvIHNwZWxsaW5nLApmb3JtYXR0
-aW5nLCBjb2RlIG9yZ2FuaXppbmcsIGV0Yy4uCgoKPiBOaWtvCj4gCj4+Cj4+IEFuZHJldwo+Pgo+
-Pj4gwqDCoMKgwqAgc3RydWN0IHJlZ3VsYXRvcl9idWxrX2RhdGEgc3VwcGxpZXNbVEFTNTcyMF9O
-VU1fU1VQUExJRVNdOwo+Pj4gwqDCoMKgwqAgc3RydWN0IGRlbGF5ZWRfd29yayBmYXVsdF9jaGVj
-a193b3JrOwo+Pj4gwqDCoMKgwqAgdW5zaWduZWQgaW50IGxhc3RfZmF1bHQ7Cj4+PiBAQCAtMTc5
-LDE3ICsxODAsMTMgQEAgc3RhdGljIGludCB0YXM1NzIwX3NldF9kYWlfdGRtX3Nsb3Qoc3RydWN0
-Cj4+PiBzbmRfc29jX2RhaSAqZGFpLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX3Nu
-ZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzOwo+Pj4KPj4+IMKgwqDCoMKgIC8qIENvbmZpZ3Vy
-ZSBURE0gc2xvdCB3aWR0aC4gVGhpcyBpcyBvbmx5IGFwcGxpY2FibGUgdG8gVEFTNTcyMi4gKi8K
-Pj4+IC3CoMKgwqAgc3dpdGNoICh0YXM1NzIwLT5kZXZ0eXBlKSB7Cj4+PiAtwqDCoMKgIGNhc2Ug
-VEFTNTcyMjoKPj4+ICvCoMKgwqAgaWYgKHRhczU3MjAtPnZhcmlhbnQtPmRldmljZV9pZCA9PSBU
-QVM1NzIyX0RFVklDRV9JRCkgewoKCkkgYWxzbyBkb24ndCBsaWtlIHRoaXMsIFRBUzU3MjJfREVW
-SUNFX0lEIGlzIHRoZSBleHBlY3RlZCBjb250ZW50cyBvZiBhCnJlZ2lzdGVyLCB5b3UgYXJlIHVz
-aW5nIGl0IGxpa2UgdGhlIGVudW0gdGFzNTcyeF90eXBlIHRoYXQgeW91IHJlbW92ZWQuCkknZCBs
-ZWF2ZSB0aGF0IGVudW0sIHRoZSBkZXZpY2UgSUQgcmVnaXN0ZXIgaXRzZWxmIGlzIG5vdCBndWFy
-YW50ZWVkIHRvCmJlIGNvcnJlY3Qgb3IgdW5pcXVlLCB3aGljaCBpcyB3aHkgd2Ugd2FybiBhYm91
-dCBtaXNtYXRjaGVzIGJlbG93IGJ1dAp0aGVuIGNvbnRpbnVlIHRvIHVzZSB0aGUgdXNlciBwcm92
-aWRlZCBkZXZpY2UgdHlwZSBhbnl3YXkuCgpBbmRyZXcKCgo+Pj4gwqDCoMKgwqDCoMKgwqDCoCBy
-ZXQgPSBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsCj4+PiBUQVM1NzIy
-X0RJR0lUQUxfQ1RSTDJfUkVHLAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgVEFTNTcyMl9URE1fU0xPVF8xNkIsCj4+PiDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzbG90X3dp
-ZHRoID09IDE2ID8KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIFRBUzU3MjJfVERNX1NMT1RfMTZCIDogMCk7Cj4+PiDCoMKgwqDCoMKg
-wqDCoMKgIGlmIChyZXQgPCAwKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJy
-b3Jfc25kX3NvY19jb21wb25lbnRfdXBkYXRlX2JpdHM7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgYnJl
-YWs7Cj4+PiAtwqDCoMKgIGRlZmF1bHQ6Cj4+PiAtwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiDC
-oMKgwqDCoCB9Cj4+Pgo+Pj4gwqDCoMKgwqAgcmV0dXJuIDA7Cj4+PiBAQCAtMjc3LDcgKzI3NCw3
-IEBAIHN0YXRpYyB2b2lkIHRhczU3MjBfZmF1bHRfY2hlY2tfd29yayhzdHJ1Y3QKPj4+IHdvcmtf
-c3RydWN0ICp3b3JrKQo+Pj4gwqBzdGF0aWMgaW50IHRhczU3MjBfY29kZWNfcHJvYmUoc3RydWN0
-IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQpCj4+PiDCoHsKPj4+IMKgwqDCoMKgIHN0cnVj
-dCB0YXM1NzIwX2RhdGEgKnRhczU3MjAgPQo+Pj4gc25kX3NvY19jb21wb25lbnRfZ2V0X2RydmRh
-dGEoY29tcG9uZW50KTsKPj4+IC3CoMKgwqAgdW5zaWduZWQgaW50IGRldmljZV9pZCwgZXhwZWN0
-ZWRfZGV2aWNlX2lkOwo+Pj4gK8KgwqDCoCB1bnNpZ25lZCBpbnQgZGV2aWNlX2lkOwo+Pj4gwqDC
-oMKgwqAgaW50IHJldDsKPj4+Cj4+PiDCoMKgwqDCoCB0YXM1NzIwLT5jb21wb25lbnQgPSBjb21w
-b25lbnQ7Cj4+PiBAQCAtMzAxLDIxICsyOTgsOSBAQCBzdGF0aWMgaW50IHRhczU3MjBfY29kZWNf
-cHJvYmUoc3RydWN0Cj4+PiBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50KQo+Pj4gwqDCoMKg
-wqDCoMKgwqDCoCBnb3RvIHByb2JlX2ZhaWw7Cj4+PiDCoMKgwqDCoCB9Cj4+Pgo+Pj4gLcKgwqDC
-oCBzd2l0Y2ggKHRhczU3MjAtPmRldnR5cGUpIHsKPj4+IC3CoMKgwqAgY2FzZSBUQVM1NzIwOgo+
-Pj4gLcKgwqDCoMKgwqDCoMKgIGV4cGVjdGVkX2RldmljZV9pZCA9IFRBUzU3MjBfREVWSUNFX0lE
-Owo+Pj4gLcKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4gLcKgwqDCoCBjYXNlIFRBUzU3MjI6Cj4+
-PiAtwqDCoMKgwqDCoMKgwqAgZXhwZWN0ZWRfZGV2aWNlX2lkID0gVEFTNTcyMl9ERVZJQ0VfSUQ7
-Cj4+PiAtwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiAtwqDCoMKgIGRlZmF1bHQ6Cj4+PiAtwqDC
-oMKgwqDCoMKgwqAgZGV2X2Vycihjb21wb25lbnQtPmRldiwgInVuZXhwZWN0ZWQgcHJpdmF0ZSBk
-cml2ZXIgZGF0YVxuIik7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+PiAt
-wqDCoMKgIH0KPj4+IC0KPj4+IC3CoMKgwqAgaWYgKGRldmljZV9pZCAhPSBleHBlY3RlZF9kZXZp
-Y2VfaWQpCj4+PiArwqDCoMKgIGlmIChkZXZpY2VfaWQgIT0gdGFzNTcyMC0+dmFyaWFudC0+ZGV2
-aWNlX2lkKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoCBkZXZfd2Fybihjb21wb25lbnQtPmRldiwgIndy
-b25nIGRldmljZSBJRC4gZXhwZWN0ZWQ6ICV1Cj4+PiByZWFkOiAldVxuIiwKPj4+IC3CoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgZXhwZWN0ZWRfZGV2aWNlX2lkLCBkZXZpY2VfaWQpOwo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0YXM1NzIwLT52YXJpYW50LT5kZXZpY2VfaWQsIGRldmlj
-ZV9pZCk7Cj4+Pgo+Pj4gwqDCoMKgwqAgLyogU2V0IGRldmljZSB0byBtdXRlICovCj4+PiDCoMKg
-wqDCoCByZXQgPSBzbmRfc29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsCj4+PiBU
-QVM1NzIwX0RJR0lUQUxfQ1RSTDJfUkVHLAo+Pj4gQEAgLTYzNyw3ICs2MjIsNiBAQCBzdGF0aWMg
-aW50IHRhczU3MjBfcHJvYmUoc3RydWN0IGkyY19jbGllbnQgKmNsaWVudCwKPj4+IMKgewo+Pj4g
-wqDCoMKgwqAgc3RydWN0IGRldmljZSAqZGV2ID0gJmNsaWVudC0+ZGV2Owo+Pj4gwqDCoMKgwqAg
-c3RydWN0IHRhczU3MjBfZGF0YSAqZGF0YTsKPj4+IC3CoMKgwqAgY29uc3Qgc3RydWN0IHJlZ21h
-cF9jb25maWcgKnJlZ21hcF9jb25maWc7Cj4+PiDCoMKgwqDCoCBpbnQgcmV0Owo+Pj4gwqDCoMKg
-wqAgaW50IGk7Cj4+Pgo+Pj4gQEAgLTY0NiwyMCArNjMwLDEwIEBAIHN0YXRpYyBpbnQgdGFzNTcy
-MF9wcm9iZShzdHJ1Y3QgaTJjX2NsaWVudAo+Pj4gKmNsaWVudCwKPj4+IMKgwqDCoMKgwqDCoMKg
-wqAgcmV0dXJuIC1FTk9NRU07Cj4+Pgo+Pj4gwqDCoMKgwqAgZGF0YS0+dGFzNTcyMF9jbGllbnQg
-PSBjbGllbnQ7Cj4+PiAtwqDCoMKgIGRhdGEtPmRldnR5cGUgPSBpZC0+ZHJpdmVyX2RhdGE7Cj4+
-Pgo+Pj4gLcKgwqDCoCBzd2l0Y2ggKGlkLT5kcml2ZXJfZGF0YSkgewo+Pj4gLcKgwqDCoCBjYXNl
-IFRBUzU3MjA6Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcmVnbWFwX2NvbmZpZyA9ICZ0YXM1NzIwX3Jl
-Z21hcF9jb25maWc7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiAtwqDCoMKgIGNhc2Ug
-VEFTNTcyMjoKPj4+IC3CoMKgwqDCoMKgwqDCoCByZWdtYXBfY29uZmlnID0gJnRhczU3MjJfcmVn
-bWFwX2NvbmZpZzsKPj4+IC3CoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+IC3CoMKgwqAgZGVmYXVs
-dDoKPj4+IC3CoMKgwqDCoMKgwqDCoCBkZXZfZXJyKGRldiwgInVuZXhwZWN0ZWQgcHJpdmF0ZSBk
-cml2ZXIgZGF0YVxuIik7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+PiAt
-wqDCoMKgIH0KPj4+IC3CoMKgwqAgZGF0YS0+cmVnbWFwID0gZGV2bV9yZWdtYXBfaW5pdF9pMmMo
-Y2xpZW50LCByZWdtYXBfY29uZmlnKTsKPj4+ICvCoMKgwqAgZGF0YS0+dmFyaWFudCA9IChjb25z
-dCBzdHJ1Y3QgdGFzNTcyMF92YXJpYW50ICopaWQtPmRyaXZlcl9kYXRhOwo+Pj4gKwo+Pj4gK8Kg
-wqDCoCBkYXRhLT5yZWdtYXAgPSBkZXZtX3JlZ21hcF9pbml0X2kyYyhjbGllbnQsCj4+PiBkYXRh
-LT52YXJpYW50LT5yZWdfY29uZmlnKTsKPj4+IMKgwqDCoMKgIGlmIChJU19FUlIoZGF0YS0+cmVn
-bWFwKSkgewo+Pj4gwqDCoMKgwqDCoMKgwqDCoCByZXQgPSBQVFJfRVJSKGRhdGEtPnJlZ21hcCk7
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgIGRldl9lcnIoZGV2LCAiZmFpbGVkIHRvIGFsbG9jYXRlIHJl
-Z2lzdGVyIG1hcDogJWRcbiIsIHJldCk7Cj4+PiBAQCAtNjc4LDQyICs2NTIsMzYgQEAgc3RhdGlj
-IGludCB0YXM1NzIwX3Byb2JlKHN0cnVjdCBpMmNfY2xpZW50Cj4+PiAqY2xpZW50LAo+Pj4KPj4+
-IMKgwqDCoMKgIGRldl9zZXRfZHJ2ZGF0YShkZXYsIGRhdGEpOwo+Pj4KPj4+IC3CoMKgwqAgc3dp
-dGNoIChpZC0+ZHJpdmVyX2RhdGEpIHsKPj4+IC3CoMKgwqAgY2FzZSBUQVM1NzIwOgo+Pj4gLcKg
-wqDCoMKgwqDCoMKgIHJldCA9IGRldm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoJmNsaWVu
-dC0+ZGV2LAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZzb2Nf
-Y29tcG9uZW50X2Rldl90YXM1NzIwLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHRhczU3MjBfZGFpLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIEFSUkFZX1NJWkUodGFzNTcyMF9kYWkpKTsKPj4+IC3CoMKgwqDCoMKgwqDCoCBi
-cmVhazsKPj4+IC3CoMKgwqAgY2FzZSBUQVM1NzIyOgo+Pj4gLcKgwqDCoMKgwqDCoMKgIHJldCA9
-IGRldm1fc25kX3NvY19yZWdpc3Rlcl9jb21wb25lbnQoJmNsaWVudC0+ZGV2LAo+Pj4gLcKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZzb2NfY29tcG9uZW50X2Rldl90YXM1
-NzIyLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRhczU3MjBf
-ZGFpLAo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFSUkFZX1NJ
-WkUodGFzNTcyMF9kYWkpKTsKPj4+IC3CoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+IC3CoMKgwqAg
-ZGVmYXVsdDoKPj4+IC3CoMKgwqDCoMKgwqDCoCBkZXZfZXJyKGRldiwgInVuZXhwZWN0ZWQgcHJp
-dmF0ZSBkcml2ZXIgZGF0YVxuIik7Cj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7
-Cj4+PiAtwqDCoMKgIH0KPj4+IC3CoMKgwqAgaWYgKHJldCA8IDApIHsKPj4+IC3CoMKgwqDCoMKg
-wqDCoCBkZXZfZXJyKGRldiwgImZhaWxlZCB0byByZWdpc3RlciBjb21wb25lbnQ6ICVkXG4iLCBy
-ZXQpOwo+Pj4gLcKgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7Cj4+PiAtwqDCoMKgIH0KPj4+IC0K
-Pj4+IC3CoMKgwqAgcmV0dXJuIDA7Cj4+PiArwqDCoMKgIHJldCA9IGRldm1fc25kX3NvY19yZWdp
-c3Rlcl9jb21wb25lbnQoJmNsaWVudC0+ZGV2LAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRhdGEtPnZhcmlhbnQtPmNvbXBfZHJ2LAo+Pj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRhczU3
-MjBfZGFpLAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIEFSUkFZX1NJWkUodGFzNTcyMF9kYWkpKTsKPj4+ICvCoMKgwqAgcmV0dXJuIHJldDsK
-Pj4+IMKgfQo+Pj4KPj4+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHRhczU3MjBfdmFyaWFudCB0YXM1
-NzIwID0gewo+Pj4gK8KgwqDCoCAuZGV2aWNlX2lkID0gVEFTNTcyMF9ERVZJQ0VfSUQsCj4+PiAr
-wqDCoMKgIC5yZWdfY29uZmlnID0gJnRhczU3MjBfcmVnbWFwX2NvbmZpZywKPj4+ICvCoMKgwqAg
-LmNvbXBfZHJ2ID0gJnNvY19jb21wb25lbnRfZGV2X3RhczU3MjAsCj4+PiArfTsKPj4+ICsKPj4+
-ICtzdGF0aWMgY29uc3Qgc3RydWN0IHRhczU3MjBfdmFyaWFudCB0YXM1NzIyID0gewo+Pj4gK8Kg
-wqDCoCAuZGV2aWNlX2lkID0gVEFTNTcyMl9ERVZJQ0VfSUQsCj4+PiArwqDCoMKgIC5yZWdfY29u
-ZmlnID0gJnRhczU3MjJfcmVnbWFwX2NvbmZpZywKPj4+ICvCoMKgwqAgLmNvbXBfZHJ2ID0gJnNv
-Y19jb21wb25lbnRfZGV2X3RhczU3MjIsCj4+PiArfTsKPj4+ICsKPj4+IMKgc3RhdGljIGNvbnN0
-IHN0cnVjdCBpMmNfZGV2aWNlX2lkIHRhczU3MjBfaWRbXSA9IHsKPj4+IC3CoMKgwqAgeyAidGFz
-NTcyMCIsIFRBUzU3MjAgfSwKPj4+IC3CoMKgwqAgeyAidGFzNTcyMiIsIFRBUzU3MjIgfSwKPj4+
-ICvCoMKgwqAgeyAidGFzNTcyMCIsIChrZXJuZWxfdWxvbmdfdCkmdGFzNTcyMCB9LAo+Pj4gK8Kg
-wqDCoCB7ICJ0YXM1NzIyIiwgKGtlcm5lbF91bG9uZ190KSZ0YXM1NzIyIH0sCj4+PiDCoMKgwqDC
-oCB7IH0KPj4+IMKgfTsKPj4+IMKgTU9EVUxFX0RFVklDRV9UQUJMRShpMmMsIHRhczU3MjBfaWQp
-Owo+Pj4KPj4+IMKgI2lmIElTX0VOQUJMRUQoQ09ORklHX09GKQo+Pj4gwqBzdGF0aWMgY29uc3Qg
-c3RydWN0IG9mX2RldmljZV9pZCB0YXM1NzIwX29mX21hdGNoW10gPSB7Cj4+PiAtwqDCoMKgIHsg
-LmNvbXBhdGlibGUgPSAidGksdGFzNTcyMCIsIH0sCj4+PiAtwqDCoMKgIHsgLmNvbXBhdGlibGUg
-PSAidGksdGFzNTcyMiIsIH0sCj4+PiArwqDCoMKgIHsgLmNvbXBhdGlibGUgPSAidGksdGFzNTcy
-MCIsIC5kYXRhID0gJnRhczU3MjAsIH0sCj4+PiArwqDCoMKgIHsgLmNvbXBhdGlibGUgPSAidGks
-dGFzNTcyMiIsIC5kYXRhID0gJnRhczU3MjIsIH0sCj4+PiDCoMKgwqDCoCB7IH0sCj4+PiDCoH07
-Cj4+PiDCoE1PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIHRhczU3MjBfb2ZfbWF0Y2gpOwo+Pj4KPj4K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZl
-bCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1h
-bi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+The widget_mutex was introduced to serialize callers to
+hda_widget_sysfs_{re}init. However, its protection of the sysfs widget array
+is incomplete. For example, it is acquired around the call to
+hda_widget_sysfs_reinit(), which actually creates the new array, but isn't
+still acquired when codec->num_nodes and codec->start_nid is updated. So
+the lock ensures one thread sets up the new array at a time, but doesn't
+ensure which thread's value will end up in codec->num_nodes. If a larger
+num_nodes wins but a smaller array was set up, the next call to
+refresh_widgets() will touch free memory as it iterates over codec->num_nodes
+that aren't there.
+
+The widget_lock really protects both the tree as well as codec->num_nodes,
+start_nid, and end_nid, so make sure it's held across that update. It should
+also be held during snd_hdac_get_sub_nodes(), so that a very old read from that
+function doesn't end up clobbering a later update.
+
+Fixes: ed180abba7f1 ("ALSA: hda: Fix race between creating and refreshing sysfs entries")
+
+Signed-off-by: Evan Green <evgreen@chromium.org>
+
+---
+
+Changes in v3:
+- Moved locking back into callers (Takashi)
+- Combined update_widgets exit flow (Takashi)
+
+Changes in v2:
+- Introduced widget_mutex relocation
+
+ sound/hda/hdac_device.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
+index 6907dbefd08c..3842f9d34b7c 100644
+--- a/sound/hda/hdac_device.c
++++ b/sound/hda/hdac_device.c
+@@ -400,27 +400,33 @@ static void setup_fg_nodes(struct hdac_device *codec)
+ int snd_hdac_refresh_widgets(struct hdac_device *codec, bool sysfs)
+ {
+ 	hda_nid_t start_nid;
+-	int nums, err;
++	int nums, err = 0;
+ 
++	/*
++	 * Serialize against multiple threads trying to update the sysfs
++	 * widgets array.
++	 */
++	mutex_lock(&codec->widget_lock);
+ 	nums = snd_hdac_get_sub_nodes(codec, codec->afg, &start_nid);
+ 	if (!start_nid || nums <= 0 || nums >= 0xff) {
+ 		dev_err(&codec->dev, "cannot read sub nodes for FG 0x%02x\n",
+ 			codec->afg);
+-		return -EINVAL;
++		err = -EINVAL;
++		goto unlock;
+ 	}
+ 
+ 	if (sysfs) {
+-		mutex_lock(&codec->widget_lock);
+ 		err = hda_widget_sysfs_reinit(codec, start_nid, nums);
+-		mutex_unlock(&codec->widget_lock);
+ 		if (err < 0)
+-			return err;
++			goto unlock;
+ 	}
+ 
+ 	codec->num_nodes = nums;
+ 	codec->start_nid = start_nid;
+ 	codec->end_nid = start_nid + nums;
+-	return 0;
++unlock:
++	mutex_unlock(&codec->widget_lock);
++	return err;
+ }
+ EXPORT_SYMBOL_GPL(snd_hdac_refresh_widgets);
+ 
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

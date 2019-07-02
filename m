@@ -2,77 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 001035D125
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 16:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 528DE5D22C
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 16:55:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4783F168C;
-	Tue,  2 Jul 2019 16:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4783F168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D19A71690;
+	Tue,  2 Jul 2019 16:54:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D19A71690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562076283;
-	bh=f2eontFjZSqNP2JPud4CdAi1vf1pQ0+KmnicPKST41A=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562079344;
+	bh=Y05AVtlICbfA40g0fUfwlsGZBceO7/yLNP2C0ESzj+w=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GzQR1noWrrnRfDL/GrxT2aXH9U8OfXUmDAJzEnAWmPr03VtRp2vqfAw7Hblio1EvL
-	 yHCZpTHOYyemN7wApxa2FlQ/ZmBU44X4xXuu7K9aEPzl6InQKDpSOMGWiOEVq9V9Bs
-	 x900nZL5OGw5e1YHADwpGDAJwQRxlhm1T24cKn90=
+	b=HjLyDQwR/40jTQN5v/sevQcnSl4oSs8N5EGxRi11NE59ciuqn3gFkpV3K5LwYcPX6
+	 5Cw/J8iCyBGr+CHLB9BA/oGUdI2C4VxixXAvY+GSZtNnc8S5kTLSoDeS19s6A7JQQ6
+	 AZ0oEVov5QaMMTG5psUwlL+5vJh9odIyNCkQkxd0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64736F800C7;
-	Tue,  2 Jul 2019 16:02:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89380F800C9;
+	Tue,  2 Jul 2019 16:53:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93060F80058; Tue,  2 Jul 2019 16:02:56 +0200 (CEST)
+ id 4580BF800C9; Tue,  2 Jul 2019 16:53:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E525F80058
- for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 16:02:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E525F80058
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="J1cjn6zw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1bt7onZdaroroVUiwTYzttShEdXUqbhPACv/uGvlimk=; b=J1cjn6zw+x8u130+ivpBIdMsU
- gHnMf2Yut6Wng5AJauTWawWOprCaKFQPdMLNEnefZk7CowD5dc5xv/uzyUY+yIM54wdTPKZhhnQoR
- 4O2izs820HtlfShqkvOBI+JaZ1XDq6yU+K6SzhTzfIJoqKTiBLwZu9VtIA2CVS6z2kNVY=;
-Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
- (helo=finisterre.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hiJMz-0002TP-4I; Tue, 02 Jul 2019 14:02:53 +0000
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 57749440046; Tue,  2 Jul 2019 15:02:52 +0100 (BST)
-Date: Tue, 2 Jul 2019 15:02:52 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190702140252.GO2793@sirena.org.uk>
-References: <20190702080920.22623-1-srinivas.kandagatla@linaro.org>
- <20190702080920.22623-2-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-In-Reply-To: <20190702080920.22623-2-srinivas.kandagatla@linaro.org>
-X-Cookie: This sentence no verb.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, bgoswami@codeaurora.org, lgirdwood@gmail.com,
- vkoul@kernel.org, robh+dt@kernel.org, srini@kernel.org
-Subject: Re: [alsa-devel] [PATCH 1/6] ASoC: dt-bindings: add dt bindings for
- WCD9340/WCD9341 audio codec
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4712FF800C5
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 16:53:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4712FF800C5
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id C331BAF2D;
+ Tue,  2 Jul 2019 14:53:52 +0000 (UTC)
+Date: Tue, 02 Jul 2019 16:37:40 +0200
+Message-ID: <s5hlfxg4i4r.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Nicola Lunghi" <nick83ola@gmail.com>
+In-Reply-To: <20190702004439.30131-1-nick83ola@gmail.com>
+References: <20190702004439.30131-1-nick83ola@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, info@jensverwiebe.de,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Jussi Laako <jussi@sonarnerd.net>, Richard Fontana <rfontana@redhat.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: fix Line6 Helix audio
+	format rates
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,60 +68,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0750215909845492992=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 02 Jul 2019 02:43:14 +0200,
+Nicola Lunghi wrote:
+> 
+> Line6 Helix and HX stomp don't support retrieving
+> the number of clock sample rate.
+> 
+> Add a quirk to return the default value of 48Khz.
+> 
+> Signed-off-by: Nicola Lunghi <nick83ola@gmail.com>
 
---===============0750215909845492992==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ABYnUdqoGSokwVM+"
-Content-Disposition: inline
+It's not particularly good place to put a quirk, but there seems no
+other better place, unfortunately.  Is this specific to certain unit
+or all I/Os on the device suffer from this problem?
+
+In anyway, if the behavior is expected, we don't need to use
+dev_warn() to annoy users unnecessarily.  Replace it with dev_info().
+
+Also, the code that creates a single 48k entry would be better to be
+put into a function for readability.
+
+Could you resubmit with that change?
 
 
---ABYnUdqoGSokwVM+
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks!
 
-On Tue, Jul 02, 2019 at 09:09:15AM +0100, Srinivas Kandagatla wrote:
+Takashi
 
-> +- qcom,micbias1-lvl:
-> +	Usage: required
-> +	Value type: <u32>
-> +	Definition: Should be voltage in milli Volts for micbias1 output
-
-milivolts
-
-> +	Supported values are in inbetween 1800mV-2850mV
-
-in between
-
---ABYnUdqoGSokwVM+
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0bZAsACgkQJNaLcl1U
-h9BVIwf/ZrtpTqroAjSIn8T3sZSlepCMggF2K9upRobeq7jZHedZ6kcBQpAj1Btx
-8RAy15YOLrH16f8ANuYCU9lVEzXn+iwx7yURRlBlt2WJdJah2JjQfLHsIEtPQv8a
-wTpKdzieubMK0F0goPA8LYKoX+biHEwZlj2Ud/nUGtW8Ay/n5ZcGFE0ACI2JREXb
-N0AT32HtYpUmO1AJq93jo1J11nzezCvc9v0IxVWDHtGoD3iCuao/9n59JNzcLTBb
-q+DvYVXqlYWTf2SZTln8e7DLS6Phl4Spte94fxn/d5YVQN2qXGHWNmEAlRPm8VCs
-/vR7rdWcd5g2ZBJRa+ak8cJJndmW3Q==
-=bP+8
------END PGP SIGNATURE-----
-
---ABYnUdqoGSokwVM+--
-
---===============0750215909845492992==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> ---
+>  sound/usb/format.c | 28 +++++++++++++++++++++++++---
+>  1 file changed, 25 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/usb/format.c b/sound/usb/format.c
+> index c02b51a82775..05442f6ada62 100644
+> --- a/sound/usb/format.c
+> +++ b/sound/usb/format.c
+> @@ -313,10 +313,32 @@ static int parse_audio_format_rates_v2v3(struct snd_usb_audio *chip,
+>  			      tmp, sizeof(tmp));
+>  
+>  	if (ret < 0) {
+> -		dev_err(&dev->dev,
+> -			"%s(): unable to retrieve number of sample rates (clock %d)\n",
+> +		switch (chip->usb_id) {
+> +		/* LINE 6 HX pedals don't support getting the clock sample rate.
+> +		 * Set the framerate to 48khz by default
+> +		 */
+> +		case USB_ID(0x0E41, 0x4244): /* HELIX */
+> +		case USB_ID(0x0E41, 0x4246): /* HX STOMP */
+> +			dev_warn(&dev->dev,
+> +				"%s(): line6 helix: unable to retrieve number of sample rates. Set it to default value (clock %d).\n",
+>  				__func__, clock);
+> -		goto err;
+> +			fp->nr_rates = 1;
+> +			fp->rate_min = 48000;
+> +			fp->rate_max = 48000;
+> +			fp->rates = SNDRV_PCM_RATE_48000;
+> +			fp->rate_table = kmalloc(sizeof(int), GFP_KERNEL);
+> +			if (!fp->rate_table) {
+> +				ret = -ENOMEM;
+> +				goto err_free;
+> +			}
+> +			fp->rate_table[0] = 48000;
+> +			return 0;
+> +		default:
+> +			dev_err(&dev->dev,
+> +				"%s(): unable to retrieve number of sample rates (clock %d)\n",
+> +					__func__, clock);
+> +			goto err;
+> +		}
+>  	}
+>  
+>  	nr_triplets = (tmp[1] << 8) | tmp[0];
+> -- 
+> 2.19.1
+> 
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0750215909845492992==--

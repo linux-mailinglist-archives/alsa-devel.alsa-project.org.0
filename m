@@ -2,101 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDC2C5D046
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 15:11:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E3855D090
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 15:25:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62E7D1690;
-	Tue,  2 Jul 2019 15:11:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62E7D1690
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC1691693;
+	Tue,  2 Jul 2019 15:24:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC1691693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562073118;
-	bh=WPD6lC4E082S/3hMUbmrc+jOYzajxGtvmBafXVOiuN0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Z9oKbsXCrfjup7rFPOxE8IDh9pEYq7mvvIcLSnxxJcZq2hHFn0x+KJvdrB92Hrbue
-	 FuIebh9/aM3sBrjfFQ+njoQel7RMfmRmCP1X3BkUixd70TcnUp+Aw3pkuvl+gkU+0Z
-	 +OM7pwKBK1EMNiXQSfhNE4bXSV8myIw6130CjhuY=
+	s=default; t=1562073915;
+	bh=iND3sPbo2JYn6B/BBIS5oYkQVcci0s0RvHlvBMqvAfo=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YMtqx9pmJYYXMPt51EhMAe5qbG3bO4oA7WojSUW9+BvWouDyEzN9juhXWoJJoX61q
+	 DtWW+iIfUx/KbUYB9USePve0LoHRnFJYHzWVLg7hDQ5o07VWUSzQFbNIyC0/tbsCI4
+	 peYaHb0RR4kiVXW3XCRUkDmHtNghyqOWXTrdFQYM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B062EF800C9;
-	Tue,  2 Jul 2019 15:08:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9CA5F800C5;
+	Tue,  2 Jul 2019 15:23:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34B26F800C9; Tue,  2 Jul 2019 15:08:07 +0200 (CEST)
+ id 3837CF800C9; Tue,  2 Jul 2019 15:23:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
+X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7ACACF800C5
- for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 15:08:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7ACACF800C5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="EKTVznBC"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x62Ct87s021495; Tue, 2 Jul 2019 08:08:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=z6TYLQoogWat12Wu505EtkLVUKbCHcUH4PFWGoTm1/c=;
- b=EKTVznBC/qLlfNV8PEGWgj7jF0Gy78nhpfVDe/qrwRqjch9fyXkQhrEFaAcj9IhU+fpn
- 4dl5YKai1qSQU/URqXPfdKXp34/8DAb2IChihqwFuiT6OaULQIX55CNocv/CUn0DizBZ
- y+TyU78K8x2d+JhZypYWjVmLaNL/P3OLl6GOwUv8vyfnWmBfzYWizqh97zviQbxb9nOc
- eLb2O8dAyp95bkelA8Wd5Ty0nXl/A0mp5ZDEXrIub6St+CF3B8xTn+/8M6o7EQsBEUVe
- w2tHY7+43ksCrLYxianhmiAYYqCYB0u7uge4bJK/AIQeThV2KwDt4udnoDWKSVEkLPwE ZA== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0b-001ae601.pphosted.com with ESMTP id 2te4dr4jvp-1;
- Tue, 02 Jul 2019 08:08:02 -0500
-Received: from EDIEX01.ad.cirrus.com (unknown [198.61.84.80])
- by mail1.cirrus.com (Postfix) with ESMTP id E8DAC611C8BB;
- Tue,  2 Jul 2019 08:08:01 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Tue, 2 Jul
- 2019 14:08:01 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Tue, 2 Jul 2019 14:08:01 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 47F2E45;
- Tue,  2 Jul 2019 14:08:01 +0100 (BST)
-Date: Tue, 2 Jul 2019 14:08:01 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: YueHaibing <yuehaibing@huawei.com>
-Message-ID: <20190702130801.GI54126@ediswmail.ad.cirrus.com>
-References: <20190629024333.177027-1-yuehaibing@huawei.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190629024333.177027-1-yuehaibing@huawei.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=825 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1907020143
-Cc: Brian Austin <brian.austin@cirrus.com>, alsa-devel@alsa-project.org,
- patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Paul Handrigan <Paul.Handrigan@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH -next] ASoC: madera: Remove duplicated
- include from cs47l35.c
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9459EF800C5
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 15:23:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9459EF800C5
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2019 06:23:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,443,1557212400"; d="scan'208";a="171794323"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by FMSMGA003.fm.intel.com with ESMTP; 02 Jul 2019 06:23:22 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: broonie@kernel.org
+Date: Tue,  2 Jul 2019 16:24:25 +0300
+Message-Id: <20190702132428.13129-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: tiwai@suse.de, libin.yang@intel.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
+Subject: [alsa-devel] [PATCH v2 resend 0/3] ASoC: SOF: fix suspend ordering
+	with runtime idle
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,21 +65,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Jun 29, 2019 at 02:43:33AM +0000, YueHaibing wrote:
-> Remove duplicated include.
-> 
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
+Hi all,
+this series addresses issues with ordering of HDA codec and controller
+suspends in the runtime PM flows. The implemented logic for SOF is
+similar to what has been used by the Intel AZX HDA driver.
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+To implement this, first a fix is needed to hdac_hdmic ASoC codec
+driver. SOF framework also needs to be extended to allow SOF devices
+to implement a runtime_idle callback. Third, concrete implementation
+is in a separate patch for APL/CNL Intel hardware, for which strict
+ordering of codec-controller power down sequence needs to be
+maintained.
 
-Thanks,
-Charles
+As this extends the SOF device interface, Pierre asked me to
+send to the list for wider review. This series has been prereviewd
+at SOF github as:
+https://github.com/thesofproject/linux/pull/1003
+
+v2 resend:
+  - no changes since v2 -- resending as 2 weeks has passed and
+    multiple reviewed-by acks already received
+v2:
+  - Rebased on broonie/for-next, there was a conflict with patch
+    "ASoC: SOF: Intel: hda: release link DMA for paused streams during suspend"
+  - Added Reviewed-by tags from v1 round
+
+Kai Vehmanen (3):
+  ASoC: hdac_hdmi: report codec link up/down status to bus
+  ASoC: SOF: add runtime idle callback
+  ASoC: SOF: Intel: implement runtime idle for CNL/APL
+
+ sound/soc/codecs/hdac_hdmi.c  |  2 ++
+ sound/soc/sof/intel/apl.c     |  1 +
+ sound/soc/sof/intel/cnl.c     |  1 +
+ sound/soc/sof/intel/hda-dsp.c | 13 +++++++++++++
+ sound/soc/sof/intel/hda.h     |  1 +
+ sound/soc/sof/ops.h           |  8 ++++++++
+ sound/soc/sof/pm.c            |  8 ++++++++
+ sound/soc/sof/sof-acpi-dev.c  |  2 +-
+ sound/soc/sof/sof-pci-dev.c   |  2 +-
+ sound/soc/sof/sof-priv.h      |  2 ++
+ 10 files changed, 38 insertions(+), 2 deletions(-)
+
+-- 
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

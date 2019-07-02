@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9F375D03F
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 15:11:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73D75D026
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 15:07:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C9301686;
-	Tue,  2 Jul 2019 15:10:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C9301686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5370C1694;
+	Tue,  2 Jul 2019 15:07:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5370C1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562073071;
-	bh=4SNiuiqmc6ShNYn5kTRxSTw+cjj6g2OVQAkqa52FHq0=;
+	s=default; t=1562072879;
+	bh=7dAZ/7EopTQapTvEmaIosaH4pbNV8ZWPpUSAoeRzFSk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pCoZxaRrQ21ATM3952kUIepxIh0h1QQJTd/8hp5rm+yf614+vYHOrXnQmqt9PlJNo
-	 m0BNUXzPYBtOJGeKsmKsgH+HRY/PGdqp3pKZ9oc2ytIOABN3hljyPx/vu1OQ6+t/dr
-	 AgeEc5i1H02xx607QAF3cVu2foF1PxG2cxI49ncI=
+	b=JemsrB9yBWR6wD30CpCwtNs1ZVwmUPyn3NtqWWxSEvHgCZO2b5N/5CwAr4ioBDmtq
+	 svqXJryyrsFp8wVNqihIZ3PYpA4QbiQyhaoBABg4ddtU94+6Gx8LHOsGo/7Rzerd1i
+	 f7yhmYWD15NTlQUJXcgObKDoa2mAFUjn9A0+vzTs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 657F3F80149;
-	Tue,  2 Jul 2019 15:04:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6F1DF80111;
+	Tue,  2 Jul 2019 15:04:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0C70F800EA; Tue,  2 Jul 2019 15:04:50 +0200 (CEST)
+ id 20D04F800D3; Tue,  2 Jul 2019 15:04:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 713A3F800E1
- for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 15:04:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 713A3F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A1C1F800DA
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 15:04:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A1C1F800DA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="XEMxU/Vv"
+ header.b="sn+8LBB0"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=lCU9+nRey/mEaOgxKDfHQEITQKqaCs5a/M4AOPAoImM=; b=XEMxU/VvqMkf
- 9KUmnM5sDBnFcSUSdafJTdMLTpwsvu9JxIjxKWR7aCR5BQ53jPtsxTU5TMaEILE/R5iaQMP32nDqF
- JQZHPcLjRpWITIm3GaB7K5TrbDsyM8f52amo+PUo/oeAmmMyHM/Wo68uapNE3tlObUL0xuBx3LUGR
- cnyMU=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=finisterre.sirena.org.uk)
+ List-Archive; bh=1WeeJSfek0wgnc6WcPEadG53WQfTpW14a10BJzgQjqU=; b=sn+8LBB0WOtX
+ uNoZx+OihrCMbxxKX0WM1HgDLAAquqQO7wmMr3KalkVTv/BzYKiS5XgQgI097a9EAW6qX52tVU1RD
+ JCJnPWtKNVC8G5fyM7Ta1/g8CjMg7hAcKXKcp+kynKQp7VVRH+PfwbK8Ukv+Yq9PhUb4ivn5gvWor
+ PXiXw=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hiISh-0002Na-3d; Tue, 02 Jul 2019 13:04:43 +0000
+ id 1hiISh-0002NZ-2L; Tue, 02 Jul 2019 13:04:43 +0000
 Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
- id 8C66144004A; Tue,  2 Jul 2019 14:04:42 +0100 (BST)
+ id 6FB67440049; Tue,  2 Jul 2019 14:04:42 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190702061738.45878-1-yuehaibing@huawei.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87zhm2s69u.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190702130442.8C66144004A@finisterre.sirena.org.uk>
+Message-Id: <20190702130442.6FB67440049@finisterre.sirena.org.uk>
 Date: Tue,  2 Jul 2019 14:04:42 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt1308: Fix platform_no_drv_owner.cocci
-	warnings" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: au1x: psc-i2s.c: use
+	devm_snd_soc_register_component()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1308: Fix platform_no_drv_owner.cocci warnings
+   ASoC: au1x: psc-i2s.c: use devm_snd_soc_register_component()
 
 has been applied to the asoc tree at
 
@@ -115,32 +112,43 @@ to this mail.
 Thanks,
 Mark
 
-From 2d2e331697bfba9dcc59217b1fcbfa2c144f0659 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Tue, 2 Jul 2019 06:17:38 +0000
-Subject: [PATCH] ASoC: rt1308: Fix platform_no_drv_owner.cocci warnings
+From 7422104037773624d2a6cdb9becb68278befbd88 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Fri, 28 Jun 2019 13:08:48 +0900
+Subject: [PATCH] ASoC: au1x: psc-i2s.c: use devm_snd_soc_register_component()
 
-Remove .owner field if calls are used which set it automatically
-Generated by: scripts/coccinelle/api/platform_no_drv_owner.cocci
+We have devm_xxx version of snd_soc_register_component,
+let's use it.
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1308.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/au1x/psc-i2s.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
-index 619a630e982e..d673506c7c39 100755
---- a/sound/soc/codecs/rt1308.c
-+++ b/sound/soc/codecs/rt1308.c
-@@ -884,7 +884,6 @@ static void rt1308_i2c_shutdown(struct i2c_client *client)
- static struct i2c_driver rt1308_i2c_driver = {
- 	.driver = {
- 		.name = "rt1308",
--		.owner = THIS_MODULE,
- 		.of_match_table = of_match_ptr(rt1308_of_match),
- 		.acpi_match_table = ACPI_PTR(rt1308_acpi_match),
- 	},
+diff --git a/sound/soc/au1x/psc-i2s.c b/sound/soc/au1x/psc-i2s.c
+index 4a5a095076f4..076303f96b8c 100644
+--- a/sound/soc/au1x/psc-i2s.c
++++ b/sound/soc/au1x/psc-i2s.c
+@@ -340,16 +340,14 @@ static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, wd);
+ 
+-	return snd_soc_register_component(&pdev->dev, &au1xpsc_i2s_component,
+-					  &wd->dai_drv, 1);
++	return devm_snd_soc_register_component(&pdev->dev,
++				&au1xpsc_i2s_component, &wd->dai_drv, 1);
+ }
+ 
+ static int au1xpsc_i2s_drvremove(struct platform_device *pdev)
+ {
+ 	struct au1xpsc_audio_data *wd = platform_get_drvdata(pdev);
+ 
+-	snd_soc_unregister_component(&pdev->dev);
+-
+ 	__raw_writel(0, I2S_CFG(wd));
+ 	wmb(); /* drain writebuffer */
+ 	__raw_writel(PSC_CTRL_DISABLE, PSC_CTRL(wd));
 -- 
 2.20.1
 

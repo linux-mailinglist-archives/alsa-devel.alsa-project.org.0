@@ -2,69 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A0C25D640
-	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 20:39:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6A25CF21
+	for <lists+alsa-devel@lfdr.de>; Tue,  2 Jul 2019 14:08:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC75116A5;
-	Tue,  2 Jul 2019 20:38:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC75116A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 324C31686;
+	Tue,  2 Jul 2019 14:07:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 324C31686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562092757;
-	bh=0OflWX6d297p1o8KsDijM7EHbDMx+O3AIlbXUA9VBC8=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=n2uYjn3f+mDIBIj3IdECl5LdRJsyfnbnAAqqLew/2h2ZSHAagZpveekJwadE/Kvxf
-	 K68xulolXaWeu8E0YmcIOAJWpqveTiIhCufnVRdZQFzoPVmHh8ASGKYEUh0vgW7Cxo
-	 UFIudsS4Xw8TpOvlhD9DXWxIcpHkmTDthIFuu/nI=
+	s=default; t=1562069303;
+	bh=XokA50JOtZvlyvoLAyFZnTOaHi27g/7sgXA38CU/API=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nKRkU1BUbwtrwv7CGml/CBaq5Uoy+67TXHXA5o3KASOMj35cSosdK4wVRm2fhHNWL
+	 mgl34Lti9i2aRh+XWL2DfWPGfIZIDgBm0XSUClJ7harju396vX64R2BvuceVbR5M1e
+	 5sAtxPOX001Atr0qpsUzn4pPOD9pSMXOLuSKN+fQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C30EF80148;
-	Tue,  2 Jul 2019 20:32:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68127F800D3;
+	Tue,  2 Jul 2019 14:06:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FC18F80058; Tue,  2 Jul 2019 12:12:31 +0200 (CEST)
+ id 5AD92F800C9; Tue,  2 Jul 2019 14:06:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.steuer-voss.de (mail.steuer-voss.de [85.183.69.95])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D63AF80058
- for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 12:12:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D63AF80058
-X-Virus-Scanned: Debian amavisd-new at mail.steuer-voss.de
-Received: by mail.steuer-voss.de (Postfix, from userid 1000)
- id 9301844FB1; Tue,  2 Jul 2019 12:12:26 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
- by mail.steuer-voss.de (Postfix) with ESMTP id 8FB3643D57;
- Tue,  2 Jul 2019 12:12:26 +0200 (CEST)
-Date: Tue, 2 Jul 2019 12:12:26 +0200 (CEST)
-From: Nikolaus Voss <nv@vosn.de>
-X-X-Sender: nv@fox.voss.local
-To: "Andrew F. Davis" <afd@ti.com>
-In-Reply-To: <074d4df3-51d8-6e20-869d-5f88b46cc172@ti.com>
-Message-ID: <alpine.DEB.2.20.1907020855240.10248@fox.voss.local>
-References: <20190628143037.GH5379@sirena.org.uk>
- <cover.1561988282.git.nikolaus.voss@loewensteinmedical.de>
- <c79df50175d59265a37c5e7c8a0cfbf8119bcf78.1561988282.git.nikolaus.voss@loewensteinmedical.de>
- <80af3fca-f71b-c118-e5d8-fde8b7d21705@ti.com>
- <alpine.DEB.2.20.1907011633310.4353@fox.voss.local>
- <074d4df3-51d8-6e20-869d-5f88b46cc172@ti.com>
-User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E84CF80058
+ for <alsa-devel@alsa-project.org>; Tue,  2 Jul 2019 14:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E84CF80058
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2019 05:06:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,443,1557212400"; d="scan'208";a="362199749"
+Received: from keyon-x299.sh.intel.com ([10.239.159.75])
+ by fmsmga005.fm.intel.com with ESMTP; 02 Jul 2019 05:06:30 -0700
+From: Keyon Jie <yang.jie@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Tue,  2 Jul 2019 20:11:43 +0800
+Message-Id: <20190702121144.7809-1-yang.jie@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-ID: <alpine.DEB.2.20.1907021201360.11292@fox.voss.local>
-X-Mailman-Approved-At: Tue, 02 Jul 2019 20:32:21 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Kate Stewart <kstewart@linuxfoundation.org>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-acpi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Andreas Dannenberg <dannenberg@ti.com>
-Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: tas5720.c: cleanup variant
-	management
+Cc: marcin.rajwa@intel.com, Keyon Jie <yang.jie@linux.intel.com>,
+ ranjani.sridharan@linux.intel.com, Marcin Rajwa <marcin.rajwa@linux.intel.com>,
+ pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] [PATCH 1/2] ASoC: SOF: ipc: update
+	sof_ipc_stream_params
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,327 +67,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-15"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 1 Jul 2019, Andrew F. Davis wrote:
-> On 7/1/19 11:35 AM, Nikolaus Voss wrote:
->> On Mon, 1 Jul 2019, Andrew F. Davis wrote:
->>> On 7/1/19 9:42 AM, Nikolaus Voss wrote:
->>>> Replace enum tas572x_type with struct tas5720_variant which aggregates
->>>> variant specific stuff and can be directly referenced from an id table.
->>>>
->>>> Signed-off-by: Nikolaus Voss <nikolaus.voss@loewensteinmedical.de>
->>>> ---
->>>> =A0sound/soc/codecs/tas5720.c | 98 +++++++++++++----------------------=
+From: Marcin Rajwa <marcin.rajwa@linux.intel.com>
+
+The host period bytes needs to be passed to firmware.
+Currently this field is used as notification for host
+about period copy completion. Therefore we need to split these
+two informations.
+
+Signed-off-by: Marcin Rajwa <marcin.rajwa@linux.intel.com>
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 ---
->>>> =A01 file changed, 33 insertions(+), 65 deletions(-)
->>>>
->>>> diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
->>>> index 37fab8f22800..b2e897f094b4 100644
->>>> --- a/sound/soc/codecs/tas5720.c
->>>> +++ b/sound/soc/codecs/tas5720.c
->>>> @@ -28,9 +28,10 @@
->>>> =A0/* Define how often to check (and clear) the fault status register
->>>> (in ms) */
->>>> =A0#define TAS5720_FAULT_CHECK_INTERVAL=A0=A0=A0=A0=A0=A0=A0 200
->>>>
->>>> -enum tas572x_type {
->>>> -=A0=A0=A0 TAS5720,
->>>> -=A0=A0=A0 TAS5722,
->>>> +struct tas5720_variant {
->>>> +=A0=A0=A0 const int device_id;
->>>> +=A0=A0=A0 const struct regmap_config *reg_config;
->>>> +=A0=A0=A0 const struct snd_soc_component_driver *comp_drv;
->>>> =A0};
->>>>
->>>> =A0static const char * const tas5720_supply_names[] =3D {
->>>> @@ -44,7 +45,7 @@ struct tas5720_data {
->>>> =A0=A0=A0=A0 struct snd_soc_component *component;
->>>> =A0=A0=A0=A0 struct regmap *regmap;
->>>> =A0=A0=A0=A0 struct i2c_client *tas5720_client;
->>>> -=A0=A0=A0 enum tas572x_type devtype;
->>>> +=A0=A0=A0 const struct tas5720_variant *variant;
->>>
->>> Why add a new struct? Actually I don't see the need for this patch at
->>> all, the commit message only explains the 'what' not the 'why'. We can
->>> and do already build this info from the tas572x_type.
->>
->> As the commit message says, the purpose is to aggregate the variant
->> specifics and make it accessible via one pointer. This is a standard
->> approach for of/acpi_device_id tables and thus makes the code simpler
->> and improves readability. This is a maintenance patch to prepare using
->> the device match API in a proper way.
->>
->
->
-> "make it accessible via one pointer" is again a "what", the "why" is:
->
-> "This is a standard approach"
-> "makes the code simpler and improves readability"
->
-> Those are valid reasons and should be what you put in the commit message.
+ include/sound/sof/stream.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-ok
+diff --git a/include/sound/sof/stream.h b/include/sound/sof/stream.h
+index 643f175cb479..44acfa62fa69 100644
+--- a/include/sound/sof/stream.h
++++ b/include/sound/sof/stream.h
+@@ -83,10 +83,10 @@ struct sof_ipc_stream_params {
+ 	uint16_t sample_valid_bytes;
+ 	uint16_t sample_container_bytes;
+ 
+-	/* for notifying host period has completed - 0 means no period IRQ */
+ 	uint32_t host_period_bytes;
++	uint16_t no_period_irq; /* 1 means period IRQ mode OFF */
+ 
+-	uint32_t reserved[2];
++	uint16_t reserved[3];
+ 	uint16_t chmap[SOF_IPC_MAX_CHANNELS];	/**< channel map - SOF_CHMAP_ */
+ } __packed;
+ 
+-- 
+2.20.1
 
->
->
->>>
->>> Also below are several functional changes, the cover letter says this is
->>> not a functional change, yet the driver behaves differently now.
->>
->> Can you be a little bit more specific? The code should behave exactly as
->> before.
->>
->
->
-> Sure, for instance the line "unexpected private driver data" is removed,
-> this can now never happen, that is a functional change. The phrase "no
-> functional change", should be reserved for only changes to spelling,
-> formatting, code organizing, etc..
-
-"unexpected private driver data" was unreachable code before, but you're =
-
-right, debug output has changed a little, but the functional part is =
-
-exactly the same.
-
->
->
->> Niko
->>
->>>
->>> Andrew
->>>
->>>> =A0=A0=A0=A0 struct regulator_bulk_data supplies[TAS5720_NUM_SUPPLIES];
->>>> =A0=A0=A0=A0 struct delayed_work fault_check_work;
->>>> =A0=A0=A0=A0 unsigned int last_fault;
->>>> @@ -179,17 +180,13 @@ static int tas5720_set_dai_tdm_slot(struct
->>>> snd_soc_dai *dai,
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 goto error_snd_soc_component_update_bits;
->>>>
->>>> =A0=A0=A0=A0 /* Configure TDM slot width. This is only applicable to T=
-AS5722. */
->>>> -=A0=A0=A0 switch (tas5720->devtype) {
->>>> -=A0=A0=A0 case TAS5722:
->>>> +=A0=A0=A0 if (tas5720->variant->device_id =3D=3D TAS5722_DEVICE_ID) {
->
->
-> I also don't like this, TAS5722_DEVICE_ID is the expected contents of a
-> register, you are using it like the enum tas572x_type that you removed.
-> I'd leave that enum, the device ID register itself is not guaranteed to
-> be correct or unique, which is why we warn about mismatches below but
-> then continue to use the user provided device type anyway.
-
-Strange, with me it's the other way round, I don't like the enum. The =
-
-mismatch behavior hasn't changed a bit, the same warning is printed. =
-
-If the device ID is no longer unique in the future (apparently it is =
-
-for now) the driver should explicitly handle this instead of printing a =
-
-warning, because warnings should be reserved for an indication of any =
-
-kind of misconfiguration and not of expected behavior.
-
-That said the variant struct can of course replace the enum in every =
-
-aspect, even for what you describe above. The enum was an ordinal =
-
-representation of the user-selected i2c_device_id, the variant struct* is
-a pointer representation of the user-selected i2c/of/acpi_device_id. The =
-
-only difference is that it directly points to the variant specific parts =
-
-of the driver instead of resolving those via multiple switch/case =
-
-statements.
-
-Niko
-
->
-> Andrew
->
->
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 ret =3D snd_soc_component_update_bits(compone=
-nt,
->>>> TAS5722_DIGITAL_CTRL2_REG,
->>>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0 TAS5722_TDM_SLOT_16B,
->>>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0 slot_width =3D=3D 16 ?
->>>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0 TAS5722_TDM_SLOT_16B : 0);
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 if (ret < 0)
->>>> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 goto error_snd_soc_component_upda=
-te_bits;
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 default:
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> =A0=A0=A0=A0 }
->>>>
->>>> =A0=A0=A0=A0 return 0;
->>>> @@ -277,7 +274,7 @@ static void tas5720_fault_check_work(struct
->>>> work_struct *work)
->>>> =A0static int tas5720_codec_probe(struct snd_soc_component *component)
->>>> =A0{
->>>> =A0=A0=A0=A0 struct tas5720_data *tas5720 =3D
->>>> snd_soc_component_get_drvdata(component);
->>>> -=A0=A0=A0 unsigned int device_id, expected_device_id;
->>>> +=A0=A0=A0 unsigned int device_id;
->>>> =A0=A0=A0=A0 int ret;
->>>>
->>>> =A0=A0=A0=A0 tas5720->component =3D component;
->>>> @@ -301,21 +298,9 @@ static int tas5720_codec_probe(struct
->>>> snd_soc_component *component)
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 goto probe_fail;
->>>> =A0=A0=A0=A0 }
->>>>
->>>> -=A0=A0=A0 switch (tas5720->devtype) {
->>>> -=A0=A0=A0 case TAS5720:
->>>> -=A0=A0=A0=A0=A0=A0=A0 expected_device_id =3D TAS5720_DEVICE_ID;
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 case TAS5722:
->>>> -=A0=A0=A0=A0=A0=A0=A0 expected_device_id =3D TAS5722_DEVICE_ID;
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 default:
->>>> -=A0=A0=A0=A0=A0=A0=A0 dev_err(component->dev, "unexpected private dri=
-ver data\n");
->>>> -=A0=A0=A0=A0=A0=A0=A0 return -EINVAL;
->>>> -=A0=A0=A0 }
->>>> -
->>>> -=A0=A0=A0 if (device_id !=3D expected_device_id)
->>>> +=A0=A0=A0 if (device_id !=3D tas5720->variant->device_id)
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 dev_warn(component->dev, "wrong device ID. ex=
-pected: %u
->>>> read: %u\n",
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 expected_device_id, device_id);
->>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 tas5720->variant->device_id, dev=
-ice_id);
->>>>
->>>> =A0=A0=A0=A0 /* Set device to mute */
->>>> =A0=A0=A0=A0 ret =3D snd_soc_component_update_bits(component,
->>>> TAS5720_DIGITAL_CTRL2_REG,
->>>> @@ -637,7 +622,6 @@ static int tas5720_probe(struct i2c_client *client,
->>>> =A0{
->>>> =A0=A0=A0=A0 struct device *dev =3D &client->dev;
->>>> =A0=A0=A0=A0 struct tas5720_data *data;
->>>> -=A0=A0=A0 const struct regmap_config *regmap_config;
->>>> =A0=A0=A0=A0 int ret;
->>>> =A0=A0=A0=A0 int i;
->>>>
->>>> @@ -646,20 +630,10 @@ static int tas5720_probe(struct i2c_client
->>>> *client,
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 return -ENOMEM;
->>>>
->>>> =A0=A0=A0=A0 data->tas5720_client =3D client;
->>>> -=A0=A0=A0 data->devtype =3D id->driver_data;
->>>>
->>>> -=A0=A0=A0 switch (id->driver_data) {
->>>> -=A0=A0=A0 case TAS5720:
->>>> -=A0=A0=A0=A0=A0=A0=A0 regmap_config =3D &tas5720_regmap_config;
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 case TAS5722:
->>>> -=A0=A0=A0=A0=A0=A0=A0 regmap_config =3D &tas5722_regmap_config;
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 default:
->>>> -=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "unexpected private driver data\n"=
-);
->>>> -=A0=A0=A0=A0=A0=A0=A0 return -EINVAL;
->>>> -=A0=A0=A0 }
->>>> -=A0=A0=A0 data->regmap =3D devm_regmap_init_i2c(client, regmap_config=
-);
->>>> +=A0=A0=A0 data->variant =3D (const struct tas5720_variant *)id->drive=
-r_data;
->>>> +
->>>> +=A0=A0=A0 data->regmap =3D devm_regmap_init_i2c(client,
->>>> data->variant->reg_config);
->>>> =A0=A0=A0=A0 if (IS_ERR(data->regmap)) {
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 ret =3D PTR_ERR(data->regmap);
->>>> =A0=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "failed to allocate register map=
-: %d\n", ret);
->>>> @@ -678,42 +652,36 @@ static int tas5720_probe(struct i2c_client
->>>> *client,
->>>>
->>>> =A0=A0=A0=A0 dev_set_drvdata(dev, data);
->>>>
->>>> -=A0=A0=A0 switch (id->driver_data) {
->>>> -=A0=A0=A0 case TAS5720:
->>>> -=A0=A0=A0=A0=A0=A0=A0 ret =3D devm_snd_soc_register_component(&client=
-->dev,
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &soc_compon=
-ent_dev_tas5720,
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 tas5720_dai,
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ARRAY_SIZE(=
-tas5720_dai));
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 case TAS5722:
->>>> -=A0=A0=A0=A0=A0=A0=A0 ret =3D devm_snd_soc_register_component(&client=
-->dev,
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &soc_compon=
-ent_dev_tas5722,
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 tas5720_dai,
->>>> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ARRAY_SIZE(=
-tas5720_dai));
->>>> -=A0=A0=A0=A0=A0=A0=A0 break;
->>>> -=A0=A0=A0 default:
->>>> -=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "unexpected private driver data\n"=
-);
->>>> -=A0=A0=A0=A0=A0=A0=A0 return -EINVAL;
->>>> -=A0=A0=A0 }
->>>> -=A0=A0=A0 if (ret < 0) {
->>>> -=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "failed to register component: %d\=
-n", ret);
->>>> -=A0=A0=A0=A0=A0=A0=A0 return ret;
->>>> -=A0=A0=A0 }
->>>> -
->>>> -=A0=A0=A0 return 0;
->>>> +=A0=A0=A0 ret =3D devm_snd_soc_register_component(&client->dev,
->>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 data->variant->comp_drv,
->>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 tas5720_dai,
->>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 ARRAY_SIZE(tas5720_dai));
->>>> +=A0=A0=A0 return ret;
->>>> =A0}
->>>>
->>>> +static const struct tas5720_variant tas5720 =3D {
->>>> +=A0=A0=A0 .device_id =3D TAS5720_DEVICE_ID,
->>>> +=A0=A0=A0 .reg_config =3D &tas5720_regmap_config,
->>>> +=A0=A0=A0 .comp_drv =3D &soc_component_dev_tas5720,
->>>> +};
->>>> +
->>>> +static const struct tas5720_variant tas5722 =3D {
->>>> +=A0=A0=A0 .device_id =3D TAS5722_DEVICE_ID,
->>>> +=A0=A0=A0 .reg_config =3D &tas5722_regmap_config,
->>>> +=A0=A0=A0 .comp_drv =3D &soc_component_dev_tas5722,
->>>> +};
->>>> +
->>>> =A0static const struct i2c_device_id tas5720_id[] =3D {
->>>> -=A0=A0=A0 { "tas5720", TAS5720 },
->>>> -=A0=A0=A0 { "tas5722", TAS5722 },
->>>> +=A0=A0=A0 { "tas5720", (kernel_ulong_t)&tas5720 },
->>>> +=A0=A0=A0 { "tas5722", (kernel_ulong_t)&tas5722 },
->>>> =A0=A0=A0=A0 { }
->>>> =A0};
->>>> =A0MODULE_DEVICE_TABLE(i2c, tas5720_id);
->>>>
->>>> =A0#if IS_ENABLED(CONFIG_OF)
->>>> =A0static const struct of_device_id tas5720_of_match[] =3D {
->>>> -=A0=A0=A0 { .compatible =3D "ti,tas5720", },
->>>> -=A0=A0=A0 { .compatible =3D "ti,tas5722", },
->>>> +=A0=A0=A0 { .compatible =3D "ti,tas5720", .data =3D &tas5720, },
->>>> +=A0=A0=A0 { .compatible =3D "ti,tas5722", .data =3D &tas5722, },
->>>> =A0=A0=A0=A0 { },
->>>> =A0};
->>>> =A0MODULE_DEVICE_TABLE(of, tas5720_of_match);
->>>>
->>>
->
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

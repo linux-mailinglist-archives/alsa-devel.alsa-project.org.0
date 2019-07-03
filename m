@@ -2,102 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FC635E5D7
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2019 15:56:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 940C35E747
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2019 17:00:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC84C16AD;
-	Wed,  3 Jul 2019 15:56:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC84C16AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23AB016AC;
+	Wed,  3 Jul 2019 16:59:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23AB016AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562162216;
-	bh=09ER/FVdX7G+Se91f8mhftq5sZUm+Ao/Mjv5oR/cxoo=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562166040;
+	bh=5UPyfUC2QTKyTAoVyVpseiknZfc+i2GZs8R/5a4w4bo=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fe8os4r0gk8LfkNex1JZroDl0aYKntbko3hy38oewJVHScLxae4+Rk4uF9D/rFpVj
-	 qasB4KJFNhzxypFSmuvaW3h30CFEYdEEnvPHh3wUQvvLc/dNowwTKRpTfzyzlXVM7a
-	 LxOY29Xe6o0rG+cxQgvwL6O6/qgmBvIaNWoqUHJI=
+	b=odpdemvaX6km1vyzsaS/haCCXVGN+N5WAYY9GAX7GoXKzMO9A8cA/RikudsArQlL9
+	 vX6TKv/v4ucmsyWBDlFChVcbab1TGbyJ23Qkwr+dZ1q5iIaW9RoHWqh+lxruYVH33h
+	 1Oun9O74GSdmbvXKNyOybJutsf5u07Xflz9RPwhw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C9DC4F800E8;
-	Wed,  3 Jul 2019 15:55:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 414B4F800F1;
+	Wed,  3 Jul 2019 16:58:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9C34F80058; Wed,  3 Jul 2019 15:55:10 +0200 (CEST)
+ id 8DEF9F800EA; Wed,  3 Jul 2019 16:58:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05513F80058
- for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 15:55:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05513F80058
+ by alsa1.perex.cz (Postfix) with ESMTPS id E35CDF800C5
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 16:58:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E35CDF800C5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="Nj/gDrwa"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x63Dt5EO018724; Wed, 3 Jul 2019 08:55:05 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=PODMain02222019;
- bh=L90T/GlgU1MaQGyAFE7vEL8Bp6VDhRgZMQRaYBA9ec4=;
- b=Nj/gDrwaFBX2pdJvGiLpjgRZAUioUtaCgRJYDcmTpJgiquleCI4TqvGwIi7lHBpTg6ZP
- Rax4PwyGhmj2PNloQLvCP9O+kWoFlsQTCmW3Jm818M8UcvaexmhGPHMcw2St3tWnxcqa
- v18GNO2MSplkvS0jTP6/pP+yAG98qUaIDR2wlnRKhOz2k0HDO6D1Cm0yYDqDJGD9FNz7
- JPk/wfi4kXvDo4DctmlUhbbLWecpKxnyucVqX61NRlSE2Il8FVx+7iYLTAiwyd0dCB8A
- v6K/SBaYEXO4IvvaujHShR+r1TqayrhWNyiXhmRrxFeuOyg+Aqy3wIqmrhqA00BxOqZk fQ== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=rf@opensource.cirrus.com
-Received: from mail1.cirrus.com (mail1.cirrus.com [141.131.3.20])
- by mx0b-001ae601.pphosted.com with ESMTP id 2te4dr6mnw-1;
- Wed, 03 Jul 2019 08:55:04 -0500
-Received: from EDIEX02.ad.cirrus.com (unknown [198.61.84.81])
- by mail1.cirrus.com (Postfix) with ESMTP id 5DB74611C8BB;
- Wed,  3 Jul 2019 08:55:04 -0500 (CDT)
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 3 Jul
- 2019 14:55:03 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Wed, 3 Jul 2019 14:55:03 +0100
-Received: from [198.90.251.101] (edi-sw-dsktp006.ad.cirrus.com
- [198.90.251.101])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 79B792A1;
- Wed,  3 Jul 2019 14:55:03 +0100 (BST)
-To: Fuqian Huang <huangfq.daxian@gmail.com>
-References: <20190703131842.26082-1-huangfq.daxian@gmail.com>
-From: Richard Fitzgerald <rf@opensource.cirrus.com>
-Message-ID: <547c68b0-f55f-ca1d-c5b3-f6a5f89d93a9@opensource.cirrus.com>
-Date: Wed, 3 Jul 2019 14:55:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.8.0
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="rP81x57R"
+Received: by mail-qt1-x841.google.com with SMTP id w17so506638qto.10
+ for <alsa-devel@alsa-project.org>; Wed, 03 Jul 2019 07:58:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=a662vhOsHnFz4Y9zmRoUex7/pczenDh3Ci8ob4LVgWw=;
+ b=rP81x57RHiIoDvcKVdfIbI/IQmaDCgy02rwGpu2kDqCq/2Q/CmGgOYVBSDgdPj5NqO
+ Q22F551Om9gMJ3buc/dpsYgF056TZqQtazDNTq51WT0Qtr1r3bJm6MegqUoNvoPwl2wA
+ IlbGTyBo9mW3MkrKqEc4APDhZjmLkytwqBCS3o1sotAOxt8khT/yv/Rj3HvL3XZEYOXr
+ RgkZ7lrtEvSpUe/+Vgr658ndHwH2JwzfGkOgEOZ3v3HlYmkAZdwzvuOuHqkmwb4IF3vh
+ moQLKrCoyGtW7tLKbUmL4Bh/Re5kskFzUggF2tZ5SOGdppJDDW/M3iy1kNT7HemDkcMA
+ LcBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=a662vhOsHnFz4Y9zmRoUex7/pczenDh3Ci8ob4LVgWw=;
+ b=baWYHj+MY1ynjdTaLmqMv7x/2bxpoBvsSAUpLJjso0SQu8O0bXH1ii4pHHlI2IkJO2
+ TGXz/3CR2qs9Az0Gxr6CWDCMm+v0TjXsn1f4/lPeqfdcp7ILjkyoQHrjvuZAepGZcsX9
+ Uuoh+pgAhyEfMbTgc5+EHjh7QxiA0zVhqEaF76PLCz5Dhw0dy9h0livmwKfrJjFjIILc
+ Hq3jDMvmr4j1wR+MBFxKkfRT7sXbhPmmqPb+PVYyMNW/2oKpmYY2H2HPDno7AEMsScSq
+ ALPywk2/pCm05H8gkAx2Azq5BSixX+nLPh3ImCv8kMWfW03bBNg0ndJlgCRPAc/5tgHf
+ A68w==
+X-Gm-Message-State: APjAAAV1g6RjtviMrMqBeOUomzVX0slbTFNd7EVt2du7XS0LrkZtNSJU
+ qt2VcaP3qAmHbs94ruoOCIIp5Qh66gGkM5i74W8=
+X-Google-Smtp-Source: APXvYqxuXD87vqmtFZRsgM0sSJGQpOtEVCvP3zGJTMc+/6qxBmr7IWKbLwZaGtgj9SKgfDlnbGfxR2NsASeWpOD5DkE=
+X-Received: by 2002:a25:768f:: with SMTP id r137mr12406439ybc.8.1562165928725; 
+ Wed, 03 Jul 2019 07:58:48 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190703131842.26082-1-huangfq.daxian@gmail.com>
-Content-Language: en-US
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1907030170
+References: <20190703131842.26082-1-huangfq.daxian@gmail.com>
+ <547c68b0-f55f-ca1d-c5b3-f6a5f89d93a9@opensource.cirrus.com>
+In-Reply-To: <547c68b0-f55f-ca1d-c5b3-f6a5f89d93a9@opensource.cirrus.com>
+From: Fuqian Huang <huangfq.daxian@gmail.com>
+Date: Wed, 3 Jul 2019 22:58:43 +0800
+Message-ID: <CABXRUiQH2c5knAxnegNc1J2uyqy3OVU=qEorcZkUtMoJhvb_8Q@mail.gmail.com>
+To: Richard Fitzgerald <rf@opensource.cirrus.com>
 Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 Subject: Re: [alsa-devel] [PATCH 30/30] sound/soc: Use kmemdup rather than
- duplicating its implementation
+	duplicating its implementation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,77 +96,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 03/07/19 14:18, Fuqian Huang wrote:
-> kmemdup is introduced to duplicate a region of memory in a neat way.
-> Rather than kmalloc/kzalloc + memset, which the programmer needs to
-> write the size twice (sometimes lead to mistakes), kmemdup improves
-> readability, leads to smaller code and also reduce the chances of mistakes.
-> Suggestion to use kmemdup rather than using kmalloc/kzalloc + memset.
-> 
-> Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
-> ---
->   sound/soc/codecs/wm0010.c             | 4 +---
->   sound/soc/intel/atom/sst/sst_loader.c | 3 +--
-
-Should be one patch per file as the drivers are not related to each
-other at all, and if one needed a revert you couldn't revert this
-patch because it would revert both drivers.
-
-But apart from that, for wm0010.c:
-Acked-by: Richard Fitzgerald <rf@opensource.cirrus.com>
-
->   2 files changed, 2 insertions(+), 5 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/wm0010.c b/sound/soc/codecs/wm0010.c
-> index 727d6703c905..807826f30f58 100644
-> --- a/sound/soc/codecs/wm0010.c
-> +++ b/sound/soc/codecs/wm0010.c
-> @@ -515,7 +515,7 @@ static int wm0010_stage2_load(struct snd_soc_component *component)
->   	dev_dbg(component->dev, "Downloading %zu byte stage 2 loader\n", fw->size);
->   
->   	/* Copy to local buffer first as vmalloc causes problems for dma */
-> -	img = kzalloc(fw->size, GFP_KERNEL | GFP_DMA);
-> +	img = kmemdup(&fw->data[0], fw->size, GFP_KERNEL | GFP_DMA);
->   	if (!img) {
->   		ret = -ENOMEM;
->   		goto abort2;
-> @@ -527,8 +527,6 @@ static int wm0010_stage2_load(struct snd_soc_component *component)
->   		goto abort1;
->   	}
->   
-> -	memcpy(img, &fw->data[0], fw->size);
-> -
->   	spi_message_init(&m);
->   	memset(&t, 0, sizeof(t));
->   	t.rx_buf = out;
-> diff --git a/sound/soc/intel/atom/sst/sst_loader.c b/sound/soc/intel/atom/sst/sst_loader.c
-> index ce11c36848c4..cc95af35c060 100644
-> --- a/sound/soc/intel/atom/sst/sst_loader.c
-> +++ b/sound/soc/intel/atom/sst/sst_loader.c
-> @@ -288,14 +288,13 @@ static int sst_cache_and_parse_fw(struct intel_sst_drv *sst,
->   {
->   	int retval = 0;
->   
-> -	sst->fw_in_mem = kzalloc(fw->size, GFP_KERNEL);
-> +	sst->fw_in_mem = kmemdup(fw->data, fw->size, GFP_KERNEL);
->   	if (!sst->fw_in_mem) {
->   		retval = -ENOMEM;
->   		goto end_release;
->   	}
->   	dev_dbg(sst->dev, "copied fw to %p", sst->fw_in_mem);
->   	dev_dbg(sst->dev, "phys: %lx", (unsigned long)virt_to_phys(sst->fw_in_mem));
-> -	memcpy(sst->fw_in_mem, fw->data, fw->size);
->   	retval = sst_parse_fw_memcpy(sst, fw->size, &sst->memcpy_list);
->   	if (retval) {
->   		dev_err(sst->dev, "Failed to parse fw\n");
-> 
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T2ssIEkgd2lsbCBzZXBhcmF0ZSB0aGVtIGludG8gdHdvIHBhdGNoZXMgaW4gdGhlIHYyIHBhdGNo
+IHNldC4gQWxzbywKdGhlcmUgaXMgYSB0eXBvIGluIHRoZSB2MShtZW1zZXQgc2hvdWxkIGJlIG1l
+bWNweSkuCgpSaWNoYXJkIEZpdHpnZXJhbGQgPHJmQG9wZW5zb3VyY2UuY2lycnVzLmNvbT4g5pa8
+IDIwMTnlubQ35pyIM+aXpemAseS4iSDkuIvljYg5OjU15a+r6YGT77yaCj4KPiBPbiAwMy8wNy8x
+OSAxNDoxOCwgRnVxaWFuIEh1YW5nIHdyb3RlOgo+ID4ga21lbWR1cCBpcyBpbnRyb2R1Y2VkIHRv
+IGR1cGxpY2F0ZSBhIHJlZ2lvbiBvZiBtZW1vcnkgaW4gYSBuZWF0IHdheS4KPiA+IFJhdGhlciB0
+aGFuIGttYWxsb2Mva3phbGxvYyArIG1lbXNldCwgd2hpY2ggdGhlIHByb2dyYW1tZXIgbmVlZHMg
+dG8KPiA+IHdyaXRlIHRoZSBzaXplIHR3aWNlIChzb21ldGltZXMgbGVhZCB0byBtaXN0YWtlcyks
+IGttZW1kdXAgaW1wcm92ZXMKPiA+IHJlYWRhYmlsaXR5LCBsZWFkcyB0byBzbWFsbGVyIGNvZGUg
+YW5kIGFsc28gcmVkdWNlIHRoZSBjaGFuY2VzIG9mIG1pc3Rha2VzLgo+ID4gU3VnZ2VzdGlvbiB0
+byB1c2Uga21lbWR1cCByYXRoZXIgdGhhbiB1c2luZyBrbWFsbG9jL2t6YWxsb2MgKyBtZW1zZXQu
+Cj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogRnVxaWFuIEh1YW5nIDxodWFuZ2ZxLmRheGlhbkBnbWFp
+bC5jb20+Cj4gPiAtLS0KPiA+ICAgc291bmQvc29jL2NvZGVjcy93bTAwMTAuYyAgICAgICAgICAg
+ICB8IDQgKy0tLQo+ID4gICBzb3VuZC9zb2MvaW50ZWwvYXRvbS9zc3Qvc3N0X2xvYWRlci5jIHwg
+MyArLS0KPgo+IFNob3VsZCBiZSBvbmUgcGF0Y2ggcGVyIGZpbGUgYXMgdGhlIGRyaXZlcnMgYXJl
+IG5vdCByZWxhdGVkIHRvIGVhY2gKPiBvdGhlciBhdCBhbGwsIGFuZCBpZiBvbmUgbmVlZGVkIGEg
+cmV2ZXJ0IHlvdSBjb3VsZG4ndCByZXZlcnQgdGhpcwo+IHBhdGNoIGJlY2F1c2UgaXQgd291bGQg
+cmV2ZXJ0IGJvdGggZHJpdmVycy4KPgo+IEJ1dCBhcGFydCBmcm9tIHRoYXQsIGZvciB3bTAwMTAu
+YzoKPiBBY2tlZC1ieTogUmljaGFyZCBGaXR6Z2VyYWxkIDxyZkBvcGVuc291cmNlLmNpcnJ1cy5j
+b20+Cj4KPiA+ICAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25z
+KC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3Mvd20wMDEwLmMgYi9zb3Vu
+ZC9zb2MvY29kZWNzL3dtMDAxMC5jCj4gPiBpbmRleCA3MjdkNjcwM2M5MDUuLjgwNzgyNmYzMGY1
+OCAxMDA2NDQKPiA+IC0tLSBhL3NvdW5kL3NvYy9jb2RlY3Mvd20wMDEwLmMKPiA+ICsrKyBiL3Nv
+dW5kL3NvYy9jb2RlY3Mvd20wMDEwLmMKPiA+IEBAIC01MTUsNyArNTE1LDcgQEAgc3RhdGljIGlu
+dCB3bTAwMTBfc3RhZ2UyX2xvYWQoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQp
+Cj4gPiAgICAgICBkZXZfZGJnKGNvbXBvbmVudC0+ZGV2LCAiRG93bmxvYWRpbmcgJXp1IGJ5dGUg
+c3RhZ2UgMiBsb2FkZXJcbiIsIGZ3LT5zaXplKTsKPiA+Cj4gPiAgICAgICAvKiBDb3B5IHRvIGxv
+Y2FsIGJ1ZmZlciBmaXJzdCBhcyB2bWFsbG9jIGNhdXNlcyBwcm9ibGVtcyBmb3IgZG1hICovCj4g
+PiAtICAgICBpbWcgPSBremFsbG9jKGZ3LT5zaXplLCBHRlBfS0VSTkVMIHwgR0ZQX0RNQSk7Cj4g
+PiArICAgICBpbWcgPSBrbWVtZHVwKCZmdy0+ZGF0YVswXSwgZnctPnNpemUsIEdGUF9LRVJORUwg
+fCBHRlBfRE1BKTsKPiA+ICAgICAgIGlmICghaW1nKSB7Cj4gPiAgICAgICAgICAgICAgIHJldCA9
+IC1FTk9NRU07Cj4gPiAgICAgICAgICAgICAgIGdvdG8gYWJvcnQyOwo+ID4gQEAgLTUyNyw4ICs1
+MjcsNiBAQCBzdGF0aWMgaW50IHdtMDAxMF9zdGFnZTJfbG9hZChzdHJ1Y3Qgc25kX3NvY19jb21w
+b25lbnQgKmNvbXBvbmVudCkKPiA+ICAgICAgICAgICAgICAgZ290byBhYm9ydDE7Cj4gPiAgICAg
+ICB9Cj4gPgo+ID4gLSAgICAgbWVtY3B5KGltZywgJmZ3LT5kYXRhWzBdLCBmdy0+c2l6ZSk7Cj4g
+PiAtCj4gPiAgICAgICBzcGlfbWVzc2FnZV9pbml0KCZtKTsKPiA+ICAgICAgIG1lbXNldCgmdCwg
+MCwgc2l6ZW9mKHQpKTsKPiA+ICAgICAgIHQucnhfYnVmID0gb3V0Owo+ID4gZGlmZiAtLWdpdCBh
+L3NvdW5kL3NvYy9pbnRlbC9hdG9tL3NzdC9zc3RfbG9hZGVyLmMgYi9zb3VuZC9zb2MvaW50ZWwv
+YXRvbS9zc3Qvc3N0X2xvYWRlci5jCj4gPiBpbmRleCBjZTExYzM2ODQ4YzQuLmNjOTVhZjM1YzA2
+MCAxMDA2NDQKPiA+IC0tLSBhL3NvdW5kL3NvYy9pbnRlbC9hdG9tL3NzdC9zc3RfbG9hZGVyLmMK
+PiA+ICsrKyBiL3NvdW5kL3NvYy9pbnRlbC9hdG9tL3NzdC9zc3RfbG9hZGVyLmMKPiA+IEBAIC0y
+ODgsMTQgKzI4OCwxMyBAQCBzdGF0aWMgaW50IHNzdF9jYWNoZV9hbmRfcGFyc2VfZncoc3RydWN0
+IGludGVsX3NzdF9kcnYgKnNzdCwKPiA+ICAgewo+ID4gICAgICAgaW50IHJldHZhbCA9IDA7Cj4g
+Pgo+ID4gLSAgICAgc3N0LT5md19pbl9tZW0gPSBremFsbG9jKGZ3LT5zaXplLCBHRlBfS0VSTkVM
+KTsKPiA+ICsgICAgIHNzdC0+ZndfaW5fbWVtID0ga21lbWR1cChmdy0+ZGF0YSwgZnctPnNpemUs
+IEdGUF9LRVJORUwpOwo+ID4gICAgICAgaWYgKCFzc3QtPmZ3X2luX21lbSkgewo+ID4gICAgICAg
+ICAgICAgICByZXR2YWwgPSAtRU5PTUVNOwo+ID4gICAgICAgICAgICAgICBnb3RvIGVuZF9yZWxl
+YXNlOwo+ID4gICAgICAgfQo+ID4gICAgICAgZGV2X2RiZyhzc3QtPmRldiwgImNvcGllZCBmdyB0
+byAlcCIsIHNzdC0+ZndfaW5fbWVtKTsKPiA+ICAgICAgIGRldl9kYmcoc3N0LT5kZXYsICJwaHlz
+OiAlbHgiLCAodW5zaWduZWQgbG9uZyl2aXJ0X3RvX3BoeXMoc3N0LT5md19pbl9tZW0pKTsKPiA+
+IC0gICAgIG1lbWNweShzc3QtPmZ3X2luX21lbSwgZnctPmRhdGEsIGZ3LT5zaXplKTsKPiA+ICAg
+ICAgIHJldHZhbCA9IHNzdF9wYXJzZV9md19tZW1jcHkoc3N0LCBmdy0+c2l6ZSwgJnNzdC0+bWVt
+Y3B5X2xpc3QpOwo+ID4gICAgICAgaWYgKHJldHZhbCkgewo+ID4gICAgICAgICAgICAgICBkZXZf
+ZXJyKHNzdC0+ZGV2LCAiRmFpbGVkIHRvIHBhcnNlIGZ3XG4iKTsKPiA+Cj4KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxp
+c3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

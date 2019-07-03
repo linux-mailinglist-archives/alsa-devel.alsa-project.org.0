@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADC775E540
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2019 15:20:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BAF85E549
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2019 15:21:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 068E016A6;
-	Wed,  3 Jul 2019 15:19:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 068E016A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41D5C16AC;
+	Wed,  3 Jul 2019 15:20:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41D5C16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562160032;
-	bh=Y2kC/pmcesZbWXVpmauhoMWFvuc500z0qIsqksSSjPo=;
+	s=default; t=1562160079;
+	bh=0StWaiw7L12boYdR4OMIedQT6LL3qJ83X0t6LQltylw=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=I5yc1+IoyXkSPoKiqtpj+SrVWJM+jeE8oAVcwypuOVZmDDgT8BhddGRfczfro1mc/
-	 I/Bcdyz3/ymlJFGvC9ExdR4I1knmHWskF1HVm3XKt3Qqe6Hp4Wy0zDIpjuvlIYTTDk
-	 SoZ4EFbabMFHGnXeeO+DCgxpo7mN3YAE7QGkzHhQ=
+	b=mPF7YIcmlq66rMBOSqI5oEoF94OY2a+B0ip9JpCAh6Fr4zADrsuuuXFmucKEqXZrn
+	 yW+V4/9bVRIYTtsn4DXCaERWSM8qgZb14odj0LP7pBVSNG6RhjXlOAvDngW7FDnE0o
+	 EegycTzah4U5Q3JAfecDCORzYHJr1aqaI1e1y/MA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E4FAF800EA;
-	Wed,  3 Jul 2019 15:18:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94122F80114;
+	Wed,  3 Jul 2019 15:19:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9091AF800EA; Wed,  3 Jul 2019 15:18:45 +0200 (CEST)
+ id 6404EF80112; Wed,  3 Jul 2019 15:18:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B9E2F80058
- for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 15:18:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B9E2F80058
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFC7EF800C5
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 15:18:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFC7EF800C5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="O7xWJ/l1"
-Received: by mail-pf1-x443.google.com with SMTP id j2so1278827pfe.6
- for <alsa-devel@alsa-project.org>; Wed, 03 Jul 2019 06:18:42 -0700 (PDT)
+ header.b="aosT7HgR"
+Received: by mail-pf1-x441.google.com with SMTP id m30so1271848pff.8
+ for <alsa-devel@alsa-project.org>; Wed, 03 Jul 2019 06:18:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=Nj/3gkFpbOs8TwYJH6jtpLzU/5n2yTiUnG69zoLMmRY=;
- b=O7xWJ/l115TO6HXFLmdL4uE8BcJQnt35GkuZIG1XCxNxs6L3gacLowdoXt9u6WIYTU
- EOK/YOV+16ah1UKJoABmyB3IooXCj6oJmKCq71iviTUc/n4soQ8ou4F71QG1r51qVM3o
- m2wmULGU7CC+2UZeaFywAd7EDHv/BhfMgPyZMaA6WGTG9eGzhohXVDXB8pA4KJU+uJEp
- Y7YAuSrbuNzwa8wJ6eoAiCPBXhchYSBEf9q7wm4IWjG46Iypw1dd/Gdb1ait60ej7cGq
- RcvCGGyYLDADJmpZpT0fGNz+mg7/kVWybhffL95VOiLrOJD5Mtbo2VR7BrE1HF2c3bUz
- c7Mw==
+ bh=maPFzMJxkxDi9/pzkIAhWooIBm7u3WPHY1fXuOXs5zg=;
+ b=aosT7HgRTdAbUppuudBPEzJ5pAmqaRAM0pjZ5iT+PWRrWYST1xeX6Xg/S/8RoHVDUm
+ 4Xm8U8hXNZEcomAuxcorC3N4GyZ8WxFaFUQ/5HtbxaeEYQCH5WWczrE/QcbClgcko6B3
+ 9kXHOCMR/9EsFpDnkT2jNADO7Pj8UR/UsKWkZsti/bmm5ZZf2Y3K9ue5eSO1LGT/i5mL
+ mIXWsl+tNvt4VwOAS4ueIwoKhVcnXGXRnzs1h9TePUhSTwYP4EgWn6AJumJ9XHsliVvz
+ CpEpd205rEkSkJK4oCUyn4k76oP1BcszDg3hnJY7MNXl3bDVJA50IllerePntRebQNK9
+ Y5Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Nj/3gkFpbOs8TwYJH6jtpLzU/5n2yTiUnG69zoLMmRY=;
- b=R/6KMUwgVwGvjrEPf9oBWV7m3jfKdF8axhg9MJ9shkfXXrC5ipdt36athGmIwUCgTP
- ohrHzjoaEKqe4qHnKXcQIbg773uJzK4Hk7Tn4HUcFOQnalDnX6oM5lIZvQy42y6ea8lJ
- KICMigmwUNDrTIj/1NeOWwsoaiHmK++JR28ATYYCfYoE2e82z5iLAeDptQ4CfW2BLQ5Z
- v8XrYylUfD36Do8HeWg48pYAy/iyGpacNPphdXSuVjaMtsbH0kDez0CY6b54S8qk2R3t
- ZZdAq/yJaCP9B1sKFTTRzNmcdHx5VutLo7XbKVpywbMjjfRBW/zYaYSd83gFlN0EvnnO
- be9g==
-X-Gm-Message-State: APjAAAWJ+yCF5O2FgjnWB7Kuff9TbT294WFK7nLUMWyry1hJXYezDceU
- CLEInx1NGPa0u9mC8nG4w4c=
-X-Google-Smtp-Source: APXvYqyH8+m3SiHlSWz1oreEGq5P1R0Ctjbe5y1tP/RvYuh+7FEST3gsLwJwYp+LaRjpdoFD47a8WA==
-X-Received: by 2002:a17:90a:21d0:: with SMTP id
- q74mr12981198pjc.12.1562159920457; 
- Wed, 03 Jul 2019 06:18:40 -0700 (PDT)
+ bh=maPFzMJxkxDi9/pzkIAhWooIBm7u3WPHY1fXuOXs5zg=;
+ b=OyPfi84vr3q5kLEajWSUtE+dysAQC8MMyYtCG5GrkX9VmRBB4XVx1VSWemJNW9dWgr
+ 7FOB+qTdlYMGVlUxX3ECyZh0BYtSHfU/EuFLIBYmiowjlYMEGVnsG3X8I6S2wufOBVYu
+ A0C2f1HxgVqo4Lclm+tWkG0A1wAmFP2KY6z6l4r5Ix4wEgsiNEx/dXzY3ZbqZ288lSp4
+ 0QOUnwfZIlywLMfMfhSgxnY7lWCqUBUB9PUm8ik6i9IGcWtipWIuz5Fcz3UbNZL5o5vT
+ b9GERvwm0Kp+XA831eta8jEUTaEeQ43F7ktZlZhxxLdf+BOv3RFQL/ZuIgMlvJusALRL
+ bVdA==
+X-Gm-Message-State: APjAAAW5iGK27WbU1S9pHr8E2AOP3kC3GIRy5ALuKQURQCiqsE4DUfvi
+ cQE/TcRW+Oj/xFItdJtO6jU=
+X-Google-Smtp-Source: APXvYqxo3SWL87xvyOihIZ6tX+GIYgZ0rb8EldB2PBtlU5U2zf9aHiucu/yYrAvdt0jDdkhJJGdVAg==
+X-Received: by 2002:a63:b547:: with SMTP id u7mr38243790pgo.322.1562159934678; 
+ Wed, 03 Jul 2019 06:18:54 -0700 (PDT)
 Received: from hfq-skylake.ipads-lab.se.sjtu.edu.cn ([202.120.40.82])
- by smtp.googlemail.com with ESMTPSA id s66sm3981430pgs.39.2019.07.03.06.18.37
+ by smtp.googlemail.com with ESMTPSA id
+ n140sm2562504pfd.132.2019.07.03.06.18.50
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 03 Jul 2019 06:18:40 -0700 (PDT)
+ Wed, 03 Jul 2019 06:18:54 -0700 (PDT)
 From: Fuqian Huang <huangfq.daxian@gmail.com>
 To: 
-Date: Wed,  3 Jul 2019 21:18:31 +0800
-Message-Id: <20190703131831.26013-1-huangfq.daxian@gmail.com>
+Date: Wed,  3 Jul 2019 21:18:42 +0800
+Message-Id: <20190703131842.26082-1-huangfq.daxian@gmail.com>
 X-Mailer: git-send-email 2.11.0
-Cc: Fuqian Huang <huangfq.daxian@gmail.com>, linux-kernel@vger.kernel.org,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>
-Subject: [alsa-devel] [PATCH 29/30] sound/pci: Use kmemdup rather than
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patches@opensource.cirrus.com, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Fuqian Huang <huangfq.daxian@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH 30/30] sound/soc: Use kmemdup rather than
 	duplicating its implementation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -106,26 +109,52 @@ Suggestion to use kmemdup rather than using kmalloc/kzalloc + memset.
 
 Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
 ---
- sound/pci/echoaudio/echoaudio.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/codecs/wm0010.c             | 4 +---
+ sound/soc/intel/atom/sst/sst_loader.c | 3 +--
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index b612a536a5a1..35bd3e7c8ce1 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -2189,11 +2189,10 @@ static int snd_echo_resume(struct device *dev)
- 	u32 pipe_alloc_mask;
- 	int err;
+diff --git a/sound/soc/codecs/wm0010.c b/sound/soc/codecs/wm0010.c
+index 727d6703c905..807826f30f58 100644
+--- a/sound/soc/codecs/wm0010.c
++++ b/sound/soc/codecs/wm0010.c
+@@ -515,7 +515,7 @@ static int wm0010_stage2_load(struct snd_soc_component *component)
+ 	dev_dbg(component->dev, "Downloading %zu byte stage 2 loader\n", fw->size);
  
--	commpage_bak = kmalloc(sizeof(*commpage), GFP_KERNEL);
-+	commpage_bak = kmemdup(commpage, sizeof(*commpage), GFP_KERNEL);
- 	if (commpage_bak == NULL)
- 		return -ENOMEM;
- 	commpage = chip->comm_page;
--	memcpy(commpage_bak, commpage, sizeof(*commpage));
+ 	/* Copy to local buffer first as vmalloc causes problems for dma */
+-	img = kzalloc(fw->size, GFP_KERNEL | GFP_DMA);
++	img = kmemdup(&fw->data[0], fw->size, GFP_KERNEL | GFP_DMA);
+ 	if (!img) {
+ 		ret = -ENOMEM;
+ 		goto abort2;
+@@ -527,8 +527,6 @@ static int wm0010_stage2_load(struct snd_soc_component *component)
+ 		goto abort1;
+ 	}
  
- 	err = init_hw(chip, chip->pci->device, chip->pci->subsystem_device);
- 	if (err < 0) {
+-	memcpy(img, &fw->data[0], fw->size);
+-
+ 	spi_message_init(&m);
+ 	memset(&t, 0, sizeof(t));
+ 	t.rx_buf = out;
+diff --git a/sound/soc/intel/atom/sst/sst_loader.c b/sound/soc/intel/atom/sst/sst_loader.c
+index ce11c36848c4..cc95af35c060 100644
+--- a/sound/soc/intel/atom/sst/sst_loader.c
++++ b/sound/soc/intel/atom/sst/sst_loader.c
+@@ -288,14 +288,13 @@ static int sst_cache_and_parse_fw(struct intel_sst_drv *sst,
+ {
+ 	int retval = 0;
+ 
+-	sst->fw_in_mem = kzalloc(fw->size, GFP_KERNEL);
++	sst->fw_in_mem = kmemdup(fw->data, fw->size, GFP_KERNEL);
+ 	if (!sst->fw_in_mem) {
+ 		retval = -ENOMEM;
+ 		goto end_release;
+ 	}
+ 	dev_dbg(sst->dev, "copied fw to %p", sst->fw_in_mem);
+ 	dev_dbg(sst->dev, "phys: %lx", (unsigned long)virt_to_phys(sst->fw_in_mem));
+-	memcpy(sst->fw_in_mem, fw->data, fw->size);
+ 	retval = sst_parse_fw_memcpy(sst, fw->size, &sst->memcpy_list);
+ 	if (retval) {
+ 		dev_err(sst->dev, "Failed to parse fw\n");
 -- 
 2.11.0
 

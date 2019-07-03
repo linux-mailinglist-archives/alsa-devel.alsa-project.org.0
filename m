@@ -2,66 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72CFA5DB21
-	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2019 03:49:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E0315DE28
+	for <lists+alsa-devel@lfdr.de>; Wed,  3 Jul 2019 08:41:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0073D1670;
-	Wed,  3 Jul 2019 03:48:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0073D1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1B20168F;
+	Wed,  3 Jul 2019 08:40:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1B20168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562118553;
-	bh=nv4PAcMIFHbqf3xPeqv7ZrVsUxlSQ48fLuLDfs0Gtsg=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562136075;
+	bh=+R78ez7qVd3dwIYTEkENaK0zOcTyyfO9YTVgi0aIAAg=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gteQTRwce+Cs2iZE2EgJYy9BugSY/zBWO1ThOTJAVhFA3mxOAJPXxU/5oXfNyEFr0
-	 M/DdUMFDIVedSbZebV9hhEtQ6bJLwWY3hIiFr7UFSbD6by/c89p5Ur3r35zbbr5+o4
-	 xv366U6Ot9vqNwCkJgoxEDVSKG2YFHqu5n5Cul/I=
+	b=HZmHrlGZHoeWgBnhdp+PpruQGH8AFU2CnSciuurXmUtlZ3KUHu+H0jMRnNE+CLQqW
+	 W7rYvmzhykx0+jD3owv0/9eMMV0ecYe6DjN4CwhAHeZ/CPfFYT0qBuir9/MtIXqcLR
+	 xibBeWhHrA6HJlYZNGYpia4DEI4B9fQsHJP+Xa7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23D0EF800F1;
-	Wed,  3 Jul 2019 03:47:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6D08F800F1;
+	Wed,  3 Jul 2019 08:39:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C79EBF800EA; Wed,  3 Jul 2019 03:47:26 +0200 (CEST)
+ id 97BEEF800EA; Wed,  3 Jul 2019 08:39:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
+ [IPv6:2607:f8b0:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C59EF800E8
- for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 03:47:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C59EF800E8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2019 18:47:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,445,1557212400"; d="scan'208";a="165836971"
-Received: from keyon-x299.sh.intel.com (HELO [10.239.159.75]) ([10.239.159.75])
- by fmsmga007.fm.intel.com with ESMTP; 02 Jul 2019 18:47:18 -0700
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20190702121144.7809-1-yang.jie@linux.intel.com>
- <a233dfdbb973251d439197d13b69c867667d3f76.camel@linux.intel.com>
-From: Keyon Jie <yang.jie@linux.intel.com>
-Message-ID: <8e81bbac-8b5a-9bc0-60ed-115429b07e82@linux.intel.com>
-Date: Wed, 3 Jul 2019 09:52:39 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFBE5F80058
+ for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 08:39:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFBE5F80058
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="gusEV3dQ"
+Received: by mail-oi1-x242.google.com with SMTP id u15so1176133oiv.0
+ for <alsa-devel@alsa-project.org>; Tue, 02 Jul 2019 23:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rzFJMHDpHByCzcWhuZXAnLOtHUvnMPtLGHFq26hbyoQ=;
+ b=gusEV3dQDcydQj7FvyKtDJjEqlwd7Ae6TMU0paGy0Ue/KEy5G/5cCAlbsDqqAEWm0V
+ sQ0RObaC/u3M1JZ+0h/CAx7uiNcGcqr8vltVb/xLGJQDpXEIi1nz8zhVQNjm0zszIZ7x
+ w7Bxi5ywZEQJzpjARoKDb/FoLQUg1CfanmgBUL2fP0TmXIoSueyJfNA0tyE6iTs0QtVA
+ x/f5C++XC9ELKQEGTfRUD0VRUkuefUhyUb3LtbbBMlBtJzbMOgGmuCJwWyGrxogM/xhY
+ kzCLbujTXNYmtamx0JTFx/YQLzeQ6wDyM5q2H616Jp3guh358qz3xe+FZGs0LPW91z3W
+ PzTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rzFJMHDpHByCzcWhuZXAnLOtHUvnMPtLGHFq26hbyoQ=;
+ b=hZn8OvWivYix2CCYzVDdrM52nTzPdh4k1kW+NpchQAiFK/6M4hKJaCNuuL9jfa/gsa
+ 5EUYxybQui9D2wPgJ9ddMVDCGqGyFlcmh87EiviJwBMLWglZel1x9cIpil6lAQGwflSL
+ OMwilrI28Zz4/VyiHrXzlbaWpVJzgqlWg8ByAejLTdr54Q13CuNHi0qy83+C/aKtFSrx
+ rIWA5lenyVr/2zAJalpxxrTXe9cfURe9CMjMS5IlLlJqv7EWMMzUvdynO/pFvq4b62EJ
+ DZuxUZrcWEVQ16V5xmVEQzzpsUaJOlzAMdivnZst5J1deJESZVCVzWHJ0LeZRq40+QiN
+ us+g==
+X-Gm-Message-State: APjAAAXdz9Aswl1/W+xRuRfBwts/uYmgV12ZIBX8xWeExdCjaqL+q9Pr
+ T7V0ZONbXDl8hZd2VxnuRmuTWXStXy6ceT/Ny5qtsw==
+X-Google-Smtp-Source: APXvYqzeuiJI5QP3+kvjzprScN4aLZU1cs35zUV5vfuf0S25JDg9m8LIynftuJP4IjxEQpF52vysMKyTqDbR4Ee4XDk=
+X-Received: by 2002:aca:ecc1:: with SMTP id k184mr5569983oih.82.1562135964726; 
+ Tue, 02 Jul 2019 23:39:24 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a233dfdbb973251d439197d13b69c867667d3f76.camel@linux.intel.com>
-Content-Language: en-US
-Cc: marcin.rajwa@intel.com, "Lin, Mengdong" <mengdong.lin@intel.com>,
- pierre-louis.bossart@linux.intel.com,
- Marcin Rajwa <marcin.rajwa@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: SOF: ipc: update
- sof_ipc_stream_params
+References: <87a7e2wkll.wl-kuninori.morimoto.gx@renesas.com>
+ <87ftnutr9i.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ftnutr9i.wl-kuninori.morimoto.gx@renesas.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 3 Jul 2019 14:39:13 +0800
+Message-ID: <CA+Px+wVH0ypoeY+CrWTHmQf-LYBTB9gOFwnMY8pQ5Q3K-urCrw@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 46/46] ASoC: soc-utils: respawn dummy
+	Platform
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,43 +92,17 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAyMDE5LzcvMyDkuIrljYg3OjI5LCBSYW5qYW5pIFNyaWRoYXJhbiB3cm90ZToKPiBPbiBU
-dWUsIDIwMTktMDctMDIgYXQgMjA6MTEgKzA4MDAsIEtleW9uIEppZSB3cm90ZToKPj4gRnJvbTog
-TWFyY2luIFJhandhIDxtYXJjaW4ucmFqd2FAbGludXguaW50ZWwuY29tPgo+Pgo+PiBUaGUgaG9z
-dCBwZXJpb2QgYnl0ZXMgbmVlZHMgdG8gYmUgcGFzc2VkIHRvIGZpcm13YXJlLgo+PiBDdXJyZW50
-bHkgdGhpcyBmaWVsZCBpcyB1c2VkIGFzIG5vdGlmaWNhdGlvbiBmb3IgaG9zdAo+PiBhYm91dCBw
-ZXJpb2QgY29weSBjb21wbGV0aW9uLiBUaGVyZWZvcmUgd2UgbmVlZCB0byBzcGxpdCB0aGVzZQo+
-PiB0d28gaW5mb3JtYXRpb25zLgo+IEtleW9uL01hcmNpbiwKPiAKPiBDb3VsZCB5b3UgcGxlYXNl
-IGFkZCBhIGJpdCBtb3JlIGNvbnRleHQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlIG9uIHRoZQo+IG5l
-ZWQgdG8gc3BsaXQgdGhlc2UgdHdvIGZpZWxkcyBpZS4uIHdoYXQgdXNlY2FzZXMgbmVlZCB0aGlz
-PwoKU3VyZSwgcHJldmlvdXNseSBJIHdyb3RlIHRoZSBjb21taXQgbWVzc2FnZSBsaWtlIHRoaXM6
-CgpBU29DOiBTT0Y6IGFkZCBmbGFnIGZvciBwb3NpdGlvbiB1cGRhdGUgaXBjCgpJbiBzb21lIGNh
-c2VzLCBGVyBtaWdodCBuZWVkIHVzZSB0aGUgaG9zdF9wZXJpb2RfYnl0ZXMgZXZlbiBubyBwb3Np
-dGlvbgp1cGRhdGUgaXBjIHJlcWl1cmVkIGZyb20gZHJpdmVyLCBoZXJlIGFkZCBhbm90aGVyIGZs
-YWcgZm9yIHBvc2l0aW9uIHVwZGF0ZSwKYW5kIHByZXNlcnZlIGhvc3RfcGVyaW9kX2J5dGVzIGZv
-ciBGVyB0byB1c2UuCgpUaGlzIG1pZ2h0IHJlcXVpcmUgY29ycmVzcG9uZGluZyBGVyBjaGFuZ2Ug
-YW5kIEFCSSBhbGlnbm1lbnQuCgpUaGFua3MsCn5LZXlvbgoKPiAKPiBUaGFua3MsCj4gUmFuamFu
-aQo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBNYXJjaW4gUmFqd2EgPG1hcmNpbi5yYWp3YUBsaW51eC5p
-bnRlbC5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IEtleW9uIEppZSA8eWFuZy5qaWVAbGludXguaW50
-ZWwuY29tPgo+PiAtLS0KPj4gICBpbmNsdWRlL3NvdW5kL3NvZi9zdHJlYW0uaCB8IDQgKystLQo+
-PiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Cj4+
-IGRpZmYgLS1naXQgYS9pbmNsdWRlL3NvdW5kL3NvZi9zdHJlYW0uaCBiL2luY2x1ZGUvc291bmQv
-c29mL3N0cmVhbS5oCj4+IGluZGV4IDY0M2YxNzVjYjQ3OS4uNDRhY2ZhNjJmYTY5IDEwMDY0NAo+
-PiAtLS0gYS9pbmNsdWRlL3NvdW5kL3NvZi9zdHJlYW0uaAo+PiArKysgYi9pbmNsdWRlL3NvdW5k
-L3NvZi9zdHJlYW0uaAo+PiBAQCAtODMsMTAgKzgzLDEwIEBAIHN0cnVjdCBzb2ZfaXBjX3N0cmVh
-bV9wYXJhbXMgewo+PiAgIAl1aW50MTZfdCBzYW1wbGVfdmFsaWRfYnl0ZXM7Cj4+ICAgCXVpbnQx
-Nl90IHNhbXBsZV9jb250YWluZXJfYnl0ZXM7Cj4+ICAgCj4+IC0JLyogZm9yIG5vdGlmeWluZyBo
-b3N0IHBlcmlvZCBoYXMgY29tcGxldGVkIC0gMCBtZWFucyBubyBwZXJpb2QKPj4gSVJRICovCj4+
-ICAgCXVpbnQzMl90IGhvc3RfcGVyaW9kX2J5dGVzOwo+PiArCXVpbnQxNl90IG5vX3BlcmlvZF9p
-cnE7IC8qIDEgbWVhbnMgcGVyaW9kIElSUSBtb2RlIE9GRiAqLwo+PiAgIAo+PiAtCXVpbnQzMl90
-IHJlc2VydmVkWzJdOwo+PiArCXVpbnQxNl90IHJlc2VydmVkWzNdOwo+PiAgIAl1aW50MTZfdCBj
-aG1hcFtTT0ZfSVBDX01BWF9DSEFOTkVMU107CS8qKjwgY2hhbm5lbCBtYXAgLQo+PiBTT0ZfQ0hN
-QVBfICovCj4+ICAgfSBfX3BhY2tlZDsKPj4gICAKPiAKPiAKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1k
-ZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Fri, Jun 28, 2019 at 10:18 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
+> commit 64ee5067cf64 ("ASoC: soc-utils: remove dummy Platform") removed
+> dummy Platform from ALSA SoC, but it is over-kill.
+What did you mean by "over-kill"?
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

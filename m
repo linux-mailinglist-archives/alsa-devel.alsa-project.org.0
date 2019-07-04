@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F30DE5F818
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 14:28:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 384BA5F817
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 14:28:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E3D716A1;
-	Thu,  4 Jul 2019 14:27:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E3D716A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id B719816BE;
+	Thu,  4 Jul 2019 14:27:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B719816BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562243312;
-	bh=HPPriBWp5aVE5uXxjHbrL8bILBBJETsNRwDWmk0awi8=;
+	s=default; t=1562243292;
+	bh=nHRw99Yew06qLGtCGjayWmAWIFbPJszANZ+x0RRktQo=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=PuEPkw16qHUNad5aGKhhbcauY8kOqMOtDmQoB78oSYrF3RkVbmiPMiVKqczN4hKm0
-	 cILfW5paNaGA6GiSrdF+rtMKJyRTwHOlN9tti4sOKrkweocZf6eoBT3GcLdBL+GC8K
-	 FBm96hR+H5xHuEk9ZdJrhrZ/n0O9YYnbTYDVX8HY=
+	b=PDMrnlyN8oL4s+d+8LAO8ctAkY96hnr3Pr/c7mt8i/9qR6X5h4tn/RoWi35UuQ38H
+	 SB/FfJaJXrDhW7DqyTw0nxxXrAlktdMgDcN1s0jbvQSUMm91SC2Y22MIDbYveddDf2
+	 yr/CGkzXLtYfbkbw6bHf3u64dVuJ/1qdhGo7mAAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF994F80138;
-	Thu,  4 Jul 2019 14:25:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9E33F80135;
+	Thu,  4 Jul 2019 14:25:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21C30F80112; Thu,  4 Jul 2019 14:25:00 +0200 (CEST)
+ id A5523F80113; Thu,  4 Jul 2019 14:24:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5608F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2848F80110
  for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 14:24:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5608F800E8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2848F80110
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="YBiKN9Ty"
+ header.b="mm0hugq4"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=hfZb/+TAkkRT7t//PaA+oZ9sLytwcv7pG7LhcLvO+as=; b=YBiKN9Ty1Vil
- r6BmVhutzI777WcVvwCD4jijNaOVNW1+W261XwsDcnU7CQmDd3GIYz6Wkj43WRCIdy0H1824KE9nZ
- 8gdvWOcHRQUkr8VfV8lcQVJWcJB6HsLFxE8WqQdIbPBnU/JGQUUb076SYsiUJ5QW8IOsynE80luJP
- 1P2is=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=vFXKWZbVlhtP1uV3m8Dyf6rla7JmlnmBJTS3Fskfk3I=; b=mm0hugq4fRA9
+ ejjmmKIjkCCbP7VOXFMeeNif7zZri8yEK7qmskL8U7p2b+jCRPmiVLtu4JmoSTdofNT5ysqXHwzS/
+ YoaFUueq/YaFHVaf30i0SPNttcVfLhL9NjRpUFUtp8Bj35V6E1mxHhomEcsCse8y8VJrWldu+Zn6Z
+ otkRo=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hj0nG-0000ic-Vf; Thu, 04 Jul 2019 12:24:55 +0000
+ id 1hj0nH-0000ig-9E; Thu, 04 Jul 2019 12:24:55 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 725B0274389B; Thu,  4 Jul 2019 13:24:54 +0100 (BST)
+ id A00DD274389C; Thu,  4 Jul 2019 13:24:54 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20190703120749.32341-3-jbrunet@baylibre.com>
+In-Reply-To: <20190703120749.32341-2-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190704122454.725B0274389B@ypsilon.sirena.org.uk>
+Message-Id: <20190704122454.A00DD274389C@ypsilon.sirena.org.uk>
 Date: Thu,  4 Jul 2019 13:24:54 +0100 (BST)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  linux-amlogic@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: meson: axg-tdm-formatter: add reset" to
-	the asoc tree
+Subject: [alsa-devel] Applied "ASoC: meson: axg-tdm-formatter: add reset to
+	the bindings documentation" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: axg-tdm-formatter: add reset
+   ASoC: meson: axg-tdm-formatter: add reset to the bindings documentation
 
 has been applied to the asoc tree at
 
@@ -115,83 +114,43 @@ to this mail.
 Thanks,
 Mark
 
-From 751bd5db52604f3f71d54dbad82707ef2475b707 Mon Sep 17 00:00:00 2001
+From 094380ea2bf9f0fa7d63e67bf500b8c77e8d1910 Mon Sep 17 00:00:00 2001
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Wed, 3 Jul 2019 14:07:49 +0200
-Subject: [PATCH] ASoC: meson: axg-tdm-formatter: add reset
+Date: Wed, 3 Jul 2019 14:07:48 +0200
+Subject: [PATCH] ASoC: meson: axg-tdm-formatter: add reset to the bindings
+ documentation
 
-Add the optional reset line handling which is present on the new SoC
-families, such as the g12a. Triggering this reset is not critical but
-it helps solve a channel shift issue on the g12a.
+Add an optional reset property to the tdm formatter bindings. The
+dedicated reset line is present on some SoC families, such as the g12a.
 
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Link: https://lore.kernel.org/r/20190703120749.32341-3-jbrunet@baylibre.com
+Link: https://lore.kernel.org/r/20190703120749.32341-2-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/axg-tdm-formatter.c | 29 +++++++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ .../bindings/sound/amlogic,axg-tdm-formatters.txt           | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/meson/axg-tdm-formatter.c b/sound/soc/meson/axg-tdm-formatter.c
-index 0c6cce5c5773..2e498201139f 100644
---- a/sound/soc/meson/axg-tdm-formatter.c
-+++ b/sound/soc/meson/axg-tdm-formatter.c
-@@ -7,6 +7,7 @@
- #include <linux/module.h>
- #include <linux/of_platform.h>
- #include <linux/regmap.h>
-+#include <linux/reset.h>
- #include <sound/soc.h>
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
+index 3b94a715a0b9..8835a43edfbb 100644
+--- a/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
++++ b/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
+@@ -15,11 +15,15 @@ Required properties:
+   * "lrclk"    : sample clock
+   * "lrclk_sel": sample clock input multiplexer
  
- #include "axg-tdm-formatter.h"
-@@ -20,6 +21,7 @@ struct axg_tdm_formatter {
- 	struct clk *lrclk;
- 	struct clk *sclk_sel;
- 	struct clk *lrclk_sel;
-+	struct reset_control *reset;
- 	bool enabled;
- 	struct regmap *map;
- };
-@@ -75,6 +77,24 @@ static int axg_tdm_formatter_enable(struct axg_tdm_formatter *formatter)
- 	if (formatter->enabled)
- 		return 0;
- 
-+	/*
-+	 * On the g12a (and possibly other SoCs), when a stream using
-+	 * multiple lanes is restarted, it will sometimes not start
-+	 * from the first lane, but randomly from another used one.
-+	 * The result is an unexpected and random channel shift.
-+	 *
-+	 * The hypothesis is that an HW counter is not properly reset
-+	 * and the formatter simply starts on the lane it stopped
-+	 * before. Unfortunately, there does not seems to be a way to
-+	 * reset this through the registers of the block.
-+	 *
-+	 * However, the g12a has indenpendent reset lines for each audio
-+	 * devices. Using this reset before each start solves the issue.
-+	 */
-+	ret = reset_control_reset(formatter->reset);
-+	if (ret)
-+		return ret;
+-Example of TDMOUT_A on the A113 SoC:
++Optional property:
++- resets: phandle to the dedicated reset line of the tdm formatter.
 +
- 	/*
- 	 * If sclk is inverted, invert it back and provide the inversion
- 	 * required by the formatter
-@@ -306,6 +326,15 @@ int axg_tdm_formatter_probe(struct platform_device *pdev)
- 		return ret;
- 	}
++Example of TDMOUT_A on the S905X2 SoC:
  
-+	/* Formatter dedicated reset line */
-+	formatter->reset = reset_control_get_optional_exclusive(dev, NULL);
-+	if (IS_ERR(formatter->reset)) {
-+		ret = PTR_ERR(formatter->reset);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(dev, "failed to get reset: %d\n", ret);
-+		return ret;
-+	}
-+
- 	return devm_snd_soc_register_component(dev, drv->component_drv,
- 					       NULL, 0);
- }
+ tdmout_a: audio-controller@500 {
+ 	compatible = "amlogic,axg-tdmout";
+ 	reg = <0x0 0x500 0x0 0x40>;
++	resets = <&clkc_audio AUD_RESET_TDMOUT_A>;
+ 	clocks = <&clkc_audio AUD_CLKID_TDMOUT_A>,
+ 		 <&clkc_audio AUD_CLKID_TDMOUT_A_SCLK>,
+ 		 <&clkc_audio AUD_CLKID_TDMOUT_A_SCLK_SEL>,
 -- 
 2.20.1
 

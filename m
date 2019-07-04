@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10FF55F8A0
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 14:57:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C53E05F253
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 07:38:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A63D16A2;
-	Thu,  4 Jul 2019 14:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A63D16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C3FE16A2;
+	Thu,  4 Jul 2019 07:37:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C3FE16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562245029;
-	bh=afkuEpPppMEXYxej+kr53cqF+06rjnlEplaPdM62bQU=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JN2wKlQZbchImspIegClb8tanOdrD4kz1wJIVEhghqysSUISTFPovxUV5cmwoQ5Xz
-	 GRy/XgINYAyCnLngGhY9+8spZ4WqxD42p8nt3YjJ/+MtMl/E+u6Y9wMUnVwb2buXmd
-	 lfD1ZsFGKtXKrHtMkfP8xMzaetWwUPGXPjaieMF4=
+	s=default; t=1562218721;
+	bh=WjmgruiYcXeOsaF/TQKCaOTUcH8FByX+sYC82ic/B6A=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qyLQY+bQEkTiBUXowX7K2GgowI2ksUnwgLLxZOonyiPNtVnpVGQMIsewGDrAP3c6R
+	 Nq1iVlGeF8Kx8TuGSybW5Fze1qFSJgh2Khj9GQM3OEfyrRGBjEPEtWxJfThskgU/pX
+	 zwrGiTzJKrQltNnMorYPwGWeOiSbGEMEzZvKD4gs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 18A1AF8011E;
-	Thu,  4 Jul 2019 14:54:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15B99F80110;
+	Thu,  4 Jul 2019 07:36:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65DE7F800EA; Wed,  3 Jul 2019 20:49:36 +0200 (CEST)
+ id 9FE54F80111; Thu,  4 Jul 2019 07:36:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail.z3ntu.xyz (mail.z3ntu.xyz [128.199.32.197])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.steuer-voss.de (mail.steuer-voss.de [85.183.69.95])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F99BF800C5
- for <alsa-devel@alsa-project.org>; Wed,  3 Jul 2019 20:49:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F99BF800C5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=z3ntu.xyz header.i=@z3ntu.xyz
- header.b="jAVEnO7u"
-Received: from localhost.localdomain (80-110-121-20.cgn.dynamic.surfer.at
- [80.110.121.20])
- by mail.z3ntu.xyz (Postfix) with ESMTPSA id 0074BC642D;
- Wed,  3 Jul 2019 18:49:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=z3ntu.xyz; s=z3ntu;
- t=1562179772; bh=9DizQ8OziyzZDK+fmM5mzABZl479bhqpI8LTwVmMOKE=;
- h=From:To:Cc:Subject:Date;
- b=jAVEnO7uq2QTRWst/+QFsN5w8bdWbv4Yu49XUV4jnqn02gYxiZCP5+eUopcycjO0g
- nC3c2tYhQL4HY3kK28juYm59IkLBCEmq4xwhkkJHrd6EgwmZb2TVIrL3s2769eJ9AC
- pTGoG5yeYxZ/Ifz0xSAWg5lZAr6+O4hLE1Rk7dzM=
-From: Luca Weiss <luca@z3ntu.xyz>
-To: alsa-devel@alsa-project.org
-Date: Wed,  3 Jul 2019 20:48:11 +0200
-Message-Id: <20190703184814.27191-1-luca@z3ntu.xyz>
-X-Mailer: git-send-email 2.22.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8957F800E7
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 07:36:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8957F800E7
+X-Virus-Scanned: Debian amavisd-new at mail.steuer-voss.de
+Received: by mail.steuer-voss.de (Postfix, from userid 1000)
+ id C9E644D456; Thu,  4 Jul 2019 07:36:48 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.steuer-voss.de (Postfix) with ESMTP id C6CB14D452;
+ Thu,  4 Jul 2019 07:36:48 +0200 (CEST)
+Date: Thu, 4 Jul 2019 07:36:48 +0200 (CEST)
+From: Nikolaus Voss <nv@vosn.de>
+X-X-Sender: nv@fox.voss.local
+To: "Andrew F. Davis" <afd@ti.com>
+In-Reply-To: <4897e119-28fa-aa2c-aa06-2534af6b4c62@ti.com>
+Message-ID: <alpine.DEB.2.20.1907040731270.27853@fox.voss.local>
+References: <20190628143037.GH5379@sirena.org.uk>
+ <cover.1561988282.git.nikolaus.voss@loewensteinmedical.de>
+ <c79df50175d59265a37c5e7c8a0cfbf8119bcf78.1561988282.git.nikolaus.voss@loewensteinmedical.de>
+ <80af3fca-f71b-c118-e5d8-fde8b7d21705@ti.com>
+ <alpine.DEB.2.20.1907011633310.4353@fox.voss.local>
+ <074d4df3-51d8-6e20-869d-5f88b46cc172@ti.com>
+ <alpine.DEB.2.20.1907020855240.10248@fox.voss.local>
+ <4897e119-28fa-aa2c-aa06-2534af6b4c62@ti.com>
+User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 04 Jul 2019 14:54:42 +0200
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, linux-kernel@vger.kernel.org,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- ~martijnbraam/pmos-upstream@lists.sr.ht, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Luca Weiss <luca@z3ntu.xyz>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v2] ASoC: sunxi: sun50i-codec-analog: Add
-	earpiece
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Kate Stewart <kstewart@linuxfoundation.org>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-acpi@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Andreas Dannenberg <dannenberg@ti.com>
+Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: tas5720.c: cleanup variant
+	management
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,123 +77,154 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-15"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds the necessary registers and audio routes to play audio using
-the Earpiece, that's supported on the A64.
+On Wed, 3 Jul 2019, Andrew F. Davis wrote:
+> On 7/2/19 6:12 AM, Nikolaus Voss wrote:
+>> On Mon, 1 Jul 2019, Andrew F. Davis wrote:
+>>> On 7/1/19 11:35 AM, Nikolaus Voss wrote:
+>>>> On Mon, 1 Jul 2019, Andrew F. Davis wrote:
+>>>>> On 7/1/19 9:42 AM, Nikolaus Voss wrote:
+>>>>>> Replace enum tas572x_type with struct tas5720_variant which aggregat=
+es
+>>>>>> variant specific stuff and can be directly referenced from an id
+>>>>>> table.
+>>>>>>
+>>>>>> Signed-off-by: Nikolaus Voss <nikolaus.voss@loewensteinmedical.de>
+>>>>>> ---
+>>>>>> =A0sound/soc/codecs/tas5720.c | 98
+>>>>>> +++++++++++++-------------------------
+>>>>>> =A01 file changed, 33 insertions(+), 65 deletions(-)
+>>>>>>
+>>>>>> diff --git a/sound/soc/codecs/tas5720.c b/sound/soc/codecs/tas5720.c
+>>>>>> index 37fab8f22800..b2e897f094b4 100644
+>>>>>> --- a/sound/soc/codecs/tas5720.c
+>>>>>> +++ b/sound/soc/codecs/tas5720.c
+>>>>>> @@ -28,9 +28,10 @@
+>>>>>> =A0/* Define how often to check (and clear) the fault status register
+>>>>>> (in ms) */
+>>>>>> =A0#define TAS5720_FAULT_CHECK_INTERVAL=A0=A0=A0=A0=A0=A0=A0 200
+>>>>>>
+>>>>>> -enum tas572x_type {
+>>>>>> -=A0=A0=A0 TAS5720,
+>>>>>> -=A0=A0=A0 TAS5722,
+>>>>>> +struct tas5720_variant {
+>>>>>> +=A0=A0=A0 const int device_id;
+>>>>>> +=A0=A0=A0 const struct regmap_config *reg_config;
+>>>>>> +=A0=A0=A0 const struct snd_soc_component_driver *comp_drv;
+>>>>>> =A0};
+>>>>>>
+>>>>>> =A0static const char * const tas5720_supply_names[] =3D {
+>>>>>> @@ -44,7 +45,7 @@ struct tas5720_data {
+>>>>>> =A0=A0=A0=A0 struct snd_soc_component *component;
+>>>>>> =A0=A0=A0=A0 struct regmap *regmap;
+>>>>>> =A0=A0=A0=A0 struct i2c_client *tas5720_client;
+>>>>>> -=A0=A0=A0 enum tas572x_type devtype;
+>>>>>> +=A0=A0=A0 const struct tas5720_variant *variant;
+>>>>>
+>>>>> Why add a new struct? Actually I don't see the need for this patch at
+>>>>> all, the commit message only explains the 'what' not the 'why'. We can
+>>>>> and do already build this info from the tas572x_type.
+>>>>
+>>>> As the commit message says, the purpose is to aggregate the variant
+>>>> specifics and make it accessible via one pointer. This is a standard
+>>>> approach for of/acpi_device_id tables and thus makes the code simpler
+>>>> and improves readability. This is a maintenance patch to prepare using
+>>>> the device match API in a proper way.
+>>>>
+>>>
+>>>
+>>> "make it accessible via one pointer" is again a "what", the "why" is:
+>>>
+>>> "This is a standard approach"
+>>> "makes the code simpler and improves readability"
+>>>
+>>> Those are valid reasons and should be what you put in the commit messag=
+e.
+>>
+>> ok
+>>
+>>>
+>>>
+>>>>>
+>>>>> Also below are several functional changes, the cover letter says
+>>>>> this is
+>>>>> not a functional change, yet the driver behaves differently now.
+>>>>
+>>>> Can you be a little bit more specific? The code should behave exactly =
+as
+>>>> before.
+>>>>
+>>>
+>>>
+>>> Sure, for instance the line "unexpected private driver data" is removed,
+>>> this can now never happen, that is a functional change. The phrase "no
+>>> functional change", should be reserved for only changes to spelling,
+>>> formatting, code organizing, etc..
+>>
+>> "unexpected private driver data" was unreachable code before, but you're
+>> right, debug output has changed a little, but the functional part is
+>> exactly the same.
+>>
+>>>
+>>>
+>>>> Niko
+>>>>
+>>>>>
+>>>>> Andrew
+>>>>>
+>>>>>> =A0=A0=A0=A0 struct regulator_bulk_data supplies[TAS5720_NUM_SUPPLIE=
+S];
+>>>>>> =A0=A0=A0=A0 struct delayed_work fault_check_work;
+>>>>>> =A0=A0=A0=A0 unsigned int last_fault;
+>>>>>> @@ -179,17 +180,13 @@ static int tas5720_set_dai_tdm_slot(struct
+>>>>>> snd_soc_dai *dai,
+>>>>>> =A0=A0=A0=A0=A0=A0=A0=A0 goto error_snd_soc_component_update_bits;
+>>>>>>
+>>>>>> =A0=A0=A0=A0 /* Configure TDM slot width. This is only applicable to
+>>>>>> TAS5722. */
+>>>>>> -=A0=A0=A0 switch (tas5720->devtype) {
+>>>>>> -=A0=A0=A0 case TAS5722:
+>>>>>> +=A0=A0=A0 if (tas5720->variant->device_id =3D=3D TAS5722_DEVICE_ID)=
+ {
+>>>
+>>>
+>>> I also don't like this, TAS5722_DEVICE_ID is the expected contents of a
+>>> register, you are using it like the enum tas572x_type that you removed.
+>>> I'd leave that enum, the device ID register itself is not guaranteed to
+>>> be correct or unique, which is why we warn about mismatches below but
+>>> then continue to use the user provided device type anyway.
+>>
+>> Strange, with me it's the other way round, I don't like the enum. The
+>> mismatch behavior hasn't changed a bit, the same warning is printed. If
+>> the device ID is no longer unique in the future (apparently it is for
+>> now) the driver should explicitly handle this instead of printing a
+>> warning, because warnings should be reserved for an indication of any
+>> kind of misconfiguration and not of expected behavior.
+>>
+>> That said the variant struct can of course replace the enum in every
+>> aspect, even for what you describe above. The enum was an ordinal
+>> representation of the user-selected i2c_device_id, the variant struct* is
+>> a pointer representation of the user-selected i2c/of/acpi_device_id. The
+>> only difference is that it directly points to the variant specific parts
+>> of the driver instead of resolving those via multiple switch/case
+>> statements.
+>
+> The enum identifies the device type, easy as that, if you want to
+> instead do all the logic switching on some internal ID register value
+> code then make a patch for just that and explain what is gained. Don't
+> do that into this one.
 
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
----
-Changes v1 -> v2:
-* Make the earpiece enable register a DAPM widget
-* Adjust the audio routes to include the new Earpiece Amp widget
-* Left/Right Analog Mixer => Left/Right Mixer
+I don't do and I don't want to. The struct pointer identifies the device =
 
- sound/soc/sunxi/sun50i-codec-analog.c | 50 +++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+type the same way as the enum does. I guess we better leave things as they =
 
-diff --git a/sound/soc/sunxi/sun50i-codec-analog.c b/sound/soc/sunxi/sun50i-codec-analog.c
-index d105c90c3706..6d1de565350e 100644
---- a/sound/soc/sunxi/sun50i-codec-analog.c
-+++ b/sound/soc/sunxi/sun50i-codec-analog.c
-@@ -49,6 +49,15 @@
- #define SUN50I_ADDA_OR_MIX_CTRL_DACR		1
- #define SUN50I_ADDA_OR_MIX_CTRL_DACL		0
- 
-+#define SUN50I_ADDA_EARPIECE_CTRL0	0x03
-+#define SUN50I_ADDA_EARPIECE_CTRL0_EAR_RAMP_TIME	4
-+#define SUN50I_ADDA_EARPIECE_CTRL0_ESPSR		0
-+
-+#define SUN50I_ADDA_EARPIECE_CTRL1	0x04
-+#define SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_EN	7
-+#define SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_MUTE	6
-+#define SUN50I_ADDA_EARPIECE_CTRL1_ESP_VOL	0
-+
- #define SUN50I_ADDA_LINEOUT_CTRL0	0x05
- #define SUN50I_ADDA_LINEOUT_CTRL0_LEN		7
- #define SUN50I_ADDA_LINEOUT_CTRL0_REN		6
-@@ -172,6 +181,10 @@ static const DECLARE_TLV_DB_RANGE(sun50i_codec_lineout_vol_scale,
- 	2, 31, TLV_DB_SCALE_ITEM(-4350, 150, 0),
- );
- 
-+static const DECLARE_TLV_DB_RANGE(sun50i_codec_earpiece_vol_scale,
-+	0, 1, TLV_DB_SCALE_ITEM(TLV_DB_GAIN_MUTE, 0, 1),
-+	2, 31, TLV_DB_SCALE_ITEM(-4350, 150, 0),
-+);
- 
- /* volume / mute controls */
- static const struct snd_kcontrol_new sun50i_a64_codec_controls[] = {
-@@ -225,6 +238,15 @@ static const struct snd_kcontrol_new sun50i_a64_codec_controls[] = {
- 		   SUN50I_ADDA_LINEOUT_CTRL0_LEN,
- 		   SUN50I_ADDA_LINEOUT_CTRL0_REN, 1, 0),
- 
-+	SOC_SINGLE_TLV("Earpiece Playback Volume",
-+		       SUN50I_ADDA_EARPIECE_CTRL1,
-+		       SUN50I_ADDA_EARPIECE_CTRL1_ESP_VOL, 0x1f, 0,
-+		       sun50i_codec_earpiece_vol_scale),
-+
-+	SOC_SINGLE("Earpiece Playback Switch",
-+		   SUN50I_ADDA_EARPIECE_CTRL1,
-+		   SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_MUTE, 1, 0),
-+
- };
- 
- static const char * const sun50i_codec_hp_src_enum_text[] = {
-@@ -257,6 +279,20 @@ static const struct snd_kcontrol_new sun50i_codec_lineout_src[] = {
- 		      sun50i_codec_lineout_src_enum),
- };
- 
-+static const char * const sun50i_codec_earpiece_src_enum_text[] = {
-+	"DACR", "DACL", "Right Mixer", "Left Mixer",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(sun50i_codec_earpiece_src_enum,
-+			    SUN50I_ADDA_EARPIECE_CTRL0,
-+			    SUN50I_ADDA_EARPIECE_CTRL0_ESPSR,
-+			    sun50i_codec_earpiece_src_enum_text);
-+
-+static const struct snd_kcontrol_new sun50i_codec_earpiece_src[] = {
-+	SOC_DAPM_ENUM("Earpiece Source Playback Route",
-+		      sun50i_codec_earpiece_src_enum),
-+};
-+
- static const struct snd_soc_dapm_widget sun50i_a64_codec_widgets[] = {
- 	/* DAC */
- 	SND_SOC_DAPM_DAC("Left DAC", NULL, SUN50I_ADDA_MIX_DAC_CTRL,
-@@ -285,6 +321,12 @@ static const struct snd_soc_dapm_widget sun50i_a64_codec_widgets[] = {
- 			 SND_SOC_NOPM, 0, 0, sun50i_codec_lineout_src),
- 	SND_SOC_DAPM_OUTPUT("LINEOUT"),
- 
-+	SND_SOC_DAPM_MUX("Earpiece Source Playback Route",
-+			 SND_SOC_NOPM, 0, 0, sun50i_codec_earpiece_src),
-+	SND_SOC_DAPM_OUT_DRV("Earpiece Amp", SUN50I_ADDA_EARPIECE_CTRL1,
-+			     SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_EN, 0, NULL, 0),
-+	SND_SOC_DAPM_OUTPUT("EARPIECE"),
-+
- 	/* Microphone inputs */
- 	SND_SOC_DAPM_INPUT("MIC1"),
- 
-@@ -388,6 +430,14 @@ static const struct snd_soc_dapm_route sun50i_a64_codec_routes[] = {
- 	{ "Line Out Source Playback Route", "Mono Differential",
- 		"Right Mixer" },
- 	{ "LINEOUT", NULL, "Line Out Source Playback Route" },
-+
-+	/* Earpiece Routes */
-+	{ "Earpiece Source Playback Route", "DACL", "Left DAC" },
-+	{ "Earpiece Source Playback Route", "DACR", "Right DAC" },
-+	{ "Earpiece Source Playback Route", "Left Mixer", "Left Mixer" },
-+	{ "Earpiece Source Playback Route", "Right Mixer", "Right Mixer" },
-+	{ "Earpiece Amp", NULL, "Earpiece Source Playback Route" },
-+	{ "EARPIECE", NULL, "Earpiece Amp" },
- };
- 
- static const struct snd_soc_component_driver sun50i_codec_analog_cmpnt_drv = {
--- 
-2.22.0
+are. Anyway, thanks for your time and effort.
 
+Nikolaus
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

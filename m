@@ -2,65 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E105F64D
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 12:06:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C50F35F67B
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 12:20:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CFE7169F;
-	Thu,  4 Jul 2019 12:05:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CFE7169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4361E16A2;
+	Thu,  4 Jul 2019 12:19:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4361E16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562234761;
-	bh=yo3P0UQtdLuq5i9dbj4JHik1VZ2Xuu62nHNniqAz3aw=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1562235616;
+	bh=Dfr4U1GPkt5prtHPxpxGOUsNUptsD3SKRtb1eK6UnZs=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UwfXyJ9aQd0loaPQkRCypIMdYJ3I6VprjxQq5AK+dXYXxL3zy3/Jo6Q6BfkXZa8CI
-	 FXcvfAvjq5yUkNqZ1SB+spLHhZn7l8UT0sulOz/pkTFXEK5lyydGF91BRzXYKYy/Z8
-	 sxcqbZYUsBH+cKXWMzL4lC1xPTI6WQWVbaaUoA/4=
+	b=PFGmbJga4FKUt9zsF0t2cME0kHB+HT0qJOomBWbG0OFscxWReX1tRNJqxReb57F8V
+	 9QsoZtnXwSXmu83+PATfkeYhOhhqf7lRXzTMhHMnCuTl+cyTmd1EQZwlcOS7JffGSm
+	 FRtfU70CdbNAOy8AjuxiW7Hk/26N0Q8d5bl13tVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42625F80111;
-	Thu,  4 Jul 2019 12:04:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80379F800E7;
+	Thu,  4 Jul 2019 12:18:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D137AF80111; Thu,  4 Jul 2019 12:04:13 +0200 (CEST)
+ id E6523F80111; Thu,  4 Jul 2019 12:18:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7BBEF800E8
- for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 12:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7BBEF800E8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Jul 2019 03:04:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,450,1557212400"; d="scan'208";a="166792686"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003.jf.intel.com with ESMTP; 04 Jul 2019 03:04:06 -0700
-Date: Thu, 4 Jul 2019 13:05:21 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi
-To: Keyon Jie <yang.jie@linux.intel.com>
-In-Reply-To: <20190703151023.30313-2-yang.jie@linux.intel.com>
-Message-ID: <alpine.DEB.2.21.1907041304101.4409@eliteleevi>
-References: <20190703151023.30313-1-yang.jie@linux.intel.com>
- <20190703151023.30313-2-yang.jie@linux.intel.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86D86F800E8
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 12:18:28 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B5940A0040;
+ Thu,  4 Jul 2019 12:18:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B5940A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1562235507; bh=1OOnEG/S3yrpiBt7jEl2wBZk31YwruiGMmMtDh80aiw=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=LrJWyWOfrhBE/CdX9i/Zk6d0LXkQt2t/7SVxWVBmqmnnb0/kAbnCc68KUPVyFr5pH
+ 1QYinUK+Dqj3xQ4lTRkWToKoHskbKpvSjbCB+6jT375VG2pi+W6dT7oQfb6AMGUbha
+ PaQnr1iQFS8Hqx6KGYutNaqNZYwF8r7R8Y3mb1Ck=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu,  4 Jul 2019 12:18:24 +0200 (CEST)
+To: "Channaiah Vanitha (RBEI/ECF3)" <Vanitha.Channaiah@in.bosch.com>
+References: <1561976891-17886-1-git-send-email-vanitha.channaiah@in.bosch.com>
+ <645a08c3-0e40-6148-3831-4987bf7d0673@perex.cz>
+ <8292ab7db32e4621865c2180a0a808a1@in.bosch.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <556614e1-acba-635c-beed-6484fb887299@perex.cz>
+Date: Thu, 4 Jul 2019 12:18:24 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
- Marcin Rajwa <marcin.rajwa@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [alsa-devel] [PATCH v2 2/2] ASoC: SOF: Intel: fix reset of
- host_period_bytes
+In-Reply-To: <8292ab7db32e4621865c2180a0a808a1@in.bosch.com>
+Content-Language: en-US
+Cc: "Wischer Timo \(ADITG/ESS\)" <twischer@de.adit-jv.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] GIT: Regarding the issue we are facing in the
+ commit 37728639ae05de702825d96bd1d42e24ae772248
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,23 +84,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Wed, 3 Jul 2019, Keyon Jie wrote:
-
-> From: Marcin Rajwa <marcin.rajwa@linux.intel.com>
+Dne 03. 07. 19 v 14:17 Channaiah Vanitha (RBEI/ECF3) napsal(a):
+> Hello Jaroslav-san,
 > 
-> This patch prevents the reset of host period bytes.
-> The parameter has been used to keep information about
-> completion of period copy. Right now we keep this
-> information in period_irq.
+>> I think that it would be probably best to force the parameters for your hardware (--period-size and --buffer-size arguments for aplay or the time counterparts - --period-time and --buffer-time). The refining rules might not select the perfect configuration in some cases.
 > 
-> Signed-off-by: Marcin Rajwa <marcin.rajwa@linux.intel.com>
-> Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+> I tried to force parameters "period-size" in multiples of 2ms as our hardware supports 2ms period time data and buffer-size=twice period size.
+> But still I face the issue.
 
-looks good, for this patch:
+There is no exact 2ms period size for the rate 11025Hz, because it's float
+number 21.9780 (period size)... You may try values like 15,35,45,105 (anything
+which can match 11025 / PERIOD_SIZE without the remainder).
 
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

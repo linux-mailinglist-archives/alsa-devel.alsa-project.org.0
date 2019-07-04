@@ -2,72 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 480AE5FC04
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 18:41:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53E065FC21
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 18:56:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 910EB16A2;
-	Thu,  4 Jul 2019 18:40:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 910EB16A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FF9F16A2;
+	Thu,  4 Jul 2019 18:55:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FF9F16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562258484;
-	bh=jSru6HL92V34uhhE18ySTvCpSFe2SlBYuCwb65LIoTA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BPoef0j4ZzX1PGordOWDbjbUR2eqjg5IPj8eKNzq2zeRcFgQ1uhPLsGk4AF/X/ULS
-	 cQwBE+fHunx1mpENsUwblebmQgYoCZAsPorZXcr/UVjEK2rZ5d5JPCkivYa4h6UhkW
-	 dZVBtk0IZbzi6JW0urt2qajI4r30KNbLmE5uJmxw=
+	s=default; t=1562259367;
+	bh=p7lJiEpVDH5wLnYOmQqO/cHuCwpuJzvPtyujMaZZSKg=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=t5DbPiizhW04vZvo23UDHko3acD+/RNfXB36HCNbTW3BDWGxwUA+yP27LA/wjMmhm
+	 O6+RqQ2yNB2UqN1W4VbWtpqEzIkptfEankyKLS4aEDyaVBme7lblFCccFsw/gw60UI
+	 nu/9EPyiaoDbt9eJbR3hpMrrX41jIXy8Yevgb0Ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B09B9F80113;
-	Thu,  4 Jul 2019 18:39:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4D20F80110;
+	Thu,  4 Jul 2019 18:54:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C56C9F80111; Thu,  4 Jul 2019 18:39:36 +0200 (CEST)
+ id 15D97F80111; Thu,  4 Jul 2019 18:54:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_PDS_NO_HELO_DNS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88545F800E7
- for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 18:39:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88545F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id ACA40F800E8
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 18:54:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ACA40F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="TXhdKBuq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tQ7qymNBmIn5r3j+lXOrUKQbw23ni3Gm99jWZjB1Kqc=; b=TXhdKBuqNG3tMb7Gb84QYC5Eq
- qr8bxMX9JG3/EddXsvuQzSTQGKaJPnKyQJeHIXuNzgPzCkWBlvIpKsVtj0RjzvMkDr2JX7PQLZhDi
- u10/TubbAGlBQzJE3Pz/kmzU4z0QfpktwJqC2k68N+uylbYyrkRms8lYiedaj4NHpOFis=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hj4lh-0001Mm-EH; Thu, 04 Jul 2019 16:39:33 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 781652742EB1; Thu,  4 Jul 2019 17:39:32 +0100 (BST)
-Date: Thu, 4 Jul 2019 17:39:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190704163932.GA16332@sirena.org.uk>
-References: <20190703123257.27228-1-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="fuMZsh42"
+Received: by mail-wr1-x443.google.com with SMTP id n4so7319390wrs.3
+ for <alsa-devel@alsa-project.org>; Thu, 04 Jul 2019 09:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ATUBsucBVnluQJ+11gu8baaBZlsEfg1dO25aQlDatqg=;
+ b=fuMZsh42cgO7yHDNdFx6sPXq8RBno2OvpXkIGAZFdFqG9RrIDD4lqE2lbGgUsugMb7
+ HdczZscId7HzdeZRb0RNhqhKZsCCpSiJ2yLxQvO3hCGPlS734BhUTD+M2Cv9MgxGzPgV
+ 1lsiS+iGtXNkf1HHZcrzAxLO6MXoJE1Z5YWhtQMU6OZxDfQmVgk3IFS0TbM74nu9Sifn
+ D1AQC0hbbiGCav2+zmrDL9XJEmFqvLAHRwNitnE98zZuu3HnbxyWXFUviuQiskbv2Vzh
+ L6Kk4h3HVZvpC3DoYnqYXgE1XRyzn4ei0Qt236CS5kIwk9HB5ckSq0C9u5UXIV0m3+3o
+ OGrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=ATUBsucBVnluQJ+11gu8baaBZlsEfg1dO25aQlDatqg=;
+ b=UIHZj+23IyYXUHunX158Dg5JRvTTiQaEJL/9dngIab/X4T6BHS2ITGs3SyDq1H0nmJ
+ dgvAlNb8LBRz6u4z3P6rtIuGENJA9GW9evTYY+Tk52GL7aL6lM8UUiwnlnnzGgUUM97p
+ tTCrpHHL5WFFmAaZd12iXEOltfHVKkABDXxsdiXgADY54ef9D9kAAKSKShbK5v7lzkCZ
+ sfOSMRX2CcgQSerLt7kyKN+1KI1BYNFOrK3Jsb0NCg92MzxtCcE8IxsaAkptZiIfQROw
+ NSX6vBtqhRYCMFzyIH49nB1XOtkSWAb+WxS6GDIccg9BgQqkGtKRMk4sB4ePh3mXJ9ez
+ 1Iuw==
+X-Gm-Message-State: APjAAAVTmNsHhZb6+KY2fs4Myyu5JQYTc6UAv69gpid/BXbjkZK67jy2
+ fMZhBlsHyFNhSh/6hF+IPlCFDQ==
+X-Google-Smtp-Source: APXvYqzSIcOCgo7iO6O8x4Xml1XLjNGD5p53Zrw2fXj2b3xCjRjZhUGNSEWFh91XxVXdnr4yzjCGGA==
+X-Received: by 2002:a5d:4e50:: with SMTP id r16mr35340948wrt.227.1562259256858; 
+ Thu, 04 Jul 2019 09:54:16 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.gmail.com with ESMTPSA id p26sm8866097wrp.58.2019.07.04.09.54.15
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Thu, 04 Jul 2019 09:54:16 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org
+Date: Thu,  4 Jul 2019 17:54:10 +0100
+Message-Id: <20190704165410.7173-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <20190703123257.27228-1-srinivas.kandagatla@linaro.org>
-X-Cookie: ASHes to ASHes, DOS to DOS.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: wcd9335: remove multiple defines.
+Cc: alsa-devel@alsa-project.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, lgirdwood@gmail.com
+Subject: [alsa-devel] [PATCH v2] ASoC: wcd9335: remove multiple defines.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,53 +94,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9159541829335569623=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Found during review that there are multiple defines of same constants.
+This patch removes them!
 
---===============9159541829335569623==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ReaqsoxgOBHFXBhH"
-Content-Disposition: inline
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+Changes since v1:
+	rebased on top of kernel/git/broonie/sound.git for-next
 
+ sound/soc/codecs/wcd9335.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
---ReaqsoxgOBHFXBhH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Jul 03, 2019 at 01:32:57PM +0100, Srinivas Kandagatla wrote:
-> Found during review that there are multiple defines of same constants.
-> This patch removes them!
-
-This doesn't apply against current code, please check and resend.
-
---ReaqsoxgOBHFXBhH
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0eK8MACgkQJNaLcl1U
-h9CfVwf/XYySTd1B7uZk1uM6lEcovI+6DiXX6JjOeCWv4gEy3QewgbG4Tr39a5OJ
-b7swR0mvF3vq6gNJMuWNdIE2cpZZs4wQSyugLhglSTUWoBd9/COmAWkcqn6FGb6w
-Uo2WfgquqrBfVPE4OpZV0XypXJIoAnBXo5HV4M+hMHeyFzIOp2xz46+mQPfBzpXY
-Jtg4u1jCoQW4/ZZGPk81S18ykawYsFN7QUuOuvHrUVkvQR2iRaDXG6WtiRNbMe4l
-psUlBmLqvyPWku4cEc9Jsw46dbyA5MZo46TyTCm+TKcR2t22h4HsvilQ/AUbeM7O
-E1KgeiU22xz9XmPfDhTT897wRAnCdA==
-=Xpoj
------END PGP SIGNATURE-----
-
---ReaqsoxgOBHFXBhH--
-
---===============9159541829335569623==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 85737fe54474..1bbbe421b999 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -86,11 +86,6 @@
+ #define WCD9335_DEC_PWR_LVL_HP 0x04
+ #define WCD9335_DEC_PWR_LVL_DF 0x00
+ 
+-#define  TX_HPF_CUT_OFF_FREQ_MASK	0x60
+-#define  CF_MIN_3DB_4HZ			0x0
+-#define  CF_MIN_3DB_75HZ		0x1
+-#define  CF_MIN_3DB_150HZ		0x2
+-
+ #define WCD9335_SLIM_RX_CH(p) \
+ 	{.port = p + WCD9335_RX_START, .shift = p,}
+ 
+-- 
+2.21.0
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============9159541829335569623==--

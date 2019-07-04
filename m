@@ -2,65 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37A7A5F4F1
-	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 10:51:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F2C5F645
+	for <lists+alsa-devel@lfdr.de>; Thu,  4 Jul 2019 12:03:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B343166B;
-	Thu,  4 Jul 2019 10:50:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B343166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0F801696;
+	Thu,  4 Jul 2019 12:03:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0F801696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562230275;
-	bh=JRH2a22pL5IjDoigHx6D8kqf9Y6HKNTXl8CuvBOYzJg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=E4iBRgWzmLwagomYBYpG+c+uRZ13g+PTNc8u8rS9AhKJxuk9n42vkATPAuCQJCPj4
-	 Tjj2EdvUAIaOFgTASUUBoFpEM4wI2Cw52zzc/bj2QIW9OsZIjGW/Ll3dHzS3ULimTA
-	 n6XsQW6im4OAzGTe9V2AlBHbvZWWrKPKuz6jRwAc=
+	s=default; t=1562234633;
+	bh=IRXcc+E8EN71QL9LsokQAQcG4PoBqG6yyJ18jKiLPOc=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hSrU4KBUjmsctVBdBOJGo+wmnIBw1AldfTdbYbYOncProujSO0mM1z1nUxW8NJfxQ
+	 bs/dCMg0VIc/nXphyXQBIzMV6/OvpmlYNpN9L30DDlk+XQE/EhYAxO2eI3NmSclSjY
+	 1IM7caAAsRIRgBQxK8HbYTRF/yY7X12cDCqaH1eI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7C95F80110;
-	Thu,  4 Jul 2019 10:49:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D91BF80113;
+	Thu,  4 Jul 2019 12:02:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16698F80111; Thu,  4 Jul 2019 10:49:30 +0200 (CEST)
+ id 553D1F80111; Thu,  4 Jul 2019 12:02:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D21D9F800E7
- for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 10:49:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D21D9F800E7
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x648nJ5I016763,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCASV02.realtek.com.tw[172.21.6.19])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x648nJ5I016763
- (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
- Thu, 4 Jul 2019 16:49:19 +0800
-Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
- RTITCASV02.realtek.com.tw ([::1]) with mapi id 14.03.0439.000; Thu, 4 Jul
- 2019 16:49:19 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-Thread-Topic: Dell Headphone Mic can't record after S3 
-Thread-Index: AdUyRQlDv4TAWF0UQWKPscJcu/b/4Q==
-Date: Thu, 4 Jul 2019 08:49:18 +0000
-Message-ID: <6FAB7C47BCF00940BB0999A99BE3547A1D76878B@RTITMBSVM07.realtek.com.tw>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.211]
-Content-Type: multipart/mixed;
- boundary="_002_6FAB7C47BCF00940BB0999A99BE3547A1D76878BRTITMBSVM07real_"
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B4E7F800E8
+ for <alsa-devel@alsa-project.org>; Thu,  4 Jul 2019 12:02:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B4E7F800E8
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 04 Jul 2019 03:02:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,450,1557212400"; d="scan'208";a="175209719"
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by orsmga002.jf.intel.com with ESMTP; 04 Jul 2019 03:01:59 -0700
+Date: Thu, 4 Jul 2019 13:03:06 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <20190703151023.30313-1-yang.jie@linux.intel.com>
+Message-ID: <alpine.DEB.2.21.1907041254100.4409@eliteleevi>
+References: <20190703151023.30313-1-yang.jie@linux.intel.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
-Subject: [alsa-devel] Dell Headphone Mic can't record after S3
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ Marcin Rajwa <marcin.rajwa@linux.intel.com>,
+ pierre-louis.bossart@linux.intel.com
+Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: SOF: add flag for position
+ update ipc
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,69 +72,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76878BRTITMBSVM07real_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Hi Takashi,
+patch looks good, but commit message could be improved.
 
-Headphone Mic can't record after S3 on Dell headset mode platform.
-The S3 mode was deep. S2idle didn't have this issue.
+On Wed, 3 Jul 2019, Keyon Jie wrote:
 
-BR,
-Kailang
+> In some cases, FW might need use the host_period_bytes even no position
+> update ipc reqiured from driver, here add another flag for position update,
+> and preserve host_period_bytes for FW to use.
 
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76878BRTITMBSVM07real_
-Content-Type: application/octet-stream;
-	name="0000-fix-hp-mic-recording-fail.patch"
-Content-Description: 0000-fix-hp-mic-recording-fail.patch
-Content-Disposition: attachment;
-	filename="0000-fix-hp-mic-recording-fail.patch"; size=1544;
-	creation-date="Thu, 04 Jul 2019 08:09:23 GMT";
-	modification-date="Thu, 04 Jul 2019 08:11:36 GMT"
-Content-Transfer-Encoding: base64
+Speculation on what FW might do is not really needed. The 
+host_period_bytes field has been overloaded with multiple 
+semantics and this patch clears that, right. How about:
 
-RnJvbSBhODIwY2YzN2U0ZjBiNDhmYjZhMzRjYjJmZjFhNWY2YTRhN2MzOTgzIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IFRodSwgNCBKdWwgMjAxOSAxNjowMjoxMCArMDgwMApTdWJqZWN0OiBbUEFUQ0hdIEFMU0E6
-IGhkYS9yZWFsdGVrIC0gSGVhZHBob25lIE1pYyBjYW4ndCByZWNvcmQgYWZ0ZXIgUzMKCkRlbGwg
-aGVhZHNldCBtb2RlIHBsYXRmb3JtIHdpdGggQUxDMjM2LgpJdCBkb2Vzbid0IHJlY29yZGluZyBh
-ZnRlciBzeXN0ZW0gcmVzdW1lIGZyb20gUzMuClMzIG1vZGUgd2FzIGRlZXAuIHMyaWRsZSB3YXMg
-bm90IGhhcyB0aGlzIGlzc3VlLgpTMyBkZWVwIHdpbGwgY3V0IG9mIGNvZGVjIHBvd2VyLiBTbywg
-dGhlIHJlZ2lzdGVyIHdpbGwgYmFjayB0byBkZWZhdWx0IGFmdGVyIHJlc3VtZSBiYWNrLgpUaGlz
-IHBhdGNoIHdpbGwgc29sdmUgdGhpcyBpc3N1ZS4KClNpZ25lZC1vZmYtYnk6IEthaWxhbmcgWWFu
-ZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4KCmRpZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL3BhdGNo
-X3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCmluZGV4IDQ4ZjNjNWI4
-ZDZlOS4uMGY3NzY0NDRhYjg2IDEwMDY0NAotLS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0
-ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpAQCAtMzI2OCw2ICszMjY4
-LDcgQEAgc3RhdGljIHZvaWQgYWxjMjU2X2luaXQoc3RydWN0IGhkYV9jb2RlYyAqY29kZWMpCiAJ
-YWxjX3VwZGF0ZV9jb2VmZXhfaWR4KGNvZGVjLCAweDU3LCAweDA0LCAweDAwMDcsIDB4NCk7IC8q
-IEhpZ2h0IHBvd2VyICovCiAJYWxjX3VwZGF0ZV9jb2VmZXhfaWR4KGNvZGVjLCAweDUzLCAweDAy
-LCAweDgwMDAsIDEgPDwgMTUpOyAvKiBDbGVhciBiaXQgKi8KIAlhbGNfdXBkYXRlX2NvZWZleF9p
-ZHgoY29kZWMsIDB4NTMsIDB4MDIsIDB4ODAwMCwgMCA8PCAxNSk7CisJYWxjX3VwZGF0ZV9jb2Vm
-X2lkeChjb2RlYywgMHgzNiwgMSA8PCAxMywgMSA8PCA1KTsgLyogU3dpdGNoIHBjYmVlcCBwYXRo
-IHRvIExpbmUgaW4gcGF0aCovCiB9CiAKIHN0YXRpYyB2b2lkIGFsYzI1Nl9zaHV0dXAoc3RydWN0
-IGhkYV9jb2RlYyAqY29kZWMpCkBAIC03ODM4LDcgKzc4MzksNiBAQCBzdGF0aWMgaW50IHBhdGNo
-X2FsYzI2OShzdHJ1Y3QgaGRhX2NvZGVjICpjb2RlYykKIAkJc3BlYy0+c2h1dHVwID0gYWxjMjU2
-X3NodXR1cDsKIAkJc3BlYy0+aW5pdF9ob29rID0gYWxjMjU2X2luaXQ7CiAJCXNwZWMtPmdlbi5t
-aXhlcl9uaWQgPSAwOyAvKiBBTEMyNTYgZG9lcyBub3QgaGF2ZSBhbnkgbG9vcGJhY2sgbWl4ZXIg
-cGF0aCAqLwotCQlhbGNfdXBkYXRlX2NvZWZfaWR4KGNvZGVjLCAweDM2LCAxIDw8IDEzLCAxIDw8
-IDUpOyAvKiBTd2l0Y2ggcGNiZWVwIHBhdGggdG8gTGluZSBpbiBwYXRoKi8KIAkJYnJlYWs7CiAJ
-Y2FzZSAweDEwZWMwMjU3OgogCQlzcGVjLT5jb2RlY192YXJpYW50ID0gQUxDMjY5X1RZUEVfQUxD
-MjU3Owo=
+""
+Remove the special case semantics of 'host_period_bytes==0'.
+Add a new field 'no_period_irq' to signal whether period elapsed
+IPC should be sent and use 'host_period_bytes' only for
+period size.
+""
 
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76878BRTITMBSVM07real_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> This might require corresponding FW change and ABI alignment.
+
+This is not helpful -- we know this _is_ a minor ABI change
+and needs to be aligned with FW.
+
+Br, Kai
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---_002_6FAB7C47BCF00940BB0999A99BE3547A1D76878BRTITMBSVM07real_--

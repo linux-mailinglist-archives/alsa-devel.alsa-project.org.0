@@ -2,95 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC64A60032
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 06:31:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1C8B6007D
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 07:13:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F8B216A2;
-	Fri,  5 Jul 2019 06:30:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F8B216A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 56233169F;
+	Fri,  5 Jul 2019 07:12:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56233169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562301069;
-	bh=1hVv8dkfwH0HApnAsullH9r/ehkgoz7YFIvlk+0whOw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Pdpeb5raVuGqLDK3uZioBGBmGNE7BaAEuptZk03ruChMEClJhj1gTP/pO1d+Bpbfx
-	 YbNHL1Ge+vEtyx9xtbS04oJ1D0fwh2HYb+IqzehUAT6449jn0PknS5aFp/rEgf02JY
-	 CLcY/+mgigIl6UdcaVqXHqhUqk4R0dwshN3Rgejo=
+	s=default; t=1562303595;
+	bh=WzL3WXO0Oiu01Rd78TYV3vIxsWzxC3ylqn39VE0vvkg=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=f0lUHKy5AbkX2DE7/LfvH5nbkox69xcffKD/h+oRGPSlYky+hwNe4izCm3qWaOjUc
+	 Ebq6PAlePdxWlpH0pfmuzd2xM549QdnkrV9h1oFzsRkvFW/VY1VaXxMPqAP6eztAGa
+	 OjFvUxxmq117o5Jcqwr0CBPceZbTtlmZfPk/nGkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0FA74F80171;
-	Fri,  5 Jul 2019 06:27:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98AF1F80120;
+	Fri,  5 Jul 2019 07:11:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08CDEF8015A; Fri,  5 Jul 2019 06:27:07 +0200 (CEST)
+ id 7D7F5F8011F; Fri,  5 Jul 2019 07:11:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,T_PDS_NO_HELO_DNS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C7E8AF80145
- for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 06:27:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7E8AF80145
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8C60F800E6
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 07:11:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8C60F800E6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Hbexc+aC"
-Received: by mail-pg1-x542.google.com with SMTP id u17so3211799pgi.6
- for <alsa-devel@alsa-project.org>; Thu, 04 Jul 2019 21:27:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Mt+OhzkdZXuABUeOm3oIQQxV+A0uMRzmq60uCRJmAJE=;
- b=Hbexc+aCBum/RZ12dI3r5/XyzyiK+MvJQgQ2XO3/HVioP3PM/nCddAlz1xrMohN7M1
- S0TUfchH1at/5Y1i17XhZAcSUqCKCip2aybO7YsuTVjIwJXSYImaa+d0n/+JHH0FYNkL
- NI0/aW8eXuQCvg6kpGPrNaIfIBqJ7QUDBMvFM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Mt+OhzkdZXuABUeOm3oIQQxV+A0uMRzmq60uCRJmAJE=;
- b=tAGQoJNVEmzAvTzhAJWC16IynLApYI0O44IkF35UmDjlvenc1JzxlT0c4OAwpMJU/A
- 6D8DnZ17YlI80C/7aOLdk+oqbLCpKK+TwoSyW/1kyaSzAfGNTbfAu+XCBGpMlUUMmcsp
- 7diW1Tw3ajlLBdtCEhadCkWo762ZOpTit+RFWjNnBjbbnGCm/+svGBSfr85LwPYzaDPh
- IB5wylY6GURKJZ7Pvwmu2dKCZqZ1zq1YirVVGjV2g3aAyFi6pdkoSZf0i1Nub2Dve3kJ
- 7YfJ/T3YQkIizlIBBl3Y5O8P4KuFKEqGpqFVBCqqQoaeD4zBZT90Vueq905kC3+1oE8z
- F1/Q==
-X-Gm-Message-State: APjAAAVzSZk/BQ27V2Io0wcNqxcQPADz2wRgb6rq5P+z40u5dpJYtPWM
- u/o4/h3YiyO3LMDCsnnBnkXlIg==
-X-Google-Smtp-Source: APXvYqywd4tkamYO1Fai6BvXNjXkhsYojIRkBX4/rKYkl5GdlfV7TnbJIDpy2ZVfWAPldm8d1RwzHA==
-X-Received: by 2002:a17:90a:8d86:: with SMTP id
- d6mr2081909pjo.94.1562300823498; 
- Thu, 04 Jul 2019 21:27:03 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
- by smtp.gmail.com with ESMTPSA id t10sm6811920pjr.13.2019.07.04.21.27.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 04 Jul 2019 21:27:02 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Fri,  5 Jul 2019 12:26:23 +0800
-Message-Id: <20190705042623.129541-5-cychiang@chromium.org>
-X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
-In-Reply-To: <20190705042623.129541-1-cychiang@chromium.org>
-References: <20190705042623.129541-1-cychiang@chromium.org>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jg2oeaZt"
+Received: from localhost (unknown [122.167.76.109])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9A9B0216FD;
+ Fri,  5 Jul 2019 05:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1562303483;
+ bh=bRpit7k3+POn9DvEoDSWbXaKbcM5/RRFJX8v30ubCX0=;
+ h=Date:From:To:Cc:Subject:From;
+ b=jg2oeaZtmRZFU+18VN61a0b1jhXi7/TpNdNQWmSH7Kkp+mLnxM2Rp8Mb3QMVOFgxZ
+ 9yKAF3oomaIztJ5YtJE6j9S3UNC+qnW5zRXhr6mNLlXVSk69km8ZSC1I7yqAx3Y3lJ
+ rhkiYocCwWxtCe2q7HhC+sdG9tNiFJ3AbGzoIGEc=
+Date: Fri, 5 Jul 2019 10:38:13 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20190705050813.GT2911@vkoul-mobl>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- tzungbi@chromium.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Andrzej Hajda <a.hajda@samsung.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
- linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH 4/4] ASoC: rockchip_max98090: Add HDMI jack
-	support
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [GIT PULL]: soundwire updates for v5.3-rc1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,68 +72,122 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4615413336554496662=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In machine driver, create a jack and let hdmi-codec report jack status.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/rockchip/rockchip_max98090.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+--===============4615413336554496662==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="sdtB3X0nJg68CQEu"
+Content-Disposition: inline
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 195309d1225a..c0e430ca4d12 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -15,6 +15,7 @@
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-+#include <sound/hdmi-codec.h>
- 
- #include "rockchip_i2s.h"
- #include "../codecs/ts3a227e.h"
-@@ -129,6 +130,25 @@ enum {
- 	DAILINK_HDMI,
- };
- 
-+static struct snd_soc_jack rk_hdmi_jack;
-+
-+static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_component *component = runtime->codec_dai->component;
-+	int ret;
-+
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &rk_hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
-+}
-+
- /* max98090 and HDMI codec dai_link */
- static struct snd_soc_dai_link rk_dailinks[] = {
- 	[DAILINK_MAX98090] = {
-@@ -146,6 +166,7 @@ static struct snd_soc_dai_link rk_dailinks[] = {
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
-+		.init = rk_hdmi_init,
- 		SND_SOC_DAILINK_REG(hdmi),
- 	}
- };
--- 
-2.22.0.410.gd8fdbe21b5-goog
+
+--sdtB3X0nJg68CQEu
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hello Greg,
+
+Please pull to receive the updates for soundwire for v5.3.
+
+The following changes since commit a188339ca5a396acc588e5851ed7e19f66b0ebd9:
+
+  Linux 5.2-rc1 (2019-05-19 15:47:09 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/so=
+undwire-5.3-rc1
+
+for you to fetch changes up to 2aeac95d1a4cc85aae57ab842d5c3340df0f817f:
+
+  soundwire: add module_sdw_driver helper macro (2019-07-01 11:52:43 +0530)
+
+----------------------------------------------------------------
+soundwire updates for v5.3-rc1
+
+Updates for 5.3 include:
+ - module_sdw_driver macro for drivers
+ - Documentation updates for code-blocks
+ - Improvement from Pierre on intel and cadence driver
+ - Clarification of DisCo properties and updates
+
+----------------------------------------------------------------
+Jan Kotas (1):
+      soundwire: cdns: Fix compilation error on arm64
+
+Mauro Carvalho Chehab (1):
+      docs: soundwire: locking: fix tags for a code-block
+
+Pierre-Louis Bossart (15):
+      soundwire: intel: filter SoundWire controller device search
+      soundwire: mipi_disco: fix master/link error
+      soundwire: add port-related definitions
+      soundwire: remove master data port properties
+      soundwire: mipi-disco: remove master_count property for masters
+      soundwire: rename 'freq' fields
+      soundwire: mipi-disco: fix clock stop modes
+      soundwire: clarify comment
+      soundwire: rename/clarify MIPI DisCo properties
+      soundwire: cadence_master: use rate_limited dynamic debug
+      soundwire: cadence_master: log Slave status mask on errors
+      soundwire: cadence_master: check the number of bidir PDIs
+      soundwire: Intel: add log for number of PCM and PDM PDIs
+      soundwire: fix typo in comments
+      soundwire: intel_init: add checks on link numbers
+
+Srinivas Kandagatla (1):
+      soundwire: add module_sdw_driver helper macro
+
+ Documentation/driver-api/soundwire/locking.rst |  4 +-
+ drivers/soundwire/bus.c                        |  6 +-
+ drivers/soundwire/cadence_master.c             | 30 +++++----
+ drivers/soundwire/intel.c                      | 17 +++--
+ drivers/soundwire/intel.h                      |  2 +-
+ drivers/soundwire/intel_init.c                 | 25 +++++++-
+ drivers/soundwire/mipi_disco.c                 | 35 +++++-----
+ drivers/soundwire/stream.c                     |  8 +--
+ include/linux/soundwire/sdw.h                  | 88 ++++++++++++++++++++--=
+----
+ include/linux/soundwire/sdw_type.h             | 11 ++++
+ 10 files changed, 162 insertions(+), 64 deletions(-)
+
+--=20
+~Vinod
+
+--sdtB3X0nJg68CQEu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBAgAGBQJdHts9AAoJEHwUBw8lI4NHcdsQAJRMhyfZPdEo3XB+L3REtCC1
+RuJz8AsFt5evH4yD+cMUPeSV8kAV3h2WjjcPH3N2d7oZS/8zkTj4POce7+2L2iLi
+kP9Z8x+LiSHrpgGZd+9Wp+Y/0MWHZp7sUH9p9RxO5r39wVCVKiy9eCw8ZOx46IBM
+1JBueQAot0N0MeCrnfwpv+OaCOrnrfO0ITaPypBXvbNtDAtFSpmHDmAgoVKcF1Cd
+yfic4xCOdBVRByLJe/3C1kP3iU7T35sXYk5ONjFGo3Smgl94Th973nHli84cWxwW
+WCKU9lSm1A0n4GKMYBEmlZmhIe9+n/e3EXKxAkpV689s/uSqresl+utjM8f4JOEu
+dEhNDCK6+RvIxgwCFGGbM5nBdIMieE6vzycyyuPBHLEKLe97pY5GcV0nISGghZxZ
+m7hDxNFqrmmCEyJ2sXXdljuDvfLkP5K+Q7msTHWllM48n82wIC+5UHStQOgFmheR
+MzItfk84Owikx7vRvOBzPmdkceiks/5eEKuDOltI9y+xg6onfXub5cxiSz+yjPdw
+s/KUOudlZrRhby8SUoldSBVfIf/CKqpVxmYFyqnpu/YSeIlRKmPFm3xpMjygRU/E
+LKMrFvWJKMIj+NWAizwjdaF6DQ0L0GykxMgOPyARQUbaYvIBbYcSjqV94skn9Dg4
+4QenkRxulsytX6KI3kfk
+=5Z75
+-----END PGP SIGNATURE-----
+
+--sdtB3X0nJg68CQEu--
+
+--===============4615413336554496662==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============4615413336554496662==--

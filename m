@@ -2,61 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0762E5FEA7
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 01:29:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681A65FF86
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 04:40:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7795B1695;
-	Fri,  5 Jul 2019 01:28:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7795B1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 507DF1699;
+	Fri,  5 Jul 2019 04:39:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 507DF1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562282951;
-	bh=9jkhjKB5h5lbRFviEfyTbfPKbUok9ztRKC3PU9tQm34=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562294413;
+	bh=kYlZgDPK2HXu0UKJPsrE3YDSlH3/MYOeLhloMzN6/IU=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N8OpFkyGWORCuXElfV2pZ+Fo7EZ1JYN6Epfd7dsVcV+DGIxFbGLMkfX9rCJCBCMt3
-	 Y/3qaVx5L2reQHszhQhDiAEUB53Qx6r92MwkKHYr10GA9ulP+8MqoMKXRQmtSvzkXO
-	 YJUQ2hk5I9aMMzJI6Mv7Ha5V+vn2vUzLNgp+Yud0=
+	b=oruLlO+Qk11XJGaHR4Cs7FYwQXvleRuGSh+Aq2gRrFBAhf36UAq/khA+kHQ08+ADx
+	 qRpV34D3kj6tmliG9iTOChEtBRBbv3yxbAnAqEaIuWtjPbovUr2mVgM5aSVATrSntx
+	 WRun323FePJ60xMuer8+ZyRbg4vP+raC7u7c63sE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3EF6F80113;
-	Fri,  5 Jul 2019 01:27:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DB68F80120;
+	Fri,  5 Jul 2019 04:38:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F503F80111; Fri,  5 Jul 2019 01:27:21 +0200 (CEST)
+ id CEB12F8011F; Fri,  5 Jul 2019 04:38:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_PASS,T_PDS_NO_HELO_DNS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
+ [209.85.208.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1D6F8F80058
- for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 01:27:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D6F8F80058
-Received: from [114.252.212.168] (helo=[192.168.1.106])
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_128_CBC_SHA1:16)
- (Exim 4.76) (envelope-from <hui.wang@canonical.com>)
- id 1hjB89-00053a-18; Thu, 04 Jul 2019 23:27:09 +0000
-To: "He, Bo" <bo.he@intel.com>, "kailang@realtek.com" <kailang@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <CD6925E8781EFD4D8E11882D20FC406D52AB58B6@SHSMSX104.ccr.corp.intel.com>
-From: Hui Wang <hui.wang@canonical.com>
-Message-ID: <c37fa9bd-071c-6c10-55a6-933a4937fa87@canonical.com>
-Date: Fri, 5 Jul 2019 07:27:00 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD16DF800E7
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 04:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD16DF800E7
+Received: by mail-ed1-f66.google.com with SMTP id m10so6879898edv.6
+ for <alsa-devel@alsa-project.org>; Thu, 04 Jul 2019 19:38:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8WqY7P7z7HvZSik8uVxR3WylUoD8M+JaJvkcH77K5Dg=;
+ b=pytNVuPP7MfXjrA5Itj2dY8MCGE63IaGPX4OYBhRpbTZtz36a0ESXR74HloSbkF+g3
+ wCgZZIX2KfDLeE3SXSj7WHCvh7c5EY3Yog/6eqN3aG7PSPjAmo02gNeIe+c2C6yJ/HE5
+ CXnrUGtL6KaYqCVxhraBTKUKZOGB1tonoDVZU4HcNl1gRQSpNfPwGxyFFRfG5FVvfMt5
+ 9Z9KO9g2fRdWBgIx1Ci47+CP1MOni8T9ddFMhZILrv02ZzxyXfhEpTzxHy3KdSDqm8yT
+ 6Sy4tSWoghfdFBl+AzJTINc2HWKk5GZgFIhTq3kCERid4aORnRk8P50v6RdbCLRDwEZa
+ KC/g==
+X-Gm-Message-State: APjAAAVna0U9R9/kS5ysirFag7eCA8bH2ulHRdDGfKtp4vfQF4kdpa3u
+ ebedDbFhezuJ/PZLDQVMRQJmFD3jxfI=
+X-Google-Smtp-Source: APXvYqx0NNlQNN2yJclXA8ZvlBHql/Kif6qxHyre7IMgL9Ur+DRk4xo03dPEuV9k93jOJ3Je2xkC8g==
+X-Received: by 2002:a50:886a:: with SMTP id c39mr1782398edc.214.1562294297894; 
+ Thu, 04 Jul 2019 19:38:17 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
+ [209.85.221.45])
+ by smtp.gmail.com with ESMTPSA id pv18sm999316ejb.14.2019.07.04.19.38.16
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Thu, 04 Jul 2019 19:38:16 -0700 (PDT)
+Received: by mail-wr1-f45.google.com with SMTP id c2so8263579wrm.8
+ for <alsa-devel@alsa-project.org>; Thu, 04 Jul 2019 19:38:16 -0700 (PDT)
+X-Received: by 2002:adf:f70b:: with SMTP id r11mr1078942wrp.324.1562294296092; 
+ Thu, 04 Jul 2019 19:38:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CD6925E8781EFD4D8E11882D20FC406D52AB58B6@SHSMSX104.ccr.corp.intel.com>
-Content-Language: en-US
-Cc: "jian-hong@endlessm.com" <jian-hong@endlessm.com>,
- "drake@endlessm.com" <drake@endlessm.com>,
- "chiu@endlessm.com" <chiu@endlessm.com>, "tiwai@suse.com" <tiwai@suse.com>
-Subject: Re: [alsa-devel] audio lost from speaker after reboot from windows
- on the device ALC295
+References: <20190703184814.27191-1-luca@z3ntu.xyz>
+In-Reply-To: <20190703184814.27191-1-luca@z3ntu.xyz>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Fri, 5 Jul 2019 10:38:06 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64EL-v5YUuWA4t=KUhuwEqML6Co6iosG607_rZhUQ+OLg@mail.gmail.com>
+Message-ID: <CAGb2v64EL-v5YUuWA4t=KUhuwEqML6Co6iosG607_rZhUQ+OLg@mail.gmail.com>
+To: Luca Weiss <luca@z3ntu.xyz>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <maxime.ripard@bootlin.com>,
+ ~martijnbraam/pmos-upstream@lists.sr.ht, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: sunxi: sun50i-codec-analog: Add
+	earpiece
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,36 +96,22 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-TWF5YmUgeW91ciBtYWNoaW5lIGhhcyBhbiBleHRlcm5hbCBhbXBsaWZpZXIgd2hpY2ggbmVlZHMg
-dG8gYmUgc2V0IGJ5IApzb2Z0d2FyZSBiZWZvcmUgaXQgY2FuIHdvcmsuCgpPbiAyMDE5LzcvNCDk
-uIvljYg4OjAyLCBIZSwgQm8gd3JvdGU6Cj4gSGksIHBhdGNoX3JlYWx0ZWsuYyBtYWludGFpbmVy
-Ogo+IAlJIHNlZSBvbmUgaXNzdWUgdGhhdCByZWJvb3QgZnJvbSB3aW5kb3dzIGFuZCBib290IHRv
-IHVidW50dSwgdGhlIGF1ZGlvIGxvc3QgZnJvbSBzcGVha2VyLCBJIHN1c3BlY3QgdGhlcmUgYXJl
-IHNvbWUgYnVncyBpbiBwYXRjaF9yZWFsdGVrLmMgZHJpdmVycywgIHRoZSBkZXZpY2UgaXMgQUxD
-Mjk1IGFuZCB0aGUgZGV2aWNlIGlkIGlzIDB4MTBlYzAyOTUuCj4KPiBJIGhhdmUgZG9uZSB0aGUg
-YmVsb3cgZXhwZXJpbWVudHM6Cj4gMS4gcmVib290IGZyb20gd2luZG93cyB0byB3aW5kb3dzLCB0
-aGUgYXVkaW8gaXMgcGVyc2lzdCAuCj4gMi4gcmVib290IGZyb20gd2luZG93cyB0byB1YnVudHUs
-IHRoZSBhdWRpbyBsb3N0IGZyb20gc3BlYWtlciwgYnV0IGNhbiBoZWFyIGlmIEkgaG90cGx1ZyBv
-bmUgZWFycGhvbmUuCj4gMy4gaWYgdGhlIGlzc3VlIHJlcHJvZHVjZSBhZnRlciByZWJvb3QgZnJv
-bSB3aW5kb3dzLCByZWJvb3QgdGhlIHVidW50dSBjYW4ndCByZXN0b3JlIHRoZSBhdWRpbywgSSBz
-dXNwZWN0IGl0J3Mgd2FybSByZXNldC4KPiA0LiBpZiBJIHdyaXRlIHRoZSBwb3J0IDB4Y2Y5IHdp
-dGggMHhlIHRvIGRvIGNvbGQgcmVzZXQsIHRoZSBhdWRpbyBjYW4gcmVzdG9yZS4KPiA1LiBpZiBJ
-IGRvIHN1c3BlbmQvcmVzdW1lLCB0aGUgYXVkaW8gY2FuIHJlc3RvcmUsIEkgc3VzcGVjdCBkbyBj
-b2xkIGJvb3QgYW5kIHN1c3BlbmQgd2lsbCB0cmlnZ2VyIHRoZSBwbGF0Zm9ybSByZXNldCB0byBy
-ZXNldCB0aGUgQUxDMjk1Lgo+IDYuIGlmIEkgZG8gZG91YmxlIGZ1bmN0aW9uIHJlc2V0ICh3cml0
-ZSB0aGUgdmVyYiAweDdmZiBpbiBhbGNfaW5pdCksIHRoZSBhdWRpbyBpcyBzdGlsbCBjYW4ndCBy
-ZXN0b3JlLgo+IHNuZF9oZGFfY29kZWNfd3JpdGUoY29kZWMsIDB4MDEsIDAsIEFDX1ZFUkJfU0VU
-X0NPREVDX1JFU0VULCAwKTsgLyogRnVuY3Rpb24gcmVzZXQgKi8KPiBzbmRfaGRhX2NvZGVjX3dy
-aXRlKGNvZGVjLCAweDAxLCAwLCBBQ19WRVJCX1NFVF9DT0RFQ19SRVNFVCwgMCk7IC8qIGRvdWJs
-ZSBGdW5jdGlvbiByZXNldCAqLwo+IDcuIHRoZSBpc3N1ZSBpcyBmaXJzdCBmb3VuZCBvbiBrZXJu
-ZWwgNC4xOS41MCwgSSBzdGlsbCBzZWUgdGhlIGlzc3VlIHdpdGggdGhlIGxhdGVzdCBrZXJuZWwg
-NS4yLXJjMiwgaXMgaXQgcG9zc2libGUgd2luZG93cyBjaGFuZ2Ugc29tZSBkZWZhdWx0IHJlZ2lz
-dGVycywgYnV0IEFMQzI5NSBkb24ndCBpbml0aWFsaXplIHRoZSByZWdpc3Rlcj8KPgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxp
-bmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2Et
-cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+On Thu, Jul 4, 2019 at 2:49 AM Luca Weiss <luca@z3ntu.xyz> wrote:
+>
+> This adds the necessary registers and audio routes to play audio using
+> the Earpiece, that's supported on the A64.
+>
+> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+
+LGTM.
+
+Reviewed-by: Chen-Yu Tsai <wens@csie.org>
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75BDE60B00
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 19:23:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0240460AFC
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 19:22:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1327D16A5;
-	Fri,  5 Jul 2019 19:22:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1327D16A5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C061169A;
+	Fri,  5 Jul 2019 19:21:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C061169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562347390;
-	bh=BXC09g8gexpMUhT6QAG+EpqjTW/4y+udR2YqDpxYNJA=;
+	s=default; t=1562347344;
+	bh=xnb6h8GzBO7QOhyZ6UNuPxgl5Ixh4Mi1hM5qMoH8adI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fOs5OI1EIonbyEeGgWfd1DZtSrDHVb4Ub/xFENO9MAtPaeMTcp2t32PrdHvMQgP/C
-	 w0AqA9Ir7vMLJXfWXRt7hDaZv+sp2YajOrX506z/waT6I2JPFAUHUF9WgRSbmPJ/Cr
-	 Ep/LwdTQOJbiXcIATRuRbv4QrJGnmMD9ZX3RxMpo=
+	b=MYI+UyGIDwrCoUqnXxB/OBzx1IXuzuhvwf2IRy1giN888G4uAZI1zmav/7JToc5SC
+	 pA5w62lqDP4nqkVH4tFEKKBXqvv6IuJ8JSj7X4XSH+9xjC+/kOOvzMAANT1JxCGmp8
+	 mBWEVvnzLCeYhu6RGsnHN3tw53+hbMZNreaHEDIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 060ABF80140;
-	Fri,  5 Jul 2019 19:20:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24A89F80134;
+	Fri,  5 Jul 2019 19:19:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25F63F800E6; Fri,  5 Jul 2019 19:19:57 +0200 (CEST)
+ id 64A9FF800E6; Fri,  5 Jul 2019 19:19:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27255F8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0067F800E6
  for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 19:19:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27255F8011E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0067F800E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="QAqVfayw"
+ header.b="w5y81v1T"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2ThStbfjZy7dGop/GZdJqX18mi147KcSga4aEJ1WmBY=; b=QAqVfaywNc2V
- GqFHGj+VWP6HuirLc6CWTUgwCZQhrsH9+SSKkf3XvSSObPbvi+o9ORi4z3PYkmnTFbaIyjFo5bqbW
- HshpLWIFyrqMuDbmlsIPm9FnUh9pRLRgoRM4KMS6keRQ6cHIZ+iOUcSZNP9VIfvqgHZejYR0R6tQA
- pMQ/E=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=ePFcoJ5m87EvMr2n+NPJawIqXaDiVgO7emTiCfYxa/c=; b=w5y81v1T0+ac
+ 1+ok1MB6hi0HaqCQBoU8h2Re9kCl/UXILOhp+D7a+371YTeKfoeEJYYTUuuej3O8vSmZUtn7cJW+O
+ UpzJMk/gC9fH4J+I5X+xHd67jGerlq8mL3Byoq/sJwqmf98l0ACGA7PU4xbj5xOy4dXppQmoml5k7
+ IhFzQ=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hjRsF-0004ZP-AR; Fri, 05 Jul 2019 17:19:51 +0000
+ id 1hjRsE-0004ZO-Uw; Fri, 05 Jul 2019 17:19:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 9C2F82742B3A; Fri,  5 Jul 2019 18:19:50 +0100 (BST)
+ id 730AE2742A10; Fri,  5 Jul 2019 18:19:50 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Luca Weiss <luca@z3ntu.xyz>
-In-Reply-To: <20190703184814.27191-1-luca@z3ntu.xyz>
+To: Wei Yongjun <weiyongjun1@huawei.com>
+In-Reply-To: <20190705081637.157169-1-weiyongjun1@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190705171950.9C2F82742B3A@ypsilon.sirena.org.uk>
+Message-Id: <20190705171950.730AE2742A10@ypsilon.sirena.org.uk>
 Date: Fri,  5 Jul 2019 18:19:50 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- ~martijnbraam/pmos-upstream@lists.sr.ht, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Vasily Khoruzhick <anarsoul@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: sunxi: sun50i-codec-analog: Add
-	earpiece" to the asoc tree
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Pan Xiuli <xiuli.pan@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: debug: fix possible memory leak in
+	sof_dfsentry_write()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sunxi: sun50i-codec-analog: Add earpiece
+   ASoC: SOF: debug: fix possible memory leak in sof_dfsentry_write()
 
 has been applied to the asoc tree at
 
@@ -115,118 +117,47 @@ to this mail.
 Thanks,
 Mark
 
-From 1fe08602d1179e7bfb2e805b22e8f57f4916c51e Mon Sep 17 00:00:00 2001
-From: Luca Weiss <luca@z3ntu.xyz>
-Date: Wed, 3 Jul 2019 20:48:11 +0200
-Subject: [PATCH] ASoC: sunxi: sun50i-codec-analog: Add earpiece
+From b90bab3b1b1b6c56dd6f9d5c960932239f36f6d3 Mon Sep 17 00:00:00 2001
+From: Wei Yongjun <weiyongjun1@huawei.com>
+Date: Fri, 5 Jul 2019 08:16:37 +0000
+Subject: [PATCH] ASoC: SOF: debug: fix possible memory leak in
+ sof_dfsentry_write()
 
-This adds the necessary registers and audio routes to play audio using
-the Earpiece, that's supported on the A64.
+'string' is malloced in sof_dfsentry_write() and should be freed
+before leaving from the error handling cases, otherwise it will cause
+memory leak.
 
-Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
-Reviewed-by: Chen-Yu Tsai <wens@csie.org>
-Link: https://lore.kernel.org/r/20190703184814.27191-1-luca@z3ntu.xyz
+Fixes: 091c12e1f50c ("ASoC: SOF: debug: add new debugfs entries for IPC flood test")
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/20190705081637.157169-1-weiyongjun1@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sunxi/sun50i-codec-analog.c | 50 +++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ sound/soc/sof/debug.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun50i-codec-analog.c b/sound/soc/sunxi/sun50i-codec-analog.c
-index d105c90c3706..6d1de565350e 100644
---- a/sound/soc/sunxi/sun50i-codec-analog.c
-+++ b/sound/soc/sunxi/sun50i-codec-analog.c
-@@ -49,6 +49,15 @@
- #define SUN50I_ADDA_OR_MIX_CTRL_DACR		1
- #define SUN50I_ADDA_OR_MIX_CTRL_DACL		0
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index 54bb53bfc81b..2388477a965e 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -162,7 +162,7 @@ static ssize_t sof_dfsentry_write(struct file *file, const char __user *buffer,
+ 	else
+ 		ret = kstrtoul(string, 0, &ipc_count);
+ 	if (ret < 0)
+-		return ret;
++		goto out;
  
-+#define SUN50I_ADDA_EARPIECE_CTRL0	0x03
-+#define SUN50I_ADDA_EARPIECE_CTRL0_EAR_RAMP_TIME	4
-+#define SUN50I_ADDA_EARPIECE_CTRL0_ESPSR		0
-+
-+#define SUN50I_ADDA_EARPIECE_CTRL1	0x04
-+#define SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_EN	7
-+#define SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_MUTE	6
-+#define SUN50I_ADDA_EARPIECE_CTRL1_ESP_VOL	0
-+
- #define SUN50I_ADDA_LINEOUT_CTRL0	0x05
- #define SUN50I_ADDA_LINEOUT_CTRL0_LEN		7
- #define SUN50I_ADDA_LINEOUT_CTRL0_REN		6
-@@ -172,6 +181,10 @@ static const DECLARE_TLV_DB_RANGE(sun50i_codec_lineout_vol_scale,
- 	2, 31, TLV_DB_SCALE_ITEM(-4350, 150, 0),
- );
+ 	/* limit max duration/ipc count for flood test */
+ 	if (flood_duration_test) {
+@@ -191,7 +191,7 @@ static ssize_t sof_dfsentry_write(struct file *file, const char __user *buffer,
+ 				    "error: debugfs write failed to resume %d\n",
+ 				    ret);
+ 		pm_runtime_put_noidle(sdev->dev);
+-		return ret;
++		goto out;
+ 	}
  
-+static const DECLARE_TLV_DB_RANGE(sun50i_codec_earpiece_vol_scale,
-+	0, 1, TLV_DB_SCALE_ITEM(TLV_DB_GAIN_MUTE, 0, 1),
-+	2, 31, TLV_DB_SCALE_ITEM(-4350, 150, 0),
-+);
- 
- /* volume / mute controls */
- static const struct snd_kcontrol_new sun50i_a64_codec_controls[] = {
-@@ -225,6 +238,15 @@ static const struct snd_kcontrol_new sun50i_a64_codec_controls[] = {
- 		   SUN50I_ADDA_LINEOUT_CTRL0_LEN,
- 		   SUN50I_ADDA_LINEOUT_CTRL0_REN, 1, 0),
- 
-+	SOC_SINGLE_TLV("Earpiece Playback Volume",
-+		       SUN50I_ADDA_EARPIECE_CTRL1,
-+		       SUN50I_ADDA_EARPIECE_CTRL1_ESP_VOL, 0x1f, 0,
-+		       sun50i_codec_earpiece_vol_scale),
-+
-+	SOC_SINGLE("Earpiece Playback Switch",
-+		   SUN50I_ADDA_EARPIECE_CTRL1,
-+		   SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_MUTE, 1, 0),
-+
- };
- 
- static const char * const sun50i_codec_hp_src_enum_text[] = {
-@@ -257,6 +279,20 @@ static const struct snd_kcontrol_new sun50i_codec_lineout_src[] = {
- 		      sun50i_codec_lineout_src_enum),
- };
- 
-+static const char * const sun50i_codec_earpiece_src_enum_text[] = {
-+	"DACR", "DACL", "Right Mixer", "Left Mixer",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(sun50i_codec_earpiece_src_enum,
-+			    SUN50I_ADDA_EARPIECE_CTRL0,
-+			    SUN50I_ADDA_EARPIECE_CTRL0_ESPSR,
-+			    sun50i_codec_earpiece_src_enum_text);
-+
-+static const struct snd_kcontrol_new sun50i_codec_earpiece_src[] = {
-+	SOC_DAPM_ENUM("Earpiece Source Playback Route",
-+		      sun50i_codec_earpiece_src_enum),
-+};
-+
- static const struct snd_soc_dapm_widget sun50i_a64_codec_widgets[] = {
- 	/* DAC */
- 	SND_SOC_DAPM_DAC("Left DAC", NULL, SUN50I_ADDA_MIX_DAC_CTRL,
-@@ -285,6 +321,12 @@ static const struct snd_soc_dapm_widget sun50i_a64_codec_widgets[] = {
- 			 SND_SOC_NOPM, 0, 0, sun50i_codec_lineout_src),
- 	SND_SOC_DAPM_OUTPUT("LINEOUT"),
- 
-+	SND_SOC_DAPM_MUX("Earpiece Source Playback Route",
-+			 SND_SOC_NOPM, 0, 0, sun50i_codec_earpiece_src),
-+	SND_SOC_DAPM_OUT_DRV("Earpiece Amp", SUN50I_ADDA_EARPIECE_CTRL1,
-+			     SUN50I_ADDA_EARPIECE_CTRL1_ESPPA_EN, 0, NULL, 0),
-+	SND_SOC_DAPM_OUTPUT("EARPIECE"),
-+
- 	/* Microphone inputs */
- 	SND_SOC_DAPM_INPUT("MIC1"),
- 
-@@ -388,6 +430,14 @@ static const struct snd_soc_dapm_route sun50i_a64_codec_routes[] = {
- 	{ "Line Out Source Playback Route", "Mono Differential",
- 		"Right Mixer" },
- 	{ "LINEOUT", NULL, "Line Out Source Playback Route" },
-+
-+	/* Earpiece Routes */
-+	{ "Earpiece Source Playback Route", "DACL", "Left DAC" },
-+	{ "Earpiece Source Playback Route", "DACR", "Right DAC" },
-+	{ "Earpiece Source Playback Route", "Left Mixer", "Left Mixer" },
-+	{ "Earpiece Source Playback Route", "Right Mixer", "Right Mixer" },
-+	{ "Earpiece Amp", NULL, "Earpiece Source Playback Route" },
-+	{ "EARPIECE", NULL, "Earpiece Amp" },
- };
- 
- static const struct snd_soc_component_driver sun50i_codec_analog_cmpnt_drv = {
+ 	/* flood test */
 -- 
 2.20.1
 

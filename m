@@ -2,88 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 681A65FF86
-	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 04:40:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248E15FF8B
+	for <lists+alsa-devel@lfdr.de>; Fri,  5 Jul 2019 04:43:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 507DF1699;
-	Fri,  5 Jul 2019 04:39:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 507DF1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF2261699;
+	Fri,  5 Jul 2019 04:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF2261699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562294413;
-	bh=kYlZgDPK2HXu0UKJPsrE3YDSlH3/MYOeLhloMzN6/IU=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1562294616;
+	bh=L+Zg4cMdiO5KKzfj227F/5+YwFjxnydDN6vDy/kyrMQ=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oruLlO+Qk11XJGaHR4Cs7FYwQXvleRuGSh+Aq2gRrFBAhf36UAq/khA+kHQ08+ADx
-	 qRpV34D3kj6tmliG9iTOChEtBRBbv3yxbAnAqEaIuWtjPbovUr2mVgM5aSVATrSntx
-	 WRun323FePJ60xMuer8+ZyRbg4vP+raC7u7c63sE=
+	b=qMFUKrqsEa9ArS3A3oiGXtuEend6wyFh9vB5feK56qGasRhJT6xfBGQ8S8xkzJJjt
+	 OQiPk/rhCzEgNn78y0p8CU+OsopTtVTI8OP3Hy8M/I835YOISqSrZdaGN1EFkOg9Q9
+	 4Xbyg22VsxRYi/Fb6HwwiG4S5yawmuUSy170v9tw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DB68F80120;
-	Fri,  5 Jul 2019 04:38:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E540DF80133;
+	Fri,  5 Jul 2019 04:41:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CEB12F8011F; Fri,  5 Jul 2019 04:38:21 +0200 (CEST)
+ id F11CCF8011F; Fri,  5 Jul 2019 04:41:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_PASS,T_PDS_NO_HELO_DNS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD16DF800E7
- for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 04:38:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD16DF800E7
-Received: by mail-ed1-f66.google.com with SMTP id m10so6879898edv.6
- for <alsa-devel@alsa-project.org>; Thu, 04 Jul 2019 19:38:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8WqY7P7z7HvZSik8uVxR3WylUoD8M+JaJvkcH77K5Dg=;
- b=pytNVuPP7MfXjrA5Itj2dY8MCGE63IaGPX4OYBhRpbTZtz36a0ESXR74HloSbkF+g3
- wCgZZIX2KfDLeE3SXSj7WHCvh7c5EY3Yog/6eqN3aG7PSPjAmo02gNeIe+c2C6yJ/HE5
- CXnrUGtL6KaYqCVxhraBTKUKZOGB1tonoDVZU4HcNl1gRQSpNfPwGxyFFRfG5FVvfMt5
- 9Z9KO9g2fRdWBgIx1Ci47+CP1MOni8T9ddFMhZILrv02ZzxyXfhEpTzxHy3KdSDqm8yT
- 6Sy4tSWoghfdFBl+AzJTINc2HWKk5GZgFIhTq3kCERid4aORnRk8P50v6RdbCLRDwEZa
- KC/g==
-X-Gm-Message-State: APjAAAVna0U9R9/kS5ysirFag7eCA8bH2ulHRdDGfKtp4vfQF4kdpa3u
- ebedDbFhezuJ/PZLDQVMRQJmFD3jxfI=
-X-Google-Smtp-Source: APXvYqx0NNlQNN2yJclXA8ZvlBHql/Kif6qxHyre7IMgL9Ur+DRk4xo03dPEuV9k93jOJ3Je2xkC8g==
-X-Received: by 2002:a50:886a:: with SMTP id c39mr1782398edc.214.1562294297894; 
- Thu, 04 Jul 2019 19:38:17 -0700 (PDT)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com.
- [209.85.221.45])
- by smtp.gmail.com with ESMTPSA id pv18sm999316ejb.14.2019.07.04.19.38.16
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Thu, 04 Jul 2019 19:38:16 -0700 (PDT)
-Received: by mail-wr1-f45.google.com with SMTP id c2so8263579wrm.8
- for <alsa-devel@alsa-project.org>; Thu, 04 Jul 2019 19:38:16 -0700 (PDT)
-X-Received: by 2002:adf:f70b:: with SMTP id r11mr1078942wrp.324.1562294296092; 
- Thu, 04 Jul 2019 19:38:16 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 155B3F800E6
+ for <alsa-devel@alsa-project.org>; Fri,  5 Jul 2019 04:41:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 155B3F800E6
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x652fP8U003667,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (RTITCAS12.realtek.com.tw[172.21.6.16])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x652fP8U003667
+ (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Fri, 5 Jul 2019 10:41:25 +0800
+Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
+ RTITCAS12.realtek.com.tw ([::1]) with mapi id 14.03.0439.000; Fri, 5 Jul 2019
+ 10:41:25 +0800
+From: Kailang <kailang@realtek.com>
+To: "He, Bo" <bo.he@intel.com>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Thread-Topic: audio lost from speaker after reboot from windows on the
+ device ALC295
+Thread-Index: AdUyX8fMiuN0r83nQWCeaW0Sd+ObdQAepbxA
+Date: Fri, 5 Jul 2019 02:41:24 +0000
+Message-ID: <6FAB7C47BCF00940BB0999A99BE3547A1D768822@RTITMBSVM07.realtek.com.tw>
+References: <CD6925E8781EFD4D8E11882D20FC406D52AB58B6@SHSMSX104.ccr.corp.intel.com>
+In-Reply-To: <CD6925E8781EFD4D8E11882D20FC406D52AB58B6@SHSMSX104.ccr.corp.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.105.211]
 MIME-Version: 1.0
-References: <20190703184814.27191-1-luca@z3ntu.xyz>
-In-Reply-To: <20190703184814.27191-1-luca@z3ntu.xyz>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Fri, 5 Jul 2019 10:38:06 +0800
-X-Gmail-Original-Message-ID: <CAGb2v64EL-v5YUuWA4t=KUhuwEqML6Co6iosG607_rZhUQ+OLg@mail.gmail.com>
-Message-ID: <CAGb2v64EL-v5YUuWA4t=KUhuwEqML6Co6iosG607_rZhUQ+OLg@mail.gmail.com>
-To: Luca Weiss <luca@z3ntu.xyz>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- ~martijnbraam/pmos-upstream@lists.sr.ht, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Vasily Khoruzhick <anarsoul@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: sunxi: sun50i-codec-analog: Add
-	earpiece
+Cc: "chiu@endlessm.com" <chiu@endlessm.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "drake@endlessm.com" <drake@endlessm.com>,
+ "hui.wang@canonical.com" <hui.wang@canonical.com>,
+ "jian-hong@endlessm.com" <jian-hong@endlessm.com>
+Subject: Re: [alsa-devel] audio lost from speaker after reboot from windows
+	on the device ALC295
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,16 +86,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 4, 2019 at 2:49 AM Luca Weiss <luca@z3ntu.xyz> wrote:
->
-> This adds the necessary registers and audio routes to play audio using
-> the Earpiece, that's supported on the A64.
->
-> Signed-off-by: Luca Weiss <luca@z3ntu.xyz>
+Hi Bo He,
 
-LGTM.
+Could you help to dump info for us?
+Please use attach file to get results.
 
-Reviewed-by: Chen-Yu Tsai <wens@csie.org>
+./alsa-info.sh --no-upload
+
+You will find dump file in folder /tmp/alsa-info.txt-????????.
+
+Please run one time in normal state and one time in fail state.
+Please send two result files to me.
+
+BR,
+Kailang
+
+> -----Original Message-----
+> From: He, Bo <bo.he@intel.com>
+> Sent: Thursday, July 4, 2019 8:02 PM
+> To: Kailang <kailang@realtek.com>; alsa-devel@alsa-project.org;
+> linux-kernel@vger.kernel.org
+> Cc: perex@perex.cz; tiwai@suse.com; jian-hong@endlessm.com;
+> drake@endlessm.com; chiu@endlessm.com; hui.wang@canonical.com
+> Subject: audio lost from speaker after reboot from windows on the device
+> ALC295
+> 
+> Hi, patch_realtek.c maintainer:
+> 	I see one issue that reboot from windows and boot to ubuntu, the audio
+> lost from speaker, I suspect there are some bugs in patch_realtek.c drivers,
+> the device is ALC295 and the device id is 0x10ec0295.
+> 
+> I have done the below experiments:
+> 1. reboot from windows to windows, the audio is persist .
+> 2. reboot from windows to ubuntu, the audio lost from speaker, but can hear if
+> I hotplug one earphone.
+> 3. if the issue reproduce after reboot from windows, reboot the ubuntu can't
+> restore the audio, I suspect it's warm reset.
+> 4. if I write the port 0xcf9 with 0xe to do cold reset, the audio can restore.
+> 5. if I do suspend/resume, the audio can restore, I suspect do cold boot and
+> suspend will trigger the platform reset to reset the ALC295.
+> 6. if I do double function reset (write the verb 0x7ff in alc_init), the audio is
+> still can't restore.
+> snd_hda_codec_write(codec, 0x01, 0, AC_VERB_SET_CODEC_RESET, 0); /*
+> Function reset */ snd_hda_codec_write(codec, 0x01, 0,
+> AC_VERB_SET_CODEC_RESET, 0); /* double Function reset */ 7. the issue is
+> first found on kernel 4.19.50, I still see the issue with the latest kernel 5.2-rc2,
+> is it possible windows change some default registers, but ALC295 don't
+> initialize the register?
+> 
+> ------Please consider the environment before printing this e-mail.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

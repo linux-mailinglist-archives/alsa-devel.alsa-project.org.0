@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 763CD61422
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jul 2019 07:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC0116141E
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jul 2019 07:24:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E80D9167C;
-	Sun,  7 Jul 2019 07:25:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E80D9167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8790A1663;
+	Sun,  7 Jul 2019 07:23:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8790A1663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562477183;
-	bh=rP02Yct1E8qFrqQje9G61H5gKg5xR2HNFya2JxtYlr8=;
+	s=default; t=1562477063;
+	bh=3l2hsjIyTq42jzravrsvCIqEnuR1sYWAZSiqOsH3TDw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iEZ4DyMd+eAtongRkNpwBsrMCCDyl98vc8icFdyGXMy8OpdkpecJv2sLC+NAiCSqW
-	 pg2uSqWoDr9Miyvk1ExnFOuXXTydBKNJcpEfl8cKMXc7Gc0BKgXJ/7a9CyjiYCXJSD
-	 kRuUBV7JDdNeVi3zRuCAz3QvG71K7Pztk7KyEDSU=
+	b=dKUv8UVMuvPxUuwXR8WhnbioJLsb8oJvKKV4VzdV7rgzJgjmSnKHA3vytU15L4BqE
+	 2dF8LqyBi36l8B3iHOg9Uu1gDuL11dNngIOtaA9laWCjVWwSCLjbb1x8zEnu7mwtfR
+	 KXoI6iKf8a87p0oHXJgRyEW28ANwWItbfKlgwg6c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06316F80367;
-	Sun,  7 Jul 2019 07:21:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 535AFF802BC;
+	Sun,  7 Jul 2019 07:20:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04D54F80212; Sun,  7 Jul 2019 07:20:35 +0200 (CEST)
+ id 91380F80213; Sun,  7 Jul 2019 07:20:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65960F80228
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6424BF80227
  for <alsa-devel@alsa-project.org>; Sun,  7 Jul 2019 07:20:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65960F80228
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6424BF80227
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="oGrkKPH2"; 
+ header.b="mAWyMi53"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="ADMolA9k"
+ header.i=@messagingengine.com header.b="lEIweD0H"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 0506744A;
- Sun,  7 Jul 2019 01:20:24 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 9EC0343D;
+ Sun,  7 Jul 2019 01:20:26 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sun, 07 Jul 2019 01:20:25 -0400
+ by compute1.internal (MEProxy); Sun, 07 Jul 2019 01:20:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=a+Ug6y4xHzS04
- mvrQf0Brv7KW3f+2wJaMlXQR4RcWTI=; b=oGrkKPH22QOm8uGNoWEpw0fkZT03Y
- oX1W1nUKR/BSTxQRXK6g2cGb276nhT7CjuK0K5irT+DWBwz6hHihB3qKpdLeW/1X
- 3flL+kfK+ED7MpNWhgIezAFZphmvIG8ATVd/L/lTiYY4dmiaC9uVWjiu3+1fSIQZ
- xKc6hx1oMemQn4xdZGEYw1GuA1kRQsMpE1X4EqZAmToSxDM7Pc8FqQ4aIhSFqGDz
- QcZVJAhmeSDda0lrD1iCImoHEwrlUDaFNOOpSeeMvxxEq8RE6hFqb/XrvQ6E3LGf
- aDJ2NZSD+g3UfA3OIzWUIWarmCssbncWqBgtCx4xgRSojnjTm/pEPRMLQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=1GS8KEvFfjaOF
+ /81BwbYx/Ql+TzEGMFag7nkBMH1cWk=; b=mAWyMi53zhJQpiml4BBnGq3HA6zw0
+ NdIp5OnKUROiUEgfA1S1fwLTKeyU6N/sDskts/bGlaD/gjQ8QE5HuwKvnDVOj6KO
+ Q744j9e5dI5IYIPtpyDdKiHAyeyHmRtX9+Q41HChHOeq2OmmKUlVT35/BHc/KGuB
+ 2LFQS6qlMu1mbRHiieZTC+R40bEY1Le5bKLLSvZe+W4RAQCOGxQa5mc7F/L9Tu3e
+ 0WKBXGRpIBZ+2MELupA+kBIPvA+idaPHgAlMqFskjo8Bd+ERtCt5C8x/okctWQWB
+ uMJA/fAijGNk9enegReC4kkJl/YfhALukB53B9ineLGArLCiUOPKhj8AQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=a+Ug6y4xHzS04mvrQf0Brv7KW3f+2wJaMlXQR4RcWTI=; b=ADMolA9k
- TrIoaOYWSONnwxVzMLNLxPSbPVTrKy9rjJaec7In7HHBDnQoDgcPQc8qvVDUojCg
- /kqw7qn0F1TqEK2WTh5cWnSsASbRMFm3Ujn9bW+pNkCV9wRpUwpugJuViwumSg7c
- 2senbPyDAhufoI5Dsqst7iFt79Y8xuL9qaZJ1rArsK2TxO8zSH2ftPGS/nJ/7hwe
- LH0+jZS1011YslohznnbkrxNgvNCWvSutcX8IY7RW1HJf+uYhnVy2ObDR/8A5YtA
- +LUvCTIJ1S2fEUigwHCU0MxxjLm3L4y/VlC3xg4ySLQnbpRaheUiTExZ0BN7chGg
- fVUGBWClsRB+EA==
-X-ME-Sender: <xms:GIEhXfdKkj055qStGIRnOnZb1W9-QfH57SDwUAAp99xr8SWjKqAAsg>
+ fm3; bh=1GS8KEvFfjaOF/81BwbYx/Ql+TzEGMFag7nkBMH1cWk=; b=lEIweD0H
+ ds5yzlmqZxnSU474A/EkKO/iaVoovc0gK/CSL3rEfVkWeI6MnrHbFq0mEs7W27Bd
+ bLhGxFSmrP5B7ISEBCVus3S1ym41ez9IPQUiuZKdyzrp0KpWw/aRktDvCt/AKWBj
+ DJAGF7N0h4QxKFJ9IwHjXJuhQiWJz80fdIE30trt+v+mygLUOhqpWarFt2vXxF4P
+ IfvYCDmW3xTxuwk1/EpSYE4/ykASuedy/n+JU5uIokeRgOHN1tTxfqmJNOvWtStv
+ eH7RWGGlQPByC7g6EsBHnaVGe7AV25TtkoqeXe0GRvnxwAGHjUE7jXhCXlyyoHJA
+ 4Xo/1jU11AgIgg==
+X-ME-Sender: <xms:GoEhXd5iB3CNd9N6wDmeNbDj4ODZnQ0Gn4iWLXGMoI8rZUmvGgyelA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrfeejgdelgecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
@@ -76,27 +76,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrfeejgdelgecutefuodetggdote
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
  rdhjphenucevlhhushhtvghrufhiiigvpedv
-X-ME-Proxy: <xmx:GIEhXRGoPOueTj09-_mMDbysGyQcQlgObWyI3Ow06Z8UHZyBhiiudw>
- <xmx:GIEhXVjwSSVwLPh6uOO8qs1el-MchuLY-hq2jW1lNN1u6LUHkc7qZw>
- <xmx:GIEhXV3Qu-xGuetlQYAObHESwf8w0COPWQTExHDjBRBxCgFJYc5now>
- <xmx:GIEhXecZgL4SFDsxt4Dyi_3Auxx42gm4W9_OBzuMRxKqG7DEItthSw>
+X-ME-Proxy: <xmx:GoEhXYXSelH6vEEcpsT3EiQOFNSlViJ-5wmy4WKtyxTOJ3ETBdiP6A>
+ <xmx:GoEhXUbcW5Ep-m5wnZW0O1jK56BvYawOGdtG7tWvrHOLI-w4naGx8Q>
+ <xmx:GoEhXXxG0Jo37lY6h_RoZ1pRS7LMEKfgqAg1tPzTUEFoEUa4QbO86A>
+ <xmx:GoEhXQs29mL_u_S9yID3rqPSDA2KKj3ID4O_tMGlldkJMtydQ742og>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 39A6480059;
- Sun,  7 Jul 2019 01:20:23 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id C902A8005B;
+ Sun,  7 Jul 2019 01:20:24 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun,  7 Jul 2019 14:20:10 +0900
-Message-Id: <20190707052011.24687-6-o-takashi@sakamocchi.jp>
+Date: Sun,  7 Jul 2019 14:20:11 +0900
+Message-Id: <20190707052011.24687-7-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190707052011.24687-1-o-takashi@sakamocchi.jp>
 References: <20190707052011.24687-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 5/6] ALSA: firewire-digi00x: fix wrong
-	reference count for stream functionality at error path of
-	rawmidi interface
+Subject: [alsa-devel] [PATCH 6/6] firewire-motu: fix wrong reference count
+	for stream functionality at error path of rawmidi interface
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,7 +118,7 @@ payload of common isochronous packet (CIP). For typical audio and music
 units, PCM samples and MIDI messages are multiplexed into one packet
 streaming.
 
-ALSA firewire-digi00x driver allows applications of rawmidi interface to
+ALSA firewire-motu driver allows applications of rawmidi interface to
 start packet streaming for transmission of MIDI messages. However at
 error path, the reference count of stream functionality is not operated
 correctly. This can brings a bug that packet streaming is not stopped
@@ -127,25 +126,25 @@ when all referrers release the count.
 
 This commit fixes the bug.
 
-Fixes: ae8ffbb26512 ("ALSA: firewire-digi00x: reserve/release isochronous resources in pcm.hw_params/hw_free callbacks")
+Fixes: 8edc56ec8f14 ("ALSA: firewire-motu: reserve/release isochronous resources in pcm.hw_params/hw_free callbacks")
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/digi00x/digi00x-midi.c | 2 ++
+ sound/firewire/motu/motu-midi.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/sound/firewire/digi00x/digi00x-midi.c b/sound/firewire/digi00x/digi00x-midi.c
-index ca06ad318ed6..0563701141b8 100644
---- a/sound/firewire/digi00x/digi00x-midi.c
-+++ b/sound/firewire/digi00x/digi00x-midi.c
+diff --git a/sound/firewire/motu/motu-midi.c b/sound/firewire/motu/motu-midi.c
+index 4520c0060b83..5c77e417c627 100644
+--- a/sound/firewire/motu/motu-midi.c
++++ b/sound/firewire/motu/motu-midi.c
 @@ -22,6 +22,8 @@ static int midi_open(struct snd_rawmidi_substream *substream)
  	if (err >= 0) {
- 		++dg00x->substreams_counter;
- 		err = snd_dg00x_stream_start_duplex(dg00x);
+ 		++motu->substreams_counter;
+ 		err = snd_motu_stream_start_duplex(motu);
 +		if (err < 0)
-+			--dg00x->substreams_counter;
++			--motu->substreams_counter;
  	}
- 	mutex_unlock(&dg00x->mutex);
- 	if (err < 0)
+ 
+ 	mutex_unlock(&motu->mutex);
 -- 
 2.20.1
 

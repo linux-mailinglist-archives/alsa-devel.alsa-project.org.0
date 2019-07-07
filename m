@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F566614DF
-	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jul 2019 14:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81088614DE
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jul 2019 14:10:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DEAC5832;
-	Sun,  7 Jul 2019 14:09:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEAC5832
+	by alsa0.perex.cz (Postfix) with ESMTPS id D74F0166A;
+	Sun,  7 Jul 2019 14:09:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74F0166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562501446;
-	bh=ysA+MKb8e1E+6HEdows+Dfpjn4JBPcxPeS4kmgYM9KA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BPF35x8JwTwOcQeQOTyC2WUigYdWoHZN6xz5GhZ44bO9u5p9SRCLon+zy+OC+OujM
-	 D50EwFXHdCdfXmOlWxnQRKUe/3nTvp0qtsNc71xji3iwj3h6h7BNEkab/dNkOvMoPr
-	 oPAMflYiapQTIJXVP1J70M0xxEOubFFjY2+hchw8=
+	s=default; t=1562501399;
+	bh=IJQa0xs4bI9Z8QNDm5A8G8haqG1AOBjztgslQuKe++I=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YyQ8vl0/J6htW5ctXpt+ut8jd/QhL2edRvP1T2+YijY3kkW63lOHy6ddLTX18HR+k
+	 DVnxQliFzN6z5l5mrgxHOmZU9JJ4coasobp/uB2PUSIT9DMiuIGIgh56FzvQCGlcwQ
+	 FoLvWx+FcYLF+0OLVKIIHpVMc6dqEnPRZFoM4cIA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF8F1F80269;
-	Sun,  7 Jul 2019 14:08:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 009C1F80214;
+	Sun,  7 Jul 2019 14:08:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F160F801ED; Sun,  7 Jul 2019 14:08:12 +0200 (CEST)
+ id 6174AF80227; Sun,  7 Jul 2019 14:08:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,64 +34,67 @@ Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E7C2F800E6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67D8EF801A4
  for <alsa-devel@alsa-project.org>; Sun,  7 Jul 2019 14:08:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E7C2F800E6
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67D8EF801A4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="j5fsQMoq"; 
+ header.b="Xl17nWap"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="tp22/tPS"
+ header.i=@messagingengine.com header.b="d1BPhKTo"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 4624D42C;
- Sun,  7 Jul 2019 08:08:05 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 28680435;
+ Sun,  7 Jul 2019 08:08:06 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sun, 07 Jul 2019 08:08:05 -0400
+ by compute1.internal (MEProxy); Sun, 07 Jul 2019 08:08:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=UY4mR/F5KGOuKOnS+TrtfDLWnI
- kitHauuIoO6Rf9iug=; b=j5fsQMoqduCtzw9HyNJYor5g8ljqHJOSNdm/v5Ddlm
- Zi6iyzW5Fslec8/DoAJZoVHTKkISMaWThxn7PDkpdE4otBbNjv2XEsrQbCNTu/Y7
- GU1e9XmsDb7/f9cPT219djsaxF6O7zFNEPDNJ5hLD8W8d1DfOEDmewMoSUhXfq6e
- ly1V1atNz2D5fIX05iTXWaYgKt82vetEtj6YzIcdRWzx9ly24+dR0pX4VBG3osHs
- j1RXyxZ6R5qzDbQmNKmkHMFw3tEb0UCKzGBG2O76pt+4qZ5LAlsKmAmh6z59xk3t
- 1+YG8dZKhyaV03yNCko/jc5t+r18TbQRQZgnaBj86mgA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=YkUsHo9ZnuTPM
+ AQwNkvXQ3qs3RuMSEKT7srJNbcJKTg=; b=Xl17nWapgDxZv4/g9a7uZcrb/oRRg
+ w/otuu2PO+8Bcanss7RqIwgMc3rQz5xYaFeS+ZKAmYDsJ/AvefZBCe8+U8B1fBwC
+ gVaVesMSO11al82nVCp6ZkkzvOaWken78ccZrD+9JkIzoV38SOoBFM4GEYTnLvqk
+ Kv704yxkDCgtfkYC9reZGHaWsKz2r7CVm6xOWL5FM7KgY/NOxbQ3Dq8IRInweDgd
+ CFezS9vOWfHgpdf08u3jNimdmFx3Q7mOLRGzkAGFQkz/S1euY6ReKHVL6lBhGUqN
+ yTzOnWowe0pMpfUPxFmWtRR4kbO9V5OnCr7nKMORomxRlixHt72St5zoA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=UY4mR/F5KGOuKOnS+
- TrtfDLWnIkitHauuIoO6Rf9iug=; b=tp22/tPS+j5uceUlvd1Iax5OgsaR6P9g7
- LcGf6i9lhGRJr0EnPALL3B0wpEk141P+wF2wlwOVtLW8hpqw5v0/6iQKd+ZV4hTD
- FWHMpDDo6HOV1TzJSkkcAl5/MXQLCJ3PyzTKQVSWFCIwPOVcx5rAq6JUTbsmON4L
- DOkpyGwGBwQeoRVnJ6WuL/iJ39xU5iMbdr7DRj7PtLc9/myszphtK1tt7dbAv9Qv
- fcy6N3JsJ1X72THSDAUVRH6AJLN+hSlWsnCs8gmmxvii/6ouAxMvCPfY24MmDZSx
- 4F7UFzvB2iobfd/DhGzbjp4T9au2y0qlHzx12HpDtCt7XTHJ3qpdw==
-X-ME-Sender: <xms:o-AhXThG73lmxaRaLNFG9chgPK85T1Vy7K3x2j1V0a6-rHlNQ2N4gg>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=YkUsHo9ZnuTPMAQwNkvXQ3qs3RuMSEKT7srJNbcJKTg=; b=d1BPhKTo
+ PFRtfLosY3ch7ooIKvRQ/Yk+biYFdwHdBia8XpqillBBUTb2vEpO7iE54bwLpA6l
+ DOeuf2AjWksAFGYVW2APhBhAwXWQcY6B47dkVrwA3yL7rL1JoRJhsbDYP5RU4Hsh
+ ncxziGkgbQwO5IEN24XbzN/A2EjA5h6tOHJll/ptNNlbCoEZudIposPY50iSMq3x
+ 14nUIbxD6GXZpSarWFqcT3veaW9HkP27IGKe7I1xwAyfPDDwnTHgtPA19wwBBULX
+ rpmVV0/eKsD++gLT8WSWRA4hIF/Pb1m3H3pc2V0gAZumEVZEeKexhcToYW1U079R
+ iaR5/4YjSHA3WA==
+X-ME-Sender: <xms:peAhXXmnCAHTHImnRGCT86ZfasHkrv7CaQkXuJUj6fl2eTUk8u08Kw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrfeekgdehvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenucfrrg
- hrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhj
- phenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:o-AhXb51VHgvxolzIZR8O7qiIHt6ncZwwGtCadb3nid76_x2UZsiwQ>
- <xmx:o-AhXb7mwt5MbttC-G0LJa130LHGZKnv5UnxqOmQb4fZUXrAmpkNEg>
- <xmx:o-AhXZFFOz5RYcybx30y8KzYCylzLPERE2kRrAl8rVNmsbnD-6fM4w>
- <xmx:pOAhXcNjEpDe3UiBIHZNb0P55kjLE7CEhJaKgUmIrIn2xMcEngoP0w>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
+ frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
+ rdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:peAhXWg9WPy_UjZcktyTylcH-Yzu0J0n5iTpdEjLGqqJbdCD3alefw>
+ <xmx:peAhXaGWErW0oiWxMnYqkyf4EjILNaXbhnlKykPoVtn7G1mydK0HPg>
+ <xmx:peAhXYugyKIb7Gj8LIrHKwKuR4SODt0C-hsd6_-UhDD9VupOEN1NLg>
+ <xmx:peAhXYlcr1bKgvparSQdqzbTN-0vGJV3_4tS_-V6KgAG4LoGX41-Yw>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id A0A0780059;
- Sun,  7 Jul 2019 08:08:02 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 522A080063;
+ Sun,  7 Jul 2019 08:08:04 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun,  7 Jul 2019 21:07:52 +0900
-Message-Id: <20190707120759.16371-1-o-takashi@sakamocchi.jp>
+Date: Sun,  7 Jul 2019 21:07:53 +0900
+Message-Id: <20190707120759.16371-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190707120759.16371-1-o-takashi@sakamocchi.jp>
+References: <20190707120759.16371-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 0/7] ALSA: firewire-lib: some fixes for
-	tracepoints events
+Subject: [alsa-devel] [PATCH 1/7] ALSA: firewire-lib: fix invalid length of
+	rx packet payload for tracepoint events
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,31 +112,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Although CIP header is handled as context header, the length of isochronous
+packet includes two quadlets for its payload. In tracepoints event the
+value of payload_quadlets should includes the two quadlets. But at present
+it doesn't.
 
-This kernel module, firewire-lib, adds 'amdtp_packet' tracepoints events
-to Linux system. After heavy code refactoring for v5.3, some event
-parameters include invalid values. This patchset is to fix them, and
-the last part of my refactoring work in this development period.
+This commit fixes the bug.
 
-Takashi Sakamoto (7):
-  ALSA: firewire-lib: fix invalid length of tx packet payload for
-    tracepoint events
-  ALSA: firewire-lib/ficeface: fix initial value of data block counter
-    for IR context with CIP_NO_HEADER
-  ALSA: firewire-lib: fix initial value of data block count for IR
-    context without CIP_DBC_IS_END_EVENT
-  ALSA: firewire-lib: fix different data block counter between probed
-    event and transferred isochronous packet
-  ALSA: firewire-lib: code refactoring for error path of parser for CIP
-    header
-  ALSA: firewire-lib: code refactoring for post operation to data block
-    counter
-  ALSA: firewire-lib: code refactoring for local variables
+Fixes: b18f0cfaf16b ("ALSA: firewire-lib: use 8 byte packet header for IT context to separate CIP header from CIP payload")
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/amdtp-stream.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
- sound/firewire/amdtp-stream.c | 59 ++++++++++++++++++-----------------
- 1 file changed, 31 insertions(+), 28 deletions(-)
-
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index 91b890241840..6c9f4d026505 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -490,8 +490,12 @@ static void build_it_pkt_header(struct amdtp_stream *s, unsigned int cycle,
+ 				unsigned int data_blocks, unsigned int syt,
+ 				unsigned int index)
+ {
++	unsigned int payload_length;
+ 	__be32 *cip_header;
+ 
++	payload_length = data_blocks * sizeof(__be32) * s->data_block_quadlets;
++	params->payload_length = payload_length;
++
+ 	if (s->flags & CIP_DBC_IS_END_EVENT) {
+ 		s->data_block_counter =
+ 				(s->data_block_counter + data_blocks) & 0xff;
+@@ -501,6 +505,7 @@ static void build_it_pkt_header(struct amdtp_stream *s, unsigned int cycle,
+ 		cip_header = (__be32 *)params->header;
+ 		generate_cip_header(s, cip_header, syt);
+ 		params->header_length = 2 * sizeof(__be32);
++		payload_length += params->header_length;
+ 	} else {
+ 		cip_header = NULL;
+ 	}
+@@ -510,11 +515,8 @@ static void build_it_pkt_header(struct amdtp_stream *s, unsigned int cycle,
+ 				(s->data_block_counter + data_blocks) & 0xff;
+ 	}
+ 
+-	params->payload_length =
+-			data_blocks * sizeof(__be32) * s->data_block_quadlets;
+-
+-	trace_amdtp_packet(s, cycle, cip_header, params->payload_length,
+-			   data_blocks, index);
++	trace_amdtp_packet(s, cycle, cip_header, payload_length, data_blocks,
++			   index);
+ }
+ 
+ static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
 -- 
 2.20.1
 

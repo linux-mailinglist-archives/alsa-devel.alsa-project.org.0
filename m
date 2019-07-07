@@ -2,72 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA7376107E
-	for <lists+alsa-devel@lfdr.de>; Sat,  6 Jul 2019 13:28:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 373CD6141C
+	for <lists+alsa-devel@lfdr.de>; Sun,  7 Jul 2019 07:23:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B0C5843;
-	Sat,  6 Jul 2019 13:27:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B0C5843
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8DC61683;
+	Sun,  7 Jul 2019 07:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8DC61683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562412499;
-	bh=3TooST4L0p+Nj64GolOsspyzCUN3+K8CdMvqqMyzaYs=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BY7LER5KuQWZSGI26l4JrRL4mcx0iWdXx4hVu44UyO2YvShBVL3guvPuzqHZl31y0
-	 FkR8lZ3CpQ9/f4rW8Owao1ZBvnKAYv6UxQPnttAlTnO10fxoRU1RkNYqA4nFeOuo6w
-	 GTqxokgSLu0Z3ZZK/8HkA6+AXX20vGKxb0iSEVSQ=
+	s=default; t=1562476980;
+	bh=dPoOGXmwXtTuBhD6+fRU1g3S2bm1xEfBjsSsP9iPFAs=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=LbbUUixsmw1Sej72F0hOl9byvU47fbbahEWB7l4nmAy2e88FtaS8teYHB7mbRkBpz
+	 SahrjlGMfi2eWc65aeoGnJILLHwYlt4CEy01oumGEToaA8gxT2lQ1IiyxffZ6JFNo6
+	 mza7mLcZaRrLPnWJv2YPrHkc3M6aDw80JzYmGasg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2538BF80158;
-	Sat,  6 Jul 2019 13:25:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74EF1F80228;
+	Sun,  7 Jul 2019 07:20:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 480D6F80140; Sat,  6 Jul 2019 13:25:06 +0200 (CEST)
+ id F0687F80229; Sun,  7 Jul 2019 07:20:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_76,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99643F8013F
- for <alsa-devel@alsa-project.org>; Sat,  6 Jul 2019 13:25:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99643F8013F
+ by alsa1.perex.cz (Postfix) with ESMTPS id B479EF800E6
+ for <alsa-devel@alsa-project.org>; Sun,  7 Jul 2019 07:20:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B479EF800E6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ua3sWLd0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=LY19uG+7RNMU7YbMwl171DJsVzai+fTWtf1kSgM2CMY=; b=ua3sWLd04p5Z
- g7c6WUxZFpkmILimvltDCKgVqvD+W5LzeGuejHkZJT9ehop0EvyCd6l3w51XZyxnLulXO4zTPhuji
- zyqWSnPtXWIqH2GjAM6/MrhY8JMUdmNWcUuThozQhuz2BoY6S5AoXRCSWvLrnqxA64T8kHDO8CJbL
- AJyJ0=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hjioL-0006ny-Pa; Sat, 06 Jul 2019 11:24:57 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 278882743807; Sat,  6 Jul 2019 12:24:57 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20190702132428.13129-4-kai.vehmanen@linux.intel.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190706112457.278882743807@ypsilon.sirena.org.uk>
-Date: Sat,  6 Jul 2019 12:24:57 +0100 (BST)
-Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
- kai.vehmanen@linux.intel.com, tiwai@suse.de,
- pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: implement runtime idle for
-	CNL/APL" to the asoc tree
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="YVDndo5p"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="YMQXrsC6"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 2A09F43E;
+ Sun,  7 Jul 2019 01:20:22 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Sun, 07 Jul 2019 01:20:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=+sJZPs82TMo0iGRbvLQG+pNurw
+ NUu5T8dzB0LXp6CIA=; b=YVDndo5p3BlJ1VRVEpGYZgdErLguhcpDQMagA8eecK
+ fdgKQOU2R9LOQ31XeqJIyhPBIDjO9LGG1Js9noLTldKZRpKZWLE60bxmHELZgBjg
+ 5tWrGvQ6Slpkf6Lqcw/E/oc3HiYAC0RqWgF/dWpIy9y9FR4IbSu4LS4EAAu7IfIm
+ s+bK/trI4tYtOtxZahihcLO2BqBwxzEAMcGCTnYzzbnCbTPdRnJzYTB8u81qX81U
+ Q6e7ICJGe+oc5YrWs9wm+vXWHhFIOPFBY10lnv22UImJbiwMwTGYA6XXuoCeGDG0
+ vCxn/2aYMzkPyO9cHsulycC7LQdu3o5tAC7wS0RX+mfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=+sJZPs82TMo0iGRbv
+ LQG+pNurwNUu5T8dzB0LXp6CIA=; b=YMQXrsC6zosqiKxUDh0WiquEERyzoxPnw
+ xVPMI7wKK0+4fZXf6oSJG1276uNHW/4QZF9YV2jnIq6GeEabWX0mGS+7QF21TF0w
+ Ixy4ees9Dl34O2RLJEGXw9sUutfeHnAc1hmPs0VZsj2OxXINZa8uCJmjgOV4QUFe
+ WuPE9DxD4OR/tXhajfiyIz+5zXbEjaZysefIyviIbHTRoWqv2y0J61EUKp6Z6JFZ
+ BNXCnbR1eTsW3P8gYm3eYuxNXdQXFM3Hbg7CpczN7j6xr0IjyfwOG8mRM7X3dFBz
+ 1DVTVRdLlbNsnNoqKE1S+E3JLiEQEALdMIq5iBadgFdIj2sluVLVQ==
+X-ME-Sender: <xms:D4EhXevi9TvzzU5KKUq5awVfH4xQS-l3KkuSDYNagvcIfLhWlDM1dA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrfeejgdelgecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
+ dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
+ sehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenucfrrg
+ hrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhj
+ phenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:D4EhXUOPqtJMIO_jHk7ru3zGcA6nO8_ZRuSJ-Bco97t45uCl-uXX6w>
+ <xmx:D4EhXV5QSarhJwaPD1Hf14l88EQGJjazm_YtKaECzoLngVjD2IYfLA>
+ <xmx:D4EhXaQiHAgPhfsT2K4jv2OBeQaSLKTdHh4azZCHYQXyZfd5q_dPyg>
+ <xmx:FYEhXWRuLJEBTi6zA3KnrJi9IESO3dUWHociXSZdBZzOWRfrsDdTiQ>
+Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 95CDF8005B;
+ Sun,  7 Jul 2019 01:20:14 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Date: Sun,  7 Jul 2019 14:20:05 +0900
+Message-Id: <20190707052011.24687-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 0/6] ALSA: firewire: fix wrong reference count
+	for stream functionality at error path of rawmidi interface
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,109 +103,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hi,
 
-   ASoC: SOF: Intel: implement runtime idle for CNL/APL
+All of drivers in ALSA firewire stack maintain packet streaming by
+reference count. However at error path of MIDI interface, some
+drivers have a bug that the count remains at error path of rawmidi
+interface. This causes the drivers don't stop packet streaming even
+if it's not required.
 
-has been applied to the asoc tree at
+This patchset fixes drivers including the bug.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+Takashi Sakamoto (6):
+  ALSA: bebob: fix wrong reference count for stream functionality at
+    error path of rawmidi interface
+  ALSA: fireworks: fix wrong reference count for stream functionality at
+    error path of rawmidi interface
+  ALSA: oxfw: fix wrong reference count for stream functionality at
+    error path of rawmidi interface
+  ALSA: dice: fix wrong reference count for stream functionality at
+    error path of rawmidi interface
+  ALSA: firewire-digi00x: fix wrong reference count for stream
+    functionality at error path of rawmidi interface
+  firewire-motu: fix wrong reference count for stream functionality at
+    error path of rawmidi interface
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+ sound/firewire/bebob/bebob_midi.c         | 2 ++
+ sound/firewire/dice/dice-midi.c           | 2 ++
+ sound/firewire/digi00x/digi00x-midi.c     | 2 ++
+ sound/firewire/fireworks/fireworks_midi.c | 2 ++
+ sound/firewire/motu/motu-midi.c           | 2 ++
+ sound/firewire/oxfw/oxfw-midi.c           | 2 ++
+ 6 files changed, 12 insertions(+)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 87a6fe80d56be85bda093c4dd8a3e6535bda7e4a Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Tue, 2 Jul 2019 16:24:28 +0300
-Subject: [PATCH] ASoC: SOF: Intel: implement runtime idle for CNL/APL
-
-Implement runtime idle for CNL/APL devices using similar runtime
-PM idle logic as the Intel AZX HDA driver. If any HDA codecs are
-powered when runtime suspend request comes, return -EBUSY. By doing
-this, strict ordering is enforced between HDA codec and the HDA
-controller.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20190702132428.13129-4-kai.vehmanen@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/intel/apl.c     |  1 +
- sound/soc/sof/intel/cnl.c     |  1 +
- sound/soc/sof/intel/hda-dsp.c | 13 +++++++++++++
- 3 files changed, 15 insertions(+)
-
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 43d1c9f31ec4..fd2e26d79796 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -93,6 +93,7 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
- 	.resume			= hda_dsp_resume,
- 	.runtime_suspend	= hda_dsp_runtime_suspend,
- 	.runtime_resume		= hda_dsp_runtime_resume,
-+	.runtime_idle		= hda_dsp_runtime_idle,
- 	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
- };
- EXPORT_SYMBOL(sof_apl_ops);
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 3840f81767fa..f2b392998f20 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -251,6 +251,7 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
- 	.resume			= hda_dsp_resume,
- 	.runtime_suspend	= hda_dsp_runtime_suspend,
- 	.runtime_resume		= hda_dsp_runtime_resume,
-+	.runtime_idle		= hda_dsp_runtime_idle,
- 	.set_hw_params_upon_resume = hda_dsp_set_hw_params_upon_resume,
- };
- EXPORT_SYMBOL(sof_cnl_ops);
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index f2c5a12db930..91de4785b6a3 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -418,6 +418,19 @@ int hda_dsp_runtime_resume(struct snd_sof_dev *sdev)
- 	return hda_resume(sdev);
- }
- 
-+int hda_dsp_runtime_idle(struct snd_sof_dev *sdev)
-+{
-+	struct hdac_bus *hbus = sof_to_bus(sdev);
-+
-+	if (hbus->codec_powered) {
-+		dev_dbg(sdev->dev, "some codecs still powered (%08X), not idle\n",
-+			(unsigned int)hbus->codec_powered);
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
- int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev, int state)
- {
- 	/* stop hda controller and power dsp off */
 -- 
 2.20.1
 

@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725A061AC8
-	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2019 08:50:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 029AF61AC9
+	for <lists+alsa-devel@lfdr.de>; Mon,  8 Jul 2019 08:50:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D34CA1669;
-	Mon,  8 Jul 2019 08:49:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D34CA1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7AE8E165D;
+	Mon,  8 Jul 2019 08:50:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AE8E165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562568609;
-	bh=9GPXHy527Ph3Tyhv9KKdvvtN9oBX7bjAK1OQTDWFoQs=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BPMnhjyOSazuOeMe+CibKmbA/9xFhMH6SRBKqmXMvTW7r2sRV7i/ReBz/bhAYyEE9
-	 UpLXL2ut+2MsX0aEhALe0LJmM24Qdur3q2s8KpraFBe0fhJmDMonweKLAQXSUO3mxc
-	 QyzykQJ1VsJswq8XVxAwE+PGuZWi7rRWMzvUwu+c=
+	s=default; t=1562568650;
+	bh=hnRI+4RH5KkaXE6sDgCndT/5T0nOvHtPybqW5rZ6anU=;
+	h=From:To:Date:In-Reply-To:References:In-Reply-To:References:Cc:
+	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
+	 List-Subscribe:From;
+	b=eY3f91F0UDcF4f2CKwEl6pRyqxxURqG/123cSdGVmCAKP2v7AIara2DQs20UoTVf1
+	 Mlnk/4YONja5sJFlvc3senzocQikTLSQT2BigJBO+LjSk5yORzcVQGOdbUPv8s1zHR
+	 Iwcyj0ji8+Za79EnbME1xAcUD6ik6iQ0LE85OeOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DB94F801D8;
-	Mon,  8 Jul 2019 08:48:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A478F80274;
+	Mon,  8 Jul 2019 08:48:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C1FD7F8026A; Mon,  8 Jul 2019 08:48:21 +0200 (CEST)
+ id 672ABF80269; Mon,  8 Jul 2019 08:48:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -32,28 +33,33 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 184E0F801D8
- for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2019 08:48:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 184E0F801D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAE31F801A4
+ for <alsa-devel@alsa-project.org>; Mon,  8 Jul 2019 08:48:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAE31F801A4
 Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A2E1A2000D7;
- Mon,  8 Jul 2019 08:48:16 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id DCE7E20031E;
+ Mon,  8 Jul 2019 08:48:17 +0200 (CEST)
 Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
  [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 465A7200026;
- Mon,  8 Jul 2019 08:48:12 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 472C320032B;
+ Mon,  8 Jul 2019 08:48:13 +0200 (CEST)
 Received: from titan.ap.freescale.net (TITAN.ap.freescale.net [10.192.208.233])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 943A4402AE;
- Mon,  8 Jul 2019 14:48:06 +0800 (SGT)
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 839EE40309;
+ Mon,  8 Jul 2019 14:48:07 +0800 (SGT)
 From: shengjiu.wang@nxp.com
 To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
  festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org
-Date: Mon,  8 Jul 2019 14:38:50 +0800
-Message-Id: <cover.1562566531.git.shengjiu.wang@nxp.com>
+Date: Mon,  8 Jul 2019 14:38:51 +0800
+Message-Id: <4789382e6de88c83bcb712b3979375a7f2f5808a.1562566531.git.shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.14.1
+In-Reply-To: <cover.1562566531.git.shengjiu.wang@nxp.com>
+References: <cover.1562566531.git.shengjiu.wang@nxp.com>
+In-Reply-To: <cover.1562566531.git.shengjiu.wang@nxp.com>
+References: <cover.1562566531.git.shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH V3 0/2] recover the channel swap after xrun
+Subject: [alsa-devel] [PATCH V3 1/2] ASoC: fsl_esai: Wrap some operations to
+	be functions
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,22 +80,273 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-recover the channel swap after xrun
+Extract the operation to be functions, to improve the
+readability.
 
-Shengjiu Wang (2):
-  ASoC: fsl_esai: Wrap some operations to be functions
-  ASoC: fsl_esai: recover the channel swap after xrun
+In this patch, fsl_esai_hw_init, fsl_esai_register_restore,
+fsl_esai_trigger_start and fsl_esai_trigger_stop are
+extracted.
 
- sound/soc/fsl/fsl_esai.c | 270 ++++++++++++++++++++++++++++-----------
- 1 file changed, 197 insertions(+), 73 deletions(-)
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+---
+ sound/soc/fsl/fsl_esai.c | 192 ++++++++++++++++++++++++---------------
+ 1 file changed, 119 insertions(+), 73 deletions(-)
 
-Changes in V3
-- update code sytle.
-
-Changes in v2
-- add one patch for wrap operations to functions.
-- fix some coding style issue
-
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index 10d2210c91ef..ab460d6d7432 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -35,6 +35,7 @@
+  * @fifo_depth: depth of tx/rx FIFO
+  * @slot_width: width of each DAI slot
+  * @slots: number of slots
++ * @channels: channel num for tx or rx
+  * @hck_rate: clock rate of desired HCKx clock
+  * @sck_rate: clock rate of desired SCKx clock
+  * @hck_dir: the direction of HCKx pads
+@@ -57,6 +58,7 @@ struct fsl_esai {
+ 	u32 slots;
+ 	u32 tx_mask;
+ 	u32 rx_mask;
++	u32 channels[2];
+ 	u32 hck_rate[2];
+ 	u32 sck_rate[2];
+ 	bool hck_dir[2];
+@@ -543,64 +545,132 @@ static int fsl_esai_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
+-			    struct snd_soc_dai *dai)
++static int fsl_esai_hw_init(struct fsl_esai *esai_priv)
+ {
+-	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
+-	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+-	u8 i, channels = substream->runtime->channels;
++	struct platform_device *pdev = esai_priv->pdev;
++	int ret;
++
++	/* Reset ESAI unit */
++	ret = regmap_update_bits(esai_priv->regmap, REG_ESAI_ECR,
++				 ESAI_ECR_ESAIEN_MASK | ESAI_ECR_ERST_MASK,
++				 ESAI_ECR_ESAIEN | ESAI_ECR_ERST);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to reset ESAI: %d\n", ret);
++		return ret;
++	}
++
++	/*
++	 * We need to enable ESAI so as to access some of its registers.
++	 * Otherwise, we would fail to dump regmap from user space.
++	 */
++	ret = regmap_update_bits(esai_priv->regmap, REG_ESAI_ECR,
++				 ESAI_ECR_ESAIEN_MASK | ESAI_ECR_ERST_MASK,
++				 ESAI_ECR_ESAIEN);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to enable ESAI: %d\n", ret);
++		return ret;
++	}
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
++			   ESAI_PRRC_PDC_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
++			   ESAI_PCRC_PC_MASK, 0);
++
++	return 0;
++}
++
++static int fsl_esai_register_restore(struct fsl_esai *esai_priv)
++{
++	int ret;
++
++	/* FIFO reset for safety */
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR,
++			   ESAI_xFCR_xFR, ESAI_xFCR_xFR);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR,
++			   ESAI_xFCR_xFR, ESAI_xFCR_xFR);
++
++	regcache_mark_dirty(esai_priv->regmap);
++	ret = regcache_sync(esai_priv->regmap);
++	if (ret)
++		return ret;
++
++	/* FIFO reset done */
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_TFCR, ESAI_xFCR_xFR, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_RFCR, ESAI_xFCR_xFR, 0);
++
++	return 0;
++}
++
++static void fsl_esai_trigger_start(struct fsl_esai *esai_priv, bool tx)
++{
++	u8 i, channels = esai_priv->channels[tx];
+ 	u32 pins = DIV_ROUND_UP(channels, esai_priv->slots);
+ 	u32 mask;
+ 
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xFCR(tx),
++			   ESAI_xFCR_xFEN_MASK, ESAI_xFCR_xFEN);
++
++	/* Write initial words reqiured by ESAI as normal procedure */
++	for (i = 0; tx && i < channels; i++)
++		regmap_write(esai_priv->regmap, REG_ESAI_ETDR, 0x0);
++
++	/*
++	 * When set the TE/RE in the end of enablement flow, there
++	 * will be channel swap issue for multi data line case.
++	 * In order to workaround this issue, we switch the bit
++	 * enablement sequence to below sequence
++	 * 1) clear the xSMB & xSMA: which is done in probe and
++	 *                           stop state.
++	 * 2) set TE/RE
++	 * 3) set xSMB
++	 * 4) set xSMA:  xSMA is the last one in this flow, which
++	 *               will trigger esai to start.
++	 */
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
++			   tx ? ESAI_xCR_TE_MASK : ESAI_xCR_RE_MASK,
++			   tx ? ESAI_xCR_TE(pins) : ESAI_xCR_RE(pins));
++	mask = tx ? esai_priv->tx_mask : esai_priv->rx_mask;
++
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMB(tx),
++			   ESAI_xSMB_xS_MASK, ESAI_xSMB_xS(mask));
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
++			   ESAI_xSMA_xS_MASK, ESAI_xSMA_xS(mask));
++}
++
++static void fsl_esai_trigger_stop(struct fsl_esai *esai_priv, bool tx)
++{
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
++			   tx ? ESAI_xCR_TE_MASK : ESAI_xCR_RE_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
++			   ESAI_xSMA_xS_MASK, 0);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMB(tx),
++			   ESAI_xSMB_xS_MASK, 0);
++
++	/* Disable and reset FIFO */
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xFCR(tx),
++			   ESAI_xFCR_xFR | ESAI_xFCR_xFEN, ESAI_xFCR_xFR);
++	regmap_update_bits(esai_priv->regmap, REG_ESAI_xFCR(tx),
++			   ESAI_xFCR_xFR, 0);
++}
++
++static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
++			    struct snd_soc_dai *dai)
++{
++	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
++	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
++
++	esai_priv->channels[tx] = substream->runtime->channels;
++
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xFCR(tx),
+-				   ESAI_xFCR_xFEN_MASK, ESAI_xFCR_xFEN);
+-
+-		/* Write initial words reqiured by ESAI as normal procedure */
+-		for (i = 0; tx && i < channels; i++)
+-			regmap_write(esai_priv->regmap, REG_ESAI_ETDR, 0x0);
+-
+-		/*
+-		 * When set the TE/RE in the end of enablement flow, there
+-		 * will be channel swap issue for multi data line case.
+-		 * In order to workaround this issue, we switch the bit
+-		 * enablement sequence to below sequence
+-		 * 1) clear the xSMB & xSMA: which is done in probe and
+-		 *                           stop state.
+-		 * 2) set TE/RE
+-		 * 3) set xSMB
+-		 * 4) set xSMA:  xSMA is the last one in this flow, which
+-		 *               will trigger esai to start.
+-		 */
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
+-				   tx ? ESAI_xCR_TE_MASK : ESAI_xCR_RE_MASK,
+-				   tx ? ESAI_xCR_TE(pins) : ESAI_xCR_RE(pins));
+-		mask = tx ? esai_priv->tx_mask : esai_priv->rx_mask;
+-
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMB(tx),
+-				   ESAI_xSMB_xS_MASK, ESAI_xSMB_xS(mask));
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
+-				   ESAI_xSMA_xS_MASK, ESAI_xSMA_xS(mask));
+-
++		fsl_esai_trigger_start(esai_priv, tx);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xCR(tx),
+-				   tx ? ESAI_xCR_TE_MASK : ESAI_xCR_RE_MASK, 0);
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMA(tx),
+-				   ESAI_xSMA_xS_MASK, 0);
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xSMB(tx),
+-				   ESAI_xSMB_xS_MASK, 0);
+-
+-		/* Disable and reset FIFO */
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xFCR(tx),
+-				   ESAI_xFCR_xFR | ESAI_xFCR_xFEN, ESAI_xFCR_xFR);
+-		regmap_update_bits(esai_priv->regmap, REG_ESAI_xFCR(tx),
+-				   ESAI_xFCR_xFR, 0);
++		fsl_esai_trigger_stop(esai_priv, tx);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -866,22 +936,9 @@ static int fsl_esai_probe(struct platform_device *pdev)
+ 
+ 	dev_set_drvdata(&pdev->dev, esai_priv);
+ 
+-	/* Reset ESAI unit */
+-	ret = regmap_write(esai_priv->regmap, REG_ESAI_ECR, ESAI_ECR_ERST);
+-	if (ret) {
+-		dev_err(&pdev->dev, "failed to reset ESAI: %d\n", ret);
++	ret = fsl_esai_hw_init(esai_priv);
++	if (ret)
+ 		return ret;
+-	}
+-
+-	/*
+-	 * We need to enable ESAI so as to access some of its registers.
+-	 * Otherwise, we would fail to dump regmap from user space.
+-	 */
+-	ret = regmap_write(esai_priv->regmap, REG_ESAI_ECR, ESAI_ECR_ESAIEN);
+-	if (ret) {
+-		dev_err(&pdev->dev, "failed to enable ESAI: %d\n", ret);
+-		return ret;
+-	}
+ 
+ 	esai_priv->tx_mask = 0xFFFFFFFF;
+ 	esai_priv->rx_mask = 0xFFFFFFFF;
+@@ -955,20 +1012,10 @@ static int fsl_esai_runtime_resume(struct device *dev)
+ 
+ 	regcache_cache_only(esai->regmap, false);
+ 
+-	/* FIFO reset for safety */
+-	regmap_update_bits(esai->regmap, REG_ESAI_TFCR,
+-			   ESAI_xFCR_xFR, ESAI_xFCR_xFR);
+-	regmap_update_bits(esai->regmap, REG_ESAI_RFCR,
+-			   ESAI_xFCR_xFR, ESAI_xFCR_xFR);
+-
+-	ret = regcache_sync(esai->regmap);
++	ret = fsl_esai_register_restore(esai);
+ 	if (ret)
+ 		goto err_regcache_sync;
+ 
+-	/* FIFO reset done */
+-	regmap_update_bits(esai->regmap, REG_ESAI_TFCR, ESAI_xFCR_xFR, 0);
+-	regmap_update_bits(esai->regmap, REG_ESAI_RFCR, ESAI_xFCR_xFR, 0);
+-
+ 	return 0;
+ 
+ err_regcache_sync:
+@@ -991,7 +1038,6 @@ static int fsl_esai_runtime_suspend(struct device *dev)
+ 	struct fsl_esai *esai = dev_get_drvdata(dev);
+ 
+ 	regcache_cache_only(esai->regmap, true);
+-	regcache_mark_dirty(esai->regmap);
+ 
+ 	if (!IS_ERR(esai->fsysclk))
+ 		clk_disable_unprepare(esai->fsysclk);
 -- 
 2.21.0
 

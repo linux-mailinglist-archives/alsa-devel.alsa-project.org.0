@@ -2,71 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A993163724
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 15:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 335066375F
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 15:59:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 338C11677;
-	Tue,  9 Jul 2019 15:39:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 338C11677
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1C931668;
+	Tue,  9 Jul 2019 15:58:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1C931668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562679643;
-	bh=RRTRNgiu90fHdRvJ/W/knCK0HGz6IaOGpYtQRXIvZlE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562680759;
+	bh=Bo3xg88Gj/Qz+beK6guvxHPsikf7qMTdR5ZBmPUVuUY=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Fx+DwybxFM3/IYx8KUQXinO354zA516dz9Z2iYG9wfppHFdgAPOmNCChCp2UacJ42
-	 bgS8nDN6h13AwyiJCInmmhlutBt+vovfuGLJLqAhziQogallIr2cgYcAALRXexvLAg
-	 eAKR8YF+rc7ev0vFbtHklKwq3l4KV1NbhHD/rX2g=
+	b=hCWODeFUI8qlDCOqlXZo7QjqdjuG13PuP1kEmHzODmrJn8PFC8coQD8YaLYK7BNtE
+	 /6V4YJIQ3pK3NKwhgg2jnSyvWBD5nLTVDPRegUpEBOMbCpQcfnBQAHRpnabcPJYmSK
+	 EgT7or+iDsLvXR7W5g3YvtHys9r1/M6FNU43pqag=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C4A0F80273;
-	Tue,  9 Jul 2019 15:38:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C3F2F80275;
+	Tue,  9 Jul 2019 15:57:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1572DF80274; Tue,  9 Jul 2019 15:38:56 +0200 (CEST)
+ id BB258F80274; Tue,  9 Jul 2019 15:57:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13383F800E2
- for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 15:38:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13383F800E2
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2019 06:38:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,470,1557212400"; d="scan'208";a="167986828"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
- by orsmga003.jf.intel.com with ESMTP; 09 Jul 2019 06:38:48 -0700
-Received: from andy by smile with local (Exim 4.92)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1hkqKV-0003sq-Fd; Tue, 09 Jul 2019 16:38:47 +0300
-Date: Tue, 9 Jul 2019 16:38:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Curtis Malainey <cujomalainey@google.com>
-Message-ID: <20190709133847.GD9224@smile.fi.intel.com>
-References: <CAOReqxhxHiJ-4UYC-j4Quuuy5YP9ywohe_JwiLpCxqCvP-7ypg@mail.gmail.com>
- <20190709131401.GA9224@smile.fi.intel.com>
- <20190709132943.GB9224@smile.fi.intel.com>
- <20190709133448.GC9224@smile.fi.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190709133448.GC9224@smile.fi.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Ross Zwisler <zwisler@google.com>,
- Fletcher Woodruff <fletcherw@google.com>,
- Liam Girdwood <liam.r.girdwood@intel.com>, dmaengine@vger.kernel.org,
- Pierre-louis Bossart <pierre-louis.bossart@intel.com>
-Subject: Re: [alsa-devel] DW-DMA: Probe failures on broadwell
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9FEC1F800E2
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 15:57:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FEC1F800E2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 96265AF31;
+ Tue,  9 Jul 2019 13:57:28 +0000 (UTC)
+Date: Tue, 09 Jul 2019 15:57:28 +0200
+Message-ID: <s5hk1crtinr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+In-Reply-To: <20190709132605.GA25293@b4.vu>
+References: <20190709132605.GA25293@b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH V4] ALSA: usb-audio: Scarlett Gen 2 mixer
+	interface
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +70,152 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 09, 2019 at 04:34:48PM +0300, Andy Shevchenko wrote:
-> On Tue, Jul 09, 2019 at 04:29:43PM +0300, Andy Shevchenko wrote:
-> > On Tue, Jul 09, 2019 at 04:14:01PM +0300, Andy Shevchenko wrote:
-> > > On Mon, Jul 08, 2019 at 01:50:07PM -0700, Curtis Malainey wrote:
-> > 
-> > > So, the correct fix is to provide a platform data, like it's done in
-> > > drivers/dma/dw/pci.c::idma32_pdata, in the sst-firmware.c::dw_probe(), and call
-> > > idma32_dma_probe() with idma32_dma_remove() respectively on removal stage.
-> > > 
-> > > (It will require latest patches to be applied, which are material for v5.x)
-> > 
-> > Below completely untested patch to try
+On Tue, 09 Jul 2019 15:26:05 +0200,
+Geoffrey D. Bennett wrote:
 > 
-> Also, it might require to set proper request lines (currently it uses 0 AFAICS).
-> Something like it's done in drivers/spi/spi-pxa2xx-pci.c for Intel Merrifield.
+> Only outstanding question I believe:
+> 
+> - Takashi, you wrote last time "Also, the delayed work needs to be
+>   canceled or flushed at PM suspend callback as well as
+>   disconnecting." I'm not sure why it should be cancelled; is it not
+>   okay to do on resume?
 
-And SST_DSP_DMA_MAX_BURST seems encoded while it's should be simple number,
-like 8 (bytes). Also SPI PXA is an example to look into.
+Not really.  The standard idiom is to cancel the pending task
+immediately at suspend, so that the whole PM procedure won't be
+interfered, then reschedule the work at resume again.
 
-I doubt it has been validated with upstream driver (I know about some internal
-drivers, hacked version of dw one, you may find sources somewhere in public).
+> But I tested suspending while the delayed work
+>   was waiting and it seemed like the delayed work was cancelled
+>   anyway. Probably better to do a flush on suspend though;
 
--- 
-With Best Regards,
-Andy Shevchenko
+The flush would block, hence it wastes lots of time at suspend.
+Ideally the suspend should be performed immediately.
+
+> should this
+>   be done through a hook like:
+> 
+>   diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+>   index 2444737a14b2..1572a89267c6 100644
+>   --- a/sound/usb/mixer.c
+>   +++ b/sound/usb/mixer.c
+>   @@ -3547,6 +3547,8 @@ static int snd_usb_mixer_activate(struct usb_mixer_interface *mixer)
+>    int snd_usb_mixer_suspend(struct usb_mixer_interface *mixer)
+>    {
+>           snd_usb_mixer_inactivate(mixer);
+>   +       if (mixer->private_suspend)
+>   +               mixer->private_suspend(mixer);
+>           return 0;
+>    }
+>    
+>   diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+>   index fa6e216a06f0..d94c688c65f7 100644
+>   --- a/sound/usb/mixer.h
+>   +++ b/sound/usb/mixer.h
+>   @@ -28,6 +28,7 @@ struct usb_mixer_interface {
+>    
+>           void *private_data;
+>           void (*private_free)(struct usb_mixer_interface *private_data);
+>   +       void (*private_suspend)(struct usb_mixer_interface *);
+>    };
+>    
+>    #define MAX_CHANNELS   16      /* max logical channels */
+> 
+>   ...or just keep the existing behaviour where it seems to get
+>   cancelled?
+
+I'm fine to add the new suspend/resume callbacks, but maybe the
+corresponding resume would be needed.
+
+Other than that, the patch looks almost good.
+
+> --- /dev/null
+> +++ b/sound/usb/mixer_scarlett_gen2.c
+> @@ -0,0 +1,2078 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + *   Focusrite Scarlett 6i6/18i8/18i20 Gen 2 Driver for ALSA
+> + *
+> + *   Copyright (c) 2018-2019 by Geoffrey D. Bennett <g at b4.vu>
+> + *
+> + *   Based on the Scarlett (Gen 1) Driver for ALSA:
+> + *
+> + *   Copyright (c) 2013 by Tobias Hoffmann
+> + *   Copyright (c) 2013 by Robin Gareus <robin at gareus.org>
+> + *   Copyright (c) 2002 by Takashi Iwai <tiwai at suse.de>
+> + *   Copyright (c) 2014 by Chris J Arges <chris.j.arges at canonical.com>
+> + *
+> + *   Many codes borrowed from audio.c by
+> + *     Alan Cox (alan at lxorguk.ukuu.org.uk)
+> + *     Thomas Sailer (sailer at ife.ee.ethz.ch)
+> + *
+> + *   Code cleanup:
+> + *   David Henningsson <david.henningsson at canonical.com>
+> + *
+> + *   This program is free software; you can redistribute it and/or modify
+> + *   it under the terms of the GNU General Public License as published by
+> + *   the Free Software Foundation; either version 2 of the License, or
+> + *   (at your option) any later version.
+> + *
+> + *   This program is distributed in the hope that it will be useful,
+> + *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + *   GNU General Public License for more details.
+
+Drop these texts.  The SPDX identifier should suffice.
+
+> +static int scarlett_gen2_mixer_enable;
+> +module_param(scarlett_gen2_mixer_enable, int, 0444);
+> +MODULE_PARM_DESC(scarlett_gen2_mixer_enable,
+> +		 "Focusrite Scarlett Gen 2 Mixer Driver Enable");
+
+Do we need this?  If disabling the quirk is really required, it should
+be implemented rather in a generic option, instead.
 
 
+> +/* Send a proprietary format request to the Scarlett interface */
+> +static int scarlett2_usb(
+> +	struct usb_mixer_interface *mixer, u32 cmd,
+> +	void *req_data, u16 req_size, void *resp_data, u16 resp_size)
+> +{
+> +	struct scarlett2_mixer_data *private = mixer->private_data;
+> +
+> +	u16 req_buf_size = sizeof(struct scarlett2_usb_packet) + req_size;
+> +	u16 resp_buf_size = sizeof(struct scarlett2_usb_packet) + resp_size;
+> +
+> +	struct scarlett2_usb_packet *req = 0, *resp = 0;
+> +
+> +	int err = 0;
+
+Avoid unnecessary blank lines.
+
+> +
+> +	mutex_lock(&private->usb_mutex);
+> +
+> +	/* build request message and send it */
+> +
+> +	req = kmalloc(req_buf_size, GFP_KERNEL);
+> +	if (!req) {
+> +		err = -ENOMEM;
+> +		goto unlock;
+> +	}
+
+Better to run kmalloc outside the mutex.  It's not necessarily
+exclusive.
+
+> +	/* send a second message to get the response */
+> +
+> +	resp = kmalloc(resp_buf_size, GFP_KERNEL);
+> +	if (!resp) {
+> +		err = -ENOMEM;
+> +		goto unlock;
+> +	}
+
+Ditto, this could be better allocated before the critical section.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

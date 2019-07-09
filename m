@@ -2,91 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87A39639FE
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 19:13:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AA8063A05
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 19:16:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 201191666;
-	Tue,  9 Jul 2019 19:12:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 201191666
+	by alsa0.perex.cz (Postfix) with ESMTPS id B05F01672;
+	Tue,  9 Jul 2019 19:15:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B05F01672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562692427;
-	bh=+pbET3jqyX+IVFeWbBZh+kBX2sPg2NmPmwZlMLZfy9Y=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1562692567;
+	bh=24+70GQN8xIRVuhCe5RJA/JM91pUoBLv/IR7EY22j28=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N2B3fiUbSQ7ooZkcqPxNKHoGSvj7xid7R6+3PNzARo7PevMIE56ccDU3xrPJ3FAjj
-	 dhJI3XZrpYWkTEWdZ3XQCa3uIcsbNr4blmKzNnJ9mhf8g1031QIkXHNYpdAvObGFKG
-	 YuQAfjyb0s0UwNKQlk4qpEgV8mUlo+0XL6IjMEss=
+	b=TuZQgBSxNMAXeVSW0G2NPKscL8UewQtmj7t/KCDUBFt3/Osr6pzwoPrJQpVzds8SD
+	 GPjQHro5bYeet/gICmPYXlXIoOCsgRzdhbdvifvwiHho128m/3VQoW1XVsPV5pXJ/h
+	 PKLCZ2V3y4yTFazrnBdegBqHxD4Dpz2emVLbc0ws=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5244F80274;
-	Tue,  9 Jul 2019 19:12:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0EF62F80276;
+	Tue,  9 Jul 2019 19:14:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BA06F801A4; Tue,  9 Jul 2019 19:12:00 +0200 (CEST)
+ id 254C3F80274; Tue,  9 Jul 2019 19:14:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PDS_NO_HELO_DNS,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83E75F801A4
- for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 19:11:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83E75F801A4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="M0HtE2zf"
-Received: by mail-wr1-x443.google.com with SMTP id n9so12735518wrr.4
- for <alsa-devel@alsa-project.org>; Tue, 09 Jul 2019 10:11:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=message-id:subject:from:to:cc:date:in-reply-to:references
- :user-agent:mime-version:content-transfer-encoding;
- bh=r2TZxVWcdSd0UfNPfDh/m+C/l5rTSbdoS34pupBC7bs=;
- b=M0HtE2zfXv29HrNHQFh9iKDnPxGnU/7mFdhAvg8FDTh1SJGD9B/hMp31OdZB93aIaU
- emqfkxPYQTW7wLQlvCgeV9QbfH1qj+CwbWAyxD2JIjeo3jjdP0UJnsoiXJFE4nBoHS6o
- jOq6hnoaAKe911oA2m5WqM/DMIoBPmACGSe/rrmS/CZxnNhvhBsQT/xAf0DuALygXDvi
- zJj3UHjqrH5KmK0/hoU+WKTkmE+tirLIyIsxVX33nPvyIiBsvhJrUNHnH2XpFJkRp1hO
- 0JFKvGnOACJmzOMd7q7UNFn+L9vv91hTnGfn33FD8Z+FDrXWpDG0h1fWIuiMwZ58vJW7
- sheQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:user-agent:mime-version:content-transfer-encoding;
- bh=r2TZxVWcdSd0UfNPfDh/m+C/l5rTSbdoS34pupBC7bs=;
- b=hE/2/Wtu7p0bOxdVpimM6xNuiM00VzdsO5KfMUGBkj2vBL0Sk2aPQ5iCkPD0yaUZE3
- fg0K1ydXJT+Lp/qgg/+g1SF0wDLQtIEojz3SXNZ9ty1AVL1Q3w6exZrVeuR8HnQTqV1r
- V3ABLWu42u3UITevp1+pxV1PNGPINSS7BU8L6Z0zd6CEbYBHOR8VU0p8dYicLIcG3UPH
- UDNtJj6+rpws5+Uxst3G7d8wi8b+PVyp7zlL6YlBkG2XWL/SeynTde7TsArcmD2OItJC
- ZdoV5VMUA7EHxnNvU+V0jXxrEyIcp7Rb+r9PR8CGAl7iOZxp2i9hhF6H3SeHWajyO1oS
- gwxg==
-X-Gm-Message-State: APjAAAV6DVfhKI0GZDmpHw9KnWJCqZWflhohre1U0wO6Ii7raJC4qylb
- /hmCmGO1gJObif2xEt+v8eU=
-X-Google-Smtp-Source: APXvYqwip3fu3f+Qkr4VPHuymeCT3juKyz96VYc1CBJcXVpcUuc0xL3rwMuX2a1JTuZtrZkFim3qKQ==
-X-Received: by 2002:adf:f544:: with SMTP id j4mr26518083wrp.150.1562692316597; 
- Tue, 09 Jul 2019 10:11:56 -0700 (PDT)
-Received: from localhost.localdomain ([86.124.23.156])
- by smtp.gmail.com with ESMTPSA id s18sm5860606wra.47.2019.07.09.10.11.54
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Tue, 09 Jul 2019 10:11:55 -0700 (PDT)
-Message-ID: <7d7073d339c7bfbb0079598d95c4faddbd5b51e4.camel@gmail.com>
-From: gabrielcsmo@gmail.com
-To: Viorel Suman <viorel.suman@nxp.com>, Daniel Baluta
- <daniel.baluta@nxp.com>,  Irina Patru <ioana-irina.patru@nxp.com>
-Date: Tue, 09 Jul 2019 20:11:53 +0300
-In-Reply-To: <1562246550.22836.17.camel@nxp.com>
-References: <20190704125133.1463-1-ioana-irina.patru@nxp.com>
- <1562246550.22836.17.camel@nxp.com>
-User-Agent: Evolution 3.32.2 (3.32.2-1.fc30) 
-MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- LnxRevLi <LnxRevLi@nxp.com>
-Subject: Re: [alsa-devel] [PATCH] MLK-22197 sound: asoc: add micfil dc
- remover amixer control
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2915F800E0
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 19:14:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2915F800E0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 91203AE80;
+ Tue,  9 Jul 2019 17:14:15 +0000 (UTC)
+Date: Tue, 09 Jul 2019 19:14:15 +0200
+Message-ID: <s5h1ryzi108.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Geoffrey D. Bennett" <g@b4.vu>
+In-Reply-To: <20190709162430.GA25766@b4.vu>
+References: <20190709132605.GA25293@b4.vu> <s5hk1crtinr.wl-tiwai@suse.de>
+ <20190709162430.GA25766@b4.vu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH V4] ALSA: usb-audio: Scarlett Gen 2 mixer
+	interface
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,155 +71,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Irina,
+On Tue, 09 Jul 2019 18:24:30 +0200,
+Geoffrey D. Bennett wrote:
+> 
+> On Tue, Jul 09, 2019 at 03:57:28PM +0200, Takashi Iwai wrote:
+> [...]
+> > > But I tested suspending while the delayed work
+> > >   was waiting and it seemed like the delayed work was cancelled
+> > >   anyway. Probably better to do a flush on suspend though;
+> > 
+> > The flush would block, hence it wastes lots of time at suspend.
+> > Ideally the suspend should be performed immediately.
+> > 
+> > > should this
+> > >   be done through a hook like:
+> > > 
+> > >   diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> > >   index 2444737a14b2..1572a89267c6 100644
+> > >   --- a/sound/usb/mixer.c
+> > >   +++ b/sound/usb/mixer.c
+> > >   @@ -3547,6 +3547,8 @@ static int snd_usb_mixer_activate(struct usb_mixer_interface *mixer)
+> > >    int snd_usb_mixer_suspend(struct usb_mixer_interface *mixer)
+> > >    {
+> > >           snd_usb_mixer_inactivate(mixer);
+> > >   +       if (mixer->private_suspend)
+> > >   +               mixer->private_suspend(mixer);
+> > >           return 0;
+> > >    }
+> > >    
+> > >   diff --git a/sound/usb/mixer.h b/sound/usb/mixer.h
+> > >   index fa6e216a06f0..d94c688c65f7 100644
+> > >   --- a/sound/usb/mixer.h
+> > >   +++ b/sound/usb/mixer.h
+> > >   @@ -28,6 +28,7 @@ struct usb_mixer_interface {
+> > >    
+> > >           void *private_data;
+> > >           void (*private_free)(struct usb_mixer_interface *private_data);
+> > >   +       void (*private_suspend)(struct usb_mixer_interface *);
+> > >    };
+> > >    
+> > >    #define MAX_CHANNELS   16      /* max logical channels */
+> > > 
+> > >   ...or just keep the existing behaviour where it seems to get
+> > >   cancelled?
+> > 
+> > I'm fine to add the new suspend/resume callbacks, but maybe the
+> > corresponding resume would be needed.
+> 
+> Did you mean "wouldn't be needed"?
 
-Please see my comments inline.
+No, it's needed because at resume you'd reschedule the work that was
+canceled at suspend.  It's specific.
 
-Best regards,
-Cosmin
+> [...]
+> > > +static int scarlett_gen2_mixer_enable;
+> > > +module_param(scarlett_gen2_mixer_enable, int, 0444);
+> > > +MODULE_PARM_DESC(scarlett_gen2_mixer_enable,
+> > > +		 "Focusrite Scarlett Gen 2 Mixer Driver Enable");
+> > 
+> > Do we need this?  If disabling the quirk is really required, it should
+> > be implemented rather in a generic option, instead.
+> 
+> Actually it would be best to have it disabled by default as I have had
+> two reports from people who tried this mixer driver and it broke audio
+> for them.
 
-On Thu, 2019-07-04 at 13:22 +0000, Viorel Suman wrote:
-> Hi Irina,
-> 
-> Some nitpicks inline.
-> 
-> /Viorel
-> 
-> On Jo, 2019-07-04 at 12:52 +0000, Irina Patru wrote:
-> 
-> 
-> <snip>
-> 
-> 
-> +static int micfil_put_dc_remover_state(struct snd_kcontrol
-> *kcontrol,
-> +                                       struct snd_ctl_elem_value
-> *ucontrol)
-> +{
-> +       struct snd_soc_component *comp = snd_kcontrol_chip(kcontrol);
-> +       struct soc_enum *e = (struct soc_enum *)kcontrol-
-> >private_value;
-> +       struct fsl_micfil *micfil =
-> snd_soc_component_get_drvdata(comp);
-> +       unsigned int *item = ucontrol->value.enumerated.item;
-> +       int val = snd_soc_enum_item_to_val(e, item[0]);
-> +       int i = 0, ret = 0;
-> +       u32 reg_val = 0;
-> +
-> +       if (val < 0 || val > 3)
+Hm, and these have the same USB device ID?
 
-Use defines for constants instead of hardcoded values.
+> The failure looks like this... the first vendor-specific USB message
+> sent to the interface to initialise it results in an error:
+> 
+> e2d87480 3146602314 S Ci:1:007:0 s a1 03 0000 0005 0010 16 <
+> e2d87480 3152107418 C Ci:1:007:0 -2 0
+> 
+> My mixer driver gives up initialising, and subsequent USB messages
+> fail:
+> 
+> e2d87480 3152110424 S Ci:1:007:0 s 80 06 0304 0409 00ff 255 <
+> e2d87480 3152121815 C Ci:1:007:0 -71 0
+> e2d87480 3152121955 S Ci:1:007:0 s 80 06 0304 0409 0002 2 <
+> e2d87480 3152131554 C Ci:1:007:0 -71 0
+> e2d87480 3152133420 S Ci:1:007:0 s 80 06 0305 0409 00ff 255 <
+> e2d87480 3157224469 C Ci:1:007:0 -2 0
+> 
+> I don't see any way to distinguish between devices that do and don't
+> work before sending the initialisation message. lsusb -v output is
+> identical. I need someone to do a USB capture to see what the vendor
+> driver does differently, but I haven't found someone who can do this
+> yet.
+> 
+> I have 9 success reports so far and 2 failure reports. I hope that by
+> getting this driver out to a wider audience I can get the data I need
+> to make it work in all cases and then we can remove the
+> scarlett_gen2_mixer_enable quirk and have the driver always enabled.
+> 
+> Thanks for your feedback again. The other things which I didn't
+> comment on I agree with and will fix.
 
-> +               return -1;
-> 
-> 
-> Maybe return -EINVAL here ?
-> 
-> 
-> +       micfil->dc_remover = val;
-> +
-> +       /* Calculate total value for all channels */
-> +       for (i = 0; i < 8; i++)
+I guess you can use chip->setup value for the quirk-specific
+configuration as a start.  It's a bit hackish but the parameter is
+already there for long time, hence you don't need to add any extra
+stuff for that.
 
-Same as before. I think you already have MICFIL_NUM_CHANNELS in header.
 
-> +               reg_val |= MICFIL_DC_MODE(val, i);
-> +
-> +       /* Update DC Remover mode for all channels */
-> +       ret = snd_soc_component_update_bits(comp,
-> +                                       REG_MICFIL_DC_CTRL,
-> +                                       MICFIL_DC_CTRL_MASK,
-> +                                       reg_val);
+thanks,
 
-I don't know if there is an updated manual for MICFIL but it would be
-nice to have a public link.
-Please make sure that this change in the configuration can be done live
-witout side-effects. Modifying some of the settings were affecting
-performance or functionality and you must use other mechanism for
-updating the DC_CTRL if it is the case.
-> 
-> 
-> Please check the description of snd_soc_component_update_bits return
-> value:
-> ==========
->  * Return: 1 if the operation was successful and the value of the
-> register
->  * changed, 0 if the operation was successful, but the value did not
-> change.
->  * Returns a negative error code otherwise.
-> ==========
-> 
-> We may need to return a non-zero value in case of error only, ie:
-> =============
-> if (ret < 0)
-> return ret;
-> 
-> return 0;
-> =============
-> 
-> 
-> +       return ret;
-> +}
-> +
-> +static int micfil_get_dc_remover_state(struct snd_kcontrol
-> *kcontrol,
-> +                                       struct snd_ctl_elem_value
-> *ucontrol)
-> +{
-> +       struct snd_soc_component *comp = snd_kcontrol_chip(kcontrol);
-> +       struct fsl_micfil *micfil =
-> snd_soc_component_get_drvdata(comp);
-> +
-> +       ucontrol->value.enumerated.item[0] = micfil->dc_remover;
-> +
-> +       return 0;
-> +}
-> +
-> +
->  static int hwvad_put_init_mode(struct snd_kcontrol *kcontrol,
->                                struct snd_ctl_elem_value *ucontrol)
->  {
-> @@ -676,6 +731,10 @@ static const struct snd_kcontrol_new
-> fsl_micfil_snd_controls[] = {
->         SOC_ENUM_EXT("Clock Source",
->                      fsl_micfil_clk_src_enum,
->                      micfil_get_clk_src, micfil_put_clk_src),
-> +       SOC_ENUM_EXT("MICFIL DC Remover Control",
-> +                       fsl_micfil_dc_remover_enum,
-> +                       micfil_get_dc_remover_state,
-> +                       micfil_put_dc_remover_state),
->         {
->                 .iface = SNDRV_CTL_ELEM_IFACE_MIXER,
->                 .name = "HWVAD Input Gain",
-> diff --git a/sound/soc/fsl/fsl_micfil.h b/sound/soc/fsl/fsl_micfil.h
-> index 792187b717f0..e47dba9b90b8 100644
-> --- a/sound/soc/fsl/fsl_micfil.h
-> +++ b/sound/soc/fsl/fsl_micfil.h
-> @@ -278,6 +278,16 @@
->  #define MICFIL_HWVAD_HPF_102HZ         3
->  #define MICFIL_HWVAD_FRAMET_DEFAULT    10
-> 
-> +/* MICFIL DC Remover Control Register -- REG_MICFIL_DC_CTRL */
-> +#define MICFIL_DC_CTRL_SHIFT           0
-> +#define MICFIL_DC_CTRL_MASK                    0xFFFF
-> +#define MICFIL_DC_CTRL_WIDTH           2
-> +#define MICFIL_DC_CHX_SHIFT(v)         (2 * (v))
-> +#define MICFIL_DC_CHX_MASK(v)          ((BIT(MICFIL_DC_CTRL_WIDTH) -
-> 1) \
-> +                               << MICFIL_DC_CHX_SHIFT(v))
-> +#define MICFIL_DC_MODE(v1, v2)         (((v1) <<
-> MICFIL_DC_CHX_SHIFT(v2)) \
-> +                               & MICFIL_DC_CHX_MASK(v2))
-> +
->  /* MICFIL Output Control Register */
->  #define MICFIL_OUTGAIN_CHX_SHIFT(v)    (4 * (v))
-> 
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

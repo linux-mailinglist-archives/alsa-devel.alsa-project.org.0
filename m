@@ -2,70 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1BF363523
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 13:47:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17E86352E
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 13:49:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E4CC166C;
-	Tue,  9 Jul 2019 13:46:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E4CC166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 34B141667;
+	Tue,  9 Jul 2019 13:48:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 34B141667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562672838;
-	bh=kbtvKhUhOjC3GZVkKGb6hijh94hgEvqeyYh03/jSz4c=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562672948;
+	bh=VueznRmHLU/g4L6I554b3RingTuRwi6Mjocu7O74RS0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GMgAQYQca310ZGxC/wzJrNTtaCl4hIWFZWhYlnY+AvFtZp+gI1cRy/1Ex0sgowgvy
-	 m7jKw7kdadGE6ehgo0cYkc0GS24ge7W4Jpssz7k3GEKJaQSp80guemVNWeQREjq5/j
-	 qtl/QZIyxS83SGAwfbtQXRzyvxRBpXhIEufHuEQY=
+	b=KKyt3wQ1S111qguKs2eev3/xFO4QCP4VTSl4b1ESWxdo+H5otTNLEf+UHhraCSoz/
+	 u5uFfQ3D8I4a7+84CMvCdsZeusfbF57fpaDfBZ3ei2mRmDYLCp6Y1S9k4Zc7bOOv2A
+	 bv9CsU8E/sPwnxYgYlS3qhpw5eGgouC1gphmloe4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D1B2F800E0;
-	Tue,  9 Jul 2019 13:45:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FC50F800E2;
+	Tue,  9 Jul 2019 13:47:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03D76F80274; Tue,  9 Jul 2019 13:45:30 +0200 (CEST)
+ id 81259F80274; Tue,  9 Jul 2019 13:47:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A34CBF800E2
- for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 13:45:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A34CBF800E2
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54C2BF800E2
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 13:47:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54C2BF800E2
+X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Jul 2019 04:45:23 -0700
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 09 Jul 2019 04:47:15 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,470,1557212400"; d="scan'208";a="340730852"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
- by orsmga005.jf.intel.com with ESMTP; 09 Jul 2019 04:45:20 -0700
-Received: from andy by smile with local (Exim 4.92)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1hkoYh-0002Yq-Et; Tue, 09 Jul 2019 14:45:19 +0300
-Date: Tue, 9 Jul 2019 14:45:19 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Alex Levin <levinale@chromium.org>
-Message-ID: <20190709114519.GW9224@smile.fi.intel.com>
-References: <20190709040147.111927-1-levinale@chromium.org>
+X-IronPort-AV: E=Sophos;i="5.63,470,1557212400"; d="scan'208";a="167964894"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [172.28.182.92])
+ ([172.28.182.92])
+ by orsmga003.jf.intel.com with ESMTP; 09 Jul 2019 04:47:10 -0700
+To: Cheng-Yi Chiang <cychiang@chromium.org>
+References: <20190705042623.129541-1-cychiang@chromium.org>
+ <20190705042623.129541-2-cychiang@chromium.org>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <3d5755cf-34e9-44f7-3b03-6bdfca84ff95@intel.com>
+Date: Tue, 9 Jul 2019 13:47:10 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190709040147.111927-1-levinale@chromium.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>, benzh@chromium.org,
- Mark Brown <broonie@kernel.org>, cujomalainey@chromium.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: Atom: read timestamp moved to
-	period_elapsed
+In-Reply-To: <20190705042623.129541-2-cychiang@chromium.org>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Takashi Iwai <tiwai@suse.com>, tzungbi@chromium.org,
+ linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Andrzej Hajda <a.hajda@samsung.com>, Russell King <rmk+kernel@armlinux.org.uk>,
+ Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, linux-rockchip@lists.infradead.org,
+ dgreid@chromium.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH 1/4] ASoC: hdmi-codec: Add an op to set
+ callback function for plug event
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,99 +81,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 08, 2019 at 09:01:47PM -0700, Alex Levin wrote:
-> sst_platform_pcm_pointer is called from both snd_pcm_period_elapsed and
-> from snd_pcm_ioctl. Calling read timestamp results in recalculating
-> pcm_delay and buffer_ptr (sst_calc_tstamp) which consumes buffers in a
-> faster rate than intended.
-> In a tested BSW system with chtrt5650, for a rate of 48000, the
-> measured rate was sometimes 10 times more than that.
-> After moving the timestamp read to period elapsed, buffer consumption is
-> as expected.
-
-From code prospective it looks good. You may take mine
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Though I'm not an expert in the area, Pierre and / or Liam should give
-their blessing.
-
-> 
-> Signed-off-by: Alex Levin <levinale@chromium.org>
-> ---
->  sound/soc/intel/atom/sst-mfld-platform-pcm.c | 23 +++++++++++++-------
->  1 file changed, 15 insertions(+), 8 deletions(-)
-> 
-> diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> index 0e8b1c5eec88..196af0b30b41 100644
-> --- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> +++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> @@ -265,16 +265,28 @@ static void sst_period_elapsed(void *arg)
->  {
->  	struct snd_pcm_substream *substream = arg;
->  	struct sst_runtime_stream *stream;
-> -	int status;
-> +	struct snd_soc_pcm_runtime *rtd;
-> +	int status, ret_val;
->  
->  	if (!substream || !substream->runtime)
->  		return;
->  	stream = substream->runtime->private_data;
->  	if (!stream)
->  		return;
-> +
-> +	rtd = substream->private_data;
-> +	if (!rtd)
+On 2019-07-05 06:26, Cheng-Yi Chiang wrote:
+> +static void hdmi_codec_jack_report(struct hdmi_codec_priv *hcp,
+> +				   unsigned int jack_status)
+> +{
+> +	if (!hcp->jack)
 > +		return;
 > +
->  	status = sst_get_stream_status(stream);
->  	if (status != SST_PLATFORM_RUNNING)
->  		return;
-> +
-> +	ret_val = stream->ops->stream_read_tstamp(sst->dev, &stream->stream_info);
-> +	if (ret_val) {
-> +		dev_err(rtd->dev, "stream_read_tstamp err code = %d\n", ret_val);
-> +		return;
+> +	if (jack_status != hcp->jack_status) {
+> +		snd_soc_jack_report(hcp->jack, jack_status, SND_JACK_LINEOUT);
+> +		hcp->jack_status = jack_status;
 > +	}
->  	snd_pcm_period_elapsed(substream);
->  }
->  
-> @@ -658,20 +670,15 @@ static snd_pcm_uframes_t sst_platform_pcm_pointer
->  			(struct snd_pcm_substream *substream)
->  {
->  	struct sst_runtime_stream *stream;
-> -	int ret_val, status;
-> +	int status;
->  	struct pcm_stream_info *str_info;
-> -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
->  
->  	stream = substream->runtime->private_data;
->  	status = sst_get_stream_status(stream);
->  	if (status == SST_PLATFORM_INIT)
->  		return 0;
+> +}
+
+Single "if" statement instead? The first "if" does not even cover all 
+cases - if the secondary check fails, you'll "return;" too.
+
+> +/**
+> + * hdmi_codec_set_jack_detect - register HDMI plugged callback
+> + * @component: the hdmi-codec instance
+> + * @jack: ASoC jack to report (dis)connection events on
+> + */
+> +int hdmi_codec_set_jack_detect(struct snd_soc_component *component,
+> +			       struct snd_soc_jack *jack)
+> +{
+> +	struct hdmi_codec_priv *hcp = snd_soc_component_get_drvdata(component);
+> +	int ret;
 > +
->  	str_info = &stream->stream_info;
-> -	ret_val = stream->ops->stream_read_tstamp(sst->dev, str_info);
-> -	if (ret_val) {
-> -		dev_err(rtd->dev, "sst: error code = %d\n", ret_val);
-> -		return ret_val;
-> -	}
->  	substream->runtime->delay = str_info->pcm_delay;
->  	return str_info->buffer_ptr;
->  }
-> -- 
-> 2.22.0.410.gd8fdbe21b5-goog
-> 
+> +	if (hcp->hcd.ops->hook_plugged_cb) {
+> +		hcp->jack = jack;
+> +		ret = hcp->hcd.ops->hook_plugged_cb(component->dev->parent,
+> +						    hcp->hcd.data,
+> +						    plugged_cb);
+> +		if (ret) {
+> +			hcp->jack = NULL;
+> +			return ret;
+> +		}
+> +		return 0;
+> +	}
+> +	return -EOPNOTSUPP;
+> +}
+> +EXPORT_SYMBOL_GPL(hdmi_codec_set_jack_detect);
 
--- 
-With Best Regards,
-Andy Shevchenko
+int ret = -EOPNOTSUPP;
+(...)
 
+return ret;
 
+In consequence, you can reduce the number of "return(s)" and also remove 
+the redundant parenthesis for the if-statement used to set jack to NULL.
+
+Czarek
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

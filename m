@@ -2,117 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42A3062F03
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 05:40:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B4762F23
+	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 06:04:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABC57165D;
-	Tue,  9 Jul 2019 05:39:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABC57165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7C6A1666;
+	Tue,  9 Jul 2019 06:03:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7C6A1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562643630;
-	bh=K97p2tJpR7v9jc315G1FTu9m1ZmTk7HbsE89aJkLprI=;
+	s=default; t=1562645046;
+	bh=+/6lbnSziPWUgd92NrBJCy9EYVg2FTln8eRrW+rQlJM=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=quUGPjLy5LDQ5QVZ6U7R/qwSyVdFaUMQtrIrMVXnbUwnM2YeU+iCPJU31nUOjd5Eo
-	 DvO0L9465cBay5eRbuzb7fZa2lurB3xaKAKJQJGKbB/Ozp08xLpD996vmXpdMztGW9
-	 XDEjFFhUiIYtzpGX+n0zhBaN85P/gnbbAF60U/Hw=
+	b=F7/lsoHNRabHPoxJ2U4CGEKGdXUNitJ/pqLzaJOR/WjWdWZcyJ68G4BozSPho8rCe
+	 ZafUW89UxNg+hs1ZOFaSLiVKb0R8p4Sw4JwisGf+J7j367LsQWxg+wefAKobINwgfh
+	 MSu+/ztJbIXey2x4ptRBaXA7tcOwygVwqy9Nlp38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAFD5F800E2;
-	Tue,  9 Jul 2019 05:38:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26603F80275;
+	Tue,  9 Jul 2019 06:02:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19B5DF800E2; Tue,  9 Jul 2019 05:38:43 +0200 (CEST)
+ id 57E6EF80274; Tue,  9 Jul 2019 06:02:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_135,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00058.outbound.protection.outlook.com [40.107.0.58])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, PDS_NO_HELO_DNS, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95232F800E2
- for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 05:38:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95232F800E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51C57F801A4
+ for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 06:02:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51C57F801A4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="ZMEHdqxb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OX4rKEGLdam9UCJUPoJejNFiKqVs/jmJB0trusfsHI1ZkPBO4T6itYcuY2kAXkwGSqKVE+0ScVMtlg7MED1CznAfQi+cTvIDiGqijBICqovhpIxDgy9tFoPzZuzLtPT6wCYo3v7dTg/Qz4rbF+iuNCCV6U63uqHZfCvKG1IkaarLzR0tEDb1PKTs4nCb1QRfasAdH6sVNHTBMroYAnAiJ8Jje0NyRYfb5OLcgsLwp7BpWMJlJzbn1JGAOnTBhuPAaZI7CV1IUOlcSkO3N0Uk6luQlT+Qmynt/h0nGMimbVORKgqc4jhHzeHxoMPXw7WInk+kQ3jnm1dSTqlzE7Nlmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=huOkNqQOkNf6RW6RjMupOGnDJsrlFbyhC+whMPQAauQ=;
- b=CSsP88CyhAE20u3AG19tVjDVTNRFpJe50F9Fsjs9eTnDAVePoRQZ7+W1aA2kaqQCAVI+l/MwfUpgxTzXP6854RGXij9MDJsXsdUI6huS1qw61SgV6JINYviqrGjcmxfNqfl7MZdXG844/EmwFGrpCkPq2hWHD163rGRHvYF4VvqIEirsRXtqt7uqBkLFuDIw45AFFAHIOsK9UKTW1x9suFKNRLmSpfTtKh2CClOEdB5JM9l5An03ak4zww8QG79PxPLVQBfa06iYGbfDHdPzMLoCPPvLZsQwoWE+0Ml8RWHrRmcrorE83RPnk+qQG6yc7wbVzEtEcU39DeiDuCdZFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=nxp.com;dmarc=pass action=none header.from=nxp.com;dkim=pass
- header.d=nxp.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=huOkNqQOkNf6RW6RjMupOGnDJsrlFbyhC+whMPQAauQ=;
- b=ZMEHdqxbQDIeXs3XL+z3x1u0PwbquukEdLIQCm58r3ycjR6ArJlYBIiEhJrLl2gOC+/9zwiiXr0JQAgyOafCHy2BE43TCH1r6nW3CDzPGnN3RFfVqud6VWMuu8lzky94xRLN439lf0nYbDUxbC78N9r1pd18JEeuSp2nWuYnt1k=
-Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.233.80) by
- VE1SPR01MB0007.eurprd04.prod.outlook.com (20.179.193.160) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2073.10; Tue, 9 Jul 2019 03:38:36 +0000
-Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
- ([fe80::218e:ee37:1e81:e157]) by VE1PR04MB6479.eurprd04.prod.outlook.com
- ([fe80::218e:ee37:1e81:e157%3]) with mapi id 15.20.2052.019; Tue, 9 Jul 2019
- 03:38:36 +0000
-From: "S.j. Wang" <shengjiu.wang@nxp.com>
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Thread-Topic: [PATCH V2 2/2] ASoC: fsl_esai: recover the channel swap after
- xrun
-Thread-Index: AdU2B0WWYdAyRfftRKe3kHbe3589Jg==
-Date: Tue, 9 Jul 2019 03:38:36 +0000
-Message-ID: <VE1PR04MB64797B5172DB5EC9EBA8232BE3F10@VE1PR04MB6479.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=shengjiu.wang@nxp.com; 
-x-originating-ip: [119.31.174.66]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 4a88d812-30ba-4402-14d6-08d7041eecad
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
- SRVR:VE1SPR01MB0007; 
-x-ms-traffictypediagnostic: VE1SPR01MB0007:
-x-microsoft-antispam-prvs: <VE1SPR01MB0007B4D85981DDDCE2999FCBE3F10@VE1SPR01MB0007.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0093C80C01
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(136003)(396003)(346002)(39860400002)(199004)(189003)(478600001)(7736002)(1411001)(6506007)(4326008)(6436002)(5660300002)(99286004)(2906002)(66066001)(52536014)(229853002)(74316002)(8936002)(186003)(26005)(54906003)(14444005)(256004)(7696005)(316002)(305945005)(102836004)(9686003)(6246003)(81166006)(81156014)(33656002)(486006)(55016002)(25786009)(86362001)(6116002)(3846002)(53936002)(8676002)(68736007)(476003)(6916009)(73956011)(76116006)(66446008)(66476007)(66556008)(64756008)(14454004)(66946007)(71190400001)(71200400001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VE1SPR01MB0007;
- H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: fAQ1lR7BTNuLiwG/an5SbhBxMlFnnxWvWLDDc56aHop6NRQZ75/n21L46B+hyREojhWrBtjLQ/NFQrcIMfeSyvnsWQMBZjcGmLgEvQzuO/Y/ccFNL+vEWTE2FIak+BOtj0R9IpdA8l65OCQsf8asEhaUeGiSBDiuV+SShTQUPFBPyyfmQp+dkLeDlyniuEWeihK37RJ1kXroTJoHyRdT1C0M7kVj0Ph3dC3Xtm/nBp/NsxoyK3SGCh4EWC5Yn51w5+7JzEGU1jZI85BVvnRVtNcvHIlMgIl69osViUMhT3sCtRtLgY+ic07p68MUOllI7ZaIRfqWMi8oQ8Wwtrq+Nsaehb1H2v1ouBcXd0x+JK1lg58I8+2PtR2SELkeuHXBo88ij38SkNuUSc3td3WJ0CAh8Eyp4qVxGOi2MTvCYvg=
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="Q9qEe6nl"
+Received: by mail-pl1-x644.google.com with SMTP id k8so9374126plt.3
+ for <alsa-devel@alsa-project.org>; Mon, 08 Jul 2019 21:02:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eRS78OWHqkPassIhCrQBp7dftHSLHAwV/FZqf0gRdDE=;
+ b=Q9qEe6nlNveqMLgdp9dy7hMTu8Qj4wowQPPPFvIveM8eDDunlIwyhQK1cwwGoBKh0I
+ xVXUKnt7PSm9xaepMoQCga54ppDTviuo247P6zwRS8Hz2M5txQrsH/K/XP+f2uvU/PNa
+ /qDkBdtmuKwQRG/duwbvCriisvI01pbz0j0tQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eRS78OWHqkPassIhCrQBp7dftHSLHAwV/FZqf0gRdDE=;
+ b=I3wRhUgHj9UNBAjKp1+Gug8I6wVguhuSme7W4tszp0udhlirGrAaYVoZdcL5j8QqHQ
+ 0UG6R/e7AI/3etzWV2CLwxdN73zRUiw9cTv+1baB2al6LB1WvGtmEi8m9LZHl8QFWhuo
+ hcdjHHfCrGP4Nt4pP6gx/roY6EwMqFuu/zQKOjQrpc5hngSh50kgQc3dgczsBYDyRHGm
+ AaMwxR70Gbx2ScyGAFnBnKYLZz5n27YWABqKhJIK403sUMDUyInEQH+ZplBuNfX2qvdi
+ Xn97x+qrAkhNuh9gHndHtPl+IOeG2PuRgVgj8auD2PGWQTUQRQi8Qbcpp58zOUC2pgBD
+ Tk0w==
+X-Gm-Message-State: APjAAAXI7bIXlDrq1HRk9c8ddU8rkQMJ2QkjtDDJnqavqBfWn/4BGWvw
+ 14DxFgQBpOJvzRCl1n9Hl+9MBaQpC0Q=
+X-Google-Smtp-Source: APXvYqw1POX5vUNQfCeCAYBFdnr8Hff0wsdebHhnjXjJxe04kvt3a7FE1kpZ1AlgHQbJC8nJcqu/3w==
+X-Received: by 2002:a17:902:2884:: with SMTP id
+ f4mr28745735plb.286.1562644933885; 
+ Mon, 08 Jul 2019 21:02:13 -0700 (PDT)
+Received: from localhost ([2620:15c:202:201:82b8:d8c4:6cb6:57f5])
+ by smtp.gmail.com with ESMTPSA id k5sm861841pjl.32.2019.07.08.21.02.11
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 08 Jul 2019 21:02:12 -0700 (PDT)
+From: Alex Levin <levinale@chromium.org>
+To: alsa-devel@alsa-project.org
+Date: Mon,  8 Jul 2019 21:01:47 -0700
+Message-Id: <20190709040147.111927-1-levinale@chromium.org>
+X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a88d812-30ba-4402-14d6-08d7041eecad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jul 2019 03:38:36.0761 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: shengjiu.wang@nxp.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1SPR01MB0007
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>
-Subject: Re: [alsa-devel] [PATCH V2 2/2] ASoC: fsl_esai: recover the channel
- swap after xrun
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>, benzh@chromium.org,
+ Mark Brown <broonie@kernel.org>, cujomalainey@chromium.org,
+ Alex Levin <levinale@chromium.org>
+Subject: [alsa-devel] [PATCH] ASoC: Intel: Atom: read timestamp moved to
+	period_elapsed
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,38 +102,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+sst_platform_pcm_pointer is called from both snd_pcm_period_elapsed and
+from snd_pcm_ioctl. Calling read timestamp results in recalculating
+pcm_delay and buffer_ptr (sst_calc_tstamp) which consumes buffers in a
+faster rate than intended.
+In a tested BSW system with chtrt5650, for a rate of 48000, the
+measured rate was sometimes 10 times more than that.
+After moving the timestamp read to period elapsed, buffer consumption is
+as expected.
 
-> > > > +
-> > > > +     /* restore registers by regcache_sync */
-> > > > +     fsl_esai_register_restore(esai_priv);
-> > > > +
-> > > > +     regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> > > > +                        ESAI_xCR_xPR_MASK, 0);
-> > > > +     regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> > > > +                        ESAI_xCR_xPR_MASK, 0);
-> > >
-> > > And just for curious, can (or shall) we stuff this personal reset to
-> > > the reset() function? I found this one is a part of the reset
-> > > routine being mentioned in the RM -- it was done after ESAI reset is
-> done via ECR register.
-> > >
-> >
-> > There is a problem to do this, TPR/RPR need to be clear after
-> > configure the control register. (TCCR, TCR). So it seems not only one
-> > place (reset function) need to be changed.
-> 
-> Do you know (or remember) why we suddenly involve this TPR/PRP?
-> The driver has no problem so far, even if we don't have them.
-> 
-> The "personal reset" sounds like a feature that we would use to reset TX or
-> RX individually, while this hw_reset() does a full reset for both TX and RX.
-> So I wonder whether they're necessary.
+Signed-off-by: Alex Levin <levinale@chromium.org>
+---
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c | 23 +++++++++++++-------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-The hw_reset flow is suggested by design team, so involve TRP/RPP is from
-them, I don't know the detail.
+diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+index 0e8b1c5eec88..196af0b30b41 100644
+--- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
++++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+@@ -265,16 +265,28 @@ static void sst_period_elapsed(void *arg)
+ {
+ 	struct snd_pcm_substream *substream = arg;
+ 	struct sst_runtime_stream *stream;
+-	int status;
++	struct snd_soc_pcm_runtime *rtd;
++	int status, ret_val;
+ 
+ 	if (!substream || !substream->runtime)
+ 		return;
+ 	stream = substream->runtime->private_data;
+ 	if (!stream)
+ 		return;
++
++	rtd = substream->private_data;
++	if (!rtd)
++		return;
++
+ 	status = sst_get_stream_status(stream);
+ 	if (status != SST_PLATFORM_RUNNING)
+ 		return;
++
++	ret_val = stream->ops->stream_read_tstamp(sst->dev, &stream->stream_info);
++	if (ret_val) {
++		dev_err(rtd->dev, "stream_read_tstamp err code = %d\n", ret_val);
++		return;
++	}
+ 	snd_pcm_period_elapsed(substream);
+ }
+ 
+@@ -658,20 +670,15 @@ static snd_pcm_uframes_t sst_platform_pcm_pointer
+ 			(struct snd_pcm_substream *substream)
+ {
+ 	struct sst_runtime_stream *stream;
+-	int ret_val, status;
++	int status;
+ 	struct pcm_stream_info *str_info;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 
+ 	stream = substream->runtime->private_data;
+ 	status = sst_get_stream_status(stream);
+ 	if (status == SST_PLATFORM_INIT)
+ 		return 0;
++
+ 	str_info = &stream->stream_info;
+-	ret_val = stream->ops->stream_read_tstamp(sst->dev, str_info);
+-	if (ret_val) {
+-		dev_err(rtd->dev, "sst: error code = %d\n", ret_val);
+-		return ret_val;
+-	}
+ 	substream->runtime->delay = str_info->pcm_delay;
+ 	return str_info->buffer_ptr;
+ }
+-- 
+2.22.0.410.gd8fdbe21b5-goog
 
-Best regards
-Wang shengjiu  
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

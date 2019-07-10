@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADEA649DA
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 17:40:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E41649D3
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 17:39:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51E6F1695;
-	Wed, 10 Jul 2019 17:39:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51E6F1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2207516A8;
+	Wed, 10 Jul 2019 17:38:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2207516A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562773237;
-	bh=iV7Rx/hHOPmpDRDkrbKAwmrNTSoK/Ha1rHDzMljTapg=;
+	s=default; t=1562773146;
+	bh=VZm1VxnblB8koVA4q6dMkPwhfwQ+RZD0lgYNPLXSCLk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=iBxtHO0WCj7Q/1U+6TNIDBVDPJ1RpLyYwsTdzm7kQbbhyca3god0pcnwT/6UPbXiC
-	 /cG/72gjq1lT3ef8CsbV4SOddo85uu4/CKWxyc9ElwSAMRnL9DNw1eoju/RZs3yJDr
-	 s3IIny8V+M/bJYC70QoT/xCIN9NgxfXdcqjCl9R0=
+	b=GQKZkL0LC2evE41BRYN7SBRESCoSjdMITJEc4gt0TpzMJIFiL6QTCgJ3UqAW1bSte
+	 vB34OwowBoUGm7g4Si3oXpMTdylWKPj0NUMlLrGX+lI/VUYy9XqOzN1fWDh0j56+PI
+	 7hwJ/WJx2v/H7TmspkbvwsoydXC+uHAtKZzmPlMY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52D0DF803A6;
-	Wed, 10 Jul 2019 17:35:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FEA7F80368;
+	Wed, 10 Jul 2019 17:34:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8E1CF8036A; Wed, 10 Jul 2019 17:34:55 +0200 (CEST)
+ id CDBF3F80361; Wed, 10 Jul 2019 17:34:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDAE5F80321
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:34:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDAE5F80321
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6E97F800DE
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:34:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6E97F800DE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="S7FySVjt"
+ header.b="NoIcbsuh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=denYDrjvA4bYgY1cJ+m3/UL/39v/KfvpB7zH8JzvWVM=; b=S7FySVjtsNJW
- nDiCTM/6C2IXZB9/VGYN/q9J4uX2hIk7iMUL0GbEdQVIndF07CyKUobfJyZD7q2/sv3vtcMcJLzOG
- w1FHQl5RA0aX1tVPp1JGBtONq01NYz/GeQnQPmxZi5aRuLwZIKcnUc5hRUqcZMU35T1WBZWWlduQw
- SJGgk=;
+ List-Archive; bh=04bg+sZZrBLkWF8C3HZXbLA2LKxdV1o7NbMp6YnOpyI=; b=NoIcbsuh5J2G
+ e0FqYiSHFqJgoQGAwpESZbchFX2i3XFm225TuM6vuD/920WswRZ0ryesnHu+M4Hj/Qm1bDzcMci0Y
+ 5iNCgo7CHd5NRgi66P94aFkXqWhs2G3ylO3H5c2YyBpaE8gnQYCv2gfBg1DD1yEovHAPc0b9PnJNw
+ P5zN8=;
 Received: from [217.140.106.53] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hlEcL-00083C-H5; Wed, 10 Jul 2019 15:34:49 +0000
+ id 1hlEcL-00083A-CK; Wed, 10 Jul 2019 15:34:49 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 3C6F5D02D8E; Wed, 10 Jul 2019 16:34:49 +0100 (BST)
+ id 1B853D02D7C; Wed, 10 Jul 2019 16:34:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87o922gw4u.wl-kuninori.morimoto.gx@renesas.com>
+To: Wen Yang <wen.yang99@zte.com.cn>
+In-Reply-To: <1562743509-30496-2-git-send-email-wen.yang99@zte.com.cn>
 X-Patchwork-Hint: ignore
-Message-Id: <20190710153449.3C6F5D02D8E@fitzroy.sirena.org.uk>
+Message-Id: <20190710153449.1B853D02D7C@fitzroy.sirena.org.uk>
 Date: Wed, 10 Jul 2019 16:34:49 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: simple_card_utils.h: care NULL dai at
-	asoc_simple_debug_dai()" to the asoc tree
+Cc: wang.yi59@zte.com.cn, alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ jonathanh@nvidia.com, Mark Brown <broonie@kernel.org>, xue.zhihong@zte.com.cn,
+ cheng.shengyu@zte.com.cn
+Subject: [alsa-devel] Applied "ASoC: simple-card: fix an use-after-free in
+	simple_dai_link_of_dpcm()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: simple_card_utils.h: care NULL dai at asoc_simple_debug_dai()
+   ASoC: simple-card: fix an use-after-free in simple_dai_link_of_dpcm()
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -111,38 +115,104 @@ to this mail.
 Thanks,
 Mark
 
-From 52db6685932e326ed607644ab7ebdae8c194adda Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 10 Jul 2019 16:59:55 +0900
-Subject: [PATCH] ASoC: simple_card_utils.h: care NULL dai at
- asoc_simple_debug_dai()
+From 724808ad556c15e9473418d082f8aae81dd267f6 Mon Sep 17 00:00:00 2001
+From: Wen Yang <wen.yang99@zte.com.cn>
+Date: Wed, 10 Jul 2019 15:25:06 +0800
+Subject: [PATCH] ASoC: simple-card: fix an use-after-free in
+ simple_dai_link_of_dpcm()
 
-props->xxx_dai might be NULL when DPCM.
-This patch cares it for debug.
+The node variable is still being used after the of_node_put() call,
+which may result in use-after-free.
 
-Fixes: commit 0580dde59438 ("ASoC: simple-card-utils: add asoc_simple_debug_info()")
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87o922gw4u.wl-kuninori.morimoto.gx@renesas.com
+Fixes: cfc652a73331 ("ASoC: simple-card: tidyup prefix for snd_soc_codec_conf")
+Link: https://lore.kernel.org/r/1562743509-30496-2-git-send-email-wen.yang99@zte.com.cn
+Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/simple_card_utils.h | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/generic/simple-card.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index 954563ee2277..985a5f583de4 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -141,6 +141,10 @@ inline void asoc_simple_debug_dai(struct asoc_simple_priv *priv,
- {
- 	struct device *dev = simple_priv_to_dev(priv);
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index e5cde0d5e63c..4117e54884e5 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -124,8 +124,6 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
  
-+	/* dai might be NULL */
-+	if (!dai)
-+		return;
-+
- 	if (dai->name)
- 		dev_dbg(dev, "%s dai name = %s\n",
- 			name, dai->name);
+ 	li->link++;
+ 
+-	of_node_put(node);
+-
+ 	/* For single DAI link & old style of DT node */
+ 	if (is_top)
+ 		prefix = PREFIX;
+@@ -147,17 +145,17 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 
+ 		ret = asoc_simple_parse_cpu(np, dai_link, &is_single_links);
+ 		if (ret)
+-			return ret;
++			goto out_put_node;
+ 
+ 		ret = asoc_simple_parse_clk_cpu(dev, np, dai_link, dai);
+ 		if (ret < 0)
+-			return ret;
++			goto out_put_node;
+ 
+ 		ret = asoc_simple_set_dailink_name(dev, dai_link,
+ 						   "fe.%s",
+ 						   cpus->dai_name);
+ 		if (ret < 0)
+-			return ret;
++			goto out_put_node;
+ 
+ 		asoc_simple_canonicalize_cpu(dai_link, is_single_links);
+ 	} else {
+@@ -180,17 +178,17 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 
+ 		ret = asoc_simple_parse_codec(np, dai_link);
+ 		if (ret < 0)
+-			return ret;
++			goto out_put_node;
+ 
+ 		ret = asoc_simple_parse_clk_codec(dev, np, dai_link, dai);
+ 		if (ret < 0)
+-			return ret;
++			goto out_put_node;
+ 
+ 		ret = asoc_simple_set_dailink_name(dev, dai_link,
+ 						   "be.%s",
+ 						   codecs->dai_name);
+ 		if (ret < 0)
+-			return ret;
++			goto out_put_node;
+ 
+ 		/* check "prefix" from top node */
+ 		snd_soc_of_parse_node_prefix(top, cconf, codecs->of_node,
+@@ -208,19 +206,21 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+ 
+ 	ret = asoc_simple_parse_tdm(np, dai);
+ 	if (ret)
+-		return ret;
++		goto out_put_node;
+ 
+ 	ret = asoc_simple_parse_daifmt(dev, node, codec,
+ 				       prefix, &dai_link->dai_fmt);
+ 	if (ret < 0)
+-		return ret;
++		goto out_put_node;
+ 
+ 	dai_link->dpcm_playback		= 1;
+ 	dai_link->dpcm_capture		= 1;
+ 	dai_link->ops			= &simple_ops;
+ 	dai_link->init			= asoc_simple_dai_init;
+ 
+-	return 0;
++out_put_node:
++	of_node_put(node);
++	return ret;
+ }
+ 
+ static int simple_dai_link_of(struct asoc_simple_priv *priv,
 -- 
 2.20.1
 

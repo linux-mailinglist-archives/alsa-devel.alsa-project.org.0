@@ -2,92 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C180E64F2C
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2019 01:17:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D270D64F48
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2019 01:37:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 569D316A9;
-	Thu, 11 Jul 2019 01:16:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 569D316A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F1BE16B8;
+	Thu, 11 Jul 2019 01:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F1BE16B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562800624;
-	bh=oec55iAjTwd8LIA7bTLRjfdVxeKYVzsipOY3F2NXHBY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1562801848;
+	bh=/TjMOVwCQ1h0B7NsyWnkFy4nn1L+8GQ5XBuivDzP3I0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TinLT7oS+qykmuiRruk3frcNXsf8yQOsTVtgGzJ9PVGwlJl06w1gXizotY1itsAhH
-	 42xd9hYOgocVVWdm5V/zoz/vxPVsej1XfXC546bH5qZ+Mw2nWHz6YfYSa0xsrgbzlg
-	 zb5iqZTUsgblStX8vQOoqw1WiwAqFVxjPcV9lb1Y=
+	b=iJpXgO0XW6Ky/eeVDKbKhz+/wX+1St7ERtpuyMgJs0YmuKCNxevTaCNqDPAXGfSpU
+	 j6wrmMB4V1ETt7w+lTcRnqmAzbuQdyAR9+Q816bSo8xZ7yH1p4OgK2nfFEDfFJ+Pox
+	 5yAbRWbaGQk041W4MyT0ZeSC114uNNexVHedMn6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EBBAF802A0;
-	Thu, 11 Jul 2019 01:15:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62DCDF802A1;
+	Thu, 11 Jul 2019 01:35:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EB68F802A1; Thu, 11 Jul 2019 01:15:18 +0200 (CEST)
+ id 99422F802A1; Thu, 11 Jul 2019 01:35:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, ENV_AND_HDR_SPF_MATCH, PDS_NO_HELO_DNS,
- SPF_HELO_NONE, 
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PDS_NO_HELO_DNS,PRX_BODY_135,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C73A7F801A4
- for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 01:15:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C73A7F801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8EB3FF801A4
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 01:35:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EB3FF801A4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="N9XqQaAo"
-Received: by mail-lj1-x241.google.com with SMTP id v18so3776644ljh.6
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 16:15:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=KQboB9+e5px7PkIQYt9TxvsS0wLCuRZrok0YN+xW9qU=;
- b=N9XqQaAoPIac0JgRLKRl24GB5pv/laq9/aLbMTAMPG3ugr4LWVOZT31hk9asJq2PbT
- 4vbRER2CYPSpBipbp6megRSlHCqNJlQDHS6DIHW8KXk5qcQB1oYqNHmHvRK3CDE41AoQ
- KEElx4br0/fmL3uJ3KZjwiQChE+aU6reGumrPGx6/rnfvrzPpeTl2hoCtaeMgj/3jDfS
- N6aOulMiEveT0MBg8c+bNMd7dLPA3chriCRktpHuLXq7iUBcd9JufPpb7Ch78NSDaUbM
- L6+dE+/INbvwqYLzXVPt0uFUdJjehkjavB871hg4vQ6vOnN5/vcLB10xqGY0pWLh9xHv
- KOfQ==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="brITT/5d"
+Received: by mail-pg1-x52d.google.com with SMTP id i8so1949405pgm.13
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 16:35:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=Fo3zNx7q8KOphF4/0k8ry1Exilbv+0XYzkMqa1pkdPw=;
+ b=brITT/5d5a9WyodVg5ZUQsakATJo0F+/1F0NZxiiEO4WZQws6EdiwGGKUFKY2pt/Zo
+ CYrZAOfPL/cCfxp3dHvE1aabIU8b7cgowtd3fXrrYR35j+w9wSFI4/MnhtzBbTlu/r6f
+ JEKXEkQJ8j3TQqvb0K33a80yiZ+zyjPj5Z0pWmtYCvMAWLp/UJAgsVYiQ8MZ2pqd06Fp
+ zjAAh5jbOtcdf3eu7kihy5eqVXw3cEWFA1QhWDw/g3HaPszaNu2XlkvfcZEoFxHBZ2vN
+ 4/RaulelQD0Ma3GGYGzUZGqEEk/VKTIwXHs0hbdk8/rAh81ECwzdFDbV1PeVNjYcWwM+
+ vBQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=KQboB9+e5px7PkIQYt9TxvsS0wLCuRZrok0YN+xW9qU=;
- b=Y0gJ0Kr8+SdbVUp435SwYZ9UgekhvztVYz/mP+k7LwUft0CSk+7NyyhupBW6jBTPI9
- gfjhm0zmegqsVudEpceH49os6URTKMoxXSxH43ASKzPYRGOf/UJxTRK1xCVH+bOvW+Kd
- uCNoHGCT2a6SddNg0EKPHp2HXr+8DJfIWJo0AFr20n+uy06TZqvWcPi5qbTmOwe0d0TP
- m6pS7hBg2lGaGW+0jik1C/S2P2d1b3BP2PrZJyo1u7CSEcNioQN2wWPmwoA1z+YWs0mU
- oKwvnPpT3tbe0UNEfXaIO7buAs0eRTFW8eTykmbXJCZ7aQmksSpu3pJJtPjXG+qmohoc
- y+Qw==
-X-Gm-Message-State: APjAAAUGBDwUvr0oM6UNXP7DFxustZDZnk1bKNFSxsK2L1TX+fJePYrn
- yZghakh7VBALQXFkoBzIjU9e5wRIx6zHVDjsV5VEew==
-X-Google-Smtp-Source: APXvYqwdA4hJIQGF0PNM45a6g8O+FEFfKyJo3wL3XhbJp0NMRVgo11Jh/3mf/hNrzNIKK4AkK0jZ9VZODakhNdWe6b8=
-X-Received: by 2002:a2e:890a:: with SMTP id d10mr411931lji.145.1562800514229; 
- Wed, 10 Jul 2019 16:15:14 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=Fo3zNx7q8KOphF4/0k8ry1Exilbv+0XYzkMqa1pkdPw=;
+ b=dNHCnJqgRCu9XXZTc1+Y7c91ukP/N8hhIhUESdw6nndCdfqFsYeG/GLV4yw64r6rUD
+ AtrnaMmba6MvQUM2BuzQaK5lRWVjFCt+CWcXkP8y+QQVTALRlCjbMClIYKroPJS34mzm
+ YwjzinLqFs/LGIwxWml3x/FeyQ0DVcK+PdPgHa93IAtlv5kMFI2Go7NWedBbpK77Nyba
+ jvpoqODz1pxFBPEEeZE0hJmFVD0o5D8wl+NTbNCIg5Prt3n5KjOK48It8IdYpyNIg/Ix
+ 2x5p6oAsleiKXf6Kr4qgIlK0ddhn7SOrJiGWSRkTqKNBbDwoMB0wRrHfSTfw/29HpVQV
+ /M5w==
+X-Gm-Message-State: APjAAAXsJOjK5+rlXBXIpzwJDxY+z8oBhIwf9OkXpGcYi5Dy95ySiMWL
+ 0JXHs0EMgElFSxykGcNF/f0=
+X-Google-Smtp-Source: APXvYqxyqTCbrq1xdCzkoYVL+c48dQADntW+6Bi3tN/r4jmGUpVWI/udlq43jQcwlgvVT5ebKnuk1w==
+X-Received: by 2002:a17:90a:36e4:: with SMTP id
+ t91mr1101282pjb.22.1562801735794; 
+ Wed, 10 Jul 2019 16:35:35 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id q1sm6318517pfn.178.2019.07.10.16.35.35
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 10 Jul 2019 16:35:35 -0700 (PDT)
+Date: Wed, 10 Jul 2019 16:36:06 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: shengjiu.wang@nxp.com
+Message-ID: <20190710233605.GA9886@Asurada-Nvidia.nvidia.com>
+References: <cover.1562566531.git.shengjiu.wang@nxp.com>
+ <a055d9d590124aad2de70e97266e50d2bae752c8.1562566531.git.shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-References: <20190709040147.111927-1-levinale@chromium.org>
- <20190709114519.GW9224@smile.fi.intel.com>
-In-Reply-To: <20190709114519.GW9224@smile.fi.intel.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Wed, 10 Jul 2019 16:15:03 -0700
-Message-ID: <CAOReqxirZdKJQ59Z4789wT5Cxh2fyQrUcuB1pm9AidYLiPEs1A@mail.gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Alex Levin <levinale@chromium.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: Atom: read timestamp moved to
-	period_elapsed
+Content-Disposition: inline
+In-Reply-To: <a055d9d590124aad2de70e97266e50d2bae752c8.1562566531.git.shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [alsa-devel] [PATCH V3 2/2] ASoC: fsl_esai: recover the channel
+ swap after xrun
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,101 +107,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 9, 2019 at 4:45 AM Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> wrote:
->
-> On Mon, Jul 08, 2019 at 09:01:47PM -0700, Alex Levin wrote:
-> > sst_platform_pcm_pointer is called from both snd_pcm_period_elapsed and
-> > from snd_pcm_ioctl. Calling read timestamp results in recalculating
-> > pcm_delay and buffer_ptr (sst_calc_tstamp) which consumes buffers in a
-> > faster rate than intended.
-> > In a tested BSW system with chtrt5650, for a rate of 48000, the
-> > measured rate was sometimes 10 times more than that.
-> > After moving the timestamp read to period elapsed, buffer consumption is
-> > as expected.
->
-> From code prospective it looks good. You may take mine
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->
-> Though I'm not an expert in the area, Pierre and / or Liam should give
-> their blessing.
->
-Agreed, Liam or Pierre should also give their ok since this is one of
-the closed source firmware drivers.
+Hi Shengjiu,
 
-Reviewed-by: Curtis Malainey <cujomalainey@chromium.org>
-> >
-> > Signed-off-by: Alex Levin <levinale@chromium.org>
-> > ---
-> >  sound/soc/intel/atom/sst-mfld-platform-pcm.c | 23 +++++++++++++-------
-> >  1 file changed, 15 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> > index 0e8b1c5eec88..196af0b30b41 100644
-> > --- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> > +++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-> > @@ -265,16 +265,28 @@ static void sst_period_elapsed(void *arg)
-> >  {
-> >       struct snd_pcm_substream *substream = arg;
-> >       struct sst_runtime_stream *stream;
-> > -     int status;
-> > +     struct snd_soc_pcm_runtime *rtd;
-> > +     int status, ret_val;
-> >
-> >       if (!substream || !substream->runtime)
-> >               return;
-> >       stream = substream->runtime->private_data;
-> >       if (!stream)
-> >               return;
-> > +
-> > +     rtd = substream->private_data;
-> > +     if (!rtd)
-> > +             return;
-> > +
-> >       status = sst_get_stream_status(stream);
-> >       if (status != SST_PLATFORM_RUNNING)
-> >               return;
-> > +
-> > +     ret_val = stream->ops->stream_read_tstamp(sst->dev, &stream->stream_info);
-> > +     if (ret_val) {
-> > +             dev_err(rtd->dev, "stream_read_tstamp err code = %d\n", ret_val);
-> > +             return;
-> > +     }
-> >       snd_pcm_period_elapsed(substream);
-> >  }
-> >
-> > @@ -658,20 +670,15 @@ static snd_pcm_uframes_t sst_platform_pcm_pointer
-> >                       (struct snd_pcm_substream *substream)
-> >  {
-> >       struct sst_runtime_stream *stream;
-> > -     int ret_val, status;
-> > +     int status;
-> >       struct pcm_stream_info *str_info;
-> > -     struct snd_soc_pcm_runtime *rtd = substream->private_data;
-> >
-> >       stream = substream->runtime->private_data;
-> >       status = sst_get_stream_status(stream);
-> >       if (status == SST_PLATFORM_INIT)
-> >               return 0;
-> > +
-> >       str_info = &stream->stream_info;
-> > -     ret_val = stream->ops->stream_read_tstamp(sst->dev, str_info);
-> > -     if (ret_val) {
-> > -             dev_err(rtd->dev, "sst: error code = %d\n", ret_val);
-> > -             return ret_val;
-> > -     }
-> >       substream->runtime->delay = str_info->pcm_delay;
-> >       return str_info->buffer_ptr;
-> >  }
-> > --
-> > 2.22.0.410.gd8fdbe21b5-goog
-> >
->
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Mostly looks good to me, just some small comments.
+
+On Mon, Jul 08, 2019 at 02:38:52PM +0800, shengjiu.wang@nxp.com wrote:
+  
+> +static void fsl_esai_hw_reset(unsigned long arg)
+> +{
+> +	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
+> +	u32 saisr, tfcr, rfcr;
+> +	bool tx = true, rx = false, enabled[2];
+
+Could we swap the lines of u32 and bool? It'd look better.
+
+> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
+> +			   ESAI_xCR_xPR_MASK, ESAI_xCR_xPR);
+> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
+> +			   ESAI_xCR_xPR_MASK, ESAI_xCR_xPR);
+
+Let's add a line of comments for these two:
+	/* Enforce ESAI personal resets for both TX and RX */
+
+> +	/*
+> +	 * Restore registers by regcache_sync, and ignore
+> +	 * return value
+> +	 */
+
+Could fit into single-line?
+
+> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
+> +			   ESAI_xCR_xPR_MASK, 0);
+> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
+> +			   ESAI_xCR_xPR_MASK, 0);
+> +
+> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
+> +			   ESAI_PRRC_PDC_MASK, ESAI_PRRC_PDC(ESAI_GPIO));
+> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
+> +			   ESAI_PCRC_PC_MASK, ESAI_PCRC_PC(ESAI_GPIO));
+
+Could remove the blank line and add a line of comments:
+	/* Remove ESAI personal resets by configuring PCRC and PRRC also */
+
+Btw, I still feel this personal reset can be stuffed into one
+of the wrapper functions. But let's keep this simple for now.
+
+> +	regmap_read(esai_priv->regmap, REG_ESAI_SAISR, &saisr);
+
+Why do we read saisr here? All its bits would get cleared by
+the hardware reset. If it's a must to clear again, we should
+add a line of comments to emphasize it.
+
+Thank you
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

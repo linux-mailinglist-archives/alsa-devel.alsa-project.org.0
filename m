@@ -2,68 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25C2864058
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 07:06:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 681206405D
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 07:07:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5900E166A;
-	Wed, 10 Jul 2019 07:05:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5900E166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBDA51665;
+	Wed, 10 Jul 2019 07:06:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBDA51665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562735192;
-	bh=b3wIn/ksyicMaHIGX2RPhfMZTtJLb6wL3jx6W0ZJfOY=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=taogGVB9N6eP7OonBxmw/JAbJCa0dxwGy9NOHCdQGqehxrWPf5tdUqkTVhYgft+uF
-	 IIiztVilv6HaA8QdjM83kb+G7BW2xv2iLQiawRI2syOMkvrPQ8NYZF8zhvBKkj8LZn
-	 tck5JFqwsiXF51Qm+NFcMMXNvsPw+84zgvbd6K0s=
+	s=default; t=1562735234;
+	bh=DGKDRDgKqAbTgmC+iA/BbpEa4vB88L+5WHTAbGvguyQ=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ktU+rx6Jxn6qqu3+/iJrmj4P7d+5HHp2B32jwkMjQpouw0WSWXjCoMk1/S09SfUQe
+	 DhYxoJLOlzsIn5BLNqkUdLxEqfJuLtrcgyYY1NrwVJNK+1O/SdE+JttP6BZH4/UvF+
+	 ONYosdpHGVuYSKrBMB3QKwG9E3wEVMgz3RTc5H0M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BEFFF802A1;
-	Wed, 10 Jul 2019 07:04:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90FA1F802E0;
+	Wed, 10 Jul 2019 07:05:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F00C9F802A1; Wed, 10 Jul 2019 07:04:38 +0200 (CEST)
+ id B1D5CF802BE; Wed, 10 Jul 2019 07:05:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0229.hostedemail.com
- [216.40.44.229])
+Received: from smtprelay.hostedemail.com (smtprelay0161.hostedemail.com
+ [216.40.44.161])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CAFC1F800E2
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 07:04:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAFC1F800E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B30FF800DE
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 07:05:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B30FF800DE
 Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
  [216.40.38.60])
- by smtprelay07.hostedemail.com (Postfix) with ESMTP id 2D69B181D3403;
- Wed, 10 Jul 2019 05:04:33 +0000 (UTC)
+ by smtprelay04.hostedemail.com (Postfix) with ESMTP id C1E6E180A68D1;
+ Wed, 10 Jul 2019 05:04:58 +0000 (UTC)
 X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: help91_a3a1c1ec484c
-X-Filterd-Recvd-Size: 2833
+X-HE-Tag: pain10_e348f2364e1f
+X-Filterd-Recvd-Size: 1743
 Received: from joe-laptop.perches.com (cpe-23-242-196-136.socal.res.rr.com
  [23.242.196.136]) (Authenticated sender: joe@perches.com)
  by omf06.hostedemail.com (Postfix) with ESMTPA;
- Wed, 10 Jul 2019 05:04:30 +0000 (UTC)
+ Wed, 10 Jul 2019 05:04:57 +0000 (UTC)
 From: Joe Perches <joe@perches.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, netdev@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-wireless@vger.kernel.org,
- linux-media@vger.kernel.org
-Date: Tue,  9 Jul 2019 22:04:13 -0700
-Message-Id: <cover.1562734889.git.joe@perches.com>
+	linux-kernel@vger.kernel.org
+Date: Tue,  9 Jul 2019 22:04:25 -0700
+Message-Id: <92e31a9f321fe731d428ec3ec9d4654ea8a16d1b.1562734889.git.joe@perches.com>
 X-Mailer: git-send-email 2.15.0
-Cc: linux-iio@vger.kernel.org, devel@driverdev.osuosl.org,
- alsa-devel@alsa-project.org, linux-mmc@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: [alsa-devel] [PATCH 00/12] treewide: Fix GENMASK misuses
+In-Reply-To: <cover.1562734889.git.joe@perches.com>
+References: <cover.1562734889.git.joe@perches.com>
+Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 12/12] ASoC: wcd9335: Fix misuse of GENMASK
+	macro
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +78,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-These GENMASK uses are inverted argument order and the
-actual masks produced are incorrect.  Fix them.
+Arguments are supposed to be ordered high then low.
 
-Add checkpatch tests to help avoid more misuses too.
+Signed-off-by: Joe Perches <joe@perches.com>
+---
+ sound/soc/codecs/wcd-clsh-v2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Joe Perches (12):
-  checkpatch: Add GENMASK tests
-  clocksource/drivers/npcm: Fix misuse of GENMASK macro
-  drm: aspeed_gfx: Fix misuse of GENMASK macro
-  iio: adc: max9611: Fix misuse of GENMASK macro
-  irqchip/gic-v3-its: Fix misuse of GENMASK macro
-  mmc: meson-mx-sdio: Fix misuse of GENMASK macro
-  net: ethernet: mediatek: Fix misuses of GENMASK macro
-  net: stmmac: Fix misuses of GENMASK macro
-  rtw88: Fix misuse of GENMASK macro
-  phy: amlogic: G12A: Fix misuse of GENMASK macro
-  staging: media: cedrus: Fix misuse of GENMASK macro
-  ASoC: wcd9335: Fix misuse of GENMASK macro
-
- drivers/clocksource/timer-npcm7xx.c               |  2 +-
- drivers/gpu/drm/aspeed/aspeed_gfx.h               |  2 +-
- drivers/iio/adc/max9611.c                         |  2 +-
- drivers/irqchip/irq-gic-v3-its.c                  |  2 +-
- drivers/mmc/host/meson-mx-sdio.c                  |  2 +-
- drivers/net/ethernet/mediatek/mtk_eth_soc.h       |  2 +-
- drivers/net/ethernet/mediatek/mtk_sgmii.c         |  2 +-
- drivers/net/ethernet/stmicro/stmmac/descs.h       |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c |  4 ++--
- drivers/net/wireless/realtek/rtw88/rtw8822b.c     |  2 +-
- drivers/phy/amlogic/phy-meson-g12a-usb2.c         |  2 +-
- drivers/staging/media/sunxi/cedrus/cedrus_regs.h  |  2 +-
- scripts/checkpatch.pl                             | 15 +++++++++++++++
- sound/soc/codecs/wcd-clsh-v2.c                    |  2 +-
- 14 files changed, 29 insertions(+), 14 deletions(-)
-
+diff --git a/sound/soc/codecs/wcd-clsh-v2.c b/sound/soc/codecs/wcd-clsh-v2.c
+index c397d713f01a..cc5a9c9b918b 100644
+--- a/sound/soc/codecs/wcd-clsh-v2.c
++++ b/sound/soc/codecs/wcd-clsh-v2.c
+@@ -65,7 +65,7 @@ struct wcd_clsh_ctrl {
+ #define WCD9XXX_FLYBACK_EN_PWDN_WITH_DELAY			0
+ #define WCD9XXX_RX_BIAS_FLYB_BUFF			WCD9335_REG(0x6, 0xC7)
+ #define WCD9XXX_RX_BIAS_FLYB_VNEG_5_UA_MASK		GENMASK(7, 4)
+-#define WCD9XXX_RX_BIAS_FLYB_VPOS_5_UA_MASK		GENMASK(0, 3)
++#define WCD9XXX_RX_BIAS_FLYB_VPOS_5_UA_MASK		GENMASK(3, 0)
+ #define WCD9XXX_HPH_L_EN				WCD9335_REG(0x6, 0xD3)
+ #define WCD9XXX_HPH_CONST_SEL_L_MASK			GENMASK(7, 3)
+ #define WCD9XXX_HPH_CONST_SEL_BYPASS			0
 -- 
 2.15.0
 

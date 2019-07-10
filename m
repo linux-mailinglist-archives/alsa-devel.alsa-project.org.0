@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4C14649D6
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 17:39:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20723649CD
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 17:38:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6303216AE;
-	Wed, 10 Jul 2019 17:39:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6303216AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3098816AD;
+	Wed, 10 Jul 2019 17:37:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3098816AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562773193;
-	bh=gRhtGO1H7PExuWzHHqVag3mVyJYxGH9Jq8o5F8UZygY=;
+	s=default; t=1562773099;
+	bh=5LOngFvhf/ACzoiVQZOqAuWotHxJVMSlEceS8svBdTg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cCWTlspjp0wMXQIdwPErln2kI1oH+WTSpjGSBSpnU0q28gHfPhNrZU0dR3yCeSIll
-	 i1j8FrxKwN8aDLaOGk4qOdaHaeujzYPA5h8H8AgnQuT78qpE2r5imWAv/vDcw55TDC
-	 7oYrpglpYk4601DSv82VUOMusI9m7ObFnXjrwdl8=
+	b=SatagwYIJClDWYOhFxbwEUBbqckszNDMqYgwhjvnLrizb/jsnipy4ET4gufphTFBb
+	 FONTrHsU5fw2R/lofGQbxUeD60ntlQMDuICIwoTSPVH08Sk/oRtb5Om0JQ9JZYEJlF
+	 3Bv0KJs3JbTqqEIJxSsqiQ1KtKRdQdRxFp3uxX3s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72754F8038F;
-	Wed, 10 Jul 2019 17:34:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81E13F80322;
+	Wed, 10 Jul 2019 17:34:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05AF6F80367; Wed, 10 Jul 2019 17:34:54 +0200 (CEST)
+ id 94A0BF80362; Wed, 10 Jul 2019 17:34:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A76BF80307
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:34:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A76BF80307
+ by alsa1.perex.cz (Postfix) with ESMTPS id C05EBF802FB
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:34:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C05EBF802FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="G6WFmVtN"
+ header.b="KAavPYlj"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=GHgUPkVgLt5WdVv9Sq+leNmeBcsj16fbggOBYETA+hw=; b=G6WFmVtNSeV5
- 8FT5XZwNLA8KfDyZqRnLnhJ7AIf7GMdBQH858703K1WJk86SvekXoUs0XXl7PlWYOVL/lxeTdG+HZ
- jz2XGNTHfKvpI2pz4cAHVwSN7Qi/UP6TgF+xXatzhSuxb68e9g2Lc7h46xD9UuV4t0ugX8SwzebZ2
- xZ2lk=;
+ List-Archive; bh=y5hAYx0uO2lcXHWkfn9ovqJ0biIaAn41SrOHMGEklao=; b=KAavPYljoNSQ
+ V7KRHyecqJa92fnJ9Bq3t/bCrYIqH2Hyzg5/L/3ZTUa04wTjecopoNuBRJil82Qdq4RutRa8OKI7Q
+ 2XmBT6fTDlQpxRG6XpxquSo0BYIB2fEyTFGw4gQ52OSBDkhhUi/3z5A7aI8XEmeZaS5E4yAJ+3Fj8
+ 03cOA=;
 Received: from [217.140.106.53] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hlEcL-00083K-Oi; Wed, 10 Jul 2019 15:34:49 +0000
+ id 1hlEcL-00083B-EQ; Wed, 10 Jul 2019 15:34:49 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 71C0BD02D7C; Wed, 10 Jul 2019 16:34:49 +0100 (BST)
+ id 2C89AD02D84; Wed, 10 Jul 2019 16:34:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20190708141901.68797-1-tzungbi@google.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87muhmgw2o.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190710153449.71C0BD02D7C@fitzroy.sirena.org.uk>
+Message-Id: <20190710153449.2C89AD02D84@fitzroy.sirena.org.uk>
 Date: Wed, 10 Jul 2019 16:34:49 +0100 (BST)
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, dgreid@google.com, cychiang@google.com
-Subject: [alsa-devel] Applied "ASoC: max98357a: use mdelay for sdmode-delay"
-	to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: simple-card-utils: care no Platform for
+	DPCM" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: max98357a: use mdelay for sdmode-delay
+   ASoC: simple-card-utils: care no Platform for DPCM
 
 has been applied to the asoc tree at
 
@@ -112,107 +111,51 @@ to this mail.
 Thanks,
 Mark
 
-From 6cd249cfad68a231336983e2216d75b3ddfde1d6 Mon Sep 17 00:00:00 2001
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Mon, 8 Jul 2019 22:19:01 +0800
-Subject: [PATCH] ASoC: max98357a: use mdelay for sdmode-delay
+From 794fcee8da3c0c8a01b08ecad1c181cb0a622868 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 10 Jul 2019 17:01:12 +0900
+Subject: [PATCH] ASoC: simple-card-utils: care no Platform for DPCM
 
-max98357a_daiops_trigger() is possible to be called in atomic context if
-the .nonatomic flag is equal to 0 in the DAI links.
+commit 34614739988ad ("ASoC: soc-core: support dai_link with
+platforms_num != 1") supports multi Platform, and
+commit 9f3eb91753451 ("ASoC: simple-card-utils: consider CPU-Platform
+possibility") removed no Platform from simple-card.
 
-When cancel_delayed_work_sync() in max98357a_daiops_trigger() is called
-in atomic context, kernel emits the following message: "BUG: sleeping
-function called from invalid context".
+Multi Platform is now checking both Platform name/of_node are NULL case.
+But in normal case, DPCM be doesn't have Platform.
 
-According to the DT binding document, value less than or equal to 5ms of
-sdmod-delay should be sufficient to avoid the pop noise.  Use mdelay
-(i.e. busy loop) for such low delay should be acceptable.
+asoc_simple_canonicalize_platform() try to use CPU of_node
+to Platform (This is needed for DMAEngine platform case),
+but it still might be NULL at DPCM be.
 
-Fixes: cec5b01f8f1c ("ASoC: max98357a: avoid speaker pop when playback
-startup")
+This patch try to use no Platform after that if Platform of_node
+is still NULL. It can't probe without this patch.
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20190708141901.68797-1-tzungbi@google.com
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87muhmgw2o.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/max98357a.c | 25 ++++---------------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
+ sound/soc/generic/simple-card-utils.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index 6f0e28f903bf..16313b973eaa 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -20,20 +20,10 @@
- #include <sound/soc-dapm.h>
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index ac8678fe55ff..556b1a789629 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -349,6 +349,13 @@ void asoc_simple_canonicalize_platform(struct snd_soc_dai_link *dai_link)
+ 	/* Assumes platform == cpu */
+ 	if (!dai_link->platforms->of_node)
+ 		dai_link->platforms->of_node = dai_link->cpus->of_node;
++
++	/*
++	 * DPCM BE can be no platform.
++	 * Alloced memory will be waste, but not leak.
++	 */
++	if (!dai_link->platforms->of_node)
++		dai_link->num_platforms = 0;
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_canonicalize_platform);
  
- struct max98357a_priv {
--	struct delayed_work enable_sdmode_work;
- 	struct gpio_desc *sdmode;
- 	unsigned int sdmode_delay;
- };
- 
--static void max98357a_enable_sdmode_work(struct work_struct *work)
--{
--	struct max98357a_priv *max98357a =
--	container_of(work, struct max98357a_priv,
--			enable_sdmode_work.work);
--
--	gpiod_set_value(max98357a->sdmode, 1);
--}
--
- static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
- 		int cmd, struct snd_soc_dai *dai)
- {
-@@ -46,14 +36,12 @@ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		queue_delayed_work(system_power_efficient_wq,
--				&max98357a->enable_sdmode_work,
--				msecs_to_jiffies(max98357a->sdmode_delay));
-+		mdelay(max98357a->sdmode_delay);
-+		gpiod_set_value(max98357a->sdmode, 1);
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
--		cancel_delayed_work_sync(&max98357a->enable_sdmode_work);
- 		gpiod_set_value(max98357a->sdmode, 0);
- 		break;
- 	}
-@@ -112,30 +100,25 @@ static int max98357a_platform_probe(struct platform_device *pdev)
- 	int ret;
- 
- 	max98357a = devm_kzalloc(&pdev->dev, sizeof(*max98357a), GFP_KERNEL);
--
- 	if (!max98357a)
- 		return -ENOMEM;
- 
- 	max98357a->sdmode = devm_gpiod_get_optional(&pdev->dev,
- 				"sdmode", GPIOD_OUT_LOW);
--
- 	if (IS_ERR(max98357a->sdmode))
- 		return PTR_ERR(max98357a->sdmode);
- 
- 	ret = device_property_read_u32(&pdev->dev, "sdmode-delay",
- 					&max98357a->sdmode_delay);
--
- 	if (ret) {
- 		max98357a->sdmode_delay = 0;
- 		dev_dbg(&pdev->dev,
--			"no optional property 'sdmode-delay' found, default: no delay\n");
-+			"no optional property 'sdmode-delay' found, "
-+			"default: no delay\n");
- 	}
- 
- 	dev_set_drvdata(&pdev->dev, max98357a);
- 
--	INIT_DELAYED_WORK(&max98357a->enable_sdmode_work,
--				max98357a_enable_sdmode_work);
--
- 	return devm_snd_soc_register_component(&pdev->dev,
- 			&max98357a_component_driver,
- 			&max98357a_dai_driver, 1);
 -- 
 2.20.1
 

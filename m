@@ -2,94 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05C24641BE
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 09:12:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FB0A642DC
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 09:31:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 718021674;
-	Wed, 10 Jul 2019 09:11:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 718021674
+	by alsa0.perex.cz (Postfix) with ESMTPS id A81451607;
+	Wed, 10 Jul 2019 09:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A81451607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562742764;
-	bh=YHzR9LQGTe8E1kVPnb9B6ScantFqJv6YgVhjYUTKXwk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NNUZDbms3wv9s0NQfTOvitlsi2Z/y8PFxx2t+59O7sbaRaq+rdlSPtkGe+YhBlFDj
-	 YGhQGQrC1lGUBVNd7U4EFSKb9TFRuSIFkabmsk5D6INRJ3f7zxwtZAMn0F2ZG1I9Sq
-	 mgfBWvtrQJ/u1nqlJjD7QiACPFkq2dM0QQLThKo8=
+	s=default; t=1562743866;
+	bh=Y5Rt4YmgXw/14+thGjHRwlr+MpfjO1/c26uC89FH62w=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vWlTI1qCMSOLBoIS7cEf3YdJ0bPsy+ar2mG0QfqVajHwSkK9swGBcSYE0Y1leX2Vu
+	 B5pZ7Il7odqfzMXZHZ9c7Y50ysluJY1wm469q+5Wst2+K4EPS/LDxt6jonUnu+TdbC
+	 Ps0sDmtGXnRnXJM2MAlJJY2yO5nfOhbr9BErYVRE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C23B5F80392;
-	Wed, 10 Jul 2019 09:09:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6BC9F802A2;
+	Wed, 10 Jul 2019 09:29:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54DC2F80390; Wed, 10 Jul 2019 09:09:00 +0200 (CEST)
+ id 91755F800E2; Wed, 10 Jul 2019 09:29:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PDS_NO_HELO_DNS,SPF_HELO_NONE,SPF_PASS
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.217.80.70])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82FA1F80376
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 09:08:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82FA1F80376
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="RjICyuOq"
-Received: by mail-pg1-x542.google.com with SMTP id u17so763028pgi.6
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 00:08:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=opTBgfSTSFi3V1ce9YlYEnYQO/1kKdgFofPaGYJTBOY=;
- b=RjICyuOquidt6LyqOASElFqobDNn4mo6EWt1hQsD6iwRx26+bMSTRwY0lCmMrVaHSG
- 6a47JWfUcXiJfqoCtNQ7lq7rjKXQcz2UUkE2pHMU2JgLeyFB7HyoZ+a4e8q03awEvrPl
- 4wQTV2TDpVxnBFrbqJ7OGM83LJNpTu4ZxCalU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=opTBgfSTSFi3V1ce9YlYEnYQO/1kKdgFofPaGYJTBOY=;
- b=FLNpYTwclSwfdC/IDtjIkRt2vozynulCO4qIA59DIcIm17D9hhUcudGddxTi5yOOPx
- n5fguaxdzypCJLSUZYbMoa+VwmL+30Jrv9nRCXvNXRU5HakuE4S5EzIwzqkkwcJJN7vC
- E/3EhW641MlQPIhNGercKsWPSaaRSMSO/Rp7IIR3TlIpe3676MnM0DOI3BhRl937tuhX
- o8mQrXIMCIfv5RXt+zSuifzz6sU2gqfEKxJpHlTIyx3QYuOhrTNI1u5X2tBGmlcEszQT
- /UioCSXC3KcOe5lZxkGotcEf8frEulTiAIW+hTNg+CTHSGXfRi6ZNIyqS/fU4ylD0iMK
- TkfQ==
-X-Gm-Message-State: APjAAAXRxJe/2x8L4GDxmjzmQBOPbRirEgdqIIAdGtDfdQIkaC1E4dXw
- m3JRNPgp37DPGAY3fSaDcjq5NA==
-X-Google-Smtp-Source: APXvYqyla6Le8Sl5C5IFq+BMbhDM8PgxLabMwmqWmWurGv0zA2QcXauHAgdORrx2hOafDqZMEhT1zA==
-X-Received: by 2002:a65:4045:: with SMTP id h5mr36503650pgp.247.1562742532604; 
- Wed, 10 Jul 2019 00:08:52 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
- by smtp.gmail.com with ESMTPSA id b36sm3319370pjc.16.2019.07.10.00.08.49
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 10 Jul 2019 00:08:52 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Wed, 10 Jul 2019 15:07:51 +0800
-Message-Id: <20190710070751.260061-5-cychiang@chromium.org>
-X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
-In-Reply-To: <20190710070751.260061-1-cychiang@chromium.org>
-References: <20190710070751.260061-1-cychiang@chromium.org>
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- tzungbi@chromium.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Andrzej Hajda <a.hajda@samsung.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
- linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH v2 4/4] ASoC: rockchip_max98090: Add HDMI jack
-	support
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB8DFF800E2
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 09:29:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB8DFF800E2
+Received: from mse-fl2.zte.com.cn (unknown [10.30.14.239])
+ by Forcepoint Email with ESMTPS id B55A27F94F288FAB2B71;
+ Wed, 10 Jul 2019 15:29:08 +0800 (CST)
+Received: from notes_smtp.zte.com.cn ([10.30.1.239])
+ by mse-fl2.zte.com.cn with ESMTP id x6A7RUab070756;
+ Wed, 10 Jul 2019 15:27:30 +0800 (GMT-8)
+ (envelope-from wen.yang99@zte.com.cn)
+Received: from fox-host8.localdomain ([10.74.120.8])
+ by szsmtp06.zte.com.cn (Lotus Domino Release 8.5.3FP6)
+ with ESMTP id 2019071015275036-2237130 ;
+ Wed, 10 Jul 2019 15:27:50 +0800 
+From: Wen Yang <wen.yang99@zte.com.cn>
+To: lgirdwood@gmail.com
+Date: Wed, 10 Jul 2019 15:25:05 +0800
+Message-Id: <1562743509-30496-1-git-send-email-wen.yang99@zte.com.cn>
+X-Mailer: git-send-email 1.8.3.1
+X-MIMETrack: Itemize by SMTP Server on SZSMTP06/server/zte_ltd(Release
+ 8.5.3FP6|November 21, 2013) at 2019-07-10 15:27:50,
+ Serialize by Router on notes_smtp/zte_ltd(Release 9.0.1FP7|August  17, 2016) at
+ 2019-07-10 15:27:33, Serialize complete at 2019-07-10 15:27:33
+X-MAIL: mse-fl2.zte.com.cn x6A7RUab070756
+Cc: jonathanh@nvidia.com, wang.yi59@zte.com.cn, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ broonie@kernel.org, xue.zhihong@zte.com.cn, cheng.shengyu@zte.com.cn,
+ Wen Yang <wen.yang99@zte.com.cn>
+Subject: [alsa-devel] [PATCH 0/4] Fix some use-after-free problems in
+	sound/soc/generic
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,66 +74,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In machine driver, create a jack and let hdmi-codec report jack status.
+We developed a coccinelle SmPL to detect sound/sooc/generic code and
+found some use-after-free problems.
+This patch series fixes those problems.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/rockchip/rockchip_max98090.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Wen Yang (4):
+  ASoC: simple-card: fix an use-after-free in simple_dai_link_of_dpcm()
+  ASoC: simple-card: fix an use-after-free in simple_for_each_link()
+  ASoC: audio-graph-card: fix use-after-free in graph_dai_link_of_dpcm()
+  ASoC: audio-graph-card: fix an use-after-free in graph_get_dai_id()
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 3617012692ea..177c8a7ec8de 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -15,6 +15,7 @@
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-+#include <sound/hdmi-codec.h>
- 
- #include "rockchip_i2s.h"
- #include "../codecs/ts3a227e.h"
-@@ -133,6 +134,25 @@ enum {
- 	DAILINK_HDMI,
- };
- 
-+static struct snd_soc_jack rk_hdmi_jack;
-+
-+static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_component *component = runtime->codec_dai->component;
-+	int ret;
-+
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &rk_hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
-+}
-+
- /* max98090 and HDMI codec dai_link */
- static struct snd_soc_dai_link rk_dailinks[] = {
- 	[DAILINK_MAX98090] = {
-@@ -150,6 +170,7 @@ static struct snd_soc_dai_link rk_dailinks[] = {
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
-+		.init = rk_hdmi_init,
- 		SND_SOC_DAILINK_REG(hdmi),
- 	}
- };
+ sound/soc/generic/audio-graph-card.c | 30 ++++++++++++++++--------------
+ sound/soc/generic/simple-card.c      | 26 +++++++++++++-------------
+ 2 files changed, 29 insertions(+), 27 deletions(-)
+
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+
 -- 
-2.22.0.410.gd8fdbe21b5-goog
+2.9.5
 
 _______________________________________________
 Alsa-devel mailing list

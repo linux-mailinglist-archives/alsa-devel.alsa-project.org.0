@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1D93649DB
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 17:41:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BADEA649DA
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 17:40:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 655E116A9;
-	Wed, 10 Jul 2019 17:40:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 655E116A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51E6F1695;
+	Wed, 10 Jul 2019 17:39:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51E6F1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562773272;
-	bh=WOwWggw10ttRTAarGG0oFhqRf3vHqzC79bl9Itj0evU=;
+	s=default; t=1562773237;
+	bh=iV7Rx/hHOPmpDRDkrbKAwmrNTSoK/Ha1rHDzMljTapg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=S+QHHFj1kKy2t1CZ4jnC+AhNBGUYfGlWlcUGhGEjcD8cZtpisKa2+Tpb2fZXv9pYN
-	 cNwjDdVCbUdv5AZAlSHWWoo0CmvadT9WhcYlVdhPQTUy9MnfbGYknlkxxOViV4bsKu
-	 JwDh0KQ64SDWVm8xHnwnODLYZtxKzbJEBWBnk1Hw=
+	b=iBxtHO0WCj7Q/1U+6TNIDBVDPJ1RpLyYwsTdzm7kQbbhyca3god0pcnwT/6UPbXiC
+	 /cG/72gjq1lT3ef8CsbV4SOddo85uu4/CKWxyc9ElwSAMRnL9DNw1eoju/RZs3yJDr
+	 s3IIny8V+M/bJYC70QoT/xCIN9NgxfXdcqjCl9R0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3336EF803D6;
-	Wed, 10 Jul 2019 17:35:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52D0DF803A6;
+	Wed, 10 Jul 2019 17:35:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1952F80369; Wed, 10 Jul 2019 17:34:55 +0200 (CEST)
+ id B8E1CF8036A; Wed, 10 Jul 2019 17:34:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25361F80323
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:34:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25361F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDAE5F80321
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:34:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDAE5F80321
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="I4oKAsPY"
+ header.b="S7FySVjt"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=zEYE/fM+fUJTvgouP0rSljrDT6m2g/ZvpYi2J8zq2LE=; b=I4oKAsPY+oqd
- VXcXW9Fd5O5Vlz4I+Fw2ljqe+xYQ/Tv983hPXypZ6SbOwTqMunupGDIJAsnA5mHq8K+G2y7Spa4d4
- znZh/swdVLUrESDCmBL493UFuhgVHwY9XpZ++QhtqouX7oMfPRZ8qVHXBj5Yq8Ag2HdXjRBYBagDm
- mAn+o=;
+ List-Archive; bh=denYDrjvA4bYgY1cJ+m3/UL/39v/KfvpB7zH8JzvWVM=; b=S7FySVjtsNJW
+ nDiCTM/6C2IXZB9/VGYN/q9J4uX2hIk7iMUL0GbEdQVIndF07CyKUobfJyZD7q2/sv3vtcMcJLzOG
+ w1FHQl5RA0aX1tVPp1JGBtONq01NYz/GeQnQPmxZi5aRuLwZIKcnUc5hRUqcZMU35T1WBZWWlduQw
+ SJGgk=;
 Received: from [217.140.106.53] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hlEcL-00083I-Nr; Wed, 10 Jul 2019 15:34:49 +0000
+ id 1hlEcL-00083C-H5; Wed, 10 Jul 2019 15:34:49 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 62FF6D02DA6; Wed, 10 Jul 2019 16:34:49 +0100 (BST)
+ id 3C6F5D02D8E; Wed, 10 Jul 2019 16:34:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Joe Perches <joe@perches.com>
-In-Reply-To: <d198a3e6ed3a0e9070afeb6aca69903c3e985149.camel@perches.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87o922gw4u.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190710153449.62FF6D02DA6@fitzroy.sirena.org.uk>
+Message-Id: <20190710153449.3C6F5D02D8E@fitzroy.sirena.org.uk>
 Date: Wed, 10 Jul 2019 16:34:49 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- LKML <linux-kernel@vger.kernel.org>, Mark Brown <broonie@kernel.org>,
- Derek Fang <derek.fang@realtek.com>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt1308: Remove executable attribute
-	from source files" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: simple_card_utils.h: care NULL dai at
+	asoc_simple_debug_dai()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1308: Remove executable attribute from source files
+   ASoC: simple_card_utils.h: care NULL dai at asoc_simple_debug_dai()
 
 has been applied to the asoc tree at
 
@@ -113,29 +111,38 @@ to this mail.
 Thanks,
 Mark
 
-From 72365164cbefe3afa7a146d27d502ed688bf7323 Mon Sep 17 00:00:00 2001
-From: Joe Perches <joe@perches.com>
-Date: Tue, 9 Jul 2019 10:22:16 -0700
-Subject: [PATCH] ASoC: rt1308: Remove executable attribute from source files
+From 52db6685932e326ed607644ab7ebdae8c194adda Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 10 Jul 2019 16:59:55 +0900
+Subject: [PATCH] ASoC: simple_card_utils.h: care NULL dai at
+ asoc_simple_debug_dai()
 
-These are source files not executable.
+props->xxx_dai might be NULL when DPCM.
+This patch cares it for debug.
 
-Signed-off-by: Joe Perches <joe@perches.com>
-Link: https://lore.kernel.org/r/d198a3e6ed3a0e9070afeb6aca69903c3e985149.camel@perches.com
+Fixes: commit 0580dde59438 ("ASoC: simple-card-utils: add asoc_simple_debug_info()")
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87o922gw4u.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1308.c | 0
- sound/soc/codecs/rt1308.h | 0
- 2 files changed, 0 insertions(+), 0 deletions(-)
- mode change 100755 => 100644 sound/soc/codecs/rt1308.c
- mode change 100755 => 100644 sound/soc/codecs/rt1308.h
+ include/sound/simple_card_utils.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
-old mode 100755
-new mode 100644
-diff --git a/sound/soc/codecs/rt1308.h b/sound/soc/codecs/rt1308.h
-old mode 100755
-new mode 100644
+diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
+index 954563ee2277..985a5f583de4 100644
+--- a/include/sound/simple_card_utils.h
++++ b/include/sound/simple_card_utils.h
+@@ -141,6 +141,10 @@ inline void asoc_simple_debug_dai(struct asoc_simple_priv *priv,
+ {
+ 	struct device *dev = simple_priv_to_dev(priv);
+ 
++	/* dai might be NULL */
++	if (!dai)
++		return;
++
+ 	if (dai->name)
+ 		dev_dbg(dev, "%s dai name = %s\n",
+ 			name, dai->name);
 -- 
 2.20.1
 

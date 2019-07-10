@@ -2,69 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFB063CCB
-	for <lists+alsa-devel@lfdr.de>; Tue,  9 Jul 2019 22:39:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED21863F14
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 04:04:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EA0191671;
-	Tue,  9 Jul 2019 22:39:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA0191671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5ECA61663;
+	Wed, 10 Jul 2019 04:03:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5ECA61663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562704797;
-	bh=30SdhPQl1U31XESy2mB4l1AU9vK7KKGjca6YMonlG7U=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XDhithbvAQ2Tlg0g8uTB5j4vakk+Md/3g+1lkDTfQQv7X/F3jnxksZSQpz9y/uhZI
-	 92vFeWXk4uM4Zj/Q18NY3TY9owV79nipTEP0oxwaOBLmlk5ONNvuA+8QA0CNvcPQLx
-	 Jrr5UehLynCZoyxVmYivAmibmFz2ZTO/SjbOlciM=
+	s=default; t=1562724250;
+	bh=O5mYkKPtW1QcuDf/4xSUs3KYsAmZse/KhN+nSsyg10g=;
+	h=Date:From:To:References:In-Reply-To:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZDNC3yXcmPwfEvAa44FUKpIPLvhaDBYs73ErkaRzaiTRlfJD+uRhBfQ0MihsV4xYO
+	 yIxB9B6I3O/miZafK1jTKNkyEm9ZY5lftnHiETC7lCxRZEezgZtyLQ8BAi9p/Ea8OB
+	 hxnRaHE56NPMdNZp7hLyujkZSzISi3vncjwNvi5c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3B64F80276;
-	Tue,  9 Jul 2019 22:38:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0685F802BC;
+	Wed, 10 Jul 2019 04:02:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C342F80273; Tue,  9 Jul 2019 22:38:10 +0200 (CEST)
+ id 7DA30F802A1; Wed, 10 Jul 2019 04:02:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PDS_NO_HELO_DNS,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C70CF801A4
- for <alsa-devel@alsa-project.org>; Tue,  9 Jul 2019 22:38:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C70CF801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BDE7F800E2
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 04:02:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BDE7F800E2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ZtDCAB+k"
-Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net
- [24.5.143.220])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 744782073D;
- Tue,  9 Jul 2019 20:18:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1562703497;
- bh=crdGPQ/iD9mYVu0eYQ4YGZ1dxC8m0vkoOtgzPp11MLo=;
- h=Date:From:To:Cc:Subject:From;
- b=ZtDCAB+kldnnbEKMM/qHETC/OcIa+r6yFdV/RdQnjlvJLsdjorCUMVQQBAKZXYqP5
- UqDFQeT+OenpnPXmDhmq4feNMVtshJybs5NvZ6tzgnSqPVPnN5QlqCF+PY5c48llwY
- gJTt2DvrFWurelfG56S9cyxIq32cgeK9dsCLyN/k=
-Date: Tue, 9 Jul 2019 13:18:14 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Message-ID: <20190709201814.GJ641@sol.localdomain>
-Mail-Followup-To: alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="W8NM9kgb"
+Received: by mail-pf1-x442.google.com with SMTP id m30so272239pff.8
+ for <alsa-devel@alsa-project.org>; Tue, 09 Jul 2019 19:02:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=5ozlntHdL+bOtNT4Ao+TnnUuHHmNF6lXl3Z50ffu07w=;
+ b=W8NM9kgbB7xliKIJEKnoVM053v5lDWkRfoaMeuHpmAd6ZCrXem052uVY+7963In31Z
+ IBFu0UUcNMZaqsrQ28XjPseQlb0Fq0euCjm68QyY82ha87aMzOs4TjuM/0rvxAPO/+Yq
+ Kgv5/tsvBb6X+JUDOBv/zD3a5Xqs/WhtvSdFEoKqX144BxgQD+G3pEGIvxKgor0+7xiF
+ 0KYpLqJcZ0KFAWryEyauCFsWodJybldYm3+k0nkucj2zLJiK42CtFcTP/4HiXXxqoVz5
+ sPv8IxdAWi9dtmVquthytM65LXfhPVZSbzCUaAqORxDIJ6clB2jIumBGY5F2K8kX+ocd
+ oJ7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=5ozlntHdL+bOtNT4Ao+TnnUuHHmNF6lXl3Z50ffu07w=;
+ b=mouOX3qIyi/hWrD68V7/KR+XOyu+TeSulUHnT2L+KYVAfDn5Ik3fGfOuU1unPCJl11
+ P3prwhelIvWvKXgiTWbE5HJwjTWYF+cuAiY8qhnLrj/f8DNc0BS8c0rgQGY2LmLNhHxn
+ ZVm1vPj2wVbVE0RKw05UKVHEzbiwoIS9njeZvKKZAImz6f6rcuPUzdd8sUunMrj1EMDh
+ /0CzgadZE10Ssw3Pqgf+H4hBxBAmfCE7Ew4B0t3H/XpEfmEnd1jd6NwSH6TYqxjssH17
+ dGv4q07EsvvR9Y0lhPLIgTDDpBvBlKmXzLqLItyFV4OmQEgFp8I7K9dkLuJRP9srnEV4
+ lGgQ==
+X-Gm-Message-State: APjAAAXhCq+XnvFw19Q2aqCEjeE9ph1rKhiKKkv7f2vOfYC3b6O3jnn+
+ du/rY8v0K7CyTuqntZS392M=
+X-Google-Smtp-Source: APXvYqyH4iuaZb9I1WmMrypxp2AoldTXAmkmzDe2l43UsFMsM5aA6WPD309XzD6oHM7J1itC5SK4nw==
+X-Received: by 2002:a63:f346:: with SMTP id t6mr35149751pgj.203.1562724136460; 
+ Tue, 09 Jul 2019 19:02:16 -0700 (PDT)
+Received: from hari-Inspiron-1545 ([183.83.86.126])
+ by smtp.gmail.com with ESMTPSA id k22sm337387pfk.157.2019.07.09.19.02.12
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 09 Jul 2019 19:02:15 -0700 (PDT)
+Date: Wed, 10 Jul 2019 07:32:08 +0530
+From: Hariprasad Kelam <hariprasad.kelam@gmail.com>
+To: Ladislav Michl <ladis@linux-mips.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Gen Zhang <blackgod016574@gmail.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Message-ID: <20190710020208.GA12600@hari-Inspiron-1545>
+References: <20190704191026.GA20732@hari-Inspiron-1545>
+ <20190705201006.GA22085@lenoch>
 MIME-Version: 1.0
 Content-Disposition: inline
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Reminder: 4 open syzbot bugs in sound subsystem
+In-Reply-To: <20190705201006.GA22085@lenoch>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [alsa-devel] [PATCH] sound: soc: codecs: wcd9335: add irqflag
+ IRQF_ONESHOT flag
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,105 +108,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[This email was generated by a script.  Let me know if you have any suggestions
-to make it better, or if you want it re-generated with the latest status.]
-
-Of the currently open syzbot reports against the upstream kernel, I've manually
-marked 4 of them as possibly being bugs in the sound subsystem.  I've listed
-these reports below, sorted by an algorithm that tries to list first the reports
-most likely to be still valid, important, and actionable.
-
-If you believe a bug is no longer valid, please close the syzbot report by
-sending a '#syz fix', '#syz dup', or '#syz invalid' command in reply to the
-original thread, as explained at https://goo.gl/tpsmEJ#status
-
-If you believe I misattributed a bug to the sound subsystem, please let me know,
-and if possible forward the report to the correct people or mailing list.
-
-Here are the bugs:
-
---------------------------------------------------------------------------------
-Title:              INFO: rcu detected stall in snd_seq_write
-Last occurred:      72 days ago
-Reported:           316 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=33501520944e11adedf1c454eec4cb818bee16c8
-Original thread:    https://lkml.kernel.org/lkml/000000000000e5050205746dcbb0@google.com/T/#u
-
-This bug has a syzkaller reproducer only.
-
-The original thread for this bug received 1 reply, 315 days ago.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+97aae04ce27e39cbfca9@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/000000000000e5050205746dcbb0@google.com
-
---------------------------------------------------------------------------------
-Title:              WARNING: suspicious RCU usage in line6_pcm_acquire
-Last occurred:      44 days ago
-Reported:           75 days ago
-Branches:           Mainline (with usb-fuzzer patches)
-Dashboard link:     https://syzkaller.appspot.com/bug?id=a0ea128a37bfe56208042c02d080873dcbdf69a0
-Original thread:    https://lkml.kernel.org/lkml/0000000000007cb1ee0587591549@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one has replied to the original thread for this bug yet.
-
-This looks like a bug in a sound USB driver.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+06b7a5a8c4acc0445995@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000007cb1ee0587591549@google.com
-
---------------------------------------------------------------------------------
-Title:              KASAN: use-after-free Read in wake_up_if_idle
-Last occurred:      117 days ago
-Reported:           253 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=b1e300cd7b124fc83dd4199d4d1df26310111b0f
-Original thread:    https://lkml.kernel.org/lkml/00000000000066ab7105795f245e@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one replied to the original thread for this bug.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+2c1253bc508adef78a7f@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/00000000000066ab7105795f245e@google.com
-
---------------------------------------------------------------------------------
-Title:              INFO: task hung in snd_seq_write
-Last occurred:      110 days ago
-Reported:           315 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=9366cef8455b032553567ce096a5b31d8307b7dc
-Original thread:    https://lkml.kernel.org/lkml/0000000000001f74de0574710d3e@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one replied to the original thread for this bug.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+4c595632b98bb8ffcc66@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/0000000000001f74de0574710d3e@google.com
-
+On Fri, Jul 05, 2019 at 10:10:06PM +0200, Ladislav Michl wrote:
+> On Fri, Jul 05, 2019 at 12:40:26AM +0530, Hariprasad Kelam wrote:
+> > Add IRQF_ONESHOT to ensure "Interrupt is not reenabled after the hardirq
+> > handler finished".
+> > 
+> > fixes below issue reported by coccicheck
+> > 
+> > sound/soc/codecs/wcd9335.c:4068:8-33: ERROR: Threaded IRQ with no
+> > primary handler requested without IRQF_ONESHOT
+> > 
+> > Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
+> > ---
+> >  sound/soc/codecs/wcd9335.c | 5 ++++-
+> >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+> > index 85737fe..7ab9bf6f 100644
+> > --- a/sound/soc/codecs/wcd9335.c
+> > +++ b/sound/soc/codecs/wcd9335.c
+> > @@ -4056,6 +4056,9 @@ static struct wcd9335_irq wcd9335_irqs[] = {
+> >  static int wcd9335_setup_irqs(struct wcd9335_codec *wcd)
+> >  {
+> >  	int irq, ret, i;
+> > +	unsigned long irqflags;
+> > +
+> > +	irqflags = IRQF_TRIGGER_RISING | IRQF_ONESHOT;
+> 
+> Why does this change trigger adding a variable?
+Yes variable is not required. Will resend the patch without variable.
+> 
+> >  	for (i = 0; i < ARRAY_SIZE(wcd9335_irqs); i++) {
+> >  		irq = regmap_irq_get_virq(wcd->irq_data, wcd9335_irqs[i].irq);
+> > @@ -4067,7 +4070,7 @@ static int wcd9335_setup_irqs(struct wcd9335_codec *wcd)
+> >  
+> >  		ret = devm_request_threaded_irq(wcd->dev, irq, NULL,
+> >  						wcd9335_irqs[i].handler,
+> > -						IRQF_TRIGGER_RISING,
+> > +						irqflags,
+> >  						wcd9335_irqs[i].name, wcd);
+> >  		if (ret) {
+> >  			dev_err(wcd->dev, "Failed to request %s\n",
+> > -- 
+> > 2.7.4
+> > 
+> > _______________________________________________
+> > Alsa-devel mailing list
+> > Alsa-devel@alsa-project.org
+> > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

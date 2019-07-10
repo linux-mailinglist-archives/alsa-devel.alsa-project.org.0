@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB024644AE
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 11:51:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4A5644B8
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 11:54:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 563901686;
-	Wed, 10 Jul 2019 11:50:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 563901686
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8F481682;
+	Wed, 10 Jul 2019 11:53:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8F481682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562752283;
-	bh=uTUmv0kMAtxG20cbvB5Kuafr/eUrPeRY9hpFFPQnvgU=;
+	s=default; t=1562752481;
+	bh=EMf9roHvOxhahLX+eQMPEOmmOEq3EY6drvEGSGAXzoI=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ka6PgxYnBg8VMjJ26iwCLlwXgKP0SZr2h4UDH82SNKfdYagppsrw7t1HivoOALv9M
-	 H1l9KmNQLok3xLz7ZHHzNSEMpkI+P4RrmSmJjpqinisSEY6ViEAMn8kWQsWl7YxxQ8
-	 KDn9v3ECA5nhXRG9Or5HQErc1CCqssOTNGvypS4k=
+	b=BHi/IuL75ORm66KzXnD6c+qZTCy/sK66QEGaUAHoEkDbj2j8k62GhZD8bU4xkLgi9
+	 fz3WemOnk3QiRFJtAZSt0auADRwjt0uXmbT27TGbLdYCg81opzRRsskRu2pQluQBYJ
+	 AmgeZmgW1I7D/uFUl6bYshpXUloMauX1v6LNZbVk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F55EF800DE;
-	Wed, 10 Jul 2019 11:49:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 130A9F802A2;
+	Wed, 10 Jul 2019 11:52:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0506BF802A1; Wed, 10 Jul 2019 11:49:37 +0200 (CEST)
+ id C001DF802A1; Wed, 10 Jul 2019 11:52:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,19 +33,20 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8782F800DE
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 11:49:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8782F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0515EF800DE
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 11:52:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0515EF800DE
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1D4E5B090;
- Wed, 10 Jul 2019 09:49:32 +0000 (UTC)
-Date: Wed, 10 Jul 2019 11:49:31 +0200
-Message-ID: <s5himsarzh0.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 0F6AAB061;
+ Wed, 10 Jul 2019 09:52:52 +0000 (UTC)
+Date: Wed, 10 Jul 2019 11:52:52 +0200
+Message-ID: <s5hh87urzbf.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Hariprasad Kelam" <hariprasad.kelam@gmail.com>
-In-Reply-To: <20190710023059.GA14204@hari-Inspiron-1545>
+In-Reply-To: <s5himsarzh0.wl-tiwai@suse.de>
 References: <20190710023059.GA14204@hari-Inspiron-1545>
+ <s5himsarzh0.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -72,19 +73,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 10 Jul 2019 04:30:59 +0200,
-Hariprasad Kelam wrote:
+On Wed, 10 Jul 2019 11:49:31 +0200,
+Takashi Iwai wrote:
 > 
-> This patch fixes below issue reported by coccicheck
-> sound/pci/lx6464es/lx6464es.c:256:5-8: Unneeded variable: "err". Return
-> "0" on line 258
+> On Wed, 10 Jul 2019 04:30:59 +0200,
+> Hariprasad Kelam wrote:
+> > 
+> > This patch fixes below issue reported by coccicheck
+> > sound/pci/lx6464es/lx6464es.c:256:5-8: Unneeded variable: "err". Return
+> > "0" on line 258
+> > 
+> > We cannot change return value as its registered with snd_pcm_ops->close
+> > 
+> > Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
 > 
-> We cannot change return value as its registered with snd_pcm_ops->close
-> 
-> Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
+> Applied, thanks.
 
-Applied, thanks.
+Well, looking at the description above again, I'd drop the text
 
+ "We cannot change return value as its registered with
+  snd_pcm_ops->close"
+
+because this is quite misleading.  There is absolutely no need for
+changing the function return type.
+
+
+thanks,
 
 Takashi
 _______________________________________________

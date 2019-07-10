@@ -2,90 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8AEF640A9
-	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 07:26:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2158364139
+	for <lists+alsa-devel@lfdr.de>; Wed, 10 Jul 2019 08:24:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 502961658;
-	Wed, 10 Jul 2019 07:25:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 502961658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D2481667;
+	Wed, 10 Jul 2019 08:23:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D2481667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562736409;
-	bh=W4EtLYNBZuTg6HXFsCY66NCNlttB/4WHGPARQihWHks=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DMTWMjhPV/KLEUClSqJ/6jawYSTPoGJOoN/jzjLbWB23bHnGLnxwpni805nv+TvKN
-	 NcLQIQi9mjiVjVp1ZOaUvlEk0y/WWrYNAZ+e9iQItWGbWje2kgGiqLDPYRjSNotOfJ
-	 LmWsGNqUHhdRChKXvOw6xVeWO+vbS70tOAvakQfk=
+	s=default; t=1562739843;
+	bh=bpYHlPIhXcl+4hAeluRarz/B1uFo3oS1uKkwVoZ/dFs=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oDYxFUKtGSINCd15sjrOBScLtHk9xPVeZ1zKJ2TSxEmQSGVZ9fn6l17nKrmwYuyVm
+	 FsxfHJfsY31eFMiqoBt4ezdK+vzOsn6UIST+ab4h2LVfEMJH+u0Tbk1RtnXCu+aYpF
+	 9FXSD9gCkx1nOIQZ2C9RXZPcLfBJyfIbadXkAstM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C87F9F802BC;
-	Wed, 10 Jul 2019 07:25:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B80B1F802BC;
+	Wed, 10 Jul 2019 08:22:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8A2BF802A1; Wed, 10 Jul 2019 07:25:01 +0200 (CEST)
+ id 5BA7AF802A1; Wed, 10 Jul 2019 07:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, ENV_AND_HDR_SPF_MATCH, PDS_NO_HELO_DNS,
- SPF_HELO_NONE, 
- SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from host.euro-space.net (host.euro-space.net [87.117.239.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37373F801A4
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 07:24:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37373F801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63706F800DE
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 07:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63706F800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="mNA1e83g"
-Received: by mail-ot1-x344.google.com with SMTP id q20so933773otl.0
- for <alsa-devel@alsa-project.org>; Tue, 09 Jul 2019 22:24:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ioMDB4xCRfyih9blEfQfFq/5H+9f5r/eOiGuXZsKTpM=;
- b=mNA1e83gi656UXPR8nqOQSjw8wH59lM6GanNHXNRGXbg3bq0gEGgsCw16oi+sZU9DJ
- eQZNOeldrdnuV/5hnGKQpKr1o2kQF/+U+p3TsmIt5rF6zYyIyCNLkjBN4/L5YKqKT399
- fjPfPjemWu2HGAWRYhrVRBy+683K0HsvchE32sejFHgVZACcqHIZ+f/pqMUocPt7Vl4L
- KWMDPgOhI1YaN2NTfaA9ps2KehruPFGrFg/YgM5cP42ecPkX2bSaw3Ozx3KQ593gVsOd
- gw5i9X/nIAPz3i1KLeKE3PdtZ5ohiIMDa+//oPJUWKzQddrhWXjk6v1O30WeFi5CPm/K
- /Etg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ioMDB4xCRfyih9blEfQfFq/5H+9f5r/eOiGuXZsKTpM=;
- b=g+KKNevs+KA9SHQn5FCHv/EAodWG8OKj3s9MyNIGrKqIQlbNuqj+vjfocM69G58W/C
- dI3F58X4O0qN9IBY42eLNaxSlPP1n1mgKBAg1n1l9S1eWHB1GfcW9r+MTHT8wiGcaaKJ
- nK5wxOqWVyTOE68jXGkkAxtGZnJYxy5BsBwc4LLaIqXoPbZyAIks00mfE40tepIyc/cT
- jlrdXHHaflAbfYGrWJIsKO7K24NoCoPuoPiU+RxoquAtl3mYxG2FwUqttXarisIIV6y+
- 7HMje9G8EMYrpOyO9w5sCLaQSXVjxjVGh7J2r1Pq866sXgG+Enx0mG7/EgmCUn5d5DLR
- 4cVg==
-X-Gm-Message-State: APjAAAWseS0OseuqgJjKMPkPK+pNOEAykD+m9vs/v1iS+qGyfSZlUoi3
- 778Xk4/KbNPFZDv+AZ4cd4wro1D1JskTJZNr6m4EmQ==
-X-Google-Smtp-Source: APXvYqzNWCTp+PGnXinfRndYKaIVZTZf7jZeNiuotZqNqZys/IitGZeb1egfuAbp/LgydGLR3qx1qbqBFaufmhseWLw=
-X-Received: by 2002:a05:6830:2010:: with SMTP id
- e16mr9197123otp.344.1562736296734; 
- Tue, 09 Jul 2019 22:24:56 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190709182543.GA6611@hari-Inspiron-1545>
-In-Reply-To: <20190709182543.GA6611@hari-Inspiron-1545>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Wed, 10 Jul 2019 13:24:45 +0800
-Message-ID: <CA+Px+wVMn-wZ_aoAV2OMEg4zE7aoYG__my2EJM_PP5ghaXjoFw@mail.gmail.com>
-To: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Shunli Wang <shunli.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] sound: soc: codecs: mt6358: change return
-	type of mt6358_codec_init_reg
+ dkim=pass (2048-bit key) header.d=birdec.com header.i=@birdec.com
+ header.b="WEi8z93d"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=birdec.com; 
+ s=default;
+ h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:MIME-Version
+ :Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=VdUiBxCjMnnmnjRuqrh2wCzPM35P1D7GGN/3U9qGim4=; b=WEi8z93dlEvDji1OYcR9r4X+7l
+ x8qMDa/++VDfFFL3krpXjXvEmDLcDD2axsSVHU77qip5WiZmVe7mqUXQYDzRGI6zwpDvOQxdikdlE
+ uFmqY4KfKtUj6v5gLULr6CdWY4Hue0C5hKbjAv3g1s92MwZG56l/KJGQbplFLBniNRXV9vM80FwB9
+ FcvBt+GppAYBL7IOgvdN9AU8tiy7GEQs3oi3dZBJBISYA09CgHSh4Gt6Gm42gdoiXNaZK6kBbZS0g
+ li0FE2LqF1ZWT1klTvnJ2tiF6grxK+24OgvYbzvdsGxOIP09tMKWCFaNqZDcSYTGppL7msKeS8vg8
+ gktyp/IQ==;
+Received: from x4dbf9360.dyn.telefonica.de ([77.191.147.96]:58102
+ helo=gentoo0.localdomain)
+ by host.euro-space.net with esmtpsa (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128)
+ (Exim 4.92) (envelope-from <kmarinushkin@birdec.com>)
+ id 1hl5Uw-0002Cb-DB; Wed, 10 Jul 2019 06:50:34 +0100
+From: Kirill Marinushkin <kmarinushkin@birdec.com>
+To: Mark Brown <broonie@kernel.org>
+Date: Wed, 10 Jul 2019 07:51:35 +0200
+Message-Id: <20190710055135.21377-1-kmarinushkin@birdec.com>
+X-Mailer: git-send-email 2.13.6
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - host.euro-space.net
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - birdec.com
+X-Get-Message-Sender-Via: host.euro-space.net: authenticated_id:
+ kmarinushkin@birdec.com
+X-Authenticated-Sender: host.euro-space.net: kmarinushkin@birdec.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Mailman-Approved-At: Wed, 10 Jul 2019 08:22:16 +0200
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, Kirill Marinushkin <kmarinushkin@birdec.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: [alsa-devel] [PATCH] ASoC: Relocate my e-mail to .com domain zone
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,25 +90,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 10, 2019 at 2:25 AM Hariprasad Kelam
-<hariprasad.kelam@gmail.com> wrote:
->
-> As mt6358_codec_init_reg function always returns 0 , change return type
-> from int to void.
->
-> fixes below issue reported by coccicheck
-> sound/soc/codecs/mt6358.c:2260:5-8: Unneeded variable: "ret". Return "0"
-> on line 2289
->
-> Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-Acked-by: Tzung-Bi Shih <tzungbi@google.com>
+Signed-off-by: Kirill Marinushkin <kmarinushkin@birdec.com>
+---
+ MAINTAINERS                    | 2 +-
+ sound/soc/codecs/pcm3060-i2c.c | 4 ++--
+ sound/soc/codecs/pcm3060-spi.c | 4 ++--
+ sound/soc/codecs/pcm3060.c     | 4 ++--
+ sound/soc/codecs/pcm3060.h     | 2 +-
+ 5 files changed, 8 insertions(+), 8 deletions(-)
 
-Thanks for cleaning this up.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 558acf24ea1e..9cdc10e80d78 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -15829,7 +15829,7 @@ S:	Maintained
+ F:	drivers/net/ethernet/ti/netcp*
+ 
+ TI PCM3060 ASoC CODEC DRIVER
+-M:	Kirill Marinushkin <kmarinushkin@birdec.tech>
++M:	Kirill Marinushkin <kmarinushkin@birdec.com>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/pcm3060.txt
+diff --git a/sound/soc/codecs/pcm3060-i2c.c b/sound/soc/codecs/pcm3060-i2c.c
+index cdc8314882bc..abcdeb922201 100644
+--- a/sound/soc/codecs/pcm3060-i2c.c
++++ b/sound/soc/codecs/pcm3060-i2c.c
+@@ -2,7 +2,7 @@
+ //
+ // PCM3060 I2C driver
+ //
+-// Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.tech>
++// Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.com>
+ 
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+@@ -56,5 +56,5 @@ static struct i2c_driver pcm3060_i2c_driver = {
+ module_i2c_driver(pcm3060_i2c_driver);
+ 
+ MODULE_DESCRIPTION("PCM3060 I2C driver");
+-MODULE_AUTHOR("Kirill Marinushkin <kmarinushkin@birdec.tech>");
++MODULE_AUTHOR("Kirill Marinushkin <kmarinushkin@birdec.com>");
+ MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/codecs/pcm3060-spi.c b/sound/soc/codecs/pcm3060-spi.c
+index f6f19fa80932..3b79734b832b 100644
+--- a/sound/soc/codecs/pcm3060-spi.c
++++ b/sound/soc/codecs/pcm3060-spi.c
+@@ -2,7 +2,7 @@
+ //
+ // PCM3060 SPI driver
+ //
+-// Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.tech>
++// Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.com>
+ 
+ #include <linux/module.h>
+ #include <linux/spi/spi.h>
+@@ -55,5 +55,5 @@ static struct spi_driver pcm3060_spi_driver = {
+ module_spi_driver(pcm3060_spi_driver);
+ 
+ MODULE_DESCRIPTION("PCM3060 SPI driver");
+-MODULE_AUTHOR("Kirill Marinushkin <kmarinushkin@birdec.tech>");
++MODULE_AUTHOR("Kirill Marinushkin <kmarinushkin@birdec.com>");
+ MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/codecs/pcm3060.c b/sound/soc/codecs/pcm3060.c
+index 32b26f1c2282..b2358069cf9b 100644
+--- a/sound/soc/codecs/pcm3060.c
++++ b/sound/soc/codecs/pcm3060.c
+@@ -2,7 +2,7 @@
+ //
+ // PCM3060 codec driver
+ //
+-// Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.tech>
++// Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.com>
+ 
+ #include <linux/module.h>
+ #include <sound/pcm_params.h>
+@@ -342,5 +342,5 @@ int pcm3060_probe(struct device *dev)
+ EXPORT_SYMBOL(pcm3060_probe);
+ 
+ MODULE_DESCRIPTION("PCM3060 codec driver");
+-MODULE_AUTHOR("Kirill Marinushkin <kmarinushkin@birdec.tech>");
++MODULE_AUTHOR("Kirill Marinushkin <kmarinushkin@birdec.com>");
+ MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/codecs/pcm3060.h b/sound/soc/codecs/pcm3060.h
+index 75931c9a9d85..18d51e5dac2c 100644
+--- a/sound/soc/codecs/pcm3060.h
++++ b/sound/soc/codecs/pcm3060.h
+@@ -2,7 +2,7 @@
+ /*
+  * PCM3060 codec driver
+  *
+- * Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.tech>
++ * Copyright (C) 2018 Kirill Marinushkin <kmarinushkin@birdec.com>
+  */
+ 
+ #ifndef _SND_SOC_PCM3060_H
+-- 
+2.13.6
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

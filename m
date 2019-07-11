@@ -2,94 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D270D64F48
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2019 01:37:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0904E64F8F
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2019 02:30:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3F1BE16B8;
-	Thu, 11 Jul 2019 01:36:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F1BE16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 672F316BE;
+	Thu, 11 Jul 2019 02:29:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 672F316BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562801848;
-	bh=/TjMOVwCQ1h0B7NsyWnkFy4nn1L+8GQ5XBuivDzP3I0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iJpXgO0XW6Ky/eeVDKbKhz+/wX+1St7ERtpuyMgJs0YmuKCNxevTaCNqDPAXGfSpU
-	 j6wrmMB4V1ETt7w+lTcRnqmAzbuQdyAR9+Q816bSo8xZ7yH1p4OgK2nfFEDfFJ+Pox
-	 5yAbRWbaGQk041W4MyT0ZeSC114uNNexVHedMn6U=
+	s=default; t=1562805044;
+	bh=qW7/yWZ3ccWVYC+oeAMSQ3PEuvQJlsk/cncVxZRJPF0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vj5gRecgAENaqw2Fx/7CF7TzWMrax4ziDFQSOd5Vf66eg02R4JAhc+28VQejpyQNU
+	 281ojIs1XqoV9xa2YgyuYlkeyWqqu5Y6rEYjlM78g9a13ktB9rmYOhX7OttPHC/z9E
+	 6Gr2VHfSjB7l9JldduCl/38b4WjR1BOmsmUJz9Jc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62DCDF802A1;
-	Thu, 11 Jul 2019 01:35:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AB29F800E2;
+	Thu, 11 Jul 2019 02:29:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99422F802A1; Thu, 11 Jul 2019 01:35:41 +0200 (CEST)
+ id 52206F802A1; Thu, 11 Jul 2019 02:28:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PDS_NO_HELO_DNS,PRX_BODY_135,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
- [IPv6:2607:f8b0:4864:20::52d])
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, PDS_NO_HELO_DNS, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EB3FF801A4
- for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 01:35:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EB3FF801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 20D2FF800E2
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 02:28:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20D2FF800E2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="brITT/5d"
-Received: by mail-pg1-x52d.google.com with SMTP id i8so1949405pgm.13
- for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 16:35:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Fo3zNx7q8KOphF4/0k8ry1Exilbv+0XYzkMqa1pkdPw=;
- b=brITT/5d5a9WyodVg5ZUQsakATJo0F+/1F0NZxiiEO4WZQws6EdiwGGKUFKY2pt/Zo
- CYrZAOfPL/cCfxp3dHvE1aabIU8b7cgowtd3fXrrYR35j+w9wSFI4/MnhtzBbTlu/r6f
- JEKXEkQJ8j3TQqvb0K33a80yiZ+zyjPj5Z0pWmtYCvMAWLp/UJAgsVYiQ8MZ2pqd06Fp
- zjAAh5jbOtcdf3eu7kihy5eqVXw3cEWFA1QhWDw/g3HaPszaNu2XlkvfcZEoFxHBZ2vN
- 4/RaulelQD0Ma3GGYGzUZGqEEk/VKTIwXHs0hbdk8/rAh81ECwzdFDbV1PeVNjYcWwM+
- vBQA==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="ZbS9D0xz"
+Received: by mail-pg1-x542.google.com with SMTP id o13so2004084pgp.12
+ for <alsa-devel@alsa-project.org>; Wed, 10 Jul 2019 17:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PjPZ4RZ/s0K9TemDmpVH+3CtdelkU0RpBAiTMvveQGI=;
+ b=ZbS9D0xzz9LOVmBLYW9LhTyBMaAJWWj2Fqe2nc4/i9sX4BIZO1KW/HGi+FU2phWdmX
+ DM6Tv3Ir3Omy02fUxdqMl90itPVvg25DxLBdeu1x9Uzo9AjUb/CRdi4QbE5BMoh2OKBQ
+ v6e7hC19Iu7TZLHn7gtVFCTPARlPTxrMmYEzA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Fo3zNx7q8KOphF4/0k8ry1Exilbv+0XYzkMqa1pkdPw=;
- b=dNHCnJqgRCu9XXZTc1+Y7c91ukP/N8hhIhUESdw6nndCdfqFsYeG/GLV4yw64r6rUD
- AtrnaMmba6MvQUM2BuzQaK5lRWVjFCt+CWcXkP8y+QQVTALRlCjbMClIYKroPJS34mzm
- YwjzinLqFs/LGIwxWml3x/FeyQ0DVcK+PdPgHa93IAtlv5kMFI2Go7NWedBbpK77Nyba
- jvpoqODz1pxFBPEEeZE0hJmFVD0o5D8wl+NTbNCIg5Prt3n5KjOK48It8IdYpyNIg/Ix
- 2x5p6oAsleiKXf6Kr4qgIlK0ddhn7SOrJiGWSRkTqKNBbDwoMB0wRrHfSTfw/29HpVQV
- /M5w==
-X-Gm-Message-State: APjAAAXsJOjK5+rlXBXIpzwJDxY+z8oBhIwf9OkXpGcYi5Dy95ySiMWL
- 0JXHs0EMgElFSxykGcNF/f0=
-X-Google-Smtp-Source: APXvYqxyqTCbrq1xdCzkoYVL+c48dQADntW+6Bi3tN/r4jmGUpVWI/udlq43jQcwlgvVT5ebKnuk1w==
-X-Received: by 2002:a17:90a:36e4:: with SMTP id
- t91mr1101282pjb.22.1562801735794; 
- Wed, 10 Jul 2019 16:35:35 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id q1sm6318517pfn.178.2019.07.10.16.35.35
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 10 Jul 2019 16:35:35 -0700 (PDT)
-Date: Wed, 10 Jul 2019 16:36:06 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: shengjiu.wang@nxp.com
-Message-ID: <20190710233605.GA9886@Asurada-Nvidia.nvidia.com>
-References: <cover.1562566531.git.shengjiu.wang@nxp.com>
- <a055d9d590124aad2de70e97266e50d2bae752c8.1562566531.git.shengjiu.wang@nxp.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=PjPZ4RZ/s0K9TemDmpVH+3CtdelkU0RpBAiTMvveQGI=;
+ b=LcUpqVqCRbPG1ifPAQwZ82BmEt6HAez0GtvoefytPIoo8FWJyxeVp/1AGlf9yaM7bm
+ LMLjDEJSEb5Hc8gp7s8F7zzt0XcEsrEjvSnuYhAZfGavNqeDpNC3p+52QGWjlzPHbHj7
+ 2i5DYgQtO6jtP/CUAg2BgY6gYmqtBMJQKVNqLTVanHdKd7CdojUuTcBW2oZxhxuScBg4
+ syN0n1zfzmw5tSeNXJeqHXEa1XqCtuSRLyrX0eyunXIGuxsLFt756zpzrsDAYpX3gM1L
+ rJMKPDhaoM8UR83m3XGKDnx7lDGBG9rSZLynJ8+KkrL5ttp/3Bd/SMnY/Q47fhSIx5Ys
+ x2iQ==
+X-Gm-Message-State: APjAAAVWz1uypP3GaLpPTJy9F+SZszE2nLwBWWsF0rlVtDy7c+iT0Hvv
+ JhUP9reeomVYvF6PuHo93PGNejREKBFd
+X-Google-Smtp-Source: APXvYqwqlIoPCqnwQ6LqOsov51J4oO9gVsaQZVq3959YcMVvd6wrYlD0vIE8LOGFd7msUZpQhOhmug==
+X-Received: by 2002:a63:f44a:: with SMTP id p10mr1187473pgk.148.1562804929792; 
+ Wed, 10 Jul 2019 17:28:49 -0700 (PDT)
+Received: from localhost ([2620:15c:202:201:c87a:31ae:9107:f63d])
+ by smtp.gmail.com with ESMTPSA id x12sm4146684pgj.79.2019.07.10.17.28.48
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 10 Jul 2019 17:28:49 -0700 (PDT)
+From: Curtis Malainey <cujomalainey@chromium.org>
+To: alsa-devel@alsa-project.org
+Date: Wed, 10 Jul 2019 17:28:38 -0700
+Message-Id: <20190711002838.35363-1-cujomalainey@chromium.org>
+X-Mailer: git-send-email 2.22.0.410.gd8fdbe21b5-goog
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a055d9d590124aad2de70e97266e50d2bae752c8.1562566531.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- festevam@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: Re: [alsa-devel] [PATCH V3 2/2] ASoC: fsl_esai: recover the channel
- swap after xrun
+Cc: Oder Chiou <oder_chiou@realtek.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
+Subject: [alsa-devel] [PATCH] ASoC: rt5677: remove superfluous set
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,58 +96,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Shengjiu,
+We define this variable with the same value, no need to set it twice
 
-Mostly looks good to me, just some small comments.
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+---
+ sound/soc/codecs/rt5677.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-On Mon, Jul 08, 2019 at 02:38:52PM +0800, shengjiu.wang@nxp.com wrote:
-  
-> +static void fsl_esai_hw_reset(unsigned long arg)
-> +{
-> +	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
-> +	u32 saisr, tfcr, rfcr;
-> +	bool tx = true, rx = false, enabled[2];
+diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+index c779dc3474f9e..deaed5132dc95 100644
+--- a/sound/soc/codecs/rt5677.c
++++ b/sound/soc/codecs/rt5677.c
+@@ -5098,7 +5098,6 @@ static irqreturn_t rt5677_irq(int unused, void *data)
+ 			goto exit;
+ 		}
+ 
+-		irq_fired = false;
+ 		for (i = 0; i < RT5677_IRQ_NUM; i++) {
+ 			if (reg_irq & rt5677_irq_descs[i].status_mask) {
+ 				irq_fired = true;
+-- 
+2.22.0.410.gd8fdbe21b5-goog
 
-Could we swap the lines of u32 and bool? It'd look better.
-
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +			   ESAI_xCR_xPR_MASK, ESAI_xCR_xPR);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +			   ESAI_xCR_xPR_MASK, ESAI_xCR_xPR);
-
-Let's add a line of comments for these two:
-	/* Enforce ESAI personal resets for both TX and RX */
-
-> +	/*
-> +	 * Restore registers by regcache_sync, and ignore
-> +	 * return value
-> +	 */
-
-Could fit into single-line?
-
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_TCR,
-> +			   ESAI_xCR_xPR_MASK, 0);
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_RCR,
-> +			   ESAI_xCR_xPR_MASK, 0);
-> +
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PRRC,
-> +			   ESAI_PRRC_PDC_MASK, ESAI_PRRC_PDC(ESAI_GPIO));
-> +	regmap_update_bits(esai_priv->regmap, REG_ESAI_PCRC,
-> +			   ESAI_PCRC_PC_MASK, ESAI_PCRC_PC(ESAI_GPIO));
-
-Could remove the blank line and add a line of comments:
-	/* Remove ESAI personal resets by configuring PCRC and PRRC also */
-
-Btw, I still feel this personal reset can be stuffed into one
-of the wrapper functions. But let's keep this simple for now.
-
-> +	regmap_read(esai_priv->regmap, REG_ESAI_SAISR, &saisr);
-
-Why do we read saisr here? All its bits would get cleared by
-the hardware reset. If it's a must to clear again, we should
-add a line of comments to emphasize it.
-
-Thank you
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,122 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45AD467BD0
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2019 21:40:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C4167BD1
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2019 21:41:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B00D51666;
-	Sat, 13 Jul 2019 21:40:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B00D51666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 927D71677;
+	Sat, 13 Jul 2019 21:40:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 927D71677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563046850;
-	bh=STrLLF+4WbXs0/NFusRn5cxyNYx5j4v9vLtPpy85onQ=;
+	s=default; t=1563046867;
+	bh=D1h+BJil1KjBtW9IEscPa8NkaE7P7H273A88jftyUZ0=;
 	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TP1cHRVGn+yyYfw7RwTaMuHTNo7tqzNDlG9uLhEwmTLxt9TXIXCNYhA2lk4LmEwgh
-	 cHQcnSH0H5EgfoCXu+Iw2ha1oPgg/LMUSY6CZ7/0wY66eGlPQf3juCnhGQ2tlbhZT4
-	 iLQyNdo4UwWqjhnX/dfJ7xiX8hEq9qdlObgMBYo4=
+	b=CgocEqzvwPFGMIqUCHcAiE9xji4WOa5zqCdF9xVXEfWosaY2d+3NeL5RQAmrYibCg
+	 Yb3cR1nEX0Bzfe3rqxmk877Wt2mzCjaPu/ykKsqkCvrL08R5eIQc/TtlRRGVyIUjnp
+	 fZ1psCtgcxN6a4y+R39L4qVoKl/cB8b6uaUOiriQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 090A8F80369;
-	Sat, 13 Jul 2019 21:37:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01336F8036E;
+	Sat, 13 Jul 2019 21:37:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A05E2F802FB; Thu, 11 Jul 2019 12:19:39 +0200 (CEST)
+ id 8C2B2F802FB; Thu, 11 Jul 2019 12:21:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,PDS_NO_HELO_DNS,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr40114.outbound.protection.outlook.com [40.107.4.114])
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr130127.outbound.protection.outlook.com [40.107.13.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A9ACF801A4
- for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 12:19:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A9ACF801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0FF1F800D8
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 12:20:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0FF1F800D8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
- header.b="ifSvWe1n"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZCNvwvF3sJGe8UMBaQtImpsXEzplt6RvMLc38PkRS/yeyUWuwyMKEBxZJHnLOHnI6HSWpWNjwX/bVTZHxu1ofa4XPleTz9ic2oFBCvanbswiNhD5EBXnwdtuS6TfZ4zFtaHlVJ0kRlcWvgZ6s251feE+A0aJAjHfWcF3OrRaHdsrVO48alIrPK2q8X/bW82lNU/dn63BN6ErhCTg6Wj9Zpeau+QIMrwE3nTkW7H8BzLbWz77F+0tPRDjZN3yJPbHthdce+7zMlCMIAyXONfx1gZmcvvJDhNoS5YW1kP2lUxZ0gYdQdEOk4D7Fijdjo6VoRqaAagANsNmS9r3yt54gg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vqegzccg5mgbuJhviu+qMN4asH3YvvBxrmBNQoevxYc=;
- b=DbuIVOFx29f8Urs1GRQJvQNFcKaB1bUe4Az1QvNwlytENlVXfChaF7he11h2GAh/UtGhYEOzhLdNlVUtZj35spJRnc7Wt5plFZsZuGkFp0uf8rpRgrn37J1UQX10BGTTcLVNdHsyvHRhdF+jc1v3rLJEVpTSbmOwUzVpkJ8htcef9hXkREn2IVepx1g8njkGJbmbQEHQY0f5D9DjhpM5nDKZZ4b9gNR1+mfvvjTQhRisnUuVl6S42nl6/YaraslsGmLWQQ7iW8q5g3i14+U4sd1IqVCiagXNRQm24c9L/F2Y2OroYYHvKro/jOcQKoaY+F11VDUGEKX/Yt+meg8hew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=toradex.com;dmarc=pass action=none
- header.from=toradex.com;dkim=pass header.d=toradex.com;arc=none
+ header.b="CR7Jdbdr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vqegzccg5mgbuJhviu+qMN4asH3YvvBxrmBNQoevxYc=;
- b=ifSvWe1nYIqsn8uQ6F5UQ3btzdR2kZccdolvIWER04cEADkbd+DgpU6vnx3Sk4UUV6SuJRj+WLTq9Ub+Um5eMAKhuLkM+qFP3DHSLVdaT56Funs3F+HqcWx9o07jWNVLVjARlDhvLqRjg3R4VPktGBAf2lKzu/GqdzGNbmq3xvg=
+ bh=HsSR8DX8hCulohWUxa/i+HlQMvpugLkP/Bem6olghKE=;
+ b=CR7JdbdrPxG5Dg2OqjI5srdXLuGiyuxznWflpvNMebk6RHAjS81vOiap27KNP+RhkP0FUMpggwA6Qogit6LCfTVTS7PsziJTHluRDG0yFS8+zbDMOVXtmUjYe/lrcgJ4TMUc3gxBwqPbfYkdk2F91h89iO9xzgvBMCrziVjSLsI=
 Received: from AM7PR05MB6741.eurprd05.prod.outlook.com (10.186.171.86) by
- AM7PR05MB6728.eurprd05.prod.outlook.com (10.186.169.137) with Microsoft SMTP
+ AM7PR05MB6696.eurprd05.prod.outlook.com (10.186.170.83) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2073.11; Thu, 11 Jul 2019 10:19:35 +0000
+ 15.20.2052.18; Thu, 11 Jul 2019 10:20:55 +0000
 Received: from AM7PR05MB6741.eurprd05.prod.outlook.com
  ([fe80::55f7:56d8:e219:79f5]) by AM7PR05MB6741.eurprd05.prod.outlook.com
  ([fe80::55f7:56d8:e219:79f5%3]) with mapi id 15.20.2073.008; Thu, 11 Jul 2019
- 10:19:35 +0000
+ 10:20:55 +0000
 From: Igor Opaniuk <igor.opaniuk@toradex.com>
 To: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-Thread-Topic: [PATCH v2 3/6] ASoC: sgtl5000: Fix of unmute outputs on probe
-Thread-Index: AQHVKyqTM6H+ZqUkgEmGrNSyaGiEVabFTeEA
-Date: Thu, 11 Jul 2019 10:19:34 +0000
-Message-ID: <CAByghJYYVNCWB8kdmWvdeL_s2P8nnn7zegh6HwNW0pRC3gAXiw@mail.gmail.com>
+Thread-Topic: [PATCH v2 2/6] ASoC: sgtl5000: add ADC mute control
+Thread-Index: AQHVKyqRRD0zb81hRk+Jt1ntvt3D5qbFTkKA
+Date: Thu, 11 Jul 2019 10:20:54 +0000
+Message-ID: <CAByghJbOVX9RNA+TLz45cFUPHm=6_QHnvK7RFvGTGjPy-Mp67w@mail.gmail.com>
 References: <20190625074937.2621-1-oleksandr.suvorov@toradex.com>
- <20190625074937.2621-4-oleksandr.suvorov@toradex.com>
-In-Reply-To: <20190625074937.2621-4-oleksandr.suvorov@toradex.com>
+ <20190625074937.2621-3-oleksandr.suvorov@toradex.com>
+In-Reply-To: <20190625074937.2621-3-oleksandr.suvorov@toradex.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-clientproxiedby: AM0PR01CA0066.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:e6::43) To AM7PR05MB6741.eurprd05.prod.outlook.com
+x-clientproxiedby: AM0PR10CA0033.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:150::13) To AM7PR05MB6741.eurprd05.prod.outlook.com
  (2603:10a6:20b:13e::22)
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=igor.opaniuk@toradex.com; 
 x-ms-exchange-messagesentrepresentingtype: 1
-x-gm-message-state: APjAAAX4R31NyQVIJV/AFOcfMUMKHtF2/Ji9w3DC3xn2oEPo1OZWLZZY
- YLFRLcZBXRxfFs4aq47q1wNoL6dFYGV2NbAxjBs=
-x-google-smtp-source: APXvYqwh/1judZAE/L+wM0ZSzXPgB0nK6J9Ws7VbIEsYIvwpfSHvJbPfA+zVw9u0hdPt5B3+G90YuHD5dFH9n7sgi7A=
-x-received: by 2002:a17:906:31c9:: with SMTP id
- f9mr2485556ejf.168.1562840373867; Thu, 11 Jul 2019 03:19:33 -0700 (PDT)
-x-gmail-original-message-id: <CAByghJYYVNCWB8kdmWvdeL_s2P8nnn7zegh6HwNW0pRC3gAXiw@mail.gmail.com>
-x-originating-ip: [209.85.208.53]
+x-gm-message-state: APjAAAV7nH21oIYrdJRgRDcps4QX4bVt9vOgJ5QoWKt1auRO6HJCzEvj
+ ZVwkJdKSoPUbpxaGjnG9Kjtuy363RU/bQjSy/ds=
+x-google-smtp-source: APXvYqw5+fVxrxycXy0PTxStgsoPaTYCbZT9VhKi+rjPtT95tgr/6+qWfbPDAN32oX44HhyZNTRtV3EzABSRvIYLi7k=
+x-received: by 2002:a17:907:2130:: with SMTP id
+ qo16mr2396664ejb.235.1562840454251; Thu, 11 Jul 2019 03:20:54 -0700 (PDT)
+x-gmail-original-message-id: <CAByghJbOVX9RNA+TLz45cFUPHm=6_QHnvK7RFvGTGjPy-Mp67w@mail.gmail.com>
+x-originating-ip: [209.85.208.42]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: af690bdd-8b26-4054-ef83-08d705e9452b
+x-ms-office365-filtering-correlation-id: 1ad0b410-9027-40be-ba4d-08d705e97513
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:AM7PR05MB6728; 
-x-ms-traffictypediagnostic: AM7PR05MB6728:
-x-microsoft-antispam-prvs: <AM7PR05MB6728A58BD416F8DFE5A2EE579EF30@AM7PR05MB6728.eurprd05.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1360;
+ SRVR:AM7PR05MB6696; 
+x-ms-traffictypediagnostic: AM7PR05MB6696:
+x-microsoft-antispam-prvs: <AM7PR05MB6696CDBA84EA4BFD5389E2A59EF30@AM7PR05MB6696.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:421;
 x-forefront-prvs: 0095BCF226
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(136003)(376002)(366004)(346002)(396003)(39850400004)(189003)(199004)(186003)(26005)(66946007)(66476007)(66556008)(53936002)(64756008)(61266001)(66446008)(61726006)(229853002)(6512007)(68736007)(9686003)(6436002)(52116002)(71200400001)(71190400001)(14454004)(6486002)(14444005)(66574012)(256004)(76176011)(66066001)(6246003)(107886003)(53546011)(102836004)(386003)(6506007)(11346002)(4326008)(81166006)(7736002)(486006)(6116002)(44832011)(2906002)(99286004)(3846002)(8936002)(86362001)(55446002)(446003)(478600001)(476003)(6862004)(81156014)(5660300002)(498394004)(8676002)(305945005)(25786009)(6636002)(95326003)(54906003)(316002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:AM7PR05MB6728;
+ SFS:(10019020)(4636009)(39850400004)(346002)(376002)(366004)(136003)(396003)(189003)(199004)(7736002)(107886003)(316002)(5660300002)(305945005)(25786009)(53936002)(6246003)(66066001)(71200400001)(44832011)(71190400001)(61266001)(446003)(14454004)(11346002)(486006)(476003)(6436002)(66446008)(52116002)(99286004)(386003)(6506007)(102836004)(53546011)(26005)(76176011)(64756008)(6116002)(3846002)(55446002)(66556008)(66476007)(66946007)(81156014)(81166006)(6486002)(8676002)(8936002)(498394004)(9686003)(6512007)(4326008)(186003)(6862004)(2906002)(68736007)(229853002)(61726006)(95326003)(478600001)(6636002)(256004)(54906003)(86362001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM7PR05MB6696;
  H:AM7PR05MB6741.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: toradex.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: maMV2exqK7rr1Ljnbj7PkWZn7GRU0RxUSRZmzR+RDyF1zuLTQsOHJoAK7gnhd8o8msvJIQIStvzwMJQqp3LvEbej5nywZfDzH5x/0B0XigYnNFDd5/XsA2Y/xkbiVGxvl2mOBGQzzpIMyp3I4yZ5ubwufo1+0bpnRwWbDWlNzmhNM+KhB/uC3irNHGj/iSg5o+M3jg0C9Z76QQXyfINx4O4xJ8cWATyNM0Yh7LxrYEAJhbWT7XleP2WXrK3DZ1FPFESUhBcsEEX6HX3FwBky6iseSH5mUEcMYc6izQBLNaB4QEFESSfOSzGCXF3HJZARxkuqzjhX8bLcmjgLXC7V6eNYXiURWUh0usSjSpDf0AZgYGP72OovS2JDoy5ZYpeCplp3Kva4dzy+pjBHwaVTANoPL9C92kmhtk87KuKPvJY=
-Content-ID: <6553C68D2B9C774291BC6A2C7C96979B@eurprd05.prod.outlook.com>
+x-microsoft-antispam-message-info: Hmb3fFoXqmBNzJ47Qa5/AXWxjWBCuUVDAr42R31A12E2xDxY+mH4nGOC4BNfJRIslLEeTX/EOy408yLJE+qtYZYTRMfbt39Nz5a0kCHGcbPGqvn3r3PFllMFOin2vx8MRaiN+RV8KmEY5iz4MfR/x4zHhRwVkycS7cRffYNMbFv4I9t/VcC3SVbfycmYFVOMyD8S/cySXZn15/8c2aLdYVuaEa6iG/Vvazk4ouJuo4ubVBDPc17UUylvkFy6At7N6grK/NWWskTeDrVdQWmKu5/HzmgruZ57rsscmHHwRnJKlGxf9M2+hJLtYpPrKdw1zWyqHrJ8UHVPOckVadV6kqXLbYD4INmeOqqNRB521H87SNftPxTWOGqwD4aG3/RjFB64XfVEmXOoCzufpA0KZHIP+vIAcpFwqHcwHXNWqTg=
+Content-ID: <C03FE226A1F31A4390D4663DC46DBBA6@eurprd05.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: af690bdd-8b26-4054-ef83-08d705e9452b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2019 10:19:34.3261 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ad0b410-9027-40be-ba4d-08d705e97513
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Jul 2019 10:20:54.7051 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: igor.opaniuk@toradex.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR05MB6728
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR05MB6696
 X-Mailman-Approved-At: Sat, 13 Jul 2019 21:37:34 +0200
 Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
  Liam Girdwood <lgirdwood@gmail.com>,
@@ -125,8 +115,7 @@ Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v2 3/6] ASoC: sgtl5000: Fix of unmute
-	outputs on probe
+Subject: Re: [alsa-devel] [PATCH v2 2/6] ASoC: sgtl5000: add ADC mute control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,39 +133,29 @@ Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVHVlLCBKdW4gMjUsIDIwMTkgYXQgMTA6NTQgQU0gT2xla3NhbmRyIFN1dm9yb3YNCjxvbGVr
-c2FuZHIuc3V2b3JvdkB0b3JhZGV4LmNvbT4gd3JvdGU6DQo+DQo+IFRvIGVuYWJsZSAiemVybyBj
-cm9zcyBkZXRlY3QiIGZvciBBREMvSFAsIGNoYW5nZQ0KPiBIUF9aQ0RfRU4vQURDX1pDRF9FTiBi
-aXRzIG9ubHkgaW5zdGVhZCBvZiB3cml0aW5nIHRoZSB3aG9sZQ0KPiBDSElQX0FOQV9DVFJMIHJl
-Z2lzdGVyLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2FuZHIgU3V2b3JvdiA8b2xla3NhbmRy
-LnN1dm9yb3ZAdG9yYWRleC5jb20+DQo+IC0tLQ0KPg0KPiAgc291bmQvc29jL2NvZGVjcy9zZ3Rs
-NTAwMC5jIHwgNiArKystLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMg
-ZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL3NndGw1MDAw
-LmMgYi9zb3VuZC9zb2MvY29kZWNzL3NndGw1MDAwLmMNCj4gaW5kZXggYmI1OGM5OTdjNjkxNC4u
-ZTgxM2EzNzkxMGFmNCAxMDA2NDQNCj4gLS0tIGEvc291bmQvc29jL2NvZGVjcy9zZ3RsNTAwMC5j
-DQo+ICsrKyBiL3NvdW5kL3NvYy9jb2RlY3Mvc2d0bDUwMDAuYw0KPiBAQCAtMTI4OSw2ICsxMjg5
-LDcgQEAgc3RhdGljIGludCBzZ3RsNTAwMF9wcm9iZShzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQg
-KmNvbXBvbmVudCkNCj4gICAgICAgICBpbnQgcmV0Ow0KPiAgICAgICAgIHUxNiByZWc7DQo+ICAg
-ICAgICAgc3RydWN0IHNndGw1MDAwX3ByaXYgKnNndGw1MDAwID0gc25kX3NvY19jb21wb25lbnRf
-Z2V0X2RydmRhdGEoY29tcG9uZW50KTsNCj4gKyAgICAgICB1bnNpZ25lZCBpbnQgemNkX21hc2sg
-PSBTR1RMNTAwMF9IUF9aQ0RfRU4gfCBTR1RMNTAwMF9BRENfWkNEX0VOOw0KPg0KPiAgICAgICAg
-IC8qIHBvd2VyIHVwIHNndGw1MDAwICovDQo+ICAgICAgICAgcmV0ID0gc2d0bDUwMDBfc2V0X3Bv
-d2VyX3JlZ3MoY29tcG9uZW50KTsNCj4gQEAgLTEzMTYsOSArMTMxNyw4IEBAIHN0YXRpYyBpbnQg
-c2d0bDUwMDBfcHJvYmUoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQpDQo+ICAg
-ICAgICAgICAgICAgIDB4MWYpOw0KPiAgICAgICAgIHNuZF9zb2NfY29tcG9uZW50X3dyaXRlKGNv
-bXBvbmVudCwgU0dUTDUwMDBfQ0hJUF9QQURfU1RSRU5HVEgsIHJlZyk7DQo+DQo+IC0gICAgICAg
-c25kX3NvY19jb21wb25lbnRfd3JpdGUoY29tcG9uZW50LCBTR1RMNTAwMF9DSElQX0FOQV9DVFJM
-LA0KPiAtICAgICAgICAgICAgICAgICAgICAgICBTR1RMNTAwMF9IUF9aQ0RfRU4gfA0KPiAtICAg
-ICAgICAgICAgICAgICAgICAgICBTR1RMNTAwMF9BRENfWkNEX0VOKTsNCj4gKyAgICAgICBzbmRf
-c29jX2NvbXBvbmVudF91cGRhdGVfYml0cyhjb21wb25lbnQsIFNHVEw1MDAwX0NISVBfQU5BX0NU
-UkwsDQo+ICsgICAgICAgICAgICAgICB6Y2RfbWFzaywgemNkX21hc2spOw0KPg0KPiAgICAgICAg
-IHNuZF9zb2NfY29tcG9uZW50X3VwZGF0ZV9iaXRzKGNvbXBvbmVudCwgU0dUTDUwMDBfQ0hJUF9N
-SUNfQ1RSTCwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgU0dUTDUwMDBfQklBU19SX01BU0ss
-DQo+IC0tDQo+IDIuMjAuMQ0KPg0KDQpSZXZpZXdlZC1ieTogSWdvciBPcGFuaXVrIDxpZ29yLm9w
-YW5pdWtAdG9yYWRleC5jb20+DQoNCi0tIA0KQmVzdCByZWdhcmRzIC0gRnJldW5kbGljaGUgR3LD
-vHNzZSAtIE1laWxsZXVyZXMgc2FsdXRhdGlvbnMNCg0KU2VuaW9yIERldmVsb3BtZW50IEVuZ2lu
-ZWVyLA0KSWdvciBPcGFuaXVrDQoNClRvcmFkZXggQUcNCkFsdHNhZ2Vuc3RyYXNzZSA1IHwgNjA0
-OCBIb3J3L0x1emVybiB8IFN3aXR6ZXJsYW5kIHwgVDogKzQxIDQxIDUwMCA0OA0KMDAgKG1haW4g
-bGluZSkNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFs
-c2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczov
-L21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+T24gVHVlLCBKdW4gMjUsIDIwMTkgYXQgMTA6NDkgQU0gT2xla3NhbmRyIFN1dm9yb3YNCjxvbGVr
+c2FuZHIuc3V2b3JvdkB0b3JhZGV4LmNvbT4gd3JvdGU6DQo+DQo+IFRoaXMgY29udHJvbCBtdXRl
+L3VubXV0ZSB0aGUgQURDIGlucHV0IG9mIFNHVEw1MDAwDQo+IHVzaW5nIGl0cyBDSElQX0FOQV9D
+VFJMIHJlZ2lzdGVyLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2FuZHIgU3V2b3JvdiA8b2xl
+a3NhbmRyLnN1dm9yb3ZAdG9yYWRleC5jb20+DQo+IC0tLQ0KPg0KPiAgc291bmQvc29jL2NvZGVj
+cy9zZ3RsNTAwMC5jIHwgMSArDQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykNCj4N
+Cj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3Mvc2d0bDUwMDAuYyBiL3NvdW5kL3NvYy9j
+b2RlY3Mvc2d0bDUwMDAuYw0KPiBpbmRleCA1ZTQ5NTIzZWUwYjY3Li5iYjU4Yzk5N2M2OTE0IDEw
+MDY0NA0KPiAtLS0gYS9zb3VuZC9zb2MvY29kZWNzL3NndGw1MDAwLmMNCj4gKysrIGIvc291bmQv
+c29jL2NvZGVjcy9zZ3RsNTAwMC5jDQo+IEBAIC01NTYsNiArNTU2LDcgQEAgc3RhdGljIGNvbnN0
+IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHNndGw1MDAwX3NuZF9jb250cm9sc1tdID0gew0KPiAg
+ICAgICAgICAgICAgICAgICAgICAgICBTR1RMNTAwMF9DSElQX0FOQV9BRENfQ1RSTCwNCj4gICAg
+ICAgICAgICAgICAgICAgICAgICAgOCwgMSwgMCwgY2FwdHVyZV82ZGJfYXR0ZW51YXRlKSwNCj4g
+ICAgICAgICBTT0NfU0lOR0xFKCJDYXB0dXJlIFpDIFN3aXRjaCIsIFNHVEw1MDAwX0NISVBfQU5B
+X0NUUkwsIDEsIDEsIDApLA0KPiArICAgICAgIFNPQ19TSU5HTEUoIkNhcHR1cmUgU3dpdGNoIiwg
+U0dUTDUwMDBfQ0hJUF9BTkFfQ1RSTCwgMCwgMSwgMSksDQo+DQo+ICAgICAgICAgU09DX0RPVUJM
+RV9UTFYoIkhlYWRwaG9uZSBQbGF5YmFjayBWb2x1bWUiLA0KPiAgICAgICAgICAgICAgICAgICAg
+ICAgICBTR1RMNTAwMF9DSElQX0FOQV9IUF9DVFJMLA0KPiAtLQ0KPiAyLjIwLjENCj4NCg0KUmV2
+aWV3ZWQtYnk6IElnb3IgT3Bhbml1ayA8aWdvci5vcGFuaXVrQHRvcmFkZXguY29tPg0KDQotLSAN
+CkJlc3QgcmVnYXJkcyAtIEZyZXVuZGxpY2hlIEdyw7xzc2UgLSBNZWlsbGV1cmVzIHNhbHV0YXRp
+b25zDQoNClNlbmlvciBEZXZlbG9wbWVudCBFbmdpbmVlciwNCklnb3IgT3Bhbml1aw0KDQpUb3Jh
+ZGV4IEFHDQpBbHRzYWdlbnN0cmFzc2UgNSB8IDYwNDggSG9ydy9MdXplcm4gfCBTd2l0emVybGFu
+ZCB8IFQ6ICs0MSA0MSA1MDAgNDgNCjAwIChtYWluIGxpbmUpDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNh
+LWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

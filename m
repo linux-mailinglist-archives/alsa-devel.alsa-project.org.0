@@ -2,74 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EE28657C1
-	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2019 15:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E8E659D5
+	for <lists+alsa-devel@lfdr.de>; Thu, 11 Jul 2019 17:00:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF30515E2;
-	Thu, 11 Jul 2019 15:13:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF30515E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27AF115F2;
+	Thu, 11 Jul 2019 16:59:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27AF115F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562850868;
-	bh=Xv5PjUeXKrOym/rXuKhoK9wtWl6+5+Raxn0wS1G68SE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1562857235;
+	bh=rH2/zU05S0S4QG/0OelpDlaCJtdoKjVXuZHUd/13bsA=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OgQq9uYOsKW7zwvffY+1e+eWjzQ4u0JqbdywKN9NAk+nBtcpWTEcWItvUn/bCWppY
-	 UoB8Svqbcl0fzPLmTeLEqIi9kZGZxYW8uU1jxiCGncaKGdxcXJYfo24cnsg2bEXVZW
-	 /1NA1ewOGm/XcjKG6HYTtpHs414VBeaq1YDvsat8=
+	b=B0FW7HgdzRrFcOTr+AyM1J7fEF0vYz0Rbas4zKiSTL9yeVikpbuyphzUuodEyb/t7
+	 6IVsxfrTfj86xfNy5+qMKp0ENrJAwNTQw2vwPhutP+thua0Zqfab2eQKBB0LYH5kH7
+	 wSOMSIzv7GU26MP6GrqFZ8ZmPFWzcvjKeObtcKD0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07487F802FB;
-	Thu, 11 Jul 2019 15:12:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B58EF802FB;
+	Thu, 11 Jul 2019 16:58:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8630BF802FB; Thu, 11 Jul 2019 15:12:41 +0200 (CEST)
+ id D3E55F802FB; Thu, 11 Jul 2019 16:58:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODYSUB_14, SPF_HELO_NONE, 
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9516FF801A4
- for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 15:12:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9516FF801A4
-X-Amp-Result: UNSCANNABLE
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Jul 2019 06:12:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,478,1557212400"; d="scan'208";a="186375427"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
- by fmsmga001.fm.intel.com with ESMTP; 11 Jul 2019 06:12:33 -0700
-Received: from andy by smile with local (Exim 4.92)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1hlYsC-0006Wg-5J; Thu, 11 Jul 2019 16:12:32 +0300
-Date: Thu, 11 Jul 2019 16:12:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Curtis Malainey <cujomalainey@google.com>
-Message-ID: <20190711131232.GS9224@smile.fi.intel.com>
-References: <CAOReqxhxHiJ-4UYC-j4Quuuy5YP9ywohe_JwiLpCxqCvP-7ypg@mail.gmail.com>
- <20190709131401.GA9224@smile.fi.intel.com>
- <20190709132943.GB9224@smile.fi.intel.com>
- <20190709133448.GC9224@smile.fi.intel.com>
- <20190709133847.GD9224@smile.fi.intel.com>
- <CAOReqxgnbDJsEcv7vdX3w44rzB=B69sHj95E8yBZ8DnZq0=63Q@mail.gmail.com>
- <20190710164346.GP9224@smile.fi.intel.com>
- <CAOReqxgnUp2tTp__YCjF_QH4166FAA1CE8Yq_VdE9jLW6Q4s3A@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 055F7F801A4
+ for <alsa-devel@alsa-project.org>; Thu, 11 Jul 2019 16:58:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 055F7F801A4
+Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
+ by smtp1.de.adit-jv.com (Postfix) with ESMTP id B91273C00BA;
+ Thu, 11 Jul 2019 16:58:42 +0200 (CEST)
+Received: from smtp1.de.adit-jv.com ([127.0.0.1])
+ by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id OVl8UrfC2tqJ; Thu, 11 Jul 2019 16:58:36 +0200 (CEST)
+Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp1.de.adit-jv.com (Postfix) with ESMTPS id 721CB3C001F;
+ Thu, 11 Jul 2019 16:58:36 +0200 (CEST)
+Received: from HI2EXCH01.adit-jv.com ([fe80::69bf:8148:2f13:f289]) by
+ HI2EXCH01.adit-jv.com ([fe80::69bf:8148:2f13:f289%12]) with mapi id
+ 14.03.0439.000; Thu, 11 Jul 2019 16:58:36 +0200
+From: "Miartus, Adam (Arion Recruitment; ADITG/ESM)" <amiartus@de.adit-jv.com>
+To: Takashi Iwai <tiwai@suse.de>
+Thread-Topic: [ALSA patch] [PATCH 1/2] alsa: pcm: add unsupported OPS
+Thread-Index: AQHVNlFY9fbmD69LkkCLTBR1rn718qbD8RtA///g/YCAAamUUA==
+Date: Thu, 11 Jul 2019 14:58:34 +0000
+Message-ID: <B174E9FCEE9A8C46B11E4DF2E32993627B83B9@HI2EXCH01.adit-jv.com>
+References: <1562583889-2109-1-git-send-email-amiartus@de.adit-jv.com>
+ <1562583889-2109-2-git-send-email-amiartus@de.adit-jv.com>
+ <s5hy317tmxv.wl-tiwai@suse.de>
+ <B174E9FCEE9A8C46B11E4DF2E32993627B7FCA@HI2EXCH01.adit-jv.com>
+ <s5hftneq6ja.wl-tiwai@suse.de>
+In-Reply-To: <s5hftneq6ja.wl-tiwai@suse.de>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.72.92.142]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOReqxgnUp2tTp__YCjF_QH4166FAA1CE8Yq_VdE9jLW6Q4s3A@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Ross Zwisler <zwisler@google.com>, Fletcher Woodruff <fletcherw@google.com>,
- Liam Girdwood <liam.r.girdwood@intel.com>, dmaengine@vger.kernel.org,
- Pierre-louis Bossart <pierre-louis.bossart@intel.com>
-Subject: Re: [alsa-devel] DW-DMA: Probe failures on broadwell
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Pape,
+ Andreas \(ADITG/ESS1\)" <apape@de.adit-jv.com>
+Subject: Re: [alsa-devel] [ALSA patch] [PATCH 1/2] alsa: pcm: add
+	unsupported OPS
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,57 +89,119 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 10, 2019 at 02:24:48PM -0700, Curtis Malainey wrote:
-> On Wed, Jul 10, 2019 at 9:43 AM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> > On Tue, Jul 09, 2019 at 12:27:49PM -0700, Curtis Malainey wrote:
-
-> > > Thanks for the information, we are running a 4.14 kernel so we don't
-> > > have the idma32 driver, I will see if I can backport it and report
-> > > back if the fix works.
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Mittwoch, 10. Juli 2019 17:00
+> To: Miartus, Adam (Arion Recruitment; ADITG/ESM) <amiartus@de.adit-
+> jv.com>
+> Cc: alsa-devel@alsa-project.org; Pape, Andreas (ADITG/ESS1)
+> <apape@de.adit-jv.com>
+> Subject: Re: [ALSA patch] [PATCH 1/2] alsa: pcm: add unsupported OPS
+> 
+> On Wed, 10 Jul 2019 16:58:06 +0200,
+> Miartus, Adam (Arion Recruitment; ADITG/ESM) wrote:
 > >
-> > Driver is supporting iDMA 32-bit in v4.14 AFAICS.
-> > The missed stuff is a split and some fixes here and there.
-> > Here is the list of patches I have in a range v4.14..v5.2
-> > (I deliberately dropped the insignificant ones)
+> > > -----Original Message-----
+> > > From: Takashi Iwai <tiwai@suse.de>
+> > > Sent: Dienstag, 9. Juli 2019 14:25
+> > > To: Miartus, Adam (Arion Recruitment; ADITG/ESM) <amiartus@de.adit-
+> > > jv.com>
+> > > Cc: alsa-devel@alsa-project.org; Pape, Andreas (ADITG/ESS1)
+> > > <apape@de.adit-jv.com>
+> > > Subject: Re: [ALSA patch] [PATCH 1/2] alsa: pcm: add unsupported OPS
+> > >
+> > > On Mon, 08 Jul 2019 13:04:48 +0200,
+> > > Adam Miartus wrote:
+> > > >
+> > > > From: Andreas Pape <apape@de.adit-jv.com>
+> > > >
+> > > > Signed-off-by: Andreas Pape <apape@de.adit-jv.com>
+> > > > Signed-off-by: Adam Miartus <amiartus@de.adit-jv.com>
+> > >
+> > > No description isn't good at all.  There must be something you can
+> > > explain in details here.
 > >
-> > 934891b0a16c dmaengine: dw: Don't pollute CTL_LO on iDMA 32-bit
-> > 91f0ff883e9a dmaengine: dw: Reset DRAIN bit when resume the channel
-> > 69da8be90d5e dmaengine: dw: Split DW and iDMA 32-bit operations
-> > 87fe9ae84d7b dmaengine: dw: Add missed multi-block support for iDMA 32-bit
-> > ffe843b18211 dmaengine: dw: Fix FIFO size for Intel Merrifield
-> > 7b0c03ecc42f dmaengine: dw-dmac: implement dma protection control setting
+> > Certainly, I will add explanation in patch v2.
 > >
-> > For me sounds like fairly easy to backport.
+> > >
+> > > About the changes:
+> > >
+> > > > +#define PCM_UNSUPPORTED_ERR (-ENOSYS)
+> > > > +void snd_pcm_unsupported_dump(snd_pcm_t *pcm, snd_output_t
+> > > *out)
+> > > > +{
+> > > > +	snd_output_printf(out, "unsupported\n");
+> > > > +}
+> > >
+> > > IMO, we don't need to show anything if it's dummy.
+> > > And, maybe it's more straightforward to let the PCM core allow NULL
+> > > ops?
+> > >
 > >
-> I got the code integrated, and ran some tests. The test device
-> regularly hits a BUG_ON in the dw/core.c, debug is turned on in dw
-> core
+> > If you agree I could add following in patch v2, then we could drop
+> snd_pcm_unsupported_dump function altogether
+> >
+> > diff --git a/src/pcm/pcm.c b/src/pcm/pcm.c
+> > index e0ceccc..4d91d4d 100644
+> > --- a/src/pcm/pcm.c
+> > +++ b/src/pcm/pcm.c
+> > @@ -2277,7 +2277,8 @@ int snd_pcm_dump(snd_pcm_t *pcm,
+> snd_output_t *out)
+> >  {
+> >         assert(pcm);
+> >         assert(out);
+> > -       pcm->ops->dump(pcm->op_arg, out);
+> > +       if (pcm->ops->dump)
+> > +               pcm->ops->dump(pcm->op_arg, out);
+> >         return 0;
+> >  }
+> 
+> I *guess* this would be simpler in the end, although I'm fine with
+> your original idea, too.  Let's see and compare the both results.
 
-I see. We need ASoC guys to shed a light here. I don't know that part at all.
+Yes I agree, it would even be better to remove the pcm_unsupported.c altogether.
+I had a look at how snd_pcm_ops_t and snd_pcm_fast_ops_t callbacks are used in alsa-lib
+and in most cases (90% or more) it is assumed that the function pointer is valid without
+checking for NULL.
 
-Only last suggestion I have is to try remove multi-block setting from the
-platform data (it will be emulated in software if needed). But I don't believe
-the DMA for audio has no such feature enabled.
+Unfortunately, not all functions in ops and fast_ops share the same return type,
+so checking for null pointer in a macro is not straightforward. One way I see is to add:
 
-> We have only been able to consistently reproduce the DMA boot issue on
-> our original code consistently on 1 device and sporadically on another
-> handful of devices.
-> When the device did finally booted after 2-3 device crashes the device
-> failed to load the DSP.
+if (ops->callback == NULL)
+	return -ENOSYS;
 
-Yeah, it has something to do with this firmware loader code...
+check in every occurrence of ops callback call in source code, then we could drop
+pcm_unsupported.c file completely.
 
-> [    3.709573] sst-acpi INT3438:00: DesignWare DMA Controller, 8 channels
-> [    3.959027] haswell-pcm-audio haswell-pcm-audio: error: audio DSP
-> boot timeout IPCD 0x0 IPCX 0x0
-> [    3.970336] bdw-rt5677 bdw-rt5677: ASoC: failed to init link System PCM
+Optionally we could add a set of macros such as (it compiled both in gcc and in clang)
 
--- 
-With Best Regards,
-Andy Shevchenko
+#define snd_callback_int(fpointer, ...) ({ \
+	int result; \
+	if (fpointer == NULL) \
+		result = -ENOSYS; \
+	else \
+		result = fpointer(__VA_ARGS__); \
+	result; \
+})
 
+For each ops function return types, currently these are:
+int, void, snd_pcm_chmap_query_t**, snd_pcm_chmap_t *, 
+snd_pcm_state_t, snd_pcm_sframes_t
 
+So, the variants for macros would be:
+snd_callback_void
+snd_callback_int
+snd_callback_ptr
+snd_callback_sframes
+
+This might seem like cumbersome approach but it would save lines of code
+and provide a way to check for null callback pointer, which is currently not
+done in most cases.
+
+What do you think about these two approaches, what could you consider
+correct and able to be merged?
+
+Adam
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

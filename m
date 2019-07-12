@@ -2,68 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DC7866172
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2019 00:02:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97217662AD
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2019 02:13:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F0491667;
-	Fri, 12 Jul 2019 00:01:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F0491667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D5C01665;
+	Fri, 12 Jul 2019 02:12:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D5C01665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562882549;
-	bh=mjUq1lGfIulf2uRgvtjN0A8A+BCaebKSvRcQL9FoqE8=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1562890418;
+	bh=vjjM1xLnfaFXyPjegWi1yQlI21eUQLB0CRZ+RPMBM9k=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oq59oSKsZ4+Y+Smn62tYhnDjh1x5nsCrohyTeLyw65TLWvH1ylgPExDfbG7CCwSNu
-	 2cj5XHZJMVbvLy0XXTTKdSOG1ujwwbeiOvz8qbXa8MuaYOQIjnsCwjF9wOpLs+FzNe
-	 g3H1BrN6xnh8uKkXTSJNG9vk6GzCe4NfQJ9eYpg4=
+	b=fbelp6PZUxxgX6OscamiVWN77JX7UcbC91cWLwUIM49BeTcHXtBe0gdno29PPqzp4
+	 HOrj+LSyL3sI3BXXHCxiC4mWnT7ehmKZF2pCEKOmYRQC1/kw136CKgaDzqXIruV6Iq
+	 kmpBCLQij1fyJe8aZrOH1AWtq5DA4mREM8q9ZslE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDFAFF802E0;
-	Fri, 12 Jul 2019 00:00:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EDAFF80306;
+	Fri, 12 Jul 2019 02:11:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB40AF802FB; Fri, 12 Jul 2019 00:00:38 +0200 (CEST)
+ id AA1B4F802FB; Fri, 12 Jul 2019 02:11:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0194.hostedemail.com
- [216.40.44.194])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9D8FF800E2
- for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2019 00:00:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9D8FF800E2
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay02.hostedemail.com (Postfix) with ESMTP id 87C83909A;
- Thu, 11 Jul 2019 22:00:33 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: bean07_3ea908f224563
-X-Filterd-Recvd-Size: 2260
-Received: from XPS-9350 (unknown [172.58.35.165])
- (Authenticated sender: joe@perches.com)
- by omf20.hostedemail.com (Postfix) with ESMTPA;
- Thu, 11 Jul 2019 22:00:30 +0000 (UTC)
-Message-ID: <eeeb09518c8967ffd48606c3d1222553752e895d.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Hariprasad Kelam <hariprasad.kelam@gmail.com>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
- <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, Vinod Koul <vkoul@kernel.org>, Wen Yang
- <wen.yang99@zte.com.cn>, Gen Zhang <blackgod016574@gmail.com>, Dan
- Carpenter <dan.carpenter@oracle.com>, alsa-devel@alsa-project.org, 
- linux-kernel@vger.kernel.org
-Date: Thu, 11 Jul 2019 15:00:00 -0700
-In-Reply-To: <20190711174906.GA10867@hari-Inspiron-1545>
-References: <20190711174906.GA10867@hari-Inspiron-1545>
-User-Agent: Evolution 3.30.5-0ubuntu0.18.10.1 
-MIME-Version: 1.0
-Subject: Re: [alsa-devel] [PATCH] sound: soc: codecs: wcd9335: fix
- "conversion to bool not needed here"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id B505EF800E2
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2019 02:11:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B505EF800E2
+Date: 12 Jul 2019 09:11:42 +0900
+X-IronPort-AV: E=Sophos;i="5.62,480,1554735600"; d="scan'208";a="21207168"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 12 Jul 2019 09:11:42 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 892DD4006CCF;
+ Fri, 12 Jul 2019 09:11:42 +0900 (JST)
+Message-ID: <87o9205d2n.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Daniel Baluta <daniel.baluta@gmail.com>
+In-Reply-To: <CAEnQRZB2SnyzdZw_qEn+gofDi293m2d8nq5gmMBkyn52v2GRkw@mail.gmail.com>
+References: <CAEnQRZB2SnyzdZw_qEn+gofDi293m2d8nq5gmMBkyn52v2GRkw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: "S.j. Wang" <shengjiu.wang@nxp.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] How to treat old style platform components
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,43 +64,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2019-07-11 at 23:19 +0530, Hariprasad Kelam wrote:
-> Fix below issue reported by coccicheck
-> sound/soc/codecs/wcd9335.c:3991:25-30: WARNING: conversion to bool not
-> needed here
-> 
-> Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-> ---
->  sound/soc/codecs/wcd9335.c | 7 +------
->  1 file changed, 1 insertion(+), 6 deletions(-)
-> 
-> diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-> index 1bbbe42..85a8d10 100644
-> --- a/sound/soc/codecs/wcd9335.c
-> +++ b/sound/soc/codecs/wcd9335.c
-> @@ -3988,12 +3988,7 @@ static irqreturn_t wcd9335_slimbus_irq(int irq, void *data)
->  		regmap_read(wcd->if_regmap,
->  				WCD9335_SLIM_PGD_PORT_INT_RX_SOURCE0 + j, &val);
->  		if (val) {
-> -			if (!tx)
-> -				reg = WCD9335_SLIM_PGD_PORT_INT_EN0 +
-> -					(port_id / 8);
-> -			else
-> -				reg = WCD9335_SLIM_PGD_PORT_INT_TX_EN0 +
-> -					(port_id / 8);
-> +			reg = WCD9335_SLIM_PGD_PORT_INT_TX_EN0 + (port_id / 8);
->  			regmap_read(
->  				wcd->if_regmap, reg, &int_val);
->  			/*
 
-This change makes no sense and doesn't match the commit message.
+Hi Daniel
 
+Thank you for contacting me
 
+> static struct snd_soc_component_driver imx_soc_platform =3D {
+> .ops=BB   =BB       =3D &imx_pcm_ops,
+>  .pcm_new=BB       =3D imx_pcm_new,
+> };
+> =
+
+> Then somewhere in the DAI driver we call:
+> =
+
+> devm_snd_soc_register_component(dev, &imx_soc_platform, NULL, 0);
+> =
+
+> I'm using simple-card with the following configuration:
+> =
+
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/=
+arch/arm64/boot/dts/freescale/imx8mm-evk.dts#n41
+>
+> After latest changes it seems that imx_pcm_ops->open() function is no
+> longer called.
+
+Quick question
+above "imx_soc_platform" and DT's "sai3" are implemented at same driver ?
+
+If so, I guess your kernel doesn't have this commit ?
+If not, please include it.
+
+	9f3eb917534511f2e275b7cf63ed76374ade77bc
+	("ASoC: simple-card-utils: consider CPU-Platform possibility")
+
+Sorry to bother you.
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

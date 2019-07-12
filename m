@@ -2,69 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 577476683D
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2019 10:08:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FBF766979
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2019 10:58:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0526166A;
-	Fri, 12 Jul 2019 10:07:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0526166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86262166A;
+	Fri, 12 Jul 2019 10:57:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86262166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562918901;
-	bh=HXx7M9xEmncjzNsIsaPge1ePy4wTDvZ1Yjb+kN+KadU=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=akZgb5ZU2Q3cWmXhiPojap79w5DJFtb73m7LXT6socYF5LpcB+6QorZeIPnqr/HN8
-	 6s7Kso9hV/qYRrcrSQ8v80eiIymgfH+aiRzLmoPqfU03MrfClmiHX3Krhs3t7AzqIR
-	 tQ+2U26so3zzjsK6j2p9hCimaJE89IAPLYt/ugew=
+	s=default; t=1562921894;
+	bh=7kIL6CTrMgWcIkXNeElKR3FXPvENk6OZiCCbgfdiyyY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RwR9oVvEA+pMK36EOrPxhHOt59Qm2Fosb9Wf3a/wbTor7m2tPtxCNFnoDk62/VwqN
+	 6x0CbW29yhuAddfx5iVQg04JBYdPjUzuYyCGFkX4Tv4vWatqFcAoYXnLsXTJs0Sujl
+	 Tf/fT2Hxr4BGM07qOBMAvPsWtPIQJ7fl/zdJ+DBI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFBF0F802A2;
-	Fri, 12 Jul 2019 10:06:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB3EBF80291;
+	Fri, 12 Jul 2019 10:56:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3EF4F802A0; Fri, 12 Jul 2019 10:06:35 +0200 (CEST)
+ id 5E572F802A0; Fri, 12 Jul 2019 10:56:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A7A7F800D8
- for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2019 10:06:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A7A7F800D8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2019 01:06:29 -0700
-X-IronPort-AV: E=Sophos;i="5.63,481,1557212400"; 
- d="scan'208,217";a="157075924"
-Received: from mwasko-mobl.ger.corp.intel.com (HELO [172.28.180.84])
- ([172.28.180.84])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/AES256-SHA;
- 12 Jul 2019 01:06:26 -0700
-To: Hariprasad Kelam <hariprasad.kelam@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Allison Randal <allison@lohutok.net>, Richard Fontana <rfontana@redhat.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thomas Gleixner <tglx@linutronix.de>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-References: <20190711171726.GA4356@hari-Inspiron-1545>
-From: "Wasko, Michal" <michal.wasko@linux.intel.com>
-Message-ID: <d92d60c5-2a59-0d1f-05fa-a8ab13f6bdd0@linux.intel.com>
-Date: Fri, 12 Jul 2019 10:06:23 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4149F800DE
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2019 10:56:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4149F800DE
+Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
+ (mreue107 [212.227.15.145]) with ESMTPA (Nemesis) id
+ 1MCsDe-1hd5uB1CKW-008uVX; Fri, 12 Jul 2019 10:56:07 +0200
+From: Arnd Bergmann <arnd@arndb.de>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Date: Fri, 12 Jul 2019 10:55:53 +0200
+Message-Id: <20190712085605.4062896-1-arnd@arndb.de>
+X-Mailer: git-send-email 2.20.0
 MIME-Version: 1.0
-In-Reply-To: <20190711171726.GA4356@hari-Inspiron-1545>
-Content-Language: en-US
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: Re: [alsa-devel] [PATCH] sound: pci: emu10k1: Remove unneeded
- variable "change"
+X-Provags-ID: V03:K1:Hsib/dpx4KDn7gfpU/f1Eq1bfZtFdE4qTB4i+zaN8zo+qEctdR3
+ RKhbz0fWRM/pmG+ONdUgpTK6N83UxgmjuGxUxS7I+VEOkD9WOzCJOk4ZXdWmO7duzQNCSei
+ A5NbDsnu3Sc6uMaOzDDc1fb0aJb5+RDDmrBVPEgI2QA6jlwg3/3937dYE5w8TcKd4KK1pOZ
+ deGBhKhCt9y0/q8rpEaKQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:H9OQC5DGb9s=:T6H67ZX8mqNhVjA447wWxh
+ 0xlDBQb6lbn9z8MwFJsVML6VitaX0n5WZCMegYpH2Jy0StVWv8lATqy/cHcn1tV+fKPAmiRhZ
+ oHt/SGJfCX5s0+doh3Nf+k7pjQ9PH4qbuyia0jUmUCgqbQDSy9gl8EFegYzMvdeIffdUZlg+s
+ 6Sp7mKoJ1Ib3ka35DJzEpUrBWTPTN0n/SsrjYVsfHUXSeZSv7PF0hVM1/TH1bfXHA8xus7U2b
+ isWiB7dFfUrW2bmfT/wRvgUKzPh/LkI/pcx00uSfTZc8yXEZbf6VY6fIz1xZ3Y7A5kSHvBBsi
+ RuNMBXRhXQ1tf9uQUbTFGKJZmqXfCAkJzridws1PtHvOf8guQ0mhwkPADX/CjxraTT6Fx/cxk
+ AswHICK7T/BCJii8NKWbmbGkUoiHDEYx3kTNC7Rb9+dD3jC2N82iRhxp2upDjBuBuf02MooPu
+ QhIyEwkywdDOj6PxT7gTQxEO4MPvXcuw8yp45I8IiTtFFqt+SV5YNbn9Z3DTdS32BFr3T2UXC
+ +1xGHKziI8ziqs+LGMsO/tozcLt2dza/qDnNx4j8MkzgxFB15O2oZA3IZWgZ+poZrEdmoYLY4
+ sHvztlc6Q8LopIyPGAGE1X2vxh+wginAcrEuHK3wh+q7fsGJmPew8aodII75QTI6Rfp5o0FYW
+ 69ehGjuQkxZS5E1Ordsxhvy4mIfmW0dw6ebuxgojymabC/wA87Rc8aAPZiC8pccQuKHK35sx6
+ DDbKua9LRG55+5mjhlfjSZ7drvWb4qT2eFa8tA==
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ alsa-devel@alsa-project.org, Wen Yang <wen.yang99@zte.com.cn>,
+ Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: audio-graph-card: fix type mismatch
+	warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,34 +78,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gNy8xMS8yMDE5IDc6MTcgUE0sIEhhcmlwcmFzYWQgS2VsYW0gd3JvdGU6Cj4gZml4IGJlbG93
-IGlzc3VlIHJlcG9ydGVkIGJ5IGNvY2NpY2hlY2sKPiBzb3VuZC9wY2kvZW11MTBrMS9lbXUxMGsx
-eC5jOjEwNzc6NS0xMTogVW5uZWVkZWQgdmFyaWFibGU6ICJjaGFuZ2UiLgo+IFJldHVybiAiMCIg
-b24gbGluZSAxMDkyCj4KPiBTaWduZWQtb2ZmLWJ5OiBIYXJpcHJhc2FkIEtlbGFtIDxoYXJpcHJh
-c2FkLmtlbGFtQGdtYWlsLmNvbT4KU2luY2UgdGhlwqAgZnVuY3Rpb24gYWx3YXlzIHJldHVybiAw
-IGFuZCB5b3UgcGVyZm9ybSBjb2RlIGNsZWFuLXVwIHRoZW4KbWF5YmUgaXQgd291bGQgYmUgYSBn
-b29kIGlkZWEgdG8ganVzdCBjaGFuZ2UgZnVuY3Rpb24gdG8gdm9pZCBpbnN0ZWFkCm9mIHJldHVy
-bmluZyBpbnQgdmFsdWUgd2hpY2ggZG9lcyBub3Qgc2VlbSB0byBoYXZlIHVzZS4KCk1pY2hhbCBX
-Lgo+IC0tLQo+ICAgc291bmQvcGNpL2VtdTEwazEvZW11MTBrMXguYyB8IDMgKy0tCj4gICAxIGZp
-bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
-IGEvc291bmQvcGNpL2VtdTEwazEvZW11MTBrMXguYyBiL3NvdW5kL3BjaS9lbXUxMGsxL2VtdTEw
-azF4LmMKPiBpbmRleCA2N2Q2NDczLi45Y2Y4MTgzIDEwMDY0NAo+IC0tLSBhL3NvdW5kL3BjaS9l
-bXUxMGsxL2VtdTEwazF4LmMKPiArKysgYi9zb3VuZC9wY2kvZW11MTBrMS9lbXUxMGsxeC5jCj4g
-QEAgLTEwNzQsNyArMTA3NCw2IEBAIHN0YXRpYyBpbnQgc25kX2VtdTEwazF4X3NoYXJlZF9zcGRp
-Zl9wdXQoc3RydWN0IHNuZF9rY29udHJvbCAqa2NvbnRyb2wsCj4gICB7Cj4gICAJc3RydWN0IGVt
-dTEwazF4ICplbXUgPSBzbmRfa2NvbnRyb2xfY2hpcChrY29udHJvbCk7Cj4gICAJdW5zaWduZWQg
-aW50IHZhbDsKPiAtCWludCBjaGFuZ2UgPSAwOwo+ICAgCj4gICAJdmFsID0gdWNvbnRyb2wtPnZh
-bHVlLmludGVnZXIudmFsdWVbMF0gOwo+ICAgCj4gQEAgLTEwODksNyArMTA4OCw3IEBAIHN0YXRp
-YyBpbnQgc25kX2VtdTEwazF4X3NoYXJlZF9zcGRpZl9wdXQoc3RydWN0IHNuZF9rY29udHJvbCAq
-a2NvbnRyb2wsCj4gICAJCXNuZF9lbXUxMGsxeF9wdHJfd3JpdGUoZW11LCBST1VUSU5HLCAwLCAw
-eDEwMDNGKTsKPiAgIAkJc25kX2VtdTEwazF4X2dwaW9fd3JpdGUoZW11LCAweDEwODApOwo+ICAg
-CX0KPiAtCXJldHVybiBjaGFuZ2U7Cj4gKwlyZXR1cm4gMDsKPiAgIH0KPiAgIAo+ICAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHNuZF9lbXUxMGsxeF9zaGFyZWRfc3BkaWYg
-PQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRl
-dmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWls
-bWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+The new temporary variable is lacks a 'const' annotation:
+
+sound/soc/generic/audio-graph-card.c:87:7: error: assigning to 'u32 *' (aka 'unsigned int *') from 'const void *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
+
+Fixes: c152f8491a8d ("ASoC: audio-graph-card: fix an use-after-free in graph_get_dai_id()")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ sound/soc/generic/audio-graph-card.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
+index c8abb86afefa..288df245b2f0 100644
+--- a/sound/soc/generic/audio-graph-card.c
++++ b/sound/soc/generic/audio-graph-card.c
+@@ -63,7 +63,7 @@ static int graph_get_dai_id(struct device_node *ep)
+ 	struct device_node *endpoint;
+ 	struct of_endpoint info;
+ 	int i, id;
+-	u32 *reg;
++	const u32 *reg;
+ 	int ret;
+ 
+ 	/* use driver specified DAI ID if exist */
+-- 
+2.20.0
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

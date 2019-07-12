@@ -2,78 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5169F66B2F
-	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2019 12:58:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9798866B41
+	for <lists+alsa-devel@lfdr.de>; Fri, 12 Jul 2019 12:59:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4CB41685;
-	Fri, 12 Jul 2019 12:57:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4CB41685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D3D71692;
+	Fri, 12 Jul 2019 12:58:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D3D71692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1562929092;
-	bh=SXmeaD9fJqC8ry3pYwqeOZlwcztP3D6GHHAludBauWA=;
+	s=default; t=1562929140;
+	bh=iv9noblDk1eikq8OdfQZQutgcy/NKPK1NDGp7NHQFnE=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lm+AL01/iD4X6qGxOhaykXtdHrcF1bg3eObB3PfjN+AF+wMre0b20S6VG1Bq4pOt0
-	 ZyRbSCYrZfUJYHqthtGP+zbTGbzdZDbOuo6VeAv6Cnd1n6cbwYkZBt/Ca4AZ+fq2iq
-	 v+cs+aD8LS5+MgADYIyaglt99x64Bk461xD1RQx4=
+	b=c3QcKYM170dw4C4wTJWtDXIekAzM6NmEEGsoqElWrceen0/aozWEywBsUMg+RGz/v
+	 YbGoPhCG1JEHSQ+Zh41hu7geXmDb3gCErXyzYcu7JzQeEGfk0xN2PWKwy6pfOez90B
+	 4UFyaMgDwhNlIkdA6BTnwV/9RVuzatMQke0wTq7w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16EFEF802A0;
-	Fri, 12 Jul 2019 12:56:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43FC5F802BD;
+	Fri, 12 Jul 2019 12:58:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 75563F802A0; Fri, 12 Jul 2019 12:56:26 +0200 (CEST)
+ id 7D5BCF802A2; Fri, 12 Jul 2019 12:58:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
+ [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43E4DF800D8
- for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2019 12:56:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43E4DF800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8A6AAF800D8
+ for <alsa-devel@alsa-project.org>; Fri, 12 Jul 2019 12:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A6AAF800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Nc4DglWL"
+ dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
+ header.b="Eyr0dtWh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=R31OTluumCbFh2Wq31EACJNPV9PVLFkU904R5DpMCmQ=; b=Nc4DglWLq32b6Q41Fp8lXJdIp
- np6/G6hkVmv0LaMlmjuouu3lOkuLsMNKDIwwzqFWsgk5hGw2KtNFfIzpj/VmQtQwisTLlQcvOdClm
- +qObwFo7QHEYdhD0xUWeL88AcT+i+snqELMLwjfeyWRXvB2qx7OvIOQDp697kIzsY5L20=;
-Received: from [217.140.106.53] (helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1hltDw-0006AP-9P; Fri, 12 Jul 2019 10:56:20 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 685D8D02DAD; Fri, 12 Jul 2019 11:56:19 +0100 (BST)
-Date: Fri, 12 Jul 2019 11:56:19 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-Message-ID: <20190712105619.GL14859@sirena.co.uk>
-References: <20190709182543.GA6611@hari-Inspiron-1545>
+ bh=u9dynlJ3OM9MALiJSBcSG7FKkftfyq54pHYRnzPQTFA=; b=Eyr0dtWhsmlK2Q6BhgmXpUOL/
+ qymgs31El0emqh8IFE4WI3vF53WCcBAaX6vLcGPJDEh30I33KI7G6wSoN0u+M/D/BCSA1udbJvErH
+ nIDPBlSdgUpnsnRPshqdgvBlwZh+rqeIGCWGpUc+DhpBYN0jaKp9LJpI4PlEv5yRZ/CSfY7Z8HyYq
+ tBBBAz5DaPhve6iZyWd/UAkz7y6uKCCXVnCCXr3uYXQZrhzPLLkpOn95j/IOhrviJVxEXV07j5CsA
+ RFU80czsdSVH3CRpvfIGSrY4m2mqkYq99uWagRqbIE8jqCXlSABqwIIgCGdgiZ7x8M2xRsZ2I9Q0c
+ 8ZwvU8lPQ==;
+Received: from shell.armlinux.org.uk
+ ([2002:4e20:1eda:1:5054:ff:fe00:4ec]:59462)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1hltFN-0001Mc-4Y; Fri, 12 Jul 2019 11:57:49 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.89)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1hltFJ-0005c2-Nx; Fri, 12 Jul 2019 11:57:45 +0100
+Date: Fri, 12 Jul 2019 11:57:45 +0100
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Cheng-Yi Chiang <cychiang@chromium.org>
+Message-ID: <20190712105745.xr7jxc626lwoaajx@shell.armlinux.org.uk>
+References: <20190712100443.221322-1-cychiang@chromium.org>
+ <20190712100443.221322-2-cychiang@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <20190709182543.GA6611@hari-Inspiron-1545>
-X-Cookie: Visit beautiful Vergas, Minnesota.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Tzung-Bi Shih <tzungbi@google.com>, linux-mediatek@lists.infradead.org,
- Shunli Wang <shunli.wang@mediatek.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <20190712100443.221322-2-cychiang@chromium.org>
+User-Agent: NeoMutt/20170113 (1.7.2)
+Cc: alsa-devel@alsa-project.org, tzungbi@chromium.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, dianders@chromium.org,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] sound: soc: codecs: mt6358: change return
- type of mt6358_codec_init_reg
+Subject: Re: [alsa-devel] [PATCH v3 1/5] ASoC: hdmi-codec: Add an op to set
+ callback function for plug event
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,54 +96,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5402747408072303898=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jul 12, 2019 at 06:04:39PM +0800, Cheng-Yi Chiang wrote:
+> Add an op in hdmi_codec_ops so codec driver can register callback
+> function to handle plug event.
+> 
+> Driver in DRM can use this callback function to report connector status.
+> 
+> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> ---
+>  include/sound/hdmi-codec.h    | 16 +++++++++++++
+>  sound/soc/codecs/hdmi-codec.c | 45 +++++++++++++++++++++++++++++++++++
+>  2 files changed, 61 insertions(+)
+> 
+> diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
+> index 7fea496f1f34..9a8661680256 100644
+> --- a/include/sound/hdmi-codec.h
+> +++ b/include/sound/hdmi-codec.h
+> @@ -47,6 +47,9 @@ struct hdmi_codec_params {
+>  	int channels;
+>  };
+>  
+> +typedef void (*hdmi_codec_plugged_cb)(struct device *dev,
+> +				      bool plugged);
+> +
 
---===============5402747408072303898==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bPg9NdpM9EETxvqt"
-Content-Disposition: inline
+I'd like to pose a question for people to think about.
 
+Firstly, typedefs are generally shunned in the kernel.  However, for
+these cases it seems to make sense.
 
---bPg9NdpM9EETxvqt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+However, should the "pointer"-ness be part of the typedef or not?  To
+see what I mean, consider:
 
-On Tue, Jul 09, 2019 at 11:55:43PM +0530, Hariprasad Kelam wrote:
-> As mt6358_codec_init_reg function always returns 0 , change return type
-> from int to void.
+	typedef void (*hdmi_foo)(void);
 
-Please use subject lines matching the style for the subsystem.  This
-makes it easier for people to identify relevant patches.
+	int register_foo(hdmi_foo foo);
 
---bPg9NdpM9EETxvqt
-Content-Type: application/pgp-signature; name="signature.asc"
+vs
 
------BEGIN PGP SIGNATURE-----
+	typedef void hdmi_foo(void);
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0oZ1IACgkQJNaLcl1U
-h9DBvQf/bEOPmabOAkiJN59jKdo0Gi0w05y+5JDO15GfjfCufMDcc4Ul9bl0aH0X
-sBwwlklO0yJM4Szsx4dy8rVPtdU6GldTUUIprkzTyzb+e2jO63BxyTzR85GKXwkt
-0UFKK8ZOp74xrpxkc3ViFRwnfKNQ8qm2eqcoszNwUH8xrqPOFYhrmIjBrmlikuEB
-+ojxODhzc18uqCo8YUHrqFHW85L/bxomSFWVP5Uyv+R1STDaZHJC/8uXlBdNu8C/
-B+DDhV8hBV8YLAS8fYeNTARUhBf/IX9Yukc4h6hECKdK80l4mhqK/mOVeMXvtSUW
-E+3CB4XK/4FDzc1nlg01L9omlgrGAw==
-=pELE
------END PGP SIGNATURE-----
+	int register_foo(hdmi_foo *foo);
 
---bPg9NdpM9EETxvqt--
+which is more in keeping with how we code non-typedef'd code - it's
+obvious that foo is a pointer while reading the code.
 
---===============5402747408072303898==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+It seems to me that the latter better matches what is in the kernel's
+coding style, which states:
 
+  In general, a pointer, or a struct that has elements that can
+  reasonably be directly accessed should **never** be a typedef.
+
+or maybe Documentation/process/coding-style.rst needs updating?
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+According to speedtest.net: 11.9Mbps down 500kbps up
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5402747408072303898==--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D46967A56
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2019 15:49:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C9767A5B
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2019 15:52:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C6F01658;
-	Sat, 13 Jul 2019 15:48:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C6F01658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BB4B1675;
+	Sat, 13 Jul 2019 15:51:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BB4B1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563025777;
-	bh=DA8AgkdLzalCQViXCxOgeNrV2Di5eZ/k8+8xhG5Lbfc=;
+	s=default; t=1563025963;
+	bh=szFVR24UNNEnjXG4JDwYhNFskcUng02QZdlkTLiEuco=;
 	h=Date:From:To:References:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L48+Fp3HHuGdAmsslx4cGuuBQFhqz7StdmhgAIsSqndMrxnXDYeiKjOPfTXmszlPH
-	 WZsFC0DJUl0EgVWYIK0/Z+xS+LbvVSYkoZsc8CQffuLYXFqWf9dl1Ev++oEbvVrPS3
-	 jZXZpqw8Ljahdv7n0unpkHA0RzrIwq/WQ7MauxmU=
+	b=p/RID9CFX4+ggEgl7Z9I+1yBBhHppOdDKtjupLyYCagdPCwjbhVotoZBy3s/QR3yW
+	 CWeJuWHLSSKaTJFDWchHiPJOAVXm7gPFlo4zFV/0NW/Uksesb0DYyvm5o+LoydGG9O
+	 6SmdaJmehq1uhCvjnXV3vk6WMFydZa2dqISioNBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0024DF802BE;
-	Sat, 13 Jul 2019 15:47:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52E77F802E0;
+	Sat, 13 Jul 2019 15:50:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73E9BF802BE; Sat, 13 Jul 2019 15:47:50 +0200 (CEST)
+ id B23A2F802BE; Sat, 13 Jul 2019 15:50:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,45 +35,46 @@ Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
  [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9A59F800E1
- for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 15:47:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9A59F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F3B9F800D0
+ for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 15:50:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F3B9F800D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ma5ZI12l"
-Received: by mail-pf1-x443.google.com with SMTP id g2so5529714pfq.0
- for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 06:47:47 -0700 (PDT)
+ header.b="q2M9092B"
+Received: by mail-pf1-x443.google.com with SMTP id i189so5513335pfg.10
+ for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 06:50:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=MHQBlqOJyDDBTOKEayCnxnSR5munfqfFU78suNbldEE=;
- b=ma5ZI12lrynFaFq1wLNZC05ShF9C4Nts9tZIFj8OvXtp8WeNkuxldGyQbBwe0GZd1P
- zuNCYWgikc/cQdadbV4+8Gh6puzyackdUOLErtBHBKeRhZ/X+Xrkspn1twK72wyjxg8O
- 9yj5y5CHmXySPbd7mvQayFRQYwG1cjMgCXOVAeCjKVrd23sgt08AuQe2a2M7Iv4XxmHH
- qjZ5ZCBgY7nG+15syDrBGfMy0AQ+p66nbl3DRUPM45C41TLAch0kIKaaCYu5Sz6Mvxto
- 12xZ83WzEh3uZp1tAI14k8cJgGS6Xn7N2cwmoxbWRFoJSpxa8Bwz+UaqZYbht9Tod5gr
- fMKw==
+ bh=SJUeu1gN7/mspxsTa9EOncf4StCjWZ5cgxwVtZifj3A=;
+ b=q2M9092BrLcdUt5eYWDzQ+aCrFKTpwzF0n0qmbHJ3eXbDuRK9+aoKd1YPZWKzOzhQR
+ U5nsaMEOWJi470JXtoCvLB1l7lfDugZdeMbEg9qbL+AKGPLdxjqYKKvpUi/AqIO8aSn5
+ VbByuVEycdkVv/oazW5sIvaydMKxKaoJKZ/m9dqAp+aiynsf3kglFptTAHo7v6+hcMXm
+ 6ojRuygk8qRbgngucJjsaIDuREbfMNtKVyKfMagXQTmzN1AQjN69ATFpOxCIHQo+CGuq
+ iTD/2kS4Ehp5UdnpWsXNfOJF3Tkas1QBCjRUSlotHPJZByP9lLLjsEZBve3IZm4mwRc+
+ f+IQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=MHQBlqOJyDDBTOKEayCnxnSR5munfqfFU78suNbldEE=;
- b=hxhkbQSX3C0TO6qxl2LmrLpIOGfVRo4ZMdyrMOts2Gpy3iQrGia7dkioyR0xFoEg68
- lfkolFU6gp+6UUBiX7fEuQNIawOb0x/YSxIVOzaeOpb3dmJa8SmXO5E2WrcaXc9p6OvR
- 03RwxuCg7Tcir8sKwHUCYDZcCtgvIbCKTrhiCvCi72tYKGPud0lBkoPaTropNH2vbemU
- o8M/QTWh9H8PB9TcXB4JHQo5o7eEJyxkUTBt21bgyi6N5J6AieX9MtJmXD2VPEZspW6R
- pVk7LrutkZ8g9aYsZRaQ1rxXiy5BpgM5/BPjFHAhn0xZNUJxzNBL4M5i7OvI37WVUIJ3
- qLZg==
-X-Gm-Message-State: APjAAAU919H18ntChoOV8WEhLqRGhzSaZl1pYas6sEndjzqTKR8vszXY
- 6OJniy3DIUPmLa8yDcc9LWA=
-X-Google-Smtp-Source: APXvYqx4idiwBlGEcHoYCRhzdK6VMDt71COUdgiJS35nV5ptO3rXo807rxCRKPLRa5tJHgbse51/kA==
-X-Received: by 2002:a65:5cca:: with SMTP id b10mr17317538pgt.365.1563025665379; 
- Sat, 13 Jul 2019 06:47:45 -0700 (PDT)
+ bh=SJUeu1gN7/mspxsTa9EOncf4StCjWZ5cgxwVtZifj3A=;
+ b=OcRzrFxb7fPyggwx0bswMDyQBjyPPnFM+SJro4Jzu36YdKu0RoddrK+yyXqUbpJ1yx
+ 0eHeoPHVp9hV4mGDsW5Di+U5+YMx5FFpHFQMW0OCfdJsmK6qJB1yQ5CQvCsqhags/d92
+ /+dSdZ47GsLJQgA8HnYMa862WoTYRZequMElP42WpkcKLc7Y//AeC8wlJPNcHZfl/bDX
+ XZnnp6M9Vmn+i0NlBa5GFd6gka0T5b+hk9qNOeeV3QTfBSMVXu62Wb1hWRsJPLjv8xSm
+ uDYiVsPHy4oEMDTRZQFp2HW2M9XLaKxId06M3FjpH9+lq89YLj6Ym2MEt7iKQEOA+MoR
+ JimQ==
+X-Gm-Message-State: APjAAAVR0SrzH/JyLaUuNwse1EqzAgY7zgwY6C51pMXjqEw8Ll1WNxDD
+ 0FbnRXF31poalK5HTQCJ/pw=
+X-Google-Smtp-Source: APXvYqyIM6CVUjQDdabYvb7cg+9KblNmVYXrAnlO9WvKLuI6RbbFepWnviqkQKUYNBMzmGYkjb5Yhg==
+X-Received: by 2002:a17:90a:1904:: with SMTP id
+ 4mr18892921pjg.116.1563025852464; 
+ Sat, 13 Jul 2019 06:50:52 -0700 (PDT)
 Received: from hari-Inspiron-1545 ([183.83.86.126])
- by smtp.gmail.com with ESMTPSA id cx22sm9934041pjb.25.2019.07.13.06.46.36
+ by smtp.gmail.com with ESMTPSA id l124sm12080395pgl.54.2019.07.13.06.50.48
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 13 Jul 2019 06:47:44 -0700 (PDT)
-Date: Sat, 13 Jul 2019 19:16:34 +0530
+ Sat, 13 Jul 2019 06:50:51 -0700 (PDT)
+Date: Sat, 13 Jul 2019 19:20:46 +0530
 From: Hariprasad Kelam <hariprasad.kelam@gmail.com>
 To: Joe Perches <joe@perches.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
@@ -83,7 +84,7 @@ To: Joe Perches <joe@perches.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Gen Zhang <blackgod016574@gmail.com>,
  Dan Carpenter <dan.carpenter@oracle.com>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Message-ID: <20190713134633.GA9749@hari-Inspiron-1545>
+Message-ID: <20190713135045.GA15087@hari-Inspiron-1545>
 References: <20190711174906.GA10867@hari-Inspiron-1545>
  <eeeb09518c8967ffd48606c3d1222553752e895d.camel@perches.com>
 MIME-Version: 1.0
@@ -141,9 +142,8 @@ On Thu, Jul 11, 2019 at 03:00:00PM -0700, Joe Perches wrote:
 > 
 > This change makes no sense and doesn't match the commit message.
 > 
-> Please ignore this patch. 
-> Both statments in if/else loop looked
-> similar to me but they are different.
+>Please ignore this patch. Both the statments in if/else look similar to
+>me but they are not.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

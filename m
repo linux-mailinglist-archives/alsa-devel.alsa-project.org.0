@@ -2,118 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 597DC67A31
-	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2019 14:59:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D46967A56
+	for <lists+alsa-devel@lfdr.de>; Sat, 13 Jul 2019 15:49:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5D32166B;
-	Sat, 13 Jul 2019 14:58:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5D32166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C6F01658;
+	Sat, 13 Jul 2019 15:48:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C6F01658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563022763;
-	bh=5idNN2IJNQgK8ClP2Kg+M2qoMYjvDe69NM1516kJEgo=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563025777;
+	bh=DA8AgkdLzalCQViXCxOgeNrV2Di5eZ/k8+8xhG5Lbfc=;
+	h=Date:From:To:References:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NzEFxpUOQHqIl3bpRPymcmzgVxVxLp4Mr7z+CyH7iqAMKOUEdttOIpofwKgSg5thI
-	 IU+X9hpg2ICPS7+h1F//BDHtr/o9mxD+IOUTaqsYMtvl71izinbUiHC8Fx3caPEPRF
-	 /u2zuGo3J3JC6nbUVu2nkj8knwvnnIF/warSXRZA=
+	b=L48+Fp3HHuGdAmsslx4cGuuBQFhqz7StdmhgAIsSqndMrxnXDYeiKjOPfTXmszlPH
+	 WZsFC0DJUl0EgVWYIK0/Z+xS+LbvVSYkoZsc8CQffuLYXFqWf9dl1Ev++oEbvVrPS3
+	 jZXZpqw8Ljahdv7n0unpkHA0RzrIwq/WQ7MauxmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCD6EF800E1;
-	Sat, 13 Jul 2019 14:57:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0024DF802BE;
+	Sat, 13 Jul 2019 15:47:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79B26F802BE; Sat, 13 Jul 2019 14:57:36 +0200 (CEST)
+ id 73E9BF802BE; Sat, 13 Jul 2019 15:47:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20094.outbound.protection.outlook.com [40.107.2.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FE34F800E1
- for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 14:57:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FE34F800E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9A59F800E1
+ for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 15:47:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9A59F800E1
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
- header.b="PqDZqhap"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QDVehqKB2ZeByEDqJifLLuCgz6CWavLqLW1mayy8FLQ=;
- b=PqDZqhapp246jfDkIC6KQSmB8cN+WqjAoFtZz2ou7HISHeon9BFjVGlFN242Zc6DT7wlNPLjt8ZOdOIM15zWMwSaQM03zyLuUVRdEZZ1fFdsERC933kTgL935eVBvlepyF668TV83xSIA7wL20YpHWXa0f4j6jaDv6R4p99jlaw=
-Received: from AM6PR05MB6535.eurprd05.prod.outlook.com (20.179.18.16) by
- AM6PR05MB6085.eurprd05.prod.outlook.com (20.179.2.225) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2052.19; Sat, 13 Jul 2019 12:57:31 +0000
-Received: from AM6PR05MB6535.eurprd05.prod.outlook.com
- ([fe80::c860:b386:22a:8ec9]) by AM6PR05MB6535.eurprd05.prod.outlook.com
- ([fe80::c860:b386:22a:8ec9%6]) with mapi id 15.20.2073.012; Sat, 13 Jul 2019
- 12:57:31 +0000
-From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Thread-Topic: [PATCH] ASoC: audio-graph-card: fix type mismatch warning
-Thread-Index: AQHVOXqIQvGOhqOHmkesxvTHSugavQ==
-Date: Sat, 13 Jul 2019 12:57:31 +0000
-Message-ID: <CAGgjyvHBfyviNofKay47TGG7EGBHQDSiq78y+=FGtZc3eZKpOw@mail.gmail.com>
-References: <20190712085605.4062896-1-arnd@arndb.de>
-In-Reply-To: <20190712085605.4062896-1-arnd@arndb.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: AM0PR01CA0073.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:10e::14) To AM6PR05MB6535.eurprd05.prod.outlook.com
- (2603:10a6:20b:71::16)
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=oleksandr.suvorov@toradex.com; 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-gm-message-state: APjAAAUzu4kRw7o3FLU8vBN3NbkeGaHuDlBghkuU5ctKx2YOcSgmLTrc
- lrscxnoQQIHKFRYiivSjS7jyp1qXyY8L6XK4fQw=
-x-google-smtp-source: APXvYqyHz3vONT9peljHK2/8BqeWnne53tQZ8KrmYJI1MCCGu8ZBTA5UIWzcoweVpj/wtZYxfsc451saVMcvxldSHPg=
-x-received: by 2002:a17:906:25c5:: with SMTP id
- n5mr12260286ejb.195.1563022191006; Sat, 13 Jul 2019 05:49:51 -0700 (PDT)
-x-gmail-original-message-id: <CAGgjyvHBfyviNofKay47TGG7EGBHQDSiq78y+=FGtZc3eZKpOw@mail.gmail.com>
-x-originating-ip: [209.85.208.53]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 68f0a6ff-49eb-4ed4-4378-08d70791aadc
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:AM6PR05MB6085; 
-x-ms-traffictypediagnostic: AM6PR05MB6085:
-x-microsoft-antispam-prvs: <AM6PR05MB608572A238C51335212ADADFF9CD0@AM6PR05MB6085.eurprd05.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2331;
-x-forefront-prvs: 00979FCB3A
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(979002)(4636009)(396003)(39840400004)(366004)(376002)(136003)(346002)(199004)(189003)(8936002)(44832011)(486006)(446003)(66946007)(76176011)(11346002)(476003)(386003)(6506007)(8676002)(2906002)(81166006)(81156014)(26005)(53936002)(9686003)(6512007)(99286004)(186003)(52116002)(14444005)(66066001)(7736002)(55446002)(305945005)(229853002)(86362001)(61266001)(102836004)(256004)(68736007)(316002)(64756008)(66556008)(66446008)(71190400001)(71200400001)(3846002)(6116002)(66476007)(14454004)(61726006)(54906003)(6246003)(107886003)(6436002)(6862004)(498394004)(95326003)(25786009)(478600001)(4326008)(6486002)(5660300002)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR05MB6085;
- H:AM6PR05MB6535.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: toradex.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: n+YwWaPtcKNvUJmAyrmQs21sNAk0cXYDvya+7wtI1Vt8Mc8pE0zzIfNx3R8Ik70kHsagJ3Z7iY6DZxGszHcZf4F5u2sc9NQkXqcgAk87RyYYIAD6rPuifxDGGTlRnxz6H8IJDhmPXNic9ez+7eL2hGe84S0eeT7ZdxHpBRPxtjWhOx8zMzSM9VLyJDvShUWUZOcEkzKHOlLOpxtd+L9yuOwXgqYX9MM526eyo9G4g6NO17VZWEaulfMiOUm6SPCgPxyCERE51IP2Po9+b/DI1nSl5jRx4g8ClUh0dpT4MifvZCNBRjMcy5JsR0KxDOVoFCkoU28e95y9gwUkwsRs9ZH5gIuPkhf+A49gs+8CXMIPfWX0mbcOC6g9tRthMVIS/DiJhhj8vXqjf4JzJCY+Bk+FvwdcIonLBqO1HEJd3lA=
-Content-ID: <ED99BCD10C91104996C9EF5B4D17273D@eurprd05.prod.outlook.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ma5ZI12l"
+Received: by mail-pf1-x443.google.com with SMTP id g2so5529714pfq.0
+ for <alsa-devel@alsa-project.org>; Sat, 13 Jul 2019 06:47:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=MHQBlqOJyDDBTOKEayCnxnSR5munfqfFU78suNbldEE=;
+ b=ma5ZI12lrynFaFq1wLNZC05ShF9C4Nts9tZIFj8OvXtp8WeNkuxldGyQbBwe0GZd1P
+ zuNCYWgikc/cQdadbV4+8Gh6puzyackdUOLErtBHBKeRhZ/X+Xrkspn1twK72wyjxg8O
+ 9yj5y5CHmXySPbd7mvQayFRQYwG1cjMgCXOVAeCjKVrd23sgt08AuQe2a2M7Iv4XxmHH
+ qjZ5ZCBgY7nG+15syDrBGfMy0AQ+p66nbl3DRUPM45C41TLAch0kIKaaCYu5Sz6Mvxto
+ 12xZ83WzEh3uZp1tAI14k8cJgGS6Xn7N2cwmoxbWRFoJSpxa8Bwz+UaqZYbht9Tod5gr
+ fMKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MHQBlqOJyDDBTOKEayCnxnSR5munfqfFU78suNbldEE=;
+ b=hxhkbQSX3C0TO6qxl2LmrLpIOGfVRo4ZMdyrMOts2Gpy3iQrGia7dkioyR0xFoEg68
+ lfkolFU6gp+6UUBiX7fEuQNIawOb0x/YSxIVOzaeOpb3dmJa8SmXO5E2WrcaXc9p6OvR
+ 03RwxuCg7Tcir8sKwHUCYDZcCtgvIbCKTrhiCvCi72tYKGPud0lBkoPaTropNH2vbemU
+ o8M/QTWh9H8PB9TcXB4JHQo5o7eEJyxkUTBt21bgyi6N5J6AieX9MtJmXD2VPEZspW6R
+ pVk7LrutkZ8g9aYsZRaQ1rxXiy5BpgM5/BPjFHAhn0xZNUJxzNBL4M5i7OvI37WVUIJ3
+ qLZg==
+X-Gm-Message-State: APjAAAU919H18ntChoOV8WEhLqRGhzSaZl1pYas6sEndjzqTKR8vszXY
+ 6OJniy3DIUPmLa8yDcc9LWA=
+X-Google-Smtp-Source: APXvYqx4idiwBlGEcHoYCRhzdK6VMDt71COUdgiJS35nV5ptO3rXo807rxCRKPLRa5tJHgbse51/kA==
+X-Received: by 2002:a65:5cca:: with SMTP id b10mr17317538pgt.365.1563025665379; 
+ Sat, 13 Jul 2019 06:47:45 -0700 (PDT)
+Received: from hari-Inspiron-1545 ([183.83.86.126])
+ by smtp.gmail.com with ESMTPSA id cx22sm9934041pjb.25.2019.07.13.06.46.36
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 13 Jul 2019 06:47:44 -0700 (PDT)
+Date: Sat, 13 Jul 2019 19:16:34 +0530
+From: Hariprasad Kelam <hariprasad.kelam@gmail.com>
+To: Joe Perches <joe@perches.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Wen Yang <wen.yang99@zte.com.cn>,
+ Gen Zhang <blackgod016574@gmail.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Message-ID: <20190713134633.GA9749@hari-Inspiron-1545>
+References: <20190711174906.GA10867@hari-Inspiron-1545>
+ <eeeb09518c8967ffd48606c3d1222553752e895d.camel@perches.com>
 MIME-Version: 1.0
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68f0a6ff-49eb-4ed4-4378-08d70791aadc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Jul 2019 12:57:31.5248 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oleksandr.suvorov@toradex.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR05MB6085
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Wen Yang <wen.yang99@zte.com.cn>
-Subject: Re: [alsa-devel] [PATCH] ASoC: audio-graph-card: fix type mismatch
-	warning
+Content-Disposition: inline
+In-Reply-To: <eeeb09518c8967ffd48606c3d1222553752e895d.camel@perches.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
+Subject: Re: [alsa-devel] [PATCH] sound: soc: codecs: wcd9335: fix
+ "conversion to bool not needed here"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,46 +109,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 12 Jul 2019 at 11:57, Arnd Bergmann <arnd@arndb.de> wrote:
->
-> The new temporary variable is lacks a 'const' annotation:
->
-> sound/soc/generic/audio-graph-card.c:87:7: error: assigning to 'u32 *' (aka 'unsigned int *') from 'const void *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
->
-> Fixes: c152f8491a8d ("ASoC: audio-graph-card: fix an use-after-free in graph_get_dai_id()")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Reviewed-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-
-> ---
->  sound/soc/generic/audio-graph-card.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-> index c8abb86afefa..288df245b2f0 100644
-> --- a/sound/soc/generic/audio-graph-card.c
-> +++ b/sound/soc/generic/audio-graph-card.c
-> @@ -63,7 +63,7 @@ static int graph_get_dai_id(struct device_node *ep)
->         struct device_node *endpoint;
->         struct of_endpoint info;
->         int i, id;
-> -       u32 *reg;
-> +       const u32 *reg;
->         int ret;
->
->         /* use driver specified DAI ID if exist */
-> --
-> 2.20.0
->
-
-
--- 
-Best regards
-Oleksandr Suvorov
-
-Toradex AG
-Altsagenstrasse 5 | 6048 Horw/Luzern | Switzerland | T: +41 41 500
-4800 (main line)
+On Thu, Jul 11, 2019 at 03:00:00PM -0700, Joe Perches wrote:
+> On Thu, 2019-07-11 at 23:19 +0530, Hariprasad Kelam wrote:
+> > Fix below issue reported by coccicheck
+> > sound/soc/codecs/wcd9335.c:3991:25-30: WARNING: conversion to bool not
+> > needed here
+> > 
+> > Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
+> > ---
+> >  sound/soc/codecs/wcd9335.c | 7 +------
+> >  1 file changed, 1 insertion(+), 6 deletions(-)
+> > 
+> > diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+> > index 1bbbe42..85a8d10 100644
+> > --- a/sound/soc/codecs/wcd9335.c
+> > +++ b/sound/soc/codecs/wcd9335.c
+> > @@ -3988,12 +3988,7 @@ static irqreturn_t wcd9335_slimbus_irq(int irq, void *data)
+> >  		regmap_read(wcd->if_regmap,
+> >  				WCD9335_SLIM_PGD_PORT_INT_RX_SOURCE0 + j, &val);
+> >  		if (val) {
+> > -			if (!tx)
+> > -				reg = WCD9335_SLIM_PGD_PORT_INT_EN0 +
+> > -					(port_id / 8);
+> > -			else
+> > -				reg = WCD9335_SLIM_PGD_PORT_INT_TX_EN0 +
+> > -					(port_id / 8);
+> > +			reg = WCD9335_SLIM_PGD_PORT_INT_TX_EN0 + (port_id / 8);
+> >  			regmap_read(
+> >  				wcd->if_regmap, reg, &int_val);
+> >  			/*
+> 
+> This change makes no sense and doesn't match the commit message.
+> 
+> Please ignore this patch. 
+> Both statments in if/else loop looked
+> similar to me but they are different.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

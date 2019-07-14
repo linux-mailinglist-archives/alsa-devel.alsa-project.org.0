@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4567F67E77
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2019 12:09:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA3867EB7
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2019 12:58:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C573E1669;
-	Sun, 14 Jul 2019 12:08:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C573E1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FAA8166F;
+	Sun, 14 Jul 2019 12:57:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FAA8166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563098971;
-	bh=L652cIWm+TgISsQGQhQezPzDWUps2yRHR04RQ8S/qxE=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563101891;
+	bh=bdJvhiMmKA8YJ2VjFmW52Ptm1LR3Cqba6XuqjQH3//Y=;
+	h=References:To:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PcDcstr/D5Mj4/6ghKESazgqFwGBxZrpsaKCDEPCsQvtgWOkiVUSjK4ckNx1EMOvE
-	 NR+foQrdpgZyFjEtgm4DDXkQG3QouKSTMuGNeD2oncsME2JWjTFc/meyFMMDC+5mBt
-	 MFDKUL28PVfJk6l2M4Oqp2lX898oKyIPxIMM742E=
+	b=oWrBZC341d9miXtZ57iMfLyAAeyrrFrpdXMhKF5PH636jZUmQFI2j9ISsrqozkqWZ
+	 ME1GnPbQ+HisBIOTak2bqiO7mZRnFlKku2XV924BxbAZBMwLo9Ey1mhDNxA9g35Z3Y
+	 e+LHZcGTLAx10iKagnWoeIvJQpA18mgexd6SVOfQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA0BDF80390;
-	Sun, 14 Jul 2019 12:07:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E185F80376;
+	Sun, 14 Jul 2019 12:56:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5F9D3F80377; Sun, 14 Jul 2019 12:07:45 +0200 (CEST)
+ id 474CDF80377; Sun, 14 Jul 2019 12:56:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mout.web.de (mout.web.de [212.227.17.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21AFCF800D8
- for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2019 12:07:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21AFCF800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id C14CFF800D8
+ for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2019 12:56:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C14CFF800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=web.de header.i=@web.de header.b="GwyrUOjt"
+ dkim=pass (1024-bit key) header.d=web.de header.i=@web.de header.b="rIbj9rml"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1563098842;
- bh=bXndHdPJ3jM5bQ1RKItkawRtER4ZAQycYeZkZqs1DWU=;
- h=X-UI-Sender-Class:To:Cc:References:Subject:From:Date:In-Reply-To;
- b=GwyrUOjtKxDTEfETGu4dHU4shEjLuNo1rZ1+tUgG/E9M1qX/NbNKUAH3bbfWhexla
- ZkWwPEnDFYV4rmwSDbobiJVrZmxSINVL6R9ZWmt4QEBVuws4KNDGvIL0mTpgs5JDCH
- Q/GzFz9CSb6tSA2I4WJtAh2cI3tmpmmMz7zKVm0Y=
+ s=dbaedf251592; t=1563101754;
+ bh=81eladfMqsM5f/l52YP902lsEMHFBVleNkfZjwRQdIw=;
+ h=X-UI-Sender-Class:Cc:References:Subject:To:From:Date:In-Reply-To;
+ b=rIbj9rmlDrS9+4Gt1K0MCcAb8MLhINPENJjsLSq5ow3xBI8Z16GMkw1mdlm8IA6/j
+ /aFToe+9pNKmAMvmHFhTxSuhqX3DI8pK09YBJy/J0i3Sdlf0ESMIOm5kbH81Zm9M20
+ gDRx75fQ67hLI/dHpkun2JUiVJtUASAZaQOGX4to=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([78.49.159.144]) by smtp.web.de (mrweb101
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0MCZtW-1hdDUe20Pa-009QHP; Sun, 14
- Jul 2019 12:07:22 +0200
+Received: from [192.168.1.2] ([78.49.159.144]) by smtp.web.de (mrweb102
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0M0Qkb-1icEx50szl-00uXg0; Sun, 14
+ Jul 2019 12:55:54 +0200
+References: <1562989575-33785-2-git-send-email-wen.yang99@zte.com.cn>
 To: Wen Yang <wen.yang99@zte.com.cn>, alsa-devel@alsa-project.org
-References: <1562989575-33785-1-git-send-email-wen.yang99@zte.com.cn>
 From: Markus Elfring <Markus.Elfring@web.de>
 Openpgp: preference=signencrypt
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
@@ -97,42 +97,42 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  Z/wsLiWTgKlih2QYULvW61XU+mWsK8+ZlYUrRMpkauN4CJ5yTpvp+Orcz5KixHQmc5tbkLWf
  x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
  pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI FEE=
-Message-ID: <fbd5666c-f681-4f09-eb5c-35c47d60d857@web.de>
-Date: Sun, 14 Jul 2019 12:07:18 +0200
+Message-ID: <6f537916-9dec-606d-ea4b-8d41cc75a55d@web.de>
+Date: Sun, 14 Jul 2019 12:55:49 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1562989575-33785-1-git-send-email-wen.yang99@zte.com.cn>
-Content-Language: en-GB
-X-Provags-ID: V03:K1:5n2Rwt1HpiQQYgHOGVufp3KJuiq5qGuGoupTkQDnbXt19t2izfJ
- ilRmwUUcgkLWbfVu4ouAvUF32ozP2T6/oBQuHXU9fk+8RQyaUewsc6a8RoxqE3QpHhNSfm8
- mkqhB4uf+uxb7h156qHKrw+O77+FPZS75eIBXqDvnvjtwrMB+ejVsvVO1JGrRUkap570zJX
- YQfVccfd+SLMs5MFKV6pQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:QYTy0z+JYvM=:BnN4HfEsEybItVrKYvv/sj
- FvANxBXjzi1stt549giywAIO/EGUKxLMTfttfpd3ASiVjUvhVatsLoFkpqhNyQUJ/Vg38DT1A
- Tis1JQ7gDZGnaw1k0p1ioU1pdPdH7OgJnyrMWjWvV1/NmYlmVzWuMZj0t1wU5GFU4MNTSAnP8
- u8oD15wwvw+vWr6lATzdKrCihKk1VlPexUxEZ9sYZhdNaF8sbCPPLsfzDpvmADe7k91iuwgG/
- nNlUv3BGHc+ri+uR9xgZJtZ+GleH8QJrhHN8XPJxy4Tw9dACRBX74OdRtpwenlDkd8G765wCn
- gv4jri6CHDf9+L60xfmfd6V+ug1SSJJDQt3EQFS3qtTraNkV9irJ/jiieCVASEbH1F87HFK+W
- 5gk8xYKjFCQh57LeGromQ5Uuvs6H17Ykdg0urM4O3mrj5IGPF/Qpbbmf/87iYXnTCfX5REQKv
- acSyiWOndT3qysK+z+QZjuZEw+kV7gaPjuRTGeHxg/+064DMzWgPrtVfC8/D8pYqzpV+Frhq7
- yt2DEVXZVWTqaiuJV+zZ3aq3hT6ryqT+uGuOBNJJrKkoMt6s+ypuQlH7gQvsjRYPCpT3N56Q0
- PJ8Yh8wnAOWJiHcVOOaXLx6r5uqKB3elNGxRUeh1vxjmC+RKDemVT9L3EiJKu+HZl7XmxW+rS
- lO6YT1HDhkIzZ96yvAlvv9lGm8LzIg+bpl/xPwUWTVZft42MAAIj9dznnpj9aVc95T0E5v51D
- GqY6qiXNYzL2rEtn1fDZPeObF8hM+3yf5jB78hETv2Maou/JOVfnf1PtnyoUGTpDAxaXOjvQn
- pY/PYvFYEK/1WAeZxDcyWNbnU9sImk5Yhg1AMIBaomoM9qRcv4ITQSVI27oVL1kfTFDUYT+0c
- APJEgkJJPHXz1BT7/nuOMpuFa/RmMCdcipXeM3fi3dXTPATD8dbou9nt6+f+81rK/SQdhK64m
- VGN4J4QZFgaanDfdosOtf1ZtHmWeRKx4QibnJbqWKyQpBvhHnRS/GCrV/A5DAnD2EYvxu8Ts5
- Nj29bvmrt01G5LkLcABR2wGxC9YZJVLdMiVnyjF9uPAB5Mh7ZPk84GsiJ/O4dR3zMZxJFa2FW
- FEaPtwFIVcxDyha4wsufCwiWKJFGXTm2o9e
+In-Reply-To: <1562989575-33785-2-git-send-email-wen.yang99@zte.com.cn>
+Content-Language: en-US
+X-Provags-ID: V03:K1:j7Q+ABHMF7uNcALNtrzIqXAhDDMLELYJdE1GISE46wREN9SOZO5
+ gy7kW4ofFOXNb20Rp/pKkTpVBSaknQKjPpDb1KaavkYcA6ffk9ftY9KgC0e1ACea1Fix8Gx
+ BCbmr00oukrEEsLghzMzNLlN+nmp6OBfZY82kHoLifXkvhF4swOJoMt+Tgc+p7lwIXQ5Z+V
+ tcRVw/Szp5N7uHC0FlisA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:K/2F3bhXJ5g=:Enqa7X56SseLGf3fDudHmr
+ wIOAN4QwMz6DE5RaYK7FnOuAcjM3XR0gYkyyedMBe9Txvn4gpnvctUg5KZ5N9raOqEIgCsMHR
+ otLkrw4gi6Yn3+vQCETY1/AEByY9tKjjMdeeHPwGYwj6hiedCcNs2SKAFXN5qODSbbFvL0Uy+
+ V5xQ0baVCh117MC95u+V2EYTBgx4jtsQFpxmz26MZyU14O3TUvnUVXzT8Tu3RW3Vovc8qi7AU
+ D12e6K9TqgBxCOGgINbAq4ppegjOdRDT5YJsNSV0NhvHLlfd06znjkkQV7Mjv9GLEqfwogD7S
+ PpYF7w+WReGal7vVXOHNZHerz9hnjkSZI9mzmR2ClLYaY8KoQAO4b8roxMbzM3S5jnftgkgO9
+ zeTpiKZk8k7XuMjsjrd0seO1N4NrI2YdUTvak/onHWOBZMih/TJSZQbPMvAeF3iuLigxDSm7D
+ 1iIVpFCTcP8kQt/KUw+ap45gUrsFd+LxFk+Z3j909z5S5xy7z2Be2JRyL2LU0c+0lcBuOeUzg
+ d7goLTceDi4lop/VGxBHAERkPJh/7b99qdZ9/Vktabq31q/ry1R5MXLAL/DfKzj/hsfK54DGD
+ iFVdY4hKHkRtcYN/j91Cmtvyh6WWmEQqEUpKjl7+lgZ3HgPoz8ho4M321iQSrhU6GX8wxC+sX
+ MndzcP+qfAK1kcsPm7/WrDcfjIo1kZxg+6zA/OzLZlZbzP/9zhN2UWh7BklbIBiUZ8qe8layv
+ as/19N3a7RrKZPbZiiPat3nfdgDd2JXHRQI7bX1wXrX+ESL+Yt9dLteS11tMr6I+QTkIeaNnF
+ QJ1hCO9WB51/nPXiZXLLiDV1mcNjeretKPh04eScCkhFCWR7QJmGmDRQbnDaJRzPmM4dTYM4B
+ 11IHyTkX4XsVwS4vrYHOPT9fpv1ZsHJexW8uF+AItJP1DU8QEFj/X4rB4SpG4B/lAuJhcQeY+
+ uzYo6ZsdYZ1YxVM0DWFfPSuprC2aGoPpuboFvCTYetU3FOXDBi4724qmUjaLdzOdmeV14ug5T
+ Uk4SOv1pvsGcWrodqq39a6aRHEbDld3mrQdM6h/zy4AaHROscS93I4JFTShG+4s2NvoTPbRYr
+ BHENVeOT/MyQtIplGYR4cagnUnX+M0c5l92
 Cc: Yi Wang <wang.yi59@zte.com.cn>, Xue Zhihong <xue.zhihong@zte.com.cn>,
  Sangbeom Kim <sbkim73@samsung.com>, LKML <linux-kernel@vger.kernel.org>,
  Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
  Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
  Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Cheng Shengyu <cheng.shengyu@zte.com.cn>
-Subject: Re: [alsa-devel] [PATCH 0/2] ASoC: samsung: odroid: fix err
- handling of odroid_audio_probe
+Subject: Re: [alsa-devel] [1/2] ASoC: samsung: odroid: fix an use-after-free
+ issue for codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,18 +145,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-V291bGQgYSBzdWJqZWN0IGxpa2Ug4oCcQVNvQzogc2Ftc3VuZzogb2Ryb2lkOiBGaXggaGFuZGxp
-bmcgb2YgZGV2aWNlIG5vZGUgcmVmZXJlbmNlcwppbiBvZHJvaWRfYXVkaW9fcHJvYmXigJ0gYmUg
-bW9yZSBhcHByb3ByaWF0ZSAoaW5zdGVhZCBvZiB1c2luZyB0aGUgYWJicmV2aWF0aW9uIOKAnGVy
-cuKAnSk/CgoKPiBXZSBkZXZlbG9wZWQgYSBjb2NjaW5lbGxlIFNtUEwgdG8gZGV0ZWN0IOKApgoK
-KiBJIHdvdWxkIGZpbmQgYSBzbGlnaHRseSBkaWZmZXJlbnQgd29yZGluZyBiZXR0ZXIuCgoqIEhv
-dyBkbyB5b3UgdGhpbmsgYWJvdXQgdG8gY29udmVydCB0aGlzIGluZm9ybWF0aW9uIGludG8gc29m
-dHdhcmUgYXR0cmlidXRpb25zCiAgZm9yIHRoZSB1cGRhdGUgc3RlcHM/CgpSZWdhcmRzLApNYXJr
-dXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFp
-bG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+> Fixes: bc3cf17b575a ("ASoC: samsung: odroid: Add support for secondary CPU DAI")
+
+* Can it be that this commit identification is relevant more for the second update step?
+
+* Was the handling of device node references questionable already before this change?
+
+Regards,
+Markus
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

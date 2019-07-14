@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1991967E55
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2019 10:50:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4567F67E77
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2019 12:09:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A02191669;
-	Sun, 14 Jul 2019 10:49:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A02191669
+	by alsa0.perex.cz (Postfix) with ESMTPS id C573E1669;
+	Sun, 14 Jul 2019 12:08:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C573E1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563094200;
-	bh=J3fw3pQTJiTnRer8D8AzRBVbqi2IF81XkhdkxBm1hJQ=;
-	h=References:To:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563098971;
+	bh=L652cIWm+TgISsQGQhQezPzDWUps2yRHR04RQ8S/qxE=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ecNJyRoC+1sIKMiqLqh2AH9Bd8fwJASPmpmuJdQ6/oGUURlgAboM1jfxWtWC1zq6L
-	 6sZs8lZXwi9kv6BcbEisMzS8RBJ7eEUKL/eBws5Rbl5ed4Tj3KYvt1iJ+hU0RN+gUW
-	 pSF8ApOmJ7R4HTk/iu5GYhenguMKZvPXuBH3KhCA=
+	b=PcDcstr/D5Mj4/6ghKESazgqFwGBxZrpsaKCDEPCsQvtgWOkiVUSjK4ckNx1EMOvE
+	 NR+foQrdpgZyFjEtgm4DDXkQG3QouKSTMuGNeD2oncsME2JWjTFc/meyFMMDC+5mBt
+	 MFDKUL28PVfJk6l2M4Oqp2lX898oKyIPxIMM742E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDFAFF80377;
-	Sun, 14 Jul 2019 10:48:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA0BDF80390;
+	Sun, 14 Jul 2019 12:07:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18238F80377; Sun, 14 Jul 2019 10:48:14 +0200 (CEST)
+ id 5F9D3F80377; Sun, 14 Jul 2019 12:07:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mout.web.de (mout.web.de [212.227.17.11])
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_LOW,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mout.web.de (mout.web.de [212.227.17.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D763F802BC
- for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2019 10:48:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D763F802BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21AFCF800D8
+ for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2019 12:07:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21AFCF800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=web.de header.i=@web.de header.b="MczfnUsY"
+ dkim=pass (1024-bit key) header.d=web.de header.i=@web.de header.b="GwyrUOjt"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1563094054;
- bh=u0+UBJAk63DP/if+SWGzS+4Hh1T7CazhhWMvMVpjpAE=;
- h=X-UI-Sender-Class:Cc:References:Subject:To:From:Date:In-Reply-To;
- b=MczfnUsYW/An7EBRsVVkuiY01ar6Wjsd4/vcad4+hTHcejANyxQ4+s9PSbDudHjdi
- sHgQD5KmILwwf8Ks7fNNJqv7H9j2v3ruSp/mE0IboCZxtt7cilPQv2zpC3G54VShjj
- kKT4GiqBPIAUMMJ4tPBWr1IJ3rVldDfRQvQLA3ks=
+ s=dbaedf251592; t=1563098842;
+ bh=bXndHdPJ3jM5bQ1RKItkawRtER4ZAQycYeZkZqs1DWU=;
+ h=X-UI-Sender-Class:To:Cc:References:Subject:From:Date:In-Reply-To;
+ b=GwyrUOjtKxDTEfETGu4dHU4shEjLuNo1rZ1+tUgG/E9M1qX/NbNKUAH3bbfWhexla
+ ZkWwPEnDFYV4rmwSDbobiJVrZmxSINVL6R9ZWmt4QEBVuws4KNDGvIL0mTpgs5JDCH
+ Q/GzFz9CSb6tSA2I4WJtAh2cI3tmpmmMz7zKVm0Y=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([78.49.159.144]) by smtp.web.de (mrweb102
- [213.165.67.124]) with ESMTPSA (Nemesis) id 0MSads-1hwNH73X88-00RYOp; Sun, 14
- Jul 2019 10:47:34 +0200
-References: <1562989575-33785-2-git-send-email-wen.yang99@zte.com.cn>
-To: Wen Yang <wen.yang99@zte.com.cn>, Krzysztof Kozlowski <krzk@kernel.org>,
- alsa-devel@alsa-project.org
+Received: from [192.168.1.2] ([78.49.159.144]) by smtp.web.de (mrweb101
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0MCZtW-1hdDUe20Pa-009QHP; Sun, 14
+ Jul 2019 12:07:22 +0200
+To: Wen Yang <wen.yang99@zte.com.cn>, alsa-devel@alsa-project.org
+References: <1562989575-33785-1-git-send-email-wen.yang99@zte.com.cn>
 From: Markus Elfring <Markus.Elfring@web.de>
 Openpgp: preference=signencrypt
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
@@ -98,42 +97,42 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  Z/wsLiWTgKlih2QYULvW61XU+mWsK8+ZlYUrRMpkauN4CJ5yTpvp+Orcz5KixHQmc5tbkLWf
  x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
  pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI FEE=
-Message-ID: <0eeabac6-edbd-b829-817f-ffff87e1a825@web.de>
-Date: Sun, 14 Jul 2019 10:47:20 +0200
+Message-ID: <fbd5666c-f681-4f09-eb5c-35c47d60d857@web.de>
+Date: Sun, 14 Jul 2019 12:07:18 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1562989575-33785-2-git-send-email-wen.yang99@zte.com.cn>
-Content-Language: en-US
-X-Provags-ID: V03:K1:rxYjDolk16ptYg3SOXZ3jY13J6Cf6owqsYMky4Hw2TBKVxwew74
- d90w/+kqJI/cFdZmiVjPBZ1ZPPMMqtHBhHKiDMtYUhng5zC56NNe6GrlsNJ2+/YX01lh0Q9
- c9QEKtU6bJoKIA0FVRvvdPT0t/lN3cGlx6FJaAsmVQ4wye4FfSIvR+iyLQwCH3tueU0FN1O
- tSyjnkdkisYc4jLDIH7Tw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:sd5OJjYO3hA=:c0VZ102RvND10XMvOO62Xn
- uvuZkxHfmJhE9cVSNwFgAYapGBEI1zkr6goILjptNHhe2njBlQL7WLuHE7dyxSsFY+/XQ2LGO
- IYNIfMAKmww0Ug4HmonXBBnAvGYRkeHyiPb2lTLOaqjXTmJF/lYDNtiTK5SrW+wVh0piB3CHh
- aJ+nINYqcmYpyeO+r2YDRDIGRz1yBWgsiL3L8rtg4aAlQ292KlTdv/bK/01DR42rlheeMkeld
- LCWTDZwAB6sBKD8PSA7GT1pM6Wc5jN0DIU6GRETu1SiilHpxPYI6XzeeZjsXw1Gp93CeF+gzr
- rA3SLkwtXc8R/q7Ud+v4ux4RxwmvchVt024V8pnFa7v7ig8pEhNbKZXdwTvDT/fraxUGbHcOM
- U+xDAc6GBcAq3G5oKEaG2wwmYG9BeXdMxHWGCLSeUR0S37+hQMBObF76V1oItzyBgsCziJml8
- 2hkcmqkSvhQJfnH4BvgIWzanaLOr6HnTkTghufH432fhK6hYRUsNZls4ATF8kazbgWXMqCWa7
- +/4bdCDKrn5UvjUxfwHxYheqzPN8RbivRYO+A53VI9bY9XDjROSd61Esi5d0uOKI0jfe/WXNm
- /rAYrgaV5rZzUs6N+oDzCszPu0358bifvtptZ5b6XSKk3/pAozI2ir3zkMq9QUsZ1NN2k1qoB
- DRDOWatRYOI49zGPJFiDB7NHKVom5HMvLg/Y0464ZAijGGTtL+sJCtumCgrmCeWb5z2g7ifzm
- T2UFWPPE2q8wN8NfpLkc75ZT/HQKFJP9IGUzb1qu/lmvqoJwhApPiMtxu3NTDZqUG/VRiLATp
- OmC8so4Yo3qCvWvZsA6RGtTyW3YTBU3D5zpjGa2PK72UoFlJgPK5I+0Q3S4mkDsrnLSyBpi1p
- iMUAzmSivmvjkuwQ+gEWZqw6RzrsBc5eLikjr++hlD6QznAAMN6zlOV2JLUEqEbCDykqDtc5K
- d+Kboc7VUEoiqsVnqJoTJNKy+/KzeP7CImAVMDmmIqbqokgxOWvN7Taw2fGTgr+LApEfX1wBR
- EXgDg9ruMZd37xkzEzi3sdjegGCfvJStaafKGkD9yaohHmFsX1ZkgAIR+vTfb8HMxW939KiwR
- ql+xdq6gIcht4orzU9gqlGqB1p2TNfQaw8e
+In-Reply-To: <1562989575-33785-1-git-send-email-wen.yang99@zte.com.cn>
+Content-Language: en-GB
+X-Provags-ID: V03:K1:5n2Rwt1HpiQQYgHOGVufp3KJuiq5qGuGoupTkQDnbXt19t2izfJ
+ ilRmwUUcgkLWbfVu4ouAvUF32ozP2T6/oBQuHXU9fk+8RQyaUewsc6a8RoxqE3QpHhNSfm8
+ mkqhB4uf+uxb7h156qHKrw+O77+FPZS75eIBXqDvnvjtwrMB+ejVsvVO1JGrRUkap570zJX
+ YQfVccfd+SLMs5MFKV6pQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:QYTy0z+JYvM=:BnN4HfEsEybItVrKYvv/sj
+ FvANxBXjzi1stt549giywAIO/EGUKxLMTfttfpd3ASiVjUvhVatsLoFkpqhNyQUJ/Vg38DT1A
+ Tis1JQ7gDZGnaw1k0p1ioU1pdPdH7OgJnyrMWjWvV1/NmYlmVzWuMZj0t1wU5GFU4MNTSAnP8
+ u8oD15wwvw+vWr6lATzdKrCihKk1VlPexUxEZ9sYZhdNaF8sbCPPLsfzDpvmADe7k91iuwgG/
+ nNlUv3BGHc+ri+uR9xgZJtZ+GleH8QJrhHN8XPJxy4Tw9dACRBX74OdRtpwenlDkd8G765wCn
+ gv4jri6CHDf9+L60xfmfd6V+ug1SSJJDQt3EQFS3qtTraNkV9irJ/jiieCVASEbH1F87HFK+W
+ 5gk8xYKjFCQh57LeGromQ5Uuvs6H17Ykdg0urM4O3mrj5IGPF/Qpbbmf/87iYXnTCfX5REQKv
+ acSyiWOndT3qysK+z+QZjuZEw+kV7gaPjuRTGeHxg/+064DMzWgPrtVfC8/D8pYqzpV+Frhq7
+ yt2DEVXZVWTqaiuJV+zZ3aq3hT6ryqT+uGuOBNJJrKkoMt6s+ypuQlH7gQvsjRYPCpT3N56Q0
+ PJ8Yh8wnAOWJiHcVOOaXLx6r5uqKB3elNGxRUeh1vxjmC+RKDemVT9L3EiJKu+HZl7XmxW+rS
+ lO6YT1HDhkIzZ96yvAlvv9lGm8LzIg+bpl/xPwUWTVZft42MAAIj9dznnpj9aVc95T0E5v51D
+ GqY6qiXNYzL2rEtn1fDZPeObF8hM+3yf5jB78hETv2Maou/JOVfnf1PtnyoUGTpDAxaXOjvQn
+ pY/PYvFYEK/1WAeZxDcyWNbnU9sImk5Yhg1AMIBaomoM9qRcv4ITQSVI27oVL1kfTFDUYT+0c
+ APJEgkJJPHXz1BT7/nuOMpuFa/RmMCdcipXeM3fi3dXTPATD8dbou9nt6+f+81rK/SQdhK64m
+ VGN4J4QZFgaanDfdosOtf1ZtHmWeRKx4QibnJbqWKyQpBvhHnRS/GCrV/A5DAnD2EYvxu8Ts5
+ Nj29bvmrt01G5LkLcABR2wGxC9YZJVLdMiVnyjF9uPAB5Mh7ZPk84GsiJ/O4dR3zMZxJFa2FW
+ FEaPtwFIVcxDyha4wsufCwiWKJFGXTm2o9e
 Cc: Yi Wang <wang.yi59@zte.com.cn>, Xue Zhihong <xue.zhihong@zte.com.cn>,
  Sangbeom Kim <sbkim73@samsung.com>, LKML <linux-kernel@vger.kernel.org>,
  Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Cheng Shengyu <cheng.shengyu@zte.com.cn>
-Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: samsung: odroid: fix an
- use-after-free issue for codec
+Subject: Re: [alsa-devel] [PATCH 0/2] ASoC: samsung: odroid: fix err
+ handling of odroid_audio_probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,13 +150,13 @@ Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiBAQCAtMzE3LDYgKzMxNiw3IEBAIHN0YXRpYyBpbnQgb2Ryb2lkX2F1ZGlvX3Byb2JlKHN0cnVj
-dCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCgo+ICAJCWdvdG8gZXJyX3B1dF9jbGtfaTJzOwoKPiAg
-CX0KCj4KCj4gKwlvZl9ub2RlX3B1dChjb2RlYyk7CgoKSSB3b3VsZCBwcmVmZXIgdG8gYXZvaWQg
-YSBiaXQgb2YgZHVwbGljYXRlIHNvdXJjZSBjb2RlIGFsc28gYXQgdGhpcyBwbGFjZS4KVGh1cyBJ
-IHdvdWxkIGZpbmQgYSBzdGF0ZW1lbnQgbGlrZSDigJxnb3RvIHB1dF9ub2RlO+KAnSBtb3JlIGFw
-cHJvcHJpYXRlIGhlcmUuCgoKPiAgCXJldHVybiAwOwoKPgoKPiAgZXJyX3B1dF9jbGtfaTJzOgoK
-CgpSZWdhcmRzLApNYXJrdXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qu
-b3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxz
-YS1kZXZlbAo=
+V291bGQgYSBzdWJqZWN0IGxpa2Ug4oCcQVNvQzogc2Ftc3VuZzogb2Ryb2lkOiBGaXggaGFuZGxp
+bmcgb2YgZGV2aWNlIG5vZGUgcmVmZXJlbmNlcwppbiBvZHJvaWRfYXVkaW9fcHJvYmXigJ0gYmUg
+bW9yZSBhcHByb3ByaWF0ZSAoaW5zdGVhZCBvZiB1c2luZyB0aGUgYWJicmV2aWF0aW9uIOKAnGVy
+cuKAnSk/CgoKPiBXZSBkZXZlbG9wZWQgYSBjb2NjaW5lbGxlIFNtUEwgdG8gZGV0ZWN0IOKApgoK
+KiBJIHdvdWxkIGZpbmQgYSBzbGlnaHRseSBkaWZmZXJlbnQgd29yZGluZyBiZXR0ZXIuCgoqIEhv
+dyBkbyB5b3UgdGhpbmsgYWJvdXQgdG8gY29udmVydCB0aGlzIGluZm9ybWF0aW9uIGludG8gc29m
+dHdhcmUgYXR0cmlidXRpb25zCiAgZm9yIHRoZSB1cGRhdGUgc3RlcHM/CgpSZWdhcmRzLApNYXJr
+dXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFp
+bG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

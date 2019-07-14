@@ -2,88 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58C2E67F94
-	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2019 17:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BBB868071
+	for <lists+alsa-devel@lfdr.de>; Sun, 14 Jul 2019 19:19:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03FC11668;
-	Sun, 14 Jul 2019 17:12:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03FC11668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D3A11668;
+	Sun, 14 Jul 2019 19:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D3A11668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563117188;
-	bh=+sqJN1ykhvwxkroNx3f5+bZxluYTJyJl1MSEPNzz7pk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1563124782;
+	bh=1TAUkX4Ekd1VfHZSNkYg5JLFcuZi89H+S5VZxbgCsUw=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cQtJQQEfsTkJNzMsCRdrX2IYig7TZkQtwJzabx7txBvrSaKTM9Hid9sAJXk312pl9
-	 CbOn77tOU21xUafVpDMCZX4QRiFYAhXhfktiSv7pcl6Uzga9pPQ19c/me/KYN9QnzG
-	 Yo7D0A4/knJ/hVxaJreKCdYRa7N8aqDUe4Z2MUzk=
+	b=YxWm2kcymkpttZWFXW7PZCJoMNg8g92TNyolcpCijADnsv9l4F+jvcnLXstmEBmT5
+	 ybLhguZyrTIt78yyjUSmnP56lGvxgoLex/TBv4oQuNVIWskYzJfwQD2MV5HwNbIs9G
+	 1AVTMQGVc4+pic/kbktK2pRVjOziq2cyeRPlBROQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A891CF803D6;
-	Sun, 14 Jul 2019 17:11:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A181FF80390;
+	Sun, 14 Jul 2019 19:17:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB72AF803D1; Sun, 14 Jul 2019 17:11:02 +0200 (CEST)
+ id AED8DF80377; Sun, 14 Jul 2019 19:17:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57EBDF800D8
- for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2019 17:10:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57EBDF800D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="jjROjiZP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OuafK/TTQcFkrbP+suIfTDa/h6nPmDJ0gGHTBNIInGY=; b=jjROjiZP+3rwyeSYZ6JEiszuF8
- 5aEsyAB6fuiTSYLDPcKQcpfhT0IFhoL4uP1dD9Sd/Clwo54TJ5f5IoHgrykOHLeHHj3PNj1p2wxWY
- VKHRrD+HVGaWoVQG0aCpMj/VrzIwImUUrNaDfGl0kOTnAMKfDyHmf1czNfJPz60cdHS9oxjD6wPVC
- 4M/OC1Hv+smewROLfFszjHNXAJY4VGS9iy7xV/bdXElszIZLt01N8tXkZuBZBK8nhJMzxaefGTWIK
- SpLRtegO4RjZ8X8bNrCBl2wPPmSQPwVucShppOwUeR+M1aCc3phOQMjZzHmUSnijU2c6CiSs3X8pu
- Y3OA2A/A==;
-Received: from 201.86.163.160.dynamic.adsl.gvt.net.br ([201.86.163.160]
- helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hmg8o-0004f8-Dm; Sun, 14 Jul 2019 15:10:18 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hmg8l-0007TS-4k; Sun, 14 Jul 2019 12:10:15 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Date: Sun, 14 Jul 2019 12:10:13 -0300
-Message-Id: <12a160afc9e70156f671010bd4ccff9311acdc5e.1563115732.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1563115732.git.mchehab+samsung@kernel.org>
-References: <cover.1563115732.git.mchehab+samsung@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 019B5F800C8
+ for <alsa-devel@alsa-project.org>; Sun, 14 Jul 2019 19:17:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 019B5F800C8
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Jul 2019 10:17:48 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,491,1557212400"; d="scan'208";a="172027150"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.4.28])
+ ([10.252.4.28])
+ by orsmga006.jf.intel.com with ESMTP; 14 Jul 2019 10:17:45 -0700
+To: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+References: <20190712145550.27500-1-oleksandr.suvorov@toradex.com>
+ <20190712145550.27500-7-oleksandr.suvorov@toradex.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <e9f0f7c7-4c11-36ad-679c-503f6160b83f@intel.com>
+Date: Sun, 14 Jul 2019 19:17:43 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Rich Felker <dalias@libc.org>,
- linux-sh@vger.kernel.org, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
- "H. Peter Anvin" <hpa@zytor.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Jonathan Corbet <corbet@lwn.net>,
- x86@kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- Ingo Molnar <mingo@redhat.com>, linux-input@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@infradead.org>, Borislav Petkov <bp@alien8.de>,
- Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
- netdev@vger.kernel.org, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>, "David S. Miller" <davem@davemloft.net>
-Subject: [alsa-devel] [PATCH 8/8] docs: remove extra conf.py files
+In-Reply-To: <20190712145550.27500-7-oleksandr.suvorov@toradex.com>
+Content-Language: en-US
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
+Subject: Re: [alsa-devel] [PATCH v3 6/6] ASoC: sgtl5000: Improve VAG power
+	and mute control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,401 +77,164 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that the latex_documents are handled automatically, we can
-remove those extra conf.py files.
+On 2019-07-12 16:56, Oleksandr Suvorov wrote:
+>   
+> +enum {
+> +	HP_POWER_EVENT,
+> +	DAC_POWER_EVENT,
+> +	ADC_POWER_EVENT
+> +};
+> +
+> +struct sgtl5000_mute_state {
+> +	u16 hp_event;
+> +	u16 dac_event;
+> +	u16 adc_event;
+> +};
+> +
+>   /* sgtl5000 private structure in codec */
+>   struct sgtl5000_priv {
+>   	int sysclk;	/* sysclk rate */
+> @@ -137,8 +156,109 @@ struct sgtl5000_priv {
+>   	u8 micbias_voltage;
+>   	u8 lrclk_strength;
+>   	u8 sclk_strength;
+> +	struct sgtl5000_mute_state mute_state;
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
----
- Documentation/admin-guide/conf.py      | 10 ----------
- Documentation/core-api/conf.py         | 10 ----------
- Documentation/crypto/conf.py           | 10 ----------
- Documentation/dev-tools/conf.py        | 10 ----------
- Documentation/doc-guide/conf.py        | 10 ----------
- Documentation/driver-api/80211/conf.py | 10 ----------
- Documentation/driver-api/conf.py       | 10 ----------
- Documentation/driver-api/pm/conf.py    | 10 ----------
- Documentation/filesystems/conf.py      | 10 ----------
- Documentation/gpu/conf.py              | 10 ----------
- Documentation/input/conf.py            | 10 ----------
- Documentation/kernel-hacking/conf.py   | 10 ----------
- Documentation/maintainer/conf.py       | 10 ----------
- Documentation/media/conf.py            | 12 ------------
- Documentation/networking/conf.py       | 10 ----------
- Documentation/process/conf.py          | 10 ----------
- Documentation/sh/conf.py               | 10 ----------
- Documentation/sound/conf.py            | 10 ----------
- Documentation/userspace-api/conf.py    | 10 ----------
- Documentation/vm/conf.py               | 10 ----------
- Documentation/x86/conf.py              | 10 ----------
- 21 files changed, 212 deletions(-)
- delete mode 100644 Documentation/admin-guide/conf.py
- delete mode 100644 Documentation/core-api/conf.py
- delete mode 100644 Documentation/crypto/conf.py
- delete mode 100644 Documentation/dev-tools/conf.py
- delete mode 100644 Documentation/doc-guide/conf.py
- delete mode 100644 Documentation/driver-api/80211/conf.py
- delete mode 100644 Documentation/driver-api/conf.py
- delete mode 100644 Documentation/driver-api/pm/conf.py
- delete mode 100644 Documentation/filesystems/conf.py
- delete mode 100644 Documentation/gpu/conf.py
- delete mode 100644 Documentation/input/conf.py
- delete mode 100644 Documentation/kernel-hacking/conf.py
- delete mode 100644 Documentation/maintainer/conf.py
- delete mode 100644 Documentation/media/conf.py
- delete mode 100644 Documentation/networking/conf.py
- delete mode 100644 Documentation/process/conf.py
- delete mode 100644 Documentation/sh/conf.py
- delete mode 100644 Documentation/sound/conf.py
- delete mode 100644 Documentation/userspace-api/conf.py
- delete mode 100644 Documentation/vm/conf.py
- delete mode 100644 Documentation/x86/conf.py
+Why not array instead?
+u16 mute_state[ADC_POWER_EVENT+1];
+-or-
+u16 mute_state[LAST_POWER_EVENT+1]; (if you choose to add explicit LAST 
+enum constant).
 
-diff --git a/Documentation/admin-guide/conf.py b/Documentation/admin-guide/conf.py
-deleted file mode 100644
-index 86f738953799..000000000000
---- a/Documentation/admin-guide/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel User Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'linux-user.tex', 'Linux Kernel User Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/core-api/conf.py b/Documentation/core-api/conf.py
-deleted file mode 100644
-index db1f7659f3da..000000000000
---- a/Documentation/core-api/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Core-API Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'core-api.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/crypto/conf.py b/Documentation/crypto/conf.py
-deleted file mode 100644
-index 4335d251ddf3..000000000000
---- a/Documentation/crypto/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Crypto API'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'crypto-api.tex', 'Linux Kernel Crypto API manual',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/dev-tools/conf.py b/Documentation/dev-tools/conf.py
-deleted file mode 100644
-index 7faafa3f7888..000000000000
---- a/Documentation/dev-tools/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Development tools for the kernel"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'dev-tools.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/doc-guide/conf.py b/Documentation/doc-guide/conf.py
-deleted file mode 100644
-index fd3731182d5a..000000000000
---- a/Documentation/doc-guide/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Documentation Guide'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'kernel-doc-guide.tex', 'Linux Kernel Documentation Guide',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/driver-api/80211/conf.py b/Documentation/driver-api/80211/conf.py
-deleted file mode 100644
-index 4424b4b0b9c3..000000000000
---- a/Documentation/driver-api/80211/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux 802.11 Driver Developer's Guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', '80211.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/driver-api/conf.py b/Documentation/driver-api/conf.py
-deleted file mode 100644
-index 202726d20088..000000000000
---- a/Documentation/driver-api/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "The Linux driver implementer's API guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'driver-api.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/driver-api/pm/conf.py b/Documentation/driver-api/pm/conf.py
-deleted file mode 100644
-index a89fac11272f..000000000000
---- a/Documentation/driver-api/pm/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Device Power Management"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'pm.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/filesystems/conf.py b/Documentation/filesystems/conf.py
-deleted file mode 100644
-index ea44172af5c4..000000000000
---- a/Documentation/filesystems/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Filesystems API"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'filesystems.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/gpu/conf.py b/Documentation/gpu/conf.py
-deleted file mode 100644
-index 1757b040fb32..000000000000
---- a/Documentation/gpu/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux GPU Driver Developer's Guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'gpu.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/input/conf.py b/Documentation/input/conf.py
-deleted file mode 100644
-index d2352fdc92ed..000000000000
---- a/Documentation/input/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "The Linux input driver subsystem"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'linux-input.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/kernel-hacking/conf.py b/Documentation/kernel-hacking/conf.py
-deleted file mode 100644
-index 3d8acf0f33ad..000000000000
---- a/Documentation/kernel-hacking/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Kernel Hacking Guides"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'kernel-hacking.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/maintainer/conf.py b/Documentation/maintainer/conf.py
-deleted file mode 100644
-index 81e9eb7a7884..000000000000
---- a/Documentation/maintainer/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Development Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'maintainer.tex', 'Linux Kernel Development Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/media/conf.py b/Documentation/media/conf.py
-deleted file mode 100644
-index 1f194fcd2cae..000000000000
---- a/Documentation/media/conf.py
-+++ /dev/null
-@@ -1,12 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--# SPDX-License-Identifier: GPL-2.0
--
--project = 'Linux Media Subsystem Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'media.tex', 'Linux Media Subsystem Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/networking/conf.py b/Documentation/networking/conf.py
-deleted file mode 100644
-index 40f69e67a883..000000000000
---- a/Documentation/networking/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Networking Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'networking.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/process/conf.py b/Documentation/process/conf.py
-deleted file mode 100644
-index 1b01a80ad9ce..000000000000
---- a/Documentation/process/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Development Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'process.tex', 'Linux Kernel Development Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/sh/conf.py b/Documentation/sh/conf.py
-deleted file mode 100644
-index 1eb684a13ac8..000000000000
---- a/Documentation/sh/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "SuperH architecture implementation manual"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'sh.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/sound/conf.py b/Documentation/sound/conf.py
-deleted file mode 100644
-index 3f1fc5e74e7b..000000000000
---- a/Documentation/sound/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Sound Subsystem Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'sound.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/userspace-api/conf.py b/Documentation/userspace-api/conf.py
-deleted file mode 100644
-index 2eaf59f844e5..000000000000
---- a/Documentation/userspace-api/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "The Linux kernel user-space API guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'userspace-api.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/vm/conf.py b/Documentation/vm/conf.py
-deleted file mode 100644
-index 3b0b601af558..000000000000
---- a/Documentation/vm/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Memory Management Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'memory-management.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/x86/conf.py b/Documentation/x86/conf.py
-deleted file mode 100644
-index 33c5c3142e20..000000000000
---- a/Documentation/x86/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "X86 architecture specific documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'x86.tex', project,
--     'The kernel development community', 'manual'),
--]
--- 
-2.21.0
+Enables simplification, see below.
 
+> @@ -170,40 +290,79 @@ static int mic_bias_event(struct snd_soc_dapm_widget *w,
+>   	return 0;
+>   }
+>   
+> -/*
+> - * As manual described, ADC/DAC only works when VAG powerup,
+> - * So enabled VAG before ADC/DAC up.
+> - * In power down case, we need wait 400ms when vag fully ramped down.
+> - */
+> -static int power_vag_event(struct snd_soc_dapm_widget *w,
+> -	struct snd_kcontrol *kcontrol, int event)
+> +static void vag_and_mute_control(struct snd_soc_component *component,
+> +				 int event, int event_source,
+> +				 u16 mute_mask, u16 *mute_reg)
+>   {
+> -	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+> -	const u32 mask = SGTL5000_DAC_POWERUP | SGTL5000_ADC_POWERUP;
+> -
+>   	switch (event) {
+> -	case SND_SOC_DAPM_POST_PMU:
+> -		snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_POWER,
+> -			SGTL5000_VAG_POWERUP, SGTL5000_VAG_POWERUP);
+> -		msleep(400);
+> +	case SND_SOC_DAPM_PRE_PMU:
+> +		*mute_reg = mute_output(component, mute_mask);
+> +		break;
+> +	case SND_SOC_DAPM_POST_PMU:
+> +		vag_power_on(component, event_source);
+> +		restore_output(component, mute_mask, *mute_reg);
+>   		break;
+> -
+>   	case SND_SOC_DAPM_PRE_PMD:
+> -		/*
+> -		 * Don't clear VAG_POWERUP, when both DAC and ADC are
+> -		 * operational to prevent inadvertently starving the
+> -		 * other one of them.
+> -		 */
+> -		if ((snd_soc_component_read32(component, SGTL5000_CHIP_ANA_POWER) &
+> -				mask) != mask) {
+> -			snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_POWER,
+> -				SGTL5000_VAG_POWERUP, 0);
+> -			msleep(400);
+> -		}
+> +		*mute_reg = mute_output(component, mute_mask);
+> +		vag_power_off(component, event_source);
+> +		break;
+> +	case SND_SOC_DAPM_POST_PMD:
+> +		restore_output(component, mute_mask, *mute_reg);
+>   		break;
+>   	default:
+>   		break;
+>   	}
+> +}
+> +
+> +/*
+> + * Mute Headphone when power it up/down.
+> + * Control VAG power on HP power path.
+> + */
+> +static int headphone_pga_event(struct snd_soc_dapm_widget *w,
+> +	struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *component =
+> +		snd_soc_dapm_to_component(w->dapm);
+> +	struct sgtl5000_priv *sgtl5000 =
+> +		snd_soc_component_get_drvdata(component);
+> +
+> +	vag_and_mute_control(component, event, HP_POWER_EVENT,
+> +			     SGTL5000_HP_MUTE,
+> +			     &sgtl5000->mute_state.hp_event);
+> +
+> +	return 0;
+> +}
+> +
+> +/* As manual describes, ADC/DAC powering up/down requires
+> + * to mute outputs to avoid pops.
+> + * Control VAG power on ADC/DAC power path.
+> + */
+> +static int adc_updown_depop(struct snd_soc_dapm_widget *w,
+> +	struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *component =
+> +		snd_soc_dapm_to_component(w->dapm);
+> +	struct sgtl5000_priv *sgtl5000 =
+> +		snd_soc_component_get_drvdata(component);
+> +
+> +	vag_and_mute_control(component, event, ADC_POWER_EVENT,
+> +			     SGTL5000_OUTPUTS_MUTE,
+> +			     &sgtl5000->mute_state.adc_event);
+> +
+> +	return 0;
+> +}
+> +
+> +static int dac_updown_depop(struct snd_soc_dapm_widget *w,
+> +	struct snd_kcontrol *kcontrol, int event)
+> +{
+> +	struct snd_soc_component *component =
+> +		snd_soc_dapm_to_component(w->dapm);
+> +	struct sgtl5000_priv *sgtl5000 =
+> +		snd_soc_component_get_drvdata(component);
+> +
+> +	vag_and_mute_control(component, event, DAC_POWER_EVENT,
+> +			     SGTL5000_OUTPUTS_MUTE,
+> +			     &sgtl5000->mute_state.dac_event);
+>   
+>   	return 0;
+>   }
+
+With array approach you can simplify these 3 callbacks:
+- remove local declaration of sgtl5000
+- remove the need for "u16 *mute_reg" param for vag_and_mute_control
+(you always provide the xxx_event field of mute_state corresponding to 
+given XXX_POWER_EVENT anyway)
+
+The sgtl5000 local ptr would be declared within common handler, which 
+vag_and_mute_control clearly is. Said handler declaration could be 
+updated to again require widget rather than component.
+
+Cherry on top: relocation of "return 0;" directly to 
+vag_and_mute_control. Leaving it void (as it is), however, might also be 
+appropriate (explicit).
+
+Czarek
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

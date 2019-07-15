@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DDE168E1A
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2019 16:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CED2B68FED
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2019 16:18:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37CAF165F;
-	Mon, 15 Jul 2019 16:03:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37CAF165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 511931668;
+	Mon, 15 Jul 2019 16:17:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 511931668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563199452;
-	bh=wvRLRrN3LFjK20I8/Qr0666ASbzrDqxIdmiVdZDE9x8=;
+	s=default; t=1563200287;
+	bh=i+0JY6kkl9DV7MOk1s+xRCcT38s7g6HYOvon07dBd9k=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dIa91SBmVL48759qigdEpqKTK+29OPqhvyeSZAYg/JxGcFbLbYrd9Cr6Vey/Ki6HS
-	 mpzxrVn04JW07pJQOKbXME6Tr6n4adUaS9jRcpYgGeij60UZw9i2nzbK8Gh1bqASyS
-	 oO5SOhoRl8jz4KI+iCEGTlFwZ50vNuPVs3lhV3jA=
+	b=q19vs6nzGIMnzUquErf8pjKfGXn42SvoYw4kFWl6OCStI1p/AEvb90kckHHvpdmXl
+	 1cQMKOJPRgzabcondR5xkxPN1e4we+qWm6GhjgoZTx6eDBO96yoVuBoJ8T5V/mYB8j
+	 FuLaJwwKF9E7iDrVA/C9ZOB9lVqfuwm3qDkJCGgs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55AEBF80363;
-	Mon, 15 Jul 2019 16:02:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 547C0F80367;
+	Mon, 15 Jul 2019 16:16:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8676CF800D8; Mon, 15 Jul 2019 16:01:50 +0200 (CEST)
+ id 9D5C8F80367; Mon, 15 Jul 2019 16:16:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,32 +34,32 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBE10F800D8
- for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 16:01:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBE10F800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15BE2F802BC
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 16:16:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15BE2F802BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nZme1vKq"
+ header.b="vKuMqlTr"
 Received: from sasha-vm.mshome.net (unknown [73.61.17.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id EAB50217D9;
- Mon, 15 Jul 2019 14:01:36 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9C8D820868;
+ Mon, 15 Jul 2019 14:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1563199301;
- bh=St1d272BkiBwT3+V+ebyw+4vtxZaVUsHxa/OZgoDKxY=;
+ s=default; t=1563200173;
+ bh=QdxkhPNgcZkx+wY+JoZuFgHJzgfudEMIkPwELkwc6D8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nZme1vKqCguOgzZRooMPsdtx713fSFYM1Ws/bjQxK4FXwC2fzlTQ5IW2j5pjryPbN
- yflgx/ympocNHWlaoIB4p7oXxf/hsoJj9dXQGgDTWFkLqEGJIQFuuyIgiIvRWt7p2H
- wlmopKJmEwEfW8LZn1uO7umnpEtOHKC8/OArlCzs=
+ b=vKuMqlTruVNDKNNGZmMOkc8aqYTKwUifwqVpxostOpQPFzRWIO2GDI/shFEJVdYFV
+ 8DcVeS27FkpayOjZw0mlNguzZnzA6uk+KtU92LOOnxFaJQKANRjufHl3z70DxmW5AO
+ 6KX9YBTvobKRwXPxTW0mWSGsUaBFFFKxAPWiki4E=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon, 15 Jul 2019 09:46:35 -0400
-Message-Id: <20190715134655.4076-230-sashal@kernel.org>
+Date: Mon, 15 Jul 2019 10:03:22 -0400
+Message-Id: <20190715140341.6443-201-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190715134655.4076-1-sashal@kernel.org>
-References: <20190715134655.4076-1-sashal@kernel.org>
+In-Reply-To: <20190715140341.6443-1-sashal@kernel.org>
+References: <20190715140341.6443-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -67,7 +67,7 @@ Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
  Mark Brown <broonie@kernel.org>, Wen Yang <wen.yang99@zte.com.cn>
-Subject: [alsa-devel] [PATCH AUTOSEL 5.2 230/249] ASoC: audio-graph-card:
+Subject: [alsa-devel] [PATCH AUTOSEL 5.1 201/219] ASoC: audio-graph-card:
 	fix use-after-free in graph_for_each_link
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -111,10 +111,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/generic/audio-graph-card.c b/sound/soc/generic/audio-graph-card.c
-index ec7e673ba475..70ed28d97d49 100644
+index 69bc4848d787..f730830fb36c 100644
 --- a/sound/soc/generic/audio-graph-card.c
 +++ b/sound/soc/generic/audio-graph-card.c
-@@ -435,9 +435,6 @@ static int graph_for_each_link(struct asoc_simple_priv *priv,
+@@ -460,9 +460,6 @@ static int graph_for_each_link(struct graph_priv *priv,
  			codec_ep = of_graph_get_remote_endpoint(cpu_ep);
  			codec_port = of_get_parent(codec_ep);
  
@@ -123,8 +123,8 @@ index ec7e673ba475..70ed28d97d49 100644
 -
  			/* get convert-xxx property */
  			memset(&adata, 0, sizeof(adata));
- 			graph_parse_convert(dev, codec_ep, &adata);
-@@ -457,6 +454,9 @@ static int graph_for_each_link(struct asoc_simple_priv *priv,
+ 			graph_get_conversion(dev, codec_ep, &adata);
+@@ -482,6 +479,9 @@ static int graph_for_each_link(struct graph_priv *priv,
  			else
  				ret = func_noml(priv, cpu_ep, codec_ep, li);
  

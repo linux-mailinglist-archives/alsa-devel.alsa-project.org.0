@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0899683D2
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2019 09:00:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55892683D3
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2019 09:00:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DAA21666;
-	Mon, 15 Jul 2019 08:59:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DAA21666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D5781681;
+	Mon, 15 Jul 2019 09:00:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D5781681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563174034;
-	bh=JjSDb08uTlyke1Ck4SorOf0afIgoJgXM/jmvc4tem7A=;
+	s=default; t=1563174051;
+	bh=3ZiiKcAgb5vqrnLyXpLwIFfvdfwjfQuiLw/PBFr9L5w=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=knU1nrVYbH1V3Oimv6vi/vl7p4EtApGJZ1XEHTP+1+WYrQ4YR6wRyw8r7uM7N/EmQ
-	 56WFj4mbJ02GQPxl3vb2wxo2Ul9oBI5nEPNHMEx10fHqlnqsiLycDE266MebQH2UcF
-	 ZgpPtYItggEKtJ35RpWbthedLNnkoKoUPzm2vNkI=
+	b=CewIIw3ai0yy4TefUbcfoiZmAzFitLbJGA27acb00qUUPD3YJQnwemtCw7Y5b9+2M
+	 dGEW0/4HeGM/de0MUL18TPKNAh7ofe3eDmSXbhPvnkUF/mTyjiQe8qGIJaJ82nOE5z
+	 LiDd2Zu9BJuDUanCEKuh6dsBAzI8pWf8120aiwyI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3245AF803D0;
-	Mon, 15 Jul 2019 08:57:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 267AFF80363;
+	Mon, 15 Jul 2019 08:58:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26CE3F803D0; Mon, 15 Jul 2019 08:57:46 +0200 (CEST)
+ id 9134AF803D6; Mon, 15 Jul 2019 08:58:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,19 +33,19 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 80B17F80393
- for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 08:57:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80B17F80393
+ by alsa1.perex.cz (Postfix) with ESMTPS id E0FF3F800C6
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 08:58:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0FF3F800C6
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 3A8C1AF8E;
- Mon, 15 Jul 2019 06:57:43 +0000 (UTC)
-Date: Mon, 15 Jul 2019 08:57:43 +0200
-Message-ID: <s5h1ryrg4yg.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 9EE6FAF8C;
+ Mon, 15 Jul 2019 06:58:13 +0000 (UTC)
+Date: Mon, 15 Jul 2019 08:58:13 +0200
+Message-ID: <s5hzhlfeqd6.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: "Hariprasad Kelam" <hariprasad.kelam@gmail.com>
-In-Reply-To: <20190711171726.GA4356@hari-Inspiron-1545>
-References: <20190711171726.GA4356@hari-Inspiron-1545>
+In-Reply-To: <20190711172107.GA5008@hari-Inspiron-1545>
+References: <20190711172107.GA5008@hari-Inspiron-1545>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -54,8 +54,8 @@ Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
  Richard Fontana <rfontana@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
  Allison Randal <allison@lohutok.net>
-Subject: Re: [alsa-devel] [PATCH] sound: pci: emu10k1: Remove unneeded
-	variable "change"
+Subject: Re: [alsa-devel] [PATCH] sound: pci: rme9652: Unneeded variable:
+	"result".
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,12 +73,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 11 Jul 2019 19:17:26 +0200,
+On Thu, 11 Jul 2019 19:21:07 +0200,
 Hariprasad Kelam wrote:
 > 
-> fix below issue reported by coccicheck
-> sound/pci/emu10k1/emu10k1x.c:1077:5-11: Unneeded variable: "change".
-> Return "0" on line 1092
+> This patch fixes below issue reported by coccicheck
+> 
+> sound/pci/rme9652/rme9652.c:2161:5-11: Unneeded variable: "result".
+> Return "0" on line 2167
 > 
 > Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
 

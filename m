@@ -2,61 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D313269861
-	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2019 17:29:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E46AD698A8
+	for <lists+alsa-devel@lfdr.de>; Mon, 15 Jul 2019 17:58:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26DE1166A;
-	Mon, 15 Jul 2019 17:29:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26DE1166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 479D81668;
+	Mon, 15 Jul 2019 17:57:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 479D81668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563204596;
-	bh=sf9RTY59LfP+YVBFLBAx8+MxrPMbKCm5C7RVxG44Jlo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1563206306;
+	bh=8CK4VB4G/z31CQS5/GdOLar1VhZYd47EV9q1wacQkkU=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I29y49qBOYee7BjoYvaa/KzxuixfSPcdI0GtdpjaUPrObxJl/q0pS4D7MlqWstM5i
-	 Mv/CGkE8iD47vdySMUKZwPERwIYyYhE75c1dfw6F+LH8TRnA9pwZpRjChlmom0ZMKp
-	 nBWukyiqAX4VAcnaHvHt3rJwmCCjnJ7lnze6fq/s=
+	b=RVS9o8o6xEU40nHAOyeDMqr76wMxULT+QEZtNQJHYGVXctkT2RbdtVkp2tE3MyWQN
+	 P8KcSl+55Vz4q0SMWx7sPbaqaN/AkokRNJvfptpO7dAlfwMxbz1cG13R/fcXNFg+Zj
+	 1vcaDnE7yck1YF16sytZPrvNjdN+tdQgDDcYQH5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A248F800D8;
-	Mon, 15 Jul 2019 17:28:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F46FF800D8;
+	Mon, 15 Jul 2019 17:56:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2F1EF800C6; Mon, 15 Jul 2019 17:28:01 +0200 (CEST)
+ id 67CBDF80367; Mon, 15 Jul 2019 17:56:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EB47AF800C6
- for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 17:27:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB47AF800C6
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jul 2019 08:27:55 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,493,1557212400"; d="scan'208";a="342413617"
-Received: from dtmeier-mobl2.amr.corp.intel.com ([10.252.200.9])
- by orsmga005.jf.intel.com with ESMTP; 15 Jul 2019 08:27:55 -0700
-Message-ID: <7fc6fdf3461c8faff4d853f80e282f3830a04724.camel@linux.intel.com>
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: alsa-devel@alsa-project.org, broonie@kernel.org
-Date: Mon, 15 Jul 2019 08:27:55 -0700
-In-Reply-To: <20190707235633.7114-1-ranjani.sridharan@linux.intel.com>
-References: <20190707235633.7114-1-ranjani.sridharan@linux.intel.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Cc: tiwai@suse.de, libin.yang@intel.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [RESEND PATCH v2] ASoC: SOF: Intel: hda: Make
- hdac_device device-managed
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB7E4F800D8
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 17:56:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB7E4F800D8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="SA30rmEv"
+Received: by mail-ot1-x343.google.com with SMTP id r6so17536985oti.3
+ for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 08:56:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BxdnANqifDB1z1Ih8rPgPPFQ52+wPGcxB0Lct34ID5Q=;
+ b=SA30rmEvAAB/UeWM0cJpboyXWomGji7I7a5x3X8IC2z8RDCcu48fRpx3oXaTPieM78
+ hMUBvyfACXuvhVyl7122TsYzmlo3PSQz9JgHl3IzAfFzF4LUSFpBOVOTOS1B1L4yygl7
+ QOOGtMtHFpJt8B1LZKpTsfOdvejMLuCIDQCalifs34k7ukv+KzyMS3/rAXEkr2VMjwP1
+ SBtlOVlmpKFktDXSl32r68WJn6RZP964o2hS1wrBNhCu42BpzNeAZYsIqnpYlDH19pdT
+ IooGaAqomRnAwqqNrb8iHZz4u/RbyBz6uQU3gz+bKjgxr0xq0hFlSy/JRzbwLlHSQ+Nf
+ EO5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BxdnANqifDB1z1Ih8rPgPPFQ52+wPGcxB0Lct34ID5Q=;
+ b=oDW128A0QTwc1y6iIaZwE612PxWD1b9vL0NAlRtnsNn8IMyfM8Ju2DwpiQ6mmxlpe/
+ EYaYk9QHNrsTHjNCaZ0OU0LzLlMKnM2olKgw5dM5WwFm6eSzSfZaEMBpKubf1hEgcDY3
+ NfDrRhwvCQjp7xOoQOMyQV3jk/Z2WNi0DoUICEX0Yt/lzwNlm5PLtUSSTj/77+xAAlWY
+ /e19XFUvHwKFjvRB40XFTNAw+5H2D9XI+SWjHbv6xbAS1+2FhChBZQhe9R5k+1HgvZVe
+ oDrQ4i4y6MM4MoGqdD86TRr9cby1Q0P3D+07YwW3VignY84LWu2ClS9HWUKQ+qaDVTJJ
+ vVxQ==
+X-Gm-Message-State: APjAAAXon7PCZUAnQc9FQwi+MVrnxGPMRBMllOp5+zLbQpmZRfr+nlNC
+ sciuBdSYt8OnY6raafJfL16ruVufwu5SpguvyS5zFg==
+X-Google-Smtp-Source: APXvYqwsZvLcK5LidkOK7j4XvKdYHFQb2nVh/AtXUYin5kr5W0WlZFyIM9UGzPAW85pcfSoyZbDk7ZxnfK/q+cptnb0=
+X-Received: by 2002:a05:6830:1cd:: with SMTP id
+ r13mr8619272ota.99.1563206191242; 
+ Mon, 15 Jul 2019 08:56:31 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190712100443.221322-1-cychiang@chromium.org>
+ <20190712100443.221322-2-cychiang@chromium.org>
+ <20190712105745.xr7jxc626lwoaajx@shell.armlinux.org.uk>
+In-Reply-To: <20190712105745.xr7jxc626lwoaajx@shell.armlinux.org.uk>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Mon, 15 Jul 2019 23:56:19 +0800
+Message-ID: <CA+Px+wWbmUemETY3OMk1T9XS2w8ZXvZUhVEGzw_w6AxtU8R0rw@mail.gmail.com>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Cc: ALSA development <alsa-devel@alsa-project.org>, tzungbi@chromium.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Douglas Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
+ linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v3 1/5] ASoC: hdmi-codec: Add an op to set
+ callback function for plug event
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,89 +109,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 2019-07-07 at 16:56 -0700, Ranjani Sridharan wrote:
-> snd_hdac_ext_bus_device_exit() has been recently modified
-> to no longer free the hdac device. SOF allocates memory for
-> hdac_device and hda_hda_priv with kzalloc. Make them
-> device-managed instead so that they will be freed when the
-> SOF driver is unloaded.
-> 
-> Because of the above change, hda_codec is device-managed and
-> it will be freed when the ASoC device is removed. Freeing
-> the codec in snd_hda_codec_dev_release() leads to kernel
-> panic while unloading and reloading the ASoC driver. So,
-> avoid freeing the hda_codec for ASoC driver. This is done in
-> the same patch to avoid bisect failure.
-Hi Mark,
+On Fri, Jul 12, 2019 at 6:58 PM Russell King - ARM Linux admin
+<linux@armlinux.org.uk> wrote:
+>
+> On Fri, Jul 12, 2019 at 06:04:39PM +0800, Cheng-Yi Chiang wrote:
+> > Add an op in hdmi_codec_ops so codec driver can register callback
+> > function to handle plug event.
+> >
+> > Driver in DRM can use this callback function to report connector status.
+> >
+> > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> > ---
+> >  include/sound/hdmi-codec.h    | 16 +++++++++++++
+> >  sound/soc/codecs/hdmi-codec.c | 45 +++++++++++++++++++++++++++++++++++
+> >  2 files changed, 61 insertions(+)
+> >
+> > diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
+> > index 7fea496f1f34..9a8661680256 100644
+> > --- a/include/sound/hdmi-codec.h
+> > +++ b/include/sound/hdmi-codec.h
+> > @@ -47,6 +47,9 @@ struct hdmi_codec_params {
+> >       int channels;
+> >  };
+> >
+> > +typedef void (*hdmi_codec_plugged_cb)(struct device *dev,
+> > +                                   bool plugged);
+> > +
+>
+> I'd like to pose a question for people to think about.
+>
+> Firstly, typedefs are generally shunned in the kernel.  However, for
+> these cases it seems to make sense.
+>
+> However, should the "pointer"-ness be part of the typedef or not?  To
+> see what I mean, consider:
+>
+>         typedef void (*hdmi_foo)(void);
+>
+>         int register_foo(hdmi_foo foo);
+>
+> vs
+>
+>         typedef void hdmi_foo(void);
+>
+>         int register_foo(hdmi_foo *foo);
+>
+> which is more in keeping with how we code non-typedef'd code - it's
+> obvious that foo is a pointer while reading the code.
+I have a different opinion.  Its suffix "_cb" self-described it is a
+callback function.  Since function and function pointer are equivalent
+in the language, I think we don't need to emphasize that it is a
+function "pointer".
 
-This patch is needed for the module load/unload stress tests for the
-Intel platforms with SOF. Could you please help review it?
- 
-The details of the issue can be found here: 
-https://github.com/thesofproject/linux/issues/966
 
-Thanks,
-Ranjani
-> 
-> Signed-off-by: Libin Yang <libin.yang@intel.com>
-> Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Reviewed-by: Takashi Iwai <tiwai@suse.de>
-> Reviewed-by: Pierre-Louis Bossart <
-> pierre-louis.bossart@linux.intel.com>
-> ---
->  sound/pci/hda/hda_codec.c       | 8 +++++++-
->  sound/soc/sof/intel/hda-codec.c | 6 ++----
->  2 files changed, 9 insertions(+), 5 deletions(-)
-> 
-> diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-> index 6c51b8363f8b..a2e23d7e768f 100644
-> --- a/sound/pci/hda/hda_codec.c
-> +++ b/sound/pci/hda/hda_codec.c
-> @@ -846,7 +846,13 @@ static void snd_hda_codec_dev_release(struct
-> device *dev)
->  	snd_hda_sysfs_clear(codec);
->  	kfree(codec->modelname);
->  	kfree(codec->wcaps);
-> -	kfree(codec);
-> +
-> +	/*
-> +	 * In the case of ASoC HD-audio, hda_codec is device managed.
-> +	 * It will be freed when the ASoC device is removed.
-> +	 */
-> +	if (codec->core.type == HDA_DEV_LEGACY)
-> +		kfree(codec);
->  }
->  
->  #define DEV_NAME_LEN 31
-> diff --git a/sound/soc/sof/intel/hda-codec.c
-> b/sound/soc/sof/intel/hda-codec.c
-> index b8b37f082309..0d8437b080bf 100644
-> --- a/sound/soc/sof/intel/hda-codec.c
-> +++ b/sound/soc/sof/intel/hda-codec.c
-> @@ -62,8 +62,7 @@ static int hda_codec_probe(struct snd_sof_dev
-> *sdev, int address)
->  		address, resp);
->  
->  #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
-> -	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
-> -	hda_priv = kzalloc(sizeof(*hda_priv), GFP_KERNEL);
-> +	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv),
-> GFP_KERNEL);
->  	if (!hda_priv)
->  		return -ENOMEM;
->  
-> @@ -82,8 +81,7 @@ static int hda_codec_probe(struct snd_sof_dev
-> *sdev, int address)
->  
->  	return 0;
->  #else
-> -	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
-> -	hdev = kzalloc(sizeof(*hdev), GFP_KERNEL);
-> +	hdev = devm_kzalloc(sdev->dev, sizeof(*hdev), GFP_KERNEL);
->  	if (!hdev)
->  		return -ENOMEM;
->  
-
+> It seems to me that the latter better matches what is in the kernel's
+> coding style, which states:
+>
+>   In general, a pointer, or a struct that has elements that can
+>   reasonably be directly accessed should **never** be a typedef.
+>
+> or maybe Documentation/process/coding-style.rst needs updating?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

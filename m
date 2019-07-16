@@ -2,94 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EC766A375
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 10:01:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F3866A3F4
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 10:36:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98C73168E;
-	Tue, 16 Jul 2019 10:01:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98C73168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D458C168E;
+	Tue, 16 Jul 2019 10:36:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D458C168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563264115;
-	bh=ziA5z8oitMsoXThVs0ru/JP16bWg7dk2GQB2dTocy9g=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qaMcyHgb1w6D9+WkUWCIy6XWKFKFR+0u50P2fjpsJAnIEkPFbS39BywdNu8yQeT+p
-	 2XuxhqM9UxZIs3M0IEzJ55J1Eu930c5b89YqpcQEEBCXfTFlLE41LB2Jv39J7W+2/Q
-	 IcBrD0dcKjyjLBFtN77VV88FTmeV/LEclZnDQr9s=
+	s=default; t=1563266216;
+	bh=ac3HodZvF/7I1XzhEwLHuwOpEA/Qydwz1kGJfBwucCY=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ag8VK6IGcxxgoI2pw30gH+c4m2Eg5NMszAmFcjGgQbDiNCbS5S4RUStXNTm8ntmdp
+	 qmdm3GDzw3zqAvIzfRNwbuzZwdL1+WpPyOGpmn+XbCN/j2xyaz/TTZTtPsOpICEYLI
+	 nn8Tu/Pta7X20PSOpA1Qu4kK10oJxeKbZqMx93zU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5395F80362;
-	Tue, 16 Jul 2019 10:00:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB68DF80362;
+	Tue, 16 Jul 2019 10:35:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CEA5F80376; Tue, 16 Jul 2019 10:00:09 +0200 (CEST)
+ id AE2F0F80376; Tue, 16 Jul 2019 10:35:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, 
- URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe41.google.com (mail-vs1-xe41.google.com
- [IPv6:2607:f8b0:4864:20::e41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_135,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr50061.outbound.protection.outlook.com [40.107.5.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86B81F800C4
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 10:00:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86B81F800C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7476CF800C4
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 10:35:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7476CF800C4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="WkIXGD93"
-Received: by mail-vs1-xe41.google.com with SMTP id m23so13286964vso.1
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 01:00:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0k1aHf58/gxem57t+/HJk9SNpX74KfXqdFRssCgasHQ=;
- b=WkIXGD93vnc7/jgdUJCOyAhWfQWj4JwZxZhvfijDRISLuLx4yflZHTDWWSxx7WAFgi
- P/75eR1ocFjiim/HAtaQ/hHHMdj/AJhGCoGv3O1KDMwV3amytYQ+kgBq/LAKt+YymIQH
- cgPBdjhd4eTA/OcE54ml3PqvteVAcATrUZsBw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0k1aHf58/gxem57t+/HJk9SNpX74KfXqdFRssCgasHQ=;
- b=Zt9eGPsqUY1HbGrZ0NlfdC3N8nwhyUxSkJApDEp+N5YQydmlFsLI2ePhyy0yZJ2+ED
- +TAw1tfzfRvgmAV9+MiQz4WFVdtYrHbAob80U5W9Uj2KK0fNhjfIL1f/XR3YpfIM77b4
- OMUAwF2VbfjATXweksys6DHpYp/pvmY/aud+Y0oucu1l0bHTKeHtxcdiB+hOhOJlhwfq
- Lk26sWVHIG0ReKn4H1N1xKK+qGfP/H0gddxO/e7iZ85GJZBg9dy+Y1V+XNUqlnq83vmj
- YQkEmIq4GARY1Kbthvv9mklMqSvVrMfuiaaFX5+O3dZiu4DGNW4Am9AEZr5ozuz/J/aV
- IUMQ==
-X-Gm-Message-State: APjAAAWapYGAuWcqivxEWLZK01W5e+jfRa9KtztUOTbbTPw0J1zL8rfd
- uCx2ZNd4ccwagTy9qvm4PkXIEqfDLPjUxpC3gH0x5g==
-X-Google-Smtp-Source: APXvYqz3UlcLWtTzFizosrgSxqzhf3bbaJZCfMhWBpiXfCrTTv26BLTLvewBhZnAiR6udq4k9bpOekTvU0tfbVw4RAQ=
-X-Received: by 2002:a67:ebcb:: with SMTP id y11mr9527514vso.138.1563264004214; 
- Tue, 16 Jul 2019 01:00:04 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="OYakxs+U"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Ue2tnAsAyPV4HzefiTsLC/Jy9YPXs+5yrWb/RdGiFVsLogRDYph3CW3cfoM3+Tgicm0WDnzFPLuk3PPrRYpcIqY343rKs+eIZzVK0rvSRfuzGXlIl1QQ+bwLuVfhJLtwrngL3ImCJvUdhXcAD2o6PfuQjw0vqdwFChsdlnS6V9ry5P5qjXXw6XgRNjIYwbaSbx4ETbYDjaRM199dwSNkdXRveCySOpCKyxfbsL9qN9j0N7bO5FF3OWVEznO92l4mEZLYV49XvDZztMt0gMGG+qC6TaMvMgoZc882Yk1ev3RoiDQEjhMqr5/hT3ZWpbV1ui3mjbInegFHx1kmuXOdRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jrgfVlGIXITtueLT5m9ub0VvAazV6tl60VvsfvnsJaI=;
+ b=l+A4bAOJPGMGFMFaZH5yGmIv/qmgg+1N0FmrsK7o193MHJRmHdTujPDWRe/3vyDHl9FsE3Aq7HJQQfm0VxatUYtq/lFZxrDgsK0ldH4Rpz4PYevsu5HYPkt+MIk3MJprsZAqH+hKUNP2NgxTx1irXMRbxVdF/8+Vlb1t6yUI8jZQkcUWifLxmsMsCkccagrVm0yZv9TUvB3ADFKgj9VwZAdcXQ1jSOJm/D+VrQ7WptJGI4B961R2SIKfn6/U8g3sE80P4L1FVFZCahp7ikX4h3bRSN3suhk756sBTomOOPk6/DzefBl5icdlLd2Ia+Ugt73lHuwE0C4cAqpDd/8gow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=nxp.com;dmarc=pass action=none header.from=nxp.com;dkim=pass
+ header.d=nxp.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jrgfVlGIXITtueLT5m9ub0VvAazV6tl60VvsfvnsJaI=;
+ b=OYakxs+UjBIl6Tc8jzMZzk4WV/+/lpt4YpvGmmnb2NTPCOyHU564eXuUQz3nhzLKOJST486RDE88W8C6IqEMeJ4X4m5NzBWX8CXxxSd0PbszwgpgBQoP2m2OHEoiEFpJxHREuUZM8n9hRN9M70bpFQpnUY9XhOml+2vA95TLvsA=
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.233.80) by
+ VE1PR04MB6367.eurprd04.prod.outlook.com (10.255.118.80) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2073.14; Tue, 16 Jul 2019 08:35:02 +0000
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::218e:ee37:1e81:e157]) by VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::218e:ee37:1e81:e157%3]) with mapi id 15.20.2073.012; Tue, 16 Jul 2019
+ 08:35:02 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: Is there a way to support TX master mode and RX slave mode?
+Thread-Index: AdU7sONcEDPiFy3LSBy1LaOlx/PQWQ==
+Date: Tue, 16 Jul 2019 08:35:02 +0000
+Message-ID: <VE1PR04MB6479C4D2CD4B9D486209102FE3CE0@VE1PR04MB6479.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-originating-ip: [119.31.174.66]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1dd886d5-7b14-4c7a-5530-08d709c87f00
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:VE1PR04MB6367; 
+x-ms-traffictypediagnostic: VE1PR04MB6367:
+x-microsoft-antispam-prvs: <VE1PR04MB636709BC3BAA598DB730FB44E3CE0@VE1PR04MB6367.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-forefront-prvs: 0100732B76
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(189003)(199004)(81156014)(81166006)(316002)(8936002)(3846002)(6436002)(9686003)(2351001)(790700001)(99286004)(54896002)(6916009)(6306002)(71190400001)(5640700003)(55016002)(53936002)(486006)(52536014)(71200400001)(74316002)(102836004)(256004)(5660300002)(66446008)(64756008)(66556008)(76116006)(66946007)(86362001)(6116002)(66476007)(66066001)(2501003)(7696005)(2906002)(478600001)(8676002)(33656002)(26005)(7736002)(68736007)(25786009)(558084003)(476003)(186003)(14454004)(6506007)(43043002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6367;
+ H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: EYkmBrezKxDN7T3ofkFiFcVbJt022GXSrF6qMzYRHsl1HTTroyJUw4ADyK0zH1hiG+FWJpVof7ea9OacrmF6m6KbxGP3PkJr1Atefoe4UfXXFjNZYCjjwqfVdGkEO0J5OxM5jPAEzmBq0ic7cDad8ybmcpLZ65tyjv0s4i2MInPhYZTLGRT9VM2Y6sLT9fL5Ibr48YrpF09uVj6k3Pahg3e2q+n+MKJzPHbdqmRjDznUqp0Ozep2V53DOOfnSfeQCOD41CssXKWJiJZcBnnmdnvF5+KKh9H2zOnGwLpBXngoj8uPse3HOcl1COojUsXPeEdD1vdKKaG5zZ8PkJpwu682/8CzOgVXUp5HQx0+GVMzx3ALtUSVVkDKlrsleWETtUQWD89OmbvaedLkfACol2TPXuIkjsgpoGW1kd535Nc=
 MIME-Version: 1.0
-References: <20190712100443.221322-1-cychiang@chromium.org>
- <20190712100443.221322-2-cychiang@chromium.org>
- <20190712105745.xr7jxc626lwoaajx@shell.armlinux.org.uk>
- <CA+Px+wWbmUemETY3OMk1T9XS2w8ZXvZUhVEGzw_w6AxtU8R0rw@mail.gmail.com>
-In-Reply-To: <CA+Px+wWbmUemETY3OMk1T9XS2w8ZXvZUhVEGzw_w6AxtU8R0rw@mail.gmail.com>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Tue, 16 Jul 2019 15:59:36 +0800
-Message-ID: <CAFv8NwKwd8Yf4UmqUhcaP1pL2K_d_FSZm9JyY_Azy13017RWgg@mail.gmail.com>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>, tzungbi@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- David Airlie <airlied@linux.ie>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Douglas Anderson <dianders@chromium.org>, dri-devel@lists.freedesktop.org,
- Russell King - ARM Linux admin <linux@armlinux.org.uk>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, Dylan Reid <dgreid@chromium.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v3 1/5] ASoC: hdmi-codec: Add an op to set
- callback function for plug event
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dd886d5-7b14-4c7a-5530-08d709c87f00
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jul 2019 08:35:02.4012 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: shengjiu.wang@nxp.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6367
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] Is there a way to support TX master mode and RX slave
+	mode?
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,87 +123,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 15, 2019 at 11:56 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
->
-> On Fri, Jul 12, 2019 at 6:58 PM Russell King - ARM Linux admin
-> <linux@armlinux.org.uk> wrote:
-> >
-> > On Fri, Jul 12, 2019 at 06:04:39PM +0800, Cheng-Yi Chiang wrote:
-> > > Add an op in hdmi_codec_ops so codec driver can register callback
-> > > function to handle plug event.
-> > >
-> > > Driver in DRM can use this callback function to report connector status.
-> > >
-> > > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> > > ---
-> > >  include/sound/hdmi-codec.h    | 16 +++++++++++++
-> > >  sound/soc/codecs/hdmi-codec.c | 45 +++++++++++++++++++++++++++++++++++
-> > >  2 files changed, 61 insertions(+)
-> > >
-> > > diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
-> > > index 7fea496f1f34..9a8661680256 100644
-> > > --- a/include/sound/hdmi-codec.h
-> > > +++ b/include/sound/hdmi-codec.h
-> > > @@ -47,6 +47,9 @@ struct hdmi_codec_params {
-> > >       int channels;
-> > >  };
-> > >
-> > > +typedef void (*hdmi_codec_plugged_cb)(struct device *dev,
-> > > +                                   bool plugged);
-> > > +
-> >
-> > I'd like to pose a question for people to think about.
-> >
-> > Firstly, typedefs are generally shunned in the kernel.  However, for
-> > these cases it seems to make sense.
-> >
-> > However, should the "pointer"-ness be part of the typedef or not?  To
-> > see what I mean, consider:
-> >
-> >         typedef void (*hdmi_foo)(void);
-> >
-> >         int register_foo(hdmi_foo foo);
-> >
-> > vs
-> >
-> >         typedef void hdmi_foo(void);
-> >
-> >         int register_foo(hdmi_foo *foo);
-> >
-> > which is more in keeping with how we code non-typedef'd code - it's
-> > obvious that foo is a pointer while reading the code.
-> I have a different opinion.  Its suffix "_cb" self-described it is a
-> callback function.  Since function and function pointer are equivalent
-> in the language, I think we don't need to emphasize that it is a
-> function "pointer".
->
->
+Hi  Experts
 
-Hi Russell and Tzungbi, thank you for the review.
-Regarding this typedef of callback function, I found a thread
-discussing this very long time ago:
-
-https://yarchive.net/comp/linux/typedefs.html
-
-From that thread, Linus gave an example of using typedef for function
-pointer that is following to this pattern.
-I also looked around how other driver use it:
-$ git grep typedef | grep _cb | less | wc -l
-138
-$ git grep typedef | grep _cb | grep "(\*" | wc -l
-115
-Most of the typedef of callback function use this pattern.
-So I think this should be fine.
-Thanks!
+Is there a way to support TX master mode but RX slave mode?  It seems current .set_fmt only set same mode for TX and RX.
 
 
-> > It seems to me that the latter better matches what is in the kernel's
-> > coding style, which states:
-> >
-> >   In general, a pointer, or a struct that has elements that can
-> >   reasonably be directly accessed should **never** be a typedef.
-> >
-> > or maybe Documentation/process/coding-style.rst needs updating?
+Best regards
+Wang shengjiu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

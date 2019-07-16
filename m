@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F0B6A878
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 14:12:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 717796A87B
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 14:13:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F404167F;
-	Tue, 16 Jul 2019 14:12:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F404167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B0501680;
+	Tue, 16 Jul 2019 14:12:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B0501680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563279172;
-	bh=+DsXGWi9l/FM6fD1DJPxgExuywN8Jk6DYLH6dTFyAKI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HoVgYUERk62/5/VJWxAxP05JyC2WeVqSjanj2KJRFi6YAUr2Xn5rfpYSJyYGxON9t
-	 DocPCF1n3Lx7Flk9oEyOXeJf/TMeI31MV8+1jYLJXoC+gjyld1YIZRd+OxZKe8ycI7
-	 rWMQh/h1F09V28skial/2txT5y8FojC9PfLqdbkA=
+	s=default; t=1563279219;
+	bh=+sqJN1ykhvwxkroNx3f5+bZxluYTJyJl1MSEPNzz7pk=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WWa8OiLkOVIGfKIxmpWuO6naiZnv0ujG0pGqptK8v64B1/EAMktTiug+s7ZpigxFv
+	 t7HOZOOHfp/b2rwSNfZEDw4NAsdoEpoaFSqXOTyTbLjPqAdYJk0qO/FqfIhQ+X2uKo
+	 5JdvPMJERLNvQySoci8rPY+/oNeLo0GDnwYF3KP8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FDAAF800C4;
-	Tue, 16 Jul 2019 14:11:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C549F803D1;
+	Tue, 16 Jul 2019 14:12:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 624C3F80376; Tue, 16 Jul 2019 14:11:06 +0200 (CEST)
+ id 9F8FFF803CF; Tue, 16 Jul 2019 14:12:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,47 +35,53 @@ Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CF97F802BC
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 14:11:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF97F802BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D911F80362
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 14:11:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D911F80362
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="QAAw/LhY"
+ header.b="Ci7+vMU1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-Type:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cmrXWeKZex18XPtqOqXe6bsYV64AO68iLYgMsiWQPIg=; b=QAAw/LhYE17kHpcrRzOCn1piW
- wDQhBm1yl/KZ+dj8rCQhgNieg+hhttiHCd56p5QhHz5ASeESwhg4e5NnaVU0xFvaS1lhK+pI34VAH
- U07mMZP9tRQ4deiPKcIy4WDiR29u2hCPogiZhF9Lz2jHXns+8RDa0pzAsZAsHJhW3j3YMjCZIm/+P
- LGpxBBG2lEGO3KMHIzygFcSKKg0GHttc1pRY0pbQBDBk7P+UYDrt1y6b2Q/bZPeVAySSZNi95nOXL
- A9MLC1Mv0VfRw8xgU7fIrVDbMile7MGuQFtM0dQbNTrXk9FcF/xI3aZ/c1Bhe5nAJD6JiU0T0som+
- 3cGvhJxcQ==;
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=OuafK/TTQcFkrbP+suIfTDa/h6nPmDJ0gGHTBNIInGY=; b=Ci7+vMU1+HZzE7DcZZlxSkw6y0
+ mszV5/NNKH+DRrjRTdPy+5jTpMHCGNv/6ywSuXrzRQiozk15SKsyrVsSrkOcFgJpzDKqTXs/6X3jq
+ //LZsfMq2LcQMBwPMVpdJh8wipGHPD0qxv06v/sNmlbmLLtgoAlyubAFez61IOp9Vrgze82P6DEYQ
+ Dayy8pUN1O1dcaOiEjM0OpIQjQNtCkO0AeF4UpNmnhPmqHYN5/4Qq2AU42k3RD7QvYpNf/yigLodB
+ 9jZxxnX+X3nNc3woVXvpKdXBFdSFLsyF4o1MZKBZFxEdOWV7aZ8xIDYruTVXj1JX/M/QXRXumySUt
+ yUzeQBVA==;
 Received: from [189.27.46.152] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hnMIL-0004hz-Al; Tue, 16 Jul 2019 12:10:57 +0000
+ id 1hnMIL-0004i0-C9; Tue, 16 Jul 2019 12:10:57 +0000
 Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
  (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hnMII-0000QW-KI; Tue, 16 Jul 2019 09:10:54 -0300
+ id 1hnMII-0000Rl-VY; Tue, 16 Jul 2019 09:10:54 -0300
 From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
 To: 
-Date: Tue, 16 Jul 2019 09:10:39 -0300
-Message-Id: <cover.1563277838.git.mchehab+samsung@kernel.org>
+Date: Tue, 16 Jul 2019 09:10:52 -0300
+Message-Id: <db935399a4a87f938504aa23edc17b4aaa0738e1.1563277838.git.mchehab+samsung@kernel.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <cover.1563277838.git.mchehab+samsung@kernel.org>
+References: <cover.1563277838.git.mchehab+samsung@kernel.org>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, linux-sh@vger.kernel.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-i2c@vger.kernel.org, Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- linux-arch@vger.kernel.org, linux-scsi@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, x86@kernel.org, esc.storagedev@microsemi.com,
- linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org, rcu@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-crypto@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] [PATCH 00/14] pending doc patches for 5.3-rc
+Cc: alsa-devel@alsa-project.org, Rich Felker <dalias@libc.org>,
+ linux-doc@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
+ dri-devel@lists.freedesktop.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Jonathan Corbet <corbet@lwn.net>,
+ linux-sh@vger.kernel.org, x86@kernel.org, David Airlie <airlied@linux.ie>,
+ Ingo Molnar <mingo@redhat.com>, linux-input@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
+ Sean Paul <sean@poorly.run>, netdev@vger.kernel.org,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-crypto@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [alsa-devel] [PATCH 13/14] docs: remove extra conf.py files
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,137 +99,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Those are the pending documentation patches after my pull request
-for this branch:
+Now that the latex_documents are handled automatically, we can
+remove those extra conf.py files.
 
-    git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git tags/docs/v5.3-1
-
-Patches 1 to 13 were already submitted, but got rebased. Patch 14
-is a new fixup one.
-
-Patches 1 and 2 weren't submitted before due to merge conflicts
-that are now solved upstream;
-
-Patch 3 fixes a series of random Documentation/* references that
-are pointing to the wrong places.
-
-Patch 4 fix a longstanding issue: every time a new book is added,
-conf.py need changes, in order to allow generating a PDF file.
-After the patch, conf.py will automatically recognize new books,
-saving the trouble of keeping adding documents to it.
-
-Patches 5 to 11 are due to fonts support when building translations.pdf.
-The main focus is to add xeCJK support. While doing it, I discovered
-some bugs at sphinx-pre-install script after running it with 7 different
-distributions.
-
-Patch 12 improves support for partial doc building. Currently, each
-subdir needs to have its own conf.py, in order to support partial
-doc build. After it, any Documentation subdir can be used to 
-roduce html/pdf docs with:
-
-	make SPHINXDIRS="foo bar" htmldocs
-	(or pdfdocs, latexdocs, epubdocs, ...)
-
-Patch 13 is a cleanup patch: it simply get rid of all those extra
-conf.py files that  aren't needed anymore. The only extra config
-file after it is this one:
-
-	Documentation/media/conf_nitpick.py
-
-With enables some extra optional Sphinx features.
-
-Patch 14 adds Documentation/virtual to the main index.rst file
-and add a new *.rst file that was orphaned there.
-
--
-
-After this series, there's just one more patch meant to be applied
-for 5.3, with is still waiting for some patches to be merged from
-linux-next:
-
-    https://git.linuxtv.org/mchehab/experimental.git/commit/?id=b1b5dc7d7bbfbbfdace2a248c6458301c6e34100
-
-
-Mauro Carvalho Chehab (14):
-  docs: powerpc: convert docs to ReST and rename to *.rst
-  docs: power: add it to to the main documentation index
-  docs: fix broken doc references due to renames
-  docs: pdf: add all Documentation/*/index.rst to PDF output
-  docs: conf.py: add CJK package needed by translations
-  docs: conf.py: only use CJK if the font is available
-  scripts/sphinx-pre-install: fix script for RHEL/CentOS
-  scripts/sphinx-pre-install: don't use LaTeX with CentOS 7
-  scripts/sphinx-pre-install: fix latexmk dependencies
-  scripts/sphinx-pre-install: cleanup Gentoo checks
-  scripts/sphinx-pre-install: seek for Noto CJK fonts for pdf output
-  docs: load_config.py: avoid needing a conf.py just due to LaTeX docs
-  docs: remove extra conf.py files
-  docs: virtual: add it to the documentation body
-
- Documentation/PCI/pci-error-recovery.rst      |   5 +-
- Documentation/RCU/rculist_nulls.txt           |   2 +-
- Documentation/admin-guide/conf.py             |  10 --
- Documentation/conf.py                         |  30 +++-
- Documentation/core-api/conf.py                |  10 --
- Documentation/crypto/conf.py                  |  10 --
- Documentation/dev-tools/conf.py               |  10 --
- .../devicetree/bindings/arm/idle-states.txt   |   2 +-
- Documentation/doc-guide/conf.py               |  10 --
- Documentation/driver-api/80211/conf.py        |  10 --
- Documentation/driver-api/conf.py              |  10 --
- Documentation/driver-api/pm/conf.py           |  10 --
- Documentation/filesystems/conf.py             |  10 --
- Documentation/gpu/conf.py                     |  10 --
- Documentation/index.rst                       |   3 +
- Documentation/input/conf.py                   |  10 --
- Documentation/kernel-hacking/conf.py          |  10 --
- Documentation/locking/spinlocks.rst           |   4 +-
- Documentation/maintainer/conf.py              |  10 --
- Documentation/media/conf.py                   |  12 --
- Documentation/memory-barriers.txt             |   2 +-
- Documentation/networking/conf.py              |  10 --
- Documentation/power/index.rst                 |   2 +-
- .../{bootwrapper.txt => bootwrapper.rst}      |  28 +++-
- .../{cpu_families.txt => cpu_families.rst}    |  23 +--
- .../{cpu_features.txt => cpu_features.rst}    |   6 +-
- Documentation/powerpc/{cxl.txt => cxl.rst}    |  46 ++++--
- .../powerpc/{cxlflash.txt => cxlflash.rst}    |  10 +-
- .../{DAWR-POWER9.txt => dawr-power9.rst}      |  15 +-
- Documentation/powerpc/{dscr.txt => dscr.rst}  |  18 +-
- ...ecovery.txt => eeh-pci-error-recovery.rst} | 108 ++++++------
- ...ed-dump.txt => firmware-assisted-dump.rst} | 117 +++++++------
- Documentation/powerpc/{hvcs.txt => hvcs.rst}  | 108 ++++++------
- Documentation/powerpc/index.rst               |  34 ++++
- Documentation/powerpc/isa-versions.rst        |  15 +-
- .../powerpc/{mpc52xx.txt => mpc52xx.rst}      |  12 +-
- ...nv.txt => pci_iov_resource_on_powernv.rst} |  15 +-
- .../powerpc/{pmu-ebb.txt => pmu-ebb.rst}      |   1 +
- Documentation/powerpc/ptrace.rst              | 156 ++++++++++++++++++
- Documentation/powerpc/ptrace.txt              | 151 -----------------
- .../{qe_firmware.txt => qe_firmware.rst}      |  37 +++--
- .../{syscall64-abi.txt => syscall64-abi.rst}  |  29 ++--
- ...al_memory.txt => transactional_memory.rst} |  45 ++---
- Documentation/process/conf.py                 |  10 --
- Documentation/sh/conf.py                      |  10 --
- Documentation/sound/conf.py                   |  10 --
- Documentation/sphinx/load_config.py           |  27 ++-
- .../translations/ko_KR/memory-barriers.txt    |   2 +-
- Documentation/userspace-api/conf.py           |  10 --
- Documentation/virtual/kvm/index.rst           |   1 +
- Documentation/vm/conf.py                      |  10 --
- Documentation/watchdog/hpwdt.rst              |   2 +-
- Documentation/x86/conf.py                     |  10 --
- MAINTAINERS                                   |  14 +-
- arch/powerpc/kernel/exceptions-64s.S          |   2 +-
- drivers/gpu/drm/drm_modes.c                   |   2 +-
- drivers/i2c/busses/i2c-nvidia-gpu.c           |   2 +-
- drivers/scsi/hpsa.c                           |   4 +-
- drivers/soc/fsl/qe/qe.c                       |   2 +-
- drivers/tty/hvc/hvcs.c                        |   2 +-
- include/soc/fsl/qe/qe.h                       |   2 +-
- scripts/sphinx-pre-install                    | 118 ++++++++++---
- 62 files changed, 738 insertions(+), 678 deletions(-)
+Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+---
+ Documentation/admin-guide/conf.py      | 10 ----------
+ Documentation/core-api/conf.py         | 10 ----------
+ Documentation/crypto/conf.py           | 10 ----------
+ Documentation/dev-tools/conf.py        | 10 ----------
+ Documentation/doc-guide/conf.py        | 10 ----------
+ Documentation/driver-api/80211/conf.py | 10 ----------
+ Documentation/driver-api/conf.py       | 10 ----------
+ Documentation/driver-api/pm/conf.py    | 10 ----------
+ Documentation/filesystems/conf.py      | 10 ----------
+ Documentation/gpu/conf.py              | 10 ----------
+ Documentation/input/conf.py            | 10 ----------
+ Documentation/kernel-hacking/conf.py   | 10 ----------
+ Documentation/maintainer/conf.py       | 10 ----------
+ Documentation/media/conf.py            | 12 ------------
+ Documentation/networking/conf.py       | 10 ----------
+ Documentation/process/conf.py          | 10 ----------
+ Documentation/sh/conf.py               | 10 ----------
+ Documentation/sound/conf.py            | 10 ----------
+ Documentation/userspace-api/conf.py    | 10 ----------
+ Documentation/vm/conf.py               | 10 ----------
+ Documentation/x86/conf.py              | 10 ----------
+ 21 files changed, 212 deletions(-)
  delete mode 100644 Documentation/admin-guide/conf.py
  delete mode 100644 Documentation/core-api/conf.py
  delete mode 100644 Documentation/crypto/conf.py
@@ -238,25 +141,6 @@ Mauro Carvalho Chehab (14):
  delete mode 100644 Documentation/maintainer/conf.py
  delete mode 100644 Documentation/media/conf.py
  delete mode 100644 Documentation/networking/conf.py
- rename Documentation/powerpc/{bootwrapper.txt => bootwrapper.rst} (93%)
- rename Documentation/powerpc/{cpu_families.txt => cpu_families.rst} (95%)
- rename Documentation/powerpc/{cpu_features.txt => cpu_features.rst} (97%)
- rename Documentation/powerpc/{cxl.txt => cxl.rst} (95%)
- rename Documentation/powerpc/{cxlflash.txt => cxlflash.rst} (98%)
- rename Documentation/powerpc/{DAWR-POWER9.txt => dawr-power9.rst} (95%)
- rename Documentation/powerpc/{dscr.txt => dscr.rst} (91%)
- rename Documentation/powerpc/{eeh-pci-error-recovery.txt => eeh-pci-error-recovery.rst} (82%)
- rename Documentation/powerpc/{firmware-assisted-dump.txt => firmware-assisted-dump.rst} (80%)
- rename Documentation/powerpc/{hvcs.txt => hvcs.rst} (91%)
- create mode 100644 Documentation/powerpc/index.rst
- rename Documentation/powerpc/{mpc52xx.txt => mpc52xx.rst} (91%)
- rename Documentation/powerpc/{pci_iov_resource_on_powernv.txt => pci_iov_resource_on_powernv.rst} (97%)
- rename Documentation/powerpc/{pmu-ebb.txt => pmu-ebb.rst} (99%)
- create mode 100644 Documentation/powerpc/ptrace.rst
- delete mode 100644 Documentation/powerpc/ptrace.txt
- rename Documentation/powerpc/{qe_firmware.txt => qe_firmware.rst} (95%)
- rename Documentation/powerpc/{syscall64-abi.txt => syscall64-abi.rst} (82%)
- rename Documentation/powerpc/{transactional_memory.txt => transactional_memory.rst} (93%)
  delete mode 100644 Documentation/process/conf.py
  delete mode 100644 Documentation/sh/conf.py
  delete mode 100644 Documentation/sound/conf.py
@@ -264,9 +148,346 @@ Mauro Carvalho Chehab (14):
  delete mode 100644 Documentation/vm/conf.py
  delete mode 100644 Documentation/x86/conf.py
 
+diff --git a/Documentation/admin-guide/conf.py b/Documentation/admin-guide/conf.py
+deleted file mode 100644
+index 86f738953799..000000000000
+--- a/Documentation/admin-guide/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = 'Linux Kernel User Documentation'
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'linux-user.tex', 'Linux Kernel User Documentation',
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/core-api/conf.py b/Documentation/core-api/conf.py
+deleted file mode 100644
+index db1f7659f3da..000000000000
+--- a/Documentation/core-api/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Core-API Documentation"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'core-api.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/crypto/conf.py b/Documentation/crypto/conf.py
+deleted file mode 100644
+index 4335d251ddf3..000000000000
+--- a/Documentation/crypto/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = 'Linux Kernel Crypto API'
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'crypto-api.tex', 'Linux Kernel Crypto API manual',
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/dev-tools/conf.py b/Documentation/dev-tools/conf.py
+deleted file mode 100644
+index 7faafa3f7888..000000000000
+--- a/Documentation/dev-tools/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Development tools for the kernel"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'dev-tools.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/doc-guide/conf.py b/Documentation/doc-guide/conf.py
+deleted file mode 100644
+index fd3731182d5a..000000000000
+--- a/Documentation/doc-guide/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = 'Linux Kernel Documentation Guide'
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'kernel-doc-guide.tex', 'Linux Kernel Documentation Guide',
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/driver-api/80211/conf.py b/Documentation/driver-api/80211/conf.py
+deleted file mode 100644
+index 4424b4b0b9c3..000000000000
+--- a/Documentation/driver-api/80211/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Linux 802.11 Driver Developer's Guide"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', '80211.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/driver-api/conf.py b/Documentation/driver-api/conf.py
+deleted file mode 100644
+index 202726d20088..000000000000
+--- a/Documentation/driver-api/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "The Linux driver implementer's API guide"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'driver-api.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/driver-api/pm/conf.py b/Documentation/driver-api/pm/conf.py
+deleted file mode 100644
+index a89fac11272f..000000000000
+--- a/Documentation/driver-api/pm/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Device Power Management"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'pm.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/filesystems/conf.py b/Documentation/filesystems/conf.py
+deleted file mode 100644
+index ea44172af5c4..000000000000
+--- a/Documentation/filesystems/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Linux Filesystems API"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'filesystems.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/gpu/conf.py b/Documentation/gpu/conf.py
+deleted file mode 100644
+index 1757b040fb32..000000000000
+--- a/Documentation/gpu/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Linux GPU Driver Developer's Guide"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'gpu.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/input/conf.py b/Documentation/input/conf.py
+deleted file mode 100644
+index d2352fdc92ed..000000000000
+--- a/Documentation/input/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "The Linux input driver subsystem"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'linux-input.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/kernel-hacking/conf.py b/Documentation/kernel-hacking/conf.py
+deleted file mode 100644
+index 3d8acf0f33ad..000000000000
+--- a/Documentation/kernel-hacking/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Kernel Hacking Guides"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'kernel-hacking.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/maintainer/conf.py b/Documentation/maintainer/conf.py
+deleted file mode 100644
+index 81e9eb7a7884..000000000000
+--- a/Documentation/maintainer/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = 'Linux Kernel Development Documentation'
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'maintainer.tex', 'Linux Kernel Development Documentation',
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/media/conf.py b/Documentation/media/conf.py
+deleted file mode 100644
+index 1f194fcd2cae..000000000000
+--- a/Documentation/media/conf.py
++++ /dev/null
+@@ -1,12 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-# SPDX-License-Identifier: GPL-2.0
+-
+-project = 'Linux Media Subsystem Documentation'
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'media.tex', 'Linux Media Subsystem Documentation',
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/networking/conf.py b/Documentation/networking/conf.py
+deleted file mode 100644
+index 40f69e67a883..000000000000
+--- a/Documentation/networking/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Linux Networking Documentation"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'networking.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/process/conf.py b/Documentation/process/conf.py
+deleted file mode 100644
+index 1b01a80ad9ce..000000000000
+--- a/Documentation/process/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = 'Linux Kernel Development Documentation'
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'process.tex', 'Linux Kernel Development Documentation',
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/sh/conf.py b/Documentation/sh/conf.py
+deleted file mode 100644
+index 1eb684a13ac8..000000000000
+--- a/Documentation/sh/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "SuperH architecture implementation manual"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'sh.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/sound/conf.py b/Documentation/sound/conf.py
+deleted file mode 100644
+index 3f1fc5e74e7b..000000000000
+--- a/Documentation/sound/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Linux Sound Subsystem Documentation"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'sound.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/userspace-api/conf.py b/Documentation/userspace-api/conf.py
+deleted file mode 100644
+index 2eaf59f844e5..000000000000
+--- a/Documentation/userspace-api/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "The Linux kernel user-space API guide"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'userspace-api.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/vm/conf.py b/Documentation/vm/conf.py
+deleted file mode 100644
+index 3b0b601af558..000000000000
+--- a/Documentation/vm/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "Linux Memory Management Documentation"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'memory-management.tex', project,
+-     'The kernel development community', 'manual'),
+-]
+diff --git a/Documentation/x86/conf.py b/Documentation/x86/conf.py
+deleted file mode 100644
+index 33c5c3142e20..000000000000
+--- a/Documentation/x86/conf.py
++++ /dev/null
+@@ -1,10 +0,0 @@
+-# -*- coding: utf-8; mode: python -*-
+-
+-project = "X86 architecture specific documentation"
+-
+-tags.add("subproject")
+-
+-latex_documents = [
+-    ('index', 'x86.tex', project,
+-     'The kernel development community', 'manual'),
+-]
 -- 
 2.21.0
-
 
 _______________________________________________
 Alsa-devel mailing list

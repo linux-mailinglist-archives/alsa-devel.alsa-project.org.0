@@ -2,55 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8796A211
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 08:04:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A72786A2A9
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 09:07:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 175B31693;
-	Tue, 16 Jul 2019 08:03:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 175B31693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A585168B;
+	Tue, 16 Jul 2019 09:06:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A585168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563257046;
-	bh=5naOFPxtOZdfPi9MIgB4bmIbdnkxw9Vrlggggnohn8w=;
+	s=default; t=1563260860;
+	bh=CmDOnPo/W4nSQQtnbxZtMKeV9ozzvikbEhYgZ0gOT9w=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=bdZ30CAiU0AZdWkWrhHXpAKa/jIFeXBNbvOsNRglQU1C4Mv9mWBtvF2rwZfLO0Bj3
-	 Lby4kanupEA8ZnXa0JDG4qc9DPQ5kW39BDWEu85383qbRh2+aSj3VKquOlsPuKvZ8g
-	 PSv/Bjt4WQO4FPaMzDxmLJYgk7EFUYhQoLMswF+8=
+	b=tPIA9LWQ0ZO/evTw1Q4HUuP9/GqbArmcwk4BHpEze+nqu2ChnlP03jfHCRmD3Dimp
+	 obTH/HnReHHtmXRkc7a2YAuR5P+FyPfswb6Lvg/jHpCCgvK/jZGjM8/J7klU1ZvVVx
+	 EyIvQ8y7014wDwmojFfhXdWuztPFD9lXxOi7yrV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E5A3F803CF;
-	Tue, 16 Jul 2019 08:01:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6BA62F80376;
+	Tue, 16 Jul 2019 09:05:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 63DB8F80367; Mon, 15 Jul 2019 11:56:10 +0200 (CEST)
+ id AC20BF80376; Tue, 16 Jul 2019 09:05:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-sz.amlogic.com (mail-sz.amlogic.com [211.162.65.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B425F800D8
- for <alsa-devel@alsa-project.org>; Mon, 15 Jul 2019 11:56:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B425F800D8
-Received: from localhost.localdomain (10.28.8.29) by mail-sz.amlogic.com
- (10.28.11.5) with Microsoft SMTP Server id 15.1.1591.10; Mon, 15 Jul 2019
- 17:56:28 +0800
-From: chunguo feng <chunguo.feng@amlogic.com>
-To: <lgirdwood@gmail.com>
-Date: Mon, 15 Jul 2019 17:55:56 +0800
-Message-ID: <20190715095556.1614-1-chunguo.feng@amlogic.com>
-X-Mailer: git-send-email 2.18.0
-MIME-Version: 1.0
-X-Originating-IP: [10.28.8.29]
-X-Mailman-Approved-At: Tue, 16 Jul 2019 08:01:36 +0200
-Cc: alsa-devel@alsa-project.org, RyanS.Lee@maximintegrated.com,
- grundler@chromium.org, linux-kernel@vger.kernel.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.com, chunguo.feng@amlogic.com,
- broonie@kernel.org, bleung@chromium.org
-Subject: [alsa-devel] [PATCH] ASoC: max98383: fix i2c probe failure
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69576F802BC
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 09:05:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69576F802BC
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id DF03AAE9A;
+ Tue, 16 Jul 2019 07:05:49 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Date: Tue, 16 Jul 2019 09:05:39 +0200
+Message-Id: <20190716070539.10424-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Cc: Todd Brandt <todd.e.brandt@linux.intel.com>, Len Brown <lenb@kernel.org>
+Subject: [alsa-devel] [PATCH] ALSA: hda - Don't resume forcibly i915 HDMI/DP
+	codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,116 +59,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: fengchunguo <chunguo.feng@amlogic.com>
+We apply the codec resume forcibly at system resume callback for
+updating and syncing the jack detection state that may have changed
+during sleeping.  This is, however, superfluous for the codec like
+Intel HDMI/DP, where the jack detection is managed via the audio
+component notification; i.e. the jack state change shall be reported
+sooner or later from the graphics side at mode change.
 
-Added reset_gpio configuration for i2c probe successfully.
-If not,i2c address can't be found rightly.
+This patch changes the codec resume callback to avoid the forcible
+resume conditionally with a new flag, codec->relaxed_resume, for
+reducing the resume time.  The flag is set in the codec probe.
 
-Error information:
-max98373 3-0031: Failed to read: 0x21FF
+Although this doesn't fix the entire bug mentioned in the bugzilla
+entry below, it's still a good optimization and some improvements are
+seen.
 
-Fixed:
-[3.761299@3] max98373 3-0031: MAX98373 revisionID: 0x43
-[3.828911@3] asoc-aml-card auge_sound: max98373-aif1 <-> TDM-B mapping ok
-
-Signed-off-by: fengchunguo <chunguo.feng@amlogic.com>
+Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=201901
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/codecs/max98373.c | 34 ++++++++++++++++++++++++++++++----
- sound/soc/codecs/max98373.h |  1 +
- 2 files changed, 31 insertions(+), 4 deletions(-)
+ include/sound/hda_codec.h  | 2 ++
+ sound/pci/hda/hda_codec.c  | 8 ++++++--
+ sound/pci/hda/patch_hdmi.c | 6 +++++-
+ 3 files changed, 13 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/max98373.c b/sound/soc/codecs/max98373.c
-index 528695cd6a1c..9a1eb7222357 100644
---- a/sound/soc/codecs/max98373.c
-+++ b/sound/soc/codecs/max98373.c
-@@ -12,6 +12,7 @@
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
- #include <linux/gpio.h>
-+#include <linux/of.h>
- #include <linux/of_gpio.h>
- #include <sound/tlv.h>
- #include "max98373.h"
-@@ -895,6 +896,17 @@ static void max98373_slot_config(struct i2c_client *i2c,
- 	else
- 		max98373->i_slot = 1;
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index 8f46ff3449d5..871993696c5f 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -252,6 +252,8 @@ struct hda_codec {
+ 	unsigned int auto_runtime_pm:1; /* enable automatic codec runtime pm */
+ 	unsigned int force_pin_prefix:1; /* Add location prefix */
+ 	unsigned int link_down_at_suspend:1; /* link down at runtime suspend */
++	unsigned int relaxed_resume:1;	/* don't resume forcibly for jack */
++
+ #ifdef CONFIG_PM
+ 	unsigned long power_on_acct;
+ 	unsigned long power_off_acct;
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 5346631df1ec..e30e86ca6b72 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -2941,15 +2941,19 @@ static int hda_codec_runtime_resume(struct device *dev)
+ #ifdef CONFIG_PM_SLEEP
+ static int hda_codec_force_resume(struct device *dev)
+ {
++	struct hda_codec *codec = dev_to_hda_codec(dev);
++	bool forced_resume = !codec->relaxed_resume;
+ 	int ret;
  
-+	max98373->reset_gpio = of_get_named_gpio(dev->of_node,
-+						"maxim,reset-gpio", 0);
-+	if (!gpio_is_valid(max98373->reset_gpio)) {
-+		dev_err(dev, "Looking up %s property in node %s failed %d\n",
-+			"maxim,reset-gpio", dev->of_node->full_name,
-+			max98373->reset_gpio);
-+	} else {
-+		dev_dbg(dev, "maxim,reset-gpio=%d",
-+			max98373->reset_gpio);
+ 	/* The get/put pair below enforces the runtime resume even if the
+ 	 * device hasn't been used at suspend time.  This trick is needed to
+ 	 * update the jack state change during the sleep.
+ 	 */
+-	pm_runtime_get_noresume(dev);
++	if (forced_resume)
++		pm_runtime_get_noresume(dev);
+ 	ret = pm_runtime_force_resume(dev);
+-	pm_runtime_put(dev);
++	if (forced_resume)
++		pm_runtime_put(dev);
+ 	return ret;
+ }
+ 
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 40323d91f9e4..72000f6fedca 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2292,8 +2292,10 @@ static void generic_hdmi_free(struct hda_codec *codec)
+ 	struct hdmi_spec *spec = codec->spec;
+ 	int pin_idx, pcm_idx;
+ 
+-	if (codec_has_acomp(codec))
++	if (codec_has_acomp(codec)) {
+ 		snd_hdac_acomp_register_notifier(&codec->bus->core, NULL);
++		codec->relaxed_resume = 0;
 +	}
-+
- 	if (!device_property_read_u32(dev, "maxim,spkfb-slot-no", &value))
- 		max98373->spkfb_slot = value & 0xF;
- 	else
-@@ -923,7 +935,6 @@ static int max98373_i2c_probe(struct i2c_client *i2c,
- 	else
- 		max98373->interleave_mode = false;
  
--
- 	/* regmap initialization */
- 	max98373->regmap
- 		= devm_regmap_init_i2c(i2c, &max98373_regmap);
-@@ -934,6 +945,24 @@ static int max98373_i2c_probe(struct i2c_client *i2c,
- 		return ret;
- 	}
+ 	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
+ 		struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
+@@ -2566,6 +2568,8 @@ static void register_i915_notifier(struct hda_codec *codec)
+ 	spec->drm_audio_ops.pin_eld_notify = intel_pin_eld_notify;
+ 	snd_hdac_acomp_register_notifier(&codec->bus->core,
+ 					&spec->drm_audio_ops);
++	/* no need for forcible resume for jack check thanks to notifier */
++	codec->relaxed_resume = 1;
+ }
  
-+	/* voltage/current slot & gpio configuration */
-+	max98373_slot_config(i2c, max98373);
-+
-+	/* Power on device */
-+	if (gpio_is_valid(max98373->reset_gpio)) {
-+		ret = gpio_request(max98373->reset_gpio, "MAX98373_RESET");
-+		if (ret) {
-+			dev_err(&i2c->dev, "%s: Failed to request gpio %d\n",
-+				__func__, max98373->reset_gpio);
-+			gpio_free(max98373->reset_gpio);
-+			return -EINVAL;
-+		}
-+		gpio_direction_output(max98373->reset_gpio, 0);
-+		msleep(50);
-+		gpio_direction_output(max98373->reset_gpio, 1);
-+		msleep(20);
-+	}
-+
- 	/* Check Revision ID */
- 	ret = regmap_read(max98373->regmap,
- 		MAX98373_R21FF_REV_ID, &reg);
-@@ -944,9 +973,6 @@ static int max98373_i2c_probe(struct i2c_client *i2c,
- 	}
- 	dev_info(&i2c->dev, "MAX98373 revisionID: 0x%02X\n", reg);
- 
--	/* voltage/current slot configuration */
--	max98373_slot_config(i2c, max98373);
--
- 	/* codec registeration */
- 	ret = devm_snd_soc_register_component(&i2c->dev, &soc_codec_dev_max98373,
- 		max98373_dai, ARRAY_SIZE(max98373_dai));
-diff --git a/sound/soc/codecs/max98373.h b/sound/soc/codecs/max98373.h
-index f6a37aa02f26..533d2053f608 100644
---- a/sound/soc/codecs/max98373.h
-+++ b/sound/soc/codecs/max98373.h
-@@ -203,6 +203,7 @@
- 
- struct max98373_priv {
- 	struct regmap *regmap;
-+	int reset_gpio;
- 	unsigned int v_slot;
- 	unsigned int i_slot;
- 	unsigned int spkfb_slot;
+ /* setup_stream ops override for HSW+ */
 -- 
-2.18.0
+2.16.4
 
 _______________________________________________
 Alsa-devel mailing list

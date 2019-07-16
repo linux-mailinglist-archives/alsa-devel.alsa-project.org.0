@@ -2,94 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD3376A81D
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 14:02:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7253B6A837
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 14:06:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77EC61679;
-	Tue, 16 Jul 2019 14:02:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77EC61679
+	by alsa0.perex.cz (Postfix) with ESMTPS id F30BB168C;
+	Tue, 16 Jul 2019 14:05:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F30BB168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563278570;
-	bh=VdsvVWBcB31+iI/LDeArFndjTLd8a97btuDASi3qcno=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1563278807;
+	bh=XXhSXwLC52ZnAmGqTWfPLhzH5HNbNwkwCXyaFRV9ZgE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cw54y84i0hix2ZAQCfptink69he5xN7GEFolrMUCj8Aa6g+pfN5UsDsziESg2G6qr
-	 PjE8Dag0Ccds8ZjmuzEtqRSlf8HKzNU6Z0lFHDhS81Q7Juzp33lulS7D31BtitcqOg
-	 1EyLJw2roX+HatlNtcm5sUkKBYO5qkanvLTHf3Q8=
+	b=NCM3+15hQOIAWoaSBU1Ls11N3MAmvjhvvmjtobjVmAfg/jlfhz/BMuTAv3toTgPvb
+	 t+i3hYlCifUHvY0b0YEhXioDZIMPuY5iLoq+USjlg68SlM/YjRfY/lG1XNHERrm6lC
+	 Ms+aAEkDIjte48KWVipL4gGTQ+2EuvzETVLjTM3U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E54FF804AA;
-	Tue, 16 Jul 2019 13:58:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5037BF80376;
+	Tue, 16 Jul 2019 14:05:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F43DF8049C; Tue, 16 Jul 2019 13:58:19 +0200 (CEST)
+ id AD8E7F80376; Tue, 16 Jul 2019 14:04:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+ SPF_PASS, 
+ URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
+ [IPv6:2607:f8b0:4864:20::a44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E17D5F8049A
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 13:58:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E17D5F8049A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0407EF800C4
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 14:04:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0407EF800C4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="DJg5FQ/b"
-Received: by mail-pg1-x544.google.com with SMTP id o13so9318096pgp.12
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 04:58:15 -0700 (PDT)
+ header.b="mkw993/n"
+Received: by mail-vk1-xa44.google.com with SMTP id w186so4112501vkd.11
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 05:04:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=nJ9T4k4yWMJOAaiUcAIMxLuNgP/0Z4a1nwB48vdQUdo=;
- b=DJg5FQ/b8ibX3/qRon/C0WjumXrFGskJlX4dLrfgPFdEW871DWyj4qj81OU4bpUBTm
- n6Gw9h9eyPBpd2Iu2dKRFO3vm5fnJHIoW8Tz1d/6SEhLhchpjqPCzv4eA90ZnjFIr975
- Y+qDKR3V68B0mGwbagz+uiNdKChKPFwbYRhk4=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=P7ULxAuKEaSYzWYdGTr4IlP25QOrvD8KBofH6zWNyzQ=;
+ b=mkw993/neQKAw2c2FfYVkxn+sOjDePcI0SFBqSo2uQ9XgxU7qFjPiY3YH5IUddHb1f
+ 0Zi+0q7QkAQBUfFLrw7PZjyy/zDoBIwIax+0NNKvtUxDk8C+SkzNSpFCXzQ0EZg4L/nh
+ NgyhuIC9Ws15LrFjfBQKOKwslddMzuYtVkZiU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=nJ9T4k4yWMJOAaiUcAIMxLuNgP/0Z4a1nwB48vdQUdo=;
- b=lq9rdmT3Cqh0C7lE+2XfWahBf5/1d74NoLSjS6Qvk1aqVUcBbVqAd4wp3NXD/IA9zJ
- F58KzXvb05xbJI1njuqf12cK90sZ/7Q6SYrauwDmFpunczKQl67mKyyUBU73RfNHe+bw
- U19wykLstpQVQQetDUnRzyfRfjMGp22bQ/yVaaGIoBTIG+jERVjt6cCMHfKxwqiADiHE
- 1rdGw0YoA7Gy2uVO8suGTY68Fsd1kj6CWCucVWSqH1huDQnumDN9QpmOOiCFnFDr94ch
- rcX54JTJvPjtpogtTx40lf1GGVp32hjHuGB9qWQyKs8XZu1eqHr0TISSpIFEWfp67uxW
- 8msQ==
-X-Gm-Message-State: APjAAAXAGEduKEVuOlxwFmYBnsWgA+KSyPK5kvofaFdvBNkHf45G2a/s
- kTfmPdlJeg3XbAOURRSy7vH0bw==
-X-Google-Smtp-Source: APXvYqwdkiH5M0kTSkdfPzOar3C5PkahE8wVlfIIMiPgkUOHHGZc6jLK93Gia2KxwC6qXmvd1g14cQ==
-X-Received: by 2002:a65:6415:: with SMTP id a21mr23688039pgv.98.1563278294634; 
- Tue, 16 Jul 2019 04:58:14 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
- by smtp.gmail.com with ESMTPSA id b136sm14339900pfb.73.2019.07.16.04.58.11
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 16 Jul 2019 04:58:14 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Tue, 16 Jul 2019 19:57:25 +0800
-Message-Id: <20190716115725.66558-6-cychiang@chromium.org>
-X-Mailer: git-send-email 2.22.0.510.g264f2c817a-goog
-In-Reply-To: <20190716115725.66558-1-cychiang@chromium.org>
-References: <20190716115725.66558-1-cychiang@chromium.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=P7ULxAuKEaSYzWYdGTr4IlP25QOrvD8KBofH6zWNyzQ=;
+ b=sus/ZIIn2mKUKVXnyuqPlof/K3bTaZmmmj2dGOdUG27Rf7rDjn4WOehWlp01Xx18OM
+ OebWw5kV0Kp1Z9+fz/RHrGn8cFzDwlDdEw/8gGwGQIvHVVQ3ezS6MwsEOcnWkn/kmCmd
+ b13H8HLWPvs7g6FHwrm42VTCPAucdlFMG4k+7QE4L5hrRTDWCQmOVTq5j5U0jBSiRZva
+ 51YAhSMqceyGQ/gvwDhZbR/XZHWqxU0yebhgszU62lQCd7Szp4UUBEndVWFZIIWau3qW
+ VoWeFIjcbFjXd4kI2Oa9W5Btv/5dk1EQmja1D4ePUa31iJBsvYGBfyv1mfJjgCn60Wfh
+ QE2g==
+X-Gm-Message-State: APjAAAUmjT8wFxFJD5QeqfYw/ana8Xdy0NHILi2y+3bwvJ6F0lvY+3aP
+ lkajSqDkVbmPJDHPtsIQYLVD6FCffm1BFWFwzBHkyw==
+X-Google-Smtp-Source: APXvYqyV5nIBgRiOBlht43v8TH2KL+F06jklrgKSVXF6ezSHVkI2KPhvG8Y407cVFJ0e5gFjSSA+0asgnIsC1+p+aiY=
+X-Received: by 2002:a1f:3692:: with SMTP id d140mr11929548vka.88.1563278694560; 
+ Tue, 16 Jul 2019 05:04:54 -0700 (PDT)
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- tzungbi@chromium.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Andrzej Hajda <a.hajda@samsung.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>,
+References: <20190712100443.221322-1-cychiang@chromium.org>
+ <20190712100443.221322-3-cychiang@chromium.org>
+ <20190712104748.zlgxgdjbtj2gw4yz@shell.armlinux.org.uk>
+In-Reply-To: <20190712104748.zlgxgdjbtj2gw4yz@shell.armlinux.org.uk>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Tue, 16 Jul 2019 20:04:28 +0800
+Message-ID: <CAFv8NwLBr+USzOJvSZzMt_EzxA=07-NTGzuKdusaMxbFyrBjFQ@mail.gmail.com>
+To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, tzungbi@chromium.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel <linux-kernel@vger.kernel.org>,
+ dri-devel@lists.freedesktop.org, Doug Anderson <dianders@chromium.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
+ Andrzej Hajda <a.hajda@samsung.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
- linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH v4 5/5] ASoC: rockchip_max98090: Add HDMI jack
-	support
+ Daniel Vetter <daniel@ffwll.ch>, Dylan Reid <dgreid@chromium.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v3 2/5] drm: bridge: dw-hdmi: Report
+ connector status using callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,54 +105,235 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In machine driver, create a jack and let hdmi-codec report jack status.
+On Fri, Jul 12, 2019 at 6:48 PM Russell King - ARM Linux admin
+<linux@armlinux.org.uk> wrote:
+>
+> On Fri, Jul 12, 2019 at 06:04:40PM +0800, Cheng-Yi Chiang wrote:
+> > Allow codec driver register callback function for plug event.
+> >
+> > The callback registration flow:
+> > dw-hdmi <--- hw-hdmi-i2s-audio <--- hdmi-codec
+> >
+> > dw-hdmi-i2s-audio implements hook_plugged_cb op
+> > so codec driver can register the callback.
+> >
+> > dw-hdmi implements set_plugged_cb op so platform device can register the
+> > callback.
+> >
+> > When connector plug/unplug event happens, report this event using the
+> > callback.
+> >
+> > Make sure that audio and drm are using the single source of truth for
+> > connector status.
+> >
+> > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> > ---
+> >  .../gpu/drm/bridge/synopsys/dw-hdmi-audio.h   |  3 +
+> >  .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   | 10 ++++
+> >  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 55 ++++++++++++++++++-
+> >  3 files changed, 67 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
+> > index 63b5756f463b..f523c590984e 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
+> > @@ -2,6 +2,8 @@
+> >  #ifndef DW_HDMI_AUDIO_H
+> >  #define DW_HDMI_AUDIO_H
+> >
+> > +#include <sound/hdmi-codec.h>
+> > +
+> >  struct dw_hdmi;
+> >
+> >  struct dw_hdmi_audio_data {
+> > @@ -17,6 +19,7 @@ struct dw_hdmi_i2s_audio_data {
+> >
+> >       void (*write)(struct dw_hdmi *hdmi, u8 val, int offset);
+> >       u8 (*read)(struct dw_hdmi *hdmi, int offset);
+> > +     int (*set_plugged_cb)(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn);
+> >  };
+> >
+> >  #endif
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+> > index 5cbb71a866d5..7b93cf05c985 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+> > @@ -104,10 +104,20 @@ static int dw_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
+> >       return -EINVAL;
+> >  }
+> >
+> > +static int dw_hdmi_i2s_hook_plugged_cb(struct device *dev, void *data,
+> > +                                    hdmi_codec_plugged_cb fn)
+> > +{
+> > +     struct dw_hdmi_i2s_audio_data *audio = data;
+> > +     struct dw_hdmi *hdmi = audio->hdmi;
+> > +
+> > +     return audio->set_plugged_cb(hdmi, fn);
+> > +}
+> > +
+> >  static struct hdmi_codec_ops dw_hdmi_i2s_ops = {
+> >       .hw_params      = dw_hdmi_i2s_hw_params,
+> >       .audio_shutdown = dw_hdmi_i2s_audio_shutdown,
+> >       .get_dai_id     = dw_hdmi_i2s_get_dai_id,
+> > +     .hook_plugged_cb = dw_hdmi_i2s_hook_plugged_cb,
+> >  };
+> >
+> >  static int snd_dw_hdmi_probe(struct platform_device *pdev)
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> > index 045b1b13fd0e..ce6646067472 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> > @@ -26,6 +26,8 @@
+> >  #include <drm/drm_probe_helper.h>
+> >  #include <drm/bridge/dw_hdmi.h>
+> >
+> > +#include <sound/hdmi-codec.h>
+> > +
+> >  #include <uapi/linux/media-bus-format.h>
+> >  #include <uapi/linux/videodev2.h>
+> >
+> > @@ -185,6 +187,9 @@ struct dw_hdmi {
+> >       void (*disable_audio)(struct dw_hdmi *hdmi);
+> >
+> >       struct cec_notifier *cec_notifier;
+> > +
+> > +     hdmi_codec_plugged_cb plugged_cb;
+> > +     enum drm_connector_status last_connector_result;
+> >  };
+> >
+> >  #define HDMI_IH_PHY_STAT0_RX_SENSE \
+> > @@ -209,6 +214,40 @@ static inline u8 hdmi_readb(struct dw_hdmi *hdmi, int offset)
+> >       return val;
+> >  }
+> >
+> > +static void handle_plugged_change(struct dw_hdmi *hdmi, bool plugged)
+> > +{
+> > +     struct platform_device *codec_pdev;
+> > +
+> > +     if (!hdmi->audio || IS_ERR(hdmi->audio))
+> > +             return;
+> > +     codec_pdev = platform_get_drvdata(hdmi->audio);
+> > +     if (!codec_pdev || IS_ERR(codec_pdev))
+> > +             return;
+>
+> This looks fragile to me, poking about in another device's driver data
+> from another driver is really not a good design decision.  I think this
+> can be simplified if the registration function took the function
+> pointer and the struct device pointer, and then you only need one test
+> below:
+>
+Hi Russell, Thank you for the detailed review.
+ACK to this suggestion.
+I have updated the registration function following your suggestion in v4.
+It looks much cleaner.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/rockchip/rockchip_max98090.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+> > +     if (!hdmi->plugged_cb)
+> > +             return;
+> > +
+> > +     hdmi->plugged_cb(&codec_pdev->dev, plugged);
+> > +}
+> > +
+> > +static int hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn)
+> > +{
+> > +     bool plugged;
+> > +     struct platform_device *codec_pdev;
+> > +
+> > +     if (!hdmi->audio || IS_ERR(hdmi->audio))
+> > +             return -EINVAL;
+>
+> Given the current code structure, how can this ever be true when the
+> function is called?
+>
+ACK
+Removed in v4.
+> > +     codec_pdev = platform_get_drvdata(hdmi->audio);
+> > +     if (!codec_pdev || IS_ERR(codec_pdev))
+> > +             return -EINVAL;
+>
+> This doesn't seem like a good idea as I've pointed out above.
+>
+ACK
+Fixed in v4.
+> > +
+> > +     mutex_lock(&hdmi->mutex);
+> > +     hdmi->plugged_cb = fn;
+> > +     plugged = hdmi->last_connector_result == connector_status_connected;
+> > +     handle_plugged_change(hdmi, plugged);
+> > +     mutex_unlock(&hdmi->mutex);
+>
+> Should be a blank line here for readability.
+>
+ACK
+Fixed in v4.
+> > +     return 0;
+> > +}
+> > +
+> >  static void hdmi_modb(struct dw_hdmi *hdmi, u8 data, u8 mask, unsigned reg)
+> >  {
+> >       regmap_update_bits(hdmi->regm, reg << hdmi->reg_shift, mask, data);
+> > @@ -2044,6 +2083,7 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+> >  {
+> >       struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+> >                                            connector);
+> > +     enum drm_connector_status result;
+> >
+> >       mutex_lock(&hdmi->mutex);
+> >       hdmi->force = DRM_FORCE_UNSPECIFIED;
+> > @@ -2051,7 +2091,18 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+> >       dw_hdmi_update_phy_mask(hdmi);
+> >       mutex_unlock(&hdmi->mutex);
+> >
+> > -     return hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
+> > +     result = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
+> > +
+> > +     mutex_lock(&hdmi->mutex);
+> > +     if (result != hdmi->last_connector_result) {
+> > +             dev_dbg(hdmi->dev, "read_hpd result: %d", result);
+> > +             handle_plugged_change(hdmi,
+> > +                                   result == connector_status_connected);
+> > +             hdmi->last_connector_result = result;
+> > +     }
+> > +     mutex_unlock(&hdmi->mutex);
+> > +
+> > +     return result;
+> >  }
+> >
+> >  static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+> > @@ -2460,6 +2511,7 @@ __dw_hdmi_probe(struct platform_device *pdev,
+> >       hdmi->rxsense = true;
+> >       hdmi->phy_mask = (u8)~(HDMI_PHY_HPD | HDMI_PHY_RX_SENSE);
+> >       hdmi->mc_clkdis = 0x7f;
+> > +     hdmi->last_connector_result = connector_status_disconnected;
+> >
+> >       mutex_init(&hdmi->mutex);
+> >       mutex_init(&hdmi->audio_mutex);
+> > @@ -2653,6 +2705,7 @@ __dw_hdmi_probe(struct platform_device *pdev,
+> >               audio.hdmi      = hdmi;
+> >               audio.write     = hdmi_writeb;
+> >               audio.read      = hdmi_readb;
+> > +             audio.set_plugged_cb = hdmi_set_plugged_cb;
+>
+> Why is this necessary?
+>
+> The I2S audio driver already depends on the dw-hdmi module through its
+> use of functions already exported.  Indirecting this through the
+> platform data makes no sense.
+>
+> Just rename hdmi_set_plugged_cb to dw_hdmi_set_plugged_cb() and export
+> it for dw-hdmi-i2s-audio.c to use.
+ACK.
+Your suggestion makes sense.
+Removed in v4.
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index c82948e383da..c81c4acda917 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -134,6 +134,25 @@ enum {
- 	DAILINK_HDMI,
- };
- 
-+static struct snd_soc_jack rk_hdmi_jack;
-+
-+static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_component *component = runtime->codec_dai->component;
-+	int ret;
-+
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &rk_hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
-+}
-+
- /* max98090 and HDMI codec dai_link */
- static struct snd_soc_dai_link rk_dailinks[] = {
- 	[DAILINK_MAX98090] = {
-@@ -151,6 +170,7 @@ static struct snd_soc_dai_link rk_dailinks[] = {
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
-+		.init = rk_hdmi_init,
- 		SND_SOC_DAILINK_REG(hdmi),
- 	}
- };
--- 
-2.22.0.510.g264f2c817a-goog
+>
+> Thanks.
+Thanks so much!
 
+>
+> --
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+> According to speedtest.net: 11.9Mbps down 500kbps up
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,60 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74D486A602
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 11:57:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01DB66A7DD
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 13:59:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F13D0168C;
-	Tue, 16 Jul 2019 11:56:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F13D0168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D787168B;
+	Tue, 16 Jul 2019 13:58:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D787168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563271059;
-	bh=uzlpqLXVVgO6TAhkHWq7HPrOvCS1Ohs6A0G9IUKlRDs=;
+	s=default; t=1563278367;
+	bh=JT/PJC+xcxqQPJDaxd+FkeFKorWyex+q3PNDNvZn2Uk=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=QPS2e/IMKHBQVtAI+cN/vS4ouwfiKZbzlgS14+ojF90ES0T25+bHzZgdw+l0SYID8
-	 tJjMeJYZ6NXjhaIFjHaLoJPoUpM/nGj/pu6mdvBlmuBqvlWLfYGYaQPVig8sKWatYI
-	 Famj+YIfaaDNHYmTy5NBuOO9zz5AnOTEC1x3EbMw=
+	b=hoAdxElpFPHzasT+jonpn3MHTbbVqTtrPX7nhfrOXUXpLk+sMknzXqBPU9tXJXEnN
+	 Ia6dyhZM9xOWMotRg2mX3pqT4I1o3YIN79dAdQ9U/mirCqHYtrwlVIgAgxKU2tIVk+
+	 g55ctAFYL4orSdIUm4uz4ccXIXxYr8ZbqJUOs+Ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B856F8038F;
-	Tue, 16 Jul 2019 11:55:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7EF28F800C4;
+	Tue, 16 Jul 2019 13:57:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 577FCF80376; Tue, 16 Jul 2019 11:55:53 +0200 (CEST)
+ id 94AC7F80376; Tue, 16 Jul 2019 13:57:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBDC5F800C6
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 11:55:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBDC5F800C6
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0847820004B;
- Tue, 16 Jul 2019 11:55:48 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 69425200008;
- Tue, 16 Jul 2019 11:55:43 +0200 (CEST)
-Received: from titan.ap.freescale.net (TITAN.ap.freescale.net [10.192.208.233])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id C00E040293;
- Tue, 16 Jul 2019 17:55:37 +0800 (SGT)
-From: shengjiu.wang@nxp.com
-To: brian.austin@cirrus.com, Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org
-Date: Tue, 16 Jul 2019 17:45:47 +0800
-Message-Id: <20190716094547.46787-1-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.9.5
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: cs42xx8: Fix MFREQ selection issue for
-	async mode
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06951F800C4
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 13:57:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06951F800C4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="ktGe9+lA"
+Received: by mail-pg1-x543.google.com with SMTP id i18so9327959pgl.11
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 04:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IeXE1WNIbLgZbuXjaQOxWA+uaePxQPbUYQ3+kYNaWMc=;
+ b=ktGe9+lAGPHwFi/wlz8lD76+AeIaTQtERkWK4VsGnh1JYg9WPux230jP1y7OvF1kD+
+ ZXbjD8fqqdXuMjOOoKBf0pLRsxEuM6VZC4+OvbNncs/GBXHHvW2rt6ldjj/ebR3ZDpu+
+ XNugwN2hk34e+scqI+o0eCXzJhj5hbsMCDaiw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=IeXE1WNIbLgZbuXjaQOxWA+uaePxQPbUYQ3+kYNaWMc=;
+ b=mELWasxhQA+LljeglzKHO5USZMdp1cqr6tzLEOK6tgUwTUqg+KQoJqS3QVlS6lgLYF
+ vMqbJ+/OKx2D4ycLIPyNwB7g+wy41omL3kiQzeSRkxL0Hf9tfAdlM4iruKpt0ofusZQ5
+ 5q29a+Aq8V0dD7IBIf92VggDGF+cyIeVzJuSYjeFYvuxjUmbt30O3MVwlhqreUB3+TTq
+ ouUgE8UGhk/MfgI1OrzSI/6tGodQNpU9070kUMfdcIf9jyHS/ELdjJj9LHxUvXB990Ok
+ iYZVZgSuMBdb44XbSzRhZ/bVMJ0A6b6/cjamU/2inf5qGXA0ZDYWT+oY0FfiOqk8rWHs
+ Dn7A==
+X-Gm-Message-State: APjAAAXijXPGXlyFsrUvy2cWTkaUaRL5KFcv/6DbWe1YS02mwfRLpqeT
+ CDbcN/kHyBXIerGT7KC51hVmxNXDqy4=
+X-Google-Smtp-Source: APXvYqxZI85uD2GdvaU3cmn0bFXHmYYOfFV7BJ7eG6YxMTU8Do/1HOLml+Z27bIuOXPOuQu/8HZpFg==
+X-Received: by 2002:a63:1215:: with SMTP id h21mr33096297pgl.221.1563278255748; 
+ Tue, 16 Jul 2019 04:57:35 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
+ by smtp.gmail.com with ESMTPSA id e10sm21197516pfi.173.2019.07.16.04.57.31
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 16 Jul 2019 04:57:34 -0700 (PDT)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 16 Jul 2019 19:57:20 +0800
+Message-Id: <20190716115725.66558-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.22.0.510.g264f2c817a-goog
+MIME-Version: 1.0
+Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
+ Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ tzungbi@chromium.org, Hans Verkuil <hverkuil@xs4all.nl>,
+ Andrzej Hajda <a.hajda@samsung.com>, Russell King <rmk+kernel@armlinux.org.uk>,
+ Mark Brown <broonie@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
+ linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] [PATCH v4 0/5] Add HDMI jack support on RK3288
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,204 +98,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
+This patch series supports HDMI jack reporting on RK3288, which uses
+DRM dw-hdmi driver and hdmi-codec codec driver.
 
-When sample rate of TX is different with sample rate of RX in
-async mode, the MFreq selection will be wrong.
+The previous discussion about reporting jack status using hdmi-notifier
+and drm_audio_component is at
 
-For example, sysclk = 24.576MHz, TX rate = 96000Hz, RX rate = 48000Hz.
-Then ratio of TX = 256, ratio of RX = 512, For MFreq is shared by TX
-and RX instance, the correct value of MFreq is 2 for both TX and RX.
+https://lore.kernel.org/patchwork/patch/1083027/
 
-But original method will cause MFreq = 0 for TX, MFreq = 2 for RX.
-If TX is started after RX, RX will be impacted, RX work abnormal with
-MFreq = 0.
+The new approach is to use a callback mechanism that is
+specific to hdmi-codec.
 
-This patch is to select proper MFreq value according to TX rate and
-RX rate.
+Changes from v3 to v4:
+- hdmi-codec.h: Modify the hook_plugged_cb ops to take an additional argument,
+  that is, the pointer to struct device for codec device.
+- dw-hdmi-i2s-audio.c: Simplify the registration of callback so it uses
+  dw_hdmi_set_plugged_cb exported by dw-hdmi.c.
+- dw-hdmi.c: Simplify the flow to invoke callback since now dw_hdmi has a
+  pointer to codec device as callback argument. There is no need to rely
+  on driver data of other driver.
+- dw-hdmi.c: Minor change for readability.
+- synopsys/Kconfig: Fix the dependency of hdmi-codec in Kconfig.
+- Fixed the incorrect FROMLIST title of patch 5/5.
 
-Fixes: 0c516b4ff85c ("ASoC: cs42xx8: Add codec driver support for CS42448/CS42888")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/codecs/cs42xx8.c | 116 +++++++++++++++++++++++++++++++------
- 1 file changed, 97 insertions(+), 19 deletions(-)
+Cheng-Yi Chiang (5):
+  ASoC: hdmi-codec: Add an op to set callback function for plug event
+  drm: bridge: dw-hdmi: Report connector status using callback
+  drm: dw-hdmi-i2s: Use fixed id for codec device
+  ASoC: rockchip_max98090: Add dai_link for HDMI
+  ASoC: rockchip_max98090: Add HDMI jack support
 
-diff --git a/sound/soc/codecs/cs42xx8.c b/sound/soc/codecs/cs42xx8.c
-index b377cddaf2e6..804969495754 100644
---- a/sound/soc/codecs/cs42xx8.c
-+++ b/sound/soc/codecs/cs42xx8.c
-@@ -47,6 +47,7 @@ struct cs42xx8_priv {
- 	unsigned long sysclk;
- 	u32 tx_channels;
- 	struct gpio_desc *gpiod_reset;
-+	u32 rate[2];
- };
- 
- /* -127.5dB to 0dB with step of 0.5dB */
-@@ -176,21 +177,27 @@ static const struct snd_soc_dapm_route cs42xx8_adc3_dapm_routes[] = {
- };
- 
- struct cs42xx8_ratios {
--	unsigned int ratio;
--	unsigned char speed;
--	unsigned char mclk;
-+	unsigned int mfreq;
-+	unsigned int min_mclk;
-+	unsigned int max_mclk;
-+	unsigned int ratio[3];
- };
- 
-+/*
-+ * According to reference mannual, define the cs42xx8_ratio struct
-+ * MFreq2 | MFreq1 | MFreq0 |     Description     | SSM | DSM | QSM |
-+ * 0      | 0      | 0      |1.029MHz to 12.8MHz  | 256 | 128 |  64 |
-+ * 0      | 0      | 1      |1.536MHz to 19.2MHz  | 384 | 192 |  96 |
-+ * 0      | 1      | 0      |2.048MHz to 25.6MHz  | 512 | 256 | 128 |
-+ * 0      | 1      | 1      |3.072MHz to 38.4MHz  | 768 | 384 | 192 |
-+ * 1      | x      | x      |4.096MHz to 51.2MHz  |1024 | 512 | 256 |
-+ */
- static const struct cs42xx8_ratios cs42xx8_ratios[] = {
--	{ 64, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_256(4) },
--	{ 96, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_384(4) },
--	{ 128, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_512(4) },
--	{ 192, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_768(4) },
--	{ 256, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_256(1) },
--	{ 384, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_384(1) },
--	{ 512, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_512(1) },
--	{ 768, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_768(1) },
--	{ 1024, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_1024(1) }
-+	{ 0, 1029000, 12800000, {256, 128, 64} },
-+	{ 2, 1536000, 19200000, {384, 192, 96} },
-+	{ 4, 2048000, 25600000, {512, 256, 128} },
-+	{ 6, 3072000, 38400000, {768, 384, 192} },
-+	{ 8, 4096000, 51200000, {1024, 512, 256} },
- };
- 
- static int cs42xx8_set_dai_sysclk(struct snd_soc_dai *codec_dai,
-@@ -257,14 +264,68 @@ static int cs42xx8_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component = dai->component;
- 	struct cs42xx8_priv *cs42xx8 = snd_soc_component_get_drvdata(component);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
--	u32 ratio = cs42xx8->sysclk / params_rate(params);
--	u32 i, fm, val, mask;
-+	u32 ratio[2];
-+	u32 rate[2];
-+	u32 fm[2];
-+	u32 i, val, mask;
-+	bool condition1, condition2;
- 
- 	if (tx)
- 		cs42xx8->tx_channels = params_channels(params);
- 
-+	rate[tx]  = params_rate(params);
-+	rate[!tx] = cs42xx8->rate[!tx];
-+
-+	ratio[tx] = rate[tx] > 0 ? cs42xx8->sysclk / rate[tx] : 0;
-+	ratio[!tx] = rate[!tx] > 0 ? cs42xx8->sysclk / rate[!tx] : 0;
-+
-+	/* Get functional mode for tx and rx according to rate */
-+	for (i = 0; i < 2; i++) {
-+		if (cs42xx8->slave_mode) {
-+			fm[i] = CS42XX8_FM_AUTO;
-+		} else {
-+			if (rate[i] < 50000) {
-+				fm[i] = CS42XX8_FM_SINGLE;
-+			} else if (rate[i] > 50000 && rate[i] < 100000) {
-+				fm[i] = CS42XX8_FM_DOUBLE;
-+			} else if (rate[i] > 100000 && rate[i] < 200000) {
-+				fm[i] = CS42XX8_FM_QUAD;
-+			} else {
-+				dev_err(component->dev,
-+					"unsupported sample rate\n");
-+				return -EINVAL;
-+			}
-+		}
-+	}
-+
- 	for (i = 0; i < ARRAY_SIZE(cs42xx8_ratios); i++) {
--		if (cs42xx8_ratios[i].ratio == ratio)
-+		/* Is the ratio[tx] valid ? */
-+		condition1 = ((fm[tx] == CS42XX8_FM_AUTO) ?
-+			(cs42xx8_ratios[i].ratio[0] == ratio[tx] ||
-+			cs42xx8_ratios[i].ratio[1] == ratio[tx] ||
-+			cs42xx8_ratios[i].ratio[2] == ratio[tx]) :
-+			(cs42xx8_ratios[i].ratio[fm[tx]] == ratio[tx])) &&
-+			cs42xx8->sysclk >= cs42xx8_ratios[i].min_mclk &&
-+			cs42xx8->sysclk <= cs42xx8_ratios[i].max_mclk;
-+
-+		if (!ratio[tx])
-+			condition1 = true;
-+
-+		/* Is the ratio[!tx] valid ? */
-+		condition2 = ((fm[!tx] == CS42XX8_FM_AUTO) ?
-+			(cs42xx8_ratios[i].ratio[0] == ratio[!tx] ||
-+			cs42xx8_ratios[i].ratio[1] == ratio[!tx] ||
-+			cs42xx8_ratios[i].ratio[2] == ratio[!tx]) :
-+			(cs42xx8_ratios[i].ratio[fm[!tx]] == ratio[!tx]));
-+
-+		if (!ratio[!tx])
-+			condition2 = true;
-+
-+		/*
-+		 * Both ratio[tx] and ratio[!tx] is valid, then we get
-+		 * a proper MFreq.
-+		 */
-+		if (condition1 && condition2)
- 			break;
- 	}
- 
-@@ -273,15 +334,31 @@ static int cs42xx8_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
- 
--	mask = CS42XX8_FUNCMOD_MFREQ_MASK;
--	val = cs42xx8_ratios[i].mclk;
-+	cs42xx8->rate[tx] = params_rate(params);
- 
--	fm = cs42xx8->slave_mode ? CS42XX8_FM_AUTO : cs42xx8_ratios[i].speed;
-+	mask = CS42XX8_FUNCMOD_MFREQ_MASK;
-+	val = cs42xx8_ratios[i].mfreq;
- 
- 	regmap_update_bits(cs42xx8->regmap, CS42XX8_FUNCMOD,
- 			   CS42XX8_FUNCMOD_xC_FM_MASK(tx) | mask,
--			   CS42XX8_FUNCMOD_xC_FM(tx, fm) | val);
-+			   CS42XX8_FUNCMOD_xC_FM(tx, fm[tx]) | val);
-+
-+	return 0;
-+}
-+
-+static int cs42xx8_hw_free(struct snd_pcm_substream *substream,
-+			   struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct cs42xx8_priv *cs42xx8 = snd_soc_component_get_drvdata(component);
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 
-+	/* Clear stored rate */
-+	cs42xx8->rate[tx] = 0;
-+
-+	regmap_update_bits(cs42xx8->regmap, CS42XX8_FUNCMOD,
-+			   CS42XX8_FUNCMOD_xC_FM_MASK(tx),
-+			   CS42XX8_FUNCMOD_xC_FM(tx, CS42XX8_FM_AUTO));
- 	return 0;
- }
- 
-@@ -302,6 +379,7 @@ static const struct snd_soc_dai_ops cs42xx8_dai_ops = {
- 	.set_fmt	= cs42xx8_set_dai_fmt,
- 	.set_sysclk	= cs42xx8_set_dai_sysclk,
- 	.hw_params	= cs42xx8_hw_params,
-+	.hw_free	= cs42xx8_hw_free,
- 	.digital_mute	= cs42xx8_digital_mute,
- };
- 
+ drivers/gpu/drm/bridge/synopsys/Kconfig       |   2 +-
+ .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   |  13 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  41 ++++++-
+ include/drm/bridge/dw_hdmi.h                  |   4 +
+ include/sound/hdmi-codec.h                    |  17 +++
+ sound/soc/codecs/hdmi-codec.c                 |  46 +++++++
+ sound/soc/rockchip/Kconfig                    |   3 +-
+ sound/soc/rockchip/rk3288_hdmi_analog.c       |   3 +-
+ sound/soc/rockchip/rockchip_max98090.c        | 116 ++++++++++++++----
+ 9 files changed, 217 insertions(+), 28 deletions(-)
+
 -- 
-2.21.0
+2.22.0.510.g264f2c817a-goog
 
 _______________________________________________
 Alsa-devel mailing list

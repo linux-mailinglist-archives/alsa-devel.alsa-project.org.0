@@ -2,92 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7253B6A837
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 14:06:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F0B6A878
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 14:12:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F30BB168C;
-	Tue, 16 Jul 2019 14:05:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F30BB168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F404167F;
+	Tue, 16 Jul 2019 14:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F404167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563278807;
-	bh=XXhSXwLC52ZnAmGqTWfPLhzH5HNbNwkwCXyaFRV9ZgE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NCM3+15hQOIAWoaSBU1Ls11N3MAmvjhvvmjtobjVmAfg/jlfhz/BMuTAv3toTgPvb
-	 t+i3hYlCifUHvY0b0YEhXioDZIMPuY5iLoq+USjlg68SlM/YjRfY/lG1XNHERrm6lC
-	 Ms+aAEkDIjte48KWVipL4gGTQ+2EuvzETVLjTM3U=
+	s=default; t=1563279172;
+	bh=+DsXGWi9l/FM6fD1DJPxgExuywN8Jk6DYLH6dTFyAKI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HoVgYUERk62/5/VJWxAxP05JyC2WeVqSjanj2KJRFi6YAUr2Xn5rfpYSJyYGxON9t
+	 DocPCF1n3Lx7Flk9oEyOXeJf/TMeI31MV8+1jYLJXoC+gjyld1YIZRd+OxZKe8ycI7
+	 rWMQh/h1F09V28skial/2txT5y8FojC9PfLqdbkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5037BF80376;
-	Tue, 16 Jul 2019 14:05:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1FDAAF800C4;
+	Tue, 16 Jul 2019 14:11:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD8E7F80376; Tue, 16 Jul 2019 14:04:59 +0200 (CEST)
+ id 624C3F80376; Tue, 16 Jul 2019 14:11:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, 
- URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa44.google.com (mail-vk1-xa44.google.com
- [IPv6:2607:f8b0:4864:20::a44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0407EF800C4
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 14:04:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0407EF800C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CF97F802BC
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 14:11:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF97F802BC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="mkw993/n"
-Received: by mail-vk1-xa44.google.com with SMTP id w186so4112501vkd.11
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 05:04:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=P7ULxAuKEaSYzWYdGTr4IlP25QOrvD8KBofH6zWNyzQ=;
- b=mkw993/neQKAw2c2FfYVkxn+sOjDePcI0SFBqSo2uQ9XgxU7qFjPiY3YH5IUddHb1f
- 0Zi+0q7QkAQBUfFLrw7PZjyy/zDoBIwIax+0NNKvtUxDk8C+SkzNSpFCXzQ0EZg4L/nh
- NgyhuIC9Ws15LrFjfBQKOKwslddMzuYtVkZiU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=P7ULxAuKEaSYzWYdGTr4IlP25QOrvD8KBofH6zWNyzQ=;
- b=sus/ZIIn2mKUKVXnyuqPlof/K3bTaZmmmj2dGOdUG27Rf7rDjn4WOehWlp01Xx18OM
- OebWw5kV0Kp1Z9+fz/RHrGn8cFzDwlDdEw/8gGwGQIvHVVQ3ezS6MwsEOcnWkn/kmCmd
- b13H8HLWPvs7g6FHwrm42VTCPAucdlFMG4k+7QE4L5hrRTDWCQmOVTq5j5U0jBSiRZva
- 51YAhSMqceyGQ/gvwDhZbR/XZHWqxU0yebhgszU62lQCd7Szp4UUBEndVWFZIIWau3qW
- VoWeFIjcbFjXd4kI2Oa9W5Btv/5dk1EQmja1D4ePUa31iJBsvYGBfyv1mfJjgCn60Wfh
- QE2g==
-X-Gm-Message-State: APjAAAUmjT8wFxFJD5QeqfYw/ana8Xdy0NHILi2y+3bwvJ6F0lvY+3aP
- lkajSqDkVbmPJDHPtsIQYLVD6FCffm1BFWFwzBHkyw==
-X-Google-Smtp-Source: APXvYqyV5nIBgRiOBlht43v8TH2KL+F06jklrgKSVXF6ezSHVkI2KPhvG8Y407cVFJ0e5gFjSSA+0asgnIsC1+p+aiY=
-X-Received: by 2002:a1f:3692:: with SMTP id d140mr11929548vka.88.1563278694560; 
- Tue, 16 Jul 2019 05:04:54 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="QAAw/LhY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:Message-Id:Date:Subject:Cc:To:From:Reply-To:Content-Type:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=cmrXWeKZex18XPtqOqXe6bsYV64AO68iLYgMsiWQPIg=; b=QAAw/LhYE17kHpcrRzOCn1piW
+ wDQhBm1yl/KZ+dj8rCQhgNieg+hhttiHCd56p5QhHz5ASeESwhg4e5NnaVU0xFvaS1lhK+pI34VAH
+ U07mMZP9tRQ4deiPKcIy4WDiR29u2hCPogiZhF9Lz2jHXns+8RDa0pzAsZAsHJhW3j3YMjCZIm/+P
+ LGpxBBG2lEGO3KMHIzygFcSKKg0GHttc1pRY0pbQBDBk7P+UYDrt1y6b2Q/bZPeVAySSZNi95nOXL
+ A9MLC1Mv0VfRw8xgU7fIrVDbMile7MGuQFtM0dQbNTrXk9FcF/xI3aZ/c1Bhe5nAJD6JiU0T0som+
+ 3cGvhJxcQ==;
+Received: from [189.27.46.152] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
+ id 1hnMIL-0004hz-Al; Tue, 16 Jul 2019 12:10:57 +0000
+Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
+ (envelope-from <mchehab@bombadil.infradead.org>)
+ id 1hnMII-0000QW-KI; Tue, 16 Jul 2019 09:10:54 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: 
+Date: Tue, 16 Jul 2019 09:10:39 -0300
+Message-Id: <cover.1563277838.git.mchehab+samsung@kernel.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <20190712100443.221322-1-cychiang@chromium.org>
- <20190712100443.221322-3-cychiang@chromium.org>
- <20190712104748.zlgxgdjbtj2gw4yz@shell.armlinux.org.uk>
-In-Reply-To: <20190712104748.zlgxgdjbtj2gw4yz@shell.armlinux.org.uk>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Tue, 16 Jul 2019 20:04:28 +0800
-Message-ID: <CAFv8NwLBr+USzOJvSZzMt_EzxA=07-NTGzuKdusaMxbFyrBjFQ@mail.gmail.com>
-To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, tzungbi@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
- David Airlie <airlied@linux.ie>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, linux-kernel <linux-kernel@vger.kernel.org>,
- dri-devel@lists.freedesktop.org, Doug Anderson <dianders@chromium.org>,
- Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
- Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, Dylan Reid <dgreid@chromium.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v3 2/5] drm: bridge: dw-hdmi: Report
- connector status using callback
+Cc: alsa-devel@alsa-project.org, kvm@vger.kernel.org, linux-sh@vger.kernel.org,
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-i2c@vger.kernel.org, Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ linux-arch@vger.kernel.org, linux-scsi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, x86@kernel.org, esc.storagedev@microsemi.com,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, linux-pm@vger.kernel.org, rcu@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Subject: [alsa-devel] [PATCH 00/14] pending doc patches for 5.3-rc
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,235 +92,182 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 12, 2019 at 6:48 PM Russell King - ARM Linux admin
-<linux@armlinux.org.uk> wrote:
->
-> On Fri, Jul 12, 2019 at 06:04:40PM +0800, Cheng-Yi Chiang wrote:
-> > Allow codec driver register callback function for plug event.
-> >
-> > The callback registration flow:
-> > dw-hdmi <--- hw-hdmi-i2s-audio <--- hdmi-codec
-> >
-> > dw-hdmi-i2s-audio implements hook_plugged_cb op
-> > so codec driver can register the callback.
-> >
-> > dw-hdmi implements set_plugged_cb op so platform device can register the
-> > callback.
-> >
-> > When connector plug/unplug event happens, report this event using the
-> > callback.
-> >
-> > Make sure that audio and drm are using the single source of truth for
-> > connector status.
-> >
-> > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> > ---
-> >  .../gpu/drm/bridge/synopsys/dw-hdmi-audio.h   |  3 +
-> >  .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   | 10 ++++
-> >  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 55 ++++++++++++++++++-
-> >  3 files changed, 67 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
-> > index 63b5756f463b..f523c590984e 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-audio.h
-> > @@ -2,6 +2,8 @@
-> >  #ifndef DW_HDMI_AUDIO_H
-> >  #define DW_HDMI_AUDIO_H
-> >
-> > +#include <sound/hdmi-codec.h>
-> > +
-> >  struct dw_hdmi;
-> >
-> >  struct dw_hdmi_audio_data {
-> > @@ -17,6 +19,7 @@ struct dw_hdmi_i2s_audio_data {
-> >
-> >       void (*write)(struct dw_hdmi *hdmi, u8 val, int offset);
-> >       u8 (*read)(struct dw_hdmi *hdmi, int offset);
-> > +     int (*set_plugged_cb)(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn);
-> >  };
-> >
-> >  #endif
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-> > index 5cbb71a866d5..7b93cf05c985 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-> > @@ -104,10 +104,20 @@ static int dw_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
-> >       return -EINVAL;
-> >  }
-> >
-> > +static int dw_hdmi_i2s_hook_plugged_cb(struct device *dev, void *data,
-> > +                                    hdmi_codec_plugged_cb fn)
-> > +{
-> > +     struct dw_hdmi_i2s_audio_data *audio = data;
-> > +     struct dw_hdmi *hdmi = audio->hdmi;
-> > +
-> > +     return audio->set_plugged_cb(hdmi, fn);
-> > +}
-> > +
-> >  static struct hdmi_codec_ops dw_hdmi_i2s_ops = {
-> >       .hw_params      = dw_hdmi_i2s_hw_params,
-> >       .audio_shutdown = dw_hdmi_i2s_audio_shutdown,
-> >       .get_dai_id     = dw_hdmi_i2s_get_dai_id,
-> > +     .hook_plugged_cb = dw_hdmi_i2s_hook_plugged_cb,
-> >  };
-> >
-> >  static int snd_dw_hdmi_probe(struct platform_device *pdev)
-> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> > index 045b1b13fd0e..ce6646067472 100644
-> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> > @@ -26,6 +26,8 @@
-> >  #include <drm/drm_probe_helper.h>
-> >  #include <drm/bridge/dw_hdmi.h>
-> >
-> > +#include <sound/hdmi-codec.h>
-> > +
-> >  #include <uapi/linux/media-bus-format.h>
-> >  #include <uapi/linux/videodev2.h>
-> >
-> > @@ -185,6 +187,9 @@ struct dw_hdmi {
-> >       void (*disable_audio)(struct dw_hdmi *hdmi);
-> >
-> >       struct cec_notifier *cec_notifier;
-> > +
-> > +     hdmi_codec_plugged_cb plugged_cb;
-> > +     enum drm_connector_status last_connector_result;
-> >  };
-> >
-> >  #define HDMI_IH_PHY_STAT0_RX_SENSE \
-> > @@ -209,6 +214,40 @@ static inline u8 hdmi_readb(struct dw_hdmi *hdmi, int offset)
-> >       return val;
-> >  }
-> >
-> > +static void handle_plugged_change(struct dw_hdmi *hdmi, bool plugged)
-> > +{
-> > +     struct platform_device *codec_pdev;
-> > +
-> > +     if (!hdmi->audio || IS_ERR(hdmi->audio))
-> > +             return;
-> > +     codec_pdev = platform_get_drvdata(hdmi->audio);
-> > +     if (!codec_pdev || IS_ERR(codec_pdev))
-> > +             return;
->
-> This looks fragile to me, poking about in another device's driver data
-> from another driver is really not a good design decision.  I think this
-> can be simplified if the registration function took the function
-> pointer and the struct device pointer, and then you only need one test
-> below:
->
-Hi Russell, Thank you for the detailed review.
-ACK to this suggestion.
-I have updated the registration function following your suggestion in v4.
-It looks much cleaner.
+Those are the pending documentation patches after my pull request
+for this branch:
 
-> > +     if (!hdmi->plugged_cb)
-> > +             return;
-> > +
-> > +     hdmi->plugged_cb(&codec_pdev->dev, plugged);
-> > +}
-> > +
-> > +static int hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn)
-> > +{
-> > +     bool plugged;
-> > +     struct platform_device *codec_pdev;
-> > +
-> > +     if (!hdmi->audio || IS_ERR(hdmi->audio))
-> > +             return -EINVAL;
->
-> Given the current code structure, how can this ever be true when the
-> function is called?
->
-ACK
-Removed in v4.
-> > +     codec_pdev = platform_get_drvdata(hdmi->audio);
-> > +     if (!codec_pdev || IS_ERR(codec_pdev))
-> > +             return -EINVAL;
->
-> This doesn't seem like a good idea as I've pointed out above.
->
-ACK
-Fixed in v4.
-> > +
-> > +     mutex_lock(&hdmi->mutex);
-> > +     hdmi->plugged_cb = fn;
-> > +     plugged = hdmi->last_connector_result == connector_status_connected;
-> > +     handle_plugged_change(hdmi, plugged);
-> > +     mutex_unlock(&hdmi->mutex);
->
-> Should be a blank line here for readability.
->
-ACK
-Fixed in v4.
-> > +     return 0;
-> > +}
-> > +
-> >  static void hdmi_modb(struct dw_hdmi *hdmi, u8 data, u8 mask, unsigned reg)
-> >  {
-> >       regmap_update_bits(hdmi->regm, reg << hdmi->reg_shift, mask, data);
-> > @@ -2044,6 +2083,7 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
-> >  {
-> >       struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
-> >                                            connector);
-> > +     enum drm_connector_status result;
-> >
-> >       mutex_lock(&hdmi->mutex);
-> >       hdmi->force = DRM_FORCE_UNSPECIFIED;
-> > @@ -2051,7 +2091,18 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
-> >       dw_hdmi_update_phy_mask(hdmi);
-> >       mutex_unlock(&hdmi->mutex);
-> >
-> > -     return hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
-> > +     result = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
-> > +
-> > +     mutex_lock(&hdmi->mutex);
-> > +     if (result != hdmi->last_connector_result) {
-> > +             dev_dbg(hdmi->dev, "read_hpd result: %d", result);
-> > +             handle_plugged_change(hdmi,
-> > +                                   result == connector_status_connected);
-> > +             hdmi->last_connector_result = result;
-> > +     }
-> > +     mutex_unlock(&hdmi->mutex);
-> > +
-> > +     return result;
-> >  }
-> >
-> >  static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
-> > @@ -2460,6 +2511,7 @@ __dw_hdmi_probe(struct platform_device *pdev,
-> >       hdmi->rxsense = true;
-> >       hdmi->phy_mask = (u8)~(HDMI_PHY_HPD | HDMI_PHY_RX_SENSE);
-> >       hdmi->mc_clkdis = 0x7f;
-> > +     hdmi->last_connector_result = connector_status_disconnected;
-> >
-> >       mutex_init(&hdmi->mutex);
-> >       mutex_init(&hdmi->audio_mutex);
-> > @@ -2653,6 +2705,7 @@ __dw_hdmi_probe(struct platform_device *pdev,
-> >               audio.hdmi      = hdmi;
-> >               audio.write     = hdmi_writeb;
-> >               audio.read      = hdmi_readb;
-> > +             audio.set_plugged_cb = hdmi_set_plugged_cb;
->
-> Why is this necessary?
->
-> The I2S audio driver already depends on the dw-hdmi module through its
-> use of functions already exported.  Indirecting this through the
-> platform data makes no sense.
->
-> Just rename hdmi_set_plugged_cb to dw_hdmi_set_plugged_cb() and export
-> it for dw-hdmi-i2s-audio.c to use.
-ACK.
-Your suggestion makes sense.
-Removed in v4.
+    git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git tags/docs/v5.3-1
 
->
-> Thanks.
-Thanks so much!
+Patches 1 to 13 were already submitted, but got rebased. Patch 14
+is a new fixup one.
 
->
-> --
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-> According to speedtest.net: 11.9Mbps down 500kbps up
+Patches 1 and 2 weren't submitted before due to merge conflicts
+that are now solved upstream;
+
+Patch 3 fixes a series of random Documentation/* references that
+are pointing to the wrong places.
+
+Patch 4 fix a longstanding issue: every time a new book is added,
+conf.py need changes, in order to allow generating a PDF file.
+After the patch, conf.py will automatically recognize new books,
+saving the trouble of keeping adding documents to it.
+
+Patches 5 to 11 are due to fonts support when building translations.pdf.
+The main focus is to add xeCJK support. While doing it, I discovered
+some bugs at sphinx-pre-install script after running it with 7 different
+distributions.
+
+Patch 12 improves support for partial doc building. Currently, each
+subdir needs to have its own conf.py, in order to support partial
+doc build. After it, any Documentation subdir can be used to 
+roduce html/pdf docs with:
+
+	make SPHINXDIRS="foo bar" htmldocs
+	(or pdfdocs, latexdocs, epubdocs, ...)
+
+Patch 13 is a cleanup patch: it simply get rid of all those extra
+conf.py files that  aren't needed anymore. The only extra config
+file after it is this one:
+
+	Documentation/media/conf_nitpick.py
+
+With enables some extra optional Sphinx features.
+
+Patch 14 adds Documentation/virtual to the main index.rst file
+and add a new *.rst file that was orphaned there.
+
+-
+
+After this series, there's just one more patch meant to be applied
+for 5.3, with is still waiting for some patches to be merged from
+linux-next:
+
+    https://git.linuxtv.org/mchehab/experimental.git/commit/?id=b1b5dc7d7bbfbbfdace2a248c6458301c6e34100
+
+
+Mauro Carvalho Chehab (14):
+  docs: powerpc: convert docs to ReST and rename to *.rst
+  docs: power: add it to to the main documentation index
+  docs: fix broken doc references due to renames
+  docs: pdf: add all Documentation/*/index.rst to PDF output
+  docs: conf.py: add CJK package needed by translations
+  docs: conf.py: only use CJK if the font is available
+  scripts/sphinx-pre-install: fix script for RHEL/CentOS
+  scripts/sphinx-pre-install: don't use LaTeX with CentOS 7
+  scripts/sphinx-pre-install: fix latexmk dependencies
+  scripts/sphinx-pre-install: cleanup Gentoo checks
+  scripts/sphinx-pre-install: seek for Noto CJK fonts for pdf output
+  docs: load_config.py: avoid needing a conf.py just due to LaTeX docs
+  docs: remove extra conf.py files
+  docs: virtual: add it to the documentation body
+
+ Documentation/PCI/pci-error-recovery.rst      |   5 +-
+ Documentation/RCU/rculist_nulls.txt           |   2 +-
+ Documentation/admin-guide/conf.py             |  10 --
+ Documentation/conf.py                         |  30 +++-
+ Documentation/core-api/conf.py                |  10 --
+ Documentation/crypto/conf.py                  |  10 --
+ Documentation/dev-tools/conf.py               |  10 --
+ .../devicetree/bindings/arm/idle-states.txt   |   2 +-
+ Documentation/doc-guide/conf.py               |  10 --
+ Documentation/driver-api/80211/conf.py        |  10 --
+ Documentation/driver-api/conf.py              |  10 --
+ Documentation/driver-api/pm/conf.py           |  10 --
+ Documentation/filesystems/conf.py             |  10 --
+ Documentation/gpu/conf.py                     |  10 --
+ Documentation/index.rst                       |   3 +
+ Documentation/input/conf.py                   |  10 --
+ Documentation/kernel-hacking/conf.py          |  10 --
+ Documentation/locking/spinlocks.rst           |   4 +-
+ Documentation/maintainer/conf.py              |  10 --
+ Documentation/media/conf.py                   |  12 --
+ Documentation/memory-barriers.txt             |   2 +-
+ Documentation/networking/conf.py              |  10 --
+ Documentation/power/index.rst                 |   2 +-
+ .../{bootwrapper.txt => bootwrapper.rst}      |  28 +++-
+ .../{cpu_families.txt => cpu_families.rst}    |  23 +--
+ .../{cpu_features.txt => cpu_features.rst}    |   6 +-
+ Documentation/powerpc/{cxl.txt => cxl.rst}    |  46 ++++--
+ .../powerpc/{cxlflash.txt => cxlflash.rst}    |  10 +-
+ .../{DAWR-POWER9.txt => dawr-power9.rst}      |  15 +-
+ Documentation/powerpc/{dscr.txt => dscr.rst}  |  18 +-
+ ...ecovery.txt => eeh-pci-error-recovery.rst} | 108 ++++++------
+ ...ed-dump.txt => firmware-assisted-dump.rst} | 117 +++++++------
+ Documentation/powerpc/{hvcs.txt => hvcs.rst}  | 108 ++++++------
+ Documentation/powerpc/index.rst               |  34 ++++
+ Documentation/powerpc/isa-versions.rst        |  15 +-
+ .../powerpc/{mpc52xx.txt => mpc52xx.rst}      |  12 +-
+ ...nv.txt => pci_iov_resource_on_powernv.rst} |  15 +-
+ .../powerpc/{pmu-ebb.txt => pmu-ebb.rst}      |   1 +
+ Documentation/powerpc/ptrace.rst              | 156 ++++++++++++++++++
+ Documentation/powerpc/ptrace.txt              | 151 -----------------
+ .../{qe_firmware.txt => qe_firmware.rst}      |  37 +++--
+ .../{syscall64-abi.txt => syscall64-abi.rst}  |  29 ++--
+ ...al_memory.txt => transactional_memory.rst} |  45 ++---
+ Documentation/process/conf.py                 |  10 --
+ Documentation/sh/conf.py                      |  10 --
+ Documentation/sound/conf.py                   |  10 --
+ Documentation/sphinx/load_config.py           |  27 ++-
+ .../translations/ko_KR/memory-barriers.txt    |   2 +-
+ Documentation/userspace-api/conf.py           |  10 --
+ Documentation/virtual/kvm/index.rst           |   1 +
+ Documentation/vm/conf.py                      |  10 --
+ Documentation/watchdog/hpwdt.rst              |   2 +-
+ Documentation/x86/conf.py                     |  10 --
+ MAINTAINERS                                   |  14 +-
+ arch/powerpc/kernel/exceptions-64s.S          |   2 +-
+ drivers/gpu/drm/drm_modes.c                   |   2 +-
+ drivers/i2c/busses/i2c-nvidia-gpu.c           |   2 +-
+ drivers/scsi/hpsa.c                           |   4 +-
+ drivers/soc/fsl/qe/qe.c                       |   2 +-
+ drivers/tty/hvc/hvcs.c                        |   2 +-
+ include/soc/fsl/qe/qe.h                       |   2 +-
+ scripts/sphinx-pre-install                    | 118 ++++++++++---
+ 62 files changed, 738 insertions(+), 678 deletions(-)
+ delete mode 100644 Documentation/admin-guide/conf.py
+ delete mode 100644 Documentation/core-api/conf.py
+ delete mode 100644 Documentation/crypto/conf.py
+ delete mode 100644 Documentation/dev-tools/conf.py
+ delete mode 100644 Documentation/doc-guide/conf.py
+ delete mode 100644 Documentation/driver-api/80211/conf.py
+ delete mode 100644 Documentation/driver-api/conf.py
+ delete mode 100644 Documentation/driver-api/pm/conf.py
+ delete mode 100644 Documentation/filesystems/conf.py
+ delete mode 100644 Documentation/gpu/conf.py
+ delete mode 100644 Documentation/input/conf.py
+ delete mode 100644 Documentation/kernel-hacking/conf.py
+ delete mode 100644 Documentation/maintainer/conf.py
+ delete mode 100644 Documentation/media/conf.py
+ delete mode 100644 Documentation/networking/conf.py
+ rename Documentation/powerpc/{bootwrapper.txt => bootwrapper.rst} (93%)
+ rename Documentation/powerpc/{cpu_families.txt => cpu_families.rst} (95%)
+ rename Documentation/powerpc/{cpu_features.txt => cpu_features.rst} (97%)
+ rename Documentation/powerpc/{cxl.txt => cxl.rst} (95%)
+ rename Documentation/powerpc/{cxlflash.txt => cxlflash.rst} (98%)
+ rename Documentation/powerpc/{DAWR-POWER9.txt => dawr-power9.rst} (95%)
+ rename Documentation/powerpc/{dscr.txt => dscr.rst} (91%)
+ rename Documentation/powerpc/{eeh-pci-error-recovery.txt => eeh-pci-error-recovery.rst} (82%)
+ rename Documentation/powerpc/{firmware-assisted-dump.txt => firmware-assisted-dump.rst} (80%)
+ rename Documentation/powerpc/{hvcs.txt => hvcs.rst} (91%)
+ create mode 100644 Documentation/powerpc/index.rst
+ rename Documentation/powerpc/{mpc52xx.txt => mpc52xx.rst} (91%)
+ rename Documentation/powerpc/{pci_iov_resource_on_powernv.txt => pci_iov_resource_on_powernv.rst} (97%)
+ rename Documentation/powerpc/{pmu-ebb.txt => pmu-ebb.rst} (99%)
+ create mode 100644 Documentation/powerpc/ptrace.rst
+ delete mode 100644 Documentation/powerpc/ptrace.txt
+ rename Documentation/powerpc/{qe_firmware.txt => qe_firmware.rst} (95%)
+ rename Documentation/powerpc/{syscall64-abi.txt => syscall64-abi.rst} (82%)
+ rename Documentation/powerpc/{transactional_memory.txt => transactional_memory.rst} (93%)
+ delete mode 100644 Documentation/process/conf.py
+ delete mode 100644 Documentation/sh/conf.py
+ delete mode 100644 Documentation/sound/conf.py
+ delete mode 100644 Documentation/userspace-api/conf.py
+ delete mode 100644 Documentation/vm/conf.py
+ delete mode 100644 Documentation/x86/conf.py
+
+-- 
+2.21.0
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

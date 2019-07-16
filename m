@@ -2,79 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3916A5C1
-	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 11:45:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74D486A602
+	for <lists+alsa-devel@lfdr.de>; Tue, 16 Jul 2019 11:57:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C3E31696;
-	Tue, 16 Jul 2019 11:44:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C3E31696
+	by alsa0.perex.cz (Postfix) with ESMTPS id F13D0168C;
+	Tue, 16 Jul 2019 11:56:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F13D0168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563270340;
-	bh=qmgq5riaJtzcu3r+StvhjdVxXyPWbTv+1oOzIQNafkg=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rv3oDL62SLCNRh/Aq++ruk6ADRAs3Phf4SEWYkoYVahpZQgcKsRDeKO5GRtGNDf2K
-	 O4fIjLQfm027FABpQRxIuvcMh7j7Hfn8m8qBNlzCzAt1rnYa9zzJpOY4tlOJmpXgZm
-	 wVAvSabVCWDbUO9rVYgUt7qOBw+AIIzs8fzg8dqM=
+	s=default; t=1563271059;
+	bh=uzlpqLXVVgO6TAhkHWq7HPrOvCS1Ohs6A0G9IUKlRDs=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QPS2e/IMKHBQVtAI+cN/vS4ouwfiKZbzlgS14+ojF90ES0T25+bHzZgdw+l0SYID8
+	 tJjMeJYZ6NXjhaIFjHaLoJPoUpM/nGj/pu6mdvBlmuBqvlWLfYGYaQPVig8sKWatYI
+	 Famj+YIfaaDNHYmTy5NBuOO9zz5AnOTEC1x3EbMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DF72F803CF;
-	Tue, 16 Jul 2019 11:43:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B856F8038F;
+	Tue, 16 Jul 2019 11:55:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 64487F802BC; Tue, 16 Jul 2019 11:43:09 +0200 (CEST)
+ id 577FCF80376; Tue, 16 Jul 2019 11:55:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E2CC3F800C6
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 11:43:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2CC3F800C6
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H41dQvPR"
-Received: from mail-lj1-f178.google.com (mail-lj1-f178.google.com
- [209.85.208.178])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BCB0D21842
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 09:06:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1563268016;
- bh=sLeJAGoi6fbJl/VVolgOKFuiWf+MDSI1pIqVj9ar2uk=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=H41dQvPRZCOK0u3tIALceDa7Ciy6R22No8F1DJDtPDfkbZP4yq1w0XbEDJrbs6iS9
- POZgDz1igIbMqcME5m6oISLkJPevFShbmL1IskR+AtZIaLXeOctT424c3b/ytZeBcH
- eWXObYMQJCCHGDE8YvqcLXDFg8s+2HQM1HC2NYzo=
-Received: by mail-lj1-f178.google.com with SMTP id m8so19129166lji.7
- for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 02:06:55 -0700 (PDT)
-X-Gm-Message-State: APjAAAXx4do+HobfhkkHqgRnf97hvtjyt45rtbdP7QDbqLeWQ9ItlwFR
- nXo9dLll0bNyHint6iU7crh/GvqBvc6YWaTmc4s=
-X-Google-Smtp-Source: APXvYqxCZng3zYWjzQTjtV/26d0IoB6FVFDI634g+iFqqrBwpA0cXUo83GeZu94zDjolDmOXC59cJaRNhePVGSb8WVw=
-X-Received: by 2002:a2e:7818:: with SMTP id t24mr16375828ljc.210.1563268014039; 
- Tue, 16 Jul 2019 02:06:54 -0700 (PDT)
-MIME-Version: 1.0
-References: <1562989575-33785-1-git-send-email-wen.yang99@zte.com.cn>
- <1562989575-33785-3-git-send-email-wen.yang99@zte.com.cn>
-In-Reply-To: <1562989575-33785-3-git-send-email-wen.yang99@zte.com.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Tue, 16 Jul 2019 11:06:43 +0200
-X-Gmail-Original-Message-ID: <CAJKOXPdY7xqcBJzU6pe1pSmpbNoBY6yh0rih2t4XGXaYWP3WfA@mail.gmail.com>
-Message-ID: <CAJKOXPdY7xqcBJzU6pe1pSmpbNoBY6yh0rih2t4XGXaYWP3WfA@mail.gmail.com>
-To: Wen Yang <wen.yang99@zte.com.cn>
-Cc: wang.yi59@zte.com.cn, alsa-devel@alsa-project.org, xue.zhihong@zte.com.cn,
- sbkim73@samsung.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, broonie@kernel.org, s.nawrocki@samsung.com,
- cheng.shengyu@zte.com.cn
-Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: samsung: odroid: fix a
-	double-free issue for cpu_dai
+ by alsa1.perex.cz (Postfix) with ESMTPS id BBDC5F800C6
+ for <alsa-devel@alsa-project.org>; Tue, 16 Jul 2019 11:55:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBDC5F800C6
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 0847820004B;
+ Tue, 16 Jul 2019 11:55:48 +0200 (CEST)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 69425200008;
+ Tue, 16 Jul 2019 11:55:43 +0200 (CEST)
+Received: from titan.ap.freescale.net (TITAN.ap.freescale.net [10.192.208.233])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id C00E040293;
+ Tue, 16 Jul 2019 17:55:37 +0800 (SGT)
+From: shengjiu.wang@nxp.com
+To: brian.austin@cirrus.com, Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
+ broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ alsa-devel@alsa-project.org
+Date: Tue, 16 Jul 2019 17:45:47 +0800
+Message-Id: <20190716094547.46787-1-shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.9.5
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: cs42xx8: Fix MFREQ selection issue for
+	async mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,51 +68,205 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 13 Jul 2019 at 05:48, Wen Yang <wen.yang99@zte.com.cn> wrote:
->
-> The cpu_dai variable is still being used after the of_node_put() call,
-> which may result in double-free:
->
->         of_node_put(cpu_dai);            ---> released here
->
->         ret = devm_snd_soc_register_card(dev, card);
->         if (ret < 0) {
-> ...
->                 goto err_put_clk_i2s;    --> jump to err_put_clk_i2s
-> ...
->
-> err_put_clk_i2s:
->         clk_put(priv->clk_i2s_bus);
-> err_put_sclk:
->         clk_put(priv->sclk_i2s);
-> err_put_cpu_dai:
->         of_node_put(cpu_dai);            --> double-free here
->
-> Fixes: d832d2b246c5 ("ASoC: samsung: odroid: Fix of_node refcount unbalance")
-> Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
-> Cc: Krzysztof Kozlowski <krzk@kernel.org>
-> Cc: Sangbeom Kim <sbkim73@samsung.com>
-> Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: alsa-devel@alsa-project.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  sound/soc/samsung/odroid.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+When sample rate of TX is different with sample rate of RX in
+async mode, the MFreq selection will be wrong.
 
-Best regards,
-Krzysztof
+For example, sysclk = 24.576MHz, TX rate = 96000Hz, RX rate = 48000Hz.
+Then ratio of TX = 256, ratio of RX = 512, For MFreq is shared by TX
+and RX instance, the correct value of MFreq is 2 for both TX and RX.
+
+But original method will cause MFreq = 0 for TX, MFreq = 2 for RX.
+If TX is started after RX, RX will be impacted, RX work abnormal with
+MFreq = 0.
+
+This patch is to select proper MFreq value according to TX rate and
+RX rate.
+
+Fixes: 0c516b4ff85c ("ASoC: cs42xx8: Add codec driver support for CS42448/CS42888")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+ sound/soc/codecs/cs42xx8.c | 116 +++++++++++++++++++++++++++++++------
+ 1 file changed, 97 insertions(+), 19 deletions(-)
+
+diff --git a/sound/soc/codecs/cs42xx8.c b/sound/soc/codecs/cs42xx8.c
+index b377cddaf2e6..804969495754 100644
+--- a/sound/soc/codecs/cs42xx8.c
++++ b/sound/soc/codecs/cs42xx8.c
+@@ -47,6 +47,7 @@ struct cs42xx8_priv {
+ 	unsigned long sysclk;
+ 	u32 tx_channels;
+ 	struct gpio_desc *gpiod_reset;
++	u32 rate[2];
+ };
+ 
+ /* -127.5dB to 0dB with step of 0.5dB */
+@@ -176,21 +177,27 @@ static const struct snd_soc_dapm_route cs42xx8_adc3_dapm_routes[] = {
+ };
+ 
+ struct cs42xx8_ratios {
+-	unsigned int ratio;
+-	unsigned char speed;
+-	unsigned char mclk;
++	unsigned int mfreq;
++	unsigned int min_mclk;
++	unsigned int max_mclk;
++	unsigned int ratio[3];
+ };
+ 
++/*
++ * According to reference mannual, define the cs42xx8_ratio struct
++ * MFreq2 | MFreq1 | MFreq0 |     Description     | SSM | DSM | QSM |
++ * 0      | 0      | 0      |1.029MHz to 12.8MHz  | 256 | 128 |  64 |
++ * 0      | 0      | 1      |1.536MHz to 19.2MHz  | 384 | 192 |  96 |
++ * 0      | 1      | 0      |2.048MHz to 25.6MHz  | 512 | 256 | 128 |
++ * 0      | 1      | 1      |3.072MHz to 38.4MHz  | 768 | 384 | 192 |
++ * 1      | x      | x      |4.096MHz to 51.2MHz  |1024 | 512 | 256 |
++ */
+ static const struct cs42xx8_ratios cs42xx8_ratios[] = {
+-	{ 64, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_256(4) },
+-	{ 96, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_384(4) },
+-	{ 128, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_512(4) },
+-	{ 192, CS42XX8_FM_QUAD, CS42XX8_FUNCMOD_MFREQ_768(4) },
+-	{ 256, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_256(1) },
+-	{ 384, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_384(1) },
+-	{ 512, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_512(1) },
+-	{ 768, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_768(1) },
+-	{ 1024, CS42XX8_FM_SINGLE, CS42XX8_FUNCMOD_MFREQ_1024(1) }
++	{ 0, 1029000, 12800000, {256, 128, 64} },
++	{ 2, 1536000, 19200000, {384, 192, 96} },
++	{ 4, 2048000, 25600000, {512, 256, 128} },
++	{ 6, 3072000, 38400000, {768, 384, 192} },
++	{ 8, 4096000, 51200000, {1024, 512, 256} },
+ };
+ 
+ static int cs42xx8_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+@@ -257,14 +264,68 @@ static int cs42xx8_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct cs42xx8_priv *cs42xx8 = snd_soc_component_get_drvdata(component);
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+-	u32 ratio = cs42xx8->sysclk / params_rate(params);
+-	u32 i, fm, val, mask;
++	u32 ratio[2];
++	u32 rate[2];
++	u32 fm[2];
++	u32 i, val, mask;
++	bool condition1, condition2;
+ 
+ 	if (tx)
+ 		cs42xx8->tx_channels = params_channels(params);
+ 
++	rate[tx]  = params_rate(params);
++	rate[!tx] = cs42xx8->rate[!tx];
++
++	ratio[tx] = rate[tx] > 0 ? cs42xx8->sysclk / rate[tx] : 0;
++	ratio[!tx] = rate[!tx] > 0 ? cs42xx8->sysclk / rate[!tx] : 0;
++
++	/* Get functional mode for tx and rx according to rate */
++	for (i = 0; i < 2; i++) {
++		if (cs42xx8->slave_mode) {
++			fm[i] = CS42XX8_FM_AUTO;
++		} else {
++			if (rate[i] < 50000) {
++				fm[i] = CS42XX8_FM_SINGLE;
++			} else if (rate[i] > 50000 && rate[i] < 100000) {
++				fm[i] = CS42XX8_FM_DOUBLE;
++			} else if (rate[i] > 100000 && rate[i] < 200000) {
++				fm[i] = CS42XX8_FM_QUAD;
++			} else {
++				dev_err(component->dev,
++					"unsupported sample rate\n");
++				return -EINVAL;
++			}
++		}
++	}
++
+ 	for (i = 0; i < ARRAY_SIZE(cs42xx8_ratios); i++) {
+-		if (cs42xx8_ratios[i].ratio == ratio)
++		/* Is the ratio[tx] valid ? */
++		condition1 = ((fm[tx] == CS42XX8_FM_AUTO) ?
++			(cs42xx8_ratios[i].ratio[0] == ratio[tx] ||
++			cs42xx8_ratios[i].ratio[1] == ratio[tx] ||
++			cs42xx8_ratios[i].ratio[2] == ratio[tx]) :
++			(cs42xx8_ratios[i].ratio[fm[tx]] == ratio[tx])) &&
++			cs42xx8->sysclk >= cs42xx8_ratios[i].min_mclk &&
++			cs42xx8->sysclk <= cs42xx8_ratios[i].max_mclk;
++
++		if (!ratio[tx])
++			condition1 = true;
++
++		/* Is the ratio[!tx] valid ? */
++		condition2 = ((fm[!tx] == CS42XX8_FM_AUTO) ?
++			(cs42xx8_ratios[i].ratio[0] == ratio[!tx] ||
++			cs42xx8_ratios[i].ratio[1] == ratio[!tx] ||
++			cs42xx8_ratios[i].ratio[2] == ratio[!tx]) :
++			(cs42xx8_ratios[i].ratio[fm[!tx]] == ratio[!tx]));
++
++		if (!ratio[!tx])
++			condition2 = true;
++
++		/*
++		 * Both ratio[tx] and ratio[!tx] is valid, then we get
++		 * a proper MFreq.
++		 */
++		if (condition1 && condition2)
+ 			break;
+ 	}
+ 
+@@ -273,15 +334,31 @@ static int cs42xx8_hw_params(struct snd_pcm_substream *substream,
+ 		return -EINVAL;
+ 	}
+ 
+-	mask = CS42XX8_FUNCMOD_MFREQ_MASK;
+-	val = cs42xx8_ratios[i].mclk;
++	cs42xx8->rate[tx] = params_rate(params);
+ 
+-	fm = cs42xx8->slave_mode ? CS42XX8_FM_AUTO : cs42xx8_ratios[i].speed;
++	mask = CS42XX8_FUNCMOD_MFREQ_MASK;
++	val = cs42xx8_ratios[i].mfreq;
+ 
+ 	regmap_update_bits(cs42xx8->regmap, CS42XX8_FUNCMOD,
+ 			   CS42XX8_FUNCMOD_xC_FM_MASK(tx) | mask,
+-			   CS42XX8_FUNCMOD_xC_FM(tx, fm) | val);
++			   CS42XX8_FUNCMOD_xC_FM(tx, fm[tx]) | val);
++
++	return 0;
++}
++
++static int cs42xx8_hw_free(struct snd_pcm_substream *substream,
++			   struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct cs42xx8_priv *cs42xx8 = snd_soc_component_get_drvdata(component);
++	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+ 
++	/* Clear stored rate */
++	cs42xx8->rate[tx] = 0;
++
++	regmap_update_bits(cs42xx8->regmap, CS42XX8_FUNCMOD,
++			   CS42XX8_FUNCMOD_xC_FM_MASK(tx),
++			   CS42XX8_FUNCMOD_xC_FM(tx, CS42XX8_FM_AUTO));
+ 	return 0;
+ }
+ 
+@@ -302,6 +379,7 @@ static const struct snd_soc_dai_ops cs42xx8_dai_ops = {
+ 	.set_fmt	= cs42xx8_set_dai_fmt,
+ 	.set_sysclk	= cs42xx8_set_dai_sysclk,
+ 	.hw_params	= cs42xx8_hw_params,
++	.hw_free	= cs42xx8_hw_free,
+ 	.digital_mute	= cs42xx8_digital_mute,
+ };
+ 
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

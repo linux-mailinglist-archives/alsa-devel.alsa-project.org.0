@@ -2,88 +2,121 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA01D6BE17
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 16:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E296BE2E
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 16:26:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 402691692;
-	Wed, 17 Jul 2019 16:18:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 402691692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C00B168B;
+	Wed, 17 Jul 2019 16:25:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C00B168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563373154;
-	bh=SRvUDuxWXXajwryKBoROksfz9dx/9JScsexyPk+LwkM=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1563373562;
+	bh=IDVxYZccz1Lnj6q/Vx1nbzT248Ea114GA0/IKOF6lHw=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UlILNjVDnccFsGS3HTLR34fhuUt7RPW9DqYzt3h9HxQKSoy3t4IJE1k5QxXKolxb+
-	 c1iKVJ0vCNAS8mNgeNBM6SxkJRtmj8OjDUShp6QF/HnuTZgdKQ9gvyOz0co9eusyrR
-	 1rabVNlT/LNqlPL2uFXoiUpWXnVzcvvfRSlf25QY=
+	b=n0nlwKt17c3pFFZRjdiE9gqJ6e5+U0Rt9fyatlk/nQ1x52RzBsOtxLfcGVhZ6j6Ib
+	 tJT+Q476UetejUd14Hnjd//il1mm/mXXdKhM1b+jZLkEcrCMgY6zBZ+Jxk/eqK0IX3
+	 MXcVshSrfE9zSso0Hv5EjH8/wSFPTfKYSAvQt4S8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F0FCF80363;
-	Wed, 17 Jul 2019 16:18:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4021F80228;
+	Wed, 17 Jul 2019 16:24:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51AC1F80368; Wed, 17 Jul 2019 16:18:11 +0200 (CEST)
+ id C89BBF80363; Wed, 17 Jul 2019 16:24:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0703.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe02::703])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77967F800C2
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 16:18:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77967F800C2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2C24F800C2
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 16:24:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2C24F800C2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="FJwEg+3U"
-Received: by mail-wm1-x341.google.com with SMTP id l2so22372856wmg.0
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 07:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iLTQGP9cL7hQ2jiEejSD208ILTFApcOVK38rFTlsJxE=;
- b=FJwEg+3UvvBv5MKO8S5ClHUirNY0MfFkHjUO/HYd/HRYlhsd0R0WoJu8gHN5jogQqO
- 4Te7Cgr3+LCnzsKWK35uSNwubkJc3hoekuJGI76uH7QWT1LahSGS2OpmQSlZPbAp89Jc
- 4hvsk/77ka0ifu90EmFVyfmIaZ6ZP2ao78NcT8ZLRm8lsI8BwUeXkH8N04xOnUS8kXQQ
- xfFw4pIOmRTPzCoWlTtXUA+Fs9mtUaWm976nJawhnYheVATNtATG+5HqxRT6w/ZMG1Wf
- jp4MqYOdLkMozgr5AzrzTPWSwafFoVdi1rsXZELLmvXc8+qpM5M0rQLIXELnIDbq5kvN
- 0pzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=iLTQGP9cL7hQ2jiEejSD208ILTFApcOVK38rFTlsJxE=;
- b=dK+rqhopIOpYoSL7RZfJDRncZ2qSMKoIXcIHmqOelYpHxd6BQzKybwaKA4Zfa/0RCC
- Eu5o4BxpmAya6Uf4lb10LGugmdsSmq7OPwH6j80xDbuwAt0E0tPyCIMmt6uCSLi/w0lY
- Yc4T1N8noOROte3BUzeIOC6+WT470Fcn/CUuT67iDkD5ippf+gypwWj2omR2EJz3gBzT
- 1qsq89UwDLt4mRfqziYC+JNWwbEFQC2FLpI7n7qEG8ABty2dXChJSBV/mvcY2WrJfxAB
- DKB4fDgEieBuIVZfAjFQ4J1SEp39HKyoFyxNq8GptGHBlL9FBULsnL6E4ofsRnBqg3sL
- eRJQ==
-X-Gm-Message-State: APjAAAWZfI6oG6HY2UJd1GT/nTFdauLsJq3u6tTnCBcw5SiYrUpX2lcP
- g2ISMkwai0cFi+BjngOYqd+QfjpmbB2r95S+km0=
-X-Google-Smtp-Source: APXvYqwxcxOWPjTh5Qg3T26KGcOWFzIbdgKf62PP7W01OwhN5aW3i6I9ivw6VC/vE2FxWWUDYEC6faOcfPGK7FqX35o=
-X-Received: by 2002:a1c:18d:: with SMTP id 135mr36854079wmb.171.1563373087577; 
- Wed, 17 Jul 2019 07:18:07 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
+ header.b="GleRz1dL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HUyuJDwOVrmRMUYoOgnqKPM6BrLLKAfI/DKgh95gdG1lfK/cfpN5tUgUDrOFK5HdtJD9JfQ1VlAPURZCGzZdLFuvr+B+oQi565PV8aqoD2K03APUvRcoZsJHijb66ArHWUETRFtanl99oGR7uAh8kEDYum7PBkQirmynn2dh5lD7OF39Xj+25rb2d2ogdBQnErq5uW6E/HWlDqrbDkn1FY65xreRbrIc++yJOvN39Atld9HTVu0DHAhMC0pis2XcKzNvdARHUA+Yj+Ypbg2Mny2C9x2el1IvEGHtR77XYuRtQhJQf3wD2SpUGFXmv7zdTgVIM70+e0HU+WXBQNJHxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D8qrEL/46XOfIz5tVkDGRYCKQIS3Y1piYrgtFbkILeY=;
+ b=Ny/ligJUscuC3u+8jHmikF2OtOmvH7pBoH6Ve2dOhNq+0cWSqyFZEnKvZ2cTTVMQaqmMs/qQBN7zVkZVDVKODphDhnDu4C+9OMe0Or/INYynLxspPj2nnNkcyrZriQ6xH8jYiRHp98f4cwjpzj8XfsIwSlo1V54gIsG5mBHNF7y7ErY5HuyRLt9uqXADUsXhCgWmu9qQNmUlDbPScRQqWJUV3Lh3oVDEiQGOOvTbMLKfZQwMuGJT4BGk3IzneP9/XD3TzKofMwe6Jl4nxWiyeFz+evbZMoL3xcSDoyS4hN+ml0QjQA0Ep5nZh+A79tesLOvO11JWSUrX8oQSsi0YTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=toradex.com;dmarc=pass action=none
+ header.from=toradex.com;dkim=pass header.d=toradex.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D8qrEL/46XOfIz5tVkDGRYCKQIS3Y1piYrgtFbkILeY=;
+ b=GleRz1dLN9tThntOQ8Y1dAJmFog8KpywCVN9At/82K3oLTn4N1BS/qIx3EmIYYlgnJHy/Zycca57vPl4PYjIApn+cDvm9nhmEk6NjFkzmvyfbleRS2DU1u6fPI4pP1ZWViT2w/HBCMkE0qLi67hgM7qEtp7PKmAX+LaMHo/lEJI=
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com (20.179.18.16) by
+ AM6PR05MB4807.eurprd05.prod.outlook.com (20.177.34.207) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2073.10; Wed, 17 Jul 2019 14:24:12 +0000
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::c860:b386:22a:8ec9]) by AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::c860:b386:22a:8ec9%6]) with mapi id 15.20.2094.011; Wed, 17 Jul 2019
+ 14:24:12 +0000
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Thread-Topic: [PATCH v3 6/6] ASoC: sgtl5000: Improve VAG power and mute control
+Thread-Index: AQHVOMHvGSHQf0Ud+UKXY+OtRfqyFqbKXpSAgASFtXw=
+Date: Wed, 17 Jul 2019 14:24:12 +0000
+Message-ID: <AM6PR05MB6535E442AF37B7B079761DB2F9C90@AM6PR05MB6535.eurprd05.prod.outlook.com>
+References: <20190712145550.27500-1-oleksandr.suvorov@toradex.com>
+ <20190712145550.27500-7-oleksandr.suvorov@toradex.com>,
+ <e9f0f7c7-4c11-36ad-679c-503f6160b83f@intel.com>
+In-Reply-To: <e9f0f7c7-4c11-36ad-679c-503f6160b83f@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandr.suvorov@toradex.com; 
+x-originating-ip: [194.105.145.90]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3182a11e-9016-461a-9136-08d70ac2706d
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:AM6PR05MB4807; 
+x-ms-traffictypediagnostic: AM6PR05MB4807:
+x-microsoft-antispam-prvs: <AM6PR05MB4807219BF95F60B5C56CDEC7F9C90@AM6PR05MB4807.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 01018CB5B3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(376002)(366004)(346002)(396003)(39850400004)(136003)(199004)(189003)(3846002)(14454004)(6116002)(74316002)(66066001)(53936002)(305945005)(7736002)(6436002)(6916009)(476003)(446003)(55016002)(9686003)(2906002)(71200400001)(316002)(66946007)(71190400001)(478600001)(5660300002)(52536014)(54906003)(86362001)(8936002)(68736007)(25786009)(14444005)(256004)(53546011)(102836004)(6506007)(6246003)(229853002)(26005)(81166006)(81156014)(8676002)(76116006)(66446008)(64756008)(66556008)(66476007)(76176011)(7696005)(44832011)(99286004)(486006)(11346002)(186003)(4326008)(33656002)(21314003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR05MB4807;
+ H:AM6PR05MB6535.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: C6nVtcAjcjTv8rmKFsRXWSVQJgLQTbktwlgr7/k8OumsSLOVAImFWKzce8s5Ejy8yjoIjStptvul309VmaQ5VcZhhdofx60wyvh/cmIXoM9ZO282FA50NxlUue0axyQmoAcYzNK4KDMVzeZRp4mB5pOs5p7O/hVtWcbUCeYLSibq/Sk0uOPNJJ0542R/0aihbFFDak1nadnyhZjqomf4MKXEqjH6xYXwtEjNkPMvW+F+/xia2e7MlxVfQrl/ewcgLiA/05DobNR8HBZGjxigqZjHWFjRgb7i4n80aChz90cjVXcw9JUOtI0g2A6RH52Dt1k9u8n01BjnLIhoAs9qUkuLV589/XStPKfzicE2A30IdkvQaSxjx6zADLYZM97IZh7+g8PQFILkEpiKTMgZsvbdBo9VVf1QCxLLmur28b4=
 MIME-Version: 1.0
-References: <20190717105635.18514-1-l.stach@pengutronix.de>
- <20190717105635.18514-2-l.stach@pengutronix.de>
-In-Reply-To: <20190717105635.18514-2-l.stach@pengutronix.de>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 17 Jul 2019 17:17:56 +0300
-Message-ID: <CAEnQRZArHbjnmJnR-cNRJ9tixuA5CeU0WV7kt=7_FGx4HpdsDQ@mail.gmail.com>
-To: Lucas Stach <l.stach@pengutronix.de>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Angus Ainslie <angus@akkea.ca>,
- Liam Girdwood <lgirdwood@gmail.com>, patchwork-lst@pengutronix.de,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Subject: Re: [alsa-devel] [PATCH 1/3] ASoC: fsl_sai: add of_match data
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3182a11e-9016-461a-9136-08d70ac2706d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2019 14:24:12.1796 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oleksandr.suvorov@toradex.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR05MB4807
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
+Subject: Re: [alsa-devel] [PATCH v3 6/6] ASoC: sgtl5000: Improve VAG power
+	and mute control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,116 +134,175 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 17, 2019 at 1:58 PM Lucas Stach <l.stach@pengutronix.de> wrote:
->
-> New revisions of the SAI IP block have even more differences that need
-> be taken into account by the driver. To avoid sprinking compatible
-> checks all over the driver move the current differences into of_match_data.
->
-> Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Thank you, Cezary!
 
-This is the way I handled in my patch series too. So,
+This is a good idea, I'll rework my patch accordingly.
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+R&D Engineer
+Oleksandr Suvorov
 
-> ---
->  sound/soc/fsl/fsl_sai.c | 22 ++++++++++++++--------
->  sound/soc/fsl/fsl_sai.h |  6 +++++-
->  2 files changed, 19 insertions(+), 9 deletions(-)
+Toradex AG
+
+________________________________________
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Sent: Sunday, July 14, 2019 8:17:43 PM
+To: Oleksandr Suvorov
+Cc: Fabio Estevam; linux-kernel@vger.kernel.org; alsa-devel@alsa-project.org; Marcel Ziswiler; Igor Opaniuk; Jaroslav Kysela; Mark Brown; Takashi Iwai; Liam Girdwood
+Subject: Re: [PATCH v3 6/6] ASoC: sgtl5000: Improve VAG power and mute control
+
+On 2019-07-12 16:56, Oleksandr Suvorov wrote:
 >
-> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index 812c94fbb160..3a1ed8b857d6 100644
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -9,6 +9,7 @@
->  #include <linux/dmaengine.h>
->  #include <linux/module.h>
->  #include <linux/of_address.h>
-> +#include <linux/of_device.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
-> @@ -798,10 +799,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
->                 return -ENOMEM;
+> +enum {
+> +     HP_POWER_EVENT,
+> +     DAC_POWER_EVENT,
+> +     ADC_POWER_EVENT
+> +};
+> +
+> +struct sgtl5000_mute_state {
+> +     u16 hp_event;
+> +     u16 dac_event;
+> +     u16 adc_event;
+> +};
+> +
+>   /* sgtl5000 private structure in codec */
+>   struct sgtl5000_priv {
+>       int sysclk;     /* sysclk rate */
+> @@ -137,8 +156,109 @@ struct sgtl5000_priv {
+>       u8 micbias_voltage;
+>       u8 lrclk_strength;
+>       u8 sclk_strength;
+> +     struct sgtl5000_mute_state mute_state;
+
+Why not array instead?
+u16 mute_state[ADC_POWER_EVENT+1];
+-or-
+u16 mute_state[LAST_POWER_EVENT+1]; (if you choose to add explicit LAST
+enum constant).
+
+Enables simplification, see below.
+
+> @@ -170,40 +290,79 @@ static int mic_bias_event(struct snd_soc_dapm_widget *w,
+>       return 0;
+>   }
 >
->         sai->pdev = pdev;
+> -/*
+> - * As manual described, ADC/DAC only works when VAG powerup,
+> - * So enabled VAG before ADC/DAC up.
+> - * In power down case, we need wait 400ms when vag fully ramped down.
+> - */
+> -static int power_vag_event(struct snd_soc_dapm_widget *w,
+> -     struct snd_kcontrol *kcontrol, int event)
+> +static void vag_and_mute_control(struct snd_soc_component *component,
+> +                              int event, int event_source,
+> +                              u16 mute_mask, u16 *mute_reg)
+>   {
+> -     struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+> -     const u32 mask = SGTL5000_DAC_POWERUP | SGTL5000_ADC_POWERUP;
 > -
-> -       if (of_device_is_compatible(np, "fsl,imx6sx-sai") ||
-> -           of_device_is_compatible(np, "fsl,imx6ul-sai"))
-> -               sai->sai_on_imx = true;
-> +       sai->soc_data = of_device_get_match_data(&pdev->dev);
->
->         sai->is_lsb_first = of_property_read_bool(np, "lsb-first");
->
-> @@ -910,7 +908,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
->         if (ret)
->                 return ret;
->
-> -       if (sai->sai_on_imx)
-> +       if (sai->soc_data->use_imx_pcm)
->                 return imx_pcm_dma_init(pdev, IMX_SAI_DMABUF_SIZE);
->         else
->                 return devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-> @@ -923,10 +921,18 @@ static int fsl_sai_remove(struct platform_device *pdev)
->         return 0;
->  }
->
-> +static const struct fsl_sai_soc_data fsl_sai_vf610_data = {
-> +       .use_imx_pcm = false,
-> +};
+>       switch (event) {
+> -     case SND_SOC_DAPM_POST_PMU:
+> -             snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_POWER,
+> -                     SGTL5000_VAG_POWERUP, SGTL5000_VAG_POWERUP);
+> -             msleep(400);
+> +     case SND_SOC_DAPM_PRE_PMU:
+> +             *mute_reg = mute_output(component, mute_mask);
+> +             break;
+> +     case SND_SOC_DAPM_POST_PMU:
+> +             vag_power_on(component, event_source);
+> +             restore_output(component, mute_mask, *mute_reg);
+>               break;
+> -
+>       case SND_SOC_DAPM_PRE_PMD:
+> -             /*
+> -              * Don't clear VAG_POWERUP, when both DAC and ADC are
+> -              * operational to prevent inadvertently starving the
+> -              * other one of them.
+> -              */
+> -             if ((snd_soc_component_read32(component, SGTL5000_CHIP_ANA_POWER) &
+> -                             mask) != mask) {
+> -                     snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_POWER,
+> -                             SGTL5000_VAG_POWERUP, 0);
+> -                     msleep(400);
+> -             }
+> +             *mute_reg = mute_output(component, mute_mask);
+> +             vag_power_off(component, event_source);
+> +             break;
+> +     case SND_SOC_DAPM_POST_PMD:
+> +             restore_output(component, mute_mask, *mute_reg);
+>               break;
+>       default:
+>               break;
+>       }
+> +}
 > +
-> +static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
-> +       .use_imx_pcm = true,
-> +};
+> +/*
+> + * Mute Headphone when power it up/down.
+> + * Control VAG power on HP power path.
+> + */
+> +static int headphone_pga_event(struct snd_soc_dapm_widget *w,
+> +     struct snd_kcontrol *kcontrol, int event)
+> +{
+> +     struct snd_soc_component *component =
+> +             snd_soc_dapm_to_component(w->dapm);
+> +     struct sgtl5000_priv *sgtl5000 =
+> +             snd_soc_component_get_drvdata(component);
 > +
->  static const struct of_device_id fsl_sai_ids[] = {
-> -       { .compatible = "fsl,vf610-sai", },
-> -       { .compatible = "fsl,imx6sx-sai", },
-> -       { .compatible = "fsl,imx6ul-sai", },
-> +       { .compatible = "fsl,vf610-sai", .data = &fsl_sai_vf610_data },
-> +       { .compatible = "fsl,imx6sx-sai", .data = &fsl_sai_imx6sx_data },
-> +       { .compatible = "fsl,imx6ul-sai", .data = &fsl_sai_imx6sx_data },
->         { /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, fsl_sai_ids);
-> diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-> index 24cb156bf995..83e2bfe05b1b 100644
-> --- a/sound/soc/fsl/fsl_sai.h
-> +++ b/sound/soc/fsl/fsl_sai.h
-> @@ -126,6 +126,10 @@
->  #define FSL_SAI_MAXBURST_TX 6
->  #define FSL_SAI_MAXBURST_RX 6
->
-> +struct fsl_sai_soc_data {
-> +       bool use_imx_pcm;
-> +};
+> +     vag_and_mute_control(component, event, HP_POWER_EVENT,
+> +                          SGTL5000_HP_MUTE,
+> +                          &sgtl5000->mute_state.hp_event);
 > +
->  struct fsl_sai {
->         struct platform_device *pdev;
->         struct regmap *regmap;
-> @@ -135,7 +139,6 @@ struct fsl_sai {
->         bool is_slave_mode;
->         bool is_lsb_first;
->         bool is_dsp_mode;
-> -       bool sai_on_imx;
->         bool synchronous[2];
+> +     return 0;
+> +}
+> +
+> +/* As manual describes, ADC/DAC powering up/down requires
+> + * to mute outputs to avoid pops.
+> + * Control VAG power on ADC/DAC power path.
+> + */
+> +static int adc_updown_depop(struct snd_soc_dapm_widget *w,
+> +     struct snd_kcontrol *kcontrol, int event)
+> +{
+> +     struct snd_soc_component *component =
+> +             snd_soc_dapm_to_component(w->dapm);
+> +     struct sgtl5000_priv *sgtl5000 =
+> +             snd_soc_component_get_drvdata(component);
+> +
+> +     vag_and_mute_control(component, event, ADC_POWER_EVENT,
+> +                          SGTL5000_OUTPUTS_MUTE,
+> +                          &sgtl5000->mute_state.adc_event);
+> +
+> +     return 0;
+> +}
+> +
+> +static int dac_updown_depop(struct snd_soc_dapm_widget *w,
+> +     struct snd_kcontrol *kcontrol, int event)
+> +{
+> +     struct snd_soc_component *component =
+> +             snd_soc_dapm_to_component(w->dapm);
+> +     struct sgtl5000_priv *sgtl5000 =
+> +             snd_soc_component_get_drvdata(component);
+> +
+> +     vag_and_mute_control(component, event, DAC_POWER_EVENT,
+> +                          SGTL5000_OUTPUTS_MUTE,
+> +                          &sgtl5000->mute_state.dac_event);
 >
->         unsigned int mclk_id[2];
-> @@ -143,6 +146,7 @@ struct fsl_sai {
->         unsigned int slots;
->         unsigned int slot_width;
->
-> +       const struct fsl_sai_soc_data *soc_data;
->         struct snd_dmaengine_dai_dma_data dma_params_rx;
->         struct snd_dmaengine_dai_dma_data dma_params_tx;
->  };
-> --
-> 2.20.1
->
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>       return 0;
+>   }
+
+With array approach you can simplify these 3 callbacks:
+- remove local declaration of sgtl5000
+- remove the need for "u16 *mute_reg" param for vag_and_mute_control
+(you always provide the xxx_event field of mute_state corresponding to
+given XXX_POWER_EVENT anyway)
+
+The sgtl5000 local ptr would be declared within common handler, which
+vag_and_mute_control clearly is. Said handler declaration could be
+updated to again require widget rather than component.
+
+Cherry on top: relocation of "return 0;" directly to
+vag_and_mute_control. Leaving it void (as it is), however, might also be
+appropriate (explicit).
+
+Czarek
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

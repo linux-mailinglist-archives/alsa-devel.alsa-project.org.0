@@ -2,64 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 261706BF6C
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 18:04:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F26EA6BFA9
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 18:32:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA9E01694;
-	Wed, 17 Jul 2019 18:03:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA9E01694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57A32168A;
+	Wed, 17 Jul 2019 18:31:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57A32168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563379440;
-	bh=7qXa80qNBOVz6irfwb2+AFREKFj1CgT4qqkKFSoGqDg=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=f9jtNnN/028Dt1TFYsUXcn48lBhpMNqyiSWNQ8GnEpBK6TChu/oM0TfuaeK7r+7Hy
-	 QjdiX1IB3n7rijlVUck9Bt/VQEf/n7YB6W+BbK5Zjv3oDIy2aY802nA7r4cs83oBFW
-	 tr/V1/fBV9MuhndLOfLe5XwXELF40ZYWlFHqI1pI=
+	s=default; t=1563381151;
+	bh=UqmWHpV7ITCwP3tkQ6Wji9f+MLx1MJqMenmg/Sl9xrI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Kgz/w9xBmz75DCAfBfq9tOtxzaG8F88sB70NA5R3M36Dhpd4K147j+LZ4TivEX3ag
+	 bK3n076Tkl/dwKrCQHE98PnTIZa9DIm8x/QcqocpWmSM7eH/HvhlJo0aeVHCYiis1W
+	 sLiumOYFALMFlTfAf2BF0U86NbW1fBm/cOE1ndbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C552F80363;
-	Wed, 17 Jul 2019 18:02:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD53BF80363;
+	Wed, 17 Jul 2019 18:30:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34B30F80363; Wed, 17 Jul 2019 18:02:14 +0200 (CEST)
+ id 0D915F80367; Wed, 17 Jul 2019 18:30:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02on070a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe07::70a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F7F6F800C2
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 18:02:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F7F6F800C2
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2019 09:02:07 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,274,1559545200"; d="scan'208";a="172908197"
-Received: from szrederp-mobl.amr.corp.intel.com (HELO [10.252.199.30])
- ([10.252.199.30])
- by orsmga006.jf.intel.com with ESMTP; 17 Jul 2019 09:02:06 -0700
-To: "S.j. Wang" <shengjiu.wang@nxp.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>
-References: <VE1PR04MB6479C4D2CD4B9D486209102FE3CE0@VE1PR04MB6479.eurprd04.prod.outlook.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <548bda36-b81f-1811-7969-e80e698ecfa3@linux.intel.com>
-Date: Wed, 17 Jul 2019 11:02:05 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <VE1PR04MB6479C4D2CD4B9D486209102FE3CE0@VE1PR04MB6479.eurprd04.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F40D5F800C4
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 18:30:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F40D5F800C4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
+ header.b="aS52fKOE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nxfUs6kehsMvVBAi5qUoRbDX2+On5rA4mV+Kgj6eVhPNt+R+DL/qlJFCWS6PyyrlQu0+OSPVHtPsz+90196dwTsC21cSs0yQ6PzQMu9kLQ3rbAl0yuEBupqFog4HxtnFYdhAr6/JFH2why9XJAkKpbhndMJUM9YUhoD9CJgPgUSVOVnemH6QNjUkTEAhZysf15PAoOcncTRpKkGAx+m49pxmvR33vKADSYrWb8g2HXp6Aw9r7lRJ/7mAW4drKBzHOrwb3RfiAhwp6pQTvDX8D+12N05XNX5WG8zwzBJ51IwbvkInNxIZa0bZCojwM69II3aH73RK75ZDgQumIUPrYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6VDUFDNac/euhH89n7GGAs2rb56FVnKQw2Xlz0NBH0s=;
+ b=NfpPL59+DLBZ+GdbON0NJhzz/ytrdUFlbqssqR3l83gc/pAgjxlp9Hvs1+KmrMGX4dHYbwpH+6OKBCfczKVjFlIgta5mqLkTZ4UNxOxyBma8UxN4nrRgC/OB6jfQ7vBIMNmB9CFLvCS8/9F4hIGCH1ybDeU6Shlnc0v0BntoJh1CQNnYH1ujbpMm1pzGqgFsPR8H5DgM5QbbtVs/dFzwXT6BPsQW29Ze3yVM/1OdlooeaA5JoOz79T1+hkgzSa7+2lTC/hzgZBQwfZufTomQEirgUhIBF9RoKokT4pd+pTG2Kj3+MdRv+98mnr8oUDOZWng9Ua9lbGg6oLQP+HDuZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=toradex.com;dmarc=pass action=none
+ header.from=toradex.com;dkim=pass header.d=toradex.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6VDUFDNac/euhH89n7GGAs2rb56FVnKQw2Xlz0NBH0s=;
+ b=aS52fKOE1Bwii4hk3nDBMdkXgLAlJaqbfjZMs5D9KRYrISuwHx9hkGonIftBX1iE2987dpWedz39lsjmtxUOR8h+Atzh9Wd7MIueCDSVLwrw3xPHPZE7RuElumCwcB0HwAkvFm8nuNok/7yicFWVOS0i9DQ6v/2EGOmcUMKblg0=
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com (20.179.18.16) by
+ AM6PR05MB6408.eurprd05.prod.outlook.com (20.179.6.83) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2073.14; Wed, 17 Jul 2019 16:30:38 +0000
+Received: from AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::c860:b386:22a:8ec9]) by AM6PR05MB6535.eurprd05.prod.outlook.com
+ ([fe80::c860:b386:22a:8ec9%6]) with mapi id 15.20.2094.011; Wed, 17 Jul 2019
+ 16:30:38 +0000
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+To: Fabio Estevam <festevam@gmail.com>
+Thread-Topic: [PATCH v4 0/6] VAG power control improvement for sgtl5000 codec
+Thread-Index: AQHVPLz3hwtP1inkKEa+Vly0wUwu8A==
+Date: Wed, 17 Jul 2019 16:30:38 +0000
+Message-ID: <20190717163014.429-1-oleksandr.suvorov@toradex.com>
+Accept-Language: en-US
 Content-Language: en-US
-Subject: Re: [alsa-devel] Is there a way to support TX master mode and RX
- slave mode?
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: AM4P190CA0004.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:200:56::14) To AM6PR05MB6535.eurprd05.prod.outlook.com
+ (2603:10a6:20b:71::16)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandr.suvorov@toradex.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-mailer: git-send-email 2.20.1
+x-originating-ip: [194.105.145.90]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: cb803498-3fd7-4c3e-fd3b-08d70ad41a46
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:AM6PR05MB6408; 
+x-ms-traffictypediagnostic: AM6PR05MB6408:
+x-ms-exchange-purlcount: 1
+x-microsoft-antispam-prvs: <AM6PR05MB64088C99A0E212E979C8E4C5F9C90@AM6PR05MB6408.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:241;
+x-forefront-prvs: 01018CB5B3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(39850400004)(136003)(346002)(396003)(376002)(366004)(189003)(199004)(486006)(305945005)(7736002)(2616005)(476003)(1076003)(52116002)(36756003)(53936002)(66066001)(81156014)(81166006)(71200400001)(8676002)(6436002)(6512007)(50226002)(6306002)(8936002)(14444005)(256004)(71190400001)(4326008)(3846002)(44832011)(6486002)(68736007)(14454004)(6116002)(2906002)(316002)(5660300002)(1411001)(99286004)(966005)(478600001)(66476007)(66556008)(64756008)(66446008)(66946007)(86362001)(6916009)(6506007)(102836004)(386003)(26005)(186003)(54906003)(25786009);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR05MB6408;
+ H:AM6PR05MB6535.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: XgXSLyQqRXGpa5ZIIr1biOPGN2oxeBTp65DjBUFjh1jGuGd9/WbgUhBukXXguyLewC6b2IzXuCsrEzW4QLHjKvOt4BFBeFdQn02dlBoNwB93FxVx+uD+wDdXbkfz2kWAlhro3PeqFfbJXJREDkPTXl81wdb5hjTI3/GH0Iq3gxNnj/P9A9zN2jXnCUqGVutobWg9ih1Hzjd5isqX2OU60gLtgv0OLsrhzdZPzFBeXDYtFHtA3vPc5OgU2QAAZgtgFVqYExzWNudsL9227YR2u+k9OfszU24RbSloSllhOfZXTNVA2fNtRQM003LZqEi6k96BiHtlaf8s597C1ZT7oEi0t6Zml4GI4O0NICR96/UXgaaAXb+jcm+a6sfda0x7kUwBXi10KjSypO8+OO07TC9fJMKRtcD+CYzn6fAUMFY=
+MIME-Version: 1.0
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb803498-3fd7-4c3e-fd3b-08d70ad41a46
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2019 16:30:38.7618 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: oleksandr.suvorov@toradex.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR05MB6408
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] [PATCH v4 0/6] VAG power control improvement for
+	sgtl5000 codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,23 +132,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+VAG power control is improved to fit the manual [1]. This patchset fixes as
+minimum one bug: if customer muxes Headphone to Line-In right after boot,
+the VAG power remains off that leads to poor sound quality from line-in.
 
-On 7/16/19 3:35 AM, S.j. Wang wrote:
-> Hi  Experts
-> 
-> Is there a way to support TX master mode but RX slave mode?  It seems current .set_fmt only set same mode for TX and RX.
+I.e. after boot:
+- Connect sound source to Line-In jack;
+- Connect headphone to HP jack;
+- Run following commands:
+$ amixer set 'Headphone' 80%
+$ amixer set 'Headphone Mux' LINE_IN
 
-good question if you are thinking of supporting the 6-pin versions of 
-I2S interfaces with independent bit clock and frame sync on RX and TX
-Looking at the topology definition it could be that this mode needs to 
-be handled with separate dailinks. Adding Mark in case he didn't see 
-this question.
+Also this series includes fixes of non-important bugs in sgtl5000 codec
+driver.
+
+[1] https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf
+
+Changes in v4:
+- CC the patch to kernel-stable
+- Code optimization, simplify function signature
+  (thanks to Cezary Rojewski <cezary.rojewski@intel.com> for an idea)
+- CC the patch to kernel-stable
+- Add a Fixes tag
+
+Changes in v3:
+- Add the reference to NXP SGTL5000 data sheet to commit message
+- Add the reference to NXP SGTL5000 data sheet to commit message
+- Fix multi-line comment format
+
+Changes in v2:
+- Fix patch formatting
+- Fix patch formatting
+- Fix patch formatting
+- Fix patch formatting
+- Fix patch formatting
+- Fix patch formatting
+
+Oleksandr Suvorov (6):
+  ASoC: Define a set of DAPM pre/post-up events
+  ASoC: sgtl5000: Improve VAG power and mute control
+  ASoC: sgtl5000: Fix definition of VAG Ramp Control
+  ASoC: sgtl5000: add ADC mute control
+  ASoC: sgtl5000: Fix of unmute outputs on probe
+  ASoC: sgtl5000: Fix charge pump source assignment
+
+ include/sound/soc-dapm.h    |   2 +
+ sound/soc/codecs/sgtl5000.c | 240 ++++++++++++++++++++++++++++++------
+ sound/soc/codecs/sgtl5000.h |   2 +-
+ 3 files changed, 203 insertions(+), 41 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

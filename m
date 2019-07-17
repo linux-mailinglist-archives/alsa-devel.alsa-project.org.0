@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C87676B856
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 10:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93FE16B85B
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 10:36:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D2991678;
-	Wed, 17 Jul 2019 10:35:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D2991678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22315169B;
+	Wed, 17 Jul 2019 10:36:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22315169B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563352571;
-	bh=96w/WMepZRjwKWMga9nr/tAeeq4paT+NtPQHE+OONf0=;
+	s=default; t=1563352617;
+	bh=GCQYrzFDhAQrN+GQYJEiMSbHA2iIru1IYs6U36yPY18=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i6+xEnG2eyAofl66lVbejuHamDNvPMv5dtpupRX2FNP1rX7oQyW4exQLcT3I1mbeD
-	 YcEZSMCfAsusPkecx4bbRQThJa2H9GbGDjXa8qjSfJGvFjfWAJOR+VHDAb/X8uBb6v
-	 Qnk7qsM3JTghKElcnjkxnO/yf65xXoNybzKyqAp0=
+	b=UIMB0SM5KD+JEPvUG+/PiUlEVRPhk8b6y7ndl4WVM/c3mXVrFsjBrCxquOT/1WA8V
+	 TXbIOs9KHV7ht4135Z6J37sL0f7hJsU4HrGlJ4rNJiHK+y8En91+ZWmHoifB0DHHmz
+	 xXjdrhKCu8wQYBX747JlZ6glmD8WXBJnvM0cfDWw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30E6DF8036B;
-	Wed, 17 Jul 2019 10:33:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1617DF80447;
+	Wed, 17 Jul 2019 10:33:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC8DEF8036F; Wed, 17 Jul 2019 10:33:47 +0200 (CEST)
+ id DAAF9F80445; Wed, 17 Jul 2019 10:33:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29AFCF80368
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 10:33:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29AFCF80368
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FB82F803D7
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 10:33:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FB82F803D7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="LWje8Czn"
-Received: by mail-pf1-x442.google.com with SMTP id f17so6494824pfn.6
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 01:33:44 -0700 (PDT)
+ header.b="IZmFxnxu"
+Received: by mail-pf1-x441.google.com with SMTP id p184so10474809pfp.7
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 01:33:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=nWIVAdKLsOhFpm09GAp/Kd9PshsoLswOzSbyeHOTCdU=;
- b=LWje8Czn4fMLg4cGgLHBvyg9dnZfrufxj8s9WFgnCPNKID+WleIhuFtbd3K2fZZGhV
- 5nzXOUQna3cI73MjREOCP39GzGjDQdxnjU9Eyl5n2WCiFT9xEu17yezcCeFlsjNtSGq4
- fIIBTjJ3LCGHfl/Olx+UCJpq3POAqZHNq3rw8=
+ bh=5TBZYfajN5HVRea84QAJKLSTPB155HmdASNn879m/EQ=;
+ b=IZmFxnxuDP3SuQvqoNRO+M8bB3TSTsZBFrAjJvHPnM9kp7cArfgRl3fNvJnOhR6Nt/
+ owbNXXyCv73kC3TUprNz5BR5MHcpZuh2mG8YWDAxqt28eldSBGCdTQdgybXQOvetlHuN
+ oDKjd96uLQtPAXxkS81Zld3NvoTHxNAXtJZts=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=nWIVAdKLsOhFpm09GAp/Kd9PshsoLswOzSbyeHOTCdU=;
- b=Rsjv2WEh+kJqUr2Fm10xLJfRzaQjFcwghN6RgZs9ZBOTVBY+WNniH7HW/HFLWuQ0VB
- 8M6uuYSbeTWT2hoKmwg/vKOkH+G5Lz0x9xge85ECiPx5OOfBhhQP3ujoE/2PZhOk9wcZ
- dvy+P7FFvutDV79/bcMvVLwFdsbJqgPy/G9Jvd2ZkLkA9RpX+X68Z9jEFfrfoxpS6Q1V
- O0wcKfZjTtnICOAt+m8a5hefrENqCcD7KkW9lgGWC95yWZWoc/USo9teiTx+i8gvnVV9
- Q1fAFl5WzJ40KfDoihHIhp5EN9x+OBCDqMbPf9Rx8JB/Nzskq4JyX72SNgtCtG4j4CXJ
- kF2Q==
-X-Gm-Message-State: APjAAAUNZAeh0WtS4dniVOVbrnZTc2+9Piq5j07bGc4LHkBRDbuuL/n9
- SJcv/MFmw46CYBEIjMSZDzuMdA==
-X-Google-Smtp-Source: APXvYqxW922CsIcP7GhDMAEb73qrZMeDRGfdqCp/Vphtqp6605sAAq1T/HiWE7RXmKjk3ATv4tYVmg==
-X-Received: by 2002:a63:c1c:: with SMTP id b28mr7542105pgl.354.1563352422941; 
- Wed, 17 Jul 2019 01:33:42 -0700 (PDT)
+ bh=5TBZYfajN5HVRea84QAJKLSTPB155HmdASNn879m/EQ=;
+ b=G/u8At7CzPcNOTiq6bJx3b/5I58ucCb0S+6AWaRyZxaBgpBAkR2MEGne0bXMyciHZp
+ jcTp+Il96j2/6BlG1QVpMmGELJENzpCbc9ZmpZ59dsz7eQLYeV1pFjFFvmvQE7R9fm01
+ ggVLVpiDkmHjoXPa+g5Z8Ad60A1FZ3y++9rO9MaZf2+24QoGjVnKigPy3MmbJFnf8X89
+ WhJguikyGMMmhdOkUHtjLaIiSTEDGflCpxWoKlCk5DEoOBtZhh0CxmkZAY2cG3096DYw
+ zlOKhiMnl++5Z93SEBGhBp1NApUoREJYziiO+5/ZgzQRUbXzarsIn8EXOjBcc8xuvGrZ
+ mGeQ==
+X-Gm-Message-State: APjAAAWCEnHxPGRXPHRK+ABvixeYceW2aDfvA+5eu2YMA+aoX+60UW04
+ A0Jbsd8CC5+eVxNwRXuaKY9mPw==
+X-Google-Smtp-Source: APXvYqxPydhnliUzK2uNkEbcc7+2J2IwaFMzYdUrhNnVBedPggzZ6oqRnJJXOC3B5Xd5pYqgORkgkQ==
+X-Received: by 2002:a65:41c6:: with SMTP id b6mr39402014pgq.269.1563352429076; 
+ Wed, 17 Jul 2019 01:33:49 -0700 (PDT)
 Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
- by smtp.gmail.com with ESMTPSA id f20sm10577301pgg.56.2019.07.17.01.33.39
+ by smtp.gmail.com with ESMTPSA id e6sm27560082pfn.71.2019.07.17.01.33.45
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 17 Jul 2019 01:33:42 -0700 (PDT)
+ Wed, 17 Jul 2019 01:33:48 -0700 (PDT)
 From: Cheng-Yi Chiang <cychiang@chromium.org>
 To: linux-kernel@vger.kernel.org
-Date: Wed, 17 Jul 2019 16:33:23 +0800
-Message-Id: <20190717083327.47646-2-cychiang@chromium.org>
+Date: Wed, 17 Jul 2019 16:33:24 +0800
+Message-Id: <20190717083327.47646-3-cychiang@chromium.org>
 X-Mailer: git-send-email 2.22.0.510.g264f2c817a-goog
 In-Reply-To: <20190717083327.47646-1-cychiang@chromium.org>
 References: <20190717083327.47646-1-cychiang@chromium.org>
@@ -88,8 +88,8 @@ Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
  linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH v5 1/5] ASoC: hdmi-codec: Add an op to set
-	callback function for plug event
+Subject: [alsa-devel] [PATCH v5 2/5] drm: bridge: dw-hdmi: Report connector
+	status using callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,130 +107,158 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add an op in hdmi_codec_ops so codec driver can register callback
-function to handle plug event.
+Allow codec driver register callback function for plug event.
 
-Driver in DRM can use this callback function to report connector status.
+The callback registration flow:
+dw-hdmi <--- hw-hdmi-i2s-audio <--- hdmi-codec
+
+dw-hdmi-i2s-audio implements hook_plugged_cb op
+so codec driver can register the callback.
+
+dw-hdmi exports a function dw_hdmi_set_plugged_cb so platform device
+can register the callback.
+
+When connector plug/unplug event happens, report this event using the
+callback.
+
+Make sure that audio and drm are using the single source of truth for
+connector status.
 
 Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
 ---
- include/sound/hdmi-codec.h    | 17 +++++++++++++
- sound/soc/codecs/hdmi-codec.c | 46 +++++++++++++++++++++++++++++++++++
- 2 files changed, 63 insertions(+)
+ .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   | 11 +++++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 41 ++++++++++++++++++-
+ include/drm/bridge/dw_hdmi.h                  |  4 ++
+ 3 files changed, 55 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
-index 7fea496f1f34..83b17682e01c 100644
---- a/include/sound/hdmi-codec.h
-+++ b/include/sound/hdmi-codec.h
-@@ -47,6 +47,9 @@ struct hdmi_codec_params {
- 	int channels;
- };
- 
-+typedef void (*hdmi_codec_plugged_cb)(struct device *dev,
-+				      bool plugged);
-+
- struct hdmi_codec_pdata;
- struct hdmi_codec_ops {
- 	/*
-@@ -88,6 +91,14 @@ struct hdmi_codec_ops {
- 	 */
- 	int (*get_dai_id)(struct snd_soc_component *comment,
- 			  struct device_node *endpoint);
-+
-+	/*
-+	 * Hook callback function to handle connector plug event.
-+	 * Optional
-+	 */
-+	int (*hook_plugged_cb)(struct device *dev, void *data,
-+			       hdmi_codec_plugged_cb fn,
-+			       struct device *codec_dev);
- };
- 
- /* HDMI codec initalization data */
-@@ -99,6 +110,12 @@ struct hdmi_codec_pdata {
- 	void *data;
- };
- 
-+struct snd_soc_component;
-+struct snd_soc_jack;
-+
-+int hdmi_codec_set_jack_detect(struct snd_soc_component *component,
-+			       struct snd_soc_jack *jack);
-+
- #define HDMI_CODEC_DRV_NAME "hdmi-audio-codec"
- 
- #endif /* __HDMI_CODEC_H__ */
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index 0bf1c8cad108..b5fd8f08726e 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -7,6 +7,7 @@
- #include <linux/module.h>
- #include <linux/string.h>
- #include <sound/core.h>
-+#include <sound/jack.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -274,6 +275,8 @@ struct hdmi_codec_priv {
- 	struct snd_pcm_chmap *chmap_info;
- 	unsigned int chmap_idx;
- 	struct mutex lock;
-+	struct snd_soc_jack *jack;
-+	unsigned int jack_status;
- };
- 
- static const struct snd_soc_dapm_widget hdmi_widgets[] = {
-@@ -663,6 +666,49 @@ static int hdmi_dai_probe(struct snd_soc_dai *dai)
- 	return 0;
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+index 5cbb71a866d5..ca56783fae47 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+@@ -104,10 +104,21 @@ static int dw_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
+ 	return -EINVAL;
  }
  
-+static void hdmi_codec_jack_report(struct hdmi_codec_priv *hcp,
-+				   unsigned int jack_status)
++static int dw_hdmi_i2s_hook_plugged_cb(struct device *dev, void *data,
++				       hdmi_codec_plugged_cb fn,
++				       struct device *codec_dev)
 +{
-+	if (hcp->jack && jack_status != hcp->jack_status) {
-+		snd_soc_jack_report(hcp->jack, jack_status, SND_JACK_LINEOUT);
-+		hcp->jack_status = jack_status;
-+	}
++	struct dw_hdmi_i2s_audio_data *audio = data;
++	struct dw_hdmi *hdmi = audio->hdmi;
++
++	return dw_hdmi_set_plugged_cb(hdmi, fn, codec_dev);
 +}
 +
-+static void plugged_cb(struct device *dev, bool plugged)
-+{
-+	struct hdmi_codec_priv *hcp = dev_get_drvdata(dev);
+ static struct hdmi_codec_ops dw_hdmi_i2s_ops = {
+ 	.hw_params	= dw_hdmi_i2s_hw_params,
+ 	.audio_shutdown	= dw_hdmi_i2s_audio_shutdown,
+ 	.get_dai_id	= dw_hdmi_i2s_get_dai_id,
++	.hook_plugged_cb = dw_hdmi_i2s_hook_plugged_cb,
+ };
+ 
+ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 045b1b13fd0e..f32c66a6873d 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -185,6 +185,10 @@ struct dw_hdmi {
+ 	void (*disable_audio)(struct dw_hdmi *hdmi);
+ 
+ 	struct cec_notifier *cec_notifier;
 +
-+	if (plugged)
-+		hdmi_codec_jack_report(hcp, SND_JACK_LINEOUT);
-+	else
-+		hdmi_codec_jack_report(hcp, 0);
++	hdmi_codec_plugged_cb plugged_cb;
++	struct device *codec_dev;
++	enum drm_connector_status last_connector_result;
+ };
+ 
+ #define HDMI_IH_PHY_STAT0_RX_SENSE \
+@@ -209,6 +213,28 @@ static inline u8 hdmi_readb(struct dw_hdmi *hdmi, int offset)
+ 	return val;
+ }
+ 
++static void handle_plugged_change(struct dw_hdmi *hdmi, bool plugged)
++{
++	if (hdmi->plugged_cb && hdmi->codec_dev)
++		hdmi->plugged_cb(hdmi->codec_dev, plugged);
 +}
 +
-+/**
-+ * hdmi_codec_set_jack_detect - register HDMI plugged callback
-+ * @component: the hdmi-codec instance
-+ * @jack: ASoC jack to report (dis)connection events on
-+ */
-+int hdmi_codec_set_jack_detect(struct snd_soc_component *component,
-+			       struct snd_soc_jack *jack)
++int dw_hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn,
++			   struct device *codec_dev)
 +{
-+	struct hdmi_codec_priv *hcp = snd_soc_component_get_drvdata(component);
-+	int ret = -EOPNOTSUPP;
++	bool plugged;
 +
-+	if (hcp->hcd.ops->hook_plugged_cb) {
-+		hcp->jack = jack;
-+		ret = hcp->hcd.ops->hook_plugged_cb(component->dev->parent,
-+						    hcp->hcd.data,
-+						    plugged_cb,
-+						    component->dev);
-+		if (ret)
-+			hcp->jack = NULL;
-+	}
-+	return ret;
++	mutex_lock(&hdmi->mutex);
++	hdmi->plugged_cb = fn;
++	hdmi->codec_dev = codec_dev;
++	plugged = hdmi->last_connector_result == connector_status_connected;
++	handle_plugged_change(hdmi, plugged);
++	mutex_unlock(&hdmi->mutex);
++
++	return 0;
 +}
-+EXPORT_SYMBOL_GPL(hdmi_codec_set_jack_detect);
++EXPORT_SYMBOL_GPL(dw_hdmi_set_plugged_cb);
 +
- static int hdmi_dai_spdif_probe(struct snd_soc_dai *dai)
+ static void hdmi_modb(struct dw_hdmi *hdmi, u8 data, u8 mask, unsigned reg)
  {
- 	struct hdmi_codec_daifmt *cf = dai->playback_dma_data;
+ 	regmap_update_bits(hdmi->regm, reg << hdmi->reg_shift, mask, data);
+@@ -2044,6 +2070,7 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ {
+ 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+ 					     connector);
++	enum drm_connector_status result;
+ 
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->force = DRM_FORCE_UNSPECIFIED;
+@@ -2051,7 +2078,18 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	mutex_unlock(&hdmi->mutex);
+ 
+-	return hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	result = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++
++	mutex_lock(&hdmi->mutex);
++	if (result != hdmi->last_connector_result) {
++		dev_dbg(hdmi->dev, "read_hpd result: %d", result);
++		handle_plugged_change(hdmi,
++				      result == connector_status_connected);
++		hdmi->last_connector_result = result;
++	}
++	mutex_unlock(&hdmi->mutex);
++
++	return result;
+ }
+ 
+ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+@@ -2460,6 +2498,7 @@ __dw_hdmi_probe(struct platform_device *pdev,
+ 	hdmi->rxsense = true;
+ 	hdmi->phy_mask = (u8)~(HDMI_PHY_HPD | HDMI_PHY_RX_SENSE);
+ 	hdmi->mc_clkdis = 0x7f;
++	hdmi->last_connector_result = connector_status_disconnected;
+ 
+ 	mutex_init(&hdmi->mutex);
+ 	mutex_init(&hdmi->audio_mutex);
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index b4ca970a5b75..d6c925236c55 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -6,6 +6,8 @@
+ #ifndef __DW_HDMI__
+ #define __DW_HDMI__
+ 
++#include <sound/hdmi-codec.h>
++
+ struct drm_connector;
+ struct drm_display_mode;
+ struct drm_encoder;
+@@ -152,6 +154,8 @@ struct dw_hdmi *dw_hdmi_bind(struct platform_device *pdev,
+ 
+ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense);
+ 
++int dw_hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn,
++			   struct device *codec_dev);
+ void dw_hdmi_set_sample_rate(struct dw_hdmi *hdmi, unsigned int rate);
+ void dw_hdmi_audio_enable(struct dw_hdmi *hdmi);
+ void dw_hdmi_audio_disable(struct dw_hdmi *hdmi);
 -- 
 2.22.0.510.g264f2c817a-goog
 

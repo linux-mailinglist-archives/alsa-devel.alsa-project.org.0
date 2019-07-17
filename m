@@ -2,94 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B49256B86C
-	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 10:38:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63A026BA2D
+	for <lists+alsa-devel@lfdr.de>; Wed, 17 Jul 2019 12:30:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50EA116A6;
-	Wed, 17 Jul 2019 10:37:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50EA116A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A68F41683;
+	Wed, 17 Jul 2019 12:29:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A68F41683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563352729;
-	bh=hRtcau/2DdVFEzN+qA85eCqtdTAwl+cyZghk2TdflWo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1563359421;
+	bh=T2DcnE8XM0xwglSrJ5XuTBE0cWVD/+8EyYl5nBBWabE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OII+WujyR7fYGdlGyJPxkJtvt8TVbw6J0BsaW7Fbs6Mc5nKuQCEYoX791TAU5Xovr
-	 x+XYFXa3dBOIC/1CnUe6gz5LLaVOeppwLXaId6pRHJTowz+ZvlXpc4Sy35VzoHXBzD
-	 YY0fg0rx+esKutQhXWYLFE9bdmcXKANY34SfpoNY=
+	b=ahUnmaIuh/t/at1jqFwiV89vtX52Zsf3mfg4RERsckcVACIcN+xFE74U0BcYPJlHM
+	 QGKxJsB/LuWns3D2vhLnahsEApqv7/R3hrxrCRZS3sBfCg8wC8Z6Q9XsQo8LnsrP4a
+	 JTHbBCDrl4nRA9fwGGceYK+e+ehxiRaWOjpOhw2Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A237F804AA;
-	Wed, 17 Jul 2019 10:34:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7135F80363;
+	Wed, 17 Jul 2019 12:28:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3ACBF8049B; Wed, 17 Jul 2019 10:34:27 +0200 (CEST)
+ id 72565F80363; Wed, 17 Jul 2019 12:28:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D10E0F800C4
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 10:34:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D10E0F800C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D826F8015B
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 12:28:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D826F8015B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Pd9rMXqr"
-Received: by mail-pg1-x541.google.com with SMTP id n9so4585464pgc.1
- for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 01:34:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=cidGTqyDmTdA37+BpWIU23tti1Aef+vr+fIqWe45Ips=;
- b=Pd9rMXqrPjeccHxZLywI63NSXDq23LfJH4aCPFLK7QnpkUPTxZgry6WuFZisQlBS6z
- wF7jGO9ojokkzEIb+2RQrPLLNnOiyW45ESsKQjm2fRb/dMnHljP0rhhOVlh5Y/dJ7HWq
- boBtCwQJdcRxbtnVIy7b+VEjhNf+UN+Y+UMZA=
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="JDhYZ/XL"
+Received: by mail-oi1-x244.google.com with SMTP id s184so18070073oie.9
+ for <alsa-devel@alsa-project.org>; Wed, 17 Jul 2019 03:28:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3OqUE647HuitrzeN56x9jTuLb2Ydo4APiMUt/N1U1gk=;
+ b=JDhYZ/XLSp5p+uzs8xtZ+lDFSxyDX6a3a83vp7yY0oH7QR/JUG3nl7G/bfr2BVUVVt
+ AT9BWdwzjWgFGhHaPLqfM2IfAKu5tUziTQa2yq6iXjC1JXAIXDIL1bnk3A60xCcqM8v1
+ iHXfabVCBA+o6US93D2wHx2oKFBhG9ostlX0XsIagP4+oak+j0c4An6AaDbPkN0LuELE
+ sbSIgxgH+PAC7n3MJ4/wXWHhsuSGKXPdLnObSXx350+qAr5xmhsnP0WJC6CsTXqWdSD+
+ HwOrD5rSZE1vq3fGbC6Ihq5Zkdwq7tmp9dJjt8JIhcj2TFk/S5P93TXmZQmTmaWwZ/NV
+ JatA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=cidGTqyDmTdA37+BpWIU23tti1Aef+vr+fIqWe45Ips=;
- b=Np3gr44nShxrfFCQ0pxuuYDsDAq6fKd9KpqYJcjmFoBf83pjHs+PPIB6q2ftzmYX5r
- r/sc7FlCpq0EpqK1COBBmL9antpIPJVGQDEh6pH5Oyz8KvBzdTSgf1ULHSdljExrHbvh
- gJOSJm7iMjv7fUnPkiG5v05gyPu8884mDEL0dAFaBO4UuAcmDBKTBhr8KLN105Y6f6CZ
- MNO+g5rRmy3QznfIf9+dbki+TbHAHON3VB7CEI6pMpSCvxlpEV4nA+y5qhJrXVqrowl/
- +eA7FpTEccWNtoeICyJ/q+YggabIZVRiqaU1OzKO1a74bLYLg0nM4gXndHMeaopnf94X
- MvZQ==
-X-Gm-Message-State: APjAAAVjR8Ap6vZO8Tm05mvNj8Bsv6qHMneSWcf5yI/bnpxr6bR+YRfs
- LGeF4bKGCu1g0pdbYAigKHwjnw==
-X-Google-Smtp-Source: APXvYqzlpXfBkcYTJYh+zRzHNs0eeuRkE1NZqTwzR7hx5d1u6W8AZyHHRlNHdrM7cO2RviT7Cn4/cQ==
-X-Received: by 2002:a63:4185:: with SMTP id o127mr1878619pga.82.1563352463012; 
- Wed, 17 Jul 2019 01:34:23 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
- by smtp.gmail.com with ESMTPSA id x9sm27902875pfn.177.2019.07.17.01.34.19
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 17 Jul 2019 01:34:22 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Wed, 17 Jul 2019 16:33:27 +0800
-Message-Id: <20190717083327.47646-6-cychiang@chromium.org>
-X-Mailer: git-send-email 2.22.0.510.g264f2c817a-goog
-In-Reply-To: <20190717083327.47646-1-cychiang@chromium.org>
-References: <20190717083327.47646-1-cychiang@chromium.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3OqUE647HuitrzeN56x9jTuLb2Ydo4APiMUt/N1U1gk=;
+ b=fOfrg86J+D/nK2qFFX2Vkbb56OAhce3UC7PINKHkg3Q/UpQSnzDmzf+0+N5BKaSa+6
+ Tpd1XLAAdIjrhrbiNR9hqqJAkRwjpVzAIRsZrbI3yWvuMOaiXUIs0hbx3YdVhdNNP4PM
+ znmk/baeqyfvndlR8MrxI1afOqhRzD0ogiZfPZpc62iHL7Rc7goI25rmNb1zMjJfDEEc
+ heLy2tvwIkdQhYWJQudpHjlGDnqxUYVK5lwue7Yd6B74jsh+gsP4Hf8aO4YYRafqXEXo
+ BdpstTHzT7rZy353MByDViuJnNjrBeMg5aeSGZBFjspJNZ48zRx99zY/LfYVqI3EeKLQ
+ 6T7w==
+X-Gm-Message-State: APjAAAX6oAIjE9FFnKtsXoTvTe5KXI3M64JcmkUeOEuxHyAD+rWYU6qm
+ +Ou/uBAiOz0FRtnJnWRNMJ2s0d7Wkm5K5bsfUBiWgA==
+X-Google-Smtp-Source: APXvYqwWwXVZ/BZHTjaG86aX6+cX+YF7cjf0miBCE15x0Nd7s4TeCOAZk+HlSzO1mf3x+jEgUAq8Br9lxzMLzaRz5tc=
+X-Received: by 2002:aca:544b:: with SMTP id i72mr20169753oib.174.1563359308762; 
+ Wed, 17 Jul 2019 03:28:28 -0700 (PDT)
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- tzungbi@chromium.org, Hans Verkuil <hverkuil@xs4all.nl>,
- Andrzej Hajda <a.hajda@samsung.com>, Russell King <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>,
+References: <20190717083327.47646-1-cychiang@chromium.org>
+In-Reply-To: <20190717083327.47646-1-cychiang@chromium.org>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 17 Jul 2019 18:28:17 +0800
+Message-ID: <CA+Px+wX4gbntkd6y8NN8xwXpZLD4MH9rTeHcW9+Ndtw=3_mWBw@mail.gmail.com>
+To: Cheng-Yi Chiang <cychiang@chromium.org>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Douglas Anderson <dianders@chromium.org>, Heiko Stuebner <heiko@sntech.de>,
+ Liam Girdwood <lgirdwood@gmail.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Takashi Iwai <tiwai@suse.com>,
+ tzungbi@chromium.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Daniel Vetter <daniel@ffwll.ch>, dgreid@chromium.org,
- linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH v5 5/5] ASoC: rockchip_max98090: Add HDMI jack
-	support
+ Daniel Vetter <daniel@ffwll.ch>, linux-rockchip@lists.infradead.org,
+ dgreid@chromium.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v5 0/5] Add HDMI jack support on RK3288
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,71 +104,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In machine driver, create a jack and let hdmi-codec report jack status.
+On Wed, Jul 17, 2019 at 4:33 PM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
+>
+> This patch series supports HDMI jack reporting on RK3288, which uses
+> DRM dw-hdmi driver and hdmi-codec codec driver.
+>
+> The previous discussion about reporting jack status using hdmi-notifier
+> and drm_audio_component is at
+>
+> https://lore.kernel.org/patchwork/patch/1083027/
+>
+> The new approach is to use a callback mechanism that is
+> specific to hdmi-codec.
+>
+> Changes from v4 to v5:
+> - synopsys/Kconfig: Remove the incorrect dependency change in v4.
+> - rockchip/Kconfig: Add dependency of hdmi-codec when it is really need
+>   for jack support.
+>
+> Cheng-Yi Chiang (5):
+>   ASoC: hdmi-codec: Add an op to set callback function for plug event
+>   drm: bridge: dw-hdmi: Report connector status using callback
+>   drm: dw-hdmi-i2s: Use fixed id for codec device
+>   ASoC: rockchip_max98090: Add dai_link for HDMI
+>   ASoC: rockchip_max98090: Add HDMI jack support
+>
+LGTM.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/rockchip/Kconfig             |  3 ++-
- sound/soc/rockchip/rockchip_max98090.c | 20 ++++++++++++++++++++
- 2 files changed, 22 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/rockchip/Kconfig b/sound/soc/rockchip/Kconfig
-index b43657e6e655..d610b553ea3b 100644
---- a/sound/soc/rockchip/Kconfig
-+++ b/sound/soc/rockchip/Kconfig
-@@ -40,9 +40,10 @@ config SND_SOC_ROCKCHIP_MAX98090
- 	select SND_SOC_ROCKCHIP_I2S
- 	select SND_SOC_MAX98090
- 	select SND_SOC_TS3A227E
-+	select SND_SOC_HDMI_CODEC
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Rockchip
--	  boards using the MAX98090 codec, such as Veyron.
-+	  boards using the MAX98090 codec and HDMI codec, such as Veyron.
- 
- config SND_SOC_ROCKCHIP_RT5645
- 	tristate "ASoC support for Rockchip boards using a RT5645/RT5650 codec"
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index c82948e383da..c81c4acda917 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -134,6 +134,25 @@ enum {
- 	DAILINK_HDMI,
- };
- 
-+static struct snd_soc_jack rk_hdmi_jack;
-+
-+static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_component *component = runtime->codec_dai->component;
-+	int ret;
-+
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &rk_hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
-+}
-+
- /* max98090 and HDMI codec dai_link */
- static struct snd_soc_dai_link rk_dailinks[] = {
- 	[DAILINK_MAX98090] = {
-@@ -151,6 +170,7 @@ static struct snd_soc_dai_link rk_dailinks[] = {
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
-+		.init = rk_hdmi_init,
- 		SND_SOC_DAILINK_REG(hdmi),
- 	}
- };
--- 
-2.22.0.510.g264f2c817a-goog
-
+Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

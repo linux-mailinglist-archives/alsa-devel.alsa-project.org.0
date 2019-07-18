@@ -2,91 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8F66CAFA
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jul 2019 10:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 773726CB26
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jul 2019 10:45:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7572167A;
-	Thu, 18 Jul 2019 10:36:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7572167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E930E1673;
+	Thu, 18 Jul 2019 10:44:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E930E1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563439059;
-	bh=JvopeBkO+adZD628kWU6/JlRQ9tWV7XqEun8rqZm4a8=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DjYdYxl4hEgrF9QPgNEVOcCYQ6MdIEzTjQjV2QZr/H67f25OUnRM4SnZeHkbTDe7p
-	 FJVjACiipQ84ehun0LFpdrexbK5XwX8qoh9AAsAFFdjJJG+Xb3J41ZK0OtzU2VIZYp
-	 JOUduZ06ear70ysbq787S2oxTOUx/uuRQtYHjrQs=
+	s=default; t=1563439527;
+	bh=wQkCsz35vfgHKg5nNdcIpSBRP2zZ0jY7GH1QB3B6A+E=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lZk2CrYSZS7bgfrtysyrJ9AeZ8qcESK9/Fzjg74d1OibEqEDjpnveiQgJmWfsQNwa
+	 qRgheGcuQJ7Lvqhvkts9PKdNzO73jtgmX4vopiJUIHloeALs3QuDYKBUeHXSYUoVlq
+	 nh9NmofevPoJjmMl3OkSZdjc4Vs5it8IELfq4gsU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0502EF802BC;
-	Thu, 18 Jul 2019 10:35:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A71B4F8038F;
+	Thu, 18 Jul 2019 10:43:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D902EF80362; Thu, 18 Jul 2019 10:35:52 +0200 (CEST)
+ id 128CCF80376; Thu, 18 Jul 2019 10:43:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 092E4F800C0
- for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 10:35:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 092E4F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E01BF800C0
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 10:43:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E01BF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Yk/uovki"
-Received: by mail-wr1-x444.google.com with SMTP id x1so12690598wrr.9
- for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 01:35:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4tRTGAuUbKnYzNxYuq2Du5ronNWl7Xcaht571D6i0hY=;
- b=Yk/uovkiiuYpyAmB8oiSBV0jELpmLH1kyvLGRLfsLFJYdj2OAMzCfh7fR72bLMdQW+
- bnmbj5C3UF9cn2T7qfWp1JyVcqnFTCX+6Jjlk4u8AvTzz+zTCUm89CpT20pOwUMw4gmY
- pMgg8QTnEyk5C2b/K2nqGo0iQ5BA+e+wcEqv8Enn1/q1m2uqRT0R16OaPA48oCmfcRXm
- 9FAZlJt0RjikAVQA9Q6UySv+NqOKDAYYfyt9H05Lt/nENr1HVybsJ6WCCY2jVKhuhfd8
- BuA0Px6kL2wReSaUd+KPBZJftMSfMXxdtHATucDLnApob6RKMNIRIgypRSK5bt9GpaLe
- /D+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4tRTGAuUbKnYzNxYuq2Du5ronNWl7Xcaht571D6i0hY=;
- b=gaptoQij1aLMpNAQIEhzkBPHz5S9HsiIIOjo/FJnH3VAqR2NBXjJztPzpl44tHsZv0
- fvw6TzJoO5jxAkKjgrVwopo0VbSYMjTpWuPWP+tI/CSBkNtjB1HKtZJk+2TBwxyygY6h
- Zp4dDJv/7zfmYNagsYV+Vrpa/0kMpgCjHDRsezmiti3hjLbZBh2c79vqfQSnDC+bz39q
- YmxvyYW3bEhWjmK0wZrWdF4hSC+g/AiMX8urT2ysxPitzbNg2w2QR1oJoMGnK4+FGA2j
- rruYK60R6a4BJKWwH88lEQ2M2tHZbE6MJTJNDODIMHNOl+N6VE5ih0eZ+gtkK/UL8Wo3
- SDaA==
-X-Gm-Message-State: APjAAAXHf4lxzkIhbuficjYYO62eGKUwJJ6M4Isdl1gpDP5PM2H35/mD
- UxKPEtajyici0uw/17f1p1J8UZzr3UxVJ5k1TLQ=
-X-Google-Smtp-Source: APXvYqwDJjblBBNKQj+hICJRJ5h3XJLHEHd0DsyFF2wwV9l4FIdzeZpPi0M6j2s/x4LexEB7M6tBBH9BurvS7jepV3w=
-X-Received: by 2002:adf:db46:: with SMTP id f6mr48298430wrj.212.1563438948940; 
- Thu, 18 Jul 2019 01:35:48 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="SVJp5g+2"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6I8ZOCa026173; Thu, 18 Jul 2019 03:43:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type;
+ s=PODMain02222019; bh=/OC4Bf1UT1nbfu+roN/Ki/gJPZkSbh9rEE7y4hVgUI4=;
+ b=SVJp5g+2hLPvSLla4SWIxu28jDfBToeqZusMlaYaoK3i2jVfLJr3u84x329hiTm57FBf
+ IMKZJekQQ7Yf4fChIxaEUgVXhp6ni/iEdHMEOSjxOAaq5/lDgi2WkOV/8ShhMhmFgu0C
+ +oquahUN+QjlhxzSYxqqom+hz0p6eN3CX95CtZ6wMoNFxFYFdg6tw5PONKQNFJ8AJDCp
+ uS7JvX7fZbHATYj5QVdF3vmyQlp1c/WM7wc1BgodhXAjJ34Eczi2dI795VPfL/qrRf+B
+ ig/QToPa5rjyfRqhd9a/Wm+PlD4oTXTGqLeDghv3ptAmBSKU1Oz4rNZLw9yBzv0KY49V RA== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2tt7xd8wjs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 18 Jul 2019 03:43:35 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Thu, 18 Jul
+ 2019 09:43:33 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Thu, 18 Jul 2019 09:43:33 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id B09832A1;
+ Thu, 18 Jul 2019 09:43:33 +0100 (BST)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Date: Thu, 18 Jul 2019 09:43:33 +0100
+Message-ID: <20190718084333.15598-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20190717105635.18514-1-l.stach@pengutronix.de>
- <20190717105635.18514-4-l.stach@pengutronix.de>
- <CAEnQRZCCTwMJKQnvP2mSQPcKNwtoAaMdXmQt_H+CGro=zVLsNA@mail.gmail.com>
- <1563374027.2676.18.camel@pengutronix.de>
- <CAEnQRZB96Q4stM4JsJskMhdH-7ktbc-QxPeibNOLHEXghtS-1w@mail.gmail.com>
- <ee809845f1a5fd5af3f73b35eaa79314@akkea.ca>
-In-Reply-To: <ee809845f1a5fd5af3f73b35eaa79314@akkea.ca>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Thu, 18 Jul 2019 11:35:37 +0300
-Message-ID: <CAEnQRZDZ11LSK62qCYq9VuDRBtWrbgbooDFa6A7DV=Z2ftTq-g@mail.gmail.com>
-To: Angus Ainslie <angus@akkea.ca>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- patchwork-lst@pengutronix.de, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: fsl_sai: add i.MX8M support
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=940 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1907180099
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: dapm: Fix handling of
+	custom_stop_condition on DAPM graph walks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,74 +103,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jul 17, 2019 at 6:15 PM Angus Ainslie <angus@akkea.ca> wrote:
->
-> On 2019-07-17 09:06, Daniel Baluta wrote:
-> > On Wed, Jul 17, 2019 at 5:33 PM Lucas Stach <l.stach@pengutronix.de>
-> > wrote:
-> >>
-> >> Hi Daniel,
-> >>
-> >> Am Mittwoch, den 17.07.2019, 17:16 +0300 schrieb Daniel Baluta:
-> >> > > On Wed, Jul 17, 2019 at 1:59 PM Lucas Stach <l.stach@pengutronix.de> wrote:
-> >> > >
-> >> > > The SAI block on the i.MX8M moved the register layout, as 2 version
-> >> > > registers were added at the start of the register map. We deal with
-> >> > > this by moving the start of the regmap, so both register layouts
-> >> > > look the same to accesses going through the regmap.
-> >> > >
-> >> > > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
-> >> >
-> >> > This is a little bit tricky. We need the verid register in order
-> >> > to differentiate IPs which can support 1:1 ratio for bclk:mclk
-> >>
-> >> And this patch doesn't prevent this usage. If needed we can just read
-> >> the verid via a plain readl on the base mapping in the probe function
-> >> and cache it in struct fsl_sai. This seems way less intrusive than
-> >> carrying a register offset through all of the regmap accessors and
-> >> validation functions. I simply haven't implemented it in this patch,
-> >> as
-> >> I had no need for it right now.
-> >
-> > I must admit this is a very clever idea! Anyhow, I'm having some
-> > concerns
-> > because unfortunately not all registers were shifted by 8 bytes.
-> >
-> > See: imx6sx [1] (page 3575)  and imx8X [2] (page 5512) RMs.
-> >
-> > We have something like this:
-> >
-> > i.mx6 SX:
-> >
-> > 00: TCSR
-> > 04: TCR1
-> > 08: TCR2
-> > 0C: TCR3
-> > ....
-> > 60: TMR
-> > 80: RCSR
-> >
-> > i.mx 8X
-> >
-> > 00: VERID
-> > 04: PARAM
-> > 08: TCSR
-> > 0C: TCR1
-> > ...
-> > 60: TMR
-> > 88: RCSR
-> >
->
-> We could split it into an upper and a lower regmap. Only the lower would
-> need the version register offset.
+DPCM uses snd_soc_dapm_dai_get_connected_widgets to build a
+list of the widgets connected to a specific front end DAI so it
+can search through this list for available back end DAIs. The
+custom_stop_condition was added to is_connected_ep to facilitate this
+list not containing more widgets than is necessary. Doing so both
+speeds up the DPCM handling as less widgets need to be searched and
+avoids issues with CODEC to CODEC links as these would be confused
+with back end DAIs if they appeared in the list of available widgets.
 
-That would work but will be unnecessary complicated. Let me send the
-imx8M support
-as we implemented in our tree by Friday.
+custom_stop_condition was implemented by aborting the graph walk
+when the condition is triggered, however there is an issue with this
+approach. Whilst walking the graph is_connected_ep should update the
+endpoints cache on each widget, if the walk is aborted the number
+of attached end points is unknown for that sub-graph. When the stop
+condition triggered, the original patch ignored the triggering widget
+and returned zero connected end points; a later patch updated this
+to set the triggering widget's cache to 1 and return that. Both of
+these approaches result in inaccurate values being stored in various
+end point caches as the values propagate back through the graph,
+which can result in later issues with widgets powering/not powering
+unexpectedly.
 
-It has the disadvantage that we've wrapped all shifted register with a
-macro but I don't
-see other solution.
+As the original goal was to reduce the size of the widget list passed
+to the DPCM code, the simplest solution is to limit the functionality
+of the custom_stop_condition to the widget list. This means the rest
+of the graph will still be processed resulting in correct end point
+caches, but only widgets up to the stop condition will be added to the
+returned widget list.
+
+Fixes: 6742064aef7f ("ASoC: dapm: support user-defined stop condition in dai_get_connected_widgets")
+Fixes: 5fdd022c2026 ("ASoC: dpcm: play nice with CODEC<->CODEC links")
+Fixes: 09464974eaa8 ("ASoC: dapm: Fix to return correct path list in is_connected_ep.")
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/soc-dapm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index f013b24c050a1..f73882cf0031d 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -1157,8 +1157,8 @@ static __always_inline int is_connected_ep(struct snd_soc_dapm_widget *widget,
+ 		list_add_tail(&widget->work_list, list);
+ 
+ 	if (custom_stop_condition && custom_stop_condition(widget, dir)) {
+-		widget->endpoints[dir] = 1;
+-		return widget->endpoints[dir];
++		list = NULL;
++		custom_stop_condition = NULL;
+ 	}
+ 
+ 	if ((widget->is_ep & SND_SOC_DAPM_DIR_TO_EP(dir)) && widget->connected) {
+@@ -1195,8 +1195,8 @@ static __always_inline int is_connected_ep(struct snd_soc_dapm_widget *widget,
+  *
+  * Optionally, can be supplied with a function acting as a stopping condition.
+  * This function takes the dapm widget currently being examined and the walk
+- * direction as an arguments, it should return true if the walk should be
+- * stopped and false otherwise.
++ * direction as an arguments, it should return true if widgets from that point
++ * in the graph onwards should not be added to the widget list.
+  */
+ static int is_connected_output_ep(struct snd_soc_dapm_widget *widget,
+ 	struct list_head *list,
+-- 
+2.11.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

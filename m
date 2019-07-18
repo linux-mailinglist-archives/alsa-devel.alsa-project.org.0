@@ -2,65 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50CA96C892
-	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jul 2019 07:03:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A8F66CAFA
+	for <lists+alsa-devel@lfdr.de>; Thu, 18 Jul 2019 10:37:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D45B51666;
-	Thu, 18 Jul 2019 07:02:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D45B51666
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7572167A;
+	Thu, 18 Jul 2019 10:36:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7572167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563426206;
-	bh=ViUmTaCyKa/agIOmiVXEEhF1NlTSf70zg6TnQN0NqoY=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563439059;
+	bh=JvopeBkO+adZD628kWU6/JlRQ9tWV7XqEun8rqZm4a8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MDkQZzlk7XtgdjBOx5boHHMWCrrMgDEY8IXuTet2iXKpasgcTO4xjCwEaUuBP14ne
-	 woZLzz1SAMDxW/wSUrBnuRiwrY2tJ7MRCzu1BxJj52At6tb7ShsTTJ7MB4cHQX1KKn
-	 RcvHKPmLhG9TXndsx/rBH7LSngZdEuONA7v2IbJY=
+	b=DjYdYxl4hEgrF9QPgNEVOcCYQ6MdIEzTjQjV2QZr/H67f25OUnRM4SnZeHkbTDe7p
+	 FJVjACiipQ84ehun0LFpdrexbK5XwX8qoh9AAsAFFdjJJG+Xb3J41ZK0OtzU2VIZYp
+	 JOUduZ06ear70ysbq787S2oxTOUx/uuRQtYHjrQs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E39EF802BC;
-	Thu, 18 Jul 2019 07:01:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0502EF802BC;
+	Thu, 18 Jul 2019 10:35:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2387EF80362; Thu, 18 Jul 2019 07:01:40 +0200 (CEST)
+ id D902EF80362; Thu, 18 Jul 2019 10:35:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6512CF8015B
- for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 07:01:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6512CF8015B
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Jul 2019 22:01:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,276,1559545200"; d="scan'208";a="169748413"
-Received: from keyon-x299.sh.intel.com (HELO [10.239.159.75]) ([10.239.159.75])
- by fmsmga007.fm.intel.com with ESMTP; 17 Jul 2019 22:01:27 -0700
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20190718031113.25040-1-yang.jie@linux.intel.com>
- <94753e7c-931b-2b24-b92b-283e7abbb9ac@linux.intel.com>
-From: Keyon Jie <yang.jie@linux.intel.com>
-Message-ID: <a1a676aa-e1da-0f6a-4dbd-972b4973553d@linux.intel.com>
-Date: Thu, 18 Jul 2019 13:06:57 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 092E4F800C0
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 10:35:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 092E4F800C0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Yk/uovki"
+Received: by mail-wr1-x444.google.com with SMTP id x1so12690598wrr.9
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 01:35:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4tRTGAuUbKnYzNxYuq2Du5ronNWl7Xcaht571D6i0hY=;
+ b=Yk/uovkiiuYpyAmB8oiSBV0jELpmLH1kyvLGRLfsLFJYdj2OAMzCfh7fR72bLMdQW+
+ bnmbj5C3UF9cn2T7qfWp1JyVcqnFTCX+6Jjlk4u8AvTzz+zTCUm89CpT20pOwUMw4gmY
+ pMgg8QTnEyk5C2b/K2nqGo0iQ5BA+e+wcEqv8Enn1/q1m2uqRT0R16OaPA48oCmfcRXm
+ 9FAZlJt0RjikAVQA9Q6UySv+NqOKDAYYfyt9H05Lt/nENr1HVybsJ6WCCY2jVKhuhfd8
+ BuA0Px6kL2wReSaUd+KPBZJftMSfMXxdtHATucDLnApob6RKMNIRIgypRSK5bt9GpaLe
+ /D+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4tRTGAuUbKnYzNxYuq2Du5ronNWl7Xcaht571D6i0hY=;
+ b=gaptoQij1aLMpNAQIEhzkBPHz5S9HsiIIOjo/FJnH3VAqR2NBXjJztPzpl44tHsZv0
+ fvw6TzJoO5jxAkKjgrVwopo0VbSYMjTpWuPWP+tI/CSBkNtjB1HKtZJk+2TBwxyygY6h
+ Zp4dDJv/7zfmYNagsYV+Vrpa/0kMpgCjHDRsezmiti3hjLbZBh2c79vqfQSnDC+bz39q
+ YmxvyYW3bEhWjmK0wZrWdF4hSC+g/AiMX8urT2ysxPitzbNg2w2QR1oJoMGnK4+FGA2j
+ rruYK60R6a4BJKWwH88lEQ2M2tHZbE6MJTJNDODIMHNOl+N6VE5ih0eZ+gtkK/UL8Wo3
+ SDaA==
+X-Gm-Message-State: APjAAAXHf4lxzkIhbuficjYYO62eGKUwJJ6M4Isdl1gpDP5PM2H35/mD
+ UxKPEtajyici0uw/17f1p1J8UZzr3UxVJ5k1TLQ=
+X-Google-Smtp-Source: APXvYqwDJjblBBNKQj+hICJRJ5h3XJLHEHd0DsyFF2wwV9l4FIdzeZpPi0M6j2s/x4LexEB7M6tBBH9BurvS7jepV3w=
+X-Received: by 2002:adf:db46:: with SMTP id f6mr48298430wrj.212.1563438948940; 
+ Thu, 18 Jul 2019 01:35:48 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <94753e7c-931b-2b24-b92b-283e7abbb9ac@linux.intel.com>
-Content-Language: en-US
-Cc: marcin.rajwa@intel.com, Marcin Rajwa <marcin.rajwa@linux.intel.com>,
- ranjani.sridharan@linux.intel.com, kai.vehmanen@linux.intel.com
-Subject: Re: [alsa-devel] [PATCH v3 1/2] ASoC: SOF: add flag for position
-	update ipc
+References: <20190717105635.18514-1-l.stach@pengutronix.de>
+ <20190717105635.18514-4-l.stach@pengutronix.de>
+ <CAEnQRZCCTwMJKQnvP2mSQPcKNwtoAaMdXmQt_H+CGro=zVLsNA@mail.gmail.com>
+ <1563374027.2676.18.camel@pengutronix.de>
+ <CAEnQRZB96Q4stM4JsJskMhdH-7ktbc-QxPeibNOLHEXghtS-1w@mail.gmail.com>
+ <ee809845f1a5fd5af3f73b35eaa79314@akkea.ca>
+In-Reply-To: <ee809845f1a5fd5af3f73b35eaa79314@akkea.ca>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Thu, 18 Jul 2019 11:35:37 +0300
+Message-ID: <CAEnQRZDZ11LSK62qCYq9VuDRBtWrbgbooDFa6A7DV=Z2ftTq-g@mail.gmail.com>
+To: Angus Ainslie <angus@akkea.ca>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ patchwork-lst@pengutronix.de, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: fsl_sai: add i.MX8M support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,57 +99,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAyMDE5LzcvMTgg5LiK5Y2IMTE6MzUsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+
-IAo+IAo+IE9uIDcvMTcvMTkgMTA6MTEgUE0sIEtleW9uIEppZSB3cm90ZToKPj4gRnJvbTogTWFy
-Y2luIFJhandhIDxtYXJjaW4ucmFqd2FAbGludXguaW50ZWwuY29tPgo+Pgo+PiBJbiBzb21lIGNh
-c2VzLCBGVyBtaWdodCBuZWVkIHRvIHVzZSB0aGUgaG9zdF9wZXJpb2RfYnl0ZXMgZmllbGQgdG8K
-Pj4gc3luY2hyb25pemUgdGhlIERNQSBjb3B5aW5nICh3aXRoIGhvc3Qgc2lkZSkgYnV0IHRoZSBk
-cml2ZXIgZG9lcyBub3QKPiAKPiBpdCdzIHlvdXIgcmlnaHQgdG8gZWRpdCBteSBzdWdnZXN0ZWQg
-d29yZGluZywgYnV0IHRoZSBub3Rpb24gb2YgCj4gJ3N5bmNocm9uaXphdGlvbicgaXMgZmFyIGZy
-b20gY2xlYXIuIGl0J3MgbXkgdW5kZXJzdGFuZGluZyB0aGF0IHRoZSAKPiBob3N0X3BlcmlvZF9i
-eXRlcyBkZWZpbmVzIHRoZSBETUEgdHJhbnNmZXIgc2l6ZSByZXF1ZXN0ZWQgYnkgdGhlIAo+IGZp
-cm13YXJlLCB3aGljaCBpc24ndCBhIHZhbHVlIHRoYXQgbWF0dGVycyB0byB0aGUgaG9zdCBleGNl
-cHQgZm9yIHJld2luZCAKPiB1c2FnZXMuCgpIaSBQaWVycmUsIGhlcmUgdGhlIGhvc3RfcGVyaW9k
-X2J5dGVzIGlzIHJlcXVlc3RlZCBieSBob3N0LCBGVyBoYXMgaXRzIApvd24gcGVyaW9kIHNpemUs
-IGFuZCBETUEgd2lsbCB0cmFuc2ZlciBkYXRhIGluIEZXIGJ1ZmZlciBwZXJpb2Qgc2l6ZS4gSXQg
-CndvcmtzIGxpa2UgdGhpczoKCkZXIGJ1ZmZlcltwZXJpb2QgMCwgcGVyaW9kIDEsIC4uLl0gPD09
-PiBETUEgPD09PiBob3N0L2Fsc2EgCmJ1ZmZlcltob3N0X3BlcmlvZCAwLCBob3N0X3ByaW9kIDEs
-IC4uLl0KCldlIG5lZWQgdGhpcyBob3N0X3ByZWlvZF9ieXRlcyBpbmZvcm1hdGlvbiBpbiBGVyB0
-byBkbyBmYXN0IApkcmFpbmluZyhlLmcuIHJlY29yZCAyIHNlY29uZHMgZGF0YSB3aXRoaW4gMTBt
-cykgaW4gbW1hcCBjYXB0dXJlLCB3ZSBhcmUgCnNsb3dpbmcgZG93biB0aGUgZHJhaW5pbmcgaW4g
-c21hbGxlciBob3N0X3BlcmlvZF9ieXRlcyBjYXNlcywgb3RoZXJ3aXNlLCAKYXJlY29yZCBjYW4n
-dCByZWFkIHRoZSBidWZmZXIgaW4gdGltZSBhbmQgb3ZlcnJ1biB3aWxsIGhhcHBlbi4KCk1heWJl
-IHRoZSB3b3JkaW5nICJzeW5jaHJvbml6ZSIgaGVyZSBpcyBpbmFjY3VyYXRlLCBob3cgYWJvdXQg
-c29tZXRoaW5nIApsaWtlIHRoaXM6CgoiRlcgbWlnaHQgbmVlZCB0byB1c2UgdGhlIGhvc3RfcGVy
-aW9kX2J5dGVzIGZpZWxkIHRvIGNvbmZpZ3VyZSBhbmQgCmNvbnRyb2wgdGhlIERNQSBjb3B5aW5n
-IHNwZWVkIGJ1dCB0aGUgZHJpdmVyIGRvZXMgbm90Li4uIgoKPiAKPj4gbmVlZCBhbnkgcG9zaXRp
-b24gaW5mb3JtYXRpb24gcmV0dXJuZWQgb3ZlciB0aGUgSVBDIGNoYW5uZWwgYnkgdGhlCj4+IGZp
-cm13YXJlLiBUaGUgY3VycmVudCBJUEMgZGVmaW5pdGlvbiBwcmV2ZW50cyB0aGlzIGNhcGFiaWxp
-dHksIHNvIGFkZAo+PiBuZXcgZmllbGQuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IE1hcmNpbiBSYWp3
-YSA8bWFyY2luLnJhandhQGxpbnV4LmludGVsLmNvbT4KPj4gU2lnbmVkLW9mZi1ieTogS2V5b24g
-SmllIDx5YW5nLmppZUBsaW51eC5pbnRlbC5jb20+Cj4+IFJldmlld2VkLWJ5OiBSYW5qYW5pIFNy
-aWRoYXJhbiA8cmFuamFuaS5zcmlkaGFyYW5AbGludXguaW50ZWwuY29tPgo+PiAtLS0KPj4gwqAg
-aW5jbHVkZS9zb3VuZC9zb2Yvc3RyZWFtLmggfCA0ICsrLS0KPj4gwqAgMSBmaWxlIGNoYW5nZWQs
-IDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2luY2x1
-ZGUvc291bmQvc29mL3N0cmVhbS5oIGIvaW5jbHVkZS9zb3VuZC9zb2Yvc3RyZWFtLmgKPj4gaW5k
-ZXggNjQzZjE3NWNiNDc5Li4wNmFmNGVjYjI1ODQgMTAwNjQ0Cj4+IC0tLSBhL2luY2x1ZGUvc291
-bmQvc29mL3N0cmVhbS5oCj4+ICsrKyBiL2luY2x1ZGUvc291bmQvc29mL3N0cmVhbS5oCj4+IEBA
-IC04MywxMCArODMsMTAgQEAgc3RydWN0IHNvZl9pcGNfc3RyZWFtX3BhcmFtcyB7Cj4+IMKgwqDC
-oMKgwqAgdWludDE2X3Qgc2FtcGxlX3ZhbGlkX2J5dGVzOwo+PiDCoMKgwqDCoMKgIHVpbnQxNl90
-IHNhbXBsZV9jb250YWluZXJfYnl0ZXM7Cj4+IC3CoMKgwqAgLyogZm9yIG5vdGlmeWluZyBob3N0
-IHBlcmlvZCBoYXMgY29tcGxldGVkIC0gMCBtZWFucyBubyBwZXJpb2QgCj4+IElSUSAqLwo+PiDC
-oMKgwqDCoMKgIHVpbnQzMl90IGhvc3RfcGVyaW9kX2J5dGVzOwo+PiArwqDCoMKgIHVpbnQzMl90
-IG5vX3Bvc2l0aW9uX2lwYzsgLyogMSBtZWFucyBubyBJUEMgZm9yIHBvc2l0aW9uIHVwYWR0ZSAq
-Lwo+IAo+IHR5cG86IHVwZGF0ZQoKT0ssIHRoYW5rcywgYW5vdGhlciB1cGRhdGUgdmVyc2lvbiBu
-ZWVkZWQgZm9yIGl0LgoKVGhhbmtzLAp+S2V5b24KCj4gCj4+IC3CoMKgwqAgdWludDMyX3QgcmVz
-ZXJ2ZWRbMl07Cj4+ICvCoMKgwqAgdWludDE2X3QgcmVzZXJ2ZWRbM107Cj4+IMKgwqDCoMKgwqAg
-dWludDE2X3QgY2htYXBbU09GX0lQQ19NQVhfQ0hBTk5FTFNdO8KgwqDCoCAvKio8IGNoYW5uZWwg
-bWFwIC0gCj4+IFNPRl9DSE1BUF8gKi8KPj4gwqAgfSBfX3BhY2tlZDsKPj4KPiAKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5n
-IGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXBy
-b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Wed, Jul 17, 2019 at 6:15 PM Angus Ainslie <angus@akkea.ca> wrote:
+>
+> On 2019-07-17 09:06, Daniel Baluta wrote:
+> > On Wed, Jul 17, 2019 at 5:33 PM Lucas Stach <l.stach@pengutronix.de>
+> > wrote:
+> >>
+> >> Hi Daniel,
+> >>
+> >> Am Mittwoch, den 17.07.2019, 17:16 +0300 schrieb Daniel Baluta:
+> >> > > On Wed, Jul 17, 2019 at 1:59 PM Lucas Stach <l.stach@pengutronix.de> wrote:
+> >> > >
+> >> > > The SAI block on the i.MX8M moved the register layout, as 2 version
+> >> > > registers were added at the start of the register map. We deal with
+> >> > > this by moving the start of the regmap, so both register layouts
+> >> > > look the same to accesses going through the regmap.
+> >> > >
+> >> > > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+> >> >
+> >> > This is a little bit tricky. We need the verid register in order
+> >> > to differentiate IPs which can support 1:1 ratio for bclk:mclk
+> >>
+> >> And this patch doesn't prevent this usage. If needed we can just read
+> >> the verid via a plain readl on the base mapping in the probe function
+> >> and cache it in struct fsl_sai. This seems way less intrusive than
+> >> carrying a register offset through all of the regmap accessors and
+> >> validation functions. I simply haven't implemented it in this patch,
+> >> as
+> >> I had no need for it right now.
+> >
+> > I must admit this is a very clever idea! Anyhow, I'm having some
+> > concerns
+> > because unfortunately not all registers were shifted by 8 bytes.
+> >
+> > See: imx6sx [1] (page 3575)  and imx8X [2] (page 5512) RMs.
+> >
+> > We have something like this:
+> >
+> > i.mx6 SX:
+> >
+> > 00: TCSR
+> > 04: TCR1
+> > 08: TCR2
+> > 0C: TCR3
+> > ....
+> > 60: TMR
+> > 80: RCSR
+> >
+> > i.mx 8X
+> >
+> > 00: VERID
+> > 04: PARAM
+> > 08: TCSR
+> > 0C: TCR1
+> > ...
+> > 60: TMR
+> > 88: RCSR
+> >
+>
+> We could split it into an upper and a lower regmap. Only the lower would
+> need the version register offset.
+
+That would work but will be unnecessary complicated. Let me send the
+imx8M support
+as we implemented in our tree by Friday.
+
+It has the disadvantage that we've wrapped all shifted register with a
+macro but I don't
+see other solution.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

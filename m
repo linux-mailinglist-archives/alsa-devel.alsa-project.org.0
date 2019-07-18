@@ -2,60 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32F646F089
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jul 2019 21:51:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BECE6F0B3
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jul 2019 22:47:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C750C170B;
-	Sat, 20 Jul 2019 21:50:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C750C170B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D26AE16FD;
+	Sat, 20 Jul 2019 22:46:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D26AE16FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563652273;
-	bh=atM1TfeLIk23NDirG0S2lXTI4slj0uB/dT/9yR6YKTs=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=XYHmIcWsUDmQ+JGfERGi0K6Y39DV58unYdZW74MBhy3QejyfFSh6iPi/xHMo1PYAx
-	 YhQ4GgRIlVw1FDk/Gtgw1J4yX1y5+cRDsYouDDWEp8/6sxdeGAdMQxBd9O5sZYup7X
-	 DEfNnBZelGzFDYHwVDiPgt3Fa+Rpl5f4GDWOxju4=
+	s=default; t=1563655647;
+	bh=L+PNSSQu83O758hibB0kQu3QmiIj09OGLClH+P+U3tc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eS/FyAjZ+taNA9H/BJducTUAn0LasyZZXfIqyYLR8qJ2Og8WgsBYBVzz+SKaTf+ij
+	 BYjxdfGmbAjGRyjB/cqg9NJ/hql7rtamXShK+6pGWBavoZm/ipx2fDiRdSS69WENFl
+	 FyFJLaBdQ/TUeK7Okl41ENhKC/kM6L4IHjuzKc6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8889AF8048D;
-	Sat, 20 Jul 2019 21:47:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01B57F80362;
+	Sat, 20 Jul 2019 22:45:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A1A6F80444; Sat, 20 Jul 2019 21:47:00 +0200 (CEST)
+ id D06D0F80362; Fri, 19 Jul 2019 01:12:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=RCVD_IN_DNSWL_MED,
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CECCBF803D0
- for <alsa-devel@alsa-project.org>; Sat, 20 Jul 2019 21:46:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CECCBF803D0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2019 12:46:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,288,1559545200"; d="scan'208";a="176592952"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 20 Jul 2019 12:46:16 -0700
-From: Cezary Rojewski <cezary.rojewski@intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78BB9F800C4
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 01:12:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78BB9F800C4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="h1GrcrPD"
+Received: by mail-pf1-x443.google.com with SMTP id i189so13291479pfg.10
+ for <alsa-devel@alsa-project.org>; Thu, 18 Jul 2019 16:12:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=11acAVEtyA0AARoxlPdi/ezYqT0l4s+46nMoN88vUBA=;
+ b=h1GrcrPD+N7w0Zd2P9BH4CZdhfi3eZBXU+/KecAAVHvlM6ezShvzM8NJq0aswJvko/
+ 8/2GsGgE85qEZ1WoDkO7SXpP8S/nHhYwC681mvgfSzqM6B3OgJDleWhriFVXs1xEOjFH
+ o1GQ4hYqZSphYeJHijrnuc6e+9khOQPd384RU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=11acAVEtyA0AARoxlPdi/ezYqT0l4s+46nMoN88vUBA=;
+ b=RgaRvnkhGhD3t3QuA5DcB4cnm6ROE+bowaOKi0e8XO8X8fqH/1VC/j0oqNvxGfMlS1
+ 1kMYPHI5lbDW0jtKNLMwR16kRMs8Oq/ORT7Qv6sVawZksOfEKl4IZYu9rnOrpaZ77MLC
+ IGtCY49WDAMW/q+eC16lOpLMOzMIn8Ky9j8t7R9HzwQ/u7Ijp5OQQkQ8D+I8ozqMtqiH
+ 0r27pXcYokC8mNxCpw8SqT9gkAlnaEhGyP39gIcYueGzC1n7R/xnMYY28RQIXOgOIAsw
+ 9XlOxwC8vdMkOMA1rIA/u8AWEU20A18THhA7j+5zsq8w3hXcCTaI/ErK8tHrKmQZSKXE
+ EaNA==
+X-Gm-Message-State: APjAAAWHvg4mI9aA4nmwZqToRKwg2GyDbjOQ9mD9jxHTXQUz1sGJhG6y
+ aM5BcRPW56crwvvzSfGWps7VeqMRGdU=
+X-Google-Smtp-Source: APXvYqyUhZyBVkptbPZ5tIhyrBX+tgCEtj688L0ZsbXbj90H4DZugd21KE7vewWRRxFvESuvEeQGvA==
+X-Received: by 2002:a65:60d3:: with SMTP id r19mr25196264pgv.91.1563491548903; 
+ Thu, 18 Jul 2019 16:12:28 -0700 (PDT)
+Received: from localhost ([2620:15c:202:201:1b1f:9c69:179b:de9a])
+ by smtp.gmail.com with ESMTPSA id w14sm32504540pfn.47.2019.07.18.16.12.28
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 18 Jul 2019 16:12:28 -0700 (PDT)
+From: Jon Flatley <jflat@chromium.org>
 To: alsa-devel@alsa-project.org
-Date: Sat, 20 Jul 2019 21:45:31 +0200
-Message-Id: <20190720194532.23682-5-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190720194532.23682-1-cezary.rojewski@intel.com>
-References: <20190720194532.23682-1-cezary.rojewski@intel.com>
-Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
- broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH 4/5] ASoC: Intel: Skylake: Align with updated
-	request-reply model
+Date: Thu, 18 Jul 2019 16:12:25 -0700
+Message-Id: <20190718231225.88991-1-jflat@chromium.org>
+X-Mailer: git-send-email 2.22.0.657.g960e92d24f-goog
+MIME-Version: 1.0
+X-Mailman-Approved-At: Sat, 20 Jul 2019 22:45:37 +0200
+Cc: benzh@chromium.org, broonie@kernel.org, jflat@chromium.org,
+ bardliao@realtek.com
+Subject: [alsa-devel] [PATCH] ASoC: intel: Add Broadwell rt5650 machine
+	driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,407 +91,396 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is struct sst_ipc_message instance representing request and reply
-each, and params: header, data and size need no longer to be declared
-explicitly. Align with that model.
+From: Ben Zhang <benzh@chromium.org>
 
-Update reply processing function to save RX header within message
-container.
+Add machine driver for Broadwell + rt5650.
 
-Despite the range of changes, status quo is achieved.
-
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Signed-off-by: Jon Flatley <jflat@chromium.org>
+Signed-off-by: Ben Zhang <benzh@chromium.org>
 ---
- sound/soc/intel/skylake/cnl-sst.c     |   6 +-
- sound/soc/intel/skylake/skl-sst-ipc.c | 110 ++++++++++++++++----------
- 2 files changed, 70 insertions(+), 46 deletions(-)
+ sound/soc/intel/boards/Kconfig                |  11 +
+ sound/soc/intel/boards/Makefile               |   2 +
+ sound/soc/intel/boards/bdw-rt5650.c           | 305 ++++++++++++++++++
+ .../common/soc-acpi-intel-hsw-bdw-match.c     |   5 +
+ 4 files changed, 323 insertions(+)
+ create mode 100644 sound/soc/intel/boards/bdw-rt5650.c
 
-diff --git a/sound/soc/intel/skylake/cnl-sst.c b/sound/soc/intel/skylake/cnl-sst.c
-index 2d748a335bcf..4f64f097e9ae 100644
---- a/sound/soc/intel/skylake/cnl-sst.c
-+++ b/sound/soc/intel/skylake/cnl-sst.c
-@@ -366,10 +366,10 @@ static struct sst_dsp_device cnl_dev = {
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index 50bf149818b5..c111ae177b4a 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -31,6 +31,17 @@ endif ## SND_SOC_INTEL_HASWELL
  
- static void cnl_ipc_tx_msg(struct sst_generic_ipc *ipc, struct ipc_message *msg)
- {
--	struct skl_ipc_header *header = (struct skl_ipc_header *)(&msg->header);
-+	struct skl_ipc_header *header = (struct skl_ipc_header *)(&msg->tx.header);
+ if SND_SOC_INTEL_HASWELL || SND_SOC_SOF_BROADWELL
  
--	if (msg->tx_size)
--		sst_dsp_outbox_write(ipc->dsp, msg->tx_data, msg->tx_size);
-+	if (msg->tx.size)
-+		sst_dsp_outbox_write(ipc->dsp, msg->tx.data, msg->tx.size);
- 	sst_dsp_shim_write_unlocked(ipc->dsp, CNL_ADSP_REG_HIPCIDD,
- 				    header->extension);
- 	sst_dsp_shim_write_unlocked(ipc->dsp, CNL_ADSP_REG_HIPCIDR,
-diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
-index ee1493acc9a8..a2b69a02aab2 100644
---- a/sound/soc/intel/skylake/skl-sst-ipc.c
-+++ b/sound/soc/intel/skylake/skl-sst-ipc.c
-@@ -281,7 +281,7 @@ void skl_ipc_tx_data_copy(struct ipc_message *msg, char *tx_data,
- 		size_t tx_size)
- {
- 	if (tx_size)
--		memcpy(msg->tx_data, tx_data, tx_size);
-+		memcpy(msg->tx.data, tx_data, tx_size);
- }
- 
- static bool skl_ipc_is_dsp_busy(struct sst_dsp *dsp)
-@@ -295,10 +295,10 @@ static bool skl_ipc_is_dsp_busy(struct sst_dsp *dsp)
- /* Lock to be held by caller */
- static void skl_ipc_tx_msg(struct sst_generic_ipc *ipc, struct ipc_message *msg)
- {
--	struct skl_ipc_header *header = (struct skl_ipc_header *)(&msg->header);
-+	struct skl_ipc_header *header = (struct skl_ipc_header *)(&msg->tx.header);
- 
--	if (msg->tx_size)
--		sst_dsp_outbox_write(ipc->dsp, msg->tx_data, msg->tx_size);
-+	if (msg->tx.size)
-+		sst_dsp_outbox_write(ipc->dsp, msg->tx.data, msg->tx.size);
- 	sst_dsp_shim_write_unlocked(ipc->dsp, SKL_ADSP_REG_HIPCIE,
- 						header->extension);
- 	sst_dsp_shim_write_unlocked(ipc->dsp, SKL_ADSP_REG_HIPCI,
-@@ -447,11 +447,12 @@ void skl_ipc_process_reply(struct sst_generic_ipc *ipc,
- 		return;
- 	}
- 
-+	msg->rx.header = *ipc_header;
- 	/* first process the header */
- 	if (reply == IPC_GLB_REPLY_SUCCESS) {
- 		dev_dbg(ipc->dev, "ipc FW reply %x: success\n", header.primary);
- 		/* copy the rx data from the mailbox */
--		sst_dsp_inbox_read(ipc->dsp, msg->rx_data, msg->rx_size);
-+		sst_dsp_inbox_read(ipc->dsp, msg->rx.data, msg->rx.size);
- 		switch (IPC_GLB_NOTIFY_MSG_TYPE(header.primary)) {
- 		case IPC_GLB_LOAD_MULTIPLE_MODS:
- 		case IPC_GLB_LOAD_LIBRARY:
-@@ -635,7 +636,7 @@ int skl_ipc_create_pipeline(struct sst_generic_ipc *ipc,
- 		u16 ppl_mem_size, u8 ppl_type, u8 instance_id, u8 lp_mode)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
-@@ -646,9 +647,10 @@ int skl_ipc_create_pipeline(struct sst_generic_ipc *ipc,
- 	header.primary |= IPC_PPL_MEM_SIZE(ppl_mem_size);
- 
- 	header.extension = IPC_PPL_LP_MODE(lp_mode);
-+	request.header = *(u64 *)(&header);
- 
- 	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: create pipeline fail, err: %d\n", ret);
- 		return ret;
-@@ -661,16 +663,17 @@ EXPORT_SYMBOL_GPL(skl_ipc_create_pipeline);
- int skl_ipc_delete_pipeline(struct sst_generic_ipc *ipc, u8 instance_id)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
- 	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
- 	header.primary |= IPC_GLB_TYPE(IPC_GLB_DELETE_PPL);
- 	header.primary |= IPC_INSTANCE_ID(instance_id);
-+	request.header = *(u64 *)(&header);
- 
- 	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: delete pipeline failed, err %d\n", ret);
- 		return ret;
-@@ -684,7 +687,7 @@ int skl_ipc_set_pipeline_state(struct sst_generic_ipc *ipc,
- 		u8 instance_id, enum skl_ipc_pipeline_state state)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
-@@ -692,9 +695,10 @@ int skl_ipc_set_pipeline_state(struct sst_generic_ipc *ipc,
- 	header.primary |= IPC_GLB_TYPE(IPC_GLB_SET_PPL_STATE);
- 	header.primary |= IPC_INSTANCE_ID(instance_id);
- 	header.primary |= IPC_PPL_STATE(state);
-+	request.header = *(u64 *)(&header);
- 
- 	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: set pipeline state failed, err: %d\n", ret);
- 		return ret;
-@@ -707,7 +711,7 @@ int
- skl_ipc_save_pipeline(struct sst_generic_ipc *ipc, u8 instance_id, int dma_id)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
-@@ -716,8 +720,10 @@ skl_ipc_save_pipeline(struct sst_generic_ipc *ipc, u8 instance_id, int dma_id)
- 	header.primary |= IPC_INSTANCE_ID(instance_id);
- 
- 	header.extension = IPC_DMA_ID(dma_id);
-+	request.header = *(u64 *)(&header);
++config SND_SOC_INTEL_BDW_RT5650_MACH
++	tristate "Broadwell with RT5650 codec"
++	depends on SND_SOC_INTEL_SST && X86_INTEL_LPSS && DW_DMAC
++	select SND_COMPRESS_OFFLOAD
++	select SND_SOC_RT5645
++	help
++	  This adds the ASoC machine driver for Intel Broadwell platforms with
++	  the RT5650 codec.
++	  Say Y if you have such a device
++	  If unsure select "N".
 +
- 	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: save pipeline failed, err: %d\n", ret);
- 		return ret;
-@@ -730,16 +736,17 @@ EXPORT_SYMBOL_GPL(skl_ipc_save_pipeline);
- int skl_ipc_restore_pipeline(struct sst_generic_ipc *ipc, u8 instance_id)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
- 	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
- 	header.primary |= IPC_GLB_TYPE(IPC_GLB_RESTORE_PPL);
- 	header.primary |= IPC_INSTANCE_ID(instance_id);
-+	request.header = *(u64 *)(&header);
- 
- 	dev_dbg(ipc->dev, "In %s header=%d\n", __func__, header.primary);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: restore  pipeline failed, err: %d\n", ret);
- 		return ret;
-@@ -753,7 +760,7 @@ int skl_ipc_set_dx(struct sst_generic_ipc *ipc, u8 instance_id,
- 		u16 module_id, struct skl_ipc_dxstate_info *dx)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request;
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
-@@ -762,10 +769,13 @@ int skl_ipc_set_dx(struct sst_generic_ipc *ipc, u8 instance_id,
- 	header.primary |= IPC_MOD_INSTANCE_ID(instance_id);
- 	header.primary |= IPC_MOD_ID(module_id);
- 
-+	request.header = *(u64 *)(&header);
-+	request.data = dx;
-+	request.size = sizeof(*dx);
+ config SND_SOC_INTEL_BDW_RT5677_MACH
+ 	tristate "Broadwell with RT5677 codec"
+ 	depends on I2C
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index 6445f90ea542..b5e2619607be 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -2,6 +2,7 @@
+ snd-soc-sst-haswell-objs := haswell.o
+ snd-soc-sst-byt-rt5640-mach-objs := byt-rt5640.o
+ snd-soc-sst-byt-max98090-mach-objs := byt-max98090.o
++snd-soc-sst-bdw-rt5650-mach-objs := bdw-rt5650.o
+ snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
+ snd-soc-sst-broadwell-objs := broadwell.o
+ snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o
+@@ -36,6 +37,7 @@ obj-$(CONFIG_SND_SOC_INTEL_BXT_DA7219_MAX98357A_MACH) += snd-soc-sst-bxt-da7219_
+ obj-$(CONFIG_SND_SOC_INTEL_BXT_RT298_MACH) += snd-soc-sst-bxt-rt298.o
+ obj-$(CONFIG_SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH) += snd-soc-sst-glk-rt5682_max98357a.o
+ obj-$(CONFIG_SND_SOC_INTEL_BROADWELL_MACH) += snd-soc-sst-broadwell.o
++obj-$(CONFIG_SND_SOC_INTEL_BDW_RT5650_MACH) += snd-soc-sst-bdw-rt5650-mach.o
+ obj-$(CONFIG_SND_SOC_INTEL_BDW_RT5677_MACH) += snd-soc-sst-bdw-rt5677-mach.o
+ obj-$(CONFIG_SND_SOC_INTEL_BYTCR_RT5640_MACH) += snd-soc-sst-bytcr-rt5640.o
+ obj-$(CONFIG_SND_SOC_INTEL_BYTCR_RT5651_MACH) += snd-soc-sst-bytcr-rt5651.o
+diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
+new file mode 100644
+index 000000000000..cb875eeab055
+--- /dev/null
++++ b/sound/soc/intel/boards/bdw-rt5650.c
+@@ -0,0 +1,305 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * ASoC machine driver for Intel Broadwell platforms with RT5650 codec
++ *
++ * Copyright 2019, The Chromium OS Authors.  All rights reserved.
++ */
 +
- 	dev_dbg(ipc->dev, "In %s primary =%x ext=%x\n", __func__,
- 			 header.primary, header.extension);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header,
--				dx, sizeof(*dx), NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: set dx failed, err %d\n", ret);
- 		return ret;
-@@ -779,7 +789,7 @@ int skl_ipc_init_instance(struct sst_generic_ipc *ipc,
- 		struct skl_ipc_init_instance_msg *msg, void *param_data)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request;
- 	int ret;
- 	u32 *buffer = (u32 *)param_data;
- 	 /* param_block_size must be in dwords */
-@@ -799,10 +809,13 @@ int skl_ipc_init_instance(struct sst_generic_ipc *ipc,
- 	header.extension |= IPC_PARAM_BLOCK_SIZE(param_block_size);
- 	header.extension |= IPC_DOMAIN(msg->domain);
- 
-+	request.header = *(u64 *)(&header);
-+	request.data = param_data;
-+	request.size = msg->param_data_size;
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/gpio/consumer.h>
++#include <linux/delay.h>
++#include <sound/core.h>
++#include <sound/pcm.h>
++#include <sound/soc.h>
++#include <sound/pcm_params.h>
++#include <sound/jack.h>
 +
- 	dev_dbg(ipc->dev, "In %s primary =%x ext=%x\n", __func__,
- 			 header.primary, header.extension);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, param_data,
--			msg->param_data_size, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: init instance failed\n");
-@@ -817,7 +830,7 @@ int skl_ipc_bind_unbind(struct sst_generic_ipc *ipc,
- 		struct skl_ipc_bind_unbind_msg *msg)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	u8 bind_unbind = msg->bind ? IPC_MOD_BIND : IPC_MOD_UNBIND;
- 	int ret;
- 
-@@ -831,10 +844,11 @@ int skl_ipc_bind_unbind(struct sst_generic_ipc *ipc,
- 	header.extension |= IPC_DST_MOD_INSTANCE_ID(msg->dst_instance_id);
- 	header.extension |= IPC_DST_QUEUE(msg->dst_queue);
- 	header.extension |= IPC_SRC_QUEUE(msg->src_queue);
-+	request.header = *(u64 *)(&header);
- 
- 	dev_dbg(ipc->dev, "In %s hdr=%x ext=%x\n", __func__, header.primary,
- 			 header.extension);
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0) {
- 		dev_err(ipc->dev, "ipc: bind/unbind failed\n");
- 		return ret;
-@@ -854,7 +868,7 @@ int skl_ipc_load_modules(struct sst_generic_ipc *ipc,
- 				u8 module_cnt, void *data)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request;
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
-@@ -862,8 +876,11 @@ int skl_ipc_load_modules(struct sst_generic_ipc *ipc,
- 	header.primary |= IPC_GLB_TYPE(IPC_GLB_LOAD_MULTIPLE_MODS);
- 	header.primary |= IPC_LOAD_MODULE_CNT(module_cnt);
- 
--	ret = sst_ipc_tx_message_nowait(ipc, *ipc_header, data,
--				(sizeof(u16) * module_cnt));
-+	request.header = *(u64 *)(&header);
-+	request.data = data;
-+	request.size = sizeof(u16) * module_cnt;
++#include "../common/sst-dsp.h"
++#include "../haswell/sst-haswell-ipc.h"
 +
-+	ret = sst_ipc_tx_message_nowait(ipc, request);
- 	if (ret < 0)
- 		dev_err(ipc->dev, "ipc: load modules failed :%d\n", ret);
- 
-@@ -875,7 +892,7 @@ int skl_ipc_unload_modules(struct sst_generic_ipc *ipc, u8 module_cnt,
- 							void *data)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request;
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
-@@ -883,8 +900,11 @@ int skl_ipc_unload_modules(struct sst_generic_ipc *ipc, u8 module_cnt,
- 	header.primary |= IPC_GLB_TYPE(IPC_GLB_UNLOAD_MULTIPLE_MODS);
- 	header.primary |= IPC_LOAD_MODULE_CNT(module_cnt);
- 
--	ret = sst_ipc_tx_message_wait(ipc, *ipc_header, data,
--				(sizeof(u16) * module_cnt), NULL, 0);
-+	request.header = *(u64 *)(&header);
-+	request.data = data;
-+	request.size = sizeof(u16) * module_cnt;
++#include "../../codecs/rt5645.h"
 +
-+	ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	if (ret < 0)
- 		dev_err(ipc->dev, "ipc: unload modules failed :%d\n", ret);
- 
-@@ -896,7 +916,7 @@ int skl_ipc_set_large_config(struct sst_generic_ipc *ipc,
- 		struct skl_ipc_large_config_msg *msg, u32 *param)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request;
- 	int ret = 0;
- 	size_t sz_remaining, tx_size, data_offset;
- 
-@@ -923,9 +943,11 @@ int skl_ipc_set_large_config(struct sst_generic_ipc *ipc,
- 			header.primary, header.extension);
- 		dev_dbg(ipc->dev, "transmitting offset: %#x, size: %#x\n",
- 			(unsigned)data_offset, (unsigned)tx_size);
--		ret = sst_ipc_tx_message_wait(ipc, *ipc_header,
--					  ((char *)param) + data_offset,
--					  tx_size, NULL, 0);
++struct bdw_rt5650_priv {
++	struct gpio_desc *gpio_hp_en;
++	struct snd_soc_component *component;
++};
 +
-+		request.header = *(u64 *)(&header);
-+		request.data = ((char *)param) + data_offset;
-+		request.size = tx_size;
-+		ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 		if (ret < 0) {
- 			dev_err(ipc->dev,
- 				"ipc: set large config fail, err: %d\n", ret);
-@@ -950,7 +972,7 @@ int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
- 		struct skl_ipc_large_config_msg *msg, u32 *param)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0}, reply = {0};
- 	int ret = 0;
- 	size_t sz_remaining, rx_size, data_offset;
- 
-@@ -974,9 +996,10 @@ int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
- 		if (rx_size == sz_remaining)
- 			header.extension |= IPC_FINAL_BLOCK(1);
- 
--		ret = sst_ipc_tx_message_wait(ipc, *ipc_header, NULL, 0,
--					      ((char *)param) + data_offset,
--					      msg->param_data_size);
-+		request.header = *(u64 *)(&header);
-+		reply.data = ((char *)param) + data_offset;
-+		reply.size = msg->param_data_size;
-+		ret = sst_ipc_tx_message_wait(ipc, request, &reply);
- 		if (ret < 0) {
- 			dev_err(ipc->dev,
- 				"ipc: get large config fail, err: %d\n", ret);
-@@ -1001,7 +1024,7 @@ int skl_sst_ipc_load_library(struct sst_generic_ipc *ipc,
- 				u8 dma_id, u8 table_id, bool wait)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret = 0;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_FW_GEN_MSG);
-@@ -1009,12 +1032,12 @@ int skl_sst_ipc_load_library(struct sst_generic_ipc *ipc,
- 	header.primary |= IPC_GLB_TYPE(IPC_GLB_LOAD_LIBRARY);
- 	header.primary |= IPC_MOD_INSTANCE_ID(table_id);
- 	header.primary |= IPC_MOD_ID(dma_id);
-+	request.header = *(u64 *)(&header);
- 
- 	if (wait)
--		ret = sst_ipc_tx_message_wait(ipc, *ipc_header,
--					NULL, 0, NULL, 0);
-+		ret = sst_ipc_tx_message_wait(ipc, request, NULL);
- 	else
--		ret = sst_ipc_tx_message_nowait(ipc, *ipc_header, NULL, 0);
-+		ret = sst_ipc_tx_message_nowait(ipc, request);
- 
- 	if (ret < 0)
- 		dev_err(ipc->dev, "ipc: load lib failed\n");
-@@ -1026,7 +1049,7 @@ EXPORT_SYMBOL_GPL(skl_sst_ipc_load_library);
- int skl_ipc_set_d0ix(struct sst_generic_ipc *ipc, struct skl_ipc_d0ix_msg *msg)
- {
- 	struct skl_ipc_header header = {0};
--	u64 *ipc_header = (u64 *)(&header);
-+	struct sst_ipc_message request = {0};
- 	int ret;
- 
- 	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
-@@ -1037,6 +1060,7 @@ int skl_ipc_set_d0ix(struct sst_generic_ipc *ipc, struct skl_ipc_d0ix_msg *msg)
- 
- 	header.extension = IPC_D0IX_WAKE(msg->wake);
- 	header.extension |= IPC_D0IX_STREAMING(msg->streaming);
-+	request.header = *(u64 *)(&header);
- 
- 	dev_dbg(ipc->dev, "In %s primary=%x ext=%x\n", __func__,
- 			header.primary,	header.extension);
-@@ -1044,7 +1068,7 @@ int skl_ipc_set_d0ix(struct sst_generic_ipc *ipc, struct skl_ipc_d0ix_msg *msg)
- 	/*
- 	 * Use the nopm IPC here as we dont want it checking for D0iX
- 	 */
--	ret = sst_ipc_tx_message_nopm(ipc, *ipc_header, NULL, 0, NULL, 0);
-+	ret = sst_ipc_tx_message_nopm(ipc, request, NULL);
- 	if (ret < 0)
- 		dev_err(ipc->dev, "ipc: set d0ix failed, err %d\n", ret);
- 
++static const struct snd_soc_dapm_widget bdw_rt5650_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone", NULL),
++	SND_SOC_DAPM_SPK("Speaker", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++	SND_SOC_DAPM_MIC("DMIC Pair1", NULL),
++	SND_SOC_DAPM_MIC("DMIC Pair2", NULL),
++};
++
++static const struct snd_soc_dapm_route bdw_rt5650_map[] = {
++	/* Speakers */
++	{"Speaker", NULL, "SPOL"},
++	{"Speaker", NULL, "SPOR"},
++
++	/* Headset jack connectors */
++	{"Headphone", NULL, "HPOL"},
++	{"Headphone", NULL, "HPOR"},
++	{"IN1P", NULL, "Headset Mic"},
++	{"IN1N", NULL, "Headset Mic"},
++
++	/* Digital MICs
++	 * DMIC Pair1 are the two DMICs connected on the DMICN1 connector.
++	 * DMIC Pair2 are the two DMICs connected on the DMICN2 connector.
++	 * Facing the camera, DMIC Pair1 are on the left side, DMIC Pair2
++	 * are on the right side.
++	 */
++	{"DMIC L1", NULL, "DMIC Pair1"},
++	{"DMIC R1", NULL, "DMIC Pair1"},
++	{"DMIC L2", NULL, "DMIC Pair2"},
++	{"DMIC R2", NULL, "DMIC Pair2"},
++
++	/* CODEC BE connections */
++	{"SSP0 CODEC IN", NULL, "AIF1 Capture"},
++	{"AIF1 Playback", NULL, "SSP0 CODEC OUT"},
++};
++
++static const struct snd_kcontrol_new bdw_rt5650_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Speaker"),
++	SOC_DAPM_PIN_SWITCH("Headphone"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++	SOC_DAPM_PIN_SWITCH("DMIC Pair1"),
++	SOC_DAPM_PIN_SWITCH("DMIC Pair2"),
++};
++
++
++static struct snd_soc_jack headphone_jack;
++static struct snd_soc_jack mic_jack;
++
++static struct snd_soc_jack_pin headphone_jack_pin = {
++	.pin	= "Headphone",
++	.mask	= SND_JACK_HEADPHONE,
++};
++
++static struct snd_soc_jack_pin mic_jack_pin = {
++	.pin	= "Headset Mic",
++	.mask	= SND_JACK_MICROPHONE,
++};
++
++static int broadwell_ssp0_fixup(struct snd_soc_pcm_runtime *rtd,
++			struct snd_pcm_hw_params *params)
++{
++	struct snd_interval *rate = hw_param_interval(params,
++			SNDRV_PCM_HW_PARAM_RATE);
++	struct snd_interval *channels = hw_param_interval(params,
++						SNDRV_PCM_HW_PARAM_CHANNELS);
++
++	/* The ADSP will covert the FE rate to 48k, max 4-channels */
++	rate->min = rate->max = 48000;
++	channels->min = 2;
++	channels->max = 4;
++
++	/* set SSP0 to 24 bit */
++	snd_mask_set(&params->masks[SNDRV_PCM_HW_PARAM_FORMAT -
++				    SNDRV_PCM_HW_PARAM_FIRST_MASK],
++				    SNDRV_PCM_FORMAT_S24_LE);
++	return 0;
++}
++
++static int bdw_rt5650_hw_params(struct snd_pcm_substream *substream,
++	struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	int ret;
++
++	/* Workaround: set codec PLL to 19.2MHz that PLL source is
++	 * from MCLK(24MHz) to conform 2.4MHz DMIC clock.
++	 */
++	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5645_PLL1_S_MCLK,
++		24000000, 19200000);
++	if (ret < 0) {
++		dev_err(rtd->dev, "can't set codec pll: %d\n", ret);
++		return ret;
++	}
++
++	/* The actual MCLK freq is 24MHz. The codec is told that MCLK is
++	 * 24.576MHz to satisfy the requirement of rl6231_get_clk_info.
++	 * ASRC is enabled on AD and DA filters to ensure good audio quality.
++	 */
++	ret = snd_soc_dai_set_sysclk(codec_dai, RT5645_SCLK_S_PLL1, 24576000,
++		SND_SOC_CLOCK_IN);
++	if (ret < 0) {
++		dev_err(rtd->dev, "can't set codec sysclk configuration\n");
++		return ret;
++	}
++
++	return ret;
++}
++
++static struct snd_soc_ops bdw_rt5650_ops = {
++	.hw_params = bdw_rt5650_hw_params,
++};
++
++static int bdw_rt5650_rtd_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_component *component =
++		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
++	struct sst_pdata *pdata = dev_get_platdata(component->dev);
++	struct sst_hsw *broadwell = pdata->dsp;
++	int ret;
++
++	/* Set ADSP SSP port settings
++	 * clock_divider = 4 means BCLK = MCLK/5 = 24MHz/5 = 4.8MHz
++	 */
++	ret = sst_hsw_device_set_config(broadwell, SST_HSW_DEVICE_SSP_0,
++		SST_HSW_DEVICE_MCLK_FREQ_24_MHZ,
++		SST_HSW_DEVICE_TDM_CLOCK_MASTER, 4);
++	if (ret < 0) {
++		dev_err(rtd->dev, "error: failed to set device config\n");
++		return ret;
++	}
++
++	return 0;
++}
++
++static int bdw_rt5650_init(struct snd_soc_pcm_runtime *rtd)
++{
++	struct bdw_rt5650_priv *bdw_rt5650 =
++		snd_soc_card_get_drvdata(rtd->card);
++	struct snd_soc_component *component = rtd->codec_dai->component;
++	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	int ret;
++
++	/* Enable codec ASRC function for Stereo DAC/Stereo1 ADC/DMIC/I2S1.
++	 * The ASRC clock source is clk_i2s1_asrc.
++	 */
++	rt5645_sel_asrc_clk_src(component,
++				RT5645_DA_STEREO_FILTER |
++				RT5645_DA_MONO_L_FILTER |
++				RT5645_DA_MONO_R_FILTER |
++				RT5645_AD_STEREO_FILTER |
++				RT5645_AD_MONO_L_FILTER |
++				RT5645_AD_MONO_R_FILTER,
++				RT5645_CLK_SEL_I2S1_ASRC);
++
++	/* TDM 4 slots 24 bit, set Rx & Tx bitmask to 4 active slots */
++	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0xF, 0xF, 4, 24);
++
++	if (ret < 0) {
++		dev_err(rtd->dev, "can't set codec TDM slot %d\n", ret);
++		return ret;
++	}
++
++	/* Create and initialize headphone jack */
++	if (snd_soc_card_jack_new(rtd->card, "Headphone Jack",
++			SND_JACK_HEADPHONE, &headphone_jack,
++			&headphone_jack_pin, 1)) {
++		dev_err(component->dev, "Can't create headphone jack\n");
++	}
++
++	/* Create and initialize mic jack */
++	if (snd_soc_card_jack_new(rtd->card, "Mic Jack", SND_JACK_MICROPHONE,
++			&mic_jack, &mic_jack_pin, 1)) {
++		dev_err(component->dev, "Can't create mic jack\n");
++	}
++
++	rt5645_set_jack_detect(component, &headphone_jack, &mic_jack, NULL);
++
++	bdw_rt5650->component = component;
++
++	return 0;
++}
++
++/* broadwell digital audio interface glue - connects codec <--> CPU */
++SND_SOC_DAILINK_DEF(dummy, DAILINK_COMP_ARRAY(COMP_DUMMY()));
++SND_SOC_DAILINK_DEF(fe, DAILINK_COMP_ARRAY(COMP_CPU("System Pin")));
++SND_SOC_DAILINK_DEF(platform,
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("haswell-pcm-audio")));
++SND_SOC_DAILINK_DEF(be,
++	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5650:00", "rt5645-aif1")));
++
++static struct snd_soc_dai_link bdw_rt5650_dais[] = {
++	/* Front End DAI links */
++	{
++		.name = "System PCM",
++		.stream_name = "System Playback",
++		.dynamic = 1,
++		.init = bdw_rt5650_rtd_init,
++		.trigger = {
++			SND_SOC_DPCM_TRIGGER_POST,
++			SND_SOC_DPCM_TRIGGER_POST
++		},
++		.dpcm_playback = 1,
++		.dpcm_capture = 1,
++		SND_SOC_DAILINK_REG(fe, dummy, platform),
++	},
++
++	/* Back End DAI links */
++	{
++		/* SSP0 - Codec */
++		.name = "Codec",
++		.id = 0,
++		.no_pcm = 1,
++		.dai_fmt = SND_SOC_DAIFMT_DSP_B | SND_SOC_DAIFMT_NB_NF |
++			SND_SOC_DAIFMT_CBS_CFS,
++		.ignore_suspend = 1,
++		.ignore_pmdown_time = 1,
++		.be_hw_params_fixup = broadwell_ssp0_fixup,
++		.ops = &bdw_rt5650_ops,
++		.dpcm_playback = 1,
++		.dpcm_capture = 1,
++		.init = bdw_rt5650_init,
++		SND_SOC_DAILINK_REG(dummy, be, dummy)
++	},
++};
++
++/* ASoC machine driver for Broadwell DSP + RT5650 */
++static struct snd_soc_card bdw_rt5650_card = {
++	.name = "bdw-rt5650",
++	.owner = THIS_MODULE,
++	.dai_link = bdw_rt5650_dais,
++	.num_links = ARRAY_SIZE(bdw_rt5650_dais),
++	.dapm_widgets = bdw_rt5650_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(bdw_rt5650_widgets),
++	.dapm_routes = bdw_rt5650_map,
++	.num_dapm_routes = ARRAY_SIZE(bdw_rt5650_map),
++	.controls = bdw_rt5650_controls,
++	.num_controls = ARRAY_SIZE(bdw_rt5650_controls),
++	.fully_routed = true,
++};
++
++static int bdw_rt5650_probe(struct platform_device *pdev)
++{
++	struct bdw_rt5650_priv *bdw_rt5650;
++
++	bdw_rt5650_card.dev = &pdev->dev;
++
++	/* Allocate driver private struct */
++	bdw_rt5650 = devm_kzalloc(&pdev->dev, sizeof(struct bdw_rt5650_priv),
++		GFP_KERNEL);
++	if (!bdw_rt5650)
++		return -ENOMEM;
++	snd_soc_card_set_drvdata(&bdw_rt5650_card, bdw_rt5650);
++
++	return snd_soc_register_card(&bdw_rt5650_card);
++}
++
++static int bdw_rt5650_remove(struct platform_device *pdev)
++{
++	snd_soc_unregister_card(&bdw_rt5650_card);
++	return 0;
++}
++
++static struct platform_driver bdw_rt5650_audio = {
++	.probe = bdw_rt5650_probe,
++	.remove = bdw_rt5650_remove,
++	.driver = {
++		.name = "bdw-rt5650",
++		.owner = THIS_MODULE,
++	},
++};
++
++module_platform_driver(bdw_rt5650_audio)
++
++/* Module information */
++MODULE_AUTHOR("Ben Zhang <benzh@chromium.org>");
++MODULE_DESCRIPTION("Intel Broadwell RT5650 machine driver");
++MODULE_LICENSE("GPL v2");
++MODULE_ALIAS("platform:bdw-rt5650");
+diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
+index d27853e7a369..ba3d25658436 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
+@@ -29,6 +29,11 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[] = {
+ 		.sof_fw_filename = "sof-bdw.ri",
+ 		.sof_tplg_filename = "sof-bdw-rt286.tplg",
+ 	},
++	{
++		.id = "10EC5650",
++		.drv_name = "bdw-rt5650",
++		.fw_filename = "intel/IntcSST2.bin",
++	},
+ 	{
+ 		.id = "RT5677CE",
+ 		.drv_name = "bdw-rt5677",
 -- 
-2.17.1
+2.22.0.657.g960e92d24f-goog
 
 _______________________________________________
 Alsa-devel mailing list

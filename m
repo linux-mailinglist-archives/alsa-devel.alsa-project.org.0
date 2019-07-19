@@ -2,55 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A7066EA7D
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 20:07:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 624AF6EA86
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 20:11:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89FBC16D7;
-	Fri, 19 Jul 2019 20:07:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89FBC16D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB88C16DE;
+	Fri, 19 Jul 2019 20:10:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB88C16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563559676;
-	bh=GvAUrOaol+SO5ml0XlGChJ4tJONpeWpeZAGqtHGIfZ8=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SOnQ+OwTlMDpS5Q5WabE76krJ3JjX4qm+11ePFjksbnO6lhx0Z2bRijVmd5GK1cH+
-	 Fn1lg7Cli+o0xxAIGVMJQWm5quxXL0sKwbgSAGhfRftYT8WOOfMnHx6QAAvd458msY
-	 RXKwQsn8NHr1v+vYAuftv750ZwX0jWc8aAfAAaVA=
+	s=default; t=1563559875;
+	bh=HbJswfgzyDMkZxWsDXqAhVsYwKuZc4Cg9eTcwcGjQ/g=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ek5EElLoyrRB/mKYVuXURoIU446XWHmAWEcJ4pwQrL93SDahkhIzmBOmeWBTSL4Ea
+	 NUf3KjepSbgWIqDAsCji8uVBXWqNQm1fx+HN0oygcod0/RLQdx1Z1W3BeN+Zzb+rll
+	 9CI1I2yStPyXREyLDhVkBmgai8pdCOGdLafG8+4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F5BAF80367;
-	Fri, 19 Jul 2019 20:06:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82314F80367;
+	Fri, 19 Jul 2019 20:09:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EEEA7F80272; Fri, 19 Jul 2019 20:06:10 +0200 (CEST)
+ id 70183F800C4; Fri, 19 Jul 2019 20:09:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67155F800C4
- for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 20:06:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67155F800C4
-Received: from [127.0.0.1] (localhost [127.0.0.1])
- (Authenticated sender: eballetbo) with ESMTPSA id A114028C53E
-From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 19 Jul 2019 20:05:58 +0200
-Message-Id: <20190719180558.11459-1-enric.balletbo@collabora.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- dianders@chromium.org, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, Collabora Kernel ML <kernel@collabora.com>,
- linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
-Subject: [alsa-devel] [PATCH] SoC: rockchip-max98090: Remove MICBIAS as
-	supply of input pin IN34
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93EEAF800C4
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 20:09:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93EEAF800C4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 0BD05AE2C;
+ Fri, 19 Jul 2019 18:09:25 +0000 (UTC)
+Date: Fri, 19 Jul 2019 20:09:24 +0200
+Message-ID: <s5hmuh9zyjv.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190719170610.17610-4-pierre-louis.bossart@linux.intel.com>
+References: <20190719170610.17610-1-pierre-louis.bossart@linux.intel.com>
+ <20190719170610.17610-4-pierre-louis.bossart@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Hui Wang <hui.wang@canonical.com>,
+ Curtis Malainey <cujomalainey@google.com>, alsa-devel@alsa-project.org,
+ broonie@kernel.org, Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [PATCH 3/6] ALSA: hda: intel-nhlt: remove useless
+	OR operation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,34 +73,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit ec0d23b295b9 ("ASoC: rockchip-max98090: Fix the Headset Mic
-route.") moved the MICBIAS widget to supply Headset Mic but forget to
-remove the MICBIAS widget to supply IN34 which is not really needed, so
-remove that path so we have:
+On Fri, 19 Jul 2019 19:06:07 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> Each assignment is final so there's no point in doing an OR.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-   IN34 <==== Headset MIC <==== MICBIAS
+Please fold into the patch 2.  There is no reason to split.
 
-Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
----
 
- sound/soc/rockchip/rockchip_max98090.c | 1 -
- 1 file changed, 1 deletion(-)
+thanks,
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 782e534d4c0d..1af1147c3da3 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -45,7 +45,6 @@ static const struct snd_soc_dapm_widget rk_dapm_widgets[] = {
- 
- static const struct snd_soc_dapm_route rk_audio_map[] = {
- 	{"IN34", NULL, "Headset Mic"},
--	{"IN34", NULL, "MICBIAS"},
- 	{"Headset Mic", NULL, "MICBIAS"},
- 	{"DMICL", NULL, "Int Mic"},
- 	{"Headphone", NULL, "HPL"},
--- 
-2.20.1
+Takashi
 
+> ---
+>  sound/hda/intel-nhlt.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
+> index b9d00c1b25d5..7ba871e470f2 100644
+> --- a/sound/hda/intel-nhlt.c
+> +++ b/sound/hda/intel-nhlt.c
+> @@ -73,13 +73,13 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
+>  			switch (cfg->array_type) {
+>  			case NHLT_MIC_ARRAY_2CH_SMALL:
+>  			case NHLT_MIC_ARRAY_2CH_BIG:
+> -				dmic_geo |= MIC_ARRAY_2CH;
+> +				dmic_geo = MIC_ARRAY_2CH;
+>  				break;
+>  
+>  			case NHLT_MIC_ARRAY_4CH_1ST_GEOM:
+>  			case NHLT_MIC_ARRAY_4CH_L_SHAPED:
+>  			case NHLT_MIC_ARRAY_4CH_2ND_GEOM:
+> -				dmic_geo |= MIC_ARRAY_4CH;
+> +				dmic_geo = MIC_ARRAY_4CH;
+>  				break;
+>  
+>  			default:
+> -- 
+> 2.20.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

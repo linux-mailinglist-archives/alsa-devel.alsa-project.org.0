@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3199E6E3FE
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 12:10:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D206E401
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 12:11:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B351F16B2;
-	Fri, 19 Jul 2019 12:09:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B351F16B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B0641693;
+	Fri, 19 Jul 2019 12:10:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B0641693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563531043;
-	bh=4j01L5RwRcZVGiLMeTziHEW5QRkCsieV2PswmQIZ97M=;
+	s=default; t=1563531086;
+	bh=bvw1cY/O8mDoeX9dFtSYQF7YJknuLBrasdhW7ULycFk=;
 	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XjrMmsqV7QALpMAQpgHGeOy4NK3ZJxvGVl0pR1XN8YSqB+KYYvmsMFafF8bLKGEG3
-	 hY86b8fc10Wz3uXPMXjRU5xMyJvUqGp7OkFBAIrx2JnPKjCfvIlhN7/l/Ag1/Ld7lS
-	 FBh2mM5EfKlYoWSl+TXBwm2fHnxLtiSI9sXYDEPg=
+	b=nlut8dey1ZsL2HPx1Hi/cQtD1cnwvjInfBAz04w2UPjIVqQLhOzXcbis4oWaSRCpS
+	 k6GLeHYSLVptVSNVISiCXGc01lqy4NLBkCpeZTSOtTQeDBCARBt3pBu8kPIPZyKlwV
+	 nGsxnUpxqMuT3A37TsJ57m4cUz8PRwWMIVjZqbYY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8718F8048F;
-	Fri, 19 Jul 2019 12:05:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6769F804AA;
+	Fri, 19 Jul 2019 12:05:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1AB0F80440; Fri, 19 Jul 2019 12:05:40 +0200 (CEST)
+ id 8D089F80446; Fri, 19 Jul 2019 12:05:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,49 +35,49 @@ Received: from EUR03-DB5-obe.outbound.protection.outlook.com
  (mail-eopbgr40101.outbound.protection.outlook.com [40.107.4.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13BDDF803D0
- for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 12:05:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13BDDF803D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51EB0F803D7
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 12:05:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51EB0F803D7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
- header.b="XzryjYEu"
+ header.b="EHnLM8M7"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CZZb5ntHBuxbcrDbFqQrWPXZ+2WcQPXQB7s3SlbvHzt8/Mug+f9wa98yYOoQY+gJjhAez0RUrG5p3WzP/Fu1o2QIxuJoIZnxNsSVhaRq7W/iVZU2ix6iO2viJs4ET11wyRi3p1I2YvQQBMM/2OOwJVcAo7CBPKnozJfWyNCUIoDGpR6bGHtYHI/AKx3GYiv8zAQyKjNGT+xRsq8Dc0ndqBmSI+h4KMri/GzWSBzNFFu9OyE7LrAgLNd5Vz1xqiuWu4ly+5MD7JCkHL/6fcYgXgXbWatDaDATXcdlXejVFx3QwSaIU7yDk61ttP5eeuPbV65iLuUBhgifpdwTjQW99A==
+ b=EjoZsa0RMV9JGFR7vMzSsPdFAHqqyQhlIhIsz+C/KlyWndJfKUBQsJNPr4U2cJyUeq7DxfGpEa1l43ogflBQBB/iQvRglSZd6d4dxrPq+8Oe7TdOlfhBOzUJttRvvGDsO1NgoPU4HbP85mEBjsSKPrjyFkPVszPWYvz/eIJ8pdHFif/bsMLyHpHrTRoL7Ku85H446f0lTtieZ5oci2kHv8BDKiYoEy0KOLmYnh7fZDSB7beU8Y2GVy+MPwMuBxYoWv8Yu0eKneJlzG833ys1pQEl2wnL/MJ1ruh06sPHmPPVS35cRMSiuZT/UXKOHSkDUyoVCFUdXRdGwrLh7MrPyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PTq697b8pNY7VmSbc1Y0KPdxRSinFvfyYF/Yw8olZyc=;
- b=AE3jrfMi/5TsVYQ/f/BZIcerjnw7ySlFZIPdb7PWLwW0PU1/Ayxzl3gY+2H71ceZfBO1MwAV6M1fV8zo31JdDDhAr60pSo5Rz2+pai2ZpaMsF64XYDnBrPyAPNRdOLJt8BJGnQe2PppE3Lup4tdNVBrYfhhTpOeYMfyN6qvd2LNDfOGrmaRpgdkPBlLJb4Jzjx71L36CU6ilnSTqc8M/huebs0C2gu/YilneeE/IfUlhmquULAnPJI9KYqMwuJNQh8VXRBFtzrdIWStVp65mGLIVp7mhJVvPX1oNenodNWgyQrmvcLxYf9zYlIVooiqdAS7yGJKRa6zmCbbDYZCNTA==
+ bh=koq0CKddyZm2mfqkFPbj4WrPzE2dqUucDVLLxp5WBtk=;
+ b=C4wwS5Nd92X1kqMfI7f1+rNXyTyHpTxB0AfstMXeUsIao1YV7B/EtLjWcduzqhg+qTmfiRfAXQNBgQexJTyJwQCVZGa0lfB5OB5/ExheJFYPzZ5H8T1IoHOEynaEPUw48Anrz9Kzg6PIoblWtC/5oZBkDs7pT7cr1/yn8ogfz/Oc3t+I2e3W/+zE/UpIAUVTNm/X6MkOj3fZ7ZIaKWiCNM0/CQqHxYEn+KY0HCgKYjUYdJ6/HFTVI6uOosGsVJQ+m9Tk1E6kRbrAsezNwpOClaYE/9OF4HXNYRmvKyopdMfEsTCftnNT+3qG4XbHIMGAJoOMqB5iqmRmCQCN/vRftA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
  smtp.mailfrom=toradex.com;dmarc=pass action=none
  header.from=toradex.com;dkim=pass header.d=toradex.com;arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PTq697b8pNY7VmSbc1Y0KPdxRSinFvfyYF/Yw8olZyc=;
- b=XzryjYEuK0NQf8ddJkax1js6gog/om9qn4lI1X6/ADDvQxMxiMuZUEMPu/ClzJ5QFTEaIRPXitT43hWx+2CbyS07YP689nR+e8JCo85n87YVAzieFXb6LaESHDz786+eh7wAFYGIkNdEzr42RJVUX/wpWsOGu0vfGnnF+CrWIS4=
+ bh=koq0CKddyZm2mfqkFPbj4WrPzE2dqUucDVLLxp5WBtk=;
+ b=EHnLM8M7zXibs/SSSzJ+2XryzxOKO8jnsJ2NLnKS32qZxnap44yGAiMuBmMavWOqxLR5uQtDnMAetfiP6s0qFdzsOg/N/B/SZetMXshJSjy36kfsvnyX40Z3N/usRMeyS8fCjNLUoHSqnbZlgkj7p4pPvWj4YWKi8E+zjo2KcQw=
 Received: from AM6PR05MB6535.eurprd05.prod.outlook.com (20.179.18.16) by
  AM6PR05MB5925.eurprd05.prod.outlook.com (20.179.0.215) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2094.14; Fri, 19 Jul 2019 10:05:36 +0000
+ 15.20.2094.14; Fri, 19 Jul 2019 10:05:37 +0000
 Received: from AM6PR05MB6535.eurprd05.prod.outlook.com
  ([fe80::c860:b386:22a:8ec9]) by AM6PR05MB6535.eurprd05.prod.outlook.com
  ([fe80::c860:b386:22a:8ec9%6]) with mapi id 15.20.2094.011; Fri, 19 Jul 2019
- 10:05:36 +0000
+ 10:05:37 +0000
 From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
 To: Fabio Estevam <festevam@gmail.com>
-Thread-Topic: [PATCH v6 5/6] ASoC: sgtl5000: Fix of unmute outputs on probe
-Thread-Index: AQHVPhmCYUymm5JNk0a5eEu3cWiMyg==
-Date: Fri, 19 Jul 2019 10:05:35 +0000
-Message-ID: <20190719100524.23300-6-oleksandr.suvorov@toradex.com>
+Thread-Topic: [PATCH v6 6/6] ASoC: sgtl5000: Fix charge pump source assignment
+Thread-Index: AQHVPhmDKAGkLrCq2kum0p6xuKjV/w==
+Date: Fri, 19 Jul 2019 10:05:37 +0000
+Message-ID: <20190719100524.23300-7-oleksandr.suvorov@toradex.com>
 References: <20190719100524.23300-1-oleksandr.suvorov@toradex.com>
 In-Reply-To: <20190719100524.23300-1-oleksandr.suvorov@toradex.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-clientproxiedby: AM4PR07CA0001.eurprd07.prod.outlook.com
- (2603:10a6:205:1::14) To AM6PR05MB6535.eurprd05.prod.outlook.com
+x-clientproxiedby: AM3PR04CA0139.eurprd04.prod.outlook.com (2603:10a6:207::23)
+ To AM6PR05MB6535.eurprd05.prod.outlook.com
  (2603:10a6:20b:71::16)
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=oleksandr.suvorov@toradex.com; 
@@ -85,27 +85,28 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-mailer: git-send-email 2.20.1
 x-originating-ip: [194.105.145.90]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ad4ff82d-0965-4e76-b23c-08d70c30a4c6
+x-ms-office365-filtering-correlation-id: 74f73370-2ed0-415f-7721-08d70c30a5a0
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
  SRVR:AM6PR05MB5925; 
 x-ms-traffictypediagnostic: AM6PR05MB5925:
-x-microsoft-antispam-prvs: <AM6PR05MB592549FC3E072E4A26D9BE8DF9CB0@AM6PR05MB5925.eurprd05.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3044;
+x-ms-exchange-purlcount: 1
+x-microsoft-antispam-prvs: <AM6PR05MB5925CA6F93D56B5A608C5B9CF9CB0@AM6PR05MB5925.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:989;
 x-forefront-prvs: 01039C93E4
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(39840400004)(396003)(136003)(376002)(366004)(346002)(199004)(189003)(14454004)(68736007)(8676002)(50226002)(6486002)(8936002)(54906003)(305945005)(7736002)(71190400001)(71200400001)(6436002)(81156014)(186003)(99286004)(66476007)(66446008)(66556008)(64756008)(1411001)(81166006)(2906002)(476003)(36756003)(66946007)(446003)(14444005)(256004)(6512007)(86362001)(6916009)(26005)(478600001)(66066001)(11346002)(52116002)(53936002)(486006)(76176011)(2616005)(25786009)(1076003)(6506007)(4326008)(44832011)(3846002)(6116002)(316002)(5660300002)(102836004)(386003);
+ SFS:(10019020)(4636009)(39840400004)(396003)(136003)(376002)(366004)(346002)(199004)(189003)(14454004)(68736007)(8676002)(50226002)(6486002)(8936002)(54906003)(305945005)(7736002)(71190400001)(71200400001)(6436002)(81156014)(186003)(99286004)(66476007)(66446008)(66556008)(64756008)(1411001)(81166006)(2906002)(6306002)(476003)(36756003)(66946007)(446003)(256004)(6512007)(86362001)(6916009)(26005)(966005)(478600001)(66066001)(11346002)(52116002)(53936002)(486006)(76176011)(2616005)(25786009)(1076003)(6506007)(4326008)(44832011)(3846002)(6116002)(316002)(5660300002)(102836004)(386003);
  DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR05MB5925;
  H:AM6PR05MB6535.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: toradex.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Dv0083ngfx9lnpMcs/jYYvqTtsTV+KhRWfrJfvkRcTUSw7UdXZFTO1Q6SKO3rCJkRb/c4JXMBvbRrYWGxA7wfjwafgTJiLL6bic5DzCsbEVMSgIEPCfCw7mr7ImP+tkM740Y9PD9rsoCYCBdK7YdD2WxHNhiF9Ynb4ka1R/5ghT13MX+CJMMYcynCLAOqhp0bBd1ofLWe6zfyuFf0SOU2cMgYOdTrBcdkuEj2CyODn18jXeQzoAYmZrLqW7YKa2EFz0n5u9SrOaU9LlxKzjQivv92rC8cgbv1hMooheDJdZNWy0d6azGSUqt60QIGXACowOelOed1IhbTRlpQVuF5FNu0mr0ifX0x4vNJW3BepFqgKqiLsrun6yuF3nLwgv76aE2JlfLIPqVpDUFf5EQGYoDnwRwGNwPmyD20z+F2NY=
+x-microsoft-antispam-message-info: SDVHdJ8TDLcNF/2T5Hpmk7+CYNiEpn+ILZESOY0qVqO2mSEMNpmG/Zm9HA9kONhWZ6nVzh9M4pKZDbcpCf7cgb8oeYScYu2W+2Em5bQyQB1vAeOtdS/HK6Hcc5ahIakPpApHHb2wbFaaT+zHUsB7Ka0i8B5VfkJGplViD5x2MVsYacKsbbMI3He3o8IvxfL2miYKwK9oWBZHurE9xIOgjFalBIgMQQmFa2aYkmWM/SHLivny32ThK0Ylu3u376pdnvldvKZxQ2emzrLbtoMlUZP3spQCR5ka7AbnpMznvFuDyUYXcg4Fd4eDJS5bSakFryQLAn+jnqxnn9mQ+y0X8DP06SnpfJ89QM52pGJRvIJx6BrbZdhZPV522H7nA0bTSbDmlI7nM/6IGufrV4Zfu4HAjqmLtqu0OKrXvOLP3Ao=
 MIME-Version: 1.0
 X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad4ff82d-0965-4e76-b23c-08d70c30a4c6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2019 10:05:35.9852 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 74f73370-2ed0-415f-7721-08d70c30a5a0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2019 10:05:37.4154 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
@@ -118,8 +119,8 @@ Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH v6 5/6] ASoC: sgtl5000: Fix of unmute outputs
-	on probe
+Subject: [alsa-devel] [PATCH v6 6/6] ASoC: sgtl5000: Fix charge pump source
+	assignment
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,9 +138,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To enable "zero cross detect" for ADC/HP, change
-HP_ZCD_EN/ADC_ZCD_EN bits only instead of writing the whole
-CHIP_ANA_CTRL register.
+If VDDA != VDDIO and any of them is greater than 3.1V, charge pump
+source can be assigned automatically [1].
+
+[1] https://www.nxp.com/docs/en/data-sheet/SGTL5000.pdf
 
 Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
 Reviewed-by: Marcel Ziswiler <marcel.ziswiler@toradex.com>
@@ -151,37 +153,43 @@ Reviewed-by: Fabio Estevam <festevam@gmail.com>
 Changes in v6: None
 Changes in v5: None
 Changes in v4: None
-Changes in v3: None
+Changes in v3:
+- Add the reference to NXP SGTL5000 data sheet to commit message
+- Fix multi-line comment format
+
 Changes in v2:
 - Fix patch formatting
 
- sound/soc/codecs/sgtl5000.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/codecs/sgtl5000.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
-index b65232521ea8..23f4ae2f0723 100644
+index 23f4ae2f0723..aa1f9637d895 100644
 --- a/sound/soc/codecs/sgtl5000.c
 +++ b/sound/soc/codecs/sgtl5000.c
-@@ -1453,6 +1453,7 @@ static int sgtl5000_probe(struct snd_soc_component *component)
- 	int ret;
- 	u16 reg;
- 	struct sgtl5000_priv *sgtl5000 = snd_soc_component_get_drvdata(component);
-+	unsigned int zcd_mask = SGTL5000_HP_ZCD_EN | SGTL5000_ADC_ZCD_EN;
+@@ -1338,12 +1338,17 @@ static int sgtl5000_set_power_regs(struct snd_soc_component *component)
+ 					SGTL5000_INT_OSC_EN);
+ 		/* Enable VDDC charge pump */
+ 		ana_pwr |= SGTL5000_VDDC_CHRGPMP_POWERUP;
+-	} else if (vddio >= 3100 && vdda >= 3100) {
++	} else {
+ 		ana_pwr &= ~SGTL5000_VDDC_CHRGPMP_POWERUP;
+-		/* VDDC use VDDIO rail */
+-		lreg_ctrl |= SGTL5000_VDDC_ASSN_OVRD;
+-		lreg_ctrl |= SGTL5000_VDDC_MAN_ASSN_VDDIO <<
+-			    SGTL5000_VDDC_MAN_ASSN_SHIFT;
++		/*
++		 * if vddio == vdda the source of charge pump should be
++		 * assigned manually to VDDIO
++		 */
++		if (vddio == vdda) {
++			lreg_ctrl |= SGTL5000_VDDC_ASSN_OVRD;
++			lreg_ctrl |= SGTL5000_VDDC_MAN_ASSN_VDDIO <<
++				    SGTL5000_VDDC_MAN_ASSN_SHIFT;
++		}
+ 	}
  
- 	/* power up sgtl5000 */
- 	ret = sgtl5000_set_power_regs(component);
-@@ -1480,9 +1481,8 @@ static int sgtl5000_probe(struct snd_soc_component *component)
- 	       0x1f);
- 	snd_soc_component_write(component, SGTL5000_CHIP_PAD_STRENGTH, reg);
- 
--	snd_soc_component_write(component, SGTL5000_CHIP_ANA_CTRL,
--			SGTL5000_HP_ZCD_EN |
--			SGTL5000_ADC_ZCD_EN);
-+	snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_CTRL,
-+		zcd_mask, zcd_mask);
- 
- 	snd_soc_component_update_bits(component, SGTL5000_CHIP_MIC_CTRL,
- 			SGTL5000_BIAS_R_MASK,
+ 	snd_soc_component_write(component, SGTL5000_CHIP_LINREG_CTRL, lreg_ctrl);
 -- 
 2.20.1
 

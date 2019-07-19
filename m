@@ -2,61 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0CB96E77B
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 16:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06696E787
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 16:46:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18F8116BB;
-	Fri, 19 Jul 2019 16:37:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18F8116BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2AEBB16B1;
+	Fri, 19 Jul 2019 16:45:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AEBB16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563547111;
-	bh=xNTB7dN8C2/jEwq/szNRvm4UcIDDvgzR3JMJ18Yqb+A=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=pRCqh9OYfEnIf5gU5j3Gn9Crre6ykeaK3+Uji9FXVAl9N5ApHxev7oKZWlQBGvpoS
-	 dfPD9+Fd/Ua08ohKqgZ6MtYk75wY1yWCio/sAv0DugYVYi4vFhhbvvmlbVWbsrrn5A
-	 I0MwaPN5vsDt172sYVfpMsVqKiG3Z4eCC+9m4oHU=
+	s=default; t=1563547603;
+	bh=pZqM9Xy9f9ZcYbLQfyMGv7S5JzScYQBp/SJoYiIf7Sg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=a3TmPuuV+83cPpSjJ6VKwRLaVx08+WmA9/7OH51BbXIrjHIYOW+L+Tvi1k9Mcny1m
+	 XI/tT1COND0lD62z3QLDIyjdytVKACQ6SoA6bBi0dEClloTM/awHkJ08jDNOWahNw5
+	 2c7KxtB/fagmzasheNdd/Gj0TNYNUmeX0f3FBBcU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B0C9F80228;
-	Fri, 19 Jul 2019 16:36:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A18DF80367;
+	Fri, 19 Jul 2019 16:44:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4FEBF80272; Fri, 19 Jul 2019 16:36:44 +0200 (CEST)
+ id A502FF80272; Fri, 19 Jul 2019 16:44:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB4B8F800B2
- for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 16:36:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB4B8F800B2
-Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28]
- helo=dude02.pengutronix.de.)
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <l.stach@pengutronix.de>)
- id 1hoTzx-0002VU-RN; Fri, 19 Jul 2019 16:36:37 +0200
-From: Lucas Stach <l.stach@pengutronix.de>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Andrew F . Davis" <afd@ti.com>
-Date: Fri, 19 Jul 2019 16:36:37 +0200
-Message-Id: <20190719143637.2018-1-l.stach@pengutronix.de>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
-X-SA-Exim-Mail-From: l.stach@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org, kernel@pengutronix.de,
- patchwork-lst@pengutronix.de
-Subject: [alsa-devel] [PATCH] ASoC: tlv320aic31xx: suppress error message
-	for EPROBE_DEFER
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5708FF800B2
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 16:44:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5708FF800B2
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 6D9C6AC47;
+ Fri, 19 Jul 2019 14:44:52 +0000 (UTC)
+Date: Fri, 19 Jul 2019 16:44:52 +0200
+Message-ID: <s5hzhla9j8b.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
+In-Reply-To: <20190719111231.GA26592@xn--80adja5bqm.su>
+References: <20190404192430.GA24729@xn--80adja5bqm.su>
+ <20190719111231.GA26592@xn--80adja5bqm.su>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,43 +70,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Both the supplies and reset GPIO might need a probe deferral for the
-resource to be available. Don't print a error message in that case, as
-it is a normal operating condition.
+On Fri, 19 Jul 2019 13:12:31 +0200,
+Sergey 'Jin' Bostandzhyan wrote:
+> 
+> Hi again,
+> 
+> after feedback that I'm mostly on my own here because this is not remotely
+> testable I invested quite some time into figuring out what is what and was
+> able to make some progress. Still I am at a point where help would be
+> very much appreciated as I am not sure how to proceed further.
+> 
+> Basically its almost working now, I managed to "connect" 5 speakers, but I
+> can't find the LFE. I tried various combinations in hdajackretask and
+> hda-analyzer, but was not able to get any sound out of it.
+> 
+> My current layout is as follows:
+> 
+> Pin 0x15 Front Left / Front Right
+> Pin 0x18 Center (left channel audible)
+> Pin 0x1b Rear Left / Rear Right, Headphones
+> 
+> I am not listing the mic/line pins here, just focusing on the speakers.
+> 
+> Still need to do some fiddling for 0x1b to make sure the rear speakers get
+> muted when I plug in the headphones, but that's also something for later.
+> 
+> Could someone hint me how to proceed in "finding the LFE"? Where should I be
+> digging? I did also have a look at parser hints documentation and tried some,
+> but this was more a random attempt and did not really help me.
+> 
+> I am attaching my current alsa-info along with the retask configuration that
+> is currently applied.
 
-Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
----
- sound/soc/codecs/tlv320aic31xx.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+It might be some other external stuff like an external amp that is
+missing.  Often it's managed via GPIO or EAPD (that is controlled by
+HD-audio itself), but sometimes via a vendor-specific verb, or even
+over a completely different i2c...
 
-diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
-index 9b37e98da0db..26a4f6cd3288 100644
---- a/sound/soc/codecs/tlv320aic31xx.c
-+++ b/sound/soc/codecs/tlv320aic31xx.c
-@@ -1553,7 +1553,8 @@ static int aic31xx_i2c_probe(struct i2c_client *i2c,
- 	aic31xx->gpio_reset = devm_gpiod_get_optional(aic31xx->dev, "reset",
- 						      GPIOD_OUT_LOW);
- 	if (IS_ERR(aic31xx->gpio_reset)) {
--		dev_err(aic31xx->dev, "not able to acquire gpio\n");
-+		if (PTR_ERR(aic31xx->gpio_reset) != -EPROBE_DEFER)
-+			dev_err(aic31xx->dev, "not able to acquire gpio\n");
- 		return PTR_ERR(aic31xx->gpio_reset);
- 	}
- 
-@@ -1564,7 +1565,9 @@ static int aic31xx_i2c_probe(struct i2c_client *i2c,
- 				      ARRAY_SIZE(aic31xx->supplies),
- 				      aic31xx->supplies);
- 	if (ret) {
--		dev_err(aic31xx->dev, "Failed to request supplies: %d\n", ret);
-+		if (ret != -EPROBE_DEFER)
-+			dev_err(aic31xx->dev,
-+				"Failed to request supplies: %d\n", ret);
- 		return ret;
- 	}
- 
--- 
-2.20.1
+In the case of vendor verbs, you can take a look at other quirks for
+similar models that touches lots of COEF stuff.
 
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,73 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4CF66E1A1
-	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 09:21:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127376E31E
+	for <lists+alsa-devel@lfdr.de>; Fri, 19 Jul 2019 11:06:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6632B1693;
-	Fri, 19 Jul 2019 09:20:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6632B1693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68B32169A;
+	Fri, 19 Jul 2019 11:05:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68B32169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563520869;
-	bh=cN/prZNYFyL1gyLFy/0rQ/xCvTAjKrGKP9wwRooKNh0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563527209;
+	bh=A3ZHXWzKpdYz5s/hgCCW2eLfIy9n56qMdqW6rJlyRb8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DJtLphFP/KOH6Zrl4NF7a91oS0vK9dYDOrtmHx8OaXMs1K4+WfkdN3g8pBtYA0yiN
-	 8f5E2HJDeHsYW614TVwe2AwBur0dF6Ws4N9yvojnMnbTyD3dviYUkmDaZYrN9/nmIQ
-	 oJZM6hOnaOlInwgZT79ohnIYM56SS5tQZeAZ8wzU=
+	b=HdcfIhxRvi+QZ+O/38tdbgce6e4J0G7ZRhkI5ljv9sU4W2e3RVQCXEOU6FsSvSOyv
+	 ZSlt+vILgclrttEBLAQ8FRFvDqBHbKy8QBZBS5LOUATifXzHosePzwBnPxN227Ctz/
+	 H0dJuX7PdM+uLCu799W0kMt6uCJ3/Uk1TDvKHCuk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC4BEF80228;
-	Fri, 19 Jul 2019 09:19:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C78B5F80367;
+	Fri, 19 Jul 2019 11:05:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 771DBF80272; Fri, 19 Jul 2019 09:19:23 +0200 (CEST)
+ id ED75AF80272; Fri, 19 Jul 2019 11:05:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7149AF800C4
- for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 09:19:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7149AF800C4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Jul 2019 00:19:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,281,1559545200"; d="scan'208";a="343617583"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.251.81.172])
- ([10.251.81.172])
- by orsmga005.jf.intel.com with ESMTP; 19 Jul 2019 00:19:12 -0700
-To: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-References: <20190718090240.18432-1-oleksandr.suvorov@toradex.com>
- <20190718090240.18432-3-oleksandr.suvorov@toradex.com>
- <9c9ee47c-48bd-7109-9870-8f73be1f1cfa@intel.com>
- <a86e4d6b-ed2c-d2f2-2974-6f00dc6ef68a@intel.com>
- <CAGgjyvGboMPx5wKJ_1DaeYZazSHmQUGwDZHoCBt5vhpVq3Q_bA@mail.gmail.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <3c153dcc-e656-2959-6281-15cc895660e0@intel.com>
-Date: Fri, 19 Jul 2019 09:19:10 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1572F8015B
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 11:04:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1572F8015B
+Received: by mail-ot1-f66.google.com with SMTP id d17so32071307oth.5
+ for <alsa-devel@alsa-project.org>; Fri, 19 Jul 2019 02:04:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Zd5faFZBJ3CISmgf2YB/YasKCKp9nVRBDG44ox519t8=;
+ b=JNBXy+PPPXQR9dLncZ1I6FTEjysVCgDm8DxpsrEle20rqiBEonFkyn9Ud60jL9MLjO
+ tb4Vnm76nh3Hyo7T8D0XhPWalLhpzxZPu4TMMR8PAx2Y7+hnnjsoQZzsmJhWHw/LsDzk
+ C1hYqZzcQeaCyztCGr1qZZJUCllcc/G4djWO7ZyeyoNMqO8cFbvebA944ZPo4R2lMSN7
+ +8QLzypye7IwZciTXWYEZqIlkW1aasvVCHRwJDAYYdfFmRppcdDJWJW0fMi73LJthXNo
+ giY70/fHF2hpFSb1ty+DXx+jOM6aBl2dUstHNKPoh5/Fg7vAW2mWAINAD04lHgvyZlIJ
+ bmCA==
+X-Gm-Message-State: APjAAAVefau4Y+THCPSNgwn4eYLfvazLkjaGSVqyJzNx281BxXXPUYGk
+ LIke1asndwO/iwdVtHY25LxVqMmVfh+ys/6lAlc=
+X-Google-Smtp-Source: APXvYqw0sNqYa7A5oTLf6hn610byHPDW62S2UShb5afT+y/hmGYWKdmjwS/zkDlDyO/fgmeccIszVzI7OynEOTR2hqc=
+X-Received: by 2002:a9d:6a4b:: with SMTP id h11mr14400070otn.266.1563527094864; 
+ Fri, 19 Jul 2019 02:04:54 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAGgjyvGboMPx5wKJ_1DaeYZazSHmQUGwDZHoCBt5vhpVq3Q_bA@mail.gmail.com>
-Content-Language: en-US
-Cc: Sasha Levin <sashal@kernel.org>, Igor Opaniuk <igor.opaniuk@toradex.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>, Takashi Iwai <tiwai@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v5 2/6] ASoC: sgtl5000: Improve VAG power
-	and mute control
+References: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 19 Jul 2019 11:04:43 +0200
+Message-ID: <CAJZ5v0g5Hk9JYLvRXfLk5-o=n_RVPKtWD=QONpiimCWyQOFELQ@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [PATCH] soundwire: fix regmap dependencies and
+ align with other serial links
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,100 +85,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-07-19 09:09, Oleksandr Suvorov wrote:
-> On Thu, 18 Jul 2019 at 21:49, Cezary Rojewski <cezary.rojewski@intel.com> wrote:
->>
->> On 2019-07-18 20:42, Cezary Rojewski wrote:
->>> On 2019-07-18 11:02, Oleksandr Suvorov wrote:
->>>> +enum {
->>>> +    HP_POWER_EVENT,
->>>> +    DAC_POWER_EVENT,
->>>> +    ADC_POWER_EVENT,
->>>> +    LAST_POWER_EVENT
->>>> +};
->>>> +
->>>> +static u16 mute_mask[] = {
->>>> +    SGTL5000_HP_MUTE,
->>>> +    SGTL5000_OUTPUTS_MUTE,
->>>> +    SGTL5000_OUTPUTS_MUTE
->>>> +};
->>>
->>> If mute_mask[] is only used within common handler, you may consider
->>> declaring const array within said handler instead (did not check that
->>> myself).
->>> Otherwise, simple comment for the second _OUTPUTS_MUTE should suffice -
->>> its not self explanatory why you doubled that mask.
-> 
-> Ok, I'll add a comment to explain doubled mask.
-> 
->>>
->>>> +
->>>>    /* sgtl5000 private structure in codec */
->>>>    struct sgtl5000_priv {
->>>>        int sysclk;    /* sysclk rate */
->>>> @@ -137,8 +157,109 @@ struct sgtl5000_priv {
->>>>        u8 micbias_voltage;
->>>>        u8 lrclk_strength;
->>>>        u8 sclk_strength;
->>>> +    u16 mute_state[LAST_POWER_EVENT];
->>>>    };
->>>
->>> When I spoke of LAST enum constant, I did not really had this specific
->>> usage in mind.
->>>
->>>   From design perspective, _LAST_ does not exist and should never be
->>> referred to as "the next option" i.e.: new enum constant.
-> 
-> By its nature, LAST_POWER_EVENT is actually a size of the array, but I
-> couldn't come up with a better name.
-> 
->>> That is way preferred usage is:
->>> u16 mute_state[ADC_POWER_EVENT+1;
->>> -or-
->>> u16 mute_state[LAST_POWER_EVENT+1];
->>>
->>> Maybe I'm just being radical here :)
-> 
-> Maybe :)  I don't like first variant (ADC_POWER_EVENT+1): somewhen in
-> future, someone can add a new event to this enum and we've got a
-> possible situation with "out of array indexing".
-> 
->>>
->>> Czarek
->>
->> Forgive me for double posting. Comment above is targeted towards:
->>
->>   >> +enum {
->>   >> +    HP_POWER_EVENT,
->>   >> +    DAC_POWER_EVENT,
->>   >> +    ADC_POWER_EVENT,
->>   >> +    LAST_POWER_EVENT
->>   >> +};
->>
->> as LAST_POWER_EVENT is not assigned explicitly to ADC_POWER_EVENT and
->> thus generates implicit "new option" of value 3.
-> 
-> So will you be happy with the following variant?
-> ...
->      ADC_POWER_EVENT,
->      LAST_POWER_EVENT =  ADC_POWER_EVENT,
-> ...
->     u16 mute_state[LAST_POWER_EVENT+1];
-> ...
-> 
+On Fri, Jul 19, 2019 at 1:02 AM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+> The existing code has a mixed select/depend usage which makes no sense.
+>
+> config SOUNDWIRE_BUS
+>        tristate
+>        select REGMAP_SOUNDWIRE
+>
+> config REGMAP_SOUNDWIRE
+>         tristate
+>         depends on SOUNDWIRE_BUS
+>
+> Let's remove one layer of Kconfig definitions and align with the
+> solutions used by all other serial links.
+>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-It's not about being happy - I'm a happy man in general ;p
+No issues found:
 
-As stated already, declaring _LAST_ as the "new option" is misleading 
-and not advised.
-And yeah, [_LAST_ + 1] is usually the one you should go with.
+Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Czarek
+> ---
+>  drivers/base/regmap/Kconfig | 2 +-
+>  drivers/soundwire/Kconfig   | 7 +------
+>  drivers/soundwire/Makefile  | 2 +-
+>  3 files changed, 3 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/base/regmap/Kconfig b/drivers/base/regmap/Kconfig
+> index 6ad5ef48b61e..8cd2ac650b50 100644
+> --- a/drivers/base/regmap/Kconfig
+> +++ b/drivers/base/regmap/Kconfig
+> @@ -44,7 +44,7 @@ config REGMAP_IRQ
+>
+>  config REGMAP_SOUNDWIRE
+>         tristate
+> -       depends on SOUNDWIRE_BUS
+> +       depends on SOUNDWIRE
+>
+>  config REGMAP_SCCB
+>         tristate
+> diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
+> index 3a01cfd70fdc..f518273cfbe3 100644
+> --- a/drivers/soundwire/Kconfig
+> +++ b/drivers/soundwire/Kconfig
+> @@ -4,7 +4,7 @@
+>  #
+>
+>  menuconfig SOUNDWIRE
+> -       bool "SoundWire support"
+> +       tristate "SoundWire support"
+>         help
+>           SoundWire is a 2-Pin interface with data and clock line ratified
+>           by the MIPI Alliance. SoundWire is used for transporting data
+> @@ -17,17 +17,12 @@ if SOUNDWIRE
+>
+>  comment "SoundWire Devices"
+>
+> -config SOUNDWIRE_BUS
+> -       tristate
+> -       select REGMAP_SOUNDWIRE
+> -
+>  config SOUNDWIRE_CADENCE
+>         tristate
+>
+>  config SOUNDWIRE_INTEL
+>         tristate "Intel SoundWire Master driver"
+>         select SOUNDWIRE_CADENCE
+> -       select SOUNDWIRE_BUS
+>         depends on X86 && ACPI && SND_SOC
+>         help
+>           SoundWire Intel Master driver.
+> diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
+> index fd99a831b92a..45b7e5001653 100644
+> --- a/drivers/soundwire/Makefile
+> +++ b/drivers/soundwire/Makefile
+> @@ -5,7 +5,7 @@
+>
+>  #Bus Objs
+>  soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o
+> -obj-$(CONFIG_SOUNDWIRE_BUS) += soundwire-bus.o
+> +obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
+>
+>  #Cadence Objs
+>  soundwire-cadence-objs := cadence_master.o
+> --
+> 2.20.1
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

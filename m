@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 882716F086
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jul 2019 21:49:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D01C36F085
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jul 2019 21:49:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1FD2516F2;
-	Sat, 20 Jul 2019 21:48:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1FD2516F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C97216E6;
+	Sat, 20 Jul 2019 21:48:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C97216E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563652184;
-	bh=ZfNBNT7ce9zyEEvcGysYayaTpzhf+WoUS76R5H9HYZ8=;
+	s=default; t=1563652162;
+	bh=QhMR/QyH4+xlVXVF3WNcKV4T0QCLhxFCxb13QHckUbE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PDR/Sgq2DHKX8IzvZ2KryEx123rv7SHkKT8vvZEUu9tD0+fDF8P7yUPUz+6brhGzD
-	 7grgHVdSvbXpN3AnDw8BWRH4zx9N8+Qjy7y3Put+e9covTK7SVV8iNOTZnxDrl5Qwe
-	 AftNK5KrV4Igh1DwdOcxxdqk4UuseB1votlPwxqQ=
+	b=dZfSJfj9jM84Ph/jnsJNlO7U47FuhdLIoA/3p0BgN/EE7PzNih3qIX3jweojwJf/M
+	 LQVUbKXXQ2EKGYZqnSEVQkK32AGQATFLl07+vx5dHk1ZcK4JQ+73nuDNUssWpSTXtE
+	 nYx9aU6kz01cBIxetI2u2hwRygmHJCfNZTuhCmBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B872FF803F3;
-	Sat, 20 Jul 2019 21:47:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE951F80440;
+	Sat, 20 Jul 2019 21:46:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C815F803D7; Sat, 20 Jul 2019 21:46:56 +0200 (CEST)
+ id 77DC1F803D5; Sat, 20 Jul 2019 21:46:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,28 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF568F80390
- for <alsa-devel@alsa-project.org>; Sat, 20 Jul 2019 21:46:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF568F80390
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A6C1F802BC
+ for <alsa-devel@alsa-project.org>; Sat, 20 Jul 2019 21:46:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A6C1F802BC
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Jul 2019 12:46:06 -0700
+ 20 Jul 2019 12:46:14 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,288,1559545200"; d="scan'208";a="176592928"
+X-IronPort-AV: E=Sophos;i="5.64,288,1559545200"; d="scan'208";a="176592948"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by FMSMGA003.fm.intel.com with ESMTP; 20 Jul 2019 12:46:05 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 20 Jul 2019 12:46:13 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Date: Sat, 20 Jul 2019 21:45:28 +0200
-Message-Id: <20190720194532.23682-2-cezary.rojewski@intel.com>
+Date: Sat, 20 Jul 2019 21:45:30 +0200
+Message-Id: <20190720194532.23682-4-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190720194532.23682-1-cezary.rojewski@intel.com>
 References: <20190720194532.23682-1-cezary.rojewski@intel.com>
 Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
  broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH 1/5] ASoC: Intel: Update request-reply IPC model
+Subject: [alsa-devel] [PATCH 3/5] ASoC: Intel: Baytrail: Align with updated
+	request-reply model
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,243 +74,166 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-struct ipc_message contains fields: header, tx_data and tx_size which
-represent TX i.e. request while RX is represented by rx_data and rx_size
-with reply's header equivalent missing.
+There is struct sst_ipc_message instance representing request and reply
+each, and params: header, data and size need no longer to be declared
+explicitly. Align with that model.
 
-Reply header may contain some vital information including, but not
-limited to, received payload size. Some IPCs have entire payload found
-within RX header instead. Content and value of said header is context
-dependent and may vary between firmware versions and target platform.
-Current model does not allow such IPCs to function at all.
+Update reply processing function to save RX header within message
+container.
 
-Rather than appending yet another parameter to an already long list of
-such for sst_ipc_tx_message_XXXs, declare message container in form of
-struct sst_ipc_message and add them to parent's ipc_message declaration.
+Despite the range of changes, status quo is achieved.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/common/sst-ipc.c | 69 ++++++++++++++++----------------
- sound/soc/intel/common/sst-ipc.h | 27 +++++++------
- 2 files changed, 49 insertions(+), 47 deletions(-)
+ sound/soc/intel/baytrail/sst-baytrail-ipc.c | 65 ++++++++++-----------
+ 1 file changed, 32 insertions(+), 33 deletions(-)
 
-diff --git a/sound/soc/intel/common/sst-ipc.c b/sound/soc/intel/common/sst-ipc.c
-index ef5b66af1cd2..1186a03a88d6 100644
---- a/sound/soc/intel/common/sst-ipc.c
-+++ b/sound/soc/intel/common/sst-ipc.c
-@@ -43,7 +43,7 @@ static struct ipc_message *msg_get_empty(struct sst_generic_ipc *ipc)
- }
- 
- static int tx_wait_done(struct sst_generic_ipc *ipc,
--	struct ipc_message *msg, void *rx_data)
-+	struct ipc_message *msg, struct sst_ipc_message *reply)
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-ipc.c b/sound/soc/intel/baytrail/sst-baytrail-ipc.c
+index 8bd1eddcc091..74274bd38f7a 100644
+--- a/sound/soc/intel/baytrail/sst-baytrail-ipc.c
++++ b/sound/soc/intel/baytrail/sst-baytrail-ipc.c
+@@ -211,7 +211,7 @@ static struct sst_byt_stream *sst_byt_get_stream(struct sst_byt *byt,
+ static void sst_byt_stream_update(struct sst_byt *byt, struct ipc_message *msg)
  {
- 	unsigned long flags;
+ 	struct sst_byt_stream *stream;
+-	u64 header = msg->header;
++	u64 header = msg->tx.header;
+ 	u8 stream_id = sst_byt_header_str_id(header);
+ 	u8 stream_msg = sst_byt_header_msg_id(header);
+ 
+@@ -240,9 +240,10 @@ static int sst_byt_process_reply(struct sst_byt *byt, u64 header)
+ 	if (msg == NULL)
+ 		return 1;
+ 
++	msg->rx.header = header;
+ 	if (header & IPC_HEADER_LARGE(true)) {
+-		msg->rx_size = sst_byt_header_data(header);
+-		sst_dsp_inbox_read(byt->dsp, msg->rx_data, msg->rx_size);
++		msg->rx.size = sst_byt_header_data(header);
++		sst_dsp_inbox_read(byt->dsp, msg->rx.data, msg->rx.size);
+ 	}
+ 
+ 	/* update any stream states */
+@@ -407,17 +408,18 @@ int sst_byt_stream_buffer(struct sst_byt *byt, struct sst_byt_stream *stream,
+ 
+ int sst_byt_stream_commit(struct sst_byt *byt, struct sst_byt_stream *stream)
+ {
+-	struct sst_byt_alloc_params *str_req = &stream->request;
+-	struct sst_byt_alloc_response *reply = &stream->reply;
+-	u64 header;
++	struct sst_ipc_message request, reply = {0};
  	int ret;
-@@ -62,8 +62,11 @@ static int tx_wait_done(struct sst_generic_ipc *ipc,
- 	} else {
  
- 		/* copy the data returned from DSP */
--		if (rx_data)
--			memcpy(rx_data, msg->rx_data, msg->rx_size);
-+		if (reply) {
-+			reply->header = msg->rx.header;
-+			if (reply->data)
-+				memcpy(reply->data, msg->rx.data, msg->rx.size);
-+		}
- 		ret = msg->errno;
- 	}
+-	header = sst_byt_header(IPC_IA_ALLOC_STREAM,
+-				sizeof(*str_req) + sizeof(u32),
++	request.header = sst_byt_header(IPC_IA_ALLOC_STREAM,
++				sizeof(stream->request) + sizeof(u32),
+ 				true, stream->str_id);
+-	ret = sst_ipc_tx_message_wait(&byt->ipc, header, str_req,
+-				      sizeof(*str_req),
+-				      reply, sizeof(*reply));
++	request.data = &stream->request;
++	request.size = sizeof(stream->request);
++	reply.data = &stream->reply;
++	reply.size = sizeof(stream->reply);
++
++	ret = sst_ipc_tx_message_wait(&byt->ipc, request, &reply);
+ 	if (ret < 0) {
+ 		dev_err(byt->dev, "ipc: error stream commit failed\n");
+ 		return ret;
+@@ -430,7 +432,7 @@ int sst_byt_stream_commit(struct sst_byt *byt, struct sst_byt_stream *stream)
  
-@@ -72,9 +75,9 @@ static int tx_wait_done(struct sst_generic_ipc *ipc,
- 	return ret;
- }
- 
--static int ipc_tx_message(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes, void *rx_data,
--	size_t rx_bytes, int wait)
-+static int ipc_tx_message(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request,
-+	struct sst_ipc_message *reply, int wait)
+ int sst_byt_stream_free(struct sst_byt *byt, struct sst_byt_stream *stream)
  {
- 	struct ipc_message *msg;
+-	u64 header;
++	struct sst_ipc_message request = {0};
+ 	int ret = 0;
+ 	struct sst_dsp *sst = byt->dsp;
  	unsigned long flags;
-@@ -87,23 +90,24 @@ static int ipc_tx_message(struct sst_generic_ipc *ipc, u64 header,
- 		return -EBUSY;
- 	}
+@@ -438,8 +440,9 @@ int sst_byt_stream_free(struct sst_byt *byt, struct sst_byt_stream *stream)
+ 	if (!stream->commited)
+ 		goto out;
  
--	msg->header = header;
--	msg->tx_size = tx_bytes;
--	msg->rx_size = rx_bytes;
-+	msg->tx.header = request.header;
-+	msg->tx.size = request.size;
-+	msg->rx.header = 0;
-+	msg->rx.size = reply ? reply->size : 0;
- 	msg->wait = wait;
- 	msg->errno = 0;
- 	msg->pending = false;
- 	msg->complete = false;
+-	header = sst_byt_header(IPC_IA_FREE_STREAM, 0, false, stream->str_id);
+-	ret = sst_ipc_tx_message_wait(&byt->ipc, header, NULL, 0, NULL, 0);
++	request.header = sst_byt_header(IPC_IA_FREE_STREAM,
++			0, false, stream->str_id);
++	ret = sst_ipc_tx_message_wait(&byt->ipc, request, NULL);
+ 	if (ret < 0) {
+ 		dev_err(byt->dev, "ipc: free stream %d failed\n",
+ 			stream->str_id);
+@@ -459,15 +462,13 @@ int sst_byt_stream_free(struct sst_byt *byt, struct sst_byt_stream *stream)
+ static int sst_byt_stream_operations(struct sst_byt *byt, int type,
+ 				     int stream_id, int wait)
+ {
+-	u64 header;
++	struct sst_ipc_message request = {0};
  
--	if ((tx_bytes) && (ipc->ops.tx_data_copy != NULL))
--		ipc->ops.tx_data_copy(msg, tx_data, tx_bytes);
-+	if ((request.size) && (ipc->ops.tx_data_copy != NULL))
-+		ipc->ops.tx_data_copy(msg, request.data, request.size);
- 
- 	list_add_tail(&msg->list, &ipc->tx_list);
- 	schedule_work(&ipc->kwork);
- 	spin_unlock_irqrestore(&ipc->dsp->spinlock, flags);
- 
+-	header = sst_byt_header(type, 0, false, stream_id);
++	request.header = sst_byt_header(type, 0, false, stream_id);
  	if (wait)
--		return tx_wait_done(ipc, msg, rx_data);
-+		return tx_wait_done(ipc, msg, reply);
+-		return sst_ipc_tx_message_wait(&byt->ipc, header, NULL,
+-						0, NULL, 0);
++		return sst_ipc_tx_message_wait(&byt->ipc, request, NULL);
  	else
- 		return 0;
- }
-@@ -118,13 +122,13 @@ static int msg_empty_list_init(struct sst_generic_ipc *ipc)
- 		return -ENOMEM;
- 
- 	for (i = 0; i < IPC_EMPTY_LIST_SIZE; i++) {
--		ipc->msg[i].tx_data = kzalloc(ipc->tx_data_max_size, GFP_KERNEL);
--		if (ipc->msg[i].tx_data == NULL)
-+		ipc->msg[i].tx.data = kzalloc(ipc->tx_data_max_size, GFP_KERNEL);
-+		if (ipc->msg[i].tx.data == NULL)
- 			goto free_mem;
- 
--		ipc->msg[i].rx_data = kzalloc(ipc->rx_data_max_size, GFP_KERNEL);
--		if (ipc->msg[i].rx_data == NULL) {
--			kfree(ipc->msg[i].tx_data);
-+		ipc->msg[i].rx.data = kzalloc(ipc->rx_data_max_size, GFP_KERNEL);
-+		if (ipc->msg[i].rx.data == NULL) {
-+			kfree(ipc->msg[i].tx.data);
- 			goto free_mem;
- 		}
- 
-@@ -136,8 +140,8 @@ static int msg_empty_list_init(struct sst_generic_ipc *ipc)
- 
- free_mem:
- 	while (i > 0) {
--		kfree(ipc->msg[i-1].tx_data);
--		kfree(ipc->msg[i-1].rx_data);
-+		kfree(ipc->msg[i-1].tx.data);
-+		kfree(ipc->msg[i-1].rx.data);
- 		--i;
- 	}
- 	kfree(ipc->msg);
-@@ -173,8 +177,8 @@ static void ipc_tx_msgs(struct work_struct *work)
- 	spin_unlock_irq(&ipc->dsp->spinlock);
+-		return sst_ipc_tx_message_nowait(&byt->ipc, header,
+-						NULL, 0);
++		return sst_ipc_tx_message_nowait(&byt->ipc, request);
  }
  
--int sst_ipc_tx_message_wait(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes, void *rx_data, size_t rx_bytes)
-+int sst_ipc_tx_message_wait(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request, struct sst_ipc_message *reply)
+ /* stream ALSA trigger operations */
+@@ -475,19 +476,17 @@ int sst_byt_stream_start(struct sst_byt *byt, struct sst_byt_stream *stream,
+ 			 u32 start_offset)
  {
+ 	struct sst_byt_start_stream_params start_stream;
+-	void *tx_msg;
+-	size_t size;
+-	u64 header;
++	struct sst_ipc_message request;
  	int ret;
  
-@@ -187,8 +191,7 @@ int sst_ipc_tx_message_wait(struct sst_generic_ipc *ipc, u64 header,
- 		if (ipc->ops.check_dsp_lp_on(ipc->dsp, true))
- 			return -EIO;
+ 	start_stream.byte_offset = start_offset;
+-	header = sst_byt_header(IPC_IA_START_STREAM,
++	request.header = sst_byt_header(IPC_IA_START_STREAM,
+ 				sizeof(start_stream) + sizeof(u32),
+ 				true, stream->str_id);
+-	tx_msg = &start_stream;
+-	size = sizeof(start_stream);
++	request.data = &start_stream;
++	request.size = sizeof(start_stream);
  
--	ret = ipc_tx_message(ipc, header, tx_data, tx_bytes,
--		rx_data, rx_bytes, 1);
-+	ret = ipc_tx_message(ipc, request, reply, 1);
+-	ret = sst_ipc_tx_message_nowait(&byt->ipc, header, tx_msg, size);
++	ret = sst_ipc_tx_message_nowait(&byt->ipc, request);
+ 	if (ret < 0)
+ 		dev_err(byt->dev, "ipc: error failed to start stream %d\n",
+ 			stream->str_id);
+@@ -623,10 +622,10 @@ EXPORT_SYMBOL_GPL(sst_byt_dsp_wait_for_ready);
  
- 	if (ipc->ops.check_dsp_lp_on)
- 		if (ipc->ops.check_dsp_lp_on(ipc->dsp, false))
-@@ -198,19 +201,17 @@ int sst_ipc_tx_message_wait(struct sst_generic_ipc *ipc, u64 header,
- }
- EXPORT_SYMBOL_GPL(sst_ipc_tx_message_wait);
- 
--int sst_ipc_tx_message_nowait(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes)
-+int sst_ipc_tx_message_nowait(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request)
+ static void byt_tx_msg(struct sst_generic_ipc *ipc, struct ipc_message *msg)
  {
--	return ipc_tx_message(ipc, header, tx_data, tx_bytes,
--		NULL, 0, 0);
-+	return ipc_tx_message(ipc, request, NULL, 0);
- }
- EXPORT_SYMBOL_GPL(sst_ipc_tx_message_nowait);
+-	if (msg->header & IPC_HEADER_LARGE(true))
+-		sst_dsp_outbox_write(ipc->dsp, msg->tx_data, msg->tx_size);
++	if (msg->tx.header & IPC_HEADER_LARGE(true))
++		sst_dsp_outbox_write(ipc->dsp, msg->tx.data, msg->tx.size);
  
--int sst_ipc_tx_message_nopm(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes, void *rx_data, size_t rx_bytes)
-+int sst_ipc_tx_message_nopm(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request, struct sst_ipc_message *reply)
+-	sst_dsp_shim_write64_unlocked(ipc->dsp, SST_IPCX, msg->header);
++	sst_dsp_shim_write64_unlocked(ipc->dsp, SST_IPCX, msg->tx.header);
+ }
+ 
+ static void byt_shim_dbg(struct sst_generic_ipc *ipc, const char *text)
+@@ -648,9 +647,9 @@ static void byt_tx_data_copy(struct ipc_message *msg, char *tx_data,
+ 	size_t tx_size)
  {
--	return ipc_tx_message(ipc, header, tx_data, tx_bytes,
--		rx_data, rx_bytes, 1);
-+	return ipc_tx_message(ipc, request, reply, 1);
+ 	/* msg content = lower 32-bit of the header + data */
+-	*(u32 *)msg->tx_data = (u32)(msg->header & (u32)-1);
+-	memcpy(msg->tx_data + sizeof(u32), tx_data, tx_size);
+-	msg->tx_size += sizeof(u32);
++	*(u32 *)msg->tx.data = (u32)(msg->tx.header & (u32)-1);
++	memcpy(msg->tx.data + sizeof(u32), tx_data, tx_size);
++	msg->tx.size += sizeof(u32);
  }
- EXPORT_SYMBOL_GPL(sst_ipc_tx_message_nopm);
  
-@@ -230,7 +231,7 @@ struct ipc_message *sst_ipc_reply_find_msg(struct sst_generic_ipc *ipc,
- 	}
- 
- 	list_for_each_entry(msg, &ipc->rx_list, list) {
--		if ((msg->header & mask) == header)
-+		if ((msg->tx.header & mask) == header)
- 			return msg;
- 	}
- 
-@@ -304,8 +305,8 @@ void sst_ipc_fini(struct sst_generic_ipc *ipc)
- 
- 	if (ipc->msg) {
- 		for (i = 0; i < IPC_EMPTY_LIST_SIZE; i++) {
--			kfree(ipc->msg[i].tx_data);
--			kfree(ipc->msg[i].rx_data);
-+			kfree(ipc->msg[i].tx.data);
-+			kfree(ipc->msg[i].rx.data);
- 		}
- 		kfree(ipc->msg);
- 	}
-diff --git a/sound/soc/intel/common/sst-ipc.h b/sound/soc/intel/common/sst-ipc.h
-index ef38600e88f7..08c4831b2664 100644
---- a/sound/soc/intel/common/sst-ipc.h
-+++ b/sound/soc/intel/common/sst-ipc.h
-@@ -17,15 +17,16 @@
- 
- #define IPC_MAX_MAILBOX_BYTES	256
- 
--struct ipc_message {
--	struct list_head list;
-+struct sst_ipc_message {
- 	u64 header;
-+	void *data;
-+	size_t size;
-+};
- 
--	/* direction wrt host CPU */
--	char *tx_data;
--	size_t tx_size;
--	char *rx_data;
--	size_t rx_size;
-+struct ipc_message {
-+	struct list_head list;
-+	struct sst_ipc_message tx;
-+	struct sst_ipc_message rx;
- 
- 	wait_queue_head_t waitq;
- 	bool pending;
-@@ -66,14 +67,14 @@ struct sst_generic_ipc {
- 	struct sst_plat_ipc_ops ops;
- };
- 
--int sst_ipc_tx_message_wait(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes, void *rx_data, size_t rx_bytes);
-+int sst_ipc_tx_message_wait(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request, struct sst_ipc_message *reply);
- 
--int sst_ipc_tx_message_nowait(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes);
-+int sst_ipc_tx_message_nowait(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request);
- 
--int sst_ipc_tx_message_nopm(struct sst_generic_ipc *ipc, u64 header,
--	void *tx_data, size_t tx_bytes, void *rx_data, size_t rx_bytes);
-+int sst_ipc_tx_message_nopm(struct sst_generic_ipc *ipc,
-+	struct sst_ipc_message request, struct sst_ipc_message *reply);
- 
- struct ipc_message *sst_ipc_reply_find_msg(struct sst_generic_ipc *ipc,
- 	u64 header);
+ static u64 byt_reply_msg_match(u64 header, u64 *mask)
 -- 
 2.17.1
 

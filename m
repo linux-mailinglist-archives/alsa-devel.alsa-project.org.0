@@ -2,54 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D1D6F01B
-	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jul 2019 18:56:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AEA16F083
+	for <lists+alsa-devel@lfdr.de>; Sat, 20 Jul 2019 21:47:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 465C016E7;
-	Sat, 20 Jul 2019 18:55:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 465C016E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B94516EC;
+	Sat, 20 Jul 2019 21:47:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B94516EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563641790;
-	bh=GB0s0pobmib9CVUGuTSt4dHKgJkWdQJI8pri5UPyWE4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LOL1HCh6wc1alH6I6uTY543wECeUXlK6WPWd0Nfw35+zIXz8uGPSFCns5J77aoxNY
-	 8BdAGr0Vqgs4Y8zzUE7JKFoS9l/WiXxsQVCvDBIm829sKhH0GtPPOjXdIIA1GyprjC
-	 WF930hNkns+LrkrnmJSrPib1VeVxkPf+9gK0JI9o=
+	s=default; t=1563652072;
+	bh=N5UUBbk/wToMyBtaqi6iOmomf0PN7GrI/pVsK3/AKEA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XGCZBGIfLsC/7cc73e1Rt+pZQazbrEY2G9obcvt5iVaKkD8fZnc0BRWEXUc2ssItD
+	 NbPda9psMIOTCFLBRB8uiW5Eo5hHhyi6wboADuI7ZsnYkTBoXwgmojRF4CQ5IDzFAO
+	 HTj1iI77Lwgpf0U85i0ZQS1nzaEyI2E0Ko/fRdWk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A365DF8015B;
-	Sat, 20 Jul 2019 18:54:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00194F80376;
+	Sat, 20 Jul 2019 21:46:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7290F802BC; Sat, 20 Jul 2019 18:54:41 +0200 (CEST)
+ id DEFC3F802BC; Sat, 20 Jul 2019 21:46:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail1.xn--80adja5bqm.su (xn--80adja5bqm.su [45.62.210.217])
- by alsa1.perex.cz (Postfix) with ESMTP id AAAC1F8015B
- for <alsa-devel@alsa-project.org>; Sat, 20 Jul 2019 18:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAAC1F8015B
-Received: by mail1.xn--80adja5bqm.su (Postfix, from userid 1000)
- id A42E820CDEF3; Sat, 20 Jul 2019 18:54:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail1.xn--80adja5bqm.su A42E820CDEF3
-Date: Sat, 20 Jul 2019 18:54:35 +0200
-From: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
-To: Takashi Iwai <tiwai@suse.de>
-Message-Id: <20190720165435.GA5855@xn--80adja5bqm.su>
-References: <20190404192430.GA24729@xn--80adja5bqm.su>
- <20190719111231.GA26592@xn--80adja5bqm.su>
- <s5hzhla9j8b.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5hzhla9j8b.wl-tiwai@suse.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 81D96F800AE
+ for <alsa-devel@alsa-project.org>; Sat, 20 Jul 2019 21:46:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81D96F800AE
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Jul 2019 12:45:59 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,288,1559545200"; d="scan'208";a="176592899"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by FMSMGA003.fm.intel.com with ESMTP; 20 Jul 2019 12:45:57 -0700
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Date: Sat, 20 Jul 2019 21:45:27 +0200
+Message-Id: <20190720194532.23682-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
+ broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] [PATCH 0/5] ASoC: Intel: IPC framework updates
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,49 +64,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+Existing IPC framework omits crucial part of the entire communication:
+reply header. Some IPCs cannot function at all without the access to
+said header. Update the sst-ipc with new sst_ipc_message structure to
+represent both request and reply allowing reply-processing handlers to
+save received responses.
 
-On Fri, Jul 19, 2019 at 04:44:52PM +0200, Takashi Iwai wrote:
-> It might be some other external stuff like an external amp that is
-> missing.  Often it's managed via GPIO or EAPD (that is controlled by
-> HD-audio itself), but sometimes via a vendor-specific verb, or even
-> over a completely different i2c...
-> 
-> In the case of vendor verbs, you can take a look at other quirks for
-> similar models that touches lots of COEF stuff.
+Despite the range of changes required for model to be updated, no
+functional changes are made for core hanswell, baytrail and skylake
+message handlers. Reply-processing handlers now save received response
+header yet no usage is added by default.
 
-thanks for the pointers, does not sound simple, let's see if I get anywhere,
-I will for sure try.
+To allow for future changes, righful kings of IPC kingdom need to be put
+back on the throne. This update addresses one of them: LARGE_CONFIG_GET.
 
-Odd that only one speaker would require such a special handling, but I guess
-it is what it is.
+Cezary Rojewski (5):
+  ASoC: Intel: Update request-reply IPC model
+  ASoC: Intel: Haswell: Align with updated request-reply model
+  ASoC: Intel: Baytrail: Align with updated request-reply model
+  ASoC: Intel: Skylake: Align with updated request-reply model
+  ASoC: Intel: Skylake: large_config_get overhaul
 
-In the meantime I found a more pressing issue where I also failed to find a
-solution:
+ sound/soc/intel/baytrail/sst-baytrail-ipc.c |  65 ++++----
+ sound/soc/intel/common/sst-ipc.c            |  68 ++++----
+ sound/soc/intel/common/sst-ipc.h            |  27 ++--
+ sound/soc/intel/haswell/sst-haswell-ipc.c   | 164 +++++++++++---------
+ sound/soc/intel/skylake/cnl-sst.c           |   6 +-
+ sound/soc/intel/skylake/skl-messages.c      |   3 +-
+ sound/soc/intel/skylake/skl-sst-ipc.c       | 152 ++++++++++--------
+ sound/soc/intel/skylake/skl-sst-ipc.h       |   3 +-
+ 8 files changed, 259 insertions(+), 229 deletions(-)
 
-Pin 0x1b is resposible for rear speakers and at the same time for external
-headphones. If I set the pin to "headphones" in hdajackretask, then
-I "lose" the speaker and can't select a 5.1 profile. If I set it to internal
-"speaker", the way I have it set up now, then sound comes out of speakers and 
-headphones at the same time. 
+-- 
+2.17.1
 
-"hdajacksensetest -a" will detect presence even if sensing is disabled in
-hdajackretask, so I assume that this could be somehow used to mute
-the speakers, but I was not able to figure out how to approach this.
-
-This is quite an issue for audio conferencing, so I'd like to tackle this 
-first and leave the LFE problem for later.
-
-What would be the best way to solve this, how should this pin be configured?
-
-Kind regards,
-Jin
- 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

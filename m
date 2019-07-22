@@ -2,63 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1670701AF
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:49:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 479D2701C7
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:54:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83CBD1802;
-	Mon, 22 Jul 2019 15:49:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83CBD1802
+	by alsa0.perex.cz (Postfix) with ESMTPS id C251B17F0;
+	Mon, 22 Jul 2019 15:53:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C251B17F0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563803393;
-	bh=I8oiVgNOKTvCurDWum37fVoy8dlUT/hzuFue04vb0wU=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IWeTLLstVLQh84Qwh+TB4Z5nnapoJeCZadqT5/QS27ET9F7T9NUI9ZnX5ZKBTNtpv
-	 hgTXEt9uTtzEeI31EgnfGBJ7OiSIza0MAH5J6JppJHBbcbZVABOJWDktMTc5FMg8Ai
-	 ZhtZmiT765qEOgP7zYPych2m+HwER0TxWfQXpUoE=
+	s=default; t=1563803644;
+	bh=Eyct3ToQAIT48di24pFWpWs8z+iWY93hUYpAnp+XWqw=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=oHYFy2U6TIK920ghH6hjNvCvZFEhv8K/Ix7Gradd19WWMkml5qbYAPhDTf2sZg1JX
+	 SaVZibY0/2KxSIaFzjsnmStz10ZJ6DJlBGwdjWUGjmyQKCDbKT6FCZz3bKgev721OY
+	 Y7SMgO52VD11Hd5ezeQesEixneZxkuHaX0Gt/Yf8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66155F80518;
-	Mon, 22 Jul 2019 15:45:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3EEEF803D6;
+	Mon, 22 Jul 2019 15:52:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFBABF80518; Mon, 22 Jul 2019 15:44:57 +0200 (CEST)
+ id EA741F803D5; Mon, 22 Jul 2019 15:52:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F95DF804CA
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:44:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F95DF804CA
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2019 06:44:23 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,295,1559545200"; d="scan'208";a="159882571"
-Received: from gprabakx-mobl4.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.254.184.17])
- by orsmga007.jf.intel.com with ESMTP; 22 Jul 2019 06:44:22 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Mon, 22 Jul 2019 08:44:10 -0500
-Message-Id: <20190722134410.9602-6-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190722134410.9602-1-pierre-louis.bossart@linux.intel.com>
-References: <20190722134410.9602-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A596F800E8
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:52:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A596F800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="STIhqBNh"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x6MDnNml012542; Mon, 22 Jul 2019 08:52:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type;
+ s=PODMain02222019; bh=MxqzYXdhV50zgEBTtTBsuXRpXvLEZA6kJSarbG2Iiw0=;
+ b=STIhqBNh2AlvPsQsLScBVjsYyCC/AJAWoNCkREWrmyfsVlUuUfG1tRqdnK1VZlgNuwYs
+ U6vDAXrNAhigv/9xqiV3ei7y7YtRA7A6bnRztbb+bNCBMMQi+/7g+m9a+7GZDlwXWUHL
+ 1eh+Ww9eSsJ4qAOvfN2k46+r2tSt+1fwMhRz05vqyZPtEJvKiBcfTgZJe3osuvOYOi+X
+ RbBFHmM+Pt9tgZX2NMwJj8gPol+CC6rO+7nyAeAnOrSxVRBe4RP5Stujw4BM70+Jo4du
+ iQoMy+Z78YyWkFgjXDKme68K8YXTVmRCC2g59IXbx+VEznLCFjtumQwgIVngGTWne5n+ Mg== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2tv0c0afb0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 22 Jul 2019 08:52:12 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 22 Jul
+ 2019 14:52:09 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Mon, 22 Jul 2019 14:52:09 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id BA7932C5;
+ Mon, 22 Jul 2019 14:52:09 +0100 (BST)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Date: Mon, 22 Jul 2019 14:52:09 +0100
+Message-ID: <20190722135209.30302-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
- Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
-Subject: [alsa-devel] [PATCH v3 5/5] ALSA: hda/intel: stop probe if DMICS
-	are detected on Skylake+ platforms
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ phishscore=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 mlxlogscore=999
+ impostorscore=0 suspectscore=3 mlxscore=0 bulkscore=0 priorityscore=1501
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-1904300001 definitions=main-1907220160
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com
+Subject: [alsa-devel] [PATCH v2] ASoC: madera: Read device tree configuration
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,134 +102,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The legacy HD-Audio driver cannot handle Skylake+ platforms with
-digital microphones. For those platforms, the SOF or SST drivers need
-to be used.
+Read the configuration of the Madera ASoC driver from device tree.
 
-This patch provides an automatic way of detecting the presence of
-DMICs using NHTL information reported by the BIOS. A kernel kconfig
-option or a kernel module parameter provide an opt-in means of
-stopping the probe. The kernel would then look for an alternate driver
-registered for the same PCI ID to probe.
-
-With this capability, distros no longer have to blacklist
-snd-hda-intel, but still need to make sure the SOF/SST drivers are
-functional by providing the relevant firmware and topology files in
-/lib/firmware/intel
-
-The coexistence between SOF and SST drivers and their dynamic
-detection is not addressed by this patch, different mechanisms need to
-be used, e.g. DMI-based quirks.
-
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/pci/hda/Kconfig     | 10 ++++++++++
- sound/pci/hda/hda_intel.c | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 44 insertions(+)
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 35d934309cb2..b5966014b5f7 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -12,6 +12,7 @@ config SND_HDA_INTEL
- 	tristate "HD Audio PCI"
- 	depends on SND_PCI
- 	select SND_HDA
-+	select SND_INTEL_NHLT if ACPI
- 	help
- 	  Say Y here to include support for Intel "High Definition
- 	  Audio" (Azalia) and its compatible devices.
-@@ -22,6 +23,15 @@ config SND_HDA_INTEL
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called snd-hda-intel.
+Changes since v1:
+ - Returned to using a helping in the madera driver itself,
+   discussions around adding a generic helper indicated that all the
+   error reporting would still need to be contained in the driver which
+   constitutes the vast majority of the code in the helper anyway.
+ - Updated the code to use the new device_property_count_u32 helper.
+
+Thanks,
+Charles
+
+ sound/soc/codecs/madera.c | 97 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
+
+diff --git a/sound/soc/codecs/madera.c b/sound/soc/codecs/madera.c
+index 1b1be19a2f991..5f1e32a5a8556 100644
+--- a/sound/soc/codecs/madera.c
++++ b/sound/soc/codecs/madera.c
+@@ -300,6 +300,100 @@ int madera_free_overheat(struct madera_priv *priv)
+ }
+ EXPORT_SYMBOL_GPL(madera_free_overheat);
  
-+config SND_HDA_INTEL_DETECT_DMIC
-+	bool "DMIC detection and probe abort"
-+	depends on SND_HDA_INTEL
-+	help
-+	  Say Y to detect digital microphones on SKL+ devices. DMICs
-+	  cannot be handled by the HDaudio legacy driver and are
-+	  currently only supported by the SOF driver.
-+	  If unsure say N.
-+
- config SND_HDA_TEGRA
- 	tristate "NVIDIA Tegra HD Audio"
- 	depends on ARCH_TEGRA
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index cb8b0945547c..ae9c13248a1d 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -46,6 +46,7 @@
- #include <sound/initval.h>
- #include <sound/hdaudio.h>
- #include <sound/hda_i915.h>
-+#include <sound/intel-nhlt.h>
- #include <linux/vgaarb.h>
- #include <linux/vga_switcheroo.h>
- #include <linux/firmware.h>
-@@ -124,6 +125,7 @@ static char *patch[SNDRV_CARDS];
- static bool beep_mode[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] =
- 					CONFIG_SND_HDA_INPUT_BEEP_MODE};
- #endif
-+static bool dmic_detect = IS_ENABLED(CONFIG_SND_HDA_INTEL_DETECT_DMIC);
- 
- module_param_array(index, int, NULL, 0444);
- MODULE_PARM_DESC(index, "Index value for Intel HD audio interface.");
-@@ -158,6 +160,8 @@ module_param_array(beep_mode, bool, NULL, 0444);
- MODULE_PARM_DESC(beep_mode, "Select HDA Beep registration mode "
- 			    "(0=off, 1=on) (default=1).");
- #endif
-+module_param(dmic_detect, bool, 0444);
-+MODULE_PARM_DESC(dmic_detect, "DMIC detect on SKL+ platforms");
- 
- #ifdef CONFIG_PM
- static int param_set_xint(const char *val, const struct kernel_param *kp);
-@@ -2025,6 +2029,25 @@ static const struct hda_controller_ops pci_hda_ops = {
- 	.position_check = azx_position_check,
- };
- 
-+static int azx_check_dmic(struct pci_dev *pci, struct azx *chip)
++static int madera_get_variable_u32_array(struct device *dev,
++					 const char *propname,
++					 u32 *dest, int n_max,
++					 int multiple)
 +{
-+	struct nhlt_acpi_table *nhlt;
-+	int ret = 0;
++	int n, ret;
 +
-+	if (chip->driver_type == AZX_DRIVER_SKL &&
-+	    pci->class != 0x040300) {
-+		nhlt = intel_nhlt_init(&pci->dev);
-+		if (nhlt) {
-+			if (intel_nhlt_get_dmic_geo(&pci->dev, nhlt)) {
-+				ret = -ENODEV;
-+				dev_info(&pci->dev, "Digital mics found on Skylake+ platform, aborting probe\n");
-+			}
-+			intel_nhlt_free(nhlt);
-+		}
++	n = device_property_count_u32(dev, propname);
++	if (n < 0) {
++		if (n == -EINVAL)
++			return 0;	/* missing, ignore */
++
++		dev_warn(dev, "%s malformed (%d)\n", propname, n);
++
++		return n;
++	} else if ((n % multiple) != 0) {
++		dev_warn(dev, "%s not a multiple of %d entries\n",
++			 propname, multiple);
++
++		return -EINVAL;
 +	}
-+	return ret;
++
++	if (n > n_max)
++		n = n_max;
++
++	ret = device_property_read_u32_array(dev, propname, dest, n);
++	if (ret < 0)
++		return ret;
++
++	return n;
 +}
 +
- static int azx_probe(struct pci_dev *pci,
- 		     const struct pci_device_id *pci_id)
- {
-@@ -2055,6 +2078,17 @@ static int azx_probe(struct pci_dev *pci,
- 	card->private_data = chip;
- 	hda = container_of(chip, struct hda_intel, chip);
- 
-+	/*
-+	 * stop probe if digital microphones detected on Skylake+ platform
-+	 * with the DSP enabled. This is an opt-in behavior defined at build
-+	 * time or at run-time with a module parameter
-+	 */
-+	if (dmic_detect) {
-+		err = azx_check_dmic(pci, chip);
-+		if (err < 0)
-+			goto out_free;
-+	}
++static void madera_prop_get_inmode(struct madera_priv *priv)
++{
++	struct madera *madera = priv->madera;
++	struct madera_codec_pdata *pdata = &madera->pdata.codec;
++	u32 tmp[MADERA_MAX_INPUT * MADERA_MAX_MUXED_CHANNELS];
++	int n, i, in_idx, ch_idx;
 +
- 	pci_set_drvdata(pci, card);
++	BUILD_BUG_ON(ARRAY_SIZE(pdata->inmode) != MADERA_MAX_INPUT);
++	BUILD_BUG_ON(ARRAY_SIZE(pdata->inmode[0]) != MADERA_MAX_MUXED_CHANNELS);
++
++	n = madera_get_variable_u32_array(madera->dev, "cirrus,inmode",
++					  tmp, ARRAY_SIZE(tmp),
++					  MADERA_MAX_MUXED_CHANNELS);
++	if (n < 0)
++		return;
++
++	in_idx = 0;
++	ch_idx = 0;
++	for (i = 0; i < n; ++i) {
++		pdata->inmode[in_idx][ch_idx] = tmp[i];
++
++		if (++ch_idx == MADERA_MAX_MUXED_CHANNELS) {
++			ch_idx = 0;
++			++in_idx;
++		}
++	}
++}
++
++static void madera_prop_get_pdata(struct madera_priv *priv)
++{
++	struct madera *madera = priv->madera;
++	struct madera_codec_pdata *pdata = &madera->pdata.codec;
++	u32 out_mono[ARRAY_SIZE(pdata->out_mono)];
++	int i, n;
++
++	madera_prop_get_inmode(priv);
++
++	n = madera_get_variable_u32_array(madera->dev, "cirrus,out-mono",
++					  out_mono, ARRAY_SIZE(out_mono), 1);
++	if (n > 0)
++		for (i = 0; i < n; ++i)
++			pdata->out_mono[i] = !!out_mono[i];
++
++	madera_get_variable_u32_array(madera->dev,
++				      "cirrus,max-channels-clocked",
++				      pdata->max_channels_clocked,
++				      ARRAY_SIZE(pdata->max_channels_clocked),
++				      1);
++
++	madera_get_variable_u32_array(madera->dev, "cirrus,pdm-fmt",
++				      pdata->pdm_fmt,
++				      ARRAY_SIZE(pdata->pdm_fmt), 1);
++
++	madera_get_variable_u32_array(madera->dev, "cirrus,pdm-mute",
++				      pdata->pdm_mute,
++				      ARRAY_SIZE(pdata->pdm_mute), 1);
++
++	madera_get_variable_u32_array(madera->dev, "cirrus,dmic-ref",
++				      pdata->dmic_ref,
++				      ARRAY_SIZE(pdata->dmic_ref), 1);
++}
++
+ int madera_core_init(struct madera_priv *priv)
+ {
+ 	int i;
+@@ -308,6 +402,9 @@ int madera_core_init(struct madera_priv *priv)
+ 	BUILD_BUG_ON(!madera_mixer_texts[MADERA_NUM_MIXER_INPUTS - 1]);
+ 	BUILD_BUG_ON(!madera_mixer_values[MADERA_NUM_MIXER_INPUTS - 1]);
  
- 	err = register_vga_switcheroo(chip);
++	if (!dev_get_platdata(priv->madera->dev))
++		madera_prop_get_pdata(priv);
++
+ 	mutex_init(&priv->rate_lock);
+ 
+ 	for (i = 0; i < MADERA_MAX_HP_OUTPUT; i++)
 -- 
-2.20.1
+2.11.0
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,63 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B74C6F486
-	for <lists+alsa-devel@lfdr.de>; Sun, 21 Jul 2019 20:05:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 023286F6E6
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 03:29:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE1E91702;
-	Sun, 21 Jul 2019 20:05:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE1E91702
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EA8F1705;
+	Mon, 22 Jul 2019 03:28:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EA8F1705
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563732358;
-	bh=txJTU0dPy9MYgIzLIiXCTn91+vCUUSGA0pFBaUy23FM=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AR54d4mye0KiBJ5GiV79pxLZfQFxz4bPPyk2qyVkDIao7a46eBmt3F53Jx8HNEX2f
-	 MiHDrB4I2w71Z2yW2ayKatNvkqzTOA4OVJhG3XR20B3lqDdMBWsHjI37m1vFppjni4
-	 Z5R3x1nfejp9MIatAA+x5PM93q8Ia3erDBrePrpo=
+	s=default; t=1563758979;
+	bh=h49zqZ3qnZAWv/XceL+LPOSHW+2dspHG9+iH8DEH41s=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=X0YaeYMcfc5dLm2NGzgfynQ2DNNe5907ML+EqrU4usY52ufnwwHBIPGJs2Pcp4Hl7
+	 CZxjO/R2qmGHUpFs1OjyB6Pax7Okz4gxBqNQxmTPVRnrrLqRRAg6tBNkbGTHr+D/uc
+	 CJBQ7NuZgOsWAyOtpQCCQeksfFU9NlExuia/Cl7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2174CF8044A;
-	Sun, 21 Jul 2019 20:04:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87E6BF8015B;
+	Mon, 22 Jul 2019 03:27:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C1CAF80448; Sun, 21 Jul 2019 20:04:13 +0200 (CEST)
+ id DD5E1F800F5; Mon, 22 Jul 2019 03:27:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0185.hostedemail.com
- [216.40.44.185])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1806F800E8
- for <alsa-devel@alsa-project.org>; Sun, 21 Jul 2019 20:04:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1806F800E8
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay05.hostedemail.com (Postfix) with ESMTP id 8D5AC18029122;
- Sun, 21 Jul 2019 18:04:08 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: care78_23d5a97d6b148
-X-Filterd-Recvd-Size: 1889
-Received: from XPS-9350.home (cpe-23-242-196-136.socal.res.rr.com
- [23.242.196.136]) (Authenticated sender: joe@perches.com)
- by omf01.hostedemail.com (Postfix) with ESMTPA;
- Sun, 21 Jul 2019 18:04:06 +0000 (UTC)
-Message-ID: <4154c43331e4d1d361db41194587d3d41cf991b0.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Hariprasad Kelam <hariprasad.kelam@gmail.com>, Srinivas Kandagatla
- <srinivas.kandagatla@linaro.org>, alsa-devel@alsa-project.org, 
- linux-kernel@vger.kernel.org
-Date: Sun, 21 Jul 2019 11:04:04 -0700
-In-Reply-To: <20190721174715.GA10747@hari-Inspiron-1545>
-References: <20190721174715.GA10747@hari-Inspiron-1545>
-User-Agent: Evolution 3.30.5-0ubuntu0.18.10.1 
-MIME-Version: 1.0
-Subject: Re: [alsa-devel] [PATCH] slimbus: fix duplicated argument to ||
+X-Spam-Level: **
+X-Spam-Status: No, score=2.2 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 1DC9DF800F5
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 03:27:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DC9DF800F5
+Date: 22 Jul 2019 10:27:39 +0900
+X-IronPort-AV: E=Sophos;i="5.64,292,1559487600"; d="scan'208";a="21788006"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 22 Jul 2019 10:27:39 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id D348E4162942;
+ Mon, 22 Jul 2019 10:27:39 +0900 (JST)
+Message-ID: <8736iyj1yr.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH 00/16] ASoC: add soc-dai.c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,33 +65,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, 2019-07-21 at 23:17 +0530, Hariprasad Kelam wrote:
-> Remove duplicate argument SLIM_MSG_MC_REQUEST_CLEAR_INFORMATION.
-> 
-> fix below issue reported by coccicheck
-> ./drivers/slimbus/slimbus.h:440:3-46: duplicated argument to && or ||
-> 
-> Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-> ---
->  drivers/slimbus/slimbus.h | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/slimbus/slimbus.h b/drivers/slimbus/slimbus.h
-> index 9be4108..46a6441 100644
-> --- a/drivers/slimbus/slimbus.h
-> +++ b/drivers/slimbus/slimbus.h
-> @@ -438,8 +438,7 @@ static inline bool slim_tid_txn(u8 mt, u8 mc)
->  	return (mt == SLIM_MSG_MT_CORE &&
->  		(mc == SLIM_MSG_MC_REQUEST_INFORMATION ||
->  		 mc == SLIM_MSG_MC_REQUEST_CLEAR_INFORMATION ||
-> -		 mc == SLIM_MSG_MC_REQUEST_VALUE ||
-> -		 mc == SLIM_MSG_MC_REQUEST_CLEAR_INFORMATION));
-> +		 mc == SLIM_MSG_MC_REQUEST_VALUE));
->  }
 
-Perhaps this was intended to be
-		mc ==  SLIM_MSG_MC_REQUEST_CHANGE_VALUE ?
+Hi Mark
 
+I want to cleanup ALSA SoC.
+It will do nothing from "technical" point of view,
+but, will makes code readable.
+
+I already have many cleanup patches in my local branch.
+This is first patch-set for it.
+
+Kuninori Morimoto (16):
+  ASoC: add soc-dai.c
+  ASoC: soc-dai: mv soc_dai_hw_params() to soc-dai
+  ASoC: soc-dai: add snd_soc_dai_hw_free()
+  ASoC: soc-dai: add snd_soc_dai_startup()
+  ASoC: soc-dai: add snd_soc_dai_shutdown()
+  ASoC: soc-dai: add snd_soc_dai_prepare()
+  ASoC: soc-dai: add snd_soc_dai_trigger()
+  ASoC: soc-dai: add snd_soc_dai_bespoke_trigger()
+  ASoC: soc-dai: add snd_soc_dai_delay()
+  ASoC: soc-dai: add snd_soc_dai_suspend()
+  ASoC: soc-dai: add snd_soc_dai_resume()
+  ASoC: soc-dai: add snd_soc_dai_probe()
+  ASoC: soc-dai: add snd_soc_dai_remove()
+  ASoC: soc-dai: add snd_soc_dai_compress_new()
+  ASoC: soc-dai: move snd_soc_dai_stream_valid() to soc-dai.c
+  ASoC: soc-core: use existing snd_soc_dai_digital_mute()
+
+ include/sound/soc-dai.h  |  25 +++
+ include/sound/soc.h      |   4 -
+ sound/soc/Makefile       |   2 +-
+ sound/soc/soc-compress.c |   9 +-
+ sound/soc/soc-core.c     | 316 ++++--------------------------------
+ sound/soc/soc-dai.c      | 407 +++++++++++++++++++++++++++++++++++++++++++++++
+ sound/soc/soc-dapm.c     |  46 ++----
+ sound/soc/soc-pcm.c      | 200 +++++++----------------
+ 8 files changed, 548 insertions(+), 461 deletions(-)
+ create mode 100644 sound/soc/soc-dai.c
+
+-- 
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

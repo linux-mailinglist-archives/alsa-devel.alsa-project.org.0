@@ -2,97 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE286F800
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 05:39:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24FBA6F801
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 05:39:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B7FB1723;
-	Mon, 22 Jul 2019 05:38:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B7FB1723
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7BBB171D;
+	Mon, 22 Jul 2019 05:39:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7BBB171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563766750;
-	bh=MYq9P+WFPC2mqyYuo0SZ1iV6nJXdK/73m+qG6bz5gU4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Qz7I9xvaEGX2ovnm0Bp6lx+UeyHqSCTnHsCqYGuaS5JFXtZojT86eGqzRRRwCnVH8
-	 HJJRmhe7ZvfxiJ9gjOQMr7Pwezs9Ju9dw/mESyUJX/yCX4zOIl8YcwrkhqabV6i420
-	 O+FfaSoPRsrUEF+MmFTMtF1p9ogRaESAAJytHWw4=
+	s=default; t=1563766794;
+	bh=3aCfIUbXs4AC4W22QCpEex2R088I81M/DG8OawAr8L0=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ruWOhoLaZPYV+thlbCD4QFRU2ZMzX/0WjBy9H9aGpJCBWlnBUtijaFaklvlE8OQ9+
+	 rkcmIqkWGenz0OOKy36kg1Ek3mIoJHhZNtyHcn/FO40uXUY/Hgc2Y+fbbUCCvFMvgm
+	 pjzNg3+g+l7C+ZP3fsvz+hGhCo9f7UDYKQ8xKRKM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 640C0F80482;
-	Mon, 22 Jul 2019 05:37:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D74C9F803D1;
+	Mon, 22 Jul 2019 05:37:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AEC5F8015B; Mon, 22 Jul 2019 05:37:22 +0200 (CEST)
+ id 3B39BF800E8; Mon, 22 Jul 2019 05:37:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E5E28F803D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC7C4F800E8
  for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 05:37:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5E28F803D1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC7C4F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="ftNZ4mii"; 
+ header.b="ac9W6R0t"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="R7RlyTYs"
+ header.i=@messagingengine.com header.b="hJIPRWK1"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id ECD2621F14;
- Sun, 21 Jul 2019 23:37:16 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 7094D21ADD;
+ Sun, 21 Jul 2019 23:37:17 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sun, 21 Jul 2019 23:37:16 -0400
+ by compute1.internal (MEProxy); Sun, 21 Jul 2019 23:37:17 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=8r04a7CIwBaTewBPfglQkIJ3ly
- BJ73Z0ozdSf3OBtDo=; b=ftNZ4miiBAwuhhUJP5RK4D6uz2LBmrjgwMR2te+Tun
- 8n8nRVI1gXKkhhh9/nUHaJ27uy0yDKIXQ2UwUp4N3j/2LjEcQdkuY+wbG5ktXGZD
- fuJIta/85drylToji+bGcRvmgFnQU+8clDLz8EagTJDAKuI4bIfoKOZ0fSsLTbY5
- EpQtkYUEY4YmSThmtDy3JBEOH/dQW3AwsCLnDlFWLBkNC3Ocf13FtaposH+d6Ahz
- J1UMC138SdCd9S4wUW64GDcP86ZismN6EWa7fUX5p+m02gSM0ZEw77UnAtOuWdOH
- 1jaiMb81B31Io6mcQ34W+OO8AdyzClyPoLJg/oES41nA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=4Y3KYr8WoesCm
+ 77gu0fFCfcX6ixENBpfbiRniNiwC3w=; b=ac9W6R0t2LHZwEAU2BSBFDBudB6YZ
+ TjZ/VTg4ihbYvog2AvcyA2rPj3lEo/sTXNAAb2SpPMYqDxR+0SXLgTIC7JGvzPEk
+ pKFcr9RdemAWbh6uZD+WorDxMUvHUGtW1r6xq2srBZFi+6/QL6cZx/mpeHRgu9Ue
+ YOiaSjDnvEexGcbXXIs6LGKjmWbDeuwNQ7frdKZH1R7WllMO1hx8eyo7b11y9ZSv
+ b8U5x7xFHkvLzA1blnM3gbV+HzfmgBBCywVhbyqpObyOjebuYh22qcWV9/89wf0N
+ JPfmbcUQYQrCS+2lK95WAjAUte5yT3SNPkRJVYkXY0+7tpG71oLmtxb4A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=8r04a7CIwBaTewBPf
- glQkIJ3lyBJ73Z0ozdSf3OBtDo=; b=R7RlyTYsUK8jurCoKR1/gyh/nS90w6zDj
- xcSCNC3rWygHY+827fpuepTuDlCNu1k23hhoNwcLeCHdHX+P5VM8T/thN7zmMPQW
- CThw8IT0cRaOZyhGfFnMARYqT4qrd9frH6MciPIc9RL/Vu3+u8EcAfW8f9AL2Qk/
- 5gLgYSjjAhaf5N0gtIxL6sq53xmaeJE2T4ihyM9GYu1Sh0TGE86bq7HCHDoUP2RH
- QBYcFPx5lrVPer+CklmUcwMhQWZ2HfeirsjnvRRbhDRxHT4hj6O4TFLcZ3Q90zgJ
- XkSNr6jCFpi2h6+it5dDMkfbIWlIHCpkN2+CridUO4obwK/nXCWzQ==
-X-ME-Sender: <xms:ay81XVzPIHjxCoe3ZaW1l7Q5iJUKMwPfUEX3zCLkTRGGFEQJEpumiA>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=4Y3KYr8WoesCm77gu0fFCfcX6ixENBpfbiRniNiwC3w=; b=hJIPRWK1
+ GYCMZ4ZcIeAvpJfVbCIapVIu6KzxjTb+8WTdjHBtYDEuXBiPR94INQCEDmnveyHA
+ y/LofvVM+A8ohxHF/X8T9cKcpXiubh358ZkGCHMUSAObj1KKiA0+tH9Uzgo+7GTT
+ eTuCFL28iBpemAIUma1blv0/AVRhsWqQhHAt6YJatET3dArd351mYW4BKMRvtE3w
+ Z77Xt2BJvsMqVXw+mv4Ay363gB4uRqJeMG2hLWOlGnDMNZdykYksDk3BPn46TVPL
+ A5uHKq9Oz2zlji2RTI/b8oGUg9jxrnAGhOegDurj998mvV4BUvZZuWwf+OpfY7a8
+ QVwkFIcasN/LVw==
+X-ME-Sender: <xms:bS81XYoxbjL4Uliiqens4NM-7SQeiI8va36V7oTjXExovpQ-cT_p4w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrjeefgdejvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhi
- sehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinhepghhithhhuhgsrdgtohhmpd
- grlhhsrgdqphhrohhjvggtthdrohhrghenucfkphepudegrdefrdejhedrudekudenucfr
- rghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
- hjphenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:ay81XScnxWRxDZ_uLDJM5VV9nbM6VY0mttOjkPZ05jO89c9YYQvLZA>
- <xmx:ay81XX4DFoiKbkuRHIdMwf96e5G_zDz1DWmRX3tTUFJA9gnyDVIHTw>
- <xmx:ay81XXJO5u5EbNha1by67blUBr8_plQKIFN02g9-zwUN-sYrroPGcQ>
- <xmx:bC81XRyG8tgGhfe-BZKS9pE7i2G0HZ3FJMieGDlkGVcu7Xb7hy4Prg>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
+ frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
+ rdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:bS81XcXMEEySTY6N2o2d__qvruYcbKKVgSj1qqvsxaCmCAYoR6GntA>
+ <xmx:bS81XXrEF9e7AaYv0mGz92IeVulOvlt6EMF0MznoOrmQ9aErQioCaA>
+ <xmx:bS81XYFl5uWhcnvck5l766Q939CiI59gt19_Z-6FE2QWvScWzS6T_g>
+ <xmx:bS81XTeaJS608BNvd0UzKZIN78M5aa-l3bv35l8f6YoZTYyy7tX-Cg>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 77A5F80059;
- Sun, 21 Jul 2019 23:37:14 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 034B880060;
+ Sun, 21 Jul 2019 23:37:15 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Mon, 22 Jul 2019 12:36:50 +0900
-Message-Id: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
+Date: Mon, 22 Jul 2019 12:36:51 +0900
+Message-Id: <20190722033710.28107-2-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
+References: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 00/20] ALSA: firewire-lib: use packet
-	descriptor to represent sequence of packet
+Subject: [alsa-devel] [PATCH 01/20] ALSA: firewire-lib: obsolete
+	ctx_data.tx.first_dbc with CIP_UNALIGHED_DBC flag
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,116 +113,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Recent firmware for Fireworks board module have a quirk to start
+transmission of CIP with non-zero value for its data block counter.
+In current implementation of ALSA firewire stack, the quirk is handled
+by 'struct amdtp_stream.ctx_data.tx.first_dbc' with value 0x02. However,
+the value comes from reverse engineering. It's better to handle this
+quirk without the explicit value.
 
-This patchset is for Linux kernel v5.4.
+In a process to parse CIP header, the quirk of data block counter
+affects decision of sequence index in sequence-multiplexed data channel;
+i.e. MIDI conformant data channel. In Fireworks, the index is decided
+by the number of data blocks from top of the same CIP, thus the value
+of data block counter is useless.
 
-In current implementation of ALSA IEC 61883-1/6 packet streaming
-engine, one callback of isochronous context consists three steps
-to process an isochronous packet:
+This commit adds CIP_UNALIGHED_DBC flag and obsoletes the explicit
+value for this quirk.
 
-Callback of isochronous context
- - For each of packets
-  1.parse context header and decide the amount of PCM frames
-  2.process data blocks (in each unit driver)
-  3.queue packet
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+---
+ sound/firewire/amdtp-am824.c                | 8 ++++++--
+ sound/firewire/amdtp-stream.c               | 3 +--
+ sound/firewire/amdtp-stream.h               | 5 +++--
+ sound/firewire/fireworks/fireworks_stream.c | 2 +-
+ 4 files changed, 11 insertions(+), 7 deletions(-)
 
-The result of step 1 affects the rest, thus the above steps can be
-changed for below process:
-
-Callback of isochronous context
- 1.parse context header and decide the amount of PCM frames
-  - For each of packets
- 2.process data blocks (in each unit driver)
-  - For each of packets
- 3.queue packet
-  - For each of packets
-
-Especially it's convenient to decide the amount of PCM frames
-multiplexed into each packet as batch calculation before processing
-payloads of these packets.  Additionally it allows each unit driver
-to process data blocks for these packet by one call.
-
-This patchset uses list of 'struct pkt_desc' as an intermediate
-representation of packet parameters between these three steps.
-
-
-Here, I note my future plan for ALSA firewire stack for your motivation
-to review this patchset:
-
- * v5.4
-  * Handle several IT/IR context in one callback of IT context. This
-    idea will introduce AMDTP domain structure with relationship of IRQ
-    master/slave between the IT/IR contexts.
-  * As a result, both of playback/capture PCM substreams run on the
-    same hardware interrupt. Thus the drivers just support batch PCM
-    operation and irq-based programming model[1].
- * v5.5
-  * Some (p.s. not all) supported devices don't follow packet sequences
-    transferred by the drivers. They require clock recovery in driver
-    side to reduce playback noise.  Enhance the AMDTP domain structure
-    to have clock recovery target and fill list of 'struct pkt_desc'
-    according to the result of clock recovery.
-
-My work for libhinoko[2] allows me to sniff actual packet transmission
-between devices and drivers in Windows/Mac OS for long period (e.g. 1
-hour). Then I can classify some cases and some devices for the
-requirement of clock recovery.
-
-(I note that no specification describes this mechanism as long as I know.
-In the specification, clock recovery is one-way from transmitter to
-receivers, thus recovered clock is not necessarily used for transmission
-from the receiver to the transmitter.)
-
-[1] https://git.alsa-project.org/?p=alsa-utils.git;a=blob;f=axfer/axfer-transfer.1;hb=HEAD#l675
-[2] https://github.com/takaswie/libhinoko
-
-Takashi Sakamoto (20):
-  ALSA: firewire-lib: obsolete ctx_data.tx.first_dbc with
-    CIP_UNALIGHED_DBC flag
-  ALSA: firewire-lib: pass data block count as an argument to
-    tracepoints event
-  ALSA: firewire-lib: pass data block counter to data block processing
-    layer
-  ALSA: firewire-lib: operate data block counter in top level of
-    processing for IT context
-  ALSA: firewire-lib: operate data block counter in top level of
-    processing for IR context
-  ALSA: firewire-lib: add syt_override member for some protocols
-  ALSA: firewire-lib: pass no syt information to data block processing
-    layer
-  ALSA: firewire-lib: add list of packet descriptor
-  ALSA: firewire-lib: use packet descriptor for IT context
-  ALSA: firewire-lib: use packet descriptor for IR context
-  ALSA: firewire-lib: code refactoring to process PCM substream
-  ALSA: firewire-lib: code refactoring to process context payloads
-  ALSA: firewire-lib: pass packet descriptor to data block processing
-    layer
-  ALSA: firewire-lib: code refactoring for AM824 data block processing
-    layer
-  ALSA: firewire-digi00x: code refactoring for DOT data block processing
-    layer
-  ALSA: firewire-tascam: code refactoring for TASCAM data block
-    processing layer
-  ALSA: firewire-motu: code refactoring for MOTU data block processing
-    layer
-  ALSA: fireface: code refactoring for FF data block processing layer
-  ALSA: firewire-lib: process payload of isoc context according to
-    packet descriptors
-  ALSA: firewire-motu: more code refactoring for MOTU data block
-    processing layer
-
- sound/firewire/amdtp-am824.c                | 134 ++++++----
- sound/firewire/amdtp-stream-trace.h         |   6 +-
- sound/firewire/amdtp-stream.c               | 264 ++++++++++++--------
- sound/firewire/amdtp-stream.h               |  27 +-
- sound/firewire/digi00x/amdtp-dot.c          | 112 +++++----
- sound/firewire/fireface/amdtp-ff.c          | 105 ++++----
- sound/firewire/fireworks/fireworks_stream.c |   2 +-
- sound/firewire/motu/amdtp-motu.c            | 155 ++++++++----
- sound/firewire/tascam/amdtp-tascam.c        | 115 +++++----
- 9 files changed, 570 insertions(+), 350 deletions(-)
-
+diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
+index fd5d6b8ac557..99c567ded7a3 100644
+--- a/sound/firewire/amdtp-am824.c
++++ b/sound/firewire/amdtp-am824.c
+@@ -315,12 +315,16 @@ static void read_midi_messages(struct amdtp_stream *s,
+ 			       __be32 *buffer, unsigned int frames)
+ {
+ 	struct amdtp_am824 *p = s->protocol;
+-	unsigned int f, port;
+ 	int len;
+ 	u8 *b;
++	int f;
+ 
+ 	for (f = 0; f < frames; f++) {
+-		port = (8 - s->ctx_data.tx.first_dbc + s->data_block_counter + f) % 8;
++		unsigned int port = f;
++
++		if (!(s->flags & CIP_UNALIGHED_DBC))
++			port += s->data_block_counter;
++		port %= 8;
+ 		b = (u8 *)&buffer[p->midi_position];
+ 
+ 		len = b[0] - 0x80;
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index 4d71d74707cf..fc1e8e5b9429 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -584,8 +584,7 @@ static int check_cip_header(struct amdtp_stream *s, const __be32 *buf,
+ 	    s->data_block_counter != UINT_MAX)
+ 		*dbc = s->data_block_counter;
+ 
+-	if (((s->flags & CIP_SKIP_DBC_ZERO_CHECK) &&
+-	     *dbc == s->ctx_data.tx.first_dbc) ||
++	if ((*dbc == 0x00 && (s->flags & CIP_SKIP_DBC_ZERO_CHECK)) ||
+ 	    s->data_block_counter == UINT_MAX) {
+ 		lost = false;
+ 	} else if (!(s->flags & CIP_DBC_IS_END_EVENT)) {
+diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
+index 3942894c11ac..5d611122312b 100644
+--- a/sound/firewire/amdtp-stream.h
++++ b/sound/firewire/amdtp-stream.h
+@@ -33,6 +33,8 @@
+  * @CIP_HEADER_WITHOUT_EOH: Only for in-stream. CIP Header doesn't include
+  *	valid EOH.
+  * @CIP_NO_HEADERS: a lack of headers in packets
++ * @CIP_UNALIGHED_DBC: Only for in-stream. The value of dbc is not alighed to
++ *	the value of current SYT_INTERVAL; e.g. initial value is not zero.
+  */
+ enum cip_flags {
+ 	CIP_NONBLOCKING		= 0x00,
+@@ -45,6 +47,7 @@ enum cip_flags {
+ 	CIP_JUMBO_PAYLOAD	= 0x40,
+ 	CIP_HEADER_WITHOUT_EOH	= 0x80,
+ 	CIP_NO_HEADER		= 0x100,
++	CIP_UNALIGHED_DBC	= 0x200,
+ };
+ 
+ /**
+@@ -119,8 +122,6 @@ struct amdtp_stream {
+ 			// Fixed interval of dbc between previos/current
+ 			// packets.
+ 			unsigned int dbc_interval;
+-			// Indicate the value of dbc field in a first packet.
+-			unsigned int first_dbc;
+ 		} tx;
+ 		struct {
+ 			// To calculate CIP data blocks and tstamp.
+diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
+index e659a0b89ba5..385fc9686365 100644
+--- a/sound/firewire/fireworks/fireworks_stream.c
++++ b/sound/firewire/fireworks/fireworks_stream.c
+@@ -146,7 +146,7 @@ int snd_efw_stream_init_duplex(struct snd_efw *efw)
+ 	    (efw->firmware_version == 0x5070000 ||
+ 	     efw->firmware_version == 0x5070300 ||
+ 	     efw->firmware_version == 0x5080000))
+-		efw->tx_stream.ctx_data.tx.first_dbc = 0x02;
++		efw->tx_stream.flags |= CIP_UNALIGHED_DBC;
+ 	/* AudioFire9 always reports wrong dbs. */
+ 	if (efw->is_af9)
+ 		efw->tx_stream.flags |= CIP_WRONG_DBS;
 -- 
 2.20.1
 

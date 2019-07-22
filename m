@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04A206F817
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 05:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32D2A6F819
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 05:47:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7637F1743;
-	Mon, 22 Jul 2019 05:45:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7637F1743
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2B06175C;
+	Mon, 22 Jul 2019 05:46:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2B06175C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563767197;
-	bh=+2eUkQAaknhDT0r17swp/dmzqFQiC4o61d/criEjMMw=;
+	s=default; t=1563767238;
+	bh=KF5/itkuTX4V61Su56Zo0pns93mBX8kfYF0Dyxzj/GQ=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=szvroV3GAJ5vxN2YTIYY6DX0OhlcAZOeGb2bfMErhgRLpZwzERxFeRyxm0lwej+n1
-	 7YWvCQ37oxoBTh1w3g6UtsN/Fj/tF0oBFHhsLHqKemGsO4Zt1IS9DLbf0TUKV/yJ1a
-	 GIIoKBII7ZYo3DhzalwNIXag66JkJBIeOhqBIECA=
+	b=Y7oB4Ueh/8Tg7fmlBklAFTs9spQRL1PCNe9Kb5LLOT10l5qnE93fxp1dHPRJFKfDR
+	 L1UHQ40RE83Nded5IH2w+wTHFX4aYKBR4B2uwERl0NxIYDgJWrjBNlczwiuhU7RvF3
+	 4rpmCuJ/RvLhFvX/mDCFd6ItLhGhhfgu1IZm6Ddk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34208F80610;
-	Mon, 22 Jul 2019 05:37:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BECFF80636;
+	Mon, 22 Jul 2019 05:37:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C17F2F80518; Mon, 22 Jul 2019 05:37:38 +0200 (CEST)
+ id A4632F80519; Mon, 22 Jul 2019 05:37:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,67 +35,67 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94005F8015B
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 05:37:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94005F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19D35F803F4
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 05:37:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19D35F803F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="iLu6pYFG"; 
+ header.b="BCrWtQ/Z"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="cfew1Y8W"
+ header.i=@messagingengine.com header.b="LVwUrSzy"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id BD00820931;
- Sun, 21 Jul 2019 23:37:32 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 3D61121FC2;
+ Sun, 21 Jul 2019 23:37:34 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sun, 21 Jul 2019 23:37:32 -0400
+ by compute1.internal (MEProxy); Sun, 21 Jul 2019 23:37:34 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=bQSebmaZV7ssD
- OzPi3wfrPCHGs68TGv2HIGuJYRs82c=; b=iLu6pYFG7gFoaj73nsZEsfBIfyn93
- BM3uTIbmP6LsgHBAqdoGz3dJE+TBoDiVm/d+/f7xcNqYuj7ygkINIM+XR4l3fGzt
- T6gP4HZWuERD7CtZ37s+n9MvnU9mPfKHXiUF9+Ag9JiT6KVwfXl3colmnveULRwp
- WzidwFu1mLvph9PYb9NJ37too4vAPI+0BVk1g5PFHrFMd7Y3SEmpPjLW1kFfL0TF
- d+jB9qOvliDeXV9a+tMhD3BqteUlMiPweah31Mw4ccUWKuSQnpWCO7svJ3BOD50X
- KqOKdGJ+hs8iby39y1NetWfeZfg6IeKzOwD303x77VX4BDOaOPF0K/iZw==
+ :mime-version:content-transfer-encoding; s=fm2; bh=1I8DN8eShhZbq
+ dMcJo3yXYCRg/FevzUvvKu7RTM8cY0=; b=BCrWtQ/Zv3qWooS51acrqx3cGR8SB
+ +dUOaF+2Qd3uH8kHpIBBgHcP9mbaLnbanLV2P66aO7PrIBqMMX9ahlV07K7q7IbX
+ J7Cczv6f0u7adPWXzQKv6MDPde56d1x+JAGD6Ce4LT/dXkvQWhyrKwt8cWrYxxmR
+ 0xSSVD0BUSyLUFicMfFNO5n2ezg05etOyqIBGuozCia6i7UXZirPKK5HOPok5h1r
+ L2lQW0XcT7fHiwloqwmo1LzNbK9I4div+hkC9Aoq66K8I0qMqLB1oYpZ6cgL5ZEZ
+ XO03CHSYOvm/bcb/Txtu3FnQD7WDkywQjbTryfLv0/EwOcjGU/E4jcEyA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=bQSebmaZV7ssDOzPi3wfrPCHGs68TGv2HIGuJYRs82c=; b=cfew1Y8W
- n/L9QP4Hpkm+1Tbgp2kBbF4gY8Q2c3Fpb8DBsM2L9M8S9/H4hv1otLfn1u5YYXw1
- RMYP05lvEcLZZIjs2Plx5E0Tv19mRG71YKzLygAb+IlKuKTlUhFTwU+6zvcOqYxd
- d/2SjmRwG2wNdzzNTW+JsRLQu03/PcFGiqsfnj56ImTGizLn45yFFXUbqm1BReI3
- AadAW6emUNWa7ucIxyON/NoLSqXxCrX2h56hUGHfq5OS4tis47T5feisiXIL4qdw
- cwj+QCchMP/1NElMafbhhWfd6UH29gK5Oiem/yAbEip28YdnSY1k8/CP4fef62Ge
- l3yBE5N3LHYFjA==
-X-ME-Sender: <xms:fC81XUL7M17_U9ZHwM1s4c090Ol9u2NlbpX2gWkZLQov9p9tVs9bEw>
+ fm3; bh=1I8DN8eShhZbqdMcJo3yXYCRg/FevzUvvKu7RTM8cY0=; b=LVwUrSzy
+ qZegcTZAVMbeptxA+8q4fzqvAcOVsST56OP5t941PDrw+eArZ3SZS0v7xVGpn61q
+ GO5468LIjSBvK9jCPIEAv3BLiWqh0Zkox1Q5oglh10CPjF0m+j07d2Qvf53gG2T4
+ G/iJ2a/4BLw8aUVXV+GC9yRv27SW0EQT7Kr4ceFmYY6SOEyKQNj8ehygeOAtcPAS
+ 81bOr+DMaaY6MwdGMBiuOBF3lLZOuzMThpSQmVQuSfL/39a/mcKiLaPOovsw+pxI
+ hlu74tPxzl5asSTFVvNP1hF/3TxioE9+57HU6xvOdiEfsEHhU+VW59KMxWpkzncy
+ hbCWGcQG6bTohg==
+X-ME-Sender: <xms:fi81XV4jfunvu0y-a6-CiPyVlWev6EI9X0e5ZJa1kXwcPNBqaPb6OQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrjeefgdejvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
  ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpeej
-X-ME-Proxy: <xmx:fC81XR9V14WwF1HJFxXSODm_unFavCNf2lI7sNskAuzwCkFTSDZOyg>
- <xmx:fC81XfJN_npTGGpALRkytLvNhlSd9ybBOvhtUJqdsOeycY18ltdrhQ>
- <xmx:fC81Xenp_N0Bvw1uzJ2QvLIag5qJ7kRdP0c8TzSOtG97C3Ywzh4Yhw>
- <xmx:fC81XWY6Ienwo1BBBBhgl33stbImjRxMdK2pMoySgpF2qYy_Z4qghw>
+ rdhjphenucevlhhushhtvghrufhiiigvpeduud
+X-ME-Proxy: <xmx:fi81XSlFnmbApq0cq7_3oLoZSuXUvHRyTe6IC90094N5mLKEk4DfyQ>
+ <xmx:fi81XYHOypV49qj-sIhq_q4BHQCQ8uh7h2ZtKueRf1_rrMTMLW0tdQ>
+ <xmx:fi81XZ8WHDGKX5cXYs95jxBnU94pFzhq7LkBvMe361B00_eeUG7IaQ>
+ <xmx:fi81XXQfO1u4bC6hBB4p4AotZAhq5qlqJP9Ttl_0AqhvyxYVYZm8lQ>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 56FA880059;
- Sun, 21 Jul 2019 23:37:31 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id D502880059;
+ Sun, 21 Jul 2019 23:37:32 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Mon, 22 Jul 2019 12:37:01 +0900
-Message-Id: <20190722033710.28107-12-o-takashi@sakamocchi.jp>
+Date: Mon, 22 Jul 2019 12:37:02 +0900
+Message-Id: <20190722033710.28107-13-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
 References: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 11/20] ALSA: firewire-lib: code refactoring to
-	process PCM substream
+Subject: [alsa-devel] [PATCH 12/20] ALSA: firewire-lib: code refactoring to
+	process context payloads
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,100 +113,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is code refactoring to separate PCM substream processing from packet
-queueing.
+This is code refactoring for common processing for payloads of
+ishocornous context.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 45 +++++++++++++++++++----------------
- 1 file changed, 25 insertions(+), 20 deletions(-)
+ sound/firewire/amdtp-stream.c | 47 ++++++++++++++++-------------------
+ 1 file changed, 22 insertions(+), 25 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 68502a8864b9..99b89bd70bc5 100644
+index 99b89bd70bc5..573265113a6f 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -776,16 +776,24 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
+@@ -760,22 +760,14 @@ static inline void cancel_stream(struct amdtp_stream *s)
+ 	WRITE_ONCE(s->pcm_buffer_pointer, SNDRV_PCM_POS_XRUN);
+ }
+ 
+-static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
+-				size_t header_length, void *header,
+-				void *private_data)
++static void process_ctx_payloads(struct amdtp_stream *s,
++				 const struct pkt_desc *descs,
++				 unsigned int packets)
+ {
+-	struct amdtp_stream *s = private_data;
+-	const __be32 *ctx_header = header;
+-	unsigned int packets = header_length / sizeof(*ctx_header);
+ 	int i;
+ 
+-	if (s->packet_index < 0)
+-		return;
+-
+-	generate_ideal_pkt_descs(s, s->pkt_descs, ctx_header, packets);
+-
+ 	for (i = 0; i < packets; ++i) {
+-		const struct pkt_desc *desc = s->pkt_descs + i;
++		const struct pkt_desc *desc = descs + i;
+ 		struct snd_pcm_substream *pcm;
+ 		unsigned int pcm_frames;
+ 
+@@ -786,6 +778,23 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
+ 		if (pcm && pcm_frames > 0)
+ 			update_pcm_pointers(s, pcm, pcm_frames);
+ 	}
++}
++
++static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
++				size_t header_length, void *header,
++				void *private_data)
++{
++	struct amdtp_stream *s = private_data;
++	const __be32 *ctx_header = header;
++	unsigned int packets = header_length / sizeof(*ctx_header);
++	int i;
++
++	if (s->packet_index < 0)
++		return;
++
++	generate_ideal_pkt_descs(s, s->pkt_descs, ctx_header, packets);
++
++	process_ctx_payloads(s, s->pkt_descs, packets);
  
  	for (i = 0; i < packets; ++i) {
  		const struct pkt_desc *desc = s->pkt_descs + i;
-+		struct snd_pcm_substream *pcm;
- 		unsigned int pcm_frames;
-+
-+		pcm_frames = s->process_data_blocks(s, desc->ctx_payload,
-+				desc->data_blocks, desc->data_block_counter);
-+
-+		pcm = READ_ONCE(s->pcm);
-+		if (pcm && pcm_frames > 0)
-+			update_pcm_pointers(s, pcm, pcm_frames);
-+	}
-+
-+	for (i = 0; i < packets; ++i) {
-+		const struct pkt_desc *desc = s->pkt_descs + i;
- 		unsigned int syt;
- 		struct {
- 			struct fw_iso_packet params;
- 			__be32 header[IT_PKT_HEADER_SIZE_CIP / sizeof(__be32)];
- 		} template = { {0}, {0} };
--		struct snd_pcm_substream *pcm;
--
--		pcm_frames = s->process_data_blocks(s, desc->ctx_payload,
--				desc->data_blocks, desc->data_block_counter);
- 
- 		if (s->ctx_data.rx.syt_override < 0)
- 			syt = desc->syt;
-@@ -800,10 +808,6 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 			cancel_stream(s);
+@@ -836,19 +845,7 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
  			return;
  		}
+ 	} else {
+-		for (i = 0; i < packets; ++i) {
+-			const struct pkt_desc *desc = s->pkt_descs;
+-			struct snd_pcm_substream *pcm;
+-			unsigned int pcm_frames;
 -
--		pcm = READ_ONCE(s->pcm);
--		if (pcm && pcm_frames > 0)
--			update_pcm_pointers(s, pcm, pcm_frames);
+-			pcm_frames = s->process_data_blocks(s,
+-					desc->ctx_payload, desc->data_blocks,
+-					desc->data_block_counter);
+-
+-			pcm = READ_ONCE(s->pcm);
+-			if (pcm && pcm_frames > 0)
+-				update_pcm_pointers(s, pcm, pcm_frames);
+-		}
++		process_ctx_payloads(s, s->pkt_descs, packets);
  	}
  
- 	fw_iso_context_queue_flush(s->context);
-@@ -831,28 +835,29 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 			cancel_stream(s);
- 			return;
- 		}
--	}
--
--	for (i = 0; i < packets; i++) {
--		const struct pkt_desc *desc = s->pkt_descs;
--		unsigned int pcm_frames = 0;
--		struct fw_iso_packet params = {0};
--		struct snd_pcm_substream *pcm;
-+	} else {
-+		for (i = 0; i < packets; ++i) {
-+			const struct pkt_desc *desc = s->pkt_descs;
-+			struct snd_pcm_substream *pcm;
-+			unsigned int pcm_frames;
- 
--		if (err >= 0) {
- 			pcm_frames = s->process_data_blocks(s,
- 					desc->ctx_payload, desc->data_blocks,
- 					desc->data_block_counter);
-+
-+			pcm = READ_ONCE(s->pcm);
-+			if (pcm && pcm_frames > 0)
-+				update_pcm_pointers(s, pcm, pcm_frames);
- 		}
-+	}
-+
-+	for (i = 0; i < packets; ++i) {
-+		struct fw_iso_packet params = {0};
- 
- 		if (queue_in_packet(s, &params) < 0) {
- 			cancel_stream(s);
- 			return;
- 		}
--
--		pcm = READ_ONCE(s->pcm);
--		if (pcm && pcm_frames > 0)
--			update_pcm_pointers(s, pcm, pcm_frames);
- 	}
- 
- 	fw_iso_context_queue_flush(s->context);
+ 	for (i = 0; i < packets; ++i) {
 -- 
 2.20.1
 

@@ -2,76 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724A37008A
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:06:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11BA270087
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:06:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF3141693;
-	Mon, 22 Jul 2019 15:06:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF3141693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9469C17E8;
+	Mon, 22 Jul 2019 15:05:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9469C17E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563800813;
-	bh=uacj/ezvPbOybb576u92svXG8oFqqWCsCOXHncXrFfw=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kAcCassyTCQ18c8d1nGt2GZuaIjsnKQwFAhGXBDxy+a0klgeGj796xtRAjbbVCDRo
-	 8E2HJzZ8nnYjy05iHyYSMFc2qQ2RYtSqilO03pNKMFCxJT8NKZUWQlkV0yLxozF6E1
-	 STQ8v4ULFf6c4kxRVNOHM8PVra5uz2z8q71CLhXc=
+	s=default; t=1563800766;
+	bh=UmXreH6ruT6iRMHt9qEbif8exNIn2QWE7Y8WELcf6Po=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lvpfmn/OJypsDfcf9bBGeUvS9Of7N0rGcPufyrzUV2ALTElr1xfMKIS5Vwah9Cdc7
+	 fUKtWwnrp/oOULrdCIKgcQZJDonOi5W5MEYlrCCcj6P6/XFeb3PSUoX4e1EU+iFIY2
+	 tkeBlY9wDaZOwr88uMiw/tBSklGgeIuNaFApoGu4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D953F803F3;
-	Mon, 22 Jul 2019 15:05:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 035B7F803D5;
+	Mon, 22 Jul 2019 15:04:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 48C58F803D7; Mon, 22 Jul 2019 15:05:45 +0200 (CEST)
+ id 9FC24F803D5; Mon, 22 Jul 2019 15:04:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mo6-p01-ob.smtp.rzone.de (mo6-p01-ob.smtp.rzone.de
- [IPv6:2a01:238:20a:202:5301::1])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 07637F800E8
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:05:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07637F800E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="Qaftanyx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1563800736;
- s=strato-dkim-0002; d=gerhold.net;
- h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
- Subject:Sender;
- bh=RsAX8kDqEjkHZi13eG+iYrjtF5VikobkUxQqrWt96Gk=;
- b=Qaftanyxiv/tqj49MzQOlWv+f9iH65CmLJx/yTuSFdpClPDkWlTLKC2xP0gjqzAFxb
- fRuXiQVD8JE5xKmGfEFuYidSxnSZY034yLHskwe3ZAtNxeyCIQvaXKwceUe8MerOeAEO
- tpRAfmLWb9DxX38XVPPPd/F7wTgJp2OaTsSaLxbUU8CfHtUnG8euBSYdxzKSmT6oUsLZ
- j4r76SLv41w5f2oTc3SunW+k5+SJvzTgVVw1YWK0Cxjq9B7YG5i/gvOgFrtUhj47Qpzh
- 33PK5Ced0sQXqkJC27KX8+MFf+D9/ibf5Ot/hmVReevlNXKKserX3zhViqgp0hzu8C/e
- rSqQ==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXS7IYBkLahKxP4G6N/EiB"
-X-RZG-CLASS-ID: mo00
-Received: from localhost.localdomain by smtp.strato.de (RZmta 44.24 DYNA|AUTH)
- with ESMTPSA id m0a13fv6MD5YPok
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Mon, 22 Jul 2019 15:05:34 +0200 (CEST)
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Mark Brown <broonie@kernel.org>
-Date: Mon, 22 Jul 2019 15:03:52 +0200
-Message-Id: <20190722130352.95874-1-stephan@gerhold.net>
-X-Mailer: git-send-email 2.22.0
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Stephan Gerhold <stephan@gerhold.net>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: [alsa-devel] [PATCH] ASoC: qcom: apq8016_sbc: Fix oops with
-	multiple DAI links
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF0E3F800F5
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:04:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF0E3F800F5
+Received: from kresse.hi.pengutronix.de ([2001:67c:670:100:1d::2a])
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <l.stach@pengutronix.de>)
+ id 1hpXz6-0005yy-7y; Mon, 22 Jul 2019 15:04:08 +0200
+Message-ID: <1563800647.2311.13.camel@pengutronix.de>
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Daniel Baluta <daniel.baluta@nxp.com>, broonie@kernel.org
+Date: Mon, 22 Jul 2019 15:04:07 +0200
+In-Reply-To: <20190722124833.28757-11-daniel.baluta@nxp.com>
+References: <20190722124833.28757-1-daniel.baluta@nxp.com>
+ <20190722124833.28757-11-daniel.baluta@nxp.com>
+X-Mailer: Evolution 3.22.6-1+deb9u2 
+Mime-Version: 1.0
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::2a
+X-SA-Exim-Mail-From: l.stach@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, viorel.suman@nxp.com, timur@kernel.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, shengjiu.wang@nxp.com,
+ angus@akkea.ca, tiwai@suse.com, nicoleotsuka@gmail.com, linux-imx@nxp.com,
+ kernel@pengutronix.de, festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 10/10] ASoC: fsl_sai: Add support for
+	imx7ulp/imx8mq
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,66 +73,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-apq8016_sbc_parse_of() sets up multiple DAI links, depending on the
-number of nodes in the device tree. However, at the moment
-CPU and platform components are only allocated for the first link.
-This causes an oops when more than one link is defined:
-
-	Internal error: Oops: 96000044 [#1] SMP
-	CPU: 0 PID: 1015 Comm: kworker/0:2 Not tainted 5.3.0-rc1 #4
-	Call trace:
-	 apq8016_sbc_platform_probe+0x1a8/0x3f0
-	 platform_drv_probe+0x50/0xa0
-	...
-
-Move the allocation inside the loop to ensure that each link is
-properly initialized.
-
-Fixes: 98b232ca9e0e ("ASoC: qcom: apq8016_sbc: use modern dai_link style")
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
----
- sound/soc/qcom/apq8016_sbc.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index f60a71990f66..ac75838bbfab 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -150,17 +150,17 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
- 
- 	link = data->dai_link;
- 
--	dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
--	if (!dlc)
--		return ERR_PTR(-ENOMEM);
-+	for_each_child_of_node(node, np) {
-+		dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
-+		if (!dlc)
-+			return ERR_PTR(-ENOMEM);
- 
--	link->cpus	= &dlc[0];
--	link->platforms	= &dlc[1];
-+		link->cpus	= &dlc[0];
-+		link->platforms	= &dlc[1];
- 
--	link->num_cpus		= 1;
--	link->num_platforms	= 1;
-+		link->num_cpus		= 1;
-+		link->num_platforms	= 1;
- 
--	for_each_child_of_node(node, np) {
- 		cpu = of_get_child_by_name(np, "cpu");
- 		codec = of_get_child_by_name(np, "codec");
- 
--- 
-2.22.0
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+QW0gTW9udGFnLCBkZW4gMjIuMDcuMjAxOSwgMTU6NDggKzAzMDAgc2NocmllYiBEYW5pZWwgQmFs
+dXRhOgo+IFNBSSBtb2R1bGUgb24gaW14N3VscC9pbXg4bSBmZWF0dXJlcyAyIG5ldyByZWdpc3Rl
+cnMgKFZFUklEIGFuZCBQQVJBTSkKPiBhdCB0aGUgYmVnaW5uaW5nIG9mIHJlZ2lzdGVyIGFkZHJl
+c3Mgc3BhY2UuCj4gCj4gT24gaW14N3VscCBGSUZPcyBjYW4gaGVsZCB1cCB0byAxNiB4IDMyIGJp
+dCBzYW1wbGVzLgo+IE9uIGlteDhtcSBGSUZPcyBjYW4gaGVsZCB1cCB0byAxMjggeCAzMiBiaXQg
+c2FtcGxlcy4KPiAKPiA+IFNpZ25lZC1vZmYtYnk6IERhbmllbCBCYWx1dGEgPGRhbmllbC5iYWx1
+dGFAbnhwLmNvbT4KPiAtLS0KPiDCoHNvdW5kL3NvYy9mc2wvZnNsX3NhaS5jIHwgMTQgKysrKysr
+KysrKysrKysKPiDCoDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAt
+LWdpdCBhL3NvdW5kL3NvYy9mc2wvZnNsX3NhaS5jIGIvc291bmQvc29jL2ZzbC9mc2xfc2FpLmMK
+PiBpbmRleCBmMjQ0MWI4NDg3N2UuLmIwNTgzNzQ2NWI1YSAxMDA2NDQKPiAtLS0gYS9zb3VuZC9z
+b2MvZnNsL2ZzbF9zYWkuYwo+ICsrKyBiL3NvdW5kL3NvYy9mc2wvZnNsX3NhaS5jCj4gQEAgLTEw
+NjUsMTAgKzEwNjUsMjQgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBmc2xfc2FpX3NvY19kYXRhIGZz
+bF9zYWlfaW14NnN4X2RhdGEgPSB7Cj4gPiDCoAkucmVnX29mZnNldCA9IDAsCj4gwqB9Owo+IMKg
+Cj4gK3N0YXRpYyBjb25zdCBzdHJ1Y3QgZnNsX3NhaV9zb2NfZGF0YSBmc2xfc2FpX2lteDd1bHBf
+ZGF0YSA9IHsKPiA+ICsJLnVzZV9pbXhfcGNtID0gdHJ1ZSwKPiA+ICsJLmZpZm9fZGVwdGggPSAx
+NiwKPiA+ICsJLnJlZ19vZmZzZXQgPSA4LAo+ICt9Owo+ICsKPiArc3RhdGljIGNvbnN0IHN0cnVj
+dCBmc2xfc2FpX3NvY19kYXRhIGZzbF9zYWlfaW14OG1xX2RhdGEgPSB7Cj4gPiArCS51c2VfaW14
+X3BjbSA9IHRydWUsCj4gPiArCS5maWZvX2RlcHRoID0gMTI4LAo+ID4gKwkucmVnX29mZnNldCA9
+IDgsCj4gK307Cj4gKwo+IMKgc3RhdGljIGNvbnN0IHN0cnVjdCBvZl9kZXZpY2VfaWQgZnNsX3Nh
+aV9pZHNbXSA9IHsKPiA+IMKgCXsgLmNvbXBhdGlibGUgPSAiZnNsLHZmNjEwLXNhaSIsIC5kYXRh
+ID0gJmZzbF9zYWlfdmY2MTBfZGF0YSB9LAo+ID4gwqAJeyAuY29tcGF0aWJsZSA9ICJmc2wsaW14
+NnN4LXNhaSIsIC5kYXRhID0gJmZzbF9zYWlfaW14NnN4X2RhdGEgfSwKPiA+IMKgCXsgLmNvbXBh
+dGlibGUgPSAiZnNsLGlteDZ1bC1zYWkiLCAuZGF0YSA9ICZmc2xfc2FpX2lteDZzeF9kYXRhIH0s
+Cj4gPiArCXsgLmNvbXBhdGlibGUgPSAiZnNsLGlteDd1bHAtc2FpIiwgLmRhdGEgPSAmZnNsX3Nh
+aV9pbXg3dWxwX2RhdGEgfSwKPiA+ICsJeyAuY29tcGF0aWJsZSA9ICJmc2wsaW14OG1xLXNhaSIs
+IC5kYXRhID0gJmZzbF9zYWlfaW14OG1xX2RhdGEgfSwKPiA+IApUaG9zZSB0d28gbmV3IGNvbXBh
+dGlibGVzIG5lZWQgdG8gYmUgZG9jdW1lbnRlZCBpbiB0aGUgRFQgYmluZGluZ3MuCgpSZWdhcmRz
+LApMdWNhcwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpB
+bHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6
+Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

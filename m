@@ -2,87 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6B3A70153
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:42:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D939F70196
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:46:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CED817CD;
-	Mon, 22 Jul 2019 15:41:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CED817CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64A5B17F5;
+	Mon, 22 Jul 2019 15:45:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64A5B17F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563802969;
-	bh=0GQBq2ltiu5w/luz7AtchpbYfcNmRs7epB74dlTuNKc=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ON6SYbZ0Wh95Us+YPAW7Cvk08ZI+yZVJJGqhUQ2QBi8P0ZIanfD4Ej+3Quq/zJmFq
-	 iEQKVU+JRE+r9brFl319gCtxY4pd14yDIxgxLmQyoUiHl1a3koEHyh+mnzkMFpzBKz
-	 82MyxvttyIR+LIs9yNoEXg+EiKCEGe+4ItdqmR1E=
+	s=default; t=1563803190;
+	bh=Ot4rPihvXCRBau1TCD6T/gWpOYRIwo/fxfgoyxQScmI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aTH0jNJFgp0YcqoUa4jtJnq5GMF5bP9IVwSptvj+NBM2ugl3UTQNeKuf4E7TPnIxT
+	 pPDjPvIp8fQmmNfaQtkzpQxBSipM2w7ebPzM8MDykiKbF2dBr+2P46jD4ZZV74ekIy
+	 2d7WoX2HXRsDaWjLhVR9tz8g6VyaaBu7nNHTHDKg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE72FF803F3;
-	Mon, 22 Jul 2019 15:41:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DFAAF803D6;
+	Mon, 22 Jul 2019 15:44:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3535F803D6; Mon, 22 Jul 2019 15:41:34 +0200 (CEST)
+ id 89C28F803D5; Mon, 22 Jul 2019 15:44:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from node.akkea.ca (node.akkea.ca [192.155.83.177])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D231F8015B
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:41:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D231F8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=akkea.ca header.i=@akkea.ca
- header.b="b0Aw88nL"; 
- dkim=pass (1024-bit key) header.d=akkea.ca header.i=@akkea.ca
- header.b="rCmnGnT6"
-Received: from localhost (localhost [127.0.0.1])
- by node.akkea.ca (Postfix) with ESMTP id 08F964E2006;
- Mon, 22 Jul 2019 13:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akkea.ca; s=mail;
- t=1563802885; bh=IacJxPGvijdjYD5rOT0Om29cf7LCqZ+St1BExi/2B8s=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=b0Aw88nLtuPyJUV4OlFyN7WeI8WBMk3d8fS659/ydi0kUAyjs6MLe9oZ2b9V+X/5/
- KFM8RQpkbnI0VhalN6c53ysX4Acr6uZtvJjBy25bMWR7QyglUt7ps6D/FX41CJHpHZ
- k5vJCpUdbHSO9F3S2PTwPSerMARgEOVvFKK6R7Hk=
-X-Virus-Scanned: Debian amavisd-new at mail.akkea.ca
-Received: from node.akkea.ca ([127.0.0.1])
- by localhost (mail.akkea.ca [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id JTJGuKubOCW3; Mon, 22 Jul 2019 13:41:24 +0000 (UTC)
-Received: from www.akkea.ca (node.akkea.ca [192.155.83.177])
- by node.akkea.ca (Postfix) with ESMTPSA id 9E1C14E2003;
- Mon, 22 Jul 2019 13:41:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akkea.ca; s=mail;
- t=1563802884; bh=IacJxPGvijdjYD5rOT0Om29cf7LCqZ+St1BExi/2B8s=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=rCmnGnT6OT8ze+jSOby/5pNMMavQxOKJpjKzDOT3/IWT+grGPMWN11LFT0Z2s7Oma
- Ujly7yEu3b+MIjwco9KYj3rMBeeVPyXH8GRKsbQVL7j+ymMnli/ZyXrVJFVyiMiO9v
- Q18HJWd43Yu0nXXB2+zI15ZTaIKsq+Q6gNgC4vz8=
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9B33F800E8
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:44:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9B33F800E8
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2019 06:44:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,295,1559545200"; d="scan'208";a="159882561"
+Received: from gprabakx-mobl4.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.254.184.17])
+ by orsmga007.jf.intel.com with ESMTP; 22 Jul 2019 06:44:19 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Mon, 22 Jul 2019 08:44:05 -0500
+Message-Id: <20190722134410.9602-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Date: Mon, 22 Jul 2019 06:41:24 -0700
-From: Angus Ainslie <angus@akkea.ca>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-In-Reply-To: <CAEnQRZBXjXPq6UL2tPshOtoRu4SJ3XZ8DRVnw13fyi3SL_EqXA@mail.gmail.com>
-References: <20190717105635.18514-1-l.stach@pengutronix.de>
- <20190717105635.18514-4-l.stach@pengutronix.de>
- <18b4d49b410248766e834f3a0444e106@akkea.ca>
- <CAEnQRZBXjXPq6UL2tPshOtoRu4SJ3XZ8DRVnw13fyi3SL_EqXA@mail.gmail.com>
-Message-ID: <0b25c90b0a9bd77849ae76e1fe06340e@akkea.ca>
-X-Sender: angus@akkea.ca
-User-Agent: Roundcube Webmail/1.3.6
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- patchwork-lst@pengutronix.de, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: fsl_sai: add i.MX8M support
+Cc: tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
+ Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
+Subject: [alsa-devel] [PATCH v3 0/5] ALSA/HDA: abort probe when DMICs are
+	detected
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,38 +68,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Daniel,
+This is the second take on same problem of detecting when the HDaudio
+legacy driver can be used and when the SST or SOF drivers are
+required.
 
-On 2019-07-22 03:39, Daniel Baluta wrote:
-> On Thu, Jul 18, 2019 at 1:36 PM Angus Ainslie <angus@akkea.ca> wrote:
->> 
->> On 2019-07-17 04:56, Lucas Stach wrote:
->> > The SAI block on the i.MX8M moved the register layout, as 2 version
->> > registers were added at the start of the register map. We deal with
->> > this by moving the start of the regmap, so both register layouts
->> > look the same to accesses going through the regmap.
->> >
->> > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
->> 
->> checkpatch has a complaint about mixing code and device tree bindings.
-> 
-> Hello Angus, Lucas,
-> 
-> What imx-sdma firmware have you used to test this with linux-next? I've
-> finished my changes but aplay gets stuck sending the first audio frame.
-> 
+The previous attempt based on a the PCI Class information was a
+resounding failure and broke audio on Linus' laptop, so we need
+additional information to avoid enabling a DSP-based driver without a
+good reason to do so.
 
-I'm just using the ROM firmware, I have no additional firmware in the 
-filesystem.
+This patchset suggests the use of the NHLT information which *in
+theory* exposes DMIC endpoints. The legacy HDaudio driver cannot
+handle DMICs and will not provide any capture capabilities. Since it's
+typically the first one to probe due to the Makefile order, aborting
+the probe will let the PCI subsystem look for the next driver which
+hopefully will support this capability.
 
-Angus
+I tested this patch on 5 devices (SKL, KBL, APL, GLK, WHL), three
+without DMICs and two with, and the detection seems to work as
+planned. Additional testing by Canonical and Endless folks did not
+expose any issues.
 
-> Daniel.
+Changes since v2 (Feedback from Takahi and Cezary)
+Added comment in Kconfig to alert the user to the dependency on ACPI
+
+Changes since v1 (Feedback from Takashi):
+Squashed patch3 in patch2
+Changed log to dbg_info
+Fixed module parameter handling
+
+Changes since RFC:
+Cosmetic code improvements
+Moved intel-nhlt.h to include/sound
+Moved intel-nhlt.c to sound/hda
+Removed SOC prefixes
+Added full-support for vendor-defined geometries
+Added Kconfig and kernel module parameter to opt-in
+
+Pierre-Louis Bossart (5):
+  ASoC: Intel: Skylake: move NHLT header to common directory
+  ALSA: hda: move parts of NHLT code to new module
+  ALSA: hda: intel-nhlt: handle NHLT VENDOR_DEFINED DMIC geometry
+  ASoC: Intel: Skylake: use common NHLT module
+  ALSA: hda/intel: stop probe if DMICS are detected on Skylake+
+    platforms
+
+ .../skl-nhlt.h => include/sound/intel-nhlt.h  |  51 +++++++--
+ sound/hda/Kconfig                             |   5 +
+ sound/hda/Makefile                            |   3 +
+ sound/hda/intel-nhlt.c                        | 102 ++++++++++++++++++
+ sound/pci/hda/Kconfig                         |  10 ++
+ sound/pci/hda/hda_intel.c                     |  34 ++++++
+ sound/soc/intel/Kconfig                       |   1 +
+ sound/soc/intel/skylake/skl-nhlt.c            |  91 +---------------
+ sound/soc/intel/skylake/skl-ssp-clk.c         |   1 +
+ sound/soc/intel/skylake/skl-topology.c        |   1 +
+ sound/soc/intel/skylake/skl.c                 |  12 ++-
+ sound/soc/intel/skylake/skl.h                 |   4 -
+ 12 files changed, 207 insertions(+), 108 deletions(-)
+ rename sound/soc/intel/skylake/skl-nhlt.h => include/sound/intel-nhlt.h (65%)
+ create mode 100644 sound/hda/intel-nhlt.c
+
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

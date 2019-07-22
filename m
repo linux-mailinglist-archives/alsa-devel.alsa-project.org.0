@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1CBB6FF87
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:24:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 188FB6FFA0
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:28:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B0A41772;
-	Mon, 22 Jul 2019 14:23:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B0A41772
+	by alsa0.perex.cz (Postfix) with ESMTPS id A16E51780;
+	Mon, 22 Jul 2019 14:27:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A16E51780
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563798287;
-	bh=7FpvoaLSLG+7mcdvUIYyJf+gnmbtTIOLu0qTOdOVNos=;
+	s=default; t=1563798526;
+	bh=pm2a3GBNfsdsfbbzZdEJnk3QcGh+W7KO8vQS3NSzVnM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hTjR/ZdfSytdP1kXmpLqYEOMLP1RfkcYPAyEws2WfzEbHV1de3HuQ5e7/TkMp/JEV
-	 svqY4R4Vvu5hfiQJxjGc3M+S0Wl9OMuh3AQuOGKqhySjXdl30XOcAq4ZINItKvx9tF
-	 /OjzExTjg7CnKwhcHiboyGoZyvy7+fS+1ByH8AY4=
+	b=DfiRw3zM1GABspRIH4QF2q9e6geTQGU9SC/c6YWu9Q8aj7yo3oaN+sUPaBaIfLruC
+	 sq64bZumfr2GWQcoeBcfBjooZ8chTL2ab/eJtMoZUMN76jAhRhHrmomA+qhB1UlDYt
+	 SYG8wrtlSFhAnKiakrkmja90vkqrRF7vBH+BrH18=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00796F803F3;
-	Mon, 22 Jul 2019 14:22:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B8A6F805A0;
+	Mon, 22 Jul 2019 14:22:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 652FFF80482; Mon, 22 Jul 2019 14:22:12 +0200 (CEST)
+ id 4F6E7F804AB; Mon, 22 Jul 2019 14:22:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B1F0F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0CA7F8045F
  for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B1F0F800F5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0CA7F8045F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="N3eIKgRA"
+ header.b="Y/WT8Ba/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=4CnDpDpZJPNwW0mah2kzk7QahZvhcnZ5+Jc9o9KgpBM=; b=N3eIKgRApZ/0
- j4nfGFswiNNGwJFHdE4z7Z4jbUq6GLlWBGmc2HoMFQ1TIgeUR2RKVcU+iH4/rVCJwHi5++nReBj1R
- nakqgh08vTW4WHEUrreV1CIQe1OGTRuOo48LDdbWTA7UZdTzHQV7IPoMll0HZCW/BQpCSXRumiwOU
- nrRSk=;
+ List-Archive; bh=in/fb71KsYP0yhArf9+lukEEvcKQEGa+C9EhYLToAho=; b=Y/WT8Ba/Ki7f
+ MANer7/MDVvj7bGQDjxZbDK1aj+SOjUfaexGtzGDuu3GrBBNs092b2gXWzqvkr9FhTm+6XGVnBO5i
+ loXp9M8lUWPz9qXnjlBXLlHEEE/6xTuQgbGK2C+9k8a4jbbpwtGS0ipNuT+ag4NIqqceeQDVc9ox3
+ 0x9eM=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpXKR-0007cF-9I; Mon, 22 Jul 2019 12:22:07 +0000
+ id 1hpXKR-0007cC-2W; Mon, 22 Jul 2019 12:22:07 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7C2D627416CB; Mon, 22 Jul 2019 13:22:06 +0100 (BST)
+ id 488132740463; Mon, 22 Jul 2019 13:22:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Shuming Fan <shumingf@realtek.com>
-In-Reply-To: <20190719063235.18757-1-shumingf@realtek.com>
+In-Reply-To: <20190719063249.18806-1-shumingf@realtek.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190722122206.7C2D627416CB@ypsilon.sirena.org.uk>
+Message-Id: <20190722122206.488132740463@ypsilon.sirena.org.uk>
 Date: Mon, 22 Jul 2019 13:22:06 +0100 (BST)
 Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
  lars@metafoo.de, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
  derek.fang@realtek.com, flove@realtek.com
-Subject: [alsa-devel] Applied "ASoC: rt1308: simplify the EFUSE read
-	function" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: rt1308: add silence detection and
+	manual PDB control" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1308: simplify the EFUSE read function
+   ASoC: rt1308: add silence detection and manual PDB control
 
 has been applied to the asoc tree at
 
@@ -114,59 +114,55 @@ to this mail.
 Thanks,
 Mark
 
-From 7f8272c64b931728549d45147cc53edebbb5b090 Mon Sep 17 00:00:00 2001
+From 607b9c8a850e505b02659f1552da123965e00270 Mon Sep 17 00:00:00 2001
 From: Shuming Fan <shumingf@realtek.com>
-Date: Fri, 19 Jul 2019 14:32:35 +0800
-Subject: [PATCH] ASoC: rt1308: simplify the EFUSE read function
+Date: Fri, 19 Jul 2019 14:32:49 +0800
+Subject: [PATCH] ASoC: rt1308: add silence detection and manual PDB control
 
-The rt1308_efuse function contains many redundant settings.
-We remove the redundant settings and the function still works.
+We enable the silence detection function in initial settings.
+PDB control changes to manual mode, hence the driver could
+fully control the AMP output on/off.
 
 Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Link: https://lore.kernel.org/r/20190719063235.18757-1-shumingf@realtek.com
+Link: https://lore.kernel.org/r/20190719063249.18806-1-shumingf@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1308.c | 22 ----------------------
- 1 file changed, 22 deletions(-)
+ sound/soc/codecs/rt1308.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
-index d673506c7c39..19d255e01827 100755
+index 19d255e01827..cf3d72f99705 100755
 --- a/sound/soc/codecs/rt1308.c
 +++ b/sound/soc/codecs/rt1308.c
-@@ -808,33 +808,11 @@ static void rt1308_efuse(struct rt1308_priv *rt1308)
- {
- 	regmap_write(rt1308->regmap, RT1308_RESET, 0);
+@@ -40,10 +40,10 @@ static const struct reg_sequence init_list[] = {
+ 	{ RT1308_VREF,			0x18100000 },
+ 	{ RT1308_IV_SENSE,		0x87010000 },
+ 	{ RT1308_DUMMY_REG,		0x00000200 },
+-	{ RT1308_SIL_DET,		0x61c30000 },
++	{ RT1308_SIL_DET,		0xe1c30000 },
+ 	{ RT1308_DC_CAL_2,		0x00ffff00 },
+ 	{ RT1308_CLK_DET,		0x01000000 },
+-	{ RT1308_POWER_STATUS,		0x00800000 },
++	{ RT1308_POWER_STATUS,		0x08800000 },
+ 	{ RT1308_DAC_SET,		0xafaf0700 },
  
--	regmap_write(rt1308->regmap, RT1308_POWER, 0xff371600);
--	regmap_write(rt1308->regmap, RT1308_CLK_1, 0x52100000);
--	regmap_write(rt1308->regmap, RT1308_I2C_I2S_SDW_SET, 0x01014005);
--	regmap_write(rt1308->regmap, RT1308_CLASS_D_SET_2, 0x227f5501);
--	regmap_write(rt1308->regmap, RT1308_PADS_1, 0x50150505);
--	regmap_write(rt1308->regmap, RT1308_VREF, 0x18100000);
--	regmap_write(rt1308->regmap, RT1308_IV_SENSE, 0x87010000);
--	regmap_write(rt1308->regmap, RT1308_DUMMY_REG, 0x00000200);
--	regmap_write(rt1308->regmap, RT1308_SIL_DET, 0x61c30000);
--	regmap_write(rt1308->regmap, RT1308_CLK_DET, 0x03700000);
--	regmap_write(rt1308->regmap, RT1308_SINE_TONE_GEN_1, 0x50022f00);
- 	regmap_write(rt1308->regmap, RT1308_POWER_STATUS, 0x01800000);
--	regmap_write(rt1308->regmap, RT1308_DC_CAL_2, 0x00ffff00);
--	regmap_write(rt1308->regmap, RT1308_CLASS_D_SET_2, 0x607e5501);
--
--	regmap_write(rt1308->regmap, RT1308_CLK_2, 0x0060e000);
--	regmap_write(rt1308->regmap, RT1308_EFUSE_1, 0x04fe0f00);
- 	msleep(100);
- 	regmap_write(rt1308->regmap, RT1308_EFUSE_1, 0x44fe0f00);
- 	msleep(20);
- 	regmap_write(rt1308->regmap, RT1308_PVDD_OFFSET_CTL, 0x10000000);
--
--	regmap_write(rt1308->regmap, RT1308_POWER_STATUS, 0x00800000);
--	regmap_write(rt1308->regmap, RT1308_POWER, 0x0);
--	regmap_write(rt1308->regmap, RT1308_CLK_1, 0x52000000);
--	regmap_write(rt1308->regmap, RT1308_CLASS_D_SET_2, 0x227f5501);
--	regmap_write(rt1308->regmap, RT1308_SINE_TONE_GEN_1, 0x10022f00);
- }
+ };
+@@ -308,12 +308,13 @@ static int rt1308_classd_event(struct snd_soc_dapm_widget *w,
+ 	case SND_SOC_DAPM_POST_PMU:
+ 		msleep(30);
+ 		snd_soc_component_update_bits(component, RT1308_POWER_STATUS,
+-			RT1308_POW_PDB_REG_BIT, RT1308_POW_PDB_REG_BIT);
++			RT1308_POW_PDB_REG_BIT | RT1308_POW_PDB_MN_BIT,
++			RT1308_POW_PDB_REG_BIT | RT1308_POW_PDB_MN_BIT);
+ 		msleep(40);
+ 		break;
+ 	case SND_SOC_DAPM_PRE_PMD:
+ 		snd_soc_component_update_bits(component, RT1308_POWER_STATUS,
+-			RT1308_POW_PDB_REG_BIT, 0);
++			RT1308_POW_PDB_REG_BIT | RT1308_POW_PDB_MN_BIT, 0);
+ 		usleep_range(150000, 200000);
+ 		break;
  
- static int rt1308_i2c_probe(struct i2c_client *i2c,
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41906FFD8
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:37:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7925C6FFBE
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:34:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59ABB1786;
-	Mon, 22 Jul 2019 14:36:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59ABB1786
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12149178A;
+	Mon, 22 Jul 2019 14:33:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12149178A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563799041;
-	bh=mCXcZ0B9WAb+IxqQo04jVeIvxWuwAA+cNvdHqLCpJjw=;
+	s=default; t=1563798887;
+	bh=y8tbjIB3iuZLubziNQJkdkzYdetWHg5vus3jXlcLoeI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mDRpa1YjBZAXlfTQaljX9VNkrlsqybAk4pa7UnYktlwPFTkMDwIuhhWUPHMfQ+FMc
-	 6taUMg+XI5EO8ChvkFZT593EE0Td8NqvweexD80X249LbQY28fhyPqDZsqtWUYlVPF
-	 YRhGG9n9ocgnT+Nt2A2dmgm76+NEW7O0wMrZ+AAc=
+	b=UL/DacmPSKl3v7BJKLr3wu3h7HSdBSpUiNvviAbrRlHUArSCa1bAKN0EtDS1GnOxD
+	 3BbhZmkxykIQywLTelX9H2D/hK5Sp/V0D1QGhq9z28e0YKEc0KUXk4YViCPiMTOW6P
+	 V4n01SohqX+43GwAYnlQty39p8wJ7XXFD/9kgMEY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DEA6EF806F5;
-	Mon, 22 Jul 2019 14:23:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23543F8065C;
+	Mon, 22 Jul 2019 14:22:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7F34F803D1; Mon, 22 Jul 2019 14:22:31 +0200 (CEST)
+ id 8C7B0F803D1; Mon, 22 Jul 2019 14:22:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7315CF80446
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7315CF80446
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6802FF80483
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6802FF80483
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="A3HNvBi0"
+ header.b="C49o/KLa"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=7E9zBTs5M1AO2ejSlcTllYEHc6ogZRJRbmARN2WSl08=; b=A3HNvBi0fvsT
- EV612HJQpQUjJkrbe1cdrh8my09NLtf1hcS/r408iwEscVmZCJWx/hLQzJKxCn+rdPnNVzIgmZb0U
- ClkmpLGU9MKR2Z9DZo9T1GxT7jutie4LngZqM2WgVhGVDfyImKGrUYPAyfGTQpKtT0GohG5PL1EJV
- CU/0w=;
+ List-Archive; bh=4wnoQnjXvnfh9OuN8zDIKomjeOlWzLxv+ayQyClMX1Y=; b=C49o/KLa+cBx
+ z9v6ErUOQkKoAXf7+/wQSZeiJAc6RR70z6iypfbsWyScVddB/Qh7fZPu3kOx0goMiU1CfOxCDgpEQ
+ ogC8dkhjglMUjfxQl84RgiC4PKpfG2w1zKqCGkmkN78xY7DB/8tDmd3Jna4phltvYsIumogdw9Wfk
+ f6spc=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpXKU-0007df-AD; Mon, 22 Jul 2019 12:22:10 +0000
+ id 1hpXKU-0007dj-Gq; Mon, 22 Jul 2019 12:22:10 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A60BC274046A; Mon, 22 Jul 2019 13:22:09 +0100 (BST)
+ id DB22327416CB; Mon, 22 Jul 2019 13:22:09 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20190626070450.7229-1-ranjani.sridharan@linux.intel.com>
+To: Masahiro Yamada <yamada.masahiro@socionext.com>
+In-Reply-To: <20190721142308.30306-1-yamada.masahiro@socionext.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190722122209.A60BC274046A@ypsilon.sirena.org.uk>
+Message-Id: <20190722122209.DB22327416CB@ypsilon.sirena.org.uk>
 Date: Mon, 22 Jul 2019 13:22:09 +0100 (BST)
-Cc: Libin Yang <libin.yang@intel.com>, tiwai@suse.de,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: Make hdac_device
-	device-managed" to the asoc tree
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: SOF: use __u32 instead of uint32_t in
+	uapi headers" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,18 +83,20 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6863307686484602472=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--===============6863307686484602472==
+Content-Type: text/plain
+
 The patch
 
-   ASoC: SOF: Intel: hda: Make hdac_device device-managed
+   ASoC: SOF: use __u32 instead of uint32_t in uapi headers
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,81 +117,173 @@ to this mail.
 Thanks,
 Mark
 
-From ef9bec27485fefb6b93168fea73fda0dc9638046 Mon Sep 17 00:00:00 2001
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date: Wed, 26 Jun 2019 00:04:50 -0700
-Subject: [PATCH] ASoC: SOF: Intel: hda: Make hdac_device device-managed
+From 62ec3d13601bd626ca7a0edef6d45dbb753d94e8 Mon Sep 17 00:00:00 2001
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+Date: Sun, 21 Jul 2019 23:23:08 +0900
+Subject: [PATCH] ASoC: SOF: use __u32 instead of uint32_t in uapi headers
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-snd_hdac_ext_bus_device_exit() has been recently modified
-to no longer free the hdac device. SOF allocates memory for
-hdac_device and hda_hda_priv with kzalloc. Make them
-device-managed instead so that they will be freed when the
-SOF driver is unloaded.
+When CONFIG_UAPI_HEADER_TEST=y, exported headers are compile-tested to
+make sure they can be included from user-space.
 
-Because of the above change, hda_codec is device-managed and
-it will be freed when the ASoC device is removed. Freeing
-the codec in snd_hda_codec_dev_release() leads to kernel
-panic while unloading and reloading the ASoC driver. So,
-avoid freeing the hda_codec for ASoC driver. This is done in
-the same patch to avoid bisect failure.
+Currently, header.h and fw.h are excluded from the test coverage.
+To make them join the compile-test, we need to fix the build errors
+attached below.
 
-Signed-off-by: Libin Yang <libin.yang@intel.com>
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20190626070450.7229-1-ranjani.sridharan@linux.intel.com
+For a case like this, we decided to use __u{8,16,32,64} variable types
+in this discussion:
+
+  https://lkml.org/lkml/2019/6/5/18
+
+Build log:
+
+  CC      usr/include/sound/sof/header.h.s
+  CC      usr/include/sound/sof/fw.h.s
+In file included from <command-line>:32:0:
+./usr/include/sound/sof/header.h:19:2: error: unknown type name ‘uint32_t’
+  uint32_t magic;  /**< 'S', 'O', 'F', '\0' */
+  ^~~~~~~~
+./usr/include/sound/sof/header.h:20:2: error: unknown type name ‘uint32_t’
+  uint32_t type;  /**< component specific type */
+  ^~~~~~~~
+./usr/include/sound/sof/header.h:21:2: error: unknown type name ‘uint32_t’
+  uint32_t size;  /**< size in bytes of data excl. this struct */
+  ^~~~~~~~
+./usr/include/sound/sof/header.h:22:2: error: unknown type name ‘uint32_t’
+  uint32_t abi;  /**< SOF ABI version */
+  ^~~~~~~~
+./usr/include/sound/sof/header.h:23:2: error: unknown type name ‘uint32_t’
+  uint32_t reserved[4]; /**< reserved for future use */
+  ^~~~~~~~
+./usr/include/sound/sof/header.h:24:2: error: unknown type name ‘uint32_t’
+  uint32_t data[0]; /**< Component data - opaque to core */
+  ^~~~~~~~
+In file included from <command-line>:32:0:
+./usr/include/sound/sof/fw.h:49:2: error: unknown type name ‘uint32_t’
+  uint32_t size;  /* bytes minus this header */
+  ^~~~~~~~
+./usr/include/sound/sof/fw.h:50:2: error: unknown type name ‘uint32_t’
+  uint32_t offset; /* offset from base */
+  ^~~~~~~~
+./usr/include/sound/sof/fw.h:64:2: error: unknown type name ‘uint32_t’
+  uint32_t size;  /* bytes minus this header */
+  ^~~~~~~~
+./usr/include/sound/sof/fw.h:65:2: error: unknown type name ‘uint32_t’
+  uint32_t num_blocks; /* number of blocks */
+  ^~~~~~~~
+./usr/include/sound/sof/fw.h:73:2: error: unknown type name ‘uint32_t’
+  uint32_t file_size; /* size of file minus this header */
+  ^~~~~~~~
+./usr/include/sound/sof/fw.h:74:2: error: unknown type name ‘uint32_t’
+  uint32_t num_modules; /* number of modules */
+  ^~~~~~~~
+./usr/include/sound/sof/fw.h:75:2: error: unknown type name ‘uint32_t’
+  uint32_t abi;  /* version of header format */
+  ^~~~~~~~
+
+Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+Link: https://lore.kernel.org/r/20190721142308.30306-1-yamada.masahiro@socionext.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/pci/hda/hda_codec.c       | 8 +++++++-
- sound/soc/sof/intel/hda-codec.c | 6 ++----
- 2 files changed, 9 insertions(+), 5 deletions(-)
+ include/uapi/sound/sof/fw.h     | 16 +++++++++-------
+ include/uapi/sound/sof/header.h | 14 ++++++++------
+ 2 files changed, 17 insertions(+), 13 deletions(-)
 
-diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
-index e30e86ca6b72..133200d31170 100644
---- a/sound/pci/hda/hda_codec.c
-+++ b/sound/pci/hda/hda_codec.c
-@@ -846,7 +846,13 @@ static void snd_hda_codec_dev_release(struct device *dev)
- 	snd_hda_sysfs_clear(codec);
- 	kfree(codec->modelname);
- 	kfree(codec->wcaps);
--	kfree(codec);
+diff --git a/include/uapi/sound/sof/fw.h b/include/uapi/sound/sof/fw.h
+index 1afca973eb09..e9f697467a86 100644
+--- a/include/uapi/sound/sof/fw.h
++++ b/include/uapi/sound/sof/fw.h
+@@ -13,6 +13,8 @@
+ #ifndef __INCLUDE_UAPI_SOF_FW_H__
+ #define __INCLUDE_UAPI_SOF_FW_H__
+ 
++#include <linux/types.h>
 +
-+	/*
-+	 * In the case of ASoC HD-audio, hda_codec is device managed.
-+	 * It will be freed when the ASoC device is removed.
-+	 */
-+	if (codec->core.type == HDA_DEV_LEGACY)
-+		kfree(codec);
- }
+ #define SND_SOF_FW_SIG_SIZE	4
+ #define SND_SOF_FW_ABI		1
+ #define SND_SOF_FW_SIG		"Reef"
+@@ -46,8 +48,8 @@ enum snd_sof_fw_blk_type {
  
- #define DEV_NAME_LEN 31
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index b8b37f082309..0d8437b080bf 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -62,8 +62,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- 		address, resp);
+ struct snd_sof_blk_hdr {
+ 	enum snd_sof_fw_blk_type type;
+-	uint32_t size;		/* bytes minus this header */
+-	uint32_t offset;	/* offset from base */
++	__u32 size;		/* bytes minus this header */
++	__u32 offset;		/* offset from base */
+ } __packed;
  
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
--	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
--	hda_priv = kzalloc(sizeof(*hda_priv), GFP_KERNEL);
-+	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
- 	if (!hda_priv)
- 		return -ENOMEM;
+ /*
+@@ -61,8 +63,8 @@ enum snd_sof_fw_mod_type {
  
-@@ -82,8 +81,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ struct snd_sof_mod_hdr {
+ 	enum snd_sof_fw_mod_type type;
+-	uint32_t size;		/* bytes minus this header */
+-	uint32_t num_blocks;	/* number of blocks */
++	__u32 size;		/* bytes minus this header */
++	__u32 num_blocks;	/* number of blocks */
+ } __packed;
  
- 	return 0;
- #else
--	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
--	hdev = kzalloc(sizeof(*hdev), GFP_KERNEL);
-+	hdev = devm_kzalloc(sdev->dev, sizeof(*hdev), GFP_KERNEL);
- 	if (!hdev)
- 		return -ENOMEM;
+ /*
+@@ -70,9 +72,9 @@ struct snd_sof_mod_hdr {
+  */
+ struct snd_sof_fw_header {
+ 	unsigned char sig[SND_SOF_FW_SIG_SIZE]; /* "Reef" */
+-	uint32_t file_size;	/* size of file minus this header */
+-	uint32_t num_modules;	/* number of modules */
+-	uint32_t abi;		/* version of header format */
++	__u32 file_size;	/* size of file minus this header */
++	__u32 num_modules;	/* number of modules */
++	__u32 abi;		/* version of header format */
+ } __packed;
  
+ #endif
+diff --git a/include/uapi/sound/sof/header.h b/include/uapi/sound/sof/header.h
+index 7868990b0d6f..5f4518e7a972 100644
+--- a/include/uapi/sound/sof/header.h
++++ b/include/uapi/sound/sof/header.h
+@@ -9,6 +9,8 @@
+ #ifndef __INCLUDE_UAPI_SOUND_SOF_USER_HEADER_H__
+ #define __INCLUDE_UAPI_SOUND_SOF_USER_HEADER_H__
+ 
++#include <linux/types.h>
++
+ /*
+  * Header for all non IPC ABI data.
+  *
+@@ -16,12 +18,12 @@
+  * Used by any bespoke component data structures or binary blobs.
+  */
+ struct sof_abi_hdr {
+-	uint32_t magic;		/**< 'S', 'O', 'F', '\0' */
+-	uint32_t type;		/**< component specific type */
+-	uint32_t size;		/**< size in bytes of data excl. this struct */
+-	uint32_t abi;		/**< SOF ABI version */
+-	uint32_t reserved[4];	/**< reserved for future use */
+-	uint32_t data[0];	/**< Component data - opaque to core */
++	__u32 magic;		/**< 'S', 'O', 'F', '\0' */
++	__u32 type;		/**< component specific type */
++	__u32 size;		/**< size in bytes of data excl. this struct */
++	__u32 abi;		/**< SOF ABI version */
++	__u32 reserved[4];	/**< reserved for future use */
++	__u32 data[0];		/**< Component data - opaque to core */
+ }  __packed;
+ 
+ #endif
 -- 
 2.20.1
+
+
+--===============6863307686484602472==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6863307686484602472==--

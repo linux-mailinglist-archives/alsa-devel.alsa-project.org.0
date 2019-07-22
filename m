@@ -2,73 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ED1E700E1
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:19:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 389D87012E
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 15:36:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 878F81808;
-	Mon, 22 Jul 2019 15:19:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 878F81808
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92DB417E7;
+	Mon, 22 Jul 2019 15:35:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92DB417E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563801598;
-	bh=QAU+sKIUW5oRLv6RK+N0nfEeYFVOWl9lTtrHM64Vdr0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563802578;
+	bh=5HqOBflbgQxJmDA5JVTZy3abTzTGLmhac9YVDgunPKk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OX//NnVHKDAIegqz2r7Qmj5jiF4eBnHTEAOjA+XWBeruCo/QNBXPNhpKucB4UcbGP
-	 wOeL93QNMTlQAzHBiKseCM7uDLmRv+8IxgtpfBlTkyJOTYeCI9A7IxEKKV7bdd+iD0
-	 eqQfSixQwL5WaGi2Hj8EpxMd4WoYW8wf0f8lITBk=
+	b=iGa686/EulhH3HfCqJFs3UbLKRxp1ip/rStbJs8/FL67uApLeXtfMUAr2v1OWAj/n
+	 ixZhMnTsdcT4/nDrc84mEPfgxJoR3kHGuEqWflR93Ewnafh7xeFqmW9VCbPDZInd8C
+	 4WoEr2Ni54eug5CGssMQbEPvs2gsHVvWSVVq4Ops=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C19BF800E8;
-	Mon, 22 Jul 2019 15:18:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1994F803D7;
+	Mon, 22 Jul 2019 15:34:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F30CF803D7; Mon, 22 Jul 2019 15:18:36 +0200 (CEST)
+ id 18E69F803D5; Mon, 22 Jul 2019 15:34:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+ [209.85.160.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A090EF800E8
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:18:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A090EF800E8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2019 06:17:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,295,1559545200"; d="scan'208";a="252904806"
-Received: from tshvartz-mobl.ger.corp.intel.com (HELO [10.251.153.95])
- ([10.251.153.95])
- by orsmga001.jf.intel.com with ESMTP; 22 Jul 2019 06:17:48 -0700
-To: Takashi Iwai <tiwai@suse.de>
-References: <20190719203752.11151-1-pierre-louis.bossart@linux.intel.com>
- <20190719203752.11151-3-pierre-louis.bossart@linux.intel.com>
- <daaa01dc-d963-f215-90b1-132fde8e489a@intel.com>
- <s5h7e8aa1qs.wl-tiwai@suse.de>
- <97359d3a-a3a0-696a-3d3f-64bd608eea5f@linux.intel.com>
- <s5hsgqy8dc2.wl-tiwai@suse.de>
- <a82b57ba-b606-3e2c-476e-95ecea66e030@linux.intel.com>
- <s5hd0i28bpi.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <09f3e8c5-e3d2-1c68-20f5-50280e20765e@linux.intel.com>
-Date: Mon, 22 Jul 2019 08:17:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC456F800E8
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 15:34:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC456F800E8
+Received: by mail-qt1-f196.google.com with SMTP id a15so38477717qtn.7
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 06:34:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jQJN9DULZLKDWOm0dpoiua+cqLKY8sRI6jmek37s8zY=;
+ b=tJO7+4JL4H3PcY1TlyCHRHmpzEl65MM4cFHEswFnBP5x0CcrJN7EZM5+NsVTU07bNK
+ HxKI3h33XUR7QPjNeD9GFOACxZ7Mjmsxyg02eFTy/vx+tzNzpZfTN9BRMVa7W2pEfcaq
+ dhRvB5s5hWrpVPiq8ACWpdZwP3aQLZb6u5XQzd/m+ChJumMNayxR4PjRQndXnyicNgvg
+ 8HIbxQhQ5h8V8o5xpYPBdQKc4ZgTLh909gWb4mNTmISb0FiJMNHEBuvowyT+qmXtlu3n
+ 78RkAfeUbBVrK6XvQim+D8KmJHGqjMDmtuXCpb6wtHNkQVtl7Sg5sfPF99oy9Nopnn5B
+ ZXfA==
+X-Gm-Message-State: APjAAAWThzq5Qo2FM8yt+1bsI5b8TLz+579y5eS2gs2seR8n6r7Jifbh
+ KPSedSr7Jnh18dSF4LQJLnhuH9vgdQM0qpAXh6k=
+X-Google-Smtp-Source: APXvYqxQW1DekiCteGUizjTypPf/QO4XURErkMAxOCtWM5a6p4L3ukY2FobFKZF+jzz7Ys0LEswav553xfFSEUaWrwI=
+X-Received: by 2002:ac8:5311:: with SMTP id t17mr48218724qtn.304.1563802461127; 
+ Mon, 22 Jul 2019 06:34:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <s5hd0i28bpi.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Curtis Malainey <cujomalainey@google.com>, alsa-devel@alsa-project.org,
- Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
- broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 2/5] ALSA: hda: move parts of NHLT code
- to new module
+References: <20190721142308.30306-1-yamada.masahiro@socionext.com>
+ <de9e94ee-9c01-1c0c-4359-b637319a298f@linux.intel.com>
+ <s5hftmy8byl.wl-tiwai@suse.de>
+ <ec306745-052d-f52c-2cce-d8915822d4ff@linux.intel.com>
+In-Reply-To: <ec306745-052d-f52c-2cce-d8915822d4ff@linux.intel.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 22 Jul 2019 15:34:04 +0200
+Message-ID: <CAK8P3a2tLuqu+upt0nW8dUzXc+t_kEJwVhLcqY8TXydHLb_nCw@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>,
+ Mark Brown <broonie@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: use __u32 instead of uint32_t
+ in uapi headers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,79 +87,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Jul 22, 2019 at 3:16 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+> On 7/22/19 7:56 AM, Takashi Iwai wrote:
+> > On Mon, 22 Jul 2019 14:49:34 +0200,
+> > Pierre-Louis Bossart wrote:
+> >>
+> >>
+> >>
+> >> On 7/21/19 9:23 AM, Masahiro Yamada wrote:
+> >>> When CONFIG_UAPI_HEADER_TEST=y, exported headers are compile-tested to
+> >>> make sure they can be included from user-space.
+> >>>
+> >>> Currently, header.h and fw.h are excluded from the test coverage.
+> >>> To make them join the compile-test, we need to fix the build errors
+> >>> attached below.
+> >>>
+> >>> For a case like this, we decided to use __u{8,16,32,64} variable types
+> >>> in this discussion:
+> >>>
+> >>>     https://lkml.org/lkml/2019/6/5/18
+> >>
+> >> these files are shared with the SOF project and used as is (with minor
+> >> formatting) for the firmware compilation. I am not sure I understand
+> >> the ask here, are you really asking SOF to use linux-specific type
+> >> definitions?
+> >
+> > Actually this is linux-kernel UAPI header files, so yes, we should
+> > follow the convention there as much as possible.
+> >
+> > So far we haven't been strict about these types.  But now we have a
+> > unit test for checking it, so it's a good opportunity to address the
+> > issues.
+>
+> Maybe a bit of background. For SOF we split the includes in 4 directories
+>
+> https://github.com/thesofproject/sof/tree/master/src/include
+>
+> - sof: internal includes for firmware only
+> - ipc: definitions of the structures for information exchanged over the
+> IPC channel. This directory is used as is by the Linux kernel and
+> mirrored in include/sound/sof
+> - user: definitions needed for firmware tools, e.g. to generate the
+> image or parse the trace. this directory is not used by the Linux kernel.
+> - kernel: definitions for the firmware format, needed for the loader to
+> parse the firmware files. This is not directly used by applications
+> running on the target, it really defines the content passed to the
+> kernel with request_firmware. This directory is mirrored in the Linux
+> include/uapi/sound/sof directory.
+>
+> Our goal is to minimize the differences and allow deltas e.g. for
+> license or comments. We could add a definition for __u32 when linux is
+> not used, I am just not sure if these two files really fall in the UAPI
+> category and if the checks make sense.
 
+If you can build all the SOF user space without these headers being
+installed to /usr/include/sound/sof/, you can move them from
+include/uapi/sound/sof to include/sounds/sof and leave the types
+unchanged.
 
-On 7/22/19 8:01 AM, Takashi Iwai wrote:
-> On Mon, 22 Jul 2019 14:58:44 +0200,
-> Pierre-Louis Bossart wrote:
->>
->>
->>
->> On 7/22/19 7:26 AM, Takashi Iwai wrote:
->>> On Mon, 22 Jul 2019 14:14:28 +0200,
->>> Pierre-Louis Bossart wrote:
->>>>
->>>>
->>>>
->>>> On 7/22/19 3:54 AM, Takashi Iwai wrote:
->>>>> On Sat, 20 Jul 2019 23:06:46 +0200,
->>>>> Cezary Rojewski wrote:
->>>>>>
->>>>>>> --- a/sound/hda/Kconfig
->>>>>>> +++ b/sound/hda/Kconfig
->>>>>>> @@ -29,3 +29,6 @@ config SND_HDA_PREALLOC_SIZE
->>>>>>>        	  Note that the pre-allocation size can be changed dynamically
->>>>>>>      	  via a proc file (/proc/asound/card*/pcm*/sub*/prealloc), too.
->>>>>>> +
->>>>>>> +config SND_INTEL_NHLT
->>>>>>> +	tristate
->>>>>>
->>>>>> If above is true, "depends on ACPI" would be expected.
->>>>>
->>>>> This won't fix things in practice as the Kconfig reverse selection
->>>>> ignores the dependencies of the selected item.  It'd be as a help for
->>>>> readers, though.
->>>>
->>>> There is a fallback if ACPI is not defined, so the code would always
->>>> compile. Configurations which select SND_INTEL_NHLT already depend on
->>>> ACPI.
->>>
->>> IIUC, the question above came from the point:
->>>
->>>    #if IS_ENABLED(CONFIG_ACPI) && IS_ENABLED(CONFIG_SND_INTEL_NHLT)
->>>    ....
->>>    #else
->>>    ....
->>>    #endif
->>>
->>> and here Cezary suggested to drop IS_ENABLED(CONFIG_ACPI) *iff* the
->>> dependency can be assured in Kconfig side.  But for that assurance,
->>> putting "depends on ACPI" in config SND_INTEL_NHLT block won't
->>> suffice; that was my followup.
->>>
->>> So, as of the current code, we can drop IS_ENABLED(CONFIG_ACPI) from
->>> the ifdef above, yes.  But the dependency is no rock solid at this
->>> point, so either some comments or keeping the extra ifdef like the
->>> above would be needed, IMO.
->>
->> this extra ifdef is a bit overkill, I added it to make sure that the
->> fallbacks are used in nonsensical configurations w/ randconfig. In
->> practice, all Intel drivers already depend on ACPI and for the legacy
->> we already have:
->>
->> select SND_INTEL_NHLT if ACPI
->>
->> Not sure if we need to do anything more.
-> 
-> The missing piece is this implicit dependency information.
-> You can just put some comments somewhere mentioning it.
-
-ok, will do. thanks for the guidance.
+         Arnd
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

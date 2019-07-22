@@ -2,81 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B19C6FE87
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 13:10:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE5ED6FEFB
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 13:51:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F284E1766;
-	Mon, 22 Jul 2019 13:09:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F284E1766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4672A1767;
+	Mon, 22 Jul 2019 13:50:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4672A1767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563793844;
-	bh=SslHumAIWTXDUcxqG2MK0pX9EU+6ziQ6PcTaSPsiRKM=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1563796272;
+	bh=aeYvsjxza0a9XpjxuqegPgfoIRrSzsABP7S5HRIiHV4=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l9oNX/wdSXIFw7K05CiOyu2rd2SOP8ZyQcGfxT5oKinSw0kM1qi2/rPmQRoKo6NKB
-	 x9GbFYn4P4ydH9Ht/dau1or4+qgKjM1r7eRJfEFGRxUsdXjRB4slLYare7RLAOtk9D
-	 wuxoI7ZsJaM+d/VEJU8pPbNP20vyCBuEtFYCpoPA=
+	b=YKUJXy072I225OD9XIXxcsIaYcob1+qPo7YaVgFCcKGnF+dfQIJwEX1s0r+jeei4e
+	 0v25+IRyo1WP/SqTGBxMdO7D7dpFG5v+8QTKnR5iFUnajeyjGgjsU7+5UHwsZPYp1h
+	 yt494+FXeoTTS7sozjqz9GhNNnYtSOhUMpjTommQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C14DAF80481;
-	Mon, 22 Jul 2019 13:08:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79AC6F803D7;
+	Mon, 22 Jul 2019 13:49:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECF69F8048D; Mon, 22 Jul 2019 13:08:41 +0200 (CEST)
+ id 4198DF803D5; Mon, 22 Jul 2019 13:49:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+X-Spam-Status: No, score=0.0 required=5.0 tests=FROM_EXCESS_BASE64,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B678F800E8
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 13:08:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B678F800E8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="XSeB4nIV"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=fkbDO6SEZODxro/YexMPjOtDygrKCoiW6Vz/vfK/gRc=; b=XSeB4nIV5SujmhyYiB9z6cvZY2
- GwCy2JZBbFsbYvMzD9Ls4+snegPYv5NF7wBPyOrHxESxAoq0phoWXKnFHjVifW6Tib21ueCQYLtsK
- b8eWoUZ8YquaXzITEwal3sg4uhbb/p8EKNqTceIVrG1auGwYtoz21TiSE+Tyz7Fgg0QQlHoFwGzKY
- 9MQqr2Sxxad/780QIVcv1Nn4USFxdd3/sp40YDVFj9Q5Wo3ojzZ9J2uuXrinur0XoZabBhUKPZBod
- 4ipxDqoeq0ljVOD6OwzgETGIpuK2HB3F7+fUlsBChBuw+Xy2gl2Mh0DKUgeUk2QJvMIiGH0d/f1gQ
- 8J5Kon/A==;
-Received: from 177.157.124.3.dynamic.adsl.gvt.net.br ([177.157.124.3]
- helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hpWAh-000254-B2; Mon, 22 Jul 2019 11:07:59 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hpWAa-00041b-Ct; Mon, 22 Jul 2019 08:07:52 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: 
-Date: Mon, 22 Jul 2019 08:07:42 -0300
-Message-Id: <45d57666e5738a0b85e948b0e94151fe1b1f9274.1563792334.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1563792333.git.mchehab+samsung@kernel.org>
-References: <cover.1563792333.git.mchehab+samsung@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB09DF8015B
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 13:49:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB09DF8015B
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x6MBmrIf011203,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (RTITCASV01.realtek.com.tw[172.21.6.18])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x6MBmrIf011203
+ (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Mon, 22 Jul 2019 19:48:53 +0800
+Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
+ RTITCASV01.realtek.com.tw ([::1]) with mapi id 14.03.0439.000; Mon, 22 Jul
+ 2019 19:48:53 +0800
+From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+To: "'Mark Brown'" <broonie@kernel.org>
+Thread-Topic: [PATCH 3/3] ASoC: rt1308: Convert headers to SPDX
+Thread-Index: AQHVPfvTFzliGBhOyku2Rlx4GhdVx6bRoOuAgAQ8STCAABl4gIAAkvsw
+Date: Mon, 22 Jul 2019 11:48:52 +0000
+Message-ID: <10317AB43303BA4884D7AF9C2EBCFF4002BBEA77@RTITMBSVM07.realtek.com.tw>
+References: <20190719063302.18858-1-shumingf@realtek.com>
+ <20190719164623.GA14800@sirena.org.uk>
+ <10317AB43303BA4884D7AF9C2EBCFF4002BBE03D@RTITMBSVM07.realtek.com.tw>
+ <20190722105821.GA4756@sirena.org.uk>
+In-Reply-To: <20190722105821.GA4756@sirena.org.uk>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.105]
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- netdev@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-doc@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>, "David S. Miller" <davem@davemloft.net>
-Subject: [alsa-devel] [PATCH 15/22] docs: index.rst: don't use genindex for
-	pdf output
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
+Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: rt1308: Convert headers to SPDX
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,106 +82,33 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The genindex logic is meant to be used only for html output, as
-pdf build has its own way to generate indexes.
-
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
----
- Documentation/core-api/index.rst                  | 2 +-
- Documentation/driver-api/dmaengine/index.rst      | 2 +-
- Documentation/driver-api/soundwire/index.rst      | 2 +-
- Documentation/networking/device_drivers/index.rst | 2 +-
- Documentation/networking/index.rst                | 2 +-
- Documentation/sound/index.rst                     | 2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/core-api/index.rst b/Documentation/core-api/index.rst
-index dfd8fad1e1ec..fa16a0538dcb 100644
---- a/Documentation/core-api/index.rst
-+++ b/Documentation/core-api/index.rst
-@@ -49,7 +49,7 @@ Interfaces for kernel debugging
-    debug-objects
-    tracepoint
- 
--.. only::  subproject
-+.. only:: subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/driver-api/dmaengine/index.rst b/Documentation/driver-api/dmaengine/index.rst
-index 3026fa975937..b9df904d0a79 100644
---- a/Documentation/driver-api/dmaengine/index.rst
-+++ b/Documentation/driver-api/dmaengine/index.rst
-@@ -47,7 +47,7 @@ This book adds some notes about PXA DMA
- 
-    pxa_dma
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/driver-api/soundwire/index.rst b/Documentation/driver-api/soundwire/index.rst
-index 6db026028f27..234911a0db99 100644
---- a/Documentation/driver-api/soundwire/index.rst
-+++ b/Documentation/driver-api/soundwire/index.rst
-@@ -10,7 +10,7 @@ SoundWire Documentation
-    error_handling
-    locking
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/networking/device_drivers/index.rst b/Documentation/networking/device_drivers/index.rst
-index 2b7fefe72351..f724b7c69b9e 100644
---- a/Documentation/networking/device_drivers/index.rst
-+++ b/Documentation/networking/device_drivers/index.rst
-@@ -24,7 +24,7 @@ Contents:
-    google/gve
-    mellanox/mlx5
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/networking/index.rst b/Documentation/networking/index.rst
-index a46fca264bee..6739066acadb 100644
---- a/Documentation/networking/index.rst
-+++ b/Documentation/networking/index.rst
-@@ -31,7 +31,7 @@ Contents:
-    tls
-    tls-offload
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/sound/index.rst b/Documentation/sound/index.rst
-index 47b89f014e69..4d7d42acf6df 100644
---- a/Documentation/sound/index.rst
-+++ b/Documentation/sound/index.rst
-@@ -12,7 +12,7 @@ Linux Sound Subsystem Documentation
-    hd-audio/index
-    cards/index
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
--- 
-2.21.0
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+PiBPbiBNb24sIEp1bCAyMiwgMjAxOSBhdCAwMjowNzo0N0FNICswMDAwLCBTaHVtaW5nIFvojIPm
+m7jpiphdIHdyb3RlOg0KPiA+ID4gT24gRnJpLCBKdWwgMTksIDIwMTkgYXQgMDI6MzM6MDJQTSAr
+MDgwMCwgc2h1bWluZ2ZAcmVhbHRlay5jb20gd3JvdGU6DQo+IA0KPiA+ID4gPiBAQCAtMSwxMiAr
+MSwxMCBAQA0KPiA+ID4gPiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjANCj4g
+PiA+ID4gIC8qDQo+ID4gPiA+ICAgKiBydDEzMDguYyAgLS0gIFJUMTMwOCBBTFNBIFNvQyBhbXBs
+aWZpZXIgY29tcG9uZW50IGRyaXZlcg0KPiA+ID4gPiAgICoNCj4gDQo+ID4gPiBQbGVhc2UgY29u
+dmVydCB0aGUgZW50aXJlIGNvbW1lbnQgYmxvY2sgdG8gYSBDKysgb25lIHNvIHRoaXMgbG9va3MN
+Cj4gPiA+IG1vcmUgaW50ZW50aW9uYWwuDQo+IA0KPiA+IEkgY29udmVydCB0aGUgY29tbWVudCBs
+aWtlIGJlbG93Lg0KPiA+IC0vLyBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMA0KPiA+
+ICsvKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCAqLw0KPiANCj4gVGhhdCdzIGEg
+QyBjb21tZW50LCBub3QgYSBDKysgY29tbWVudC4gIEknbSBzYXlpbmcgY29udmVydCB0aGUgd2hv
+bGUgYmxvY2sNCj4gdGhlcmUgdG8gQysrIHJhdGhlciB0aGFuIGFkZCBvbmUgcmFuZG9tIGxpbmUg
+dGhhdCdzIEMrKyBuZXh0IHRvIHNvbWUgQw0KPiBjb21tZW50cy4NCj4gDQoNCk1heSBJIGNvbmZp
+cm0gd2hhdCB5b3VyIHBvaW50Pw0KSSBjb252ZXJ0IHRoZSBlbnRpcmUgY29tbWVudCBibG9jayB0
+byBhIEMrKyBvbmUgbGlrZSBiZWxvdy4NCi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwt
+Mi4wDQotLyoNCi0gKiBydDEzMDguYyAgLS0gIFJUMTMwOCBBTFNBIFNvQyBhbXBsaWZpZXIgY29t
+cG9uZW50IGRyaXZlcg0KLSAqDQotICogQ29weXJpZ2h0IDIwMTkgUmVhbHRlayBTZW1pY29uZHVj
+dG9yIENvcnAuDQotICogQXV0aG9yOiBEZXJlayBGYW5nIDxkZXJlay5mYW5nQHJlYWx0ZWsuY29t
+Pg0KLSAqDQotICovDQorLy8NCisvLyBydDEzMDguYyAgLS0gIFJUMTMwOCBBTFNBIFNvQyBhbXBs
+aWZpZXIgY29tcG9uZW50IGRyaXZlcg0KKy8vDQorLy8gQ29weXJpZ2h0IDIwMTkgUmVhbHRlayBT
+ZW1pY29uZHVjdG9yIENvcnAuDQorLy8gQXV0aG9yOiBEZXJlayBGYW5nIDxkZXJlay5mYW5nQHJl
+YWx0ZWsuY29tPg0KKy8vDQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2pl
+Y3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+YWxzYS1kZXZlbAo=

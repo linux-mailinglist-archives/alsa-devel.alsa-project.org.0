@@ -2,64 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E8E070C5C
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 00:09:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC1570CC6
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 00:36:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 776F3184A;
-	Tue, 23 Jul 2019 00:08:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 776F3184A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D99E1855;
+	Tue, 23 Jul 2019 00:35:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D99E1855
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563833376;
-	bh=RXF/ODx8kuG1QBEhsR2aNGpkbdc3YAae4DpUMbeKLEc=;
+	s=default; t=1563834962;
+	bh=tCTMazQiSaSinJND4bk4R1T2YD1GDuP8iDjnaCyjhKI=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TzVc/flgds1QPhWSgHWMWubrCKmZsEK8jXLXmuDBY2ThArXnz5MwwQpMInYRVlVwf
-	 I92UaOa8gh0l9Fze6vaceO0AcABNVnQs1aOsYCrz+vuZ7IBl3Fm2vdiJgF7HBnxKPQ
-	 3euDEWG2piE8PPhXN3cxPbSv5A+1rr2dCO38IzU8=
+	b=uLeLpAHXJNuXbWmIlmuy/uQuKkzy5aJZCwEQXTGcOaVkAFe4W84k+aV+JRfuv+Val
+	 mDJrgTf2vtVKiadp1pRNNWdYf5tcO08oA/IJiU0PFdRiRWfcVy7Fdjq3Hdk5JBHfPm
+	 YhLp+Jr6IsCsZvr3Bo76+LoN6ly3hch8rIyZCWX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9C5FF803D5;
-	Tue, 23 Jul 2019 00:07:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AFCEF803D5;
+	Tue, 23 Jul 2019 00:34:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29B66F803D5; Tue, 23 Jul 2019 00:07:49 +0200 (CEST)
+ id 1FFCAF803D5; Tue, 23 Jul 2019 00:34:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CA17F800F5
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 00:07:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CA17F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29D38F800E8
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 00:34:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29D38F800E8
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2019 15:07:37 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2019 15:34:06 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,296,1559545200"; d="scan'208";a="320813685"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.251.89.116])
- ([10.251.89.116])
- by orsmga004.jf.intel.com with ESMTP; 22 Jul 2019 15:07:34 -0700
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-References: <20190722135209.30302-1-ckeepax@opensource.cirrus.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <7a6ca46b-9ca7-6c91-6aa9-d1be785c64c5@intel.com>
-Date: Tue, 23 Jul 2019 00:07:32 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+X-IronPort-AV: E=Sophos;i="5.64,296,1559545200"; d="scan'208";a="344554500"
+Received: from pgkutch-mobl1.amr.corp.intel.com (HELO [10.252.130.35])
+ ([10.252.130.35])
+ by orsmga005.jf.intel.com with ESMTP; 22 Jul 2019 15:34:05 -0700
+To: Jon Flatley <jflat@chromium.org>
+References: <20190718231225.88991-1-jflat@chromium.org>
+ <f2e1c69e-bba9-8798-536c-1a2681e02599@linux.intel.com>
+ <CACJJ=py4hEJMSVBX+=O8Myj-LQYvDL6vugTUR4ypq0W6uCn1kw@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <a2b40b35-d572-04af-2a38-ece191bd91b4@linux.intel.com>
+Date: Mon, 22 Jul 2019 17:34:04 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190722135209.30302-1-ckeepax@opensource.cirrus.com>
+In-Reply-To: <CACJJ=py4hEJMSVBX+=O8Myj-LQYvDL6vugTUR4ypq0W6uCn1kw@mail.gmail.com>
 Content-Language: en-US
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- broonie@kernel.org, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: madera: Read device tree
- configuration
+Cc: benzh@chromium.org, alsa-devel@alsa-project.org, broonie@kernel.org,
+ cujomalainey@chromium.org, fletcherw@chromium.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: intel: Add Broadwell rt5650 machine
+ driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,87 +79,91 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-07-22 15:52, Charles Keepax wrote:
-> +static void madera_prop_get_inmode(struct madera_priv *priv)
-> +{
-> +	struct madera *madera = priv->madera;
-> +	struct madera_codec_pdata *pdata = &madera->pdata.codec;
-> +	u32 tmp[MADERA_MAX_INPUT * MADERA_MAX_MUXED_CHANNELS];
-> +	int n, i, in_idx, ch_idx;
-> +
-> +	BUILD_BUG_ON(ARRAY_SIZE(pdata->inmode) != MADERA_MAX_INPUT);
-> +	BUILD_BUG_ON(ARRAY_SIZE(pdata->inmode[0]) != MADERA_MAX_MUXED_CHANNELS);
-> +
-> +	n = madera_get_variable_u32_array(madera->dev, "cirrus,inmode",
-> +					  tmp, ARRAY_SIZE(tmp),
-> +					  MADERA_MAX_MUXED_CHANNELS);
-> +	if (n < 0)
-> +		return;
-> +
-> +	in_idx = 0;
-> +	ch_idx = 0;
-> +	for (i = 0; i < n; ++i) {
-> +		pdata->inmode[in_idx][ch_idx] = tmp[i];
-> +
-> +		if (++ch_idx == MADERA_MAX_MUXED_CHANNELS) {
-> +			ch_idx = 0;
-> +			++in_idx;
-> +		}
-> +	}
-> +}
-> +
-> +static void madera_prop_get_pdata(struct madera_priv *priv)
-> +{
-> +	struct madera *madera = priv->madera;
-> +	struct madera_codec_pdata *pdata = &madera->pdata.codec;
-> +	u32 out_mono[ARRAY_SIZE(pdata->out_mono)];
-> +	int i, n;
-> +
-> +	madera_prop_get_inmode(priv);
-> +
-> +	n = madera_get_variable_u32_array(madera->dev, "cirrus,out-mono",
-> +					  out_mono, ARRAY_SIZE(out_mono), 1);
-> +	if (n > 0)
-> +		for (i = 0; i < n; ++i)
-> +			pdata->out_mono[i] = !!out_mono[i];
-> +
-> +	madera_get_variable_u32_array(madera->dev,
-> +				      "cirrus,max-channels-clocked",
-> +				      pdata->max_channels_clocked,
-> +				      ARRAY_SIZE(pdata->max_channels_clocked),
-> +				      1);
-> +
-> +	madera_get_variable_u32_array(madera->dev, "cirrus,pdm-fmt",
-> +				      pdata->pdm_fmt,
-> +				      ARRAY_SIZE(pdata->pdm_fmt), 1);
-> +
-> +	madera_get_variable_u32_array(madera->dev, "cirrus,pdm-mute",
-> +				      pdata->pdm_mute,
-> +				      ARRAY_SIZE(pdata->pdm_mute), 1);
-> +
-> +	madera_get_variable_u32_array(madera->dev, "cirrus,dmic-ref",
-> +				      pdata->dmic_ref,
-> +				      ARRAY_SIZE(pdata->dmic_ref), 1);
 
-Hmm, madera_get_variable_u32_array calls are not permissive within 
-madera_prop_get_inmode yet here they are. Is this intentional?
 
-> +}
-> +
->   int madera_core_init(struct madera_priv *priv)
->   {
->   	int i;
-> @@ -308,6 +402,9 @@ int madera_core_init(struct madera_priv *priv)
->   	BUILD_BUG_ON(!madera_mixer_texts[MADERA_NUM_MIXER_INPUTS - 1]);
->   	BUILD_BUG_ON(!madera_mixer_values[MADERA_NUM_MIXER_INPUTS - 1]);
->   
-> +	if (!dev_get_platdata(priv->madera->dev))
-> +		madera_prop_get_pdata(priv);
-> +
->   	mutex_init(&priv->rate_lock);
->   
->   	for (i = 0; i < MADERA_MAX_HP_OUTPUT; i++)
+On 7/22/19 4:04 PM, Jon Flatley wrote:
+> On Mon, Jul 22, 2019 at 5:34 AM Pierre-Louis Bossart
+> <pierre-louis.bossart@linux.intel.com> wrote:
+>>
+>>
+>>
+>> On 7/18/19 6:12 PM, Jon Flatley wrote:
+>>> From: Ben Zhang <benzh@chromium.org>
+>>>
+>>> Add machine driver for Broadwell + rt5650.
+>>
+>> Interesting. the only Broadwell device we encountered with I2S instead
+>> of HDaudio was Samus w/ rt5677, can you share which model this is?
 > 
+> Yes, this is for the Acer Chromebase 24, aka Buddy.
+
+Ah ok, I wasn't aware of this one, thanks for the pointer.
+
+
+>>> +static int bdw_rt5650_rtd_init(struct snd_soc_pcm_runtime *rtd)
+>>> +{
+>>> +     struct snd_soc_component *component =
+>>> +             snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+>>> +     struct sst_pdata *pdata = dev_get_platdata(component->dev);
+>>> +     struct sst_hsw *broadwell = pdata->dsp;
+>>> +     int ret;
+>>> +
+>>> +     /* Set ADSP SSP port settings
+>>> +      * clock_divider = 4 means BCLK = MCLK/5 = 24MHz/5 = 4.8MHz
+>>> +      */
+>>> +     ret = sst_hsw_device_set_config(broadwell, SST_HSW_DEVICE_SSP_0,
+>>> +             SST_HSW_DEVICE_MCLK_FREQ_24_MHZ,
+>>> +             SST_HSW_DEVICE_TDM_CLOCK_MASTER, 4);
+>>
+>> this is going to break compilation if SOF is selected. this function
+>> should be filtered out with
+>> #if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
+>>
+>> as done in bdw-rt5677
+>>
+>>> +     if (ret < 0) {
+>>> +             dev_err(rtd->dev, "error: failed to set device config\n");
+>>> +             return ret;
+>>> +     }
+>>> +
+>>> +     return 0;
+>>> +}
+>>> +
+>>> +static int bdw_rt5650_init(struct snd_soc_pcm_runtime *rtd)
+>>> +{
+>>> +     struct bdw_rt5650_priv *bdw_rt5650 =
+>>> +             snd_soc_card_get_drvdata(rtd->card);
+>>> +     struct snd_soc_component *component = rtd->codec_dai->component;
+>>> +     struct snd_soc_dai *codec_dai = rtd->codec_dai;
+>>> +     int ret;
+>>> +
+>>> +     /* Enable codec ASRC function for Stereo DAC/Stereo1 ADC/DMIC/I2S1.
+>>> +      * The ASRC clock source is clk_i2s1_asrc.
+>>> +      */
+>>> +     rt5645_sel_asrc_clk_src(component,
+>>> +                             RT5645_DA_STEREO_FILTER |
+>>> +                             RT5645_DA_MONO_L_FILTER |
+>>> +                             RT5645_DA_MONO_R_FILTER |
+>>> +                             RT5645_AD_STEREO_FILTER |
+>>> +                             RT5645_AD_MONO_L_FILTER |
+>>> +                             RT5645_AD_MONO_R_FILTER,
+>>> +                             RT5645_CLK_SEL_I2S1_ASRC);
+>>> +
+>>> +     /* TDM 4 slots 24 bit, set Rx & Tx bitmask to 4 active slots */
+>>> +     ret = snd_soc_dai_set_tdm_slot(codec_dai, 0xF, 0xF, 4, 24);
+>>
+>> could we move this to bdw_rt5650_rtd_init() so that this doesn't impact SOF?
+> 
+> I'm not familiar with the differences in SOF. Can you elaborate on
+> what exactly needs to be moved?
+
+The 2 main differences are that SOF does not have any support for this 
+sst_hsw_device_set_config() function - and it should have been 
+abstracted away with a dai operation - and the fixed settings are 
+replaced by topology-defined configurations.
+
+we can of course do the SOF support later but you want to make sure the 
+compilation issue is sorted out with the #if !IS_ENABLED() code above.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

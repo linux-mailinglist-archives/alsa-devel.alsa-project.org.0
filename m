@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EAD86FFBF
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:35:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C41906FFD8
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:37:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CDB317AF;
-	Mon, 22 Jul 2019 14:34:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CDB317AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59ABB1786;
+	Mon, 22 Jul 2019 14:36:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59ABB1786
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563798925;
-	bh=9n528s0/1o9w5LSbhq1reiUz9QanZ8EyCpqnwNjQ+yI=;
+	s=default; t=1563799041;
+	bh=mCXcZ0B9WAb+IxqQo04jVeIvxWuwAA+cNvdHqLCpJjw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hKzFkf88XqO014fmJRoO17nF181YpWFPoivBFdyO0EBYLwMURBiqiPJRSkvbW1nIQ
-	 koDGoO1dpXmQvXhCvtC5aBhJhRlR3tKiUoC+wR/HqnWS4JVQJKFjm3DhsTU7kJ24IW
-	 3GXGW/qlpNQ29PpS8xUCOkMG+yUzdrILRBN678d8=
+	b=mDRpa1YjBZAXlfTQaljX9VNkrlsqybAk4pa7UnYktlwPFTkMDwIuhhWUPHMfQ+FMc
+	 6taUMg+XI5EO8ChvkFZT593EE0Td8NqvweexD80X249LbQY28fhyPqDZsqtWUYlVPF
+	 YRhGG9n9ocgnT+Nt2A2dmgm76+NEW7O0wMrZ+AAc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C53E6F80676;
-	Mon, 22 Jul 2019 14:22:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEA6EF806F5;
+	Mon, 22 Jul 2019 14:23:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8E94FF803D1; Mon, 22 Jul 2019 14:22:30 +0200 (CEST)
+ id C7F34F803D1; Mon, 22 Jul 2019 14:22:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B9A6F8048F
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B9A6F8048F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7315CF80446
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7315CF80446
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="u9+rSVMB"
+ header.b="A3HNvBi0"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=pxUJWhZ25yHUxPiSqRCgCdedu7AEcSBCRQ4DgPSgERA=; b=u9+rSVMBKZ1Y
- WaHP3zX4NIjP2JLNV2DivzNdfj8VmA2zcF181yPOgEYdW6mwBtnlkmf07ReTSbX9od0rV+q76P0wO
- UNYxxVOhSI2i3yaonUd4gVptifywcotkqyRadsCxouLYh+/SLmFxQXVFMMU25eQVk+lwZKO4qbXex
- d9v4A=;
+ List-Archive; bh=7E9zBTs5M1AO2ejSlcTllYEHc6ogZRJRbmARN2WSl08=; b=A3HNvBi0fvsT
+ EV612HJQpQUjJkrbe1cdrh8my09NLtf1hcS/r408iwEscVmZCJWx/hLQzJKxCn+rdPnNVzIgmZb0U
+ ClkmpLGU9MKR2Z9DZo9T1GxT7jutie4LngZqM2WgVhGVDfyImKGrUYPAyfGTQpKtT0GohG5PL1EJV
+ CU/0w=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpXKS-0007cy-S9; Mon, 22 Jul 2019 12:22:08 +0000
+ id 1hpXKU-0007df-AD; Mon, 22 Jul 2019 12:22:10 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1E4492742B67; Mon, 22 Jul 2019 13:22:08 +0100 (BST)
+ id A60BC274046A; Mon, 22 Jul 2019 13:22:09 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-In-Reply-To: <20190710021627.GA13396@hari-Inspiron-1545>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20190626070450.7229-1-ranjani.sridharan@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190722122208.1E4492742B67@ypsilon.sirena.org.uk>
-Date: Mon, 22 Jul 2019 13:22:08 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Gen Zhang <blackgod016574@gmail.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: [alsa-devel] Applied "sound: soc: codecs: wcd9335: add irqflag
-	IRQF_ONESHOT flag" to the asoc tree
+Message-Id: <20190722122209.A60BC274046A@ypsilon.sirena.org.uk>
+Date: Mon, 22 Jul 2019 13:22:09 +0100 (BST)
+Cc: Libin Yang <libin.yang@intel.com>, tiwai@suse.de,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: Make hdac_device
+	device-managed" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   sound: soc: codecs: wcd9335: add irqflag IRQF_ONESHOT flag
+   ASoC: SOF: Intel: hda: Make hdac_device device-managed
 
 has been applied to the asoc tree at
 
@@ -115,40 +113,77 @@ to this mail.
 Thanks,
 Mark
 
-From 866e55ac49a8be478d89f23c941155721187be9a Mon Sep 17 00:00:00 2001
-From: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-Date: Wed, 10 Jul 2019 07:46:27 +0530
-Subject: [PATCH] sound: soc: codecs: wcd9335: add irqflag IRQF_ONESHOT flag
+From ef9bec27485fefb6b93168fea73fda0dc9638046 Mon Sep 17 00:00:00 2001
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Date: Wed, 26 Jun 2019 00:04:50 -0700
+Subject: [PATCH] ASoC: SOF: Intel: hda: Make hdac_device device-managed
 
-Add IRQF_ONESHOT to ensure "Interrupt is not reenabled after the hardirq
-handler finished".
+snd_hdac_ext_bus_device_exit() has been recently modified
+to no longer free the hdac device. SOF allocates memory for
+hdac_device and hda_hda_priv with kzalloc. Make them
+device-managed instead so that they will be freed when the
+SOF driver is unloaded.
 
-fixes below issue reported by coccicheck
+Because of the above change, hda_codec is device-managed and
+it will be freed when the ASoC device is removed. Freeing
+the codec in snd_hda_codec_dev_release() leads to kernel
+panic while unloading and reloading the ASoC driver. So,
+avoid freeing the hda_codec for ASoC driver. This is done in
+the same patch to avoid bisect failure.
 
-sound/soc/codecs/wcd9335.c:4068:8-33: ERROR: Threaded IRQ with no
-primary handler requested without IRQF_ONESHOT
-
-Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-Link: https://lore.kernel.org/r/20190710021627.GA13396@hari-Inspiron-1545
+Signed-off-by: Libin Yang <libin.yang@intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20190626070450.7229-1-ranjani.sridharan@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wcd9335.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/pci/hda/hda_codec.c       | 8 +++++++-
+ sound/soc/sof/intel/hda-codec.c | 6 ++----
+ 2 files changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index 1bbbe421b999..956602788d0e 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -4062,7 +4062,8 @@ static int wcd9335_setup_irqs(struct wcd9335_codec *wcd)
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index e30e86ca6b72..133200d31170 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -846,7 +846,13 @@ static void snd_hda_codec_dev_release(struct device *dev)
+ 	snd_hda_sysfs_clear(codec);
+ 	kfree(codec->modelname);
+ 	kfree(codec->wcaps);
+-	kfree(codec);
++
++	/*
++	 * In the case of ASoC HD-audio, hda_codec is device managed.
++	 * It will be freed when the ASoC device is removed.
++	 */
++	if (codec->core.type == HDA_DEV_LEGACY)
++		kfree(codec);
+ }
  
- 		ret = devm_request_threaded_irq(wcd->dev, irq, NULL,
- 						wcd9335_irqs[i].handler,
--						IRQF_TRIGGER_RISING,
-+						IRQF_TRIGGER_RISING |
-+						IRQF_ONESHOT,
- 						wcd9335_irqs[i].name, wcd);
- 		if (ret) {
- 			dev_err(wcd->dev, "Failed to request %s\n",
+ #define DEV_NAME_LEN 31
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index b8b37f082309..0d8437b080bf 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -62,8 +62,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 		address, resp);
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+-	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
+-	hda_priv = kzalloc(sizeof(*hda_priv), GFP_KERNEL);
++	hda_priv = devm_kzalloc(sdev->dev, sizeof(*hda_priv), GFP_KERNEL);
+ 	if (!hda_priv)
+ 		return -ENOMEM;
+ 
+@@ -82,8 +81,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 
+ 	return 0;
+ #else
+-	/* snd_hdac_ext_bus_device_exit will use kfree to free hdev */
+-	hdev = kzalloc(sizeof(*hdev), GFP_KERNEL);
++	hdev = devm_kzalloc(sdev->dev, sizeof(*hdev), GFP_KERNEL);
+ 	if (!hdev)
+ 		return -ENOMEM;
+ 
 -- 
 2.20.1
 

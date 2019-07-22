@@ -2,76 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 993106FFBB
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F9C6FFE7
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:39:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BC9917A0;
-	Mon, 22 Jul 2019 14:33:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BC9917A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id AACFE17C6;
+	Mon, 22 Jul 2019 14:38:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AACFE17C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563798844;
-	bh=HTZp9JdD4DckhEEk7YX3BuMwSQe1zNHpUjAwdBXUMi8=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=lx5Z7/1zE2dhbU/MyFj1rSjwEcds5yzz2I+dp1fEZVePzueHEsdo1e1HQtWCEcogf
-	 vmYCwbU3M6/7NNN0iFuEV+cj8CiWPHlRHPxEWH0mayG1s+oyl9rdOCq0oRvemzjAYw
-	 /sCwUWAPmMNU2nblhn5aNC+g6bvaVM5W8hKBK2Fg=
+	s=default; t=1563799180;
+	bh=ZLh6g24aUUkuRfqDJCHTX2/4f8/3IOmuDUsmRwoqNDk=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ppQwTjSAvdd8eLQa8pUDbX/NQXudy3HcP+1MEDw1vlwlEAfGLujNO2e4QyHp/YfN1
+	 XEugIh+Ngsvh16kDZ+YzOt42tTYs/4gbJ16oUY/bAnws+c/WBJy4Jfo8vuL1JIv9jW
+	 Pa/UAyZjbyrqDFWPG7RA5zUDAKgdWwl93Aqa+sHE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB59CF80649;
-	Mon, 22 Jul 2019 14:22:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2814F803F4;
+	Mon, 22 Jul 2019 14:26:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB294F803D1; Mon, 22 Jul 2019 14:22:26 +0200 (CEST)
+ id 74DD1F803D7; Mon, 22 Jul 2019 14:26:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A16CF8048E
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A16CF8048E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="V/2VuKZT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+TMbBa7jX8uUjOd/fKTs9EqZROGbLGEuI+x5vkFsDS0=; b=V/2VuKZT47Kh
- O+jYSXtZR1BrviwdbYuBXd1mQF0VUZH2JP3Z+jT3CZ6gMFbVN8syi62KcsbfETBfGrGFr2jUGdzO6
- kvds68WwxTjwoWLNdiVLThez58ITzVgDJjsxY+OsiRtFpXmV4bbYy8bK5vliEAd2jcPd/tvavX1e3
- ipIcE=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hpXKU-0007dq-JT; Mon, 22 Jul 2019 12:22:10 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1A0462740463; Mon, 22 Jul 2019 13:22:10 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-In-Reply-To: <20190719173929.24065-1-enric.balletbo@collabora.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190722122210.1A0462740463@ypsilon.sirena.org.uk>
-Date: Mon, 22 Jul 2019 13:22:10 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, dianders@chromium.org,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- Collabora Kernel ML <kernel@collabora.com>,
- linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
-Subject: [alsa-devel] Applied "SoC: rockchip: rockchip_max98090: Enable
-	MICBIAS for headset keypress detection" to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80479F803D1
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:26:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80479F803D1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 07A55ADFC;
+ Mon, 22 Jul 2019 12:26:38 +0000 (UTC)
+Date: Mon, 22 Jul 2019 14:26:37 +0200
+Message-ID: <s5hsgqy8dc2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <97359d3a-a3a0-696a-3d3f-64bd608eea5f@linux.intel.com>
+References: <20190719203752.11151-1-pierre-louis.bossart@linux.intel.com>
+ <20190719203752.11151-3-pierre-louis.bossart@linux.intel.com>
+ <daaa01dc-d963-f215-90b1-132fde8e489a@intel.com>
+ <s5h7e8aa1qs.wl-tiwai@suse.de>
+ <97359d3a-a3a0-696a-3d3f-64bd608eea5f@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Curtis Malainey <cujomalainey@google.com>, alsa-devel@alsa-project.org,
+ Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
+ broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH v2 2/5] ALSA: hda: move parts of NHLT code
+	to new module
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,128 +72,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Mon, 22 Jul 2019 14:14:28 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> 
+> 
+> On 7/22/19 3:54 AM, Takashi Iwai wrote:
+> > On Sat, 20 Jul 2019 23:06:46 +0200,
+> > Cezary Rojewski wrote:
+> >>
+> >>> --- a/sound/hda/Kconfig
+> >>> +++ b/sound/hda/Kconfig
+> >>> @@ -29,3 +29,6 @@ config SND_HDA_PREALLOC_SIZE
+> >>>      	  Note that the pre-allocation size can be changed dynamically
+> >>>    	  via a proc file (/proc/asound/card*/pcm*/sub*/prealloc), too.
+> >>> +
+> >>> +config SND_INTEL_NHLT
+> >>> +	tristate
+> >>
+> >> If above is true, "depends on ACPI" would be expected.
+> >
+> > This won't fix things in practice as the Kconfig reverse selection
+> > ignores the dependencies of the selected item.  It'd be as a help for
+> > readers, though.
+> 
+> There is a fallback if ACPI is not defined, so the code would always
+> compile. Configurations which select SND_INTEL_NHLT already depend on
+> ACPI.
 
-   SoC: rockchip: rockchip_max98090: Enable MICBIAS for headset keypress detection
+IIUC, the question above came from the point:
 
-has been applied to the asoc tree at
+ #if IS_ENABLED(CONFIG_ACPI) && IS_ENABLED(CONFIG_SND_INTEL_NHLT)
+ ....
+ #else
+ ....
+ #endif
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+and here Cezary suggested to drop IS_ENABLED(CONFIG_ACPI) *iff* the
+dependency can be assured in Kconfig side.  But for that assurance,
+putting "depends on ACPI" in config SND_INTEL_NHLT block won't
+suffice; that was my followup.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+So, as of the current code, we can drop IS_ENABLED(CONFIG_ACPI) from
+the ifdef above, yes.  But the dependency is no rock solid at this
+point, so either some comments or keeping the extra ifdef like the
+above would be needed, IMO.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+thanks,
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From f86621cd6c6f54edfdd62da347b2bbb8d7fddc8d Mon Sep 17 00:00:00 2001
-From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Date: Fri, 19 Jul 2019 19:39:29 +0200
-Subject: [PATCH] SoC: rockchip: rockchip_max98090: Enable MICBIAS for headset
- keypress detection
-
-The TS3A227E says that the headset keypress detection needs the MICBIAS
-power in order to report the key events to ensure proper operation
-The headset keypress detection needs the MICBIAS power in order to report
-the key events all the time as long as MIC is present. So MICBIAS pin
-is forced on when a MICROPHONE is detected.
-
-On Veyron Minnie I observed that if the MICBIAS power is not present and
-the key press detection is activated (just because it is enabled when you
-insert a headset), it randomly reports a keypress on insert.
-E.g. (KEY_PLAYPAUSE)
-
- Event: (SW_HEADPHONE_INSERT), value 1
- Event: (SW_MICROPHONE_INSERT), value 1
- Event: -------------- SYN_REPORT ------------
- Event: (KEY_PLAYPAUSE), value 1
-
-Userspace thinks that KEY_PLAYPAUSE is pressed and produces the annoying
-effect that the media player starts a play/pause loop.
-
-Note that, although most of the time the key reported is the one
-associated with BTN_0, not always this is true. On my tests I also saw
-different keys reported
-
-Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Link: https://lore.kernel.org/r/20190719173929.24065-1-enric.balletbo@collabora.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/rockchip/rockchip_max98090.c | 32 ++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
-
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index c5fc24675a33..782e534d4c0d 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -61,6 +61,37 @@ static const struct snd_kcontrol_new rk_mc_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Speaker"),
- };
- 
-+static int rk_jack_event(struct notifier_block *nb, unsigned long event,
-+			 void *data)
-+{
-+	struct snd_soc_jack *jack = (struct snd_soc_jack *)data;
-+	struct snd_soc_dapm_context *dapm = &jack->card->dapm;
-+
-+	if (event & SND_JACK_MICROPHONE)
-+		snd_soc_dapm_force_enable_pin(dapm, "MICBIAS");
-+	else
-+		snd_soc_dapm_disable_pin(dapm, "MICBIAS");
-+
-+	snd_soc_dapm_sync(dapm);
-+
-+	return 0;
-+}
-+
-+static struct notifier_block rk_jack_nb = {
-+	.notifier_call = rk_jack_event,
-+};
-+
-+static int rk_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	/*
-+	 * The jack has already been created in the rk_98090_headset_init()
-+	 * function.
-+	 */
-+	snd_soc_jack_notifier_register(&headset_jack, &rk_jack_nb);
-+
-+	return 0;
-+}
-+
- static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
- {
-@@ -119,6 +150,7 @@ SND_SOC_DAILINK_DEFS(hifi,
- static struct snd_soc_dai_link rk_dailink = {
- 	.name = "max98090",
- 	.stream_name = "Audio",
-+	.init = rk_init,
- 	.ops = &rk_aif1_ops,
- 	/* set max98090 as slave */
- 	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--- 
-2.20.1
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

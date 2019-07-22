@@ -2,90 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69E9D6FC49
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 11:37:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E4196FDEE
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 12:38:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9D0C1754;
-	Mon, 22 Jul 2019 11:36:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9D0C1754
+	by alsa0.perex.cz (Postfix) with ESMTPS id BD9161756;
+	Mon, 22 Jul 2019 12:37:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD9161756
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563788230;
-	bh=iWwdaO3qI6X5YmPtu5CgbGIWeiK1z+g0Z9S81dkGBfI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Z3RASBBpmQRlolRmLGveA4lC8GZF/Yh8rVottOF7igByMz4HqDiOEVrVeiW2Mu75Y
-	 xgviWrkeKkrduul52EZ/4uR/DoPK1NvPU1ZHsg02ABl96eWQ6sD7tCBs6/Hhcfb61w
-	 4c+K6E7cX00Mk02fOLd4Z6BPO75/g/mqTxTebzI4=
+	s=default; t=1563791906;
+	bh=dtQz/P+2b+1fijwhjUO1ERsziF2SyWeWpGJcJvtsMp0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=U0dDCY13758wCsn/4HS9zrdZ2GSExaUtG2Mq7o+HQo90C2xy8BBO9+A/8Kv+eklUx
+	 78i+J94uXgza3lGKA0GBxP3FtQlcyZGiaV6v9hBoU3J5p0P7x3CQwo0jzbMsuhxBkG
+	 XyEX4cbihwDf89mjm4zTwLNzm/RUOG7qfUdWf/UM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C06FF803D5;
-	Mon, 22 Jul 2019 11:35:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE694F803D7;
+	Mon, 22 Jul 2019 12:36:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B02C4F803D5; Mon, 22 Jul 2019 11:35:23 +0200 (CEST)
+ id 09FD8F803D5; Mon, 22 Jul 2019 12:36:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4797F800E8
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 12:36:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4797F800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="A3etmMmU"
+Received: from localhost (unknown [223.226.98.106])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD899F8015B
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 11:35:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD899F8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="QnrFOIqB"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x6M9Y0MH028986; Mon, 22 Jul 2019 04:35:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type;
- s=PODMain02222019; bh=Ghn2jim1eoyNbVNWfO1544MCJf4JM55yn+c/+KPmhfc=;
- b=QnrFOIqBWCppg04eR6hpY4Wib1zLIF1HRj/nDcKGXcBBB9q194z1URZQ9C0Qz+lIQqdx
- ExSyhAU0lLWFg464m3p2p9dqSq2QjUkBLYuD/xTH24idTmuRVMYJmvwbqpCOGAY1BwpZ
- hycSmTyGIGnfra/LN0GvMBVWDW3VVzioMpQw2nm7iCL4gDp62nx3rESB9C/IuIGEdWd+
- UBY8Ur8+d6qiUuTXjwbZmXUwnW/L73PJzaVRDBD/P2AeExSViqxFP7vljdEaIlzR3/b0
- hgQa2h1BOosJg6hn6WL9EY42K7d+UHDYwWmLWm1aMxjZRPpSYK4OX51aYjicglw7VLX4 LA== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 2tv0c0a5vv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 22 Jul 2019 04:35:19 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 22 Jul
- 2019 10:35:16 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Mon, 22 Jul 2019 10:35:16 +0100
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D5BD345;
- Mon, 22 Jul 2019 10:35:16 +0100 (BST)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Date: Mon, 22 Jul 2019 10:35:16 +0100
-Message-ID: <20190722093516.12906-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
+ by mail.kernel.org (Postfix) with ESMTPSA id 2510921911;
+ Mon, 22 Jul 2019 10:36:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1563791792;
+ bh=ayz205pJ9kS0L7afSS68fiQxUn6AsnFT3yMYzykEcxo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=A3etmMmUk59zCMqKifmT9YEUPB0glTxBIagzrVFM3JBs8L7lr5R2EKEU/jhGGckMa
+ qtu3b7S6xWv5sFe8p9x7q116WEwSPzHpZgj9KTLZmT2WG3mMR+BOx3ftdzpvHSf812
+ Wx2gfoWILBziRig7i5x65izyuN8Ofekdbq4NoV6U=
+Date: Mon, 22 Jul 2019 16:05:20 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Message-ID: <20190722103520.GQ12733@vkoul-mobl.Dlink>
+References: <20190722092436.651-1-ckeepax@opensource.cirrus.com>
 MIME-Version: 1.0
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0
- clxscore=1015 spamscore=0 lowpriorityscore=0 mlxlogscore=569
- impostorscore=0 suspectscore=1 mlxscore=0 bulkscore=0 priorityscore=1501
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1904300001 definitions=main-1907220113
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com
-Subject: [alsa-devel] [PATCH] ASoC: cs47l35: Use define for DSPCLK enable bit
+Content-Disposition: inline
+In-Reply-To: <20190722092436.651-1-ckeepax@opensource.cirrus.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org, tiwai@suse.com
+Subject: Re: [alsa-devel] [PATCH v2 1/4] ALSA: compress: Fix regression on
+ compressed capture streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,27 +81,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- sound/soc/codecs/cs47l35.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 22-07-19, 10:24, Charles Keepax wrote:
+> A previous fix to the stop handling on compressed capture streams causes
+> some knock on issues. The previous fix updated snd_compr_drain_notify to
+> set the state back to PREPARED for capture streams. This causes some
+> issues however as the handling for snd_compr_poll differs between the
+> two states and some user-space applications were relying on the poll
+> failing after the stream had been stopped.
+> 
+> To correct this regression whilst still fixing the original problem the
+> patch was addressing, update the capture handling to skip the PREPARED
+> state rather than skipping the SETUP state as it has done until now.
 
-diff --git a/sound/soc/codecs/cs47l35.c b/sound/soc/codecs/cs47l35.c
-index e3585c1dab3d7..d396a8545d518 100644
---- a/sound/soc/codecs/cs47l35.c
-+++ b/sound/soc/codecs/cs47l35.c
-@@ -524,7 +524,7 @@ SND_SOC_DAPM_SUPPLY("SYSCLK", MADERA_SYSTEM_CLOCK_1, MADERA_SYSCLK_ENA_SHIFT,
- 		    SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
- SND_SOC_DAPM_SUPPLY("OPCLK", MADERA_OUTPUT_SYSTEM_CLOCK,
- 		    MADERA_OPCLK_ENA_SHIFT, 0, NULL, 0),
--SND_SOC_DAPM_SUPPLY("DSPCLK", MADERA_DSP_CLOCK_1, 6,
-+SND_SOC_DAPM_SUPPLY("DSPCLK", MADERA_DSP_CLOCK_1, MADERA_DSP_CLK_ENA_SHIFT,
- 		    0, NULL, 0),
- 
- SND_SOC_DAPM_REGULATOR_SUPPLY("DBVDD2", 0, 0),
+For the whole series:
+
+Acked-by: Vinod Koul <vkoul@kernel.org>
+
 -- 
-2.11.0
-
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

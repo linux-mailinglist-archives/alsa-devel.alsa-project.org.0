@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86F1F7003F
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:55:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F8970045
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:56:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16A231680;
-	Mon, 22 Jul 2019 14:54:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16A231680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DE8C17DA;
+	Mon, 22 Jul 2019 14:55:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DE8C17DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563800125;
-	bh=lQzXjxT6YBrEEWnii44BGaPavgcrWShvdRiPfZ76aD4=;
+	s=default; t=1563800200;
+	bh=s6j/ggpheIjoPTHy7QeETfaFk77hPr4n3a0tx5I1hwc=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nxe/QYkDL9xXJ93HSC9FqluOetEnLLaZyNUFJwe4zkQXFdFEYfvGTkdfoMo3qA7+T
-	 ThqGEOeMl3YhI+U5DG2LbKCu1tHMWmT+ARys+y+j2kTce/mAqaFhbsgELoKX4c4Olz
-	 Oy0TfDqirm3CWCgvua3Zz7o9WvqTi6WkFMctak3Y=
+	b=F9vlIblP6EFY708C6yv4RZ6DijHeICKFvm/uX5lYJmK/ZzxVaDm9NGr4f7W1ena5j
+	 dv/R6ZXrr2qltAZ4OJB0KEaBBVUsMJdRg6pH7qzi9lURLcS0ZGpoIr8vrunkfuuQTX
+	 81w8J/gUiCOhmkTkO7W+2hgmK0RLiZz18kTZIKPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E65FAF805A0;
-	Mon, 22 Jul 2019 14:49:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA812F805E2;
+	Mon, 22 Jul 2019 14:49:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BE18F803F3; Mon, 22 Jul 2019 14:49:03 +0200 (CEST)
+ id CEF75F804FF; Mon, 22 Jul 2019 14:49:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,24 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77E0DF800F5
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:48:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77E0DF800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD505F80482
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:48:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD505F80482
 Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2F5E02002E1;
- Mon, 22 Jul 2019 14:48:52 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 00EC82000B2;
+ Mon, 22 Jul 2019 14:48:53 +0200 (CEST)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
  [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 21AF02002E0;
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E822D200094;
  Mon, 22 Jul 2019 14:48:52 +0200 (CEST)
 Received: from fsr-ub1864-103.ea.freescale.net
  (fsr-ub1864-103.ea.freescale.net [10.171.82.17])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 69390205DB;
- Mon, 22 Jul 2019 14:48:51 +0200 (CEST)
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 326CC205DB;
+ Mon, 22 Jul 2019 14:48:52 +0200 (CEST)
 From: Daniel Baluta <daniel.baluta@nxp.com>
 To: broonie@kernel.org
-Date: Mon, 22 Jul 2019 15:48:28 +0300
-Message-Id: <20190722124833.28757-6-daniel.baluta@nxp.com>
+Date: Mon, 22 Jul 2019 15:48:29 +0300
+Message-Id: <20190722124833.28757-7-daniel.baluta@nxp.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190722124833.28757-1-daniel.baluta@nxp.com>
 References: <20190722124833.28757-1-daniel.baluta@nxp.com>
@@ -61,8 +61,8 @@ Cc: Daniel Baluta <daniel.baluta@nxp.com>, alsa-devel@alsa-project.org,
  tiwai@suse.com, nicoleotsuka@gmail.com, linux-imx@nxp.com,
  kernel@pengutronix.de, festevam@gmail.com, linux-kernel@vger.kernel.org,
  l.stach@pengutronix.de
-Subject: [alsa-devel] [PATCH 05/10] ASoC: fsl_sai: Add support to enable
-	multiple data lines
+Subject: [alsa-devel] [PATCH 06/10] ASoC: dt-bindings: Document dl_mask
+	property
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,73 +81,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SAI supports up to 8 Rx/Tx data lines which can be enabled
-using TCE/RCE bits of TCR3/RCR3 registers.
-
-Data lines to be enabled are read from DT fsl,dl_mask property.
-By default (if no DT entry is provided) only data line 0 is enabled.
-
-Note:
-We can only enable consecutive data lines starting with data line #0.
+SAI supports up to 8 data lines. This property let the user
+configure how many data lines should be used per transfer
+direction (Tx/Rx).
 
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/fsl/fsl_sai.c | 10 +++++++++-
- sound/soc/fsl/fsl_sai.h |  6 ++++--
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/sound/fsl-sai.txt | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 768341608695..d0fa02188b7c 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -601,7 +601,7 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
+diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
+index 2e726b983845..59f4d965a5fb 100644
+--- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
++++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
+@@ -49,6 +49,11 @@ Optional properties:
  
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
- 			   FSL_SAI_CR3_TRCE_MASK,
--			   FSL_SAI_CR3_TRCE);
-+			   FSL_SAI_CR3_TRCE(sai->soc_data->dl_mask[tx]);
+   - big-endian		: Boolean property, required if all the SAI
+ 			  registers are big-endian rather than little-endian.
++  - fsl,dl_mask		: list of two integers (bitmask, first for RX, second
++			  for TX) representing enabled datalines. Bit 0
++			  represents first data line, bit 1 represents second
++			  data line and so on. Data line is enabled if
++			  corresponding bit is set to 1.
  
- 	ret = snd_pcm_hw_constraint_list(substream->runtime, 0,
- 			SNDRV_PCM_HW_PARAM_RATE, &fsl_sai_rate_constraints);
-@@ -887,6 +887,14 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 		}
- 	}
+ Optional properties (for mx6ul):
  
-+	/* active data lines mask for TX/RX, defaults to 1 (only the first
-+	 * data line is enabled
-+	 */
-+	sai->dl_mask[RX] = 1;
-+	sai->dl_mask[TX] = 1;
-+	of_property_read_u32_index(np, "fsl,dl_mask", RX, &sai->dl_mask[RX]);
-+	of_property_read_u32_index(np, "fsl,dl_mask", TX, &sai->dl_mask[TX]);
-+
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		dev_err(&pdev->dev, "no irq for node %s\n", pdev->name);
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index b1abeed2f78e..6d32f0950ec5 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -109,8 +109,8 @@
- #define FSL_SAI_CR2_DIV_MASK	0xff
- 
- /* SAI Transmit and Receive Configuration 3 Register */
--#define FSL_SAI_CR3_TRCE	BIT(16)
--#define FSL_SAI_CR3_TRCE_MASK	GENMASK(16, 23)
-+#define FSL_SAI_CR3_TRCE(x)	((x) << 16)
-+#define FSL_SAI_CR3_TRCE_MASK	GENMASK(23, 16)
- #define FSL_SAI_CR3_WDFL(x)	(x)
- #define FSL_SAI_CR3_WDFL_MASK	0x1f
- 
-@@ -176,6 +176,8 @@ struct fsl_sai {
- 	unsigned int slots;
- 	unsigned int slot_width;
- 
-+	unsigned int dl_mask[2];
-+
- 	const struct fsl_sai_soc_data *soc_data;
- 	struct snd_dmaengine_dai_dma_data dma_params_rx;
- 	struct snd_dmaengine_dai_dma_data dma_params_tx;
 -- 
 2.17.1
 

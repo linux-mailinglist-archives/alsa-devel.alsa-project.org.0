@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD9B6F80F
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 05:44:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553696F810
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 05:44:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F8BC1736;
-	Mon, 22 Jul 2019 05:43:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F8BC1736
+	by alsa0.perex.cz (Postfix) with ESMTPS id E17A71739;
+	Mon, 22 Jul 2019 05:43:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E17A71739
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563767042;
-	bh=UoTtEjHIDGKto+xV39y333i6F/ysa3A1knb9Oh0gX2w=;
+	s=default; t=1563767075;
+	bh=u0IFCTSIlOb5zxDunw1Gvd5McwTURwzR5KlD89vHUGk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a56sHvUwP3yAwEWYqs+fdwbfqrqH1iv6gz8QXFJFf0/E8Gf3HvpAILZ/LQkePdsbt
-	 t+iVSgku0os1mSYMtJNX84sehc8K9fhRBe4ZIJne0Ixr3XQ5R+AOM7vqkc6vw/5gOw
-	 akMVRnoalS0efJ3hJBVjygJg+l3IQ39EvkUpOsZM=
+	b=uz6pS7+OuJ8CoVJPNcMKWrfivF9Aj/fzmsxHeqpIUm5j6pPF8vwgfabyqKhHAs16H
+	 L6RJyw8K4z6sj4sZpwQrK8JIruiKd90gI7U3NjXw2l6ccstEXC2jzgte9XZ7is1Oe/
+	 aqF608dFf96RutwZlypaXWr/amE7WKQ3igl4Q71U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB61EF805E2;
-	Mon, 22 Jul 2019 05:37:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4769AF805F5;
+	Mon, 22 Jul 2019 05:37:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A2ABAF803D5; Mon, 22 Jul 2019 05:37:31 +0200 (CEST)
+ id 4DB47F8049C; Mon, 22 Jul 2019 05:37:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,67 +35,67 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86722F8045F
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 05:37:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86722F8045F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0D08CF803F4
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 05:37:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D08CF803F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="LY/asUCM"; 
+ header.b="HPAIc+3+"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="jFmq2hlV"
+ header.i=@messagingengine.com header.b="M+IFJG3V"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id B08B821ADD;
- Sun, 21 Jul 2019 23:37:26 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 38F7021E92;
+ Sun, 21 Jul 2019 23:37:28 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sun, 21 Jul 2019 23:37:26 -0400
+ by compute1.internal (MEProxy); Sun, 21 Jul 2019 23:37:28 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=XjlaW6V8s1wLV
- uNtd08WsvIS7tHVl4EjkTESksZ7KkI=; b=LY/asUCMCGey4j09nwqjMH2VvCCvz
- d21Wg1CPVJMvDgD17Gy/wBAAUNlozBaP94VKqeYwkjYctiv2VIPAzbN8NpKh/59u
- MY32Waq64bgJh1CqqE7Ssx7xhQgaSeDg27nLIjl1R4SWjIHIsL6Q0Ufm/GDTb3fO
- kSgmCVOVsn77xaIrHema2LcYiP66wMD8o2oT82RohSluM+s8LUIUw6WlJNPTWQKO
- KPjBTVHz/9C/WmibqCA54aoRpxVMftCpYPKLj8/C8f+VX3SDuYarmCUTvCNPM3Od
- h88swNKoqQ5xgc8Mv965xSBhP7OZYBHusITw0DbvuzMBOck3S6aNyNwTA==
+ :mime-version:content-transfer-encoding; s=fm2; bh=UF2Y40F3rfCBB
+ 4iI422gVuJdsnma4DYePmsb7I91kQo=; b=HPAIc+3+WQg31zGXabIAq1LLDYaxy
+ 9fK7KUDfRW/OObHx+GLuknEY5u9wimWWQR3mmnSbhQftdFKSODQUDl3tMxCtclOW
+ Qxt8piD2csGrHkRL9DXtKRx1GY38pDb4RHzrommnx38W5EveIHXsHRL5nwzW0u7H
+ Ab0AV9bz2Re4R1dMUbMGTr8oMKgn1PvRzeXm3x4/KuBTW5vJiuoCLpM61smZ57wi
+ ZnRhnDUCdxL8QfcUqFf2CBTc5Bnnsgz+vbeS3u0c6edAa1AjIN1yci1SBRC9sZNa
+ 1Ca30ZZR4IWs47KheAJDQ0HUrYar2uRzWEzgN6bXPezWMaFT6+pVC1zpA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=XjlaW6V8s1wLVuNtd08WsvIS7tHVl4EjkTESksZ7KkI=; b=jFmq2hlV
- 6y1NdIaipvAccXhj4ipYbFoSldwn0+/1ak1WhbqlgH29wqM9UtfVaPHKiLQ4Xleq
- 3oy6DgintVrXGW15CM+MqSvnXUB6ZIRszaUlTHRTUMSDMoOjNaS7qfpcLmpwYXSS
- TnR6vbCv3JXsY8pHYyGr88ufG6AsR6AAmrf79k1ZH2KL5rTAwWyT7izSsw2PvHrE
- 9mRaVvS/TOVEU2ZECjqzKbeH0S7vYS0loDeBno225d8BGQciGejI6kSKFAxTW5tD
- 75+SKSV1KIj1X3v5rf2jGR/qPL38A+gof3AGvJrH2+E0o8v5Vd/drInPOFwJ2OFs
- R6IT3A9ONxCIGQ==
-X-ME-Sender: <xms:di81XTlxmq0Hoqvi9UJ_OA6Xfbc4On-bvO_KgywqPg4Ofww9Mgqn8A>
+ fm3; bh=UF2Y40F3rfCBB4iI422gVuJdsnma4DYePmsb7I91kQo=; b=M+IFJG3V
+ /CuqiskKbfXXTm7tpIWlhy9ZzIaoqLYDoH7Tk2+FxmoOojfkHrJYG97ZYajfIYdU
+ 3bdrq1eiatZt8u+nTAVdMVg5lNPxATAeznejK0dch3hG1b26BWq3qVXxwE9cgTEM
+ TP6BigZkd2Nn+lPdb85ltznmn+Xyu8e0dTBcdsXJmOgFlKl8Rw+w4M/YcxtYFJcn
+ twcu/vKPWfyuTBu/4DqhFAS9dsCPo11oHFymc9zcSmW8JEE7VlqqgTgGEQSUwTnC
+ V5pn/KQnTWxZ0Gbswys/teNIxFaqpJk9wH+r+4xVzAilTE+06ZZybqTfOlP6KLMn
+ YYHDhJGw7uz1kw==
+X-ME-Sender: <xms:eC81XQy4GyMpeS1B5ATUb_8nnTtJ8h9doLeAV-oR4DlWWT8_5nxEiw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrjeefgdejvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
  ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpeeg
-X-ME-Proxy: <xmx:di81XcF0BoqjzU8g883pb6nPoSVhIoOIQSBstWw0ZCWB3SuB8qO4ew>
- <xmx:di81XbW7JGo8sARrt_nu1l0llcbvKf78mGQbldI5Sc_XXsYDbT-20w>
- <xmx:di81XTyAbWc29VZJiVQZB8WFicdQBwe52wHtuUQoumNr4odBAyeqJQ>
- <xmx:di81XeDluummhXOm9JMHgCCLD7TAML1Rb4oUmRuee1LoFrI5tsdGGw>
+ rdhjphenucevlhhushhtvghrufhiiigvpeej
+X-ME-Proxy: <xmx:eC81XXHQ-HiuF9iG3CApsQhBWn4C68j8PSXAYFxXUTq5c6TnaA9NEQ>
+ <xmx:eC81XVFP1XSfPHJ_73httc2z9k_76hYA7O072r72gNHpv24NWWoXrw>
+ <xmx:eC81XSC7hu4bQ7B59vEARzkgn8c5neVPSEy_UcJASREa9F4sl5H8iw>
+ <xmx:eC81XRk96qqplcN_15hcdDJcM0eNjJJYOtnXxiTm_VAI1kYfzfKgzQ>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 477A180059;
- Sun, 21 Jul 2019 23:37:25 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id C609980059;
+ Sun, 21 Jul 2019 23:37:26 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Mon, 22 Jul 2019 12:36:57 +0900
-Message-Id: <20190722033710.28107-8-o-takashi@sakamocchi.jp>
+Date: Mon, 22 Jul 2019 12:36:58 +0900
+Message-Id: <20190722033710.28107-9-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
 References: <20190722033710.28107-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 07/20] ALSA: firewire-lib: pass no syt
-	information to data block processing layer
+Subject: [alsa-devel] [PATCH 08/20] ALSA: firewire-lib: add list of packet
+	descriptor
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,203 +113,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In a previous commit, the variable passed from packet streaming layer
-for syt variable is useless. This commit obsoletes it.
+In current implementation of ALSA IEC 61883-1/6 packet streaming engine,
+16 packets are handled in one interrupt of isochronous context of OHCI
+1394.
 
-In my future work, the syt information is passed to data block processing
-layer by another way.
+Overall packet processing runs for each. However, this is not better in
+a point to split the processing into several parts.
+
+This commit is an attempt to add intermediate representation for
+parameters required for the parts.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-am824.c         |  8 ++++----
- sound/firewire/amdtp-stream.c        |  5 ++---
- sound/firewire/amdtp-stream.h        |  3 +--
- sound/firewire/digi00x/amdtp-dot.c   |  8 ++++----
- sound/firewire/fireface/amdtp-ff.c   |  8 ++++----
- sound/firewire/motu/amdtp-motu.c     | 11 ++++-------
- sound/firewire/tascam/amdtp-tascam.c | 11 ++++-------
- 7 files changed, 23 insertions(+), 31 deletions(-)
+ sound/firewire/amdtp-stream.c | 15 ++++++++++++---
+ sound/firewire/amdtp-stream.h |  9 +++++++++
+ 2 files changed, 21 insertions(+), 3 deletions(-)
 
-diff --git a/sound/firewire/amdtp-am824.c b/sound/firewire/amdtp-am824.c
-index 03a7e0533131..21068b23d528 100644
---- a/sound/firewire/amdtp-am824.c
-+++ b/sound/firewire/amdtp-am824.c
-@@ -336,8 +336,8 @@ static void read_midi_messages(struct amdtp_stream *s, __be32 *buffer,
- }
- 
- static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct amdtp_am824 *p = s->protocol;
- 	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
-@@ -358,8 +358,8 @@ static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
- }
- 
- static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct amdtp_am824 *p = s->protocol;
- 	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 6242240cd8ee..c8543cdb3c8c 100644
+index c8543cdb3c8c..2bea15151d4a 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -714,8 +714,7 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 		data_blocks = calculate_data_blocks(s, syt);
- 		buffer = s->buffer.packets[s->packet_index].buffer;
- 		dbc = s->data_block_counter;
--		pcm_frames = s->process_data_blocks(s, buffer, data_blocks, dbc,
--						    &syt);
-+		pcm_frames = s->process_data_blocks(s, buffer, data_blocks, dbc);
+@@ -936,6 +936,13 @@ int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed)
+ 	else
+ 		s->tag = TAG_CIP;
  
- 		if (s->flags & CIP_DBC_IS_END_EVENT)
- 			dbc = (dbc + data_blocks) & 0xff;
-@@ -782,7 +781,7 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 		if (err >= 0) {
- 			buffer = s->buffer.packets[s->packet_index].buffer;
- 			pcm_frames = s->process_data_blocks(s, buffer,
--				data_blocks, dbc, &syt);
-+							    data_blocks, dbc);
++	s->pkt_descs = kcalloc(INTERRUPT_INTERVAL, sizeof(*s->pkt_descs),
++			       GFP_KERNEL);
++	if (!s->pkt_descs) {
++		err = -ENOMEM;
++		goto err_context;
++	}
++
+ 	s->packet_index = 0;
+ 	do {
+ 		struct fw_iso_packet params;
+@@ -947,7 +954,7 @@ int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed)
+ 			err = queue_out_packet(s, &params);
+ 		}
+ 		if (err < 0)
+-			goto err_context;
++			goto err_pkt_descs;
+ 	} while (s->packet_index > 0);
  
- 			if (!(s->flags & CIP_DBC_IS_END_EVENT))
- 				dbc = (dbc + data_blocks) & 0xff;
+ 	/* NOTE: TAG1 matches CIP. This just affects in stream. */
+@@ -958,12 +965,13 @@ int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed)
+ 	s->callbacked = false;
+ 	err = fw_iso_context_start(s->context, -1, 0, tag);
+ 	if (err < 0)
+-		goto err_context;
++		goto err_pkt_descs;
+ 
+ 	mutex_unlock(&s->mutex);
+ 
+ 	return 0;
+-
++err_pkt_descs:
++	kfree(s->pkt_descs);
+ err_context:
+ 	fw_iso_context_destroy(s->context);
+ 	s->context = ERR_PTR(-1);
+@@ -1059,6 +1067,7 @@ void amdtp_stream_stop(struct amdtp_stream *s)
+ 	fw_iso_context_destroy(s->context);
+ 	s->context = ERR_PTR(-1);
+ 	iso_packets_buffer_destroy(&s->buffer, s->unit);
++	kfree(s->pkt_descs);
+ 
+ 	s->callbacked = false;
+ 
 diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index 5b9d4212e202..5996cc60f166 100644
+index 5996cc60f166..73c492c9a5d5 100644
 --- a/sound/firewire/amdtp-stream.h
 +++ b/sound/firewire/amdtp-stream.h
-@@ -99,8 +99,7 @@ typedef unsigned int (*amdtp_stream_process_data_blocks_t)(
+@@ -94,6 +94,14 @@ enum amdtp_stream_direction {
+ 	AMDTP_IN_STREAM
+ };
+ 
++struct pkt_desc {
++	u32 cycle;
++	u32 syt;
++	unsigned int data_blocks;
++	unsigned int data_block_counter;
++	__be32 *ctx_payload;
++};
++
+ struct amdtp_stream;
+ typedef unsigned int (*amdtp_stream_process_data_blocks_t)(
  						struct amdtp_stream *s,
- 						__be32 *buffer,
- 						unsigned int data_blocks,
--						unsigned int data_block_counter,
--						unsigned int *syt);
-+						unsigned int data_block_counter);
- struct amdtp_stream {
- 	struct fw_unit *unit;
- 	enum cip_flags flags;
-diff --git a/sound/firewire/digi00x/amdtp-dot.c b/sound/firewire/digi00x/amdtp-dot.c
-index 5c12973c2652..c296d1017ed3 100644
---- a/sound/firewire/digi00x/amdtp-dot.c
-+++ b/sound/firewire/digi00x/amdtp-dot.c
-@@ -330,8 +330,8 @@ void amdtp_dot_midi_trigger(struct amdtp_stream *s, unsigned int port,
- }
- 
- static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct snd_pcm_substream *pcm;
- 	unsigned int pcm_frames;
-@@ -350,8 +350,8 @@ static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
- }
- 
- static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct snd_pcm_substream *pcm;
- 	unsigned int pcm_frames;
-diff --git a/sound/firewire/fireface/amdtp-ff.c b/sound/firewire/fireface/amdtp-ff.c
-index 71879922ab39..31a60dff94ac 100644
---- a/sound/firewire/fireface/amdtp-ff.c
-+++ b/sound/firewire/fireface/amdtp-ff.c
-@@ -103,8 +103,8 @@ int amdtp_ff_add_pcm_hw_constraints(struct amdtp_stream *s,
- }
- 
- static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
- 	unsigned int pcm_frames;
-@@ -121,8 +121,8 @@ static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
- }
- 
- static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct snd_pcm_substream *pcm = READ_ONCE(s->pcm);
- 	unsigned int pcm_frames;
-diff --git a/sound/firewire/motu/amdtp-motu.c b/sound/firewire/motu/amdtp-motu.c
-index 683873699885..30d5f87119cc 100644
---- a/sound/firewire/motu/amdtp-motu.c
-+++ b/sound/firewire/motu/amdtp-motu.c
-@@ -299,8 +299,8 @@ static void __maybe_unused copy_message(u64 *frames, __be32 *buffer,
- }
- 
- static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct amdtp_motu *p = s->protocol;
- 	struct snd_pcm_substream *pcm;
-@@ -361,15 +361,12 @@ static void write_sph(struct amdtp_stream *s, __be32 *buffer,
- }
- 
- static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct amdtp_motu *p = (struct amdtp_motu *)s->protocol;
- 	struct snd_pcm_substream *pcm;
- 
--	/* Not used. */
--	*syt = 0xffff;
--
- 	/* TODO: how to interact control messages between userspace? */
- 
- 	if (p->midi_ports)
-diff --git a/sound/firewire/tascam/amdtp-tascam.c b/sound/firewire/tascam/amdtp-tascam.c
-index 8fba6fb8ba8a..bc1f2d2120b4 100644
---- a/sound/firewire/tascam/amdtp-tascam.c
-+++ b/sound/firewire/tascam/amdtp-tascam.c
-@@ -166,8 +166,8 @@ static void read_status_messages(struct amdtp_stream *s,
- }
- 
- static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct snd_pcm_substream *pcm;
- 
-@@ -181,14 +181,11 @@ static unsigned int process_tx_data_blocks(struct amdtp_stream *s,
- }
- 
- static unsigned int process_rx_data_blocks(struct amdtp_stream *s,
--			__be32 *buffer, unsigned int data_blocks,
--			unsigned int data_block_counter, unsigned int *syt)
-+				__be32 *buffer, unsigned int data_blocks,
-+				unsigned int data_block_counter)
- {
- 	struct snd_pcm_substream *pcm;
- 
--	/* This field is not used. */
--	*syt = 0x0000;
--
- 	pcm = READ_ONCE(s->pcm);
- 	if (pcm)
- 		write_pcm_s32(s, pcm, buffer, data_blocks);
+@@ -110,6 +118,7 @@ struct amdtp_stream {
+ 	struct fw_iso_context *context;
+ 	struct iso_packets_buffer buffer;
+ 	int packet_index;
++	struct pkt_desc *pkt_descs;
+ 	int tag;
+ 	union {
+ 		struct {
 -- 
 2.20.1
 

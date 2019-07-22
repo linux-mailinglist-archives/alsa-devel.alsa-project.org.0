@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A26D6FF8E
-	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:25:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B98B56FF8F
+	for <lists+alsa-devel@lfdr.de>; Mon, 22 Jul 2019 14:25:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33F00176F;
-	Mon, 22 Jul 2019 14:24:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33F00176F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDABE178D;
+	Mon, 22 Jul 2019 14:25:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDABE178D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563798333;
-	bh=iMJeQrggiNjHNySnRb98iyryD99aVLaasRZJt1gyjxI=;
+	s=default; t=1563798350;
+	bh=VnqH659zFXUf1CBds46Z+PAets8O0iDFwOgabCHw4kw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=o7i2O1vfuq8UucXfAJIHhhGC7i2xhdhmeieNK27hm7srlebVA8tncCl9I2bu9JV3g
-	 AwknfxL9LzpasgF/xtK5JR67ett1mKrJQ4YPOalA50SSnPjpT2Lb7RISN/GnpIAMc0
-	 PgHKTo7/O6tycpzMlc9t6SsXwT/kzJ7Gekc7JTAg=
+	b=DjSTsrORAVFeW99MZOU8URZJzWeiuxvByujUK61UMGVrF8/+XB/s47dWgtEe1B++5
+	 oV7ODgY4AxtgFFoaNX//kc7xWB9LeabAw1uHBEzVLZPLdOlSs9fdY04IzMFRLa068b
+	 bOvoF1FWI+rDfaKryF2pfa1iXV+I6JJHbDxgHVe8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC3AAF8045F;
-	Mon, 22 Jul 2019 14:22:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DD57DF8049B;
+	Mon, 22 Jul 2019 14:22:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B6AFF8048F; Mon, 22 Jul 2019 14:22:13 +0200 (CEST)
+ id 6F095F8049A; Mon, 22 Jul 2019 14:22:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5D58BF803D5
- for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D58BF803D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1461F803F3
+ for <alsa-devel@alsa-project.org>; Mon, 22 Jul 2019 14:22:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1461F803F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dM9N4vrH"
+ header.b="qvZYpcvf"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=0z6U09rUZLECl28yvm3CexCUHnSb2sEGRkEG6GbfCPE=; b=dM9N4vrHnRKf
- plA2tnQIkv+7kDgMz7isQk0oLs+mHmOfGRVJVbghqAVSjK3ZLKq4qDDRwwl155fzafR7aM0sb/4pI
- F7LtADCLGCoWF4ibxFMuOaSwduO9R6arD+HzCmbboIlyqLRB7EAI0MvZ/cxDzgHwKy9RDFWMTo5aP
- jHHng=;
+ List-Archive; bh=Wo4/zlRZTk4/NetkkUklMz6RtXowuHCuG8Atk8CkqXQ=; b=qvZYpcvfeVFN
+ Cv5uL8xac07qoN+mKDnpmsrI1JZvtSdJZZuXcMzZt46fEPFmdo7JF+ZHH4lr7cF5TJDOXBXnoNijb
+ dGNALfXtwgozAGSYROlOlcw0J8O7iOQOCNZvRiu3D28DRQgMlcVrJ9lszHK6g8Uh7nwljnFMTUMjr
+ 5kz5A=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpXKQ-0007c8-QT; Mon, 22 Jul 2019 12:22:06 +0000
+ id 1hpXKR-0007cM-Fq; Mon, 22 Jul 2019 12:22:07 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 95EA72742C1A; Mon, 22 Jul 2019 13:22:05 +0100 (BST)
+ id B62D427429D9; Mon, 22 Jul 2019 13:22:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-In-Reply-To: <20190719180558.11459-1-enric.balletbo@collabora.com>
+To: Lucas Stach <l.stach@pengutronix.de>
+In-Reply-To: <20190719143637.2018-1-l.stach@pengutronix.de>
 X-Patchwork-Hint: ignore
-Message-Id: <20190722122205.95EA72742C1A@ypsilon.sirena.org.uk>
-Date: Mon, 22 Jul 2019 13:22:05 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, dianders@chromium.org,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- Collabora Kernel ML <kernel@collabora.com>,
- linux-arm-kernel@lists.infradead.org, cychiang@chromium.org
-Subject: [alsa-devel] Applied "SoC: rockchip-max98090: Remove MICBIAS as
-	supply of input pin IN34" to the asoc tree
+Message-Id: <20190722122206.B62D427429D9@ypsilon.sirena.org.uk>
+Date: Mon, 22 Jul 2019 13:22:06 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ patchwork-lst@pengutronix.de, Mark Brown <broonie@kernel.org>,
+ kernel@pengutronix.de, "Andrew F. Davis" <afd@ti.com>
+Subject: [alsa-devel] Applied "ASoC: tlv320aic31xx: suppress error message
+	for EPROBE_DEFER" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   SoC: rockchip-max98090: Remove MICBIAS as supply of input pin IN34
+   ASoC: tlv320aic31xx: suppress error message for EPROBE_DEFER
 
 has been applied to the asoc tree at
 
@@ -116,38 +113,48 @@ to this mail.
 Thanks,
 Mark
 
-From 03cc2c22a711080790c5dcb546dd073fe38add05 Mon Sep 17 00:00:00 2001
-From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Date: Fri, 19 Jul 2019 20:05:58 +0200
-Subject: [PATCH] SoC: rockchip-max98090: Remove MICBIAS as supply of input pin
- IN34
+From 907256f4aa6761f3830bf2ca06434778ab5f5596 Mon Sep 17 00:00:00 2001
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Fri, 19 Jul 2019 16:36:37 +0200
+Subject: [PATCH] ASoC: tlv320aic31xx: suppress error message for EPROBE_DEFER
 
-Commit ec0d23b295b9 ("ASoC: rockchip-max98090: Fix the Headset Mic
-route.") moved the MICBIAS widget to supply Headset Mic but forget to
-remove the MICBIAS widget to supply IN34 which is not really needed, so
-remove that path so we have:
+Both the supplies and reset GPIO might need a probe deferral for the
+resource to be available. Don't print a error message in that case, as
+it is a normal operating condition.
 
-   IN34 <==== Headset MIC <==== MICBIAS
-
-Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Link: https://lore.kernel.org/r/20190719180558.11459-1-enric.balletbo@collabora.com
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Acked-by: Andrew F. Davis <afd@ti.com>
+Link: https://lore.kernel.org/r/20190719143637.2018-1-l.stach@pengutronix.de
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/rockchip/rockchip_max98090.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/codecs/tlv320aic31xx.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index c5fc24675a33..d1c907631c2d 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -45,7 +45,6 @@ static const struct snd_soc_dapm_widget rk_dapm_widgets[] = {
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index 9b37e98da0db..26a4f6cd3288 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -1553,7 +1553,8 @@ static int aic31xx_i2c_probe(struct i2c_client *i2c,
+ 	aic31xx->gpio_reset = devm_gpiod_get_optional(aic31xx->dev, "reset",
+ 						      GPIOD_OUT_LOW);
+ 	if (IS_ERR(aic31xx->gpio_reset)) {
+-		dev_err(aic31xx->dev, "not able to acquire gpio\n");
++		if (PTR_ERR(aic31xx->gpio_reset) != -EPROBE_DEFER)
++			dev_err(aic31xx->dev, "not able to acquire gpio\n");
+ 		return PTR_ERR(aic31xx->gpio_reset);
+ 	}
  
- static const struct snd_soc_dapm_route rk_audio_map[] = {
- 	{"IN34", NULL, "Headset Mic"},
--	{"IN34", NULL, "MICBIAS"},
- 	{"Headset Mic", NULL, "MICBIAS"},
- 	{"DMICL", NULL, "Int Mic"},
- 	{"Headphone", NULL, "HPL"},
+@@ -1564,7 +1565,9 @@ static int aic31xx_i2c_probe(struct i2c_client *i2c,
+ 				      ARRAY_SIZE(aic31xx->supplies),
+ 				      aic31xx->supplies);
+ 	if (ret) {
+-		dev_err(aic31xx->dev, "Failed to request supplies: %d\n", ret);
++		if (ret != -EPROBE_DEFER)
++			dev_err(aic31xx->dev,
++				"Failed to request supplies: %d\n", ret);
+ 		return ret;
+ 	}
+ 
 -- 
 2.20.1
 

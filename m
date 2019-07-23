@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AD587175D
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:47:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32E0071758
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:47:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B492718D5;
-	Tue, 23 Jul 2019 13:46:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B492718D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF2CD18D9;
+	Tue, 23 Jul 2019 13:46:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF2CD18D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563882461;
-	bh=vJMGJjSjG8eCb9En1tQcP0L8s8A6OxCJJxUdAtbyi3g=;
+	s=default; t=1563882420;
+	bh=qbDigPB/gTC/XyBl/a7WX6vj7lbsEV3zabipY4pxAHI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=niIKyAJyAfGhv0Who5z+WNAexLxN5L8dNxOY5csVnZo2jhDQ2KrIosvdv2B9Ue5e0
-	 33oKLoTtrorxf2YFUIahh5KBQGeKkmsealGMJvQA4wxQJhWK5/fsLVC916Dk10rxub
-	 k+aReLlwNek1fND0boSU4KQtLM1+KnhPt1sOUjRI=
+	b=OPcunC+WnXnA0+ozTISagw/2BBHef5yLduMxMJ4wDOibiC/xpQV8oF6RqPakM5BtI
+	 HuiEPfyViJMk8H4bgOuRL2kKMsdYInlFJp/8lafiS7Qo+83WPR9DJTnxp1nDRmxGjD
+	 i24szqzny1CGPMY3xe7sdVKVoNvRIhpKv5hj/qZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5B33F80746;
-	Tue, 23 Jul 2019 13:30:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71C6CF8072A;
+	Tue, 23 Jul 2019 13:30:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D803BF80227; Tue, 23 Jul 2019 13:29:45 +0200 (CEST)
+ id D29B8F80535; Tue, 23 Jul 2019 13:29:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0999AF8044C
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0999AF8044C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A499F80447
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A499F80447
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="D2BU2Ix9"
+ header.b="Qk7WOU+x"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=rJ23phBtvNXCLN9+9y+jZWqIa1eqm8eSkHvULpD161w=; b=D2BU2Ix9Z9Cu
- DFA0v4L7KKjA4TsF6tPfQC6fJPI9z9KsD1SvqAlPHXWzXw61yy/WUryGt1JW39r5uNxl8jlfYmQRf
- zFg2i9a8rOL0jd06ibe39TPkcdOduoXDEcKAI6xtqvT66TsEC2cfLjvrYexeOxKRwoUk/nN+p6Fi0
- TMN0E=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=sMQbHizH2Aibg6KsC+tobOgT1JsVN3/dwGgbjBWbsWY=; b=Qk7WOU+x3wcf
+ 4h7lU28NZJFLx8Ez5ZVE1oSUMGft2sWdb64jkugaTqFVagQekaUDggN8O1gppE0OwDppDMscKcWhO
+ VFyFJ3ax3e+uLzYwfFqGDSrh+dUtuwWXCQWaRb5TUfIl1DJ0LgPLoYulRVLailfymgFbi98A8XKMy
+ A6h7U=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpsym-0003It-Sc; Tue, 23 Jul 2019 11:29:12 +0000
+ id 1hpsym-0003Im-Iq; Tue, 23 Jul 2019 11:29:12 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 49F9C2742B59; Tue, 23 Jul 2019 12:29:12 +0100 (BST)
+ id 1B0242742BAC; Tue, 23 Jul 2019 12:29:12 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
-In-Reply-To: <20190722141402.7194-16-pierre-louis.bossart@linux.intel.com>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+In-Reply-To: <20190722141402.7194-17-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723112912.49F9C2742B59@ypsilon.sirena.org.uk>
+Message-Id: <20190723112912.1B0242742BAC@ypsilon.sirena.org.uk>
 Date: Tue, 23 Jul 2019 12:29:12 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: remove duplicated
-	clear WAKESTS" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: add a parameter to
+	disable MSI" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: remove duplicated clear WAKESTS
+   ASoC: SOF: Intel: hda: add a parameter to disable MSI
 
 has been applied to the asoc tree at
 
@@ -112,38 +113,91 @@ to this mail.
 Thanks,
 Mark
 
-From dc7a36f178a94604d29c5dd15c77187905d8e882 Mon Sep 17 00:00:00 2001
-From: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
-Date: Mon, 22 Jul 2019 09:13:56 -0500
-Subject: [PATCH] ASoC: SOF: Intel: hda: remove duplicated clear WAKESTS
+From 672ff5e3596ee27b64edcc73251f4ae1c8ab12ac Mon Sep 17 00:00:00 2001
+From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Date: Mon, 22 Jul 2019 09:13:57 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: add a parameter to disable MSI
 
-Remove the first clear WAKESTS, only one clear is needed during init
-chip.
+Enabling MSI on HDA can fail, in which case the legacy PCI IRQ mode
+will be used. To make testing this mode easier add an "enable_msi"
+module parameter, which is only enabled if debugging is enabled too.
 
-Signed-off-by: Zhu Yingjiang <yingjiang.zhu@linux.intel.com>
+Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190722141402.7194-16-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20190722141402.7194-17-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-ctrl.c | 5 -----
- 1 file changed, 5 deletions(-)
+ sound/soc/sof/intel/hda.c | 28 +++++++++++++++++-----------
+ sound/soc/sof/sof-priv.h  |  2 +-
+ 2 files changed, 18 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
-index 8b856dc35e20..a7fee403cb90 100644
---- a/sound/soc/sof/intel/hda-ctrl.c
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -176,11 +176,6 @@ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev, bool full_reset)
- 	hda_dsp_ctrl_misc_clock_gating(sdev, false);
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 7f665392618f..79cce20666b6 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -46,6 +46,12 @@ struct hda_dsp_msg_code {
+ 	const char *msg;
+ };
  
- 	if (full_reset) {
--		/* clear WAKESTS */
--		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_WAKESTS,
--					SOF_HDA_WAKESTS_INT_MASK,
--					SOF_HDA_WAKESTS_INT_MASK);
--
- 		/* reset HDA controller */
- 		ret = hda_dsp_ctrl_link_reset(sdev, true);
- 		if (ret < 0) {
++static bool hda_use_msi = IS_ENABLED(CONFIG_PCI);
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG)
++module_param_named(use_msi, hda_use_msi, bool, 0444);
++MODULE_PARM_DESC(use_msi, "SOF HDA use PCI MSI mode");
++#endif
++
+ static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
+ 	{HDA_DSP_ROM_FW_MANIFEST_LOADED, "status: manifest loaded"},
+ 	{HDA_DSP_ROM_FW_FW_LOADED, "status: fw loaded"},
+@@ -529,11 +535,18 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	 * register our IRQ
+ 	 * let's try to enable msi firstly
+ 	 * if it fails, use legacy interrupt mode
+-	 * TODO: support interrupt mode selection with kernel parameter
+-	 *       support msi multiple vectors
++	 * TODO: support msi multiple vectors
+ 	 */
+-	ret = pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI);
+-	if (ret < 0) {
++	if (hda_use_msi && !pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI)) {
++		dev_info(sdev->dev, "use msi interrupt mode\n");
++		hdev->irq = pci_irq_vector(pci, 0);
++		/* ipc irq number is the same of hda irq */
++		sdev->ipc_irq = hdev->irq;
++		/* initialised to "false" by kzalloc() */
++		sdev->msi_enabled = true;
++	}
++
++	if (!sdev->msi_enabled) {
+ 		dev_info(sdev->dev, "use legacy interrupt mode\n");
+ 		/*
+ 		 * in IO-APIC mode, hda->irq and ipc_irq are using the same
+@@ -541,13 +554,6 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 		 */
+ 		hdev->irq = pci->irq;
+ 		sdev->ipc_irq = pci->irq;
+-		sdev->msi_enabled = 0;
+-	} else {
+-		dev_info(sdev->dev, "use msi interrupt mode\n");
+-		hdev->irq = pci_irq_vector(pci, 0);
+-		/* ipc irq number is the same of hda irq */
+-		sdev->ipc_irq = hdev->irq;
+-		sdev->msi_enabled = 1;
+ 	}
+ 
+ 	dev_dbg(sdev->dev, "using HDA IRQ %d\n", hdev->irq);
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index b8c9274ccf42..983eadef4b30 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -435,7 +435,7 @@ struct snd_sof_dev {
+ 	u32 dtrace_error;
+ 	u32 dtrace_draining;
+ 
+-	u32 msi_enabled;
++	bool msi_enabled;
+ 
+ 	void *private;			/* core does not touch this */
+ };
 -- 
 2.20.1
 

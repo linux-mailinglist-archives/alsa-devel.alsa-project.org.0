@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C966A71754
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:44:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3006871756
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:46:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5D8D318AC;
-	Tue, 23 Jul 2019 13:44:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D8D318AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id C11C018BB;
+	Tue, 23 Jul 2019 13:45:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C11C018BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563882297;
-	bh=1bz7gNEX0a9nrMWp8AJI/j+6oQ9P9TCtSKAkdtjXdT0=;
+	s=default; t=1563882376;
+	bh=mkmofuWgXqpCb41WDEAQp/37IJrQqKEx2M1SoCQqnY4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Hx7h7iMgP2P7umAlIvx/LKr6XpZkv8tDGZ6ApBvJb/987TQBrG/mHmjmIjIa0fH4p
-	 qLc5uc3Ek1i/SMXCb2TWbd5vgSxkKys8isyfuNCBWcfqfKOECdfpsLHVasxf5ZoCaz
-	 UnvGoR9UaqwxEw2jy3sVfQXRdsi1RaMq7oBi20J4=
+	b=TJgn3B5E7vlnjfUoj+1YBmotMr3MSdC1dITWKvVnPjQsqsugFIloDiV9H8F9zi8Fs
+	 4gWcItsIJsTQrjmwvrb3JxIFX4vvjXuKvo5MnRf1HUAN9OPqWH0Z6iq/xwMPMFUTS2
+	 EM1QAjjS2auB4U7qzzGPp1HJ2OFxhRhi924KePIc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77D66F806F0;
-	Tue, 23 Jul 2019 13:30:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03A86F80714;
+	Tue, 23 Jul 2019 13:30:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1665F804FD; Tue, 23 Jul 2019 13:29:35 +0200 (CEST)
+ id EB305F80507; Tue, 23 Jul 2019 13:29:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60D97F804CF
+ by alsa1.perex.cz (Postfix) with ESMTPS id DB603F804FE
  for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60D97F804CF
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB603F804FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="o+GutVd3"
+ header.b="jcnu4Quo"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=uW8mLkBNzzRIUGgBhcROR5IPwDhjQ5ZLJDLiCjkF0r0=; b=o+GutVd3z7jP
- 8thUV9hTXmaYYo0frBFgoO9tBy26F516R0a6nN42ioBP4lyEw1BlhYJpsyurMAFQE6pBngx6pboxK
- Mb6RjEszP6AWe39zPawJLb/oRuXA5AHMvKgZTW1GoNnc15uDrGZnHjl+C31Zvvv5wbSZx6U1e8pLo
- 52R0c=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=FCGoBKi/PqB3yw4pwzhgLxHQkUSvgCQYXglvLUNxi5c=; b=jcnu4Quojxqv
+ lwyq5xSYzW1hNf7jpAjLkulSfRh1nWDqxNTbiRMNSy/lYUbBSIBGXfwD/4p5z+p3LDi0VYeva2ac+
+ pVmjVLnodZ+gZEVKotZbEffaeE8tqTeeBz6bP11muG4mke4ImarFb+t5EnP/QINMHOnaN3jvF7A8z
+ +j3Qs=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpsyq-0003KX-3p; Tue, 23 Jul 2019 11:29:16 +0000
+ id 1hpsyq-0003Kv-Ja; Tue, 23 Jul 2019 11:29:16 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 71C2D2742B60; Tue, 23 Jul 2019 12:29:15 +0100 (BST)
+ id 14A762742BAC; Tue, 23 Jul 2019 12:29:16 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20190722211528.26600-1-christophe.jaillet@wanadoo.fr>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20190722135209.30302-1-ckeepax@opensource.cirrus.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723112915.71C2D2742B60@ypsilon.sirena.org.uk>
-Date: Tue, 23 Jul 2019 12:29:15 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- gregkh@linuxfoundation.org, tiwai@suse.com, kernel-janitors@vger.kernel.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, peter.ujfalusi@ti.com,
- Mark Brown <broonie@kernel.org>, wang@mentor.com, tglx@linutronix.de
-Subject: [alsa-devel] Applied "ASoC: pcm3168a: Fix a typo in the name of a
-	constant" to the asoc tree
+Message-Id: <20190723112916.14A762742BAC@ypsilon.sirena.org.uk>
+Date: Tue, 23 Jul 2019 12:29:16 +0100 (BST)
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
+Subject: [alsa-devel] Applied "ASoC: madera: Read device tree configuration"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: pcm3168a: Fix a typo in the name of a constant
+   ASoC: madera: Read device tree configuration
 
 has been applied to the asoc tree at
 
@@ -114,43 +113,135 @@ to this mail.
 Thanks,
 Mark
 
-From f8f85216f8d309daadb37aba8a4b0826783d8747 Mon Sep 17 00:00:00 2001
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Date: Mon, 22 Jul 2019 23:15:28 +0200
-Subject: [PATCH] ASoC: pcm3168a: Fix a typo in the name of a constant
+From 748fd07e2b9ca4132e3d2aae25395aedc4d1aee8 Mon Sep 17 00:00:00 2001
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+Date: Mon, 22 Jul 2019 14:52:09 +0100
+Subject: [PATCH] ASoC: madera: Read device tree configuration
 
-There is a typo in PCM1368A_MAX_SYSCLK, it should be PCM3168A_MAX_SYSCLK
-(1 and 3 switched in 3168)
+Read the configuration of the Madera ASoC driver from device tree.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Link: https://lore.kernel.org/r/20190722211528.26600-1-christophe.jaillet@wanadoo.fr
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20190722135209.30302-1-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/pcm3168a.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/madera.c | 97 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
-diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
-index f1104d7d6426..5d59ce254821 100644
---- a/sound/soc/codecs/pcm3168a.c
-+++ b/sound/soc/codecs/pcm3168a.c
-@@ -263,7 +263,7 @@ static unsigned int pcm3168a_scki_ratios[] = {
- #define PCM3168A_NUM_SCKI_RATIOS_DAC	ARRAY_SIZE(pcm3168a_scki_ratios)
- #define PCM3168A_NUM_SCKI_RATIOS_ADC	(ARRAY_SIZE(pcm3168a_scki_ratios) - 2)
+diff --git a/sound/soc/codecs/madera.c b/sound/soc/codecs/madera.c
+index 1b1be19a2f99..5f1e32a5a855 100644
+--- a/sound/soc/codecs/madera.c
++++ b/sound/soc/codecs/madera.c
+@@ -300,6 +300,100 @@ int madera_free_overheat(struct madera_priv *priv)
+ }
+ EXPORT_SYMBOL_GPL(madera_free_overheat);
  
--#define PCM1368A_MAX_SYSCLK		36864000
-+#define PCM3168A_MAX_SYSCLK		36864000
- 
- static int pcm3168a_reset(struct pcm3168a_priv *pcm3168a)
++static int madera_get_variable_u32_array(struct device *dev,
++					 const char *propname,
++					 u32 *dest, int n_max,
++					 int multiple)
++{
++	int n, ret;
++
++	n = device_property_count_u32(dev, propname);
++	if (n < 0) {
++		if (n == -EINVAL)
++			return 0;	/* missing, ignore */
++
++		dev_warn(dev, "%s malformed (%d)\n", propname, n);
++
++		return n;
++	} else if ((n % multiple) != 0) {
++		dev_warn(dev, "%s not a multiple of %d entries\n",
++			 propname, multiple);
++
++		return -EINVAL;
++	}
++
++	if (n > n_max)
++		n = n_max;
++
++	ret = device_property_read_u32_array(dev, propname, dest, n);
++	if (ret < 0)
++		return ret;
++
++	return n;
++}
++
++static void madera_prop_get_inmode(struct madera_priv *priv)
++{
++	struct madera *madera = priv->madera;
++	struct madera_codec_pdata *pdata = &madera->pdata.codec;
++	u32 tmp[MADERA_MAX_INPUT * MADERA_MAX_MUXED_CHANNELS];
++	int n, i, in_idx, ch_idx;
++
++	BUILD_BUG_ON(ARRAY_SIZE(pdata->inmode) != MADERA_MAX_INPUT);
++	BUILD_BUG_ON(ARRAY_SIZE(pdata->inmode[0]) != MADERA_MAX_MUXED_CHANNELS);
++
++	n = madera_get_variable_u32_array(madera->dev, "cirrus,inmode",
++					  tmp, ARRAY_SIZE(tmp),
++					  MADERA_MAX_MUXED_CHANNELS);
++	if (n < 0)
++		return;
++
++	in_idx = 0;
++	ch_idx = 0;
++	for (i = 0; i < n; ++i) {
++		pdata->inmode[in_idx][ch_idx] = tmp[i];
++
++		if (++ch_idx == MADERA_MAX_MUXED_CHANNELS) {
++			ch_idx = 0;
++			++in_idx;
++		}
++	}
++}
++
++static void madera_prop_get_pdata(struct madera_priv *priv)
++{
++	struct madera *madera = priv->madera;
++	struct madera_codec_pdata *pdata = &madera->pdata.codec;
++	u32 out_mono[ARRAY_SIZE(pdata->out_mono)];
++	int i, n;
++
++	madera_prop_get_inmode(priv);
++
++	n = madera_get_variable_u32_array(madera->dev, "cirrus,out-mono",
++					  out_mono, ARRAY_SIZE(out_mono), 1);
++	if (n > 0)
++		for (i = 0; i < n; ++i)
++			pdata->out_mono[i] = !!out_mono[i];
++
++	madera_get_variable_u32_array(madera->dev,
++				      "cirrus,max-channels-clocked",
++				      pdata->max_channels_clocked,
++				      ARRAY_SIZE(pdata->max_channels_clocked),
++				      1);
++
++	madera_get_variable_u32_array(madera->dev, "cirrus,pdm-fmt",
++				      pdata->pdm_fmt,
++				      ARRAY_SIZE(pdata->pdm_fmt), 1);
++
++	madera_get_variable_u32_array(madera->dev, "cirrus,pdm-mute",
++				      pdata->pdm_mute,
++				      ARRAY_SIZE(pdata->pdm_mute), 1);
++
++	madera_get_variable_u32_array(madera->dev, "cirrus,dmic-ref",
++				      pdata->dmic_ref,
++				      ARRAY_SIZE(pdata->dmic_ref), 1);
++}
++
+ int madera_core_init(struct madera_priv *priv)
  {
-@@ -296,7 +296,7 @@ static int pcm3168a_set_dai_sysclk(struct snd_soc_dai *dai,
- 	struct pcm3168a_priv *pcm3168a = snd_soc_component_get_drvdata(dai->component);
- 	int ret;
+ 	int i;
+@@ -308,6 +402,9 @@ int madera_core_init(struct madera_priv *priv)
+ 	BUILD_BUG_ON(!madera_mixer_texts[MADERA_NUM_MIXER_INPUTS - 1]);
+ 	BUILD_BUG_ON(!madera_mixer_values[MADERA_NUM_MIXER_INPUTS - 1]);
  
--	if (freq > PCM1368A_MAX_SYSCLK)
-+	if (freq > PCM3168A_MAX_SYSCLK)
- 		return -EINVAL;
++	if (!dev_get_platdata(priv->madera->dev))
++		madera_prop_get_pdata(priv);
++
+ 	mutex_init(&priv->rate_lock);
  
- 	ret = clk_set_rate(pcm3168a->scki, freq);
+ 	for (i = 0; i < MADERA_MAX_HP_OUTPUT; i++)
 -- 
 2.20.1
 

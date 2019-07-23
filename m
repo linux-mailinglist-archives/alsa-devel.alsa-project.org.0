@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74E1D71D9A
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 19:24:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F1D71D8E
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 19:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0EA9018F2;
-	Tue, 23 Jul 2019 19:23:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EA9018F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id D34E418C2;
+	Tue, 23 Jul 2019 19:21:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D34E418C2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563902657;
-	bh=LV40L48oIuelsum/Vhez+3GDOtn9ntsZm0qNGo86MQM=;
+	s=default; t=1563902516;
+	bh=uDcv90BK1Nh5beJ3jMGfIilY+7emO7rDaSUHeEA7ySI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=TemGa56XMaOZq4EIEa30ITYH6Sprd548JkPMgkm/VBYwzAeR1u/KpwDdDfq/1Sx1O
-	 7DxniPF97PR/0JZKfRLEc216ckl3ET9e1HMdk3YfvXT2S/TYC48k5XaMOBtaQgkCZS
-	 6XsvtcgOkFdU+ZSQqarPdt7RdIILnPtrfLgdrYhA=
+	b=DOZrMgV3gE7gDSIT/MtA3bLldzASvsY6d1LuOaGOvykOYV+3EworwaLQedx67grid
+	 YQMwyQuTUX6NoRnAgGphxsKlRs31AZtqW1qTbiG2MToJagCANzpdFYkFBCZemMnw3v
+	 PflsfEKNhZe7+BfuNg9m9MWRBGJclkRuDoDx2okQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3307F80534;
-	Tue, 23 Jul 2019 19:19:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 423FEF80483;
+	Tue, 23 Jul 2019 19:19:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 580B6F804CF; Tue, 23 Jul 2019 19:19:01 +0200 (CEST)
+ id 01B34F804FD; Tue, 23 Jul 2019 19:18:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5EB7F8044C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2E3FF80227
  for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 19:18:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5EB7F8044C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2E3FF80227
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="gw2adv0l"
+ header.b="GAUlCL/D"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=O0TTYlAH45ZtRCoLfhBatZ+mEzHAJ60KqRkE6SECFKk=; b=gw2adv0lotmN
- c8agXG6/oZsP3/sao6F3fV9o78nTF32CdYsmUPFU60feprkADVrdkYR9oarjkvKiRPs994N6ED3DQ
- uDLbjBU97QpLVQNdUy4wkTtOamwqjMfzkZFncVmyIu+VWJXAsBovTh+Ak0rGdCx5ojEzy2yqOtNLw
- cnKBM=;
+ List-Archive; bh=1GW2Qg8bDdinIlIqMumIMXnR3EShZxgcOmw84n+2WSM=; b=GAUlCL/DchrA
+ 1Aijk4GXcW+anxqrbg9zuIuLkeRl35pbqpof6fam68kZwAH6wdE9QUmFQBK0dz2EtKqhW/k5zLX2G
+ KHh4g2t3hL0/pSkskHbc/5Xf4a7gDB/iqNb8xp76uR1xQCadQwcgAB5Vr4QIelzXOeb7lRn3quvDj
+ Kn6Bw=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpyR9-0004LM-OW; Tue, 23 Jul 2019 17:18:51 +0000
+ id 1hpyR9-0004LI-0r; Tue, 23 Jul 2019 17:18:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id EB6182742B59; Tue, 23 Jul 2019 18:18:50 +0100 (BST)
+ id 854DA2742B60; Tue, 23 Jul 2019 18:18:50 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87imruhn1x.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ef2ihmzo.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723171850.EB6182742B59@ypsilon.sirena.org.uk>
+Message-Id: <20190723171850.854DA2742B60@ypsilon.sirena.org.uk>
 Date: Tue, 23 Jul 2019 18:18:50 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-dai: add snd_soc_dai_remove()" to
-	the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: use existing
+	snd_soc_dai_digital_mute()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-dai: add snd_soc_dai_remove()
+   ASoC: soc-core: use existing snd_soc_dai_digital_mute()
 
 has been applied to the asoc tree at
 
@@ -112,75 +112,53 @@ to this mail.
 Thanks,
 Mark
 
-From dcdab5820edd6123911dbd767ee1e389008b6a83 Mon Sep 17 00:00:00 2001
+From 88fdffa2eef45fc9f6009ee590741c44a57c49c7 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 22 Jul 2019 10:35:05 +0900
-Subject: [PATCH] ASoC: soc-dai: add snd_soc_dai_remove()
+Date: Mon, 22 Jul 2019 10:36:27 +0900
+Subject: [PATCH] ASoC: soc-core: use existing snd_soc_dai_digital_mute()
 
-Current ALSA SoC is directly using dai->driver->xxx,
-thus, it has deep nested bracket, and it makes code unreadable.
-This patch adds new snd_soc_dai_remvoe() and use it.
+ALSA SoC already has snd_soc_dai_digital_mute() for digital_mute,
+let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87imruhn1x.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87ef2ihmzo.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-dai.h |  1 +
- sound/soc/soc-core.c    | 13 ++++++-------
- sound/soc/soc-dai.c     |  7 +++++++
- 3 files changed, 14 insertions(+), 7 deletions(-)
+ sound/soc/soc-core.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index da8d8b889089..2a11f177ce01 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -165,6 +165,7 @@ snd_pcm_sframes_t snd_soc_dai_delay(struct snd_soc_dai *dai,
- void snd_soc_dai_suspend(struct snd_soc_dai *dai);
- void snd_soc_dai_resume(struct snd_soc_dai *dai);
- int snd_soc_dai_probe(struct snd_soc_dai *dai);
-+int snd_soc_dai_remove(struct snd_soc_dai *dai);
- 
- struct snd_soc_dai_ops {
- 	/*
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 3e73468225f9..727fd342b3fb 100644
+index 458b090f026a..7ecfe641ca46 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -992,13 +992,12 @@ static void soc_remove_dai(struct snd_soc_dai *dai, int order)
- 	    dai->driver->remove_order != order)
- 		return;
+@@ -487,10 +487,9 @@ int snd_soc_suspend(struct device *dev)
+ 			continue;
  
--	if (dai->driver->remove) {
--		err = dai->driver->remove(dai);
--		if (err < 0)
--			dev_err(dai->dev,
--				"ASoC: failed to remove %s: %d\n",
--				dai->name, err);
--	}
-+	err = snd_soc_dai_remove(dai);
-+	if (err < 0)
-+		dev_err(dai->dev,
-+			"ASoC: failed to remove %s: %d\n",
-+			dai->name, err);
-+
- 	dai->probed = 0;
- }
+ 		for_each_rtd_codec_dai(rtd, i, dai) {
+-			struct snd_soc_dai_driver *drv = dai->driver;
+-
+-			if (drv->ops->digital_mute && dai->playback_active)
+-				drv->ops->digital_mute(dai, 1);
++			if (dai->playback_active)
++				snd_soc_dai_digital_mute(dai, 1,
++						SNDRV_PCM_STREAM_PLAYBACK);
+ 		}
+ 	}
  
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 55c1fac99613..384765c747da 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -372,3 +372,10 @@ int snd_soc_dai_probe(struct snd_soc_dai *dai)
- 		return dai->driver->probe(dai);
- 	return 0;
- }
-+
-+int snd_soc_dai_remove(struct snd_soc_dai *dai)
-+{
-+	if (dai->driver->remove)
-+		return dai->driver->remove(dai);
-+	return 0;
-+}
+@@ -665,10 +664,9 @@ static void soc_resume_deferred(struct work_struct *work)
+ 			continue;
+ 
+ 		for_each_rtd_codec_dai(rtd, i, dai) {
+-			struct snd_soc_dai_driver *drv = dai->driver;
+-
+-			if (drv->ops->digital_mute && dai->playback_active)
+-				drv->ops->digital_mute(dai, 0);
++			if (dai->playback_active)
++				snd_soc_dai_digital_mute(dai, 0,
++						SNDRV_PCM_STREAM_PLAYBACK);
+ 		}
+ 	}
+ 
 -- 
 2.20.1
 

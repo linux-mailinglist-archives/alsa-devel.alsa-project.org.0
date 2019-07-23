@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 193BE71730
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:35:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81CA671721
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:31:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A07391876;
-	Tue, 23 Jul 2019 13:35:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A07391876
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B540186C;
+	Tue, 23 Jul 2019 13:31:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B540186C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563881753;
-	bh=XwBHm+XunJy4/lVvpK4xOxWbE0FpVOr8o/7bOCk+VLw=;
+	s=default; t=1563881513;
+	bh=oajuEkY27SYf9rORrSl9vSTAQ62X4fYVRWM1lEyPHBQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ruU6JfmqSQYlksXi30on87t843COuh713gTU7zV4G/yVtJ2o8XtGSgdlghN1YBqI2
-	 bHuJKwnt9H4X7qsvMNfhENoU/bownjyZ5hKRzOp87nn/jeZMARCaAeCv23gnY/TMph
-	 yZ8nCq4Q11KFxtVgrsZ6g4s99qgBgIWaedRxVeGM=
+	b=HNpG/ex+Z+0M/JB3Nus34G0Tjsrha4rSGa3OaaXm+pEssqCuXbBFx2NqvEJZ8be3P
+	 fd84JM/3DLPPe+KMmhKjA61Be51QxjCVsWjo6ixYYQ2fyABDx25P6a40zEBZ9Y5hLn
+	 hRn3SqjFY9hJspg/ssjBRAEwJyCDFk9HupHfZRDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E945CF805A0;
-	Tue, 23 Jul 2019 13:29:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F81CF8049A;
+	Tue, 23 Jul 2019 13:29:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37166F8044A; Tue, 23 Jul 2019 13:29:22 +0200 (CEST)
+ id 32D67F8049A; Tue, 23 Jul 2019 13:29:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54567F8045F
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54567F8045F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A181F800E8
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A181F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="EMUh3Pn+"
+ header.b="wmbzqoGL"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=k6vcIEfHRK3aIZYZxABlz1lJXYGEXLTcf2MHrDJp5XM=; b=EMUh3Pn+F83i
- WdJ4EiR19wxhHfGRS+0JEod4mxjDezXWcD05n3Ux9385o4jdvJC2EiqXXFCIR8dENvxyj+cdBofI9
- 51k5peVOmDXhHmWBu2LF7RRM8D80R4jHKQxMtGGY8G0yakX+fnMPdw6c840CSO8pPFCCp7fujRpHN
- a9IpY=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=P+SAY9Bpw+fJMdcQn+f3fi645FXn/oZnT9P2Hy96xW4=; b=wmbzqoGLS4K0
+ zc/D4SQN/PjIu69hhfdRP8tuZLwZEZC0snyAjLK+A5njfQ0WMWnKjwzl8uIwGVZC+WG/3AIX39xDo
+ iMbSwXCZn63u/XnagpLCX1C55rHhC3MHMGTh0FP8WyAeEMq8Gk7cxleQiBgHPCOZqrj44GHZH9B/z
+ JElig=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpsyl-0003IY-J8; Tue, 23 Jul 2019 11:29:11 +0000
+ id 1hpsyl-0003IZ-L2; Tue, 23 Jul 2019 11:29:11 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id E55942742B60; Tue, 23 Jul 2019 12:29:10 +0100 (BST)
+ id 223AB2742BAB; Tue, 23 Jul 2019 12:29:11 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20190722212639.26954-1-christophe.jaillet@wanadoo.fr>
+To: Rander Wang <rander.wang@linux.intel.com>
+In-Reply-To: <20190722141402.7194-20-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723112910.E55942742B60@ypsilon.sirena.org.uk>
-Date: Tue, 23 Jul 2019 12:29:10 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com,
- kernel-janitors@vger.kernel.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- chiou@realtek.com, bardliao@realtek.com
-Subject: [alsa-devel] Applied "ASoC: rt5665: Fix a typo in the name of a
-	function" to the asoc tree
+Message-Id: <20190723112911.223AB2742BAB@ypsilon.sirena.org.uk>
+Date: Tue, 23 Jul 2019 12:29:11 +0100 (BST)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: fix stream id setting"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5665: Fix a typo in the name of a function
+   ASoC: SOF: Intel: hda: fix stream id setting
 
 has been applied to the asoc tree at
 
@@ -114,51 +113,79 @@ to this mail.
 Thanks,
 Mark
 
-From f90aa354be7bffaec2b440eb1831c429ecb1a5e2 Mon Sep 17 00:00:00 2001
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Date: Mon, 22 Jul 2019 23:26:39 +0200
-Subject: [PATCH] ASoC: rt5665: Fix a typo in the name of a function
+From 810dbea3656912d6ad8db691a9a4b2ad97d4b736 Mon Sep 17 00:00:00 2001
+From: Rander Wang <rander.wang@linux.intel.com>
+Date: Mon, 22 Jul 2019 09:14:00 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: fix stream id setting
 
-All function names start with rt5665_, except 'rt5655_set_verf()'.
-It is likely a typo.
+snd_hdac_ext_link_clear_stream_id maps stream id to
+link output, which is for playback, not capture.
 
-Fix it to be consistent.
+Tested on Whiskey Lake platform.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Link: https://lore.kernel.org/r/20190722212639.26954-1-christophe.jaillet@wanadoo.fr
+Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20190722141402.7194-20-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5665.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/sof/intel/hda-dai.c | 15 +++++++++++----
+ sound/soc/sof/intel/hda-dsp.c |  8 +++++++-
+ 2 files changed, 18 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
-index c050d84a6916..68299ce26d3e 100644
---- a/sound/soc/codecs/rt5665.c
-+++ b/sound/soc/codecs/rt5665.c
-@@ -2566,7 +2566,7 @@ static int set_dmic_power(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index 2b5e2b8c69c2..8796f385be76 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -327,8 +327,12 @@ static int hda_link_pcm_trigger(struct snd_pcm_substream *substream,
+ 					  DMA_CHAN_INVALID, substream->stream);
+ 		if (ret < 0)
+ 			return ret;
+-		stream_tag = hdac_stream(link_dev)->stream_tag;
+-		snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++
++		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++			stream_tag = hdac_stream(link_dev)->stream_tag;
++			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++		}
++
+ 		link_dev->link_prepared = 0;
  
--static int rt5655_set_verf(struct snd_soc_dapm_widget *w,
-+static int rt5665_set_verf(struct snd_soc_dapm_widget *w,
- 	struct snd_kcontrol *kcontrol, int event)
- {
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-@@ -2686,11 +2686,11 @@ static const struct snd_soc_dapm_widget rt5665_dapm_widgets[] = {
- 	SND_SOC_DAPM_SUPPLY("Mic Det Power", RT5665_PWR_VOL,
- 		RT5665_PWR_MIC_DET_BIT, 0, NULL, 0),
- 	SND_SOC_DAPM_SUPPLY("Vref1", RT5665_PWR_ANLG_1, RT5665_PWR_VREF1_BIT, 0,
--		rt5655_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
-+		rt5665_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
- 	SND_SOC_DAPM_SUPPLY("Vref2", RT5665_PWR_ANLG_1, RT5665_PWR_VREF2_BIT, 0,
--		rt5655_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
-+		rt5665_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
- 	SND_SOC_DAPM_SUPPLY("Vref3", RT5665_PWR_ANLG_1, RT5665_PWR_VREF3_BIT, 0,
--		rt5655_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
-+		rt5665_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
+ 		/* fallthrough */
+@@ -369,8 +373,11 @@ static int hda_link_hw_free(struct snd_pcm_substream *substream,
+ 	if (!link)
+ 		return -EINVAL;
  
- 	/* ASRC */
- 	SND_SOC_DAPM_SUPPLY_S("I2S1 ASRC", 1, RT5665_ASRC_1,
+-	stream_tag = hdac_stream(link_dev)->stream_tag;
+-	snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		stream_tag = hdac_stream(link_dev)->stream_tag;
++		snd_hdac_ext_link_clear_stream_id(link, stream_tag);
++	}
++
+ 	snd_soc_dai_set_dma_data(dai, substream, NULL);
+ 	snd_hdac_ext_stream_release(link_dev, HDAC_EXT_STREAM_TYPE_LINK);
+ 	link_dev->link_prepared = 0;
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index e38008194574..fb55a3c5afd0 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -450,9 +450,15 @@ int hda_dsp_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
+ 			link = snd_hdac_ext_bus_get_link(bus, name);
+ 			if (!link)
+ 				return -EINVAL;
++
++			stream->link_prepared = 0;
++
++			if (hdac_stream(stream)->direction ==
++				SNDRV_PCM_STREAM_CAPTURE)
++				continue;
++
+ 			stream_tag = hdac_stream(stream)->stream_tag;
+ 			snd_hdac_ext_link_clear_stream_id(link, stream_tag);
+-			stream->link_prepared = 0;
+ 		}
+ 	}
+ #endif
 -- 
 2.20.1
 

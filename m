@@ -2,81 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF2D071D89
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 19:20:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B007F71D9D
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 19:25:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4545718E3;
-	Tue, 23 Jul 2019 19:19:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4545718E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4784618F2;
+	Tue, 23 Jul 2019 19:24:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4784618F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563902410;
-	bh=RGxy7hDUCJ72sMxCrsGzPCgGdaOWHj/QFgqLisVl6Us=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=kTy9YiXB7hGdD8iI/Ly/+0DK1X7jGOi5xiJCO7yFVPQjy8UPCa6Bm2O1r+d0abTFt
-	 YDX+B0yAk47QTvSv5jLQOzt/tv0auGZyJvQORaNE1kUspcqFH8YOxq0YN1EoiIph+E
-	 D7bwnYfsQhdThxBA6LZchmm6q3tH0gBhF0Wkd6RE=
+	s=default; t=1563902730;
+	bh=MfJ9+vp9Kts88i/+1aE/neETa3mY97CYppFe/SdyFeg=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=LZAvkHcbm9O1SMR+OJz9ubc9MOTQF6Su5N/6ZFKU/5ylzODlx0Gyl9+Q/609sdswk
+	 Vc5GHzu0AlG93dyM1JDJXAHPm2LE4P3cG8SVimfUz1GxIz2bejszSMedbLGmrUx+Ft
+	 rw+WZvFMphQ6fQ5EZ8MYv5445DlkVGlXKU2MhlLc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AE88F80447;
-	Tue, 23 Jul 2019 19:18:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AA80F805A9;
+	Tue, 23 Jul 2019 19:19:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C494F80447; Tue, 23 Jul 2019 19:18:22 +0200 (CEST)
+ id BEF06F804CF; Tue, 23 Jul 2019 19:19:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59D9AF80227
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 19:18:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59D9AF80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0444AF80481
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 19:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0444AF80481
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="JGH3UWfe"
+ header.b="fOi/hCKG"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kyS8UoyEXLK9klPXBrfSLR6RZyvQr6RpHt8wwJVmpgY=; b=JGH3UWfecknIwyubS3CMgNY+H
- rOiIidkBoW8oXQVuwRgcQ2pbCW0HW1VxN+eYgIhD2DlICwqpFT/QJdl3Je2O4tV5YcJtPQoew4mvd
- +hw80g23eqcI4A7htRPFBHkm366xAwQH8/IHplNychyonnV7dE5opYL6iKISs1TGDqo38=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=ewI30eU7EyV4d1Hr+iRjnaR9wdXfp7O5UJDOysrdtFc=; b=fOi/hCKG+/c7
+ +3H0NBDIduHR3o8njraoyj7mUuID0YOXrDAMCDKzhFGTYMrs6JJjThjULUtbJS6V30mSkd4hTVvQN
+ UWX8+Wij0uT/vEvah+i9Sr5mh4IcXdbTKLMI4KfIGPOrsRQ1fNKQmGv0eKty1RC74+DQlibU77v4w
+ 0STks=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpyQb-0004L3-W4; Tue, 23 Jul 2019 17:18:18 +0000
+ id 1hpyR9-0004LK-ID; Tue, 23 Jul 2019 17:18:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 255272742B59; Tue, 23 Jul 2019 18:18:17 +0100 (BST)
-Date: Tue, 23 Jul 2019 18:18:17 +0100
+ id B859C2742BAB; Tue, 23 Jul 2019 18:18:50 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-Message-ID: <20190723171817.GP5365@sirena.org.uk>
-References: <cover.1563819483.git.mirq-linux@rere.qmqm.pl>
- <ee65cc7b889b2a8d1139d1d25977842c956d1cf4.1563819483.git.mirq-linux@rere.qmqm.pl>
-MIME-Version: 1.0
-In-Reply-To: <ee65cc7b889b2a8d1139d1d25977842c956d1cf4.1563819483.git.mirq-linux@rere.qmqm.pl>
-X-Cookie: Avoid contact with eyes.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 1/5] ASoC: atmel: enable SSC_PCM_DMA in
-	Kconfig
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h87ehn1a.wl-kuninori.morimoto.gx@renesas.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190723171850.B859C2742BAB@ypsilon.sirena.org.uk>
+Date: Tue, 23 Jul 2019 18:18:50 +0100 (BST)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-dai: add
+	snd_soc_dai_compress_new()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,65 +78,118 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5187100273942754756=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============5187100273942754756==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bvgsfYmVhxWy/2TA"
-Content-Disposition: inline
+   ASoC: soc-dai: add snd_soc_dai_compress_new()
 
+has been applied to the asoc tree at
 
---bvgsfYmVhxWy/2TA
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
-On Mon, Jul 22, 2019 at 08:27:20PM +0200, Micha=C5=82 Miros=C5=82aw wrote:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
->  config SND_ATMEL_SOC_SSC_DMA
-> -	tristate
-> +	tristate "SoC PCM DAI support for AT91 SSC controller using DMA"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-This breaks the build for me:
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-ld: sound/soc/atmel/atmel_ssc_dai.o: in function `atmel_ssc_set_audio':
-atmel_ssc_dai.c:(.text+0xbd9): undefined reference to `ssc_request'
-ld: sound/soc/atmel/atmel_ssc_dai.o: in function `atmel_ssc_put_audio':
-atmel_ssc_dai.c:(.text+0xc74): undefined reference to `ssc_free'
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-It's not selecting the SSC comon code.  It also looks like it'd be
-sensible to add a dependency on the platform (or at least architecture),
-with a || COMPILE_TEST to help with build coverage.
+Thanks,
+Mark
 
---bvgsfYmVhxWy/2TA
-Content-Type: application/pgp-signature; name="signature.asc"
+From b423c4202135f7794e0a9c55a884f5933d8e7156 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Mon, 22 Jul 2019 10:35:29 +0900
+Subject: [PATCH] ASoC: soc-dai: add snd_soc_dai_compress_new()
 
------BEGIN PGP SIGNATURE-----
+Current ALSA SoC is directly using dai->driver->xxx,
+thus, it has deep nested bracket, and it makes code unreadable.
+This patch adds new snd_soc_dai_compress_new() and use it.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl03QVgACgkQJNaLcl1U
-h9DBZQf+JgxSye18m4nNkKnsgjUuG28GzeGRZgauDTClvkb/W5198CjJg1y7Xxbd
-gEMn+eyBP2iwXez0dYeRw0mye4Zbl9VJfhCwN31JslTIlXwpNZxSH1TF/tgYnoXn
-hkM3zfs7b5OdVmZKVY5Y7+27JkL105jf5yf7V6oj+8s+hVSmuwZZqodwy0LF+NsM
-A0CDfSaTFQuM5NV6FmA4xoqju935Eo7pWauKRhJr4zsSCk5R+R5SbHzNtcBO24Kk
-Rcbb+/BoLFdhySnAf1+FhvsNNNiHSTC8PM6sCmDU2sTI8NXj9F6BbP7DFq+NoqsG
-qEFuuCbXXLuFYmtHWHII3zEkqcAPHg==
-=pVk3
------END PGP SIGNATURE-----
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87h87ehn1a.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ include/sound/soc-dai.h |  2 ++
+ sound/soc/soc-core.c    | 15 ++++++++-------
+ sound/soc/soc-dai.c     |  8 ++++++++
+ 3 files changed, 18 insertions(+), 7 deletions(-)
 
---bvgsfYmVhxWy/2TA--
-
---===============5187100273942754756==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
+index 2a11f177ce01..0f8b09520020 100644
+--- a/include/sound/soc-dai.h
++++ b/include/sound/soc-dai.h
+@@ -166,6 +166,8 @@ void snd_soc_dai_suspend(struct snd_soc_dai *dai);
+ void snd_soc_dai_resume(struct snd_soc_dai *dai);
+ int snd_soc_dai_probe(struct snd_soc_dai *dai);
+ int snd_soc_dai_remove(struct snd_soc_dai *dai);
++int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
++			     struct snd_soc_pcm_runtime *rtd, int num);
+ 
+ struct snd_soc_dai_ops {
+ 	/*
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 727fd342b3fb..458b090f026a 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1545,15 +1545,16 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
+ 			num = rtd->dai_link->id;
+ 	}
+ 
+-	if (cpu_dai->driver->compress_new) {
+-		/* create compress_device" */
+-		ret = cpu_dai->driver->compress_new(rtd, num);
+-		if (ret < 0) {
++	/* create compress_device if possible */
++	ret = snd_soc_dai_compress_new(cpu_dai, rtd, num);
++	if (ret != -ENOTSUPP) {
++		if (ret < 0)
+ 			dev_err(card->dev, "ASoC: can't create compress %s\n",
+ 					 dai_link->stream_name);
+-			return ret;
+-		}
+-	} else if (!dai_link->params) {
++		return ret;
++	}
++
++	if (!dai_link->params) {
+ 		/* create the pcm */
+ 		ret = soc_new_pcm(rtd, num);
+ 		if (ret < 0) {
+diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
+index 384765c747da..e6f161b9f975 100644
+--- a/sound/soc/soc-dai.c
++++ b/sound/soc/soc-dai.c
+@@ -379,3 +379,11 @@ int snd_soc_dai_remove(struct snd_soc_dai *dai)
+ 		return dai->driver->remove(dai);
+ 	return 0;
+ }
++
++int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
++			     struct snd_soc_pcm_runtime *rtd, int num)
++{
++	if (dai->driver->compress_new)
++		return dai->driver->compress_new(rtd, num);
++	return -ENOTSUPP;
++}
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5187100273942754756==--

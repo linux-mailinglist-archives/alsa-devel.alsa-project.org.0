@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCA57174E
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:43:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C678271751
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:44:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95B5E188E;
-	Tue, 23 Jul 2019 13:42:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95B5E188E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 65A791887;
+	Tue, 23 Jul 2019 13:43:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A791887
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563882179;
-	bh=kLiziGeF++seY5Nf7DqI/7TOUSJ+KLa5MSZwR6P2mJw=;
+	s=default; t=1563882256;
+	bh=llE7YEEl4VC0L6A68Fdn5Af1vsAnrFWEZnqDlbVBsVY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=sHWWtL98cu+ZWzoxmfw8ExQ6kLoF/1GxeDDGL/BG1KRJLi6bxNEzHT8GmI7+CWVAu
-	 r8XNsKrfT/Bckv1XXoaewOCTtutuUd5fN9KE15ZO8YCO+qw5VQfgQCb2iWvmMNc8mO
-	 YWJ+Kew+hDXu1zB/QEg2rr9PMFuozw3RCbito8kE=
+	b=MOCQyek1aSPboRrzJs/Yaa7K3cV++ktgIAnMPjmFu0mR23alkhUxT8mxsBQEzWdvT
+	 vuLb7TwfCHUN7Evvqel2sXh2bHexQhyOkVtrtDHBE8CCQqprxnJ030PAhPsxQb0XKA
+	 oedgfbooqhgbE5tV3vaUUTOyse+22fbAMj4cq8GQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD53DF80674;
-	Tue, 23 Jul 2019 13:30:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED90CF806E5;
+	Tue, 23 Jul 2019 13:30:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B8D5F804A9; Tue, 23 Jul 2019 13:29:32 +0200 (CEST)
+ id 4F2B0F804AA; Tue, 23 Jul 2019 13:29:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1AAB1F804AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2431F803D0
  for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AAB1F804AA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2431F803D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="KloXEN7u"
+ header.b="Ze4UZa/q"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=JtmT2nU/dUA+J4hItzcsBqGAz03KH637NkoiREcJzgY=; b=KloXEN7uRx+V
- W17319AxNLb6bG1MWb8xRRwq1HezaFDe2vQVKyrqIVisTvuyVaZFzviAunKYFkPUSPBdT8J6N/ody
- h8/84obOKa8Bnn8OxKRICzY4imA7YoFP8tOH/k68Q6pEk5qZPtwrBoAr6gS9gWklIRm+4oi4obp05
- K/fso=;
+ List-Archive; bh=i3bn3vknccgy+LaBtM+7Mp4ZVWjd68Syij331BYWKeI=; b=Ze4UZa/q/IqA
+ HJj0+dlmP2wURKfCMDjJWuixS/qZ3GB0DoHXn0CMIf9ZRURSHVnQjm9SopVkCnhGwk28YIhHXbhHO
+ M4Ab20yl047rIrX/7fIOmDgK6N3S8XzbU8jef4jDgTZAS/n8GEUrllbLgHMyInCsvGA96/7QVpowx
+ Wq2nQ=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpsyp-0003KI-Lt; Tue, 23 Jul 2019 11:29:15 +0000
+ id 1hpsyq-0003Kj-9c; Tue, 23 Jul 2019 11:29:16 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 07AFC2742B59; Tue, 23 Jul 2019 12:29:15 +0100 (BST)
+ id A2AE12742BAB; Tue, 23 Jul 2019 12:29:15 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20190722141402.7194-3-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190722141402.7194-21-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723112915.07AFC2742B59@ypsilon.sirena.org.uk>
+Message-Id: <20190723112915.A2AE12742BAB@ypsilon.sirena.org.uk>
 Date: Tue, 23 Jul 2019 12:29:15 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: reset DMA state in prepare" to the
-	asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: remove misleading
+	error trace from IRQ thread" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,11 +87,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: reset DMA state in prepare
+   ASoC: SOF: Intel: hda: remove misleading error trace from IRQ thread
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -112,160 +112,59 @@ to this mail.
 Thanks,
 Mark
 
-From 04c8027764bc82a325d3abc6f39a6a4642a937cb Mon Sep 17 00:00:00 2001
+From 717dedb1dcee92788b81233aa0a221573c95daff Mon Sep 17 00:00:00 2001
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Mon, 22 Jul 2019 09:13:43 -0500
-Subject: [PATCH] ASoC: SOF: reset DMA state in prepare
+Date: Mon, 22 Jul 2019 09:14:01 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: remove misleading error trace from IRQ
+ thread
 
-When application goes through SUSPEND/STOP->PREPARE->START
-cycle, we should always reprogram the SOF device to start
-DMA from a known state so that hw_ptr/appl_ptrs remain valid.
-This is expected by ALSA core as it resets the buffer
-state as part of prepare (see snd_pcm_do_prepare()).
+Downgrade "nothing to do in IRQ thread" message from error to a debug
+message in the IPC interrupt handler thread.
 
-Fix the issue by forcing reconfiguration of the FW with
-STREAM_PCM_PARAMS in prepare(). Use combined logic to handle
-prepare and the existing flow to reprogram hw-params after
-system suspend.
-
-Without the fix, first call to pcm pointer() will return
-an invalid hw_ptr and application may immediately observe XRUN
-status, unless "start_threshold" SW parameter is set to maximum
-value by the application.
+The spurious wake-up can happen if a HDA stream interrupt is
+raised while the IPC interrupt thread is running. IPC functionality
+is not impacted by this condition, so debug is a more appropriate
+trace level.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190722141402.7194-3-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20190722141402.7194-21-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/pcm.c      | 27 +++++++++++++++------------
- sound/soc/sof/pm.c       |  2 +-
- sound/soc/sof/sof-priv.h |  2 +-
- 3 files changed, 17 insertions(+), 14 deletions(-)
+ sound/soc/sof/intel/cnl.c     | 4 ++--
+ sound/soc/sof/intel/hda-ipc.c | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 334e9d59b1ba..3b8955e755b2 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -208,12 +208,11 @@ static int sof_pcm_hw_params(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		return ret;
- 
-+	spcm->prepared[substream->stream] = true;
-+
- 	/* save pcm hw_params */
- 	memcpy(&spcm->params[substream->stream], params, sizeof(*params));
- 
--	/* clear hw_params_upon_resume flag */
--	spcm->hw_params_upon_resume[substream->stream] = 0;
--
- 	return ret;
- }
- 
-@@ -236,6 +235,9 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
- 	if (!spcm)
- 		return -EINVAL;
- 
-+	if (!spcm->prepared[substream->stream])
-+		return 0;
-+
- 	dev_dbg(sdev->dev, "pcm: free stream %d dir %d\n", spcm->pcm.pcm_id,
- 		substream->stream);
- 
-@@ -258,6 +260,8 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
- 	if (ret < 0)
- 		dev_err(sdev->dev, "error: platform hw free failed\n");
- 
-+	spcm->prepared[substream->stream] = false;
-+
- 	return ret;
- }
- 
-@@ -278,11 +282,7 @@ static int sof_pcm_prepare(struct snd_pcm_substream *substream)
- 	if (!spcm)
- 		return -EINVAL;
- 
--	/*
--	 * check if hw_params needs to be set-up again.
--	 * This is only needed when resuming from system sleep.
--	 */
--	if (!spcm->hw_params_upon_resume[substream->stream])
-+	if (spcm->prepared[substream->stream])
- 		return 0;
- 
- 	dev_dbg(sdev->dev, "pcm: prepare stream %d dir %d\n", spcm->pcm.pcm_id,
-@@ -311,6 +311,7 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	struct snd_sof_pcm *spcm;
- 	struct sof_ipc_stream stream;
- 	struct sof_ipc_reply reply;
-+	bool reset_hw_params = false;
- 	int ret;
- 
- 	/* nothing to do for BE */
-@@ -351,6 +352,7 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		stream.hdr.cmd |= SOF_IPC_STREAM_TRIG_STOP;
-+		reset_hw_params = true;
- 		break;
- 	default:
- 		dev_err(sdev->dev, "error: unhandled trigger cmd %d\n", cmd);
-@@ -363,17 +365,17 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
- 				 sizeof(stream), &reply, sizeof(reply));
- 
--	if (ret < 0 || cmd != SNDRV_PCM_TRIGGER_SUSPEND)
-+	if (ret < 0 || !reset_hw_params)
- 		return ret;
- 
- 	/*
--	 * The hw_free op is usually called when the pcm stream is closed.
--	 * Since the stream is not closed during suspend, the DSP needs to be
--	 * notified explicitly to free pcm to prevent errors upon resume.
-+	 * In case of stream is stopped, DSP must be reprogrammed upon
-+	 * restart, so free PCM here.
- 	 */
- 	stream.hdr.size = sizeof(stream);
- 	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
- 	stream.comp_id = spcm->stream[substream->stream].comp_id;
-+	spcm->prepared[substream->stream] = false;
- 
- 	/* send IPC to the DSP */
- 	return sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
-@@ -481,6 +483,7 @@ static int sof_pcm_open(struct snd_pcm_substream *substream)
- 	spcm->stream[substream->stream].posn.host_posn = 0;
- 	spcm->stream[substream->stream].posn.dai_posn = 0;
- 	spcm->stream[substream->stream].substream = substream;
-+	spcm->prepared[substream->stream] = false;
- 
- 	ret = snd_sof_pcm_platform_open(sdev, substream);
- 	if (ret < 0)
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index 278abfd10490..48c6d78d72e2 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -233,7 +233,7 @@ static int sof_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
- 
- 			state = substream->runtime->status->state;
- 			if (state == SNDRV_PCM_STATE_SUSPENDED)
--				spcm->hw_params_upon_resume[dir] = 1;
-+				spcm->prepared[dir] = false;
- 		}
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index f2b392998f20..ffd8d4394537 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -101,8 +101,8 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
+ 		/*
+ 		 * This interrupt is not shared so no need to return IRQ_NONE.
+ 		 */
+-		dev_err_ratelimited(sdev->dev,
+-				    "error: nothing to do in IRQ thread\n");
++		dev_dbg_ratelimited(sdev->dev,
++				    "nothing to do in IPC IRQ thread\n");
  	}
  
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index b8c0b2a22684..fa5cb7d2a660 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -297,7 +297,7 @@ struct snd_sof_pcm {
- 	struct snd_sof_pcm_stream stream[2];
- 	struct list_head list;	/* list in sdev pcm list */
- 	struct snd_pcm_hw_params params[2];
--	int hw_params_upon_resume[2]; /* set up hw_params upon resume */
-+	bool prepared[2]; /* PCM_PARAMS set successfully */
- };
+ 	/* re-enable IPC interrupt */
+diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
+index 50244b82600c..2ecba91f5219 100644
+--- a/sound/soc/sof/intel/hda-ipc.c
++++ b/sound/soc/sof/intel/hda-ipc.c
+@@ -224,8 +224,8 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
+ 		/*
+ 		 * This interrupt is not shared so no need to return IRQ_NONE.
+ 		 */
+-		dev_err_ratelimited(sdev->dev,
+-				    "error: nothing to do in IRQ thread\n");
++		dev_dbg_ratelimited(sdev->dev,
++				    "nothing to do in IPC IRQ thread\n");
+ 	}
  
- /* ALSA SOF Kcontrol device */
+ 	/* re-enable IPC interrupt */
 -- 
 2.20.1
 

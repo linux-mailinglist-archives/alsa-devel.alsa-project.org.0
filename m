@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E3BF71CFC
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 18:34:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F92471D0E
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 18:45:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E836818CD;
-	Tue, 23 Jul 2019 18:33:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E836818CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC21718BC;
+	Tue, 23 Jul 2019 18:44:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC21718BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563899654;
-	bh=JZsTRnE5VI35/H9AtFTWFKDKG2hvrFR8f1Jhxj+opQ4=;
+	s=default; t=1563900305;
+	bh=TCaVTvZzwAt3NV8afp+5rjGWI2w7IDt66PlQdOvc8ok=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A1Rl2G+l8nTfVZjdmLFU6TvET4J55bk8QereGvSTxV3aNfZbKkzlRhpBkkgykHIuM
-	 sV16yXRVJSOeezCAcFAjgpfyH2rbhnYa7HDN9T6NWYOOzrQy+NRJqLFeFN6U8p4Ype
-	 4xhToU7T+YYp9WowNa0BDiRqt9toD6mSqqyIhecg=
+	b=FVjQdcVK6Lp4vALc1jNA9iSoSOPOufhRibp1WVquOKt+xMum+n3H4JRfc9UwQULZJ
+	 dMMs2qQFQkY0dEncJw1IiioaTxs6A0yDA8+m3kBjqWM378kS+qvKbEPJs5t+ruvOQB
+	 a764BnONJSu4U3u68T85mjRooGY0kINL7/khRg1E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3AF01F80447;
-	Tue, 23 Jul 2019 18:32:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD83DF80227;
+	Tue, 23 Jul 2019 18:43:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D556F80447; Tue, 23 Jul 2019 18:32:26 +0200 (CEST)
+ id ADD4BF80227; Tue, 23 Jul 2019 18:43:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8530CF80227
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 18:32:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8530CF80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C1F4F80227
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 18:43:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C1F4F80227
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="fSYoPJM2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2Hd3baD1CEfaPrpmnms9Gk3HukyKFOF01/Wyevt42Vo=; b=fSYoPJM2E4IZOtQtLzK+A3kJ+
- jFyCqk+YG7P4QEAJ/jrcEoN/lG2uyRxtBwrXcCFmZ+wtvBgs+GjLlFNJW0pwZIr9R1yQt84guFu87
- VDQqXQGAN5KwIm2tW7Xu1TRF5Nv0Wmw/y7s9wFJPM46hfapCR+iXahchZ75fJlj5Cr2os=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hpxg3-0004FZ-8S; Tue, 23 Jul 2019 16:30:11 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 3F2B32742B59; Tue, 23 Jul 2019 17:30:10 +0100 (BST)
-Date: Tue, 23 Jul 2019 17:30:10 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190723163010.GK5365@sirena.org.uk>
-References: <20190722141402.7194-1-pierre-louis.bossart@linux.intel.com>
- <20190722141402.7194-19-pierre-louis.bossart@linux.intel.com>
- <20190723111515.GD5365@sirena.org.uk>
- <cabe9c2b-359d-deb6-93ee-e42b1400ea27@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
+ header.b="JxGPKQKB"
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 45tPQB4zkKzB2;
+ Tue, 23 Jul 2019 18:41:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1563900115; bh=ZZwiCfYf8YznhGG9G4iEwxfev7xiXtEADi1F1gKHj6k=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JxGPKQKBO2bwcpM4Bmd0DfRaEN3mGVGdm+ir/41DKYHtl//sSTWbSgMDAf6HBuLxp
+ Jw4i2Tc8iGiOpQDoVRxN03x78yASKOWxQBTmjy6BXF+CB6/e3Vb9qPQkGBRDeCk85P
+ t95MhwqbctiJk7YYU2zvTdpg+BOWki/aYV8FCN+slL03EolXIA/FpxjEsXuF9DQ4fq
+ lTNK/P4sakfBBLNvSq3J+6lwmK8Ton6+02bFITBViLZxIT/TVHkjpLih9n0iMxwt28
+ EsInVXvtzHpw5SEy1lX9vCyaPOtX2V1a70JkxibyQ+0DAQ72uvdE4cwfwr82FsCXO+
+ 9utzbXRvhr4Bw==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.100.3 at mail
+Date: Tue, 23 Jul 2019 18:43:12 +0200
+From: mirq-linux@rere.qmqm.pl
+To: Codrin.Ciubotariu@microchip.com
+Message-ID: <20190723164312.GA4772@qmqm.qmqm.pl>
+References: <cover.1563819483.git.mirq-linux@rere.qmqm.pl>
+ <ee65cc7b889b2a8d1139d1d25977842c956d1cf4.1563819483.git.mirq-linux@rere.qmqm.pl>
+ <1f3a4256-58de-27a4-8095-54fc6baa6d89@microchip.com>
 MIME-Version: 1.0
-In-Reply-To: <cabe9c2b-359d-deb6-93ee-e42b1400ea27@linux.intel.com>
-X-Cookie: Avoid contact with eyes.
+Content-Disposition: inline
+In-Reply-To: <1f3a4256-58de-27a4-8095-54fc6baa6d89@microchip.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 18/21] ASoC: SOF: Intel: hda: fix link DMA
- config
+Cc: alsa-devel@alsa-project.org, alexandre.belloni@bootlin.com,
+ lgirdwood@gmail.com, Nicolas.Ferre@microchip.com, tiwai@suse.com,
+ Ludovic.Desroches@microchip.com, broonie@kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH 1/5] ASoC: atmel: enable SSC_PCM_DMA in
+	Kconfig
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,61 +83,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8681604099960430464=="
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Jul 23, 2019 at 01:36:37PM +0000, Codrin.Ciubotariu@microchip.com w=
+rote:
+> On 22.07.2019 21:27, Micha=B3 Miros=B3aw wrote:
+> > Allow SSC to be used on platforms described using audio-graph-card
+> > in Device Tree.
+> > =
 
---===============8681604099960430464==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BFVE2HhgxTpCzM8t"
-Content-Disposition: inline
+> > Signed-off-by: Micha=B3 Miros=B3aw <mirq-linux@rere.qmqm.pl>
+> > ---
+> >   sound/soc/atmel/Kconfig | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > =
 
+> > diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
+> > index 06c1d5ce642c..9ef9d25bb517 100644
+> > --- a/sound/soc/atmel/Kconfig
+> > +++ b/sound/soc/atmel/Kconfig
+> > @@ -25,7 +25,7 @@ config SND_ATMEL_SOC_DMA
+> >   	default y if SND_ATMEL_SOC_SSC_DMA=3Dy || (SND_ATMEL_SOC_SSC_DMA=3Dm=
+ && SND_ATMEL_SOC_SSC=3Dy)
+> >   =
 
---BFVE2HhgxTpCzM8t
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> >   config SND_ATMEL_SOC_SSC_DMA
+> > -	tristate
+> > +	tristate "SoC PCM DAI support for AT91 SSC controller using DMA"
+> =
 
-On Tue, Jul 23, 2019 at 09:37:47AM -0500, Pierre-Louis Bossart wrote:
-> On 7/23/19 6:15 AM, Mark Brown wrote:
+> Could you please make something similar for SND_ATMEL_SOC_SSC_PDC? Also, =
 
-> > In general fixes should come at the start of a series so that they can
-> > be applied as such and sent to Linus without getting caught up with
-> > dependencies on development work.
+> I think that it should select ATMEL_SSC, to be able to use =
 
-> Yes, but in this case we had two developers that changed the code and I
-> couldn't really move code around too much.
+> simple/graph-card with SSC.
 
-Might be worth pushing back on them to pick a better base for their
-fixes (and possibly work out a way to get that stuff sent out separately
-rather than stuck with a big queue of other stuff).
+Hmm. The Kconfig dependencies seems overly complicated, do you mind if I
+get rid of most of the entries in the process?
 
---BFVE2HhgxTpCzM8t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl03NhEACgkQJNaLcl1U
-h9Asngf/Ro6eQOO7WK5Qh0xxpUKRiLrWJJYcjJ7mvV2DJLBkcV07pe+3ukNaMUGU
-tAzxGtGNcYUc/r21We8pkqKQPtaSHiqAJFoHh+EeY+lFXhV4TLkoSmbSUfziae+3
-DI5RecWh6VnrWzZW2q6TD4okwk1bFcZWq4IKeA03xUSRwnGhZtaPENAD3wXS0EPs
-/Cv4Iox50np7TIzPrc2ZGg6Z5i8+LmPJp6WPF/IiIIvWeR66HQI0BGSZzK99ZWpJ
-3KU3ImFkc0/+e6DS971yu1SnUARf1E4cLJ0NgSldcpnJcadljyPu0Hi6HxgxCdiZ
-7Dq3l5/k/3AgTZZ87narqo1LsQBBTw==
-=cF/3
------END PGP SIGNATURE-----
-
---BFVE2HhgxTpCzM8t--
-
---===============8681604099960430464==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Best Regards,
+Micha=B3=A0Miros=B3aw
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8681604099960430464==--

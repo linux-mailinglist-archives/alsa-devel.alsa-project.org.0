@@ -2,67 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 880B371EBA
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 20:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A668371F79
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 20:41:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CB23518B0;
-	Tue, 23 Jul 2019 20:08:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB23518B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19A7F18EB;
+	Tue, 23 Jul 2019 20:40:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19A7F18EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563905362;
-	bh=FOBsfQIaCgXt3/zyJ42SUKjSQRJQ0SFVgk+cqLjo8ec=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563907268;
+	bh=bMWM5Y1dUMo6ULPAE9ozNV056r4vJEuJwXyaDjyrn0o=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hcnpdjPQtwpV6oCynfFKHa0DQYqBP4OGvZksTnSccQSYg9LicNQwnAlGSb87G66bw
-	 UYKRGnk0m8/M23/9f8WGWbcg0zGJ0AKN09Z3KvMQHBDmJ75vpzNQM+Af445dQDBP/6
-	 bWcrhSgR/KpST28dTN5F4gwJ2+x1DKbq/0PhDXMc=
+	b=DBtDABs57BYmwrv5gGt/J1PONqpO/XWlIPxNuve/MSef15n4PmKARSmPP9s6GwUdI
+	 hYrGe4VqkNw0h80BZ4GfpwuW3zfOmJrKXjf7dWuQiu+/8VpoLayP2tgWC3hsSuneUb
+	 BVJHJhBhGknoaSNVxCpRWEE/h/ZKJbhD1tj5/cqA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08D30F80447;
-	Tue, 23 Jul 2019 20:07:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AC3AF80448;
+	Tue, 23 Jul 2019 20:39:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21AB2F80447; Tue, 23 Jul 2019 20:07:36 +0200 (CEST)
+ id 5B2FAF80447; Tue, 23 Jul 2019 20:39:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from relay3-d.mail.gandi.net (relay3-d.mail.gandi.net
+ [217.70.183.195])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12D60F8011C
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 20:07:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12D60F8011C
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2019 11:07:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,299,1559545200"; d="scan'208";a="177367397"
-Received: from linux.intel.com ([10.54.29.200])
- by FMSMGA003.fm.intel.com with ESMTP; 23 Jul 2019 11:07:29 -0700
-Received: from xiliu-mobl1.amr.corp.intel.com (unknown [10.252.200.163])
- by linux.intel.com (Postfix) with ESMTP id 4AF97580144;
- Tue, 23 Jul 2019 11:07:29 -0700 (PDT)
-To: Mark Brown <broonie@kernel.org>,
- Cezary Rojewski <cezary.rojewski@intel.com>
-References: <20190723145854.8527-1-cezary.rojewski@intel.com>
- <20190723154449.GJ5365@sirena.org.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <cac0d84e-61d3-5379-cbce-10f8d637310d@linux.intel.com>
-Date: Tue, 23 Jul 2019 13:07:31 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB245F8011C
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 20:39:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB245F8011C
+X-Originating-IP: 90.65.161.137
+Received: from localhost (lfbn-1-1545-137.w90-65.abo.wanadoo.fr
+ [90.65.161.137])
+ (Authenticated sender: alexandre.belloni@bootlin.com)
+ by relay3-d.mail.gandi.net (Postfix) with ESMTPSA id B922C60008;
+ Tue, 23 Jul 2019 18:39:15 +0000 (UTC)
+Date: Tue, 23 Jul 2019 20:39:15 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: mirq-linux@rere.qmqm.pl
+Message-ID: <20190723183915.GJ24911@piout.net>
+References: <cover.1563819483.git.mirq-linux@rere.qmqm.pl>
+ <ee65cc7b889b2a8d1139d1d25977842c956d1cf4.1563819483.git.mirq-linux@rere.qmqm.pl>
+ <1f3a4256-58de-27a4-8095-54fc6baa6d89@microchip.com>
+ <20190723164312.GA4772@qmqm.qmqm.pl>
 MIME-Version: 1.0
-In-Reply-To: <20190723154449.GJ5365@sirena.org.uk>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [RESEND PATCH v2 0/7] ASoC: Intel: Skylake: Driver
- fundaments overhaul
+Content-Disposition: inline
+In-Reply-To: <20190723164312.GA4772@qmqm.qmqm.pl>
+User-Agent: Mutt/1.12.0 (2019-05-25)
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Nicolas.Ferre@microchip.com, tiwai@suse.com, Ludovic.Desroches@microchip.com,
+ broonie@kernel.org, Codrin.Ciubotariu@microchip.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH 1/5] ASoC: atmel: enable SSC_PCM_DMA in
+	Kconfig
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,64 +74,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 7/23/19 10:44 AM, Mark Brown wrote:
-> On Tue, Jul 23, 2019 at 04:58:47PM +0200, Cezary Rojewski wrote:
->> Skylake driver is divided into two modules:
->> - snd_soc_skl
->> - snd_soc_skl_ipc
-> 
-> Pierre?
-
-Sorry I was traveling and while I saw this series I never found the time 
-to review it.
-
-I have really mixed feelings here and would like to make sure we are all 
-aligned on how we deal with the Skylake driver.
-
-On one side I see that Cezary's team has done a genuine effort to 
-clean-up the code, show their technical skills, provide and listen to 
-review feedback, and improve the quality of upstream code. It wouldn't 
-be fair to shoot down well-intended developers who are making an honest 
-effort after years of embarrassing contributions. Intel and the Linux 
-community also have a shared interest in making sure newer kernel 
-versions improve quality and conversely that existing solutions can be 
-upgraded to improve security while also improving audio.
-
-On the other hand, I still see an opaque design (no obvious 
-core/platform split, mind-boggling use of topology with closed tools, 
-IPC that I still don't get), limited information on testing. I don't 
-think anyone challenges the fact that this driver is what it is, and not 
-the foundation for future upstream work. And there are about 100 
-additional clean-up/updates patches to be submitted for this driver, 
-which I don't personally have the time to look into since I am already 
-fully-booked on SoundWire work.
-
-Overall my recommendations would be to:
-- give Cezary's team the benefit of the doubt for their Skylake reworks, 
-and add him as mandatory reviewer for the skylake parts. That doesn't 
-mean merging blindly but recognizing that no one else at Intel has a 
-better understanding of this code.
-- add CI support w/ Skylake devices so that we can have a better feel 
-for compilation/testing support. we've talked about having upstream 
-automatic build/hardware tests, maybe now is the time to do something 
-about it.
-- draw the line at "no new features" after e.g. 5.5 and "no new 
-platforms when SOF provides a solution". SOF was expected to reach 
-feature parity by the end of 2019 so it's not a random date I just made up.
-- I am even tempted to recommend de-featuring HDaudio codec support in 
-the Skylake driver since we already know of a broken probe that was 
-found on Linus' laptop and a slew of changes applied to SOF/legacy that 
-are missing in this driver.
-
-Comments and feedback welcome.
-
--Pierre
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gMjMvMDcvMjAxOSAxODo0MzoxMiswMjAwLCBtaXJxLWxpbnV4QHJlcmUucW1xbS5wbCB3cm90
+ZToKPiBPbiBUdWUsIEp1bCAyMywgMjAxOSBhdCAwMTozNjozN1BNICswMDAwLCBDb2RyaW4uQ2l1
+Ym90YXJpdUBtaWNyb2NoaXAuY29tIHdyb3RlOgo+ID4gT24gMjIuMDcuMjAxOSAyMToyNywgTWlj
+aGHFgiBNaXJvc8WCYXcgd3JvdGU6Cj4gPiA+IEFsbG93IFNTQyB0byBiZSB1c2VkIG9uIHBsYXRm
+b3JtcyBkZXNjcmliZWQgdXNpbmcgYXVkaW8tZ3JhcGgtY2FyZAo+ID4gPiBpbiBEZXZpY2UgVHJl
+ZS4KPiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IE1pY2hhxYIgTWlyb3PFgmF3IDxtaXJxLWxp
+bnV4QHJlcmUucW1xbS5wbD4KPiA+ID4gLS0tCj4gPiA+ICAgc291bmQvc29jL2F0bWVsL0tjb25m
+aWcgfCAyICstCj4gPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCj4gPiA+IAo+ID4gPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2F0bWVsL0tjb25maWcg
+Yi9zb3VuZC9zb2MvYXRtZWwvS2NvbmZpZwo+ID4gPiBpbmRleCAwNmMxZDVjZTY0MmMuLjllZjlk
+MjViYjUxNyAxMDA2NDQKPiA+ID4gLS0tIGEvc291bmQvc29jL2F0bWVsL0tjb25maWcKPiA+ID4g
+KysrIGIvc291bmQvc29jL2F0bWVsL0tjb25maWcKPiA+ID4gQEAgLTI1LDcgKzI1LDcgQEAgY29u
+ZmlnIFNORF9BVE1FTF9TT0NfRE1BCj4gPiA+ICAgCWRlZmF1bHQgeSBpZiBTTkRfQVRNRUxfU09D
+X1NTQ19ETUE9eSB8fCAoU05EX0FUTUVMX1NPQ19TU0NfRE1BPW0gJiYgU05EX0FUTUVMX1NPQ19T
+U0M9eSkKPiA+ID4gICAKPiA+ID4gICBjb25maWcgU05EX0FUTUVMX1NPQ19TU0NfRE1BCj4gPiA+
+IC0JdHJpc3RhdGUKPiA+ID4gKwl0cmlzdGF0ZSAiU29DIFBDTSBEQUkgc3VwcG9ydCBmb3IgQVQ5
+MSBTU0MgY29udHJvbGxlciB1c2luZyBETUEiCj4gPiAKPiA+IENvdWxkIHlvdSBwbGVhc2UgbWFr
+ZSBzb21ldGhpbmcgc2ltaWxhciBmb3IgU05EX0FUTUVMX1NPQ19TU0NfUERDPyBBbHNvLCAKPiA+
+IEkgdGhpbmsgdGhhdCBpdCBzaG91bGQgc2VsZWN0IEFUTUVMX1NTQywgdG8gYmUgYWJsZSB0byB1
+c2UgCj4gPiBzaW1wbGUvZ3JhcGgtY2FyZCB3aXRoIFNTQy4KPiAKPiBIbW0uIFRoZSBLY29uZmln
+IGRlcGVuZGVuY2llcyBzZWVtcyBvdmVybHkgY29tcGxpY2F0ZWQsIGRvIHlvdSBtaW5kIGlmIEkK
+PiBnZXQgcmlkIG9mIG1vc3Qgb2YgdGhlIGVudHJpZXMgaW4gdGhlIHByb2Nlc3M/Cj4gCgpVbmZv
+cnR1bmF0ZWx5LCBpdCBpcyBqdXN0IGNvbXBsaWNhdGVkIGVub3VnaC4gVGhpcyBpcyBkb25lIHRv
+IHN1cHBvcnQKYWxsIHRoZSBwb3NzaWJsZSBjb25maWd1cmF0aW9ucy4gUmVtb3ZpbmcgdGhlbSB3
+aWxsIGxlYWQgdG8gbGlua2luZwplcnJvcnMuCgpBZnRlciBoYXZpbmcgdGhhdCBkaXNjdXNzaW9u
+IGJhY2sgaW4gTWFyY2gsIEkgaGFkIGEgdmVyeSBxdWljayBsb29rIGFuZApkaWRuJ3Qgc2VuZCBh
+IHBhdGNoIGJlY2F1c2UgSSBzdGlsbCBoYWQgbGlua2luZyBpc3N1ZXMuIEl0IGlzIG5vdAppbXBv
+c3NpYmxlIGJ1dCBpdCByZXF1aXJlZCBtb3JlIHRpbWUgdGhhbiBJIGhhZC4KCi0tIApBbGV4YW5k
+cmUgQmVsbG9uaSwgQm9vdGxpbgpFbWJlZGRlZCBMaW51eCBhbmQgS2VybmVsIGVuZ2luZWVyaW5n
+Cmh0dHBzOi8vYm9vdGxpbi5jb20KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2pl
+Y3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+YWxzYS1kZXZlbAo=

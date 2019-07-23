@@ -2,96 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA325714E5
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 11:19:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA7AE715B9
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 12:10:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C91D1851;
-	Tue, 23 Jul 2019 11:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C91D1851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C3B51862;
+	Tue, 23 Jul 2019 12:09:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C3B51862
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563873584;
-	bh=33b6x9sybg9mLkM1KHtKqgdHSmABJVzo4LxqM0nW6MM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1563876618;
+	bh=yrExtlf2OFn9gGC3s/2BRZyAl/5ArHJ5CwQgUSF1/L0=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GkGETb1Fi3tjvO5BBG0QEPYxyuuFdrrbBYYbcXC6NJrvWqdFqshgk5gsz7ZWK6ssY
-	 cJ9qKlbizFhNxt/jNAlI02+yUh2jmuUfHsozRWdT2k5dBryawmDq7PabNzOR1dYEPO
-	 ipeZHCfy6sLSNJXpaUQEzVvx+lSfo18VUlTB7Iqc=
+	b=EtxbPitdndJPl+DiKWxNK3F+c4KP6s01IRYHV2VnusBY3p6O4sY71UmJEbWnQ3fzH
+	 5ZGe430uuNsavoxKRFFsvUZ9qSuJaTvMbal1zBgRdSngrOpocIR7CL17Vyxr2CVnAS
+	 Xh4x5k1iOosiqtarVxslbobZQXYOPmz6+yToitJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A648F8044A;
-	Tue, 23 Jul 2019 11:17:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 71275F80448;
+	Tue, 23 Jul 2019 12:08:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74419F80447; Tue, 23 Jul 2019 11:15:25 +0200 (CEST)
+ id C33B5F80447; Tue, 23 Jul 2019 12:08:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C9198F80227
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 11:15:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9198F80227
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="YEuBtZQp"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x6N9EXwM026652; Tue, 23 Jul 2019 04:15:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=ZOi1S9tzJScdZvmwSZab3gVbroEdWfMG/QqlF3Yz3yo=;
- b=YEuBtZQpG7PSxB6t6Sk+NK+SsSWGZhiFWi3AdCwp+V/Ejlmj/5jhecD2MnpFjNjSdLSs
- Ly/EaipnuwUYL6OiqmURw90hik4FG6X5UT2VPRNAIZuaOvxCfgFYYp4Sw0YUdBk5Q436
- w/ACZ2Cp52mC2V8n2UYCAPCoHeRP7H2T1vxx+vX8BoccLg0pcXiVIaE8qU51KM+4DfJg
- cEiMLqKVnkYvokLQJkOl5/XI5mafjaiENoS9x0cMB5oNfk25grjIGgbuJdjnO7J8+O2M
- pAxtQAHTj7yqDysK1/70joQ9HZkY16qyrcNRc1Ny/f4c6PQQl126h4hNrl3Rec38FAjx iA== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex02.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 2twm3qrtg0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 23 Jul 2019 04:15:07 -0500
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
- (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Tue, 23 Jul
- 2019 10:15:05 +0100
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Tue, 23 Jul 2019 10:15:05 +0100
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 752D845;
- Tue, 23 Jul 2019 10:15:05 +0100 (BST)
-Date: Tue, 23 Jul 2019 10:15:05 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Wenwen Wang <wang6495@umn.edu>
-Message-ID: <20190723091505.GN54126@ediswmail.ad.cirrus.com>
-References: <1563803864-2809-1-git-send-email-wang6495@umn.edu>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1563803864-2809-1-git-send-email-wang6495@umn.edu>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- malwarescore=0
- priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 phishscore=0
- clxscore=1011 mlxlogscore=944 suspectscore=2 adultscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1904300001 definitions=main-1907230087
-Cc: Wenwen Wang <wenwen@cs.uga.edu>, "moderated list:SOUND - SOC LAYER /
- DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: dapm: fix a memory leak bug
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AD95F80227
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 12:08:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AD95F80227
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 7514AAEAC;
+ Tue, 23 Jul 2019 10:08:24 +0000 (UTC)
+Date: Tue, 23 Jul 2019 12:08:23 +0200
+Message-ID: <s5h4l3d6p2g.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Charles Keepax" <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20190722092436.651-1-ckeepax@opensource.cirrus.com>
+References: <20190722092436.651-1-ckeepax@opensource.cirrus.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: patches@opensource.cirrus.com, vkoul@kernel.org,
+ alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v2 1/4] ALSA: compress: Fix regression on
+	compressed capture streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,26 +71,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 22, 2019 at 08:57:44AM -0500, Wenwen Wang wrote:
-> From: Wenwen Wang <wenwen@cs.uga.edu>
+On Mon, 22 Jul 2019 11:24:33 +0200,
+Charles Keepax wrote:
 > 
-> In snd_soc_dapm_new_control_unlocked(), a kernel buffer is allocated in
-> dapm_cnew_widget() to hold the new dapm widget. Then, different actions are
-> taken according to the id of the widget, i.e., 'w->id'. If any failure
-> occurs during this process, snd_soc_dapm_new_control_unlocked() should be
-> terminated by going to the 'request_failed' label. However, the allocated
-> kernel buffer is not freed on this code path, leading to a memory leak bug.
+> A previous fix to the stop handling on compressed capture streams causes
+> some knock on issues. The previous fix updated snd_compr_drain_notify to
+> set the state back to PREPARED for capture streams. This causes some
+> issues however as the handling for snd_compr_poll differs between the
+> two states and some user-space applications were relying on the poll
+> failing after the stream had been stopped.
 > 
-> To fix the above issue, free the buffer before returning from
-> snd_soc_dapm_new_control_unlocked() through the 'request_failed' label.
+> To correct this regression whilst still fixing the original problem the
+> patch was addressing, update the capture handling to skip the PREPARED
+> state rather than skipping the SETUP state as it has done until now.
 > 
-> Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
+> Fixes: 4f2ab5e1d13d ("ALSA: compress: Fix stop handling on compressed capture streams")
+> Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Applied, thanks.
+
+
+Takashi
+
+
 > ---
-
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
+> 
+> No changes since v1.
+> 
+> Thanks,
+> Charles
+> 
+>  include/sound/compress_driver.h |  5 +----
+>  sound/core/compress_offload.c   | 16 +++++++++++-----
+>  2 files changed, 12 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+> index c5188ff724d12..bc88d6f964da9 100644
+> --- a/include/sound/compress_driver.h
+> +++ b/include/sound/compress_driver.h
+> @@ -173,10 +173,7 @@ static inline void snd_compr_drain_notify(struct snd_compr_stream *stream)
+>  	if (snd_BUG_ON(!stream))
+>  		return;
+>  
+> -	if (stream->direction == SND_COMPRESS_PLAYBACK)
+> -		stream->runtime->state = SNDRV_PCM_STATE_SETUP;
+> -	else
+> -		stream->runtime->state = SNDRV_PCM_STATE_PREPARED;
+> +	stream->runtime->state = SNDRV_PCM_STATE_SETUP;
+>  
+>  	wake_up(&stream->runtime->sleep);
+>  }
+> diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+> index 99b8821587053..d79aee6b9edd2 100644
+> --- a/sound/core/compress_offload.c
+> +++ b/sound/core/compress_offload.c
+> @@ -574,10 +574,7 @@ snd_compr_set_params(struct snd_compr_stream *stream, unsigned long arg)
+>  		stream->metadata_set = false;
+>  		stream->next_track = false;
+>  
+> -		if (stream->direction == SND_COMPRESS_PLAYBACK)
+> -			stream->runtime->state = SNDRV_PCM_STATE_SETUP;
+> -		else
+> -			stream->runtime->state = SNDRV_PCM_STATE_PREPARED;
+> +		stream->runtime->state = SNDRV_PCM_STATE_SETUP;
+>  	} else {
+>  		return -EPERM;
+>  	}
+> @@ -693,8 +690,17 @@ static int snd_compr_start(struct snd_compr_stream *stream)
+>  {
+>  	int retval;
+>  
+> -	if (stream->runtime->state != SNDRV_PCM_STATE_PREPARED)
+> +	switch (stream->runtime->state) {
+> +	case SNDRV_PCM_STATE_SETUP:
+> +		if (stream->direction != SND_COMPRESS_CAPTURE)
+> +			return -EPERM;
+> +		break;
+> +	case SNDRV_PCM_STATE_PREPARED:
+> +		break;
+> +	default:
+>  		return -EPERM;
+> +	}
+> +
+>  	retval = stream->ops->trigger(stream, SNDRV_PCM_TRIGGER_START);
+>  	if (!retval)
+>  		stream->runtime->state = SNDRV_PCM_STATE_RUNNING;
+> -- 
+> 2.11.0
+> 
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

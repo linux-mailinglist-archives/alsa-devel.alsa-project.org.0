@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B88B71755
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:45:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DCA57174E
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:43:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CFAFF18B1;
-	Tue, 23 Jul 2019 13:44:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CFAFF18B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95B5E188E;
+	Tue, 23 Jul 2019 13:42:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95B5E188E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563882337;
-	bh=/ZYBjsFS+zAlZhXhvm92DWWX9tX0cswKRcZnnLXBD2g=;
+	s=default; t=1563882179;
+	bh=kLiziGeF++seY5Nf7DqI/7TOUSJ+KLa5MSZwR6P2mJw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gIAhhCDfxzyNfUK+H9z5M6L6Jhk5oxaGhzOWpNdJ7kAJhk/tgAR8CztDJVGc6UJV1
-	 ro2Q47SO7WJzw8zctsG5cz1CTKwQYyEu+ehWSVjXZfjMON7BG91KQR8s4un9jFUsiR
-	 XvdncrVUrfsq75WJUMhsHkwIhQ6hpEa7NejNTKDs=
+	b=sHWWtL98cu+ZWzoxmfw8ExQ6kLoF/1GxeDDGL/BG1KRJLi6bxNEzHT8GmI7+CWVAu
+	 r8XNsKrfT/Bckv1XXoaewOCTtutuUd5fN9KE15ZO8YCO+qw5VQfgQCb2iWvmMNc8mO
+	 YWJ+Kew+hDXu1zB/QEg2rr9PMFuozw3RCbito8kE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C795F806E9;
-	Tue, 23 Jul 2019 13:30:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD53DF80674;
+	Tue, 23 Jul 2019 13:30:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97441F804FF; Tue, 23 Jul 2019 13:29:36 +0200 (CEST)
+ id 8B8D5F804A9; Tue, 23 Jul 2019 13:29:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA28BF80448
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA28BF80448
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1AAB1F804AA
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1AAB1F804AA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="IZS/ohU6"
+ header.b="KloXEN7u"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=yEAqzuSYY6YDvPbHA/2AVPRrwPElwmdfOQiWMYAHlRg=; b=IZS/ohU6lc8r
- f14u/biCuBDFZDG/QByNaOVUBZVG8cPUyFg0U8OUN94VzuKvlIjUbN4qdYpw/yYj6tPXnTAc9Dn8p
- 9TCUyx2j/7tr0kFeLUeg02+735W4Ro0YP4nd8oHUwkRyNAFznQKbNpvB2fMEyK+ksltQK5eSjKRqE
- wXyIY=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=JtmT2nU/dUA+J4hItzcsBqGAz03KH637NkoiREcJzgY=; b=KloXEN7uRx+V
+ W17319AxNLb6bG1MWb8xRRwq1HezaFDe2vQVKyrqIVisTvuyVaZFzviAunKYFkPUSPBdT8J6N/ody
+ h8/84obOKa8Bnn8OxKRICzY4imA7YoFP8tOH/k68Q6pEk5qZPtwrBoAr6gS9gWklIRm+4oi4obp05
+ K/fso=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpsyq-0003Ko-Be; Tue, 23 Jul 2019 11:29:16 +0000
+ id 1hpsyp-0003KI-Lt; Tue, 23 Jul 2019 11:29:15 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D9D222742B59; Tue, 23 Jul 2019 12:29:15 +0100 (BST)
+ id 07AFC2742B59; Tue, 23 Jul 2019 12:29:15 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-In-Reply-To: <20190722130352.95874-1-stephan@gerhold.net>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20190722141402.7194-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723112915.D9D222742B59@ypsilon.sirena.org.uk>
+Message-Id: <20190723112915.07AFC2742B59@ypsilon.sirena.org.uk>
 Date: Tue, 23 Jul 2019 12:29:15 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Patrick Lai <plai@codeaurora.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: qcom: apq8016_sbc: Fix oops with
-	multiple DAI links" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: reset DMA state in prepare" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,11 +87,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: qcom: apq8016_sbc: Fix oops with multiple DAI links
+   ASoC: SOF: reset DMA state in prepare
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -115,65 +112,160 @@ to this mail.
 Thanks,
 Mark
 
-From 8201f11a1f75e3aa7d5327d0b1d8cb544aeaa62f Mon Sep 17 00:00:00 2001
-From: Stephan Gerhold <stephan@gerhold.net>
-Date: Mon, 22 Jul 2019 15:03:52 +0200
-Subject: [PATCH] ASoC: qcom: apq8016_sbc: Fix oops with multiple DAI links
+From 04c8027764bc82a325d3abc6f39a6a4642a937cb Mon Sep 17 00:00:00 2001
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Mon, 22 Jul 2019 09:13:43 -0500
+Subject: [PATCH] ASoC: SOF: reset DMA state in prepare
 
-apq8016_sbc_parse_of() sets up multiple DAI links, depending on the
-number of nodes in the device tree. However, at the moment
-CPU and platform components are only allocated for the first link.
-This causes an oops when more than one link is defined:
+When application goes through SUSPEND/STOP->PREPARE->START
+cycle, we should always reprogram the SOF device to start
+DMA from a known state so that hw_ptr/appl_ptrs remain valid.
+This is expected by ALSA core as it resets the buffer
+state as part of prepare (see snd_pcm_do_prepare()).
 
-	Internal error: Oops: 96000044 [#1] SMP
-	CPU: 0 PID: 1015 Comm: kworker/0:2 Not tainted 5.3.0-rc1 #4
-	Call trace:
-	 apq8016_sbc_platform_probe+0x1a8/0x3f0
-	 platform_drv_probe+0x50/0xa0
-	...
+Fix the issue by forcing reconfiguration of the FW with
+STREAM_PCM_PARAMS in prepare(). Use combined logic to handle
+prepare and the existing flow to reprogram hw-params after
+system suspend.
 
-Move the allocation inside the loop to ensure that each link is
-properly initialized.
+Without the fix, first call to pcm pointer() will return
+an invalid hw_ptr and application may immediately observe XRUN
+status, unless "start_threshold" SW parameter is set to maximum
+value by the application.
 
-Fixes: 98b232ca9e0e ("ASoC: qcom: apq8016_sbc: use modern dai_link style")
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/20190722130352.95874-1-stephan@gerhold.net
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20190722141402.7194-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/apq8016_sbc.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/sof/pcm.c      | 27 +++++++++++++++------------
+ sound/soc/sof/pm.c       |  2 +-
+ sound/soc/sof/sof-priv.h |  2 +-
+ 3 files changed, 17 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index f60a71990f66..ac75838bbfab 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -150,17 +150,17 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 334e9d59b1ba..3b8955e755b2 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -208,12 +208,11 @@ static int sof_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret < 0)
+ 		return ret;
  
- 	link = data->dai_link;
++	spcm->prepared[substream->stream] = true;
++
+ 	/* save pcm hw_params */
+ 	memcpy(&spcm->params[substream->stream], params, sizeof(*params));
  
--	dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
--	if (!dlc)
--		return ERR_PTR(-ENOMEM);
-+	for_each_child_of_node(node, np) {
-+		dlc = devm_kzalloc(dev, 2 * sizeof(*dlc), GFP_KERNEL);
-+		if (!dlc)
-+			return ERR_PTR(-ENOMEM);
+-	/* clear hw_params_upon_resume flag */
+-	spcm->hw_params_upon_resume[substream->stream] = 0;
+-
+ 	return ret;
+ }
  
--	link->cpus	= &dlc[0];
--	link->platforms	= &dlc[1];
-+		link->cpus	= &dlc[0];
-+		link->platforms	= &dlc[1];
+@@ -236,6 +235,9 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	if (!spcm)
+ 		return -EINVAL;
  
--	link->num_cpus		= 1;
--	link->num_platforms	= 1;
-+		link->num_cpus		= 1;
-+		link->num_platforms	= 1;
++	if (!spcm->prepared[substream->stream])
++		return 0;
++
+ 	dev_dbg(sdev->dev, "pcm: free stream %d dir %d\n", spcm->pcm.pcm_id,
+ 		substream->stream);
  
--	for_each_child_of_node(node, np) {
- 		cpu = of_get_child_by_name(np, "cpu");
- 		codec = of_get_child_by_name(np, "codec");
+@@ -258,6 +260,8 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	if (ret < 0)
+ 		dev_err(sdev->dev, "error: platform hw free failed\n");
  
++	spcm->prepared[substream->stream] = false;
++
+ 	return ret;
+ }
+ 
+@@ -278,11 +282,7 @@ static int sof_pcm_prepare(struct snd_pcm_substream *substream)
+ 	if (!spcm)
+ 		return -EINVAL;
+ 
+-	/*
+-	 * check if hw_params needs to be set-up again.
+-	 * This is only needed when resuming from system sleep.
+-	 */
+-	if (!spcm->hw_params_upon_resume[substream->stream])
++	if (spcm->prepared[substream->stream])
+ 		return 0;
+ 
+ 	dev_dbg(sdev->dev, "pcm: prepare stream %d dir %d\n", spcm->pcm.pcm_id,
+@@ -311,6 +311,7 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	struct snd_sof_pcm *spcm;
+ 	struct sof_ipc_stream stream;
+ 	struct sof_ipc_reply reply;
++	bool reset_hw_params = false;
+ 	int ret;
+ 
+ 	/* nothing to do for BE */
+@@ -351,6 +352,7 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 		stream.hdr.cmd |= SOF_IPC_STREAM_TRIG_STOP;
++		reset_hw_params = true;
+ 		break;
+ 	default:
+ 		dev_err(sdev->dev, "error: unhandled trigger cmd %d\n", cmd);
+@@ -363,17 +365,17 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+ 				 sizeof(stream), &reply, sizeof(reply));
+ 
+-	if (ret < 0 || cmd != SNDRV_PCM_TRIGGER_SUSPEND)
++	if (ret < 0 || !reset_hw_params)
+ 		return ret;
+ 
+ 	/*
+-	 * The hw_free op is usually called when the pcm stream is closed.
+-	 * Since the stream is not closed during suspend, the DSP needs to be
+-	 * notified explicitly to free pcm to prevent errors upon resume.
++	 * In case of stream is stopped, DSP must be reprogrammed upon
++	 * restart, so free PCM here.
+ 	 */
+ 	stream.hdr.size = sizeof(stream);
+ 	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
+ 	stream.comp_id = spcm->stream[substream->stream].comp_id;
++	spcm->prepared[substream->stream] = false;
+ 
+ 	/* send IPC to the DSP */
+ 	return sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+@@ -481,6 +483,7 @@ static int sof_pcm_open(struct snd_pcm_substream *substream)
+ 	spcm->stream[substream->stream].posn.host_posn = 0;
+ 	spcm->stream[substream->stream].posn.dai_posn = 0;
+ 	spcm->stream[substream->stream].substream = substream;
++	spcm->prepared[substream->stream] = false;
+ 
+ 	ret = snd_sof_pcm_platform_open(sdev, substream);
+ 	if (ret < 0)
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index 278abfd10490..48c6d78d72e2 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -233,7 +233,7 @@ static int sof_set_hw_params_upon_resume(struct snd_sof_dev *sdev)
+ 
+ 			state = substream->runtime->status->state;
+ 			if (state == SNDRV_PCM_STATE_SUSPENDED)
+-				spcm->hw_params_upon_resume[dir] = 1;
++				spcm->prepared[dir] = false;
+ 		}
+ 	}
+ 
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index b8c0b2a22684..fa5cb7d2a660 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -297,7 +297,7 @@ struct snd_sof_pcm {
+ 	struct snd_sof_pcm_stream stream[2];
+ 	struct list_head list;	/* list in sdev pcm list */
+ 	struct snd_pcm_hw_params params[2];
+-	int hw_params_upon_resume[2]; /* set up hw_params upon resume */
++	bool prepared[2]; /* PCM_PARAMS set successfully */
+ };
+ 
+ /* ALSA SOF Kcontrol device */
 -- 
 2.20.1
 

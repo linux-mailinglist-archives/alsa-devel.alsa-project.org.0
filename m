@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 236EE7174A
-	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:42:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E0B271748
+	for <lists+alsa-devel@lfdr.de>; Tue, 23 Jul 2019 13:41:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7A681684;
-	Tue, 23 Jul 2019 13:41:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7A681684
+	by alsa0.perex.cz (Postfix) with ESMTPS id C2D0518B3;
+	Tue, 23 Jul 2019 13:40:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2D0518B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563882142;
-	bh=k9BeIk9r0OICF+fssPElJKz0xw9TPf+h+1q6BnXkuew=;
+	s=default; t=1563882104;
+	bh=S9OBV66RwkocHoktKUFycQRocJLYriC9ztFSzFXR5U8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jJRiAxz1YypDFCs93c4vfNAPYeca4kh2kw4dOlahoxfirNEO2RrjEqVEXbv5TtUaS
-	 nPE7J3l72Wk9Er+cPtcjoN45vaaVJUI8zYjGj3xyUV7w8TPcnmcJzA1aR8VEDXzV7A
-	 lXw38OGUwNAF5YWpjRBkVzjE7oAaIn01C9Pqwuz8=
+	b=cq4Kb+cQFI+Xop2jm9pwEBzSfrZUNdyB6cRZTtaBgoZMzY2ZGOW0yghkL2JKF9Ccd
+	 xksVb2f2Al+ijZF/6Y4NgV1kmqxPgGk0VZFsq8r8JXy36gQbiBGblaUOXYIcR498MU
+	 3WO7Gj1hi9i/KQaoMRzaZH691mkkDps42OIab8T0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA81BF8065E;
-	Tue, 23 Jul 2019 13:30:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1E52F80649;
+	Tue, 23 Jul 2019 13:30:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19AADF804A9; Tue, 23 Jul 2019 13:29:32 +0200 (CEST)
+ id D64A5F8044A; Tue, 23 Jul 2019 13:29:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EAB0DF8048F
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBFEFF804AB
  for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 13:29:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAB0DF8048F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBFEFF804AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="xj5DJdEx"
+ header.b="TxBw37zI"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=aXrMV1O3VmKqe4x2AEecMdsYsJJTS4hcNZbzqCYNshU=; b=xj5DJdExth1F
- igud7V7OPVqRh2VQ2L6WX5a5qUbmZpYAJX2czQXbQ2NdcFm6Vp27xKfylUCQpksyNmeCsLIYiVAiK
- Ul87HINyDL4p+vxMDN5vixLW9Nr+UNCLgL5XbT+T6PC4YX65L82IVfoiZ/yre0EDMYYc9zUzfWWFY
- XJ/zg=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=jxlI1zOngfzK8uag5wthaLyC1wcXFeXNKR4pdRe5468=; b=TxBw37zIX6SV
+ PyRqn5sQKyjNMR12pXN8hFJe+dQ8XWu47YO7EMLGhUcxD3kBl4kw94sO9Str6oQGa9j6O5TlLAFZf
+ BYF8Juu9GQ/7CK6N7RYv7gi0tcPuKnVP9C/nuVPKXxYGmNrmuYmALww4Vkb+81uXh8OC7CDTwvZA4
+ ohtdA=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hpsyp-0003K0-8J; Tue, 23 Jul 2019 11:29:15 +0000
+ id 1hpsyp-0003K8-El; Tue, 23 Jul 2019 11:29:15 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 977952742B60; Tue, 23 Jul 2019 12:29:14 +0100 (BST)
+ id CAA912742BAB; Tue, 23 Jul 2019 12:29:14 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20190722141402.7194-5-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190722141402.7194-4-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190723112914.977952742B60@ypsilon.sirena.org.uk>
+Message-Id: <20190723112914.CAA912742BAB@ypsilon.sirena.org.uk>
 Date: Tue, 23 Jul 2019 12:29:14 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: ipc: use timeout configured at
-	probe" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: use common code to send PCM_FREE
+	IPC" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: ipc: use timeout configured at probe
+   ASoC: SOF: use common code to send PCM_FREE IPC
 
 has been applied to the asoc tree at
 
@@ -112,50 +113,112 @@ to this mail.
 Thanks,
 Mark
 
-From 6dd78b310b8d4ab5d0b851e369b5b3d46c6a32a9 Mon Sep 17 00:00:00 2001
+From a49b687192752bd373f33551520cc98389460ad0 Mon Sep 17 00:00:00 2001
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Mon, 22 Jul 2019 09:13:45 -0500
-Subject: [PATCH] ASoC: SOF: ipc: use timeout configured at probe
+Date: Mon, 22 Jul 2019 09:13:44 -0500
+Subject: [PATCH] ASoC: SOF: use common code to send PCM_FREE IPC
 
-Do not hardcode IPC timeout value in ipc.c, but rather use the timeout
-value configured during device probe. For platforms that do not override
-the IPC timeout, default value TIMEOUT_DEFAULT_IPC_MS has already been
-defined in core.c.
+Remove duplicated code by using a common helper function
+to send the PCM_FREE IPC message to FW.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190722141402.7194-5-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20190722141402.7194-4-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/ipc.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+ sound/soc/sof/pcm.c | 50 ++++++++++++++++++++++-----------------------
+ 1 file changed, 25 insertions(+), 25 deletions(-)
 
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index 20dfca9c93b7..b2f359d2f7e5 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -17,12 +17,6 @@
- #include "sof-priv.h"
- #include "ops.h"
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 3b8955e755b2..8612896673a5 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -216,6 +216,27 @@ static int sof_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
  
--/*
-- * IPC message default size and timeout (ms).
-- * TODO: allow platforms to set size and timeout.
-- */
--#define IPC_TIMEOUT_MS		300
++static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
++				struct snd_sof_dev *sdev,
++				struct snd_sof_pcm *spcm)
++{
++	struct sof_ipc_stream stream;
++	struct sof_ipc_reply reply;
++	int ret;
++
++	stream.hdr.size = sizeof(stream);
++	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
++	stream.comp_id = spcm->stream[substream->stream].comp_id;
++
++	/* send IPC to the DSP */
++	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
++				 sizeof(stream), &reply, sizeof(reply));
++	if (!ret)
++		spcm->prepared[substream->stream] = false;
++
++	return ret;
++}
++
+ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+@@ -223,8 +244,6 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
+ 		snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(component);
+ 	struct snd_sof_pcm *spcm;
+-	struct sof_ipc_stream stream;
+-	struct sof_ipc_reply reply;
+ 	int ret;
+ 
+ 	/* nothing to do for BE */
+@@ -241,13 +260,7 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	dev_dbg(sdev->dev, "pcm: free stream %d dir %d\n", spcm->pcm.pcm_id,
+ 		substream->stream);
+ 
+-	stream.hdr.size = sizeof(stream);
+-	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
+-	stream.comp_id = spcm->stream[substream->stream].comp_id;
 -
- static void ipc_trace_message(struct snd_sof_dev *sdev, u32 msg_id);
- static void ipc_stream_message(struct snd_sof_dev *sdev, u32 msg_cmd);
+-	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				 sizeof(stream), &reply, sizeof(reply));
++	ret = sof_pcm_dsp_pcm_free(substream, sdev, spcm);
  
-@@ -211,7 +205,7 @@ static int tx_wait_done(struct snd_sof_ipc *ipc, struct snd_sof_ipc_msg *msg,
+ 	snd_pcm_lib_free_pages(substream);
  
- 	/* wait for DSP IPC completion */
- 	ret = wait_event_timeout(msg->waitq, msg->ipc_complete,
--				 msecs_to_jiffies(IPC_TIMEOUT_MS));
-+				 msecs_to_jiffies(sdev->ipc_timeout));
+@@ -260,8 +273,6 @@ static int sof_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	if (ret < 0)
+ 		dev_err(sdev->dev, "error: platform hw free failed\n");
  
- 	if (ret == 0) {
- 		dev_err(sdev->dev, "error: ipc timed out for 0x%x size %d\n",
+-	spcm->prepared[substream->stream] = false;
+-
+ 	return ret;
+ }
+ 
+@@ -365,21 +376,10 @@ static int sof_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+ 				 sizeof(stream), &reply, sizeof(reply));
+ 
+-	if (ret < 0 || !reset_hw_params)
+-		return ret;
+-
+-	/*
+-	 * In case of stream is stopped, DSP must be reprogrammed upon
+-	 * restart, so free PCM here.
+-	 */
+-	stream.hdr.size = sizeof(stream);
+-	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
+-	stream.comp_id = spcm->stream[substream->stream].comp_id;
+-	spcm->prepared[substream->stream] = false;
++	if (!ret && reset_hw_params)
++		ret = sof_pcm_dsp_pcm_free(substream, sdev, spcm);
+ 
+-	/* send IPC to the DSP */
+-	return sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				  sizeof(stream), &reply, sizeof(reply));
++	return ret;
+ }
+ 
+ static snd_pcm_uframes_t sof_pcm_pointer(struct snd_pcm_substream *substream)
 -- 
 2.20.1
 

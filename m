@@ -2,69 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4181724FE
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 04:58:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3EDB72751
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 07:29:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F27218F2;
-	Wed, 24 Jul 2019 04:57:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F27218F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A30B192A;
+	Wed, 24 Jul 2019 07:28:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A30B192A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563937096;
-	bh=o0OzH97qwNX7bM4Pd87yJEjfWiB1kUlJLIjsJRkAtpw=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1563946160;
+	bh=xtxXV4QqlyhFpmrCueS1CaL/++5epkzbV7/ZzgV6pDU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gbyC4nuLdg7xxPMQ2jIY5KYvviYRWN3dPnbzOvQ0uWEWYCGk5oQFdJ0HSU6K8Pi6H
-	 6jn9uR0e3u5ObnKvT2qRWL5FlKnw5sHnxE8TXLg2Rnp58ZDAOjAYVzkz253op5WyUk
-	 LL8E1mXGe+U+q31FjMU6P8nePVZGNWCuLFwX0/LQ=
+	b=rqw8IYFbL8i3099Un0MUuPz/tpQOlPmbyCPcPqTFl1whkqO2ZtsVz+sMfjcUp6Hdp
+	 VCP7EF+KW0eN3lr3i38S3XGqgrPluZ9VU+zVxUMsSDgRfbEEvwDCWYMPb25POWdgtl
+	 aggx9LQuTDxRMVS4v8yuw/D3TrIJriinrEJMsq5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F5CBF803D6;
-	Wed, 24 Jul 2019 04:56:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EEF2F8026F;
+	Wed, 24 Jul 2019 07:27:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E98EF8026F; Wed, 24 Jul 2019 04:56:27 +0200 (CEST)
+ id E0108F803D1; Wed, 24 Jul 2019 07:27:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from smtp.smtpout.orange.fr (smtp05.smtpout.orange.fr
+ [80.12.242.127])
+ (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30597F8026F
- for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 04:56:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30597F8026F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ThEb3+zc"
-Received: from sol.localdomain (c-24-5-143-220.hsd1.ca.comcast.net
- [24.5.143.220])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DECAA229ED;
- Wed, 24 Jul 2019 02:47:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1563936445;
- bh=wPRzzubrZrDz+qj/h/59SsRf1D5AWLBQkY1RQNmscKo=;
- h=Date:From:To:Cc:Subject:From;
- b=ThEb3+zcLQwQzEFTHpvcAiUQGb38HOgrg7ghHjwjj7Or/0Gb58nedNST/beVs0FGC
- s8hxXl04ZxK4OfiT3NGsphJt3a9EXxrBoBCzpkDoDMgiAXBBzPLXE3z4G0csiaDWnd
- 7lwC9clXgRpFEQVFcOr4iq+xeLeaNrSiGU8WnBc4=
-Date: Tue, 23 Jul 2019 19:47:23 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Message-ID: <20190724024723.GI643@sol.localdomain>
-Mail-Followup-To: alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5BFA6F8026F
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 07:27:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BFA6F8026F
+Received: from localhost.localdomain ([92.140.204.221]) by mwinf5d09 with ME
+ id gVTR2000H4n7eLC03VTRSq; Wed, 24 Jul 2019 07:27:28 +0200
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Wed, 24 Jul 2019 07:27:28 +0200
+X-ME-IP: 92.140.204.221
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
+ gustavo@embeddedor.com, patches@opensource.cirrus.com
+Date: Wed, 24 Jul 2019 07:26:32 +0200
+Message-Id: <20190724052632.30476-1-christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Reminder: 1 open syzbot bug in sound subsystem
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: wm8955: Fix a typo in
+	'wm8995_pll_factors()' function name
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,40 +71,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[This email was generated by a script.  Let me know if you have any suggestions
-to make it better, or if you want it re-generated with the latest status.]
+This should be 'wm8955_pll_factors()' instead.
+Fix it and use it.
 
-Of the currently open syzbot reports against the upstream kernel, I've manually
-marked 1 of them as possibly being a bug in the sound subsystem.
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ sound/soc/codecs/wm8955.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-If you believe this bug is no longer valid, please close the syzbot report by
-sending a '#syz fix', '#syz dup', or '#syz invalid' command in reply to the
-original thread, as explained at https://goo.gl/tpsmEJ#status
-
-If you believe I misattributed this bug to the sound subsystem, please let me
-know, and if possible forward the report to the correct people or mailing list.
-
-Here is the bug:
-
---------------------------------------------------------------------------------
-Title:              KASAN: use-after-free Read in wake_up_if_idle
-Last occurred:      131 days ago
-Reported:           267 days ago
-Branches:           Mainline and others
-Dashboard link:     https://syzkaller.appspot.com/bug?id=b1e300cd7b124fc83dd4199d4d1df26310111b0f
-Original thread:    https://lkml.kernel.org/lkml/00000000000066ab7105795f245e@google.com/T/#u
-
-Unfortunately, this bug does not have a reproducer.
-
-No one replied to the original thread for this bug.
-
-If you fix this bug, please add the following tag to the commit:
-    Reported-by: syzbot+2c1253bc508adef78a7f@syzkaller.appspotmail.com
-
-If you send any email or patch for this bug, please consider replying to the
-original thread.  For the git send-email command to use, or tips on how to reply
-if the thread isn't in your mailbox, see the "Reply instructions" at
-https://lkml.kernel.org/r/00000000000066ab7105795f245e@google.com
+diff --git a/sound/soc/codecs/wm8955.c b/sound/soc/codecs/wm8955.c
+index cd204f79647d..ec82a8fafdf6 100644
+--- a/sound/soc/codecs/wm8955.c
++++ b/sound/soc/codecs/wm8955.c
+@@ -143,7 +143,7 @@ struct pll_factors {
+  * to allow rounding later */
+ #define FIXED_FLL_SIZE ((1 << 22) * 10)
+ 
+-static int wm8995_pll_factors(struct device *dev,
++static int wm8955_pll_factors(struct device *dev,
+ 			      int Fref, int Fout, struct pll_factors *pll)
+ {
+ 	u64 Kpart;
+@@ -282,7 +282,7 @@ static int wm8955_configure_clocking(struct snd_soc_component *component)
+ 
+ 		/* Use the last divider configuration we saw for the
+ 		 * sample rate. */
+-		ret = wm8995_pll_factors(component->dev, wm8955->mclk_rate,
++		ret = wm8955_pll_factors(component->dev, wm8955->mclk_rate,
+ 					 clock_cfgs[sr].mclk, &pll);
+ 		if (ret != 0) {
+ 			dev_err(component->dev,
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

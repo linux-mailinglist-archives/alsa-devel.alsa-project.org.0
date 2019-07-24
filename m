@@ -2,79 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAEDF72B93
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 11:40:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B4472C31
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 12:15:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A45E1A3B;
-	Wed, 24 Jul 2019 11:39:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A45E1A3B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 18EF81944;
+	Wed, 24 Jul 2019 12:14:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18EF81944
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563961227;
-	bh=9Rw0mj8KXSOY4zctRyDNzKZG/t93s0uiXIbdNK6d25w=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1563963308;
+	bh=YFIBbxbmcTZ0GyizsnQBnNhZaxzTTqsaNxgvCQwdFo0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=V8M8wUJysvxJ6IsJd6oPV4hHcaSI5Pl/n6k10eVI4p6K8rRCdSCyJ+JEEKMecVqvw
-	 kVvq1LI3P3TxW746B+r76GRVJ81r8L9xrk/6j8pfpDgT9x1gufRYdJ+Jtg04af/5EA
-	 hEmVo0ydzcwOxSZbPmUFicNqGH07owxHnlr0/SWY=
+	b=XZFJVGpA/pkBWx3k+qB3G40uyErB2LjHhdlVKBHn9uDz7oYbagwaATWC/kmyIh514
+	 o2u4Ag1ugZs8MVZnJ6v01T4NLkluY0ej/idjoydIsF+CoKMQY7LarGmXLN/7EAFDuq
+	 +RltfzE0MhA4Upoyzmqky7cIXQ/eb+ByKKWgNkwk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23E86F803D5;
-	Wed, 24 Jul 2019 11:38:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C268F803D5;
+	Wed, 24 Jul 2019 12:13:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4BACF803D7; Wed, 24 Jul 2019 11:38:53 +0200 (CEST)
+ id B1C5AF803D6; Wed, 24 Jul 2019 12:13:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bastet.se.axis.com (bastet.se.axis.com [195.60.68.11])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 760BCF800E8
- for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 11:38:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 760BCF800E8
-Received: from localhost (localhost [127.0.0.1])
- by bastet.se.axis.com (Postfix) with ESMTP id 5805318521;
- Wed, 24 Jul 2019 11:38:50 +0200 (CEST)
-X-Axis-User: NO
-X-Axis-NonUser: YES
-X-Virus-Scanned: Debian amavisd-new at bastet.se.axis.com
-Received: from bastet.se.axis.com ([IPv6:::ffff:127.0.0.1])
- by localhost (bastet.se.axis.com [::ffff:127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id b75yz--fjsbb; Wed, 24 Jul 2019 11:38:49 +0200 (CEST)
-Received: from boulder02.se.axis.com (boulder02.se.axis.com [10.0.8.16])
- by bastet.se.axis.com (Postfix) with ESMTPS id 9FCF41851A;
- Wed, 24 Jul 2019 11:38:49 +0200 (CEST)
-Received: from boulder02.se.axis.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8D46E1A070;
- Wed, 24 Jul 2019 11:38:49 +0200 (CEST)
-Received: from boulder02.se.axis.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 81CF41A06D;
- Wed, 24 Jul 2019 11:38:49 +0200 (CEST)
-Received: from thoth.se.axis.com (unknown [10.0.2.173])
- by boulder02.se.axis.com (Postfix) with ESMTP;
- Wed, 24 Jul 2019 11:38:49 +0200 (CEST)
-Received: from XBOX03.axis.com (xbox03.axis.com [10.0.5.17])
- by thoth.se.axis.com (Postfix) with ESMTP id 75D8E3092;
- Wed, 24 Jul 2019 11:38:49 +0200 (CEST)
-Received: from lnxricardw1.se.axis.com (10.0.5.60) by XBOX03.axis.com
- (10.0.5.17) with Microsoft SMTP Server (TLS) id 15.0.1365.1; Wed, 24 Jul 2019
- 11:38:49 +0200
-Date: Wed, 24 Jul 2019 11:38:44 +0200
-From: Ricard Wanderlof <ricard.wanderlof@axis.com>
-X-X-Sender: ricardw@lnxricardw1.se.axis.com
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Message-ID: <alpine.DEB.2.20.1907241132350.6338@lnxricardw1.se.axis.com>
-User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48EC0F80368;
+ Wed, 24 Jul 2019 12:13:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48EC0F80368
+Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
+ by smtp1.de.adit-jv.com (Postfix) with ESMTP id C4AB23C0585;
+ Wed, 24 Jul 2019 12:13:12 +0200 (CEST)
+Received: from smtp1.de.adit-jv.com ([127.0.0.1])
+ by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id gsCj6Is2AJLq; Wed, 24 Jul 2019 12:13:06 +0200 (CEST)
+Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp1.de.adit-jv.com (Postfix) with ESMTPS id AF2963C0076;
+ Wed, 24 Jul 2019 12:13:06 +0200 (CEST)
+Received: from vmlxhi-082.adit-jv.com (10.72.93.164) by HI2EXCH01.adit-jv.com
+ (10.72.92.24) with Microsoft SMTP Server (TLS) id 14.3.439.0;
+ Wed, 24 Jul 2019 12:13:06 +0200
+From: Adam Miartus <amiartus@de.adit-jv.com>
+To: <patch@alsa-project.org>
+Date: Wed, 24 Jul 2019 12:12:58 +0200
+Message-ID: <1563963180-416-1-git-send-email-amiartus@de.adit-jv.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: XBOX02.axis.com (10.0.5.16) To XBOX03.axis.com (10.0.5.17)
-X-TM-AS-GCONF: 00
-Cc: alsa-devel <alsa-devel@alsa-project.org>
-Subject: [alsa-devel] [PATCH] ASoC: Fail card instantiation if DAI format
-	setup fails
+X-Originating-IP: [10.72.93.164]
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 0/2 v2] Open Alsa dshare without channel binding
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,61 +75,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The general idea of this patch is to be able to open the device without
+defined bindings. As a result, it allows starting the audio clock of
+underlying device without blocking a channel.
 
-If the DAI format setup fails, there is no valid communication format
-between CPU and CODEC, so fail card instantiation, rather than continue
-with a card that will most likely not function properly.
+This might be useful for creating a dummy dsnoop pcm for hardware that
+requires running clock early at system start. This clock is then present
+even without application streaming audio data.
 
-Signed-off-by: Ricard Wanderlof <ricardw@axis.com>
----
+Patch n.1 is intended to check for null pointer of pcm callbacks,
+it is not intended to alter any current functionality, properly defined
+plugins should not suffer from this change
 
-I've had the problem of a sound card coming up even though an incorrect 
-DAI format was selected in the devicetree, apparently caused by not 
-checking the return value of snd_soc_runtime_set_dai_fmt() when the card 
-is instantiated, with the result in this particular case that that the 
-audio data was not transferred correctly (capture data was shifted one bit 
-up).
+Patch n.2 is not intended to alter any current functionality, only
+extend it
 
-I'm unsure though if this is intentional, I can't think why it should be, 
-since the DAI format is only set up at this time and not for instance 
-later when a stream is enabled, but perhaps I'm missing something here.
+V2 of the patch, changes from V1:
+  - instead of creating new "pcm_unsupported.c" with ops and fast_ops
+    callbacks returning -ENOSYS, callback == NULL is checked directly
+    in core implementation and error is returned when pcm has no
+    callback defined
 
-At any rate, with this patch, the card does not come up under these 
-circumstances. The error message from snd_soc_runtime_set_dai_fmt() is 
-still printed to the kernel log so it's possible to see what the reason 
-is.
+Adam Miartus (2):
+  alsa: pcm: return -ENOSYS when ops or fast_ops callback is NULL
+  alsa: dshare: allow missing bindings
 
-/Ricard
-
- sound/soc/soc-core.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 7ecfe641ca46..06697b2d96b1 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1511,8 +1511,11 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
- 		}
- 	}
- 
--	if (dai_link->dai_fmt)
--		snd_soc_runtime_set_dai_fmt(rtd, dai_link->dai_fmt);
-+	if (dai_link->dai_fmt) {
-+		ret = snd_soc_runtime_set_dai_fmt(rtd, dai_link->dai_fmt);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = soc_post_component_init(rtd, dai_link->name);
- 	if (ret)
--- 
-2.11.0
-
+ src/pcm/pcm.c        | 134 +++++++++++++++++++++++++++++++++++++++++----------
+ src/pcm/pcm_dshare.c |  29 ++++++-----
+ src/pcm/pcm_local.h  |  20 ++++++++
+ src/pcm/pcm_mmap.c   |  15 ++++--
+ src/pcm/pcm_params.c |  10 +++-
+ 5 files changed, 166 insertions(+), 42 deletions(-)
 
 -- 
-Ricard Wolf Wanderlof                           ricardw(at)axis.com
-Axis Communications AB, Lund, Sweden            www.axis.com
-Phone +46 46 272 2016                           Fax +46 46 13 61 30
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

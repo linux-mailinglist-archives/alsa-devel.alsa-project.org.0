@@ -2,93 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AA0733F1
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 18:30:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 663607343B
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 18:52:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FAB018F2;
-	Wed, 24 Jul 2019 18:29:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FAB018F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD50E1A93;
+	Wed, 24 Jul 2019 18:51:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD50E1A93
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563985807;
-	bh=7Z7PBfXoE52kQEHvTGNxzOFAZzeo5A/uMiYGV1b4Vq0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1563987148;
+	bh=9bBqdNCGl/NFZV/FUg1Yurw/f7J0iYeQwO+lptBPDGk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XiSTDK92GVq+qKehKpZjWePSJe9q9lHVGtxC3CBVaZuWhQT/UenIs1LKZehevuNmy
-	 O8PvX4gn10DcYAXhhBrcxIBqGpuV6SSVtu613P+r/kbXS1lJkpsA0y4wCHphn6jZ0t
-	 dkLL4wubZAzJ1zBCltvlgHvEcQPJThC8A8XNkBT8=
+	b=G3xWoSwchiS/uG6OC/k1TsOyTLrxCOMJNBloIRSfxz6pbJ3qJIj5c7dtcECoSPvE7
+	 2LzkRuTufxaGcLTNDFocsWHqmxlUg9hYHjYF7OE9Tr1gmxWnJnUhy1oeWO+NRIdy8M
+	 AhOl2MKe4oXfNrFD5tol5+LSEBvpQNCSDXkUI2No=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2816EF805A1;
-	Wed, 24 Jul 2019 18:24:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E75FF80368;
+	Wed, 24 Jul 2019 18:50:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93FE3F8049A; Wed, 24 Jul 2019 18:24:22 +0200 (CEST)
+ id 8D3C5F803D1; Wed, 24 Jul 2019 18:50:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCFB8F804A9
- for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 18:24:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCFB8F804A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B75FF800E3
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 18:50:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B75FF800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="tU0u8Kzo"
-Received: by mail-wr1-x444.google.com with SMTP id z1so47622729wru.13
- for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 09:24:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=UJ9KDGBOl8aIUqKuxRToZa5/dKJVoJYKCqFTu5LeV1A=;
- b=tU0u8Kzo4EqYFk+S/PB7XaSJUsAodzLIXYMpL2tWf18qebqFw73F789ZMYL9or9SsK
- dqKPqCfMrQm/8qtBnymmETaftmj2gXdDTqbZeXG94Gcn5Fb8vfeZiMuiL+siIEU4EZO/
- chX0PSxfTCfqr/6ho4HEP9cQJ2OvcSntdppRHBL7xpC02MhR5YZN537v2LeeBKtn3aS6
- B5HCEKhe4Bsa/xsFrKapjdoaJaoSFK7pS35WXAQ5rGtDx/6F5GLO3/LdkR2T/9mTXY2o
- RR5rolvIqI94A16zqWHC8eg7NqWQBgxATiaOGRqNE18Pf+VU9hDDWW9yyNX5nK4rWcRh
- S24Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=UJ9KDGBOl8aIUqKuxRToZa5/dKJVoJYKCqFTu5LeV1A=;
- b=oKdhoovSG/2Mr0lhNluAz0kjZkOw3ENvghFHDzqC6DEdUKZD2XUY7AqOtDDlw7D/Ql
- T7ewGN4QMmZjf3wH+lfMsnUWfA3k6hen87k2cRl+ROsKfv6tH6ENbBOOim/uoACTSQ9u
- Ork55ULh4ihNdUG6L4V7Yon3Q+2A2CxkKmb7YVYm2M3IwUDDdPehL6gTdsbWx0zQzFZp
- oHzK9iUwo9t/cXKjqrqpXZLekS5atCzivypQQ7ivQOWOpLKA6rZo8LV3IQLKpCksyP1H
- 9XmCvxMrh7ZKQc9xRptv4g5QQ5ZDBpm0oZ+/8mNNxhDTJZH/YvIvsmEHS5dXbN9Z0FIA
- crzA==
-X-Gm-Message-State: APjAAAVXLOXinFHWhgXuFOgI8BkWTZI5jwSDpxQJCo1t0KEL+CP5ApuG
- Fyrp1IiRQJvNCRQDKJWbBZyhDnK21gs=
-X-Google-Smtp-Source: APXvYqzsz5R+uA08ZspQl/NwiF9hq2F7Y6DPHaohqRpu1K0XA0Ds+ppWxCNxwgiM91KqJEfr0XmU8A==
-X-Received: by 2002:adf:da4d:: with SMTP id r13mr57578825wrl.281.1563985455657; 
- Wed, 24 Jul 2019 09:24:15 -0700 (PDT)
-Received: from starbuck.baylibre.local
- (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id f70sm55688960wme.22.2019.07.24.09.24.14
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Wed, 24 Jul 2019 09:24:15 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Kevin Hilman <khilman@baylibre.com>
-Date: Wed, 24 Jul 2019 18:24:05 +0200
-Message-Id: <20190724162405.6574-7-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190724162405.6574-1-jbrunet@baylibre.com>
-References: <20190724162405.6574-1-jbrunet@baylibre.com>
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="aDJlGutE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=5yLBkc1wRexrEkgLKwvnQpWRDNe7rLbSmbRGB6nZv30=; b=aDJlGutEBsNWoIjlpE6ZEBjAb
+ yvif8uPRUzQPDD3qm9IB2vJz8gN8LiXmosueii85D06+4lKJCbyyf7hvz14dl3oBg/WDVKEOmeuI9
+ skKQrA7jQyrh2U1PHMBcfrlI88ZJp+aU+iS5kA6yEbeXrKhhG172kwa7e3cgrky6chSsk=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hqKTJ-0008Ab-9F; Wed, 24 Jul 2019 16:50:33 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 1EB0E2742B5D; Wed, 24 Jul 2019 17:50:32 +0100 (BST)
+Date: Wed, 24 Jul 2019 17:50:32 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190724165032.GB4524@sirena.org.uk>
+References: <20190723145854.8527-1-cezary.rojewski@intel.com>
+ <20190723154449.GJ5365@sirena.org.uk>
+ <cac0d84e-61d3-5379-cbce-10f8d637310d@linux.intel.com>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH 6/6] ASoC: codec2codec: fill some of the
-	runtime stream parameters
+In-Reply-To: <cac0d84e-61d3-5379-cbce-10f8d637310d@linux.intel.com>
+X-Cookie: Matrimony is the root of all evil.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.com
+Subject: Re: [alsa-devel] [RESEND PATCH v2 0/7] ASoC: Intel: Skylake: Driver
+ fundaments overhaul
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,39 +84,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2162554400612889834=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Set the information provided struct snd_soc_pcm_stream in the
-struct snd_pcm_runtime of the codec to codec link.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- sound/soc/soc-dapm.c | 5 +++++
- 1 file changed, 5 insertions(+)
+--===============2162554400612889834==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="61jdw2sOBCFtR2d/"
+Content-Disposition: inline
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index e0eedff5fe94..a6bc3eda275d 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3892,6 +3892,11 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 			dapm_update_dai_unlocked(substream, &params, sink);
- 		}
- 
-+		runtime->format = params_format(&params);
-+		runtime->subformat = params_subformat(&params);
-+		runtime->channels = params_channels(&params);
-+		runtime->rate = params_rate(&params);
-+
- 		break;
- 
- 	case SND_SOC_DAPM_POST_PMU:
--- 
-2.21.0
+
+--61jdw2sOBCFtR2d/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Jul 23, 2019 at 01:07:31PM -0500, Pierre-Louis Bossart wrote:
+
+> Overall my recommendations would be to:
+> - give Cezary's team the benefit of the doubt for their Skylake reworks, and
+> add him as mandatory reviewer for the skylake parts. That doesn't mean
+> merging blindly but recognizing that no one else at Intel has a better
+> understanding of this code.
+
+This seems like a good idea, Cezary could you send a patch adding
+yourself to MAINTAINERS please?
+
+> - draw the line at "no new features" after e.g. 5.5 and "no new platforms
+> when SOF provides a solution". SOF was expected to reach feature parity by
+> the end of 2019 so it's not a random date I just made up.
+
+Let's review that nearer the time?  I don't want to impose a deadline in
+advance and have people needlessly rushing to hit that deadline when
+things might wind down themselves naturally.
+
+--61jdw2sOBCFtR2d/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl04jFcACgkQJNaLcl1U
+h9AQhwf/YeiSNmz8/Pok2f0VH9Pzu8YoGxTj/LTegQwAIr6zYvTxy7a8p3xGKjT1
+eU/p/uIK2OATqVUMQQvDFdUiiMaN5/j2Arfid1jeOJVwVmhP4N4420J0adkFWdLd
+OHX8ObPVQGXFttbEz2fk/FmD14N61qxY8wcUUf9zQfbz5a+9iQINe3QFjAdly8NP
+QBkgiE4rqmsxOd/JLrU/GNApjkDG1YZzaKXdXVX4zRYvhMFLhWCZRljfvlPuyn5u
+D0cFzmlW2gRjDspaocTFWzMz5N03vAOXff6cdA05bUKdvJnDAjhJCot0NEe6RtLm
+uvU4Szdw2NYWjrzTPzz4qEVrYiRgWQ==
+=Oz1G
+-----END PGP SIGNATURE-----
+
+--61jdw2sOBCFtR2d/--
+
+--===============2162554400612889834==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2162554400612889834==--

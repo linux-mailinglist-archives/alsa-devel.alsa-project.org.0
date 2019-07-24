@@ -2,92 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC6672871
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 08:44:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97A49728D7
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 09:10:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DFE40191D;
-	Wed, 24 Jul 2019 08:43:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFE40191D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 02DF0192F;
+	Wed, 24 Jul 2019 09:09:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 02DF0192F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563950678;
-	bh=I0cT5enm5L4mcLHXrLfFP2ma+nqhaqDa9msy8gANc/s=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1563952218;
+	bh=R7+FpRN5+vkF76M8JraZDULjAfnqOsxYJjBXw0MsypA=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=shtmQhPveyIrFnWZWscDbD6Vb7GublZiugVg8g1IxWk1EAPOd3F1pFhN29pS56gzD
-	 tzTYd40uxcnqieKrqwGPaMYQ9cTQ6F/7Z4r0iiKLegvNEgEnhcNq8jRqVzSLGwHQkG
-	 fWePqMH5vyF1afv3SEZWhO8cQ+BIC+h9LqCZrI9E=
+	b=WksAE5tZaQjUE5FBjLOJh1o4fOD4gFXTb03aUbRmzyj+f7SJ8BexredPghAooXXAH
+	 RkpFj4Fylg8W63DhGJ+PYOzo8FOunvdKa80zEmayT93IU+8eQnhm+oqPbE6/WbAet5
+	 KFncEJA6Q9WEPBpHRzqquRmSs8KTL0j3KgvUM3bE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7602EF800E3;
-	Wed, 24 Jul 2019 08:42:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38E2AF80368;
+	Wed, 24 Jul 2019 09:08:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 16C04F803D1; Wed, 24 Jul 2019 08:42:48 +0200 (CEST)
+ id 9EB93F803D1; Wed, 24 Jul 2019 09:08:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E97F2F800E3
- for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 08:42:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E97F2F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DWt/IW5i"
-Received: by mail-wm1-x343.google.com with SMTP id p74so40622802wme.4
- for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 23:42:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=yhhTks9k7nEzj+aqUPzjcgfPfrYu7EH2vLu4ISBiDtk=;
- b=DWt/IW5iTiJuFdKySxXe/u8ZM2xivsOCZIeSJPaLQseWNAb2LGlkoIeWzw4rDAztHh
- lGWzWEf5e3Xetp9zUbH80REkydjclSSLXwv5fn9dKednX+X44gs0TBvY0T4bWC2R22hZ
- rc0GxARNjAv5hZB/Xw898dmY091/0pot9hn9hMaGHeeAZNELSzvJLTuhNdblrjv25ZZ1
- /nRgFF2G7a5lm3FuKTwDZjFnFHi/6GAK2lqF0hhXJ0dUl9vCY/t3GMgYCH7PigSbAJ4h
- QxW9esCoWqGFKlASOpemnAmG90MTPBdhAIGa6VYbAlL0OuUTC87dmwXOUcbYFdmmmrw6
- DxJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=yhhTks9k7nEzj+aqUPzjcgfPfrYu7EH2vLu4ISBiDtk=;
- b=GGoWdMo21HX0JcA39a4u+Gj4mrUD4KCifTwHDUBSBa4vfYXN7/XvmGGxprpLzPZza5
- 4GtAhdHEcQUjw3S58jt48VNMcoXNURod/vfJl1JAitv5J2YTLzXiF7Ne8H1c7yiPPOr/
- x4voBJJLboUjs3ie0Hhzj/23anjU/+3cwybNxIdzVEHw6sKuEkserC0fyVHwG7yt6KVb
- lnSQdl9Ym6F+YugDDoXn74agySqz87p+0KDv0colbdMB6Ma51cLQZqNh06e2GThxbYRI
- kKmkhssygS49n6LKwLAJFvx89/n5iU1snUKRAsjoJjsjEFwpoZ8wKbAaqpOxLA0pDjAT
- gaYA==
-X-Gm-Message-State: APjAAAXWdlRIig8JFK7HXd+GDfauyzRoZpRItsN9oDcg6qBMspQimGQY
- +5rKyfbYrqJ5tE6v1ajPPQk8WMWypiKt1fkq4qw=
-X-Google-Smtp-Source: APXvYqwdVUJE/2oWoyFAfBzcKEi4mRXrXogdySO7cGxwUbUTLuzL6gabc5kqGwLm/BmR7O6IXFq3v2LF0AqX/kj3+dg=
-X-Received: by 2002:a7b:c051:: with SMTP id u17mr71032749wmc.25.1563950564848; 
- Tue, 23 Jul 2019 23:42:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190722124833.28757-1-daniel.baluta@nxp.com>
- <20190722124833.28757-2-daniel.baluta@nxp.com>
- <20190723170035.GO5365@sirena.org.uk>
-In-Reply-To: <20190723170035.GO5365@sirena.org.uk>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 24 Jul 2019 09:42:33 +0300
-Message-ID: <CAEnQRZC_mNnwYkpdiX2d_ccT_L-hivWdxQTMEUojjDWv+NCiQg@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Fabio Estevam <festevam@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- "S.j. Wang" <shengjiu.wang@nxp.com>,
- "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, dl-linux-imx <linux-imx@nxp.com>,
- Viorel Suman <viorel.suman@nxp.com>, linuxppc-dev@lists.ozlabs.org,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH 01/10] ASoC: fsl_sai: add of_match data
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABC13F800E8
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 09:08:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABC13F800E8
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 1D58BAD05;
+ Wed, 24 Jul 2019 07:08:27 +0000 (UTC)
+Date: Wed, 24 Jul 2019 09:08:26 +0200
+Message-ID: <s5hd0hzvrit.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Eric Biggers" <ebiggers@kernel.org>
+In-Reply-To: <20190724024723.GI643@sol.localdomain>
+References: <20190724024723.GI643@sol.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ syzkaller-bugs@googlegroups.com, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] Reminder: 1 open syzbot bug in sound subsystem
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,24 +70,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jul 23, 2019 at 8:01 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Mon, Jul 22, 2019 at 03:48:24PM +0300, Daniel Baluta wrote:
-> > From: Lucas Stach <l.stach@pengutronix.de>
-> >
-> > New revisions of the SAI IP block have even more differences that need
-> > be taken into account by the driver. To avoid sprinking compatible
-> > checks all over the driver move the current differences into of_match_data.
-> >
-> > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
-> > ---
-> >  sound/soc/fsl/fsl_sai.c | 22 ++++++++++++++--------
->
-> You need to supply your own signoff if you're sending someone else's
-> patch - see submitting-patches.rst for details on what signoffs mean and
-> why they're required.
+On Wed, 24 Jul 2019 04:47:23 +0200,
+Eric Biggers wrote:
+> 
+> [This email was generated by a script.  Let me know if you have any suggestions
+> to make it better, or if you want it re-generated with the latest status.]
+> 
+> Of the currently open syzbot reports against the upstream kernel, I've manually
+> marked 1 of them as possibly being a bug in the sound subsystem.
+> 
+> If you believe this bug is no longer valid, please close the syzbot report by
+> sending a '#syz fix', '#syz dup', or '#syz invalid' command in reply to the
+> original thread, as explained at https://goo.gl/tpsmEJ#status
+> 
+> If you believe I misattributed this bug to the sound subsystem, please let me
+> know, and if possible forward the report to the correct people or mailing list.
+> 
+> Here is the bug:
+> 
+> --------------------------------------------------------------------------------
+> Title:              KASAN: use-after-free Read in wake_up_if_idle
+> Last occurred:      131 days ago
+> Reported:           267 days ago
+> Branches:           Mainline and others
+> Dashboard link:     https://syzkaller.appspot.com/bug?id=b1e300cd7b124fc83dd4199d4d1df26310111b0f
+> Original thread:    https://lkml.kernel.org/lkml/00000000000066ab7105795f245e@google.com/T/#u
 
-Ack. Sorry for missing this.
+This one doesn't look like a bug that is directly related with the
+sound stuff.  Although it was triggered from a sound ioctl, UAF is
+seen rather in a notifier chain of other component.
+
+
+thanks,
+
+Takashi
+
+> 
+> Unfortunately, this bug does not have a reproducer.
+> 
+> No one replied to the original thread for this bug.
+> 
+> If you fix this bug, please add the following tag to the commit:
+>     Reported-by: syzbot+2c1253bc508adef78a7f@syzkaller.appspotmail.com
+> 
+> If you send any email or patch for this bug, please consider replying to the
+> original thread.  For the git send-email command to use, or tips on how to reply
+> if the thread isn't in your mailbox, see the "Reply instructions" at
+> https://lkml.kernel.org/r/00000000000066ab7105795f245e@google.com
+> 
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

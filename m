@@ -2,58 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77ADF727B9
-	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 08:03:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC6672871
+	for <lists+alsa-devel@lfdr.de>; Wed, 24 Jul 2019 08:44:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5BF51935;
-	Wed, 24 Jul 2019 08:02:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5BF51935
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFE40191D;
+	Wed, 24 Jul 2019 08:43:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFE40191D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1563948188;
-	bh=wMgkUVmEeD83D1/DjHd5+FSpLvVV1o6zw5HiTPOKIbo=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=g8RO5M7037IBp6wQFUlNbgxmcr4GWyV2WR+3zkTVqdPE2wSfcVs1vpW/Lk6Q36wHO
-	 nOxvBHqqZ64u4LosubUygIpdsyom+By9dXI+UdFw4IuJARvtR1G5wg+YLUvmCAu7V3
-	 BWqxr55qmo9VMxN7tEWL971Li/GCPRHR7sfrepXY=
+	s=default; t=1563950678;
+	bh=I0cT5enm5L4mcLHXrLfFP2ma+nqhaqDa9msy8gANc/s=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=shtmQhPveyIrFnWZWscDbD6Vb7GublZiugVg8g1IxWk1EAPOd3F1pFhN29pS56gzD
+	 tzTYd40uxcnqieKrqwGPaMYQ9cTQ6F/7Z4r0iiKLegvNEgEnhcNq8jRqVzSLGwHQkG
+	 fWePqMH5vyF1afv3SEZWhO8cQ+BIC+h9LqCZrI9E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5287FF803D6;
-	Wed, 24 Jul 2019 08:01:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7602EF800E3;
+	Wed, 24 Jul 2019 08:42:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A1CDF803D1; Wed, 24 Jul 2019 08:01:20 +0200 (CEST)
+ id 16C04F803D1; Wed, 24 Jul 2019 08:42:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp05.smtpout.orange.fr
- [80.12.242.127])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD349F8026F
- for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 08:01:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD349F8026F
-Received: from localhost.localdomain ([92.140.204.221]) by mwinf5d09 with ME
- id gW1F2000A4n7eLC03W1Gqa; Wed, 24 Jul 2019 08:01:17 +0200
-X-ME-Helo: localhost.localdomain
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Wed, 24 Jul 2019 08:01:17 +0200
-X-ME-IP: 92.140.204.221
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: brian.austin@cirrus.com, Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com
-Date: Wed, 24 Jul 2019 08:00:23 +0200
-Message-Id: <20190724060023.31302-1-christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E97F2F800E3
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 08:42:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E97F2F800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="DWt/IW5i"
+Received: by mail-wm1-x343.google.com with SMTP id p74so40622802wme.4
+ for <alsa-devel@alsa-project.org>; Tue, 23 Jul 2019 23:42:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yhhTks9k7nEzj+aqUPzjcgfPfrYu7EH2vLu4ISBiDtk=;
+ b=DWt/IW5iTiJuFdKySxXe/u8ZM2xivsOCZIeSJPaLQseWNAb2LGlkoIeWzw4rDAztHh
+ lGWzWEf5e3Xetp9zUbH80REkydjclSSLXwv5fn9dKednX+X44gs0TBvY0T4bWC2R22hZ
+ rc0GxARNjAv5hZB/Xw898dmY091/0pot9hn9hMaGHeeAZNELSzvJLTuhNdblrjv25ZZ1
+ /nRgFF2G7a5lm3FuKTwDZjFnFHi/6GAK2lqF0hhXJ0dUl9vCY/t3GMgYCH7PigSbAJ4h
+ QxW9esCoWqGFKlASOpemnAmG90MTPBdhAIGa6VYbAlL0OuUTC87dmwXOUcbYFdmmmrw6
+ DxJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yhhTks9k7nEzj+aqUPzjcgfPfrYu7EH2vLu4ISBiDtk=;
+ b=GGoWdMo21HX0JcA39a4u+Gj4mrUD4KCifTwHDUBSBa4vfYXN7/XvmGGxprpLzPZza5
+ 4GtAhdHEcQUjw3S58jt48VNMcoXNURod/vfJl1JAitv5J2YTLzXiF7Ne8H1c7yiPPOr/
+ x4voBJJLboUjs3ie0Hhzj/23anjU/+3cwybNxIdzVEHw6sKuEkserC0fyVHwG7yt6KVb
+ lnSQdl9Ym6F+YugDDoXn74agySqz87p+0KDv0colbdMB6Ma51cLQZqNh06e2GThxbYRI
+ kKmkhssygS49n6LKwLAJFvx89/n5iU1snUKRAsjoJjsjEFwpoZ8wKbAaqpOxLA0pDjAT
+ gaYA==
+X-Gm-Message-State: APjAAAXWdlRIig8JFK7HXd+GDfauyzRoZpRItsN9oDcg6qBMspQimGQY
+ +5rKyfbYrqJ5tE6v1ajPPQk8WMWypiKt1fkq4qw=
+X-Google-Smtp-Source: APXvYqwdVUJE/2oWoyFAfBzcKEi4mRXrXogdySO7cGxwUbUTLuzL6gabc5kqGwLm/BmR7O6IXFq3v2LF0AqX/kj3+dg=
+X-Received: by 2002:a7b:c051:: with SMTP id u17mr71032749wmc.25.1563950564848; 
+ Tue, 23 Jul 2019 23:42:44 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: cs4271: Fix a typo in the
-	CS4171_NR_RATIOS
+References: <20190722124833.28757-1-daniel.baluta@nxp.com>
+ <20190722124833.28757-2-daniel.baluta@nxp.com>
+ <20190723170035.GO5365@sirena.org.uk>
+In-Reply-To: <20190723170035.GO5365@sirena.org.uk>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Wed, 24 Jul 2019 09:42:33 +0300
+Message-ID: <CAEnQRZC_mNnwYkpdiX2d_ccT_L-hivWdxQTMEUojjDWv+NCiQg@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, dl-linux-imx <linux-imx@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>, linuxppc-dev@lists.ozlabs.org,
+ Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [alsa-devel] [PATCH 01/10] ASoC: fsl_sai: add of_match data
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,46 +105,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This should be CS4271_NR_RATIOS.
-Fix it and use it.
+On Tue, Jul 23, 2019 at 8:01 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Mon, Jul 22, 2019 at 03:48:24PM +0300, Daniel Baluta wrote:
+> > From: Lucas Stach <l.stach@pengutronix.de>
+> >
+> > New revisions of the SAI IP block have even more differences that need
+> > be taken into account by the driver. To avoid sprinking compatible
+> > checks all over the driver move the current differences into of_match_data.
+> >
+> > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+> > ---
+> >  sound/soc/fsl/fsl_sai.c | 22 ++++++++++++++--------
+>
+> You need to supply your own signoff if you're sending someone else's
+> patch - see submitting-patches.rst for details on what signoffs mean and
+> why they're required.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- sound/soc/codecs/cs4271.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/codecs/cs4271.c b/sound/soc/codecs/cs4271.c
-index 1d03a1348162..04b86a51e055 100644
---- a/sound/soc/codecs/cs4271.c
-+++ b/sound/soc/codecs/cs4271.c
-@@ -334,7 +334,7 @@ static struct cs4271_clk_cfg cs4271_clk_tab[] = {
- 	{0, CS4271_MODE1_MODE_4X, 256,  CS4271_MODE1_DIV_2},
- };
- 
--#define CS4171_NR_RATIOS ARRAY_SIZE(cs4271_clk_tab)
-+#define CS4271_NR_RATIOS ARRAY_SIZE(cs4271_clk_tab)
- 
- static int cs4271_hw_params(struct snd_pcm_substream *substream,
- 			    struct snd_pcm_hw_params *params,
-@@ -383,13 +383,13 @@ static int cs4271_hw_params(struct snd_pcm_substream *substream,
- 		val = CS4271_MODE1_MODE_4X;
- 
- 	ratio = cs4271->mclk / cs4271->rate;
--	for (i = 0; i < CS4171_NR_RATIOS; i++)
-+	for (i = 0; i < CS4271_NR_RATIOS; i++)
- 		if ((cs4271_clk_tab[i].master == cs4271->master) &&
- 		    (cs4271_clk_tab[i].speed_mode == val) &&
- 		    (cs4271_clk_tab[i].ratio == ratio))
- 			break;
- 
--	if (i == CS4171_NR_RATIOS) {
-+	if (i == CS4271_NR_RATIOS) {
- 		dev_err(component->dev, "Invalid sample rate\n");
- 		return -EINVAL;
- 	}
--- 
-2.20.1
-
+Ack. Sorry for missing this.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

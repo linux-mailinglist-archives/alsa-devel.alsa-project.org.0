@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4630A74946
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 10:42:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C636574947
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 10:43:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD6061AC7;
-	Thu, 25 Jul 2019 10:41:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6061AC7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DB6A1ACF;
+	Thu, 25 Jul 2019 10:42:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DB6A1ACF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564044166;
-	bh=HFwmm8av1tjiOXbAJJdRbTcSCfbZLKkq2KdQwRP7MK4=;
+	s=default; t=1564044212;
+	bh=QSBZb0Z1JD5BlmlTYwRmnnr4E9kYsRykE0pzSQLqah0=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JZkzjRB0G/xg+mv3h+tUPYWr/cvUTaJxb/oqA4lUfimLVYC0uidAbkLI3+byxpU5T
-	 DropuE7hhmUr/Z9PGZ1rkdLgWeFLooMrKvz16w1TKbnt6Ixt4osYvUsvSQif14VboN
-	 pWrtZpj71TzJjYlkPkoCKaGvIL8Lh21Pm29aDt/U=
+	b=A6vQSA/3XzQF7IbW7ZiBqGlCX1+i+e5K2FMNXCdQMUApMPmgZU4ReI43Lx8dEAIM0
+	 GgifElu3ha38vLWPCDpC+bga2Lr2W8lxLFu8fVYWkeeXybP8glINKwO3nSE37ltBS/
+	 zdnZUxJTUt2l7qbRKOmZKgOO2HnmvjZ7TMe/iJuo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3F95F8044A;
-	Thu, 25 Jul 2019 10:40:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0736FF8045F;
+	Thu, 25 Jul 2019 10:41:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0758F8044B; Thu, 25 Jul 2019 10:40:39 +0200 (CEST)
+ id EB700F80481; Thu, 25 Jul 2019 10:41:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -34,20 +34,20 @@ Received: from Galois.linutronix.de (galois.linutronix.de
  [IPv6:2a0a:51c0:0:12e:550::1])
  (using TLSv1.2 with cipher DHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A611F80448
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 10:40:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A611F80448
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D7AEF8045F
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 10:41:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D7AEF8045F
 Received: from pd9ef1cb8.dip0.t-ipconnect.de ([217.239.28.184] helo=nanos)
  by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA256:256)
  (Exim 4.80) (envelope-from <tglx@linutronix.de>)
- id 1hqZIg-0001Hd-SH; Thu, 25 Jul 2019 10:40:34 +0200
-Date: Thu, 25 Jul 2019 10:40:34 +0200 (CEST)
+ id 1hqZJ7-0001IK-75; Thu, 25 Jul 2019 10:41:01 +0200
+Date: Thu, 25 Jul 2019 10:41:00 +0200 (CEST)
 From: Thomas Gleixner <tglx@linutronix.de>
 To: Masahiro Yamada <yamada.masahiro@socionext.com>
-In-Reply-To: <20190725075833.3481-2-yamada.masahiro@socionext.com>
-Message-ID: <alpine.DEB.2.21.1907251040100.1791@nanos.tec.linutronix.de>
+In-Reply-To: <20190725075833.3481-3-yamada.masahiro@socionext.com>
+Message-ID: <alpine.DEB.2.21.1907251040380.1791@nanos.tec.linutronix.de>
 References: <20190725075833.3481-1-yamada.masahiro@socionext.com>
- <20190725075833.3481-2-yamada.masahiro@socionext.com>
+ <20190725075833.3481-3-yamada.masahiro@socionext.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 X-Linutronix-Spam-Score: -1.0
@@ -56,8 +56,7 @@ X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
  SHORTCIRCUIT=-0.0001
 Cc: linux-spdx@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>
-Subject: Re: [alsa-devel] [PATCH v2 2/3] treewide: remove SPDX "WITH
- Linux-syscall-note" from kernel-space headers again
+Subject: Re: [alsa-devel] [PATCH v2 3/3] iomap: fix Invalid License ID
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,28 +76,12 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Thu, 25 Jul 2019, Masahiro Yamada wrote:
 
-> The "WITH Linux-syscall-note" exception exists for headers exported to
-> user space. It is strange to add it to non-exported headers.
+> Detected by:
 > 
-> Commit 687a3e4d8e61 ("treewide: remove SPDX "WITH Linux-syscall-note"
-> from kernel-space headers") did cleanups some months ago, but it looks
-> like we need to do this periodically.
+>   $ ./scripts/spdxcheck.py
+>   fs/iomap/Makefile: 1:27 Invalid License ID: GPL-2.0-or-newer
 > 
-> This patch was generated by the following script:
-> 
->   git grep -l -e Linux-syscall-note \
->     -- :*.h :^arch/*/include/uapi/asm/*.h :^include/uapi/ :^tools |
->   while read file
->   do
->           sed -i -e 's/(\(GPL-[^[:space:]]*\) WITH Linux-syscall-note)/\1/g' \
->           -e 's/ WITH Linux-syscall-note//g' $file
->   done
-> 
-> I did not commit drivers/staging/android/uapi/ion.h . This header is
-> not currently exported, but somebody may plan to move it to include/uapi/
-> when the time comes. I am not sure. Anyway, it will be better to check
-> the license inconsistency in drivers/staging/android/uapi/.
-> 
+> Fixes: 1c230208f53d ("iomap: start moving code to fs/iomap/")
 > Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
 
 Reviewed-by: Thomas Gleixner <tglx@linutronix.de>

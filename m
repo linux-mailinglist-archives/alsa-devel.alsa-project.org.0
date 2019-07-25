@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 750B7748A0
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 10:01:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 382E874899
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 10:00:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0253F1AC4;
-	Thu, 25 Jul 2019 10:00:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0253F1AC4
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4A7F1AB9;
+	Thu, 25 Jul 2019 09:59:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4A7F1AB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564041688;
-	bh=0aSo8LGJEGvmGT0EYxqZ7EDa06wWhFJc3vHMRDo4Aos=;
+	s=default; t=1564041643;
+	bh=nrYjUCIV5OvCGUeYCtZscMqHMkemGlrJBGb/ZxhbhgE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IYp+aa2ybnPGoxTfF7u8GouDdT+QBr75syYEVK9A+fXlinkrOxwTy3BxNtuNOeppe
-	 YFzPALfEekACetn9abg4zBIYfK9PociX1jaOCDz47JUe7tG65KSXGPGzObWbfu7NZu
-	 Js5j3xgAR9g4eCfTPqr0GdaiVDhFXQwct/TLWe0o=
+	b=Kw7VxB2AteSkxPO3mrYQvykMXHa5qNOSK60zTVzEHlSgesVRCWBOtKnwfHrhzRuE9
+	 jZDcyPAYhewaDQfwLmCrpOtUfu8vAO7Lst10MonyeQmPdgE0737G0oMWYlUkLBwbI8
+	 ip4C6fzdAdrXSxSHbdTdK+XBroeqvhIalZ9aagFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E04B8F8044B;
-	Thu, 25 Jul 2019 09:58:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E494CF80392;
+	Thu, 25 Jul 2019 09:58:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3438F80392; Thu, 25 Jul 2019 09:58:57 +0200 (CEST)
+ id 01911F80448; Thu, 25 Jul 2019 09:58:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,40 +33,39 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from conuserg-12.nifty.com (conuserg-12.nifty.com [210.131.2.79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 10862F803D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 073F4F80392
  for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 09:58:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10862F803D0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 073F4F80392
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
- header.b="dIvRpJl2"
+ header.b="GlymzVHY"
 Received: from localhost.localdomain (p14092-ipngnfx01kyoto.kyoto.ocn.ne.jp
  [153.142.97.92]) (authenticated)
- by conuserg-12.nifty.com with ESMTP id x6P7wYi9029514;
+ by conuserg-12.nifty.com with ESMTP id x6P7wYiA029514;
  Thu, 25 Jul 2019 16:58:35 +0900
-DKIM-Filter: OpenDKIM Filter v2.10.3 conuserg-12.nifty.com x6P7wYi9029514
+DKIM-Filter: OpenDKIM Filter v2.10.3 conuserg-12.nifty.com x6P7wYiA029514
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
- s=dec2015msa; t=1564041515;
- bh=lIrW5vtmc7DwTZhq6UIbdwL3Vn2gApPP1gWH8+VwAuw=;
+ s=dec2015msa; t=1564041516;
+ bh=1v752PISwpeCj8Aze3ypEj8GmNP9DdapaFZfYxvN23U=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dIvRpJl2vulm1HaAfiZWmIigKCH0rBRPvUZYf9J2vEbeOQeqztF5JiRmz/r2Fr/Km
- YMJDsqzdyym8NCkk0U6w1HehJxXB6IDQqCcozOHgUIMO9CO8neMim+V36ayGSPxMh/
- y+subn8CPz16fJPSEHVvCycP3M2Fojp/DDToExMMtL1RWfAKYLevhwWtvvFdTNu/BO
- IQNbQ9u0pc3ASjUXS/FoDcLT4XPB7InGsP48bf8mQxguUFQY7zWEm3E+isZsiNf8Lb
- ojxp72IxlbzDauynxmpb9cZfXOY+xPvs34rYNiR/PRKZd1KixW32/XEbQHYmzYmFL0
- eYRLyXLbT6tvg==
+ b=GlymzVHYvuyGwQJuCUCEJrk+fjkK8HJCfV0vUWk2Wgn915j1qvTHsTI4VsuzdA/vP
+ 0Wm+rDvAnG3vKTrHlp8AmpGCIZK43dpof5CwlklRuTjfJhjUyuei7DoTGRY6kgWZ9K
+ 0WmImWu965GxnJaAtu2QENN7jAY0TADAa+9Rgf6Js4KCWjxOx1WA/ivpO6hNsHgsSt
+ /j3o4VxyX2FaDmr94JXVoF/NIk/bcTsAVIwbksiwbMuDAfO6D14rATGu49QlS/q4jW
+ 2YFQShesNpMXgy1B+/nrVbBhBrtlSI+20z30aQc/AHb/iYi0NxvXPzRDvpw8unTZ2u
+ ivunlwdIvtxMw==
 X-Nifty-SrcIP: [153.142.97.92]
 From: Masahiro Yamada <yamada.masahiro@socionext.com>
 To: linux-kernel@vger.kernel.org, linux-spdx@vger.kernel.org,
  Greg KH <gregkh@linuxfoundation.org>
-Date: Thu, 25 Jul 2019 16:58:32 +0900
-Message-Id: <20190725075833.3481-2-yamada.masahiro@socionext.com>
+Date: Thu, 25 Jul 2019 16:58:33 +0900
+Message-Id: <20190725075833.3481-3-yamada.masahiro@socionext.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190725075833.3481-1-yamada.masahiro@socionext.com>
 References: <20190725075833.3481-1-yamada.masahiro@socionext.com>
 Cc: Masahiro Yamada <yamada.masahiro@socionext.com>,
  Thomas Gleixner <tglx@linutronix.de>, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH v2 2/3] treewide: remove SPDX "WITH
-	Linux-syscall-note" from kernel-space headers again
+Subject: [alsa-devel] [PATCH v2 3/3] iomap: fix Invalid License ID
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,156 +84,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The "WITH Linux-syscall-note" exception exists for headers exported to
-user space. It is strange to add it to non-exported headers.
+Detected by:
 
-Commit 687a3e4d8e61 ("treewide: remove SPDX "WITH Linux-syscall-note"
-from kernel-space headers") did cleanups some months ago, but it looks
-like we need to do this periodically.
+  $ ./scripts/spdxcheck.py
+  fs/iomap/Makefile: 1:27 Invalid License ID: GPL-2.0-or-newer
 
-This patch was generated by the following script:
-
-  git grep -l -e Linux-syscall-note \
-    -- :*.h :^arch/*/include/uapi/asm/*.h :^include/uapi/ :^tools |
-  while read file
-  do
-          sed -i -e 's/(\(GPL-[^[:space:]]*\) WITH Linux-syscall-note)/\1/g' \
-          -e 's/ WITH Linux-syscall-note//g' $file
-  done
-
-I did not commit drivers/staging/android/uapi/ion.h . This header is
-not currently exported, but somebody may plan to move it to include/uapi/
-when the time comes. I am not sure. Anyway, it will be better to check
-the license inconsistency in drivers/staging/android/uapi/.
-
+Fixes: 1c230208f53d ("iomap: start moving code to fs/iomap/")
 Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
 ---
 
-Changes in v2: None
+Changes in v2:
+  - New patch
 
- include/sound/sof/control.h   | 2 +-
- include/sound/sof/dai-intel.h | 2 +-
- include/sound/sof/dai.h       | 2 +-
- include/sound/sof/header.h    | 2 +-
- include/sound/sof/info.h      | 2 +-
- include/sound/sof/pm.h        | 2 +-
- include/sound/sof/stream.h    | 2 +-
- include/sound/sof/topology.h  | 2 +-
- include/sound/sof/trace.h     | 2 +-
- include/sound/sof/xtensa.h    | 2 +-
- samples/vfio-mdev/mdpy-defs.h | 2 +-
- 11 files changed, 11 insertions(+), 11 deletions(-)
+ fs/iomap/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/sof/control.h b/include/sound/sof/control.h
-index bded69e696d4..6080ea0facd7 100644
---- a/include/sound/sof/control.h
-+++ b/include/sound/sof/control.h
+diff --git a/fs/iomap/Makefile b/fs/iomap/Makefile
+index 2d165388d952..93cd11938bf5 100644
+--- a/fs/iomap/Makefile
++++ b/fs/iomap/Makefile
 @@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/dai-intel.h b/include/sound/sof/dai-intel.h
-index 4bb8ee138ba7..65e4c20e567c 100644
---- a/include/sound/sof/dai-intel.h
-+++ b/include/sound/sof/dai-intel.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index 3d174e20aa53..5b8de1b1983c 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/header.h b/include/sound/sof/header.h
-index 12867bbd4372..10f00c08dbb7 100644
---- a/include/sound/sof/header.h
-+++ b/include/sound/sof/header.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/info.h b/include/sound/sof/info.h
-index 16528d2b4a50..a9156b4a062c 100644
---- a/include/sound/sof/info.h
-+++ b/include/sound/sof/info.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/pm.h b/include/sound/sof/pm.h
-index 8ae3ad45bdf7..003879401d63 100644
---- a/include/sound/sof/pm.h
-+++ b/include/sound/sof/pm.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/stream.h b/include/sound/sof/stream.h
-index 643f175cb479..0b71b381b952 100644
---- a/include/sound/sof/stream.h
-+++ b/include/sound/sof/stream.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/topology.h b/include/sound/sof/topology.h
-index 41dcabf89899..c47b36240920 100644
---- a/include/sound/sof/topology.h
-+++ b/include/sound/sof/topology.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/trace.h b/include/sound/sof/trace.h
-index 9257d5473d97..fda6e8f6ead4 100644
---- a/include/sound/sof/trace.h
-+++ b/include/sound/sof/trace.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/include/sound/sof/xtensa.h b/include/sound/sof/xtensa.h
-index d25c764b10e8..dd53d36b34e1 100644
---- a/include/sound/sof/xtensa.h
-+++ b/include/sound/sof/xtensa.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
- /*
-  * This file is provided under a dual BSD/GPLv2 license.  When using or
-  * redistributing this file, you may do so under either license.
-diff --git a/samples/vfio-mdev/mdpy-defs.h b/samples/vfio-mdev/mdpy-defs.h
-index 96b3b1b49d34..eb26421b6429 100644
---- a/samples/vfio-mdev/mdpy-defs.h
-+++ b/samples/vfio-mdev/mdpy-defs.h
-@@ -1,4 +1,4 @@
--/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Simple pci display device.
-  *
+-# SPDX-License-Identifier: GPL-2.0-or-newer
++# SPDX-License-Identifier: GPL-2.0-or-later
+ #
+ # Copyright (c) 2019 Oracle.
+ # All Rights Reserved.
 -- 
 2.17.1
 

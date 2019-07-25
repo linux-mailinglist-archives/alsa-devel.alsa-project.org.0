@@ -2,85 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD91074924
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 10:29:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84EEE74931
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 10:35:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A1E91AC2;
-	Thu, 25 Jul 2019 10:28:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A1E91AC2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0BDED1AC9;
+	Thu, 25 Jul 2019 10:34:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BDED1AC9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564043373;
-	bh=SqYK31yKn1c3LNJgYcx5aC5sviYQf3PeMmDuqhz3vcs=;
+	s=default; t=1564043718;
+	bh=RFewOZIsk3/weY/bpl5K5YafZHrTNcUenxxPsWBnDoI=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=truihwvnxyYuZZfuZ4bEodnoCPJNqDtt8T72vIiwCcbOgBGBzFecODvfe1BBrDyv7
-	 9WYo8l1u1qoRVRFEBgeGGuimawxKOZh0xy+iP9PiRc6hhPhDBWohAhelvlecx8Mm4f
-	 jcB8qgSb/zG4X93CUStO4bDkwhQoKE5yuXMcFyc4=
+	b=K5gTN6QH1JPSuKAaQ6ONXDZPL9vBH+idmfQO+upEAUFbqMfVEmB0ISJ2WycjRbUBt
+	 ymIGxfSqe6emnEhdUWjtJW4mam2DeXYIOMOLwGXMCEiYazHeRH+jjl5i9UAls/C3mH
+	 8jFExLMg/vq6O/l6FQL1AlQvDP9JqMjXLf/HZPdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59B95F80448;
-	Thu, 25 Jul 2019 10:27:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E004F8015A;
+	Thu, 25 Jul 2019 10:33:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D330DF803D0; Thu, 25 Jul 2019 10:27:45 +0200 (CEST)
+ id 060BFF803D0; Thu, 25 Jul 2019 10:33:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC062F8015A
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 10:27:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC062F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 614A1F8015A
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 10:33:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 614A1F8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="uEdHBdGN"
-Received: by mail-pl1-x643.google.com with SMTP id c14so23060056plo.0
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 01:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=XrnR0ob5JN+jXhmz3b6uLie9luXhbO1bl9luxd0o9lU=;
- b=uEdHBdGN1tspb+2pw1vjjIP9TPRoE69vcLhIkbQ3Buu7aF3UPsHXWe2IGuA3tRNBVq
- eZXOen8g79oqskTFwJi1T4z8wTYMs5sHGS0dqZWc/XYrk3vIl90BAeCwfVc+QcLwYOQz
- 684c2rKuEzuenlNVqPQqjGAjSAeU3XELQqNfmTeBKmIgEEhwTS98qHi5dH17lvRp0YYC
- s6m0F+PUjW1Agvc//exnF281ZadBdvEmKtcTVmcM4wsV2N3OFyRGwROU1WbmN1p0uxrN
- 60cn7S8wSpSNHW/6RJ3ewRADxQ2F1NIrCVVYAo4bhsdyT7rNAgsxSWrJB+GgjsoyU1uJ
- Rx2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=XrnR0ob5JN+jXhmz3b6uLie9luXhbO1bl9luxd0o9lU=;
- b=WSvNWLsxVA8Hxv4/2i0rvVRiNffg7z1HhcRpsenG1vRGND4fxjg+R7q9gOi0k4Kz/h
- 9MOgIXtRUTbBSc9Yh0g9QaUhUSA69WuEzFe46TsCPj4zXQPAd+VG00KetBzhzUkUzGYq
- eu1wTrQsnMJrCWYr0CUR9NV/pbLDLrEkEoRf/jcEUxVUxSiIhB/K1tEaWz18p48zYr+g
- JUG6N/OvDTzrhSIP2ngRw9mVn2iMzU2fXBLtSNjWgamsFDlbSEzVxJEKadmzwF9YM/33
- BWuLF27OeUH+uJWVQeteAmi5Ypog+C2lQbN31zl+ikYBFDILZQJEQI3BOvr670DzL3Qz
- TNcw==
-X-Gm-Message-State: APjAAAV3U/L/uc0lgurbb3UEv6IxT7EeqzQ9zn7f+uzL7iiBiFg2QuUA
- l1JPddsaoQDnBd+YjHzWdIs=
-X-Google-Smtp-Source: APXvYqww6hvROz9O0Lb5ItTHVgyKuuT2KrkP+kX9Gqvrb1HRFc/sHhySqFiHwAfn8TyH0dHBPbAzXg==
-X-Received: by 2002:a17:902:e383:: with SMTP id
- ch3mr89404861plb.23.1564043260596; 
- Thu, 25 Jul 2019 01:27:40 -0700 (PDT)
-Received: from oslab.tsinghua.edu.cn ([2402:f000:4:72:808::3ca])
- by smtp.gmail.com with ESMTPSA id 201sm58677399pfz.24.2019.07.25.01.27.37
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 25 Jul 2019 01:27:39 -0700 (PDT)
-From: Jia-Ju Bai <baijiaju1990@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, gregkh@linuxfoundation.org,
- tglx@linutronix.de, rfontana@redhat.com
-Date: Thu, 25 Jul 2019 16:27:33 +0800
-Message-Id: <20190725082733.15234-1-baijiaju1990@gmail.com>
-X-Mailer: git-send-email 2.17.0
-Cc: alsa-devel@alsa-project.org, Jia-Ju Bai <baijiaju1990@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: i2c: ak4xxx-adda: Fix a possible null
-	pointer dereference in build_adc_controls()
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="WouJVHZM"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x6P8XNd1121149;
+ Thu, 25 Jul 2019 03:33:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1564043603;
+ bh=R6ac6AnPAKD2uu3VcXxwoxbhhgCGedzDbCNeKQYfSFM=;
+ h=From:To:CC:Subject:Date;
+ b=WouJVHZMbyS6iA+XDiKM0EKUstLy/K9R7lQcRfwvbYhkqg4TZPrKGaetLEbDk3VL5
+ oPWXrUcZGKQ8i8eL1FAII5EGtBKjsy+ipC4WEzkXjo0zOBEGc2mAYOVrJMECgcnhPC
+ Lx7xBbmerNnvGY86Ie6mtUCg6B4sosc8RfAv8isQ=
+Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x6P8XNk8111895
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 25 Jul 2019 03:33:23 -0500
+Received: from DLEE114.ent.ti.com (157.170.170.25) by DLEE105.ent.ti.com
+ (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Thu, 25
+ Jul 2019 03:33:22 -0500
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Thu, 25 Jul 2019 03:33:22 -0500
+Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id x6P8XLEc017969;
+ Thu, 25 Jul 2019 03:33:21 -0500
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Date: Thu, 25 Jul 2019 11:33:21 +0300
+Message-ID: <20190725083321.6776-1-peter.ujfalusi@ti.com>
+X-Mailer: git-send-email 2.22.0
+MIME-Version: 1.0
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
+Subject: [alsa-devel] [PATCH] ASoC: pcm3168a: Allow all channels in case of
+	parallel DIN/DOUT setup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,54 +85,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In build_adc_controls(), there is an if statement on line 773 to check
-whether ak->adc_info is NULL:
-	if (! ak->adc_info || 
-		! ak->adc_info[mixer_ch].switch_name)
+If multi DIN/DOUT mode is selected (tdm_slots == 2) then configure the
+channel constraint to allow all channels.
 
-When ak->adc_info is NULL, it is used on line 792:
-    knew.name = ak->adc_info[mixer_ch].selector_name;
-
-Thus, a possible null-pointer dereference may occur.
-
-To fix this bug, referring to lines 773 and 774, ak->adc_info 
-and ak->adc_info[mixer_ch].selector_name are checked before being used.
-
-This bug is found by a static analysis tool STCheck written by us.
-
-Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 ---
- sound/i2c/other/ak4xxx-adda.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/codecs/pcm3168a.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/i2c/other/ak4xxx-adda.c b/sound/i2c/other/ak4xxx-adda.c
-index 5f59316f982a..9a891470e84a 100644
---- a/sound/i2c/other/ak4xxx-adda.c
-+++ b/sound/i2c/other/ak4xxx-adda.c
-@@ -775,11 +775,13 @@ static int build_adc_controls(struct snd_akm4xxx *ak)
- 				return err;
+diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
+index 5d59ce254821..e84a1509fe65 100644
+--- a/sound/soc/codecs/pcm3168a.c
++++ b/sound/soc/codecs/pcm3168a.c
+@@ -599,6 +599,10 @@ static int pcm3168a_startup(struct snd_pcm_substream *substream,
+ 				     SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
+ 				     sample_min, 32);
  
- 			memset(&knew, 0, sizeof(knew));
--			knew.name = ak->adc_info[mixer_ch].selector_name;
--			if (!knew.name) {
-+			if (! ak->adc_info ||
-+				! ak->adc_info[mixer_ch].selector_name) {
- 				knew.name = "Capture Channel";
- 				knew.index = mixer_ch + ak->idx_offset * 2;
- 			}
-+			else
-+				knew.name = ak->adc_info[mixer_ch].selector_name;
- 
- 			knew.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 			knew.info = ak4xxx_capture_source_info;
++	/* Allow all channels in multi DIN/DOUT mode */
++	if (pcm3168a->tdm_slots == 2)
++		channel_max = channel_maxs[tx];
++
+ 	snd_pcm_hw_constraint_minmax(substream->runtime,
+ 				     SNDRV_PCM_HW_PARAM_CHANNELS,
+ 				     2, channel_max);
 -- 
-2.17.0
+Peter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33EF274F3B
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 15:24:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 562C174F1F
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 15:21:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A914A1ED7;
-	Thu, 25 Jul 2019 15:23:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A914A1ED7
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6DA21DF8;
+	Thu, 25 Jul 2019 15:20:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6DA21DF8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564061064;
-	bh=gQPDMV3ilI5tZHbD0ytIde531UvrRRAxVnQXdOpTUn4=;
+	s=default; t=1564060906;
+	bh=jlCB3E//GHL9PXm25WZ5bMU11dcDAt6y3GALxTtltYE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Ow9GH8uJxCk+vgcUqCZwBKExsAmltzRfRIJyUMkaGjBBnYRn0HGzwOKjHktg7fPJs
-	 NlYW/bUhmPWgK13a3kFJEDCKOMSNOZex6G5WaBH9NYTZux7QmME4xLSA76KDlTANoq
-	 yML5PNH24cqkeycfTy1vWyl0Fneqrn2z+H5DoV68=
+	b=MOleSKhLxTS06hpI1bMAnBNtAISMqIky1YsesELCG0Csju77HQHDf0sC8rYQ2c5v+
+	 lhNROY0cUl4q5RDjl6SAXXDneKRKYM/mT67vjTq8n2Yrwy93CG9ATwuzIk1NrFD6w8
+	 1ePQ+G1UfpU70BBuAxavJTCSU9VVnZUNXG6RjuPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4866EF80528;
-	Thu, 25 Jul 2019 15:19:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CA65F80482;
+	Thu, 25 Jul 2019 15:19:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E492FF80519; Thu, 25 Jul 2019 15:19:40 +0200 (CEST)
+ id E2D28F80448; Thu, 25 Jul 2019 15:19:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 082F7F8044C
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 15:19:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 082F7F8044C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7B77EF80448
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 15:19:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B77EF80448
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="mTNJ6hCK"
+ header.b="MoCYNciF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Mbxu8AN5/JoOf4Q5zWfvCpbaISPtwSaSppkQ+bMDnVQ=; b=mTNJ6hCK5QvP
- Z9QzX/SuQ38Av+GnnEv57mtloeTDqm/3CrTvWAb94Pq8KJquuG9qGyqzNwpkjkvzEW6y/oE2Xv8HX
- gQRKrjIS4CEBdpXz9sK/+j6bZ2bGQ9Op88UrH83iShiWX0WjReM6xFfg9fde/vZZMfLt7ch2nxHck
- zaYhQ=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=nSL5yACaQZNEdL81xCYxexoXfF8JSC6AgEDxXHTkkGg=; b=MoCYNciFhkj8
+ 72TCbs5eTPulV1/YMH84JPw0lS6W4/j3LgZp4ZbzfYwdv+uv/RGYOEx3lV5SlFchcjTjxUz8kv36M
+ Dchik2eP4o1KJVmXSW0XRuBKf059IlZYh5dBS84+9+TONHgU0/+6+VDFYOGKh7EintkIFlDwPiTgg
+ X7K5Q=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hqdeY-0002rR-Ix; Thu, 25 Jul 2019 13:19:26 +0000
+ id 1hqdeY-0002rS-LU; Thu, 25 Jul 2019 13:19:26 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D36082742B5F; Thu, 25 Jul 2019 14:19:25 +0100 (BST)
+ id 124B72742B60; Thu, 25 Jul 2019 14:19:26 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20190725053523.16542-1-christophe.jaillet@wanadoo.fr>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+In-Reply-To: <20190725083432.7419-1-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190725131925.D36082742B5F@ypsilon.sirena.org.uk>
-Date: Thu, 25 Jul 2019 14:19:25 +0100 (BST)
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- yang.jie@linux.intel.com, tiwai@suse.com, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: Fix some acpi vs apci typo in
-	somme comments" to the asoc tree
+Message-Id: <20190725131926.124B72742B60@ypsilon.sirena.org.uk>
+Date: Thu, 25 Jul 2019 14:19:26 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ lgirdwood@gmail.com, jsarha@ti.com, misael.lopez@ti.com
+Subject: [alsa-devel] Applied "ASoC: ti: davinci-mcasp: Improve serializer
+	handling in multi AXR setups" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,11 +88,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: Fix some acpi vs apci typo in somme comments
+   ASoC: ti: davinci-mcasp: Improve serializer handling in multi AXR setups
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -114,152 +113,204 @@ to this mail.
 Thanks,
 Mark
 
-From 72ea86391cd3249638fbef340b865c4bfa31465b Mon Sep 17 00:00:00 2001
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Date: Thu, 25 Jul 2019 07:35:23 +0200
-Subject: [PATCH] ASoC: Intel: Fix some acpi vs apci typo in somme comments
+From b7989e271e9f7fd4edb4166cd2a79b980c4b6136 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Thu, 25 Jul 2019 11:34:32 +0300
+Subject: [PATCH] ASoC: ti: davinci-mcasp: Improve serializer handling in multi
+ AXR setups
 
-Fix some typo to have the filaname given in a comment match the real name
-of the file.
-Some 'acpi' have erroneously been written 'apci'
+When multiple serializers are used we need to track the number of
+serializers used by the other stream direction to avoid killing data lines
+when the first stream used more serializers than the second would need.
+We are still protected against the case when the second stream uses more
+serializers which had affected the running stream as well.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Link: https://lore.kernel.org/r/20190725053523.16542-1-christophe.jaillet@wanadoo.fr
+To take advantage of the improved serializer logic we need to modify the
+channel constraints rule as well to allow the use of multiple serializers
+for the second stream as additional ones will not affect the FS/BCLK on
+the bus.
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Link: https://lore.kernel.org/r/20190725083432.7419-1-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-bxt-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-byt-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-cht-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-glk-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-hda-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c | 2 +-
- sound/soc/intel/common/soc-acpi-intel-icl-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-kbl-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-skl-match.c     | 2 +-
- 10 files changed, 10 insertions(+), 10 deletions(-)
+ sound/soc/ti/davinci-mcasp.c | 92 +++++++++++++++++++++---------------
+ 1 file changed, 53 insertions(+), 39 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-index 229e39586868..4a5adae1d785 100644
---- a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-bxt-match.c - tables and support for BXT ACPI enumeration.
-+ * soc-acpi-intel-bxt-match.c - tables and support for BXT ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-index b94b482ac34f..1cc801ba92eb 100644
---- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * soc-apci-intel-byt-match.c - tables and support for BYT ACPI enumeration.
-+ * soc-acpi-intel-byt-match.c - tables and support for BYT ACPI enumeration.
-  *
-  * Copyright (c) 2017, Intel Corporation.
-  */
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index b7f11f6be1cf..d0fb43c2b9f6 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * soc-apci-intel-cht-match.c - tables and support for CHT ACPI enumeration.
-+ * soc-acpi-intel-cht-match.c - tables and support for CHT ACPI enumeration.
-  *
-  * Copyright (c) 2017, Intel Corporation.
-  */
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index c36c0aa4f683..771b0ef21051 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-cnl-match.c - tables and support for CNL ACPI enumeration.
-+ * soc-acpi-intel-cnl-match.c - tables and support for CNL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-glk-match.c b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-index 616eb09e78a0..60dea358fa04 100644
---- a/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-glk-match.c - tables and support for GLK ACPI enumeration.
-+ * soc-acpi-intel-glk-match.c - tables and support for GLK ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hda-match.c b/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-index 68ae43f7b4b2..cc972d2ac691 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-@@ -2,7 +2,7 @@
- // Copyright (c) 2018, Intel Corporation.
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index 09ba3d3c70a0..c3a2c53fdb3a 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -109,6 +109,7 @@ struct davinci_mcasp {
  
- /*
-- * soc-apci-intel-hda-match.c - tables and support for HDA+ACPI enumeration.
-+ * soc-acpi-intel-hda-match.c - tables and support for HDA+ACPI enumeration.
-  *
-  */
+ 	/* Used for comstraint setting on the second stream */
+ 	u32	channels;
++	u8	active_serializers[2];
  
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-index d27853e7a369..34eb0baaa951 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * soc-apci-intel-hsw-bdw-match.c - tables and support for ACPI enumeration.
-+ * soc-acpi-intel-hsw-bdw-match.c - tables and support for ACPI enumeration.
-  *
-  * Copyright (c) 2017, Intel Corporation.
-  */
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 0b430b9b3673..38977669b576 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-icl-match.c - tables and support for ICL ACPI enumeration.
-+ * soc-acpi-intel-icl-match.c - tables and support for ICL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-index 4b331058e807..e200baa11011 100644
---- a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-kbl-match.c - tables and support for KBL ACPI enumeration.
-+ * soc-acpi-intel-kbl-match.c - tables and support for KBL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-skl-match.c b/sound/soc/intel/common/soc-acpi-intel-skl-match.c
-index 0c9c0edd35b3..42fa40a8d932 100644
---- a/sound/soc/intel/common/soc-acpi-intel-skl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-skl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-skl-match.c - tables and support for SKL ACPI enumeration.
-+ * soc-acpi-intel-skl-match.c - tables and support for SKL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
+ #ifdef CONFIG_GPIOLIB
+ 	struct gpio_chip gpio_chip;
+@@ -813,6 +814,7 @@ static int mcasp_common_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 	u8 rx_ser = 0;
+ 	u8 slots = mcasp->tdm_slots;
+ 	u8 max_active_serializers = (channels + slots - 1) / slots;
++	u8 max_rx_serializers, max_tx_serializers;
+ 	int active_serializers, numevt;
+ 	u32 reg;
+ 	/* Default configuration */
+@@ -822,22 +824,28 @@ static int mcasp_common_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
+ 		mcasp_set_reg(mcasp, DAVINCI_MCASP_TXSTAT_REG, 0xFFFFFFFF);
+ 		mcasp_clr_bits(mcasp, DAVINCI_MCASP_XEVTCTL_REG, TXDATADMADIS);
++		max_tx_serializers = max_active_serializers;
++		max_rx_serializers =
++			mcasp->active_serializers[SNDRV_PCM_STREAM_CAPTURE];
+ 	} else {
+ 		mcasp_set_reg(mcasp, DAVINCI_MCASP_RXSTAT_REG, 0xFFFFFFFF);
+ 		mcasp_clr_bits(mcasp, DAVINCI_MCASP_REVTCTL_REG, RXDATADMADIS);
++		max_tx_serializers =
++			mcasp->active_serializers[SNDRV_PCM_STREAM_PLAYBACK];
++		max_rx_serializers = max_active_serializers;
+ 	}
+ 
+ 	for (i = 0; i < mcasp->num_serializer; i++) {
+ 		mcasp_set_bits(mcasp, DAVINCI_MCASP_XRSRCTL_REG(i),
+ 			       mcasp->serial_dir[i]);
+ 		if (mcasp->serial_dir[i] == TX_MODE &&
+-					tx_ser < max_active_serializers) {
++					tx_ser < max_tx_serializers) {
+ 			mcasp_mod_bits(mcasp, DAVINCI_MCASP_XRSRCTL_REG(i),
+ 				       mcasp->dismod, DISMOD_MASK);
+ 			set_bit(PIN_BIT_AXR(i), &mcasp->pdir);
+ 			tx_ser++;
+ 		} else if (mcasp->serial_dir[i] == RX_MODE &&
+-					rx_ser < max_active_serializers) {
++					rx_ser < max_rx_serializers) {
+ 			clear_bit(PIN_BIT_AXR(i), &mcasp->pdir);
+ 			rx_ser++;
+ 		} else {
+@@ -884,7 +892,8 @@ static int mcasp_common_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 		} else {
+ 			dma_data->maxburst = 0;
+ 		}
+-		return 0;
++
++		goto out;
+ 	}
+ 
+ 	if (period_words % active_serializers) {
+@@ -914,6 +923,9 @@ static int mcasp_common_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 		numevt = 0;
+ 	dma_data->maxburst = numevt;
+ 
++out:
++	mcasp->active_serializers[stream] = active_serializers;
++
+ 	return 0;
+ }
+ 
+@@ -1153,6 +1165,37 @@ static int davinci_mcasp_hw_params(struct snd_pcm_substream *substream,
+ 	int period_size = params_period_size(params);
+ 	int ret;
+ 
++	switch (params_format(params)) {
++	case SNDRV_PCM_FORMAT_U8:
++	case SNDRV_PCM_FORMAT_S8:
++		word_length = 8;
++		break;
++
++	case SNDRV_PCM_FORMAT_U16_LE:
++	case SNDRV_PCM_FORMAT_S16_LE:
++		word_length = 16;
++		break;
++
++	case SNDRV_PCM_FORMAT_U24_3LE:
++	case SNDRV_PCM_FORMAT_S24_3LE:
++		word_length = 24;
++		break;
++
++	case SNDRV_PCM_FORMAT_U24_LE:
++	case SNDRV_PCM_FORMAT_S24_LE:
++		word_length = 24;
++		break;
++
++	case SNDRV_PCM_FORMAT_U32_LE:
++	case SNDRV_PCM_FORMAT_S32_LE:
++		word_length = 32;
++		break;
++
++	default:
++		printk(KERN_WARNING "davinci-mcasp: unsupported PCM format");
++		return -EINVAL;
++	}
++
+ 	ret = davinci_mcasp_set_dai_fmt(cpu_dai, mcasp->dai_fmt);
+ 	if (ret)
+ 		return ret;
+@@ -1187,37 +1230,6 @@ static int davinci_mcasp_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret)
+ 		return ret;
+ 
+-	switch (params_format(params)) {
+-	case SNDRV_PCM_FORMAT_U8:
+-	case SNDRV_PCM_FORMAT_S8:
+-		word_length = 8;
+-		break;
+-
+-	case SNDRV_PCM_FORMAT_U16_LE:
+-	case SNDRV_PCM_FORMAT_S16_LE:
+-		word_length = 16;
+-		break;
+-
+-	case SNDRV_PCM_FORMAT_U24_3LE:
+-	case SNDRV_PCM_FORMAT_S24_3LE:
+-		word_length = 24;
+-		break;
+-
+-	case SNDRV_PCM_FORMAT_U24_LE:
+-	case SNDRV_PCM_FORMAT_S24_LE:
+-		word_length = 24;
+-		break;
+-
+-	case SNDRV_PCM_FORMAT_U32_LE:
+-	case SNDRV_PCM_FORMAT_S32_LE:
+-		word_length = 32;
+-		break;
+-
+-	default:
+-		printk(KERN_WARNING "davinci-mcasp: unsupported PCM format");
+-		return -EINVAL;
+-	}
+-
+ 	davinci_config_channel_size(mcasp, word_length);
+ 
+ 	if (mcasp->op_mode == DAVINCI_MCASP_IIS_MODE)
+@@ -1404,12 +1416,13 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 	max_channels *= tdm_slots;
+ 	/*
+ 	 * If the already active stream has less channels than the calculated
+-	 * limnit based on the seirializers * tdm_slots, we need to use that as
+-	 * a constraint for the second stream.
+-	 * Otherwise (first stream or less allowed channels) we use the
+-	 * calculated constraint.
++	 * limit based on the seirializers * tdm_slots, and only one serializer
++	 * is in use we need to use that as a constraint for the second stream.
++	 * Otherwise (first stream or less allowed channels or more than one
++	 * serializer in use) we use the calculated constraint.
+ 	 */
+-	if (mcasp->channels && mcasp->channels < max_channels)
++	if (mcasp->channels && mcasp->channels < max_channels &&
++	    ruledata->serializers == 1)
+ 		max_channels = mcasp->channels;
+ 	/*
+ 	 * But we can always allow channels upto the amount of
+@@ -1470,6 +1483,7 @@ static void davinci_mcasp_shutdown(struct snd_pcm_substream *substream,
+ 	struct davinci_mcasp *mcasp = snd_soc_dai_get_drvdata(cpu_dai);
+ 
+ 	mcasp->substreams[substream->stream] = NULL;
++	mcasp->active_serializers[substream->stream] = 0;
+ 
+ 	if (mcasp->op_mode == DAVINCI_MCASP_DIT_MODE)
+ 		return;
 -- 
 2.20.1
 

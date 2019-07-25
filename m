@@ -2,64 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8384A7588A
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 22:01:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A88975A2A
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 00:04:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EBBDC1F0F;
-	Thu, 25 Jul 2019 22:00:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBBDC1F0F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 616681EFA;
+	Fri, 26 Jul 2019 00:03:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 616681EFA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564084899;
-	bh=9FJMJWn6c7+bOGYItO2MJChFqM0kkuxnnapTM+LTq/c=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ml+rlhEObqkJPvcMqLLJH23Sk0sahAcOR5YLm1FxUh4I1rwRIApjILxzCWjYJ2Ag9
-	 PnRjhWD0wwy+6jItq0Hnfo0yRv9BVqw7r2gZzBMWGP0JVQB6PzN84+MQ+AUPgoNAwk
-	 cMnGtYf44pKCXltE7YvYkXPv8ghpi6PSqVEEm6VY=
+	s=default; t=1564092262;
+	bh=LYR6hErtiISJkBZQ1sBI4e6/+BNv5gveI54VsmVr7UY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=V4wHwZ+V7ZeZRWcKHQ3d1Vr4m3M11KqyDCGLAeu4nVILsd34cizbDreyzhtEuPqK0
+	 1szRo2HpjzloOpLkBRVpJSDqUch+t02L5Dqlxu8/9lCBkjT1GRAmkECeOWhC5Ai0ul
+	 YStlCIt3kHHP/St0zn2f+EVMcrpij7Bfv2YoG8hQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 076FBF803D0;
-	Thu, 25 Jul 2019 21:59:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 871EDF80392;
+	Fri, 26 Jul 2019 00:02:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BAA6F803D0; Thu, 25 Jul 2019 21:59:52 +0200 (CEST)
+ id 2B970F803D0; Fri, 26 Jul 2019 00:02:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EACF5F800E8
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 21:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EACF5F800E8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2019 12:59:45 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,307,1559545200"; d="scan'208";a="170385626"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.251.89.116])
- ([10.251.89.116])
- by fmsmga008.fm.intel.com with ESMTP; 25 Jul 2019 12:59:44 -0700
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <8736iwurtc.wl-kuninori.morimoto.gx@renesas.com>
- <87v9vstd7a.wl-kuninori.morimoto.gx@renesas.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <2d2e6827-1c57-caf4-88ed-4b61f3b5a990@intel.com>
-Date: Thu, 25 Jul 2019 21:59:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1438AF800F5
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 00:02:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1438AF800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="mFrG2QDI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1564092151; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:references; bh=heKcREY22PalpQ/9p8Cd9d1zdSepPrb23urjeSbGB5s=;
+ b=mFrG2QDIrMMa1N2Z2OVlTuF1yYZ3LchMkFWqDfMspQ9nIQIHt+4ryyS8D1eO043/xYvhbR
+ N2FT54nOWkY/RPgX2yiBHDmmzZM/1mmRTn9qpQrY04TflmjGu4/L1JyZ5aAqdEOpvFe+8V
+ Dwl76dgF+6zF8aB9BWW/YLBVr0ngLbU=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Ralf Baechle <ralf@linux-mips.org>, Paul Burton <paul.burton@mips.com>,
+ James Hogan <jhogan@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Vinod Koul <vkoul@kernel.org>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Lee Jones <lee.jones@linaro.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Richard Weinberger <richard@nod.at>, Sebastian Reichel <sre@kernel.org>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Date: Thu, 25 Jul 2019 18:02:04 -0400
+Message-Id: <20190725220215.460-1-paul@crapouillou.net>
 MIME-Version: 1.0
-In-Reply-To: <87v9vstd7a.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 05/25] ASoC: soc-component: add
- snd_soc_component_prepare()
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-pm@vger.kernel.org, linux-mips@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, od@zcrc.me,
+ linux-mtd@lists.infradead.org, dmaengine@vger.kernel.org
+Subject: [alsa-devel] [PATCH 00/11] JZ4740 SoC cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,41 +77,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-07-24 03:51, Kuninori Morimoto wrote:> +
-> +int snd_soc_component_prepare(struct snd_soc_component *component,
-> +			      struct snd_pcm_substream *substream)
-> +{
-> +	if (component->driver->ops &&
-> +	    component->driver->ops->prepare)
-> +		return component->driver->ops->prepare(substream);
-> +
-> +	return 0;
-> +}
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 86d2e6b..a77a14c 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -774,11 +774,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
->   	for_each_rtdcom(rtd, rtdcom) {
->   		component = rtdcom->component;
->   
-> -		if (!component->driver->ops ||
-> -		    !component->driver->ops->prepare)
-> -			continue;
-> -
-> -		ret = component->driver->ops->prepare(substream);
-> +		snd_soc_component_prepare(component, substream);
->   		if (ret < 0) {
->   			dev_err(component->dev,
->   				"ASoC: platform prepare error: %d\n", ret);
-> 
+Hi,
 
-Compared to old code, ret gets ignored here. Guess unintended modification?
+This patchset converts the Qi LB60 MIPS board to devicetree and makes it
+use all the shiny new drivers that have been developed or updated
+recently.
+
+All the crappy old drivers and custom code can be dropped since they
+have been replaced by better alternatives.
+
+Some of these alternatives are not yet in 5.3-rc1 but have already been
+accepted by their respective maintainer for inclusion in 5.4-rc1.
+
+To upstream this patchset, I think that as soon as MIPS maintainers
+agree to take patches 01-03/11 and 11/11, the other patches can go
+through their respective maintainer's tree.
+
+Note for MIPS maintainers:
+Patch 11/11 may conflict with the TCU patchset v15, should this one be
+accepted upstream, but the conflict is tiny and easy to fix. Should this
+case appear, don't hesitate to bother me about it.
+
+Thanks,
+-Paul
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

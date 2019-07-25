@@ -2,59 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215A67450D
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 07:38:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C750D746B5
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 08:02:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 891551A94;
-	Thu, 25 Jul 2019 07:37:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 891551A94
+	by alsa0.perex.cz (Postfix) with ESMTPS id 521FE1737;
+	Thu, 25 Jul 2019 08:01:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 521FE1737
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564033095;
-	bh=AcmE2Tn34R6krjJk11tZ+vB7/ZdsjcCK2vj0HmDh+j4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=InKfDfY+9k2smF7MQPPnmQLotIS4RJ6oFF9XwASEHNM62Zr8oiQDwUWGYfdFtfpwe
-	 ZBMqhIiccKv7Pt6WcMeIUi0kf/Q0ydZYKdRq6rrEL/JgL/NJUW+LayUDQ1Po32Vrl8
-	 5V1viAUok4VFPXjD486xWJ3xTEokkPKBfZ8znHHs=
+	s=default; t=1564034523;
+	bh=xCuI3NH8Pc8zAJbFPabV/jMBSxYViP1yzU8S8hTJXjw=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gg0Y0YTdQDJAqq5gXtyOjKBOfrGI0MeszL6VzfyApJKBzC6pEX8sKxJSHGKPSAY5I
+	 WHHOvqFsm3h7Pd8pNhJBk7TKaT0X/HQw7ex1UNUDRvwvjuwrXJwv/VnKq1VTtkvvMs
+	 cXhO6eZMzl2IPphATirkubUP1DMbwqMawtz+VBkY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5D54F80392;
-	Thu, 25 Jul 2019 07:36:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9B659F80448;
+	Thu, 25 Jul 2019 08:00:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0CD9F803D0; Thu, 25 Jul 2019 07:36:27 +0200 (CEST)
+ id B2D6AF803D0; Thu, 25 Jul 2019 08:00:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp01.smtpout.orange.fr
- [80.12.242.123])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB400F800E8
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 07:36:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB400F800E8
-Received: from localhost.localdomain ([92.140.204.221]) by mwinf5d54 with ME
- id gtcK2000X4n7eLC03tcL7y; Thu, 25 Jul 2019 07:36:23 +0200
-X-ME-Helo: localhost.localdomain
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Thu, 25 Jul 2019 07:36:23 +0200
-X-ME-IP: 92.140.204.221
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: pierre-louis.bossart@linux.intel.com, liam.r.girdwood@linux.intel.com,
- yang.jie@linux.intel.com, broonie@kernel.org, perex@perex.cz,
- tiwai@suse.com
-Date: Thu, 25 Jul 2019 07:35:23 +0200
-Message-Id: <20190725053523.16542-1-christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1A0FF800E8
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 08:00:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1A0FF800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ucy7l0PI"
+Received: by mail-wr1-x443.google.com with SMTP id g17so49319674wrr.5
+ for <alsa-devel@alsa-project.org>; Wed, 24 Jul 2019 23:00:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qwJcmk5yiFlme1u00/d80HZseBmnYpsKoUulVK5QiqA=;
+ b=ucy7l0PIIgkVo6/HBTwEDgLsRwwNI/lHafiIlrF8pPx7QPRJllYj0UOJJMhSd7jP8U
+ ytYcFqO1GLhsEkK1yF12onQ5WPdq4tyGgROGVIBwcIVzRNsInv64PHIK8d3xRK1R9qWd
+ gaAm5kNOsy2Wvp6AcpDlYFC07uW8JmWj8mw3vuys/hM0wWxJXx0KS7eWKCOwkeFrkRjk
+ K6wY1G7XP/LqsRqt4TAcHWSSFJiOSQFt+jh8KDBCbPhocAtic193G1R638pZcv9Yt+WM
+ dvLt6KH6BF48BHGOlRqvqBqxdXnMXorYX5qOvN0vaWqYn2bsdu/RKqQZPwmzl45tljMD
+ HDcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qwJcmk5yiFlme1u00/d80HZseBmnYpsKoUulVK5QiqA=;
+ b=FxeKvsLr5tyo8B8+ey+aIMOzJsFvPX2vN46Ki0v0tpJs9vUsELJyEIDDQt1ck/2zjk
+ cJO6DMpmnx8I7iY4rBc5Vi6rIk6n9UjCQsCQHuIJjH09lETa9uJpQEkyaLU1xqFM0izV
+ rEZ6FD9PsZja86aJMe6VqonBZfrIP0o2WvF41Qpbkul4jNU/55fceSk8hApOVecNLOFO
+ /oEpIoJMb/Q1+/1VL02+Ewc7zrgF1nYbXGbquwhRgBW1OPShOWjl87+uFKA0M6XyHSCy
+ uPmqUTwsIwVqqE29ng0XiWw2eQHOTM+E9hNSXFQHZMF3jXFBMOZLz+fjoIVRI4HV7iLV
+ P7YA==
+X-Gm-Message-State: APjAAAVP68CAMP9y9BpPUENgsBBncIGE8bQq+fUid2ldhi7ICMqlgClr
+ ZLa+YzP0yawz24eloRgI7Dti321dPbJ8XBPVCRc=
+X-Google-Smtp-Source: APXvYqzMQe4AbvN+dLqV0ii4ui6djRNNceKLvVW0FznYpmDPAHgEgKVrzpvWCeklkVcneU/eivkYc+c51aZguQ7gVQU=
+X-Received: by 2002:adf:db46:: with SMTP id f6mr41138857wrj.212.1564034412867; 
+ Wed, 24 Jul 2019 23:00:12 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: Intel: Fix some acpi vs apci typo in
-	somme comments
+References: <20190722124833.28757-1-daniel.baluta@nxp.com>
+ <20190722124833.28757-2-daniel.baluta@nxp.com>
+ <20190724223422.GA6859@Asurada-Nvidia.nvidia.com>
+In-Reply-To: <20190724223422.GA6859@Asurada-Nvidia.nvidia.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Thu, 25 Jul 2019 09:00:01 +0300
+Message-ID: <CAEnQRZDtAwAWn+fEWcfiXROc+X5bhwdas=R=JdizcfPjyFSv0A@mail.gmail.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>, linuxppc-dev@lists.ozlabs.org,
+ Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [alsa-devel] [PATCH 01/10] ASoC: fsl_sai: add of_match data
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,148 +105,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix some typo to have the filaname given in a comment match the real name
-of the file.
-Some 'acpi' have erroneously been written 'apci'
+On Thu, Jul 25, 2019 at 1:34 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Mon, Jul 22, 2019 at 03:48:24PM +0300, Daniel Baluta wrote:
+> > From: Lucas Stach <l.stach@pengutronix.de>
+> >
+> > New revisions of the SAI IP block have even more differences that need
+> > be taken into account by the driver. To avoid sprinking compatible
+> > checks all over the driver move the current differences into of_match_data.
+> >
+> > Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+>
+> Looks like Mark has applied this already? If so, should probably
+> drop applied ones and rebase the remaining patches for a resend.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- sound/soc/intel/common/soc-acpi-intel-bxt-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-byt-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-cht-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-glk-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-hda-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c | 2 +-
- sound/soc/intel/common/soc-acpi-intel-icl-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-kbl-match.c     | 2 +-
- sound/soc/intel/common/soc-acpi-intel-skl-match.c     | 2 +-
- 10 files changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-index 229e39586868..4a5adae1d785 100644
---- a/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-bxt-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-bxt-match.c - tables and support for BXT ACPI enumeration.
-+ * soc-acpi-intel-bxt-match.c - tables and support for BXT ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-byt-match.c b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-index b94b482ac34f..1cc801ba92eb 100644
---- a/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-byt-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * soc-apci-intel-byt-match.c - tables and support for BYT ACPI enumeration.
-+ * soc-acpi-intel-byt-match.c - tables and support for BYT ACPI enumeration.
-  *
-  * Copyright (c) 2017, Intel Corporation.
-  */
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-index b7f11f6be1cf..d0fb43c2b9f6 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * soc-apci-intel-cht-match.c - tables and support for CHT ACPI enumeration.
-+ * soc-acpi-intel-cht-match.c - tables and support for CHT ACPI enumeration.
-  *
-  * Copyright (c) 2017, Intel Corporation.
-  */
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index c36c0aa4f683..771b0ef21051 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-cnl-match.c - tables and support for CNL ACPI enumeration.
-+ * soc-acpi-intel-cnl-match.c - tables and support for CNL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-glk-match.c b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-index 616eb09e78a0..60dea358fa04 100644
---- a/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-glk-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-glk-match.c - tables and support for GLK ACPI enumeration.
-+ * soc-acpi-intel-glk-match.c - tables and support for GLK ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hda-match.c b/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-index 68ae43f7b4b2..cc972d2ac691 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hda-match.c
-@@ -2,7 +2,7 @@
- // Copyright (c) 2018, Intel Corporation.
- 
- /*
-- * soc-apci-intel-hda-match.c - tables and support for HDA+ACPI enumeration.
-+ * soc-acpi-intel-hda-match.c - tables and support for HDA+ACPI enumeration.
-  *
-  */
- 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-index d27853e7a369..34eb0baaa951 100644
---- a/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-hsw-bdw-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /*
-- * soc-apci-intel-hsw-bdw-match.c - tables and support for ACPI enumeration.
-+ * soc-acpi-intel-hsw-bdw-match.c - tables and support for ACPI enumeration.
-  *
-  * Copyright (c) 2017, Intel Corporation.
-  */
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 0b430b9b3673..38977669b576 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-icl-match.c - tables and support for ICL ACPI enumeration.
-+ * soc-acpi-intel-icl-match.c - tables and support for ICL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-index 4b331058e807..e200baa11011 100644
---- a/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-kbl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-kbl-match.c - tables and support for KBL ACPI enumeration.
-+ * soc-acpi-intel-kbl-match.c - tables and support for KBL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
-diff --git a/sound/soc/intel/common/soc-acpi-intel-skl-match.c b/sound/soc/intel/common/soc-acpi-intel-skl-match.c
-index 0c9c0edd35b3..42fa40a8d932 100644
---- a/sound/soc/intel/common/soc-acpi-intel-skl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-skl-match.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- /*
-- * soc-apci-intel-skl-match.c - tables and support for SKL ACPI enumeration.
-+ * soc-acpi-intel-skl-match.c - tables and support for SKL ACPI enumeration.
-  *
-  * Copyright (c) 2018, Intel Corporation.
-  *
--- 
-2.20.1
-
+Yes 1/10 and 2/10 were already applied. Will drop them from next version.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

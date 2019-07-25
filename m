@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E40175607
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 19:47:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBBB75606
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 19:46:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ED3EE1F01;
-	Thu, 25 Jul 2019 19:46:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ED3EE1F01
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24DAC1F0B;
+	Thu, 25 Jul 2019 19:45:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24DAC1F0B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564076824;
-	bh=Ydal9IFdFRFYb+5Cz3a8ryLfGWPkMcE6acVQUMAFv6k=;
+	s=default; t=1564076778;
+	bh=G3g2WvWf7krf9VL+s28Nv72Umua+xwHUq5OumB5BQws=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EdGlm384WasoBxvsEAqh641iiA4d+rU5K1Le4X2ZE8ImX/+IWMBzq6iF4pZYs6/6N
-	 h7mqnUKOOXgopJSF0R4Wq8oGqDe6qH9Ati7WKQybrEJnClyidctDDMmPyFz0Th2TRX
-	 X2J7KIJ6YxrY9YGNUvBrqJjUQeuNwJqHq7Ymo28A=
+	b=Nzi7TYgu3P1H+P22WHkNdDUfkd/TjNZesqTllBaPQrAHbjTf75jJCj+L2Ox+vs646
+	 lKjTpGAT07ggi4gB9y/TuIH1qVm3TS7t2TpgHvkP9aY0nA+a9z/cMXQlnOWEyK4gFC
+	 Zk/7pXBgkC13/6w4V4Kp5w5r4c4BbVThdEhYPmj8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD80FF80447;
-	Thu, 25 Jul 2019 19:43:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7A97F80392;
+	Thu, 25 Jul 2019 19:43:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18942F80483; Thu, 25 Jul 2019 19:43:49 +0200 (CEST)
+ id 16C03F8044C; Thu, 25 Jul 2019 19:43:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A821F80392
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97BD5F803D0
  for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 19:43:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A821F80392
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97BD5F803D0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="tlZl7MQq"
+ header.b="Gfuoe5Q+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=3hutWYgyTBe2VUCgMXkh7pO498CqD2Amxaael5ohZis=; b=tlZl7MQqLsJ/
- lQTNVWyixo4iVFlVzdZW4OfTzD2PA02QNv/6Bx9lhYkrcNB4/VMSIBRvBfEnO8a1tkFLVnQOBETm/
- MrNfZjEouLs2e6PdYfYrTPKyw46hhEcxBwdYrpLQrFFZm4ikZyE/2Uty+isnTxsH6AbfgZBChg3cj
- Cdu7U=;
+ List-Archive; bh=IF+bdjY/1XlbU1xMmM6rdgZvvdiKSmc5wCsvU4ic3WU=; b=Gfuoe5Q+Q9tM
+ jawpuaqsMgYHnGnr4wWkbg0vUQRgiCZJ0H6iNmIotxaK2wMZcA60q7NLlBP9cKLub1esd3UtDCP5/
+ BWxN/sClsoMk8Di4OPYsC7rljQfY2U799+IWmTE/nxf8hBkMKw22qPHQ7S4waithSw3skbptSM9um
+ /K9qA=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hqhmG-0003NH-QJ; Thu, 25 Jul 2019 17:43:40 +0000
+ id 1hqhmH-0003NP-E1; Thu, 25 Jul 2019 17:43:41 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8B8752742B5F; Thu, 25 Jul 2019 18:43:39 +0100 (BST)
+ id C7EC92742BAE; Thu, 25 Jul 2019 18:43:40 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20190725165949.29699-4-jbrunet@baylibre.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+In-Reply-To: <20190725163931.24964-1-ckeepax@opensource.cirrus.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190725174339.8B8752742B5F@ypsilon.sirena.org.uk>
-Date: Thu, 25 Jul 2019 18:43:39 +0100 (BST)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-amlogic@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: codec2codec: deal with params when
-	necessary" to the asoc tree
+Message-Id: <20190725174340.C7EC92742BAE@ypsilon.sirena.org.uk>
+Date: Thu, 25 Jul 2019 18:43:40 +0100 (BST)
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, lgirdwood@gmail.com
+Subject: [alsa-devel] Applied "ASoC: wm_adsp: Allow bus error handler to be
+	called directly" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: codec2codec: deal with params when necessary
+   ASoC: wm_adsp: Allow bus error handler to be called directly
 
 has been applied to the asoc tree at
 
@@ -114,238 +112,92 @@ to this mail.
 Thanks,
 Mark
 
-From 3dcfb397dad2ad55bf50de3c5d5a57090d35a18a Mon Sep 17 00:00:00 2001
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 25 Jul 2019 18:59:46 +0200
-Subject: [PATCH] ASoC: codec2codec: deal with params when necessary
+From 01ec57a4371e573bfcfa898307af098a8c6f9dcf Mon Sep 17 00:00:00 2001
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+Date: Thu, 25 Jul 2019 17:39:29 +0100
+Subject: [PATCH] ASoC: wm_adsp: Allow bus error handler to be called directly
 
-When there is an event on codec to codec dai_link, we only need to deal
-with params if the event is SND_SOC_DAPM_PRE_PMU, when .hw_params() is
-called. For the other events, it is useless.
+There is no need for end drivers to add helper functions to allow the
+bus error handler to be called, simply update the prototype so it can be
+called directly.
 
-Also, dealing with the codec to codec params just before calling
-.hw_params() callbacks give change to either party on the link to alter
-params content in .startup(), which might be useful in some cases
-
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Link: https://lore.kernel.org/r/20190725165949.29699-4-jbrunet@baylibre.com
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20190725163931.24964-1-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-dapm.c | 159 +++++++++++++++++++++++++------------------
- 1 file changed, 92 insertions(+), 67 deletions(-)
+ sound/soc/codecs/cs47l90.c | 9 +--------
+ sound/soc/codecs/wm_adsp.c | 6 ++++--
+ sound/soc/codecs/wm_adsp.h | 4 ++--
+ 3 files changed, 7 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 7db4abd9a0a5..6dcaf9ff6eb5 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3764,25 +3764,59 @@ int snd_soc_dapm_new_controls(struct snd_soc_dapm_context *dapm,
+diff --git a/sound/soc/codecs/cs47l90.c b/sound/soc/codecs/cs47l90.c
+index c4ecb0e6911a..67cac60a859d 100644
+--- a/sound/soc/codecs/cs47l90.c
++++ b/sound/soc/codecs/cs47l90.c
+@@ -2402,13 +2402,6 @@ static irqreturn_t cs47l90_adsp2_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
  }
- EXPORT_SYMBOL_GPL(snd_soc_dapm_new_controls);
  
--static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
--				  struct snd_kcontrol *kcontrol, int event)
-+static int
-+snd_soc_dai_link_event_pre_pmu(struct snd_soc_dapm_widget *w,
-+			       struct snd_pcm_substream *substream)
+-static irqreturn_t cs47l90_dsp_bus_error(int irq, void *data)
+-{
+-	struct wm_adsp *dsp = (struct wm_adsp *)data;
+-
+-	return wm_adsp2_bus_error(dsp);
+-}
+-
+ static int cs47l90_component_probe(struct snd_soc_component *component)
  {
- 	struct snd_soc_dapm_path *path;
- 	struct snd_soc_dai *source, *sink;
--	struct snd_soc_pcm_runtime *rtd = w->priv;
--	const struct snd_soc_pcm_stream *config;
--	struct snd_pcm_substream substream;
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_pcm_hw_params *params = NULL;
--	struct snd_pcm_runtime *runtime = NULL;
-+	const struct snd_soc_pcm_stream *config = NULL;
- 	unsigned int fmt;
--	int ret = 0;
-+	int ret;
+ 	struct cs47l90 *cs47l90 = snd_soc_component_get_drvdata(component);
+@@ -2558,7 +2551,7 @@ static int cs47l90_probe(struct platform_device *pdev)
  
--	config = rtd->dai_link->params + rtd->params_select;
-+	params = kzalloc(sizeof(*params), GFP_KERNEL);
-+	if (!params)
-+		return -ENOMEM;
- 
--	if (WARN_ON(!config) ||
--	    WARN_ON(list_empty(&w->edges[SND_SOC_DAPM_DIR_OUT]) ||
--		    list_empty(&w->edges[SND_SOC_DAPM_DIR_IN])))
--		return -EINVAL;
-+	substream->stream = SNDRV_PCM_STREAM_CAPTURE;
-+	snd_soc_dapm_widget_for_each_source_path(w, path) {
-+		source = path->source->priv;
-+
-+		ret = snd_soc_dai_startup(source, substream);
-+		if (ret < 0) {
-+			dev_err(source->dev,
-+				"ASoC: startup() failed: %d\n", ret);
-+			goto out;
-+		}
-+		source->active++;
-+	}
-+
-+	substream->stream = SNDRV_PCM_STREAM_PLAYBACK;
-+	snd_soc_dapm_widget_for_each_sink_path(w, path) {
-+		sink = path->sink->priv;
-+
-+		ret = snd_soc_dai_startup(sink, substream);
-+		if (ret < 0) {
-+			dev_err(sink->dev,
-+				"ASoC: startup() failed: %d\n", ret);
-+			goto out;
-+		}
-+		sink->active++;
-+	}
-+
-+	/*
-+	 * Note: getting the config after .startup() gives a chance to
-+	 * either party on the link to alter the configuration if
-+	 * necessary
-+	 */
-+	config = rtd->dai_link->params + rtd->params_select;
-+	if (WARN_ON(!config)) {
-+		dev_err(w->dapm->dev, "ASoC: link config missing\n");
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	/* Be a little careful as we don't want to overflow the mask array */
- 	if (config->formats) {
-@@ -3790,27 +3824,62 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 	} else {
- 		dev_warn(w->dapm->dev, "ASoC: Invalid format %llx specified\n",
- 			 config->formats);
--		fmt = 0;
--	}
- 
--	/* Currently very limited parameter selection */
--	params = kzalloc(sizeof(*params), GFP_KERNEL);
--	if (!params) {
--		ret = -ENOMEM;
-+		ret = -EINVAL;
- 		goto out;
+ 		if (ret == 0) {
+ 			ret = madera_init_bus_error_irq(&cs47l90->core, i,
+-							cs47l90_dsp_bus_error);
++							wm_adsp2_bus_error);
+ 			if (ret != 0)
+ 				wm_adsp2_remove(&cs47l90->core.adsp[i]);
+ 		}
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index f5fbadc5e7e2..ae28d9907c30 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -4242,8 +4242,9 @@ static void wm_adsp_fatal_error(struct wm_adsp *dsp)
  	}
--	snd_mask_set(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT), fmt);
- 
-+	snd_mask_set(hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT), fmt);
- 	hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE)->min =
- 		config->rate_min;
- 	hw_param_interval(params, SNDRV_PCM_HW_PARAM_RATE)->max =
- 		config->rate_max;
--
- 	hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS)->min
- 		= config->channels_min;
- 	hw_param_interval(params, SNDRV_PCM_HW_PARAM_CHANNELS)->max
- 		= config->channels_max;
- 
-+	substream->stream = SNDRV_PCM_STREAM_CAPTURE;
-+	snd_soc_dapm_widget_for_each_source_path(w, path) {
-+		source = path->source->priv;
-+
-+		ret = snd_soc_dai_hw_params(source, substream, params);
-+		if (ret < 0)
-+			goto out;
-+
-+		dapm_update_dai_unlocked(substream, params, source);
-+	}
-+
-+	substream->stream = SNDRV_PCM_STREAM_PLAYBACK;
-+	snd_soc_dapm_widget_for_each_sink_path(w, path) {
-+		sink = path->sink->priv;
-+
-+		ret = snd_soc_dai_hw_params(sink, substream, params);
-+		if (ret < 0)
-+			goto out;
-+
-+		dapm_update_dai_unlocked(substream, params, sink);
-+	}
-+
-+out:
-+	kfree(params);
-+	return 0;
-+}
-+
-+static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
-+				  struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_dapm_path *path;
-+	struct snd_soc_dai *source, *sink;
-+	struct snd_soc_pcm_runtime *rtd = w->priv;
-+	struct snd_pcm_substream substream;
-+	struct snd_pcm_runtime *runtime = NULL;
-+	int ret = 0;
-+
-+	if (WARN_ON(list_empty(&w->edges[SND_SOC_DAPM_DIR_OUT]) ||
-+		    list_empty(&w->edges[SND_SOC_DAPM_DIR_IN])))
-+		return -EINVAL;
-+
- 	memset(&substream, 0, sizeof(substream));
- 
- 	/* Allocate a dummy snd_pcm_runtime for startup() and other ops() */
-@@ -3824,53 +3893,10 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		substream.stream = SNDRV_PCM_STREAM_CAPTURE;
--		snd_soc_dapm_widget_for_each_source_path(w, path) {
--			source = path->source->priv;
--
--			ret = snd_soc_dai_startup(source, &substream);
--			if (ret < 0) {
--				dev_err(source->dev,
--					"ASoC: startup() failed: %d\n", ret);
--				goto out;
--			}
--			source->active++;
--		}
--
--		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
--		snd_soc_dapm_widget_for_each_sink_path(w, path) {
--			sink = path->sink->priv;
--
--			ret = snd_soc_dai_startup(sink, &substream);
--			if (ret < 0) {
--				dev_err(sink->dev,
--					"ASoC: startup() failed: %d\n", ret);
--				goto out;
--			}
--			sink->active++;
--		}
--
--		substream.stream = SNDRV_PCM_STREAM_CAPTURE;
--		snd_soc_dapm_widget_for_each_source_path(w, path) {
--			source = path->source->priv;
--
--			ret = snd_soc_dai_hw_params(source, &substream, params);
--			if (ret < 0)
--				goto out;
--
--			dapm_update_dai_unlocked(&substream, params, source);
--		}
--
--		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
--		snd_soc_dapm_widget_for_each_sink_path(w, path) {
--			sink = path->sink->priv;
--
--			ret = snd_soc_dai_hw_params(sink, &substream, params);
--			if (ret < 0)
--				goto out;
-+		ret = snd_soc_dai_link_event_pre_pmu(w, &substream);
-+		if (ret < 0)
-+			goto out;
- 
--			dapm_update_dai_unlocked(&substream, params, sink);
--		}
- 		break;
- 
- 	case SND_SOC_DAPM_POST_PMU:
-@@ -3932,7 +3958,6 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
- 
- out:
- 	kfree(runtime);
--	kfree(params);
- 	return ret;
  }
  
+-irqreturn_t wm_adsp2_bus_error(struct wm_adsp *dsp)
++irqreturn_t wm_adsp2_bus_error(int irq, void *data)
+ {
++	struct wm_adsp *dsp = (struct wm_adsp *)data;
+ 	unsigned int val;
+ 	struct regmap *regmap = dsp->regmap;
+ 	int ret = 0;
+@@ -4307,8 +4308,9 @@ irqreturn_t wm_adsp2_bus_error(struct wm_adsp *dsp)
+ }
+ EXPORT_SYMBOL_GPL(wm_adsp2_bus_error);
+ 
+-irqreturn_t wm_halo_bus_error(struct wm_adsp *dsp)
++irqreturn_t wm_halo_bus_error(int irq, void *data)
+ {
++	struct wm_adsp *dsp = (struct wm_adsp *)data;
+ 	struct regmap *regmap = dsp->regmap;
+ 	unsigned int fault[6];
+ 	struct reg_sequence clear[] = {
+diff --git a/sound/soc/codecs/wm_adsp.h b/sound/soc/codecs/wm_adsp.h
+index 3b03d1eb986f..aa634ef6c9f5 100644
+--- a/sound/soc/codecs/wm_adsp.h
++++ b/sound/soc/codecs/wm_adsp.h
+@@ -171,8 +171,8 @@ int wm_adsp1_event(struct snd_soc_dapm_widget *w,
+ int wm_adsp_early_event(struct snd_soc_dapm_widget *w,
+ 			struct snd_kcontrol *kcontrol, int event);
+ 
+-irqreturn_t wm_adsp2_bus_error(struct wm_adsp *adsp);
+-irqreturn_t wm_halo_bus_error(struct wm_adsp *dsp);
++irqreturn_t wm_adsp2_bus_error(int irq, void *data);
++irqreturn_t wm_halo_bus_error(int irq, void *data);
+ irqreturn_t wm_halo_wdt_expire(int irq, void *data);
+ 
+ int wm_adsp_event(struct snd_soc_dapm_widget *w,
 -- 
 2.20.1
 

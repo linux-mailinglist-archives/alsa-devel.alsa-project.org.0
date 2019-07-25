@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80DFB75BB8
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 01:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC9AA75BBA
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 01:56:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0DC601F51;
-	Fri, 26 Jul 2019 01:54:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0DC601F51
+	by alsa0.perex.cz (Postfix) with ESMTPS id 789861F60;
+	Fri, 26 Jul 2019 01:55:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 789861F60
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564098935;
-	bh=qHc2569+Ma+vl5QlLk6VEvdZCFfaE1iEMZOokSc1Ftw=;
+	s=default; t=1564098974;
+	bh=McoBDFRaIuWo4xBC8nvjjHPvW8Dg+UNeabtGZeyZYKE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AAulUuPkO+drV1MOkMJXR8ttvoLO0o0RAJ+yVLYsMhKfSdTohcJ6s06NligS6N6uM
-	 lYWsrNFpNFTmF0kuPma43MnCyDtWUVzp55QAgpAxiZqk8DubVULiwKxjcqDKcCObVN
-	 EvPEIBbgenB5SL9pse2Jcw1eXRDVFWX3z3NB266A=
+	b=c1gv/Bas1W5YonE3gtwBmOXFX+TpK26OshjHI+vHwXcYV/2CAiSGHlBseWbX7nPkM
+	 xStWit/FpsPtfU1Ty66ufDDno+qElA0FN/EMomCPqtcVDgEzApTsIfRXuNifDgcO2Q
+	 JN3K1GA48ex2Mj9So07aVpV1sQsVAhzb8tvDaJPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE594F806F0;
-	Fri, 26 Jul 2019 01:41:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABC75F8070D;
+	Fri, 26 Jul 2019 01:41:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00399F80638; Fri, 26 Jul 2019 01:41:31 +0200 (CEST)
+ id 1CB1FF8063C; Fri, 26 Jul 2019 01:41:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=5.0 tests=RCVD_IN_DNSWL_HI,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0166BF80610
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 01:41:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0166BF80610
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CDD4F80633
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 01:41:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CDD4F80633
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Jul 2019 16:41:28 -0700
+ 25 Jul 2019 16:41:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,308,1559545200"; d="scan'208";a="369874735"
+X-IronPort-AV: E=Sophos;i="5.64,308,1559545200"; d="scan'208";a="369874743"
 Received: from amrutaku-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.255.230.75])
- by fmsmga006.fm.intel.com with ESMTP; 25 Jul 2019 16:41:27 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 25 Jul 2019 16:41:28 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Thu, 25 Jul 2019 18:40:11 -0500
-Message-Id: <20190725234032.21152-20-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 25 Jul 2019 18:40:12 -0500
+Message-Id: <20190725234032.21152-21-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
@@ -58,8 +58,8 @@ Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
  slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [alsa-devel] [RFC PATCH 19/40] soundwire: bus: improve dynamic
-	debug comments for enumeration
+Subject: [alsa-devel] [RFC PATCH 20/40] soundwire: prototypes for
+	suspend/resume
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,43 +77,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-update comments to provide better understanding of enumeration flows.
-
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/bus.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/soundwire/cadence_master.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index bca378806d00..2354675ef104 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -483,7 +483,8 @@ static int sdw_assign_device_num(struct sdw_slave *slave)
+diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
+index c0bf6ff00a44..d375bbfead18 100644
+--- a/drivers/soundwire/cadence_master.h
++++ b/drivers/soundwire/cadence_master.h
+@@ -165,6 +165,9 @@ int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns);
  
- 	ret = sdw_write(slave, SDW_SCP_DEVNUMBER, dev_num);
- 	if (ret < 0) {
--		dev_err(&slave->dev, "Program device_num failed: %d\n", ret);
-+		dev_err(&slave->dev, "Program device_num %d failed: %d\n",
-+			dev_num, ret);
- 		return ret;
- 	}
+ void sdw_cdns_debugfs_init(struct sdw_cdns *cdns, struct dentry *root);
  
-@@ -540,6 +541,7 @@ static int sdw_program_device_num(struct sdw_bus *bus)
- 	do {
- 		ret = sdw_transfer(bus, &msg);
- 		if (ret == -ENODATA) { /* end of device id reads */
-+			dev_dbg(bus->dev, "No more devices to enumerate\n");
- 			ret = 0;
- 			break;
- 		}
-@@ -982,6 +984,7 @@ int sdw_handle_slave_status(struct sdw_bus *bus,
- 	int i, ret = 0;
- 
- 	if (status[0] == SDW_SLAVE_ATTACHED) {
-+		dev_err(bus->dev, "Slave attached, programming device number\n");
- 		ret = sdw_program_device_num(bus);
- 		if (ret)
- 			dev_err(bus->dev, "Slave attach failed: %d\n", ret);
++int sdw_cdns_suspend(struct sdw_cdns *cdns);
++bool sdw_cdns_check_resume_status(struct sdw_cdns *cdns);
++
+ int sdw_cdns_get_stream(struct sdw_cdns *cdns,
+ 			struct sdw_cdns_streams *stream,
+ 			u32 ch, u32 dir);
 -- 
 2.20.1
 

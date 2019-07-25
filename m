@@ -2,102 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E2FE755DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 19:40:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B0A275601
+	for <lists+alsa-devel@lfdr.de>; Thu, 25 Jul 2019 19:45:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA6821EF0;
-	Thu, 25 Jul 2019 19:39:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA6821EF0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25A381EF7;
+	Thu, 25 Jul 2019 19:44:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25A381EF7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564076427;
-	bh=V/vVz1EeQw1y900EEXRmBL1hkXM4aKYawdpizvY/HL8=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mGMAsAS1cowC+f5GY6IQJ3PxEbaoR404Jqd8nlCOp3lNHL3F/yysCMA9nvKM3k9iR
-	 G1egKnbttDu2bBXqFtyyDufckyxUi3LOJi+FjyCFH0As/EwXDRz5pC1OBv3omIni6w
-	 0qRiFgphiF+/8K8aWautomtQRtRy9DWjO9ufZWP8=
+	s=default; t=1564076732;
+	bh=YN9DIq9ocmkPhZdjiW6MtmaOMiuDi7donQYlKoKPDC8=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=aIDhk/iRlCSpS0kmyn8TFK9sQSGeqwj5cUXVRMOFOIpdRVIm49bE4WuATTWBJzVaw
+	 auW3fInnzMReerMHEwhl/Da23kcT7K5HD+GYU+R0v1V341UWyPgfYd1cZArYa5oFJN
+	 +Z61FVds7ma9EGmWlN/6TjRiFCNhB2y0jyRnML6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D14D1F803D0;
-	Thu, 25 Jul 2019 19:38:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B900EF8045F;
+	Thu, 25 Jul 2019 19:43:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4647F803D0; Thu, 25 Jul 2019 19:38:40 +0200 (CEST)
+ id D978BF8045F; Thu, 25 Jul 2019 19:43:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8BA62F8015A
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 19:38:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BA62F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54E63F800F5
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 19:43:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54E63F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="lOQLyh4Z"
-Received: by mail-pf1-x443.google.com with SMTP id y15so23111634pfn.5
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 10:38:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=YcakAwhbTJoGYOpuC9oEF2WLvqGmsUfwK1z2nnLHMx8=;
- b=lOQLyh4ZNknNXbKWG97od/UX1813pei3SQYOlzqfOBssMSPnPm/s9PBy7maBCSRQR+
- 6K6LuD8sKfW7wZdMb04oWNrprN/bwJU8opJUc/hN6RVCS3BW5KS+df7hEe4j5phFRaVN
- 5xan32Z6xKmFJh4YvSrz+IewIJvJIywhpqXNvxm/g8UixovFxlF9XcS74wn/iNu5vDTN
- jcV59QX4f940eW515Aa+C5zzgAmgb/9KZ8wM7r6Bykq2UrPIOebXD5uUAOf3nZEITFr+
- pUKgyZ/lXzgKGxxqtAGOOqBOpVIGWe1OKpuQIC7HbaWSj1rH1Hcd2+0fPCBLbrtDmd9J
- +ufw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YcakAwhbTJoGYOpuC9oEF2WLvqGmsUfwK1z2nnLHMx8=;
- b=OwjL+Ddd1b9rjGITUlEZQPhHNQyitHcdbOKPeG2hrl33OD7GQieDX8pIiuCPSIfM4Q
- lfJzd+4h2QjgUIhbT/RKrhdQDdG/OoFkMkNlX0J3GQoJi+2ZQ3R0W1NiIb4N5pMIygKu
- X+mxUiGLTZC2xyH/hAvRE3n8EAW3bNqHN9oz21O7Tw50FdYOGN+sp5DB8g0XsSqWbkVT
- 3gcXN1Mcdt5GQu123lS/1OYhEN5DrZgceOGPhzVCewrZ7YD+9sRADO4zMTBFURKFps0+
- E+dVOV47TfqtnOh9dPIdSMqN4orE6qE2n7bsA9f4splKa7h20zfd/2X2lzKbKQo+P36O
- Er5g==
-X-Gm-Message-State: APjAAAX4vmBui0xtbvvlb7y7SL2PZf3zE2vkltt3OcO3VGFQxhHlIioR
- unfMSfoAHlmdABak0lCOa7Q=
-X-Google-Smtp-Source: APXvYqzB6wcKueZqL/f5Yl4DSRC0xnwviVPYuE27V4XggjeaSOX7/Y1xUexB+LH0hHqnf6Kelh3OAQ==
-X-Received: by 2002:a65:6415:: with SMTP id a21mr74594225pgv.98.1564076314666; 
- Thu, 25 Jul 2019 10:38:34 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id e10sm51619090pfi.173.2019.07.25.10.38.33
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 25 Jul 2019 10:38:34 -0700 (PDT)
-Date: Thu, 25 Jul 2019 10:39:19 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-Message-ID: <20190725173918.GD31961@Asurada-Nvidia.nvidia.com>
-References: <20190722124833.28757-1-daniel.baluta@nxp.com>
- <20190722124833.28757-9-daniel.baluta@nxp.com>
- <20190724232209.GC6859@Asurada-Nvidia.nvidia.com>
- <CAEnQRZBW7LNZ7=c_h_ef4ZDcbFzEt61h4VAJSLo2Fb80kBqtpw@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAEnQRZBW7LNZ7=c_h_ef4ZDcbFzEt61h4VAJSLo2Fb80kBqtpw@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Fabio Estevam <festevam@gmail.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
- Xiubo Li <Xiubo.Lee@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- "S.j. Wang" <shengjiu.wang@nxp.com>,
- "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Viorel Suman <viorel.suman@nxp.com>, linuxppc-dev@lists.ozlabs.org,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH 08/10] ASoC: dt-bindings: Document
- fcomb_mode property
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="Lys2mjZW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=vJGclLg2/SizjBD0uAOxWAOde9Sqq4M2mnEoGMzJw7w=; b=Lys2mjZWqvWr
+ Hs817Rj0fgrtTWOrJhgUlHo165JjvMORPDK2B8fErlTc2L0VSjqEC/n0YKGevhLFGdQxthtntl+yb
+ D0jWSXgMEGqvVWKI0D4pEhwSABaz15QK7to7pa+G8QGRms8BAZXxZSxd5EYyrfXxR6Q/Lkaz9oit+
+ JkKEA=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hqhmG-0003NI-Qc; Thu, 25 Jul 2019 17:43:41 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id F005E2742B63; Thu, 25 Jul 2019 18:43:39 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20190725165949.29699-2-jbrunet@baylibre.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190725174339.F005E2742B63@ypsilon.sirena.org.uk>
+Date: Thu, 25 Jul 2019 18:43:39 +0100 (BST)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: codec2codec: run callbacks in order" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,50 +81,129 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 25, 2019 at 09:02:22AM +0300, Daniel Baluta wrote:
-> On Thu, Jul 25, 2019 at 2:22 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
-> >
-> > On Mon, Jul 22, 2019 at 03:48:31PM +0300, Daniel Baluta wrote:
-> > > This allows combining multiple-data-line FIFOs into a
-> > > single-data-line FIFO.
-> > >
-> > > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/sound/fsl-sai.txt | 4 ++++
-> >
-> > This should be sent to devicetree mail-list also.
-> >
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-> > > index 59f4d965a5fb..ca27afd840ba 100644
-> > > --- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
-> > > +++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-> > > @@ -54,6 +54,10 @@ Optional properties:
-> > >                         represents first data line, bit 1 represents second
-> > >                         data line and so on. Data line is enabled if
-> > >                         corresponding bit is set to 1.
-> > > +  - fsl,fcomb_mode   : list of two integers (first for RX, second for TX)
-> > > +                       representing FIFO combine mode. Possible values for
-> > > +                       combined mode are: 0 - disabled, 1 - Rx/Tx from shift
-> > > +                       registers, 2 - Rx/Tx by software, 3 - both.
-> >
-> > Looks like a software configuration to me, instead of a device
-> > property. Is this configurable by user case, or hard-coded by
-> > SoC/hardware design?
-> 
-> Indeed this is a software configuration and configurable by user case.
-> Will think of a another way to specify it.
+The patch
 
-Yea, it needs to be put somewhere else other than devicetree.
+   ASoC: codec2codec: run callbacks in order
 
-Not sure sysfs is a good approach for ASoC components or can
-be done via amixer control.
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 68c907f10cd816cad2287167a1a1d77914a6d466 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Thu, 25 Jul 2019 18:59:44 +0200
+Subject: [PATCH] ASoC: codec2codec: run callbacks in order
+
+When handling dai_link events on codec to codec links, run all .startup()
+callbacks on sinks and sources before running any .hw_params(). Same goes
+for hw_free() and shutdown(). This is closer to the behavior of regular
+dai links
+
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20190725165949.29699-2-jbrunet@baylibre.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-dapm.c | 36 +++++++++++++++++++++++++++---------
+ 1 file changed, 27 insertions(+), 9 deletions(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 1d04612601ad..034b31fd2ecb 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3835,11 +3835,6 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 				goto out;
+ 			}
+ 			source->active++;
+-			ret = snd_soc_dai_hw_params(source, &substream, params);
+-			if (ret < 0)
+-				goto out;
+-
+-			dapm_update_dai_unlocked(&substream, params, source);
+ 		}
+ 
+ 		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
+@@ -3853,6 +3848,23 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 				goto out;
+ 			}
+ 			sink->active++;
++		}
++
++		substream.stream = SNDRV_PCM_STREAM_CAPTURE;
++		snd_soc_dapm_widget_for_each_source_path(w, path) {
++			source = path->source->priv;
++
++			ret = snd_soc_dai_hw_params(source, &substream, params);
++			if (ret < 0)
++				goto out;
++
++			dapm_update_dai_unlocked(&substream, params, source);
++		}
++
++		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
++		snd_soc_dapm_widget_for_each_sink_path(w, path) {
++			sink = path->sink->priv;
++
+ 			ret = snd_soc_dai_hw_params(sink, &substream, params);
+ 			if (ret < 0)
+ 				goto out;
+@@ -3889,9 +3901,18 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 		substream.stream = SNDRV_PCM_STREAM_CAPTURE;
+ 		snd_soc_dapm_widget_for_each_source_path(w, path) {
+ 			source = path->source->priv;
+-
+ 			snd_soc_dai_hw_free(source, &substream);
++		}
++
++		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
++		snd_soc_dapm_widget_for_each_sink_path(w, path) {
++			sink = path->sink->priv;
++			snd_soc_dai_hw_free(sink, &substream);
++		}
+ 
++		substream.stream = SNDRV_PCM_STREAM_CAPTURE;
++		snd_soc_dapm_widget_for_each_source_path(w, path) {
++			source = path->source->priv;
+ 			source->active--;
+ 			snd_soc_dai_shutdown(source, &substream);
+ 		}
+@@ -3899,9 +3920,6 @@ static int snd_soc_dai_link_event(struct snd_soc_dapm_widget *w,
+ 		substream.stream = SNDRV_PCM_STREAM_PLAYBACK;
+ 		snd_soc_dapm_widget_for_each_sink_path(w, path) {
+ 			sink = path->sink->priv;
+-
+-			snd_soc_dai_hw_free(sink, &substream);
+-
+ 			sink->active--;
+ 			snd_soc_dai_shutdown(sink, &substream);
+ 		}
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

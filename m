@@ -2,67 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F89976E33
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 17:45:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0363776E42
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 17:49:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E392120A8;
-	Fri, 26 Jul 2019 17:44:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E392120A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72C8720AA;
+	Fri, 26 Jul 2019 17:48:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72C8720AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564155921;
-	bh=iVKhYoP/R0D4Mcil34pR5cB4IG+/ASGqsjaP7y6QYmY=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564156142;
+	bh=wSthBeHB/+qqRSqD1ynYUFPNRSRdCG8ODspRSdeRhx8=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iasmqB2C2FuXEhvpEFEhKDpbUdTPQ85iufcmhjssavYjN6gBXgU9sfOGPfW/ex6Vd
-	 xsB+TcvbuIRFOf8qD8Et01DhROEUqafd6gcVRtd4iKzP4Zvod7mDbfavzJECTlBAZM
-	 OYXsDuMB/rEvwzwAWMyThdhyEWMA4y5FUmX8eIvQ=
+	b=O87pUKNpJYuv2tj+0RtbyE81+tpjiqnOOWNO96mdFtL8hMg2jmnEELphA991opIgd
+	 nCKTal+OLzEVOTdZfwABLixyroB7Xfbyb+T27zOz8L7PeCk3IooLJvIV/5FeI4RNWw
+	 /HUUXHqhjopMa4lAT9PgESWHd5rQrlNKYxJLDbPg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52638F80393;
-	Fri, 26 Jul 2019 17:43:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93919F80393;
+	Fri, 26 Jul 2019 17:47:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECDCFF80393; Fri, 26 Jul 2019 17:43:33 +0200 (CEST)
+ id 4B84AF80393; Fri, 26 Jul 2019 17:47:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43630F801A4
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 17:43:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43630F801A4
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CDDEF800BE
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 17:47:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CDDEF800BE
+X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2019 08:43:28 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2019 08:47:09 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,311,1559545200"; d="scan'208";a="254368161"
-Received: from gliakhov-mobl2.ger.corp.intel.com (HELO ubuntu)
- ([10.249.35.244])
- by orsmga001.jf.intel.com with ESMTP; 26 Jul 2019 08:43:24 -0700
-Date: Fri, 26 Jul 2019 17:43:23 +0200
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190726154322.GJ16003@ubuntu>
-References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-28-pierre-louis.bossart@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.64,311,1559545200"; d="scan'208";a="345853999"
+Received: from bcstewar-mobl1.amr.corp.intel.com (HELO [10.251.147.177])
+ ([10.251.147.177])
+ by orsmga005.jf.intel.com with ESMTP; 26 Jul 2019 08:47:08 -0700
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
+References: <20190726090929.27946-1-amadeuszx.slawinski@linux.intel.com>
+ <20190726090929.27946-2-amadeuszx.slawinski@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <99dcace6-8b46-4ecf-03e5-b48a219640ae@linux.intel.com>
+Date: Fri, 26 Jul 2019 10:47:08 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190725234032.21152-28-pierre-louis.bossart@linux.intel.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 27/40] soundwire: Add Intel resource
- management algorithm
+In-Reply-To: <20190726090929.27946-2-amadeuszx.slawinski@linux.intel.com>
+Content-Language: en-US
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v4 1/1] ASoC: Intel: Skylake: Remove static
+ table index when parsing topology
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,725 +75,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 25, 2019 at 06:40:19PM -0500, Pierre-Louis Bossart wrote:
-> This algorithm computes bus parameters like clock frequency, frame
-> shape and port transport parameters based on active stream(s) running
-> on the bus.
-> 
-> This implementation is optimal for Intel platforms. Developers can
-> also implement their own .compute_params() callback for specific
-> resource management algorithm.
-> 
-> Credits: this patch is based on an earlier internal contribution by
-> Vinod Koul, Sanyog Kale, Shreyas Nc and Hardik Shah. All hard-coded
-> values were removed from the initial contribution to use BIOS
-> information instead.
-> 
-> FIXME: remove checkpatch report
-> WARNING: Reusing the krealloc arg is almost always a bug
-> +			group->rates = krealloc(group->rates,
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  drivers/soundwire/Makefile                  |   2 +-
->  drivers/soundwire/algo_dynamic_allocation.c | 403 ++++++++++++++++++++
->  drivers/soundwire/bus.c                     |   3 +
->  drivers/soundwire/bus.h                     |  46 ++-
->  drivers/soundwire/stream.c                  |  20 +
->  include/linux/soundwire/sdw.h               |   5 +
->  6 files changed, 476 insertions(+), 3 deletions(-)
->  create mode 100644 drivers/soundwire/algo_dynamic_allocation.c
-> 
-> diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-> index 88990cac48a7..f59a9d4a28fd 100644
-> --- a/drivers/soundwire/Makefile
-> +++ b/drivers/soundwire/Makefile
-> @@ -5,7 +5,7 @@
->  
->  #Bus Objs
->  soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o \
-> -			debugfs.o
-> +			debugfs.o algo_dynamic_allocation.o
->  
->  obj-$(CONFIG_SOUNDWIRE_BUS) += soundwire-bus.o
->  
-> diff --git a/drivers/soundwire/algo_dynamic_allocation.c b/drivers/soundwire/algo_dynamic_allocation.c
-> new file mode 100644
-> index 000000000000..89edb39162b8
-> --- /dev/null
-> +++ b/drivers/soundwire/algo_dynamic_allocation.c
-> @@ -0,0 +1,403 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-> +// Copyright(c) 2015-18 Intel Corporation.
-> +
-> +/*
-> + * Bandwidth management algorithm based on 2^n gears
-> + *
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/slab.h>
-> +#include <linux/soundwire/sdw.h>
-> +#include "bus.h"
-> +
-> +#define SDW_STRM_RATE_GROUPING		1
-> +
-> +struct sdw_group_params {
-> +	unsigned int rate;
-> +	int full_bw;
-> +	int payload_bw;
-> +	int hwidth;
-> +};
-> +
-> +struct sdw_group {
-> +	unsigned int count;
-> +	unsigned int max_size;
-> +	unsigned int *rates;
-> +};
-> +
-> +struct sdw_transport_data {
-> +	int hstart;
-> +	int hstop;
-> +	int block_offset;
-> +	int sub_block_offset;
-> +};
-> +
-> +static void sdw_compute_slave_ports(struct sdw_master_runtime *m_rt,
-> +				    struct sdw_transport_data *t_data)
-> +{
-> +	struct sdw_slave_runtime *s_rt = NULL;
-
-Superfluous initialisation.
-
-> +	struct sdw_port_runtime *p_rt;
-> +	int port_bo, sample_int;
-> +	unsigned int rate, bps, ch = 0;
-
-ditto for ch
-
-> +
-> +	port_bo = t_data->block_offset;
-> +
-> +	list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
-> +		rate = m_rt->stream->params.rate;
-> +		bps = m_rt->stream->params.bps;
-> +		sample_int = (m_rt->bus->params.curr_dr_freq / rate);
-> +
-> +		list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
-> +			ch = sdw_ch_mask_to_ch(p_rt->ch_mask);
-> +
-> +			sdw_fill_xport_params(&p_rt->transport_params,
-> +					      p_rt->num, true,
-> +					      SDW_BLK_GRP_CNT_1,
-> +					      sample_int, port_bo, port_bo >> 8,
-> +					      t_data->hstart,
-> +					      t_data->hstop,
-
-I think the above two lines could fit in one
-
-> +					      (SDW_BLK_GRP_CNT_1 * ch), 0x0);
-
-superfluous parentheses
-
-> +
-> +			sdw_fill_port_params(&p_rt->port_params,
-> +					     p_rt->num, bps,
-> +					     SDW_PORT_FLOW_MODE_ISOCH,
-> +					     SDW_PORT_DATA_MODE_NORMAL);
-> +
-> +			port_bo += bps * ch;
-> +		}
-> +	}
-> +}
-> +
-> +static void sdw_compute_master_ports(struct sdw_master_runtime *m_rt,
-> +				     struct sdw_group_params *params,
-> +				     int port_bo, int hstop)
-> +{
-> +	struct sdw_transport_data t_data = {0};
-> +	struct sdw_port_runtime *p_rt;
-> +	struct sdw_bus *bus = m_rt->bus;
-> +	int sample_int, hstart = 0;
-
-superfluous initialisation
-
-> +	unsigned int rate, bps, ch, no_ch;
-> +
-> +	rate = m_rt->stream->params.rate;
-> +	bps = m_rt->stream->params.bps;
-> +	ch = m_rt->ch_count;
-> +	sample_int = (bus->params.curr_dr_freq / rate);
-
-superfluous parentheses
-
-> +
-> +	if (rate != params->rate)
-> +		return;
-> +
-> +	t_data.hstop = hstop;
-> +	hstart = hstop - params->hwidth + 1;
-> +	t_data.hstart = hstart;
-> +
-> +	list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
-> +		no_ch = sdw_ch_mask_to_ch(p_rt->ch_mask);
-> +
-> +		sdw_fill_xport_params(&p_rt->transport_params, p_rt->num,
-> +				      true, SDW_BLK_GRP_CNT_1, sample_int,
-> +				      port_bo, port_bo >> 8, hstart, hstop,
-> +				      (SDW_BLK_GRP_CNT_1 * no_ch), 0x0);
-
-superfluous parentheses
-
-> +
-> +		sdw_fill_port_params(&p_rt->port_params,
-> +				     p_rt->num, bps,
-> +				     SDW_PORT_FLOW_MODE_ISOCH,
-> +				     SDW_PORT_DATA_MODE_NORMAL);
-> +
-> +		/* Check for first entry */
-> +		if (!(p_rt == list_first_entry(&m_rt->port_list,
-> +					       struct sdw_port_runtime,
-> +					       port_node))) {
-
-you wanted to write "if (p_rt != ...)"
-
-> +			port_bo += bps * ch;
-> +			continue;
-> +		}
-> +
-> +		t_data.hstart = hstart;
-> +		t_data.hstop = hstop;
-
-You already set these two above
-
-> +		t_data.block_offset = port_bo;
-> +		t_data.sub_block_offset = 0;
-> +		port_bo += bps * ch;
-> +	}
-> +
-> +	sdw_compute_slave_ports(m_rt, &t_data);
-> +}
-> +
-> +static void _sdw_compute_port_params(struct sdw_bus *bus,
-> +				     struct sdw_group_params *params, int count)
-> +{
-> +	struct sdw_master_runtime *m_rt = NULL;
-
-superfluous initialisation
-
-> +	int hstop = bus->params.col - 1;
-> +	int block_offset, port_bo, i;
-> +
-> +	/* Run loop for all groups to compute transport parameters */
-> +	for (i = 0; i < count; i++) {
-> +		port_bo = 1;
-> +		block_offset = 1;
-> +
-> +		list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-> +			sdw_compute_master_ports(m_rt, &params[i],
-> +						 port_bo, hstop);
-> +
-> +			block_offset += m_rt->ch_count *
-> +					m_rt->stream->params.bps;
-> +			port_bo = block_offset;
-> +		}
-> +
-> +		hstop = hstop - params[i].hwidth;
-
-hstop -= ...
-
-> +	}
-> +}
-> +
-> +static int sdw_compute_group_params(struct sdw_bus *bus,
-> +				    struct sdw_group_params *params,
-> +				    int *rates, int count)
-> +{
-> +	struct sdw_master_runtime *m_rt = NULL;
-
-ditto
-
-> +	int sel_col = bus->params.col;
-> +	unsigned int rate, bps, ch;
-> +	int i, column_needed = 0;
-> +
-> +	/* Calculate bandwidth per group */
-> +	for (i = 0; i < count; i++) {
-> +		params[i].rate = rates[i];
-> +		params[i].full_bw = bus->params.curr_dr_freq / params[i].rate;
-> +	}
-> +
-> +	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-> +		rate = m_rt->stream->params.rate;
-> +		bps = m_rt->stream->params.bps;
-> +		ch = m_rt->ch_count;
-> +
-> +		for (i = 0; i < count; i++) {
-> +			if (rate == params[i].rate)
-> +				params[i].payload_bw += bps * ch;
-
-I don't know about the algorithm, rates can repeat, right? So you cannot break
-out of the loop here once you found one match?
-
-> +		}
-> +	}
-> +
-> +	for (i = 0; i < count; i++) {
-> +		params[i].hwidth = (sel_col *
-> +			params[i].payload_bw + params[i].full_bw - 1) /
-> +			params[i].full_bw;
-> +
-> +		column_needed += params[i].hwidth;
-> +	}
-> +
-> +	if (column_needed > sel_col - 1)
-> +		return -EINVAL;
-> +
-> +	return 0;
-> +}
-> +
-> +static int sdw_add_element_group_count(struct sdw_group *group,
-> +				       unsigned int rate)
-> +{
-> +	int num = group->count;
-> +	int i;
-> +
-> +	for (i = 0; i <= num; i++) {
-> +		if (rate == group->rates[i])
-
-Are you sure this is correct? You actually check count + 1 rates - from 0
-to count inclusively. I think this isn't what you wanted to do, so my
-proposal below only checks count rates.
-
-> +			break;
-> +
-> +		if (i != num)
-> +			continue;
-> +
-> +		if (group->count >= group->max_size) {
-> +			group->max_size += 1;
-> +			group->rates = krealloc(group->rates,
-> +						(sizeof(int) * group->max_size),
-> +						GFP_KERNEL);
-> +			if (!group->rates)
-> +				return -ENOMEM;
-> +		}
-> +
-> +		group->rates[group->count++] = rate;
-> +	}
-
-How about this:
-
-	for (i = 0; i < num; i++)
-		if (rate == group->rates[i])
-			return 0;
-
-	if (group->count >= group->max_size) {
-		group->max_size += 1;
-		group->rates = krealloc(group->rates,
-					(sizeof(int) * group->max_size),
-					GFP_KERNEL);
-		if (!group->rates)
-			return -ENOMEM;
-	}
-
-	group->rates[group->count++] = rate;
-
-	return 0;
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int sdw_get_group_count(struct sdw_bus *bus,
-> +			       struct sdw_group *group)
-> +{
-> +	struct sdw_master_runtime *m_rt;
-> +	unsigned int rate;
-> +	int ret = 0;
-> +
-> +	group->count = 0;
-> +	group->max_size = SDW_STRM_RATE_GROUPING;
-> +	group->rates = kcalloc(group->max_size, sizeof(int), GFP_KERNEL);
-> +	if (!group->rates)
-> +		return -ENOMEM;
-> +
-> +	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
-> +		rate = m_rt->stream->params.rate;
-> +		if (m_rt == list_first_entry(&bus->m_rt_list,
-> +					     struct sdw_master_runtime,
-> +					     bus_node)) {
-> +			group->rates[group->count++] = rate;
-> +
-> +		} else {
-> +			ret = sdw_add_element_group_count(group, rate);
-> +			if (ret < 0)
-
-Actually it looks like you should free rates here? I see that not doing this
-makes the caller function below easier, but I'd say this is more error-
-prone... Up to you but I'd go the "safe" way - if it fails, it frees itself,
-if it succeeds - it's freed elsewhere.
-
-> +				return ret;
-> +		}
-> +	}
-> +
-> +	return ret;
-
-I think this will always return 0 here, so you don't need the "ret"
-variable in the function scope, you only need it in the "else"
-scope above.
-
-> +}
-> +
-> +/**
-> + * sdw_compute_port_params: Compute transport and port parameters
-> + *
-> + * @bus: SDW Bus instance
-> + */
-> +static int sdw_compute_port_params(struct sdw_bus *bus)
-> +{
-> +	struct sdw_group_params *params = NULL;
-> +	struct sdw_group group;
-> +	int ret;
-> +
-> +	ret = sdw_get_group_count(bus, &group);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	if (group.count == 0)
-> +		goto out;
-> +
-> +	params = kcalloc(group.count, sizeof(*params), GFP_KERNEL);
-> +	if (!params) {
-> +		ret = -ENOMEM;
-> +		goto out;
-> +	}
-> +
-> +	/* Compute transport parameters for grouped streams */
-> +	ret = sdw_compute_group_params(bus, params,
-> +				       &group.rates[0], group.count);
-> +	if (ret < 0)
-> +		goto out;
-> +
-> +	_sdw_compute_port_params(bus, params, group.count);
-> +
-> +out:
-> +	kfree(params);
-> +	kfree(group.rates);
-
-Depending whether or not you change the code above, this might change
-too.
-
-> +
-> +	return ret;
-> +}
-> +
-> +static int sdw_select_row_col(struct sdw_bus *bus, int clk_freq)
-> +{
-> +	struct sdw_master_prop *prop = &bus->prop;
-> +	int frame_int, frame_freq;
-> +	int r, c;
-> +
-> +	for (c = 0; c < SDW_FRAME_COLS; c++) {
-> +		for (r = 0; r < SDW_FRAME_ROWS; r++) {
-> +			if (sdw_rows[r] != prop->default_row ||
-> +			    sdw_cols[c] != prop->default_col)
-> +				continue;
-> +
-> +			frame_int = sdw_rows[r] * sdw_cols[c];
-> +			frame_freq = clk_freq / frame_int;
-> +
-> +			if ((clk_freq - (frame_freq * SDW_FRAME_CTRL_BITS)) <
-> +			    bus->params.bandwidth)
-> +				continue;
-> +
-> +			bus->params.row = sdw_rows[r];
-> +			bus->params.col = sdw_cols[c];
-> +			return 0;
-> +		}
-> +	}
-> +
-> +	return -EINVAL;
-> +}
-> +
-> +/**
-> + * sdw_compute_bus_params: Compute bus parameters
-> + *
-> + * @bus: SDW Bus instance
-> + */
-> +static int sdw_compute_bus_params(struct sdw_bus *bus)
-> +{
-> +	unsigned int max_dr_freq, curr_dr_freq = 0;
-> +	struct sdw_master_prop *mstr_prop = NULL;
-
-superfluous initialisation
-
-> +	int i, clk_values, ret;
-> +	bool is_gear = false;
-> +	u32 *clk_buf;
-> +
-> +	mstr_prop = &bus->prop;
-> +	if (!mstr_prop)
-
-this is impossible, it's an address of bus->prop...
-
-> +		return -EINVAL;
-> +
-> +	if (mstr_prop->num_clk_gears) {
-> +		clk_values = mstr_prop->num_clk_gears;
-> +		clk_buf = mstr_prop->clk_gears;
-> +		is_gear = true;
-> +	} else if (mstr_prop->num_clk_freq) {
-> +		clk_values = mstr_prop->num_clk_freq;
-> +		clk_buf = mstr_prop->clk_freq;
-> +	} else {
-> +		clk_values = 1;
-> +		clk_buf = NULL;
-> +	}
-> +
-> +	max_dr_freq = mstr_prop->max_clk_freq * SDW_DOUBLE_RATE_FACTOR;
-> +
-> +	for (i = 0; i < clk_values; i++) {
-> +		if (!clk_buf)
-> +			curr_dr_freq = max_dr_freq;
-> +		else
-> +			curr_dr_freq = (is_gear) ?
-
-superfluous parentheses
-
-> +				(max_dr_freq >>  clk_buf[i]) :
-
-ditto
-
-> +				clk_buf[i] * SDW_DOUBLE_RATE_FACTOR;
-> +
-> +		if (curr_dr_freq <= bus->params.bandwidth)
-> +			continue;
-> +
-> +		break;
-
-I think this is raw code, you'd actually want to write this as
-
-		if (curr_dr_freq > bus->params.bandwidth)
-			break;
-
-> +
-> +		/*
-> +		 * TODO: Check all the Slave(s) port(s) audio modes and find
-> +		 * whether given clock rate is supported with glitchless
-> +		 * transition.
-> +		 */
-> +	}
-> +
-> +	if (i == clk_values)
-> +		return -EINVAL;
-> +
-> +	ret = sdw_select_row_col(bus, curr_dr_freq);
-> +	if (ret < 0)
-> +		return -EINVAL;
-> +
-> +	bus->params.curr_dr_freq = curr_dr_freq;
-> +	return 0;
-> +}
-> +
-> +/**
-> + * sdw_compute_params: Compute bus, transport and port parameters
-> + *
-> + * @bus: SDW Bus instance
-> + */
-> +int sdw_compute_params(struct sdw_bus *bus)
-> +{
-> +	int ret;
-> +
-> +	/* Computes clock frequency, frame shape and frame frequency */
-> +	ret = sdw_compute_bus_params(bus);
-> +	if (ret < 0) {
-> +		dev_err(bus->dev, "Compute bus params failed: %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Compute transport and port params */
-> +	ret = sdw_compute_port_params(bus);
-> +	if (ret < 0) {
-> +		dev_err(bus->dev, "Compute transport params failed: %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(sdw_compute_params);
-> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-> index 2354675ef104..76a180578712 100644
-> --- a/drivers/soundwire/bus.c
-> +++ b/drivers/soundwire/bus.c
-> @@ -51,6 +51,9 @@ int sdw_add_bus_master(struct sdw_bus *bus)
->  
->  	bus->debugfs = sdw_bus_debugfs_init(bus);
->  
-> +	if (!bus->compute_params)
-> +		bus->compute_params = &sdw_compute_params;
-
-I think it is more usual to not use "&" with functions, but it's valid too
-
-> +
->  	/*
->  	 * Device numbers in SoundWire are 0 through 15. Enumeration device
->  	 * number (0), Broadcast device number (15), Group numbers (12 and
-> diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-> index c57c9c23f6ca..fdb7ce034fdf 100644
-> --- a/drivers/soundwire/bus.h
-> +++ b/drivers/soundwire/bus.h
-> @@ -72,6 +72,7 @@ struct sdw_msg {
->  };
->  
->  #define SDW_DOUBLE_RATE_FACTOR		2
-> +#define SDW_STRM_RATE_GROUPING		1
->  
->  extern int sdw_rows[SDW_FRAME_ROWS];
->  extern int sdw_cols[SDW_FRAME_COLS];
-> @@ -157,9 +158,50 @@ int sdw_transfer_defer(struct sdw_bus *bus, struct sdw_msg *msg,
->  int sdw_fill_msg(struct sdw_msg *msg, struct sdw_slave *slave,
->  		 u32 addr, size_t count, u16 dev_num, u8 flags, u8 *buf);
->  
-> +/* Retrieve and return channel count from channel mask */
-> +static inline int sdw_ch_mask_to_ch(int ch_mask)
-> +{
-> +	int c = 0;
-
-superfluous initialisation
-
-> +
-> +	for (c = 0; ch_mask; ch_mask >>= 1)
-> +		c += ch_mask & 1;
-
-isn't there a built-in or something to count set bits... You could use ffs() to
-at least not loop 31 times for 0x80000000
-
-> +
-> +	return c;
-> +}
-> +
-> +/* Fill transport parameter data structure */
-> +static inline void sdw_fill_xport_params(struct sdw_transport_params *params,
-> +					 int port_num, bool grp_ctrl_valid,
-> +					 int grp_ctrl, int sample_int,
-> +					 int off1, int off2,
-> +					 int hstart, int hstop,
-> +					 int pack_mode, int lane_ctrl)
-> +{
-> +	params->port_num = port_num;
-> +	params->blk_grp_ctrl_valid = grp_ctrl_valid;
-> +	params->blk_grp_ctrl = grp_ctrl;
-> +	params->sample_interval = sample_int;
-> +	params->offset1 = off1;
-> +	params->offset2 = off2;
-> +	params->hstart = hstart;
-> +	params->hstop = hstop;
-> +	params->blk_pkg_mode = pack_mode;
-> +	params->lane_ctrl = lane_ctrl;
-> +}
-> +
-> +/* Fill port parameter data structure */
-> +static inline void sdw_fill_port_params(struct sdw_port_params *params,
-> +					int port_num, int bps,
-> +					int flow_mode, int data_mode)
-> +{
-> +	params->num = port_num;
-> +	params->bps = bps;
-> +	params->flow_mode = flow_mode;
-> +	params->data_mode = data_mode;
-> +}
-> +
->  /* Read-Modify-Write Slave register */
-> -static inline int
-> -sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
-> +static inline int sdw_update(struct sdw_slave *slave, u32 addr, u8 mask, u8 val)
->  {
->  	int tmp;
->  
-> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> index 75b9ad1fb1a6..add7c121d084 100644
-> --- a/drivers/soundwire/stream.c
-> +++ b/drivers/soundwire/stream.c
-> @@ -1485,6 +1485,16 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream)
->  		bus->params.bandwidth += m_rt->stream->params.rate *
->  			m_rt->ch_count * m_rt->stream->params.bps;
->  
-> +		/* Compute params */
-> +		if (bus->compute_params) {
-> +			ret = bus->compute_params(bus);
-> +			if (ret < 0) {
-> +				dev_err(bus->dev,
-> +					"Compute params failed: %d", ret);
-> +				return ret;
-> +			}
-> +		}
-> +
->  		/* Program params */
->  		ret = sdw_program_params(bus);
->  		if (ret < 0) {
-> @@ -1704,6 +1714,16 @@ static int _sdw_deprepare_stream(struct sdw_stream_runtime *stream)
->  		bus->params.bandwidth -= m_rt->stream->params.rate *
->  			m_rt->ch_count * m_rt->stream->params.bps;
->  
-> +		/* Compute params */
-> +		if (bus->compute_params) {
-> +			ret = bus->compute_params(bus);
-> +			if (ret < 0) {
-> +				dev_err(bus->dev,
-> +					"Compute params failed: %d", ret);
-> +				return ret;
-> +			}
-> +		}
-> +
->  		/* Program params */
->  		ret = sdw_program_params(bus);
->  		if (ret < 0) {
-> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-> index b6acc436ac80..c7dfc824be80 100644
-> --- a/include/linux/soundwire/sdw.h
-> +++ b/include/linux/soundwire/sdw.h
-> @@ -730,6 +730,7 @@ struct sdw_master_ops {
->   * Bit set implies used number, bit clear implies unused number.
->   * @bus_lock: bus lock
->   * @msg_lock: message lock
-> + * @compute_params: points to Bus resource management implementation
->   * @ops: Master callback ops
->   * @port_ops: Master port callback ops
->   * @params: Current bus parameters
-> @@ -752,6 +753,7 @@ struct sdw_bus {
->  	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
->  	struct mutex bus_lock;
->  	struct mutex msg_lock;
-> +	int (*compute_params)(struct sdw_bus *bus);
->  	const struct sdw_master_ops *ops;
->  	const struct sdw_master_port_ops *port_ops;
->  	struct sdw_bus_params params;
-> @@ -852,6 +854,9 @@ struct sdw_stream_runtime {
->  
->  struct sdw_stream_runtime *sdw_alloc_stream(char *stream_name);
->  void sdw_release_stream(struct sdw_stream_runtime *stream);
-> +
-> +int sdw_compute_params(struct sdw_bus *bus);
-> +
->  int sdw_stream_add_master(struct sdw_bus *bus,
->  		struct sdw_stream_config *stream_config,
->  		struct sdw_port_config *port_config,
-> -- 
-> 2.20.1
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CgpPbiA3LzI2LzE5IDQ6MDkgQU0sIEFtYWRldXN6IFPFgmF3acWEc2tpIHdyb3RlOgo+IEN1cnJl
+bnRseSB3aGVuIHdlIHJlbW92ZSBhbmQgcmVsb2FkIGRyaXZlciB3ZSB1c2UgcHJldmlvdXMgcmVm
+X2NvdW50Cj4gdmFsdWUgdG8gc3RhcnQgaXRlcmF0aW5nIG92ZXIgc2tsLT5tb2R1bGVzIHdoaWNo
+IGxlYWRzIHRvIG91dCBvZiB0YWJsZQo+IGFjY2Vzcy4gVG8gZml4IHRoaXMganVzdCBpbmxpbmUg
+dGhlIGZ1bmN0aW9uIGFuZCBjYWxjdWxhdGUgaW5kZXhlcwo+IGV2ZXJ5dGltZSB3ZSBwYXJzZSBV
+VUlEIHRva2VuLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEFtYWRldXN6IFPFgmF3acWEc2tpIDxhbWFk
+ZXVzenguc2xhd2luc2tpQGxpbnV4LmludGVsLmNvbT4KClJldmlld2VkLWJ5OiBQaWVycmUtTG91
+aXMgQm9zc2FydCA8cGllcnJlLWxvdWlzLmJvc3NhcnRAbGludXguaW50ZWwuY29tPgoKPiAtLS0K
+PiAgIHNvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC10b3BvbG9neS5jIHwgMzQgKysrKysrKysr
+LS0tLS0tLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAy
+MiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2ludGVsL3NreWxha2Uv
+c2tsLXRvcG9sb2d5LmMgYi9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtdG9wb2xvZ3kuYwo+
+IGluZGV4IDExODg2NmNkNTA3NS4uYzFjMzdjZTc1OWJkIDEwMDY0NAo+IC0tLSBhL3NvdW5kL3Nv
+Yy9pbnRlbC9za3lsYWtlL3NrbC10b3BvbG9neS5jCj4gKysrIGIvc291bmQvc29jL2ludGVsL3Nr
+eWxha2Uvc2tsLXRvcG9sb2d5LmMKPiBAQCAtMzMzMywyNSArMzMzMyw2IEBAIHN0YXRpYyBpbnQg
+c2tsX3RwbGdfZ2V0X2ludF90a24oc3RydWN0IGRldmljZSAqZGV2LAo+ICAgCXJldHVybiB0a25f
+Y291bnQ7Cj4gICB9Cj4gICAKPiAtc3RhdGljIGludCBza2xfdHBsZ19nZXRfbWFuaWZlc3RfdXVp
+ZChzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gLQkJCQlzdHJ1Y3Qgc2tsX2RldiAqc2tsLAo+IC0JCQkJ
+c3RydWN0IHNuZF9zb2NfdHBsZ192ZW5kb3JfdXVpZF9lbGVtICp1dWlkX3RrbikKPiAtewo+IC0J
+c3RhdGljIGludCByZWZfY291bnQ7Cj4gLQlzdHJ1Y3Qgc2tsX21vZHVsZSAqbW9kOwo+IC0KPiAt
+CWlmICh1dWlkX3Rrbi0+dG9rZW4gPT0gU0tMX1RLTl9VVUlEKSB7Cj4gLQkJbW9kID0gc2tsLT5t
+b2R1bGVzW3JlZl9jb3VudF07Cj4gLQkJZ3VpZF9jb3B5KCZtb2QtPnV1aWQsIChndWlkX3QgKikm
+dXVpZF90a24tPnV1aWQpOwo+IC0JCXJlZl9jb3VudCsrOwo+IC0JfSBlbHNlIHsKPiAtCQlkZXZf
+ZXJyKGRldiwgIk5vdCBhbiBVVUlEIHRva2VuIHRrbiAlZFxuIiwgdXVpZF90a24tPnRva2VuKTsK
+PiAtCQlyZXR1cm4gLUVJTlZBTDsKPiAtCX0KPiAtCj4gLQlyZXR1cm4gMDsKPiAtfQo+IC0KPiAg
+IC8qCj4gICAgKiBGaWxsIHRoZSBtYW5pZmVzdCBzdHJ1Y3R1cmUgYnkgcGFyc2luZyB0aGUgdG9r
+ZW5zIGJhc2VkIG9uIHRoZQo+ICAgICogdHlwZS4KPiBAQCAtMzM2Miw2ICszMzQzLDcgQEAgc3Rh
+dGljIGludCBza2xfdHBsZ19nZXRfbWFuaWZlc3RfdGtuKHN0cnVjdCBkZXZpY2UgKmRldiwKPiAg
+IHsKPiAgIAlpbnQgdGtuX2NvdW50ID0gMCwgcmV0Owo+ICAgCWludCBvZmYgPSAwLCB0dXBsZV9z
+aXplID0gMDsKPiArCXU4IHV1aWRfaW5kZXggPSAwOwo+ICAgCXN0cnVjdCBzbmRfc29jX3RwbGdf
+dmVuZG9yX2FycmF5ICphcnJheTsKPiAgIAlzdHJ1Y3Qgc25kX3NvY190cGxnX3ZlbmRvcl92YWx1
+ZV9lbGVtICp0a25fZWxlbTsKPiAgIAo+IEBAIC0zMzg0LDkgKzMzNjYsMTcgQEAgc3RhdGljIGlu
+dCBza2xfdHBsZ19nZXRfbWFuaWZlc3RfdGtuKHN0cnVjdCBkZXZpY2UgKmRldiwKPiAgIAkJCWNv
+bnRpbnVlOwo+ICAgCj4gICAJCWNhc2UgU05EX1NPQ19UUExHX1RVUExFX1RZUEVfVVVJRDoKPiAt
+CQkJcmV0ID0gc2tsX3RwbGdfZ2V0X21hbmlmZXN0X3V1aWQoZGV2LCBza2wsIGFycmF5LT51dWlk
+KTsKPiAtCQkJaWYgKHJldCA8IDApCj4gLQkJCQlyZXR1cm4gcmV0Owo+ICsJCQlpZiAoYXJyYXkt
+PnV1aWQtPnRva2VuICE9IFNLTF9US05fVVVJRCkgewo+ICsJCQkJZGV2X2VycihkZXYsICJOb3Qg
+YW4gVVVJRCB0b2tlbjogJWRcbiIsCj4gKwkJCQkJYXJyYXktPnV1aWQtPnRva2VuKTsKPiArCQkJ
+CXJldHVybiAtRUlOVkFMOwo+ICsJCQl9Cj4gKwkJCWlmICh1dWlkX2luZGV4ID49IHNrbC0+bnJf
+bW9kdWxlcykgewo+ICsJCQkJZGV2X2VycihkZXYsICJUb28gbWFueSBVVUlEIHRva2Vuc1xuIik7
+Cj4gKwkJCQlyZXR1cm4gLUVJTlZBTDsKPiArCQkJfQo+ICsJCQlndWlkX2NvcHkoJnNrbC0+bW9k
+dWxlc1t1dWlkX2luZGV4KytdLT51dWlkLAo+ICsJCQkJICAoZ3VpZF90ICopJmFycmF5LT51dWlk
+LT51dWlkKTsKPiAgIAo+ICAgCQkJdHVwbGVfc2l6ZSArPSBzaXplb2YoKmFycmF5LT51dWlkKTsK
+PiAgIAkJCWNvbnRpbnVlOwo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVj
+dC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bHNhLWRldmVsCg==

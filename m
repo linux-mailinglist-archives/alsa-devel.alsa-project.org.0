@@ -2,73 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AA42771EA
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 21:13:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F597773BA
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 23:49:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3EC520E1;
-	Fri, 26 Jul 2019 21:12:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3EC520E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD4D20E1;
+	Fri, 26 Jul 2019 23:48:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD4D20E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564168399;
-	bh=mpVn4phbnA74bm0pRKNoSxBZn7Neplx27g1/bvCONBI=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rlGb7CjtXzzrnI1rogHAYqcc/eguBrXfcKaUuBRGmkVSlvY6A6JOrekKCTE391Oys
-	 vcHm4VX8xPUcHYM+9zxn7mYKnYV2vcJMP5wlzD3lte7LMd8DHvQOtM6YWvTlfKxLh8
-	 rAf251WoE5mD1US3bL3ADX9/hSvhe1dtl29d//mM=
+	s=default; t=1564177752;
+	bh=HveUGB//kvqjxS+SwQgHCGKlcfF+oTCsadgNe0DSHpU=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dBZKAIlZdXf6rYwh0gtkxaRrTz/y5DkeoLbftq2zr/Q+bADiNGaQwP3vK/lxAUhV6
+	 4M5TgOFsmGBK64isgdz5QT4Q6tpigck7YN7D5mSLMiLR9f3kB7gPhKatymj3+k/Z5P
+	 zc/R86cgWYZAZKDkXLZQzoRp4Q40sKtA9RKw1r4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 119B9F80368;
-	Fri, 26 Jul 2019 21:11:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D9ADF80368;
+	Fri, 26 Jul 2019 23:47:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91ADFF80393; Fri, 26 Jul 2019 21:11:19 +0200 (CEST)
+ id 5478DF800E8; Fri, 26 Jul 2019 23:47:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.7 required=5.0 tests=SPF_HELO_PASS,SPF_NEUTRAL,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from hera.aquilenet.fr (hera.aquilenet.fr [IPv6:2a0c:e300::1])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE378F800BE
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 21:11:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE378F800BE
-X-Amp-Result: UNSCANNABLE
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2019 12:11:14 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,311,1559545200"; d="scan'208";a="181963387"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
- by orsmga002.jf.intel.com with ESMTP; 26 Jul 2019 12:11:10 -0700
-Received: from andy by smile with local (Exim 4.92)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1hr5cS-0006eY-Of; Fri, 26 Jul 2019 22:11:08 +0300
-Date: Fri, 26 Jul 2019 22:11:08 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-Message-ID: <20190726191108.GE9224@smile.fi.intel.com>
-References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-18-pierre-louis.bossart@linux.intel.com>
- <45a912c5-134b-8642-70ef-8c1060389300@linux.intel.com>
- <20190726182534.GO16003@ubuntu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B1EEF800E8
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 23:47:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B1EEF800E8
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id 3556D19315;
+ Fri, 26 Jul 2019 23:47:04 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id HgFx9HJp6DC3; Fri, 26 Jul 2019 23:47:03 +0200 (CEST)
+Received: from function (105.251.129.77.rev.sfr.net [77.129.251.105])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 861ED19312;
+ Fri, 26 Jul 2019 23:47:03 +0200 (CEST)
+Received: from samy by function with local (Exim 4.92)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1hr83K-00012p-Gb; Fri, 26 Jul 2019 23:47:02 +0200
+Date: Fri, 26 Jul 2019 23:47:02 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Message-ID: <20190726214702.kxi2gavlieiwyf7q@function>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ 931507@bugs.debian.org
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190726182534.GO16003@ubuntu>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-pm@vger.kernel.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 17/40] soundwire: bus: use
- runtime_pm_get_sync/pm when enabled
+User-Agent: NeoMutt/20170113 (1.7.2)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ 931507@bugs.debian.org
+Subject: [alsa-devel] [PATCHv2] hda: Fix 1-minute detection delay when i915
+ module is not available
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,33 +80,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Jul 26, 2019 at 08:25:35PM +0200, Guennadi Liakhovetski wrote:
-> On Fri, Jul 26, 2019 at 01:08:57PM -0500, Pierre-Louis Bossart wrote:
-> > On 7/25/19 6:40 PM, Pierre-Louis Bossart wrote:
-> > > Not all platforms support runtime_pm for now, let's use runtime_pm
-> > > only when enabled.
+Distribution installation images such as Debian include different sets
+of modules which can be downloaded dynamically.  Such images may notably
+include the hda sound modules but not the i915 DRM module, even if the
+latter was enabled at build time, as reported on
+https://bugs.debian.org/931507
 
-> > option2 (suggested by Jan Kotas): catch the -EACCESS error code
-> > 
-> >  	ret = pm_runtime_get_sync(slave->bus->dev);
-> > -	if (ret < 0)
-> > +	if (ret < 0 && ret != -EACCES)
-> >  		return ret;
+In such a case hdac_i915 would be linked in and try to load the i915
+module, fail since it is not there, but still wait for a whole minute
+before giving up binding with it.
 
-> Otherwise I'd go with (2), I think, since
-> that's also the official purpose of the -EACCESS return code:
-> 
-> https://lists.linuxfoundation.org/pipermail/linux-pm/2011-June/031930.html
+This fixes such as case by only waiting for the binding if the module
+was properly loaded (or module support is disabled, in which case i915
+is already compiled-in anyway).
 
-And at least we have examples in the kernel
+Signed-off-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+---
+ sound/hda/hdac_i915.c |   11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-drivers/gpu/drm/radeon/radeon_fb.c:57:  if (ret < 0 && ret != -EACCES) {
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--- a/sound/hda/hdac_i915.c
++++ b/sound/hda/hdac_i915.c
+@@ -136,10 +136,13 @@ int snd_hdac_i915_init(struct hdac_bus *
+ 	if (!acomp)
+ 		return -ENODEV;
+ 	if (!acomp->ops) {
+-		request_module("i915");
+-		/* 60s timeout */
+-		wait_for_completion_timeout(&bind_complete,
+-					    msecs_to_jiffies(60 * 1000));
++		if (!IS_ENABLED(CONFIG_MODULES) ||
++		    !request_module("i915"))
++		{
++			/* 60s timeout */
++			wait_for_completion_timeout(&bind_complete,
++						   msecs_to_jiffies(60 * 1000));
++		}
+ 	}
+ 	if (!acomp->ops) {
+ 		dev_info(bus->dev, "couldn't bind with audio component\n");
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

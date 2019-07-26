@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CB9675CD2
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 04:16:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31BBC75DE9
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 06:44:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 326A11F7D;
-	Fri, 26 Jul 2019 04:15:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 326A11F7D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AE301F7C;
+	Fri, 26 Jul 2019 06:43:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AE301F7C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564107405;
-	bh=mFr500myXH6P8LWzpRoMbP1SbBcjGpErCY6FV8rplH4=;
+	s=default; t=1564116251;
+	bh=pOllHkFoBr9oujcgZvpOEJvK+ag0MXZ8L8jwyubmGwM=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=vOd7A23WBPX9IIoaNP1ZicieBFL6Gw4ce5Om5yhpjF7Gm0QdDLm4AFgmnwN0RMhH9
-	 /5mOD4EtnQmsErHFuv6nR5fxgqu4oZOpGcofI7t0Fc0Dkv+4gYYui1vuC+zTJMBpWx
-	 o8/di5ul6M0qpFgEp3d05K3pMtuB8XDIxawbM7SY=
+	b=sFjYxFvgTdmhSjEUG34obN1dOfMRuVGB8Tu3Xj8dIUe2aErTPoAeI9EiRn3SwiD8a
+	 xKON2awCR0QT0DFXYZItr7KUjptAQsEU5BkSXnBdXexkGp7I2RnKPkn+3cXD8p+KpH
+	 UvngEGfDOrDDR6C0Xw/KJBjuFFYvOEtSTx/PhtZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D164F803D5;
-	Fri, 26 Jul 2019 04:15:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD4ADF80368;
+	Fri, 26 Jul 2019 06:42:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C03FCF80393; Fri, 26 Jul 2019 04:14:58 +0200 (CEST)
+ id 06E73F80368; Fri, 26 Jul 2019 06:42:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20BB8F801A4
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 04:14:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20BB8F801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FDD3F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 06:42:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FDD3F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="L+5weXap"
-Received: by mail-pl1-x643.google.com with SMTP id t14so24097903plr.11
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 19:14:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=omBls9Gx4bP4rqZZvHf2qg7ZHRKve5iFfEyz6IL0Sek=;
- b=L+5weXap3F/aUB3dU/dLA+E47mrqkGreRpNSO0P4EFp34DviXxVckUNAji93YEXOrK
- HaXiMFlzinZ1Ps+NCoJ+hMG9sIwJJyJm/PzOok2v1rnIamul1CNL0fjm0MUIGlLhpxSb
- g+c2f/hrtp3AoRTqU4Z0QrXkbM0IUSQr0Lm4Zztarg2M6/UgVLVwCJhRMnTOSc4P5wFm
- 3+XHFE6MdqFXDzfFKidY+d8i5f8F7LEHmKEOAQ1t0Las1rpnsalyj0HJLZZeBsVfxXai
- J6x1DEySm84MM/MLR9GOgWy2utfArMn2CBkWLzlmTKJetppAHmDK0VkjzznOnj2R5GyV
- vjjg==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="Hm635lZZ"
+Received: by mail-pg1-x542.google.com with SMTP id f20so14894134pgj.0
+ for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 21:42:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eq62dV3aG3jd/W9zqRWfepVRB8FhgcYvUn8Cc6l9GkA=;
+ b=Hm635lZZN0RARpzAb9ayexcKn9YXj1XlLee2lITYorBDY2KOsISLHVejwgEYcg6Nc0
+ ZqhT1sHlG9s/X0ETZP/JU0sFKEZfCI/zwx6FZHpw1WBMbMM+jyC+fd8EFxcdysy7wZMH
+ YYPvEnctY6Zda/l2Cl2oxKrjCh5ExnnUiBHjE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=omBls9Gx4bP4rqZZvHf2qg7ZHRKve5iFfEyz6IL0Sek=;
- b=LhPjZq39ufdsNcj/QXLkZbLisea1SrcaznjX/sWpH18kSdFKMTQlOY4Ht9ephZLYOI
- eDCf1TlwrIUU443N3k0YEfVEYxktWpQY1sG3a9udy0NJep/MocBvCN1IoWH7jRm5oRNR
- +SMjpZKlUH7T7G+9hUPyTmvc6t8ylcbIrnETAYV596j9bJfoFjVHSwtLBLCn9PfAcuPw
- WrKOber1Gpfd6piEYoK+ehIEh3gam/0CXgcP8uuXBx1heXOSMzbIPc6ePLc30pwTVwg6
- RQyCsXr6/B20vgMHbJo+jpKHsrfTRAZu4JvJiZTa7+S1TFlE2c4d3X0+7InFJnYi9uPI
- /e2A==
-X-Gm-Message-State: APjAAAUEu4bV7mhakUUDBhUlmVAwJFY6bMYI5gJG6cIrlL/HIZ4ZX7/k
- sIHwmTWAMaBR+J5BxDXjf/k=
-X-Google-Smtp-Source: APXvYqzhtWZULLiTvGVlGqmQlDUERIrGC3/w9xnlHbHonHpzpbFCDrgdVCtDSTQxnMeQWP0657yc/A==
-X-Received: by 2002:a17:902:1d4a:: with SMTP id
- u10mr9939058plu.343.1564107293936; 
- Thu, 25 Jul 2019 19:14:53 -0700 (PDT)
-Received: from oslab.tsinghua.edu.cn ([2402:f000:4:72:808::3ca])
- by smtp.gmail.com with ESMTPSA id y128sm69564365pgy.41.2019.07.25.19.14.51
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eq62dV3aG3jd/W9zqRWfepVRB8FhgcYvUn8Cc6l9GkA=;
+ b=WscqoOX1NGk3tmMA+xUoqKHoiB9TMDlAGnH8IpbupjKx/0I8RoTLVY+FyXRYX4Syy8
+ +tyZXCmoCcCVM2qx5QtwucFZt7y4CrCCCzWaRqjj42GqOXJJBQCoEvxGN3UaCTygFqtQ
+ I9EoWr6oamxCPML/lqsGvN/dFF+ADagYFDPq68QqnqZ3UC9+rDNksEznWDhbiCGRGiqa
+ 2HR9wjr44Dn7BKGqBYy/IvIeVWa9fgpoXqk6fXve4mskNO4wLOTYDMla3mXKp4h2+0ke
+ 1bSU1vZ+uwr8Te6fgAuaeul6mFIp1Kbwy9zuKl4JNDSrv7ZsUmMEMlqrMYrOmd+NZ3kf
+ O9yg==
+X-Gm-Message-State: APjAAAUQAT9UZAypJUX6CflG2u1+LvrDhfIpiJvLfcSrcHqoczbKc/D5
+ k0MLAiiydVb2d0tQ7wP7tqOL8g==
+X-Google-Smtp-Source: APXvYqzyDNFdueHohA8SGN1O6dmRutvK/f1c35LtOqHGnJFqaLCJWNkNKPAQTGdjzMb/377e4SAgXA==
+X-Received: by 2002:a17:90a:9905:: with SMTP id
+ b5mr98357683pjp.70.1564116135769; 
+ Thu, 25 Jul 2019 21:42:15 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:b:e688:dfd2:a1a7:2956])
+ by smtp.gmail.com with ESMTPSA id t7sm41702252pjq.15.2019.07.25.21.42.12
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 25 Jul 2019 19:14:53 -0700 (PDT)
-From: Jia-Ju Bai <baijiaju1990@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, tglx@linutronix.de, rfontana@redhat.com,
- gregkh@linuxfoundation.org
-Date: Fri, 26 Jul 2019 10:14:42 +0800
-Message-Id: <20190726021442.21177-1-baijiaju1990@gmail.com>
-X-Mailer: git-send-email 2.17.0
-Cc: alsa-devel@alsa-project.org, Jia-Ju Bai <baijiaju1990@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v2] ALSA: i2c: ak4xxx-adda: Fix a possible null
-	pointer dereference in build_adc_controls()
+ Thu, 25 Jul 2019 21:42:14 -0700 (PDT)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Fri, 26 Jul 2019 12:42:02 +0800
+Message-Id: <20190726044202.26866-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.22.0.709.g102302147b-goog
+MIME-Version: 1.0
+Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, tzungbi@chromium.org,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ dgreid@chromium.org, mka@chromium.org, linux-arm-kernel@lists.infradead.org,
+ Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] [PATCH] Revert "ASoC: rockchip: i2s: Support mono
+	capture"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,59 +96,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In build_adc_controls(), there is an if statement on line 773 to check
-whether ak->adc_info is NULL:
-    if (! ak->adc_info ||
-        ! ak->adc_info[mixer_ch].switch_name)
+This reverts commit db51707b9c9aeedd310ebce60f15d5bb006567e0.
 
-When ak->adc_info is NULL, it is used on line 792:
-    knew.name = ak->adc_info[mixer_ch].selector_name;
+Previous discussion in
 
-Thus, a possible null-pointer dereference may occur.
+https://patchwork.kernel.org/patch/10147153/
 
-To fix this bug, referring to lines 773 and 774, ak->adc_info
-and ak->adc_info[mixer_ch].selector_name are checked before being used.
+explains the issue of the patch.
+While device is configured as 1-ch, hardware is still
+generating a 2-ch stream.
+When user space reads the data and assumes it is a 1-ch stream,
+the rate will be slower by 2x.
 
-This bug is found by a static analysis tool STCheck written by us.
+Revert the change so 1-ch is not supported.
+User space can selectively take one channel data out of two channel
+if 1-ch is preferred.
+Currently, both channels record identical data.
 
-Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
+Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
 ---
-v2:
-* Fix the errors reported by checkpatch.pl.
-  Thank Takashi for helpful advice.
+ sound/soc/rockchip/rockchip_i2s.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
----
- sound/i2c/other/ak4xxx-adda.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/sound/i2c/other/ak4xxx-adda.c b/sound/i2c/other/ak4xxx-adda.c
-index 5f59316f982a..b03e6d1be656 100644
---- a/sound/i2c/other/ak4xxx-adda.c
-+++ b/sound/i2c/other/ak4xxx-adda.c
-@@ -775,11 +775,12 @@ static int build_adc_controls(struct snd_akm4xxx *ak)
- 				return err;
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index 0a34d0eb8dba..88ebaf6e1880 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -326,7 +326,6 @@ static int rockchip_i2s_hw_params(struct snd_pcm_substream *substream,
+ 		val |= I2S_CHN_4;
+ 		break;
+ 	case 2:
+-	case 1:
+ 		val |= I2S_CHN_2;
+ 		break;
+ 	default:
+@@ -459,7 +458,7 @@ static struct snd_soc_dai_driver rockchip_i2s_dai = {
+ 	},
+ 	.capture = {
+ 		.stream_name = "Capture",
+-		.channels_min = 1,
++		.channels_min = 2,
+ 		.channels_max = 2,
+ 		.rates = SNDRV_PCM_RATE_8000_192000,
+ 		.formats = (SNDRV_PCM_FMTBIT_S8 |
+@@ -659,7 +658,7 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
+ 	}
  
- 			memset(&knew, 0, sizeof(knew));
--			knew.name = ak->adc_info[mixer_ch].selector_name;
--			if (!knew.name) {
-+			if (!ak->adc_info ||
-+				!ak->adc_info[mixer_ch].selector_name) {
- 				knew.name = "Capture Channel";
- 				knew.index = mixer_ch + ak->idx_offset * 2;
--			}
-+			} else
-+				knew.name = ak->adc_info[mixer_ch].selector_name;
+ 	if (!of_property_read_u32(node, "rockchip,capture-channels", &val)) {
+-		if (val >= 1 && val <= 8)
++		if (val >= 2 && val <= 8)
+ 			soc_dai->capture.channels_max = val;
+ 	}
  
- 			knew.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
- 			knew.info = ak4xxx_capture_source_info;
 -- 
-2.17.0
+2.22.0.709.g102302147b-goog
 
 _______________________________________________
 Alsa-devel mailing list

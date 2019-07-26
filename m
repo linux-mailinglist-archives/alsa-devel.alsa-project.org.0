@@ -2,78 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF2087654F
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 14:11:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F33D76553
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 14:11:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74DC3202C;
-	Fri, 26 Jul 2019 14:10:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74DC3202C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BEE02043;
+	Fri, 26 Jul 2019 14:10:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BEE02043
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564143079;
-	bh=LLJuvpSwKdT862ee8AMcOranD32AZ2ymzOPoAzB6A1o=;
+	s=default; t=1564143105;
+	bh=iLTFzu552tu7K5iNPeYmi0HY19pQZbJ4RioSXXOZaGM=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dr2z+LQm4VjPLS1y11YWkZnBxrQZ71mQm5y9CLQtYTU7mni7qNPTU6Z7gnr5NlipT
-	 OHamNAS/KOw3/it2R/PJYUnIQyFVfuATDl5iID3f5R7mCQZOvdVM1vQF8Z4VPsXwM9
-	 fBiArIifnyr/VmHJIRKWKuAam1gZJKz9qslrEq0E=
+	b=VJQYNUeXhzV3GB4Pfloia2qJaW/NXmqzes7/3BNmIxzV/PBc/aPggXOxAhb34jFWY
+	 C5kbVg0FPvHhy2G3TSIkaht+eieoOKA7XEv4ICmDEUBg8sf/3F7ZEWFVp6yh60rFBu
+	 kzgyK+KZtmisKXMFWRfqWa041gdqrOZMeZefa8DI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE015F80482;
-	Fri, 26 Jul 2019 14:08:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0E9BF80483;
+	Fri, 26 Jul 2019 14:08:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3F70F80368; Fri, 26 Jul 2019 14:08:46 +0200 (CEST)
+ id 7C2AFF8048D; Fri, 26 Jul 2019 14:08:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_26,SPF_HELO_NONE,SPF_NONE
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AF006F801A4
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 14:08:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF006F801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F909F80481
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 14:08:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F909F80481
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dgTcrG54"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gS6TFmtoV9RB8J3VH+YKQUJjv20M7Idf7n3sD7CqGlY=; b=dgTcrG54HaVxyxusxxEABL2XU
- 5jK19DpyIw1uRl38Bwa3O+yVbls8pylB1S0cuIJlWBLs9+x2tDstnvkvGhrTWPF4w4wBWco5EGIGr
- lwuGdx63F3HJhbt2cidBT1pkGnrZ0YXy1CQMxwy1OEMi5xbFD1K2r+E/HWwGfBcwajLwU=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hqz1e-0001YP-KU; Fri, 26 Jul 2019 12:08:42 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 881C42742B63; Fri, 26 Jul 2019 13:08:41 +0100 (BST)
-Date: Fri, 26 Jul 2019 13:08:41 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Message-ID: <20190726120841.GA55803@sirena.org.uk>
-References: <cover.1564140865.git.mchehab+samsung@kernel.org>
- <9932608f32030c886d906ea656eda8408c544776.1564140865.git.mchehab+samsung@kernel.org>
+ dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
+ header.b="OMurcdll"
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 45w7B94bnbzB2;
+ Fri, 26 Jul 2019 14:07:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1564142851; bh=+BQ1LKYu6336M0FwVYPvUJaJNhiZCTl8l1SiH8AfHx0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OMurcdllC7deHb/blzpx+dNiTmUEOSYZ2oXROzw++3sNCSVGERNm+epHMAwk6eYm4
+ KIYCjj+k5b6MLb9V7srqudq6QpwFi/fABzNh3KJGPYGZ/N4G+cppm166W+sMXDUOca
+ AOAGGKSzOSyAtnqO56DwbKgfvvURDKgEeeXdvLZSdYmOVzKUDqx9zXDoA4MzMhxNSd
+ SZABB14mjedRIXqW0vcACL3N6AaWVCXjP6ZXgZwS5/Z1BzNeZZcjtVr5ZAQ2i6eqMc
+ lCJY4s4O9VgZcSx0mfqVZ+jUPmfA9GdTBIxAgfJNJkcTKByRJ8xHNx+zhzIYn5Umid
+ 4vdhwL2wM1ulw==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.100.3 at mail
+Date: Fri, 26 Jul 2019 14:08:49 +0200
+From: mirq-linux@rere.qmqm.pl
+To: Codrin.Ciubotariu@microchip.com
+Message-ID: <20190726120849.GA1078@qmqm.qmqm.pl>
+References: <cover.1563819483.git.mirq-linux@rere.qmqm.pl>
+ <107e0cfd11a31ce1558e941612e183100022930d.1563819483.git.mirq-linux@rere.qmqm.pl>
+ <eabb96e7-1567-3ee1-a00e-f241c5f23c1c@microchip.com>
+ <20190725182427.GA16245@qmqm.qmqm.pl>
+ <6fdbcec1-346f-9ebf-34e7-83b0ceaba404@microchip.com>
 MIME-Version: 1.0
-In-Reply-To: <9932608f32030c886d906ea656eda8408c544776.1564140865.git.mchehab+samsung@kernel.org>
-X-Cookie: Think sideways!
+Content-Disposition: inline
+In-Reply-To: <6fdbcec1-346f-9ebf-34e7-83b0ceaba404@microchip.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 7/7] docs: dt: fix a sound binding broken
-	reference
+Cc: alsa-devel@alsa-project.org, alexandre.belloni@bootlin.com, tiwai@suse.com,
+ Nicolas.Ferre@microchip.com, lgirdwood@gmail.com,
+ Ludovic.Desroches@microchip.com, broonie@kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH 5/5] ASoC: atmel_ssc_dai: Enable shared
+ FSYNC source in frame-slave mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,54 +85,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2263275635964120667=="
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Jul 26, 2019 at 10:33:29AM +0000, Codrin.Ciubotariu@microchip.com w=
+rote:
+> On 25.07.2019 21:24, mirq-linux@rere.qmqm.pl wrote:
+> > On Thu, Jul 25, 2019 at 03:02:34PM +0000, Codrin.Ciubotariu@microchip.c=
+om wrote:
+> >> On 22.07.2019 21:27, Micha=B3 Miros=B3aw wrote:
+> >>> SSC driver allows only synchronous TX and RX. In slave mode for BCLK
+> >>> it uses only one of TK or RK pin, but for LRCLK it configured separate
+> >>> inputs from TF and RF pins. Allow configuration with common FS signal.
+> > [...]
+> >>> @@ -613,10 +607,30 @@ static int atmel_ssc_hw_params(struct snd_pcm_s=
+ubstream *substream,
+> >>>    		return -EINVAL;
+> >>>    	}
+> >>>    =
 
---===============2263275635964120667==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SLDf9lqlvOQaIe6s"
-Content-Disposition: inline
+> >>> -	if (!atmel_ssc_cfs(ssc_p)) {
+> >>> +	if (atmel_ssc_cfs(ssc_p)) {
+> >>> +		/*
+> >>> +		 * SSC provides LRCLK
+> >>> +		 *
+> >>> +		 * Both TF and RF are generated, so use them directly.
+> >>> +		 */
+> >>> +		rcmr |=3D	  SSC_BF(RCMR_START, fs_edge);
+> >>> +		tcmr |=3D	  SSC_BF(TCMR_START, fs_edge);
+> >>> +	} else {
+> >>>    		fslen =3D fslen_ext =3D 0;
+> >>>    		rcmr_period =3D tcmr_period =3D 0;
+> >>>    		fs_osync =3D SSC_FSOS_NONE;
+> >>> +		if (!ssc->shared_fs_pin) {
+> >>> +			rcmr |=3D	  SSC_BF(RCMR_START, fs_edge);
+> >>> +			tcmr |=3D	  SSC_BF(TCMR_START, fs_edge);
+> >>> +		} else if (ssc->clk_from_rk_pin) {
+> >>> +			/* assume RF is to be used when RK is used as BCLK input */
+> >>> +			/* Note: won't work correctly on SAMA5D2 due to errata */
+> >>> +			rcmr |=3D	  SSC_BF(RCMR_START, fs_edge);
+> >>> +			tcmr |=3D	  SSC_BF(TCMR_START, SSC_START_RECEIVE);
+> >>
+> >> Did you find a platform in which this mode works?
+> > =
 
+> > To be exact: according to the errata, TX is delayed improperly. So if y=
+ou
+> > use only RX (SSC side receives) direction, you're fine.
+> =
 
---SLDf9lqlvOQaIe6s
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> I know, but there are other platforms with SSC, which don't have this =
 
-On Fri, Jul 26, 2019 at 08:47:27AM -0300, Mauro Carvalho Chehab wrote:
-> Address this rename:
-> 	Documentation/devicetree/bindings/sound/{sun4i-i2s.txt -> allwinner,sun4i-a10-i2s.yaml}
+> errata, like sam9x35 or sama5d3. Have you tested this mode, RK input, RF =
 
-Please use subject lines matching the style for the subsystem.  This
-makes it easier for people to identify relevant patches.
+> input, RD starts on edge detect, TF input, TD starts synchronously with =
 
---SLDf9lqlvOQaIe6s
-Content-Type: application/pgp-signature; name="signature.asc"
+> receiver?
 
------BEGIN PGP SIGNATURE-----
+No, I have only SAMA5D2 available to test.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl067UgACgkQJNaLcl1U
-h9DZ3gf/XVyELAxpK+iOsyrIIgOtkynK4H9wknGxpl2rZE0a6qJHb4tUp+EVM5k7
-BP3tcLa5QVeuWG3k2rqMwoL86wXC7QLc+So1k5s612+LqO7tkgHRPQv0fFZFYFU+
-iQ7E6+MUeBW4LoqA4pSOQvpeU7oNy4amI/X639LTk7qjrTwnmwcH5aagkPRGOvPL
-KC+Hf/saAF5T9eue6updywRGYPWffVpQkoCO6NpwfWMk5UV071OneiL3SKXf/y+2
-7ZgIh2qwDFvkrpgmTUowa8D+iODO0/P6YP3m7Q8WZXS3YBSrnp0c9pDUUG38QVVG
-jB89EPyDbXAjR7L2WTMO1GCnC/j9Dg==
-=gcDY
------END PGP SIGNATURE-----
-
---SLDf9lqlvOQaIe6s--
-
---===============2263275635964120667==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Best Regards,
+Micha=B3=A0Miros=B3aw
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2263275635964120667==--

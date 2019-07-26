@@ -2,80 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676A9766A7
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 14:54:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C13B766BD
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 14:59:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 145922064;
-	Fri, 26 Jul 2019 14:53:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 145922064
+	by alsa0.perex.cz (Postfix) with ESMTPS id 364F0205F;
+	Fri, 26 Jul 2019 14:58:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 364F0205F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564145677;
-	bh=1RcY6Zoxg1q2jpTcBAq/KrVZfBzddtM7mJZ9aSBDai8=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1564145944;
+	bh=B/uqT4xe38pe8Xk3pJrSUm5Z6lQYoSwJCX+ejWwS2OQ=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FfdLwL0bzdxSDGIuxUcllk/NKJ0TyD9LPAEDasdMBOhI4lHbxwAzosOv73Usj4QFH
-	 QrV89FPLXXkXp/QJYyAFS0K2WB8FrL61gU1ZwXq+G72WIt3PFnMSLF9x9mITT1t/sR
-	 mAlaoIpnL/scxwIWuWW6ALvHB+HNvMGg+JPzDuQY=
+	b=VWAn+A1w/sCW6sxu215FWEYmKeMGU6X8ovnsebhiL75KCISraggUNmkEecCJheEFc
+	 yXm6LjSShDn3HESD5Ym/UPiYz7VfAtL0O6D6wOP6Ac4+z45zkNVb/dNxOBsuUoAoDX
+	 CoMb9W8EhqLtd/hmG7JxXeDd1GuC+SHexfl0UGb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8FDFF8048F;
-	Fri, 26 Jul 2019 14:52:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 563DFF80393;
+	Fri, 26 Jul 2019 14:57:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 926B2F8048D; Fri, 26 Jul 2019 14:52:23 +0200 (CEST)
+ id 33A85F80393; Fri, 26 Jul 2019 14:57:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D663DF80481
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 14:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D663DF80481
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="PTesbA0q"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Ys6YEnbw6E7h5Z7zlJwxHoUVVJkuOvu83oQW5FK2aOc=; b=PTesbA0qO0amAWY/4pEYEaczmW
- jYw5P+LqSrPMqYkDoywj8QQzzvnQV+h3AjgGF68SB2BB2PT+fgsyCfVLdQQx3DLujqk+pOFuyzybS
- DOS+rwE2uNe3Arhy0QV0NmS2dkqM2j427Z5Vm6JTRsMM5V0Ot7Hqkolxr6WrPXzU3YgecrCkfjPCS
- sueVqgiQA6zbkfMlGbYxWowt4gfDB90ggOaCT6o2RwgZG7yuJ64XAx4DeRUKLWC96eIIl270AbW4r
- CIxN5myhvR4Yx2VPiHcSuSmX/IiNT0vkBmnk6Blzxgjo3J16JpBorbOR/heQWftyw5nrgXzAV7304
- Zm9f6XSw==;
-Received: from [179.95.31.157] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hqzhE-0006Ad-HQ; Fri, 26 Jul 2019 12:51:40 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hqzhC-0005bR-Dk; Fri, 26 Jul 2019 09:51:38 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: 
-Date: Fri, 26 Jul 2019 09:51:29 -0300
-Message-Id: <e4636397bcce1cce6280120081c249e9b407aabe.1564145354.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1564145354.git.mchehab+samsung@kernel.org>
-References: <cover.1564145354.git.mchehab+samsung@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C37A5F801A4
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 14:57:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C37A5F801A4
+Received: from rabammel.molgen.mpg.de (rabammel.molgen.mpg.de [141.14.30.220])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128
+ bits)) (No client certificate requested)
+ (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 60B77201A3C2E;
+ Fri, 26 Jul 2019 14:57:12 +0200 (CEST)
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+References: <8a3566f3-9a75-eab4-b191-530d7be5afc9@molgen.mpg.de>
+From: Paul Menzel <pmenzel+alsa-devel@molgen.mpg.de>
+Message-ID: <65ac36a7-fdce-77ce-c48e-86bff8699e9c@molgen.mpg.de>
+Date: Fri, 26 Jul 2019 14:57:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
- netdev@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-doc@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- dmaengine@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>, "David S. Miller" <davem@davemloft.net>
-Subject: [alsa-devel] [PATCH v2 19/26] docs: index.rst: don't use genindex
-	for pdf output
+In-Reply-To: <8a3566f3-9a75-eab4-b191-530d7be5afc9@molgen.mpg.de>
+Cc: alsa-devel@alsa-project.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] Plugged in headphones ignored
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,107 +66,327 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2665240284113891962=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The genindex logic is meant to be used only for html output, as
-pdf build has its own way to generate indexes.
+This is a cryptographically signed message in MIME format.
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Acked-by: Vinod Koul <vkoul@kernel.org> # dmaengine and soundwire
----
- Documentation/core-api/index.rst                  | 2 +-
- Documentation/driver-api/dmaengine/index.rst      | 2 +-
- Documentation/driver-api/soundwire/index.rst      | 2 +-
- Documentation/networking/device_drivers/index.rst | 2 +-
- Documentation/networking/index.rst                | 2 +-
- Documentation/sound/index.rst                     | 2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
+--===============2665240284113891962==
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms070202020402050102030300"
 
-diff --git a/Documentation/core-api/index.rst b/Documentation/core-api/index.rst
-index dfd8fad1e1ec..fa16a0538dcb 100644
---- a/Documentation/core-api/index.rst
-+++ b/Documentation/core-api/index.rst
-@@ -49,7 +49,7 @@ Interfaces for kernel debugging
-    debug-objects
-    tracepoint
- 
--.. only::  subproject
-+.. only:: subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/driver-api/dmaengine/index.rst b/Documentation/driver-api/dmaengine/index.rst
-index 3026fa975937..b9df904d0a79 100644
---- a/Documentation/driver-api/dmaengine/index.rst
-+++ b/Documentation/driver-api/dmaengine/index.rst
-@@ -47,7 +47,7 @@ This book adds some notes about PXA DMA
- 
-    pxa_dma
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/driver-api/soundwire/index.rst b/Documentation/driver-api/soundwire/index.rst
-index 6db026028f27..234911a0db99 100644
---- a/Documentation/driver-api/soundwire/index.rst
-+++ b/Documentation/driver-api/soundwire/index.rst
-@@ -10,7 +10,7 @@ SoundWire Documentation
-    error_handling
-    locking
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/networking/device_drivers/index.rst b/Documentation/networking/device_drivers/index.rst
-index 2b7fefe72351..f724b7c69b9e 100644
---- a/Documentation/networking/device_drivers/index.rst
-+++ b/Documentation/networking/device_drivers/index.rst
-@@ -24,7 +24,7 @@ Contents:
-    google/gve
-    mellanox/mlx5
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/networking/index.rst b/Documentation/networking/index.rst
-index a46fca264bee..6739066acadb 100644
---- a/Documentation/networking/index.rst
-+++ b/Documentation/networking/index.rst
-@@ -31,7 +31,7 @@ Contents:
-    tls
-    tls-offload
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
-diff --git a/Documentation/sound/index.rst b/Documentation/sound/index.rst
-index 47b89f014e69..4d7d42acf6df 100644
---- a/Documentation/sound/index.rst
-+++ b/Documentation/sound/index.rst
-@@ -12,7 +12,7 @@ Linux Sound Subsystem Documentation
-    hd-audio/index
-    cards/index
- 
--.. only::  subproject
-+.. only::  subproject and html
- 
-    Indices
-    =======
--- 
-2.21.0
+This is a cryptographically signed message in MIME format.
+
+--------------ms070202020402050102030300
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Dear Linux folks,
+
+
+On 6/27/19 1:02 PM, Paul Menzel wrote:
+
+> On a Dell OptiPlex 5040 with Linux 5.2-rc6 plugging in a
+> head phone into the front case connector, it is detected
+> just fine and Xfce shows a notification.
+>=20
+> Then logging out, turning off the monitor connected over
+> DisplayPort at the end of the day, and turning the monitor
+> back on the next morning, logging in, the state is
+> forgotten. I need to unplug the head phone and plug it
+> back in.
+
+This is still happening in Linux 5.3-rc1. Additionally, the
+problem also shows up, when starting the (powered-off)
+system with the headphones plugged in. No sound is played.
+After unplugging the headphones, the internal speaker
+outputs the sound. Plugging the headphones back in, sound
+comes over the headphones.
+
+Here is the difference in of the states.
+
+```
+> diff -u alsa-info-1.txt alsa-info-2.txt=20
+--- alsa-info-1.txt	2019-07-26 14:44:06.156811664 +0200
++++ alsa-info-2.txt	2019-07-26 14:44:19.901891301 +0200
+@@ -3,7 +3,7 @@
+ !!ALSA Information Script v 0.4.64
+ !!################################
+=20
+-!!Script ran on: Fri Jul 26 12:44:05 UTC 2019
++!!Script ran on: Fri Jul 26 12:44:19 UTC 2019
+=20
+=20
+ !!Linux Distribution
+@@ -208,7 +208,7 @@
+   Control: name=3D"Speaker Playback Volume", index=3D0, device=3D0
+     ControlAmp: chs=3D3, dir=3DOut, idx=3D0, ofs=3D0
+   Amp-Out caps: ofs=3D0x57, nsteps=3D0x57, stepsize=3D0x02, mute=3D0
+-  Amp-Out vals:  [0x57 0x57]
++  Amp-Out vals:  [0x00 0x00]
+   Converter: stream=3D1, channel=3D0
+   PCM:
+     rates [0x60]: 44100 48000
+@@ -221,7 +221,7 @@
+     ControlAmp: chs=3D3, dir=3DOut, idx=3D0, ofs=3D0
+   Device: name=3D"ALC3234 Analog", type=3D"Audio", device=3D0
+   Amp-Out caps: ofs=3D0x57, nsteps=3D0x57, stepsize=3D0x02, mute=3D0
+-  Amp-Out vals:  [0x00 0x00]
++  Amp-Out vals:  [0x57 0x57]
+   Converter: stream=3D1, channel=3D0
+   PCM:
+     rates [0x60]: 44100 48000
+@@ -326,7 +326,7 @@
+   Control: name=3D"Speaker Playback Switch", index=3D0, device=3D0
+     ControlAmp: chs=3D3, dir=3DOut, idx=3D0, ofs=3D0
+   Amp-Out caps: ofs=3D0x00, nsteps=3D0x00, stepsize=3D0x00, mute=3D1
+-  Amp-Out vals:  [0x00 0x00]
++  Amp-Out vals:  [0x80 0x80]
+   Pincap 0x00010014: OUT EAPD Detect
+   EAPD 0x2: EAPD
+   Pin Default 0x90170110: [Fixed] Speaker at Int N/A
+@@ -444,7 +444,7 @@
+   Control: name=3D"Headphone Playback Switch", index=3D0, device=3D0
+     ControlAmp: chs=3D3, dir=3DOut, idx=3D0, ofs=3D0
+   Amp-Out caps: ofs=3D0x00, nsteps=3D0x00, stepsize=3D0x00, mute=3D1
+-  Amp-Out vals:  [0x80 0x80]
++  Amp-Out vals:  [0x00 0x00]
+   Pincap 0x0001001c: OUT HP EAPD Detect
+   EAPD 0x2: EAPD
+   Pin Default 0x0221101f: [Jack] HP Out at Ext Front
+@@ -587,8 +587,8 @@
+   Capabilities: pswitch
+   Playback channels: Front Left - Front Right
+   Mono:
+-  Front Left: Playback [off]
+-  Front Right: Playback [off]
++  Front Left: Playback [on]
++  Front Right: Playback [on]
+ Simple mixer control 'Headphone Mic',0
+   Capabilities: pvolume pswitch
+   Playback channels: Front Left - Front Right
+@@ -608,15 +608,15 @@
+   Playback channels: Front Left - Front Right
+   Limits: Playback 0 - 87
+   Mono:
+-  Front Left: Playback 0 [0%] [-65.25dB]
+-  Front Right: Playback 0 [0%] [-65.25dB]
++  Front Left: Playback 87 [100%] [0.00dB]
++  Front Right: Playback 87 [100%] [0.00dB]
+ Simple mixer control 'Speaker',0
+   Capabilities: pvolume pswitch
+   Playback channels: Front Left - Front Right
+   Limits: Playback 0 - 87
+   Mono:
+-  Front Left: Playback 87 [100%] [0.00dB] [on]
+-  Front Right: Playback 87 [100%] [0.00dB] [on]
++  Front Left: Playback 0 [0%] [-65.25dB] [off]
++  Front Right: Playback 0 [0%] [-65.25dB] [off]
+ Simple mixer control 'PCM',0
+   Capabilities: pvolume
+   Playback channels: Front Left - Front Right
+@@ -698,8 +698,8 @@
+ 	control.1 {
+ 		iface MIXER
+ 		name 'Headphone+LO Playback Volume'
+-		value.0 0
+-		value.1 0
++		value.0 87
++		value.1 87
+ 		comment {
+ 			access 'read write'
+ 			type INTEGER
+@@ -707,8 +707,8 @@
+ 			range '0 - 87'
+ 			dbmin -6525
+ 			dbmax 0
+-			dbvalue.0 -6525
+-			dbvalue.1 -6525
++			dbvalue.0 0
++			dbvalue.1 0
+ 		}
+ 	}
+ 	control.2 {
+@@ -725,8 +725,8 @@
+ 	control.3 {
+ 		iface MIXER
+ 		name 'Headphone Playback Switch'
+-		value.0 false
+-		value.1 false
++		value.0 true
++		value.1 true
+ 		comment {
+ 			access 'read write'
+ 			type BOOLEAN
+@@ -736,8 +736,8 @@
+ 	control.4 {
+ 		iface MIXER
+ 		name 'Speaker Playback Volume'
+-		value.0 87
+-		value.1 87
++		value.0 0
++		value.1 0
+ 		comment {
+ 			access 'read write'
+ 			type INTEGER
+@@ -745,15 +745,15 @@
+ 			range '0 - 87'
+ 			dbmin -6525
+ 			dbmax 0
+-			dbvalue.0 0
+-			dbvalue.1 0
++			dbvalue.0 -6525
++			dbvalue.1 -6525
+ 		}
+ 	}
+ 	control.5 {
+ 		iface MIXER
+ 		name 'Speaker Playback Switch'
+-		value.0 true
+-		value.1 true
++		value.0 false
++		value.1 false
+ 		comment {
+ 			access 'read write'
+ 			type BOOLEAN
+```
+
+Is
+
+```
+-  Front Left: Playback [off]
+-  Front Right: Playback [off]
++  Front Left: Playback [on]
++  Front Right: Playback [on]
+```
+
+the cause?
+
+> Please find the output alsa-config.sh for the non-working
+> (1) and replugged (2) situations attached.
+>=20
+> Is that a Linux kernel problem, or a user space issue?
+
+
+Kind regards,
+
+Paul
+
+
+--------------ms070202020402050102030300
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCC
+EFowggUSMIID+qADAgECAgkA4wvV+K8l2YEwDQYJKoZIhvcNAQELBQAwgYIxCzAJBgNVBAYT
+AkRFMSswKQYDVQQKDCJULVN5c3RlbXMgRW50ZXJwcmlzZSBTZXJ2aWNlcyBHbWJIMR8wHQYD
+VQQLDBZULVN5c3RlbXMgVHJ1c3QgQ2VudGVyMSUwIwYDVQQDDBxULVRlbGVTZWMgR2xvYmFs
+Um9vdCBDbGFzcyAyMB4XDTE2MDIyMjEzMzgyMloXDTMxMDIyMjIzNTk1OVowgZUxCzAJBgNV
+BAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1dHNjaGVu
+IEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNVBAMTJERG
+Ti1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAMtg1/9moUHN0vqHl4pzq5lN6mc5WqFggEcVToyVsuXPztNXS43O+FZs
+FVV2B+pG/cgDRWM+cNSrVICxI5y+NyipCf8FXRgPxJiZN7Mg9mZ4F4fCnQ7MSjLnFp2uDo0p
+eQcAIFTcFV9Kltd4tjTTwXS1nem/wHdN6r1ZB+BaL2w8pQDcNb1lDY9/Mm3yWmpLYgHurDg0
+WUU2SQXaeMpqbVvAgWsRzNI8qIv4cRrKO+KA3Ra0Z3qLNupOkSk9s1FcragMvp0049ENF4N1
+xDkesJQLEvHVaY4l9Lg9K7/AjsMeO6W/VRCrKq4Xl14zzsjz9AkH4wKGMUZrAcUQDBHHWekC
+AwEAAaOCAXQwggFwMA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUk+PYMiba1fFKpZFK4OpL
+4qIMz+EwHwYDVR0jBBgwFoAUv1kgNgB5oKAia4zV8mHSuCzLgkowEgYDVR0TAQH/BAgwBgEB
+/wIBAjAzBgNVHSAELDAqMA8GDSsGAQQBga0hgiwBAQQwDQYLKwYBBAGBrSGCLB4wCAYGZ4EM
+AQICMEwGA1UdHwRFMEMwQaA/oD2GO2h0dHA6Ly9wa2kwMzM2LnRlbGVzZWMuZGUvcmwvVGVs
+ZVNlY19HbG9iYWxSb290X0NsYXNzXzIuY3JsMIGGBggrBgEFBQcBAQR6MHgwLAYIKwYBBQUH
+MAGGIGh0dHA6Ly9vY3NwMDMzNi50ZWxlc2VjLmRlL29jc3ByMEgGCCsGAQUFBzAChjxodHRw
+Oi8vcGtpMDMzNi50ZWxlc2VjLmRlL2NydC9UZWxlU2VjX0dsb2JhbFJvb3RfQ2xhc3NfMi5j
+ZXIwDQYJKoZIhvcNAQELBQADggEBAIcL/z4Cm2XIVi3WO5qYi3FP2ropqiH5Ri71sqQPrhE4
+eTizDnS6dl2e6BiClmLbTDPo3flq3zK9LExHYFV/53RrtCyD2HlrtrdNUAtmB7Xts5et6u5/
+MOaZ/SLick0+hFvu+c+Z6n/XUjkurJgARH5pO7917tALOxrN5fcPImxHhPalR6D90Bo0fa3S
+PXez7vTXTf/D6OWST1k+kEcQSrCFWMBvf/iu7QhCnh7U3xQuTY+8npTD5+32GPg8SecmqKc2
+2CzeIs2LgtjZeOJVEqM7h0S2EQvVDFKvaYwPBt/QolOLV5h7z/0HJPT8vcP9SpIClxvyt7bP
+ZYoaorVyGTkwggWNMIIEdaADAgECAgwcOtRQhH7u81j4jncwDQYJKoZIhvcNAQELBQAwgZUx
+CzAJBgNVBAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1
+dHNjaGVuIEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNV
+BAMTJERGTi1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjAeFw0xNjExMDMxNTI0
+NDhaFw0zMTAyMjIyMzU5NTlaMGoxCzAJBgNVBAYTAkRFMQ8wDQYDVQQIDAZCYXllcm4xETAP
+BgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxhbmNrLUdlc2VsbHNjaGFmdDEVMBMG
+A1UEAwwMTVBHIENBIC0gRzAyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnhx4
+59Lh4WqgOs/Md04XxU2yFtfM15ZuJV0PZP7BmqSJKLLPyqmOrADfNdJ5PIGBto2JBhtRRBHd
+G0GROOvTRHjzOga95WOTeura79T21FWwwAwa29OFnD3ZplQs6HgdwQrZWNi1WHNJxn/4mA19
+rNEBUc5urSIpZPvZi5XmlF3v3JHOlx3KWV7mUteB4pwEEfGTg4npPAJbp2o7arxQdoIq+Pu2
+OsvqhD7Rk4QeaX+EM1QS4lqd1otW4hE70h/ODPy1xffgbZiuotWQLC6nIwa65Qv6byqlIX0q
+Zuu99Vsu+r3sWYsL5SBkgecNI7fMJ5tfHrjoxfrKl/ErTAt8GQIDAQABo4ICBTCCAgEwEgYD
+VR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYwKQYDVR0gBCIwIDANBgsrBgEEAYGt
+IYIsHjAPBg0rBgEEAYGtIYIsAQEEMB0GA1UdDgQWBBTEiKUH7rh7qgwTv9opdGNSG0lwFjAf
+BgNVHSMEGDAWgBST49gyJtrV8UqlkUrg6kviogzP4TCBjwYDVR0fBIGHMIGEMECgPqA8hjpo
+dHRwOi8vY2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jcmwvY2Fjcmwu
+Y3JsMECgPqA8hjpodHRwOi8vY2RwMi5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1
+Yi9jcmwvY2FjcmwuY3JsMIHdBggrBgEFBQcBAQSB0DCBzTAzBggrBgEFBQcwAYYnaHR0cDov
+L29jc3AucGNhLmRmbi5kZS9PQ1NQLVNlcnZlci9PQ1NQMEoGCCsGAQUFBzAChj5odHRwOi8v
+Y2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNy
+dDBKBggrBgEFBQcwAoY+aHR0cDovL2NkcDIucGNhLmRmbi5kZS9nbG9iYWwtcm9vdC1nMi1j
+YS9wdWIvY2FjZXJ0L2NhY2VydC5jcnQwDQYJKoZIhvcNAQELBQADggEBABLpeD5FygzqOjj+
+/lAOy20UQOGWlx0RMuPcI4nuyFT8SGmK9lD7QCg/HoaJlfU/r78ex+SEide326evlFAoJXIF
+jVyzNltDhpMKrPIDuh2N12zyn1EtagqPL6hu4pVRzcBpl/F2HCvtmMx5K4WN1L1fmHWLcSap
+dhXLvAZ9RG/B3rqyULLSNN8xHXYXpmtvG0VGJAndZ+lj+BH7uvd3nHWnXEHC2q7iQlDUqg0a
+wIqWJgdLlx1Q8Dg/sodv0m+LN0kOzGvVDRCmowBdWGhhusD+duKV66pBl+qhC+4LipariWaM
+qK5ppMQROATjYeNRvwI+nDcEXr2vDaKmdbxgDVwwggWvMIIEl6ADAgECAgweKlJIhfynPMVG
+/KIwDQYJKoZIhvcNAQELBQAwajELMAkGA1UEBhMCREUxDzANBgNVBAgMBkJheWVybjERMA8G
+A1UEBwwITXVlbmNoZW4xIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MRUwEwYD
+VQQDDAxNUEcgQ0EgLSBHMDIwHhcNMTcxMTE0MTEzNDE2WhcNMjAxMTEzMTEzNDE2WjCBizEL
+MAkGA1UEBhMCREUxIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MTQwMgYDVQQL
+DCtNYXgtUGxhbmNrLUluc3RpdHV0IGZ1ZXIgbW9sZWt1bGFyZSBHZW5ldGlrMQ4wDAYDVQQL
+DAVNUElNRzEUMBIGA1UEAwwLUGF1bCBNZW56ZWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQDIh/UR/AX/YQ48VWWDMLTYtXjYJyhRHMc81ZHMMoaoG66lWB9MtKRTnB5lovLZ
+enTIUyPsCrMhTqV9CWzDf6v9gOTWVxHEYqrUwK5H1gx4XoK81nfV8oGV4EKuVmmikTXiztGz
+peyDmOY8o/EFNWP7YuRkY/lPQJQBeBHYq9AYIgX4StuXu83nusq4MDydygVOeZC15ts0tv3/
+6WmibmZd1OZRqxDOkoBbY3Djx6lERohs3IKS6RKiI7e90rCSy9rtidJBOvaQS9wvtOSKPx0a
++2pAgJEVzZFjOAfBcXydXtqXhcpOi2VCyl+7+LnnTz016JJLsCBuWEcB3kP9nJYNAgMBAAGj
+ggIxMIICLTAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcD
+AgYIKwYBBQUHAwQwHQYDVR0OBBYEFHM0Mc3XjMLlhWpp4JufRELL4A/qMB8GA1UdIwQYMBaA
+FMSIpQfuuHuqDBO/2il0Y1IbSXAWMCAGA1UdEQQZMBeBFXBtZW56ZWxAbW9sZ2VuLm1wZy5k
+ZTB9BgNVHR8EdjB0MDigNqA0hjJodHRwOi8vY2RwMS5wY2EuZGZuLmRlL21wZy1nMi1jYS9w
+dWIvY3JsL2NhY3JsLmNybDA4oDagNIYyaHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzIt
+Y2EvcHViL2NybC9jYWNybC5jcmwwgc0GCCsGAQUFBwEBBIHAMIG9MDMGCCsGAQUFBzABhido
+dHRwOi8vb2NzcC5wY2EuZGZuLmRlL09DU1AtU2VydmVyL09DU1AwQgYIKwYBBQUHMAKGNmh0
+dHA6Ly9jZHAxLnBjYS5kZm4uZGUvbXBnLWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNydDBC
+BggrBgEFBQcwAoY2aHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzItY2EvcHViL2NhY2Vy
+dC9jYWNlcnQuY3J0MEAGA1UdIAQ5MDcwDwYNKwYBBAGBrSGCLAEBBDARBg8rBgEEAYGtIYIs
+AQEEAwYwEQYPKwYBBAGBrSGCLAIBBAMGMA0GCSqGSIb3DQEBCwUAA4IBAQCQs6bUDROpFO2F
+Qz2FMgrdb39VEo8P3DhmpqkaIMC5ZurGbbAL/tAR6lpe4af682nEOJ7VW86ilsIJgm1j0ueY
+aOuL8jrN4X7IF/8KdZnnNnImW3QVni6TCcc+7+ggci9JHtt0IDCj5vPJBpP/dKXLCN4M+exl
+GXYpfHgxh8gclJPY1rquhQrihCzHfKB01w9h9tWZDVMtSoy9EUJFhCXw7mYUsvBeJwZesN2B
+fndPkrXx6XWDdU3S1LyKgHlLIFtarLFm2Hb5zAUR33h+26cN6ohcGqGEEzgIG8tXS8gztEaj
+1s2RyzmKd4SXTkKR3GhkZNVWy+gM68J7jP6zzN+cMYIDmjCCA5YCAQEwejBqMQswCQYDVQQG
+EwJERTEPMA0GA1UECAwGQmF5ZXJuMREwDwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4
+LVBsYW5jay1HZXNlbGxzY2hhZnQxFTATBgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzF
+RvyiMA0GCWCGSAFlAwQCAQUAoIIB8TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
+SIb3DQEJBTEPFw0xOTA3MjYxMjU3MTJaMC8GCSqGSIb3DQEJBDEiBCCYubAI1nMBAMG/VzJs
+3fhWIYix80CCsTwrxdXHVYklQzBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
+hkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcG
+BSsOAwIHMA0GCCqGSIb3DQMCAgEoMIGJBgkrBgEEAYI3EAQxfDB6MGoxCzAJBgNVBAYTAkRF
+MQ8wDQYDVQQIDAZCYXllcm4xETAPBgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxh
+bmNrLUdlc2VsbHNjaGFmdDEVMBMGA1UEAwwMTVBHIENBIC0gRzAyAgweKlJIhfynPMVG/KIw
+gYsGCyqGSIb3DQEJEAILMXygejBqMQswCQYDVQQGEwJERTEPMA0GA1UECAwGQmF5ZXJuMREw
+DwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4LVBsYW5jay1HZXNlbGxzY2hhZnQxFTAT
+BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBAKeh
+RrXkeH0r6lihPRAbk0qgRgyD24gGlqsMclxeNw4iEa37ov462rLzNxlTRHBtArrWYJsZXxSX
+X0RttbwsgSunvDUB3dS8x+OVWnGi1uk5ZVqaqE61MT75PKOZsyp6v/7rhPqfEv2nxIFVrDmi
+HBhcVDds/997GT0iV+vm3pNlKoToJc/GPbQ3ZYN8+Ps1dQgfukiZJnQiiSHbUn0bMSlTcqLQ
+qm3nkqtVtIJ24LtnvBn+QEXyFqZ4zyapM1Mvq73eqwK+4YDvwrZzhe5mptSdxaFB883oyAeb
+AQPfYd938knjerLbPk34403sPy/SOQxukybOxZ7Mtge/cHW+hQAAAAAAAAA=
+--------------ms070202020402050102030300--
+
+--===============2665240284113891962==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2665240284113891962==--

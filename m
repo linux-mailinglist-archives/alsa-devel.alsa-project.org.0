@@ -2,64 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3413E77148
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 20:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FDD677188
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 20:48:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C121520C7;
-	Fri, 26 Jul 2019 20:30:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C121520C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A03B20C9;
+	Fri, 26 Jul 2019 20:47:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A03B20C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564165889;
-	bh=9X0qTO/awEJ4RWYiaGKRzCnVYv9CUROxaOM6J/1KPeA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564166892;
+	bh=DN2ivRDZYbVW5TLBChtLXsZ3Kp/+80MYel7Rvf7Jglc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kMmRXhUY8dQ9OTc4K64qYWeUM7PyKigElgDICFKQzdoyulxHes6G4EcqVaKBP6///
-	 EqmM6WalYTv0Gl/RqYGTPSihVDHNwfQWOgQ2u6mmPJPnT73ag6ui5q0Od15T92hold
-	 yapZu5UwW1lTyHWMCfLgi5mywqyySbPrrSIAxpak=
+	b=LLHpZtYlAbSFVrxyjL6pKi675Z6JXPpcIzSrmLKojxGQopGBc3WuojM8s2PgjUdjZ
+	 lLBb4Vn2959dVg6fPI2r54N0LSSPgok8G2D8MKAapgzh7agQPUxhrr6zu0Tme9SA/a
+	 8oEO3Xp3yIn4+gUc9oewS/aU7pTambkf5hCEDJjs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BF9EF803D5;
-	Fri, 26 Jul 2019 20:29:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F043DF803D5;
+	Fri, 26 Jul 2019 20:46:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B6A1F80393; Fri, 26 Jul 2019 20:29:40 +0200 (CEST)
+ id AAF69F80393; Fri, 26 Jul 2019 20:45:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
  SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44048F800BE
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 20:29:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44048F800BE
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2019 11:29:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,311,1559545200"; d="scan'208";a="198481252"
-Received: from andawes-mobl.amr.corp.intel.com (HELO [10.251.145.66])
- ([10.251.145.66])
- by fmsmga002.fm.intel.com with ESMTP; 26 Jul 2019 11:29:32 -0700
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org, 
- broonie@kernel.org
-References: <20190726181517.27655-1-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <280fee13-d00f-22ee-980c-8b5f5edd886c@linux.intel.com>
-Date: Fri, 26 Jul 2019 13:29:32 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17EA0F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 20:45:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17EA0F800E8
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id 05C2720117;
+ Fri, 26 Jul 2019 20:45:23 +0200 (CEST)
+Date: Fri, 26 Jul 2019 20:45:22 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Paul Cercueil <paul@crapouillou.net>
+Message-ID: <20190726184522.GB14981@ravnborg.org>
+References: <20190725220215.460-1-paul@crapouillou.net>
+ <20190725220215.460-6-paul@crapouillou.net>
 MIME-Version: 1.0
-In-Reply-To: <20190726181517.27655-1-cezary.rojewski@intel.com>
-Content-Language: en-US
-Cc: tiwai@suse.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] MAINTAINERS: Update Intel ASoC drivers
-	maintainers
+Content-Disposition: inline
+In-Reply-To: <20190725220215.460-6-paul@crapouillou.net>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=dqr19Wo4 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=ER_8r6IbAAAA:8
+ a=p6pI0oa4AAAA:8 a=7gkXJVJtAAAA:8 a=_OfsqKrkMx9ODVYiAzcA:9
+ a=CjuIK1q_8ugA:10 a=9LHmKk7ezEChjTCyhBa9:22 a=9cw2y2bKwytFd151gpuR:22
+ a=E9Po1WZjFZOl8hwRPBS3:22
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-fbdev@vger.kernel.org,
+ James Hogan <jhogan@kernel.org>, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org, od@zcrc.me,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Lee Jones <lee.jones@linaro.org>, Artur Rojek <contact@artur-rojek.eu>,
+ Richard Weinberger <richard@nod.at>, linux-pm@vger.kernel.org,
+ Paul Burton <paul.burton@mips.com>, Guenter Roeck <linux@roeck-us.net>,
+ devicetree@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Ralf Baechle <ralf@linux-mips.org>,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ dmaengine@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 05/11] video/fbdev: Drop JZ4740 driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,37 +85,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Paul.
 
-
-On 7/26/19 1:15 PM, Cezary Rojewski wrote:
-> Adding myself to Intel ASoC drivers maintainers list.
+On Thu, Jul 25, 2019 at 06:02:09PM -0400, Paul Cercueil wrote:
+> The JZ4740 fbdev driver has been replaced with the ingenic-drm driver.
 > 
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
+> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+> Tested-by: Artur Rojek <contact@artur-rojek.eu>
 > ---
->   MAINTAINERS | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 783569e3c4b4..0db421933d0c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -8044,6 +8044,7 @@ S:	Maintained
->   F:	drivers/video/fbdev/i810/
->   
->   INTEL ASoC DRIVERS
-> +M:	Cezary Rojewski <cezary.rojewski@intel.com>
->   M:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->   M:	Liam Girdwood <liam.r.girdwood@linux.intel.com>
->   M:	Jie Yang <yang.jie@linux.intel.com>
-> 
+>  drivers/video/fbdev/Kconfig     |   9 -
+>  drivers/video/fbdev/Makefile    |   1 -
+>  drivers/video/fbdev/jz4740_fb.c | 690 --------------------------------
+>  3 files changed, 700 deletions(-)
+>  delete mode 100644 drivers/video/fbdev/jz4740_fb.c
+Nice work of you and others involved.
+
+Acked-by: Sam Ravnborg <sam@ravnborg.org>
+
+	Sam
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

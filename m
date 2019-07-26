@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE8997657B
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 14:15:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 910F776574
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 14:13:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 801112056;
-	Fri, 26 Jul 2019 14:15:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 801112056
+	by alsa0.perex.cz (Postfix) with ESMTPS id 19F77204C;
+	Fri, 26 Jul 2019 14:13:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19F77204C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564143353;
-	bh=xEIRTM/5BQtyfXGNK+z8k7hHZrS5Ggxt7aDgZB8N9WM=;
+	s=default; t=1564143236;
+	bh=BjNGfFBTusutKN30FMS2QPb+AAlHzjd6GEBJ+4i6LcE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=AlUPZfKZNZkzcOOMfRBU+OU18QnfxrvvDn9qeijHJoB0MDtSj9Iu0Lq70/wXlrLpg
-	 jtUur8IQ26pjGUTNo5zIizQjneBojuI+wLC1NNtCXBxmeaROrl+6+FZ5M0BVYqDtUA
-	 nV9S9ymxQ2nMLEfj3F/9LuXt9xCHx7BaAEsQ8G4Y=
+	b=izBJmTKMeefhFkp4ck76H2c00ROpo7B9jY7IREb4sn21jGNsIJ+LTPnfBGprhGFa1
+	 91TYL9mT4iHuPnJ4nbnz1mhVBCRLMA316FQwsHGTRf67VFjQ3/5aJVIx4lm4VTZnyW
+	 6GicmRYCoiwsLnD9ikJUwJz7TqNHh0zFKt/ayOO4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 133DFF804CF;
-	Fri, 26 Jul 2019 14:12:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12AB8F801A4;
+	Fri, 26 Jul 2019 14:12:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15DB8F803D6; Fri, 26 Jul 2019 14:12:25 +0200 (CEST)
+ id E11A9F803D7; Fri, 26 Jul 2019 14:12:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE891F801A4
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 14:12:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE891F801A4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F7B8F800E8
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 14:12:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F7B8F800E8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="uWg3gJmM"
+ header.b="s9zIlTeU"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ppv6g71055dMnrkMQSdTZpzfu9QPlBAMNF035s+cREw=; b=uWg3gJmM5dtO
- 6ZeuoYmRrchMwdzcw3uqtCJhzusDByr17UgU9Z9UNcSEI8LVj8RaraP1KVWGcL+cT7qMNqCdWVbuk
- ktvAxPC3zArscqgRJvUfBp0fPUtTo8wfqcbXawEA0GSQ4nE4rh5nqvDe+l1jypVH0Ju+sZxZ976Vg
- NVAS0=;
+ List-Archive; bh=27z2IrZ6wvjuz3JI9ojSIqbX+R8MMajI210K/ABB0A8=; b=s9zIlTeUsh7D
+ afxgiMq4e5IN+HuqiN+snKDcXvy33jKOjtlPYIGSADIe9vW/I1hpoh6qpoaJwgpegnh/mqY/2rZmt
+ Y8y2UWy09vWnvpxdQ14XVutTYKxvYdTvz94VELKtciA5REdI/o2FGyjr06GbtHJu/QnEy30G4Vsh7
+ 77098=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hqz58-0001Zr-U7; Fri, 26 Jul 2019 12:12:18 +0000
+ id 1hqz58-0001Zq-JZ; Fri, 26 Jul 2019 12:12:18 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 543B02742B63; Fri, 26 Jul 2019 13:12:18 +0100 (BST)
+ id 1CFE72742B9F; Fri, 26 Jul 2019 13:12:18 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Cheng-Yi Chiang <cychiang@chromium.org>
-In-Reply-To: <20190726044202.26866-1-cychiang@chromium.org>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+In-Reply-To: <20190726064244.3762-2-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190726121218.543B02742B63@ypsilon.sirena.org.uk>
+Message-Id: <20190726121218.1CFE72742B9F@ypsilon.sirena.org.uk>
 Date: Fri, 26 Jul 2019 13:12:18 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- tzungbi@chromium.org, linux-rockchip@lists.infradead.org,
- Mark Brown <broonie@kernel.org>, dgreid@chromium.org, mka@chromium.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: rockchip: Fix mono capture" to the asoc
-	tree
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, lgirdwood@gmail.com,
+ jsarha@ti.com, Mark Brown <broonie@kernel.org>, misael.lopez@ti.com
+Subject: [alsa-devel] Applied "ASoC: ti: davinci-mcasp: Correct slot_width
+	posed constraint" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rockchip: Fix mono capture
+   ASoC: ti: davinci-mcasp: Correct slot_width posed constraint
 
 has been applied to the asoc tree at
 
@@ -117,66 +113,112 @@ to this mail.
 Thanks,
 Mark
 
-From 789e162a6255325325bd321ab0cd51dc7e285054 Mon Sep 17 00:00:00 2001
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-Date: Fri, 26 Jul 2019 12:42:02 +0800
-Subject: [PATCH] ASoC: rockchip: Fix mono capture
+From 1e112c35e3c96db7c8ca6ddaa96574f00c06e7db Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Fri, 26 Jul 2019 09:42:43 +0300
+Subject: [PATCH] ASoC: ti: davinci-mcasp: Correct slot_width posed constraint
 
-This reverts commit db51707b9c9aeedd310ebce60f15d5bb006567e0.
-Revert "ASoC: rockchip: i2s: Support mono capture"
+The slot_width is a property for the bus while the constraint for
+SNDRV_PCM_HW_PARAM_SAMPLE_BITS is for the in memory format.
 
-Previous discussion in
+Applying slot_width constraint to sample_bits works most of the time, but
+it will blacklist valid formats in some cases.
 
-https://patchwork.kernel.org/patch/10147153/
+With slot_width 24 we can support S24_3LE and S24_LE formats as they both
+look the same on the bus, but a a 24 constraint on sample_bits would not
+allow S24_LE as it is stored in 32bits in memory.
 
-explains the issue of the patch.
-While device is configured as 1-ch, hardware is still
-generating a 2-ch stream.
-When user space reads the data and assumes it is a 1-ch stream,
-the rate will be slower by 2x.
+Implement a simple hw_rule function to allow all formats which require less
+or equal number of bits on the bus as slot_width (if configured).
 
-Revert the change so 1-ch is not supported.
-User space can selectively take one channel data out of two channel
-if 1-ch is preferred.
-Currently, both channels record identical data.
-
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-Link: https://lore.kernel.org/r/20190726044202.26866-1-cychiang@chromium.org
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Link: https://lore.kernel.org/r/20190726064244.3762-2-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/rockchip/rockchip_i2s.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/ti/davinci-mcasp.c | 43 ++++++++++++++++++++++++++++--------
+ 1 file changed, 34 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 0a34d0eb8dba..88ebaf6e1880 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -326,7 +326,6 @@ static int rockchip_i2s_hw_params(struct snd_pcm_substream *substream,
- 		val |= I2S_CHN_4;
- 		break;
- 	case 2:
--	case 1:
- 		val |= I2S_CHN_2;
- 		break;
- 	default:
-@@ -459,7 +458,7 @@ static struct snd_soc_dai_driver rockchip_i2s_dai = {
- 	},
- 	.capture = {
- 		.stream_name = "Capture",
--		.channels_min = 1,
-+		.channels_min = 2,
- 		.channels_max = 2,
- 		.rates = SNDRV_PCM_RATE_8000_192000,
- 		.formats = (SNDRV_PCM_FMTBIT_S8 |
-@@ -659,7 +658,7 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
- 	}
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index 4d611565375b..44708c8f90d6 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -1257,6 +1257,28 @@ static int davinci_mcasp_trigger(struct snd_pcm_substream *substream,
+ 	return ret;
+ }
  
- 	if (!of_property_read_u32(node, "rockchip,capture-channels", &val)) {
--		if (val >= 1 && val <= 8)
-+		if (val >= 2 && val <= 8)
- 			soc_dai->capture.channels_max = val;
- 	}
++static int davinci_mcasp_hw_rule_slot_width(struct snd_pcm_hw_params *params,
++					    struct snd_pcm_hw_rule *rule)
++{
++	struct davinci_mcasp_ruledata *rd = rule->private;
++	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
++	struct snd_mask nfmt;
++	int i, slot_width;
++
++	snd_mask_none(&nfmt);
++	slot_width = rd->mcasp->slot_width;
++
++	for (i = 0; i <= SNDRV_PCM_FORMAT_LAST; i++) {
++		if (snd_mask_test(fmt, i)) {
++			if (snd_pcm_format_width(i) <= slot_width) {
++				snd_mask_set(&nfmt, i);
++			}
++		}
++	}
++
++	return snd_mask_refine(fmt, &nfmt);
++}
++
+ static const unsigned int davinci_mcasp_dai_rates[] = {
+ 	8000, 11025, 16000, 22050, 32000, 44100, 48000, 64000,
+ 	88200, 96000, 176400, 192000,
+@@ -1378,7 +1400,7 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 	struct davinci_mcasp_ruledata *ruledata =
+ 					&mcasp->ruledata[substream->stream];
+ 	u32 max_channels = 0;
+-	int i, dir;
++	int i, dir, ret;
+ 	int tdm_slots = mcasp->tdm_slots;
  
+ 	/* Do not allow more then one stream per direction */
+@@ -1407,6 +1429,7 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 			max_channels++;
+ 	}
+ 	ruledata->serializers = max_channels;
++	ruledata->mcasp = mcasp;
+ 	max_channels *= tdm_slots;
+ 	/*
+ 	 * If the already active stream has less channels than the calculated
+@@ -1432,20 +1455,22 @@ static int davinci_mcasp_startup(struct snd_pcm_substream *substream,
+ 				   0, SNDRV_PCM_HW_PARAM_CHANNELS,
+ 				   &mcasp->chconstr[substream->stream]);
+ 
+-	if (mcasp->slot_width)
+-		snd_pcm_hw_constraint_minmax(substream->runtime,
+-					     SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
+-					     8, mcasp->slot_width);
++	if (mcasp->slot_width) {
++		/* Only allow formats require <= slot_width bits on the bus */
++		ret = snd_pcm_hw_rule_add(substream->runtime, 0,
++					  SNDRV_PCM_HW_PARAM_FORMAT,
++					  davinci_mcasp_hw_rule_slot_width,
++					  ruledata,
++					  SNDRV_PCM_HW_PARAM_FORMAT, -1);
++		if (ret)
++			return ret;
++	}
+ 
+ 	/*
+ 	 * If we rely on implicit BCLK divider setting we should
+ 	 * set constraints based on what we can provide.
+ 	 */
+ 	if (mcasp->bclk_master && mcasp->bclk_div == 0 && mcasp->sysclk_freq) {
+-		int ret;
+-
+-		ruledata->mcasp = mcasp;
+-
+ 		ret = snd_pcm_hw_rule_add(substream->runtime, 0,
+ 					  SNDRV_PCM_HW_PARAM_RATE,
+ 					  davinci_mcasp_hw_rule_rate,
 -- 
 2.20.1
 

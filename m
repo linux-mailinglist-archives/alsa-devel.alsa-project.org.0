@@ -2,86 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C6F9764AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 13:34:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC99764A3
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 13:33:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDD9E2036;
-	Fri, 26 Jul 2019 13:33:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDD9E2036
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0F062029;
+	Fri, 26 Jul 2019 13:33:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0F062029
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564140876;
-	bh=+sqJN1ykhvwxkroNx3f5+bZxluYTJyJl1MSEPNzz7pk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1564140830;
+	bh=j5k0FPCRh2aA6D6AqKfbjxdgZGjt9MbEj19E6ibbIGo=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YNdSCJOKwnkYg0Y3E7wd84LR0WBoTKokQECLL62yEk6lBbO6g5vXu32+nzuwtkugN
-	 Rm66Gc6GEtgYlsxLl9q1ZBlTc8O6VGAZ33JiXTNNuSnnGgGVsju6jaV/mwH04p3yY9
-	 DVK8W4k05mT2ue22zZNpklGZ3EM7Pxa6jRW9ADOg=
+	b=e4sdrCS/r8YBREKjCZCMTlSBwo4JOJTQjRRIOTY+5W8E/ydHUUeGPP0JzVuKuT8w/
+	 OAAFZSPVL+wMAazUU69VJda4MZElFlDz2LsK/3iRnt39h/90jQCDv9TwfmgCgbxmal
+	 gHt+aYevB3P/NPT4dEsdxniji2TDFaUx1mjgg+us=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB441F8045F;
-	Fri, 26 Jul 2019 13:32:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BF713F800E8;
+	Fri, 26 Jul 2019 13:32:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E656F803D7; Fri, 26 Jul 2019 13:32:30 +0200 (CEST)
+ id DE129F80393; Fri, 26 Jul 2019 13:32:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0DF1F800BE
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 13:32:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0DF1F800BE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="bdXD4iNc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OuafK/TTQcFkrbP+suIfTDa/h6nPmDJ0gGHTBNIInGY=; b=bdXD4iNcznYpRIDy+A6+1cNPrh
- cV+a+fbj4fYJ2Mg+9eyczrEI2wWXXZTikDxJeLis7Y2vV/8BCmFckYIL7TCyk5M1UlhUv6eR0U/+h
- HADLDxuO1Q1CF//PiXXy0UDgcevCFLZ3asloJtgzcFkgQmVi7C0JHTCA41LhbF69P6sC6/YUdHbYm
- vr8rpNRfDH9dQWEAeOOqCB7xoWDgGnMbkTAJdXAALiYFU+WirA1kBnPgwfDhk4IAO74wPC5VozQrO
- jMgKffk5q0vLdNtCiNftcTQw4rkeTh1nUc6iunzfA4KkG3jbvCm6cK/h2pCh1bEIzKYaBgeblz8ex
- tKsbR5fg==;
-Received: from [179.95.31.157] (helo=bombadil.infradead.org)
- by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hqyRb-0005vN-Ss; Fri, 26 Jul 2019 11:31:28 +0000
-Received: from mchehab by bombadil.infradead.org with local (Exim 4.92)
- (envelope-from <mchehab@bombadil.infradead.org>)
- id 1hqyRZ-0008Eq-NT; Fri, 26 Jul 2019 08:31:25 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: 
-Date: Fri, 26 Jul 2019 08:31:24 -0300
-Message-Id: <4b04d4e7df9b638de0919417da31af491833400f.1564139914.git.mchehab+samsung@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <cover.1564139914.git.mchehab+samsung@kernel.org>
-References: <cover.1564139914.git.mchehab+samsung@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3752AF800E8
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 13:31:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3752AF800E8
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Jul 2019 04:31:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,310,1559545200"; d="scan'208";a="175568924"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.251.89.116])
+ ([10.251.89.116])
+ by orsmga006.jf.intel.com with ESMTP; 26 Jul 2019 04:31:54 -0700
+To: Vinod Koul <vkoul@kernel.org>
+References: <20190723145854.8527-1-cezary.rojewski@intel.com>
+ <20190724124250.GM12733@vkoul-mobl.Dlink>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <1543807a-0f5a-76a5-971e-4d95cc019e06@intel.com>
+Date: Fri, 26 Jul 2019 13:31:52 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Rich Felker <dalias@libc.org>,
- linux-doc@vger.kernel.org, Maxime Ripard <maxime.ripard@bootlin.com>,
- dri-devel@lists.freedesktop.org, "H. Peter Anvin" <hpa@zytor.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Jonathan Corbet <corbet@lwn.net>,
- linux-sh@vger.kernel.org, x86@kernel.org, David Airlie <airlied@linux.ie>,
- Ingo Molnar <mingo@redhat.com>, linux-input@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@linutronix.de>,
- Sean Paul <sean@poorly.run>, netdev@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-crypto@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [alsa-devel] [PATCH v2 10/10] docs: remove extra conf.py files
+In-Reply-To: <20190724124250.GM12733@vkoul-mobl.Dlink>
+Content-Language: en-US
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ broonie@kernel.org, lgirdwood@gmail.com, tiwai@suse.com
+Subject: Re: [alsa-devel] [RESEND PATCH v2 0/7] ASoC: Intel: Skylake: Driver
+ fundaments overhaul
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,401 +73,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that the latex_documents are handled automatically, we can
-remove those extra conf.py files.
+On 2019-07-24 14:42, Vinod Koul wrote:
+> On 23-07-19, 16:58, Cezary Rojewski wrote:
+>> Changes since v1:
+>> - Rebased onto 5.4
+> 
+> On a lighter note:
+> 
+> Did this series time travel from the future! Did you charge the flux
+> capacitor to go back?
+> 
 
-Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
----
- Documentation/admin-guide/conf.py      | 10 ----------
- Documentation/core-api/conf.py         | 10 ----------
- Documentation/crypto/conf.py           | 10 ----------
- Documentation/dev-tools/conf.py        | 10 ----------
- Documentation/doc-guide/conf.py        | 10 ----------
- Documentation/driver-api/80211/conf.py | 10 ----------
- Documentation/driver-api/conf.py       | 10 ----------
- Documentation/driver-api/pm/conf.py    | 10 ----------
- Documentation/filesystems/conf.py      | 10 ----------
- Documentation/gpu/conf.py              | 10 ----------
- Documentation/input/conf.py            | 10 ----------
- Documentation/kernel-hacking/conf.py   | 10 ----------
- Documentation/maintainer/conf.py       | 10 ----------
- Documentation/media/conf.py            | 12 ------------
- Documentation/networking/conf.py       | 10 ----------
- Documentation/process/conf.py          | 10 ----------
- Documentation/sh/conf.py               | 10 ----------
- Documentation/sound/conf.py            | 10 ----------
- Documentation/userspace-api/conf.py    | 10 ----------
- Documentation/vm/conf.py               | 10 ----------
- Documentation/x86/conf.py              | 10 ----------
- 21 files changed, 212 deletions(-)
- delete mode 100644 Documentation/admin-guide/conf.py
- delete mode 100644 Documentation/core-api/conf.py
- delete mode 100644 Documentation/crypto/conf.py
- delete mode 100644 Documentation/dev-tools/conf.py
- delete mode 100644 Documentation/doc-guide/conf.py
- delete mode 100644 Documentation/driver-api/80211/conf.py
- delete mode 100644 Documentation/driver-api/conf.py
- delete mode 100644 Documentation/driver-api/pm/conf.py
- delete mode 100644 Documentation/filesystems/conf.py
- delete mode 100644 Documentation/gpu/conf.py
- delete mode 100644 Documentation/input/conf.py
- delete mode 100644 Documentation/kernel-hacking/conf.py
- delete mode 100644 Documentation/maintainer/conf.py
- delete mode 100644 Documentation/media/conf.py
- delete mode 100644 Documentation/networking/conf.py
- delete mode 100644 Documentation/process/conf.py
- delete mode 100644 Documentation/sh/conf.py
- delete mode 100644 Documentation/sound/conf.py
- delete mode 100644 Documentation/userspace-api/conf.py
- delete mode 100644 Documentation/vm/conf.py
- delete mode 100644 Documentation/x86/conf.py
+Damn, seems MLs are still merciless : )
 
-diff --git a/Documentation/admin-guide/conf.py b/Documentation/admin-guide/conf.py
-deleted file mode 100644
-index 86f738953799..000000000000
---- a/Documentation/admin-guide/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel User Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'linux-user.tex', 'Linux Kernel User Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/core-api/conf.py b/Documentation/core-api/conf.py
-deleted file mode 100644
-index db1f7659f3da..000000000000
---- a/Documentation/core-api/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Core-API Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'core-api.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/crypto/conf.py b/Documentation/crypto/conf.py
-deleted file mode 100644
-index 4335d251ddf3..000000000000
---- a/Documentation/crypto/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Crypto API'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'crypto-api.tex', 'Linux Kernel Crypto API manual',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/dev-tools/conf.py b/Documentation/dev-tools/conf.py
-deleted file mode 100644
-index 7faafa3f7888..000000000000
---- a/Documentation/dev-tools/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Development tools for the kernel"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'dev-tools.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/doc-guide/conf.py b/Documentation/doc-guide/conf.py
-deleted file mode 100644
-index fd3731182d5a..000000000000
---- a/Documentation/doc-guide/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Documentation Guide'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'kernel-doc-guide.tex', 'Linux Kernel Documentation Guide',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/driver-api/80211/conf.py b/Documentation/driver-api/80211/conf.py
-deleted file mode 100644
-index 4424b4b0b9c3..000000000000
---- a/Documentation/driver-api/80211/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux 802.11 Driver Developer's Guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', '80211.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/driver-api/conf.py b/Documentation/driver-api/conf.py
-deleted file mode 100644
-index 202726d20088..000000000000
---- a/Documentation/driver-api/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "The Linux driver implementer's API guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'driver-api.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/driver-api/pm/conf.py b/Documentation/driver-api/pm/conf.py
-deleted file mode 100644
-index a89fac11272f..000000000000
---- a/Documentation/driver-api/pm/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Device Power Management"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'pm.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/filesystems/conf.py b/Documentation/filesystems/conf.py
-deleted file mode 100644
-index ea44172af5c4..000000000000
---- a/Documentation/filesystems/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Filesystems API"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'filesystems.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/gpu/conf.py b/Documentation/gpu/conf.py
-deleted file mode 100644
-index 1757b040fb32..000000000000
---- a/Documentation/gpu/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux GPU Driver Developer's Guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'gpu.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/input/conf.py b/Documentation/input/conf.py
-deleted file mode 100644
-index d2352fdc92ed..000000000000
---- a/Documentation/input/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "The Linux input driver subsystem"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'linux-input.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/kernel-hacking/conf.py b/Documentation/kernel-hacking/conf.py
-deleted file mode 100644
-index 3d8acf0f33ad..000000000000
---- a/Documentation/kernel-hacking/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Kernel Hacking Guides"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'kernel-hacking.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/maintainer/conf.py b/Documentation/maintainer/conf.py
-deleted file mode 100644
-index 81e9eb7a7884..000000000000
---- a/Documentation/maintainer/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Development Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'maintainer.tex', 'Linux Kernel Development Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/media/conf.py b/Documentation/media/conf.py
-deleted file mode 100644
-index 1f194fcd2cae..000000000000
---- a/Documentation/media/conf.py
-+++ /dev/null
-@@ -1,12 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--# SPDX-License-Identifier: GPL-2.0
--
--project = 'Linux Media Subsystem Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'media.tex', 'Linux Media Subsystem Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/networking/conf.py b/Documentation/networking/conf.py
-deleted file mode 100644
-index 40f69e67a883..000000000000
---- a/Documentation/networking/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Networking Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'networking.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/process/conf.py b/Documentation/process/conf.py
-deleted file mode 100644
-index 1b01a80ad9ce..000000000000
---- a/Documentation/process/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = 'Linux Kernel Development Documentation'
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'process.tex', 'Linux Kernel Development Documentation',
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/sh/conf.py b/Documentation/sh/conf.py
-deleted file mode 100644
-index 1eb684a13ac8..000000000000
---- a/Documentation/sh/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "SuperH architecture implementation manual"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'sh.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/sound/conf.py b/Documentation/sound/conf.py
-deleted file mode 100644
-index 3f1fc5e74e7b..000000000000
---- a/Documentation/sound/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Sound Subsystem Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'sound.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/userspace-api/conf.py b/Documentation/userspace-api/conf.py
-deleted file mode 100644
-index 2eaf59f844e5..000000000000
---- a/Documentation/userspace-api/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "The Linux kernel user-space API guide"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'userspace-api.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/vm/conf.py b/Documentation/vm/conf.py
-deleted file mode 100644
-index 3b0b601af558..000000000000
---- a/Documentation/vm/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "Linux Memory Management Documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'memory-management.tex', project,
--     'The kernel development community', 'manual'),
--]
-diff --git a/Documentation/x86/conf.py b/Documentation/x86/conf.py
-deleted file mode 100644
-index 33c5c3142e20..000000000000
---- a/Documentation/x86/conf.py
-+++ /dev/null
-@@ -1,10 +0,0 @@
--# -*- coding: utf-8; mode: python -*-
--
--project = "X86 architecture specific documentation"
--
--tags.add("subproject")
--
--latex_documents = [
--    ('index', 'x86.tex', project,
--     'The kernel development community', 'manual'),
--]
--- 
-2.21.0
-
+Sorry for the typo - while doing rebases on "for-5.4" internally for 
+future releases, simply smudged my commit messages.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

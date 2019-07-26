@@ -2,94 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 264E375CB3
-	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 04:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E952475CCA
+	for <lists+alsa-devel@lfdr.de>; Fri, 26 Jul 2019 04:13:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0C5C1F72;
-	Fri, 26 Jul 2019 04:06:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0C5C1F72
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B98B1F72;
+	Fri, 26 Jul 2019 04:13:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B98B1F72
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564106855;
-	bh=gGqVaIIcniSaFBdND9mqkBwzzmiqHgg0jROWQ7HKERc=;
+	s=default; t=1564107237;
+	bh=SywOp+t1t2W2wY3lU+wGIm7BS6poZkd7/iVM5k/Jqjw=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=buuFvcaYnYiYDU6WuRLvYMoHkE6ArXpRBcCUvJtEPQyIbmecfbGtccb6aIyWqyJvZ
-	 ev0iqQ1N0UE5Jp6w7OUYnYKLQ6mVclTGckP7UuraVbeiigonwFlKExKSgwJyqq0jEV
-	 OfkkUFxWPW2NKPFZ8/lp4OM8b55QAq7drbOfNYL0=
+	b=QR05FwLIvVnisydgOucvM4WR10a081L4iVfw3UARcb0n36ZpBGmjGZaTZk0HY8uS5
+	 G4CVBVO1US6/hM9ggGxKfkiR1x1y1bsPGxBxKK5MAHAi2HrPBF1KVp8l/G9abC9ofR
+	 QGbFRIEc9phPMbx4eSaJvAAhhX35fSSn4G96wHNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F3BEDF80393;
-	Fri, 26 Jul 2019 04:05:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 903B6F80393;
+	Fri, 26 Jul 2019 04:12:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B4CCF80393; Fri, 26 Jul 2019 04:05:48 +0200 (CEST)
+ id 70865F80393; Fri, 26 Jul 2019 04:12:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2D6EF801A4
- for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 04:05:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2D6EF801A4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hWnrUtBc"
-Received: by mail-pf1-x444.google.com with SMTP id c3so545426pfa.13
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 19:05:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=cCr2oTsYVgIcEXvmtc7DlfGkkVp1TEqKVaiHx8VkY0g=;
- b=hWnrUtBcKGH6duUC6atM3dFoGEBxjthHp13HPcOGJP3NvGrheBc5ubV7GtbnVrlUG5
- w5xBX1gRoM47ksIqKWOFmWXir+gUPA0Gh2eTDKgpymSSztq9tcT/zBuN/n0rKnfOUuca
- qEBOAK2NsqTXHIFBuLpt5vzs2eCB9GmKpjPB+kgUHv7LrzqssPl1EAlagaMpS3cl11B5
- Ddh3fFfxS5tzaLVHZMBeZDV1ZxTtRHvN9GoQhg8GT5xbsqmQxdkN3vS5pSlF/m8Bxnq0
- 02OcN90av2yFVbUIr4WKCyoepL+F+iRgaISztNFR+JUkamvg6b92qQRwAurdm9kPr6/f
- qF7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=cCr2oTsYVgIcEXvmtc7DlfGkkVp1TEqKVaiHx8VkY0g=;
- b=CJ4UYq91z2PKNsGn7WIVbwTih9at3S/j0GrLsBII8SK67zlR0l8JMV5SDcx4Lw22zm
- 388bt4+kG91FMp0m2bGC199OawROjtUWzU0Hoj09jKUR4JV9zIdEVYnPlWTtIh/k2uPa
- NNUJmHnZjXV7b0UjotQgr9rS5zGcVH39UmPkOuk8oM2vOc+8F8tonRRrL4z6YvBHeBhu
- eR6bK0kI1atXOiH/y2F5+Lpnjj+Spny0EGnO5ZSXxeMl/Ge+eq8O8RodnZGWJWSD8dws
- WBGn0xE+fONYt8kGiN9OOWXJb37Y6XRWijw5PeCYFZeLiRl7+QDaOvvQ3c2s8l6luYHr
- Jrag==
-X-Gm-Message-State: APjAAAWwmDjE7AqpMpyVDy3/0vlNL9wGzG6eXTVEjr9JiulAeo3r6QbS
- JXv/mxYPqBNr45Uf/Utfulg=
-X-Google-Smtp-Source: APXvYqyW0cJeyN4gZGlH3R5yMUABavXqQ5fq8IodhkOzNunm92SeAYGrTnWkOwPKwtBRZvJudMSzfg==
-X-Received: by 2002:a17:90a:4806:: with SMTP id
- a6mr96016852pjh.38.1564106742844; 
- Thu, 25 Jul 2019 19:05:42 -0700 (PDT)
-Received: from ?IPv6:2402:f000:4:72:808::177e? ([2402:f000:4:72:808::177e])
- by smtp.gmail.com with ESMTPSA id b126sm75007442pfa.126.2019.07.25.19.05.40
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 25 Jul 2019 19:05:42 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>
-References: <20190725082733.15234-1-baijiaju1990@gmail.com>
- <s5hy30myuvw.wl-tiwai@suse.de>
-From: Jia-Ju Bai <baijiaju1990@gmail.com>
-Message-ID: <5ef03517-a52f-fe24-30e9-62466d4a1319@gmail.com>
-Date: Fri, 26 Jul 2019 10:05:42 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F194F800BE
+ for <alsa-devel@alsa-project.org>; Fri, 26 Jul 2019 04:12:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F194F800BE
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Jul 2019 19:12:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,308,1559545200"; d="scan'208";a="254179356"
+Received: from yungchua-mobl.ccr.corp.intel.com (HELO [10.252.184.27])
+ ([10.252.184.27])
+ by orsmga001.jf.intel.com with ESMTP; 25 Jul 2019 19:12:00 -0700
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
+ <20190725234032.21152-10-pierre-louis.bossart@linux.intel.com>
+From: Bard liao <yung-chuan.liao@linux.intel.com>
+Message-ID: <3aa182a9-4b8e-96dd-e8f8-f2f5a90401cb@linux.intel.com>
+Date: Fri, 26 Jul 2019 10:11:53 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <s5hy30myuvw.wl-tiwai@suse.de>
+In-Reply-To: <20190725234032.21152-10-pierre-louis.bossart@linux.intel.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, rfontana@redhat.com, tglx@linutronix.de
-Subject: Re: [alsa-devel] [PATCH] ALSA: i2c: ak4xxx-adda: Fix a possible
- null pointer dereference in build_adc_controls()
+Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 09/40] soundwire: cadence_master: fix
+ usage of CONFIG_UPDATE
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,61 +81,77 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 2019/7/25 23:52, Takashi Iwai wrote:
-> On Thu, 25 Jul 2019 10:27:33 +0200,
-> Jia-Ju Bai wrote:
->> In build_adc_controls(), there is an if statement on line 773 to check
->> whether ak->adc_info is NULL:
->> 	if (! ak->adc_info ||
->> 		! ak->adc_info[mixer_ch].switch_name)
->>
->> When ak->adc_info is NULL, it is used on line 792:
->>      knew.name = ak->adc_info[mixer_ch].selector_name;
->>
->> Thus, a possible null-pointer dereference may occur.
->>
->> To fix this bug, referring to lines 773 and 774, ak->adc_info
->> and ak->adc_info[mixer_ch].selector_name are checked before being used.
->>
->> This bug is found by a static analysis tool STCheck written by us.
->>
->> Signed-off-by: Jia-Ju Bai <baijiaju1990@gmail.com>
->> ---
->>   sound/i2c/other/ak4xxx-adda.c | 6 ++++--
->>   1 file changed, 4 insertions(+), 2 deletions(-)
->>
->> diff --git a/sound/i2c/other/ak4xxx-adda.c b/sound/i2c/other/ak4xxx-adda.c
->> index 5f59316f982a..9a891470e84a 100644
->> --- a/sound/i2c/other/ak4xxx-adda.c
->> +++ b/sound/i2c/other/ak4xxx-adda.c
->> @@ -775,11 +775,13 @@ static int build_adc_controls(struct snd_akm4xxx *ak)
->>   				return err;
->>   
->>   			memset(&knew, 0, sizeof(knew));
->> -			knew.name = ak->adc_info[mixer_ch].selector_name;
->> -			if (!knew.name) {
->> +			if (! ak->adc_info ||
->> +				! ak->adc_info[mixer_ch].selector_name) {
->>   				knew.name = "Capture Channel";
->>   				knew.index = mixer_ch + ak->idx_offset * 2;
->>   			}
->> +			else
->> +				knew.name = ak->adc_info[mixer_ch].selector_name;
->>   
->>   			knew.iface = SNDRV_CTL_ELEM_IFACE_MIXER;
->>   			knew.info = ak4xxx_capture_source_info;
-> The code change itself looks good, but please follow the standard
-> coding style.  In short: please run checkpatch.pl, fix errors (some
-> warnings may be ignored) and resubmit.
-
-Okay, thanks for the advice.
-I will send a v2 patch.
-
-
-Best wishes,
-Jia-Ju Bai
+On 7/26/2019 7:40 AM, Pierre-Louis Bossart wrote:
+> Per the hardware documentation, all changes to MCP_CONFIG,
+> MCP_CONTROL, MCP_CMDCTRL and MCP_PHYCTRL need to be validated with a
+> self-clearing write to MCP_CONFIG_UPDATE.
+>
+> For some reason, the existing code only does this write to
+> CONFIG_UPDATE when enabling interrupts. Add a helper and do the update
+> when the CONFIG is changed.
+>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>   drivers/soundwire/cadence_master.c | 29 +++++++++++++++++++++--------
+>   1 file changed, 21 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+> index 9f611a1fff0a..eb46cf651d62 100644
+> --- a/drivers/soundwire/cadence_master.c
+> +++ b/drivers/soundwire/cadence_master.c
+> @@ -224,6 +224,22 @@ static int cdns_clear_bit(struct sdw_cdns *cdns, int offset, u32 value)
+>   	return -EAGAIN;
+>   }
+>   
+> +/*
+> + * all changes to the MCP_CONFIG, MCP_CONTROL, MCP_CMDCTRL and MCP_PHYCTRL
+> + * need to be confirmed with a write to MCP_CONFIG_UPDATE
+> + */
+> +static int cdns_update_config(struct sdw_cdns *cdns)
+> +{
+> +	int ret;
+> +
+> +	ret = cdns_clear_bit(cdns, CDNS_MCP_CONFIG_UPDATE,
+> +			     CDNS_MCP_CONFIG_UPDATE_BIT);
+> +	if (ret < 0)
+> +		dev_err(cdns->dev, "Config update timedout\n");
+> +
+> +	return ret;
+> +}
+> +
+>   /*
+>    * debugfs
+>    */
+> @@ -758,15 +774,9 @@ static int _cdns_enable_interrupt(struct sdw_cdns *cdns)
+>    */
+>   int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
+>   {
+> -	int ret;
+> -
+>   	_cdns_enable_interrupt(cdns);
+> -	ret = cdns_clear_bit(cdns, CDNS_MCP_CONFIG_UPDATE,
+> -			     CDNS_MCP_CONFIG_UPDATE_BIT);
+> -	if (ret < 0)
+> -		dev_err(cdns->dev, "Config update timedout\n");
+>   
+> -	return ret;
+Should we add cdns_update_config() here?
+> +	return 0;
+>   }
+>   EXPORT_SYMBOL(sdw_cdns_enable_interrupt);
+>   
+> @@ -943,7 +953,10 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+>   
+>   	cdns_writel(cdns, CDNS_MCP_CONFIG, val);
+>   
+> -	return 0;
+> +	/* commit changes */
+> +	ret = cdns_update_config(cdns);
+> +
+> +	return ret;
+>   }
+>   EXPORT_SYMBOL(sdw_cdns_init);
+>   
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

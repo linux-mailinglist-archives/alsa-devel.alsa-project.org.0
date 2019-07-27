@@ -2,46 +2,46 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BC0B7A525
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:49:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B7967A52C
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:50:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2255717F4;
-	Tue, 30 Jul 2019 11:48:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2255717F4
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBB17183F;
+	Tue, 30 Jul 2019 11:49:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBB17183F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564480141;
-	bh=fymTu56Ih4PTjUHTzAAXMpz7da4usaQW5285lAZxC9o=;
+	s=default; t=1564480202;
+	bh=Elsx3TNSaS7ZWfJUzneNQD337n8hY0H4avZFuLHCgDU=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OGDr2sCZXqAND3XHH34vslteYThG4VG2hR8/WDouuO00SnQ1IkCb/LE7q3pJDPed5
-	 fAqjGSIKjAGQziXpHb1I+dvniziSk1unmeN+CPMm09qUCSzUrqn0Sq+6n59qcvRwwh
-	 P93BDWvoeLrR0yeYY6a+A0i6JwhDT3gjSseKArXk=
+	b=j5fGmL4fzU04hDwZNAP6vRhqC8cdbe8Jy2tgemagip91f7Jn95bFAvHPNnBkwgM0m
+	 /sdii0TMFjDXI6SjpZYHX+WNicKoDfiy83YopFGpfWerD0cHGXvj2SDJ4wJlTEXpAt
+	 aqi5x0qBD6uGl9tA0f9Dnggzzoy6XsFcv4fvIMIE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23E18F8074D;
-	Tue, 30 Jul 2019 11:32:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7F9AF8077D;
+	Tue, 30 Jul 2019 11:32:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B31E9F80394; Sat, 27 Jul 2019 17:10:48 +0200 (CEST)
+ id 21A36F80394; Sat, 27 Jul 2019 17:11:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22C55F802BD
- for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:10:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22C55F802BD
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 69A87890BB1A2057EA2E;
- Sat, 27 Jul 2019 23:10:43 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
- 23:10:35 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id C900CF800E8
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:10:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C900CF800E8
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 07C649C1B7968560C4F0;
+ Sat, 27 Jul 2019 23:10:57 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS402-HUB.china.huawei.com
+ (10.3.19.202) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
+ 23:10:51 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
@@ -57,8 +57,8 @@ To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <yamada.masahiro@socionext.com>, <michal.simek@xilinx.com>,
  <jcmvbkbc@gmail.com>
-Date: Sat, 27 Jul 2019 23:07:28 +0800
-Message-ID: <20190727150738.54764-25-yuehaibing@huawei.com>
+Date: Sat, 27 Jul 2019 23:07:33 +0800
+Message-ID: <20190727150738.54764-30-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190727150738.54764-1-yuehaibing@huawei.com>
 References: <20190727150738.54764-1-yuehaibing@huawei.com>
@@ -72,7 +72,7 @@ Cc: linux-xtensa@linux-xtensa.org, alsa-devel@alsa-project.org,
  linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH -next 24/34] ASoC: au1x: psc-i2s: use
+Subject: [alsa-devel] [PATCH -next 29/34] ASoC: meson: axg-spdifout: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -97,31 +97,30 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- sound/soc/au1x/psc-i2s.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ sound/soc/meson/axg-spdifout.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/au1x/psc-i2s.c b/sound/soc/au1x/psc-i2s.c
-index 076303f..767ce95 100644
---- a/sound/soc/au1x/psc-i2s.c
-+++ b/sound/soc/au1x/psc-i2s.c
-@@ -291,7 +291,7 @@ static const struct snd_soc_component_driver au1xpsc_i2s_component = {
- 
- static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
+diff --git a/sound/soc/meson/axg-spdifout.c b/sound/soc/meson/axg-spdifout.c
+index 9dea528..7ce6aa97 100644
+--- a/sound/soc/meson/axg-spdifout.c
++++ b/sound/soc/meson/axg-spdifout.c
+@@ -401,7 +401,6 @@ static int axg_spdifout_probe(struct platform_device *pdev)
  {
--	struct resource *iores, *dmares;
-+	struct resource *dmares;
- 	unsigned long sel;
- 	struct au1xpsc_audio_data *wd;
+ 	struct device *dev = &pdev->dev;
+ 	struct axg_spdifout *priv;
+-	struct resource *res;
+ 	void __iomem *regs;
+ 	int ret;
  
-@@ -300,8 +300,7 @@ static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
- 	if (!wd)
+@@ -410,8 +409,7 @@ static int axg_spdifout_probe(struct platform_device *pdev)
  		return -ENOMEM;
+ 	platform_set_drvdata(pdev, priv);
  
--	iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	wd->mmio = devm_ioremap_resource(&pdev->dev, iores);
-+	wd->mmio = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(wd->mmio))
- 		return PTR_ERR(wd->mmio);
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	regs = devm_ioremap_resource(dev, res);
++	regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(regs))
+ 		return PTR_ERR(regs);
  
 -- 
 2.7.4

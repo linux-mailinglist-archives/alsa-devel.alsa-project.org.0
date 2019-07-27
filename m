@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F28307A44B
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:35:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D94E67A438
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:34:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E8A717ED;
-	Tue, 30 Jul 2019 11:34:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E8A717ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64EB617E4;
+	Tue, 30 Jul 2019 11:33:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64EB617E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564479303;
-	bh=POu7e4fIL6aqUmK6FwkxYVx7PbyIllG8tw6vJzUGbcs=;
+	s=default; t=1564479243;
+	bh=EGL1gqyKcFvgttFn8Gf373QowDM32BRXj/4rddIzCL4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MDSh+q9wK0V5sUHo4d8i8OilPBnEzmoFGcvbF3eidzy6XEUfgeg+GWDLPexEqbdFv
-	 VqFQt4aEGPDbxYmGj+Q5qxtH7wr/YrXZOqrA376FAomJYqrL5+ISyKGaoFU1OFGiku
-	 AWC2k+6H81vxC6iIOmYbtj32vT/d0kY7Gx8QqFN0=
+	b=MRGpnW0QhvNm3nuVBTagM9PMFOpnyObmkVYQ42UMEg9Tjx0pd4Thwb+HhFXylr7M7
+	 T/I0XR2NGSIIQBUjp97G/fJmX62nJxnFVkyo33+MUbe02cjjImpexqQ5IaJMF9VK92
+	 Hpl/rTIImshFzCiBs6XFgXjpw3e7JOUcCW1ChdrE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D30FF80539;
-	Tue, 30 Jul 2019 11:31:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51E07F80507;
+	Tue, 30 Jul 2019 11:31:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 716E7F802BD; Sat, 27 Jul 2019 17:09:47 +0200 (CEST)
+ id 099A7F80392; Sat, 27 Jul 2019 17:09:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -33,15 +33,15 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED75EF80394
- for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:09:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED75EF80394
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 1784322AD0B011E65047;
- Sat, 27 Jul 2019 23:09:34 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
- 23:09:27 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4AD0EF802BD
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:09:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4AD0EF802BD
+Received: from DGGEMS408-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id E7C9A8FF1557039E441C;
+ Sat, 27 Jul 2019 23:09:36 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS408-HUB.china.huawei.com
+ (10.3.19.208) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
+ 23:09:30 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
@@ -57,8 +57,8 @@ To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <yamada.masahiro@socionext.com>, <michal.simek@xilinx.com>,
  <jcmvbkbc@gmail.com>
-Date: Sat, 27 Jul 2019 23:07:06 +0800
-Message-ID: <20190727150738.54764-3-yuehaibing@huawei.com>
+Date: Sat, 27 Jul 2019 23:07:07 +0800
+Message-ID: <20190727150738.54764-4-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190727150738.54764-1-yuehaibing@huawei.com>
 References: <20190727150738.54764-1-yuehaibing@huawei.com>
@@ -72,7 +72,7 @@ Cc: linux-xtensa@linux-xtensa.org, alsa-devel@alsa-project.org,
  linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH -next 02/34] ASoC: tegra: use
+Subject: [alsa-devel] [PATCH -next 03/34] ASoC: rockchip: use
 	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -97,31 +97,31 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- sound/soc/tegra/tegra30_i2s.c | 4 +---
+ sound/soc/codecs/rk3328_codec.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
-index ac6983c..e6d548f 100644
---- a/sound/soc/tegra/tegra30_i2s.c
-+++ b/sound/soc/tegra/tegra30_i2s.c
-@@ -368,7 +368,6 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
- 	struct tegra30_i2s *i2s;
- 	const struct of_device_id *match;
- 	u32 cif_ids[2];
--	struct resource *mem;
- 	void __iomem *regs;
- 	int ret;
- 
-@@ -406,8 +405,7 @@ static int tegra30_i2s_platform_probe(struct platform_device *pdev)
- 		goto err;
+diff --git a/sound/soc/codecs/rk3328_codec.c b/sound/soc/codecs/rk3328_codec.c
+index 24f8f86..287c962 100644
+--- a/sound/soc/codecs/rk3328_codec.c
++++ b/sound/soc/codecs/rk3328_codec.c
+@@ -432,7 +432,6 @@ static int rk3328_platform_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *rk3328_np = pdev->dev.of_node;
+ 	struct rk3328_codec_priv *rk3328;
+-	struct resource *res;
+ 	struct regmap *grf;
+ 	void __iomem *base;
+ 	int ret = 0;
+@@ -482,8 +481,7 @@ static int rk3328_platform_probe(struct platform_device *pdev)
+ 		return ret;
  	}
  
--	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	regs = devm_ioremap_resource(&pdev->dev, mem);
-+	regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(regs)) {
- 		ret = PTR_ERR(regs);
- 		goto err_clk_put;
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, res);
++	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+ 
 -- 
 2.7.4
 

@@ -2,67 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 396D3773DF
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jul 2019 00:11:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 488BC7763F
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jul 2019 05:22:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B728620E4;
-	Sat, 27 Jul 2019 00:10:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B728620E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 831E320A2;
+	Sat, 27 Jul 2019 05:21:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 831E320A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564179090;
-	bh=TVDwYuKIElSne//cRGzL+hTCVv6TcdYjNE2395e0I78=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564197725;
+	bh=epjqkFBUnSxjsABKCGhSkorPH9ROAWoe2+N6+MxBN1s=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HRSgsn970ta1VolaLWtSzWH8SSQeyztoOkdNnTTC8nvKIHayM6qVgoalZRS9Ynm6A
-	 K582O5VVajCRI9B19It5H94QqIahS7ADdLTP0nFNpg20qBxeUDmqDSjJBVkhaAXSdy
-	 DJaCpkAClUsBZDC7F4umSl5zzP/M7fhHWXsuUPFo=
+	b=PPhKTy7pPnxi7l3lC6uih+YXoDqZOL14mlg7XihfnJNkuLYCDEXNzndeVNnfn9ALi
+	 MaqJuYC0WgBceLNmhxeBUwJKs9p8zt3zpRQHxJ6kqcrENFTH69mgBDOp8xUJt7Zl+B
+	 Zw1/MJ/7pfnQVL06cXtYLXjCFYIVUe4cgkHZtxOE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EEE3AF803D1;
-	Sat, 27 Jul 2019 00:09:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABEA5F80134;
+	Sat, 27 Jul 2019 05:20:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 906B2F80393; Sat, 27 Jul 2019 00:09:41 +0200 (CEST)
+ id D1685F80394; Sat, 27 Jul 2019 05:20:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_13,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78594F800E8
- for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 00:09:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78594F800E8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Jul 2019 15:09:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,312,1559545200"; d="scan'208";a="172365019"
-Received: from rmfosha-mobl.amr.corp.intel.com (HELO [10.251.137.254])
- ([10.251.137.254])
- by fmsmga007.fm.intel.com with ESMTP; 26 Jul 2019 15:09:33 -0700
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-References: <20190719203752.11151-1-pierre-louis.bossart@linux.intel.com>
- <20190719203752.11151-3-pierre-louis.bossart@linux.intel.com>
- <daaa01dc-d963-f215-90b1-132fde8e489a@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ad3ea067-f7be-ea53-e40d-c4ad62b51688@linux.intel.com>
-Date: Fri, 26 Jul 2019 17:09:33 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45CB2F80134
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 05:20:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45CB2F80134
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="ORUDr6Cu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1564197613; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=KYjAC67ZYcDwtcnIBpp0BzLOMVIg3F/G58/tAsJimxs=;
+ b=ORUDr6CuY7vpgmdik7Ldm16UXWRFBr6Ee4ABQbj6tTfLvxBPwmhKA6bLpfcQxX+exzomjP
+ TDrZy1fzdFeQCmOXR6cIQOjxRV8Q06DX/kYE2jocswD/4JlyOxJP5kSuaV94FjAfM/JVnu
+ CJlyiJfb7/kikgxqr4FsYUPCYzzFns0=
+Date: Fri, 26 Jul 2019 23:19:45 -0400
+From: Paul Cercueil <paul@crapouillou.net>
+To: Sam Ravnborg <sam@ravnborg.org>
+Message-Id: <1564197585.6472.0@crapouillou.net>
+In-Reply-To: <20190726184649.GC14981@ravnborg.org>
+References: <20190725220215.460-1-paul@crapouillou.net>
+ <20190726184649.GC14981@ravnborg.org>
 MIME-Version: 1.0
-In-Reply-To: <daaa01dc-d963-f215-90b1-132fde8e489a@intel.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de,
- Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
- Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 2/5] ALSA: hda: move parts of NHLT code
- to new module
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-fbdev@vger.kernel.org,
+ James Hogan <jhogan@kernel.org>, alsa-devel@alsa-project.org,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org, od@zcrc.me,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Lee Jones <lee.jones@linaro.org>, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, Paul Burton <paul.burton@mips.com>,
+ Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Ralf Baechle <ralf@linux-mips.org>,
+ linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ dmaengine@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 00/11] JZ4740 SoC cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,95 +85,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cmVwbHlpbmcgYmVsb3cgdG8gdGhlIGZlZWRiYWNrIEkgbWlzc2VkIGVhcmxpZXIuIFdpbGwgc2Vu
-ZCBhIHY0IG5leHQgd2Vlay4KCj4+IGRpZmYgLS1naXQgYS9zb3VuZC9oZGEvaW50ZWwtbmhsdC5j
-IGIvc291bmQvaGRhL2ludGVsLW5obHQuYwo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+PiBpbmRl
-eCAwMDAwMDAwMDAwMDAuLjdiYTg3MWU0NzBmMgo+PiAtLS0gL2Rldi9udWxsCj4+ICsrKyBiL3Nv
-dW5kL2hkYS9pbnRlbC1uaGx0LmMKPj4gQEAgLTAsMCArMSw5OCBAQAo+PiArLy8gU1BEWC1MaWNl
-bnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKPj4gKy8vIENvcHlyaWdodCAoYykgMjAxNS0yMDE5IElu
-dGVsIENvcnBvcmF0aW9uCj4+ICsKPj4gKyNpbmNsdWRlIDxsaW51eC9hY3BpLmg+Cj4+ICsjaW5j
-bHVkZSA8c291bmQvaW50ZWwtbmhsdC5oPgo+PiArCj4+ICsjZGVmaW5lIE5ITFRfQUNQSV9IRUFE
-RVJfU0lHwqDCoMKgICJOSExUIgo+PiArCj4+ICsvKiBVbmlxdWUgaWRlbnRpZmljYXRpb24gZm9y
-IGdldHRpbmcgTkhMVCBibG9icyAqLwo+PiArc3RhdGljIGd1aWRfdCBvc2NfZ3VpZCA9Cj4+ICvC
-oMKgwqAgR1VJRF9JTklUKDB4QTY5Rjg4NkUsIDB4NkNFQiwgMHg0NTk0LAo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgIDB4QTQsIDB4MUYsIDB4N0IsIDB4NUQsIDB4Q0UsIDB4MjQsIDB4QzUsIDB4NTMp
-Owo+PiArCj4+ICtzdHJ1Y3QgbmhsdF9hY3BpX3RhYmxlICppbnRlbF9uaGx0X2luaXQoc3RydWN0
-IGRldmljZSAqZGV2KQo+PiArewo+PiArwqDCoMKgIGFjcGlfaGFuZGxlIGhhbmRsZTsKPj4gK8Kg
-wqDCoCB1bmlvbiBhY3BpX29iamVjdCAqb2JqOwo+PiArwqDCoMKgIHN0cnVjdCBuaGx0X3Jlc291
-cmNlX2Rlc2PCoCAqbmhsdF9wdHIgPSBOVUxMOwo+IAo+IFN1cGVyZmx1b3VzIHNwYWNlLiBJbiBm
-YWN0LCBpdHMgaW5pdGlhbGl6YXRpb24gaXMgdG9vLgoKaW5kZWVkLCB3aWxsIHJlbW92ZSBhbmQg
-Zml4IHNwYWNpbmcuCgo+IAo+PiArwqDCoMKgIHN0cnVjdCBuaGx0X2FjcGlfdGFibGUgKm5obHRf
-dGFibGUgPSBOVUxMOwo+PiArCj4+ICvCoMKgwqAgaGFuZGxlID0gQUNQSV9IQU5ETEUoZGV2KTsK
-Pj4gK8KgwqDCoCBpZiAoIWhhbmRsZSkgewo+PiArwqDCoMKgwqDCoMKgwqAgZGV2X2VycihkZXYs
-ICJEaWRuJ3QgZmluZCBBQ1BJX0hBTkRMRVxuIik7Cj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4g
-TlVMTDsKPj4gK8KgwqDCoCB9Cj4+ICsKPj4gK8KgwqDCoCBvYmogPSBhY3BpX2V2YWx1YXRlX2Rz
-bShoYW5kbGUsICZvc2NfZ3VpZCwgMSwgMSwgTlVMTCk7Cj4+ICvCoMKgwqAgaWYgKG9iaiAmJiBv
-YmotPnR5cGUgPT0gQUNQSV9UWVBFX0JVRkZFUikgewo+IAo+IFBlcnNvbmFsbHksIEkgYWx3YXlz
-IGZhdm9yIGNvZGUgd2l0aCBsb3dlciBpbmRlbnRhdGlvbiBvdmVyIHRoZSBvbmUgd2l0aCAKPiBo
-aWdoZXIgdGFicyAtIG1ha2VzIGl0IGVhc2llciBmb3IgcmVhZGVyIHRvIHdlbGwuLiByZWFkLgo+
-IFlvdSBjb3VsZCBzaW1wbHkgcmV2ZXJ0IHRoZSBiZWhhdmlvciBvZiBpZi1zdGF0ZW1lbnQgYW5k
-IGJhaWwgb3V0IAo+IGltbWVkaWF0ZWx5IHdpdGggYmVsb3cgZGV2X2RiZyBhbmQgcmV0dXJuIE5V
-TEwuIEFmdGVyd2FyZCwgZW50aXJlIGJsb2NrIAo+IGNhbiBiZSBzaGlmdGVkIGxlZnQuCgp5ZXMs
-IG1ha2VzIHNlbnNlLgoKPiAKPj4gK8KgwqDCoMKgwqDCoMKgIG5obHRfcHRyID0gKHN0cnVjdCBu
-aGx0X3Jlc291cmNlX2Rlc2PCoCAqKW9iai0+YnVmZmVyLnBvaW50ZXI7Cj4+ICvCoMKgwqDCoMKg
-wqDCoCBpZiAobmhsdF9wdHItPmxlbmd0aCkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbmhs
-dF90YWJsZSA9IChzdHJ1Y3QgbmhsdF9hY3BpX3RhYmxlICopCj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgbWVtcmVtYXAobmhsdF9wdHItPm1pbl9hZGRyLCBuaGx0X3B0ci0+bGVu
-Z3RoLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBNRU1SRU1B
-UF9XQik7Cj4+ICvCoMKgwqDCoMKgwqDCoCBBQ1BJX0ZSRUUob2JqKTsKPj4gK8KgwqDCoMKgwqDC
-oMKgIGlmIChuaGx0X3RhYmxlICYmCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIChzdHJuY21w
-KG5obHRfdGFibGUtPmhlYWRlci5zaWduYXR1cmUsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBOSExUX0FDUElfSEVBREVSX1NJRywKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHN0cmxlbihOSExUX0FDUElfSEVBREVSX1NJRykpICE9IDApKSB7Cj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1lbXVubWFwKG5obHRfdGFibGUpOwo+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBkZXZfZXJyKGRldiwgIk5ITFQgQUNQSSBoZWFkZXIgc2lnbmF0dXJlIGlu
-Y29ycmVjdFxuIik7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBOVUxMOwo+PiAr
-wqDCoMKgwqDCoMKgwqAgfQo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIG5obHRfdGFibGU7Cj4+
-ICvCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqAgZGV2X2RiZyhkZXYsICJObyBOSExUIHRhYmxlIGZv
-dW5kXG4iKTsKPj4gK8KgwqDCoCByZXR1cm4gTlVMTDsKPiAKPiBXaGlsZSBhdCBpdCwgZG9uJ3Qg
-d2UgbGVhayBvYmogaGVyZT8gU2hvdWxkbid0IHdlIEFDUElfRlJFRShvYmopIAo+IHJlZ2FyZGxl
-c3Mgb2YgIm9iai0+dHlwZSA9PSBBQ1BJX1RZUEVfQlVGRkVSIiBjaGVjaydzIG91dGNvbWU/Cgp5
-ZXMsIHRoYXQgbG9va3MgbGlrZSBhIGJ1Zy4gVGhpcyBpc24ndCBuZXcgY29kZSBJIHdyb3RlLCBp
-dCdzIGJlZW4gdGhhdCAKd2F5IGZvciB5ZWFycy4uLgoKV2UgbWF5IHdhbnQgdG8gdHJhY2sgdGhp
-cyB3aXRoIGEgZGVkaWNhdGVkIHBhdGNoLCByYXRoZXIgdGhhbiBsdW1waW5nIApmaXhlcyB3aXRo
-IGluZGVudHMuCgo+IAo+PiArfQo+PiArRVhQT1JUX1NZTUJPTF9HUEwoaW50ZWxfbmhsdF9pbml0
-KTsKPj4gKwo+PiArdm9pZCBpbnRlbF9uaGx0X2ZyZWUoc3RydWN0IG5obHRfYWNwaV90YWJsZSAq
-bmhsdCkKPj4gK3sKPj4gK8KgwqDCoCBtZW11bm1hcCgodm9pZCAqKW5obHQpOwo+PiArfQo+PiAr
-RVhQT1JUX1NZTUJPTF9HUEwoaW50ZWxfbmhsdF9mcmVlKTsKPj4gKwo+PiAraW50IGludGVsX25o
-bHRfZ2V0X2RtaWNfZ2VvKHN0cnVjdCBkZXZpY2UgKmRldiwgc3RydWN0IAo+PiBuaGx0X2FjcGlf
-dGFibGUgKm5obHQpCj4+ICt7Cj4+ICvCoMKgwqAgc3RydWN0IG5obHRfZW5kcG9pbnQgKmVwbnQ7
-Cj4+ICvCoMKgwqAgc3RydWN0IG5obHRfZG1pY19hcnJheV9jb25maWcgKmNmZzsKPj4gK8KgwqDC
-oCB1bnNpZ25lZCBpbnQgZG1pY19nZW8gPSAwOwo+PiArwqDCoMKgIHU4IGo7Cj4+ICsKPj4gK8Kg
-wqDCoCBpZiAoIW5obHQpCj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPiAKPiBTaG91bGQg
-dGhpcyBoYW5kbGVyIGV2ZW4gYXNzdW1lIHBvc3NpYmlsaXR5IG9mIG5obHQgcGFyYW0gYmVpbmcg
-bnVsbD8KCnllcywgSSBhZGRlZCB0aGlzIHdoZW4gSSBhbGxvd2VkIHRoZSBkcml2ZXIgdG8gcHJv
-YmUgZXZlbiB3aGVuIHRoZXJlIGlzIApubyBOSExUIG9uIHBsYWluIHZhbmlsbGEgSERhdWRpbyBz
-b2x1dGlvbnMuIFRoZSBjYWxsZXIgZG9lc24ndCBjaGVjayBmb3IgCk5ITFQgaW4gdGhlIGZpcnN0
-IHBsYWNlLgoKc2VlIHRoZSBwcm9iZSBzZXF1ZW5jZQoKCXNrbC0+bmhsdCA9IHNrbF9uaGx0X2lu
-aXQoYnVzLT5kZXYpOwoKCWlmIChza2wtPm5obHQgPT0gTlVMTCkgewojaWYgIUlTX0VOQUJMRUQo
-Q09ORklHX1NORF9TT0NfSU5URUxfU0tZTEFLRV9IREFVRElPX0NPREVDKQoJCWRldl9lcnIoYnVz
-LT5kZXYsICJubyBuaGx0IGluZm8gZm91bmRcbiIpOwoJCWVyciA9IC1FTk9ERVY7CgkJZ290byBv
-dXRfZnJlZTsKI2Vsc2UKCQlkZXZfd2FybihidXMtPmRldiwgIm5vIG5obHQgaW5mbyBmb3VuZCwg
-Y29udGludWluZyB0byB0cnkgdG8gZW5hYmxlIApIRGF1ZGlvIGNvZGVjXG4iKTsKI2VuZGlmCgl9
-IGVsc2UgewoKCQllcnIgPSBza2xfbmhsdF9jcmVhdGVfc3lzZnMoc2tsKTsKCQlpZiAoZXJyIDwg
-MCkgewoJCQlkZXZfZXJyKGJ1cy0+ZGV2LCAic2tsX25obHRfY3JlYXRlX3N5c2ZzIGZhaWxlZCB3
-aXRoIGVycjogJWRcbiIsIGVycik7CgkJCWdvdG8gb3V0X25obHRfZnJlZTsKCQl9CgoJCXNrbF9u
-aGx0X3VwZGF0ZV90b3BvbG9neV9iaW4oc2tsKTsKCgkJLyogY3JlYXRlIGRldmljZSBmb3IgZHNw
-IGNsayAqLwoJCWVyciA9IHNrbF9jbG9ja19kZXZpY2VfcmVnaXN0ZXIoc2tsKTsKCQlpZiAoZXJy
-IDwgMCkgewoJCQlkZXZfZXJyKGJ1cy0+ZGV2LCAic2tsX2Nsb2NrX2RldmljZV9yZWdpc3RlciBm
-YWlsZWQgd2l0aCBlcnI6ICVkXG4iLCAKZXJyKTsKCQkJZ290byBvdXRfY2xrX2ZyZWU7CgkJfQoJ
-fQoKCXBjaV9zZXRfZHJ2ZGF0YShza2wtPnBjaSwgYnVzKTsKCgllcnIgPSBza2xfZmluZF9tYWNo
-aW5lKHNrbCwgKHZvaWQgKilwY2lfaWQtPmRyaXZlcl9kYXRhKTsKCmluIHdoaWNoIHdlIGRpcmVj
-dGx5IGNhbGwgdGhpcyBoZWxwZXIsIHNvIHNrbC0+bmh0bCBjYW4gYmUgTlVMTAoKCWlmIChwZGF0
-YSkgewoJCXNrbC0+dXNlX3RwbGdfcGNtID0gcGRhdGEtPnVzZV90cGxnX3BjbTsKCQltYWNoLT5t
-YWNoX3BhcmFtcy5kbWljX251bSA9IHNrbF9nZXRfZG1pY19nZW8oc2tsKTsKCX0KCml0J3MgYWN0
-dWFsbHkgYSBmZWF0dXJlOiBpZiB0aGVyZSBpcyBubyBOSExUIHRhYmxlIG9yIGl0J3Mgbm90IHZh
-bGlkLCAKdGhlbiB0aGVyZSBhcmUgbm8gRE1JQ3MuCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxA
-YWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+
+
+Le ven. 26 juil. 2019 =E0 14:46, Sam Ravnborg <sam@ravnborg.org> a =
+
+=E9crit :
+> Hi Paul.
+> =
+
+> On Thu, Jul 25, 2019 at 06:02:04PM -0400, Paul Cercueil wrote:
+>>  Hi,
+>> =
+
+>>  This patchset converts the Qi LB60 MIPS board to devicetree and =
+
+>> makes it
+>>  use all the shiny new drivers that have been developed or updated
+>>  recently.
+>> =
+
+>>  All the crappy old drivers and custom code can be dropped since they
+>>  have been replaced by better alternatives.
+> =
+
+> The overall diffstat is missing.
+> Just for curiosity it would be nice to see what was dropped with this
+> patch.
+> =
+
+> 	Sam
+
+Diffstat:
+
+ arch/mips/boot/dts/ingenic/jz4740.dtsi         |  84 ++++++++++++
+ arch/mips/boot/dts/ingenic/qi_lb60.dts         | 295 =
+
+++++++++++++++++++++++++++++++++++++++++-
+ arch/mips/configs/qi_lb60_defconfig            |  44 +++---
+ arch/mips/include/asm/mach-jz4740/gpio.h       |  15 ---
+ arch/mips/include/asm/mach-jz4740/jz4740_fb.h  |  58 --------
+ arch/mips/include/asm/mach-jz4740/jz4740_mmc.h |  12 --
+ arch/mips/include/asm/mach-jz4740/platform.h   |  26 ----
+ arch/mips/jz4740/Makefile                      |   7 +-
+ arch/mips/jz4740/board-qi_lb60.c               | 491 =
+
+-------------------------------------------------------------------
+ arch/mips/jz4740/platform.c                    | 250 =
+
+-----------------------------------
+ arch/mips/jz4740/prom.c                        |   5 -
+ arch/mips/jz4740/setup.c                       |   3 +-
+ drivers/dma/Kconfig                            |   6 -
+ drivers/dma/Makefile                           |   1 -
+ drivers/dma/dma-jz4740.c                       | 623 =
+
+---------------------------------------------------------------------------=
+----------
+ drivers/hwmon/Kconfig                          |  10 --
+ drivers/hwmon/Makefile                         |   1 -
+ drivers/hwmon/jz4740-hwmon.c                   | 135 =
+
+-------------------
+ drivers/mfd/Kconfig                            |   9 --
+ drivers/mfd/Makefile                           |   1 -
+ drivers/mfd/jz4740-adc.c                       | 324 =
+
+---------------------------------------------
+ drivers/mtd/nand/raw/ingenic/Kconfig           |   7 -
+ drivers/mtd/nand/raw/ingenic/Makefile          |   1 -
+ drivers/mtd/nand/raw/ingenic/jz4740_nand.c     | 536 =
+
+--------------------------------------------------------------------------
+ drivers/power/supply/Kconfig                   |  11 --
+ drivers/power/supply/Makefile                  |   1 -
+ drivers/power/supply/jz4740-battery.c          | 421 =
+
+----------------------------------------------------------
+ drivers/video/fbdev/Kconfig                    |   9 --
+ drivers/video/fbdev/Makefile                   |   1 -
+ drivers/video/fbdev/jz4740_fb.c                | 690 =
+
+---------------------------------------------------------------------------=
+--------------------
+ sound/soc/jz4740/Kconfig                       |  25 +---
+ sound/soc/jz4740/Makefile                      |   5 -
+ sound/soc/jz4740/qi_lb60.c                     | 106 ---------------
+ 33 files changed, 404 insertions(+), 3809 deletions(-)
+
+
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

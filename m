@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A13A77756
-	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jul 2019 08:48:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3109677763
+	for <lists+alsa-devel@lfdr.de>; Sat, 27 Jul 2019 09:05:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C3812054;
-	Sat, 27 Jul 2019 08:47:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C3812054
+	by alsa0.perex.cz (Postfix) with ESMTPS id B475B2094;
+	Sat, 27 Jul 2019 09:04:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B475B2094
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564210123;
-	bh=gvuD6IwnuHli+B4gFxnW3Lttsk1Xff4iv01cS4wl7X8=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XcufyobfnwNofp2PD/wRWkKj7DSuEU/KZdHc5t+x1RlNs8YCvDreywerTtouaBNEW
-	 WUeZq2kti2pQXMfbLe2gk2UcjzA+QAyAy7WyCYwZUa2vYKe5e8iIxebo3GTJCV1liS
-	 fgxOEX7rAfvkO/ue2ES6kgmBZ2mp7ppqH6a2p0aA=
+	s=default; t=1564211136;
+	bh=4dlY6mnDPA7h5P5jkPQ4VK8Pp/HDnC6nzf8qr39qSsE=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EmJ4EVAlYV5pyjYgQeeePC3ZdBRqO4Q2zQhMmFgou91TwNS2znitx6uKQMMo2YKis
+	 rqCJaeRP72JsUn35vc4fcIqqvwAefqThgSpuXOAhcOGad2eWUIGK3lloRfCsph5mTQ
+	 jczhGYoDZ/FVmZTL5pq284XY/Qg+hBkvrspO5SSQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9B031F80506;
-	Sat, 27 Jul 2019 08:43:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05AE0F802BD;
+	Sat, 27 Jul 2019 09:03:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F3EBF803D0; Thu, 25 Jul 2019 18:17:34 +0200 (CEST)
+ id CFDCBF802BD; Sat, 27 Jul 2019 09:03:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,SPF_HELO_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from sonic308-47.consmr.mail.sg3.yahoo.com
- (sonic308-47.consmr.mail.sg3.yahoo.com [106.10.241.237])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_PASS,SPF_NEUTRAL,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BEDC7F800E8
- for <alsa-devel@alsa-project.org>; Thu, 25 Jul 2019 18:17:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEDC7F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E923EF802BD
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 09:03:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E923EF802BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=yahoo.co.in header.i=@yahoo.co.in
- header.b="U044OhPI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.in; s=s2048;
- t=1564071443; bh=mBMjMFekX8oT/wq6llWk+pZzBmGOJ9UEMTdL+Cminx8=;
- h=From:To:Cc:Subject:Date:From:Subject;
- b=U044OhPIx0H47dmTnefhxXFj0Y5MQZQUYJjG0aGWM8rwtaTpi1ZFh30XtPblY68Pbo5zGrWez7BFmgWqOsbdxWnWrof1HETlvE0tIkgBix8NIMEyaXhcJuNxjQPSRfeIli9NhfmnOpMe69sp2Pf9X6aAKa8Hbb0aVkqTXYG452ZQmCimSzCifTbJxpN0bR9tAgxwBKL+aYGtTYsP3JBXHnhUm1F4fmf9E5uIVp1r3AsG/tkB+QRvGoBjZsSV2NAjjDARqoEzK8lRzPpH9cmcyoVkRByIx/yQ+fbNgf4gf1ePSoJFaE5uNAcrkEzXFXJSHT0xnmSpLnKXty6T8+KGmQ==
-X-YMail-OSG: IFYjrFkVM1l1ERITeT.UvbBi5HAW49Uu1Yreq6wf3vG3Zz4RZbaKR2OQywIjbn8
- 2tnEcRA6KWUSctbkgOVs5pgQpx867A9x0JMQLSYjt71h3jlSlPTEj3Rw9ZdpmygRxDrTjiguITqX
- XQyFyyQtP10kD38IDcnr.nUlIFZstGNo3Nn8mK7Gl0GrN7ANkkpI6iSiH4M75eJhF5uXoNqca3Yt
- 43SQg8G0K7w0M3YULuKKHm_iAHxF2M9pm8S7L6b80T_jXbfvC7Y4iIMp1yGXDW7dzCFENBNTdxQr
- 4NKxA.d9eYXiZqTNW9mF2XRQi02aQfWIsx8wwSV3YOIgDvhglFAq6HveqlNQ5U9CTU.W5wIKlCmM
- RFSwGP2fjco9d_Kwuf.w68kfvby6ltZrpsFVsmR7.sfGCNVzWQUz.QEVUMaGoBaxduLaVSRFl_wJ
- pPUEAWhQmusy4qeNBbhCqZEJd4VxfLLqjgE6aI_RyYz4DK7LI9ishlJsmiAfMAfw3rn_2TG89fYX
- ONJWWnKVBFViv1x5SRwPS.H_Ddl.B8CxJETkmD5pnB8rEe2ZtEgrQnrz4d5r1.UxySBWJ4S4rBV_
- vu93KuMFh5gDffAZQtglr8nif8u32n1DSRHvo1lOUi.d7VaLQrLfqMJuEvb2ogrMLNoehca9lDog
- ECKv0ZP5HavaAYLYE6utaAeAcB4Jxr24qI64coeCbpUXTW3IIlEd7VVA06lAFnNObGceNDEVAKqM
- q5WVny7EW0VmL7KZxlbOWZf1oS3Qb5FWGNrfGyIOPLi9CX9TS29zNY1PbauaAVVdu6vN8xoxSGg0
- ZPHJGgTEaDNFdginklUnz7sHvA3JOCqYR9i6youRpDOqzH5x.WzGG__.bHliEWF_m5glzPxsFlOQ
- ZuiA8GhxU31OqUYN2hYbbwqWkB2LHNohPDvTp1cg6_mARqg9b80k_tefLy6CqsG0Bgiv0pMssExr
- SZS25GPwu9EmlIZ1pcqGhsAuMA0NTL9ccihfLJ6JIJ7XAAXslKINe8SDGQegp9Wyi3wTJ23A_DN4
- lUTEN1KIGykyLQ9rnYpbkO18EX83wKY99IkJRNVb.XBoqi6eRmfM8ANKiqCAxZvhz3tn4CglJoqT
- UGzs.EtjH9CeMwTkZ06x..GmZJPILB27R0uoyqPjdcijvBfkeprsW7.kxOLtG_aUd.GKeVcaMNEW
- 1Z9.lvwJPmeNywwHa.E93vZA6RQfhiVjos3TedGfOJjWlW16fh4zl3P2oAG4iOQ8i7_i2roFKfDA
- 42rPYvEi3UZ0MiRB2yhxor9gYFzSUbrrqjBhNHS8J_Bw31jyOfVmSS7Vwu7o-
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic308.consmr.mail.sg3.yahoo.com with HTTP; Thu, 25 Jul 2019 16:17:23 +0000
-Received: by smtp403.mail.sg3.yahoo.com (Oath Hermes SMTP Server) with ESMTPA
- ID 839729be7fe48bb1f76cfabaa341db74; 
- Thu, 25 Jul 2019 16:15:22 +0000 (UTC)
-From: Satendra Singh Thakur <thakursatendra2003@yahoo.co.in>
-To: 
-Date: Thu, 25 Jul 2019 21:43:35 +0530
-Message-Id: <20190725161335.4162-1-thakursatendra2003@yahoo.co.in>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Sat, 27 Jul 2019 08:43:36 +0200
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>,
- Satendra Singh Thakur <thakursatendra2003@yahoo.co.in>
-Subject: [alsa-devel] [PATCH] [ASoC][soc-dapm] : memory leak in the func
-	snd_soc_dapm_new_dai
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="qLa2jogw"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 29B4220D9E;
+ Sat, 27 Jul 2019 03:03:45 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Sat, 27 Jul 2019 03:03:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=pAHaDyTslTPVnCK14M5h/Z8NmRrFWPqy6HxcKgiys
+ ks=; b=qLa2jogwbc0uoeSvv2K6gBzVZOC5hrFklbE2ubWlUoIHPTAYJm5hi1KAi
+ N6p8Uy3nfxjBKgBxRbG9cXJeeKAhO7rRj9QW9xSGMXleLUrsAWGWysiEhYnPQ2w/
+ cHqUuUq3pJ53Zjt/BGdCSt///LJZVCPyq63WaIhkApNyIV17keDu9jXt3C9P64Kx
+ JjRGjRYLeMSNsVVhcWq9iMiLXUlxXNxktq1C5I2pABkJVagcK45oMkd1qMarfQG8
+ SzczeLKHm7AuDK9TCNa5bhni4Sj5eXfI5X8t2kzmb2ygnPCIjLaKdHD3YA1jbAsr
+ zZnsvN+7uB41yTYUNZbR1WNA6jWIg==
+X-ME-Sender: <xms:T_c7XdNYsqbSuM8xqYLgFafRl7KF_hnea3QnbccgxAj3lvQwmaZ_cw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrkeehgdduudekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefkuffhvfffjghftggfggfgsehtje
+ ertddtreejnecuhfhrohhmpefvrghnuhcumfgrshhkihhnvghnuceothgrnhhukhesihhk
+ ihdrfhhiqeenucffohhmrghinhepfhhrvggvuggvshhkthhophdrohhrghdplhhisggvrh
+ grphgrhidrtghomhdpphgrthhrvghonhdrtghomhenucfkphepudeliedrvdeggedrudel
+ uddrkedvnecurfgrrhgrmhepmhgrihhlfhhrohhmpehtrghnuhhksehikhhirdhfihenuc
+ evlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:UPc7Xe_EypJB6HU-zx5Xn1736rEAT6nQwb3Yuai8o7WaG-iIkezt-g>
+ <xmx:UPc7XUgrP6uJCJ6q0lTYzH1McqqHPTJZCz5vnDp8vNR6aDZyO2KYkg>
+ <xmx:UPc7XWEzmiY5fTALxezIUm5jaxFMxEM4olyPr7TZl1frQzRdl5dcEw>
+ <xmx:Ufc7Xf4RjE1yDpxn83pvhmsIlRRcci0uf05jq4F1h5M8E1vIKAuQRQ>
+Received: from laptop (unknown [196.244.191.82])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 61EDC380076;
+ Sat, 27 Jul 2019 03:03:43 -0400 (EDT)
+Message-ID: <d2be88083e0eff74d79f711d846d904e7c0772c3.camel@iki.fi>
+From: Tanu Kaskinen <tanuk@iki.fi>
+To: Paul Menzel <pmenzel+alsa-devel@molgen.mpg.de>
+Date: Sat, 27 Jul 2019 10:03:39 +0300
+In-Reply-To: <65ac36a7-fdce-77ce-c48e-86bff8699e9c@molgen.mpg.de>
+References: <8a3566f3-9a75-eab4-b191-530d7be5afc9@molgen.mpg.de>
+ <65ac36a7-fdce-77ce-c48e-86bff8699e9c@molgen.mpg.de>
+User-Agent: Evolution 3.30.5-1.1 
+MIME-Version: 1.0
+Cc: alsa-devel <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Plugged in headphones ignored
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,45 +95,211 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the func snd_soc_dapm_new_dai, if the inner func
-snd_soc_dapm_alloc_kcontrol fails, there will be memory leak.
-The label param_fail wont free memory which is allocated by
-the func devm_kcalloc. Hence new label is created for this purpose.
+On Fri, 2019-07-26 at 14:57 +0200, Paul Menzel wrote:
+> Dear Linux folks,
+> 
+> 
+> On 6/27/19 1:02 PM, Paul Menzel wrote:
+> 
+> > On a Dell OptiPlex 5040 with Linux 5.2-rc6 plugging in a
+> > head phone into the front case connector, it is detected
+> > just fine and Xfce shows a notification.
+> > 
+> > Then logging out, turning off the monitor connected over
+> > DisplayPort at the end of the day, and turning the monitor
+> > back on the next morning, logging in, the state is
+> > forgotten. I need to unplug the head phone and plug it
+> > back in.
+> 
+> This is still happening in Linux 5.3-rc1. Additionally, the
+> problem also shows up, when starting the (powered-off)
+> system with the headphones plugged in. No sound is played.
+> After unplugging the headphones, the internal speaker
+> outputs the sound. Plugging the headphones back in, sound
+> comes over the headphones.
+> 
+> Here is the difference in of the states.
+> 
+> ```
+> > diff -u alsa-info-1.txt alsa-info-2.txt 
+> --- alsa-info-1.txt	2019-07-26 14:44:06.156811664 +0200
+> +++ alsa-info-2.txt	2019-07-26 14:44:19.901891301 +0200
+> @@ -3,7 +3,7 @@
+>  !!ALSA Information Script v 0.4.64
+>  !!################################
+>  
+> -!!Script ran on: Fri Jul 26 12:44:05 UTC 2019
+> +!!Script ran on: Fri Jul 26 12:44:19 UTC 2019
+>  
+>  
+>  !!Linux Distribution
+> @@ -208,7 +208,7 @@
+>    Control: name="Speaker Playback Volume", index=0, device=0
+>      ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>    Amp-Out caps: ofs=0x57, nsteps=0x57, stepsize=0x02, mute=0
+> -  Amp-Out vals:  [0x57 0x57]
+> +  Amp-Out vals:  [0x00 0x00]
+>    Converter: stream=1, channel=0
+>    PCM:
+>      rates [0x60]: 44100 48000
+> @@ -221,7 +221,7 @@
+>      ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>    Device: name="ALC3234 Analog", type="Audio", device=0
+>    Amp-Out caps: ofs=0x57, nsteps=0x57, stepsize=0x02, mute=0
+> -  Amp-Out vals:  [0x00 0x00]
+> +  Amp-Out vals:  [0x57 0x57]
+>    Converter: stream=1, channel=0
+>    PCM:
+>      rates [0x60]: 44100 48000
+> @@ -326,7 +326,7 @@
+>    Control: name="Speaker Playback Switch", index=0, device=0
+>      ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>    Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+> -  Amp-Out vals:  [0x00 0x00]
+> +  Amp-Out vals:  [0x80 0x80]
+>    Pincap 0x00010014: OUT EAPD Detect
+>    EAPD 0x2: EAPD
+>    Pin Default 0x90170110: [Fixed] Speaker at Int N/A
+> @@ -444,7 +444,7 @@
+>    Control: name="Headphone Playback Switch", index=0, device=0
+>      ControlAmp: chs=3, dir=Out, idx=0, ofs=0
+>    Amp-Out caps: ofs=0x00, nsteps=0x00, stepsize=0x00, mute=1
+> -  Amp-Out vals:  [0x80 0x80]
+> +  Amp-Out vals:  [0x00 0x00]
+>    Pincap 0x0001001c: OUT HP EAPD Detect
+>    EAPD 0x2: EAPD
+>    Pin Default 0x0221101f: [Jack] HP Out at Ext Front
+> @@ -587,8 +587,8 @@
+>    Capabilities: pswitch
+>    Playback channels: Front Left - Front Right
+>    Mono:
+> -  Front Left: Playback [off]
+> -  Front Right: Playback [off]
+> +  Front Left: Playback [on]
+> +  Front Right: Playback [on]
+>  Simple mixer control 'Headphone Mic',0
+>    Capabilities: pvolume pswitch
+>    Playback channels: Front Left - Front Right
+> @@ -608,15 +608,15 @@
+>    Playback channels: Front Left - Front Right
+>    Limits: Playback 0 - 87
+>    Mono:
+> -  Front Left: Playback 0 [0%] [-65.25dB]
+> -  Front Right: Playback 0 [0%] [-65.25dB]
+> +  Front Left: Playback 87 [100%] [0.00dB]
+> +  Front Right: Playback 87 [100%] [0.00dB]
+>  Simple mixer control 'Speaker',0
+>    Capabilities: pvolume pswitch
+>    Playback channels: Front Left - Front Right
+>    Limits: Playback 0 - 87
+>    Mono:
+> -  Front Left: Playback 87 [100%] [0.00dB] [on]
+> -  Front Right: Playback 87 [100%] [0.00dB] [on]
+> +  Front Left: Playback 0 [0%] [-65.25dB] [off]
+> +  Front Right: Playback 0 [0%] [-65.25dB] [off]
+>  Simple mixer control 'PCM',0
+>    Capabilities: pvolume
+>    Playback channels: Front Left - Front Right
+> @@ -698,8 +698,8 @@
+>  	control.1 {
+>  		iface MIXER
+>  		name 'Headphone+LO Playback Volume'
+> -		value.0 0
+> -		value.1 0
+> +		value.0 87
+> +		value.1 87
+>  		comment {
+>  			access 'read write'
+>  			type INTEGER
+> @@ -707,8 +707,8 @@
+>  			range '0 - 87'
+>  			dbmin -6525
+>  			dbmax 0
+> -			dbvalue.0 -6525
+> -			dbvalue.1 -6525
+> +			dbvalue.0 0
+> +			dbvalue.1 0
+>  		}
+>  	}
+>  	control.2 {
+> @@ -725,8 +725,8 @@
+>  	control.3 {
+>  		iface MIXER
+>  		name 'Headphone Playback Switch'
+> -		value.0 false
+> -		value.1 false
+> +		value.0 true
+> +		value.1 true
+>  		comment {
+>  			access 'read write'
+>  			type BOOLEAN
+> @@ -736,8 +736,8 @@
+>  	control.4 {
+>  		iface MIXER
+>  		name 'Speaker Playback Volume'
+> -		value.0 87
+> -		value.1 87
+> +		value.0 0
+> +		value.1 0
+>  		comment {
+>  			access 'read write'
+>  			type INTEGER
+> @@ -745,15 +745,15 @@
+>  			range '0 - 87'
+>  			dbmin -6525
+>  			dbmax 0
+> -			dbvalue.0 0
+> -			dbvalue.1 0
+> +			dbvalue.0 -6525
+> +			dbvalue.1 -6525
+>  		}
+>  	}
+>  	control.5 {
+>  		iface MIXER
+>  		name 'Speaker Playback Switch'
+> -		value.0 true
+> -		value.1 true
+> +		value.0 false
+> +		value.1 false
+>  		comment {
+>  			access 'read write'
+>  			type BOOLEAN
+> ```
+> 
+> Is
+> 
+> ```
+> -  Front Left: Playback [off]
+> -  Front Right: Playback [off]
+> +  Front Left: Playback [on]
+> +  Front Right: Playback [on]
+> ```
+> 
+> the cause?
+> 
+> > Please find the output alsa-config.sh for the non-working
+> > (1) and replugged (2) situations attached.
+> > 
+> > Is that a Linux kernel problem, or a user space issue?
 
-Signed-off-by: Satendra Singh Thakur <thakursatendra2003@yahoo.co.in>
----
- sound/soc/soc-dapm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+It looks more like a user space issue. If the kernel reports the
+headphone status as unplugged when they're not, then that's a kernel
+issue, but I didn't spot any jack status differences in the diff you
+posted. You could report[1] a bug on PulseAudio (if you're using it),
+and include a "pactl lsit" diff between working and not-working state.
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index f013b24c050a..f62d41ee6d68 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -4095,7 +4095,7 @@ snd_soc_dapm_new_dai(struct snd_soc_card *card, struct snd_soc_pcm_runtime *rtd,
- 						w_param_text, &private_value);
- 		if (!template.kcontrol_news) {
- 			ret = -ENOMEM;
--			goto param_fail;
-+			goto outfree_w_param;
- 		}
- 	} else {
- 		w_param_text = NULL;
-@@ -4114,6 +4114,7 @@ snd_soc_dapm_new_dai(struct snd_soc_card *card, struct snd_soc_pcm_runtime *rtd,
- 
- outfree_kcontrol_news:
- 	devm_kfree(card->dev, (void *)template.kcontrol_news);
-+outfree_w_param:
- 	snd_soc_dapm_free_kcontrol(card, &private_value,
- 				   rtd->dai_link->num_params, w_param_text);
- param_fail:
+[1] https://gitlab.freedesktop.org/pulseaudio/pulseaudio/issues/new
+
 -- 
-2.17.1
+Tanu
+
+https://www.patreon.com/tanuk
+https://liberapay.com/tanuk
 
 _______________________________________________
 Alsa-devel mailing list

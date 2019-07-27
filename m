@@ -2,97 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 983B77A2CB
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 10:07:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF4657A435
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:33:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17E1117EC;
-	Tue, 30 Jul 2019 10:07:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17E1117EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CCEE17DB;
+	Tue, 30 Jul 2019 11:32:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CCEE17DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564474070;
-	bh=QKEQr831xaDet/BmrQio48GwCmV57uxB1lct5G25jZ4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IH++QuxMf0leIGcHv11eXAP8atPeWXO1shHFNzPTjqhQlcsdSx2DnNkXnwugqhUkd
-	 ymv8CC7uwnW7/19djrIpwKgL507nKRJezUUy/ygQPTW+bbjGnU0uIiNBbpVLUp+F6W
-	 20i3APlhlcYTLo8Kr5nviYLx2FaG8JB2NzpDDV6w=
+	s=default; t=1564479196;
+	bh=d5bygneoU5A9e9ugTpTSSrboa4COhexQMsw4eVl3gOQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=iJA5Y3lg6lgkA6Ybuf2OW57k74DH/kM/qToBwffb+g95EzZXD9zeXcpNK7i+6G8kb
+	 Ik0/uwRiHmvDqIE8sFdLQj9w2ezUD1BDASqMc7h5qPEniEP5clfJ857z2m5kIjq5fX
+	 jN0hRK1/Z38I0GHNfp5S9u04pRXjEbGDK7ddU7rs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F3FFF804CA;
-	Tue, 30 Jul 2019 10:06:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 714B1F804CB;
+	Tue, 30 Jul 2019 11:31:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0351F804CA; Tue, 30 Jul 2019 10:06:03 +0200 (CEST)
+ id A477EF80394; Sat, 27 Jul 2019 17:09:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B19EF800AB
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 10:06:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B19EF800AB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Y78bswDR"
-Received: by mail-pg1-x543.google.com with SMTP id l21so29635219pgm.3
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 01:06:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=nK3/4x5NFOFF3oypb62NSdxsSYTDvzZWRrwefUu2HNE=;
- b=Y78bswDRD2RbS5DclyAkgDNCNYGF5tNENHw0Q0RvMmx6BgvibdVTxxPbv+Pa1+HCR6
- MbgDZA1yo2d/1YkGujCC2mulqo8MsG/dppVmsf2t3ZRaTA4li3AFbGRQAjwVFkE0kCzy
- LhjuvC4AT3BwiJLehh3d1bV1q9C1OZUngYZmYUSDbDQFNRxUWwrw+9T+tMdrg0Tbahv4
- 2mpqH1IFpNa1B9agVc/ZnoCDSo28VebGBbk6hcNBk97amjnMObA0BZUliBqk8U4s0r7u
- lzqJlipEIk/brQbgMBxnGJ75UGgvzGJFbb/QpaAATc/lgcMO9R2D7Wf2PkZrskEjRuuC
- IXaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=nK3/4x5NFOFF3oypb62NSdxsSYTDvzZWRrwefUu2HNE=;
- b=F7vDvwzITUoW71sJhfC4cgVe8gowd4m+xDJrZuDXFZ/SLwpgU30PG1tbfUr4IfE53W
- XwP8YeB2z3lHjTV28KMoWo63/7NA1lKLwq9CqUPmQh9JTnCuqgLpjBSRSGKABTiY+Hn7
- dp5kXo7bqmPZvo88Vpo97viMqhEdFFiO5B7O6mL4JZ6eaziEKcC/fvaUR9MZY3Oo5xwr
- gX1A9DlPGyD48zhSoH9CFS9pmrtaYGkudu8gngw6YrK2nZyELqRuY/hAjw3D35GNt6wO
- c2l7yk0gx5/0CjkpblFYHBS3p0pUh2wkQ2FeWnJlcUgxW0n4aySwae+SLIb+PRF9YRSq
- CKKA==
-X-Gm-Message-State: APjAAAVXzcRQwXVmwZ+a2SSmKxt3twT2TbZDHnxe/giKkNQe7Sh/h/dZ
- 1A1BDrEYiJrWc5xYFgm2iAg=
-X-Google-Smtp-Source: APXvYqwcWuXpzYPhzMAYQKDGxMxFYEY4mRBESlsr603Ceh+GLoj/fQuDNyNUfqD6447Ze+SKRIdySg==
-X-Received: by 2002:a17:90a:3225:: with SMTP id
- k34mr114195494pjb.31.1564473959118; 
- Tue, 30 Jul 2019 01:05:59 -0700 (PDT)
-Received: from Asurada (c-98-248-47-108.hsd1.ca.comcast.net. [98.248.47.108])
- by smtp.gmail.com with ESMTPSA id
- p7sm69133287pfp.131.2019.07.30.01.05.58
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 30 Jul 2019 01:05:59 -0700 (PDT)
-Date: Tue, 30 Jul 2019 01:05:52 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190730080552.GC5892@Asurada>
-References: <20190728192429.1514-1-daniel.baluta@nxp.com>
- <20190728192429.1514-7-daniel.baluta@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A74CF802BD
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:09:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A74CF802BD
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 40F02F258955C599E725;
+ Sat, 27 Jul 2019 23:09:12 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
+ 23:09:06 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
+ <f.fainelli@gmail.com>, <rjui@broadcom.com>, <sbranden@broadcom.com>,
+ <bcm-kernel-feedback-list@broadcom.com>, <paul@crapouillou.net>,
+ <timur@kernel.org>, <nicoleotsuka@gmail.com>, <Xiubo.Lee@gmail.com>,
+ <festevam@gmail.com>, <shawnguo@kernel.org>, <s.hauer@pengutronix.de>,
+ <kernel@pengutronix.de>, <linux-imx@nxp.com>, <matthias.bgg@gmail.com>,
+ <jbrunet@baylibre.com>, <khilman@baylibre.com>, <daniel@zonque.org>,
+ <haojian.zhuang@gmail.com>, <robert.jarzmik@free.fr>, <baohua@kernel.org>,
+ <olivier.moysan@st.com>, <arnaud.pouliquen@st.com>,
+ <mcoquelin.stm32@gmail.com>, <alexandre.torgue@st.com>, <mripard@kernel.org>, 
+ <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
+ <yamada.masahiro@socionext.com>, <michal.simek@xilinx.com>,
+ <jcmvbkbc@gmail.com>
+Date: Sat, 27 Jul 2019 23:07:04 +0800
+Message-ID: <20190727150738.54764-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190728192429.1514-7-daniel.baluta@nxp.com>
-User-Agent: Mutt/1.5.22 (2013-10-16)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel@pengutronix.de, timur@kernel.org, robh@kernel.org,
- shengjiu.wang@nxp.com, angus@akkea.ca, tiwai@suse.com,
- linux-kernel@vger.kernel.org, broonie@kernel.org, linux-imx@nxp.com,
- viorel.suman@nxp.com, festevam@gmail.com, mihai.serban@gmail.com,
- l.stach@pengutronix.de
-Subject: Re: [alsa-devel] [PATCH v2 6/7] ASoC: fsl_sai: Add support for
-	imx7ulp/imx8mq
+X-Originating-IP: [10.133.213.239]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Tue, 30 Jul 2019 11:31:24 +0200
+Cc: linux-xtensa@linux-xtensa.org, alsa-devel@alsa-project.org,
+ gregkh@linuxfoundation.org, YueHaibing <yuehaibing@huawei.com>,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH -next 00/34] ASoC: use
+	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,53 +88,110 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Jul 28, 2019 at 10:24:28PM +0300, Daniel Baluta wrote:
-> SAI module on imx7ulp/imx8m features 2 new registers (VERID and PARAM)
-> at the beginning of register address space.
-> 
-> On imx7ulp FIFOs can held up to 16 x 32 bit samples.
-> On imx8mq FIFOs can held up to 128 x 32 bit samples.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+devm_platform_ioremap_resource() internally have platform_get_resource()
+and devm_ioremap_resource() in it. So instead of calling them separately
+use devm_platform_ioremap_resource() directly.
 
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+YueHaibing (34):
+  ASoC: tegra20_das: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: tegra: use devm_platform_ioremap_resource() to simplify code
+  ASoC: rockchip: use devm_platform_ioremap_resource() to simplify code
+  ASoC: ep93xx-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: mt8173: use devm_platform_ioremap_resource() to simplify code
+  ASoC: mt6797: use devm_platform_ioremap_resource() to simplify code
+  ASoC: imx-audmux: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: fsl_audmix: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: bcm2835-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: sirf: use devm_platform_ioremap_resource() to simplify code
+  ASoC: mxs-saif: use devm_platform_ioremap_resource() to simplify code
+  ASoC: spear: use devm_platform_ioremap_resource() to simplify code
+  ASoC: kirkwood-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: xtfpga-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: stm32: sai: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: codecs: msm8916-wcd: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: codecs: jz4725b: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: mmp-sspa: use devm_platform_ioremap_resource() to simplify code
+  ASoC: jz4740: use devm_platform_ioremap_resource() to simplify code
+  ASoC: inno_rk3036: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: uniphier: evea: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: uniphier: aio-dma: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: psc-ac97: use devm_platform_ioremap_resource() to simplify code
+  ASoC: au1x: psc-i2s: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: meson: g12a-tohdmitx: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: meson: axg-tdm-formatter: use devm_platform_ioremap_resource()
+    to simplify code
+  ASoC: meson: axg-pdm: use devm_platform_ioremap_resource() to simplify
+    code
+  ASoC: meson: axg-spdifin: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: meson: axg-spdifout: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: meson: axg-fifo: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: xlnx: use devm_platform_ioremap_resource() to simplify code
+  ASoC: sun8i-codec-analog: use devm_platform_ioremap_resource() to
+    simplify code
+  ASoC: sunxi: sun50i-codec-analog: use devm_platform_ioremap_resource()
+    to simplify code
+  ASoC: sun8i-codec: use devm_platform_ioremap_resource() to simplify
+    code
 
-> ---
->  sound/soc/fsl/fsl_sai.c | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
-> 
-> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index 54e5e9abae01..0fb6750fefd5 100644
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -1030,10 +1030,24 @@ static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
->  	.reg_offset = 0,
->  };
->  
-> +static const struct fsl_sai_soc_data fsl_sai_imx7ulp_data = {
-> +	.use_imx_pcm = true,
-> +	.fifo_depth = 16,
-> +	.reg_offset = 8,
-> +};
-> +
-> +static const struct fsl_sai_soc_data fsl_sai_imx8mq_data = {
-> +	.use_imx_pcm = true,
-> +	.fifo_depth = 128,
-> +	.reg_offset = 8,
-> +};
-> +
->  static const struct of_device_id fsl_sai_ids[] = {
->  	{ .compatible = "fsl,vf610-sai", .data = &fsl_sai_vf610_data },
->  	{ .compatible = "fsl,imx6sx-sai", .data = &fsl_sai_imx6sx_data },
->  	{ .compatible = "fsl,imx6ul-sai", .data = &fsl_sai_imx6sx_data },
-> +	{ .compatible = "fsl,imx7ulp-sai", .data = &fsl_sai_imx7ulp_data },
-> +	{ .compatible = "fsl,imx8mq-sai", .data = &fsl_sai_imx8mq_data },
->  	{ /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, fsl_sai_ids);
-> -- 
-> 2.17.1
-> 
+ sound/soc/au1x/psc-ac97.c                  | 5 ++---
+ sound/soc/au1x/psc-i2s.c                   | 5 ++---
+ sound/soc/bcm/bcm2835-i2s.c                | 4 +---
+ sound/soc/cirrus/ep93xx-i2s.c              | 4 +---
+ sound/soc/codecs/inno_rk3036.c             | 4 +---
+ sound/soc/codecs/jz4725b.c                 | 4 +---
+ sound/soc/codecs/jz4740.c                  | 4 +---
+ sound/soc/codecs/msm8916-wcd-digital.c     | 4 +---
+ sound/soc/codecs/rk3328_codec.c            | 4 +---
+ sound/soc/fsl/fsl_audmix.c                 | 4 +---
+ sound/soc/fsl/imx-audmux.c                 | 4 +---
+ sound/soc/kirkwood/kirkwood-i2s.c          | 4 +---
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c | 5 +----
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c | 4 +---
+ sound/soc/meson/axg-fifo.c                 | 4 +---
+ sound/soc/meson/axg-pdm.c                  | 4 +---
+ sound/soc/meson/axg-spdifin.c              | 4 +---
+ sound/soc/meson/axg-spdifout.c             | 4 +---
+ sound/soc/meson/axg-tdm-formatter.c        | 4 +---
+ sound/soc/meson/g12a-tohdmitx.c            | 4 +---
+ sound/soc/mxs/mxs-saif.c                   | 5 +----
+ sound/soc/pxa/mmp-sspa.c                   | 4 +---
+ sound/soc/sirf/sirf-usp.c                  | 4 +---
+ sound/soc/spear/spdif_in.c                 | 5 ++---
+ sound/soc/stm/stm32_sai.c                  | 4 +---
+ sound/soc/sunxi/sun50i-codec-analog.c      | 4 +---
+ sound/soc/sunxi/sun8i-codec-analog.c       | 4 +---
+ sound/soc/sunxi/sun8i-codec.c              | 4 +---
+ sound/soc/tegra/tegra20_das.c              | 4 +---
+ sound/soc/tegra/tegra30_i2s.c              | 4 +---
+ sound/soc/uniphier/aio-dma.c               | 4 +---
+ sound/soc/uniphier/evea.c                  | 4 +---
+ sound/soc/xilinx/xlnx_i2s.c                | 4 +---
+ sound/soc/xilinx/xlnx_spdif.c              | 3 +--
+ sound/soc/xtensa/xtfpga-i2s.c              | 4 +---
+ 35 files changed, 38 insertions(+), 106 deletions(-)
+
+-- 
+2.7.4
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

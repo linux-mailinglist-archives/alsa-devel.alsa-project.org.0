@@ -2,46 +2,46 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD927A53C
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:53:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FE407A53D
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:53:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B2651858;
-	Tue, 30 Jul 2019 11:52:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B2651858
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92F9D1809;
+	Tue, 30 Jul 2019 11:52:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92F9D1809
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564480399;
-	bh=Hxl/7G94edbbvgjCXqvWjfWV7pmgWS/uNse1bHlrYuk=;
+	s=default; t=1564480418;
+	bh=LmS6RQKuuzN0RlaWoMX6F8ufPoxuIgNJEnXzojuuaPA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X+MlkaaN27dlsoclDtN3Cck4kiKSqaOtkgo0OICbGXSXXZOyzdW8YS5NcdZbpi26N
-	 7rI/nerOTGoVp9zUwjVDEvQ6F5k30L8mCZEph7HsaprtsqOsKHDCy4V37iuxAE8mg9
-	 LIQauB4eeNEwWbT+s4HrXmwZK7fqWjTf0V1fX4zs=
+	b=cbjokGC7MVrx6DRCkpKVwtt+EpcRHpSNC653eui1qiGvLI7sd6yKEIhH5qbWY8iRI
+	 X7aii5bZlTfIn0hNf2RzXYSpQaT4k9Ftt9/Y4UOymTLeitJpQAIxezBpFzYDmFs6ge
+	 WwVMP92VMM3+Wpk+lYVDL/R7KO83fKRCEaLx/p9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 71276F80878;
-	Tue, 30 Jul 2019 11:32:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F979F8087C;
+	Tue, 30 Jul 2019 11:32:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2378EF803D0; Sat, 27 Jul 2019 17:11:18 +0200 (CEST)
+ id 2CA51F80392; Sat, 27 Jul 2019 17:11:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93D6BF80392
- for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:11:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93D6BF80392
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id E16A81528AAE38F64C1B;
- Sat, 27 Jul 2019 23:11:12 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS412-HUB.china.huawei.com
- (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
- 23:11:03 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 932C1F802BD
+ for <alsa-devel@alsa-project.org>; Sat, 27 Jul 2019 17:11:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 932C1F802BD
+Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id C9A5F66E5937C1026AEE;
+ Sat, 27 Jul 2019 23:11:16 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS406-HUB.china.huawei.com
+ (10.3.19.206) with Microsoft SMTP Server id 14.3.439.0; Sat, 27 Jul 2019
+ 23:11:06 +0800
 From: YueHaibing <yuehaibing@huawei.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>, <eric@anholt.net>, <wahrenst@gmx.net>,
@@ -57,8 +57,8 @@ To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <wens@csie.org>, <thierry.reding@gmail.com>, <jonathanh@nvidia.com>,
  <yamada.masahiro@socionext.com>, <michal.simek@xilinx.com>,
  <jcmvbkbc@gmail.com>
-Date: Sat, 27 Jul 2019 23:07:37 +0800
-Message-ID: <20190727150738.54764-34-yuehaibing@huawei.com>
+Date: Sat, 27 Jul 2019 23:07:38 +0800
+Message-ID: <20190727150738.54764-35-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
 In-Reply-To: <20190727150738.54764-1-yuehaibing@huawei.com>
 References: <20190727150738.54764-1-yuehaibing@huawei.com>
@@ -72,8 +72,8 @@ Cc: linux-xtensa@linux-xtensa.org, alsa-devel@alsa-project.org,
  linux-rpi-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
  linux-amlogic@lists.infradead.org, linuxppc-dev@lists.ozlabs.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH -next 33/34] ASoC: sunxi: sun50i-codec-analog:
-	use devm_platform_ioremap_resource() to simplify code
+Subject: [alsa-devel] [PATCH -next 34/34] ASoC: sun8i-codec: use
+	devm_platform_ioremap_resource() to simplify code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,23 +97,27 @@ This is detected by coccinelle.
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- sound/soc/sunxi/sun50i-codec-analog.c | 4 +---
+ sound/soc/sunxi/sun8i-codec.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun50i-codec-analog.c b/sound/soc/sunxi/sun50i-codec-analog.c
-index 6d1de56..f5b7069 100644
---- a/sound/soc/sunxi/sun50i-codec-analog.c
-+++ b/sound/soc/sunxi/sun50i-codec-analog.c
-@@ -459,12 +459,10 @@ MODULE_DEVICE_TABLE(of, sun50i_codec_analog_of_match);
+diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
+index 0e0e8eb..55798bc 100644
+--- a/sound/soc/sunxi/sun8i-codec.c
++++ b/sound/soc/sunxi/sun8i-codec.c
+@@ -533,7 +533,6 @@ static const struct regmap_config sun8i_codec_regmap_config = {
  
- static int sun50i_codec_analog_probe(struct platform_device *pdev)
+ static int sun8i_codec_probe(struct platform_device *pdev)
  {
--	struct resource *res;
- 	struct regmap *regmap;
+-	struct resource *res_base;
+ 	struct sun8i_codec *scodec;
  	void __iomem *base;
+ 	int ret;
+@@ -556,8 +555,7 @@ static int sun8i_codec_probe(struct platform_device *pdev)
+ 		return PTR_ERR(scodec->clk_bus);
+ 	}
  
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	base = devm_ioremap_resource(&pdev->dev, res);
+-	res_base = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	base = devm_ioremap_resource(&pdev->dev, res_base);
 +	base = devm_platform_ioremap_resource(pdev, 0);
  	if (IS_ERR(base)) {
  		dev_err(&pdev->dev, "Failed to map the registers\n");

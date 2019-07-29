@@ -2,87 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF27579B99
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 23:55:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0BA79C5C
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 00:17:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 641171808;
-	Mon, 29 Jul 2019 23:54:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 641171808
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A6DD1807;
+	Tue, 30 Jul 2019 00:16:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A6DD1807
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564437319;
-	bh=Ic/1j0Y++l6AfrXRBv6YafdfDeCOcpfUeoqcZ5M6a9s=;
-	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1564438648;
+	bh=Wxic94AngH/FwTRQccimLCS+x23QEFZNF/eimw6ZKFw=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=oaGBPJicjNoB/sLpz9AYVYFA2CBsLpnnOLOZmLB7TOVxACT7WrPnh+CyNvRxBUILo
-	 SXXrG211wriUg4QM/t3ENFHy9x3vVrdv9An5r3hhp3tgX7f7jiYiOxYXocV6RdKmzX
-	 soE63t7PKHf4poMspqgFOnAzHOheLe5m86eLrFCY=
+	b=HwG6G8Zphb+2oSAhOZ63MRkYbqPTeYPiTKJIHYMjVknh99t7e+cCQTGvL0hoOebNE
+	 BoAYP41eXQt3j/hx2TP1Pmaz3CZGfxYmX0z11yscfpdQ57cUO6XqcZFQC48bN8jJz1
+	 H4NNSlNh+gPoyy68gOH6dri0PgdaSTUa5ocp95Ds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 931E1F8048F;
-	Mon, 29 Jul 2019 23:53:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3667DF8048D;
+	Tue, 30 Jul 2019 00:15:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 059C6F800E4; Mon, 29 Jul 2019 23:53:33 +0200 (CEST)
+ id 43EA3F8048D; Tue, 30 Jul 2019 00:15:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [IPv6:2a00:1450:4864:20::131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gateway23.websitewelcome.com (gateway23.websitewelcome.com
+ [192.185.48.104])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5B45F800E4
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 23:53:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5B45F800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FC92F803D5
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 00:15:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FC92F803D5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="j5z7AIOZ"
-Received: by mail-lf1-x131.google.com with SMTP id b17so43160635lff.7
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 14:53:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=EDx/cxu0ExL9uhJyQINCrAA94juVwDm/8O7EjREm3yI=;
- b=j5z7AIOZ62oMtuANwFkngCmtM+3twdyFowUn9nSFJjDSwhjLFEbcfVALTAsqZQc5tm
- +aVeEBF6FlLUbJ2fT+/PoJBCCyos303zdTMQdRo6qQwM5+i1eLHCRjldJwNXZn9vMjmL
- 4QkFKShuNuHXZBNbJD/aofRZVdukoMj1xuGGY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=EDx/cxu0ExL9uhJyQINCrAA94juVwDm/8O7EjREm3yI=;
- b=BjL/MWfaIieeg3liFt1DtEmd5ssm+4VEdeOe+/VnI21sznNFdtoH1TRI5bGSptvmSX
- iLUo11nDeZDhvYrm8oCbBzskOx7fJ8yL0BmkpYUzjOsVWJwMeB3d6mRmxIk3iSGexVVn
- 03zp1lJdFIXrAaAUKOPd0W2DsPwK3zP+JI5z8lxE/v/M/jIJTI/2KcVVvx1cHYnRF5CV
- +hKlcHPomkLztuRPQlUvxkDgs2Fb7QD5gdFygYP+qqgxakfCuWE8Sed5fPnIUaZt+Uu0
- vo7x8eqO28vofuoH4hVzVlxPlIOU0ApKYy+8sFQyqID2IQM5PsWi8uE4QLavAmztFpao
- tf2Q==
-X-Gm-Message-State: APjAAAUCCBsY1zfc+9TIaO5lpOFvjsY/Uxa06kWi9tQSRDIT0gkfZxlC
- 7jFRWPIvv/dcdh62uBP369POPS6UyLU=
-X-Google-Smtp-Source: APXvYqz3GOEt0BLBOAnDUF0jUoEgZUtxVZTCfYNLXdLVGChlUhb3Ybn0RuYixEhPltQhq+Vo9oeD4A==
-X-Received: by 2002:a05:6512:c1:: with SMTP id
- c1mr31083151lfp.35.1564437209087; 
- Mon, 29 Jul 2019 14:53:29 -0700 (PDT)
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com.
- [209.85.167.53])
- by smtp.gmail.com with ESMTPSA id m10sm10768428lfd.32.2019.07.29.14.53.28
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Mon, 29 Jul 2019 14:53:28 -0700 (PDT)
-Received: by mail-lf1-f53.google.com with SMTP id v85so43109282lfa.6
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 14:53:28 -0700 (PDT)
-X-Received: by 2002:a19:6602:: with SMTP id a2mr51201993lfc.25.1564437207709; 
- Mon, 29 Jul 2019 14:53:27 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com
+ header.b="y/VRyy1B"
+Received: from cm12.websitewelcome.com (cm12.websitewelcome.com [100.42.49.8])
+ by gateway23.websitewelcome.com (Postfix) with ESMTP id EED8837AA
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 17:15:36 -0500 (CDT)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id sDvchVVbRiQersDvchuafh; Mon, 29 Jul 2019 17:15:36 -0500
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dHkN5Os5jg2cDOrRLTVaMd59XWLTmpmxDcRl9QO0zyU=; b=y/VRyy1BNoX63+u2yIgC1UGmJR
+ dbESFrQ68d4/qYDyJ2RVo0mvZ3S0uvMbBTJUY2dAdj07CbPXhEBaM/G52+Ws4xkNDuM0In5EMr5rq
+ F+NZZwRqjmMDa1QSA099NduPVmOHem3sNqM2D1F5iAi9JxQ5tdznah0BoMuiF5N9FxR+tnM+epzNk
+ GDMP9ku0Ghmniegy1HzE0tBn7vgySxnqYdXNpzbPc9VEbbPK8E+rNZauARNzfsxFaOJPLxfUB642D
+ bHEEfVNl84cUlIeU1UamnBWVkiIGjueikfzdiplcuu1Ie5tJ8NklAuaYRylptJ9+Ttgzo44k500to
+ LX18KoSw==;
+Received: from [187.192.11.120] (port=60834 helo=embeddedor)
+ by gator4166.hostgator.com with esmtpa (Exim 4.92)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1hsDvb-001z1T-Eq; Mon, 29 Jul 2019 17:15:35 -0500
+Date: Mon, 29 Jul 2019 17:15:34 -0500
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Message-ID: <20190729221534.GA18696@embeddedor>
 MIME-Version: 1.0
-From: Jon Flatley <jflat@chromium.org>
-Date: Mon, 29 Jul 2019 14:53:16 -0700
-X-Gmail-Original-Message-ID: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
-Message-ID: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
-To: alsa-devel@alsa-project.org
-Cc: benzh@chromium.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 187.192.11.120
+X-Source-L: No
+X-Exim-ID: 1hsDvb-001z1T-Eq
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: (embeddedor) [187.192.11.120]:60834
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 11
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [alsa-devel] [PATCH] ASoC: ti: Mark expected switch fall-throughs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,46 +107,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-I've been working on upstreaming the bdw-rt5650 machine driver for the
-Acer Chromebase 24 (buddy). There seems to be an issue when first
-setting the hardware controls that appears to be crashing the DSP:
-
-[   51.424554] haswell-pcm-audio haswell-pcm-audio: FW loaded, mailbox
-readback FW info: type 01, - version: 00.00, build 77, source commit
-id: 876ac6906f31a43b6772b23c7c983ce9dcb18a19
-...
-[   84.924666] haswell-pcm-audio haswell-pcm-audio: error: audio DSP
-boot timeout IPCD 0x0 IPCX 0x0
-[   85.260655] haswell-pcm-audio haswell-pcm-audio: ipc: --message
-timeout-- ipcx 0x83000000 isr 0x00000000 ipcd 0x00000000 imrx
-0x7fff0000
-[   85.273609] haswell-pcm-audio haswell-pcm-audio: error: stream commit failed
-[   85.279746]  System PCM: error: failed to commit stream -110
-[   85.285388] haswell-pcm-audio haswell-pcm-audio: ASoC:
-haswell-pcm-audio hw params failed: -110
-[   85.293963]  System PCM: ASoC: hw_params FE failed -110
-
-This happens roughly 50% of the time when first setting hardware
-controls after a reboot. The other 50% of the time the DSP comes up
-just fine and audio works fine thereafter. Adding "#define DEBUG 1" to
-sound/soc/intel/haswell/sst-haswell-ipc.c makes the issue occur much
-less frequently in my testing. Seems like a subtle timing issue.
-
-There were timing issues encountered during the bringup of the 2015
-chromebook pixel (samus) which uses the bdw-rt5677 machine driver.
-Those were slightly different, and manifested during repeated
-arecords. Both devices use the same revision of the sst2 firmware.
-
-Any ideas for how to debug this?
-
-Thanks,
-Jon
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+TWFyayBzd2l0Y2ggY2FzZXMgd2hlcmUgd2UgYXJlIGV4cGVjdGluZyB0byBmYWxsIHRocm91Z2gu
+CgpUaGlzIHBhdGNoIGZpeGVzIHRoZSBmb2xsb3dpbmcgd2FybmluZyAoQnVpbGRpbmc6IGFybSk6
+Cgpzb3VuZC9zb2MvdGkvbjgxMC5jOiBJbiBmdW5jdGlvbiDigJhuODEwX2V4dF9jb250cm9s4oCZ
+Ogpzb3VuZC9zb2MvdGkvbjgxMC5jOjQ4OjEwOiB3YXJuaW5nOiB0aGlzIHN0YXRlbWVudCBtYXkg
+ZmFsbCB0aHJvdWdoIFstV2ltcGxpY2l0LWZhbGx0aHJvdWdoPV0KICAgbGluZTFsID0gMTsKICAg
+fn5+fn5+fl5+fgpzb3VuZC9zb2MvdGkvbjgxMC5jOjQ5OjI6IG5vdGU6IGhlcmUKICBjYXNlIE44
+MTBfSkFDS19IUDoKICBefn5+Cgpzb3VuZC9zb2MvdGkvcng1MS5jOiBJbiBmdW5jdGlvbiDigJhy
+eDUxX2V4dF9jb250cm9s4oCZOgpzb3VuZC9zb2MvdGkvcng1MS5jOjU3OjY6IHdhcm5pbmc6IHRo
+aXMgc3RhdGVtZW50IG1heSBmYWxsIHRocm91Z2ggWy1XaW1wbGljaXQtZmFsbHRocm91Z2g9XQog
+ICBocyA9IDE7CiAgIH5+fl5+fgpzb3VuZC9zb2MvdGkvcng1MS5jOjU4OjI6IG5vdGU6IGhlcmUK
+ICBjYXNlIFJYNTFfSkFDS19IUDoKICBefn5+CgpTaWduZWQtb2ZmLWJ5OiBHdXN0YXZvIEEuIFIu
+IFNpbHZhIDxndXN0YXZvQGVtYmVkZGVkb3IuY29tPgotLS0KIHNvdW5kL3NvYy90aS9uODEwLmMg
+fCAxICsKIHNvdW5kL3NvYy90aS9yeDUxLmMgfCAxICsKIDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNl
+cnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvc291bmQvc29jL3RpL244MTAuYyBiL3NvdW5kL3NvYy90
+aS9uODEwLmMKaW5kZXggMmMzZjJhNGMxNzAwLi4zYWQyYjZkYWYzMWUgMTAwNjQ0Ci0tLSBhL3Nv
+dW5kL3NvYy90aS9uODEwLmMKKysrIGIvc291bmQvc29jL3RpL244MTAuYwpAQCAtNDYsNiArNDYs
+NyBAQCBzdGF0aWMgdm9pZCBuODEwX2V4dF9jb250cm9sKHN0cnVjdCBzbmRfc29jX2RhcG1fY29u
+dGV4dCAqZGFwbSkKIAlzd2l0Y2ggKG44MTBfamFja19mdW5jKSB7CiAJY2FzZSBOODEwX0pBQ0tf
+SFM6CiAJCWxpbmUxbCA9IDE7CisJCS8qIGZhbGwgdGhyb3VnaCAqLwogCWNhc2UgTjgxMF9KQUNL
+X0hQOgogCQlocCA9IDE7CiAJCWJyZWFrOwpkaWZmIC0tZ2l0IGEvc291bmQvc29jL3RpL3J4NTEu
+YyBiL3NvdW5kL3NvYy90aS9yeDUxLmMKaW5kZXggYmM2MDQ2NTM0ZmE1Li5jY2QwZThhMDdkZDEg
+MTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy90aS9yeDUxLmMKKysrIGIvc291bmQvc29jL3RpL3J4NTEu
+YwpAQCAtNTUsNiArNTUsNyBAQCBzdGF0aWMgdm9pZCByeDUxX2V4dF9jb250cm9sKHN0cnVjdCBz
+bmRfc29jX2RhcG1fY29udGV4dCAqZGFwbSkKIAkJYnJlYWs7CiAJY2FzZSBSWDUxX0pBQ0tfSFM6
+CiAJCWhzID0gMTsKKwkJLyogZmFsbCB0aHJvdWdoICovCiAJY2FzZSBSWDUxX0pBQ0tfSFA6CiAJ
+CWhwID0gMTsKIAkJYnJlYWs7Ci0tIAoyLjIyLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxA
+YWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

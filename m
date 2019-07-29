@@ -2,96 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96BD679A0D
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 22:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B45D79A1B
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 22:38:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2939817EE;
-	Mon, 29 Jul 2019 22:33:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2939817EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06116181A;
+	Mon, 29 Jul 2019 22:37:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06116181A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564432447;
-	bh=K7UUpaGMiUMA0yzSPET/EWEy8ZPdm6A6rlgmHYEa7vE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564432702;
+	bh=49jv+C3aYfJVDh80ciVjPyD+d86VnlcQRxwWCmp6Wvw=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cB8adR8skuB45rtAU508EURxw5KovFFNT5CC69j2CI9mRXq2Kv3mUHlMhw2BH5Fdm
-	 yDPJqcyOd6+1OrykwXQ/TkPhORF8eDsslkxJz0Pd1Y//Wu/puH0d+Njy8IGAbV4rVg
-	 QXtzz3vAuZUg/UmiLjfqYJ6Id/yjqPAAu0rDMt6U=
+	b=s2GyR233r5+w1GRn5dZgWU50qLLhu3RVeJ7PfjU1M48dQzVyPUA3r87GnQ0Q9SCfs
+	 5cdFVt5Y3rBbdzMGzk1tyvsRhZ4R5yroIjO24PMHQG9YvBpecYYGaa+J+UCTUKIS+e
+	 T6y2XhNaqMdPddYRNPlVQF9e3085RDs6U9DER/WA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AEEF7F803D5;
-	Mon, 29 Jul 2019 22:21:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38B64F80527;
+	Mon, 29 Jul 2019 22:27:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6D26F804AB; Mon, 29 Jul 2019 22:21:10 +0200 (CEST)
+ id 59211F80508; Mon, 29 Jul 2019 22:27:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16A58F800E4
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 22:21:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16A58F800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id E183AF8048D
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 22:27:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E183AF8048D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="V2bEtTKv"
-Received: by mail-pf1-x442.google.com with SMTP id g2so28590315pfq.0
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 13:21:07 -0700 (PDT)
+ header.b="IE5wQkOH"
+Received: by mail-wm1-x343.google.com with SMTP id s3so54999174wms.2
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 13:27:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=6re2IOy9UuGPutWHpeGmXvl/6Yqi6FxHUujTvDV/BjQ=;
- b=V2bEtTKvIsIZP7A1vJKuVqPpf7homhWyKeJgc0gsY5Z3kXNvZlP58HtatQ2APTHTQL
- w/yt1hQJSg5pQ8g7O8I+F5FjAHS+wqDRDwU9COzkhvC72JlHa8fTfT+GuFGPm4JCenk+
- YIA6hQJykR5s4FxUuMqNlbBI6QxKAhY93l2iHCHqYlXQwUn6IrYjlmFNWIF1bw/g6Pwc
- 15OsgbiVs+8hC61RgeXG5KfunptQicwUnYVKZKQ1iSdD8P6X7MMT+r5xyGhnkvZjE60I
- gFFkwH4Lmojxh4FbeDcEL3/ZaumoV+Ue1iQmfQObzj4OGWcwlNY5c8w3ZNdOABpWWPwf
- 4L2g==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KBY1KbZOnMvZrZHmdH2FrpwIL93ExhkFfwDFt85kHsI=;
+ b=IE5wQkOHnUoztkMpJoQ2nn1zzhDvX5O97XUsPLi2aDMdVW+n+layGvyv6MI3mNPOpp
+ ZAJMazltzWyWYKegr6OGfe3uxyJmHEHpZ4E+9wJTnNxnB/UaCWJHPDmU7r8dUsxi9EE4
+ n8ra8Z/eVyvZ4upnCQ+YSxREA5nB4Np1YDoUlVWuLsr2ZAwyZpDhuUKg9soY3VrtbYcY
+ YfDx8oMBTIl2q/QzwFto3oNayCEXD4ib7J052e93WO3LCIntgBRZF7ZGNLU3a2imXmSi
+ yj3LbFX7yXoGiSMT9MDTahHz7WBnGesQVGct1FzZtJ3dQlCDDFfPqsInFvTiQkzt6qBm
+ 4gdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=6re2IOy9UuGPutWHpeGmXvl/6Yqi6FxHUujTvDV/BjQ=;
- b=dL2DKaz93R9q0GnAsWtreYvqEqk/HMpF7lhrBip1vqCcs0Pf+FhPsVMoQt+eZ/Nu8w
- doSn76nhwSSur4u2Icc7XTPtk7LFre9uDuPWsz6ffCGEK3YFe5ZHQKX4gjBRFQwyh/CY
- iVPckGL+NP1CKN2Ns0fHVrG55uuaZ5aRK5hoBOv8pGagqsMG3SQ/sD1scDuIkO7CgJws
- jW02H1AGDDDYcidy7+sSfngRW3x8QY83rtKIpB3c98ia2EEhjGykh/pY6XKi099IoStx
- mROVMA1gVBfElMQhGadYcDrsKMgx2V2KKQqWwkxD7dWYjIlSlK4lC85VkdMYotN3JYva
- jkow==
-X-Gm-Message-State: APjAAAWr4BqB6lGEOLmwQb8QLaGNh6RuHZCjw1V1xWc+Dc46uAbXrtd8
- e7Sa82QtpPO0j0x/wGha6dc=
-X-Google-Smtp-Source: APXvYqyWLQm4Cgt5unABdbXidAVUUD4LbAvUUcL7RPKc8STUBXVR75FNm4vHlTcuIbVnqszh/IXkPg==
-X-Received: by 2002:a65:6846:: with SMTP id q6mr67264436pgt.150.1564431666039; 
- Mon, 29 Jul 2019 13:21:06 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id d129sm67610834pfc.168.2019.07.29.13.21.05
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 29 Jul 2019 13:21:05 -0700 (PDT)
-Date: Mon, 29 Jul 2019 13:21:54 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190729202154.GC20594@Asurada-Nvidia.nvidia.com>
-References: <20190728192429.1514-1-daniel.baluta@nxp.com>
- <20190728192429.1514-4-daniel.baluta@nxp.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KBY1KbZOnMvZrZHmdH2FrpwIL93ExhkFfwDFt85kHsI=;
+ b=DaMglSI7MK3Qe/FQIxvqe6UWJkt+OnBQwKjLLdBsnq5T5uigRB+kfuen6zUZ+mp6od
+ Jx4MqzlQNBkopT4zPAynmunG4jccaqzjn0tsBzn22JpwM7D54ZVmgoAfPPBS8NyHGBxJ
+ 4rsgm4MOU0lYcE62EVtHspX6EK91yh5XzMlUc8yItJnOPAdsl6vBDUgTky8TmAnea4h+
+ twYddMoQfEs3tZte3feO9OnDczqWf3+1D3AUeVZFoXZzOlAKD/omHbVWpZj3JNghY0UG
+ 8oxA4Za8eJUJyn5RY/02zyIPp9cpmCKVRKKUFnz25Eprkegs/dPl4Y9s65Zi8RYUz0an
+ +VwQ==
+X-Gm-Message-State: APjAAAV4xRDqjlyYmEEZunI0ZkUOqn3REbpViN+ZYq/FD+aSPhKvBOgu
+ 5EcohOYjEYRcv4g3Z3gz1z+caIwwNQ0Vs0WIUL8=
+X-Google-Smtp-Source: APXvYqxXecdIIZhY5Beq3TXPDd+pnZWkNdeBaugff95dcv/OvRG57PB34sVze96jsSmVe3AVrs6vnWFMTEzHAb47VFA=
+X-Received: by 2002:a1c:18d:: with SMTP id 135mr100779974wmb.171.1564432048929; 
+ Mon, 29 Jul 2019 13:27:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190728192429.1514-4-daniel.baluta@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel@pengutronix.de, timur@kernel.org, robh@kernel.org,
- shengjiu.wang@nxp.com, angus@akkea.ca, tiwai@suse.com,
- linux-kernel@vger.kernel.org, broonie@kernel.org, linux-imx@nxp.com,
- viorel.suman@nxp.com, festevam@gmail.com, mihai.serban@gmail.com,
- l.stach@pengutronix.de
-Subject: Re: [alsa-devel] [PATCH v2 3/7] ASoC: fsl_sai: Add support to
- enable multiple data lines
+References: <20190728192429.1514-1-daniel.baluta@nxp.com>
+ <20190728192429.1514-5-daniel.baluta@nxp.com>
+ <20190729201508.GB20594@Asurada-Nvidia.nvidia.com>
+In-Reply-To: <20190729201508.GB20594@Asurada-Nvidia.nvidia.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Mon, 29 Jul 2019 23:27:17 +0300
+Message-ID: <CAEnQRZCxi9Jo_-MrHaLarX_6uiKaSmJuVgRSA23P+vE305jAuA@mail.gmail.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Devicetree List <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
+ Rob Herring <robh@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Mihai Serban <mihai.serban@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [alsa-devel] [PATCH v2 4/7] ASoC: dt-bindings: Document dl-mask
+	property
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,51 +106,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Jul 28, 2019 at 10:24:25PM +0300, Daniel Baluta wrote:
-> SAI supports up to 8 Rx/Tx data lines which can be enabled
-> using TCE/RCE bits of TCR3/RCR3 registers.
-> 
-> Data lines to be enabled are read from DT fsl,dl-mask property.
-> By default (if no DT entry is provided) only data line 0 is enabled.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> ---
->  sound/soc/fsl/fsl_sai.c | 11 ++++++++++-
->  sound/soc/fsl/fsl_sai.h |  4 +++-
->  2 files changed, 13 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index 637b1d12a575..5e7cb7fd29f5 100644
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -601,7 +601,7 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
->  
->  	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
->  			   FSL_SAI_CR3_TRCE_MASK,
-> -			   FSL_SAI_CR3_TRCE);
-> +			   FSL_SAI_CR3_TRCE(sai->soc_data->dl_mask[tx]);
->  
->  	ret = snd_pcm_hw_constraint_list(substream->runtime, 0,
->  			SNDRV_PCM_HW_PARAM_RATE, &fsl_sai_rate_constraints);
-> @@ -888,6 +888,15 @@ static int fsl_sai_probe(struct platform_device *pdev)
->  		}
->  	}
->  
-> +	/*
-> +	 * active data lines mask for TX/RX, defaults to 1 (only the first
-> +	 * data line is enabled
-> +	 */
-> +	sai->dl_mask[RX] = 1;
-> +	sai->dl_mask[TX] = 1;
-> +	of_property_read_u32_index(np, "fsl,dl-mask", RX, &sai->dl_mask[RX]);
-> +	of_property_read_u32_index(np, "fsl,dl-mask", TX, &sai->dl_mask[TX]);
+On Mon, Jul 29, 2019 at 11:15 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Sun, Jul 28, 2019 at 10:24:26PM +0300, Daniel Baluta wrote:
+> > SAI supports up to 8 data lines. This property let the user
+> > configure how many data lines should be used per transfer
+> > direction (Tx/Rx).
+>
+> This sounds a bit less persuasive to me as we are adding a
+> DT property that's used to describe a hardware connections
+> and it would be probably better to mention that the mapping
+> between the mask and the data lines could be more flexible
+> than consecutive active data lines as you said previously.
+>
+> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> > ---
+> >  Documentation/devicetree/bindings/sound/fsl-sai.txt | 7 +++++++
+> >  1 file changed, 7 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
+> > index 2e726b983845..2b38036a4883 100644
+> > --- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
+> > +++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
+> > @@ -49,6 +49,13 @@ Optional properties:
+> >
+> >    - big-endian               : Boolean property, required if all the SAI
+> >                         registers are big-endian rather than little-endian.
+> > +  - fsl,dl-mask              : list of two integers (bitmask, first for RX, second
+>
+> I am leaving this naming to DT maintainer.
+>
+> > +                       for TX) representing enabled datalines. Bit 0
+> > +                       represents first data line, bit 1 represents second
+> > +                       data line and so on. Data line is enabled if
+> > +                       corresponding bit is set to 1. By default, if property
+> > +                       not present, only dataline 0 is enabled for both
+> > +                       directions.
+>
+> To make this patch more convincing, could we add an example
+> as well in the Example section of this binding file? Like:
+>         /* RX data lines 0/1 and TX data lines 0/2 are connected */
+>         fsl,dl-mask = <0x3 0x5>;
 
-Just curious what if we enable 8 data lines through DT bindings
-while an audio file only has 1 or 2 channels. Will TRCE bits be
-okay to stay with 8 data channels configurations? Btw, how does
-DMA work for the data registers? ESAI has one entry at a fixed
-address for all data channels while SAI seems to have different
-data registers.
+Sure, will add an example.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7659978FE7
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 17:55:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFF6278FF3
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 17:57:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 061681839;
-	Mon, 29 Jul 2019 17:54:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 061681839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 857DF183D;
+	Mon, 29 Jul 2019 17:56:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 857DF183D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564415735;
-	bh=RWYQ4qh6OBNh72GDYGupXI8+jW9wpqIBQU83qDWmZEM=;
+	s=default; t=1564415827;
+	bh=s75gSW3kS/a/ewHqJ1D/8XZ3LTCfA2QRl9zxz9wMHUk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RXvGNoVuqcw3JBJI0EbJWdi6KxqDsAJS9yNAbfk/cIjOn0PjdSBtpNjhWAUpRumaF
-	 wJSTYf57LBPsJSo49pKjLmdWk+RQRdLLiKWO51lHgABdKfMVoOd9zGjQUkQqhEJARg
-	 Mblw4qsaei+ksMgdQNLqPjvYGWaP37HU25+Zk26k=
+	b=OUs04EDTVRcI0YqKDtO66SrFbotvA8FWTvKZ7aA3ICb19DCQv4tt47DbeC+Vqv4NN
+	 Yb0UkPDxFOS2Wwxf1+2VkHDHWyMie/gHa+g1WSJ1G+7Y1vkcykyf6Zx5rTWZ0lJ179
+	 agsqrcLmSaxmHPifbvmKtndPR38OhX66xRXYOtvA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 00098F80535;
-	Mon, 29 Jul 2019 17:52:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19930F805A8;
+	Mon, 29 Jul 2019 17:52:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 097B8F80506; Mon, 29 Jul 2019 17:52:06 +0200 (CEST)
+ id 4A4E3F8048E; Mon, 29 Jul 2019 17:52:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0B06F803D5
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 17:52:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0B06F803D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBA1EF8049A
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 17:52:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBA1EF8049A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2019 08:51:57 -0700
+ 29 Jul 2019 08:51:58 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,323,1559545200"; d="scan'208";a="165534167"
+X-IronPort-AV: E=Sophos;i="5.64,323,1559545200"; d="scan'208";a="165534170"
 Received: from lquinn-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.252.130.206])
- by orsmga008.jf.intel.com with ESMTP; 29 Jul 2019 08:51:57 -0700
+ by orsmga008.jf.intel.com with ESMTP; 29 Jul 2019 08:51:58 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Mon, 29 Jul 2019 10:51:49 -0500
-Message-Id: <20190729155151.14055-4-pierre-louis.bossart@linux.intel.com>
+Date: Mon, 29 Jul 2019 10:51:50 -0500
+Message-Id: <20190729155151.14055-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190729155151.14055-1-pierre-louis.bossart@linux.intel.com>
 References: <20190729155151.14055-1-pierre-louis.bossart@linux.intel.com>
@@ -58,8 +58,8 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
  Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
-Subject: [alsa-devel] [PATCH v4 3/5] ALSA: hda: intel-nhlt: handle NHLT
-	VENDOR_DEFINED DMIC geometry
+Subject: [alsa-devel] [PATCH v4 4/5] ASoC: Intel: Skylake: use common NHLT
+	module
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,69 +77,208 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The NHLT spec defines a VENDOR_DEFINED geometry, which requires
-reading additional information to figure out the number of
-microphones.
+No functionality change, only use common functions now.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/intel-nhlt.h | 10 ++++++++--
- sound/hda/intel-nhlt.c     |  6 +++++-
- 2 files changed, 13 insertions(+), 3 deletions(-)
+ sound/soc/intel/Kconfig            |  1 +
+ sound/soc/intel/skylake/skl-nhlt.c | 90 ------------------------------
+ sound/soc/intel/skylake/skl.c      | 12 ++--
+ sound/soc/intel/skylake/skl.h      |  3 -
+ 4 files changed, 9 insertions(+), 97 deletions(-)
 
-diff --git a/include/sound/intel-nhlt.h b/include/sound/intel-nhlt.h
-index 857922f03931..f657fd8fc0ad 100644
---- a/include/sound/intel-nhlt.h
-+++ b/include/sound/intel-nhlt.h
-@@ -96,16 +96,22 @@ struct nhlt_resource_desc  {
- #define MIC_ARRAY_2CH 2
- #define MIC_ARRAY_4CH 4
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index 96a00a9d4cf8..a3ec17fd63cd 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -215,6 +215,7 @@ config SND_SOC_INTEL_SKYLAKE_COMMON
+ 	select SND_SOC_INTEL_SST
+ 	select SND_SOC_HDAC_HDA if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC
+ 	select SND_SOC_ACPI_INTEL_MATCH
++	select SND_INTEL_NHLT
+ 	help
+ 	  If you have a Intel Skylake/Broxton/ApolloLake/KabyLake/
+ 	  GeminiLake or CannonLake platform with the DSP enabled in the BIOS
+diff --git a/sound/soc/intel/skylake/skl-nhlt.c b/sound/soc/intel/skylake/skl-nhlt.c
+index aabc5d71650e..6f57ceb9efb7 100644
+--- a/sound/soc/intel/skylake/skl-nhlt.c
++++ b/sound/soc/intel/skylake/skl-nhlt.c
+@@ -13,54 +13,6 @@
+ #include "skl.h"
+ #include "skl-i2s.h"
  
--struct nhlt_tdm_config {
-+struct nhlt_device_specific_config {
- 	u8 virtual_slot;
- 	u8 config_type;
- } __packed;
- 
- struct nhlt_dmic_array_config {
--	struct nhlt_tdm_config tdm_config;
-+	struct nhlt_device_specific_config device_config;
- 	u8 array_type;
- } __packed;
- 
-+struct nhlt_vendor_dmic_array_config {
-+	struct nhlt_dmic_array_config dmic_config;
-+	u8 nb_mics;
-+	/* TODO add vendor mic config */
-+} __packed;
-+
- enum {
- 	NHLT_MIC_ARRAY_2CH_SMALL = 0xa,
- 	NHLT_MIC_ARRAY_2CH_BIG = 0xb,
-diff --git a/sound/hda/intel-nhlt.c b/sound/hda/intel-nhlt.c
-index 7a62e03ba407..daede96f28ee 100644
---- a/sound/hda/intel-nhlt.c
-+++ b/sound/hda/intel-nhlt.c
-@@ -63,6 +63,7 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
- {
- 	struct nhlt_endpoint *epnt;
- 	struct nhlt_dmic_array_config *cfg;
-+	struct nhlt_vendor_dmic_array_config *cfg_vendor;
- 	unsigned int dmic_geo = 0;
- 	u8 j;
- 
-@@ -86,7 +87,10 @@ int intel_nhlt_get_dmic_geo(struct device *dev, struct nhlt_acpi_table *nhlt)
- 			case NHLT_MIC_ARRAY_4CH_2ND_GEOM:
- 				dmic_geo = MIC_ARRAY_4CH;
- 				break;
+-#define NHLT_ACPI_HEADER_SIG	"NHLT"
 -
-+			case NHLT_MIC_ARRAY_VENDOR_DEFINED:
-+				cfg_vendor = (struct nhlt_vendor_dmic_array_config *)cfg;
-+				dmic_geo = cfg_vendor->nb_mics;
-+				break;
- 			default:
- 				dev_warn(dev, "undefined DMIC array_type 0x%0x\n",
- 					 cfg->array_type);
+-/* Unique identification for getting NHLT blobs */
+-static guid_t osc_guid =
+-	GUID_INIT(0xA69F886E, 0x6CEB, 0x4594,
+-		  0xA4, 0x1F, 0x7B, 0x5D, 0xCE, 0x24, 0xC5, 0x53);
+-
+-
+-struct nhlt_acpi_table *skl_nhlt_init(struct device *dev)
+-{
+-	acpi_handle handle;
+-	union acpi_object *obj;
+-	struct nhlt_resource_desc  *nhlt_ptr = NULL;
+-	struct nhlt_acpi_table *nhlt_table = NULL;
+-
+-	handle = ACPI_HANDLE(dev);
+-	if (!handle) {
+-		dev_err(dev, "Didn't find ACPI_HANDLE\n");
+-		return NULL;
+-	}
+-
+-	obj = acpi_evaluate_dsm(handle, &osc_guid, 1, 1, NULL);
+-	if (obj && obj->type == ACPI_TYPE_BUFFER) {
+-		nhlt_ptr = (struct nhlt_resource_desc  *)obj->buffer.pointer;
+-		if (nhlt_ptr->length)
+-			nhlt_table = (struct nhlt_acpi_table *)
+-				memremap(nhlt_ptr->min_addr, nhlt_ptr->length,
+-				MEMREMAP_WB);
+-		ACPI_FREE(obj);
+-		if (nhlt_table && (strncmp(nhlt_table->header.signature,
+-					NHLT_ACPI_HEADER_SIG,
+-					strlen(NHLT_ACPI_HEADER_SIG)) != 0)) {
+-			memunmap(nhlt_table);
+-			dev_err(dev, "NHLT ACPI header signature incorrect\n");
+-			return NULL;
+-		}
+-		return nhlt_table;
+-	}
+-
+-	dev_err(dev, "device specific method to extract NHLT blob failed\n");
+-	return NULL;
+-}
+-
+-void skl_nhlt_free(struct nhlt_acpi_table *nhlt)
+-{
+-	memunmap((void *) nhlt);
+-}
+-
+ static struct nhlt_specific_cfg *skl_get_specific_cfg(
+ 		struct device *dev, struct nhlt_fmt *fmt,
+ 		u8 no_ch, u32 rate, u16 bps, u8 linktype)
+@@ -163,48 +115,6 @@ struct nhlt_specific_cfg
+ 	return NULL;
+ }
+ 
+-int skl_get_dmic_geo(struct skl *skl)
+-{
+-	struct nhlt_acpi_table *nhlt = (struct nhlt_acpi_table *)skl->nhlt;
+-	struct nhlt_endpoint *epnt;
+-	struct nhlt_dmic_array_config *cfg;
+-	struct device *dev = &skl->pci->dev;
+-	unsigned int dmic_geo = 0;
+-	u8 j;
+-
+-	if (!nhlt)
+-		return 0;
+-
+-	epnt = (struct nhlt_endpoint *)nhlt->desc;
+-
+-	for (j = 0; j < nhlt->endpoint_count; j++) {
+-		if (epnt->linktype == NHLT_LINK_DMIC) {
+-			cfg = (struct nhlt_dmic_array_config  *)
+-					(epnt->config.caps);
+-			switch (cfg->array_type) {
+-			case NHLT_MIC_ARRAY_2CH_SMALL:
+-			case NHLT_MIC_ARRAY_2CH_BIG:
+-				dmic_geo |= MIC_ARRAY_2CH;
+-				break;
+-
+-			case NHLT_MIC_ARRAY_4CH_1ST_GEOM:
+-			case NHLT_MIC_ARRAY_4CH_L_SHAPED:
+-			case NHLT_MIC_ARRAY_4CH_2ND_GEOM:
+-				dmic_geo |= MIC_ARRAY_4CH;
+-				break;
+-
+-			default:
+-				dev_warn(dev, "undefined DMIC array_type 0x%0x\n",
+-						cfg->array_type);
+-
+-			}
+-		}
+-		epnt = (struct nhlt_endpoint *)((u8 *)epnt + epnt->length);
+-	}
+-
+-	return dmic_geo;
+-}
+-
+ static void skl_nhlt_trim_space(char *trim)
+ {
+ 	char *s = trim;
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index 3362e71b4563..2b5159890a57 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -26,9 +26,11 @@
+ #include <sound/hdaudio.h>
+ #include <sound/hda_i915.h>
+ #include <sound/hda_codec.h>
++#include <sound/intel-nhlt.h>
+ #include "skl.h"
+ #include "skl-sst-dsp.h"
+ #include "skl-sst-ipc.h"
++
+ #if IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+ #include "../../../soc/codecs/hdac_hda.h"
+ #endif
+@@ -516,7 +518,9 @@ static int skl_find_machine(struct skl *skl, void *driver_data)
+ 
+ 	if (pdata) {
+ 		skl->use_tplg_pcm = pdata->use_tplg_pcm;
+-		mach->mach_params.dmic_num = skl_get_dmic_geo(skl);
++		mach->mach_params.dmic_num =
++			intel_nhlt_get_dmic_geo(&skl->pci->dev,
++						skl->nhlt);
+ 	}
+ 
+ 	return 0;
+@@ -1029,7 +1033,7 @@ static int skl_probe(struct pci_dev *pci,
+ 
+ 	device_disable_async_suspend(bus->dev);
+ 
+-	skl->nhlt = skl_nhlt_init(bus->dev);
++	skl->nhlt = intel_nhlt_init(bus->dev);
+ 
+ 	if (skl->nhlt == NULL) {
+ #if !IS_ENABLED(CONFIG_SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC)
+@@ -1095,7 +1099,7 @@ static int skl_probe(struct pci_dev *pci,
+ out_clk_free:
+ 	skl_clock_device_unregister(skl);
+ out_nhlt_free:
+-	skl_nhlt_free(skl->nhlt);
++	intel_nhlt_free(skl->nhlt);
+ out_free:
+ 	skl_free(bus);
+ 
+@@ -1144,7 +1148,7 @@ static void skl_remove(struct pci_dev *pci)
+ 	skl_dmic_device_unregister(skl);
+ 	skl_clock_device_unregister(skl);
+ 	skl_nhlt_remove_sysfs(skl);
+-	skl_nhlt_free(skl->nhlt);
++	intel_nhlt_free(skl->nhlt);
+ 	skl_free(bus);
+ 	dev_set_drvdata(&pci->dev, NULL);
+ }
+diff --git a/sound/soc/intel/skylake/skl.h b/sound/soc/intel/skylake/skl.h
+index 928e8115a1a7..f4dd6c767993 100644
+--- a/sound/soc/intel/skylake/skl.h
++++ b/sound/soc/intel/skylake/skl.h
+@@ -128,13 +128,10 @@ struct skl_dsp_ops {
+ int skl_platform_unregister(struct device *dev);
+ int skl_platform_register(struct device *dev);
+ 
+-struct nhlt_acpi_table *skl_nhlt_init(struct device *dev);
+-void skl_nhlt_free(struct nhlt_acpi_table *addr);
+ struct nhlt_specific_cfg *skl_get_ep_blob(struct skl *skl, u32 instance,
+ 					u8 link_type, u8 s_fmt, u8 no_ch,
+ 					u32 s_rate, u8 dirn, u8 dev_type);
+ 
+-int skl_get_dmic_geo(struct skl *skl);
+ int skl_nhlt_update_topology_bin(struct skl *skl);
+ int skl_init_dsp(struct skl *skl);
+ int skl_free_dsp(struct skl *skl);
 -- 
 2.20.1
 

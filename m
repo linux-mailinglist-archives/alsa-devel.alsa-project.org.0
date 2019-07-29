@@ -2,91 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3FCB79CA3
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 01:12:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D9F579CE8
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 01:39:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69E9517CB;
-	Tue, 30 Jul 2019 01:11:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69E9517CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE9E91809;
+	Tue, 30 Jul 2019 01:38:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE9E91809
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564441966;
-	bh=ujagfc7oYlT84VFaEsfOg9eWz7yenpbCu0t8MWr0vTI=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1564443586;
+	bh=yYYn6od+V7nWlaEwl8XGQwj7U27lNblIkpmJXSk1Bs0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CdP8GasrdXt+Moayvm1usJo5iO7WHLdeIoQ8P+FZdeHyfhvOBHtMeu8QSETjIwW+j
-	 YCTgyw528oNxBikqIozt8l5T1qv1wAIE20IeMTLxt21+fl8GGbnKt6bS4yM73fRhyB
-	 EmbjBks53y44GfgwyVPyAUHzL/xIggvJKy3tce70=
+	b=pnVKOpkuDm5T6HMi5TdcPc/FstN0QspALBMIhdc8LNTroV9ooFruYaEQgu6AK77+/
+	 Ji/ytTTDtTOFWK7DaC5FoZEjB6Jvn9XXbWlyIj0g6viYT26q7ZpVYn2/CpfIgFNqiX
+	 2F9Bch66UsieiIek46d4MlGbzLtBs4ehLwdklE54=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6496F803D5;
-	Tue, 30 Jul 2019 01:11:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76A79F80483;
+	Tue, 30 Jul 2019 01:38:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D44DF8048D; Tue, 30 Jul 2019 01:11:00 +0200 (CEST)
+ id 6D155F8048D; Tue, 30 Jul 2019 01:37:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODYSUB_10, SPF_HELO_NONE, 
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FF5BF803D5
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 01:10:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FF5BF803D5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Om4fvY1C"
-Received: by mail-lf1-x144.google.com with SMTP id h28so43207380lfj.5
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 16:10:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CQ7+4CVGTbsNOJSLG8pKEWjiro6FJ3zHxLZkIlQb9Ps=;
- b=Om4fvY1CIIs8DebSu2m8xVzC3EpDr6hieGZbKWkIJttaZxmBBi6wRYt6/uhNealnBa
- Pm5qgWLGVpnrp9rk4LG4Q/vx+J0UJ4JgiQwVzQnltqMEMEaAErCVnSTVqpWqu85xenYC
- 82C6b/+mrFEB7j8yfi/XBDCbTmMKDQth9uzNY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CQ7+4CVGTbsNOJSLG8pKEWjiro6FJ3zHxLZkIlQb9Ps=;
- b=qna1fFCwD1tvub+VgjBYPkKMKiq5sW2EbHxReRDKcC0qaAa9csd5Fzy7CmNBLcIh5l
- hPP93l5bisyzGyfg3mVdS5gZ0WMWC7Ej+TAIgJK2G2j6Q5sujmUBRnu8z4hZQj0OOhvR
- XmeZfLZz2sGUnmaoyu/Wnt3izv8U5E3XnrTg+HMf0vjmyNxGOst31UDF/EjmBATQtLXA
- f7WKdAK8C2rV/amkTjVVIGt0tA0QvfxywiBMNeoD7i1hXJTYWzuyshIFv4SjZh5krl+n
- amQcmOpLn7jTrdZRLnnM0Wchmj8H2O7So5tUpyB8DrdNGAmTRQmJ1+IKCm35tmmAtooL
- ARHQ==
-X-Gm-Message-State: APjAAAXUGLvlrAYZPcCUD6zFxuEDQcQZUQ3aUXVXLzyqyspqCQDL6/oA
- tujH0v3uwWUHd36fx++WtTRDnJXHclM=
-X-Google-Smtp-Source: APXvYqzj72Xhh3vqfvFZ7/2n3RnaBbJ0cRvkE6bOfN/4Rqee54kiH/hdyJomEN6gGuI0rhEpcsBZvw==
-X-Received: by 2002:ac2:51a3:: with SMTP id f3mr8577306lfk.94.1564441856232;
- Mon, 29 Jul 2019 16:10:56 -0700 (PDT)
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com.
- [209.85.208.174])
- by smtp.gmail.com with ESMTPSA id s26sm13120324ljs.77.2019.07.29.16.10.55
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Mon, 29 Jul 2019 16:10:55 -0700 (PDT)
-Received: by mail-lj1-f174.google.com with SMTP id z28so5955135ljn.4
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 16:10:55 -0700 (PDT)
-X-Received: by 2002:a2e:9950:: with SMTP id r16mr42273668ljj.173.1564441855030; 
- Mon, 29 Jul 2019 16:10:55 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 24115F800BF
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 01:37:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24115F800BF
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2019 16:37:53 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,324,1559545200"; d="scan'208";a="165650561"
+Received: from ahanamuk-mobl.amr.corp.intel.com (HELO [10.251.134.69])
+ ([10.251.134.69])
+ by orsmga008.jf.intel.com with ESMTP; 29 Jul 2019 16:37:51 -0700
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
+ <20190725234032.21152-18-pierre-louis.bossart@linux.intel.com>
+ <45a912c5-134b-8642-70ef-8c1060389300@linux.intel.com>
+ <20190726190823.GD9224@smile.fi.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <5a16d9e6-0a9c-a0a8-3b11-d046247f3879@linux.intel.com>
+Date: Mon, 29 Jul 2019 17:07:39 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
- <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
-In-Reply-To: <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
-From: Jon Flatley <jflat@chromium.org>
-Date: Mon, 29 Jul 2019 16:10:43 -0700
-X-Gmail-Original-Message-ID: <CACJJ=pyXBRwcfWbOEgtyjW4yUdxZpWhKm_z0==tQ7KDUGYRF=A@mail.gmail.com>
-Message-ID: <CACJJ=pyXBRwcfWbOEgtyjW4yUdxZpWhKm_z0==tQ7KDUGYRF=A@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: benzh@chromium.org, alsa-devel@alsa-project.org,
- Jon Flatley <jflat@chromium.org>
-Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+In-Reply-To: <20190726190823.GD9224@smile.fi.intel.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-pm@vger.kernel.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 17/40] soundwire: bus: use
+ runtime_pm_get_sync/pm when enabled
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,56 +78,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is roughly what I was thinking. Is there a good way to monitor
-the timing on the IPCs in cases like this shy of probing the hardware?
 
-On Mon, Jul 29, 2019 at 4:02 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
-> On 7/29/19 4:53 PM, Jon Flatley wrote:
-> > I've been working on upstreaming the bdw-rt5650 machine driver for the
-> > Acer Chromebase 24 (buddy). There seems to be an issue when first
-> > setting the hardware controls that appears to be crashing the DSP:
-> >
-> > [   51.424554] haswell-pcm-audio haswell-pcm-audio: FW loaded, mailbox
-> > readback FW info: type 01, - version: 00.00, build 77, source commit
-> > id: 876ac6906f31a43b6772b23c7c983ce9dcb18a19
-> > ...
-> > [   84.924666] haswell-pcm-audio haswell-pcm-audio: error: audio DSP
-> > boot timeout IPCD 0x0 IPCX 0x0
-> > [   85.260655] haswell-pcm-audio haswell-pcm-audio: ipc: --message
-> > timeout-- ipcx 0x83000000 isr 0x00000000 ipcd 0x00000000 imrx
-> > 0x7fff0000
-> > [   85.273609] haswell-pcm-audio haswell-pcm-audio: error: stream commit failed
-> > [   85.279746]  System PCM: error: failed to commit stream -110
-> > [   85.285388] haswell-pcm-audio haswell-pcm-audio: ASoC:
-> > haswell-pcm-audio hw params failed: -110
-> > [   85.293963]  System PCM: ASoC: hw_params FE failed -110
-> >
-> > This happens roughly 50% of the time when first setting hardware
-> > controls after a reboot. The other 50% of the time the DSP comes up
-> > just fine and audio works fine thereafter. Adding "#define DEBUG 1" to
-> > sound/soc/intel/haswell/sst-haswell-ipc.c makes the issue occur much
-> > less frequently in my testing. Seems like a subtle timing issue.
-> >
-> > There were timing issues encountered during the bringup of the 2015
-> > chromebook pixel (samus) which uses the bdw-rt5677 machine driver.
-> > Those were slightly different, and manifested during repeated
-> > arecords. Both devices use the same revision of the sst2 firmware.
-> >
-> > Any ideas for how to debug this?
->
-> this could be trying to send an IPC while you are already waiting for
-> one to complete. we've seen this before with SOF, if the IPCs are not
-> strictly serialized then things go in the weeds and timeout.
->
+
+On 7/26/19 2:08 PM, Andy Shevchenko wrote:
+> On Fri, Jul 26, 2019 at 01:08:57PM -0500, Pierre-Louis Bossart wrote:
+>> This thread became unreadable with interleaved top-posting, allow me restate
+>> the options and ask PM folks what they think
+>>
+>> On 7/25/19 6:40 PM, Pierre-Louis Bossart wrote:
+>>> Not all platforms support runtime_pm for now, let's use runtime_pm
+>>> only when enabled.
+> 
+> Just a side note below...
+> 
+>>> -	ret = pm_runtime_get_sync(slave->bus->dev);
+>>> -	if (ret < 0)
+> 
+> Here...
+> 
+>>> -		return ret;
+>>> +	if (pm_runtime_enabled(slave->bus->dev)) {
+>>> +		ret = pm_runtime_get_sync(slave->bus->dev);
+>>> +		if (ret < 0)
+> 
+> ...and thus here...
+> 
+>>> +			return ret;
+>>> +	}
+>>>    	ret = sdw_transfer(slave->bus, &msg);
+>>> -	pm_runtime_put(slave->bus->dev);
+>>> +
+>>> +	if (pm_runtime_enabled(slave->bus->dev))
+>>> +		pm_runtime_put(slave->bus->dev);
+>>
+>> This is option1: we explicitly test if pm_runtime is enabled before calling
+>> _get_sync() and _put()
+>>
+>> option2 (suggested by Jan Kotas): catch the -EACCESS error code
+>>
+>>   	ret = pm_runtime_get_sync(slave->bus->dev);
+>> -	if (ret < 0)
+>> +	if (ret < 0 && ret != -EACCES)
+> 
+> ...and here, the pm_runtime_put_noidle() call is missed.
+
+yes but in the example you provided, they actually do more work than 
+just decrement the device usage counter:
+
+static int
+radeonfb_open(struct fb_info *info, int user)
+{
+	struct radeon_fbdev *rfbdev = info->par;
+	struct radeon_device *rdev = rfbdev->rdev;
+	int ret = pm_runtime_get_sync(rdev->ddev->dev);
+	if (ret < 0 && ret != -EACCES) {
+		pm_runtime_mark_last_busy(rdev->ddev->dev);
+		pm_runtime_put_autosuspend(rdev->ddev->dev);
+		return ret;
+	}
+	return 0;
+}
+
+unless I am missing something pm_runtime_put_noidle() and 
+_put_autosuspend() are not equivalent, are they?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

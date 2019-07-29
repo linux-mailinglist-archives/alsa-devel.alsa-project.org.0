@@ -2,85 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93EF2799D1
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 22:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96BD679A0D
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 22:34:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACC1D180A;
-	Mon, 29 Jul 2019 22:21:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACC1D180A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2939817EE;
+	Mon, 29 Jul 2019 22:33:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2939817EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564431721;
-	bh=05vMJX2nBIVtp5LpqVoGCr2K/HUl/Co7khE9VCH4d8o=;
+	s=default; t=1564432447;
+	bh=K7UUpaGMiUMA0yzSPET/EWEy8ZPdm6A6rlgmHYEa7vE=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wc4N1HxPGzBy0Oq0cZkzJ4HVALi3NlIXa/qTFLoEQf8z+BV9mhuv+uJu8HsdK8UTX
-	 cg+25jpfhF5J18No5rHDUaxFe1HK/h/1sJGgJlZhz4HKcoZPb4G+dJ9pP3GVM3WYYd
-	 LXZ+H0Stwi/s/ACSpoKLNUQvsOL8LGk3fT6UZqgQ=
+	b=cB8adR8skuB45rtAU508EURxw5KovFFNT5CC69j2CI9mRXq2Kv3mUHlMhw2BH5Fdm
+	 yDPJqcyOd6+1OrykwXQ/TkPhORF8eDsslkxJz0Pd1Y//Wu/puH0d+Njy8IGAbV4rVg
+	 QXtzz3vAuZUg/UmiLjfqYJ6Id/yjqPAAu0rDMt6U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 686A0F80483;
-	Mon, 29 Jul 2019 22:20:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEEF7F803D5;
+	Mon, 29 Jul 2019 22:21:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86348F803D5; Mon, 29 Jul 2019 22:20:12 +0200 (CEST)
+ id B6D26F804AB; Mon, 29 Jul 2019 22:21:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 02742F803D5
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 22:20:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02742F803D5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 16A58F800E4
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 22:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16A58F800E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nn7AqtlN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=wwTzfyTq9xH2jVCB72SSD9pIFJfoUBESNUKZEPJQU/c=; b=nn7AqtlNX0eCysL+6//+UX/4T
- +AAPNROZ8E/00SYlmowzHnKikJN/2tuR5XgXgOdSAu891tr8GB/hO0snXfBkcCawN7AVTmMNAoFaA
- FS7E5u5xeF/skleakEMEGT2Lqrl7asvHfRWJavS0/NBOivAh5rdMDIKuJ9E8xW5U8VaZo=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hsC7m-0005MB-Uu; Mon, 29 Jul 2019 20:20:03 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 6B92C2742AAD; Mon, 29 Jul 2019 21:20:01 +0100 (BST)
-Date: Mon, 29 Jul 2019 21:20:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-Message-ID: <20190729202001.GC4787@sirena.org.uk>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="V2bEtTKv"
+Received: by mail-pf1-x442.google.com with SMTP id g2so28590315pfq.0
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 13:21:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=6re2IOy9UuGPutWHpeGmXvl/6Yqi6FxHUujTvDV/BjQ=;
+ b=V2bEtTKvIsIZP7A1vJKuVqPpf7homhWyKeJgc0gsY5Z3kXNvZlP58HtatQ2APTHTQL
+ w/yt1hQJSg5pQ8g7O8I+F5FjAHS+wqDRDwU9COzkhvC72JlHa8fTfT+GuFGPm4JCenk+
+ YIA6hQJykR5s4FxUuMqNlbBI6QxKAhY93l2iHCHqYlXQwUn6IrYjlmFNWIF1bw/g6Pwc
+ 15OsgbiVs+8hC61RgeXG5KfunptQicwUnYVKZKQ1iSdD8P6X7MMT+r5xyGhnkvZjE60I
+ gFFkwH4Lmojxh4FbeDcEL3/ZaumoV+Ue1iQmfQObzj4OGWcwlNY5c8w3ZNdOABpWWPwf
+ 4L2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=6re2IOy9UuGPutWHpeGmXvl/6Yqi6FxHUujTvDV/BjQ=;
+ b=dL2DKaz93R9q0GnAsWtreYvqEqk/HMpF7lhrBip1vqCcs0Pf+FhPsVMoQt+eZ/Nu8w
+ doSn76nhwSSur4u2Icc7XTPtk7LFre9uDuPWsz6ffCGEK3YFe5ZHQKX4gjBRFQwyh/CY
+ iVPckGL+NP1CKN2Ns0fHVrG55uuaZ5aRK5hoBOv8pGagqsMG3SQ/sD1scDuIkO7CgJws
+ jW02H1AGDDDYcidy7+sSfngRW3x8QY83rtKIpB3c98ia2EEhjGykh/pY6XKi099IoStx
+ mROVMA1gVBfElMQhGadYcDrsKMgx2V2KKQqWwkxD7dWYjIlSlK4lC85VkdMYotN3JYva
+ jkow==
+X-Gm-Message-State: APjAAAWr4BqB6lGEOLmwQb8QLaGNh6RuHZCjw1V1xWc+Dc46uAbXrtd8
+ e7Sa82QtpPO0j0x/wGha6dc=
+X-Google-Smtp-Source: APXvYqyWLQm4Cgt5unABdbXidAVUUD4LbAvUUcL7RPKc8STUBXVR75FNm4vHlTcuIbVnqszh/IXkPg==
+X-Received: by 2002:a65:6846:: with SMTP id q6mr67264436pgt.150.1564431666039; 
+ Mon, 29 Jul 2019 13:21:06 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id d129sm67610834pfc.168.2019.07.29.13.21.05
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 29 Jul 2019 13:21:05 -0700 (PDT)
+Date: Mon, 29 Jul 2019 13:21:54 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+Message-ID: <20190729202154.GC20594@Asurada-Nvidia.nvidia.com>
 References: <20190728192429.1514-1-daniel.baluta@nxp.com>
- <20190728192429.1514-2-daniel.baluta@nxp.com>
- <20190729194214.GA20594@Asurada-Nvidia.nvidia.com>
- <CAEnQRZDmnAmgUkRGv3V5S7b5EnYTd2BO5NFuME2CfGb1=nAHzQ@mail.gmail.com>
+ <20190728192429.1514-4-daniel.baluta@nxp.com>
 MIME-Version: 1.0
-In-Reply-To: <CAEnQRZDmnAmgUkRGv3V5S7b5EnYTd2BO5NFuME2CfGb1=nAHzQ@mail.gmail.com>
-X-Cookie: A man's house is his hassle.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Viorel Suman <viorel.suman@nxp.com>,
- Timur Tabi <timur@kernel.org>, Rob Herring <robh@kernel.org>,
- Fabio Estevam <festevam@gmail.com>, "S.j. Wang" <shengjiu.wang@nxp.com>,
- "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Nicolin Chen <nicoleotsuka@gmail.com>, dl-linux-imx <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Daniel Baluta <daniel.baluta@nxp.com>, Mihai Serban <mihai.serban@gmail.com>,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH v2 1/7] ASoC: fsl_sai: Add registers
- definition for multiple datalines
+Content-Disposition: inline
+In-Reply-To: <20190728192429.1514-4-daniel.baluta@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel@pengutronix.de, timur@kernel.org, robh@kernel.org,
+ shengjiu.wang@nxp.com, angus@akkea.ca, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org, linux-imx@nxp.com,
+ viorel.suman@nxp.com, festevam@gmail.com, mihai.serban@gmail.com,
+ l.stach@pengutronix.de
+Subject: Re: [alsa-devel] [PATCH v2 3/7] ASoC: fsl_sai: Add support to
+ enable multiple data lines
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,78 +104,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7955440088311175544=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun, Jul 28, 2019 at 10:24:25PM +0300, Daniel Baluta wrote:
+> SAI supports up to 8 Rx/Tx data lines which can be enabled
+> using TCE/RCE bits of TCR3/RCR3 registers.
+> 
+> Data lines to be enabled are read from DT fsl,dl-mask property.
+> By default (if no DT entry is provided) only data line 0 is enabled.
+> 
+> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> ---
+>  sound/soc/fsl/fsl_sai.c | 11 ++++++++++-
+>  sound/soc/fsl/fsl_sai.h |  4 +++-
+>  2 files changed, 13 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> index 637b1d12a575..5e7cb7fd29f5 100644
+> --- a/sound/soc/fsl/fsl_sai.c
+> +++ b/sound/soc/fsl/fsl_sai.c
+> @@ -601,7 +601,7 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
+>  
+>  	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
+>  			   FSL_SAI_CR3_TRCE_MASK,
+> -			   FSL_SAI_CR3_TRCE);
+> +			   FSL_SAI_CR3_TRCE(sai->soc_data->dl_mask[tx]);
+>  
+>  	ret = snd_pcm_hw_constraint_list(substream->runtime, 0,
+>  			SNDRV_PCM_HW_PARAM_RATE, &fsl_sai_rate_constraints);
+> @@ -888,6 +888,15 @@ static int fsl_sai_probe(struct platform_device *pdev)
+>  		}
+>  	}
+>  
+> +	/*
+> +	 * active data lines mask for TX/RX, defaults to 1 (only the first
+> +	 * data line is enabled
+> +	 */
+> +	sai->dl_mask[RX] = 1;
+> +	sai->dl_mask[TX] = 1;
+> +	of_property_read_u32_index(np, "fsl,dl-mask", RX, &sai->dl_mask[RX]);
+> +	of_property_read_u32_index(np, "fsl,dl-mask", TX, &sai->dl_mask[TX]);
 
---===============7955440088311175544==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ABTtc+pdwF7KHXCz"
-Content-Disposition: inline
-
-
---ABTtc+pdwF7KHXCz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Jul 29, 2019 at 10:57:43PM +0300, Daniel Baluta wrote:
-> On Mon, Jul 29, 2019 at 10:42 PM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
-> > On Sun, Jul 28, 2019 at 10:24:23PM +0300, Daniel Baluta wrote:
-
-> > > @@ -704,7 +711,14 @@ static bool fsl_sai_readable_reg(struct device *dev, unsigned int reg)
-> > >       case FSL_SAI_TCR3:
-> > >       case FSL_SAI_TCR4:
-> > >       case FSL_SAI_TCR5:
-> > > -     case FSL_SAI_TFR:
-> > > +     case FSL_SAI_TFR0:
-
-> > A tricky thing here is that those SAI instances on older SoC don't
-> > support multi data lines physically, while seemly having registers
-> > pre-defined. So your change doesn't sound doing anything wrong to
-> > them at all, I am still wondering if it is necessary to apply them
-> > to newer compatible only though, as for older compatibles of SAI,
-> > these registers would be useless and confusing if being exposed.
-
-> > What do you think?
-
-> Yes, I thought about this too. But, I tried to keep the code as short
-> as possible and technically it is not wrong. When 1 data line is supported
-> for example application will only care about TDR0, TFR0, etc.
-
-So long as it's safe to read the registers (you don't get a bus error or
-anything) I'd say it's more trouble than it's worth to have separate
-regmap configuations just for this.  The main reasons for restricting
-readability are where there's physical problems with doing the reads or
-to keep the size of the debugfs files under control for usability and
-performance reasons.
-
---ABTtc+pdwF7KHXCz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl0/VPAACgkQJNaLcl1U
-h9DrPwf9F9mjf8fAHvxxejGLd/jN+TU84DVsVv13Qp3jhAgobbWx/oF2xmX3A+b6
-uyfWch7Ud2SYvm2wXm/31JAXXi3aTlTq7niolXa7Hal3cLO4JAGCyFl6ex5knCHa
-D6ddUZyPG8Rag+kjm/ef2DQpTGHxKcP9nV6OTsn3v6QfOtZZiyl0nzaZnuEpUoxW
-Qz2WR2OxuRoA0Q/KaPiQCCP72GHZ5Vr2qDdteQXunE49dMnI6M0+e/WSbbJu+1tO
-toN2vyGNnUtNZK9IKgLbes65ihBd0026Otqg+cQEehLspgy8pwSap7TyZ123sVhM
-Z+xhfS+8ong2rDpferXo+La8/+Tx0Q==
-=PIWO
------END PGP SIGNATURE-----
-
---ABTtc+pdwF7KHXCz--
-
---===============7955440088311175544==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Just curious what if we enable 8 data lines through DT bindings
+while an audio file only has 1 or 2 channels. Will TRCE bits be
+okay to stay with 8 data channels configurations? Btw, how does
+DMA work for the data registers? ESAI has one entry at a fixed
+address for all data channels while SAI seems to have different
+data registers.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7955440088311175544==--

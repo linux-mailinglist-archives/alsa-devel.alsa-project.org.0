@@ -2,67 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42C7D78136
-	for <lists+alsa-devel@lfdr.de>; Sun, 28 Jul 2019 21:31:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7350783BF
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 05:55:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCBAF1833;
-	Sun, 28 Jul 2019 21:30:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCBAF1833
+	by alsa0.perex.cz (Postfix) with ESMTPS id 348B21824;
+	Mon, 29 Jul 2019 05:55:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348B21824
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564342272;
-	bh=zHvJrgCeBGponG+rUIKcgFnnYdByE/tA/EgkR3DLK68=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rr1jdKhygQ8IbWqfv9968FuxJMIFWpfFtVDI3ISjBBYl9PpYtTzUfdWQnUVNeOIVH
-	 7vTP9/6GZ6DDxWA/BAzPo4bvt5zya5mWWfKvIH0kcGOs6G1pFsbQQPN0BA6eHSeKNq
-	 vTzgPJIgcieqDTdMV5gyuyzPSF3p0c0XvNxdPVcE=
+	s=default; t=1564372557;
+	bh=gkik7XHM5tx9rc4g4b356t756wBL/vORbiNkhNIY11o=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EfZF+rPiNwITbB6Ks5BL6/PxohzBtwntNspGZQZFTDPL07CkyCorpVV/jGBfv2AQq
+	 WysWN+Fk7Rvub74ZTQjym85fSnyu6NWRYORYdWmi2fQf6JlNNJS8ylkQT4NUPTqbMm
+	 sCIKfPRDh5p+RMPri0IaSU3KHux27SU53lt9CM3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9BE51F805F8;
-	Sun, 28 Jul 2019 21:25:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 881B8F8048E;
+	Mon, 29 Jul 2019 05:54:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02C43F80519; Sun, 28 Jul 2019 21:24:56 +0200 (CEST)
+ id CE8A6F8048D; Mon, 29 Jul 2019 05:54:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1CE6F80507
- for <alsa-devel@alsa-project.org>; Sun, 28 Jul 2019 21:24:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1CE6F80507
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 03E98201281;
- Sun, 28 Jul 2019 21:24:52 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id EA794201272;
- Sun, 28 Jul 2019 21:24:51 +0200 (CEST)
-Received: from fsr-ub1864-103.ea.freescale.net
- (fsr-ub1864-103.ea.freescale.net [10.171.82.17])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 2D7142060A;
- Sun, 28 Jul 2019 21:24:51 +0200 (CEST)
-From: Daniel Baluta <daniel.baluta@nxp.com>
-To: broonie@kernel.org
-Date: Sun, 28 Jul 2019 22:24:29 +0300
-Message-Id: <20190728192429.1514-8-daniel.baluta@nxp.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190728192429.1514-1-daniel.baluta@nxp.com>
-References: <20190728192429.1514-1-daniel.baluta@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel@pengutronix.de, timur@kernel.org, robh@kernel.org,
- Daniel Baluta <daniel.baluta@nxp.com>, shengjiu.wang@nxp.com, angus@akkea.ca,
- tiwai@suse.com, linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- linux-imx@nxp.com, viorel.suman@nxp.com, festevam@gmail.com,
- mihai.serban@gmail.com, l.stach@pengutronix.de
-Subject: [alsa-devel] [PATCH v2 7/7] ASoC: dt-bindings: Introduce compatible
-	strings for 7ULP and 8MQ
+ by alsa1.perex.cz (Postfix) with ESMTPS id 52704F800BF
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 05:54:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52704F800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Ya4JdOTt"
+Received: by mail-pg1-x52e.google.com with SMTP id f5so18684662pgu.5
+ for <alsa-devel@alsa-project.org>; Sun, 28 Jul 2019 20:54:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:subject:to:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=8PRy5r0RLK0DMjkOaMUsvRFz+2ENwpqQIfeTXdyxYK0=;
+ b=Ya4JdOTtk+x6/WCvUjb2tHR2eBqA9nEE7GaNgrR9Cvp3n4aNQiBKTO/KUreWTbnn+I
+ MTw4x1ddRkXHwAKdh8LnjiCPvxOcHgL+YAZPVlKrrtTOjqXGQpGyJmbSiojE4I3VeEsJ
+ XFdtruFZadpL1WH+7cgoJoaEDiYNoHjhklqRZ2XXh7sNfA/aD3hmU63YIU76FHfEWGTW
+ NRAga2YcRMPVlu8PRBmHMG/aMnb571NUgr/oUgLjVDwinjlx57p8GKlm0NtElrS8G8dd
+ GeIDFa6sNLkG5/q22rnueLxVheiqt9kPwgzU1SScz5K3Xg3PCNUz5Ulst/Ob3zmUqgSh
+ 8/WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=8PRy5r0RLK0DMjkOaMUsvRFz+2ENwpqQIfeTXdyxYK0=;
+ b=l7XTR0T3iy7IZG1RCALhR2v0FHNK+/4Tz/DY81afbxrsZTzs1D5J9znWbbRcqxMbEn
+ dofmOBZt9IZh8YT881DoSK4LnOYoOEb7I1EPbGjlK3b0pHIuF12yp7+2Zaa4e72VRYyq
+ W1XS7245Pb/KaewMAvWY3DfeITRBVJ7gHJknWUcV63ahrgERcwLP0J5zaZPI1fWumf+2
+ ujqDw4VPtAN1qhPZ4wVn2nnsLPDDDkdkpHVLFAvkE1/jfvCbJ8TJRyeJBJyKRcRyI3Dv
+ 0/8GyDgftih1UkSpfbgVQDEvw4B2VojxpgzGTE5VYBs76Sz+Ym3hWjWgram2hY/aJDnu
+ f0Wg==
+X-Gm-Message-State: APjAAAV6SmrsFMvcJvidMDFw8giVgilTG0obeT/zsFzIhOeet4+Adorg
+ Pxi4kTVLApNHKPpOz8zxYEE=
+X-Google-Smtp-Source: APXvYqzaSZlyNwojCKSRH77jCfkI7OwlkitSUcLjmx4okU8a8s+2C+PeVVqlmMNMzjcULr3fyy8JsQ==
+X-Received: by 2002:a65:5183:: with SMTP id h3mr9557074pgq.250.1564372446085; 
+ Sun, 28 Jul 2019 20:54:06 -0700 (PDT)
+Received: from ?IPv6:2402:f000:4:72:808::177e? ([2402:f000:4:72:808::177e])
+ by smtp.gmail.com with ESMTPSA id p26sm5438031pgl.64.2019.07.28.20.54.03
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 28 Jul 2019 20:54:05 -0700 (PDT)
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+To: perex@perex.cz, Takashi Iwai <tiwai@suse.de>, gregkh@linuxfoundation.org, 
+ rfontana@redhat.com, allison@lohutok.net, tglx@linutronix.de
+Message-ID: <50b3b4c4-fe36-8c65-345b-f0a51193726c@gmail.com>
+Date: Mon, 29 Jul 2019 11:54:07 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [BUG] ALSA: core: seq: a possible double-lock bug in
+ snd_seq_midisynth_remove()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,38 +96,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For i.MX7ULP and i.MX8MQ register map is changed. Add two new compatbile
-strings to differentiate this.
-
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
----
- Documentation/devicetree/bindings/sound/fsl-sai.txt | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-index 2b38036a4883..b008e9cfedc1 100644
---- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
-+++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-@@ -8,7 +8,8 @@ codec/DSP interfaces.
- Required properties:
- 
-   - compatible		: Compatible list, contains "fsl,vf610-sai",
--			  "fsl,imx6sx-sai" or "fsl,imx6ul-sai"
-+			  "fsl,imx6sx-sai", "fsl,imx6ul-sai",
-+			  "fsl,imx7ulp-sai", "fsl,imx8mq-sai".
- 
-   - reg			: Offset and length of the register set for the device.
- 
--- 
-2.17.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SW4gc25kX3NlcV9taWRpc3ludGhfcmVtb3ZlKCksIHRoZXJlIGlzIGEgcG9zc2libGUgZG91Ymxl
+LWxvY2sgYnVnOgpzbmRfc2VxX21pZGlzeW50aF9yZW1vdmUoKQogwqDCoMKgIG11dGV4X2xvY2so
+JnJlZ2lzdGVyX211dGV4KTsgLS0gbGluZSA0MjEKIMKgwqDCoCBzbmRfc2VxX2RlbGV0ZV9rZXJu
+ZWxfY2xpZW50KCkgLS0tIGxpbmUgNDM2CiDCoMKgwqDCoMKgwqDCoCBzZXFfZnJlZV9jbGllbnQo
+KSAtLSBsaW5lIDIyNDQKIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbXV0ZXhfbG9jaygmcmVnaXN0
+ZXJfbXV0ZXgpOyAtLSBsaW5lIDI5NAoKVGhpcyBidWcgaXMgZm91bmQgYnkgYSBzdGF0aWMgYW5h
+bHlzaXMgdG9vbCBTVENoZWNrIHdyaXR0ZW4gYnkgdXMuCgpJIGRvIG5vdCBrbm93IGhvdyB0byBj
+b3JyZWN0bHkgZml4IHRoaXMgYnVnLCBzbyBJIG9ubHkgcmVwb3J0IGl0LgpBIHBvc3NpYmxlIGZp
+eCBpcyB0byByZWxlYXNlIHRoZSBtdXRleCBsb2NrIGJlZm9yZSBjYWxsaW5nIApzZXFfZnJlZV9j
+bGllbnQoKSBpbiBzbmRfc2VxX2RlbGV0ZV9rZXJuZWxfY2xpZW50KCkgYW5kIHRoZW4gYWNxdWly
+aW5nIAp0aGUgbG9jayBhZ2FpbiBhZnRlciBjYWxsaW5nIHNlcV9mcmVlX2NsaWVudCgpLgoKCkJl
+c3Qgd2lzaGVzLApKaWEtSnUgQmFpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
+ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2Fsc2EtZGV2ZWwK

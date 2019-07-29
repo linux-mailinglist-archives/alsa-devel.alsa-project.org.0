@@ -2,64 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1A6978FEE
-	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 17:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFBA5791C8
+	for <lists+alsa-devel@lfdr.de>; Mon, 29 Jul 2019 19:07:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECEEB1818;
-	Mon, 29 Jul 2019 17:55:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECEEB1818
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C0CF17F8;
+	Mon, 29 Jul 2019 19:06:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C0CF17F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564415782;
-	bh=I8oiVgNOKTvCurDWum37fVoy8dlUT/hzuFue04vb0wU=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1564420061;
+	bh=pAZEKhrch8aBxid1ZxAXE5x3WwDGbqMY/uaO1qMQH7w=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nUMYdMDj93Xcn2Kvw1jDRB2lr2nIAgD6t5WShBNQ5Q8OJIaSqM7GuGxmLB9woB1rT
-	 aUz3khwHYvplY2Nh7MttsR7nUBB4KS+eAHP81+S7y4IAQVJBA1BSCDLt0RhPj1PJKC
-	 THfPgoH/gDF9o6t3q1liNp1Ml+ZnQynpmSjObzIQ=
+	b=m8WOsD50TkkOa8cyfaPTM0TzZiJJLVlP6C8mHLP0fbqFRGxMKhr+JpExr9zNTvusZ
+	 H7Y9+OtwTWneSBh+FF4QWn20nPcY2+29ruo3iGZ79NrqpwOo9wfInmbbz0TWPA08qz
+	 7GubDNAsVjVIrb9A3FYfZ1NhXnWgchHwQeD8uJQo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0AFBFF8053B;
-	Mon, 29 Jul 2019 17:52:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D038F80483;
+	Mon, 29 Jul 2019 19:05:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CF81F8048E; Mon, 29 Jul 2019 17:52:07 +0200 (CEST)
+ id 172F5F8048D; Mon, 29 Jul 2019 19:05:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01E3BF8049B
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 17:52:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01E3BF8049B
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2019 08:51:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,323,1559545200"; d="scan'208";a="165534183"
-Received: from lquinn-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
- ([10.252.130.206])
- by orsmga008.jf.intel.com with ESMTP; 29 Jul 2019 08:51:58 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Mon, 29 Jul 2019 10:51:51 -0500
-Message-Id: <20190729155151.14055-6-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190729155151.14055-1-pierre-louis.bossart@linux.intel.com>
-References: <20190729155151.14055-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84ADEF800BF
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 19:05:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84ADEF800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="tGIbEOve"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1564419948; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6ct5sfA9aKEmr8hMlVPpfoX1PCyM/MxIecN3pTsFsbo=;
+ b=tGIbEOveRSTKHoZcpg/izsWRXZB3sJbHvlT52bDMqqruC35KNldtJ6Z1UumMknOBTmqxkS
+ L0QxFFWQrtfalRctJpTe/AFwPD5hYLu/miXPRxLnpxQZvMuW30gWEtzMHrKJVpyhyW4MrF
+ oruZx2tu/qGuw0Xp6xod1DxlnpMTbLU=
+Date: Mon, 29 Jul 2019 13:05:21 -0400
+From: Paul Cercueil <paul@crapouillou.net>
+To: Richard Weinberger <richard.weinberger@gmail.com>
+Message-Id: <1564419921.1759.1@crapouillou.net>
+In-Reply-To: <CAFLxGvyi0+0E3M12A7cRoHfEKd8-7Yr8EMG9J=2XcjCxPWY5pA@mail.gmail.com>
+References: <20190725220215.460-1-paul@crapouillou.net>
+ <CAFLxGvyi0+0E3M12A7cRoHfEKd8-7Yr8EMG9J=2XcjCxPWY5pA@mail.gmail.com>
 MIME-Version: 1.0
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Daniel Drake <drake@endlessm.com>, Hui Wang <hui.wang@canonical.com>,
- Curtis Malainey <cujomalainey@google.com>, broonie@kernel.org
-Subject: [alsa-devel] [PATCH v4 5/5] ALSA: hda/intel: stop probe if DMICS
-	are detected on Skylake+ platforms
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-fbdev@vger.kernel.org,
+ James Hogan <jhogan@kernel.org>, alsa-devel <alsa-devel@alsa-project.org>,
+ DRI mailing list <dri-devel@lists.freedesktop.org>, linux-mips@vger.kernel.org,
+ od@zcrc.me, linux-mtd@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Lee Jones <lee.jones@linaro.org>,
+ Artur Rojek <contact@artur-rojek.eu>, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, Paul Burton <paul.burton@mips.com>,
+ Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+ Jean Delvare <jdelvare@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Ralf Baechle <ralf@linux-mips.org>,
+ LKML <linux-kernel@vger.kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ dmaengine@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 00/11] JZ4740 SoC cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,139 +86,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The legacy HD-Audio driver cannot handle Skylake+ platforms with
-digital microphones. For those platforms, the SOF or SST drivers need
-to be used.
+Hi Richard,
 
-This patch provides an automatic way of detecting the presence of
-DMICs using NHTL information reported by the BIOS. A kernel kconfig
-option or a kernel module parameter provide an opt-in means of
-stopping the probe. The kernel would then look for an alternate driver
-registered for the same PCI ID to probe.
 
-With this capability, distros no longer have to blacklist
-snd-hda-intel, but still need to make sure the SOF/SST drivers are
-functional by providing the relevant firmware and topology files in
-/lib/firmware/intel
+Le lun. 29 juil. 2019 =E0 7:23, Richard Weinberger =
 
-The coexistence between SOF and SST drivers and their dynamic
-detection is not addressed by this patch, different mechanisms need to
-be used, e.g. DMI-based quirks.
+<richard.weinberger@gmail.com> a =E9crit :
+> On Fri, Jul 26, 2019 at 12:02 AM Paul Cercueil <paul@crapouillou.net> =
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/pci/hda/Kconfig     | 10 ++++++++++
- sound/pci/hda/hda_intel.c | 34 ++++++++++++++++++++++++++++++++++
- 2 files changed, 44 insertions(+)
+> wrote:
+>> =
 
-diff --git a/sound/pci/hda/Kconfig b/sound/pci/hda/Kconfig
-index 35d934309cb2..b5966014b5f7 100644
---- a/sound/pci/hda/Kconfig
-+++ b/sound/pci/hda/Kconfig
-@@ -12,6 +12,7 @@ config SND_HDA_INTEL
- 	tristate "HD Audio PCI"
- 	depends on SND_PCI
- 	select SND_HDA
-+	select SND_INTEL_NHLT if ACPI
- 	help
- 	  Say Y here to include support for Intel "High Definition
- 	  Audio" (Azalia) and its compatible devices.
-@@ -22,6 +23,15 @@ config SND_HDA_INTEL
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called snd-hda-intel.
- 
-+config SND_HDA_INTEL_DETECT_DMIC
-+	bool "DMIC detection and probe abort"
-+	depends on SND_HDA_INTEL
-+	help
-+	  Say Y to detect digital microphones on SKL+ devices. DMICs
-+	  cannot be handled by the HDaudio legacy driver and are
-+	  currently only supported by the SOF driver.
-+	  If unsure say N.
-+
- config SND_HDA_TEGRA
- 	tristate "NVIDIA Tegra HD Audio"
- 	depends on ARCH_TEGRA
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index cb8b0945547c..ae9c13248a1d 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -46,6 +46,7 @@
- #include <sound/initval.h>
- #include <sound/hdaudio.h>
- #include <sound/hda_i915.h>
-+#include <sound/intel-nhlt.h>
- #include <linux/vgaarb.h>
- #include <linux/vga_switcheroo.h>
- #include <linux/firmware.h>
-@@ -124,6 +125,7 @@ static char *patch[SNDRV_CARDS];
- static bool beep_mode[SNDRV_CARDS] = {[0 ... (SNDRV_CARDS-1)] =
- 					CONFIG_SND_HDA_INPUT_BEEP_MODE};
- #endif
-+static bool dmic_detect = IS_ENABLED(CONFIG_SND_HDA_INTEL_DETECT_DMIC);
- 
- module_param_array(index, int, NULL, 0444);
- MODULE_PARM_DESC(index, "Index value for Intel HD audio interface.");
-@@ -158,6 +160,8 @@ module_param_array(beep_mode, bool, NULL, 0444);
- MODULE_PARM_DESC(beep_mode, "Select HDA Beep registration mode "
- 			    "(0=off, 1=on) (default=1).");
- #endif
-+module_param(dmic_detect, bool, 0444);
-+MODULE_PARM_DESC(dmic_detect, "DMIC detect on SKL+ platforms");
- 
- #ifdef CONFIG_PM
- static int param_set_xint(const char *val, const struct kernel_param *kp);
-@@ -2025,6 +2029,25 @@ static const struct hda_controller_ops pci_hda_ops = {
- 	.position_check = azx_position_check,
- };
- 
-+static int azx_check_dmic(struct pci_dev *pci, struct azx *chip)
-+{
-+	struct nhlt_acpi_table *nhlt;
-+	int ret = 0;
-+
-+	if (chip->driver_type == AZX_DRIVER_SKL &&
-+	    pci->class != 0x040300) {
-+		nhlt = intel_nhlt_init(&pci->dev);
-+		if (nhlt) {
-+			if (intel_nhlt_get_dmic_geo(&pci->dev, nhlt)) {
-+				ret = -ENODEV;
-+				dev_info(&pci->dev, "Digital mics found on Skylake+ platform, aborting probe\n");
-+			}
-+			intel_nhlt_free(nhlt);
-+		}
-+	}
-+	return ret;
-+}
-+
- static int azx_probe(struct pci_dev *pci,
- 		     const struct pci_device_id *pci_id)
- {
-@@ -2055,6 +2078,17 @@ static int azx_probe(struct pci_dev *pci,
- 	card->private_data = chip;
- 	hda = container_of(chip, struct hda_intel, chip);
- 
-+	/*
-+	 * stop probe if digital microphones detected on Skylake+ platform
-+	 * with the DSP enabled. This is an opt-in behavior defined at build
-+	 * time or at run-time with a module parameter
-+	 */
-+	if (dmic_detect) {
-+		err = azx_check_dmic(pci, chip);
-+		if (err < 0)
-+			goto out_free;
-+	}
-+
- 	pci_set_drvdata(pci, card);
- 
- 	err = register_vga_switcheroo(chip);
--- 
-2.20.1
+>>  Hi,
+>> =
+
+>>  This patchset converts the Qi LB60 MIPS board to devicetree and =
+
+>> makes it
+>>  use all the shiny new drivers that have been developed or updated
+>>  recently.
+>> =
+
+>>  All the crappy old drivers and custom code can be dropped since they
+>>  have been replaced by better alternatives.
+>> =
+
+>>  Some of these alternatives are not yet in 5.3-rc1 but have already =
+
+>> been
+>>  accepted by their respective maintainer for inclusion in 5.4-rc1.
+>> =
+
+>>  To upstream this patchset, I think that as soon as MIPS maintainers
+>>  agree to take patches 01-03/11 and 11/11, the other patches can go
+>>  through their respective maintainer's tree.
+> =
+
+> Was this series tested with the Ben Nanonote device?
+> I have one of these and from time to time I upgrade the kernel on it.
+
+Yes! Artur (Cc'd) tested it.
+
+You can test it yourself, after merging this patchset with:
+https://git.kernel.org/pub/scm/linux/kernel/git/vkoul/slave-dma.git =
+
+branch next,
+git://git.freedesktop.org/git/drm-misc branch drm-misc-next.
+
+These will be in 5.4-rc1.
+
+Cheers,
+-Paul
+
 
 _______________________________________________
 Alsa-devel mailing list

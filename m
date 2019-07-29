@@ -2,128 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB12F7A544
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:55:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D6F7A545
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 11:56:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 742DD1878;
-	Tue, 30 Jul 2019 11:55:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 742DD1878
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE00D1802;
+	Tue, 30 Jul 2019 11:55:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE00D1802
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564480554;
-	bh=+zj7A9yi85qvqVRP9MaUe5PRbJhvze9JLxLkemv4KKk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=V2ExSxhS6+GdgQF1jwhabxLPm61YiZHxR1JSyVdz0us/8hSNkblkgy48JCEEUoKCN
-	 mEJm7VChpANgGzM8eFzDxJSD98NpyV6NPFbV7iLqOpiEzoIn9lUfsQyfRHq7vfn4Wo
-	 2p04iMYWic7ktKxwlpDDK9XpIWQAA/kmeVlbq7ZU=
+	s=default; t=1564480594;
+	bh=QZEyzwnTy4npyo8jAwJoYX6YR6A6GBM90kgBrl2vCCo=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=VEW+f5UvbMevsh2xbWFI6HYlLaqh+JFvQT/3esSLxend8RlIKRRlPEuQ9uaJqW8r2
+	 u0y8wWJgNHWXXWVYIz/EGl+JWC6kw4sVBcCcuMv5Cfen56kulAhGfec1Vi9D9TB1mY
+	 CJHnJbxrzzcDNkNthoyX2U51QfzHUIdTk1bU5ZKg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA416F80C1B;
-	Tue, 30 Jul 2019 11:32:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EA14F80C43;
+	Tue, 30 Jul 2019 11:32:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4F82F8048E; Mon, 29 Jul 2019 14:15:21 +0200 (CEST)
+ id 75EA1F8048E; Mon, 29 Jul 2019 18:38:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750044.outbound.protection.outlook.com [40.107.75.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H2,
+ SORTED_RECIPS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+ [209.85.166.69])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92A2FF800E4
- for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 14:15:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92A2FF800E4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="xfag+hcz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U96lCyEQ0s+/Sg5KLeINhKlSa54+I39lKQXMqGw7LUs0qZqT1009RTSR3dlUtfDbVDb5WbFXmSJrd/2jFG5OQVu3Ctw8PY9SAKmbSPK2Kk8Nk/7ZiNKfUHmwmii4C9yMCFxapbSi4BmnKbstjsljEG6130+b+pTpz6KUzdS2fvxLCFhuiYpCU7hPw/qymzms2li0vlYn5lsSoxbSR5xLwHVQ23XhI/CFMs9+Zy6hRyT//gqkQZdgkd06i+vVDCIgr8wY8jCLUsmJJtFesebXdHWE3rBfUQau64sI5gt3sBkIWjowQWAB2cbYL1QcHEpy51Nd8Rqxdix8bChQ/yADGQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2fz4utKxUE7fldrbZ2bvj3Cc8O6BbWVdybm87o97p0c=;
- b=XK451W0Yru3YdXXRQZARlEFOtZ3XYZ8Xbx4QEZFDiN+WJgkG172r+OkflGRBEYy3y0giokVssLqies+tBn84/vVeHO5Kayzq+XX2tsN9E03dJUho1Ot3RKkwsHVu3USkOLkjZuy+cdFiE8V6V+LsZilB7hTY5rd7Gt9ntE6u7X7hGl4y6wvhrlcBEpk2c1zp+RxM/D1X8bm7XCcnVJEYb5wxv96A+xBsvnzKoagn6u85lBE6Kw0GSeNIggezILHnJ7g0Bg/CE2rhjf0Zu++mKywmECFG5gJ76pi/TJOZFP7GO4piSVkBOAK8ayTUfr0LOL/1bAeuAcMfPZMuJX9MQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=alsa-project.org
- smtp.mailfrom=amd.com;dmarc=permerror action=none
- header.from=amd.com;dkim=none (message not signed);arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2fz4utKxUE7fldrbZ2bvj3Cc8O6BbWVdybm87o97p0c=;
- b=xfag+hcz6HIKQKRKU18EXrtNl92vkLOA9UAbGV/3RMeYxsNcgW1V+w46Txy7rl8solEGsCkw5I4sdYd72IULQ/ag3cgpmt9IHmnNQO9N2cWpOm4RvNE0jwQoza8sc81Ac2x4+A6qbRS4aPFJgcHXk2FWPfHfkNBB8xuQuA+3/ak=
-Received: from DM6PR12CA0026.namprd12.prod.outlook.com (2603:10b6:5:1c0::39)
- by MW2PR12MB2426.namprd12.prod.outlook.com (2603:10b6:907:8::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2073.14; Mon, 29 Jul
- 2019 12:15:15 +0000
-Received: from DM3NAM03FT035.eop-NAM03.prod.protection.outlook.com
- (2a01:111:f400:7e49::201) by DM6PR12CA0026.outlook.office365.com
- (2603:10b6:5:1c0::39) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2115.15 via Frontend
- Transport; Mon, 29 Jul 2019 12:15:15 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; alsa-project.org; dkim=none (message not signed)
- header.d=none;alsa-project.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXCHOV02.amd.com (165.204.84.17) by
- DM3NAM03FT035.mail.protection.outlook.com (10.152.82.188) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.2115.10 via Frontend Transport; Mon, 29 Jul 2019 12:15:14 +0000
-Received: from vishnu-All-Series.amd.com (10.34.1.3) by SATLEXCHOV02.amd.com
- (10.181.40.72) with Microsoft SMTP Server id 14.3.389.1; Mon, 29 Jul 2019
- 07:15:13 -0500
-From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-To: 
-Date: Mon, 29 Jul 2019 17:38:31 +0530
-Message-ID: <1564402115-5043-3-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1564402115-5043-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-References: <1564402115-5043-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBED8F80483
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 18:38:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBED8F80483
+Received: by mail-io1-f69.google.com with SMTP id x17so67674814iog.8
+ for <alsa-devel@alsa-project.org>; Mon, 29 Jul 2019 09:38:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=64wPHD2ub5C9dTsMGHD0dC6MBn1HBlNLnJVwhPQmaw0=;
+ b=pSGwNRdX5v7ggjs09c87uV9/vJ3bQnDLLRhmmjjtJ9YKOiPOHBMOkaUpPSE+CV8+3F
+ wUwkn1VccqC1VQFMOW21OHt7NhXUZLBcAFAJHvXoptGMdafLFa38G6dUc6V7SOT8Xita
+ +dKwmxbYLjwJ78W/kNDDrPhZom9GJmx11F2B+NIUFlRv/2//s88Qx/v95EKzgM72C7IH
+ SOGkAbV+K/KtkwLf19EX5Qcq+z91+jCrODtD/WEkLE+pf+qsEZ/n6g8AHCIJ6PXSVr93
+ 9YqZnzuxDkrVxOUYVEa9krK8tqWSPWMO9BHab3CtashOVnoFAUz1S+eQfiBJXCwGBvQc
+ XMVw==
+X-Gm-Message-State: APjAAAWjcQgus5pJUvon7mi69oKBWW9cSn4yQEbkUv8t0X+26q9CvPTw
+ vod2NubVrjBAuPJeCWNyLI+rl9QGnXlUCUaydK+wh01nb8aG
+X-Google-Smtp-Source: APXvYqxzFMhYbEwKIncPaiNMzBUEdjZ57ZVTF1OhCLo4KLuAdkXvyFewG439cG6kUJaLkhfKqw3JQ+/Wr6msXYv1wiapA58de+BX
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(979002)(4636009)(396003)(39860400002)(136003)(376002)(346002)(2980300002)(428003)(189003)(199004)(86362001)(8676002)(446003)(476003)(11346002)(126002)(316002)(16586007)(54906003)(2616005)(426003)(478600001)(70206006)(6666004)(356004)(70586007)(336012)(5660300002)(36756003)(53416004)(81166006)(81156014)(109986005)(305945005)(50226002)(50466002)(48376002)(4326008)(8936002)(486006)(68736007)(2906002)(53936002)(47776003)(186003)(7696005)(51416003)(1671002)(76176011)(26005)(266003)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2426; H:SATLEXCHOV02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 59e3deac-f884-4931-282b-08d7141e6989
-X-Microsoft-Antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328);
- SRVR:MW2PR12MB2426; 
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2426:
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2426086EEEDB13D7806D5000E7DD0@MW2PR12MB2426.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
-X-Forefront-PRVS: 01136D2D90
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Message-Info: V+70G1wmObDP1XtV2jPbXEssiLYblU4iJQVG45Rli+GC+hJT4LMpFb4u42i5Ws63kec16VG/r1d1o0kuddXAbYHgv5fdNHa8MI8iffFmttlJGYYKkHwocPBX9XW9kN2WiKN0900YoW3//vD3lGh+jmblcPTrT0TXtKtjP0mGrTrL8zZ4BGc8cNUNgmut5XLYkGhzvIt6rm9NorCY24y+zAEroYmuMqN8H30h2TphZMAntpxjzMBJNRQ4LKrtYppsHrbvirST5UcRCaf6VwzS/T5EMIieJwppgUl9Xw7/W0k+VB2yJmgmLyB4m9oG7TkyHZ+haKASxgZC+pC65CBlcHmP4TkMj5PgIgx3kvpPcbq8o41TMzy4+ke2lu7X80CkSxlPWn5DmENrN6QnvbQT4eJs7AqFFum2zbUOffoGYVo=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2019 12:15:14.5512 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59e3deac-f884-4931-282b-08d7141e6989
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXCHOV02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2426
+X-Received: by 2002:a02:cc8e:: with SMTP id s14mr25813979jap.142.1564418286421; 
+ Mon, 29 Jul 2019 09:38:06 -0700 (PDT)
+Date: Mon, 29 Jul 2019 09:38:06 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000003e112b058ed484c4@google.com>
+From: syzbot <syzbot+d59c4387bfb6eced94e2@syzkaller.appspotmail.com>
+To: allison@lohutok.net, alsa-devel@alsa-project.org, andreyknvl@google.com, 
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, perex@perex.cz, rfontana@redhat.com, 
+ syzkaller-bugs@googlegroups.com, tglx@linutronix.de, tiwai@suse.com
 X-Mailman-Approved-At: Tue, 30 Jul 2019 11:31:28 +0200
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi
- Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Sanju R Mehta <sanju.mehta@amd.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Mark Brown <broonie@kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [alsa-devel] [PATCH 3/3] ASoC : amd: reduced period size
+Subject: [alsa-devel] general protection fault in snd_usb_pipe_sanity_check
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,49 +79,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Reduced period size and offsets.
+Hello,
 
-Signed-off-by:Ravulapati, Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+syzbot found the following crash on:
+
+HEAD commit:    7f7867ff usb-fuzzer: main usb gadget fuzzer driver
+git tree:       https://github.com/google/kasan.git usb-fuzzer
+console output: https://syzkaller.appspot.com/x/log.txt?x=12befdc8600000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=792eb47789f57810
+dashboard link: https://syzkaller.appspot.com/bug?extid=d59c4387bfb6eced94e2
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16efc49fa00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13245854600000
+
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+d59c4387bfb6eced94e2@syzkaller.appspotmail.com
+
+usb 1-1: New USB device found, idVendor=07fd, idProduct=0004,  
+bcdDevice=d5.ac
+usb 1-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+usb 1-1: config 0 descriptor??
+usb 1-1: string descriptor 0 read error: -71
+usb 1-1: Waiting for MOTU Microbook II to boot up...
+kasan: CONFIG_KASAN_INLINE enabled
+kasan: GPF could be caused by NULL-ptr deref or user memory access
+general protection fault: 0000 [#1] SMP KASAN
+CPU: 1 PID: 21 Comm: kworker/1:1 Not tainted 5.3.0-rc2+ #23
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
+Google 01/01/2011
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:snd_usb_pipe_sanity_check+0x80/0x130 sound/usb/helper.c:75
+Code: 48 c1 ea 03 80 3c 02 00 0f 85 b3 00 00 00 48 8b 6d 00 c1 eb 1e 48 b8  
+00 00 00 00 00 fc ff df 48 8d 7d 03 48 89 fa 48 c1 ea 03 <0f> b6 04 02 48  
+89 fa 83 e2 07 38 d0 7f 04 84 c0 75 7b 48 b8 00 00
+RSP: 0018:ffff8881da2f7010 EFLAGS: 00010246
+RAX: dffffc0000000000 RBX: 0000000000000001 RCX: ffffffff8484d252
+RDX: 0000000000000000 RSI: ffffffff8484d26c RDI: 0000000000000003
+RBP: 0000000000000000 R08: ffff8881da22e000 R09: ffffed103b665d58
+R10: ffffed103b665d57 R11: ffff8881db32eabf R12: 0000000000000000
+R13: ffff8881d400ba80 R14: 1ffff1103b45ee06 R15: ffff8881c79244a0
+FS:  0000000000000000(0000) GS:ffff8881db300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f31b2a87000 CR3: 00000001d3fd4000 CR4: 00000000001406e0
+Call Trace:
+  snd_usb_motu_microbookii_communicate.constprop.0+0xa0/0x2fb  
+sound/usb/quirks.c:1007
+  snd_usb_motu_microbookii_boot_quirk sound/usb/quirks.c:1051 [inline]
+  snd_usb_apply_boot_quirk.cold+0x163/0x370 sound/usb/quirks.c:1280
+  usb_audio_probe+0x2ec/0x2010 sound/usb/card.c:576
+  usb_probe_interface+0x305/0x7a0 drivers/usb/core/driver.c:361
+  really_probe+0x281/0x650 drivers/base/dd.c:548
+  driver_probe_device+0x101/0x1b0 drivers/base/dd.c:709
+  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:816
+  bus_for_each_drv+0x15c/0x1e0 drivers/base/bus.c:454
+  __device_attach+0x217/0x360 drivers/base/dd.c:882
+  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:514
+  device_add+0xae6/0x16f0 drivers/base/core.c:2114
+  usb_set_configuration+0xdf6/0x1670 drivers/usb/core/message.c:2023
+  generic_probe+0x9d/0xd5 drivers/usb/core/generic.c:210
+  usb_probe_device+0x99/0x100 drivers/usb/core/driver.c:266
+  really_probe+0x281/0x650 drivers/base/dd.c:548
+  driver_probe_device+0x101/0x1b0 drivers/base/dd.c:709
+  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:816
+  bus_for_each_drv+0x15c/0x1e0 drivers/base/bus.c:454
+  __device_attach+0x217/0x360 drivers/base/dd.c:882
+  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:514
+  device_add+0xae6/0x16f0 drivers/base/core.c:2114
+  usb_new_device.cold+0x6a4/0xe79 drivers/usb/core/hub.c:2536
+  hub_port_connect drivers/usb/core/hub.c:5098 [inline]
+  hub_port_connect_change drivers/usb/core/hub.c:5213 [inline]
+  port_event drivers/usb/core/hub.c:5359 [inline]
+  hub_event+0x1b5c/0x3640 drivers/usb/core/hub.c:5441
+  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+  kthread+0x318/0x420 kernel/kthread.c:255
+  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
+Modules linked in:
+---[ end trace 41e8577a8c48635e ]---
+RIP: 0010:snd_usb_pipe_sanity_check+0x80/0x130 sound/usb/helper.c:75
+Code: 48 c1 ea 03 80 3c 02 00 0f 85 b3 00 00 00 48 8b 6d 00 c1 eb 1e 48 b8  
+00 00 00 00 00 fc ff df 48 8d 7d 03 48 89 fa 48 c1 ea 03 <0f> b6 04 02 48  
+89 fa 83 e2 07 38 d0 7f 04 84 c0 75 7b 48 b8 00 00
+RSP: 0018:ffff8881da2f7010 EFLAGS: 00010246
+RAX: dffffc0000000000 RBX: 0000000000000001 RCX: ffffffff8484d252
+RDX: 0000000000000000 RSI: ffffffff8484d26c RDI: 0000000000000003
+RBP: 0000000000000000 R08: ffff8881da22e000 R09: ffffed103b665d58
+R10: ffffed103b665d57 R11: ffff8881db32eabf R12: 0000000000000000
+R13: ffff8881d400ba80 R14: 1ffff1103b45ee06 R15: ffff8881c79244a0
+FS:  0000000000000000(0000) GS:ffff8881db300000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f31b2a87000 CR3: 00000001d3fd4000 CR4: 00000000001406e0
+
+
 ---
- sound/soc/amd/raven/acp3x.h | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
-index 4f2cadd..033e2a9 100644
---- a/sound/soc/amd/raven/acp3x.h
-+++ b/sound/soc/amd/raven/acp3x.h
-@@ -23,17 +23,17 @@
- #define ACP_SRAM_PTE_OFFSET	0x02050000
- #define PAGE_SIZE_4K_ENABLE 0x2
- #define MEM_WINDOW_START	0x4000000
--#define PLAYBACK_FIFO_ADDR_OFFSET 0x400
--#define CAPTURE_FIFO_ADDR_OFFSET  0x500
-+#define PLAYBACK_FIFO_ADDR_OFFSET 0x00
-+#define CAPTURE_FIFO_ADDR_OFFSET  0x04
- 
- #define PLAYBACK_MIN_NUM_PERIODS    2
- #define PLAYBACK_MAX_NUM_PERIODS    8
--#define PLAYBACK_MAX_PERIOD_SIZE    16384
--#define PLAYBACK_MIN_PERIOD_SIZE    4096
-+#define PLAYBACK_MAX_PERIOD_SIZE    8192
-+#define PLAYBACK_MIN_PERIOD_SIZE    1024
- #define CAPTURE_MIN_NUM_PERIODS     2
- #define CAPTURE_MAX_NUM_PERIODS     8
--#define CAPTURE_MAX_PERIOD_SIZE     16384
--#define CAPTURE_MIN_PERIOD_SIZE     4096
-+#define CAPTURE_MAX_PERIOD_SIZE     8192
-+#define CAPTURE_MIN_PERIOD_SIZE     1024
- 
- #define MAX_BUFFER (PLAYBACK_MAX_PERIOD_SIZE * PLAYBACK_MAX_NUM_PERIODS)
- #define MIN_BUFFER MAX_BUFFER
--- 
-2.7.4
-
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

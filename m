@@ -2,64 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E16379EAE
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 04:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3C3B7A19C
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 09:07:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA5BD17FA;
-	Tue, 30 Jul 2019 04:29:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA5BD17FA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E7AF176E;
+	Tue, 30 Jul 2019 09:06:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E7AF176E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564453825;
-	bh=U3ftjcyfqakpHf/cfqr+CxeOsXnYnfoFS2FaxOHrSug=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564470431;
+	bh=qvufo7HvMjEqB/hpdpm8mddycTaiHEdqyg8T4NogtUg=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vY6YloFNgWSLIT/rkD6Se0BHjsfz+7Bg2B/KuKckaSTCL8DXZsb3kk6Uz/sh5tWUf
-	 goAH1LD0pXPPh6zvqaiL2lPhVjmhX4RasvfEztuzqb682R+/7eS+uDFU1KXlpJkUQu
-	 zPXD4bi5VuvbsY6lq0umONYznHHAgp+xOZ1BMRCQ=
+	b=t1VEeKwNwNpjsrKTlF9zdaknIDWUB4pGHV2Ipb2cDLoBY/Bfm+7ddxl31LrPB9cgx
+	 gT6E/LrYgP4ZYrOAzDC3jf3OWsTkWv2JQHo5pxeYu9Ol5bCmsas/u+1VDd4Ezvtr2b
+	 6XOSOfMvMoAjQhDSKy3KH2XogeWy7e6iJNxQjQ6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E4B44F804CA;
-	Tue, 30 Jul 2019 04:28:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69985F804CC;
+	Tue, 30 Jul 2019 09:05:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6396F804CA; Tue, 30 Jul 2019 04:28:37 +0200 (CEST)
+ id 364CCF804CA; Tue, 30 Jul 2019 09:05:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.6 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-f65.google.com (mail-wr1-f65.google.com
+ [209.85.221.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABA06F800AB
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 04:28:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABA06F800AB
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2019 19:28:30 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,325,1559545200"; d="scan'208";a="371366741"
-Received: from jebreyfo-mobl.amr.corp.intel.com (HELO [10.251.25.157])
- ([10.251.25.157])
- by fmsmga006.fm.intel.com with ESMTP; 29 Jul 2019 19:28:30 -0700
-To: Jon Flatley <jflat@chromium.org>
-References: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
- <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
- <CACJJ=pyXBRwcfWbOEgtyjW4yUdxZpWhKm_z0==tQ7KDUGYRF=A@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d5e82890-c6f4-3802-7a21-be04cc6b5e24@linux.intel.com>
-Date: Mon, 29 Jul 2019 21:28:29 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0931F80214
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 09:05:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0931F80214
+Received: by mail-wr1-f65.google.com with SMTP id p13so64442024wru.10
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 00:05:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iWB4kphKN7udeRXcBiB5uX9NupkEYoNs++i9LuElms0=;
+ b=ifWfSgjBxu6g01jF3N5Kru4mLmbXPrZdEiIJzh+3VvkR1iU6/y8BgGh2tM+PSW3QwG
+ 4tmX5zk1YMS5ABelmdzGXa8mnQz5BPDLO/jCFlsuwysjIsciwv9g1hMjLJxY8sIEDP0M
+ wkwYOy0/N/w405G8SHBlQ0LCPFzkbCRiC00s3Hde3LeAm4dN4k65N73UBkrbgXOVbit9
+ aHryhr9pzqioRaWVgb/KVpQwn7PRN6n8R8A7Tfllm2IfkRdCZebb+/0mLwmc6OqP5Hqf
+ TYf+lAIlBt4u4hUHCT819oLxRipqS6BPHSK6zAnCemiXGoMUbMqFtlvDYagW1o5YlpRO
+ D1Rg==
+X-Gm-Message-State: APjAAAWQ/3gt2TR3ALxUiYW6NBOy8BLB94/6Ajk6OVU06SMdYzuoth4t
+ 9S/MrLi/6l61sfrW43JHjU9NmFx6OfrasShQtPw=
+X-Google-Smtp-Source: APXvYqxA4UA7p0prw4c6NzYin/F7bh8MqYAWlv4qSe05+PF4h1IO2PnD8upJ/jsqgAtF4FdeJ6+W7tNqg3vH/w5+Hbs=
+X-Received: by 2002:adf:ab51:: with SMTP id r17mr99183914wrc.95.1564470321909; 
+ Tue, 30 Jul 2019 00:05:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CACJJ=pyXBRwcfWbOEgtyjW4yUdxZpWhKm_z0==tQ7KDUGYRF=A@mail.gmail.com>
-Content-Language: en-US
-Cc: benzh@chromium.org, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+References: <20190729205454.GA5084@embeddedor>
+In-Reply-To: <20190729205454.GA5084@embeddedor>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 30 Jul 2019 09:05:10 +0200
+Message-ID: <CAMuHMdVuf7O3yRJ7EgjqQ=HdZSg8Qv4yVKmWM9b0McSYhX9MyA@mail.gmail.com>
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Kees Cook <keescook@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v2] sound: dmasound_atari: Mark expected
+	switch fall-through
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,56 +81,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, Jul 29, 2019 at 10:55 PM Gustavo A. R. Silva
+<gustavo@embeddedor.com> wrote:
+> Mark switch cases where we are expecting to fall through.
+>
+> This patch fixes the following warning (Building: m68k):
+>
+> sound/oss/dmasound/dmasound_atari.c: warning: this statement may fall
+> through [-Wimplicit-fallthrough=]:  => 1449:24
+>
+> Notice that, in this particular case, the code comment is
+> modified in accordance with what GCC is expecting to find.
+>
+> Reported-by: Geert Uytterhoeven <geert@linux-m68k.org>
+> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+> ---
+> Changes in v2:
+>  - Update code so switch and case statements are at the same indent.
 
->>> I've been working on upstreaming the bdw-rt5650 machine driver for the
->>> Acer Chromebase 24 (buddy). There seems to be an issue when first
->>> setting the hardware controls that appears to be crashing the DSP:
->>>
->>> [   51.424554] haswell-pcm-audio haswell-pcm-audio: FW loaded, mailbox
->>> readback FW info: type 01, - version: 00.00, build 77, source commit
->>> id: 876ac6906f31a43b6772b23c7c983ce9dcb18a19
->>> ...
->>> [   84.924666] haswell-pcm-audio haswell-pcm-audio: error: audio DSP
->>> boot timeout IPCD 0x0 IPCX 0x0
->>> [   85.260655] haswell-pcm-audio haswell-pcm-audio: ipc: --message
->>> timeout-- ipcx 0x83000000 isr 0x00000000 ipcd 0x00000000 imrx
->>> 0x7fff0000
->>> [   85.273609] haswell-pcm-audio haswell-pcm-audio: error: stream commit failed
->>> [   85.279746]  System PCM: error: failed to commit stream -110
->>> [   85.285388] haswell-pcm-audio haswell-pcm-audio: ASoC:
->>> haswell-pcm-audio hw params failed: -110
->>> [   85.293963]  System PCM: ASoC: hw_params FE failed -110
->>>
->>> This happens roughly 50% of the time when first setting hardware
->>> controls after a reboot. The other 50% of the time the DSP comes up
->>> just fine and audio works fine thereafter. Adding "#define DEBUG 1" to
->>> sound/soc/intel/haswell/sst-haswell-ipc.c makes the issue occur much
->>> less frequently in my testing. Seems like a subtle timing issue.
->>>
->>> There were timing issues encountered during the bringup of the 2015
->>> chromebook pixel (samus) which uses the bdw-rt5677 machine driver.
->>> Those were slightly different, and manifested during repeated
->>> arecords. Both devices use the same revision of the sst2 firmware.
->>>
->>> Any ideas for how to debug this?
->>
->> this could be trying to send an IPC while you are already waiting for
->> one to complete. we've seen this before with SOF, if the IPCs are not
->> strictly serialized then things go in the weeds and timeout.
- >
- > [removing top-posting]
- > This is roughly what I was thinking. Is there a good way to monitor
- > the timing on the IPCs in cases like this shy of probing the hardware?
+Thanks, this time it works as expected.
+Tested-by: Geert Uytterhoeven <geert@linux-m68k.org>
 
-I don't think we have any magic tools here. Tracing the start and 
-completion of an IPC, and looking at the dmesg log, along with counting 
-number of IPCs requested and number of Acks received are the usual 
-solutions to figure out when such problems happen.
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

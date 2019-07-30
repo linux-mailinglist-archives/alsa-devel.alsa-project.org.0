@@ -2,87 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8984E7ACEC
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 17:54:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 269F17AD1B
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 18:00:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F9C317C1;
-	Tue, 30 Jul 2019 17:53:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F9C317C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B70917C4;
+	Tue, 30 Jul 2019 17:59:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B70917C4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564502071;
-	bh=toibt24gplVmXPcwilg3Gj+2PeARiFmK0UV2jIgYXw4=;
+	s=default; t=1564502406;
+	bh=0+GJ0MucEi8LOmBkhfcaONHmX2daZtybU20HAjof5/k=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jjFpY9yuQYiqh1GhiivdEJY9H5qxH0PodnPlZTGeXGJgWjSy3AdZab6wOX/9SnGHG
-	 XlH9KS+hmzjUfdnFXXnoOVf1RQxnY9QMA9ICtXYWMuy7/vXSETIybC/ZBZGUHH8S9Y
-	 JHwv+MqsQ9+QFcWCFQx5EDd3iGr1Ff29xsVoLxGU=
+	b=nCn2fI9emNoMDB9SVhbICJq5phnk0LuLE5N/Sp6RV/2g5X704bwnjsT8TpqLug/b3
+	 Q828l7VquYuYSs5t5EzrJdD2YpZLiraFTqiRnGFHoXj/rXl19+DGKsaSi+/AkHf+bv
+	 nyFKQ8gkHDtiHsSxf6V0Tu7Mkyw1Lk4WVhXo7+AE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 52EEDF804CA;
-	Tue, 30 Jul 2019 17:52:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8095F804CB;
+	Tue, 30 Jul 2019 17:58:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98221F804CA; Tue, 30 Jul 2019 17:52:44 +0200 (CEST)
+ id BE4ECF80482; Tue, 30 Jul 2019 17:58:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46E06F80214
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 17:52:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E06F80214
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="J1ZC52QI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Satq2eEMXIbB0aB+E4vC0WoAtw8SMBMHI0WXpWtRuYs=; b=J1ZC52QIsMjMi5k2i2Fvr0+nV
- AuizVSMIB5ohxsLuqMXvxPDnGN3s7Ru76VojFpPcd5fQqygq3HMaOXKDD0VEBrs7Btv2YSwqH73rL
- 2gC9VPKgK6bIMpJY5oFm8wW8bzuPYLpVtZ+MBg74aqkS+Q2G++Vy42i1p1GAoxDhc9XAc=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hsUOT-0007rr-3R; Tue, 30 Jul 2019 15:50:29 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id E52FC2742CB5; Tue, 30 Jul 2019 16:50:27 +0100 (BST)
-Date: Tue, 30 Jul 2019 16:50:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Thomas Preston <thomas.preston@codethink.co.uk>
-Message-ID: <20190730155027.GJ4264@sirena.org.uk>
-References: <20190730120937.16271-1-thomas.preston@codethink.co.uk>
- <20190730120937.16271-4-thomas.preston@codethink.co.uk>
- <20190730141935.GF4264@sirena.org.uk>
- <45156592-a90f-b4f8-4d30-9631c03f1280@codethink.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17DA4F800AB
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 17:58:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17DA4F800AB
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2019 08:58:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,327,1559545200"; d="scan'208";a="255645883"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
+ by orsmga001.jf.intel.com with ESMTP; 30 Jul 2019 08:58:11 -0700
+Received: from andy by smile with local (Exim 4.92)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1hsUVt-0005F7-JJ; Tue, 30 Jul 2019 18:58:09 +0300
+Date: Tue, 30 Jul 2019 18:58:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190730155809.GS23480@smile.fi.intel.com>
+References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
+ <20190725234032.21152-18-pierre-louis.bossart@linux.intel.com>
+ <45a912c5-134b-8642-70ef-8c1060389300@linux.intel.com>
+ <20190726190823.GD9224@smile.fi.intel.com>
+ <5a16d9e6-0a9c-a0a8-3b11-d046247f3879@linux.intel.com>
+ <20190730112157.GM23480@smile.fi.intel.com>
+ <a1b383b3-7846-3545-38a5-beece3e52849@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <45156592-a90f-b4f8-4d30-9631c03f1280@codethink.co.uk>
-X-Cookie: Times approximate.
+Content-Disposition: inline
+In-Reply-To: <a1b383b3-7846-3545-38a5-beece3e52849@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kirill Marinushkin <kmarinushkin@birdec.tech>,
- Liam Girdwood <lgirdwood@gmail.com>, Marco Felsch <m.felsch@pengutronix.de>,
- Annaliese McDermond <nh6z@nh6z.net>, Takashi Iwai <tiwai@suse.com>,
- Paul Cercueil <paul@crapouillou.net>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>, linux-kernel@vger.kernel.org,
- Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: Re: [alsa-devel] [PATCH v2 3/3] ASoC: TDA7802: Add turn-on
- diagnostic routine
+Cc: alsa-devel@alsa-project.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ tiwai@suse.de, gregkh@linuxfoundation.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 17/40] soundwire: bus: use
+ runtime_pm_get_sync/pm when enabled
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,66 +83,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3288033514692683783=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Jul 30, 2019 at 07:57:46AM -0500, Pierre-Louis Bossart wrote:
+> On 7/30/19 6:21 AM, Andy Shevchenko wrote:
+> > On Mon, Jul 29, 2019 at 05:07:39PM -0500, Pierre-Louis Bossart wrote:
+> > > On 7/26/19 2:08 PM, Andy Shevchenko wrote:
+> > > > On Fri, Jul 26, 2019 at 01:08:57PM -0500, Pierre-Louis Bossart wrote:
+> > 
+> > > > > -	if (ret < 0)
+> > > > > +	if (ret < 0 && ret != -EACCES)
+> > > > 
+> > > > ...and here, the pm_runtime_put_noidle() call is missed.
+> > > 
+> > > yes but in the example you provided, they actually do more work than just
+> > > decrement the device usage counter:
+> > 
+> > In their case they would like to do that. You decide what is appropriate call
+> > in your case.
+> > 
+> > My point is, that reference counter in case of error handling should be
+> > returned back to its value.
+> 
+> Agree on the reference count.
+> I am however not clear on the next step and 'what is appropriate'.
+> 
+> If pm_runtime_get_sync() failed, then technically the device was not resumed
 
---===============3288033514692683783==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DesjdUuHQDwS2t4N"
-Content-Disposition: inline
+Not so straight. It depends on reference count. It might be true (most cases
+I think), or not true, if device had been resumed previously by other call.
 
+> so marking it as last_busy+autosuspend, or using a plain vanilla put() will
+> not result in any action. I must be missing something here.
 
---DesjdUuHQDwS2t4N
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+put_noidle(). Because if it failed on the first call and was resumed, put()
+will try to shut it down (since reference count goes to no-user base).
 
-On Tue, Jul 30, 2019 at 04:25:56PM +0100, Thomas Preston wrote:
-> On 30/07/2019 15:19, Mark Brown wrote:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> > It is unclear what this mutex usefully protects, it only gets taken when
-> > writing to the debugfs file to trigger this diagnostic mode but doesn't
-> > do anything to control interactions with any other code path in the
-> > driver.
-
-> If another process reads the debugfs node "diagnostic" while the turn-on=
-=20
-> diagnostic mode is running, this mutex prevents the second process
-> restarting the diagnostics.
-
-> This is redundant if debugfs reads are atomic, but I don't think they are.
-
-Like I say it's not just debugfs though, there's the standard driver
-interface too.
-
---DesjdUuHQDwS2t4N
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1AZ0MACgkQJNaLcl1U
-h9A+KQgAgi4HkmsbIandzuTrFA6N2E9Zrc7WMisuFB9GE/OnLiU559yFfrABha81
-2AJ4vwv4WOwP6Cl48kFT7W90WgsJljB6F0d/SaiwvhNmwf2ifUVANo+tkNv8L2kn
-W/7p0/OQ1tuFhU9OI98e1YbqSI/TEcgQx3CEp0diUdcmv1C55X6cn1tjj5Mn0+hz
-Mf2IV9Q1KMJQBeHqm6PvdWjzxbnQ7iUEPQ6SoP6PwTjEvpWN/+Cv7q/wo1FCs1hb
-1nYLoWrVYhOaQyzAxxJ/S2bRl5TybnmgSJOpj1ZNMRcHdED93sk3GMNSqqAOD68L
-nQQV16tM/EvyPsbQE+AMJFrAKfZLdg==
-=H0id
------END PGP SIGNATURE-----
-
---DesjdUuHQDwS2t4N--
-
---===============3288033514692683783==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3288033514692683783==--

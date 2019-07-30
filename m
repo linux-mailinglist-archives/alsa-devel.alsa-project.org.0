@@ -2,81 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 975CD7B403
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 22:07:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6157B4B6
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 23:02:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16D7B179F;
-	Tue, 30 Jul 2019 22:06:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16D7B179F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B12117A2;
+	Tue, 30 Jul 2019 23:01:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B12117A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564517230;
-	bh=Ybefdgj2EG/3dNpYyXNlEIJTfo0T/eG0TTwFD7SOBzg=;
-	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1564520525;
+	bh=qfHTlU4me/NYu+T7E6UY79hCbvfMLqK939Pj+Qis5Fg=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gMkAf4pOqL1aeKXqf25rTOmd5rjHnDSlm1Jgi25S34mWujkn67cFlbfRYmNRPK6B/
-	 cFY58WbmK9TH2jkf99wMwtq3iJjMtVzF8lISMAtf0PXsUFbLxiKsZ3ry53uWKvZA5s
-	 qFfLw5k7uJyfGaRkvyxOE5YAcvrYCEFqXUkN9kmg=
+	b=M/e6+TEd91eI91A67FeWxrzUmpm6hp/xUQVe1FMZSxhvUBHdZwdBUL6/Z4rfNlmp1
+	 ywaNzmqSHVgQa4l8SGpptzvRDepLY3ivLOtUd0AnC1EUczQx7fZLwhz9PpiZ6QK7XQ
+	 w+M0JH3nW3pHKyOL/D2/1dttfzeJoQkmL9S7A1dg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5886EF804CC;
-	Tue, 30 Jul 2019 22:05:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D80B1F80482;
+	Tue, 30 Jul 2019 23:00:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56407F804CA; Tue, 30 Jul 2019 22:05:24 +0200 (CEST)
+ id 526CCF804CA; Tue, 30 Jul 2019 23:00:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
- DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,
+ T_HK_NAME_FM_MR_MRS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [IPv6:2a00:1450:4864:20::530])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B358F80214;
- Tue, 30 Jul 2019 22:05:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B358F80214
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD6DAF80214
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 23:00:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD6DAF80214
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="TYOfW49G"
-Received: by mail-wr1-x42a.google.com with SMTP id f9so67065058wre.12;
- Tue, 30 Jul 2019 13:05:10 -0700 (PDT)
+ header.b="FzaGBTaR"
+Received: by mail-ed1-x530.google.com with SMTP id r12so28950369edo.5
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 14:00:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=8fDLcl7hMABH4NEX+7Luwwr2IWzNS+YwBhJd3diPGOk=;
- b=TYOfW49GCxizV00V+hBjeGCw7PLPAsozugmlkJh/ZqIMxKJEhZLiMSPOleV5hrmBpr
- uOprxB+9PuB/oOIlRfF1WKeSp9Wep7lZCrSfjKFl+57g6wYghDcE1J1nhCDmGJ/787Yp
- uqnGyMtsWwo//M1fJLy/u2HV3RqJdp1+dpaPwnmNBR3ZwQeOCpZq0i3JyihdoQUMwF2v
- PJS+ElKEOnZIChHdoqe5dmgIpuSrJzucs52B3l60nJBUv+6fbBhz4Y+oNjoEfHdR5O4O
- uj+3a2Rh6XK9KkpW3uqpEIyGMIqSbhufh1PF+6+JeUs9mJYKm63AfPBM2gDmJZXJ2ifk
- X5PQ==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=7R8dBnh+VbEikw9nSrFym8R3/h56u0ityzfGrNf1mXY=;
+ b=FzaGBTaR9vvGkdQTU5rEdVPBhCnuHIlXQgHyCQzf7QJRJ/mcnlL8KslEdJXKTjMPKv
+ xyAm1QYlBq4cW1XDq2RXxhPgVMIMOFrt4ATCUW+RSWy4KMnvcyVFolTfWNha9QU/lbft
+ BcnnPQKE/p7chDrSDy4RagTHpzCLo9alCJjSUpgGdrLtn0qvG/guMnG/aSUM96QS90yM
+ BcMuSvL9EsS99197NH830MyA2FdA6OLh82vZq3FjEg0VIX7XAkjxG0x/X13sWbJ2zVi+
+ 6izDivPKvAlkGbz3zqH9aFLtTeLdoxLckvr5RzqHLq+az0wr2j6P4fR4qBiG0+n7v+1I
+ kv+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=8fDLcl7hMABH4NEX+7Luwwr2IWzNS+YwBhJd3diPGOk=;
- b=FngwM/RrhB/yX/KqKHeQz64gLNg+AIqfe6SECLl/d2DIdcF/xM2mRdbRy1i8pF9xof
- 7lAVbbb4iv47U8qSlwyQrZnL5WSyTOZm6Dg5dTtJHIXs081VZb7e5H8kZRcGfU5euixv
- j/UXLLEpPivRBgTVefo/HWl1AEgycTaLoeOrw8H7HlPNllSTapjMP8lx58ZTPcp315C5
- ztUtW9WPhMyl0RLIVvJk6zIqoNOO+NGSW/+WZI3UyS02zIwY81pU6K6tAJaYo/3VbKvL
- pORnsfQSBoa33WK3VSda1cnBeu/Mv028yj6VJX37O/UUOW/X2tT1jvmHDuhwsVsUnWo+
- sMOw==
-X-Gm-Message-State: APjAAAUu+cS30MdbULSHPrfXnTBC7ZTYY0fEL/CWl3T7xt8kIGicf044
- h6xqt1xw2+4byhn/8pfrB5WKiN9qXwFTwuONNb+qWuTd
-X-Google-Smtp-Source: APXvYqzOJoLhgbEnBtGZWcpRAwcnqeZGgKyD/mZT6uZACrm243D4IWBp294UmAlIEyvn30cAJVsRWtWVttZUd8rlKTQ=
-X-Received: by 2002:a5d:46cf:: with SMTP id g15mr133794427wrs.93.1564517109242; 
- Tue, 30 Jul 2019 13:05:09 -0700 (PDT)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=7R8dBnh+VbEikw9nSrFym8R3/h56u0ityzfGrNf1mXY=;
+ b=XZE4KLjZMLANIHRmKkqD4WrJnrQir30+HRfdIkLzLr7XNuYoCfOa0/V60E3be6QhvN
+ FbkgrxRKYbdoTVsFTRoqgmRV7kigCpvftqfX/m9MUBlNgx3HrJTYwIdgIOKjwuWxeSp2
+ eorwk4qUUrWNMo72vYtyjHzVzeW2/mQz4S4ZVAh+0TVSX/0jWlcdRfvuqg492a0vBjqI
+ ThNDscQs3ND/PwVzxIZmYwuoKKR5T2OHEnDb5V2dDjbqul0QYTrSG3uMoJU8BYQtuw8C
+ yy1l2zxpnLUkTcQTeA4n3qsRZEh7kj+QN78c0kGsOy3Oqx4/T+/vJ3iDYUDTRhvwZtDW
+ 2Iow==
+X-Gm-Message-State: APjAAAXWddDZ3R7F8TUIb1k7wBu9nvex3Qqe7GAdDACFdOtvSwb0b8b6
+ lu927hqaTwECle5Wz3cjS7XTFiuA5SfJAk6uUvo1EiVz
+X-Google-Smtp-Source: APXvYqzmPVk1UcgFKZSPoMIh3CCjuWcEwb/QJU9O8O1jevcdinRfojdtPtSs5/bKYonCIxDI04+oCMERNn9w5dB8Dxk=
+X-Received: by 2002:a50:8b9c:: with SMTP id m28mr105844158edm.53.1564520412475; 
+ Tue, 30 Jul 2019 14:00:12 -0700 (PDT)
 MIME-Version: 1.0
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Tue, 30 Jul 2019 23:04:58 +0300
-Message-ID: <CAEnQRZBPnmg6c762+CjXBmsW8=aVfL9iJJgV_7VRjgaNMf-Srw@mail.gmail.com>
-To: Linux-ALSA <alsa-devel@alsa-project.org>,
- sound-open-firmware@alsa-project.org
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>
-Subject: [alsa-devel] Audio miniconf + sof meeting at ELCE, Lyon
+From: Mr ARM <mrarmdev@gmail.com>
+Date: Tue, 30 Jul 2019 23:00:01 +0200
+Message-ID: <CAKSqxP9m2ObY94DumdYcnn2bOT0sj1=Lsow5i8sN1oZPQwZJqg@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] Handling a device which zeroes the memory on IO start
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,11 +90,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark, Pierre, Liam, Ranjani,
+Hello,
 
-Will you be in Lyon for ELCE this year? I'm very interested in participating
-to an (eventual) audio miniconf meeting. Maybe we can also do a separate
-SOF meeting if they are enough people interested.
+My issue involves a specific device quirk. The device generally uses a
+mmap'ed memory regions, however sending a StartIO command (from a trigger)
+causes a full buffer erase (which is completed once I get an initial
+UpdateTimestamp several milliseconds later), and it seems that alsa fills
+the DMA buffer before calling the start trigger. I'm unsure how to
+workaround this issue. I have seen the SNDRV_PCM_INFO_DOUBLE flag, however
+it didn't help me in my issue as from what I understand it's merely an
+information that the driver is using double buffering.
+
+One option is to make the start trigger method copy the buffer, send the
+StartIO command, then do a blocking-wait for initial timestamp and restore
+the buffer. I don't think I can get rid of the blocking wait here if I use
+this temporary-buffer-copy approach as I think that in the time before I
+get the timestamp update, a client could try to update the shared memory
+resulting in that data being lost after I restore the original contents
+later.
+Another idea I had is to do the same, but in the open callback, however
+that seems totally wrong.
+
+Any ideas are appreciated. I tried grepping for drivers using the
+SNDRV_PCM_INFO_DOUBLE flag, however I couldn't find any code workarounding
+similar issues.
+
+Thank you,
+Paul Pawlowski
+
+PS: I wrote an email yesterday to this mailing list from another email
+address, however I have received several SPF failures, so I switched to
+gmail. Regarding the previous mail, I have figured out the looping audio
+was caused by the lack of a snd_pcm_period_elapsed call. I have missed it
+because my device has no proper interrupt handler, and only sends a
+confusingly named UpdateTimestamp message once the buffer has been fully
+processed. I'm however still unsure as for what I should return from the
+_pointer function as the device does not provide a frame pointer.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

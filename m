@@ -2,71 +2,138 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DE097BC6D
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 10:59:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9018B7BD10
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 11:27:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC0B7170F;
-	Wed, 31 Jul 2019 10:58:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC0B7170F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E34B4170D;
+	Wed, 31 Jul 2019 11:26:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E34B4170D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564563587;
-	bh=7Yb1XH8UTE4w78MPfnOtnAXTioYWR+Mg6mvTgKfdtPk=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564565228;
+	bh=kyeJGth1cwG+PqyRPlCWDp1s11tqWkFw7MjVZJhrOY0=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GqCwSQmoFos6gbDIwXIi0DU6nRLEENBMaw0KEs/HNPEaKCQBQVmo+Ysd+H7UH5Tns
-	 iOoA/iXxAFGTf44BAfL8dBfuoAxrAPBM30/jFB2R0iX5HqAy8aJpCln6U3aeic/yID
-	 Kc5znb3VJP1qCIsOpSPUr8DT7hv/Zzcy4tBA6NMQ=
+	b=tLmuLw1E78ircIcaIP4mj3KFKqkB27Sb55A/jicR6HRxFZpS/s8sbu2E40Ei9bqQ8
+	 ttB0YJtW68GWsCPqJbpxhI5ln6DbeaWPsPHLTUlDIzp9Cc0rqIt6CmGwtfP7/8BoCT
+	 pNtqme0epgofOwgAsV8YH89A/E1wxNC10fUiwjp8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6279F8048E;
-	Wed, 31 Jul 2019 10:58:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2E05F8048F;
+	Wed, 31 Jul 2019 11:25:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13102F80483; Wed, 31 Jul 2019 10:57:48 +0200 (CEST)
+ id F19C3F804CA; Tue, 30 Jul 2019 19:43:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680099.outbound.protection.outlook.com [40.107.68.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3104BF80214
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 10:57:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3104BF80214
-Received: from [167.98.27.226] (helo=[10.35.6.253])
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1hskQ5-0003o4-QJ; Wed, 31 Jul 2019 09:57:13 +0100
-To: Marco Felsch <m.felsch@pengutronix.de>
-References: <20190730120937.16271-1-thomas.preston@codethink.co.uk>
- <20190730120937.16271-3-thomas.preston@codethink.co.uk>
- <20190730145844.GI4264@sirena.org.uk>
- <fe11c806-2285-558c-e35c-d8f61de00784@codethink.co.uk>
- <20190731060644.yrewu2kvrlootyyl@pengutronix.de>
-From: Thomas Preston <thomas.preston@codethink.co.uk>
-Message-ID: <820e2ea9-14a2-795c-9b78-e8f2a30afdb1@codethink.co.uk>
-Date: Wed, 31 Jul 2019 09:57:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20190731060644.yrewu2kvrlootyyl@pengutronix.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35EB6F80214
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 19:43:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35EB6F80214
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=wavecomp.com header.i=@wavecomp.com
+ header.b="i7SNH2Bm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NHKJ6MBBxAKF2whOmS5Bk+w3OAIwjjgysjlr6J1nJOVUseyb4tG85iGdf/0/Xq1fderjhEdjjcRgEgfKWY48KVrA593Y2nr3Ib0OQkkgwEloRIl3ukjGFRGgFxFNlAdfRLrLgES94xso8iDtqmJMCpeabckHya7EblYqjWwcGefS1oH/01ODc2Hh97AJDsMTeHGKOJ0A2zREuIVjc5t5AO4n/qxV9loso+thEoDcqoYQnL8KVmP8ihT+F49H4gQiqGnW7ipQtR/v9r9Gqbg4TczjBwEi+VopmlvhvO0JmkNol3ik4t7d4zToNGgAkVGArLjEaaoz8DqcqohU9vvnVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LeuDWkU/r6uI1NbxsCKBz6y/i7szA6zYECYktHMV9VE=;
+ b=LGSDOMsaddMIttFo5j3EHF8MTIyydjwGuFL7Cv3fCBXZEd4pxlYK+MgVtVJZGnn4radjSC7ZjSiW3uQTDXkPi92TebjCuBBz/Ohs+Lpw5+WZSXBulLhUpWvDm7WE75zXXlwUFL3Xfr/kZZmFJBZQuWa5XOQXDnSn4fV7pn2/ZOoliy/9C5VqCI5TVMVn8+ObIJEWP1X2ITijYN64152DTAhAG2JYDheIhVUOp4ln98vYnAci9+jWXZ02TT9XLl07u/TDY95atyRJv/w6Kuujsbxi/+K3Ua1qu8tCcDpyKggYZEx+pdK71kzeT7J6Srg26uM5ZqIbocDrS0oaHlqjzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=wavecomp.com;dmarc=pass action=none
+ header.from=mips.com;dkim=pass header.d=mips.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wavecomp.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LeuDWkU/r6uI1NbxsCKBz6y/i7szA6zYECYktHMV9VE=;
+ b=i7SNH2BmvkwNKet+lwUtURmZlSwqXCIdAZHVCKHrdDhRPt+/xdKsdYyPW7r1VTcH1DPJCc0V2O6BlkUaULPeyE1OnsieiS8jzeKE6eFBC2r2HbQVMDrAb7S0HyuZJTuD5t1gVQze/a92AUjC+qyt7XpERloQWlvSnusZCNgSgjI=
+Received: from MWHPR2201MB1277.namprd22.prod.outlook.com (10.172.60.12) by
+ MWHPR2201MB1088.namprd22.prod.outlook.com (10.174.169.150) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2115.15; Tue, 30 Jul 2019 17:43:39 +0000
+Received: from MWHPR2201MB1277.namprd22.prod.outlook.com
+ ([fe80::105a:1595:b6ef:cbdf]) by MWHPR2201MB1277.namprd22.prod.outlook.com
+ ([fe80::105a:1595:b6ef:cbdf%4]) with mapi id 15.20.2115.005; Tue, 30 Jul 2019
+ 17:43:39 +0000
+From: Paul Burton <paul.burton@mips.com>
+To: Paul Cercueil <paul@crapouillou.net>
+Thread-Topic: [PATCH 01/11] MIPS: DTS: jz4740: Add missing nodes
+Thread-Index: AQHVRv5SC/UNRQ0j0kSBIM7bj9GbPQ==
+Date: Tue, 30 Jul 2019 17:43:39 +0000
+Message-ID: <MWHPR2201MB127769D32FAA4944F9A791CDC1DC0@MWHPR2201MB1277.namprd22.prod.outlook.com>
+References: <20190725220215.460-2-paul@crapouillou.net>
+In-Reply-To: <20190725220215.460-2-paul@crapouillou.net>
+Accept-Language: en-US
 Content-Language: en-US
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kirill Marinushkin <kmarinushkin@birdec.tech>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Annaliese McDermond <nh6z@nh6z.net>,
- Takashi Iwai <tiwai@suse.com>, Paul Cercueil <paul@crapouillou.net>,
- Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Nate Case <ncase@tesla.com>, Rob Duncan <rduncan@tesla.com>,
- Cheng-Yi Chiang <cychiang@chromium.org>, Patrick Glaser <pglaser@tesla.com>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [alsa-devel] [PATCH v2 2/3] ASoC: Add codec driver for ST
-	TDA7802
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: BYAPR06CA0037.namprd06.prod.outlook.com
+ (2603:10b6:a03:14b::14) To MWHPR2201MB1277.namprd22.prod.outlook.com
+ (2603:10b6:301:18::12)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=pburton@wavecomp.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [12.94.197.246]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5ced0446-cc98-4527-5f3b-08d71515748d
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:MWHPR2201MB1088; 
+x-ms-traffictypediagnostic: MWHPR2201MB1088:
+x-microsoft-antispam-prvs: <MWHPR2201MB1088E78D70BEA742AA3314F8C1DC0@MWHPR2201MB1088.namprd22.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0114FF88F6
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(136003)(39850400004)(346002)(376002)(396003)(189003)(199004)(7736002)(6436002)(52536014)(386003)(486006)(74316002)(6116002)(446003)(9686003)(11346002)(305945005)(5660300002)(55016002)(99286004)(66446008)(66946007)(53936002)(64756008)(66556008)(66476007)(4326008)(6246003)(25786009)(3846002)(71200400001)(66066001)(71190400001)(7416002)(8676002)(6916009)(76176011)(81156014)(52116002)(54906003)(186003)(44832011)(229853002)(476003)(4744005)(8936002)(81166006)(68736007)(102836004)(7696005)(2906002)(6506007)(256004)(33656002)(316002)(478600001)(42882007)(26005)(14454004);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR2201MB1088;
+ H:MWHPR2201MB1277.namprd22.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: wavecomp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: M1ii7ytiPwEAhGxpkKFJMpHe2XzBeS7zQo8zdz0nU6lzNoPhTDPxi99uwN3zo6hj9Pf9bP6HmkFKqesN5qbGRkV62/cGIFXHZ4SMNRoknnIqBQpe/pVjzrWctk6h9ekEnNE52Ds9pOpaWUdLKtBEIxJcfHC/oednXE1SCLWfWbz9JEx20vINHkZxV6hZv4VEO1MtUWO3ZaVMpBydPQ5xY/118hYTVWBZNpZKiLitJ/Vqnoo/9aTIeLwkbT6Zf/h6qhINuXuVCBCLW9F2S5sZ8F+ZjwH4x49PPJ2FCQCRrwTg1v6WcWVx6jo4FwMVqksuvb2vWFBTKFvlVqiCkPpi8P8i/psIIiSVSUhaA8/yojZJhULM7BCQTS2saQsvSi3tPPo6GY9lGiVe4NPTjpQYrKaYJceIgyb4ahQghUs3/Z4=
+MIME-Version: 1.0
+X-OriginatorOrg: mips.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ced0446-cc98-4527-5f3b-08d71515748d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2019 17:43:39.3095 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 463607d3-1db3-40a0-8a29-970c56230104
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pburton@wavecomp.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR2201MB1088
+X-Mailman-Approved-At: Wed, 31 Jul 2019 11:19:39 +0200
+Cc: Mark Rutland <mark.rutland@arm.com>, Paul Burton <pburton@wavecomp.com>,
+ "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, James Hogan <jhogan@kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ Sebastian Reichel <sre@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ "od@zcrc.me" <od@zcrc.me>,
+ "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
+ Miquel Raynal <miquel.raynal@bootlin.com>, Lee Jones <lee.jones@linaro.org>,
+ Artur Rojek <contact@artur-rojek.eu>, Richard Weinberger <richard@nod.at>,
+ "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>,
+ "linux-mips@vger.kernel.org" <linux-mips@vger.kernel.org>,
+ Guenter Roeck <linux@roeck-us.net>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Jean Delvare <jdelvare@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Mark Brown <broonie@kernel.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Ralf Baechle <ralf@linux-mips.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH 01/11] MIPS: DTS: jz4740: Add missing nodes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,41 +151,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 31/07/2019 07:06, Marco Felsch wrote:
-> Hi Thomas,
-> 
-> again sorry for jumping in..
-> 
+Hello,
 
-Np!
-
-> On 19-07-30 18:26, Thomas Preston wrote:
->> On 30/07/2019 15:58, Mark Brown wrote:
->>> On Tue, Jul 30, 2019 at 01:09:36PM +0100, Thomas Preston wrote:
->>>> +	case SND_SOC_BIAS_STANDBY:
->>>> +		err = regulator_enable(tda7802->enable_reg);
->>>> +		if (err < 0) {
->>>> +			dev_err(component->dev, "Could not enable.\n");
->>>> +			return err;
->>>> +		}
->>>> +		dev_dbg(component->dev, "Regulator enabled\n");
->>>> +		msleep(ENABLE_DELAY_MS);
->>>
->>> Is this delay needed by the device or is it for the regulator to ramp?
->>> If it's for the regulator to ramp then the regulator should be doing it.
->>>
->>
->> According to the datasheet the device itself takes 10ms to rise from 0V
->> after PLLen is enabled. There are additional rise times but they are
->> negligible with default capacitor configuration (which we have).
->>
->> Good to know about the regulator rising configuration though. Thanks.
+Paul Cercueil wrote:
+> Add nodes for the MMC, AIC, ADC, CODEC, MUSB, LCD, memory,
+> and BCH controllers.
 > 
-> Isn't it the regulator we mentioned to not use that because it is a
-> GPIO?
-> 
+> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+> Tested-by: Artur Rojek <contact@artur-rojek.eu>
 
-Yeah it is - I intend to switch PLLen to gpio API.
+Applied to mips-next.
+
+Thanks,
+    Paul
+
+[ This message was auto-generated; if you believe anything is incorrect
+  then please email paul.burton@mips.com to report it. ]
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

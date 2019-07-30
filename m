@@ -2,74 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC93F7A6CF
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 13:23:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1CF07A6F9
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 13:31:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68FEB17DE;
-	Tue, 30 Jul 2019 13:23:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68FEB17DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 606FA17DC;
+	Tue, 30 Jul 2019 13:30:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606FA17DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564485835;
-	bh=d4sGhY+5pg2IDnfmVBrE6sO3D23ws2CUjXrIBhu5C84=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NjoZX/Je+vcPrvf4RE/NXsd4INZZOvGGLMn4Xoww7xfVzeXLmYO0ztvxu0pSCzUKG
-	 Xu2UtSaA5MCmIH3MVDYJ/pvE8ldszxg0r5SPnAis3CGmt/O6La4HIeu35/7eJdSW8Y
-	 e+eytYZ/ym7bekoiplqB3ptYLvZv8TdNuhkuRV+s=
+	s=default; t=1564486266;
+	bh=7juOt4Ueu3De8owHTG0VKmhKDJE1DBQXEFfOBEh8iLk=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=M0IyFjHGDKSEaB9dB3pAs7T4JaiBohGbNJUNZk9FAzZSz40PuNtw/onVCqgLJBJ3X
+	 X0PrS3Na3BN0Cx4ik8MsymqaOMiui4DP9TlGaFOMVfEWdTJv5mKT54d09O2MnrJevX
+	 37WZct3lH3yCpomT7fDpS442p/5HgdXu5BAbK0mc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC1E6F804CA;
-	Tue, 30 Jul 2019 13:22:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77D49F80482;
+	Tue, 30 Jul 2019 13:29:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88A0EF804CA; Tue, 30 Jul 2019 13:22:09 +0200 (CEST)
+ id CD787F804CA; Tue, 30 Jul 2019 13:29:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2E9BF800BF
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 13:22:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2E9BF800BF
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2019 04:22:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,326,1559545200"; d="scan'208";a="176745668"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.145])
- by orsmga006.jf.intel.com with ESMTP; 30 Jul 2019 04:21:59 -0700
-Received: from andy by smile with local (Exim 4.92)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1hsQCb-0002aG-NN; Tue, 30 Jul 2019 14:21:57 +0300
-Date: Tue, 30 Jul 2019 14:21:57 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190730112157.GM23480@smile.fi.intel.com>
-References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-18-pierre-louis.bossart@linux.intel.com>
- <45a912c5-134b-8642-70ef-8c1060389300@linux.intel.com>
- <20190726190823.GD9224@smile.fi.intel.com>
- <5a16d9e6-0a9c-a0a8-3b11-d046247f3879@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,
+ RCVD_IN_DNSWL_BLOCKED,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail3-165.sinamail.sina.com.cn (mail3-165.sinamail.sina.com.cn
+ [202.108.3.165]) by alsa1.perex.cz (Postfix) with SMTP id B177AF800BF
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 13:29:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B177AF800BF
+Received: from unknown (HELO localhost.localdomain)([222.131.77.31])
+ by sina.com with ESMTP
+ id 5D402A0300004B7E; Tue, 30 Jul 2019 19:29:09 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+X-SMAIL-MID: 21102245091830
+From: Hillf Danton <hdanton@sina.com>
+To: Takashi Iwai <tiwai@suse.de>
+Date: Tue, 30 Jul 2019 19:28:56 +0800
+Message-Id: <20190730112856.876-1-hdanton@sina.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5a16d9e6-0a9c-a0a8-3b11-d046247f3879@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-pm@vger.kernel.org, tiwai@suse.de,
- gregkh@linuxfoundation.org, "Rafael J. Wysocki" <rafael@kernel.org>,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 17/40] soundwire: bus: use
- runtime_pm_get_sync/pm when enabled
+Thread-Topic: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Fix gpf in
+ snd_usb_pipe_sanity_check
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+ "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+ "syzkaller-bugs@googlegroups.com" <syzkaller-bugs@googlegroups.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Andrey Konovalov <andreyknvl@google.com>,
+ syzbot <syzbot+d59c4387bfb6eced94e2@syzkaller.appspotmail.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Fix gpf in
+	snd_usb_pipe_sanity_check
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,28 +73,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jul 29, 2019 at 05:07:39PM -0500, Pierre-Louis Bossart wrote:
-> On 7/26/19 2:08 PM, Andy Shevchenko wrote:
-> > On Fri, Jul 26, 2019 at 01:08:57PM -0500, Pierre-Louis Bossart wrote:
 
-> > > -	if (ret < 0)
-> > > +	if (ret < 0 && ret != -EACCES)
-> > 
-> > ...and here, the pm_runtime_put_noidle() call is missed.
-> 
-> yes but in the example you provided, they actually do more work than just
-> decrement the device usage counter:
+On Tue, 30 Jul 2019 18:08:02 +0800 Takashi Iwai wrote:
+>
+> You don't have to copy the whole these texts at all.
+> In general, it'd suffice to point out the dashboard URL, and if the
+> stack trace is mandatory, drop the useless hex numbers and just show
+> the significant part of the stack trace.
+>
+I am used to give readers as much info as appropriate, and learning that
+an URL is enough in cases like this one. I will send you the pruned
+version next time.
 
-In their case they would like to do that. You decide what is appropriate call
-in your case.
+> > It was introduced in commit 801ebf1043ae for checking pipe and endpoint
+> > types. It is fixed by adding a check of the ep pointer in question.
+> >
+> > Reported-by: syzbot <syzbot+d59c4387bfb6eced94e2@syzkaller.appspotmail.com>
+> > Fixes: commit 801ebf1043ae ("ALSA: usb-audio: Sanity checks for each pipe and EP types")
+>
+> Drop "commit" word.
+>
+Yes, Sir.
 
-My point is, that reference counter in case of error handling should be
-returned back to its value.
+> > Cc: Andrey Konovalov <andreyknvl@google.com>
+> > Signed-off-by: Hillf Danton <dhanton@sina.com>
+> > ---
+There is a typo, s/dhanton/hdanton/, as you pointed out in another mail.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> > This is to make syzbot happy for now and in long run we can make
+> > snd_usb_pipe_sanity_check() available outside sound/usb by making
+> > usb_urb_ep_type_check() a wrapper of the former. We will revisit
+> > sound/usb once when things in the usb/core get in place.
+>
+> Actually I expected to apply the "long-term" fix now.
 
+There is change in usb/core included in that fix as you see, and
+according to the rule, one fix a patch, it is better and simpler
+IMO to fix the sound part first.
+
+> The same kind
+> of fix was already submitted from me (<s5hlfwn376e.wl-tiwai@suse.de>),
+> but I didn't merge it because working on the usb core helper would be
+> a saner solution.
+>
+Feel free to merge that, Sir.
+
+Thanks
+Hillf
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,69 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B9227ACCC
-	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 17:51:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8984E7ACEC
+	for <lists+alsa-devel@lfdr.de>; Tue, 30 Jul 2019 17:54:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2CAF17B7;
-	Tue, 30 Jul 2019 17:50:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2CAF17B7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F9C317C1;
+	Tue, 30 Jul 2019 17:53:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F9C317C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564501904;
-	bh=07vd4dXxphRG5OCCcpmY9fgXCVn2k+kbTe7P8gP+0fI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564502071;
+	bh=toibt24gplVmXPcwilg3Gj+2PeARiFmK0UV2jIgYXw4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=E23C/VvvTbmuH33UoXN8YaKzeOaDbc1ndIkB8XfphIqyLzn2LpjOg1AKtxaUfY7l7
-	 ohkgKRIyPk4ubqIr2eHY2s/GDHRz3ZDysu1TGHAMTMiWbFl8lOCmMsB6EryJpBesug
-	 57XM7nqRw2XIAiCvWitbDJ+LcqNMjPRhSu8Hv3jM=
+	b=jjFpY9yuQYiqh1GhiivdEJY9H5qxH0PodnPlZTGeXGJgWjSy3AdZab6wOX/9SnGHG
+	 XlH9KS+hmzjUfdnFXXnoOVf1RQxnY9QMA9ICtXYWMuy7/vXSETIybC/ZBZGUHH8S9Y
+	 JHwv+MqsQ9+QFcWCFQx5EDd3iGr1Ff29xsVoLxGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4585FF80482;
-	Tue, 30 Jul 2019 17:50:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52EEDF804CA;
+	Tue, 30 Jul 2019 17:52:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CEABF804CA; Tue, 30 Jul 2019 17:49:58 +0200 (CEST)
+ id 98221F804CA; Tue, 30 Jul 2019 17:52:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97283F80214
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 17:49:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97283F80214
-Received: from [167.98.27.226] (helo=[10.35.6.253])
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1hsUNZ-0001X8-C3; Tue, 30 Jul 2019 16:49:33 +0100
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46E06F80214
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 17:52:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46E06F80214
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="J1ZC52QI"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Satq2eEMXIbB0aB+E4vC0WoAtw8SMBMHI0WXpWtRuYs=; b=J1ZC52QIsMjMi5k2i2Fvr0+nV
+ AuizVSMIB5ohxsLuqMXvxPDnGN3s7Ru76VojFpPcd5fQqygq3HMaOXKDD0VEBrs7Btv2YSwqH73rL
+ 2gC9VPKgK6bIMpJY5oFm8wW8bzuPYLpVtZ+MBg74aqkS+Q2G++Vy42i1p1GAoxDhc9XAc=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hsUOT-0007rr-3R; Tue, 30 Jul 2019 15:50:29 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id E52FC2742CB5; Tue, 30 Jul 2019 16:50:27 +0100 (BST)
+Date: Tue, 30 Jul 2019 16:50:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Thomas Preston <thomas.preston@codethink.co.uk>
+Message-ID: <20190730155027.GJ4264@sirena.org.uk>
 References: <20190730120937.16271-1-thomas.preston@codethink.co.uk>
- <20190730120937.16271-3-thomas.preston@codethink.co.uk>
- <20190730123825.GG54126@ediswmail.ad.cirrus.com>
-From: Thomas Preston <thomas.preston@codethink.co.uk>
-Message-ID: <4285701d-ae61-208b-8f38-ac44e77ad9b5@codethink.co.uk>
-Date: Tue, 30 Jul 2019 16:49:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <20190730120937.16271-4-thomas.preston@codethink.co.uk>
+ <20190730141935.GF4264@sirena.org.uk>
+ <45156592-a90f-b4f8-4d30-9631c03f1280@codethink.co.uk>
 MIME-Version: 1.0
-In-Reply-To: <20190730123825.GG54126@ediswmail.ad.cirrus.com>
-Content-Language: en-US
+In-Reply-To: <45156592-a90f-b4f8-4d30-9631c03f1280@codethink.co.uk>
+X-Cookie: Times approximate.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Patrick Glaser <pglaser@tesla.com>,
+ alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Kirill Marinushkin <kmarinushkin@birdec.tech>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Marco Felsch <m.felsch@pengutronix.de>,
- Annaliese McDermond <nh6z@nh6z.net>, linux-kernel@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Marco Felsch <m.felsch@pengutronix.de>,
+ Annaliese McDermond <nh6z@nh6z.net>, Takashi Iwai <tiwai@suse.com>,
  Paul Cercueil <paul@crapouillou.net>, Vinod Koul <vkoul@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Rob Duncan <rduncan@tesla.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Nate Case <ncase@tesla.com>, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: Re: [alsa-devel] [PATCH v2 2/3] ASoC: Add codec driver for ST
-	TDA7802
+ Jerome Brunet <jbrunet@baylibre.com>, linux-kernel@vger.kernel.org,
+ Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: Re: [alsa-devel] [PATCH v2 3/3] ASoC: TDA7802: Add turn-on
+ diagnostic routine
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,143 +95,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3288033514692683783=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30/07/2019 13:38, Charles Keepax wrote:
-> On Tue, Jul 30, 2019 at 01:09:36PM +0100, Thomas Preston wrote:
->> Add an I2C based codec driver for ST TDA7802 amplifier. The amplifier
->> supports 4 audio channels but can support up to 16 with multiple
->> devices.
->>
->> Signed-off-by: Thomas Preston <thomas.preston@codethink.co.uk>
->> Cc: Patrick Glaser <pglaser@tesla.com>
->> Cc: Rob Duncan <rduncan@tesla.com>
->> Cc: Nate Case <ncase@tesla.com>
->> ---
->> Changes since v1:
->> - Use ALSA kcontrol interface to expose device controls to userland
->> 	- Gain
->> 	- Channel diagnostic mode
->> 	- Impedance efficiency optimiser. I decided against setting this
->> 	  as a DT property since it seems like something that can be
->> 	  changed on the fly.
->> - Add regmap default values
->> 	- Channel unmute by default is added in a downstream patch.
->> 	- I'm not sure if I should keep this since they're all zero,
->> 	  although there are other drivers will all-zero reg_defaults.
->> - I believe the "//" style is used for SPDX headers in normal C source files.
->>   https://lwn.net/Articles/739183/
->> - Drop the "enable" sysfs device attribute.
->> - Don't set TDM format using magic numbers.
->> - Set sample rate using hw_params.
->> - Remove unecessary defines.
->> - Use DAPM to handle AMP_ON.
->> - Cosmetic fixups
->>
->>  sound/soc/codecs/Kconfig   |   6 +
->>  sound/soc/codecs/Makefile  |   2 +
->>  sound/soc/codecs/tda7802.c | 509 +++++++++++++++++++++++++++++++++++++
->>  3 files changed, 517 insertions(+)
->>  create mode 100644 sound/soc/codecs/tda7802.c
->>
->> +++ b/sound/soc/codecs/tda7802.c
->> @@ -0,0 +1,509 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * tda7802.c  --  codec driver for ST TDA7802
->> + *
->> + * Copyright (C) 2016-2019 Tesla Motors, Inc.
->> + */
-> 
-> Better to make the whole comment // see something like
-> sound/soc/codecs/cs47l35.c for an example.
-> 
 
-I will update to "//" style. Is this a new standard? There aren't many
-comments like that in 4.14 (my target kernel) - I can see a lot more
-in 5.3.
+--===============3288033514692683783==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DesjdUuHQDwS2t4N"
+Content-Disposition: inline
 
-My intention was:
 
-1. Apply the SPDX rules to SPDX bit.     Documentation/process/license-rules.rst
-2. Use multi-line comments for the rest. Documentation/process/coding-style.rst
+--DesjdUuHQDwS2t4N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->> +static int tda7802_set_bias_level(struct snd_soc_component *component,
->> +		enum snd_soc_bias_level level)
->> +{
->> +	const struct tda7802_priv *tda7802 =
->> +		snd_soc_component_get_drvdata(component);
->> +	struct snd_soc_dapm_context *dapm_context =
->> +			snd_soc_component_get_dapm(component);
->> +	const enum snd_soc_bias_level oldlevel =
->> +		snd_soc_dapm_get_bias_level(dapm_context);
->> +	int err = 0;
->> +
->> +	dev_dbg(component->dev, "%s level %d\n", __func__, level);
->> +
->> +	switch (level) {
->> +	case SND_SOC_BIAS_ON:
->> +		break;
->> +	case SND_SOC_BIAS_PREPARE:
->> +		break;
->> +	case SND_SOC_BIAS_STANDBY:
->> +		err = regulator_enable(tda7802->enable_reg);
->> +		if (err < 0) {
->> +			dev_err(component->dev, "Could not enable.\n");
->> +			return err;
->> +		}
->> +		dev_dbg(component->dev, "Regulator enabled\n");
->> +		msleep(ENABLE_DELAY_MS);
->> +
->> +		if (oldlevel == SND_SOC_BIAS_OFF) {
->> +			dev_dbg(component->dev, "Syncing regcache\n");
->> +			err = regcache_sync(component->regmap);
->> +			if (err < 0)
->> +				dev_err(component->dev,
->> +					"Could not sync regcache, %d\n", err);
-> 
-> If your doing a regcache_sync I would probably have expected to
-> see calls to regcache_cache_only.
-> 
-> If the device needs syncing that implies the hardware registers
-> have lost state, so there is little point in writing to them
-> if they are unavailable/about to loose their state.
-> 
+On Tue, Jul 30, 2019 at 04:25:56PM +0100, Thomas Preston wrote:
+> On 30/07/2019 15:19, Mark Brown wrote:
 
-Ah, from the comments I thought I only needed to call regcache_mark_dirty...
+> > It is unclear what this mutex usefully protects, it only gets taken when
+> > writing to the debugfs file to trigger this diagnostic mode but doesn't
+> > do anything to control interactions with any other code path in the
+> > driver.
 
->> +		}
->> +		break;
->> +	case SND_SOC_BIAS_OFF:
->> +		regcache_mark_dirty(component->regmap);
->> +		err = regulator_disable(tda7802->enable_reg);
->> +		if (err < 0)
->> +			dev_err(component->dev, "Could not disable.\n");
->> +		break;
->> +	}
->> +
->> +	return err;
->> +}
+> If another process reads the debugfs node "diagnostic" while the turn-on=
+=20
+> diagnostic mode is running, this mutex prevents the second process
+> restarting the diagnostics.
 
-So I think the correct order is:
+> This is redundant if debugfs reads are atomic, but I don't think they are.
 
-device_off:
-	regcache_cache_only
-	power-off (enable)
-	regcache_mark_dirty
+Like I say it's not just debugfs though, there's the standard driver
+interface too.
 
-device_on:
-	power-on (enable)
-	regcache_sync
+--DesjdUuHQDwS2t4N
+Content-Type: application/pgp-signature; name="signature.asc"
 
-I will double-check the register state is actually lost too. Fiddling
-with the cache might be completely unnecessary.
+-----BEGIN PGP SIGNATURE-----
 
-Many thanks
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1AZ0MACgkQJNaLcl1U
+h9A+KQgAgi4HkmsbIandzuTrFA6N2E9Zrc7WMisuFB9GE/OnLiU559yFfrABha81
+2AJ4vwv4WOwP6Cl48kFT7W90WgsJljB6F0d/SaiwvhNmwf2ifUVANo+tkNv8L2kn
+W/7p0/OQ1tuFhU9OI98e1YbqSI/TEcgQx3CEp0diUdcmv1C55X6cn1tjj5Mn0+hz
+Mf2IV9Q1KMJQBeHqm6PvdWjzxbnQ7iUEPQ6SoP6PwTjEvpWN/+Cv7q/wo1FCs1hb
+1nYLoWrVYhOaQyzAxxJ/S2bRl5TybnmgSJOpj1ZNMRcHdED93sk3GMNSqqAOD68L
+nQQV16tM/EvyPsbQE+AMJFrAKfZLdg==
+=H0id
+-----END PGP SIGNATURE-----
+
+--DesjdUuHQDwS2t4N--
+
+--===============3288033514692683783==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3288033514692683783==--

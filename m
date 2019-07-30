@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6BD67BD39
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 11:32:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A5EF7BD3A
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 11:33:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 883C11718;
-	Wed, 31 Jul 2019 11:32:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 883C11718
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69384171C;
+	Wed, 31 Jul 2019 11:32:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69384171C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564565570;
-	bh=3Lf5qaGRL+z3RF1ieyJ7Ot7fhZSfvKSeZr5dVQv1P9o=;
+	s=default; t=1564565597;
+	bh=j1mP5ERFo9AjSHI5bGLGeN47DcHzfyNYWB7vIfLzDDQ=;
 	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ACQJfF4xneiKexFYtUNtTFsLsMUEdOulm67FsgzAxyKVtPDv7v1srvjrz9pgSeocn
-	 BUKupRelOqoxz2RQnp7GubWq7oty3s15vvZz1yd8nqLWUNE7/471rDfN9ptHkMb0Jv
-	 2WYVfrVgv1AD52aom6uvTSoJLFOq60JAkK8vgSJM=
+	b=JHbZRQradYFc8vcsO7rO/AXrdUpkMshDldqW4LTjeRd5x5B79IQDJHcBL+/ZC8AFx
+	 xE9Og+S2LXCjNrzRlo8cnMGv1O0hSwW1uEHY1Bg6zN253prHnfOCPW8PpZrkD6l7h0
+	 lYxNHwg+oWPd5ZivClafHzuGqr7KunewYj0q2w7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7BEC8F8060D;
-	Wed, 31 Jul 2019 11:27:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC0B7F80612;
+	Wed, 31 Jul 2019 11:27:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A8EBF804CB; Tue, 30 Jul 2019 19:44:12 +0200 (CEST)
+ id 2F34CF804CA; Tue, 30 Jul 2019 19:44:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,61 +35,61 @@ Received: from NAM01-BN3-obe.outbound.protection.outlook.com
  (mail-eopbgr740114.outbound.protection.outlook.com [40.107.74.114])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 85DC1F800BF
- for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 19:44:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 85DC1F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3833FF80214
+ for <alsa-devel@alsa-project.org>; Tue, 30 Jul 2019 19:44:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3833FF80214
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=wavecomp.com header.i=@wavecomp.com
- header.b="gSfqZmzr"
+ header.b="BzPoZ/02"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HeUL83uY2cKjOl3NkYrN6RbVuJte5rO5Gjr885SqQPtPNI8PY47LdWCCHk5HWcT1t7v2NoC361Z4p+ge9w4Qw0VdwMxJrxykjUKkMVPQPlkhYwVOsMrPoqoLMjfPhxy72OAFyaxsk9plu4Ns3XCWrrmq88lAkUfSaSE9alirZWeajT2ISRupKU1uLI9ulehfkICsu51W4bG8icAwi8ki263R/ejByLSlnEyrVVcIJ7qQ+UUwwvoyUhfj0IArMcAT33tPZDlGI6rdaLmYAEsvuEC3AH2EfBkSqaYLVS9y33IaHKT/4heJZlcxY4OLMCNuFYBtCy2/wt+aMM6H/7/w3A==
+ b=RviucMrb7bRqocz9LC2G3S2nCjFeI5timeG1WbsXgv8JQYIByI23RCIt8Vy9w26MeIFA72dXrQwhpo769lkuTHeCLX85nnVArDG0CyXJ6P/8ST+Dbv+VblcAIjHYPXmDa4NAwzdcASyEQ0H+YsH3WjDlucayzMfkrZytVzSWd0mtLGXJlaM1BoBj8J325rlUMrf+ON/4uQpL+ax0dYXCVXwIghi2Nsxl6JvfwWR2MNpUmJvXt8+eEI5amnhf0PpXzaXJQEmrI8d94RJy6xNLuXI0KKMivQwhhEGUcw8osmcoQGAceDbqVuWWk812Oy6ohXj17JGsKjTnF/Q3/9YwVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EKtMZLiX61rsSPR3a8n3h7CKnUDNrvbJhgxgvfxNi8M=;
- b=fMD2zw+DFnvR2CjPoCC4FKoVhpHWy/ZYpipEf9NImuLs9pAAN5XIOBzjIDUa1YjP0O9J6Q0bq8c3rnVRg+NZwjluvYgk2Dj11kLzrS5H0VYKoVp+QYBjgZ2aT/k1hbqTIXPkSHev3Xt8WD+fOBOre9CJ+Z/5QViPAVcgyygpQrIX1zWw6/n4zf2vZhnLGVKuClVC71ZnEltwytYiVdJ3wNXnCJp+g+0z+qYRN2UdskdS7Als//u95jJRgBuboumBvKY3d5XFji9YWP16dbogI5yIkONBrL3s3QMcDZWBQOOSSt65K1K5y+NpmbWmLvsuLFyM0cEuuIL8GQKMdiJTjg==
+ bh=iHTU9zmPJjPcJnHR862mpbpt9BLI9Xdp2TU5a+bK0pI=;
+ b=Bp4z5/kHhEkl4jrydVnCys4H6OD6OiUwh66WDdTX0hMzm+J9MDUQJ4E2DnWAnjLohcdQULIsih1rg8F9S7Vm/jOMboTXVNkZEJvC+2XbnTXiBQ/c+081onBdFdH+gypJTDW4TH7DRZxEqmeJWNKBAXzNBos3v/qEy1rYFbTWyQapLHmwX8oeju1IfGqN7z5Td5yegF8wfGdVMTcEODvo519c0y78J0+vR0Wc4kRfCjXhobV/ZmOdVw2lbel7d7rRePxYrmhyclAwPYum5Vzbrhl7Dbq5L+ze4UBvziixI87yiEfjgFlRqpwQQE52ZPlQtej6qpBVHmauk1JKC92hSw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
  smtp.mailfrom=wavecomp.com;dmarc=pass action=none
  header.from=mips.com;dkim=pass header.d=mips.com;arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wavecomp.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EKtMZLiX61rsSPR3a8n3h7CKnUDNrvbJhgxgvfxNi8M=;
- b=gSfqZmzrT6+5LwAARtAScFkUO0T2AVjUQAID3T/TwPeI7oRx+cVdJAQPS8eyLrmidYTOPhITY9X5TYzfk9cbV2r4jKJWh8DyDGbsDwDxb/003D0JGs6I3YniMdKaQstH4qpzTJT6QPX667TTjJvedIeUmMBxjbXDT3xR7Iadca0=
+ bh=iHTU9zmPJjPcJnHR862mpbpt9BLI9Xdp2TU5a+bK0pI=;
+ b=BzPoZ/02L8AJrkfU8gHUiE85GslDdMUAmYKV+jPykdzrWnj1DH1pxmTrZvv+0FnlusEegMfWPtLsva19r6PkiIYGTRYS/zkA9awQam9uFcZPhMEqPNI355Xp6WDR7A+J7ymu5O6GyPDCwXG8g47/6204v2mbh294tZeR3JxDxxQ=
 Received: from MWHPR2201MB1277.namprd22.prod.outlook.com (10.172.60.12) by
  MWHPR2201MB1023.namprd22.prod.outlook.com (10.174.167.24) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2115.14; Tue, 30 Jul 2019 17:44:05 +0000
+ 15.20.2115.14; Tue, 30 Jul 2019 17:44:09 +0000
 Received: from MWHPR2201MB1277.namprd22.prod.outlook.com
  ([fe80::105a:1595:b6ef:cbdf]) by MWHPR2201MB1277.namprd22.prod.outlook.com
  ([fe80::105a:1595:b6ef:cbdf%4]) with mapi id 15.20.2115.005; Tue, 30 Jul 2019
- 17:44:05 +0000
+ 17:44:09 +0000
 From: Paul Burton <paul.burton@mips.com>
 To: Paul Cercueil <paul@crapouillou.net>
-Thread-Topic: [PATCH 07/11] mtd: rawnand: Drop obsolete JZ4740 NAND driver
-Thread-Index: AQHVRv5h9r3wj70EEkOB7DWOPs35Gw==
-Date: Tue, 30 Jul 2019 17:44:04 +0000
-Message-ID: <MWHPR2201MB1277E2D645C30C7CEA5A846EC1DC0@MWHPR2201MB1277.namprd22.prod.outlook.com>
-References: <20190725220215.460-8-paul@crapouillou.net>
-In-Reply-To: <20190725220215.460-8-paul@crapouillou.net>
+Thread-Topic: [PATCH 08/11] power/supply: Drop obsolete JZ4740 driver
+Thread-Index: AQHVRv5k4TjTT1pcZU2LxKlcftx5bg==
+Date: Tue, 30 Jul 2019 17:44:09 +0000
+Message-ID: <MWHPR2201MB12771D2BA5082D6000D6C596C1DC0@MWHPR2201MB1277.namprd22.prod.outlook.com>
+References: <20190725220215.460-9-paul@crapouillou.net>
+In-Reply-To: <20190725220215.460-9-paul@crapouillou.net>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-clientproxiedby: BYAPR08CA0049.namprd08.prod.outlook.com
- (2603:10b6:a03:117::26) To MWHPR2201MB1277.namprd22.prod.outlook.com
+x-clientproxiedby: BYAPR11CA0076.namprd11.prod.outlook.com
+ (2603:10b6:a03:f4::17) To MWHPR2201MB1277.namprd22.prod.outlook.com
  (2603:10b6:301:18::12)
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=pburton@wavecomp.com; 
 x-ms-exchange-messagesentrepresentingtype: 1
 x-originating-ip: [12.94.197.246]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1f625bf2-d073-4d75-d470-08d7151583d5
+x-ms-office365-filtering-correlation-id: e951fb2d-2cdf-4873-3c89-08d715158688
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
  SRVR:MWHPR2201MB1023; 
 x-ms-traffictypediagnostic: MWHPR2201MB1023:
-x-microsoft-antispam-prvs: <MWHPR2201MB10237907F05B87D88A688A23C1DC0@MWHPR2201MB1023.namprd22.prod.outlook.com>
+x-microsoft-antispam-prvs: <MWHPR2201MB10233100C59115D7E87A6317C1DC0@MWHPR2201MB1023.namprd22.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:4303;
 x-forefront-prvs: 0114FF88F6
 x-forefront-antispam-report: SFV:NSPM;
@@ -100,17 +100,17 @@ x-forefront-antispam-report: SFV:NSPM;
 received-spf: None (protection.outlook.com: wavecomp.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 6XrNosekRRzGfoVax4ENM4vUlnQL+fJzqeKYNGrJrM1pn0uon/Ej9thTf2TBroyVFRR24B3V52alrPfgRUkBK8FqIxrHql1wGgQp2htiagIjA0aA4LYdSM9ZCPC6SPkKGLhtQBZp7dTbX1sFLHJoNodQ3k4DAVnHMHg273jKP45EV1UcZFmnMv5FFCOWDx8HjPaGv6xmYyC7VMHuUFSK+EDbtrbqTSV4PIOHNviQWx3ix8ZG0aMptzN9/w4nJzCkC5KZ/uDorkAKnC3/DoMsNHCenjJEu1s1S1qk60BYGcdfRok8CqGNoVrYVzwi3bW7v8exaslEeYqDqBMSTFa2ho37kZjOoHR/r1xmpGcjoqq7GjxjsKnHvftHZ90yVE/4bYQEy01z4ijDytPJaiViLblqYq/dnDeZZqUuGDvI64c=
+x-microsoft-antispam-message-info: ZKTtr5jL2TH0M3itAqGi58WW3r+lZ85Szm/ou+rqDdV2Qs9TtFtD361F9feNUZN/DOXkLYSlBQjIDvuYH/E8A/ka5Nhs7wfDjrCxHyXrQ1cMUJfwiN5AgzGCA91TK0rK08igGIOyr3bSeT3119NVJZvwzjBhwtvgRoyFVpzfexUEmW/zAlTLWKz4wYgVSWMWJtBO2ZHiUcI6rtJn5yWANR0BPAg7rXa+7jUemlP9LzdZbmnX/zCAq52q/aDiIdQwldkMBG6dZ/v/nZ/pM+Qyzh91/FWnB91upVKryInbGTmuHZ/rfbvrc4rqerQZE1XWg9t6xvtFmx8gLrtaLvE+LMmu5CBYOPojMiVLtGAAKkZFzw/Wni3elLTBQRd9W4Y158pF76T/tLggbLS9Hzt46NcBcgXT3hvivYrsLWkykMg=
 MIME-Version: 1.0
 X-OriginatorOrg: mips.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f625bf2-d073-4d75-d470-08d7151583d5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2019 17:44:04.9091 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e951fb2d-2cdf-4873-3c89-08d715158688
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2019 17:44:09.4758 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 463607d3-1db3-40a0-8a29-970c56230104
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: pburton@wavecomp.com
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR2201MB1023
-X-Mailman-Approved-At: Wed, 31 Jul 2019 11:19:40 +0200
+X-Mailman-Approved-At: Wed, 31 Jul 2019 11:19:41 +0200
 Cc: Mark Rutland <mark.rutland@arm.com>, Paul Burton <pburton@wavecomp.com>,
  "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, James Hogan <jhogan@kernel.org>,
@@ -133,8 +133,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, Paul Burton <pburton@wavecomp.com>,
  Ralf Baechle <ralf@linux-mips.org>, Vinod Koul <vkoul@kernel.org>,
  Rob Herring <robh+dt@kernel.org>,
  "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH 07/11] mtd: rawnand: Drop obsolete JZ4740
-	NAND driver
+Subject: Re: [alsa-devel] [PATCH 08/11] power/supply: Drop obsolete JZ4740
+	driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -155,11 +155,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 Hello,
 
 Paul Cercueil wrote:
-> It has been replaced with the newer Ingenic NAND driver.
+> It has been replaced with the more mature ingenic-battery driver.
 > 
 > Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 > Tested-by: Artur Rojek <contact@artur-rojek.eu>
-> Acked-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> Acked-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
 Applied to mips-next.
 

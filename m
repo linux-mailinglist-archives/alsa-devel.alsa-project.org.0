@@ -2,92 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C7DA7BF31
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 13:23:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5CD67BFD7
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 13:32:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A900D16FF;
-	Wed, 31 Jul 2019 13:22:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A900D16FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 431BE171D;
+	Wed, 31 Jul 2019 13:31:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 431BE171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564572197;
-	bh=xxtT8+3MF/jSep8PQ2JnT5yQZpiL6jpXcCVAFF2gtfQ=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=s1fW8bu2K4PFiWb1bnlAwSHCLvmis76EzWIy8qHdVd/lcKoufZeK6V8gm7v7G7HW/
-	 3lx5JUNQQxerFtExP4vwt550uA9zx6osJOM4TlXb97dm+qSijPNsms7eVYfPPeaATe
-	 ekcS8KHSsSwGN9JWTx3MjxP44YoLldKTjgzHqzD4=
+	s=default; t=1564572750;
+	bh=La0IX/HYPwRLEPbM927BAeJ/z98dyBPxTBBzhDkhpZg=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=r4KJrRTmxdsfC/t6u7vtEIaLMRJFAOQ37XuDbXduqv3Y7T9pb3MswIJmhji5sliPf
+	 /nGMWVaNhhac7OHeI5sPHuKR+9oNCTWLWfmZAWn265MMo1QHznxwUIBiI5zm6CJ7cF
+	 N1xU0wRIXqBq20L43VHUYsgSvz0nxmHbj0I5lYlE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D50DF80528;
-	Wed, 31 Jul 2019 13:20:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5DD6BF8048E;
+	Wed, 31 Jul 2019 13:30:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEE75F80483; Wed, 31 Jul 2019 13:19:51 +0200 (CEST)
+ id D236EF805A8; Wed, 31 Jul 2019 13:29:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D357BF80214
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:19:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D357BF80214
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0220FF80214
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0220FF80214
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="siwyzn1h"
-Received: by mail-wr1-x444.google.com with SMTP id x4so16083697wrt.6
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 04:19:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=249Tk7pJLhkH6dKEkJPPjfgArbiJqypC5jRcZzcgcv4=;
- b=siwyzn1hd+ANkqVt2/KMyUOMusnyUtFRj/sVQ2MzgddSDf/s9FP10LSZD5No+bxt7j
- 6A6lI9eyUHF0FNxkrBbCYKsmMTTK0ZTURSLpS+dHyU9/3mFaXX0qCIqNAN2MOZS586lB
- Fc9Y6u57f1a7x1T8ODnRlsogjWsw/dP/mRDxRvuShoVICg6sMShCHc/3dHicvMGEYXvR
- g7wC6LGtuoI5mmYhCbRRG7ghIZdP0GLxpFF0WpAiOe7fJV8G/cVXGNtcO9f880pLcTnN
- f9Aguiu8TTNgYdSkioKoRh09PzIzWtO1rNd6A4Burj0PWTEsyU4cNMdQH8ggkijIO6G0
- ceAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=249Tk7pJLhkH6dKEkJPPjfgArbiJqypC5jRcZzcgcv4=;
- b=lffiELqar0aUvDxpIGsWiSdlg3icGhvoWY9/JOaPEo+nurM6wLw7adecidNg2wo+Dz
- ryBuVLmm5MNWYTdi9is4RE4AmtwCIzpRwEBoz7lVVahD08IhA6FxVVUpbNWkZVUxA5pZ
- dNtoxt+VzqDPvqf5Y1owE5C/J7JR29poDuGeaoU1kEZUbv+IE/umIKPXfD9hLxFX6FmQ
- xcPD2WJ1B595q7iYib7Rk8gXJtoCSAc30bfcHKN/5+vgWqamF5WvoeSKuVICc5DrJjll
- ReSdxcj+22X0nz3m1eyrQS0MdA58WyL/RgX0d7+Hp+U5Q22/h6DeQMndqSgFa+VffeAY
- YgPA==
-X-Gm-Message-State: APjAAAVqd4f6VY94CBk6/hN2enqUFVulM6yx7my2Cb6iAsZK7rdbqcgP
- WHfK7tSOi/8A5TzsbSkmaiI=
-X-Google-Smtp-Source: APXvYqwZcDJk/YfJ8qxOLYiLjYl2vIfbhOAIwxf+wLhU1k2gxzwk63JhT2KvzW2jwNVGuFOt1vU4dQ==
-X-Received: by 2002:adf:fe4f:: with SMTP id m15mr59063488wrs.36.1564571987783; 
- Wed, 31 Jul 2019 04:19:47 -0700 (PDT)
-Received: from localhost.localdomain ([212.146.100.6])
- by smtp.gmail.com with ESMTPSA id b8sm88035205wmh.46.2019.07.31.04.19.45
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 31 Jul 2019 04:19:47 -0700 (PDT)
-From: Andra Danciu <andradanciu1997@gmail.com>
-To: broonie@kernel.org
-Date: Wed, 31 Jul 2019 14:19:30 +0300
-Message-Id: <20190731111930.20230-3-andradanciu1997@gmail.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20190731111930.20230-1-andradanciu1997@gmail.com>
-References: <20190731111930.20230-1-andradanciu1997@gmail.com>
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="vnOIez94"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=O2ja2OAzjmAC/V30ouL2p8aRfGo68j1FN0+acZgqLhM=; b=vnOIez9494UL
+ UvHu0YwbH56mb7AbjpaXo19mK1cXUBcg09WZ2lhXZffvcyhvVIYDjrv2uQ/Uo2Yu4DIw5BVkEgQag
+ mn5CKXQpWh3pxUq6JRP15LuNp2pw2AbqAhIt2nXv448dMzfgFOAckCdbe+xdpcL+PhubCm47DmQT1
+ 9Eu3g=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hsmna-0001kr-F3; Wed, 31 Jul 2019 11:29:38 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id F03582742C99; Wed, 31 Jul 2019 12:29:37 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Andra Danciu <andradanciu1997@gmail.com>
+In-Reply-To: <20190731111930.20230-3-andradanciu1997@gmail.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190731112937.F03582742C99@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:37 +0100 (BST)
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- daniel.baluta@nxp.com, kmarinushkin@birdec.tech, m.felsch@pengutronix.de,
- piotrs@opensource.cirrus.com, tiwai@suse.com, nh6z@nh6z.net,
- lgirdwood@gmail.com, paul@crapouillou.net, vkoul@kernel.org,
- robh+dt@kernel.org, srinivas.kandagatla@linaro.org, anders.roxell@linaro.org,
- rf@opensource.wolfsonmicro.com, linux-kernel@vger.kernel.org,
+ kmarinushkin@birdec.tech, m.felsch@pengutronix.de,
+ rf@opensource.wolfsonmicro.com, piotrs@opensource.cirrus.com,
+ lgirdwood@gmail.com, nh6z@nh6z.net, linux-kernel@vger.kernel.org,
+ paul@crapouillou.net, robh+dt@kernel.org, vkoul@kernel.org,
+ Mark Brown <broonie@kernel.org>, srinivas.kandagatla@linaro.org,
+ anders.roxell@linaro.org, tiwai@suse.com, daniel.baluta@nxp.com,
  jbrunet@baylibre.com
-Subject: [alsa-devel] [PATCH 2/2] ASoC: codecs: Add uda1334 codec driver
+Subject: [alsa-devel] Applied "ASoC: codecs: Add uda1334 codec driver" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,6 +93,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
+
+   ASoC: codecs: Add uda1334 codec driver
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From caa918ef14065b812737f3ee4ac349dcfff196e6 Mon Sep 17 00:00:00 2001
+From: Andra Danciu <andradanciu1997@gmail.com>
+Date: Wed, 31 Jul 2019 14:19:30 +0300
+Subject: [PATCH] ASoC: codecs: Add uda1334 codec driver
+
 The UDA1334BTS supports the I2S-bus data format with word lengths of up
 to 24 bits serial data format and has basic features such as de-emphasis
 (at 44.1 kHz sampling rate) and mute.
@@ -115,10 +134,12 @@ https://www.nxp.com/docs/en/data-sheet/UDA1334BTS.pdf
 
 Cc: Daniel Baluta <daniel.baluta@nxp.com>
 Signed-off-by: Andra Danciu <andradanciu1997@gmail.com>
+Link: https://lore.kernel.org/r/20190731111930.20230-3-andradanciu1997@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
  sound/soc/codecs/Kconfig   |   9 ++
  sound/soc/codecs/Makefile  |   2 +
- sound/soc/codecs/uda1334.c | 295 +++++++++++++++++++++++++++++++++++++++++++++
+ sound/soc/codecs/uda1334.c | 295 +++++++++++++++++++++++++++++++++++++
  3 files changed, 306 insertions(+)
  create mode 100644 sound/soc/codecs/uda1334.c
 
@@ -471,7 +492,7 @@ index 000000000000..21ab8c5487ba
 +MODULE_ALIAS("platform:uda1334-codec");
 +MODULE_LICENSE("GPL v2");
 -- 
-2.11.0
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

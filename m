@@ -2,62 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A08A7BAED
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 09:48:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B507BB26
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 10:06:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0441A16C5;
-	Wed, 31 Jul 2019 09:47:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0441A16C5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B9B61717;
+	Wed, 31 Jul 2019 10:05:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B9B61717
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564559304;
-	bh=u2yOQRLVCcLm+S41MCDId+asv7fH7RI3aTQPmVY57eA=;
-	h=Date:From:To:References:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=N18IhdLfCXjo4zgOEwjRrRltda9We/M5Bk0sdwgFdM/Tbt1+JT+9yvYlW5rDEG5pM
-	 aARqGpuIhH8UHW4nMev597N8QuI4jhWj7h9lxgU94Qm22QJqDs5TGhxEfxGTbwSIq6
-	 pqthsS5Ec0EIS7n0+eIBimrm0VkFv8vlQbuTc0l4=
+	s=default; t=1564560393;
+	bh=I9dGLbccxwNwb6UGIyNsSWfFO6ePt+My32vWttPcHQI=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ss3hZqJO1Xg6E6S4BPjSnvlNLpoTgAh9uQ4HFYnb54kghDVD6BnTocApT3WlkvVNB
+	 hOZFVrVB6afRfLgT+bzQaTGR75aJ9eEwKcYGYBodIuyTUX77lYvUGHuQNc46DrAqlJ
+	 65PNLipgq8pZMzdp8AiseoLe3xo/nABzhOlsGv70=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B235AF8048D;
-	Wed, 31 Jul 2019 09:46:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9416EF80440;
+	Wed, 31 Jul 2019 10:04:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7132AF80483; Wed, 31 Jul 2019 09:46:36 +0200 (CEST)
+ id B87D0F80483; Wed, 31 Jul 2019 10:03:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-sz.amlogic.com (mail-sz.amlogic.com [211.162.65.117])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C5487F800C0
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 09:46:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5487F800C0
-Received: from SZ-17300-470L (10.28.39.217) by mail-sz.amlogic.com
- (10.28.11.5) with Microsoft SMTP Server id 15.1.1591.10; Wed, 31 Jul 2019
- 15:47:04 +0800
-Date: Wed, 31 Jul 2019 15:47:04 +0800
-From: "chunguo.feng@amlogic.com" <chunguo.feng@amlogic.com>
-To: "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-References: <20190731054003.16076-1-chunguo.feng@amlogic.com>
-X-Priority: 3
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.11.303[cn]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60C22F80133
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 10:03:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60C22F80133
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="CeLUn4vb"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x6V80Yw8014879; Wed, 31 Jul 2019 03:03:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=iQoo/3Gx2EEiQL/F/oE5WOjxkza6YDCbYqBVhCONHIo=;
+ b=CeLUn4vbGznXh0XIvlePWeW6sr0yWHp+5oKz98Y1JvpBACVGENhJyWux5WQiDU5O9d2e
+ TqspA7VHmxeN7gilJ2OQXKLHDGbHXtZMkAcn2p71NfPLSWNDC0zK/OZk/0pTo8CnkwU0
+ 2FHlgnhTeUBUEyyG6YZFcDFuegBh2rtthbczBtuXmP904LriQzKngwSNEn+2ffnfhpJZ
+ 5ltD68RzypoB2qAaIMNsSy71GmNzFt4TiXTRYIgP25VZgvWjvOBcGeTBk4q4XQc9Ac2L
+ TNbUEZonQVIWfenh21kAH+owpGF4WrtCP0fqxduHAKMssuE2UtLAniqcSnUWZJgDwI1p Zg== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2u0k1qww6p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 31 Jul 2019 03:03:33 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 31 Jul
+ 2019 09:03:31 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Wed, 31 Jul 2019 09:03:31 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 942FE45;
+ Wed, 31 Jul 2019 09:03:31 +0100 (BST)
+Date: Wed, 31 Jul 2019 09:03:31 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Thomas Preston <thomas.preston@codethink.co.uk>
+Message-ID: <20190731080331.GJ54126@ediswmail.ad.cirrus.com>
+References: <20190730120937.16271-1-thomas.preston@codethink.co.uk>
+ <20190730120937.16271-4-thomas.preston@codethink.co.uk>
+ <20190730141935.GF4264@sirena.org.uk>
+ <45156592-a90f-b4f8-4d30-9631c03f1280@codethink.co.uk>
+ <20190730155027.GJ4264@sirena.org.uk>
+ <9b47a360-3b62-b968-b8d5-8639dc4b468d@codethink.co.uk>
 MIME-Version: 1.0
-Message-ID: <201907311547038935373@amlogic.com>
-X-Originating-IP: [10.28.39.217]
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "RyanS.Lee@maximintegrated.com" <RyanS.Lee@maximintegrated.com>,
- "grundler@chromium.org" <grundler@chromium.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "tiwai@suse.com" <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>,
- "bleung@chromium.org" <bleung@chromium.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: max98383: add 88200 and 96000
-	sampling rate support
+Content-Disposition: inline
+In-Reply-To: <9b47a360-3b62-b968-b8d5-8639dc4b468d@codethink.co.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ suspectscore=0
+ mlxlogscore=999 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ clxscore=1015 phishscore=0 adultscore=0 mlxscore=0 spamscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1906280000
+ definitions=main-1907310085
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kirill Marinushkin <kmarinushkin@birdec.tech>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Annaliese McDermond <nh6z@nh6z.net>, Marco Felsch <m.felsch@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh+dt@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [alsa-devel] [PATCH v2 3/3] ASoC: TDA7802: Add turn-on
+ diagnostic routine
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,52 +116,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgQWxs77yMDQoNClBsZWFzZSBraW5kbHkgd2FpdmVyIHRoaXMgcGF0Y2gsIGJlY2F1c2UgbWF4
-OTgzODMgd2FzIHdyaXRlZCBpbmNvcnJlY3Rsee+8jCBpdCBzaG91bGQgYmUgbWF4OTgzNzMuDQoN
-CkkgaGF2ZSBtb2RpZmllZCBpdCwgdGhlbiBzdWJtaXQgbmV3IHBhdGNoIGFnYWluLg0KDQpUaGFu
-a3MsDQoNCkJScywNCkdhcnkuDQogDQogDQpGcm9tOiBjaHVuZ3VvIGZlbmcNCkRhdGU6IDIwMTkt
-MDctMzEgMTM6NDANClRvOiBsZ2lyZHdvb2RAZ21haWwuY29tDQpDQzogYnJvb25pZUBrZXJuZWwu
-b3JnOyBwZXJleEBwZXJleC5jejsgdGl3YWlAc3VzZS5jb207IFJ5YW5TLkxlZUBtYXhpbWludGVn
-cmF0ZWQuY29tOyBibGV1bmdAY2hyb21pdW0ub3JnOyBwaWVycmUtbG91aXMuYm9zc2FydEBsaW51
-eC5pbnRlbC5jb207IGdydW5kbGVyQGNocm9taXVtLm9yZzsgYWxzYS1kZXZlbEBhbHNhLXByb2pl
-Y3Qub3JnOyBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnOyBjaHVuZ3VvLmZlbmdAYW1sb2dp
-Yy5jb20NClN1YmplY3Q6IFtQQVRDSF0gQVNvQzogbWF4OTgzODM6IGFkZCA4ODIwMCBhbmQgOTYw
-MDAgc2FtcGxpbmcgcmF0ZSBzdXBwb3J0DQpGcm9tOiBmZW5nY2h1bmd1byA8Y2h1bmd1by5mZW5n
-QGFtbG9naWMuY29tPg0KIA0KODgyMDAgYW5kIDk2MDAwIHNhbXBsaW5nIHJhdGUgd2FzIG5vdCBl
-bmFibGVkIG9uIGRyaXZlciwgc28gY2FuJ3QgYmUgcGxheWVkLg0KIA0KVGhlIGVycm9yIGluZm9y
-bWF0aW9uOg0KbWF4OTgzNzMgMy0wMDMx77yacmF0ZSA5NjAwMCBub3Qgc3VwcG9ydGVkDQptYXg5
-ODM3MyAzLTAwMzHvvJpBU29DOiBjYW4ndCBzZXQgbWF4OTgzNzMtYWlmMSBodyBwYXJhbXM6IC0y
-Mg0KIA0KU2lnbmVkLW9mZi1ieTogZmVuZ2NodW5ndW8gPGNodW5ndW8uZmVuZ0BhbWxvZ2ljLmNv
-bT4NCi0tLQ0Kc291bmQvc29jL2NvZGVjcy9tYXg5ODM3My5jIHwgNiArKysrKysNCnNvdW5kL3Nv
-Yy9jb2RlY3MvbWF4OTgzNzMuaCB8IDIgKysNCjIgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25z
-KCspDQptb2RlIGNoYW5nZSAxMDA2NDQgPT4gMTAwNzU1IHNvdW5kL3NvYy9jb2RlY3MvbWF4OTgz
-NzMuYw0KbW9kZSBjaGFuZ2UgMTAwNjQ0ID0+IDEwMDc1NSBzb3VuZC9zb2MvY29kZWNzL21heDk4
-MzczLmgNCiANCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL21heDk4MzczLmMgYi9zb3Vu
-ZC9zb2MvY29kZWNzL21heDk4MzczLmMNCm9sZCBtb2RlIDEwMDY0NA0KbmV3IG1vZGUgMTAwNzU1
-DQppbmRleCA1Mjg2OTVjZDZhMWMuLjhjNjAxYTNlYmMyNw0KLS0tIGEvc291bmQvc29jL2NvZGVj
-cy9tYXg5ODM3My5jDQorKysgYi9zb3VuZC9zb2MvY29kZWNzL21heDk4MzczLmMNCkBAIC0yNjcs
-NiArMjY3LDEyIEBAIHN0YXRpYyBpbnQgbWF4OTgzNzNfZGFpX2h3X3BhcmFtcyhzdHJ1Y3Qgc25k
-X3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwNCmNhc2UgNDgwMDA6DQpzYW1wbGluZ19yYXRlID0g
-TUFYOTgzNzNfUENNX1NSX1NFVDFfU1JfNDgwMDA7DQpicmVhazsNCisgY2FzZSA4ODIwMDoNCisg
-c2FtcGxpbmdfcmF0ZSA9IE1BWDk4MzczX1BDTV9TUl9TRVQxX1NSXzg4MjAwOw0KKyBicmVhazsN
-CisgY2FzZSA5NjAwMDoNCisgc2FtcGxpbmdfcmF0ZSA9IE1BWDk4MzczX1BDTV9TUl9TRVQxX1NS
-Xzk2MDAwOw0KKyBicmVhazsNCmRlZmF1bHQ6DQpkZXZfZXJyKGNvbXBvbmVudC0+ZGV2LCAicmF0
-ZSAlZCBub3Qgc3VwcG9ydGVkXG4iLA0KcGFyYW1zX3JhdGUocGFyYW1zKSk7DQpkaWZmIC0tZ2l0
-IGEvc291bmQvc29jL2NvZGVjcy9tYXg5ODM3My5oIGIvc291bmQvc29jL2NvZGVjcy9tYXg5ODM3
-My5oDQpvbGQgbW9kZSAxMDA2NDQNCm5ldyBtb2RlIDEwMDc1NQ0KaW5kZXggZjZhMzdhYTAyZjI2
-Li5hNTllNTEzNTVhODQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvbWF4OTgzNzMuaA0KKysrIGIv
-c291bmQvc29jL2NvZGVjcy9tYXg5ODM3My5oDQpAQCAtMTMwLDYgKzEzMCw4IEBADQojZGVmaW5l
-IE1BWDk4MzczX1BDTV9TUl9TRVQxX1NSXzMyMDAwICgweDYgPDwgMCkNCiNkZWZpbmUgTUFYOTgz
-NzNfUENNX1NSX1NFVDFfU1JfNDQxMDAgKDB4NyA8PCAwKQ0KI2RlZmluZSBNQVg5ODM3M19QQ01f
-U1JfU0VUMV9TUl80ODAwMCAoMHg4IDw8IDApDQorI2RlZmluZSBNQVg5ODM3M19QQ01fU1JfU0VU
-MV9TUl84ODIwMCAoMHg5IDw8IDApDQorI2RlZmluZSBNQVg5ODM3M19QQ01fU1JfU0VUMV9TUl85
-NjAwMCAoMHhBIDw8IDApDQovKiBNQVg5ODM3M19SMjAyOF9QQ01fU1JfU0VUVVBfMiAqLw0KI2Rl
-ZmluZSBNQVg5ODM3M19QQ01fU1JfU0VUMl9TUl9NQVNLICgweEYgPDwgNCkNCi0tIA0KMi4yMi4w
-DQogDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNh
-LWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9t
-YWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+On Tue, Jul 30, 2019 at 05:28:11PM +0100, Thomas Preston wrote:
+> On 30/07/2019 16:50, Mark Brown wrote:
+> > On Tue, Jul 30, 2019 at 04:25:56PM +0100, Thomas Preston wrote:
+> >> On 30/07/2019 15:19, Mark Brown wrote:
+> > 
+> >>> It is unclear what this mutex usefully protects, it only gets taken when
+> >>> writing to the debugfs file to trigger this diagnostic mode but doesn't
+> >>> do anything to control interactions with any other code path in the
+> >>> driver.
+> > 
+> >> If another process reads the debugfs node "diagnostic" while the turn-on 
+> >> diagnostic mode is running, this mutex prevents the second process
+> >> restarting the diagnostics.
+> > 
+> >> This is redundant if debugfs reads are atomic, but I don't think they are.
+> > 
+> > Like I say it's not just debugfs though, there's the standard driver
+> > interface too.
+> > 
+> 
+> Ah right, I understand. So if we run the turn-on diagnostics routine, there's
+> nothing stopping anyone from interacting with the device in other ways.
+> 
+> I guess there's no way to share that mutex with ALSA? In that case, it doesn't
+> matter if this mutex is there or not - this feature is incompatible. How
+> compatible do debugfs interfaces have to be? I was under the impression anything
+> goes. I would argue that the debugfs is better off for having the mutex so
+> that no one re-reads "diagnostic" within the 5s poll timeout.
+> 
+> Alternatively, this diagnostic feature could be handled with an external-handler
+> kcontrol SOC_SINGLE_EXT? I'm not sure if this is an atomic interface either.
+> 
+> What would be acceptable?
+
+You could take the DAPM mutex in your debugfs handler that would
+prevent any changes to the cards power state whilst your debug
+stuff is running.
+
+Thanks,
+Charles
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

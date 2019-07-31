@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7445D7D038
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 23:43:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D3C7D071
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2019 00:07:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EAE9B16AC;
-	Wed, 31 Jul 2019 23:42:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAE9B16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50C6C1696;
+	Thu,  1 Aug 2019 00:06:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50C6C1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564609414;
-	bh=Ow0x9ZnBCHf+h8xMhU+aaAnDmhniAfY6VqC7jnfEgeU=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1564610826;
+	bh=fM5hjqXUG2/o8x3WKUjcBRF5k/hRkcinLZHDSI3IqY4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jw+myENEqNeEF4uwhK0hyrVfovrSCbdP2+nvDjZLzmsElAV4wwBeYkoYKTYUlPRKf
-	 B97ed2y0b+QNW/B0s37UcbUyRrH8MFZmRm+dJc4s9Ew0fIUz/ZWIRNwg7Z7ZimcCxy
-	 UfiyWvewaUnApiE1u1/eRvNfgxtLXmLdtNFipAmg=
+	b=BipjIod27miKOkH7B5V+c8dFA/TZdJ5cMk9leeQIv0posAClp+pJ17gS1TC/ox/jy
+	 H9YCnInSMdJuU0XyrgkMyXWi2NPJVgBxIObP8prFDju8Gs4/ng4Xlw89xrnlxKBw0V
+	 uOyp6zkzZpGFIyxrhpvZ+nrWPKWqq5twlUp/vhtE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48192F8048E;
-	Wed, 31 Jul 2019 23:41:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7049F80483;
+	Thu,  1 Aug 2019 00:05:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA804F80483; Wed, 31 Jul 2019 23:30:53 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
+ id 734BCF80483; Thu,  1 Aug 2019 00:01:48 +0200 (CEST)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7A8EF800C0
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 23:27:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7A8EF800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A81FDF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 23:55:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A81FDF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="g83i6fG6"
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="dAQCdVcq"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:
- From:Date:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ojbkQD1a7MQMcAHB0nbk0TNEefbMHs3972JP2NcjJME=; b=g83i6fG6pLz5k+ubFSnN8EkA5
- UONDm7X0pnk+aEXdmFccZHoiA/MwLcT3bciBvO1P/EPjm9w8DWxTy97HZrc+BdRKb+EgxEQ2sotEY
- MsEte0kaui9SJBYnpz2cVbQjTQfjElvMKIWI6V5wqmkV+8dU6kjbQ/91+vlvuSzIz08B81Pm1tR53
- Hvm/XYnYMcHDHQYcvFC6f8pqy/unIZORk47M8Lmo1dFfIdsORd+7CHhf8lrV4waeQjIwLfl27lujE
- JiRPbITNDfNg+OgMhYM3B51EPP6j7Bw+mnUM0iyfG5dpLSulcXgKe3UHGtWtHkzcxSQw4+I3NKq51
- irVg2nqrA==;
-Received: from [191.33.152.89] (helo=coco.lan)
- by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hsw8I-0001T3-HP; Wed, 31 Jul 2019 21:27:38 +0000
-Date: Wed, 31 Jul 2019 18:27:29 -0300
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20190731182729.01c98cd3@coco.lan>
-In-Reply-To: <20190731203712.GJ4369@sirena.org.uk>
+ bh=K/tOdg0rARIHNKt8myQdNk7juboEm6U9R00/FeIUiBE=; b=dAQCdVcqawi/p92YlttDZTR93
+ BKyG7tTLWgF7ROCBKJ78mPeMReOpPz03DvX3MgsE3fL4jZKpXbSgEfnsqgHzMIJoSh2RNJNUt/7Vs
+ W4pmxcdPzOCef23B1cmjFfttX03YC386eRlZje3tRqBKZnkd81Qs+16ww3Bey4vn/dVho=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1hswZ4-0003OG-Ci; Wed, 31 Jul 2019 21:55:18 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 1A3322742C6C; Wed, 31 Jul 2019 22:55:17 +0100 (BST)
+Date: Wed, 31 Jul 2019 22:55:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190731215516.GM4369@sirena.org.uk>
 References: <cover.1564603513.git.mchehab+samsung@kernel.org>
  <20190731141734.1fa9ce64@lwn.net>
  <20190731202007.GI4369@sirena.org.uk>
  <20190731172613.32d65ad8@coco.lan>
  <20190731203712.GJ4369@sirena.org.uk>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
+ <20190731182729.01c98cd3@coco.lan>
 MIME-Version: 1.0
+In-Reply-To: <20190731182729.01c98cd3@coco.lan>
+X-Cookie: FEELINGS are cascading over me!!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Mark Rutland <mark.rutland@arm.com>, Dave Kleikamp <shaggy@kernel.org>,
  alsa-devel@alsa-project.org,
  Linux Doc Mailing List <linux-doc@vger.kernel.org>,
@@ -98,62 +97,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7870761250783783578=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Em Wed, 31 Jul 2019 21:37:12 +0100
-Mark Brown <broonie@kernel.org> escreveu:
 
-> On Wed, Jul 31, 2019 at 05:26:13PM -0300, Mauro Carvalho Chehab wrote:
-> > Mark Brown <broonie@kernel.org> escreveu:  
-> 
-> > > There were outstanding questions about where it was going to get moved
-> > > to but if I read the diff correctly it looks like it didn't actually get
-> > > moved in the end?  
-> 
-> > Yeah, it doesn't have the move. My understanding from our discussions
-> > is that we didn't reach a conclusion.  
-> 
-> Yes, that was my understanding too which was why I was surprised to see
-> this going in.  This is OK then, I'd have acked it.
-> 
-> > In any case, I can send a separate patch with the move part once
-> > we reach an agreement about what's the best way to proceed (or you
-> > can do it directly, if you prefer so).  
-> 
-> I'm not likely to do anything without someone sending patches, I'm not
-> clear on the utility of the move with the current division of the
-> manuals.
+--===============7870761250783783578==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iKKZt69u2Wx/rspf"
+Content-Disposition: inline
 
-Same here: I do see value on having docs focused on their audience.
 
-Yet, I'm not so sure how worth is to break some subsystem documentation 
-into books, as, on some cases, this would mean huge efforts.
+--iKKZt69u2Wx/rspf
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I'd prefer to see the big picture first, finishing the conversion and
-then looking at the resulting docs.
+On Wed, Jul 31, 2019 at 06:27:29PM -0300, Mauro Carvalho Chehab wrote:
 
-Meanwhile, if someone needs something that it is at the wrong book, he
-can just use some search tool to seek what he needs, no matter on
-what book the relevant information is stored.
+> Meanwhile, if someone needs something that it is at the wrong book, he
+> can just use some search tool to seek what he needs, no matter on
+> what book the relevant information is stored.
 
-> I don't know if it makes sense to have an embedded developer's
-> manual as well?
+OTOH it might be weird for the intended audience of the book.
 
-Yeah, that's a good question. 
+> Mark Brown <broonie@kernel.org> escreveu:
 
-Jon is planning todo a documentation track at LPC. One of the things
-that should be discussed, IMO, is how we'll organize the books.
+> > I don't know if it makes sense to have an embedded developer's
+> > manual as well?
 
-I suspect that, once we finish the conversion of the remaining ~300
-files to ReST, the next logical step is to check what are the gaps
-and have a list of pending tasks.
+> Yeah, that's a good question.=20
 
-Thanks,
-Mauro
+> Jon is planning todo a documentation track at LPC. One of the things
+> that should be discussed, IMO, is how we'll organize the books.
+
+I'll be at Plumbers, not sure what the schedule's looking like yet
+though.
+
+--iKKZt69u2Wx/rspf
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1CDkQACgkQJNaLcl1U
+h9DmyQf8CbO6RT3vDVCTbWB0f/yKJ/A87r+D9XnXG94SH0Vqj3KAl/HFsPpl4gyU
+1t9Uo9ZtFC8lSFh29z5fxpIzNkfsanBjnTrJS1lxOvU+DgmoTfXV5+2xa3rel1E0
+oOzMumEUJLWQmAQIaSzObUMvLTHaHZXE9UwveI9WkjfE0k7lsrK4vKzotxGDUk1a
+6B/LdVb+NH3ME369z6GL2hpH6SkNc0jCRYj4PcGud8PTKBqHim7kBI3AeE51lFUV
+Dsr7zD6gH+cbj/GXdXApIDJvlR8bH6LLM/dakss84cM6CvJoD/pd4z9fn2kmUkVY
+5tMO7f2i3x9slM6yQ78bDwGSrn8XIg==
+=1tp/
+-----END PGP SIGNATURE-----
+
+--iKKZt69u2Wx/rspf--
+
+--===============7870761250783783578==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7870761250783783578==--

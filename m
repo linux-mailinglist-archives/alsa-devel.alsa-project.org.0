@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9BF27BFEC
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 13:33:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAFEA7C01C
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 13:36:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E7941718;
-	Wed, 31 Jul 2019 13:32:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E7941718
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6419516E7;
+	Wed, 31 Jul 2019 13:35:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6419516E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564572826;
-	bh=kzj1yUtCEkle1THER+3sd6WvhA3oN4bf8uVpJbA3Epo=;
+	s=default; t=1564572997;
+	bh=jx4quYTVF0gzoRidO2axo0yD8ofySJY6AGsbjDEfiAs=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Xz8voR+WInU3pYg6c30vlgq97ycDUUSbDh8sv4xw3VW15hGeLHMjaZgY11vgy4RRw
-	 AEMIOn64au0W89XeqNW8q5qs87lJ/g6mmp7W6Zbji4pf1gOYJ2aDCWP0fkvtoYIXoo
-	 zb0yk6YPp4G+QJzClNDp4+uRj3pvyWrXLpLoKZrA=
+	b=ufUqslXAgIx4ouSpJ5LzKlVIgoQ8Q0Xidaz6PVZt8PR0jzqD3IVlLoRi5NoEvCVkS
+	 AboR5w7El6bgT5Jge7ADoixf1uuvGUkw63Rt9qnmMUK6stIlBerZKqd2StlDpps27g
+	 xqZ2NTaccpW7bz/4/Ch2p5ceT3LxmUe+8LWSJNyU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C886F80528;
-	Wed, 31 Jul 2019 13:30:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6793F805FE;
+	Wed, 31 Jul 2019 13:31:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58B59F8049B; Wed, 31 Jul 2019 13:30:14 +0200 (CEST)
+ id 4716FF80440; Wed, 31 Jul 2019 13:30:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS, PRX_BODY_13, RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE, 
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39792F8048E
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39792F8048E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 922C9F80507
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 922C9F80507
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="N6PA8EFI"
+ header.b="ZypUe0lK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=tz9OrYsm/JIIYaZu0FAWVndUQ54ZCNsvNKCY3ncuXbk=; b=N6PA8EFIsUJy
- su8vlR6Ru8/5cQYPmUszlmF4msTGe+rAnP2cILm7o76udCBkZ2DDfifaVzOqI4JU/UuGSqxl1T2tu
- Fd3GuPCgrG22U6TiNyJfeV57tMot4NB7lLYJTqEG8o/VMnpPu0+7AmElzXwzvFi+vy2EwML/skXHM
- vTnwo=;
+ List-Archive; bh=Tr3Y9jEtNKRqqaTY/ZM9vYUmw9vJ6FvhFPisRZB9tVc=; b=ZypUe0lKLfHa
+ XLx/GGBJgPmpoZOuvuxZLPm4PPsd0Nq+VRt88yxa0KXI5/NPX0x6vS3UuYtohalkCBpBgLLNlHvlr
+ HC+pbF/JANKrKXbJgmRB/LdCT7WBR7Z7SKLyn1pazdVvzW8xzc9alcfhTlbox5c9c/mcdFmtAyGdX
+ Wyjgc=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmni-0001md-Eh; Wed, 31 Jul 2019 11:29:46 +0000
+ id 1hsmnp-0001qB-PQ; Wed, 31 Jul 2019 11:29:53 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A62C72742CDE; Wed, 31 Jul 2019 12:29:45 +0100 (BST)
+ id 075492742D4F; Wed, 31 Jul 2019 12:29:51 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20190724060023.31302-1-christophe.jaillet@wanadoo.fr>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20190726181517.27655-1-cezary.rojewski@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112945.A62C72742CDE@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:45 +0100 (BST)
-Cc: brian.austin@cirrus.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Paul.Handrigan@cirrus.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: cs4271: Fix a typo in the
-	CS4171_NR_RATIOS" to the asoc tree
+Message-Id: <20190731112952.075492742D4F@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:51 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ tiwai@suse.com, lgirdwood@gmail.com,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "MAINTAINERS: Update Intel ASoC drivers
+	maintainers" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,11 +89,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: cs4271: Fix a typo in the CS4171_NR_RATIOS
+   MAINTAINERS: Update Intel ASoC drivers maintainers
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -114,50 +114,33 @@ to this mail.
 Thanks,
 Mark
 
-From 0c03e37af47efcb8600f95f399783c082fcf2f93 Mon Sep 17 00:00:00 2001
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Date: Wed, 24 Jul 2019 08:00:23 +0200
-Subject: [PATCH] ASoC: cs4271: Fix a typo in the CS4171_NR_RATIOS
+From 6963d00bb6e42e91882d2eb36639701aca9fe032 Mon Sep 17 00:00:00 2001
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Date: Fri, 26 Jul 2019 20:15:17 +0200
+Subject: [PATCH] MAINTAINERS: Update Intel ASoC drivers maintainers
 
-This should be CS4271_NR_RATIOS.
-Fix it and use it.
+Adding myself to Intel ASoC drivers maintainers list.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Link: https://lore.kernel.org/r/20190724060023.31302-1-christophe.jaillet@wanadoo.fr
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20190726181517.27655-1-cezary.rojewski@intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/cs4271.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/cs4271.c b/sound/soc/codecs/cs4271.c
-index 1d03a1348162..04b86a51e055 100644
---- a/sound/soc/codecs/cs4271.c
-+++ b/sound/soc/codecs/cs4271.c
-@@ -334,7 +334,7 @@ static struct cs4271_clk_cfg cs4271_clk_tab[] = {
- 	{0, CS4271_MODE1_MODE_4X, 256,  CS4271_MODE1_DIV_2},
- };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 11db05b56744..92829ca37459 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7861,6 +7861,7 @@ S:	Maintained
+ F:	drivers/video/fbdev/i810/
  
--#define CS4171_NR_RATIOS ARRAY_SIZE(cs4271_clk_tab)
-+#define CS4271_NR_RATIOS ARRAY_SIZE(cs4271_clk_tab)
- 
- static int cs4271_hw_params(struct snd_pcm_substream *substream,
- 			    struct snd_pcm_hw_params *params,
-@@ -383,13 +383,13 @@ static int cs4271_hw_params(struct snd_pcm_substream *substream,
- 		val = CS4271_MODE1_MODE_4X;
- 
- 	ratio = cs4271->mclk / cs4271->rate;
--	for (i = 0; i < CS4171_NR_RATIOS; i++)
-+	for (i = 0; i < CS4271_NR_RATIOS; i++)
- 		if ((cs4271_clk_tab[i].master == cs4271->master) &&
- 		    (cs4271_clk_tab[i].speed_mode == val) &&
- 		    (cs4271_clk_tab[i].ratio == ratio))
- 			break;
- 
--	if (i == CS4171_NR_RATIOS) {
-+	if (i == CS4271_NR_RATIOS) {
- 		dev_err(component->dev, "Invalid sample rate\n");
- 		return -EINVAL;
- 	}
+ INTEL ASoC DRIVERS
++M:	Cezary Rojewski <cezary.rojewski@intel.com>
+ M:	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ M:	Liam Girdwood <liam.r.girdwood@linux.intel.com>
+ M:	Jie Yang <yang.jie@linux.intel.com>
 -- 
 2.20.1
 

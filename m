@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 186817ED34
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:11:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 332137ED36
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:12:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A89F916EC;
-	Fri,  2 Aug 2019 09:10:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89F916EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEB831727;
+	Fri,  2 Aug 2019 09:11:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEB831727
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564729903;
-	bh=EicAcMiWm5sNmA/VBCR3SGXAfJui9CNxoELAVVwSEmU=;
+	s=default; t=1564729946;
+	bh=/IR693ZfvzEp2/Sb9TQWHWIk0soKKvkMS/LIKi05Y2U=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=m5h6hFO+WO1V03SXKQTIl1SipDPz1omKO/4zqd4CE8TrICpSuJtfCxecobaUr1MZA
-	 dSFjW4C+f9eF1Rb0HelY58NrmLeWC9of0Rp+2rZoLAyHwPMNuHfz2vWqsKfFW51UEo
-	 QyXxo8cf8OQY+BYVtoIrrhtdLC9KA8oyjdmSRGEo=
+	b=syWb9iNfxgR8wabqlpJ53JXZVFlBplMXPFAc3wo1v9oH2HDNbk4E4o2evEZfJ2OTr
+	 0vHgvfBINy5GmJJ8/MKHQcPFoZj9MFYU7L4c4crm8EXyLMNTeTlnN+0nm/zrvFZaN0
+	 vmJMoDKi2EKU58TZV13fbJilFMnGfqcfZqIbtMro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80159F8076F;
-	Fri,  2 Aug 2019 08:53:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80672F80774;
+	Fri,  2 Aug 2019 08:53:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 299ADF80440; Wed, 31 Jul 2019 13:30:11 +0200 (CEST)
+ id 63A65F80214; Wed, 31 Jul 2019 13:30:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,35 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 885C3F80483
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 885C3F80483
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61BD0F80534
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61BD0F80534
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="MWl7ooSD"
+ header.b="YnCi+cRy"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Oc00lErgK9TOIwDxfVL0TGkToNOIUPKLzcyDE4l8jTo=; b=MWl7ooSDiy8l
- ZsfUmwvPp4rcYzXloF5d28C1TXqzuFMWJ810qZ/0v1KdizN5/T0Zsx78LlaNpT0z6MLwpKJjTPhPR
- U5qxJ51R5u7pfTmCvaJrmn92PN1OtazSkegLpgphoQgyXBEo+x3+IYE5RNWF5q+GRz1sqH/nIg3YG
- 5YRLo=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=hqElXS8Bos/S9Ngud8UOIoqIvdLmiVyGr0j4JbIF298=; b=YnCi+cRys2p+
+ ETBDw3sxOp99kmF90lFGdWwgqtLlK9mYUIyZL5ZuT/kYNfjx61Q3OOjiu++JuJHAO8W8Hf/U8KDFT
+ XpPL2/Xvl0kOuVTeS3UIabqFidqT+PXGyDuIe6U2p+ytnwFyMuy2u/a3y0Ir2cJDDQGqv9wip9Mi0
+ h52AQ=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnl-0001ns-5M; Wed, 31 Jul 2019 11:29:49 +0000
+ id 1hsmnn-0001oq-0R; Wed, 31 Jul 2019 11:29:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8D5682742CC3; Wed, 31 Jul 2019 12:29:48 +0100 (BST)
+ id A06DF2742CC3; Wed, 31 Jul 2019 12:29:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-9-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-6-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112948.8D5682742CC3@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:48 +0100 (BST)
+Message-Id: <20190731112949.A06DF2742CC3@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:49 +0100 (BST)
 X-Mailman-Approved-At: Fri, 02 Aug 2019 08:52:06 +0200
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org, paul@crapouillou.net,
@@ -83,7 +82,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  sbranden@broadcom.com, eric@anholt.net, gregkh@linuxfoundation.org,
  arnaud.pouliquen@st.com, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [alsa-devel] Applied "ASoC: fsl_audmix: use
+Subject: [alsa-devel] Applied "ASoC: mt8173: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -105,7 +104,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_audmix: use devm_platform_ioremap_resource() to simplify code
+   ASoC: mt8173: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -130,10 +129,10 @@ to this mail.
 Thanks,
 Mark
 
-From 959bb6b54d708652fe06097feecc3acd4d6b8c89 Mon Sep 17 00:00:00 2001
+From fceef72b68d63593d8543a8d608ccc8427e13d56 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:12 +0800
-Subject: [PATCH] ASoC: fsl_audmix: use devm_platform_ioremap_resource() to
+Date: Sat, 27 Jul 2019 23:07:09 +0800
+Subject: [PATCH] ASoC: mt8173: use devm_platform_ioremap_resource() to
  simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
@@ -141,33 +140,33 @@ This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-9-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-6-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_audmix.c | 4 +---
+ sound/soc/mediatek/mt8173/mt8173-afe-pcm.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_audmix.c b/sound/soc/fsl/fsl_audmix.c
-index 3897a54a11fe..c7e4e9757dce 100644
---- a/sound/soc/fsl/fsl_audmix.c
-+++ b/sound/soc/fsl/fsl_audmix.c
-@@ -458,7 +458,6 @@ static int fsl_audmix_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct fsl_audmix *priv;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
+index 0382896c162e..90bd2c92cae7 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
++++ b/sound/soc/mediatek/mt8173/mt8173-afe-pcm.c
+@@ -1056,7 +1056,6 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
+ 	int irq_id;
+ 	struct mtk_base_afe *afe;
+ 	struct mt8173_afe_private *afe_priv;
 -	struct resource *res;
- 	const char *mdrv;
- 	const struct of_device_id *of_id;
- 	void __iomem *regs;
-@@ -475,8 +474,7 @@ static int fsl_audmix_probe(struct platform_device *pdev)
- 		return -ENOMEM;
  
- 	/* Get the addresses */
+ 	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(33));
+ 	if (ret)
+@@ -1086,8 +1085,7 @@ static int mt8173_afe_pcm_dev_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	regs = devm_ioremap_resource(dev, res);
-+	regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(regs))
- 		return PTR_ERR(regs);
+-	afe->base_addr = devm_ioremap_resource(&pdev->dev, res);
++	afe->base_addr = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(afe->base_addr))
+ 		return PTR_ERR(afe->base_addr);
  
 -- 
 2.20.1

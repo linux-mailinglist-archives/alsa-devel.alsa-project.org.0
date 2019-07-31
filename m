@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C8F7ED1C
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:07:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49E2F7ED1F
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:07:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE45216AA;
-	Fri,  2 Aug 2019 09:06:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE45216AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id D9CEE16EC;
+	Fri,  2 Aug 2019 09:06:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9CEE16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564729627;
-	bh=e0Rvelr+NuitzEmsonfZqQIKU60frdgsq1wjXoPTa7s=;
+	s=default; t=1564729669;
+	bh=E9u7Qg6+OE79EvV8U7WRfAcEd++CjTA/nNpE+3W0PWQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gSyHYXcXZbn+yri/vMUeoiZ42UXnw7sAsBP96v0WJD43ZZnJXCv+cPv3XZxvHAvH2
-	 lyoR38y/EN99DJOEfMiYfOUsUddt8WNbJbNNPVLL0ww9D02RI+34V3f46T0kMVerQU
-	 2DgXvEl1lFJG3W0oUp9v+UzzkEuauWEpFS0PO7Ak=
+	b=kZW7FX73Te4njtWfchn7d4E+XpwU7QDP8bkRWfJ6awjKJFy02whnAR3m2btNu6s80
+	 dA0+m8gE5haiKe2QwhkDoUeywei+9sO8vnKMcuYokCCaGggPiWxaD3SzrQ54FAak9M
+	 X3DxIvLqzjGkkgrfEYI8IAfQz+Xg+uXhEOx3Ku/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F31DF80717;
-	Fri,  2 Aug 2019 08:52:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94F25F80730;
+	Fri,  2 Aug 2019 08:52:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5E711F8049B; Wed, 31 Jul 2019 13:30:03 +0200 (CEST)
+ id 1802EF80133; Wed, 31 Jul 2019 13:30:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,35 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 858C6F80508
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA891F80529
  for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 858C6F80508
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA891F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="C+zXeG6O"
+ header.b="C1M1tN19"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=1oZpHXseB2euC0HA5arCblB3iFVCG5p5FPASzfvK/ww=; b=C+zXeG6OWbUR
- r3wiOJDc2XV0cL5IIcDcDjOtNytsyDc0JLLElh1P4TFVGFFGxqpY5zEPXVgRDfU40myGol7kClduB
- Ju0D7T/NqR2rZcYORB2SzQAdT95m0q5y7ZVrFsJucNdrYMXSeB++Ems7BG3yfFdqDxpv4yNShzCmz
- SBt+I=;
+ List-Archive; bh=K4dBNNe+2/c2mZTXmVu24RlhUWhqDFMfpcb8oX0TQPA=; b=C1M1tN19u/6S
+ SE6PoJIo/ClPdBJe3SBwVgKy38tZfiWagcIjhaTSUkBY0AjjTodV5ZI4T9ePdn8MOgdNU1ywpLgzQ
+ +Z3+nXZa5PXS7FS+pq3VjfojT1Fm+8ZLn/YalvhKU0bY+jl0SSPxqlztJNIA0DRu7TqIZvIqmEsjr
+ eEP1k=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmng-0001lr-TT; Wed, 31 Jul 2019 11:29:45 +0000
+ id 1hsmnh-0001lu-9I; Wed, 31 Jul 2019 11:29:45 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 6C4FE2742CC3; Wed, 31 Jul 2019 12:29:44 +0100 (BST)
+ id B9D4B2742C99; Wed, 31 Jul 2019 12:29:44 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-31-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-30-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112944.6C4FE2742CC3@ypsilon.sirena.org.uk>
+Message-Id: <20190731112944.B9D4B2742C99@ypsilon.sirena.org.uk>
 Date: Wed, 31 Jul 2019 12:29:44 +0100 (BST)
 X-Mailman-Approved-At: Fri, 02 Aug 2019 08:52:05 +0200
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
@@ -83,7 +83,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  sbranden@broadcom.com, eric@anholt.net, gregkh@linuxfoundation.org,
  arnaud.pouliquen@st.com, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [alsa-devel] Applied "ASoC: meson: axg-fifo: use
+Subject: [alsa-devel] Applied "ASoC: meson: axg-spdifout: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -105,7 +105,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: axg-fifo: use devm_platform_ioremap_resource() to simplify code
+   ASoC: meson: axg-spdifout: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -130,38 +130,38 @@ to this mail.
 Thanks,
 Mark
 
-From 9b2089313156ad16bd257217cc67e10597a82923 Mon Sep 17 00:00:00 2001
+From c43fd289dd58951f3cfddb3bb66a6ed7747c5986 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:34 +0800
-Subject: [PATCH] ASoC: meson: axg-fifo: use devm_platform_ioremap_resource()
- to simplify code
+Date: Sat, 27 Jul 2019 23:07:33 +0800
+Subject: [PATCH] ASoC: meson: axg-spdifout: use
+ devm_platform_ioremap_resource() to simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
 This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-31-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-30-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/axg-fifo.c | 4 +---
+ sound/soc/meson/axg-spdifout.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
-index 01c1c7db2510..80a3dde35b5c 100644
---- a/sound/soc/meson/axg-fifo.c
-+++ b/sound/soc/meson/axg-fifo.c
-@@ -314,7 +314,6 @@ int axg_fifo_probe(struct platform_device *pdev)
+diff --git a/sound/soc/meson/axg-spdifout.c b/sound/soc/meson/axg-spdifout.c
+index 9dea528053ad..7ce6aa97ddf7 100644
+--- a/sound/soc/meson/axg-spdifout.c
++++ b/sound/soc/meson/axg-spdifout.c
+@@ -401,7 +401,6 @@ static int axg_spdifout_probe(struct platform_device *pdev)
+ {
  	struct device *dev = &pdev->dev;
- 	const struct axg_fifo_match_data *data;
- 	struct axg_fifo *fifo;
+ 	struct axg_spdifout *priv;
 -	struct resource *res;
  	void __iomem *regs;
+ 	int ret;
  
- 	data = of_device_get_match_data(dev);
-@@ -328,8 +327,7 @@ int axg_fifo_probe(struct platform_device *pdev)
+@@ -410,8 +409,7 @@ static int axg_spdifout_probe(struct platform_device *pdev)
  		return -ENOMEM;
- 	platform_set_drvdata(pdev, fifo);
+ 	platform_set_drvdata(pdev, priv);
  
 -	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 -	regs = devm_ioremap_resource(dev, res);

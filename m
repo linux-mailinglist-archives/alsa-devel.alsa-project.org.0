@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 936D07ED09
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:01:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B8D827ED1A
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:05:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E20416EA;
-	Fri,  2 Aug 2019 09:00:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E20416EA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5040616CF;
+	Fri,  2 Aug 2019 09:04:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5040616CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564729269;
-	bh=VegcNQIYsFqaXkQtDu1rdhLKHIhaZqWCsInZqEGwbyo=;
+	s=default; t=1564729548;
+	bh=yiED2Qy0+b4HuSaqRgvxdHyDMsHcFDQ4N5LAtcvugUE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=F/IYfksZynuua6rfvMRTqpvRuFHZPmWJay/1DvUZGaDfA9dXcubaxccbqbQrJErBk
-	 IJfWD85jo5X0D6Q+ATfkwy0oW3s7Y3ZgbXM7PIN4j7CMpCi3JIvGc9WbCYWojjkRfg
-	 XxX3nafQiTJFRRNk/wsa9GKHTBW0ZM7+d+N5srBQ=
+	b=DFaUMCA9NedoGHWnX+C7nkJwZyay9UKFzXoKbozWt4SKopsUlCDbkxelyU74F7pkm
+	 aokQz4ZZvChqBuqJ9+1FG7y8eao3cksOywt9lpOy3IK3gpzYfYo5sE+s+wqJQMPoCO
+	 HqJ2ZzszB8uk1p5pIiEM/ioI71AlMz3KD5yA8yC8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D3B5F80641;
-	Fri,  2 Aug 2019 08:52:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D2F6F8070C;
+	Fri,  2 Aug 2019 08:52:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A033F805A8; Wed, 31 Jul 2019 13:29:56 +0200 (CEST)
+ id 1E93FF8048F; Wed, 31 Jul 2019 13:30:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,37 +34,36 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E933CF8053A
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E933CF8053A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57D94F8049B
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57D94F8049B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="hNkfTKOq"
+ header.b="AxqqpbRN"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=1+pT3ctx398IjJGsV4QKspIhkRKYicy/NIkBKdhKy/4=; b=hNkfTKOqNoyX
- 5XkBXUgM40eLNZinRxNMeWdOfK9Qg5zMC+sf16W8TCCEcx3YBEUDHiwJJh1mcv9yaeggc2HsyTuo1
- zRtdWBAS1IJyTfnpfR82warrFeYVNcU1aHaytOwG66ZdpTysjdjj40C9y9GgJI/nLc9x+k4bEdIiT
- g0N4k=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=JDdIiMRNxz3nh4P58eL+dgzzdUBoAUTuWptHyMpnAPw=; b=AxqqpbRNKGZD
+ w7Hz+Ywyhl2Kr8lziN1RSWQFJDQzfSWLBm9w/6ibuQAD9OcT8Ttni2/CJdmYmT+ZoVFm35FVdAquM
+ Km4dy2OJ/K/R985/Xoc47p5GQaPquCn+N3FHCDrZfE50MFOQp+1vXpi7JxBrSOS0LhsRSh/4kDIFz
+ dMwqE=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnb-0001kv-4a; Wed, 31 Jul 2019 11:29:39 +0000
+ id 1hsmnc-0001kz-23; Wed, 31 Jul 2019 11:29:40 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 99BC02742C99; Wed, 31 Jul 2019 12:29:38 +0100 (BST)
+ id 5B1722742C99; Wed, 31 Jul 2019 12:29:39 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-27-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-25-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112938.99BC02742C99@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:38 +0100 (BST)
-X-Mailman-Approved-At: Fri, 02 Aug 2019 08:52:04 +0200
+Message-Id: <20190731112939.5B1722742C99@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:39 +0100 (BST)
+X-Mailman-Approved-At: Fri, 02 Aug 2019 08:52:05 +0200
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org, paul@crapouillou.net,
  jcmvbkbc@gmail.com, thierry.reding@gmail.com, shawnguo@kernel.org,
@@ -83,7 +82,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  sbranden@broadcom.com, eric@anholt.net, gregkh@linuxfoundation.org,
  arnaud.pouliquen@st.com, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [alsa-devel] Applied "ASoC: meson: axg-tdm-formatter: use
+Subject: [alsa-devel] Applied "ASoC: au1x: psc-i2s: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -105,7 +104,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: axg-tdm-formatter: use devm_platform_ioremap_resource() to simplify code
+   ASoC: au1x: psc-i2s: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -130,44 +129,45 @@ to this mail.
 Thanks,
 Mark
 
-From 10392fcad7dfc8ea38959b18327ff18b81b1c161 Mon Sep 17 00:00:00 2001
+From 12a63c0fa03691328b948690601dc7dde8fc527b Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:30 +0800
-Subject: [PATCH] ASoC: meson: axg-tdm-formatter: use
- devm_platform_ioremap_resource() to simplify code
+Date: Sat, 27 Jul 2019 23:07:28 +0800
+Subject: [PATCH] ASoC: au1x: psc-i2s: use devm_platform_ioremap_resource() to
+ simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
 This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-27-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-25-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/axg-tdm-formatter.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ sound/soc/au1x/psc-i2s.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-tdm-formatter.c b/sound/soc/meson/axg-tdm-formatter.c
-index 2e498201139f..21c735afab35 100644
---- a/sound/soc/meson/axg-tdm-formatter.c
-+++ b/sound/soc/meson/axg-tdm-formatter.c
-@@ -253,7 +253,6 @@ int axg_tdm_formatter_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	const struct axg_tdm_formatter_driver *drv;
- 	struct axg_tdm_formatter *formatter;
--	struct resource *res;
- 	void __iomem *regs;
- 	int ret;
+diff --git a/sound/soc/au1x/psc-i2s.c b/sound/soc/au1x/psc-i2s.c
+index 076303f96b8c..767ce950d0da 100644
+--- a/sound/soc/au1x/psc-i2s.c
++++ b/sound/soc/au1x/psc-i2s.c
+@@ -291,7 +291,7 @@ static const struct snd_soc_component_driver au1xpsc_i2s_component = {
  
-@@ -269,8 +268,7 @@ int axg_tdm_formatter_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, formatter);
- 	formatter->drv = drv;
+ static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
+ {
+-	struct resource *iores, *dmares;
++	struct resource *dmares;
+ 	unsigned long sel;
+ 	struct au1xpsc_audio_data *wd;
  
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	regs = devm_ioremap_resource(dev, res);
-+	regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(regs))
- 		return PTR_ERR(regs);
+@@ -300,8 +300,7 @@ static int au1xpsc_i2s_drvprobe(struct platform_device *pdev)
+ 	if (!wd)
+ 		return -ENOMEM;
+ 
+-	iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	wd->mmio = devm_ioremap_resource(&pdev->dev, iores);
++	wd->mmio = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(wd->mmio))
+ 		return PTR_ERR(wd->mmio);
  
 -- 
 2.20.1

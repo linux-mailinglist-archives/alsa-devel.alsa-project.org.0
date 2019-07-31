@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBBD97C011
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 13:35:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D08F7C010
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 13:34:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E45B170E;
-	Wed, 31 Jul 2019 13:34:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E45B170E
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEDDE16E7;
+	Wed, 31 Jul 2019 13:33:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEDDE16E7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564572905;
-	bh=baeN/4fNU1vIX39jQbzCeivvnvE+0cIKRz5vPEDVdgo=;
+	s=default; t=1564572859;
+	bh=1ijvI8TyQ1LNsJzSjzUfEAvbdh69Pt24ZiUruY247WM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=me/IWqx+I9zoOpHFq0I5fwSXNUADZ/JY4wJwhg9t5zZbaTlEd6oGgOPZJ0jERY0Jo
-	 msh4sh6KwRDjR6qdAV0gn2KyGk+2rsiNOUQ1kKqmfUljlZKS/FlVvaAem8B4z365cY
-	 mlo+pi8uW5OIYL/gBCGdmWWPtfHpp4CuKitiVPCc=
+	b=A144Edl+wmV71fDrvHyZlQBAKkmq98+bRfQ9RpKWM2VwuGsmKXLm8MeWxv4NiWYVr
+	 HFERLAxSOINK4fHTiInujauNHVVZCzxhWo2dDuyRfDjS2IXfiPbP5S2WHDnqQf5v8X
+	 8M0B6+QYVvo+udzauHN9LpScTy8m7awlWBDmFwBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAF72F805A8;
-	Wed, 31 Jul 2019 13:31:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4D488F8059F;
+	Wed, 31 Jul 2019 13:30:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B43D3F80440; Wed, 31 Jul 2019 13:30:18 +0200 (CEST)
+ id 440C9F80440; Wed, 31 Jul 2019 13:30:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 843FCF805AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23436F805A9
  for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 843FCF805AA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23436F805A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dK9FSytL"
+ header.b="it7QpXTq"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=qVwW0pPyCeBbMZcq8baEchug6az9I8W8IrbQzrWy+Hg=; b=dK9FSytLKVuG
- 5f+I87sxZk5Iq1u05g7ycSp9tQvqkl24sxzYMs9JL3Z08C+xDsnAhWv3Lm9bSkP8E3nfmOYfaP20w
- ku7RD4nTVctpsusYx+a0WXInn0RBT6rfWs9Qp8DjUudvc++s5hvWQQmk55apFtGgmEhXJmTJtRg0s
- 9xl3A=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=QcGmBVpDOdgqukjU+sGeVWU68WD55hAUZCPdArb9dVo=; b=it7QpXTqCKjT
+ EjZ4pPZAezG1Z4SYVc4k4tvPHDuAiPs5gTSOa9r3/JEL8KULqKbFMiXjHu/pQcMGivq9kOje2fdrw
+ JEDRLSsdNqcOWn2Td/uZT031g39gliOgRJv5TT3AH10z52mLuJiR9LQzg4r5yLkF4+xc0m9xDqy2u
+ 5sdVQ=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnp-0001q4-53; Wed, 31 Jul 2019 11:29:53 +0000
+ id 1hsmno-0001pQ-0o; Wed, 31 Jul 2019 11:29:52 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id BC2C42742C99; Wed, 31 Jul 2019 12:29:51 +0100 (BST)
+ id 41B9A2742CC3; Wed, 31 Jul 2019 12:29:51 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Marcus Cooper <codekipper@gmail.com>
-In-Reply-To: <20190729152130.27955-1-codekipper@gmail.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20190729080139.32068-1-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112951.BC2C42742C99@ypsilon.sirena.org.uk>
+Message-Id: <20190731112951.41B9A2742CC3@ypsilon.sirena.org.uk>
 Date: Wed, 31 Jul 2019 12:29:51 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-sunxi@googlegroups.com, Mark Brown <broonie@kernel.org>,
- maxime.ripard@free-electrons.com, wens@csie.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: sun4i-i2s: Incorrect SR and WSS
-	computation" to the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: meson: g12a-tohdmitx: override
+	codec2codec params" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,11 +89,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sun4i-i2s: Incorrect SR and WSS computation
+   ASoC: meson: g12a-tohdmitx: override codec2codec params
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -115,37 +114,95 @@ to this mail.
 Thanks,
 Mark
 
-From 52f87f3ca251f5e43b42e78ab9816b2b07718bfe Mon Sep 17 00:00:00 2001
-From: Marcus Cooper <codekipper@gmail.com>
-Date: Mon, 29 Jul 2019 17:21:30 +0200
-Subject: [PATCH] ASoC: sun4i-i2s: Incorrect SR and WSS computation
+From 2c4956bc1e9062e5e3c5ea7612294f24e6d4fbdd Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Mon, 29 Jul 2019 10:01:39 +0200
+Subject: [PATCH] ASoC: meson: g12a-tohdmitx: override codec2codec params
 
-The A64 audio codec uses the original I2S block but the SR and
-WSS computation currently assigned is for the newer block.
+So far, forwarding the hw_params of the input to output relied on the
+.hw_params() callback of the cpu side of the codec2codec link to be called
+first. This is a bit weak.
 
-Fixes: 619c15f7fac9 (ASoC: sun4i-i2s: Change SR and WSS computation)
-Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-Link: https://lore.kernel.org/r/20190729152130.27955-1-codekipper@gmail.com
+Instead, override the stream params of the codec2codec to link to set it up
+correctly.
+
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20190729080139.32068-1-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/meson/g12a-tohdmitx.c | 34 ++++++++++++++++-----------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 9b2232908b65..7fa5c61169db 100644
---- a/sound/soc/sunxi/sun4i-i2s.c
-+++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -1002,8 +1002,8 @@ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
- 	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
- 	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
- 	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
--	.get_sr			= sun8i_i2s_get_sr_wss,
--	.get_wss		= sun8i_i2s_get_sr_wss,
-+	.get_sr			= sun4i_i2s_get_sr,
-+	.get_wss		= sun4i_i2s_get_wss,
+diff --git a/sound/soc/meson/g12a-tohdmitx.c b/sound/soc/meson/g12a-tohdmitx.c
+index 707ccb192e4c..9943c807ec5d 100644
+--- a/sound/soc/meson/g12a-tohdmitx.c
++++ b/sound/soc/meson/g12a-tohdmitx.c
+@@ -28,7 +28,7 @@
+ #define  CTRL0_SPDIF_CLK_SEL		BIT(0)
+ 
+ struct g12a_tohdmitx_input {
+-	struct snd_pcm_hw_params params;
++	struct snd_soc_pcm_stream params;
+ 	unsigned int fmt;
  };
  
- static int sun4i_i2s_init_regmap_fields(struct device *dev,
+@@ -225,26 +225,17 @@ static int g12a_tohdmitx_input_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct g12a_tohdmitx_input *data = dai->playback_dma_data;
+ 
+-	/* Save the stream params for the downstream link */
+-	memcpy(&data->params, params, sizeof(*params));
++	data->params.rates = snd_pcm_rate_to_rate_bit(params_rate(params));
++	data->params.rate_min = params_rate(params);
++	data->params.rate_max = params_rate(params);
++	data->params.formats = 1 << params_format(params);
++	data->params.channels_min = params_channels(params);
++	data->params.channels_max = params_channels(params);
++	data->params.sig_bits = dai->driver->playback.sig_bits;
+ 
+ 	return 0;
+ }
+ 
+-static int g12a_tohdmitx_output_hw_params(struct snd_pcm_substream *substream,
+-					  struct snd_pcm_hw_params *params,
+-					  struct snd_soc_dai *dai)
+-{
+-	struct g12a_tohdmitx_input *in_data =
+-		g12a_tohdmitx_get_input_data(dai->capture_widget);
+-
+-	if (!in_data)
+-		return -ENODEV;
+-
+-	memcpy(params, &in_data->params, sizeof(*params));
+-
+-	return 0;
+-}
+ 
+ static int g12a_tohdmitx_input_set_fmt(struct snd_soc_dai *dai,
+ 				       unsigned int fmt)
+@@ -266,6 +257,14 @@ static int g12a_tohdmitx_output_startup(struct snd_pcm_substream *substream,
+ 	if (!in_data)
+ 		return -ENODEV;
+ 
++	if (WARN_ON(!rtd->dai_link->params)) {
++		dev_warn(dai->dev, "codec2codec link expected\n");
++		return -EINVAL;
++	}
++
++	/* Replace link params with the input params */
++	rtd->dai_link->params = &in_data->params;
++
+ 	if (!in_data->fmt)
+ 		return 0;
+ 
+@@ -278,7 +277,6 @@ static const struct snd_soc_dai_ops g12a_tohdmitx_input_ops = {
+ };
+ 
+ static const struct snd_soc_dai_ops g12a_tohdmitx_output_ops = {
+-	.hw_params	= g12a_tohdmitx_output_hw_params,
+ 	.startup	= g12a_tohdmitx_output_startup,
+ };
+ 
 -- 
 2.20.1
 

@@ -2,76 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9807E7C468
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 16:09:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A8517C6B9
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 17:35:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E896716E9;
-	Wed, 31 Jul 2019 16:09:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E896716E9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55C0916C7;
+	Wed, 31 Jul 2019 17:34:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55C0916C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564582197;
-	bh=o8PnQnGBUdu5uHAZv6mbfn/QrCgufZGLlPUlkAYZNgk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1564587331;
+	bh=rXWtO6hkUHxQXB/fqovI/RV+scuwef8s5oJL5BGbqhk=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dJ7rho8k5yBQkARhIlIBFsjwjrWC/P3q55ZJfKLSVC+NnKiDfNPpHlcQbH10rFbIp
-	 LU1kwo7jGtwjCXld6HrsmSAnS8Y6xuVHVsFbCyLfRtAn6kIOran7mpQWLgckHOyWtd
-	 +q4oq1TfuplXHrPgFzOPiPWrDN1wL/uvAh7cnUak=
+	b=sjcmXFHee6Iq0aaCZje9FtoC1pi/LjBVsoKOj9RMui471Ser3iHFjpSSEmo2ofCz0
+	 GfxP1DQOJQbmsF6uEtU6j4E7p2EOvuwnRofnjOXAlJCuBHTN9m8fTPQxWrwwUruntn
+	 RY+eD1qvkKkfRGYWE1vxcv8N3C7IJf2HUuORLCb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8815CF8049B;
-	Wed, 31 Jul 2019 16:08:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9517DF80483;
+	Wed, 31 Jul 2019 17:33:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01CA9F80483; Wed, 31 Jul 2019 16:08:11 +0200 (CEST)
+ id EF83FF80483; Wed, 31 Jul 2019 17:33:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 11DCEF80214;
- Wed, 31 Jul 2019 16:08:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11DCEF80214
+ by alsa1.perex.cz (Postfix) with ESMTPS id A75D3F80214
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 17:33:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A75D3F80214
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2019 07:08:01 -0700
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 Jul 2019 08:33:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,330,1559545200"; d="scan'208";a="174766057"
-Received: from bklaps-mobl.ger.corp.intel.com ([10.252.1.201])
- by orsmga003.jf.intel.com with ESMTP; 31 Jul 2019 07:07:57 -0700
-Message-ID: <999df23199e5284459e66eaf351e2a2b66e25804.camel@linux.intel.com>
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Jaroslav
- Kysela <perex@perex.cz>, Daniel Drake <drake@endlessm.com>, "Lin, Mengdong"
- <mengdong.lin@intel.com>
-Date: Wed, 31 Jul 2019 15:07:57 +0100
-In-Reply-To: <3f6f48ac-6eac-ba98-91ac-62c19578b1fb@linux.intel.com>
-References: <CAD8Lp45Bp1xVC7NjuNaANA7kAEN2Edshw+cViaTF3tRZEumgZA@mail.gmail.com>
- <cc9fa5b52138daffb09dc5b66ea9248379c9f60e.camel@linux.intel.com>
- <CAD8Lp46GW8n8K7ttOeSje_au06BsyvCp4seVwj2wNbipei5ssA@mail.gmail.com>
- <a4b17a75-d4e0-fc6b-a286-aa6b7b281b7d@linux.intel.com>
- <CAD8Lp444soO1i8mWF73eucT16yAhy2js1byWJCTV5fn=TikHBg@mail.gmail.com>
- <9e8b667f1aa2333dbcc34b5253372d1a8667551e.camel@linux.intel.com>
- <ee34f820-0753-dfbe-09c0-7147cf229cc0@perex.cz>
- <6493f195-eb5a-1a6d-2c31-e3a4123b2ad1@linux.intel.com>
- <7c940d90-297e-19c0-2f74-1843439d5ccf@perex.cz>
- <d41b02286db2a827648d1c1ec793bbd0a55e99c1.camel@linux.intel.com>
- <8dceb60b-35a5-93e9-ce01-1eb852e93f44@perex.cz>
- <0059ed8e8f2fbd7ffbc258ca53ce5efbf1885c5b.camel@linux.intel.com>
- <3f6f48ac-6eac-ba98-91ac-62c19578b1fb@linux.intel.com>
-User-Agent: Evolution 3.32.1-2 
+X-IronPort-AV: E=Sophos;i="5.64,330,1559545200"; d="scan'208";a="372141488"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga006.fm.intel.com with ESMTP; 31 Jul 2019 08:33:37 -0700
+Received: from csenarat-mobl2.amr.corp.intel.com
+ (csenarat-mobl2.amr.corp.intel.com [10.254.66.62])
+ by linux.intel.com (Postfix) with ESMTP id A893F5800BD;
+ Wed, 31 Jul 2019 08:33:36 -0700 (PDT)
+To: Takashi Iwai <tiwai@suse.de>
+References: <20190729155151.14055-1-pierre-louis.bossart@linux.intel.com>
+ <s5hmuguqpjk.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <ba35154d-5620-bb3e-40c8-ede417d98a2a@linux.intel.com>
+Date: Wed, 31 Jul 2019 10:33:36 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.8.0
 MIME-Version: 1.0
-Cc: Jian-Hong Pan <jian-hong@endlessm.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- sound-open-firmware@alsa-project.org
-Subject: Re: [alsa-devel] [Sound-open-firmware] Signed firmware availability
- for kbl/cnl
+In-Reply-To: <s5hmuguqpjk.wl-tiwai@suse.de>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, Curtis Malainey <cujomalainey@google.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Daniel Drake <drake@endlessm.com>,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH v4 0/5] ALSA/HDA: abort probe when DMICs
+	are detected
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,33 +77,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2019-07-31 at 09:01 -0500, Pierre-Louis Bossart wrote:
-> > Any objections to using this repo for topologies too ? I know we
-> > haven't yet used it for UCMs but now is probably a good point to
-> > move
-> > (including moving the older UCMs over too).
+On 7/31/19 8:52 AM, Takashi Iwai wrote:
+> On Mon, 29 Jul 2019 17:51:46 +0200,
+> Pierre-Louis Bossart wrote:
+>>
+>> This is the second take on same problem of detecting when the HDaudio
+>> legacy driver can be used and when the SST or SOF drivers are
+>> required.
+>>
+>> The previous attempt based on a the PCI Class information was a
+>> resounding failure and broke audio on Linus' laptop, so we need
+>> additional information to avoid enabling a DSP-based driver without a
+>> good reason to do so.
+>>
+>> This patchset suggests the use of the NHLT information which *in
+>> theory* exposes DMIC endpoints. The legacy HDaudio driver cannot
+>> handle DMICs and will not provide any capture capabilities. Since it's
+>> typically the first one to probe due to the Makefile order, aborting
+>> the probe will let the PCI subsystem look for the next driver which
+>> hopefully will support this capability.
+>>
+>> I tested this patch on 5 devices (SKL, KBL, APL, GLK, WHL), three
+>> without DMICs and two with, and the detection seems to work as
+>> planned. Additional testing by Canonical and Endless folks did not
+>> expose any issues.
+>>
+>> Changes since v3 (Feedback from Cezary)
+>> Code cleanups (spaces and unnecessary inits)
+>> Flipped test statement to return on errors and reduce indentation
+>> Removed ACPI leak by adding missing ACPI_FREE()
+>>
+>> Changes since v2 (Feedback from Takahi and Cezary)
+>> Added comment in Kconfig to alert the user to the dependency on ACPI
+>>
+>> Changes since v1 (Feedback from Takashi):
+>> Squashed patch3 in patch2
+>> Changed log to dbg_info
+>> Fixed module parameter handling
+>>
+>> Changes since RFC:
+>> Cosmetic code improvements
+>> Moved intel-nhlt.h to include/sound
+>> Moved intel-nhlt.c to sound/hda
+>> Removed SOC prefixes
+>> Added full-support for vendor-defined geometries
+>> Added Kconfig and kernel module parameter to opt-in
+>>
+>> Pierre-Louis Bossart (5):
+>>    ASoC: Intel: Skylake: move NHLT header to common directory
+>>    ALSA: hda: move parts of NHLT code to new module
+>>    ALSA: hda: intel-nhlt: handle NHLT VENDOR_DEFINED DMIC geometry
+>>    ASoC: Intel: Skylake: use common NHLT module
+>>    ALSA: hda/intel: stop probe if DMICS are detected on Skylake+
+>>      platforms
 > 
-> We'll need to figure out the license for all this, the topologies 
-> and 
-> UCM files created for SOF are all BSD 3-clause but I am not clear on 
-> older UCM files stored in alsa-lib, I don't think there was any 
-> agreement that the LGPL license applied to them.
+> Applied all five patches now.  Thanks.
+> 
+> Mark, the patches are found in topic/hda-dmic branch of sound git
+> tree, which are based on 5.3-rc1.  If ASoC tree needs these changes,
+> feel free to pull the branch into yours.
 
-I remember this was discussed in the past, it is possible to make all
-new UCMs and topologies BSD 3c in the new repo. We could also transfer
-over and re-license any topoloies over from alsa-lib where we had
-agreement from authors. 
+Thank you Takashi.
 
-This would eventually mean alsa-lib would contain "legacy" GPL
-topologies whilst alsa-ucm-conf would contain any new and BSD licences
-UCM/topologies.
-
-Liam
+I will need to use these patches for SOF to dynamically change the 
+topology file name depending on how many DMICs are detected for HDaudio 
+platforms, if at all. The current solution requires the user to rename 
+files and it's just not scalable.
 
 _______________________________________________
 Alsa-devel mailing list

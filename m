@@ -2,81 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7649D7CE21
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 22:22:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D2A77CE53
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 22:28:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0736E169E;
-	Wed, 31 Jul 2019 22:21:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0736E169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A3B216B8;
+	Wed, 31 Jul 2019 22:27:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A3B216B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564604523;
-	bh=cpOAEKIdatwxXPx+GodqSKgB41glnR8ZOD+B7L+2iNw=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564604910;
+	bh=4R+pxrYRXHe9fXYMxz/dTaEE/R3glRTF+lBZExL25Mw=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=r2SOThVAHFEVlXCDf2+8UmJNNkyRZq3D5XOfgWeTRsuESXa7zT41lomAjRGobSRx4
-	 LAPBhGWVxiaHUnL/lw0w6GIP+qiHnIyD+HdF5X5fcKY4J3n7J3gAomAyyfIdY1xxdG
-	 I/6zCkvdBO9T8QInnGsX19SttRnZRy9jglWv7MC0=
+	b=PyOUxxaOWO3KQ9FS5Y7lHzaFkTzeILxriz/8h8c+MgFJHwFLTSK3lAMQqxxXLp5Nm
+	 9iA5Je4PWS7yDgxfZfPzLiaBDbTt02hqHBcE7yhzk76sdWFWXYus6Ze+FvddHdYHs0
+	 /HaRWK1BRjGXlH2oUAuRq8tgHNp+R8LsG7vQy5EM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 416D3F800C0;
-	Wed, 31 Jul 2019 22:20:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AD812F8048E;
+	Wed, 31 Jul 2019 22:26:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED98DF80483; Wed, 31 Jul 2019 22:20:16 +0200 (CEST)
+ id CDE15F80483; Wed, 31 Jul 2019 22:26:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3791F800C0
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 22:20:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3791F800C0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3A9C6F80133
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 22:26:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A9C6F80133
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="YYhiErzL"
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="cd0EZcQk"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:References:In-Reply-To:Message-ID:Subject:Cc:To:
+ From:Date:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eSpZl/myp0wLmres0SzdL8uz08rnblNQITo3VV+tXno=; b=YYhiErzLfdL7neEK7d0phFEhA
- 9rYVeR7x7t8t6paB3ZYVvcpsMo/itLyxCB2hOJT8gnOe2xOO8iAjeWRiY7cTpKhSE6/BN2x8m4rMQ
- cSB16hNa+oZ9qF3mqcbLxgvqdCuQVoTjgi1w17GQcvLfcOoOipIPzkfbVKuqdLoY5fX+c=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1hsv4y-0003F9-G4; Wed, 31 Jul 2019 20:20:08 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 634FD2742C99; Wed, 31 Jul 2019 21:20:07 +0100 (BST)
-Date: Wed, 31 Jul 2019 21:20:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>
-Message-ID: <20190731202007.GI4369@sirena.org.uk>
+ bh=+a5BC2SMQTZyNnosj2+NVoaE/cuHtdCJLsTbfMI7CM8=; b=cd0EZcQkx68qz1mV7MZC2uM8w
+ P5cYOfzRqT4jAj1XeIa5cZwCKRpuEARrsXGCDxCq8sgpCmoEJ8VyMoB1ZGWIv3KkGkC8AIFMmG3zu
+ rlsmWUq3FLoiDUPohjPULvC4w5BLIzEmbwgXzpFT+L80k80QNHwktIQFstvBvlBiAagdTYKLP7kd6
+ mgvL4iD+sHmcbJxX4pbsqTYJFd9WsDq0iZww0LtIbpC3Rwlt6XCZ+VcKY2odTaplLXORSAqBC7jw+
+ ktYQ73C/T59Q53D5UHvn8GEbIRSj5leo+helE+/aJGkkXgpqWFvenf2ZTIwIz7KLtjIJb7x/x8Xk3
+ 8x9hawtXg==;
+Received: from [191.33.152.89] (helo=coco.lan)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
+ id 1hsvB0-0001Q8-KC; Wed, 31 Jul 2019 20:26:22 +0000
+Date: Wed, 31 Jul 2019 17:26:13 -0300
+From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20190731172613.32d65ad8@coco.lan>
+In-Reply-To: <20190731202007.GI4369@sirena.org.uk>
 References: <cover.1564603513.git.mchehab+samsung@kernel.org>
  <20190731141734.1fa9ce64@lwn.net>
+ <20190731202007.GI4369@sirena.org.uk>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20190731141734.1fa9ce64@lwn.net>
-X-Cookie: FEELINGS are cascading over me!!!
-User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Mark Rutland <mark.rutland@arm.com>, Dave Kleikamp <shaggy@kernel.org>,
  alsa-devel@alsa-project.org,
  Linux Doc Mailing List <linux-doc@vger.kernel.org>,
  Maxime Ripard <maxime.ripard@bootlin.com>,
  jfs-discussion@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Evgeniy Polyakov <zbr@ioremap.net>, linux-cifs@vger.kernel.org,
- Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Evgeniy Polyakov <zbr@ioremap.net>,
+ linux-cifs@vger.kernel.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Jonathan Corbet <corbet@lwn.net>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Chen-Yu Tsai <wens@csie.org>, devicetree@vger.kernel.org,
  Evgeniy Dushistov <dushistov@mail.ru>,
@@ -100,70 +96,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0303284380116307887=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Em Wed, 31 Jul 2019 21:20:07 +0100
+Mark Brown <broonie@kernel.org> escreveu:
 
---===============0303284380116307887==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9s922KAXlWjPfK/Q"
-Content-Disposition: inline
+> On Wed, Jul 31, 2019 at 02:17:34PM -0600, Jonathan Corbet wrote:
+> > Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:  
+> 
+> > > As promised, this is the rebased version of the patches that were not applied
+> > > from the /26 patch series because you had merge conflicts.
+> > > 
+> > > They're all based on your docs-next branch, so should apply fine.
+> > > 
+> > > The first one fixes all but one error with a broken reference.
+> > > 
+> > > The only broken reference right now is due to a DT patch with was not
+> > > accepted (no idea why), but whose driver is upstream.  
+> 
+> > All but 5/6 applied, thanks.  
+> 
+> Oh, I still hadn't reviewed this version of the SPI stuff :(
 
+It is basically the one sent on that /26 patch series, just rebased
+on the top of docs-next.
 
---9s922KAXlWjPfK/Q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> There were outstanding questions about where it was going to get moved
+> to but if I read the diff correctly it looks like it didn't actually get
+> moved in the end?
 
-On Wed, Jul 31, 2019 at 02:17:34PM -0600, Jonathan Corbet wrote:
-> Mauro Carvalho Chehab <mchehab+samsung@kernel.org> wrote:
+Yeah, it doesn't have the move. My understanding from our discussions
+is that we didn't reach a conclusion.
 
-> > As promised, this is the rebased version of the patches that were not a=
-pplied
-> > from the /26 patch series because you had merge conflicts.
-> >=20
-> > They're all based on your docs-next branch, so should apply fine.
-> >=20
-> > The first one fixes all but one error with a broken reference.
-> >=20
-> > The only broken reference right now is due to a DT patch with was not
-> > accepted (no idea why), but whose driver is upstream.
+In any case, I can send a separate patch with the move part once
+we reach an agreement about what's the best way to proceed (or you
+can do it directly, if you prefer so).
 
-> All but 5/6 applied, thanks.
-
-Oh, I still hadn't reviewed this version of the SPI stuff :(
-
-There were outstanding questions about where it was going to get moved
-to but if I read the diff correctly it looks like it didn't actually get
-moved in the end?
-
---9s922KAXlWjPfK/Q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1B9/YACgkQJNaLcl1U
-h9Bg/wf5AdzUWJa+NJteGVMxcv2AdvS61I9agmCR6mMbPERTL3lRkGvteyyk4FqS
-OLlGCoSv8ytbJJ7mVGt28aBLCB7cHeDQGGmdf7OM3nJGun9yy4mmhOUIWxgjWRCl
-SgO2qZpfOz121zfa2goqOfdNzbPOotjeuIyVJxvNH0NLLvRjjDZ1+4rXUjvMZf26
-cVK4dXIu7+m0Kh6N6EFG9vmpNjbh23zfkd89kH8bMBGaOHdhj/3cRmCw2ZxK8Uiz
-Z+xwRCyTI0CIegyUp0ZKheAqubruDFR7y0F9sYcI5KR+w0cDrfxYjOUgZa2JJKn7
-Rdr1TAWXS/LG/aYR09ZGPHQsIsDKIw==
-=V4AT
------END PGP SIGNATURE-----
-
---9s922KAXlWjPfK/Q--
-
---===============0303284380116307887==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks,
+Mauro
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0303284380116307887==--

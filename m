@@ -2,64 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11B217CA07
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 19:12:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AEEE7CA51
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 19:31:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99EDF16BB;
-	Wed, 31 Jul 2019 19:12:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99EDF16BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01E8716C0;
+	Wed, 31 Jul 2019 19:30:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01E8716C0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564593176;
-	bh=lhbJuv7jkXkU+0wEEPuE9WuwpxY8mqNB0HQH5YHPyhs=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1564594264;
+	bh=xmPOtiXGuVZzLVRPM+CiUimoEocQXCu53sLmSMhXF1s=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=W82pOwwHDOwJ7tKt/UolD/C5hxmH8lkrtAMByOwuRlJTVAEvm3JjydNYVFa3fkR30
-	 XODLGJ9v7RRF3Z03fezNOUtEm86O1pOTMvv/NQXn+r1avVCswSaV0OCw/Fg9gkAYp3
-	 rn4vKTIyRnxkQdlegxBL7K8t5JGot2S28wTVJSX0=
+	b=IL/Pw4A0cuAcFj/7ERwn3UxfIot61cvuy542pM6ozkKhhIdPLO4p2t9TnVP2TcX1h
+	 lnriCj7uvYwx6bMKE9g7nbn6zTHYSve4FmfMVXMe6WNEZLYxcsHG91W4nwMP0XwNVW
+	 w1rGw3qNzZ62WJQcb75poy7RLZBA6NcEuRooQ++k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07313F8048E;
-	Wed, 31 Jul 2019 19:11:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B808EF800C0;
+	Wed, 31 Jul 2019 19:29:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4426CF80483; Wed, 31 Jul 2019 19:11:10 +0200 (CEST)
+ id 3AAC8F80483; Wed, 31 Jul 2019 19:29:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 540E4F80133
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 19:11:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 540E4F80133
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 31 Jul 2019 10:11:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,330,1559545200"; d="scan'208";a="323810584"
-Received: from deharris-mobl.amr.corp.intel.com ([10.251.148.13])
- by orsmga004.jf.intel.com with ESMTP; 31 Jul 2019 10:11:03 -0700
-Message-ID: <918f9c287b7ef9efb707d88560a9ccde577c5dbf.camel@linux.intel.com>
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Mark Brown
- <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Date: Wed, 31 Jul 2019 10:11:03 -0700
-In-Reply-To: <20190731131716.9764-3-gregkh@linuxfoundation.org>
-References: <20190731131716.9764-1-gregkh@linuxfoundation.org>
- <20190731131716.9764-3-gregkh@linuxfoundation.org>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57062F80133;
+ Wed, 31 Jul 2019 19:29:10 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6B0D5A003F;
+ Wed, 31 Jul 2019 19:29:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6B0D5A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1564594150; bh=l5i+Ujao0+zuRSet4fUsmJGQSs2O9lGlnhE29oHcKLM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=Zj1Y+awZy1fQ2lN9UmOlh9erS1G4N6+w1RDVYaONfI0nplhzBTGz3NJfHFQ/PKeng
+ sn8m1ZTOWBEtSKZGEiHRX4XMsPW5Cn17EmwJcGSDN21vEEfrOW1u8+CqwIm44FBrHd
+ te+kf6otCvMf46Zl0KCbSQgZ8bZQwlMm+vXAcf9M=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Wed, 31 Jul 2019 19:29:03 +0200 (CEST)
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v2 3/3] ASoC: SOF: no need to check return
- value of debugfs_create functions
+ Daniel Drake <drake@endlessm.com>, "Lin, Mengdong" <mengdong.lin@intel.com>
+References: <CAD8Lp45Bp1xVC7NjuNaANA7kAEN2Edshw+cViaTF3tRZEumgZA@mail.gmail.com>
+ <cc9fa5b52138daffb09dc5b66ea9248379c9f60e.camel@linux.intel.com>
+ <CAD8Lp46GW8n8K7ttOeSje_au06BsyvCp4seVwj2wNbipei5ssA@mail.gmail.com>
+ <a4b17a75-d4e0-fc6b-a286-aa6b7b281b7d@linux.intel.com>
+ <CAD8Lp444soO1i8mWF73eucT16yAhy2js1byWJCTV5fn=TikHBg@mail.gmail.com>
+ <9e8b667f1aa2333dbcc34b5253372d1a8667551e.camel@linux.intel.com>
+ <ee34f820-0753-dfbe-09c0-7147cf229cc0@perex.cz>
+ <6493f195-eb5a-1a6d-2c31-e3a4123b2ad1@linux.intel.com>
+ <7c940d90-297e-19c0-2f74-1843439d5ccf@perex.cz>
+ <d41b02286db2a827648d1c1ec793bbd0a55e99c1.camel@linux.intel.com>
+ <8dceb60b-35a5-93e9-ce01-1eb852e93f44@perex.cz>
+ <0059ed8e8f2fbd7ffbc258ca53ce5efbf1885c5b.camel@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <1718d316-4c65-a39d-53dd-7f40f0e49e28@perex.cz>
+Date: Wed, 31 Jul 2019 19:29:02 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <0059ed8e8f2fbd7ffbc258ca53ce5efbf1885c5b.camel@linux.intel.com>
+Content-Language: en-US
+Cc: Jian-Hong Pan <jian-hong@endlessm.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ sound-open-firmware@alsa-project.org
+Subject: Re: [alsa-devel] [Sound-open-firmware] Signed firmware availability
+	for kbl/cnl
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,214 +96,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2019-07-31 at 15:17 +0200, Greg Kroah-Hartman wrote:
-> When calling debugfs functions, there is no need to ever check the
-> return value.  The function can work or not, but the code logic
-> should
-> never do something different based on this.
+Dne 31. 07. 19 v 15:23 Liam Girdwood napsal(a):
+> + Mengdong
 > 
-> Also, if a debugfs call fails, userspace is notified with an error in
-> the log, so no need to log the error again.
+> On Wed, 2019-07-24 at 18:23 +0200, Jaroslav Kysela wrote:
+>>> Yeah, been thinking about this atm. It may be better to package the
+>>> binaries (firmware and topologies) as part of Linux firmware repo
+>>> (since the driver expects to load them all from lib/firmware) and
+>>> package the sources (firmware and topology) via sof tarball ?
+>>
+>> It looks good in my eyes, because topology files are another pieces
+>> of the
+>> driver from the user space perspective. The unanswered question is
+>> the UCM
+>> configuration which is linked to the topology configuration (if I
+>> understand
+>> this correctly). I proposed to place an unique identifier/version to
+>> the
+>> topology file and propagate this identifier to the user space, so the
+>> alsa-lib
+>> can pick the right UCM configuration when topology changes. The
+>> component
+>> string (snd_component_add function / struct snd_ctl_card_info ->
+>> components)
+>> can be used for this identification.
 > 
-> Because we no longer need to check the return value, there's no need
-> to
-> save the dentry returned by debugfs.  Just use the dentry in the file
-> pointer if we really need to figure out the "name" of the file being
-> opened.
-> 
-> Cc: Liam Girdwood <lgirdwood@gmail.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: Jaroslav Kysela <perex@perex.cz>
-> Cc: Takashi Iwai <tiwai@suse.com>
-> Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
-> v2: rebase on 5.3-rc1
->     change Subject line to match the subsystem better
->     rework based on debugfs core now reporting errors.
-> 
->  sound/soc/sof/debug.c    | 49 +++++++++++++++-----------------------
-> --
->  sound/soc/sof/sof-priv.h |  1 -
->  sound/soc/sof/trace.c    |  9 ++------
->  3 files changed, 20 insertions(+), 39 deletions(-)
-> 
-> diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-> index 2388477a965e..40940b2fe9d5 100644
-> --- a/sound/soc/sof/debug.c
-> +++ b/sound/soc/sof/debug.c
-> @@ -128,6 +128,7 @@ static ssize_t sof_dfsentry_write(struct file
-> *file, const char __user *buffer,
->  	unsigned long ipc_duration_ms = 0;
->  	bool flood_duration_test = false;
->  	unsigned long ipc_count = 0;
-> +	struct dentry *dentry;
->  	int err;
->  #endif
->  	size_t size;
-> @@ -149,11 +150,12 @@ static ssize_t sof_dfsentry_write(struct file
-> *file, const char __user *buffer,
->  	 * ipc_duration_ms test floods the DSP for the time specified
->  	 * in the debugfs entry.
->  	 */
-> -	if (strcmp(dfse->dfsentry->d_name.name, "ipc_flood_count") &&
-> -	    strcmp(dfse->dfsentry->d_name.name,
-> "ipc_flood_duration_ms"))
-> +	dentry = file->f_path.dentry;
-> +	if (strcmp(dentry->d_name.name, "ipc_flood_count") &&
-> +	    strcmp(dentry->d_name.name, "ipc_flood_duration_ms"))
->  		return -EINVAL;
->  
-> -	if (!strcmp(dfse->dfsentry->d_name.name,
-> "ipc_flood_duration_ms"))
-> +	if (!strcmp(dentry->d_name.name, "ipc_flood_duration_ms"))
->  		flood_duration_test = true;
->  
->  	/* test completion criterion */
-> @@ -219,6 +221,7 @@ static ssize_t sof_dfsentry_read(struct file
-> *file, char __user *buffer,
->  {
->  	struct snd_sof_dfsentry *dfse = file->private_data;
->  	struct snd_sof_dev *sdev = dfse->sdev;
-> +	struct dentry *dentry;
->  	loff_t pos = *ppos;
->  	size_t size_ret;
->  	int skip = 0;
-> @@ -226,8 +229,9 @@ static ssize_t sof_dfsentry_read(struct file
-> *file, char __user *buffer,
->  	u8 *buf;
->  
->  #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST)
-> -	if ((!strcmp(dfse->dfsentry->d_name.name, "ipc_flood_count") ||
-> -	     !strcmp(dfse->dfsentry->d_name.name,
-> "ipc_flood_duration_ms")) &&
-> +	dentry = file->f_path.dentry;
-> +	if ((!strcmp(dentry->d_name.name, "ipc_flood_count") ||
-> +	     !strcmp(dentry->d_name.name, "ipc_flood_duration_ms")) &&
->  	    dfse->cache_buf) {
->  		if (*ppos)
->  			return 0;
-> @@ -290,8 +294,7 @@ static ssize_t sof_dfsentry_read(struct file
-> *file, char __user *buffer,
->  		if (!pm_runtime_active(sdev->dev) &&
->  		    dfse->access_type == SOF_DEBUGFS_ACCESS_D0_ONLY) {
->  			dev_err(sdev->dev,
-> -				"error: debugfs entry %s cannot be read
-> in DSP D3\n",
-> -				dfse->dfsentry->d_name.name);
-> +				"error: debugfs entry cannot be read in
-> DSP D3\n");
->  			kfree(buf);
->  			return -EINVAL;
->  		}
-> @@ -356,17 +359,11 @@ int snd_sof_debugfs_io_item(struct snd_sof_dev
-> *sdev,
->  	}
->  #endif
->  
-> -	dfse->dfsentry = debugfs_create_file(name, 0444, sdev-
-> >debugfs_root,
-> -					     dfse, &sof_dfs_fops);
-> -	if (!dfse->dfsentry) {
-> -		/* can't rely on debugfs, only log error and keep going
-> */
-> -		dev_err(sdev->dev, "error: cannot create debugfs entry
-> %s\n",
-> -			name);
-> -	} else {
-> -		/* add to dfsentry list */
-> -		list_add(&dfse->list, &sdev->dfsentry_list);
-> +	debugfs_create_file(name, 0444, sdev->debugfs_root, dfse,
-> +			    &sof_dfs_fops);
-Minor nit-pick but looks good otherwise. This will fit all in one line
-(same with the lines below).
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
- 
->  
-> -	}
-> +	/* add to dfsentry list */
-> +	list_add(&dfse->list, &sdev->dfsentry_list);
->  
->  	return 0;
->  }
-> @@ -402,16 +399,10 @@ int snd_sof_debugfs_buf_item(struct snd_sof_dev
-> *sdev,
->  		return -ENOMEM;
->  #endif
->  
-> -	dfse->dfsentry = debugfs_create_file(name, mode, sdev-
-> >debugfs_root,
-> -					     dfse, &sof_dfs_fops);
-> -	if (!dfse->dfsentry) {
-> -		/* can't rely on debugfs, only log error and keep going
-> */
-> -		dev_err(sdev->dev, "error: cannot create debugfs entry
-> %s\n",
-> -			name);
-> -	} else {
-> -		/* add to dfsentry list */
-> -		list_add(&dfse->list, &sdev->dfsentry_list);
-> -	}
-> +	debugfs_create_file(name, mode, sdev->debugfs_root, dfse,
-> +			    &sof_dfs_fops);
-> +	/* add to dfsentry list */
-> +	list_add(&dfse->list, &sdev->dfsentry_list);
->  
->  	return 0;
->  }
-> @@ -426,10 +417,6 @@ int snd_sof_dbg_init(struct snd_sof_dev *sdev)
->  
->  	/* use "sof" as top level debugFS dir */
->  	sdev->debugfs_root = debugfs_create_dir("sof", NULL);
-> -	if (IS_ERR_OR_NULL(sdev->debugfs_root)) {
-> -		dev_err(sdev->dev, "error: failed to create debugfs
-> directory\n");
-> -		return 0;
-> -	}
->  
->  	/* init dfsentry list */
->  	INIT_LIST_HEAD(&sdev->dfsentry_list);
-> diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-> index b8c0b2a22684..79b6709d1874 100644
-> --- a/sound/soc/sof/sof-priv.h
-> +++ b/sound/soc/sof/sof-priv.h
-> @@ -228,7 +228,6 @@ enum sof_debugfs_access_type {
->  
->  /* FS entry for debug files that can expose DSP memories, registers
-> */
->  struct snd_sof_dfsentry {
-> -	struct dentry *dfsentry;
->  	size_t size;
->  	enum sof_dfsentry_type type;
->  	/*
-> diff --git a/sound/soc/sof/trace.c b/sound/soc/sof/trace.c
-> index befed975161c..4c3cff031fd6 100644
-> --- a/sound/soc/sof/trace.c
-> +++ b/sound/soc/sof/trace.c
-> @@ -148,13 +148,8 @@ static int trace_debugfs_create(struct
-> snd_sof_dev *sdev)
->  	dfse->size = sdev->dmatb.bytes;
->  	dfse->sdev = sdev;
->  
-> -	dfse->dfsentry = debugfs_create_file("trace", 0444, sdev-
-> >debugfs_root,
-> -					     dfse,
-> &sof_dfs_trace_fops);
-> -	if (!dfse->dfsentry) {
-> -		/* can't rely on debugfs, only log error and keep going
-> */
-> -		dev_err(sdev->dev,
-> -			"error: cannot create debugfs entry for
-> trace\n");
-> -	}
-> +	debugfs_create_file("trace", 0444, sdev->debugfs_root, dfse,
-> +			    &sof_dfs_trace_fops);
->  
->  	return 0;
->  }
+> Apologizes for the delay, Pierre and I have been discussing this
+> internally as we have to synchronise the deployment of the topologies
+> and UCMs alongside the FW.
 
+My strong point is that the driver with the different firmware and the
+topology file behaves differently from the user space perspective. It seems
+that there is no way to propagate the firmware (and topology?) version to the
+user space at the moment.
+
+> Current thinking has changed from shipping FW + tplg via linux-firmware 
+> repo to only shipping FW binaries in the FW repo and using alsa-ucm-
+> conf.git for UCMs + topologies (since the coupling between UCM and
+> topology is tighter than the FW coupling).
+
+This is fine, but I think that we should have a check (compatibility
+verification) in the user space level, too. More precisely, each level should
+do a verification if it's compatible with the tied level (driver -> firmware
+-> topology -> ucm).
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

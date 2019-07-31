@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B36BE7ED22
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:09:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02667ED24
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 09:10:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49353170C;
-	Fri,  2 Aug 2019 09:08:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49353170C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 753A81715;
+	Fri,  2 Aug 2019 09:09:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 753A81715
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564729785;
-	bh=WQQybZJOSJuJLotLBEGWHp4BMRhLmtMSzW8ed16nVBg=;
+	s=default; t=1564729821;
+	bh=9/7LJVevryVVUHjkdM6C8lPHQEorJbUwGx+qQkpTcg4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qbXQXNnyScsxh5tS4qT3NkPExPe9+Qgi0hHCgRZG62Tr0Ibo9hEL1HsJsB5Mu40K1
-	 rhVUpDz7SzrJiSxf2Dhg89s4QQw6ehNtaEmGKyK0PUyeZLgeO3dbB1sMuHvff5KQwS
-	 yuNFix5eKTuDCDTpnM8b50tegw/UqvU3EuWty1Io=
+	b=KEb6F4jDAWGeFs3eYVjpdvbzZADKF0fWeGZNnvQV8LmRls8/2fFD1C+aSEu80jF0N
+	 AIzN0od1q0C7OBIaIqQW5B+X352ayrNVB17XAL6d//3uoqYIVhkJYz9oFYD8XEyXbF
+	 kGAbTXGaOJ1ShbMUv/2zFAkA01OkNmAbZQfqLMSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39F03F8049B;
-	Fri,  2 Aug 2019 08:53:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EBA6F8075B;
+	Fri,  2 Aug 2019 08:53:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CE8CF80483; Wed, 31 Jul 2019 13:30:10 +0200 (CEST)
+ id 676A9F80508; Wed, 31 Jul 2019 13:30:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,36 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5FC0EF8053B
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FC0EF8053B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 353F1F80214
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 13:29:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 353F1F80214
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="r9mBPI6m"
+ header.b="mWnXJlkj"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=x9Az2l9jRA1fvbltqAEskyHx15EQpvhr5JUZPqMPcJg=; b=r9mBPI6mq1Wt
- 9wWcxy04DISQgMzTe9zjN17SICHierskov65a5G/KTGzIPfLYk6OdBqGBKCHjQx/7yuNoZErFaONO
- V34xTi/pyn0mJ38McNc0yybWE278vdQR+qmyytMH/MUuqGWupGkQrfmbWkiNlcMS3ZFiL3ZMZnePy
- 8qAow=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=v871jHNt077vZnIyaI0zzBzYEd+b7ft04H2qC4RPmxI=; b=mWnXJlkjB31Y
+ InebYKQLQ2UXpj1I1Y94Yv2fVSGf7ksuzho7F+sQD2I/Y6s4mcyX5cxeBedTO0Y4SCD/npXHQKmB4
+ b40IWuD38EjPia6ZWvZ029ty/zI869MrMZ8uy9qVybmWSXRruhl4FXNcPZR/UxKYwbeITpAfQ35gl
+ LmHmI=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hsmnl-0001ne-1i; Wed, 31 Jul 2019 11:29:49 +0000
+ id 1hsmnj-0001mw-8r; Wed, 31 Jul 2019 11:29:47 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 339E92742C99; Wed, 31 Jul 2019 12:29:48 +0100 (BST)
+ id B0EE02742CC3; Wed, 31 Jul 2019 12:29:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190727150738.54764-10-yuehaibing@huawei.com>
+In-Reply-To: <20190727150738.54764-14-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190731112948.339E92742C99@ypsilon.sirena.org.uk>
-Date: Wed, 31 Jul 2019 12:29:48 +0100 (BST)
+Message-Id: <20190731112946.B0EE02742CC3@ypsilon.sirena.org.uk>
+Date: Wed, 31 Jul 2019 12:29:46 +0100 (BST)
 X-Mailman-Approved-At: Fri, 02 Aug 2019 08:52:06 +0200
 Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org, paul@crapouillou.net,
@@ -82,7 +83,7 @@ Cc: mripard@kernel.org, alsa-devel@alsa-project.org, olivier.moysan@st.com,
  sbranden@broadcom.com, eric@anholt.net, gregkh@linuxfoundation.org,
  arnaud.pouliquen@st.com, lgirdwood@gmail.com, wahrenst@gmx.net,
  kernel@pengutronix.de, linuxppc-dev@lists.ozlabs.org, daniel@zonque.org
-Subject: [alsa-devel] Applied "ASoC: bcm2835-i2s: use
+Subject: [alsa-devel] Applied "ASoC: kirkwood-i2s: use
 	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -104,7 +105,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: bcm2835-i2s: use devm_platform_ioremap_resource() to simplify code
+   ASoC: kirkwood-i2s: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -129,10 +130,10 @@ to this mail.
 Thanks,
 Mark
 
-From d400b1b30cbff1c0962bbb3f895e839ccd120cb7 Mon Sep 17 00:00:00 2001
+From 89dd38bf130e661d92c6ab7e3b003907f1d3f367 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Sat, 27 Jul 2019 23:07:13 +0800
-Subject: [PATCH] ASoC: bcm2835-i2s: use devm_platform_ioremap_resource() to
+Date: Sat, 27 Jul 2019 23:07:17 +0800
+Subject: [PATCH] ASoC: kirkwood-i2s: use devm_platform_ioremap_resource() to
  simplify code
 
 Use devm_platform_ioremap_resource() to simplify the code a bit.
@@ -140,33 +141,33 @@ This is detected by coccinelle.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190727150738.54764-10-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190727150738.54764-14-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/bcm/bcm2835-i2s.c | 4 +---
+ sound/soc/kirkwood/kirkwood-i2s.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/bcm/bcm2835-i2s.c b/sound/soc/bcm/bcm2835-i2s.c
-index 5ef80f3d446a..e6a12e271b07 100644
---- a/sound/soc/bcm/bcm2835-i2s.c
-+++ b/sound/soc/bcm/bcm2835-i2s.c
-@@ -828,7 +828,6 @@ static int bcm2835_i2s_probe(struct platform_device *pdev)
- {
- 	struct bcm2835_i2s_dev *dev;
- 	int ret;
+diff --git a/sound/soc/kirkwood/kirkwood-i2s.c b/sound/soc/kirkwood/kirkwood-i2s.c
+index 3446a113f482..5076ec4cc7a6 100644
+--- a/sound/soc/kirkwood/kirkwood-i2s.c
++++ b/sound/soc/kirkwood/kirkwood-i2s.c
+@@ -523,7 +523,6 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
+ 	struct kirkwood_asoc_platform_data *data = pdev->dev.platform_data;
+ 	struct snd_soc_dai_driver *soc_dai = kirkwood_i2s_dai;
+ 	struct kirkwood_dma_data *priv;
 -	struct resource *mem;
- 	void __iomem *base;
- 	const __be32 *addr;
- 	dma_addr_t dma_base;
-@@ -848,8 +847,7 @@ static int bcm2835_i2s_probe(struct platform_device *pdev)
- 	}
+ 	struct device_node *np = pdev->dev.of_node;
+ 	int err;
  
- 	/* Request ioarea */
+@@ -533,8 +532,7 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
+ 
+ 	dev_set_drvdata(&pdev->dev, priv);
+ 
 -	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	base = devm_ioremap_resource(&pdev->dev, mem);
-+	base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(base))
- 		return PTR_ERR(base);
+-	priv->io = devm_ioremap_resource(&pdev->dev, mem);
++	priv->io = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(priv->io))
+ 		return PTR_ERR(priv->io);
  
 -- 
 2.20.1

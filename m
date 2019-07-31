@@ -2,65 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6086A7B609
-	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 01:05:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5887B930
+	for <lists+alsa-devel@lfdr.de>; Wed, 31 Jul 2019 07:42:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E566017A2;
-	Wed, 31 Jul 2019 01:04:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E566017A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6328C1710;
+	Wed, 31 Jul 2019 07:41:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6328C1710
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564527904;
-	bh=12cAYqPtwscXRrVvres21ulZXs2x5CLJTAdolJHLf7o=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=HvTCyIaNFSSrSF5emWaA9GLE7rxXbidqnBwPjIaer18laT0SAguQwPQfndihxvfxA
-	 NgZvVHLmpfc2bD7hiRuVI8Qri04Xw9WXpLSC9qwcWn3D2L6HI+z90QHb9AjR94PO7N
-	 RIkarYjJjoJteScMuMzLKXiqyxNyeJ+ZddCaJ90c=
+	s=default; t=1564551730;
+	bh=dxIcjor3Wd8sha7PyiedHg4/tPAr5i/PjmQhRI33rXA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FUIR6ZctB7M1obVEElE4IWJGV9NxMuwB1Wjm6u1F5SkLa7z7AXhfLdrLy98zKu0w/
+	 ecznLDK0TJtHTE+mMqPJUkqcoO6cDCU0npEKsk1nBD4926KT7+yQzt8OuhX/3l2bGd
+	 jOdzW8ndwjxXzEB61Sn99QHsn9s2peKDx2n1KpWQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3921AF804CA;
-	Wed, 31 Jul 2019 01:03:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C88DF8048E;
+	Wed, 31 Jul 2019 07:40:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9500F804CB; Wed, 31 Jul 2019 01:03:53 +0200 (CEST)
+ id 413B8F80483; Wed, 31 Jul 2019 07:40:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-sz.amlogic.com (mail-sz.amlogic.com [211.162.65.117])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB0A0F80482
- for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 01:03:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB0A0F80482
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2019 16:03:48 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,327,1559545200"; d="scan'208";a="183439066"
-Received: from unknown (HELO [10.252.200.179]) ([10.252.200.179])
- by orsmga002.jf.intel.com with ESMTP; 30 Jul 2019 16:03:47 -0700
-To: "Rajwa, Marcin" <marcin.rajwa@linux.intel.com>, marcin.rajwa@intel.com,
- Keyon Jie <yang.jie@linux.intel.com>, ranjani.sridharan@linux.intel.com,
- kai.vehmanen@linux.intel.com, alsa-devel@alsa-project.org
-References: <9d92551a-fa10-4ecd-47f1-5b3b67824a12@linux.intel.com>
- <0b20cfe6-064b-a4ce-ce9d-2634f3f23d7c@linux.intel.com>
- <5fda90f9-c387-440a-9ea8-648b22dda9b0@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c15cf1db-3858-8694-bcb4-3665c2f0c6b2@linux.intel.com>
-Date: Tue, 30 Jul 2019 18:03:47 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDBAAF800C0
+ for <alsa-devel@alsa-project.org>; Wed, 31 Jul 2019 07:40:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDBAAF800C0
+Received: from localhost.localdomain (10.28.8.29) by mail-sz.amlogic.com
+ (10.28.11.5) with Microsoft SMTP Server id 15.1.1591.10; Wed, 31 Jul 2019
+ 13:40:48 +0800
+From: chunguo feng <chunguo.feng@amlogic.com>
+To: <lgirdwood@gmail.com>
+Date: Wed, 31 Jul 2019 13:40:03 +0800
+Message-ID: <20190731054003.16076-1-chunguo.feng@amlogic.com>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-In-Reply-To: <5fda90f9-c387-440a-9ea8-648b22dda9b0@linux.intel.com>
-Content-Language: en-US
-Subject: Re: [alsa-devel] [PATCH v4 1/2] ASoC: SOF: introduce
- no_stream_position so host_period_bytes preserves its data
+X-Originating-IP: [10.28.8.29]
+Cc: alsa-devel@alsa-project.org, RyanS.Lee@maximintegrated.com,
+ grundler@chromium.org, linux-kernel@vger.kernel.org,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com, chunguo.feng@amlogic.com,
+ broonie@kernel.org, bleung@chromium.org
+Subject: [alsa-devel] [PATCH] ASoC: max98383: add 88200 and 96000 sampling
+	rate support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,74 +63,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
->>> Change the use of host_period_bytes. So far this field was used
->>> as an bool value indicating whether FW should send stream position
->>> update. With this patch we use host_period_bytes to provide firmware
->>> information about the frequency of host interrupts aimed to read
->>> its input buffer. This is accoring to ALSA definition of 'FramePeriod'.
->>
->> according to the
->>
->>> Knowing this firmware can safely copy large/irregular chunks of data
->>
->> why irregular? ALSA periods are pretty regular and predictable.
-> 
-> I did not say ALSA periods are irregular I said that sometimes (like in 
-> case of draining) firmware needs to copy irregular amount of that.
-> 
-> What I mean by "irregular" is not equal to ALSA period or multiple of 
-> periods.
-
-Marcin, in the v2 review this is what we discussed. The formatting may 
-be off so please refer to the emails directly should this be difficult 
-to read:
-
-"
- >>>
- >>> Before I provide more feedback, can you clarify if the 
-'host_period_bytes' is the same value as the ALSA period size (in 
-bytes)? And what would be the value when the no_irq mode is used?
- >>
- >> Yes, this is the same value. It is obtained by 
-*params_period_bytes**()* in kernel.
- >
- > ok good. I was afraid this would be a different concept.
- >
- > So what you are saying is that the draining happens by bursts whose 
-size is tied to the period defined by the host, yes?
-Yes. We try to fill host buffer as much as we can to gain fast draining 
-but in the same time we give host time to read it.
-"
-
-I cannot reconcile the two threads, is the draining tied to the ALSA 
-period size or not?
-
-Care to clarify?
-
-> 
->>
->>> (like data comming from i.e draining task) without the risk of buffer
->>
->> coming
->>
->> Please proof-read your commit messages (and use an editor which 
->> spell-checks for you), typos and misleading information don't exactly 
->> boost trust in the suggested patch, regardless of its merits.
-> 
-> 
-> Sorry for typos. Should I correct them and resend again or correct here 
-> as we discuss?
-
-
-better send a v5 when we've clarified what the 'irregular' wording 
-refers to.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+RnJvbTogZmVuZ2NodW5ndW8gPGNodW5ndW8uZmVuZ0BhbWxvZ2ljLmNvbT4KCjg4MjAwIGFuZCA5
+NjAwMCBzYW1wbGluZyByYXRlIHdhcyBub3QgZW5hYmxlZCBvbiBkcml2ZXIsIHNvIGNhbid0IGJl
+IHBsYXllZC4KClRoZSBlcnJvciBpbmZvcm1hdGlvbjoKbWF4OTgzNzMgMy0wMDMx77yacmF0ZSA5
+NjAwMCBub3Qgc3VwcG9ydGVkCm1heDk4MzczIDMtMDAzMe+8mkFTb0M6IGNhbid0IHNldCBtYXg5
+ODM3My1haWYxIGh3IHBhcmFtczogLTIyCgpTaWduZWQtb2ZmLWJ5OiBmZW5nY2h1bmd1byA8Y2h1
+bmd1by5mZW5nQGFtbG9naWMuY29tPgotLS0KIHNvdW5kL3NvYy9jb2RlY3MvbWF4OTgzNzMuYyB8
+IDYgKysrKysrCiBzb3VuZC9zb2MvY29kZWNzL21heDk4MzczLmggfCAyICsrCiAyIGZpbGVzIGNo
+YW5nZWQsIDggaW5zZXJ0aW9ucygrKQogbW9kZSBjaGFuZ2UgMTAwNjQ0ID0+IDEwMDc1NSBzb3Vu
+ZC9zb2MvY29kZWNzL21heDk4MzczLmMKIG1vZGUgY2hhbmdlIDEwMDY0NCA9PiAxMDA3NTUgc291
+bmQvc29jL2NvZGVjcy9tYXg5ODM3My5oCgpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9t
+YXg5ODM3My5jIGIvc291bmQvc29jL2NvZGVjcy9tYXg5ODM3My5jCm9sZCBtb2RlIDEwMDY0NApu
+ZXcgbW9kZSAxMDA3NTUKaW5kZXggNTI4Njk1Y2Q2YTFjLi44YzYwMWEzZWJjMjcKLS0tIGEvc291
+bmQvc29jL2NvZGVjcy9tYXg5ODM3My5jCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvbWF4OTgzNzMu
+YwpAQCAtMjY3LDYgKzI2NywxMiBAQCBzdGF0aWMgaW50IG1heDk4MzczX2RhaV9od19wYXJhbXMo
+c3RydWN0IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJlYW0sCiAJY2FzZSA0ODAwMDoKIAkJc2Ft
+cGxpbmdfcmF0ZSA9IE1BWDk4MzczX1BDTV9TUl9TRVQxX1NSXzQ4MDAwOwogCQlicmVhazsKKwlj
+YXNlIDg4MjAwOgorCQlzYW1wbGluZ19yYXRlID0gTUFYOTgzNzNfUENNX1NSX1NFVDFfU1JfODgy
+MDA7CisJCWJyZWFrOworCWNhc2UgOTYwMDA6CisJCXNhbXBsaW5nX3JhdGUgPSBNQVg5ODM3M19Q
+Q01fU1JfU0VUMV9TUl85NjAwMDsKKwkJYnJlYWs7CiAJZGVmYXVsdDoKIAkJZGV2X2Vycihjb21w
+b25lbnQtPmRldiwgInJhdGUgJWQgbm90IHN1cHBvcnRlZFxuIiwKIAkJCXBhcmFtc19yYXRlKHBh
+cmFtcykpOwpkaWZmIC0tZ2l0IGEvc291bmQvc29jL2NvZGVjcy9tYXg5ODM3My5oIGIvc291bmQv
+c29jL2NvZGVjcy9tYXg5ODM3My5oCm9sZCBtb2RlIDEwMDY0NApuZXcgbW9kZSAxMDA3NTUKaW5k
+ZXggZjZhMzdhYTAyZjI2Li5hNTllNTEzNTVhODQKLS0tIGEvc291bmQvc29jL2NvZGVjcy9tYXg5
+ODM3My5oCisrKyBiL3NvdW5kL3NvYy9jb2RlY3MvbWF4OTgzNzMuaApAQCAtMTMwLDYgKzEzMCw4
+IEBACiAjZGVmaW5lIE1BWDk4MzczX1BDTV9TUl9TRVQxX1NSXzMyMDAwICgweDYgPDwgMCkKICNk
+ZWZpbmUgTUFYOTgzNzNfUENNX1NSX1NFVDFfU1JfNDQxMDAgKDB4NyA8PCAwKQogI2RlZmluZSBN
+QVg5ODM3M19QQ01fU1JfU0VUMV9TUl80ODAwMCAoMHg4IDw8IDApCisjZGVmaW5lIE1BWDk4Mzcz
+X1BDTV9TUl9TRVQxX1NSXzg4MjAwICgweDkgPDwgMCkKKyNkZWZpbmUgTUFYOTgzNzNfUENNX1NS
+X1NFVDFfU1JfOTYwMDAgKDB4QSA8PCAwKQogCiAvKiBNQVg5ODM3M19SMjAyOF9QQ01fU1JfU0VU
+VVBfMiAqLwogI2RlZmluZSBNQVg5ODM3M19QQ01fU1JfU0VUMl9TUl9NQVNLICgweEYgPDwgNCkK
+LS0gCjIuMjIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0
+dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZl
+bAo=

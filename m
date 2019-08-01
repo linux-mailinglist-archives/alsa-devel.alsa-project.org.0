@@ -2,57 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD4027D6E3
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2019 10:05:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 175DD7D867
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2019 11:22:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B1631697;
-	Thu,  1 Aug 2019 10:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B1631697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EA7016A1;
+	Thu,  1 Aug 2019 11:21:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EA7016A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564646742;
-	bh=G20OWYtF6vuYSd8tZcTNuGyP7m1fGhZZNhcVwVbi6qI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uE52PWzQpUK5cxZz4qljuuN2Q9BQV19Gwn+BtHG1R3GV2sUoryh4wPiUb1UmdhHn8
-	 uNKE+KvHAR6e3TpyKLLn+haTCMKvJcZbgX/tytyuVFnLEANCaPg5B8aSKFtNNrLCLz
-	 jVyL1cAz0bz0wotioi9y5bPX6zXpJVMF76mteBWA=
+	s=default; t=1564651346;
+	bh=O0bD5Nu+MvfuvcDXKbQc8n87M0sL3dkR5gwAHfeBoCk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qCBV1EWE05yaxH0/4NtDqs2hc0ecUIDYD9Qg+8b9eP9rBy9K9ls3HfQ/SMYgUA36P
+	 ugiVQG0S74XCGUZ40Q4cqBq4plx1gJ21VZvOsieLHfqWQOM3W8PVQonGrjZClwmWtl
+	 H/Oiwj5yRSGXoSkKab+I1EJnDvfA5NvDZAbwKxEg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BE0DF80214;
-	Thu,  1 Aug 2019 10:03:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F28CDF804CF;
+	Thu,  1 Aug 2019 11:20:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CEC4F804CC; Thu,  1 Aug 2019 10:03:54 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id 3391CF800F3; Thu,  1 Aug 2019 11:14:59 +0200 (CEST)
+Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
+ [IPv6:2607:f8b0:4864:20::b2e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBAFFF80214
- for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2019 10:03:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBAFFF80214
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Aug 2019 01:03:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,333,1559545200"; d="scan'208";a="175163698"
-Received: from macchian.itwn.intel.com ([10.5.230.135])
- by orsmga003.jf.intel.com with ESMTP; 01 Aug 2019 01:03:42 -0700
-From: mac.chiang@intel.com
-To: alsa-devel@alsa-project.org
-Date: Thu,  1 Aug 2019 16:02:44 +0800
-Message-Id: <1564646564-24990-1-git-send-email-mac.chiang@intel.com>
-X-Mailer: git-send-email 2.7.4
-Cc: sathya.prakash.m.r@intel.com, mac.chiang@intel.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
-Subject: [alsa-devel] [PATCH] ASoC: Intel: boards: Add Cometlake Dialog
-	Maxim machine driver
+ by alsa1.perex.cz (Postfix) with ESMTPS id 546CCF804CB
+ for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2019 11:04:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 546CCF804CB
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="RyB3qmqp"
+Received: by mail-yb1-xb2e.google.com with SMTP id x188so3255507yba.8
+ for <alsa-devel@alsa-project.org>; Thu, 01 Aug 2019 02:04:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=foDkP+kIyt4nRDsTVow7xbe7P8bV8V1OCNzaFAvp2SQ=;
+ b=RyB3qmqprjhJ25/4Jqa5dpfYqWgPt9pgVPqzGVqQDDelmkxPe7DZEOAqUep0HLbGey
+ Uhg642F7wTE5O2do89xd/URT+nyJIl+oDs2O7Qflca4LFP8p9J76BySF3PPLirEpzGh8
+ uHbUCNp/jN+LaJIigyNm+wOQlXEsGlpVNOt25IDO5HwDVaepcgaLydGK1q7DWVt61Von
+ 5Yz6mn5NgeYIpCEgv/GW5OCT1C4I8wVsT82WzvsqQ0rVLAwBYY1G6kwXThaKgqr0vfZc
+ HL3z2FwACol+0uhaQFk6GI8S0CIRWLPqIqzMmAHDpTspHNLxeqlWddUDRSaXoMh8R6AE
+ eAlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=foDkP+kIyt4nRDsTVow7xbe7P8bV8V1OCNzaFAvp2SQ=;
+ b=Krq38icVXaCzidYXtvsdwC18bGQbeWDDjVjSgaUvCbNQBeXBib6Ch5tjq8w0mBp2yI
+ OYPBTxo/cS7ge8rHfoKXDxy/7+1ijdTJPNgN7EYJnrxUngLp+ADnPqItIy1FHmeI6ubX
+ QUqpax7g9Gvct/U3WBTWLnH4qIpuoe6GAl0TH7Nk+VdzQEXoqhGKrKUzKypkMGxFrCd2
+ DSmmebt1GUSLbXvi7GOqPHxER3CmXT2fSP823Hd7/NnLHWzRpsrGFVlZ6Dm0NfgfUAFN
+ xgrvtHNjCoZhMcZrTeuwRASQqAelkaYVESorFDMQ2vclxTpkwqwF0XEHFyLS+p996GmQ
+ vQbA==
+X-Gm-Message-State: APjAAAXVfnFsVSn95OYjyTuYEb97ADcZ4m+X28kZRUBAgaWgVcFHuHgL
+ x9peZ7Bi0fAnwa1Xryy47CA373CB83zdTOdfvdA=
+X-Google-Smtp-Source: APXvYqxKUvvTq8ho852VMM7HDX7lJk3FKR2IkFiP0ymkHYLd+K0tVi8omvJFFEoPvIxf+N24zzmw78waaSrANLEqB4M=
+X-Received: by 2002:a25:44c6:: with SMTP id
+ r189mr59223946yba.282.1564650293142; 
+ Thu, 01 Aug 2019 02:04:53 -0700 (PDT)
+MIME-Version: 1.0
+References: <CAFwn9n1mL0tE8CaD+tF1vWBQv-E5hidz3B12WiHzxRhvpHs8fQ@mail.gmail.com>
+ <6d91a30f-07a0-d5cc-6796-7480ed4e6989@perex.cz>
+In-Reply-To: <6d91a30f-07a0-d5cc-6796-7480ed4e6989@perex.cz>
+From: Diego Buffa <diego.buffa@gmail.com>
+Date: Thu, 1 Aug 2019 11:04:17 +0200
+Message-ID: <CAFwn9n3E1_qxi=xioM2+G8NFhppLEZBNWe1A6gW4iU=CGZavzQ@mail.gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] standard read/write vs event waiting routines
+ (poll) in ALSA
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,217 +88,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mac Chiang <mac.chiang@intel.com>
+Hi Jaroslav,
+many thanks for your answer, if I understand correctly pcmjob.c, you are
+polling on capture, play and ctrl files (thread_job1).
+So in this case it is clear the scope of the polling, sorry I just look at
+https://www.alsa-project.org/alsa-doc/alsa-lib/_2test_2pcm_8c-example.html and
+I was not understanding the advantage of using poll.
 
-enable Cometlake support with:
-SSP0 for DA7219 headphone codec
-SSP1 for MAX98357a speaker amp codec
+Regards,
+d.
 
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
----
- sound/soc/intel/boards/Kconfig                    | 31 +++++++------
- sound/soc/intel/boards/kbl_da7219_max98357a.c     | 55 ++++++++++++++++++++---
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 12 +++++
- 3 files changed, 80 insertions(+), 18 deletions(-)
+On Wed, Jul 31, 2019 at 7:03 PM Jaroslav Kysela <perex@perex.cz> wrote:
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 50bf149..545aef8 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -322,19 +322,6 @@ config SND_SOC_INTEL_KBL_RT5663_RT5514_MAX98927_MACH
-           Say Y or m if you have such a device. This is a recommended option.
-           If unsure select "N".
- 
--config SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH
--	tristate "KBL with DA7219 and MAX98357A in I2S Mode"
--	depends on I2C && ACPI
--	depends on MFD_INTEL_LPSS || COMPILE_TEST
--	select SND_SOC_DA7219
--	select SND_SOC_MAX98357A
--	select SND_SOC_DMIC
--	select SND_SOC_HDAC_HDMI
--	help
--	  This adds support for ASoC Onboard Codec I2S machine driver. This will
--	  create an alsa sound card for DA7219 + MAX98357A I2S audio codec.
--	  Say Y if you have such a device.
--
- config SND_SOC_INTEL_KBL_DA7219_MAX98927_MACH
- 	tristate "KBL with DA7219 and MAX98927 in I2S Mode"
- 	depends on I2C && ACPI
-@@ -363,6 +350,24 @@ config SND_SOC_INTEL_KBL_RT5660_MACH
- 
- endif ## SND_SOC_INTEL_KBL
- 
-+if SND_SOC_INTEL_KBL || SND_SOC_SOF_COMETLAKE_LP
-+
-+config SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH
-+	tristate "KBL with DA7219 and MAX98357A in I2S Mode"
-+	depends on I2C && ACPI
-+	depends on MFD_INTEL_LPSS || COMPILE_TEST
-+	select SND_SOC_DA7219
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_DMIC
-+	select SND_SOC_HDAC_HDMI
-+	help
-+	  This adds support for ASoC Onboard Codec I2S machine driver. This will
-+	  create an alsa sound card for DA7219 + MAX98357A I2S audio codec for
-+	  Kabylake/Cometlake platforms.
-+	  Say Y if you have such a device.
-+
-+endif ## SND_SOC_INTEL_KBL || SND_SOC_SOF_COMETLAKE_LP
-+
- if SND_SOC_INTEL_GLK || (SND_SOC_SOF_GEMINILAKE  && SND_SOC_SOF_HDA_LINK)
- 
- config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-index 537a889..fe3ac70 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-@@ -9,6 +9,7 @@
-  *   RT5663 codecs
-  */
- 
-+#include <asm/cpu_device_id.h>
- #include <linux/input.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-@@ -17,6 +18,7 @@
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-+#include <sound/soc-acpi.h>
- #include "../../codecs/da7219.h"
- #include "../../codecs/hdac_hdmi.h"
- #include "../../codecs/da7219-aad.h"
-@@ -210,7 +212,11 @@ static int kabylake_hdmi_init(struct snd_soc_pcm_runtime *rtd, int device)
- 	if (!pcm)
- 		return -ENOMEM;
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
-+	pcm->device = dai->id;
-+#else
- 	pcm->device = device;
-+#endif
- 	pcm->codec_dai = dai;
- 
- 	list_add_tail(&pcm->head, &ctx->hdmi_pcm_list);
-@@ -587,9 +593,17 @@ static struct snd_soc_card kabylake_audio_card_da7219_m98357a = {
- 	.late_probe = kabylake_card_late_probe,
- };
- 
-+static const struct x86_cpu_id cml_ids[] = {
-+	{ X86_VENDOR_INTEL, 6, 0x8E }, /* Cometlake CPU_ID */
-+	{}
-+};
-+
- static int kabylake_audio_probe(struct platform_device *pdev)
- {
- 	struct kbl_codec_private *ctx;
-+	struct snd_soc_acpi_mach *mach;
-+	const char *platform_name;
-+	int ret;
- 
- 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
- 	if (!ctx)
-@@ -600,17 +614,46 @@ static int kabylake_audio_probe(struct platform_device *pdev)
- 	kabylake_audio_card =
- 		(struct snd_soc_card *)pdev->id_entry->driver_data;
- 
-+	kabylake_audio_card = &kabylake_audio_card_da7219_m98357a;
-+
- 	kabylake_audio_card->dev = &pdev->dev;
- 	snd_soc_card_set_drvdata(kabylake_audio_card, ctx);
-+
-+	if (x86_match_cpu(cml_ids)) {
-+		unsigned int i;
-+
-+		kabylake_audio_card->name = "cmlda7219max";
-+
-+		for (i = 0; i < ARRAY_SIZE(kabylake_dais); i++) {
-+			/* MAXIM_CODEC is connected to SSP1. */
-+			if (!strcmp(kabylake_dais[i].cpus->dai_name,
-+					KBL_MAXIM_CODEC_DAI)) {
-+				kabylake_dais[i].name = "SSP1-Codec";
-+				kabylake_dais[i].cpus->dai_name = "SSP1 Pin";
-+			}
-+			/* DIALOG_CODEC is connected to SSP0 */
-+			else if (!strcmp(kabylake_dais[i].cpus->dai_name,
-+					KBL_DIALOG_CODEC_DAI)) {
-+				kabylake_dais[i].name = "SSP0-Codec";
-+				kabylake_dais[i].cpus->dai_name = "SSP0 Pin";
-+			}
-+		}
-+	}
-+
-+	mach = (&pdev->dev)->platform_data;
-+	platform_name = mach->mach_params.platform;
-+
-+	ret = snd_soc_fixup_dai_links_platform_name(kabylake_audio_card,
-+							platform_name);
-+	if (ret)
-+		return ret;
-+
- 	return devm_snd_soc_register_card(&pdev->dev, kabylake_audio_card);
- }
- 
- static const struct platform_device_id kbl_board_ids[] = {
--	{
--		.name = "kbl_da7219_max98357a",
--		.driver_data =
--			(kernel_ulong_t)&kabylake_audio_card_da7219_m98357a,
--	},
-+	{.name = "kbl_da7219_max98357a",},
-+	{.name = "cml_da7219_max98357a",},
- 	{ }
- };
- 
-@@ -628,5 +671,7 @@ module_platform_driver(kabylake_audio)
- /* Module information */
- MODULE_DESCRIPTION("Audio Machine driver-DA7219 & MAX98357A in I2S mode");
- MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
-+MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:kbl_da7219_max98357a");
-+MODULE_ALIAS("platform:cml_da7219_max98357a");
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index c36c0aa..4ea32b2 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -19,6 +19,11 @@ static struct snd_soc_acpi_codecs cml_codecs = {
- 	.codecs = {"10EC5682"}
- };
- 
-+static struct snd_soc_acpi_codecs cml_spk_codecs = {
-+	.num_codecs = 1,
-+	.codecs = {"MX98357A"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 	{
- 		.id = "INT34C2",
-@@ -29,6 +34,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
- 	},
- 	{
-+		.id = "DLGS7219",
-+		.drv_name = "cml_da7219_max98357a",
-+		.quirk_data = &cml_spk_codecs,
-+		.sof_fw_filename = "sof-cnl.ri",
-+		.sof_tplg_filename = "sof-cml-da7219-max98357a.tplg",
-+	},
-+	{
- 		.id = "MX98357A",
- 		.drv_name = "sof_rt5682",
- 		.quirk_data = &cml_codecs,
--- 
-2.7.4
-
+> Dne 31. 07. 19 v 18:05 Diego Buffa napsal(a):
+> > Hi all,
+> > I am trying to learn more about ALSA, I always used example found in the
+> > howtos but now I would go further.
+> >
+> > I went though ALSA documentation (
+> > https://www.alsa-project.org/alsa-doc/alsa-lib/pcm.html) and in the
+> > specific the transfer methods.
+> > Basically I don't understand the advantages of using poll instead of
+> > traditional blocking read/write.
+> >
+> > Generally I know that using poll I can multiplex I/O on several files,
+> but
+> > in ALSA I cannot create the poll descriptor array as I want, as I must
+> use
+> > snd_pcm_poll_descriptors() which requires that the poll descriptor array
+> > should have the size returned by snd_pcm_poll_descriptors_count().
+> >
+> > Am I supposed to realloc the poll array descriptor once I set it up with
+> > ALSA, and add my own files? Should I then always check poll array
+> > descriptor with snd_pcm_poll_descriptors_revents() before checking my own
+> > files? And in this case it is safe to call
+> > snd_pcm_poll_descriptors_revents() with a  poll array descriptor bigger
+> > than the size returned by snd_pcm_poll_descriptors_count()?
+> >
+> > Many thanks in advance.
+>
+> All ALSA poll functions works only with the ALSA file descriptors.
+> Basically,
+> allocate your pollfd array as big as you like and get the file descriptors
+> from ALSA to this array (using the returned count) and check those
+> descriptors
+> through ALSA (revents function). Look to alsa-utils/alsaloop/pcmjob.c for
+> an
+> example.
+>
+>                                                 Jaroslav
+>
+> --
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

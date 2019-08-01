@@ -2,80 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 175DD7D867
-	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2019 11:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D8A7D86B
+	for <lists+alsa-devel@lfdr.de>; Thu,  1 Aug 2019 11:23:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EA7016A1;
-	Thu,  1 Aug 2019 11:21:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EA7016A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDCF416B1;
+	Thu,  1 Aug 2019 11:22:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDCF416B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564651346;
-	bh=O0bD5Nu+MvfuvcDXKbQc8n87M0sL3dkR5gwAHfeBoCk=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qCBV1EWE05yaxH0/4NtDqs2hc0ecUIDYD9Qg+8b9eP9rBy9K9ls3HfQ/SMYgUA36P
-	 ugiVQG0S74XCGUZ40Q4cqBq4plx1gJ21VZvOsieLHfqWQOM3W8PVQonGrjZClwmWtl
-	 H/Oiwj5yRSGXoSkKab+I1EJnDvfA5NvDZAbwKxEg=
+	s=default; t=1564651393;
+	bh=xroawR667n8/ZWlzfFv3kFOtsQrVy7/R5aGgjqHYMgI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mcVxNNDV1XsWp3xS9e/THKgVn9AePKu6mqEPs06Ghsfl4Z6O3iGv95w9iQ8+Ll5ob
+	 B3h5t0OmOkk/gXbA3w4M/2V0pBHXI8O3qEyEQATof2+HvqBt2RFXIRbOYlPnRaAsb5
+	 ljplXxlcUJQeeRyHd7tC03bFBgdYl/wCg5bnMRVg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F28CDF804CF;
-	Thu,  1 Aug 2019 11:20:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1803CF80528;
+	Thu,  1 Aug 2019 11:20:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3391CF800F3; Thu,  1 Aug 2019 11:14:59 +0200 (CEST)
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ id 47995F800F3; Thu,  1 Aug 2019 11:19:39 +0200 (CEST)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 546CCF804CB
- for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2019 11:04:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 546CCF804CB
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RyB3qmqp"
-Received: by mail-yb1-xb2e.google.com with SMTP id x188so3255507yba.8
- for <alsa-devel@alsa-project.org>; Thu, 01 Aug 2019 02:04:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=foDkP+kIyt4nRDsTVow7xbe7P8bV8V1OCNzaFAvp2SQ=;
- b=RyB3qmqprjhJ25/4Jqa5dpfYqWgPt9pgVPqzGVqQDDelmkxPe7DZEOAqUep0HLbGey
- Uhg642F7wTE5O2do89xd/URT+nyJIl+oDs2O7Qflca4LFP8p9J76BySF3PPLirEpzGh8
- uHbUCNp/jN+LaJIigyNm+wOQlXEsGlpVNOt25IDO5HwDVaepcgaLydGK1q7DWVt61Von
- 5Yz6mn5NgeYIpCEgv/GW5OCT1C4I8wVsT82WzvsqQ0rVLAwBYY1G6kwXThaKgqr0vfZc
- HL3z2FwACol+0uhaQFk6GI8S0CIRWLPqIqzMmAHDpTspHNLxeqlWddUDRSaXoMh8R6AE
- eAlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=foDkP+kIyt4nRDsTVow7xbe7P8bV8V1OCNzaFAvp2SQ=;
- b=Krq38icVXaCzidYXtvsdwC18bGQbeWDDjVjSgaUvCbNQBeXBib6Ch5tjq8w0mBp2yI
- OYPBTxo/cS7ge8rHfoKXDxy/7+1ijdTJPNgN7EYJnrxUngLp+ADnPqItIy1FHmeI6ubX
- QUqpax7g9Gvct/U3WBTWLnH4qIpuoe6GAl0TH7Nk+VdzQEXoqhGKrKUzKypkMGxFrCd2
- DSmmebt1GUSLbXvi7GOqPHxER3CmXT2fSP823Hd7/NnLHWzRpsrGFVlZ6Dm0NfgfUAFN
- xgrvtHNjCoZhMcZrTeuwRASQqAelkaYVESorFDMQ2vclxTpkwqwF0XEHFyLS+p996GmQ
- vQbA==
-X-Gm-Message-State: APjAAAXVfnFsVSn95OYjyTuYEb97ADcZ4m+X28kZRUBAgaWgVcFHuHgL
- x9peZ7Bi0fAnwa1Xryy47CA373CB83zdTOdfvdA=
-X-Google-Smtp-Source: APXvYqxKUvvTq8ho852VMM7HDX7lJk3FKR2IkFiP0ymkHYLd+K0tVi8omvJFFEoPvIxf+N24zzmw78waaSrANLEqB4M=
-X-Received: by 2002:a25:44c6:: with SMTP id
- r189mr59223946yba.282.1564650293142; 
- Thu, 01 Aug 2019 02:04:53 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2ED1DF804CF
+ for <alsa-devel@alsa-project.org>; Thu,  1 Aug 2019 11:09:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ED1DF804CF
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2019 02:09:20 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,333,1559545200"; d="scan'208";a="201228710"
+Received: from keyon-x299.sh.intel.com ([10.239.159.75])
+ by fmsmga002.fm.intel.com with ESMTP; 01 Aug 2019 02:09:19 -0700
+From: Keyon Jie <yang.jie@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Thu,  1 Aug 2019 17:15:06 +0800
+Message-Id: <20190801091506.19733-1-yang.jie@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <CAFwn9n1mL0tE8CaD+tF1vWBQv-E5hidz3B12WiHzxRhvpHs8fQ@mail.gmail.com>
- <6d91a30f-07a0-d5cc-6796-7480ed4e6989@perex.cz>
-In-Reply-To: <6d91a30f-07a0-d5cc-6796-7480ed4e6989@perex.cz>
-From: Diego Buffa <diego.buffa@gmail.com>
-Date: Thu, 1 Aug 2019 11:04:17 +0200
-Message-ID: <CAFwn9n3E1_qxi=xioM2+G8NFhppLEZBNWe1A6gW4iU=CGZavzQ@mail.gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] standard read/write vs event waiting routines
- (poll) in ALSA
+Cc: Keyon Jie <yang.jie@linux.intel.com>, lgirdwood@gmail.com
+Subject: [alsa-devel] [PATCH] topology: add support to parse private data
+	for pcm
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,60 +66,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
-many thanks for your answer, if I understand correctly pcmjob.c, you are
-polling on capture, play and ctrl files (thread_job1).
-So in this case it is clear the scope of the polling, sorry I just look at
-https://www.alsa-project.org/alsa-doc/alsa-lib/_2test_2pcm_8c-example.html and
-I was not understanding the advantage of using poll.
+We have private data section in struct snd_soc_tplg_pcm, but alsatplg
+doesn't support handling it yet, here add handling in tplg_parse_pcm()
+to enable it.
 
-Regards,
-d.
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+---
+ src/topology/data.c | 3 +++
+ src/topology/pcm.c  | 8 ++++++++
+ 2 files changed, 11 insertions(+)
 
-On Wed, Jul 31, 2019 at 7:03 PM Jaroslav Kysela <perex@perex.cz> wrote:
+diff --git a/src/topology/data.c b/src/topology/data.c
+index b3f4421f..729ce1f4 100644
+--- a/src/topology/data.c
++++ b/src/topology/data.c
+@@ -53,6 +53,9 @@ struct snd_soc_tplg_private *get_priv_data(struct tplg_elem *elem)
+ 	case SND_TPLG_TYPE_BE:
+ 		priv = &elem->link->priv;
+ 		break;
++	case SND_TPLG_TYPE_PCM:
++		priv = &elem->pcm->priv;
++		break;
+ 	default:
+ 		SNDERR("error: '%s': no support for private data for type %d\n",
+ 			elem->id, elem->type);
+diff --git a/src/topology/pcm.c b/src/topology/pcm.c
+index 5f586dc1..c533ee68 100644
+--- a/src/topology/pcm.c
++++ b/src/topology/pcm.c
+@@ -732,6 +732,14 @@ int tplg_parse_pcm(snd_tplg_t *tplg,
+ 				return err;
+ 			continue;
+ 		}
++
++		/* private data */
++		if (strcmp(id, "data") == 0) {
++			err = tplg_parse_data_refs(n, elem);
++			if (err < 0)
++				return err;
++			continue;
++		}
+ 	}
+ 
+ 	return 0;
+-- 
+2.20.1
 
-> Dne 31. 07. 19 v 18:05 Diego Buffa napsal(a):
-> > Hi all,
-> > I am trying to learn more about ALSA, I always used example found in the
-> > howtos but now I would go further.
-> >
-> > I went though ALSA documentation (
-> > https://www.alsa-project.org/alsa-doc/alsa-lib/pcm.html) and in the
-> > specific the transfer methods.
-> > Basically I don't understand the advantages of using poll instead of
-> > traditional blocking read/write.
-> >
-> > Generally I know that using poll I can multiplex I/O on several files,
-> but
-> > in ALSA I cannot create the poll descriptor array as I want, as I must
-> use
-> > snd_pcm_poll_descriptors() which requires that the poll descriptor array
-> > should have the size returned by snd_pcm_poll_descriptors_count().
-> >
-> > Am I supposed to realloc the poll array descriptor once I set it up with
-> > ALSA, and add my own files? Should I then always check poll array
-> > descriptor with snd_pcm_poll_descriptors_revents() before checking my own
-> > files? And in this case it is safe to call
-> > snd_pcm_poll_descriptors_revents() with a  poll array descriptor bigger
-> > than the size returned by snd_pcm_poll_descriptors_count()?
-> >
-> > Many thanks in advance.
->
-> All ALSA poll functions works only with the ALSA file descriptors.
-> Basically,
-> allocate your pollfd array as big as you like and get the file descriptors
-> from ALSA to this array (using the returned count) and check those
-> descriptors
-> through ALSA (revents function). Look to alsa-utils/alsaloop/pcmjob.c for
-> an
-> example.
->
->                                                 Jaroslav
->
-> --
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
->
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

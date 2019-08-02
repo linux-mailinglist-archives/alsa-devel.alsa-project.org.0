@@ -2,78 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2008D80095
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 21:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A23DD800A5
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 21:04:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8623C16CF;
-	Fri,  2 Aug 2019 21:01:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8623C16CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 478C516E4;
+	Fri,  2 Aug 2019 21:03:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 478C516E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564772533;
-	bh=WoTAIMvkvXRDLJq783AxXgqIPb5afldfnICkljNdDik=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bON0xuEMs+qQ4j5DgnOBNY0+T0w5mxct8vDdJXA1ZCn38rgErp2IgnbSBqrp7f9uj
-	 VAZYpbv5vQKjUbal50XC9DTuNChKreQOUKkJP756WiznGQmmNZZ7gZz/fCSnwy70Or
-	 Pj7t/ChxneSFd10QJor/lExmqU0cj1gX7WLfMN/U=
+	s=default; t=1564772687;
+	bh=9QpIb2hfYxiVsZMGvJbPcmpG+wgZNROUTUrx9qv0v6k=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OHzZGrbxji0xNaG41HAFVdkObI1Rg5nQjTKoYG3lHwGmWqSYTjEi6ACr1N5JsAo1p
+	 FpHV0rHN27tQk6R5RoDYmyu2F/RHzGQYsubqOrkHFjbz3RvgjYxdK2wuNpGFBHUfW6
+	 kZtuCQfnnVJqTUSwb3Z3NEWhV1LkF2gT+6aotqEc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD4F7F8048F;
-	Fri,  2 Aug 2019 21:00:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 89DEDF805A0;
+	Fri,  2 Aug 2019 21:01:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3D18F80214; Fri,  2 Aug 2019 21:00:26 +0200 (CEST)
+ id 94A96F805A1; Fri,  2 Aug 2019 21:01:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E6B7BF80214
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 21:00:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6B7BF80214
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="gQTTNZKZ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Lc5K16BdSsvadr8ePzLWUSeCePK+/fvGUChe3owFx+8=; b=gQTTNZKZx5+i
- eH6NwlTYIhBqeAmbTdPEoT0pDjbm2GiyX+5ODoM7WfxTslXbe0T92TFNthE3iiLu3IUZSOU8JAciW
- lywZ4KfAg16kZQvBKPe1VInNHR46X4xD+jrKVXzCmWWDn54/fUAFrvAgpUVQ7yI68hXE4h/3rOkE0
- SRqh4=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1htcmq-0000AC-8t; Fri, 02 Aug 2019 19:00:20 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 2AB762742DA7; Fri,  2 Aug 2019 20:00:19 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-In-Reply-To: <1564753899-17124-2-git-send-email-Vijendar.Mukunda@amd.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190802190019.2AB762742DA7@ypsilon.sirena.org.uk>
-Date: Fri,  2 Aug 2019 20:00:19 +0100 (BST)
-Cc: SOC@sirena.org.uk, alsa-devel@alsa-project.org,
- Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- "Gustavo A.R.Silva" <gustavo@embeddedor.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- YueHaibing <yuehaibing@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>,
- moderated@sirena.org.uk, "Cc:"@sirena.org.uk, -@sirena.org.uk,
- Mark Brown <broonie@kernel.org>, "list:SOUND"@sirena.org.uk,
- Vijendar Mukunda <vijendar.mukunda@amd.com>, Alexander.Deucher@amd.com
-Subject: [alsa-devel] Applied "ASoC: amd: acp3x: use dma address for acp3x
-	dma driver" to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id B2BF0F80527;
+ Fri,  2 Aug 2019 21:01:36 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AD4A7A0042;
+ Fri,  2 Aug 2019 21:01:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AD4A7A0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1564772495; bh=VaqHBLqqn0zYGi+qTsBnN+6TNuzP/FArTVDzz9MYaWE=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=lM44As+b2AuYJQvvGrWiBOJjU8yeP5F66pH6QQb/mklU4lGyO0uGm0d9PcK7+sAFs
+ qSa3DFGLz8lx7mI6wh/IEfV6yDvnaR0C90U6DtP6XL3C8SG7LduegvFx8LYVfAl9Cl
+ 11VJI77CSUYss5lFlfkMDYQqtc4/px5EJRx74qXk=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri,  2 Aug 2019 21:01:29 +0200 (CEST)
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <CAD8Lp45Bp1xVC7NjuNaANA7kAEN2Edshw+cViaTF3tRZEumgZA@mail.gmail.com>
+ <cc9fa5b52138daffb09dc5b66ea9248379c9f60e.camel@linux.intel.com>
+ <CAD8Lp46GW8n8K7ttOeSje_au06BsyvCp4seVwj2wNbipei5ssA@mail.gmail.com>
+ <a4b17a75-d4e0-fc6b-a286-aa6b7b281b7d@linux.intel.com>
+ <CAD8Lp444soO1i8mWF73eucT16yAhy2js1byWJCTV5fn=TikHBg@mail.gmail.com>
+ <9e8b667f1aa2333dbcc34b5253372d1a8667551e.camel@linux.intel.com>
+ <ee34f820-0753-dfbe-09c0-7147cf229cc0@perex.cz>
+ <6493f195-eb5a-1a6d-2c31-e3a4123b2ad1@linux.intel.com>
+ <7c940d90-297e-19c0-2f74-1843439d5ccf@perex.cz>
+ <d41b02286db2a827648d1c1ec793bbd0a55e99c1.camel@linux.intel.com>
+ <8dceb60b-35a5-93e9-ce01-1eb852e93f44@perex.cz>
+ <0059ed8e8f2fbd7ffbc258ca53ce5efbf1885c5b.camel@linux.intel.com>
+ <1718d316-4c65-a39d-53dd-7f40f0e49e28@perex.cz>
+ <1e7adedf-e12a-d409-12cf-9087cf6dbf30@linux.intel.com>
+ <b7fae370-de17-f73c-c2a4-852acf6b31bc@perex.cz>
+ <e59de17f39d65f0cef1249517ef1fdd374f399dd.camel@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <3834d741-906e-1a6b-d6cb-cccb29f98fb4@perex.cz>
+Date: Fri, 2 Aug 2019 21:01:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <e59de17f39d65f0cef1249517ef1fdd374f399dd.camel@linux.intel.com>
+Content-Language: en-US
+Cc: Jian-Hong Pan <jian-hong@endlessm.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ sound-open-firmware@alsa-project.org, Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [Sound-open-firmware] Signed firmware availability
+ for kbl/cnl
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,125 +94,211 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Dne 02. 08. 19 v 16:40 Liam Girdwood napsal(a):
+> On Fri, 2019-08-02 at 10:21 +0200, Jaroslav Kysela wrote:
+>> Dne 31. 07. 19 v 20:14 Pierre-Louis Bossart napsal(a):
+>>> On 7/31/19 12:29 PM, Jaroslav Kysela wrote:
+>>>> Dne 31. 07. 19 v 15:23 Liam Girdwood napsal(a):
+>>>>> + Mengdong
+>>>>>
+>>>>> On Wed, 2019-07-24 at 18:23 +0200, Jaroslav Kysela wrote:
+>>>>>>> Yeah, been thinking about this atm. It may be better to
+>>>>>>> package the
+>>>>>>> binaries (firmware and topologies) as part of Linux
+>>>>>>> firmware repo
+>>>>>>> (since the driver expects to load them all from
+>>>>>>> lib/firmware) and
+>>>>>>> package the sources (firmware and topology) via sof tarball
+>>>>>>> ?
+>>>>>>
+>>>>>> It looks good in my eyes, because topology files are another
+>>>>>> pieces
+>>>>>> of the
+>>>>>> driver from the user space perspective. The unanswered
+>>>>>> question is
+>>>>>> the UCM
+>>>>>> configuration which is linked to the topology configuration
+>>>>>> (if I
+>>>>>> understand
+>>>>>> this correctly). I proposed to place an unique
+>>>>>> identifier/version to
+>>>>>> the
+>>>>>> topology file and propagate this identifier to the user
+>>>>>> space, so the
+>>>>>> alsa-lib
+>>>>>> can pick the right UCM configuration when topology changes.
+>>>>>> The
+>>>>>> component
+>>>>>> string (snd_component_add function / struct snd_ctl_card_info
+>>>>>> ->
+>>>>>> components)
+>>>>>> can be used for this identification.
+>>>>>
+>>>>> Apologizes for the delay, Pierre and I have been discussing
+>>>>> this
+>>>>> internally as we have to synchronise the deployment of the
+>>>>> topologies
+>>>>> and UCMs alongside the FW.
+>>>>
+>>>> My strong point is that the driver with the different firmware
+>>>> and the
+>>>> topology file behaves differently from the user space
+>>>> perspective. It seems
+>>>> that there is no way to propagate the firmware (and topology?)
+>>>> version to the
+>>>> user space at the moment.
+>>>
+>>> The topology may not be enough, e.g. for all Baytrail devices we
+>>> use the 
+>>> same simple topology. To pick the right UCM file you really need
+>>> the 
+>>> card information which may include the DMI info or some quirks 
+>>> (mono-speaker, analog mics). The topology is quite static and
+>>> doesn't 
+>>> expose anything that is board-specific or may vary between skews.
+>>
+>> Yes, thus we need to use another UCM file (or make some parts
+>> conditional in
+>> the UCM config) depending on this and I would like to pass the exact
+>> hardware/firmware/topology identification which may affect the UCM,
+>> through
+>> the ALSA API to the user space level (UCM parser). Think from the
+>> packaging
+>> (Linux distributions) perspective. We have to handle all those
+>> situations, so
+>> all the configs, pieces to support all hardware variations must be
+>> prepared in
+>> the packages.
+> 
+> I think the UCM parser will currently only bail on cdev naming
+> differences, so I agree maybe something at the top level UCM "machine
+> global" level that can be used to check FW, topology (+anything else)
+> so we could bail earlier or warn and attempt to continue.
+> 
+>>
+>> Also, the blind fw / topology / UCM relationship without any
+>> compatibility
+>> checks might cause issues when the user upgrades only some parts. The
+>> binary
+>> topology files might be packaged with the UCM files as proposed, but
+>> if an
+>> incompatible DSP firmware will be loaded (it's placed in the another
+>> package -
+>> linux-firmware), it should be reported to the user, too.
+>>
+>>>>> Current thinking has changed from shipping FW + tplg via linux-
+>>>>> firmware
+>>>>> repo to only shipping FW binaries in the FW repo and using
+>>>>> alsa-ucm-
+>>>>> conf.git for UCMs + topologies (since the coupling between UCM
+>>>>> and
+>>>>> topology is tighter than the FW coupling).
+>>>>
+>>>> This is fine, but I think that we should have a check
+>>>> (compatibility
+>>>> verification) in the user space level, too. More precisely, each
+>>>> level should
+>>>> do a verification if it's compatible with the tied level (driver
+>>>> -> firmware
+>>>> -> topology -> ucm).
+>>>
+>>> The SOF driver checks if its supported ABI level is compatible
+>>> with 
+>>> firmware and topology levels (both files embed the information,
+>>> which 
+>>> doesn't have to be identical).
+>>
+>> Ok, but if you add another functionality to the firmware or remove
+>> some, it
+>> might break the compatibility with the topology (different ALSA
+>> controls for
+>> example), right? I'm not sure if ABI checks are sufficient. It's more
+>> about
+>> the overall sound hardware abstraction for the user space (managed
+>> ALSA controls).
+>>
+>>> I don't see how UCM would be checked since there's no direct
+>>> interaction 
+>>> with the driver, e.g. it's used by PulseAudio or CRAS and the only 
+>>> interaction is through the control and PCM APIs. Likewise UCM has
+>>> no> knowledge about topology or firmware.
+>>
+>> The UCM parser code in alsa-lib (not applications) can do the check /
+>> configuration selection. This is exactly what I am proposing to do.
+>> Actually,
+>> for example, the UCM parser looks for sof-skl_hda_card.conf file
+>> without any
+>> other checks or conditions. You will agree that we cannot support all
+>> hardware
+>> variants with this, because some vendors might use other GPIOs etc..
+>>
+>> So my proposal is to pass all necessary information throught the ALSA
+>> control
+>> API (struct snd_ctl_card_info -> components) so the UCM parser can
+>> pick the
+>> right config file based on the complete identification. It might
+>> fallback to
+>> sof-skl_hda_card.conf, but if new hardware variant exist, the file
+>> name might
+>> look like 'sof-skl_hda_card-TOPOLOGYID-VENDORID-PRODUCTID.conf' etc,
+>> etc....
+>>
+> 
+> How would we get topology or FW version from the above identification ?
 
-   ASoC: amd: acp3x: use dma address for acp3x dma driver
+It was just an example. We can compose the UCM filename from any other
+additional information passed from the kernel. Example component strings for
+USB and legacy HDA:
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+  Mixer name	: 'USB Mixer'
+  Components	: 'USB0bda:58fe'
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+  Mixer name	: 'Realtek ALC298'
+  Components	: 'HDA:10ec0298,17aa222e,00100103'
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+So we should consider what to export for SOF. Perhaps string like:
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+  'SOFP01234567:45670123,1:1:0-6cc8d,???TPLGVER???,3:7:0'
+  'SOFP{PCIID}:{PCISUBSYS},FW-VER,TPLG-VER,TPLG-ABI-VER'
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+It's just a proposal for the discussion.
 
-Thanks,
-Mark
+By the way:
 
-From 30c21734d853dae99d05a5295a59b7e26ccd5135 Mon Sep 17 00:00:00 2001
-From: Vijendar Mukunda <Vijendar.Mukunda@amd.com>
-Date: Fri, 2 Aug 2019 19:21:24 +0530
-Subject: [PATCH] ASoC: amd: acp3x: use dma address for acp3x dma driver
+  https://mailman.alsa-project.org/pipermail/alsa-devel/2019-May/149409.html
 
-We shouldn't assume CPU physical address we get from page_to_phys()
-is same as DMA address we get from dma_alloc_coherent(). On x86_64,
-we won't run into any problem with the assumption when dma_ops is
-nommu_dma_ops. However, DMA address is IOVA when IOMMU is enabled.
-And it's most likely different from CPU physical address when AMD
-IOMMU is not in passthrough mode.
+The component string extensions should be also considered for other Intel SOC
+drivers. It seems that the long_name is misused as the UCM configuration
+selector for other drivers like bytcr_rt5651.c etc. The long_name for the
+soundcard like 'bytcht-es8316-mono-spk-in2-mic' is not really fancy. This
+string is used in GUI.
 
-This patch fixes page faults when IOMMU is enabled.
+> Would we also use semantic versioning to align the UCM with the
+> topology and FW ? Currently we use semantic versioning for topology and
+> FW.
 
-Signed-off-by: Vijendar Mukunda <vijendar.mukunda@amd.com>
-Link: https://lore.kernel.org/r/1564753899-17124-2-git-send-email-Vijendar.Mukunda@amd.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/amd/raven/acp3x-pcm-dma.c | 14 +++++---------
- 1 file changed, 5 insertions(+), 9 deletions(-)
+If we have the versions exported to ther user space, the UCM configuration
+loader / parser can use this information to select or verify the right UCM
+configuration. The semantic versioning in UCM files sounds good to me, too.
 
-diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-index 905ed2f1861b..bc4dfafdfcd1 100644
---- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-+++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-@@ -31,8 +31,8 @@ struct i2s_stream_instance {
- 	u16 num_pages;
- 	u16 channels;
- 	u32 xfer_resolution;
--	struct page *pg;
- 	u64 bytescount;
-+	dma_addr_t dma_addr;
- 	void __iomem *acp3x_base;
- };
- 
-@@ -211,9 +211,8 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
- static void config_acp3x_dma(struct i2s_stream_instance *rtd, int direction)
- {
- 	u16 page_idx;
--	u64 addr;
- 	u32 low, high, val, acp_fifo_addr;
--	struct page *pg = rtd->pg;
-+	dma_addr_t addr = rtd->dma_addr;
- 
- 	/* 8 scratch registers used to map one 64 bit address */
- 	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-@@ -229,7 +228,6 @@ static void config_acp3x_dma(struct i2s_stream_instance *rtd, int direction)
- 
- 	for (page_idx = 0; page_idx < rtd->num_pages; page_idx++) {
- 		/* Load the low address of page int ACP SRAM through SRBM */
--		addr = page_to_phys(pg);
- 		low = lower_32_bits(addr);
- 		high = upper_32_bits(addr);
- 
-@@ -239,7 +237,7 @@ static void config_acp3x_dma(struct i2s_stream_instance *rtd, int direction)
- 				+ 4);
- 		/* Move to next physically contiguos page */
- 		val += 8;
--		pg++;
-+		addr += PAGE_SIZE;
- 	}
- 
- 	if (direction == SNDRV_PCM_STREAM_PLAYBACK) {
-@@ -341,7 +339,6 @@ static int acp3x_dma_hw_params(struct snd_pcm_substream *substream,
- {
- 	int status;
- 	u64 size;
--	struct page *pg;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct i2s_stream_instance *rtd = runtime->private_data;
- 
-@@ -354,9 +351,8 @@ static int acp3x_dma_hw_params(struct snd_pcm_substream *substream,
- 		return status;
- 
- 	memset(substream->runtime->dma_area, 0, params_buffer_bytes(params));
--	pg = virt_to_page(substream->dma_buffer.area);
--	if (pg) {
--		rtd->pg = pg;
-+	if (substream->dma_buffer.area) {
-+		rtd->dma_addr = substream->dma_buffer.addr;
- 		rtd->num_pages = (PAGE_ALIGN(size) >> PAGE_SHIFT);
- 		config_acp3x_dma(rtd, substream->stream);
- 		status = 0;
+						Jaroslav
+
+> 
+> Thanks
+> 
+> Liam
+> 
+
+
 -- 
-2.20.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

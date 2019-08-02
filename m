@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54E7C7FD65
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 17:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29FAB7FD77
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 17:25:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAA8F84C;
-	Fri,  2 Aug 2019 17:19:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAA8F84C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 952D21775;
+	Fri,  2 Aug 2019 17:24:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 952D21775
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564759242;
-	bh=o6gUb+FDOwA4SbGDRbx1fub3IX0Hcgq/peSzWETMUa0=;
+	s=default; t=1564759545;
+	bh=P5dzxeXdJum1GOGtczmgBz4zt9JPdDhqNwFhuQq3yNI=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eE+4ubR7bAL7Q2+k0UyPSV8DbrIn4WUoXv89lGw+7Cnirj4EPCrR2Cw7jSmfTd8uG
-	 Us7wkvm+nFfLcQFr8Qz9WPOsCLBYwlFi8z/3u4D/pYZoUy4nxEBHag6sMUSlBfZe6P
-	 nDpJ7XOuvReOTmmDx2r7o3DKmYfT69SerJfEtHVc=
+	b=VtACysEZyeW6Wfsk+G/J4p5qaCDW0HmWagXX/vg10tfl3lCplSnMVG034Qelbq0jS
+	 CwxJ1NKUpZKlGwrIJt3cXsCLHgYHhM0ITuGluk2SyF3ubLS53AeXOw4uRDhB5IFlS0
+	 LSPYloDMRwYeNshRKovI2dWYS88w0+2TdgQSDQGg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 767E7F80214;
-	Fri,  2 Aug 2019 17:19:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65ACAF80214;
+	Fri,  2 Aug 2019 17:24:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD946F804CB; Fri,  2 Aug 2019 17:18:58 +0200 (CEST)
+ id 9BB2EF8048F; Fri,  2 Aug 2019 17:23:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15941F8049A
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 17:18:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15941F8049A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D529EF80214
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 17:23:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D529EF80214
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2019 08:18:53 -0700
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2019 08:23:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,338,1559545200"; d="scan'208";a="175610387"
+X-IronPort-AV: E=Sophos;i="5.64,338,1559545200"; d="scan'208";a="175611575"
 Received: from vivekcha-mobl1.amr.corp.intel.com (HELO [10.251.131.115])
  ([10.251.131.115])
- by orsmga003.jf.intel.com with ESMTP; 02 Aug 2019 08:18:52 -0700
+ by orsmga003.jf.intel.com with ESMTP; 02 Aug 2019 08:23:53 -0700
 To: Vinod Koul <vkoul@kernel.org>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-10-pierre-louis.bossart@linux.intel.com>
- <20190802120319.GL12733@vkoul-mobl.Dlink>
+ <20190725234032.21152-13-pierre-louis.bossart@linux.intel.com>
+ <20190802121016.GN12733@vkoul-mobl.Dlink>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <71786692-7bdc-d8f2-676a-b2e955675474@linux.intel.com>
-Date: Fri, 2 Aug 2019 10:18:52 -0500
+Message-ID: <a46474c5-8f6b-fa03-8d5e-704c028667aa@linux.intel.com>
+Date: Fri, 2 Aug 2019 10:23:52 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190802120319.GL12733@vkoul-mobl.Dlink>
+In-Reply-To: <20190802121016.GN12733@vkoul-mobl.Dlink>
 Content-Language: en-US
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 09/40] soundwire: cadence_master: fix
- usage of CONFIG_UPDATE
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 12/40] soundwire: cadence_master:
+ revisit interrupt settings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +83,41 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-
-On 8/2/19 7:03 AM, Vinod Koul wrote:
-> On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
-> 
->>   int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
->>   {
->> -	int ret;
->> -
->>   	_cdns_enable_interrupt(cdns);
->> -	ret = cdns_clear_bit(cdns, CDNS_MCP_CONFIG_UPDATE,
->> -			     CDNS_MCP_CONFIG_UPDATE_BIT);
->> -	if (ret < 0)
->> -		dev_err(cdns->dev, "Config update timedout\n");
-> 
-> I was expecting cdns_update_config() to be invoked here??
-> 
+>> @@ -761,10 +769,21 @@ int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
+>>   	cdns_writel(cdns, CDNS_MCP_SLAVE_INTMASK1,
+>>   		    CDNS_MCP_SLAVE_INTMASK1_MASK);
 >>   
->> -	return ret;
->> +	return 0;
-> 
-> It would be better if we return a value here a not success always
-> 
->> @@ -943,7 +953,10 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
->>   
->>   	cdns_writel(cdns, CDNS_MCP_CONFIG, val);
->>   
->> -	return 0;
->> +	/* commit changes */
->> +	ret = cdns_update_config(cdns);
+>> +	/* enable detection of slave state changes */
+>>   	mask = CDNS_MCP_INT_SLAVE_RSVD | CDNS_MCP_INT_SLAVE_ALERT |
+>> -		CDNS_MCP_INT_SLAVE_ATTACH | CDNS_MCP_INT_SLAVE_NATTACH |
+>> -		CDNS_MCP_INT_CTRL_CLASH | CDNS_MCP_INT_DATA_CLASH |
+>> -		CDNS_MCP_INT_RX_WL | CDNS_MCP_INT_IRQ | CDNS_MCP_INT_DPINT;
+>> +		CDNS_MCP_INT_SLAVE_ATTACH | CDNS_MCP_INT_SLAVE_NATTACH;
 >> +
->> +	return ret;
+>> +	/* enable detection of bus issues */
+>> +	mask |= CDNS_MCP_INT_CTRL_CLASH | CDNS_MCP_INT_DATA_CLASH |
+>> +		CDNS_MCP_INT_PARITY;
+>> +
+>> +	/* no detection of port interrupts for now */
+>> +
+>> +	/* enable detection of RX fifo level */
+>> +	mask |= CDNS_MCP_INT_RX_WL;
+>> +
+>> +	/* now enable all of the above */
 > 
-> return cdns_update_config()
+> I think this comment seems is at wrong line..?
+> 
+>> +	mask |= CDNS_MCP_INT_IRQ;
+>>   
+>>   	cdns_writel(cdns, CDNS_MCP_INTMASK, mask);
 
-yes, all of this is fixed already.
+No it's at the right place.
+
+This flag gates all others, if its value is zero then the value of all 
+other bits is irrelevant.
+
+that's what I meant by 'all of the above'.
+
 
 _______________________________________________
 Alsa-devel mailing list

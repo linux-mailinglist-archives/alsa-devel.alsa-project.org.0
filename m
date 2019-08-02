@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FAB7FD77
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 17:25:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BDD97FD92
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 17:31:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 952D21775;
-	Fri,  2 Aug 2019 17:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 952D21775
+	by alsa0.perex.cz (Postfix) with ESMTPS id 123991789;
+	Fri,  2 Aug 2019 17:30:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 123991789
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564759545;
-	bh=P5dzxeXdJum1GOGtczmgBz4zt9JPdDhqNwFhuQq3yNI=;
+	s=default; t=1564759882;
+	bh=lNFRZLyGawlNjuoYayV+AVIAuccdeQEE4q82q7y8ciA=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VtACysEZyeW6Wfsk+G/J4p5qaCDW0HmWagXX/vg10tfl3lCplSnMVG034Qelbq0jS
-	 CwxJ1NKUpZKlGwrIJt3cXsCLHgYHhM0ITuGluk2SyF3ubLS53AeXOw4uRDhB5IFlS0
-	 LSPYloDMRwYeNshRKovI2dWYS88w0+2TdgQSDQGg=
+	b=LyHmLve6drm2lHrdp+eGa0y2JgNWanUJ2Bt9jNjv8vNdQcya5YZiLR4sSdHlwUFs+
+	 iYzI9YDIh5EadY1c1HXi+JQs5zQ8zLATdUB3qesm5NfsLp9fe574cGs5b99cD+eGEG
+	 6WHnImA1QnSmPhYATgee1Hx/Y41MJtpBTuS5DUsI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65ACAF80214;
-	Fri,  2 Aug 2019 17:24:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 53693F8048E;
+	Fri,  2 Aug 2019 17:29:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BB2EF8048F; Fri,  2 Aug 2019 17:23:59 +0200 (CEST)
+ id 2E1C4F8048F; Fri,  2 Aug 2019 17:29:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D529EF80214
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 17:23:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D529EF80214
+ by alsa1.perex.cz (Postfix) with ESMTPS id 923E3F800F3
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 17:29:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 923E3F800F3
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2019 08:23:54 -0700
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Aug 2019 08:29:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,338,1559545200"; d="scan'208";a="175611575"
+X-IronPort-AV: E=Sophos;i="5.64,338,1559545200"; d="scan'208";a="175612955"
 Received: from vivekcha-mobl1.amr.corp.intel.com (HELO [10.251.131.115])
  ([10.251.131.115])
- by orsmga003.jf.intel.com with ESMTP; 02 Aug 2019 08:23:53 -0700
+ by orsmga003.jf.intel.com with ESMTP; 02 Aug 2019 08:29:27 -0700
 To: Vinod Koul <vkoul@kernel.org>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-13-pierre-louis.bossart@linux.intel.com>
- <20190802121016.GN12733@vkoul-mobl.Dlink>
+ <20190725234032.21152-16-pierre-louis.bossart@linux.intel.com>
+ <20190802122003.GQ12733@vkoul-mobl.Dlink>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a46474c5-8f6b-fa03-8d5e-704c028667aa@linux.intel.com>
-Date: Fri, 2 Aug 2019 10:23:52 -0500
+Message-ID: <c4d31804-48af-30e3-4b4f-4b03dac6addd@linux.intel.com>
+Date: Fri, 2 Aug 2019 10:29:26 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190802121016.GN12733@vkoul-mobl.Dlink>
+In-Reply-To: <20190802122003.GQ12733@vkoul-mobl.Dlink>
 Content-Language: en-US
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 12/40] soundwire: cadence_master:
- revisit interrupt settings
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 15/40] soundwire: cadence_master:
+ handle multiple status reports per Slave
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,42 +82,76 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->> @@ -761,10 +769,21 @@ int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
->>   	cdns_writel(cdns, CDNS_MCP_SLAVE_INTMASK1,
->>   		    CDNS_MCP_SLAVE_INTMASK1_MASK);
+
+On 8/2/19 7:20 AM, Vinod Koul wrote:
+> On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
+>> When a Slave reports multiple status in the sticky bits, find the
+>> latest configuration from the mirror of the PING frame status and
+>> update the status directly.
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> ---
+>>   drivers/soundwire/cadence_master.c | 34 ++++++++++++++++++++++++------
+>>   1 file changed, 28 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+>> index 889fa2cd49ae..25d5c7267c15 100644
+>> --- a/drivers/soundwire/cadence_master.c
+>> +++ b/drivers/soundwire/cadence_master.c
+>> @@ -643,13 +643,35 @@ static int cdns_update_slave_status(struct sdw_cdns *cdns,
 >>   
->> +	/* enable detection of slave state changes */
->>   	mask = CDNS_MCP_INT_SLAVE_RSVD | CDNS_MCP_INT_SLAVE_ALERT |
->> -		CDNS_MCP_INT_SLAVE_ATTACH | CDNS_MCP_INT_SLAVE_NATTACH |
->> -		CDNS_MCP_INT_CTRL_CLASH | CDNS_MCP_INT_DATA_CLASH |
->> -		CDNS_MCP_INT_RX_WL | CDNS_MCP_INT_IRQ | CDNS_MCP_INT_DPINT;
->> +		CDNS_MCP_INT_SLAVE_ATTACH | CDNS_MCP_INT_SLAVE_NATTACH;
+>>   		/* first check if Slave reported multiple status */
+>>   		if (set_status > 1) {
+>> +			u32 val;
 >> +
->> +	/* enable detection of bus issues */
->> +	mask |= CDNS_MCP_INT_CTRL_CLASH | CDNS_MCP_INT_DATA_CLASH |
->> +		CDNS_MCP_INT_PARITY;
+>>   			dev_warn_ratelimited(cdns->dev,
+>> -					     "Slave reported multiple Status: %d\n",
+>> -					     mask);
+>> -			/*
+>> -			 * TODO: we need to reread the status here by
+>> -			 * issuing a PING cmd
+>> -			 */
+>> +					     "Slave %d reported multiple Status: %d\n",
+>> +					     i, mask);
 >> +
->> +	/* no detection of port interrupts for now */
+>> +			/* re-check latest status extracted from PING commands */
+>> +			val = cdns_readl(cdns, CDNS_MCP_SLAVE_STAT);
+>> +			val >>= (i * 2);
 >> +
->> +	/* enable detection of RX fifo level */
->> +	mask |= CDNS_MCP_INT_RX_WL;
->> +
->> +	/* now enable all of the above */
+>> +			switch (val & 0x3) {
+>> +			case 0:
 > 
-> I think this comment seems is at wrong line..?
+> why not case CDNS_MCP_SLAVE_INTSTAT_NPRESENT:
+
+ok
+
 > 
->> +	mask |= CDNS_MCP_INT_IRQ;
->>   
->>   	cdns_writel(cdns, CDNS_MCP_INTMASK, mask);
+>> +				status[i] = SDW_SLAVE_UNATTACHED;
+>> +				break;
+>> +			case 1:
+>> +				status[i] = SDW_SLAVE_ATTACHED;
+>> +				break;
+>> +			case 2:
+>> +				status[i] = SDW_SLAVE_ALERT;
+>> +				break;
+>> +			default:
+>> +				status[i] = SDW_SLAVE_RESERVED;
+>> +				break;
+>> +			}
+> 
+> we have same logic in the code block preceding this, maybe good idea to
+> write a helper and use for both
 
-No it's at the right place.
+Yes, I am thinking about this. There are multiple cases where we want to 
+re-check the status and clear some bits, so helpers would be good.
 
-This flag gates all others, if its value is zero then the value of all 
-other bits is irrelevant.
+> 
+> Also IIRC we can have multiple status set right?
 
-that's what I meant by 'all of the above'.
-
-
+Yes, the status bits are sticky and mirror all values reported in PING 
+frames. I am still working on how to clear those bits, there are cases 
+where we clear bits and end-up never hearing from that device ever 
+again. classic edge/level issue I suppose.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C8C57FF41
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 19:07:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF3397FF50
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 19:13:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2598916DB;
-	Fri,  2 Aug 2019 19:06:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2598916DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5857016C3;
+	Fri,  2 Aug 2019 19:12:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5857016C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564765627;
-	bh=ec/fZ8kWo6qoLHR/7tXqo1McrChL4hUxlI9KHx/68SU=;
+	s=default; t=1564765998;
+	bh=ek/sq0EmtdzV3a085Mh/p2MvggdgyPmC9oFNt04BBBo=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JLj0HrKyI0TIPVz4lVAT1EfH+tJSTPZe/p5Fnr28EjjcGL5D90pOfYuIeDPU1PdXf
-	 KLOelsMqMrbaaqCVAHLfE4l2mi9sJGGFfP+4tKusSaLgRZ4UQiwry/r2DPEbqvBQdL
-	 bU69HxtpUmzFowOKn1SMcMcj5rQAS7heuwiAWduU=
+	b=OKpYQWMm8vftIv3MvEruHRpZcSGnwJjRiMtPO2Hwv16IvNt7KY3TCly47TK7oS3on
+	 K3nYGbZbvtLPy1RK0eHBD+fpSsj7kcgjg1E6SElJs0sljnzBz18ynHFThdhoLYHaqw
+	 Ke64M35REDppC/vWDbAnGMsTXJAQivhv8foHMUjI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49BCAF8049A;
-	Fri,  2 Aug 2019 19:06:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98189F8048F;
+	Fri,  2 Aug 2019 19:11:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6ACAF8049A; Fri,  2 Aug 2019 19:06:07 +0200 (CEST)
+ id 1BCBFF8048F; Fri,  2 Aug 2019 19:11:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,43 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 503AEF8048E
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 19:06:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503AEF8048E
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5427F80214
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 19:11:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5427F80214
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="FZi0aW7h"
+ header.b="VT+JmgKb"
 Received: from localhost (unknown [106.51.106.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B0DE220644;
- Fri,  2 Aug 2019 17:06:02 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6530820880;
+ Fri,  2 Aug 2019 17:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1564765563;
- bh=zyFQjXyh3QHHzXm6u/m7sXjNjCXkfXoAXKp3IdMcjwk=;
+ s=default; t=1564765887;
+ bh=QX8zarL9xs/sdJj6CwsMrJvzbNZlO0B+Y3GtFRwGZWA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=FZi0aW7hN7atOO49xnVUT7RbRhGIanyxnc5VBG93AS4P3SJ0v/zGLXClQD8S2xJ6z
- PCJDaMZtexuQbRv6gDsfqWaxRMC7juiESX4QHIRZZO3uGxw5lu0D6fVOOTnDdmcOKn
- BbpDXMIhg1sJyGfUHJ+ocJxX/PhdGY9uzxb98+h0=
-Date: Fri, 2 Aug 2019 22:34:50 +0530
+ b=VT+JmgKbJKSnvIX98qfvmzfwNnnvVDBIyqpghg/xYPlHM20pKmU8bCzwI6o2ziHet
+ oRFUexQ+r1aXOggFwINFoNlptA94kbem7TtOZb8kiGRkH+V5wLOdhsUnJZ9l+LgIlB
+ ZA947UbeHau7rzjIhmygZk4j+cfo1aEV1inEj7T0=
+Date: Fri, 2 Aug 2019 22:40:14 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190802170450.GY12733@vkoul-mobl.Dlink>
+Message-ID: <20190802171014.GZ12733@vkoul-mobl.Dlink>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-22-pierre-louis.bossart@linux.intel.com>
- <20190726144325.GH16003@ubuntu>
- <d6268a75-b38c-aee5-0463-af8b602286bb@linux.intel.com>
+ <20190725234032.21152-25-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d6268a75-b38c-aee5-0463-af8b602286bb@linux.intel.com>
+In-Reply-To: <20190725234032.21152-25-pierre-louis.bossart@linux.intel.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 21/40] soundwire: export helpers to
- find row and column values
+Subject: Re: [alsa-devel] [RFC PATCH 24/40] soundwire: cadence_master: use
+ BIOS defaults for frame shape
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,46 +85,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 26-07-19, 10:26, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 7/26/19 9:43 AM, Guennadi Liakhovetski wrote:
-> > On Thu, Jul 25, 2019 at 06:40:13PM -0500, Pierre-Louis Bossart wrote:
-> > > Add a prefix for common tables and export 2 helpers to set the frame
-> > > shapes based on row/col values.
-> > > 
-> > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > > ---
-> > >   drivers/soundwire/bus.h    |  7 +++++--
-> > >   drivers/soundwire/stream.c | 14 ++++++++------
-> > >   2 files changed, 13 insertions(+), 8 deletions(-)
-> > > 
-> > > diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-> > > index 06ac4adb0074..c57c9c23f6ca 100644
-> > > --- a/drivers/soundwire/bus.h
-> > > +++ b/drivers/soundwire/bus.h
-> > > @@ -73,8 +73,11 @@ struct sdw_msg {
-> > >   #define SDW_DOUBLE_RATE_FACTOR		2
-> > > -extern int rows[SDW_FRAME_ROWS];
-> > > -extern int cols[SDW_FRAME_COLS];
-> > > +extern int sdw_rows[SDW_FRAME_ROWS];
-> > > +extern int sdw_cols[SDW_FRAME_COLS];
-> > 
-> > So these arrays actually have to be exported? In the current (5.2) sources they
-> > seem to only be used in stream.c, maybe make them static there?
-> > 
-> > > +
-> > > +int sdw_find_row_index(int row);
-> > > +int sdw_find_col_index(int col);
-> 
-> yes, they need to be exported, they are used by the allocation algorithm (in
-> Patch 27).
-> Others will need this for non-Intel solutions, it's really a part of the
-> standard definition and should be shared.
-> I can improve the commit message to make this explicit.
+On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
+> Remove hard-coding and use BIOS values. If they are wrong use default
 
-Yes that would help! And also move it to before it's usage so it clear
-that it is used in next one.
+BIOS :) this is cadence, am sure this can be used outside BIOS :D
+
+It would be better to say firmware (ACPI/DT)
+
+> 48x2 frame shape.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  drivers/soundwire/cadence_master.c | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+> index 442f78c00f09..d84344e29f71 100644
+> --- a/drivers/soundwire/cadence_master.c
+> +++ b/drivers/soundwire/cadence_master.c
+> @@ -175,7 +175,6 @@
+>  /* Driver defaults */
+>  
+>  #define CDNS_DEFAULT_CLK_DIVIDER		0
+> -#define CDNS_DEFAULT_FRAME_SHAPE		0x30
+>  #define CDNS_DEFAULT_SSP_INTERVAL		0x18
+>  #define CDNS_TX_TIMEOUT				2000
+>  
+> @@ -954,6 +953,20 @@ int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
+>  }
+>  EXPORT_SYMBOL(sdw_cdns_pdi_init);
+>  
+> +static u32 cdns_set_default_frame_shape(int n_rows, int n_cols)
+> +{
+> +	u32 val;
+> +	int c;
+> +	int r;
+
+This can be in single line!
+
+> +
+> +	r = sdw_find_row_index(n_rows);
+> +	c = sdw_find_col_index(n_cols);
+> +
+> +	val = (r << 3) | c;
+
+Magic 3?
 
 -- 
 ~Vinod

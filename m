@@ -2,68 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BDD97FD92
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 17:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33F3C7FDF9
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 18:00:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 123991789;
-	Fri,  2 Aug 2019 17:30:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 123991789
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB1F21741;
+	Fri,  2 Aug 2019 18:00:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB1F21741
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564759882;
-	bh=lNFRZLyGawlNjuoYayV+AVIAuccdeQEE4q82q7y8ciA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564761653;
+	bh=2QJZiiHyoGxVVACdA8lS1DmhukWtSbOPvQHXGlu/wRo=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LyHmLve6drm2lHrdp+eGa0y2JgNWanUJ2Bt9jNjv8vNdQcya5YZiLR4sSdHlwUFs+
-	 iYzI9YDIh5EadY1c1HXi+JQs5zQ8zLATdUB3qesm5NfsLp9fe574cGs5b99cD+eGEG
-	 6WHnImA1QnSmPhYATgee1Hx/Y41MJtpBTuS5DUsI=
+	b=hAzJc7zVELlo2+5wCe4aXTszOLjweDWDFjmJbaZGHU7ztBsSDJi/mrGAc5M77MIc9
+	 fu+DuLYE7UnZZOApVChXLIbTdQtF2Q2KHAK5GuTLEEfSiqAbrn+L+/14YjR/ScG2nv
+	 ugLCvy9wfBMadLrGDXlSfcMfQCg7qE2yjW6ers7s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53693F8048E;
-	Fri,  2 Aug 2019 17:29:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80E1DF80114;
+	Fri,  2 Aug 2019 17:59:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E1C4F8048F; Fri,  2 Aug 2019 17:29:34 +0200 (CEST)
+ id DCA9DF8048F; Fri,  2 Aug 2019 17:59:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9D9CF800F3
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 17:59:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9D9CF800F3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="i07x/1lH"
+Received: from localhost (unknown [122.167.106.83])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 923E3F800F3
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 17:29:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 923E3F800F3
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2019 08:29:28 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,338,1559545200"; d="scan'208";a="175612955"
-Received: from vivekcha-mobl1.amr.corp.intel.com (HELO [10.251.131.115])
- ([10.251.131.115])
- by orsmga003.jf.intel.com with ESMTP; 02 Aug 2019 08:29:27 -0700
-To: Vinod Koul <vkoul@kernel.org>
+ by mail.kernel.org (Postfix) with ESMTPSA id 71CC020B7C;
+ Fri,  2 Aug 2019 15:59:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1564761542;
+ bh=E21+I1H59V6MsCfH6Fg5TnD0nRNFBekeAOLaNaiXMhc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=i07x/1lHjnA1/3bX90ONRyLaOlC349ccqPsirmEZhaaII6jwBVQO7oOAhanUx1tD9
+ dxTwA5wvpLpxSehkUn8snlb+JVRCdYIoFX/IyEOL9zUCbsyouQA1oFUgLSvhFzwixj
+ VhRZboa1ONpanDiL9lANnGP9pDoNPZun7UgZzPXA=
+Date: Fri, 2 Aug 2019 21:27:38 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190802155738.GR12733@vkoul-mobl.Dlink>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-16-pierre-louis.bossart@linux.intel.com>
- <20190802122003.GQ12733@vkoul-mobl.Dlink>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c4d31804-48af-30e3-4b4f-4b03dac6addd@linux.intel.com>
-Date: Fri, 2 Aug 2019 10:29:26 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <20190725234032.21152-7-pierre-louis.bossart@linux.intel.com>
+ <20190802115537.GI12733@vkoul-mobl.Dlink>
+ <6da5aeef-40bf-c9bb-fc18-4ac0b3961857@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20190802122003.GQ12733@vkoul-mobl.Dlink>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <6da5aeef-40bf-c9bb-fc18-4ac0b3961857@linux.intel.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 15/40] soundwire: cadence_master:
- handle multiple status reports per Slave
+Subject: Re: [alsa-devel] [RFC PATCH 06/40] soundwire: intel: prevent
+ possible dereference in hw_params
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,82 +82,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 8/2/19 7:20 AM, Vinod Koul wrote:
-> On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
->> When a Slave reports multiple status in the sticky bits, find the
->> latest configuration from the mirror of the PING frame status and
->> update the status directly.
->>
->> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> ---
->>   drivers/soundwire/cadence_master.c | 34 ++++++++++++++++++++++++------
->>   1 file changed, 28 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
->> index 889fa2cd49ae..25d5c7267c15 100644
->> --- a/drivers/soundwire/cadence_master.c
->> +++ b/drivers/soundwire/cadence_master.c
->> @@ -643,13 +643,35 @@ static int cdns_update_slave_status(struct sdw_cdns *cdns,
->>   
->>   		/* first check if Slave reported multiple status */
->>   		if (set_status > 1) {
->> +			u32 val;
->> +
->>   			dev_warn_ratelimited(cdns->dev,
->> -					     "Slave reported multiple Status: %d\n",
->> -					     mask);
->> -			/*
->> -			 * TODO: we need to reread the status here by
->> -			 * issuing a PING cmd
->> -			 */
->> +					     "Slave %d reported multiple Status: %d\n",
->> +					     i, mask);
->> +
->> +			/* re-check latest status extracted from PING commands */
->> +			val = cdns_readl(cdns, CDNS_MCP_SLAVE_STAT);
->> +			val >>= (i * 2);
->> +
->> +			switch (val & 0x3) {
->> +			case 0:
+On 02-08-19, 10:16, Pierre-Louis Bossart wrote:
 > 
-> why not case CDNS_MCP_SLAVE_INTSTAT_NPRESENT:
-
-ok
-
 > 
->> +				status[i] = SDW_SLAVE_UNATTACHED;
->> +				break;
->> +			case 1:
->> +				status[i] = SDW_SLAVE_ATTACHED;
->> +				break;
->> +			case 2:
->> +				status[i] = SDW_SLAVE_ALERT;
->> +				break;
->> +			default:
->> +				status[i] = SDW_SLAVE_RESERVED;
->> +				break;
->> +			}
+> On 8/2/19 6:55 AM, Vinod Koul wrote:
+> > On 25-07-19, 18:39, Pierre-Louis Bossart wrote:
+> > > This should not happen in production systems but we should test for
+> > > all callback arguments before invoking the config_stream callback.
+> > 
+> > so you are saying callback arg is mandatory, if so please document that
+> > assumption
 > 
-> we have same logic in the code block preceding this, maybe good idea to
-> write a helper and use for both
+> no, what this says is that if a config_stream is provided then it needs to
+> have a valid argument.
 
-Yes, I am thinking about this. There are multiple cases where we want to 
-re-check the status and clear some bits, so helpers would be good.
+well typically args are not mandatory..
 
-> 
-> Also IIRC we can have multiple status set right?
+> I am not sure what you mean by "document that assumption", comment in the
+> code (where?) or SoundWire documentation?
 
-Yes, the status bits are sticky and mirror all values reported in PING 
-frames. I am still working on how to clear those bits, there are cases 
-where we clear bits and end-up never hearing from that device ever 
-again. classic edge/level issue I suppose.
+The callback documentation which in this is in include/linux/soundwire/sdw_intel.h
+
+-- 
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

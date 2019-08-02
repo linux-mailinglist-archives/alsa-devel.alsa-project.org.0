@@ -2,84 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EBC47EF18
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 10:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CEBD7EF5F
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 10:34:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A55051715;
-	Fri,  2 Aug 2019 10:23:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A55051715
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D0921712;
+	Fri,  2 Aug 2019 10:33:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D0921712
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564734236;
-	bh=mTGoud2829ZmX8u9QSzpdsTOGyqFrTEORD1x9F/AgOA=;
+	s=default; t=1564734869;
+	bh=DuHmLYr/gu79zYdTLXSljoAADV9z831PJz9IOR7gK70=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nOOVg8Dxz0vnu47NVbz6oNWfvqfZegT3S6nnfL+P15Aw7bgHCuCcpKT+x+SSDaw6P
-	 WTqLqvmYYJWQ2y30Y0iZ5iN83F+URVF1zLPqKpH6J2eFLwoa3UEw9tIwFAXKk1Fux6
-	 Wyvc3z8vamPLI5QQ1xiNAbemnHGJUM4pTpaY1/mA=
+	b=ZKtfl+sQ9HeEEAj21038M97dW94J+IN3MEM/qsq+PsM6r3uFzrp5zLLpkx7irzDQa
+	 lK5dENfwM+eLJYF+DWXBnAC4gB/CzfcNjP88HO03A+EEn+tINyYrJJE3YIbCMJMfze
+	 Gbt603Ul1IYqJR4Uon1qGyzFieEJ6VAD+hPR6SDA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44A22F804CC;
-	Fri,  2 Aug 2019 10:22:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E465F8049B;
+	Fri,  2 Aug 2019 10:32:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A55DF8048F; Fri,  2 Aug 2019 10:22:11 +0200 (CEST)
+ id 424E0F8048F; Fri,  2 Aug 2019 10:32:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D342BF800F3;
- Fri,  2 Aug 2019 10:22:06 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A34C3A003F;
- Fri,  2 Aug 2019 10:22:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A34C3A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1564734125; bh=qIK5H19RBn32Nuh+Z5aPNpUClXG6j3rM3xRZc7ZZoF8=;
- h=Subject:To:References:From:Cc:Date:In-Reply-To:From;
- b=FHVlkBl4Vi6XjaAQ5G3d9MrZCBivw0Z6BcwaB2YacxvJmDcV3YvURBRhfyM04sR8j
- 6Ne+JKaxELj93JMul+4OSogqTZtpIVrBpV+Ug/n6eZK9ebnU31aox/yCm0ugeAScrH
- xrR/nuUUjZMY6AtarUCiTcL1qbHFi5i7//CD4eqw=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri,  2 Aug 2019 10:21:59 +0200 (CEST)
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <CAD8Lp45Bp1xVC7NjuNaANA7kAEN2Edshw+cViaTF3tRZEumgZA@mail.gmail.com>
- <cc9fa5b52138daffb09dc5b66ea9248379c9f60e.camel@linux.intel.com>
- <CAD8Lp46GW8n8K7ttOeSje_au06BsyvCp4seVwj2wNbipei5ssA@mail.gmail.com>
- <a4b17a75-d4e0-fc6b-a286-aa6b7b281b7d@linux.intel.com>
- <CAD8Lp444soO1i8mWF73eucT16yAhy2js1byWJCTV5fn=TikHBg@mail.gmail.com>
- <9e8b667f1aa2333dbcc34b5253372d1a8667551e.camel@linux.intel.com>
- <ee34f820-0753-dfbe-09c0-7147cf229cc0@perex.cz>
- <6493f195-eb5a-1a6d-2c31-e3a4123b2ad1@linux.intel.com>
- <7c940d90-297e-19c0-2f74-1843439d5ccf@perex.cz>
- <d41b02286db2a827648d1c1ec793bbd0a55e99c1.camel@linux.intel.com>
- <8dceb60b-35a5-93e9-ce01-1eb852e93f44@perex.cz>
- <0059ed8e8f2fbd7ffbc258ca53ce5efbf1885c5b.camel@linux.intel.com>
- <1718d316-4c65-a39d-53dd-7f40f0e49e28@perex.cz>
- <1e7adedf-e12a-d409-12cf-9087cf6dbf30@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <b7fae370-de17-f73c-c2a4-852acf6b31bc@perex.cz>
-Date: Fri, 2 Aug 2019 10:21:59 +0200
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB421F80214
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 10:32:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB421F80214
+Received: from [167.98.27.226] (helo=[10.35.6.253])
+ by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+ id 1htSz4-0002ns-CI; Fri, 02 Aug 2019 09:32:18 +0100
+To: Mark Brown <broonie@kernel.org>
+References: <20190730120937.16271-1-thomas.preston@codethink.co.uk>
+ <20190730120937.16271-4-thomas.preston@codethink.co.uk>
+ <20190730141935.GF4264@sirena.org.uk>
+ <45156592-a90f-b4f8-4d30-9631c03f1280@codethink.co.uk>
+ <20190730155027.GJ4264@sirena.org.uk>
+ <9b47a360-3b62-b968-b8d5-8639dc4b468d@codethink.co.uk>
+ <20190801234241.GG5488@sirena.org.uk>
+From: Thomas Preston <thomas.preston@codethink.co.uk>
+Message-ID: <472cc4ee-2e80-8b08-d842-79c65df572f3@codethink.co.uk>
+Date: Fri, 2 Aug 2019 09:32:17 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1e7adedf-e12a-d409-12cf-9087cf6dbf30@linux.intel.com>
+In-Reply-To: <20190801234241.GG5488@sirena.org.uk>
 Content-Language: en-US
-Cc: Jian-Hong Pan <jian-hong@endlessm.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- sound-open-firmware@alsa-project.org, Daniel Drake <drake@endlessm.com>
-Subject: Re: [alsa-devel] [Sound-open-firmware] Signed firmware availability
- for kbl/cnl
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Kirill Marinushkin <kmarinushkin@birdec.tech>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Annaliese McDermond <nh6z@nh6z.net>, Marco Felsch <m.felsch@pengutronix.de>,
+ Paul Cercueil <paul@crapouillou.net>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Cheng-Yi Chiang <cychiang@chromium.org>, Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [alsa-devel] [PATCH v2 3/3] ASoC: TDA7802: Add turn-on
+ diagnostic routine
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,102 +84,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 31. 07. 19 v 20:14 Pierre-Louis Bossart napsal(a):
-> On 7/31/19 12:29 PM, Jaroslav Kysela wrote:
->> Dne 31. 07. 19 v 15:23 Liam Girdwood napsal(a):
->>> + Mengdong
->>>
->>> On Wed, 2019-07-24 at 18:23 +0200, Jaroslav Kysela wrote:
->>>>> Yeah, been thinking about this atm. It may be better to package the
->>>>> binaries (firmware and topologies) as part of Linux firmware repo
->>>>> (since the driver expects to load them all from lib/firmware) and
->>>>> package the sources (firmware and topology) via sof tarball ?
->>>>
->>>> It looks good in my eyes, because topology files are another pieces
->>>> of the
->>>> driver from the user space perspective. The unanswered question is
->>>> the UCM
->>>> configuration which is linked to the topology configuration (if I
->>>> understand
->>>> this correctly). I proposed to place an unique identifier/version to
->>>> the
->>>> topology file and propagate this identifier to the user space, so the
->>>> alsa-lib
->>>> can pick the right UCM configuration when topology changes. The
->>>> component
->>>> string (snd_component_add function / struct snd_ctl_card_info ->
->>>> components)
->>>> can be used for this identification.
->>>
->>> Apologizes for the delay, Pierre and I have been discussing this
->>> internally as we have to synchronise the deployment of the topologies
->>> and UCMs alongside the FW.
->>
->> My strong point is that the driver with the different firmware and the
->> topology file behaves differently from the user space perspective. It seems
->> that there is no way to propagate the firmware (and topology?) version to the
->> user space at the moment.
+On 02/08/2019 00:42, Mark Brown wrote:
+> On Tue, Jul 30, 2019 at 05:28:11PM +0100, Thomas Preston wrote:
+>> On 30/07/2019 16:50, Mark Brown wrote:
 > 
-> The topology may not be enough, e.g. for all Baytrail devices we use the 
-> same simple topology. To pick the right UCM file you really need the 
-> card information which may include the DMI info or some quirks 
-> (mono-speaker, analog mics). The topology is quite static and doesn't 
-> expose anything that is board-specific or may vary between skews.
-
-Yes, thus we need to use another UCM file (or make some parts conditional in
-the UCM config) depending on this and I would like to pass the exact
-hardware/firmware/topology identification which may affect the UCM, through
-the ALSA API to the user space level (UCM parser). Think from the packaging
-(Linux distributions) perspective. We have to handle all those situations, so
-all the configs, pieces to support all hardware variations must be prepared in
-the packages.
-
-Also, the blind fw / topology / UCM relationship without any compatibility
-checks might cause issues when the user upgrades only some parts. The binary
-topology files might be packaged with the UCM files as proposed, but if an
-incompatible DSP firmware will be loaded (it's placed in the another package -
-linux-firmware), it should be reported to the user, too.
-
->>> Current thinking has changed from shipping FW + tplg via linux-firmware
->>> repo to only shipping FW binaries in the FW repo and using alsa-ucm-
->>> conf.git for UCMs + topologies (since the coupling between UCM and
->>> topology is tighter than the FW coupling).
->>
->> This is fine, but I think that we should have a check (compatibility
->> verification) in the user space level, too. More precisely, each level should
->> do a verification if it's compatible with the tied level (driver -> firmware
->> -> topology -> ucm).
+>>> Like I say it's not just debugfs though, there's the standard driver
+>>> interface too.
 > 
-> The SOF driver checks if its supported ABI level is compatible with 
-> firmware and topology levels (both files embed the information, which 
-> doesn't have to be identical).
+>> Ah right, I understand. So if we run the turn-on diagnostics routine, there's
+>> nothing stopping anyone from interacting with the device in other ways.
+> 
+>> I guess there's no way to share that mutex with ALSA? In that case, it doesn't
+>> matter if this mutex is there or not - this feature is incompatible. How
+>> compatible do debugfs interfaces have to be? I was under the impression anything
+>> goes. I would argue that the debugfs is better off for having the mutex so
+>> that no one re-reads "diagnostic" within the 5s poll timeout.
+> 
+> It's not really something that's supported; like Charles says the DAPM
+> mutex is exposed but if the regular controls would still be able to do
+> stuff.  It is kind of a "you broke it, you fix it" thing but on the
+> other hand it's better to make things safer if we can since it might not
+> be obvious later on why things are broken.
+> 
+>> Alternatively, this diagnostic feature could be handled with an external-handler
+>> kcontrol SOC_SINGLE_EXT? I'm not sure if this is an atomic interface either.
+>>
+>> What would be acceptable?
+> 
+> Yes, that's definitely doable - we've got some other drivers with
+> similar things like calibration triggers exposed that way.
+> 
 
-Ok, but if you add another functionality to the firmware or remove some, it
-might break the compatibility with the topology (different ALSA controls for
-example), right? I'm not sure if ABI checks are sufficient. It's more about
-the overall sound hardware abstraction for the user space (managed ALSA controls).
+One problem with using a kcontrol as a trigger for the turn-on diagnostic
+is that the diagnostic routine has a "return value".
 
-> I don't see how UCM would be checked since there's no direct interaction 
-> with the driver, e.g. it's used by PulseAudio or CRAS and the only 
-> interaction is through the control and PCM APIs. Likewise UCM has no> knowledge about topology or firmware.
+It goes like this:
+- Bring device to low-quiescent state
+- Initiate diagnostics
+- Poll for diagnostics-complete bit
+- Read the four channel status registers
 
-The UCM parser code in alsa-lib (not applications) can do the check /
-configuration selection. This is exactly what I am proposing to do. Actually,
-for example, the UCM parser looks for sof-skl_hda_card.conf file without any
-other checks or conditions. You will agree that we cannot support all hardware
-variants with this, because some vendors might use other GPIOs etc..
+The final read clears the status registers, so this isn't something I
+can just do with regmap.
 
-So my proposal is to pass all necessary information throught the ALSA control
-API (struct snd_ctl_card_info -> components) so the UCM parser can pick the
-right config file based on the complete identification. It might fallback to
-sof-skl_hda_card.conf, but if new hardware variant exist, the file name might
-look like 'sof-skl_hda_card-TOPOLOGYID-VENDORID-PRODUCTID.conf' etc, etc....
+One idea I had was to initiate the turn-on diagnostics using a kcontrol,
+whose handler saves the four channel status registers and an epoch in
+tda7802_priv. Then this can be read from debugfs. But it seems strange
+to have to turn on this control over here, then go over there and read
+this value.
 
-							Jaroslav
+Hm, maybe a better idea is to have the turn on diagnostic only run on
+device probe (as its name suggests!), and print something to dmesg:
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+	modprobe tda7802 turn_on_diagnostic=1
+
+	tda7802-codec i2c-TDA7802:00: Turn on diagnostic 04 04 04 04
+
+Kirill Marinushkin mentioned this in the first review [0], it just didn't
+really sink in until now!
+
+[0] https://lkml.org/lkml/2019/6/14/1344
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

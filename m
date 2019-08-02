@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E22147FFED
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 19:58:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0404C8000C
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 20:08:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FA3616DF;
-	Fri,  2 Aug 2019 19:57:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FA3616DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D7C216C5;
+	Fri,  2 Aug 2019 20:07:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D7C216C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564768694;
-	bh=BXGrBstt19RWs+AIrhy7FuXt5JkfsO2/aE9lyXfE/vI=;
+	s=default; t=1564769298;
+	bh=jAEguxX8N6WJZBz+hlpoD/dzoX8iWbiwJniOjxUMefs=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=amHMMQ471CWbnp1z8zgZa86CZc1VmqLVhh9M/zzNbWzF1ZeL0m8IMr2QNpSCb6zub
-	 YZp/NTe6MyZXBpzWX76PFyzO78dVEKxXe6U8rQvhIpeDT8HdMsddFIBCgOy+1+o5V1
-	 KVUWvs7bhwTWeSvoAo+YTDfrjK1J4ceAfSrtbJAE=
+	b=I3/NHOARl7J/CgyiXBlMxKS7mE7IjnWOFFqo4Fec3hewoIuOgVBNJ2ghJLaTYNvc1
+	 +xg2z+fceafHHPVWD9PcH/17FvuhH6vh/Lb6qEzCqq/dQzsGcwB9MesHDDKUJXk0kQ
+	 sb7XIQHSFGbL1wiMQHZpHxneW2O046fNiawt59lM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C13BCF8049A;
-	Fri,  2 Aug 2019 19:56:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7695F8048F;
+	Fri,  2 Aug 2019 20:06:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C0A5F8049B; Fri,  2 Aug 2019 19:56:28 +0200 (CEST)
+ id 83779F8048F; Fri,  2 Aug 2019 20:06:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,44 +34,43 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2365CF80214
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 19:56:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2365CF80214
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60297F80214
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 20:06:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60297F80214
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="1YRuXRZ2"
+ header.b="rAYrta9U"
 Received: from localhost (unknown [106.51.106.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4A8B32171F;
- Fri,  2 Aug 2019 17:38:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4A42721726;
+ Fri,  2 Aug 2019 17:29:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1564767525;
- bh=JFlo0hd8b2cvmNPi8HS4NNA9dAnHWTxHjhwDFVTzlpI=;
+ s=default; t=1564766996;
+ bh=f4LLTVVR2NozHp4xg1GijBVQN0SOO8S+/65J8PEHkms=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=1YRuXRZ2R+4pLMF8Lug3V25dSOvWufl7EejpqZTLSoid4tLvge3J8qYdX8iKCFuL/
- OONHBsH0512YwnLTxQ6/VvfV56HGnj3Wbxu72/DHGfh59gBnWWPvczkkikZoeuDwrl
- SzT80OHXJACPyOufg374ip7DeDf8YIMtij8kglz0=
-Date: Fri, 2 Aug 2019 23:07:32 +0530
+ b=rAYrta9UyUCnFLkGPm0U/0x47AQ6HjSbus4/MDTo6aiSU6omJVWh0qxXxdLqeN4Yy
+ GKEYNCS/qZ9mB2ndF4JsSPthqUg3CluZNG7+msjDFNDt/c2sLUbga/lqdw+IpbIuvM
+ 35kWXfEIgfa9b+yg4qNTkESGyo5S4zA2wMlvR3j0=
+Date: Fri, 2 Aug 2019 22:58:43 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190802173732.GF12733@vkoul-mobl.Dlink>
+Message-ID: <20190802172843.GC12733@vkoul-mobl.Dlink>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-7-pierre-louis.bossart@linux.intel.com>
- <20190802115537.GI12733@vkoul-mobl.Dlink>
- <6da5aeef-40bf-c9bb-fc18-4ac0b3961857@linux.intel.com>
- <20190802155738.GR12733@vkoul-mobl.Dlink>
- <884a13fc-08eb-10c9-de9c-50cf38ff533d@linux.intel.com>
+ <20190725234032.21152-32-pierre-louis.bossart@linux.intel.com>
+ <39318aab-b1b4-2cce-c408-792a5cc343dd@intel.com>
+ <ee87d4bb-3f35-eb27-0112-e6e64a09a279@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <884a13fc-08eb-10c9-de9c-50cf38ff533d@linux.intel.com>
+In-Reply-To: <ee87d4bb-3f35-eb27-0112-e6e64a09a279@linux.intel.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 06/40] soundwire: intel: prevent
- possible dereference in hw_params
+Subject: Re: [alsa-devel] [RFC PATCH 31/40] soundwire: intel: move
+ shutdown() callback and don't export symbol
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,53 +83,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 02-08-19, 11:52, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 8/2/19 10:57 AM, Vinod Koul wrote:
-> > On 02-08-19, 10:16, Pierre-Louis Bossart wrote:
-> > > 
-> > > 
-> > > On 8/2/19 6:55 AM, Vinod Koul wrote:
-> > > > On 25-07-19, 18:39, Pierre-Louis Bossart wrote:
-> > > > > This should not happen in production systems but we should test for
-> > > > > all callback arguments before invoking the config_stream callback.
-> > > > 
-> > > > so you are saying callback arg is mandatory, if so please document that
-> > > > assumption
-> > > 
-> > > no, what this says is that if a config_stream is provided then it needs to
-> > > have a valid argument.
-> > 
-> > well typically args are not mandatory..
-> > 
-> > > I am not sure what you mean by "document that assumption", comment in the
-> > > code (where?) or SoundWire documentation?
-> > 
-> > The callback documentation which in this is in include/linux/soundwire/sdw_intel.h
-> > 
-> 
-> /**
->  * struct sdw_intel_ops: Intel audio driver callback ops
->  *
->  * @config_stream: configure the stream with the hw_params
->  */
-> struct sdw_intel_ops {
-> 	int (*config_stream)(void *arg, void *substream,
-> 			     void *dai, void *hw_params, int stream_num);
-> };
-> 
-> all parameters are mandatory really, not sure what you are trying to get at.
+On 26-07-19, 09:46, Pierre-Louis Bossart wrote:
+> =
 
-It would be good to make a note that argument is mandatory!
+> =
 
-Thanks
--- 
+> On 7/26/19 5:38 AM, Cezary Rojewski wrote:
+> > On 2019-07-26 01:40, Pierre-Louis Bossart wrote:
+> > > +void intel_shutdown(struct snd_pcm_substream *substream,
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct snd_soc_dai *dai)
+> > > +{
+> > > +=A0=A0=A0 struct sdw_cdns_dma_data *dma;
+> > > +
+> > > +=A0=A0=A0 dma =3D snd_soc_dai_get_dma_data(dai, substream);
+> > > +=A0=A0=A0 if (!dma)
+> > > +=A0=A0=A0=A0=A0=A0=A0 return;
+> > > +
+> > > +=A0=A0=A0 snd_soc_dai_set_dma_data(dai, substream, NULL);
+> > > +=A0=A0=A0 kfree(dma);
+> > > +}
+> > =
+
+> > Correct me if I'm wrong, but do we really need to _get_dma_ here?
+> > _set_dma_ seems bulletproof, same for kfree.
+> =
+
+> I must admit I have no idea why we have a reference to DMAs here, this lo=
+oks
+> like an abuse to store a dai-specific context, and the initial test looks
+> like copy-paste to detect invalid configs, as done in other callbacks. Vi=
+nod
+> and Sanyog might have more history than me here.
+
+I dont see snd_soc_dai_set_dma_data() call for
+sdw_cdns_dma_data so somthing is missing (at least in upstream code)
+
+IIRC we should have a snd_soc_dai_set_dma_data() in alloc or some
+initialization routine and we free it here.. Sanyog?
+
+-- =
+
 ~Vinod
 _______________________________________________
 Alsa-devel mailing list

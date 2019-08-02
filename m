@@ -2,70 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84BB7FFD7
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 19:46:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDDB47FFF3
+	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 19:59:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6ACA71705;
-	Fri,  2 Aug 2019 19:45:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6ACA71705
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F02D16BA;
+	Fri,  2 Aug 2019 19:59:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F02D16BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564767961;
-	bh=uubB88LP3BsEZJQThNWlZNz0AEOt0iGFKioEByC2R+4=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1564768792;
+	bh=1IcPwfKcppLbSTUcpdmDBiJO0faIrO1KFKaDFajnMB4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KP5ixv7Paw2cPJsauhdHhpvGwDgAGGnTYPg/OtqBHLWN7oQnnWN/4d/mGhWUU3Fzf
-	 oTBxOCTjE47oeU+iltVvff1efnQr9CMpFyk+6g4PnYBXXnU+/g1c6k41WkiG+groF8
-	 AtaxqdkLNypXJ/aiOr/agHDjoWmhuy97v3QcxtkE=
+	b=Frhu2y74rAuflIeZD4+0mCgJERXFTu9Z+YlySoxHnvMecgSI6oFK07OjoG2t6O6X/
+	 nXD5SsbrDDa24oL6Kt0oD3mNoNA4fLrmSIegmqYlFzd+WTfxXK3sQxBXGgbS6Ixjob
+	 tQGUnfkTg4grKZIG9R/JPIlh1G1HkFeRsUewIv1s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8ACD8F804CF;
-	Fri,  2 Aug 2019 19:45:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DDB2F80527;
+	Fri,  2 Aug 2019 19:56:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21159F804CA; Fri,  2 Aug 2019 19:44:59 +0200 (CEST)
+ id 0BBB4F8049B; Fri,  2 Aug 2019 19:56:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C4D3F8048F
+ for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 19:56:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C4D3F8048F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="swDTSPaA"
+Received: from localhost (unknown [106.51.106.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 01226F80214
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 19:44:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01226F80214
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2019 10:44:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,339,1559545200"; d="scan'208";a="191893041"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga001.fm.intel.com with ESMTP; 02 Aug 2019 10:44:53 -0700
-Received: from cwhanson-mobl.amr.corp.intel.com (unknown [10.252.133.191])
- by linux.intel.com (Postfix) with ESMTP id 3CE915800BD;
- Fri,  2 Aug 2019 10:44:52 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>
+ by mail.kernel.org (Postfix) with ESMTPSA id 194F720880;
+ Fri,  2 Aug 2019 17:18:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1564766305;
+ bh=8wKtHQUm2Gz9cNDDbQVdEwsNz2PS38g6O5mnwVE/NXE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=swDTSPaACflb7DRlZ3ErqV3xJXZxcwFl3WOcPEMV524fGa5thOSOpssbbmW4QVVxa
+ XYyOVtFRb21F77cGTVoBIYXE10GKwdVtcgA5nxkYcx7DVPl6ZuVntZfIy3yo8puW8T
+ tgNyss4FAL4Xsv1YqnYoVENW+dPcUYIIr8V3+ho0=
+Date: Fri, 2 Aug 2019 22:47:11 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190802171711.GA12733@vkoul-mobl.Dlink>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-36-pierre-louis.bossart@linux.intel.com>
- <20190802173115.GE12733@vkoul-mobl.Dlink>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <0d76e6ed-1ab3-6a9d-b33c-deb248d5cb9d@linux.intel.com>
-Date: Fri, 2 Aug 2019 12:44:51 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
+ <20190725234032.21152-26-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20190802173115.GE12733@vkoul-mobl.Dlink>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20190725234032.21152-26-pierre-louis.bossart@linux.intel.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
  Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 35/40] soundwire: intel: export helper
-	to exit reset
+Subject: Re: [alsa-devel] [RFC PATCH 25/40] soundwire: intel: use BIOS
+ information to set clock dividers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,98 +80,171 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 8/2/19 12:31 PM, Vinod Koul wrote:
-> On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
+On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
+> The BIOS provides an Intel-specific property, let's use it to avoid
+> hard-coded clock dividers.
 > 
-> Here as well
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  drivers/soundwire/cadence_master.c | 26 ++++++++++++++++++++++----
+>  drivers/soundwire/intel.c          | 26 ++++++++++++++++++++++++++
+>  include/linux/soundwire/sdw.h      |  2 ++
 
-I squashed this with earlier patches to fix the init sequence in one shot
+ah, intel patch touching bunch of things!
 
+>  3 files changed, 50 insertions(+), 4 deletions(-)
 > 
->> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> ---
->>   drivers/soundwire/cadence_master.c | 9 +++++++--
->>   drivers/soundwire/cadence_master.h | 1 +
->>   drivers/soundwire/intel.c          | 4 ++++
->>   3 files changed, 12 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
->> index 4a189e487830..f486fe15fb46 100644
->> --- a/drivers/soundwire/cadence_master.c
->> +++ b/drivers/soundwire/cadence_master.c
->> @@ -780,7 +780,11 @@ EXPORT_SYMBOL(sdw_cdns_thread);
->>    * init routines
->>    */
->>   
->> -static int do_reset(struct sdw_cdns *cdns)
->> +/**
->> + * sdw_cdns_exit_reset() - Program reset parameters and start bus operations
->> + * @cdns: Cadence instance
->> + */
->> +int sdw_cdns_exit_reset(struct sdw_cdns *cdns)
->>   {
->>   	int ret;
->>   
->> @@ -804,6 +808,7 @@ static int do_reset(struct sdw_cdns *cdns)
->>   
->>   	return ret;
->>   }
->> +EXPORT_SYMBOL(sdw_cdns_exit_reset);
->>   
->>   /**
->>    * sdw_cdns_enable_interrupt() - Enable SDW interrupts and update config
->> @@ -839,7 +844,7 @@ int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
->>   
->>   	cdns_writel(cdns, CDNS_MCP_INTMASK, mask);
->>   
->> -	return do_reset(cdns);
->> +	return 0;
->>   }
->>   EXPORT_SYMBOL(sdw_cdns_enable_interrupt);
->>   
->> diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
->> index de97bc22acb7..2b551f9226f3 100644
->> --- a/drivers/soundwire/cadence_master.h
->> +++ b/drivers/soundwire/cadence_master.h
->> @@ -161,6 +161,7 @@ irqreturn_t sdw_cdns_thread(int irq, void *dev_id);
->>   int sdw_cdns_init(struct sdw_cdns *cdns);
->>   int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
->>   		      struct sdw_cdns_stream_config config);
->> +int sdw_cdns_exit_reset(struct sdw_cdns *cdns);
->>   int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns);
->>   
->>   void sdw_cdns_debugfs_init(struct sdw_cdns *cdns, struct dentry *root);
->> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
->> index a976480d6f36..9ebe38e4d979 100644
->> --- a/drivers/soundwire/intel.c
->> +++ b/drivers/soundwire/intel.c
->> @@ -1112,6 +1112,8 @@ static int intel_probe(struct platform_device *pdev)
->>   
->>   	ret = sdw_cdns_enable_interrupt(&sdw->cdns);
->>   
->> +	ret = sdw_cdns_exit_reset(&sdw->cdns);
->> +
->>   	/* Register DAIs */
->>   	ret = intel_register_dai(sdw);
->>   	if (ret) {
->> @@ -1199,6 +1201,8 @@ static int intel_resume(struct device *dev)
->>   
->>   	sdw_cdns_enable_interrupt(&sdw->cdns);
->>   
->> +	ret = sdw_cdns_exit_reset(&sdw->cdns);
->> +
->>   	return ret;
->>   }
->>   
->> -- 
->> 2.20.1
-> 
+> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+> index d84344e29f71..10ebcef2e84e 100644
+> --- a/drivers/soundwire/cadence_master.c
+> +++ b/drivers/soundwire/cadence_master.c
+> @@ -173,8 +173,6 @@
+>  #define CDNS_PDI_CONFIG_PORT			GENMASK(4, 0)
+>  
+>  /* Driver defaults */
+> -
+> -#define CDNS_DEFAULT_CLK_DIVIDER		0
+>  #define CDNS_DEFAULT_SSP_INTERVAL		0x18
+>  #define CDNS_TX_TIMEOUT				2000
+>  
+> @@ -973,7 +971,10 @@ static u32 cdns_set_default_frame_shape(int n_rows, int n_cols)
+>   */
+>  int sdw_cdns_init(struct sdw_cdns *cdns)
+>  {
+> +	struct sdw_bus *bus = &cdns->bus;
+> +	struct sdw_master_prop *prop = &bus->prop;
+>  	u32 val;
+> +	int divider;
+>  	int ret;
+>  
+>  	/* Exit clock stop */
+> @@ -985,9 +986,17 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+>  	}
+>  
+>  	/* Set clock divider */
+> +	divider	= (prop->mclk_freq / prop->max_clk_freq) - 1;
+>  	val = cdns_readl(cdns, CDNS_MCP_CLK_CTRL0);
+> -	val |= CDNS_DEFAULT_CLK_DIVIDER;
+> +	val |= divider;
+>  	cdns_writel(cdns, CDNS_MCP_CLK_CTRL0, val);
+> +	cdns_writel(cdns, CDNS_MCP_CLK_CTRL1, val);
+> +
+> +	pr_err("plb: mclk %d max_freq %d divider %d register %x\n",
+> +	       prop->mclk_freq,
+> +	       prop->max_clk_freq,
+> +	       divider,
+> +	       val);
 
+I guess you forgot to remove this!
+
+>  
+>  	/* Set the default frame shape */
+>  	val = cdns_set_default_frame_shape(prop->default_row,
+> @@ -1035,6 +1044,7 @@ EXPORT_SYMBOL(sdw_cdns_init);
+>  
+>  int cdns_bus_conf(struct sdw_bus *bus, struct sdw_bus_params *params)
+>  {
+> +	struct sdw_master_prop *prop = &bus->prop;
+>  	struct sdw_cdns *cdns = bus_to_cdns(bus);
+>  	int mcp_clkctrl_off, mcp_clkctrl;
+>  	int divider;
+> @@ -1044,7 +1054,9 @@ int cdns_bus_conf(struct sdw_bus *bus, struct sdw_bus_params *params)
+>  		return -EINVAL;
+>  	}
+>  
+> -	divider	= (params->max_dr_freq / params->curr_dr_freq) - 1;
+> +	divider	= prop->mclk_freq * SDW_DOUBLE_RATE_FACTOR /
+> +		params->curr_dr_freq;
+> +	divider--; /* divider is 1/(N+1) */
+>  
+>  	if (params->next_bank)
+>  		mcp_clkctrl_off = CDNS_MCP_CLK_CTRL1;
+> @@ -1055,6 +1067,12 @@ int cdns_bus_conf(struct sdw_bus *bus, struct sdw_bus_params *params)
+>  	mcp_clkctrl |= divider;
+>  	cdns_writel(cdns, mcp_clkctrl_off, mcp_clkctrl);
+>  
+> +	pr_err("plb: mclk * 2 %d curr_dr_freq %d divider %d register %x\n",
+> +	       prop->mclk_freq * SDW_DOUBLE_RATE_FACTOR,
+> +	       params->curr_dr_freq,
+> +	       divider,
+> +	       mcp_clkctrl);
+
+here too!
+
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL(cdns_bus_conf);
+> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+> index c718c9c67a37..796ac2bc8cea 100644
+> --- a/drivers/soundwire/intel.c
+> +++ b/drivers/soundwire/intel.c
+> @@ -917,11 +917,37 @@ static int intel_register_dai(struct sdw_intel *sdw)
+>  					  dais, num_dai);
+>  }
+>  
+> +static int sdw_master_read_intel_prop(struct sdw_bus *bus)
+> +{
+> +	struct sdw_master_prop *prop = &bus->prop;
+> +	struct fwnode_handle *link;
+> +	char name[32];
+> +	int nval, i;
+> +
+> +	/* Find master handle */
+> +	snprintf(name, sizeof(name),
+> +		 "mipi-sdw-link-%d-subproperties", bus->link_id);
+> +
+> +	link = device_get_named_child_node(bus->dev, name);
+> +	if (!link) {
+> +		dev_err(bus->dev, "Master node %s not found\n", name);
+> +		return -EIO;
+> +	}
+> +
+> +	fwnode_property_read_u32(link,
+> +				 "intel-sdw-ip-clock",
+> +				 &prop->mclk_freq);
+> +	return 0;
+> +}
+> +
+>  static int intel_prop_read(struct sdw_bus *bus)
+>  {
+>  	/* Initialize with default handler to read all DisCo properties */
+>  	sdw_master_read_prop(bus);
+>  
+> +	/* read Intel-specific properties */
+> +	sdw_master_read_intel_prop(bus);
+> +
+>  	return 0;
+>  }
+>  
+> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+> index 31d1e8acf25b..b6acc436ac80 100644
+> --- a/include/linux/soundwire/sdw.h
+> +++ b/include/linux/soundwire/sdw.h
+> @@ -379,6 +379,7 @@ struct sdw_slave_prop {
+>   * @dynamic_frame: Dynamic frame shape supported
+>   * @err_threshold: Number of times that software may retry sending a single
+>   * command
+> + * @mclk_freq: clock reference passed to SoundWire Master, in Hz.
+>   */
+>  struct sdw_master_prop {
+>  	u32 revision;
+> @@ -393,6 +394,7 @@ struct sdw_master_prop {
+>  	u32 default_col;
+>  	bool dynamic_frame;
+>  	u32 err_threshold;
+> +	u32 mclk_freq;
+
+Other than debug artifacts this looks sane, but can you split up the
+cadence and intel parts into different patches please
+
+-- 
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

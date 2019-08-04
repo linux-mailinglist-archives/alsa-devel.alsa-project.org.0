@@ -2,72 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C18B80222
-	for <lists+alsa-devel@lfdr.de>; Fri,  2 Aug 2019 23:13:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27F61809A4
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:24:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AED9E16B8;
-	Fri,  2 Aug 2019 23:12:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED9E16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE8A516BD;
+	Sun,  4 Aug 2019 08:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE8A516BD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564780395;
-	bh=cbtYyPetbXOeBjJGQNlrJjblt/hScjHTqw69SQqdC/M=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=d4L5KkCugrDGD5ADfuI3qurEDMlS2NwQyeaWSvG3hEqE+k8kJSNKzuY4CNjSvhDm+
-	 adTJIVRY8r8JLoMu2Xdu2zB8qyAHH9HskD9gkJ4E04VmVmjlRP9HQfiiVWay2i0dHg
-	 /vfRGQ3kuEV51F+kPw1vwp+0zxSWqxOz+QQtGXxU=
+	s=default; t=1564899871;
+	bh=CoxpBr5mjZ0DWUhCdT73esqOuglX2hzAmBvXSi7PXuM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RLPbU//3TxdCpA9iBubQMfX+7G2/v13I0eC9LHtjTiwgy3HxB1T1GD9KwcQQ16jbW
+	 vbyTC6JAoaIrVlJptvvs53VT1kfLOk0HwJ9RLGR2nOpL35d0GSqKDTrUnV29DKYVyd
+	 zGb5wzbqpD0jVyE8pqTkFhYL1XLzNgl7BZUWjass=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4986F8048E;
-	Fri,  2 Aug 2019 23:11:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CE9EAF805DF;
+	Sun,  4 Aug 2019 08:22:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F771F8048F; Fri,  2 Aug 2019 23:11:29 +0200 (CEST)
+ id 89FD3F805A8; Sun,  4 Aug 2019 08:21:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F78BF80214
- for <alsa-devel@alsa-project.org>; Fri,  2 Aug 2019 23:11:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F78BF80214
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09BD8F800F3
+ for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:21:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09BD8F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="x9BL9G2K"
-Received: from localhost (unknown [106.51.106.149])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8E4422173E;
- Fri,  2 Aug 2019 17:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1564767148;
- bh=42TcOR8lS2f4rqcNgv/niQ1OOyQQzpjCyw97d3CbBJc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=x9BL9G2Kw4NQEbSxHNPZXSuhGOfSHgkh5qHdHBCyS5Wrf9VHcLOe8Oip+FTcTP51k
- 3hLx2392faQcsX/oBnPZhQpxEzxA2877L+sTjU+0s0VgOs1GURmEPOexe/kD3/XTnc
- feAP8fSlqIrgQlrD20IyLpzECruU05jWXzabEXfg=
-Date: Fri, 2 Aug 2019 23:01:15 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190802173115.GE12733@vkoul-mobl.Dlink>
-References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-36-pierre-louis.bossart@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="GxASlDJF"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="L8xRfMav"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 802452134B;
+ Sun,  4 Aug 2019 02:21:43 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=CEsqNs5Lc3Jq2VcidfGewdIgpj
+ mXjYYBHcFtKShDB4c=; b=GxASlDJF7I6sBvUVUS3pe0tZDGvinULAD1N/mX4701
+ 3aZW6ISwVdXqAsxmauiOPaO0GsloonvCyKEsSBq66/wtHZZm3FCMyGHh+3qX9+z4
+ tyq+k4Eugx96D2PbTa5NgfcGSIhJ9y6i45T7xK5oqgNuauVg4wN54K7vjrjM0hpd
+ 7cnSR2d3/xgrOPVTUQVo37LBupWDk+IcIAoVwxt0Hr8Wtxt992eizW0sGHW1sWa5
+ ZWu783Vt9dRKwxc0RXbX2gQVm1kfuhvge4nLKTS7hInYAHrbq1iUhrD4LMorc9Lu
+ r2XU8Sxskjyfyihujpitsd9/MjAWkqynuKsXNG5PWbJg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=CEsqNs5Lc3Jq2Vcid
+ fGewdIgpjmXjYYBHcFtKShDB4c=; b=L8xRfMavCS5SlM742Xa27960kNhUyWuyU
+ ZW18FW0Vn9K2s+GAsHc/PMXoap1RVY/B4SgG4n6C+G54XK7NbJ+WmF7MRCbScMpc
+ 0V5cSBpEWd21eX6o57Jmn4MeLQ5rlVcdOhygpIlf41z4mPCfS919LjAyf8KnYiTF
+ tGe2scNxuj7rs3HCA89Ius0weJa0G5iBIa0BCJ9h452UnGGkBLojdiYSAwaBhJLB
+ 6Z9AZ9pk5bRdTWzrRjrfUuA363y3x47wH/I4m0E5WWrkNgfj/DDo+SWUDmD+Emhc
+ WEtTeUDdcK5Z/fOsIcXTSaX9ihkQvdCxcz4S1sYGKpq4BeDuUUu1Q==
+X-ME-Sender: <xms:dnlGXRUVb4SCWhX8YNFATFjMITh-KqHkHA9Bdjy8TOzF0QW7ZsuFOA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtgedguddvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
+ dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
+ ihesshgrkhgrmhhotggthhhirdhjpheqnecuffhomhgrihhnpehgihhthhhusgdrtghomh
+ dprghlshgrqdhprhhojhgvtghtrdhorhhgnecukfhppedugedrfedrjeehrddukedunecu
+ rfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhih
+ drjhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:dnlGXYDaAOUBUtr64RmX3i1yIxF5zgvciJqzoTjv_2YD3MMXn14aOg>
+ <xmx:dnlGXWM_24ESnfu1_78iO20uY2YYOEo7feCvRwqY_jWIM_Ct1-WgNw>
+ <xmx:dnlGXTnjQP8tQquboelLXbLhHMwl1ZED6993WHcWbpeNi4MG3knDzA>
+ <xmx:d3lGXfS8G8wzkG9ZCA8dK_Jdd5VhM3NiIuXgXHRU2WQIoxRgiFn71Q>
+Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 495E8380084;
+ Sun,  4 Aug 2019 02:21:41 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Date: Sun,  4 Aug 2019 15:21:19 +0900
+Message-Id: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190725234032.21152-36-pierre-louis.bossart@linux.intel.com>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 35/40] soundwire: intel: export helper
-	to exit reset
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 00/19] ALSA: firewire: introduce AMDTP domain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,90 +108,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25-07-19, 18:40, Pierre-Louis Bossart wrote:
+Hi,
 
-Here as well
+This patchset is to implement AMDTP domain I addressed in my previous
+patchset:
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/152430.html
 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  drivers/soundwire/cadence_master.c | 9 +++++++--
->  drivers/soundwire/cadence_master.h | 1 +
->  drivers/soundwire/intel.c          | 4 ++++
->  3 files changed, 12 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-> index 4a189e487830..f486fe15fb46 100644
-> --- a/drivers/soundwire/cadence_master.c
-> +++ b/drivers/soundwire/cadence_master.c
-> @@ -780,7 +780,11 @@ EXPORT_SYMBOL(sdw_cdns_thread);
->   * init routines
->   */
->  
-> -static int do_reset(struct sdw_cdns *cdns)
-> +/**
-> + * sdw_cdns_exit_reset() - Program reset parameters and start bus operations
-> + * @cdns: Cadence instance
-> + */
-> +int sdw_cdns_exit_reset(struct sdw_cdns *cdns)
->  {
->  	int ret;
->  
-> @@ -804,6 +808,7 @@ static int do_reset(struct sdw_cdns *cdns)
->  
->  	return ret;
->  }
-> +EXPORT_SYMBOL(sdw_cdns_exit_reset);
->  
->  /**
->   * sdw_cdns_enable_interrupt() - Enable SDW interrupts and update config
-> @@ -839,7 +844,7 @@ int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
->  
->  	cdns_writel(cdns, CDNS_MCP_INTMASK, mask);
->  
-> -	return do_reset(cdns);
-> +	return 0;
->  }
->  EXPORT_SYMBOL(sdw_cdns_enable_interrupt);
->  
-> diff --git a/drivers/soundwire/cadence_master.h b/drivers/soundwire/cadence_master.h
-> index de97bc22acb7..2b551f9226f3 100644
-> --- a/drivers/soundwire/cadence_master.h
-> +++ b/drivers/soundwire/cadence_master.h
-> @@ -161,6 +161,7 @@ irqreturn_t sdw_cdns_thread(int irq, void *dev_id);
->  int sdw_cdns_init(struct sdw_cdns *cdns);
->  int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
->  		      struct sdw_cdns_stream_config config);
-> +int sdw_cdns_exit_reset(struct sdw_cdns *cdns);
->  int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns);
->  
->  void sdw_cdns_debugfs_init(struct sdw_cdns *cdns, struct dentry *root);
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index a976480d6f36..9ebe38e4d979 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -1112,6 +1112,8 @@ static int intel_probe(struct platform_device *pdev)
->  
->  	ret = sdw_cdns_enable_interrupt(&sdw->cdns);
->  
-> +	ret = sdw_cdns_exit_reset(&sdw->cdns);
-> +
->  	/* Register DAIs */
->  	ret = intel_register_dai(sdw);
->  	if (ret) {
-> @@ -1199,6 +1201,8 @@ static int intel_resume(struct device *dev)
->  
->  	sdw_cdns_enable_interrupt(&sdw->cdns);
->  
-> +	ret = sdw_cdns_exit_reset(&sdw->cdns);
-> +
->  	return ret;
->  }
->  
-> -- 
-> 2.20.1
+My work for libhinoko[1][2] allows me to sniff actual packet transmission
+between devices and drivers in Windows/Mac OS for long period (e.g. 1
+hour). As a result, some supported devices don't follow packet sequences
+transferred by the drivers. They expect drivers to parse isoc packets
+in tx stream and recover frequency of data block then transfer isoc packets
+as rx stream.
+
+(I note that no specification describes this mechanism as long as I know.
+In the specification, clock recovery is one-way from transmitter to
+receivers, thus recovered clock is not necessarily used for transmission
+from the receiver to the transmitter.)
+
+For the clock recovery in driver side, several isoc contexts should be
+handled in one time to parse packets in incoming stream and to build
+packets in outgoing stream. The AMDTP domain is designed for this purpose.
+
+In this time, the AMDTP domain implements the functionalities to
+start/stop a couple of isoc contexts for some AMDTP streams. Each
+context still runs in own handler for scheduled hardware IRQs. I'll post
+further work after merged.
+
+[1] https://mailman.alsa-project.org/pipermail/alsa-devel/2019-April/147862.html
+[2] https://github.com/takaswie/libhinoko
+
+Takashi Sakamoto (19):
+  ALSA: firewire-lib: add AMDTP domain structure to handle several isoc
+    context in one interrupt callback
+  ALSA: firewire-lib: add a kernel API to stop a couple of AMDTP streams
+    in AMDTP domain
+  ALSA: firewire-lib: add a kernel API to add AMDTP stream into AMDTP
+    domain
+  ALSA: firewire-lib: add a kernel API to start AMDTP streams in AMDTP
+    domain
+  ALSA: fireworks: code refactoring for initialization/destruction of
+    AMDTP streams
+  ALSA: fireworks: code refactoring for bus reset handler
+  ALSA: firewire-digi00x: code refactoring for
+    initialization/destruction of AMDTP stream
+  ALSA: firewire-tascam: code refactoring for initialization/destruction
+    of AMDTP stream
+  ALSA: firewire-motu: code refactoring for initialization/destruction
+    of AMDTP stream
+  ALSA: fireface: code refactoring for initialization/destruction of
+    AMDTP stream
+  ALSA: bebob: support AMDTP domain
+  ALSA: fireworks: support AMDTP domain
+  ALSA: oxfw: support AMDTP domain
+  ALSA: dice: support AMDTP domain
+  ALSA: firewire-digi00x: support AMDTP domain
+  ALSA: firewire-tascam: support AMDTP domain
+  ALSA: firewire-motu: support AMDTP domain
+  ALSA: fireface: support AMDTP domain
+  ALSA: firewire-lib: localize kernel APIs to start/stop each AMDTP
+    stream
+
+ sound/firewire/amdtp-stream.c               |  94 ++++++++++-
+ sound/firewire/amdtp-stream.h               |  20 ++-
+ sound/firewire/bebob/bebob.h                |   2 +
+ sound/firewire/bebob/bebob_stream.c         |  62 +++----
+ sound/firewire/dice/dice-stream.c           |  32 +++-
+ sound/firewire/dice/dice.h                  |   2 +
+ sound/firewire/digi00x/digi00x-stream.c     | 106 +++++++-----
+ sound/firewire/digi00x/digi00x.h            |   2 +
+ sound/firewire/fireface/ff-stream.c         |  96 ++++++-----
+ sound/firewire/fireface/ff.h                |   2 +
+ sound/firewire/fireworks/fireworks.h        |   2 +
+ sound/firewire/fireworks/fireworks_stream.c | 176 ++++++++++----------
+ sound/firewire/motu/motu-stream.c           | 131 +++++++--------
+ sound/firewire/motu/motu.h                  |   2 +
+ sound/firewire/oxfw/oxfw-stream.c           |  72 ++++----
+ sound/firewire/oxfw/oxfw.h                  |   2 +
+ sound/firewire/tascam/tascam-stream.c       | 123 ++++++++------
+ sound/firewire/tascam/tascam.h              |   2 +
+ 18 files changed, 558 insertions(+), 370 deletions(-)
 
 -- 
-~Vinod
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

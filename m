@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A77B809A7
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:26:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 079A1809A8
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:27:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E76316B2;
-	Sun,  4 Aug 2019 08:25:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E76316B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BE441696;
+	Sun,  4 Aug 2019 08:26:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BE441696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564899978;
-	bh=F5fTCDEBr1/a9GuEi3yU/pbziPf8074o3sruf/8+1e8=;
+	s=default; t=1564900045;
+	bh=vXLhlv2VDyuJa4KZlnOIBHHVgpwfykudX3C8RpxQr8I=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NTmtrj3BspUaTnLb1kEO1iLxs49M1EICKZx84mtC0avMaXigLYrbwRechX4q8SopX
-	 zq0kInRr1mGwmrMpZvEGVca8aqfXV+ArGxpEYHthTzMmCFdFmHNMqQbyI4PWKRz9DE
-	 0DKarLvp/an7hqPHXp+wMbcV5W5BpOC1FX4LX0pQ=
+	b=lFTAgQevwOcHFkTT3+qAP938Tx8JWCbtzMMwgyFcYDdz/mBA+CLoiumXjPqp44My4
+	 LTQ1nrmrRDTJVSeJnN/sfLZ8u0wGfzs0LV74yRlL0V251FOVasHYojBmxKVask6D3T
+	 +ev198GyNTLzn463jcnSFgheA8cAcOgxopA+BAWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06C89F805FF;
-	Sun,  4 Aug 2019 08:22:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 207E2F805F8;
+	Sun,  4 Aug 2019 08:22:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDB07F805A1; Sun,  4 Aug 2019 08:21:52 +0200 (CEST)
+ id 0254EF805A1; Sun,  4 Aug 2019 08:21:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C43DEF804CA
- for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:21:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C43DEF804CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DBA7F800F4
+ for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:21:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DBA7F800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="PRhzR26A"; 
+ header.b="O4/hl9VR"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="uJ08Mvb1"
+ header.i=@messagingengine.com header.b="Kolz4Faz"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id BCEFC21650;
- Sun,  4 Aug 2019 02:21:48 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 3B06820F24;
+ Sun,  4 Aug 2019 02:21:50 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:48 -0400
+ by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:50 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=8Q3ki6SokKQIx
- D0OcMVfFQ0Vxolf80vnY/gD8X0p+0E=; b=PRhzR26AbUllHkZ0m2zjrkroDxjC5
- 6TtB8PlAAdcaSNJ5eHWf0JSRvNq+fWi5m3PFxtoZorpIJBDTW2+HOtbtE/yXYiZU
- uXHz8LLGVhOZgbj8x3tMj3qh4H3i89kRcUKil75vXdvrLefHszJsgM6K60vlzWzi
- PSaYfrmexvRaCh35VKiyma2S0FPwS0zhy8gwsSjnY/ueHUKxyHYm6lgoq+yk6aeP
- Un0mKaz3kAFgeoTxjXEbSp60bsIZFoH5aKChSKXCTy0ns5eE6u6x8L1A+XpzGV6Z
- QJ0FaOYRZMfmO3exa6Vt4G6CWsQs/uC8077v4Q7pIBgIgXWhl+tWn2F0A==
+ :mime-version:content-transfer-encoding; s=fm2; bh=D6Rl17qizGNRg
+ oJhhNtSaZSvwrlwZLNWQkW9yGFdDNw=; b=O4/hl9VRO4gbu+zSD8w66oN5faR8S
+ eNCsL//Rq2zb+Y5HvnH6VPsfZ48s52BuwFxEDGqkKECjvHMyErR3g2uQbkeLNaMu
+ eRmhlU+w6b4l37c5Fbk7r+g/LPoocyPjmkt4xx8W4fLanzgGpCxCu1muKpJih4Ww
+ nXVlGR0yGbV5RnK2+ALvR3odfIeplJ2O1LMzBUp8oYmjIze31rPiSIck/9dm/RMX
+ 77uRRJ1YQG6nRK3PudGXoXaOKurzPGkignGR7ZgXBRDwQPxtamCDrZt5piAcVAHe
+ +cT7cpqAI6Pab/x+OXQz9kU1XVPWyjXfmBbV8m/PTN5XzrHY6IC1BaOdw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=8Q3ki6SokKQIxD0OcMVfFQ0Vxolf80vnY/gD8X0p+0E=; b=uJ08Mvb1
- GdieRfZDNfqXxTO8Z80+92F9Mo+MNbhYL5jYGijRTPS520M+d4L+qSrt3OGRSo5A
- r+h9lbcLsAkwuAGJG6kiQjs2kwz2nKKLJOucIe/O5H/nPAoORQ/U7AFnb15OGo/n
- HUyULqFONvokEljwHGxamjXSG3kGiaqegOhtCHjxAs3zdyJUjEQK3GTR8ArSzVF6
- xYk5KsyCFZaTVtRFKTANIJSH6FyTBBE7DfWB6yEOq/V+28w+Pc/Ob9NylMWignid
- +UGOqPBlY1tOuqqB3P1vYDGNo6O4YTs1KsS2Qj1UT9VejwKOPtLtiP19dCxJWZGn
- HZ2SgKLcof9/XA==
-X-ME-Sender: <xms:fHlGXQrr0Py6Rg7bbVuGwxpGGXOOvIkLRujAMRmCkBE30S9n4xuXag>
+ fm3; bh=D6Rl17qizGNRgoJhhNtSaZSvwrlwZLNWQkW9yGFdDNw=; b=Kolz4Faz
+ DNTN6+Ycwex1g1xkBGcEdSPJKtNl6jySOwgtq+d2+3lDM/bSZ2s51gjr8Ia+9AwX
+ p2PkAk9ukvrIEgtLDUREVpDw0ERoe//1o2CHXDcfmXtKoeeVqzWuhwcPKRA2fOSk
+ 5/CmIiSzTBzNqOfQujFm/rzJdd+p1S+BsRf3Wm/B828SMR+uM51O+bHWv0U2Z+Vz
+ HQP1hHN9sbwoJ796yHX8V4qIetNXaechxuYUslwSQ5bmHsibMlZ8ZdC58CzqmtWw
+ FCB8OIAiHVQHFhnK3Dw20Pak+NCesltHq/h7ptgS8sUfxXbd3KvdaNHOeSohQwEh
+ xkBXdS3h4VJ6ng==
+X-ME-Sender: <xms:fnlGXapK2i7tZLD2WOREvSRz9rme2LJKLxgp4weW4IZ4bvL1-CywMA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtgedguddvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -76,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtgedguddvucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgepvd
-X-ME-Proxy: <xmx:fHlGXYf6_7bGw2ydTrSAW_svkBKZPWuFwJgmVjww38Mw8XuAty69TA>
- <xmx:fHlGXW8f7IrtvSU5Mt15zxtv1dJhxQBTuwwg0Nm_TWIFUl9ERSaj6Q>
- <xmx:fHlGXZHmPE8P3HmKutSSMmB4vhDvTIKFZ2Vjg8QmAcfiibUzj08vcQ>
- <xmx:fHlGXRKgm-hYVxxGZ38K0t0EGwpnhBnQY18q8PxzPHAotchr7VlXmA>
+X-ME-Proxy: <xmx:fnlGXWI2joKmQ1qz3YokfDyqmx7zz6tLuVMQjUL40MEybwTFZ78_OQ>
+ <xmx:fnlGXbRJNoQiKU1QHnAzabo-NB-R2KYioOHLysYf7nv8wD6-qTvs5A>
+ <xmx:fnlGXXIBtrnZ3H2hdN1w1qbGUEViIj32nQcwnq8liiB4f5L8GjZ_9Q>
+ <xmx:fnlGXUCgW0hRK4N3d9RZ2eoIQKNaLdZJjijLPQelWCIUlclCteRKdg>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5FC4A380084;
- Sun,  4 Aug 2019 02:21:47 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id DF50D380084;
+ Sun,  4 Aug 2019 02:21:48 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun,  4 Aug 2019 15:21:23 +0900
-Message-Id: <20190804062138.1217-5-o-takashi@sakamocchi.jp>
+Date: Sun,  4 Aug 2019 15:21:24 +0900
+Message-Id: <20190804062138.1217-6-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
 References: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 04/19] ALSA: firewire-lib: add a kernel API to
-	start AMDTP streams in AMDTP domain
+Subject: [alsa-devel] [PATCH 05/19] ALSA: fireworks: code refactoring for
+	initialization/destruction of AMDTP streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,62 +112,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds a kernel API to start a couple of isochronous contexts
-for some AMDTP streams.
+This commit is a preparation to support AMDTP domain.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 24 ++++++++++++++++++++++++
- sound/firewire/amdtp-stream.h |  1 +
- 2 files changed, 25 insertions(+)
+ sound/firewire/fireworks/fireworks_stream.c | 77 ++++++++++-----------
+ 1 file changed, 36 insertions(+), 41 deletions(-)
 
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index fa7989ee4769..158d210caea7 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -1185,6 +1185,30 @@ int amdtp_domain_add_stream(struct amdtp_domain *d, struct amdtp_stream *s,
+diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
+index 385fc9686365..0f62c50055e9 100644
+--- a/sound/firewire/fireworks/fireworks_stream.c
++++ b/sound/firewire/fireworks/fireworks_stream.c
+@@ -8,8 +8,7 @@
+ 
+ #define CALLBACK_TIMEOUT	100
+ 
+-static int
+-init_stream(struct snd_efw *efw, struct amdtp_stream *stream)
++static int init_stream(struct snd_efw *efw, struct amdtp_stream *stream)
+ {
+ 	struct cmp_connection *conn;
+ 	enum cmp_direction c_dir;
+@@ -28,14 +27,37 @@ init_stream(struct snd_efw *efw, struct amdtp_stream *stream)
+ 
+ 	err = cmp_connection_init(conn, efw->unit, c_dir, 0);
+ 	if (err < 0)
+-		goto end;
++		return err;
+ 
+ 	err = amdtp_am824_init(stream, efw->unit, s_dir, CIP_BLOCKING);
+ 	if (err < 0) {
+ 		amdtp_stream_destroy(stream);
+ 		cmp_connection_destroy(conn);
++		return err;
+ 	}
+-end:
++
++	if (stream == &efw->tx_stream) {
++		// Fireworks transmits NODATA packets with TAG0.
++		efw->tx_stream.flags |= CIP_EMPTY_WITH_TAG0;
++		// Fireworks has its own meaning for dbc.
++		efw->tx_stream.flags |= CIP_DBC_IS_END_EVENT;
++		// Fireworks reset dbc at bus reset.
++		efw->tx_stream.flags |= CIP_SKIP_DBC_ZERO_CHECK;
++		// But Recent firmwares starts packets with non-zero dbc.
++		// Driver version 5.7.6 installs firmware version 5.7.3.
++		if (efw->is_fireworks3 &&
++		    (efw->firmware_version == 0x5070000 ||
++		     efw->firmware_version == 0x5070300 ||
++		     efw->firmware_version == 0x5080000))
++			efw->tx_stream.flags |= CIP_UNALIGHED_DBC;
++		// AudioFire9 always reports wrong dbs.
++		if (efw->is_af9)
++			efw->tx_stream.flags |= CIP_WRONG_DBS;
++		// Firmware version 5.5 reports fixed interval for dbc.
++		if (efw->firmware_version == 0x5050000)
++			efw->tx_stream.ctx_data.tx.dbc_interval = 8;
++	}
++
+ 	return err;
  }
- EXPORT_SYMBOL_GPL(amdtp_domain_add_stream);
  
-+/**
-+ * amdtp_domain_start - start sending packets for isoc context in the domain.
-+ * @d: the AMDTP domain.
-+ */
-+int amdtp_domain_start(struct amdtp_domain *d)
-+{
-+	struct amdtp_stream *s;
-+	int err = 0;
-+
-+	list_for_each_entry(s, &d->streams, list) {
-+		err = amdtp_stream_start(s, s->channel, s->speed);
-+		if (err < 0)
-+			break;
-+	}
-+
-+	if (err < 0) {
-+		list_for_each_entry(s, &d->streams, list)
-+			amdtp_stream_stop(s);
-+	}
-+
-+	return err;
-+}
-+EXPORT_SYMBOL_GPL(amdtp_domain_start);
-+
- /**
-  * amdtp_domain_stop - stop sending packets for isoc context in the same domain.
-  * @d: the AMDTP domain to which the isoc contexts belong.
-diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index 4b102fd7529d..15d471660a43 100644
---- a/sound/firewire/amdtp-stream.h
-+++ b/sound/firewire/amdtp-stream.h
-@@ -282,6 +282,7 @@ void amdtp_domain_destroy(struct amdtp_domain *d);
- int amdtp_domain_add_stream(struct amdtp_domain *d, struct amdtp_stream *s,
- 			    int channel, int speed);
+@@ -83,22 +105,16 @@ static int start_stream(struct snd_efw *efw, struct amdtp_stream *stream,
+ 	return 0;
+ }
  
-+int amdtp_domain_start(struct amdtp_domain *d);
- void amdtp_domain_stop(struct amdtp_domain *d);
+-/*
+- * This function should be called before starting the stream or after stopping
+- * the streams.
+- */
+-static void
+-destroy_stream(struct snd_efw *efw, struct amdtp_stream *stream)
++// This function should be called before starting the stream or after stopping
++// the streams.
++static void destroy_stream(struct snd_efw *efw, struct amdtp_stream *stream)
+ {
+-	struct cmp_connection *conn;
++	amdtp_stream_destroy(stream);
  
- #endif
+ 	if (stream == &efw->tx_stream)
+-		conn = &efw->out_conn;
++		cmp_connection_destroy(&efw->out_conn);
+ 	else
+-		conn = &efw->in_conn;
+-
+-	amdtp_stream_destroy(stream);
+-	cmp_connection_destroy(conn);
++		cmp_connection_destroy(&efw->in_conn);
+ }
+ 
+ static int
+@@ -131,42 +147,21 @@ int snd_efw_stream_init_duplex(struct snd_efw *efw)
+ 
+ 	err = init_stream(efw, &efw->tx_stream);
+ 	if (err < 0)
+-		goto end;
+-	/* Fireworks transmits NODATA packets with TAG0. */
+-	efw->tx_stream.flags |= CIP_EMPTY_WITH_TAG0;
+-	/* Fireworks has its own meaning for dbc. */
+-	efw->tx_stream.flags |= CIP_DBC_IS_END_EVENT;
+-	/* Fireworks reset dbc at bus reset. */
+-	efw->tx_stream.flags |= CIP_SKIP_DBC_ZERO_CHECK;
+-	/*
+-	 * But Recent firmwares starts packets with non-zero dbc.
+-	 * Driver version 5.7.6 installs firmware version 5.7.3.
+-	 */
+-	if (efw->is_fireworks3 &&
+-	    (efw->firmware_version == 0x5070000 ||
+-	     efw->firmware_version == 0x5070300 ||
+-	     efw->firmware_version == 0x5080000))
+-		efw->tx_stream.flags |= CIP_UNALIGHED_DBC;
+-	/* AudioFire9 always reports wrong dbs. */
+-	if (efw->is_af9)
+-		efw->tx_stream.flags |= CIP_WRONG_DBS;
+-	/* Firmware version 5.5 reports fixed interval for dbc. */
+-	if (efw->firmware_version == 0x5050000)
+-		efw->tx_stream.ctx_data.tx.dbc_interval = 8;
++		return err;
+ 
+ 	err = init_stream(efw, &efw->rx_stream);
+ 	if (err < 0) {
+ 		destroy_stream(efw, &efw->tx_stream);
+-		goto end;
++		return err;
+ 	}
+ 
+-	/* set IEC61883 compliant mode (actually not fully compliant...) */
++	// set IEC61883 compliant mode (actually not fully compliant...).
+ 	err = snd_efw_command_set_tx_mode(efw, SND_EFW_TRANSPORT_MODE_IEC61883);
+ 	if (err < 0) {
+ 		destroy_stream(efw, &efw->tx_stream);
+ 		destroy_stream(efw, &efw->rx_stream);
+ 	}
+-end:
++
+ 	return err;
+ }
+ 
 -- 
 2.20.1
 

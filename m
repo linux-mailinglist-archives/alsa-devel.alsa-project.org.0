@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D128809AE
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:30:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85230809AF
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:31:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEB6A16A8;
-	Sun,  4 Aug 2019 08:29:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEB6A16A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1ECC41697;
+	Sun,  4 Aug 2019 08:30:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ECC41697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564900225;
-	bh=hoD5b0kjLi0ByCxGNdbMCzUASInF37CyYdE6Xl0QWj4=;
+	s=default; t=1564900269;
+	bh=kyQtdGefr/924mDlkxv90Z2NpKucMylGcgCl70lLRng=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XdeFOqJWjUJfvPoIVkrQxgf0OmP87ZCW/Fi+O+J/PYayToUyujKG1I6Q8SvmriLh/
-	 YMWlOuwkrJkhkGGZbbMJFESW0CC4roupbDkAw1Ly+nw5u4IJYzcML6CG28RiDIDC/H
-	 NnNCoz4ClVeYojmHRF8R2kDCOX8Vt8RrNLMyThlA=
+	b=B3Siugo5U+P8GfvFhPjRRN/E/Xe2eSuqfBokHjaY6l5uecdNsc9/OJF+6OJyMXs6/
+	 Hks0HnCi+xxD3ZUNKtZfekQJYC6j1VlyA55nV5NPmL3H6JZkQpCALbPnZw+LNyKW1T
+	 P9mUOoDk9HGEN6BfSe0z4f8kInvbk1wAlb174zs0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09FC2F80671;
-	Sun,  4 Aug 2019 08:22:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BA300F8067C;
+	Sun,  4 Aug 2019 08:22:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E073F805AA; Sun,  4 Aug 2019 08:22:01 +0200 (CEST)
+ id BB903F805A9; Sun,  4 Aug 2019 08:22:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,67 +34,66 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C01E5F805A1
- for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:21:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C01E5F805A1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 441DCF805A9
+ for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:22:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 441DCF805A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="T1jaeLUn"; 
+ header.b="nk80vL9b"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="nqLq3k4a"
+ header.i=@messagingengine.com header.b="MBzUtFDi"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id ECCAA21650;
- Sun,  4 Aug 2019 02:21:57 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 723512134B;
+ Sun,  4 Aug 2019 02:21:59 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:57 -0400
+ by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:59 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=0Hn0IMy/apHr0
- sMhido2llcUdBmIgIP4JRhCEyEm944=; b=T1jaeLUnhUq6Q0MoxSQ3rm+2+Cbcg
- wezRX2dxBhYxX3Ex0SUxF0yMRf/MhE7UtlW7USbv3dHjC+OHpMhgPwBxDJp1PRB+
- Dk7lu3xkd8pormenrjXo9yYe6EnaVAK71t1uTH2YgRHVaOg9nwnm518auTGKUz7m
- b+zMDrjJy4MomRRXZKqBpiid3tJMGC2qGLOcuTDS6B4HI1UM8NCb8+KVdOMWnQTf
- LhVsgqXUv2GjYHjiVXgfAUMaXWq32PaoyyVgrmLClSlrfyTSDRnDYwWrXdSehV5I
- p8C4GsyJ8ukEeFpfROEReXMrtqCtgILaa4fG/+avbJihS1c5iQMBT3sMg==
+ :mime-version:content-transfer-encoding; s=fm2; bh=rYxnxPlXozLYj
+ eRQLsiNgs/GZ5EIK5LrudS5KVRTknQ=; b=nk80vL9bZCqSApcENoxbBVzZOr6DC
+ vnS45FcUnnemo+T/lDbj6e4YzcV0TZC/z4b+ryUuyL9HxHqrgRJafv0Voq58Mrta
+ JGGPV+6yMoUUqlH6BdfJf6rItnNBKd8MpnO/ZR2yARf1OTFoUFPui7+5tLo1Q4P7
+ 2a/FgeWAORZWmy9Q+/e/YyT2LdU+rOdrprmTh4q4WDuskpGQlOWaK6ULv2jjISn+
+ 3Zjce+FCxJjsfhR18uVEPKNrbrbo9WB6bYX0Imwzw/OWtKD0LOWFQyKGfFe/SqDM
+ hjqlGG76JzvN/jgXRWnm6fLTpHh+67IZ/L/LJHtCBz5hmmWr9aqQzEfdw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=0Hn0IMy/apHr0sMhido2llcUdBmIgIP4JRhCEyEm944=; b=nqLq3k4a
- XJX8M5cbwVnR0dd2H72BsopcZWNRu7K/bbmr2c2NPqV8ciit0bXfTThNzYuqvfS/
- hDBhuyA2iPzY45aH1LjOmNZr7HFHqVm5UY5rrt9KQ32LaCP7xjfyDV7R2CmELa9H
- 6xbfs8NZiaAkORs6GrDfmJkiGvFbJKIXIwP1bVG+vSvHkj/kk/nM5FMxf/taxfDl
- 6Ymd8rUXNwWMtPJYXjzmeAfVOdWFsOfrsgt5JYdpMDyPX9vnsC4o8MHhJPeJmnX9
- VoyUxay3SUeHOSr9IQJiHFCigOJUQe6IFJlNQYggYYQ+ZZdgXWWPhNK/+VIVS+Ap
- b9rkdj/k2YcB3w==
-X-ME-Sender: <xms:hXlGXab3fqC8LPOYkXrH9ppvNeg4RAEMeqiilSFObPaoaxwMrus37Q>
+ fm3; bh=rYxnxPlXozLYjeRQLsiNgs/GZ5EIK5LrudS5KVRTknQ=; b=MBzUtFDi
+ P12AJUBI5IoVECtWeqBumNsSzGt1C3+gpoFH9Qv1Pv9tgDTpEvDHbPFZr2LiXoMC
+ ImAKmf0uVi29P1l27nEm4ot222MTd9MzqsEmHLAZEgPeoz6iVkw/0BxH0xT/a8At
+ 5OAbnnA5CllhgTBe+DiwAtTvD7AYClOSV+nfevYjvmXWl43WsesoEb273EYsARDg
+ 3nyQ6VQLikdv6CEyzy1uZVjrXLTPvyX5/3z9PPHM3gmWdfzqIjh4MSCOPMwS+RJX
+ 1LCop4+KPCtCyNGtQXMx+nr6KeVrE+R0cRS8ovAId6KZz/zq3HDhGSRF5tu1csD7
+ cdUZeW3eBYEPxQ==
+X-ME-Sender: <xms:h3lGXZTfFtBo8cHEgaYnuHHcbVI9MyngSH98kQjIWANkN_5yaPyg6A>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtgedguddvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
- ihdrjhhpnecuvehluhhsthgvrhfuihiivgepie
-X-ME-Proxy: <xmx:hXlGXeLzbKRGVoAQrVtSLwb6FHZGl0srCSAZmuMU-jx2YmahWRW05g>
- <xmx:hXlGXYwizkn7YF2t4YkWe59Hs7X7us3NW4RNKdMVFNuI6DSzC7g3Og>
- <xmx:hXlGXeMr-DrZ5vJwb4y4OJNBAPFFWLgMXOvFF0q49RVIoNh_s5pF0g>
- <xmx:hXlGXXR2tu7Efe7MUTVLAlEGigekDiXVIh9GR-GsIT3qdeXFxnHvBw>
+ ihdrjhhpnecuvehluhhsthgvrhfuihiivgepuddt
+X-ME-Proxy: <xmx:h3lGXaMh3kxT1ycjcRYr-C8X8_LxxYF-mO4Klc7MdIlWGFVdKDijXQ>
+ <xmx:h3lGXcPMjt3vbbv0FBhoGKkaPENlJ_jQ2lvnuf0fP5KDuVkMd6JFkw>
+ <xmx:h3lGXavkUmhq1RBEJgLesuU51lZgRxAKOBd42j9y_FG8JTkQZaxvLg>
+ <xmx:h3lGXYOE2lkP4F2RGjQ0LhOKepS4Mv4Je1m0__QTrXBY25POfZYScA>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8A1D0380083;
- Sun,  4 Aug 2019 02:21:56 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 158DB380085;
+ Sun,  4 Aug 2019 02:21:57 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun,  4 Aug 2019 15:21:29 +0900
-Message-Id: <20190804062138.1217-11-o-takashi@sakamocchi.jp>
+Date: Sun,  4 Aug 2019 15:21:30 +0900
+Message-Id: <20190804062138.1217-12-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
 References: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 10/19] ALSA: fireface: code refactoring for
-	initialization/destruction of AMDTP stream
+Subject: [alsa-devel] [PATCH 11/19] ALSA: bebob: support AMDTP domain
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,100 +111,157 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit is a preparation to support AMDTP domain.
+This commit adds AMDTP domain support for ALSA bebob driver.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/fireface/ff-stream.c | 39 ++++++++++++++---------------
- 1 file changed, 19 insertions(+), 20 deletions(-)
+ sound/firewire/bebob/bebob.h        |  2 +
+ sound/firewire/bebob/bebob_stream.c | 62 +++++++++++++----------------
+ 2 files changed, 29 insertions(+), 35 deletions(-)
 
-diff --git a/sound/firewire/fireface/ff-stream.c b/sound/firewire/fireface/ff-stream.c
-index 4208b8004d1a..e4710204f481 100644
---- a/sound/firewire/fireface/ff-stream.c
-+++ b/sound/firewire/fireface/ff-stream.c
-@@ -39,54 +39,53 @@ static inline void finish_session(struct snd_ff *ff)
- 	ff->spec->protocol->switch_fetching_mode(ff, false);
- }
+diff --git a/sound/firewire/bebob/bebob.h b/sound/firewire/bebob/bebob.h
+index 9e0b689fe34a..356d6ba60959 100644
+--- a/sound/firewire/bebob/bebob.h
++++ b/sound/firewire/bebob/bebob.h
+@@ -115,6 +115,8 @@ struct snd_bebob {
  
--static int init_stream(struct snd_ff *ff, enum amdtp_stream_direction dir)
-+static int init_stream(struct snd_ff *ff, struct amdtp_stream *s)
- {
--	int err;
- 	struct fw_iso_resources *resources;
--	struct amdtp_stream *stream;
-+	enum amdtp_stream_direction dir;
-+	int err;
+ 	/* For BeBoB version quirk. */
+ 	unsigned int version;
++
++	struct amdtp_domain domain;
+ };
  
--	if (dir == AMDTP_IN_STREAM) {
-+	if (s == &ff->tx_stream) {
- 		resources = &ff->tx_resources;
--		stream = &ff->tx_stream;
-+		dir = AMDTP_IN_STREAM;
- 	} else {
- 		resources = &ff->rx_resources;
--		stream = &ff->rx_stream;
-+		dir = AMDTP_OUT_STREAM;
+ static inline int
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index 334dc7c96e1d..73fee991bd75 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -445,10 +445,9 @@ start_stream(struct snd_bebob *bebob, struct amdtp_stream *stream)
+ 			goto end;
  	}
  
- 	err = fw_iso_resources_init(resources, ff->unit);
- 	if (err < 0)
+-	/* start amdtp stream */
+-	err = amdtp_stream_start(stream,
+-				 conn->resources.channel,
+-				 conn->speed);
++	// start amdtp stream.
++	err = amdtp_domain_add_stream(&bebob->domain, stream,
++				      conn->resources.channel, conn->speed);
+ end:
+ 	return err;
+ }
+@@ -523,7 +522,13 @@ int snd_bebob_stream_init_duplex(struct snd_bebob *bebob)
  		return err;
+ 	}
  
--	err = amdtp_ff_init(stream, ff->unit, dir);
-+	err = amdtp_ff_init(s, ff->unit, dir);
- 	if (err < 0)
- 		fw_iso_resources_destroy(resources);
- 
- 	return err;
+-	return 0;
++	err = amdtp_domain_init(&bebob->domain);
++	if (err < 0) {
++		destroy_stream(bebob, &bebob->tx_stream);
++		destroy_stream(bebob, &bebob->rx_stream);
++	}
++
++	return err;
  }
  
--static void destroy_stream(struct snd_ff *ff, enum amdtp_stream_direction dir)
-+static void destroy_stream(struct snd_ff *ff, struct amdtp_stream *s)
- {
--	if (dir == AMDTP_IN_STREAM) {
--		amdtp_stream_destroy(&ff->tx_stream);
-+	amdtp_stream_destroy(s);
+ static int keep_resources(struct snd_bebob *bebob, struct amdtp_stream *stream,
+@@ -566,9 +571,7 @@ int snd_bebob_stream_reserve_duplex(struct snd_bebob *bebob, unsigned int rate)
+ 	if (rate == 0)
+ 		rate = curr_rate;
+ 	if (curr_rate != rate) {
+-		amdtp_stream_stop(&bebob->tx_stream);
+-		amdtp_stream_stop(&bebob->rx_stream);
+-
++		amdtp_domain_stop(&bebob->domain);
+ 		break_both_connections(bebob);
+ 
+ 		cmp_connection_release(&bebob->out_conn);
+@@ -620,9 +623,7 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 	// packet queueing error or detecting discontinuity
+ 	if (amdtp_streaming_error(&bebob->rx_stream) ||
+ 	    amdtp_streaming_error(&bebob->tx_stream)) {
+-		amdtp_stream_stop(&bebob->rx_stream);
+-		amdtp_stream_stop(&bebob->tx_stream);
+-
++		amdtp_domain_stop(&bebob->domain);
+ 		break_both_connections(bebob);
+ 	}
+ 
+@@ -640,11 +641,16 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 			return err;
+ 
+ 		err = start_stream(bebob, &bebob->rx_stream);
+-		if (err < 0) {
+-			dev_err(&bebob->unit->device,
+-				"fail to run AMDTP master stream:%d\n", err);
++		if (err < 0)
++			goto error;
 +
-+	if (s == &ff->tx_stream)
- 		fw_iso_resources_destroy(&ff->tx_resources);
--	} else {
--		amdtp_stream_destroy(&ff->rx_stream);
-+	else
- 		fw_iso_resources_destroy(&ff->rx_resources);
++		err = start_stream(bebob, &bebob->tx_stream);
++		if (err < 0)
++			goto error;
++
++		err = amdtp_domain_start(&bebob->domain);
++		if (err < 0)
+ 			goto error;
+-		}
+ 
+ 		// NOTE:
+ 		// The firmware customized by M-Audio uses these commands to
+@@ -660,21 +666,8 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		}
+ 
+ 		if (!amdtp_stream_wait_callback(&bebob->rx_stream,
+-						CALLBACK_TIMEOUT)) {
+-			err = -ETIMEDOUT;
+-			goto error;
+-		}
 -	}
- }
+-
+-	if (!amdtp_stream_running(&bebob->tx_stream)) {
+-		err = start_stream(bebob, &bebob->tx_stream);
+-		if (err < 0) {
+-			dev_err(&bebob->unit->device,
+-				"fail to run AMDTP slave stream:%d\n", err);
+-			goto error;
+-		}
+-
+-		if (!amdtp_stream_wait_callback(&bebob->tx_stream,
++						CALLBACK_TIMEOUT) ||
++		    !amdtp_stream_wait_callback(&bebob->tx_stream,
+ 						CALLBACK_TIMEOUT)) {
+ 			err = -ETIMEDOUT;
+ 			goto error;
+@@ -683,8 +676,7 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
  
- int snd_ff_stream_init_duplex(struct snd_ff *ff)
- {
- 	int err;
- 
--	err = init_stream(ff, AMDTP_OUT_STREAM);
-+	err = init_stream(ff, &ff->rx_stream);
- 	if (err < 0)
--		goto end;
-+		return err;
- 
--	err = init_stream(ff, AMDTP_IN_STREAM);
-+	err = init_stream(ff, &ff->tx_stream);
- 	if (err < 0)
--		destroy_stream(ff, AMDTP_OUT_STREAM);
--end:
-+		destroy_stream(ff, &ff->rx_stream);
-+
+ 	return 0;
+ error:
+-	amdtp_stream_stop(&bebob->tx_stream);
+-	amdtp_stream_stop(&bebob->rx_stream);
++	amdtp_domain_stop(&bebob->domain);
+ 	break_both_connections(bebob);
  	return err;
  }
- 
-@@ -96,8 +95,8 @@ int snd_ff_stream_init_duplex(struct snd_ff *ff)
-  */
- void snd_ff_stream_destroy_duplex(struct snd_ff *ff)
+@@ -692,9 +684,7 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ void snd_bebob_stream_stop_duplex(struct snd_bebob *bebob)
  {
--	destroy_stream(ff, AMDTP_IN_STREAM);
--	destroy_stream(ff, AMDTP_OUT_STREAM);
-+	destroy_stream(ff, &ff->rx_stream);
-+	destroy_stream(ff, &ff->tx_stream);
- }
+ 	if (bebob->substreams_counter == 0) {
+-		amdtp_stream_stop(&bebob->rx_stream);
+-		amdtp_stream_stop(&bebob->tx_stream);
+-
++		amdtp_domain_stop(&bebob->domain);
+ 		break_both_connections(bebob);
  
- int snd_ff_stream_reserve_duplex(struct snd_ff *ff, unsigned int rate)
+ 		cmp_connection_release(&bebob->out_conn);
+@@ -708,6 +698,8 @@ void snd_bebob_stream_stop_duplex(struct snd_bebob *bebob)
+  */
+ void snd_bebob_stream_destroy_duplex(struct snd_bebob *bebob)
+ {
++	amdtp_domain_destroy(&bebob->domain);
++
+ 	destroy_stream(bebob, &bebob->tx_stream);
+ 	destroy_stream(bebob, &bebob->rx_stream);
+ }
 -- 
 2.20.1
 

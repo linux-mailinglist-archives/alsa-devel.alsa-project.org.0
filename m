@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82BBB809AA
-	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:28:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C2A4809AB
+	for <lists+alsa-devel@lfdr.de>; Sun,  4 Aug 2019 08:28:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 200DA16A8;
-	Sun,  4 Aug 2019 08:27:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 200DA16A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CAEC16CC;
+	Sun,  4 Aug 2019 08:28:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CAEC16CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564900096;
-	bh=7539BIhDJqTn5DgDiyBHccQyxetOVzXeP1f+P2yHAW8=;
+	s=default; t=1564900132;
+	bh=D3Kc4OSS+eybv8P34MULW19pe4w0w5T1A6h5jfxovd8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gTBGzQLpz/Put375YXs/p7O1o9vxv65Gf0U0XSNPOcU6KSbRJpOryGjWrbTaSy5EV
-	 s7cmvimNx8wyI5IfFegiWZSXi01xEFGfoErMhQ6inY/82WRevo0TZ+h0m9biVyAUwG
-	 A1ECNGE7i+UBCkN2kYEc70vwZJBB8XJEA807A9DM=
+	b=V4byT9LWka7kF2LIR/17nlx+ip0CSnAvs+vrCPnyyqzLwHz5Lj/4VRbz8k4RRNTt1
+	 oxek9V8SARxJwpbcYhJOrdoVBpN54zc0yzMsw4tkq2/UsiClf03jYH9x+zYlRZV4q+
+	 b+NrurlwUL0dV3Nj4CMYMg15NF6EVemuCAnSK3io=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57143F80638;
-	Sun,  4 Aug 2019 08:22:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40893F80641;
+	Sun,  4 Aug 2019 08:22:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B605F805A1; Sun,  4 Aug 2019 08:21:57 +0200 (CEST)
+ id C8B92F805A1; Sun,  4 Aug 2019 08:21:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,40 +35,40 @@ Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 548BEF804CA
- for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:21:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 548BEF804CA
+ by alsa1.perex.cz (Postfix) with ESMTPS id B05FFF800F3
+ for <alsa-devel@alsa-project.org>; Sun,  4 Aug 2019 08:21:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B05FFF800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="q2B2DxRT"; 
+ header.b="a4vspDgc"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="o4sFM58D"
+ header.i=@messagingengine.com header.b="q3Heb4xk"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 5E2A921947;
- Sun,  4 Aug 2019 02:21:53 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id DF47C21550;
+ Sun,  4 Aug 2019 02:21:54 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:53 -0400
+ by compute1.internal (MEProxy); Sun, 04 Aug 2019 02:21:54 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=ixfDZ5eVyQO+p
- tSlvu1aoHfcC8+QUO3WNAfBb+sww1U=; b=q2B2DxRTkaXAeakRu7wuGASbgfTWk
- hA3/Q619DjGgtHs7K8xTbxOjFxmIkZDX2PqI98pE33uLYe4035kq1qDKYqkpdlC2
- pjQvm0C2EWHKfp0s5bhkwd2SdDOma/vEr8VI0ldQj8ve7SUS9x96c9RF3ndKZ+TW
- +gby81B1bzI8JKsKneYkthySkxaKHe4v1fcFT50Dj5WvFF+UmJGwHrhzpcdXH3it
- eW5ZMxfB/vmTH3e/xIDkihHXPLbna67BadLbjlFfUK2xslPhTpqPVu+I6HkGFvaA
- 1HaqRdWHFh4Jl/ShleSHB8HKSYYm1EbVAKZQKFMW74EEEHM+aW8QpCJTQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=lW+Ju534u3OBQ
+ G20JCGO8SyE1wwh21n/SUyKK6HHG48=; b=a4vspDgcySPXTd+vvDy87qOSSZmzt
+ o8VGu3S+ySFOmgGkyJPEb7nnaVIvWyfjIigB7yXfjVkGnxndqBgR6oizJVBMid+U
+ CUX+gXzzpc7aJACIypeUleqcVyQbxicnW8/0YO2cUfKR0gFMnz3VKQbjTf+J0sSF
+ P31stTAtuVWXrS92SRjKDalBPzmzLmQSlGhGxSSdMPNROB9ilI2vsfXcbtnn7A6/
+ C+QW0JNq9vyy75xwoJOGBg03lzpohT6F/EEQqhx0t3IBrQjkKDGqgFNnw77+0CY6
+ kiiVC0Sd1+pB1KOdkp3gnwAAprVU5tc2OYMTON0tUEosRdjt8oQlCJp9A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=ixfDZ5eVyQO+ptSlvu1aoHfcC8+QUO3WNAfBb+sww1U=; b=o4sFM58D
- 9adVndQmR9Qa9U2E8EFV7BETen1kd4kwfdzrKMT1JZKIkBg8HJjNW9adkrX0Wz3f
- tPsdmFM4Du/veEGh2pg8xLmYzTHhATU3XfkYlYE6ZsC39PfgzCOPZTQ55+ojN1aM
- l6xmBUt+LhFeO4cCa5QKdKznEt7MY1VNNKM22b2vV6m5z9gNTjrQcq8b1T8qYeHO
- KABiyYOzh4GxTGY/8lT5dScCJo3Y0B1V8bY8e1AW40aMDuDkJF/0FDHxqAcacoXp
- v4/TIC//a9qWo6Kp7i3KLeXXRLuBFRYf1Hmb4Z7d5mq++fZa+y0N7ahIrKRuzQsl
- 6t51bKj6KMVPdA==
-X-ME-Sender: <xms:gXlGXd8iAtJ1yHO-8-zRQpnMOwIHwLI4yv4x3-7F0hIDBrqsDlczAA>
+ fm3; bh=lW+Ju534u3OBQG20JCGO8SyE1wwh21n/SUyKK6HHG48=; b=q3Heb4xk
+ W3FOkhtZZOY9jSGlpxO8eCUyYhTTUyREiRUh+XCydOfsWk1+Jf5IAFKpBj395MzF
+ 4aHlp9ApqtbX8gXtaJzUGCNeh3Vyoqpv5TdB4iXDuktIx4DCceDFCOD6TfMf2Te7
+ KN02r+1FfKl8Wc7oJJV5GK5qNuYOjSvwtJvjmOLgMJIHsmpNY5zF8ueZNgq4uKEE
+ p9qujIxXRVGBx3i2XNkRqL1SIQRG5KaeSDMhzndUbUM3mduGH3SoYP2/69EkUE9D
+ sBHRhAZvMOU+17/t8V2b5qX/XPyrkFOrZXC+bUT6iF+F31m++Ci/VUXZBKTXek85
+ DkGaXd4AXkzflg==
+X-ME-Sender: <xms:gnlGXRN60pGtZwfN8HHXDvvZg9qkXUSao506XbP-1tiWk_WZ0ta1iw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtgedguddvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
@@ -76,25 +76,25 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtgedguddvucetufdoteggod
  shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
  ihdrjhhpnecuvehluhhsthgvrhfuihiivgepie
-X-ME-Proxy: <xmx:gXlGXV8o9n5uDjcVmqBTi3-QdOG7wkGg8PV7iIvpLsSVGnXCzUPk5A>
- <xmx:gXlGXWB3U5JToM4-zRiAQrCIGcZh4rO7qSt8Hl1XyTuS9o-olhaoPA>
- <xmx:gXlGXVwdSaammIFDF_ZpvzaUnaNxIBH6ta-l46g07Qx6UEdQmWe_jA>
- <xmx:gXlGXex17ZDTupPz951KiPj96FKJAmmz6PHcFYUOknF4q_lOKpJ9gg>
+X-ME-Proxy: <xmx:gnlGXY2bQefqJRR-o_MXiGuFXV8A1makpwstsFQB9f4zg0SOjaHI2Q>
+ <xmx:gnlGXWJ_VZT338D9kxN84fMEVHzQYpCBBDpgGRsYphXC9lkIdniYBA>
+ <xmx:gnlGXQIPziYOGSJgwm32kD-FybZZjteMT6Rf64O6Tqwl-zBbkmVyOQ>
+ <xmx:gnlGXXAb7JygYE269F1EiddoTAxEfeiT6ojr790MiAzvdlFg9cK0ew>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id E9E15380083;
- Sun,  4 Aug 2019 02:21:51 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 77035380083;
+ Sun,  4 Aug 2019 02:21:53 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Sun,  4 Aug 2019 15:21:26 +0900
-Message-Id: <20190804062138.1217-8-o-takashi@sakamocchi.jp>
+Date: Sun,  4 Aug 2019 15:21:27 +0900
+Message-Id: <20190804062138.1217-9-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
 References: <20190804062138.1217-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 07/19] ALSA: firewire-digi00x: code refactoring
+Subject: [alsa-devel] [PATCH 08/19] ALSA: firewire-tascam: code refactoring
 	for initialization/destruction of AMDTP stream
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -117,79 +117,94 @@ This commit is a preparation to support AMDTP domain.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/digi00x/digi00x-stream.c | 65 ++++++++++++++++---------
- 1 file changed, 42 insertions(+), 23 deletions(-)
+ sound/firewire/tascam/tascam-stream.c | 71 +++++++++++++++++----------
+ 1 file changed, 44 insertions(+), 27 deletions(-)
 
-diff --git a/sound/firewire/digi00x/digi00x-stream.c b/sound/firewire/digi00x/digi00x-stream.c
-index 3e77dbd3ee22..cff193f00a97 100644
---- a/sound/firewire/digi00x/digi00x-stream.c
-+++ b/sound/firewire/digi00x/digi00x-stream.c
-@@ -218,43 +218,62 @@ static int keep_resources(struct snd_dg00x *dg00x, struct amdtp_stream *stream,
- 				fw_parent_device(dg00x->unit)->max_speed);
+diff --git a/sound/firewire/tascam/tascam-stream.c b/sound/firewire/tascam/tascam-stream.c
+index e852e46ebe6f..d5e77036e0ee 100644
+--- a/sound/firewire/tascam/tascam-stream.c
++++ b/sound/firewire/tascam/tascam-stream.c
+@@ -287,38 +287,60 @@ static int keep_resources(struct snd_tscm *tscm, unsigned int rate,
+ 				fw_parent_device(tscm->unit)->max_speed);
  }
  
--int snd_dg00x_stream_init_duplex(struct snd_dg00x *dg00x)
-+static int init_stream(struct snd_dg00x *dg00x, struct amdtp_stream *s)
+-int snd_tscm_stream_init_duplex(struct snd_tscm *tscm)
++static int init_stream(struct snd_tscm *tscm, struct amdtp_stream *s)
  {
 +	struct fw_iso_resources *resources;
 +	enum amdtp_stream_direction dir;
+ 	unsigned int pcm_channels;
  	int err;
  
 -	/* For out-stream. */
--	err = fw_iso_resources_init(&dg00x->rx_resources, dg00x->unit);
-+	if (s == &dg00x->tx_stream) {
-+		resources = &dg00x->tx_resources;
+-	err = fw_iso_resources_init(&tscm->rx_resources, tscm->unit);
+-	if (err < 0)
+-		return err;
+-	pcm_channels = tscm->spec->pcm_playback_analog_channels;
++	if (s == &tscm->tx_stream) {
++		resources = &tscm->tx_resources;
 +		dir = AMDTP_IN_STREAM;
++		pcm_channels = tscm->spec->pcm_capture_analog_channels;
 +	} else {
-+		resources = &dg00x->rx_resources;
++		resources = &tscm->rx_resources;
 +		dir = AMDTP_OUT_STREAM;
++		pcm_channels = tscm->spec->pcm_playback_analog_channels;
 +	}
 +
-+	err = fw_iso_resources_init(resources, dg00x->unit);
- 	if (err < 0)
--		goto error;
--	err = amdtp_dot_init(&dg00x->rx_stream, dg00x->unit, AMDTP_OUT_STREAM);
-+		return err;
+ 	if (tscm->spec->has_adat)
+ 		pcm_channels += 8;
+ 	if (tscm->spec->has_spdif)
+ 		pcm_channels += 2;
+-	err = amdtp_tscm_init(&tscm->rx_stream, tscm->unit, AMDTP_OUT_STREAM,
+-			      pcm_channels);
 +
-+	err = amdtp_dot_init(s, dg00x->unit, dir);
++	err = fw_iso_resources_init(resources, tscm->unit);
  	if (err < 0)
--		goto error;
-+		fw_iso_resources_destroy(resources);
+ 		return err;
+ 
+-	/* For in-stream. */
+-	err = fw_iso_resources_init(&tscm->tx_resources, tscm->unit);
++	err = amdtp_tscm_init(s, tscm->unit, dir, pcm_channels);
++	if (err < 0)
++		fw_iso_resources_free(resources);
 +
 +	return err;
 +}
- 
--	/* For in-stream. */
--	err = fw_iso_resources_init(&dg00x->tx_resources, dg00x->unit);
-+static void destroy_stream(struct snd_dg00x *dg00x, struct amdtp_stream *s)
++
++static void destroy_stream(struct snd_tscm *tscm, struct amdtp_stream *s)
 +{
 +	amdtp_stream_destroy(s);
 +
-+	if (s == &dg00x->tx_stream)
-+		fw_iso_resources_destroy(&dg00x->tx_resources);
++	if (s == &tscm->tx_stream)
++		fw_iso_resources_destroy(&tscm->tx_resources);
 +	else
-+		fw_iso_resources_destroy(&dg00x->rx_resources);
++		fw_iso_resources_destroy(&tscm->rx_resources);
 +}
 +
-+int snd_dg00x_stream_init_duplex(struct snd_dg00x *dg00x)
++int snd_tscm_stream_init_duplex(struct snd_tscm *tscm)
 +{
 +	int err;
 +
-+	err = init_stream(dg00x, &dg00x->rx_stream);
++	err = init_stream(tscm, &tscm->tx_stream);
  	if (err < 0)
--		goto error;
--	err = amdtp_dot_init(&dg00x->tx_stream, dg00x->unit, AMDTP_IN_STREAM);
-+		return err;
+ 		return err;
+-	pcm_channels = tscm->spec->pcm_capture_analog_channels;
+-	if (tscm->spec->has_adat)
+-		pcm_channels += 8;
+-	if (tscm->spec->has_spdif)
+-		pcm_channels += 2;
+-	err = amdtp_tscm_init(&tscm->tx_stream, tscm->unit, AMDTP_IN_STREAM,
+-			      pcm_channels);
 +
-+	err = init_stream(dg00x, &dg00x->tx_stream);
++	err = init_stream(tscm, &tscm->rx_stream);
  	if (err < 0)
--		goto error;
-+		destroy_stream(dg00x, &dg00x->rx_stream);
+-		amdtp_stream_destroy(&tscm->rx_stream);
++		destroy_stream(tscm, &tscm->tx_stream);
  
--	return 0;
--error:
--	snd_dg00x_stream_destroy_duplex(dg00x);
  	return err;
+ }
+@@ -333,17 +355,12 @@ void snd_tscm_stream_update_duplex(struct snd_tscm *tscm)
+ 	amdtp_stream_stop(&tscm->rx_stream);
  }
  
 -/*
@@ -198,18 +213,18 @@ index 3e77dbd3ee22..cff193f00a97 100644
 - */
 +// This function should be called before starting streams or after stopping
 +// streams.
- void snd_dg00x_stream_destroy_duplex(struct snd_dg00x *dg00x)
+ void snd_tscm_stream_destroy_duplex(struct snd_tscm *tscm)
  {
--	amdtp_stream_destroy(&dg00x->rx_stream);
--	fw_iso_resources_destroy(&dg00x->rx_resources);
+-	amdtp_stream_destroy(&tscm->rx_stream);
+-	amdtp_stream_destroy(&tscm->tx_stream);
 -
--	amdtp_stream_destroy(&dg00x->tx_stream);
--	fw_iso_resources_destroy(&dg00x->tx_resources);
-+	destroy_stream(dg00x, &dg00x->rx_stream);
-+	destroy_stream(dg00x, &dg00x->tx_stream);
+-	fw_iso_resources_destroy(&tscm->rx_resources);
+-	fw_iso_resources_destroy(&tscm->tx_resources);
++	destroy_stream(tscm, &tscm->rx_stream);
++	destroy_stream(tscm, &tscm->tx_stream);
  }
  
- int snd_dg00x_stream_reserve_duplex(struct snd_dg00x *dg00x, unsigned int rate)
+ int snd_tscm_stream_reserve_duplex(struct snd_tscm *tscm, unsigned int rate)
 -- 
 2.20.1
 

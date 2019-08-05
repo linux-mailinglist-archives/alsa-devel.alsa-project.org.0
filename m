@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4C6B82194
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:22:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50F5382199
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:23:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F3E21683;
-	Mon,  5 Aug 2019 18:21:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F3E21683
+	by alsa0.perex.cz (Postfix) with ESMTPS id D544F16A9;
+	Mon,  5 Aug 2019 18:22:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D544F16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565022124;
-	bh=YOni1XuzjXCQuAAg2e3sm8FdfYuQukPrwE0M7h0EU40=;
+	s=default; t=1565022209;
+	bh=TMMP3CrVkkyAEqhY+Zt+Wat3chUb62BQ/Bm5z+Sdlpg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=MQnciTYhANUT3qXl6SUjUTqCkspFAvyxaGiNeKyZiHoCTESlnHDFmlyElmCHhQ/yD
-	 gHVMiZdFini2jyaYpkJwMG/0zApVWP3EyuH5OM+wJMSMnu085bjMhchOGC8ZIspN/Q
-	 6InqdnxqpjSq+JCi8Jnro/7CpUzMfhn0XMKIrJHc=
+	b=CLTtJ3YdWnl96OBMvNXBzmRuuHeBhj5c0ITWmDAdhGs3Co4iezAfAdAnMmrmZlzat
+	 vn2F/sEhRzJFJ38awUutzCHNIkbPDyRtuo/u7RG2SvJXUL+sj9HNr1Js9iGpiJZ6EB
+	 p8p74yH+XRFU8GTXSysGt5NzO9Vqrc0CgMncifAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13C74F80733;
-	Mon,  5 Aug 2019 18:10:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5C268F8075C;
+	Mon,  5 Aug 2019 18:10:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FEA7F80641; Mon,  5 Aug 2019 18:10:20 +0200 (CEST)
+ id E4154F8065D; Mon,  5 Aug 2019 18:10:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8E68F805F5
- for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:10:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8E68F805F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 90453F80529
+ for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:10:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90453F80529
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="JCEJKTZq"
+ header.b="UmGTen0M"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=k2Mxrd5F7n/W9OsYCyde2oOlkAdOyCRZ6KdDFmQY9vc=; b=JCEJKTZq0LMm
- mkqsKgMf9yygY9V4CL3gMO9V8KSh7mJsvY8WWaQzvNGEEzyiWD2CVaxk7kw4wCYkBDoOVKvnP6l6l
- nTa9/zqwc9J4ySHbPAc6NIIfWkeffu3le2mwzYaQuJb/RD0aSwcGfUUarmfH0YTZ9y3sf9t4DSkSg
- h9M50=;
+ List-Archive; bh=qxu33x+vGNPyDbLDs5HwGKaKlOK+rtGWZVK4uIdpAZo=; b=UmGTen0M2DCi
+ qw4C8/HHW+BGN8t8qPmfKSH8Oj3/zCmphHtDPGjwb9L5Ka3NlXL2GtZVaXxJGXaMaUs21EcxUBzod
+ ArkdMVuTADikjxK+5HN7i4KQ//JWOB/UkrJG8bhmTj6wjRAJDcCGzZcEV4koSmzk2iN49r7B2jW7F
+ RWGdA=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYe-0000lR-6y; Mon, 05 Aug 2019 16:10:00 +0000
+ id 1hufYe-0000ld-OP; Mon, 05 Aug 2019 16:10:00 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 868D82742E44; Mon,  5 Aug 2019 17:09:59 +0100 (BST)
+ id 06B7C2742D06; Mon,  5 Aug 2019 17:09:59 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875znp5rm2.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <878ssl5rn5.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805160959.868D82742E44@ypsilon.sirena.org.uk>
+Message-Id: <20190805161000.06B7C2742D06@ypsilon.sirena.org.uk>
 Date: Mon,  5 Aug 2019 17:09:59 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_component_resume()" to the asoc tree
+	snd_soc_component_trigger()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_component_resume()
+   ASoC: soc-component: add snd_soc_component_trigger()
 
 has been applied to the asoc tree at
 
@@ -111,66 +111,74 @@ to this mail.
 Thanks,
 Mark
 
-From 9a840cbac77a90e8406296aaa132ebf2c84ed9e3 Mon Sep 17 00:00:00 2001
+From 5693d50c830272cb3c4a04d2ce4db502debd1259 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:51:08 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_component_resume()
+Date: Fri, 26 Jul 2019 13:50:29 +0900
+Subject: [PATCH] ASoC: soc-component: add snd_soc_component_trigger()
 
-Current ALSA SoC is directly using component->driver->xxx,
+Current ALSA SoC is directly using component->driver->ops->xxx,
 thus, it is deep nested, and makes code difficult to read,
 and is not good for encapsulation.
-This patch adds new snd_soc_component_resume() and use it.
+This patch adds new snd_soc_component_trigger() and use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/875znp5rm2.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/878ssl5rn5.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h | 1 +
- sound/soc/soc-component.c     | 7 +++++++
- sound/soc/soc-core.c          | 4 +---
- 3 files changed, 9 insertions(+), 3 deletions(-)
+ include/sound/soc-component.h |  3 +++
+ sound/soc/soc-component.c     | 11 +++++++++++
+ sound/soc/soc-pcm.c           |  6 +-----
+ 3 files changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index cdb014f41fd1..1e3b70855ba7 100644
+index fbcd911ac25e..302e27a89d47 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -354,5 +354,6 @@ int snd_soc_component_trigger(struct snd_soc_component *component,
- 			      struct snd_pcm_substream *substream,
- 			      int cmd);
- void snd_soc_component_suspend(struct snd_soc_component *component);
-+void snd_soc_component_resume(struct snd_soc_component *component);
+@@ -350,5 +350,8 @@ int snd_soc_component_hw_params(struct snd_soc_component *component,
+ 				struct snd_pcm_hw_params *params);
+ int snd_soc_component_hw_free(struct snd_soc_component *component,
+ 			      struct snd_pcm_substream *substream);
++int snd_soc_component_trigger(struct snd_soc_component *component,
++			      struct snd_pcm_substream *substream,
++			      int cmd);
  
  #endif /* __SOC_COMPONENT_H */
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index f0e63cd991c8..cbae7672b72d 100644
+index e2bc34efe547..cf0d20a877e6 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -354,3 +354,10 @@ void snd_soc_component_suspend(struct snd_soc_component *component)
- 		component->driver->suspend(component);
- 	component->suspended = 1;
+@@ -336,3 +336,14 @@ int snd_soc_component_hw_free(struct snd_soc_component *component,
+ 
+ 	return 0;
  }
 +
-+void snd_soc_component_resume(struct snd_soc_component *component)
++int snd_soc_component_trigger(struct snd_soc_component *component,
++			      struct snd_pcm_substream *substream,
++			      int cmd)
 +{
-+	if (component->driver->resume)
-+		component->driver->resume(component);
-+	component->suspended = 0;
++	if (component->driver->ops &&
++	    component->driver->ops->trigger)
++		return component->driver->ops->trigger(substream, cmd);
++
++	return 0;
 +}
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 855b19abc1d2..6cdfe7b2fe06 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -593,9 +593,7 @@ static void soc_resume_deferred(struct work_struct *work)
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 8c5289904f20..cd49c2d688c3 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1065,11 +1065,7 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 	for_each_rtdcom(rtd, rtdcom) {
+ 		component = rtdcom->component;
  
- 	for_each_card_components(card, component) {
- 		if (component->suspended) {
--			if (component->driver->resume)
--				component->driver->resume(component);
--			component->suspended = 0;
-+			snd_soc_component_resume(component);
- 		}
+-		if (!component->driver->ops ||
+-		    !component->driver->ops->trigger)
+-			continue;
+-
+-		ret = component->driver->ops->trigger(substream, cmd);
++		ret = snd_soc_component_trigger(component, substream, cmd);
+ 		if (ret < 0)
+ 			return ret;
  	}
- 
 -- 
 2.20.1
 

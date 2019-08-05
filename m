@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF05E8147B
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 10:52:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC52F815A5
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 11:39:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 355681686;
-	Mon,  5 Aug 2019 10:51:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 355681686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 472E31683;
+	Mon,  5 Aug 2019 11:38:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 472E31683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1564995144;
-	bh=KUrbEVYg929bA7+WSDpYvFDTz1/TIQ2sXsfmLTIxgo4=;
+	s=default; t=1564997968;
+	bh=4eYrRv7MGzq0NWeiouwivQs7DE55uY/NEtzv61QpLKA=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SmF2wEh1WTlvRZEjneyhiwf37HuCSpBefgOVwFHwC0hY/zbYrn5EMedWF8f44KGHv
-	 /2W1OeXja1jFei1mzbaidlSIjzj9YQToWdy4v0rjLcyI8nK4X65lU733z+F2VCT+J6
-	 W0nGjUQ1nRqDblj+EvpArCW4ql44bcyaq1KD6Tec=
+	b=uzIAu5YYEIJlIxK3/slX+9kRGypoaqtNIN/knxBOhdWmGezwnafWpFPxLTlNpanX0
+	 9nWwhQYRT381UJXa3ECcOZ15KHKi2F7tJSvKwz6z/OdjMs/mbeI/72XeTCw5YEJZSi
+	 xIC8SLNbZNuUUCS2s7YViWrPC65jZ9p+M4hp7QCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C065F80529;
-	Mon,  5 Aug 2019 10:50:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AB3BF80534;
+	Mon,  5 Aug 2019 11:37:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11301F80533; Mon,  5 Aug 2019 10:50:37 +0200 (CEST)
+ id C9A1CF80533; Mon,  5 Aug 2019 11:37:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84B81F800F4
- for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 10:50:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84B81F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BF06F800F3
+ for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 11:37:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF06F800F3
 X-Amp-Result: UNKNOWN
 X-Amp-Original-Verdict: FILE UNKNOWN
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2019 01:50:05 -0700
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2019 02:37:34 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,349,1559545200"; d="scan'208";a="373010128"
+X-IronPort-AV: E=Sophos;i="5.64,349,1559545200"; d="scan'208";a="167921292"
 Received: from buildpc-hp-z230.iind.intel.com (HELO buildpc-HP-Z230)
  ([10.223.89.34])
- by fmsmga005.fm.intel.com with ESMTP; 05 Aug 2019 01:50:01 -0700
-Date: Mon, 5 Aug 2019 14:21:53 +0530
+ by orsmga008.jf.intel.com with ESMTP; 05 Aug 2019 02:37:31 -0700
+Date: Mon, 5 Aug 2019 15:09:23 +0530
 From: Sanyog Kale <sanyog.r.kale@intel.com>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190805085153.GB22437@buildpc-HP-Z230>
+Message-ID: <20190805093923.GC22437@buildpc-HP-Z230>
 References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-10-pierre-louis.bossart@linux.intel.com>
+ <20190725234032.21152-22-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190725234032.21152-10-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190725234032.21152-22-pierre-louis.bossart@linux.intel.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
  linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com
-Subject: Re: [alsa-devel] [RFC PATCH 09/40] soundwire: cadence_master: fix
- usage of CONFIG_UPDATE
+Subject: Re: [alsa-devel] [RFC PATCH 21/40] soundwire: export helpers to
+ find row and column values
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,91 +79,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jul 25, 2019 at 06:40:01PM -0500, Pierre-Louis Bossart wrote:
-> Per the hardware documentation, all changes to MCP_CONFIG,
-> MCP_CONTROL, MCP_CMDCTRL and MCP_PHYCTRL need to be validated with a
-> self-clearing write to MCP_CONFIG_UPDATE.
+On Thu, Jul 25, 2019 at 06:40:13PM -0500, Pierre-Louis Bossart wrote:
+> Add a prefix for common tables and export 2 helpers to set the frame
+> shapes based on row/col values.
 > 
-> For some reason, the existing code only does this write to
-> CONFIG_UPDATE when enabling interrupts. Add a helper and do the update
-> when the CONFIG is changed.
->
-
-the sequence of intel_probe is as follows:
-1. intel_link_power_up
-2. intel_shim_init
-3. sdw_cdns_init
-4. sdw_cdns_enable_interrupt
-
-Since we do self-clearing write to MCP_CONFIG_UPDATE in
-sdw_cdns_enable_interrupt once for all the config changes,
-we dont perform it as part of sdw_cdns_init.
-
-It does make sense to seperate it out from sdw_cdns_enable_interrupt so
-that we can use when clockstop is enabled where we dont need to enable
-interrupts.
-
 > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > ---
->  drivers/soundwire/cadence_master.c | 29 +++++++++++++++++++++--------
->  1 file changed, 21 insertions(+), 8 deletions(-)
+>  drivers/soundwire/bus.h    |  7 +++++--
+>  drivers/soundwire/stream.c | 14 ++++++++------
+>  2 files changed, 13 insertions(+), 8 deletions(-)
 > 
-> diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-> index 9f611a1fff0a..eb46cf651d62 100644
-> --- a/drivers/soundwire/cadence_master.c
-> +++ b/drivers/soundwire/cadence_master.c
-> @@ -224,6 +224,22 @@ static int cdns_clear_bit(struct sdw_cdns *cdns, int offset, u32 value)
->  	return -EAGAIN;
->  }
+> diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+> index 06ac4adb0074..c57c9c23f6ca 100644
+> --- a/drivers/soundwire/bus.h
+> +++ b/drivers/soundwire/bus.h
+> @@ -73,8 +73,11 @@ struct sdw_msg {
 >  
-> +/*
-> + * all changes to the MCP_CONFIG, MCP_CONTROL, MCP_CMDCTRL and MCP_PHYCTRL
-> + * need to be confirmed with a write to MCP_CONFIG_UPDATE
-> + */
-> +static int cdns_update_config(struct sdw_cdns *cdns)
-> +{
-> +	int ret;
+>  #define SDW_DOUBLE_RATE_FACTOR		2
+>  
+> -extern int rows[SDW_FRAME_ROWS];
+> -extern int cols[SDW_FRAME_COLS];
+> +extern int sdw_rows[SDW_FRAME_ROWS];
+> +extern int sdw_cols[SDW_FRAME_COLS];
 > +
-> +	ret = cdns_clear_bit(cdns, CDNS_MCP_CONFIG_UPDATE,
-> +			     CDNS_MCP_CONFIG_UPDATE_BIT);
-> +	if (ret < 0)
-> +		dev_err(cdns->dev, "Config update timedout\n");
-> +
-> +	return ret;
-> +}
-> +
->  /*
->   * debugfs
+> +int sdw_find_row_index(int row);
+> +int sdw_find_col_index(int col);
+
+We use index values only in bank switch operations to program registers. Do we
+really need to export sdw_find_row_index & sdw_find_col_index?? If i understand
+correctly the allocation algorithm only needs to know about cols and rows values
+and not index.
+
+>  
+>  /**
+>   * sdw_port_runtime: Runtime port parameters for Master or Slave
+> diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
+> index a0476755a459..53f5e790fcd7 100644
+> --- a/drivers/soundwire/stream.c
+> +++ b/drivers/soundwire/stream.c
+> @@ -21,37 +21,39 @@
+>   * The rows are arranged as per the array index value programmed
+>   * in register. The index 15 has dummy value 0 in order to fill hole.
 >   */
-> @@ -758,15 +774,9 @@ static int _cdns_enable_interrupt(struct sdw_cdns *cdns)
->   */
->  int sdw_cdns_enable_interrupt(struct sdw_cdns *cdns)
+> -int rows[SDW_FRAME_ROWS] = {48, 50, 60, 64, 75, 80, 125, 147,
+> +int sdw_rows[SDW_FRAME_ROWS] = {48, 50, 60, 64, 75, 80, 125, 147,
+>  			96, 100, 120, 128, 150, 160, 250, 0,
+>  			192, 200, 240, 256, 72, 144, 90, 180};
+>  
+> -int cols[SDW_FRAME_COLS] = {2, 4, 6, 8, 10, 12, 14, 16};
+> +int sdw_cols[SDW_FRAME_COLS] = {2, 4, 6, 8, 10, 12, 14, 16};
+>  
+> -static int sdw_find_col_index(int col)
+> +int sdw_find_col_index(int col)
 >  {
-> -	int ret;
-> -
->  	_cdns_enable_interrupt(cdns);
-> -	ret = cdns_clear_bit(cdns, CDNS_MCP_CONFIG_UPDATE,
-> -			     CDNS_MCP_CONFIG_UPDATE_BIT);
-> -	if (ret < 0)
-> -		dev_err(cdns->dev, "Config update timedout\n");
+>  	int i;
 >  
-> -	return ret;
-> +	return 0;
+>  	for (i = 0; i < SDW_FRAME_COLS; i++) {
+> -		if (cols[i] == col)
+> +		if (sdw_cols[i] == col)
+>  			return i;
+>  	}
+>  
+>  	pr_warn("Requested column not found, selecting lowest column no: 2\n");
+>  	return 0;
 >  }
->  EXPORT_SYMBOL(sdw_cdns_enable_interrupt);
+> +EXPORT_SYMBOL(sdw_find_col_index);
 >  
-> @@ -943,7 +953,10 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+> -static int sdw_find_row_index(int row)
+> +int sdw_find_row_index(int row)
+>  {
+>  	int i;
 >  
->  	cdns_writel(cdns, CDNS_MCP_CONFIG, val);
+>  	for (i = 0; i < SDW_FRAME_ROWS; i++) {
+> -		if (rows[i] == row)
+> +		if (sdw_rows[i] == row)
+>  			return i;
+>  	}
 >  
-> -	return 0;
-> +	/* commit changes */
-> +	ret = cdns_update_config(cdns);
-> +
-> +	return ret;
+>  	pr_warn("Requested row not found, selecting lowest row no: 48\n");
+>  	return 0;
 >  }
->  EXPORT_SYMBOL(sdw_cdns_init);
+> +EXPORT_SYMBOL(sdw_find_row_index);
 >  
+>  static int _sdw_program_slave_port_params(struct sdw_bus *bus,
+>  					  struct sdw_slave *slave,
 > -- 
 > 2.20.1
 > 

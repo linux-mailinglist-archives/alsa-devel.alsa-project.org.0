@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32B95821A7
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:26:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2BA821EE
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:28:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEBD116BA;
-	Mon,  5 Aug 2019 18:25:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEBD116BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 489EF16AE;
+	Mon,  5 Aug 2019 18:28:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 489EF16AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565022374;
-	bh=5ViwqEtNrfMh7KnHtF9IE8wovwDs7Jl+cIFemNkt6tM=;
+	s=default; t=1565022532;
+	bh=47AKx4EDgJJupztn8o3v+/aHxtVBqsu/P474Wgo0PkM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=TzOUTtHaEhezE6+Dt3uGHs4k5uSBsucwIje3URPaWm2ihehNXL19v5MUsZZGYSCux
-	 RXF3qps1Cc9pv74oQtFC/UCTwJiBk1sExtrgTc8ZYBYOUZCb06neApYwDm0KdM7X+n
-	 AivFnQE2DMQQUogeFJB0DuaAGJaYdUdO5pF+36EQ=
+	b=isXdVfPCkK0LPiZeoRPH463kNLuUacZ+WZd1LjoOmNoRk6WcFKVlr9RVAiKMf86Ih
+	 ErmiX1zL6DV/Ptb05+dy7FS8uBQKw3tn3ecm99eGZ4/JxK8GpNXPKPAouTcOzld18k
+	 ESZbKUiXIRtnUguZl1L3xpNrohM59Xxt9hg7u1A8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA7E3F8079B;
-	Mon,  5 Aug 2019 18:10:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57A4CF8087D;
+	Mon,  5 Aug 2019 18:10:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45AA5F80671; Mon,  5 Aug 2019 18:10:27 +0200 (CEST)
+ id 01AD9F80677; Mon,  5 Aug 2019 18:10:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E067F805FF
- for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E067F805FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA5DFF80635
+ for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:10:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA5DFF80635
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="TAExIdeV"
+ header.b="HCdt7tco"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=r9v+XrL7Kc0QcFPOYNaNzzPwPmhUDCgYC0fwOP1mOGw=; b=TAExIdeV6EgV
- qMlp0YoVXVbgkRM900OltKHjJ0bHjpfek9uHDEOY2orsXaoMQjqMcM6fNiRE9510RVKVUVw6D7gu3
- f6yV6/W6CIWL6o4lCnfz2cnHF+dKXYM1HvJ6PMtyrAYB3Bw7mhAdZxGUEEwllgc7QmIPAzUFKv0Zt
- ewpfs=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=qkbWi4QeSrZTIoOsZsuoA+t7Tmll3tuYLsOS2iEL/qs=; b=HCdt7tcoziXi
+ 1X2nIHaIB9uLwgH6lC1l2e/V9XAiwa+dq4i+PPBj7wrQo64GRJUzOK5rWOO1YLMeeaYy03YoE4Ncr
+ WNK56Mgo8TQRIMS8OaevkhWSDTbM2GU/yh/Xmj1OgVf2G7VBNPuAgbZEjiHbuRtGsA6QAkzjpHo0J
+ 0rnSQ=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYf-0000m3-PY; Mon, 05 Aug 2019 16:10:01 +0000
+ id 1hufYi-0000mQ-9U; Mon, 05 Aug 2019 16:10:04 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 3A99A2742EB0; Mon,  5 Aug 2019 17:10:01 +0100 (BST)
+ id 2F0F62742EB3; Mon,  5 Aug 2019 17:10:02 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ftmt5rnx.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87lfwl5rot.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805161001.3A99A2742EB0@ypsilon.sirena.org.uk>
-Date: Mon,  5 Aug 2019 17:10:01 +0100 (BST)
+Message-Id: <20190805161002.2F0F62742EB3@ypsilon.sirena.org.uk>
+Date: Mon,  5 Aug 2019 17:10:02 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_component_open()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-pcm: remove
+	soc_rtdcom_copy_kernel()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_component_open()
+   ASoC: soc-pcm: remove soc_rtdcom_copy_kernel()
 
 has been applied to the asoc tree at
 
@@ -112,73 +111,64 @@ to this mail.
 Thanks,
 Mark
 
-From ae2f4849286eed48a3aa79a7b73bb5bcd0c9213b Mon Sep 17 00:00:00 2001
+From 4efbb20971af527990f3c51056d142e3f7dc6b4a Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:50:01 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_component_open()
+Date: Fri, 26 Jul 2019 13:49:29 +0900
+Subject: [PATCH] ASoC: soc-pcm: remove soc_rtdcom_copy_kernel()
 
-Current ALSA SoC is directly using component->driver->ops->xxx,
-thus, it is deep nested, and makes code difficult to read,
-and is not good for encapsulation.
-This patch adds new snd_soc_component_open() and use it.
+No ALSA SoC driver has .copy_kernel at component->driver->ops.
+We can revive it if some-driver want to use it, but let's remove it
+so far to avoid maintaining complex code
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87ftmt5rnx.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87lfwl5rot.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h |  4 ++++
- sound/soc/soc-component.c     | 10 ++++++++++
- sound/soc/soc-pcm.c           |  6 +-----
- 3 files changed, 15 insertions(+), 5 deletions(-)
+ sound/soc/soc-pcm.c | 24 ------------------------
+ 1 file changed, 24 deletions(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index a76cadf49a16..156b1a5b6ddd 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -338,4 +338,8 @@ int snd_soc_component_force_enable_pin_unlocked(
- 	struct snd_soc_component *component,
- 	const char *pin);
- 
-+/* component driver ops */
-+int snd_soc_component_open(struct snd_soc_component *component,
-+			   struct snd_pcm_substream *substream);
-+
- #endif /* __SOC_COMPONENT_H */
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index ac2d7bd5d844..ada46f9729b2 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -285,3 +285,13 @@ void snd_soc_component_module_put(struct snd_soc_component *component,
- 	if (component->driver->module_get_upon_open == !!upon_open)
- 		module_put(component->dev->driver->owner);
- }
-+
-+int snd_soc_component_open(struct snd_soc_component *component,
-+			   struct snd_pcm_substream *substream)
-+{
-+	if (component->driver->ops &&
-+	    component->driver->ops->open)
-+		return component->driver->ops->open(substream);
-+
-+	return 0;
-+}
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 5fef18507286..caf7028cee62 100644
+index bf04b69d6878..e85548244b55 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -447,11 +447,7 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream,
- 			return ret;
- 		}
+@@ -2896,28 +2896,6 @@ static int soc_rtdcom_copy_user(struct snd_pcm_substream *substream, int channel
+ 	return -EINVAL;
+ }
  
+-static int soc_rtdcom_copy_kernel(struct snd_pcm_substream *substream, int channel,
+-				  unsigned long pos, void *buf, unsigned long bytes)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_rtdcom_list *rtdcom;
+-	struct snd_soc_component *component;
+-
+-	for_each_rtdcom(rtd, rtdcom) {
+-		component = rtdcom->component;
+-
 -		if (!component->driver->ops ||
--		    !component->driver->ops->open)
+-		    !component->driver->ops->copy_kernel)
 -			continue;
 -
--		ret = component->driver->ops->open(substream);
-+		ret = snd_soc_component_open(component, substream);
- 		if (ret < 0) {
- 			dev_err(component->dev,
- 				"ASoC: can't open component %s: %d\n",
+-		/* FIXME. it returns 1st copy now */
+-		return component->driver->ops->copy_kernel(substream, channel,
+-							   pos, buf, bytes);
+-	}
+-
+-	return -EINVAL;
+-}
+-
+ static int soc_rtdcom_fill_silence(struct snd_pcm_substream *substream, int channel,
+ 				   unsigned long pos, unsigned long bytes)
+ {
+@@ -3111,8 +3089,6 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 
+ 		if (ops->copy_user)
+ 			rtd->ops.copy_user	= soc_rtdcom_copy_user;
+-		if (ops->copy_kernel)
+-			rtd->ops.copy_kernel	= soc_rtdcom_copy_kernel;
+ 		if (ops->fill_silence)
+ 			rtd->ops.fill_silence	= soc_rtdcom_fill_silence;
+ 		if (ops->page)
 -- 
 2.20.1
 

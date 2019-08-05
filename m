@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADEBB8219A
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:24:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F0F8219D
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:24:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4D5DF1686;
-	Mon,  5 Aug 2019 18:23:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4D5DF1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEE8B1688;
+	Mon,  5 Aug 2019 18:23:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEE8B1688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565022246;
-	bh=uLr+qx1nIQ/D8FswFhYzcasb/kfPvSs2HT1L0ukT+S4=;
+	s=default; t=1565022288;
+	bh=I29Bnx/tHj3dvYV4hmAoqzb3GrOiYhKpHRB1gaQCgIA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=k2uG8ru27bB1ggKVHh2SPYsJMhag5i10jb1JUhc2bcdsDeG4OZEw8FnTK0ud/SAlf
-	 z54Vf9SoOdWnWqpWu9UWnurxrWw29BlZhGW1l9dFss5Dn3FfKhN8tMVcYLXT0rajxL
-	 Aacgv5sSyykHF7Ug6VgE7X0FTRQejiJqhZyFPSzc=
+	b=tmgVD0d8JUe3YEfhfwIl30Qi1XD/ndUJb+hWJOutmoxqPD77bBd0w/mq0WsjTRe9S
+	 oNphBVCmluZY82/hv4D+33K1y6zefd1aBk5ILFiLh4X4+9KTHBBV7q79QLV0IQyO3t
+	 cnTb7QcOM2rcrs/UlwDOHLnR+3J+UQa0BEb9+B4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 398A4F80766;
-	Mon,  5 Aug 2019 18:10:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20E08F8076F;
+	Mon,  5 Aug 2019 18:10:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EFCFF80672; Mon,  5 Aug 2019 18:10:24 +0200 (CEST)
+ id 8C70CF80671; Mon,  5 Aug 2019 18:10:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AD4AF805FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04048F805FC
  for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:10:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AD4AF805FA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04048F805FC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="g/t5S4/K"
+ header.b="QVFdLMNH"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=mScuriJv+pArFDyObVr00MyxqxLjSg/fE8Llf1kgmEE=; b=g/t5S4/KHw+l
- /yrtEp7RWZAwlJTlOJUmmqZau6yKFq9yG2krN2XFwubdr+Sf0A3TwXtOzSfdPQPZeAjh6oZ4s0woV
- hsljqpvfJYSXngJgov3Ovx9E9juGIJvr+S65RJQbiu+xRDLYb+6BXewv/0hlzEZSOpY5SyQ7z8/rf
- R+mWw=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=M0ufObHDhXp5/NjlsCZdEQjQPPqpF4JF6J5hx79Of3c=; b=QVFdLMNHzYzC
+ bSe30A/PapvqzoBZe7Re4Mylt8XniswiTzGxoxHTpcypjFBw4TKTI7g+foMe4iDOYFpQgylVj3tAb
+ YKRcUHWMwgGVAWBFwkIpsNQ7ULbp5PiAlJmzliidARRNZwhlV+t9Wu6TK5wZvTp5C6LQBVg7ljmrh
+ BEIo8=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYe-0000lg-Rf; Mon, 05 Aug 2019 16:10:00 +0000
+ id 1hufYf-0000lm-AE; Mon, 05 Aug 2019 16:10:01 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 461F62742EB0; Mon,  5 Aug 2019 17:10:00 +0100 (BST)
+ id 834A22742E44; Mon,  5 Aug 2019 17:10:00 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87a7d15rna.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87blxh5rnf.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805161000.461F62742EB0@ypsilon.sirena.org.uk>
+Message-Id: <20190805161000.834A22742E44@ypsilon.sirena.org.uk>
 Date: Mon,  5 Aug 2019 17:10:00 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_component_hw_free()" to the asoc tree
+	snd_soc_component_hw_params()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_component_hw_free()
+   ASoC: soc-component: add snd_soc_component_hw_params()
 
 has been applied to the asoc tree at
 
@@ -112,84 +111,74 @@ to this mail.
 Thanks,
 Mark
 
-From eae7136aa2083699c69de5890fd6c32c501952b5 Mon Sep 17 00:00:00 2001
+From 245c539a1206d74e8508a07550fb7c99d0817b8c Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:50:24 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_component_hw_free()
+Date: Fri, 26 Jul 2019 13:50:19 +0900
+Subject: [PATCH] ASoC: soc-component: add snd_soc_component_hw_params()
 
 Current ALSA SoC is directly using component->driver->ops->xxx,
 thus, it is deep nested, and makes code difficult to read,
 and is not good for encapsulation.
-This patch adds new snd_soc_component_hw_free() and use it.
+This patch adds new snd_soc_component_hw_params() and use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87a7d15rna.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87blxh5rnf.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h |  2 ++
- sound/soc/soc-component.c     | 10 ++++++++++
- sound/soc/soc-pcm.c           |  9 +++------
- 3 files changed, 15 insertions(+), 6 deletions(-)
+ include/sound/soc-component.h |  3 +++
+ sound/soc/soc-component.c     | 11 +++++++++++
+ sound/soc/soc-pcm.c           |  6 +-----
+ 3 files changed, 15 insertions(+), 5 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 778a6e7d352d..fbcd911ac25e 100644
+index ff8233014444..778a6e7d352d 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -348,5 +348,7 @@ int snd_soc_component_prepare(struct snd_soc_component *component,
- int snd_soc_component_hw_params(struct snd_soc_component *component,
- 				struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params);
-+int snd_soc_component_hw_free(struct snd_soc_component *component,
-+			      struct snd_pcm_substream *substream);
+@@ -345,5 +345,8 @@ int snd_soc_component_close(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream);
+ int snd_soc_component_prepare(struct snd_soc_component *component,
+ 			      struct snd_pcm_substream *substream);
++int snd_soc_component_hw_params(struct snd_soc_component *component,
++				struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *params);
  
  #endif /* __SOC_COMPONENT_H */
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 7b6456370da5..e2bc34efe547 100644
+index 733d7139d875..7b6456370da5 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -326,3 +326,13 @@ int snd_soc_component_hw_params(struct snd_soc_component *component,
+@@ -315,3 +315,14 @@ int snd_soc_component_prepare(struct snd_soc_component *component,
  
  	return 0;
  }
 +
-+int snd_soc_component_hw_free(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream)
++int snd_soc_component_hw_params(struct snd_soc_component *component,
++				struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *params)
 +{
 +	if (component->driver->ops &&
-+	    component->driver->ops->hw_free)
-+		return component->driver->ops->hw_free(substream);
++	    component->driver->ops->hw_params)
++		return component->driver->ops->hw_params(substream, params);
 +
 +	return 0;
 +}
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 8be1d22dc87a..8c5289904f20 100644
+index c7fee67bc0dc..8be1d22dc87a 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -847,6 +847,7 @@ static int soc_pcm_components_hw_free(struct snd_pcm_substream *substream,
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_component *component;
-+	int ret = 0;
- 
+@@ -951,11 +951,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  	for_each_rtdcom(rtd, rtdcom) {
  		component = rtdcom->component;
-@@ -854,14 +855,10 @@ static int soc_pcm_components_hw_free(struct snd_pcm_substream *substream,
- 		if (component == last)
- 			break;
  
 -		if (!component->driver->ops ||
--		    !component->driver->ops->hw_free)
+-		    !component->driver->ops->hw_params)
 -			continue;
 -
--		component->driver->ops->hw_free(substream);
-+		ret |= snd_soc_component_hw_free(component, substream);
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- /*
+-		ret = component->driver->ops->hw_params(substream, params);
++		ret = snd_soc_component_hw_params(component, substream, params);
+ 		if (ret < 0) {
+ 			dev_err(component->dev,
+ 				"ASoC: %s hw params failed: %d\n",
 -- 
 2.20.1
 

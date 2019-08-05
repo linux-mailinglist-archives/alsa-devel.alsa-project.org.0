@@ -2,55 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AAC981F39
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 16:38:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BE8B81F57
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 16:41:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1740167A;
-	Mon,  5 Aug 2019 16:37:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1740167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id D928A167B;
+	Mon,  5 Aug 2019 16:40:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D928A167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565015911;
-	bh=htf7w5BV+vNolYkAX5sanC1VrddBvSgA5xlNkCDWZHs=;
+	s=default; t=1565016075;
+	bh=qWvMQDZ6UrNUNtbLOnvZISH0cwl36/0cDca2vdkBaCw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZCp4tjsGwO6BpPNxUnGq4kirc2eo2L2Pf7xjL/Kess/8H+NVhYWyp07Ko8BOQ8wPi
-	 GXCoNDZE+PnJk9BkUqWO1/vRrkj86hr7eJ8DPoXn/0x+bzVK+kPH+TJbl55DFlsD7N
-	 KNtJhzM5V8sOraMr1y7wupcZYp/AkiC2FauGbejw=
+	b=tfSgz53wZyiJN9Pdb8orstBSQTPEtvw7lXp2gBPgkzGxXjRs1W3B6YLS3iU2dxKbt
+	 0+ELw3iUELxV3s5zkipR7YpyvuDLKRghuIGpMuKgDaysJBEvuoPiNYgtICMlAVAnkn
+	 2YzSgnEhhJqkkYLVVoT73/VOilZMEW5tFHWp168A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28D63F80533;
-	Mon,  5 Aug 2019 16:36:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 270E8F80533;
+	Mon,  5 Aug 2019 16:39:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41F4DF80533; Mon,  5 Aug 2019 16:36:44 +0200 (CEST)
+ id 9D86AF80533; Mon,  5 Aug 2019 16:39:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 034E1F800F3;
- Mon,  5 Aug 2019 16:36:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 034E1F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D19CF8011B;
+ Mon,  5 Aug 2019 16:39:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D19CF8011B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2019 07:36:36 -0700
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2019 07:39:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,350,1559545200"; d="scan'208";a="325340654"
+X-IronPort-AV: E=Sophos;i="5.64,350,1559545200"; d="scan'208";a="257745115"
 Received: from moleksy-mobl2.ger.corp.intel.com ([10.252.24.122])
- by orsmga004.jf.intel.com with ESMTP; 05 Aug 2019 07:36:34 -0700
-Message-ID: <3aee07466dcb990ce27551224a4548a8ef37e2bb.camel@linux.intel.com>
+ by orsmga001.jf.intel.com with ESMTP; 05 Aug 2019 07:39:19 -0700
+Message-ID: <ed0c9e8fe9939a8d9a56337ed68802100f049044.camel@linux.intel.com>
 From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-To: Jaroslav Kysela <perex@perex.cz>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>
-Date: Mon, 05 Aug 2019 15:36:35 +0100
-In-Reply-To: <3834d741-906e-1a6b-d6cb-cccb29f98fb4@perex.cz>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Jaroslav
+ Kysela <perex@perex.cz>
+Date: Mon, 05 Aug 2019 15:39:20 +0100
+In-Reply-To: <52e5c627-44c0-146b-2652-0e2790bac74b@linux.intel.com>
 References: <CAD8Lp45Bp1xVC7NjuNaANA7kAEN2Edshw+cViaTF3tRZEumgZA@mail.gmail.com>
  <cc9fa5b52138daffb09dc5b66ea9248379c9f60e.camel@linux.intel.com>
  <CAD8Lp46GW8n8K7ttOeSje_au06BsyvCp4seVwj2wNbipei5ssA@mail.gmail.com>
@@ -68,6 +68,7 @@ References: <CAD8Lp45Bp1xVC7NjuNaANA7kAEN2Edshw+cViaTF3tRZEumgZA@mail.gmail.com>
  <b7fae370-de17-f73c-c2a4-852acf6b31bc@perex.cz>
  <e59de17f39d65f0cef1249517ef1fdd374f399dd.camel@linux.intel.com>
  <3834d741-906e-1a6b-d6cb-cccb29f98fb4@perex.cz>
+ <52e5c627-44c0-146b-2652-0e2790bac74b@linux.intel.com>
 User-Agent: Evolution 3.32.1-2 
 MIME-Version: 1.0
 Cc: Jian-Hong Pan <jian-hong@endlessm.com>,
@@ -92,54 +93,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2019-08-02 at 21:01 +0200, Jaroslav Kysela wrote:
-> > How would we get topology or FW version from the above
-> > identification ?
+On Fri, 2019-08-02 at 14:24 -0500, Pierre-Louis Bossart wrote:
+> > > Would we also use semantic versioning to align the UCM with the
+> > > topology and FW ? Currently we use semantic versioning for
+> > > topology and
+> > > FW.
+> > 
+> > If we have the versions exported to ther user space, the UCM
+> > configuration
+> > loader / parser can use this information to select or verify the
+> > right UCM
+> > configuration. The semantic versioning in UCM files sounds good to
+> > me, too.
 > 
-> It was just an example. We can compose the UCM filename from any
-> other
-> additional information passed from the kernel. Example component
-> strings for
-> USB and legacy HDA:
+> My understanding semantic versioning is that it provides means to
+> handle 
+> minor differences where a new capability is ignored in backwards 
+> compatible ways. This is what we use for SOF structures between
+> driver 
+> and firmware, new fields might be added but used or not depending on 
+> versions.
 > 
+> For UCM, the interaction with other layers is limited to stream
+> numbers 
+> and control names, so I am not sure what semantic versioning and 
+> backwards compatibility would mean here? I am all for it, but I
+> don't 
+> get how it would work.
 > 
->   Mixer name    : 'USB Mixer'
->   Components    : 'USB0bda:58fe'
-> 
->   Mixer name    : 'Realtek ALC298'
->   Components    : 'HDA:10ec0298,17aa222e,00100103'
-> 
-> So we should consider what to export for SOF. Perhaps string like:
-> 
->   'SOFP01234567:45670123,1:1:0-6cc8d,???TPLGVER???,3:7:0'
->   'SOFP{PCIID}:{PCISUBSYS},FW-VER,TPLG-VER,TPLG-ABI-VER'
-> 
-> It's just a proposal for the discussion.
 
-Ok, we will probably need TPLG-NAME in here so that we load the correct
-UCM based on TPLG NAME + HW.
-> 
-> By the way:
-> 
->   
-> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-May/149409.html
-> 
-> The component string extensions should be also considered for other
-> Intel SOC
-> drivers. It seems that the long_name is misused as the UCM
-> configuration
-> selector for other drivers like bytcr_rt5651.c etc. The long_name for
-> the
-> soundcard like 'bytcht-es8316-mono-spk-in2-mic' is not really fancy.
-> This
-> string is used in GUI.
-
-Sorry, do you mean it would be better to include some more encoding
-into the name to make them more unique and so that UI tools and users
-can better understand the UCM file features without reading the UCM
-file source ?
-
-Thanks
+My thinking here was to try and track the FW component kcontrol
+surfaces for UCM. But I thought some more about it and it's better to
+track using the single TPLG + UCM repo method to ensure alignment
+between UCM and TPLGs.
 
 Liam
 

@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60458216E
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4ACBC8217E
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:17:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 570BE1672;
-	Mon,  5 Aug 2019 18:13:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 570BE1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3676167B;
+	Mon,  5 Aug 2019 18:16:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3676167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565021661;
-	bh=fc8JbcSibxAdXlAZWtYxR4fCbL+vmW8bTaVXZ1sdP0E=;
+	s=default; t=1565021829;
+	bh=RYN6PQFqT9BBpAUbofkvnzHa5poFlMuuzMMbkZgOXXk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=LU+FYfzCmz00LOKrytZPM6vWnrrk/F3Df/XkP2B4uRb/+lDBFD99HdJAGlKcL/fv9
-	 gAeFH4c2hE/g/dpG+ZpStXuXefRwv28vMVjdqWbI2ORJ5cJ++YOI1Wh2jq1HF0WqE3
-	 IUVXZAmi0qyXf85hOGmU3Bmn2xVNiwWFMcAwUZMw=
+	b=okUYIHQLHSqWiAYFAIJHUWx1K//7SBqj7vwl8BeGp//7dNlGGaG3br2ab0MnA2h69
+	 T72s1K6tb6NHIF9gcRVVWK5yhOEI8T7HOyoD0HSRv5+ISMPALVtEO0PQQ05unM8nyh
+	 V3OFpFigtiCaGoW+9vpb69qJ8Mjy0hc4/PZ21IZM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55F92F8063B;
-	Mon,  5 Aug 2019 18:10:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A4DFF80671;
+	Mon,  5 Aug 2019 18:10:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCD99F80533; Mon,  5 Aug 2019 18:10:07 +0200 (CEST)
+ id 2569AF80639; Mon,  5 Aug 2019 18:10:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FC81F80533
- for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:09:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FC81F80533
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7E17F8053B
+ for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:09:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7E17F8053B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="sG9i+AkZ"
+ header.b="WVt+q2tQ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Cwb62R39nEn/nV9nWawPy3iT9TBI2RLmV1G49NjRO4U=; b=sG9i+AkZVeh2
- rcOAiqiRNTsi7Ip/7Mfe6oMBjpaTJkjqCO1SBIx3EtYY0cOUuiIS6KdiVIdyeV30DIBTe3Fxc5GxZ
- zcgKIODDz+Z24gguT6lziK7nLvwly7vVLXn0UOrB92AVeF1J7dxYhGFypliIlTGtH64QDwEnNFcYo
- 31gDs=;
+ List-Archive; bh=n7XOZS2XaiP419lupnyzLZ4PqO0pJAWWIRvMBX11tU4=; b=WVt+q2tQqaDQ
+ RNBQncEn0eNDaK7A9enApkfX4b98NeTdbYQ69SlSoDOcly4FRvg9+q+1CrdWBmmiWNHDWwrg4A5U1
+ QuwkRJsG2JLecO8aOPaiqPI/P/PHosQIBGHLfQjK4H8qQwqJJMK9coht1tTrGhV+idvJXKp1LwKwc
+ 0yWis=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYa-0000kI-U9; Mon, 05 Aug 2019 16:09:57 +0000
+ id 1hufYc-0000kg-57; Mon, 05 Aug 2019 16:09:58 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 653CF2742EB0; Mon,  5 Aug 2019 17:09:56 +0100 (BST)
+ id 957312742EB3; Mon,  5 Aug 2019 17:09:57 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87muh14d02.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87tvb94d0n.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805160956.653CF2742EB0@ypsilon.sirena.org.uk>
-Date: Mon,  5 Aug 2019 17:09:56 +0100 (BST)
+Message-Id: <20190805160957.957312742EB3@ypsilon.sirena.org.uk>
+Date: Mon,  5 Aug 2019 17:09:57 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_pcm_component_mmap()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-component: move
+	snd_soc_component_set_bias_level()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_pcm_component_mmap()
+   ASoC: soc-component: move snd_soc_component_set_bias_level()
 
 has been applied to the asoc tree at
 
@@ -112,112 +112,130 @@ to this mail.
 Thanks,
 Mark
 
-From 205875e1a12ef9c61e939db9ded90fe3f6352e75 Mon Sep 17 00:00:00 2001
+From 7951b14611851bdae18e9bca18015b1d84731d0d Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:52:04 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_pcm_component_mmap()
+Date: Fri, 26 Jul 2019 13:51:43 +0900
+Subject: [PATCH] ASoC: soc-component: move snd_soc_component_set_bias_level()
 
-Current ALSA SoC is directly using component->driver->ops->xxx,
-thus, the code nested deeply, and it makes code difficult to read,
-and is not good for encapsulation.
+Current soc-dapm / soc-core are using a long way round to call
+.set_bias_level.
 
-We want to implement component related function at soc-component.c,
-but, some of them need to care whole snd_soc_pcm_runtime (= rtd)
-connected component.
+	if (driver->set_bias_level)
+		dapm->set_bias_level = ...;
+	...
+	if (dapm->set_bias_level)
+		ret = dapm->set_bias_level(...);
 
-Let's call component related function which need to care with
-for_each_rtdcom() loop as snd_soc_pcm_component_xxx().
-This patch adds new snd_soc_pcm_component_mmap() and use it.
+We can directly call it via driver->set_bias_level.
+One note here is that both Card and Component have dapm,
+but, Card's dapm doesn't have dapm->component.
+We need to check it.
+
+This patch moves snd_soc_component_set_bias_level() to soc-component.c
+and updates parameters.
+dapm->set_bias_level is no longer needed
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87muh14d02.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87tvb94d0n.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
  include/sound/soc-component.h |  2 ++
- sound/soc/soc-component.c     | 19 +++++++++++++++++++
- sound/soc/soc-pcm.c           | 23 +----------------------
- 3 files changed, 22 insertions(+), 22 deletions(-)
+ include/sound/soc-dapm.h      |  3 ---
+ sound/soc/soc-component.c     |  9 +++++++++
+ sound/soc/soc-core.c          | 10 ----------
+ sound/soc/soc-dapm.c          |  4 ++--
+ 5 files changed, 13 insertions(+), 15 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 4cab257962a6..dd1ea5d71998 100644
+index 1f84f04e2670..2aaf12bbbed0 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -379,5 +379,7 @@ int snd_soc_pcm_component_copy_user(struct snd_pcm_substream *substream,
- 				    void __user *buf, unsigned long bytes);
- struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
- 					unsigned long offset);
-+int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
-+			       struct vm_area_struct *vma);
+@@ -285,6 +285,8 @@ void snd_soc_component_seq_notifier(struct snd_soc_component *component,
+ 				    enum snd_soc_dapm_type type, int subseq);
+ int snd_soc_component_stream_event(struct snd_soc_component *component,
+ 				   int event);
++int snd_soc_component_set_bias_level(struct snd_soc_component *component,
++				     enum snd_soc_bias_level level);
  
- #endif /* __SOC_COMPONENT_H */
+ #ifdef CONFIG_REGMAP
+ void snd_soc_component_init_regmap(struct snd_soc_component *component,
+diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
+index c2f14a335891..2aa73d6dd7be 100644
+--- a/include/sound/soc-dapm.h
++++ b/include/sound/soc-dapm.h
+@@ -670,9 +670,6 @@ struct snd_soc_dapm_context {
+ 	enum snd_soc_bias_level target_bias_level;
+ 	struct list_head list;
+ 
+-	int (*set_bias_level)(struct snd_soc_dapm_context *dapm,
+-			      enum snd_soc_bias_level level);
+-
+ 	struct snd_soc_dapm_wcache path_sink_cache;
+ 	struct snd_soc_dapm_wcache path_source_cache;
+ 
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index d503bc9b0850..2aff1b087522 100644
+index f33dda8023ec..cb63df6e46eb 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -506,3 +506,22 @@ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
- 
- 	return NULL;
+@@ -68,6 +68,15 @@ int snd_soc_component_stream_event(struct snd_soc_component *component,
+ 	return 0;
  }
-+
-+int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
-+			       struct vm_area_struct *vma)
+ 
++int snd_soc_component_set_bias_level(struct snd_soc_component *component,
++				     enum snd_soc_bias_level level)
 +{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_component *component;
++	if (component->driver->set_bias_level)
++		return component->driver->set_bias_level(component, level);
 +
-+	for_each_rtdcom(rtd, rtdcom) {
-+		component = rtdcom->component;
-+
-+		/* FIXME. it returns 1st mmap now */
-+		if (component->driver->ops &&
-+		    component->driver->ops->mmap)
-+			return component->driver->ops->mmap(substream, vma);
-+	}
-+
-+	return -EINVAL;
++	return 0;
 +}
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index fe34f2e5d75e..7bbee0d71942 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2818,27 +2818,6 @@ static void soc_pcm_private_free(struct snd_pcm *pcm)
- 	}
++
+ int snd_soc_component_enable_pin(struct snd_soc_component *component,
+ 				 const char *pin)
+ {
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 8cfbe5fb5921..0f75dac4bb26 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2646,14 +2646,6 @@ int snd_soc_register_dai(struct snd_soc_component *component,
  }
+ EXPORT_SYMBOL_GPL(snd_soc_register_dai);
  
--static int soc_rtdcom_mmap(struct snd_pcm_substream *substream,
--			   struct vm_area_struct *vma)
+-static int snd_soc_component_set_bias_level(struct snd_soc_dapm_context *dapm,
+-					enum snd_soc_bias_level level)
 -{
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_rtdcom_list *rtdcom;
--	struct snd_soc_component *component;
+-	struct snd_soc_component *component = dapm->component;
 -
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
--		if (!component->driver->ops ||
--		    !component->driver->ops->mmap)
--			continue;
--
--		/* FIXME. it returns 1st mmap now */
--		return component->driver->ops->mmap(substream, vma);
--	}
--
--	return -EINVAL;
+-	return component->driver->set_bias_level(component, level);
 -}
 -
- /* create a new pcm */
- int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ static int snd_soc_component_initialize(struct snd_soc_component *component,
+ 	const struct snd_soc_component_driver *driver, struct device *dev)
  {
-@@ -2968,7 +2947,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 		if (ops->page)
- 			rtd->ops.page		= snd_soc_pcm_component_page;
- 		if (ops->mmap)
--			rtd->ops.mmap		= soc_rtdcom_mmap;
-+			rtd->ops.mmap		= snd_soc_pcm_component_mmap;
- 	}
+@@ -2674,8 +2666,6 @@ static int snd_soc_component_initialize(struct snd_soc_component *component,
+ 	dapm->bias_level = SND_SOC_BIAS_OFF;
+ 	dapm->idle_bias_off = !driver->idle_bias_on;
+ 	dapm->suspend_bias_off = driver->suspend_bias_off;
+-	if (driver->set_bias_level)
+-		dapm->set_bias_level = snd_soc_component_set_bias_level;
  
- 	if (playback)
+ 	INIT_LIST_HEAD(&component->dai_list);
+ 	mutex_init(&component->io_mutex);
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 9288b2b43f98..d09bdca63c62 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -684,8 +684,8 @@ int snd_soc_dapm_force_bias_level(struct snd_soc_dapm_context *dapm,
+ {
+ 	int ret = 0;
+ 
+-	if (dapm->set_bias_level)
+-		ret = dapm->set_bias_level(dapm, level);
++	if (dapm->component)
++		ret = snd_soc_component_set_bias_level(dapm->component, level);
+ 
+ 	if (ret == 0)
+ 		dapm->bias_level = level;
 -- 
 2.20.1
 

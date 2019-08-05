@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33EDF82164
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:11:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B60458216E
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:14:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC5471666;
-	Mon,  5 Aug 2019 18:10:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC5471666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 570BE1672;
+	Mon,  5 Aug 2019 18:13:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 570BE1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565021507;
-	bh=lhEWQ2x9RKULZrIVCXH0lRPOqOUkbs7TIdfRUEJ1uKM=;
+	s=default; t=1565021661;
+	bh=fc8JbcSibxAdXlAZWtYxR4fCbL+vmW8bTaVXZ1sdP0E=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gh/xkxIva/BPnjSBru0xwXo01kHaVb6cgJ0sHYkgI3qtBRm8gDcOgr3CNCqu3dPRv
-	 OyA2yhHdc744drUeiANs3j2egzshmkU/gkIPwY7zCMZM2g4jQUqY9tfJR0DSSEMPDd
-	 gEtf3NADhx37mI5uYA9h70BciHimKvGTvbviZJIA=
+	b=LU+FYfzCmz00LOKrytZPM6vWnrrk/F3Df/XkP2B4uRb/+lDBFD99HdJAGlKcL/fv9
+	 gAeFH4c2hE/g/dpG+ZpStXuXefRwv28vMVjdqWbI2ORJ5cJ++YOI1Wh2jq1HF0WqE3
+	 IUVXZAmi0qyXf85hOGmU3Bmn2xVNiwWFMcAwUZMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1E39F8060D;
-	Mon,  5 Aug 2019 18:10:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55F92F8063B;
+	Mon,  5 Aug 2019 18:10:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66E11F805DF; Mon,  5 Aug 2019 18:10:00 +0200 (CEST)
+ id DCD99F80533; Mon,  5 Aug 2019 18:10:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA787F8011B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FC81F80533
  for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:09:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA787F8011B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FC81F80533
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="lNS7JLqz"
+ header.b="sG9i+AkZ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=nTbStLvnq9HBdLi08gtUbhhQxuaGYkYk2MCkJ0zWXYA=; b=lNS7JLqz4DVE
- 0Txwcqff6eUgy/ThPOgGkQICqcQlbUeNOTuoJN/bDFakJ3EUfuUrRiYCf4PysrF/a1FOmUpl4kB+/
- Kg78qSsJbHlze3TyzpvsOYWfyl0oBmTJ9HhAmwW/S45zvxWXxJ9vN7YbwWGnEfkH3/lqaU06Ej3xB
- 67M/c=;
+ List-Archive; bh=Cwb62R39nEn/nV9nWawPy3iT9TBI2RLmV1G49NjRO4U=; b=sG9i+AkZVeh2
+ rcOAiqiRNTsi7Ip/7Mfe6oMBjpaTJkjqCO1SBIx3EtYY0cOUuiIS6KdiVIdyeV30DIBTe3Fxc5GxZ
+ zcgKIODDz+Z24gguT6lziK7nLvwly7vVLXn0UOrB92AVeF1J7dxYhGFypliIlTGtH64QDwEnNFcYo
+ 31gDs=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYa-0000kH-OK; Mon, 05 Aug 2019 16:09:56 +0000
+ id 1hufYa-0000kI-U9; Mon, 05 Aug 2019 16:09:57 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 2E16A2742E44; Mon,  5 Aug 2019 17:09:56 +0100 (BST)
+ id 653CF2742EB0; Mon,  5 Aug 2019 17:09:56 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lfwl4czy.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87muh14d02.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805160956.2E16A2742E44@ypsilon.sirena.org.uk>
+Message-Id: <20190805160956.653CF2742EB0@ypsilon.sirena.org.uk>
 Date: Mon,  5 Aug 2019 17:09:56 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_pcm_component_pcm_new()" to the asoc tree
+	snd_soc_pcm_component_mmap()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_pcm_component_pcm_new()
+   ASoC: soc-component: add snd_soc_pcm_component_mmap()
 
 has been applied to the asoc tree at
 
@@ -112,12 +112,12 @@ to this mail.
 Thanks,
 Mark
 
-From 7484291e9b7564af65b2581dcdebeeaf98bc86d0 Mon Sep 17 00:00:00 2001
+From 205875e1a12ef9c61e939db9ded90fe3f6352e75 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:52:08 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_pcm_component_pcm_new()
+Date: Fri, 26 Jul 2019 13:52:04 +0900
+Subject: [PATCH] ASoC: soc-component: add snd_soc_pcm_component_mmap()
 
-Current ALSA SoC is directly using component->driver->xxx,
+Current ALSA SoC is directly using component->driver->ops->xxx,
 thus, the code nested deeply, and it makes code difficult to read,
 and is not good for encapsulation.
 
@@ -127,92 +127,97 @@ connected component.
 
 Let's call component related function which need to care with
 for_each_rtdcom() loop as snd_soc_pcm_component_xxx().
-This patch adds new snd_soc_pcm_component_pcm() and use it.
+This patch adds new snd_soc_pcm_component_mmap() and use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87lfwl4czy.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87muh14d02.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h |  1 +
- sound/soc/soc-component.c     | 20 ++++++++++++++++++++
- sound/soc/soc-pcm.c           | 18 ++++--------------
- 3 files changed, 25 insertions(+), 14 deletions(-)
+ include/sound/soc-component.h |  2 ++
+ sound/soc/soc-component.c     | 19 +++++++++++++++++++
+ sound/soc/soc-pcm.c           | 23 +----------------------
+ 3 files changed, 22 insertions(+), 22 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index dd1ea5d71998..d3048ad06582 100644
+index 4cab257962a6..dd1ea5d71998 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -381,5 +381,6 @@ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
+@@ -379,5 +379,7 @@ int snd_soc_pcm_component_copy_user(struct snd_pcm_substream *substream,
+ 				    void __user *buf, unsigned long bytes);
+ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
  					unsigned long offset);
- int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
- 			       struct vm_area_struct *vma);
-+int snd_soc_pcm_component_new(struct snd_pcm *pcm);
++int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
++			       struct vm_area_struct *vma);
  
  #endif /* __SOC_COMPONENT_H */
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 2aff1b087522..ff13d901bbab 100644
+index d503bc9b0850..2aff1b087522 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -525,3 +525,23 @@ int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
+@@ -506,3 +506,22 @@ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
  
- 	return -EINVAL;
+ 	return NULL;
  }
 +
-+int snd_soc_pcm_component_new(struct snd_pcm *pcm)
++int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
++			       struct vm_area_struct *vma)
 +{
-+	struct snd_soc_pcm_runtime *rtd = pcm->private_data;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +	struct snd_soc_rtdcom_list *rtdcom;
 +	struct snd_soc_component *component;
-+	int ret;
 +
 +	for_each_rtdcom(rtd, rtdcom) {
 +		component = rtdcom->component;
 +
-+		if (component->driver->pcm_new) {
-+			ret = component->driver->pcm_new(rtd);
-+			if (ret < 0)
-+				return ret;
-+		}
++		/* FIXME. it returns 1st mmap now */
++		if (component->driver->ops &&
++		    component->driver->ops->mmap)
++			return component->driver->ops->mmap(substream, vma);
 +	}
 +
-+	return 0;
++	return -EINVAL;
 +}
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 7bbee0d71942..955c49fd3bda 100644
+index fe34f2e5d75e..7bbee0d71942 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -2823,7 +2823,6 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- {
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
--	struct snd_soc_component *component;
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_pcm *pcm;
- 	char new_name[64];
-@@ -2956,19 +2955,10 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 	if (capture)
- 		snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &rtd->ops);
+@@ -2818,27 +2818,6 @@ static void soc_pcm_private_free(struct snd_pcm *pcm)
+ 	}
+ }
  
+-static int soc_rtdcom_mmap(struct snd_pcm_substream *substream,
+-			   struct vm_area_struct *vma)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_rtdcom_list *rtdcom;
+-	struct snd_soc_component *component;
+-
 -	for_each_rtdcom(rtd, rtdcom) {
 -		component = rtdcom->component;
 -
--		if (!component->driver->pcm_new)
+-		if (!component->driver->ops ||
+-		    !component->driver->ops->mmap)
 -			continue;
 -
--		ret = component->driver->pcm_new(rtd);
--		if (ret < 0) {
--			dev_err(component->dev,
--				"ASoC: pcm constructor failed: %d\n",
--				ret);
--			return ret;
--		}
-+	ret = snd_soc_pcm_component_new(pcm);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "ASoC: pcm constructor failed: %d\n", ret);
-+		return ret;
+-		/* FIXME. it returns 1st mmap now */
+-		return component->driver->ops->mmap(substream, vma);
+-	}
+-
+-	return -EINVAL;
+-}
+-
+ /* create a new pcm */
+ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ {
+@@ -2968,7 +2947,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 		if (ops->page)
+ 			rtd->ops.page		= snd_soc_pcm_component_page;
+ 		if (ops->mmap)
+-			rtd->ops.mmap		= soc_rtdcom_mmap;
++			rtd->ops.mmap		= snd_soc_pcm_component_mmap;
  	}
  
- 	pcm->private_free = soc_pcm_private_free;
+ 	if (playback)
 -- 
 2.20.1
 

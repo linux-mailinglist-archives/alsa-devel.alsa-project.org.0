@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A6EE82183
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:17:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 767CB82177
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:16:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB4C01686;
-	Mon,  5 Aug 2019 18:17:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB4C01686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0FD1A167E;
+	Mon,  5 Aug 2019 18:15:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FD1A167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565021875;
-	bh=AZzICTkQ2vUZF4lFDrt2zJg3qnRe3MIDSwojE1CDCiM=;
+	s=default; t=1565021786;
+	bh=cbBOekg+PNUuSfaRzp2XGNg28SUI+472jEl/W/i5Zvs=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dqqGMPKWO4JZjmeUD7QY5wVnwCiFaypObW7ZrC9ku+VLYliWoDbR6RYkB0uvqfxSo
-	 rJdIXJPxJo9+R2piDlXpOgxazrLFlV4d27WH4BqGMypVZILzTPQcIjCHTIUzWdlgJz
-	 EopgtPm6I947YW9ajyCnbmkWS63+GJwXRxyhZNDw=
+	b=cPje4zDMbKyyRcev8XtS08ZWbGcvTXQCN/eFaXvUiUvGppFDjqob6AxLcfH7uWDIY
+	 whVKbWstmBU2C5kaM6vNxl4i3wnsgrsvs7dSCs8qR4gacxmd1S0pguHL7CA8uhAEZR
+	 ghzwuocTnLNCjiBjdBy+xJRb+U62ag9l1aTf1fBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62B9AF8067A;
-	Mon,  5 Aug 2019 18:10:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6592DF80672;
+	Mon,  5 Aug 2019 18:10:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDA04F80639; Mon,  5 Aug 2019 18:10:14 +0200 (CEST)
+ id EC076F8063C; Mon,  5 Aug 2019 18:10:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8177F805E1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88F3DF8011B
  for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:09:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8177F805E1
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88F3DF8011B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="iaXxNxWy"
+ header.b="fbNj9W89"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=P/0+24fguKLrlm8YOk4Z1BdcU5BNGQ1SLVbKjS4xKo8=; b=iaXxNxWyXAtT
- vwfkpFwqoJlzQTe9wlaNGFvNIZBXtElYdyL0Wl8+D7eVX568a85eTHS1GTItfYEWzofW97NhfIq0M
- mjgc/avvo2bQHPipxXKa0scAi98l2qhKL/7u43MSOkDMaRfdjORHsxqhFkvBpH65LAC+0arD7dXJ/
- E0IfY=;
+ List-Archive; bh=yNMUVzKtI955m2kTTzpkttUnIP1d7AkFv14f6QN1Z7Y=; b=fbNj9W89bmcD
+ /5x+GZ4v43DzQBArnj+SIYwh8rUR8cEYuT8gU9ZvJlo4umtK08RvllnDVOlRmxCMipxBFJ9MFFeLg
+ 4aOH104yRoMSalDWjI+5MiKFHMAX4W7wnetu17w8IixbT17RN8wL389uuZrdt3oBRap4j5W3z8VPg
+ FzEto=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYd-0000l2-BE; Mon, 05 Aug 2019 16:09:59 +0000
+ id 1hufYd-0000l1-4t; Mon, 05 Aug 2019 16:09:59 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id C92F32742EB3; Mon,  5 Aug 2019 17:09:58 +0100 (BST)
+ id 9006E2742D06; Mon,  5 Aug 2019 17:09:58 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <871ryd5rlo.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87zhl14d14.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805160958.C92F32742EB3@ypsilon.sirena.org.uk>
+Message-Id: <20190805160958.9006E2742D06@ypsilon.sirena.org.uk>
 Date: Mon,  5 Aug 2019 17:09:58 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_component_remove()" to the asoc tree
+	snd_soc_component_of_xlate_dai_id()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_component_remove()
+   ASoC: soc-component: add snd_soc_component_of_xlate_dai_id()
 
 has been applied to the asoc tree at
 
@@ -112,64 +112,70 @@ to this mail.
 Thanks,
 Mark
 
-From 03b34dd7d87ce3493cb1837c9e59c3b3aac4724f Mon Sep 17 00:00:00 2001
+From 2c7b1704819435d188c7697c6815f788bf9e6200 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:51:22 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_component_remove()
+Date: Fri, 26 Jul 2019 13:51:26 +0900
+Subject: [PATCH] ASoC: soc-component: add snd_soc_component_of_xlate_dai_id()
 
 Current ALSA SoC is directly using component->driver->xxx,
 thus, it is deep nested, and makes code difficult to read,
 and is not good for encapsulation.
-This patch adds new snd_soc_component_remove() and use it.
+This patch adds new snd_soc_component_of_xlate_dai_id() and use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/871ryd5rlo.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87zhl14d14.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h | 1 +
- sound/soc/soc-component.c     | 6 ++++++
- sound/soc/soc-core.c          | 3 +--
- 3 files changed, 8 insertions(+), 2 deletions(-)
+ include/sound/soc-component.h | 2 ++
+ sound/soc/soc-component.c     | 9 +++++++++
+ sound/soc/soc-core.c          | 5 ++---
+ 3 files changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 34e774efcf69..b8480d947901 100644
+index b8480d947901..3f4acd337c4a 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -357,5 +357,6 @@ void snd_soc_component_suspend(struct snd_soc_component *component);
- void snd_soc_component_resume(struct snd_soc_component *component);
+@@ -358,5 +358,7 @@ void snd_soc_component_resume(struct snd_soc_component *component);
  int snd_soc_component_is_suspended(struct snd_soc_component *component);
  int snd_soc_component_probe(struct snd_soc_component *component);
-+void snd_soc_component_remove(struct snd_soc_component *component);
+ void snd_soc_component_remove(struct snd_soc_component *component);
++int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
++				      struct device_node *ep);
  
  #endif /* __SOC_COMPONENT_H */
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index b2bfc0375193..eba77ea2b62d 100644
+index eba77ea2b62d..faf49992f661 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -374,3 +374,9 @@ int snd_soc_component_probe(struct snd_soc_component *component)
- 
- 	return 0;
+@@ -380,3 +380,12 @@ void snd_soc_component_remove(struct snd_soc_component *component)
+ 	if (component->driver->remove)
+ 		component->driver->remove(component);
  }
 +
-+void snd_soc_component_remove(struct snd_soc_component *component)
++int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
++				      struct device_node *ep)
 +{
-+	if (component->driver->remove)
-+		component->driver->remove(component);
++	if (component->driver->of_xlate_dai_id)
++		return component->driver->of_xlate_dai_id(component, ep);
++
++	return -ENOTSUPP;
 +}
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 6a422ddae130..6a6403ddf62d 100644
+index 6a6403ddf62d..f63d09dd55f4 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -929,8 +929,7 @@ static void soc_remove_component(struct snd_soc_component *component)
- 	if (!component->card)
- 		return;
+@@ -3334,9 +3334,8 @@ int snd_soc_get_dai_id(struct device_node *ep)
+ 	ret = -ENOTSUPP;
+ 	mutex_lock(&client_mutex);
+ 	component = soc_find_component(&dlc);
+-	if (component &&
+-	    component->driver->of_xlate_dai_id)
+-		ret = component->driver->of_xlate_dai_id(component, ep);
++	if (component)
++		ret = snd_soc_component_of_xlate_dai_id(component, ep);
+ 	mutex_unlock(&client_mutex);
  
--	if (component->driver->remove)
--		component->driver->remove(component);
-+	snd_soc_component_remove(component);
- 
- 	soc_cleanup_component(component);
- }
+ 	of_node_put(dlc.of_node);
 -- 
 2.20.1
 

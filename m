@@ -2,67 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80AF28257B
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 21:20:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75F2E827B8
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 00:51:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0923A167C;
-	Mon,  5 Aug 2019 21:19:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0923A167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF4151668;
+	Tue,  6 Aug 2019 00:50:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF4151668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565032847;
-	bh=/XiPusZjK1XqsmRrBduFabjAVxdtl89OBBmI0aynz38=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565045487;
+	bh=ByG56wtBHH3wMksfEm/kXWUv3Hc771gvkGbjzGwgFdQ=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CfJIvveZVY1Ll4Fd9igthCmBAcpI1cp8aT8arDS0YeJdIV1HqgvgOC2dRb1avIwL4
-	 SDQHvnfsJTGdOG9Ev88hXHswdMLYspPCRykvlciJf10QYKJWyUNWKrx/KMRGahYpO3
-	 zCvWEfl0OozG1TvpWBLgNefsNHsjpj02MRxWuqTE=
+	b=RlHSFDfiXMWJI6Bvs3r1F+O8I+GZGLY8vEGJmcw5UxnX3X2wqK2/Vzlr5Id2XueVj
+	 XLzTb3nwjlltbw+5LWq4+U3WiLf3DhQ9BQl5g3vmx8dBjeBve8G+PXyk2OUTHZBaGT
+	 kp/sj0+WTe6tbw43hLQbZY04+w1/u4Rh3xzB3Tws=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37BD6F8011B;
-	Mon,  5 Aug 2019 21:19:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08C2BF80534;
+	Tue,  6 Aug 2019 00:49:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 843E5F80533; Mon,  5 Aug 2019 21:19:00 +0200 (CEST)
+ id 8D437F80533; Tue,  6 Aug 2019 00:49:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4DD0F800F3
- for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 21:18:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4DD0F800F3
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2019 12:18:36 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,350,1559545200"; d="scan'208";a="373180072"
-Received: from amerhebi-mobl1.amr.corp.intel.com (HELO [10.251.154.70])
- ([10.251.154.70])
- by fmsmga005.fm.intel.com with ESMTP; 05 Aug 2019 12:18:35 -0700
-To: Sanyog Kale <sanyog.r.kale@intel.com>
-References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
- <20190725234032.21152-29-pierre-louis.bossart@linux.intel.com>
- <20190805165729.GC24889@buildpc-HP-Z230>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4c4e64fb-9657-0312-a19f-2a17b44fbae3@linux.intel.com>
-Date: Mon, 5 Aug 2019 14:18:35 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E489F800F4
+ for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 00:49:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E489F800F4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="S2MBrMac"
+Received: by mail-pg1-x541.google.com with SMTP id r26so4510465pgl.10
+ for <alsa-devel@alsa-project.org>; Mon, 05 Aug 2019 15:49:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=eRULxEnfuJ6z59hMCQXAvm9BHOXszvRh9MwRF5O1Bws=;
+ b=S2MBrMacN+dYlhkL81oHvr54zEFrun+a9BYuxX5f1fmUgWQTd3HHnrjAPVG+gQfi1j
+ rxQ4Cr4ylrPNhLmySbUuyM8XyW/xi6B+HhMFtOhx9DCEJRCDNwSnN1HMIcbxiigrzYbm
+ EAmfmFhlH0qWS4CjESpTOj6x89hjChm9/etOzT587sk8V0JDREONMSqkY+i6UTrnrmW2
+ i63WGiQ2YWiXU7WdgGS54MPASBegBOCx9TLw6k8PbpxxbhU5zzBT+zKNvHELaqUwR7eA
+ 0KeH+oRmOr84NB5zxeUyY2A3fuBnE2lc+mG2tIGSXZQ/YQT4ekOqeBG8Vl6Zk3uWGGeQ
+ a2Fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=eRULxEnfuJ6z59hMCQXAvm9BHOXszvRh9MwRF5O1Bws=;
+ b=O7hgWx9WGly6VRnFNsoA+UZSER08sK+CJTkpp2uIB0/yc1EdcmFX0q+3P9Hqm48dCw
+ uupzspBiAgBIT7bOHfQRW59gcwESwsTiQW814KmsTcEA8p7DWo4mfSNHIY6yrZvfOVqW
+ ActoRLabSg+j2IooDRJjktOQ80R08SMfCnunMUrDaDKfm5ndcGO0FY2f2Xb20qOiyZpF
+ ht+0c4rDSm8M56l3o3rAEFvjTWJgfDXiT0uxdjt8SyVdQLex4j37hzXATPsZBp4J5VRJ
+ FWV8zVfbZ0S9jjhy/En8njhIckvCwJlFnspJN9lOJClPh+d579dfYe1cBDknWMCqKyN0
+ khyA==
+X-Gm-Message-State: APjAAAWvyg2a5qI8HggPqEMIsTZK31qeoItsrg6Imv3xMOiTxyo4btLc
+ R2yC/6Li/zNpvuyzWrYoBMDm6Q==
+X-Google-Smtp-Source: APXvYqylGTV4UGyqBMoDCj097zl3IRlSvbcAo8xrO2z7ThsKGgbubG5XVOYAvrwXBSdMJ5UPDIs3gA==
+X-Received: by 2002:a63:9e43:: with SMTP id r3mr225055pgo.148.1565045375696;
+ Mon, 05 Aug 2019 15:49:35 -0700 (PDT)
+Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
+ [104.188.17.28])
+ by smtp.gmail.com with ESMTPSA id y10sm85131247pfm.66.2019.08.05.15.49.34
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 05 Aug 2019 15:49:35 -0700 (PDT)
+Date: Mon, 5 Aug 2019 15:49:32 -0700
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Nishka Dasgupta <nishkadg.linux@gmail.com>
+Message-ID: <20190805224932.GB6470@builder>
+References: <20190804162201.5838-1-nishkadg.linux@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190805165729.GC24889@buildpc-HP-Z230>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com
-Subject: Re: [alsa-devel] [RFC PATCH 28/40] soundwire: intel: handle
- disabled links
+Content-Disposition: inline
+In-Reply-To: <20190804162201.5838-1-nishkadg.linux@gmail.com>
+User-Agent: Mutt/1.10.0 (2018-05-17)
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ agross@kernel.org, srinivas.kandagatla@linaro.org
+Subject: Re: [alsa-devel] [PATCH] slimbus: qcom-ngd-ctrl: Add of_node_put()
+	before return
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,61 +99,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sun 04 Aug 09:22 PDT 2019, Nishka Dasgupta wrote:
 
-
-On 8/5/19 11:57 AM, Sanyog Kale wrote:
-> On Thu, Jul 25, 2019 at 06:40:20PM -0500, Pierre-Louis Bossart wrote:
->> On most hardware platforms, SoundWire interfaces are pin-muxed with
->> other interfaces (typically DMIC or I2S) and the status of each link
->> needs to be checked at boot time.
->>
->> For Intel platforms, the BIOS provides a menu to enable/disable the
->> links separately, and the information is provided to the OS with an
->> Intel-specific _DSD property. The same capability will be added to
->> revisions of the MIPI DisCo specification.
-
-[snip]
-
->> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
->> index c7dfc824be80..f78b076a8782 100644
->> --- a/include/linux/soundwire/sdw.h
->> +++ b/include/linux/soundwire/sdw.h
->> @@ -380,6 +380,7 @@ struct sdw_slave_prop {
->>    * @err_threshold: Number of times that software may retry sending a single
->>    * command
->>    * @mclk_freq: clock reference passed to SoundWire Master, in Hz.
->> + * @hw_disabled: if true, the Master is not functional, typically due to pin-mux
->>    */
->>   struct sdw_master_prop {
->>   	u32 revision;
->> @@ -395,6 +396,7 @@ struct sdw_master_prop {
->>   	bool dynamic_frame;
->>   	u32 err_threshold;
->>   	u32 mclk_freq;
->> +	bool hw_disabled;
+> Each iteration of for_each_available_child_of_node puts the previous
+> node, but in the case of a return from the middle of the loop, there is
+> no put, thus causing a memory leak. Hence add an of_node_put before the
+> return in two places.
+> Issue found with Coccinelle.
 > 
-> Do we have such cases where some of SoundWire links are disabled and
-> some enabled?
 
-Yes, by default my ICL test board uses HDaudio for the codec so the 
-SoundWire link0 is disabled. If I rework the board and change the BIOS 
-advanced menu then SoundWire link0 is enabled. This information is 
-dynamically provided to the OS after the _INI step.
-SoundWire-2/3 are used typically for attached DMICs or for a combination 
-of SoundWire amplifier and mic capture. It's really platform-specific.
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 
+> Signed-off-by: Nishka Dasgupta <nishkadg.linux@gmail.com>
+> ---
+>  drivers/slimbus/qcom-ngd-ctrl.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
->>   };
->>   
->>   int sdw_master_read_prop(struct sdw_bus *bus);
->> -- 
->> 2.20.1
->>
+> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
+> index f3585777324c..29fbab55c3b3 100644
+> --- a/drivers/slimbus/qcom-ngd-ctrl.c
+> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
+> @@ -1338,12 +1338,15 @@ static int of_qcom_slim_ngd_register(struct device *parent,
+>  			continue;
+>  
+>  		ngd = kzalloc(sizeof(*ngd), GFP_KERNEL);
+> -		if (!ngd)
+> +		if (!ngd) {
+> +			of_node_put(node);
+>  			return -ENOMEM;
+> +		}
+>  
+>  		ngd->pdev = platform_device_alloc(QCOM_SLIM_NGD_DRV_NAME, id);
+>  		if (!ngd->pdev) {
+>  			kfree(ngd);
+> +			of_node_put(node);
+>  			return -ENOMEM;
+>  		}
+>  		ngd->id = id;
+> -- 
+> 2.19.1
 > 
 _______________________________________________
 Alsa-devel mailing list

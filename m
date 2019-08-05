@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 767CB82177
-	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:16:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4F9982186
+	for <lists+alsa-devel@lfdr.de>; Mon,  5 Aug 2019 18:18:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FD1A167E;
-	Mon,  5 Aug 2019 18:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FD1A167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D9891669;
+	Mon,  5 Aug 2019 18:17:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D9891669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565021786;
-	bh=cbBOekg+PNUuSfaRzp2XGNg28SUI+472jEl/W/i5Zvs=;
+	s=default; t=1565021917;
+	bh=UHLZfoY8yTy8DHNVre4v3UQaKklGdQFk2eAnrvpLPhc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cPje4zDMbKyyRcev8XtS08ZWbGcvTXQCN/eFaXvUiUvGppFDjqob6AxLcfH7uWDIY
-	 whVKbWstmBU2C5kaM6vNxl4i3wnsgrsvs7dSCs8qR4gacxmd1S0pguHL7CA8uhAEZR
-	 ghzwuocTnLNCjiBjdBy+xJRb+U62ag9l1aTf1fBo=
+	b=phWvfRRlnVS69xbKdT/2mQqXy8L2g8N5RQzsayTx0TSN875FmtStDhCjHPQv8kL8f
+	 fhm/TIE6IWYE2RtDItqD7dE+abvGr6t22EfVA9WnFISPIPotm9qtbou/s4c/IiKlzx
+	 ynQOWIVFS4wY92igDVX0RdCjyHDzi61gloYS1DmQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6592DF80672;
-	Mon,  5 Aug 2019 18:10:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC0D5F8068A;
+	Mon,  5 Aug 2019 18:10:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC076F8063C; Mon,  5 Aug 2019 18:10:13 +0200 (CEST)
+ id 6CCA7F8053B; Mon,  5 Aug 2019 18:10:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88F3DF8011B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8904CF805AF
  for <alsa-devel@alsa-project.org>; Mon,  5 Aug 2019 18:09:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88F3DF8011B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8904CF805AF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="fbNj9W89"
+ header.b="k5QiZhad"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=yNMUVzKtI955m2kTTzpkttUnIP1d7AkFv14f6QN1Z7Y=; b=fbNj9W89bmcD
- /5x+GZ4v43DzQBArnj+SIYwh8rUR8cEYuT8gU9ZvJlo4umtK08RvllnDVOlRmxCMipxBFJ9MFFeLg
- 4aOH104yRoMSalDWjI+5MiKFHMAX4W7wnetu17w8IixbT17RN8wL389uuZrdt3oBRap4j5W3z8VPg
- FzEto=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=Lh8v/BOEeYSmqpOnLJFqM3fWDDRWeBjifA/pGArr5ac=; b=k5QiZhadf3g2
+ Unz2iRkm2wyBjcF+/nCphxCtpYy4YSupXADK0YSmdNpQPTwivUseS1/0j0M8fh4MnzLhHl3jfSDUU
+ rC4G1BL3yQR0rhbOY95x+TF0Obh8TLT4pWx9aJI2+zQp/bpoAlK+E7ew/vGCYvnSJnIveCMdGcqi3
+ ZtfMs=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1hufYd-0000l1-4t; Mon, 05 Aug 2019 16:09:59 +0000
+ id 1hufYd-0000kr-10; Mon, 05 Aug 2019 16:09:59 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 9006E2742D06; Mon,  5 Aug 2019 17:09:58 +0100 (BST)
+ id 1BBE92742E44; Mon,  5 Aug 2019 17:09:58 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87zhl14d14.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87wog54d0v.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190805160958.9006E2742D06@ypsilon.sirena.org.uk>
+Message-Id: <20190805160958.1BBE92742E44@ypsilon.sirena.org.uk>
 Date: Mon,  5 Aug 2019 17:09:58 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-component: add
-	snd_soc_component_of_xlate_dai_id()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-component: move
+	snd_soc_component_seq_notifier()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: add snd_soc_component_of_xlate_dai_id()
+   ASoC: soc-component: move snd_soc_component_seq_notifier()
 
 has been applied to the asoc tree at
 
@@ -112,70 +111,150 @@ to this mail.
 Thanks,
 Mark
 
-From 2c7b1704819435d188c7697c6815f788bf9e6200 Mon Sep 17 00:00:00 2001
+From 9d415fbf773f162a5c274e671741c6fa94b74287 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 26 Jul 2019 13:51:26 +0900
-Subject: [PATCH] ASoC: soc-component: add snd_soc_component_of_xlate_dai_id()
+Date: Fri, 26 Jul 2019 13:51:35 +0900
+Subject: [PATCH] ASoC: soc-component: move snd_soc_component_seq_notifier()
 
-Current ALSA SoC is directly using component->driver->xxx,
-thus, it is deep nested, and makes code difficult to read,
-and is not good for encapsulation.
-This patch adds new snd_soc_component_of_xlate_dai_id() and use it.
+Current soc-dapm / soc-core are using a long way round to call
+.seq_notifier.
+
+	if (driver->seq_notifier)
+		dapm->seq_notifier = ...;
+	...
+	if (dapm->seq_notifier)
+		ret = dapm->seq_notifier(...);
+
+We can directly call it via driver->seq_notifier.
+One note here is that both Card and Component have dapm,
+but, Card's dapm doesn't have dapm->component.
+We need to check it.
+
+This patch moves snd_soc_component_seq_notifier() to soc-component.c,
+and updates parameters.
+dapm->seq_notifier is no longer needed
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87zhl14d14.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87wog54d0v.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h | 2 ++
- sound/soc/soc-component.c     | 9 +++++++++
- sound/soc/soc-core.c          | 5 ++---
- 3 files changed, 13 insertions(+), 3 deletions(-)
+ include/sound/soc-component.h |  3 +++
+ include/sound/soc-dapm.h      |  2 --
+ sound/soc/soc-component.c     |  7 +++++++
+ sound/soc/soc-core.c          | 10 ----------
+ sound/soc/soc-dapm.c          | 15 ++++++++-------
+ 5 files changed, 18 insertions(+), 19 deletions(-)
 
 diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index b8480d947901..3f4acd337c4a 100644
+index 3ed2c39e45c2..7ac903c1e33f 100644
 --- a/include/sound/soc-component.h
 +++ b/include/sound/soc-component.h
-@@ -358,5 +358,7 @@ void snd_soc_component_resume(struct snd_soc_component *component);
- int snd_soc_component_is_suspended(struct snd_soc_component *component);
- int snd_soc_component_probe(struct snd_soc_component *component);
- void snd_soc_component_remove(struct snd_soc_component *component);
-+int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
-+				      struct device_node *ep);
+@@ -281,6 +281,9 @@ int snd_soc_component_set_pll(struct snd_soc_component *component, int pll_id,
+ int snd_soc_component_set_jack(struct snd_soc_component *component,
+ 			       struct snd_soc_jack *jack, void *data);
  
- #endif /* __SOC_COMPONENT_H */
++void snd_soc_component_seq_notifier(struct snd_soc_component *component,
++				    enum snd_soc_dapm_type type, int subseq);
++
+ #ifdef CONFIG_REGMAP
+ void snd_soc_component_init_regmap(struct snd_soc_component *component,
+ 				   struct regmap *regmap);
+diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
+index 6c6694160130..a03db6f8faa8 100644
+--- a/include/sound/soc-dapm.h
++++ b/include/sound/soc-dapm.h
+@@ -661,8 +661,6 @@ struct snd_soc_dapm_context {
+ 	unsigned int idle_bias_off:1; /* Use BIAS_OFF instead of STANDBY */
+ 	/* Go to BIAS_OFF in suspend if the DAPM context is idle */
+ 	unsigned int suspend_bias_off:1;
+-	void (*seq_notifier)(struct snd_soc_dapm_context *,
+-			     enum snd_soc_dapm_type, int);
+ 
+ 	struct device *dev; /* from parent - for debug */
+ 	struct snd_soc_component *component; /* parent component */
 diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index eba77ea2b62d..faf49992f661 100644
+index de1bc5196f67..ca0b28b1d918 100644
 --- a/sound/soc/soc-component.c
 +++ b/sound/soc/soc-component.c
-@@ -380,3 +380,12 @@ void snd_soc_component_remove(struct snd_soc_component *component)
- 	if (component->driver->remove)
- 		component->driver->remove(component);
+@@ -52,6 +52,13 @@ int snd_soc_component_set_pll(struct snd_soc_component *component, int pll_id,
  }
-+
-+int snd_soc_component_of_xlate_dai_id(struct snd_soc_component *component,
-+				      struct device_node *ep)
+ EXPORT_SYMBOL_GPL(snd_soc_component_set_pll);
+ 
++void snd_soc_component_seq_notifier(struct snd_soc_component *component,
++				    enum snd_soc_dapm_type type, int subseq)
 +{
-+	if (component->driver->of_xlate_dai_id)
-+		return component->driver->of_xlate_dai_id(component, ep);
-+
-+	return -ENOTSUPP;
++	if (component->driver->seq_notifier)
++		component->driver->seq_notifier(component, type, subseq);
 +}
++
+ int snd_soc_component_enable_pin(struct snd_soc_component *component,
+ 				 const char *pin)
+ {
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 6a6403ddf62d..f63d09dd55f4 100644
+index 2f068c239f34..c618fecc3d45 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3334,9 +3334,8 @@ int snd_soc_get_dai_id(struct device_node *ep)
- 	ret = -ENOTSUPP;
- 	mutex_lock(&client_mutex);
- 	component = soc_find_component(&dlc);
--	if (component &&
--	    component->driver->of_xlate_dai_id)
--		ret = component->driver->of_xlate_dai_id(component, ep);
-+	if (component)
-+		ret = snd_soc_component_of_xlate_dai_id(component, ep);
- 	mutex_unlock(&client_mutex);
+@@ -2646,14 +2646,6 @@ int snd_soc_register_dai(struct snd_soc_component *component,
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_register_dai);
  
- 	of_node_put(dlc.of_node);
+-static void snd_soc_component_seq_notifier(struct snd_soc_dapm_context *dapm,
+-	enum snd_soc_dapm_type type, int subseq)
+-{
+-	struct snd_soc_component *component = dapm->component;
+-
+-	component->driver->seq_notifier(component, type, subseq);
+-}
+-
+ static int snd_soc_component_stream_event(struct snd_soc_dapm_context *dapm,
+ 	int event)
+ {
+@@ -2690,8 +2682,6 @@ static int snd_soc_component_initialize(struct snd_soc_component *component,
+ 	dapm->bias_level = SND_SOC_BIAS_OFF;
+ 	dapm->idle_bias_off = !driver->idle_bias_on;
+ 	dapm->suspend_bias_off = driver->suspend_bias_off;
+-	if (driver->seq_notifier)
+-		dapm->seq_notifier = snd_soc_component_seq_notifier;
+ 	if (driver->stream_event)
+ 		dapm->stream_event = snd_soc_component_stream_event;
+ 	if (driver->set_bias_level)
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index d93c1038fab0..0b60f688b433 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -1611,12 +1611,12 @@ static void dapm_seq_run(struct snd_soc_card *card,
+ 			if (!list_empty(&pending))
+ 				dapm_seq_run_coalesced(card, &pending);
+ 
+-			if (cur_dapm && cur_dapm->seq_notifier) {
++			if (cur_dapm && cur_dapm->component) {
+ 				for (i = 0; i < ARRAY_SIZE(dapm_up_seq); i++)
+ 					if (sort[i] == cur_sort)
+-						cur_dapm->seq_notifier(cur_dapm,
+-								       i,
+-								       cur_subseq);
++						snd_soc_component_seq_notifier(
++							cur_dapm->component,
++							i, cur_subseq);
+ 			}
+ 
+ 			if (cur_dapm && w->dapm != cur_dapm)
+@@ -1674,11 +1674,12 @@ static void dapm_seq_run(struct snd_soc_card *card,
+ 	if (!list_empty(&pending))
+ 		dapm_seq_run_coalesced(card, &pending);
+ 
+-	if (cur_dapm && cur_dapm->seq_notifier) {
++	if (cur_dapm && cur_dapm->component) {
+ 		for (i = 0; i < ARRAY_SIZE(dapm_up_seq); i++)
+ 			if (sort[i] == cur_sort)
+-				cur_dapm->seq_notifier(cur_dapm,
+-						       i, cur_subseq);
++				snd_soc_component_seq_notifier(
++					cur_dapm->component,
++					i, cur_subseq);
+ 	}
+ 
+ 	list_for_each_entry(d, &card->dapm_list, list) {
 -- 
 2.20.1
 

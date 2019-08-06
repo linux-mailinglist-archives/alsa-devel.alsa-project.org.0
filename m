@@ -2,91 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75F2E827B8
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 00:51:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2403E82853
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 02:02:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF4151668;
-	Tue,  6 Aug 2019 00:50:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF4151668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86FF01678;
+	Tue,  6 Aug 2019 02:02:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86FF01678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565045487;
-	bh=ByG56wtBHH3wMksfEm/kXWUv3Hc771gvkGbjzGwgFdQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565049775;
+	bh=P/wt5VsQDefSxjunQ1KO70mmFSN9kc5BNWmHlmXacBA=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RlHSFDfiXMWJI6Bvs3r1F+O8I+GZGLY8vEGJmcw5UxnX3X2wqK2/Vzlr5Id2XueVj
-	 XLzTb3nwjlltbw+5LWq4+U3WiLf3DhQ9BQl5g3vmx8dBjeBve8G+PXyk2OUTHZBaGT
-	 kp/sj0+WTe6tbw43hLQbZY04+w1/u4Rh3xzB3Tws=
+	b=tIUOKd4ye7H1ZVj2lYHosXv6WRTsHIyR1JIhx2sM5pYOXgBCRtVThPIuxMP9KFbML
+	 7nClwwisPcmj4vxsfq9+QwitD312n131duFztzFOUa4F76zXux//SFKpwwJ45xcnMr
+	 5wskUKDm7Atf2q2kX2ze7fdEcGVoojj4P1vVXGp8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08C2BF80534;
-	Tue,  6 Aug 2019 00:49:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBABDF8011B;
+	Tue,  6 Aug 2019 02:01:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D437F80533; Tue,  6 Aug 2019 00:49:41 +0200 (CEST)
+ id 35B65F80533; Tue,  6 Aug 2019 02:01:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E489F800F4
- for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 00:49:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E489F800F4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="S2MBrMac"
-Received: by mail-pg1-x541.google.com with SMTP id r26so4510465pgl.10
- for <alsa-devel@alsa-project.org>; Mon, 05 Aug 2019 15:49:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=eRULxEnfuJ6z59hMCQXAvm9BHOXszvRh9MwRF5O1Bws=;
- b=S2MBrMacN+dYlhkL81oHvr54zEFrun+a9BYuxX5f1fmUgWQTd3HHnrjAPVG+gQfi1j
- rxQ4Cr4ylrPNhLmySbUuyM8XyW/xi6B+HhMFtOhx9DCEJRCDNwSnN1HMIcbxiigrzYbm
- EAmfmFhlH0qWS4CjESpTOj6x89hjChm9/etOzT587sk8V0JDREONMSqkY+i6UTrnrmW2
- i63WGiQ2YWiXU7WdgGS54MPASBegBOCx9TLw6k8PbpxxbhU5zzBT+zKNvHELaqUwR7eA
- 0KeH+oRmOr84NB5zxeUyY2A3fuBnE2lc+mG2tIGSXZQ/YQT4ekOqeBG8Vl6Zk3uWGGeQ
- a2Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=eRULxEnfuJ6z59hMCQXAvm9BHOXszvRh9MwRF5O1Bws=;
- b=O7hgWx9WGly6VRnFNsoA+UZSER08sK+CJTkpp2uIB0/yc1EdcmFX0q+3P9Hqm48dCw
- uupzspBiAgBIT7bOHfQRW59gcwESwsTiQW814KmsTcEA8p7DWo4mfSNHIY6yrZvfOVqW
- ActoRLabSg+j2IooDRJjktOQ80R08SMfCnunMUrDaDKfm5ndcGO0FY2f2Xb20qOiyZpF
- ht+0c4rDSm8M56l3o3rAEFvjTWJgfDXiT0uxdjt8SyVdQLex4j37hzXATPsZBp4J5VRJ
- FWV8zVfbZ0S9jjhy/En8njhIckvCwJlFnspJN9lOJClPh+d579dfYe1cBDknWMCqKyN0
- khyA==
-X-Gm-Message-State: APjAAAWvyg2a5qI8HggPqEMIsTZK31qeoItsrg6Imv3xMOiTxyo4btLc
- R2yC/6Li/zNpvuyzWrYoBMDm6Q==
-X-Google-Smtp-Source: APXvYqylGTV4UGyqBMoDCj097zl3IRlSvbcAo8xrO2z7ThsKGgbubG5XVOYAvrwXBSdMJ5UPDIs3gA==
-X-Received: by 2002:a63:9e43:: with SMTP id r3mr225055pgo.148.1565045375696;
- Mon, 05 Aug 2019 15:49:35 -0700 (PDT)
-Received: from builder (104-188-17-28.lightspeed.sndgca.sbcglobal.net.
- [104.188.17.28])
- by smtp.gmail.com with ESMTPSA id y10sm85131247pfm.66.2019.08.05.15.49.34
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 05 Aug 2019 15:49:35 -0700 (PDT)
-Date: Mon, 5 Aug 2019 15:49:32 -0700
-From: Bjorn Andersson <bjorn.andersson@linaro.org>
-To: Nishka Dasgupta <nishkadg.linux@gmail.com>
-Message-ID: <20190805224932.GB6470@builder>
-References: <20190804162201.5838-1-nishkadg.linux@gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190804162201.5838-1-nishkadg.linux@gmail.com>
-User-Agent: Mutt/1.10.0 (2018-05-17)
-Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
- agross@kernel.org, srinivas.kandagatla@linaro.org
-Subject: Re: [alsa-devel] [PATCH] slimbus: qcom-ngd-ctrl: Add of_node_put()
-	before return
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6A833F8011B
+ for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 02:00:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A833F8011B
+Date: 06 Aug 2019 09:00:55 +0900
+X-IronPort-AV: E=Sophos;i="5.64,350,1559487600"; d="scan'208";a="23182524"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 06 Aug 2019 09:00:55 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id A24DB4007556;
+ Tue,  6 Aug 2019 09:00:55 +0900 (JST)
+Message-ID: <8736if4145.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <6c3a00c9-fa0c-98ea-c4f1-34e995d80559@linux.intel.com>
+References: <87pnlx5rq3.wl-kuninori.morimoto.gx@renesas.com>
+ <87o91h5rp5.wl-kuninori.morimoto.gx@renesas.com>
+ <20190805154512.GJ6432@sirena.org.uk>
+ <6c3a00c9-fa0c-98ea-c4f1-34e995d80559@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ "Rojewski, Cezary" <cezary.rojewski@intel.com>
+Subject: Re: [alsa-devel] [PATCH v2 01/29] ASoC: Intel: skl-pcm: disable
+	skl_get_time_info
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,46 +73,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun 04 Aug 09:22 PDT 2019, Nishka Dasgupta wrote:
 
-> Each iteration of for_each_available_child_of_node puts the previous
-> node, but in the case of a return from the middle of the loop, there is
-> no put, thus causing a memory leak. Hence add an of_node_put before the
-> return in two places.
-> Issue found with Coccinelle.
-> 
+Hi Mark, Pierre-Louis
 
-Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+> >> Now, ALSA SoC doesn't setup rtd->ops.get_time_info.
+> >> This means it never used in ALSA SoC even if
+> >> sound driver had .get_time_info.
+> > 
+> >> This patch disable .get_time_info from skl-pcm.c.
+> >> Because we might be going to support it in the future,
+> >> it uses #if 0.
+> > 
+> > The #if 0 here isn't exactly nice...  it'd be better to just implement
+> > get_time_info().
+> 
+> IIRC Cezary's team had a patch reviewed internally at Intel to add the
+> missing pieces, so this will be supported soonish (likely after the
+> Summer break).
 
-> Signed-off-by: Nishka Dasgupta <nishkadg.linux@gmail.com>
-> ---
->  drivers/slimbus/qcom-ngd-ctrl.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/slimbus/qcom-ngd-ctrl.c b/drivers/slimbus/qcom-ngd-ctrl.c
-> index f3585777324c..29fbab55c3b3 100644
-> --- a/drivers/slimbus/qcom-ngd-ctrl.c
-> +++ b/drivers/slimbus/qcom-ngd-ctrl.c
-> @@ -1338,12 +1338,15 @@ static int of_qcom_slim_ngd_register(struct device *parent,
->  			continue;
->  
->  		ngd = kzalloc(sizeof(*ngd), GFP_KERNEL);
-> -		if (!ngd)
-> +		if (!ngd) {
-> +			of_node_put(node);
->  			return -ENOMEM;
-> +		}
->  
->  		ngd->pdev = platform_device_alloc(QCOM_SLIM_NGD_DRV_NAME, id);
->  		if (!ngd->pdev) {
->  			kfree(ngd);
-> +			of_node_put(node);
->  			return -ENOMEM;
->  		}
->  		ngd->id = id;
-> -- 
-> 2.19.1
-> 
+Thanks !! Nice to know.
+Now we can just ignore this patch
+
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706FE828F5
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 03:00:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E780F828F8
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 03:01:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0BB141696;
-	Tue,  6 Aug 2019 02:59:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0BB141696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E5A3169A;
+	Tue,  6 Aug 2019 03:00:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E5A3169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565053241;
-	bh=Ko4naHXyNUFKnYY0UbpFTo6qdoRKNSB+ESSSKzY0RPI=;
+	s=default; t=1565053286;
+	bh=c7+dB2+PYIPr5ThY0MCAB4XRdIA75BJ/Mrc2EEfZcGA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IqsbIE7cwe/bX/8XKf2JsQ0lDIowMxzYGy6J1THK7J91TWoy/FUiiaTC9jB/lEdqj
-	 62zZUphmQaOgCqiHrg1dVIZWEKzg0jJ6WqlkFMph1OaYXEdeI6R4mO0Y8AbenjwQ3t
-	 /3m25TRuemifuPy1A1WYjGmdsu5aMqdSQm6ryNts=
+	b=AtHavC3uwhXYWFl02xjxf7hYXcej69HMTae5jvgF2B2CLLRlNPZK/bFX9wScT71m1
+	 lGB23DCdQW/7iNd1GyFCsGNIuZ7AHQ5yAeEZqEGYRDnWQS3bKJlWwVZsU4ICh8CTvN
+	 ahYa7vLyBzv8LDns9y3usgXOp74xP+YEjIVbcTd4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D9FDF80611;
-	Tue,  6 Aug 2019 02:55:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 890F9F80634;
+	Tue,  6 Aug 2019 02:55:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1DAA4F8059F; Tue,  6 Aug 2019 02:55:40 +0200 (CEST)
+ id A5087F805FC; Tue,  6 Aug 2019 02:55:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBB6BF8059F
- for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 02:55:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBB6BF8059F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D5AEF805E1
+ for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 02:55:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D5AEF805E1
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2019 17:55:35 -0700
+ 05 Aug 2019 17:55:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,350,1559545200"; d="scan'208";a="198153140"
+X-IronPort-AV: E=Sophos;i="5.64,350,1559545200"; d="scan'208";a="198153156"
 Received: from sahluwal-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.252.202.215])
- by fmsmga004.fm.intel.com with ESMTP; 05 Aug 2019 17:55:34 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 05 Aug 2019 17:55:36 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Mon,  5 Aug 2019 19:55:10 -0500
-Message-Id: <20190806005522.22642-6-pierre-louis.bossart@linux.intel.com>
+Date: Mon,  5 Aug 2019 19:55:11 -0500
+Message-Id: <20190806005522.22642-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190806005522.22642-1-pierre-louis.bossart@linux.intel.com>
 References: <20190806005522.22642-1-pierre-louis.bossart@linux.intel.com>
@@ -59,8 +59,8 @@ Cc: tiwai@suse.de, gregkh@linuxfoundation.org, Blauciak@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
  Slawomir <slawomir.blauciak@intel.com>, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: [alsa-devel] [PATCH 05/17] soundwire: export helpers to find row
-	and column values
+Subject: [alsa-devel] [PATCH 06/17] soundwire: cadence_master: use firmware
+	defaults for frame shape
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,87 +78,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add a prefix for common tables and export 2 helpers to set the frame
-shapes based on row/col values.
-
-These changes simplify bandwidth allocation algorithms as well as the
-Cadence parts which all need to convert from frame shape to indices
-used by the standard. These helpers are used in the following patch.
+Remove hard-coding and use firmware (BIOS/DT) values. If they are
+wrong use default 48x2 frame shape.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/bus.h    |  7 +++++--
- drivers/soundwire/stream.c | 14 ++++++++------
- 2 files changed, 13 insertions(+), 8 deletions(-)
+ drivers/soundwire/cadence_master.c | 26 +++++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
-index 648436a995a3..89e74adf96fa 100644
---- a/drivers/soundwire/bus.h
-+++ b/drivers/soundwire/bus.h
-@@ -73,8 +73,11 @@ struct sdw_msg {
+diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+index 5d9729b4d634..89c55e4bb72c 100644
+--- a/drivers/soundwire/cadence_master.c
++++ b/drivers/soundwire/cadence_master.c
+@@ -48,6 +48,8 @@
+ #define CDNS_MCP_SSPSTAT			0xC
+ #define CDNS_MCP_FRAME_SHAPE			0x10
+ #define CDNS_MCP_FRAME_SHAPE_INIT		0x14
++#define CDNS_MCP_FRAME_SHAPE_COL_MASK		GENMASK(2, 0)
++#define CDNS_MCP_FRAME_SHAPE_ROW_OFFSET		3
  
- #define SDW_DOUBLE_RATE_FACTOR		2
+ #define CDNS_MCP_CONFIG_UPDATE			0x18
+ #define CDNS_MCP_CONFIG_UPDATE_BIT		BIT(0)
+@@ -175,7 +177,6 @@
+ /* Driver defaults */
  
--extern int rows[SDW_FRAME_ROWS];
--extern int cols[SDW_FRAME_COLS];
-+extern int sdw_rows[SDW_FRAME_ROWS];
-+extern int sdw_cols[SDW_FRAME_COLS];
+ #define CDNS_DEFAULT_CLK_DIVIDER		0
+-#define CDNS_DEFAULT_FRAME_SHAPE		0x30
+ #define CDNS_DEFAULT_SSP_INTERVAL		0x18
+ #define CDNS_TX_TIMEOUT				2000
+ 
+@@ -901,6 +902,20 @@ int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
+ }
+ EXPORT_SYMBOL(sdw_cdns_pdi_init);
+ 
++static u32 cdns_set_initial_frame_shape(int n_rows, int n_cols)
++{
++	u32 val;
++	int c;
++	int r;
 +
-+int sdw_find_row_index(int row);
-+int sdw_find_col_index(int col);
- 
++	r = sdw_find_row_index(n_rows);
++	c = sdw_find_col_index(n_cols) & CDNS_MCP_FRAME_SHAPE_COL_MASK;
++
++	val = (r << CDNS_MCP_FRAME_SHAPE_ROW_OFFSET) | c;
++
++	return val;
++}
++
  /**
-  * sdw_port_runtime: Runtime port parameters for Master or Slave
-diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index a0476755a459..53f5e790fcd7 100644
---- a/drivers/soundwire/stream.c
-+++ b/drivers/soundwire/stream.c
-@@ -21,37 +21,39 @@
-  * The rows are arranged as per the array index value programmed
-  * in register. The index 15 has dummy value 0 in order to fill hole.
-  */
--int rows[SDW_FRAME_ROWS] = {48, 50, 60, 64, 75, 80, 125, 147,
-+int sdw_rows[SDW_FRAME_ROWS] = {48, 50, 60, 64, 75, 80, 125, 147,
- 			96, 100, 120, 128, 150, 160, 250, 0,
- 			192, 200, 240, 256, 72, 144, 90, 180};
+  * sdw_cdns_init() - Cadence initialization
+  * @cdns: Cadence instance
+@@ -923,8 +938,13 @@ int sdw_cdns_init(struct sdw_cdns *cdns)
+ 	val |= CDNS_DEFAULT_CLK_DIVIDER;
+ 	cdns_writel(cdns, CDNS_MCP_CLK_CTRL0, val);
  
--int cols[SDW_FRAME_COLS] = {2, 4, 6, 8, 10, 12, 14, 16};
-+int sdw_cols[SDW_FRAME_COLS] = {2, 4, 6, 8, 10, 12, 14, 16};
+-	/* Set the default frame shape */
+-	cdns_writel(cdns, CDNS_MCP_FRAME_SHAPE_INIT, CDNS_DEFAULT_FRAME_SHAPE);
++	/*
++	 * Frame shape changes after initialization have to be done
++	 * with the bank switch mechanism
++	 */
++	val = cdns_set_initial_frame_shape(prop->default_row,
++					   prop->default_col);
++	cdns_writel(cdns, CDNS_MCP_FRAME_SHAPE_INIT, val);
  
--static int sdw_find_col_index(int col)
-+int sdw_find_col_index(int col)
- {
- 	int i;
- 
- 	for (i = 0; i < SDW_FRAME_COLS; i++) {
--		if (cols[i] == col)
-+		if (sdw_cols[i] == col)
- 			return i;
- 	}
- 
- 	pr_warn("Requested column not found, selecting lowest column no: 2\n");
- 	return 0;
- }
-+EXPORT_SYMBOL(sdw_find_col_index);
- 
--static int sdw_find_row_index(int row)
-+int sdw_find_row_index(int row)
- {
- 	int i;
- 
- 	for (i = 0; i < SDW_FRAME_ROWS; i++) {
--		if (rows[i] == row)
-+		if (sdw_rows[i] == row)
- 			return i;
- 	}
- 
- 	pr_warn("Requested row not found, selecting lowest row no: 48\n");
- 	return 0;
- }
-+EXPORT_SYMBOL(sdw_find_row_index);
- 
- static int _sdw_program_slave_port_params(struct sdw_bus *bus,
- 					  struct sdw_slave *slave,
+ 	/* Set SSP interval to default value */
+ 	cdns_writel(cdns, CDNS_MCP_SSP_CTRL0, CDNS_DEFAULT_SSP_INTERVAL);
 -- 
 2.20.1
 

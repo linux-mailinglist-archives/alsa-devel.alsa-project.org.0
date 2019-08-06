@@ -2,65 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA68183500
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 17:19:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E656C834D8
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 17:14:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4418D84B;
-	Tue,  6 Aug 2019 17:19:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4418D84B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63CFB165F;
+	Tue,  6 Aug 2019 17:13:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63CFB165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565104790;
-	bh=X9HDgietMGeo5dOVSZ58d6L4ByaPuzyN0hFXv7t18+Y=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NO3NYmoCj4R0NyKHR3kq5ibnsEtHvuZ+EkMmhHB4xhBSJtwZ3ijVGBc5xKF7EVbI6
-	 cB5Dtn5aHTj/VEMGqmjbSeOkEOcUWjnLaBZUXNG5GXiG99EeA0o0XIqIx8a6lepZiM
-	 lbZ1dCeca7/TwfsDPIez9kgcDQY/kWhYpvSGNemU=
+	s=default; t=1565104460;
+	bh=dYaCpgci2WV2rGeWKGQQP6SULWsV3y2pGkaQtfTwuuo=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=q6TDgvmWyIgHDwdnNCMsrp5+eYphTaT8RKk2cKuaenI45mWT7xFVkPIVi18mm77AF
+	 DW8owYh448NXrQjC9PSukxokRXEt6pVwRgTRLIsDDlv+EwIPeitmvTM5nCIZ1nMSUh
+	 FvvHvgMVMMfPtXYIbymxJ0GFLYV78wDN/Ayh2iQE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF823F805F5;
-	Tue,  6 Aug 2019 17:16:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DFEFEF80534;
+	Tue,  6 Aug 2019 17:12:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9890BF805AA; Tue,  6 Aug 2019 17:16:16 +0200 (CEST)
+ id 9F823F804CB; Tue,  6 Aug 2019 17:12:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A7F4BF805A8
- for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 17:16:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7F4BF805A8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2019 08:16:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,353,1559545200"; d="scan'208";a="165012438"
-Received: from tremilla-mobl1.amr.corp.intel.com (HELO [10.251.15.130])
- ([10.251.15.130])
- by orsmga007.jf.intel.com with ESMTP; 06 Aug 2019 08:16:02 -0700
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <871rxz3x7e.wl-kuninori.morimoto.gx@renesas.com>
- <87ftmf2ifk.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <b0fee4cb-2347-7c21-e9b8-ad41133340aa@linux.intel.com>
-Date: Tue, 6 Aug 2019 09:55:21 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <87ftmf2ifk.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH 15/28] ASoC: soc-core: tidyup for
- card->deferred_resume_work
+ by alsa1.perex.cz (Postfix) with ESMTPS id 55220F800F4
+ for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 17:12:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55220F800F4
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 06D7F1A02BD;
+ Tue,  6 Aug 2019 17:12:29 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
+ [134.27.226.22])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id ED6491A062C;
+ Tue,  6 Aug 2019 17:12:28 +0200 (CEST)
+Received: from fsr-ub1864-103.ea.freescale.net
+ (fsr-ub1864-103.ea.freescale.net [10.171.82.17])
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 18B5C205DD;
+ Tue,  6 Aug 2019 17:12:28 +0200 (CEST)
+From: Daniel Baluta <daniel.baluta@nxp.com>
+To: broonie@kernel.org
+Date: Tue,  6 Aug 2019 18:12:09 +0300
+Message-Id: <20190806151214.6783-1-daniel.baluta@nxp.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
+ robh@kernel.org, Daniel Baluta <daniel.baluta@nxp.com>, shengjiu.wang@nxp.com,
+ angus@akkea.ca, tiwai@suse.com, linux-kernel@vger.kernel.org,
+ nicoleotsuka@gmail.com, linux-imx@nxp.com, kernel@pengutronix.de,
+ festevam@gmail.com, mihai.serban@gmail.com, l.stach@pengutronix.de
+Subject: [alsa-devel] [PATCH v3 0/5] Add support for new SAI IP version
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,91 +70,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+So far SAI IPs integrated with imx6 only supported one data line.
+Starting with imx7 and imx8 SAI integration support up to 8 data
+lines. First patch introduce register definition to support this.
 
+New SAI IP version introduces two new registers (Version and Parmeter
+registers) which are placed at the beginning of register address space.
+For this reason we need to fix the register's address. Support for
+this is introduced in patch 3.
 
-On 8/5/19 8:29 PM, Kuninori Morimoto wrote:
-> 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> card->deferred_resume_work is used if CONFIG_PM_SLEEP was defined.
-> but
-> 	1) It is defined even though CONFIG_PM_SLEEP was not defined
-> 	2) randam ifdef code is difficlut to read.
+Changes since v2:
+	- removed patches regarding data line mask because I need to
+	find a better way to describe to model data lines. Perhaps,we
+	only need to specify how many datalines a specific SAI instance
+	supports and then let SAI driver to activate datalines based on
+	the number of channels. Will open the discussion on this on a
+	separate thread.
+	- fixed devicetree documentation as per Nicolin comments and
+	will send a separate patch to convert it to yaml.
 
-typos: random .. difficult
+Changes since v1:
+        - removed patches from Lucas as they were already accepted
+        - addressed comments from Lucas and Nicolin regarding
+        device tree property naming
+        - removed comment saying that "datalines" must be always
+        consecutively enabled (this is not true, checked with IP owner)
+        - added new patch to document newly introduced compatbile
+          strings
+        - removed patch introducing combined mode as I will still need
+        some time to figure out how to properly allow users to set it.
 
-> This patch tidyup these issues.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->   include/sound/soc.h  |  5 +++--
->   sound/soc/soc-core.c | 14 ++++++++++----
->   2 files changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/include/sound/soc.h b/include/sound/soc.h
-> index 6ac6481..85ad971 100644
-> --- a/include/sound/soc.h
-> +++ b/include/sound/soc.h
-> @@ -1058,8 +1058,6 @@ struct snd_soc_card {
->   	int num_of_dapm_routes;
->   	bool fully_routed;
->   
-> -	struct work_struct deferred_resume_work;
-> -
->   	/* lists of probed devices belonging to this card */
->   	struct list_head component_dev_list;
->   	struct list_head list;
-> @@ -1080,6 +1078,9 @@ struct snd_soc_card {
->   #ifdef CONFIG_DEBUG_FS
->   	struct dentry *debugfs_card_root;
->   #endif
-> +#ifdef CONFIG_PM_SLEEP
-> +	struct work_struct deferred_resume_work;
-> +#endif
->   	u32 pop_time;
->   
->   	void *drvdata;
-> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-> index e8ed57a..2536ba4 100644
-> --- a/sound/soc/soc-core.c
-> +++ b/sound/soc/soc-core.c
-> @@ -701,9 +701,18 @@ int snd_soc_resume(struct device *dev)
->   	return 0;
->   }
->   EXPORT_SYMBOL_GPL(snd_soc_resume);
-> +
-> +static void soc_resume_init(struct snd_soc_card *card)
-> +{
-> +	/* deferred resume work */
-> +	INIT_WORK(&card->deferred_resume_work, soc_resume_deferred);
-> +}
->   #else
->   #define snd_soc_suspend NULL
->   #define snd_soc_resume NULL
-> +static inline void soc_resume_init(struct snd_soc_card *card)
-> +{
-> +}
->   #endif
->   
->   static const struct snd_soc_dai_ops null_dai_ops = {
-> @@ -1975,10 +1984,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
->   
->   	soc_init_card_debugfs(card);
->   
-> -#ifdef CONFIG_PM_SLEEP
-> -	/* deferred resume work */
-> -	INIT_WORK(&card->deferred_resume_work, soc_resume_deferred);
-> -#endif
-> +	soc_resume_init(card);
->   
->   	snd_soc_dapm_new_controls(&card->dapm, card->dapm_widgets,
->   				  card->num_dapm_widgets);
-> 
+Daniel Baluta (5):
+  ASoC: fsl_sai: Add registers definition for multiple datalines
+  ASoC: fsl_sai: Update Tx/Rx channel enable mask
+  ASoC: fsl_sai: Add support for SAI new version
+  ASoC: fsl_sai: Add support for imx7ulp/imx8mq
+  ASoC: dt-bindings: Introduce compatible strings for 7ULP and 8MQ
+
+ .../devicetree/bindings/sound/fsl-sai.txt     |   3 +-
+ sound/soc/fsl/fsl_sai.c                       | 320 ++++++++++++------
+ sound/soc/fsl/fsl_sai.h                       |  78 +++--
+ 3 files changed, 273 insertions(+), 128 deletions(-)
+
+-- 
+2.17.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

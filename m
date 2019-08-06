@@ -2,67 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA98B8350B
-	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 17:20:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C7228352A
+	for <lists+alsa-devel@lfdr.de>; Tue,  6 Aug 2019 17:25:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50AFA825;
-	Tue,  6 Aug 2019 17:19:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50AFA825
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D94A1664;
+	Tue,  6 Aug 2019 17:24:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D94A1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565104833;
-	bh=3R5j1fnh1J7eSGiGAYIO911XH59+yGBAKJtJGeuvcU8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565105128;
+	bh=LmM88cMcEBbV0Lo5pWWLHy+L3HbXGR3J5uTkXIQreg8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gW9E5U8cYY4PxowN6yH4yLp6sjE/NQpAjpySWYN6u+tTtOjYiqgLYhTCTg5E6ymc5
-	 GK0vUIBsq5wTvyI0swQgxGys8KlAOw44gsFzDYMozv8GkpwcazME4ufT1ipStZm5Sr
-	 zHcURVlG8aVn037bAipD4fVxcAAakh6BgMs8g1/w=
+	b=iCPSDmvkCQ8iV9unS+qLG9ufQqVX8j/cbn2+y6efZiorIcWnGswgtxknCsgCYl42C
+	 6Iv2u9Sd6QhF7IUiCAQA/G87x6ae4BHFXjN2ufgatlWspTF1i9vYleyNpc0LFRn4Vk
+	 Ue8XL3oxW1Blpf1qqRWR5wBaUjKJcUW+ki6R4tE8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43B44F805E2;
-	Tue,  6 Aug 2019 17:16:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A649F80483;
+	Tue,  6 Aug 2019 17:23:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C769AF805F8; Tue,  6 Aug 2019 17:16:21 +0200 (CEST)
+ id B2C9FF80483; Tue,  6 Aug 2019 17:23:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A34AF805DF
- for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 17:16:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A34AF805DF
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2019 08:16:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,353,1559545200"; d="scan'208";a="165012496"
-Received: from tremilla-mobl1.amr.corp.intel.com (HELO [10.251.15.130])
- ([10.251.15.130])
- by orsmga007.jf.intel.com with ESMTP; 06 Aug 2019 08:16:05 -0700
-To: "Chiang, Mac" <mac.chiang@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-References: <1564646564-24990-1-git-send-email-mac.chiang@intel.com>
- <f8641bba-5da0-1bc8-7580-f9514e2ac718@linux.intel.com>
- <5B37778DAAD9B04DA049B4A421B9B3EE71ED27B5@PGSMSX112.gar.corp.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9d2941e7-b6ab-3001-bd52-cb2c6035259c@linux.intel.com>
-Date: Tue, 6 Aug 2019 10:14:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C6DFF800F4
+ for <alsa-devel@alsa-project.org>; Tue,  6 Aug 2019 17:23:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C6DFF800F4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Wkr5gpVU"
+Received: by mail-wr1-x444.google.com with SMTP id x1so38413452wrr.9
+ for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 08:23:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=odr/LwwtS4mPalaN6ESbuLoaV9Tj61vBV+Buti6dQKs=;
+ b=Wkr5gpVUBwPFtwe7aMYlXu0QCRyLrLWrpwVBqLAGNXi7JlcjK14f5Eyxlh2YYXO3uX
+ hl2G9AogPdxljXjx9HiCAlDxkkKISy/OiNlkAQvn7fxLYl17PYB36zwF+0aQlt8yt2eJ
+ 93Tan+2FxKZ/+VerPk81ksBL0ms3wrw1cqVmHmiOppGELU7gzpkQQ3mSivu9Sn3Ti7W3
+ 17cz1PjB2gSF4vzREVSJPL+mpgu5gplQvh3OPQZzwWSaPYxNmwcQPSj8zCcQpjBQUsi7
+ 6l7LmL7mONcX007+Mh04YXNQp8KWxXxmXWbYopYoiob3lYS/E2JhuiLOJtRhKNmB8Zv3
+ UsVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=odr/LwwtS4mPalaN6ESbuLoaV9Tj61vBV+Buti6dQKs=;
+ b=fdGrHlKWNcWR1nnb+4SgPNEiWnV5f+9/alUtOsrq5vOp2plNQ3YqUh2TO343Lb3+KL
+ stPvIx315NicK6NtYACCuhRgz4DlIxVlkFYimbe5KOItwSCXjXxAfWb1FhlcnRW0CXrd
+ iPD2UHgUlD6U3cgI/YuVzruAQOBoWu7aopfWvKrtuxwUn9RrfJRqXTTvZUPy1ziOM9sf
+ qobuy8MCHTABBGTi7ind6S/sygOi6hqvK8IAduO+Kncn3raumnaKS+ezCFOvik75gdlv
+ 25R4KZqZ9iqh3yJ2lZB3TEWig0AfCF4YmTitgaTY/gxcuIBFaoB/UYve/7/yjb8gJ26F
+ wQTQ==
+X-Gm-Message-State: APjAAAWLFTuWI3lubVGg6qsVH/40XMeJ9s8UyuE2WJLzaaeDEarsdGsz
+ G0Nu5XX2KCfnjtyu5czw0jNM/tZxCkwDkZWXmQE=
+X-Google-Smtp-Source: APXvYqxeI6GgG7w7v2FCZh3kocax8+++ZYu+tr47LIy/bG8jVs0n5UPlQx0djkr8B/y34PLQDVAHtQztP9qr1yLN/qY=
+X-Received: by 2002:a05:6000:14b:: with SMTP id
+ r11mr5446454wrx.196.1565105018109; 
+ Tue, 06 Aug 2019 08:23:38 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <5B37778DAAD9B04DA049B4A421B9B3EE71ED27B5@PGSMSX112.gar.corp.intel.com>
-Content-Language: en-US
-Cc: "M R, Sathya Prakash" <sathya.prakash.m.r@intel.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "Liao, Bard" <bard.liao@intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: boards: Add Cometlake Dialog
- Maxim machine driver
+References: <20190728192429.1514-1-daniel.baluta@nxp.com>
+ <20190728192429.1514-4-daniel.baluta@nxp.com>
+ <20190729202154.GC20594@Asurada-Nvidia.nvidia.com>
+In-Reply-To: <20190729202154.GC20594@Asurada-Nvidia.nvidia.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 6 Aug 2019 18:23:27 +0300
+Message-ID: <CAEnQRZBN5Y+75cpgS2h3LwDj5BkF5cesqu6=V3GuPU4=5pgn6A@mail.gmail.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Devicetree List <devicetree@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
+ Rob Herring <robh@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ Mihai Serban <mihai.serban@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
+Subject: Re: [alsa-devel] [PATCH v2 3/7] ASoC: fsl_sai: Add support to
+	enable multiple data lines
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,272 +103,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 8/6/19 4:11 AM, Chiang, Mac wrote:
-> 
->>> -config SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH
->>> -	tristate "KBL with DA7219 and MAX98357A in I2S Mode"
->>> -	depends on I2C && ACPI
->>> -	depends on MFD_INTEL_LPSS || COMPILE_TEST
->>> -	select SND_SOC_DA7219
->>> -	select SND_SOC_MAX98357A
->>> -	select SND_SOC_DMIC
->>> -	select SND_SOC_HDAC_HDMI
->>> -	help
->>> -	  This adds support for ASoC Onboard Codec I2S machine driver. This
->> will
->>> -	  create an alsa sound card for DA7219 + MAX98357A I2S audio codec.
->>> -	  Say Y if you have such a device.
->>> -
->>>    config SND_SOC_INTEL_KBL_DA7219_MAX98927_MACH
->>>    	tristate "KBL with DA7219 and MAX98927 in I2S Mode"
->>>    	depends on I2C && ACPI
->>> @@ -363,6 +350,24 @@ config SND_SOC_INTEL_KBL_RT5660_MACH
->>>
->>>    endif ## SND_SOC_INTEL_KBL
->>>
->>> +if SND_SOC_INTEL_KBL || SND_SOC_SOF_COMETLAKE_LP
->>> +
->>> +config SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH
->>> +	tristate "KBL with DA7219 and MAX98357A in I2S Mode"
->>> +	depends on I2C && ACPI
->>> +	depends on MFD_INTEL_LPSS || COMPILE_TEST
->>> +	select SND_SOC_DA7219
->>> +	select SND_SOC_MAX98357A
->>> +	select SND_SOC_DMIC
->>> +	select SND_SOC_HDAC_HDMI
->>> +	help
->>> +	  This adds support for ASoC Onboard Codec I2S machine driver. This
->> will
->>> +	  create an alsa sound card for DA7219 + MAX98357A I2S audio codec
->> for
->>> +	  Kabylake/Cometlake platforms.
->>> +	  Say Y if you have such a device.
->>> +
->>> +endif ## SND_SOC_INTEL_KBL || SND_SOC_SOF_COMETLAKE_LP
->>
->> We should not mix generations and SST/SOF drivers like this, it's not going
->> to be maintainable.
->>
->> What you can do is have a common hidden option such as
->>
->> config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
->> 	tristate
->> 	select SND_SOC_DA7219
->> 	select SND_SOC_MAX98357A
->> 	select SND_SOC_DMIC
->> 	select SND_SOC_HDAC_HDMI
->>
->> if SND_SOC_INTEL_KBL
->> config SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH
->> 	tristate "KBL with DA7219 and MAX98357A in I2S Mode"
->> 	depends on I2C && ACPI
->> 	depends on MFD_INTEL_LPSS || COMPILE_TEST
->> 	select SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
->> endif
->>
->>
->> if SND_SOC_SOF_COMETLAKE_LP
->> config SND_SOC_INTEL_CML_LP_DA7219_MAX98357A_MACH
->> 	tristate "CML_LP with DA7219 and MAX98357A in I2S Mode"
->> 	depends on I2C && ACPI
->> 	depends on MFD_INTEL_LPSS || COMPILE_TEST
->> 	select SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
->> endif
->>
->> The other problem I have with this patch is that there are two existing
->> machine drivers with almost the same configuration:
->> bxt_da7219_max98357a
->> kbl_da7219_max98357a
->>
->> Why did you pick the latter?
->> The bxt_da7219_max98357a already supports BXT and GLK, and works with
->> SOF, and it wouldn't be that difficult to extend further. And if you add
->> CML_LP, then we could longer term make the KBL-specific machine driver go
->> away.
->>
->> We really need to stop all this incremental work and reuse machine drivers
->> when the only differences are clock values (24/19.2) and SSP indices.
->>
->> I stop here, not even looking at code differences until we have an agreed
->> direction on code reuse.
->>
-> [Chiang, Mac] I agree and will submit the code changes in reusing of bxt_da7219_max98357a.
-> One question, when reusing bxt_da7219_max98357a, I found the CML cpu_id using "INTEL_FAM6_KABYLAKE_MOBILE 0x8E"?
-> Because we have diff SSP configurations, how to distinguish CML and KBL cpu_id?
-
-Ah, this is interesting. Indeed there are mixed/matched combination of 
-CPU and chipset. If the cpu_id does not give the information, we may 
-have to use the PCI ID which will be different. I am not sure though 
-that this information is passed to the machine driver, so some plumbing 
-may be required.
-
-Let's do this is steps, first add CML to the bxt_da7219_max9837a and 
-then worry about KBL later. Which Chromebook model uses that 
-kbl_da7219_max9837a combination anyways, we'd need to retest that.
-
->>> +
->>>    if SND_SOC_INTEL_GLK || (SND_SOC_SOF_GEMINILAKE  &&
->>> SND_SOC_SOF_HDA_LINK)
->>>
->>>    config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
->>> diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>> b/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>> index 537a889..fe3ac70 100644
->>> --- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>> +++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
->>> @@ -9,6 +9,7 @@
->>>     *   RT5663 codecs
->>>     */
->>>
->>> +#include <asm/cpu_device_id.h>
->>>    #include <linux/input.h>
->>>    #include <linux/module.h>
->>>    #include <linux/platform_device.h>
->>> @@ -17,6 +18,7 @@
->>>    #include <sound/pcm.h>
->>>    #include <sound/pcm_params.h>
->>>    #include <sound/soc.h>
->>> +#include <sound/soc-acpi.h>
->>>    #include "../../codecs/da7219.h"
->>>    #include "../../codecs/hdac_hdmi.h"
->>>    #include "../../codecs/da7219-aad.h"
->>> @@ -210,7 +212,11 @@ static int kabylake_hdmi_init(struct
->> snd_soc_pcm_runtime *rtd, int device)
->>>    	if (!pcm)
->>>    		return -ENOMEM;
->>>
->>> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
->>> +	pcm->device = dai->id;
->>> +#else
->>>    	pcm->device = device;
->>> +#endif
->>>    	pcm->codec_dai = dai;
->>>
->>>    	list_add_tail(&pcm->head, &ctx->hdmi_pcm_list); @@ -587,9
->> +593,17
->>> @@ static struct snd_soc_card kabylake_audio_card_da7219_m98357a = {
->>>    	.late_probe = kabylake_card_late_probe,
->>>    };
->>>
->>> +static const struct x86_cpu_id cml_ids[] = {
->>> +	{ X86_VENDOR_INTEL, 6, 0x8E }, /* Cometlake CPU_ID */
->>> +	{}
->>> +};
->>> +
->>>    static int kabylake_audio_probe(struct platform_device *pdev)
->>>    {
->>>    	struct kbl_codec_private *ctx;
->>> +	struct snd_soc_acpi_mach *mach;
->>> +	const char *platform_name;
->>> +	int ret;
->>>
->>>    	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
->>>    	if (!ctx)
->>> @@ -600,17 +614,46 @@ static int kabylake_audio_probe(struct
->> platform_device *pdev)
->>>    	kabylake_audio_card =
->>>    		(struct snd_soc_card *)pdev->id_entry->driver_data;
->>>
->>> +	kabylake_audio_card = &kabylake_audio_card_da7219_m98357a;
->>> +
->>>    	kabylake_audio_card->dev = &pdev->dev;
->>>    	snd_soc_card_set_drvdata(kabylake_audio_card, ctx);
->>> +
->>> +	if (x86_match_cpu(cml_ids)) {
->>> +		unsigned int i;
->>> +
->>> +		kabylake_audio_card->name = "cmlda7219max";
->>> +
->>> +		for (i = 0; i < ARRAY_SIZE(kabylake_dais); i++) {
->>> +			/* MAXIM_CODEC is connected to SSP1. */
->>> +			if (!strcmp(kabylake_dais[i].cpus->dai_name,
->>> +					KBL_MAXIM_CODEC_DAI)) {
->>> +				kabylake_dais[i].name = "SSP1-Codec";
->>> +				kabylake_dais[i].cpus->dai_name = "SSP1 Pin";
->>> +			}
->>> +			/* DIALOG_CODEC is connected to SSP0 */
->>> +			else if (!strcmp(kabylake_dais[i].cpus->dai_name,
->>> +					KBL_DIALOG_CODEC_DAI)) {
->>> +				kabylake_dais[i].name = "SSP0-Codec";
->>> +				kabylake_dais[i].cpus->dai_name = "SSP0 Pin";
->>> +			}
->>> +		}
->>> +	}
->>> +
->>> +	mach = (&pdev->dev)->platform_data;
->>> +	platform_name = mach->mach_params.platform;
->>> +
->>> +	ret = snd_soc_fixup_dai_links_platform_name(kabylake_audio_card,
->>> +							platform_name);
->>> +	if (ret)
->>> +		return ret;
->>> +
->>>    	return devm_snd_soc_register_card(&pdev->dev,
->> kabylake_audio_card);
->>>    }
->>>
->>>    static const struct platform_device_id kbl_board_ids[] = {
->>> -	{
->>> -		.name = "kbl_da7219_max98357a",
->>> -		.driver_data =
->>> -			(kernel_ulong_t)&kabylake_audio_card_da7219_m98357a,
->>> -	},
->>> +	{.name = "kbl_da7219_max98357a",},
->>> +	{.name = "cml_da7219_max98357a",},
->>>    	{ }
->>>    };
->>>
->>> @@ -628,5 +671,7 @@ module_platform_driver(kabylake_audio)
->>>    /* Module information */
->>>    MODULE_DESCRIPTION("Audio Machine driver-DA7219 & MAX98357A
->> in I2S mode");
->>>    MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
->>> +MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
->>>    MODULE_LICENSE("GPL v2");
->>>    MODULE_ALIAS("platform:kbl_da7219_max98357a");
->>> +MODULE_ALIAS("platform:cml_da7219_max98357a");
->>> diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
->>> b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
->>> index c36c0aa..4ea32b2 100644
->>> --- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
->>> +++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
->>> @@ -19,6 +19,11 @@ static struct snd_soc_acpi_codecs cml_codecs = {
->>>    	.codecs = {"10EC5682"}
->>>    };
->>>
->>> +static struct snd_soc_acpi_codecs cml_spk_codecs = {
->>> +	.num_codecs = 1,
->>> +	.codecs = {"MX98357A"}
->>> +};
->>> +
->>>    struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
->>>    	{
->>>    		.id = "INT34C2",
->>> @@ -29,6 +34,13 @@ struct snd_soc_acpi_mach
->> snd_soc_acpi_intel_cnl_machines[] = {
->>>    		.sof_tplg_filename = "sof-cnl-rt274.tplg",
->>>    	},
->>>    	{
->>> +		.id = "DLGS7219",
->>> +		.drv_name = "cml_da7219_max98357a",
->>> +		.quirk_data = &cml_spk_codecs,
->>> +		.sof_fw_filename = "sof-cnl.ri",
->>> +		.sof_tplg_filename = "sof-cml-da7219-max98357a.tplg",
->>> +	},
->>> +	{
->>>    		.id = "MX98357A",
->>>    		.drv_name = "sof_rt5682",
->>>    		.quirk_data = &cml_codecs,
->>>
-> 
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gTW9uLCBKdWwgMjksIDIwMTkgYXQgMTE6MjIgUE0gTmljb2xpbiBDaGVuIDxuaWNvbGVvdHN1
+a2FAZ21haWwuY29tPiB3cm90ZToKPgo+IE9uIFN1biwgSnVsIDI4LCAyMDE5IGF0IDEwOjI0OjI1
+UE0gKzAzMDAsIERhbmllbCBCYWx1dGEgd3JvdGU6Cj4gPiBTQUkgc3VwcG9ydHMgdXAgdG8gOCBS
+eC9UeCBkYXRhIGxpbmVzIHdoaWNoIGNhbiBiZSBlbmFibGVkCj4gPiB1c2luZyBUQ0UvUkNFIGJp
+dHMgb2YgVENSMy9SQ1IzIHJlZ2lzdGVycy4KPiA+Cj4gPiBEYXRhIGxpbmVzIHRvIGJlIGVuYWJs
+ZWQgYXJlIHJlYWQgZnJvbSBEVCBmc2wsZGwtbWFzayBwcm9wZXJ0eS4KPiA+IEJ5IGRlZmF1bHQg
+KGlmIG5vIERUIGVudHJ5IGlzIHByb3ZpZGVkKSBvbmx5IGRhdGEgbGluZSAwIGlzIGVuYWJsZWQu
+Cj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIEJhbHV0YSA8ZGFuaWVsLmJhbHV0YUBueHAu
+Y29tPgo+ID4gLS0tCj4gPiAgc291bmQvc29jL2ZzbC9mc2xfc2FpLmMgfCAxMSArKysrKysrKysr
+LQo+ID4gIHNvdW5kL3NvYy9mc2wvZnNsX3NhaS5oIHwgIDQgKysrLQo+ID4gIDIgZmlsZXMgY2hh
+bmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0
+IGEvc291bmQvc29jL2ZzbC9mc2xfc2FpLmMgYi9zb3VuZC9zb2MvZnNsL2ZzbF9zYWkuYwo+ID4g
+aW5kZXggNjM3YjFkMTJhNTc1Li41ZTdjYjdmZDI5ZjUgMTAwNjQ0Cj4gPiAtLS0gYS9zb3VuZC9z
+b2MvZnNsL2ZzbF9zYWkuYwo+ID4gKysrIGIvc291bmQvc29jL2ZzbC9mc2xfc2FpLmMKPiA+IEBA
+IC02MDEsNyArNjAxLDcgQEAgc3RhdGljIGludCBmc2xfc2FpX3N0YXJ0dXAoc3RydWN0IHNuZF9w
+Y21fc3Vic3RyZWFtICpzdWJzdHJlYW0sCj4gPgo+ID4gICAgICAgcmVnbWFwX3VwZGF0ZV9iaXRz
+KHNhaS0+cmVnbWFwLCBGU0xfU0FJX3hDUjModHgpLAo+ID4gICAgICAgICAgICAgICAgICAgICAg
+ICAgIEZTTF9TQUlfQ1IzX1RSQ0VfTUFTSywKPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICBG
+U0xfU0FJX0NSM19UUkNFKTsKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICBGU0xfU0FJX0NS
+M19UUkNFKHNhaS0+c29jX2RhdGEtPmRsX21hc2tbdHhdKTsKPiA+Cj4gPiAgICAgICByZXQgPSBz
+bmRfcGNtX2h3X2NvbnN0cmFpbnRfbGlzdChzdWJzdHJlYW0tPnJ1bnRpbWUsIDAsCj4gPiAgICAg
+ICAgICAgICAgICAgICAgICAgU05EUlZfUENNX0hXX1BBUkFNX1JBVEUsICZmc2xfc2FpX3JhdGVf
+Y29uc3RyYWludHMpOwo+ID4gQEAgLTg4OCw2ICs4ODgsMTUgQEAgc3RhdGljIGludCBmc2xfc2Fp
+X3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gPiAgICAgICAgICAgICAgIH0K
+PiA+ICAgICAgIH0KPiA+Cj4gPiArICAgICAvKgo+ID4gKyAgICAgICogYWN0aXZlIGRhdGEgbGlu
+ZXMgbWFzayBmb3IgVFgvUlgsIGRlZmF1bHRzIHRvIDEgKG9ubHkgdGhlIGZpcnN0Cj4gPiArICAg
+ICAgKiBkYXRhIGxpbmUgaXMgZW5hYmxlZAo+ID4gKyAgICAgICovCj4gPiArICAgICBzYWktPmRs
+X21hc2tbUlhdID0gMTsKPiA+ICsgICAgIHNhaS0+ZGxfbWFza1tUWF0gPSAxOwo+ID4gKyAgICAg
+b2ZfcHJvcGVydHlfcmVhZF91MzJfaW5kZXgobnAsICJmc2wsZGwtbWFzayIsIFJYLCAmc2FpLT5k
+bF9tYXNrW1JYXSk7Cj4gPiArICAgICBvZl9wcm9wZXJ0eV9yZWFkX3UzMl9pbmRleChucCwgImZz
+bCxkbC1tYXNrIiwgVFgsICZzYWktPmRsX21hc2tbVFhdKTsKPgo+IEp1c3QgY3VyaW91cyB3aGF0
+IGlmIHdlIGVuYWJsZSA4IGRhdGEgbGluZXMgdGhyb3VnaCBEVCBiaW5kaW5ncwo+IHdoaWxlIGFu
+IGF1ZGlvIGZpbGUgb25seSBoYXMgMSBvciAyIGNoYW5uZWxzLiBXaWxsIFRSQ0UgYml0cyBiZQo+
+IG9rYXkgdG8gc3RheSB3aXRoIDggZGF0YSBjaGFubmVscyBjb25maWd1cmF0aW9ucz8gQnR3LCBo
+b3cgZG9lcwo+IERNQSB3b3JrIGZvciB0aGUgZGF0YSByZWdpc3RlcnM/IEVTQUkgaGFzIG9uZSBl
+bnRyeSBhdCBhIGZpeGVkCj4gYWRkcmVzcyBmb3IgYWxsIGRhdGEgY2hhbm5lbHMgd2hpbGUgU0FJ
+IHNlZW1zIHRvIGhhdmUgZGlmZmVyZW50Cj4gZGF0YSByZWdpc3RlcnMuCgpIaSBOaWNvbGluLAoK
+SSBoYXZlIHNlbnQgdjMgYW5kIHJlbW92ZWQgdGhpcyBwYXRjaCBmcm9tIHRoZSBzZXJpZXMgYmVj
+YXVzZSB3ZQpuZWVkIHRvIGZpbmQgYSBiZXR0ZXIgc29sdXRpb24uCgpJIHRoaW5rIHdlIHNob3Vs
+ZCBlbmFibGUgVENFIGJhc2VkIG9uIHRoZSBudW1iZXIgb2YgYXZhaWxhYmxlIGRhdGFsaW5lcwph
+bmQgdGhlIG51bWJlciBvZiBhY3RpdmUgY2hhbm5lbHMuICBXaWxsIGNvbWUgd2l0aCBhIFJGQyBw
+YXRjaCBsYXRlci4KClBhc3RpbmcgaGVyZSB0aGUgcmVwbHkgb2YgU0FJIEF1ZGlvIElQIG93bmVy
+IHJlZ2FyZGluZyB0byB5b3VyIHF1ZXN0aW9uIGFib3ZlLApqdXN0IGZvciBhbnlvbmUgdG8gaGF2
+ZSBtb3JlIGluZm8gb2Ygb3VyIHByaXZhdGUgZGlzY3Vzc2lvbjoKCklmIGFsbCA4IGRhdGFsaW5l
+cyBhcmUgZW5hYmxlZCB1c2luZyBUQ0UgdGhlbiB0aGUgdHJhbnNtaXQgRklGTyBmb3IKYWxsIDgg
+ZGF0YWxpbmVzIG5lZWQgdG8gYmUgc2VydmljZWQsIG90aGVyd2lzZSBhIEZJRk8gdW5kZXJydW4g
+d2lsbCBiZQpnZW5lcmF0ZWQuCkVhY2ggZGF0YWxpbmUgaGFzIGEgc2VwYXJhdGUgdHJhbnNtaXQg
+RklGTyB3aXRoIGEgc2VwYXJhdGUgcmVnaXN0ZXIgdG8Kc2VydmljZSB0aGUgRklGTywgc28gZWFj
+aCBkYXRhbGluZSBjYW4gYmUgc2VydmljZWQgc2VwYXJhdGVseS4gTm90ZQp0aGF0IGNvbmZpZ3Vy
+aW5nIEZDT01CPTIgd291bGQgbWFrZSBpdCBsb29rIGxpa2UgRVNBSSB3aXRoIGEgY29tbW9uCmFk
+ZHJlc3MgZm9yIGFsbCBGSUZPcy4KV2hlbiBwZXJmb3JtaW5nIERNQSB0cmFuc2ZlcnMgdG8gbXVs
+dGlwbGUgZGF0YWxpbmVzLCB0aGVyZSBhcmUgYQpjb3VwbGUgb2Ygb3B0aW9uczoKICAgICogVXNl
+IDEgRE1BIGNoYW5uZWwgdG8gY29weSBmaXJzdCBzbG90IGZvciBlYWNoIGRhdGFsaW5lIHRvIGVh
+Y2gKRklGTyBhbmQgdGhlbiB1cGRhdGUgdGhlIGRlc3RpbmF0aW9uIGFkZHJlc3MgYmFjayB0byB0
+aGUgZmlyc3QKcmVnaXN0ZXIuCiAgICAqIENvbmZpZ3VyZSBzZXBhcmF0ZSBETUEgY2hhbm5lbCBm
+b3IgZWFjaCBkYXRhbGluZSBhbmQgdHJpZ2dlciB0aGUKZmlyc3Qgb25lIGJ5IHRoZSBETUEgcmVx
+dWVzdCBhbmQgdGhlIHN1YnNlcXVlbnQgY2hhbm5lbHMgYnkgRE1BCmxpbmtpbmcgb3Igc2NhdHRl
+ci9nYXRoZXIuCiAgICAqIENvbmZpZ3VyZSBGQ09NQj0yIGFuZCB0cmVhdCBpdCB0aGUgc2FtZSBh
+cyB0aGUgRVNBSS4gVGhpcyBpcwphbG1vc3QgdGhlIHNhbWUgYXMgMSwgYnV0IGRvbuKAmXQgbmVl
+ZCB0byB1cGRhdGUgdGhlIGRlc3RpbmF0aW9uCmFkZHJlc3MuCgpUaGFua3MsCkRhbmllbC4KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBt
+YWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5h
+bHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

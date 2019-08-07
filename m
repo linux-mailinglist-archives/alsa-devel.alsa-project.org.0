@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CC9A84D19
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:31:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ACF484D76
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:36:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68D9A165D;
-	Wed,  7 Aug 2019 15:30:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68D9A165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9193851;
+	Wed,  7 Aug 2019 15:36:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9193851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565184709;
-	bh=BzWwgIK491H6WOdM+9VCYPAhpcsn7TUJAhfW5QNk538=;
+	s=default; t=1565185010;
+	bh=gRvuBFDjiqSe/MiAg+QiKt4btdEuCt0h4QJwBkD8LOA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=oo4m+WE2Og6taIzmmIVNmjUrsnBJGlalz8BwNa7Ea5BjGLHRwxtG1mCzivzblD3Wt
-	 yP+9L0eYQ0rfBu5GDR++vPKOcew92GW+dIWrpa0qLPlVxlsbvKE9EQj42K4CgVs44C
-	 O7tyMNqs2XNoNGHf301cRwZWEvNwznA/i0LJt+fU=
+	b=G7YZHv+oiAS5CyCDwjPLHlM3B0spCyFfSBINq8nA1fBfyHX8F83aGl2KprohN6X4Y
+	 NIsgiY9jnMSCH2zdOxU8RjzRwWeUkpckklX5JZXFzSU6ArYfAoZsxymCvzvW/pIti4
+	 dXXUHxWymtFTswzWOVRp2OmuJaQoiwDwZCVqKSCw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CDD2CF800F3;
-	Wed,  7 Aug 2019 15:30:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7AA6F80641;
+	Wed,  7 Aug 2019 15:31:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD5AFF805F8; Wed,  7 Aug 2019 15:30:52 +0200 (CEST)
+ id 14953F8060D; Wed,  7 Aug 2019 15:31:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5A43F80290
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CDB3F80483
  for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5A43F80290
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CDB3F80483
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Gi2Qacwm"
+ header.b="gFrCwbG8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2/sMqwhzqZ98kxVH8kT7gDulHN8IzK6v0PFzyunBY1o=; b=Gi2QacwmOXk5
- zFEhftXN3ztmXND8c9GWwJ5m327f2szv4iW3NgZMrpE5ob9vtx+/V4NpiOMJGXDBEohQwZX0/i9/f
- 8kHg5rv0yLy3n8nzFRqtx4jrM9Zv+/6/oJgwq8uIBOJFHC25K+wMY6R/u8PvtgL5iQuKyTcQHV/Uo
- 3G9tg=;
+ List-Archive; bh=BI9jLMmnfwsQUyiCETMDSlqXdBGhVqbD7uNqXr09SvE=; b=gFrCwbG8QpqT
+ bmkF7qlc8sYgBYn0TMJAZouZP5W3kBUuSO136He2ckN2fKAAGc36grm6CwWIsvXpJSynFY+W2cIMa
+ O1MnP9Qz6np5Vu/EyWRmsXCDu0xWRJrD3k9pFbQ1BH7jxRP5SNyHXffgT2pjtMp2Sn+NfGkMvMSJN
+ OV3hc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvM1g-0007fN-Q3; Wed, 07 Aug 2019 13:30:48 +0000
+ id 1hvM1h-0007fU-8B; Wed, 07 Aug 2019 13:30:49 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4E0762742BE8; Wed,  7 Aug 2019 14:30:48 +0100 (BST)
+ id BE4F2274304E; Wed,  7 Aug 2019 14:30:48 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87imr9ahp9.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87lfw5ahpj.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190807133048.4E0762742BE8@ypsilon.sirena.org.uk>
+Message-Id: <20190807133048.BE4F2274304E@ypsilon.sirena.org.uk>
 Date: Wed,  7 Aug 2019 14:30:48 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: don't use
-	for_each_card_links_safe() at snd_soc_find_dai_link()" to the
-	asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: add comment for for_each_xxx"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: don't use for_each_card_links_safe() at snd_soc_find_dai_link()
+   ASoC: soc-core: add comment for for_each_xxx
 
 has been applied to the asoc tree at
 
@@ -113,41 +112,43 @@ to this mail.
 Thanks,
 Mark
 
-From 42849064500b24892e2abfe8679507dfffd585f1 Mon Sep 17 00:00:00 2001
+From 6634e3d6ea8cd92fce10d1d2da0c8e42ab84da32 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 7 Aug 2019 10:30:41 +0900
-Subject: [PATCH] ASoC: soc-core: don't use for_each_card_links_safe() at
- snd_soc_find_dai_link()
+Date: Wed, 7 Aug 2019 10:30:31 +0900
+Subject: [PATCH] ASoC: soc-core: add comment for for_each_xxx
 
-It doesn't removes list during loop at snd_soc_find_dai_link().
-We don't need to use _safe loop.
+soc-core has many for_each_xxx, but it is a little bit
+difficult to know which list is relead to which for_each_xxx.
+This patch adds missing comment for it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87imr9ahp9.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87lfw5ahpj.wl-kuninori.morimoto.gx@renesas.com
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 7345679d4903..e176b972e4e6 100644
+index 2f37c4e0974b..5e6a48a0f79e 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -817,11 +817,11 @@ struct snd_soc_dai_link *snd_soc_find_dai_link(struct snd_soc_card *card,
- 					       int id, const char *name,
- 					       const char *stream_name)
+@@ -380,6 +380,7 @@ static void soc_free_pcm_runtime(struct snd_soc_pcm_runtime *rtd)
+ static void soc_add_pcm_runtime(struct snd_soc_card *card,
+ 		struct snd_soc_pcm_runtime *rtd)
  {
--	struct snd_soc_dai_link *link, *_link;
-+	struct snd_soc_dai_link *link;
++	/* see for_each_card_rtds */
+ 	list_add_tail(&rtd->list, &card->rtd_list);
+ 	rtd->num = card->num_rtd;
+ 	card->num_rtd++;
+@@ -1149,6 +1150,7 @@ int snd_soc_add_dai_link(struct snd_soc_card *card,
+ 	if (dai_link->dobj.type && card->add_dai_link)
+ 		card->add_dai_link(card, dai_link);
  
- 	lockdep_assert_held(&client_mutex);
++	/* see for_each_card_links */
+ 	list_add_tail(&dai_link->list, &card->dai_link_list);
  
--	for_each_card_links_safe(card, link, _link) {
-+	for_each_card_links(card, link) {
- 		if (link->id != id)
- 			continue;
- 
+ 	return 0;
 -- 
 2.20.1
 

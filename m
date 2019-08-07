@@ -2,62 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 198C484572
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 09:12:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74A9D84595
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 09:20:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F476950;
-	Wed,  7 Aug 2019 09:11:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F476950
+	by alsa0.perex.cz (Postfix) with ESMTPS id E892C1666;
+	Wed,  7 Aug 2019 09:19:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E892C1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565161949;
-	bh=f/zeaHtWgo0fawG7amW05Bwa0kVx7EczHgyDJG0p5bc=;
-	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=I6oQMctGAt3meU4gSWyBR4oxhIoxGdSq2u2k+vRuCXkHTL7YawCb8LsC/KzhnxW4R
-	 8FWimbA/kc49z19uOsD9rNq8KWEAXkcF2Rtm/ZfNfj9uVtYxK5kkjNbRu3JiFMSmel
-	 vLzwWjA0YGb2D6zDQLSYBtmVLLu7tD5TjV9TJKQw=
+	s=default; t=1565162443;
+	bh=ZyVnrdNr4l107iFdtjs13xD4cI/gT+/pOvWY0RiLRMg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dLu6TKgMlQUa+9F7jvoOUQWzBFX/BW0FI1xLsb2ieKILH25ilcL78U9HELoN52OqA
+	 IqEEwk1FXerkxMVvpjpCRnROCsvdXm6qqvNDzHEqnGL9e3msA7EzvHyte5BnoTshP/
+	 0mS2pT+8obV+NYpzqP7ceeL+Q+ruXyekshaJ2f3g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C619F804CA;
-	Wed,  7 Aug 2019 09:10:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 307FAF80227;
+	Wed,  7 Aug 2019 09:18:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E839F80290; Wed,  7 Aug 2019 09:10:43 +0200 (CEST)
+ id 72971F80290; Wed,  7 Aug 2019 09:18:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from ajax.cs.uga.edu (ajax.cs.uga.edu [128.192.4.6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3ACF7F800F4
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 09:10:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ACF7F800F4
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
- [209.85.208.173]) (authenticated bits=0)
- by ajax.cs.uga.edu (8.14.4/8.14.4) with ESMTP id x777Aapi061016
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)
- for <alsa-devel@alsa-project.org>; Wed, 7 Aug 2019 03:10:37 -0400
-Received: by mail-lj1-f173.google.com with SMTP id z28so30238060ljn.4
- for <alsa-devel@alsa-project.org>; Wed, 07 Aug 2019 00:10:37 -0700 (PDT)
-X-Gm-Message-State: APjAAAUB1ISxWfnGGS6nEumcv7VKSska+RR4oxq6KXRgdWmsf9ewcpVB
- G79zTKeuPDMXJ2Pa388lhQN7Nkp4C5DAn9kgMjE=
-X-Google-Smtp-Source: APXvYqwTvZanyI0YZ9uQfaH1U+yBWhv+RJAwn5jJTqCGs8BDn7kVZC6l4H9aknl4nymRLzxWK49L4da/xdA1y1Rxk4s=
-X-Received: by 2002:a2e:8892:: with SMTP id k18mr4034234lji.239.1565161835957; 
- Wed, 07 Aug 2019 00:10:35 -0700 (PDT)
-MIME-Version: 1.0
-From: Wenwen Wang <wenwen@cs.uga.edu>
-Date: Wed, 7 Aug 2019 03:09:59 -0400
-X-Gmail-Original-Message-ID: <CAAa=b7dkPm4JqF4_cPwJo_6_aoobr6OyezCb2A9-aAFHNWffeQ@mail.gmail.com>
-Message-ID: <CAAa=b7dkPm4JqF4_cPwJo_6_aoobr6OyezCb2A9-aAFHNWffeQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 848D9F800F3
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 09:18:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 848D9F800F3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 7A192AF40;
+ Wed,  7 Aug 2019 07:18:52 +0000 (UTC)
+Date: Wed, 07 Aug 2019 09:18:52 +0200
+Message-ID: <s5hv9v9moir.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: Wenwen Wang <wenwen@cs.uga.edu>
+In-Reply-To: <CAAa=b7dkPm4JqF4_cPwJo_6_aoobr6OyezCb2A9-aAFHNWffeQ@mail.gmail.com>
+References: <CAAa=b7dkPm4JqF4_cPwJo_6_aoobr6OyezCb2A9-aAFHNWffeQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: "moderated list:SOUND" <alsa-devel@alsa-project.org>,
  open list <linux-kernel@vger.kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
  Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
-Subject: [alsa-devel] [PATCH v2] ALSA: pcm: fix multiple memory leak bugs
+Subject: Re: [alsa-devel] [PATCH v2] ALSA: pcm: fix multiple memory leak bugs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,47 +72,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In hiface_pcm_init(), 'rt' is firstly allocated through kzalloc(). Later
-on, hiface_pcm_init_urb() is invoked to initialize 'rt->out_urbs[i]'. In
-hiface_pcm_init_urb(), 'rt->out_urbs[i].buffer' is allocated through
-kzalloc().  However, if hiface_pcm_init_urb() fails, both 'rt' and
-'rt->out_urbs[i].buffer' are not deallocated, leading to memory leak bugs.
-Also, 'rt->out_urbs[i].buffer' is not deallocated if snd_pcm_new() fails.
+On Wed, 07 Aug 2019 09:09:59 +0200,
+Wenwen Wang wrote:
+> 
+> In hiface_pcm_init(), 'rt' is firstly allocated through kzalloc(). Later
+> on, hiface_pcm_init_urb() is invoked to initialize 'rt->out_urbs[i]'. In
+> hiface_pcm_init_urb(), 'rt->out_urbs[i].buffer' is allocated through
+> kzalloc().  However, if hiface_pcm_init_urb() fails, both 'rt' and
+> 'rt->out_urbs[i].buffer' are not deallocated, leading to memory leak bugs.
+> Also, 'rt->out_urbs[i].buffer' is not deallocated if snd_pcm_new() fails.
+> 
+> To fix the above issues, free 'rt' and 'rt->out_urbs[i].buffer'.
+> 
+> Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
+> ---
+>  sound/usb/hiface/pcm.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/usb/hiface/pcm.c b/sound/usb/hiface/pcm.c
+> index 14fc1e1..9b132aa 100644
+> --- a/sound/usb/hiface/pcm.c
+> +++ b/sound/usb/hiface/pcm.c
+> @@ -599,12 +599,18 @@ int hiface_pcm_init(struct hiface_chip *chip, u8
+> extra_freq)
+>         for (i = 0; i < PCM_N_URBS; i++) {
+>                 ret = hiface_pcm_init_urb(&rt->out_urbs[i], chip, OUT_EP,
+>                                     hiface_pcm_out_urb_handler);
+> -               if (ret < 0)
+> +               if (ret < 0) {
+> +                       for (; i >= 0; i--)
+> +                               kfree(rt->out_urbs[i].buffer);
+> +                       kfree(rt);
+>                         return ret;
+> +               }
+>         }
+> 
+>         ret = snd_pcm_new(chip->card, "USB-SPDIF Audio", 0, 1, 0, &pcm);
+>         if (ret < 0) {
+> +               for (i = 0; i < PCM_N_URBS; i++)
+> +                       kfree(rt->out_urbs[i].buffer);
+>                 kfree(rt);
+>                 dev_err(&chip->dev->dev, "Cannot create pcm instance\n");
+>                 return ret;
 
-To fix the above issues, free 'rt' and 'rt->out_urbs[i].buffer'.
+The fixes look correct, but since we can unconditionally call kfree()
+for NULL, both error paths can be unified as:
 
-Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
----
- sound/usb/hiface/pcm.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+	for (i = 0; i < PCM_N_URBS; i++)
+		kfree(rt->out_urbs[i].buffer);
+	kfree(rt);
 
-diff --git a/sound/usb/hiface/pcm.c b/sound/usb/hiface/pcm.c
-index 14fc1e1..9b132aa 100644
---- a/sound/usb/hiface/pcm.c
-+++ b/sound/usb/hiface/pcm.c
-@@ -599,12 +599,18 @@ int hiface_pcm_init(struct hiface_chip *chip, u8
-extra_freq)
-        for (i = 0; i < PCM_N_URBS; i++) {
-                ret = hiface_pcm_init_urb(&rt->out_urbs[i], chip, OUT_EP,
-                                    hiface_pcm_out_urb_handler);
--               if (ret < 0)
-+               if (ret < 0) {
-+                       for (; i >= 0; i--)
-+                               kfree(rt->out_urbs[i].buffer);
-+                       kfree(rt);
-                        return ret;
-+               }
-        }
+and this would be better to be put in the common path at the end and
+do "goto error" or such from both places.
 
-        ret = snd_pcm_new(chip->card, "USB-SPDIF Audio", 0, 1, 0, &pcm);
-        if (ret < 0) {
-+               for (i = 0; i < PCM_N_URBS; i++)
-+                       kfree(rt->out_urbs[i].buffer);
-                kfree(rt);
-                dev_err(&chip->dev->dev, "Cannot create pcm instance\n");
-                return ret;
--- 
-2.7.4
+
+BTW, your patch doesn't seem cleanly applicable in anyway because the
+tabs are converted to spaces.  Please check the mail setup.
+
+Also, please try to make the subject line more unique.  This is about
+hiface driver, so "ALSA: hiface: xxx" should be more appropriate.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

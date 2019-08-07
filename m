@@ -2,85 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DA4B842E3
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 05:23:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8775F842E4
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 05:23:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 99BCA857;
-	Wed,  7 Aug 2019 05:22:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99BCA857
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD3581665;
+	Wed,  7 Aug 2019 05:22:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD3581665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565148180;
-	bh=0nCnpqyT+Do/E1xuHQUPofgSJAHLElVzXyhdSNQpB6E=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TOivmbMqcDncJjcz7lgxB5JxN1GjvxZA5iEU7J6m26a5f0g5RfzkgkF8aXxDZ7hD9
-	 UvaevqsHSPu7LPSWb6m5Vv7HQv7bzuP406QPo5U7DnSlhU2UTw5gZ/m2OXaz+pIfTO
-	 xc5UyII9KxPO48yrw1WjVimHyD6kss92SP2UAAsc=
+	s=default; t=1565148228;
+	bh=7nMihNHho8ir+6mp3Ci5S/F65R3NOLUZLD9zLn6Awp8=;
+	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=EzTwvtfaJ103gQAvCoSthSdQk9+8AoKplOSEQkKB49AdwrYQZrfBbYWlgLRHPRe+5
+	 9qx8JjAIiyOfY/HbtzNX5FxI2Uzufepe8O3Ovs9dTguyLSB6UztBKMHOUkNYwM0qYk
+	 sw0rTQJboPK7wAeXHoa7bCLHFUpbHUcw6xy/YbjE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5873AF80227;
-	Wed,  7 Aug 2019 05:21:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DF27F804CA;
+	Wed,  7 Aug 2019 05:22:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED0C8F80290; Wed,  7 Aug 2019 05:21:13 +0200 (CEST)
+ id 1E3BDF804CA; Wed,  7 Aug 2019 05:22:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-yw1-xc44.google.com (mail-yw1-xc44.google.com
- [IPv6:2607:f8b0:4864:20::c44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from ajax.cs.uga.edu (ajax.cs.uga.edu [128.192.4.6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1625EF800F4
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 05:21:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1625EF800F4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
- header.i=@intel-com.20150623.gappssmtp.com header.b="ZFyaS4Uy"
-Received: by mail-yw1-xc44.google.com with SMTP id g19so31060800ywe.2
- for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 20:21:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+qQ0USyczW1A8BOcG2ubyyoajzQ2U4QRLU+fY3GhcD4=;
- b=ZFyaS4UyFV8fdg1XNYIUkzHeZBfshfNjSpx3oGIukjFemmF085GKQ/aKKmVl7vMl/p
- KnjUKdMcSmVQlxjL51Dtf6tK2qqbXY3EBjoa0XeUOvYCP5cxIlsqeQCC30mfcPUJkt69
- zFSBoxkbLv3t/9+R7zCEDCj0jPCqVzBwH0m7WE8q8o76eKZbbueVaMsRCDL6FQiSXNbK
- tcK1RP88jY2qUxhoGTgGtdJKzkVJS1HUkmkRNa6tj7oYrewa9L4pSiGKbgquK9syzD4e
- vDPeVA8DujgOG+9hkeMDN8Ng3BusfwXnhg8zUSLPfiLpx2+1J0RXt9WXykFfXx0O+NB+
- babQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+qQ0USyczW1A8BOcG2ubyyoajzQ2U4QRLU+fY3GhcD4=;
- b=dlj+0YX55YKDY4hxbwCeRoYCu4+UR/mTt2bplXWnkI6pvct+FViDq/bkN2F2YlDoXV
- B/BfIRnWm86WbWjx9xnJ8m3PnjBElfO5TSg5xrM57klZ3vTaQ5tF2gE+DTk6fZ50+1Sd
- Qz+NmBEP2dYEQAtwRSuO9RBWgyGKUX2/wasFnKZ6WlRkFBu6qMGZp7bCE+VoKkL8AMAC
- JREHsxVl9/lygtfYs+ICUxzdZEaAKNA6bDJjUbH9RKvWt9XQ4J4q4HrKKPc2tbW7c2yv
- 6UHGSEY8CcwUQ9tKAOx1rFxY5Y3FRKnWtk1G/kYvsUAjyRjWuhfqdHSh1QQwZ09y6xhU
- VMlA==
-X-Gm-Message-State: APjAAAUClkdowpKtgLhPPKtbMsQpZd0SmBTuYDCiJTjWqLxaDxU2og3d
- gUaOqSzLyg+PH5GuKnNfwwnstKmDARBOlCSwv5c3dw==
-X-Google-Smtp-Source: APXvYqyAkKvPFCN9GiikA6hIEY3JbGGytlJZ2sHJNvdc0WzD5bYJob3+O3NquDJYdx/Q/6PTZTviFP85ttTgAH5Fydo=
-X-Received: by 2002:a81:9c53:: with SMTP id n19mr4420768ywa.137.1565148067796; 
- Tue, 06 Aug 2019 20:21:07 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49594F800F4
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 05:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49594F800F4
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com
+ [209.85.167.47]) (authenticated bits=0)
+ by ajax.cs.uga.edu (8.14.4/8.14.4) with ESMTP id x773MjhW057165
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <alsa-devel@alsa-project.org>; Tue, 6 Aug 2019 23:22:47 -0400
+Received: by mail-lf1-f47.google.com with SMTP id b29so55632554lfq.1
+ for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 20:22:46 -0700 (PDT)
+X-Gm-Message-State: APjAAAVvwIahdO4XYCwk5CO/7Frs0Sgu42gkdeEFqnWHqf5WH6DagMyP
+ zdxedUalzHMSNfuzCa/eavRFM1Dv1LRkUnxmL5M=
+X-Google-Smtp-Source: APXvYqw3KascRBJeThGdIl1eMlrfY0MLn4+tPhdJYMi19pdSHHihKN0uMyQrgJJQBMdEzA/lLNkO+DuQuoIITtTaakI=
+X-Received: by 2002:ac2:442f:: with SMTP id w15mr4617610lfl.9.1565148165415;
+ Tue, 06 Aug 2019 20:22:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <87pnlhahr6.wl-kuninori.morimoto.gx@renesas.com>
- <87pnlh9320.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87pnlh9320.wl-kuninori.morimoto.gx@renesas.com>
-From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Date: Tue, 6 Aug 2019 20:20:56 -0700
-Message-ID: <CAFQqKeWU0az5o6XRe1Ro40BiVtQ5JFL6PK83+wKMwjb4kdSwUw@mail.gmail.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v2 25/25] ASoC: soc-topology: use
- for_each_component_dais() at remove_dai()
+From: Wenwen Wang <wenwen@cs.uga.edu>
+Date: Tue, 6 Aug 2019 23:22:09 -0400
+X-Gmail-Original-Message-ID: <CAAa=b7ebEkQZhPCbJPK=dVC+cR8_pTE3OOxX+PV+MNx7-Y25Cw@mail.gmail.com>
+Message-ID: <CAAa=b7ebEkQZhPCbJPK=dVC+cR8_pTE3OOxX+PV+MNx7-Y25Cw@mail.gmail.com>
+To: Wenwen Wang <wenwen@cs.uga.edu>
+Cc: open list <linux-kernel@vger.kernel.org>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>
+Subject: [alsa-devel] [PATCH] ALSA: usb-midi: fix a memory leak bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,53 +74,36 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 6, 2019 at 6:48 PM Kuninori Morimoto <
-kuninori.morimoto.gx@renesas.com> wrote:
+In __snd_usbmidi_create(), a MIDI streaming interface structure is
+allocated through kzalloc() and the pointer is saved to 'umidi'. Later on,
+the endpoint structures are created by invoking
+snd_usbmidi_create_endpoints_midiman() or snd_usbmidi_create_endpoints(),
+depending on the type of the audio quirk type. However, if the creation
+fails, the allocated 'umidi' is not deallocated, leading to a memory leak
+bug.
 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
->
-> commit 52abe6cc1866a ("ASoC: topology: fix oops/use-after-free case
-> with dai driver") fixups remove_dai() error, but it is using
-> list_for_each_entry() for component->dai_list.
->
-> We already have for_each_component_dais() macro for it.
-> Let's use exising method.
->
-The series looks good now. Thanks for the quick turnaround, Morimoto-san.
+To fix the above issue, free 'umidi' before returning the error.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
+---
+ sound/usb/midi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
-> v1 -> v2
->
->         - no change
->
->  sound/soc/soc-topology.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-> index dc463f1..b869071 100644
-> --- a/sound/soc/soc-topology.c
-> +++ b/sound/soc/soc-topology.c
-> @@ -530,7 +530,7 @@ static void remove_dai(struct snd_soc_component *comp,
->         if (dobj->ops && dobj->ops->dai_unload)
->                 dobj->ops->dai_unload(comp, dobj);
->
-> -       list_for_each_entry(dai, &comp->dai_list, list)
-> +       for_each_component_dais(comp, dai)
->                 if (dai->driver == dai_drv)
->                         dai->driver = NULL;
->
-> --
-> 2.7.4
->
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
->
+diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+index b737f0e..22db37f 100644
+--- a/sound/usb/midi.c
++++ b/sound/usb/midi.c
+@@ -2476,7 +2476,7 @@ int __snd_usbmidi_create(struct snd_card *card,
+        else
+                err = snd_usbmidi_create_endpoints(umidi, endpoints);
+        if (err < 0)
+-               goto exit;
++               goto free_midi;
+
+        usb_autopm_get_interface_no_resume(umidi->iface);
+
+-- 
+2.7.4
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

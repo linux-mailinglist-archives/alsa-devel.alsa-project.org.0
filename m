@@ -2,83 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 704E185372
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 21:11:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54B1585384
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 21:22:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F125186F;
-	Wed,  7 Aug 2019 21:10:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F125186F
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA63815F2;
+	Wed,  7 Aug 2019 21:21:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA63815F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565205075;
-	bh=zZJbAuq+Y6ISA3se6zKDaBPUCuzZpStURU8gBCAmKO0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565205733;
+	bh=8paQt0oVjhDlJF4nUrXbZ6YFiojFgkP/1l/Ss+hHHks=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iuc8vkjlML1i5YyjeJ5z6iRaFOP8aCM6rbY2q4gddHjHglhUFYRbEbIe9tHNtEyBg
-	 aVKJ4CkBmB4+vU7wc5CC70EPFbSvQcujgGXNaV2TWQ5TVwXkirtpf5gN5DH4g/4Iax
-	 1HwQG9PqM5MC5fJW69dv8IkXr1kOPQru6NXC0vSc=
+	b=mZ9gzMqlPiG6rgRYrbDbGyo9qF0KolniZFpKEzf2Zqqn3pkuzqcssp/9RCHETPTY/
+	 0EbjTLElz804aRdmV4ase+UHsGVL7DJf/++d+a4tPYTmSvdufin1nnzJvOLOPSxIVg
+	 /X/SByxO+Z5BVUGRb4Gn5OrAI/1c6zJCJJrI5YI4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3129AF80227;
-	Wed,  7 Aug 2019 21:09:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0079EF80290;
+	Wed,  7 Aug 2019 21:20:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F5C2F80290; Wed,  7 Aug 2019 21:09:28 +0200 (CEST)
+ id 498FFF80290; Wed,  7 Aug 2019 21:20:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30BA0F800F4
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 21:09:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30BA0F800F4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ikBpsz+q"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CXHaHEJXstFHVGXsaMRkGDgj2vzdFlugILr5Qa0FLNM=; b=ikBpsz+qWT62Q1D/1GPoL/kBv
- /aykvlnfnzRjcqSuohssVwp4Qh9gS6S8wxtZVHM6ny9J/rLDJ4sIJpY9iCdLOKAwKlShFLH7WMXB2
- qplis3TX0xH5vE9FSG03bESDuZdGb53FpxKbMjtUJH4Jv8qKWBnsDnPQTP5lojTBEHBHQ=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1hvRJH-0008SR-7z; Wed, 07 Aug 2019 19:09:19 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 9D0AB2742B9E; Wed,  7 Aug 2019 20:09:17 +0100 (BST)
-Date: Wed, 7 Aug 2019 20:09:17 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190807190917.GL4048@sirena.co.uk>
-References: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
- <CAJZ5v0g5Hk9JYLvRXfLk5-o=n_RVPKtWD=QONpiimCWyQOFELQ@mail.gmail.com>
- <52a2cb0c-92a6-59d5-72da-832edd6481f3@linux.intel.com>
- <20190807175646.GK4048@sirena.co.uk>
- <5a7473a2-83c0-1a09-0cab-31fcc5b21302@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37C48F800F4
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 21:20:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37C48F800F4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2019 12:20:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,358,1559545200"; d="scan'208";a="165442681"
+Received: from mwdryfus-mobl.amr.corp.intel.com (HELO [10.254.191.107])
+ ([10.254.191.107])
+ by orsmga007.jf.intel.com with ESMTP; 07 Aug 2019 12:20:21 -0700
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+References: <20190807150203.26359-1-pierre-louis.bossart@linux.intel.com>
+ <20190807150203.26359-5-pierre-louis.bossart@linux.intel.com>
+ <ac41ec50-6484-cce1-2e41-c42e6bb541ef@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <af12fa5a-89ea-2eb7-a8a2-0ba24b9fa214@linux.intel.com>
+Date: Wed, 7 Aug 2019 14:20:20 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <5a7473a2-83c0-1a09-0cab-31fcc5b21302@linux.intel.com>
-X-Cookie: Dammit Jim, I'm an actor, not a doctor.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH] soundwire: fix regmap dependencies and
- align with other serial links
+In-Reply-To: <ac41ec50-6484-cce1-2e41-c42e6bb541ef@intel.com>
+Content-Language: en-US
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
+ Daniel Baluta <daniel.baluta@nxp.com>
+Subject: Re: [alsa-devel] [PATCH 4/6] ASoC: SOF: Intel: byt: Refactor fw
+ ready / mem windows creation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,60 +74,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7720788052472061041=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============7720788052472061041==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m+jEI8cDoTn6Mu9E"
-Content-Disposition: inline
-
-
---m+jEI8cDoTn6Mu9E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Aug 07, 2019 at 01:17:20PM -0500, Pierre-Louis Bossart wrote:
-
-> I don't have the knowledge or means to test what I suggested initially for
-> the other buses, and the optimization was minimal anyways, so this patch
-> takes the path of least resistance and aligns with others.
-
-> if there are no objections it's probably easier to push this patch through
-> the SoundWire tree, with the relevant Acks.
-
-Makes sense I think
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
---m+jEI8cDoTn6Mu9E
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1LIdwACgkQJNaLcl1U
-h9DFBQf+KQtyCfkxOfIv1rEOZ7sfj9ypg/0DsSRjVwhmqS8DoTwcpPwzJlVJFRs1
-1Qg9wUYGxMpwhkiYJ66KhJs7Ugtb1XYdGiYzvhjAbxsB9YZ3z1kCK+h91jkMXxS+
-4DX6U8/hLEqR4DpwnBYTo91TAJnJi3Bj/xp8qsViOsacjECpiZG11E9FmYTSPUFi
-pKgyVB7nWj0kpL7aaEyweJJcSwrF7Fy7/+1KLgpVmewCepH1BooSaJI6ymEEz6+P
-RAAKwUwDIksuajG5KVJduJf0BsSTZ2GFLE3pomj8o+OuMMABvnzmwbYofQmWHu2n
-0/p+EPuDpS7b+n4obTY1DL0audj1HA==
-=Ercr
------END PGP SIGNATURE-----
-
---m+jEI8cDoTn6Mu9E--
-
---===============7720788052472061041==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7720788052472061041==--
+CgpPbiA4LzcvMTkgMjowNyBQTSwgQ2V6YXJ5IFJvamV3c2tpIHdyb3RlOgo+IE9uIDIwMTktMDgt
+MDcgMTc6MDIsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+PiBGcm9tOiBEYW5pZWwgQmFs
+dXRhIDxkYW5pZWwuYmFsdXRhQG54cC5jb20+Cj4gCj4+IFNvIHdlIGFyZSBiYXNpY2FsbHkgbW92
+aW5nIGNvZGUgZnJvbSBpbnRlbC9ieXQuYyB0byBsb2FkZXIuYyBrZWVwaW5nCj4+IGluIG1pbmQg
+dGhhdCBtYm94X29mZnNldCBpcyBhIHBlciBwbGF0Zm9ybSBjb25zdGFudCBzbyB3ZSBuZWVkIHRv
+Cj4+IHVzZSBuZXdseSBpbnRyb2R1Y2VkIHNuZF9zb2ZfZHNwX2dldF9tYWlsYm94X29mZnNldCAv
+Cj4+IHNuZF9zb2ZfZHNwX2dldF93aW5kb3dfb2Zmc2V0IGluIG9yZGVyIHRvIGdldCB0aGUgY29y
+cmVjdAo+PiBtYm94IG9mZnNldCAvIHdpbmRvdyBvZmZzZXQgdmFsdWUuCj4gCj4gWW91J3ZlIGFs
+cmVhZHkgZXhwbGFpbmVkIHlvdXIgZ29hbC4gVGhlc2UgZGV0YWlscyBhcmUgdW5uZWNlc3Nhcnku
+CgpUaGV5IGRvbid0IGh1cnQgYW5kIGhlbHAgZXhwbGFpbiB0aGUgYXBwcm9hY2guCgo+IAo+Pgo+
+PiBBbHNvLCBiYXIgaXMgYSBwZXIgcGxhdGZvcm0gY29uc3RhbnQgc28gd2UgdXNlIHNuZF9zb2Zf
+ZHNwX2dldF9iYXJfaW5kZXgKPj4gaW5zdGVhZCBvZiB0aGUgaGFyZGNvZGVkIEJZVF9EU1BfQkFS
+Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgQmFsdXRhIDxkYW5pZWwuYmFsdXRhQG54cC5j
+b20+Cj4+IFNpZ25lZC1vZmYtYnk6IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IAo+PiA8cGllcnJlLWxv
+dWlzLmJvc3NhcnRAbGludXguaW50ZWwuY29tPgo+PiAtLS0KPj4gwqAgc291bmQvc29jL3NvZi9p
+bnRlbC9ieXQuYyB8IDE2NCArKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+
+IMKgIHNvdW5kL3NvYy9zb2YvbG9hZGVyLmPCoMKgwqAgfCAxNjggKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysKPj4gwqAgc291bmQvc29jL3NvZi9zb2YtcHJpdi5owqAgfMKg
+wqAgMiArCj4+IMKgIDMgZmlsZXMgY2hhbmdlZCwgMTg5IGluc2VydGlvbnMoKyksIDE0NSBkZWxl
+dGlvbnMoLSkKPiAKPiBIbW0sIGV2ZW4gdGhlIGNvbW1pdCBtZXNzYWdlIG1lbnRpb25zIHR3byBz
+dGVwcywgbm90IG9uZS4gU3BsaXR0aW5nIHRoaXMgCj4gY29tbWl0IGludG8gdHdvIC0gaW50cm9k
+dWN0aW9uIG9mIG5ldyBnZW5lcmljIGZ1bmN0aW9ucyBhbmQgYnl0IAo+IGFsaWdubWVudCB0b3dh
+cmRzIHRoZSBuZXdseSBhZGRlZCBhcHByb2FjaCAtIHNlZW1zIHJlYXNvbmFibGUuIEJkdyAmIGhk
+YSAKPiBmb2xsb3d1cHMgYWxyZWFkeSBtYWtlIGdvb2QgZXhhbXBsZXMuCgpUaGUgbGFzdCB0d28g
+anVzdCByZW1vdmUgdGhlIGR1cGxpY2F0ZSBjb2RlIGFuZCBhbGlnbiBvbiB1c2luZyB0aGUgCmNv
+bW1vbiBoZWxwZXJzLgpJbiB0aGUgaW5pdGlhbCBzdGVwIHdlIHN0aWxsIG5lZWQgdG8gbW92ZSB0
+aGUgY29kZSBmcm9tIGJheXRyYWlsIHRvIHRoZSAKY29tbW9uIGZ1bmN0aW9uLiBEb2luZyBpdCBp
+biB0d28gc3RlcHMgZG9lc24ndCBicmluZyBtdWNoIGFkZGVkIHZhbHVlIApJTU8uIFRvIHByZXNl
+cnZlIGdpdCBiaXNlY3Qgc3VwcG9ydCwgeW91J2QgbmVlZCB0byBhZGQgYSBuZXcgY29tbW9uIApj
+b2RlLCB0aGVuIHJlbW92ZSB0aGUgYmF5dHJhaWwgb25lIGluIGEgZm9sbG93LXVwIHBhdGNoLiBJ
+dCdkIG1ha2UgaXQgCmxlc3Mgc2VsZi1leHBsYW5hdG9yeSB3aGVyZSB0aGlzIG5ldyBjb2RlIGNv
+bWVzIGZyb20uCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0
+cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVs
+Cg==

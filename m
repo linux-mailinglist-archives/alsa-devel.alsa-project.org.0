@@ -2,103 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3326883EAE
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 03:15:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07A7083EB1
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 03:16:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98A7B857;
-	Wed,  7 Aug 2019 03:14:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98A7B857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB771677;
+	Wed,  7 Aug 2019 03:15:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB771677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565140538;
-	bh=qzPevSh5RUC7ih9XTJDs+I3MCFxGm73MCIgl9VO5/5c=;
+	s=default; t=1565140587;
+	bh=Ij8zif2nUiYH4HFKAYFufG+iQYlOL4g2epaRfFsn6GI=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z+jL74GFKnEFbDamcYWuVvMuw5ec6puWjLJPEruHjC+llGynsRTkvSJSOuiWKytR/
-	 WzHrrszh5O/JRaIV98t0nrhPE86zlGw8fD77iO3GRDpjRIMUzCZbN0oy5FpXffE2ns
-	 RNau3+RVjyjHTZFa4nBtia8bJ1lAJlXi715ikhFc=
+	b=CUcTaI5z7G28bqT2UP115hbPyyxdzf2mNLXm/vZ0wHqLYWjbbv0F+up25g3BvFw6k
+	 Rpfrd1hPG9QsRNcEfuztqkeUmCrRGd7xgJzXRFIQcFTwXkt8zjOS0rzoK9nE/m/4nP
+	 DG4LDXUQrJYP2sHxHS+ISPsHZJpu7p+KNSlMy6ws=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6839F804CB;
-	Wed,  7 Aug 2019 03:13:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A862F804CA;
+	Wed,  7 Aug 2019 03:15:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7F10F80483; Wed,  7 Aug 2019 03:13:51 +0200 (CEST)
+ id 39CC1F804CA; Wed,  7 Aug 2019 03:15:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
+ DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 161F2F800F3
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 03:13:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 161F2F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67007F800F3
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 03:15:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67007F800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="SJOajrac"
-Received: by mail-pf1-x441.google.com with SMTP id q10so42458253pff.9
- for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 18:13:48 -0700 (PDT)
+ header.b="WOgnVbzO"
+Received: by mail-pl1-x641.google.com with SMTP id a93so38510451pla.7
+ for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 18:15:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=u4CFBN9jcxG6CFNFBBtApHbFd9s1AZ+ekko2NJrvock=;
- b=SJOajracFAt3ijWVg+xaCoFsDiOS0z6dXguBR3ct2tWASXNXm3ND0eBFc5aiQEqlkv
- Rx/XTPj2KqEB9hOzAc93i82xzgazlJevAuiGXOQ2J58m2isIRtl/whLs5CFd96GA7mvS
- YHrurPGFvI3f+Wq0N2QEzro2LC7QfjOWwvuMkQy0Q/OTQvX1oKsxm/p/jZ69o2ZmmGuz
- yJCycoVPICxMZKW5yANTPmkS/TcyZ3Ti1veEQ7TPNp+nT2EUIlJLK4MjQjTGwXDM48Qj
- lgpaPxWI+tV8jJnP73RbFBNWoZ37eYZiY96I+fKpgnBMA3tmyZKKELFCnxTz3fZtlrNW
- Ie3w==
+ :content-disposition:in-reply-to:user-agent;
+ bh=S1vZmLL8Ef5YNWjt3PZw2jH5xRYm8FWeVtuvX8SAW6s=;
+ b=WOgnVbzOLvto6kl63uaTingJqxs6z2MJ11Pvfz09lDFrLFElnBic1BYGC++U6KbU0N
+ N48pChlPBQPT2SICE0pw9oP749sDiT/TtAH/lCCuTFZXeEaUkCEz2yLz67LjwuTgTlxB
+ h4JmQV/meCDzGJ3GZ6KObqFVYRIPqWlzlZwIX7Xet3yn57njqKSODU6OceQEO2n/2oJV
+ v4GwNw4sNDxEk6LHhtbQzz0AFBZkmzTtwCnfdQSc1+9r1J0UY3akk0EURmGx8dbWvI/X
+ IZgJUL0s2FU3BSZDrgfpLTTcI/itVZWPYpXmDFzWmp3ybs+8kzk3cO0mfr1nAv/pizy7
+ yngA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=u4CFBN9jcxG6CFNFBBtApHbFd9s1AZ+ekko2NJrvock=;
- b=G9fgbmUTah32bZUwlMM/G+CuDTLivG1qN4U7z/1dxgzmBGAAZ4lcHWgBmHwzRBVG8p
- uY46fxR8cPe7vhe1pYvrJp1KuBuqU4FNvajIWykYZJE1RxwMgfrTyOmcBepYw7Z5Q0z9
- 42XuwjrGLxzA1ncPWX3yKP/yy4ARC6F5PPlL2ZH7ko7SUVWvBIO4jUaTN5obvXWPwM2k
- V8noFFgy5MOWQgby8Ed78IqxKRdVJS3tqSC0/XOGin/sVvtUPiCo1APmAoxugL1pRizB
- g4BKfnYo/BnyOszE3FHF4hzbNL3js3BYrLCqi7RvEKa3S9iu7aXMXwyk0+Le8fbc7waE
- mp/w==
-X-Gm-Message-State: APjAAAVm86zXLuW/f6//zw6eApsy9dwJosd/fUrugElziif+rwXgvm0u
- 5GHsmENyk+tEofY1HnrkDC4=
-X-Google-Smtp-Source: APXvYqw8kAF7UlF/qKmSi5AAFuHDbAWLLnoX4Lh+1nADuqi9UM9xsAI2PZwM/lrArwNjUY3moTd4iQ==
-X-Received: by 2002:a62:174a:: with SMTP id 71mr6866238pfx.140.1565140426593; 
- Tue, 06 Aug 2019 18:13:46 -0700 (PDT)
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=S1vZmLL8Ef5YNWjt3PZw2jH5xRYm8FWeVtuvX8SAW6s=;
+ b=ZSwxWkPw6uOKej7EiqKcayG1HtXdrsRFf22+r/GoyBI2AVJLoIiiEraF0GWMX793gm
+ kpW/GrtLOD25nq/lwXZk7vS1JV4sxkgncqNSwOsm791F85uXvMYDuQezj2nuRomMs/xW
+ X2gnPBQ8UPtR0h8cGu/oYZ7WjqhDxf4rFZrIdIBbNYauPPgTcAzisCvIrzFEd02G73tQ
+ 9yCwcUZDvLbyBuvB9do1vluLj+ZhJsCUBk6y37km1CgPWd2SxYGFHogTDltzW/1UD87X
+ 2t7tgbgj8UZQsFPjLnBZTsE4SvT8g7fEjSkbJB/T8AzaehLE65Ch4NMbNut+yuDO1/Ru
+ kLug==
+X-Gm-Message-State: APjAAAW8tJnUaHChaV2mRIB3ccAJTZkpxc4B6EgVPR6b1oNg6qZoEpbF
+ H1t13bZMSilCe9a4mXh0drA=
+X-Google-Smtp-Source: APXvYqzRmu/BJ0/yj8GwkXedsZ8XNkYKCk/UskpJTF2G6+doM8xcHqGpkRbCxm+BAy/mxC0TdB0o8A==
+X-Received: by 2002:a17:902:1aa:: with SMTP id
+ b39mr5899371plb.333.1565140516140; 
+ Tue, 06 Aug 2019 18:15:16 -0700 (PDT)
 Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
  [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id r6sm49734116pjb.22.2019.08.06.18.13.45
+ by smtp.gmail.com with ESMTPSA id p19sm99964465pfn.99.2019.08.06.18.15.15
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 06 Aug 2019 18:13:46 -0700 (PDT)
-Date: Tue, 6 Aug 2019 18:14:41 -0700
+ Tue, 06 Aug 2019 18:15:15 -0700 (PDT)
+Date: Tue, 6 Aug 2019 18:16:11 -0700
 From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-Message-ID: <20190807011441.GC8938@Asurada-Nvidia.nvidia.com>
-References: <20190728192429.1514-1-daniel.baluta@nxp.com>
- <20190728192429.1514-4-daniel.baluta@nxp.com>
- <20190729202154.GC20594@Asurada-Nvidia.nvidia.com>
- <CAEnQRZBN5Y+75cpgS2h3LwDj5BkF5cesqu6=V3GuPU4=5pgn6A@mail.gmail.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+Message-ID: <20190807011611.GD8938@Asurada-Nvidia.nvidia.com>
+References: <20190806151214.6783-1-daniel.baluta@nxp.com>
+ <20190806151214.6783-2-daniel.baluta@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAEnQRZBN5Y+75cpgS2h3LwDj5BkF5cesqu6=V3GuPU4=5pgn6A@mail.gmail.com>
+In-Reply-To: <20190806151214.6783-2-daniel.baluta@nxp.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: Devicetree List <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, Timur Tabi <timur@kernel.org>,
- Rob Herring <robh@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- "S.j. Wang" <shengjiu.wang@nxp.com>,
- "Angus Ainslie \(Purism\)" <angus@akkea.ca>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Viorel Suman <viorel.suman@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>,
- Mihai Serban <mihai.serban@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [alsa-devel] [PATCH v2 3/7] ASoC: fsl_sai: Add support to
- enable multiple data lines
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
+ robh@kernel.org, shengjiu.wang@nxp.com, angus@akkea.ca, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org, linux-imx@nxp.com,
+ kernel@pengutronix.de, festevam@gmail.com, mihai.serban@gmail.com,
+ l.stach@pengutronix.de
+Subject: Re: [alsa-devel] [PATCH v3 1/5] ASoC: fsl_sai: Add registers
+ definition for multiple datalines
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,78 +104,213 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVHVlLCBBdWcgMDYsIDIwMTkgYXQgMDY6MjM6MjdQTSArMDMwMCwgRGFuaWVsIEJhbHV0YSB3
-cm90ZToKPiBPbiBNb24sIEp1bCAyOSwgMjAxOSBhdCAxMToyMiBQTSBOaWNvbGluIENoZW4gPG5p
-Y29sZW90c3VrYUBnbWFpbC5jb20+IHdyb3RlOgo+ID4KPiA+IE9uIFN1biwgSnVsIDI4LCAyMDE5
-IGF0IDEwOjI0OjI1UE0gKzAzMDAsIERhbmllbCBCYWx1dGEgd3JvdGU6Cj4gPiA+IFNBSSBzdXBw
-b3J0cyB1cCB0byA4IFJ4L1R4IGRhdGEgbGluZXMgd2hpY2ggY2FuIGJlIGVuYWJsZWQKPiA+ID4g
-dXNpbmcgVENFL1JDRSBiaXRzIG9mIFRDUjMvUkNSMyByZWdpc3RlcnMuCj4gPiA+Cj4gPiA+IERh
-dGEgbGluZXMgdG8gYmUgZW5hYmxlZCBhcmUgcmVhZCBmcm9tIERUIGZzbCxkbC1tYXNrIHByb3Bl
-cnR5Lgo+ID4gPiBCeSBkZWZhdWx0IChpZiBubyBEVCBlbnRyeSBpcyBwcm92aWRlZCkgb25seSBk
-YXRhIGxpbmUgMCBpcyBlbmFibGVkLgo+ID4gPgo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwg
-QmFsdXRhIDxkYW5pZWwuYmFsdXRhQG54cC5jb20+Cj4gPiA+IC0tLQo+ID4gPiAgc291bmQvc29j
-L2ZzbC9mc2xfc2FpLmMgfCAxMSArKysrKysrKysrLQo+ID4gPiAgc291bmQvc29jL2ZzbC9mc2xf
-c2FpLmggfCAgNCArKystCj4gPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyks
-IDIgZGVsZXRpb25zKC0pCj4gPiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvZnNsL2Zz
-bF9zYWkuYyBiL3NvdW5kL3NvYy9mc2wvZnNsX3NhaS5jCj4gPiA+IGluZGV4IDYzN2IxZDEyYTU3
-NS4uNWU3Y2I3ZmQyOWY1IDEwMDY0NAo+ID4gPiAtLS0gYS9zb3VuZC9zb2MvZnNsL2ZzbF9zYWku
-Ywo+ID4gPiArKysgYi9zb3VuZC9zb2MvZnNsL2ZzbF9zYWkuYwo+ID4gPiBAQCAtNjAxLDcgKzYw
-MSw3IEBAIHN0YXRpYyBpbnQgZnNsX3NhaV9zdGFydHVwKHN0cnVjdCBzbmRfcGNtX3N1YnN0cmVh
-bSAqc3Vic3RyZWFtLAo+ID4gPgo+ID4gPiAgICAgICByZWdtYXBfdXBkYXRlX2JpdHMoc2FpLT5y
-ZWdtYXAsIEZTTF9TQUlfeENSMyh0eCksCj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICBG
-U0xfU0FJX0NSM19UUkNFX01BU0ssCj4gPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICBGU0xf
-U0FJX0NSM19UUkNFKTsKPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgIEZTTF9TQUlfQ1Iz
-X1RSQ0Uoc2FpLT5zb2NfZGF0YS0+ZGxfbWFza1t0eF0pOwo+ID4gPgo+ID4gPiAgICAgICByZXQg
-PSBzbmRfcGNtX2h3X2NvbnN0cmFpbnRfbGlzdChzdWJzdHJlYW0tPnJ1bnRpbWUsIDAsCj4gPiA+
-ICAgICAgICAgICAgICAgICAgICAgICBTTkRSVl9QQ01fSFdfUEFSQU1fUkFURSwgJmZzbF9zYWlf
-cmF0ZV9jb25zdHJhaW50cyk7Cj4gPiA+IEBAIC04ODgsNiArODg4LDE1IEBAIHN0YXRpYyBpbnQg
-ZnNsX3NhaV9wcm9iZShzdHJ1Y3QgcGxhdGZvcm1fZGV2aWNlICpwZGV2KQo+ID4gPiAgICAgICAg
-ICAgICAgIH0KPiA+ID4gICAgICAgfQo+ID4gPgo+ID4gPiArICAgICAvKgo+ID4gPiArICAgICAg
-KiBhY3RpdmUgZGF0YSBsaW5lcyBtYXNrIGZvciBUWC9SWCwgZGVmYXVsdHMgdG8gMSAob25seSB0
-aGUgZmlyc3QKPiA+ID4gKyAgICAgICogZGF0YSBsaW5lIGlzIGVuYWJsZWQKPiA+ID4gKyAgICAg
-ICovCj4gPiA+ICsgICAgIHNhaS0+ZGxfbWFza1tSWF0gPSAxOwo+ID4gPiArICAgICBzYWktPmRs
-X21hc2tbVFhdID0gMTsKPiA+ID4gKyAgICAgb2ZfcHJvcGVydHlfcmVhZF91MzJfaW5kZXgobnAs
-ICJmc2wsZGwtbWFzayIsIFJYLCAmc2FpLT5kbF9tYXNrW1JYXSk7Cj4gPiA+ICsgICAgIG9mX3By
-b3BlcnR5X3JlYWRfdTMyX2luZGV4KG5wLCAiZnNsLGRsLW1hc2siLCBUWCwgJnNhaS0+ZGxfbWFz
-a1tUWF0pOwo+ID4KPiA+IEp1c3QgY3VyaW91cyB3aGF0IGlmIHdlIGVuYWJsZSA4IGRhdGEgbGlu
-ZXMgdGhyb3VnaCBEVCBiaW5kaW5ncwo+ID4gd2hpbGUgYW4gYXVkaW8gZmlsZSBvbmx5IGhhcyAx
-IG9yIDIgY2hhbm5lbHMuIFdpbGwgVFJDRSBiaXRzIGJlCj4gPiBva2F5IHRvIHN0YXkgd2l0aCA4
-IGRhdGEgY2hhbm5lbHMgY29uZmlndXJhdGlvbnM/IEJ0dywgaG93IGRvZXMKPiA+IERNQSB3b3Jr
-IGZvciB0aGUgZGF0YSByZWdpc3RlcnM/IEVTQUkgaGFzIG9uZSBlbnRyeSBhdCBhIGZpeGVkCj4g
-PiBhZGRyZXNzIGZvciBhbGwgZGF0YSBjaGFubmVscyB3aGlsZSBTQUkgc2VlbXMgdG8gaGF2ZSBk
-aWZmZXJlbnQKPiA+IGRhdGEgcmVnaXN0ZXJzLgo+IAo+IEhpIE5pY29saW4sCj4gCj4gSSBoYXZl
-IHNlbnQgdjMgYW5kIHJlbW92ZWQgdGhpcyBwYXRjaCBmcm9tIHRoZSBzZXJpZXMgYmVjYXVzZSB3
-ZQo+IG5lZWQgdG8gZmluZCBhIGJldHRlciBzb2x1dGlvbi4KCkFjay4gSSB3YXMgaW4gdGhhdCBw
-cml2YXRlIG1haWwgdGhyZWFkLiBTbyBpdCdzIHRvdGFsbHkgZmluZS4KCj4gCj4gSSB0aGluayB3
-ZSBzaG91bGQgZW5hYmxlIFRDRSBiYXNlZCBvbiB0aGUgbnVtYmVyIG9mIGF2YWlsYWJsZSBkYXRh
-bGluZXMKPiBhbmQgdGhlIG51bWJlciBvZiBhY3RpdmUgY2hhbm5lbHMuICBXaWxsIGNvbWUgd2l0
-aCBhIFJGQyBwYXRjaCBsYXRlci4KClllYSwgdGhhdCdzIGV4YWN0bHkgd2hhdCBJIHN1c3BlY3Rl
-ZCBkdXJpbmcgcGF0Y2ggcmV2aWV3IGFuZAp3aGF0IEkgc3VnZ2VzdGVkIHByZXZpb3VzbHkgdG9v
-LiBMb29rIGZvcndhcmQgdG8geW91ciBwYXRjaC4KCj4gUGFzdGluZyBoZXJlIHRoZSByZXBseSBv
-ZiBTQUkgQXVkaW8gSVAgb3duZXIgcmVnYXJkaW5nIHRvIHlvdXIgcXVlc3Rpb24gYWJvdmUsCj4g
-anVzdCBmb3IgYW55b25lIHRvIGhhdmUgbW9yZSBpbmZvIG9mIG91ciBwcml2YXRlIGRpc2N1c3Np
-b246Cj4gCj4gSWYgYWxsIDggZGF0YWxpbmVzIGFyZSBlbmFibGVkIHVzaW5nIFRDRSB0aGVuIHRo
-ZSB0cmFuc21pdCBGSUZPIGZvcgo+IGFsbCA4IGRhdGFsaW5lcyBuZWVkIHRvIGJlIHNlcnZpY2Vk
-LCBvdGhlcndpc2UgYSBGSUZPIHVuZGVycnVuIHdpbGwgYmUKPiBnZW5lcmF0ZWQuCj4gRWFjaCBk
-YXRhbGluZSBoYXMgYSBzZXBhcmF0ZSB0cmFuc21pdCBGSUZPIHdpdGggYSBzZXBhcmF0ZSByZWdp
-c3RlciB0bwo+IHNlcnZpY2UgdGhlIEZJRk8sIHNvIGVhY2ggZGF0YWxpbmUgY2FuIGJlIHNlcnZp
-Y2VkIHNlcGFyYXRlbHkuIE5vdGUKPiB0aGF0IGNvbmZpZ3VyaW5nIEZDT01CPTIgd291bGQgbWFr
-ZSBpdCBsb29rIGxpa2UgRVNBSSB3aXRoIGEgY29tbW9uCj4gYWRkcmVzcyBmb3IgYWxsIEZJRk9z
-Lgo+IFdoZW4gcGVyZm9ybWluZyBETUEgdHJhbnNmZXJzIHRvIG11bHRpcGxlIGRhdGFsaW5lcywg
-dGhlcmUgYXJlIGEKPiBjb3VwbGUgb2Ygb3B0aW9uczoKPiAgICAgKiBVc2UgMSBETUEgY2hhbm5l
-bCB0byBjb3B5IGZpcnN0IHNsb3QgZm9yIGVhY2ggZGF0YWxpbmUgdG8gZWFjaAo+IEZJRk8gYW5k
-IHRoZW4gdXBkYXRlIHRoZSBkZXN0aW5hdGlvbiBhZGRyZXNzIGJhY2sgdG8gdGhlIGZpcnN0Cj4g
-cmVnaXN0ZXIuCj4gICAgICogQ29uZmlndXJlIHNlcGFyYXRlIERNQSBjaGFubmVsIGZvciBlYWNo
-IGRhdGFsaW5lIGFuZCB0cmlnZ2VyIHRoZQo+IGZpcnN0IG9uZSBieSB0aGUgRE1BIHJlcXVlc3Qg
-YW5kIHRoZSBzdWJzZXF1ZW50IGNoYW5uZWxzIGJ5IERNQQo+IGxpbmtpbmcgb3Igc2NhdHRlci9n
-YXRoZXIuCj4gICAgICogQ29uZmlndXJlIEZDT01CPTIgYW5kIHRyZWF0IGl0IHRoZSBzYW1lIGFz
-IHRoZSBFU0FJLiBUaGlzIGlzCj4gYWxtb3N0IHRoZSBzYW1lIGFzIDEsIGJ1dCBkb27igJl0IG5l
-ZWQgdG8gdXBkYXRlIHRoZSBkZXN0aW5hdGlvbgo+IGFkZHJlc3MuCj4gCj4gVGhhbmtzLAo+IERh
-bmllbC4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxz
-YS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8v
-bWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Tue, Aug 06, 2019 at 06:12:10PM +0300, Daniel Baluta wrote:
+> SAI IP supports up to 8 data lines. The configuration of
+> supported number of data lines is decided at SoC integration
+> time.
+> 
+> This patch adds definitions for all related data TX/RX registers:
+> 	* TDR0..7, Transmit data register
+> 	* TFR0..7, Transmit FIFO register
+> 	* RDR0..7, Receive data register
+> 	* RFR0..7, Receive FIFO register
+> 
+> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+
+Thanks
+
+> ---
+>  sound/soc/fsl/fsl_sai.c | 76 +++++++++++++++++++++++++++++++++++------
+>  sound/soc/fsl/fsl_sai.h | 36 ++++++++++++++++---
+>  2 files changed, 98 insertions(+), 14 deletions(-)
+> 
+> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> index 6d3c6c8d50ce..17b0aff4ee8b 100644
+> --- a/sound/soc/fsl/fsl_sai.c
+> +++ b/sound/soc/fsl/fsl_sai.c
+> @@ -685,7 +685,14 @@ static struct reg_default fsl_sai_reg_defaults[] = {
+>  	{FSL_SAI_TCR3, 0},
+>  	{FSL_SAI_TCR4, 0},
+>  	{FSL_SAI_TCR5, 0},
+> -	{FSL_SAI_TDR,  0},
+> +	{FSL_SAI_TDR0, 0},
+> +	{FSL_SAI_TDR1, 0},
+> +	{FSL_SAI_TDR2, 0},
+> +	{FSL_SAI_TDR3, 0},
+> +	{FSL_SAI_TDR4, 0},
+> +	{FSL_SAI_TDR5, 0},
+> +	{FSL_SAI_TDR6, 0},
+> +	{FSL_SAI_TDR7, 0},
+>  	{FSL_SAI_TMR,  0},
+>  	{FSL_SAI_RCR1, 0},
+>  	{FSL_SAI_RCR2, 0},
+> @@ -704,7 +711,14 @@ static bool fsl_sai_readable_reg(struct device *dev, unsigned int reg)
+>  	case FSL_SAI_TCR3:
+>  	case FSL_SAI_TCR4:
+>  	case FSL_SAI_TCR5:
+> -	case FSL_SAI_TFR:
+> +	case FSL_SAI_TFR0:
+> +	case FSL_SAI_TFR1:
+> +	case FSL_SAI_TFR2:
+> +	case FSL_SAI_TFR3:
+> +	case FSL_SAI_TFR4:
+> +	case FSL_SAI_TFR5:
+> +	case FSL_SAI_TFR6:
+> +	case FSL_SAI_TFR7:
+>  	case FSL_SAI_TMR:
+>  	case FSL_SAI_RCSR:
+>  	case FSL_SAI_RCR1:
+> @@ -712,8 +726,22 @@ static bool fsl_sai_readable_reg(struct device *dev, unsigned int reg)
+>  	case FSL_SAI_RCR3:
+>  	case FSL_SAI_RCR4:
+>  	case FSL_SAI_RCR5:
+> -	case FSL_SAI_RDR:
+> -	case FSL_SAI_RFR:
+> +	case FSL_SAI_RDR0:
+> +	case FSL_SAI_RDR1:
+> +	case FSL_SAI_RDR2:
+> +	case FSL_SAI_RDR3:
+> +	case FSL_SAI_RDR4:
+> +	case FSL_SAI_RDR5:
+> +	case FSL_SAI_RDR6:
+> +	case FSL_SAI_RDR7:
+> +	case FSL_SAI_RFR0:
+> +	case FSL_SAI_RFR1:
+> +	case FSL_SAI_RFR2:
+> +	case FSL_SAI_RFR3:
+> +	case FSL_SAI_RFR4:
+> +	case FSL_SAI_RFR5:
+> +	case FSL_SAI_RFR6:
+> +	case FSL_SAI_RFR7:
+>  	case FSL_SAI_RMR:
+>  		return true;
+>  	default:
+> @@ -726,9 +754,30 @@ static bool fsl_sai_volatile_reg(struct device *dev, unsigned int reg)
+>  	switch (reg) {
+>  	case FSL_SAI_TCSR:
+>  	case FSL_SAI_RCSR:
+> -	case FSL_SAI_TFR:
+> -	case FSL_SAI_RFR:
+> -	case FSL_SAI_RDR:
+> +	case FSL_SAI_TFR0:
+> +	case FSL_SAI_TFR1:
+> +	case FSL_SAI_TFR2:
+> +	case FSL_SAI_TFR3:
+> +	case FSL_SAI_TFR4:
+> +	case FSL_SAI_TFR5:
+> +	case FSL_SAI_TFR6:
+> +	case FSL_SAI_TFR7:
+> +	case FSL_SAI_RFR0:
+> +	case FSL_SAI_RFR1:
+> +	case FSL_SAI_RFR2:
+> +	case FSL_SAI_RFR3:
+> +	case FSL_SAI_RFR4:
+> +	case FSL_SAI_RFR5:
+> +	case FSL_SAI_RFR6:
+> +	case FSL_SAI_RFR7:
+> +	case FSL_SAI_RDR0:
+> +	case FSL_SAI_RDR1:
+> +	case FSL_SAI_RDR2:
+> +	case FSL_SAI_RDR3:
+> +	case FSL_SAI_RDR4:
+> +	case FSL_SAI_RDR5:
+> +	case FSL_SAI_RDR6:
+> +	case FSL_SAI_RDR7:
+>  		return true;
+>  	default:
+>  		return false;
+> @@ -744,7 +793,14 @@ static bool fsl_sai_writeable_reg(struct device *dev, unsigned int reg)
+>  	case FSL_SAI_TCR3:
+>  	case FSL_SAI_TCR4:
+>  	case FSL_SAI_TCR5:
+> -	case FSL_SAI_TDR:
+> +	case FSL_SAI_TDR0:
+> +	case FSL_SAI_TDR1:
+> +	case FSL_SAI_TDR2:
+> +	case FSL_SAI_TDR3:
+> +	case FSL_SAI_TDR4:
+> +	case FSL_SAI_TDR5:
+> +	case FSL_SAI_TDR6:
+> +	case FSL_SAI_TDR7:
+>  	case FSL_SAI_TMR:
+>  	case FSL_SAI_RCSR:
+>  	case FSL_SAI_RCR1:
+> @@ -885,8 +941,8 @@ static int fsl_sai_probe(struct platform_device *pdev)
+>  				   MCLK_DIR(index));
+>  	}
+>  
+> -	sai->dma_params_rx.addr = res->start + FSL_SAI_RDR;
+> -	sai->dma_params_tx.addr = res->start + FSL_SAI_TDR;
+> +	sai->dma_params_rx.addr = res->start + FSL_SAI_RDR0;
+> +	sai->dma_params_tx.addr = res->start + FSL_SAI_TDR0;
+>  	sai->dma_params_rx.maxburst = FSL_SAI_MAXBURST_RX;
+>  	sai->dma_params_tx.maxburst = FSL_SAI_MAXBURST_TX;
+>  
+> diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
+> index 7c1ef671da28..4bb478041d67 100644
+> --- a/sound/soc/fsl/fsl_sai.h
+> +++ b/sound/soc/fsl/fsl_sai.h
+> @@ -20,8 +20,22 @@
+>  #define FSL_SAI_TCR3	0x0c /* SAI Transmit Configuration 3 */
+>  #define FSL_SAI_TCR4	0x10 /* SAI Transmit Configuration 4 */
+>  #define FSL_SAI_TCR5	0x14 /* SAI Transmit Configuration 5 */
+> -#define FSL_SAI_TDR	0x20 /* SAI Transmit Data */
+> -#define FSL_SAI_TFR	0x40 /* SAI Transmit FIFO */
+> +#define FSL_SAI_TDR0	0x20 /* SAI Transmit Data 0 */
+> +#define FSL_SAI_TDR1	0x24 /* SAI Transmit Data 1 */
+> +#define FSL_SAI_TDR2	0x28 /* SAI Transmit Data 2 */
+> +#define FSL_SAI_TDR3	0x2C /* SAI Transmit Data 3 */
+> +#define FSL_SAI_TDR4	0x30 /* SAI Transmit Data 4 */
+> +#define FSL_SAI_TDR5	0x34 /* SAI Transmit Data 5 */
+> +#define FSL_SAI_TDR6	0x38 /* SAI Transmit Data 6 */
+> +#define FSL_SAI_TDR7	0x3C /* SAI Transmit Data 7 */
+> +#define FSL_SAI_TFR0	0x40 /* SAI Transmit FIFO 0 */
+> +#define FSL_SAI_TFR1	0x44 /* SAI Transmit FIFO 1 */
+> +#define FSL_SAI_TFR2	0x48 /* SAI Transmit FIFO 2 */
+> +#define FSL_SAI_TFR3	0x4C /* SAI Transmit FIFO 3 */
+> +#define FSL_SAI_TFR4	0x50 /* SAI Transmit FIFO 4 */
+> +#define FSL_SAI_TFR5	0x54 /* SAI Transmit FIFO 5 */
+> +#define FSL_SAI_TFR6	0x58 /* SAI Transmit FIFO 6 */
+> +#define FSL_SAI_TFR7	0x5C /* SAI Transmit FIFO 7 */
+>  #define FSL_SAI_TMR	0x60 /* SAI Transmit Mask */
+>  #define FSL_SAI_RCSR	0x80 /* SAI Receive Control */
+>  #define FSL_SAI_RCR1	0x84 /* SAI Receive Configuration 1 */
+> @@ -29,8 +43,22 @@
+>  #define FSL_SAI_RCR3	0x8c /* SAI Receive Configuration 3 */
+>  #define FSL_SAI_RCR4	0x90 /* SAI Receive Configuration 4 */
+>  #define FSL_SAI_RCR5	0x94 /* SAI Receive Configuration 5 */
+> -#define FSL_SAI_RDR	0xa0 /* SAI Receive Data */
+> -#define FSL_SAI_RFR	0xc0 /* SAI Receive FIFO */
+> +#define FSL_SAI_RDR0	0xa0 /* SAI Receive Data 0 */
+> +#define FSL_SAI_RDR1	0xa4 /* SAI Receive Data 1 */
+> +#define FSL_SAI_RDR2	0xa8 /* SAI Receive Data 2 */
+> +#define FSL_SAI_RDR3	0xac /* SAI Receive Data 3 */
+> +#define FSL_SAI_RDR4	0xb0 /* SAI Receive Data 4 */
+> +#define FSL_SAI_RDR5	0xb4 /* SAI Receive Data 5 */
+> +#define FSL_SAI_RDR6	0xb8 /* SAI Receive Data 6 */
+> +#define FSL_SAI_RDR7	0xbc /* SAI Receive Data 7 */
+> +#define FSL_SAI_RFR0	0xc0 /* SAI Receive FIFO 0 */
+> +#define FSL_SAI_RFR1	0xc4 /* SAI Receive FIFO 1 */
+> +#define FSL_SAI_RFR2	0xc8 /* SAI Receive FIFO 2 */
+> +#define FSL_SAI_RFR3	0xcc /* SAI Receive FIFO 3 */
+> +#define FSL_SAI_RFR4	0xd0 /* SAI Receive FIFO 4 */
+> +#define FSL_SAI_RFR5	0xd4 /* SAI Receive FIFO 5 */
+> +#define FSL_SAI_RFR6	0xd8 /* SAI Receive FIFO 6 */
+> +#define FSL_SAI_RFR7	0xdc /* SAI Receive FIFO 7 */
+>  #define FSL_SAI_RMR	0xe0 /* SAI Receive Mask */
+>  
+>  #define FSL_SAI_xCSR(tx)	(tx ? FSL_SAI_TCSR : FSL_SAI_RCSR)
+> -- 
+> 2.17.1
+> 
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

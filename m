@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22EA884D6E
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:34:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F60184D7D
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:37:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B3D7C85D;
-	Wed,  7 Aug 2019 15:33:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3D7C85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8D77847;
+	Wed,  7 Aug 2019 15:36:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8D77847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565184881;
-	bh=oMZoqn5SU0zovP/znKwjmWV/sTs+FnatTfjYCa1wbTE=;
+	s=default; t=1565185042;
+	bh=jnItYuCrKEfbCTuwCoE+AkqWnrpf18S6Xx34SwiHTh0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=KfdExjoGVZ9VGYkf4tIzKKbTq20NAOFxueb5ib18mo0/aK7R2E1dE8vXqnVnM9Tsm
-	 FxIql/bOVrITK3/qRwqXOhBY1+FyOOY9Xz+V2ZqWCRKBCmd559miLAkVbS24QazZaq
-	 3Be+DOaAUFh5P8yG5VzyDmtKJhGKUaqyQqfsmjjM=
+	b=Q1XJKddkLKm/7gS2WloON/gz+9W5jfZ0k+mmkK5IxT3lCcqATTdJxC+plokwwmDDg
+	 9TlkBoqEkyT+t73Nk0mKKfEQ9CD9lETo9hN/rg419BxGLzSqZTIuk9PX6YBfIrS1Em
+	 wrizdO4iJXmavxZruLx/05/HsHGejFk1VnNWY4tU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1F12EF805F7;
-	Wed,  7 Aug 2019 15:31:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7B615F8064C;
+	Wed,  7 Aug 2019 15:31:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1370CF805FB; Wed,  7 Aug 2019 15:30:57 +0200 (CEST)
+ id E408AF80600; Wed,  7 Aug 2019 15:31:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44AE2F80529
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44AE2F80529
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F440F80534
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F440F80534
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="rwRWB8D+"
+ header.b="ulvMPfRk"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2EbYTAqI4zLOFVUYBUHF/BE1UcTYirfxLUj8k3Q4Nh8=; b=rwRWB8D+EP/r
- y2l2Zf6wdcIIFVMHu5VxN3NvzqClPMRV9k8tlI75E6a/+E6KdhGWSVLRHi8wFfR3UNcGD9PtNf/mX
- 649w19tiNe6iuBQ2IbRGAQfi0et1MFjpj99a+uxVnIqRR/Y/c5XhRhLk4QwPb4jpvlR7niSkKK5CU
- vRi78=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=He/eybvHtH7EREDmS2gRlNbZs/2VuGXdKsYyhsRo5CI=; b=ulvMPfRkp/vl
+ nC0jVgfLmy8RX5gHqdNvqPW6v1038lwYUw9qmmzpKC8sui4ioYix40HLP1UO6er/Mgn6sLQcoed0J
+ MK14UGQPfCLAomVhvrcuFdQycEpvloPMCUUm/5vZx3xzU0oiWRWRKTmPWIddrD9UwKxg5LWQjX8yT
+ K4SpQ=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvM1f-0007fA-LY; Wed, 07 Aug 2019 13:30:47 +0000
+ id 1hvM1e-0007f6-TM; Wed, 07 Aug 2019 13:30:46 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 05EA42742B9E; Wed,  7 Aug 2019 14:30:46 +0100 (BST)
+ id 605AB2742B9E; Wed,  7 Aug 2019 14:30:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Daniel Baluta <daniel.baluta@nxp.com>
-In-Reply-To: <20190806151214.6783-3-daniel.baluta@nxp.com>
+In-Reply-To: <20190806151214.6783-5-daniel.baluta@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190807133047.05EA42742B9E@ypsilon.sirena.org.uk>
+Message-Id: <20190807133046.605AB2742B9E@ypsilon.sirena.org.uk>
 Date: Wed,  7 Aug 2019 14:30:46 +0100 (BST)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
  robh@kernel.org, shengjiu.wang@nxp.com, angus@akkea.ca,
@@ -69,8 +70,8 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
  Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
  linux-imx@nxp.com, kernel@pengutronix.de, festevam@gmail.com,
  mihai.serban@gmail.com, l.stach@pengutronix.de
-Subject: [alsa-devel] Applied "ASoC: fsl_sai: Update Tx/Rx channel enable
-	mask" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: fsl_sai: Add support for
+	imx7ulp/imx8mq" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_sai: Update Tx/Rx channel enable mask
+   ASoC: fsl_sai: Add support for imx7ulp/imx8mq
 
 has been applied to the asoc tree at
 
@@ -116,63 +117,54 @@ to this mail.
 Thanks,
 Mark
 
-From b84f50b0fcb497a62068926fca793d2d213c7dbd Mon Sep 17 00:00:00 2001
+From a860fac420971c5a90d4f78959b44ead793aee4f Mon Sep 17 00:00:00 2001
 From: Daniel Baluta <daniel.baluta@nxp.com>
-Date: Tue, 6 Aug 2019 18:12:11 +0300
-Subject: [PATCH] ASoC: fsl_sai: Update Tx/Rx channel enable mask
+Date: Tue, 6 Aug 2019 18:12:13 +0300
+Subject: [PATCH] ASoC: fsl_sai: Add support for imx7ulp/imx8mq
 
-Tx channel enable (TCE) / Rx channel enable (RCE) bits
-enable corresponding data channel for Tx/Rx operation.
+SAI module on imx7ulp/imx8m features 2 new registers (VERID and PARAM)
+at the beginning of register address space.
 
-Because SAI supports up the 8 channels TCE/RCE occupy
-up the 8 bits inside TCR3/RCR3 registers we need to extend
-the mask to reflect this.
+On imx7ulp FIFOs can held up to 16 x 32 bit samples.
+On imx8mq FIFOs can held up to 128 x 32 bit samples.
 
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Link: https://lore.kernel.org/r/20190806151214.6783-3-daniel.baluta@nxp.com
+Link: https://lore.kernel.org/r/20190806151214.6783-5-daniel.baluta@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_sai.c | 6 ++++--
- sound/soc/fsl/fsl_sai.h | 1 +
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ sound/soc/fsl/fsl_sai.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
 diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index e4221f2a5ee3..f2698c94c9fe 100644
+index 0c5452927c04..4a346fcb5630 100644
 --- a/sound/soc/fsl/fsl_sai.c
 +++ b/sound/soc/fsl/fsl_sai.c
-@@ -599,7 +599,8 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	int ret;
+@@ -1019,10 +1019,24 @@ static const struct fsl_sai_soc_data fsl_sai_imx6sx_data = {
+ 	.reg_offset = 0,
+ };
  
--	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx), FSL_SAI_CR3_TRCE,
-+	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
-+			   FSL_SAI_CR3_TRCE_MASK,
- 			   FSL_SAI_CR3_TRCE);
- 
- 	ret = snd_pcm_hw_constraint_list(substream->runtime, 0,
-@@ -614,7 +615,8 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
- 	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 
--	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx), FSL_SAI_CR3_TRCE, 0);
-+	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
-+			   FSL_SAI_CR3_TRCE_MASK, 0);
- }
- 
- static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 4bb478041d67..20c5b9b1e8bc 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -110,6 +110,7 @@
- 
- /* SAI Transmit and Receive Configuration 3 Register */
- #define FSL_SAI_CR3_TRCE	BIT(16)
-+#define FSL_SAI_CR3_TRCE_MASK	GENMASK(23, 16)
- #define FSL_SAI_CR3_WDFL(x)	(x)
- #define FSL_SAI_CR3_WDFL_MASK	0x1f
- 
++static const struct fsl_sai_soc_data fsl_sai_imx7ulp_data = {
++	.use_imx_pcm = true,
++	.fifo_depth = 16,
++	.reg_offset = 8,
++};
++
++static const struct fsl_sai_soc_data fsl_sai_imx8mq_data = {
++	.use_imx_pcm = true,
++	.fifo_depth = 128,
++	.reg_offset = 8,
++};
++
+ static const struct of_device_id fsl_sai_ids[] = {
+ 	{ .compatible = "fsl,vf610-sai", .data = &fsl_sai_vf610_data },
+ 	{ .compatible = "fsl,imx6sx-sai", .data = &fsl_sai_imx6sx_data },
+ 	{ .compatible = "fsl,imx6ul-sai", .data = &fsl_sai_imx6sx_data },
++	{ .compatible = "fsl,imx7ulp-sai", .data = &fsl_sai_imx7ulp_data },
++	{ .compatible = "fsl,imx8mq-sai", .data = &fsl_sai_imx8mq_data },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, fsl_sai_ids);
 -- 
 2.20.1
 

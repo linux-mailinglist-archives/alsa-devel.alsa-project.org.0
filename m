@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3B6284D74
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:36:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B44784DB1
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:40:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FE21828;
-	Wed,  7 Aug 2019 15:35:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FE21828
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE7311666;
+	Wed,  7 Aug 2019 15:39:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE7311666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565184962;
-	bh=8/cCuQsUO5V0+XvCZmNHinipRsubGDtp+1Uae6yauNA=;
+	s=default; t=1565185209;
+	bh=gBLzgKJjhme54I1q/VH2mtNizl0ibNHTBQgimRoTHmE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dYwfwpRpy93ohtFxDzcYfaQlV//gQ6Ie++LbB2RIDu7sS6Ba6mdkTia2Abf8SLUye
-	 dvCkFLbMO3ZRiDFPYvXN8rktdKc27eRk0WmI9CAnubSzwegsT1830sbYI3KXMsHWNn
-	 aqzjWQ3nzf9Jz1qNHs/GUdRCdf5tI7NL2m6qD4jk=
+	b=XC26Nm459z48mroasYGKBPISbJ0Dsajp9zpc9Q3WlXlUd+T8G72pZG1f6fwCBLGAQ
+	 KLAu9IZiv9HM5WjHEEwGQi/gzub/kGt8CGWC1hwsuQkFSX6iASk/uqJce7usAlnsQu
+	 zFVFKSzn2rT8N/MAxHi/vXfWnSz2SJWUvT82viSc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4239F80637;
-	Wed,  7 Aug 2019 15:31:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A82CF806F7;
+	Wed,  7 Aug 2019 15:31:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2190F805FD; Wed,  7 Aug 2019 15:30:59 +0200 (CEST)
+ id 2D797F805FB; Wed,  7 Aug 2019 15:31:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3E12F80533
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3E12F80533
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AE2BF805E2
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AE2BF805E2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="EGpXKJvy"
+ header.b="Wrc7rH76"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=J5xMzBUxIN15NBp2dpPF0XlG/JbExSx32VFRcu7XMRI=; b=EGpXKJvyUUdk
- IirYup4IrZpeP73T0TE5mYK0O0h/wJBxJGSjQ3iD0exdlifBb1adIKMkLvBcnfVsNfuT9l46sS9Go
- P6SgJo7p7PWN1rVjcv4foELQVpdqpboZRYCL1BmPkVLEk+BAJg0b8GhZv0PeEcg6FH2pLJVfCVGky
- fJpyk=;
+ List-Archive; bh=mfWL2m+BeNfnO93owf1Y8Hy5EN/EL8m3T+0h1zMwzuM=; b=Wrc7rH76tSsn
+ foToCaQLSCPIF5AgHm8Z2o7tWenI0S2Hxw+Dc9EuCxu9m91zj1NjpDe9bofOkNLpNdhszn8t0WD+T
+ jvEx71My2jIJS9UwROeLMM+cvIHgHvZ2RitTgFiOZWsAko7hvayKdBuEN+ICP/yIK8R9hlD/rhMOF
+ 2MTWo=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvM1h-0007fc-S3; Wed, 07 Aug 2019 13:30:49 +0000
+ id 1hvM1i-0007fp-6H; Wed, 07 Aug 2019 13:30:50 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 0350A2742BE8; Wed,  7 Aug 2019 14:30:48 +0100 (BST)
+ id 79D22274304E; Wed,  7 Aug 2019 14:30:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87muglahq0.wl-kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190806170603.10815-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190807133049.0350A2742BE8@ypsilon.sirena.org.uk>
-Date: Wed,  7 Aug 2019 14:30:48 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: set component->debugfs_root
-	NULL" to the asoc tree
+Message-Id: <20190807133049.79D22274304E@ypsilon.sirena.org.uk>
+Date: Wed,  7 Aug 2019 14:30:49 +0100 (BST)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: fix MSI handling" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: set component->debugfs_root NULL
+   ASoC: SOF: Intel: hda: fix MSI handling
 
 has been applied to the asoc tree at
 
@@ -111,37 +111,42 @@ to this mail.
 Thanks,
 Mark
 
-From ad64bfbd09d7b7997a1b1510983350836bcd6ed9 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 7 Aug 2019 10:30:13 +0900
-Subject: [PATCH] ASoC: soc-core: set component->debugfs_root NULL
+From bb67dd1878de5766c24fe7a4002d1a12c14da518 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Tue, 6 Aug 2019 12:06:03 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: fix MSI handling
 
-To be more safety code, let's set NULL to component->debugfs_root
-when it was cleanuped.
+The addition of a kernel module parameter to optionally disable MSI
+had the side effect of permanently disabling it.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87muglahq0.wl-kuninori.morimoto.gx@renesas.com
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+The return value of pci_alloc_irq_vectors() is the number of allocated
+vectors or a negative number on error, so testing with the ! operator
+is not quite right. It was one optimization too far.
+
+Restore previous behavior to use MSI by default, unless the user
+selects not to do so or the allocation of irq_vectors fails.
+
+Fixes: 672ff5e3596ee ('ASoC: SOF: Intel: hda: add a parameter to disable MSI')
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20190806170603.10815-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/sof/intel/hda.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 0f75dac4bb26..2f37c4e0974b 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -171,7 +171,10 @@ static void soc_init_component_debugfs(struct snd_soc_component *component)
- 
- static void soc_cleanup_component_debugfs(struct snd_soc_component *component)
- {
-+	if (!component->debugfs_root)
-+		return;
- 	debugfs_remove_recursive(component->debugfs_root);
-+	component->debugfs_root = NULL;
- }
- 
- static int dai_list_show(struct seq_file *m, void *v)
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 79cce20666b6..53813de7844e 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -537,7 +537,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
+ 	 * if it fails, use legacy interrupt mode
+ 	 * TODO: support msi multiple vectors
+ 	 */
+-	if (hda_use_msi && !pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI)) {
++	if (hda_use_msi && pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI) > 0) {
+ 		dev_info(sdev->dev, "use msi interrupt mode\n");
+ 		hdev->irq = pci_irq_vector(pci, 0);
+ 		/* ipc irq number is the same of hda irq */
 -- 
 2.20.1
 

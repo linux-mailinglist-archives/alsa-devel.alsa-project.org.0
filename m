@@ -2,72 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E81852DA
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 20:19:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE8678533E
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 20:51:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D000828;
-	Wed,  7 Aug 2019 20:18:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D000828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 455F1851;
+	Wed,  7 Aug 2019 20:50:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 455F1851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565201952;
-	bh=FJzN7GXAOzQbZsgoSdd/N29OOvPnWsG85m8+BHh30g0=;
+	s=default; t=1565203868;
+	bh=Q78gncVLM1u5dZ46XKTJf+Xg480O3ci5ysJ/K8aNlHA=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ULvOIfEmJACy+9sOgT5nqsaHXACuBITm9YXk9pr/n0/ksEfbQ665sxKMY9otmaI5s
-	 ra/4cjU79NH1ax7QSC7YUL15SFfhrGygzd/nMBf+x+UoTb9Ecn1amyKRK/35/rHhtR
-	 QQxEc4SvWJipwXJE0wEsrFbU28nKbUwPHmutUoWs=
+	b=NCrnw8KFnb/bk+Zzy6GtdNFSfMeTc4Eg8jH4FcCo/m76LtMiSUtoa1/2rYq3JTh4b
+	 2XyrbRVxG8W97KuhFbqbgnpR1hM6Pu78XiKZCBOQbhfMiZLelJ9C+hpFsq40Gl1kZ+
+	 28tGxJLUPWxlP0c81iwOmRLGM/tQmfDPjuasPkXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0E88F80227;
-	Wed,  7 Aug 2019 20:17:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 709ECF800E4;
+	Wed,  7 Aug 2019 20:49:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0B1D6F80290; Wed,  7 Aug 2019 20:17:27 +0200 (CEST)
+ id B4F2BF80290; Wed,  7 Aug 2019 20:49:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0758F800F4
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 20:17:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0758F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1671F800E4
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 20:49:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1671F800E4
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2019 11:17:21 -0700
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2019 11:49:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,358,1559545200"; d="scan'208";a="165424309"
-Received: from mwdryfus-mobl.amr.corp.intel.com (HELO [10.254.191.107])
- ([10.254.191.107])
- by orsmga007.jf.intel.com with ESMTP; 07 Aug 2019 11:17:20 -0700
-To: Mark Brown <broonie@kernel.org>
-References: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
- <CAJZ5v0g5Hk9JYLvRXfLk5-o=n_RVPKtWD=QONpiimCWyQOFELQ@mail.gmail.com>
- <52a2cb0c-92a6-59d5-72da-832edd6481f3@linux.intel.com>
- <20190807175646.GK4048@sirena.co.uk>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <5a7473a2-83c0-1a09-0cab-31fcc5b21302@linux.intel.com>
-Date: Wed, 7 Aug 2019 13:17:20 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+X-IronPort-AV: E=Sophos;i="5.64,358,1559545200"; d="scan'208";a="176278595"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.6.17])
+ ([10.252.6.17])
+ by fmsmga007.fm.intel.com with ESMTP; 07 Aug 2019 11:49:10 -0700
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+References: <87pnlhahr6.wl-kuninori.morimoto.gx@renesas.com>
+ <87y305932s.wl-kuninori.morimoto.gx@renesas.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <f3ead090-8c2c-6be5-70b8-c6530239302a@intel.com>
+Date: Wed, 7 Aug 2019 20:49:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190807175646.GK4048@sirena.co.uk>
+In-Reply-To: <87y305932s.wl-kuninori.morimoto.gx@renesas.com>
 Content-Language: en-US
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Vinod Koul <vkoul@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>, jank@cadence.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH] soundwire: fix regmap dependencies and
- align with other serial links
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 19/25] ASoC: soc-core: don't call
+ snd_soc_component_set_jack()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,50 +79,42 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
-
+On 2019-08-07 03:31, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > 
->> Vinod, Mark, any feedback?
+> snd_soc_component_set_jack() is used for both setting/clearing.
+> Setting purpose is used under each driver.
+> Hence, clearing purpose should be used under each driver, not soc-core.
 > 
->> There will be a set of SoundWire codec drivers provided upstream soonish and
->> we'll get a number of kbuild errors without this patch.
+> soc-core shouldn't touch it even though its purpose was for clearing,
+> otherwise, code becomes very confusable.
+> This patch removes snd_soc_component_set_jack() from soc-core.c
 > 
-> I think I'm missing context here, I've basically been zoning out all the
-> soundwire stuff - the patch series are huge and generate a bunch of
-> discusion.  Is the patch below the full thing?  I don't see any obvious
-> problems.
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+> v1 -> v2
+> 
+> 	- no change
+> 
+>   sound/soc/soc-core.c | 1 -
+>   1 file changed, 1 deletion(-)
+> 
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index 80703618..e708095 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -938,7 +938,6 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
+>   
+>   static void soc_cleanup_component(struct snd_soc_component *component)
+>   {
+> -	snd_soc_component_set_jack(component, NULL, NULL);
+>   	list_del(&component->card_list);
+>   	snd_soc_dapm_free(snd_soc_component_get_dapm(component));
+>   	soc_cleanup_component_debugfs(component);
+> 
 
-Here's a bit of context:
-
-This patch is really independent from the 40-odd fixes I pushed about 10 
-days ago. I provided an initial version back in April ('[PATCH v2 2/2] 
-regmap: soundwire: fix Kconfig select/depend issue') during the first 
-batch of updates. At the time, the suggested solution for the 
-compilation issues was not agreed on, so the build errors remained - not 
-a big deal they only show-up with codec drivers that were not upstreamed 
-so far. It took me a while to come back to it but that was the first in 
-my TODO list after my Summer break and now that we are almost ready to 
-upstream those codec drivers it's a good time to revisit this issue.
-
-Your initial feedback was:
-
-"This now makes _SOUNDWIRE different to all the other bus types; if this
-is a good change then surely the same thing should be done for all the
-other bus types. "
-
-and
-
-"Alignment is a requirement.  If you want to optimize
-this then it'd be better to optimize all the bus types rather than just
-having the one weird bus type that does something different for no
-documented reason."
-
-I don't have the knowledge or means to test what I suggested initially 
-for the other buses, and the optimization was minimal anyways, so this 
-patch takes the path of least resistance and aligns with others.
-
-if there are no objections it's probably easier to push this patch 
-through the SoundWire tree, with the relevant Acks.
+This has been added lately for a reason - reload/ unload series.
+Amadeusz, could you comment on this change?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

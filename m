@@ -2,72 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E33B585284
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 19:58:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E81852DA
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 20:19:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4924C84F;
-	Wed,  7 Aug 2019 19:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4924C84F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D000828;
+	Wed,  7 Aug 2019 20:18:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D000828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565200724;
-	bh=3pFfUf0QY+fOlvwHHTTDvymbusX6XAX65bKpUJuqABo=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565201952;
+	bh=FJzN7GXAOzQbZsgoSdd/N29OOvPnWsG85m8+BHh30g0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C9fsH4q9qdJFkJ9IbLRPzittdfmkdCt56TrGCMnvan9dTXYWUaZcZxRUNU89U4bGl
-	 pMVngpmW+8QV7cLHSIx2JNlRA/8WoCnMit9Rt6/zmcuqhcHmhDM90L5MQx1uIQrXYK
-	 pSP9lTEpdiKDU8r2SauC5ecJ4+KZmDHoo45g5mjU=
+	b=ULvOIfEmJACy+9sOgT5nqsaHXACuBITm9YXk9pr/n0/ksEfbQ665sxKMY9otmaI5s
+	 ra/4cjU79NH1ax7QSC7YUL15SFfhrGygzd/nMBf+x+UoTb9Ecn1amyKRK/35/rHhtR
+	 QQxEc4SvWJipwXJE0wEsrFbU28nKbUwPHmutUoWs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78AEAF80290;
-	Wed,  7 Aug 2019 19:57:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0E88F80227;
+	Wed,  7 Aug 2019 20:17:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B7D8F80290; Wed,  7 Aug 2019 19:56:58 +0200 (CEST)
+ id 0B1D6F80290; Wed,  7 Aug 2019 20:17:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DEE67F800F3
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 19:56:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEE67F800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Ph36o3U8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dEwiILabVzzTIYb/658XogkvnQOQeMh6Hr9+QcEFNQw=; b=Ph36o3U8a75Pt13+eK/wAbf6A
- VV0kmEhBB9qEVHgLcYjl5W8oR0fPnwTTJAhQkGsMSL4+QkuMcdOoCCJZ1ng+qCnnL8H26nOKTBkb8
- 0xH5iKbozYBzPRcG02sCY4dHMkClvyqkI6fVDQYP1royVPVx377Df8yrtOyQq1ARGj8Ik=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1hvQB5-0008Le-Vg; Wed, 07 Aug 2019 17:56:48 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D80DB2742B9E; Wed,  7 Aug 2019 18:56:46 +0100 (BST)
-Date: Wed, 7 Aug 2019 18:56:46 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190807175646.GK4048@sirena.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0758F800F4
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 20:17:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0758F800F4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2019 11:17:21 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,358,1559545200"; d="scan'208";a="165424309"
+Received: from mwdryfus-mobl.amr.corp.intel.com (HELO [10.254.191.107])
+ ([10.254.191.107])
+ by orsmga007.jf.intel.com with ESMTP; 07 Aug 2019 11:17:20 -0700
+To: Mark Brown <broonie@kernel.org>
 References: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
  <CAJZ5v0g5Hk9JYLvRXfLk5-o=n_RVPKtWD=QONpiimCWyQOFELQ@mail.gmail.com>
  <52a2cb0c-92a6-59d5-72da-832edd6481f3@linux.intel.com>
+ <20190807175646.GK4048@sirena.co.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <5a7473a2-83c0-1a09-0cab-31fcc5b21302@linux.intel.com>
+Date: Wed, 7 Aug 2019 13:17:20 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <52a2cb0c-92a6-59d5-72da-832edd6481f3@linux.intel.com>
-X-Cookie: Dammit Jim, I'm an actor, not a doctor.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20190807175646.GK4048@sirena.co.uk>
+Content-Language: en-US
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <alsa-devel@alsa-project.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
  Takashi Iwai <tiwai@suse.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -89,138 +80,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0208552427600124638=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark,
 
---===============0208552427600124638==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5dNcufZ4prhark0F"
-Content-Disposition: inline
+> 
+>> Vinod, Mark, any feedback?
+> 
+>> There will be a set of SoundWire codec drivers provided upstream soonish and
+>> we'll get a number of kbuild errors without this patch.
+> 
+> I think I'm missing context here, I've basically been zoning out all the
+> soundwire stuff - the patch series are huge and generate a bunch of
+> discusion.  Is the patch below the full thing?  I don't see any obvious
+> problems.
 
+Here's a bit of context:
 
---5dNcufZ4prhark0F
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This patch is really independent from the 40-odd fixes I pushed about 10 
+days ago. I provided an initial version back in April ('[PATCH v2 2/2] 
+regmap: soundwire: fix Kconfig select/depend issue') during the first 
+batch of updates. At the time, the suggested solution for the 
+compilation issues was not agreed on, so the build errors remained - not 
+a big deal they only show-up with codec drivers that were not upstreamed 
+so far. It took me a while to come back to it but that was the first in 
+my TODO list after my Summer break and now that we are almost ready to 
+upstream those codec drivers it's a good time to revisit this issue.
 
-On Wed, Aug 07, 2019 at 10:09:27AM -0500, Pierre-Louis Bossart wrote:
+Your initial feedback was:
 
-> Vinod, Mark, any feedback?
+"This now makes _SOUNDWIRE different to all the other bus types; if this
+is a good change then surely the same thing should be done for all the
+other bus types. "
 
-> There will be a set of SoundWire codec drivers provided upstream soonish =
 and
-> we'll get a number of kbuild errors without this patch.
 
-I think I'm missing context here, I've basically been zoning out all the
-soundwire stuff - the patch series are huge and generate a bunch of
-discusion.  Is the patch below the full thing?  I don't see any obvious
-problems.
+"Alignment is a requirement.  If you want to optimize
+this then it'd be better to optimize all the bus types rather than just
+having the one weird bus type that does something different for no
+documented reason."
 
->=20
-> >=20
-> > > ---
-> > >   drivers/base/regmap/Kconfig | 2 +-
-> > >   drivers/soundwire/Kconfig   | 7 +------
-> > >   drivers/soundwire/Makefile  | 2 +-
-> > >   3 files changed, 3 insertions(+), 8 deletions(-)
-> > >=20
-> > > diff --git a/drivers/base/regmap/Kconfig b/drivers/base/regmap/Kconfig
-> > > index 6ad5ef48b61e..8cd2ac650b50 100644
-> > > --- a/drivers/base/regmap/Kconfig
-> > > +++ b/drivers/base/regmap/Kconfig
-> > > @@ -44,7 +44,7 @@ config REGMAP_IRQ
-> > >=20
-> > >   config REGMAP_SOUNDWIRE
-> > >          tristate
-> > > -       depends on SOUNDWIRE_BUS
-> > > +       depends on SOUNDWIRE
-> > >=20
-> > >   config REGMAP_SCCB
-> > >          tristate
-> > > diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
-> > > index 3a01cfd70fdc..f518273cfbe3 100644
-> > > --- a/drivers/soundwire/Kconfig
-> > > +++ b/drivers/soundwire/Kconfig
-> > > @@ -4,7 +4,7 @@
-> > >   #
-> > >=20
-> > >   menuconfig SOUNDWIRE
-> > > -       bool "SoundWire support"
-> > > +       tristate "SoundWire support"
-> > >          help
-> > >            SoundWire is a 2-Pin interface with data and clock line ra=
-tified
-> > >            by the MIPI Alliance. SoundWire is used for transporting d=
-ata
-> > > @@ -17,17 +17,12 @@ if SOUNDWIRE
-> > >=20
-> > >   comment "SoundWire Devices"
-> > >=20
-> > > -config SOUNDWIRE_BUS
-> > > -       tristate
-> > > -       select REGMAP_SOUNDWIRE
-> > > -
-> > >   config SOUNDWIRE_CADENCE
-> > >          tristate
-> > >=20
-> > >   config SOUNDWIRE_INTEL
-> > >          tristate "Intel SoundWire Master driver"
-> > >          select SOUNDWIRE_CADENCE
-> > > -       select SOUNDWIRE_BUS
-> > >          depends on X86 && ACPI && SND_SOC
-> > >          help
-> > >            SoundWire Intel Master driver.
-> > > diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-> > > index fd99a831b92a..45b7e5001653 100644
-> > > --- a/drivers/soundwire/Makefile
-> > > +++ b/drivers/soundwire/Makefile
-> > > @@ -5,7 +5,7 @@
-> > >=20
-> > >   #Bus Objs
-> > >   soundwire-bus-objs :=3D bus_type.o bus.o slave.o mipi_disco.o strea=
-m.o
-> > > -obj-$(CONFIG_SOUNDWIRE_BUS) +=3D soundwire-bus.o
-> > > +obj-$(CONFIG_SOUNDWIRE) +=3D soundwire-bus.o
-> > >=20
-> > >   #Cadence Objs
-> > >   soundwire-cadence-objs :=3D cadence_master.o
-> > > --
-> > > 2.20.1
-> > >=20
-> > _______________________________________________
-> > Alsa-devel mailing list
-> > Alsa-devel@alsa-project.org
-> > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> >=20
+I don't have the knowledge or means to test what I suggested initially 
+for the other buses, and the optimization was minimal anyways, so this 
+patch takes the path of least resistance and aligns with others.
 
---5dNcufZ4prhark0F
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1LEN0ACgkQJNaLcl1U
-h9Doowf+Pqtbwv8TKH7n1SWpm5BzFI61YcWAq17CFzAwcyo9WP/KgUvxQuOPbkhE
-BLh0VrJ0TjoAk1hFmJjOiiteW2VCD0GuSwLLta/bIuRPRVfzNbo7hhEMk9StQOzZ
-IyyPf272g43ClAZI0BWc7MxKnx7Kc2Tfr+DJNlOe40TXKqQ3e9EPrZvqQjczZuLl
-LgqWERVy/CAf7McruEyKoWsR9F89dmQUjYjsxXn8+vXjmYJ4KoSFpnXa65U9k3f9
-dq86ylDSeaYDpuFP9HdYzn74boq8u3C+svgAcv7z6q62Pa8RDifXSnMAr84Q6Nn1
-3ScPBYV/GzO3k5FLqxGL5GizewOQyw==
-=9z/t
------END PGP SIGNATURE-----
-
---5dNcufZ4prhark0F--
-
---===============0208552427600124638==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+if there are no objections it's probably easier to push this patch 
+through the SoundWire tree, with the relevant Acks.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0208552427600124638==--

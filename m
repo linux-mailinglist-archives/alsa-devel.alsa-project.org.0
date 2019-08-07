@@ -2,96 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A7083EB1
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 03:16:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D66CB83EB6
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 03:18:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8EB771677;
-	Wed,  7 Aug 2019 03:15:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EB771677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 561C2166B;
+	Wed,  7 Aug 2019 03:18:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 561C2166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565140587;
-	bh=Ij8zif2nUiYH4HFKAYFufG+iQYlOL4g2epaRfFsn6GI=;
+	s=default; t=1565140734;
+	bh=SiE3mhKwLk1HNN6N5Es24S27wCI5Fb6dpkKoidCiMjE=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CUcTaI5z7G28bqT2UP115hbPyyxdzf2mNLXm/vZ0wHqLYWjbbv0F+up25g3BvFw6k
-	 Rpfrd1hPG9QsRNcEfuztqkeUmCrRGd7xgJzXRFIQcFTwXkt8zjOS0rzoK9nE/m/4nP
-	 DG4LDXUQrJYP2sHxHS+ISPsHZJpu7p+KNSlMy6ws=
+	b=BmEX9onwEcokcBmGN9dgQBm1jMCqEJfEyqgNwe/SG5zxG3hDOlo3E8+/yeatnztfv
+	 X8Sa4oqyXgXYJE1K2Do29ZVUkUeR5BuLPdWxXQQcfshmXsO2K+JoulIBgkbf/6GacV
+	 KHX2rcxRa8Rz50ZFLApQ1cfS2cN13MbEHMfpds/Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A862F804CA;
-	Wed,  7 Aug 2019 03:15:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 824D3F804CA;
+	Wed,  7 Aug 2019 03:17:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39CC1F804CA; Wed,  7 Aug 2019 03:15:31 +0200 (CEST)
+ id 23BFBF80483; Wed,  7 Aug 2019 03:17:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_ADSP_CUSTOM_MED,
- DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FROM,NML_ADSP_CUSTOM_MED,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67007F800F3
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 03:15:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67007F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 58343F800F3
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 03:17:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58343F800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="WOgnVbzO"
-Received: by mail-pl1-x641.google.com with SMTP id a93so38510451pla.7
- for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 18:15:17 -0700 (PDT)
+ header.b="OOkY2mEC"
+Received: by mail-pf1-x443.google.com with SMTP id 19so42465538pfa.4
+ for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 18:17:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=S1vZmLL8Ef5YNWjt3PZw2jH5xRYm8FWeVtuvX8SAW6s=;
- b=WOgnVbzOLvto6kl63uaTingJqxs6z2MJ11Pvfz09lDFrLFElnBic1BYGC++U6KbU0N
- N48pChlPBQPT2SICE0pw9oP749sDiT/TtAH/lCCuTFZXeEaUkCEz2yLz67LjwuTgTlxB
- h4JmQV/meCDzGJ3GZ6KObqFVYRIPqWlzlZwIX7Xet3yn57njqKSODU6OceQEO2n/2oJV
- v4GwNw4sNDxEk6LHhtbQzz0AFBZkmzTtwCnfdQSc1+9r1J0UY3akk0EURmGx8dbWvI/X
- IZgJUL0s2FU3BSZDrgfpLTTcI/itVZWPYpXmDFzWmp3ybs+8kzk3cO0mfr1nAv/pizy7
- yngA==
+ bh=GV9JQ2WNxKL1bjWx+vcWnlZmSRoCTmSS+egaYnjbX4o=;
+ b=OOkY2mECq07ay0Xkn5jKnjidQD7Y8rAbUg9yszwJK3KpW6U4gotRh9fOqwSowU5+w3
+ JcKu2uOfiRVZU8AUaC25yzBkfW3T0nn0j43EDVl8MOnataHeQdj5vcF8HtYZM/82gsB1
+ 70bJuVf2VmFVX7KGZmLx4zx6CuDjpfDVMHaZfPzSuUBjAjXN2LlVLQ76C9PmPyIAF9JA
+ fVfBlvx6TRx0j8TxbxthDg8nBHDi9khm2aqPPHODo10L5pGFFyCAM3umhlnFchlJxyi3
+ Ycmnf72zDRGCVYXHcttAeOiovnJ2bnf+d3qRP1t29a4pnYk9br6LQ85uAFa4t986slHW
+ ZnUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=S1vZmLL8Ef5YNWjt3PZw2jH5xRYm8FWeVtuvX8SAW6s=;
- b=ZSwxWkPw6uOKej7EiqKcayG1HtXdrsRFf22+r/GoyBI2AVJLoIiiEraF0GWMX793gm
- kpW/GrtLOD25nq/lwXZk7vS1JV4sxkgncqNSwOsm791F85uXvMYDuQezj2nuRomMs/xW
- X2gnPBQ8UPtR0h8cGu/oYZ7WjqhDxf4rFZrIdIBbNYauPPgTcAzisCvIrzFEd02G73tQ
- 9yCwcUZDvLbyBuvB9do1vluLj+ZhJsCUBk6y37km1CgPWd2SxYGFHogTDltzW/1UD87X
- 2t7tgbgj8UZQsFPjLnBZTsE4SvT8g7fEjSkbJB/T8AzaehLE65Ch4NMbNut+yuDO1/Ru
- kLug==
-X-Gm-Message-State: APjAAAW8tJnUaHChaV2mRIB3ccAJTZkpxc4B6EgVPR6b1oNg6qZoEpbF
- H1t13bZMSilCe9a4mXh0drA=
-X-Google-Smtp-Source: APXvYqzRmu/BJ0/yj8GwkXedsZ8XNkYKCk/UskpJTF2G6+doM8xcHqGpkRbCxm+BAy/mxC0TdB0o8A==
-X-Received: by 2002:a17:902:1aa:: with SMTP id
- b39mr5899371plb.333.1565140516140; 
- Tue, 06 Aug 2019 18:15:16 -0700 (PDT)
+ bh=GV9JQ2WNxKL1bjWx+vcWnlZmSRoCTmSS+egaYnjbX4o=;
+ b=Jkux4wv5Vzv3yXqe+6/minoyuDRKq77gVhKcSOllexxLNGeEniNMo3ZO+w+yyziMfw
+ fDO6Xn00mT/nxApPMuA1F5ZTOp1Q5ueMLtTFt6TNPbPwqPInGzIiUyW3aDBhWi93v4Fl
+ ZQv4exnMCisxxkSYSEI+5RGJ/SuQZQrsYC5EJdSHUORyLm6afIgVo6Ui6U6vYo5Ccp6m
+ h49eLEMTG4Tyt6PjSVp1BKZmcxTJcZIG/nh4fzekF5kuV6RIyPfNShhuhNW8erKZ9L1u
+ matf6Z9RmHPkNywx5F76OhVeqnX20y0sKTznZXoOo23popIc9PhMQLbkL9aPhtrixrSM
+ S8JA==
+X-Gm-Message-State: APjAAAWXVqooCD2pQ+gKbugiE3FKU4EvF5gw0Vo3CHvR1hJKCy7eIDmc
+ HyzGG4PrDA+H5vVR/s9HwTA=
+X-Google-Smtp-Source: APXvYqzHxmD8/7fJHI1GyT8D5iX+ET4Lx7na0hWQTte/JA6UCTeTD/qIcg8V0R6hoOtkUu8aYGy1Ig==
+X-Received: by 2002:a63:5765:: with SMTP id h37mr5358736pgm.183.1565140624218; 
+ Tue, 06 Aug 2019 18:17:04 -0700 (PDT)
 Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
  [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id p19sm99964465pfn.99.2019.08.06.18.15.15
+ by smtp.gmail.com with ESMTPSA id n5sm94563063pfn.38.2019.08.06.18.17.03
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 06 Aug 2019 18:15:15 -0700 (PDT)
-Date: Tue, 6 Aug 2019 18:16:11 -0700
+ Tue, 06 Aug 2019 18:17:03 -0700 (PDT)
+Date: Tue, 6 Aug 2019 18:17:59 -0700
 From: Nicolin Chen <nicoleotsuka@gmail.com>
 To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190807011611.GD8938@Asurada-Nvidia.nvidia.com>
+Message-ID: <20190807011758.GE8938@Asurada-Nvidia.nvidia.com>
 References: <20190806151214.6783-1-daniel.baluta@nxp.com>
- <20190806151214.6783-2-daniel.baluta@nxp.com>
+ <20190806151214.6783-3-daniel.baluta@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190806151214.6783-2-daniel.baluta@nxp.com>
+In-Reply-To: <20190806151214.6783-3-daniel.baluta@nxp.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
  robh@kernel.org, shengjiu.wang@nxp.com, angus@akkea.ca, tiwai@suse.com,
  linux-kernel@vger.kernel.org, broonie@kernel.org, linux-imx@nxp.com,
  kernel@pengutronix.de, festevam@gmail.com, mihai.serban@gmail.com,
  l.stach@pengutronix.de
-Subject: Re: [alsa-devel] [PATCH v3 1/5] ASoC: fsl_sai: Add registers
- definition for multiple datalines
+Subject: Re: [alsa-devel] [PATCH v3 2/5] ASoC: fsl_sai: Update Tx/Rx channel
+	enable mask
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,16 +108,13 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 06, 2019 at 06:12:10PM +0300, Daniel Baluta wrote:
-> SAI IP supports up to 8 data lines. The configuration of
-> supported number of data lines is decided at SoC integration
-> time.
+On Tue, Aug 06, 2019 at 06:12:11PM +0300, Daniel Baluta wrote:
+> Tx channel enable (TCE) / Rx channel enable (RCE) bits
+> enable corresponding data channel for Tx/Rx operation.
 > 
-> This patch adds definitions for all related data TX/RX registers:
-> 	* TDR0..7, Transmit data register
-> 	* TFR0..7, Transmit FIFO register
-> 	* RDR0..7, Receive data register
-> 	* RFR0..7, Receive FIFO register
+> Because SAI supports up the 8 channels TCE/RCE occupy
+> up the 8 bits inside TCR3/RCR3 registers we need to extend
+> the mask to reflect this.
 > 
 > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 
@@ -127,186 +123,46 @@ Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
 Thanks
 
 > ---
->  sound/soc/fsl/fsl_sai.c | 76 +++++++++++++++++++++++++++++++++++------
->  sound/soc/fsl/fsl_sai.h | 36 ++++++++++++++++---
->  2 files changed, 98 insertions(+), 14 deletions(-)
+>  sound/soc/fsl/fsl_sai.c | 6 ++++--
+>  sound/soc/fsl/fsl_sai.h | 1 +
+>  2 files changed, 5 insertions(+), 2 deletions(-)
 > 
 > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index 6d3c6c8d50ce..17b0aff4ee8b 100644
+> index 17b0aff4ee8b..637b1d12a575 100644
 > --- a/sound/soc/fsl/fsl_sai.c
 > +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -685,7 +685,14 @@ static struct reg_default fsl_sai_reg_defaults[] = {
->  	{FSL_SAI_TCR3, 0},
->  	{FSL_SAI_TCR4, 0},
->  	{FSL_SAI_TCR5, 0},
-> -	{FSL_SAI_TDR,  0},
-> +	{FSL_SAI_TDR0, 0},
-> +	{FSL_SAI_TDR1, 0},
-> +	{FSL_SAI_TDR2, 0},
-> +	{FSL_SAI_TDR3, 0},
-> +	{FSL_SAI_TDR4, 0},
-> +	{FSL_SAI_TDR5, 0},
-> +	{FSL_SAI_TDR6, 0},
-> +	{FSL_SAI_TDR7, 0},
->  	{FSL_SAI_TMR,  0},
->  	{FSL_SAI_RCR1, 0},
->  	{FSL_SAI_RCR2, 0},
-> @@ -704,7 +711,14 @@ static bool fsl_sai_readable_reg(struct device *dev, unsigned int reg)
->  	case FSL_SAI_TCR3:
->  	case FSL_SAI_TCR4:
->  	case FSL_SAI_TCR5:
-> -	case FSL_SAI_TFR:
-> +	case FSL_SAI_TFR0:
-> +	case FSL_SAI_TFR1:
-> +	case FSL_SAI_TFR2:
-> +	case FSL_SAI_TFR3:
-> +	case FSL_SAI_TFR4:
-> +	case FSL_SAI_TFR5:
-> +	case FSL_SAI_TFR6:
-> +	case FSL_SAI_TFR7:
->  	case FSL_SAI_TMR:
->  	case FSL_SAI_RCSR:
->  	case FSL_SAI_RCR1:
-> @@ -712,8 +726,22 @@ static bool fsl_sai_readable_reg(struct device *dev, unsigned int reg)
->  	case FSL_SAI_RCR3:
->  	case FSL_SAI_RCR4:
->  	case FSL_SAI_RCR5:
-> -	case FSL_SAI_RDR:
-> -	case FSL_SAI_RFR:
-> +	case FSL_SAI_RDR0:
-> +	case FSL_SAI_RDR1:
-> +	case FSL_SAI_RDR2:
-> +	case FSL_SAI_RDR3:
-> +	case FSL_SAI_RDR4:
-> +	case FSL_SAI_RDR5:
-> +	case FSL_SAI_RDR6:
-> +	case FSL_SAI_RDR7:
-> +	case FSL_SAI_RFR0:
-> +	case FSL_SAI_RFR1:
-> +	case FSL_SAI_RFR2:
-> +	case FSL_SAI_RFR3:
-> +	case FSL_SAI_RFR4:
-> +	case FSL_SAI_RFR5:
-> +	case FSL_SAI_RFR6:
-> +	case FSL_SAI_RFR7:
->  	case FSL_SAI_RMR:
->  		return true;
->  	default:
-> @@ -726,9 +754,30 @@ static bool fsl_sai_volatile_reg(struct device *dev, unsigned int reg)
->  	switch (reg) {
->  	case FSL_SAI_TCSR:
->  	case FSL_SAI_RCSR:
-> -	case FSL_SAI_TFR:
-> -	case FSL_SAI_RFR:
-> -	case FSL_SAI_RDR:
-> +	case FSL_SAI_TFR0:
-> +	case FSL_SAI_TFR1:
-> +	case FSL_SAI_TFR2:
-> +	case FSL_SAI_TFR3:
-> +	case FSL_SAI_TFR4:
-> +	case FSL_SAI_TFR5:
-> +	case FSL_SAI_TFR6:
-> +	case FSL_SAI_TFR7:
-> +	case FSL_SAI_RFR0:
-> +	case FSL_SAI_RFR1:
-> +	case FSL_SAI_RFR2:
-> +	case FSL_SAI_RFR3:
-> +	case FSL_SAI_RFR4:
-> +	case FSL_SAI_RFR5:
-> +	case FSL_SAI_RFR6:
-> +	case FSL_SAI_RFR7:
-> +	case FSL_SAI_RDR0:
-> +	case FSL_SAI_RDR1:
-> +	case FSL_SAI_RDR2:
-> +	case FSL_SAI_RDR3:
-> +	case FSL_SAI_RDR4:
-> +	case FSL_SAI_RDR5:
-> +	case FSL_SAI_RDR6:
-> +	case FSL_SAI_RDR7:
->  		return true;
->  	default:
->  		return false;
-> @@ -744,7 +793,14 @@ static bool fsl_sai_writeable_reg(struct device *dev, unsigned int reg)
->  	case FSL_SAI_TCR3:
->  	case FSL_SAI_TCR4:
->  	case FSL_SAI_TCR5:
-> -	case FSL_SAI_TDR:
-> +	case FSL_SAI_TDR0:
-> +	case FSL_SAI_TDR1:
-> +	case FSL_SAI_TDR2:
-> +	case FSL_SAI_TDR3:
-> +	case FSL_SAI_TDR4:
-> +	case FSL_SAI_TDR5:
-> +	case FSL_SAI_TDR6:
-> +	case FSL_SAI_TDR7:
->  	case FSL_SAI_TMR:
->  	case FSL_SAI_RCSR:
->  	case FSL_SAI_RCR1:
-> @@ -885,8 +941,8 @@ static int fsl_sai_probe(struct platform_device *pdev)
->  				   MCLK_DIR(index));
->  	}
+> @@ -599,7 +599,8 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
+>  	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+>  	int ret;
 >  
-> -	sai->dma_params_rx.addr = res->start + FSL_SAI_RDR;
-> -	sai->dma_params_tx.addr = res->start + FSL_SAI_TDR;
-> +	sai->dma_params_rx.addr = res->start + FSL_SAI_RDR0;
-> +	sai->dma_params_tx.addr = res->start + FSL_SAI_TDR0;
->  	sai->dma_params_rx.maxburst = FSL_SAI_MAXBURST_RX;
->  	sai->dma_params_tx.maxburst = FSL_SAI_MAXBURST_TX;
+> -	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx), FSL_SAI_CR3_TRCE,
+> +	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
+> +			   FSL_SAI_CR3_TRCE_MASK,
+>  			   FSL_SAI_CR3_TRCE);
 >  
+>  	ret = snd_pcm_hw_constraint_list(substream->runtime, 0,
+> @@ -614,7 +615,8 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
+>  	struct fsl_sai *sai = snd_soc_dai_get_drvdata(cpu_dai);
+>  	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+>  
+> -	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx), FSL_SAI_CR3_TRCE, 0);
+> +	regmap_update_bits(sai->regmap, FSL_SAI_xCR3(tx),
+> +			   FSL_SAI_CR3_TRCE_MASK, 0);
+>  }
+>  
+>  static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
 > diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-> index 7c1ef671da28..4bb478041d67 100644
+> index 4bb478041d67..20c5b9b1e8bc 100644
 > --- a/sound/soc/fsl/fsl_sai.h
 > +++ b/sound/soc/fsl/fsl_sai.h
-> @@ -20,8 +20,22 @@
->  #define FSL_SAI_TCR3	0x0c /* SAI Transmit Configuration 3 */
->  #define FSL_SAI_TCR4	0x10 /* SAI Transmit Configuration 4 */
->  #define FSL_SAI_TCR5	0x14 /* SAI Transmit Configuration 5 */
-> -#define FSL_SAI_TDR	0x20 /* SAI Transmit Data */
-> -#define FSL_SAI_TFR	0x40 /* SAI Transmit FIFO */
-> +#define FSL_SAI_TDR0	0x20 /* SAI Transmit Data 0 */
-> +#define FSL_SAI_TDR1	0x24 /* SAI Transmit Data 1 */
-> +#define FSL_SAI_TDR2	0x28 /* SAI Transmit Data 2 */
-> +#define FSL_SAI_TDR3	0x2C /* SAI Transmit Data 3 */
-> +#define FSL_SAI_TDR4	0x30 /* SAI Transmit Data 4 */
-> +#define FSL_SAI_TDR5	0x34 /* SAI Transmit Data 5 */
-> +#define FSL_SAI_TDR6	0x38 /* SAI Transmit Data 6 */
-> +#define FSL_SAI_TDR7	0x3C /* SAI Transmit Data 7 */
-> +#define FSL_SAI_TFR0	0x40 /* SAI Transmit FIFO 0 */
-> +#define FSL_SAI_TFR1	0x44 /* SAI Transmit FIFO 1 */
-> +#define FSL_SAI_TFR2	0x48 /* SAI Transmit FIFO 2 */
-> +#define FSL_SAI_TFR3	0x4C /* SAI Transmit FIFO 3 */
-> +#define FSL_SAI_TFR4	0x50 /* SAI Transmit FIFO 4 */
-> +#define FSL_SAI_TFR5	0x54 /* SAI Transmit FIFO 5 */
-> +#define FSL_SAI_TFR6	0x58 /* SAI Transmit FIFO 6 */
-> +#define FSL_SAI_TFR7	0x5C /* SAI Transmit FIFO 7 */
->  #define FSL_SAI_TMR	0x60 /* SAI Transmit Mask */
->  #define FSL_SAI_RCSR	0x80 /* SAI Receive Control */
->  #define FSL_SAI_RCR1	0x84 /* SAI Receive Configuration 1 */
-> @@ -29,8 +43,22 @@
->  #define FSL_SAI_RCR3	0x8c /* SAI Receive Configuration 3 */
->  #define FSL_SAI_RCR4	0x90 /* SAI Receive Configuration 4 */
->  #define FSL_SAI_RCR5	0x94 /* SAI Receive Configuration 5 */
-> -#define FSL_SAI_RDR	0xa0 /* SAI Receive Data */
-> -#define FSL_SAI_RFR	0xc0 /* SAI Receive FIFO */
-> +#define FSL_SAI_RDR0	0xa0 /* SAI Receive Data 0 */
-> +#define FSL_SAI_RDR1	0xa4 /* SAI Receive Data 1 */
-> +#define FSL_SAI_RDR2	0xa8 /* SAI Receive Data 2 */
-> +#define FSL_SAI_RDR3	0xac /* SAI Receive Data 3 */
-> +#define FSL_SAI_RDR4	0xb0 /* SAI Receive Data 4 */
-> +#define FSL_SAI_RDR5	0xb4 /* SAI Receive Data 5 */
-> +#define FSL_SAI_RDR6	0xb8 /* SAI Receive Data 6 */
-> +#define FSL_SAI_RDR7	0xbc /* SAI Receive Data 7 */
-> +#define FSL_SAI_RFR0	0xc0 /* SAI Receive FIFO 0 */
-> +#define FSL_SAI_RFR1	0xc4 /* SAI Receive FIFO 1 */
-> +#define FSL_SAI_RFR2	0xc8 /* SAI Receive FIFO 2 */
-> +#define FSL_SAI_RFR3	0xcc /* SAI Receive FIFO 3 */
-> +#define FSL_SAI_RFR4	0xd0 /* SAI Receive FIFO 4 */
-> +#define FSL_SAI_RFR5	0xd4 /* SAI Receive FIFO 5 */
-> +#define FSL_SAI_RFR6	0xd8 /* SAI Receive FIFO 6 */
-> +#define FSL_SAI_RFR7	0xdc /* SAI Receive FIFO 7 */
->  #define FSL_SAI_RMR	0xe0 /* SAI Receive Mask */
+> @@ -110,6 +110,7 @@
 >  
->  #define FSL_SAI_xCSR(tx)	(tx ? FSL_SAI_TCSR : FSL_SAI_RCSR)
+>  /* SAI Transmit and Receive Configuration 3 Register */
+>  #define FSL_SAI_CR3_TRCE	BIT(16)
+> +#define FSL_SAI_CR3_TRCE_MASK	GENMASK(23, 16)
+>  #define FSL_SAI_CR3_WDFL(x)	(x)
+>  #define FSL_SAI_CR3_WDFL_MASK	0x1f
+>  
 > -- 
 > 2.17.1
 > 

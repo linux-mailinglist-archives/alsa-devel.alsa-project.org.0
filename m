@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B44784DB1
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:40:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23F3984D82
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 15:38:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE7311666;
-	Wed,  7 Aug 2019 15:39:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE7311666
+	by alsa0.perex.cz (Postfix) with ESMTPS id A885D84A;
+	Wed,  7 Aug 2019 15:37:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A885D84A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565185209;
-	bh=gBLzgKJjhme54I1q/VH2mtNizl0ibNHTBQgimRoTHmE=;
+	s=default; t=1565185079;
+	bh=XOKtLTaaQOiEdYKxt6xdk89WCRzgggyc2WhnTuJ0BhU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=XC26Nm459z48mroasYGKBPISbJ0Dsajp9zpc9Q3WlXlUd+T8G72pZG1f6fwCBLGAQ
-	 KLAu9IZiv9HM5WjHEEwGQi/gzub/kGt8CGWC1hwsuQkFSX6iASk/uqJce7usAlnsQu
-	 zFVFKSzn2rT8N/MAxHi/vXfWnSz2SJWUvT82viSc=
+	b=g3fRckoS56B0cIKkGyTG4MygLsWACWkz4iZmzqBLoai7kVyPRkh3IYG11vMCr/V1n
+	 5ghyphuhqVwevqm+Fjxo2irhY2iwnVCZXUxNUuX4syICSWqmz30BBNk7/WrHIFN7xP
+	 p3zA/GNfE7wkhK1W/i1u5R/NPwI2uHy7yBQjM2cY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A82CF806F7;
-	Wed,  7 Aug 2019 15:31:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B2ECF8065C;
+	Wed,  7 Aug 2019 15:31:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D797F805FB; Wed,  7 Aug 2019 15:31:06 +0200 (CEST)
+ id CD9AFF8060E; Wed,  7 Aug 2019 15:31:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9AE2BF805E2
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AE2BF805E2
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8E4DF8059F
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 15:30:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8E4DF8059F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Wrc7rH76"
+ header.b="BC7xKV3U"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=mfWL2m+BeNfnO93owf1Y8Hy5EN/EL8m3T+0h1zMwzuM=; b=Wrc7rH76tSsn
- foToCaQLSCPIF5AgHm8Z2o7tWenI0S2Hxw+Dc9EuCxu9m91zj1NjpDe9bofOkNLpNdhszn8t0WD+T
- jvEx71My2jIJS9UwROeLMM+cvIHgHvZ2RitTgFiOZWsAko7hvayKdBuEN+ICP/yIK8R9hlD/rhMOF
- 2MTWo=;
+ List-Archive; bh=Wu9sugkEEsUhkvknH7uSAfy3bNShHg3ioU3CI9Flyl8=; b=BC7xKV3U+6Ft
+ 8BnglARL2Q/kiNkhN1uXN+DhE4MbYbxc+bGhxKitX+7dUE4E883tV8+/D4xtUb8Td0dln40xHe/d3
+ f1AAM2xXAjLdRclxgLv6tikogMx5539KAH2Ju8d1QppL/AS8jnTdvRp0fu26xdlEQaDC4ys0Ne91L
+ J2jNY=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvM1i-0007fp-6H; Wed, 07 Aug 2019 13:30:50 +0000
+ id 1hvM1h-0007fl-V5; Wed, 07 Aug 2019 13:30:50 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 79D22274304E; Wed,  7 Aug 2019 14:30:49 +0100 (BST)
+ id 4088D2742B9E; Wed,  7 Aug 2019 14:30:49 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190806170603.10815-1-pierre-louis.bossart@linux.intel.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+In-Reply-To: <20190806151214.6783-6-daniel.baluta@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190807133049.79D22274304E@ypsilon.sirena.org.uk>
+Message-Id: <20190807133049.4088D2742B9E@ypsilon.sirena.org.uk>
 Date: Wed,  7 Aug 2019 14:30:49 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: fix MSI handling" to
-	the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
+ robh@kernel.org, shengjiu.wang@nxp.com, angus@akkea.ca,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-imx@nxp.com, kernel@pengutronix.de, festevam@gmail.com,
+ mihai.serban@gmail.com, l.stach@pengutronix.de
+Subject: [alsa-devel] Applied "ASoC: dt-bindings: Introduce compatible
+	strings for 7ULP and 8MQ" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: fix MSI handling
+   ASoC: dt-bindings: Introduce compatible strings for 7ULP and 8MQ
 
 has been applied to the asoc tree at
 
@@ -111,42 +116,37 @@ to this mail.
 Thanks,
 Mark
 
-From bb67dd1878de5766c24fe7a4002d1a12c14da518 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 6 Aug 2019 12:06:03 -0500
-Subject: [PATCH] ASoC: SOF: Intel: hda: fix MSI handling
+From 371be51a925a619f1fb149b8d7707e353d9c9f86 Mon Sep 17 00:00:00 2001
+From: Daniel Baluta <daniel.baluta@nxp.com>
+Date: Tue, 6 Aug 2019 18:12:14 +0300
+Subject: [PATCH] ASoC: dt-bindings: Introduce compatible strings for 7ULP and
+ 8MQ
 
-The addition of a kernel module parameter to optionally disable MSI
-had the side effect of permanently disabling it.
+For i.MX7ULP and i.MX8MQ register map is changed. Add two new compatbile
+strings to differentiate this.
 
-The return value of pci_alloc_irq_vectors() is the number of allocated
-vectors or a negative number on error, so testing with the ! operator
-is not quite right. It was one optimization too far.
-
-Restore previous behavior to use MSI by default, unless the user
-selects not to do so or the allocation of irq_vectors fails.
-
-Fixes: 672ff5e3596ee ('ASoC: SOF: Intel: hda: add a parameter to disable MSI')
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190806170603.10815-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Link: https://lore.kernel.org/r/20190806151214.6783-6-daniel.baluta@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/fsl-sai.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 79cce20666b6..53813de7844e 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -537,7 +537,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 	 * if it fails, use legacy interrupt mode
- 	 * TODO: support msi multiple vectors
- 	 */
--	if (hda_use_msi && !pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI)) {
-+	if (hda_use_msi && pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI) > 0) {
- 		dev_info(sdev->dev, "use msi interrupt mode\n");
- 		hdev->irq = pci_irq_vector(pci, 0);
- 		/* ipc irq number is the same of hda irq */
+diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
+index 2e726b983845..e61c0dc1fc0b 100644
+--- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
++++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
+@@ -8,7 +8,8 @@ codec/DSP interfaces.
+ Required properties:
+ 
+   - compatible		: Compatible list, contains "fsl,vf610-sai",
+-			  "fsl,imx6sx-sai" or "fsl,imx6ul-sai"
++			  "fsl,imx6sx-sai", "fsl,imx6ul-sai",
++			  "fsl,imx7ulp-sai" or "fsl,imx8mq-sai".
+ 
+   - reg			: Offset and length of the register set for the device.
+ 
 -- 
 2.20.1
 

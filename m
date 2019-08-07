@@ -2,96 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A951A841D6
-	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 03:49:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DA4B842E3
+	for <lists+alsa-devel@lfdr.de>; Wed,  7 Aug 2019 05:23:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4056E166F;
-	Wed,  7 Aug 2019 03:48:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4056E166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99BCA857;
+	Wed,  7 Aug 2019 05:22:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99BCA857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565142575;
-	bh=iZmRi7D3NnvEIFPxxjvPcwStNVuYMQJZMKbdz0V/IFQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565148180;
+	bh=0nCnpqyT+Do/E1xuHQUPofgSJAHLElVzXyhdSNQpB6E=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e22qK9yaoZaQF9XVwXgOZ7L1lJmlYUQYIoz6gSxG/UMzVQg3HCEMrxmqC1oN3aXTl
-	 mZ1qDT8UmNEG7ztpOwtvbW05RKd6U4h2LW9mm6g+ZuZFncQf+khyNi/JwKeMYBXej8
-	 uQ6ZXjXxyNtobb4xrQzu4OYzqkxbqDqNTnDqo0z8=
+	b=TOivmbMqcDncJjcz7lgxB5JxN1GjvxZA5iEU7J6m26a5f0g5RfzkgkF8aXxDZ7hD9
+	 UvaevqsHSPu7LPSWb6m5Vv7HQv7bzuP406QPo5U7DnSlhU2UTw5gZ/m2OXaz+pIfTO
+	 xc5UyII9KxPO48yrw1WjVimHyD6kss92SP2UAAsc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5E1FF805E1;
-	Wed,  7 Aug 2019 03:41:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5873AF80227;
+	Wed,  7 Aug 2019 05:21:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC426F805E1; Wed,  7 Aug 2019 03:41:15 +0200 (CEST)
+ id ED0C8F80290; Wed,  7 Aug 2019 05:21:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-yw1-xc44.google.com (mail-yw1-xc44.google.com
+ [IPv6:2607:f8b0:4864:20::c44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A81AF804CB
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 03:41:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A81AF804CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1625EF800F4
+ for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 05:21:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1625EF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="C8vEJVaL"
-Received: by mail-pl1-x642.google.com with SMTP id c14so38511424plo.0
- for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 18:41:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Hwj3uGjc5P7Ed46PamHKrYgZN25uTv+4Y9CY8N3wDxE=;
- b=C8vEJVaL0ESKCzP7lefx1wgcIKNEPnvmGnxPgANSawJd2TYlYWBNmyzn02+3hhrIW4
- 15kK0nHEK/7u1XpXTo8pF61gnaXoiwY6P/Gn50dCUnh6FHquoIT7a6gMNluhLYfMGCMJ
- zxlFl/1BJfY2zEZSoxUaOsr+aev7K7Aeur4d3UsvITBNuCufguDQRYOV+u27pp3JStTz
- hYtaywIaomr71CL0OgEpmgXNwWtz3L6NzXyeJoqhd+8dn80IsTy0gE6Yiv1xJz5GY7P7
- EdrSzazVpkm9tmgS/F8PUFKYloOaQnEXYUSLBj4ao3lLdd0OskVPHMmhS6oOFYE9oC2y
- E5zQ==
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="ZFyaS4Uy"
+Received: by mail-yw1-xc44.google.com with SMTP id g19so31060800ywe.2
+ for <alsa-devel@alsa-project.org>; Tue, 06 Aug 2019 20:21:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=+qQ0USyczW1A8BOcG2ubyyoajzQ2U4QRLU+fY3GhcD4=;
+ b=ZFyaS4UyFV8fdg1XNYIUkzHeZBfshfNjSpx3oGIukjFemmF085GKQ/aKKmVl7vMl/p
+ KnjUKdMcSmVQlxjL51Dtf6tK2qqbXY3EBjoa0XeUOvYCP5cxIlsqeQCC30mfcPUJkt69
+ zFSBoxkbLv3t/9+R7zCEDCj0jPCqVzBwH0m7WE8q8o76eKZbbueVaMsRCDL6FQiSXNbK
+ tcK1RP88jY2qUxhoGTgGtdJKzkVJS1HUkmkRNa6tj7oYrewa9L4pSiGKbgquK9syzD4e
+ vDPeVA8DujgOG+9hkeMDN8Ng3BusfwXnhg8zUSLPfiLpx2+1J0RXt9WXykFfXx0O+NB+
+ babQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Hwj3uGjc5P7Ed46PamHKrYgZN25uTv+4Y9CY8N3wDxE=;
- b=ll1Cxpj9wpsPJIgF01m3kCj3/aIaP895W785Gx91OEr8/uOtt/y9I9coNW7YaTb4s4
- 6InpbOunEnWCiMj1uQnPgNgeELyA8d4XmMkDXZfg7MpZLLDIt0J7bQgvZyLHcYsTCi4i
- 2IlE1Sl8CkSmfpdJ3I0XByY/JI8eC3IieJGxqKTVjL2qvOXUAFHGtQjIH71xGVWWgv/2
- XGDWmHajvsAutpNo2NRh5YnkJ46Ci0DaYHNW2hIqAAaSjbq71HGaUK9EYXOxQq7ABG4G
- siuCoBb7IwI4Iq+5pVEl6w9NjTjMp3qt0VoPo8I7MMNKKraMk2CAlpC1NrMNHIAVW+aO
- hK3Q==
-X-Gm-Message-State: APjAAAWzmNyyOBCvLki6C71VqBdrkvuGfSNjuUKw5OVkqTazJSBVEwkF
- E8+o+qh763GnEayl+IUopAhfn0Hp
-X-Google-Smtp-Source: APXvYqyKWesJtrgg5eVS6TTcftVzlL7G23lqVSgTL3Z85jZoOflA0An/pnwl1gjI3N4imWHwAw2lFA==
-X-Received: by 2002:a17:902:925:: with SMTP id
- 34mr5869179plm.334.1565142071293; 
- Tue, 06 Aug 2019 18:41:11 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id v22sm87667096pgk.69.2019.08.06.18.41.10
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 06 Aug 2019 18:41:11 -0700 (PDT)
-Date: Tue, 6 Aug 2019 18:42:06 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190807014206.GG8938@Asurada-Nvidia.nvidia.com>
-References: <20190806151214.6783-1-daniel.baluta@nxp.com>
- <20190806151214.6783-6-daniel.baluta@nxp.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=+qQ0USyczW1A8BOcG2ubyyoajzQ2U4QRLU+fY3GhcD4=;
+ b=dlj+0YX55YKDY4hxbwCeRoYCu4+UR/mTt2bplXWnkI6pvct+FViDq/bkN2F2YlDoXV
+ B/BfIRnWm86WbWjx9xnJ8m3PnjBElfO5TSg5xrM57klZ3vTaQ5tF2gE+DTk6fZ50+1Sd
+ Qz+NmBEP2dYEQAtwRSuO9RBWgyGKUX2/wasFnKZ6WlRkFBu6qMGZp7bCE+VoKkL8AMAC
+ JREHsxVl9/lygtfYs+ICUxzdZEaAKNA6bDJjUbH9RKvWt9XQ4J4q4HrKKPc2tbW7c2yv
+ 6UHGSEY8CcwUQ9tKAOx1rFxY5Y3FRKnWtk1G/kYvsUAjyRjWuhfqdHSh1QQwZ09y6xhU
+ VMlA==
+X-Gm-Message-State: APjAAAUClkdowpKtgLhPPKtbMsQpZd0SmBTuYDCiJTjWqLxaDxU2og3d
+ gUaOqSzLyg+PH5GuKnNfwwnstKmDARBOlCSwv5c3dw==
+X-Google-Smtp-Source: APXvYqyAkKvPFCN9GiikA6hIEY3JbGGytlJZ2sHJNvdc0WzD5bYJob3+O3NquDJYdx/Q/6PTZTviFP85ttTgAH5Fydo=
+X-Received: by 2002:a81:9c53:: with SMTP id n19mr4420768ywa.137.1565148067796; 
+ Tue, 06 Aug 2019 20:21:07 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190806151214.6783-6-daniel.baluta@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, timur@kernel.org,
- robh@kernel.org, shengjiu.wang@nxp.com, angus@akkea.ca, tiwai@suse.com,
- linux-kernel@vger.kernel.org, broonie@kernel.org, linux-imx@nxp.com,
- kernel@pengutronix.de, festevam@gmail.com, mihai.serban@gmail.com,
- l.stach@pengutronix.de
-Subject: Re: [alsa-devel] [PATCH v3 5/5] ASoC: dt-bindings: Introduce
- compatible strings for 7ULP and 8MQ
+References: <87pnlhahr6.wl-kuninori.morimoto.gx@renesas.com>
+ <87pnlh9320.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pnlh9320.wl-kuninori.morimoto.gx@renesas.com>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Tue, 6 Aug 2019 20:20:56 -0700
+Message-ID: <CAFQqKeWU0az5o6XRe1Ro40BiVtQ5JFL6PK83+wKMwjb4kdSwUw@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 25/25] ASoC: soc-topology: use
+ for_each_component_dais() at remove_dai()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,39 +98,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Aug 06, 2019 at 06:12:14PM +0300, Daniel Baluta wrote:
-> For i.MX7ULP and i.MX8MQ register map is changed. Add two new compatbile
-> strings to differentiate this.
-> 
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+On Tue, Aug 6, 2019 at 6:48 PM Kuninori Morimoto <
+kuninori.morimoto.gx@renesas.com> wrote:
 
-Looks good to me. As long as one of DT maintainers acks,
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> commit 52abe6cc1866a ("ASoC: topology: fix oops/use-after-free case
+> with dai driver") fixups remove_dai() error, but it is using
+> list_for_each_entry() for component->dai_list.
+>
+> We already have for_each_component_dais() macro for it.
+> Let's use exising method.
+>
+The series looks good now. Thanks for the quick turnaround, Morimoto-san.
 
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-Thanks
-
+>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 > ---
->  Documentation/devicetree/bindings/sound/fsl-sai.txt | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-> index 2e726b983845..e61c0dc1fc0b 100644
-> --- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
-> +++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-> @@ -8,7 +8,8 @@ codec/DSP interfaces.
->  Required properties:
->  
->    - compatible		: Compatible list, contains "fsl,vf610-sai",
-> -			  "fsl,imx6sx-sai" or "fsl,imx6ul-sai"
-> +			  "fsl,imx6sx-sai", "fsl,imx6ul-sai",
-> +			  "fsl,imx7ulp-sai" or "fsl,imx8mq-sai".
->  
->    - reg			: Offset and length of the register set for the device.
->  
-> -- 
-> 2.17.1
-> 
+> v1 -> v2
+>
+>         - no change
+>
+>  sound/soc/soc-topology.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+> index dc463f1..b869071 100644
+> --- a/sound/soc/soc-topology.c
+> +++ b/sound/soc/soc-topology.c
+> @@ -530,7 +530,7 @@ static void remove_dai(struct snd_soc_component *comp,
+>         if (dobj->ops && dobj->ops->dai_unload)
+>                 dobj->ops->dai_unload(comp, dobj);
+>
+> -       list_for_each_entry(dai, &comp->dai_list, list)
+> +       for_each_component_dais(comp, dai)
+>                 if (dai->driver == dai_drv)
+>                         dai->driver = NULL;
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

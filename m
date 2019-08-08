@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EC5985A33
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:03:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B5EC85A34
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:03:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F0C6F166B;
-	Thu,  8 Aug 2019 08:02:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0C6F166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCAD715F2;
+	Thu,  8 Aug 2019 08:03:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCAD715F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565244188;
-	bh=x0GS7sGvQybCR8hPolP85tmbGrt6P6/9xhHtCf97bj8=;
+	s=default; t=1565244231;
+	bh=+Szz5s7K65dZrXlqRX9MmECQaRrRnL4sM0yLRUSefOI=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QS3k7A28OO5eHJyL6dhLWWIEwT8rvhZ1Ba0re3osffxZuEGllQ1TLVcQA2imZUzFw
-	 mi9vTcaAviDv/5Ci1FxfGJm3RplEQPKjwXp+Tqo5GKnQ3HmjR982ESq9fekSNQSLlG
-	 +sMaATmUcfe9TYpR1nK5dODHiP6QM10oaF2WF6xE=
+	b=MBRD6nqurLsEB1X1q29PUgGYN2YQvc8cBqmlYG7WZ+jLfyQiWmjLGINIewmpg8CWH
+	 4VHpH+T+C5dphKvZBItAueWSYsouqHX80U+lmMxWYfM78TNjwCjYmOY+XwYAjXupl+
+	 17aHtWK/SSKJwSSvE/tj9kfK04TCvNqQjWZH0lZk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13E88F806ED;
-	Thu,  8 Aug 2019 07:54:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28E76F805F5;
+	Thu,  8 Aug 2019 07:54:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17657F806E9; Thu,  8 Aug 2019 07:54:51 +0200 (CEST)
+ id 2E59BF806F0; Thu,  8 Aug 2019 07:54:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 33347F806E7
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33347F806E7
-Date: 08 Aug 2019 14:54:44 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649788"
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8B99BF805F5
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B99BF805F5
+Date: 08 Aug 2019 14:54:48 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429790"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:44 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:48 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 1FACB41C3824;
- Thu,  8 Aug 2019 14:54:44 +0900 (JST)
-Message-ID: <87ftmc6w8s.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 5677641C309B;
+ Thu,  8 Aug 2019 14:54:48 +0900 (JST)
+Message-ID: <87ef1w6w8o.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,8 +65,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 14/15] ASoC: soc-core: add for_each_xxx macro
-	for aux_dev
+Subject: [alsa-devel] [PATCH 15/15] ASoC: soc-core: add soc_unbind_aux_dev()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,137 +86,44 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-To be more readable code, this patch adds
-new for_each_xxx() macro for aux_dev.
+It is easy to read code if it is cleanly using paired function/naming,
+like start <-> stop, register <-> unregister, etc, etc.
+But, current ALSA SoC code is very random, unbalance, not paired, etc.
+It is easy to create bug at the such code, and it will be difficult to
+debug.
+
+soc-core.c has soc_bind_aux_dev(), but, there is no its paired
+soc_unbind_aux_dev(). This patch adds it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h        | 10 ++++++++++
- sound/soc/meson/axg-card.c |  7 ++++---
- sound/soc/soc-core.c       | 15 ++++++++-------
- 3 files changed, 22 insertions(+), 10 deletions(-)
+ sound/soc/soc-core.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index ebc0645..72a8533 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1087,6 +1087,10 @@ struct snd_soc_card {
- 	for ((i) = 0;							\
- 	     ((i) < (card)->num_links) && ((link) = &(card)->dai_link[i]); \
- 	     (i)++)
-+#define for_each_card_pre_auxs(card, i, aux)				\
-+	for ((i) = 0;							\
-+	     ((i) < (card)->num_aux_devs) && ((aux) = &(card)->aux_dev[i]); \
-+	     (i)++)
- 
- #define for_each_card_links(card, link)				\
- 	list_for_each_entry(link, &(card)->dai_link_list, list)
-@@ -1098,6 +1102,12 @@ struct snd_soc_card {
- #define for_each_card_rtds_safe(card, rtd, _rtd)	\
- 	list_for_each_entry_safe(rtd, _rtd, &(card)->rtd_list, list)
- 
-+#define for_each_card_auxs(card, component)			\
-+	list_for_each_entry(component, &card->aux_comp_list, card_aux_list)
-+#define for_each_card_auxs_safe(card, component, _comp)	\
-+	list_for_each_entry_safe(component, _comp,	\
-+				 &card->aux_comp_list, card_aux_list)
-+
- #define for_each_card_components(card, component)			\
- 	list_for_each_entry(component, &(card)->component_dev_list, card_list)
- 
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index 6283e50..1f698ad 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -111,6 +111,7 @@ static void axg_card_clean_references(struct axg_card *priv)
- 	struct snd_soc_card *card = &priv->card;
- 	struct snd_soc_dai_link *link;
- 	struct snd_soc_dai_link_component *codec;
-+	struct snd_soc_aux_dev *aux;
- 	int i, j;
- 
- 	if (card->dai_link) {
-@@ -123,8 +124,8 @@ static void axg_card_clean_references(struct axg_card *priv)
- 	}
- 
- 	if (card->aux_dev) {
--		for (i = 0; i < card->num_aux_devs; i++)
--			of_node_put(card->aux_dev[i].dlc.of_node);
-+		for_each_card_pre_auxs(card, i, aux)
-+			of_node_put(aux->dlc.of_node);
- 	}
- 
- 	kfree(card->dai_link);
-@@ -157,7 +158,7 @@ static int axg_card_add_aux_devices(struct snd_soc_card *card)
- 	card->aux_dev = aux;
- 	card->num_aux_devs = num;
- 
--	for (i = 0; i < card->num_aux_devs; i++, aux++) {
-+	for_each_card_pre_auxs(card, i, aux) {
- 		aux->dlc.of_node =
- 			of_parse_phandle(node, "audio-aux-devs", i);
- 		if (!aux->dlc.of_node)
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 8bfe421..f8a5464 100644
+index f8a5464..5e3b907 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -1527,9 +1527,9 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
+@@ -1527,6 +1527,11 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
  	return ret;
  }
  
--static int soc_bind_aux_dev(struct snd_soc_card *card, int num)
-+static int soc_bind_aux_dev(struct snd_soc_card *card,
-+			    struct snd_soc_aux_dev *aux_dev)
++static void soc_unbind_aux_dev(struct snd_soc_component *component)
++{
++	list_del(&component->card_aux_list);
++}
++
+ static int soc_bind_aux_dev(struct snd_soc_card *card,
+ 			    struct snd_soc_aux_dev *aux_dev)
  {
--	struct snd_soc_aux_dev *aux_dev = &card->aux_dev[num];
- 	struct snd_soc_component *component;
- 
- 	/* codecs, usually analog devices */
-@@ -1538,6 +1538,7 @@ static int soc_bind_aux_dev(struct snd_soc_card *card, int num)
- 		return -EPROBE_DEFER;
- 
- 	component->init = aux_dev->init;
-+	/* see for_each_card_auxs */
- 	list_add(&component->card_aux_list, &card->aux_comp_list);
- 
- 	return 0;
-@@ -1550,7 +1551,7 @@ static int soc_probe_aux_devices(struct snd_soc_card *card)
- 	int ret;
- 
- 	for_each_comp_order(order) {
--		list_for_each_entry(comp, &card->aux_comp_list, card_aux_list) {
-+		for_each_card_auxs(card, comp) {
- 			if (comp->driver->probe_order == order) {
- 				ret = soc_probe_component(card,	comp);
- 				if (ret < 0) {
-@@ -1572,8 +1573,7 @@ static void soc_remove_aux_devices(struct snd_soc_card *card)
- 	int order;
- 
- 	for_each_comp_order(order) {
--		list_for_each_entry_safe(comp, _comp,
--			&card->aux_comp_list, card_aux_list) {
-+		for_each_card_auxs_safe(card, comp, _comp) {
- 
+@@ -1578,7 +1583,7 @@ static void soc_remove_aux_devices(struct snd_soc_card *card)
  			if (comp->driver->remove_order == order) {
  				soc_remove_component(comp);
-@@ -1905,6 +1905,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
- {
- 	struct snd_soc_pcm_runtime *rtd;
- 	struct snd_soc_dai_link *dai_link;
-+	struct snd_soc_aux_dev *aux;
- 	int ret, i, order;
- 
- 	mutex_lock(&client_mutex);
-@@ -1935,8 +1936,8 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
- 	}
- 
- 	/* bind aux_devs too */
--	for (i = 0; i < card->num_aux_devs; i++) {
--		ret = soc_bind_aux_dev(card, i);
-+	for_each_card_pre_auxs(card, i, aux) {
-+		ret = soc_bind_aux_dev(card, aux);
- 		if (ret != 0)
- 			goto probe_end;
+ 				/* remove it from the card's aux_comp_list */
+-				list_del(&comp->card_aux_list);
++				soc_unbind_aux_dev(comp);
+ 			}
+ 		}
  	}
 -- 
 2.7.4

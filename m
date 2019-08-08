@@ -2,72 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 510E4862DA
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 15:18:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3064C863A9
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 15:50:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE29415F2;
-	Thu,  8 Aug 2019 15:17:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE29415F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC9821615;
+	Thu,  8 Aug 2019 15:49:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC9821615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565270322;
-	bh=2E7+zd/lUVLDQ2P2a8A6dv6OMvMJPAv1IDraaSd5i5k=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1565272220;
+	bh=aroP/OfhkDa0ENXNF9cWymt4mH4FVoOICMWObOpfwVk=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IQMbrURfjI5Vp6fQ16fVxbV0zstVN6wdiFBIBpU1svMUMTEDxlFYuqYCquASlBtGV
-	 fbK8Y0GmHs7gHqspnjgjEHyc6VO5+cEPde2a33JSc7W4fMBU+KSZk6RVuxnz/HaUGX
-	 G1mO1wAhPRvwGknYIQOAUZV59iS+vXpSWDJ+K7X4=
+	b=uXzf2iAMZ7BHVPlvW/fz9/8XyNFFjweAGcsNfe+5p4aLMRK1UKI9Js9QRktJFlx21
+	 uIn5ad5FwzXwzn6kmXPn19Uw+FqdDx7iC3q4JYbbUSfmajlWe0IV0xQfMkdNJwqmMx
+	 qsXG54+wpJ2gxmR3fIMRgXOEiRn7yeVSNs/PXBlc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42A85F804FF;
-	Thu,  8 Aug 2019 15:16:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5407F80535;
+	Thu,  8 Aug 2019 15:48:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEBCEF80534; Thu,  8 Aug 2019 15:16:56 +0200 (CEST)
+ id 45841F80534; Thu,  8 Aug 2019 15:48:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kmu-office.ch (mail.kmu-office.ch [IPv6:2a02:418:6a02::a2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C680AF800E4
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 15:16:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C680AF800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id BC998F800E4
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 15:48:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC998F800E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=agner.ch header.i=@agner.ch
- header.b="ihji1C0P"
-Received: from webmail.kmu-office.ch (unknown [IPv6:2a02:418:6a02::a3])
- by mail.kmu-office.ch (Postfix) with ESMTPSA id F38935C2324;
- Thu,  8 Aug 2019 15:16:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=agner.ch; s=dkim;
- t=1565270214;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=AAyN24AzAzO1awwqHODdXPWc78B4O/mVcZTdCznoEes=;
- b=ihji1C0POjshqOnHilzCuIJvCLQiIHTYUZvITc2HhVRGqAwz7VUPA7HyZnNVoj8M0cxJog
- 0o304WNpDEQmark5ttYGQwnbMGUwQnc854J8a+oymFH6jw8IuoNb96izgE5X3BZlI++rwL
- nFxk2rEl1AJFBrbrXLmQMig+I+bNdJw=
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="apJXGsYi"
+Received: by mail-wr1-x441.google.com with SMTP id z1so95010440wru.13
+ for <alsa-devel@alsa-project.org>; Thu, 08 Aug 2019 06:48:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=GcZ3zbECdiPLNKqqmt56+5zBkRjZxc9TD5pjLBob95w=;
+ b=apJXGsYiKecvN9aCUGlleABvwzWhhNUx8AvT93d1B9Z5KX/hgJJ82oq6sg2KSpD0HN
+ YqPcBygscdSw1OzzUUentXgHGBy5uA43+V1bcAX4xW2IzYYPEv0ByC5DJQLD2RzCtWXo
+ 3ICiGlPzerdFCozXtxwSHBayKvVOLwI+pAY33dMaTtb4NqUy8qUiaN9UTxFNUwFow7/6
+ hSQex81nJ+byGTscj9e2GwGRcJcyo6pJ+TRhC4LxqV57tFdC94ZomJRhKplMYLaVOCac
+ UnQ9gpjvOVuP7hTmfsPBj7QjhO2uZGrN1r2USGPjMyuZ4yFbPbSpOoNUef42Z5YLvtLJ
+ KHjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=GcZ3zbECdiPLNKqqmt56+5zBkRjZxc9TD5pjLBob95w=;
+ b=OKbxOj2w0oy9f9hdVdu9O19oGXzvxxDubNzS4tlC9Wy9t+9ErPRzOwBMU9Pq5ofSvY
+ 7zzEWsWbWIEjZADkAuiS74o+ZDeEXwna/fqP1uu/KqTzU2ZAg9yKn9xqCiIC9f9Tct60
+ RMB6uURlC1/A17KAM6V7bSlpybI5ThQ7YzhK2rFusfQ0qVjCJ79RcdwpA2+cbPtIqdDe
+ 4ism6wy78Pd6KDkVGQzGZOMWs+rUz+y6NJg0H0Ru3tnzL+BmGiE5iekHXRwB52CQB0hN
+ AiqY5jQEGf/8Dr7M9xFlAyGs/Y4b4gyaLeQjDR5fLfCbAbT/jimVTHmOomMrZOwT93YL
+ wkSw==
+X-Gm-Message-State: APjAAAXV+Q+rMmR5Y1NXkWS8IyEc4qkW5Q8flMDHkuanXFbqCbLn75IO
+ pgyQbxstaRRKSu0f7HqMqBucIQ==
+X-Google-Smtp-Source: APXvYqzZEKSzRsVNoSQVYnVv+D/4c8aED8O3MSMhnUXr1S/gKC93rsWnOKFzP1VrFFrVyOnWbqjP6g==
+X-Received: by 2002:adf:9d8b:: with SMTP id p11mr16242610wre.226.1565272110713; 
+ Thu, 08 Aug 2019 06:48:30 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id v23sm3153431wmj.32.2019.08.08.06.48.29
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 08 Aug 2019 06:48:29 -0700 (PDT)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+References: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <8529d213-bfbb-780a-092d-3607eeb5e543@linaro.org>
+Date: Thu, 8 Aug 2019 14:48:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Date: Thu, 08 Aug 2019 15:16:53 +0200
-From: Stefan Agner <stefan@agner.ch>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <s5hftmbiyuc.wl-tiwai@suse.de>
-References: <20190808123655.31520-1-stefan@agner.ch>
- <20190808124437.GD3795@sirena.co.uk> <s5hlfw3izhl.wl-tiwai@suse.de>
- <20190808130217.GE3795@sirena.co.uk> <s5hftmbiyuc.wl-tiwai@suse.de>
-Message-ID: <cd3fd8b9ce6e4f9820197c70dfc42b67@agner.ch>
-X-Sender: stefan@agner.ch
-User-Agent: Roundcube Webmail/1.3.9
-Cc: alsa-devel@alsa-project.org, Stefan Agner <stefan.agner@toradex.com>,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: remove error due to probe
-	deferral
+In-Reply-To: <20190718230215.18675-1-pierre-louis.bossart@linux.intel.com>
+Content-Language: en-US
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, vkoul@kernel.org,
+ broonie@kernel.org, jank@cadence.com, Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [PATCH] soundwire: fix regmap dependencies and
+ align with other serial links
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,46 +103,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-08-08 15:14, Takashi Iwai wrote:
-> On Thu, 08 Aug 2019 15:02:17 +0200,
-> Mark Brown wrote:
->>
->> On Thu, Aug 08, 2019 at 03:00:06PM +0200, Takashi Iwai wrote:
->> > Mark Brown wrote:
->>
->> > > No, they absolutely should tell the user why they are deferring so the
->> > > user has some information to go on when they're trying to figure out why
->> > > their device isn't instantiating.
->>
->> > But it's no real error that *must* be printed on the console, either.
->> > Maybe downgrading the printk level?
->>
->> Yes, downgrading can be OK though it does bloat the code.
+
+
+On 19/07/2019 00:02, Pierre-Louis Bossart wrote:
+> The existing code has a mixed select/depend usage which makes no sense.
 > 
-> I guess we can use dev_printk() with the conditional level choice.
+> config SOUNDWIRE_BUS
+>         tristate
+>         select REGMAP_SOUNDWIRE
 > 
+> config REGMAP_SOUNDWIRE
+>          tristate
+>          depends on SOUNDWIRE_BUS
+> 
+> Let's remove one layer of Kconfig definitions and align with the
+> solutions used by all other serial links.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>   drivers/base/regmap/Kconfig | 2 +-
+>   drivers/soundwire/Kconfig   | 7 +------
+>   drivers/soundwire/Makefile  | 2 +-
+>   3 files changed, 3 insertions(+), 8 deletions(-)
 
-How about use dev_info always? We get a dev_err message from
-soc_init_dai_link in error cases...
+I have been using some thing similar in my setup.
+I did test this with Qualcomm WSA881x codec.
 
-		ret = soc_init_dai_link(card, dai_link);
-		if (ret && ret != -EPROBE_DEFER) {
-			dev_info(card->dev, "ASoC: failed to init link %s: %d\n",
-				 dai_link->name, ret);
-		}
-		if (ret) {
-			soc_cleanup_platform(card);
-			mutex_unlock(&client_mutex);
-			return ret;
-		}
+Tested-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 
---
-Stefan
+--srini
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

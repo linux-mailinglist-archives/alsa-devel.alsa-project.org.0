@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C07085A2A
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D9D385A2E
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:01:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06099166E;
-	Thu,  8 Aug 2019 08:00:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06099166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25E6A1667;
+	Thu,  8 Aug 2019 08:00:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25E6A1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565244059;
-	bh=S/4IL5vRlc0n3SN69PMlnS2vw/pPr7or3IK4+Sf52QQ=;
+	s=default; t=1565244108;
+	bh=FspmX2GeF4uU7iFXjo/J3bWizd4+DnKIBIs8o+LIFcE=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mq1Uev4fe85DhJYWH2Srpkr1h/9bUVNnOEb/4NUNpUcdTM0WIqm7AW1uoFT8UG0IJ
-	 HYLllegc8ieptAY3c/kOY6/TKJnCFRmm1XuWOQ37MFUHHEpwAGorNO6NP9i7mrv33O
-	 k9jdhI4dRbwLqp+kQUA4u2SqYSmcdcj/fyrr29SY=
+	b=ebKK7oIL2u/jna/iqf1h2xx1ynhQJfgbpnNG5FhmnXiwaMmso2RojyuhJfbYa1VHi
+	 vs7dJCByEwK/y2uKEtV4/c137EdwnlnXzX2Cn2D8aWuqIB3cHqGTe99i1fbcF4+BLf
+	 JySwIlh7+icytDK+ewi0WyPxDpWzOI02iVYmeehs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA2BDF80673;
-	Thu,  8 Aug 2019 07:54:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E029F8067A;
+	Thu,  8 Aug 2019 07:54:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBCEDF8065E; Thu,  8 Aug 2019 07:54:30 +0200 (CEST)
+ id CC527F80679; Thu,  8 Aug 2019 07:54:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0B6DCF80642
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B6DCF80642
-Date: 08 Aug 2019 14:54:25 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429747"
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5007EF80671
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5007EF80671
+Date: 08 Aug 2019 14:54:30 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649766"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:25 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:30 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5D877400C084;
- Thu,  8 Aug 2019 14:54:25 +0900 (JST)
-Message-ID: <87k1bo6w9b.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DE24C400C084;
+ Thu,  8 Aug 2019 14:54:29 +0900 (JST)
+Message-ID: <87imr86w96.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,7 +65,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 11/15] ASoC: sunxi: sun4i-codec: use
+Subject: [alsa-devel] [PATCH 12/15] ASoC: ti: rx51: use
 	snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,61 +91,50 @@ Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sunxi/sun4i-codec.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/ti/rx51.c | 14 ++++++--------
+ 1 file changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 619073e..ee448d5 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -1424,7 +1424,7 @@ static const struct snd_soc_dapm_route sun8i_codec_card_routes[] = {
+diff --git a/sound/soc/ti/rx51.c b/sound/soc/ti/rx51.c
+index ccd0e8a..588f680 100644
+--- a/sound/soc/ti/rx51.c
++++ b/sound/soc/ti/rx51.c
+@@ -319,12 +319,10 @@ static struct snd_soc_dai_link rx51_dai[] = {
+ 
+ static struct snd_soc_aux_dev rx51_aux_dev[] = {
+ 	{
+-		.name = "TLV320AIC34b",
+-		.codec_name = "tlv320aic3x-codec.2-0019",
++		.dlc = COMP_AUX("tlv320aic3x-codec.2-0019"),
+ 	},
+ 	{
+-		.name = "TPA61320A2",
+-		.codec_name = "tpa6130a2.2-0060",
++		.dlc = COMP_AUX("tpa6130a2.2-0060"),
+ 	},
  };
  
- static struct snd_soc_aux_dev aux_dev = {
--	.name = "Codec Analog Controls",
-+	.dlc = COMP_EMPTY(),
- };
+@@ -397,8 +395,8 @@ static int rx51_soc_probe(struct platform_device *pdev)
+ 			dev_err(&pdev->dev, "Auxiliary Codec node is not provided\n");
+ 			return -EINVAL;
+ 		}
+-		rx51_aux_dev[0].codec_name = NULL;
+-		rx51_aux_dev[0].codec_of_node = dai_node;
++		rx51_aux_dev[0].dlc.name = NULL;
++		rx51_aux_dev[0].dlc.of_node = dai_node;
+ 		rx51_codec_conf[0].dev_name = NULL;
+ 		rx51_codec_conf[0].of_node = dai_node;
  
- static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
-@@ -1436,10 +1436,10 @@ static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
- 	if (!card)
- 		return ERR_PTR(-ENOMEM);
- 
--	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
- 						 "allwinner,codec-analog-controls",
- 						 0);
--	if (!aux_dev.codec_of_node) {
-+	if (!aux_dev.dlc.of_node) {
- 		dev_err(dev, "Can't find analog controls for codec.\n");
- 		return ERR_PTR(-EINVAL);
- 	};
-@@ -1474,10 +1474,10 @@ static struct snd_soc_card *sun8i_h3_codec_create_card(struct device *dev)
- 	if (!card)
- 		return ERR_PTR(-ENOMEM);
- 
--	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
- 						 "allwinner,codec-analog-controls",
- 						 0);
--	if (!aux_dev.codec_of_node) {
-+	if (!aux_dev.dlc.of_node) {
- 		dev_err(dev, "Can't find analog controls for codec.\n");
- 		return ERR_PTR(-EINVAL);
- 	};
-@@ -1512,10 +1512,10 @@ static struct snd_soc_card *sun8i_v3s_codec_create_card(struct device *dev)
- 	if (!card)
- 		return ERR_PTR(-ENOMEM);
- 
--	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
- 						 "allwinner,codec-analog-controls",
- 						 0);
--	if (!aux_dev.codec_of_node) {
-+	if (!aux_dev.dlc.of_node) {
- 		dev_err(dev, "Can't find analog controls for codec.\n");
- 		return ERR_PTR(-EINVAL);
- 	};
+@@ -407,8 +405,8 @@ static int rx51_soc_probe(struct platform_device *pdev)
+ 			dev_err(&pdev->dev, "Headphone amplifier node is not provided\n");
+ 			return -EINVAL;
+ 		}
+-		rx51_aux_dev[1].codec_name = NULL;
+-		rx51_aux_dev[1].codec_of_node = dai_node;
++		rx51_aux_dev[1].dlc.name = NULL;
++		rx51_aux_dev[1].dlc.of_node = dai_node;
+ 		rx51_codec_conf[1].dev_name = NULL;
+ 		rx51_codec_conf[1].of_node = dai_node;
+ 	}
 -- 
 2.7.4
 

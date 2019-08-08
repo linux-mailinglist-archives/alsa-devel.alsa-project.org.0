@@ -2,57 +2,99 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DE5285C4D
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 10:00:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 944FB85DCF
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 11:06:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C9F815F2;
-	Thu,  8 Aug 2019 09:59:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C9F815F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2086415E5;
+	Thu,  8 Aug 2019 11:05:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2086415E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565251242;
-	bh=5dyXnzcAZ775EA7ehTHIXJzUbe0E/OmakkZKmrHzeac=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ruv6S+XpRpIrg1TgYkdXW47xUlNlLzAzBeltaYjifmqHdHLXOghkFRZw93QqrDep8
-	 imtT+oKRC5wQFKpC+7Jq+9kPwudIsTwH2NtfmB/c7cZiV2ExQWqy9TFQNnDT6HNGNx
-	 kfiaA65QOESrQuERwgptowC+kOyKRnY+wtuxGO2g=
+	s=default; t=1565255162;
+	bh=5kAFk0PY0eWe2pqUH2TD/zbkTXOLGlNFSZryPB41IDQ=;
+	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=R0yNQE4xkyyTaaPppReW2G2g6zxya2eMniWt5Z6O2tguGnrjn42aSsnrn1XC+8kVN
+	 5FSj/6jCP3T7Pz/VFlBIXMQ2/fakWNTCmJAGzVx1XjgR4q/ZLQoHHQnBJglxgGwack
+	 pya2vMf7PrCUTH9MST9B2KB1tPXcuF1UkmKAedIw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2043F8053A;
-	Thu,  8 Aug 2019 09:58:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D8B6F803F3;
+	Thu,  8 Aug 2019 11:04:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C87E3F80534; Thu,  8 Aug 2019 09:58:55 +0200 (CEST)
+ id 1357BF80534; Thu,  8 Aug 2019 11:04:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_LOW,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17526F803F3
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 09:58:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17526F803F3
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2019 00:58:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,360,1559545200"; d="scan'208";a="186272334"
-Received: from macchian.itwn.intel.com ([10.5.230.135])
- by orsmga002.jf.intel.com with ESMTP; 08 Aug 2019 00:58:40 -0700
-From: mac.chiang@intel.com
-To: alsa-devel@alsa-project.org
-Date: Thu,  8 Aug 2019 15:58:40 +0800
-Message-Id: <1565251120-13082-1-git-send-email-mac.chiang@intel.com>
-X-Mailer: git-send-email 2.7.4
-Cc: sathya.prakash.m.r@intel.com, mac.chiang@intel.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, bard.liao@intel.com
-Subject: [alsa-devel] [PATCH] ASoC: Intel: boards: Add Cometlake machine
-	driver support
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1376EF800E3
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 11:04:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1376EF800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="ba5wD/BC"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="EDP/Uh9d"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0EA5821FB7;
+ Thu,  8 Aug 2019 05:04:09 -0400 (EDT)
+Received: from imap5 ([10.202.2.55])
+ by compute1.internal (MEProxy); Thu, 08 Aug 2019 05:04:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=mime-version:message-id:in-reply-to:references:date:from:to
+ :cc:subject:content-type; s=fm2; bh=UDxY0biEKiJkV/eKq0+tBQBLPV9S
+ 8cgzUqiVh5nUXFg=; b=ba5wD/BCWuz96s1vBnUw02p43fsiVJqc9YiKZHXlKyXT
+ jhvCdrJE6pWbvtHiXtLsQOCH98bkZa7ZOVT9j3TP6h34tRGYBHn68g7JZ3hp8uwI
+ mczBVUM1FLlSWv9XMGES3MT4Gqp3lB273sAUkkrwBEe8fjcgBy9OVB+51ClJTFGp
+ ehY2fyuZhEPRsvfC8xZs7V+UF4N2kEKW9znbWzXE7zstfGVQIZULspIr126Vftvk
+ AqlAECJ5BNQFieCwAepTdcdexWZPccyH2vU52E7TNMOtEa1OCKA/iCPltMy5o7As
+ oQD/rBm/IpxaeJLYEvQVWbnscZhl93o+I2qNXiVg8w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=UDxY0b
+ iEKiJkV/eKq0+tBQBLPV9S8cgzUqiVh5nUXFg=; b=EDP/Uh9dw/lSheM3sSOAmP
+ HJLsLx02h9jie8yk25vTAWmYiM2MDTi+gSYrBt1JIWdZ5CLyFgO6/9m+TWZrNeAP
+ wlhoZowI+nghIOUHn3lvtwbBGyrlEOMyR5ivC+taAGZs5w53RTgm3jYhIMOKRjJk
+ mO1gD+fYmiyyaZMB4lBR6m/OATJ0973MfI/BjNTeu/UgXZYPO3l02MjiTWvLhdWD
+ VgJ0SSglAZRSRPrX6mG34WZCNq9+G0MmA4D9LBGpN5bT5uLhz/mOKGyuVJFQ7EHg
+ Uw2oMOO++zbGeUbOOcoUStW/bgr8BUvMTYIe9CO89QOGDHnIPV0ik0lAn1OJk+HA
+ ==
+X-ME-Sender: <xms:iOVLXcG7rA_7M_zbi7RPGRYVs7GxU1Vyo5FFfo5Ewm2ggeRKeMGlRw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudduhedguddvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdfvrghk
+ rghshhhiucfurghkrghmohhtohdfuceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthh
+ hirdhjpheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghk
+ rghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:iOVLXcxO-QKzYQu_bfF8Wvp_KxmO9L0qkNpsMYGI16PQOoRj9AYu4w>
+ <xmx:iOVLXTjdfwG_pxjoP4g4CPrhI-PDb8cqedn0cNZcD2fjjRHwMGm6qg>
+ <xmx:iOVLXXwEnOwruQjMo3b9l0Yy4gZ1yMeeuHBn_Yqa1lcLeUT1AfMS7w>
+ <xmx:ieVLXd4qCunCQt9EOheq6iVPOAiHbBhvLs7D9QSGGG3K6MxTe3TchA>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 413805C0099; Thu,  8 Aug 2019 05:04:08 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.6-808-g930a1a1-fmstable-20190805v2
+Mime-Version: 1.0
+Message-Id: <ce36089b-7061-4cd1-8262-eb3393c753af@www.fastmail.com>
+In-Reply-To: <1565243458-2771-1-git-send-email-wenwen@cs.uga.edu>
+References: <1565243458-2771-1-git-send-email-wenwen@cs.uga.edu>
+Date: Thu, 08 Aug 2019 18:04:03 +0900
+From: "Takashi Sakamoto" <o-takashi@sakamocchi.jp>
+To: "Wenwen Wang" <wenwen@cs.uga.edu>
+Cc: "moderated list:FIREWIRE AUDIO DRIVERS" <alsa-devel@alsa-project.org>,
+ Clemens Ladisch <clemens@ladisch.de>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: firewire: fix a memory leak bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,193 +107,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Mac Chiang <mac.chiang@intel.com>
+Hi,
 
-reuse and add Cometlake support with:
-SSP0 for DA7219 headphone codec
-SSP1 for MAX98357a speaker amp codec
+On Thu, Aug 8, 2019, at 14:53, Wenwen Wang wrote:
+> In iso_packets_buffer_init(), 'b->packets' is allocated through
+> kmalloc_array(). Then, the aligned packet size is checked. If it is
+> larger than PAGE_SIZE, -EINVAL will be returned to indicate the error.
+> However, the allocated 'b->packets' is not deallocated on this path,
+> leading to a memory leak.
+> 
+> To fix the above issue, free 'b->packets' before returning the error code.
+> 
+> Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
+> ---
+>  sound/firewire/packets-buffer.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
----
- sound/soc/intel/boards/Kconfig                    | 15 +++++++++
- sound/soc/intel/boards/bxt_da7219_max98357a.c     | 37 ++++++++++++++++++++++-
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 12 ++++++++
- sound/soc/intel/common/soc-intel-quirks.h         |  5 +++
- 4 files changed, 68 insertions(+), 1 deletion(-)
+Reviewed-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 50bf149..617d63c 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -256,6 +256,21 @@ config SND_SOC_INTEL_SKL_NAU88L25_MAX98357A_MACH
- 
- endif ## SND_SOC_INTEL_SKL
- 
-+config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
-+	tristate
-+	select SND_SOC_DA7219
-+	select SND_SOC_MAX98357A
-+	select SND_SOC_DMIC
-+	select SND_SOC_HDAC_HDMI
-+
-+if SND_SOC_SOF_COMETLAKE_LP
-+config SND_SOC_INTEL_CML_LP_DA7219_MAX98357A_MACH
-+	tristate "CML_LP with DA7219 and MAX98357A in I2S Mode"
-+	depends on I2C && ACPI
-+	depends on MFD_INTEL_LPSS || COMPILE_TEST
-+	select SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
-+endif
-+
- if SND_SOC_INTEL_APL
- 
- config SND_SOC_INTEL_BXT_DA7219_MAX98357A_MACH
-diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-index c0d865a..e5941ff 100644
---- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-@@ -24,6 +24,8 @@
- 
- #define BXT_DIALOG_CODEC_DAI	"da7219-hifi"
- #define BXT_MAXIM_CODEC_DAI	"HiFi"
-+#define MCLK_19M	19200000
-+#define MCLK_24M	24576000
- #define DUAL_CHANNEL		2
- #define QUAD_CHANNEL		4
- 
-@@ -181,8 +183,13 @@ static int broxton_da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_component *component = rtd->codec_dai->component;
- 
- 	/* Configure sysclk for codec */
--	ret = snd_soc_dai_set_sysclk(codec_dai, DA7219_CLKSRC_MCLK, 19200000,
-+#if !IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
-+	ret = snd_soc_dai_set_sysclk(codec_dai, DA7219_CLKSRC_MCLK, MCLK_19M,
- 				     SND_SOC_CLOCK_IN);
-+#else
-+	ret = snd_soc_dai_set_sysclk(codec_dai, DA7219_CLKSRC_MCLK, MCLK_24M,
-+				     SND_SOC_CLOCK_IN);
-+#endif
- 	if (ret) {
- 		dev_err(rtd->dev, "can't set codec sysclk configuration\n");
- 		return ret;
-@@ -224,7 +231,11 @@ static int broxton_hdmi_init(struct snd_soc_pcm_runtime *rtd)
- 	if (!pcm)
- 		return -ENOMEM;
- 
-+#if !IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
- 	pcm->device = BXT_DPCM_AUDIO_HDMI1_PB + dai->id;
-+#else
-+	pcm->device = dai->id;
-+#endif
- 	pcm->codec_dai = dai;
- 
- 	list_add_tail(&pcm->head, &ctx->hdmi_pcm_list);
-@@ -683,6 +694,27 @@ static int broxton_audio_probe(struct platform_device *pdev)
- 				broxton_dais[i].cpus->dai_name = "SSP2 Pin";
- 			}
- 		}
-+	} else if (soc_intel_is_cml()) {
-+		unsigned int i;
-+
-+		broxton_audio_card.name = "cmlda7219max";
-+
-+		for (i = 0; i < ARRAY_SIZE(broxton_dais); i++) {
-+			/* MAXIM_CODEC is connected to SSP1. */
-+			if (!strcmp(broxton_dais[i].codecs->dai_name,
-+					BXT_MAXIM_CODEC_DAI)) {
-+				broxton_dais[i].id = 1;
-+				broxton_dais[i].name = "SSP1-Codec";
-+				broxton_dais[i].cpus->dai_name = "SSP1 Pin";
-+			}
-+			/* DIALOG_CODEC is connected to SSP0 */
-+			else if (!strcmp(broxton_dais[i].codecs->dai_name,
-+					BXT_DIALOG_CODEC_DAI)) {
-+				broxton_dais[i].id = 0;
-+				broxton_dais[i].name = "SSP0-Codec";
-+				broxton_dais[i].cpus->dai_name = "SSP0 Pin";
-+			}
-+		}
- 	}
- 
- 	/* override plaform name, if required */
-@@ -700,6 +732,7 @@ static int broxton_audio_probe(struct platform_device *pdev)
- static const struct platform_device_id bxt_board_ids[] = {
- 	{ .name = "bxt_da7219_max98357a" },
- 	{ .name = "glk_da7219_max98357a" },
-+	{ .name = "cml_da7219_max98357a" },
- 	{ }
- };
- 
-@@ -720,6 +753,8 @@ MODULE_AUTHOR("Rohit Ainapure <rohit.m.ainapure@intel.com>");
- MODULE_AUTHOR("Harsha Priya <harshapriya.n@intel.com>");
- MODULE_AUTHOR("Conrad Cooke <conrad.cooke@intel.com>");
- MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
-+MODULE_AUTHOR("Mac Chiang <mac.chiang@intel.com>");
- MODULE_LICENSE("GPL v2");
- MODULE_ALIAS("platform:bxt_da7219_max98357a");
- MODULE_ALIAS("platform:glk_da7219_max98357a");
-+MODULE_ALIAS("platform:cml_da7219_max98357a");
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index c36c0aa..4ea32b2 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -19,6 +19,11 @@ static struct snd_soc_acpi_codecs cml_codecs = {
- 	.codecs = {"10EC5682"}
- };
- 
-+static struct snd_soc_acpi_codecs cml_spk_codecs = {
-+	.num_codecs = 1,
-+	.codecs = {"MX98357A"}
-+};
-+
- struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 	{
- 		.id = "INT34C2",
-@@ -29,6 +34,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
- 	},
- 	{
-+		.id = "DLGS7219",
-+		.drv_name = "cml_da7219_max98357a",
-+		.quirk_data = &cml_spk_codecs,
-+		.sof_fw_filename = "sof-cnl.ri",
-+		.sof_tplg_filename = "sof-cml-da7219-max98357a.tplg",
-+	},
-+	{
- 		.id = "MX98357A",
- 		.drv_name = "sof_rt5682",
- 		.quirk_data = &cml_codecs,
-diff --git a/sound/soc/intel/common/soc-intel-quirks.h b/sound/soc/intel/common/soc-intel-quirks.h
-index 4718fd3..e6357d3 100644
---- a/sound/soc/intel/common/soc-intel-quirks.h
-+++ b/sound/soc/intel/common/soc-intel-quirks.h
-@@ -36,6 +36,7 @@ SOC_INTEL_IS_CPU(byt, INTEL_FAM6_ATOM_SILVERMONT);
- SOC_INTEL_IS_CPU(cht, INTEL_FAM6_ATOM_AIRMONT);
- SOC_INTEL_IS_CPU(apl, INTEL_FAM6_ATOM_GOLDMONT);
- SOC_INTEL_IS_CPU(glk, INTEL_FAM6_ATOM_GOLDMONT_PLUS);
-+SOC_INTEL_IS_CPU(cml, INTEL_FAM6_KABYLAKE_MOBILE);
- 
- static inline bool soc_intel_is_byt_cr(struct platform_device *pdev)
- {
-@@ -110,6 +111,10 @@ static inline bool soc_intel_is_glk(void)
- 	return false;
- }
- 
-+static inline bool soc_intel_is_cml(void)
-+{
-+	return false;
-+}
- #endif
- 
-  #endif /* _SND_SOC_INTEL_QUIRKS_H */
--- 
-2.7.4
+And this bug exists till its first commit for v2.6.39.
 
+Fixes: 31ef9134eb52 ("ALSA: add LaCie FireWire Speakers/Griffin FireWave Surround driver")
+Cc: <stable@vger.kernel.org> # v2.6.39+
+
+
+Thanks
+
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,71 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 741FC86226
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 14:46:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C91B86278
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 15:00:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F266E1616;
-	Thu,  8 Aug 2019 14:45:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F266E1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 264F915F2;
+	Thu,  8 Aug 2019 15:00:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 264F915F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565268390;
-	bh=fqV7QbwnlPOTEac189irNDbwM8DKW97IY3s1Z5qPnxg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565269259;
+	bh=RtUMFCmMWH5Koz0kGp8Cp7F1R0daoSGkw84RxMyNaLI=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=brQKcJov4kA89qTvJ6UbCvFB0fZNyg2Mc+INPmRtXvLRZucIcWe5ieLwK9cUW8b9w
-	 0xv1kkTanSPi9moxd0JjR/nbheEo5whBaf36vUUZUZlihxTTt5b8L8b1jprc8dHNj8
-	 J4ZY1YZruYaSpeN8EmcMxYo91z2u6dbkJ8IvQf7k=
+	b=BKgH4hizTXF+9gDM52wBhMQGPcGTuICP5Jdi9rAvxOOLESAnwMA4c7rzGAAmhB0rn
+	 Jell6NsWHKPfp654YP2e/ETlCf7BB8ol8huXBwBqqKXeL1hADNGRsb8M0Gd4rRd48z
+	 hMD+44GxkGzF1YxNWUKPL1IL3jR957vloAco1KL8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42F28F803F3;
-	Thu,  8 Aug 2019 14:44:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 367E9F80535;
+	Thu,  8 Aug 2019 14:59:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CF59F800E3; Thu,  8 Aug 2019 14:44:44 +0200 (CEST)
+ id 437CFF80534; Thu,  8 Aug 2019 14:59:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kmu-office.ch (mail.kmu-office.ch [IPv6:2a02:418:6a02::a2])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE3B9F800E3
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 14:44:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE3B9F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17B06F800E3
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 14:59:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17B06F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="rq4cT89p"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lCsofZGv+cxb/oUf1c4muQ0GNQflHlLh+n32fEyltgY=; b=rq4cT89puSmiOH6w551MDjl6P
- WFKsDiYQyjd16N+pdyGRdfd/4TbFM9y1ujcg5J0XPaEvbtEUC0HQUAQcsd32ZZasiVEHnZ/bQ1QAr
- /MeWf9p6T1hy+UyDZVVngOwOaODEFK6Lq4bcxCPDxX6ZZf35zRZ9DOHsQYHVJbLezWdoE=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1hvhmY-0002rE-S3; Thu, 08 Aug 2019 12:44:38 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8BCD22742BDD; Thu,  8 Aug 2019 13:44:37 +0100 (BST)
-Date: Thu, 8 Aug 2019 13:44:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Stefan Agner <stefan@agner.ch>
-Message-ID: <20190808124437.GD3795@sirena.co.uk>
-References: <20190808123655.31520-1-stefan@agner.ch>
+ dkim=pass (1024-bit key) header.d=agner.ch header.i=@agner.ch
+ header.b="zYTVhAOH"
+Received: from webmail.kmu-office.ch (unknown [IPv6:2a02:418:6a02::a3])
+ by mail.kmu-office.ch (Postfix) with ESMTPSA id 2B57E5C271D;
+ Thu,  8 Aug 2019 14:59:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=agner.ch; s=dkim;
+ t=1565269149;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=R9R4pNwt9uuq1VgKEb/EAbsgASwWpej+aa/aWzuZJ3s=;
+ b=zYTVhAOHHOdlKw03JbSXgVmZZGNvZo0ZUGizuplW55WOTHiFI16uqlf4tVjhorgZYHRBsz
+ V87DiYhzjsL78YYluM0SdNgSQV2XzN7zRnJuOYj7tgNZ+d7+ehKtTVsIGjVPfIG5A7LOnc
+ mM/bFy7IahZXsCVDTyM56nlWJYfDCcc=
 MIME-Version: 1.0
-In-Reply-To: <20190808123655.31520-1-stefan@agner.ch>
-X-Cookie: I think we're in trouble.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Date: Thu, 08 Aug 2019 14:59:09 +0200
+From: Stefan Agner <stefan@agner.ch>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190808124437.GD3795@sirena.co.uk>
+References: <20190808123655.31520-1-stefan@agner.ch>
+ <20190808124437.GD3795@sirena.co.uk>
+Message-ID: <83988e57c768513425ed79eac6744ed8@agner.ch>
+X-Sender: stefan@agner.ch
+User-Agent: Roundcube Webmail/1.3.9
 Cc: alsa-devel@alsa-project.org, Stefan Agner <stefan.agner@toradex.com>,
  linux-kernel@vger.kernel.org, lgirdwood@gmail.com, tiwai@suse.com
 Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: remove error due to probe
@@ -83,58 +79,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4840347219332033799=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2019-08-08 14:44, Mark Brown wrote:
+> On Thu, Aug 08, 2019 at 02:36:55PM +0200, Stefan Agner wrote:
+>> From: Stefan Agner <stefan.agner@toradex.com>
+>>
+>> Deferred probes shouldn't cause error messages in the boot log. Avoid
+>> printing with dev_err() in case EPROBE_DEFER is the return value.
+> 
+> No, they absolutely should tell the user why they are deferring so the
+> user has some information to go on when they're trying to figure out why
+> their device isn't instantiating.
 
---===============4840347219332033799==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/unnNtmY43mpUSKx"
-Content-Disposition: inline
+Hm, I see, if the driver defers and does not manage in the end, then the
+messages are indeed helpful.
 
+But can we lower severity, e.g. to dev_info? In my case it succeeds in
+the end, just defers about 6 times. I have 3 links which then leads to
+18 error messages which confuse users... From what I can see
+soc_init_dai_link() would print dev_err in case there is an actual
+error.
 
---/unnNtmY43mpUSKx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Aug 08, 2019 at 02:36:55PM +0200, Stefan Agner wrote:
-> From: Stefan Agner <stefan.agner@toradex.com>
->=20
-> Deferred probes shouldn't cause error messages in the boot log. Avoid
-> printing with dev_err() in case EPROBE_DEFER is the return value.
-
-No, they absolutely should tell the user why they are deferring so the
-user has some information to go on when they're trying to figure out why
-their device isn't instantiating.
-
---/unnNtmY43mpUSKx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1MGTQACgkQJNaLcl1U
-h9AZOgf/ec4pDTD4WicmfgDb6XwsH4eD1aXoxrGSnAB5x5OCvTtls7jFlVUGSmQx
-J9Ymtb5GfHoT9di2uTZimz1Pj8K97ahY3Ov4Tebl6pinVRZh9cH7j0L03gaxRDQP
-EEVUkju6pq09n9JR8B2F6iIvoZb6YPRZcuOlZInlbwuW+S1hk25rmGvenhsryxgD
-JytTBgBlByqutRVIPLSFI1MDLgyGoF5BtgAqqiCP+wccGpa5vSsfpdOY9lPkA/Dz
-1J8RvlsWkcJg4Q/YPBAA96CS5IwlX2Cf2EVOs02vTFIldoZub8j/ZMSfhAJhNph8
-pUWXwAmBMFjCoV9IoS4b5XlmBjq1Vw==
-=Ire8
------END PGP SIGNATURE-----
-
---/unnNtmY43mpUSKx--
-
---===============4840347219332033799==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+--
+Stefan
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4840347219332033799==--

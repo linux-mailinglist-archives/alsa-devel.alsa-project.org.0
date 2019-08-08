@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A13FB85A1D
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:55:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F1085A1E
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:56:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C0B01660;
-	Thu,  8 Aug 2019 07:54:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C0B01660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F9CD1616;
+	Thu,  8 Aug 2019 07:55:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F9CD1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565243734;
-	bh=IyFZfhog4GfLh8IcfMawBbvcVjddg+duZ3vpJU9gniM=;
+	s=default; t=1565243780;
+	bh=2tgDzayZVZbzIC5Rt+3as8XYfu2enPOT5AgGKwb93BE=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sc9pZMtAuPZHrY7sAo193OD6WWPv0By8OPxLmAZP00MmzWwgOi73FcQ3QNVJmmauL
-	 2PxGRmJdL+lRDY4k+WmbkE1N7LyU0QLIRDxG3rJsCiULrx6OgiO+rhq6XjzHoVCE3q
-	 BSSUiiwE9ZUwjhTieXi8vgyVrtfIIMg5lyFhs9Vw=
+	b=A8MEMFj+ke5FNVmpvyATyL8G8FoQURcclDx3sEuuMhJFX7TXIwiORbvHLM+fRYeze
+	 QgDG0IDlCqFdcuQ82IOGJseHtPbAP/uifhd5oj5v2BagiUzJF6Pn4VlO2NZd2VScGz
+	 XGGNJAFL1kxqhEUbygtApx+BCEO7aVFrLMPsKOZw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC5D4F805F6;
-	Thu,  8 Aug 2019 07:53:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39989F805AF;
+	Thu,  8 Aug 2019 07:53:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA2EAF804FF; Thu,  8 Aug 2019 07:53:38 +0200 (CEST)
+ id 9854AF805A1; Thu,  8 Aug 2019 07:53:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 5B838F803F3
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B838F803F3
-Date: 08 Aug 2019 14:53:33 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649663"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:53:33 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 537E0F8053A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 537E0F8053A
+Date: 08 Aug 2019 14:53:45 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429673"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:53:45 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id E0911400C084;
- Thu,  8 Aug 2019 14:53:32 +0900 (JST)
-Message-ID: <87v9v86war.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id A733341C2D8D;
+ Thu,  8 Aug 2019 14:53:45 +0900 (JST)
+Message-ID: <87tvas6waf.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,8 +65,8 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 03/15] ASoC: intel: cht_bsw_max98090_ti: use
-	snd_soc_dai_link_component for aux_dev
+Subject: [alsa-devel] [PATCH 04/15] ASoC: mediatek: mt8183-da7219-max98357:
+	use snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,24 +91,35 @@ Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/intel/boards/cht_bsw_max98090_ti.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-index 33eb725..1db9a95 100644
---- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-+++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-@@ -324,9 +324,8 @@ static const struct snd_soc_ops cht_be_ssp2_ops = {
- };
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index 59076e2..2a60971 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -370,7 +370,7 @@ static int
+ mt8183_da7219_max98357_headset_init(struct snd_soc_component *component);
  
- static struct snd_soc_aux_dev cht_max98090_headset_dev = {
+ static struct snd_soc_aux_dev mt8183_da7219_max98357_headset_dev = {
 -	.name = "Headset Chip",
-+	.dlc = COMP_AUX("i2c-104C227E:00"),
- 	.init = cht_max98090_headset_init,
--	.codec_name = "i2c-104C227E:00",
++	.dlc = COMP_EMPTY(),
+ 	.init = mt8183_da7219_max98357_headset_init,
  };
  
- SND_SOC_DAILINK_DEF(dummy,
+@@ -436,10 +436,10 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 		dai_link->platforms->of_node = platform_node;
+ 	}
+ 
+-	mt8183_da7219_max98357_headset_dev.codec_of_node =
++	mt8183_da7219_max98357_headset_dev.dlc.of_node =
+ 		of_parse_phandle(pdev->dev.of_node,
+ 				 "mediatek,headset-codec", 0);
+-	if (!mt8183_da7219_max98357_headset_dev.codec_of_node) {
++	if (!mt8183_da7219_max98357_headset_dev.dlc.of_node) {
+ 		dev_err(&pdev->dev,
+ 			"Property 'mediatek,headset-codec' missing/invalid\n");
+ 		return -EINVAL;
 -- 
 2.7.4
 

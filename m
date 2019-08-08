@@ -2,72 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F0C6856B4
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 02:04:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D471B8572A
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 02:11:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F406C84A;
-	Thu,  8 Aug 2019 02:04:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F406C84A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A0CF83B;
+	Thu,  8 Aug 2019 02:10:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A0CF83B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565222698;
+	s=default; t=1565223100;
 	bh=a/Rafk3Re3Gd1OOrm8rAJacErzjmogrO2u5+bjL351M=;
 	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=poE/2OmlVgKU3IqwD+s1rVfoGlyXj+DbzEX2EV7dVomKzCVm8jIXf7KuzGg23ZuvR
-	 uWFn05ucm7n+VDOn12j5BfwriEgOB7RclYji5plsYtqMe1XwWVRB6BOBaCKrulbFjP
-	 117MSqOyNOjXxUcxxL5L5IbQVAQsLihDiNFC8cYc=
+	b=LzJgzjwJaiHb4IfpV5/raNA+8pu77m2P3crlvmuk7GQ+b0W5HG4eUQaaxSsqfYdnm
+	 fbFqUrqV8y3BDHRKQkB6J3kOBbLYNK4WwIc7Ml09PJdsquAx9jrdf5ELA+Lg0Ws+CN
+	 WBGMnUgITp1g3tKpgk9k3cu4C8Eez0+pb7Ybb2UM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20AC8F804CA;
-	Thu,  8 Aug 2019 02:03:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4712F804CA;
+	Thu,  8 Aug 2019 02:09:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44E46F80290; Thu,  8 Aug 2019 02:03:11 +0200 (CEST)
+ id D0CD1F800E4; Thu,  8 Aug 2019 02:09:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  HTML_MESSAGE,PRX_BODY_135,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr150057.outbound.protection.outlook.com [40.107.15.57])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur03on0626.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe0a::626])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 909A0F800F4
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 02:03:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 909A0F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0382F800E4
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 02:09:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0382F800E4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=artgroupspa.onmicrosoft.com
- header.i=@artgroupspa.onmicrosoft.com header.b="R6o3Tr/Y"
+ header.i=@artgroupspa.onmicrosoft.com header.b="GoWrRygr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AFKDCXSxoEuueAxvg/1v44dArY1jS2jCamsz7DGexow2EA25EfYJIEYKVvRtI+n9+vEULLM92PnYchsevYSH27Kh/bAacJ7ZJFVpQuhY2vTA4JY61WAxQXXGm27piRfjqmJEsV36wZyMXK9CdnNWJ/NpRxs94DcKlQuLUPVTrAk48nPfNy5twX5wFOz/XIlKrk+WmNqOc69RZMstr3Vqy6hm1iRDel0OB+VzI+T1lpeQhUZGb0Y+kDmiYzISU4xHTfVWR2izBNzHdBZA/bF6NS9OHKNZ7/4Wyodb6WVGgB/8iptOZi2bB48avqICzzn/l53OWhU4tI9+ABmKnMNc/w==
+ b=a+1H+D7Se53UTicd7fs0LWiA/az6r9OeUYWXz5Vg6k5ET1db5tA++yq7QzF1GGkihsm9l3UNc2w03KF2sgsO4VVyoYLMoQBPdlERjXJoe3hTqg1VI06DPHKnIc46H+AYT3EExsI0vFbinuqw0nA9BD0zTuG8MDJpNUN8/eE2AQq8sefFsZK2LLTKvBxekom/CPiG/vXSekIi2j5QNZkZ59j/siyWH9L347ILLSVt6YmiUhmYU8mXQsZBr5+QKHIdn9bt6NbnseLfpNUVf3S4Hh4srljnMhnWkVEPbIx0oXfdGB3qO5YrzU2UVTg1wf1c4nmRP+yRkfqTBBOT4MW8/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fjln9vbR1dhp4DjHIceqeSVihb3UxLElXcxBiQBObzE=;
- b=ETbLWOOnwwCnscuFpJFe8DXZ/TQ12FbSYn2xowyyJr3miKFZhJFkgyCrcIrmewKmjv/pQ62nqcroATJL8AVf/XDpnD8egJq1m0B6aDfJp+TEj719gaXZ0fb2BiyXayXNNmJAgTFNum5t+ZbHnYJ3bNyBeEh5pyqaoE4IozpTDuA3EATnMnDNgec8cksCl7j+SpCO8WB6JxPtVzqo7f1jw5PfDwOThmwi3O825pLSi9ODzoIHIN/7GmdCq9ipFDFKdLqDG0g9TTbNh5+jpCaxc8ZHOgGMCYstCA8ZfXM4BSF+QR32jumP16X58ONNFcmGQKVsr5PqMe0iu6RArBp8IA==
+ bh=mVtw2R7HWHW+6ju1QPn08JSJOzkYNxlfhwqA12EE1PM=;
+ b=iEC5r+N8leLSy/7Hr/sQazI9y819/ytHTgIZpZhAkcEyevpNcuLY8GNkE4AXzwPAjlu+tu1mYfe4bezASjKZURwMi2axg4y8z9IIg/Mp+0S9VRYoQ2o4i3Zow2CceYy3quu4+m3CMSum1/KgRWwWlvLJ9JSr9xn0RZfWYy2K62vyZhm268fl7R1VRHYsT/SuU09XMS/pcv5Hec39PO9V+mgMlv7F/fMc08OVWPwUob/LEDPP4dtJbkbcO6TAhJbEnYEFoLeWLXndegpeW0OSHS7r2XvO5cJI9WcxXUKhWS9bBqw4EmdlDidgxTdhCPHV1HP6hxvQDuctQNdH8Twp1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
  smtp.mailfrom=artgroup-spa.com;dmarc=pass action=none
  header.from=artgroup-spa.com;dkim=pass header.d=artgroup-spa.com;arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=artgroupspa.onmicrosoft.com; s=selector2-artgroupspa-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fjln9vbR1dhp4DjHIceqeSVihb3UxLElXcxBiQBObzE=;
- b=R6o3Tr/YAA4ugbb1VfVUOsjgyggi/vmZQEcv+6232Pe3MXyr48U5CmCUevLAXJRrt/JjpUPnKjthRZE1epRiglRNe1qpQ4/HjOaarNTDJGjKfM5FakbzzpnMUXRX89QvivJMbWmhhVU0CwxLyivQ6qOUx/0+CN3lSc22FMO/3I4=
+ bh=mVtw2R7HWHW+6ju1QPn08JSJOzkYNxlfhwqA12EE1PM=;
+ b=GoWrRygrdHpxBD5lmp6mNxexOnRDErkNBirWiBrxs7uksDI147PGNdeG0u5Awc6M3ZWiLCQ0Y5Jcx8lVZzdBJtZUOgqWFGPN2Hj+pgi7nwzAFJZREJstnap2UWErDYk1ZQ9o697W8Xj/1mUkBJbQolJCMaJjjCZgs6v7cl7HDZE=
 Received: from AM5P192MB0180.EURP192.PROD.OUTLOOK.COM (10.175.13.20) by
- AM5P192MB0211.EURP192.PROD.OUTLOOK.COM (10.175.14.11) with Microsoft SMTP
+ AM5P192MB0243.EURP192.PROD.OUTLOOK.COM (10.175.12.22) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2136.13; Thu, 8 Aug 2019 00:03:02 +0000
+ 15.20.2136.17; Thu, 8 Aug 2019 00:09:47 +0000
 Received: from AM5P192MB0180.EURP192.PROD.OUTLOOK.COM
  ([fe80::58f2:c38:e678:c9fc]) by AM5P192MB0180.EURP192.PROD.OUTLOOK.COM
  ([fe80::58f2:c38:e678:c9fc%11]) with mapi id 15.20.2136.018; Thu, 8 Aug 2019
- 00:03:02 +0000
+ 00:09:47 +0000
 From: Giuliano Zannetti - ART S.p.A. <giuliano.zannetti@artgroup-spa.com>
 To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Thread-Index: AdVNfKNyfP4YF00IT8GunLAQ38km0Q==
-Date: Thu, 8 Aug 2019 00:03:02 +0000
-Message-ID: <AM5P192MB01802854296E15A3ED321DF4C5D70@AM5P192MB0180.EURP192.PROD.OUTLOOK.COM>
+Thread-Topic: multi pcm plugin issue
+Thread-Index: AdVNfYct6VbivcsLSZ+fdHgmt+XpuA==
+Date: Thu, 8 Aug 2019 00:09:47 +0000
+Message-ID: <AM5P192MB01809959F8AC046FAC258809C5D70@AM5P192MB0180.EURP192.PROD.OUTLOOK.COM>
 Accept-Language: it-IT, en-US
 Content-Language: it-IT
 X-MS-Has-Attach: 
@@ -76,34 +78,34 @@ authentication-results: spf=none (sender IP is )
  smtp.mailfrom=giuliano.zannetti@artgroup-spa.com; 
 x-originating-ip: [94.37.176.55]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a823bf1d-5643-4981-2e03-08d71b93c7df
+x-ms-office365-filtering-correlation-id: 416f78cc-24ff-435d-8377-08d71b94b980
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:AM5P192MB0211; 
-x-ms-traffictypediagnostic: AM5P192MB0211:
-x-microsoft-antispam-prvs: <AM5P192MB0211C3B00158F8CD806116D6C5D70@AM5P192MB0211.EURP192.PROD.OUTLOOK.COM>
+ SRVR:AM5P192MB0243; 
+x-ms-traffictypediagnostic: AM5P192MB0243:
+x-microsoft-antispam-prvs: <AM5P192MB024366341484186D64060467C5D70@AM5P192MB0243.EURP192.PROD.OUTLOOK.COM>
 x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-forefront-prvs: 012349AD1C
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(136003)(396003)(39850400004)(366004)(346002)(189003)(199004)(14444005)(25636003)(7696005)(316002)(14454004)(71200400001)(476003)(74316002)(71190400001)(6916009)(25786009)(486006)(86362001)(5416005)(478600001)(76116006)(7736002)(2351001)(6116002)(33656002)(26005)(9686003)(66556008)(6306002)(55016002)(66446008)(2906002)(5406001)(3846002)(64756008)(54896002)(53946003)(186003)(5640700003)(30864003)(66946007)(9326002)(99286004)(53936002)(66476007)(52536014)(5660300002)(102836004)(19627235002)(790700001)(6506007)(66066001)(81166006)(6436002)(2501003)(81156014)(256004)(8936002)(569006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM5P192MB0211;
+ SFS:(10009020)(4636009)(136003)(366004)(396003)(346002)(376002)(39850400004)(199004)(189003)(7696005)(66066001)(5660300002)(14454004)(478600001)(6506007)(186003)(30864003)(81156014)(33656002)(74316002)(81166006)(8936002)(66556008)(2351001)(66446008)(64756008)(86362001)(9326002)(66946007)(66476007)(76116006)(6916009)(99286004)(52536014)(8676002)(476003)(3480700005)(102836004)(2906002)(19627235002)(256004)(14444005)(26005)(6116002)(25786009)(7736002)(5640700003)(2501003)(6436002)(6306002)(53946003)(316002)(53936002)(54896002)(55016002)(790700001)(71200400001)(71190400001)(3846002)(486006)(9686003)(569006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM5P192MB0243;
  H:AM5P192MB0180.EURP192.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: artgroup-spa.com does not
  designate permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 0fLr+3eTLaYl6UcTYdxmcIfLQ3jh30Fzh9HVocYPnnYv+3/W4eIrO4S53YtXrf1eSjHorZO/IDExLfthfUI8SlUVza9MR5H8+x36ssXQ1UdbZR468ukdLNFxx+/R+avRdhsbPdWauOiW2HEB7Nydyg0v45jJZMjPzCmG93tDCZy/wBQFmCUwjUvZquXcTz8YnPD/4lbvjQep4mJ0oz4UYAo43hgBhRF5zURYCRIBrBKUm4vecUReKYFUujQ3fyAkFbdPi8wsfTkY4WVARNRoOTXY/OUu7bJHlR117SQh8Ds8fgkLpx6XIk9KmYJowHSShbQscEJ6TCPAKJqylvNcNKhygEQI3Ta5ndVeDaFUWO5qAmSGy9LAo6ZyfqHmPzjZXBEWPr5V+UoOsILbXmxrBnbCiX4O2RezIUn6AzRyu7o=
+x-microsoft-antispam-message-info: ccTknE8oG5DC7CBL9eWSeGBDD0wOF/XrkUHZo3x0XOHhdLus5elXn1AsQtsqiGmWHXcVSEyJa3fSv99Q1LvQ8uQX33r7f4QrnlQLOkjYXA4bVn8rlk3je/69KMI+ZZBq5p5ZRbnJhevnL3tvyV4zNKoXVLag9y5P+M2xjFnxob4FxTEJiLACL5A9gZ+KfCafY4oICnE9qOost5pMJhLsAvocbZixHo3d0KGjrNUnRne3LIKhw8aTrodn6a3MhAxSe8ZDNOpGFQ/rhp7MxM7nHrVRDt98czcwDATYvzx7kGGoT22UXmYL3/xjptSgduLgr68qS4qtQxnwkuZaH4QPZcZ576He1JKcQ0R918i1HtgEzDAWhl6UJO8kxepKlzDolCQi31FNuL6+4sQFEnFNLK8HJgZm0ism3YnGcMqUUaI=
 MIME-Version: 1.0
 X-OriginatorOrg: artgroup-spa.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a823bf1d-5643-4981-2e03-08d71b93c7df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2019 00:03:02.0840 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 416f78cc-24ff-435d-8377-08d71b94b980
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2019 00:09:47.6292 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 53c55efc-dafd-4709-9ce8-f76299277497
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: giuliano.zannetti@artgroup-spa.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5P192MB0211
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5P192MB0243
 X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: [alsa-devel] (no subject)
+Subject: [alsa-devel] multi pcm plugin issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

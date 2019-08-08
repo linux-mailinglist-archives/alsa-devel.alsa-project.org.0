@@ -2,57 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4DC885F9A
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 12:27:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE1E285FB7
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 12:33:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64C6784F;
-	Thu,  8 Aug 2019 12:27:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64C6784F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55B2F1661;
+	Thu,  8 Aug 2019 12:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55B2F1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565260074;
-	bh=20thc3wdBAY0rl7eBF3a/3a9cJRBaydbYAyo07QsLrA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sV9KvDY9oWimf0AgjlCeHYAu6q471d0PNaIxcpPHfK8Mytv3dbp4WlyNR43zqrZ23
-	 7KzVTCMl7r8oYnmxX3Mt5sK4uD1UgB6EYy/PdbJcJVcwqtm2ASnkalrkktqEW+Y993
-	 +qzZTmjEh36zBk1vSv87jeTXxSicyL6081Et/k6c=
+	s=default; t=1565260388;
+	bh=DtxPTegVuihcG2pDZN8bjDSkNjHDyjqMKqIRdb8fnDk=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=gFkNwevDd+QRvlULv1IUYP20DcfOHcl8OeCz/GShjfRbElU6hHqFxx6gzf87tbr40
+	 FD5C/Vd+2DTxhKte/tFd73KzS7ATh9o2Q7RRNH1OoSCTK2nkMJ8d806MAOpGTWtm16
+	 ZeNxjo4ZVF0x09ilHHyhi7LPusAQpOk0MmUsjvFk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D576CF805AA;
-	Thu,  8 Aug 2019 12:25:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A65BBF80535;
+	Thu,  8 Aug 2019 12:31:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DC73AF805AF; Thu,  8 Aug 2019 12:25:07 +0200 (CEST)
+ id BEA61F80534; Thu,  8 Aug 2019 12:31:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3EEFF805A1
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 12:25:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3EEFF805A1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22D94F800E4
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 12:31:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22D94F800E4
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2019 03:25:02 -0700
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Aug 2019 03:31:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,360,1559545200"; d="scan'208";a="179798131"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by orsmga006.jf.intel.com with ESMTP; 08 Aug 2019 03:25:00 -0700
+X-IronPort-AV: E=Sophos;i="5.64,360,1559545200"; d="scan'208";a="199004264"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.237.137.172])
+ ([10.237.137.172])
+ by fmsmga004.fm.intel.com with ESMTP; 08 Aug 2019 03:31:10 -0700
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <20190807134745.1648-1-cezary.rojewski@intel.com>
+ <4b0e1051-946b-ea7c-1e09-93e0825e5ac8@linux.intel.com>
+ <b03e179d-23f8-ae3e-fcd2-996433e44894@intel.com>
+ <9fd54b42-acb0-805c-5e36-5fedd3b5e322@linux.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Date: Thu,  8 Aug 2019 12:24:47 +0200
-Message-Id: <20190808102447.16639-1-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.17.1
-Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
- broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH v4 2/2] ASoC: Intel: Skylake: large_config_get
-	overhaul
+Message-ID: <1f65d726-dac1-bd3f-d207-8b3ae753bee3@intel.com>
+Date: Thu, 8 Aug 2019 12:31:09 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <9fd54b42-acb0-805c-5e36-5fedd3b5e322@linux.intel.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
+ tiwai@suse.com
+Subject: Re: [alsa-devel] [RESEND PATCH v3] ASoC: Intel: Skylake:
+ large_config_get overhaul
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,116 +75,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-LARGE_CONFIG_GET is mainly used to retrieve requested module parameters
-but it may also carry TX payload with them. Update its implementation to
-account for both TX and RX data.
-First reply.header carries total payload size within data_off_sizefield.
-Make use of reply.header to realloc returned buffer with correct size.
+On 2019-08-08 05:30, Pierre-Louis Bossart wrote:
+>>>
+>>> [1] here you are just saying that the looping is really not required 
+>>> so there are no tests at all...
+>>>
+>>> [4] So shouldn't you split the two parts of this patch and separate 
+>>> looping from not touching the data that's vendor-specific?
+>>
+>> So, looping mainly gets used in _sets_, for _gets_ I've not seen a 
+>> live example, really - despite FW supporting such flow. However, I'd 
+>> like to verify before adding any looping, possibly by creating a 
+>> custom module myself. Followup to your point: existing looping was not 
+>> tested either.
+> 
+> So how about removing this looping first in the existing code and add 
+> the needed changes in a second patch? wouldn't that help make the 
+> changes more self-contained? A large part of your patch below has 
+> indentation differences which make it hard to figure out what the new 
+> approach is.
 
-Failure of IPC request is permissive - error-payload may be returned, an
-informative data why GET for given param failed - and thus function
-should not collapse before entire processing is finished. Caller is
-responsible for checking returned payload and bytes parameters.
+Agreed. Must say, didn't get you at first.
+Update v4 has been sent and should do a better job at guiding the reader 
+through changes.
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
----
- sound/soc/intel/skylake/skl-messages.c |  3 ++-
- sound/soc/intel/skylake/skl-sst-ipc.c  | 27 ++++++++++++++++++++------
- sound/soc/intel/skylake/skl-sst-ipc.h  |  3 ++-
- 3 files changed, 25 insertions(+), 8 deletions(-)
-
-diff --git a/sound/soc/intel/skylake/skl-messages.c b/sound/soc/intel/skylake/skl-messages.c
-index e8cc710f092b..84f0e6f58eb5 100644
---- a/sound/soc/intel/skylake/skl-messages.c
-+++ b/sound/soc/intel/skylake/skl-messages.c
-@@ -1379,11 +1379,12 @@ int skl_get_module_params(struct skl_dev *skl, u32 *params, int size,
- 			  u32 param_id, struct skl_module_cfg *mcfg)
- {
- 	struct skl_ipc_large_config_msg msg;
-+	size_t bytes = size;
- 
- 	msg.module_id = mcfg->id.module_id;
- 	msg.instance_id = mcfg->id.pvt_id;
- 	msg.param_data_size = size;
- 	msg.large_param_id = param_id;
- 
--	return skl_ipc_get_large_config(&skl->ipc, &msg, params);
-+	return skl_ipc_get_large_config(&skl->ipc, &msg, &params, &bytes);
- }
-diff --git a/sound/soc/intel/skylake/skl-sst-ipc.c b/sound/soc/intel/skylake/skl-sst-ipc.c
-index 196c80dadb1f..9d269a5f8bd9 100644
---- a/sound/soc/intel/skylake/skl-sst-ipc.c
-+++ b/sound/soc/intel/skylake/skl-sst-ipc.c
-@@ -969,12 +969,18 @@ int skl_ipc_set_large_config(struct sst_generic_ipc *ipc,
- EXPORT_SYMBOL_GPL(skl_ipc_set_large_config);
- 
- int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
--		struct skl_ipc_large_config_msg *msg, u32 *param)
-+		struct skl_ipc_large_config_msg *msg,
-+		unsigned int **payload, size_t *bytes)
- {
- 	struct skl_ipc_header header = {0};
--	struct sst_ipc_message request = {0}, reply = {0};
-+	struct sst_ipc_message request, reply = {0};
-+	unsigned int *buf;
- 	int ret;
- 
-+	reply.data = kzalloc(SKL_ADSP_W1_SZ, GFP_KERNEL);
-+	if (!reply.data)
-+		return -ENOMEM;
-+
- 	header.primary = IPC_MSG_TARGET(IPC_MOD_MSG);
- 	header.primary |= IPC_MSG_DIR(IPC_MSG_REQUEST);
- 	header.primary |= IPC_GLB_TYPE(IPC_MOD_LARGE_CONFIG_GET);
-@@ -986,12 +992,21 @@ int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
- 	header.extension |= IPC_FINAL_BLOCK(1);
- 	header.extension |= IPC_INITIAL_BLOCK(1);
- 
--	request.header = *(u64 *)(&header);
--	reply.data = param;
--	reply.size = msg->param_data_size;
-+	request.header = *(u64 *)&header;
-+	request.data = *payload;
-+	request.size = *bytes;
-+	reply.size = SKL_ADSP_W1_SZ;
-+
- 	ret = sst_ipc_tx_message_wait(ipc, request, &reply);
- 	if (ret < 0)
--		dev_err(ipc->dev, "ipc: get large config fail, err: %d\n", ret);
-+		dev_err(ipc->dev, "ipc: get large config fail: %d\n", ret);
-+
-+	reply.size = (reply.header >> 32) & IPC_DATA_OFFSET_SZ_MASK;
-+	buf = krealloc(reply.data, reply.size, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+	*payload = buf;
-+	*bytes = reply.size;
- 
- 	return ret;
- }
-diff --git a/sound/soc/intel/skylake/skl-sst-ipc.h b/sound/soc/intel/skylake/skl-sst-ipc.h
-index 93af08cf41d2..a7ab2c589cc5 100644
---- a/sound/soc/intel/skylake/skl-sst-ipc.h
-+++ b/sound/soc/intel/skylake/skl-sst-ipc.h
-@@ -139,7 +139,8 @@ int skl_ipc_set_large_config(struct sst_generic_ipc *ipc,
- 		struct skl_ipc_large_config_msg *msg, u32 *param);
- 
- int skl_ipc_get_large_config(struct sst_generic_ipc *ipc,
--		struct skl_ipc_large_config_msg *msg, u32 *param);
-+		struct skl_ipc_large_config_msg *msg,
-+		unsigned int **payload, size_t *bytes);
- 
- int skl_sst_ipc_load_library(struct sst_generic_ipc *ipc,
- 			u8 dma_id, u8 table_id, bool wait);
--- 
-2.17.1
-
+Czarek
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

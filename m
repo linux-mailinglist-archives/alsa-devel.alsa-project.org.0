@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3909586A97
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 21:30:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57E7586AE4
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 21:54:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AED651660;
-	Thu,  8 Aug 2019 21:29:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AED651660
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD6E51615;
+	Thu,  8 Aug 2019 21:53:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD6E51615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565292617;
-	bh=E5acELIllQ9yAAhlibVQUPWAulz7hAXjjGOJKHYdjsY=;
+	s=default; t=1565294046;
+	bh=Mb69gCSZbyDqqGTdXTqzG02R0a7AvIUiWNs22elg/c8=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jic+d0P4odwNC7wQKfpCYp/M5UmpRt5FfZ3x2rRT+YKFWMlLzst3id18s/6zGSemc
-	 KEMrgCtVtFf5CUkFrS5k4Yof9rPCE/rmfv8x735sSy0rdxRVnExXK2TkDVOosytrgM
-	 5nL64QB9loNIgNDUJ/A3WY5eGju5TLbpk/FwiZMI=
+	b=hdqAEHgmRjgg2BkVmR+1wn/w+fGmZZQWFJwNgiCF1pjq6B5MWT38DxwWyZhCmDubH
+	 GgqD5GLKNU4kcOMq6adiA4n6MgGLyiC9KR5Mw7QHAFFvz5UWJLkzyjEcNUZXymFO0o
+	 d3VAWYVQEm8+hNyR8i5BwOy9sRLSUq03fZfybEX4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9ACCEF805A9;
-	Thu,  8 Aug 2019 21:27:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BE73F80534;
+	Thu,  8 Aug 2019 21:52:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 33429F805A1; Thu,  8 Aug 2019 21:27:48 +0200 (CEST)
+ id 09A27F80534; Thu,  8 Aug 2019 21:52:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13DA7F80535
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 21:27:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13DA7F80535
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8EA5F803F3
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 21:52:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8EA5F803F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="LEu9JLll"
+ header.b="iVKOlFDO"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=loQXC1douT+pE3TmAqOFGF87K1GV3m/+5JMD18/HSF0=; b=LEu9JLllOYP8sy6yAvu08FPGc
- Go/ojWDAqu+DptOthMkNG7BVmL/SloDqUb8BJ4haeFBUx2PNGzh/xulrr3SIF8uiETb6VcQwIwyEe
- 8OUGQcLy3oHIhwWseE1QRYt5Dl3u1NI63a9hjpt3Dm6TRYMj+6g/rQZd8r4FIixFbFb7c=;
+ bh=1MWRQhv1JoqmBcDEPz0hEreVKta/Mv4QnU98H8se/ZU=; b=iVKOlFDOmWwddtjobr+BdDZW6
+ yi04iCpOXEqFxbDYYsmEipmZPg8rHBBwAsU0nL4Ok75LgzN3S4EO5wGYbcXzSaNfZ7GXKJ0Og9v/T
+ KwP0bMbCmrihAzqWFAF6GThe9BJcUiyTFktozEqRbs7MgWGONzwyvxaMPMIChKFKJNPts=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvo4e-0003oc-1Q; Thu, 08 Aug 2019 19:27:44 +0000
+ id 1hvoSO-0003rT-To; Thu, 08 Aug 2019 19:52:16 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 404BD2742B42; Thu,  8 Aug 2019 20:27:43 +0100 (BST)
-Date: Thu, 8 Aug 2019 20:27:43 +0100
+ id 249062742B42; Thu,  8 Aug 2019 20:52:16 +0100 (BST)
+Date: Thu, 8 Aug 2019 20:52:16 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Stefan Agner <stefan@agner.ch>
-Message-ID: <20190808192743.GL3795@sirena.co.uk>
-References: <20190808123655.31520-1-stefan@agner.ch>
- <20190808124437.GD3795@sirena.co.uk> <s5hlfw3izhl.wl-tiwai@suse.de>
- <20190808130217.GE3795@sirena.co.uk> <s5hftmbiyuc.wl-tiwai@suse.de>
- <cd3fd8b9ce6e4f9820197c70dfc42b67@agner.ch>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20190808195216.GM3795@sirena.co.uk>
+References: <20190808144504.24823-1-srinivas.kandagatla@linaro.org>
+ <20190808144504.24823-2-srinivas.kandagatla@linaro.org>
+ <d346b2af-f285-4c53-b706-46a129ab7951@linux.intel.com>
+ <cdd2bded-551c-65f5-ca29-d2bb825bdaba@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <cd3fd8b9ce6e4f9820197c70dfc42b67@agner.ch>
+In-Reply-To: <cdd2bded-551c-65f5-ca29-d2bb825bdaba@linaro.org>
 X-Cookie: I think we're in trouble.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Stefan Agner <stefan.agner@toradex.com>,
- Takashi Iwai <tiwai@suse.de>, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: remove error due to probe
-	deferral
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ lgirdwood@gmail.com, vkoul@kernel.org, robh+dt@kernel.org
+Subject: Re: [alsa-devel] [PATCH v2 1/4] dt-bindings: soundwire: add slave
+	bindings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,63 +88,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6410327436406611702=="
+Content-Type: multipart/mixed; boundary="===============2464776989246162657=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============6410327436406611702==
+--===============2464776989246162657==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1hKfHPzOXWu1rh0v"
+	protocol="application/pgp-signature"; boundary="kunpHVz1op/+13PW"
 Content-Disposition: inline
 
 
---1hKfHPzOXWu1rh0v
-Content-Type: text/plain; charset=us-ascii
+--kunpHVz1op/+13PW
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 08, 2019 at 03:16:53PM +0200, Stefan Agner wrote:
-> On 2019-08-08 15:14, Takashi Iwai wrote:
-> > Mark Brown wrote:
+On Thu, Aug 08, 2019 at 05:48:56PM +0100, Srinivas Kandagatla wrote:
+> On 08/08/2019 16:58, Pierre-Louis Bossart wrote:
 
-> > I guess we can use dev_printk() with the conditional level choice.
+> > > +- sdw-instance-id: Should be ('Instance ID') from SoundWire
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 Enumeration Address. Instance ID is for =
+the cases
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 where multiple Devices of the same type =
+or Class
+> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0 are attached to the bus.
 
-> How about use dev_info always? We get a dev_err message from
-> soc_init_dai_link in error cases...
+> > so it is actually required if you have a single Slave device? Or is it
+> > only required when you have more than 1 device of the same type?
 
-> 		ret = soc_init_dai_link(card, dai_link);
-> 		if (ret && ret != -EPROBE_DEFER) {
-> 			dev_info(card->dev, "ASoC: failed to init link %s: %d\n",
-> 				 dai_link->name, ret);
-> 		}
+> This is mandatory for any slave device!
 
-Well, if there's adequate error reporting in init_dai_link() it's a bit
-different - we can just remove the print entirely regardless of what the
-return code is.  The point is to ensure that we don't just silently
-fail.  Unfortunately there's no prints in the probe deferral case there
-so they need adding, that'll actually improve things though since we can
-make it print the name of the thing it's mising which will be useful to
-people trying to figure out what's going on (we used to do that but it
-got lost in reshufflings).
+If it's mandatory the wording is a bit unclear.  How about something
+like:
 
---1hKfHPzOXWu1rh0v
+	Should be ('Instance ID') from the SoundWire Enumeration
+	Address.  This must always be provided, if multiple devices
+	with the same type or class or attached to the bus each
+	instance must have a distinct value.
+
+--kunpHVz1op/+13PW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1Md64ACgkQJNaLcl1U
-h9AMagf+L43HuMa/NUgOlEHZm98nUtKAaX8K47V2+fZA8apI3qs/jrwjcUoIfhMU
-CZMT7n2i3X520n100poQubrce5JFTbXLd5Mm7H5E77Fs5zoZ5W53jL6ts5DoyQ5E
-UYpoxkg4bMQXmSgAlihHpjLRubteVsS3+07FhrSdGlvwlpGYSBrh+IOMtZes3I7W
-b7xTa6denXXkrx8sg6tznkI7q6xweTy+B3gc9GpIEA1CQek6a3WYq6DV+1C+t8dN
-Ps0f2A39s+UVOaHpPgtwb9V3DwlBGnUis0vdrET8JpfK7whAEaw1D58ADRW77QiS
-o6jc4CTInKtvwwipe0OcMO4Dn9jssQ==
-=mPEe
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1MfW8ACgkQJNaLcl1U
+h9BC6Qf+MpoIdX8BiE+fy8vg1a5ZsWCGWK/V6LMgyk7vx2P8oWJylUyIG9xTvecn
+zrFjIwW5t44x8P5ycsmXZCqG8JCU0/qPSQ9Aw4qC1jesy3Ue4Lwtmu0qH5gvFsSg
+CKW/bidKNFSCg3t39fddxeawm+GiutGVwnCgnVtkH9tmcONusdDfnDdOLQiQUQa1
+CsmQIbGs/BEuF6LF11Ho58rf7UHvuu4oF9mrKszQWdZKTkhNPfjgqy4n8/scVObd
+TAbUUo0uixBk2YmmcxrwtF1V9QGPyifPM8LsHlXlxO3ZSH+/fARzkRoBYQlbwRju
+aGWXSh12SOwhelEkD1Q19DG25zsCsQ==
+=Nsvw
 -----END PGP SIGNATURE-----
 
---1hKfHPzOXWu1rh0v--
+--kunpHVz1op/+13PW--
 
---===============6410327436406611702==
+--===============2464776989246162657==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -154,4 +155,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============6410327436406611702==--
+--===============2464776989246162657==--

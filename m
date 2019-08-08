@@ -2,80 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114AE85F3A
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 12:07:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7019F85F21
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 12:01:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 842531672;
-	Thu,  8 Aug 2019 12:07:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 842531672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 092F4166F;
+	Thu,  8 Aug 2019 12:00:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 092F4166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565258875;
-	bh=SaV603Kw1u/zP0KzjOiww5msvWPT5YaIII5IlYECT1Q=;
-	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1565258464;
+	bh=PgaJEIcXbo4JUV0mrARuMywokToRU29mC15YQxA5RAg=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=DYMES2drl6gvQ0rLtLBA4rWBgS81VjO/z0XcoR0X5CYrzkHnh31rYioyknizVM8tq
-	 ija+vfg1+Q07XBJari1a2bM328xBPEjFJICgynMvXUwaxYqQnJkMj7/shyoOjJ8iN9
-	 2qzuZkO+CWpmMkhR/XEQVCfwGTn6zM4hYMjYb20g=
+	b=p3hXnHEgRqw/5QatX1S+7mWDFkuGdJT/eego5xFzYkfQaFDTgYeERSDlMs7g7bwmQ
+	 jNZfQnCrVjiGbOGIFLZ09cQI9C833k7EhwFkAcBDJVFvbI1mQ2gx3P9l1IVEJrVhCB
+	 0gUVqkvtvsYE5PQ5hk9htp0fjz9jVh8w5cBfoECA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDBCDF80535;
-	Thu,  8 Aug 2019 12:06:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8304AF805FA;
+	Thu,  8 Aug 2019 11:57:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 592CCF80290; Wed,  7 Aug 2019 19:30:50 +0200 (CEST)
+ id 0B1D4F800E4; Thu,  8 Aug 2019 11:57:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE, 
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6C21BF800F4
- for <alsa-devel@alsa-project.org>; Wed,  7 Aug 2019 19:30:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C21BF800F4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RUMfxBS/"
-Received: by mail-ot1-x32e.google.com with SMTP id l15so50226802oth.7
- for <alsa-devel@alsa-project.org>; Wed, 07 Aug 2019 10:30:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=71kOgONz1Ufg5VPmWh410pK9Snv2NRM0u3CtFeAvTOg=;
- b=RUMfxBS/wTzHZ6DwgV0xZKTVTwdU/q07HSq1YJry4o9LZGl3KyUOIHK1ASMoeJp9Mi
- NOH/Vp8hLj9Xwb7F4f/8jfKMsa0ebAEjnwo89Pt6uzwrIh7bTZHXm/8vWC43ZXzTJaAu
- bjev2tqAfnHI+v8IbA5IxV2mePEfdt0cahilLKQigsEptPcuEIwahONRE6PG1CzENOff
- i/kzie848anDje+/7J4q7HRPEfHouqwZOrJJ+IGUhSfA/0aXcSiRpVzNwe/uwBt02cwA
- RNQJU597T5xbiAjd+kCaLtJXwt57GD3I/+sRuTw7zPS2TjNkXu4q9C1NkeiEsiUNyQAf
- snEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=71kOgONz1Ufg5VPmWh410pK9Snv2NRM0u3CtFeAvTOg=;
- b=jMe+ngDIghUbEUloZTlcVorRVUr9kdJA73PsCiuQilmKlozEFCc2SSkcIgVMoneaws
- Uf9W1pCnxJ1Kx43Ouz5S+d2c/8UWkQq1QzjRzbB8eAX6mlcLT76B2rKOQ3oSle2WcRY9
- BuqyllNBh2JdwqmOym09EUYsol/563U3qs9kg1Fv50F/Nxko9KGkgWnY0ASwW8m2hbjV
- SWUxadZbYR5z8tleWakrAYJ3MXaH+1UJ/sJDIvC7oTCtCuQuBqCYaIBzm6TTDj512PGx
- SHxuiyWbhJQ1RssPMHbzvtnWDqnsDPf4x37dHCccboAe/xGUZh3UWquYtHQJKhct3DKE
- 7WRA==
-X-Gm-Message-State: APjAAAU0dWXQC5PvwQDmWbnZTNUs5TJr98vlYjmqost/mctOrZ549BCq
- V5/s0eGWfQP4O/zL2FjcW+XWA2PTVBZtKJw41q8x6WND
-X-Google-Smtp-Source: APXvYqz7mboNDsWLKU0ibnh6/GdAIehB62KHjLqK+Cg7bZdth755GdImNx5sE4atJcRin0lEhNBbFDtEYdEo7Km1+Rs=
-X-Received: by 2002:a02:3093:: with SMTP id
- q141mr11355894jaq.128.1565199043639; 
- Wed, 07 Aug 2019 10:30:43 -0700 (PDT)
-MIME-Version: 1.0
-From: thomas rost <thomasrost@gmail.com>
-Date: Wed, 7 Aug 2019 19:30:32 +0200
-Message-ID: <CAJ_PRtDf4+-ce_D+=ec36Kv4=m_NT2L5shmownNBi_HgbR0aCg@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1004F803F3
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 11:57:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1004F803F3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B0461AF2D;
+ Thu,  8 Aug 2019 09:57:18 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-X-Mailman-Approved-At: Thu, 08 Aug 2019 12:06:09 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: [alsa-devel] motu microbook iic
+Date: Thu,  8 Aug 2019 11:57:12 +0200
+Message-Id: <20190808095715.29713-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Mark Brown <broonie@kernel.org>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Thierry Reding <thierry.reding@gmail.com>
+Subject: [alsa-devel] [PATCH 0/3] ALSA: hda: bus cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,22 +62,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+Hi,
 
-can anybody help me get the 'class compliant' motu microbook iic to run?
+this is a few patches to simplify and cleanup the HD-audio bus ops.
 
-this is my alsa-info.sh output:
+The first two patches translate the indirect calls of DMA page
+allocation and MMIO accesses with the direct ones, as well as
+eliminating the whole bus->io_ops.
 
-http://alsa-project.org/db/?f=0fd9a8df7bae3400d83b6af8b75c45aa0760d84d
+The last one is SOF-specific, and fixes/cleans up by calling the
+proper hdaudio bus init function, as formerly discussed.
 
-thanks in advance.
 
-thomas
+Takashi
+
+===
+
+Takashi Iwai (3):
+  ALSA: hda: Remove page allocation redirection
+  ALSA: hda: Direct MMIO accesses
+  ASoC: SOF: Intel: Initialize hdaudio bus properly
+
+ include/sound/hdaudio.h                | 69 +++++++++++++--------------
+ include/sound/hdaudio_ext.h            |  1 -
+ sound/hda/Kconfig                      |  3 ++
+ sound/hda/ext/hdac_ext_bus.c           | 60 +-----------------------
+ sound/hda/hdac_bus.c                   | 36 ++++++++++++--
+ sound/hda/hdac_controller.c            | 18 +++----
+ sound/hda/hdac_stream.c                |  8 ++--
+ sound/pci/hda/Kconfig                  |  1 +
+ sound/pci/hda/hda_controller.c         |  6 +--
+ sound/pci/hda/hda_controller.h         |  3 +-
+ sound/pci/hda/hda_intel.c              | 71 ++--------------------------
+ sound/pci/hda/hda_tegra.c              | 84 +--------------------------------
+ sound/soc/intel/skylake/skl-messages.c | 15 +-----
+ sound/soc/intel/skylake/skl.c          |  7 ++-
+ sound/soc/sof/intel/hda-bus.c          | 85 ++++------------------------------
+ sound/soc/sof/intel/hda-dsp.c          |  2 +-
+ sound/soc/sof/intel/hda.c              |  6 +--
+ sound/soc/sof/intel/hda.h              |  3 +-
+ 18 files changed, 107 insertions(+), 371 deletions(-)
+
+-- 
+2.16.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DCCA85A1B
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:54:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC9885A1C
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:54:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3BD79851;
-	Thu,  8 Aug 2019 07:53:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BD79851
+	by alsa0.perex.cz (Postfix) with ESMTPS id F1B411668;
+	Thu,  8 Aug 2019 07:53:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1B411668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565243674;
-	bh=BP3NkgOu2r8d+kpKgBxhcoI3xKEdCtbSsPDk91ewj90=;
+	s=default; t=1565243687;
+	bh=jJhOWiC98l+3sxPM73vo+ew/9I2mZjDXfi8hfRXiJMc=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rO7NzEMuJoK2KENO+jw7B8P4ezpDSV1GjKMFRq7/mu+LYgQsA7aMPnKOcMXoltsTa
-	 LEWRzwSfvhtasohtM9SsquQtI2XEzu3f8+hR8ojk6zCprIShsBMF42Y47kBQkyv/me
-	 xzd7gm3biW5ualLIaMWpDhpSgBCFgGWK/X0J5bro=
+	b=rjWDODxBLOPQLwJ6Ues6TKos+NDfLerd4zzS8kYDMRLT/yUG6gCaOn4v5eLFbiYht
+	 qKbvgfg02PNGNSkcrqzXzK8Ujl3lBGAeSdyWyczcPLCkm5Tdy5WX3ud20Dnv7sKLjD
+	 Gu5v+WIvDnN9Z0nqdAlCb4MrXLhu2KEToM5TOExU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B7FCF805AA;
-	Thu,  8 Aug 2019 07:52:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96D7CF805E1;
+	Thu,  8 Aug 2019 07:52:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A05AF8059F; Thu,  8 Aug 2019 07:52:40 +0200 (CEST)
+ id 2A59AF805E2; Thu,  8 Aug 2019 07:52:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- T_FILL_THIS_FORM_SHORT,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 88FE6F80534
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:52:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88FE6F80534
-Date: 08 Aug 2019 14:52:33 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649538"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:52:33 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 503B0F805A9
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:52:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 503B0F805A9
+Date: 08 Aug 2019 14:52:47 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649554"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:52:47 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 8F6F141C2BB5;
- Thu,  8 Aug 2019 14:52:33 +0900 (JST)
-Message-ID: <87y3046wcf.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id D8FD0400C084;
+ Thu,  8 Aug 2019 14:52:46 +0900 (JST)
+Message-ID: <87wofo6wc1.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -67,7 +67,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 01/15] ASoC: soc-core: support
+Subject: [alsa-devel] [PATCH 02/15] ASoC: simple-card: use
 	snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -88,111 +88,27 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-To find aux_dev, ASoC is using .name, codec_name, codec_of_node.
-Here, .name is used to fallback in case of no codec.
-
-But, we already have this kind of component finding method by
-snd_soc_dai_link_component and soc_find_component().
-We shouldn't have duplicated implementation to do same things.
-This patch adds snd_soc_dai_link_component support to finding aux_dev.
-
-Now, no driver is using only .name.
-All drivers are using codec_name and/or codec_of_node.
-This means no driver is finding component from .name so far.
-(Actually almost all drivers are using .name as just "device name",
- not for finding component...)
-
-This patch
-1) add snd_soc_dai_link_component support for aux_dev. legacy style will
-   be removed if all drivers are switched to new style.
-2) try to find component via snd_soc_dai_link_component.
-   Then, it doesn't try to find via .name, because no driver is using
-   it so far.
+We can use snd_soc_dai_link_component to specify aux_dev.
+Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc.h  |  7 +++++++
- sound/soc/soc-core.c | 36 ++++++++++--------------------------
- 2 files changed, 17 insertions(+), 26 deletions(-)
+ sound/soc/generic/simple-card.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index c92697e..9dad2bf 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -941,6 +941,7 @@ struct snd_soc_dai_link {
- #define COMP_CPU(_dai)			{ .dai_name = _dai, }
- #define COMP_CODEC(_name, _dai)		{ .name = _name, .dai_name = _dai, }
- #define COMP_PLATFORM(_name)		{ .name = _name }
-+#define COMP_AUX(_name)			{ .name = _name }
- #define COMP_DUMMY()			{ .name = "snd-soc-dummy", .dai_name = "snd-soc-dummy-dai", }
+diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+index ef84915..0eac3bc 100644
+--- a/sound/soc/generic/simple-card.c
++++ b/sound/soc/generic/simple-card.c
+@@ -424,7 +424,7 @@ static int simple_parse_aux_devs(struct device_node *node,
+ 		aux_node = of_parse_phandle(node, PREFIX "aux-devs", i);
+ 		if (!aux_node)
+ 			return -EINVAL;
+-		card->aux_dev[i].codec_of_node = aux_node;
++		card->aux_dev[i].dlc.of_node = aux_node;
+ 	}
  
- extern struct snd_soc_dai_link_component null_dailink_component[0];
-@@ -971,6 +972,12 @@ struct snd_soc_aux_dev {
- 	const char *codec_name;
- 	struct device_node *codec_of_node;
- 
-+	/*
-+	 * name, codec_name, codec_of_node will be replaced
-+	 * into dlc. don't use both in the same time
-+	 */
-+	struct snd_soc_dai_link_component dlc;
-+
- 	/* codec/machine specific init - e.g. add machine controls */
- 	int (*init)(struct snd_soc_component *component);
- };
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index e0d427a..ecaea88 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1531,38 +1531,22 @@ static int soc_bind_aux_dev(struct snd_soc_card *card, int num)
- {
- 	struct snd_soc_aux_dev *aux_dev = &card->aux_dev[num];
- 	struct snd_soc_component *component;
--	struct snd_soc_dai_link_component dlc;
- 
--	if (aux_dev->codec_of_node || aux_dev->codec_name) {
--		/* codecs, usually analog devices */
--		dlc.name = aux_dev->codec_name;
--		dlc.of_node = aux_dev->codec_of_node;
--		component = soc_find_component(&dlc);
--		if (!component) {
--			if (dlc.of_node)
--				dlc.name = of_node_full_name(dlc.of_node);
--			goto err_defer;
--		}
--	} else if (aux_dev->name) {
--		/* generic components */
--		dlc.name = aux_dev->name;
--		dlc.of_node = NULL;
--		component = soc_find_component(&dlc);
--		if (!component)
--			goto err_defer;
--	} else {
--		dev_err(card->dev, "ASoC: Invalid auxiliary device\n");
--		return -EINVAL;
--	}
-+	/* remove me */
-+	if (aux_dev->codec_name)
-+		aux_dev->dlc.name = aux_dev->codec_name;
-+	if (aux_dev->codec_of_node)
-+		aux_dev->dlc.of_node = aux_dev->codec_of_node;
-+
-+	/* codecs, usually analog devices */
-+	component = soc_find_component(&aux_dev->dlc);
-+	if (!component)
-+		return -EPROBE_DEFER;
- 
- 	component->init = aux_dev->init;
- 	list_add(&component->card_aux_list, &card->aux_comp_list);
- 
- 	return 0;
--
--err_defer:
--	dev_err(card->dev, "ASoC: %s not registered\n", dlc.name);
--	return -EPROBE_DEFER;
- }
- 
- static int soc_probe_aux_devices(struct snd_soc_card *card)
+ 	card->num_aux_devs = n;
 -- 
 2.7.4
 

@@ -2,71 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C323886725
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 18:31:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 067B38676C
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 18:47:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AED1857;
-	Thu,  8 Aug 2019 18:30:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AED1857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9067E1615;
+	Thu,  8 Aug 2019 18:46:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9067E1615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565281873;
-	bh=KpYDCOHlICig56bZWKN5NAbnTElTV9qjggVvkadOTaw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565282852;
+	bh=dsO1T7cIBoLR3lYv9kkKynv4vBle6Uiwv/V6OALeEiw=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RUoEF9R71pI0KIX7/O104bFoRjUKIOvQLiV/oPYMbJutcqUvEYbyWgu4dcCLo66BE
-	 Jz0HJ0hO5e6MkGOORu0Pg7XiXgIbYa0BeVf3KE2G2J6304R34M8uVt64RyVBEkRS8i
-	 YBVVPg+mYQd8DtcZm0tKtq2yoktRUd/uvwGMX21Y=
+	b=dEO947+c2rmJ64hCK14BSx0mCLOcUwHpwS61TTbogAiyt+sTwUwpdmSt5tpKFprF2
+	 c9ajRDU4bVM8V6smW2gPvLBWfFGPRoeSFIkIjTddiJV95Ye5ZnYUgI+oPVpDhsuB4j
+	 xgVPBcDoeUuk6AM8XjCeiJfK1nUjkjbJzMLqgIo8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FF2BF80534;
-	Thu,  8 Aug 2019 18:29:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27EA4F8053A;
+	Thu,  8 Aug 2019 18:45:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F2251F80534; Thu,  8 Aug 2019 18:29:25 +0200 (CEST)
+ id 86D22F80534; Thu,  8 Aug 2019 18:45:46 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-yb1-xb44.google.com (mail-yb1-xb44.google.com
+ [IPv6:2607:f8b0:4864:20::b44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3C6BF803F3
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 18:29:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3C6BF803F3
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Aug 2019 09:29:19 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,362,1559545200"; d="scan'208";a="203633797"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga002.fm.intel.com with ESMTP; 08 Aug 2019 09:29:19 -0700
-Received: from kyablokx-mobl.amr.corp.intel.com (unknown [10.251.19.34])
- by linux.intel.com (Postfix) with ESMTP id 0EA5F58044F;
- Thu,  8 Aug 2019 09:29:17 -0700 (PDT)
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, vkoul@kernel.org,
- broonie@kernel.org
-References: <20190808144504.24823-1-srinivas.kandagatla@linaro.org>
- <20190808144504.24823-5-srinivas.kandagatla@linaro.org>
- <3ad15652-9d6c-11e4-7cc3-0f076c6841bb@linux.intel.com>
- <32516aae-8a43-6a74-c564-92dea8ff6e53@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4e60b92f-a32e-671c-3b1b-9b1ccec4f9b5@linux.intel.com>
-Date: Thu, 8 Aug 2019 11:29:20 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 757A8F800E3
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 18:45:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 757A8F800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="RopCZqr3"
+Received: by mail-yb1-xb44.google.com with SMTP id s41so12184311ybe.12
+ for <alsa-devel@alsa-project.org>; Thu, 08 Aug 2019 09:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=l2zgmG9gzttWwZsG4hP7NVAu9zodFNMyNGvJuSB6pFg=;
+ b=RopCZqr3Hx+ujkTV3myl7e5T9iVQ5RMc2uL1NFDfJScDY4Wu3efEr1zpw0+Rdqi5jw
+ sQdgdvMpXAq498KmF9URiP9tiF+5JMypbvTr3T0/mdlivsKQh7SNAOCBa1vP005DSRuy
+ 631rtoHfMfSBaB46V7VipM+jdQdCjz/t9X/FQoMMmNa5hZMC5tPhk77LxaGoUi33jb/B
+ LZAHHG9kLrjCSThYeuUJ1kkFKmxna/V9t5w6Uyj07hT0W1MCHCe3L1yWKk3lgH9GxNOe
+ 9VQDWQxSJA6tRFU3yPylyQ0Tiv/ikcGsilwATQxXSJG+FjDipLW95LzfQFUB7YC/WIu1
+ FbOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=l2zgmG9gzttWwZsG4hP7NVAu9zodFNMyNGvJuSB6pFg=;
+ b=cSI2Nsyv7jZxQ0LwK0yS21OpIhVVz3unaLljbxgN4jjJXDA4kMNsQTrn/grgKIBLNo
+ LYPGRvsrHj5dnI1MfqRtQQc9KdieaOIJY3xuXKkX0Dbf8bhdV3SPDI59XW4KSyMM0aWj
+ GHKPWOoDwECLBGlL6nTwKufxfpyxGHS6INERqdz7Wbwk0LvLX7HSvA6sQBYVo9gnXqIf
+ NNCxGJg828u2SrlPXhvxpkYXx7BOtu6lhGrRwnP1ArdmTWg2WEBF5wzzu2/bD6/7xQsK
+ 1+6KmCHr85oBCbH7EBYbXTAoMxawKgFqSBjaTpzO2i33MSMVq3N/4qXh0oC7BmZfBVZk
+ JykA==
+X-Gm-Message-State: APjAAAVp9GNCOd1kPYsh81zXisHnRxBqALVUAs2jPm3zLRKeBp30b9Fh
+ Dlm6NgsFX8K8ocY/GbrPedoV6qRQHeUYNd//RnNU1A==
+X-Google-Smtp-Source: APXvYqwJySKqlqRk9Wm31sBQl0FRSt0vP2paWJE5qBPm1hl3chY+4pDsStMHvKcJNUwJp977WMDfE3sodvEZyPnhBmE=
+X-Received: by 2002:a25:c6cc:: with SMTP id k195mr6270017ybf.142.1565282741605; 
+ Thu, 08 Aug 2019 09:45:41 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <32516aae-8a43-6a74-c564-92dea8ff6e53@linaro.org>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, plai@codeaurora.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 4/4] ASoC: codecs: add wsa881x amplifier
- support
+References: <87zhkk6wdy.wl-kuninori.morimoto.gx@renesas.com>
+ <87ef1w6w8o.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ef1w6w8o.wl-kuninori.morimoto.gx@renesas.com>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Thu, 8 Aug 2019 09:45:30 -0700
+Message-ID: <CAFQqKeW=ibEs3jN==8DGJ-OvbHcTqKbb1VMTHjWupnsDjm5m5w@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Heiko Stuebner <heiko@sntech.de>, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, Richard Fontana <rfontana@redhat.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Anders Roxell <anders.roxell@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, YueHaibing <yuehaibing@huawei.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
+ Chen-Yu Tsai <wens@csie.org>, Danny Milosavljevic <dannym@scratchpost.org>,
+ Georgii Staroselski i <georgii.staroselskii@emlid.com>,
+ Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Hans de Goede <hdegoede@redhat.com>,
+ Sangbeom Kim <sbkim73@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
+Subject: Re: [alsa-devel] [PATCH 15/15] ASoC: soc-core: add
+	soc_unbind_aux_dev()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,23 +108,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Cj4+PiArLyogNCBwb3J0cyAqLwo+Pj4gK3N0YXRpYyBzdHJ1Y3Qgc2R3X2Rwbl9wcm9wIHdzYV9z
-aW5rX2Rwbl9wcm9wW1dTQTg4MVhfTUFYX1NXUl9QT1JUU10gPSB7Cj4+PiArwqDCoMKgIHsKPj4+
-ICvCoMKgwqDCoMKgwqDCoCAvKiBEQUMgKi8KPj4+ICvCoMKgwqDCoMKgwqDCoCAubnVtID0gMSwK
-Pj4+ICvCoMKgwqDCoMKgwqDCoCAudHlwZSA9IFNEV19EUE5fU0lNUExFLAo+Pgo+PiBJSVJDIHdl
-IGFkZGVkIHRoZSBSRURVQ0VEIHR5cGUgaW4gU291bmRXaXJlIDEuMSB0byBjb3ZlciB0aGUgUERN
-IGNhc2UgCj4+IHdpdGggY2hhbm5lbCBwYWNraW5nIChvciB3YXMgaXQgZ3JvdXBpbmcpIHVzZWQg
-YnkgUXVhbGNvbW0uIEkgYW0gbm90IAo+PiBzdXJlIHRoZSBTSU1QTEUgdHlwZSB3b3Jrcz8KPiBn
-cm91cGluZyBJIGd1ZXNzLgo+IAo+IFRoaXMgaXMgYSBzaW1wbGlmaWVkIGRhdGEgcG9ydCBhcyB0
-aGVyZSBpcyBubyBEUG5fT2Zmc2V0Q3RybDIgcmVnaXN0ZXIgCj4gaW1wbGVtZW50ZWQuCgpvaywg
-Zm9yIHRoZSBSRURVQ0VEIHR5cGUgaXQncyByZXF1aXJlZCB0byBoYXZlIEJsb2NrUGFja2luZ01v
-ZGUgYW5kIApPZmZzZXRDdHJsMiwgc28gaXQgZG9lcyBub3QgYXBwbHkgaGVyZS4gVGhhbmtzIGZv
-ciBjb25maXJtaW5nLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcK
-aHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRl
-dmVsCg==
+On Wed, Aug 7, 2019 at 11:03 PM Kuninori Morimoto <
+kuninori.morimoto.gx@renesas.com> wrote:
+
+>
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> It is easy to read code if it is cleanly using paired function/naming,
+> like start <-> stop, register <-> unregister, etc, etc.
+> But, current ALSA SoC code is very random, unbalance, not paired, etc.
+> It is easy to create bug at the such code, and it will be difficult to
+> debug.
+>
+> soc-core.c has soc_bind_aux_dev(), but, there is no its paired
+> soc_unbind_aux_dev(). This patch adds it.
+>
+Morimoto-san,
+I'm not sure it quite improves readability to just have list_del in
+unbind_aux_dev(). bin_aux_dev() does more than just adding to the
+card_aux_list(). So in fact, I think  this change makes it look unbalanced.
+The existing code for aux_dev looks quite similar to what bind_dai_link()
+and remove_dai_link() do and they are quite intuitive.
+
+Thanks,
+Ranjani
+
+>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  sound/soc/soc-core.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index f8a5464..5e3b907 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -1527,6 +1527,11 @@ static int soc_probe_link_dais(struct snd_soc_card
+> *card,
+>         return ret;
+>  }
+>
+> +static void soc_unbind_aux_dev(struct snd_soc_component *component)
+> +{
+> +       list_del(&component->card_aux_list);
+> +}
+> +
+>  static int soc_bind_aux_dev(struct snd_soc_card *card,
+>                             struct snd_soc_aux_dev *aux_dev)
+>  {
+> @@ -1578,7 +1583,7 @@ static void soc_remove_aux_devices(struct
+> snd_soc_card *card)
+>                         if (comp->driver->remove_order == order) {
+>                                 soc_remove_component(comp);
+>                                 /* remove it from the card's aux_comp_list
+> */
+> -                               list_del(&comp->card_aux_list);
+> +                               soc_unbind_aux_dev(comp);
+>                         }
+>                 }
+>         }
+> --
+> 2.7.4
+>
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

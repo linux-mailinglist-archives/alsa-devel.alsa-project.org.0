@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0B09859B2
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:17:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2914F85A12
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:53:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F33E086E;
-	Thu,  8 Aug 2019 07:16:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F33E086E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B368857;
+	Thu,  8 Aug 2019 07:52:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B368857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565241447;
-	bh=/zfPyYFHd6SgFBNN2AEWhCnHLnkXgnENy6l5rYhB8wQ=;
+	s=default; t=1565243580;
+	bh=zc5zcfFBCVQfLhhfbSKURGNEAbuQ2ZtBpVRXrVUYf6M=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=GOn9nsTvy6zS3YOAMPb9yeUkS+hmZV97E3Rilu8AZJ7xTqfdZe2beOsh1wKyWARU+
-	 bpTxWHtMc4Etw5ptc2CCWA7BjJO2bP1fMg5D3KiMvqRt/N2wIXgH7ka+ipjydk2pj4
-	 hygq2YOAOwyHh7z+vlPgz9WHBgssxa6AL8oM4mPQ=
+	b=mqF7jVabLeEpaUw/K4UGfistPoEYlsOLxzTSfzD/Ghbqt/n7ijTajTQskeIs5/Jfz
+	 BKn3TDw4R2G75k5S//7oovHwNGzR0nAmtOw3YXyOjgQRcrqg9ib6RpYDeg9oue16Ab
+	 h3lydqUeYi+wuMIXZod7Z1+iYRx96YujaqSY8F4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E14EF80534;
-	Thu,  8 Aug 2019 07:15:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC7BFF804FF;
+	Thu,  8 Aug 2019 07:51:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20B3DF80534; Thu,  8 Aug 2019 07:15:40 +0200 (CEST)
+ id A6296F80534; Thu,  8 Aug 2019 07:51:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-yw1-f67.google.com (mail-yw1-f67.google.com
- [209.85.161.67])
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-yw1-f65.google.com (mail-yw1-f65.google.com
+ [209.85.161.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63FDFF803F3
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:15:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63FDFF803F3
-Received: by mail-yw1-f67.google.com with SMTP id g19so32810120ywe.2
- for <alsa-devel@alsa-project.org>; Wed, 07 Aug 2019 22:15:36 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD9E9F800E4
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:51:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD9E9F800E4
+Received: by mail-yw1-f65.google.com with SMTP id g19so32841807ywe.2
+ for <alsa-devel@alsa-project.org>; Wed, 07 Aug 2019 22:51:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Zqjm4Ms2LWPF2JxoVedKSLuooEVD3FC/Jr22qU9ttc0=;
- b=a1v1Ytx4Ubv3Fn7yzsKr3sHGa12eAXWg7ODy4Fp6Hqooutw+l7dVmBAjISYy/KuSmH
- sZTMgAs+LHjvop4xfXaWgRJu4QPksKaZPO+zQl0R9tn9f1iUbmb2X5m8vOvf1c/4Pvpu
- W6xpRnSC7r5N97igFiM964EdKKXkVXjVwjanJPsfR8WEcGDU2nWL9+/xWbKYlHFYRPw6
- /E10HJyZ3BROcw+yHL6w3GQ+4lvmSo3m8UM2CLxhRsB4YmBYAxpxpaHoZkB6yhBndYdF
- JRB37kumLU6bYB6uHuX3jy+WmJQ/UsVdP71jh7gyt5s2E5ZVECid3z+K1R1pisYg2vEw
- sCpw==
-X-Gm-Message-State: APjAAAXgXRpwrKUhccQT0NGKuys2UgjXzk5MQdCOrGVy5PVAF2ijoCfE
- wenmf9VTO0HWywAX8fX74xQ=
-X-Google-Smtp-Source: APXvYqz08Zg+vgGovvm4k352MtWnv23Tf4vN81JusC7DQRnlND+8TfbEZkvXgCbk83qqGwiPPM57FA==
-X-Received: by 2002:a81:33cd:: with SMTP id z196mr7990265ywz.213.1565241335327; 
- Wed, 07 Aug 2019 22:15:35 -0700 (PDT)
+ bh=AXLTKpmnboGNtrfg+DmdekyXKJkeWsR7+WNv3PWE/bM=;
+ b=pblpg2a9MxtWr9Xl0SGk/ML/yOplatHpVFDhyQPpjzX/wieUY5KE5IhPP9JfMfFAjY
+ Q8zVCkXqcgHEAV+a2IrISVZnwfX/0H8lLBXEWHwE85yuZysCxaVmQpa275cyE0xhTqBe
+ Qeae3Ul4doC+uyTUhN1f8gW9ClxkUxNWDEO505OfPvzhb1iKQ0cnHQF5IhIDpGhYdpFG
+ UhX8nnv2rgfP92I2U9mN/ASGFs9Oalu/Hq65RtcOk9Iig0jxYaP1pbTZkOKXbJVm/yBz
+ dm7s+R9vIfqxvVoYhu7taklX1lm7gqCZ3OZlmebvXhfahdHmMNoHttGnr3cHErahBKlU
+ 8ISg==
+X-Gm-Message-State: APjAAAVVUxHVBbCbgRgpi0n1OokvjgiXwcl+5789ZgiMajHrQW4oiLiU
+ HpNJIUTPwVVn0AK14uGa8BU=
+X-Google-Smtp-Source: APXvYqy04G9o5K9YSoY8D/Ys2fE3n/lh1gBpDYtzN1RRi/4fpOtXuOscLdRgaSUPvQnaasDNLm+h8Q==
+X-Received: by 2002:a81:6288:: with SMTP id w130mr8042384ywb.343.1565243467745; 
+ Wed, 07 Aug 2019 22:51:07 -0700 (PDT)
 Received: from localhost.localdomain (24-158-240-219.dhcp.smyr.ga.charter.com.
  [24.158.240.219])
- by smtp.gmail.com with ESMTPSA id v141sm20845902ywe.66.2019.08.07.22.15.33
+ by smtp.gmail.com with ESMTPSA id q35sm1080020ywa.69.2019.08.07.22.51.06
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 07 Aug 2019 22:15:34 -0700 (PDT)
+ Wed, 07 Aug 2019 22:51:06 -0700 (PDT)
 From: Wenwen Wang <wenwen@cs.uga.edu>
 To: Wenwen Wang <wenwen@cs.uga.edu>
-Date: Thu,  8 Aug 2019 00:15:21 -0500
-Message-Id: <1565241321-2418-1-git-send-email-wenwen@cs.uga.edu>
+Date: Thu,  8 Aug 2019 00:50:58 -0500
+Message-Id: <1565243458-2771-1-git-send-email-wenwen@cs.uga.edu>
 X-Mailer: git-send-email 2.7.4
 Cc: open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [alsa-devel] [PATCH] sound: fix a memory leak bug
+ "moderated list:FIREWIRE AUDIO DRIVERS" <alsa-devel@alsa-project.org>,
+ Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>
+Subject: [alsa-devel] [PATCH] ALSA: firewire: fix a memory leak bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,33 +86,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In sound_insert_unit(), the controlling structure 's' is allocated through
-kmalloc(). Then it is added to the sound driver list by invoking
-__sound_insert_unit(). Later on, if __register_chrdev() fails, 's' is
-removed from the list through __sound_remove_unit(). If 'index' is not less
-than 0, -EBUSY is returned to indicate the error. However, 's' is not
-deallocated on this execution path, leading to a memory leak bug.
+In iso_packets_buffer_init(), 'b->packets' is allocated through
+kmalloc_array(). Then, the aligned packet size is checked. If it is
+larger than PAGE_SIZE, -EINVAL will be returned to indicate the error.
+However, the allocated 'b->packets' is not deallocated on this path,
+leading to a memory leak.
 
-To fix the above issue, free 's' before -EBUSY is returned.
+To fix the above issue, free 'b->packets' before returning the error code.
 
 Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
 ---
- sound/sound_core.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/firewire/packets-buffer.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/sound_core.c b/sound/sound_core.c
-index b730d97..90d118c 100644
---- a/sound/sound_core.c
-+++ b/sound/sound_core.c
-@@ -275,7 +275,8 @@ static int sound_insert_unit(struct sound_unit **list, const struct file_operati
- 				goto retry;
- 			}
- 			spin_unlock(&sound_loader_lock);
--			return -EBUSY;
-+			r = -EBUSY;
-+			goto fail;
- 		}
+diff --git a/sound/firewire/packets-buffer.c b/sound/firewire/packets-buffer.c
+index 0d35359..0ecafd0 100644
+--- a/sound/firewire/packets-buffer.c
++++ b/sound/firewire/packets-buffer.c
+@@ -37,7 +37,7 @@ int iso_packets_buffer_init(struct iso_packets_buffer *b, struct fw_unit *unit,
+ 	packets_per_page = PAGE_SIZE / packet_size;
+ 	if (WARN_ON(!packets_per_page)) {
+ 		err = -EINVAL;
+-		goto error;
++		goto err_packets;
  	}
+ 	pages = DIV_ROUND_UP(count, packets_per_page);
  
 -- 
 2.7.4

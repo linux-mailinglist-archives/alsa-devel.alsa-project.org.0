@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8A6D86BCD
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 22:42:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC76E86BD2
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 22:44:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79BD8166F;
-	Thu,  8 Aug 2019 22:41:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79BD8166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46DE9166D;
+	Thu,  8 Aug 2019 22:43:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46DE9166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565296960;
-	bh=rPLn2m8bnkmMffWwItZ9QPiuz4dBIe1b7BW3Fmjs2fg=;
+	s=default; t=1565297053;
+	bh=ikTTuLeqvbX/klzYfahNkbEHCEFtsWmL+caEAjSdjY0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ZydITVq0d/FotbPZp8+moAXxxCI9Xlxl26u6cBg69gVZSa2i6lxMuhK61VGRumatJ
-	 tE0S/6c0WpxPtsiZmXoJxPwo1RSRebA51iGs8hesuRcrdnURVEMch9r0x4DSton4vH
-	 wvm8wZ8EPmvCx5YbhVUYMv/U11VG1tKQp8pE6sC0=
+	b=hbb5Y5Kq+B504p1rDdL7r96pHjmzGPXzJIJhTDlqMrMpRvEBuVMLLIBPN3SWXh75Q
+	 Cwy5Ci4BR60mHyLVdLCVVMklTraNVJj5e8k8SxlnNtJkSL3IDXiNNqkoJZO6iXRILL
+	 u7jmHWNQSKu6MqiKB/HHE4ruykYCBrK8o2dtaoyo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49702F80676;
-	Thu,  8 Aug 2019 22:34:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78907F8070B;
+	Thu,  8 Aug 2019 22:34:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 069F2F805A8; Thu,  8 Aug 2019 22:33:54 +0200 (CEST)
+ id 68027F805AF; Thu,  8 Aug 2019 22:33:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 58D9EF800E4
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 22:33:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58D9EF800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0EFE9F805E1
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 22:33:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EFE9F805E1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="PmTxq/ga"
+ header.b="NesZOCng"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=O4mAXUEkrU8ck04H1+fGtFsMT2oD/m3O3qV8VArauzc=; b=PmTxq/gaR8vU
- QL6HhAKTBWsMputxGXpy+mi29KWiqX56izna2fNp80rqc3S31QS5IdH/pxbummrFjNj6A+LxOH5rK
- RM29eKygZfJdi5GxY1GEiK80TOaAtxO1K81qnJJVgxUL/l2asZ7OIQf0zrLGCz7CDcG3ltomx9U8n
- CBHo4=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=Uq2+ZYoP6LzJjl8/6CGkZMmXKkVSPAvq37eMNtGXm8s=; b=NesZOCngOXoT
+ ut3laso3Id6jgx3engX4wjJwjujLKa0BIoZBzw51X2S5X+KEtU4JAKA1N8a+53VoiIN2WRLJdJokZ
+ 5IrfAxCdVoA2PySZYsXSKR1fAPlpaco75ODqkH26IpX3EzNL+4SYiCmRSSO1aogjabZdoxauGRxTX
+ us3pE=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvp6W-000428-0Z; Thu, 08 Aug 2019 20:33:44 +0000
+ id 1hvp6W-00042D-DP; Thu, 08 Aug 2019 20:33:44 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 85A2A2742B42; Thu,  8 Aug 2019 21:33:43 +0100 (BST)
+ id BEC402742BDD; Thu,  8 Aug 2019 21:33:43 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ef1xahor.wl-kuninori.morimoto.gx@renesas.com>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <20190807145030.26117-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190808203343.85A2A2742B42@ypsilon.sirena.org.uk>
+Message-Id: <20190808203343.BEC402742BDD@ypsilon.sirena.org.uk>
 Date: Thu,  8 Aug 2019 21:33:43 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: tidyup for
-	snd_soc_add_component_controls()" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: hdac_hda: fix page fault issue by
+	removing race" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,11 +87,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: tidyup for snd_soc_add_component_controls()
+   ASoC: hdac_hda: fix page fault issue by removing race
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -112,44 +112,42 @@ to this mail.
 Thanks,
 Mark
 
-From e6d7020c2946bef2efab7c70339eee6a6b3cb6a6 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 7 Aug 2019 10:30:58 +0900
-Subject: [PATCH] ASoC: soc-core: tidyup for snd_soc_add_component_controls()
+From 804cbf4bb063204ca6c2471baa694548aab02ce3 Mon Sep 17 00:00:00 2001
+From: Keyon Jie <yang.jie@linux.intel.com>
+Date: Wed, 7 Aug 2019 09:50:30 -0500
+Subject: [PATCH] ASoC: hdac_hda: fix page fault issue by removing race
 
-snd_soc_add_component_controls() registers controls by using
-for(... i < num; ...). If controls was NULL, num should be zero.
-Thus, we don't need to check about controls pointer.
-This patch also cares missing return value.
+There is a race between hda codec device removing and the
+jack-detecting work, which will lead to a page fault issue as the
+latter work is accessing codec device which could be already removed.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87ef1xahor.wl-kuninori.morimoto.gx@renesas.com
+Here add the cancellation of jack-detecting work before codecs are actually
+removed to avoid the race and fix the issue.
+
+Bug: https://github.com/thesofproject/linux/issues/1067
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20190807145030.26117-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ sound/soc/codecs/hdac_hda.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index bb1e9e2c4ff4..e481f9999bfb 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1304,10 +1304,12 @@ static int soc_probe_component(struct snd_soc_card *card,
- 		}
- 	}
+diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
+index 7d4940256914..91242b6f8ea7 100644
+--- a/sound/soc/codecs/hdac_hda.c
++++ b/sound/soc/codecs/hdac_hda.c
+@@ -495,6 +495,10 @@ static int hdac_hda_dev_probe(struct hdac_device *hdev)
  
--	if (component->driver->controls)
--		snd_soc_add_component_controls(component,
--					       component->driver->controls,
--					       component->driver->num_controls);
-+	ret = snd_soc_add_component_controls(component,
-+					     component->driver->controls,
-+					     component->driver->num_controls);
-+	if (ret < 0)
-+		goto err_probe;
+ static int hdac_hda_dev_remove(struct hdac_device *hdev)
+ {
++	struct hdac_hda_priv *hda_pvt;
 +
- 	if (component->driver->dapm_routes)
- 		snd_soc_dapm_add_routes(dapm,
- 					component->driver->dapm_routes,
++	hda_pvt = dev_get_drvdata(&hdev->dev);
++	cancel_delayed_work_sync(&hda_pvt->codec.jackpoll_work);
+ 	return 0;
+ }
+ 
 -- 
 2.20.1
 

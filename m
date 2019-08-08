@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1E7485A21
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:57:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A5DE85A22
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:57:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24871165F;
-	Thu,  8 Aug 2019 07:56:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24871165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 221A986F;
+	Thu,  8 Aug 2019 07:56:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 221A986F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565243826;
-	bh=s91sD0YLfECw8y5tyFNc4VzHsIl89zyYF5zVWwbIscM=;
+	s=default; t=1565243859;
+	bh=zLyGK+hG8fHnWH4rHzc+FhnSUaoE9HLYQ2OTYbZbeK8=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=g3YFvEBpVde+CUVKJ2zgQpTefuYa7+j82uf7YswO5E5BhY9f2Viac6LfAXQ0loBMH
-	 dVLlU2XDJpEiypP5TQahIBwC5kSYed5oGqNKQIjOdn5TrJkhqWj8f6m9uWZ1JJSGr0
-	 KiADWt65Ui2NqrVxKwekUrxHxcn7Sps1hlI6LLuw=
+	b=IhkHdmJdBYuSxCcMRxvxLc6pnbtnlGn6BhBrsjL3efBb/PKSHMMynss0GVCh9luxI
+	 OqwXuXO60Ebz/5qLJWLkFI4jnim5RL00QXsrdCJW1WR3NSjTpiZRr0pNhzC6o4IIzd
+	 2omvE1nXGYBLyERj2d5BnvZhYQYfTcwv0eduZ7c8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1399F8060D;
-	Thu,  8 Aug 2019 07:54:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BA50F8060F;
+	Thu,  8 Aug 2019 07:54:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFB31F805FF; Thu,  8 Aug 2019 07:53:58 +0200 (CEST)
+ id 18755F80611; Thu,  8 Aug 2019 07:54:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id D574FF8059F
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:53:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D574FF8059F
-Date: 08 Aug 2019 14:53:52 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649698"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:53:52 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 5B90AF8060E
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B90AF8060E
+Date: 08 Aug 2019 14:53:59 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649705"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:53:59 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 3D51D400C087;
- Thu,  8 Aug 2019 14:53:52 +0900 (JST)
-Message-ID: <87sgqc6wa8.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id AFA8C41C2D8D;
+ Thu,  8 Aug 2019 14:53:59 +0900 (JST)
+Message-ID: <87r25w6wa1.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,8 +65,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 05/15] ASoC: mediatek:
-	mt8183-mt6358-ts3a227-max98357: use
+Subject: [alsa-devel] [PATCH 06/15] ASoC: meson: axg-card: use
 	snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,35 +91,34 @@ Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c | 6 +++---
+ sound/soc/meson/axg-card.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index 4c816c8..53f5407 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -343,7 +343,7 @@ static int
- mt8183_mt6358_ts3a227_max98357_headset_init(struct snd_soc_component *cpnt);
+diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
+index 14a8321..6283e50 100644
+--- a/sound/soc/meson/axg-card.c
++++ b/sound/soc/meson/axg-card.c
+@@ -124,7 +124,7 @@ static void axg_card_clean_references(struct axg_card *priv)
  
- static struct snd_soc_aux_dev mt8183_mt6358_ts3a227_max98357_headset_dev = {
--	.name = "Headset Chip",
-+	.dlc = COMP_EMPTY(),
- 	.init = mt8183_mt6358_ts3a227_max98357_headset_init,
- };
- 
-@@ -399,10 +399,10 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
- 		dai_link->platforms->of_node = platform_node;
+ 	if (card->aux_dev) {
+ 		for (i = 0; i < card->num_aux_devs; i++)
+-			of_node_put(card->aux_dev[i].codec_of_node);
++			of_node_put(card->aux_dev[i].dlc.of_node);
  	}
  
--	mt8183_mt6358_ts3a227_max98357_headset_dev.codec_of_node =
-+	mt8183_mt6358_ts3a227_max98357_headset_dev.dlc.of_node =
- 		of_parse_phandle(pdev->dev.of_node,
- 				 "mediatek,headset-codec", 0);
--	if (mt8183_mt6358_ts3a227_max98357_headset_dev.codec_of_node) {
-+	if (mt8183_mt6358_ts3a227_max98357_headset_dev.dlc.of_node) {
- 		card->aux_dev = &mt8183_mt6358_ts3a227_max98357_headset_dev;
- 		card->num_aux_devs = 1;
+ 	kfree(card->dai_link);
+@@ -158,9 +158,9 @@ static int axg_card_add_aux_devices(struct snd_soc_card *card)
+ 	card->num_aux_devs = num;
+ 
+ 	for (i = 0; i < card->num_aux_devs; i++, aux++) {
+-		aux->codec_of_node =
++		aux->dlc.of_node =
+ 			of_parse_phandle(node, "audio-aux-devs", i);
+-		if (!aux->codec_of_node)
++		if (!aux->dlc.of_node)
+ 			return -EINVAL;
  	}
+ 
 -- 
 2.7.4
 

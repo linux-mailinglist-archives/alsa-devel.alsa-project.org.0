@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD5D685A25
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:59:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB20A85A27
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:59:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3783715E5;
-	Thu,  8 Aug 2019 07:58:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3783715E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A14B851;
+	Thu,  8 Aug 2019 07:58:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A14B851
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565243941;
-	bh=u9XRp+OF7DI5J40kwcI68xQEgAfRmAWuGKtoSkek2J8=;
+	s=default; t=1565243982;
+	bh=A5aCaKdRFJKUK7zNlLR3JXEY1/3sSkl1OLmSfmI8KZ0=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gz/KzRxOYEpO2QgmMhbCkzG5NkUZF2gYZlT9ngRgGArugqDqNg0jdULAo29xsrHee
-	 X+9BNfv63QwMiEzIHt1fXrh7Xto5RAhqby9tm3a0ioehBG2ZsU5XGKWeKjqf37/6v5
-	 a6NPvfe+XoY9B4iiUjnQsT0bzFu/GKzSCp0lwunk=
+	b=m054D5kQpXU+wweJTnrfcSf2ssV2zayV36LiImt+8mlc37YZPPfoDXwKfl08Ii4g4
+	 WzZrS7U0ysPITTQ7mbaNBsL+ghBLpbDqRMA6nG1J5bUMb8GrGFaqkzt0wQ2qp/4i3N
+	 RA9PX112NMLTnvr48ECSqwZ9tvWbgvuvTExRfrgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D43AAF8063C;
-	Thu,  8 Aug 2019 07:54:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AA6FF80649;
+	Thu,  8 Aug 2019 07:54:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED0BCF800E4; Thu,  8 Aug 2019 07:54:15 +0200 (CEST)
+ id 0640EF80641; Thu,  8 Aug 2019 07:54:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
  [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id A1C30F80636
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1C30F80636
-Date: 08 Aug 2019 14:54:10 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649723"
+ by alsa1.perex.cz (Postfix) with ESMTP id 2E0E4F8063A
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E0E4F8063A
+Date: 08 Aug 2019 14:54:15 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649733"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:10 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:15 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id BC71841C3083;
- Thu,  8 Aug 2019 14:54:10 +0900 (JST)
-Message-ID: <87o9106w9p.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7FAA141C3093;
+ Thu,  8 Aug 2019 14:54:15 +0900 (JST)
+Message-ID: <87mugk6w9l.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,7 +65,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 08/15] ASoC: samsung: neo1973_wm8753: use
+Subject: [alsa-devel] [PATCH 09/15] ASoC: samsung: speyside: use
 	snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,23 +91,23 @@ Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/samsung/neo1973_wm8753.c | 3 +--
+ sound/soc/samsung/speyside.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/samsung/neo1973_wm8753.c b/sound/soc/samsung/neo1973_wm8753.c
-index 396776f..38f536b 100644
---- a/sound/soc/samsung/neo1973_wm8753.c
-+++ b/sound/soc/samsung/neo1973_wm8753.c
-@@ -297,8 +297,7 @@ static struct snd_soc_dai_link neo1973_dai[] = {
+diff --git a/sound/soc/samsung/speyside.c b/sound/soc/samsung/speyside.c
+index 51e4c97..9e58cbe 100644
+--- a/sound/soc/samsung/speyside.c
++++ b/sound/soc/samsung/speyside.c
+@@ -240,8 +240,7 @@ static int speyside_wm9081_init(struct snd_soc_component *component)
  
- static struct snd_soc_aux_dev neo1973_aux_devs[] = {
+ static struct snd_soc_aux_dev speyside_aux_dev[] = {
  	{
--		.name = "dfbmcs320",
--		.codec_name = "dfbmcs320.0",
-+		.dlc = COMP_AUX("dfbmcs320.0"),
+-		.name = "wm9081",
+-		.codec_name = "wm9081.1-006c",
++		.dlc = COMP_AUX("wm9081.1-006c"),
+ 		.init = speyside_wm9081_init,
  	},
  };
- 
 -- 
 2.7.4
 

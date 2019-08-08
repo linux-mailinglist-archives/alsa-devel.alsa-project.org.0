@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5E7F85A29
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:00:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C07085A2A
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:00:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EB47950;
-	Thu,  8 Aug 2019 07:59:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EB47950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06099166E;
+	Thu,  8 Aug 2019 08:00:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06099166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565244027;
-	bh=HiWmqbg7Oi11KhTZYwAfdG7aZykvRWyOM3feQa92lUE=;
+	s=default; t=1565244059;
+	bh=S/4IL5vRlc0n3SN69PMlnS2vw/pPr7or3IK4+Sf52QQ=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IZ8Vf6TB5yaWZL2jjE+gam0GU+ylJWuGTLIGTVm94/nbRffYbpUYcTcTeXqI6Twul
-	 wJ+tPZZYhzXPXt3ER0GKAuY4kDrA5B12HIfAtkNnL9SFl0FyzcTQHtNYm6/4qY8KPL
-	 G+r46aFwHZ1/8gmd7oCHgwpyobE4rgVLnI9RQ6k0=
+	b=Mq1Uev4fe85DhJYWH2Srpkr1h/9bUVNnOEb/4NUNpUcdTM0WIqm7AW1uoFT8UG0IJ
+	 HYLllegc8ieptAY3c/kOY6/TKJnCFRmm1XuWOQ37MFUHHEpwAGorNO6NP9i7mrv33O
+	 k9jdhI4dRbwLqp+kQUA4u2SqYSmcdcj/fyrr29SY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F712F8065C;
-	Thu,  8 Aug 2019 07:54:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA2BDF80673;
+	Thu,  8 Aug 2019 07:54:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8EB33F80659; Thu,  8 Aug 2019 07:54:26 +0200 (CEST)
+ id CBCEDF8065E; Thu,  8 Aug 2019 07:54:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_26,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id F3939F8063E
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3939F8063E
-Date: 08 Aug 2019 14:54:20 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429726"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:20 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 0B6DCF80642
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B6DCF80642
+Date: 08 Aug 2019 14:54:25 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429747"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:25 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 04C7C41C309B;
- Thu,  8 Aug 2019 14:54:20 +0900 (JST)
-Message-ID: <87lfw46w9g.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5D877400C084;
+ Thu,  8 Aug 2019 14:54:25 +0900 (JST)
+Message-ID: <87k1bo6w9b.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,7 +65,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 10/15] ASoC: samsung: tm2_wm5110: use
+Subject: [alsa-devel] [PATCH 11/15] ASoC: sunxi: sun4i-codec: use
 	snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,52 +91,61 @@ Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/samsung/tm2_wm5110.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ sound/soc/sunxi/sun4i-codec.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
-index c091033..bb9910d 100644
---- a/sound/soc/samsung/tm2_wm5110.c
-+++ b/sound/soc/samsung/tm2_wm5110.c
-@@ -307,7 +307,6 @@ static struct snd_soc_aux_dev tm2_speaker_amp_dev;
- static int tm2_late_probe(struct snd_soc_card *card)
- {
- 	struct tm2_machine_priv *priv = snd_soc_card_get_drvdata(card);
--	struct snd_soc_dai_link_component dlc = { 0 };
- 	unsigned int ch_map[] = { 0, 1 };
- 	struct snd_soc_dai *amp_pdm_dai;
- 	struct snd_soc_pcm_runtime *rtd;
-@@ -334,8 +333,7 @@ static int tm2_late_probe(struct snd_soc_card *card)
- 		return ret;
- 	}
+diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
+index 619073e..ee448d5 100644
+--- a/sound/soc/sunxi/sun4i-codec.c
++++ b/sound/soc/sunxi/sun4i-codec.c
+@@ -1424,7 +1424,7 @@ static const struct snd_soc_dapm_route sun8i_codec_card_routes[] = {
+ };
  
--	dlc.of_node = tm2_speaker_amp_dev.codec_of_node;
--	amp_pdm_dai = snd_soc_find_dai(&dlc);
-+	amp_pdm_dai = snd_soc_find_dai(&tm2_speaker_amp_dev.dlc);
- 	if (!amp_pdm_dai)
- 		return -ENODEV;
+ static struct snd_soc_aux_dev aux_dev = {
+-	.name = "Codec Analog Controls",
++	.dlc = COMP_EMPTY(),
+ };
  
-@@ -532,9 +530,9 @@ static int tm2_probe(struct platform_device *pdev)
- 		return ret;
- 	}
+ static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
+@@ -1436,10 +1436,10 @@ static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
+ 	if (!card)
+ 		return ERR_PTR(-ENOMEM);
  
--	card->aux_dev[0].codec_of_node = of_parse_phandle(dev->of_node,
-+	card->aux_dev[0].dlc.of_node = of_parse_phandle(dev->of_node,
- 							"audio-amplifier", 0);
--	if (!card->aux_dev[0].codec_of_node) {
-+	if (!card->aux_dev[0].dlc.of_node) {
- 		dev_err(dev, "audio-amplifier property invalid or missing\n");
- 		return -EINVAL;
- 	}
-@@ -623,7 +621,7 @@ static int tm2_probe(struct platform_device *pdev)
- 		of_node_put(cpu_dai_node[i]);
- 	}
+-	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
++	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
+ 						 "allwinner,codec-analog-controls",
+ 						 0);
+-	if (!aux_dev.codec_of_node) {
++	if (!aux_dev.dlc.of_node) {
+ 		dev_err(dev, "Can't find analog controls for codec.\n");
+ 		return ERR_PTR(-EINVAL);
+ 	};
+@@ -1474,10 +1474,10 @@ static struct snd_soc_card *sun8i_h3_codec_create_card(struct device *dev)
+ 	if (!card)
+ 		return ERR_PTR(-ENOMEM);
  
--	of_node_put(card->aux_dev[0].codec_of_node);
-+	of_node_put(card->aux_dev[0].dlc.of_node);
+-	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
++	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
+ 						 "allwinner,codec-analog-controls",
+ 						 0);
+-	if (!aux_dev.codec_of_node) {
++	if (!aux_dev.dlc.of_node) {
+ 		dev_err(dev, "Can't find analog controls for codec.\n");
+ 		return ERR_PTR(-EINVAL);
+ 	};
+@@ -1512,10 +1512,10 @@ static struct snd_soc_card *sun8i_v3s_codec_create_card(struct device *dev)
+ 	if (!card)
+ 		return ERR_PTR(-ENOMEM);
  
- 	return ret;
- }
+-	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
++	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
+ 						 "allwinner,codec-analog-controls",
+ 						 0);
+-	if (!aux_dev.codec_of_node) {
++	if (!aux_dev.dlc.of_node) {
+ 		dev_err(dev, "Can't find analog controls for codec.\n");
+ 		return ERR_PTR(-EINVAL);
+ 	};
 -- 
 2.7.4
 

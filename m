@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB20A85A27
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 07:59:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E7F85A29
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:00:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A14B851;
-	Thu,  8 Aug 2019 07:58:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A14B851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EB47950;
+	Thu,  8 Aug 2019 07:59:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EB47950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565243982;
-	bh=A5aCaKdRFJKUK7zNlLR3JXEY1/3sSkl1OLmSfmI8KZ0=;
+	s=default; t=1565244027;
+	bh=HiWmqbg7Oi11KhTZYwAfdG7aZykvRWyOM3feQa92lUE=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m054D5kQpXU+wweJTnrfcSf2ssV2zayV36LiImt+8mlc37YZPPfoDXwKfl08Ii4g4
-	 WzZrS7U0ysPITTQ7mbaNBsL+ghBLpbDqRMA6nG1J5bUMb8GrGFaqkzt0wQ2qp/4i3N
-	 RA9PX112NMLTnvr48ECSqwZ9tvWbgvuvTExRfrgU=
+	b=IZ8Vf6TB5yaWZL2jjE+gam0GU+ylJWuGTLIGTVm94/nbRffYbpUYcTcTeXqI6Twul
+	 wJ+tPZZYhzXPXt3ER0GKAuY4kDrA5B12HIfAtkNnL9SFl0FyzcTQHtNYm6/4qY8KPL
+	 G+r46aFwHZ1/8gmd7oCHgwpyobE4rgVLnI9RQ6k0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AA6FF80649;
-	Thu,  8 Aug 2019 07:54:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F712F8065C;
+	Thu,  8 Aug 2019 07:54:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0640EF80641; Thu,  8 Aug 2019 07:54:22 +0200 (CEST)
+ id 8EB33F80659; Thu,  8 Aug 2019 07:54:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 2E0E4F8063A
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E0E4F8063A
-Date: 08 Aug 2019 14:54:15 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649733"
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id F3939F8063E
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F3939F8063E
+Date: 08 Aug 2019 14:54:20 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429726"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:15 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:20 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 7FAA141C3093;
- Thu,  8 Aug 2019 14:54:15 +0900 (JST)
-Message-ID: <87mugk6w9l.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 04C7C41C309B;
+ Thu,  8 Aug 2019 14:54:20 +0900 (JST)
+Message-ID: <87lfw46w9g.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,7 +65,7 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 09/15] ASoC: samsung: speyside: use
+Subject: [alsa-devel] [PATCH 10/15] ASoC: samsung: tm2_wm5110: use
 	snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,23 +91,52 @@ Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/samsung/speyside.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/samsung/tm2_wm5110.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/samsung/speyside.c b/sound/soc/samsung/speyside.c
-index 51e4c97..9e58cbe 100644
---- a/sound/soc/samsung/speyside.c
-+++ b/sound/soc/samsung/speyside.c
-@@ -240,8 +240,7 @@ static int speyside_wm9081_init(struct snd_soc_component *component)
+diff --git a/sound/soc/samsung/tm2_wm5110.c b/sound/soc/samsung/tm2_wm5110.c
+index c091033..bb9910d 100644
+--- a/sound/soc/samsung/tm2_wm5110.c
++++ b/sound/soc/samsung/tm2_wm5110.c
+@@ -307,7 +307,6 @@ static struct snd_soc_aux_dev tm2_speaker_amp_dev;
+ static int tm2_late_probe(struct snd_soc_card *card)
+ {
+ 	struct tm2_machine_priv *priv = snd_soc_card_get_drvdata(card);
+-	struct snd_soc_dai_link_component dlc = { 0 };
+ 	unsigned int ch_map[] = { 0, 1 };
+ 	struct snd_soc_dai *amp_pdm_dai;
+ 	struct snd_soc_pcm_runtime *rtd;
+@@ -334,8 +333,7 @@ static int tm2_late_probe(struct snd_soc_card *card)
+ 		return ret;
+ 	}
  
- static struct snd_soc_aux_dev speyside_aux_dev[] = {
- 	{
--		.name = "wm9081",
--		.codec_name = "wm9081.1-006c",
-+		.dlc = COMP_AUX("wm9081.1-006c"),
- 		.init = speyside_wm9081_init,
- 	},
- };
+-	dlc.of_node = tm2_speaker_amp_dev.codec_of_node;
+-	amp_pdm_dai = snd_soc_find_dai(&dlc);
++	amp_pdm_dai = snd_soc_find_dai(&tm2_speaker_amp_dev.dlc);
+ 	if (!amp_pdm_dai)
+ 		return -ENODEV;
+ 
+@@ -532,9 +530,9 @@ static int tm2_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
+-	card->aux_dev[0].codec_of_node = of_parse_phandle(dev->of_node,
++	card->aux_dev[0].dlc.of_node = of_parse_phandle(dev->of_node,
+ 							"audio-amplifier", 0);
+-	if (!card->aux_dev[0].codec_of_node) {
++	if (!card->aux_dev[0].dlc.of_node) {
+ 		dev_err(dev, "audio-amplifier property invalid or missing\n");
+ 		return -EINVAL;
+ 	}
+@@ -623,7 +621,7 @@ static int tm2_probe(struct platform_device *pdev)
+ 		of_node_put(cpu_dai_node[i]);
+ 	}
+ 
+-	of_node_put(card->aux_dev[0].codec_of_node);
++	of_node_put(card->aux_dev[0].dlc.of_node);
+ 
+ 	return ret;
+ }
 -- 
 2.7.4
 

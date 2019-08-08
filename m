@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D9D385A2E
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:01:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2219385A2F
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 08:02:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25E6A1667;
-	Thu,  8 Aug 2019 08:00:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25E6A1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id B1D3B1669;
+	Thu,  8 Aug 2019 08:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1D3B1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565244108;
-	bh=FspmX2GeF4uU7iFXjo/J3bWizd4+DnKIBIs8o+LIFcE=;
+	s=default; t=1565244146;
+	bh=jip+pINFAnef1B1ixmX17l9893Nhjg3di2K/U8KqYcQ=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ebKK7oIL2u/jna/iqf1h2xx1ynhQJfgbpnNG5FhmnXiwaMmso2RojyuhJfbYa1VHi
-	 vs7dJCByEwK/y2uKEtV4/c137EdwnlnXzX2Cn2D8aWuqIB3cHqGTe99i1fbcF4+BLf
-	 JySwIlh7+icytDK+ewi0WyPxDpWzOI02iVYmeehs=
+	b=DirkworneT+mg6Ym7WxhHNXsPQ2NDiJVCaCcx3m9GZkoOr7+b6MxmUOzNxgfroHng
+	 6XuGyAZA4xRdj/PopSwNr0qaJqjMhocZpRfDX6gTGx+KHDjLAyutLEV47s8YXWVU00
+	 togzzyZWAUXGS+69K4czpfv+VUmo+MwlQmmGVkVA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E029F8067A;
-	Thu,  8 Aug 2019 07:54:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEDF7F8067C;
+	Thu,  8 Aug 2019 07:54:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC527F80679; Thu,  8 Aug 2019 07:54:35 +0200 (CEST)
+ id BBA87F8068A; Thu,  8 Aug 2019 07:54:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 5007EF80671
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5007EF80671
-Date: 08 Aug 2019 14:54:30 +0900
-X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23649766"
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2828EF80679
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 07:54:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2828EF80679
+Date: 08 Aug 2019 14:54:39 +0900
+X-IronPort-AV: E=Sophos;i="5.64,360,1559487600"; d="scan'208";a="23429771"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:30 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 08 Aug 2019 14:54:39 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id DE24C400C084;
- Thu,  8 Aug 2019 14:54:29 +0900 (JST)
-Message-ID: <87imr86w96.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 49B11400C084;
+ Thu,  8 Aug 2019 14:54:39 +0900 (JST)
+Message-ID: <87h86s6w8x.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -65,8 +65,8 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH 12/15] ASoC: ti: rx51: use
-	snd_soc_dai_link_component for aux_dev
+Subject: [alsa-devel] [PATCH 13/15] ASoC: soc-core: remove legacy style of
+	aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,57 +84,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-We can use snd_soc_dai_link_component to specify aux_dev.
-Let's use it.
+Now all drivers are using snd_soc_dai_link_component for aux_dev.
+Let's remove legacy style
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/ti/rx51.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ include/sound/soc.h  | 9 ---------
+ sound/soc/soc-core.c | 6 ------
+ 2 files changed, 15 deletions(-)
 
-diff --git a/sound/soc/ti/rx51.c b/sound/soc/ti/rx51.c
-index ccd0e8a..588f680 100644
---- a/sound/soc/ti/rx51.c
-+++ b/sound/soc/ti/rx51.c
-@@ -319,12 +319,10 @@ static struct snd_soc_dai_link rx51_dai[] = {
- 
- static struct snd_soc_aux_dev rx51_aux_dev[] = {
- 	{
--		.name = "TLV320AIC34b",
--		.codec_name = "tlv320aic3x-codec.2-0019",
-+		.dlc = COMP_AUX("tlv320aic3x-codec.2-0019"),
- 	},
- 	{
--		.name = "TPA61320A2",
--		.codec_name = "tpa6130a2.2-0060",
-+		.dlc = COMP_AUX("tpa6130a2.2-0060"),
- 	},
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 9dad2bf..ebc0645 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -963,19 +963,10 @@ struct snd_soc_codec_conf {
  };
  
-@@ -397,8 +395,8 @@ static int rx51_soc_probe(struct platform_device *pdev)
- 			dev_err(&pdev->dev, "Auxiliary Codec node is not provided\n");
- 			return -EINVAL;
- 		}
--		rx51_aux_dev[0].codec_name = NULL;
--		rx51_aux_dev[0].codec_of_node = dai_node;
-+		rx51_aux_dev[0].dlc.name = NULL;
-+		rx51_aux_dev[0].dlc.of_node = dai_node;
- 		rx51_codec_conf[0].dev_name = NULL;
- 		rx51_codec_conf[0].of_node = dai_node;
+ struct snd_soc_aux_dev {
+-	const char *name;		/* Codec name */
+-
+ 	/*
+ 	 * specify multi-codec either by device name, or by
+ 	 * DT/OF node, but not both.
+ 	 */
+-	const char *codec_name;
+-	struct device_node *codec_of_node;
+-
+-	/*
+-	 * name, codec_name, codec_of_node will be replaced
+-	 * into dlc. don't use both in the same time
+-	 */
+ 	struct snd_soc_dai_link_component dlc;
  
-@@ -407,8 +405,8 @@ static int rx51_soc_probe(struct platform_device *pdev)
- 			dev_err(&pdev->dev, "Headphone amplifier node is not provided\n");
- 			return -EINVAL;
- 		}
--		rx51_aux_dev[1].codec_name = NULL;
--		rx51_aux_dev[1].codec_of_node = dai_node;
-+		rx51_aux_dev[1].dlc.name = NULL;
-+		rx51_aux_dev[1].dlc.of_node = dai_node;
- 		rx51_codec_conf[1].dev_name = NULL;
- 		rx51_codec_conf[1].of_node = dai_node;
- 	}
+ 	/* codec/machine specific init - e.g. add machine controls */
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index ecaea88..8bfe421 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1532,12 +1532,6 @@ static int soc_bind_aux_dev(struct snd_soc_card *card, int num)
+ 	struct snd_soc_aux_dev *aux_dev = &card->aux_dev[num];
+ 	struct snd_soc_component *component;
+ 
+-	/* remove me */
+-	if (aux_dev->codec_name)
+-		aux_dev->dlc.name = aux_dev->codec_name;
+-	if (aux_dev->codec_of_node)
+-		aux_dev->dlc.of_node = aux_dev->codec_of_node;
+-
+ 	/* codecs, usually analog devices */
+ 	component = soc_find_component(&aux_dev->dlc);
+ 	if (!component)
 -- 
 2.7.4
 

@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B47986B9F
-	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 22:35:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CC6286BA6
+	for <lists+alsa-devel@lfdr.de>; Thu,  8 Aug 2019 22:37:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D2F81616;
-	Thu,  8 Aug 2019 22:34:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D2F81616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 391EE165F;
+	Thu,  8 Aug 2019 22:36:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 391EE165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565296530;
-	bh=F/VAY7AMBkiLh+T8NVzkcmV4yo/421m3ISE7d5waVfc=;
+	s=default; t=1565296637;
+	bh=FAe+RyNoaR2m20EFd8fXtMXz7tlsE32MRIkxCuLykNc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=HhSIh0+Zt0bTMpvBWKCiaTWNgfc7zdwcMeoxULUjcMonvNaQREhv6M8+oZYNxRbEF
-	 wAJTO7a8LFYaIOKjqXvIFDv5GAB7UDnLa2e20SIBf2bjN1/KHDg60t8Usl/A7XJaAY
-	 /dIE5D66MTiEklIxuFXU7OuuL1YBeWfb/mJONq/o=
+	b=fmSFccOO7bHGmW0NkHRk8MmigrU7inYpUR4m8+SNXz0s4lSGaCvYK//vnLwpW/a04
+	 Nl4BGhhf0ZnBw2xAJUTXQ+TgbL8ZDaaoTlqWuiy8eXEdnsDhcTSloHKe2rO3JuTZHL
+	 k1ffdo/U1caQvJjJJ0DTtE+gyudMrc0Dr3OON3vY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89529F805F8;
-	Thu,  8 Aug 2019 22:33:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEF5AF805F9;
+	Thu,  8 Aug 2019 22:33:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85C17F805AA; Thu,  8 Aug 2019 22:33:44 +0200 (CEST)
+ id 55BC6F805F7; Thu,  8 Aug 2019 22:33:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C807DF800E4
- for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 22:33:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C807DF800E4
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC55DF80534
+ for <alsa-devel@alsa-project.org>; Thu,  8 Aug 2019 22:33:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC55DF80534
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="VCHl4C4I"
+ header.b="xx2mnAQa"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=6tICZwq2RofbtlufJzPyPgQJ2xJbFhXn7p7DdOaIR3s=; b=VCHl4C4I0KnQ
- vlnRkQRoZOfN3pDfdlKWiyEpF5ew2uSYfjAgSTR8ILjtcidbkc07e5wW+Al8Kv6Mn47UJMQDtV3oG
- RbJUrC32G+vsdLz14GU85OwJjtpi5RHAnX7o2zATwr5Kc1Kay06pjoYIDXUYLv31HnZT9sOVlZUSU
- cempo=;
+ List-Archive; bh=w6rVtZAq5kbDZ8+BACkp8ZxZbv2lMkl2iHgSPUgFdac=; b=xx2mnAQajWCd
+ mqTrkgPosrZpXhaBJmlvpdpmjBbbobOS8wcqZtXedT/gIfQMob/U65E6Pm9U6KgQKu4P0eFdosyMM
+ 2bkjk4LJmAjxIhTtbUQf+Do/Skstsf0ailNpEFDUlY8BdF4N2KDYpKK1mO0DT5ntpR6K3P0WOGNcu
+ R0joQ=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hvp6S-00041E-DP; Thu, 08 Aug 2019 20:33:40 +0000
+ id 1hvp6T-00041P-Ep; Thu, 08 Aug 2019 20:33:41 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id E3A512742BE9; Thu,  8 Aug 2019 21:33:39 +0100 (BST)
+ id BBB272742BE9; Thu,  8 Aug 2019 21:33:40 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <874l2tahnq.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <878ss5aho6.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190808203339.E3A512742BE9@ypsilon.sirena.org.uk>
-Date: Thu,  8 Aug 2019 21:33:39 +0100 (BST)
+Message-Id: <20190808203340.BBB272742BE9@ypsilon.sirena.org.uk>
+Date: Thu,  8 Aug 2019 21:33:40 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: dai_link check under
-	soc_dpcm_debugfs_add()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: remove unneeded list_empty()
+	check for snd_soc_try_rebind_card()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: dai_link check under soc_dpcm_debugfs_add()
+   ASoC: soc-core: remove unneeded list_empty() check for snd_soc_try_rebind_card()
 
 has been applied to the asoc tree at
 
@@ -112,68 +112,43 @@ to this mail.
 Thanks,
 Mark
 
-From 596becd3f82a7b7e091b0f5c380bc9a0e6758126 Mon Sep 17 00:00:00 2001
+From b245d273cbcd64eeaa93305f99c4ea8a6baf9c89 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 7 Aug 2019 10:31:36 +0900
-Subject: [PATCH] ASoC: soc-core: dai_link check under soc_dpcm_debugfs_add()
+Date: Wed, 7 Aug 2019 10:31:19 +0900
+Subject: [PATCH] ASoC: soc-core: remove unneeded list_empty() check for
+ snd_soc_try_rebind_card()
 
-soc_dpcm_debugfs_add(rtd) is checking rtd->dai_link pointer,
-but, rtd->dai_link->dynamic have been already checked before calling it.
-
-	static int soc_probe_link_dais(...) {
-		dai_link = rtd->dai_link;
-		...
-=>		if (dai_link->dynamic)
-=>			soc_dpcm_debugfs_add(rtd);
-		...
-	}
-
-	void soc_dpcm_debugfs_add(rtd)
-	{
-=>		if (!rtd->dai_link)
-			return;
-		...
-	}
-
-These pointer checks are strange/pointless.
-This patch checks dai_link->dynamic under soc_dpcm_debugfs_add().
+list_for_each_entry_safe() will do nothing if it was empty list.
+This patch removes unneeded list_empty() check for
+list_for_each_entry_safe().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/874l2tahnq.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/878ss5aho6.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 3 +--
- sound/soc/soc-pcm.c  | 3 +++
- 2 files changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 2a75fba31aa4..1fbd525763d5 100644
+index cf3d967d731e..6b0042835233 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -1488,8 +1488,7 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
- 		return ret;
+@@ -2808,12 +2808,9 @@ static void snd_soc_try_rebind_card(void)
+ {
+ 	struct snd_soc_card *card, *c;
  
- 	/* add DPCM sysfs entries */
--	if (dai_link->dynamic)
--		soc_dpcm_debugfs_add(rtd);
-+	soc_dpcm_debugfs_add(rtd);
+-	if (!list_empty(&unbind_card_list)) {
+-		list_for_each_entry_safe(card, c, &unbind_card_list, list) {
+-			if (!snd_soc_bind_card(card))
+-				list_del(&card->list);
+-		}
+-	}
++	list_for_each_entry_safe(card, c, &unbind_card_list, list)
++		if (!snd_soc_bind_card(card))
++			list_del(&card->list);
+ }
  
- 	num = rtd->num;
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 77c986fe08d0..da657c8179cc 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -3200,6 +3200,9 @@ void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
- 	if (!rtd->dai_link)
- 		return;
- 
-+	if (!rtd->dai_link->dynamic)
-+		return;
-+
- 	if (!rtd->card->debugfs_card_root)
- 		return;
- 
+ int snd_soc_add_component(struct device *dev,
 -- 
 2.20.1
 

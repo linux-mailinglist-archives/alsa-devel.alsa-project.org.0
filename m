@@ -2,50 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9EE587D43
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 16:54:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55FCB87DCB
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 17:13:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B7DD165D;
-	Fri,  9 Aug 2019 16:54:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B7DD165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C62B0165F;
+	Fri,  9 Aug 2019 17:12:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C62B0165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565362497;
-	bh=qxrruMZQ0r4DSXyVEuoGTsJf1S4m7zFpEQhubhFDfmY=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tXMPtt7bi2rH+sdgI8Yw89fdPJ/oUmcp6UNvnZDtztcVYXcvs3DbusSyOez6tMfbn
-	 4LtkZ8HLRehL/bPQaLZCsyVcNrfIx3RgN0LqEGXxEQvQkW1rBq+F/ytcu3GxXAx2Ym
-	 YaC6OQ+8fzOOMBjGphKShzaVSPsar6cRE59e5oNI=
+	s=default; t=1565363618;
+	bh=dWuq7MHd6ErrNcrlYSB9HA6OSdUWtwoMFSHfSH9iQ+E=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iJ6pXC4LsgQP0w6WCcp8/WDdwHLSq1N2H6g+8DTSBlJlgpv0PAyZCayQW1qnSG5FL
+	 ktpQfBg+qx/0X35WRYL1L+Mo37XBdQcsZ6P+MD4TWsyzMLvgndMw8QmfUyT8HzrBN3
+	 M0ze5yEjB81DWdah3O84d+YLp5MZiyY36okLHiik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B21FF804AB;
-	Fri,  9 Aug 2019 16:53:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35023F80391;
+	Fri,  9 Aug 2019 17:11:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD3C4F803F3; Fri,  9 Aug 2019 16:53:11 +0200 (CEST)
+ id 9EEEBF803F3; Fri,  9 Aug 2019 17:11:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E8F8F800E4
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 16:53:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E8F8F800E4
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 02204AF7A
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 14:53:08 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Fri,  9 Aug 2019 16:53:06 +0200
-Message-Id: <20190809145306.18429-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH] ALSA: hda - Add a quirk model for fixing
-	Huawei Matebook X right speaker
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F5CAF8036B
+ for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 17:11:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F5CAF8036B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="BgXLagGs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SDiIIHKH0mX658u0Bi3gbyG4ZfmHZmMJYPG0jCzNrec=; b=BgXLagGsCCDO+CndeZCSapQIy
+ 4vE6jKaJzLxlw/TpDuBdqGGwL6/81JMKa+G0qlH66Rp+HamYHe/CFCvic9oDLKFosM6bt3iiZkYuY
+ QuYP8cPyoEPoEh9C8nMfO1gl5MlR/ABhlIKmJHO+czmQesczdjLGdAewTGEzrO3qDWp4c=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1hw6YT-0006Kp-MY; Fri, 09 Aug 2019 15:11:45 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 3C6DE274303D; Fri,  9 Aug 2019 16:11:45 +0100 (BST)
+Date: Fri, 9 Aug 2019 16:11:45 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20190809151145.GE3963@sirena.co.uk>
+References: <20190809095550.71040-1-yuehaibing@huawei.com>
+ <20190809110100.71236-1-yuehaibing@huawei.com>
+ <s5ha7cih53w.wl-tiwai@suse.de> <s5h7e7mh50z.wl-tiwai@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <s5h7e7mh50z.wl-tiwai@suse.de>
+X-Cookie: Klatu barada nikto.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, YueHaibing <yuehaibing@huawei.com>,
+ yang.jie@linux.intel.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: SOF: Intel: Add missing include
+	file hdac_hda.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,175 +87,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3984859086076906011=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Tomas Espeleta <tomas.espeleta@gmail.com>
 
-[ This is rather a revival of the patch Tomas sent in months ago, but
-  applying only with the quirk model option -- tiwai ]
+--===============3984859086076906011==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tVmo9FyGdCe4F4YN"
+Content-Disposition: inline
 
-Hard coded coefficients to make Huawuei Matebook X right speaker
-work. The Matebook X has a ALC298, please refer to bug 197801 on
-how these numbers were reverse engineered from the Windows driver
 
-The reversed engineered sequence represents a repeating pattern
-of verbs, and the only values that are changing periodically are
-written on indexes 0x23 and 0x25:
+--tVmo9FyGdCe4F4YN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-0x500, 0x23
-0x400, VALUE1
-0x500, 0x25
-0x400, VALUE2
+On Fri, Aug 09, 2019 at 02:55:40PM +0200, Takashi Iwai wrote:
+> Takashi Iwai wrote:
 
-* skipped reading sequences (0x500 - 0xc00 sequences are ignored)
-* static values from reverse engineering are used
+> > Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
-NOTE: since a significant risk is still considered, this is provided
-as an experimental fix that isn't applied as default for now.  For
-enabling the fix, you'll have to choose huawei-mbx-stereo via model
-option of snd-hda-intel module.
+> Actually I'm going to take this again on top of
+> topic/hda-bus-ops-cleanup branch of my tree, so Mark, feel free to
+> pull onto yours again.
 
-If we get feedback from users that this works stably, we may apply it
-per default.
+I think I already applied it locally.
 
-[ Some coding style fixes and replacement with AC_VERB_* by tiwai ]
+--tVmo9FyGdCe4F4YN
+Content-Type: application/pgp-signature; name="signature.asc"
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=197801
-Signed-off-by: Tomas Espeleta <tomas.espeleta@gmail.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- Documentation/sound/hd-audio/models.rst |  3 ++
- sound/pci/hda/patch_realtek.c           | 74 +++++++++++++++++++++++++++++++++
- 2 files changed, 77 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/Documentation/sound/hd-audio/models.rst b/Documentation/sound/hd-audio/models.rst
-index 7d7c191102a7..11298f0ce44d 100644
---- a/Documentation/sound/hd-audio/models.rst
-+++ b/Documentation/sound/hd-audio/models.rst
-@@ -260,6 +260,9 @@ alc295-hp-x360
-     HP Spectre X360 fixups
- alc-sense-combo
-     Headset button support for Chrome platform
-+huawei-mbx-stereo
-+    Enable initialization verbs for Huawei MBX stereo speakers;
-+    might be risky, try this at your own risk
- 
- ALC66x/67x/892
- ==============
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index de224cbea7a0..cb7baa65b298 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -3762,6 +3762,72 @@ static void alc269_x101_hp_automute_hook(struct hda_codec *codec,
- 			    vref);
- }
- 
-+/*
-+ * Magic sequence to make Huawei Matebook X right speaker working (bko#197801)
-+ */
-+struct hda_alc298_mbxinit {
-+	unsigned char value_0x23;
-+	unsigned char value_0x25;
-+};
-+
-+static void alc298_huawei_mbx_stereo_seq(struct hda_codec *codec,
-+					 const struct hda_alc298_mbxinit *initval,
-+					 bool first)
-+{
-+	snd_hda_codec_write(codec, 0x06, 0, AC_VERB_SET_DIGI_CONVERT_3, 0x0);
-+	alc_write_coef_idx(codec, 0x26, 0xb000);
-+
-+	if (first)
-+		snd_hda_codec_write(codec, 0x21, 0, AC_VERB_GET_PIN_SENSE, 0x0);
-+
-+	snd_hda_codec_write(codec, 0x6, 0, AC_VERB_SET_DIGI_CONVERT_3, 0x80);
-+	alc_write_coef_idx(codec, 0x26, 0xf000);
-+	alc_write_coef_idx(codec, 0x23, initval->value_0x23);
-+
-+	if (initval->value_0x23 != 0x1e)
-+		alc_write_coef_idx(codec, 0x25, initval->value_0x25);
-+
-+	snd_hda_codec_write(codec, 0x20, 0, AC_VERB_SET_COEF_INDEX, 0x26);
-+	snd_hda_codec_write(codec, 0x20, 0, AC_VERB_SET_PROC_COEF, 0xb010);
-+}
-+
-+static void alc298_fixup_huawei_mbx_stereo(struct hda_codec *codec,
-+					   const struct hda_fixup *fix,
-+					   int action)
-+{
-+	/* Initialization magic */
-+	static const struct hda_alc298_mbxinit dac_init[] = {
-+		{0x0c, 0x00}, {0x0d, 0x00}, {0x0e, 0x00}, {0x0f, 0x00},
-+		{0x10, 0x00}, {0x1a, 0x40}, {0x1b, 0x82}, {0x1c, 0x00},
-+		{0x1d, 0x00}, {0x1e, 0x00}, {0x1f, 0x00},
-+		{0x20, 0xc2}, {0x21, 0xc8}, {0x22, 0x26}, {0x23, 0x24},
-+		{0x27, 0xff}, {0x28, 0xff}, {0x29, 0xff}, {0x2a, 0x8f},
-+		{0x2b, 0x02}, {0x2c, 0x48}, {0x2d, 0x34}, {0x2e, 0x00},
-+		{0x2f, 0x00},
-+		{0x30, 0x00}, {0x31, 0x00}, {0x32, 0x00}, {0x33, 0x00},
-+		{0x34, 0x00}, {0x35, 0x01}, {0x36, 0x93}, {0x37, 0x0c},
-+		{0x38, 0x00}, {0x39, 0x00}, {0x3a, 0xf8}, {0x38, 0x80},
-+		{}
-+	};
-+	const struct hda_alc298_mbxinit *seq;
-+
-+	if (action != HDA_FIXUP_ACT_INIT)
-+		return;
-+
-+	/* Start */
-+	snd_hda_codec_write(codec, 0x06, 0, AC_VERB_SET_DIGI_CONVERT_3, 0x00);
-+	snd_hda_codec_write(codec, 0x06, 0, AC_VERB_SET_DIGI_CONVERT_3, 0x80);
-+	alc_write_coef_idx(codec, 0x26, 0xf000);
-+	alc_write_coef_idx(codec, 0x22, 0x31);
-+	alc_write_coef_idx(codec, 0x23, 0x0b);
-+	alc_write_coef_idx(codec, 0x25, 0x00);
-+	snd_hda_codec_write(codec, 0x20, 0, AC_VERB_SET_COEF_INDEX, 0x26);
-+	snd_hda_codec_write(codec, 0x20, 0, AC_VERB_SET_PROC_COEF, 0xb010);
-+
-+	for (seq = dac_init; seq->value_0x23; seq++)
-+		alc298_huawei_mbx_stereo_seq(codec, seq, seq == dac_init);
-+}
-+
- static void alc269_fixup_x101_headset_mic(struct hda_codec *codec,
- 				     const struct hda_fixup *fix, int action)
- {
-@@ -5787,6 +5853,7 @@ enum {
- 	ALC255_FIXUP_DUMMY_LINEOUT_VERB,
- 	ALC255_FIXUP_DELL_HEADSET_MIC,
- 	ALC256_FIXUP_HUAWEI_MACH_WX9_PINS,
-+	ALC298_FIXUP_HUAWEI_MBX_STEREO,
- 	ALC295_FIXUP_HP_X360,
- 	ALC221_FIXUP_HP_HEADSET_MIC,
- 	ALC285_FIXUP_LENOVO_HEADPHONE_NOISE,
-@@ -6095,6 +6162,12 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC255_FIXUP_MIC_MUTE_LED
- 	},
-+	[ALC298_FIXUP_HUAWEI_MBX_STEREO] = {
-+		.type = HDA_FIXUP_FUNC,
-+		.v.func = alc298_fixup_huawei_mbx_stereo,
-+		.chained = true,
-+		.chain_id = ALC255_FIXUP_MIC_MUTE_LED
-+	},
- 	[ALC269_FIXUP_ASUS_X101_FUNC] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc269_fixup_x101_headset_mic,
-@@ -7272,6 +7345,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
- 	{.id = ALC225_FIXUP_HEADSET_JACK, .name = "alc-headset-jack"},
- 	{.id = ALC295_FIXUP_CHROME_BOOK, .name = "alc-chrome-book"},
- 	{.id = ALC299_FIXUP_PREDATOR_SPK, .name = "predator-spk"},
-+	{.id = ALC298_FIXUP_HUAWEI_MBX_STEREO, .name = "huawei-mbx-stereo"},
- 	{}
- };
- #define ALC225_STANDARD_PINS \
--- 
-2.16.4
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1NjTAACgkQJNaLcl1U
+h9DRgQf/banNE1r4/WH27CPDpaxiqMQAQ8YwOySnqsMBgHlOnsO/s4SrwaIkKh+N
+x6LbKhkkpRjDAsZ8ILqu4//DkrksxmWFs/j+XRHbPsbVsBTNReoshGfUQOrpjToN
+qIEiYP2IOOO6UVozNlDWNarf2SOBTKKskNi6c2RmZBGJ8mvr58DYtezmtX13vVa/
+MO4Zh2cEba+IV1d9RkNn5rARlLrAGt63o7/NsN+7GN4Bm3rUVy5KhBWdijO4KGlY
+FgVFmbsw1e4bYyqwcLBrVb+I3D9KYLzKXo6tr8q1lYix+LurW0aBMGyn06UjLQ05
+Gwg+/E7FTiFQo9cozC7H2xnQI5uB1Q==
+=rnwt
+-----END PGP SIGNATURE-----
+
+--tVmo9FyGdCe4F4YN--
+
+--===============3984859086076906011==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3984859086076906011==--

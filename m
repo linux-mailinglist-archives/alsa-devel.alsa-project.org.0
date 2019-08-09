@@ -2,56 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B4ED87367
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 09:48:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13108873D1
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 10:11:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEEAE1663;
-	Fri,  9 Aug 2019 09:47:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEEAE1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 562B215E5;
+	Fri,  9 Aug 2019 10:11:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 562B215E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565336926;
-	bh=y7VSQkcggG0Zh9VdBpVpf+vV7L+UZnE3keVHxO6iWJo=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gt61JjJHdK5jhEQQ0ivNyWQTGNGEgu/Ziyd6x/n77XjY8kDTU7QHTf2v5+PM0IbKU
-	 699XHSJ2kRTuHVaQKCb2krDs6R+Chl20FpwHF3rZwM/5DAqXYDdqWYWJY8uF/Ln6wj
-	 Urv3civWRehFilL+9EKIaC9OXl9v5IKXt1+N3H5U=
+	s=default; t=1565338314;
+	bh=uF1Hg+2j8O1W8d7Cj3TvArS+EJO7nz6rjqJEFgm2Nw0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DGbNDznhtbRszDaUH/SLL+6Imp69RWvHjvpXuFJS80rnjl+CK2K2axfiIcbII0bV1
+	 N5NHpgLPiGVYmYoQuW2+77Old6oeHQbtLcbGlcRJ8bQzB0bwSJwjI9YeX0v8XNr49s
+	 f2CoW1nG4DHNNJiGVlXQa3oHM4IXZMi5T5h2r+TE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2184AF803F3;
-	Fri,  9 Aug 2019 09:47:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F580F80391;
+	Fri,  9 Aug 2019 10:10:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 882C6F803F3; Fri,  9 Aug 2019 09:47:00 +0200 (CEST)
+ id 3DAA6F803F3; Fri,  9 Aug 2019 10:10:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from muru.com (muru.com [72.249.23.125])
- by alsa1.perex.cz (Postfix) with ESMTP id 420D7F8036B
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 09:46:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 420D7F8036B
-Received: from atomide.com (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id A2FBF809F;
- Fri,  9 Aug 2019 07:47:13 +0000 (UTC)
-Date: Fri, 9 Aug 2019 00:46:43 -0700
-From: Tony Lindgren <tony@atomide.com>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190809074643.GB52127@atomide.com>
-References: <20190809070003.GA52127@atomide.com> <s5hwofmhkbs.wl-tiwai@suse.de>
+Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23AF0F8036B
+ for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 10:10:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23AF0F8036B
+Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id D02341050730CA2F7CED;
+ Fri,  9 Aug 2019 16:10:00 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS401-HUB.china.huawei.com
+ (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0; Fri, 9 Aug 2019
+ 16:09:51 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <matthias.bgg@gmail.com>,
+ <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 9 Aug 2019 16:02:34 +0800
+Message-ID: <20190809080234.23332-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5hwofmhkbs.wl-tiwai@suse.de>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] Regression in next with codec unload
-	and	snd_soc_component_get/put
+X-Originating-IP: [10.133.213.239]
+X-CFilter-Loop: Reflected
+Cc: YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH -next] ASoC: mt6351: remove unused variable
+	'mt_lineout_control'
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,40 +73,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-* Takashi Iwai <tiwai@suse.de> [190809 07:25]:
-> On Fri, 09 Aug 2019 09:00:03 +0200,
-> Tony Lindgren wrote:
-> > 
-> > Hi,
-> > 
-> > Looks like commit 4a81e8f30d0b ("ASoC: soc-component: add
-> > snd_soc_component_get/put()") causes a regression where trying
-> > to rmmod a codec driver fails with module is in use error after
-> > rmmod of snd-soc-audio-graph-card for example.
-> > 
-> > Any ideas what goes wrong there?
-> 
-> There is an obvious typo: soc_cleanup_component() should call
-> snd_soc_component_module_put_when_remove() instead of *_close().
+sound/soc/codecs/mt6351.c:1070:38: warning:
+ mt_lineout_control defined but not used [-Wunused-const-variable=]
 
-Making that change locally seems to fix it thanks.
+It is never used, so can be removed.
 
-> And the module_get_upon_open boolean switch is a bit hard to
-> understand.  Maybe using enum would be simpler there.
-> 
-> > BTW, looks like the lore.kernel.org link in that commit also is
-> > unreachable?
-> 
-> It's because alsa-devel ML isn't tracked on lore.kernel.org,
-> unfortunately.
-> 
-> Jaroslav, I asked this already.  Shall we ask lore to track alsa-devel
-> ML?
->   https://korg.wiki.kernel.org/userdoc/lore
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ sound/soc/codecs/mt6351.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-Regards,
+diff --git a/sound/soc/codecs/mt6351.c b/sound/soc/codecs/mt6351.c
+index 4b3ce01..5c0536e 100644
+--- a/sound/soc/codecs/mt6351.c
++++ b/sound/soc/codecs/mt6351.c
+@@ -1066,11 +1066,6 @@ static int mt_mic_bias_2_event(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
+-/* DAPM Kcontrols */
+-static const struct snd_kcontrol_new mt_lineout_control =
+-	SOC_DAPM_SINGLE("Switch", MT6351_AUDDEC_ANA_CON3,
+-			RG_AUDLOLPWRUP_VAUDP32_BIT, 1, 0);
+-
+ /* DAPM Widgets */
+ static const struct snd_soc_dapm_widget mt6351_dapm_widgets[] = {
+ 	/* Digital Clock */
+-- 
+2.7.4
 
-Tony
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,62 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F77C877DF
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 12:54:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214B187830
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 13:05:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24E9F1663;
-	Fri,  9 Aug 2019 12:53:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24E9F1663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 834D7166B;
+	Fri,  9 Aug 2019 13:04:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 834D7166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565348052;
-	bh=rsS4iXHxgOT6NKYhXQhfK6t9+VcuwSyvEUbVmjYetDw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565348741;
+	bh=oEeP8VV/5aDmu4+QP0/mnxXvz9UpLRb1K8HgzozbO4k=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T50zYfF8k6HE8qYo++RAqTkBDjgvskB7xs3qTpghBKSDmUhsCcIxNCunl14pKK6Jc
-	 lUG04vKnbjsWlrotw0UzjvkK82WAGUwIkncyx9OsvICC0u8Pbam45I142wZ2zMamLa
-	 7sILGZBGYiSllVov01TQRIhY79K+VLWsZGs4S79c=
+	b=hfudfTt/D/VC4XJdEoYQt9NRXWsNwGzT8DCcs0bzG+XxZMdWGVp8aHffZ0KOo7sXy
+	 DEq8GhxjntkcyWqV391BFufVIdWWLtJsJRaCs+f8GP10uhrEu+bOWyMzuPBhpQLHiw
+	 I/6CthudcKo0GRSAgUOa71c972v4gA3sj7Y9eva0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D14C7F803F3;
-	Fri,  9 Aug 2019 12:52:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC13DF80483;
+	Fri,  9 Aug 2019 13:03:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1EC7CF803F3; Fri,  9 Aug 2019 12:52:51 +0200 (CEST)
+ id 5ADE7F803F3; Fri,  9 Aug 2019 13:03:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 889B4F800E4
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 12:52:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 889B4F800E4
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 727189FF0BB6B176E4EA;
- Fri,  9 Aug 2019 18:52:44 +0800 (CST)
-Received: from [127.0.0.1] (10.133.213.239) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0;
- Fri, 9 Aug 2019 18:52:39 +0800
-To: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D87C3F8036B
+ for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 13:03:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D87C3F8036B
+Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 40E64786FB91D940B113;
+ Fri,  9 Aug 2019 19:03:48 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
+ (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Fri, 9 Aug 2019
+ 19:03:38 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>, <broonie@kernel.org>,
+ <lgirdwood@gmail.com>, <pierre-louis.bossart@linux.intel.com>,
+ <yang.jie@linux.intel.com>
+Date: Fri, 9 Aug 2019 19:01:00 +0800
+Message-ID: <20190809110100.71236-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
+In-Reply-To: <20190809095550.71040-1-yuehaibing@huawei.com>
 References: <20190809095550.71040-1-yuehaibing@huawei.com>
- <s5hh86qhcyg.wl-tiwai@suse.de>
-From: Yuehaibing <yuehaibing@huawei.com>
-Message-ID: <da80a1fb-e897-e5a4-0809-2349a92279bb@huawei.com>
-Date: Fri, 9 Aug 2019 18:52:37 +0800
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.2.0
 MIME-Version: 1.0
-In-Reply-To: <s5hh86qhcyg.wl-tiwai@suse.de>
 X-Originating-IP: [10.133.213.239]
 X-CFilter-Loop: Reflected
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, yang.jie@linux.intel.com,
- Takashi Iwai <tiwai@suse.com>, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: Add missing include file
+Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH v2] ASoC: SOF: Intel: Add missing include file
 	hdac_hda.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -76,77 +75,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019/8/9 18:04, Takashi Iwai wrote:
-> On Fri, 09 Aug 2019 11:55:50 +0200,
-> YueHaibing wrote:
->>
->> Building with SND_SOC_SOF_HDA_AUDIO_CODEC fails:
->>
->> sound/soc/sof/intel/hda-bus.c: In function sof_hda_bus_init:
->> sound/soc/sof/intel/hda-bus.c:16:25: error: implicit declaration of function
->>  snd_soc_hdac_hda_get_ops; did you mean snd_soc_jack_add_gpiods? [-Werror=implicit-function-declaration]
->>  #define sof_hda_ext_ops snd_soc_hdac_hda_get_ops()
->>
->> Reported-by: Hulk Robot <hulkci@huawei.com>
->> Fixes: d4ff1b3917a5 ('ASoC: SOF: Intel: Initialize hdaudio bus properly")
->> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> 
-> Damn, it seems another oversight.
-> 
-> And now the inclusion in sound/soc/sof/intel/hda.c is superfluous,
-> too, so we should just move like
-> 
-> diff --git a/sound/soc/sof/intel/hda-bus.c b/sound/soc/sof/intel/hda-bus.c
-> index 0caec3a070d3..2b384134a3db 100644
-> --- a/sound/soc/sof/intel/hda-bus.c
-> +++ b/sound/soc/sof/intel/hda-bus.c
-> @@ -11,6 +11,9 @@
->  #include <sound/hdaudio.h>
->  #include "../sof-priv.h"
->  #include "hda.h"
-> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
-> +#include "../../codecs/hdac_hda.h"
-> +#endif
->  
->  #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
->  #define sof_hda_ext_ops	snd_soc_hdac_hda_get_ops()
-> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-> index 7ca27000c34d..dd6c8ad62b3e 100644
-> --- a/sound/soc/sof/intel/hda.c
-> +++ b/sound/soc/sof/intel/hda.c
-> @@ -23,9 +23,6 @@
->  #include <sound/sof/xtensa.h>
->  #include "../ops.h"
->  #include "hda.h"
-> -#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
-> -#include "../../codecs/hdac_hda.h"
-> -#endif
->  
->  #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
->  #include <sound/soc-acpi-intel-match.h>
-> 
-> 
-> Could you check whether this works instead?
+Building with SND_SOC_SOF_HDA_AUDIO_CODEC fails:
 
-It works well, I can send v2 using this, Thanks!
+sound/soc/sof/intel/hda-bus.c: In function sof_hda_bus_init:
+sound/soc/sof/intel/hda-bus.c:16:25: error: implicit declaration of function
+ snd_soc_hdac_hda_get_ops; did you mean snd_soc_jack_add_gpiods? [-Werror=implicit-function-declaration]
+ #define sof_hda_ext_ops snd_soc_hdac_hda_get_ops()
 
-> 
-> 
-> BTW, the inclusion of "../../codecs/hdac_hdac.h" is very ugly...
-> In general if a header file is referred from another driver, it should
-> be in a more public place under include/sound.  If any, we can create
-> a subdirectory like include/sound/codecs.
-> 
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Fixes: d4ff1b3917a5 ('ASoC: SOF: Intel: Initialize hdaudio bus properly")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+v2: remove unused include from hda.c
+---
+ sound/soc/sof/intel/hda-bus.c | 1 +
+ sound/soc/sof/intel/hda.c     | 3 ---
+ 2 files changed, 1 insertion(+), 3 deletions(-)
 
-Yes, this can be done in another patch.
+diff --git a/sound/soc/sof/intel/hda-bus.c b/sound/soc/sof/intel/hda-bus.c
+index 0caec3a..1d2babd 100644
+--- a/sound/soc/sof/intel/hda-bus.c
++++ b/sound/soc/sof/intel/hda-bus.c
+@@ -13,6 +13,7 @@
+ #include "hda.h"
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
++#include "../../codecs/hdac_hda.h"
+ #define sof_hda_ext_ops	snd_soc_hdac_hda_get_ops()
+ #else
+ #define sof_hda_ext_ops	NULL
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 368254b..ebf2777 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -23,9 +23,6 @@
+ #include <sound/sof/xtensa.h>
+ #include "../ops.h"
+ #include "hda.h"
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+-#include "../../codecs/hdac_hda.h"
+-#endif
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ #include <sound/soc-acpi-intel-match.h>
+-- 
+2.7.4
 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> .
-> 
 
 _______________________________________________
 Alsa-devel mailing list

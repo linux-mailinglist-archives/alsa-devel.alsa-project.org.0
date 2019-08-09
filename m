@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B937E87A42
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 14:36:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A0187A52
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 14:39:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4277F851;
-	Fri,  9 Aug 2019 14:35:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4277F851
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F15B1669;
+	Fri,  9 Aug 2019 14:38:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F15B1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565354190;
-	bh=bgZw9tEr/gLZbAU87vqgSm3lZLV5cAGQnzLqDKxQogg=;
+	s=default; t=1565354345;
+	bh=PXsWFVpuG+c2hRkHxI58vhwEjTzugGLygRkh+vWfmBw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dijBlr0XkA1jooNu6L6D6zcRLqd5UYm4tKxN+KCV0/OED4zUEvy09yO9IYpjy5Rly
-	 7jsOwGoq75j8DEGi7Ke5LlPEJqcDOOfCNGtWB7uo90VlMv/5AvsGjLRHuEYnlfhAMX
-	 5nQgbnnnuPuZjMalqUQRmHRRr19MUuxRDiCoRrKo=
+	b=IkMn8TSiZ+jro85ff3m89RXZ7nD7g3IMJQLmvUXCTfWYHHCFqKo8OvHjqXCH+3H/z
+	 ifxHJ2QOWTKNm6IFdPsHYoJfR7OEL3K0HCryqQS0hr5ea04M5z6rgiNQxDM1XF923Z
+	 uQeS2mEt9gS3/VTaG6ZTTQ7/+vPLAa7UwD1UCIvc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AD25F80635;
-	Fri,  9 Aug 2019 14:32:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D358F8065E;
+	Fri,  9 Aug 2019 14:32:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 198F8F805F6; Fri,  9 Aug 2019 14:32:01 +0200 (CEST)
+ id EAC00F804AB; Fri,  9 Aug 2019 14:32:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A210CF805A9
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 14:31:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A210CF805A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 346C7F805F5
+ for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 14:31:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 346C7F805F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="toGb2iHc"
+ header.b="beh/h/nA"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=hvKg57q1AYA/E2QjYjUuSFgsy/9C4emNCfnsun5kC1A=; b=toGb2iHcpPL5
- nT0XP/Kxbf4xwJrUge3jG69Vhn6uGydQ6iNMKy/Z45hJ19SaYSMr3VXEIRLK3+j19YeD9PxzG/ArH
- Onrwk8+eSWvCZAtqTEsU8uQItAohSDzTJejO1wX4eFPXPx+2e02o5tseogUPqnHMQRvX8NNxPjEx0
- QOpBo=;
+ List-Archive; bh=/jo88AcFDfqbdS1YL/mJqykjovRrReNV4GrM29uIo6I=; b=beh/h/nA91ib
+ PMNIJTuxEbXDVpq+KGoMpQCkFasHwzcTy5iqXQohAtvZumX8+mBl+v2W8SEubU6osQU6bq7MT9T8y
+ cLitK/M81arRm74Tq7h1CSTysPVZcDFPQLFHoA//YZ97ZjhG7CqsZUM8LQC7bJ6ALjVdRGqWpPH/e
+ bNrLo=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hw43k-000615-QQ; Fri, 09 Aug 2019 12:31:52 +0000
+ id 1hw43l-000618-2D; Fri, 09 Aug 2019 12:31:53 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 2DA1F27430D6; Fri,  9 Aug 2019 13:31:52 +0100 (BST)
+ id 6CEB82743057; Fri,  9 Aug 2019 13:31:52 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-In-Reply-To: <20190807150203.26359-2-pierre-louis.bossart@linux.intel.com>
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20190809082440.67412-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190809123152.2DA1F27430D6@ypsilon.sirena.org.uk>
+Message-Id: <20190809123152.6CEB82743057@ypsilon.sirena.org.uk>
 Date: Fri,  9 Aug 2019 13:31:52 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Remove call to
-	snd_sof_dsp_mailbox_init" to the asoc tree
+Cc: alsa-devel@alsa-project.org, rfontana@redhat.com,
+ gregkh@linuxfoundation.org, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: ml26124: remove unused variable 'ngth'"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Remove call to snd_sof_dsp_mailbox_init
+   ASoC: ml26124: remove unused variable 'ngth'
 
 has been applied to the asoc tree at
 
@@ -113,62 +114,45 @@ to this mail.
 Thanks,
 Mark
 
-From 0b76f512c206dd7c3f7761b24826887af80204c6 Mon Sep 17 00:00:00 2001
-From: Daniel Baluta <daniel.baluta@nxp.com>
-Date: Wed, 7 Aug 2019 10:01:58 -0500
-Subject: [PATCH] ASoC: SOF: Remove call to snd_sof_dsp_mailbox_init
+From 0fd70e22a0ffebd13028bf2c7da6b747070475bf Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Fri, 9 Aug 2019 16:24:40 +0800
+Subject: [PATCH] ASoC: ml26124: remove unused variable 'ngth'
 
-This is reserved for some historical reason, we didn't enable memory
-windows for byt/bdw at the beginning, to make it compatible, we get
-those mailbox offsets from fw_ready struct firstly, and then update them
-if they existed in the following memory windows, to make sure the
-mailbox still can be used if no memory windows are created.
+In file included from ./include/sound/tlv.h:10:0,
+                 from sound/soc/codecs/ml26124.c:19:
+sound/soc/codecs/ml26124.c:59:35: warning: ngth defined but not used [-Wunused-const-variable=]
+ static const DECLARE_TLV_DB_SCALE(ngth, -7650, 150, 0);
+                                   ^
+./include/uapi/sound/tlv.h:64:15: note: in definition of macro SNDRV_CTL_TLVD_DECLARE_DB_SCALE
+  unsigned int name[] = { \
+               ^~~~
+sound/soc/codecs/ml26124.c:59:14: note: in expansion of macro DECLARE_TLV_DB_SCALE
+ static const DECLARE_TLV_DB_SCALE(ngth, -7650, 150, 0);
+              ^~~~~~~~~~~~~~~~~~~~
 
-With this change all platforms have the same implementation for
-xxx_fw_ready function so that we can refactor it in a common file.
+It is never used, so can be removed.
 
-Suggested-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190807150203.26359-2-pierre-louis.bossart@linux.intel.com
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20190809082440.67412-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/bdw.c | 5 -----
- sound/soc/sof/intel/byt.c | 5 -----
- 2 files changed, 10 deletions(-)
+ sound/soc/codecs/ml26124.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index 4bb9636da990..94be024a99eb 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -455,11 +455,6 @@ static int bdw_fw_ready(struct snd_sof_dev *sdev, u32 msg_id)
- 	sof_block_read(sdev, sdev->mmio_bar, offset, fw_ready,
- 		       sizeof(*fw_ready));
+diff --git a/sound/soc/codecs/ml26124.c b/sound/soc/codecs/ml26124.c
+index 3abd27893ce6..55823bc95d06 100644
+--- a/sound/soc/codecs/ml26124.c
++++ b/sound/soc/codecs/ml26124.c
+@@ -56,7 +56,6 @@ static const DECLARE_TLV_DB_SCALE(alclvl, -2250, 150, 0);
+ static const DECLARE_TLV_DB_SCALE(mingain, -1200, 600, 0);
+ static const DECLARE_TLV_DB_SCALE(maxgain, -675, 600, 0);
+ static const DECLARE_TLV_DB_SCALE(boost_vol, -1200, 75, 0);
+-static const DECLARE_TLV_DB_SCALE(ngth, -7650, 150, 0);
  
--	snd_sof_dsp_mailbox_init(sdev, fw_ready->dspbox_offset,
--				 fw_ready->dspbox_size,
--				 fw_ready->hostbox_offset,
--				 fw_ready->hostbox_size);
--
- 	/* make sure ABI version is compatible */
- 	ret = snd_sof_ipc_valid(sdev);
- 	if (ret < 0)
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 000d576f6a8d..cb8f02ee09f2 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -237,11 +237,6 @@ static int byt_fw_ready(struct snd_sof_dev *sdev, u32 msg_id)
- 	sof_block_read(sdev, sdev->mmio_bar, offset, fw_ready,
- 		       sizeof(*fw_ready));
- 
--	snd_sof_dsp_mailbox_init(sdev, fw_ready->dspbox_offset,
--				 fw_ready->dspbox_size,
--				 fw_ready->hostbox_offset,
--				 fw_ready->hostbox_size);
--
- 	/* make sure ABI version is compatible */
- 	ret = snd_sof_ipc_valid(sdev);
- 	if (ret < 0)
+ static const char * const ml26124_companding[] = {"16bit PCM", "u-law",
+ 						  "A-law"};
 -- 
 2.20.1
 

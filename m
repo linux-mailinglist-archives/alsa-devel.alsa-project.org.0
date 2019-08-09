@@ -2,74 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EB1E871BD
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 07:49:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B52871EA
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 07:59:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BF62085D;
-	Fri,  9 Aug 2019 07:48:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF62085D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B506F950;
+	Fri,  9 Aug 2019 07:59:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B506F950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565329756;
-	bh=LcUyuOsHfW7EbfRO4x0klXpqNDkd8txghLJK/Q6d/ZA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565330397;
+	bh=AzTXoPY2oy2wzOQMnp5wquc4TZ/f+B+zEfFSI5kG3IE=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GhCpd3NNxPLbczqxfJvN58A1Chndh3QAlNBLah5hDq24B0gcFfVxxJGVc9o7aNGxo
-	 SYqA1pcl0ClT3mOikyMkDNFO0O7YRWupuufXWMkkWexcpBJGfWrfFK0nP5HbKtu5+b
-	 g+0mqR0REbozDGUGN/YAstGn/iWA29GSdFxWdZms=
+	b=V9DGCEnn1eBOBBcEPDhGSiDeZn9ech9vjcogJ0IyGyJkzzDUJUYv8oSteZLGuJC14
+	 k4FCPGnF9ZpxRmuKctRow6QVAMP4qxohWQvAnfiCsST9yUWIPzC1d0OEJS1e1A/oUn
+	 CmzlSaPXsKwg3s2HNVYJdJnz9rqbg5O0kYPQr2IM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDB2BF800E4;
-	Fri,  9 Aug 2019 07:47:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E94AF801A4;
+	Fri,  9 Aug 2019 07:58:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8EC8F803F3; Fri,  9 Aug 2019 07:47:25 +0200 (CEST)
+ id 8E223F803F3; Fri,  9 Aug 2019 07:58:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODYSUB_5,SPF_HELO_NONE,SPF_PASS
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4E4CF8036B
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 07:47:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4E4CF8036B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VWDkjNU0"
-Received: from localhost (unknown [122.167.65.92])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2FFCB20C01;
- Fri,  9 Aug 2019 05:47:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1565329635;
- bh=0NGH7pa4qGdi2942c1QYy0xh8Num+O/K8NEalY+oyGU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=VWDkjNU0fHKREEctsjhTGG5vYGpFBmwBGgIRi6C5Qm9oTsvdakjZY6PAceWV6hCy1
- Dd6GSPZoVIF5PFHFtKsno0L0SVfpWY32J5jE1/NbjYqJNVwHm8ADRzfAxlACBrECmt
- GkWzMKQFOFxvkSGeoEyLjcvlrPk01QN5hxtuAAVk=
-Date: Fri, 9 Aug 2019 11:16:02 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190809054602.GK12733@vkoul-mobl.Dlink>
-References: <20190808144504.24823-1-srinivas.kandagatla@linaro.org>
- <20190808144504.24823-3-srinivas.kandagatla@linaro.org>
- <42ca4170-0fa0-6951-f568-89a05c095d5a@linux.intel.com>
- <564f5fa4-59ec-b4e5-a7a5-29dee99039b3@linaro.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <564f5fa4-59ec-b4e5-a7a5-29dee99039b3@linaro.org>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8611DF801A4
+ for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 07:58:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8611DF801A4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id C9B45AD7F;
+ Fri,  9 Aug 2019 05:58:06 +0000 (UTC)
+Date: Fri, 09 Aug 2019 07:58:06 +0200
+Message-ID: <s5ha7cij2xd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20190808222201.GQ3795@sirena.co.uk>
+References: <20190808095715.29713-1-tiwai@suse.de>
+ <ae7d32fe-a279-8309-2370-1832edcce413@linux.intel.com>
+ <s5hr25vhg22.wl-tiwai@suse.de> <20190808190343.GK3795@sirena.co.uk>
+ <s5hftmbie9i.wl-tiwai@suse.de> <20190808213311.GN3795@sirena.co.uk>
+ <20190808222201.GQ3795@sirena.co.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- robh+dt@kernel.org, lgirdwood@gmail.com, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 2/4] soundwire: core: add device tree
- support for slave devices
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Thierry Reding <thierry.reding@gmail.com>
+Subject: Re: [alsa-devel] [PATCH 0/3] ALSA: hda: bus cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,104 +72,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 08-08-19, 16:17, Srinivas Kandagatla wrote:
-> Thanks for taking time to review.
-> =
+On Fri, 09 Aug 2019 00:22:01 +0200,
+Mark Brown wrote:
+> 
+> On Thu, Aug 08, 2019 at 10:33:11PM +0100, Mark Brown wrote:
+> > On Thu, Aug 08, 2019 at 10:38:33PM +0200, Takashi Iwai wrote:
+> > > Mark Brown wrote:
+> > 
+> > > > I can do that easily enough.
+> > 
+> > > OK, I pushed out the branch topic/hda-bus-ops-cleanup.
+> > > Please merge this one and topic/hda-dmic branch into yours.
+> > 
+> > There were some conflicts which hopefully I resolved OK, it compiles and
+> > everything so it can't be that bad right?
+> 
+> Had to rebuild this since git has a bug with recording merge conflicts,
+> just pushing out a new version now - c2f16a94a80497e4b28c27f9ca2cd6cd60706fb6.
 
-> On 08/08/2019 16:00, Pierre-Louis Bossart wrote:
-> > =
+Thanks, it looks good to me.
 
-> > > @@ -35,6 +36,7 @@ static int sdw_slave_add(struct sdw_bus *bus,
-> > > =A0=A0=A0=A0=A0 slave->dev.release =3D sdw_slave_release;
-> > > =A0=A0=A0=A0=A0 slave->dev.bus =3D &sdw_bus_type;
-> > > +=A0=A0=A0 slave->dev.of_node =3D of_node_get(to_of_node(fwnode));
-> > =
+And Stephen resolved the conflicts in today's linux-next, too, so
+let's compare later.
 
-> > shouldn't this protected by
-> > #if IS_ENABLED(CONFIG_OF) ?
-> > =
 
-> These macros and functions have dummy entries, so it should not be an iss=
-ue.
-> I did build soundwire with i386_defconfig with no issues.
-
-That means this function was compiled without errors, that is not strange n=
-owadays
-given the ARM compiles ACPI and x86 OF, so check with OF being disable
-just to be safe :) I think dummy entries are helping
-
-> =
-
-> > > =A0=A0=A0=A0=A0 slave->bus =3D bus;
-> > > =A0=A0=A0=A0=A0 slave->status =3D SDW_SLAVE_UNATTACHED;
-> > > =A0=A0=A0=A0=A0 slave->dev_num =3D 0;
-> > > @@ -112,3 +114,48 @@ int sdw_acpi_find_slaves(struct sdw_bus *bus)
-> > > =A0 }
-> > > =A0 #endif
-> > > +
-> > > +/*
-> > > + * sdw_of_find_slaves() - Find Slave devices in master device tree n=
-ode
-> > > + * @bus: SDW bus instance
-> > > + *
-> > > + * Scans Master DT node for SDW child Slave devices and registers it.
-> > > + */
-> > > +int sdw_of_find_slaves(struct sdw_bus *bus)
-> > > +{
-> > > +=A0=A0=A0 struct device *dev =3D bus->dev;
-> > > +=A0=A0=A0 struct device_node *node;
-> > > +
-> > > +=A0=A0=A0 for_each_child_of_node(bus->dev->of_node, node) {
-> > > +=A0=A0=A0=A0=A0=A0=A0 struct sdw_slave_id id;
-> > > +=A0=A0=A0=A0=A0=A0=A0 const char *compat =3D NULL;
-> > > +=A0=A0=A0=A0=A0=A0=A0 int unique_id, ret;
-> > > +=A0=A0=A0=A0=A0=A0=A0 int ver, mfg_id, part_id, class_id;
-> > > +
-> > > +=A0=A0=A0=A0=A0=A0=A0 compat =3D of_get_property(node, "compatible",=
- NULL);
-> > > +=A0=A0=A0=A0=A0=A0=A0 if (!compat)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
-> > > +
-> > > +=A0=A0=A0=A0=A0=A0=A0 ret =3D sscanf(compat, "sdw%x,%x,%x,%x",
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &ver, &mfg_id, &par=
-t_id, &class_id);
-> > > +=A0=A0=A0=A0=A0=A0=A0 if (ret !=3D 4) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "Manf ID & Product co=
-de not found %s\n",
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 compat);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
-> > > +=A0=A0=A0=A0=A0=A0=A0 }
-> > > +
-> > > +=A0=A0=A0=A0=A0=A0=A0 ret =3D of_property_read_u32(node, "sdw-instan=
-ce-id", &unique_id);
-> > > +=A0=A0=A0=A0=A0=A0=A0 if (ret) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 dev_err(dev, "Instance id not foun=
-d:%d\n", ret);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
-> > =
-
-> > I am confused here.
-> > If you have two identical devices on the same link, isn't this property
-> > required and that should be a real error instead of a continue?
-> =
-
-> Yes, I agree it will be mandatory in such cases.
-> =
-
-> Am okay either way, I dont mind changing it to returning EINVAL in all the
-> cases.
-
-Do we want to abort? We are in loop scanning for devices so makes sense
-if we do not do that and continue to check next one..
-
--- =
-
-~Vinod
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

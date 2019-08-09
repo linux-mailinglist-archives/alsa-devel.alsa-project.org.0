@@ -2,99 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7BF87403
-	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 10:27:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B7D087474
+	for <lists+alsa-devel@lfdr.de>; Fri,  9 Aug 2019 10:43:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04BE484F;
-	Fri,  9 Aug 2019 10:26:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04BE484F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A6B51671;
+	Fri,  9 Aug 2019 10:42:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A6B51671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565339257;
-	bh=glkRyTD3m8TbUyjVAVorp6/YrcNS/jjLlub17/LnrL0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=D9aNyEmhQeQSCaxEWqWF0qvnuKBHVsfNd/HG6aC2MY5CNaDcJdpU/euFsE7qLlZGd
-	 RTFEetfmvqCJbK5nsnPeJl4rzcP6kozjDt4yBOWKZpc/fRtbSnFbML2hp3OhEnJpiw
-	 YCxxCHOZTu8zNX9vZ+i4CHVkrkVW6vbSK4N13dRQ=
+	s=default; t=1565340183;
+	bh=WLcF7NYblFPeKbzze7p/s2io2Wp718NHnxF6tP0k1nQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NXdqNhais9oyFoAfp8EVPbjQsSZ+a6w1r6iKEHFLaVhV413hm17lUkDOVvt1bMnQf
+	 jp4omoamuUNr2dPcKf6Po/9fqXRwO1s5M1FzODm36B5HHycEDpKZS0lGZHHkEHE/nx
+	 BFW1R6sQBJEbppaInE9won+Q/UyacaA/++dRbeYY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 527D5F805F9;
-	Fri,  9 Aug 2019 10:25:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72662F80391;
+	Fri,  9 Aug 2019 10:41:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8F2ECF805FA; Fri,  9 Aug 2019 10:25:05 +0200 (CEST)
+ id E339EF803F3; Fri,  9 Aug 2019 10:41:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 540D4F805F5
- for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 10:25:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 540D4F805F5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="k31HPisK"
-Received: by mail-wm1-x341.google.com with SMTP id f72so4801978wmf.5
- for <alsa-devel@alsa-project.org>; Fri, 09 Aug 2019 01:25:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Yi51TwivV5MGEpDQ4mr9gOZ4jMyu3GWtUO7Aw8f23Cg=;
- b=k31HPisK11a8kdaMYCVnBq9a23l36+ZiSRXZYFd8rhpmKaN19iKyV2V8FpC9WyOo49
- xbCvbeXm0iZSwkXRFsChD+2SKvpOANVY+0EnL7YMQ/1zPwATASIZNlI78Itx3+HNQKeF
- N56Te+9xFz538p5Z0MJv619MbNDjsPZxz2mFWyG0scevzGLJML2+97SGQIZhNk9woLiC
- GSjwMfx7Ep8kkdiCSl9HYok3FchGsWGhHenE0HuIfuK4xrBgkbXMGn7AQ5HfTi019+rg
- 2e52LOMCjYjO6GVQxYmp3PSsGLAeCeIyn690a2wRLZRdh2b1/lny+ISvnNsLEyZ4dzxJ
- vPeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Yi51TwivV5MGEpDQ4mr9gOZ4jMyu3GWtUO7Aw8f23Cg=;
- b=FnfWbM2Fxfsa3618Vz4AICKki1n2m6uT8gc91iwrsiP/jLWBsLp8aLxGODleNE99eI
- tzaDBfR00ZNra/+Gpu+V4CF+rd7G/i4n5W7RvCLI5TbHMudDuH3DMOGNffs2qpnIkNJQ
- uXAfKzUKIwBgug9/c+GXgImgjRwzHxoAyMlPtNBJ6Y52ocBUNBuMTVY2aI/C5Tt0OqQN
- HDLaPiHnhnRPIHJSV2eLRPSAPL7Qto60x1H2bkf195RVbrasNtPQ9F/oF6jhepVGXRlQ
- IsYJd0D4mZu52YvCai4AAD8Ci02dEL6hqq/x515+ISHmb4STlz1pErm/eEsIK99WaG8S
- JZnA==
-X-Gm-Message-State: APjAAAV+1la5mJso20S0xG8neClWsPEn6tUElk1X/771auyX/Pt1B7LR
- PjRxJUcgJ35ICtX0gVlznl0Qow==
-X-Google-Smtp-Source: APXvYqxmshOw7dTQDg6nbnPuSCdUFhK3cdBxHTZCHyDyesCDw8lBQVlcoBBFYsEYjAjRewuVrK0BJg==
-X-Received: by 2002:a1c:d10c:: with SMTP id i12mr9410070wmg.152.1565339102184; 
- Fri, 09 Aug 2019 01:25:02 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id m7sm81060799wrx.65.2019.08.09.01.25.01
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 09 Aug 2019 01:25:01 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
-References: <20190808144504.24823-1-srinivas.kandagatla@linaro.org>
- <20190808144504.24823-2-srinivas.kandagatla@linaro.org>
- <d346b2af-f285-4c53-b706-46a129ab7951@linux.intel.com>
- <cdd2bded-551c-65f5-ca29-d2bb825bdaba@linaro.org>
- <20190808195216.GM3795@sirena.co.uk>
- <20190809045459.GG12733@vkoul-mobl.Dlink>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <144f1ed7-c654-eaeb-066e-bf29d6e12d65@linaro.org>
-Date: Fri, 9 Aug 2019 09:25:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20190809045459.GG12733@vkoul-mobl.Dlink>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- lgirdwood@gmail.com, robh+dt@kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 1/4] dt-bindings: soundwire: add slave
-	bindings
+ by alsa1.perex.cz (Postfix) with ESMTPS id D10ADF8036B
+ for <alsa-devel@alsa-project.org>; Fri,  9 Aug 2019 10:41:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D10ADF8036B
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 09 Aug 2019 01:41:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,364,1559545200"; d="scan'208";a="193349073"
+Received: from smielczx-ws.igk.intel.com ([10.237.93.152])
+ by fmsmga001.fm.intel.com with ESMTP; 09 Aug 2019 01:41:09 -0700
+From: Szymon Mielczarek <szymonx.mielczarek@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Fri,  9 Aug 2019 10:40:34 +0200
+Message-Id: <20190809084034.26220-1-szymonx.mielczarek@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>,
+ Szymon Mielczarek <szymonx.mielczarek@linux.intel.com>
+Subject: [alsa-devel] [RFC PATCH] ASoC: dapm: Invalidate only paths
+	reachable for a given stream
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,34 +67,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAwOS8wOC8yMDE5IDA1OjU0LCBWaW5vZCBLb3VsIHdyb3RlOgo+IE9uIDA4LTA4LTE5LCAy
-MDo1MiwgTWFyayBCcm93biB3cm90ZToKPj4gT24gVGh1LCBBdWcgMDgsIDIwMTkgYXQgMDU6NDg6
-NTZQTSArMDEwMCwgU3Jpbml2YXMgS2FuZGFnYXRsYSB3cm90ZToKPj4+IE9uIDA4LzA4LzIwMTkg
-MTY6NTgsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+Pgo+Pj4+PiArLSBzZHctaW5zdGFu
-Y2UtaWQ6IFNob3VsZCBiZSAoJ0luc3RhbmNlIElEJykgZnJvbSBTb3VuZFdpcmUKPj4+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoCBFbnVtZXJhdGlvbiBBZGRyZXNzLiBJbnN0YW5jZSBJRCBpcyBmb3Ig
-dGhlIGNhc2VzCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqAgd2hlcmUgbXVsdGlwbGUgRGV2aWNl
-cyBvZiB0aGUgc2FtZSB0eXBlIG9yIENsYXNzCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqAgYXJl
-IGF0dGFjaGVkIHRvIHRoZSBidXMuCj4+Cj4+Pj4gc28gaXQgaXMgYWN0dWFsbHkgcmVxdWlyZWQg
-aWYgeW91IGhhdmUgYSBzaW5nbGUgU2xhdmUgZGV2aWNlPyBPciBpcyBpdAo+Pj4+IG9ubHkgcmVx
-dWlyZWQgd2hlbiB5b3UgaGF2ZSBtb3JlIHRoYW4gMSBkZXZpY2Ugb2YgdGhlIHNhbWUgdHlwZT8K
-Pj4KPj4+IFRoaXMgaXMgbWFuZGF0b3J5IGZvciBhbnkgc2xhdmUgZGV2aWNlIQo+Pgo+PiBJZiBp
-dCdzIG1hbmRhdG9yeSB0aGUgd29yZGluZyBpcyBhIGJpdCB1bmNsZWFyLiAgSG93IGFib3V0IHNv
-bWV0aGluZwo+PiBsaWtlOgo+Pgo+PiAJU2hvdWxkIGJlICgnSW5zdGFuY2UgSUQnKSBmcm9tIHRo
-ZSBTb3VuZFdpcmUgRW51bWVyYXRpb24KPj4gCUFkZHJlc3MuICBUaGlzIG11c3QgYWx3YXlzIGJl
-IHByb3ZpZGVkLCBpZiBtdWx0aXBsZSBkZXZpY2VzCj4+IAl3aXRoIHRoZSBzYW1lIHR5cGUgb3Ig
-Y2xhc3Mgb3IgYXR0YWNoZWQgdG8gdGhlIGJ1cyBlYWNoCj4+IAlpbnN0YW5jZSBtdXN0IGhhdmUg
-YSBkaXN0aW5jdCB2YWx1ZS4KPiAKPiBUaGF0IGhlbHBzIHRvIG1ha2UgaXQgY2xlYXIuCj4gCj4g
-QWxzbyB0aGUgc2VjdGlvbiBvZiBwcm9wZXJ0aWVzIHN0YXJ0cyB3aXRoIE1hbmRhdG9yeSBwcm9w
-ZXJ0eSwgaXQgc2hvdWxkCj4gYmUgbWFkZSBNYW5kYXRvcnkgUHJvcGVydGllcyBpbnN0ZWFkLCBs
-aWtlIGluIG90aGVyIGJpbmRpbmcgZG9jcyB0byBtYWtlCj4gaXQgY2xlYXIgdGhhdCBwcm9wZXJ0
-aWVzIG1lbnRpb25lZCBpbiB0aGUgc2VjdGlvbiBhcmUgbWFuZGF0b3J5CgpXaWxsIHVwZGF0ZSBh
-cyBzdWdnZXN0ZWQhCgp0aGFua3MsCnNyaW5pCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxA
-YWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+By resetting the cached number of endpoints for all card's widgets we may
+overwrite previously cached values for other streams. The situation may
+happen especially when running streams simultaneously.
+
+Signed-off-by: Szymon Mielczarek <szymonx.mielczarek@linux.intel.com>
+---
+ sound/soc/soc-dapm.c | 50 ++++++++++++++++++++++++++++++++------------
+ 1 file changed, 37 insertions(+), 13 deletions(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index d09bdca63c62..10819b3e0b98 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -1128,6 +1128,34 @@ static int dapm_widget_list_create(struct snd_soc_dapm_widget_list **list,
+ 	return 0;
+ }
+ 
++/*
++ * Recursively reset the cached number of inputs or outputs for the specified
++ * widget and all widgets that can be reached via incoming or outcoming paths
++ * from the widget.
++ */
++static void invalidate_paths_ep(struct snd_soc_dapm_widget *widget,
++	enum snd_soc_dapm_direction dir)
++{
++	enum snd_soc_dapm_direction rdir = SND_SOC_DAPM_DIR_REVERSE(dir);
++	struct snd_soc_dapm_path *path;
++
++	widget->endpoints[dir] = -1;
++
++	snd_soc_dapm_widget_for_each_path(widget, rdir, path) {
++		if (path->weak || path->is_supply)
++			continue;
++
++		if (path->walking)
++			return;
++
++		if (path->connect) {
++			path->walking = 1;
++			invalidate_paths_ep(path->node[dir], dir);
++			path->walking = 0;
++		}
++	}
++}
++
+ /*
+  * Common implementation for is_connected_output_ep() and
+  * is_connected_input_ep(). The function is inlined since the combined size of
+@@ -1257,21 +1285,17 @@ int snd_soc_dapm_dai_get_connected_widgets(struct snd_soc_dai *dai, int stream,
+ 
+ 	mutex_lock_nested(&card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
+ 
+-	/*
+-	 * For is_connected_{output,input}_ep fully discover the graph we need
+-	 * to reset the cached number of inputs and outputs.
+-	 */
+-	list_for_each_entry(w, &card->widgets, list) {
+-		w->endpoints[SND_SOC_DAPM_DIR_IN] = -1;
+-		w->endpoints[SND_SOC_DAPM_DIR_OUT] = -1;
+-	}
+-
+-	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
+-		paths = is_connected_output_ep(dai->playback_widget, &widgets,
++	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		w = dai->playback_widget;
++		invalidate_paths_ep(w, SND_SOC_DAPM_DIR_OUT);
++		paths = is_connected_output_ep(w, &widgets,
+ 				custom_stop_condition);
+-	else
+-		paths = is_connected_input_ep(dai->capture_widget, &widgets,
++	} else {
++		w = dai->capture_widget;
++		invalidate_paths_ep(w, SND_SOC_DAPM_DIR_IN);
++		paths = is_connected_input_ep(w, &widgets,
+ 				custom_stop_condition);
++	}
+ 
+ 	/* Drop starting point */
+ 	list_del(widgets.next);
+-- 
+2.17.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

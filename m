@@ -2,75 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34A9A88A40
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 11:23:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B9888B39
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 14:12:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD9A038;
-	Sat, 10 Aug 2019 11:22:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD9A038
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC7E21664;
+	Sat, 10 Aug 2019 14:11:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC7E21664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565429018;
-	bh=dkRxxhv6+EHVtjaBUZPmJMcYnjcNOgiJXZO5vWTv9T8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565439134;
+	bh=onFf8/rrSRoOjlrB7Ru0PEc0e7bunFCy/7jBpCZZEwE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OsO9ilnxuWVfK3j4MtJqGXaCH0Do6Soh7liUG6hRBo0PpNIywaU5hGhdIXG+Vc1XX
-	 fTsi/COLnSg2EnPjqhCInI/E5jo/jbUTlot1bb+XnwUhH3vZsG3jqgpQR/t+zlzvpK
-	 eGRrEXpNuZxjepdv0NomcgyxvyCohUsJ50W+S1Hg=
+	b=CGQSZLAZzvFuqT1PmWn2REVwvOPEsy8fBBzKrR5tKLcYu9xoa+NZTHmweFuf9s8SB
+	 eJEmcxk/tCx+kQES2IFVsGqxlyOgQpD5LArpQ/MoHlMCXYNIohB6l3wClfSYwaTk99
+	 zjvCpAj0emfgLWHARlsesXhYgaGYi9lSqd/kMqMI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 661E5F805AA;
-	Sat, 10 Aug 2019 11:21:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12816F80506;
+	Sat, 10 Aug 2019 14:10:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27C50F805A8; Sat, 10 Aug 2019 11:21:49 +0200 (CEST)
+ id 0F696F80506; Sat, 10 Aug 2019 14:10:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from bitmer.com (50-87-157-213.static.tentacle.fi [213.157.87.50])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
+ [IPv6:2a00:1450:4864:20::542])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6FA5F8053A
- for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 11:21:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6FA5F8053A
-Received: from dsl-hkibng31-54fae9-19.dhcp.inet.fi ([84.250.233.19]
- helo=[192.168.1.42])
- by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
- (Exim 4.84_2) (envelope-from <jarkko.nikula@bitmer.com>)
- id 1hwNZ6-0004it-67; Sat, 10 Aug 2019 12:21:32 +0300
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87zhkk6wdy.wl-kuninori.morimoto.gx@renesas.com>
- <87ftmc6w8s.wl-kuninori.morimoto.gx@renesas.com>
-From: Jarkko Nikula <jarkko.nikula@bitmer.com>
-Message-ID: <bc67bd0e-cbb2-a129-672c-b4abb43c2747@bitmer.com>
-Date: Sat, 10 Aug 2019 12:21:31 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A8A6F801A4
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 14:10:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A8A6F801A4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BI0e53h7"
+Received: by mail-ed1-x542.google.com with SMTP id k21so98480957edq.3
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 05:10:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dis7z7CKeaJIH6/9XpNsXDGPeyjfocLYTvKKppWIsAg=;
+ b=BI0e53h7TLbWb15bHbVirTLi9w8VJ3JtSeJCzhTE+fhmlm8iMLM5P+ftfRJxITLwjm
+ MkRLBwnaX0IKeFwbOP0/TjZLAwIXvl7BUgTa0DXczv6CMu7yPlc7cDtI8nbAe7Td+yfo
+ Xq5opDX9hE2la6DFZcIde6UbHpH+jwxVjlm1uqVmq724plPpjuULxrWEClr1jQfbMrlp
+ 0ILo8uYPDpC+OiulojZ6ibiDJ16B0Lzj8vNA0rmJOY7mRlQxDuXKw9WLsL0ERE9tnnnm
+ a5N224vAQnuAvYEkTxUacV8muchFEK+MaR1zh15GQno3iP2izgHRi8nP0Y0jxK22QMEz
+ 8jCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dis7z7CKeaJIH6/9XpNsXDGPeyjfocLYTvKKppWIsAg=;
+ b=M3gusMZxtWvmKz6UPHKkXD+gJxO5TQq8BGRaiaog/Xvwsf6ZyEN1yjtuvqQlIQtc2J
+ Z0q6s1QrQUFBiBkXhtG+KDoTSiu8lBFVTXBMAYKWQgn4ZQtzSO3SOkZDJr09VLUgjvxY
+ 5raSteBo6zll83UH6wlOW+6KkSYeb+AIdtqPWehY/xUmgs5u3GRzy/rBbYDYKtHA6/4z
+ e3ZWh75uSHHgZnrfJ2IXeU2R9n8wldj664eGFLRJe2sLS6Up+iqqF5gS3thKkhGdwMOq
+ 5PbkhUXr7UJ49K4npTzgkcYH13E77329SSQRRxV1kzmU9z8uzEQ12+/Yv/Ll3QV8vplX
+ iUTA==
+X-Gm-Message-State: APjAAAXESUSvwQvVAbOjoVkoye0OiYQYyRZFb0/TSyKNkg6TXi0BBaHM
+ oVjA8RyMQDajOLwgEowjj4QnocI4cfkMmYV2bY4=
+X-Google-Smtp-Source: APXvYqyQRyc8Tn1oRO6rm7JAxTZhlC0HDggzSCUn3X7v6aV4yxERODBlCIGwJOfFy2XSMdQRmy/JQ8GKHavhQu8Td1w=
+X-Received: by 2002:a05:6402:6cb:: with SMTP id
+ n11mr27012051edy.101.1565439025643; 
+ Sat, 10 Aug 2019 05:10:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <87ftmc6w8s.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Heiko Stuebner <heiko@sntech.de>, Maxime Ripard <maxime.ripard@bootlin.com>,
- Jie Yang <yang.jie@linux.intel.com>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, Richard Fontana <rfontana@redhat.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Anders Roxell <anders.roxell@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, YueHaibing <yuehaibing@huawei.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
- Chen-Yu Tsai <wens@csie.org>,
- Georgii Staroselski i <georgii.staroselskii@emlid.com>,
- Danny Milosavljevic <dannym@scratchpost.org>,
- Hans de Goede <hdegoede@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>
-Subject: Re: [alsa-devel] [PATCH 14/15] ASoC: soc-core: add for_each_xxx
-	macro for aux_dev
+References: <CAKSqxP-f+4KCUU79prHaLi2--3H8jAA9iXYxK-EoA8oQKNv=XA@mail.gmail.com>
+ <s5htvaumudc.wl-tiwai@suse.de>
+In-Reply-To: <s5htvaumudc.wl-tiwai@suse.de>
+From: Paul Pawlowski <mrarmdev@gmail.com>
+Date: Sat, 10 Aug 2019 14:10:14 +0200
+Message-ID: <CAKSqxP-dJJAFigGgUQRww1va4uAeVQv=hQu2EMaWSmbGE2gLaQ@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Writing /usr/share/alsa/cards/ files
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,21 +96,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 8/8/19 8:54 AM, Kuninori Morimoto wrote:
-> 
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> To be more readable code, this patch adds
-> new for_each_xxx() macro for aux_dev.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  include/sound/soc.h        | 10 ++++++++++
->  sound/soc/meson/axg-card.c |  7 ++++---
->  sound/soc/soc-core.c       | 15 ++++++++-------
->  3 files changed, 22 insertions(+), 10 deletions(-)
-> 
-Tested-by: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Hello,
+I am writing a driver for a device with the following PCM outputs:
+- Speaker
+- Codec Output (Headphone/Jack)
+There's also Loopback, but right now I'm unsure how does it work, I
+don't think it's something I should be concerned with right now. There
+are also two audio inputs (an internal Microphone as well as Codec
+Input).
+
+Thank you,
+Paul Pawlowski
+
+On Tue, Aug 6, 2019 at 1:00 PM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Fri, 02 Aug 2019 14:53:52 +0200,
+> Paul Pawlowski wrote:
+> >
+> > Hello,
+> > Is there any documentation on writing /usr/share/alsa/cards/ files?
+>
+> No documentation, unfortunately.
+>
+> > I painfully tried to create one in order to enable 2 separate audio outputs,
+> > but I ultimately failed to due to the lack of any sort of error reporting.
+> > Is there a way to enable any error reporting when parsing these files? It
+> > seems that the error output when parsing any hooks goes to nowhere.
+> >
+> > Also, is this the correct mailing list to get help regarding alsa driver
+> > development and configuration?
+>
+> What kind of "2 separate audio outputs" do you need to create?
+>
+>
+> Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

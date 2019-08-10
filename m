@@ -2,64 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 339328AF77
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 08:13:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD6E28AFE0
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 08:25:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 982A61654;
-	Tue, 13 Aug 2019 08:12:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 982A61654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E9241665;
+	Tue, 13 Aug 2019 08:25:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E9241665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565676799;
-	bh=GwNTKcWKAP7SCXIy5VQIKTg3SwnnDmkDCn884LuBo8k=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ATbk5Y6Cm3ekWLx3ScEPQybrU16l3hwyl9yPJWUSDkh2iSgwgbRRPojxxzo7Ovr/Y
-	 +Kd71BQArErIepcGgLA0SCeF/24a/W2UuUgRDmhBm6dN6VYak1CPN8kkeeLjpuHHbT
-	 N+F8BbVHCgspuh2S4L1QGmEFHNg4i+ugUSf8JsdE=
+	s=default; t=1565677557;
+	bh=9HN8wTcISUg3Kq2CbI3FV9wq050S+4wwrTtFMDQf0jk=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KNZPUyNNlx64eJz2xk0R542s40VSWVjxbuapVamdXmxRWyDtpkZF5PzyWNWFW2AfA
+	 hygVur9djSx9BOgZuxX0QkebjU7dDC0udBrOGxC0ZF4Aa1celusJE9P1wauAS7tvv/
+	 Q03Kt4hmqSFqxjFFNKh7bIZp47yw4UK7AED+EQYM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 33BCDF80290;
-	Tue, 13 Aug 2019 08:11:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98842F8026A;
+	Tue, 13 Aug 2019 08:24:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09F05F80290; Tue, 13 Aug 2019 08:11:53 +0200 (CEST)
+ id 4F5DDF80506; Sat, 10 Aug 2019 17:20:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ua1-x941.google.com (mail-ua1-x941.google.com
+ [IPv6:2607:f8b0:4864:20::941])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 432DDF8015A
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 08:11:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 432DDF8015A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2019 23:11:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,380,1559545200"; d="scan'208";a="351443701"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.1.116])
- ([10.252.1.116])
- by orsmga005.jf.intel.com with ESMTP; 12 Aug 2019 23:11:45 -0700
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20190812140305.17570-1-pierre-louis.bossart@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <a90318b5-3074-ecbf-f06e-872242610e2d@intel.com>
-Date: Tue, 13 Aug 2019 08:11:44 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id AA36BF800E4
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 17:20:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA36BF800E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="MaY7DTkB"
+Received: by mail-ua1-x941.google.com with SMTP id b41so890153uad.13
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 08:20:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=EjUN+G7/ldoljuzBV81WBRc3z14xphld9AUM/n7du80=;
+ b=MaY7DTkBxMKVQOXqlPR2JjLYTPi5O/HXmGkeb/XBXHFvX5CrQP5FsxmZIJv6mGM+Dm
+ 9Gse/l/zuA5T5H+ydg4ErUa1Rtw4jgoOoBcZ3SsgFm/sX9XEZ2+To/B3NGJ3Fn6uEsGe
+ NcTA5P6JRBbjZ9SwWeEo3yU2YiD2UMtIimvRjeb9ta/1OfrWvQ9WXb6XofZJ3R/L92r5
+ Doir/m069OWEXWjkWWToDkLeVEW2alOaLNaWn1CmlZBCxXeARwCH41RJI/fze/Zuokov
+ yj8JaCEwZurUANlR9knLmTllIA7Y7vBIyYF3fo3/OKNM6Joj6C6yLLxUdze8gd94s6WR
+ n06Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=EjUN+G7/ldoljuzBV81WBRc3z14xphld9AUM/n7du80=;
+ b=huOApuZTGb+lh/g2gJDbtrn+6LHK6CDWFxEPrh5qbKaTJm2qpPfQl+wYzBIM7aPPZu
+ GTVJxUTEANga/bpQ/c5kx3Oo9ZbRu0DbBze0nYFcTK3ZXysQZzv6wYZH2i1SxHOIo1xU
+ laRWEOvaiz63lXdluBhc95t+TartpqdOuz+mmWcqjZ0sG9LjIeWO2US495xRhokgMZlc
+ +VlnRrtaXDIkobgiUr/j/phXamzWXSs88ET/YBcg6a4MWc+ybiMRDZ1jh8onC9GGu7t4
+ a52zcV63fp9xlWzQOCB665r2YPYtkr0wgUqUNOgrOJ3VaXaSNLnOAemjCj5G3dZyJFjW
+ MB4Q==
+X-Gm-Message-State: APjAAAXTTluklf+/gRVKXVsU0T34j/7cyajBHrSwxMxlsV/A8LGUNkDA
+ iaTuI0k/HKDqNXrq9vdCW7mxmi1A2/kvoK5uVH4fCzXx
+X-Google-Smtp-Source: APXvYqyxccYR0GwaUjJ2rLeDE/j2ElmFTHoROXn6O7GBROSAuOMQk6++b2MjaZ2ZE2wxxgiELe9cW+0NWiwmdlG/LRA=
+X-Received: by 2002:ab0:28c5:: with SMTP id g5mr15777075uaq.16.1565450413126; 
+ Sat, 10 Aug 2019 08:20:13 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190812140305.17570-1-pierre-louis.bossart@linux.intel.com>
-Content-Language: en-US
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- kbuild test robot <lkp@intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: hsw: remove i386 build
- warning w/ size_t argument
+From: Nilesh Kumar <nileshcool@gmail.com>
+Date: Sat, 10 Aug 2019 20:50:43 +0530
+Message-ID: <CA+=sdFyw9eR2VoOrU4cnzRrEsa0pNT4S-=7VJNcyvNNFucW+pg@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Tue, 13 Aug 2019 08:24:11 +0200
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] Unable to get sound out of Laptop
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,48 +86,20 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-08-12 16:03, Pierre-Louis Bossart wrote:
-> Recent changes in the common IPC code introduced a build warning with
-> size_t fields, use the correct %zu format.
-> 
-> include/linux/dynamic_debug.h:82:16: warning: format '%lu' expects
-> argument of type 'long unsigned int', but argument 4 has type 'size_t'
-> [-Wformat=]
-> 
-> Fixes: abf31feea26c0 ('ASoC: Intel: Update request-reply IPC model')
-> Reported-by: kbuild test robot <lkp@intel.com>
-> Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->   sound/soc/intel/haswell/sst-haswell-ipc.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/intel/haswell/sst-haswell-ipc.c b/sound/soc/intel/haswell/sst-haswell-ipc.c
-> index 5c73b11375e3..0ff89ea96ccf 100644
-> --- a/sound/soc/intel/haswell/sst-haswell-ipc.c
-> +++ b/sound/soc/intel/haswell/sst-haswell-ipc.c
-> @@ -2015,11 +2015,11 @@ int sst_hsw_module_set_param(struct sst_hsw *hsw,
->   
->   	if (payload_size <= SST_HSW_IPC_MAX_SHORT_PARAMETER_SIZE) {
->   		/* short parameter, mailbox can contain data */
-> -		dev_dbg(dev, "transfer parameter size : %lu\n",
-> +		dev_dbg(dev, "transfer parameter size : %zu\n",
->   			request.size);
->   
->   		request.size = ALIGN(payload_size, 4);
-> -		dev_dbg(dev, "transfer parameter aligned size : %lu\n",
-> +		dev_dbg(dev, "transfer parameter aligned size : %zu\n",
->   			request.size);
->   
->   		parameter = kzalloc(request.size, GFP_KERNEL);
-> 
+Hello all,
+I am unable to get sound out of my "HP Notebook - 15-bs180tx" laptop, the
+output of alsa-info,sh is been uploaded at
+http://www.alsa-project.org/db/?f=5b015c625cef0cc14b0c0551cb57bc1e35d4b40a
+so, I would really appreciate if someone could see the log and help me out
+in configuring my sound card
 
-Acked-By: Cezary Rojewski <cezary.rojewski@intel.com>
+-- 
+Nilesh Kumar
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

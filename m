@@ -2,76 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D9C988831
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 06:32:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19118888F7
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 09:03:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C84AD846;
-	Sat, 10 Aug 2019 06:31:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C84AD846
+	by alsa0.perex.cz (Postfix) with ESMTPS id A98531661;
+	Sat, 10 Aug 2019 09:02:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A98531661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565411520;
-	bh=HgF+8UvL8gjQ754bKyqMUO6yt1pSiWOnJmQPL3mR+N0=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=APsnY4ETHRGGLiNMCrhwG03XQDkM7NR4rPi2HKKt6SYJPZTKzKjUNQAreQ29o+4QB
-	 bYBJNx/5IvCQyGIfpmH9QuTAMlOSGzXiLzCGBdWyW3qQ11ffhhzaNU7XgjipBetBUG
-	 IMcxnA7MpqE0ydtrbiZJ9MZbEzkFhFNufs0WQpIg=
+	s=default; t=1565420613;
+	bh=nBSaNKWZjDaytAHaVm9pTVHw94UK45I1nt5MnUEFzqA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=X7dsvtge63y9e2oGiLAn/Pvbkig0EBBxdfRxjn1EacTN99KbePkeymckS2J06ZIG2
+	 QW6cQFCn0j6/S+9YZs/H4Fl+E7V9SC8B2MqK7ik40ulj0QaSboZdRWxvE0IweGmBGZ
+	 fyay9j4egwHCUeTrqbDOYg21W92V+H4DvXFO9JSA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25381F80506;
-	Sat, 10 Aug 2019 06:30:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 018ACF80506;
+	Sat, 10 Aug 2019 09:01:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6EBAF801A4; Sat, 10 Aug 2019 06:30:08 +0200 (CEST)
+ id EC4ACF80506; Sat, 10 Aug 2019 09:01:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
- [209.85.219.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0CF6F801A4
- for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 06:30:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0CF6F801A4
-Received: by mail-yb1-f195.google.com with SMTP id s41so14370448ybe.12
- for <alsa-devel@alsa-project.org>; Fri, 09 Aug 2019 21:30:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Qpn09Q2IPVk1Zallzy6o+fiJZ4cg6kBGPdGeFP8iFUE=;
- b=Yv4h+pg9UNACZByOLTu0vHSufhvcf0/e+x/Dz5U9V70wcYABdtR/ToVy48hvVsyZ+l
- WbZAk+aX5FYCJPA35+H1uGZCcd5eIrGqDXhPbRagasxv6oVt5AeD2duiLjLlJ9pW4/ab
- 3VszaU9/echz2Y7tttGYWCzL6QQVCq7twHrQEKuHqTRNMr8vdOuL7SY/41cKDuFU3pOt
- VtU+8pNJSlaCRmJD25MwGPblcwg+tIla/wTPiNihn5s+47ukQP0fs4ja4BbUtVQ8Iudu
- 2FMvNO7+8JUReSI3Fqx5uSiKo3Bw/rN4Ear2z8LUp0/QOARNIcbZE3RvCl+8aXZF0pH9
- cxAQ==
-X-Gm-Message-State: APjAAAXdWvilRsS3cFCqO7edaoDX3NXP5pmxDy4WpZEWLNUweo3JmH43
- kDUyMUCOLCNEsvjACfBcvIA=
-X-Google-Smtp-Source: APXvYqwfKHOcF3+5sX+39qBI1GTLIQlNHuIdHvEGVBed9ILaHTwHRCaZUAl2NSo9E1anp4YT+mluow==
-X-Received: by 2002:a25:8489:: with SMTP id v9mr14978725ybk.1.1565411402054;
- Fri, 09 Aug 2019 21:30:02 -0700 (PDT)
-Received: from localhost.localdomain (24-158-240-219.dhcp.smyr.ga.charter.com.
- [24.158.240.219])
- by smtp.gmail.com with ESMTPSA id p141sm22736227ywg.78.2019.08.09.21.30.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 09 Aug 2019 21:30:00 -0700 (PDT)
-From: Wenwen Wang <wenwen@cs.uga.edu>
-To: Wenwen Wang <wenwen@cs.uga.edu>
-Date: Fri,  9 Aug 2019 23:29:48 -0500
-Message-Id: <1565411390-2684-1-git-send-email-wenwen@cs.uga.edu>
-X-Mailer: git-send-email 2.7.4
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- "moderated list:SOUND" <alsa-devel@alsa-project.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Thomas Gleixner <tglx@linutronix.de>, open list <linux-kernel@vger.kernel.org>
-Subject: [alsa-devel] [PATCH] ALSA: hda - Fix a memory leak bug
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3DC49F800E4
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 09:01:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DC49F800E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="zMKgCX6L"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9C6D4208C3;
+ Sat, 10 Aug 2019 07:01:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1565420502;
+ bh=Lpl1tv0ZPmCHKs7Wm3c2RiDk3aHvcWbSYtNcAGiA+0U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=zMKgCX6LTZ31whgaOUfHvBf9ZWrBfv2zLYsXsSblyjUxKJebQYh8KYYTWI3UOV7qt
+ dzN6g7/4eqEWD5AaZlC2GiaVjFV59uIBtJp2uRvAOJzsB9uRE+/j6+rniM6EHu3Azz
+ V+l4x6Nd7uKQ16n5stC3fHQb2+ixMWY4Znv5M2v4=
+Date: Sat, 10 Aug 2019 09:01:39 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190810070139.GA6896@kroah.com>
+References: <20190809224341.15726-1-pierre-louis.bossart@linux.intel.com>
+ <20190809224341.15726-2-pierre-louis.bossart@linux.intel.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190809224341.15726-2-pierre-louis.bossart@linux.intel.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
+ vkoul@kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/3] soundwire: add debugfs support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,39 +80,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In snd_hda_parse_generic_codec(), 'spec' is allocated through kzalloc().
-Then, the pin widgets in 'codec' are parsed. However, if the parsing
-process fails, 'spec' is not deallocated, leading to a memory leak.
+On Fri, Aug 09, 2019 at 05:43:39PM -0500, Pierre-Louis Bossart wrote:
+> Add base debugfs mechanism for SoundWire bus by creating soundwire
+> root and master-N and slave-x hierarchy.
+> 
+> Also add SDW Slave SCP, DP0 and DP-N register debug file.
+> 
+> Registers not implemented will print as "XX"
+> 
+> Credits: this patch is based on an earlier internal contribution by
+> Vinod Koul, Sanyog Kale, Shreyas Nc and Hardik Shah.
+> 
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> ---
+>  drivers/soundwire/Makefile    |   5 ++
+>  drivers/soundwire/bus.c       |   6 ++
+>  drivers/soundwire/bus.h       |  24 ++++++
+>  drivers/soundwire/bus_type.c  |   3 +
+>  drivers/soundwire/debugfs.c   | 151 ++++++++++++++++++++++++++++++++++
+>  drivers/soundwire/slave.c     |   1 +
+>  include/linux/soundwire/sdw.h |   4 +
+>  7 files changed, 194 insertions(+)
+>  create mode 100644 drivers/soundwire/debugfs.c
+> 
+> diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
+> index fd99a831b92a..05d4cb9ef7d6 100644
+> --- a/drivers/soundwire/Makefile
+> +++ b/drivers/soundwire/Makefile
+> @@ -5,6 +5,11 @@
+>  
+>  #Bus Objs
+>  soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o
+> +
+> +ifdef CONFIG_DEBUG_FS
+> +soundwire-bus-objs += debugfs.o
+> +endif
+> +
+>  obj-$(CONFIG_SOUNDWIRE_BUS) += soundwire-bus.o
+>  
+>  #Cadence Objs
+> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+> index 49f64b2115b9..89d5f1537d9b 100644
+> --- a/drivers/soundwire/bus.c
+> +++ b/drivers/soundwire/bus.c
+> @@ -49,6 +49,8 @@ int sdw_add_bus_master(struct sdw_bus *bus)
+>  		}
+>  	}
+>  
+> +	bus->debugfs = sdw_bus_debugfs_init(bus);
+> +
 
-To fix the above issue, free 'spec' before returning the error.
+It's "nicer" to just put that assignment into sdw_bus_debugfs_init().
 
-Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
----
- sound/pci/hda/hda_generic.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+That way you just call the function, no need to return anything.
 
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index 485edab..8f2beb1 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -6100,7 +6100,7 @@ static int snd_hda_parse_generic_codec(struct hda_codec *codec)
- 
- 	err = snd_hda_parse_pin_defcfg(codec, &spec->autocfg, NULL, 0);
- 	if (err < 0)
--		return err;
-+		goto error;
- 
- 	err = snd_hda_gen_parse_auto_config(codec, &spec->autocfg);
- 	if (err < 0)
--- 
-2.7.4
+>  	/*
+>  	 * Device numbers in SoundWire are 0 through 15. Enumeration device
+>  	 * number (0), Broadcast device number (15), Group numbers (12 and
+> @@ -109,6 +111,8 @@ static int sdw_delete_slave(struct device *dev, void *data)
+>  	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+>  	struct sdw_bus *bus = slave->bus;
+>  
+> +	sdw_slave_debugfs_exit(slave->debugfs);
 
+Same here, just pass in slave:
+	sdw_slave_debugfs_exit(slave);
+and have that function remove the debugfs entry in the structure.  That
+way, if you are really paranoid about size, you could even drop the
+debugfs structure member from non-debugfs builds without any changes to
+bus.c or other non-debugfs files.
+
+thanks,
+
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

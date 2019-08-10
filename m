@@ -2,62 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91D57886E6
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 01:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D9C988831
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 06:32:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 181EC15E5;
-	Sat, 10 Aug 2019 01:26:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 181EC15E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id C84AD846;
+	Sat, 10 Aug 2019 06:31:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C84AD846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565393225;
-	bh=r9eUCgsg+XnMEo99TIJzys68ij+OeQGZvBNPUbRDlDA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Y7YL3DJqDPV7zV/rbyXKWFMHebJeOfwAsjpCIK2st305ITDQGWKCoMs3eSGMcp1bM
-	 5YQNGxwLkYis8/21TpWHNig/vbskcOUhiT/yrrL3SYUwTq1YMx+5JLiJZtfogv7jk8
-	 z17tI9dcC1IF0D+BdCSs+uAwKdU6BXI+kE8nvmn4=
+	s=default; t=1565411520;
+	bh=HgF+8UvL8gjQ754bKyqMUO6yt1pSiWOnJmQPL3mR+N0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=APsnY4ETHRGGLiNMCrhwG03XQDkM7NR4rPi2HKKt6SYJPZTKzKjUNQAreQ29o+4QB
+	 bYBJNx/5IvCQyGIfpmH9QuTAMlOSGzXiLzCGBdWyW3qQ11ffhhzaNU7XgjipBetBUG
+	 IMcxnA7MpqE0ydtrbiZJ9MZbEzkFhFNufs0WQpIg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 033EAF805FE;
-	Sat, 10 Aug 2019 01:22:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25381F80506;
+	Sat, 10 Aug 2019 06:30:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D86F4F805E1; Sat, 10 Aug 2019 01:22:50 +0200 (CEST)
+ id A6EBAF801A4; Sat, 10 Aug 2019 06:30:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-yb1-f195.google.com (mail-yb1-f195.google.com
+ [209.85.219.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4469DF804AB
- for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 01:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4469DF804AB
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Aug 2019 16:22:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,367,1559545200"; d="scan'208";a="177770349"
-Received: from jpfeiff1-mobl6.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.252.128.143])
- by orsmga003.jf.intel.com with ESMTP; 09 Aug 2019 16:22:41 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Fri,  9 Aug 2019 18:22:36 -0500
-Message-Id: <20190809232236.21182-5-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190809232236.21182-1-pierre-louis.bossart@linux.intel.com>
-References: <20190809232236.21182-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 4/4] ASoC: Intel: skl-hda-dsp-generic: add dmic
-	dapm widget and route
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0CF6F801A4
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 06:30:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0CF6F801A4
+Received: by mail-yb1-f195.google.com with SMTP id s41so14370448ybe.12
+ for <alsa-devel@alsa-project.org>; Fri, 09 Aug 2019 21:30:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Qpn09Q2IPVk1Zallzy6o+fiJZ4cg6kBGPdGeFP8iFUE=;
+ b=Yv4h+pg9UNACZByOLTu0vHSufhvcf0/e+x/Dz5U9V70wcYABdtR/ToVy48hvVsyZ+l
+ WbZAk+aX5FYCJPA35+H1uGZCcd5eIrGqDXhPbRagasxv6oVt5AeD2duiLjLlJ9pW4/ab
+ 3VszaU9/echz2Y7tttGYWCzL6QQVCq7twHrQEKuHqTRNMr8vdOuL7SY/41cKDuFU3pOt
+ VtU+8pNJSlaCRmJD25MwGPblcwg+tIla/wTPiNihn5s+47ukQP0fs4ja4BbUtVQ8Iudu
+ 2FMvNO7+8JUReSI3Fqx5uSiKo3Bw/rN4Ear2z8LUp0/QOARNIcbZE3RvCl+8aXZF0pH9
+ cxAQ==
+X-Gm-Message-State: APjAAAXdWvilRsS3cFCqO7edaoDX3NXP5pmxDy4WpZEWLNUweo3JmH43
+ kDUyMUCOLCNEsvjACfBcvIA=
+X-Google-Smtp-Source: APXvYqwfKHOcF3+5sX+39qBI1GTLIQlNHuIdHvEGVBed9ILaHTwHRCaZUAl2NSo9E1anp4YT+mluow==
+X-Received: by 2002:a25:8489:: with SMTP id v9mr14978725ybk.1.1565411402054;
+ Fri, 09 Aug 2019 21:30:02 -0700 (PDT)
+Received: from localhost.localdomain (24-158-240-219.dhcp.smyr.ga.charter.com.
+ [24.158.240.219])
+ by smtp.gmail.com with ESMTPSA id p141sm22736227ywg.78.2019.08.09.21.30.00
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 09 Aug 2019 21:30:00 -0700 (PDT)
+From: Wenwen Wang <wenwen@cs.uga.edu>
+To: Wenwen Wang <wenwen@cs.uga.edu>
+Date: Fri,  9 Aug 2019 23:29:48 -0500
+Message-Id: <1565411390-2684-1-git-send-email-wenwen@cs.uga.edu>
+X-Mailer: git-send-email 2.7.4
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ "moderated list:SOUND" <alsa-devel@alsa-project.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, open list <linux-kernel@vger.kernel.org>
+Subject: [alsa-devel] [PATCH] ALSA: hda - Fix a memory leak bug
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,46 +84,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Keyon Jie <yang.jie@linux.intel.com>
+In snd_hda_parse_generic_codec(), 'spec' is allocated through kzalloc().
+Then, the pin widgets in 'codec' are parsed. However, if the parsing
+process fails, 'spec' is not deallocated, leading to a memory leak.
 
-Adding DAPM MIC endpoint widget "SoC DMIC" and route, to enable
-DMIC DAPM support with hda generic machine.
+To fix the above issue, free 'spec' before returning the error.
 
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Wenwen Wang <wenwen@cs.uga.edu>
 ---
- sound/soc/intel/boards/skl_hda_dsp_generic.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/pci/hda/hda_generic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index 9ed68eb4f058..1778acdc367c 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -23,6 +23,7 @@ static const struct snd_soc_dapm_widget skl_hda_widgets[] = {
- 	SND_SOC_DAPM_MIC("Alt Analog In", NULL),
- 	SND_SOC_DAPM_SPK("Digital Out", NULL),
- 	SND_SOC_DAPM_MIC("Digital In", NULL),
-+	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
- };
+diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
+index 485edab..8f2beb1 100644
+--- a/sound/pci/hda/hda_generic.c
++++ b/sound/pci/hda/hda_generic.c
+@@ -6100,7 +6100,7 @@ static int snd_hda_parse_generic_codec(struct hda_codec *codec)
  
- static const struct snd_soc_dapm_route skl_hda_map[] = {
-@@ -41,6 +42,9 @@ static const struct snd_soc_dapm_route skl_hda_map[] = {
- 	{ "Codec Input Pin2", NULL, "Digital In" },
- 	{ "Codec Input Pin3", NULL, "Alt Analog In" },
+ 	err = snd_hda_parse_pin_defcfg(codec, &spec->autocfg, NULL, 0);
+ 	if (err < 0)
+-		return err;
++		goto error;
  
-+	/* digital mics */
-+	{"DMic", NULL, "SoC DMIC"},
-+
- 	/* CODEC BE connections */
- 	{ "Analog Codec Playback", NULL, "Analog CPU Playback" },
- 	{ "Analog CPU Playback", NULL, "codec0_out" },
+ 	err = snd_hda_gen_parse_auto_config(codec, &spec->autocfg);
+ 	if (err < 0)
 -- 
-2.20.1
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

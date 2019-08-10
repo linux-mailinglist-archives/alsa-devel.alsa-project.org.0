@@ -2,92 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE1D88A21
-	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 10:47:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C3888A3A
+	for <lists+alsa-devel@lfdr.de>; Sat, 10 Aug 2019 11:19:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0EB81612;
-	Sat, 10 Aug 2019 10:46:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0EB81612
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE10E15E5;
+	Sat, 10 Aug 2019 11:18:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE10E15E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565426845;
-	bh=rlxw/irKd3yO6ZH7dSeSVZC6pDhGZrgEjS4qMXvoWDU=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1565428770;
+	bh=eTKBsGBCg2fa333a+2X9vgPGs5//LjkNiVsbRFcLvoI=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AtpShpBspoJRssxV0ey0SINwkwIElk77t2/XpslVFjOiH5qFReYutA5psob43zr45
-	 65p098q2pEN85yG3Xq5soOim3cXz7fmxR3lH29m6+E0hJVSBrdcRkMGbw0TD67/m2x
-	 ybcJCTkklvglsp6F8Y3Um6DWFvuHj8+acbd6ejtk=
+	b=oAOMcSqnd7la8KqODQiiyt4pNkxQkDmz8drpYgaqqeJokBsktHcbrlMsEFBH5rTcW
+	 /TqHNLe7va5wh381/VjIFntjC3lxqUX1JOE7qd1IPfVvyC2mZpohpqnm1btLh0Ruiu
+	 Xjb9GoQlFkWTY0eGs8t6fxitiqJZq3q+J/F4xT0s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9055F804FF;
-	Sat, 10 Aug 2019 10:45:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0038AF801A4;
+	Sat, 10 Aug 2019 11:17:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D31D3F80506; Sat, 10 Aug 2019 10:45:39 +0200 (CEST)
+ id 583D1F80506; Sat, 10 Aug 2019 11:17:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb43.google.com (mail-yb1-xb43.google.com
- [IPv6:2607:f8b0:4864:20::b43])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ T_FILL_THIS_FORM_SHORT,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bitmer.com (50-87-157-213.static.tentacle.fi [213.157.87.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 316AFF8015B
- for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 10:45:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 316AFF8015B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="tFjHxYGs"
-Received: by mail-yb1-xb43.google.com with SMTP id n7so1738245ybd.8
- for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 01:45:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=4N2DP4l2LpXR0ja9/QlgTCxk89cb9ApRuW6Y7KL7/QM=;
- b=tFjHxYGsshA6uhC4ZyO8gQA5CGqOklLRWWxRbDw74L/pi+b9ttnCV0SxJXzM1GWIvS
- F9rYQq1hBhIsaxKOI08ZyaGxkadwK312OhWil5n/UwwkKSmadnu/olRJh1TePylAFF1P
- 4ktVi+A2LsntpLrg+0r5GSjYQS6MoaBf5QcbFDhiWv7xJnDJnGAAFTUKJLcAwhajChY9
- OyZKinHBA6UhYKPjOgT2ZHjTfw/jp+Njsc09CGDN2oGgyuMarC1b8lJbRsvnx9Il0N93
- Q2aGmNoPzI8TmYFqu0vVtm5p9ZXDTei6QktQwpM52ZY7q5UI24kSvWdBmw3r3ttiWOfn
- PRfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=4N2DP4l2LpXR0ja9/QlgTCxk89cb9ApRuW6Y7KL7/QM=;
- b=q+VBtPPasxqJXUaj/Znyuf1ACGTSjGHL0pxitHygN6cbdl1gEKy/Dg5wYX++fEHqA1
- xHR3vFqR0QbSYvU+QXMB1qPIaBl+BgwLWlcRiFDKCKW3MnACr75zuvOxhXINVkoqlfAF
- ndNn5l+knDK3bqRuGzJCkE5lPqwzqlIcTdrrn8JolhI5sEPmg2NYNrWT0L+s5D8JPnvz
- bKv2yW4sA5ijgPnKwrEz6FMg3CW/JFmR4gTS+uT9iWUnWDBNp8lSLFrg3IstQytppZvn
- XNBr6FPA4HXYylFYIT8p+wiB1jV8rWg5aBbrWorqhFmmwmAMChKu1nLUwDTySsQcRbBZ
- qkig==
-X-Gm-Message-State: APjAAAX8Gyy28sNOPIFN8EzuJsP/3v7a360PULi67i2BAs6cmbZzhn+x
- jhZWFrzxTye7qBlSoNb643/LonmlUtpkieWofL0=
-X-Google-Smtp-Source: APXvYqwYP1MVAOUz7wJvEpUhVTE97jzCm1T5VZgDMaOxdDC99C9zKxDOMpuB6Lus4uMwey10ooqmjZMMWn1jbSlbvgQ=
-X-Received: by 2002:a25:9109:: with SMTP id v9mr17429940ybl.396.1565426734980; 
- Sat, 10 Aug 2019 01:45:34 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E85F4F8015B
+ for <alsa-devel@alsa-project.org>; Sat, 10 Aug 2019 11:17:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E85F4F8015B
+Received: from dsl-hkibng31-54fae9-19.dhcp.inet.fi ([84.250.233.19]
+ helo=[192.168.1.42])
+ by bitmer.com with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.84_2) (envelope-from <jarkko.nikula@bitmer.com>)
+ id 1hwNUe-0004fn-Kn; Sat, 10 Aug 2019 12:16:56 +0300
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87zhkk6wdy.wl-kuninori.morimoto.gx@renesas.com>
+ <87y3046wcf.wl-kuninori.morimoto.gx@renesas.com>
+From: Jarkko Nikula <jarkko.nikula@bitmer.com>
+Message-ID: <7ee1cbe3-4d6e-d843-dc2e-75bc9b3b421c@bitmer.com>
+Date: Sat, 10 Aug 2019 12:16:48 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20190527200627.8635-1-peron.clem@gmail.com>
- <CAJiuCcfUhBxEr=o7VVpPROQZadQh7z1QC0SkWSYt-53Sj3H2qw@mail.gmail.com>
- <CAJiuCcc3_1jZWV7G3+fFQYRZ8b6qcAbnH+K6pkRvww6_D=OMAw@mail.gmail.com>
- <20190715193842.GC4503@sirena.org.uk>
-In-Reply-To: <20190715193842.GC4503@sirena.org.uk>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Sat, 10 Aug 2019 10:45:23 +0200
-Message-ID: <CAJiuCceYDnyxRLLLLy6Dn6DLTZ+NmSaUnoX1Vmzvgiy0XvF_Fw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>, Maxime Ripard <maxime.ripard@bootlin.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v4 0/7] Allwinner H6 SPDIF support
+In-Reply-To: <87y3046wcf.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Heiko Stuebner <heiko@sntech.de>, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Richard Fontana <"r fontana"@redhat.com>,
+ Shunli Wang <shunli.wang@mediatek.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Anders Roxell <anders.roxell@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, YueHaibing <yuehaibing@huawei.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
+ Chen-Yu Tsai <wens@csie.org>,
+ Georgii Staroselskii <georgii.staroselskii@emlid.com>,
+ Danny Milosavljevic <dannym@scratchpost.org>,
+ Hans de Goede <hdegoede@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [alsa-devel] [PATCH 01/15] ASoC: soc-core: support
+ snd_soc_dai_link_component for aux_dev
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,35 +85,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGksCgpTb3JyeSwgSSBqdXN0IGRpc2NvdmVyZWQgdGhhdCB0aGUgQVNvQyBwYXRjaGVzIGhhdmUg
-YmVlbiBtZXJnZWQgaW50bwp0aGUgYnJvb25pZSBhbmQgbGludXMgdHJlZSBpbiA1LjMuCgpJJ20g
-c3RpbGwgcXVpdGUgbmV3IGluIHRoZSBzZW5kaW5nIG9mIHBhdGNoZXMgdG8gdGhlIEtlcm5lbCBi
-dXQKc291bGRuJ3QgYmUgYSBhY2sgb3IgYSBtYWlsIHNlbnQgdG8gd2FybiB0aGUgc2VuZGVyIHdo
-ZW4gdGhlIHNlcmllcwphcmUgYWNjZXB0ZWQ/CgpTaG91bGQgNS82LzcgcGF0Y2hlcyBiZSBwaWNr
-ZWQgYnkgU3VueGkgbWFpbnRhaW5lcj8KClRoYW5rcywKQ2zDqW1lbnQKCgoKCgpPbiBNb24sIDE1
-IEp1bCAyMDE5IGF0IDIxOjM4LCBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5lbC5vcmc+IHdyb3Rl
-Ogo+Cj4gT24gTW9uLCBKdWwgMTUsIDIwMTkgYXQgMDk6MjE6MDFQTSArMDIwMCwgQ2zDqW1lbnQg
-UMOpcm9uIHdyb3RlOgo+ID4gSGksCj4gPgo+ID4gSSdtIG1pc3NpbmcgQUNLIGZyb20gQVNvQyBN
-YWludGFpbmVycyBwYXRjaCAyLTMtNC4KPiA+Cj4gPiBJdCdzIHJlYWxseSBzbWFsbCBwYWNoZXMs
-IGlmIHlvdSBjb3VsZCBoYXZlIGEgbG9vayBhdCBpdC4KPgo+IFBsZWFzZSBkb24ndCBzZW5kIGNv
-bnRlbnQgZnJlZSBwaW5ncyBhbmQgcGxlYXNlIGFsbG93IGEgcmVhc29uYWJsZSB0aW1lCj4gZm9y
-IHJldmlldy4gIFBlb3BsZSBnZXQgYnVzeSwgZ28gb24gaG9saWRheSwgYXR0ZW5kIGNvbmZlcmVu
-Y2VzIGFuZCBzbwo+IG9uIHNvIHVubGVzcyB0aGVyZSBpcyBzb21lIHJlYXNvbiBmb3IgdXJnZW5j
-eSAobGlrZSBjcml0aWNhbCBidWcgZml4ZXMpCj4gcGxlYXNlIGFsbG93IGF0IGxlYXN0IGEgY291
-cGxlIG9mIHdlZWtzIGZvciByZXZpZXcuICBJZiB0aGVyZSBoYXZlIGJlZW4KPiByZXZpZXcgY29t
-bWVudHMgdGhlbiBwZW9wbGUgbWF5IGJlIHdhaXRpbmcgZm9yIHRob3NlIHRvIGJlIGFkZHJlc3Nl
-ZC4KPgo+IFNlbmRpbmcgY29udGVudCBmcmVlIHBpbmdzIGFkZHMgdG8gdGhlIG1haWwgdm9sdW1l
-IChpZiB0aGV5IGFyZSBzZWVuIGF0Cj4gYWxsKSB3aGljaCBpcyBvZnRlbiB0aGUgcHJvYmxlbSBh
-bmQgc2luY2UgdGhleSBjYW4ndCBiZSByZXZpZXdlZAo+IGRpcmVjdGx5IGlmIHNvbWV0aGluZyBo
-YXMgZ29uZSB3cm9uZyB5b3UnbGwgaGF2ZSB0byByZXNlbmQgdGhlIHBhdGNoZXMKPiBhbnl3YXks
-IHNvIHNlbmRpbmcgYWdhaW4gaXMgZ2VuZXJhbGx5IGEgYmV0dGVyIGFwcHJvYWNoIHRob3VnaCB0
-aGVyZSBhcmUKPiBzb21lIG90aGVyIG1haW50YWluZXJzIHdobyBsaWtlIHRoZW0gLSBpZiBpbiBk
-b3VidCBsb29rIGF0IGhvdyBwYXRjaGVzCj4gZm9yIHRoZSBzdWJzeXN0ZW0gYXJlIG5vcm1hbGx5
-IGhhbmRsZWQuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRw
-czovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Hi
+
+On 8/8/19 8:52 AM, Kuninori Morimoto wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> To find aux_dev, ASoC is using .name, codec_name, codec_of_node.
+> Here, .name is used to fallback in case of no codec.
+> 
+> But, we already have this kind of component finding method by
+> snd_soc_dai_link_component and soc_find_component().
+> We shouldn't have duplicated implementation to do same things.
+> This patch adds snd_soc_dai_link_component support to finding aux_dev.
+> 
+> Now, no driver is using only .name.
+> All drivers are using codec_name and/or codec_of_node.
+> This means no driver is finding component from .name so far.
+> (Actually almost all drivers are using .name as just "device name",
+>  not for finding component...)
+> 
+> This patch
+> 1) add snd_soc_dai_link_component support for aux_dev. legacy style will
+>    be removed if all drivers are switched to new style.
+> 2) try to find component via snd_soc_dai_link_component.
+>    Then, it doesn't try to find via .name, because no driver is using
+>    it so far.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  include/sound/soc.h  |  7 +++++++
+>  sound/soc/soc-core.c | 36 ++++++++++--------------------------
+>  2 files changed, 17 insertions(+), 26 deletions(-)
+> 
+> diff --git a/include/sound/soc.h b/include/sound/soc.h
+> index c92697e..9dad2bf 100644
+> --- a/include/sound/soc.h
+> +++ b/include/sound/soc.h
+> @@ -941,6 +941,7 @@ struct snd_soc_dai_link {
+>  #define COMP_CPU(_dai)			{ .dai_name = _dai, }
+>  #define COMP_CODEC(_name, _dai)		{ .name = _name, .dai_name = _dai, }
+>  #define COMP_PLATFORM(_name)		{ .name = _name }
+> +#define COMP_AUX(_name)			{ .name = _name }
+>  #define COMP_DUMMY()			{ .name = "snd-soc-dummy", .dai_name = "snd-soc-dummy-dai", }
+>  
+>  extern struct snd_soc_dai_link_component null_dailink_component[0];
+> @@ -971,6 +972,12 @@ struct snd_soc_aux_dev {
+>  	const char *codec_name;
+>  	struct device_node *codec_of_node;
+>  
+> +	/*
+> +	 * name, codec_name, codec_of_node will be replaced
+> +	 * into dlc. don't use both in the same time
+> +	 */
+> +	struct snd_soc_dai_link_component dlc;
+> +
+>  	/* codec/machine specific init - e.g. add machine controls */
+>  	int (*init)(struct snd_soc_component *component);
+>  };
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index e0d427a..ecaea88 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -1531,38 +1531,22 @@ static int soc_bind_aux_dev(struct snd_soc_card *card, int num)
+>  {
+>  	struct snd_soc_aux_dev *aux_dev = &card->aux_dev[num];
+>  	struct snd_soc_component *component;
+> -	struct snd_soc_dai_link_component dlc;
+>  
+> -	if (aux_dev->codec_of_node || aux_dev->codec_name) {
+> -		/* codecs, usually analog devices */
+> -		dlc.name = aux_dev->codec_name;
+> -		dlc.of_node = aux_dev->codec_of_node;
+> -		component = soc_find_component(&dlc);
+> -		if (!component) {
+> -			if (dlc.of_node)
+> -				dlc.name = of_node_full_name(dlc.of_node);
+> -			goto err_defer;
+> -		}
+> -	} else if (aux_dev->name) {
+> -		/* generic components */
+> -		dlc.name = aux_dev->name;
+> -		dlc.of_node = NULL;
+> -		component = soc_find_component(&dlc);
+> -		if (!component)
+> -			goto err_defer;
+> -	} else {
+> -		dev_err(card->dev, "ASoC: Invalid auxiliary device\n");
+> -		return -EINVAL;
+> -	}
+> +	/* remove me */
+> +	if (aux_dev->codec_name)
+> +		aux_dev->dlc.name = aux_dev->codec_name;
+> +	if (aux_dev->codec_of_node)
+> +		aux_dev->dlc.of_node = aux_dev->codec_of_node;
+
+Bike-shedding: maybe comment here should say legacy style binding etc? I
+know these lines are removed by patch 13/15 but here yet comment is not
+valid :-)
+
+-- 
+Jarkko
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

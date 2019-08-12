@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1569989FBC
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:32:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 226CD89FBE
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:32:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C56016D8;
-	Mon, 12 Aug 2019 15:31:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C56016D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9806116D9;
+	Mon, 12 Aug 2019 15:31:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9806116D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565616720;
-	bh=cIYYCKPKFCW+iHQ8dLdpkBQgNv1ov+8eClrIEH5i1bA=;
+	s=default; t=1565616758;
+	bh=kY7l1ylNfPgrRdThTC1aayQpWjDLIhKBxhMBLRzTgEs=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qYkaXNoyGbV4LZMg/1MyVULJBNV7A4tmVx1dfW16ra7TCh75J8nNhkHRE3vXT7DAb
-	 fZQqTlF0Ptk87DO1IDJHUohxAr3fn04r/TD+iFeMCIMXIe/SAATW9xpXwYwqUQpAW7
-	 qpzeqxdckGxPNXv5BpuDM4biLZnqT/cAg2ZAwPg8=
+	b=l86PvEfCtVLAlf6CYR+ocJJVedZIBWFKpFj+Ahz6orMX7l4zQ2h4Q8BhaEf5vyOPt
+	 Ga5oJKdh9j8Vtvhj8oTGRgUkGaUFLjRt6b+CDE5ZwW/Ems2vcdGf61KQlv7N3YRgkV
+	 sFsrTS0jWhBzohqBNNx/NcQfBOqB78v4kpPRVlGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 872DFF806F7;
-	Mon, 12 Aug 2019 15:22:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74BD5F8070D;
+	Mon, 12 Aug 2019 15:22:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8BECF805FF; Mon, 12 Aug 2019 15:10:32 +0200 (CEST)
+ id B7446F805FB; Mon, 12 Aug 2019 15:10:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,53 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 650F2F80600
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 15:09:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 650F2F80600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D3D6F8060D
+ for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 15:10:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D3D6F8060D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="aiVfOKiN"
+ header.b="Mf/nE+A+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ZyTCBEw26HPO4hNsabNswLIYhe65sPxbGwi2SQZZZ1k=; b=aiVfOKiNbIvj
- /89trdewnMeO27dxlxDipw6Ex9acfpSGEi/y/nNnhK09Kbx8EaZ1n9QQZOT+H5XwbJfcVcmlb6UP0
- Cm+rDd7ibx881kw0wDaNSnb8Iq3Ce+8Wsx+5W+3zyP6iIrnUWL6NPkw3f25AMGjEcZhKzqhIb1/vS
- CtLuE=;
+ List-Archive; bh=oSxX4R1CgqgYeylDHI5Ave7D/Rovl9yWJsP+AKCdx64=; b=Mf/nE+A+oNP1
+ 5ll6aGi1qL/gdx5g23x79zfBr5ffi0Iw9vHVmMoTCclk5V3Nas0qsP9NavFrPKAGH5Ujw4XwWo89K
+ ghswjugnPxiQohrRmGrwRxz9UIdePa2mzY1QVxFsr8Tst5eEbDASYPeiTj1FgyxOj/MShiF0fQSgr
+ 7gVEI=;
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hxA5B-0001Mk-Se; Mon, 12 Aug 2019 13:09:53 +0000
+ id 1hxA5C-0001Mp-6p; Mon, 12 Aug 2019 13:09:54 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4D0E92740CED; Mon, 12 Aug 2019 14:09:53 +0100 (BST)
+ id 9A8F42740CB7; Mon, 12 Aug 2019 14:09:53 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190808143215.65904-1-yuehaibing@huawei.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87h86s6w8x.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190812130953.4D0E92740CED@ypsilon.sirena.org.uk>
+Message-Id: <20190812130953.9A8F42740CB7@ypsilon.sirena.org.uk>
 Date: Mon, 12 Aug 2019 14:09:53 +0100 (BST)
-Cc: kstewart@linuxfoundation.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: max98926: remove two unused variables"
-	to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, Richard Fontana <rfontana@redhat.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Anders Roxell <anders.roxell@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, YueHaibing <yuehaibing@huawei.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
+ Chen-Yu Tsai <wens@csie.org>, Hans de Goede <hdegoede@redhat.com>,
+ Danny Milosavljevic <dannym@scratchpost.org>,
+ Georgii Staroselski i <georgii.staroselskii@emlid.com>,
+ Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
+Subject: [alsa-devel] Applied "ASoC: soc-core: remove legacy style of
+	aux_dev" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +101,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: max98926: remove two unused variables
+   ASoC: soc-core: remove legacy style of aux_dev
 
 has been applied to the asoc tree at
 
@@ -113,46 +126,63 @@ to this mail.
 Thanks,
 Mark
 
-From dbf0649f4340c8bb7d36b8d6255dba03ed6981e7 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Thu, 8 Aug 2019 22:32:15 +0800
-Subject: [PATCH] ASoC: max98926: remove two unused variables
+From a48b561d873d1d9fda55782d275eff94ec647863 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Thu, 8 Aug 2019 14:54:39 +0900
+Subject: [PATCH] ASoC: soc-core: remove legacy style of aux_dev
 
-sound/soc/codecs/max98926.c:28:26: warning:
- max98926_dai_txt defined but not used [-Wunused-const-variable=]
-sound/soc/codecs/max98926.c:23:27: warning:
- max98926_boost_current_txt defined but not used [-Wunused-const-variable=]
+Now all drivers are using snd_soc_dai_link_component for aux_dev.
+Let's remove legacy style
 
-They are never used, so can be removd.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190808143215.65904-1-yuehaibing@huawei.com
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87h86s6w8x.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/max98926.c | 9 ---------
- 1 file changed, 9 deletions(-)
+ include/sound/soc.h  | 9 ---------
+ sound/soc/soc-core.c | 6 ------
+ 2 files changed, 15 deletions(-)
 
-diff --git a/sound/soc/codecs/max98926.c b/sound/soc/codecs/max98926.c
-index 818c0301fb29..c4dfa8ab1d49 100644
---- a/sound/soc/codecs/max98926.c
-+++ b/sound/soc/codecs/max98926.c
-@@ -20,15 +20,6 @@ static const char * const max98926_boost_voltage_txt[] = {
- 	"6.5V", "6.5V", "6.5V", "6.5V", "6.5V", "6.5V", "6.5V", "6.5V"
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index fd6ecea48fc0..2fc56e5963f3 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -963,19 +963,10 @@ struct snd_soc_codec_conf {
  };
  
--static const char * const max98926_boost_current_txt[] = {
--	"0.6", "0.8", "1.0", "1.2", "1.4", "1.6", "1.8", "2.0",
--	"2.2", "2.4", "2.6", "2.8", "3.2", "3.6", "4.0", "4.4"
--};
+ struct snd_soc_aux_dev {
+-	const char *name;		/* Codec name */
 -
--static const char *const max98926_dai_txt[] = {
--	"Left", "Right", "LeftRight", "LeftRightDiv2",
--};
+ 	/*
+ 	 * specify multi-codec either by device name, or by
+ 	 * DT/OF node, but not both.
+ 	 */
+-	const char *codec_name;
+-	struct device_node *codec_of_node;
 -
- static const char *const max98926_pdm_ch_text[] = {
- 	"Current", "Voltage",
- };
+-	/*
+-	 * name, codec_name, codec_of_node will be replaced
+-	 * into dlc. don't use both in the same time
+-	 */
+ 	struct snd_soc_dai_link_component dlc;
+ 
+ 	/* codec/machine specific init - e.g. add machine controls */
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 56b99e340dda..4af382d52675 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1538,12 +1538,6 @@ static int soc_bind_aux_dev(struct snd_soc_card *card, int num)
+ 	struct snd_soc_aux_dev *aux_dev = &card->aux_dev[num];
+ 	struct snd_soc_component *component;
+ 
+-	/* remove me */
+-	if (aux_dev->codec_name)
+-		aux_dev->dlc.name = aux_dev->codec_name;
+-	if (aux_dev->codec_of_node)
+-		aux_dev->dlc.of_node = aux_dev->codec_of_node;
+-
+ 	/* codecs, usually analog devices */
+ 	component = soc_find_component(&aux_dev->dlc);
+ 	if (!component)
 -- 
 2.20.1
 

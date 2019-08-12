@@ -2,95 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FE9089DC2
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 14:12:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AC4B89EFA
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 14:57:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E9E81679;
-	Mon, 12 Aug 2019 14:11:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E9E81679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24E8F1664;
+	Mon, 12 Aug 2019 14:57:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24E8F1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565611959;
-	bh=WNuB1rahufYoT3iB0H0wtdQDXmrIuVWrwpgUPhXmBU8=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1565614675;
+	bh=Lv0vMs1zA8NAZTte4uM5q9RR3UoPDAWsPHdqJXWIO6A=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p1ZmBi8qnyJhRLKppiopO9XeMPMktUgC7L8FBdKANd4wbRgFXT+jM0QDgsmdWJdif
-	 b2ctsuUO2niCKcM2zHHFuXo7L8ZEc0pDmrQxLUn/kEWA6kA/0GAqdz4rEWCwyelwLQ
-	 WovWdO+WsOy6pU7t5wtJWQbc2ULeEwkL2au4Zu0A=
+	b=jGUnebx298XhbJSLuE6AKeQfEvIcB3j4gWGCyPK/vPFnyKf7Xk+zPcpCYOJL443Qg
+	 1p5Wvos36du/taF4pyshvf7gdrjGUCi0x5IMTIJwsaWmqpKOOXxiwq8B96C6VfUUGH
+	 XuD4kByk3fyjAqA/z2BvI3UaDD3h9nVNwauLVXNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6BBCF80214;
-	Mon, 12 Aug 2019 14:10:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FE37F80268;
+	Mon, 12 Aug 2019 14:56:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28FE2F80213; Mon, 12 Aug 2019 14:10:53 +0200 (CEST)
+ id 978ECF80213; Mon, 12 Aug 2019 14:56:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-yw1-xc43.google.com (mail-yw1-xc43.google.com
- [IPv6:2607:f8b0:4864:20::c43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 98762F800F6
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 14:10:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98762F800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B36DF8015A
+ for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 14:56:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B36DF8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ZlaFDJkn"
-Received: by mail-yw1-xc43.google.com with SMTP id n69so2121147ywd.12
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 05:10:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=4z7p+08vVGRKaFoY5K0HIJAi+xxlVs7dirH0vF1HBV8=;
- b=ZlaFDJkn8yLyk6xQ571Oe8ABNlq9Ly3tW4PGAUu0Hla738q5vre4pOqrZkuY8VjcLY
- QpxgkZTkbiY5sV9lQyaoMRfyOwYTWorH8Q/M9AGSYfXcB2QnWh+47f3RNUrhS2QpK/5e
- u3IU8gEwuMfoi3EGj67aC76xwxowAQLpbLbVGMW7agkwzX82V6xh1zjOBqIhiqHYbyaF
- yVd6r5BMz4VbmSsQ6rCvKNmfk8yfWU+9/KiQ0PdmBWgR/JeRaGFjSPZxUW9F6UL+1/eV
- wU+j+FFe1HlJHonkDpZU+uOHPi21H1I9DZdnZ2Adw2fBBWsnTpd0/OHNFbV2q6NBxxKh
- 4VfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=4z7p+08vVGRKaFoY5K0HIJAi+xxlVs7dirH0vF1HBV8=;
- b=ZTGivag/b2bV7iIGgUG6Abq9PGmqYXpZJBrv+57uLqhK8vEx9AUFc+tH0/Ir6TcLPe
- FOhNAx/DzeeUWLrCZ9T6JHaOGp+epuQcYg5TBmEVW4vcuUMDY7K3oAl0d6gq9Vm5Lcur
- kl2RuT8qc73ZRzgTZeTRBm1gYz9qNquNFLaTkECUqjnGqM/LDvLKYEJ3WBk7I9bex0Kn
- /vLhXKgsbJjc0b+bJ5599ZiLXM4oEri0LHCF1rEH1nZ9Ks735+Zas2zzlHUqyAX/SlSQ
- jQnBtfvHcYxrSkZKx80bC/pJDo+SerqLvLuifLcuL+OWBuqiY42f1UDK7FEu/EkooLod
- 94GA==
-X-Gm-Message-State: APjAAAUEDZLoHlwkpf9FWjzHRTVDQeaSnFhS5IMC7e5eqKHBFiyWIRL7
- t26RFgFneMC3G3km+CII0QKzIWaSbqBC4guJLis=
-X-Google-Smtp-Source: APXvYqzEXZhLUtV7pYNDbu1/3ce7u6Be+J9JdJvlDEwjC+aEheD9+kDaCkP9TtrZOgUEqijXeYpwIxIL2W3izU/ZO14=
-X-Received: by 2002:a81:2655:: with SMTP id m82mr4525703ywm.306.1565611848215; 
- Mon, 12 Aug 2019 05:10:48 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190527200627.8635-1-peron.clem@gmail.com>
- <CAJiuCcfUhBxEr=o7VVpPROQZadQh7z1QC0SkWSYt-53Sj3H2qw@mail.gmail.com>
- <CAJiuCcc3_1jZWV7G3+fFQYRZ8b6qcAbnH+K6pkRvww6_D=OMAw@mail.gmail.com>
- <20190715193842.GC4503@sirena.org.uk>
- <CAJiuCceYDnyxRLLLLy6Dn6DLTZ+NmSaUnoX1Vmzvgiy0XvF_Fw@mail.gmail.com>
- <20190812110103.GD4592@sirena.co.uk>
-In-Reply-To: <20190812110103.GD4592@sirena.co.uk>
-From: =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>
-Date: Mon, 12 Aug 2019 14:10:36 +0200
-Message-ID: <CAJiuCcdNFbKgo+oGZXKfBpyPKNOuUwpPbHdq-yBpcm3XYtPhEQ@mail.gmail.com>
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="KvffLFy4"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id x7CCu0dt065003;
+ Mon, 12 Aug 2019 07:56:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1565614560;
+ bh=eS0fiZVdbpqiOP7I9iyB+41oVZvr1vlC69yhfALb3/E=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=KvffLFy4sWg15AalSYq160klCYvgsgBvLaYuymDcSIYc3zw9pFzceF3Ks2hiHLoer
+ RcF78TjMs8BupBaZRFG0Qrj/amoxuUlmbmNoovDNi1qSM4tux0BBDtMQnKndJMGEi4
+ eGqaLsFzJyPJME81MFM3ADbbGeJrssUEMV4w7/0Q=
+Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x7CCu0pt058446
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 12 Aug 2019 07:56:00 -0500
+Received: from DFLE109.ent.ti.com (10.64.6.30) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Mon, 12
+ Aug 2019 07:55:59 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE109.ent.ti.com
+ (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Mon, 12 Aug 2019 07:55:59 -0500
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x7CCtwPI022368;
+ Mon, 12 Aug 2019 07:55:58 -0500
 To: Mark Brown <broonie@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- Maxime Ripard <maxime.ripard@bootlin.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Chen-Yu Tsai <wens@csie.org>,
- Rob Herring <robh+dt@kernel.org>, Jagan Teki <jagan@amarulasolutions.com>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v4 0/7] Allwinner H6 SPDIF support
+References: <20190812095304.19030-1-peter.ujfalusi@ti.com>
+ <20190812111332.GH4592@sirena.co.uk>
+ <20154773-1cf8-4e2e-a248-f3dfb29a5024@ti.com>
+ <20190812115751.GI4592@sirena.co.uk>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Message-ID: <4055fa34-c6b8-5b47-c728-54e65ef0f16c@ti.com>
+Date: Mon, 12 Aug 2019 15:56:11 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190812115751.GI4592@sirena.co.uk>
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, jsarha@ti.com,
+ misael.lopez@ti.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: ti: davinci-mcasp: Protect hw_params
+ callback against race
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,26 +94,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgTWFyaywKCk9uIE1vbiwgMTIgQXVnIDIwMTkgYXQgMTM6MDEsIE1hcmsgQnJvd24gPGJyb29u
-aWVAa2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBPbiBTYXQsIEF1ZyAxMCwgMjAxOSBhdCAxMDo0NToy
-M0FNICswMjAwLCBDbMOpbWVudCBQw6lyb24gd3JvdGU6Cj4KPiA+IEhpLAo+Cj4gUGxlYXNlIGRv
-bid0IHRvcCBwb3N0LCByZXBseSBpbiBsaW5lIHdpdGggbmVlZGVkIGNvbnRleHQuICBUaGlzIGFs
-bG93cwo+IHJlYWRlcnMgdG8gcmVhZGlseSBmb2xsb3cgdGhlIGZsb3cgb2YgY29udmVyc2F0aW9u
-IGFuZCB1bmRlcnN0YW5kIHdoYXQKPiB5b3UgYXJlIHRhbGtpbmcgYWJvdXQgYW5kIGFsc28gaGVs
-cHMgZW5zdXJlIHRoYXQgZXZlcnl0aGluZyBpbiB0aGUKPiBkaXNjdXNzaW9uIGlzIGJlaW5nIGFk
-ZHJlc3NlZC4KPgo+ID4gU29ycnksIEkganVzdCBkaXNjb3ZlcmVkIHRoYXQgdGhlIEFTb0MgcGF0
-Y2hlcyBoYXZlIGJlZW4gbWVyZ2VkIGludG8KPiA+IHRoZSBicm9vbmllIGFuZCBsaW51cyB0cmVl
-IGluIDUuMy4KPgo+ID4gSSdtIHN0aWxsIHF1aXRlIG5ldyBpbiB0aGUgc2VuZGluZyBvZiBwYXRj
-aGVzIHRvIHRoZSBLZXJuZWwgYnV0Cj4gPiBzb3VsZG4ndCBiZSBhIGFjayBvciBhIG1haWwgc2Vu
-dCB0byB3YXJuIHRoZSBzZW5kZXIgd2hlbiB0aGUgc2VyaWVzCj4gPiBhcmUgYWNjZXB0ZWQ/Cj4K
-PiBOb3QgZXZlcnkgbWFpbnRhaW5lciB3aWxsIHNlbmQgdGhvc2UsIEkgZG8gYnV0IHlvdSBtaWdo
-dCBmaW5kIHRoZXkndmUKPiBnb25lIGludG8geW91ciBzcGFtIGZvbGRlciBpZiB5b3UncmUgdXNp
-bmcgZ21haWwuCgpUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB0aGUgYW5zd2VyLApSZWdhcmRzLApD
-bMOpbWVudApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpB
-bHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6
-Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+
+
+On 12/08/2019 14.57, Mark Brown wrote:
+> On Mon, Aug 12, 2019 at 02:46:33PM +0300, Peter Ujfalusi wrote:
+> =
+
+>> to card level could substitute (new mutex on the card for pcm operations
+>> probably) the need to handle this in drivers.
+> =
+
+>> We would need to change soc-core/pcm/compress for this.
+> =
+
+> Yeah, it'd be a reasonably substantial change.
+
+OK, works fine on several boards, I'll send a patch tomorrow after a bit
+more testing.
+
+- P=E9ter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

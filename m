@@ -2,50 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 965138A2FF
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 18:09:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94E978A33A
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 18:25:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2211C166D;
-	Mon, 12 Aug 2019 18:08:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2211C166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0134B1675;
+	Mon, 12 Aug 2019 18:24:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0134B1675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565626174;
-	bh=dqlnkwt3B9lWOl62969X4kApWSlPWcKO94ItDgS4kz8=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1565627132;
+	bh=AwUUc4qV3sE290Lxf8uvCr6Eqfe6+ARSRBuzKkbSRHY=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=ng9syEKwzzpg4K+gQZ+SWSnvduFhOdiFlMiE89SIGBcNpmZq01721u2SDaA/QuIV2
-	 twSTqjC8oQyQsUotrHilQOQaT6BBr+J1x3m2RZzI8vcHbO9Q7lEIqNvOOfnoFkUmMq
-	 ZoGH+Zu8tXBP5+SeheBQ2TRO4YAozPdgTwoHN+ak=
+	b=qrDHVvubiARTPTNiUkaE176j+W+xI0nqD3Co6In5Hb9QkCz3Xeocw9SYyzX7Hdg49
+	 wqtYb82HdBXdoWowPAh0xnVMgw+r7UbeLQ8CqRvI0HbwGCesehgdJd5F9YeF7bxYqv
+	 iTVbc3R+QisWoBGXMHIbU+dzNInc+6mvy7QjElvE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7BADF8048D;
-	Mon, 12 Aug 2019 18:08:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 212B3F800F6;
+	Mon, 12 Aug 2019 18:23:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D0A4F80268; Mon, 12 Aug 2019 18:08:15 +0200 (CEST)
+ id DB550F80213; Mon, 12 Aug 2019 18:23:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
+ [IPv6:2a00:1450:4864:20::231])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CDB0DF8015B
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 18:08:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDB0DF8015B
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 6EC1FB63F
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 16:08:10 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id E80B8F800F6
+ for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 18:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E80B8F800F6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="dP1gettt"
+Received: by mail-lj1-x231.google.com with SMTP id x18so2398507ljh.1
+ for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 09:23:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=nwrDfRymPNAmjGc9YeJBLPObrPmT6AmJ6N9ehpqjDZ4=;
+ b=dP1getttQRVXhusNmc2mf1UwN8wxlcyE+NvYs9rrakxnZSRm44WHGhPtXykUdSiT7E
+ g0172Ygwdr09w7GSnRbRCUzCc7Waqgn4SDR1YNLFGCZI+HXbFqT1vdMAmzcguSXB1mSn
+ cT+PodUIgWOmXWZ/c0xO8iXkCYGpo1jdwTIPGXXHk3IMTaUYtfSB/mulrHn9qt0hmh0p
+ XH8xnu1S942lVRfcfXZWWLxyXs52HyrLO6JdKca6s+dfy99lsR7xG6yNRewN9tkK+GyT
+ yL6MvreKEkKpgyDsR0P/RWf1ftqIxRwt/a34hw1YqC+yNpx7twUE3sKVGejlMIvvZCgw
+ mTbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=nwrDfRymPNAmjGc9YeJBLPObrPmT6AmJ6N9ehpqjDZ4=;
+ b=mvWPvLP+AlC0Gg0mM2bftbFENaWzQjy4PbYL0K6VOh6IwfBDSYsa77lz/vOMjOAHk2
+ 6NaZIvl8594OvVRJhCONOGUjkLVTMdqVM/Dw0OKNDjaPiDP5o0TSsTGsAuCNhoCy9Wes
+ vtkGMv92jWuTx8vBemhXC6oQw8r+Kaf0EX+pQ8tDocbIAerUgN//xOBN7B4NVs36nqmZ
+ 4hAYrUiJaYuaueAxovlZuYXqHm19LOht5gx0bnY9ZO182uyxWYFsbmKpPQptX4rVFDPm
+ ioQRZwXzFuCcu407qucMARKSHPg00NREudS7a5pK3anenw7qOzx7pMco+G2zakgRWDJ/
+ zwnw==
+X-Gm-Message-State: APjAAAUvVD68aZnXuCLRl87h1pDtBU8Z2I3pcdyViWqL3ogLx18bFAL+
+ hwXecgxnAxsXTJFLvt/MzM5VYf0TejusQf9HZLU+v9a3
+X-Google-Smtp-Source: APXvYqwjtu4bjlILLHy5bnwZlyJZWm7kd5dgOmw634gjvLTB3u+bFqG6nhB+1Ybkq16VqtLoTk6sDvchwiH+sJk45qE=
+X-Received: by 2002:a2e:8545:: with SMTP id u5mr5554578ljj.125.1565627020339; 
+ Mon, 12 Aug 2019 09:23:40 -0700 (PDT)
+MIME-Version: 1.0
+From: Eric Desjardins <desjare@gmail.com>
+Date: Mon, 12 Aug 2019 12:22:30 -0400
+Message-ID: <CADsNRHvYVykXZ7C+DF14NACxFWYukUAe=aPZ_uo+=_YgBiQYSg@mail.gmail.com>
 To: alsa-devel@alsa-project.org
-Date: Mon, 12 Aug 2019 18:08:09 +0200
-Message-Id: <20190812160809.9097-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH] ALSA: hda: Set fifo_size for both playback and
-	capture streams
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] asound snd_pcm_start question
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,75 +85,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Currently we set hdac_stream.fifo_size field only for the playback
-stream by some odd reason I forgot, while this field isn't referred in
-any places.  Actually this fifo_size field would have been required in
-the position report correction for VIA chipset, but due to the lack of
-the fifo_size set for capture streams, snd-hda-intel driver fetches
-the register by itself.
+Hi,
 
-This patch straightens and simplifies the code by setting the
-fifo_size field for both playback and capture streams, and use it in
-the HD-audio controller driver.
+This is a simple question. I call:
+snd_pcm_prepare
+snd_pcm_writei
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/hda/hdac_stream.c   | 6 +-----
- sound/pci/hda/hda_intel.c | 8 +-------
- 2 files changed, 2 insertions(+), 12 deletions(-)
+and it works fine but I would like to delay playback start. There is
+snd_pcm_start for that. There is a method that is deprecated to specify a
+start mode but I was wondering what was the correct new way to do that?
 
-diff --git a/sound/hda/hdac_stream.c b/sound/hda/hdac_stream.c
-index fc68d4ce0a37..d8fe7ff0cd58 100644
---- a/sound/hda/hdac_stream.c
-+++ b/sound/hda/hdac_stream.c
-@@ -229,11 +229,7 @@ int snd_hdac_stream_setup(struct hdac_stream *azx_dev)
- 	/* set the interrupt enable bits in the descriptor control register */
- 	snd_hdac_stream_updatel(azx_dev, SD_CTL, 0, SD_INT_MASK);
- 
--	if (azx_dev->direction == SNDRV_PCM_STREAM_PLAYBACK)
--		azx_dev->fifo_size =
--			snd_hdac_stream_readw(azx_dev, SD_FIFOSIZE) + 1;
--	else
--		azx_dev->fifo_size = 0;
-+	azx_dev->fifo_size = snd_hdac_stream_readw(azx_dev, SD_FIFOSIZE) + 1;
- 
- 	/* when LPIB delay correction gives a small negative value,
- 	 * we ignore it; currently set the threshold statically to
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 3a209e07d5d8..dc8a83cb7393 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -84,8 +84,6 @@ enum {
- #define INTEL_SCH_HDA_DEVC      0x78
- #define INTEL_SCH_HDA_DEVC_NOSNOOP       (0x1<<11)
- 
--/* Define IN stream 0 FIFO size offset in VIA controller */
--#define VIA_IN_STREAM0_FIFO_SIZE_OFFSET	0x90
- /* Define VIA HD Audio Device ID*/
- #define VIA_HDAC_DEVICE_ID		0x3288
- 
-@@ -811,11 +809,7 @@ static unsigned int azx_via_get_position(struct azx *chip,
- 	mod_dma_pos = le32_to_cpu(*azx_dev->core.posbuf);
- 	mod_dma_pos %= azx_dev->core.period_bytes;
- 
--	/* azx_dev->fifo_size can't get FIFO size of in stream.
--	 * Get from base address + offset.
--	 */
--	fifo_size = readw(azx_bus(chip)->remap_addr +
--			  VIA_IN_STREAM0_FIFO_SIZE_OFFSET);
-+	fifo_size = azx_stream(azx_dev)->fifo_size - 1;
- 
- 	if (azx_dev->insufficient) {
- 		/* Link position never gather than FIFO size */
--- 
-2.16.4
-
+Thanks,
+Eric
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

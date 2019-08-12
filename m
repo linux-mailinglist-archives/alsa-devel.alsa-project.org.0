@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AACA89F9C
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:25:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A54F89FAD
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:28:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2E0A16BE;
-	Mon, 12 Aug 2019 15:25:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2E0A16BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F65416B0;
+	Mon, 12 Aug 2019 15:27:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F65416B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565616352;
-	bh=MJAuLYrrBHKErwvwpvsj15FyxTcEhmVBZFJBCu40BJo=;
+	s=default; t=1565616524;
+	bh=RpDv2awwxOQzANZlISQVRkpTkelO/7GwhoGSpNH5zdA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Wuka4pThynR9KMxK6epJqbGAuks+aZhxkSTHxTaGiZDFL7L3L9tuJWjknD4xE8XQg
-	 zyHmf9MIM6fBM5QrtTcY3JixdYkmzt8nVE5FkJBQDL0J1sLwNxMtM9r+bea5mBUxGj
-	 RWcWITDXWWPH72kI3bYFAd7zJz+Ol19pKz9PtBV0=
+	b=RtDpvkFI2MAHe2q06b4UKiKrDclgyY0la+MxPVjOdYoKYHves8WuqvAbfwUBh75+4
+	 75FaL3gB2SgTGs05vK29BFcOnu/sweWR1nLL0WQzJS80aPe3hBj3iTVupMjEG7GScL
+	 ERKUV2m0FWbCEeTWSnIeGCbbPW+MLLlPsm/wymEM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89278F8058C;
-	Mon, 12 Aug 2019 15:18:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 306DCF80636;
+	Mon, 12 Aug 2019 15:22:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A5E1F805FA; Mon, 12 Aug 2019 15:10:31 +0200 (CEST)
+ id B3FBEF805F6; Mon, 12 Aug 2019 15:10:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,34 +34,35 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F18D4F805FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53F69F805FF
  for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 15:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F18D4F805FA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53F69F805FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="BecSJ5Vw"
+ header.b="J7Tv7Z8j"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=YKMzpdBMrXmiwUVQMAY4qsPu0PCTqhRZTwiIYvzMVzY=; b=BecSJ5VwgpQs
- zx5FLue0WInvelbJH6BW8DXfdHT+MK0S3uWJu8tWHfU+V+aMht4EpgBge78AFEuiPluU1581ZSXbF
- 5ZY1oLlK/nIrub75JGxy9oaMwEov05NX0ns+8XKkUlEiHn6sKTZgjG4uJg/P0ZK+ZTyx6KaMimyoN
- iUNns=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=H76KdhZ4Gf5rVndPADFlcBa0aKo6mxH58EDMCsxedO8=; b=J7Tv7Z8j1ITe
+ 6tQjxZ7kIQbhWKCSDd9WUyrR32jVPXhG81pfOY8Ula0t4jO7jxd4Zd0IHCT6N2u7Q1Nuk5yZRtpyn
+ dGgXIqYDSHoI7q4WOwPKgSE/9xZxoqBuvVBN2DFl68TCWZUcYOS6k7fTUzIL1gKmn5o8aLETQbWGP
+ eBrUs=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hxA5E-0001NU-J1; Mon, 12 Aug 2019 13:09:56 +0000
+ id 1hxA5E-0001NP-5b; Mon, 12 Aug 2019 13:09:56 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 058832740CBD; Mon, 12 Aug 2019 14:09:55 +0100 (BST)
+ id AE36E2740CB7; Mon, 12 Aug 2019 14:09:55 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87r25w6wa1.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pnlg6w9v.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190812130956.058832740CBD@ypsilon.sirena.org.uk>
+Message-Id: <20190812130955.AE36E2740CB7@ypsilon.sirena.org.uk>
 Date: Mon, 12 Aug 2019 14:09:55 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
  Maxime Ripard <maxime.ripard@bootlin.com>, Jie Yang <yang.jie@linux.intel.com>,
@@ -79,7 +80,7 @@ Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] Applied "ASoC: meson: axg-card: use
+Subject: [alsa-devel] Applied "ASoC: rockchip: rockchip_max98090: use
 	snd_soc_dai_link_component for aux_dev" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -101,7 +102,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: axg-card: use snd_soc_dai_link_component for aux_dev
+   ASoC: rockchip: rockchip_max98090: use snd_soc_dai_link_component for aux_dev
 
 has been applied to the asoc tree at
 
@@ -126,47 +127,47 @@ to this mail.
 Thanks,
 Mark
 
-From a73b522d4b570ee41754990e81f6f4e849af1af9 Mon Sep 17 00:00:00 2001
+From 70a6b7bfba9bfd781b8c137f059487017dd385d8 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 8 Aug 2019 14:53:59 +0900
-Subject: [PATCH] ASoC: meson: axg-card: use snd_soc_dai_link_component for
- aux_dev
+Date: Thu, 8 Aug 2019 14:54:05 +0900
+Subject: [PATCH] ASoC: rockchip: rockchip_max98090: use
+ snd_soc_dai_link_component for aux_dev
 
 We can use snd_soc_dai_link_component to specify aux_dev.
 Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87r25w6wa1.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87pnlg6w9v.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/axg-card.c | 6 +++---
+ sound/soc/rockchip/rockchip_max98090.c | 6 +++---
  1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/meson/axg-card.c b/sound/soc/meson/axg-card.c
-index 14a8321744da..6283e5025548 100644
---- a/sound/soc/meson/axg-card.c
-+++ b/sound/soc/meson/axg-card.c
-@@ -124,7 +124,7 @@ static void axg_card_clean_references(struct axg_card *priv)
+diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
+index 1af1147c3da3..7b0c21fa6dca 100644
+--- a/sound/soc/rockchip/rockchip_max98090.c
++++ b/sound/soc/rockchip/rockchip_max98090.c
+@@ -160,7 +160,7 @@ static struct snd_soc_dai_link rk_dailink = {
+ static int rk_98090_headset_init(struct snd_soc_component *component);
  
- 	if (card->aux_dev) {
- 		for (i = 0; i < card->num_aux_devs; i++)
--			of_node_put(card->aux_dev[i].codec_of_node);
-+			of_node_put(card->aux_dev[i].dlc.of_node);
- 	}
+ static struct snd_soc_aux_dev rk_98090_headset_dev = {
+-	.name = "Headset Chip",
++	.dlc = COMP_EMPTY(),
+ 	.init = rk_98090_headset_init,
+ };
  
- 	kfree(card->dai_link);
-@@ -158,9 +158,9 @@ static int axg_card_add_aux_devices(struct snd_soc_card *card)
- 	card->num_aux_devs = num;
+@@ -226,9 +226,9 @@ static int snd_rk_mc_probe(struct platform_device *pdev)
  
- 	for (i = 0; i < card->num_aux_devs; i++, aux++) {
--		aux->codec_of_node =
-+		aux->dlc.of_node =
- 			of_parse_phandle(node, "audio-aux-devs", i);
--		if (!aux->codec_of_node)
-+		if (!aux->dlc.of_node)
- 			return -EINVAL;
- 	}
+ 	rk_dailink.platforms->of_node = rk_dailink.cpus->of_node;
  
+-	rk_98090_headset_dev.codec_of_node = of_parse_phandle(np,
++	rk_98090_headset_dev.dlc.of_node = of_parse_phandle(np,
+ 			"rockchip,headset-codec", 0);
+-	if (!rk_98090_headset_dev.codec_of_node) {
++	if (!rk_98090_headset_dev.dlc.of_node) {
+ 		dev_err(&pdev->dev,
+ 			"Property 'rockchip,headset-codec' missing/invalid\n");
+ 		return -EINVAL;
 -- 
 2.20.1
 

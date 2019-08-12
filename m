@@ -2,72 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1587489F9B
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:25:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DC2989FA5
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:28:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E5D3167F;
-	Mon, 12 Aug 2019 15:24:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E5D3167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78BCA168B;
+	Mon, 12 Aug 2019 15:27:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78BCA168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565616312;
-	bh=yVGowx1jrf7au6v/fTAda4Xc0yr5xalhg2MTTx7i2sE=;
+	s=default; t=1565616481;
+	bh=/j74pKVSB765I098Bnkmb0sBC4uo4SANB5P61n9QoVU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ngpUafSZm/Tna3WKnSbE/4RKeIGmO8oto3J/H62A+wyuvGx/nWdUqi/hX2ceksdzu
-	 N0NLmr8kCySV8AxPixiy1XVPe7Hp+CMw6dw9Ke7hL6ATgCmkvB5tqHPOiKa62/Ohhr
-	 w30jaLuwDka1wy0XDz8NPl8DprO429tGYnjAseao=
+	b=vlBEnhQ51aEOkENFbzz4TvphErls8QwFZuIjy0j7RxqG6hiKvFW802SmJI+cRe9M9
+	 ji0jwvHJVSy6dSsQ/d434Tx6vNS53HH0HSc5BKrmOJwrdpMhGYKR5xCGEwSvhV8J5M
+	 c3A6aB0Xm9RMKeeFE7dVvL2LvdiHa9MgCNxA/e8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54AABF80678;
-	Mon, 12 Aug 2019 15:16:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D74B1F8060F;
+	Mon, 12 Aug 2019 15:22:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56636F800F6; Mon, 12 Aug 2019 15:10:25 +0200 (CEST)
+ id EC4E2F805F7; Mon, 12 Aug 2019 15:10:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D2D6F805F9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22FFAF800F6
  for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 15:09:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D2D6F805F9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22FFAF800F6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="IAnqxtHq"
+ header.b="KdB9P4pB"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=F0gmxUAAjWJnRglc2Yf6S4DQe+WJTYChMRg+co4GZNE=; b=IAnqxtHqt+LB
- RtnX1T5uV+NdtUfIrFKdWxL8HtfvzILca5PdW/yxZ5jEuLaoytGqYEfZ1ez+1Vr7W5H1dr8M4n9Lr
- H3GAuTU1uLQxqbdoVAaKeGU2Nz6zb3TgUUlNg7k6nsiDbCkQHEnc0iCpEUFl+abHXZTO3E6hy/J24
- T7P4E=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=G+NhmvpynvEkdk6GHQHvKh69Oy4SC2WPQyF4nmoq5Wc=; b=KdB9P4pBQa3j
+ VwGjSS0Bhi6Xs/J3wrSyEU5sbYJ7siMRamPSMiflutt0FLjkua/MF9eFOuyHy+uY8sy2OCMD6nebx
+ aS38FVV9sUi7yi9FWXRZ0Ltk33x3pjrCIcDOUgMCmcD9wlV/EjDjMsVJwEQF7u06xApWjSNbuvSoe
+ XxhDk=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hxA5A-0001MB-1H; Mon, 12 Aug 2019 13:09:52 +0000
+ id 1hxA59-0001MA-LS; Mon, 12 Aug 2019 13:09:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 683732740CED; Mon, 12 Aug 2019 14:09:51 +0100 (BST)
+ id 2CA162740CBD; Mon, 12 Aug 2019 14:09:51 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@chromium.org>
-In-Reply-To: <20190809215952.155660-1-cujomalainey@chromium.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1565346467-5769-1-git-send-email-shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190812130951.683732740CED@ypsilon.sirena.org.uk>
+Message-Id: <20190812130951.2CA162740CBD@ypsilon.sirena.org.uk>
 Date: Mon, 12 Aug 2019 14:09:51 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt5677: Revert remove superfluous set"
-	to the asoc tree
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ robh+dt@kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, festevam@gmail.com
+Subject: [alsa-devel] Applied "ASoC: fsl_esai: Add compatible string for
+	imx6ull" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5677: Revert remove superfluous set
+   ASoC: fsl_esai: Add compatible string for imx6ull
 
 has been applied to the asoc tree at
 
@@ -113,36 +116,34 @@ to this mail.
 Thanks,
 Mark
 
-From ae032156ec4142b7a1d644eba652806785de1777 Mon Sep 17 00:00:00 2001
-From: Curtis Malainey <cujomalainey@chromium.org>
-Date: Fri, 9 Aug 2019 14:59:51 -0700
-Subject: [PATCH] ASoC: rt5677: Revert remove superfluous set
+From 9c2806c4941641a6c75736f8c4303c89d2013cc4 Mon Sep 17 00:00:00 2001
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+Date: Fri, 9 Aug 2019 18:27:46 +0800
+Subject: [PATCH] ASoC: fsl_esai: Add compatible string for imx6ull
 
-Commit 4dc057a786dc23 ("ASoC: rt5677: remove superfluous set") was an
-attempted code cleanup but was incorrectly tested before sent and
-actually breaks the interrupt since it never resets the value on each
-loop now. The breakage is most testable when hotwording code is added
-and also uses the interrupt.
+Add compatible string for imx6ull, from imx6ull platform,
+the issue of channel swap after xrun is fixed in hardware.
 
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20190809215952.155660-1-cujomalainey@chromium.org
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Link: https://lore.kernel.org/r/1565346467-5769-1-git-send-email-shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 1 +
+ sound/soc/fsl/fsl_esai.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index deaed5132dc9..c779dc3474f9 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -5098,6 +5098,7 @@ static irqreturn_t rt5677_irq(int unused, void *data)
- 			goto exit;
- 		}
- 
-+		irq_fired = false;
- 		for (i = 0; i < RT5677_IRQ_NUM; i++) {
- 			if (reg_irq & rt5677_irq_descs[i].status_mask) {
- 				irq_fired = true;
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index 5832144beb9f..a78e4ab478df 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -1049,6 +1049,7 @@ static int fsl_esai_remove(struct platform_device *pdev)
+ static const struct of_device_id fsl_esai_dt_ids[] = {
+ 	{ .compatible = "fsl,imx35-esai", },
+ 	{ .compatible = "fsl,vf610-esai", },
++	{ .compatible = "fsl,imx6ull-esai", },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, fsl_esai_dt_ids);
 -- 
 2.20.1
 

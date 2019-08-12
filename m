@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DAAF89FB1
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:29:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC47789F82
+	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 15:20:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB5FC16D8;
-	Mon, 12 Aug 2019 15:28:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB5FC16D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 635DB1685;
+	Mon, 12 Aug 2019 15:19:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 635DB1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565616556;
-	bh=6fdrzMQFz5v3qqemVsT8E0PVzGC+V0lSSTI+AZJ0fKc=;
+	s=default; t=1565616036;
+	bh=f8kpCk2NtRixdibcZ0BmA9e6SKmOPFfPsMk7Gzk3aEw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=SS/6HM+dbZ22p33eisVWYzyf//2SKqFFRExEtKbBy7iD7BYHOHaPWqsPI/y1zlhI2
-	 BIB1tlQ6fpwJ0+ZN6y8yktwpSCSyzlDPUHiw8EocPS2p/QTaMLt2rxkFto1VSs/B0S
-	 kakibrY5+5KATYZEpgz3wLnhM3e6iMRgmosRZe8w=
+	b=lYgGTJgepyHRKj/axuKAru2KDu+NpNxocX82OfbBmHbDVJqk99cLg+H54tvZhp5wk
+	 Q6embeNosHX3+mu8DRhrJ9mi4Dz0WmLSqwOMGlSf4lRJo7hfifiJ2VZLdhn/03sUOJ
+	 /VcXAN0RMQT621NHQIBMJ9Y/S6vuD8Z4RUnyr1AU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1E52F8063B;
-	Mon, 12 Aug 2019 15:22:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C3FCF8060F;
+	Mon, 12 Aug 2019 15:15:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E486BF805F9; Mon, 12 Aug 2019 15:10:27 +0200 (CEST)
+ id 358C0F805F5; Mon, 12 Aug 2019 15:10:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42CAEF805FC
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 15:10:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42CAEF805FC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BEB7F805F6
+ for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 15:09:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BEB7F805F6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="iI/7X4qZ"
+ header.b="H+I15IOg"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2TGXGgF8CnSVD3EY+88UnpC7VkvMiIpQfRGSVg3O+G8=; b=iI/7X4qZ0GZQ
- dTlG5LhsBfN4/HlHEFMTbs0EKPOSfGjk+x3J1fwEUd2V1dj1EbRNIIctAgxw7mmtk2SvPiIk9A/WO
- pmMOTMM4SsDBLUGzfDPBRnSvjwMWdCKJvX9zEG44Lvgaw9zRAa7d+6YLFmRJo5KahuXPTKgRv72iZ
- ySPp8=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=wbAZ8Nh0ODDsCE2dPl8E900YM7MJPJVH7NplYrIHuTg=; b=H+I15IOg2KhM
+ vRiJo1NjzmFzEkfIhB0V2Z61iD3KqbPzuLp9IKXj0dD8vzbRi4hbbQmBN17ExL+4hnEhvTI6/bJme
+ 9caAjNck73KLQPMmhPMzzjDcxTqCrNtor40szVxKEqdtu4hgDVneK5udMMlnduBuEutaqyT2jPmL7
+ DIfwU=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hxA5C-0001N5-Ty; Mon, 12 Aug 2019 13:09:55 +0000
+ id 1hxA5D-0001NH-GO; Mon, 12 Aug 2019 13:09:55 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4FB372740CED; Mon, 12 Aug 2019 14:09:54 +0100 (BST)
+ id 00BEB2740CBD; Mon, 12 Aug 2019 14:09:54 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87k1bo6w9b.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87mugk6w9l.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190812130954.4FB372740CED@ypsilon.sirena.org.uk>
+Message-Id: <20190812130955.00BEB2740CBD@ypsilon.sirena.org.uk>
 Date: Mon, 12 Aug 2019 14:09:54 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
  Maxime Ripard <maxime.ripard@bootlin.com>, Jie Yang <yang.jie@linux.intel.com>,
@@ -79,7 +80,7 @@ Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
  Thomas Gleixner <tglx@linutronix.de>,
  Alexios Zavras <alexios.zavras@intel.com>, Sangbeom Kim <sbkim73@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] Applied "ASoC: sunxi: sun4i-codec: use
+Subject: [alsa-devel] Applied "ASoC: samsung: speyside: use
 	snd_soc_dai_link_component for aux_dev" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -101,7 +102,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sunxi: sun4i-codec: use snd_soc_dai_link_component for aux_dev
+   ASoC: samsung: speyside: use snd_soc_dai_link_component for aux_dev
 
 has been applied to the asoc tree at
 
@@ -126,74 +127,37 @@ to this mail.
 Thanks,
 Mark
 
-From 3d0d2d64b7eb4f2a451fa184829b749851c14f55 Mon Sep 17 00:00:00 2001
+From 2d946aaa80c79452c700381b4c1f06f11dfd2bdd Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 8 Aug 2019 14:54:25 +0900
-Subject: [PATCH] ASoC: sunxi: sun4i-codec: use snd_soc_dai_link_component for
+Date: Thu, 8 Aug 2019 14:54:15 +0900
+Subject: [PATCH] ASoC: samsung: speyside: use snd_soc_dai_link_component for
  aux_dev
 
 We can use snd_soc_dai_link_component to specify aux_dev.
 Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87k1bo6w9b.wl-kuninori.morimoto.gx@renesas.com
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+Link: https://lore.kernel.org/r/87mugk6w9l.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sunxi/sun4i-codec.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ sound/soc/samsung/speyside.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/sunxi/sun4i-codec.c b/sound/soc/sunxi/sun4i-codec.c
-index 619073e7d972..ee448d5e07a6 100644
---- a/sound/soc/sunxi/sun4i-codec.c
-+++ b/sound/soc/sunxi/sun4i-codec.c
-@@ -1424,7 +1424,7 @@ static const struct snd_soc_dapm_route sun8i_codec_card_routes[] = {
+diff --git a/sound/soc/samsung/speyside.c b/sound/soc/samsung/speyside.c
+index 51e4c976c8be..9e58cbed942a 100644
+--- a/sound/soc/samsung/speyside.c
++++ b/sound/soc/samsung/speyside.c
+@@ -240,8 +240,7 @@ static int speyside_wm9081_init(struct snd_soc_component *component)
+ 
+ static struct snd_soc_aux_dev speyside_aux_dev[] = {
+ 	{
+-		.name = "wm9081",
+-		.codec_name = "wm9081.1-006c",
++		.dlc = COMP_AUX("wm9081.1-006c"),
+ 		.init = speyside_wm9081_init,
+ 	},
  };
- 
- static struct snd_soc_aux_dev aux_dev = {
--	.name = "Codec Analog Controls",
-+	.dlc = COMP_EMPTY(),
- };
- 
- static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
-@@ -1436,10 +1436,10 @@ static struct snd_soc_card *sun8i_a23_codec_create_card(struct device *dev)
- 	if (!card)
- 		return ERR_PTR(-ENOMEM);
- 
--	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
- 						 "allwinner,codec-analog-controls",
- 						 0);
--	if (!aux_dev.codec_of_node) {
-+	if (!aux_dev.dlc.of_node) {
- 		dev_err(dev, "Can't find analog controls for codec.\n");
- 		return ERR_PTR(-EINVAL);
- 	};
-@@ -1474,10 +1474,10 @@ static struct snd_soc_card *sun8i_h3_codec_create_card(struct device *dev)
- 	if (!card)
- 		return ERR_PTR(-ENOMEM);
- 
--	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
- 						 "allwinner,codec-analog-controls",
- 						 0);
--	if (!aux_dev.codec_of_node) {
-+	if (!aux_dev.dlc.of_node) {
- 		dev_err(dev, "Can't find analog controls for codec.\n");
- 		return ERR_PTR(-EINVAL);
- 	};
-@@ -1512,10 +1512,10 @@ static struct snd_soc_card *sun8i_v3s_codec_create_card(struct device *dev)
- 	if (!card)
- 		return ERR_PTR(-ENOMEM);
- 
--	aux_dev.codec_of_node = of_parse_phandle(dev->of_node,
-+	aux_dev.dlc.of_node = of_parse_phandle(dev->of_node,
- 						 "allwinner,codec-analog-controls",
- 						 0);
--	if (!aux_dev.codec_of_node) {
-+	if (!aux_dev.dlc.of_node) {
- 		dev_err(dev, "Can't find analog controls for codec.\n");
- 		return ERR_PTR(-EINVAL);
- 	};
 -- 
 2.20.1
 

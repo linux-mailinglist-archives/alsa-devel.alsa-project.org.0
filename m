@@ -2,58 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968E78A6D6
-	for <lists+alsa-devel@lfdr.de>; Mon, 12 Aug 2019 21:07:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E03D8ABB7
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 02:01:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D9EB51663;
-	Mon, 12 Aug 2019 21:06:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D9EB51663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96A5E1662;
+	Tue, 13 Aug 2019 02:00:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96A5E1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565636828;
-	bh=1LzOHf8oKOUytk/otVwXODALB0CG5k/9LuXsCp4niw4=;
+	s=default; t=1565654506;
+	bh=1PYsbg8V0AnyqI0n9+r8ly2/snGoKlRV65IyHiuAIcU=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=EKXLfXX8/Q8R1NhZM0kyd4tbKWj0cepcdf6dmTFnaCp9eycprQf12xIBM4AYjjXWb
-	 2Pw/0rEEl7Ua5+/oJwD5FqBtfuPgQYag+nJuSzSnr/rvS+eiql98m+dnJ51Mu0pn45
-	 3iCtV5jT0AfP/WdJ35SerSCy8TzjRouqCng7Oo/8=
+	b=XuzCH2qUOkLF97RwGxsH+/C4u9v4aOvRO7B2sWXFog5wqrZqjONArHs5+62gfyPin
+	 rexEWGmuhINOdWrJEovtoaldBCmXCYCZJnfuMBJdEQYXyVYK+0O3aVyKE5V9BEX3bc
+	 JouZQORm7gPHGOlruZVvGQloVvcQ+geoe+WLbmDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23F35F80214;
-	Mon, 12 Aug 2019 21:05:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F2D91F80213;
+	Tue, 13 Aug 2019 02:00:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B4555F80213; Mon, 12 Aug 2019 21:05:22 +0200 (CEST)
+ id 47FC9F801EB; Tue, 13 Aug 2019 01:59:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A834F8015A
- for <alsa-devel@alsa-project.org>; Mon, 12 Aug 2019 21:05:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A834F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD36CF8015B
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 01:59:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD36CF8015B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Aug 2019 12:05:15 -0700
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Aug 2019 16:59:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,378,1559545200"; d="scan'208";a="375350613"
-Received: from unknown (HELO pbossart-mobl3.intel.com) ([10.251.24.225])
- by fmsmga005.fm.intel.com with ESMTP; 12 Aug 2019 12:05:14 -0700
+X-IronPort-AV: E=Sophos;i="5.64,379,1559545200"; d="scan'208";a="177639013"
+Received: from firin-mobl2.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
+ ([10.252.205.59])
+ by fmsmga007.fm.intel.com with ESMTP; 12 Aug 2019 16:59:51 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Mon, 12 Aug 2019 14:05:02 -0500
-Message-Id: <20190812190502.30729-1-pierre-louis.bossart@linux.intel.com>
+Date: Mon, 12 Aug 2019 18:59:39 -0500
+Message-Id: <20190812235942.7120-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- kbuild test robot <lkp@intel.com>
-Subject: [alsa-devel] [PATCH] ASoC: SOF: fix HDA direct MMIO access
+Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ slawomir.blauciak@intel.com
+Subject: [alsa-devel] [PATCH v2 0/3] soundwire: debugfs support for 5.4
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,86 +73,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent change to remove the bus->io_ops callbacks used an older
-version of the SOF code base, and when merged into Mark's for-next it
-invalidated changes, resulting in broken compilation identified by
-kbuild and reproduced during the weekly SOF rebase.
+This patchset enables debugfs support and corrects all the feedback
+provided on an earlier RFC ('soundwire: updates for 5.4')
 
-Restore SOF code overridden by git merge and apply Takashi's intended
-change in the 'right' location.
+There is one remaining hard-coded value in intel.c that will need to
+be fixed in a follow-up patchset not specific to debugfs: we need to
+remove hard-coded Intel-specific configurations from cadence_master.c
+(PDI offsets, etc).
 
-Fixes: c2f16a94a8049 ("Merge branch 'topic/hda-bus-ops-cleanup'")
-Reported-by: kbuild test robot <lkp@intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/intel/hda-ctrl.c |  2 +-
- sound/soc/sof/intel/hda-dsp.c  | 39 ----------------------------------
- 2 files changed, 1 insertion(+), 40 deletions(-)
+Changes since v1 (Feedback from GKH)
+Handle debugfs in a more self-contained way (no dentry as return or parameter)
+Used CONFIG_DEBUG_FS in structures and code to make it easier to
+remove if need be.
+No functional change for register dumps.
 
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
-index a7fee403cb90..bc41028a7a01 100644
---- a/sound/soc/sof/intel/hda-ctrl.c
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -254,7 +254,7 @@ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev, bool full_reset)
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 	/* Reset stream-to-link mapping */
- 	list_for_each_entry(hlink, &bus->hlink_list, list)
--		bus->io_ops->reg_writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
-+		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
- #endif
- 
- 	bus->chip_init = true;
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 097727cda5cb..fb55a3c5afd0 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -354,45 +354,6 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
- 		return ret;
- 	}
- 
--	hda_dsp_ctrl_misc_clock_gating(sdev, false);
--
--	/* Reset stream-to-link mapping */
--	list_for_each_entry(hlink, &bus->hlink_list, list)
--		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
--
--	hda_dsp_ctrl_misc_clock_gating(sdev, true);
--#else
--
--	hda_dsp_ctrl_misc_clock_gating(sdev, false);
--
--	/* reset controller */
--	ret = hda_dsp_ctrl_link_reset(sdev, true);
--	if (ret < 0) {
--		dev_err(sdev->dev,
--			"error: failed to reset controller during resume\n");
--		return ret;
--	}
--
--	/* take controller out of reset */
--	ret = hda_dsp_ctrl_link_reset(sdev, false);
--	if (ret < 0) {
--		dev_err(sdev->dev,
--			"error: failed to ready controller during resume\n");
--		return ret;
--	}
--
--	/* enable hda bus irq */
--	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL,
--				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN,
--				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN);
--
--	hda_dsp_ctrl_misc_clock_gating(sdev, true);
--#endif
--
--	/* enable ppcap interrupt */
--	hda_dsp_ctrl_ppcap_enable(sdev, true);
--	hda_dsp_ctrl_ppcap_int_enable(sdev, true);
--
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 	/* check jack status */
- 	if (runtime_resume)
+Changes since RFC (Feedback from GKH, Vinod, Guennadi, Cezary, Sanyog):
+removed error checks
+used DEFINE_SHOW_ATTRIBUTE and seq_file
+fixed copyright dates
+fixed SPDX license info to use GPL2.0 only
+fixed Makefile to include debugfs only if CONFIG_DEBUG_FS is selected
+used static inlines for fallback compilation
+removed intermediate variables
+removed hard-coded constants in loops (used registers offsets and
+hardware capabilities)
+squashed patch 3
+
+Pierre-Louis Bossart (3):
+  soundwire: add debugfs support
+  soundwire: cadence_master: add debugfs register dump
+  soundwire: intel: add debugfs register dump
+
+ drivers/soundwire/Makefile         |   4 +
+ drivers/soundwire/bus.c            |   6 ++
+ drivers/soundwire/bus.h            |  16 +++
+ drivers/soundwire/bus_type.c       |   3 +
+ drivers/soundwire/cadence_master.c | 107 ++++++++++++++++++++
+ drivers/soundwire/cadence_master.h |   4 +
+ drivers/soundwire/debugfs.c        | 151 +++++++++++++++++++++++++++++
+ drivers/soundwire/intel.c          | 121 +++++++++++++++++++++++
+ drivers/soundwire/slave.c          |   1 +
+ include/linux/soundwire/sdw.h      |   8 ++
+ 10 files changed, 421 insertions(+)
+ create mode 100644 drivers/soundwire/debugfs.c
+
 -- 
 2.20.1
 

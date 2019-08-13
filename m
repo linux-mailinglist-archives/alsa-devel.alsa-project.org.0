@@ -2,67 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 322108BC29
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 16:54:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B071E8BCDE
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 17:17:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4C931680;
-	Tue, 13 Aug 2019 16:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4C931680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FE371667;
+	Tue, 13 Aug 2019 17:16:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FE371667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565708066;
-	bh=bp1V1zo4BD5A7+xnUa+Ci4mh2n4DgGeOTKtbwrHoARg=;
+	s=default; t=1565709454;
+	bh=v7yKKb1DrZTQMVFk8yNisfXVKuhyisg8IdT4yO4/kpA=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PlpztdQ3OGvGcwCkoPVbsoQKfwMgRwT6acfsyjCmqHujNGx6e/ffoPojQkdDDk5ZY
-	 Y4hQhf4kxA5hNF6ImpdtSBY3pcwb+pd8djXvWISkQrwdBxvlOTDo+2EGsQXWbMgHop
-	 8e1qKBshIzHPRG3GYGgsOKUczzmtkH3yXl81xn8I=
+	b=SwYQQyuv/ZtP+hSajM13s1JJ6CIU7GS/8mGWAIFCSfeiLlV0yznWV9fLGfpB3aaH2
+	 tLveq4r030KEDvkX69Y3pc/WsWTvN8yJJUq9wFaUUTS+IzEfdC4GGDkSsCITCC56Zz
+	 afAzfmij20WpsRgRyBrDBAm/n20q0wZ1Hv8X9SH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A536F8026A;
-	Tue, 13 Aug 2019 16:52:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7426DF80274;
+	Tue, 13 Aug 2019 17:15:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A0A4F80273; Tue, 13 Aug 2019 16:52:40 +0200 (CEST)
+ id 5F0F8F80273; Tue, 13 Aug 2019 17:15:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 54FE4F8015A
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 16:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54FE4F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF65CF8015A
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 17:15:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF65CF8015A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2019 07:52:34 -0700
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2019 08:15:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,381,1559545200"; d="scan'208";a="177821802"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga007.fm.intel.com with ESMTP; 13 Aug 2019 07:52:34 -0700
-Received: from dalyrusx-mobl.amr.corp.intel.com (unknown [10.251.3.205])
- by linux.intel.com (Postfix) with ESMTP id 5B0FA580238;
- Tue, 13 Aug 2019 07:52:33 -0700 (PDT)
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- "Rojewski, Cezary" <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>
+X-IronPort-AV: E=Sophos;i="5.64,381,1559545200"; d="scan'208";a="177827821"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.1.240])
+ ([10.252.1.240])
+ by fmsmga007.fm.intel.com with ESMTP; 13 Aug 2019 08:15:37 -0700
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 References: <20190621113116.47525-1-andriy.shevchenko@linux.intel.com>
  <20190813144253.GG30120@smile.fi.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <39ce9fc6-c3e8-e7ed-af1c-6f612b831180@linux.intel.com>
-Date: Tue, 13 Aug 2019 09:52:52 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
+ <39ce9fc6-c3e8-e7ed-af1c-6f612b831180@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <74187b3a-aea4-f11b-8e12-d9d66b9ac85d@intel.com>
+Date: Tue, 13 Aug 2019 17:15:35 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190813144253.GG30120@smile.fi.intel.com>
+In-Reply-To: <39ce9fc6-c3e8-e7ed-af1c-6f612b831180@linux.intel.com>
 Content-Language: en-US
-Cc: Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
+Cc: alsa-devel@alsa-project.org, Jie Yang <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
 Subject: Re: [alsa-devel] [PATCH v1] ASoC: Intel: Skylake: Print constant
  literals from format specifier
 X-BeenThere: alsa-devel@alsa-project.org
@@ -77,50 +76,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 8/13/19 9:42 AM, Andy Shevchenko wrote:
-> On Fri, Jun 21, 2019 at 02:31:16PM +0300, Andy Shevchenko wrote:
->> Instead of using two additional "%s" specifiers, put the constant string
->> literals directly to the format specifier.
->>
-> 
-> Pierre, does it look good to you?
-
-LGTM but Cezary should chime in for changes to the Skylake driver.
-
-> 
->> Cc: Liam Girdwood <lgirdwood@gmail.com>
->> Cc: Mark Brown <broonie@kernel.org>
->> Cc: Vinod Koul <vkoul@kernel.org>
->> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
->> ---
->>   sound/soc/intel/skylake/skl-sst.c | 3 +--
->>   1 file changed, 1 insertion(+), 2 deletions(-)
->>
->> diff --git a/sound/soc/intel/skylake/skl-sst.c b/sound/soc/intel/skylake/skl-sst.c
->> index 13c636dece56..f3e1399450db 100644
->> --- a/sound/soc/intel/skylake/skl-sst.c
->> +++ b/sound/soc/intel/skylake/skl-sst.c
->> @@ -421,8 +421,7 @@ static int skl_load_module(struct sst_dsp *ctx, u16 mod_id, u8 *guid)
->>   	int ret = 0;
->>   	char mod_name[64]; /* guid str = 32 chars + 4 hyphens */
->>   
->> -	snprintf(mod_name, sizeof(mod_name), "%s%pUL%s",
->> -					     "intel/dsp_fw_", guid, ".bin");
->> +	snprintf(mod_name, sizeof(mod_name), "intel/dsp_fw_%pUL.bin", guid);
->>   
->>   	module_entry = skl_module_get_from_id(ctx, mod_id);
->>   	if (module_entry == NULL) {
->> -- 
->> 2.20.1
->>
-> 
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gMjAxOS0wOC0xMyAxNjo1MiwgUGllcnJlLUxvdWlzIEJvc3NhcnQgd3JvdGU6Cj4gT24gOC8x
+My8xOSA5OjQyIEFNLCBBbmR5IFNoZXZjaGVua28gd3JvdGU6Cj4+IE9uIEZyaSwgSnVuIDIxLCAy
+MDE5IGF0IDAyOjMxOjE2UE0gKzAzMDAsIEFuZHkgU2hldmNoZW5rbyB3cm90ZToKPj4+IEluc3Rl
+YWQgb2YgdXNpbmcgdHdvIGFkZGl0aW9uYWwgIiVzIiBzcGVjaWZpZXJzLCBwdXQgdGhlIGNvbnN0
+YW50IHN0cmluZwo+Pj4gbGl0ZXJhbHMgZGlyZWN0bHkgdG8gdGhlIGZvcm1hdCBzcGVjaWZpZXIu
+Cj4+Pgo+Pgo+PiBQaWVycmUsIGRvZXMgaXQgbG9vayBnb29kIHRvIHlvdT8KPiAKPiBMR1RNIGJ1
+dCBDZXphcnkgc2hvdWxkIGNoaW1lIGluIGZvciBjaGFuZ2VzIHRvIHRoZSBTa3lsYWtlIGRyaXZl
+ci4KClNlZW1zIHRoaXMgb25lIGVzY2FwZWQgbXkgZXllLiBMb29rcyBnb29kIHRvIG1lIHRvby4K
+Cj4+PiBDYzogTGlhbSBHaXJkd29vZCA8bGdpcmR3b29kQGdtYWlsLmNvbT4KPj4+IENjOiBNYXJr
+IEJyb3duIDxicm9vbmllQGtlcm5lbC5vcmc+Cj4+PiBDYzogVmlub2QgS291bCA8dmtvdWxAa2Vy
+bmVsLm9yZz4KPj4+IFNpZ25lZC1vZmYtYnk6IEFuZHkgU2hldmNoZW5rbyA8YW5kcml5LnNoZXZj
+aGVua29AbGludXguaW50ZWwuY29tPgo+Pj4gLS0tCj4+PiDCoCBzb3VuZC9zb2MvaW50ZWwvc2t5
+bGFrZS9za2wtc3N0LmMgfCAzICstLQo+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
+KCspLCAyIGRlbGV0aW9ucygtKQo+Pj4KPj4+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvaW50ZWwv
+c2t5bGFrZS9za2wtc3N0LmMgCj4+PiBiL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC1zc3Qu
+Ywo+Pj4gaW5kZXggMTNjNjM2ZGVjZTU2Li5mM2UxMzk5NDUwZGIgMTAwNjQ0Cj4+PiAtLS0gYS9z
+b3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtc3N0LmMKPj4+ICsrKyBiL3NvdW5kL3NvYy9pbnRl
+bC9za3lsYWtlL3NrbC1zc3QuYwo+Pj4gQEAgLTQyMSw4ICs0MjEsNyBAQCBzdGF0aWMgaW50IHNr
+bF9sb2FkX21vZHVsZShzdHJ1Y3Qgc3N0X2RzcCAqY3R4LCAKPj4+IHUxNiBtb2RfaWQsIHU4ICpn
+dWlkKQo+Pj4gwqDCoMKgwqDCoCBpbnQgcmV0ID0gMDsKPj4+IMKgwqDCoMKgwqAgY2hhciBtb2Rf
+bmFtZVs2NF07IC8qIGd1aWQgc3RyID0gMzIgY2hhcnMgKyA0IGh5cGhlbnMgKi8KPj4+IC3CoMKg
+wqAgc25wcmludGYobW9kX25hbWUsIHNpemVvZihtb2RfbmFtZSksICIlcyVwVUwlcyIsCj4+PiAt
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJpbnRlbC9k
+c3BfZndfIiwgZ3VpZCwgIi5iaW4iKTsKPj4+ICvCoMKgwqAgc25wcmludGYobW9kX25hbWUsIHNp
+emVvZihtb2RfbmFtZSksICJpbnRlbC9kc3BfZndfJXBVTC5iaW4iLCAKPj4+IGd1aWQpOwo+Pj4g
+wqDCoMKgwqDCoCBtb2R1bGVfZW50cnkgPSBza2xfbW9kdWxlX2dldF9mcm9tX2lkKGN0eCwgbW9k
+X2lkKTsKPj4+IMKgwqDCoMKgwqAgaWYgKG1vZHVsZV9lbnRyeSA9PSBOVUxMKSB7Cj4+PiAtLSAK
+Pj4+IDIuMjAuMQo+Pj4KPj4KPiAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2pl
+Y3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+YWxzYS1kZXZlbAo=

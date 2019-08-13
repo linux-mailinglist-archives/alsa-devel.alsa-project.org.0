@@ -2,53 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC0A68BB10
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 16:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 849CB8BB32
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 16:09:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 24DBE1665;
-	Tue, 13 Aug 2019 16:02:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24DBE1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC6A0165F;
+	Tue, 13 Aug 2019 16:08:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC6A0165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565705026;
-	bh=dXH1KQ657tBkjqe5xRBNsyRSoTOvokRNtr+l67nT/eI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TN2o70LD13OtuKhT9keQzgO1nw9kVUYPQYSsQ3NwygIRlxeG/k3WwjiRmqOK51Sni
-	 cGaaQ1WL27BO7vaxx5RemGWR97lqdFh7n16JRQwYTM/eRI68Rw9HWLT380jO+1+D27
-	 lVqmUqktx8mfUT4RF8r/PkyaUoCCUSr98+3r3Vlc=
+	s=default; t=1565705374;
+	bh=LvFZTwZ4FZKnlE7SN6DGrs58B5otqW/o8CE2nKz5Y/8=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NficdcXtYKIBLf0CT/zIofSL6YoIL2ErnjPDciCIKa5dJTgnjt5EmRiae9YkUZ8co
+	 Z96APvU+4lqzvQdL8t6DqwBUQpJLi1IBw0T7SW0djkQQdrij4SNGDBa8gIQDQghX6n
+	 iTfwPQCL+KcMEBilmLxJHZtLyI2MDMkFNB0B8Dko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16550F80273;
-	Tue, 13 Aug 2019 16:02:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 684F1F80274;
+	Tue, 13 Aug 2019 16:07:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6CC1F80273; Tue, 13 Aug 2019 16:01:59 +0200 (CEST)
+ id 7007AF80120; Tue, 13 Aug 2019 16:07:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B9A8F8015B
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 16:01:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B9A8F8015B
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_256_CBC_SHA1:32)
- (Exim 4.76) (envelope-from <colin.king@canonical.com>)
- id 1hxXN2-0007nU-8v; Tue, 13 Aug 2019 14:01:52 +0000
-From: Colin King <colin.king@canonical.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Date: Tue, 13 Aug 2019 15:01:51 +0100
-Message-Id: <20190813140151.9865-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72671F80120
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 16:07:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72671F80120
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Aug 2019 07:07:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,381,1559545200"; d="scan'208";a="170405185"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga008.jf.intel.com with ESMTP; 13 Aug 2019 07:07:41 -0700
+Received: from dalyrusx-mobl.amr.corp.intel.com (unknown [10.251.3.205])
+ by linux.intel.com (Postfix) with ESMTP id E8ECD5800FE;
+ Tue, 13 Aug 2019 07:07:40 -0700 (PDT)
+To: Mark Brown <broonie@kernel.org>, Tony Lindgren <tony@atomide.com>
+References: <20190809070003.GA52127@atomide.com>
+ <s5hwofmhkbs.wl-tiwai@suse.de> <20190809074643.GB52127@atomide.com>
+ <s5hv9v6hhm9.wl-tiwai@suse.de> <20190813102451.GJ52127@atomide.com>
+ <20190813112920.GC5093@sirena.co.uk>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <76dbd0ed-bbba-1a11-376e-7bf28c78ad9c@linux.intel.com>
+Date: Tue, 13 Aug 2019 09:07:59 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.8.0
 MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: sb: remove redundant assignment to
-	variable result
+In-Reply-To: <20190813112920.GC5093@sirena.co.uk>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.de>, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] Regression in next with codec unload and
+ snd_soc_component_get/put
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,37 +79,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+On 8/13/19 6:29 AM, Mark Brown wrote:
+> On Tue, Aug 13, 2019 at 03:24:51AM -0700, Tony Lindgren wrote:
+>> * Takashi Iwai <tiwai@suse.de> [190809 08:24]:
+> 
+>>> ... and it was already fixed in the later commit 0e36f36b04e7
+>>> "ASoC: soc-core: fix module_put() warning in soc_cleanup_component".
+> 
+>> Mark, looks like this commit is still not in Linux next, forgot
+>> to push out something?
+> 
+> There's a build failure the Intel guys haven't fixed.
 
-Variable result is initialized to a value that is never read and it is
-re-assigned later. The initialization is redundant and can be removed.
+see ('ASoC: SOF: fix HDA direct MMIO access') posted on alsa-devel 
+yesterday
 
-Addresses-Coverity: ("Unused value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/isa/sb/sb_common.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-August/153914.html
 
-diff --git a/sound/isa/sb/sb_common.c b/sound/isa/sb/sb_common.c
-index 162338f1b68a..ff031d670400 100644
---- a/sound/isa/sb/sb_common.c
-+++ b/sound/isa/sb/sb_common.c
-@@ -80,7 +80,7 @@ int snd_sbdsp_reset(struct snd_sb *chip)
- 
- static int snd_sbdsp_version(struct snd_sb * chip)
- {
--	unsigned int result = -ENODEV;
-+	unsigned int result;
- 
- 	snd_sbdsp_command(chip, SB_DSP_GET_VERSION);
- 	result = (short) snd_sbdsp_get_byte(chip) << 8;
--- 
-2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

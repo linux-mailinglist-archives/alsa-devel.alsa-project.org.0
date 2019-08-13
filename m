@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EF518B160
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 09:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D4A8B2A3
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 10:37:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC6501665;
-	Tue, 13 Aug 2019 09:45:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC6501665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75B8C1665;
+	Tue, 13 Aug 2019 10:36:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75B8C1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565682397;
-	bh=gZ22rjZZsK5eTzp5xmV2ZDhODFryrEnXGEfNZ9WtnVc=;
+	s=default; t=1565685465;
+	bh=15Vwuebqm2w1l0AMJXZXTkK9OJn+VYAdcfTQxBIVXP4=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=I0fPgaGGo+RsVz0nFpajQS62+YDiMtrpbd3aY/F3MV1zC/Fk6ZyFJV3YnQUUfy6SZ
-	 ljyUwhuzb8/RMJCmfVAsdkwj8/zG+cHwrLbqPDDPdb+Hfy6mFgLFOhiMPoJMuW1yK8
-	 o6dkn6xELbMTo3K//3Xal9GPQymbXh3uIRRGyUP8=
+	b=dWw2o3HFi2MZvowhLicVEV/QZkkaWuvMWuh2tnU5AYAtQFSxGfjHPOUmbmlkU1CQ5
+	 K6qWJNlppnSnTKhLKy8ZUH5fQrRaBuFkOC89Q/PPqoq6Hhqvbv+IueRM9mWQzqKBbQ
+	 lpdV2m6++L9t/SdR/5mkS8OUMj1nAPsBIFYB7B48=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFA4FF80120;
-	Tue, 13 Aug 2019 09:44:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C36E5F8015A;
+	Tue, 13 Aug 2019 10:36:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DECF7F80273; Tue, 13 Aug 2019 09:44:49 +0200 (CEST)
+ id 3DA52F80274; Tue, 13 Aug 2019 10:35:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8167CF80120
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 09:44:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8167CF80120
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87440F80120
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 10:35:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87440F80120
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="gr2P6VZA"
-Received: by mail-pf1-x444.google.com with SMTP id i30so2402303pfk.9
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 00:44:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="oUiDtvrD"
+Received: by mail-wm1-x341.google.com with SMTP id l2so701268wmg.0
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 01:35:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=wGWISY3VrJOIlFf6UspJXH4MK7kN0CsW/Y8ULJ0Kwsg=;
- b=gr2P6VZATnnB9+lPemtkV6oz7hDqDZRqLEIsHSwg3T/hclit7LQRxjp93NpWl2MES2
- Um+PzAS1Kko5EqOad+bjxXZKqx+uymm1exp3k8E1foMXH74iYttXfc4Iy13TYyEllztv
- hUB/V1Le4fDSi6DYbcaFO7khLFTIlpHwS5Qy8=
+ bh=gf8oMUZD9BuH1tA5WiPMc3a88iyFztlGdMksig5IF5U=;
+ b=oUiDtvrDAjvg9ztkMAJkZpYGsIowQdXup3NVYcaeYbQ8jEbkayG7R9N4CjqmQO4Kr5
+ X5zCuTrRM6491pBfc5NrTZYz/5KRoRSIlTcqmz0TY0WtZlywAomKwVO0fiZYd7UagbOh
+ B5csnV3iwxXsQCojKDVaxEBBLVpi+G9Sw5WKVAUs4iO11IPsLFC51wCAYhZOlZNXk8yH
+ A6vdzWk+nUtYIki63Y6P0jvBht+OzbVl0A0sIx7NxmUZc9oIyup//bWkAJJoIUTazaeo
+ NKrD/2NjfGFDbwU04mefMhPaxiceHZDD1SmdiPXXLJHAT5EaWQAHOE3de7m7oY8xuzue
+ 6Aow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=wGWISY3VrJOIlFf6UspJXH4MK7kN0CsW/Y8ULJ0Kwsg=;
- b=ltvYnxnxKVpocPxGpF5vBI5TFj79wSz0gUPGb28l9NUt6ynnX7C/3/xHrETtSsm4qV
- PUr8YaH3/4GG4Cs39OO4lrWihAMGfGFfnfn3MHqIZo4JpMCRNLcIaJJVKHaTAna0tQyT
- NK24Btq3uTeA1F2i453ra1ROLYlNsvbyt5SzJ+R39yJLFiH9hzv5fyy6i/KFMyrUrLo5
- mgLmA1fxF20jWz6Mj9EiHRZQhIuLGP9ByHFTBZ2FM4MiyJP+q3ezlCToNCMbJalAasnX
- JrJ0zRuJOFLuSYe3mVZpLYptVt9K8OHibk+V90p6IprhJQN8kfc4yAkluO42YSgRT9kR
- xtNA==
-X-Gm-Message-State: APjAAAWNgFVHQwTZJ+h+7qVfTUhejxXk+1aUxhZ08sebPeekUcym4JiF
- IYiBGTGmwvTEJrsXkEc95HQupg==
-X-Google-Smtp-Source: APXvYqzkzDTF0AwWSIcaHQgPLZiwdVjeEy+ci5i4EwVLcCB8uW8sIMX56ixAY+7bZj0RLkfelhwRAg==
-X-Received: by 2002:a63:db45:: with SMTP id x5mr16250861pgi.293.1565682283264; 
- Tue, 13 Aug 2019 00:44:43 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
- by smtp.gmail.com with ESMTPSA id p3sm682260pjo.3.2019.08.13.00.44.39
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 13 Aug 2019 00:44:42 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Tue, 13 Aug 2019 15:44:30 +0800
-Message-Id: <20190813074430.191791-1-cychiang@chromium.org>
-X-Mailer: git-send-email 2.23.0.rc1.153.gdeed80330f-goog
+ bh=gf8oMUZD9BuH1tA5WiPMc3a88iyFztlGdMksig5IF5U=;
+ b=H++LCZE2hOCSNQDjzgFVLcolSGQg0u0VAzxhtsr2wAFYE2f2jrDw94b2zOMP4gPrU8
+ LBRb09WQROmOq+HNykFXAJlXhJaNHtKdV0cGLk2pzu4QdsGvLJeb11WKNDsM/QndthJx
+ idbetX5FJgc1oVRRgn0oDEiLD1ulM+g8WuGqIMkGkNFPneZCxnLzx8Z0SlkzZLT77uy0
+ h71RYg/zbsPpjiYJum2fLP82Zkcmnl+sM0Kt9b+8a3k3zXN/DJFNq2XiH+tjTAj1W1gj
+ NnYaerkEcxfvzw8FmGQVaO9C5IBbCJ5RoN0ukwpVZGwTsEGAjByqNSvAejS5dyR+wX7d
+ wzOw==
+X-Gm-Message-State: APjAAAVXHOhghta7WHl2cv1kUeNR8VRsdkuteEXetvUxnabQDC71CxlY
+ 4OzGFOT/5RKcZ7LvYg3i2DbZOw==
+X-Google-Smtp-Source: APXvYqz+ArjE/b8LuqDHeWnFSPWhCxhwZjmprL6QzONacS3RLaBmL8Zvrs6NzQ4qdiW32u562cRerg==
+X-Received: by 2002:a1c:cc0d:: with SMTP id h13mr1714803wmb.119.1565685354389; 
+ Tue, 13 Aug 2019 01:35:54 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.gmail.com with ESMTPSA id o11sm8651822wrw.19.2019.08.13.01.35.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Aug 2019 01:35:53 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: vkoul@kernel.org,
+	broonie@kernel.org
+Date: Tue, 13 Aug 2019 09:35:45 +0100
+Message-Id: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, zhengxing@rock-chips.com,
- Liam Girdwood <lgirdwood@gmail.com>, jeffy.chen@rock-chips.com,
- Takashi Iwai <tiwai@suse.com>, tzungbi@chromium.org,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- eddie.cai@rock-chips.com, linux-arm-kernel@lists.infradead.org,
- enric.balletbo@collabora.com, dgreid@chromium.org, cain.cai@rock-chips.com,
- Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH] ASoC: rockchip: rockchip_max98090: Set period
-	size to 240
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
+ pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, robh+dt@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, spapothi@codeaurora.org
+Subject: [alsa-devel] [PATCH v2 0/5] soundwire: Add support to Qualcomm
+	SoundWire master
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,50 +102,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From stress testing of arecord, we found that period size
-greater than ~900 will bring pl330 to DYING state and
-can not recover within 100 iterations.
-The result is that arecord will stuck and get I/O error,
-and issue can not be recovered until reboot.
+Thanks for reviewing the RFC patchset.
+Here is new patchset addressing all the comments from RFC.
 
-This issue does not happen when period size is small.
-Set constraint of period size to 240 to prevent such issue.
-With the constraint, there will be no issue after 2000 iterations.
+This patchset adds support for Qualcomm SoundWire Master Controller
+found in most of Qualcomm SoCs and WCD audio codecs.
 
-We can revert this patch once the root cause is found
-in rockchip's pl330 implementation.
+This driver along with WCD934x codec and WSA881x Class-D Smart Speaker Amplifier
+drivers is on DragonBoard DB845c based of SDM845 SoC.
+WCD934x and WSA881x patches will be posted soon.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/rockchip/rockchip_max98090.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+SoundWire controller on SDM845 is integrated in WCD934x audio codec via
+SlimBus interface.
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 7b0c21fa6dca..0097df1fae66 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -137,8 +137,19 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
-+static int rk_aif1_startup(struct snd_pcm_substream *substream)
-+{
-+	/*
-+	 * Set period size to 240 because pl330 has issue
-+	 * dealing with larger period in stress testing.
-+	 */
-+	return snd_pcm_hw_constraint_minmax(substream->runtime,
-+			SNDRV_PCM_HW_PARAM_PERIOD_SIZE, 240, 240);
-+}
-+
- static const struct snd_soc_ops rk_aif1_ops = {
- 	.hw_params = rk_aif1_hw_params,
-+	.startup = rk_aif1_startup,
- };
- 
- SND_SOC_DAILINK_DEFS(hifi,
+Currently this driver is very minimal and only supports PDM.
+
+Most of the code in this driver is rework of Qualcomm downstream drivers
+used in Andriod. Credits to Banajit Goswami and Patrick Lai's Team.
+
+TODO:
+	Test and add PCM support.
+
+Thanks,
+srini
+
+Changes since RFC:
+- updated bindings as suggested to take care of more bus parameters.
+- fixed error code of snd_soc_dai_get_sdw_stream() dummy function.
+- Cleaned up driver to handle read/writes in same way without special casing.
+- removed unused defines
+
+Srinivas Kandagatla (4):
+  soundwire: stream: make stream name a const pointer
+  ASoC: core: add support to snd_soc_dai_get_sdw_stream()
+  dt-bindings: soundwire: add bindings for Qcom controller
+  soundwire: qcom: add support for SoundWire controller
+
+Vinod Koul (1):
+  soundwire: Add compute_params callback
+
+ .../bindings/soundwire/qcom,sdw.txt           | 167 ++++
+ drivers/soundwire/Kconfig                     |   9 +
+ drivers/soundwire/Makefile                    |   4 +
+ drivers/soundwire/qcom.c                      | 919 ++++++++++++++++++
+ drivers/soundwire/stream.c                    |  12 +-
+ include/linux/soundwire/sdw.h                 |   6 +-
+ include/sound/soc-dai.h                       |  10 +
+ 7 files changed, 1124 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+ create mode 100644 drivers/soundwire/qcom.c
+
 -- 
-2.23.0.rc1.153.gdeed80330f-goog
+2.21.0
 
 _______________________________________________
 Alsa-devel mailing list

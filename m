@@ -2,73 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E8E08CAB5
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 07:49:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 273B28CB98
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 08:09:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F7CF1615;
-	Wed, 14 Aug 2019 07:48:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F7CF1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8508586E;
+	Wed, 14 Aug 2019 08:08:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8508586E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565761748;
-	bh=DepcA9Xu+0AhsQmvJW90dvc68PrHiMJ/r4jmD03QQp8=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565762985;
+	bh=vtbpZGrDUTUUuOwgl6EaoOx6b3mDn0MxZPTODgIquwE=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i3ZXVsdiPPlVNeCHwenV4CHqT7P5C3Icdy8ZD2b5AHEKI3PR7MxfXC5uZV+vKs5SP
-	 8kQvxBiXATMTEdfZRwJiyMKfIlukum0GqIdfGT3O8PGh6DZUUuMvzKrxnKvPOZPzZz
-	 dec8MZwqAyWz04YNYJMJC0u4ipo6rCgf6ZkBeGFE=
+	b=l6O8avAUUn23AZIMqbEGLxGHOBgxedFX4wMY/LZ7rE0ZHVTtyfd1cBbB+f2AECvVY
+	 vDHusCDEyuPljLLZsxM3P7tzCdHEAnMBs6aALz9EU6T4QpjUBFMsHd9Ye/RtETcIuq
+	 22wQxuM/w6HfnX0GO5ucjk+AGlq0Q9UfqiUUPBso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62203F8015A;
-	Wed, 14 Aug 2019 07:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC168F80214;
+	Wed, 14 Aug 2019 08:08:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0CFBCF80214; Wed, 14 Aug 2019 07:47:21 +0200 (CEST)
+ id 1618CF80273; Tue, 13 Aug 2019 10:44:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 845FCF8015A
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 07:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 845FCF8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 47E21F80120
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 10:44:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47E21F80120
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="nmUZ55Rm"
-Received: from localhost (unknown [106.51.111.160])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0319820843;
- Wed, 14 Aug 2019 05:47:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1565761637;
- bh=sGSEpLFwxSA+wPTlqNmCouxrUR10WybyiEQw8oFiCeQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=nmUZ55RmgNLBGCLo2iWsovHMXWinQFV+E8dH5Rban/fSxGQogjKDHrS6VslJfQLBc
- 4zacY6la89zK0RNkjNlyqAmsDUWxobYWOzGCDWaL6JtGS0Ml8P3pml1sVgxHswtuVC
- xys1QuksyRR7jd/EBug5SMhf5VFFcCo6jx5RDzAM=
-Date: Wed, 14 Aug 2019 11:16:04 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Nathan Chancellor <natechancellor@gmail.com>
-Message-ID: <20190814054604.GW12733@vkoul-mobl.Dlink>
-References: <20190813061014.45015-1-natechancellor@gmail.com>
- <445d16e1-6b00-6797-82df-42a49a5e79e3@linux.intel.com>
- <20190814035947.GS12733@vkoul-mobl.Dlink>
- <20190814042428.GA125416@archlinux-threadripper>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="fJtewxdP"
+Received: by mail-wr1-x444.google.com with SMTP id n9so107083279wru.0
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 01:44:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:subject:to:cc:references:from:openpgp:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=SDJwnQjuv8+cFv70gCeD4pPzDeWrNoPVh3U04PT4UTo=;
+ b=fJtewxdPG91j4ntA6IRwYWaehG/C7ZE1FeBUd+Yf8PiTqWCE2rhuklmiys/EBFkqtX
+ UqVrHjsFgRF88ZLDIxUk/PtD8H7MfvWr6RdgPNBa2i/lky+2NeHlvfriIinGYsgEt588
+ eypIYoXICelKldnhDzyEy7o9xnhErO0tlhl+sY2DM24LHAkI/3Y0yYvurZP+fb6ZwRLq
+ xpYDqMaw37Sa4I4ikaPkNuh7dD+Rv6OpRWPO0T8Jcc+lu9jo80gfzkLQjoseIxIURVNt
+ 19KxsxM3vXIu5ge12T8A+3/8etiRG2Mux4y6Gw66OTRwTsxgjc648d/VYitBFBZd45T+
+ GLBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:subject:to:cc:references:from:openpgp
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=SDJwnQjuv8+cFv70gCeD4pPzDeWrNoPVh3U04PT4UTo=;
+ b=qD3AcRR0z8ZojGY0IXDTum8TFS+uL9kjXrbdANCoYq62TNwUz/CReYvTA/Un0Cx7H4
+ AzV6yMBNfLxRnkilVGRrJakDV6xCqhJP6bESpBKdcAZYnFOtiT9BTvBn3uco83EMAe+e
+ qZePUQKmj4NqUJOYOCp0I+Q0blOxux70V0K4w+q7HVJeizH+Ez1PdfH7mu1XOzIwVZZq
+ 4dLe/ZWTG7yHzTkQ11dtYLus55AniSSHq2zPEswOCC2WvTejN5RzLpvdebH7JQ9pgFX/
+ avbhUiZGMJ4oAiZRT+NYiROZQfbUTusKlyBZRJ9FBq3TV4BE3ouFGUmJKKQ6d7ypwClo
+ qPLg==
+X-Gm-Message-State: APjAAAU19o23AqP/3gsfGhnib4gc91+HUxdbE1OsEVF7wZo1q2PBa74S
+ yN8+RrGL8YLy4uh/rrTpbUA=
+X-Google-Smtp-Source: APXvYqyh5cs0zBfsrQ9/9b4GlmZJ4f1O1rnDXbQI6CpyecdaWis32Z7KfISDGKCOzITPkf4SiQ85Zg==
+X-Received: by 2002:adf:dd88:: with SMTP id x8mr37133406wrl.331.1565685873196; 
+ Tue, 13 Aug 2019 01:44:33 -0700 (PDT)
+Received: from [192.168.1.35] (251.red-88-10-102.dynamicip.rima-tde.net.
+ [88.10.102.251])
+ by smtp.gmail.com with ESMTPSA id k124sm1896121wmk.47.2019.08.13.01.44.31
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Tue, 13 Aug 2019 01:44:32 -0700 (PDT)
+To: Lee Jones <lee.jones@linaro.org>, Paul Cercueil <paul@crapouillou.net>
+References: <20190725220215.460-1-paul@crapouillou.net>
+ <20190725220215.460-11-paul@crapouillou.net> <20190812081640.GA26727@dell>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>
+Openpgp: url=http://pgp.mit.edu/pks/lookup?op=get&search=0xE3E32C2CDEADC0DE
+Message-ID: <4b48e597-951e-45fd-dfb2-4a1292a8b067@amsat.org>
+Date: Tue, 13 Aug 2019 10:44:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190814042428.GA125416@archlinux-threadripper>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: clang-built-linux@googlegroups.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] soundwire: Don't build sound.o without
- CONFIG_ACPI
+In-Reply-To: <20190812081640.GA26727@dell>
+Content-Language: en-US
+X-Mailman-Approved-At: Wed, 14 Aug 2019 08:07:59 +0200
+Cc: Mark Rutland <mark.rutland@arm.com>, linux-fbdev@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, James Hogan <jhogan@kernel.org>,
+ alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org,
+ Sebastian Reichel <sre@kernel.org>, od@zcrc.me, linux-mtd@lists.infradead.org,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Artur Rojek <contact@artur-rojek.eu>, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, Paul Burton <paul.burton@mips.com>,
+ linux-mips@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>,
+ devicetree@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Mark Brown <broonie@kernel.org>, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Ralf Baechle <ralf@linux-mips.org>,
+ Vinod Koul <vkoul@kernel.org>, Rob Herring <robh+dt@kernel.org>,
+ dmaengine@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 10/11] mfd: Drop obsolete JZ4740 driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,32 +121,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13-08-19, 21:24, Nathan Chancellor wrote:
-> On Wed, Aug 14, 2019 at 09:29:47AM +0530, Vinod Koul wrote:
-> > On 13-08-19, 09:22, Pierre-Louis Bossart wrote:
-> > > On 8/13/19 1:10 AM, Nathan Chancellor wrote:
- 
-> > > I am fine with the change, but we might as well rename the file acpi_slave.c
-> > > then?
-> > 
-> > Srini's change add support for DT for the same file, so It does not make
-> > sense to rename. Yes this patch tries to fix a warn which is there due
-> > to DT being not supported but with Srini's patches this warn should go
-> > away as sdw_slave_add() will be invoked by the DT counterpart
-> > 
-> > Sorry Nathan, we would have to live with the warn for few more days till
-> > I apply Srini's changes. So I am not taking this (or v2) patch
-> > 
+Hi Lee,
+
+On 8/12/19 10:16 AM, Lee Jones wrote:
+> On Thu, 25 Jul 2019, Paul Cercueil wrote:
 > 
-> That is fine as I can apply this locally. Could you point me to these
-> patches so that I can take a look at them?
+>> It has been replaced with the ingenic-iio driver for the ADC.
+>>
+>> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+>> Tested-by: Artur Rojek <contact@artur-rojek.eu>
+>> ---
+>>  drivers/mfd/Kconfig      |   9 --
+>>  drivers/mfd/Makefile     |   1 -
+>>  drivers/mfd/jz4740-adc.c | 324 ---------------------------------------
+>>  3 files changed, 334 deletions(-)
+>>  delete mode 100644 drivers/mfd/jz4740-adc.c
+> 
+> Applied, thanks.
 
-Here you go:
+It seems the replacement is done in "MIPS: qi_lb60: Migrate to
+devicetree" which is not yet merged.
 
-https://lore.kernel.org/lkml/20190808144504.24823-3-srinivas.kandagatla@linaro.org/
+Probably easier if this patch goes thru the MIPS tree as part of the
+"JZ4740 SoC cleanup" series.
 
--- 
-~Vinod
+Regards,
+
+Phil.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,84 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9E6D8B2A4
-	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 10:38:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89C328B2A6
+	for <lists+alsa-devel@lfdr.de>; Tue, 13 Aug 2019 10:39:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 54F74166F;
-	Tue, 13 Aug 2019 10:37:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54F74166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 139D71669;
+	Tue, 13 Aug 2019 10:38:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 139D71669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565685512;
-	bh=DfgJv6aqQkLthyNvHByFEqT2u3Ats1t9n071RBjGkiM=;
+	s=default; t=1565685560;
+	bh=rPEtpErXKecXyZ4midmUUX2khfWA0Vcr9admbgXHbOo=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cJ34PrhBTKcrDvY7pVJQJJH9yhUUY/0nF+ijwgFdgbskomAvToUb1t+nkdxcN2thG
-	 Y/lsaPM20f3ZygmRiOXJsoW7XAedmqc30iG5x5azy3HEMqLDXJBXAuoiDDpXGTxcKd
-	 YkjhgBQLji5W6YKzmXyN4LCRpRLHK/C5eRB1jsjA=
+	b=HGvA1hycD6lEloy4CXUVBv9OLZjJ/+9Yd4YilmwwuIlVIObuPpnICPeh+1ySJbn/Z
+	 R94cLf5sJl4JaNodWm5graFuLYKDcdZPTIIB12lfkbJeyIhpUunojcFzJ6mCZHkxPK
+	 YkF453lztMlz7yV/RyiZ/fhof00Au0H5O/G0qcl4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62008F80120;
-	Tue, 13 Aug 2019 10:36:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8428EF805E2;
+	Tue, 13 Aug 2019 10:36:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55103F80274; Tue, 13 Aug 2019 10:35:59 +0200 (CEST)
+ id 93E94F80273; Tue, 13 Aug 2019 10:36:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8C1CF8015A
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 10:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8C1CF8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1BC4F8026A
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 10:35:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1BC4F8026A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="mtkkTc2z"
-Received: by mail-wm1-x341.google.com with SMTP id 10so686550wmp.3
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 01:35:56 -0700 (PDT)
+ header.b="z1KFlnpe"
+Received: by mail-wr1-x441.google.com with SMTP id r1so7859124wrl.7
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 01:35:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=47pjUZtlYEQsWYFM2ZKdkX9DO8aXhwyKbVTpMW5dD0M=;
- b=mtkkTc2za4MBew4vaNmst2IsNgchFGrls0sMOvN2UhPHs9lHa2U93xFQ5xAKx0CpfE
- KQlsxsYeHq6f4pzn2C0P8AycDtTJr1i+m6XGHohquv8ndV8JTM3VNYq0pGDIajQ4ipsp
- 42RTztSe+QkgPim00XYgEC6UFfNpm4kgA5SN5/Gv4/os+EoUuhFvpQ6y2GZD2cvhh8yB
- dAA3XpTMCufeDzI2CUEuBRrZoFpTGbWzg0gn7m/qLDh/Lezo4c0raD++1ElZhdyecGSP
- v1G+d5N5+NKrl8INbMURU99BWGpg1TderUW+X/jciZtLZSi85m9oImE1ogDDEbMFmepC
- i8Ig==
+ bh=yY3j+tzAidsewEpOKH7pvngWyOrXZYN1znzf8G8c2/o=;
+ b=z1KFlnpe7m6oruIQ8cwwyUe0xYtx70XatCj0QTT3fQG0wWPqOetxuINiLncLjFTWTm
+ 99H1BtzfFj+UnuZcErc7bAJTBHGV4j1+4Z5/JyC7VOEUNZIcuuvAzstG9O1gv1RCckId
+ TzAMy2Yy5ely6dY38GSWw68qaAwxhYG8sqLPPCksZXgXydyiUuJ0K3sGK/2ut4K19N5Y
+ 1RF8aEmiY8gLCqkR3QzdAwpqB9f7CbTOvf5THnii6yVLwT6BZA0ObfQ3ZdJYT2W8rKoY
+ ZD6dc/JtTu+Oukif2+WVSMwzax90gO1e/MjO1I4Phxk/93Ispzxbp3zCuDhM3ZTKwCEt
+ bcFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=47pjUZtlYEQsWYFM2ZKdkX9DO8aXhwyKbVTpMW5dD0M=;
- b=T0W/QPVv7oA4on6Vuk10xEwgDyTFH0TSUhqzBHd/2G6EvBlY6D6xHhWLwvGyH38Rc1
- fYUTOfWGToOOnyfybhwfPc/eVnP/TKhrhI5ayiTdIGoYdh0RRTyuix5illgGDj61Hkm1
- 8B4SA8DmRNNhDCxB7aizd9K0QhnqrhrYEudf0tNke61k5Z/8EpxzZKdS08n91pqJI2Te
- slFwA71pR+YnGcajzk2AmK0qEGl+W0eO4XNuEzdStT310jcsGBpIhJtlxhyLg+/y8BMF
- GrmSLn2cR4CuE5Jbb7K7N+dOgEv8UkElMPS5k5xSRuRa+BkySMzhne5S+1WhQrvyglcJ
- hTvg==
-X-Gm-Message-State: APjAAAVbwGup6wjJE1HYGooBQTk1B0k9TEAcoVK2WgcfvC40PFeRWoUk
- uQIop59A7f1GKhBR7k+OFjjAYg==
-X-Google-Smtp-Source: APXvYqy7DQnahHv4WYLvvV3qcT2SkUUHTBk00iCKoTTLBlhFu6Xsp5qL9efPIajKTBxlJAkv8lkmFw==
-X-Received: by 2002:a05:600c:2292:: with SMTP id
- 18mr1755383wmf.156.1565685355813; 
- Tue, 13 Aug 2019 01:35:55 -0700 (PDT)
+ bh=yY3j+tzAidsewEpOKH7pvngWyOrXZYN1znzf8G8c2/o=;
+ b=qCub/xkh4qgo+ouPi833O0bi7wmjU77k6whT6bB3h2Gc7s25W3wFx1U/7yoc1qs/Ah
+ wI88AiTTsgby+eWjrrhecvQAMm5oLe9IiOCY4o2O90wXbm3gxw9XO5VqhBHEcjucl8hY
+ HvgzkKy5TTzENmzaTX6gMBBfMKuEn1Pqs4KcaT+kkgft55ylvaqtrq6wAKHKJKWafWGX
+ DX2ZKjT8h+BBloPdRFW0wP6nKf7lg8ovIwReVveUyZermwcC9Y43u3gMOCS1qCf3IzBj
+ gdGk2PvU6kwyB3gzLEsjJ5Lm0mPmoZYMlz+rKN2DDhFzUBT+FQw3XvZ2qQR6uPZyuTIW
+ e7mA==
+X-Gm-Message-State: APjAAAUTfIqguKYhhHIb6nGiVIVfVF6TxBXkqiidUSNnHjJBMgpVAlaH
+ ZzXceSbLqFUGH+jSADNH/yv5hw==
+X-Google-Smtp-Source: APXvYqySdA0FxJMGYIhbPWPNlaaNMqY14nOQdlvcbZOf6sDtJJSN0OFSBC4FzOtGc7e8Ynj8q0FmxA==
+X-Received: by 2002:adf:dc51:: with SMTP id m17mr47047026wrj.256.1565685356898; 
+ Tue, 13 Aug 2019 01:35:56 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id o11sm8651822wrw.19.2019.08.13.01.35.54
+ by smtp.gmail.com with ESMTPSA id o11sm8651822wrw.19.2019.08.13.01.35.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Aug 2019 01:35:55 -0700 (PDT)
+ Tue, 13 Aug 2019 01:35:56 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org,
 	broonie@kernel.org
-Date: Tue, 13 Aug 2019 09:35:46 +0100
-Message-Id: <20190813083550.5877-2-srinivas.kandagatla@linaro.org>
+Date: Tue, 13 Aug 2019 09:35:47 +0100
+Message-Id: <20190813083550.5877-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
 References: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
@@ -88,7 +87,8 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
  pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, robh+dt@kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, spapothi@codeaurora.org
-Subject: [alsa-devel] [PATCH v2 1/5] soundwire: Add compute_params callback
+Subject: [alsa-devel] [PATCH v2 2/5] soundwire: stream: make stream name a
+	const pointer
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,58 +106,49 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Vinod Koul <vkoul@kernel.org>
+Make stream name const pointer
 
-This callback allows masters to compute the bus parameters required.
-
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- drivers/soundwire/stream.c    | 10 ++++++++++
- include/linux/soundwire/sdw.h |  2 ++
- 2 files changed, 12 insertions(+)
+ drivers/soundwire/stream.c    | 2 +-
+ include/linux/soundwire/sdw.h | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-index a0476755a459..60bc2fe42928 100644
+index 60bc2fe42928..49ce21320f52 100644
 --- a/drivers/soundwire/stream.c
 +++ b/drivers/soundwire/stream.c
-@@ -1483,6 +1483,16 @@ static int _sdw_prepare_stream(struct sdw_stream_runtime *stream)
- 		bus->params.bandwidth += m_rt->stream->params.rate *
- 			m_rt->ch_count * m_rt->stream->params.bps;
+@@ -863,7 +863,7 @@ EXPORT_SYMBOL(sdw_release_stream);
+  * sdw_alloc_stream should be called only once per stream. Typically
+  * invoked from ALSA/ASoC machine/platform driver.
+  */
+-struct sdw_stream_runtime *sdw_alloc_stream(char *stream_name)
++struct sdw_stream_runtime *sdw_alloc_stream(const char *stream_name)
+ {
+ 	struct sdw_stream_runtime *stream;
  
-+		/* Compute params */
-+		if (bus->compute_params) {
-+			ret = bus->compute_params(bus);
-+			if (ret < 0) {
-+				dev_err(bus->dev, "Compute params failed: %d",
-+					ret);
-+				return ret;
-+			}
-+		}
-+
- 		/* Program params */
- 		ret = sdw_program_params(bus);
- 		if (ret < 0) {
 diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index bea46bd8b6ce..aac68e879fae 100644
+index aac68e879fae..5e61ad065d32 100644
 --- a/include/linux/soundwire/sdw.h
 +++ b/include/linux/soundwire/sdw.h
-@@ -718,6 +718,7 @@ struct sdw_master_ops {
-  * Bit set implies used number, bit clear implies unused number.
-  * @bus_lock: bus lock
-  * @msg_lock: message lock
-+ * @compute_params: points to Bus resource management implementation
-  * @ops: Master callback ops
-  * @port_ops: Master port callback ops
-  * @params: Current bus parameters
-@@ -739,6 +740,7 @@ struct sdw_bus {
- 	DECLARE_BITMAP(assigned, SDW_MAX_DEVICES);
- 	struct mutex bus_lock;
- 	struct mutex msg_lock;
-+	int (*compute_params)(struct sdw_bus *bus);
- 	const struct sdw_master_ops *ops;
- 	const struct sdw_master_port_ops *port_ops;
- 	struct sdw_bus_params params;
+@@ -830,7 +830,7 @@ struct sdw_stream_params {
+  * @m_rt_count: Count of Master runtime(s) in this stream
+  */
+ struct sdw_stream_runtime {
+-	char *name;
++	const char *name;
+ 	struct sdw_stream_params params;
+ 	enum sdw_stream_state state;
+ 	enum sdw_stream_type type;
+@@ -838,7 +838,7 @@ struct sdw_stream_runtime {
+ 	int m_rt_count;
+ };
+ 
+-struct sdw_stream_runtime *sdw_alloc_stream(char *stream_name);
++struct sdw_stream_runtime *sdw_alloc_stream(const char *stream_name);
+ void sdw_release_stream(struct sdw_stream_runtime *stream);
+ int sdw_stream_add_master(struct sdw_bus *bus,
+ 		struct sdw_stream_config *stream_config,
 -- 
 2.21.0
 

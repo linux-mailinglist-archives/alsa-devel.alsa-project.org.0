@@ -2,87 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785CB8D58C
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 16:04:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1FE8D58E
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 16:05:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3D5A1671;
-	Wed, 14 Aug 2019 16:03:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3D5A1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB5311660;
+	Wed, 14 Aug 2019 16:04:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB5311660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565791473;
-	bh=0Sk7A2JmGyIriTTaDFUBJ9R5FsaEmIbHCpA860fj4wc=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1565791519;
+	bh=r5j1wcpU+GAriDYO928DyhCL/jtT3G0S2d5tetuAaY0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ITiVnZs94PmBDMiMgRQD5F1TJSrp3E3m4F4r7vDqOnSiBaBQIH04D6t2S6m/3O6WQ
-	 33h8rAjFbpoqYVB8MfWYoySo19nqduIe9/vTYGX5mFfcZFvK+95uI6SUN3v6XIH88F
-	 O4FN2aUBg7yxWQl5EcnreN7pg893daI303VrRyf4=
+	b=eXuUlCKLe+fBjMq4H1CxHorwu88fA2WhJLG84XxV1i0roWshigdU4cQfgXE3t1oM8
+	 q9heBR2A7l72DjeeO2zS/dc0DvSCxuOVs+Sp6HVnfw3A4bCBIWFWEYYXaB4Og8O5ST
+	 SkPwK6jM/e2keVbTCuk3SXGspJqlkZcfsnO4+fPc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2171AF80268;
-	Wed, 14 Aug 2019 16:02:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8AC30F803F4;
+	Wed, 14 Aug 2019 16:03:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74393F80214; Wed, 14 Aug 2019 16:02:46 +0200 (CEST)
+ id 3AC36F80446; Wed, 14 Aug 2019 16:03:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7CE3F8015A
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 16:02:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7CE3F8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="hdGANqTQ"
-Received: by mail-wr1-x441.google.com with SMTP id p17so111192821wrf.11
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 07:02:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9BCsaT/ypWtdhsmfXKzhWUE99AeirQdOEW2jeMnFuhQ=;
- b=hdGANqTQ9F21qw3u2Ego2JScgA5oHNpiXRoKNozB7yNZReqYDa7LJmrxWHn8/BjFZA
- VJcIcgSCiwFebMJ6Wtunw9n3td5KB8oF2KoPTxrozb5S9wPP2eysU9YFtFwLKO1ILLlG
- jQZKIyxO1J99qglc+9rCgLVT8PBm7dz6RLjVXXvvqyF5mNtqHCr7TVDtUNZuSWfLZIwy
- W7b58nIVz03ZjHRkydJi9TxhYyhV65qrJCm3UPE3NUxx8FS/tXQRvwTOGX92IlEb3a1r
- 5d2ZPTWM+Js2wa1jV7NZysCGy2pKT1lHA9sYZZQOb4mAMnJn2ywplnG9+Nf5MB/bPrUr
- cShw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9BCsaT/ypWtdhsmfXKzhWUE99AeirQdOEW2jeMnFuhQ=;
- b=fMjoZDKZExKidFDnS0kAXSnT/O769EiEkIKFeQiRAa/3WyJQAUeYNtjZAGrhgMy7Su
- R1Tx0QtE8KO+TE9PFIfa613hUJOVxl7rRlhRxiszP++Oyq6W1mhOhyLE/IswH8ghouhl
- X0YmFEkNJPVDtGCQnb+g7176SBNFyg7egeoV8jEt/e7sBzpGt+jvA6xJHusOg6yuPpq7
- 8vBt+XDiNn6wvxMUdg5D7ilQCSxR6207e/bz/vdnxs4+tTsrutbOhDVzz6qfuNvo0byr
- 0lDcMwq3Iw1mQHj+oR0/N7GQS7PojuzpZaZzWoc8dP7fmP7s5g1qqJ9v+wXWUpyxiXJY
- UMkA==
-X-Gm-Message-State: APjAAAWo6vJmXjx4vYGqZszJTnXyhrMFgsc6MWhjLBjVX3/fuFWrlRGb
- MSClfMTzEnKilynzKA7WWtWURwW9ZjhShvvM8Xs=
-X-Google-Smtp-Source: APXvYqxrhrONJQxS57JXyI89+iJAt6ObBY3ZfCskyIyx9vmteh564auNmoefwSfggsdTluXOxALfO9/LgPUpUfVMun0=
-X-Received: by 2002:a5d:4310:: with SMTP id h16mr45630912wrq.212.1565791362736; 
- Wed, 14 Aug 2019 07:02:42 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id DE427F80214
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 16:03:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE427F80214
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Aug 2019 07:03:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,385,1559545200"; d="scan'208";a="376051764"
+Received: from dthummal-mobl.amr.corp.intel.com (HELO [10.254.111.70])
+ ([10.254.111.70])
+ by fmsmga005.fm.intel.com with ESMTP; 14 Aug 2019 07:03:46 -0700
+To: Vinod Koul <vkoul@kernel.org>, Cezary Rojewski <cezary.rojewski@intel.com>
+References: <20190806005522.22642-1-pierre-louis.bossart@linux.intel.com>
+ <20190806005522.22642-7-pierre-louis.bossart@linux.intel.com>
+ <03b6091b-af41-ac54-43c7-196a3583a731@intel.com>
+ <024b4fb4-bdfa-a6dc-48bb-c070f2ed36b2@linux.intel.com>
+ <2445b5dc-246c-9c3b-b26e-784032feccf9@intel.com>
+ <20190814043139.GV12733@vkoul-mobl.Dlink>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <0e40ecee-d081-3cee-3e95-cd3c0f3e5b30@linux.intel.com>
+Date: Wed, 14 Aug 2019 09:03:44 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20190811195545.32606-1-daniel.baluta@nxp.com>
- <20190814013916.GB13398@Asurada-Nvidia.nvidia.com>
-In-Reply-To: <20190814013916.GB13398@Asurada-Nvidia.nvidia.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 14 Aug 2019 17:02:31 +0300
-Message-ID: <CAEnQRZAQGdci_WtCKHqR-h9zid-COO1FaWWv-MPUkE_sYFszmg@mail.gmail.com>
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Fabio Estevam <festevam@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Daniel Baluta <daniel.baluta@nxp.com>
-Subject: Re: [alsa-devel] [RFC PATCH] ASoC: fsl_sai: Enable data lines based
-	on input channels
+In-Reply-To: <20190814043139.GV12733@vkoul-mobl.Dlink>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, Blauciak@vger.kernel.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com,
+ Slawomir <slawomir.blauciak@intel.com>, Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [PATCH 06/17] soundwire: cadence_master: use
+ firmware defaults for frame shape
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,66 +79,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 14, 2019 at 4:39 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
->
-> On Sun, Aug 11, 2019 at 10:55:45PM +0300, Daniel Baluta wrote:
-> > An audio data frame consists of a number of slots one for each
-> > channel. In the case of I2S there are 2 data slots / frame.
-> >
-> > The maximum number of SAI slots / frame is configurable at
-> > IP integration time. This affects the width of Mask Register.
-> > SAI supports up to 32 slots per frame.
-> >
-> > The number of datalines is also configurable (up to 8 datalines)
-> > and affects TCE/RCE and the number of data/FIFO registers.
-> >
-> > The number of needed data lines (pins) is computed as follows:
-> >
-> > * pins = channels / slots.
-> >
-> > This can be computed in hw_params function so lets move TRCE bits
-> > seting from startup to hw_params.
-> >
-> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> > ---
-> >  sound/soc/fsl/fsl_sai.c | 34 +++++++++++++---------------------
-> >  sound/soc/fsl/fsl_sai.h |  2 +-
-> >  2 files changed, 14 insertions(+), 22 deletions(-)
-> >
-> > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> > index 69cf3678c859..b70032c82fe2 100644
-> > --- a/sound/soc/fsl/fsl_sai.c
-> > +++ b/sound/soc/fsl/fsl_sai.c
->
-> > @@ -480,13 +483,17 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
->
-> > -     regmap_write(sai->regmap, FSL_SAI_xMR(tx), ~0UL - ((1 << channels) - 1));
-> > +     regmap_write(sai->regmap, FSL_SAI_xMR(tx), ~0UL - ((1 << slots) - 1));
->
-> Would this break mono channel audio?
-
-Indeed, this isn't good for mono. I see in our internal tree that we
-have min(channels, slots).
-This would fix mono, let me think if this is really the right solution.
-
->
-> >  static int fsl_sai_dai_probe(struct snd_soc_dai *cpu_dai)
->
-> > @@ -881,6 +872,7 @@ static int fsl_sai_probe(struct platform_device *pdev)
-> >               return -ENOMEM;
-> >
-> >       sai->pdev = pdev;
-> > +
->
-> Seemly unnecessary
-
-Oh, ok. Will fix in next version.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Cj4+Pj4+ICtzdGF0aWMgdTMyIGNkbnNfc2V0X2luaXRpYWxfZnJhbWVfc2hhcGUoaW50IG5fcm93
+cywgaW50IG5fY29scykKPj4+Pj4gK3sKPj4+Pj4gK8KgwqDCoCB1MzIgdmFsOwo+Pj4+PiArwqDC
+oMKgIGludCBjOwo+Pj4+PiArwqDCoMKgIGludCByOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqAgciA9
+IHNkd19maW5kX3Jvd19pbmRleChuX3Jvd3MpOwo+Pj4+PiArwqDCoMKgIGMgPSBzZHdfZmluZF9j
+b2xfaW5kZXgobl9jb2xzKSAmIENETlNfTUNQX0ZSQU1FX1NIQVBFX0NPTF9NQVNLOwo+Pj4+PiAr
+Cj4+Pj4+ICvCoMKgwqAgdmFsID0gKHIgPDwgQ0ROU19NQ1BfRlJBTUVfU0hBUEVfUk9XX09GRlNF
+VCkgfCBjOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqAgcmV0dXJuIHZhbDsKPj4+Pj4gK30KPj4+Pj4g
+Kwo+Pj4+Cj4+Pj4gR3Vlc3MgdGhpcyBoYXZlIGJlZW4gc2FpZCBhbHJlYWR5LCBidXQgdGhpcyBm
+dW5jdGlvbiBjb3VsZCBiZQo+Pj4+IHNpbXBsaWZpZWQgLSB1bmxlc3MgeW91IHJlYWxseSB3YW50
+IHRvIGtlZXAgZXhwbGljaXQgdmFyaWFibGUKPj4+PiBkZWNsYXJhdGlvbi4gQm90aCAiYyIgYW5k
+ICJyIiBkZWNsYXJhdGlvbnMgY291bGQgYmUgbWVyZ2VkIGludG8KPj4+PiBzaW5nbGUgbGluZSB3
+aGlsZSAidmFsIiBpcyBub3QgbmVlZGVkIGF0IGFsbC4KPj4+Pgo+Pj4+IE9uZSBtb3JlIHRoaW5n
+IC0gaXMgQU5EIGJpdHdpc2Ugb3AgcmVhbGx5IG5lZWRlZCBmb3IgY29scwo+Pj4+IGV4cGxpY2l0
+bHk/IFdlIGtub3cgYWxsIGNvbCB2YWx1ZXMgdXBmcm9udCAtIHRoZXNlIGFyZSBzdGF0aWMgYW5k
+Cj4+Pj4gZGVjbGFyZWQgaW4gZ2xvYmFsIHRhYmxlIG5lYXJieS4gU3RhdGljIGRlY2xhcmF0aW9u
+IHRha2VzIGNhcmUgb2YKPj4+PiAiaW5pdGlhbCByYW5nZS1jaGVjayIuIElzIGFub3RoZXIgb25l
+IG5lY2Vzc2FyeT8KPj4+Pgo+Pj4+IE1vcmVvdmVyLCB0aGlzIGlzIGEgX2dldF8gYW5kIGNlcnRh
+aW5seSBub3QgYSBfc2V0XyB0eXBlIG9mCj4+Pj4gZnVuY3Rpb24uIEknZCBldmVuIGNvbnNpZGVy
+IHJlbmFtaW5nIGl0IHRvOiAiY2Ruc19nZXRfZnJhbWVfc2hhcGUiCj4+Pj4gYXMgdGhpcyBpcyBu
+ZWl0aGVyIGEgX3NldF8gbm9yIGFuIGV4cGxpY2l0IGluaXRpYWwgZnJhbWUgc2hhcGUKPj4+PiBz
+ZXR0ZXIuCj4+Pj4KPj4+PiBJdCBtaWdodCBiZSBldmVuIGhlbHBmdWwgdG8gc3BsaXQgdHdvIHVz
+YWdlczoKPj4+Pgo+Pj4+ICNkZWZpbmUgc2R3X2ZyYW1lX3NoYXBlKGNvbF9pZHgsIHJvd19pZHgp
+IFwKPj4+PiAgwqDCoMKgwqDCoCgocm93X2lkeCA8PCBDRE5TX01DUF9GUkFNRV9TSEFQRV9ST1df
+T0ZGU0VUKSB8IGNvbF9pZHgpCj4+Pj4KPj4+PiB1MzIgY2Ruc19nZXRfZnJhbWVfc2hhcGUodTE2
+IHJvd3MsIHUxNiBjb2xzKQo+Pj4+IHsKPj4+PiAgwqDCoMKgwqDCoHUxNiBjLCByOwo+Pj4+Cj4+
+Pj4gIMKgwqDCoMKgwqByID0gc2R3X2ZpbmRfcm93X2luZGV4KHJvd3MpOwo+Pj4+ICDCoMKgwqDC
+oMKgYyA9IHNkd19maW5kX2NvbF9pbmRleChjb2xzKTsKPj4+Pgo+Pj4+ICDCoMKgwqDCoMKgcmV0
+dXJuIHNkd19mcmFtZV9zaGFwZShjLCByKTsKPj4+PiB9Cj4+Pj4KPj4+PiBUaGUgYWJvdmUgbWF5
+IGV2ZW4gYmUgc2ltcGxpZmllZCBpbnRvIG9uZS1saW5lci4KPj4+Cj4+PiBUaGlzIGlzIGEgZnVu
+Y3Rpb24gdXNlZCBvbmNlIG9uIHN0YXJ0dXAsIHRoZXJlIGlzIG5vIHJlYWwgbmVlZCB0bwo+Pj4g
+c2ltcGxpZnkgZnVydGhlci4gVGhlIHNlcGFyYXRlIHZhcmlhYmxlcyBoZWxwIGFkZCBkZWJ1ZyB0
+cmFjZXMgYXMgbmVlZGVkCj4+PiBhbmQga2VlcCB0aGUgY29kZSByZWFkYWJsZSB3aGlsZSBzaG93
+aW5nIGhvdyB0aGUgdmFsdWVzIGFyZSBlbmNvZGVkIGludG8KPj4+IGEgcmVnaXN0ZXIuCj4+Cj4+
+IEVoLCBJJ3ZlIHRob3VnaHQgaXQncyBnb25uYSBiZSBleHBvc2VkIHRvIHVzZXJzcGFjZSAodmlh
+IHVhcGkpIHNvIGl0IGNhbiBiZQo+PiBmZXRjaGVkIGJ5IHRlc3RzIG9yIHRvb2xzLgo+IAo+IFVh
+cGk/IEkgZG9udCBzZWUgYW55dGhpbmcgaW4gdGhpcyBvciBvdGhlciBzZXJpZXMgcG9zdGVkLCBk
+aWQgSSBtaXNzCj4gc29tZXRoaW5nPyBBbHNvIEkgYW0gbm90IHN1cmUgSSBsaWtlIHRoZSBpZGVh
+IG9mIGV4cG9zaW5nIHRoZXNlIHRvCj4gdXNlcmxhbmQhCgpWaW5vZCwgdGhhdCB3YXMgbmV2ZXIg
+dGhlIGludGVudCwgYW5kIENlemFyeSBhZ3JlZWQsIHNlZSBmb2xsb3dpbmcgbGluZQoKPiAKPj4K
+Pj4gSW4gc3VjaCBjYXNlIC0gaWYgdGhlcmUgaXMgYSBzaW5nbGUgdXNhZ2Ugb25seSAtIGd1ZXNz
+IGZ1bmN0aW9uIGlzIGZpbmUgYXMKPj4gaXMuCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxA
+YWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

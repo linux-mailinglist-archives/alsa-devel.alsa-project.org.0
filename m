@@ -2,54 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 043188CA1D
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 06:12:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D058CA20
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 06:14:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80B331697;
-	Wed, 14 Aug 2019 06:11:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80B331697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 095D41690;
+	Wed, 14 Aug 2019 06:13:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 095D41690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565755927;
-	bh=0TAm2IkSo76d8RXIBQn7yCeJJ32vsd2FnR0x8SPxs6g=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1565756085;
+	bh=VfIe0b793ycZOJfgkUQUos1E5zScKebu2CmHcnqFGnY=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PUwQ+GW3ZMWhdzA9NLO1eHSZODFHFJP3NyIlaGyQudJ6xOAmDO4kjSolGuk5rOCqT
-	 olbNrwrdiWzolZ/QWYgqRzHKpKLW53ekdps9pW5GorL26xUV9WptS5psGFzKnCYYqY
-	 dIpx4MWgEbOG1DyPAxBBJCcQ7wzi2zLeEIOS9Wd4=
+	b=Lazv02y6kwofbJNNFqu+1RTm/14EmFe6Wes0MJbWdn6feUGNVoX97U7RI7etvSH6m
+	 y8FlPH/qh0ZVp+ZtDmBB7ZHqUhz91Jyk1dWSJ7VgBnvPmsBmFxXgUHgNYZqV+33+La
+	 GnP0X3J5B0j1bIoMzMX0GTUdY+W2zWH7JWiHZaSI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A5CCF805A9;
-	Wed, 14 Aug 2019 06:09:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3BC80F80214;
+	Wed, 14 Aug 2019 06:13:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38229F8058C; Wed, 14 Aug 2019 06:09:37 +0200 (CEST)
+ id D5B48F8015B; Wed, 14 Aug 2019 06:12:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D97F3F8015B
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 06:09:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D97F3F8015B
-Received: from [114.254.46.119] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa (TLS1.0:DHE_RSA_AES_256_CBC_SHA1:32)
- (Exim 4.76) (envelope-from <hui.wang@canonical.com>)
- id 1hxkbL-0000CA-Bm; Wed, 14 Aug 2019 04:09:32 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Wed, 14 Aug 2019 12:09:08 +0800
-Message-Id: <20190814040908.9758-2-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190814040908.9758-1-hui.wang@canonical.com>
-References: <20190814040908.9758-1-hui.wang@canonical.com>
-Cc: stable@vger.kernel.org
-Subject: [alsa-devel] [PATCH 2/2] ALSA: hda - Add a generic reboot_notify
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F2B0F8015B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 06:12:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F2B0F8015B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="LkmFK38c"
+Received: from localhost (unknown [106.51.111.160])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0805420843;
+ Wed, 14 Aug 2019 04:12:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1565755974;
+ bh=x6L4Ab4GwkfFv2tLx6IooKohLXKZx+ziOKbXCdycO7M=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=LkmFK38c+er/rP52PMhS4hw6QCvPGjZyyffDgJ0aVE1zfuzPs5dnwYMCujuh9Ds7d
+ Z3vnCjGD+GZ9Gp3AM+ew8qiZHciwxlQ1KCngNeYhVGmdcJxHbXa8h0g5dcMEfUCgDx
+ 07kpERkuYqgxYsz9qxTl9ISxAGBAkrOlwHdVftls=
+Date: Wed, 14 Aug 2019 09:41:42 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20190814041142.GU12733@vkoul-mobl.Dlink>
+References: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
+ <20190813083550.5877-4-srinivas.kandagatla@linaro.org>
+ <ba88e0f9-ae7d-c26e-d2dc-83bf910c2c01@linux.intel.com>
+ <c2eecd44-f06a-7287-2862-0382bf697f8d@linaro.org>
+ <d2b7773b-d52a-7769-aa5b-ef8c8845d447@linux.intel.com>
+ <d7c1fdb2-602f-ecb1-9b32-91b893e7f408@linaro.org>
+ <f0228cb4-0a6f-17f3-fe03-9be7f5f2e59d@linux.intel.com>
+ <20190813191827.GI5093@sirena.co.uk>
+ <cc360858-571a-6a46-1789-1020bcbe4bca@linux.intel.com>
+ <20190813195804.GL5093@sirena.co.uk>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190813195804.GL5093@sirena.co.uk>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ lgirdwood@gmail.com, robh+dt@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, spapothi@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH v2 3/5] ASoC: core: add support to
+ snd_soc_dai_get_sdw_stream()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,125 +89,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make codec enter D3 before rebooting or poweroff can fix the noise
-issue on some laptops. And in theory it is harmless for all codecs
-to enter D3 before rebooting or poweroff, let us add a generic
-reboot_notify, then realtek and conexant drivers can call this
-function.
+On 13-08-19, 20:58, Mark Brown wrote:
+> On Tue, Aug 13, 2019 at 02:38:53PM -0500, Pierre-Louis Bossart wrote:
+> 
+> > Indeed. I don't have a full understanding of that part to be honest, nor why
+> > we need something SoundWire-specific. We already abused the set_tdm_slot API
+> > to store an HDaudio stream, now we have a rather confusing stream
+> > information for SoundWire and I have about 3 other 'stream' contexts in
+> > SOF... I am still doing basic cleanups but this has been on my radar for a
+> > while.
+> 
+> There is something to be said for not abusing the TDM slot API if it can
+> make things clearer by using bus-idiomatic mechanisms, but it does mean
+> everything needs to know about each individual bus :/ .
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/hda_generic.c    | 19 +++++++++++++++++++
- sound/pci/hda/hda_generic.h    |  1 +
- sound/pci/hda/patch_conexant.c |  6 +-----
- sound/pci/hda/patch_realtek.c  | 11 +----------
- 4 files changed, 22 insertions(+), 15 deletions(-)
+Here ASoC doesn't need to know about sdw bus. As Srini explained, this
+helps in the case for him to get the stream context and set the stream
+context from the machine driver.
 
-diff --git a/sound/pci/hda/hda_generic.c b/sound/pci/hda/hda_generic.c
-index 8f2beb1f3ae4..5bf24fb819d2 100644
---- a/sound/pci/hda/hda_generic.c
-+++ b/sound/pci/hda/hda_generic.c
-@@ -6051,6 +6051,24 @@ void snd_hda_gen_free(struct hda_codec *codec)
- }
- EXPORT_SYMBOL_GPL(snd_hda_gen_free);
- 
-+/**
-+ * snd_hda_gen_reboot_notify - Make codec enter D3 before rebooting
-+ * @codec: the HDA codec
-+ *
-+ * This can be put as patch_ops reboot_notify function.
-+ */
-+void snd_hda_gen_reboot_notify(struct hda_codec *codec)
-+{
-+	/* Make the codec enter D3 to avoid spurious noises from the internal
-+	 * speaker during (and after) reboot
-+	 */
-+	snd_hda_codec_set_power_to_all(codec, codec->core.afg, AC_PWRST_D3);
-+	snd_hda_codec_write(codec, codec->core.afg, 0,
-+			    AC_VERB_SET_POWER_STATE, AC_PWRST_D3);
-+	msleep(10);
-+}
-+EXPORT_SYMBOL_GPL(snd_hda_gen_reboot_notify);
-+
- #ifdef CONFIG_PM
- /**
-  * snd_hda_gen_check_power_status - check the loopback power save state
-@@ -6078,6 +6096,7 @@ static const struct hda_codec_ops generic_patch_ops = {
- 	.init = snd_hda_gen_init,
- 	.free = snd_hda_gen_free,
- 	.unsol_event = snd_hda_jack_unsol_event,
-+	.reboot_notify = snd_hda_gen_reboot_notify,
- #ifdef CONFIG_PM
- 	.check_power_status = snd_hda_gen_check_power_status,
- #endif
-diff --git a/sound/pci/hda/hda_generic.h b/sound/pci/hda/hda_generic.h
-index 35a670a71c42..5f199dcb0d18 100644
---- a/sound/pci/hda/hda_generic.h
-+++ b/sound/pci/hda/hda_generic.h
-@@ -332,6 +332,7 @@ int snd_hda_gen_parse_auto_config(struct hda_codec *codec,
- 				  struct auto_pin_cfg *cfg);
- int snd_hda_gen_build_controls(struct hda_codec *codec);
- int snd_hda_gen_build_pcms(struct hda_codec *codec);
-+void snd_hda_gen_reboot_notify(struct hda_codec *codec);
- 
- /* standard jack event callbacks */
- void snd_hda_gen_hp_automute(struct hda_codec *codec,
-diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
-index 93a303676aea..14298ef45b21 100644
---- a/sound/pci/hda/patch_conexant.c
-+++ b/sound/pci/hda/patch_conexant.c
-@@ -166,11 +166,7 @@ static void cx_auto_reboot_notify(struct hda_codec *codec)
- 	/* Turn the problematic codec into D3 to avoid spurious noises
- 	   from the internal speaker during (and after) reboot */
- 	cx_auto_turn_eapd(codec, spec->num_eapds, spec->eapds, false);
--
--	snd_hda_codec_set_power_to_all(codec, codec->core.afg, AC_PWRST_D3);
--	snd_hda_codec_write(codec, codec->core.afg, 0,
--			    AC_VERB_SET_POWER_STATE, AC_PWRST_D3);
--	msleep(10);
-+	snd_hda_gen_reboot_notify(codec);
- }
- 
- static void cx_auto_free(struct hda_codec *codec)
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index cb7baa65b298..a1439c9a635a 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -869,15 +869,6 @@ static void alc_reboot_notify(struct hda_codec *codec)
- 		alc_shutup(codec);
- }
- 
--/* power down codec to D3 at reboot/shutdown; set as reboot_notify ops */
--static void alc_d3_at_reboot(struct hda_codec *codec)
--{
--	snd_hda_codec_set_power_to_all(codec, codec->core.afg, AC_PWRST_D3);
--	snd_hda_codec_write(codec, codec->core.afg, 0,
--			    AC_VERB_SET_POWER_STATE, AC_PWRST_D3);
--	msleep(10);
--}
--
- #define alc_free	snd_hda_gen_free
- 
- #ifdef CONFIG_PM
-@@ -5218,7 +5209,7 @@ static void alc_fixup_tpt440_dock(struct hda_codec *codec,
- 	struct alc_spec *spec = codec->spec;
- 
- 	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
--		spec->reboot_notify = alc_d3_at_reboot; /* reduce noise */
-+		spec->reboot_notify = snd_hda_gen_reboot_notify; /* reduce noise */
- 		spec->parse_flags = HDA_PINCFG_NO_HP_FIXUP;
- 		codec->power_save_node = 0; /* avoid click noises */
- 		snd_hda_apply_pincfgs(codec, pincfgs);
+Nothing else is expected to be done from this API. We already do a set
+using snd_soc_dai_set_sdw_stream(). Here we add the snd_soc_dai_get_sdw_stream() to query
+
+Thanks
 -- 
-2.17.1
-
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

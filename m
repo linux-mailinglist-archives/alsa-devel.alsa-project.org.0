@@ -2,76 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5329C8D5AC
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 16:10:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C0188D5D6
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 16:21:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D58B2167C;
-	Wed, 14 Aug 2019 16:10:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D58B2167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E58571673;
+	Wed, 14 Aug 2019 16:20:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E58571673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565791858;
-	bh=R5xH3fIx8hV5AQOuo9hEol2okm6vz3sphUjf3j5nvc4=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1565792466;
+	bh=ExWYK4B1Wgsg9OPkJetZO8tpfd5WCJTeYQVV/uGkbhE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RVYWD/g5oZiJAGabjd8pdhbWLTluK5hY1Xv91lzVL4S08I73FyHFMqb7YVslKRMjp
-	 ot/2Tx1WQapswuYlQtw2E7NAfC8/ck0lqLBhi6CW1XukPQciYjwABQ6OfxVpOnnW08
-	 Th/jBsSUW15z8NNaJo9H+s2txuChvW/20itp9ZF4=
+	b=Ml7Ldr9DVyEuYrC6hQWh11DMwcSjJbaoUbVt3ZMhHfhvgl9co1iWibRBmY132uKZ8
+	 S1sFYrjPmqG/p/0AfCB/a8rBC+/TZ36SRL9tiJLDxjahHUqCGWHkomDg+OjUUhKOGH
+	 F2oMB7BPgBVfoOBfZ3p6enCcSkPlSlMr4dIqjREQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C81DF80268;
-	Wed, 14 Aug 2019 16:09:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 363F4F80214;
+	Wed, 14 Aug 2019 16:19:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A25DEF80268; Wed, 14 Aug 2019 16:09:11 +0200 (CEST)
+ id E89B7F80214; Wed, 14 Aug 2019 16:19:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADB50F8015A
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 16:09:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADB50F8015A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Aug 2019 07:09:06 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,385,1559545200"; d="scan'208";a="376053613"
-Received: from dthummal-mobl.amr.corp.intel.com (HELO [10.254.111.70])
- ([10.254.111.70])
- by fmsmga005.fm.intel.com with ESMTP; 14 Aug 2019 07:09:05 -0700
-To: Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
-References: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
- <20190813083550.5877-4-srinivas.kandagatla@linaro.org>
- <ba88e0f9-ae7d-c26e-d2dc-83bf910c2c01@linux.intel.com>
- <c2eecd44-f06a-7287-2862-0382bf697f8d@linaro.org>
- <d2b7773b-d52a-7769-aa5b-ef8c8845d447@linux.intel.com>
- <d7c1fdb2-602f-ecb1-9b32-91b893e7f408@linaro.org>
- <f0228cb4-0a6f-17f3-fe03-9be7f5f2e59d@linux.intel.com>
- <20190813191827.GI5093@sirena.co.uk>
- <cc360858-571a-6a46-1789-1020bcbe4bca@linux.intel.com>
- <20190813195804.GL5093@sirena.co.uk>
- <20190814041142.GU12733@vkoul-mobl.Dlink>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <99d35a9d-cbd8-f0da-4701-92ef650afe5a@linux.intel.com>
-Date: Wed, 14 Aug 2019 09:09:04 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8E5C6F8015A
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 16:19:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E5C6F8015A
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="uK+xdp1o"
+Received: by mail-wm1-x343.google.com with SMTP id o4so4611504wmh.2
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 07:19:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=W+M3bORKLKAWji4t/1b27E8YGuL0UUMU6Vuc1niTHH0=;
+ b=uK+xdp1o9KE1LeGPJ/z5MmXkfhr5zcLEa8laZc/8KAdh8Sls7tHcHWhl6cvtbHt9Jn
+ ZSPvgkKd+3FvPDOVl+lmzLlEc4PbLvwPq9p3HuPonaALQyzK06islJp3cEB/ioaxlZwV
+ Qe+SLgl2WIAGClCLAnWBZKODFqNZEhHyaeZiLeeOuIan2ExYL2EB439eWPIukCutTxdA
+ YTsw9lzlN/M/i2o0bj8DDaNgqSxoaJyQlutpZk0KNEIWbpUMzn4QbbxTK71rsvi1wqI/
+ eMptbZWvnoxV98Duh0ItgBbK0AISiy8GB7czONXONMnEqBjjcmzdSdFneBEqIzy2yuAB
+ u6dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=W+M3bORKLKAWji4t/1b27E8YGuL0UUMU6Vuc1niTHH0=;
+ b=YjoU5sNBcMM+bhqJYblhFazp5f6wLRjJb8R0pUscHYdZ9VxWc7oaF3i5ZSfwgMgpmz
+ HOIfk2rAGe7eBr4BwCTql0YBtqRyOLgARZZX3K0uK9HCMxu//cTKtj0eOfrywol4p+qH
+ SCC8Rgoht/Y/tzVV/L7mBxrG1eUEfRF1SGLMrgXG9o5/IvQn1CzpVMzkzc4kVz++hjqZ
+ o2lCXGKAg4nHoUB3ILo2nWoiIT77eUayLPF3UFGYgJ76cMEMuHDZrzkliron8YYVc5tf
+ 715vSgWdtWn4ua7gbcb7zIBnWxSdaWB6y1jhhxT68TeQXirar2j7Nm3GJDlZpAu3+JYG
+ FfcQ==
+X-Gm-Message-State: APjAAAW6Ciiq72i9rQSBxAbvvU1m4RbHTAHECnjodGmncWVyyqFact4H
+ s+BTx4F6A/GEoPIa1ceuqmloHE3SEbd3DQY08b8GJGqc
+X-Google-Smtp-Source: APXvYqx4LyqfB/FxgXbLvQzVMEBLPiCgr+Yu5cbHNXgTaMqRhmb/PwuyUUKjbYG20t7oR4dDWKZ3GNyOHOyvXdu4ybg=
+X-Received: by 2002:a1c:6a0b:: with SMTP id f11mr8121235wmc.87.1565792356275; 
+ Wed, 14 Aug 2019 07:19:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190814041142.GU12733@vkoul-mobl.Dlink>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, plai@codeaurora.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, robh+dt@kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, spapothi@codeaurora.org
-Subject: Re: [alsa-devel] [PATCH v2 3/5] ASoC: core: add support to
- snd_soc_dai_get_sdw_stream()
+References: <20190811194517.19314-1-daniel.baluta@nxp.com>
+ <20190814010215.GA13398@Asurada-Nvidia.nvidia.com>
+In-Reply-To: <20190814010215.GA13398@Asurada-Nvidia.nvidia.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Wed, 14 Aug 2019 17:19:04 +0300
+Message-ID: <CAEnQRZA+G8ZD7JY1b6Bd7wXYzSqnFhye4hEx0zn4ATyTRHJ+uQ@mail.gmail.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>, Fabio Estevam <festevam@gmail.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Handle slave mode per TX/RX
+	direction
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,36 +95,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Aug 14, 2019 at 4:01 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Sun, Aug 11, 2019 at 10:45:17PM +0300, Daniel Baluta wrote:
+> > From: Viorel Suman <viorel.suman@nxp.com>
+> >
+> > The SAI interface can be a clock supplier or consumer
+> > as a function of stream direction. e.g SAI can be master
+> > for Tx and slave for Rx.
+> >
+> > Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> > ---
+> >  sound/soc/fsl/fsl_sai.c | 18 +++++++++---------
+> >  sound/soc/fsl/fsl_sai.h |  2 +-
+> >  2 files changed, 10 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
+> > index 4a346fcb5630..69cf3678c859 100644
+> > --- a/sound/soc/fsl/fsl_sai.c
+> > +++ b/sound/soc/fsl/fsl_sai.c
+> > @@ -273,18 +273,18 @@ static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
+>
+> This function is called for both TX and RX at the same time from
+> fsl_sai_set_dai_fmt() so I don't actually see how it can operate
+> in two opposite directions from this change alone. Anything that
+> I have missed?
 
-
-On 8/13/19 11:11 PM, Vinod Koul wrote:
-> On 13-08-19, 20:58, Mark Brown wrote:
->> On Tue, Aug 13, 2019 at 02:38:53PM -0500, Pierre-Louis Bossart wrote:
->>
->>> Indeed. I don't have a full understanding of that part to be honest, nor why
->>> we need something SoundWire-specific. We already abused the set_tdm_slot API
->>> to store an HDaudio stream, now we have a rather confusing stream
->>> information for SoundWire and I have about 3 other 'stream' contexts in
->>> SOF... I am still doing basic cleanups but this has been on my radar for a
->>> while.
->>
->> There is something to be said for not abusing the TDM slot API if it can
->> make things clearer by using bus-idiomatic mechanisms, but it does mean
->> everything needs to know about each individual bus :/ .
-> 
-> Here ASoC doesn't need to know about sdw bus. As Srini explained, this
-> helps in the case for him to get the stream context and set the stream
-> context from the machine driver.
-> 
-> Nothing else is expected to be done from this API. We already do a set
-> using snd_soc_dai_set_sdw_stream(). Here we add the snd_soc_dai_get_sdw_stream() to query
-
-I didn't see a call to snd_soc_dai_set_sdw_stream() in Srini's code?
+Good catch. I'm missing a patch that updates fmt after the first call
+of fsl_sai_set_dai_fmt_tr.
+Let me update the patch and resend.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

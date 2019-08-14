@@ -2,89 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CA4F8CE9F
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 10:40:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0D98CEFA
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 11:04:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B44A61675;
-	Wed, 14 Aug 2019 10:39:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B44A61675
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5100166E;
+	Wed, 14 Aug 2019 11:04:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5100166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565772005;
-	bh=//7F04q5Ueewtj74bqHCHPwsj76gGMPuwSRmAnrF28c=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1565773495;
+	bh=++6Bne4V/O70jsyKPi4VnwkUHwdrb0yITA5m+zomXoc=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fbthn2aqhSBIpHyE2jGSa9sqF2xQeRA6ubk8gafVmPrRalQ3YdRFGH5ewXyGEx11t
-	 /A1o2eMlZkMqkDuNhKBz4+R9z3BQzHfAvrlxsfeOOnDRe1Gdd2IPRAhIg1tleFT+16
-	 lRdkg6FIh5k0l/THmcqdw8V3Yl2YO2NNSA+y58E8=
+	b=nLnsc20CDWgtTJcFRCUn2Q7nvjxhMCkmJVf7hPDikyLs0S5rJ8yBhHae9kbLRyu/S
+	 P5Oa+aEUiVgZaRS7hnLxUQbi3S2zXO5KlmeYL6H/5PvjIuw5mHjeCeCPJCV4/Kfrfj
+	 EWTT1+YlTc61aclBtkevCCs7w3nR6oXd79hv8bl8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 216BAF80268;
-	Wed, 14 Aug 2019 10:38:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10786F801DF;
+	Wed, 14 Aug 2019 11:03:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5B28CF80214; Wed, 14 Aug 2019 10:38:19 +0200 (CEST)
+ id A81A3F80214; Wed, 14 Aug 2019 11:03:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FREEMAIL_REPLY,FROM_EXCESS_BASE64,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7989F8015B
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 10:38:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7989F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5A5EF801DF
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 11:03:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5A5EF801DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="ltlAGtUz"
-Received: by mail-wm1-x341.google.com with SMTP id m125so3684815wmm.3
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 01:38:16 -0700 (PDT)
+ header.b="W96oK3cp"
+Received: by mail-lj1-x242.google.com with SMTP id f9so5563051ljc.13
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 02:03:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=Ss3ykB/e733BEBWwIVPUSJTuhl3UWTyezbyVNGjf0SI=;
- b=ltlAGtUzyH1E/WYoIuA6t1M2IYW9GB6+wHg+pt3UbEcSyIMm9pb3pGRW1Ae3yqG4oS
- S4triQ/F5H3FxXdqdmb0vJH9CknjXq85n5nyHbEtoLpo3Ua0dAA6jegPSpx+yDRp0lKy
- qe8G+KWp4kv9XYXxiZNFwLuH2WxKSF9NNExeYJjKzXvSEfDSFNl0VyHQ9SEehpTqJrIa
- 7qP2eVA1kQUX3d4uopEnXlj67HQceSPs3oLiE5i2IZWaMGD165T9w5JG/fFwIEqtiJGY
- tYDL9LzCm9CmWYzmFyk68qYLBmRc995t/wAEOmRfyUARzDaZJ6PcZFQOq+XpL4h5q1to
- V7lg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=HGGsA7jJbuHeLKCTTStxYTVLGBd6wnCss83qHowgbjU=;
+ b=W96oK3cplk+LETGgfrUx025DuWIVN07yy7YAIfAoynHMDXa6+xVaV/sYZjvar/1zKv
+ XFAzJLyCpaXbHaI0Jj7zDzkRdxJ9/+ygX+T0rBz87g8xxWGYlIkKq2NYMFeVDw01G0yI
+ GtiPNL8KjexuBM4mZ/qYmpZhQdRnXw7yFImlxTSJC9eRa/u2mQSnfcyFBtPfu/PFh+wO
+ 9aBxFRZnTIvpV4ukI+9FPT1Xpjn66WdT7Ht3WpXpkcscVYLynKrBWSVpNMMU6H4T9EP9
+ 2Hy1ufq+tqognp6wU0Z6Y9XMYtJB+zBv4k8uPklw2vIhTD6XRwUS2gkgak2pKssb7fQ0
+ BZjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=Ss3ykB/e733BEBWwIVPUSJTuhl3UWTyezbyVNGjf0SI=;
- b=PlmVVLpGKeaecQHBn8YX8P8aiU+6+8gR1uwlUSypKKOVwGSr/QCpu2slF29ZSPaJDp
- 6xEEpaol5ze7tz9l9mKCE4vWy3yb3ogKw5S/wuSrevwqmNzH+1LvBeBZwUuM8MaWtfpY
- LbHc4QWhBhUldvsy5ijzqJbh4QmzRagpUPWBqQ2JC/G5lDfYmdXp/kgJyO7BAYS76OCP
- rj0zcxgJ8hzXZy6j75f0flOWPFk4jyh9ySn+Q6lKsL9/Sr0199hnLNTlBurx420+kMix
- hFaR65UT8Qx7Gc4y8ex6E/POeT/n5a+rmgtm1RGxQqb0NzcwOU05zIbE1tWF5Dt9fIjQ
- dOMA==
-X-Gm-Message-State: APjAAAVzsLRyRMpPJwPhi9BBXlXnyDjO5hT+oDvQuoEKT6t3m2xiM8Oe
- DGPWWsRgIDO+u4CR7RoRWreCxEvP2K8=
-X-Google-Smtp-Source: APXvYqxfBzQeFDvyuR2DGLqjv3kSBQPokkChEo3r8QnrPwWXcv7zOtPSRRB3fWQpU3jEfo1e6gz0QQ==
-X-Received: by 2002:a7b:c651:: with SMTP id q17mr6661342wmk.136.1565771874804; 
- Wed, 14 Aug 2019 01:37:54 -0700 (PDT)
-Received: from jernej-laptop.localnet (89-212-178-211.dynamic.t-2.net.
- [89.212.178.211])
- by smtp.gmail.com with ESMTPSA id u130sm6528950wmg.28.2019.08.14.01.37.53
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Wed, 14 Aug 2019 01:37:53 -0700 (PDT)
-From: Jernej =?utf-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: linux-sunxi@googlegroups.com, codekipper@gmail.com
-Date: Wed, 14 Aug 2019 10:37:52 +0200
-Message-ID: <3741744.8c7tOhJ1tT@jernej-laptop>
-In-Reply-To: <20190814060854.26345-16-codekipper@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=HGGsA7jJbuHeLKCTTStxYTVLGBd6wnCss83qHowgbjU=;
+ b=T5hcmrgRop6FG0gjA8YrtvDdWdkX2bTWBmRMKQ59DYva1mJ8ZhUw3z9x5vEPRi8zAI
+ EjEZFjkNVIVneQ93P0JrZyuiWF57XWfpz75KD3UsbHRnzlEgs0Qwa0UhS5arIzQJz7va
+ oRbcQM4XpEFK+uS9/nHXY+JSibA9QgsLG7figpBhlc/X9OM6WlM6YNZ9v4IG/UoPaed7
+ pCZ45zt1Qb41cwdSfZyOS8mA0dan0tQfcvGtzWwN3zz8r0BiEmBwEadmHEIRniszVa3u
+ L1kQHhrGoEqR0Q1OnV5U9rR/UPH95M0ql20qLXV+QCWccj+kdRDSYL7JwKUqm6VssVWA
+ DXLQ==
+X-Gm-Message-State: APjAAAVImTIoPp741YB2FTwJcCc7t0Ax4taroNihjyqr4tNGop5qBlso
+ 0qv+0M+rxllO6dYpZotSB2CvQDvK29rksucJlTo=
+X-Google-Smtp-Source: APXvYqyW1xPosjpGG4nDcVQ4sN08u61lmr1tOzbLSoAlD3n5ZJrmw1nQj2fpjXRQgr8vSPVXMkST0bIshq4hM+ESxOg=
+X-Received: by 2002:a2e:3c12:: with SMTP id j18mr8727511lja.50.1565773385844; 
+ Wed, 14 Aug 2019 02:03:05 -0700 (PDT)
+MIME-Version: 1.0
 References: <20190814060854.26345-1-codekipper@gmail.com>
  <20190814060854.26345-16-codekipper@gmail.com>
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com, be17068@iperbole.bo.it, wens@csie.org, broonie@kernel.org,
- maxime.ripard@free-electrons.com, linux-arm-kernel@lists.infradead.org
+ <3741744.8c7tOhJ1tT@jernej-laptop>
+In-Reply-To: <3741744.8c7tOhJ1tT@jernej-laptop>
+From: Code Kipper <codekipper@gmail.com>
+Date: Wed, 14 Aug 2019 11:02:54 +0200
+Message-ID: <CAEKpxBnNzH3KANfaY7p0qv=XTAyHAk3YSWqFbt_hpWat+xSBxw@mail.gmail.com>
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Chen-Yu Tsai <wens@csie.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
+ linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Ripard <maxime.ripard@free-electrons.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [alsa-devel] [linux-sunxi] [PATCH v5 15/15] ASoC: sun4i-i2s:
 	Adjust regmap settings
 X-BeenThere: alsa-devel@alsa-project.org
@@ -99,147 +99,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi!
-
-Dne sreda, 14. avgust 2019 ob 08:08:54 CEST je codekipper@gmail.com 
-napisal(a):
-> From: Marcus Cooper <codekipper@gmail.com>
-> 
-> Bypass the regmap cache when flushing the i2s FIFOs and modify the tables
-> to reflect this.
-> 
-> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> ---
->  sound/soc/sunxi/sun4i-i2s.c | 31 ++++++++++---------------------
->  1 file changed, 10 insertions(+), 21 deletions(-)
-> 
-> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> index d3c8789f70bb..ecfc1ed79379 100644
-> --- a/sound/soc/sunxi/sun4i-i2s.c
-> +++ b/sound/soc/sunxi/sun4i-i2s.c
-> @@ -876,9 +876,11 @@ static int sun4i_i2s_set_fmt(struct snd_soc_dai *dai,
-> unsigned int fmt) static void sun4i_i2s_start_capture(struct sun4i_i2s
-> *i2s)
->  {
->  	/* Flush RX FIFO */
-> +	regcache_cache_bypass(i2s->regmap, true);
->  	regmap_update_bits(i2s->regmap, SUN4I_I2S_FIFO_CTRL_REG,
->  			   SUN4I_I2S_FIFO_CTRL_FLUSH_RX,
->  			   SUN4I_I2S_FIFO_CTRL_FLUSH_RX);
-> +	regcache_cache_bypass(i2s->regmap, false);
-
-Did you try with regmap_write_bits() instead? This function will 
-unconditionally write bits so it's nicer solution, because you don't have to 
-use regcache_cache_bypass().
-
-> 
->  	/* Clear RX counter */
->  	regmap_write(i2s->regmap, SUN4I_I2S_RX_CNT_REG, 0);
-> @@ -897,9 +899,11 @@ static void sun4i_i2s_start_capture(struct sun4i_i2s
-> *i2s) static void sun4i_i2s_start_playback(struct sun4i_i2s *i2s)
->  {
->  	/* Flush TX FIFO */
-> +	regcache_cache_bypass(i2s->regmap, true);
->  	regmap_update_bits(i2s->regmap, SUN4I_I2S_FIFO_CTRL_REG,
->  			   SUN4I_I2S_FIFO_CTRL_FLUSH_TX,
->  			   SUN4I_I2S_FIFO_CTRL_FLUSH_TX);
-> +	regcache_cache_bypass(i2s->regmap, false);
-
-Ditto.
-
-> 
->  	/* Clear TX counter */
->  	regmap_write(i2s->regmap, SUN4I_I2S_TX_CNT_REG, 0);
-> @@ -1053,13 +1057,7 @@ static const struct snd_soc_component_driver
-> sun4i_i2s_component = {
-> 
->  static bool sun4i_i2s_rd_reg(struct device *dev, unsigned int reg)
->  {
-> -	switch (reg) {
-> -	case SUN4I_I2S_FIFO_TX_REG:
-> -		return false;
-> -
-> -	default:
-> -		return true;
-> -	}
-> +	return true;
-
-Why did you change this? Manual mentions that SUN4I_I2S_FIFO_TX_REG is write-
-only register. Even if it can be read, then it's better to remove whole 
-function, which will automatically mean that all registers can be read.
-
-
->  }
-> 
->  static bool sun4i_i2s_wr_reg(struct device *dev, unsigned int reg)
-> @@ -1078,6 +1076,8 @@ static bool sun4i_i2s_volatile_reg(struct device *dev,
-> unsigned int reg) {
->  	switch (reg) {
->  	case SUN4I_I2S_FIFO_RX_REG:
-> +	case SUN4I_I2S_FIFO_TX_REG:
-> +	case SUN4I_I2S_FIFO_STA_REG:
->  	case SUN4I_I2S_INT_STA_REG:
->  	case SUN4I_I2S_RX_CNT_REG:
->  	case SUN4I_I2S_TX_CNT_REG:
-
-SUN4I_I2S_FIFO_CTRL_REG should be put here, because it has two bits which 
-returns to 0 immediately after they are set to 1.
-
-Best regards,
-Jernej
-
-> @@ -1088,23 +1088,12 @@ static bool sun4i_i2s_volatile_reg(struct device
-> *dev, unsigned int reg) }
->  }
-> 
-> -static bool sun8i_i2s_rd_reg(struct device *dev, unsigned int reg)
-> -{
-> -	switch (reg) {
-> -	case SUN8I_I2S_FIFO_TX_REG:
-> -		return false;
-> -
-> -	default:
-> -		return true;
-> -	}
-> -}
-> -
->  static bool sun8i_i2s_volatile_reg(struct device *dev, unsigned int reg)
->  {
->  	if (reg == SUN8I_I2S_INT_STA_REG)
->  		return true;
->  	if (reg == SUN8I_I2S_FIFO_TX_REG)
-> -		return false;
-> +		return true;
-> 
->  	return sun4i_i2s_volatile_reg(dev, reg);
->  }
-> @@ -1175,7 +1164,7 @@ static const struct regmap_config
-> sun8i_i2s_regmap_config = { .reg_defaults	= sun8i_i2s_reg_defaults,
->  	.num_reg_defaults	= ARRAY_SIZE(sun8i_i2s_reg_defaults),
->  	.writeable_reg	= sun4i_i2s_wr_reg,
-> -	.readable_reg	= sun8i_i2s_rd_reg,
-> +	.readable_reg	= sun4i_i2s_rd_reg,
->  	.volatile_reg	= sun8i_i2s_volatile_reg,
->  };
-> 
-> @@ -1188,7 +1177,7 @@ static const struct regmap_config
-> sun50i_i2s_regmap_config = { .reg_defaults	= sun50i_i2s_reg_defaults,
->  	.num_reg_defaults	= ARRAY_SIZE(sun50i_i2s_reg_defaults),
->  	.writeable_reg	= sun4i_i2s_wr_reg,
-> -	.readable_reg	= sun8i_i2s_rd_reg,
-> +	.readable_reg	= sun4i_i2s_rd_reg,
->  	.volatile_reg	= sun8i_i2s_volatile_reg,
->  };
-
-
-
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gV2VkLCAxNCBBdWcgMjAxOSBhdCAxMDozOCwgSmVybmVqIMWga3JhYmVjIDxqZXJuZWouc2ty
+YWJlY0BnbWFpbC5jb20+IHdyb3RlOgo+Cj4gSGkhCj4KPiBEbmUgc3JlZGEsIDE0LiBhdmd1c3Qg
+MjAxOSBvYiAwODowODo1NCBDRVNUIGplIGNvZGVraXBwZXJAZ21haWwuY29tCj4gbmFwaXNhbChh
+KToKPiA+IEZyb206IE1hcmN1cyBDb29wZXIgPGNvZGVraXBwZXJAZ21haWwuY29tPgo+ID4KPiA+
+IEJ5cGFzcyB0aGUgcmVnbWFwIGNhY2hlIHdoZW4gZmx1c2hpbmcgdGhlIGkycyBGSUZPcyBhbmQg
+bW9kaWZ5IHRoZSB0YWJsZXMKPiA+IHRvIHJlZmxlY3QgdGhpcy4KPiA+Cj4gPiBTaWduZWQtb2Zm
+LWJ5OiBNYXJjdXMgQ29vcGVyIDxjb2Rla2lwcGVyQGdtYWlsLmNvbT4KPiA+IC0tLQo+ID4gIHNv
+dW5kL3NvYy9zdW54aS9zdW40aS1pMnMuYyB8IDMxICsrKysrKysrKystLS0tLS0tLS0tLS0tLS0t
+LS0tLS0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9ucygrKSwgMjEgZGVsZXRpb25z
+KC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9zdW54aS9zdW40aS1pMnMuYyBiL3Nv
+dW5kL3NvYy9zdW54aS9zdW40aS1pMnMuYwo+ID4gaW5kZXggZDNjODc4OWY3MGJiLi5lY2ZjMWVk
+NzkzNzkgMTAwNjQ0Cj4gPiAtLS0gYS9zb3VuZC9zb2Mvc3VueGkvc3VuNGktaTJzLmMKPiA+ICsr
+KyBiL3NvdW5kL3NvYy9zdW54aS9zdW40aS1pMnMuYwo+ID4gQEAgLTg3Niw5ICs4NzYsMTEgQEAg
+c3RhdGljIGludCBzdW40aV9pMnNfc2V0X2ZtdChzdHJ1Y3Qgc25kX3NvY19kYWkgKmRhaSwKPiA+
+IHVuc2lnbmVkIGludCBmbXQpIHN0YXRpYyB2b2lkIHN1bjRpX2kyc19zdGFydF9jYXB0dXJlKHN0
+cnVjdCBzdW40aV9pMnMKPiA+ICppMnMpCj4gPiAgewo+ID4gICAgICAgLyogRmx1c2ggUlggRklG
+TyAqLwo+ID4gKyAgICAgcmVnY2FjaGVfY2FjaGVfYnlwYXNzKGkycy0+cmVnbWFwLCB0cnVlKTsK
+PiA+ICAgICAgIHJlZ21hcF91cGRhdGVfYml0cyhpMnMtPnJlZ21hcCwgU1VONElfSTJTX0ZJRk9f
+Q1RSTF9SRUcsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgU1VONElfSTJTX0ZJRk9fQ1RS
+TF9GTFVTSF9SWCwKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICBTVU40SV9JMlNfRklGT19D
+VFJMX0ZMVVNIX1JYKTsKPiA+ICsgICAgIHJlZ2NhY2hlX2NhY2hlX2J5cGFzcyhpMnMtPnJlZ21h
+cCwgZmFsc2UpOwo+Cj4gRGlkIHlvdSB0cnkgd2l0aCByZWdtYXBfd3JpdGVfYml0cygpIGluc3Rl
+YWQ/IFRoaXMgZnVuY3Rpb24gd2lsbAo+IHVuY29uZGl0aW9uYWxseSB3cml0ZSBiaXRzIHNvIGl0
+J3MgbmljZXIgc29sdXRpb24sIGJlY2F1c2UgeW91IGRvbid0IGhhdmUgdG8KPiB1c2UgcmVnY2Fj
+aGVfY2FjaGVfYnlwYXNzKCkuCgpJIGRpZG4ndC4uLi53aXRoIGFsbCB0aGUgcmV3b3JrIEkndmUg
+YXZvaWRlZCBtZXNzaW5nIHdpdGggdGhpcyBjaGFuZ2UuCk5vdyB0aGF0IHRoZSBkdXN0CmhhcyBz
+ZXR0bGVkLCBJIGNhbiBnbyBiYWNrIHRvIGxvb2sgYXQgdGhpcy4KVGhhbmtzLApDSwo+Cj4gPgo+
+ID4gICAgICAgLyogQ2xlYXIgUlggY291bnRlciAqLwo+ID4gICAgICAgcmVnbWFwX3dyaXRlKGky
+cy0+cmVnbWFwLCBTVU40SV9JMlNfUlhfQ05UX1JFRywgMCk7Cj4gPiBAQCAtODk3LDkgKzg5OSwx
+MSBAQCBzdGF0aWMgdm9pZCBzdW40aV9pMnNfc3RhcnRfY2FwdHVyZShzdHJ1Y3Qgc3VuNGlfaTJz
+Cj4gPiAqaTJzKSBzdGF0aWMgdm9pZCBzdW40aV9pMnNfc3RhcnRfcGxheWJhY2soc3RydWN0IHN1
+bjRpX2kycyAqaTJzKQo+ID4gIHsKPiA+ICAgICAgIC8qIEZsdXNoIFRYIEZJRk8gKi8KPiA+ICsg
+ICAgIHJlZ2NhY2hlX2NhY2hlX2J5cGFzcyhpMnMtPnJlZ21hcCwgdHJ1ZSk7Cj4gPiAgICAgICBy
+ZWdtYXBfdXBkYXRlX2JpdHMoaTJzLT5yZWdtYXAsIFNVTjRJX0kyU19GSUZPX0NUUkxfUkVHLAo+
+ID4gICAgICAgICAgICAgICAgICAgICAgICAgIFNVTjRJX0kyU19GSUZPX0NUUkxfRkxVU0hfVFgs
+Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgU1VONElfSTJTX0ZJRk9fQ1RSTF9GTFVTSF9U
+WCk7Cj4gPiArICAgICByZWdjYWNoZV9jYWNoZV9ieXBhc3MoaTJzLT5yZWdtYXAsIGZhbHNlKTsK
+Pgo+IERpdHRvLgo+Cj4gPgo+ID4gICAgICAgLyogQ2xlYXIgVFggY291bnRlciAqLwo+ID4gICAg
+ICAgcmVnbWFwX3dyaXRlKGkycy0+cmVnbWFwLCBTVU40SV9JMlNfVFhfQ05UX1JFRywgMCk7Cj4g
+PiBAQCAtMTA1MywxMyArMTA1Nyw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3NvY19jb21w
+b25lbnRfZHJpdmVyCj4gPiBzdW40aV9pMnNfY29tcG9uZW50ID0gewo+ID4KPiA+ICBzdGF0aWMg
+Ym9vbCBzdW40aV9pMnNfcmRfcmVnKHN0cnVjdCBkZXZpY2UgKmRldiwgdW5zaWduZWQgaW50IHJl
+ZykKPiA+ICB7Cj4gPiAtICAgICBzd2l0Y2ggKHJlZykgewo+ID4gLSAgICAgY2FzZSBTVU40SV9J
+MlNfRklGT19UWF9SRUc6Cj4gPiAtICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKPiA+IC0KPiA+
+IC0gICAgIGRlZmF1bHQ6Cj4gPiAtICAgICAgICAgICAgIHJldHVybiB0cnVlOwo+ID4gLSAgICAg
+fQo+ID4gKyAgICAgcmV0dXJuIHRydWU7Cj4KPiBXaHkgZGlkIHlvdSBjaGFuZ2UgdGhpcz8gTWFu
+dWFsIG1lbnRpb25zIHRoYXQgU1VONElfSTJTX0ZJRk9fVFhfUkVHIGlzIHdyaXRlLQo+IG9ubHkg
+cmVnaXN0ZXIuIEV2ZW4gaWYgaXQgY2FuIGJlIHJlYWQsIHRoZW4gaXQncyBiZXR0ZXIgdG8gcmVt
+b3ZlIHdob2xlCj4gZnVuY3Rpb24sIHdoaWNoIHdpbGwgYXV0b21hdGljYWxseSBtZWFuIHRoYXQg
+YWxsIHJlZ2lzdGVycyBjYW4gYmUgcmVhZC4KPgo+Cj4gPiAgfQo+ID4KPiA+ICBzdGF0aWMgYm9v
+bCBzdW40aV9pMnNfd3JfcmVnKHN0cnVjdCBkZXZpY2UgKmRldiwgdW5zaWduZWQgaW50IHJlZykK
+PiA+IEBAIC0xMDc4LDYgKzEwNzYsOCBAQCBzdGF0aWMgYm9vbCBzdW40aV9pMnNfdm9sYXRpbGVf
+cmVnKHN0cnVjdCBkZXZpY2UgKmRldiwKPiA+IHVuc2lnbmVkIGludCByZWcpIHsKPiA+ICAgICAg
+IHN3aXRjaCAocmVnKSB7Cj4gPiAgICAgICBjYXNlIFNVTjRJX0kyU19GSUZPX1JYX1JFRzoKPiA+
+ICsgICAgIGNhc2UgU1VONElfSTJTX0ZJRk9fVFhfUkVHOgo+ID4gKyAgICAgY2FzZSBTVU40SV9J
+MlNfRklGT19TVEFfUkVHOgo+ID4gICAgICAgY2FzZSBTVU40SV9JMlNfSU5UX1NUQV9SRUc6Cj4g
+PiAgICAgICBjYXNlIFNVTjRJX0kyU19SWF9DTlRfUkVHOgo+ID4gICAgICAgY2FzZSBTVU40SV9J
+MlNfVFhfQ05UX1JFRzoKPgo+IFNVTjRJX0kyU19GSUZPX0NUUkxfUkVHIHNob3VsZCBiZSBwdXQg
+aGVyZSwgYmVjYXVzZSBpdCBoYXMgdHdvIGJpdHMgd2hpY2gKPiByZXR1cm5zIHRvIDAgaW1tZWRp
+YXRlbHkgYWZ0ZXIgdGhleSBhcmUgc2V0IHRvIDEuCj4KPiBCZXN0IHJlZ2FyZHMsCj4gSmVybmVq
+Cj4KPiA+IEBAIC0xMDg4LDIzICsxMDg4LDEyIEBAIHN0YXRpYyBib29sIHN1bjRpX2kyc192b2xh
+dGlsZV9yZWcoc3RydWN0IGRldmljZQo+ID4gKmRldiwgdW5zaWduZWQgaW50IHJlZykgfQo+ID4g
+IH0KPiA+Cj4gPiAtc3RhdGljIGJvb2wgc3VuOGlfaTJzX3JkX3JlZyhzdHJ1Y3QgZGV2aWNlICpk
+ZXYsIHVuc2lnbmVkIGludCByZWcpCj4gPiAtewo+ID4gLSAgICAgc3dpdGNoIChyZWcpIHsKPiA+
+IC0gICAgIGNhc2UgU1VOOElfSTJTX0ZJRk9fVFhfUkVHOgo+ID4gLSAgICAgICAgICAgICByZXR1
+cm4gZmFsc2U7Cj4gPiAtCj4gPiAtICAgICBkZWZhdWx0Ogo+ID4gLSAgICAgICAgICAgICByZXR1
+cm4gdHJ1ZTsKPiA+IC0gICAgIH0KPiA+IC19Cj4gPiAtCj4gPiAgc3RhdGljIGJvb2wgc3VuOGlf
+aTJzX3ZvbGF0aWxlX3JlZyhzdHJ1Y3QgZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCByZWcpCj4g
+PiAgewo+ID4gICAgICAgaWYgKHJlZyA9PSBTVU44SV9JMlNfSU5UX1NUQV9SRUcpCj4gPiAgICAg
+ICAgICAgICAgIHJldHVybiB0cnVlOwo+ID4gICAgICAgaWYgKHJlZyA9PSBTVU44SV9JMlNfRklG
+T19UWF9SRUcpCj4gPiAtICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKPiA+ICsgICAgICAgICAg
+ICAgcmV0dXJuIHRydWU7Cj4gPgo+ID4gICAgICAgcmV0dXJuIHN1bjRpX2kyc192b2xhdGlsZV9y
+ZWcoZGV2LCByZWcpOwo+ID4gIH0KPiA+IEBAIC0xMTc1LDcgKzExNjQsNyBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IHJlZ21hcF9jb25maWcKPiA+IHN1bjhpX2kyc19yZWdtYXBfY29uZmlnID0geyAu
+cmVnX2RlZmF1bHRzICAgICA9IHN1bjhpX2kyc19yZWdfZGVmYXVsdHMsCj4gPiAgICAgICAubnVt
+X3JlZ19kZWZhdWx0cyAgICAgICA9IEFSUkFZX1NJWkUoc3VuOGlfaTJzX3JlZ19kZWZhdWx0cyks
+Cj4gPiAgICAgICAud3JpdGVhYmxlX3JlZyAgPSBzdW40aV9pMnNfd3JfcmVnLAo+ID4gLSAgICAg
+LnJlYWRhYmxlX3JlZyAgID0gc3VuOGlfaTJzX3JkX3JlZywKPiA+ICsgICAgIC5yZWFkYWJsZV9y
+ZWcgICA9IHN1bjRpX2kyc19yZF9yZWcsCj4gPiAgICAgICAudm9sYXRpbGVfcmVnICAgPSBzdW44
+aV9pMnNfdm9sYXRpbGVfcmVnLAo+ID4gIH07Cj4gPgo+ID4gQEAgLTExODgsNyArMTE3Nyw3IEBA
+IHN0YXRpYyBjb25zdCBzdHJ1Y3QgcmVnbWFwX2NvbmZpZwo+ID4gc3VuNTBpX2kyc19yZWdtYXBf
+Y29uZmlnID0geyAucmVnX2RlZmF1bHRzICAgID0gc3VuNTBpX2kyc19yZWdfZGVmYXVsdHMsCj4g
+PiAgICAgICAubnVtX3JlZ19kZWZhdWx0cyAgICAgICA9IEFSUkFZX1NJWkUoc3VuNTBpX2kyc19y
+ZWdfZGVmYXVsdHMpLAo+ID4gICAgICAgLndyaXRlYWJsZV9yZWcgID0gc3VuNGlfaTJzX3dyX3Jl
+ZywKPiA+IC0gICAgIC5yZWFkYWJsZV9yZWcgICA9IHN1bjhpX2kyc19yZF9yZWcsCj4gPiArICAg
+ICAucmVhZGFibGVfcmVnICAgPSBzdW40aV9pMnNfcmRfcmVnLAo+ID4gICAgICAgLnZvbGF0aWxl
+X3JlZyAgID0gc3VuOGlfaTJzX3ZvbGF0aWxlX3JlZywKPiA+ICB9Owo+Cj4KPgo+Cl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGlu
+ZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1w
+cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

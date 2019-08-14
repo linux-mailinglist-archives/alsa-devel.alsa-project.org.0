@@ -2,60 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47CD08D1CF
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 13:11:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA4978D1D2
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 13:12:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CF09E1669;
-	Wed, 14 Aug 2019 13:10:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF09E1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 733AF1666;
+	Wed, 14 Aug 2019 13:11:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 733AF1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565781073;
-	bh=0OK0ZuW+6CTjoOBIATxinRApTVIskClndjjI1npoSO0=;
+	s=default; t=1565781123;
+	bh=PoMdkDzlSf8JSkH5nKY0zMawC2bjEPs4b8sArTB5V/8=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c6RVrZfpUw0O2mhrsEG1kJ81K6ortv9v/kYVBVH6h6cljAbFa+l5nszLVyeTVfzx8
-	 2QAGjax06GkgTkANAdKRkBOWIb91Nj7teSAfWWOWSz2QFEtKVX6KtEKMMQUrtl2lJC
-	 oX88itaFpIYa6sWKwo7K08ci2H25nUPhfhDf4SfM=
+	b=Tmoh8QNKwT/latDUE5JUUHHuk1mXY3XIcXUp4W8LlYS+/Rot94RAxV6MNs4Qcecqu
+	 aQnVKYNZ/w5Oczp7VdjM0OO46AqlOXKjUKRep1wT2v0y04zsjdT2th+Ook7utS18J7
+	 NxoGG6Cr+Cq5NgCHdGwM8c2Z0eD6ZnVBt3v+FoiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1ECBFF805A0;
-	Wed, 14 Aug 2019 13:08:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01257F805E2;
+	Wed, 14 Aug 2019 13:08:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85F6DF80214; Wed, 14 Aug 2019 13:08:40 +0200 (CEST)
+ id 861FFF805E1; Wed, 14 Aug 2019 13:08:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay4-d.mail.gandi.net (relay4-d.mail.gandi.net
- [217.70.183.196])
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net
+ [217.70.183.193])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1CD7F8015B
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 13:08:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1CD7F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09CE4F8015B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 13:08:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09CE4F8015B
 X-Originating-IP: 86.250.200.211
 Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
  [86.250.200.211]) (Authenticated sender: maxime.ripard@bootlin.com)
- by relay4-d.mail.gandi.net (Postfix) with ESMTPSA id 97D71E0003;
- Wed, 14 Aug 2019 11:08:35 +0000 (UTC)
-Date: Wed, 14 Aug 2019 09:09:23 +0200
+ by relay1-d.mail.gandi.net (Postfix) with ESMTPSA id 055BE240006;
+ Wed, 14 Aug 2019 11:08:36 +0000 (UTC)
+Date: Wed, 14 Aug 2019 09:13:43 +0200
 From: Maxime Ripard <maxime.ripard@bootlin.com>
 To: codekipper@gmail.com
-Message-ID: <20190814070923.wwkw7hybjvy3p4br@flea>
+Message-ID: <20190814071343.vvjbozrmv5ionwnf@flea>
 References: <20190814060854.26345-1-codekipper@gmail.com>
- <20190814060854.26345-3-codekipper@gmail.com>
+ <20190814060854.26345-4-codekipper@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20190814060854.26345-3-codekipper@gmail.com>
+In-Reply-To: <20190814060854.26345-4-codekipper@gmail.com>
 User-Agent: NeoMutt/20180716
 Cc: alsa-devel@alsa-project.org, linux-sunxi@googlegroups.com,
  linux-kernel@vger.kernel.org, lgirdwood@gmail.com, be17068@iperbole.bo.it,
  wens@csie.org, broonie@kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v5 02/15] ASoC: sun4i-i2s: Add set_tdm_slot
-	functionality
+Subject: Re: [alsa-devel] [PATCH v5 03/15] ASoC: sun4i-i2s: Correct divider
+	calculations
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,73 +68,108 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4466545059468997468=="
+Content-Type: multipart/mixed; boundary="===============1304006164219149383=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============4466545059468997468==
+--===============1304006164219149383==
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="mpw4oztj7vyrpshs"
+	protocol="application/pgp-signature"; boundary="bamdgrdnwpokqt4x"
 Content-Disposition: inline
 
 
---mpw4oztj7vyrpshs
+--bamdgrdnwpokqt4x
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Hi,
 
-On Wed, Aug 14, 2019 at 08:08:41AM +0200, codekipper@gmail.com wrote:
+(I just noticed this, but can you update my mail address, it's not
+@free-electrons for quite a while, you probably want to change your
+scripts to use mripard@kernel.org)
+
+On Wed, Aug 14, 2019 at 08:08:42AM +0200, codekipper@gmail.com wrote:
 > From: Marcus Cooper <codekipper@gmail.com>
 >
-> Codecs without a control connection such as i2s based HDMI audio and
-> the Pine64 DAC require a different amount of bit clocks per frame than
-> what is calculated by the sample width. Use the tdm slot bindings to
-> provide this mechanism.
+> The clock division circuitry is different on the H3 and later SoCs.
+> The division of bclk is now based on pll2.
 >
 > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 > ---
->  sound/soc/sunxi/sun4i-i2s.c | 23 +++++++++++++++++++++--
->  1 file changed, 21 insertions(+), 2 deletions(-)
+>  sound/soc/sunxi/sun4i-i2s.c | 73 +++++++++++++++++++++++++------------
+>  1 file changed, 49 insertions(+), 24 deletions(-)
 >
 > diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> index 8201334a059b..7c37b6291df0 100644
+> index 7c37b6291df0..34f31439ae7b 100644
 > --- a/sound/soc/sunxi/sun4i-i2s.c
 > +++ b/sound/soc/sunxi/sun4i-i2s.c
-> @@ -195,6 +195,9 @@ struct sun4i_i2s {
->  	struct regmap_field	*field_rxchansel;
+> @@ -127,8 +127,6 @@ struct sun4i_i2s;
+>   * @has_chsel_offset: SoC uses offset for selecting dai operational mode.
+>   * @reg_offset_txdata: offset of the tx fifo.
+>   * @sun4i_i2s_regmap: regmap config to use.
+> - * @mclk_offset: Value by which mclkdiv needs to be adjusted.
+> - * @bclk_offset: Value by which bclkdiv needs to be adjusted.
+>   * @field_clkdiv_mclk_en: regmap field to enable mclk output.
+>   * @field_fmt_wss: regmap field to set word select size.
+>   * @field_fmt_sr: regmap field to set sample resolution.
+> @@ -150,8 +148,6 @@ struct sun4i_i2s_quirks {
+>  	bool				has_chsel_offset;
+>  	unsigned int			reg_offset_txdata;	/* TX FIFO */
+>  	const struct regmap_config	*sun4i_i2s_regmap;
+> -	unsigned int			mclk_offset;
+> -	unsigned int			bclk_offset;
 >
->  	const struct sun4i_i2s_quirks	*variant;
+>  	/* Register fields for i2s */
+>  	struct reg_field		field_clkdiv_mclk_en;
+> @@ -212,7 +208,25 @@ static const struct sun4i_i2s_clk_div sun4i_i2s_bclk_div[] = {
+>  	{ .div = 8, .val = 3 },
+>  	{ .div = 12, .val = 4 },
+>  	{ .div = 16, .val = 5 },
+> -	/* TODO - extend divide ratio supported by newer SoCs */
+> +};
 > +
-> +	unsigned int	tdm_slots;
-> +	unsigned int	slot_width;
+> +static const struct sun4i_i2s_clk_div sun8i_i2s_clk_div[] = {
+> +	{ .div = 0, .val = 0 },
+
+Having a divider of 0 seems like a bad idea.
+
+> +	{ .div = 1, .val = 1 },
+> +	{ .div = 2, .val = 2 },
+> +	{ .div = 4, .val = 3 },
+> +	{ .div = 6, .val = 4 },
+> +	{ .div = 8, .val = 5 },
+> +	{ .div = 12, .val = 6 },
+> +	{ .div = 16, .val = 7 },
+> +	{ .div = 24, .val = 8 },
+> +	{ .div = 32, .val = 9 },
+> +	{ .div = 48, .val = 10 },
+> +	{ .div = 64, .val = 11 },
+> +	{ .div = 96, .val = 12 },
+> +	{ .div = 128, .val = 13 },
+> +	{ .div = 176, .val = 14 },
+> +	{ .div = 192, .val = 15 },
 >  };
 >
->  struct sun4i_i2s_clk_div {
-> @@ -346,7 +349,7 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
->  	if (i2s->variant->has_fmt_set_lrck_period)
->  		regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT0_REG,
->  				   SUN8I_I2S_FMT0_LRCK_PERIOD_MASK,
-> -				   SUN8I_I2S_FMT0_LRCK_PERIOD(32));
-> +				   SUN8I_I2S_FMT0_LRCK_PERIOD(word_size));
+>  static const struct sun4i_i2s_clk_div sun4i_i2s_mclk_div[] = {
+> @@ -224,21 +238,21 @@ static const struct sun4i_i2s_clk_div sun4i_i2s_mclk_div[] = {
+>  	{ .div = 12, .val = 5 },
+>  	{ .div = 16, .val = 6 },
+>  	{ .div = 24, .val = 7 },
+> -	/* TODO - extend divide ratio supported by newer SoCs */
+>  };
 >
->
->  	/* Set sign extension to pad out LSB with 0 */
->  	regmap_field_write(i2s->field_fmt_sext, 0);
-> @@ -450,7 +453,8 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
->  	regmap_field_write(i2s->field_fmt_sr, sr);
->
->  	return sun4i_i2s_set_clk_rate(dai, params_rate(params),
-> -				      params_width(params));
-> +				      i2s->tdm_slots ?
-> +				      i2s->slot_width : params_width(params));
+>  static int sun4i_i2s_get_bclk_div(struct sun4i_i2s *i2s,
+>  				  unsigned int oversample_rate,
+> -				  unsigned int word_size)
+> +				  unsigned int word_size,
+> +				  const struct sun4i_i2s_clk_div *bdiv,
+> +				  unsigned int size)
 
-This is slightly more complicated than that.
-
-On the H3 (and all related ones), the CHAN_CFG_TX_SLOT_NUM and
-_RX_SLOT_NUM fields in the CHAN_CFG register need to be set to the
-number of slots as well.
+Wouldn't it be simpler to just have the divider list in the variant
+structure? It would avoid having to refactor all the functions, and
+it's not like it's really going to change from one call to another
+anyway.
 
 Maxime
 
@@ -143,20 +178,20 @@ Maxime Ripard, Bootlin
 Embedded Linux and Kernel engineering
 https://bootlin.com
 
---mpw4oztj7vyrpshs
+--bamdgrdnwpokqt4x
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXVOzowAKCRDj7w1vZxhR
-xYQiAQDZAhUPiv1ty7F7fpZyPJeJRXOokKvsfX401+9n0UxeEwEAimWXgMxiGvqG
-BMajnuQhZjSi5H9ncO28lJkw9KzobwU=
-=2WOa
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXVO0pwAKCRDj7w1vZxhR
+xeUlAP9r6Z9EM/cbBKKY+kiTaI16sfr7c9NwecdxGZCT7mrOkAEAlrY4YQHdPrGM
+Ek/ZDh1DW7Q85spOkTJgAF0ugAOlDwQ=
+=8Nke
 -----END PGP SIGNATURE-----
 
---mpw4oztj7vyrpshs--
+--bamdgrdnwpokqt4x--
 
---===============4466545059468997468==
+--===============1304006164219149383==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -167,4 +202,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============4466545059468997468==--
+--===============1304006164219149383==--

@@ -2,57 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A798CBA1
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 08:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE91B8CBA4
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 08:11:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1902843;
-	Wed, 14 Aug 2019 08:09:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1902843
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4CFE1165F;
+	Wed, 14 Aug 2019 08:10:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4CFE1165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565763032;
-	bh=VHpg7HBBQWkaj06nE/oV0Ysa6U5AAuslD39aJP9N8OY=;
+	s=default; t=1565763080;
+	bh=mLDt3Dh/BlS0LBIo/1vNK5y5Ml3pB6HR2GraLmpYMfI=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=G81+k4ojAD5vcv5Sx/E7iAYySj8UYqSFbYlPgf7oLI+2r8/hWn1CPGJQpJJT2Hqez
-	 P6hoRaa0EKg8E3gtu1uNWaHoXzbHz/XyqZrMQP12nqAQnrCJ+6miZIYl10Tln2dejh
-	 Rvwyt1Sq8dhl2qJDpwjRdWTmH8Kd9hzOCs+iBqME=
+	b=eobeB00mfcibSDBQyz0KgfKpLY33jQ07ssoPCaD7HA3jFfiABgiYHbN5cIj2MGSVk
+	 VWriNaxqGbYMyBO2piAM1OkT7dJ4eWFJD9BBV+AR2DmeUxJK2qvzWLm5tqazxdX20a
+	 /yokqhsDAMam6GrVE93bm1qI1j1g8HFQ3nmU3ExY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD7E0F8048D;
-	Wed, 14 Aug 2019 08:08:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCC64F805AF;
+	Wed, 14 Aug 2019 08:08:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81F72F8026A; Tue, 13 Aug 2019 13:02:46 +0200 (CEST)
+ id CF0F2F80214; Wed, 14 Aug 2019 04:37:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
+ [IPv6:2607:f8b0:4864:20::342])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64DE9F8015A
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 13:02:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64DE9F8015A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Aug 2019 04:02:40 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,381,1559545200"; d="scan'208";a="375562409"
-Received: from vganji-b85m-d3h.iind.intel.com ([10.223.163.76])
- by fmsmga005.fm.intel.com with ESMTP; 13 Aug 2019 04:02:39 -0700
-From: vani.ganji@intel.com
-To: alsa-devel@alsa-project.org
-Date: Tue, 13 Aug 2019 16:33:07 +0530
-Message-Id: <20190813110307.5898-1-vani.ganji@intel.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id E696BF8015B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 04:37:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E696BF8015B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="s4jfsXx+"
+Received: by mail-ot1-x342.google.com with SMTP id c7so6352916otp.1
+ for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 19:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hV2pKWlMxnhaypGzns6kJSRcp18KAhjsh92Ko5vM2dU=;
+ b=s4jfsXx+Cq+klsDPXG+/AvuC0BYDeQjlCJgMXkRlH6uOTDU0uk3KDxxap7JNbXYqZn
+ 5wymoRYTTpTBAFjfHQvCHNtf9pA6e+DA34DFVNR5sVBCPQFulY4qlafhcJ3i0mh3iw4B
+ QsMATqQdvXL/I3B1lqcuI7SeJ4CJL6cnKGVO+o5QfK3rNkM9Zf+gqu6dKGh4UTYoZYKt
+ GacMgdbyQQFh+EqCKftFmQJTn9nhX87zjEC6HuvAsaA3wVebgOlYuggqskABTeS8/W+F
+ 8KWzyETW2o8SuHJQUocXaSek2bkbt8LRpIrGaPk6kJVPttyR+yAaLh39j1WvDavSedYp
+ jT5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hV2pKWlMxnhaypGzns6kJSRcp18KAhjsh92Ko5vM2dU=;
+ b=BTAzmt/PefimSbSbZdDIMIL5pfFWTVYDvGn0JCS6Nf+t8f9d5M4cf+l91lED3DgFH0
+ lDqloLW0UVdvalWRhX6k/VVctRgcbrTmR6/og80Uv8bczVtD0Uld8hxwZ44u8kamN5a1
+ /qh3wPhMfT00Yllrg4wuCmo1RURpRFAk9pVpTQI8JwEmJyaNC0Kl4M7fnzqvOTm7u/8Y
+ Vulxwk6/3RFs05TygJzNeZ8XphFCltX4Awj1TMltT0y+O2okrjdtP0bEVuzVc5E8hsBG
+ fZdPdWPcnn+cFTDWmKNqlO6uiIDwDYFTNI9H+UAI9/M4+fuaErpvJwnhCKxv+TU9DXuj
+ 7PuQ==
+X-Gm-Message-State: APjAAAVDyJCV3ETbIVbqtaNaJZUhA+4A90Ke/vWtxpkiugjskWoRVa9b
+ 28+rqLSGnNessqME3jgi11I=
+X-Google-Smtp-Source: APXvYqwCm95c1dn4xfbMaEyHxx8PGMDXqkcsKW7lYisFSX5mPMe4ewDWvMLmZIc03W0kaSBlbWSJSQ==
+X-Received: by 2002:a5e:c911:: with SMTP id z17mr13586768iol.119.1565750227338; 
+ Tue, 13 Aug 2019 19:37:07 -0700 (PDT)
+Received: from peng.science.purdue.edu (cos-128-210-107-27.science.purdue.edu.
+ [128.210.107.27])
+ by smtp.googlemail.com with ESMTPSA id y19sm14805008ioj.62.2019.08.13.19.37.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Aug 2019 19:37:06 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: security@kernel.org
+Date: Tue, 13 Aug 2019 22:36:24 -0400
+Message-Id: <20190814023625.21683-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.22.1
+MIME-Version: 1.0
 X-Mailman-Approved-At: Wed, 14 Aug 2019 08:07:59 +0200
-Cc: pierre-louis.bossart@linux.intel.com, vani.ganji@intel.com
-Subject: [alsa-devel] [PATCH] ALSA: hda: Retry codec read on first time
-	failure
+Cc: Mathias Payer <mathias.payer@nebelwelt.net>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Wenwen Wang <wang6495@umn.edu>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Hui Peng <benquike@gmail.com>,
+ Allison Randal <allison@lohutok.net>
+Subject: [alsa-devel] [PATCH] Fix an OOB bug in parse_audio_mixer_unit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,57 +98,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Vani Ganji <vani.ganji@intel.com>
+The `uac_mixer_unit_descriptor` shown as below is read from the
+device side. In `parse_audio_mixer_unit`, `baSourceID` field is
+accessed from index 0 to `bNrInPins` - 1, the current implementation
+assumes that descriptor is always valid (the length  of descriptor
+is no shorter than 5 + `bNrInPins`). If a descriptor read from
+the device side is invalid, it may trigger out-of-bound memory
+access.
 
-Sometimes HDMI audio fails while fast switching
-between HDMI and Speaker due to codec Get Power state verb read failure.
+```
+struct uac_mixer_unit_descriptor {
+	__u8 bLength;
+	__u8 bDescriptorType;
+	__u8 bDescriptorSubtype;
+	__u8 bUnitID;
+	__u8 bNrInPins;
+	__u8 baSourceID[];
+}
+```
 
-Verb is codec driver to access codec HW. Since issue scenario involves
-fast switching between HDMI and speaker, there might be chance to fail
-read from HW and same happened in the error scenario.
+This patch fixes the bug by add a sanity check on the length of
+the descriptor.
 
-Based on Display/Graphics architect suggestion, added a retry mechanism
-for failure on first attempt.
-
-Signed-off-by: Vani Ganji <vani.ganji@intel.com>
+Signed-off-by: Hui Peng <benquike@gmail.com>
+Reported-by: Hui Peng <benquike@gmail.com>
+Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
 ---
- sound/hda/hdac_device.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ sound/usb/mixer.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/sound/hda/hdac_device.c b/sound/hda/hdac_device.c
-index b26cc93e7e10..225bd1bfe156 100644
---- a/sound/hda/hdac_device.c
-+++ b/sound/hda/hdac_device.c
-@@ -984,10 +984,17 @@ static unsigned int codec_read(struct hdac_device *hdac, hda_nid_t nid,
- {
- 	unsigned int cmd = snd_hdac_make_cmd(hdac, nid, verb, parm);
- 	unsigned int res;
--
--	if (snd_hdac_exec_verb(hdac, cmd, flags, &res))
--		return -1;
--
-+	unsigned int count;
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 7498b5191b68..38202ce67237 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -2091,6 +2091,15 @@ static int parse_audio_mixer_unit(struct mixer_build *state, int unitid,
+ 	struct usb_audio_term iterm;
+ 	int input_pins, num_ins, num_outs;
+ 	int pin, ich, err;
++	int desc_len = (int) ((unsigned long) state->buffer +
++			state->buflen - (unsigned long) raw_desc);
 +
-+	/* Retry verb once more if it fails first time */
-+	/* recommended to retry since it is HW related */
-+	for (count = 0; count <= 1; count++) {
-+		if (snd_hdac_exec_verb(hdac, cmd, flags, &res))
-+			if (count == 1)
-+				return -1;
-+		} else
-+			break;
++	if (desc_len < sizeof(*desc) + desc->bNrInPins) {
++		usb_audio_err(state->chip,
++			      "descriptor %d too short\n",
++			      unitid);
++		return -EINVAL;
 +	}
- 	return res;
- }
  
+ 	err = uac_mixer_unit_get_channels(state, desc);
+ 	if (err < 0) {
 -- 
-2.17.1
+2.22.1
 
 _______________________________________________
 Alsa-devel mailing list

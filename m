@@ -2,81 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444608D817
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 18:30:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC7638D828
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 18:34:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA5C11670;
-	Wed, 14 Aug 2019 18:29:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA5C11670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39F481671;
+	Wed, 14 Aug 2019 18:34:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39F481671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565800242;
-	bh=m6eZpU6iOP4rt8HgdkhbIEyPzbsI3/NyZ37wMZHIcro=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1565800492;
+	bh=qnrufhDnlj/3D8a9qqBbMXpwhvtX4wA+EUp+0eVC/3A=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kMz1OMkRWL1td1vOxFS3FoLeLnbIacEihJLfOMPKQ9xFAyp6sQopN8HTaIeCYjEkD
-	 kVHu6j5bNHGi45c3rLxHts69kv/lGIk0bhoG7zt0pAF++Yev+Ujdg+08SBJLHPA4s2
-	 kQOCstJZAsJXaXJ1kdT2Cv2TgkoWktufJgv5vcn0=
+	b=G2QtK8N1ibxt1UbdmHtK8noiOxsHmXBKAOdH44G3gODdn3Uq0WD7yg3m8Y75TtzSl
+	 zmlaPiR1ObszUcU+XG/Z1ZmU6KTsN4Lskup4HszxTfXbkeQBytWOMc0rBHp/zXQ95E
+	 ZoBiJ8w71JAjKLClJ29pq0KqkiT0ah39W6XlYe6M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA47DF803F4;
-	Wed, 14 Aug 2019 18:28:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8834DF80213;
+	Wed, 14 Aug 2019 18:33:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6EF0F80214; Wed, 14 Aug 2019 18:28:56 +0200 (CEST)
+ id 8B802F80214; Wed, 14 Aug 2019 18:33:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,HTML_MESSAGE,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71EA2F8015A
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 18:28:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71EA2F8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="uIIerIjl"
-Received: by mail-oi1-x244.google.com with SMTP id p124so4582392oig.5
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 09:28:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=tRKUgkuCb+bpaaIhxfsezEuzbM/CgiVbv4p/htQS8vU=;
- b=uIIerIjl518HTJbKTLPtLn8STv3aLjpcj0XA4iUQHL85V1bKY3nzM2eC/fv8Yqzk9S
- JH468CZk6it8grqN/Oi6Ws2hVyMk9Dn9V8RpLJcidmTgkWmT9Q7uO8TnLvozypRWfza3
- UDAnLxFpnKOKE/+XskahtjxCxh356GrJrFjrzQ1Ori3vLBQQSzBPcxulF0p6G5Cn63xZ
- NlAAbEvqjh4fXv1v0oC5sgHzxB1wV4mNQg90t5yrDF5nRj1reF8F9vV19FJV5xiZE9dY
- hsMLvHfkjC7srzeOxdf924scEY38l9/uYc30k8ZX3r99neVhbQXc4+9DmIgbn/EGOoIp
- 3rUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=tRKUgkuCb+bpaaIhxfsezEuzbM/CgiVbv4p/htQS8vU=;
- b=jmggbfP0m8blRNL4uJ3kPZxlNa1WqkywwWrkZyImzCo60B/z37ljDZBbHPwm0qK8SO
- oVF6Ebl+WQlN2a3V7hpLNDdtvEY/+HwJztkO/LALNj1xaGAZFWJondi91NI38DUEKu4y
- aFHpP4Mk5iH4/o3FfAP4wAdl5F6RcD/fPNHzz1slJUussKaEUgUpitlLt8oNOHY5nkRT
- jS3bjw2QEo7QPMIIwnJHBpG6xiWUSgsZQmzqH2wYQRb4jIoBlBI6F9iOEGAa+5LAOxPQ
- sNj7FlHtGN8ORM1gDjOw2X89Hdf2ZM94ziaORddkaDCPmoOtcvphZOmIty9VBcDD5Bnr
- oxUg==
-X-Gm-Message-State: APjAAAX5mZ8KPc6c6gHTpqyIhD7rFqwFjm69QXdim1JklUYJGDcK2wM4
- HCFAN+o77suCZBY1wpsOtRIGnePyAqxUNtm47IQ=
-X-Google-Smtp-Source: APXvYqy6LYcmjQhwObihZ19ytwNA0e9mEy6i3FHFuenf621doc5cJ7U2CwxnwNj3MNga0vakkBKnbHXhRAatm/RLTww=
-X-Received: by 2002:aca:897:: with SMTP id 145mr586717oii.60.1565800130435;
- Wed, 14 Aug 2019 09:28:50 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FC9DF8015B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 18:33:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FC9DF8015B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id F1463B061;
+ Wed, 14 Aug 2019 16:33:01 +0000 (UTC)
+Date: Wed, 14 Aug 2019 18:33:01 +0200
+Message-ID: <s5hmugbbtc2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: =?UTF-8?B?5b2t6L6J?= <benquike@gmail.com>
+In-Reply-To: <CAKpmkkUv=arsdJiexaM-UVhXEwfGN=zreny9P_kDNhQUij8=FQ@mail.gmail.com>
 References: <20190814023625.21683-1-benquike@gmail.com>
  <s5hzhkcb6dh.wl-tiwai@suse.de>
-In-Reply-To: <s5hzhkcb6dh.wl-tiwai@suse.de>
-From: =?UTF-8?B?5b2t6L6J?= <benquike@gmail.com>
-Date: Wed, 14 Aug 2019 12:28:39 -0400
-Message-ID: <CAKpmkkUv=arsdJiexaM-UVhXEwfGN=zreny9P_kDNhQUij8=FQ@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+ <CAKpmkkUv=arsdJiexaM-UVhXEwfGN=zreny9P_kDNhQUij8=FQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: Mathias Payer <mathias.payer@nebelwelt.net>, security@kernel.org,
  Wenwen Wang <wang6495@umn.edu>, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
@@ -95,106 +70,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, Takashi:
-Here the problem is that `desc->bLength` is controlled by the device side,
-so  `desc->bLength` may not represent the real length of the descriptor.
-That is why I use pointer arithmetic operations to derive the real size of
-the buffer
-in my patch.
-
-On Wed, Aug 14, 2019 at 2:36 AM Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Wed, 14 Aug 2019 04:36:24 +0200,
-> Hui Peng wrote:
-> >
-> > The `uac_mixer_unit_descriptor` shown as below is read from the
-> > device side. In `parse_audio_mixer_unit`, `baSourceID` field is
-> > accessed from index 0 to `bNrInPins` - 1, the current implementation
-> > assumes that descriptor is always valid (the length  of descriptor
-> > is no shorter than 5 + `bNrInPins`). If a descriptor read from
-> > the device side is invalid, it may trigger out-of-bound memory
-> > access.
-> >
-> > ```
-> > struct uac_mixer_unit_descriptor {
-> >       __u8 bLength;
-> >       __u8 bDescriptorType;
-> >       __u8 bDescriptorSubtype;
-> >       __u8 bUnitID;
-> >       __u8 bNrInPins;
-> >       __u8 baSourceID[];
-> > }
-> > ```
-> >
-> > This patch fixes the bug by add a sanity check on the length of
-> > the descriptor.
-> >
-> > Signed-off-by: Hui Peng <benquike@gmail.com>
-> > Reported-by: Hui Peng <benquike@gmail.com>
-> > Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
-> > ---
-> >  sound/usb/mixer.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-> > index 7498b5191b68..38202ce67237 100644
-> > --- a/sound/usb/mixer.c
-> > +++ b/sound/usb/mixer.c
-> > @@ -2091,6 +2091,15 @@ static int parse_audio_mixer_unit(struct
-> mixer_build *state, int unitid,
-> >       struct usb_audio_term iterm;
-> >       int input_pins, num_ins, num_outs;
-> >       int pin, ich, err;
-> > +     int desc_len = (int) ((unsigned long) state->buffer +
-> > +                     state->buflen - (unsigned long) raw_desc);
-> > +
-> > +     if (desc_len < sizeof(*desc) + desc->bNrInPins) {
-> > +             usb_audio_err(state->chip,
-> > +                           "descriptor %d too short\n",
-> > +                           unitid);
-> > +             return -EINVAL;
-> > +     }
-> >
-> >       err = uac_mixer_unit_get_channels(state, desc);
-> >       if (err < 0) {
->
-> Hm, what is the desc->bLength value in the error case?
->
-> Basically the buffer boundary is already checked against bLength in
-> snd_usb_find_desc() which is called from obtaining the raw_desc in the
-> caller of this function (parse_audio_unit()).
->
-> So, if any, we need to check bLength for the possible overflow like
-> below.
->
->
-> thanks,
->
-> Takashi
->
-> --- a/sound/usb/mixer.c
-> +++ b/sound/usb/mixer.c
-> @@ -744,6 +744,8 @@ static int uac_mixer_unit_get_channels(struct
-> mixer_build *state,
->                 return -EINVAL;
->         if (!desc->bNrInPins)
->                 return -EINVAL;
-> +       if (desc->bLength < sizeof(*desc) + desc->bNrInPins)
-> +               return -EINVAL;
->
->         switch (state->mixer->protocol) {
->         case UAC_VERSION_1:
->
-
-
--- 
-May the *Lord* Richly Bless you and yours !
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gV2VkLCAxNCBBdWcgMjAxOSAxODoyODozOSArMDIwMCwK5b2t6L6JIHdyb3RlOgo+IAo+IEhp
+LCBUYWthc2hpOgo+IEhlcmUgdGhlIHByb2JsZW0gaXMgdGhhdCBgZGVzYy0+Ykxlbmd0aGAgaXMg
+Y29udHJvbGxlZCBieSB0aGUgZGV2aWNlIHNpZGUsCj4gc2/CoCBgZGVzYy0+Ykxlbmd0aGAgbWF5
+IG5vdCByZXByZXNlbnQgdGhlIHJlYWwgbGVuZ3RoIG9mIHRoZSBkZXNjcmlwdG9yLgo+IFRoYXQg
+aXMgd2h5IEkgdXNlIHBvaW50ZXIgYXJpdGhtZXRpYyBvcGVyYXRpb25zIHRvIGRlcml2ZSB0aGUg
+cmVhbCBzaXplIG9mIHRoZQo+IGJ1ZmZlcgo+IGluIG15IHBhdGNoLgoKQnV0IGJMZW5ndGggaXMg
+Y2hlY2tlZCBiZWZvcmUgY2FsbGluZyB0aGlzLCBpLmUuIGl0J3MgYWxyZWFkeSBhc3N1cmVkCnRo
+YXQgYkxlbmd0aCBmaXRzIHdpdGhpbiB0aGUgYnVmZmVyIGxpbWl0LiAgU28sIHRoZSByZXN1bHQg
+Y2FsbHMgZG9uJ3QKaGF2ZSB0byBjYXJlIGFib3V0IHRoZSBidWZmZXIgbGltaXQgaXRzZWxmLCBh
+bmQgdGhleSBjYW4ganVzdApjb25jZW50cmF0ZSBvbiBvdmVyZmxvdyBvdmVyIGJMZW5ndGguCgoK
+dGhhbmtzLAoKVGFrYXNoaQoKPiAKPiBPbiBXZWQsIEF1ZyAxNCwgMjAxOSBhdCAyOjM2IEFNIFRh
+a2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4gd3JvdGU6Cj4gCj4gICAgIE9uIFdlZCwgMTQgQXVn
+IDIwMTkgMDQ6MzY6MjQgKzAyMDAsCj4gICAgIEh1aSBQZW5nIHdyb3RlOgo+ICAgICA+Cj4gICAg
+ID4gVGhlIGB1YWNfbWl4ZXJfdW5pdF9kZXNjcmlwdG9yYCBzaG93biBhcyBiZWxvdyBpcyByZWFk
+IGZyb20gdGhlCj4gICAgID4gZGV2aWNlIHNpZGUuIEluIGBwYXJzZV9hdWRpb19taXhlcl91bml0
+YCwgYGJhU291cmNlSURgIGZpZWxkIGlzCj4gICAgID4gYWNjZXNzZWQgZnJvbSBpbmRleCAwIHRv
+IGBiTnJJblBpbnNgIC0gMSwgdGhlIGN1cnJlbnQgaW1wbGVtZW50YXRpb24KPiAgICAgPiBhc3N1
+bWVzIHRoYXQgZGVzY3JpcHRvciBpcyBhbHdheXMgdmFsaWQgKHRoZSBsZW5ndGjCoCBvZiBkZXNj
+cmlwdG9yCj4gICAgID4gaXMgbm8gc2hvcnRlciB0aGFuIDUgKyBgYk5ySW5QaW5zYCkuIElmIGEg
+ZGVzY3JpcHRvciByZWFkIGZyb20KPiAgICAgPiB0aGUgZGV2aWNlIHNpZGUgaXMgaW52YWxpZCwg
+aXQgbWF5IHRyaWdnZXIgb3V0LW9mLWJvdW5kIG1lbW9yeQo+ICAgICA+IGFjY2Vzcy4KPiAgICAg
+Pgo+ICAgICA+IGBgYAo+ICAgICA+IHN0cnVjdCB1YWNfbWl4ZXJfdW5pdF9kZXNjcmlwdG9yIHsK
+PiAgICAgPsKgIMKgIMKgIMKgX191OCBiTGVuZ3RoOwo+ICAgICA+wqAgwqAgwqAgwqBfX3U4IGJE
+ZXNjcmlwdG9yVHlwZTsKPiAgICAgPsKgIMKgIMKgIMKgX191OCBiRGVzY3JpcHRvclN1YnR5cGU7
+Cj4gICAgID7CoCDCoCDCoCDCoF9fdTggYlVuaXRJRDsKPiAgICAgPsKgIMKgIMKgIMKgX191OCBi
+TnJJblBpbnM7Cj4gICAgID7CoCDCoCDCoCDCoF9fdTggYmFTb3VyY2VJRFtdOwo+ICAgICA+IH0K
+PiAgICAgPiBgYGAKPiAgICAgPgo+ICAgICA+IFRoaXMgcGF0Y2ggZml4ZXMgdGhlIGJ1ZyBieSBh
+ZGQgYSBzYW5pdHkgY2hlY2sgb24gdGhlIGxlbmd0aCBvZgo+ICAgICA+IHRoZSBkZXNjcmlwdG9y
+Lgo+ICAgICA+Cj4gICAgID4gU2lnbmVkLW9mZi1ieTogSHVpIFBlbmcgPGJlbnF1aWtlQGdtYWls
+LmNvbT4KPiAgICAgPiBSZXBvcnRlZC1ieTogSHVpIFBlbmcgPGJlbnF1aWtlQGdtYWlsLmNvbT4K
+PiAgICAgPiBSZXBvcnRlZC1ieTogTWF0aGlhcyBQYXllciA8bWF0aGlhcy5wYXllckBuZWJlbHdl
+bHQubmV0Pgo+ICAgICA+IC0tLQo+ICAgICA+wqAgc291bmQvdXNiL21peGVyLmMgfCA5ICsrKysr
+KysrKwo+ICAgICA+wqAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKQo+ICAgICA+Cj4g
+ICAgID4gZGlmZiAtLWdpdCBhL3NvdW5kL3VzYi9taXhlci5jIGIvc291bmQvdXNiL21peGVyLmMK
+PiAgICAgPiBpbmRleCA3NDk4YjUxOTFiNjguLjM4MjAyY2U2NzIzNyAxMDA2NDQKPiAgICAgPiAt
+LS0gYS9zb3VuZC91c2IvbWl4ZXIuYwo+ICAgICA+ICsrKyBiL3NvdW5kL3VzYi9taXhlci5jCj4g
+ICAgID4gQEAgLTIwOTEsNiArMjA5MSwxNSBAQCBzdGF0aWMgaW50IHBhcnNlX2F1ZGlvX21peGVy
+X3VuaXQoc3RydWN0Cj4gICAgIG1peGVyX2J1aWxkICpzdGF0ZSwgaW50IHVuaXRpZCwKPiAgICAg
+PsKgIMKgIMKgIMKgc3RydWN0IHVzYl9hdWRpb190ZXJtIGl0ZXJtOwo+ICAgICA+wqAgwqAgwqAg
+wqBpbnQgaW5wdXRfcGlucywgbnVtX2lucywgbnVtX291dHM7Cj4gICAgID7CoCDCoCDCoCDCoGlu
+dCBwaW4sIGljaCwgZXJyOwo+ICAgICA+ICvCoCDCoCDCoGludCBkZXNjX2xlbiA9IChpbnQpICgo
+dW5zaWduZWQgbG9uZykgc3RhdGUtPmJ1ZmZlciArCj4gICAgID4gK8KgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgc3RhdGUtPmJ1ZmxlbiAtICh1bnNpZ25lZCBsb25nKSByYXdfZGVzYyk7
+Cj4gICAgID4gKwo+ICAgICA+ICvCoCDCoCDCoGlmIChkZXNjX2xlbiA8IHNpemVvZigqZGVzYykg
+KyBkZXNjLT5iTnJJblBpbnMpIHsKPiAgICAgPiArwqAgwqAgwqAgwqAgwqAgwqAgwqB1c2JfYXVk
+aW9fZXJyKHN0YXRlLT5jaGlwLAo+ICAgICA+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCJkZXNjcmlwdG9yICVkIHRvbyBzaG9ydFxuIiwKPiAgICAgPiArwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB1bml0aWQpOwo+ICAgICA+ICvCoCDC
+oCDCoCDCoCDCoCDCoCDCoHJldHVybiAtRUlOVkFMOwo+ICAgICA+ICvCoCDCoCDCoH0KPiAgICAg
+PsKgCj4gICAgID7CoCDCoCDCoCDCoGVyciA9IHVhY19taXhlcl91bml0X2dldF9jaGFubmVscyhz
+dGF0ZSwgZGVzYyk7Cj4gICAgID7CoCDCoCDCoCDCoGlmIChlcnIgPCAwKSB7Cj4gICAgCj4gICAg
+IEhtLCB3aGF0IGlzIHRoZSBkZXNjLT5iTGVuZ3RoIHZhbHVlIGluIHRoZSBlcnJvciBjYXNlPwo+
+ICAgIAo+ICAgICBCYXNpY2FsbHkgdGhlIGJ1ZmZlciBib3VuZGFyeSBpcyBhbHJlYWR5IGNoZWNr
+ZWQgYWdhaW5zdCBiTGVuZ3RoIGluCj4gICAgIHNuZF91c2JfZmluZF9kZXNjKCkgd2hpY2ggaXMg
+Y2FsbGVkIGZyb20gb2J0YWluaW5nIHRoZSByYXdfZGVzYyBpbiB0aGUKPiAgICAgY2FsbGVyIG9m
+IHRoaXMgZnVuY3Rpb24gKHBhcnNlX2F1ZGlvX3VuaXQoKSkuCj4gICAgCj4gICAgIFNvLCBpZiBh
+bnksIHdlIG5lZWQgdG8gY2hlY2sgYkxlbmd0aCBmb3IgdGhlIHBvc3NpYmxlIG92ZXJmbG93IGxp
+a2UKPiAgICAgYmVsb3cuCj4gCj4gICAgIHRoYW5rcywKPiAgICAKPiAgICAgVGFrYXNoaQo+ICAg
+IAo+ICAgICAtLS0gYS9zb3VuZC91c2IvbWl4ZXIuYwo+ICAgICArKysgYi9zb3VuZC91c2IvbWl4
+ZXIuYwo+ICAgICBAQCAtNzQ0LDYgKzc0NCw4IEBAIHN0YXRpYyBpbnQgdWFjX21peGVyX3VuaXRf
+Z2V0X2NoYW5uZWxzKHN0cnVjdAo+ICAgICBtaXhlcl9idWlsZCAqc3RhdGUsCj4gICAgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIHJldHVybiAtRUlOVkFMOwo+ICAgICDCoCDCoCDCoCDCoCBpZiAo
+IWRlc2MtPmJOckluUGlucykKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIC1F
+SU5WQUw7Cj4gICAgICvCoCDCoCDCoCDCoGlmIChkZXNjLT5iTGVuZ3RoIDwgc2l6ZW9mKCpkZXNj
+KSArIGRlc2MtPmJOckluUGlucykKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgcmV0dXJu
+IC1FSU5WQUw7Cj4gICAgCj4gICAgIMKgIMKgIMKgIMKgIHN3aXRjaCAoc3RhdGUtPm1peGVyLT5w
+cm90b2NvbCkgewo+ICAgICDCoCDCoCDCoCDCoCBjYXNlIFVBQ19WRVJTSU9OXzE6Cj4gCj4gLS0K
+PiBNYXkgdGhlIExvcmQgUmljaGx5IEJsZXNzIHlvdSBhbmQgeW91cnMgIQo+IAo+IApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxp
+bmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2Et
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

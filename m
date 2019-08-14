@@ -2,87 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C0188D5D6
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 16:21:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D0388D70A
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 17:16:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E58571673;
-	Wed, 14 Aug 2019 16:20:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E58571673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 903E3166F;
+	Wed, 14 Aug 2019 17:15:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 903E3166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565792466;
-	bh=ExWYK4B1Wgsg9OPkJetZO8tpfd5WCJTeYQVV/uGkbhE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1565795777;
+	bh=F5b3s2SUNT+H/FDTW2zj1FmwISuR0dz4JMsHgwh/D20=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ml7Ldr9DVyEuYrC6hQWh11DMwcSjJbaoUbVt3ZMhHfhvgl9co1iWibRBmY132uKZ8
-	 S1sFYrjPmqG/p/0AfCB/a8rBC+/TZ36SRL9tiJLDxjahHUqCGWHkomDg+OjUUhKOGH
-	 F2oMB7BPgBVfoOBfZ3p6enCcSkPlSlMr4dIqjREQ=
+	b=clAyZxM1KuZEtFBVIh9oYaGd0hmUzvWN/8+/ryhxhoWV7WQNCSbDk51hMx0hjdYcR
+	 iib3QvcFZNOysKmyrNirtPrw9xl/OdewKHo9Tc9bAj/Znc7v5Nue/H0HSN61KErYyu
+	 0I/6Uxde8QwZvNlGgZfyfheM7S+6fiaRmEsbi768=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 363F4F80214;
-	Wed, 14 Aug 2019 16:19:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDC81F80268;
+	Wed, 14 Aug 2019 17:14:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E89B7F80214; Wed, 14 Aug 2019 16:19:19 +0200 (CEST)
+ id C6E36F80214; Wed, 14 Aug 2019 17:14:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E5C6F8015A
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 16:19:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E5C6F8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="uK+xdp1o"
-Received: by mail-wm1-x343.google.com with SMTP id o4so4611504wmh.2
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 07:19:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=W+M3bORKLKAWji4t/1b27E8YGuL0UUMU6Vuc1niTHH0=;
- b=uK+xdp1o9KE1LeGPJ/z5MmXkfhr5zcLEa8laZc/8KAdh8Sls7tHcHWhl6cvtbHt9Jn
- ZSPvgkKd+3FvPDOVl+lmzLlEc4PbLvwPq9p3HuPonaALQyzK06islJp3cEB/ioaxlZwV
- Qe+SLgl2WIAGClCLAnWBZKODFqNZEhHyaeZiLeeOuIan2ExYL2EB439eWPIukCutTxdA
- YTsw9lzlN/M/i2o0bj8DDaNgqSxoaJyQlutpZk0KNEIWbpUMzn4QbbxTK71rsvi1wqI/
- eMptbZWvnoxV98Duh0ItgBbK0AISiy8GB7czONXONMnEqBjjcmzdSdFneBEqIzy2yuAB
- u6dg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=W+M3bORKLKAWji4t/1b27E8YGuL0UUMU6Vuc1niTHH0=;
- b=YjoU5sNBcMM+bhqJYblhFazp5f6wLRjJb8R0pUscHYdZ9VxWc7oaF3i5ZSfwgMgpmz
- HOIfk2rAGe7eBr4BwCTql0YBtqRyOLgARZZX3K0uK9HCMxu//cTKtj0eOfrywol4p+qH
- SCC8Rgoht/Y/tzVV/L7mBxrG1eUEfRF1SGLMrgXG9o5/IvQn1CzpVMzkzc4kVz++hjqZ
- o2lCXGKAg4nHoUB3ILo2nWoiIT77eUayLPF3UFGYgJ76cMEMuHDZrzkliron8YYVc5tf
- 715vSgWdtWn4ua7gbcb7zIBnWxSdaWB6y1jhhxT68TeQXirar2j7Nm3GJDlZpAu3+JYG
- FfcQ==
-X-Gm-Message-State: APjAAAW6Ciiq72i9rQSBxAbvvU1m4RbHTAHECnjodGmncWVyyqFact4H
- s+BTx4F6A/GEoPIa1ceuqmloHE3SEbd3DQY08b8GJGqc
-X-Google-Smtp-Source: APXvYqx4LyqfB/FxgXbLvQzVMEBLPiCgr+Yu5cbHNXgTaMqRhmb/PwuyUUKjbYG20t7oR4dDWKZ3GNyOHOyvXdu4ybg=
-X-Received: by 2002:a1c:6a0b:: with SMTP id f11mr8121235wmc.87.1565792356275; 
- Wed, 14 Aug 2019 07:19:16 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190811194517.19314-1-daniel.baluta@nxp.com>
- <20190814010215.GA13398@Asurada-Nvidia.nvidia.com>
-In-Reply-To: <20190814010215.GA13398@Asurada-Nvidia.nvidia.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 14 Aug 2019 17:19:04 +0300
-Message-ID: <CAEnQRZA+G8ZD7JY1b6Bd7wXYzSqnFhye4hEx0zn4ATyTRHJ+uQ@mail.gmail.com>
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
- Viorel Suman <viorel.suman@nxp.com>, Fabio Estevam <festevam@gmail.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Handle slave mode per TX/RX
-	direction
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6C0A1F8015B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 17:14:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6C0A1F8015B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 7F9E0AB92;
+ Wed, 14 Aug 2019 15:14:26 +0000 (UTC)
+Date: Wed, 14 Aug 2019 17:14:25 +0200
+Message-ID: <s5h8srvdbji.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+In-Reply-To: <20190814090921.GO1935@kadam>
+References: <20190814023625.21683-1-benquike@gmail.com>
+ <s5hzhkcb6dh.wl-tiwai@suse.de> <20190814090921.GO1935@kadam>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Mathias Payer <mathias.payer@nebelwelt.net>, security@kernel.org,
+ Wenwen Wang <wang6495@umn.edu>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
+ alsa-devel@alsa-project.org, Thomas Gleixner <tglx@linutronix.de>,
+ Hui Peng <benquike@gmail.com>, Allison Randal <allison@lohutok.net>
+Subject: Re: [alsa-devel] [PATCH] Fix an OOB bug in parse_audio_mixer_unit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,36 +74,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 14, 2019 at 4:01 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+On Wed, 14 Aug 2019 11:09:21 +0200,
+Dan Carpenter wrote:
+> 
+> On Wed, Aug 14, 2019 at 08:36:42AM +0200, Takashi Iwai wrote:
+> > On Wed, 14 Aug 2019 04:36:24 +0200,
+> > Hui Peng wrote:
+> > > 
+> > > The `uac_mixer_unit_descriptor` shown as below is read from the
+> > > device side. In `parse_audio_mixer_unit`, `baSourceID` field is
+> > > accessed from index 0 to `bNrInPins` - 1, the current implementation
+> > > assumes that descriptor is always valid (the length  of descriptor
+> > > is no shorter than 5 + `bNrInPins`). If a descriptor read from
+> > > the device side is invalid, it may trigger out-of-bound memory
+> > > access.
+> > > 
+> > > ```
+> > > struct uac_mixer_unit_descriptor {
+> > > 	__u8 bLength;
+> > > 	__u8 bDescriptorType;
+> > > 	__u8 bDescriptorSubtype;
+> > > 	__u8 bUnitID;
+> > > 	__u8 bNrInPins;
+> > > 	__u8 baSourceID[];
+> > > }
+> > > ```
+> > > 
+> > > This patch fixes the bug by add a sanity check on the length of
+> > > the descriptor.
+> > > 
+> > > Signed-off-by: Hui Peng <benquike@gmail.com>
+> > > Reported-by: Hui Peng <benquike@gmail.com>
+> > > Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
+> > > ---
+> > >  sound/usb/mixer.c | 9 +++++++++
+> > >  1 file changed, 9 insertions(+)
+> > > 
+> > > diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> > > index 7498b5191b68..38202ce67237 100644
+> > > --- a/sound/usb/mixer.c
+> > > +++ b/sound/usb/mixer.c
+> > > @@ -2091,6 +2091,15 @@ static int parse_audio_mixer_unit(struct mixer_build *state, int unitid,
+> > >  	struct usb_audio_term iterm;
+> > >  	int input_pins, num_ins, num_outs;
+> > >  	int pin, ich, err;
+> > > +	int desc_len = (int) ((unsigned long) state->buffer +
+> > > +			state->buflen - (unsigned long) raw_desc);
+> > > +
+> > > +	if (desc_len < sizeof(*desc) + desc->bNrInPins) {
+> > > +		usb_audio_err(state->chip,
+> > > +			      "descriptor %d too short\n",
+> > > +			      unitid);
+> > > +		return -EINVAL;
+> > > +	}
+> > >  
+> > >  	err = uac_mixer_unit_get_channels(state, desc);
+> > >  	if (err < 0) {
+> > 
+> > Hm, what is the desc->bLength value in the error case?
+> > 
+> > Basically the buffer boundary is already checked against bLength in
+> > snd_usb_find_desc() which is called from obtaining the raw_desc in the
+> > caller of this function (parse_audio_unit()).
+> > 
+> > So, if any, we need to check bLength for the possible overflow like
+> > below.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> > 
+> > --- a/sound/usb/mixer.c
+> > +++ b/sound/usb/mixer.c
+> > @@ -744,6 +744,8 @@ static int uac_mixer_unit_get_channels(struct mixer_build *state,
+> >  		return -EINVAL;
+> >  	if (!desc->bNrInPins)
+> >  		return -EINVAL;
+> > +	if (desc->bLength < sizeof(*desc) + desc->bNrInPins)
+> > +		return -EINVAL;
+> 
+> VERSION 1 and 2 already have a different check:
+> 
+> 	if (desc->bLength < sizeof(*desc) + desc->bNrInPins + 1)
+> 		return 0; /* no bmControls -> skip */
 >
-> On Sun, Aug 11, 2019 at 10:45:17PM +0300, Daniel Baluta wrote:
-> > From: Viorel Suman <viorel.suman@nxp.com>
-> >
-> > The SAI interface can be a clock supplier or consumer
-> > as a function of stream direction. e.g SAI can be master
-> > for Tx and slave for Rx.
-> >
-> > Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
-> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> > ---
-> >  sound/soc/fsl/fsl_sai.c | 18 +++++++++---------
-> >  sound/soc/fsl/fsl_sai.h |  2 +-
-> >  2 files changed, 10 insertions(+), 10 deletions(-)
-> >
-> > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> > index 4a346fcb5630..69cf3678c859 100644
-> > --- a/sound/soc/fsl/fsl_sai.c
-> > +++ b/sound/soc/fsl/fsl_sai.c
-> > @@ -273,18 +273,18 @@ static int fsl_sai_set_dai_fmt_tr(struct snd_soc_dai *cpu_dai,
->
-> This function is called for both TX and RX at the same time from
-> fsl_sai_set_dai_fmt() so I don't actually see how it can operate
-> in two opposite directions from this change alone. Anything that
-> I have missed?
+> So something is possibly off by one.  It's just version 3 which doesn't
+> have a check.
+> 
 
-Good catch. I'm missing a patch that updates fmt after the first call
-of fsl_sai_set_dai_fmt_tr.
-Let me update the patch and resend.
+No, both are sensible checks.  The first check is about the minimal
+size that doesn't contain bmControls bitmap which is optional on some
+devices, while the latter checks about the presence of bmControls
+field.  Note that the latter returns zero, which means no error, while
+the former returns an error.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

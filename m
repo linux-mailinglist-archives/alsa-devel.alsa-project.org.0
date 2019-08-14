@@ -2,93 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F60E8CA60
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 06:26:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFDFD8CA6E
+	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 06:34:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB9E9166D;
-	Wed, 14 Aug 2019 06:25:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB9E9166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 48F80167F;
+	Wed, 14 Aug 2019 06:33:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 48F80167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565756782;
-	bh=zoLsXkMwu+ifC8q2qTpARnFnF010hwvptuwIMahzPRI=;
+	s=default; t=1565757286;
+	bh=uZmEhsqvWAX3g+1O8/WfUL1ZflAbODgRAHr0dkN2sAo=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SYRzRpuueVkm9hxTWD6O9wROcyLqci9L/NQZwhUKUHnJWAbKUZrC+8TaRzUplQcDx
-	 XRqLPLLEmR9amnRrGrXwXwVo/K4KkNhjVaVi1BTrep/drxnuBhqkYmbmTqmQtC5w+9
-	 7ZVc4gbgfcNKNPZWDA0t+lXvxNdQIEJRBl1fmQWw=
+	b=itZH1FIwP009zinzvQw4rZUdALUhP7KtVRO+qX2cm/TsBsNrbBs+tT63PDCG4xeAI
+	 ZCA4zvgBum8aXH0C9udQQ0ZnQ+4ARkEaKip0Q3b26ypJ2ZMojV9ygM1x9zou9UXomJ
+	 5FYgwjIx599kQ1THIGxb+1wNv3gxnGoJOF9sZiDE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 323F8F80214;
-	Wed, 14 Aug 2019 06:24:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9430BF80214;
+	Wed, 14 Aug 2019 06:33:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02887F80214; Wed, 14 Aug 2019 06:24:34 +0200 (CEST)
+ id 8ABB8F80214; Wed, 14 Aug 2019 06:32:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29022F801DF
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 06:24:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29022F801DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AFCCF8015B
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 06:32:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AFCCF8015B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Z8vgyNxN"
-Received: by mail-wr1-x444.google.com with SMTP id g17so109739405wrr.5
- for <alsa-devel@alsa-project.org>; Tue, 13 Aug 2019 21:24:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=y97MxFgoBqjees+drSVKeA6Szdi0VlvTHwvx0CSVO1o=;
- b=Z8vgyNxN1/96cju2HdSvgfCTLSIOfSiDeQdM25KCwud1GJn0mSUuNbobkxEJNSS1my
- QMcH8MW8j3HePQ+3lVx5dtnm1phfslKegw81BTBr46hr5pZC5SSmAI5/7SgPrnOUf73j
- XT5zLFeR7myXlMKWya90DstB4WULDrVqFBqw+N6DFI+NRueyQ8bcYunasX+uM1oEZF17
- ay+fLAuuhmH4J4HcxczCaHU6KW78UIw7xwAPFClxvpRg+k09UIbeDUajvYirLXp+IZck
- u64kJ3KAjiR+XQP0d9W5JvK2PKw/Cxn99GJYhlII+r585WtwZqbHYPHSkZEGZPmnP1lI
- 148A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=y97MxFgoBqjees+drSVKeA6Szdi0VlvTHwvx0CSVO1o=;
- b=kEKYsGJ8yZRBYI3lolSeEw2OP3wu6Hjl0XFolCnT4hxbHZzAyDMixTjaxZXsDKML0+
- pqGxByIu6PGmfDrPKtG8b6EWw+d4KF1JZzKyzmO1F6OlVUV5W38XSSGqv1XO3iD7zUju
- M2/uFIlwgS5mxfnuGLrwmjOoxnHuCTD39scML4btv/qznxjZqnWE9AcW7lyn4wQEWLUr
- SIiLODXN4gZbM5BqenzYmH9JZqkRC+sa7fP2VGO0r/jCCFWx9Y4qHfylmp2mKXRMMt4V
- l4dvFeASEHCuaZUewvY57EqUbzGVCC+XwUELFSPGd6rDuikhz2FDHsjf74xI8m2sxuwb
- 39uQ==
-X-Gm-Message-State: APjAAAUrDr0r5bT3Hv8JhHqEVZKOxLgAPrhkLJrPBROzyBcvQfi2Oci5
- G8+x/bdhUpWhXyP8CZkE0j4=
-X-Google-Smtp-Source: APXvYqwQCWsT9X5GSB/vfPatoxfMcZpIswxj18GJjMsqWR17Abi56/0ywNRUwzWqagGutEH97pd76w==
-X-Received: by 2002:adf:f206:: with SMTP id p6mr51871123wro.216.1565756670312; 
- Tue, 13 Aug 2019 21:24:30 -0700 (PDT)
-Received: from archlinux-threadripper ([2a01:4f8:222:2f1b::2])
- by smtp.gmail.com with ESMTPSA id j2sm2741135wmh.43.2019.08.13.21.24.29
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Tue, 13 Aug 2019 21:24:29 -0700 (PDT)
-Date: Tue, 13 Aug 2019 21:24:28 -0700
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>
-Message-ID: <20190814042428.GA125416@archlinux-threadripper>
-References: <20190813061014.45015-1-natechancellor@gmail.com>
- <445d16e1-6b00-6797-82df-42a49a5e79e3@linux.intel.com>
- <20190814035947.GS12733@vkoul-mobl.Dlink>
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="U/60wuQZ"
+Received: from localhost (unknown [171.76.115.97])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3E2C92064A;
+ Wed, 14 Aug 2019 04:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1565757172;
+ bh=TWrNSsCdKwDr/CuPKP5AmDWqoO/RoBG3FGXsQCYoT7s=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=U/60wuQZP0vZH4+GEN/8vvepeMhgY9bY3b3bpvd7CZObi1lrTJSI/axqwNG6piOXN
+ e8mDqK3u89R6EpufZKbAOMRigwJvlkSkZ949aXI6MQo6UZueZMJmcV42M9cliloPWn
+ utkSDe89vSfyZl3HbPw9Ov9/rOkL4fcj/hK73Qs0=
+Date: Wed, 14 Aug 2019 10:01:39 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <20190814043139.GV12733@vkoul-mobl.Dlink>
+References: <20190806005522.22642-1-pierre-louis.bossart@linux.intel.com>
+ <20190806005522.22642-7-pierre-louis.bossart@linux.intel.com>
+ <03b6091b-af41-ac54-43c7-196a3583a731@intel.com>
+ <024b4fb4-bdfa-a6dc-48bb-c070f2ed36b2@linux.intel.com>
+ <2445b5dc-246c-9c3b-b26e-784032feccf9@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190814035947.GS12733@vkoul-mobl.Dlink>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: clang-built-linux@googlegroups.com, Sanyog Kale <sanyog.r.kale@intel.com>,
+In-Reply-To: <2445b5dc-246c-9c3b-b26e-784032feccf9@intel.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+Cc: alsa-devel@alsa-project.org, Blauciak@vger.kernel.org, tiwai@suse.de,
+ gregkh@linuxfoundation.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] soundwire: Don't build sound.o without
- CONFIG_ACPI
+ linux-kernel@vger.kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com,
+ Slawomir <slawomir.blauciak@intel.com>, Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [PATCH 06/17] soundwire: cadence_master: use
+ firmware defaults for frame shape
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,81 +85,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 14, 2019 at 09:29:47AM +0530, Vinod Koul wrote:
-> On 13-08-19, 09:22, Pierre-Louis Bossart wrote:
-> > On 8/13/19 1:10 AM, Nathan Chancellor wrote:
-> > > clang warns when CONFIG_ACPI is unset:
-> > > 
-> > > ../drivers/soundwire/slave.c:16:12: warning: unused function
-> > > 'sdw_slave_add' [-Wunused-function]
-> > > static int sdw_slave_add(struct sdw_bus *bus,
-> > >             ^
-> > > 1 warning generated.
-> > > 
-> > > Before commit 8676b3ca4673 ("soundwire: fix regmap dependencies and
-> > > align with other serial links"), this code would only be compiled when
-> > > ACPI was set because it was only selected by SOUNDWIRE_INTEL, which
-> > > depends on ACPI.
-> > > 
-> > > Now, this code can be compiled without CONFIG_ACPI, which causes the
-> > > above warning. The IS_ENABLED(CONFIG_ACPI) guard could be moved to avoid
-> > > compiling the function; however, slave.c only contains three functions,
-> > > two of which are static. Only compile slave.o when CONFIG_ACPI is set,
-> > > where it will actually be used. bus.h contains a stub for
-> > > sdw_acpi_find_slaves so there will be no issues with an undefined
-> > > function.
-> > > 
-> > > This has been build tested with CONFIG_ACPI set and unset in combination
-> > > with CONFIG_SOUNDWIRE unset, built in, and a module.
-> > 
-> > Thanks for the patch. Do you have a .config you can share offline so that we
-> > add it to our tests?
-> > 
-> > > 
-> > > Fixes: 8676b3ca4673 ("soundwire: fix regmap dependencies and align with other serial links")
-> > > Link: https://github.com/ClangBuiltLinux/linux/issues/637
-> > > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-> > > ---
-> > >   drivers/soundwire/Makefile | 6 +++++-
-> > >   drivers/soundwire/slave.c  | 3 ---
-> > >   2 files changed, 5 insertions(+), 4 deletions(-)
-> > > 
-> > > diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-> > > index 45b7e5001653..226090902716 100644
-> > > --- a/drivers/soundwire/Makefile
-> > > +++ b/drivers/soundwire/Makefile
-> > > @@ -4,9 +4,13 @@
-> > >   #
-> > >   #Bus Objs
-> > > -soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o
-> > > +soundwire-bus-objs := bus_type.o bus.o mipi_disco.o stream.o
-> > >   obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
-> > > +ifdef CONFIG_ACPI
-> > > +soundwire-bus-objs += slave.o
-> > > +endif
-> > 
-> > I am fine with the change, but we might as well rename the file acpi_slave.c
-> > then?
-> 
-> Srini's change add support for DT for the same file, so It does not make
-> sense to rename. Yes this patch tries to fix a warn which is there due
-> to DT being not supported but with Srini's patches this warn should go
-> away as sdw_slave_add() will be invoked by the DT counterpart
-> 
-> Sorry Nathan, we would have to live with the warn for few more days till
-> I apply Srini's changes. So I am not taking this (or v2) patch
-> 
+On 06-08-19, 18:06, Cezary Rojewski wrote:
+> On 2019-08-06 17:36, Pierre-Louis Bossart wrote:
+> > =
 
-That is fine as I can apply this locally. Could you point me to these
-patches so that I can take a look at them?
+> > =
 
-Thanks for the reply!
-Nathan
+> > On 8/6/19 10:27 AM, Cezary Rojewski wrote:
+> > > On 2019-08-06 02:55, Pierre-Louis Bossart wrote:
+> > > > diff --git a/drivers/soundwire/cadence_master.c
+> > > > b/drivers/soundwire/cadence_master.c
+> > > > index 5d9729b4d634..89c55e4bb72c 100644
+> > > > --- a/drivers/soundwire/cadence_master.c
+> > > > +++ b/drivers/soundwire/cadence_master.c
+> > > > @@ -48,6 +48,8 @@
+> > > > =A0 #define CDNS_MCP_SSPSTAT=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 0xC
+> > > > =A0 #define CDNS_MCP_FRAME_SHAPE=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 0=
+x10
+> > > > =A0 #define CDNS_MCP_FRAME_SHAPE_INIT=A0=A0=A0=A0=A0=A0=A0 0x14
+> > > > +#define CDNS_MCP_FRAME_SHAPE_COL_MASK=A0=A0=A0=A0=A0=A0=A0 GENMASK=
+(2, 0)
+> > > > +#define CDNS_MCP_FRAME_SHAPE_ROW_OFFSET=A0=A0=A0=A0=A0=A0=A0 3
+> > > > =A0 #define CDNS_MCP_CONFIG_UPDATE=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+ 0x18
+> > > > =A0 #define CDNS_MCP_CONFIG_UPDATE_BIT=A0=A0=A0=A0=A0=A0=A0 BIT(0)
+> > > > @@ -175,7 +177,6 @@
+> > > > =A0 /* Driver defaults */
+> > > > =A0 #define CDNS_DEFAULT_CLK_DIVIDER=A0=A0=A0=A0=A0=A0=A0 0
+> > > > -#define CDNS_DEFAULT_FRAME_SHAPE=A0=A0=A0=A0=A0=A0=A0 0x30
+> > > > =A0 #define CDNS_DEFAULT_SSP_INTERVAL=A0=A0=A0=A0=A0=A0=A0 0x18
+> > > > =A0 #define CDNS_TX_TIMEOUT=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 2000
+> > > > @@ -901,6 +902,20 @@ int sdw_cdns_pdi_init(struct sdw_cdns *cdns,
+> > > > =A0 }
+> > > > =A0 EXPORT_SYMBOL(sdw_cdns_pdi_init);
+> > > > +static u32 cdns_set_initial_frame_shape(int n_rows, int n_cols)
+> > > > +{
+> > > > +=A0=A0=A0 u32 val;
+> > > > +=A0=A0=A0 int c;
+> > > > +=A0=A0=A0 int r;
+> > > > +
+> > > > +=A0=A0=A0 r =3D sdw_find_row_index(n_rows);
+> > > > +=A0=A0=A0 c =3D sdw_find_col_index(n_cols) & CDNS_MCP_FRAME_SHAPE_=
+COL_MASK;
+> > > > +
+> > > > +=A0=A0=A0 val =3D (r << CDNS_MCP_FRAME_SHAPE_ROW_OFFSET) | c;
+> > > > +
+> > > > +=A0=A0=A0 return val;
+> > > > +}
+> > > > +
+> > > =
+
+> > > Guess this have been said already, but this function could be
+> > > simplified - unless you really want to keep explicit variable
+> > > declaration. Both "c" and "r" declarations could be merged into
+> > > single line while "val" is not needed at all.
+> > > =
+
+> > > One more thing - is AND bitwise op really needed for cols
+> > > explicitly? We know all col values upfront - these are static and
+> > > declared in global table nearby. Static declaration takes care of
+> > > "initial range-check". Is another one necessary?
+> > > =
+
+> > > Moreover, this is a _get_ and certainly not a _set_ type of
+> > > function. I'd even consider renaming it to: "cdns_get_frame_shape"
+> > > as this is neither a _set_ nor an explicit initial frame shape
+> > > setter.
+> > > =
+
+> > > It might be even helpful to split two usages:
+> > > =
+
+> > > #define sdw_frame_shape(col_idx, row_idx) \
+> > > =A0=A0=A0=A0=A0((row_idx << CDNS_MCP_FRAME_SHAPE_ROW_OFFSET) | col_id=
+x)
+> > > =
+
+> > > u32 cdns_get_frame_shape(u16 rows, u16 cols)
+> > > {
+> > > =A0=A0=A0=A0=A0u16 c, r;
+> > > =
+
+> > > =A0=A0=A0=A0=A0r =3D sdw_find_row_index(rows);
+> > > =A0=A0=A0=A0=A0c =3D sdw_find_col_index(cols);
+> > > =
+
+> > > =A0=A0=A0=A0=A0return sdw_frame_shape(c, r);
+> > > }
+> > > =
+
+> > > The above may even be simplified into one-liner.
+> > =
+
+> > This is a function used once on startup, there is no real need to
+> > simplify further. The separate variables help add debug traces as needed
+> > and keep the code readable while showing how the values are encoded into
+> > a register.
+> =
+
+> Eh, I've thought it's gonna be exposed to userspace (via uapi) so it can =
+be
+> fetched by tests or tools.
+
+Uapi? I dont see anything in this or other series posted, did I miss
+something? Also I am not sure I like the idea of exposing these to
+userland!
+
+> =
+
+> In such case - if there is a single usage only - guess function is fine as
+> is.
+
+-- =
+
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

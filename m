@@ -2,80 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C70D8F252
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:35:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8294B8F241
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:32:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04F5816A9;
-	Thu, 15 Aug 2019 19:34:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04F5816A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 030351679;
+	Thu, 15 Aug 2019 19:31:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 030351679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565890514;
-	bh=Exqm7klsWCGM6Xxdykq93fmC86G/lvkMj0xlSYWnftc=;
+	s=default; t=1565890359;
+	bh=SUE26OR68fviG58/nNly1dA3jA99AzbDa42oy9Vkkc8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=uqfaD/RyUEOdFHR28x8G+T7TUZh02nkMcc5RJRt/zdCPbBm7xj1ukNz6ZIUZHEHOY
-	 DYBU1TXO7YLBMw4x+OHiRbxN97uoKmVamPYjs3HpgcdFrxvyT3gIT56Zy6a9jJBAIJ
-	 2yN0YGL1LAlArwW6Nq8bj3mNauOwpEydV6g1Bypo=
+	b=RFn8QHlqYx96ZmEBLHQ7C7JmR+e5kOVW1iad6O3b2LtPquOoIazczSyDqnedVXDY5
+	 C5dmXrT04Q/b9Eo0ldBa6yhHb9qCgwVI9OhXE+pM+umsh03YCutPTWRLqt8cSOanAV
+	 J2n++HquhsH52/ynL8hDo63nItPaZJ7dI0cwffqE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DD86F80C07;
-	Thu, 15 Aug 2019 19:16:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7AD52F8085D;
+	Thu, 15 Aug 2019 19:16:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0E14F8060D; Thu, 15 Aug 2019 19:15:36 +0200 (CEST)
+ id B95E5F8070C; Thu, 15 Aug 2019 19:15:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f98.google.com (mail-wr1-f98.google.com
- [209.85.221.98])
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com
+ [209.85.128.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71CC5F8060E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6BE9FF8060D
  for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71CC5F8060E
-Received: by mail-wr1-f98.google.com with SMTP id t16so2862226wra.6
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BE9FF8060D
+Received: by mail-wm1-f98.google.com with SMTP id 10so1879685wmp.3
  for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=EBah94Fr7tIfYKK+W7UUJE/2mJ5LVn1vxmjqTPPsQSs=;
- b=OIbsR5/lqJF8c8O9p1UbXPvwmMsLfh2SXj04Q1pUyay6jfnFt7CA77H1j0/FNNldm/
- NUS0rbv3bA4MGXjU3wtVhTxYfxvL/TT+AO3mlsO8QdP3sfFxI/NXJ7Prxx2FvjR00brW
- 5g1ibvZCL5fJs9gg5Mds4c+ccF8BLJpUbNeYyjTWKAY8dv4qf09kI8EhHhCPO0gQ9/fb
- g7J1i5TVu/rRg1XoFqvH/PucZsUAKEXN8a1+hDQnugnmnkuWU2LsneCI7kiInrQFuWJ4
- z7OsjqQwKvfWwuKh2I0IuH3XI0icODIDZ9Xs08KfuIL6Y1oEzHwvUXrQxk34ZEujyW92
- tzrg==
-X-Gm-Message-State: APjAAAWUrlMm6bBh6TdbYe6h94lxAvujtAM0E/P0s63MQ2Y6bnRX2Qpn
- +QjYMvidff0lmLqN7CW0kfBjV5tcm/LztVT9gnN7lMHtqB6BHBFKpJeKASE0QMqOFQ==
-X-Google-Smtp-Source: APXvYqxW0OliB9SutK8zfOvwU9Yd6VyRMNpRpXF9pByIehZ5MYAAcPklPsm6lvjAz0r5Zuu6Pk7A70bXI9Ob
-X-Received: by 2002:a5d:4703:: with SMTP id y3mr6980783wrq.63.1565889268194;
+ bh=qK+K3lvg5j7KBSfj3mqp/CfZUMLY6IjIIgyqWda7qdY=;
+ b=U4VPTvyBxXBHmGrdVj/0I2zFe6SiTAPdANB0uDnXMNjeZcB7lmCdEucX2vO5Sks+X2
+ hqff6npEKXEJrHCO2SHA7nX0dyPNAXrH9Ea7QJZ4zcx1a8zDyFSQSkISkljhhd1D3e0Y
+ ggZ9Vo4s92IhfOHRFrvf5Td0hdJRGnTZjLLKRFkWJi5adHDcsfOwtybCUcPhIRs72SjG
+ X+ZYYfsRf2JeO/nErkJYiPiTSqMWzVSiU4ZQ1VoiEIBGPK1dWpbbpXRSEwdg7iA8ExZW
+ +fELHvxpZvHOx2IqCRN0ETDkmv2JEHNx9SQAYnV/5CnIp7qdxOCwDl+mJH1EgeuAzlAz
+ zq5w==
+X-Gm-Message-State: APjAAAV61rd0ofTu7qrmFpvQu7wJ0Bh3J2tg1OsGi4NJTBGRRxtTD50G
+ bCKj9EgkVG4v7iVqgkHxNXgMXB6+aZKEuFhbcSc/KEls2M+JBoonqB02F/lsEXE6MA==
+X-Google-Smtp-Source: APXvYqzwc/xYr8huKOghn9vmtQMt/8YLWEaKPN+5vpK0OgbJx4iilw7n+VrgNxOG+/p65MKqhugGqHofkiLa
+X-Received: by 2002:a7b:c198:: with SMTP id y24mr3681836wmi.131.1565889268536; 
  Thu, 15 Aug 2019 10:14:28 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id w13sm46863wrp.62.2019.08.15.10.14.28
+ by smtp-relay.gmail.com with ESMTPS id r12sm59823wrw.27.2019.08.15.10.14.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 15 Aug 2019 10:14:28 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyJKV-00052S-UI; Thu, 15 Aug 2019 17:14:28 +0000
+ id 1hyJKW-00052a-AD; Thu, 15 Aug 2019 17:14:28 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 574622742B9E; Thu, 15 Aug 2019 18:14:27 +0100 (BST)
+ id D1B542742BD6; Thu, 15 Aug 2019 18:14:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190812190502.30729-1-pierre-louis.bossart@linux.intel.com>
+To: Masanari Iida <standby24x7@gmail.com>
+In-Reply-To: <20190813034235.30673-1-standby24x7@gmail.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190815171427.574622742B9E@ypsilon.sirena.org.uk>
+Message-Id: <20190815171427.D1B542742BD6@ypsilon.sirena.org.uk>
 Date: Thu, 15 Aug 2019 18:14:27 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- kbuild test robot <lkp@intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: fix HDA direct MMIO access" to the
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, peter.ujfalusi@ti.com, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: ti: Fix typos in ti/Kconfig" to the
 	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -97,7 +98,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: fix HDA direct MMIO access
+   ASoC: ti: Fix typos in ti/Kconfig
 
 has been applied to the asoc tree at
 
@@ -122,93 +123,43 @@ to this mail.
 Thanks,
 Mark
 
-From 9c6c417d95d83999c16965186f6e755ad8a8b658 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Mon, 12 Aug 2019 14:05:02 -0500
-Subject: [PATCH] ASoC: SOF: fix HDA direct MMIO access
+From ae3a5901dde2ab136ec0cebda2fccc48e810d2ec Mon Sep 17 00:00:00 2001
+From: Masanari Iida <standby24x7@gmail.com>
+Date: Tue, 13 Aug 2019 12:42:35 +0900
+Subject: [PATCH] ASoC: ti: Fix typos in ti/Kconfig
 
-The recent change to remove the bus->io_ops callbacks used an older
-version of the SOF code base, and when merged into Mark's for-next it
-invalidated changes, resulting in broken compilation identified by
-kbuild and reproduced during the weekly SOF rebase.
+This patch fixes some spelling typo in Kconfig.
 
-Restore SOF code overridden by git merge and apply Takashi's intended
-change in the 'right' location.
-
-Fixes: c2f16a94a8049 ("Merge branch 'topic/hda-bus-ops-cleanup'")
-Reported-by: kbuild test robot <lkp@intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190812190502.30729-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Masanari Iida <standby24x7@gmail.com>
+Acked-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Link: https://lore.kernel.org/r/20190813034235.30673-1-standby24x7@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-ctrl.c |  2 +-
- sound/soc/sof/intel/hda-dsp.c  | 39 ----------------------------------
- 2 files changed, 1 insertion(+), 40 deletions(-)
+ sound/soc/ti/Kconfig | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
-index a7fee403cb90..bc41028a7a01 100644
---- a/sound/soc/sof/intel/hda-ctrl.c
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -254,7 +254,7 @@ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev, bool full_reset)
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 	/* Reset stream-to-link mapping */
- 	list_for_each_entry(hlink, &bus->hlink_list, list)
--		bus->io_ops->reg_writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
-+		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
- #endif
+diff --git a/sound/soc/ti/Kconfig b/sound/soc/ti/Kconfig
+index 2197f3e1eaed..87a9b9dd4e98 100644
+--- a/sound/soc/ti/Kconfig
++++ b/sound/soc/ti/Kconfig
+@@ -12,7 +12,7 @@ config SND_SOC_TI_SDMA_PCM
  
- 	bus->chip_init = true;
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 097727cda5cb..fb55a3c5afd0 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -354,45 +354,6 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
- 		return ret;
- 	}
+ comment "Texas Instruments DAI support for:"
+ config SND_SOC_DAVINCI_ASP
+-	tristate "daVinci Audio Serial Port (ASP) or McBSP suport"
++	tristate "daVinci Audio Serial Port (ASP) or McBSP support"
+ 	depends on ARCH_DAVINCI || COMPILE_TEST
+ 	select SND_SOC_TI_EDMA_PCM
+ 	help
+@@ -33,7 +33,7 @@ config SND_SOC_DAVINCI_MCASP
+ 	  - Keystone devices
  
--	hda_dsp_ctrl_misc_clock_gating(sdev, false);
--
--	/* Reset stream-to-link mapping */
--	list_for_each_entry(hlink, &bus->hlink_list, list)
--		writel(0, hlink->ml_addr + AZX_REG_ML_LOSIDV);
--
--	hda_dsp_ctrl_misc_clock_gating(sdev, true);
--#else
--
--	hda_dsp_ctrl_misc_clock_gating(sdev, false);
--
--	/* reset controller */
--	ret = hda_dsp_ctrl_link_reset(sdev, true);
--	if (ret < 0) {
--		dev_err(sdev->dev,
--			"error: failed to reset controller during resume\n");
--		return ret;
--	}
--
--	/* take controller out of reset */
--	ret = hda_dsp_ctrl_link_reset(sdev, false);
--	if (ret < 0) {
--		dev_err(sdev->dev,
--			"error: failed to ready controller during resume\n");
--		return ret;
--	}
--
--	/* enable hda bus irq */
--	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTCTL,
--				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN,
--				SOF_HDA_INT_CTRL_EN | SOF_HDA_INT_GLOBAL_EN);
--
--	hda_dsp_ctrl_misc_clock_gating(sdev, true);
--#endif
--
--	/* enable ppcap interrupt */
--	hda_dsp_ctrl_ppcap_enable(sdev, true);
--	hda_dsp_ctrl_ppcap_int_enable(sdev, true);
--
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 	/* check jack status */
- 	if (runtime_resume)
+ config SND_SOC_DAVINCI_VCIF
+-	tristate "daVinci Voice Interface (VCIF) suport"
++	tristate "daVinci Voice Interface (VCIF) support"
+ 	depends on ARCH_DAVINCI || COMPILE_TEST
+ 	select SND_SOC_TI_EDMA_PCM
+ 	help
 -- 
 2.20.1
 

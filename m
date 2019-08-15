@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F88D8F248
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:33:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E6438F24A
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:34:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B25FD852;
-	Thu, 15 Aug 2019 19:32:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B25FD852
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1B931693;
+	Thu, 15 Aug 2019 19:33:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1B931693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565890399;
-	bh=Q6xJ0J8UzPBqz/y2yq/j+JwJSrXnMPKpeDwPIaXahEw=;
+	s=default; t=1565890439;
+	bh=onkO7BlgdIRts8rLRpYPm5NRH/G1ro0M+qU/OMDV0LA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=CL85qE6neJbMoXZsvXVHF5+z2eghtE3Np3AHcYRvChUBHNnULLDLba43/3QDKuOI7
-	 2b+WS8uRrneDPVzfBAOY9oSmnCOPde6CKOiCiEsBZk3JZuClzWpMukrd/C03+I0Rhb
-	 fEMsLqfbFnFCDCDsxmOcm9ZSIpy7B6MQyJ/Z8S1k=
+	b=R85RI4BcjwMx7LBHari6Nvni+OMIJdhcw/1QEC1/yvtKTtfqiDW4JqFo9KRN55wKe
+	 cEkxfGLYgmILpZU6mKaPjKn3pa0uFnNRKCm/SHWjPN8gSvoNntN8c82bWT6ciygEwW
+	 sXpF1VxY5iy8G9ax/kvh+52ADBUhtBCorshCmEX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E31FF8086C;
-	Thu, 15 Aug 2019 19:16:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E72B5F8087A;
+	Thu, 15 Aug 2019 19:16:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 919DEF8070B; Thu, 15 Aug 2019 19:15:30 +0200 (CEST)
+ id CCE3FF8060D; Thu, 15 Aug 2019 19:15:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_NONE,
+ SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f98.google.com (mail-wr1-f98.google.com
- [209.85.221.98])
+Received: from mail-wr1-f99.google.com (mail-wr1-f99.google.com
+ [209.85.221.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82F5FF805FA
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82F5FF805FA
-Received: by mail-wr1-f98.google.com with SMTP id b16so2848100wrq.9
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:27 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2938BF805FF
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2938BF805FF
+Received: by mail-wr1-f99.google.com with SMTP id s18so2101488wrn.1
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=dXH5iCrajVuHNaQjRFbCRi3wnS4PzGsd3NOsiMm0Dhs=;
- b=OdMF64Z1b4Cq5rORxBvajplVriW12icMXCl1CEHTPAd6sRXITzbvHTDbvpqfP6wx1S
- 1O5+IhyzPfIe/k9erVRByIht0yY6y4GjlPb844GTuICZ4R3HrMW1C3Zpy2TPpzfUNN4N
- vS1tWpE5qUan4FjrDuQ47aVIZoOaEmYQzNR65JbTh0qMVEkZIEWbLPlITRkpQavVC0yn
- 705fGSSxJGVMN/woLCQzhA8Jig9998cW9d1vAAIBle7h/xLZqp7/gXixfNBPgPjzuOV5
- X5Rh0g5DdIj5EcT4g6XIIM52UQC7Af3dvnbhh63B74Y06fhLzBO29sqrhDXYyhqWb4Cd
- QCJQ==
-X-Gm-Message-State: APjAAAWoQNIjnOGd6aRo1qLTTppwagmrXYSa8iNLlxlCrmNyi62cP0zv
- uinf1Q9pFV0gnIH17GmfCLIRWVw86oOWGdi+M+VWYDskng4RyDdJQ1dhNJBTVYuiXQ==
-X-Google-Smtp-Source: APXvYqzdUat/m0ESOjrmVH6XsjvmuVYd5FZiZgx9NSQRpwZI4Y9N9JZMF8QNa37wGKT1mshgc86AuIZ3pySu
-X-Received: by 2002:a5d:4310:: with SMTP id h16mr6602997wrq.212.1565889267391; 
+ bh=KWUuHNaeuLnP3/JiAYH55pf1los9RRnsI3012c89ha8=;
+ b=QUQQteWh8mkT2TTd7Wp1btLG/8lxRbek/lCm1DvqorxkiaqUKW6NMEtJj/9rUoD5XP
+ Ffv26GRR/J3JcASlXA3j12lnsG4FEEpBa+0YgCIYmFNKibliJXgEiNZKgEi26MKew8RX
+ w04hfuivUMnCucSpc5A29KpO70mz/50kA7L7ZQGAtSzgIYGJZ4rm+nWTt6AL9XLtkN1L
+ 7hBJNmarGbtl95tBbkR5V3dfmo9fBWJmBQaYI5pQoE2yzIIi+hUWpbbp/Y1jedIonq/m
+ YcqSIhMbruWHjTNAr7kCFwcy/Mj8C14D+9D4hskWZiIj4Rc3o2g/1zfgMLfwNUnDlsfG
+ u7dg==
+X-Gm-Message-State: APjAAAVDsOG8flaAGtzBxfKCzxnwrVUYpIvPUkohNjpFmMX/Dz29+T+B
+ Ep9t6UmY3Y+Ce3lEq2jOItjeW/8l3ZbApwFQL/H7OhN9umdDT3CSQPVBrlDTmm52IQ==
+X-Google-Smtp-Source: APXvYqwWDvl7fMqBHpJtlbdFiqytWl7O/XHWKPee2tCAd0zJbkiaCCfr3WgkbS1PijRiJdEJ1PqDf7oVgqUx
+X-Received: by 2002:adf:aa8d:: with SMTP id h13mr6910152wrc.307.1565889267900; 
  Thu, 15 Aug 2019 10:14:27 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id c128sm12461wma.50.2019.08.15.10.14.27
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ by smtp-relay.gmail.com with ESMTPS id e16sm10188wma.1.2019.08.15.10.14.27
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
  Thu, 15 Aug 2019 10:14:27 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
@@ -65,21 +65,19 @@ Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyJKV-00052G-3O; Thu, 15 Aug 2019 17:14:27 +0000
+ id 1hyJKV-00052P-Ij; Thu, 15 Aug 2019 17:14:27 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 93A0C2742B9E; Thu, 15 Aug 2019 18:14:26 +0100 (BST)
+ id 19EF52742BD6; Thu, 15 Aug 2019 18:14:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190815091920.64480-1-yuehaibing@huawei.com>
+In-Reply-To: <20190815092300.68712-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190815171426.93A0C2742B9E@ypsilon.sirena.org.uk>
-Date: Thu, 15 Aug 2019 18:14:26 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
- patches@opensource.cirrus.com, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Hulk Robot <hulkci@huawei.com>,
- Mark Brown <broonie@kernel.org>, tglx@linutronix.de, info@metux.net
-Subject: [alsa-devel] Applied "ASoC: wm8737: Fix copy-paste error in
-	wm8737_snd_controls" to the asoc tree
+Message-Id: <20190815171427.19EF52742BD6@ypsilon.sirena.org.uk>
+Date: Thu, 15 Aug 2019 18:14:27 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>, info@metux.net
+Subject: [alsa-devel] Applied "ASoC: es8328: Fix copy-paste error in
+	es8328_right_line_controls" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,7 +98,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wm8737: Fix copy-paste error in wm8737_snd_controls
+   ASoC: es8328: Fix copy-paste error in es8328_right_line_controls
 
 has been applied to the asoc tree at
 
@@ -125,39 +123,36 @@ to this mail.
 Thanks,
 Mark
 
-From 554b75bde64bcad9662530726d1483f7ef012069 Mon Sep 17 00:00:00 2001
+From 630742c296341a8cfe00dfd941392025ba8dd4e8 Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Thu, 15 Aug 2019 17:19:20 +0800
-Subject: [PATCH] ASoC: wm8737: Fix copy-paste error in wm8737_snd_controls
+Date: Thu, 15 Aug 2019 17:23:00 +0800
+Subject: [PATCH] ASoC: es8328: Fix copy-paste error in
+ es8328_right_line_controls
 
-sound/soc/codecs/wm8737.c:112:29: warning:
- high_3d defined but not used [-Wunused-const-variable=]
+It seems 'es8328_rline_enum' should be used
+in es8328_right_line_controls
 
-'high_3d' should be used for 3D High Cut-off.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Fixes: 2a9ae13a2641 ("ASoC: Add initial WM8737 driver")
+Fixes: 567e4f98922c ("ASoC: add es8328 codec driver")
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20190815091920.64480-1-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190815092300.68712-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wm8737.c | 2 +-
+ sound/soc/codecs/es8328.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm8737.c b/sound/soc/codecs/wm8737.c
-index 0c246fb5e5ac..7a3f9fbe8d53 100644
---- a/sound/soc/codecs/wm8737.c
-+++ b/sound/soc/codecs/wm8737.c
-@@ -167,7 +167,7 @@ SOC_DOUBLE("Polarity Invert Switch", WM8737_ADC_CONTROL, 5, 6, 1, 0),
- SOC_SINGLE("3D Switch", WM8737_3D_ENHANCE, 0, 1, 0),
- SOC_SINGLE("3D Depth", WM8737_3D_ENHANCE, 1, 15, 0),
- SOC_ENUM("3D Low Cut-off", low_3d),
--SOC_ENUM("3D High Cut-off", low_3d),
-+SOC_ENUM("3D High Cut-off", high_3d),
- SOC_SINGLE_TLV("3D ADC Volume", WM8737_3D_ENHANCE, 7, 1, 1, adc_tlv),
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index 822a25a8f53c..69b81e704127 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -228,7 +228,7 @@ static const struct soc_enum es8328_rline_enum =
+ 			      ARRAY_SIZE(es8328_line_texts),
+ 			      es8328_line_texts);
+ static const struct snd_kcontrol_new es8328_right_line_controls =
+-	SOC_DAPM_ENUM("Route", es8328_lline_enum);
++	SOC_DAPM_ENUM("Route", es8328_rline_enum);
  
- SOC_SINGLE("Noise Gate Switch", WM8737_NOISE_GATE, 0, 1, 0),
+ /* Left Mixer */
+ static const struct snd_kcontrol_new es8328_left_mixer_controls[] = {
 -- 
 2.20.1
 

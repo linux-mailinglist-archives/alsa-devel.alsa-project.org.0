@@ -2,62 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 837438F011
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 18:05:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C35A8F0AE
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 18:36:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 215D61671;
-	Thu, 15 Aug 2019 18:04:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 215D61671
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6FFC845;
+	Thu, 15 Aug 2019 18:35:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6FFC845
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565885144;
-	bh=TF5P5OMusNwnlpT2SY+aAbvg18L6HhwPnd1zLzm7uyg=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1565886964;
+	bh=8fqQ5GoPLdajb/t22GXgQxL44rbb4X5kOqy4y57J4M0=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=enOp2zpyK3oJ3DDck2OhPH7y6sbM3AiZ8GTnCemcDYFe1yQj3yCPyUdnYoFyWFi5T
-	 jJEbU1S37QGF3atB89quXH3lsxhI3Jwt5PG3+USnT7S8VQqHcTDYjqn2Pnczvaq5pP
-	 ah6pbkfa64Mmf0asFHRLuvWyLpGI2VASdcmzLKY0=
+	b=XFqJYcqmCIjqUo8NOg4XWi8kRJe1C1G5J3Zp7CKZT5TvWOV5Up1odVitkOTV6AHC7
+	 3FyGmEnBK8nzqgvloczuXfp/NIEecGnzqiYmej5IZJJrG1SHwJ7KsgkFv7+2npKGc6
+	 FmmBVTcUVGd0NdP4VcnlXtK9djULZxH2Qdm0Vr10=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA213F8060D;
-	Thu, 15 Aug 2019 18:01:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65A73F8044C;
+	Thu, 15 Aug 2019 18:34:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 757D1F8060E; Thu, 15 Aug 2019 18:01:38 +0200 (CEST)
+ id 4F1C5F80274; Thu, 15 Aug 2019 18:34:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.0 required=5.0 tests=RCVD_IN_DNSWL_MED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-vk1-f196.google.com (mail-vk1-f196.google.com
+ [209.85.221.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47370F805FF
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 18:01:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47370F805FF
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2019 08:58:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,389,1559545200"; d="scan'208";a="194790047"
-Received: from ranofal-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.intel.com) ([10.252.136.131])
- by fmsmga001.fm.intel.com with ESMTP; 15 Aug 2019 08:58:07 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Thu, 15 Aug 2019 10:57:49 -0500
-Message-Id: <20190815155749.29304-5-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190815155749.29304-1-pierre-louis.bossart@linux.intel.com>
-References: <20190815155749.29304-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 709ABF8015B
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 18:34:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 709ABF8015B
+Received: by mail-vk1-f196.google.com with SMTP id x20so504305vkd.6
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 09:34:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=D+J7+uuG7YhQob1RyY96ZlqIM0yfV+E9La0KzJcwKvM=;
+ b=A/Khhv5TVikclECNX65M7whRA2t3XjU9VCV+PY6pQdckwfTevsuJ3sXe4yxAdz7gBh
+ F/YCSWL09BhiAwRW1URt1dQHseNT1ohjOsYd9vDeAcZtZPo+ypyUz4+ARH+LBd8ms7Ek
+ tgL9bmDC0wH3jyHK8o4m04zY2EBrHDESh7eqpe8r8WEnDHYEreX0cj7pDc+Z6xJ4kHOJ
+ 6H7faQijluJvUYOluNfdRuOp9ShbHvOosIeToXio/CZzXw5sknykU2MXf7QuQ/HcASny
+ QhF0W0ZeN8zr352GTppeTAhEJlv8h216LYT+n5l2eB2N9nFF4f/WyjwET1wP9s61OEM7
+ eoug==
+X-Gm-Message-State: APjAAAXpwTkeUAy8kcJSfuTH4AUoVfHKtZdjDQeORwU5PqOryB/YLmM3
+ tjb/y+rnKljqFIaD8js9mwUpBECYXFRY8pwcbOU=
+X-Google-Smtp-Source: APXvYqzrPu6PHd1a26kJUfqiia8+9ZpV26VJRIyCa7h11U+cPcpGrUbFVi225rJxDObpBE0eFtPx8/ZzUwydmfYc/MM=
+X-Received: by 2002:a1f:4304:: with SMTP id q4mr1167456vka.3.1565886847009;
+ Thu, 15 Aug 2019 09:34:07 -0700 (PDT)
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Pan Xiuli <xiuli.pan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 4/4] ASoC: SOF: Intel: initial support for
-	Elkhart Lake
+References: <20190815013824.13373-1-jeronimo@borque.com.ar>
+ <s5hv9uz9dh3.wl-tiwai@suse.de>
+In-Reply-To: <s5hv9uz9dh3.wl-tiwai@suse.de>
+From: =?UTF-8?Q?Jer=C3=B3nimo_Borque?= <jeronimo@borque.com.ar>
+Date: Thu, 15 Aug 2019 13:33:50 -0300
+Message-ID: <CAHNnQd+B5UGKJBq+ikDBYa20vzL=Fj9tDGNeRZGp5qxcSiEDhQ@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda - Fixes inverted Conexant GPIO
+	mic mute led
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,141 +80,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pan Xiuli <xiuli.pan@linux.intel.com>
-
-Add Kconfig, PCI ID and chip info for EHL platform.
-
-Note that the core mask is different from previous platforms, only
-Core0 can be controlled by the host. Additional patches will be
-required for multi-core functionality.
-
-Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/intel/Kconfig | 16 ++++++++++++++++
- sound/soc/sof/intel/cnl.c   | 16 ++++++++++++++++
- sound/soc/sof/intel/hda.h   |  1 +
- sound/soc/sof/sof-pci-dev.c | 22 ++++++++++++++++++++++
- 4 files changed, 55 insertions(+)
-
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 0dc5da661b61..889b6202d054 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -28,6 +28,7 @@ config SND_SOC_SOF_INTEL_PCI
- 	select SND_SOC_SOF_COMETLAKE_LP if SND_SOC_SOF_COMETLAKE_LP_SUPPORT
- 	select SND_SOC_SOF_COMETLAKE_H if SND_SOC_SOF_COMETLAKE_H_SUPPORT
- 	select SND_SOC_SOF_TIGERLAKE   if SND_SOC_SOF_TIGERLAKE_SUPPORT
-+	select SND_SOC_SOF_ELKHARTLAKE if SND_SOC_SOF_ELKHARTLAKE_SUPPORT
- 	help
- 	  This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level
-@@ -228,6 +229,21 @@ config SND_SOC_SOF_TIGERLAKE
-           This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level
- 
-+config SND_SOC_SOF_ELKHARTLAKE_SUPPORT
-+	bool "SOF support for ElkhartLake"
-+	help
-+          This adds support for Sound Open Firmware for Intel(R) platforms
-+          using the ElkhartLake processors.
-+          Say Y if you have such a device.
-+          If unsure select "N".
-+
-+config SND_SOC_SOF_ELKHARTLAKE
-+	tristate
-+	select SND_SOC_SOF_HDA_COMMON
-+	help
-+          This option is not user-selectable but automagically handled by
-+	  'select' statements at a higher level
-+
- config SND_SOC_SOF_HDA_COMMON
- 	tristate
- 	select SND_SOC_SOF_INTEL_COMMON
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 5de281fcc122..4ddd73762d81 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -311,3 +311,19 @@ const struct sof_intel_dsp_desc tgl_chip_info = {
- 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
- };
- EXPORT_SYMBOL(tgl_chip_info);
-+
-+const struct sof_intel_dsp_desc ehl_chip_info = {
-+	/* Elkhartlake */
-+	.cores_num = 4,
-+	.init_core_mask = 1,
-+	.cores_mask = HDA_DSP_CORE_MASK(0),
-+	.ipc_req = CNL_DSP_REG_HIPCIDR,
-+	.ipc_req_mask = CNL_DSP_REG_HIPCIDR_BUSY,
-+	.ipc_ack = CNL_DSP_REG_HIPCIDA,
-+	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
-+	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
-+	.rom_init_timeout	= 300,
-+	.ssp_count = ICL_SSP_COUNT,
-+	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
-+};
-+EXPORT_SYMBOL(ehl_chip_info);
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index cbb431f7835d..5591841a1b6f 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -600,5 +600,6 @@ extern const struct sof_intel_dsp_desc cnl_chip_info;
- extern const struct sof_intel_dsp_desc skl_chip_info;
- extern const struct sof_intel_dsp_desc icl_chip_info;
- extern const struct sof_intel_dsp_desc tgl_chip_info;
-+extern const struct sof_intel_dsp_desc ehl_chip_info;
- 
- #endif
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index 9f92504ad5b4..d66412a77873 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -221,6 +221,24 @@ static const struct sof_dev_desc tgl_desc = {
- };
- #endif
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_ELKHARTLAKE)
-+static const struct sof_dev_desc ehl_desc = {
-+	.machines               = snd_soc_acpi_intel_ehl_machines,
-+	.resindex_lpe_base      = 0,
-+	.resindex_pcicfg_base   = -1,
-+	.resindex_imr_base      = -1,
-+	.irqindex_host_ipc      = -1,
-+	.resindex_dma_base      = -1,
-+	.chip_info = &ehl_chip_info,
-+	.default_fw_path = "intel/sof",
-+	.default_tplg_path = "intel/sof-tplg",
-+	.nocodec_fw_filename = "sof-ehl.ri",
-+	.nocodec_tplg_filename = "sof-ehl-nocodec.tplg",
-+	.ops = &sof_cnl_ops,
-+	.arch_ops = &sof_xtensa_arch_ops
-+};
-+#endif
-+
- static const struct dev_pm_ops sof_pci_pm = {
- 	SET_SYSTEM_SLEEP_PM_OPS(snd_sof_suspend, snd_sof_resume)
- 	SET_RUNTIME_PM_OPS(snd_sof_runtime_suspend, snd_sof_runtime_resume,
-@@ -406,6 +424,10 @@ static const struct pci_device_id sof_pci_ids[] = {
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE)
- 	{ PCI_DEVICE(0x8086, 0xa0c8),
- 		.driver_data = (unsigned long)&tgl_desc},
-+#endif
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_ELKHARTLAKE)
-+	{ PCI_DEVICE(0x8086, 0x4b55),
-+		.driver_data = (unsigned long)&ehl_desc},
- #endif
- 	{ 0, }
- };
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGkgVGFrYXNoaSwKTW9kaWZ5aW5nIE1pYyBNdXRlLUxFRCBNb2RlIGRvZXMgaW5kZWVkIGFsdGVy
+IHRoZSBiZWhhdmlvci4gVGhlIHRoaW5nIGlzCnRoYXQgdGhpcyBlbmRzIGJlaW5nIGNvbmZ1c2lu
+ZyBhcyBpbiBhbGwgbWFjaGluZXMgSSd2ZSBiZWVuIHRlc3RpbmcgdGhpcwpzZXR0aW5nIE1pYyBN
+dXRlLUxFRCBNb2RlIHRvICJGb2xsb3cgQ2FwdHVyZSIgYWN0dWFsbHkgbWFrZXMgaXQgZm9sbG93
+Cm11dGUsIGFzIHNldHRpbmcgaXQgdG8gIk9uIiB0dXJucyB0aGUgTEVEIG9mZi4KVGhlcmUgaXMg
+b3RoZXIgc2V0dGluZyBjYWxsZWQgIm11dGVfbGVkX3BvbGFyaXR5IiBidXQgdGhpcyBkb2VzIG5v
+dCB3b3JrLAphcyBjdXJyZW50bHkgbWljIG11dGUgTEVEIGFuZCBtdXRlIExFRCBkbyBub3QgZm9s
+bG93IHRoZSBzYW1lIGxvZ2ljLgpXaGF0IEkgdGhpbmsgbWF5IGJlIGNhdXNpbmcgY29uZnVzaW9u
+IGlzICJjeHRfdXBkYXRlX2dwaW9fbGVkIiAiZW5hYmxlZCIKcGFyYW1ldGVyLiBTZXR0aW5nICJl
+bmFibGVkIiB0byAidHJ1ZSIgc2V0cyB0aGUgR1BJTyBwaW4gdG8gMCBjYXVzaW5nIHRoZQpsZWQg
+dG8gYmUgdHVybmVkIG9mZi4gSSB0aGluayAiZW5hYmxlZCIgdXNlZCB0byByZWZlciB0byB0aGUg
+aW5wdXQgY2FwdHVyZQpvciBvdXRwdXQgc3RhdHVzIGFuZCBub3QgdG8gdGhlIExFRCBiZWluZyBs
+aXQgb3Igbm90LiBPdXRwdXQgb3IgaW5wdXQgbm90CmVuYWJsZWQgKGVuYWJsZWQ9PWZhbHNlKSBj
+YXVzZWQgdGhlIExFRCB0byBiZSB0dXJuZWQgb24uClRoaXMgbG9naWMgaW4gdGhlIGZ1bmN0aW9u
+IG5lZ2F0ZXMgaXQgb24gdGhlIEdQSU8gb3V0cHV0LgoKaWYgKGVuYWJsZWQpCiAgICBzcGVjLT5n
+cGlvX2xlZCAmPSB+bWFzazsKZWxzZQogICAgc3BlYy0+Z3Bpb19sZWQgfD0gbWFzazsKCk1heSBi
+ZSBJIGNhbiBkbyBhIG1vcmUgY29tcHJlaGVuc2l2ZSBmaXgsIHJldmVyc2luZyB0aGUgYmVoYXZp
+b3Igb2YKImN4dF91cGRhdGVfZ3Bpb19sZWQiICJlbmFibGVkIiBwYXJhbWV0ZXIgdG8gcmVmZXIg
+dGhlIEdQSU8gb3V0cHV0IHZhbHVlICgKZW5hYmxlZD09dHJ1ZSA9PiBHUElPIHBpbiBvdXRwdXQg
+aGlnaCApClRoZW4gYWxzbyBtb2RpZnkgdGhlIGNhbGwgdG8gImN4dF91cGRhdGVfZ3Bpb19sZWQi
+IGluCiJjeHRfZml4dXBfZ3Bpb19tdXRlX2hvb2siIHRvIG1ha2UgaXQgd29yayBjb25zaXN0ZW50
+bHkuCgpUaGFua3MsCkplcsOzbmltbwoKCkVsIGp1ZS4sIDE1IGRlIGFnby4gZGUgMjAxOSBhIGxh
+KHMpIDAyOjU4LCBUYWthc2hpIEl3YWkgKHRpd2FpQHN1c2UuZGUpCmVzY3JpYmnDszoKCj4gT24g
+VGh1LCAxNSBBdWcgMjAxOSAwMzozODoyNCArMDIwMCwKPiA8amVyb25pbW9AYm9ycXVlLmNvbS5h
+cj4gd3JvdGU6Cj4gPgo+ID4gRnJvbTogSmVyb25pbW8gQm9ycXVlIDxqZXJvbmltb0Bib3JxdWUu
+Y29tLmFyPgo+ID4KPiA+ICJlbmFibGVkIiBwYXJhbWV0ZXIgaGlzdG9yaWNhbGx5IHJlZmVycmVk
+IHRvIHRoZSBkZXZpY2UgaW5wdXQgb3IKPiA+IG91dHB1dCwgbm90IHRvIHRoZSBsZWQgaW5kaWNh
+dG9yLiBBZnRlciB0aGUgY2hhbmdlcyBhZGRlZCB3aXRoIHRoZQo+ID4gbGVkIGhlbHBlciBmdW5j
+dGlvbnMgdGhlIG1pYyBtdXRlIGxlZCBsb2dpYyByZWZlcnMgdG8gdGhlIGxlZCBhbmQgbm90Cj4g
+PiB0byB0aGUgbWljIGlucHV0IHdoaWNoIGNhdXNlZCBsZWQgaW5kaWNhdG9yIHRvIGJlIG5lZ2F0
+ZWQgKE1pYyBtdXRlCj4gPiBsZWQgd2FzIG9uIHdoZW4gdGhlIGlucHV0IGVuYWJsZWQpIEZpeGlu
+ZyBpdCBpbiB0aGUgY2FsbCB0bwo+ID4gY3h0X3VwZGF0ZV9ncGlvX2xlZCBhdCB0aGUgY3h0X2dw
+aW9fbWljbXV0ZV91cGRhdGUgaG9vay4KPiA+IE1heWJlIG1vcmUgY2hhbmdlcyBhcmUgcmVxdWly
+ZWQgdG8gYmUgY29uc2lzdGVudCBldmVyeXdoZXJlLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IEpl
+cm9uaW1vIEJvcnF1ZSA8amVyb25pbW9AYm9ycXVlLmNvbS5hcj4KPgo+IENvdWxkIHlvdSBjaGVj
+ayB3aGljaCB2YWx1ZSB5b3UgaGF2ZSBpbiAiTWljIE11dGUtTEVEIE1vZGUiIG1peGVyCj4gZWxl
+bWVudD8gIEkgZ3Vlc3MgaXQncyAiRm9sbG93IE11dGUiLiAgSWYgc28sIGNoYW5nZSBpdCB0byAi
+Rm9sbG93Cj4gQ2FwdHVyZSIuCj4KPiBJZiB0aGlzIHdvcmtzLCBpdCBtZWFucyB0aGF0IHRoZSBk
+cml2ZXIgd29ya3MgYXMgZXhwZWN0ZWQgYnV0IHRoZQo+IHByb2JsZW0gaXMgb25seSBhYm91dCB0
+aGUgZGVmYXVsdCB2YWx1ZS4gIFRoZSBkZWZhdWx0IHZhbHVlIHNldCBpbiB0aGUKPiBnZW5lcmlj
+IHBhcnNlciBpcyBiYXNlZCBvbiBvdGhlciBtYWNoaW5lJ3Mgc3RhbmRhcmQgKExFRCBvbiBhdCBt
+aWMKPiBvZmYpLCB3aGlsZSBzb21lIG1hY2hpbmVzIG1pZ2h0IGV4cGVjdCBkaWZmZXJlbnRseS4g
+IE9uIHN1Y2ggbWFjaGluZXMsCj4gd2UgbmVlZCB0byBzZXQgdGhlIGRpZmZlcmVudCB2YWx1ZSBp
+bml0aWFsbHkgaW4gdGhlIHF1aXJrIGZpeHVwLgo+Cj4KPiB0aGFua3MsCj4KPiBUYWthc2hpCj4K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZl
+bCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1h
+bi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

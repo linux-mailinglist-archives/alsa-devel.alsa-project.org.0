@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E3F18F21C
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:25:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CC6D8F221
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:26:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 166F5165D;
-	Thu, 15 Aug 2019 19:24:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 166F5165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9C3D1661;
+	Thu, 15 Aug 2019 19:25:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9C3D1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565889909;
-	bh=pDr4TnIFbdiknIXI2CSXbzffx4uE8fgNPlzSYDfqn78=;
+	s=default; t=1565889985;
+	bh=fkWC0/8bwFs5Mx1BcIQCuWW+ep8YO+zWHySFEOunFoY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=MS+vr464xKCptY9G0fCcO0j6k6FSfmhS8pkghbjoim6wg3q/VYy6oghP2CBeAQ+zq
-	 9fe3J6HcHQAiLGd5N+ezJ0a6rXws9SA9bndiVQNmCW3XMQRcJrNr9cOjwPIVI/jEKF
-	 jsZm/UQiLCRFb2Fk1XKfx1mSej1W3bC1E/mNPPmo=
+	b=mH00FVu4Akb9UbMTgg2BDIe0DFvrj67EFH5rcw9ZnqSnJQvNLOs3UzfEit5Uy+VsA
+	 AG5dT74imghbZBrkHC1khb8WRsCrfXynpGeMPSEh7Qlzp7D30bYaJyiDhFX7OJo++z
+	 hxtutRd/68ZFZakQfPmGZ/V0njFIcIBgDCZieQNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D0F1F8070B;
-	Thu, 15 Aug 2019 19:15:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C4D9F8071F;
+	Thu, 15 Aug 2019 19:15:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53ED5F8067C; Thu, 15 Aug 2019 19:15:10 +0200 (CEST)
+ id 212BBF806E7; Thu, 15 Aug 2019 19:15:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f100.google.com (mail-wr1-f100.google.com
- [209.85.221.100])
+Received: from mail-wr1-f99.google.com (mail-wr1-f99.google.com
+ [209.85.221.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2823EF805AE
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2823EF805AE
-Received: by mail-wr1-f100.google.com with SMTP id j16so2854188wrr.8
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:25 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E9100F805F5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9100F805F5
+Received: by mail-wr1-f99.google.com with SMTP id r3so2880300wrt.3
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=q2b27kNIK6EqgSJpM3zfR9hAioAbBxEiISceYvWjTXE=;
- b=Zf6KRworD/aO+gjerSq+QP3IagiO5fZlq+vUtrKpjov0L2gcedp+/g5DOUbHYx6UoU
- 5VudwIaDyUfft2SQDhzwncg9ccSrm1ZXKm6ceQSiKkpfZW/k2ora8hayJ6xoiygsWqsj
- aXZWBci68eJ9v70+0lQZKm2VsJzGzZWAMP8mO9Ezo4wlNzJmsJBJkje8WCpH2BKotp6E
- 5YZYAU7ouaejSjRAfAoru9SGOstTonBv6jefWGn39tThBIsrKKEUnMqJvLZxWJAgav9A
- M7JlSfc0IrEtk2XiyT0X7i3ZF5iphZ7Z1u+EzIbu+fDlYzDlRvMA1Rfy4I7DLXAFs1Yy
- VqJA==
-X-Gm-Message-State: APjAAAXUHrC3Sa8a85kTTZV2PWK8sWQKFE8FOdwYyur+ubCxV1xZ1Wr7
- FhWosOEKNnCpcQl2ZWN2ohgcje7E29Zt4/oDon7JePp7SJ1fp2rAosYqUoCwRuFjpQ==
-X-Google-Smtp-Source: APXvYqzOz+Zqdf+HSDNjzGbbh9zF2epB8ziADuAl2ufBlIUuKwF+X8RjGSMHN6MqxNFhp+aitzIJF7ZNxJOD
-X-Received: by 2002:a5d:6a45:: with SMTP id t5mr6944280wrw.228.1565889265011; 
+ bh=hSu/SLnQ2ByBr5pdkyn5uB1emX/lLSkUY37nX1yG4go=;
+ b=M+b8drPd+RAF7+2oH6oBd6jMuxPWRM8K28lghQwo79fNWnWyU2yGzUkeukznRfEXXi
+ yejn7f73+7OAe7fwrvyqA+uzoY4YZS+ZgpJOK15Ok57ed9G95VI/Zax2Jl/E7tpjZ/DZ
+ XUzAtKiyktqCldjDSxOgBhG4ssYKrmeij1pNcYh51RKYoXMsO1gKuiNUX5Gn1RRHQs7e
+ Z8OpWisZ7Fxvd+0aJHFrfM8s8+4AsUiw6z5GgJMm3WhsT5JwbR11/w6QMnFX9lnjpNSu
+ ospNvyc4iHbU22gx7RUUh0CuvE5SJfpJWTC3cfTr6iBqaqTuNckdZtiF4+Hek1P6z367
+ wZ1Q==
+X-Gm-Message-State: APjAAAVSj+YmcI+Mvbl9xOhFqJ51umTcDAGYxqWJULsoVn/FWukh6VLd
+ vgDbq8uP36cgCAaYPRin3kNQM/KVNtCDcfDq1GFqoVJUs3Tt3lroUIJ5AVs9nXGZ4A==
+X-Google-Smtp-Source: APXvYqyzs4bzOJy9UjY85Ntaekkn/sUNlavyIQBsoxeAByy98K5scrReehdsP3FDc/HaeAnYfxxc7rZnA2nr
+X-Received: by 2002:adf:f54a:: with SMTP id j10mr6641463wrp.220.1565889265735; 
  Thu, 15 Aug 2019 10:14:25 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id b7sm61334wrv.31.2019.08.15.10.14.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ by smtp-relay.gmail.com with ESMTPS id k3sm51635wrw.32.2019.08.15.10.14.25
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
  Thu, 15 Aug 2019 10:14:25 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyJKS-00051c-It; Thu, 15 Aug 2019 17:14:24 +0000
+ id 1hyJKT-00051n-D2; Thu, 15 Aug 2019 17:14:25 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 034DC2742BD6; Thu, 15 Aug 2019 18:14:23 +0100 (BST)
+ id C54642742BD6; Thu, 15 Aug 2019 18:14:24 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190815090602.9000-1-yuehaibing@huawei.com>
+In-Reply-To: <20190815085454.30384-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190815171424.034DC2742BD6@ypsilon.sirena.org.uk>
-Date: Thu, 15 Aug 2019 18:14:23 +0100 (BST)
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, bardliao@realtek.com
-Subject: [alsa-devel] Applied "ASoC: rt1011: remove unused variable
-	'dac_vol_tlv' and 'adc_vol_tlv'" to the asoc tree
+Message-Id: <20190815171424.C54642742BD6@ypsilon.sirena.org.uk>
+Date: Thu, 15 Aug 2019 18:14:24 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
+ brian.austin@cirrus.com, Paul.Handrigan@cirrus.com,
+ linux-kernel@vger.kernel.org, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: cs42l73: remove unused variables
+	'vsp_output_mux' and 'xsp_output_mux'" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,7 +99,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1011: remove unused variable 'dac_vol_tlv' and 'adc_vol_tlv'
+   ASoC: cs42l73: remove unused variables 'vsp_output_mux' and 'xsp_output_mux'
 
 has been applied to the asoc tree at
 
@@ -123,40 +124,44 @@ to this mail.
 Thanks,
 Mark
 
-From 5b366753c1c12feead0ae53b45482f569ed5399c Mon Sep 17 00:00:00 2001
+From c25b456dc579298ac0ed7304f7d06a66288e96df Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Thu, 15 Aug 2019 17:06:02 +0800
-Subject: [PATCH] ASoC: rt1011: remove unused variable 'dac_vol_tlv' and
- 'adc_vol_tlv'
+Date: Thu, 15 Aug 2019 16:54:54 +0800
+Subject: [PATCH] ASoC: cs42l73: remove unused variables 'vsp_output_mux' and
+ 'xsp_output_mux'
 
-sound/soc/codecs/rt1011.c:981:35: warning:
- dac_vol_tlv defined but not used [-Wunused-const-variable=]
-sound/soc/codecs/rt1011.c:982:35: warning:
- adc_vol_tlv defined but not used [-Wunused-const-variable=]
+sound/soc/codecs/cs42l73.c:276:38: warning:
+ vsp_output_mux defined but not used [-Wunused-const-variable=]
+sound/soc/codecs/cs42l73.c:279:38: warning:
+ xsp_output_mux defined but not used [-Wunused-const-variable=]
 
 They are never used, so can be removed.
 
+Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190815090602.9000-1-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190815085454.30384-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1011.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/soc/codecs/cs42l73.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index 638abcaf52b3..fa34565a3938 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -978,9 +978,6 @@ static bool rt1011_readable_register(struct device *dev, unsigned int reg)
- 	}
- }
+diff --git a/sound/soc/codecs/cs42l73.c b/sound/soc/codecs/cs42l73.c
+index a81739367109..36089f8bcf0a 100644
+--- a/sound/soc/codecs/cs42l73.c
++++ b/sound/soc/codecs/cs42l73.c
+@@ -273,12 +273,6 @@ static SOC_ENUM_SINGLE_DECL(xsp_output_mux_enum,
+ 			    CS42L73_MIXERCTL, 4,
+ 			    cs42l73_spo_mixer_text);
  
--static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9435, 37, 0);
--static const DECLARE_TLV_DB_SCALE(adc_vol_tlv, -1739, 37, 0);
+-static const struct snd_kcontrol_new vsp_output_mux =
+-	SOC_DAPM_ENUM("Route", vsp_output_mux_enum);
 -
- static const char * const rt1011_din_source_select[] = {
- 	"Left",
- 	"Right",
+-static const struct snd_kcontrol_new xsp_output_mux =
+-	SOC_DAPM_ENUM("Route", xsp_output_mux_enum);
+-
+ static const struct snd_kcontrol_new hp_amp_ctl =
+ 	SOC_DAPM_SINGLE("Switch", CS42L73_PWRCTL3, 0, 1, 1);
+ 
 -- 
 2.20.1
 

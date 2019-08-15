@@ -2,61 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EF398F270
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:40:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 911398F2F4
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 20:13:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F03316CB;
-	Thu, 15 Aug 2019 19:39:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F03316CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0439A1693;
+	Thu, 15 Aug 2019 20:12:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0439A1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565890822;
-	bh=kZnkIjdUTNmhhH0phSfuiVm1+glzKEXaUagl4i2X3WM=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1565892826;
+	bh=E9i6/k31UMEIgBCVNUsq0oS9hWolXCPVpbvgqCo8Kg8=;
+	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LmPlnoCD17jk2ieShJEvXflTYhuaFzIn1pmyzG6PUD12aZcqYWeJqQcHHJbyaY6SO
-	 I3powFiBMmaIOrGnRxv+6r2mjGNvcKuSZ/eDM7SjPsuj9Q6CtwIehIr9VQum2XmOnS
-	 hBmA8G1hCEG/M0JrVvTu1KMHO3iO514vTksMNXW0=
+	b=F9FdresGlcuXU8qNvRipGykszkDcU8LkQAnvtI4IrVCJdhHZCdVXpslhAgmyJmNJz
+	 HPU+ngTN3XBR+8ZxA1x6wZ3yrd5w201SsdS2Dt5MzyJEXvQQKTpyw+T41saYbxCP1C
+	 B5ozl3A+6Kdcqyx6oymKYSn4RKGGn7xX0xy+Ywww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B5F9F8044C;
-	Thu, 15 Aug 2019 19:38:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78F97F80274;
+	Thu, 15 Aug 2019 20:12:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3EE4F80274; Thu, 15 Aug 2019 19:38:34 +0200 (CEST)
+ id 04489F80274; Thu, 15 Aug 2019 20:12:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DC14F8015B
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:38:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DC14F8015B
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8BE42AC47;
- Thu, 15 Aug 2019 17:38:29 +0000 (UTC)
-Date: Thu, 15 Aug 2019 19:38:27 +0200
-Message-ID: <s5h7e7e9vn0.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Hui Peng <benquike@gmail.com>
-In-Reply-To: <CAKpmkkWCaLOctG44fD=arD-=oogRVCSxe5rz2UNUAms5q=2pYw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DBA28F8011F
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 20:11:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DBA28F8011F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="N9fiEeuY"
+Received: by mail-io1-xd41.google.com with SMTP id j6so964540ioa.5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 11:11:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:references:message-id:date:user-agent
+ :mime-version:in-reply-to;
+ bh=T0z5M7ijbYCAMmSEi3Xk7LPeKUUxa5QcYFskveeDqxU=;
+ b=N9fiEeuYjdN507PjNzcR3dGPWwWjjV3TOCSmX9BbOwpZzy4lUO/ALmHtx6c1cpdl/k
+ 3Af+v+8QXYctwM+abYPlviawZOuk3G0JmN1lInxAwvJrMlPQifUogk5KhLtjytkZaKGC
+ npjwuy6jmAVmhc6g1eEznSwM90b805s22+6D3dzdSXWvR+Qy0uZ8tD0+PR+HX2WO8bsA
+ sUeaoVCzSRxf2L43/zOHolKhgh9u1PICtGBVktdOS7zNZuD6GxCfThtf3nj0Equ/m2ju
+ oMuP02I5jViNxJipauwKbC6eL5PztvaXRgrdLjx5YL9XexsnnGvbgP2X4DoanzdPla/R
+ O25w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:references:message-id:date
+ :user-agent:mime-version:in-reply-to;
+ bh=T0z5M7ijbYCAMmSEi3Xk7LPeKUUxa5QcYFskveeDqxU=;
+ b=T1V0wkfxFH30BH8X9OTIRthMjSvX/30tf6RqXA3NU9hnOGbNJI20oM04CSYq2LKNjc
+ nZRhCeT7TInPoh1ABhyrPhOUkymTeosCeLqWg4RcunvAHjA6ovK+eIfV55aoxaJrta3y
+ Mpz9wignpeues3/YIV6knuNxTfI1eZ+425sjbsYIHbiiAQ06x5eObovMddIWWznqA6l0
+ dhQMAAikAEhGe4iwlbhb8SJvlb9Non+u0XjOBjLxYc1wphlngxBBWjqNhQOSimU1qKe1
+ dtaFyKwGTssRnDtjW1nGEHanTXjIF0mIoO4fJLSPnbluxEsDTQSBFrEaUeg+lD7x0MoK
+ vdMg==
+X-Gm-Message-State: APjAAAUZZLrqjAiP8WUb1ik6kxmXSwbsZhHfWMQiue3DAEpnft0DX9wg
+ +5PPmdTZHmQ385ctZksBqKw=
+X-Google-Smtp-Source: APXvYqz16dniImJR+wYRFVvrstyv1oymcXZcIX+FTXGsug6TJSv9iSYzFln5IMhDK2P5mwG4JDySzA==
+X-Received: by 2002:a5d:948a:: with SMTP id v10mr6926258ioj.103.1565892711533; 
+ Thu, 15 Aug 2019 11:11:51 -0700 (PDT)
+Received: from [10.164.9.36] (cos-128-210-107-27.science.purdue.edu.
+ [128.210.107.27])
+ by smtp.gmail.com with ESMTPSA id r20sm4326963ioj.32.2019.08.15.11.11.50
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Aug 2019 11:11:50 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
 References: <20190815043554.16623-1-benquike@gmail.com>
  <s5htvaj9cre.wl-tiwai@suse.de> <s5hk1beapab.wl-tiwai@suse.de>
  <CAKpmkkWCaLOctG44fD=arD-=oogRVCSxe5rz2UNUAms5q=2pYw@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5h7e7e9vn0.wl-tiwai@suse.de>
+Message-ID: <c6b11a34-3bd9-f1d7-cd27-4ddcd210a7cc@gmail.com>
+Date: Thu, 15 Aug 2019 14:11:50 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <s5h7e7e9vn0.wl-tiwai@suse.de>
+Content-Type: multipart/mixed; boundary="------------93B7766F64C12B7D19BE0D7E"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: Mathias Payer <mathias.payer@nebelwelt.net>, security@kernel.org,
- Wenwen Wang <wang6495@umn.edu>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
- alsa-devel@alsa-project.org, Thomas Gleixner <tglx@linutronix.de>,
- Allison Randal <allison@lohutok.net>
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
+ Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
 Subject: Re: [alsa-devel] [PATCH] Fix a stack buffer overflow bug
 	check_input_term
 X-BeenThere: alsa-devel@alsa-project.org
@@ -71,190 +106,411 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVGh1LCAxNSBBdWcgMjAxOSAxOToxOToxMCArMDIwMCwKSHVpIFBlbmcgd3JvdGU6Cj4gCj4g
-SGksIFRha2FzaGk6Cj4gCj4gT25lIHBvaW50IEkgd2FudCB0byBiZSBjbGVhcjogaWYgYW4gZW5k
-bGVzcyByZWN1cnNpdmUgbG9vcCBpcyBkZXRlY3RlZCwgc2hvdWxkCj4gd2UgcmV0dXJuIDAsIG9y
-IGEgbmVnYXRpdmUgZXJyb3IgY29kZT/CoAoKQW4gZXJyb3IgbWlnaHQgYmUgbW9yZSBhcHByb3By
-aWF0ZSwgYnV0IGl0J3Mgbm8gYmlnIGRlYWwsIGFzIHlvdSdsbApsaWtlbHkgaGl0IG90aGVyIGVy
-cm9ycyBzb29uZXIgb3IgbGF0ZXIgYXQgcGFyc2luZyBmdXJ0aGVyIDopCgoKdGhhbmtzLAoKVGFr
-YXNoaQoKPiBPbiBUaHUsIEF1ZyAxNSwgMjAxOSBhdCAyOjU4IEFNIFRha2FzaGkgSXdhaSA8dGl3
-YWlAc3VzZS5kZT4gd3JvdGU6Cj4gCj4gICAgIE9uIFRodSwgMTUgQXVnIDIwMTkgMDg6MTM6NTcg
-KzAyMDAsCj4gICAgIFRha2FzaGkgSXdhaSB3cm90ZToKPiAgICAgPgo+ICAgICA+IE9uIFRodSwg
-MTUgQXVnIDIwMTkgMDY6MzU6NDkgKzAyMDAsCj4gICAgID4gSHVpIFBlbmcgd3JvdGU6Cj4gICAg
-ID4gPgo+ICAgICA+ID4gYGNoZWNrX2lucHV0X3Rlcm1gIHJlY3Vyc2l2ZWx5IGNhbGxzIGl0c2Vs
-ZiB3aXRoIGlucHV0Cj4gICAgID4gPiBmcm9tIGRldmljZSBzaWRlIChlLmcuLCB1YWNfaW5wdXRf
-dGVybWluYWxfZGVzY3JpcHRvci5iQ1NvdXJjZUlEKQo+ICAgICA+ID4gYXMgYXJndW1lbnQgKGlk
-KS4gSW4gYGNoZWNrX2lucHV0X3Rlcm1gLCBpZiBgY2hlY2tfaW5wdXRfdGVybWAKPiAgICAgPiA+
-IGlzIGNhbGxlZCB3aXRoIHRoZSBzYW1lIGBpZGAgYXJndW1lbnQgYXMgdGhlIGNhbGxlciwgaXQg
-dHJpZ2dlcnMKPiAgICAgPiA+IGVuZGxlc3MgcmVjdXJzaXZlIGNhbGwsIHJlc3VsdGluZyBrZXJu
-ZWwgc3BhY2Ugc3RhY2sgb3ZlcmZsb3cuCj4gICAgID4gPgo+ICAgICA+ID4gVGhpcyBwYXRjaCBm
-aXhlcyB0aGUgYnVnIGJ5IGFkZGluZyBhIGJpdG1hcCB0byBgc3RydWN0IG1peGVyX2J1aWxkYAo+
-ICAgICA+ID4gdG8ga2VlcCB0cmFjayBvZiB0aGUgY2hlY2tlZCBpZHMgYnkgYGNoZWNrX2lucHV0
-X3Rlcm1gIGFuZCBzdG9wCj4gICAgID4gPiB0aGUgZXhlY3V0aW9uIGlmIHNvbWUgaWQgaGFzIGJl
-ZW4gY2hlY2tlZCAoc2ltaWxhciB0byBob3cKPiAgICAgPiA+IHBhcnNlX2F1ZGlvX3VuaXQgaGFu
-ZGxlcyB1bml0aWQgYXJndW1lbnQpLgo+ICAgICA+ID4KPiAgICAgPiA+IFJlcG9ydGVkLWJ5OiBI
-dWkgUGVuZyA8YmVucXVpa2VAZ21haWwuY29tPgo+ICAgICA+ID4gUmVwb3J0ZWQtYnk6IE1hdGhp
-YXMgUGF5ZXIgPG1hdGhpYXMucGF5ZXJAbmViZWx3ZWx0Lm5ldD4KPiAgICAgPiA+IFNpZ25lZC1v
-ZmYtYnk6IEh1aSBQZW5nIDxiZW5xdWlrZUBnbWFpbC5jb20+Cj4gICAgID4KPiAgICAgPiBUaGUg
-Zml4IGxvb2tzIGFsbW9zdCBnb29kLCBidXQgd2UgbmVlZCB0byBiZSBjYXJlZnVsIGFib3V0IHRo
-ZQo+ICAgICA+IGJpdG1hcCBjaGVjay7CoCBJbiB0aGVvcnksIGl0J3MgcG9zc2libGUgdGhhdCBt
-dWx0aXBsZSBub2RlcyBwb2ludCB0bwo+ICAgICA+IHRoZSBzYW1lIGlucHV0IHRlcm1pbmFsLCBh
-bmQgeW91ciBwYXRjaCB3b3VsZCBicmVhayB0aGF0IHNjZW5hcmlvLgo+ICAgICA+IEZvciBmaXhp
-bmcgdGhhdCwgd2UgbmVlZCB0byB6ZXJvLWNsZWFyIHRoZSB0ZXJtYml0bWFwIGF0IGVhY2ggZmly
-c3QKPiAgICAgPiBpbnZvY2F0aW9uIG9mIGNoZWNrX2lucHV0X3Rlcm0oKSwgc29tZXRoaW5nIGxp
-a2UgYmVsb3cuCj4gICAgID4KPiAgICAgPiBDb3VsZCB5b3UgY2hlY2sgd2hldGhlciB0aGlzIHdv
-cmtzPwo+ICAgIAo+ICAgICBUaGlua2luZyBvZiB0aGlzIGZ1cnRoZXIsIHRoZXJlIGlzIGFub3Ro
-ZXIgcG9zc2libGUgaW5maW5pdGUgbG9vcC4KPiAgICAgTmFtZWx5LCB3aGVuIHRoZSBmZWF0dXJl
-IHVuaXQgaW4gdGhlIGlucHV0IHRlcm1pbmFsIGNoYWluIHBvaW50cyB0bwo+ICAgICBpdHNlbGYg
-YXMgdGhlIHNvdXJjZSwgaXQnbGwgbG9vcCBlbmRsZXNzbHkgd2l0aG91dCB0aGUgc3RhY2sKPiAg
-ICAgb3ZlcmZsb3cuCj4gICAgCj4gICAgIFNvIHRoZSBjaGVjayBvZiB0aGUgdGVybWJpdG1hcCBz
-aG91bGQgYmUgaW5zaWRlIHRoZSBsb29wLgo+ICAgICBUaGUgcmV2aXNlZCBwYXRjaCBpcyBiZWxv
-dy4KPiAKPiAgICAgdGhhbmtzLAo+ICAgIAo+ICAgICBUYWthc2hpCj4gICAgCj4gICAgIC0tIDg8
-IC0tCj4gICAgIEZyb206IEh1aSBQZW5nIDxiZW5xdWlrZUBnbWFpbC5jb20+Cj4gICAgIFN1Ympl
-Y3Q6IFtQQVRDSF0gQUxTQTogdXNiLWF1ZGlvOiBGaXggYSBzdGFjayBidWZmZXIgb3ZlcmZsb3cg
-YnVnCj4gICAgIMKgY2hlY2tfaW5wdXRfdGVybQo+ICAgIAo+ICAgICBgY2hlY2tfaW5wdXRfdGVy
-bWAgcmVjdXJzaXZlbHkgY2FsbHMgaXRzZWxmIHdpdGggaW5wdXQKPiAgICAgZnJvbSBkZXZpY2Ug
-c2lkZSAoZS5nLiwgdWFjX2lucHV0X3Rlcm1pbmFsX2Rlc2NyaXB0b3IuYkNTb3VyY2VJRCkKPiAg
-ICAgYXMgYXJndW1lbnQgKGlkKS4gSW4gYGNoZWNrX2lucHV0X3Rlcm1gLCBpZiBgY2hlY2tfaW5w
-dXRfdGVybWAKPiAgICAgaXMgY2FsbGVkIHdpdGggdGhlIHNhbWUgYGlkYCBhcmd1bWVudCBhcyB0
-aGUgY2FsbGVyLCBpdCB0cmlnZ2Vycwo+ICAgICBlbmRsZXNzIHJlY3Vyc2l2ZSBjYWxsLCByZXN1
-bHRpbmcga2VybmVsIHNwYWNlIHN0YWNrIG92ZXJmbG93Lgo+ICAgIAo+ICAgICBUaGlzIHBhdGNo
-IGZpeGVzIHRoZSBidWcgYnkgYWRkaW5nIGEgYml0bWFwIHRvIGBzdHJ1Y3QgbWl4ZXJfYnVpbGRg
-Cj4gICAgIHRvIGtlZXAgdHJhY2sgb2YgdGhlIGNoZWNrZWQgaWRzIGJ5IGBjaGVja19pbnB1dF90
-ZXJtYCBhbmQgc3RvcAo+ICAgICB0aGUgZXhlY3V0aW9uIGlmIHNvbWUgaWQgaGFzIGJlZW4gY2hl
-Y2tlZCAoc2ltaWxhciB0byBob3cKPiAgICAgcGFyc2VfYXVkaW9fdW5pdCBoYW5kbGVzIHVuaXRp
-ZCBhcmd1bWVudCkuCj4gICAgCj4gICAgIFsgVGhlIHRlcm1iaXRtYXAgbmVlZHMgdG8gYmUgY2xl
-YXJlZCBhdCBlYWNoIGZpcnN0IGNoZWNrIG9mIHRoZSBpbnB1dAo+ICAgICDCoCB0ZXJtaW5hbCwg
-c28gdGhlIGZ1bmN0aW9uIGdvdCBzcGxpdCBub3cuwqAgQWxzbywgZm9yIGNhdGNoaW5nIGFub3Ro
-ZXIKPiAgICAgwqAgZW5kbGVzcyBsb29wIGluIHRoZSBpbnB1dCB0ZXJtaW5hbCBjaGFpbiAtLSB3
-aGVyZSB0aGUgZmVhdHVyZSB1bml0Cj4gICAgIMKgIHBvaW50cyB0byBpdHNlbGYgYXMgaXRzIHNv
-dXJjZSAtLSB0aGUgdGVybWJpdG1hcCBjaGVjayBpcyBtb3ZlZAo+ICAgICDCoCBpbnNpZGUgdGhl
-IHBhcnNlciBsb29wLiAtLSB0aXdhaSBdCj4gICAgCj4gICAgIFJlcG9ydGVkLWJ5OiBIdWkgUGVu
-ZyA8YmVucXVpa2VAZ21haWwuY29tPgo+ICAgICBSZXBvcnRlZC1ieTogTWF0aGlhcyBQYXllciA8
-bWF0aGlhcy5wYXllckBuZWJlbHdlbHQubmV0Pgo+ICAgICBTaWduZWQtb2ZmLWJ5OiBIdWkgUGVu
-ZyA8YmVucXVpa2VAZ21haWwuY29tPgo+ICAgICBDYzogPHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+
-Cj4gICAgIFNpZ25lZC1vZmYtYnk6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4KPiAgICAg
-LS0tCj4gICAgIMKgc291bmQvdXNiL21peGVyLmMgfCAzNiArKysrKysrKysrKysrKysrKysrKysr
-KysrKy0tLS0tLS0tLS0KPiAgICAgwqAxIGZpbGUgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwg
-MTAgZGVsZXRpb25zKC0pCj4gICAgCj4gICAgIGRpZmYgLS1naXQgYS9zb3VuZC91c2IvbWl4ZXIu
-YyBiL3NvdW5kL3VzYi9taXhlci5jCj4gICAgIGluZGV4IGVhNDg3Mzc4YmUxNy4uYWE4YjA0NmFh
-OTFmIDEwMDY0NAo+ICAgICAtLS0gYS9zb3VuZC91c2IvbWl4ZXIuYwo+ICAgICArKysgYi9zb3Vu
-ZC91c2IvbWl4ZXIuYwo+ICAgICBAQCAtNjgsNiArNjgsNyBAQCBzdHJ1Y3QgbWl4ZXJfYnVpbGQg
-ewo+ICAgICDCoCDCoCDCoCDCoCB1bnNpZ25lZCBjaGFyICpidWZmZXI7Cj4gICAgIMKgIMKgIMKg
-IMKgIHVuc2lnbmVkIGludCBidWZsZW47Cj4gICAgIMKgIMKgIMKgIMKgIERFQ0xBUkVfQklUTUFQ
-KHVuaXRiaXRtYXAsIE1BWF9JRF9FTEVNUyk7Cj4gICAgICvCoCDCoCDCoCDCoERFQ0xBUkVfQklU
-TUFQKHRlcm1iaXRtYXAsIE1BWF9JRF9FTEVNUyk7Cj4gICAgIMKgIMKgIMKgIMKgIHN0cnVjdCB1
-c2JfYXVkaW9fdGVybSBvdGVybTsKPiAgICAgwqAgwqAgwqAgwqAgY29uc3Qgc3RydWN0IHVzYm1p
-eF9uYW1lX21hcCAqbWFwOwo+ICAgICDCoCDCoCDCoCDCoCBjb25zdCBzdHJ1Y3QgdXNibWl4X3Nl
-bGVjdG9yX21hcCAqc2VsZWN0b3JfbWFwOwo+ICAgICBAQCAtNzc1LDE2ICs3NzYsMjMgQEAgc3Rh
-dGljIGludCB1YWNfbWl4ZXJfdW5pdF9nZXRfY2hhbm5lbHMoc3RydWN0Cj4gICAgIG1peGVyX2J1
-aWxkICpzdGF0ZSwKPiAgICAgwqAgKiBwYXJzZSB0aGUgc291cmNlIHVuaXQgcmVjdXJzaXZlbHkg
-dW50aWwgaXQgcmVhY2hlcyB0byBhIHRlcm1pbmFsCj4gICAgIMKgICogb3IgYSBicmFuY2hlZCB1
-bml0Lgo+ICAgICDCoCAqLwo+ICAgICAtc3RhdGljIGludCBjaGVja19pbnB1dF90ZXJtKHN0cnVj
-dCBtaXhlcl9idWlsZCAqc3RhdGUsIGludCBpZCwKPiAgICAgLcKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgc3RydWN0IHVzYl9hdWRpb190ZXJtICp0ZXJtKQo+ICAgICAr
-c3RhdGljIGludCBfX2NoZWNrX2lucHV0X3Rlcm0oc3RydWN0IG1peGVyX2J1aWxkICpzdGF0ZSwg
-aW50IGlkLAo+ICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqBzdHJ1Y3QgdXNiX2F1ZGlvX3Rlcm0gKnRlcm0pCj4gICAgIMKgewo+ICAgICDCoCDCoCDCoCDC
-oCBpbnQgcHJvdG9jb2wgPSBzdGF0ZS0+bWl4ZXItPnByb3RvY29sOwo+ICAgICDCoCDCoCDCoCDC
-oCBpbnQgZXJyOwo+ICAgICDCoCDCoCDCoCDCoCB2b2lkICpwMTsKPiAgICAgK8KgIMKgIMKgIMKg
-dW5zaWduZWQgY2hhciAqaGRyOwo+ICAgIAo+ICAgICAtwqAgwqAgwqAgwqBtZW1zZXQodGVybSwg
-MCwgc2l6ZW9mKCp0ZXJtKSk7Cj4gICAgIC3CoCDCoCDCoCDCoHdoaWxlICgocDEgPSBmaW5kX2F1
-ZGlvX2NvbnRyb2xfdW5pdChzdGF0ZSwgaWQpKSAhPSBOVUxMKSB7Cj4gICAgIC3CoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoHVuc2lnbmVkIGNoYXIgKmhkciA9IHAxOwo+ICAgICArwqAgwqAgwqAgwqBm
-b3IgKDs7KSB7Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoC8qIGEgbG9vcCBpbiB0aGUg
-dGVybWluYWwgY2hhaW4/ICovCj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGlmICh0ZXN0
-X2FuZF9zZXRfYml0KGlkLCBzdGF0ZS0+dGVybWJpdG1hcCkpCj4gICAgICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoGJyZWFrOwo+ICAgICArCj4gICAgICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoHAxID0gZmluZF9hdWRpb19jb250cm9sX3VuaXQoc3RhdGUsIGlkKTsKPiAgICAg
-K8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgaWYgKCFwMSkKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgYnJlYWs7Cj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGhk
-ciA9IHAxOwo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB0ZXJtLT5pZCA9IGlkOwo+ICAg
-IAo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBpZiAocHJvdG9jb2wgPT0gVUFDX1ZFUlNJ
-T05fMSB8fCBwcm90b2NvbCA9PQo+ICAgICBVQUNfVkVSU0lPTl8yKSB7Cj4gICAgIEBAIC04MDIs
-NyArODEwLDcgQEAgc3RhdGljIGludCBjaGVja19pbnB1dF90ZXJtKHN0cnVjdCBtaXhlcl9idWls
-ZCAqc3RhdGUsCj4gICAgIGludCBpZCwKPiAgICAKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLyogY2FsbCByZWN1cnNpdmVs
-eSB0byB2ZXJpZnkgdGhhdAo+ICAgICB0aGUKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAqIHJlZmVyZW5jZWQgY2xvY2sg
-ZW50aXR5IGlzCj4gICAgIHZhbGlkICovCj4gICAgIC3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGVyciA9IGNoZWNrX2lucHV0X3Rlcm0o
-c3RhdGUsIGQtPgo+ICAgICBiQ1NvdXJjZUlELCB0ZXJtKTsKPiAgICAgK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgZXJyID0gX19jaGVj
-a19pbnB1dF90ZXJtKHN0YXRlLAo+ICAgICBkLT5iQ1NvdXJjZUlELCB0ZXJtKTsKPiAgICAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-aWYgKGVyciA8IDApCj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJldHVybiBlcnI7Cj4gICAgCj4gICAg
-IEBAIC04MzYsNyArODQ0LDcgQEAgc3RhdGljIGludCBjaGVja19pbnB1dF90ZXJtKHN0cnVjdCBt
-aXhlcl9idWlsZCAqc3RhdGUsCj4gICAgIGludCBpZCwKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgY2FzZSBVQUMyX0NMT0NLX1NFTEVDVE9SOiB7Cj4gICAgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHN0cnVjdCB1YWNfc2Vs
-ZWN0b3JfdW5pdF9kZXNjcmlwdG9yICpkID0KPiAgICAgcDE7Cj4gICAgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC8qIGNhbGwgcmVjdXJzaXZlbHkgdG8g
-cmV0cmlldmUgdGhlCj4gICAgIGNoYW5uZWwgaW5mbyAqLwo+ICAgICAtwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBlcnIgPSBjaGVja19pbnB1dF90ZXJtKHN0
-YXRlLCBkLT4KPiAgICAgYmFTb3VyY2VJRFswXSwgdGVybSk7Cj4gICAgICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGVyciA9IF9fY2hlY2tfaW5wdXRfdGVy
-bShzdGF0ZSwgZC0+Cj4gICAgIGJhU291cmNlSURbMF0sIHRlcm0pOwo+ICAgICDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBpZiAoZXJyIDwgMCkKPiAgICAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgcmV0dXJuIGVycjsKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgdGVybS0+dHlwZSA9IFVBQzNfU0VMRUNUT1JfVU5JVCA8PCAxNjsgLyoKPiAg
-ICAgdmlydHVhbCB0eXBlICovCj4gICAgIEBAIC04OTksNyArOTA3LDcgQEAgc3RhdGljIGludCBj
-aGVja19pbnB1dF90ZXJtKHN0cnVjdCBtaXhlcl9idWlsZCAqc3RhdGUsCj4gICAgIGludCBpZCwK
-PiAgICAKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgLyogY2FsbCByZWN1cnNpdmVseSB0byB2ZXJpZnkgdGhhdCB0aGUKPiAgICAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAqIHJlZmVyZW5jZWQgY2xv
-Y2sgZW50aXR5IGlzIHZhbGlkICovCj4gICAgIC3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoGVyciA9IGNoZWNrX2lucHV0X3Rlcm0oc3RhdGUsIGQtPgo+ICAg
-ICBiQ1NvdXJjZUlELCB0ZXJtKTsKPiAgICAgK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgZXJyID0gX19jaGVja19pbnB1dF90ZXJtKHN0YXRlLCBkLT4KPiAg
-ICAgYkNTb3VyY2VJRCwgdGVybSk7Cj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIGlmIChlcnIgPCAwKQo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gZXJyOwo+ICAg
-IAo+ICAgICBAQCAtOTUwLDcgKzk1OCw3IEBAIHN0YXRpYyBpbnQgY2hlY2tfaW5wdXRfdGVybShz
-dHJ1Y3QgbWl4ZXJfYnVpbGQgKnN0YXRlLAo+ICAgICBpbnQgaWQsCj4gICAgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGNhc2UgVUFDM19DTE9DS19TRUxFQ1RPUjogewo+ICAg
-ICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBzdHJ1Y3Qg
-dWFjX3NlbGVjdG9yX3VuaXRfZGVzY3JpcHRvciAqZCA9Cj4gICAgIHAxOwo+ICAgICDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBjYWxsIHJlY3Vyc2l2
-ZWx5IHRvIHJldHJpZXZlIHRoZQo+ICAgICBjaGFubmVsIGluZm8gKi8KPiAgICAgLcKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgZXJyID0gY2hlY2tfaW5wdXRf
-dGVybShzdGF0ZSwgZC0+Cj4gICAgIGJhU291cmNlSURbMF0sIHRlcm0pOwo+ICAgICArwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBlcnIgPSBfX2NoZWNrX2lu
-cHV0X3Rlcm0oc3RhdGUsIGQtPgo+ICAgICBiYVNvdXJjZUlEWzBdLCB0ZXJtKTsKPiAgICAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgaWYgKGVyciA8IDAp
-Cj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIHJldHVybiBlcnI7Cj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIHRlcm0tPnR5cGUgPSBVQUMzX1NFTEVDVE9SX1VOSVQgPDwgMTY7
-IC8qCj4gICAgIHZpcnR1YWwgdHlwZSAqLwo+ICAgICBAQCAtOTY2LDcgKzk3NCw3IEBAIHN0YXRp
-YyBpbnQgY2hlY2tfaW5wdXRfdGVybShzdHJ1Y3QgbWl4ZXJfYnVpbGQgKnN0YXRlLAo+ICAgICBp
-bnQgaWQsCj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIHJldHVybiAtRUlOVkFMOwo+ICAgIAo+ICAgICDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAvKiBjYWxsIHJlY3Vyc2l2ZWx5IHRv
-IHJldHJpZXZlIHRoZQo+ICAgICBjaGFubmVsIGluZm8gKi8KPiAgICAgLcKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgZXJyID0gY2hlY2tfaW5wdXRfdGVybShz
-dGF0ZSwgZC0+Cj4gICAgIGJhU291cmNlSURbMF0sIHRlcm0pOwo+ICAgICArwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBlcnIgPSBfX2NoZWNrX2lucHV0X3Rl
-cm0oc3RhdGUsIGQtPgo+ICAgICBiYVNvdXJjZUlEWzBdLCB0ZXJtKTsKPiAgICAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgaWYgKGVyciA8IDApCj4gICAg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIHJldHVybiBlcnI7Cj4gICAgCj4gICAgIEBAIC05ODQsNiArOTkyLDE0IEBAIHN0YXRpYyBp
-bnQgY2hlY2tfaW5wdXRfdGVybShzdHJ1Y3QgbWl4ZXJfYnVpbGQKPiAgICAgKnN0YXRlLCBpbnQg
-aWQsCj4gICAgIMKgIMKgIMKgIMKgIHJldHVybiAtRU5PREVWOwo+ICAgICDCoH0KPiAgICAKPiAg
-ICAgK3N0YXRpYyBpbnQgY2hlY2tfaW5wdXRfdGVybShzdHJ1Y3QgbWl4ZXJfYnVpbGQgKnN0YXRl
-LCBpbnQgaWQsCj4gICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oHN0cnVjdCB1c2JfYXVkaW9fdGVybSAqdGVybSkKPiAgICAgK3sKPiAgICAgK8KgIMKgIMKgIMKg
-bWVtc2V0KHRlcm0sIDAsIHNpemVvZigqdGVybSkpOwo+ICAgICArwqAgwqAgwqAgwqBtZW1zZXQo
-c3RhdGUtPnRlcm1iaXRtYXAsIDAsIHNpemVvZihzdGF0ZS0+dGVybWJpdG1hcCkpOwo+ICAgICAr
-wqAgwqAgwqAgwqByZXR1cm4gX19jaGVja19pbnB1dF90ZXJtKHN0YXRlLCBpZCwgdGVybSk7Cj4g
-ICAgICt9Cj4gICAgICsKPiAgICAgwqAvKgo+ICAgICDCoCAqIEZlYXR1cmUgVW5pdAo+ICAgICDC
-oCAqLwo+ICAgICAtLQo+ICAgICAyLjE2LjQKPiAKPiAKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZl
-bEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+This is a multi-part message in MIME format.
+--------------93B7766F64C12B7D19BE0D7E
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Hi, Takashi:
+
+The new patch is confirmed (I made it to return -EINVAL if a endless
+recursive call is detected).
+Can you have a look.
+
+Thanks.
+
+On 8/15/19 1:38 PM, Takashi Iwai wrote:
+> On Thu, 15 Aug 2019 19:19:10 +0200,
+> Hui Peng wrote:
+>> Hi, Takashi:
+>>
+>> One point I want to be clear: if an endless recursive loop is
+detected, should
+>> we return 0, or a negative error code? 
+> An error might be more appropriate, but it's no big deal, as you'll
+> likely hit other errors sooner or later at parsing further :)
+>
+>
+> thanks,
+>
+> Takashi
+>
+>> On Thu, Aug 15, 2019 at 2:58 AM Takashi Iwai wrote:
+>>
+>> On Thu, 15 Aug 2019 08:13:57 +0200,
+>> Takashi Iwai wrote:
+>> >
+>> > On Thu, 15 Aug 2019 06:35:49 +0200,
+>> > Hui Peng wrote:
+>> > >
+>> > > `check_input_term` recursively calls itself with input
+>> > > from device side (e.g., uac_input_terminal_descriptor.bCSourceID)
+>> > > as argument (id). In `check_input_term`, if `check_input_term`
+>> > > is called with the same `id` argument as the caller, it triggers
+>> > > endless recursive call, resulting kernel space stack overflow.
+>> > >
+>> > > This patch fixes the bug by adding a bitmap to `struct mixer_build`
+>> > > to keep track of the checked ids by `check_input_term` and stop
+>> > > the execution if some id has been checked (similar to how
+>> > > parse_audio_unit handles unitid argument).
+>> > >
+>> > > Reported-by: Hui Peng
+>> > > Reported-by: Mathias Payer
+>> > > Signed-off-by: Hui Peng
+>> >
+>> > The fix looks almost good, but we need to be careful about the
+>> > bitmap check.  In theory, it's possible that multiple nodes point to
+>> > the same input terminal, and your patch would break that scenario.
+>> > For fixing that, we need to zero-clear the termbitmap at each first
+>> > invocation of check_input_term(), something like below.
+>> >
+>> > Could you check whether this works?
+>>
+>> Thinking of this further, there is another possible infinite loop.
+>> Namely, when the feature unit in the input terminal chain points to
+>> itself as the source, it'll loop endlessly without the stack
+>> overflow.
+>>
+>> So the check of the termbitmap should be inside the loop.
+>> The revised patch is below.
+>>
+>> thanks,
+>>
+>> Takashi
+>>
+>> -- 8< --
+>> From: Hui Peng
+>> Subject: [PATCH] ALSA: usb-audio: Fix a stack buffer overflow bug
+>>  check_input_term
+>>
+>> `check_input_term` recursively calls itself with input
+>> from device side (e.g., uac_input_terminal_descriptor.bCSourceID)
+>> as argument (id). In `check_input_term`, if `check_input_term`
+>> is called with the same `id` argument as the caller, it triggers
+>> endless recursive call, resulting kernel space stack overflow.
+>>
+>> This patch fixes the bug by adding a bitmap to `struct mixer_build`
+>> to keep track of the checked ids by `check_input_term` and stop
+>> the execution if some id has been checked (similar to how
+>> parse_audio_unit handles unitid argument).
+>>
+>> [ The termbitmap needs to be cleared at each first check of the input
+>>   terminal, so the function got split now.  Also, for catching another
+>>   endless loop in the input terminal chain -- where the feature unit
+>>   points to itself as its source -- the termbitmap check is moved
+>>   inside the parser loop. -- tiwai ]
+>>
+>> Reported-by: Hui Peng
+>> Reported-by: Mathias Payer
+>> Signed-off-by: Hui Peng
+>> Cc:
+>> Signed-off-by: Takashi Iwai
+>> ---
+>>  sound/usb/mixer.c | 36 ++++++++++++++++++++++++++----------
+>>  1 file changed, 26 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+>> index ea487378be17..aa8b046aa91f 100644
+>> --- a/sound/usb/mixer.c
+>> +++ b/sound/usb/mixer.c
+>> @@ -68,6 +68,7 @@ struct mixer_build {
+>>         unsigned char *buffer;
+>>         unsigned int buflen;
+>>         DECLARE_BITMAP(unitbitmap, MAX_ID_ELEMS);
+>> +       DECLARE_BITMAP(termbitmap, MAX_ID_ELEMS);
+>>         struct usb_audio_term oterm;
+>>         const struct usbmix_name_map *map;
+>>         const struct usbmix_selector_map *selector_map;
+>> @@ -775,16 +776,23 @@ static int uac_mixer_unit_get_channels(struct
+>> mixer_build *state,
+>>   * parse the source unit recursively until it reaches to a terminal
+>>   * or a branched unit.
+>>   */
+>> -static int check_input_term(struct mixer_build *state, int id,
+>> -                           struct usb_audio_term *term)
+>> +static int __check_input_term(struct mixer_build *state, int id,
+>> +                             struct usb_audio_term *term)
+>>  {
+>>         int protocol = state->mixer->protocol;
+>>         int err;
+>>         void *p1;
+>> +       unsigned char *hdr;
+>>
+>> -       memset(term, 0, sizeof(*term));
+>> -       while ((p1 = find_audio_control_unit(state, id)) != NULL) {
+>> -               unsigned char *hdr = p1;
+>> +       for (;;) {
+>> +               /* a loop in the terminal chain? */
+>> +               if (test_and_set_bit(id, state->termbitmap))
+>> +                       break;
+>> +
+>> +               p1 = find_audio_control_unit(state, id);
+>> +               if (!p1)
+>> +                       break;
+>> +               hdr = p1;
+>>                 term->id = id;
+>>
+>>                 if (protocol == UAC_VERSION_1 || protocol ==
+>> UAC_VERSION_2) {
+>> @@ -802,7 +810,7 @@ static int check_input_term(struct mixer_build
+*state,
+>> int id,
+>>
+>>                                         /* call recursively to verify
+that
+>> the
+>>                                          * referenced clock entity is
+>> valid */
+>> -                                       err = check_input_term(state, d->
+>> bCSourceID, term);
+>> +                                       err = __check_input_term(state,
+>> d->bCSourceID, term);
+>>                                         if (err < 0)
+>>                                                 return err;
+>>
+>> @@ -836,7 +844,7 @@ static int check_input_term(struct mixer_build
+*state,
+>> int id,
+>>                         case UAC2_CLOCK_SELECTOR: {
+>>                                 struct uac_selector_unit_descriptor *d =
+>> p1;
+>>                                 /* call recursively to retrieve the
+>> channel info */
+>> -                               err = check_input_term(state, d->
+>> baSourceID[0], term);
+>> +                               err = __check_input_term(state, d->
+>> baSourceID[0], term);
+>>                                 if (err < 0)
+>>                                         return err;
+>>                                 term->type = UAC3_SELECTOR_UNIT << 16; /*
+>> virtual type */
+>> @@ -899,7 +907,7 @@ static int check_input_term(struct mixer_build
+*state,
+>> int id,
+>>
+>>                                 /* call recursively to verify that the
+>>                                  * referenced clock entity is valid */
+>> -                               err = check_input_term(state, d->
+>> bCSourceID, term);
+>> +                               err = __check_input_term(state, d->
+>> bCSourceID, term);
+>>                                 if (err < 0)
+>>                                         return err;
+>>
+>> @@ -950,7 +958,7 @@ static int check_input_term(struct mixer_build
+*state,
+>> int id,
+>>                         case UAC3_CLOCK_SELECTOR: {
+>>                                 struct uac_selector_unit_descriptor *d =
+>> p1;
+>>                                 /* call recursively to retrieve the
+>> channel info */
+>> -                               err = check_input_term(state, d->
+>> baSourceID[0], term);
+>> +                               err = __check_input_term(state, d->
+>> baSourceID[0], term);
+>>                                 if (err < 0)
+>>                                         return err;
+>>                                 term->type = UAC3_SELECTOR_UNIT << 16; /*
+>> virtual type */
+>> @@ -966,7 +974,7 @@ static int check_input_term(struct mixer_build
+*state,
+>> int id,
+>>                                         return -EINVAL;
+>>
+>>                                 /* call recursively to retrieve the
+>> channel info */
+>> -                               err = check_input_term(state, d->
+>> baSourceID[0], term);
+>> +                               err = __check_input_term(state, d->
+>> baSourceID[0], term);
+>>                                 if (err < 0)
+>>                                         return err;
+>>
+>> @@ -984,6 +992,14 @@ static int check_input_term(struct mixer_build
+>> *state, int id,
+>>         return -ENODEV;
+>>  }
+>>
+>> +static int check_input_term(struct mixer_build *state, int id,
+>> +                           struct usb_audio_term *term)
+>> +{
+>> +       memset(term, 0, sizeof(*term));
+>> +       memset(state->termbitmap, 0, sizeof(state->termbitmap));
+>> +       return __check_input_term(state, id, term);
+>> +}
+>> +
+>>  /*
+>>   * Feature Unit
+>>   */
+>> --
+>> 2.16.4
+>>
+>>
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEE1BqveDE4xg/g0AwHIp/nqknaPR4FAl1VoGYACgkQIp/nqkna
+PR7begf/VLHveyoRopqc2MMhJ7aSH9837dNvss2JV/QVvUrdRvpKDpLNLx9EkxSu
+U8FXWTl7HImaDBszTwtOJG8Peh/6L8G3ouAtiFIMhq9AsLqMOKS2p3wIvkJwGiCM
+hjSZ3U7A8jaIjdUnUz2bVMvLVLfZH7dI8kIUuKtqh7qtBBnRL6w2RhfO1GdMnxvU
+etczHfl4anKuQbfMZpI9Xv1ruFkYewUQOBhK4Kp/De00GqqtaINm73WYVqY3gf6I
+Txk8zrLBsgFk3wJI6qi1NeITiZ4z8kd7wJL84rj8PraqtFpmkn7p7QfVzDSLibvP
+V2HZfnaVwXrAf/FZrxYjpqfoZH44JA==
+=MKbq
+-----END PGP SIGNATURE-----
+
+--------------93B7766F64C12B7D19BE0D7E
+Content-Type: text/x-patch;
+ name="0001-Fix-a-stack-buffer-overflow-bug-in-check_input_term.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-Fix-a-stack-buffer-overflow-bug-in-check_input_term.pat";
+ filename*1="ch"
+
+From c42bc88ee150e543de26665b05c8c99866a39386 Mon Sep 17 00:00:00 2001
+From: Hui Peng <benquike@gmail.com>
+Date: Thu, 15 Aug 2019 00:31:34 -0400
+Subject: [PATCH] Fix a stack buffer overflow bug in check_input_term
+
+`check_input_term` recursively calls itself with input from
+device side (e.g., uac_input_terminal_descriptor.bCSourceID)
+as argument (id). In `check_input_term`, if `check_input_term`
+is called with the same `id` argument as the caller, it triggers
+endless recursive call, resulting kernel space stack overflow.
+
+This patch fixes the bug by adding a bitmap to `struct mixer_build`
+to keep track of the checked ids and stop the execution if some id
+has been checked (similar to how parse_audio_unit handles unitid
+argument).
+
+Reported-by: Hui Peng <benquike@gmail.com>
+Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+ sound/usb/mixer.c | 35 +++++++++++++++++++++++++++--------
+ 1 file changed, 27 insertions(+), 8 deletions(-)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index ea487378be17..b5927c3d5bc0 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -68,6 +68,7 @@ struct mixer_build {
+ 	unsigned char *buffer;
+ 	unsigned int buflen;
+ 	DECLARE_BITMAP(unitbitmap, MAX_ID_ELEMS);
++	DECLARE_BITMAP(termbitmap, MAX_ID_ELEMS);
+ 	struct usb_audio_term oterm;
+ 	const struct usbmix_name_map *map;
+ 	const struct usbmix_selector_map *selector_map;
+@@ -775,16 +776,25 @@ static int uac_mixer_unit_get_channels(struct mixer_build *state,
+  * parse the source unit recursively until it reaches to a terminal
+  * or a branched unit.
+  */
+-static int check_input_term(struct mixer_build *state, int id,
++static int __check_input_term(struct mixer_build *state, int id,
+ 			    struct usb_audio_term *term)
+ {
+ 	int protocol = state->mixer->protocol;
+ 	int err;
+ 	void *p1;
++	unsigned char *hdr;
+ 
+ 	memset(term, 0, sizeof(*term));
+-	while ((p1 = find_audio_control_unit(state, id)) != NULL) {
+-		unsigned char *hdr = p1;
++	for (;;) {
++		/* a loop in the terminal chain? */
++		if (test_and_set_bit(id, state->termbitmap))
++			return -EINVAL;
++
++		p1 = find_audio_control_unit(state, id);
++		if (!p1)
++			break;
++
++		hdr = p1;
+ 		term->id = id;
+ 
+ 		if (protocol == UAC_VERSION_1 || protocol == UAC_VERSION_2) {
+@@ -802,7 +812,7 @@ static int check_input_term(struct mixer_build *state, int id,
+ 
+ 					/* call recursively to verify that the
+ 					 * referenced clock entity is valid */
+-					err = check_input_term(state, d->bCSourceID, term);
++					err = __check_input_term(state, d->bCSourceID, term);
+ 					if (err < 0)
+ 						return err;
+ 
+@@ -836,7 +846,7 @@ static int check_input_term(struct mixer_build *state, int id,
+ 			case UAC2_CLOCK_SELECTOR: {
+ 				struct uac_selector_unit_descriptor *d = p1;
+ 				/* call recursively to retrieve the channel info */
+-				err = check_input_term(state, d->baSourceID[0], term);
++				err = __check_input_term(state, d->baSourceID[0], term);
+ 				if (err < 0)
+ 					return err;
+ 				term->type = UAC3_SELECTOR_UNIT << 16; /* virtual type */
+@@ -899,7 +909,7 @@ static int check_input_term(struct mixer_build *state, int id,
+ 
+ 				/* call recursively to verify that the
+ 				 * referenced clock entity is valid */
+-				err = check_input_term(state, d->bCSourceID, term);
++				err = __check_input_term(state, d->bCSourceID, term);
+ 				if (err < 0)
+ 					return err;
+ 
+@@ -950,7 +960,7 @@ static int check_input_term(struct mixer_build *state, int id,
+ 			case UAC3_CLOCK_SELECTOR: {
+ 				struct uac_selector_unit_descriptor *d = p1;
+ 				/* call recursively to retrieve the channel info */
+-				err = check_input_term(state, d->baSourceID[0], term);
++				err = __check_input_term(state, d->baSourceID[0], term);
+ 				if (err < 0)
+ 					return err;
+ 				term->type = UAC3_SELECTOR_UNIT << 16; /* virtual type */
+@@ -966,7 +976,7 @@ static int check_input_term(struct mixer_build *state, int id,
+ 					return -EINVAL;
+ 
+ 				/* call recursively to retrieve the channel info */
+-				err = check_input_term(state, d->baSourceID[0], term);
++				err = __check_input_term(state, d->baSourceID[0], term);
+ 				if (err < 0)
+ 					return err;
+ 
+@@ -984,6 +994,15 @@ static int check_input_term(struct mixer_build *state, int id,
+ 	return -ENODEV;
+ }
+ 
++
++static int check_input_term(struct mixer_build *state, int id,
++			    struct usb_audio_term *term)
++{
++	memset(term, 0, sizeof(*term));
++	memset(state->termbitmap, 0, sizeof(state->termbitmap));
++	return __check_input_term(state, id, term);
++}
++
+ /*
+  * Feature Unit
+  */
+-- 
+2.22.1
+
+
+--------------93B7766F64C12B7D19BE0D7E
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--------------93B7766F64C12B7D19BE0D7E--

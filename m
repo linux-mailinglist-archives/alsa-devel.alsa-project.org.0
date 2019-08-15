@@ -2,58 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 727C58E837
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 11:28:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD7CE8E8CF
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 12:10:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 00767852;
-	Thu, 15 Aug 2019 11:27:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 00767852
+	by alsa0.perex.cz (Postfix) with ESMTPS id 461B211C;
+	Thu, 15 Aug 2019 12:09:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 461B211C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565861285;
-	bh=iyzvxKfMy+j8BNypg7iVQkLanQ3aMi4AU+fb9+XnFG8=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=hAoFgpc+TOrp/cC55ALDdpapvTt6REVKxiB+8DimL87J3ucIYvOQV1RaDpJVQcnyZ
-	 Ym4V7eJB4S4neRUoxf8RYbI36TuasUu7SGmbPNAjuGCD/e0oltNPhasr4qFyJ4lDXk
-	 ymIWeJkONEFmNaLytH7MUv1g/79dGZyt5qWH901U=
+	s=default; t=1565863804;
+	bh=JroFo5b5PLkxdx/gc9ivM5NFjrvtQhUHJh86c/JVk+Y=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pPSJfl1sS59DjcyxhSASchAEc5X6Lsz3zCJvX+NEMT0Djy32sHjqdsvXW6PYINUYV
+	 GlR9M0BI2bIMdWL9H3V98RKw5u+A/gNEmqZOek4F3teKjJ4i/nmgTKMDE8c73vu2s0
+	 ZaJaLS1H2raXhuxOq6vs7RpGE130Bbw853iuORCg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C05EFF8044C;
-	Thu, 15 Aug 2019 11:26:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FF33F80290;
+	Thu, 15 Aug 2019 12:08:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5ACBBF80274; Thu, 15 Aug 2019 11:26:13 +0200 (CEST)
+ id 6F193F80274; Thu, 15 Aug 2019 12:08:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFC56F801DF
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 11:26:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFC56F801DF
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 06BAE57D9039B02D2BAC;
- Thu, 15 Aug 2019 17:26:09 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS414-HUB.china.huawei.com
- (10.3.19.214) with Microsoft SMTP Server id 14.3.439.0; Thu, 15 Aug 2019
- 17:25:57 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <tglx@linutronix.de>, <kstewart@linuxfoundation.org>
-Date: Thu, 15 Aug 2019 17:25:47 +0800
-Message-ID: <20190815092547.29564-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D7F4AF801DF
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 12:08:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7F4AF801DF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="qGQGHOi1"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x7FA42U3029326; Thu, 15 Aug 2019 05:08:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=b1bBykvPnnxG06cNHLJogBSzoi3BdoXhENT7TdiZJxs=;
+ b=qGQGHOi1tp/NK4hX/zxcVeLmRWelx31p6Zu53m01BChsAGZEMOSzDZut0+kGZcFWtwls
+ LKLW9cba0VDZkRh82/YBMUly6wiqrV8nwwgXf36XgaAgBgjomoenS9mj2rty2GF5nJJB
+ 4kOXkZeOobqMWEa/9fRLUDbpMSaV6Ozm9vpvlDekYqkKiyYceWPRuup27zxpDAtFshjN
+ FTHQHp5xO3hj62jeSoczXzvR9iFow2C5x4ddOB0yyA8w2WPRtxowlmgPkBmZh91I9KLj
+ QduBknYO2Gd40/xiiJ1fMkKMrBAaY27Kg/PjrjrjifP7DltWiwqNZO+EbhoqLXntkGHa 8A== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex02.ad.cirrus.com ([87.246.76.36])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2ubf9bv4ju-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 15 Aug 2019 05:08:12 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Thu, 15 Aug
+ 2019 11:08:11 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Thu, 15 Aug 2019 11:08:11 +0100
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 2079D7C;
+ Thu, 15 Aug 2019 11:08:11 +0100 (BST)
+Date: Thu, 15 Aug 2019 11:08:11 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: YueHaibing <yuehaibing@huawei.com>
+Message-ID: <20190815100811.GO54126@ediswmail.ad.cirrus.com>
+References: <20190815091920.64480-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.133.213.239]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH -next] ASoC: 88pm860x: remove unused variables
-	'pcm_switch_controls' and 'aif1_mux'
+Content-Disposition: inline
+In-Reply-To: <20190815091920.64480-1-yuehaibing@huawei.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ lowpriorityscore=0
+ clxscore=1011 spamscore=0 adultscore=0 suspectscore=0 mlxscore=0
+ priorityscore=1501 malwarescore=0 phishscore=0 mlxlogscore=838
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-1906280000 definitions=main-1908150107
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, patches@opensource.cirrus.com,
+ tglx@linutronix.de, info@metux.net
+Subject: Re: [alsa-devel] [PATCH -next] ASoC: wm8737: Fix copy-paste error
+ in wm8737_snd_controls
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,56 +109,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-sound/soc/codecs/88pm860x-codec.c:533:38: warning:
- pcm_switch_controls defined but not used [-Wunused-const-variable=]
-sound/soc/codecs/88pm860x-codec.c:560:38: warning:
- aif1_mux defined but not used [-Wunused-const-variable=]
+On Thu, Aug 15, 2019 at 05:19:20PM +0800, YueHaibing wrote:
+> sound/soc/codecs/wm8737.c:112:29: warning:
+>  high_3d defined but not used [-Wunused-const-variable=]
+> 
+> 'high_3d' should be used for 3D High Cut-off.
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Fixes: 2a9ae13a2641 ("ASoC: Add initial WM8737 driver")
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> ---
 
-They are never used, so can be removed.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/soc/codecs/88pm860x-codec.c | 15 ---------------
- 1 file changed, 15 deletions(-)
-
-diff --git a/sound/soc/codecs/88pm860x-codec.c b/sound/soc/codecs/88pm860x-codec.c
-index e982722..00b2c43 100644
---- a/sound/soc/codecs/88pm860x-codec.c
-+++ b/sound/soc/codecs/88pm860x-codec.c
-@@ -529,10 +529,6 @@ static const struct snd_kcontrol_new pm860x_snd_controls[] = {
-  * DAPM Controls
-  */
- 
--/* PCM Switch / PCM Interface */
--static const struct snd_kcontrol_new pcm_switch_controls =
--	SOC_DAPM_SINGLE("Switch", PM860X_ADC_EN_2, 0, 1, 0);
--
- /* AUX1 Switch */
- static const struct snd_kcontrol_new aux1_switch_controls =
- 	SOC_DAPM_SINGLE("Switch", PM860X_ANA_TO_ANA, 4, 1, 0);
-@@ -549,17 +545,6 @@ static const struct snd_kcontrol_new lepa_switch_controls =
- static const struct snd_kcontrol_new repa_switch_controls =
- 	SOC_DAPM_SINGLE("Switch", PM860X_DAC_EN_2, 1, 1, 0);
- 
--/* PCM Mux / Mux7 */
--static const char *aif1_text[] = {
--	"PCM L", "PCM R",
--};
--
--static SOC_ENUM_SINGLE_DECL(aif1_enum,
--			    PM860X_PCM_IFACE_3, 6, aif1_text);
--
--static const struct snd_kcontrol_new aif1_mux =
--	SOC_DAPM_ENUM("PCM Mux", aif1_enum);
--
- /* I2S Mux / Mux9 */
- static const char *i2s_din_text[] = {
- 	"DIN", "DIN1",
--- 
-2.7.4
-
-
+Thanks,
+Charles
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

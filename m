@@ -2,81 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2FF68F1F4
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:19:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0789B8F1EE
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:18:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 285421664;
-	Thu, 15 Aug 2019 19:18:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 285421664
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93CE61675;
+	Thu, 15 Aug 2019 19:17:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93CE61675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565889580;
-	bh=bMAX9ePXrUNiQ4OOWVEZJDNPP38Xk0NZ9fgdkFwPwKs=;
+	s=default; t=1565889490;
+	bh=pPqSp1Cu8uE710JIO/BOPyk8SbjtYN39EqbZndI1Syw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Nyfvk5yX7iNNOI3XScTnnV9NkAHqAxQf3gu88RgHM89A4k8zlKL2jXJ6tz/kV5HdC
-	 uudd7KJ8+s8BNtZVFt4XotBfuogFT3s7r5PSJZuy/FwLFnQFIyTiIMNHhyFAopm4sZ
-	 WREhxBFvi9L1yULXAah6oHE0CfemLnwL6K4anD4E=
+	b=jfHqJ+N9DGYzH+15RyQiB/N8L91N+f49Zoa3D+2/2Ib8RptyhtO+sWt6+8AICJGKv
+	 7Xuza7rFivmkEMhC7fRqLk+fH1VqfkcadxQ5AEM8TobEzDN6ap9E0J2xKrQceacNph
+	 I4HUl242OlKLg97ZEaL5x7Ckr6dS9HFuV6XOdL/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 276A1F805AA;
-	Thu, 15 Aug 2019 19:15:00 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E45CF80274;
+	Thu, 15 Aug 2019 19:14:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D764DF8065B; Thu, 15 Aug 2019 19:14:47 +0200 (CEST)
+ id 264DEF8063D; Thu, 15 Aug 2019 19:14:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
+ RCVD_IN_DNSWL_NONE, SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f97.google.com (mail-ed1-f97.google.com
- [209.85.208.97])
+Received: from mail-wr1-f98.google.com (mail-wr1-f98.google.com
+ [209.85.221.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 465D0F8049A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51349F804CA
  for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 465D0F8049A
-Received: by mail-ed1-f97.google.com with SMTP id z51so2672850edz.13
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51349F804CA
+Received: by mail-wr1-f98.google.com with SMTP id g17so2869321wrr.5
  for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=wv1gekDXzf8YQ5JU15ivBG47mD9SV5ybDUtiI0byxdg=;
- b=tx1qz4mW8p6xDKrFff20sO8lR6IcIIRMgPb7XNWzrga8YIfMxNv8gD4QmuGyGFruf7
- neH/k30DWVgeg867y5D8P4pLzfeuKufj5vbNPXlrWSCBGmv6ktTy28PkHQzCxaz0m92e
- t15qsIfA1AzCmFdH/ZD05UG2aTAeYsDv38M8Caa/i9J5xUct9wrBAoKWkfCb6LgQXYMS
- m1og3qdkTmCsIX57CzEhqDJAwrcbUS0rnawUUPednCezDZ01bTW9Z5qqxkgnxk+i2Thd
- vaYO0iREhIufneOVd6jBWt4MvbGZsLRU2m+Rld6tvOuxvVXfrGBK6+N3DJelU9Dd3nZT
- LyTQ==
-X-Gm-Message-State: APjAAAUzVZaHsaju1YgaFcli75GYM3oxcOp1XhQsOUs22dejtlJs5buH
- vtvAaZBV4KaybETowj8mTK5jX/JgCO6jdqIO966Ja+ojsFEY+HdmW7PP1o3aEGVfJA==
-X-Google-Smtp-Source: APXvYqxdqNHc0t8r5i+eZqiRPHJWxvCzRnlSZIp6o32ol1EzKDO5RVxgowSIPUuiBr7KT/T7jbli8gAW3QvK
-X-Received: by 2002:a50:884b:: with SMTP id c11mr6618674edc.138.1565889262603; 
- Thu, 15 Aug 2019 10:14:22 -0700 (PDT)
+ bh=qovknBoKtVI0RTqSEtazh/DeoHQ6VEX0soV/hE572Po=;
+ b=HEqqgiPtpX2RVIfAqyw4Hp7oYdezpP0XzG5vRQYZFsg3YzyBiwlXsLCSyBPIPDBekA
+ xntSGcQVbrEDFV3GciCK0VarNRwXv0rClrFGKZ5b0uwdMlA3Wxvp/kLQUfdTmHAM0Duz
+ NS4QOCCbn4IuTFgLudw1B2jAbgUy1CMVdmtGXx0cm7tTSd46w5A1dKfZdWz1ASVn+juC
+ NIdsEtH97x85b6FkSgP6bZJ6qa3pFBtMI8eamVfIawugfr8PCVUDvQEoJ/hlHcc0Y+KY
+ caz/MlHRTg7vzkbFQpO9eiS5pSzmUCN+hC6ilVhKoXYL21amf/7nVrxFYPIi6XelCxQn
+ q2dQ==
+X-Gm-Message-State: APjAAAVnMW1dYMapTgBwh8DeZBVIpIMOoFNwnPnJn+h722ucaxM1c4uz
+ NEtgpjXXPViCIxOryxyZd7yLjTsFo8zZ7aT3QM5X6YsGPLaq6NVy6nTnVYvEG/VnBw==
+X-Google-Smtp-Source: APXvYqybw93ta4b+RPK07+rB4C4lUSDM+YPhjy1BY+u+bpMfB8ECRx2wugyWxHtLkI0dSr7g13tXxPdZyyXr
+X-Received: by 2002:a5d:678a:: with SMTP id v10mr6334633wru.116.1565889263262; 
+ Thu, 15 Aug 2019 10:14:23 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id f12sm11671ejf.39.2019.08.15.10.14.22
+ by smtp-relay.gmail.com with ESMTPS id 35sm68304wri.7.2019.08.15.10.14.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Aug 2019 10:14:22 -0700 (PDT)
+ Thu, 15 Aug 2019 10:14:23 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyJKQ-00050w-4Z; Thu, 15 Aug 2019 17:14:22 +0000
+ id 1hyJKQ-00051D-UT; Thu, 15 Aug 2019 17:14:23 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 9C3B12742BE9; Thu, 15 Aug 2019 18:14:21 +0100 (BST)
+ id 69F812742BD6; Thu, 15 Aug 2019 18:14:22 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190815155032.29181-3-pierre-louis.bossart@linux.intel.com>
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20190815092547.29564-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190815171421.9C3B12742BE9@ypsilon.sirena.org.uk>
-Date: Thu, 15 Aug 2019 18:14:21 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: ipc: add ALH parameters" to the
-	asoc tree
+Message-Id: <20190815171422.69F812742BD6@ypsilon.sirena.org.uk>
+Date: Thu, 15 Aug 2019 18:14:22 +0100 (BST)
+Cc: kstewart@linuxfoundation.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
+ tglx@linutronix.de
+Subject: [alsa-devel] Applied "ASoC: 88pm860x: remove unused variables
+	'pcm_switch_controls' and 'aif1_mux'" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +100,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: ipc: add ALH parameters
+   ASoC: 88pm860x: remove unused variables 'pcm_switch_controls' and 'aif1_mux'
 
 has been applied to the asoc tree at
 
@@ -122,69 +125,60 @@ to this mail.
 Thanks,
 Mark
 
-From 3a9477a06c6acb4234407b59999835a6f12f889d Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Thu, 15 Aug 2019 10:50:30 -0500
-Subject: [PATCH] ASoC: SOF: ipc: add ALH parameters
+From 12f0bfadf69bb154052722e7e4e5cd1639044c76 Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Thu, 15 Aug 2019 17:25:47 +0800
+Subject: [PATCH] ASoC: 88pm860x: remove unused variables 'pcm_switch_controls'
+ and 'aif1_mux'
 
-The only configuration parameter is the ALH stream ID. No range
-checking is done by the driver, the firmware should check that the
-stream is valid for a specific hardware.
+sound/soc/codecs/88pm860x-codec.c:533:38: warning:
+ pcm_switch_controls defined but not used [-Wunused-const-variable=]
+sound/soc/codecs/88pm860x-codec.c:560:38: warning:
+ aif1_mux defined but not used [-Wunused-const-variable=]
 
-Bump the ABI Minor number to keep the alignment with SOF firmware
+They are never used, so can be removed.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190815155032.29181-3-pierre-louis.bossart@linux.intel.com
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20190815092547.29564-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof/dai-intel.h | 9 +++++++++
- include/sound/sof/dai.h       | 1 +
- include/uapi/sound/sof/abi.h  | 2 +-
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ sound/soc/codecs/88pm860x-codec.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/include/sound/sof/dai-intel.h b/include/sound/sof/dai-intel.h
-index a81afd3fbd41..b03e2ec08694 100644
---- a/include/sound/sof/dai-intel.h
-+++ b/include/sound/sof/dai-intel.h
-@@ -179,4 +179,13 @@ struct sof_ipc_dai_dmic_params {
- 	struct sof_ipc_dai_dmic_pdm_ctrl pdm[0];
- } __packed;
+diff --git a/sound/soc/codecs/88pm860x-codec.c b/sound/soc/codecs/88pm860x-codec.c
+index e982722b448e..00b2c43d28a1 100644
+--- a/sound/soc/codecs/88pm860x-codec.c
++++ b/sound/soc/codecs/88pm860x-codec.c
+@@ -529,10 +529,6 @@ static const struct snd_kcontrol_new pm860x_snd_controls[] = {
+  * DAPM Controls
+  */
  
-+/* ALH Configuration Request - SOF_IPC_DAI_ALH_CONFIG */
-+struct sof_ipc_dai_alh_params {
-+	struct sof_ipc_hdr hdr;
-+	uint32_t stream_id;
-+
-+	/* reserved for future use */
-+	uint32_t reserved[15];
-+} __packed;
-+
- #endif
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index 3d174e20aa53..da9825ad41d4 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -70,6 +70,7 @@ struct sof_ipc_dai_config {
- 		struct sof_ipc_dai_ssp_params ssp;
- 		struct sof_ipc_dai_dmic_params dmic;
- 		struct sof_ipc_dai_hda_params hda;
-+		struct sof_ipc_dai_alh_params alh;
- 	};
- } __packed;
+-/* PCM Switch / PCM Interface */
+-static const struct snd_kcontrol_new pcm_switch_controls =
+-	SOC_DAPM_SINGLE("Switch", PM860X_ADC_EN_2, 0, 1, 0);
+-
+ /* AUX1 Switch */
+ static const struct snd_kcontrol_new aux1_switch_controls =
+ 	SOC_DAPM_SINGLE("Switch", PM860X_ANA_TO_ANA, 4, 1, 0);
+@@ -549,17 +545,6 @@ static const struct snd_kcontrol_new lepa_switch_controls =
+ static const struct snd_kcontrol_new repa_switch_controls =
+ 	SOC_DAPM_SINGLE("Switch", PM860X_DAC_EN_2, 1, 1, 0);
  
-diff --git a/include/uapi/sound/sof/abi.h b/include/uapi/sound/sof/abi.h
-index dff70a42445a..a0fe0d4c4b66 100644
---- a/include/uapi/sound/sof/abi.h
-+++ b/include/uapi/sound/sof/abi.h
-@@ -26,7 +26,7 @@
- 
- /* SOF ABI version major, minor and patch numbers */
- #define SOF_ABI_MAJOR 3
--#define SOF_ABI_MINOR 9
-+#define SOF_ABI_MINOR 10
- #define SOF_ABI_PATCH 0
- 
- /* SOF ABI version number. Format within 32bit word is MMmmmppp */
+-/* PCM Mux / Mux7 */
+-static const char *aif1_text[] = {
+-	"PCM L", "PCM R",
+-};
+-
+-static SOC_ENUM_SINGLE_DECL(aif1_enum,
+-			    PM860X_PCM_IFACE_3, 6, aif1_text);
+-
+-static const struct snd_kcontrol_new aif1_mux =
+-	SOC_DAPM_ENUM("PCM Mux", aif1_enum);
+-
+ /* I2S Mux / Mux9 */
+ static const char *i2s_din_text[] = {
+ 	"DIN", "DIN1",
 -- 
 2.20.1
 

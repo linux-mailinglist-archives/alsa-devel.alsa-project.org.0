@@ -2,62 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 071778EFBF
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 17:48:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86CF28EFD8
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 17:57:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F8971654;
-	Thu, 15 Aug 2019 17:48:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F8971654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 090C91671;
+	Thu, 15 Aug 2019 17:56:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 090C91671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565884135;
-	bh=CGMsTtCLcgKbzNZxuYzHGtiF3FVKAwsxDk5RpIPcaWQ=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=WCAY5bYQOGAVV0SthPzJxtKCdV+cXvXMAem18TDOck8MElKrsGdgg22Xr7j1p1zww
-	 7eDFGBVDfmqCBZz2bUCmR2KYYPjiCDtMupYAVV5cVkjAq18TvU4LdwJMHgN/kRBhDu
-	 zLOgweE/xYY81tGvpH+cgkSIlWmzXPHbFBYM0iKY=
+	s=default; t=1565884646;
+	bh=jhqm5AUXKzvtdSondxB/4tJx41DhZioBob2oUpNp37U=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lxcpS+aEYXZ9O2EnhE9dIrjabwgQWSTr8baJZQTaeMgm1MOadGyiLafCR4pgQT764
+	 GehdlYsh8g8uqaYRIRkga/ivOuG7iwhTqoWJTzge5vDJZLGiJTpsR7n+FQZ1tyqmQD
+	 ivKreuZd/Tesq+6qxcFerI0YkcS+e1pQFJZWXzS4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE62FF805F7;
-	Thu, 15 Aug 2019 17:45:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E4D5F80273;
+	Thu, 15 Aug 2019 17:55:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09BABF804CA; Thu, 15 Aug 2019 17:45:28 +0200 (CEST)
+ id 80392F8015B; Thu, 15 Aug 2019 17:55:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F01BF80274
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 17:45:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F01BF80274
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49D28F8015B
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 17:55:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49D28F8015B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Aug 2019 08:45:08 -0700
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Aug 2019 08:50:36 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,389,1559545200"; d="scan'208";a="188524815"
+X-IronPort-AV: E=Sophos;i="5.64,389,1559545200"; d="scan'208";a="194788843"
 Received: from ranofal-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.252.136.131])
- by orsmga002.jf.intel.com with ESMTP; 15 Aug 2019 08:45:08 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 15 Aug 2019 08:50:35 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Thu, 15 Aug 2019 10:45:00 -0500
-Message-Id: <20190815154500.29090-4-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 15 Aug 2019 10:50:28 -0500
+Message-Id: <20190815155032.29181-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190815154500.29090-1-pierre-louis.bossart@linux.intel.com>
-References: <20190815154500.29090-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Daniel Baluta <daniel.baluta@nxp.com>,
+Cc: tiwai@suse.de, broonie@kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 3/3] ASoC: SOF: topology: Add dummy support for
-	i.MX8 DAIs
+Subject: [alsa-devel] [PATCH 0/4] ASoC: SOF: initial support for Intel
+	ALH/SoundWire DAIs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,104 +72,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Daniel Baluta <daniel.baluta@nxp.com>
+This patchset adds the basic functionality to extract DAI information
+from the topology and send the information to firmware. At the moment
+there is no specific configuration in topology file, all the
+programming takes place based on the dai index and the related ALH
+stream ID.
 
-Add dummy support for SAI/ESAI digital audio interface
-IPs found on i.MX8 boards.
+The renaming from SoundWire to ALH (Audio Link Hub) is a better
+representation of the hardware, the ALH acts as a proxy between the
+DMA transfers and the Cadence IP.
 
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- include/sound/sof/dai.h         |  2 ++
- include/uapi/sound/sof/tokens.h |  8 ++++++++
- sound/soc/sof/topology.c        | 30 ++++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+)
+Bard liao (1):
+  ASoC: SOF: rename SOUNDWIRE to ALH
 
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index 5b8de1b1983c..7a84f7fb460a 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -50,6 +50,8 @@ enum sof_ipc_dai_type {
- 	SOF_DAI_INTEL_DMIC,		/**< Intel DMIC */
- 	SOF_DAI_INTEL_HDA,		/**< Intel HD/A */
- 	SOF_DAI_INTEL_SOUNDWIRE,	/**< Intel SoundWire */
-+	SOF_DAI_IMX_SAI,		/**< i.MX SAI */
-+	SOF_DAI_IMX_ESAI,		/**< i.MX ESAI */
- };
- 
- /* general purpose DAI configuration */
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index 6435240cef13..8f996857fb24 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -106,4 +106,12 @@
- /* for backward compatibility */
- #define SOF_TKN_EFFECT_TYPE	SOF_TKN_PROCESS_TYPE
- 
-+/* SAI */
-+#define SOF_TKN_IMX_SAI_FIRST_TOKEN		1000
-+/* TODO: Add SAI tokens */
-+
-+/* ESAI */
-+#define SOF_TKN_IMX_ESAI_FIRST_TOKEN		1100
-+/* TODO: Add ESAI tokens */
-+
- #endif
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 9cffea142395..a215bf58b138 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -346,6 +346,8 @@ static const struct sof_dai_types sof_dais[] = {
- 	{"SSP", SOF_DAI_INTEL_SSP},
- 	{"HDA", SOF_DAI_INTEL_HDA},
- 	{"DMIC", SOF_DAI_INTEL_DMIC},
-+	{"SAI", SOF_DAI_IMX_SAI},
-+	{"ESAI", SOF_DAI_IMX_ESAI},
- };
- 
- static enum sof_ipc_dai_type find_dai(const char *name)
-@@ -2513,6 +2515,26 @@ static int sof_link_ssp_load(struct snd_soc_component *scomp, int index,
- 	return ret;
- }
- 
-+static int sof_link_sai_load(struct snd_soc_component *scomp, int index,
-+			     struct snd_soc_dai_link *link,
-+			     struct snd_soc_tplg_link_config *cfg,
-+			     struct snd_soc_tplg_hw_config *hw_config,
-+			     struct sof_ipc_dai_config *config)
-+{
-+	/*TODO: Add implementation */
-+	return 0;
-+}
-+
-+static int sof_link_esai_load(struct snd_soc_component *scomp, int index,
-+			      struct snd_soc_dai_link *link,
-+			      struct snd_soc_tplg_link_config *cfg,
-+			      struct snd_soc_tplg_hw_config *hw_config,
-+			      struct sof_ipc_dai_config *config)
-+{
-+	/*TODO: Add implementation */
-+	return 0;
-+}
-+
- static int sof_link_dmic_load(struct snd_soc_component *scomp, int index,
- 			      struct snd_soc_dai_link *link,
- 			      struct snd_soc_tplg_link_config *cfg,
-@@ -2837,6 +2859,14 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 		ret = sof_link_hda_load(scomp, index, link, cfg, hw_config,
- 					&config);
- 		break;
-+	case SOF_DAI_IMX_SAI:
-+		ret = sof_link_sai_load(scomp, index, link, cfg, hw_config,
-+					&config);
-+		break;
-+	case SOF_DAI_IMX_ESAI:
-+		ret = sof_link_esai_load(scomp, index, link, cfg, hw_config,
-+					 &config);
-+		break;
- 	default:
- 		dev_err(sdev->dev, "error: invalid DAI type %d\n", config.type);
- 		ret = -EINVAL;
+Pierre-Louis Bossart (3):
+  ASoC: SOF: ipc: add ALH parameters
+  ASoC: SOF: topology: initial support for Intel ALH DAI type
+  ASoC: SOF: pcm: add ALH support
+
+ include/sound/sof/dai-intel.h |  9 ++++++++
+ include/sound/sof/dai.h       |  3 ++-
+ include/uapi/sound/sof/abi.h  |  2 +-
+ sound/soc/sof/pcm.c           |  3 +++
+ sound/soc/sof/topology.c      | 42 ++++++++++++++++++++++++++++++++++-
+ 5 files changed, 56 insertions(+), 3 deletions(-)
+
 -- 
 2.20.1
 

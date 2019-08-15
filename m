@@ -2,84 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BD428F224
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:27:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F10488F230
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:29:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B9F941679;
-	Thu, 15 Aug 2019 19:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9F941679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 886CB1693;
+	Thu, 15 Aug 2019 19:28:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 886CB1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565890030;
-	bh=656WioQyuVNbQD/IMh9PMFGDOmjFkV7+nHIAeD3L4R8=;
+	s=default; t=1565890154;
+	bh=fXTUlSIumlodNLO6v3CGDEWZlOvqI9wVGFIIza0eBqk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Gelv94na0IWzzKfsCTmHHm3sLzF4rZALHsKm8zLF/ZuaUZAigryKPVk4b12sju7vf
-	 lHgkm0WNzvtK+/kyTFOSR0+SKfBI141AESxZayvIZfcf4p+oA9MvHlVUV05vaGyO0k
-	 H7IHDFK6Zn4nw0NCis1vfdORRh4NYMhP9KDY1CxQ=
+	b=IUkT0iF4aDubRnvpuQXychfIyRNkY6+Nmrl3MJ9EBfHrsJlJ5zH9TyYC+YQfYgeTF
+	 zwUyCi94zpdww8SBXlbcM/SZq82AdgLC7wBsY0RpK36L1Lwk7MM4g3ZcJUAf30drEI
+	 zuWMQPkl46rwS5q+7V676GP9nHU/y0mfMUDK8hH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CEDBFF80730;
-	Thu, 15 Aug 2019 19:15:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B4D2F80766;
+	Thu, 15 Aug 2019 19:15:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7499DF805F8; Thu, 15 Aug 2019 19:15:12 +0200 (CEST)
+ id 1E084F806F5; Thu, 15 Aug 2019 19:15:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f100.google.com (mail-wr1-f100.google.com
- [209.85.221.100])
+Received: from mail-ed1-f97.google.com (mail-ed1-f97.google.com
+ [209.85.208.97])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEF36F805F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 54EFBF805F9
  for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEF36F805F8
-Received: by mail-wr1-f100.google.com with SMTP id y8so2837018wrn.10
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 54EFBF805F9
+Received: by mail-ed1-f97.google.com with SMTP id x19so2676635eda.12
  for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=hvo1EnWObIjc8cgzVjI5oyqc1tcm26PERJDdCuksuoA=;
- b=VcYd9DMsIkptP/Zr/+A1pTzW0JFmf1wACykIfL4tGVU/TW8F1wC9LfrFFm2M8Jhr3J
- 4F1NOSOS4emy1sS0c/Tydh8c4k7UzEZMev7tliaCWZs+EmrFpjhPDBJSbXanKWNssUWp
- 4hrd2E1E3KuYqjd+BiwANALNSThxAocMfi/+xiWO+seYXAoXZU3Eg+w20dvMJhwNZZsm
- MR2AFevgz21Ze1XISW9LFlE7K2Mf6yHiSufl94vKgavmrguwJ+SdntkIHUysL6tA25t1
- MJwE81U+vfv4w9Ue4rDy/mwLfRnccjJwPdLABKaFfT3I/gQJIhKcHZenPM5PGK+1dGjN
- Iv9A==
-X-Gm-Message-State: APjAAAX44S0n52lX7CtAPj94SjHOEBVBqfRCu4Q5yAUmPGWjshpoMSWo
- 8LxF9S6LhlwxgGgtriQAvT6OugayMj+TFgJF78uy+ZcMMC9Lt0XeDt/8ttAaqUJ7kQ==
-X-Google-Smtp-Source: APXvYqwPO9IMVEuBbyw4spZ+oufd8pC6QxP/EfFndhhHqyb1phYS9Uuz9ATo8LbYLMleuuu60dgsG8rzObRo
-X-Received: by 2002:adf:ebc6:: with SMTP id v6mr4504460wrn.223.1565889265464; 
- Thu, 15 Aug 2019 10:14:25 -0700 (PDT)
+ bh=j3Q6C7993gw6V8zvZYR0NFmKhWxVJbQ4l/W0JiwHC9Q=;
+ b=gjMWaiBiEJIj7vzXcRvB9K+/F7co3Lv8E8gEOwFfuYRAnwYjqU8taNh4hyRc+9WxSc
+ vyN/bO6HqLJvK5OcMdT/jTEJU6SUqmOTUwYxnuT8Gfc8YkGByNk6Fz7uoqzzj5dXtVhQ
+ 5QyZmI8uhjVURLYQw5QX5+on83d1titobonQ4zrWaJsQItCZ3JV0xhGyLW/XCgNvm48n
+ Ak6okWwraMrIXM/fbNl/A1sRGwhJPDlX/OOy02T4HF0kcZK2zNlSBBIrUV4RHVvTtM2M
+ 1SaoHucKLIudBDLVWMycbk//pFDsgHDS82x89UC/NrB7JgE+Yg4RkCXcuZWPWlMUZi7z
+ lHEw==
+X-Gm-Message-State: APjAAAV9sJg14y1LNUyhSnZW2jA93e2hKdfTEsBQ9ERBXFO7asTvDI9L
+ PN4ggFwMb42GTD9z1LupxO+F/N14eBHVtCvotrBIf9RJHDRfBLo7OuIugMCQr5Kkqw==
+X-Google-Smtp-Source: APXvYqxYCczx8aCgUzMwXHJLZGCZ8Smxka+++sWR3i8SWs5jr4tlRb4aLr4f8DeZ9fgCmju0gYCNJk8tYRvS
+X-Received: by 2002:a17:906:8409:: with SMTP id
+ n9mr5377393ejx.128.1565889266284; 
+ Thu, 15 Aug 2019 10:14:26 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id l2sm71317wrm.9.2019.08.15.10.14.25
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Thu, 15 Aug 2019 10:14:25 -0700 (PDT)
+ by smtp-relay.gmail.com with ESMTPS id ha1sm11470ejb.8.2019.08.15.10.14.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Aug 2019 10:14:26 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyJKT-00051i-3B; Thu, 15 Aug 2019 17:14:25 +0000
+ id 1hyJKU-00051z-0r; Thu, 15 Aug 2019 17:14:26 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 81F622742BC7; Thu, 15 Aug 2019 18:14:24 +0100 (BST)
+ id 8EDFE2742BD6; Thu, 15 Aug 2019 18:14:25 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190815090157.70036-1-yuehaibing@huawei.com>
+In-Reply-To: <20190813144122.67676-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190815171424.81F622742BC7@ypsilon.sirena.org.uk>
-Date: Thu, 15 Aug 2019 18:14:24 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, tiwai@suse.com,
- brian.austin@cirrus.com, Paul.Handrigan@cirrus.com,
- linux-kernel@vger.kernel.org, Hulk Robot <hulkci@huawei.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: cs4349: Use PM ops 'cs4349_runtime_pm'"
-	to the asoc tree
+Message-Id: <20190815171425.8EDFE2742BD6@ypsilon.sirena.org.uk>
+Date: Thu, 15 Aug 2019 18:14:25 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, perex@perex.c, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: mediatek:
+	mt8183-mt6358-ts3a227-max98357: remove unused variables" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,7 +103,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: cs4349: Use PM ops 'cs4349_runtime_pm'
+   ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: remove unused variables
 
 has been applied to the asoc tree at
 
@@ -125,38 +128,48 @@ to this mail.
 Thanks,
 Mark
 
-From bed7f1469f08fd123cdec7a351ef0d875feadcf6 Mon Sep 17 00:00:00 2001
+From d59170b42610c7cbc6e96431ca8357a8bdbf592b Mon Sep 17 00:00:00 2001
 From: YueHaibing <yuehaibing@huawei.com>
-Date: Thu, 15 Aug 2019 17:01:57 +0800
-Subject: [PATCH] ASoC: cs4349: Use PM ops 'cs4349_runtime_pm'
+Date: Tue, 13 Aug 2019 22:41:22 +0800
+Subject: [PATCH] ASoC: mediatek: mt8183-mt6358-ts3a227-max98357: remove unused
+ variables
 
-sound/soc/codecs/cs4349.c:358:32: warning:
- cs4349_runtime_pm defined but not used [-Wunused-const-variable=]
+sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c:50:1: warning:
+ mt8183_mt6358_ts3a227_max98357_dapm_widgets defined but not used [-Wunused-const-variable=]
+sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c:55:1: warning:
+ mt8183_mt6358_ts3a227_max98357_dapm_routes defined but not used [-Wunused-const-variable=]
 
-cs4349_runtime_pm ops already defined, it seems
-we should enable it.
+They are never used, so can be removed.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
-Fixes: e40da86 ("ASoC: cs4349: Add support for Cirrus Logic CS4349")
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190815090157.70036-1-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190813144122.67676-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/cs4349.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c   | 10 ----------
+ 1 file changed, 10 deletions(-)
 
-diff --git a/sound/soc/codecs/cs4349.c b/sound/soc/codecs/cs4349.c
-index 09716fab1e26..3381209a882d 100644
---- a/sound/soc/codecs/cs4349.c
-+++ b/sound/soc/codecs/cs4349.c
-@@ -378,6 +378,7 @@ static struct i2c_driver cs4349_i2c_driver = {
- 	.driver = {
- 		.name		= "cs4349",
- 		.of_match_table	= cs4349_of_match,
-+		.pm = &cs4349_runtime_pm,
- 	},
- 	.id_table	= cs4349_i2c_id,
- 	.probe		= cs4349_i2c_probe,
+diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+index 53f54078f78c..272766c1b859 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
+@@ -46,16 +46,6 @@ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	return 0;
+ }
+ 
+-static const struct snd_soc_dapm_widget
+-mt8183_mt6358_ts3a227_max98357_dapm_widgets[] = {
+-	SND_SOC_DAPM_OUTPUT("IT6505_8CH"),
+-};
+-
+-static const struct snd_soc_dapm_route
+-mt8183_mt6358_ts3a227_max98357_dapm_routes[] = {
+-	{"IT6505_8CH", NULL, "TDM"},
+-};
+-
+ static int
+ mt8183_mt6358_ts3a227_max98357_bt_sco_startup(
+ 	struct snd_pcm_substream *substream)
 -- 
 2.20.1
 

@@ -2,86 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B76BF8F1A0
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC40F8F1AB
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:12:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 443D41657;
-	Thu, 15 Aug 2019 19:09:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 443D41657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 691511615;
+	Thu, 15 Aug 2019 19:11:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 691511615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565889046;
-	bh=YfixJNJTSggSflr6kMJYV5yc9JMRUMOUUuBq64Zc2xQ=;
+	s=default; t=1565889163;
+	bh=iIHff4nVQ41z15TR6mTlTUm/5y8OkS2bB+rDBL9r59Y=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pygDsPING2V0L8s+USOCKX01AcWsltcp4l9Ch2fu54OIch/I605W174FWl3FIxMLs
-	 Le7LB0X6C+NIsdW2zlOGR07AK9jGgbz/87aKwtpjB1sVpF5e+ZTtHFuGoDAHpftRTg
-	 zaWhdrl0N/ZU4N081oF+pJUMTkAfM4c3bZ7B5U6s=
+	b=f45vSY1tZvHgAVBmH4xeXcrPR0KG8EKfqmaGSRbJojg4YqzzqIj2zT7jR4/uqBOwc
+	 lqJctyer7Yn5Nf8y/mU1cmxEMVktGr7QWiVf512+X/gYtmNs/p3G28lLWlg4sjc7qF
+	 Y5WxqTqCpmz+u6pabHSfjpvF2dqt0dpgChl29Dug=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43862F8044C;
-	Thu, 15 Aug 2019 19:09:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 155ABF8015B;
+	Thu, 15 Aug 2019 19:11:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ADA8F80274; Thu, 15 Aug 2019 19:08:59 +0200 (CEST)
+ id 11959F8015B; Thu, 15 Aug 2019 19:10:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f100.google.com (mail-wr1-f100.google.com
- [209.85.221.100])
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com
+ [209.85.128.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC316F8015B
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:08:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC316F8015B
-Received: by mail-wr1-f100.google.com with SMTP id b16so2833641wrq.9
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:08:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F248F8015B
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:10:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F248F8015B
+Received: by mail-wm1-f99.google.com with SMTP id z23so1859379wmf.2
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:10:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DrcRioJUwN6LN13KrUQ3DLth8mOBrKuR9TZzIMksXfM=;
- b=hOc6JWT9TwB5Q/z62LW+V+at1N0l26bLx9hnqlU9a99iSCF7FpHdug4oQn+JOsaHZz
- VElNX2QXA8y8vfYFiTwnuvdK9K8/nx844egaBrXeWAkxIQbUAjE5Ynffva/yRF6OfzNe
- AOE4qjsKlVrLud+bevEOcbHf9KXGdRKWF7/sPvJJxxwdGSHqBGBplzKIekX28PeEbMfa
- dv3appnFaf2BFVb/67kZLrFtGzD/EZmTsSZm9yMgepy5M4MjjLQJl4gTWLtu5bfPpAOu
- vCIIX4aELXfhdj4XtUYJ58/YW6x1r4uiewqVrKOfQ8zzMQ1kM3jW3jUDj44in6GdZgm3
- ueKg==
-X-Gm-Message-State: APjAAAV37NtwYV2Q8XTpLSsmdXtgxytb97ARhoDwFIHbahtixx1fHJyu
- oqh8uAAZaHSif5xVaqgDjloacykursE0KKzvL1vf8ve/eo5777sB4odeQIeJKSeWLw==
-X-Google-Smtp-Source: APXvYqzf1KR/8qqi+k5EdqbbP9hg7FNL8egJNPEsglEEqwuwgvYvM0gJRWgIXVdvMU0AhcHNd61vFlLdzWaK
-X-Received: by 2002:adf:fe85:: with SMTP id l5mr6205566wrr.5.1565888935777;
- Thu, 15 Aug 2019 10:08:55 -0700 (PDT)
+ bh=CIKSg9Ab0xAN5DLhJkFCJbIxc2aViiSr6qQE0ZC3ak4=;
+ b=QyA83QnWUGwLake31kLfZ2w9MfJOpBN8l4PGjih3PryLz+44e8NAym88wYJrct2B3V
+ yi0HnMRVMcFHYwuChr8pffHd9EZp49dPrwM1MF5q69YsbkarpXEgLb14R47o987ctAz3
+ crLgnzRgVkwx3OMFIWRjkPjJfex5gwPVB46fVfTYEI51xGPrDy3fMTZg01701rT+prOX
+ GQsUAi3Zo5Y4Sqy6OGOVOhVeZ8poDBDXDb5EMvq/kvOQsa1ZAX/C02qOzkzFmOOlddCo
+ +WpCCePzu3g57e5GV48Grb+rgbCY4NOHwjqkvDn4bMho16ugKQOUq7B9CaiZAXJZwCcv
+ k3ug==
+X-Gm-Message-State: APjAAAWd7TOlkCwz47Sbxfh86xtN6R5XiHIDShOHyUegTDzWyx37ya3g
+ tuaWb1H6ZYX+1hq7+Jc7IsvvrDwmbq0l5z46JDXgtupXvafhm1KRms2Zyv7oQxS82w==
+X-Google-Smtp-Source: APXvYqw0hsmEPSoerB6H2JoK5A06P73ABY8/NG3c0uayLCj+lpcfR2jiG0iV2q3AKgrBdbbBgl4Qxqr516nR
+X-Received: by 2002:a05:600c:145:: with SMTP id
+ w5mr3655246wmm.75.1565889054574; 
+ Thu, 15 Aug 2019 10:10:54 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id h7sm56290wrv.45.2019.08.15.10.08.55
+ by smtp-relay.gmail.com with ESMTPS id 7sm8448wmd.13.2019.08.15.10.10.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Aug 2019 10:08:55 -0700 (PDT)
+ Thu, 15 Aug 2019 10:10:54 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyJF9-0004zj-7t; Thu, 15 Aug 2019 17:08:55 +0000
+ id 1hyJH4-000504-8K; Thu, 15 Aug 2019 17:10:54 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id CDF692742B9E; Thu, 15 Aug 2019 18:08:53 +0100 (BST)
-Date: Thu, 15 Aug 2019 18:08:53 +0100
+ id 9F20D2742B9E; Thu, 15 Aug 2019 18:10:53 +0100 (BST)
+Date: Thu, 15 Aug 2019 18:10:53 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190815170853.GC4841@sirena.co.uk>
-References: <20190815155032.29181-1-pierre-louis.bossart@linux.intel.com>
- <20190815155032.29181-2-pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190815171053.GD4841@sirena.co.uk>
+References: <20190815155749.29304-1-pierre-louis.bossart@linux.intel.com>
+ <20190815155749.29304-2-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20190815155032.29181-2-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20190815155749.29304-2-pierre-louis.bossart@linux.intel.com>
 X-Cookie: MIT:
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Bard liao <yung-chuan.liao@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/4] ASoC: SOF: rename SOUNDWIRE to ALH
+ Pan Xiuli <xiuli.pan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/4] ASoC: Intel: common: add ACPI matching
+ tables for Tiger Lake
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,52 +96,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0355219525309326055=="
+Content-Type: multipart/mixed; boundary="===============6939487625575443314=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============0355219525309326055==
+--===============6939487625575443314==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8NvZYKFJsRX2Djef"
+	protocol="application/pgp-signature"; boundary="cQXOx3fnlpmgJsTP"
 Content-Disposition: inline
 
 
---8NvZYKFJsRX2Djef
+--cQXOx3fnlpmgJsTP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Aug 15, 2019 at 10:50:29AM -0500, Pierre-Louis Bossart wrote:
-> From: Bard liao <yung-chuan.liao@linux.intel.com>
->
-> Rename SOUNDWIRE to ALH.
+On Thu, Aug 15, 2019 at 10:57:46AM -0500, Pierre-Louis Bossart wrote:
 
-What's this patch based on, it doesn't seem to be something upstream?
+> index 000000000000..57a6298d6dca
+> --- /dev/null
+> +++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
+> @@ -0,0 +1,24 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * soc-apci-intel-tgl-match.c - tables and support for ICL ACPI enumeration.
 
-Description: [1/4] ASoC: SOF: rename SOUNDWIRE to ALH
-Applying: ASoC: SOF: rename SOUNDWIRE to ALH
-error: sha1 information is lacking or useless (include/sound/sof/dai.h).
-error: could not build fake ancestor
-Patch failed at 0001 ASoC: SOF: rename SOUNDWIRE to ALH
+Please make the whole header C++ style so things look more intentional.
 
---8NvZYKFJsRX2Djef
+--cQXOx3fnlpmgJsTP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1VkaQACgkQJNaLcl1U
-h9DCVgf+NRUcYcZywwXLS+/YMSupeE/kUfB0wbha/4pQl7AN2DWniGOyHrRJGSOf
-Vu2ioEB0MP2L7p6emFqCryOjFBJHBafVGqhib01E7cO3NDz51al2kNSKQ7i3bN2A
-EMhzN1Y7h47fqj6ulgVcVccozAM+IFqL7swkWqST1147KVFv6hBi/n1DI9IzyfXc
-jZbkkXGKezSCQ9Ppx3CI7ZT3WgMQF2sThiO5WDztrtfogVvfZWCzDBb3yqS6qvsj
-8QWPjXWs04Ocify9F5j/Ecbn4hu0LvSYxad8gnnrAEGgArXg94X/gd2V45X1mlrx
-AAH4xUnTtWvnmetH2+1F9v++Wkcoww==
-=Wh7r
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1VkhwACgkQJNaLcl1U
+h9D+lgf/bmvFEadeRHofdgz9IIPVyh7dxAWUifXB34T0APOjfF9a8s7BzSttSq+6
+VSV3rucaL7vSDKmliAd9OqV38nUWGLX33HJWuNt2aYa6EQT07qwHIGoqVzJeNbTl
+wdeUrl+FtkXcMZTE0Mm6MOsYLgNx2lmcBPFR/wGkqmOGqRXmqqiJMmsKv+XZ4aXO
+Lf4a2o7BcZlbZCvjsNce5jdDihXD55muU+SAbcEdvO0C8LSwPbZfnaXwOs9GYTmK
+kj/pOamrEITAIsRzxNX0b/9zZFcCGKfEGXF2BxplXMEV1CrEO5fb6Hn9LwYmxdA9
+PRybyiv/43gmgv3+2IpWpDAN/PfRNA==
+=y2oE
 -----END PGP SIGNATURE-----
 
---8NvZYKFJsRX2Djef--
+--cQXOx3fnlpmgJsTP--
 
---===============0355219525309326055==
+--===============6939487625575443314==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -150,4 +151,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============0355219525309326055==--
+--===============6939487625575443314==--

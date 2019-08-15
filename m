@@ -2,88 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDECE8F25C
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC98F8F25D
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:37:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91E1816D2;
-	Thu, 15 Aug 2019 19:35:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91E1816D2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7468516B8;
+	Thu, 15 Aug 2019 19:36:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7468516B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565890605;
-	bh=Mcu1m1w5sldl+KFFRvZc/dRXeeeklOK4oM2Lzvekcy8=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1565890649;
+	bh=95XY5vTwbHvINTazOb6CHAXwK2b02NAAJHcMGY6Djbc=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kCSO9toxQDu8T4eGwnug2zoIdC6bnirnhRPVJTypDVeYug8blRRT6dYuKmj8BSgVQ
-	 EcTsUOrrJtca+5af5LY10SayAnjgCFd1WeYNZ6qQEQ6jz4HwXaCqa2/fJfXEEaHVUf
-	 tgshHGdDOBLqrNoZG3hhcwWVbih50GCRRLuRupAI=
+	b=JxSEaWV3NoKwTtzkQrCzAAyx/OgNAYetzJsI4iHCTWAApvsojht2vKG5Dl1USHeH1
+	 KZlPXCIomzCFafX6s3SNrc1FoWUTWGQ84pHTGjc9NcRf9MFVHr1tYA9AJ1lZRnAWRi
+	 Fb6HAsbtZPd5GOJRMk4fzLe0oOAbuxAgzoQtWI+g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A760F805A0;
-	Thu, 15 Aug 2019 19:19:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B91DF8015B;
+	Thu, 15 Aug 2019 19:24:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45C38F8049A; Thu, 15 Aug 2019 19:19:27 +0200 (CEST)
+ id 4D3EFF8044C; Thu, 15 Aug 2019 19:24:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
+ [209.85.128.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3AFB0F80290
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:19:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AFB0F80290
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="b69La8LW"
-Received: by mail-ot1-x342.google.com with SMTP id r20so7142849ota.5
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:19:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3t5KAwxqvB3F0EYGJyI/WioA3AfLQz3YV3tbAHkT53Q=;
- b=b69La8LWuHdx6dmlEpTKQaYsNkXDdVB6Vu+0nJ4VVyYmV0MZx8GqMayUq1knU2C98n
- E1o4UtVKsOoYAyjjGYahSRwxrDSmW9VXnzyX9s7836ija+kkvXe7QIC52End9GykV2Pj
- cnLHHhikorTP4d18s2j0WdlFstmvez38yEfnjWrsL8MdA7pytAABTWaVC58VyUti1r4y
- gC2AOlXQVYWS1io4KbxgWiEOOyR8ebLvDqhdybOZOEnh5U3cECkUvzFZWBtBLVOMaNq8
- RwDToOjKquiMXceeNqTNwW+WbPofbzAob/Js0MXCD0OSMbhvPOYlBhD813/A6IvgV3+N
- 5Wxw==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D5D4F8015B
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:24:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D5D4F8015B
+Received: by mail-wm1-f65.google.com with SMTP id 207so1901191wma.1
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:24:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3t5KAwxqvB3F0EYGJyI/WioA3AfLQz3YV3tbAHkT53Q=;
- b=tCIwtsnWblSoefCpFWxwq9qRmvB+Rl4hfUbPCEOUvWsd1Nhu0/osuACVVq+Dpz5ulo
- WRkcyDWP+9Hu5EkSHeTY57TrdNqA2Jsi2X27U0+7I/3paD6Bb3VNNVuBmzCzpKaBtdBS
- DK0i/NtSATj3NTdvycn9n4BDHgU9uUwbQOk52s2bdRTfGIM5EzA+ptfQo7QJCdWH1hsC
- oqjzlxIwGd3F/gts93ELw9GOWBjY5lNRPXhVMKVWiNQLZXUwlq8f5RfOds0jfWrXuL5r
- o5v1Np2XZ8jZbeE0IQmB7faw4wdYfATt8aixItT07PvanyV4alV12qzlFXvc6Tpvo52D
- AcOQ==
-X-Gm-Message-State: APjAAAV0sQgSHbMxGu4eTJIMp2ltF4fXGoVb9CyH4ois6yhlX+bOn/5P
- gMToEle0zkmjZNsimu2m8gM2MOZ3jFWw/gat2gw=
-X-Google-Smtp-Source: APXvYqwANE84VD2mEyfkvmonNMDigTR3O5rlOu+eaQIrj1gWuit4tat36+yKoaD0buVgo5AQqhGbZ9bQ9cEY0nSrvww=
-X-Received: by 2002:a9d:6b96:: with SMTP id b22mr4496345otq.363.1565889561030; 
- Thu, 15 Aug 2019 10:19:21 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=lIlOiwJiz/UuDX4lSGZRpCBnPQazQiW1UWLQabpozO4=;
+ b=frdhpu8akFPND8oO4iAvg38rox/IRfvW+HswbS1AJC7k5xaE+cAAxu9Gb6ZPYJI4mL
+ jqHYNHWdsWukTmwCltbH98XS1PjqYuSlhR0nAvw7WDdylrYvBmObF/KJFxyubNBG5tfU
+ v9iqGM47M2h2Txi81kwMEEqmqME/9L72hWZHysWFkRb+YwneALkQgo9hk+c+l+kun5JU
+ Auei3rkJq4zFF95pqIQTfOH85tVCT+MKk5VaJB9UkYWYOJ8i6pDC/MZpekIJ1M3LGFNa
+ h/z6QN4kGtavg2jDdK8hlNl4V01TKgvocNvIbuBh5CNL5UJM0o1wpV+QT//7K7YXv631
+ crbQ==
+X-Gm-Message-State: APjAAAWQiwLTkFY3rcET0vi+JyxTL3Y7OW6OlHG/LaReSccTl7E0oWq8
+ PLA+Bsh2KOX0uKSB9KZePEYaOg==
+X-Google-Smtp-Source: APXvYqx/QEtbx/qmx2lnZhrj2WqQPCv4uRQAWjHFqyOpjBPyYU6+Z3X7Zo1Z9ez27IHFyLdpd/1vUw==
+X-Received: by 2002:a1c:9648:: with SMTP id y69mr3527804wmd.122.1565889872234; 
+ Thu, 15 Aug 2019 10:24:32 -0700 (PDT)
+Received: from shalem.localdomain (84-106-84-65.cable.dynamic.v4.ziggo.nl.
+ [84.106.84.65])
+ by smtp.gmail.com with ESMTPSA id p69sm3259473wme.36.2019.08.15.10.24.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 15 Aug 2019 10:24:31 -0700 (PDT)
+To: Daniel Stuart <daniel.stuart14@gmail.com>
+References: <20190815171300.30126-1-daniel.stuart14@gmail.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <175edc67-e0e0-f690-704e-b74b110eda16@redhat.com>
+Date: Thu, 15 Aug 2019 19:24:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20190815043554.16623-1-benquike@gmail.com>
- <s5htvaj9cre.wl-tiwai@suse.de> <s5hk1beapab.wl-tiwai@suse.de>
-In-Reply-To: <s5hk1beapab.wl-tiwai@suse.de>
-From: Hui Peng <benquike@gmail.com>
-Date: Thu, 15 Aug 2019 13:19:10 -0400
-Message-ID: <CAKpmkkWCaLOctG44fD=arD-=oogRVCSxe5rz2UNUAms5q=2pYw@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Mathias Payer <mathias.payer@nebelwelt.net>, security@kernel.org,
- Wenwen Wang <wang6495@umn.edu>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
- alsa-devel@alsa-project.org, Thomas Gleixner <tglx@linutronix.de>,
- Allison Randal <allison@lohutok.net>
-Subject: Re: [alsa-devel] [PATCH] Fix a stack buffer overflow bug
-	check_input_term
+In-Reply-To: <20190815171300.30126-1-daniel.stuart14@gmail.com>
+Content-Language: en-US
+Cc: cezary.rojewski@intel.com,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Daniel Stuart <daniel.stuart@pucpr.edu.br>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: intel: cht_bsw_max98090_ti: Add all
+ Chromebooks that need pmc_plt_clk_0 quirk
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,223 +93,188 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, Takashi:
+Hi,
 
-One point I want to be clear: if an endless recursive loop is detected,
-should we return 0, or a negative error code?
+On 15-08-19 19:12, Daniel Stuart wrote:
+> Every single baytrail chromebook sets PMC to 0, as can be seeing
+> below by searching through coreboot source code:
+> 	$ grep -rl "PMC_PLT_CLK\[0\]" .
+> 	./rambi/variants/glimmer/devicetree.cb
+> 	./rambi/variants/clapper/devicetree.cb
+> 	./rambi/variants/swanky/devicetree.cb
+> 	./rambi/variants/enguarde/devicetree.cb
+> 	./rambi/variants/winky/devicetree.cb
+> 	./rambi/variants/kip/devicetree.cb
+> 	./rambi/variants/squawks/devicetree.cb
+> 	./rambi/variants/orco/devicetree.cb
+> 	./rambi/variants/ninja/devicetree.cb
+> 	./rambi/variants/heli/devicetree.cb
+> 	./rambi/variants/sumo/devicetree.cb
+> 	./rambi/variants/banjo/devicetree.cb
+> 	./rambi/variants/candy/devicetree.cb
+> 	./rambi/variants/gnawty/devicetree.cb
+> 	./rambi/variants/rambi/devicetree.cb
+> 	./rambi/variants/quawks/devicetree.cb
+> 
+> Plus, Cyan (only non-baytrail chromebook with max98090) also needs
+> this patch for audio to work.
+> 
+> Thus, this commit adds all the missing devices to bsw_max98090 quirk
+> table, implemented by commit a182ecd3809c ("ASoC: intel:
+> cht_bsw_max98090_ti: Add quirk for boards using pmc_plt_clk_0").
+> 
+> Signed-off-by: Daniel Stuart <daniel.stuart14@gmail.com>
 
-On Thu, Aug 15, 2019 at 2:58 AM Takashi Iwai <tiwai@suse.de> wrote:
+Thank you for catching this, this patch looks good to me:
 
-> On Thu, 15 Aug 2019 08:13:57 +0200,
-> Takashi Iwai wrote:
-> >
-> > On Thu, 15 Aug 2019 06:35:49 +0200,
-> > Hui Peng wrote:
-> > >
-> > > `check_input_term` recursively calls itself with input
-> > > from device side (e.g., uac_input_terminal_descriptor.bCSourceID)
-> > > as argument (id). In `check_input_term`, if `check_input_term`
-> > > is called with the same `id` argument as the caller, it triggers
-> > > endless recursive call, resulting kernel space stack overflow.
-> > >
-> > > This patch fixes the bug by adding a bitmap to `struct mixer_build`
-> > > to keep track of the checked ids by `check_input_term` and stop
-> > > the execution if some id has been checked (similar to how
-> > > parse_audio_unit handles unitid argument).
-> > >
-> > > Reported-by: Hui Peng <benquike@gmail.com>
-> > > Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
-> > > Signed-off-by: Hui Peng <benquike@gmail.com>
-> >
-> > The fix looks almost good, but we need to be careful about the
-> > bitmap check.  In theory, it's possible that multiple nodes point to
-> > the same input terminal, and your patch would break that scenario.
-> > For fixing that, we need to zero-clear the termbitmap at each first
-> > invocation of check_input_term(), something like below.
-> >
-> > Could you check whether this works?
->
-> Thinking of this further, there is another possible infinite loop.
-> Namely, when the feature unit in the input terminal chain points to
-> itself as the source, it'll loop endlessly without the stack
-> overflow.
->
-> So the check of the termbitmap should be inside the loop.
-> The revised patch is below.
->
->
-> thanks,
->
-> Takashi
->
-> -- 8< --
-> From: Hui Peng <benquike@gmail.com>
-> Subject: [PATCH] ALSA: usb-audio: Fix a stack buffer overflow bug
->  check_input_term
->
-> `check_input_term` recursively calls itself with input
-> from device side (e.g., uac_input_terminal_descriptor.bCSourceID)
-> as argument (id). In `check_input_term`, if `check_input_term`
-> is called with the same `id` argument as the caller, it triggers
-> endless recursive call, resulting kernel space stack overflow.
->
-> This patch fixes the bug by adding a bitmap to `struct mixer_build`
-> to keep track of the checked ids by `check_input_term` and stop
-> the execution if some id has been checked (similar to how
-> parse_audio_unit handles unitid argument).
->
-> [ The termbitmap needs to be cleared at each first check of the input
->   terminal, so the function got split now.  Also, for catching another
->   endless loop in the input terminal chain -- where the feature unit
->   points to itself as its source -- the termbitmap check is moved
->   inside the parser loop. -- tiwai ]
->
-> Reported-by: Hui Peng <benquike@gmail.com>
-> Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Hans de Goede <hdegoede@redhat.com>
+
+Regards,
+
+Hans
+
+
+
 > ---
->  sound/usb/mixer.c | 36 ++++++++++++++++++++++++++----------
->  1 file changed, 26 insertions(+), 10 deletions(-)
->
-> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-> index ea487378be17..aa8b046aa91f 100644
-> --- a/sound/usb/mixer.c
-> +++ b/sound/usb/mixer.c
-> @@ -68,6 +68,7 @@ struct mixer_build {
->         unsigned char *buffer;
->         unsigned int buflen;
->         DECLARE_BITMAP(unitbitmap, MAX_ID_ELEMS);
-> +       DECLARE_BITMAP(termbitmap, MAX_ID_ELEMS);
->         struct usb_audio_term oterm;
->         const struct usbmix_name_map *map;
->         const struct usbmix_selector_map *selector_map;
-> @@ -775,16 +776,23 @@ static int uac_mixer_unit_get_channels(struct
-> mixer_build *state,
->   * parse the source unit recursively until it reaches to a terminal
->   * or a branched unit.
->   */
-> -static int check_input_term(struct mixer_build *state, int id,
-> -                           struct usb_audio_term *term)
-> +static int __check_input_term(struct mixer_build *state, int id,
-> +                             struct usb_audio_term *term)
->  {
->         int protocol = state->mixer->protocol;
->         int err;
->         void *p1;
-> +       unsigned char *hdr;
->
-> -       memset(term, 0, sizeof(*term));
-> -       while ((p1 = find_audio_control_unit(state, id)) != NULL) {
-> -               unsigned char *hdr = p1;
-> +       for (;;) {
-> +               /* a loop in the terminal chain? */
-> +               if (test_and_set_bit(id, state->termbitmap))
-> +                       break;
-> +
-> +               p1 = find_audio_control_unit(state, id);
-> +               if (!p1)
-> +                       break;
-> +               hdr = p1;
->                 term->id = id;
->
->                 if (protocol == UAC_VERSION_1 || protocol ==
-> UAC_VERSION_2) {
-> @@ -802,7 +810,7 @@ static int check_input_term(struct mixer_build *state,
-> int id,
->
->                                         /* call recursively to verify that
-> the
->                                          * referenced clock entity is
-> valid */
-> -                                       err = check_input_term(state,
-> d->bCSourceID, term);
-> +                                       err = __check_input_term(state,
-> d->bCSourceID, term);
->                                         if (err < 0)
->                                                 return err;
->
-> @@ -836,7 +844,7 @@ static int check_input_term(struct mixer_build *state,
-> int id,
->                         case UAC2_CLOCK_SELECTOR: {
->                                 struct uac_selector_unit_descriptor *d =
-> p1;
->                                 /* call recursively to retrieve the
-> channel info */
-> -                               err = check_input_term(state,
-> d->baSourceID[0], term);
-> +                               err = __check_input_term(state,
-> d->baSourceID[0], term);
->                                 if (err < 0)
->                                         return err;
->                                 term->type = UAC3_SELECTOR_UNIT << 16; /*
-> virtual type */
-> @@ -899,7 +907,7 @@ static int check_input_term(struct mixer_build *state,
-> int id,
->
->                                 /* call recursively to verify that the
->                                  * referenced clock entity is valid */
-> -                               err = check_input_term(state,
-> d->bCSourceID, term);
-> +                               err = __check_input_term(state,
-> d->bCSourceID, term);
->                                 if (err < 0)
->                                         return err;
->
-> @@ -950,7 +958,7 @@ static int check_input_term(struct mixer_build *state,
-> int id,
->                         case UAC3_CLOCK_SELECTOR: {
->                                 struct uac_selector_unit_descriptor *d =
-> p1;
->                                 /* call recursively to retrieve the
-> channel info */
-> -                               err = check_input_term(state,
-> d->baSourceID[0], term);
-> +                               err = __check_input_term(state,
-> d->baSourceID[0], term);
->                                 if (err < 0)
->                                         return err;
->                                 term->type = UAC3_SELECTOR_UNIT << 16; /*
-> virtual type */
-> @@ -966,7 +974,7 @@ static int check_input_term(struct mixer_build *state,
-> int id,
->                                         return -EINVAL;
->
->                                 /* call recursively to retrieve the
-> channel info */
-> -                               err = check_input_term(state,
-> d->baSourceID[0], term);
-> +                               err = __check_input_term(state,
-> d->baSourceID[0], term);
->                                 if (err < 0)
->                                         return err;
->
-> @@ -984,6 +992,14 @@ static int check_input_term(struct mixer_build
-> *state, int id,
->         return -ENODEV;
->  }
->
-> +static int check_input_term(struct mixer_build *state, int id,
-> +                           struct usb_audio_term *term)
-> +{
-> +       memset(term, 0, sizeof(*term));
-> +       memset(state->termbitmap, 0, sizeof(state->termbitmap));
-> +       return __check_input_term(state, id, term);
-> +}
-> +
->  /*
->   * Feature Unit
->   */
-> --
-> 2.16.4
->
->
+>   sound/soc/intel/boards/cht_bsw_max98090_ti.c | 98 ++++++++++++++++++++
+>   1 file changed, 98 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+> index 33eb72545be6..83b978e7b4c4 100644
+> --- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+> +++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+> @@ -399,6 +399,20 @@ static struct snd_soc_card snd_soc_card_cht = {
+>   };
+>   
+>   static const struct dmi_system_id cht_max98090_quirk_table[] = {
+> +	{
+> +		/* Banjo model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Banjo"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Candy model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Candy"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+>   	{
+>   		/* Clapper model Chromebook */
+>   		.matches = {
+> @@ -406,6 +420,27 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+>   		},
+>   		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+>   	},
+> +	{
+> +		/* Cyan model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Cyan"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Enguarde model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Enguarde"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Glimmer model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Glimmer"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+>   	{
+>   		/* Gnawty model Chromebook (Acer Chromebook CB3-111) */
+>   		.matches = {
+> @@ -413,6 +448,62 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+>   		},
+>   		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+>   	},
+> +	{
+> +		/* Heli model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Heli"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Kip model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Kip"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Ninja model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Ninja"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Orco model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Orco"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Quawks model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Quawks"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Rambi model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Rambi"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Squawks model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Squawks"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+> +	{
+> +		/* Sumo model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Sumo"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+>   	{
+>   		/* Swanky model Chromebook (Toshiba Chromebook 2) */
+>   		.matches = {
+> @@ -420,6 +511,13 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+>   		},
+>   		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+>   	},
+> +	{
+> +		/* Winky model Chromebook */
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "Winky"),
+> +		},
+> +		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+> +	},
+>   	{}
+>   };
+>   
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

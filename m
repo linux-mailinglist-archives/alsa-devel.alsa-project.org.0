@@ -2,99 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6BB78DFBA
-	for <lists+alsa-devel@lfdr.de>; Wed, 14 Aug 2019 23:27:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5FC58E277
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 03:41:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50E481671;
-	Wed, 14 Aug 2019 23:26:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50E481671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3BB54165D;
+	Thu, 15 Aug 2019 03:40:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3BB54165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565818039;
-	bh=5ITS7mjEhmLS/JYxmA36EIG1hknXKlYrGWHHFARCUHI=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=c2+4+HtdchwzGM1jn4UxBNq7BFDJ3rrh/pnu/52ITHfZv+LWpXk4wvyjVoH5nrt6B
-	 rBSvmh0/n44Ol6Zret/hepBHIEGMwhhOHssm9qIvniFAeDSkr4HLdJ5JAf++0M6LdY
-	 bfbDP7IQrG5PTECD3DDnZirJjtjNNpFoso9Ob1ag=
+	s=default; t=1565833273;
+	bh=CCsIWLS0ro79akA2mzaoOHx2YOBnFnHHH2JC5eJyoOc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Lm+Uc26cG4wRdPlnka/atldlaW742iCMT7AMH4L0HCzElQwcSvUj6lAF085LtDZm6
+	 hA/6rkcC81z6x4NKMypB4VqUVSeEVay1P0BYzuud2/DEJq7ZZI+heP8MgmXWvG3zIz
+	 3txSTh0oSlrOjOgDb1GeCMqzvIFL1BMuBUnrklXo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80680F80213;
-	Wed, 14 Aug 2019 23:25:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 528ABF80274;
+	Thu, 15 Aug 2019 03:39:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EF62F80214; Wed, 14 Aug 2019 23:25:32 +0200 (CEST)
+ id 60153F80274; Thu, 15 Aug 2019 03:39:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
+X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A1FAF8015B
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 23:25:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A1FAF8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34755F801DF
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 03:39:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34755F801DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="ZRIrVOzi"
-Received: by mail-lf1-x142.google.com with SMTP id s19so286925lfb.9
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 14:25:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8D89IWNr6qXpuixdGVVUE6VSgb0w4/jTs7n+NxKGTQI=;
- b=ZRIrVOzivpdKfYfpO4YDO8X88QRGUOGe5dIuUkevHahNUy3aoAbOFC7h5876K+nFs0
- fFQXHF9kMQ9KLa/ZmDSUnCo2dX3Xt99U0UOPjIImMdS/kFDA2rUtu1BptT/qXv+KWoyQ
- iBLdXNzF7W9oFFQwx4zEWFPl2oaRB7KVWIXOM=
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="toTz6YY7"
+Received: by mail-qt1-x844.google.com with SMTP id q4so881231qtp.1
+ for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 18:39:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=wA/x2dxQiMMNel8N2gzBx4H/5a7KjXK2r7iTD3skvIw=;
+ b=toTz6YY7YDeI15z/wT+hpufnCF9jKWZay51h+4g/DZRU5ZAP0mTqwepTHwZzinBlDD
+ BoWWIqqkD812x+Njm+uHnERbySfDWLB0Y75klSeWrUn8Yj1Y5t3vNBAkQRZHkLMxGLw7
+ vGtzqKbKK7jjFZwx4uPgP9KA3g1m9w6jDLIUEXilbDMcftq42yZ3w8RkKp2mNkkDDauf
+ iUi0ecCXbADeB7w3ORk0t0hcHXHTz3n6nkjl5lSHrKEdL/FX3S1NleL39hXpobupyj9j
+ oddKc/SEqFYZM+Fg4ote8hI5lZUsG9SJW0hE+ER61uMwN5U9XzX8h+0LOqb2q0AU0tpx
+ zwBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8D89IWNr6qXpuixdGVVUE6VSgb0w4/jTs7n+NxKGTQI=;
- b=jNrpSi5D0tdGS0EeWwEwzSYiKP2Lm79UepFw8cHjKKingU6dwb0Q1f9HPOKPcyV6Jc
- A38r0a7FnsyaNyvQsUGa+0qyntBqPhpr1LIKuiN4xMUAgj8GIEBW8trxiv0fIDQ1n9nA
- txw5XVuPy+NSWKfZGltvCjiDDgbNm0fb7hSV4yLk6BD+KvL8evMNyJGEW2Qfl9gEib6W
- fKndlBhpSJ3fm5SCE1t5NMnTcMHN23C/cKHVh6SXwQXXo7SlnFvzEN3e0Jv1WrJ+p8fF
- kZMYLhU7E1Mxlc9t8VbnPEbUf9f3BsofooOz9+VFNF9Qm/9ncrksPVjrGgvF4mXuD1jF
- 8p0w==
-X-Gm-Message-State: APjAAAWns47/jqKsQNChrk+iTplvplpZZbEawcBaE62xw5TzLjU5dlT7
- OupM3biyPGC79yNHIYeaddES/e1Gr8k=
-X-Google-Smtp-Source: APXvYqyw4mLUIy0vVDJuDXonXaEYjOTKdMYdJqhGu3rO/6dnMssnlp/r8axcVWxKAbkyHgR3dXJY6w==
-X-Received: by 2002:a19:7006:: with SMTP id h6mr728506lfc.5.1565817927888;
- Wed, 14 Aug 2019 14:25:27 -0700 (PDT)
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com.
- [209.85.167.50])
- by smtp.gmail.com with ESMTPSA id c17sm111432lfj.65.2019.08.14.14.25.27
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 14 Aug 2019 14:25:27 -0700 (PDT)
-Received: by mail-lf1-f50.google.com with SMTP id v16so280572lfg.11
- for <alsa-devel@alsa-project.org>; Wed, 14 Aug 2019 14:25:27 -0700 (PDT)
-X-Received: by 2002:a19:4349:: with SMTP id m9mr762602lfj.64.1565817926757;
- Wed, 14 Aug 2019 14:25:26 -0700 (PDT)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=wA/x2dxQiMMNel8N2gzBx4H/5a7KjXK2r7iTD3skvIw=;
+ b=qTrbeZ/BqGjmiiCOs9z/uTWz2g3d3hPO1yWrRGz9hyB6NvOppszV9YgkUIZ3QFBOpi
+ harnhVbYJwGgOom9oeCBYMekd0iC89l8MBwsaFJTicpfuBFgRWvF7M2HasQm9gfRvtYz
+ 1pJovmXvnhS+CiIoad/PtKB8OgpwieDd62K7vuTk7d+xqFnd39/FZWc4DV4qNCNlcJPW
+ 6ydvbkTOJHqgBeX7H+Uu72I2GFxw86lVZSNcOhgFIJuJnl//iWWbL0/WV7YFbk8SzA6n
+ SMEBsyYW8hXePgnRqcxmIFp5nk0QxqqB3brwHar14T+NtBkxlOTqwBChe91hyPV/LkRZ
+ Oyug==
+X-Gm-Message-State: APjAAAWON1sqEFfVjFU7cDwlzYJ04cWly2AuD10DHpPuS9fbJndKG8zF
+ y3tFmjAq48Zg/kGV2q5UAf2U73pJ00Pn/w==
+X-Google-Smtp-Source: APXvYqx52FBhH4l6T6zyAIzkFO4zXYA90kTDapp+duzMBf0SMefRrLcIAxFLtYcVHb4TUd/DdVqYUg==
+X-Received: by 2002:aed:2d67:: with SMTP id h94mr1954587qtd.154.1565833162053; 
+ Wed, 14 Aug 2019 18:39:22 -0700 (PDT)
+Received: from billcipher.cpe.telecentro.net.ar ([181.47.97.137])
+ by smtp.gmail.com with ESMTPSA id m194sm725575qke.123.2019.08.14.18.39.20
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Wed, 14 Aug 2019 18:39:21 -0700 (PDT)
+From: jeronimo@borque.com.ar
+To: alsa-devel@alsa-project.org
+Date: Wed, 14 Aug 2019 22:38:24 -0300
+Message-Id: <20190815013824.13373-1-jeronimo@borque.com.ar>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
- <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
- <ac7bcb42e40ac12d9924fd65c3e2c68b9b11b093.camel@linux.intel.com>
- <37ede7ea-e760-eac9-a1d5-0eb8e3bff3cb@linux.intel.com>
- <CACJJ=pyb==xWqKMB-gAzW7-FCFgEU7Rm+b-CL-ANO-eorDKy=A@mail.gmail.com>
- <356b3f4eacb43f23c40c4cd8e3c54ae9514a34c6.camel@linux.intel.com>
- <7e08e45d-7cec-9fdd-36c5-5e82632968f8@linux.intel.com>
- <CACJJ=pzcMCaOvHMVhmYKKL2Z45-XdrBB9FT8VjSzX_obVtKzyw@mail.gmail.com>
- <d80c2f4d-b5f4-5bbe-9529-36b9859ab8be@linux.intel.com>
-In-Reply-To: <d80c2f4d-b5f4-5bbe-9529-36b9859ab8be@linux.intel.com>
-From: Jon Flatley <jflat@chromium.org>
-Date: Wed, 14 Aug 2019 14:25:15 -0700
-X-Gmail-Original-Message-ID: <CACJJ=pxokT5z+U=nM9QcUVxCk84998ugM5J89U28k=CVGMjG=w@mail.gmail.com>
-Message-ID: <CACJJ=pxokT5z+U=nM9QcUVxCk84998ugM5J89U28k=CVGMjG=w@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, Jie Yang <yang.jie@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, benzh@chromium.org,
- Jon Flatley <jflat@chromium.org>, cujomalainey@chromium.org
-Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+Cc: Jeronimo Borque <jeronimo@borque.com.ar>, Takashi Iwai <tiwai@suse.com>
+Subject: [alsa-devel] [PATCH] ALSA: hda - Fixes inverted Conexant GPIO mic
+	mute led
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,37 +98,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 14, 2019 at 1:51 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
-> > There seems to be an issue when suspending the ALC5650. I think the
-> > nondeterministic behavior I was seeing just had to do with whether or
-> > not the DSP had yet suspended.
-> >
-> > I reverted commit 0d2135ecadb0 ("ASoC: Intel: Work around to fix HW D3
-> > potential crash issue") and things started working, including
-> > suspend/resume of the DSP. Any ideas for why this may be? I would like
-> > to resolve this so I can finish upstreaming the bdw-rt5650 machine
-> > driver.
->
-> Copying Keyon in case he remembers the context.
->
-> Reverting a 5yr-old commit with all sorts of clock/power-related fixes
-> looks brave, and it's not clear why this would work with the rt5677 and
-> not with 5650.
+From: Jeronimo Borque <jeronimo@borque.com.ar>
 
-No idea, I was just diffing the register writes looking for sources of
-discrepancy. The Chromium OS 3.14 kernel tree that Buddy uses doesn't
-have this patch, so I figured what's the worst that could happen?
+"enabled" parameter historically referred to the device input or
+output, not to the led indicator. After the changes added with the
+led helper functions the mic mute led logic refers to the led and not
+to the mic input which caused led indicator to be negated (Mic mute
+led was on when the input enabled) Fixing it in the call to
+cxt_update_gpio_led at the cxt_gpio_micmute_update hook.
+Maybe more changes are required to be consistent everywhere.
 
->
-> Are you using the latest upstream firmware btw? Or the one which shipped
-> with the initial device (which could be an issue if the protocol changed).
+Signed-off-by: Jeronimo Borque <jeronimo@borque.com.ar>
+---
+ sound/pci/hda/patch_conexant.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-The firmware I'm loading is: `FW info: type 01, - version: 00.00,
-build 77, source commit id: 876ac6906f31a43b6772b23c7c983ce9dcb18a1`.
-Hashes the same as the upstream binary.
+diff --git a/sound/pci/hda/patch_conexant.c b/sound/pci/hda/patch_conexant.c
+index f299f137eaea..8edf0d1290b5 100644
+--- a/sound/pci/hda/patch_conexant.c
++++ b/sound/pci/hda/patch_conexant.c
+@@ -636,6 +636,10 @@ static void cxt_update_gpio_led(struct hda_codec *codec, unsigned int mask,
+ 		spec->gpio_led &= ~mask;
+ 	else
+ 		spec->gpio_led |= mask;
++
++	codec_dbg(codec, "mask:%d enabled:%d gpio_led:%d\n",
++			    mask, enabled, spec->gpio_led);
++
+ 	if (spec->gpio_led != oldval)
+ 		snd_hda_codec_write(codec, 0x01, 0, AC_VERB_SET_GPIO_DATA,
+ 				    spec->gpio_led);
+@@ -656,7 +660,7 @@ static void cxt_gpio_micmute_update(struct hda_codec *codec)
+ 	struct conexant_spec *spec = codec->spec;
+ 
+ 	cxt_update_gpio_led(codec, spec->gpio_mic_led_mask,
+-			    spec->gen.micmute_led.led_value);
++			    !spec->gen.micmute_led.led_value);
+ }
+ 
+ 
+@@ -669,7 +673,6 @@ static void cxt_fixup_mute_led_gpio(struct hda_codec *codec,
+ 		{ 0x01, AC_VERB_SET_GPIO_DIRECTION, 0x03 },
+ 		{}
+ 	};
+-	codec_info(codec, "action: %d gpio_led: %d\n", action, spec->gpio_led);
+ 
+ 	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+ 		spec->gen.vmaster_mute.hook = cxt_fixup_gpio_mute_hook;
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

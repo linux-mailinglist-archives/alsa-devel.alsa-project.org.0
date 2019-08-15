@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B7B48F24C
-	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:34:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDECE8F25C
+	for <lists+alsa-devel@lfdr.de>; Thu, 15 Aug 2019 19:36:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D826A169C;
-	Thu, 15 Aug 2019 19:33:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D826A169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91E1816D2;
+	Thu, 15 Aug 2019 19:35:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91E1816D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565890476;
-	bh=yJZj1e5fLBNKoSHc0QD47gma+TuEfwMUvBzoarXNIO4=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=vRxOcxVCH7/962TRJH0RFIM3a+ooxPTy6ql1TU9HXNrv5c/8h7t4E+NnpAvtInlsz
-	 1gHcUHNdx22uzycIMqM24+wVS+dg7uCxVm9KBP3XlA5VJxssS/SvGJBLIOOO4H/BDx
-	 mXgEsE7UNFhJ6oALyGd7VIT9pVW3dB7tpVvGZLe8=
+	s=default; t=1565890605;
+	bh=Mcu1m1w5sldl+KFFRvZc/dRXeeeklOK4oM2Lzvekcy8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kCSO9toxQDu8T4eGwnug2zoIdC6bnirnhRPVJTypDVeYug8blRRT6dYuKmj8BSgVQ
+	 EcTsUOrrJtca+5af5LY10SayAnjgCFd1WeYNZ6qQEQ6jz4HwXaCqa2/fJfXEEaHVUf
+	 tgshHGdDOBLqrNoZG3hhcwWVbih50GCRRLuRupAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A9BEF808F5;
-	Thu, 15 Aug 2019 19:16:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6A760F805A0;
+	Thu, 15 Aug 2019 19:19:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55415F805FF; Thu, 15 Aug 2019 19:15:35 +0200 (CEST)
+ id 45C38F8049A; Thu, 15 Aug 2019 19:19:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com
- [209.85.128.99])
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
+ [IPv6:2607:f8b0:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81F27F8060F
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:14:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81F27F8060F
-Received: by mail-wm1-f99.google.com with SMTP id 10so1879697wmp.3
- for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:14:29 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AFB0F80290
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 19:19:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AFB0F80290
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="b69La8LW"
+Received: by mail-ot1-x342.google.com with SMTP id r20so7142849ota.5
+ for <alsa-devel@alsa-project.org>; Thu, 15 Aug 2019 10:19:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3t5KAwxqvB3F0EYGJyI/WioA3AfLQz3YV3tbAHkT53Q=;
+ b=b69La8LWuHdx6dmlEpTKQaYsNkXDdVB6Vu+0nJ4VVyYmV0MZx8GqMayUq1knU2C98n
+ E1o4UtVKsOoYAyjjGYahSRwxrDSmW9VXnzyX9s7836ija+kkvXe7QIC52End9GykV2Pj
+ cnLHHhikorTP4d18s2j0WdlFstmvez38yEfnjWrsL8MdA7pytAABTWaVC58VyUti1r4y
+ gC2AOlXQVYWS1io4KbxgWiEOOyR8ebLvDqhdybOZOEnh5U3cECkUvzFZWBtBLVOMaNq8
+ RwDToOjKquiMXceeNqTNwW+WbPofbzAob/Js0MXCD0OSMbhvPOYlBhD813/A6IvgV3+N
+ 5Wxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=CnBCQCl8HgGtRAslD3BhGDm2lZeAd4b8wc+xobzHTtE=;
- b=a9tbfVHRZuZHDHwcAXJTVdiOIZCP7OrQm9vqzlzSMzw2d0PL9PRq6WoUUxyiw6xxFK
- UfBPlnIdZAC9ZeWXbVWBCNrZuSEj5dh2g+soiNv6tXkphDgzoblNfOdoGy85WnY8/ks0
- xhGxxvEjXkyxezqJyRqjeiQog7AuBFIHVkGn7amq5A0Gb0VPXYt/9OFhtvNa/NHWnZy0
- RRYrgwrxWFHEmJ400qz8LUCWE3KuYM9huWzOZgdEl0LchDdpHWHdJYV2hP/Ez5cG/08e
- lpBcZf0BeUWgus/unOlwnEgMx9ynthHJVs8nXP36BF77ZGzwZ/Bhn9dXfv1ABheEbZxy
- 1CNA==
-X-Gm-Message-State: APjAAAVKiCxdMGcuQWkWfrJA7zhXohhjZ/1eYPk2jFgRIPevKY9yLivt
- M727e/5lqsmAwMKGGLMLnFQNzdTK5uKGTJPJ34E10Bnrbmgafb6dEB9aD19jUe8RCQ==
-X-Google-Smtp-Source: APXvYqzF9p1m8pQLSYHcZd54ZXHssvs7mOElBrJ3n7sLNitdfagAUctF4SZiOcG91ZIiZMiKr3Spp9T/hSsU
-X-Received: by 2002:a1c:a1c1:: with SMTP id k184mr3836224wme.81.1565889268788; 
- Thu, 15 Aug 2019 10:14:28 -0700 (PDT)
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
- [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id v11sm7554wmh.27.2019.08.15.10.14.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Aug 2019 10:14:28 -0700 (PDT)
-X-Relaying-Domain: sirena.org.uk
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1hyJKW-00052e-HJ; Thu, 15 Aug 2019 17:14:28 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 16A862742B9E; Thu, 15 Aug 2019 18:14:28 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Cheng-Yi Chiang <cychiang@chromium.org>
-In-Reply-To: <20190813074430.191791-1-cychiang@chromium.org>
-X-Patchwork-Hint: ignore
-Message-Id: <20190815171428.16A862742B9E@ypsilon.sirena.org.uk>
-Date: Thu, 15 Aug 2019 18:14:28 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, tzungbi@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, zhengxing@rock-chips.com,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- jeffy.chen@rock-chips.com, cain.cai@rock-chips.com, dianders@chromium.org,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- eddie.cai@rock-chips.com, Takashi Iwai <tiwai@suse.com>,
- enric.balletbo@collabora.com, dgreid@chromium.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: rockchip: rockchip_max98090: Set period
-	size to 240" to the asoc tree
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3t5KAwxqvB3F0EYGJyI/WioA3AfLQz3YV3tbAHkT53Q=;
+ b=tCIwtsnWblSoefCpFWxwq9qRmvB+Rl4hfUbPCEOUvWsd1Nhu0/osuACVVq+Dpz5ulo
+ WRkcyDWP+9Hu5EkSHeTY57TrdNqA2Jsi2X27U0+7I/3paD6Bb3VNNVuBmzCzpKaBtdBS
+ DK0i/NtSATj3NTdvycn9n4BDHgU9uUwbQOk52s2bdRTfGIM5EzA+ptfQo7QJCdWH1hsC
+ oqjzlxIwGd3F/gts93ELw9GOWBjY5lNRPXhVMKVWiNQLZXUwlq8f5RfOds0jfWrXuL5r
+ o5v1Np2XZ8jZbeE0IQmB7faw4wdYfATt8aixItT07PvanyV4alV12qzlFXvc6Tpvo52D
+ AcOQ==
+X-Gm-Message-State: APjAAAV0sQgSHbMxGu4eTJIMp2ltF4fXGoVb9CyH4ois6yhlX+bOn/5P
+ gMToEle0zkmjZNsimu2m8gM2MOZ3jFWw/gat2gw=
+X-Google-Smtp-Source: APXvYqwANE84VD2mEyfkvmonNMDigTR3O5rlOu+eaQIrj1gWuit4tat36+yKoaD0buVgo5AQqhGbZ9bQ9cEY0nSrvww=
+X-Received: by 2002:a9d:6b96:: with SMTP id b22mr4496345otq.363.1565889561030; 
+ Thu, 15 Aug 2019 10:19:21 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190815043554.16623-1-benquike@gmail.com>
+ <s5htvaj9cre.wl-tiwai@suse.de> <s5hk1beapab.wl-tiwai@suse.de>
+In-Reply-To: <s5hk1beapab.wl-tiwai@suse.de>
+From: Hui Peng <benquike@gmail.com>
+Date: Thu, 15 Aug 2019 13:19:10 -0400
+Message-ID: <CAKpmkkWCaLOctG44fD=arD-=oogRVCSxe5rz2UNUAms5q=2pYw@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Mathias Payer <mathias.payer@nebelwelt.net>, security@kernel.org,
+ Wenwen Wang <wang6495@umn.edu>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
+ alsa-devel@alsa-project.org, Thomas Gleixner <tglx@linutronix.de>,
+ Allison Randal <allison@lohutok.net>
+Subject: Re: [alsa-devel] [PATCH] Fix a stack buffer overflow bug
+	check_input_term
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,91 +96,223 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hi, Takashi:
 
-   ASoC: rockchip: rockchip_max98090: Set period size to 240
+One point I want to be clear: if an endless recursive loop is detected,
+should we return 0, or a negative error code?
 
-has been applied to the asoc tree at
+On Thu, Aug 15, 2019 at 2:58 AM Takashi Iwai <tiwai@suse.de> wrote:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 7188f656cdf762d4ea8ce16b6aaf4c6b06e119ec Mon Sep 17 00:00:00 2001
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-Date: Tue, 13 Aug 2019 15:44:30 +0800
-Subject: [PATCH] ASoC: rockchip: rockchip_max98090: Set period size to 240
-
-From stress testing of arecord, we found that period size
-greater than ~900 will bring pl330 to DYING state and
-can not recover within 100 iterations.
-The result is that arecord will stuck and get I/O error,
-and issue can not be recovered until reboot.
-
-This issue does not happen when period size is small.
-Set constraint of period size to 240 to prevent such issue.
-With the constraint, there will be no issue after 2000 iterations.
-
-We can revert this patch once the root cause is found
-in rockchip's pl330 implementation.
-
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-Link: https://lore.kernel.org/r/20190813074430.191791-1-cychiang@chromium.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/rockchip/rockchip_max98090.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 782e534d4c0d..d54f672d38d8 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -138,8 +138,19 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
-+static int rk_aif1_startup(struct snd_pcm_substream *substream)
-+{
-+	/*
-+	 * Set period size to 240 because pl330 has issue
-+	 * dealing with larger period in stress testing.
-+	 */
-+	return snd_pcm_hw_constraint_minmax(substream->runtime,
-+			SNDRV_PCM_HW_PARAM_PERIOD_SIZE, 240, 240);
-+}
-+
- static const struct snd_soc_ops rk_aif1_ops = {
- 	.hw_params = rk_aif1_hw_params,
-+	.startup = rk_aif1_startup,
- };
- 
- SND_SOC_DAILINK_DEFS(hifi,
--- 
-2.20.1
-
+> On Thu, 15 Aug 2019 08:13:57 +0200,
+> Takashi Iwai wrote:
+> >
+> > On Thu, 15 Aug 2019 06:35:49 +0200,
+> > Hui Peng wrote:
+> > >
+> > > `check_input_term` recursively calls itself with input
+> > > from device side (e.g., uac_input_terminal_descriptor.bCSourceID)
+> > > as argument (id). In `check_input_term`, if `check_input_term`
+> > > is called with the same `id` argument as the caller, it triggers
+> > > endless recursive call, resulting kernel space stack overflow.
+> > >
+> > > This patch fixes the bug by adding a bitmap to `struct mixer_build`
+> > > to keep track of the checked ids by `check_input_term` and stop
+> > > the execution if some id has been checked (similar to how
+> > > parse_audio_unit handles unitid argument).
+> > >
+> > > Reported-by: Hui Peng <benquike@gmail.com>
+> > > Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
+> > > Signed-off-by: Hui Peng <benquike@gmail.com>
+> >
+> > The fix looks almost good, but we need to be careful about the
+> > bitmap check.  In theory, it's possible that multiple nodes point to
+> > the same input terminal, and your patch would break that scenario.
+> > For fixing that, we need to zero-clear the termbitmap at each first
+> > invocation of check_input_term(), something like below.
+> >
+> > Could you check whether this works?
+>
+> Thinking of this further, there is another possible infinite loop.
+> Namely, when the feature unit in the input terminal chain points to
+> itself as the source, it'll loop endlessly without the stack
+> overflow.
+>
+> So the check of the termbitmap should be inside the loop.
+> The revised patch is below.
+>
+>
+> thanks,
+>
+> Takashi
+>
+> -- 8< --
+> From: Hui Peng <benquike@gmail.com>
+> Subject: [PATCH] ALSA: usb-audio: Fix a stack buffer overflow bug
+>  check_input_term
+>
+> `check_input_term` recursively calls itself with input
+> from device side (e.g., uac_input_terminal_descriptor.bCSourceID)
+> as argument (id). In `check_input_term`, if `check_input_term`
+> is called with the same `id` argument as the caller, it triggers
+> endless recursive call, resulting kernel space stack overflow.
+>
+> This patch fixes the bug by adding a bitmap to `struct mixer_build`
+> to keep track of the checked ids by `check_input_term` and stop
+> the execution if some id has been checked (similar to how
+> parse_audio_unit handles unitid argument).
+>
+> [ The termbitmap needs to be cleared at each first check of the input
+>   terminal, so the function got split now.  Also, for catching another
+>   endless loop in the input terminal chain -- where the feature unit
+>   points to itself as its source -- the termbitmap check is moved
+>   inside the parser loop. -- tiwai ]
+>
+> Reported-by: Hui Peng <benquike@gmail.com>
+> Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  sound/usb/mixer.c | 36 ++++++++++++++++++++++++++----------
+>  1 file changed, 26 insertions(+), 10 deletions(-)
+>
+> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+> index ea487378be17..aa8b046aa91f 100644
+> --- a/sound/usb/mixer.c
+> +++ b/sound/usb/mixer.c
+> @@ -68,6 +68,7 @@ struct mixer_build {
+>         unsigned char *buffer;
+>         unsigned int buflen;
+>         DECLARE_BITMAP(unitbitmap, MAX_ID_ELEMS);
+> +       DECLARE_BITMAP(termbitmap, MAX_ID_ELEMS);
+>         struct usb_audio_term oterm;
+>         const struct usbmix_name_map *map;
+>         const struct usbmix_selector_map *selector_map;
+> @@ -775,16 +776,23 @@ static int uac_mixer_unit_get_channels(struct
+> mixer_build *state,
+>   * parse the source unit recursively until it reaches to a terminal
+>   * or a branched unit.
+>   */
+> -static int check_input_term(struct mixer_build *state, int id,
+> -                           struct usb_audio_term *term)
+> +static int __check_input_term(struct mixer_build *state, int id,
+> +                             struct usb_audio_term *term)
+>  {
+>         int protocol = state->mixer->protocol;
+>         int err;
+>         void *p1;
+> +       unsigned char *hdr;
+>
+> -       memset(term, 0, sizeof(*term));
+> -       while ((p1 = find_audio_control_unit(state, id)) != NULL) {
+> -               unsigned char *hdr = p1;
+> +       for (;;) {
+> +               /* a loop in the terminal chain? */
+> +               if (test_and_set_bit(id, state->termbitmap))
+> +                       break;
+> +
+> +               p1 = find_audio_control_unit(state, id);
+> +               if (!p1)
+> +                       break;
+> +               hdr = p1;
+>                 term->id = id;
+>
+>                 if (protocol == UAC_VERSION_1 || protocol ==
+> UAC_VERSION_2) {
+> @@ -802,7 +810,7 @@ static int check_input_term(struct mixer_build *state,
+> int id,
+>
+>                                         /* call recursively to verify that
+> the
+>                                          * referenced clock entity is
+> valid */
+> -                                       err = check_input_term(state,
+> d->bCSourceID, term);
+> +                                       err = __check_input_term(state,
+> d->bCSourceID, term);
+>                                         if (err < 0)
+>                                                 return err;
+>
+> @@ -836,7 +844,7 @@ static int check_input_term(struct mixer_build *state,
+> int id,
+>                         case UAC2_CLOCK_SELECTOR: {
+>                                 struct uac_selector_unit_descriptor *d =
+> p1;
+>                                 /* call recursively to retrieve the
+> channel info */
+> -                               err = check_input_term(state,
+> d->baSourceID[0], term);
+> +                               err = __check_input_term(state,
+> d->baSourceID[0], term);
+>                                 if (err < 0)
+>                                         return err;
+>                                 term->type = UAC3_SELECTOR_UNIT << 16; /*
+> virtual type */
+> @@ -899,7 +907,7 @@ static int check_input_term(struct mixer_build *state,
+> int id,
+>
+>                                 /* call recursively to verify that the
+>                                  * referenced clock entity is valid */
+> -                               err = check_input_term(state,
+> d->bCSourceID, term);
+> +                               err = __check_input_term(state,
+> d->bCSourceID, term);
+>                                 if (err < 0)
+>                                         return err;
+>
+> @@ -950,7 +958,7 @@ static int check_input_term(struct mixer_build *state,
+> int id,
+>                         case UAC3_CLOCK_SELECTOR: {
+>                                 struct uac_selector_unit_descriptor *d =
+> p1;
+>                                 /* call recursively to retrieve the
+> channel info */
+> -                               err = check_input_term(state,
+> d->baSourceID[0], term);
+> +                               err = __check_input_term(state,
+> d->baSourceID[0], term);
+>                                 if (err < 0)
+>                                         return err;
+>                                 term->type = UAC3_SELECTOR_UNIT << 16; /*
+> virtual type */
+> @@ -966,7 +974,7 @@ static int check_input_term(struct mixer_build *state,
+> int id,
+>                                         return -EINVAL;
+>
+>                                 /* call recursively to retrieve the
+> channel info */
+> -                               err = check_input_term(state,
+> d->baSourceID[0], term);
+> +                               err = __check_input_term(state,
+> d->baSourceID[0], term);
+>                                 if (err < 0)
+>                                         return err;
+>
+> @@ -984,6 +992,14 @@ static int check_input_term(struct mixer_build
+> *state, int id,
+>         return -ENODEV;
+>  }
+>
+> +static int check_input_term(struct mixer_build *state, int id,
+> +                           struct usb_audio_term *term)
+> +{
+> +       memset(term, 0, sizeof(*term));
+> +       memset(state->termbitmap, 0, sizeof(state->termbitmap));
+> +       return __check_input_term(state, id, term);
+> +}
+> +
+>  /*
+>   * Feature Unit
+>   */
+> --
+> 2.16.4
+>
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26DEA8FF55
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2019 11:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 220BA8FF8E
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2019 12:00:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FF571662;
-	Fri, 16 Aug 2019 11:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FF571662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DFF484D;
+	Fri, 16 Aug 2019 11:59:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DFF484D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565948772;
-	bh=zPGGnIV13C+zuI3bYs9FP+GSpU4JbPhiUeIFPWzEuT8=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=E1fKJ5eOgAYGT67DdAFMEOpjYzAcPIPo+0m7y7GURax3gGp9mTww3vlG1zh5p9+Lz
-	 J227bljk08HDTVIMm642fABypyCXJhfWge1AkGtHl20xqyZVEFkP/EzETXz/hnHvfi
-	 lJFUI74UMCcw4TdJ1T5msCPKh8j4B+ShYBuV7u2A=
+	s=default; t=1565949611;
+	bh=OIBgWcWHUZJw24l/LzkHkY1K5hlXz4n+iXE83epXMcE=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eNUfccp3M+mnwhPUqnFzwMhynzf3pqOtxVuuz0tVIUYr5Cy9XY2yr+4LLPnUoryM5
+	 HF4+pNIXx3baWskO921GVA970KthVkBl67yqK45YFqk+ug8Au4WyGQjjZFIVEaqbFA
+	 aaKFvsuaPCh1RNZLRsUS/oxTjiqyC2iIS5Qz/Dkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BDE2F803F4;
-	Fri, 16 Aug 2019 11:44:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38882F80214;
+	Fri, 16 Aug 2019 11:58:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B5CEF80214; Fri, 16 Aug 2019 11:44:26 +0200 (CEST)
+ id D14FCF80214; Fri, 16 Aug 2019 11:58:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,37 +33,34 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A06FF8011F
- for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 11:44:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A06FF8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 735ABF8011F
+ for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 11:58:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 735ABF8011F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cpYXQ5It"
+ header.b="U1i6AXWw"
 Received: from localhost (unknown [117.99.90.214])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D6FFA20644;
- Fri, 16 Aug 2019 09:44:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 73DF12133F;
+ Fri, 16 Aug 2019 09:58:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1565948661;
- bh=RkU/EVqq1vhFMUqIe13oGkZ0ZSndMkAlwA9Q5IYDAUQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=cpYXQ5ItQAhKKEjq3xmvtyw4GoGUmqLAGIUXwwSuYxyZz8+XGNNfVnia17cXeBCj2
- cADfpm5rceB7ENMlPn4bBsDchHOrNt9iF9dzPFvXqioHGibNhOQn/Jz8fUFQROLtWA
- +hvSgeo5JJVi9s9RleY896YefeQCwXB/l4UZ3lXQ=
-Date: Fri, 16 Aug 2019 15:13:08 +0530
+ s=default; t=1565949501;
+ bh=/WSy9j2iYT01Rxs8gxmHUnYV6ztO0QAJLRoEe22qF1I=;
+ h=Date:From:To:Cc:Subject:From;
+ b=U1i6AXWwH+cLHbsqKrjdQTNc55sAomcu9Idiy99msv3yQQyvkVonLOj38vMG3yhpu
+ DRkPMibTminSVYQ80+Fr9hVeb4KszDs/1srD1eF1YW3ZRF24qzK0m84c9il1/TK7UA
+ DdhXtzgcjvuPrsIEKfjBE5D8UkWOXEP49xz9c4zo=
+Date: Fri, 16 Aug 2019 15:27:09 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190816094308.GA12733@vkoul-mobl.Dlink>
-References: <20190812235942.7120-1-pierre-louis.bossart@linux.intel.com>
+To: Greg KH <gregkh@linuxfoundation.org>
+Message-ID: <20190816095709.GC12733@vkoul-mobl.Dlink>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190812235942.7120-1-pierre-louis.bossart@linux.intel.com>
 User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com
-Subject: Re: [alsa-devel] [PATCH v2 0/3] soundwire: debugfs support for 5.4
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: [alsa-devel] [GIT PULL] soundwire fixes for v5.4-rc5
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,46 +73,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2209069250806725926=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12-08-19, 18:59, Pierre-Louis Bossart wrote:
-> This patchset enables debugfs support and corrects all the feedback
-> provided on an earlier RFC ('soundwire: updates for 5.4')
-> 
-> There is one remaining hard-coded value in intel.c that will need to
-> be fixed in a follow-up patchset not specific to debugfs: we need to
-> remove hard-coded Intel-specific configurations from cadence_master.c
-> (PDI offsets, etc).
-> 
-> Changes since v1 (Feedback from GKH)
-> Handle debugfs in a more self-contained way (no dentry as return or parameter)
-> Used CONFIG_DEBUG_FS in structures and code to make it easier to
-> remove if need be.
-> No functional change for register dumps.
-> 
-> Changes since RFC (Feedback from GKH, Vinod, Guennadi, Cezary, Sanyog):
-> removed error checks
-> used DEFINE_SHOW_ATTRIBUTE and seq_file
-> fixed copyright dates
-> fixed SPDX license info to use GPL2.0 only
-> fixed Makefile to include debugfs only if CONFIG_DEBUG_FS is selected
-> used static inlines for fallback compilation
-> removed intermediate variables
-> removed hard-coded constants in loops (used registers offsets and
-> hardware capabilities)
-> squashed patch 3
 
-These looks good but failed to apply. Please rebase on soundwire-next
-and resend
+--===============2209069250806725926==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="oj4kGyHlBMXGt3Le"
+Content-Disposition: inline
+
+
+--oj4kGyHlBMXGt3Le
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+Hi Greg,
+
+We have couple of fixes queued up, please pull. Some more are in review,
+will send them later.
+These fixes are in linux-next as well.
+
+The following changes since commit 5f9e832c137075045d15cd6899ab0505cfb2ca4b:
+
+  Linus 5.3-rc1 (2019-07-21 14:05:38 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/so=
+undwire-5.3-rc5
+
+for you to fetch changes up to 8676b3ca4673517650fd509d7fa586aff87b3c28:
+
+  soundwire: fix regmap dependencies and align with other serial links (201=
+9-08-09 10:20:40 +0530)
+
+----------------------------------------------------------------
+soundwire fixes for v5.3-rc5
+
+Pierre sent fixes which are queued now for v5.3-rc5 are:
+ - regmap dependecy
+ - cadence register definitions
+
+----------------------------------------------------------------
+Pierre-Louis Bossart (3):
+      soundwire: cadence_master: fix register definition for SLAVE_STATE
+      soundwire: cadence_master: fix definitions for INTSTAT0/1
+      soundwire: fix regmap dependencies and align with other serial links
+
+ drivers/base/regmap/Kconfig        | 2 +-
+ drivers/soundwire/Kconfig          | 7 +------
+ drivers/soundwire/Makefile         | 2 +-
+ drivers/soundwire/cadence_master.c | 8 ++++----
+ 4 files changed, 7 insertions(+), 12 deletions(-)
 
 Thanks
-
--- 
+--=20
 ~Vinod
+
+--oj4kGyHlBMXGt3Le
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIcBAEBAgAGBQJdVn31AAoJEHwUBw8lI4NHbucQAM+0LcMCYEANet0ypYgl51j2
+k8EUiwGmk+QFnyOuBmjQy57Q6SxLLBRDx5+rbXUro9AuZaWae+sobMeK/OYw++3c
+PMs7s4X5bU3I9qibnv6yco4G3jh7LOraFKXbWPTL/LuJcnThTo6ml9pt1Od7dccY
+FzcE0bZ/AJgN37+Oa/Wsb85gvX5Cdg5lKRqcVhFQZX3I/hvqN4Cs7dRa8UsO2xON
+ZtpOdKHCchR1URSzVqWhpGIxgU1L8eBLlh0BKFeoSrVBv5Gb8XcJmCa5ypM6nZpQ
+Ra3Rdv5PXJ3clrj93C2+3pwY17wISjQKjcWeo/esCmxm+Psq3sRo61hO8PFkuGm6
+xNHC2djcYPyMlmPwQp75Xfr2SOAWr1Ca9W4jk2V4A3hxQ/cpocYFy9BGs9O4wzGV
+kaJFeS9mBQxgMYEqinu2KeS2Ek313Q2Y8c89m924FBzCSpIlUehZImgACukMigI/
+TYnk0lpMk3InbS3uHJOKQQRpMclgbhFg4x3HzFmaeYKKZGlraNUWiXYf7+ZNbBTR
+o2Cqqe3CwYRsZW5EUlazQW8ZTctoGCnu26noLLKkhOecmSWNW8f3HS4/koGWTQPf
+KemgIL7ZpIDOzQ5DhmcOJmCkIS8IPw8S2S7SsV1VWl4Ns2wqLv/pVOOizHaR0OLu
+mJOnsFTTkm54zmzvcmAp
+=JH/o
+-----END PGP SIGNATURE-----
+
+--oj4kGyHlBMXGt3Le--
+
+--===============2209069250806725926==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2209069250806725926==--

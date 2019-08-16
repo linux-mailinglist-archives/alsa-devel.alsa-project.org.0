@@ -2,84 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCA669013B
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2019 14:19:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0986790141
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2019 14:20:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6AAE81669;
-	Fri, 16 Aug 2019 14:18:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AAE81669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 910051668;
+	Fri, 16 Aug 2019 14:19:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 910051668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565957963;
-	bh=OxzUUDwXWkXGAd3BdfcOpT3ukL5pwjYm3hEeEtLPLac=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cUIP77xG8me6UXNnj+yot6Qpms6AvI8PDka6u6NW2I7Lo+pzv9PtXLy5+eT0C7ZhN
-	 uDwW6KZZ8ugceFA+zOA34BSy78edmxcPIi9ee1q/uvbG9vsBj108JNsE2hcDr9OR++
-	 mHWIIm30qwUnd41aIPOp9lOA2icS5SNSVr6cwV9w=
+	s=default; t=1565958009;
+	bh=yjvLpnI+GX/3Md7OPf8xJsYCmhj2N5swARG/BcqZNMQ=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hcMon5Vyy2uEvS/Nu2PIMAxhQSm/J+ncjK9NtUdejACsGYbYeydK8gmf0RRbSUb9t
+	 tgPeFFycYRD2lOJIb8MHJ0UIsNl1zfxst+xZTt9a67oUo08DnrxKjylr8rgV8uDpYc
+	 qMMbWcDzy7yRsQ1zUMfRmcV4+h5WKSiO1p5wva6M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E11CCF8060E;
-	Fri, 16 Aug 2019 14:15:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C8DDFF803F4;
+	Fri, 16 Aug 2019 14:16:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49458F801DB; Fri, 16 Aug 2019 14:15:00 +0200 (CEST)
+ id 69765F80611; Fri, 16 Aug 2019 14:16:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com
- [209.85.128.99])
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-f97.google.com (mail-wr1-f97.google.com
+ [209.85.221.97])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 25CC3F80268
- for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 14:14:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25CC3F80268
-Received: by mail-wm1-f99.google.com with SMTP id m125so3896620wmm.3
- for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 05:14:54 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59E02F801DB
+ for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 14:16:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59E02F801DB
+Received: by mail-wr1-f97.google.com with SMTP id b16so1340970wrq.9
+ for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 05:16:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=pLS4DxT1dPkt+ilKsw/CiwD4KIIKskFjBYK+1KbWdsE=;
- b=P5MhXK+cczGRHtbTFjgwWahXkdA5iEQTX/QtQYyyIVnOk9SbHS1nF20Rr2I1VCt11q
- FSyej8CpAmReYCIrSMlzzLQm1dmJNuehfPHZ5dpxEmbWAKYJ3187/6kVo/yZRjE1U/Qf
- KL52fQwRXnKmqaQFRnloDOUZfMeK6g8U6tRhIzsFxZPLxtBTpr0xggKmUi0DFggbT7Ec
- ZUHxpaZvHdCaAxytKdxUvtpon2uEEB9wpCX7gsWDPypSLzuMjY68gn+Wq1gADQCIPG1R
- xVDGiznOP8e61/cZdBr8gHGETOvI0n0PPkuQkcrPNeS4dZEhQ6lFAW/JIKidOpXpxE3t
- plIw==
-X-Gm-Message-State: APjAAAUoeEjOCDCj/YtXPUjN4f4sDfmRmS53vAT6tM5xCOGvU8BUYzTb
- 3xJEErHvHJyuhflShSG0eXhujb4NhSKpc7/dFT9G1vgayaaZs9PoeFuo956+kjUFQQ==
-X-Google-Smtp-Source: APXvYqySVq6C/xknyvsxzKlqH7UE+qi1NJxPkT+wedb/ovVs8FyUI5SRHDjge/ud7Koip4TsqGPgyJPtw6LB
-X-Received: by 2002:a1c:cfc6:: with SMTP id f189mr6938434wmg.18.1565957694085; 
- Fri, 16 Aug 2019 05:14:54 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=dn2KIuS3Wg8ZAV1Rn4EmhRNXAghPOAWFXahs2NO+P7I=;
+ b=SIx96LTdRidNshy1GTq79zxAc5KDP6X/qC/q/Sbu1jntSCtg4cDGg9PKW5BI184e85
+ 9NEUf6Dtgl8YnqaxKZQrYitPxfqloI7WMFOukzVSUnKptAPgcP28Pb7w4vpK2swSJZgw
+ E/k/nFDbhccY9evZKKV/2juww6y5mU9avLfHxFp50i/DW0YiFgjTKfAewGoSqnUulH3p
+ 0TWeOVbpzJtMmm5rrhjzR0JzYr2bvI46aav1segYgvZx3zU4BpLzxzzpeLW+cPaRc6EF
+ 6gETaLXRhEualE/iahPnZRmECE/oOD0OnHtMGeepgUE5JXqfqOhUKgIWAMGe3qwswP8y
+ +u+w==
+X-Gm-Message-State: APjAAAXRoVlkwZZa3PXMr3k5Pd1H4GYYO2+JQdZxw08NXPTLQCZ5JM8m
+ DQ6VYPVX7XTcx/frb60PWB2MCaQBxFNJ1k6r8v+nk1hprRfAN40reYMgH24YtGXpJw==
+X-Google-Smtp-Source: APXvYqxzvi1VoIOoRXJFajCnQ/dE3fzFo5N+5Qat7cLvuByHbL41fsf69MyjqXOpnK7z54RKl4/zDq8J3tpC
+X-Received: by 2002:adf:f287:: with SMTP id k7mr10732366wro.183.1565957786460; 
+ Fri, 16 Aug 2019 05:16:26 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id d8sm90830wro.28.2019.08.16.05.14.54
+ by smtp-relay.gmail.com with ESMTPS id k67sm34897wma.53.2019.08.16.05.16.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2019 05:14:54 -0700 (PDT)
+ Fri, 16 Aug 2019 05:16:26 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyb89-0003L6-Nv; Fri, 16 Aug 2019 12:14:53 +0000
+ id 1hyb9d-0003MM-Ul; Fri, 16 Aug 2019 12:16:26 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 184B12743134; Fri, 16 Aug 2019 13:14:53 +0100 (BST)
+ id 2556927430D6; Fri, 16 Aug 2019 13:16:25 +0100 (BST)
+Date: Fri, 16 Aug 2019 13:16:25 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Message-ID: <20190816121625.GC4039@sirena.co.uk>
+References: <1565931794-7218-1-git-send-email-shengjiu.wang@nxp.com>
+MIME-Version: 1.0
 In-Reply-To: <1565931794-7218-1-git-send-email-shengjiu.wang@nxp.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190816121453.184B12743134@ypsilon.sirena.org.uk>
-Date: Fri, 16 Aug 2019 13:14:53 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, s.hauer@pengutronix.de, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- Mark Brown <broonie@kernel.org>, linux-imx@nxp.com, kernel@pengutronix.de,
- shawnguo@kernel.org, festevam@gmail.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: imx-audmux: Add driver suspend and
-	resume to support MEGA Fast" to the asoc tree
+X-Cookie: My life is a patio of fun!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-arm-kernel@lists.infradead.org, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, tiwai@suse.com,
+ lgirdwood@gmail.com, nicoleotsuka@gmail.com, linux-imx@nxp.com,
+ kernel@pengutronix.de, festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: imx-audmux: Add driver suspend and
+ resume to support MEGA Fast
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,147 +98,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7104005194791386508=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: imx-audmux: Add driver suspend and resume to support MEGA Fast
+--===============7104005194791386508==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Bu8it7iiRSEf40bY"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+--Bu8it7iiRSEf40bY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Fri, Aug 16, 2019 at 01:03:14AM -0400, Shengjiu Wang wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> +	for (i = 0; i < reg_max; i++)
+> +		regcache[i] = readl(audmux_base + i * 4);
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+If only there were some framework which provided a register cache!  :P
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--Bu8it7iiRSEf40bY
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
 
-From 8661ab5b23d6d30d8687fc05bc1dba8f9a64b444 Mon Sep 17 00:00:00 2001
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-Date: Fri, 16 Aug 2019 01:03:14 -0400
-Subject: [PATCH] ASoC: imx-audmux: Add driver suspend and resume to support
- MEGA Fast
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1WnpgACgkQJNaLcl1U
+h9AuxQf/SUokJSA9quJeah9hsT6jJhQKPr9uQwbuhnIcx6+bhKouXbtrmPWZsHF8
+zLUHwY1cvcQm2qitQxsYCZm1a65PWSIAX9P4s+GUfNVz9p2dL0q3TYDH8mDJBjWv
+CK1KDEfko6PsY4AHrSa13aNy7IImcOn2J5+/CUOonmPlKPS7CezGbfACaQMG5Zdf
+Ln4T/JnCQ6IZzFeJMwzD/RzXiwXOLc7SZ5mIADxbP+4rL9ByOG1BJy/rXIV9YbJe
+IQqO5Zu7uen0NjPDOQP/Uy8RF4HItglOTrO8Cjr/95gQ4QJKxLzQyq5NzEGJu1h8
+BgQWgH1vDAKWp04BZb2jzQtLMtmwiA==
+=hQwi
+-----END PGP SIGNATURE-----
 
-For i.MX6 SoloX, there is a mode of the SoC to shutdown all power
-source of modules during system suspend and resume procedure.
-Thus, AUDMUX needs to save all the values of registers before the
-system suspend and restore them after the system resume.
+--Bu8it7iiRSEf40bY--
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Link: https://lore.kernel.org/r/1565931794-7218-1-git-send-email-shengjiu.wang@nxp.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/fsl/imx-audmux.c | 54 +++++++++++++++++++++++++++++++++++++-
- 1 file changed, 53 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
-index b2351cd33b0f..16ede3b5cb32 100644
---- a/sound/soc/fsl/imx-audmux.c
-+++ b/sound/soc/fsl/imx-audmux.c
-@@ -23,6 +23,8 @@
- 
- static struct clk *audmux_clk;
- static void __iomem *audmux_base;
-+static u32 *regcache;
-+static u32 reg_max;
- 
- #define IMX_AUDMUX_V2_PTCR(x)		((x) * 8)
- #define IMX_AUDMUX_V2_PDCR(x)		((x) * 8 + 4)
-@@ -317,8 +319,23 @@ static int imx_audmux_probe(struct platform_device *pdev)
- 	if (of_id)
- 		pdev->id_entry = of_id->data;
- 	audmux_type = pdev->id_entry->driver_data;
--	if (audmux_type == IMX31_AUDMUX)
-+
-+	switch (audmux_type) {
-+	case IMX31_AUDMUX:
- 		audmux_debugfs_init();
-+		reg_max = 14;
-+		break;
-+	case IMX21_AUDMUX:
-+		reg_max = 6;
-+		break;
-+	default:
-+		dev_err(&pdev->dev, "unsupported version!\n");
-+		return -EINVAL;
-+	}
-+
-+	regcache = devm_kzalloc(&pdev->dev, sizeof(u32) * reg_max, GFP_KERNEL);
-+	if (!regcache)
-+		return -ENOMEM;
- 
- 	if (of_id)
- 		imx_audmux_parse_dt_defaults(pdev, pdev->dev.of_node);
-@@ -334,12 +351,47 @@ static int imx_audmux_remove(struct platform_device *pdev)
- 	return 0;
- }
- 
-+#ifdef CONFIG_PM_SLEEP
-+static int imx_audmux_suspend(struct device *dev)
-+{
-+	int i;
-+
-+	clk_prepare_enable(audmux_clk);
-+
-+	for (i = 0; i < reg_max; i++)
-+		regcache[i] = readl(audmux_base + i * 4);
-+
-+	clk_disable_unprepare(audmux_clk);
-+
-+	return 0;
-+}
-+
-+static int imx_audmux_resume(struct device *dev)
-+{
-+	int i;
-+
-+	clk_prepare_enable(audmux_clk);
-+
-+	for (i = 0; i < reg_max; i++)
-+		writel(regcache[i], audmux_base + i * 4);
-+
-+	clk_disable_unprepare(audmux_clk);
-+
-+	return 0;
-+}
-+#endif /* CONFIG_PM_SLEEP */
-+
-+static const struct dev_pm_ops imx_audmux_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(imx_audmux_suspend, imx_audmux_resume)
-+};
-+
- static struct platform_driver imx_audmux_driver = {
- 	.probe		= imx_audmux_probe,
- 	.remove		= imx_audmux_remove,
- 	.id_table	= imx_audmux_ids,
- 	.driver	= {
- 		.name	= DRIVER_NAME,
-+		.pm = &imx_audmux_pm,
- 		.of_match_table = imx_audmux_dt_ids,
- 	}
- };
--- 
-2.20.1
+--===============7104005194791386508==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7104005194791386508==--

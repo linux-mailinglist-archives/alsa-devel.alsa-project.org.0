@@ -2,81 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 071CE90138
-	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2019 14:18:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA669013B
+	for <lists+alsa-devel@lfdr.de>; Fri, 16 Aug 2019 14:19:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94E64166D;
-	Fri, 16 Aug 2019 14:17:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E64166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6AAE81669;
+	Fri, 16 Aug 2019 14:18:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6AAE81669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1565957926;
-	bh=r+VhlDhMoNDWS/Ho3sieu9aHnhnGXrpzlDF3pHzy9qQ=;
+	s=default; t=1565957963;
+	bh=OxzUUDwXWkXGAd3BdfcOpT3ukL5pwjYm3hEeEtLPLac=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Gy80FA8cNYrTHL3jyh59gK65hw2H0NXoRHPYzZr5/8jHeM9uw4n9zalpyGehnZg7R
-	 gCwx9+Y1e7pYVllubEZhMuiar3qUXAWTCodmyoybqe8dq51/ccuz6uczlIuAy59IOJ
-	 ct1MYpYzs2UVuMbR9LG9y0R6XJKd1nqo8SGdQENM=
+	b=cUIP77xG8me6UXNnj+yot6Qpms6AvI8PDka6u6NW2I7Lo+pzv9PtXLy5+eT0C7ZhN
+	 uDwW6KZZ8ugceFA+zOA34BSy78edmxcPIi9ee1q/uvbG9vsBj108JNsE2hcDr9OR++
+	 mHWIIm30qwUnd41aIPOp9lOA2icS5SNSVr6cwV9w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 765D0F805FD;
-	Fri, 16 Aug 2019 14:15:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E11CCF8060E;
+	Fri, 16 Aug 2019 14:15:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F1D1F805A9; Fri, 16 Aug 2019 14:15:00 +0200 (CEST)
+ id 49458F801DB; Fri, 16 Aug 2019 14:15:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f100.google.com (mail-ed1-f100.google.com
- [209.85.208.100])
+Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com
+ [209.85.128.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB579F80213
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25CC3F80268
  for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 14:14:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB579F80213
-Received: by mail-ed1-f100.google.com with SMTP id r12so4960059edo.5
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25CC3F80268
+Received: by mail-wm1-f99.google.com with SMTP id m125so3896620wmm.3
  for <alsa-devel@alsa-project.org>; Fri, 16 Aug 2019 05:14:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=bIOgsIG66FKLqsPtbNT6Z/IbToG+/Uy8s9mYtCuZOlI=;
- b=eCYTEVfpzhvcWhYU1bwsgsbewkPltMHyiBT/Rs7DXQgr6srFxvK8bLPlmF1kHUHRTK
- vzQlF2eaYxJZte9RwlZFUy5LdecZeyVGFWo6IhwiBy7mAMFHHGJWGKrLycTcmSErw1wK
- DuCxa3PVtNnLY8aIZYsRtBQA1mgnvQ/cQuS214jaqi23IaN6JddgWlv4G7m++crtHGA6
- t9rUTxqw9F4CY7iedhiyUgI0183CGqbUi7qUzLk9q9WMQ5MibU3ON46k65U3uQHMHcjw
- qkHUi/FDuf6WeoN6GsaGEEQdXhlxlrhIgH0R81kYnLyw5FduBGV1aLc7m5pD2jSFjhaV
- 0zCQ==
-X-Gm-Message-State: APjAAAXoIhr2ZvvaX8ha3d7fgc+cVV5JVCoA4H6NleZUqx3D5594mWBh
- PMUl/+BqlXeBlF7Qtt40d8ET7nIgm4FMONLQxHr7Gn5RU+spgRVbL186CI3ZMwdAdQ==
-X-Google-Smtp-Source: APXvYqz7Eflvrjtl8TUVvyMYmZCzSwxIFvbvSM1ggX/APG8ZgpS5gv+VDsOP3qpcy/RM7Zi5XsCJ9G0ucmXe
-X-Received: by 2002:a50:ac1a:: with SMTP id v26mr10508139edc.131.1565957693849; 
- Fri, 16 Aug 2019 05:14:53 -0700 (PDT)
+ bh=pLS4DxT1dPkt+ilKsw/CiwD4KIIKskFjBYK+1KbWdsE=;
+ b=P5MhXK+cczGRHtbTFjgwWahXkdA5iEQTX/QtQYyyIVnOk9SbHS1nF20Rr2I1VCt11q
+ FSyej8CpAmReYCIrSMlzzLQm1dmJNuehfPHZ5dpxEmbWAKYJ3187/6kVo/yZRjE1U/Qf
+ KL52fQwRXnKmqaQFRnloDOUZfMeK6g8U6tRhIzsFxZPLxtBTpr0xggKmUi0DFggbT7Ec
+ ZUHxpaZvHdCaAxytKdxUvtpon2uEEB9wpCX7gsWDPypSLzuMjY68gn+Wq1gADQCIPG1R
+ xVDGiznOP8e61/cZdBr8gHGETOvI0n0PPkuQkcrPNeS4dZEhQ6lFAW/JIKidOpXpxE3t
+ plIw==
+X-Gm-Message-State: APjAAAUoeEjOCDCj/YtXPUjN4f4sDfmRmS53vAT6tM5xCOGvU8BUYzTb
+ 3xJEErHvHJyuhflShSG0eXhujb4NhSKpc7/dFT9G1vgayaaZs9PoeFuo956+kjUFQQ==
+X-Google-Smtp-Source: APXvYqySVq6C/xknyvsxzKlqH7UE+qi1NJxPkT+wedb/ovVs8FyUI5SRHDjge/ud7Koip4TsqGPgyJPtw6LB
+X-Received: by 2002:a1c:cfc6:: with SMTP id f189mr6938434wmg.18.1565957694085; 
+ Fri, 16 Aug 2019 05:14:54 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id r3sm98867eds.40.2019.08.16.05.14.53
+ by smtp-relay.gmail.com with ESMTPS id d8sm90830wro.28.2019.08.16.05.14.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2019 05:14:53 -0700 (PDT)
+ Fri, 16 Aug 2019 05:14:54 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1hyb89-0003L2-HO; Fri, 16 Aug 2019 12:14:53 +0000
+ id 1hyb89-0003L6-Nv; Fri, 16 Aug 2019 12:14:53 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D96402743123; Fri, 16 Aug 2019 13:14:52 +0100 (BST)
+ id 184B12743134; Fri, 16 Aug 2019 13:14:53 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-In-Reply-To: <20190815192018.30570-2-pierre-louis.bossart@linux.intel.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <1565931794-7218-1-git-send-email-shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190816121452.D96402743123@ypsilon.sirena.org.uk>
-Date: Fri, 16 Aug 2019 13:14:52 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: topology: Add dummy support for
-	i.MX8 DAIs" to the asoc tree
+Message-Id: <20190816121453.184B12743134@ypsilon.sirena.org.uk>
+Date: Fri, 16 Aug 2019 13:14:53 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, s.hauer@pengutronix.de, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
+ Mark Brown <broonie@kernel.org>, linux-imx@nxp.com, kernel@pengutronix.de,
+ shawnguo@kernel.org, festevam@gmail.com, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: imx-audmux: Add driver suspend and
+	resume to support MEGA Fast" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,11 +100,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: topology: Add dummy support for i.MX8 DAIs
+   ASoC: imx-audmux: Add driver suspend and resume to support MEGA Fast
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -122,109 +125,110 @@ to this mail.
 Thanks,
 Mark
 
-From f59b16ef4ccea1b52f1c4e4c60ce507dc0bcc0ad Mon Sep 17 00:00:00 2001
-From: Daniel Baluta <daniel.baluta@nxp.com>
-Date: Thu, 15 Aug 2019 14:20:15 -0500
-Subject: [PATCH] ASoC: SOF: topology: Add dummy support for i.MX8 DAIs
+From 8661ab5b23d6d30d8687fc05bc1dba8f9a64b444 Mon Sep 17 00:00:00 2001
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+Date: Fri, 16 Aug 2019 01:03:14 -0400
+Subject: [PATCH] ASoC: imx-audmux: Add driver suspend and resume to support
+ MEGA Fast
 
-Add dummy support for SAI/ESAI digital audio interface
-IPs found on i.MX8 boards.
+For i.MX6 SoloX, there is a mode of the SoC to shutdown all power
+source of modules during system suspend and resume procedure.
+Thus, AUDMUX needs to save all the values of registers before the
+system suspend and restore them after the system resume.
 
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190815192018.30570-2-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Link: https://lore.kernel.org/r/1565931794-7218-1-git-send-email-shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof/dai.h         |  2 ++
- include/uapi/sound/sof/tokens.h |  8 ++++++++
- sound/soc/sof/topology.c        | 30 ++++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+)
+ sound/soc/fsl/imx-audmux.c | 54 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index da9825ad41d4..86494294274e 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -50,6 +50,8 @@ enum sof_ipc_dai_type {
- 	SOF_DAI_INTEL_DMIC,		/**< Intel DMIC */
- 	SOF_DAI_INTEL_HDA,		/**< Intel HD/A */
- 	SOF_DAI_INTEL_SOUNDWIRE,	/**< Intel SoundWire */
-+	SOF_DAI_IMX_SAI,		/**< i.MX SAI */
-+	SOF_DAI_IMX_ESAI,		/**< i.MX ESAI */
- };
+diff --git a/sound/soc/fsl/imx-audmux.c b/sound/soc/fsl/imx-audmux.c
+index b2351cd33b0f..16ede3b5cb32 100644
+--- a/sound/soc/fsl/imx-audmux.c
++++ b/sound/soc/fsl/imx-audmux.c
+@@ -23,6 +23,8 @@
  
- /* general purpose DAI configuration */
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index 6435240cef13..8f996857fb24 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -106,4 +106,12 @@
- /* for backward compatibility */
- #define SOF_TKN_EFFECT_TYPE	SOF_TKN_PROCESS_TYPE
+ static struct clk *audmux_clk;
+ static void __iomem *audmux_base;
++static u32 *regcache;
++static u32 reg_max;
  
-+/* SAI */
-+#define SOF_TKN_IMX_SAI_FIRST_TOKEN		1000
-+/* TODO: Add SAI tokens */
+ #define IMX_AUDMUX_V2_PTCR(x)		((x) * 8)
+ #define IMX_AUDMUX_V2_PDCR(x)		((x) * 8 + 4)
+@@ -317,8 +319,23 @@ static int imx_audmux_probe(struct platform_device *pdev)
+ 	if (of_id)
+ 		pdev->id_entry = of_id->data;
+ 	audmux_type = pdev->id_entry->driver_data;
+-	if (audmux_type == IMX31_AUDMUX)
 +
-+/* ESAI */
-+#define SOF_TKN_IMX_ESAI_FIRST_TOKEN		1100
-+/* TODO: Add ESAI tokens */
++	switch (audmux_type) {
++	case IMX31_AUDMUX:
+ 		audmux_debugfs_init();
++		reg_max = 14;
++		break;
++	case IMX21_AUDMUX:
++		reg_max = 6;
++		break;
++	default:
++		dev_err(&pdev->dev, "unsupported version!\n");
++		return -EINVAL;
++	}
 +
- #endif
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 9cffea142395..a215bf58b138 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -346,6 +346,8 @@ static const struct sof_dai_types sof_dais[] = {
- 	{"SSP", SOF_DAI_INTEL_SSP},
- 	{"HDA", SOF_DAI_INTEL_HDA},
- 	{"DMIC", SOF_DAI_INTEL_DMIC},
-+	{"SAI", SOF_DAI_IMX_SAI},
-+	{"ESAI", SOF_DAI_IMX_ESAI},
- };
++	regcache = devm_kzalloc(&pdev->dev, sizeof(u32) * reg_max, GFP_KERNEL);
++	if (!regcache)
++		return -ENOMEM;
  
- static enum sof_ipc_dai_type find_dai(const char *name)
-@@ -2513,6 +2515,26 @@ static int sof_link_ssp_load(struct snd_soc_component *scomp, int index,
- 	return ret;
+ 	if (of_id)
+ 		imx_audmux_parse_dt_defaults(pdev, pdev->dev.of_node);
+@@ -334,12 +351,47 @@ static int imx_audmux_remove(struct platform_device *pdev)
+ 	return 0;
  }
  
-+static int sof_link_sai_load(struct snd_soc_component *scomp, int index,
-+			     struct snd_soc_dai_link *link,
-+			     struct snd_soc_tplg_link_config *cfg,
-+			     struct snd_soc_tplg_hw_config *hw_config,
-+			     struct sof_ipc_dai_config *config)
++#ifdef CONFIG_PM_SLEEP
++static int imx_audmux_suspend(struct device *dev)
 +{
-+	/*TODO: Add implementation */
++	int i;
++
++	clk_prepare_enable(audmux_clk);
++
++	for (i = 0; i < reg_max; i++)
++		regcache[i] = readl(audmux_base + i * 4);
++
++	clk_disable_unprepare(audmux_clk);
++
 +	return 0;
 +}
 +
-+static int sof_link_esai_load(struct snd_soc_component *scomp, int index,
-+			      struct snd_soc_dai_link *link,
-+			      struct snd_soc_tplg_link_config *cfg,
-+			      struct snd_soc_tplg_hw_config *hw_config,
-+			      struct sof_ipc_dai_config *config)
++static int imx_audmux_resume(struct device *dev)
 +{
-+	/*TODO: Add implementation */
++	int i;
++
++	clk_prepare_enable(audmux_clk);
++
++	for (i = 0; i < reg_max; i++)
++		writel(regcache[i], audmux_base + i * 4);
++
++	clk_disable_unprepare(audmux_clk);
++
 +	return 0;
 +}
++#endif /* CONFIG_PM_SLEEP */
 +
- static int sof_link_dmic_load(struct snd_soc_component *scomp, int index,
- 			      struct snd_soc_dai_link *link,
- 			      struct snd_soc_tplg_link_config *cfg,
-@@ -2837,6 +2859,14 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 		ret = sof_link_hda_load(scomp, index, link, cfg, hw_config,
- 					&config);
- 		break;
-+	case SOF_DAI_IMX_SAI:
-+		ret = sof_link_sai_load(scomp, index, link, cfg, hw_config,
-+					&config);
-+		break;
-+	case SOF_DAI_IMX_ESAI:
-+		ret = sof_link_esai_load(scomp, index, link, cfg, hw_config,
-+					 &config);
-+		break;
- 	default:
- 		dev_err(sdev->dev, "error: invalid DAI type %d\n", config.type);
- 		ret = -EINVAL;
++static const struct dev_pm_ops imx_audmux_pm = {
++	SET_SYSTEM_SLEEP_PM_OPS(imx_audmux_suspend, imx_audmux_resume)
++};
++
+ static struct platform_driver imx_audmux_driver = {
+ 	.probe		= imx_audmux_probe,
+ 	.remove		= imx_audmux_remove,
+ 	.id_table	= imx_audmux_ids,
+ 	.driver	= {
+ 		.name	= DRIVER_NAME,
++		.pm = &imx_audmux_pm,
+ 		.of_match_table = imx_audmux_dt_ids,
+ 	}
+ };
 -- 
 2.20.1
 

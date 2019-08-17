@@ -2,83 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D70B0911FE
-	for <lists+alsa-devel@lfdr.de>; Sat, 17 Aug 2019 18:49:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41A5C91221
+	for <lists+alsa-devel@lfdr.de>; Sat, 17 Aug 2019 20:01:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5330E1671;
-	Sat, 17 Aug 2019 18:48:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5330E1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9C3E166B;
+	Sat, 17 Aug 2019 20:00:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9C3E166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566060549;
-	bh=iz3yCpN6txERuyPq9U1jiOFqKX4hvhYnCH8hcjHpWqI=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1566064878;
+	bh=r2QRvD64bdo71sC5fBBW+JJIKqlRlTTflUkhfsd6G64=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aVu45R64a/2QsFeM8L3mebE7VVsEHa7icYszeMX+1VdTh0Cxbw513BBz+JyGVFqB3
-	 BzBp6v56JWmkMYd8hYUxKYUAm8pPzVWz/eu0pqVcgkYCPWHG8F5gaQigW6/jNwZPEZ
-	 txz2JH6a+uJx+Z62l0q16pto4iBsqtTIb9fHniFM=
+	b=p6l1CRVDQ5rXSyE/22Yg1/PlHiDB75SW+rlLESRlFFkUHuwxV59TpDum+gQKVxR07
+	 bFjgacpB5S5BMnP2qPu422Ld0FrLVLJMXreXo6HBlnWl3sfsy79JlOZHQTcWHSo74l
+	 i0Sdx6sC97fFcq0MP4+lpHIMccNVUOpSA6I7IZ6s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78E51F8049C;
-	Sat, 17 Aug 2019 18:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0DA1F80290;
+	Sat, 17 Aug 2019 19:59:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B637F8044C; Sat, 17 Aug 2019 18:47:22 +0200 (CEST)
+ id 72DCBF8044C; Sat, 17 Aug 2019 19:59:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67DD7F801DA
- for <alsa-devel@alsa-project.org>; Sat, 17 Aug 2019 18:47:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67DD7F801DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HLKfJhCK"
-Received: by mail-ot1-x343.google.com with SMTP id z17so12316689otk.13
- for <alsa-devel@alsa-project.org>; Sat, 17 Aug 2019 09:47:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Y6lHobKEPKMpeYctJQQI3NiCyDXNtmDDjbRJpZfxdSk=;
- b=HLKfJhCKsG+Uu8cFzIg+h2D1V8eYtT6xW//W5b3/HLCYXJiBQwukrbptf1k/MpZTlN
- TU34iMa2ST5UwhD5LfDHr7dnccrvQ5+SfSopZqrUssyVthfemf4T0XnOiwxhYr2bui+B
- dA5xoywux6jtemjB8nc/aCuahO6E0Oab/7pn3L2yfvIxBiey/JycRSBl8T/3H5+tpqG1
- DawYZEfSxKmzdh2206Si9GZ7HlIK1GhNYNzm0xuN2pBxJFLM9VrMTF+oNpSlUA6e28p7
- 9A52hh5ZMxPxAZ01wkviBctNE3MtSu/YqPCpGSl+STNGPzMPXn05I9z3182UFZRtHogJ
- b7gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Y6lHobKEPKMpeYctJQQI3NiCyDXNtmDDjbRJpZfxdSk=;
- b=fWx9h6ZY0xYVmz4/FjIZwnKXtqy1WCwLdeAriaYXOojJPbN9iAZKw5raH2nwtMV7wH
- Y8AJkyPpnVgJgCtyrQzEG9vOna/D56RqorckOTXYVQdxlE3p7gnPf6HcGztX/aUICvyb
- kM+1kRhglzZ+xBnIv2jj5/vhg2Z1HgV+IamjYzJUVL5G6C5hYyyf+R1mpge4n8zfCb5+
- LLvUWmccLb/Ik7lSgaA3PkjwIPo/+n9DY3y8FwEex1tcCLBkqy3cXxxo9nANMOUIswq5
- FI/24A/abL9syWP6CboSVvagFb4gIuiGJDHcAkU8AbACjNaQ2TWyGQJsA9Xj+BCaJi3P
- 01WA==
-X-Gm-Message-State: APjAAAU/3Bk8uF/g/OAyH6t5T3vcqkwX7wapvDd6WMBAsTyhfW7NfNNS
- zr3w1WmwAmd5dd4EnCuXbXfetijV/BT5WZmHyOI=
-X-Google-Smtp-Source: APXvYqz1E4c8xobnB4/Ugi1zx3c7+5S5wJijV8ztjsreMdXm8dGs/Q4MuslqfPxiNR26rcnm/xUo+EHRMdoMPVialkM=
-X-Received: by 2002:a9d:6b96:: with SMTP id b22mr12337147otq.363.1566060437169; 
- Sat, 17 Aug 2019 09:47:17 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17120F801DA
+ for <alsa-devel@alsa-project.org>; Sat, 17 Aug 2019 19:59:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17120F801DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id D48AAAF94;
+ Sat, 17 Aug 2019 17:59:25 +0000 (UTC)
+Date: Sat, 17 Aug 2019 19:59:25 +0200
+Message-ID: <s5hmug77jwi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Hui Peng <benquike@gmail.com>
+In-Reply-To: <CAKpmkkXNcQWxco2Zxf5rBwyt7mHHkfZ2+COtZROyKmgsq2Ch_Q@mail.gmail.com>
 References: <20190817043208.12433-1-benquike@gmail.com>
  <s5hzhk8702j.wl-tiwai@suse.de>
  <CAKpmkkW3dxfRGqCOdfRm9nXmLjqXk5hTLLonBDBJXSM0Hnu6eg@mail.gmail.com>
  <s5hpnl37oki.wl-tiwai@suse.de>
-In-Reply-To: <s5hpnl37oki.wl-tiwai@suse.de>
-From: Hui Peng <benquike@gmail.com>
-Date: Sat, 17 Aug 2019 12:47:05 -0400
-Message-ID: <CAKpmkkXNcQWxco2Zxf5rBwyt7mHHkfZ2+COtZROyKmgsq2Ch_Q@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+ <CAKpmkkXNcQWxco2Zxf5rBwyt7mHHkfZ2+COtZROyKmgsq2Ch_Q@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: Mathias Payer <mathias.payer@nebelwelt.net>, Wenwen Wang <wang6495@umn.edu>,
  alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
@@ -96,212 +71,168 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-No, there was not triggering. I found it accidentally when I was going
-through the code.
-
-Yeah, you are right. it is handled in the last check. Is it defined in the
-spec that the descriptor needs to have 4/6/2 additional bytes for the
-bmControl field?, if so, it is easier to understand the using the code in
-the way in my first patch.
-
-If you think this is unnecessary, we can skip this patch.
-
-On Sat, Aug 17, 2019 at 12:18 PM Takashi Iwai <tiwai@suse.de> wrote:
-
-> On Sat, 17 Aug 2019 17:57:38 +0200,
-> Hui Peng wrote:
-> >
-> > Looking around, there are other suspicious codes. E.g., in the following
-> > function, it seems to be the same as `uac_mixer_unit_bmControls`, but it
-> is
-> > accessing `desc->bNrInPins + 5`, in case of UAC_VERSION_1.
-> > Is this intended?
->
-> Yes, this isn't for the mixer unit but for the processing unit.
-> They have different definitions.
->
-> Now back to the original report: I read the code again but fail to see
-> where is OOB access.  Let's see the function:
->
-> static int uac_mixer_unit_get_channels(struct mixer_build *state,
->                                        struct uac_mixer_unit_descriptor
-> *desc)
-> {
->         int mu_channels;
->         void *c;
->
->         if (desc->bLength < sizeof(*desc))
->                 return -EINVAL;
->         if (!desc->bNrInPins)
->                 return -EINVAL;
->         if (desc->bLength < sizeof(*desc) + desc->bNrInPins)
->                 return -EINVAL;
->
->         switch (state->mixer->protocol) {
->         case UAC_VERSION_1:
->         case UAC_VERSION_2:
->         default:
->                 if (desc->bLength < sizeof(*desc) + desc->bNrInPins + 1)
->                         return 0; /* no bmControls -> skip */
->                 mu_channels = uac_mixer_unit_bNrChannels(desc);
->                 break;
->         case UAC_VERSION_3:
->                 mu_channels = get_cluster_channels_v3(state,
->                                 uac3_mixer_unit_wClusterDescrID(desc));
->                 break;
->         }
->
->         if (!mu_channels)
->                 return 0;
->
-> ... until this point, mu_channels is calculated but no actual access
-> happens.  Then:
->
->         c = uac_mixer_unit_bmControls(desc, state->mixer->protocol);
->
-> ... this returns the *address* of the bmControls bitmap.  At this
-> point, it's not accessed yet.  Now:
->
->         if (c - (void *)desc + (mu_channels - 1) / 8 >= desc->bLength)
->                 return 0; /* no bmControls -> skip */
->
-> ... here we check whether the actual bitmap address plus the max
-> bitmap size overflows bLength.  And if it overflows, returns 0,
-> indicating no bitmap available.
->
-> So the code doesn't access but checks properly beforehand as far as I
-> understand.  Is the actual OOB access triggered by some program?
->
->
-> thanks,
->
-> Takashi
->
-> >
-> > static inline __u8 *uac_processing_unit_bmControls(struct
-> uac_processing_unit_descriptor *desc,
-> >                                                    int protocol)
-> > {
-> >         switch (protocol) {
-> >         case UAC_VERSION_1:
-> >                 return &desc->baSourceID[desc->bNrInPins + 5];
-> >         case UAC_VERSION_2:
-> >                 return &desc->baSourceID[desc->bNrInPins + 6];
-> >         case UAC_VERSION_3:
-> >                 return &desc->baSourceID[desc->bNrInPins + 2];
-> >         default:
-> >                 return NULL;
-> >         }
-> > }
-> >
-> > On Sat, Aug 17, 2019 at 2:55 AM Takashi Iwai <tiwai@suse.de> wrote:
-> >
-> >     On Sat, 17 Aug 2019 06:32:07 +0200,
-> >     Hui Peng wrote:
-> >     >
-> >     > `uac_mixer_unit_get_channels` calls `uac_mixer_unit_bmControls`
-> >     > to get pointer to bmControls field. The current implementation of
-> >     > `uac_mixer_unit_get_channels` does properly check the size of
-> >     > uac_mixer_unit_descriptor descriptor and may allow OOB access
-> >     > in `uac_mixer_unit_bmControls`.
-> >     >
-> >     > Reported-by: Hui Peng <benquike@gmail.com>
-> >     > Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
-> >     > Signed-off-by: Hui Peng <benquike@gmail.com>
-> >
-> >     Ah a good catch.
-> >
-> >     One easier fix in this case would be to get the offset from
-> >     uac_mixer_unit_bmControls(), e.g.
-> >
-> >             /* calculate the offset of bmControls field */
-> >             size_t bmc_offset = uac_mixer_unit_bmControls(NULL,
-> protocol) -
-> >     NULL;
-> >             ....
-> >             if (desc->bLength < bmc_offset)
-> >                     return 0;
-> >
-> >     thanks,
-> >
-> >     Takashi
-> >
-> >     > ---
-> >     >  sound/usb/mixer.c | 25 ++++++++++++++++++-------
-> >     >  1 file changed, 18 insertions(+), 7 deletions(-)
-> >     >
-> >     > diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-> >     > index b5927c3d5bc0..00e6274a63c3 100644
-> >     > --- a/sound/usb/mixer.c
-> >     > +++ b/sound/usb/mixer.c
-> >     > @@ -738,28 +738,39 @@ static int get_cluster_channels_v3(struct
-> >     mixer_build *state, unsigned int clust
-> >     >  static int uac_mixer_unit_get_channels(struct mixer_build *state,
-> >     >                                      struct
-> uac_mixer_unit_descriptor
-> >     *desc)
-> >     >  {
-> >     > -     int mu_channels;
-> >     > +     int mu_channels = 0;
-> >     >       void *c;
-> >     >
-> >     > -     if (desc->bLength < sizeof(*desc))
-> >     > -             return -EINVAL;
-> >     >       if (!desc->bNrInPins)
-> >     >               return -EINVAL;
-> >     > -     if (desc->bLength < sizeof(*desc) + desc->bNrInPins)
-> >     > -             return -EINVAL;
-> >     >
-> >     >       switch (state->mixer->protocol) {
-> >     >       case UAC_VERSION_1:
-> >     > +             // limit derived from uac_mixer_unit_bmControls
-> >     > +             if (desc->bLength < sizeof(*desc) + desc->bNrInPins
-> + 4)
-> >     > +                     return 0;
-> >     > +
-> >     > +             mu_channels = uac_mixer_unit_bNrChannels(desc);
-> >     > +             break;
-> >     > +
-> >     >       case UAC_VERSION_2:
-> >     > -     default:
-> >     > -             if (desc->bLength < sizeof(*desc) + desc->bNrInPins
-> + 1)
-> >     > +             // limit derived from uac_mixer_unit_bmControls
-> >     > +             if (desc->bLength < sizeof(*desc) + desc->bNrInPins
-> + 6)
-> >     >                       return 0; /* no bmControls -> skip */
-> >     > +
-> >     >               mu_channels = uac_mixer_unit_bNrChannels(desc);
-> >     >               break;
-> >     >       case UAC_VERSION_3:
-> >     > +             // limit derived from uac_mixer_unit_bmControls
-> >     > +             if (desc->bLength < sizeof(*desc) + desc->bNrInPins
-> + 2)
-> >     > +                     return 0; /* no bmControls -> skip */
-> >     > +
-> >     >               mu_channels = get_cluster_channels_v3(state,
-> >     >
->  uac3_mixer_unit_wClusterDescrID(desc));
-> >     >               break;
-> >     > +
-> >     > +     default:
-> >     > +             break;
-> >     >       }
-> >     >
-> >     >       if (!mu_channels)
-> >     > --
-> >     > 2.22.1
-> >     >
-> >     >
-> >
-> >
->
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gU2F0LCAxNyBBdWcgMjAxOSAxODo0NzowNSArMDIwMCwKSHVpIFBlbmcgd3JvdGU6Cj4gCj4g
+Tm8sIHRoZXJlIHdhcyBub3QgdHJpZ2dlcmluZy4gSSBmb3VuZCBpdCBhY2NpZGVudGFsbHkgd2hl
+biBJIHdhcyBnb2luZyB0aHJvdWdoCj4gdGhlIGNvZGUuCj4gCj4gWWVhaCwgeW91IGFyZSByaWdo
+dC4gaXQgaXMgaGFuZGxlZCBpbiB0aGUgbGFzdCBjaGVjay4gSXMgaXQgZGVmaW5lZCBpbiB0aGUK
+PiBzcGVjIHRoYXQgdGhlIGRlc2NyaXB0b3IgbmVlZHMgdG8gaGF2ZSA0LzYvMiBhZGRpdGlvbmFs
+IGJ5dGVzIGZvciB0aGUKPiBibUNvbnRyb2wgZmllbGQ/LCBpZiBzbywgaXQgaXMgZWFzaWVyIHRv
+IHVuZGVyc3RhbmQgdGhlIHVzaW5nIHRoZSBjb2RlIGluIHRoZQo+IHdheSBpbiBteSBmaXJzdCBw
+YXRjaC4KPiAKPiBJZiB5b3UgdGhpbmsgdGhpcyBpcyB1bm5lY2Vzc2FyeSwgd2UgY2FuIHNraXAg
+dGhpcyBwYXRjaC4KCldlbGwsIHRoZSBwYXRjaCBlc3NlbnRpYWxseSBvcGVuLWNvZGVzIHdoYXQg
+dGhlIGhlbHBlciBmdW5jdGlvbiBkb2VzCmFkZHMgb25lIG1vcmUgY2hlY2sgdW5uZWNlc3Nhcmls
+eSwgc28gSSBkb24ndCB0aGluayBpdCB3b3J0aC4KTGV0J3Mgc2tpcCBpdC4KCgp0aGFua3MsCgpU
+YWthc2hpCgo+IE9uIFNhdCwgQXVnIDE3LCAyMDE5IGF0IDEyOjE4IFBNIFRha2FzaGkgSXdhaSA8
+dGl3YWlAc3VzZS5kZT4gd3JvdGU6Cj4gCj4gICAgIE9uIFNhdCwgMTcgQXVnIDIwMTkgMTc6NTc6
+MzggKzAyMDAsCj4gICAgIEh1aSBQZW5nIHdyb3RlOgo+ICAgICA+Cj4gICAgID4gTG9va2luZyBh
+cm91bmQsIHRoZXJlIGFyZSBvdGhlciBzdXNwaWNpb3VzIGNvZGVzLiBFLmcuLCBpbiB0aGUgZm9s
+bG93aW5nCj4gICAgID4gZnVuY3Rpb24sIGl0IHNlZW1zIHRvIGJlIHRoZSBzYW1lIGFzIGB1YWNf
+bWl4ZXJfdW5pdF9ibUNvbnRyb2xzYCwgYnV0IGl0Cj4gICAgIGlzCj4gICAgID4gYWNjZXNzaW5n
+IGBkZXNjLT5iTnJJblBpbnMgKyA1YCwgaW4gY2FzZSBvZiBVQUNfVkVSU0lPTl8xLgo+ICAgICA+
+IElzIHRoaXMgaW50ZW5kZWQ/Cj4gICAgCj4gICAgIFllcywgdGhpcyBpc24ndCBmb3IgdGhlIG1p
+eGVyIHVuaXQgYnV0IGZvciB0aGUgcHJvY2Vzc2luZyB1bml0Lgo+ICAgICBUaGV5IGhhdmUgZGlm
+ZmVyZW50IGRlZmluaXRpb25zLgo+ICAgIAo+ICAgICBOb3cgYmFjayB0byB0aGUgb3JpZ2luYWwg
+cmVwb3J0OiBJIHJlYWQgdGhlIGNvZGUgYWdhaW4gYnV0IGZhaWwgdG8gc2VlCj4gICAgIHdoZXJl
+IGlzIE9PQiBhY2Nlc3MuwqAgTGV0J3Mgc2VlIHRoZSBmdW5jdGlvbjoKPiAgICAKPiAgICAgc3Rh
+dGljIGludCB1YWNfbWl4ZXJfdW5pdF9nZXRfY2hhbm5lbHMoc3RydWN0IG1peGVyX2J1aWxkICpz
+dGF0ZSwKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqBzdHJ1Y3QgdWFjX21peGVyX3VuaXRfZGVzY3JpcHRvcgo+ICAgICAqZGVz
+YykKPiAgICAgewo+ICAgICDCoCDCoCDCoCDCoCBpbnQgbXVfY2hhbm5lbHM7Cj4gICAgIMKgIMKg
+IMKgIMKgIHZvaWQgKmM7Cj4gICAgCj4gICAgIMKgIMKgIMKgIMKgIGlmIChkZXNjLT5iTGVuZ3Ro
+IDwgc2l6ZW9mKCpkZXNjKSkKPiAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0dXJuIC1F
+SU5WQUw7Cj4gICAgIMKgIMKgIMKgIMKgIGlmICghZGVzYy0+Yk5ySW5QaW5zKQo+ICAgICDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gLUVJTlZBTDsKPiAgICAgwqAgwqAgwqAgwqAgaWYg
+KGRlc2MtPmJMZW5ndGggPCBzaXplb2YoKmRlc2MpICsgZGVzYy0+Yk5ySW5QaW5zKQo+ICAgICDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gLUVJTlZBTDsKPiAgICAKPiAgICAgwqAgwqAg
+wqAgwqAgc3dpdGNoIChzdGF0ZS0+bWl4ZXItPnByb3RvY29sKSB7Cj4gICAgIMKgIMKgIMKgIMKg
+IGNhc2UgVUFDX1ZFUlNJT05fMToKPiAgICAgwqAgwqAgwqAgwqAgY2FzZSBVQUNfVkVSU0lPTl8y
+Ogo+ICAgICDCoCDCoCDCoCDCoCBkZWZhdWx0Ogo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCBpZiAoZGVzYy0+Ykxlbmd0aCA8IHNpemVvZigqZGVzYykgKyBkZXNjLT5iTnJJblBpbnMgKyAx
+KQo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gMDsgLyog
+bm8gYm1Db250cm9scyAtPiBza2lwICovCj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIG11
+X2NoYW5uZWxzID0gdWFjX21peGVyX3VuaXRfYk5yQ2hhbm5lbHMoZGVzYyk7Cj4gICAgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIGJyZWFrOwo+ICAgICDCoCDCoCDCoCDCoCBjYXNlIFVBQ19WRVJT
+SU9OXzM6Cj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIG11X2NoYW5uZWxzID0gZ2V0X2Ns
+dXN0ZXJfY2hhbm5lbHNfdjMoc3RhdGUsCj4gICAgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIHVhYzNfbWl4ZXJfdW5pdF93Q2x1c3RlckRlc2NySUQoZGVz
+YykpOwo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBicmVhazsKPiAgICAgwqAgwqAgwqAg
+wqAgfQo+ICAgIAo+ICAgICDCoCDCoCDCoCDCoCBpZiAoIW11X2NoYW5uZWxzKQo+ICAgICDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gMDsKPiAgICAKPiAgICAgLi4uIHVudGlsIHRoaXMg
+cG9pbnQsIG11X2NoYW5uZWxzIGlzIGNhbGN1bGF0ZWQgYnV0IG5vIGFjdHVhbCBhY2Nlc3MKPiAg
+ICAgaGFwcGVucy7CoCBUaGVuOgo+ICAgIAo+ICAgICDCoCDCoCDCoCDCoCBjID0gdWFjX21peGVy
+X3VuaXRfYm1Db250cm9scyhkZXNjLCBzdGF0ZS0+bWl4ZXItPnByb3RvY29sKTsKPiAgICAKPiAg
+ICAgLi4uIHRoaXMgcmV0dXJucyB0aGUgKmFkZHJlc3MqIG9mIHRoZSBibUNvbnRyb2xzIGJpdG1h
+cC7CoCBBdCB0aGlzCj4gICAgIHBvaW50LCBpdCdzIG5vdCBhY2Nlc3NlZCB5ZXQuwqAgTm93Ogo+
+ICAgIAo+ICAgICDCoCDCoCDCoCDCoCBpZiAoYyAtICh2b2lkICopZGVzYyArIChtdV9jaGFubmVs
+cyAtIDEpIC8gOCA+PSBkZXNjLT5iTGVuZ3RoKQo+ICAgICDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCByZXR1cm4gMDsgLyogbm8gYm1Db250cm9scyAtPiBza2lwICovCj4gICAgCj4gICAgIC4uLiBo
+ZXJlIHdlIGNoZWNrIHdoZXRoZXIgdGhlIGFjdHVhbCBiaXRtYXAgYWRkcmVzcyBwbHVzIHRoZSBt
+YXgKPiAgICAgYml0bWFwIHNpemUgb3ZlcmZsb3dzIGJMZW5ndGguwqAgQW5kIGlmIGl0IG92ZXJm
+bG93cywgcmV0dXJucyAwLAo+ICAgICBpbmRpY2F0aW5nIG5vIGJpdG1hcCBhdmFpbGFibGUuCj4g
+ICAgCj4gICAgIFNvIHRoZSBjb2RlIGRvZXNuJ3QgYWNjZXNzIGJ1dCBjaGVja3MgcHJvcGVybHkg
+YmVmb3JlaGFuZCBhcyBmYXIgYXMgSQo+ICAgICB1bmRlcnN0YW5kLsKgIElzIHRoZSBhY3R1YWwg
+T09CIGFjY2VzcyB0cmlnZ2VyZWQgYnkgc29tZSBwcm9ncmFtPwo+IAo+ICAgICB0aGFua3MsCj4g
+ICAgCj4gICAgIFRha2FzaGkKPiAgICAKPiAgICAgPgo+ICAgICA+IHN0YXRpYyBpbmxpbmUgX191
+OCAqdWFjX3Byb2Nlc3NpbmdfdW5pdF9ibUNvbnRyb2xzKHN0cnVjdAo+ICAgICB1YWNfcHJvY2Vz
+c2luZ191bml0X2Rlc2NyaXB0b3IgKmRlc2MsCj4gICAgID7CoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBp
+bnQgcHJvdG9jb2wpCj4gICAgID4gewo+ICAgICA+wqAgwqAgwqAgwqAgwqBzd2l0Y2ggKHByb3Rv
+Y29sKSB7Cj4gICAgID7CoCDCoCDCoCDCoCDCoGNhc2UgVUFDX1ZFUlNJT05fMToKPiAgICAgPsKg
+IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgcmV0dXJuICZkZXNjLT5iYVNvdXJjZUlEW2Rlc2MtPmJO
+ckluUGlucyArIDVdOwo+ICAgICA+wqAgwqAgwqAgwqAgwqBjYXNlIFVBQ19WRVJTSU9OXzI6Cj4g
+ICAgID7CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiAmZGVzYy0+YmFTb3VyY2VJRFtk
+ZXNjLT5iTnJJblBpbnMgKyA2XTsKPiAgICAgPsKgIMKgIMKgIMKgIMKgY2FzZSBVQUNfVkVSU0lP
+Tl8zOgo+ICAgICA+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqByZXR1cm4gJmRlc2MtPmJhU291
+cmNlSURbZGVzYy0+Yk5ySW5QaW5zICsgMl07Cj4gICAgID7CoCDCoCDCoCDCoCDCoGRlZmF1bHQ6
+Cj4gICAgID7CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiBOVUxMOwo+ICAgICA+wqAg
+wqAgwqAgwqAgwqB9Cj4gICAgID4gfQo+ICAgICA+Cj4gICAgID4gT24gU2F0LCBBdWcgMTcsIDIw
+MTkgYXQgMjo1NSBBTSBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+IHdyb3RlOgo+ICAgICA+
+Cj4gICAgID7CoCDCoCDCoE9uIFNhdCwgMTcgQXVnIDIwMTkgMDY6MzI6MDcgKzAyMDAsCj4gICAg
+ID7CoCDCoCDCoEh1aSBQZW5nIHdyb3RlOgo+ICAgICA+wqAgwqAgwqA+Cj4gICAgID7CoCDCoCDC
+oD4gYHVhY19taXhlcl91bml0X2dldF9jaGFubmVsc2AgY2FsbHMgYHVhY19taXhlcl91bml0X2Jt
+Q29udHJvbHNgCj4gICAgID7CoCDCoCDCoD4gdG8gZ2V0IHBvaW50ZXIgdG8gYm1Db250cm9scyBm
+aWVsZC4gVGhlIGN1cnJlbnQgaW1wbGVtZW50YXRpb24gb2YKPiAgICAgPsKgIMKgIMKgPiBgdWFj
+X21peGVyX3VuaXRfZ2V0X2NoYW5uZWxzYCBkb2VzIHByb3Blcmx5IGNoZWNrIHRoZSBzaXplIG9m
+Cj4gICAgID7CoCDCoCDCoD4gdWFjX21peGVyX3VuaXRfZGVzY3JpcHRvciBkZXNjcmlwdG9yIGFu
+ZCBtYXkgYWxsb3cgT09CIGFjY2Vzcwo+ICAgICA+wqAgwqAgwqA+IGluIGB1YWNfbWl4ZXJfdW5p
+dF9ibUNvbnRyb2xzYC4KPiAgICAgPsKgIMKgIMKgPgo+ICAgICA+wqAgwqAgwqA+IFJlcG9ydGVk
+LWJ5OiBIdWkgUGVuZyA8YmVucXVpa2VAZ21haWwuY29tPgo+ICAgICA+wqAgwqAgwqA+IFJlcG9y
+dGVkLWJ5OiBNYXRoaWFzIFBheWVyIDxtYXRoaWFzLnBheWVyQG5lYmVsd2VsdC5uZXQ+Cj4gICAg
+ID7CoCDCoCDCoD4gU2lnbmVkLW9mZi1ieTogSHVpIFBlbmcgPGJlbnF1aWtlQGdtYWlsLmNvbT4K
+PiAgICAgPsKgIMKgCj4gICAgID7CoCDCoCDCoEFoIGEgZ29vZCBjYXRjaC4KPiAgICAgPsKgIMKg
+Cj4gICAgID7CoCDCoCDCoE9uZSBlYXNpZXIgZml4IGluIHRoaXMgY2FzZSB3b3VsZCBiZSB0byBn
+ZXQgdGhlIG9mZnNldCBmcm9tCj4gICAgID7CoCDCoCDCoHVhY19taXhlcl91bml0X2JtQ29udHJv
+bHMoKSwgZS5nLgo+ICAgICA+wqAgwqAKPiAgICAgPsKgIMKgIMKgwqAgwqAgwqAgwqAgLyogY2Fs
+Y3VsYXRlIHRoZSBvZmZzZXQgb2YgYm1Db250cm9scyBmaWVsZCAqLwo+ICAgICA+wqAgwqAgwqDC
+oCDCoCDCoCDCoCBzaXplX3QgYm1jX29mZnNldCA9IHVhY19taXhlcl91bml0X2JtQ29udHJvbHMo
+TlVMTCwKPiAgICAgcHJvdG9jb2wpIC0KPiAgICAgPsKgIMKgIMKgTlVMTDsKPiAgICAgPsKgIMKg
+IMKgwqAgwqAgwqAgwqAgLi4uLgo+ICAgICA+wqAgwqAgwqDCoCDCoCDCoCDCoCBpZiAoZGVzYy0+
+Ykxlbmd0aCA8IGJtY19vZmZzZXQpCj4gICAgID7CoCDCoCDCoMKgIMKgIMKgIMKgIMKgIMKgIMKg
+IMKgIHJldHVybiAwOwo+ICAgICA+wqAgwqAKPiAgICAgPsKgIMKgIMKgdGhhbmtzLAo+ICAgICA+
+wqAgwqAKPiAgICAgPsKgIMKgIMKgVGFrYXNoaQo+ICAgICA+Cj4gICAgID7CoCDCoCDCoD4gLS0t
+Cj4gICAgID7CoCDCoCDCoD7CoCBzb3VuZC91c2IvbWl4ZXIuYyB8IDI1ICsrKysrKysrKysrKysr
+KysrKy0tLS0tLS0KPiAgICAgPsKgIMKgIMKgPsKgIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNlcnRp
+b25zKCspLCA3IGRlbGV0aW9ucygtKQo+ICAgICA+wqAgwqAgwqA+Cj4gICAgID7CoCDCoCDCoD4g
+ZGlmZiAtLWdpdCBhL3NvdW5kL3VzYi9taXhlci5jIGIvc291bmQvdXNiL21peGVyLmMKPiAgICAg
+PsKgIMKgIMKgPiBpbmRleCBiNTkyN2MzZDViYzAuLjAwZTYyNzRhNjNjMyAxMDA2NDQKPiAgICAg
+PsKgIMKgIMKgPiAtLS0gYS9zb3VuZC91c2IvbWl4ZXIuYwo+ICAgICA+wqAgwqAgwqA+ICsrKyBi
+L3NvdW5kL3VzYi9taXhlci5jCj4gICAgID7CoCDCoCDCoD4gQEAgLTczOCwyOCArNzM4LDM5IEBA
+IHN0YXRpYyBpbnQgZ2V0X2NsdXN0ZXJfY2hhbm5lbHNfdjMoc3RydWN0Cj4gICAgID7CoCDCoCDC
+oG1peGVyX2J1aWxkICpzdGF0ZSwgdW5zaWduZWQgaW50IGNsdXN0Cj4gICAgID7CoCDCoCDCoD7C
+oCBzdGF0aWMgaW50IHVhY19taXhlcl91bml0X2dldF9jaGFubmVscyhzdHJ1Y3QgbWl4ZXJfYnVp
+bGQgKnN0YXRlLAo+ICAgICA+wqAgwqAgwqA+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
+wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgc3RydWN0Cj4gICAgIHVhY19taXhlcl91bml0X2Rl
+c2NyaXB0b3IKPiAgICAgPsKgIMKgIMKgKmRlc2MpCj4gICAgID7CoCDCoCDCoD7CoCB7Cj4gICAg
+ID7CoCDCoCDCoD4gLcKgIMKgIMKgaW50IG11X2NoYW5uZWxzOwo+ICAgICA+wqAgwqAgwqA+ICvC
+oCDCoCDCoGludCBtdV9jaGFubmVscyA9IDA7Cj4gICAgID7CoCDCoCDCoD7CoCDCoCDCoCDCoHZv
+aWQgKmM7Cj4gICAgID7CoCDCoCDCoD7CoAo+ICAgICA+wqAgwqAgwqA+IC3CoCDCoCDCoGlmIChk
+ZXNjLT5iTGVuZ3RoIDwgc2l6ZW9mKCpkZXNjKSkKPiAgICAgPsKgIMKgIMKgPiAtwqAgwqAgwqAg
+wqAgwqAgwqAgwqByZXR1cm4gLUVJTlZBTDsKPiAgICAgPsKgIMKgIMKgPsKgIMKgIMKgIMKgaWYg
+KCFkZXNjLT5iTnJJblBpbnMpCj4gICAgID7CoCDCoCDCoD7CoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oHJldHVybiAtRUlOVkFMOwo+ICAgICA+wqAgwqAgwqA+IC3CoCDCoCDCoGlmIChkZXNjLT5iTGVu
+Z3RoIDwgc2l6ZW9mKCpkZXNjKSArIGRlc2MtPmJOckluUGlucykKPiAgICAgPsKgIMKgIMKgPiAt
+wqAgwqAgwqAgwqAgwqAgwqAgwqByZXR1cm4gLUVJTlZBTDsKPiAgICAgPsKgIMKgIMKgPsKgCj4g
+ICAgID7CoCDCoCDCoD7CoCDCoCDCoCDCoHN3aXRjaCAoc3RhdGUtPm1peGVyLT5wcm90b2NvbCkg
+ewo+ICAgICA+wqAgwqAgwqA+wqAgwqAgwqAgwqBjYXNlIFVBQ19WRVJTSU9OXzE6Cj4gICAgID7C
+oCDCoCDCoD4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgLy8gbGltaXQgZGVyaXZlZCBmcm9tIHVhY19t
+aXhlcl91bml0X2JtQ29udHJvbHMKPiAgICAgPsKgIMKgIMKgPiArwqAgwqAgwqAgwqAgwqAgwqAg
+wqBpZiAoZGVzYy0+Ykxlbmd0aCA8IHNpemVvZigqZGVzYykgKyBkZXNjLT5iTnJJblBpbnMKPiAg
+ICAgKyA0KQo+ICAgICA+wqAgwqAgwqA+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oHJldHVybiAwOwo+ICAgICA+wqAgwqAgwqA+ICsKPiAgICAgPsKgIMKgIMKgPiArwqAgwqAgwqAg
+wqAgwqAgwqAgwqBtdV9jaGFubmVscyA9IHVhY19taXhlcl91bml0X2JOckNoYW5uZWxzKGRlc2Mp
+Owo+ICAgICA+wqAgwqAgwqA+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoGJyZWFrOwo+ICAgICA+wqAg
+wqAgwqA+ICsKPiAgICAgPsKgIMKgIMKgPsKgIMKgIMKgIMKgY2FzZSBVQUNfVkVSU0lPTl8yOgo+
+ICAgICA+wqAgwqAgwqA+IC3CoCDCoCDCoGRlZmF1bHQ6Cj4gICAgID7CoCDCoCDCoD4gLcKgIMKg
+IMKgIMKgIMKgIMKgIMKgaWYgKGRlc2MtPmJMZW5ndGggPCBzaXplb2YoKmRlc2MpICsgZGVzYy0+
+Yk5ySW5QaW5zCj4gICAgICsgMSkKPiAgICAgPsKgIMKgIMKgPiArwqAgwqAgwqAgwqAgwqAgwqAg
+wqAvLyBsaW1pdCBkZXJpdmVkIGZyb20gdWFjX21peGVyX3VuaXRfYm1Db250cm9scwo+ICAgICA+
+wqAgwqAgwqA+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoGlmIChkZXNjLT5iTGVuZ3RoIDwgc2l6ZW9m
+KCpkZXNjKSArIGRlc2MtPmJOckluUGlucwo+ICAgICArIDYpCj4gICAgID7CoCDCoCDCoD7CoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiAwOyAvKiBubyBibUNvbnRyb2xz
+IC0+IHNraXAgKi8KPiAgICAgPsKgIMKgIMKgPiArCj4gICAgID7CoCDCoCDCoD7CoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoG11X2NoYW5uZWxzID0gdWFjX21peGVyX3VuaXRfYk5yQ2hhbm5lbHMoZGVz
+Yyk7Cj4gICAgID7CoCDCoCDCoD7CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGJyZWFrOwo+ICAgICA+
+wqAgwqAgwqA+wqAgwqAgwqAgwqBjYXNlIFVBQ19WRVJTSU9OXzM6Cj4gICAgID7CoCDCoCDCoD4g
+K8KgIMKgIMKgIMKgIMKgIMKgIMKgLy8gbGltaXQgZGVyaXZlZCBmcm9tIHVhY19taXhlcl91bml0
+X2JtQ29udHJvbHMKPiAgICAgPsKgIMKgIMKgPiArwqAgwqAgwqAgwqAgwqAgwqAgwqBpZiAoZGVz
+Yy0+Ykxlbmd0aCA8IHNpemVvZigqZGVzYykgKyBkZXNjLT5iTnJJblBpbnMKPiAgICAgKyAyKQo+
+ICAgICA+wqAgwqAgwqA+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJldHVybiAw
+OyAvKiBubyBibUNvbnRyb2xzIC0+IHNraXAgKi8KPiAgICAgPsKgIMKgIMKgPiArCj4gICAgID7C
+oCDCoCDCoD7CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoG11X2NoYW5uZWxzID0gZ2V0X2NsdXN0ZXJf
+Y2hhbm5lbHNfdjMoc3RhdGUsCj4gICAgID7CoCDCoCDCoD7CoCDCoCDCoCDCoCDCoCDCoCDCoCDC
+oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHVhYzNfbWl4ZXJfdW5pdF93Q2x1c3RlckRlc2NySUQK
+PiAgICAgKGRlc2MpKTsKPiAgICAgPsKgIMKgIMKgPsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgYnJl
+YWs7Cj4gICAgID7CoCDCoCDCoD4gKwo+ICAgICA+wqAgwqAgwqA+ICvCoCDCoCDCoGRlZmF1bHQ6
+Cj4gICAgID7CoCDCoCDCoD4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgYnJlYWs7Cj4gICAgID7CoCDC
+oCDCoD7CoCDCoCDCoCDCoH0KPiAgICAgPsKgIMKgIMKgPsKgCj4gICAgID7CoCDCoCDCoD7CoCDC
+oCDCoCDCoGlmICghbXVfY2hhbm5lbHMpCj4gICAgID7CoCDCoCDCoD4gLS0KPiAgICAgPsKgIMKg
+IMKgPiAyLjIyLjEKPiAgICAgPsKgIMKgIMKgPgo+ICAgICA+wqAgwqAgwqA+Cj4gICAgID4KPiAg
+ICAgPgo+IAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0
+cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVs
+Cg==

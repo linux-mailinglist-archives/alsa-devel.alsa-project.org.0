@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93E92958AB
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:41:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F25B958AC
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:42:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2570716B1;
-	Tue, 20 Aug 2019 09:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2570716B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2D46D820;
+	Tue, 20 Aug 2019 09:41:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D46D820
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566286895;
-	bh=5YxmLufu7np6GlKnWwRhmBKQWslNq45LIuuqcEK8eK4=;
+	s=default; t=1566286934;
+	bh=Kzm7crB5ZLIyK1epOoHCh6N8erqv5Xq4D+wv9g3fCik=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=alt+/VNURpzH4LHHeKGupMF2j/MQ58uApno8HngvVts+srnFJwKwt5r/iqZnhhc0O
-	 viffc8Jsc/vMgnMmbSx8vIy1ZLh8RgXv3Tke4QySLwcP0VNhggFPTIx5pnCTIeCy81
-	 iH3EzsHgMYoy0kt5lsEwCGWExwck8fBdH6ZPoj7U=
+	b=MRBDEOcnmD6ElvwCdS+uLWJIBvkmlq0g9+3UDb5SKx2iWJSlUrM9WCObKgA0zWfna
+	 WTwg1sU+M1u7DcZe503x7LI2qm3u/6L+efdHuRa8QSWlS6MpGtDhlwiHn2WSv76l+s
+	 BsKf5S91b6hD1lW1qJgxNLx8TSspUZM6l/PB7eX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC9DBF80C43;
-	Tue, 20 Aug 2019 09:19:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1D6DF80C87;
+	Tue, 20 Aug 2019 09:19:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 767B9F80308; Mon, 19 Aug 2019 21:55:41 +0200 (CEST)
+ id 7CD5AF805E0; Mon, 19 Aug 2019 21:55:41 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68BEBF80633
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68BEBF80633
+ by alsa1.perex.cz (Postfix) with ESMTPS id 952E1F80600
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 952E1F80600
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ArqWz0An"
+ header.b="vLf3uhfa"
 Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0469A22CF8;
- Mon, 19 Aug 2019 19:26:18 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id AC342206C1;
+ Mon, 19 Aug 2019 19:26:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566242779;
- bh=pQ0Ph5rDPXfgCMzspmmfi9ilgy1fIlAZIRPD3Q25eMU=;
+ s=default; t=1566242783;
+ bh=NkCMmkVl3T6WU19pJkM1jw+KUsL+tEDiyFAFpO+j2ro=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ArqWz0AnMOdmhO835g6d4XeWAlJn1HhRUJuMTUbfai/uRIO2GpwRWbRIEUI+fu326
- 0D9GyE8X3d4q4fKSLn3SW3mGtcCTMEcmskatfV/vsHMpPqCjGmcuMJzT04MVaelMFI
- GhRJXzGZdXNd9hawaBHazR0jBMq8Jry2QPgRu2dQ=
+ b=vLf3uhfaAW/j21Hpmt7Z4rI1p3G2MD971VXopOvLQ3RyEMnR/J/+fpBuHHt6Ii0+R
+ yq3OmiXkeFXd6eRbZCHGIdbtemv0HnmMEFhOuMs0OWeX82QEAltgGAFJi6fTMNNRRQ
+ ZozEEp5vmxeElaekxd8dtFjtnAVEFyLDzF6/4eCg=
 From: Maxime Ripard <mripard@kernel.org>
 To: Chen-Yu Tsai <wens@csie.org>, Maxime Ripard <mripard@kernel.org>,
  lgirdwood@gmail.com, broonie@kernel.org
-Date: Mon, 19 Aug 2019 21:25:23 +0200
-Message-Id: <6a0ee0bc1375bcb53840d3fb2d2f3d9732b8e57e.1566242458.git-series.maxime.ripard@bootlin.com>
+Date: Mon, 19 Aug 2019 21:25:24 +0200
+Message-Id: <5ade5de27d23918c5ef30387c23aead951d5ad64.1566242458.git-series.maxime.ripard@bootlin.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
 References: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
@@ -59,8 +59,8 @@ MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 20 Aug 2019 09:18:29 +0200
 Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 16/21] ASoC: sun4i-i2s: Fix the LRCK period on
-	A83t
+Subject: [alsa-devel] [PATCH 17/21] ASoC: sun4i-i2s: Remove duplicated
+	quirks structure
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,27 +80,53 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Maxime Ripard <maxime.ripard@bootlin.com>
 
-Unlike the previous SoCs, the A83t, like the newer ones, need the LRCK
-bitfield to be set. Let's add it.
+The A83t and H3 have the same quirks, so it doesn't make sense to duplicate
+the quirks structure.
 
-Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
 Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/sunxi/sun4i-i2s.c | 21 +--------------------
+ 1 file changed, 1 insertion(+), 20 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 5dd742f24a7e..65bc296abb37 100644
+index 65bc296abb37..5dcbab0b4bcb 100644
 --- a/sound/soc/sunxi/sun4i-i2s.c
 +++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -1047,6 +1047,7 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+@@ -1062,25 +1062,6 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+ 	.set_fmt		= sun8i_i2s_set_soc_fmt,
+ };
+ 
+-static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+-	.has_reset		= true,
+-	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
+-	.sun4i_i2s_regmap	= &sun8i_i2s_regmap_config,
+-	.has_fmt_set_lrck_period = true,
+-	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
+-	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
+-	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
+-	.bclk_dividers		= sun8i_i2s_clk_div,
+-	.num_bclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
+-	.mclk_dividers		= sun8i_i2s_clk_div,
+-	.num_mclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
+-	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
+-	.get_sr			= sun8i_i2s_get_sr_wss,
+-	.get_wss		= sun8i_i2s_get_sr_wss,
+-	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
+-	.set_fmt		= sun8i_i2s_set_soc_fmt,
+-};
+-
+ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
  	.has_reset		= true,
  	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
- 	.sun4i_i2s_regmap	= &sun4i_i2s_regmap_config,
-+	.has_fmt_set_lrck_period = true,
- 	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
- 	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
+@@ -1264,7 +1245,7 @@ static const struct of_device_id sun4i_i2s_match[] = {
+ 	},
+ 	{
+ 		.compatible = "allwinner,sun8i-h3-i2s",
+-		.data = &sun8i_h3_i2s_quirks,
++		.data = &sun8i_a83t_i2s_quirks,
+ 	},
+ 	{
+ 		.compatible = "allwinner,sun50i-a64-codec-i2s",
 -- 
 git-series 0.9.1
 _______________________________________________

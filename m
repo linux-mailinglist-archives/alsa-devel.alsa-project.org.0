@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE568958BE
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:46:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1979F958C9
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:47:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 75F8A168F;
-	Tue, 20 Aug 2019 09:45:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75F8A168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B8CC16D2;
+	Tue, 20 Aug 2019 09:46:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B8CC16D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566287168;
-	bh=uVBVP52GBwUuGj5KqEjwHwofGEaLFn1ELoaD8giqXQw=;
+	s=default; t=1566287249;
+	bh=Yh2e5jiHFuyOdrMvzxGvaEU0ZHvYVRcEOUeRm8pL2eA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jN8j78EXKAqBZRACPSObx77Bf/v2zwlHPWXTyBTYu9xWX7pXyh3Ibhiihf/Cu6jcA
-	 ykeL4L8Ju8+mtJgCU3zLSE0XWdhoI+xvlnuuBnJDWtuCLFuxAQCgjH0aoe8/v+SnMG
-	 vOIjgfsNcMH7U2fhGk/kfVBmrrPkW9838F93gBV4=
+	b=OueB9w0agWZBKSPg4M2u/tNIUL4jdCut/XrWuzzKcXXzDOie6s/sF64YjupmOqg8b
+	 kF9os7wQhjk6MyQfGwbs3/C338X7POCeN3KFyYQa+xzSdEPRHoOWBx4QC82j7k+R25
+	 GhLkseF2jetN1nBvvR0K6lxbXMVRS7gMxQgWUWVw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACEF0F89622;
-	Tue, 20 Aug 2019 09:19:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C65BF8962D;
+	Tue, 20 Aug 2019 09:19:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D160F805A1; Mon, 19 Aug 2019 22:05:37 +0200 (CEST)
+ id 394E7F80308; Mon, 19 Aug 2019 22:05:37 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4414DF8063A
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4414DF8063A
+ by alsa1.perex.cz (Postfix) with ESMTPS id C35DFF8063B
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C35DFF8063B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p6RdV/Ep"
+ header.b="b+UpZ4Mj"
 Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1FB3722CF4;
- Mon, 19 Aug 2019 19:26:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D969A22DA7;
+ Mon, 19 Aug 2019 19:26:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566242792;
- bh=VhgrAobupFnriBgAL6k/Hl/4bbBPIrD3sq1OXXE+ARA=;
+ s=default; t=1566242795;
+ bh=cj4R6p1TwnZUbmNQojsIlCMMsJUcZHjWCmxAfdU6wi8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p6RdV/Ep6Zv/LdJ6M63W54T7enRfvTzAFbFTpGD6mSPL6xECJZJtZgMIyJThLBUQE
- h8hfQANxa2XBhT49fZUNlmbNmMs6tSRA8KA/gyh+0tSsqtI/Fbm247keYgCwCuuJOJ
- kClyW1GK3ieNh3fbnQAI6YrtJpWlJ6xlbIERyND0=
+ b=b+UpZ4MjGH6pYnpbvs3A3YVv4L0Jt5W+rs3liCwCywVc3ga3OUlZQiI5YnHr4tVbH
+ GsZJYFu5mbFZpEy9qsthvtCMf6SMxwpc1qpSpA7gEdhctBuzL85H458le1KwIvrqky
+ uoNmgsSgydWMuVp8N30e4LTNXw2pt43NsY0JIDto=
 From: Maxime Ripard <mripard@kernel.org>
 To: Chen-Yu Tsai <wens@csie.org>, Maxime Ripard <mripard@kernel.org>,
  lgirdwood@gmail.com, broonie@kernel.org
-Date: Mon, 19 Aug 2019 21:25:27 +0200
-Message-Id: <26392af30b3e7b31ee48d5b867d45be8675db046.1566242458.git-series.maxime.ripard@bootlin.com>
+Date: Mon, 19 Aug 2019 21:25:28 +0200
+Message-Id: <74cc9562e056627e14f186089d349022b65f59e7.1566242458.git-series.maxime.ripard@bootlin.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
 References: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
@@ -59,8 +59,8 @@ MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 20 Aug 2019 09:18:29 +0200
 Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 20/21] ASoC: sun4i-i2s: Add support for TDM
-	slots
+Subject: [alsa-devel] [PATCH 21/21] ASoC: sun4i-i2s: Add support for DSP
+	formats
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,128 +80,132 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Maxime Ripard <maxime.ripard@bootlin.com>
 
-The i2s controller supports TDM, for up to 8 slots. Let's support the TDM
-API.
+In addition to the I2S format, the controller also supports the DSP_*
+formats.
+
+This requires some extra care on the LRCK period calculation, since the
+controller, with the PCM formats, require that the value set is no longer
+the periods of LRCK for a single channel, but for all of them.
+
+Let's add the code to deal with this, and support the DSP_A and DSP_B
+formats.
 
 Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 40 ++++++++++++++++++++++++++++++++------
- 1 file changed, 34 insertions(+), 6 deletions(-)
+ sound/soc/sunxi/sun4i-i2s.c | 44 ++++++++++++++++++++++++++++++--------
+ 1 file changed, 35 insertions(+), 9 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 0dac09814b65..4f76daeaaed7 100644
+index 4f76daeaaed7..198e3c580297 100644
 --- a/sound/soc/sunxi/sun4i-i2s.c
 +++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -168,6 +168,8 @@ struct sun4i_i2s {
+@@ -130,7 +130,6 @@ struct sun4i_i2s;
+  * struct sun4i_i2s_quirks - Differences between SoC variants.
+  *
+  * @has_reset: SoC needs reset deasserted.
+- * @has_fmt_set_lrck_period: SoC requires lrclk period to be set.
+  * @reg_offset_txdata: offset of the tx fifo.
+  * @sun4i_i2s_regmap: regmap config to use.
+  * @field_clkdiv_mclk_en: regmap field to enable mclk output.
+@@ -139,7 +138,6 @@ struct sun4i_i2s;
+  */
+ struct sun4i_i2s_quirks {
+ 	bool				has_reset;
+-	bool				has_fmt_set_lrck_period;
+ 	unsigned int			reg_offset_txdata;	/* TX FIFO */
+ 	const struct regmap_config	*sun4i_i2s_regmap;
+ 
+@@ -167,6 +165,7 @@ struct sun4i_i2s {
+ 	struct regmap	*regmap;
  	struct reset_control *rst;
  
++	unsigned int	format;
  	unsigned int	mclk_freq;
-+	unsigned int	slots;
-+	unsigned int	slot_width;
+ 	unsigned int	slots;
+ 	unsigned int	slot_width;
+@@ -355,12 +354,6 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
  
- 	struct snd_dmaengine_dai_dma_data	capture_dma_data;
- 	struct snd_dmaengine_dai_dma_data	playback_dma_data;
-@@ -287,7 +289,7 @@ static bool sun4i_i2s_oversample_is_valid(unsigned int oversample)
+ 	regmap_field_write(i2s->field_clkdiv_mclk_en, 1);
  
- static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
- 				  unsigned int rate,
--				  unsigned int channels,
-+				  unsigned int slots,
- 				  unsigned int word_size)
- {
- 	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-@@ -335,7 +337,7 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
- 
- 	bclk_parent_rate = i2s->variant->get_bclk_parent_rate(i2s);
- 	bclk_div = sun4i_i2s_get_bclk_div(i2s, bclk_parent_rate,
--					  rate, channels, word_size);
-+					  rate, slots, word_size);
- 	if (bclk_div < 0) {
- 		dev_err(dai->dev, "Unsupported BCLK divider: %d\n", bclk_div);
- 		return -EINVAL;
-@@ -419,6 +421,10 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
- 				  const struct snd_pcm_hw_params *params)
- {
- 	unsigned int channels = params_channels(params);
-+	unsigned int slots = channels;
-+
-+	if (i2s->slots)
-+		slots = i2s->slots;
- 
- 	/* Map the channels for playback and capture */
- 	regmap_write(i2s->regmap, SUN8I_I2S_TX_CHAN_MAP_REG, 0x76543210);
-@@ -428,7 +434,6 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
- 	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
- 			   SUN4I_I2S_CHAN_SEL_MASK,
- 			   SUN4I_I2S_CHAN_SEL(channels));
+-	/* Set sync period */
+-	if (i2s->variant->has_fmt_set_lrck_period)
+-		regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT0_REG,
+-				   SUN8I_I2S_FMT0_LRCK_PERIOD_MASK,
+-				   SUN8I_I2S_FMT0_LRCK_PERIOD(params_physical_width(params)));
 -
- 	regmap_update_bits(i2s->regmap, SUN8I_I2S_RX_CHAN_SEL_REG,
- 			   SUN4I_I2S_CHAN_SEL_MASK,
- 			   SUN4I_I2S_CHAN_SEL(channels));
-@@ -452,10 +457,18 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *dai)
- {
- 	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-+	unsigned int word_size = params_width(params);
- 	unsigned int channels = params_channels(params);
-+	unsigned int slots = channels;
- 	int ret, sr, wss;
- 	u32 width;
- 
-+	if (i2s->slots)
-+		slots = i2s->slots;
-+
-+	if (i2s->slot_width)
-+		word_size = i2s->slot_width;
-+
- 	ret = i2s->variant->set_chan_cfg(i2s, params);
- 	if (ret < 0) {
- 		dev_err(dai->dev, "Invalid channel configuration\n");
-@@ -477,15 +490,14 @@ static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
- 	if (sr < 0)
- 		return -EINVAL;
- 
--	wss = i2s->variant->get_wss(i2s, params_width(params));
-+	wss = i2s->variant->get_wss(i2s, word_size);
- 	if (wss < 0)
- 		return -EINVAL;
- 
- 	regmap_field_write(i2s->field_fmt_wss, wss);
- 	regmap_field_write(i2s->field_fmt_sr, sr);
- 
--	return sun4i_i2s_set_clk_rate(dai, params_rate(params),
--				      channels, params_width(params));
-+	return sun4i_i2s_set_clk_rate(dai, params_rate(params), slots, word_size);
- }
- 
- static int sun4i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
-@@ -785,10 +797,26 @@ static int sun4i_i2s_set_sysclk(struct snd_soc_dai *dai, int clk_id,
  	return 0;
  }
  
-+static int sun4i_i2s_set_tdm_slot(struct snd_soc_dai *dai,
-+				  unsigned int tx_mask, unsigned int rx_mask,
-+				  int slots, int slot_width)
-+{
-+	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
-+
-+	if (slots > 8)
-+		return -EINVAL;
-+
-+	i2s->slots = slots;
-+	i2s->slot_width = slot_width;
-+
-+	return 0;
-+}
-+
- static const struct snd_soc_dai_ops sun4i_i2s_dai_ops = {
- 	.hw_params	= sun4i_i2s_hw_params,
- 	.set_fmt	= sun4i_i2s_set_fmt,
- 	.set_sysclk	= sun4i_i2s_set_sysclk,
-+	.set_tdm_slot	= sun4i_i2s_set_tdm_slot,
- 	.trigger	= sun4i_i2s_trigger,
- };
+@@ -422,6 +415,7 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+ {
+ 	unsigned int channels = params_channels(params);
+ 	unsigned int slots = channels;
++	unsigned int lrck_period;
  
+ 	if (i2s->slots)
+ 		slots = i2s->slots;
+@@ -445,6 +439,26 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+ 			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM_MASK,
+ 			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM(channels));
+ 
++	switch (i2s->format & SND_SOC_DAIFMT_FORMAT_MASK) {
++	case SND_SOC_DAIFMT_DSP_A:
++	case SND_SOC_DAIFMT_DSP_B:
++	case SND_SOC_DAIFMT_LEFT_J:
++	case SND_SOC_DAIFMT_RIGHT_J:
++		lrck_period = params_physical_width(params) * slots;
++		break;
++
++	case SND_SOC_DAIFMT_I2S:
++		lrck_period = params_physical_width(params);
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT0_REG,
++			   SUN8I_I2S_FMT0_LRCK_PERIOD_MASK,
++			   SUN8I_I2S_FMT0_LRCK_PERIOD(lrck_period));
++
+ 	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
+ 			   SUN8I_I2S_TX_CHAN_EN_MASK,
+ 			   SUN8I_I2S_TX_CHAN_EN(channels));
+@@ -614,6 +628,16 @@ static int sun8i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
+ 
+ 	/* DAI Mode */
+ 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++	case SND_SOC_DAIFMT_DSP_A:
++		mode = SUN8I_I2S_CTRL_MODE_PCM;
++		offset = 1;
++		break;
++
++	case SND_SOC_DAIFMT_DSP_B:
++		mode = SUN8I_I2S_CTRL_MODE_PCM;
++		offset = 0;
++		break;
++
+ 	case SND_SOC_DAIFMT_I2S:
+ 		mode = SUN8I_I2S_CTRL_MODE_LEFT;
+ 		offset = 1;
+@@ -682,6 +706,9 @@ static int sun4i_i2s_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 			   SUN4I_I2S_FIFO_CTRL_RX_MODE_MASK,
+ 			   SUN4I_I2S_FIFO_CTRL_TX_MODE(1) |
+ 			   SUN4I_I2S_FIFO_CTRL_RX_MODE(1));
++
++	i2s->format = fmt;
++
+ 	return 0;
+ }
+ 
+@@ -1072,7 +1099,6 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+ 	.has_reset		= true,
+ 	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
+ 	.sun4i_i2s_regmap	= &sun4i_i2s_regmap_config,
+-	.has_fmt_set_lrck_period = true,
+ 	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
+ 	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
+ 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
 -- 
 git-series 0.9.1
 _______________________________________________

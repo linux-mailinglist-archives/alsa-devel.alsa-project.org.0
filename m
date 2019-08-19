@@ -2,82 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3571A94EB4
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2019 22:07:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D3F94EB5
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2019 22:08:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A810C1671;
-	Mon, 19 Aug 2019 22:06:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A810C1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id E07C91678;
+	Mon, 19 Aug 2019 22:07:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E07C91678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566245245;
-	bh=Db7Q1Zv+87qISq2Q9KEbbfGEdCZCM8ZaqOO8bj0AdxE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1566245293;
+	bh=hJF5YF826XiTk4+hPsvuL7Szx58tvSIUVt4G8x0MUPs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Uw26you5mmzJuOS1qg6X6EvYAJzaBJhQVdTO6JAQ0607ieFJaQofgPekiiDNM2tym
-	 DnSeOeih+m2lj8Lo7xgSOJeL7/BTNSDYffLKrYWIBNxGbzbFwW/k3SGlr9+vLQmCUm
-	 NsJJy9Ue0zIyNrQMKtfAZylT6BEd5GmFrxpJ+duc=
+	b=POUVnh4oePIv9lHth2yq4k8i8bxnVhmem/+tN5SP0At6P0iFAsh7xQtHju7yuVL+l
+	 AsBj3+m9ioe94TMPy6qiPQrrUQzMEabXBgr5QAmwDhAIKTItDQYN5Wi6hEuFGpi9f3
+	 uP/DINvRbmE1kS4oWUJLT2LYPLkAAhw2ZsL2WnHA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD510F80307;
-	Mon, 19 Aug 2019 22:05:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BFF8F80306;
+	Mon, 19 Aug 2019 22:07:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EBAEF800BF; Mon, 19 Aug 2019 22:05:39 +0200 (CEST)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A2DFF800BF
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:33:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A2DFF800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="dDmrjwtj"
-Received: by mail-wm1-x341.google.com with SMTP id k1so281743wmi.1
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 12:33:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=jwOmrzIorIXU8gN1nXrGIATHUfw2aXf6c/ATluB8lJ0=;
- b=dDmrjwtj2ICv2BZnWbgOsIeHUkViXbEPJ3dc78gx8PF2Wk/yBpDD8Cy8PntqYm0st0
- hEK6osgfMIU3m2hrKAoqsdbTaDl/0Bub3BFHrR+TiLiQb3iuIRQ7MJP/3zdoxcLB9Wxl
- fRTtAwqSSCZTeYFyUgxvxH5VKHK7DFI9Z9CMr6tnT/DDQE60zQ4DWyVhQ+FgUEnFO/Xs
- vamvxejItuBWZU1++gsdJRRb9Gz4GBSuWOWLV6GrB669l+xCxDBpi7YE6ifPasSYk/fB
- NiUtTPF8zjr8pGAFMiDH8v1Q9Hcsocb/NjRsoodab8D72Wumn7NJ67PvZMO07DULzM49
- BP4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=jwOmrzIorIXU8gN1nXrGIATHUfw2aXf6c/ATluB8lJ0=;
- b=L338ov2dcViJBXQXzM0FjLT+jD44GVAkZuS00N/thCP8VmRP8occPHRZfxZVVuhHVb
- 5Xd+cwsOkRw1sKGA53h/ws8nEvHT1p+JNzWmSP3qtlf+VXX1QMUKuY6zNuZw1KWXGFFP
- GBC1qjgjbU0zVVOXQg0LVZG7Gv9/WXSXyrqDcF1bSjBXhP7vMwzbsHArTYDVdamMEOwu
- IzR1lFwfiVmR0f4eAm2F3+U6l29KSHXylLKBGAZ5CC2dCFdZDoCTS/P2tT1KmRQzw9Px
- 9PWmucKegN8CIlFhIYKVAu0KHlGbIlGOgZtDWayWFPC1W57tjQCcsFxA1dFNL+hGxPLJ
- hOwg==
-X-Gm-Message-State: APjAAAVzBhKUQhKvz5jr3aBQdtKEC4pjnGjlQ4ZMn+chP9J/6Zv6hrdS
- pvYwX8Zq2/XS+mygjsQNGwc0i7wnFuWhvPKuH+E=
-X-Google-Smtp-Source: APXvYqz6TEd0zRl8rir6tQIYiVKYuRBqJjzNvSqolSP/89bP7gHMhEzwWaxQUD6XeYY5cB2xPaa9I77B0vbBZN98Ihs=
-X-Received: by 2002:a1c:6a0b:: with SMTP id f11mr20383727wmc.87.1566243190180; 
- Mon, 19 Aug 2019 12:33:10 -0700 (PDT)
+ id 98683F802BE; Mon, 19 Aug 2019 22:07:18 +0200 (CEST)
+Received: from mail1.xn--80adja5bqm.su (xn--80adja5bqm.su [45.62.210.217])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5B038F802FB
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:57:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B038F802FB
+Received: by mail1.xn--80adja5bqm.su (Postfix, from userid 1000)
+ id BFA7A200A34C; Mon, 19 Aug 2019 21:57:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail1.xn--80adja5bqm.su BFA7A200A34C
+Date: Mon, 19 Aug 2019 21:57:14 +0200
+From: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
+To: Takashi Iwai <tiwai@suse.de>
+Message-Id: <20190819195714.GA2737@xn--80adja5bqm.su>
+References: <20190404192430.GA24729@xn--80adja5bqm.su>
+ <20190719111231.GA26592@xn--80adja5bqm.su>
+ <s5hzhla9j8b.wl-tiwai@suse.de>
+ <20190720165435.GA5855@xn--80adja5bqm.su>
 MIME-Version: 1.0
-References: <20190815154500.29090-1-pierre-louis.bossart@linux.intel.com>
- <20190815154500.29090-2-pierre-louis.bossart@linux.intel.com>
- <20190815164942.GB4841@sirena.co.uk>
- <CAEnQRZAM6VkCewfVYysz-NmPNEz-CSe763Cv-kz9kyNjx8uMtQ@mail.gmail.com>
- <20190819134616.GR5999@X250> <20190819192406.GC5563@sirena.co.uk>
-In-Reply-To: <20190819192406.GC5563@sirena.co.uk>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 19 Aug 2019 22:32:58 +0300
-Message-ID: <CAEnQRZC_YFZJFbbwey8pQcAfUbcKxKjC88i-Zz7sJEG7zbUXGw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>, Daniel Baluta <daniel.baluta@nxp.com>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Shawn Guo <shawnguo@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/3] ASoC: SOF: Add OF DSP device support
+Content-Disposition: inline
+In-Reply-To: <20190720165435.GA5855@xn--80adja5bqm.su>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,32 +64,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Aug 19, 2019 at 10:24 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Mon, Aug 19, 2019 at 03:46:17PM +0200, Shawn Guo wrote:
-> > On Fri, Aug 16, 2019 at 11:43:13AM +0300, Daniel Baluta wrote:
->
-> > > Binding documentation together with the actual dts nodes were sent
-> > > to Shawn.
->
-> > > https://lkml.org/lkml/2019/8/7/682
->
-> > > Can you pick 4/5 and 5/5 patches from series above? 1-3 are sent to
-> > > Mark to go through to alsa tree.
->
-> > I just picked up DTS patch (4/5), but DT bindings should generally go
-> > through driver/subsystem tree as preference.
->
-> Right, especially so we get domain experts looking at things before they
-> are merged.
+Hi Takashi,
 
-Mark/Shawn,
+On Sat, Jul 20, 2019 at 06:54:35PM +0200, Sergey 'Jin' Bostandzhyan wrote:
+> On Fri, Jul 19, 2019 at 04:44:52PM +0200, Takashi Iwai wrote:
+> > It might be some other external stuff like an external amp that is
+> > missing.  Often it's managed via GPIO or EAPD (that is controlled by
+> > HD-audio itself), but sometimes via a vendor-specific verb, or even
+> > over a completely different i2c...
+> > 
+> > In the case of vendor verbs, you can take a look at other quirks for
+> > similar models that touches lots of COEF stuff.
+> 
+> thanks for the pointers, does not sound simple, let's see if I get anywhere,
+> I will for sure try.
 
-So the binding documentation should go through Mark tree right? We
-will update the
-patchseries and Pierre will sent v2, if I understood it correctly.
+I am going at a slow pace, but I did not give up and I'd be happy if you or
+anyone else from the list would find the time to answer some questions from 
+time to time.
 
-Daniel.
+Right now I am mostly studying patch_realtek.c, as a first step I want to
+make sure that at least my known pins get set up by the driver without
+having to go via hdajackretask.
+
+I got my build set up, I also dug up hda-decode-pincfg from the hda-emu
+sources and made it compile (very useful if one wants to understand and
+compare the pin configurations in patch_realtek.c), so now I am trying
+things out every other evening.
+
+One part that is not quite clear to me: what the heck is ALC669X?
+
+Could someone please explain the meaning of alc_codec_rename_pci_table ?
+
+Entry for my vendor id looks like this:
+    { 0x10ec0670, 0x1025, 0, "ALC669X" },
+
+If I search for that vendor id further in the code, I see that it gets
+patched as ALC662?
+
+    HDA_CODEC_ENTRY(0x10ec0670, "ALC670", patch_alc662),
+
+At the same time the documentation in models.rst lists those numbers
+together:
+
+ALC66x/67x/892
+
+I already looked at the hda-audio specification from Intel to get a general
+understanding, but I was also pulling some Realtek specs which do describe
+implemented verbs and things like that (my hope was to see something
+vendor related which could hint me how to enable the subwoofer).
+
+I was not able to find any 669 Realtek datasheets, I did however find
+the ones for ALC665 and ALC892. How specific is all of this, i.e. should I
+keep looking for the exact one or am I on the wrong path here?
+
+Kind regards,
+Jin
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,82 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FFE595892
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:34:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A7E89589D
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:38:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DAF5A168A;
-	Tue, 20 Aug 2019 09:33:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAF5A168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C658169D;
+	Tue, 20 Aug 2019 09:37:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C658169D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566286454;
-	bh=hmJTMmGONJBDYdoOc6OngfEXE/Pk2z9a/1qI29N/Ego=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NcyFGc/dg5LWeCVdsa6gO+O8Y/XC2ZgcabDbFgajRKvkOAaS9cLtn/NytmqD1uWJp
-	 dtESDhwEuUpMoZ23HUZdsqdk91CkJHBLjZSsp2bSYJQIqcliyO7iWY9Fh69jY9F6ja
-	 x2XWaa0BRYkpGYlM8Y2eCzCfvpH7Q0MsxGfarzYY=
+	s=default; t=1566286694;
+	bh=+cPGwVdiG9834Eo9mnjFjcryL1TnXFgEHBBxWvAtSG8=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=PR7FlMe642P4Ze3h9HHgIy6yAD2qCX0KAODEaMLqkcoyhPe83XNjRXszLziIJ9yEh
+	 3HmvNoEgk4G4mORGb7y+RlRTg6Tn24XkW88B6wpB3y4dXzJXzSk6+Daf41CQhJSL+x
+	 8MNJ+NRYJkTrSwdwk5mk1OA+k/3sCZ+raAqUi9VE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 121B5F8076B;
-	Tue, 20 Aug 2019 09:18:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BA86F80878;
+	Tue, 20 Aug 2019 09:19:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AAB08F8044C; Sat, 17 Aug 2019 07:28:44 +0200 (CEST)
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,HTML_FONT_LOW_CONTRAST,
- HTML_MESSAGE,MSGID_FROM_MTA_HEADER,PRX_APP_ATTACH,SPF_HELO_PASS,SPF_PASS,
- SUBJ_ALL_CAPS autolearn=disabled version=3.4.0
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id 6A10BF8045E; Mon, 19 Aug 2019 21:55:39 +0200 (CEST)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E645F801DB
- for <alsa-devel@alsa-project.org>; Sat, 17 Aug 2019 07:28:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E645F801DB
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3508F80610
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3508F80610
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com
- header.b="O+GgkG7M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1566019705;
- bh=HPPP94YtPAYzjKrBwNiw+uP7FTo3Tqz1gcWxzaxdOfY=;
- h=From:To:Subject:Mime-Version:Date:Message-ID;
- b=O+GgkG7Mow9tqK/j60lNCSPNFMWUrwRHBLMc+F98sBoo+AWuyJWNI4GqOPkKruAHz
- GSc3VnL+CYZVcpL+oGUkI2gfzrHE5JHTkIHIcMS4fs6sdmywjCW1UWkSVmimsshCtC
- /iWJg3ugm7P7IH01t9I0RAyUS9ILclTqozaR989U=
-X-QQ-FEAT: Tubeh+4qKFQMs0tjIppbEPCL/OI/baPBsnSLpyFuX1TgynlAe4pMTIoTW44bp
- oHHAKZiIB7oeErMYgOXwCUT6wL2mDG1LOWbXK6QFSjNp+KjNhhRC2JOHp1at4ciOvs61A1p
- RrYadye+k1Vm4NaGC+9buPOq+SWw9i1dqNpgMDLbU7wahIKZLRYY+3zvAU9+OPRMCxZI/C3
- Zb9QU97TqG5bhgC+O7/pd7v5F5Y6dyWMAwOAVSFo6rhRcPwjV7FtJifjI0+j0t8zcAX9ogs
- G7fB/JRXfq9Rc/x84YuB79zlrQtrB1ZFqo+773gGc3NMYp
-X-QQ-SSF: 00000000000000F000000000000000Z
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 58.20.148.124
-X-QQ-STYLE: 
-X-QQ-mid: webmail452t1566019703t282134
-From: "=?gb18030?B?wO7Lyb7P?=" <songjulee@foxmail.com>
-To: "=?gb18030?B?YWxzYS1kZXZlbA==?=" <alsa-devel@alsa-project.org>
-Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="----=_NextPart_5D579077_0BC59820_583FD29D"
-Content-Transfer-Encoding: 8Bit
-Date: Sat, 17 Aug 2019 13:28:23 +0800
-X-Priority: 3
-Message-ID: <tencent_9E5954F6F34A1DAB3934AE4BEB54D3EBBC09@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Sat, 17 Aug 2019 13:28:24 +0800 (CST)
-Feedback-ID: webmail:foxmail.com:bgforeign:bgforeign4
-X-QQ-Bgrelay: 1
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="uMpKf+WV"
+Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9D94A206C1;
+ Mon, 19 Aug 2019 19:26:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1566242776;
+ bh=VQisiV0NIuLIf9+CmCsYjURNwOBi/jgC+hl2YoTNV70=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=uMpKf+WVlYwY8VPvQhpGEdTQPNXKPhOzHBvkDTnWBycN8AzYf2+wensloYhxL4Zt2
+ 4r2tm735SjrU5kqjUemDd2Ze/8Jm/KJZrAEeldbm9XDuqFGSCPe/XN3j+LINEBEJvA
+ bi+DY+wqWFsCtZdvwc1D2gxdsFP5KsshsO4XJSE4=
+From: Maxime Ripard <mripard@kernel.org>
+To: Chen-Yu Tsai <wens@csie.org>, Maxime Ripard <mripard@kernel.org>,
+ lgirdwood@gmail.com, broonie@kernel.org
+Date: Mon, 19 Aug 2019 21:25:11 +0200
+Message-Id: <6414463de69584e8227fa495b13aa5f4798e1f0e.1566242458.git-series.maxime.ripard@bootlin.com>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
+References: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
+MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 20 Aug 2019 09:18:29 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: [alsa-devel] ALSA HW PARAMS GET BUFFER  TIME ERROR
+Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH 04/21] ASoC: sun4i-i2s: Move the channel
+	configuration to a callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,226 +73,310 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is a multi-part message in MIME format.
+From: Maxime Ripard <maxime.ripard@bootlin.com>
 
-------=_NextPart_5D579077_0BC59820_583FD29D
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
+The two main generations of our I2S controller require a slightly different
+channel configuration, mostly because of a quite different register layout
+and some additional registers being needed on the newer generation.
 
-SGVsbG8hDQogICAgICAgICBEZWFyIERldmVsb3BlcnMsIEkgYW0gZnJvbSBITlUgVW5pdmVy
-c2l0eSAoQ2hhbmdzaGEsIENoaW5hKSwgYSBmcmVzaCBtYW4gaW4gQUxTQSBzb3VuZCBkZXZl
-bG9waW5nLiBSZWNlbnRseSwgYSBhbHNhIGJ1Zyggc25kX3BjbV9od19wYXJhbXNfZ2V0X2J1
-ZmZlcl90aW1lICBzbmRfcGNtX2h3X3BhcmFtc19nZXRfcGVyaW9kX3RpbWUgKSBvY2N1cmVk
-IHRvIG1lIHdoaWNoIG1hZGUgbWUgY29uZnVzZWQhIA0KICAgICAgICAgRmlyc3RseSAoU3Rl
-cCAxKSBJIHNldCBoYXJkd2FyZSBwYXJhbXMgbm9ybWFsbHkocmF0ZTogNDQxMDAsIGNoYW5u
-ZWw6IDIsIGZvcm1hdDogUzE2X0xFLCBhY2Nlc3M6IHJhd19pbnRlcmxlYXZlZCwgcGVyaW9k
-IHNpemU6IG5vdCBzZXQsIGJ1ZmZlciBzaXplOiBub3Qgc2V0KSwgSXQgd2FzIE9LLiBMYXRl
-cmx5IChTdGVwIDIpIEkgZ2V0IGh3X3BhcmFtcyBhbmQgcHJpbnQgaXQsIGl0IHdhcyBub3Qg
-c3VycHJpc2luZyB0aGF0IHRoZXkgd2VyZSB0aGUgc2FtZSBhcyB3aGF0IEkgc2V0IChidWZm
-ZXJfdGltZSA9PSBwZXJpb2RfdGltZSAqIDEwMjQsICBidWZmZXJfc2l6ZSA9PSBwZXJpb2Rf
-c2l6ZSAqIDEwMjQpLiAgQnV0IQ0KICAgICAgICBJbiBhbm90aGVyIGNvZGUgKCBBZGQgU3Rl
-cCAzKUkgdXNlZCAgc25kX3BjbV9mb3JtYXRfbmFtZSgoc25kX3BjbV9mb3JtYXRfdCl2YWwp
-LCBzbmRfcGNtX2Zvcm1hdF9kZXNjcmlwdGlvbiggKHNuZF9wY21fZm9ybWF0X3QpdmFsKSB0
-byBkaXNwbGF5IHRoZSBmb3JtYXQgaW5mb3JtYXRpb24sIEl0IGdvdCB3cm9uZyBidWZmZXIg
-c2l6ZShidWZmZXJfdGltZSA9PSBwZXJpb2RfdGltZSwgYnVmZmVyX3NpemUgPT0gcGVyaW9k
-X3NpemUgKiAxMDI0ICkuIHRoZSBBdHRhY2htZW50cyBhcmUgY29kZSBwY21fc2V0dGluZy5j
-cHAoV2l0aCBTdGVwIDEsIDIpLCBwY21fb3Blbl9zZWV0aW5nLmNwcChXaXRoIFN0ZXAgMSwg
-MiwgMykuIE15IGFsc2EtbGliIHZlcnNpb24gaXMgYWJvdXQgMS4xLjAgLg0KDQoNCg0KDQoN
-Cg0KcGNtX3NldHRpbmcuY3BwIHJ1bm5pbmcgcmVzdWx0Og0KZ2V0IHJhdGU6IDQ0MTAwIGdl
-dCBjaGFubmxlczogMSBwZXJpb2QgdGltZTogNDY0MzkgYnVmZmVyIHRpbWUgaXMgNDc1NTQ0
-NjcgcGVyaW9kIHNpemU6IDIwNDggZnJhbWVzIGJ1ZmZlciBzaXplIGRlZmF1bHQ6IDIwOTcx
-NTIgZnJhbWVzIHBlcmlvZHMgcGVyIGJ1ZmZlciA9IDEwMjQgZnJhbWVzDQoNCg0KcGNtX29w
-ZW5fc2V0dGluZyBydW5uaW5nIHJlc3VsdDoNClBDTSBoYW5kbGUgbmFtZSA9ICdkZWZhdWx0
-JyBQQ00gc3RhdGUgPSBQUkVQQVJFRCBhY2Nlc3MgdHlwZSA9IFJXX0lOVEVSTEVBVkVEIGZv
-cm1hdChsZW5ndGg6IDIpID0gJ1MxNl9MRScgKFNpZ25lZCAxNiBiaXQgTGl0dGxlIEVuZGlh
-bikgY2hhbm5lbHMgPSAxIHJhdGUgPSA0NDEwMCBicHMgcGVyaW9kIHRpbWUgPSA0NjQzOCB1
-cyBidWZmZXIgdGltZSA9IDQ2NDM4IHVzIHBlcmlvZCBzaXplID0gMjA0OCBmcmFtZXMgYnVm
-ZmVyIHNpemUgPSAyMDk3MTUyIGZyYW1lcyBwZXJpb2RzIHBlciBidWZmZXIgPSAxMDI0IGZy
-YW1lcw==
+This used to be controlled through a bunch of booleans, however this proved
+to be quite impractical, especially since a bunch of SoCs forgot to set
+those parameters and therefore were broken from that point of view.
 
-------=_NextPart_5D579077_0BC59820_583FD29D
-Content-Type: application/octet-stream;
-	charset="gb18030";
-	name="pcm_setting.cpp"
-Content-Disposition: attachment; filename="pcm_setting.cpp"
-Content-Transfer-Encoding: base64
+Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+---
+ sound/soc/sunxi/sun4i-i2s.c | 156 ++++++++++++++++---------------------
+ 1 file changed, 69 insertions(+), 87 deletions(-)
 
-Ly8KLy8gQ3JlYXRlZCBieSBsZWUgb24gMjAxOS84LzE3LgovLwojaW5jbHVkZSAic3RydWN0
-X3dhdmUuaCIKI2luY2x1ZGUgPGFsc2EvYXNvdW5kbGliLmg+CgppbnQgbWFpbihpbnQgYXJn
-YywgY2hhciogYXJndltdKXsKICAgIGludCByYywgZXJyLCBkaXI7CiAgICB1bnNpZ25lZCBp
-bnQgdmFsOwogICAgc25kX3BjbV90ICpoYW5kbGU7CiAgICBzbmRfcGNtX2Zvcm1hdF90IHBj
-bV9mbXQ7CiAgICBzbmRfcGNtX2h3X3BhcmFtc190ICpwYXJhbXM7CgovLyAgICBDV2F2ZUhl
-YWRlciB3YXZoZWFkZXIsICpjaGVhZGVyOwovLyAgICBjaGVhZGVyID0gJndhdmhlYWRlcjsK
-Ly8gICAgc3RyaW5nIGZpbGUxKCIvaG9tZS9sZWUvQ0xpb25Qcm9qZWN0cy9Bc291bmQvYWxz
-YS8wMV8wMDAwMzgud2F2Iik7Ci8vICAgIFJlYWRDV2F2ZUhlYWRlcihmaWxlMS5jX3N0cigp
-LCAmd2F2aGVhZGVyKTsKLy8KLy8gICAgaWYoY2hlYWRlci0+Qml0c1BlclNhbXBsZSA9PSA4
-KXsKLy8gICAgICAgIHBjbV9mbXQgPSBTTkRfUENNX0ZPUk1BVF9TODsKLy8gICAgfWVsc2Ug
-aWYoY2hlYWRlci0+Qml0c1BlclNhbXBsZSA9PSAxNil7Ci8vICAgICAgICBwY21fZm10ID0g
-U05EX1BDTV9GT1JNQVRfUzE2X0xFOwovLyAgICB9ZWxzZXsKLy8gICAgICAgIHByaW50Zigi
-dUJpdHNQZXJTYW1wbGUgbm90IHN1cHBvcnQhXG4iKTsKLy8gICAgICAgIHJldHVybiAtMTsK
-Ly8gICAgfQoKICAgIC8qIE9wZW4gUENNIGRldmljZSBmb3IgcGxheWJhY2suICovCiAgICBy
-YyA9IHNuZF9wY21fb3BlbigmaGFuZGxlLCAiZGVmYXVsdCIsU05EX1BDTV9TVFJFQU1fUExB
-WUJBQ0ssIDApOwogICAgaWYgKHJjIDwgMCkgewogICAgICAgIGZwcmludGYoc3RkZXJyLCJ1
-bmFibGUgdG8gb3BlbiBwY20gZGV2aWNlOiAlc1xuIixzbmRfc3RyZXJyb3IocmMpKTsKICAg
-ICAgICBleGl0KDEpOwogICAgfQoKLyogQWxsb2NhdGUgYSBoYXJkd2FyZSBwYXJhbWV0ZXJz
-IG9iamVjdC4gKi8KICAgIC8vdmFsID0gc25kX3BjbV9od19wYXJhbXNfYWxsb2NhKCZwYXJh
-bXMpOwogICAgc25kX3BjbV9od19wYXJhbXNfbWFsbG9jKCZwYXJhbXMpOwoKLyogRmlsbCBp
-dCBpbiB3aXRoIGRlZmF1bHQgdmFsdWVzLiAqLwogICAgc25kX3BjbV9od19wYXJhbXNfYW55
-KGhhbmRsZSwgcGFyYW1zKTsKCi8qIEludGVybGVhdmVkIG1vZGUgKi8KICAgIHNuZF9wY21f
-aHdfcGFyYW1zX3NldF9hY2Nlc3MoaGFuZGxlLCBwYXJhbXMsU05EX1BDTV9BQ0NFU1NfUldf
-SU5URVJMRUFWRUQpOwoKLyogU2lnbmVkIDE2LWJpdCBsaXR0bGUtZW5kaWFuIGZvcm1hdCAq
-LwogICAgZXJyID0gIHNuZF9wY21faHdfcGFyYW1zX3NldF9mb3JtYXQoaGFuZGxlLCBwYXJh
-bXMsU05EX1BDTV9GT1JNQVRfUzE2X0xFKTsKCiAgICBpZiggZXJyIDwgMCl7CiAgICAgICAg
-ZnByaW50ZihzdGRlcnIsICJjYW5ub3QgYWxsb2NhdGUgaGFyZHdhcmUgcGFyYW1ldGVyIHN0
-cnVjdHVyZSAoJXMpXG4iLHNuZF9zdHJlcnJvcihlcnIpKTsKICAgICAgICBnb3RvIHBsYXlf
-d2F2X291dDsKICAgIH0KCi8qIDQ0MTAwIGJpdHMvc2Vjb25kIHNhbXBsaW5nIHJhdGUgKENE
-IHF1YWxpdHkpICovCiAgICB2YWwgPSA0NDEwMDsKICAgIHNuZF9wY21faHdfcGFyYW1zX3Nl
-dF9yYXRlX25lYXIoaGFuZGxlLHBhcmFtcywgJnZhbCwgJmRpcik7CgovKiBUd28gY2hhbm5l
-bHMgKHN0ZXJlbykgKi8KICAgIHNuZF9wY21faHdfcGFyYW1zX3NldF9jaGFubmVscyhoYW5k
-bGUsIHBhcmFtcywgMSk7CgovKiBXcml0ZSB0aGUgcGFyYW1ldGVycyB0byB0aGUgZHJpdmVy
-ICovCiAgICByYyA9IHNuZF9wY21faHdfcGFyYW1zKGhhbmRsZSwgcGFyYW1zKTsKICAgIGlm
-IChyYyA8IDApIHsKICAgICAgICBmcHJpbnRmKHN0ZGVyciwidW5hYmxlIHRvIHNldCBodyBw
-YXJhbWV0ZXJzOiAlc1xuIixzbmRfc3RyZXJyb3IocmMpKTsKICAgICAgICBleGl0KDEpOwog
-ICAgfQoKICAgIC8vc25kX3BjbV9od19wYXJhbXNfc2V0X3AKICAgIHNuZF9wY21faHdfcGFy
-YW1zX2dldF9yYXRlKHBhcmFtcywgKHVuc2lnbmVkIGludCopJnZhbCwgJmRpcik7CiAgICBw
-cmludGYoImdldCByYXRlOiAlZFxuIix2YWwpOwoKICAgIHNuZF9wY21faHdfcGFyYW1zX2dl
-dF9jaGFubmVscyhwYXJhbXMsICh1bnNpZ25lZCBpbnQqKSZ2YWwpOwogICAgcHJpbnRmKCJn
-ZXQgY2hhbm5sZXM6ICVkXG4iLHZhbCk7CgogICAgc25kX3BjbV9od19wYXJhbXNfZ2V0X3Bl
-cmlvZF90aW1lKHBhcmFtcywgKHVuc2lnbmVkIGludCopJnZhbCwgJmRpcik7CiAgICBwcmlu
-dGYoInBlcmlvZCB0aW1lOiAlZFxuIiwgdmFsKTsKCiAgICBzbmRfcGNtX2h3X3BhcmFtc19n
-ZXRfYnVmZmVyX3RpbWUocGFyYW1zLCAmdmFsLCAmZGlyKTsKICAgIHByaW50ZigiYnVmZmVy
-IHRpbWUgaXMgJWRcbiIsIHZhbCk7CiAgICBzbmRfcGNtX2h3X3BhcmFtc19nZXRfcGVyaW9k
-X3NpemUocGFyYW1zLCAoc25kX3BjbV91ZnJhbWVzX3QqKSZ2YWwsICZkaXIpOwogICAgcHJp
-bnRmKCJwZXJpb2Qgc2l6ZTogJWQgZnJhbWVzXG4iLCB2YWwpOwoKICAgIHNuZF9wY21faHdf
-cGFyYW1zX2dldF9idWZmZXJfc2l6ZShwYXJhbXMsIChzbmRfcGNtX3VmcmFtZXNfdCopJnZh
-bCk7CiAgICBwcmludGYoImJ1ZmZlciBzaXplIGRlZmF1bHQ6ICVkIGZyYW1lc1xuIiwgdmFs
-KTsKCiAgICBzbmRfcGNtX2h3X3BhcmFtc19nZXRfcGVyaW9kcyhwYXJhbXMsICZ2YWwsICZk
-aXIpOwogICAgcHJpbnRmKCJwZXJpb2RzIHBlciBidWZmZXIgPSAlZCBmcmFtZXNcbiIsIHZh
-bCk7CgogICAgLy9zbmRfcGNtX2h3X3BhcmFtc19nZXRfYnVmZmVyX3NpemUoaHdfcGFyYW1z
-LCAoc25kX3BjbV91ZnJhbWVzX3QqKSZmcmFtZXMpOwogICAgc25kX3BjbV9od19wYXJhbXNf
-ZnJlZShwYXJhbXMpOwoKICAgIHNuZF9wY21fY2xvc2UoaGFuZGxlKTsKCgogICAgcmV0dXJu
-IDA7CiAgICBwbGF5X3dhdl9vdXQ6CiAgICAgICAgcmV0dXJuIC0xOwoKCn0KCg==
-
-------=_NextPart_5D579077_0BC59820_583FD29D
-Content-Type: application/octet-stream;
-	charset="gb18030";
-	name="pcm_open_setting.cpp"
-Content-Disposition: attachment; filename="pcm_open_setting.cpp"
-Content-Transfer-Encoding: base64
-
-Ly8KLy8gQ3JlYXRlZCBieSBsZWUgb24gMjAxOS84LzkuCi8vCi8qClRoaXMgZXhhbXBsZSBv
-cGVucyB0aGUgZGVmYXVsdCBQQ00gZGV2aWNlLCBzZXRzCnNvbWUgcGFyYW1ldGVycywgYW5k
-IHRoZW4gZGlzcGxheXMgdGhlIHZhbHVlCm9mIG1vc3Qgb2YgdGhlIGhhcmR3YXJlIHBhcmFt
-ZXRlcnMuIEl0IGRvZXMgbm90CnBlcmZvcm0gYW55IHNvdW5kIHBsYXliYWNrIG9yIHJlY29y
-ZGluZy4KKi8KCi8qIFVzZSB0aGUgbmV3ZXIgQUxTQSBBUEkgKi8KI2RlZmluZSBBTFNBX1BD
-TV9ORVdfSFdfUEFSQU1TX0FQSQoKLyogQWxsIG9mIHRoZSBBTFNBIGxpYnJhcnkgQVBJIGlz
-IGRlZmluZWQKKiBpbiB0aGlzIGhlYWRlciAqLwojaW5jbHVkZSA8YWxzYS9hc291bmRsaWIu
-aD4KCmludCBtYWluKCkgewogICAgaW50IHJjOwogICAgc25kX3BjbV90ICpoYW5kbGU7CiAg
-ICBzbmRfcGNtX2h3X3BhcmFtc190ICpwYXJhbXM7CiAgICB1bnNpZ25lZCBpbnQgdmFsLCB2
-YWwyOwogICAgaW50IGRpcjsKICAgIHNuZF9wY21fdWZyYW1lc190IGZyYW1lczsKCi8qIE9w
-ZW4gUENNIGRldmljZSBmb3IgcGxheWJhY2suICovCiAgICByYyA9IHNuZF9wY21fb3Blbigm
-aGFuZGxlLCAiZGVmYXVsdCIsU05EX1BDTV9TVFJFQU1fUExBWUJBQ0ssIDApOwogICAgaWYg
-KHJjIDwgMCkgewogICAgICAgIGZwcmludGYoc3RkZXJyLCJ1bmFibGUgdG8gb3BlbiBwY20g
-ZGV2aWNlOiAlc1xuIixzbmRfc3RyZXJyb3IocmMpKTsKICAgICAgICBleGl0KDEpOwogICAg
-fQoKLyogQWxsb2NhdGUgYSBoYXJkd2FyZSBwYXJhbWV0ZXJzIG9iamVjdC4gKi8KICAgIC8v
-dmFsID0gc25kX3BjbV9od19wYXJhbXNfYWxsb2NhKCZwYXJhbXMpOwogICAgc25kX3BjbV9o
-d19wYXJhbXNfbWFsbG9jKCZwYXJhbXMpOwoKLyogRmlsbCBpdCBpbiB3aXRoIGRlZmF1bHQg
-dmFsdWVzLiAqLwogICAgc25kX3BjbV9od19wYXJhbXNfYW55KGhhbmRsZSwgcGFyYW1zKTsK
-Ci8qIFNldCB0aGUgZGVzaXJlZCBoYXJkd2FyZSBwYXJhbWV0ZXJzLiAqLwoKLyogSW50ZXJs
-ZWF2ZWQgbW9kZSAqLwogICAgc25kX3BjbV9od19wYXJhbXNfc2V0X2FjY2VzcyhoYW5kbGUs
-IHBhcmFtcyxTTkRfUENNX0FDQ0VTU19SV19JTlRFUkxFQVZFRCk7CgovKiBTaWduZWQgMTYt
-Yml0IGxpdHRsZS1lbmRpYW4gZm9ybWF0ICovCiAgICBzbmRfcGNtX2h3X3BhcmFtc19zZXRf
-Zm9ybWF0KGhhbmRsZSwgcGFyYW1zLFNORF9QQ01fRk9STUFUX1MxNl9MRSk7CgovKiA0NDEw
-MCBiaXRzL3NlY29uZCBzYW1wbGluZyByYXRlIChDRCBxdWFsaXR5KSAqLwogICAgdmFsID0g
-NDQxMDA7CiAgICBzbmRfcGNtX2h3X3BhcmFtc19zZXRfcmF0ZV9uZWFyKGhhbmRsZSxwYXJh
-bXMsICZ2YWwsICZkaXIpOwoKLyogVHdvIGNoYW5uZWxzIChzdGVyZW8pICovCiAgICBzbmRf
-cGNtX2h3X3BhcmFtc19zZXRfY2hhbm5lbHMoaGFuZGxlLCBwYXJhbXMsIDEpOwoKLyogV3Jp
-dGUgdGhlIHBhcmFtZXRlcnMgdG8gdGhlIGRyaXZlciAqLwogICAgcmMgPSBzbmRfcGNtX2h3
-X3BhcmFtcyhoYW5kbGUsIHBhcmFtcyk7CiAgICBpZiAocmMgPCAwKSB7CiAgICAgICAgZnBy
-aW50ZihzdGRlcnIsInVuYWJsZSB0byBzZXQgaHcgcGFyYW1ldGVyczogJXNcbiIsc25kX3N0
-cmVycm9yKHJjKSk7CiAgICAgICAgZXhpdCgxKTsKICAgIH0KCi8qIERpc3BsYXkgaW5mb3Jt
-YXRpb24gYWJvdXQgdGhlIFBDTSBpbnRlcmZhY2UgKi8KCiAgICBwcmludGYoIlBDTSBoYW5k
-bGUgbmFtZSA9ICclcydcbiIsc25kX3BjbV9uYW1lKGhhbmRsZSkpOwoKICAgIHByaW50Zigi
-UENNIHN0YXRlID0gJXNcbiIsc25kX3BjbV9zdGF0ZV9uYW1lKHNuZF9wY21fc3RhdGUoaGFu
-ZGxlKSkpOwoKICAgIHNuZF9wY21faHdfcGFyYW1zX2dldF9hY2Nlc3MocGFyYW1zLChzbmRf
-cGNtX2FjY2Vzc190ICopICZ2YWwpOwogICAgcHJpbnRmKCJhY2Nlc3MgdHlwZSA9ICVzXG4i
-LHNuZF9wY21fYWNjZXNzX25hbWUoKHNuZF9wY21fYWNjZXNzX3QpdmFsKSk7CgogICAgc25k
-X3BjbV9od19wYXJhbXNfZ2V0X2Zvcm1hdChwYXJhbXMsIChzbmRfcGNtX2Zvcm1hdF90Kikm
-dmFsKTsKICAgIHByaW50ZigiZm9ybWF0KGxlbmd0aDogJWQpID0gJyVzJ1xuIiwgdmFsLAog
-ICAgICAgICAgIC8vc25kX3BjbV9mb3JtYXRfbmFtZSgoc25kX3BjbV9mb3JtYXRfdCl2YWwp
-LAogICAgICAgICAgIHNuZF9wY21fZm9ybWF0X2Rlc2NyaXB0aW9uKAogICAgICAgICAgICAg
-ICAgICAgKHNuZF9wY21fZm9ybWF0X3QpdmFsKQogICAgICAgICAgICAgICAgICAgKTsKCiAg
-ICAvL3NuZF9wY21faHdfcGFyYW1zX2dldF9zdWJmb3JtYXQocGFyYW1zLChzbmRfcGNtX3N1
-YmZvcm1hdF90ICopJnZhbCk7CiAgICAvL3ByaW50Zigic3ViZm9ybWF0ID0gJyVzJyAoJXMp
-XG4iLAogICAgICAgICAgIC8vc25kX3BjbV9zdWJmb3JtYXRfbmFtZSgoc25kX3BjbV9zdWJm
-b3JtYXRfdCl2YWwpLAogICAgICAgICAgIC8vc25kX3BjbV9zdWJmb3JtYXRfZGVzY3JpcHRp
-b24oCiAgICAgICAgICAgICAgICAgICAvLyhzbmRfcGNtX3N1YmZvcm1hdF90KXZhbCkpOwoK
-CgogICAgc25kX3BjbV9od19wYXJhbXNfZ2V0X2NoYW5uZWxzKHBhcmFtcywgJnZhbCk7CiAg
-ICBwcmludGYoImNoYW5uZWxzID0gJWRcbiIsIHZhbCk7CgogICAgc25kX3BjbV9od19wYXJh
-bXNfZ2V0X3JhdGUocGFyYW1zLCAmdmFsLCAmZGlyKTsKICAgIHByaW50ZigicmF0ZSA9ICVk
-IGJwc1xuIiwgdmFsKTsKCiAgICBzbmRfcGNtX2h3X3BhcmFtc19nZXRfcGVyaW9kX3RpbWUo
-cGFyYW1zLCZ2YWwsICZkaXIpOwogICAgcHJpbnRmKCJwZXJpb2QgdGltZSA9ICVkIHVzXG4i
-LCB2YWwpOwoKICAgIHNuZF9wY21faHdfcGFyYW1zX2dldF9idWZmZXJfdGltZShwYXJhbXMs
-ICZ2YWwsICZkaXIpOwogICAgcHJpbnRmKCJidWZmZXIgdGltZSA9ICVkIHVzXG4iLCB2YWwp
-OwoKICAgIHNuZF9wY21faHdfcGFyYW1zX2dldF9wZXJpb2Rfc2l6ZShwYXJhbXMsJmZyYW1l
-cywgJmRpcik7CiAgICBwcmludGYoInBlcmlvZCBzaXplID0gJWQgZnJhbWVzXG4iLCAoaW50
-KWZyYW1lcyk7CgogICAgc25kX3BjbV9od19wYXJhbXNfZ2V0X2J1ZmZlcl9zaXplKHBhcmFt
-cywgJmZyYW1lcyk7CiAgICBwcmludGYoImJ1ZmZlciBzaXplID0gJWQgZnJhbWVzXG4iLCBm
-cmFtZXMpOwoKICAgIHNuZF9wY21faHdfcGFyYW1zX2dldF9wZXJpb2RzKHBhcmFtcywgJnZh
-bCwgJmRpcik7CiAgICBwcmludGYoInBlcmlvZHMgcGVyIGJ1ZmZlciA9ICVkIGZyYW1lc1xu
-IiwgdmFsKTsKCiAgICBzbmRfcGNtX2h3X3BhcmFtc19nZXRfcmF0ZV9udW1kZW4ocGFyYW1z
-LCZ2YWwsICZ2YWwyKTsKICAgIHByaW50ZigiZXhhY3QgcmF0ZSA9ICVkLyVkIGJwc1xuIiwg
-dmFsLCB2YWwyKTsKCiAgICB2YWwgPSBzdGF0aWNfY2FzdDx1bnNpZ25lZCBpbnQ+KHNuZF9w
-Y21faHdfcGFyYW1zX2dldF9zYml0cyhwYXJhbXMpKTsKICAgIHByaW50Zigic2lnbmlmaWNh
-bnQgYml0cyA9ICVkXG4iLCB2YWwpOwoKICAgIHNuZF9wY21faHdfcGFyYW1zX2dldF90aWNr
-X3RpbWUocGFyYW1zLCZ2YWwsICZkaXIpOwogICAgcHJpbnRmKCJ0aWNrIHRpbWUgPSAlZCB1
-c1xuIiwgdmFsKTsKCiAgICB2YWwgPSBzdGF0aWNfY2FzdDx1bnNpZ25lZCBpbnQ+KHNuZF9w
-Y21faHdfcGFyYW1zX2lzX2JhdGNoKHBhcmFtcykpOwogICAgcHJpbnRmKCJpcyBiYXRjaCA9
-ICVkXG4iLCB2YWwpOwoKICAgIHZhbCA9IHN0YXRpY19jYXN0PHVuc2lnbmVkIGludD4oc25k
-X3BjbV9od19wYXJhbXNfaXNfYmxvY2tfdHJhbnNmZXIocGFyYW1zKSk7CiAgICBwcmludGYo
-ImlzIGJsb2NrIHRyYW5zZmVyID0gJWRcbiIsIHZhbCk7CgogICAgdmFsID0gc3RhdGljX2Nh
-c3Q8dW5zaWduZWQgaW50PihzbmRfcGNtX2h3X3BhcmFtc19pc19kb3VibGUocGFyYW1zKSk7
-CiAgICBwcmludGYoImlzIGRvdWJsZSA9ICVkXG4iLCB2YWwpOwoKICAgIHZhbCA9IHN0YXRp
-Y19jYXN0PHVuc2lnbmVkIGludD4oc25kX3BjbV9od19wYXJhbXNfaXNfaGFsZl9kdXBsZXgo
-cGFyYW1zKSk7CiAgICBwcmludGYoImlzIGhhbGYgZHVwbGV4ID0gJWRcbiIsIHZhbCk7Cgog
-ICAgdmFsID0gc3RhdGljX2Nhc3Q8dW5zaWduZWQgaW50PihzbmRfcGNtX2h3X3BhcmFtc19p
-c19qb2ludF9kdXBsZXgocGFyYW1zKSk7CiAgICBwcmludGYoImlzIGpvaW50IGR1cGxleCA9
-ICVkXG4iLCB2YWwpOwoKICAgIHZhbCA9IHN0YXRpY19jYXN0PHVuc2lnbmVkIGludD4oc25k
-X3BjbV9od19wYXJhbXNfY2FuX292ZXJyYW5nZShwYXJhbXMpKTsKICAgIHByaW50ZigiY2Fu
-IG92ZXJyYW5nZSA9ICVkXG4iLCB2YWwpOwoKICAgIHZhbCA9IHN0YXRpY19jYXN0PHVuc2ln
-bmVkIGludD4oc25kX3BjbV9od19wYXJhbXNfY2FuX21tYXBfc2FtcGxlX3Jlc29sdXRpb24o
-cGFyYW1zKSk7CiAgICBwcmludGYoImNhbiBtbWFwID0gJWRcbiIsIHZhbCk7CgogICAgdmFs
-ID0gc3RhdGljX2Nhc3Q8dW5zaWduZWQgaW50PihzbmRfcGNtX2h3X3BhcmFtc19jYW5fcGF1
-c2UocGFyYW1zKSk7CiAgICBwcmludGYoImNhbiBwYXVzZSA9ICVkXG4iLCB2YWwpOwoKICAg
-IHZhbCA9IHN0YXRpY19jYXN0PHVuc2lnbmVkIGludD4oc25kX3BjbV9od19wYXJhbXNfY2Fu
-X3Jlc3VtZShwYXJhbXMpKTsKICAgIHByaW50ZigiY2FuIHJlc3VtZSA9ICVkXG4iLCB2YWwp
-OwoKICAgIHZhbCA9IHN0YXRpY19jYXN0PHVuc2lnbmVkIGludD4oc25kX3BjbV9od19wYXJh
-bXNfY2FuX3N5bmNfc3RhcnQocGFyYW1zKSk7CiAgICBwcmludGYoImNhbiBzeW5jIHN0YXJ0
-ID0gJWRcbiIsIHZhbCk7CgogICAgc25kX3BjbV9od19wYXJhbXNfZnJlZShwYXJhbXMpOwoK
-ICAgIHNuZF9wY21fY2xvc2UoaGFuZGxlKTsKCiAgICBwcmludGYoImFsc2Egc291bmQgdmVy
-c2lvbjogJXNcbiIsc25kX2Fzb3VuZGxpYl92ZXJzaW9uKCkpOwoKLy8gICAgQ1dhdmVIZWFk
-ZXIgd2F2aGVhZGVyOwovLyAgICBzdHJpbmcgZmlsZTEoIi9ob21lL2xlZS9DTGlvblByb2pl
-Y3RzL0Fzb3VuZC9hbHNhLzAxXzAwMDAzOC53YXYiKTsKLy8gICAgUmVhZENXYXZlSGVhZGVy
-KGZpbGUxLmNfc3RyKCksICZ3YXZoZWFkZXIpOwovLwovLyAgICBzbmRfcGFyYW1zX3NldCgm
-aGFuZGxlLCAmd2F2aGVhZGVyKTsKLy8gICAgc25kX3BjbV9jbG9zZShoYW5kbGUpOwoKICAg
-IHJldHVybiAwOwp9Cgo=
-
-------=_NextPart_5D579077_0BC59820_583FD29D
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+index ac84c29224eb..657041606c2f 100644
+--- a/sound/soc/sunxi/sun4i-i2s.c
++++ b/sound/soc/sunxi/sun4i-i2s.c
+@@ -80,6 +80,7 @@
+ #define SUN4I_I2S_TX_CNT_REG		0x2c
+ 
+ #define SUN4I_I2S_TX_CHAN_SEL_REG	0x30
++#define SUN4I_I2S_CHAN_SEL_MASK			GENMASK(2, 0)
+ #define SUN4I_I2S_CHAN_SEL(num_chan)		(((num_chan) - 1) << 0)
+ 
+ #define SUN4I_I2S_TX_CHAN_MAP_REG	0x34
+@@ -122,8 +123,6 @@ struct sun4i_i2s;
+  * @has_reset: SoC needs reset deasserted.
+  * @has_slave_select_bit: SoC has a bit to enable slave mode.
+  * @has_fmt_set_lrck_period: SoC requires lrclk period to be set.
+- * @has_chcfg: tx and rx slot number need to be set.
+- * @has_chsel_tx_chen: SoC requires that the tx channels are enabled.
+  * @has_chsel_offset: SoC uses offset for selecting dai operational mode.
+  * @reg_offset_txdata: offset of the tx fifo.
+  * @sun4i_i2s_regmap: regmap config to use.
+@@ -135,17 +134,11 @@ struct sun4i_i2s;
+  * @field_fmt_bclk: regmap field to set clk polarity.
+  * @field_fmt_lrclk: regmap field to set frame polarity.
+  * @field_fmt_mode: regmap field to set the operational mode.
+- * @field_txchanmap: location of the tx channel mapping register.
+- * @field_rxchanmap: location of the rx channel mapping register.
+- * @field_txchansel: location of the tx channel select bit fields.
+- * @field_rxchansel: location of the rx channel select bit fields.
+  */
+ struct sun4i_i2s_quirks {
+ 	bool				has_reset;
+ 	bool				has_slave_select_bit;
+ 	bool				has_fmt_set_lrck_period;
+-	bool				has_chcfg;
+-	bool				has_chsel_tx_chen;
+ 	bool				has_chsel_offset;
+ 	unsigned int			reg_offset_txdata;	/* TX FIFO */
+ 	const struct regmap_config	*sun4i_i2s_regmap;
+@@ -159,13 +152,11 @@ struct sun4i_i2s_quirks {
+ 	struct reg_field		field_fmt_bclk;
+ 	struct reg_field		field_fmt_lrclk;
+ 	struct reg_field		field_fmt_mode;
+-	struct reg_field		field_txchanmap;
+-	struct reg_field		field_rxchanmap;
+-	struct reg_field		field_txchansel;
+-	struct reg_field		field_rxchansel;
+ 
+ 	s8	(*get_sr)(const struct sun4i_i2s *, int);
+ 	s8	(*get_wss)(const struct sun4i_i2s *, int);
++	int	(*set_chan_cfg)(const struct sun4i_i2s *,
++				const struct snd_pcm_hw_params *);
+ };
+ 
+ struct sun4i_i2s {
+@@ -186,10 +177,6 @@ struct sun4i_i2s {
+ 	struct regmap_field	*field_fmt_bclk;
+ 	struct regmap_field	*field_fmt_lrclk;
+ 	struct regmap_field	*field_fmt_mode;
+-	struct regmap_field	*field_txchanmap;
+-	struct regmap_field	*field_rxchanmap;
+-	struct regmap_field	*field_txchansel;
+-	struct regmap_field	*field_rxchansel;
+ 
+ 	const struct sun4i_i2s_quirks	*variant;
+ };
+@@ -381,44 +368,77 @@ static s8 sun8i_i2s_get_sr_wss(const struct sun4i_i2s *i2s, int width)
+ 	return (width - 8) / 4 + 1;
+ }
+ 
+-static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+-			       struct snd_pcm_hw_params *params,
+-			       struct snd_soc_dai *dai)
++static int sun4i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
++				  const struct snd_pcm_hw_params *params)
+ {
+-	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+-	int sr, wss, channels;
+-	u32 width;
++	unsigned int channels = params_channels(params);
+ 
+-	channels = params_channels(params);
+-	if (channels != 2) {
+-		dev_err(dai->dev, "Unsupported number of channels: %d\n",
+-			channels);
++	if (channels != 2)
+ 		return -EINVAL;
+-	}
+ 
+-	if (i2s->variant->has_chcfg) {
+-		regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
+-				   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM_MASK,
+-				   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM(channels));
+-		regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
+-				   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM_MASK,
+-				   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM(channels));
+-	}
++	/* Map the channels for playback and capture */
++	regmap_write(i2s->regmap, SUN4I_I2S_TX_CHAN_MAP_REG, 0x76543210);
++	regmap_write(i2s->regmap, SUN4I_I2S_RX_CHAN_MAP_REG, 0x00003210);
++
++	/* Configure the channels */
++	regmap_update_bits(i2s->regmap, SUN4I_I2S_TX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
++			   SUN4I_I2S_CHAN_SEL(channels));
++	regmap_update_bits(i2s->regmap, SUN4I_I2S_RX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
++			   SUN4I_I2S_CHAN_SEL(channels));
++
++	return 0;
++}
++
++static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
++				  const struct snd_pcm_hw_params *params)
++{
++	unsigned int channels = params_channels(params);
++
++	if (channels != 2)
++		return -EINVAL;
+ 
+ 	/* Map the channels for playback and capture */
+-	regmap_field_write(i2s->field_txchanmap, 0x76543210);
+-	regmap_field_write(i2s->field_rxchanmap, 0x00003210);
++	regmap_write(i2s->regmap, SUN8I_I2S_TX_CHAN_MAP_REG, 0x76543210);
++	regmap_write(i2s->regmap, SUN8I_I2S_RX_CHAN_MAP_REG, 0x76543210);
+ 
+ 	/* Configure the channels */
+-	regmap_field_write(i2s->field_txchansel,
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
+ 			   SUN4I_I2S_CHAN_SEL(channels));
+-	regmap_field_write(i2s->field_rxchansel,
++
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_RX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
+ 			   SUN4I_I2S_CHAN_SEL(channels));
+ 
+-	if (i2s->variant->has_chsel_tx_chen)
+-		regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
+-				   SUN8I_I2S_TX_CHAN_EN_MASK,
+-				   SUN8I_I2S_TX_CHAN_EN(channels));
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
++			   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM_MASK,
++			   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM(channels));
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
++			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM_MASK,
++			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM(channels));
++
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
++			   SUN8I_I2S_TX_CHAN_EN_MASK,
++			   SUN8I_I2S_TX_CHAN_EN(channels));
++
++	return 0;
++}
++
++static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
++			       struct snd_pcm_hw_params *params,
++			       struct snd_soc_dai *dai)
++{
++	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
++	int ret, sr, wss;
++	u32 width;
++
++	ret = i2s->variant->set_chan_cfg(i2s, params);
++	if (ret < 0) {
++		dev_err(dai->dev, "Invalid channel configuration\n");
++		return ret;
++	}
+ 
+ 	switch (params_physical_width(params)) {
+ 	case 16:
+@@ -916,12 +936,9 @@ static const struct sun4i_i2s_quirks sun4i_a10_i2s_quirks = {
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.has_slave_select_bit	= true,
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun4i_i2s_get_sr,
+ 	.get_wss		= sun4i_i2s_get_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
+@@ -935,12 +952,9 @@ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.has_slave_select_bit	= true,
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun4i_i2s_get_sr,
+ 	.get_wss		= sun4i_i2s_get_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+@@ -954,12 +968,9 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.has_slave_select_bit	= true,
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun8i_i2s_get_sr_wss,
+ 	.get_wss		= sun8i_i2s_get_sr_wss,
++	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+@@ -969,8 +980,6 @@ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+ 	.mclk_offset		= 1,
+ 	.bclk_offset		= 2,
+ 	.has_fmt_set_lrck_period = true,
+-	.has_chcfg		= true,
+-	.has_chsel_tx_chen	= true,
+ 	.has_chsel_offset	= true,
+ 	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
+ 	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
+@@ -978,12 +987,9 @@ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+ 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 19, 19),
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_CTRL_REG, 4, 5),
+-	.field_txchanmap	= REG_FIELD(SUN8I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN8I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN8I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN8I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun8i_i2s_get_sr_wss,
+ 	.get_wss		= sun8i_i2s_get_sr_wss,
++	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
+@@ -997,12 +1003,9 @@ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
+ 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 6, 6),
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun4i_i2s_get_sr,
+ 	.get_wss		= sun4i_i2s_get_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
+ };
+ 
+ static int sun4i_i2s_init_regmap_fields(struct device *dev,
+@@ -1044,28 +1047,7 @@ static int sun4i_i2s_init_regmap_fields(struct device *dev,
+ 	if (IS_ERR(i2s->field_fmt_mode))
+ 		return PTR_ERR(i2s->field_fmt_mode);
+ 
+-	i2s->field_txchanmap =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_txchanmap);
+-	if (IS_ERR(i2s->field_txchanmap))
+-		return PTR_ERR(i2s->field_txchanmap);
+-
+-	i2s->field_rxchanmap =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_rxchanmap);
+-	if (IS_ERR(i2s->field_rxchanmap))
+-		return PTR_ERR(i2s->field_rxchanmap);
+-
+-	i2s->field_txchansel =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_txchansel);
+-	if (IS_ERR(i2s->field_txchansel))
+-		return PTR_ERR(i2s->field_txchansel);
+-
+-	i2s->field_rxchansel =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_rxchansel);
+-	return PTR_ERR_OR_ZERO(i2s->field_rxchansel);
++	return 0;
+ }
+ 
+ static int sun4i_i2s_probe(struct platform_device *pdev)
+-- 
+git-series 0.9.1
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
-------=_NextPart_5D579077_0BC59820_583FD29D--
-
-
-

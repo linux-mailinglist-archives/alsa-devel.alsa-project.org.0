@@ -2,43 +2,43 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C888958B7
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:44:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE568958BE
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:46:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F9F016C6;
-	Tue, 20 Aug 2019 09:43:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F9F016C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75F8A168F;
+	Tue, 20 Aug 2019 09:45:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75F8A168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566287051;
+	s=default; t=1566287168;
 	bh=uVBVP52GBwUuGj5KqEjwHwofGEaLFn1ELoaD8giqXQw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N7OcbCGKWxi4iABqLoceF1YN5+iciY+dZtdyFOadAgFqv1278DCR+ASdznDL2/AZm
-	 +yTgZ1LfYDQdUphEZg50wyrk0Fv/ZOf7XHuxXbtOk7CqFRxp0/k9SG4IaZ6TaHxZjF
-	 DL9DcP2YxvAJtoYuhV2Hl6eM8sOzs2py7Dv7NJl0=
+	b=jN8j78EXKAqBZRACPSObx77Bf/v2zwlHPWXTyBTYu9xWX7pXyh3Ibhiihf/Cu6jcA
+	 ykeL4L8Ju8+mtJgCU3zLSE0XWdhoI+xvlnuuBnJDWtuCLFuxAQCgjH0aoe8/v+SnMG
+	 vOIjgfsNcMH7U2fhGk/kfVBmrrPkW9838F93gBV4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F221DF80CBE;
-	Tue, 20 Aug 2019 09:19:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACEF0F89622;
+	Tue, 20 Aug 2019 09:19:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4857CF80307; Mon, 19 Aug 2019 22:04:11 +0200 (CEST)
+ id 2D160F805A1; Mon, 19 Aug 2019 22:05:37 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BFE86F80639
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFE86F80639
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4414DF8063A
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4414DF8063A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
  header.b="p6RdV/Ep"
 Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E0E92206C1;
+ by mail.kernel.org (Postfix) with ESMTPSA id 1FB3722CF4;
  Mon, 19 Aug 2019 19:26:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=default; t=1566242792;

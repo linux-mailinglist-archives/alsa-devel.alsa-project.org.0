@@ -2,73 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 593BF94D1C
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2019 20:39:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE7F94E65
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2019 21:36:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA322166A;
-	Mon, 19 Aug 2019 20:38:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA322166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3424F1666;
+	Mon, 19 Aug 2019 21:35:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3424F1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566239949;
-	bh=SDsPtuKYKfzIvrwZyyrwsFP7k8xnTy8zXSDJr7X+Xus=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566243363;
+	bh=+DvAsbkJlbUlJt5rLqheK6TfIAfhXHSsRDNcl5mYBME=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AtoRASmeNCphyaJ2FyI5hp8fKPUZ1HU5frg1wJKS5uJb75puLypRKw+4sXqr4HHOt
-	 /1gVPYmSYeedauAugaXxDooxxWGuSJlGkqHZ13RKnDNnZ1beLkfy8DIzXvq6H8sSVb
-	 NF2lLFdsqSig8+w4HO2yf4J1P2AqsqxQ8a24mkuw=
+	b=P2/fl/ZPM+bbkd/NP5eTkWTJZDdoZLxUGEvmp4S08WJc+9aKDepkgKw1KjDM4Tnvk
+	 8xnyKYdVotsMbu/l7o1QRrtAM9AG5qI6cKV8PJtGoVxiX31whgBkOfFESlVs8X5iye
+	 lbzU6TnEBcRtNM+NO3xJKmRAyAn29aw0t3kOkKeo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F24D0F802BE;
-	Mon, 19 Aug 2019 20:37:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A76BDF80659;
+	Mon, 19 Aug 2019 21:34:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85C5FF802E0; Mon, 19 Aug 2019 20:37:18 +0200 (CEST)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id B6E5AF8064C; Mon, 19 Aug 2019 21:34:10 +0200 (CEST)
+Received: from mail-wr1-f99.google.com (mail-wr1-f99.google.com
+ [209.85.221.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CCFBF8011F
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 20:27:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CCFBF8011F
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2019 11:09:04 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,405,1559545200"; d="scan'208";a="177945650"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.27.116])
- ([10.252.27.116])
- by fmsmga008.fm.intel.com with ESMTP; 19 Aug 2019 11:09:00 -0700
-To: "Jie, Yang" <yang.jie@intel.com>, Jon Flatley <jflat@chromium.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
- <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
- <ac7bcb42e40ac12d9924fd65c3e2c68b9b11b093.camel@linux.intel.com>
- <37ede7ea-e760-eac9-a1d5-0eb8e3bff3cb@linux.intel.com>
- <CACJJ=pyb==xWqKMB-gAzW7-FCFgEU7Rm+b-CL-ANO-eorDKy=A@mail.gmail.com>
- <356b3f4eacb43f23c40c4cd8e3c54ae9514a34c6.camel@linux.intel.com>
- <7e08e45d-7cec-9fdd-36c5-5e82632968f8@linux.intel.com>
- <CACJJ=pzcMCaOvHMVhmYKKL2Z45-XdrBB9FT8VjSzX_obVtKzyw@mail.gmail.com>
- <d80c2f4d-b5f4-5bbe-9529-36b9859ab8be@linux.intel.com>
- <CACJJ=pxokT5z+U=nM9QcUVxCk84998ugM5J89U28k=CVGMjG=w@mail.gmail.com>
- <E7B1D079BA13FB44A978CC8F69C7D6A9606FC567@SHSMSX106.ccr.corp.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <d0131c02-3477-8390-e0c6-b37b142169e8@intel.com>
-Date: Mon, 19 Aug 2019 20:08:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 728A3F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:24:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 728A3F800B6
+Received: by mail-wr1-f99.google.com with SMTP id p17so9858708wrf.11
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 12:24:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=asY+JEfud3QLXmqqhMWz7vkV88PZHb5mSyH+FWyiasY=;
+ b=WjUpOuA/WspLDp/74ayO+KUErwRjRkLRFd1VV+nMqg5Cjovpd0pPncdGcJordrEBXz
+ kvC0lTixQ/rdXaYMtMJ14tWx0cJZEVSbzf+SLo/GDmPurTXURHq8nxLrZ4Dc6na25zs3
+ i7sn05RLBKdIaIZ8dU2et1WI53FbMEXG1P0LfsC8/+vByrmaL1rqPub3As7pPxObRbR2
+ ymZS4aoteDaNFHxz52o1Gl2py5PIIefIhRhylnBlg10YisuWAbIxBcIEdKY4Vfeg57+z
+ AbQCWWHW7jwYKIEMwbvy7VHEzFYmQtUg5nakJNHF5R0u1aBu89htRTYLt2fjJO72jbFe
+ PN5w==
+X-Gm-Message-State: APjAAAUxA0B+UBXtnSyk16vnNJuKioluIRtb2C9L1oaFkcynry6p89EB
+ QgfWbSzJxgZwEyjse+K/wTTnZJVxcUIoocbzq3C867LmHzcQ9FXQz58gyuzIH0gAcQ==
+X-Google-Smtp-Source: APXvYqz4UkzYwJsCuwK5t8beauK0BKp9AdGSy6g1GsIjytfJX9fzAtwNCtAwmPJEOBAXiOx4xbjTBUZ78SYe
+X-Received: by 2002:adf:f507:: with SMTP id q7mr29508281wro.210.1566242648462; 
+ Mon, 19 Aug 2019 12:24:08 -0700 (PDT)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
+ [2a01:7e01::f03c:91ff:fed4:a3b6])
+ by smtp-relay.gmail.com with ESMTPS id o9sm269429wrg.25.2019.08.19.12.24.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 19 Aug 2019 12:24:08 -0700 (PDT)
+X-Relaying-Domain: sirena.org.uk
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1hznGC-0006PH-0z; Mon, 19 Aug 2019 19:24:08 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id D3509274314C; Mon, 19 Aug 2019 20:24:06 +0100 (BST)
+Date: Mon, 19 Aug 2019 20:24:06 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shawn Guo <shawnguo@kernel.org>
+Message-ID: <20190819192406.GC5563@sirena.co.uk>
+References: <20190815154500.29090-1-pierre-louis.bossart@linux.intel.com>
+ <20190815154500.29090-2-pierre-louis.bossart@linux.intel.com>
+ <20190815164942.GB4841@sirena.co.uk>
+ <CAEnQRZAM6VkCewfVYysz-NmPNEz-CSe763Cv-kz9kyNjx8uMtQ@mail.gmail.com>
+ <20190819134616.GR5999@X250>
 MIME-Version: 1.0
-In-Reply-To: <E7B1D079BA13FB44A978CC8F69C7D6A9606FC567@SHSMSX106.ccr.corp.intel.com>
-Content-Language: en-US
-Cc: "benzh@chromium.org" <benzh@chromium.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Jie Yang <yang.jie@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- "cujomalainey@chromium.org" <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+In-Reply-To: <20190819134616.GR5999@X250>
+X-Cookie: QOTD:
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Takashi Iwai <tiwai@suse.de>, Daniel Baluta <daniel.baluta@gmail.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH 1/3] ASoC: SOF: Add OF DSP device support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,94 +94,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0805854776173964349=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-08-19 04:33, Jie, Yang wrote:
-> 
->> -----Original Message-----
->> From: Jon Flatley [mailto:jflat@chromium.org]
->> Sent: Thursday, August 15, 2019 5:25 AM
->> To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->> Cc: Jon Flatley <jflat@chromium.org>; Jie, Yang <yang.jie@intel.com>;
->> benzh@chromium.org; alsa-devel@alsa-project.org; Ranjani Sridharan
->> <ranjani.sridharan@linux.intel.com>; cujomalainey@chromium.org; Jie Yang
->> <yang.jie@linux.intel.com>
->> Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
->>
->> On Wed, Aug 14, 2019 at 1:51 PM Pierre-Louis Bossart <pierre-
->> louis.bossart@linux.intel.com> wrote:
->>>
->>>
->>>> There seems to be an issue when suspending the ALC5650. I think the
->>>> nondeterministic behavior I was seeing just had to do with whether
->>>> or not the DSP had yet suspended.
->>>>
->>>> I reverted commit 0d2135ecadb0 ("ASoC: Intel: Work around to fix HW
->>>> D3 potential crash issue") and things started working, including
->>>> suspend/resume of the DSP. Any ideas for why this may be? I would
->>>> like to resolve this so I can finish upstreaming the bdw-rt5650
->>>> machine driver.
->>>
->>> Copying Keyon in case he remembers the context.
->>>
->>> Reverting a 5yr-old commit with all sorts of clock/power-related fixes
->>> looks brave, and it's not clear why this would work with the rt5677
->>> and not with 5650.
->>
->> No idea, I was just diffing the register writes looking for sources of discrepancy.
->> The Chromium OS 3.14 kernel tree that Buddy uses doesn't have this patch, so
->> I figured what's the worst that could happen?
-> 
-> Hi Jon, sorry about just noticing this thread.
->  From the dmesg log, the issue happens at runtime suspend/resume but not in boot, am I right(you can disable runtime PM for the device to confirm that)?
-> 
-> My points here are:
-> 1. the commit 0d2135ecadb0 was suggested by FW team to W/A D3 potential crash issue.
-> 2. it was verified with rt286(Broadwell.c, e.g. Dell XPS) from our side only(and may have been checked with rt5677 by Chrome team).
-> 3. please follow sequence in broadwell.c if issue happen at boot time.
-> If happened at runtime PM from DSP side, we should see it with all kinds of machine driver.
-> Could you performing more test and debugging to see what it real happen there?
-> 4. we have no reason to remove the commit directly, except correcting if some lines are proved wrong. And, as Pierre mentioned, SOF driver is preferred, as there is no new development effort to support SST haswell/Broadwell driver here(no platform, no developer, :-( ).
-> 
-> Thanks,
-> ~Keyon>
 
-Got to disagree with the last one - no platform, no developer.
-We are setting up some BDW/ HSW here to join our happy SKL+ family in 
-CI. This is because of /common cleanups which will engulf aDSP project 
-(hsw/byt) obviously.
+--===============0805854776173964349==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="t0UkRYy7tHLRMCai"
+Content-Disposition: inline
 
-These will be tested against the exact same BAT scope as other ADSP 
-devices. Code here looks much better, at least compared to /skylake - 
-ain't a high threshold though.. Given how outdated all SKL+ fw binaries 
-are (on upstream repo) it might even come down simply to fw upgrade.
-Most of FW peps who took part in that project are already out. Although, 
-found one or two who are willing to help : )
 
-And yes, I'm setting them up with rt286 too. There are some rt56XX but 
-I'm unsure if rt5650 is amount them.
-Still got some problems with ACPI, but soon two new faces should be 
-greeting audio CI bonfire..
+--t0UkRYy7tHLRMCai
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Czarek
+On Mon, Aug 19, 2019 at 03:46:17PM +0200, Shawn Guo wrote:
+> On Fri, Aug 16, 2019 at 11:43:13AM +0300, Daniel Baluta wrote:
 
->>>
->>> Are you using the latest upstream firmware btw? Or the one which
->>> shipped with the initial device (which could be an issue if the protocol
->> changed).
->>
->> The firmware I'm loading is: `FW info: type 01, - version: 00.00, build 77,
->> source commit id: 876ac6906f31a43b6772b23c7c983ce9dcb18a1`.
->> Hashes the same as the upstream binary.
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> 
+> > Binding documentation together with the actual dts nodes were sent
+> > to Shawn.
+
+> > https://lkml.org/lkml/2019/8/7/682
+
+> > Can you pick 4/5 and 5/5 patches from series above? 1-3 are sent to
+> > Mark to go through to alsa tree.
+
+> I just picked up DTS patch (4/5), but DT bindings should generally go
+> through driver/subsystem tree as preference.
+
+Right, especially so we get domain experts looking at things before they
+are merged.
+
+--t0UkRYy7tHLRMCai
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1a91YACgkQJNaLcl1U
+h9Duhwf+Jun/261NvS0DyKcg4mZ3Us1NgoEMjPfXVxXIlqHD+DSU+kyNcUeAevIi
+geJqCRUpDk/8m7yFbVHuVikAoZwEcSAm41PkRYy+jw02WYiIpI/zKmpucsorv3+S
+/5yV4qHykS94VSInBhxLI9SOwaPBT0cNfQFLKMmE5R5e2nhKNbbAaby/oCottVGj
+nTzSz4wFgDLjwcaopxnxfXYJOwN1l2hg0hK/4+eBTso7+sGqVGfbiVAfmPHAjACY
+j1MWzj5e3NuilCp33tJ3ZODBUZ6Er2/8kOaiY73c4I0OZ1ymI9NCtW82LGqneycG
+CBZq3Whpox7pAry6kx4vSVO6HniTOQ==
+=yP+B
+-----END PGP SIGNATURE-----
+
+--t0UkRYy7tHLRMCai--
+
+--===============0805854776173964349==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0805854776173964349==--

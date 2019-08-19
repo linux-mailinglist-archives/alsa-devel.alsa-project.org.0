@@ -2,78 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE6919508F
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 00:13:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B65E395120
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 00:49:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B42DF167B;
-	Tue, 20 Aug 2019 00:12:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B42DF167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 130D01615;
+	Tue, 20 Aug 2019 00:48:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 130D01615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566252799;
-	bh=KRG+0lToHqwlXWtFX1vjCgddNf+zAOq7axfzrRI9lOc=;
+	s=default; t=1566254937;
+	bh=kLvXMxtGruiNEbXGzb6IS7m+4wxyMmjRIgj/Vq8Ej9A=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Oys/he0ulzc3P0hEFMC1D/63Kj2Kzj0HJ3ExNFcjLekwo3JDXwpfEdCDoosqa7ZxX
-	 Ipe1BUJN17ojP0187cZ2gNKPjQuvRaFsCTwvGJImzAzrksBNHMB2VWEjRnVzCSsYee
-	 ejxFCt9XpXxjtw0aYljUyNRz/k2oFS3c+SooQzT0=
+	b=pnWP2justxFiVOMx/64dJkAVi2mZ0hGOqlAyBa0z7Hbf3tl9+8B82wHTwMcrDWrhL
+	 Q3qR+AH5fuPOcGlWQl51cF77DEqH/VJUbsHVHXP4L+JqbKw1QFyOu3Bb3hTUlQimr2
+	 bXqkPVuZZvEPQ7GnqOeTpM6W/4xSA8hR8tWc4LE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 747E3F8045E;
-	Tue, 20 Aug 2019 00:11:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F564F802E0;
+	Tue, 20 Aug 2019 00:47:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7F19F8045E; Tue, 20 Aug 2019 00:11:49 +0200 (CEST)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
+ id 0F206F800BF; Tue, 20 Aug 2019 00:47:11 +0200 (CEST)
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32A9BF8011F
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 00:01:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32A9BF8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 809ECF800BF
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 00:37:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 809ECF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="AO0/xL1K"
-Received: by mail-oi1-x244.google.com with SMTP id k22so2534733oiw.11
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 15:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="G/ShXRjt"
+Received: by mail-lj1-x243.google.com with SMTP id x4so3264165ljj.6
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 15:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6SYkxdV7jcIALUM9KI4yNevvBI0M59TAZ1Ut0Rgc0Pc=;
- b=AO0/xL1KCiGPLb4/MZT6fCgX3enykCD04uYTjj4irmu2HLhA90lfIUnBoOcpcVj6qw
- qps93uXFzM6/HAPKYcdP0O6ki/5wYb12mV32nxRjAt+VpEyVzSjcN1fJcREDA+9MSf5o
- 7VgJ4ImOLiutlMKHrhKRXNW/zq4szClyMlitIMzJD2B0T0tSdT/dZZP4wn5SkmQJ6Sle
- MnKqvoxXR/7WDitMmfJM3DCERy4Pi+Tuns33YkGOFa59trf9PR1r1ATWyQcSN0w3AZ4Q
- nYyUGPoNZxVk2ZxZrMpReXE6mMQ4kvhI1YTOpxkuRQkR5vox3Bf41jZTSh3DGGLX5H4q
- nt2g==
+ :cc:content-transfer-encoding;
+ bh=ocvBhbcNO8A6GkURy+GeujcgK5Y3BTIxAiCcITX3UKQ=;
+ b=G/ShXRjtuUImD/yRwLBNDsO2Pj/LKc5k4gXMkmfhrgjA7PrLcD/Uu+/Va5SVFFKZ4a
+ vAY7rlT15i5Y77N7xVXhjpD0YbpnVl0i7bgx0VZOzKQ3GMexWqCVz0G7EG59kNRMtkIX
+ FRQ8rXOaep11zHHJkLo+ZRfMnVSC7MjNUOLug=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6SYkxdV7jcIALUM9KI4yNevvBI0M59TAZ1Ut0Rgc0Pc=;
- b=uBWNOt4H40IrOlHe99PMdVOD0WY3SGVBqP+j1/GvHgDFEAm/Ug9rP94mqbaxzdD0pu
- ArLGDAg3ih0UatxcfAu94kH75IsHBj658AOUuYd1mLHqmhSwMkERwjHxLSou2zNCrgAU
- +V2Xpd8GbVrHjMqP4dYf4R3xqYgSNQLkn5GgEpT+ccRhUuY9vgS8S7xd6GUal5gSih/D
- zdokNDr6jleiKaw7s0JMgKi56+GiI2uJwWuryPnjUcV8qHSK6sjs4JUqG3w+mvMqjrUk
- QBPGlYSV+UXuaEuZg3Gv5u3QrsdeRXCTCf4KtspyX4+VT2VkbWYWpE4UBSt5bbc7Szeq
- tHdQ==
-X-Gm-Message-State: APjAAAVCs9wTdVm4Tmi4LO3VEM27z5I9aI3yMOnWB19S5NVqADkHr03L
- qUYfv54mipgmC+oWjCvpeUl1E1Kxzu180RGGgPA=
-X-Google-Smtp-Source: APXvYqzF8hCvhBL1RrLo3ML//+a+HjKu20yRlrywkdHuw2qGcuwpd7aVZkE/HQyRIBlqBVu7koHD7T8Sy/+hGZW0/DY=
-X-Received: by 2002:aca:4797:: with SMTP id u145mr10137291oia.19.1566252105668; 
- Mon, 19 Aug 2019 15:01:45 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ocvBhbcNO8A6GkURy+GeujcgK5Y3BTIxAiCcITX3UKQ=;
+ b=CutYzkSA0KSwGC3JWmRxNbXzecn+6eFQb0d2fJtAxfNy9uUm+QWNLncquMCr7QZ+tU
+ oFoMK4m0wFmAgU9kQ+UfhFaygC4dEyivMUfN6PRyI3Z7Mv6fHt/5DAE+43krZyNLOyjw
+ 9WlNlTwymIifYUCqzOqi8Nwb1JomKfflFJvJH+TojneG2RrXIiw7OYcaNOnWlFWfUU67
+ JFb9xOZwUIAb6o/zkfH6kff4thdheUuDNl//Kcvb8y4bm7Z9fXKp73bYqKGKUz7LxZcz
+ B6RpPbpv+yesX+3B/XoNiuTUvpySmtIXTv2zydK9St1kSkAX4GUR0tSthFZvrpoco4DJ
+ 16fQ==
+X-Gm-Message-State: APjAAAWs0BR/YuBeT1zitdhgtwqPAlYo/g60RKObDSmWKhVLqNX98gaf
+ zOFZM/IlZ/MIggpEoMl5JLoA8phlsh0=
+X-Google-Smtp-Source: APXvYqxL0+qm/ol80SFuvd1A3LImVvvVhyk559ckq8DupmaFcuSfMpBlie+fdkb4vdCZrVvXu5k7rg==
+X-Received: by 2002:a2e:a16d:: with SMTP id u13mr13996714ljl.55.1566254227422; 
+ Mon, 19 Aug 2019 15:37:07 -0700 (PDT)
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
+ [209.85.208.181])
+ by smtp.gmail.com with ESMTPSA id j30sm2553907lfk.48.2019.08.19.15.37.06
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 19 Aug 2019 15:37:06 -0700 (PDT)
+Received: by mail-lj1-f181.google.com with SMTP id x4so3264104ljj.6
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 15:37:06 -0700 (PDT)
+X-Received: by 2002:a2e:9d2:: with SMTP id 201mr13475968ljj.229.1566254225937; 
+ Mon, 19 Aug 2019 15:37:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <20190819220005.10178-1-benquike@gmail.com>
-In-Reply-To: <20190819220005.10178-1-benquike@gmail.com>
-From: Hui Peng <benquike@gmail.com>
-Date: Mon, 19 Aug 2019 18:01:34 -0400
-Message-ID: <CAKpmkkWuZW-eyQxp+Xe3qovf6aiJ0++bpcf7R92Vj=h1ijjBtg@mail.gmail.com>
-To: security@kernel.org
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: linux-kernel@vger.kernel.org, Mathias Payer <mathias.payer@nebelwelt.net>,
- Takashi Iwai <tiwai@suse.com>, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH] Fix an OOB bug in uac_mixer_unit_bmControls
+References: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
+ <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
+ <ac7bcb42e40ac12d9924fd65c3e2c68b9b11b093.camel@linux.intel.com>
+ <37ede7ea-e760-eac9-a1d5-0eb8e3bff3cb@linux.intel.com>
+ <CACJJ=pyb==xWqKMB-gAzW7-FCFgEU7Rm+b-CL-ANO-eorDKy=A@mail.gmail.com>
+ <356b3f4eacb43f23c40c4cd8e3c54ae9514a34c6.camel@linux.intel.com>
+ <7e08e45d-7cec-9fdd-36c5-5e82632968f8@linux.intel.com>
+ <CACJJ=pzcMCaOvHMVhmYKKL2Z45-XdrBB9FT8VjSzX_obVtKzyw@mail.gmail.com>
+ <d80c2f4d-b5f4-5bbe-9529-36b9859ab8be@linux.intel.com>
+ <CACJJ=pxokT5z+U=nM9QcUVxCk84998ugM5J89U28k=CVGMjG=w@mail.gmail.com>
+ <E7B1D079BA13FB44A978CC8F69C7D6A9606FC567@SHSMSX106.ccr.corp.intel.com>
+ <d0131c02-3477-8390-e0c6-b37b142169e8@intel.com>
+In-Reply-To: <d0131c02-3477-8390-e0c6-b37b142169e8@intel.com>
+From: Jon Flatley <jflat@chromium.org>
+Date: Mon, 19 Aug 2019 15:36:54 -0700
+X-Gmail-Original-Message-ID: <CACJJ=pwsV2U669QqB0E05XxWppfXR81TrDCkEunfSefJ5Mij7w@mail.gmail.com>
+Message-ID: <CACJJ=pwsV2U669QqB0E05XxWppfXR81TrDCkEunfSefJ5Mij7w@mail.gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Ross Zwisler <zwisler@google.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "benzh@chromium.org" <benzh@chromium.org>, Jon Flatley <jflat@chromium.org>,
+ "cujomalainey@chromium.org" <cujomalainey@chromium.org>
+Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,80 +114,130 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sorry, this is the wrong patch. I will send it again.
+On Mon, Aug 19, 2019 at 11:08 AM Cezary Rojewski
+<cezary.rojewski@intel.com> wrote:
+>
+> On 2019-08-19 04:33, Jie, Yang wrote:
+> >
+> >> -----Original Message-----
+> >> From: Jon Flatley [mailto:jflat@chromium.org]
+> >> Sent: Thursday, August 15, 2019 5:25 AM
+> >> To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> >> Cc: Jon Flatley <jflat@chromium.org>; Jie, Yang <yang.jie@intel.com>;
+> >> benzh@chromium.org; alsa-devel@alsa-project.org; Ranjani Sridharan
+> >> <ranjani.sridharan@linux.intel.com>; cujomalainey@chromium.org; Jie Yang
+> >> <yang.jie@linux.intel.com>
+> >> Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+> >>
+> >> On Wed, Aug 14, 2019 at 1:51 PM Pierre-Louis Bossart <pierre-
+> >> louis.bossart@linux.intel.com> wrote:
+> >>>
+> >>>
+> >>>> There seems to be an issue when suspending the ALC5650. I think the
+> >>>> nondeterministic behavior I was seeing just had to do with whether
+> >>>> or not the DSP had yet suspended.
+> >>>>
+> >>>> I reverted commit 0d2135ecadb0 ("ASoC: Intel: Work around to fix HW
+> >>>> D3 potential crash issue") and things started working, including
+> >>>> suspend/resume of the DSP. Any ideas for why this may be? I would
+> >>>> like to resolve this so I can finish upstreaming the bdw-rt5650
+> >>>> machine driver.
+> >>>
+> >>> Copying Keyon in case he remembers the context.
+> >>>
+> >>> Reverting a 5yr-old commit with all sorts of clock/power-related fixes
+> >>> looks brave, and it's not clear why this would work with the rt5677
+> >>> and not with 5650.
+> >>
+> >> No idea, I was just diffing the register writes looking for sources of discrepancy.
+> >> The Chromium OS 3.14 kernel tree that Buddy uses doesn't have this patch, so
+> >> I figured what's the worst that could happen?
+> >
+> > Hi Jon, sorry about just noticing this thread.
+> >  From the dmesg log, the issue happens at runtime suspend/resume but not in boot, am I right(you can disable runtime PM for the device to confirm that)?
 
-On Mon, Aug 19, 2019 at 6:00 PM Hui Peng <benquike@gmail.com> wrote:
+From what I can tell that is correct. Disabling runtime PM seems to
+stabilize things. I tested this over 10 reboots. I'll kick off my
+stress test script overnight just to see if this is 100% consistent.
 
-> `uac_mixer_unit_get_channels` calls `uac_mixer_unit_bmControls`
-> to get pointer to bmControls field. The current implementation of
-> `uac_mixer_unit_get_channels` does properly check the size of
-> uac_mixer_unit_descriptor descriptor and may allow OOB access
-> in `uac_mixer_unit_bmControls`.
+> >
+> > My points here are:
+> > 1. the commit 0d2135ecadb0 was suggested by FW team to W/A D3 potential crash issue.
+> > 2. it was verified with rt286(Broadwell.c, e.g. Dell XPS) from our side only(and may have been checked with rt5677 by Chrome team).
+> > 3. please follow sequence in broadwell.c if issue happen at boot time.
+> > If happened at runtime PM from DSP side, we should see it with all kinds of machine driver.
+
+I'm not really a sound guy; I've been picking this up as I go along.
+From what I've gathered it doesn't make sense to me why this is an
+issue on buddy, but not other bdw platforms, such as samus. If I
+understand correctly they both have the same DSP and use the same
+runtime suspend/resume code. What makes this fail with the 5650 and
+not the 5677 is the million dollar question.
+
+> > Could you performing more test and debugging to see what it real happen there?
+
+Yes, I'll continue poking at this. The debugging that got me this far
+basically just involved placing traces on the sst_shim32_write/read
+functions and looking at the diff from my best working reference,
+which is our cros-kernel-3.14 branch. This is what lead me to
+reverting 0d2135ecadb0, as it produced effectively identical traces as
+I was seeing in 3.14.
+
+> > 4. we have no reason to remove the commit directly, except correcting if some lines are proved wrong. And, as Pierre mentioned, SOF driver is preferred, as there is no new development effort to support SST haswell/Broadwell driver here(no platform, no developer, :-( ).
+
+I'm not suggesting removing the commit, merely observing that
+reverting it seems to fix the problem.
+
+> >
+> > Thanks,
+> > ~Keyon>
 >
-> Reported-by: Hui Peng <benquike@gmail.com>
-> Reported-by: Mathias Payer <mathias.payer@nebelwelt.net>
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
->  sound/usb/mixer.c | 25 ++++++++++++++++++-------
->  1 file changed, 18 insertions(+), 7 deletions(-)
+> Got to disagree with the last one - no platform, no developer.
+> We are setting up some BDW/ HSW here to join our happy SKL+ family in
+> CI. This is because of /common cleanups which will engulf aDSP project
+> (hsw/byt) obviously.
 >
-> diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-> index b5927c3d5bc0..00e6274a63c3 100644
-> --- a/sound/usb/mixer.c
-> +++ b/sound/usb/mixer.c
-> @@ -738,28 +738,39 @@ static int get_cluster_channels_v3(struct
-> mixer_build *state, unsigned int clust
->  static int uac_mixer_unit_get_channels(struct mixer_build *state,
->                                        struct uac_mixer_unit_descriptor
-> *desc)
->  {
-> -       int mu_channels;
-> +       int mu_channels = 0;
->         void *c;
+> These will be tested against the exact same BAT scope as other ADSP
+> devices. Code here looks much better, at least compared to /skylake -
+> ain't a high threshold though.. Given how outdated all SKL+ fw binaries
+> are (on upstream repo) it might even come down simply to fw upgrade.
+> Most of FW peps who took part in that project are already out. Although,
+> found one or two who are willing to help : )
 >
-> -       if (desc->bLength < sizeof(*desc))
-> -               return -EINVAL;
->         if (!desc->bNrInPins)
->                 return -EINVAL;
-> -       if (desc->bLength < sizeof(*desc) + desc->bNrInPins)
-> -               return -EINVAL;
+> And yes, I'm setting them up with rt286 too. There are some rt56XX but
+> I'm unsure if rt5650 is amount them.
+> Still got some problems with ACPI, but soon two new faces should be
+> greeting audio CI bonfire..
 >
->         switch (state->mixer->protocol) {
->         case UAC_VERSION_1:
-> +               // limit derived from uac_mixer_unit_bmControls
-> +               if (desc->bLength < sizeof(*desc) + desc->bNrInPins + 4)
-> +                       return 0;
-> +
-> +               mu_channels = uac_mixer_unit_bNrChannels(desc);
-> +               break;
-> +
->         case UAC_VERSION_2:
-> -       default:
-> -               if (desc->bLength < sizeof(*desc) + desc->bNrInPins + 1)
-> +               // limit derived from uac_mixer_unit_bmControls
-> +               if (desc->bLength < sizeof(*desc) + desc->bNrInPins + 6)
->                         return 0; /* no bmControls -> skip */
-> +
->                 mu_channels = uac_mixer_unit_bNrChannels(desc);
->                 break;
->         case UAC_VERSION_3:
-> +               // limit derived from uac_mixer_unit_bmControls
-> +               if (desc->bLength < sizeof(*desc) + desc->bNrInPins + 2)
-> +                       return 0; /* no bmControls -> skip */
-> +
->                 mu_channels = get_cluster_channels_v3(state,
->                                 uac3_mixer_unit_wClusterDescrID(desc));
->                 break;
-> +
-> +       default:
-> +               break;
->         }
+> Czarek
 >
->         if (!mu_channels)
-> --
-> 2.22.1
->
->
+
+I can continue to work at this to see if I can make any more headway.
+Unfortunately without a solid intuitive understanding of the system,
+or insight into the DSP, I'm limited to looking at traces and git
+history for the most part.
+
+Curtis: Do you think it makes sense to poke at samus and see if there
+are any differences in the suspend/resume process, or are they pretty
+much guaranteed to be identical?
+
+Thanks for all your help on this.
+
+- Jon
+
+> >>>
+> >>> Are you using the latest upstream firmware btw? Or the one which
+> >>> shipped with the initial device (which could be an issue if the protocol
+> >> changed).
+> >>
+> >> The firmware I'm loading is: `FW info: type 01, - version: 00.00, build 77,
+> >> source commit id: 876ac6906f31a43b6772b23c7c983ce9dcb18a1`.
+> >> Hashes the same as the upstream binary.
+> > _______________________________________________
+> > Alsa-devel mailing list
+> > Alsa-devel@alsa-project.org
+> > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> >
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

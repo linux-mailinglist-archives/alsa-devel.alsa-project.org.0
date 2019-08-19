@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2EE1958A0
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:38:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 085F6958A5
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 09:40:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74C0E169B;
-	Tue, 20 Aug 2019 09:38:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74C0E169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 82C7C165F;
+	Tue, 20 Aug 2019 09:39:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 82C7C165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566286739;
-	bh=5YxmLufu7np6GlKnWwRhmBKQWslNq45LIuuqcEK8eK4=;
+	s=default; t=1566286811;
+	bh=wJuHrjatAhhRZhoplgCt1DJ9U/uILFfkxRVYVAPDWs4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M9AVhtfrHwEsCNrq5YqBj338P49m94Zq97VkrpkW+mHOrYsBPxR5RPuUCfnI7ib/u
-	 ohYoznHYTyeH5ef8iWDrGfpZTojyJMFxHuY4LbcCI77qWmMkcVUx+sQP6tQvmcKaIj
-	 Dtm6HHVrq1I41m7e3wELdjATHuvnqOCtoqRRlTW4=
+	b=PKIbftbJvCHqNQAeLI9xEE8cQ6xTvFhee+vFyT17Fg8K+SXUW9C6BhWzAJcEgk/Tk
+	 BrKjJTmjhHY7HymEATIfWgcWu9KNCvEws3B3WbM/YXX3OmtNnlMJSuPd5F818hozNv
+	 mr6qQEaq1NJMd5AgkiGR+fwxf3v/1EtXC03KSJCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29DC1F8087D;
-	Tue, 20 Aug 2019 09:19:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D35AF80C0F;
+	Tue, 20 Aug 2019 09:19:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8550AF802FB; Mon, 19 Aug 2019 21:55:39 +0200 (CEST)
+ id 9CC14F80308; Mon, 19 Aug 2019 21:55:39 +0200 (CEST)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E99D9F80612
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E99D9F80612
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84FE9F8060F
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 21:26:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84FE9F8060F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="ArqWz0An"
+ header.b="vSAqU7a6"
 Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C701022CEC;
- Mon, 19 Aug 2019 19:26:18 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A3DF322CF4;
+ Mon, 19 Aug 2019 19:26:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566242779;
- bh=pQ0Ph5rDPXfgCMzspmmfi9ilgy1fIlAZIRPD3Q25eMU=;
+ s=default; t=1566242773;
+ bh=naLkSi6HCcekYJoGDeGYtnqekGWpuAududHuhSwuFWI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ArqWz0AnMOdmhO835g6d4XeWAlJn1HhRUJuMTUbfai/uRIO2GpwRWbRIEUI+fu326
- 0D9GyE8X3d4q4fKSLn3SW3mGtcCTMEcmskatfV/vsHMpPqCjGmcuMJzT04MVaelMFI
- GhRJXzGZdXNd9hawaBHazR0jBMq8Jry2QPgRu2dQ=
+ b=vSAqU7a6ySkxUsTrRCfziifAcrtQ/XNk8+ABQzWN7UWvv9bOqv6nHRkFIRD6SHpzX
+ v1w0iabbQwQbJP6z7hr9SYFJyq8BQVuW1syY+tuttuVU4A1dgSauyKwuyOqupnHCkd
+ bEK4RbQm6q7v/pcX1WwuyFviiT1gSV71PQXvQJVs=
 From: Maxime Ripard <mripard@kernel.org>
 To: Chen-Yu Tsai <wens@csie.org>, Maxime Ripard <mripard@kernel.org>,
  lgirdwood@gmail.com, broonie@kernel.org
-Date: Mon, 19 Aug 2019 21:25:23 +0200
-Message-Id: <6a0ee0bc1375bcb53840d3fb2d2f3d9732b8e57e.1566242458.git-series.maxime.ripard@bootlin.com>
+Date: Mon, 19 Aug 2019 21:25:20 +0200
+Message-Id: <e03fb6b2a916223070b9f18405b0ef117a452ff4.1566242458.git-series.maxime.ripard@bootlin.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
 References: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
@@ -59,8 +59,7 @@ MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 20 Aug 2019 09:18:29 +0200
 Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 16/21] ASoC: sun4i-i2s: Fix the LRCK period on
-	A83t
+Subject: [alsa-devel] [PATCH 13/21] ASoC: sun4i-i2s: Fix the LRCK polarity
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,27 +79,61 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Maxime Ripard <maxime.ripard@bootlin.com>
 
-Unlike the previous SoCs, the A83t, like the newer ones, need the LRCK
-bitfield to be set. Let's add it.
+The LRCK polarity "normal" polarity in the I2S/TDM specs and in the
+Allwinner datasheet are not the same. In the case where the i2s controller
+is being used as the LRCK master, it's pretty clear when looked at under a
+scope.
 
+Let's fix this, and add a comment to clear up as much the confusion as
+possible.
+
+Fixes: 7d2993811a1e ("ASoC: sun4i-i2s: Add support for H3")
 Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
 Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/sunxi/sun4i-i2s.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 5dd742f24a7e..65bc296abb37 100644
+index e614c2d52af5..9c9061621b15 100644
 --- a/sound/soc/sunxi/sun4i-i2s.c
 +++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -1047,6 +1047,7 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
- 	.has_reset		= true,
- 	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
- 	.sun4i_i2s_regmap	= &sun4i_i2s_regmap_config,
-+	.has_fmt_set_lrck_period = true,
- 	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
- 	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
+@@ -570,23 +570,29 @@ static int sun8i_i2s_set_soc_fmt(const struct sun4i_i2s *i2s,
+ 	u32 mode, val;
+ 	u8 offset;
+ 
+-	/* DAI clock polarity */
++	/*
++	 * DAI clock polarity
++	 *
++	 * The setup for LRCK contradicts the datasheet, but under a
++	 * scope it's clear that the LRCK polarity is reversed
++	 * compared to the expected polarity on the bus.
++	 */
+ 	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
+ 	case SND_SOC_DAIFMT_IB_IF:
+ 		/* Invert both clocks */
+-		val = SUN8I_I2S_FMT0_BCLK_POLARITY_INVERTED |
+-		      SUN8I_I2S_FMT0_LRCLK_POLARITY_INVERTED;
++		val = SUN8I_I2S_FMT0_BCLK_POLARITY_INVERTED;
+ 		break;
+ 	case SND_SOC_DAIFMT_IB_NF:
+ 		/* Invert bit clock */
+-		val = SUN8I_I2S_FMT0_BCLK_POLARITY_INVERTED;
++		val = SUN8I_I2S_FMT0_BCLK_POLARITY_INVERTED |
++		      SUN8I_I2S_FMT0_LRCLK_POLARITY_INVERTED;
+ 		break;
+ 	case SND_SOC_DAIFMT_NB_IF:
+ 		/* Invert frame clock */
+-		val = SUN8I_I2S_FMT0_LRCLK_POLARITY_INVERTED;
++		val = 0;
+ 		break;
+ 	case SND_SOC_DAIFMT_NB_NF:
+-		val = 0;
++		val = SUN8I_I2S_FMT0_LRCLK_POLARITY_INVERTED;
+ 		break;
+ 	default:
+ 		return -EINVAL;
 -- 
 git-series 0.9.1
 _______________________________________________

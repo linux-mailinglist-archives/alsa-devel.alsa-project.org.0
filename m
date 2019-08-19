@@ -2,85 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B27DD91D4C
-	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2019 08:46:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13ECD922B5
+	for <lists+alsa-devel@lfdr.de>; Mon, 19 Aug 2019 13:47:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AD7E1673;
-	Mon, 19 Aug 2019 08:46:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AD7E1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C415166A;
+	Mon, 19 Aug 2019 13:46:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C415166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566197214;
-	bh=+Fu50Hn1j360oM4ZswAIadalg5ynFqIVVlHQZ2RIYhk=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qaLdlSmHFRJk+QN4uhNRgqDI98iv1qqdqVRaZeXSz9Nhu3FzKjao7FrPEiUo+x2D+
-	 TfRmde7QkHcxZvjscPgfOrQh0t6EWRDoa8SXKzrHGXrPMM1dz+MSLcXLTM3jkcX6ta
-	 sdq3GGzuxrkX3yHCH6oOuAO+1s9r3iq8ySTj/6t8=
+	s=default; t=1566215261;
+	bh=47ia9Cewv3ouW6ZiU7cEAWbGv64dhrFAsPv9D4QeGoI=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JSMiGRp2Zk5aOE6x3854SeYvCWk85Ftlorj7FblMdoOUcVd7cikxcelkccZh6Ct7R
+	 toKhKY/rFB/TDtzN+HGpgmTmAMq31TFnnjfyamBgzHhScLSR+rxbzi8BsTkbOSNtv+
+	 7AJStePxTRuF8sqY2FUhtqw1CK5wtuNMwFRWT7TY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82F74F802FB;
-	Mon, 19 Aug 2019 08:45:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A32BFF800B6;
+	Mon, 19 Aug 2019 13:45:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 876E5F802E0; Mon, 19 Aug 2019 08:45:04 +0200 (CEST)
+ id D3064F802E0; Mon, 19 Aug 2019 13:45:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.7 required=5.0 tests=BIGNUM_EMAILS, DKIMWL_WL_HIGH, 
+ DKIM_SIGNED, DKIM_VALID, DKIM_VALID_AU, SPF_HELO_PASS, SPF_NONE,
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 423C7F800AA
- for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 08:45:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 423C7F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7E05F800B6
+ for <alsa-devel@alsa-project.org>; Mon, 19 Aug 2019 13:45:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7E05F800B6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="GyhMQmq8"
-Received: by mail-wm1-x341.google.com with SMTP id 207so549884wma.1
- for <alsa-devel@alsa-project.org>; Sun, 18 Aug 2019 23:45:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=aWjmZ/tcdGCe3FIHA1H1MZ0hY9QWosLUbHqDOu2BOJk=;
- b=GyhMQmq8X3JLnxr0KE7hKW3yrSWL8S+Fv4SlFteuQ5pxrRKTNwCCRADR4q2oocKMes
- NdwkGSQefaCLh5f1/XFhRIkSpICW0MpLwKwRP3pdhZuLl3c2NR+yrsvh6pEtxcOMjs5m
- 3PBVR7Xjj/xLSIVExarsIelIG3fWckI3OPusu1rZwGrVU7DhHx+atInWvwJUrtyqsME9
- 5bw1ZmuIc36NEN5rThmr5AC1sct3jTLOdY8MndOtJkwOuPN9QF+VSz+xRyMgoLZ0pYgj
- HBqKqjYdSFX4zl3s5D6WMaaBtq3ckNYPEvuX5PDjNHwI/tyBcmh9WCceUqd2XEd3Buzm
- 2K4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=aWjmZ/tcdGCe3FIHA1H1MZ0hY9QWosLUbHqDOu2BOJk=;
- b=abrzwzGv8tZKRsbzTkSCo8oXgguEJYYQwDTa6Ci5zpWGXqLAKG5iOD0p99oaBBexyT
- hSD/SgenWTBW5Lk0Q/7Ka+gJZ6T/Th1yRzLxweUGbsNB/ziL8up1+IuXNclXCtRcnjX6
- Wlu83s+Hcu2/ImlFmdKP7XhM6yHZwJqpa/2xzWA05f3efezZLBmmo7izdwne3wDhTLyw
- EqN9kHgLZZ4nA0p6L2+yHeqRHpFIGf4YH1p7BOvFW21SafWH+lntimECF1SGTrpRwEhA
- 28NmkbcpQ2p1E3CFgPe63V9iI4gO/OO5km4wwFlzUa3mgp/8UFIcZ8YcY/shkjD0AQRZ
- H5Ag==
-X-Gm-Message-State: APjAAAVw0jcPhWRg9nN3rb85F9wSOtwOpHHh6docbyAe7DC1KrJFBoxM
- 3JACJP7vsSL75asfhirli2mq6uyAR4l/xCY0H0g=
-X-Google-Smtp-Source: APXvYqwRxfStEI10GqR73+XwJdJMz8z39j4p4/FZ4J0MYRwo3WYniHCZMCvYj9S7pHK5ijLCG+Llp3PqtSDT+2pVV3s=
-X-Received: by 2002:a1c:6a0b:: with SMTP id f11mr17161062wmc.87.1566197099765; 
- Sun, 18 Aug 2019 23:44:59 -0700 (PDT)
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="BanBGMUc"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x7JBiJxT026548;
+ Mon, 19 Aug 2019 11:45:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2019-08-05;
+ bh=25v2e5Q/acykug8iJZTZiMy3h+EkO2B82m9zJvCwfOA=;
+ b=BanBGMUcjioFeAmaqliNunEHPp26j0xWtgRAgFmo6bC/YkVtJ8GFg1aBGYgklU26yIKp
+ 2JmAzEmbvheKw6EKk+HJs2PTPH8a2ldh5KBTntejglO3tr9BESW8JNoWGVcMGCklSAk9
+ YqyRekMrROZOTr+jmnCajEAz8clRYVUpysRnSFGJSRVluJr3SabXZZUS7EHt6f33or0G
+ o3dbzrpR154WnvXEaN1ndTRW8cDEJ2KWx2nNn+AVh1cRpW65BswrQKl0wco5SdOaiKJs
+ emi74l6tQJfGHGuygfASqYdR1hYg91RXt2Wfc3aDFZwjFrJA9JitbFvKP9hiz/5hUn4p CA== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by aserp2120.oracle.com with ESMTP id 2ue9hp6w0u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 19 Aug 2019 11:45:46 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x7JBhrdm096838;
+ Mon, 19 Aug 2019 11:45:45 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 2ue6qeepnj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 19 Aug 2019 11:45:45 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x7JBjfSf007005;
+ Mon, 19 Aug 2019 11:45:44 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 19 Aug 2019 04:45:41 -0700
+Date: Mon, 19 Aug 2019 14:45:35 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: jaska.uimonen@intel.com
+Message-ID: <20190819114535.GA24323@mwanda>
 MIME-Version: 1.0
-References: <20190815154500.29090-1-pierre-louis.bossart@linux.intel.com>
- <20190815154500.29090-3-pierre-louis.bossart@linux.intel.com>
- <c8c78674-7af8-4577-9e18-da85c064b345@intel.com>
-In-Reply-To: <c8c78674-7af8-4577-9e18-da85c064b345@intel.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Mon, 19 Aug 2019 09:44:48 +0300
-Message-ID: <CAEnQRZAvVs=-pCcNwhWw=wV54jZU5Fu0QAGLnZ8bvK4J3+YRcA@mail.gmail.com>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Takashi Iwai <tiwai@suse.de>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: SOF: imx: Add i.MX8 HW support
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9353
+ signatures=668684
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=826
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1906280000 definitions=main-1908190135
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9353
+ signatures=668684
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=876 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
+ definitions=main-1908190135
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [bug report] ASoC: SOF: topology: use set_get_data in
+	process load
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,85 +109,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Cezary,
+Hello Jaska Uimonen,
 
-On Sat, Aug 17, 2019 at 6:22 PM Cezary Rojewski
-<cezary.rojewski@intel.com> wrote:
->
-> On 2019-08-15 17:44, Pierre-Louis Bossart wrote:
-> > From: Daniel Baluta <daniel.baluta@nxp.com>
-> >
-> > Add support for the audio DSP hardware found on NXP i.MX8 platform.
-> >
-> > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-> > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> > +static void imx8_get_reply(struct snd_sof_dev *sdev)
-> > +{
-> > +     struct snd_sof_ipc_msg *msg = sdev->msg;
-> > +     struct sof_ipc_reply reply;
-> > +     int ret = 0;
-> > +
-> > +     if (!msg) {
-> > +             dev_warn(sdev->dev, "unexpected ipc interrupt\n");
-> > +             return;
-> > +     }
-> > +
-> > +     /* get reply */
-> > +     sof_mailbox_read(sdev, sdev->host_box.offset, &reply, sizeof(reply));
-> > +
-> > +     if (reply.error < 0) {
-> > +             memcpy(msg->reply_data, &reply, sizeof(reply));
-> > +             ret = reply.error;
-> > +     } else {
-> > +             /* reply has correct size? */
-> > +             if (reply.hdr.size != msg->reply_size) {
-> > +                     dev_err(sdev->dev, "error: reply expected %zu got %u bytes\n",
-> > +                             msg->reply_size, reply.hdr.size);
-> > +                     ret = -EINVAL;
-> > +             }
-> > +
-> > +             /* read the message */
-> > +             if (msg->reply_size > 0)
-> > +                     sof_mailbox_read(sdev, sdev->host_box.offset,
-> > +                                      msg->reply_data, msg->reply_size);
-> > +     }
-> > +
-> > +     msg->reply_error = ret;
-> > +}
->
-> Assuming reply.hdr.size is coming from HW IPC regs, msg object is
-> representing application side - SW, kernel. If so, is msg->reply_size
-> value an estimated size (which can be overestimated since exact size may
-> be unknown by the host) -or- the exact size of incoming IPC reply?
->
+The patch cac974a51ebb: "ASoC: SOF: topology: use set_get_data in
+process load" from Aug 9, 2019, leads to the following static checker
+warning:
 
-I would say msg->reply_size is the exact size of incoming IPC. At least for this
-example:
+	sound/soc/sof/topology.c:1857 sof_process_load()
+	warn: 'ipc_data_size' unsigned <= 0
 
-Look at sound/soc/sof/pcm.c
+sound/soc/sof/topology.c
+  1825  static int sof_process_load(struct snd_soc_component *scomp, int index,
+  1826                              struct snd_sof_widget *swidget,
+  1827                              struct snd_soc_tplg_dapm_widget *tw,
+  1828                              struct sof_ipc_comp_reply *r,
+  1829                              int type)
+  1830  {
+  1831          struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+  1832          struct snd_soc_dapm_widget *widget = swidget->widget;
+  1833          struct snd_soc_tplg_private *private = &tw->priv;
+  1834          struct sof_ipc_comp_process *process = NULL;
+  1835          struct sof_widget_data *wdata = NULL;
+  1836          size_t ipc_data_size = 0;
+                ^^^^^^^^^^^^^^^^^^^^
+Unsigned.
 
-sof_pcm_trigger
+  1837          size_t ipc_size;
+  1838          int offset = 0;
+  1839          int ret = 0;
+  1840          int i;
+  1841  
+  1842          if (type == SOF_COMP_NONE) {
+  1843                  dev_err(sdev->dev, "error: invalid process comp type %d\n",
+  1844                          type);
+  1845                  return -EINVAL;
+  1846          }
+  1847  
+  1848          /* allocate struct for widget control data sizes and types */
+  1849          if (widget->num_kcontrols) {
+  1850                  wdata = kcalloc(widget->num_kcontrols,
+  1851                                  sizeof(*wdata),
+  1852                                  GFP_KERNEL);
+  1853  
+  1854                  if (!wdata)
+  1855                          return -ENOMEM;
+  1856  
+  1857                  /* get possible component controls and get size of all pdata */
+  1858                  ipc_data_size = sof_get_control_data(sdev, widget, wdata);
+  1859  
+  1860                  if (ipc_data_size <= 0) {
 
--> sof_ipc_tx_message(..,..,&reply, sizeof(reply))
 
-msg->reply_size = sizeof(reply).
+The sof_get_control_data() returns negative error codes, but it's also
+declared as unsigned.  But the main reason I'm reporting this instead of
+fixing it myself (besides laziness) is that I was wondering if it was
+really handling zero returns correctly.  Should we really return success
+in that situation?
 
-On the firmware side:
+  1861                          ret = ipc_data_size;
+  1862                          goto out;
+  1863                  }
+  1864          }
+  1865  
 
-https://github.com/thesofproject/sof/blob/master/src/ipc/handler.c#L912
-reply.rhdr.hdr.size = sizeof(reply);
-
-> The estimated-case is usually permissive as long as assumed size is >=
-> reply.hdr.size - dev_err needed. In the exact-case, it should be viewed
-> as a requirement. If such "requirement" fails, is it valid to read
-> mailbox regardless? Is this to extract some error-debug payload sent by FW?
->
-> Just curious, please feel free to correct me here, Pierre.
-
-If you think an improvement can be done, please send a patch :).
-
-thanks,
-Daniel.
+regards,
+dan carpenter
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

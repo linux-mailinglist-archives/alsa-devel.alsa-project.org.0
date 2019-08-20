@@ -2,83 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 431C896808
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 19:51:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A45F29680E
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 19:53:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D10C81607;
-	Tue, 20 Aug 2019 19:50:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D10C81607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3CC401668;
+	Tue, 20 Aug 2019 19:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CC401668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566323463;
-	bh=8+nUdXgCTuDAgEs2dsmcXk8ub/EIQKXmQbACQXWF/Js=;
+	s=default; t=1566323582;
+	bh=Wn73FCXvNgtXt9cnugognUVsYJ5l+dn27jhzyNPpi88=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=emfxsX8c1xJlsB9JRgOZ70BhSnVJ3xQ0FG2TMhj14z+Y2sRpP6Veb28n7GP7Gxf/I
-	 Pl+4gAh0pzeDWVX0UFge6s8ABb0MdO5SwNc2PU0RgDOZwgHy0Lk6rZTpK2kib5wIAH
-	 qJsZRy3LlEsldB+2t3qsowU38HnIRjlyANlv1dRs=
+	b=Fmz2MIcoHdzZZnyLefE/I5WMuFS4VxxTx1wqgk6uRCicOqJpKxMYtAIvpqAjKpLsq
+	 NfGNQCCKtlZVLexMLFBiSGc2jH23gVWZQaixCBwYfhqzpBPAQ4H4pjDKZQ0uMb/yQ9
+	 lto7AjX0cXEudcmc97kspREKjHRp3kqTpjLOuPPw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0122F80715;
-	Tue, 20 Aug 2019 19:41:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6EF6F80735;
+	Tue, 20 Aug 2019 19:41:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76479F80637; Tue, 20 Aug 2019 19:41:23 +0200 (CEST)
+ id EF54FF8063C; Tue, 20 Aug 2019 19:41:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- PRX_BODY_26, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-f97.google.com (mail-wm1-f97.google.com
- [209.85.128.97])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com
+ [209.85.128.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 990F1F805F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2318AF802E0
  for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 19:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 990F1F805F8
-Received: by mail-wm1-f97.google.com with SMTP id l2so3406336wmg.0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2318AF802E0
+Received: by mail-wm1-f99.google.com with SMTP id p74so3351482wme.4
  for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 10:41:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=RSHLf/fk8eaNAk0hQQsquTa2DY6x+xoJ3ov9YVjIq/Q=;
- b=Wiz2dkkJqcVcydz+32u5Ij7DeeJMGA7ij+4CSLHun1JYSzD8QqzSvvXxXgOuee7fI8
- 1CQdP0jwlw9aLftlZm3L3iFSnlbXRm6zwV26vw188PMNk3Z2yehB6/wcLk2ov1O73t7Y
- bt07RLoTZXsqfNeXrHAEvVcaXTPKyjW0QGG9IPTM6VW67WMCb6IhsTov9fyW5TEugYKI
- MQ4CPHBKsyTLY91HAUjqEe/wMLTqSBpw0xXBTuvnKxIqTjNPZdfKEvfqVOfJ6jLt3+NL
- Tez9UY5QBdwR620famIsJBWyqOLZNhruKVfCfob9Qrjtv+/P+mbMdxoIPkb1WZcoDKba
- MKxg==
-X-Gm-Message-State: APjAAAU/BMXqXh12sWe3IF1+DE8Gr8jz1z/Em4HkOYcLHVyjdku14mDS
- CqFKCmdSwrYnWEtmiYWjArXTLfDyRKmDnLRjUKFpaoQpJVimMfqLPXPoDf7wnB0ygQ==
-X-Google-Smtp-Source: APXvYqztnyVmdPDzxrUY5iAQAoCgujNpZ+N7WTCnFZWiqy+hQt9r6xjVGCEkruW8NThu5q8NoyncOQMDxu8F
-X-Received: by 2002:a1c:a852:: with SMTP id r79mr1220178wme.36.1566322866794; 
- Tue, 20 Aug 2019 10:41:06 -0700 (PDT)
+ bh=0q9woCZX0qm6N50DaIA6FNjfD3FFPCgnyT4lcLDQcyk=;
+ b=axjPnREMDIFbhXK61cI3VuJl2acrFY4lBSYXevuh9G2Vips47rX5q3bq8XA73Q5X+y
+ j3jeFEt3rG4LUWEINsrv4Lyz+rywsDf6lzfa8AR29iqXz8B1oyi8QG6e9UEfkgaz8i8O
+ LyWtuZpKOMi7SoqAR/5wSMRgv1uOr1QNCYB8CtGv74H+MB9LbnuaOz4TkN6L81lgkDtf
+ MF2Cu70qxSsSSnhX6QFGqU/XPafH9TO4K3hZlKvIKqTJmciIYV5aW+TliqDNJIKB1ZXY
+ 7uuxSxIq0Bb+rUcGdbFN/QfqEGc08Z+LuUaWlWMsElD2LMvSDvDph9OvOoFAvnWW8Urb
+ 84Nw==
+X-Gm-Message-State: APjAAAVDmfdjUOFvN1JaSomnY2ujfyyNJKcx2EZtl/1Pr4c1Qppx9fOH
+ EWHbICx2WZyJSBtH4yELg4GT5jorrsK4YKV/t46JX419sxIOlz/Ov3GDQjj5ylNuRg==
+X-Google-Smtp-Source: APXvYqw2Pt0zdcbAIggLBL+mSoi9Dm/t2bw7A/B5DHIIiy5JPlqKPp8E+ua/QyMvktd5SB6SB2utwpyTPYM3
+X-Received: by 2002:a1c:c018:: with SMTP id q24mr1232027wmf.162.1566322867345; 
+ Tue, 20 Aug 2019 10:41:07 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id 61sm291082wra.39.2019.08.20.10.41.06
+ by smtp-relay.gmail.com with ESMTPS id v14sm2100wmc.18.2019.08.20.10.41.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2019 10:41:06 -0700 (PDT)
+ Tue, 20 Aug 2019 10:41:07 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i0882-00032u-Fd; Tue, 20 Aug 2019 17:41:06 +0000
+ id 1i0883-000335-25; Tue, 20 Aug 2019 17:41:07 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id C997E2742B4A; Tue, 20 Aug 2019 18:41:05 +0100 (BST)
+ id 6E99D274314F; Tue, 20 Aug 2019 18:41:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Maxime Ripard <maxime.ripard@bootlin.com>
-In-Reply-To: <0b6665be216b3bd0e7bc43724818f05f3f8ee881.1566242458.git-series.maxime.ripard@bootlin.com>
+To: Daniel Stuart <daniel.stuart14@gmail.com>
+In-Reply-To: <20190815171300.30126-1-daniel.stuart14@gmail.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190820174105.C997E2742B4A@ypsilon.sirena.org.uk>
-Date: Tue, 20 Aug 2019 18:41:05 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- codekipper@gmail.com, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: sun4i-i2s: Use module clock as BCLK
-	parent on newer SoCs" to the asoc tree
+Message-Id: <20190820174106.6E99D274314F@ypsilon.sirena.org.uk>
+Date: Tue, 20 Aug 2019 18:41:06 +0100 (BST)
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Daniel Stuart <daniel.stuart@pucpr.edu.br>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ cezary.rojewski@intel.com, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, "Cc:"@sirena.co.uk
+Subject: [alsa-devel] Applied "ASoC: intel: cht_bsw_max98090_ti: Add all
+	Chromebooks that need pmc_plt_clk_0 quirk" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,7 +102,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sun4i-i2s: Use module clock as BCLK parent on newer SoCs
+   ASoC: intel: cht_bsw_max98090_ti: Add all Chromebooks that need pmc_plt_clk_0 quirk
 
 has been applied to the asoc tree at
 
@@ -124,116 +127,176 @@ to this mail.
 Thanks,
 Mark
 
-From fb19739d7f688142b61d0fca476188c4fd9e937a Mon Sep 17 00:00:00 2001
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-Date: Mon, 19 Aug 2019 21:25:15 +0200
-Subject: [PATCH] ASoC: sun4i-i2s: Use module clock as BCLK parent on newer
- SoCs
+From d5e120422db8808e1c8b1507900ca393a877c58f Mon Sep 17 00:00:00 2001
+From: Daniel Stuart <daniel.stuart14@gmail.com>
+Date: Thu, 15 Aug 2019 14:12:55 -0300
+Subject: [PATCH] ASoC: intel: cht_bsw_max98090_ti: Add all Chromebooks that
+ need pmc_plt_clk_0 quirk
 
-On the first generation of Allwinner SoCs (A10-A31), the i2s controller was
-using the MCLK as BCLK parent. However, this changed since the introduction
-of the A83t and BCLK now uses the module clock as its parent.
+Every single baytrail chromebook sets PMC to 0, as can be seeing
+below by searching through coreboot source code:
+	$ grep -rl "PMC_PLT_CLK\[0\]" .
+	./rambi/variants/glimmer/devicetree.cb
+	./rambi/variants/clapper/devicetree.cb
+	./rambi/variants/swanky/devicetree.cb
+	./rambi/variants/enguarde/devicetree.cb
+	./rambi/variants/winky/devicetree.cb
+	./rambi/variants/kip/devicetree.cb
+	./rambi/variants/squawks/devicetree.cb
+	./rambi/variants/orco/devicetree.cb
+	./rambi/variants/ninja/devicetree.cb
+	./rambi/variants/heli/devicetree.cb
+	./rambi/variants/sumo/devicetree.cb
+	./rambi/variants/banjo/devicetree.cb
+	./rambi/variants/candy/devicetree.cb
+	./rambi/variants/gnawty/devicetree.cb
+	./rambi/variants/rambi/devicetree.cb
+	./rambi/variants/quawks/devicetree.cb
 
-Let's introduce a hook to get the parent rate and use that in our divider
-calculations.
+Plus, Cyan (only non-baytrail chromebook with max98090) also needs
+this patch for audio to work.
 
-Fixes: 7d2993811a1e ("ASoC: sun4i-i2s: Add support for H3")
-Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
-Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-Link: https://lore.kernel.org/r/0b6665be216b3bd0e7bc43724818f05f3f8ee881.1566242458.git-series.maxime.ripard@bootlin.com
+Thus, this commit adds all the missing devices to bsw_max98090 quirk
+table, implemented by commit a182ecd3809c ("ASoC: intel:
+cht_bsw_max98090_ti: Add quirk for boards using pmc_plt_clk_0").
+
+Signed-off-by: Daniel Stuart <daniel.stuart14@gmail.com>
+Link: https://lore.kernel.org/r/20190815171300.30126-1-daniel.stuart14@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c | 98 ++++++++++++++++++++
+ 1 file changed, 98 insertions(+)
 
-diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 93ea627e2f1f..acfcdb26086a 100644
---- a/sound/soc/sunxi/sun4i-i2s.c
-+++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -152,6 +152,7 @@ struct sun4i_i2s_quirks {
- 	struct reg_field		field_fmt_bclk;
- 	struct reg_field		field_fmt_lrclk;
- 
-+	unsigned long (*get_bclk_parent_rate)(const struct sun4i_i2s *);
- 	s8	(*get_sr)(const struct sun4i_i2s *, int);
- 	s8	(*get_wss)(const struct sun4i_i2s *, int);
- 	int	(*set_chan_cfg)(const struct sun4i_i2s *,
-@@ -207,6 +208,16 @@ static const struct sun4i_i2s_clk_div sun4i_i2s_mclk_div[] = {
- 	/* TODO - extend divide ratio supported by newer SoCs */
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index 1db9a95e6a79..eaf3e2208a06 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -398,6 +398,20 @@ static struct snd_soc_card snd_soc_card_cht = {
  };
  
-+static unsigned long sun4i_i2s_get_bclk_parent_rate(const struct sun4i_i2s *i2s)
-+{
-+	return i2s->mclk_freq;
-+}
-+
-+static unsigned long sun8i_i2s_get_bclk_parent_rate(const struct sun4i_i2s *i2s)
-+{
-+	return clk_get_rate(i2s->mod_clk);
-+}
-+
- static int sun4i_i2s_get_bclk_div(struct sun4i_i2s *i2s,
- 				  unsigned long parent_rate,
- 				  unsigned int sampling_rate,
-@@ -259,7 +270,7 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
- 				  unsigned int word_size)
- {
- 	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
--	unsigned int oversample_rate, clk_rate;
-+	unsigned int oversample_rate, clk_rate, bclk_parent_rate;
- 	int bclk_div, mclk_div;
- 	int ret;
+ static const struct dmi_system_id cht_max98090_quirk_table[] = {
++	{
++		/* Banjo model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Banjo"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Candy model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Candy"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{
+ 		/* Clapper model Chromebook */
+ 		.matches = {
+@@ -405,6 +419,27 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+ 	},
++	{
++		/* Cyan model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Cyan"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Enguarde model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Enguarde"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Glimmer model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Glimmer"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{
+ 		/* Gnawty model Chromebook (Acer Chromebook CB3-111) */
+ 		.matches = {
+@@ -412,6 +447,62 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+ 	},
++	{
++		/* Heli model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Heli"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Kip model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Kip"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Ninja model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Ninja"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Orco model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Orco"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Quawks model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Quawks"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Rambi model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Rambi"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Squawks model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Squawks"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Sumo model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Sumo"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{
+ 		/* Swanky model Chromebook (Toshiba Chromebook 2) */
+ 		.matches = {
+@@ -419,6 +510,13 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+ 	},
++	{
++		/* Winky model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Winky"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{}
+ };
  
-@@ -301,7 +312,8 @@ static int sun4i_i2s_set_clk_rate(struct snd_soc_dai *dai,
- 		return -EINVAL;
- 	}
- 
--	bclk_div = sun4i_i2s_get_bclk_div(i2s, i2s->mclk_freq,
-+	bclk_parent_rate = i2s->variant->get_bclk_parent_rate(i2s);
-+	bclk_div = sun4i_i2s_get_bclk_div(i2s, bclk_parent_rate,
- 					  rate, word_size);
- 	if (bclk_div < 0) {
- 		dev_err(dai->dev, "Unsupported BCLK divider: %d\n", bclk_div);
-@@ -957,6 +969,7 @@ static const struct sun4i_i2s_quirks sun4i_a10_i2s_quirks = {
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 5),
- 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 6, 6),
- 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
-+	.get_bclk_parent_rate	= sun4i_i2s_get_bclk_parent_rate,
- 	.get_sr			= sun4i_i2s_get_sr,
- 	.get_wss		= sun4i_i2s_get_wss,
- 	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
-@@ -972,6 +985,7 @@ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 5),
- 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 6, 6),
- 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
-+	.get_bclk_parent_rate	= sun4i_i2s_get_bclk_parent_rate,
- 	.get_sr			= sun4i_i2s_get_sr,
- 	.get_wss		= sun4i_i2s_get_wss,
- 	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
-@@ -987,6 +1001,7 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 5),
- 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 6, 6),
- 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
-+	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
- 	.get_sr			= sun8i_i2s_get_sr_wss,
- 	.get_wss		= sun8i_i2s_get_sr_wss,
- 	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
-@@ -1005,6 +1020,7 @@ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
- 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
- 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 19, 19),
-+	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
- 	.get_sr			= sun8i_i2s_get_sr_wss,
- 	.get_wss		= sun8i_i2s_get_sr_wss,
- 	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
-@@ -1020,6 +1036,7 @@ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
- 	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 5),
- 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 6, 6),
- 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
-+	.get_bclk_parent_rate	= sun4i_i2s_get_bclk_parent_rate,
- 	.get_sr			= sun4i_i2s_get_sr,
- 	.get_wss		= sun4i_i2s_get_wss,
- 	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
 -- 
 2.20.1
 

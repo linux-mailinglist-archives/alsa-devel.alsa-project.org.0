@@ -2,76 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D23952F6
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 03:07:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 436B99544C
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 04:23:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A562166B;
-	Tue, 20 Aug 2019 03:06:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A562166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5103166E;
+	Tue, 20 Aug 2019 04:22:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5103166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566263247;
-	bh=krzp0pBvllPSQ1nrUFJXQkfqZ6mVcvtoj8ihI6frdec=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566267788;
+	bh=Aqca208HatavvSPq72OXYBfe4d1YYevyTUDYubmEq4Y=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KmoqeWdRGH15Ao5MCQNEFeU+4k3O0jZtCj++ib4+5NCeftTaSkph3NAYKG+pxGk1M
-	 YPtSZ1rO0a1fFygPyVZqzo1EWmWYxuenlBLJCFLI7YZypXK0dQb/zxXP9rdeAgOCFO
-	 7zvi65w+VUPHROtyLv2olkeD49pVtHKc1xtyEpOc=
+	b=Zg1F2K3q8MtsSEErS/NfRhQFWGruHxzgnWY82oOl2WLu8l6+tEmFoNB8n8b0HSs25
+	 7jjnQvamlbKIm4mxqGJfPXDIc9w5T3eTz9+Wtf2y0n++h4AulQkeO6dBDT/mblma9F
+	 tCDWyr2KKEUOzht2TMUsXCVHCOZad0OrB7xwdGh4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53298F802BE;
-	Tue, 20 Aug 2019 03:05:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2BE5F803D5;
+	Tue, 20 Aug 2019 04:21:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6009FF802BE; Tue, 20 Aug 2019 03:05:41 +0200 (CEST)
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 95F53F802E0
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 02:55:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95F53F802E0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2019 17:55:35 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,406,1559545200"; d="scan'208";a="378381033"
-Received: from taevough-mobl.amr.corp.intel.com (HELO [10.251.141.90])
- ([10.251.141.90])
- by fmsmga006.fm.intel.com with ESMTP; 19 Aug 2019 17:55:34 -0700
-To: Curtis Malainey <cujomalainey@google.com>, Jon Flatley <jflat@chromium.org>
-References: <CACJJ=pxPm7dRUE534hDWy2tN3dGYDyrgU8JKqett=wOQx+nWCQ@mail.gmail.com>
- <39533fe5-c060-7a07-c910-74b83eee53c4@linux.intel.com>
- <ac7bcb42e40ac12d9924fd65c3e2c68b9b11b093.camel@linux.intel.com>
- <37ede7ea-e760-eac9-a1d5-0eb8e3bff3cb@linux.intel.com>
- <CACJJ=pyb==xWqKMB-gAzW7-FCFgEU7Rm+b-CL-ANO-eorDKy=A@mail.gmail.com>
- <356b3f4eacb43f23c40c4cd8e3c54ae9514a34c6.camel@linux.intel.com>
- <7e08e45d-7cec-9fdd-36c5-5e82632968f8@linux.intel.com>
- <CACJJ=pzcMCaOvHMVhmYKKL2Z45-XdrBB9FT8VjSzX_obVtKzyw@mail.gmail.com>
- <d80c2f4d-b5f4-5bbe-9529-36b9859ab8be@linux.intel.com>
- <CACJJ=pxokT5z+U=nM9QcUVxCk84998ugM5J89U28k=CVGMjG=w@mail.gmail.com>
- <E7B1D079BA13FB44A978CC8F69C7D6A9606FC567@SHSMSX106.ccr.corp.intel.com>
- <d0131c02-3477-8390-e0c6-b37b142169e8@intel.com>
- <CACJJ=pwsV2U669QqB0E05XxWppfXR81TrDCkEunfSefJ5Mij7w@mail.gmail.com>
- <CAOReqxg+J=Sa1o+1Cmo7hrh136k2tUFCaqxPgrXE=DKfwsbTfw@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e185a97e-1f09-6706-e468-3a5475d5a322@linux.intel.com>
-Date: Mon, 19 Aug 2019 19:55:34 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <CAOReqxg+J=Sa1o+1Cmo7hrh136k2tUFCaqxPgrXE=DKfwsbTfw@mail.gmail.com>
-Content-Language: en-US
+ id 389D7F800BF; Tue, 20 Aug 2019 04:21:23 +0200 (CEST)
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 87040F800BF
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 04:11:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87040F800BF
+Date: 20 Aug 2019 11:11:16 +0900
+X-IronPort-AV: E=Sophos;i="5.64,407,1559487600"; d="scan'208";a="24191525"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 20 Aug 2019 11:11:16 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 97D0E4003880;
+ Tue, 20 Aug 2019 11:11:16 +0900 (JST)
+Message-ID: <87d0h01tf5.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+In-Reply-To: <CAFQqKeW=ibEs3jN==8DGJ-OvbHcTqKbb1VMTHjWupnsDjm5m5w@mail.gmail.com>
+References: <87zhkk6wdy.wl-kuninori.morimoto.gx@renesas.com>
+ <87ef1w6w8o.wl-kuninori.morimoto.gx@renesas.com>
+ <CAFQqKeW=ibEs3jN==8DGJ-OvbHcTqKbb1VMTHjWupnsDjm5m5w@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Ross Zwisler <zwisler@google.com>, Jie Yang <yang.jie@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- "benzh@chromium.org" <benzh@chromium.org>,
- "cujomalainey@chromium.org" <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [BUG] bdw-rt5650 DSP boot timeout
+ Heiko Stuebner <heiko@sntech.de>, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>, Richard Fontana <rfontana@redhat.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Anders Roxell <anders.roxell@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, YueHaibing <yuehaibing@huawei.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
+ Chen-Yu Tsai <wens@csie.org>, Danny Milosavljevic <dannym@scratchpost.org>,
+ Georgii Staroselski i <georgii.staroselskii@emlid.com>,
+ Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Hans de Goede <hdegoede@redhat.com>,
+ Sangbeom Kim <sbkim73@samsung.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Jarkko Nikula <jarkko.nikula@bitmer.com>
+Subject: Re: [alsa-devel] [PATCH 15/15] ASoC: soc-core: add
+	soc_unbind_aux_dev()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,29 +77,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>
-> My recommendation would be to look at the machine driver and see if
-> its making additional calls to the DSP driver that is not made in
-> other machine drivers such as the bdw-rt5677 (Samus.) That might
-> indicate an additional code path that might be getting exercised in
-> your context that isn't used in samus which is causing your problems.
-> If you find something you can always copy it over to samus to see if
-> it causes the same breakage. So yes definitely look. Usually the
-> suspend/resume paths aren't that long, but I would search the whole
-> machine driver for anything that can alter state.
+Hi Sridharan
 
-The only significant difference I see in the machine drivers is that the 
-clock dividers are smaller in this bdw-rt5660 case, the bitclock is 4.8 
-MHz v. 2.4 MHz in the other bdw-rt5677. It's not very clear to me why 
-there is a need to have different clock and SSP settings, but since the 
-patch that was suggested to be reverted touches the clock generation 
-maybe there's a connection?
+Thank you for your feedback
+
+>     From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>    
+>     It is easy to read code if it is cleanly using paired function/naming,
+>     like start <-> stop, register <-> unregister, etc, etc.
+>     But, current ALSA SoC code is very random, unbalance, not paired, etc.
+>     It is easy to create bug at the such code, and it will be difficult to
+>     debug.
+>    
+>     soc-core.c has soc_bind_aux_dev(), but, there is no its paired
+>     soc_unbind_aux_dev(). This patch adds it.
+> 
+> Morimoto-san,
+> I'm not sure it quite improves readability to just have list_del in unbind_aux_dev(). bin_aux_dev() does more than just
+> adding to the card_aux_list(). So in fact, I think  this change makes it look unbalanced.
+
+Hmm...
+But, bind_aux_dev() is doing
+
+	1) find target component
+	2) setup component->init
+	3) add card_aux_list
+
+We can ignore 1) for unbind.
+This patch is for 3).
+I guess we can ignore 2), but can handle it.
+How about this ?
+
+	static void soc_unbind_aux_dev(struct snd_soc_component *component)
+	{
+=>		component->init = NULL;
+		list_del(&component->card_aux_list);
+	}
+
+> The existing code for aux_dev looks quite similar to what bind_dai_link() and remove_dai_link() do and they are quite
+> intuitive.
+
+I guess "add"_dai_link instead of "bind"_dai_link ?
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

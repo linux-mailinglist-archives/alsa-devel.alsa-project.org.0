@@ -2,73 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 506FC95CD1
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 13:05:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C19095D21
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 13:19:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BD8D71674;
-	Tue, 20 Aug 2019 13:04:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BD8D71674
+	by alsa0.perex.cz (Postfix) with ESMTPS id E6866166D;
+	Tue, 20 Aug 2019 13:19:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E6866166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566299114;
-	bh=ut+p35BaTBpEQvqAQ4iXs0L38SF0MmEectJhCmChChY=;
-	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
+	s=default; t=1566299996;
+	bh=xdM+kuQ9qAIwFdYllvH1dpU0AUf6v7xf2Ia2T25epFg=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YjyC8v6yXWWoFw3ZBYTnhVq1fYehqeqPsgQeh2TRRzMWuhVe5u2fYNC911JFivDLu
-	 YQOoeq7yVwUThhl/H1xIweG9oUjs1F4CA7+xyIYcrWHwrdW3H+HOZuXUdPx3Y1Q2/x
-	 swCjWa4TEYLrXdw4mGFqJw/zuP5m3vge3fwQOtxc=
+	b=BPSUzigKO0Kw5N6fbpm2oPH6fImof7JFCogVmWnrrCtUmZtrypVdSdHve9JCp/K1Z
+	 3kn+PQlBLhvYEk1KKo/mefYZhXbDIFKlwi/gZrnVWK22/H3SGIV7Nh+JI2M4pmVDkT
+	 dEeuaj2F5QF0u+hkfBQXv7B9PaUVTZtnS2ys4aMw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14206F805E0;
-	Tue, 20 Aug 2019 13:02:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 63396F80391;
+	Tue, 20 Aug 2019 13:18:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2BD87F8036E; Tue, 20 Aug 2019 13:02:42 +0200 (CEST)
+ id 54765F8036E; Tue, 20 Aug 2019 13:18:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67E87F8036D
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 13:02:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67E87F8036D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
- header.b="W3EecKqR"
-Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with ESMTPSA id 46CSX05fwvzM6;
- Tue, 20 Aug 2019 13:01:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
- t=1566298864; bh=vhh0R3ZwxyK95TRRuvI0sK1jU1a82qw8GoKLehqjapY=;
- h=Date:In-Reply-To:References:From:Subject:To:Cc:From;
- b=W3EecKqRDYEHwdqRCHVlv/4lWa3NvXCfiX89Qpg/qsSiFkpci9P2/11HMtgib/YiD
- 1cAXGO6KWAS9EZFplwc6qLQfB6b4WD8CBOCEl06YeM9e0C2dZW8XvpEIngq8CFIw85
- n6Uucs3O7Zvb8cd3mWpsACiMs7p1hbqyTUlbSEN+AHYdUr7D1HJJ9N9/BE3rcKQzel
- oxXX4PhmBYQ09GPnDMJHhX0OLV61NpVHJCI/ELzGafCPTNT6Y8jzb+U3Jq2zjMhIc+
- 5Qxtep0I0zRr74JAXlpbXeNMqFx8i/1I8PrWiOuuD7h+6+cyguvOGaYmGI/72oI49B
- EAt5M8BeBFLhw==
-X-Virus-Status: Clean
-X-Virus-Scanned: clamav-milter 0.101.2 at mail
-Date: Tue, 20 Aug 2019 13:02:37 +0200
-Message-Id: <125cd3c9f298da9b08a4d6002d4c00d70a898950.1566298834.git.mirq-linux@rere.qmqm.pl>
-In-Reply-To: <f95ae1085f9f3c137a122c4d95728711613c15f7.1566298834.git.mirq-linux@rere.qmqm.pl>
-References: <f95ae1085f9f3c137a122c4d95728711613c15f7.1566298834.git.mirq-linux@rere.qmqm.pl>
-From: =?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DB90F800BF
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 13:18:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DB90F800BF
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2019 04:18:03 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,408,1559545200"; d="scan'208";a="207331395"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.237.137.172])
+ ([10.237.137.172])
+ by fmsmga002.fm.intel.com with ESMTP; 20 Aug 2019 04:18:01 -0700
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87pnlhahr6.wl-kuninori.morimoto.gx@renesas.com>
+ <87d0hhahon.wl-kuninori.morimoto.gx@renesas.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <928df91b-997f-c1eb-5ab5-bda1fc374c1a@intel.com>
+Date: Tue, 20 Aug 2019 13:18:01 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-To: alsa-devel@alsa-project.org
-Cc: Kate Stewart <kstewart@linuxfoundation.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Enrico Weigelt <info@metux.net>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- patches@opensource.cirrus.com, Thomas Gleixner <tglx@linutronix.de>,
- zhong jiang <zhongjiang@huawei.com>, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v2 2/2] ASoC: wm8904: implement input mode
-	select as a mux
+In-Reply-To: <87d0hhahon.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH v2 09/25] ASoC: soc-core: tidyup for
+ snd_soc_dapm_add_routes()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,103 +73,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-TWFrZSAnKiBDYXB0dXJlIE1vZGUnIGEgbXV4LiBUaGlzIG1ha2VzIERBUE0ga25vdyB0aGF0IGlu
-IHNpbmdsZS1lbmRlZAptb2RlIG9ubHkgaW52ZXJ0aW5nIG11eCBwYXRocyBuZWVkIHRvIGJlIGVu
-YWJsZWQuCgpTaWduZWQtb2ZmLWJ5OiBNaWNoYcWCIE1pcm9zxYJhdyA8bWlycS1saW51eEByZXJl
-LnFtcW0ucGw+CkFja2VkLWJ5OiBDaGFybGVzIEtlZXBheCA8Y2tlZXBheEBvcGVuc291cmNlLmNp
-cnJ1cy5jb20+Ci0tLQp2MjogZml4ZWQgJ3JpZ2h0JyB0byBiZSAnUmlnaHQnCi0tLQogc291bmQv
-c29jL2NvZGVjcy93bTg5MDQuYyB8IDUyICsrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0t
-LS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDMzIGluc2VydGlvbnMoKyksIDE5IGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3Mvd204OTA0LmMgYi9zb3VuZC9zb2MvY29k
-ZWNzL3dtODkwNC5jCmluZGV4IDUyNWU0ZWY2NTRhMS4uYmNiM2M5ZDVhYmYwIDEwMDY0NAotLS0g
-YS9zb3VuZC9zb2MvY29kZWNzL3dtODkwNC5jCisrKyBiL3NvdW5kL3NvYy9jb2RlY3Mvd204OTA0
-LmMKQEAgLTU0NSwxOCArNTQ1LDYgQEAgc3RhdGljIGNvbnN0IERFQ0xBUkVfVExWX0RCX1NDQUxF
-KG91dF90bHYsIC01NzAwLCAxMDAsIDApOwogc3RhdGljIGNvbnN0IERFQ0xBUkVfVExWX0RCX1ND
-QUxFKHNpZGV0b25lX3RsdiwgLTM2MDAsIDMwMCwgMCk7CiBzdGF0aWMgY29uc3QgREVDTEFSRV9U
-TFZfREJfU0NBTEUoZXFfdGx2LCAtMTIwMCwgMTAwLCAwKTsKIAotc3RhdGljIGNvbnN0IGNoYXIg
-KmlucHV0X21vZGVfdGV4dFtdID0gewotCSJTaW5nbGUtRW5kZWQiLCAiRGlmZmVyZW50aWFsIExp
-bmUiLCAiRGlmZmVyZW50aWFsIE1pYyIKLX07Ci0KLXN0YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVD
-TChsaW5fbW9kZSwKLQkJCSAgICBXTTg5MDRfQU5BTE9HVUVfTEVGVF9JTlBVVF8xLCAwLAotCQkJ
-ICAgIGlucHV0X21vZGVfdGV4dCk7Ci0KLXN0YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChyaW5f
-bW9kZSwKLQkJCSAgICBXTTg5MDRfQU5BTE9HVUVfUklHSFRfSU5QVVRfMSwgMCwKLQkJCSAgICBp
-bnB1dF9tb2RlX3RleHQpOwotCiBzdGF0aWMgY29uc3QgY2hhciAqaHBmX21vZGVfdGV4dFtdID0g
-ewogCSJIaS1maSIsICJWb2ljZSAxIiwgIlZvaWNlIDIiLCAiVm9pY2UgMyIKIH07CkBAIC01OTEs
-OSArNTc5LDYgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfa2NvbnRyb2xfbmV3IHdtODkwNF9h
-ZGNfc25kX2NvbnRyb2xzW10gPSB7CiBTT0NfRE9VQkxFX1JfVExWKCJEaWdpdGFsIENhcHR1cmUg
-Vm9sdW1lIiwgV004OTA0X0FEQ19ESUdJVEFMX1ZPTFVNRV9MRUZULAogCQkgV004OTA0X0FEQ19E
-SUdJVEFMX1ZPTFVNRV9SSUdIVCwgMSwgMTE5LCAwLCBkaWdpdGFsX3RsdiksCiAKLVNPQ19FTlVN
-KCJMZWZ0IENhcHR1cmUgTW9kZSIsIGxpbl9tb2RlKSwKLVNPQ19FTlVNKCJSaWdodCBDYXB0dXJl
-IE1vZGUiLCByaW5fbW9kZSksCi0KIC8qIE5vIFRMViBzaW5jZSBpdCBkZXBlbmRzIG9uIG1vZGUg
-Ki8KIFNPQ19ET1VCTEVfUigiQ2FwdHVyZSBWb2x1bWUiLCBXTTg5MDRfQU5BTE9HVUVfTEVGVF9J
-TlBVVF8wLAogCSAgICAgV004OTA0X0FOQUxPR1VFX1JJR0hUX0lOUFVUXzAsIDAsIDMxLCAwKSwK
-QEAgLTg1Miw2ICs4MzcsMTAgQEAgc3RhdGljIGludCBvdXRfcGdhX2V2ZW50KHN0cnVjdCBzbmRf
-c29jX2RhcG1fd2lkZ2V0ICp3LAogCXJldHVybiAwOwogfQogCitzdGF0aWMgY29uc3QgY2hhciAq
-aW5wdXRfbW9kZV90ZXh0W10gPSB7CisJIlNpbmdsZS1FbmRlZCIsICJEaWZmZXJlbnRpYWwgTGlu
-ZSIsICJEaWZmZXJlbnRpYWwgTWljIgorfTsKKwogc3RhdGljIGNvbnN0IGNoYXIgKmxpbl90ZXh0
-W10gPSB7CiAJIklOMUwiLCAiSU4yTCIsICJJTjNMIgogfTsKQEAgLTg2OCw2ICs4NTcsMTMgQEAg
-c3RhdGljIFNPQ19FTlVNX1NJTkdMRV9ERUNMKGxpbl9pbnZfZW51bSwgV004OTA0X0FOQUxPR1VF
-X0xFRlRfSU5QVVRfMSwgNCwKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBs
-aW5faW52X211eCA9CiAJU09DX0RBUE1fRU5VTSgiTGVmdCBDYXB0dXJlIEludmVydGluZyBNdXgi
-LCBsaW5faW52X2VudW0pOwogCitzdGF0aWMgU09DX0VOVU1fU0lOR0xFX0RFQ0wobGluX21vZGVf
-ZW51bSwKKwkJCSAgICBXTTg5MDRfQU5BTE9HVUVfTEVGVF9JTlBVVF8xLCAwLAorCQkJICAgIGlu
-cHV0X21vZGVfdGV4dCk7CisKK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyBs
-aW5fbW9kZSA9CisJU09DX0RBUE1fRU5VTSgiTGVmdCBDYXB0dXJlIE1vZGUiLCBsaW5fbW9kZV9l
-bnVtKTsKKwogc3RhdGljIGNvbnN0IGNoYXIgKnJpbl90ZXh0W10gPSB7CiAJIklOMVIiLCAiSU4y
-UiIsICJJTjNSIgogfTsKQEAgLTg4NCw2ICs4ODAsMTMgQEAgc3RhdGljIFNPQ19FTlVNX1NJTkdM
-RV9ERUNMKHJpbl9pbnZfZW51bSwgV004OTA0X0FOQUxPR1VFX1JJR0hUX0lOUFVUXzEsIDQsCiBz
-dGF0aWMgY29uc3Qgc3RydWN0IHNuZF9rY29udHJvbF9uZXcgcmluX2ludl9tdXggPQogCVNPQ19E
-QVBNX0VOVU0oIlJpZ2h0IENhcHR1cmUgSW52ZXJ0aW5nIE11eCIsIHJpbl9pbnZfZW51bSk7CiAK
-K3N0YXRpYyBTT0NfRU5VTV9TSU5HTEVfREVDTChyaW5fbW9kZV9lbnVtLAorCQkJICAgIFdNODkw
-NF9BTkFMT0dVRV9SSUdIVF9JTlBVVF8xLCAwLAorCQkJICAgIGlucHV0X21vZGVfdGV4dCk7CisK
-K3N0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX2tjb250cm9sX25ldyByaW5fbW9kZSA9CisJU09DX0RB
-UE1fRU5VTSgiUmlnaHQgQ2FwdHVyZSBNb2RlIiwgcmluX21vZGVfZW51bSk7CisKIHN0YXRpYyBj
-b25zdCBjaGFyICphaWZfdGV4dFtdID0gewogCSJMZWZ0IiwgIlJpZ2h0IgogfTsKQEAgLTkzMiw5
-ICs5MzUsMTEgQEAgU05EX1NPQ19EQVBNX1NVUFBMWSgiTUlDQklBUyIsIFdNODkwNF9NSUNfQklB
-U19DT05UUk9MXzAsIDAsIDAsIE5VTEwsIDApLAogU05EX1NPQ19EQVBNX01VWCgiTGVmdCBDYXB0
-dXJlIE11eCIsIFNORF9TT0NfTk9QTSwgMCwgMCwgJmxpbl9tdXgpLAogU05EX1NPQ19EQVBNX01V
-WCgiTGVmdCBDYXB0dXJlIEludmVydGluZyBNdXgiLCBTTkRfU09DX05PUE0sIDAsIDAsCiAJCSAm
-bGluX2ludl9tdXgpLAorU05EX1NPQ19EQVBNX01VWCgiTGVmdCBDYXB0dXJlIE1vZGUiLCBTTkRf
-U09DX05PUE0sIDAsIDAsICZsaW5fbW9kZSksCiBTTkRfU09DX0RBUE1fTVVYKCJSaWdodCBDYXB0
-dXJlIE11eCIsIFNORF9TT0NfTk9QTSwgMCwgMCwgJnJpbl9tdXgpLAogU05EX1NPQ19EQVBNX01V
-WCgiUmlnaHQgQ2FwdHVyZSBJbnZlcnRpbmcgTXV4IiwgU05EX1NPQ19OT1BNLCAwLCAwLAogCQkg
-JnJpbl9pbnZfbXV4KSwKK1NORF9TT0NfREFQTV9NVVgoIlJpZ2h0IENhcHR1cmUgTW9kZSIsIFNO
-RF9TT0NfTk9QTSwgMCwgMCwgJnJpbl9tb2RlKSwKIAogU05EX1NPQ19EQVBNX1BHQSgiTGVmdCBD
-YXB0dXJlIFBHQSIsIFdNODkwNF9QT1dFUl9NQU5BR0VNRU5UXzAsIDEsIDAsCiAJCSBOVUxMLCAw
-KSwKQEAgLTEwNTcsNiArMTA2MiwxMiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9zb2NfZGFw
-bV9yb3V0ZSBhZGNfaW50ZXJjb25bXSA9IHsKIAl7ICJMZWZ0IENhcHR1cmUgSW52ZXJ0aW5nIE11
-eCIsICJJTjJMIiwgIklOMkwiIH0sCiAJeyAiTGVmdCBDYXB0dXJlIEludmVydGluZyBNdXgiLCAi
-SU4zTCIsICJJTjNMIiB9LAogCisJeyAiTGVmdCBDYXB0dXJlIE1vZGUiLCAiU2luZ2xlLUVuZGVk
-IiwgIkxlZnQgQ2FwdHVyZSBJbnZlcnRpbmcgTXV4IiB9LAorCXsgIkxlZnQgQ2FwdHVyZSBNb2Rl
-IiwgIkRpZmZlcmVudGlhbCBMaW5lIiwgIkxlZnQgQ2FwdHVyZSBNdXgiIH0sCisJeyAiTGVmdCBD
-YXB0dXJlIE1vZGUiLCAiRGlmZmVyZW50aWFsIExpbmUiLCAiTGVmdCBDYXB0dXJlIEludmVydGlu
-ZyBNdXgiIH0sCisJeyAiTGVmdCBDYXB0dXJlIE1vZGUiLCAiRGlmZmVyZW50aWFsIE1pYyIsICJM
-ZWZ0IENhcHR1cmUgTXV4IiB9LAorCXsgIkxlZnQgQ2FwdHVyZSBNb2RlIiwgIkRpZmZlcmVudGlh
-bCBNaWMiLCAiTGVmdCBDYXB0dXJlIEludmVydGluZyBNdXgiIH0sCisKIAl7ICJSaWdodCBDYXB0
-dXJlIE11eCIsICJJTjFSIiwgIklOMVIiIH0sCiAJeyAiUmlnaHQgQ2FwdHVyZSBNdXgiLCAiSU4y
-UiIsICJJTjJSIiB9LAogCXsgIlJpZ2h0IENhcHR1cmUgTXV4IiwgIklOM1IiLCAiSU4zUiIgfSwK
-QEAgLTEwNjUsMTEgKzEwNzYsMTQgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfc29jX2RhcG1f
-cm91dGUgYWRjX2ludGVyY29uW10gPSB7CiAJeyAiUmlnaHQgQ2FwdHVyZSBJbnZlcnRpbmcgTXV4
-IiwgIklOMlIiLCAiSU4yUiIgfSwKIAl7ICJSaWdodCBDYXB0dXJlIEludmVydGluZyBNdXgiLCAi
-SU4zUiIsICJJTjNSIiB9LAogCi0JeyAiTGVmdCBDYXB0dXJlIFBHQSIsIE5VTEwsICJMZWZ0IENh
-cHR1cmUgTXV4IiB9LAotCXsgIkxlZnQgQ2FwdHVyZSBQR0EiLCBOVUxMLCAiTGVmdCBDYXB0dXJl
-IEludmVydGluZyBNdXgiIH0sCisJeyAiUmlnaHQgQ2FwdHVyZSBNb2RlIiwgIlNpbmdsZS1FbmRl
-ZCIsICJSaWdodCBDYXB0dXJlIEludmVydGluZyBNdXgiIH0sCisJeyAiUmlnaHQgQ2FwdHVyZSBN
-b2RlIiwgIkRpZmZlcmVudGlhbCBMaW5lIiwgIlJpZ2h0IENhcHR1cmUgTXV4IiB9LAorCXsgIlJp
-Z2h0IENhcHR1cmUgTW9kZSIsICJEaWZmZXJlbnRpYWwgTGluZSIsICJSaWdodCBDYXB0dXJlIElu
-dmVydGluZyBNdXgiIH0sCisJeyAiUmlnaHQgQ2FwdHVyZSBNb2RlIiwgIkRpZmZlcmVudGlhbCBN
-aWMiLCAiUmlnaHQgQ2FwdHVyZSBNdXgiIH0sCisJeyAiUmlnaHQgQ2FwdHVyZSBNb2RlIiwgIkRp
-ZmZlcmVudGlhbCBNaWMiLCAiUmlnaHQgQ2FwdHVyZSBJbnZlcnRpbmcgTXV4IiB9LAogCi0JeyAi
-UmlnaHQgQ2FwdHVyZSBQR0EiLCBOVUxMLCAiUmlnaHQgQ2FwdHVyZSBNdXgiIH0sCi0JeyAiUmln
-aHQgQ2FwdHVyZSBQR0EiLCBOVUxMLCAiUmlnaHQgQ2FwdHVyZSBJbnZlcnRpbmcgTXV4IiB9LAor
-CXsgIkxlZnQgQ2FwdHVyZSBQR0EiLCBOVUxMLCAiTGVmdCBDYXB0dXJlIE1vZGUiIH0sCisJeyAi
-UmlnaHQgQ2FwdHVyZSBQR0EiLCBOVUxMLCAiUmlnaHQgQ2FwdHVyZSBNb2RlIiB9LAogCiAJeyAi
-QUlGT1VUTCBNdXgiLCAiTGVmdCIsICJBRENMIiB9LAogCXsgIkFJRk9VVEwgTXV4IiwgIlJpZ2h0
-IiwgIkFEQ1IiIH0sCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1w
-cm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2Fsc2EtZGV2ZWwK
+On 2019-08-07 03:31, Kuninori Morimoto wrote:
+> 
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> 
+> snd_soc_dapm_add_routes() registers routes by using
+> for(... i < num; ...). If routes was NULL, num should be zero.
+> Thus, we don't need to check about route pointer.
+> This patch also cares missing return value.
+> 
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+> v1 -> v2
+> 
+> 	- check return value
+> 	- change Subject
+> 
+>   sound/soc/soc-core.c | 23 +++++++++++++----------
+>   1 file changed, 13 insertions(+), 10 deletions(-)
+> 
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index 21cdd3c..ca1b04c 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -1310,10 +1310,11 @@ static int soc_probe_component(struct snd_soc_card *card,
+>   	if (ret < 0)
+>   		goto err_probe;
+>   
+> -	if (component->driver->dapm_routes)
+> -		snd_soc_dapm_add_routes(dapm,
+> -					component->driver->dapm_routes,
+> -					component->driver->num_dapm_routes);
+> +	ret = snd_soc_dapm_add_routes(dapm,
+> +				      component->driver->dapm_routes,
+> +				      component->driver->num_dapm_routes);
+> +	if (ret < 0)
+> +		goto err_probe;
+>   
+>   	list_add(&dapm->list, &card->dapm_list);
+>   	/* see for_each_card_components */
+> @@ -2060,13 +2061,15 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+>   		snd_soc_add_card_controls(card, card->controls,
+>   					  card->num_controls);
+>   
+> -	if (card->dapm_routes)
+> -		snd_soc_dapm_add_routes(&card->dapm, card->dapm_routes,
+> -					card->num_dapm_routes);
+> +	ret = snd_soc_dapm_add_routes(&card->dapm, card->dapm_routes,
+> +				      card->num_dapm_routes);
+> +	if (ret < 0)
+> +		goto probe_end;
+>   
+> -	if (card->of_dapm_routes)
+> -		snd_soc_dapm_add_routes(&card->dapm, card->of_dapm_routes,
+> -					card->num_of_dapm_routes);
+> +	ret = snd_soc_dapm_add_routes(&card->dapm, card->of_dapm_routes,
+> +				      card->num_of_dapm_routes);
+> +	if (ret < 0)
+> +		goto probe_end;
+>   
+>   	/* try to set some sane longname if DMI is available */
+>   	snd_soc_set_dmi_name(card, NULL);
+> 
+
+Hello there,
+
+I've run a validation cycle on recent broonie/for-next and this commit 
+caused regression. However, it may be simply an error on board side instead.
+
+Previously, ret from snd_soc_dapm_add_routes has been ignored thus it 
+was permissive for addition of several routes to fail. As long as some 
+routes succeeded, card was working just fine. Now it's no longer the 
+case - behavior of the card initialization has changed: it is required 
+for ALL routes to succeed before card can be fully instantiated.
+
+Must say collapsing snd_soc_instantiate_card is a wonderful way to test 
+your card's removal flow (soc__cleanup_card_resources and friends)..
+
+Question is simple: are we staying with all-for-one/ one-for-all 
+approach or we reverting to permissive behavior?
+
+Czarek
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

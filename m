@@ -2,85 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EDB495FB2
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 15:16:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C94A295FBF
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 15:16:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B047C1671;
-	Tue, 20 Aug 2019 15:15:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B047C1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 03154167D;
+	Tue, 20 Aug 2019 15:16:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03154167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566306970;
-	bh=AQi+kyltagqbNpI4KgCaIKQCXuKGQiazlUovq+dcks4=;
+	s=default; t=1566307018;
+	bh=3PlYkdiBYc825blbp7cNKKByi9uTrVH0lIXt6973D8Y=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=quoU+20QXIoptTbMX4gqJwKNgsgVDzn/eQlGNy5ytdIM+csrXl+LbWE9fwnrnZNfu
-	 3xEzPQ4vhD2IF4ZuuBa3Kf7/2IfyjMwZ1aOUK39F4JVKmjB4vnW0jlEAmuJt/O7QcO
-	 0bN2SpFI5TsFlSr8t1McEBYzhDB+1FEJrtcCVYDc=
+	b=jMKoMLr3OAl632dlMLX8E/G2CC4Lk3uL17rIWFOhbhNLPyb1U0u6R3cDv36St3h23
+	 m58E0HB9+YvSV+GGqclH7XJGoSXZc1ZqI9RBUx4Skeu76wfByb48zgYTmTicLFet+p
+	 dHlJort7eAYpGJt3pV7KX02acNw8Gd/TvoMKIvcQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B0CEF8036D;
-	Tue, 20 Aug 2019 15:14:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 76DF8F80529;
+	Tue, 20 Aug 2019 15:14:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E274CF80391; Tue, 20 Aug 2019 15:14:24 +0200 (CEST)
+ id 3439DF8036E; Tue, 20 Aug 2019 15:14:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f100.google.com (mail-ed1-f100.google.com
- [209.85.208.100])
+Received: from mail-wm1-f100.google.com (mail-wm1-f100.google.com
+ [209.85.128.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E55BF802E0
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 15:14:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E55BF802E0
-Received: by mail-ed1-f100.google.com with SMTP id m44so6275843edd.9
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 06:14:21 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 992D7F800BF
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 15:14:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 992D7F800BF
+Received: by mail-wm1-f100.google.com with SMTP id v19so2604446wmj.5
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 06:14:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=BYoaNoNja4u98w2kXvMP/MUDpoHYTxfFi7Q/oIlgrlE=;
- b=WbNEeL+xWhLemBOB8+lcCZG8dNjOkI4iWZ0YcN4XwgM4LT/jK9PWe2C68Wnb56T/i8
- zY5o+mTlfssRrfqJjS2WckPxJ0nPFTdAM+5kqlPWC7vgE/M9twiI/m4Ap2mVxzLbV9gJ
- NAyqzAGf9+DdSSN8KeRpiWaeySAdHpSja3sd/dWTGrZpHxOxMerv0cFg2FCVJWvcIvoT
- +CrJGxYkF6X+95Oh5qHUm45h+yrGv4qtWylsIKVdH+mi1dMvTPDWt2mGbXfOOfomP6PL
- 3FjX+GWiLLpetSSrpXAu3RPW/A86LavNYp1tnd4HYKWMzSGzaasmPKtSHsQAzc/ro5YJ
- EV9w==
-X-Gm-Message-State: APjAAAVQDrE8aV/q/vZJzG19fPyZKFwUcZx5OQ44HCY0ny1+NDfxakbx
- upaA8Pd/6RIE6K2mGaQo7MHtGpAorvver4CybHOZ7MwZC0xOcQr/3Bk4xCIBiXs0Aw==
-X-Google-Smtp-Source: APXvYqyKcpevus3kXrnRv6TSHjIyqj7wzbZAyoOcm4ZjncAzX0Hy3PuyrSNpVfCDjh0XWWTjGorhykMqdITu
-X-Received: by 2002:a17:906:244c:: with SMTP id
- a12mr25500765ejb.288.1566306861396; 
+ bh=cXZ1tHQdDxSofQjcKdrjJTywasB4IlhStZwyyxo9TFM=;
+ b=sU6c+lw+yWGyBnKSeVdx4mZsH2SYZXKEHAu0D9+yCV77WDiehvxcP+Ne1TCmHyZmdd
+ wloA4PeyAgxOjmfkRyCcnrJDRqG2+zvJzkDtLh/hbNb87JrN9EzwYKOrejhb7bH3quXs
+ Gs1YRlJ444D6c30U9XsDn+gghAY1vZDiqEuJtkftjqzBzifreLf1SKo6YAaNoTNjCfTa
+ O7y8w5qqRvgTDqxyPmMo6NyyJw5rbcg6pSEnH/098f6cvusFHlNRI0GYVfIL/MtKAnBc
+ av9ukq76u+s+mSDefsFUMYTaZLlX8Ja+BexC7gH7Olmc5mlPZ0ZNB9QzGBh1CD6UPMJb
+ 2m3Q==
+X-Gm-Message-State: APjAAAX935l3xolmX5QzuSnjCta8m1n47CVEhm3PA+57lQnIYexY+YHL
+ mM0qkG+t7LEjp0Heca44qvCEcQG9lH9ltK4UVOauUeu8SkN3WoEZ0KnBShZR8gyHnQ==
+X-Google-Smtp-Source: APXvYqxbIWlIIY6vy6Hz/M5p3K6g8eUuS/jQgXheRopkkCtxO9zXJuYdqyXbbvWI7Lk8cz3eUMoOjQivwHMY
+X-Received: by 2002:a1c:be15:: with SMTP id o21mr25428618wmf.140.1566306861563; 
  Tue, 20 Aug 2019 06:14:21 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id x21sm104334ejs.98.2019.08.20.06.14.21
+ by smtp-relay.gmail.com with ESMTPS id j11sm372426wrb.64.2019.08.20.06.14.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 20 Aug 2019 06:14:21 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i03xt-0002LU-00; Tue, 20 Aug 2019 13:14:21 +0000
+ id 1i03xt-0002LW-7M; Tue, 20 Aug 2019 13:14:21 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 5E336274314C; Tue, 20 Aug 2019 14:14:20 +0100 (BST)
+ id 8F31F274314E; Tue, 20 Aug 2019 14:14:20 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20190820123510.22491-1-jbrunet@baylibre.com>
+In-Reply-To: <20190820123413.22249-1-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190820131420.5E336274314C@ypsilon.sirena.org.uk>
+Message-Id: <20190820131420.8F31F274314E@ypsilon.sirena.org.uk>
 Date: Tue, 20 Aug 2019 14:14:20 +0100 (BST)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
  linux-amlogic@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: meson: g12a-tohdmitx: require regmap
-	mmio" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: meson: axg-tdm-formatter: free reset on
+	device removal" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,7 +99,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: g12a-tohdmitx: require regmap mmio
+   ASoC: meson: axg-tdm-formatter: free reset on device removal
 
 has been applied to the asoc tree at
 
@@ -126,33 +124,35 @@ to this mail.
 Thanks,
 Mark
 
-From 351b31002c1853af078ebfffd4b67bfc3d19e3dd Mon Sep 17 00:00:00 2001
+From 18dd62ae3bc31baa0473e4a09e46c02e0bdc57a0 Mon Sep 17 00:00:00 2001
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Tue, 20 Aug 2019 14:35:10 +0200
-Subject: [PATCH] ASoC: meson: g12a-tohdmitx: require regmap mmio
+Date: Tue, 20 Aug 2019 14:34:13 +0200
+Subject: [PATCH] ASoC: meson: axg-tdm-formatter: free reset on device removal
 
-The tohdmitx glue uses regmap MMIO so it should require it.
+Use the devm variant to get the formatter reset so it is properly freed
+on device removal
 
-Fixes: c8609f3870f7 ("ASoC: meson: add g12a tohdmitx control")
+Fixes: 751bd5db5260 ("ASoC: meson: axg-tdm-formatter: add reset")
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Link: https://lore.kernel.org/r/20190820123510.22491-1-jbrunet@baylibre.com
+Link: https://lore.kernel.org/r/20190820123413.22249-1-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/meson/axg-tdm-formatter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/meson/Kconfig b/sound/soc/meson/Kconfig
-index 63b38c123103..2e3676147cea 100644
---- a/sound/soc/meson/Kconfig
-+++ b/sound/soc/meson/Kconfig
-@@ -87,6 +87,7 @@ config SND_MESON_AXG_PDM
+diff --git a/sound/soc/meson/axg-tdm-formatter.c b/sound/soc/meson/axg-tdm-formatter.c
+index 2e498201139f..1a0bf9d3836d 100644
+--- a/sound/soc/meson/axg-tdm-formatter.c
++++ b/sound/soc/meson/axg-tdm-formatter.c
+@@ -327,7 +327,7 @@ int axg_tdm_formatter_probe(struct platform_device *pdev)
+ 	}
  
- config SND_MESON_G12A_TOHDMITX
- 	tristate "Amlogic G12A To HDMI TX Control Support"
-+	select REGMAP_MMIO
- 	imply SND_SOC_HDMI_CODEC
- 	help
- 	  Select Y or M to add support for HDMI audio on the g12a SoC
+ 	/* Formatter dedicated reset line */
+-	formatter->reset = reset_control_get_optional_exclusive(dev, NULL);
++	formatter->reset = devm_reset_control_get_optional_exclusive(dev, NULL);
+ 	if (IS_ERR(formatter->reset)) {
+ 		ret = PTR_ERR(formatter->reset);
+ 		if (ret != -EPROBE_DEFER)
 -- 
 2.20.1
 

@@ -2,60 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45F29680E
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 19:53:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54D999680B
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 19:51:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3CC401668;
-	Tue, 20 Aug 2019 19:52:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3CC401668
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8B5F167C;
+	Tue, 20 Aug 2019 19:50:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8B5F167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566323582;
-	bh=Wn73FCXvNgtXt9cnugognUVsYJ5l+dn27jhzyNPpi88=;
+	s=default; t=1566323509;
+	bh=hSLJFVsavWYhVJNCB2Q2C2cT95VKrr57i0u1Xe0Mj7k=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Fmz2MIcoHdzZZnyLefE/I5WMuFS4VxxTx1wqgk6uRCicOqJpKxMYtAIvpqAjKpLsq
-	 NfGNQCCKtlZVLexMLFBiSGc2jH23gVWZQaixCBwYfhqzpBPAQ4H4pjDKZQ0uMb/yQ9
-	 lto7AjX0cXEudcmc97kspREKjHRp3kqTpjLOuPPw=
+	b=o/Oi0jHzh0Rbw8cp8WkMUgCRLppXdAW2L7dnHn/XJB8nZ6sPJNmXDMU9pqTG6t+cq
+	 xa/TSxRB36EarIY1ePEc19iGdzrE76qTHESxdD5xE0lJvA4D7XR8lbVsaP0YkRVRvF
+	 JIhj4v85jss0BvryQFW4l34YV/z64yv8fl4wLsLk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6EF6F80735;
-	Tue, 20 Aug 2019 19:41:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09FC1F8071F;
+	Tue, 20 Aug 2019 19:41:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF54FF8063C; Tue, 20 Aug 2019 19:41:25 +0200 (CEST)
+ id 5C7D4F80639; Tue, 20 Aug 2019 19:41:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-wm1-f99.google.com (mail-wm1-f99.google.com
- [209.85.128.99])
+ SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com
+ [209.85.128.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2318AF802E0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE421F805FB
  for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 19:41:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2318AF802E0
-Received: by mail-wm1-f99.google.com with SMTP id p74so3351482wme.4
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE421F805FB
+Received: by mail-wm1-f98.google.com with SMTP id d16so3398279wme.2
  for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 10:41:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=0q9woCZX0qm6N50DaIA6FNjfD3FFPCgnyT4lcLDQcyk=;
- b=axjPnREMDIFbhXK61cI3VuJl2acrFY4lBSYXevuh9G2Vips47rX5q3bq8XA73Q5X+y
- j3jeFEt3rG4LUWEINsrv4Lyz+rywsDf6lzfa8AR29iqXz8B1oyi8QG6e9UEfkgaz8i8O
- LyWtuZpKOMi7SoqAR/5wSMRgv1uOr1QNCYB8CtGv74H+MB9LbnuaOz4TkN6L81lgkDtf
- MF2Cu70qxSsSSnhX6QFGqU/XPafH9TO4K3hZlKvIKqTJmciIYV5aW+TliqDNJIKB1ZXY
- 7uuxSxIq0Bb+rUcGdbFN/QfqEGc08Z+LuUaWlWMsElD2LMvSDvDph9OvOoFAvnWW8Urb
- 84Nw==
-X-Gm-Message-State: APjAAAVDmfdjUOFvN1JaSomnY2ujfyyNJKcx2EZtl/1Pr4c1Qppx9fOH
- EWHbICx2WZyJSBtH4yELg4GT5jorrsK4YKV/t46JX419sxIOlz/Ov3GDQjj5ylNuRg==
-X-Google-Smtp-Source: APXvYqw2Pt0zdcbAIggLBL+mSoi9Dm/t2bw7A/B5DHIIiy5JPlqKPp8E+ua/QyMvktd5SB6SB2utwpyTPYM3
-X-Received: by 2002:a1c:c018:: with SMTP id q24mr1232027wmf.162.1566322867345; 
+ bh=97800JmymyUzUkOWTtVtyq3DZhNXNYvVXonip/nZ8/M=;
+ b=SmdptFPQBArwLX4MXGZusbi8VP4//c69WGWQEp2O+Z3n5Gx87Dif6jDsmFrwWKtTTM
+ 05gs+UMc4sxwzY4golCi6w8nXZzqO4D8coW5cmQMxrVBfiGfUAGsuYqc+IABk7vq+sJ9
+ EtyQcpVjwvvwJcdLrxYBUo1VB4wb9snSI6HETsa0xYXZrH5WyjclqztsVTLYN9hxPMjG
+ +dRSSWRKs5aYSj9mVLF4zKMqbmiL+Ju+o3HWLVOtcf4X6xZa8DcH5B2GrUZsaCvjZuME
+ Me91VYgu2477XqlZwpRwS/OIAsy8vqbnva+BI6Y/c+jwDUO5AgX2iUqZ020XxOEXHYnd
+ fgfQ==
+X-Gm-Message-State: APjAAAWWYFgTRdBJ4J0PIS4WY99xfsSKcxAYxnOPs8j48QW2TswJpOgB
+ DGglSq9hIxOzdhREUKi/IyJjxSG2XN4Zcxq3QzDE0vRbbAdWAmsruTnbG1K1H7aV4w==
+X-Google-Smtp-Source: APXvYqxXbdsIdmx7jwnCIdsXVl7QgFyGb5j94LM0SNZB4xFGrcKWlFFodgziMqn5ZD8PGArlmAcf5odWSimi
+X-Received: by 2002:a1c:ca09:: with SMTP id a9mr1201982wmg.43.1566322867115;
  Tue, 20 Aug 2019 10:41:07 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id v14sm2100wmc.18.2019.08.20.10.41.07
+ by smtp-relay.gmail.com with ESMTPS id a188sm4343wme.51.2019.08.20.10.41.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Tue, 20 Aug 2019 10:41:07 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
@@ -63,25 +64,21 @@ Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i0883-000335-25; Tue, 20 Aug 2019 17:41:07 +0000
+ id 1i0882-000334-RC; Tue, 20 Aug 2019 17:41:06 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 6E99D274314F; Tue, 20 Aug 2019 18:41:06 +0100 (BST)
+ id 356AB274314E; Tue, 20 Aug 2019 18:41:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Stuart <daniel.stuart14@gmail.com>
-In-Reply-To: <20190815171300.30126-1-daniel.stuart14@gmail.com>
+To: Maxime Ripard <maxime.ripard@bootlin.com>
+In-Reply-To: <6414463de69584e8227fa495b13aa5f4798e1f0e.1566242458.git-series.maxime.ripard@bootlin.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190820174106.6E99D274314F@ypsilon.sirena.org.uk>
+Message-Id: <20190820174106.356AB274314E@ypsilon.sirena.org.uk>
 Date: Tue, 20 Aug 2019 18:41:06 +0100 (BST)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Daniel Stuart <daniel.stuart@pucpr.edu.br>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- cezary.rojewski@intel.com, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, "Cc:"@sirena.co.uk
-Subject: [alsa-devel] Applied "ASoC: intel: cht_bsw_max98090_ti: Add all
-	Chromebooks that need pmc_plt_clk_0 quirk" to the asoc tree
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
+ codekipper@gmail.com, Chen-Yu Tsai <wens@csie.org>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: sun4i-i2s: Move the channel
+	configuration to a callback" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,7 +99,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel: cht_bsw_max98090_ti: Add all Chromebooks that need pmc_plt_clk_0 quirk
+   ASoC: sun4i-i2s: Move the channel configuration to a callback
 
 has been applied to the asoc tree at
 
@@ -127,176 +124,307 @@ to this mail.
 Thanks,
 Mark
 
-From d5e120422db8808e1c8b1507900ca393a877c58f Mon Sep 17 00:00:00 2001
-From: Daniel Stuart <daniel.stuart14@gmail.com>
-Date: Thu, 15 Aug 2019 14:12:55 -0300
-Subject: [PATCH] ASoC: intel: cht_bsw_max98090_ti: Add all Chromebooks that
- need pmc_plt_clk_0 quirk
+From d70be625f25af7a2bc91b7d17d205f6071f08f2f Mon Sep 17 00:00:00 2001
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+Date: Mon, 19 Aug 2019 21:25:11 +0200
+Subject: [PATCH] ASoC: sun4i-i2s: Move the channel configuration to a callback
 
-Every single baytrail chromebook sets PMC to 0, as can be seeing
-below by searching through coreboot source code:
-	$ grep -rl "PMC_PLT_CLK\[0\]" .
-	./rambi/variants/glimmer/devicetree.cb
-	./rambi/variants/clapper/devicetree.cb
-	./rambi/variants/swanky/devicetree.cb
-	./rambi/variants/enguarde/devicetree.cb
-	./rambi/variants/winky/devicetree.cb
-	./rambi/variants/kip/devicetree.cb
-	./rambi/variants/squawks/devicetree.cb
-	./rambi/variants/orco/devicetree.cb
-	./rambi/variants/ninja/devicetree.cb
-	./rambi/variants/heli/devicetree.cb
-	./rambi/variants/sumo/devicetree.cb
-	./rambi/variants/banjo/devicetree.cb
-	./rambi/variants/candy/devicetree.cb
-	./rambi/variants/gnawty/devicetree.cb
-	./rambi/variants/rambi/devicetree.cb
-	./rambi/variants/quawks/devicetree.cb
+The two main generations of our I2S controller require a slightly different
+channel configuration, mostly because of a quite different register layout
+and some additional registers being needed on the newer generation.
 
-Plus, Cyan (only non-baytrail chromebook with max98090) also needs
-this patch for audio to work.
+This used to be controlled through a bunch of booleans, however this proved
+to be quite impractical, especially since a bunch of SoCs forgot to set
+those parameters and therefore were broken from that point of view.
 
-Thus, this commit adds all the missing devices to bsw_max98090 quirk
-table, implemented by commit a182ecd3809c ("ASoC: intel:
-cht_bsw_max98090_ti: Add quirk for boards using pmc_plt_clk_0").
-
-Signed-off-by: Daniel Stuart <daniel.stuart14@gmail.com>
-Link: https://lore.kernel.org/r/20190815171300.30126-1-daniel.stuart14@gmail.com
+Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+Link: https://lore.kernel.org/r/6414463de69584e8227fa495b13aa5f4798e1f0e.1566242458.git-series.maxime.ripard@bootlin.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/cht_bsw_max98090_ti.c | 98 ++++++++++++++++++++
- 1 file changed, 98 insertions(+)
+ sound/soc/sunxi/sun4i-i2s.c | 156 ++++++++++++++++--------------------
+ 1 file changed, 69 insertions(+), 87 deletions(-)
 
-diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-index 1db9a95e6a79..eaf3e2208a06 100644
---- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-+++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
-@@ -398,6 +398,20 @@ static struct snd_soc_card snd_soc_card_cht = {
+diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+index 2c909c6cafa9..42e45c9a947a 100644
+--- a/sound/soc/sunxi/sun4i-i2s.c
++++ b/sound/soc/sunxi/sun4i-i2s.c
+@@ -80,6 +80,7 @@
+ #define SUN4I_I2S_TX_CNT_REG		0x2c
+ 
+ #define SUN4I_I2S_TX_CHAN_SEL_REG	0x30
++#define SUN4I_I2S_CHAN_SEL_MASK			GENMASK(2, 0)
+ #define SUN4I_I2S_CHAN_SEL(num_chan)		(((num_chan) - 1) << 0)
+ 
+ #define SUN4I_I2S_TX_CHAN_MAP_REG	0x34
+@@ -122,8 +123,6 @@ struct sun4i_i2s;
+  * @has_reset: SoC needs reset deasserted.
+  * @has_slave_select_bit: SoC has a bit to enable slave mode.
+  * @has_fmt_set_lrck_period: SoC requires lrclk period to be set.
+- * @has_chcfg: tx and rx slot number need to be set.
+- * @has_chsel_tx_chen: SoC requires that the tx channels are enabled.
+  * @has_chsel_offset: SoC uses offset for selecting dai operational mode.
+  * @reg_offset_txdata: offset of the tx fifo.
+  * @sun4i_i2s_regmap: regmap config to use.
+@@ -135,17 +134,11 @@ struct sun4i_i2s;
+  * @field_fmt_bclk: regmap field to set clk polarity.
+  * @field_fmt_lrclk: regmap field to set frame polarity.
+  * @field_fmt_mode: regmap field to set the operational mode.
+- * @field_txchanmap: location of the tx channel mapping register.
+- * @field_rxchanmap: location of the rx channel mapping register.
+- * @field_txchansel: location of the tx channel select bit fields.
+- * @field_rxchansel: location of the rx channel select bit fields.
+  */
+ struct sun4i_i2s_quirks {
+ 	bool				has_reset;
+ 	bool				has_slave_select_bit;
+ 	bool				has_fmt_set_lrck_period;
+-	bool				has_chcfg;
+-	bool				has_chsel_tx_chen;
+ 	bool				has_chsel_offset;
+ 	unsigned int			reg_offset_txdata;	/* TX FIFO */
+ 	const struct regmap_config	*sun4i_i2s_regmap;
+@@ -159,13 +152,11 @@ struct sun4i_i2s_quirks {
+ 	struct reg_field		field_fmt_bclk;
+ 	struct reg_field		field_fmt_lrclk;
+ 	struct reg_field		field_fmt_mode;
+-	struct reg_field		field_txchanmap;
+-	struct reg_field		field_rxchanmap;
+-	struct reg_field		field_txchansel;
+-	struct reg_field		field_rxchansel;
+ 
+ 	s8	(*get_sr)(const struct sun4i_i2s *, int);
+ 	s8	(*get_wss)(const struct sun4i_i2s *, int);
++	int	(*set_chan_cfg)(const struct sun4i_i2s *,
++				const struct snd_pcm_hw_params *);
  };
  
- static const struct dmi_system_id cht_max98090_quirk_table[] = {
-+	{
-+		/* Banjo model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Banjo"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Candy model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Candy"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
- 	{
- 		/* Clapper model Chromebook */
- 		.matches = {
-@@ -405,6 +419,27 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
- 		},
- 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
- 	},
-+	{
-+		/* Cyan model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Cyan"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Enguarde model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Enguarde"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Glimmer model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Glimmer"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
- 	{
- 		/* Gnawty model Chromebook (Acer Chromebook CB3-111) */
- 		.matches = {
-@@ -412,6 +447,62 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
- 		},
- 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
- 	},
-+	{
-+		/* Heli model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Heli"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Kip model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Kip"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Ninja model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Ninja"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Orco model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Orco"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Quawks model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Quawks"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Rambi model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Rambi"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Squawks model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Squawks"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
-+	{
-+		/* Sumo model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Sumo"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
- 	{
- 		/* Swanky model Chromebook (Toshiba Chromebook 2) */
- 		.matches = {
-@@ -419,6 +510,13 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
- 		},
- 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
- 	},
-+	{
-+		/* Winky model Chromebook */
-+		.matches = {
-+			DMI_MATCH(DMI_PRODUCT_NAME, "Winky"),
-+		},
-+		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
-+	},
- 	{}
+ struct sun4i_i2s {
+@@ -186,10 +177,6 @@ struct sun4i_i2s {
+ 	struct regmap_field	*field_fmt_bclk;
+ 	struct regmap_field	*field_fmt_lrclk;
+ 	struct regmap_field	*field_fmt_mode;
+-	struct regmap_field	*field_txchanmap;
+-	struct regmap_field	*field_rxchanmap;
+-	struct regmap_field	*field_txchansel;
+-	struct regmap_field	*field_rxchansel;
+ 
+ 	const struct sun4i_i2s_quirks	*variant;
+ };
+@@ -380,44 +367,77 @@ static s8 sun8i_i2s_get_sr_wss(const struct sun4i_i2s *i2s, int width)
+ 	return (width - 8) / 4 + 1;
+ }
+ 
+-static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
+-			       struct snd_pcm_hw_params *params,
+-			       struct snd_soc_dai *dai)
++static int sun4i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
++				  const struct snd_pcm_hw_params *params)
+ {
+-	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+-	int sr, wss, channels;
+-	u32 width;
++	unsigned int channels = params_channels(params);
+ 
+-	channels = params_channels(params);
+-	if (channels != 2) {
+-		dev_err(dai->dev, "Unsupported number of channels: %d\n",
+-			channels);
++	if (channels != 2)
+ 		return -EINVAL;
+-	}
+ 
+-	if (i2s->variant->has_chcfg) {
+-		regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
+-				   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM_MASK,
+-				   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM(channels));
+-		regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
+-				   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM_MASK,
+-				   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM(channels));
+-	}
++	/* Map the channels for playback and capture */
++	regmap_write(i2s->regmap, SUN4I_I2S_TX_CHAN_MAP_REG, 0x76543210);
++	regmap_write(i2s->regmap, SUN4I_I2S_RX_CHAN_MAP_REG, 0x00003210);
++
++	/* Configure the channels */
++	regmap_update_bits(i2s->regmap, SUN4I_I2S_TX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
++			   SUN4I_I2S_CHAN_SEL(channels));
++	regmap_update_bits(i2s->regmap, SUN4I_I2S_RX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
++			   SUN4I_I2S_CHAN_SEL(channels));
++
++	return 0;
++}
++
++static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
++				  const struct snd_pcm_hw_params *params)
++{
++	unsigned int channels = params_channels(params);
++
++	if (channels != 2)
++		return -EINVAL;
+ 
+ 	/* Map the channels for playback and capture */
+-	regmap_field_write(i2s->field_txchanmap, 0x76543210);
+-	regmap_field_write(i2s->field_rxchanmap, 0x00003210);
++	regmap_write(i2s->regmap, SUN8I_I2S_TX_CHAN_MAP_REG, 0x76543210);
++	regmap_write(i2s->regmap, SUN8I_I2S_RX_CHAN_MAP_REG, 0x76543210);
+ 
+ 	/* Configure the channels */
+-	regmap_field_write(i2s->field_txchansel,
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
+ 			   SUN4I_I2S_CHAN_SEL(channels));
+-	regmap_field_write(i2s->field_rxchansel,
++
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_RX_CHAN_SEL_REG,
++			   SUN4I_I2S_CHAN_SEL_MASK,
+ 			   SUN4I_I2S_CHAN_SEL(channels));
+ 
+-	if (i2s->variant->has_chsel_tx_chen)
+-		regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
+-				   SUN8I_I2S_TX_CHAN_EN_MASK,
+-				   SUN8I_I2S_TX_CHAN_EN(channels));
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
++			   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM_MASK,
++			   SUN8I_I2S_CHAN_CFG_TX_SLOT_NUM(channels));
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_CHAN_CFG_REG,
++			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM_MASK,
++			   SUN8I_I2S_CHAN_CFG_RX_SLOT_NUM(channels));
++
++	regmap_update_bits(i2s->regmap, SUN8I_I2S_TX_CHAN_SEL_REG,
++			   SUN8I_I2S_TX_CHAN_EN_MASK,
++			   SUN8I_I2S_TX_CHAN_EN(channels));
++
++	return 0;
++}
++
++static int sun4i_i2s_hw_params(struct snd_pcm_substream *substream,
++			       struct snd_pcm_hw_params *params,
++			       struct snd_soc_dai *dai)
++{
++	struct sun4i_i2s *i2s = snd_soc_dai_get_drvdata(dai);
++	int ret, sr, wss;
++	u32 width;
++
++	ret = i2s->variant->set_chan_cfg(i2s, params);
++	if (ret < 0) {
++		dev_err(dai->dev, "Invalid channel configuration\n");
++		return ret;
++	}
+ 
+ 	switch (params_physical_width(params)) {
+ 	case 16:
+@@ -915,12 +935,9 @@ static const struct sun4i_i2s_quirks sun4i_a10_i2s_quirks = {
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.has_slave_select_bit	= true,
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun4i_i2s_get_sr,
+ 	.get_wss		= sun4i_i2s_get_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
  };
  
+ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
+@@ -934,12 +951,9 @@ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.has_slave_select_bit	= true,
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun4i_i2s_get_sr,
+ 	.get_wss		= sun4i_i2s_get_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+@@ -953,12 +967,9 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.has_slave_select_bit	= true,
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun8i_i2s_get_sr_wss,
+ 	.get_wss		= sun8i_i2s_get_sr_wss,
++	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+@@ -968,8 +979,6 @@ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+ 	.mclk_offset		= 1,
+ 	.bclk_offset		= 2,
+ 	.has_fmt_set_lrck_period = true,
+-	.has_chcfg		= true,
+-	.has_chsel_tx_chen	= true,
+ 	.has_chsel_offset	= true,
+ 	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
+ 	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
+@@ -977,12 +986,9 @@ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
+ 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 19, 19),
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_CTRL_REG, 4, 5),
+-	.field_txchanmap	= REG_FIELD(SUN8I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN8I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN8I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN8I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun8i_i2s_get_sr_wss,
+ 	.get_wss		= sun8i_i2s_get_sr_wss,
++	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
+ };
+ 
+ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
+@@ -996,12 +1002,9 @@ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
+ 	.field_fmt_bclk		= REG_FIELD(SUN4I_I2S_FMT0_REG, 6, 6),
+ 	.field_fmt_lrclk	= REG_FIELD(SUN4I_I2S_FMT0_REG, 7, 7),
+ 	.field_fmt_mode		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 1),
+-	.field_txchanmap	= REG_FIELD(SUN4I_I2S_TX_CHAN_MAP_REG, 0, 31),
+-	.field_rxchanmap	= REG_FIELD(SUN4I_I2S_RX_CHAN_MAP_REG, 0, 31),
+-	.field_txchansel	= REG_FIELD(SUN4I_I2S_TX_CHAN_SEL_REG, 0, 2),
+-	.field_rxchansel	= REG_FIELD(SUN4I_I2S_RX_CHAN_SEL_REG, 0, 2),
+ 	.get_sr			= sun4i_i2s_get_sr,
+ 	.get_wss		= sun4i_i2s_get_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
+ };
+ 
+ static int sun4i_i2s_init_regmap_fields(struct device *dev,
+@@ -1043,28 +1046,7 @@ static int sun4i_i2s_init_regmap_fields(struct device *dev,
+ 	if (IS_ERR(i2s->field_fmt_mode))
+ 		return PTR_ERR(i2s->field_fmt_mode);
+ 
+-	i2s->field_txchanmap =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_txchanmap);
+-	if (IS_ERR(i2s->field_txchanmap))
+-		return PTR_ERR(i2s->field_txchanmap);
+-
+-	i2s->field_rxchanmap =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_rxchanmap);
+-	if (IS_ERR(i2s->field_rxchanmap))
+-		return PTR_ERR(i2s->field_rxchanmap);
+-
+-	i2s->field_txchansel =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_txchansel);
+-	if (IS_ERR(i2s->field_txchansel))
+-		return PTR_ERR(i2s->field_txchansel);
+-
+-	i2s->field_rxchansel =
+-			devm_regmap_field_alloc(dev, i2s->regmap,
+-						i2s->variant->field_rxchansel);
+-	return PTR_ERR_OR_ZERO(i2s->field_rxchansel);
++	return 0;
+ }
+ 
+ static int sun4i_i2s_probe(struct platform_device *pdev)
 -- 
 2.20.1
 

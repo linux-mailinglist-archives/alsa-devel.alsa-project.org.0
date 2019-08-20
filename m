@@ -2,84 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D585195F46
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 14:56:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132BA95FC8
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 15:17:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6832E1672;
-	Tue, 20 Aug 2019 14:55:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6832E1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DCF41664;
+	Tue, 20 Aug 2019 15:16:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DCF41664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566305805;
-	bh=MbnzDj4yUbMSUkwB7LrlXWnIo0vSkUf55kaxDf4kI38=;
+	s=default; t=1566307068;
+	bh=VmwTQ2svhNMf9vdf8ywFkox16UbT4UexZv4GCvm/SR4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=S4KyE8qxZJFeEByVNoiY2/WKrWOjMBJGajAVY/yj00OeygoCKF3Gtv8FIXsWkqXjl
-	 yuNCCCGK1tuGYQfhKjYK3cUKfMF3JBHyjtJCdpFsyctsvOCToxmMJtN32DFMnQjsSj
-	 C3dGpvc5qddUzOP+WUSxnoASsdCT9gT2JeJIUFEI=
+	b=Ouxz8Rb7PCMawgOwwTpw18Us4AtEprfvNbom0Iu1AM6PIeKFYsnVcrt0L0G79ZnwV
+	 D8d+9FEs/JMzdIRNACnbyFaAnmD3MKFdLdrx3XPbuyhMjIJKNBSClIQC39qtz8yhE0
+	 vOG3SdFUwv1xETT1r8Y9Gnp8+biOzdfS5PxR3EVY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62CA2F8036E;
-	Tue, 20 Aug 2019 14:55:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CBA5F805F6;
+	Tue, 20 Aug 2019 15:14:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58665F8036E; Tue, 20 Aug 2019 14:54:59 +0200 (CEST)
+ id 32FFBF805F5; Tue, 20 Aug 2019 15:14:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f97.google.com (mail-wr1-f97.google.com
- [209.85.221.97])
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com
+ [209.85.128.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAF38F802E0
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 14:54:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAF38F802E0
-Received: by mail-wr1-f97.google.com with SMTP id g17so12311503wrr.5
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 05:54:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4560F805E1
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 15:14:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4560F805E1
+Received: by mail-wm1-f98.google.com with SMTP id o4so2597739wmh.2
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 06:14:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=OOt4IqCTKjc4kL7SLf/udmDIHzSd6i//mvrhfYwtNus=;
- b=bXFQSt6EeEDBKcbLWmoJHn8p7LFvOjZC/cVDquT0igxtLv+pYjtWMuz3xHHyoMIW33
- bgXyodcyb+gUBYgmIqVZh1erh2Seckwi6gux2QKpaZh7ew3bDs40eZrs/NPv821ILk8i
- 57903k4A3kgyrTGBDgTYdHhPEsOhyaRk6BNL3jazodb6S0orB0otGvg447sUjGDGCJnZ
- lGlpQY0AcjqvtsRqGbFYS8EQvx6vTzyt/LaBg4d6G2N3Eiv2D1ZpbpogvLERkXFeIjge
- CttpwScY4ZMN4DQ2VfNOL+XEvIhOhywU5PjaXakO3bSvQxS150dH6z65MOtcaeImYWMp
- UOLA==
-X-Gm-Message-State: APjAAAVqm3RLTGy9pHH3LYyxUWyY1oXyOCBBeO8NCrg/rwcEh8fmZK5x
- b3IPnfaIF/1ylKta4VR0bKoqfDnAvbXauLqGxA9eveu/8vFd1EMRqGqfE7HcUo7Pww==
-X-Google-Smtp-Source: APXvYqzE8OuONFaCn4iaMvy5NR3jibFQ56MCWMLu1F8nQR1KcJNG2lQEbBekp1lfPUIy731ekEybfMDnk8pt
-X-Received: by 2002:a5d:4b41:: with SMTP id w1mr8437925wrs.23.1566305695604;
- Tue, 20 Aug 2019 05:54:55 -0700 (PDT)
+ bh=Ds94USxMlrmVWvdSyg/KWTUxWfW2xDdGawDXxMSeOz8=;
+ b=YIZ6ETAgCRaz6zhxGkfA7Lq0XbNp43xiL9i5JxmeUtFyHZSX/qv63+UVCrycP8p/Fg
+ j/CFr1wDZO2NLVQk2Zob6UbQb0XiYb3NO3OwfBT5+zi2ABnTxNrH4u1cngVlAh/naJKK
+ D3lbwnKehbU2J4HyvvenYVuahFE6JgdVW87fuc7OZTmiifqVP/MUDFU9HxYi0btPDyle
+ fde0KVM8oaFRhB5c8gYAbeXzEOdlUpo76fDR0j5hwrWxsltT2TUqMyBPttQL/QG6Vijj
+ vq7tXUrxxPAgo2AqWfMSkKytw8kb9ablYJ2pM4aFGr1TBuQe2sx7B9ATmKLi+DRKIl4B
+ 519A==
+X-Gm-Message-State: APjAAAUxE4THOTYz6woKxlgPS7pO2NoBip+on4gQg07R/mFwsnBoHLse
+ yWhtk9LN6UxBbQS2QF/ouFNJVWyLm7k2mdnvAZ1wX6QafKJbjoT5/Bh+CtIUYYAtcg==
+X-Google-Smtp-Source: APXvYqxy2V+7O9nUn1O1tf9qgdDT3FapcSywv0nPC04up8CLdfLUh+Y9SAvtda+wazMnAuNKOliPCRSPgJp1
+X-Received: by 2002:a7b:c95a:: with SMTP id i26mr26914731wml.175.1566306861525; 
+ Tue, 20 Aug 2019 06:14:21 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id c1sm324295wrn.65.2019.08.20.05.54.55
+ by smtp-relay.gmail.com with ESMTPS id x3sm294474wrp.52.2019.08.20.06.14.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Aug 2019 05:54:55 -0700 (PDT)
+ Tue, 20 Aug 2019 06:14:21 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i03f5-0002Dl-2Y; Tue, 20 Aug 2019 12:54:55 +0000
+ id 1i03xt-0002LV-60; Tue, 20 Aug 2019 13:14:21 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 23AD32742ABD; Tue, 20 Aug 2019 13:54:54 +0100 (BST)
+ id 32CFC2742ABD; Tue, 20 Aug 2019 14:14:20 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-In-Reply-To: <1566281764-14059-1-git-send-email-hayashi.kunihiko@socionext.com>
+To: Daniel Stuart <daniel.stuart14@gmail.com>
+In-Reply-To: 
 X-Patchwork-Hint: ignore
-Message-Id: <20190820125454.23AD32742ABD@ypsilon.sirena.org.uk>
-Date: Tue, 20 Aug 2019 13:54:54 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Masami Hiramatsu <masami.hiramatsu@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Jassi Brar <jaswinder.singh@linaro.org>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: uniphier: Fix double reset assersion
-	when transitioning to suspend state" to the asoc tree
+Message-Id: <20190820131420.32CFC2742ABD@ypsilon.sirena.org.uk>
+Date: Tue, 20 Aug 2019 14:14:20 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: intel: cht_bsw_max98090_ti: Add all
+	Chromebooks that need pmc_plt_clk_0 quirk" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,11 +95,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: uniphier: Fix double reset assersion when transitioning to suspend state
+   ASoC: intel: cht_bsw_max98090_ti: Add all Chromebooks that need pmc_plt_clk_0 quirk
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -125,121 +120,175 @@ to this mail.
 Thanks,
 Mark
 
-From c372a35550c8d60f673b20210eea58a06d6d38cb Mon Sep 17 00:00:00 2001
-From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-Date: Tue, 20 Aug 2019 15:16:04 +0900
-Subject: [PATCH] ASoC: uniphier: Fix double reset assersion when transitioning
- to suspend state
+From 404be07f4ed27697f5fa69162f67a94555738595 Mon Sep 17 00:00:00 2001
+From: Daniel Stuart <daniel.stuart14@gmail.com>
+Date: Thu, 15 Aug 2019 14:12:55 -0300
+Subject: [PATCH] ASoC: intel: cht_bsw_max98090_ti: Add all Chromebooks that
+ need pmc_plt_clk_0 quirk
 
-When transitioning to supend state, uniphier_aio_dai_suspend() is called
-and asserts reset lines and disables clocks.
+Every single baytrail chromebook sets PMC to 0, as can be seeing
+below by searching through coreboot source code:
+	$ grep -rl "PMC_PLT_CLK\[0\]" .
+	./rambi/variants/glimmer/devicetree.cb
+	./rambi/variants/clapper/devicetree.cb
+	./rambi/variants/swanky/devicetree.cb
+	./rambi/variants/enguarde/devicetree.cb
+	./rambi/variants/winky/devicetree.cb
+	./rambi/variants/kip/devicetree.cb
+	./rambi/variants/squawks/devicetree.cb
+	./rambi/variants/orco/devicetree.cb
+	./rambi/variants/ninja/devicetree.cb
+	./rambi/variants/heli/devicetree.cb
+	./rambi/variants/sumo/devicetree.cb
+	./rambi/variants/banjo/devicetree.cb
+	./rambi/variants/candy/devicetree.cb
+	./rambi/variants/gnawty/devicetree.cb
+	./rambi/variants/rambi/devicetree.cb
+	./rambi/variants/quawks/devicetree.cb
 
-However, if there are two or more DAIs, uniphier_aio_dai_suspend() are
-called multiple times, and double reset assersion will cause.
+Plus, Cyan (only non-baytrail chromebook with max98090) also needs
+this patch for audio to work.
 
-This patch defines the counter that has the number of DAIs at first, and
-whenever uniphier_aio_dai_suspend() are called, it decrements the
-counter. And only if the counter is zero, it asserts reset lines and
-disables clocks.
+Thus, this commit adds all the missing devices to bsw_max98090 quirk
+table, implemented by commit a182ecd3809c ("ASoC: intel:
+cht_bsw_max98090_ti: Add quirk for boards using pmc_plt_clk_0").
 
-In the same way, uniphier_aio_dai_resume() are called, it increments the
-counter after deasserting reset lines and enabling clocks.
-
-Fixes: 139a34200233 ("ASoC: uniphier: add support for UniPhier AIO CPU DAI driver")
-Signed-off-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-Link: https://lore.kernel.org/r/1566281764-14059-1-git-send-email-hayashi.kunihiko@socionext.com
+Signed-off-by: Daniel Stuart <daniel.stuart14@gmail.com>
+Link: https://lore.kernel.org/r/20190815171300.30126-1-daniel.stuart14@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/uniphier/aio-cpu.c | 31 +++++++++++++++++++++----------
- sound/soc/uniphier/aio.h     |  1 +
- 2 files changed, 22 insertions(+), 10 deletions(-)
+ sound/soc/intel/boards/cht_bsw_max98090_ti.c | 98 ++++++++++++++++++++
+ 1 file changed, 98 insertions(+)
 
-diff --git a/sound/soc/uniphier/aio-cpu.c b/sound/soc/uniphier/aio-cpu.c
-index ee90e6c3937c..2ae582a99b63 100644
---- a/sound/soc/uniphier/aio-cpu.c
-+++ b/sound/soc/uniphier/aio-cpu.c
-@@ -424,8 +424,11 @@ int uniphier_aio_dai_suspend(struct snd_soc_dai *dai)
- {
- 	struct uniphier_aio *aio = uniphier_priv(dai);
+diff --git a/sound/soc/intel/boards/cht_bsw_max98090_ti.c b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+index 33eb72545be6..83b978e7b4c4 100644
+--- a/sound/soc/intel/boards/cht_bsw_max98090_ti.c
++++ b/sound/soc/intel/boards/cht_bsw_max98090_ti.c
+@@ -399,6 +399,20 @@ static struct snd_soc_card snd_soc_card_cht = {
+ };
  
--	reset_control_assert(aio->chip->rst);
--	clk_disable_unprepare(aio->chip->clk);
-+	aio->chip->num_wup_aios--;
-+	if (!aio->chip->num_wup_aios) {
-+		reset_control_assert(aio->chip->rst);
-+		clk_disable_unprepare(aio->chip->clk);
-+	}
- 
- 	return 0;
- }
-@@ -439,13 +442,15 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
- 	if (!aio->chip->active)
- 		return 0;
- 
--	ret = clk_prepare_enable(aio->chip->clk);
--	if (ret)
--		return ret;
-+	if (!aio->chip->num_wup_aios) {
-+		ret = clk_prepare_enable(aio->chip->clk);
-+		if (ret)
-+			return ret;
- 
--	ret = reset_control_deassert(aio->chip->rst);
--	if (ret)
--		goto err_out_clock;
-+		ret = reset_control_deassert(aio->chip->rst);
-+		if (ret)
-+			goto err_out_clock;
-+	}
- 
- 	aio_iecout_set_enable(aio->chip, true);
- 	aio_chip_init(aio->chip);
-@@ -458,7 +463,7 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
- 
- 		ret = aio_init(sub);
- 		if (ret)
--			goto err_out_clock;
-+			goto err_out_reset;
- 
- 		if (!sub->setting)
- 			continue;
-@@ -466,11 +471,16 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
- 		aio_port_reset(sub);
- 		aio_src_reset(sub);
- 	}
-+	aio->chip->num_wup_aios++;
- 
- 	return 0;
- 
-+err_out_reset:
-+	if (!aio->chip->num_wup_aios)
-+		reset_control_assert(aio->chip->rst);
- err_out_clock:
--	clk_disable_unprepare(aio->chip->clk);
-+	if (!aio->chip->num_wup_aios)
-+		clk_disable_unprepare(aio->chip->clk);
- 
- 	return ret;
- }
-@@ -619,6 +629,7 @@ int uniphier_aio_probe(struct platform_device *pdev)
- 		return PTR_ERR(chip->rst);
- 
- 	chip->num_aios = chip->chip_spec->num_dais;
-+	chip->num_wup_aios = chip->num_aios;
- 	chip->aios = devm_kcalloc(dev,
- 				  chip->num_aios, sizeof(struct uniphier_aio),
- 				  GFP_KERNEL);
-diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
-index ca6ccbae0ee8..a7ff7e556429 100644
---- a/sound/soc/uniphier/aio.h
-+++ b/sound/soc/uniphier/aio.h
-@@ -285,6 +285,7 @@ struct uniphier_aio_chip {
- 
- 	struct uniphier_aio *aios;
- 	int num_aios;
-+	int num_wup_aios;
- 	struct uniphier_aio_pll *plls;
- 	int num_plls;
+ static const struct dmi_system_id cht_max98090_quirk_table[] = {
++	{
++		/* Banjo model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Banjo"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Candy model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Candy"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{
+ 		/* Clapper model Chromebook */
+ 		.matches = {
+@@ -406,6 +420,27 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+ 	},
++	{
++		/* Cyan model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Cyan"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Enguarde model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Enguarde"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Glimmer model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Glimmer"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{
+ 		/* Gnawty model Chromebook (Acer Chromebook CB3-111) */
+ 		.matches = {
+@@ -413,6 +448,62 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+ 	},
++	{
++		/* Heli model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Heli"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Kip model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Kip"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Ninja model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Ninja"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Orco model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Orco"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Quawks model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Quawks"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Rambi model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Rambi"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Squawks model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Squawks"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
++	{
++		/* Sumo model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Sumo"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{
+ 		/* Swanky model Chromebook (Toshiba Chromebook 2) */
+ 		.matches = {
+@@ -420,6 +511,13 @@ static const struct dmi_system_id cht_max98090_quirk_table[] = {
+ 		},
+ 		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
+ 	},
++	{
++		/* Winky model Chromebook */
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Winky"),
++		},
++		.driver_data = (void *)QUIRK_PMC_PLT_CLK_0,
++	},
+ 	{}
+ };
  
 -- 
 2.20.1

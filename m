@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D22E09568F
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 07:13:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86D2795691
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 07:14:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 606C51679;
-	Tue, 20 Aug 2019 07:12:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 606C51679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2FBEB1666;
+	Tue, 20 Aug 2019 07:13:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FBEB1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566278017;
-	bh=Zxrh9JmXeWAcTXVSmoag/RsPBJjnAjngl31qBqTK2xk=;
+	s=default; t=1566278047;
+	bh=ze8dboqyZu8BHNOwebm4hh8awjD7vrVbZ65UEcNUUY8=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KG9uD9NNh9J6HOXAXRQRLeWVuzq8fxOhL/JiOx8KY1A/jvByLLqMPX9jCEwTvbMBo
-	 mw8lzf/O6BtoM/gKYjjWbsaqQ4/0bFOz0XruZFEiJSi6LS3aq/Qxz+Kmp89X5KP6iE
-	 XotNKlgsQPr1IPTu62RldmiEbo3FUe6LIkW1mRrU=
+	b=PpQBdDe2xiH0OGk9+j3kZ64wApTs/VcDQW6+SqLcfvoVXRtZ+L0jarsi+AYgRLKqv
+	 TwhzCyqoTp/o1gmsxK6v8tIWMWUCtzW1J0llLWfcxhpMqtrybj9TWKpHT3FkeVq/HD
+	 0JbzJwIng+9MkLU//wr37JyCV4oxEGLdIiU5Ehrg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 178F1F806E5;
-	Tue, 20 Aug 2019 07:05:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C78FF806ED;
+	Tue, 20 Aug 2019 07:05:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86AF4F806E5; Tue, 20 Aug 2019 07:05:39 +0200 (CEST)
+ id 57E8EF806EF; Tue, 20 Aug 2019 07:05:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 46B18F80675
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 07:05:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46B18F80675
-Date: 20 Aug 2019 14:05:32 +0900
-X-IronPort-AV: E=Sophos;i="5.64,407,1559487600"; d="scan'208";a="24210569"
+ by alsa1.perex.cz (Postfix) with ESMTP id 2E8E0F806E9
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 07:05:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E8E0F806E9
+Date: 20 Aug 2019 14:05:40 +0900
+X-IronPort-AV: E=Sophos;i="5.64,407,1559487600"; d="scan'208";a="24210577"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 20 Aug 2019 14:05:32 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 20 Aug 2019 14:05:40 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 96EF641763CA;
- Tue, 20 Aug 2019 14:05:32 +0900 (JST)
-Message-ID: <87tvaczazd.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id C1C984175EC6;
+ Tue, 20 Aug 2019 14:05:40 +0900 (JST)
+Message-ID: <87sgpwzaz4.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -80,7 +80,12 @@ We already have for_each_component_dais() macro for it.
 Let's use exising method.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 ---
+v2 -> v3
+
+	- add Ranjani's Reviewed-by
+
  sound/soc/soc-topology.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 

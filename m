@@ -2,59 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 036F395738
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 08:18:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F0209575C
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 08:36:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7033E1669;
-	Tue, 20 Aug 2019 08:17:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7033E1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70218166A;
+	Tue, 20 Aug 2019 08:35:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70218166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566281894;
-	bh=iJ1564dHQep52XPSsoKD+AD8WaABs8jqALMN/t9RLN4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=odDZJj60hAs4cBqZUNVP2LMIgftnBa+IPmSgDiVaEe+AM1YugLl6RjwEkE6GHFP/0
-	 xwBk4WSKYaOuaM0B+ny9gTUo+NBIJ1k2mayfhLDM0xWvXzqR/9EGAFHdq6ZECbiMOD
-	 VyA0F2h+dG/AP+3la7jLVoP37dBSpo6Zgd89Sys0=
+	s=default; t=1566282985;
+	bh=SF+KaNN4V2cB3Td7RUCIssYVlETIVnO/eABp8MbFgbg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jLLkHGQbJZ1xqiEfy6RLS+AdOW0V2AyNgdF65P+TowK9Jowq/oNB9sfGiDeoar8N3
+	 6FoDbUaj8TvbKGDEwOoCsHgEHRAW9i/LwewoEW64FMqtz0Do87Uu2Pcuq1Op8tyVZy
+	 ve26Mz3SOr0oGXakkKt2bfOVSxgqcNjiz0AzJZJU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9AAC5F8036E;
-	Tue, 20 Aug 2019 08:16:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7483F8036E;
+	Tue, 20 Aug 2019 08:34:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A7E7F8036E; Tue, 20 Aug 2019 08:16:27 +0200 (CEST)
+ id EB2C1F8036E; Tue, 20 Aug 2019 08:34:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx.socionext.com (mx.socionext.com [202.248.49.38])
- by alsa1.perex.cz (Postfix) with ESMTP id EFB2FF800BF
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 08:16:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFB2FF800BF
-Received: from unknown (HELO iyokan-ex.css.socionext.com) ([172.31.9.54])
- by mx.socionext.com with ESMTP; 20 Aug 2019 15:16:18 +0900
-Received: from mail.mfilter.local (m-filter-2 [10.213.24.62])
- by iyokan-ex.css.socionext.com (Postfix) with ESMTP id CFEDF605F8;
- Tue, 20 Aug 2019 15:16:18 +0900 (JST)
-Received: from 172.31.9.51 (172.31.9.51) by m-FILTER with ESMTP;
- Tue, 20 Aug 2019 15:16:18 +0900
-Received: from plum.e01.socionext.com (unknown [10.213.132.32])
- by kinkan.css.socionext.com (Postfix) with ESMTP id 4DF4B1A04FC;
- Tue, 20 Aug 2019 15:16:18 +0900 (JST)
-From: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
-To: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>
-Date: Tue, 20 Aug 2019 15:16:04 +0900
-Message-Id: <1566281764-14059-1-git-send-email-hayashi.kunihiko@socionext.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Jassi Brar <jaswinder.singh@linaro.org>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- linux-arm-kernel@lists.infradead.org,
- Masami Hiramatsu <masami.hiramatsu@linaro.org>, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: uniphier: Fix double reset assersion
-	when transitioning to suspend state
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C2B00F800D3
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 08:34:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2B00F800D3
+Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1hzxiz-0007Gi-AB; Tue, 20 Aug 2019 08:34:33 +0200
+Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1hzxix-0002vd-6E; Tue, 20 Aug 2019 08:34:31 +0200
+Date: Tue, 20 Aug 2019 08:34:31 +0200
+From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
+Message-ID: <20190820063431.bveflsr6xtu7637h@pengutronix.de>
+References: <1566281764-14059-1-git-send-email-hayashi.kunihiko@socionext.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1566281764-14059-1-git-send-email-hayashi.kunihiko@socionext.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: alsa-devel@alsa-project.org, Masami Hiramatsu <masami.hiramatsu@linaro.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Jassi Brar <jaswinder.singh@linaro.org>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: uniphier: Fix double reset assersion
+ when transitioning to suspend state
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,123 +77,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When transitioning to supend state, uniphier_aio_dai_suspend() is called
-and asserts reset lines and disables clocks.
+Hello,
 
-However, if there are two or more DAIs, uniphier_aio_dai_suspend() are
-called multiple times, and double reset assersion will cause.
+just noticed while reading through my linux-arm-kernel folder:
 
-This patch defines the counter that has the number of DAIs at first, and
-whenever uniphier_aio_dai_suspend() are called, it decrements the
-counter. And only if the counter is zero, it asserts reset lines and
-disables clocks.
+$Subject ~=3D s/assersion/assertion/
 
-In the same way, uniphier_aio_dai_resume() are called, it increments the
-counter after deasserting reset lines and enabling clocks.
+Best regards
+Uwe
 
-Fixes: 139a34200233 ("ASoC: uniphier: add support for UniPhier AIO CPU DAI driver")
-Signed-off-by: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>
----
- sound/soc/uniphier/aio-cpu.c | 31 +++++++++++++++++++++----------
- sound/soc/uniphier/aio.h     |  1 +
- 2 files changed, 22 insertions(+), 10 deletions(-)
+-- =
 
-diff --git a/sound/soc/uniphier/aio-cpu.c b/sound/soc/uniphier/aio-cpu.c
-index ee90e6c..2ae582a 100644
---- a/sound/soc/uniphier/aio-cpu.c
-+++ b/sound/soc/uniphier/aio-cpu.c
-@@ -424,8 +424,11 @@ int uniphier_aio_dai_suspend(struct snd_soc_dai *dai)
- {
- 	struct uniphier_aio *aio = uniphier_priv(dai);
- 
--	reset_control_assert(aio->chip->rst);
--	clk_disable_unprepare(aio->chip->clk);
-+	aio->chip->num_wup_aios--;
-+	if (!aio->chip->num_wup_aios) {
-+		reset_control_assert(aio->chip->rst);
-+		clk_disable_unprepare(aio->chip->clk);
-+	}
- 
- 	return 0;
- }
-@@ -439,13 +442,15 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
- 	if (!aio->chip->active)
- 		return 0;
- 
--	ret = clk_prepare_enable(aio->chip->clk);
--	if (ret)
--		return ret;
-+	if (!aio->chip->num_wup_aios) {
-+		ret = clk_prepare_enable(aio->chip->clk);
-+		if (ret)
-+			return ret;
- 
--	ret = reset_control_deassert(aio->chip->rst);
--	if (ret)
--		goto err_out_clock;
-+		ret = reset_control_deassert(aio->chip->rst);
-+		if (ret)
-+			goto err_out_clock;
-+	}
- 
- 	aio_iecout_set_enable(aio->chip, true);
- 	aio_chip_init(aio->chip);
-@@ -458,7 +463,7 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
- 
- 		ret = aio_init(sub);
- 		if (ret)
--			goto err_out_clock;
-+			goto err_out_reset;
- 
- 		if (!sub->setting)
- 			continue;
-@@ -466,11 +471,16 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
- 		aio_port_reset(sub);
- 		aio_src_reset(sub);
- 	}
-+	aio->chip->num_wup_aios++;
- 
- 	return 0;
- 
-+err_out_reset:
-+	if (!aio->chip->num_wup_aios)
-+		reset_control_assert(aio->chip->rst);
- err_out_clock:
--	clk_disable_unprepare(aio->chip->clk);
-+	if (!aio->chip->num_wup_aios)
-+		clk_disable_unprepare(aio->chip->clk);
- 
- 	return ret;
- }
-@@ -619,6 +629,7 @@ int uniphier_aio_probe(struct platform_device *pdev)
- 		return PTR_ERR(chip->rst);
- 
- 	chip->num_aios = chip->chip_spec->num_dais;
-+	chip->num_wup_aios = chip->num_aios;
- 	chip->aios = devm_kcalloc(dev,
- 				  chip->num_aios, sizeof(struct uniphier_aio),
- 				  GFP_KERNEL);
-diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
-index ca6ccba..a7ff7e5 100644
---- a/sound/soc/uniphier/aio.h
-+++ b/sound/soc/uniphier/aio.h
-@@ -285,6 +285,7 @@ struct uniphier_aio_chip {
- 
- 	struct uniphier_aio *aios;
- 	int num_aios;
-+	int num_wup_aios;
- 	struct uniphier_aio_pll *plls;
- 	int num_plls;
- 
--- 
-2.7.4
-
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

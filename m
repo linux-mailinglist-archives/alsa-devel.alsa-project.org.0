@@ -2,94 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3970996657
-	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 18:28:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8DA7967B4
+	for <lists+alsa-devel@lfdr.de>; Tue, 20 Aug 2019 19:40:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DF551671;
-	Tue, 20 Aug 2019 18:27:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DF551671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 284A8166B;
+	Tue, 20 Aug 2019 19:40:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 284A8166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566318506;
-	bh=0e0SQkYm3uIYbePeV0yejpqjO2I9WoyNDMhnhg2EtZM=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1566322855;
+	bh=Vn7X2KvbxDuGOagZCeraS0MJGn3+gAI6ZGgGstnGoLM=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LRSAwdcxi6k2D+WQRsM5rCkoHtalm6nxYNMxggdL4WAQkEhcNE8uxeHG/QMzMpewX
-	 fgGGD6ihkM93SKpxm6VOyYJDekxK4QHfSPoYTatpZPVkEJezpVGvvOPRI/yb1i0j0O
-	 jhim+nm3KDruuLQ/HUDprN0gUFyHANL1j76xHH7E=
+	b=IR++WQmCJfzHLVntX551dVYtfKqqBjY0UyxZBOQ8MhSzNfPw5u75BUNp+fj6sMzpz
+	 eDeEW8TEanF47y6hdnsbjUV7cwkchD+NISYcJRwNgqTYIZV7KaWh5tPRtLd1nm+6lf
+	 900bu+y6GOZuXH8Qm6dx9k63bOUVsBXT0NVj0n6Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6A97F805A1;
-	Tue, 20 Aug 2019 18:25:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86D4DF803D5;
+	Tue, 20 Aug 2019 19:39:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4016F805F9; Tue, 20 Aug 2019 18:25:02 +0200 (CEST)
+ id E57C2F8036E; Tue, 20 Aug 2019 19:39:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from esa5.microchip.iphmx.com (esa5.microchip.iphmx.com
- [216.71.150.166])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wr1-f97.google.com (mail-wr1-f97.google.com
+ [209.85.221.97])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 970CEF805A1
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 18:24:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 970CEF805A1
-Received-SPF: Pass (esa5.microchip.iphmx.com: domain of
- Codrin.Ciubotariu@microchip.com designates 198.175.253.82 as
- permitted sender) identity=mailfrom;
- client-ip=198.175.253.82; receiver=esa5.microchip.iphmx.com;
- envelope-from="Codrin.Ciubotariu@microchip.com";
- x-sender="Codrin.Ciubotariu@microchip.com";
- x-conformance=spf_only; x-record-type="v=spf1";
- x-record-text="v=spf1 mx a:ushub1.microchip.com
- a:smtpout.microchip.com a:mx1.microchip.iphmx.com
- a:mx2.microchip.iphmx.com include:servers.mcsv.net
- include:mktomail.com include:spf.protection.outlook.com ~all"
-Received-SPF: None (esa5.microchip.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@email.microchip.com) identity=helo;
- client-ip=198.175.253.82; receiver=esa5.microchip.iphmx.com;
- envelope-from="Codrin.Ciubotariu@microchip.com";
- x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
-Authentication-Results: esa5.microchip.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=Pass smtp.mailfrom=Codrin.Ciubotariu@microchip.com;
- spf=None smtp.helo=postmaster@email.microchip.com;
- dmarc=pass (p=none dis=none) d=microchip.com
-IronPort-SDR: aFji5dW+I/aW1uJ68pXVxk3YkM2nOrhXauZi1r3/fqZ5u+7X/UBgr88KGpJ42V5Kl5kBNgCZhT
- Z9LY2AQs1YvZQk9VHWzuXLFrY5XucSJ+6srzf9od2uEKnMuQiJhBwT23cZm1SQe4mCZBIHUiYN
- yqmilAUguI/n4Ofvphe+2ql+GHyEMcC3LSYl7l4+vyOXTysYuh+dRqiBrnqUpXBVMey5qfrJdj
- Aw/4ID4rBcL6yjET0N7loQXZh9NArVOuhXKozgvfWPxVnPdYBZuS1h9YEsdsXR1nRKY1ivPh+2
- i5g=
-X-IronPort-AV: E=Sophos;i="5.64,408,1559545200"; d="scan'208";a="44306438"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa5.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 20 Aug 2019 09:24:58 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 20 Aug 2019 09:24:56 -0700
-Received: from rob-ult-m19940.microchip.com (10.10.85.251) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.1713.5 via Frontend Transport; Tue, 20 Aug 2019 09:24:54 -0700
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Date: Tue, 20 Aug 2019 19:24:11 +0300
-Message-ID: <20190820162411.24836-4-codrin.ciubotariu@microchip.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190820162411.24836-1-codrin.ciubotariu@microchip.com>
-References: <20190820162411.24836-1-codrin.ciubotariu@microchip.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1A91F802E0
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 19:39:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1A91F802E0
+Received: by mail-wr1-f97.google.com with SMTP id q12so13244016wrj.12
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 10:39:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=m7ao7ORH60h0tFo771t8XxOyJrM0P+fZjWuoPCMruUU=;
+ b=Uu90VTgVVDcWbQCDf4oum03R/iyD/FDRAXGdJleyfec+DgQeHFeeWin31GwaoSHMq3
+ srisMMs7nzul/862Z8dzcCyveqWF/6Sogm2cDMqQCzNbK+165o7Cy0PvsSqd9BMw8CbQ
+ LyiVrE4QMa6zBupsRPXIfY5TIz21pXLpK0Wbg7UfeOaay88LpTqxZEGa7t9++IGRh+Rw
+ 3c9Qeokv8hdNjpjtXOF5wsRtWkI6H5bxL2rPP5MA759p2h5ofZ9PYPrNuS9iWX1RJ3yj
+ JjS+w25/OxJrWXO1xPYm+4opAzm1iXKYd9cPGm3c1QUsbu5k8E/ozJ7V1+c5nkjCPFNe
+ irgQ==
+X-Gm-Message-State: APjAAAX4mm4sDnrgKx94m9OnTq20dJr7tNeGuZmbU4vh98X3MFUhXEyv
+ mHrMuFoUotaxurpcU1t8JeKnE9IqgwgXLUV28H9xjX7FFf0t7Tkqf3xyrW+9A4EtMQ==
+X-Google-Smtp-Source: APXvYqzLzv/aLlzn2NHdKvwVs2INSBhJKvCzoIitnolVH0fpSkwLd7iHz1QYiEa9AY9Z0BuWcUR9HGgkrZ69
+X-Received: by 2002:a5d:6307:: with SMTP id i7mr36464585wru.144.1566322744775; 
+ Tue, 20 Aug 2019 10:39:04 -0700 (PDT)
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
+ [2a01:7e01::f03c:91ff:fed4:a3b6])
+ by smtp-relay.gmail.com with ESMTPS id f9sm2448wmj.34.2019.08.20.10.39.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Aug 2019 10:39:04 -0700 (PDT)
+X-Relaying-Domain: sirena.org.uk
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1i0864-00031g-Cu; Tue, 20 Aug 2019 17:39:04 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 593B12742B4A; Tue, 20 Aug 2019 18:39:03 +0100 (BST)
+Date: Tue, 20 Aug 2019 18:39:03 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+Message-ID: <20190820173903.GA5702@sirena.co.uk>
+References: <cover.e08aa7e33afe117e1fa8f017119d465d47c98016.1566242458.git-series.maxime.ripard@bootlin.com>
+ <fcf77b3bee47b54d81d1a3f4f107312f44388f5a.1566242458.git-series.maxime.ripard@bootlin.com>
 MIME-Version: 1.0
-Cc: alexandre.belloni@bootlin.com, nicolas.ferre@microchip.com, tiwai@suse.com,
- ludovic.desroches@microchip.com, broonie@kernel.org,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Subject: [alsa-devel] [PATCH 3/3] ASoC: mchp-i2s-mcc: Fix simultaneous
-	capture and playback in master mode
+In-Reply-To: <fcf77b3bee47b54d81d1a3f4f107312f44388f5a.1566242458.git-series.maxime.ripard@bootlin.com>
+X-Cookie: When in doubt, lead trump.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, codekipper@gmail.com,
+ Chen-Yu Tsai <wens@csie.org>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH 11/21] ASoC: sun4i-i2s: Use the actual
+ format width instead of an hardcoded one
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,170 +96,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6709041597186278941=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This controller supports capture and playback running at the same time,
-with the limitation that both capture and playback must be configured the
-same way (sample rate, sample format, number of channels, etc). For this,
-we have to assure that the configuration registers look the same when
-capture and playback are initiated.
-This patch fixes a bug in which the controller is in master mode and the
-hw_params() callback fails for the second audio stream. The fail occurs
-because the divisors are calculated after comparing the configuration
-registers for capture and playback. The fix consists in calculating the
-divisors before comparing the configuration registers. BCLK and LRC are
-then configured and started only if the controller is not already running.
 
-Fixes: 7e0cdf545a55 ("ASoC: mchp-i2s-mcc: add driver for I2SC Multi-Channel Controller")
-Signed-off-by: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
----
- sound/soc/atmel/mchp-i2s-mcc.c | 70 ++++++++++++++++++----------------
- 1 file changed, 37 insertions(+), 33 deletions(-)
+--===============6709041597186278941==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Dxnq1zWXvFF0Q93v"
+Content-Disposition: inline
 
-diff --git a/sound/soc/atmel/mchp-i2s-mcc.c b/sound/soc/atmel/mchp-i2s-mcc.c
-index ab7d5f98e759..befc2a3a05b0 100644
---- a/sound/soc/atmel/mchp-i2s-mcc.c
-+++ b/sound/soc/atmel/mchp-i2s-mcc.c
-@@ -392,11 +392,11 @@ static int mchp_i2s_mcc_clk_get_rate_diff(struct clk *clk,
- }
- 
- static int mchp_i2s_mcc_config_divs(struct mchp_i2s_mcc_dev *dev,
--				    unsigned int bclk, unsigned int *mra)
-+				    unsigned int bclk, unsigned int *mra,
-+				    unsigned long *best_rate)
- {
- 	unsigned long clk_rate;
- 	unsigned long lcm_rate;
--	unsigned long best_rate = 0;
- 	unsigned long best_diff_rate = ~0;
- 	unsigned int sysclk;
- 	struct clk *best_clk = NULL;
-@@ -423,7 +423,7 @@ static int mchp_i2s_mcc_config_divs(struct mchp_i2s_mcc_dev *dev,
- 	     (clk_rate == bclk || clk_rate / (bclk * 2) <= GENMASK(5, 0));
- 	     clk_rate += lcm_rate) {
- 		ret = mchp_i2s_mcc_clk_get_rate_diff(dev->gclk, clk_rate,
--						     &best_clk, &best_rate,
-+						     &best_clk, best_rate,
- 						     &best_diff_rate);
- 		if (ret) {
- 			dev_err(dev->dev, "gclk error for rate %lu: %d",
-@@ -437,7 +437,7 @@ static int mchp_i2s_mcc_config_divs(struct mchp_i2s_mcc_dev *dev,
- 		}
- 
- 		ret = mchp_i2s_mcc_clk_get_rate_diff(dev->pclk, clk_rate,
--						     &best_clk, &best_rate,
-+						     &best_clk, best_rate,
- 						     &best_diff_rate);
- 		if (ret) {
- 			dev_err(dev->dev, "pclk error for rate %lu: %d",
-@@ -459,33 +459,17 @@ static int mchp_i2s_mcc_config_divs(struct mchp_i2s_mcc_dev *dev,
- 
- 	dev_dbg(dev->dev, "source CLK is %s with rate %lu, diff %lu\n",
- 		best_clk == dev->pclk ? "pclk" : "gclk",
--		best_rate, best_diff_rate);
--
--	/* set the rate */
--	ret = clk_set_rate(best_clk, best_rate);
--	if (ret) {
--		dev_err(dev->dev, "unable to set rate %lu to %s: %d\n",
--			best_rate, best_clk == dev->pclk ? "PCLK" : "GCLK",
--			ret);
--		return ret;
--	}
-+		*best_rate, best_diff_rate);
- 
- 	/* Configure divisors */
- 	if (dev->sysclk)
--		*mra |= MCHP_I2SMCC_MRA_IMCKDIV(best_rate / (2 * sysclk));
--	*mra |= MCHP_I2SMCC_MRA_ISCKDIV(best_rate / (2 * bclk));
-+		*mra |= MCHP_I2SMCC_MRA_IMCKDIV(*best_rate / (2 * sysclk));
-+	*mra |= MCHP_I2SMCC_MRA_ISCKDIV(*best_rate / (2 * bclk));
- 
--	if (best_clk == dev->gclk) {
-+	if (best_clk == dev->gclk)
- 		*mra |= MCHP_I2SMCC_MRA_SRCCLK_GCLK;
--		ret = clk_prepare(dev->gclk);
--		if (ret < 0)
--			dev_err(dev->dev, "unable to prepare GCLK: %d\n", ret);
--		else
--			dev->gclk_use = 1;
--	} else {
-+	else
- 		*mra |= MCHP_I2SMCC_MRA_SRCCLK_PCLK;
--		dev->gclk_use = 0;
--	}
- 
- 	return 0;
- }
-@@ -502,6 +486,7 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
- 				  struct snd_pcm_hw_params *params,
- 				  struct snd_soc_dai *dai)
- {
-+	unsigned long rate = 0;
- 	struct mchp_i2s_mcc_dev *dev = snd_soc_dai_get_drvdata(dai);
- 	u32 mra = 0;
- 	u32 mrb = 0;
-@@ -640,6 +625,17 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
- 
-+	if (set_divs) {
-+		bclk_rate = frame_length * params_rate(params);
-+		ret = mchp_i2s_mcc_config_divs(dev, bclk_rate, &mra,
-+					       &rate);
-+		if (ret) {
-+			dev_err(dev->dev,
-+				"unable to configure the divisors: %d\n", ret);
-+			return ret;
-+		}
-+	}
-+
- 	/*
- 	 * If we are already running, the wanted setup must be
- 	 * the same with the one that's currently ongoing
-@@ -656,19 +652,27 @@ static int mchp_i2s_mcc_hw_params(struct snd_pcm_substream *substream,
- 		return 0;
- 	}
- 
--	/* Save the number of channels to know what interrupts to enable */
--	dev->channels = channels;
--
--	if (set_divs) {
--		bclk_rate = frame_length * params_rate(params);
--		ret = mchp_i2s_mcc_config_divs(dev, bclk_rate, &mra);
-+	if (mra & MCHP_I2SMCC_MRA_SRCCLK_GCLK && !dev->gclk_use) {
-+		/* set the rate */
-+		ret = clk_set_rate(dev->gclk, rate);
- 		if (ret) {
--			dev_err(dev->dev, "unable to configure the divisors: %d\n",
--				ret);
-+			dev_err(dev->dev,
-+				"unable to set rate %lu to GCLK: %d\n",
-+				rate, ret);
-+			return ret;
-+		}
-+
-+		ret = clk_prepare(dev->gclk);
-+		if (ret < 0) {
-+			dev_err(dev->dev, "unable to prepare GCLK: %d\n", ret);
- 			return ret;
- 		}
-+		dev->gclk_use = 1;
- 	}
- 
-+	/* Save the number of channels to know what interrupts to enable */
-+	dev->channels = channels;
-+
- 	ret = regmap_write(dev->regmap, MCHP_I2SMCC_MRA, mra);
- 	if (ret < 0) {
- 		if (dev->gclk_use) {
--- 
-2.20.1
+
+--Dxnq1zWXvFF0Q93v
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Aug 19, 2019 at 09:25:18PM +0200, Maxime Ripard wrote:
+
+>  		regmap_update_bits(i2s->regmap, SUN4I_I2S_FMT0_REG,
+>  				   SUN8I_I2S_FMT0_LRCK_PERIOD_MASK,
+> -				   SUN8I_I2S_FMT0_LRCK_PERIOD(32));
+> +				   SUN8I_I2S_FMT0_LRCK_PERIOD(params_physical_width(params)));
+
+This doesn't build for me:
+
+In file included from sound/soc/sunxi/sun4i-i2s.c:16:
+sound/soc/sunxi/sun4i-i2s.c: In function =E2=80=98sun4i_i2s_set_clk_rate=E2=
+=80=99:
+sound/soc/sunxi/sun4i-i2s.c:360:57: error: =E2=80=98params=E2=80=99 undecla=
+red (first use in this function); did you mean =E2=80=98parameq=E2=80=99?
+        SUN8I_I2S_FMT0_LRCK_PERIOD(params_physical_width(params)));
+                                                         ^~~~~~
+=2E/include/linux/regmap.h:75:42: note: in definition of macro =E2=80=98reg=
+map_update_bits=E2=80=99
+  regmap_update_bits_base(map, reg, mask, val, NULL, false, false)
+                                          ^~~
+sound/soc/sunxi/sun4i-i2s.c:360:8: note: in expansion of macro =E2=80=98SUN=
+8I_I2S_FMT0_LRCK_PERIOD=E2=80=99
+        SUN8I_I2S_FMT0_LRCK_PERIOD(params_physical_width(params)));
+
+--Dxnq1zWXvFF0Q93v
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1cMDYACgkQJNaLcl1U
+h9A5+wf/R8kszzb6oMjGJWYnQJj4y8zrub+Ef7frMS3FakQtrfpNijxNi57HOXai
+jJvL1rK1E89FeYJlt5rPq9DJGlWe8dS9dMvhuz7JhsYl5cn+8m4o1LoUbH6Inv5k
+95bWW3IC9IBXhd6MiQwBZZpZ79T1UjHu9UfOF5dOEQ059wu8JCYvA0y/PzyH6kq8
+w1MO/wGVaEHT/DMsAs66Mp5/3Ju8DAn9ZaE7ZhrgIsBphf/P+/BZHPU/pQjFEVag
+f0ayDyQwRU1t26KvNeIRQpnUXV/N7ZF7j/uQ2mUQDTPjViBLS0uzUw/5bklcAT24
+w+0X+AVImMFg+yfuBP7oOP25UCjzbQ==
+=C0WO
+-----END PGP SIGNATURE-----
+
+--Dxnq1zWXvFF0Q93v--
+
+--===============6709041597186278941==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6709041597186278941==--

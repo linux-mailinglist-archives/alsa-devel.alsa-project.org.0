@@ -2,79 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DCC8970CD
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 06:09:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E1E2971B5
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 07:54:28 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E68E165D;
-	Wed, 21 Aug 2019 06:08:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E68E165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6E7211658;
+	Wed, 21 Aug 2019 07:53:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E7211658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566360587;
-	bh=KPsEPpK2HSoVKQ42bI/CFWCM4ua2p/FE0urbuG65MkQ=;
+	s=default; t=1566366867;
+	bh=6ZaSDQy92TJ05g2wn5ABAgv9ku2d1I9bQPlNKS7ATQE=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o4bz1Lkjtmj6gu27f6Vh3Yn7i8+ag3et4kgTfs1OX/vZ2+5OJvvAoldQ6aTCqCYAr
-	 LnlsC0PvV4NUlrLQietW+S50L9dE24378rYaqU5DxWshwW1Hp32gQy1QRZxzKYVjW9
-	 ZNBxJdaFnuBH0ne+YUxQaZAVkRscp5lZKOKr4eFI=
+	b=Tegb1smZvwKJ+Acg/ZEH2ZjSsXbGyjs+Pvbjudn+jLmc0Zd4IDn+qjeXXEFPpmyoX
+	 lcGH/6yr1Ob5YYi6JDXhqelhueltrkdLW+WTqilNT9ROnWIeLODlJdUROU7af/jHnZ
+	 32Uw0hMZ9z5t3Nt3Al+Gi45V40QoAGlI06xR85jU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61154F802FB;
-	Wed, 21 Aug 2019 06:08:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E983F80306;
+	Wed, 21 Aug 2019 07:52:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A988EF80306; Wed, 21 Aug 2019 06:07:57 +0200 (CEST)
+ id A90E4F80157; Wed, 21 Aug 2019 07:52:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
- [209.85.208.68])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCD7BF80157
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 06:07:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCD7BF80157
-Received: by mail-ed1-f68.google.com with SMTP id w5so1257480edl.8
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 21:07:52 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C344FF80157
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 07:52:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C344FF80157
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="h571lOuE"
+Received: by mail-lf1-x141.google.com with SMTP id 62so836849lfa.8
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 22:52:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=2TIxCfXD2eyh6zMqJFg2GtypILTlpE+TvhurqKYvOlo=;
+ b=h571lOuE9rlh6jokPyR7zPtOUmcT0wb5cZZZavJmW/PBnp3LZfPhHObeuyTdEe2dk0
+ +SLiwrZFafrspkXS1P35VzI8s1XqPU4YgJOGJ84d7cOsBPlHLhVIrpBJHnYHuad4tnR9
+ LC9W2mth3VpWn5RAy56inC04YRNfLAsAYR9E5dzK0xOfdKYvmgM0cOSSZVIGSc7cNb7Q
+ iUC8Ic/r2Gqw5H92RKoLhMsjYdRT0oSSI74UyH6Jg6gfMKeBpAo+DYhFw3aWoSVjNQoM
+ mYxRyV89+I3hQ0Vl/CZBaKw6KFpw/fmpwyezY9AWSe4VTQ/F19fwdVuhfH+nETxh5Rv4
+ 8bqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=2DH+Z8zu5DA8qxbFBSKsglzPr+woO5ZxUEZnrR+PcUs=;
- b=muE2ERf//At3yarnP5rHRHxIENAa1Po7u/Eh1Rsbjgp26n4ohRmm8EDGF37zyHNHt8
- pG7GgMhqDXqyQGfvgua6+H/MXevBR6gN+vopQMv5b9BcXu1pMF8oyf/8jFVotbgvlUwb
- zYt5cKNwQMsmfIUucisMCyjrCMamuyI88tXA0FUYc6s5xS7b0aJ1AETwh0GVX0bTTWMv
- EwBnhh0Loi4/UaocNOjgv9jVE+3wSmwWFTXnHMQ0KcknhAU5+iwVT4jK9blO7qdRu1GV
- WCS2z7JEqkxybiengqLabEbmKCckyvVZZJ6JnCfZWqie43pAvvledoc+R+ab8nkEa3xd
- 1FIA==
-X-Gm-Message-State: APjAAAVkR3AvQLvOJ05RMD4u/deMf/DOVPQO4CITPAXoVjda+S/HmOYU
- Us5OOAvhK7fRyHXiBHe2GemoKiRzzLI=
-X-Google-Smtp-Source: APXvYqw6qshE0QgkJObHriuxtMvZmCrK3UIAmIu2ZCqArvJIETBfTQDg2Geh+kbmE0eridaU9fPGpg==
-X-Received: by 2002:a50:ab5d:: with SMTP id t29mr34737629edc.32.1566360470578; 
- Tue, 20 Aug 2019 21:07:50 -0700 (PDT)
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com.
- [209.85.128.54])
- by smtp.gmail.com with ESMTPSA id k12sm3850379edr.84.2019.08.20.21.07.49
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Aug 2019 21:07:50 -0700 (PDT)
-Received: by mail-wm1-f54.google.com with SMTP id f72so621609wmf.5
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 21:07:49 -0700 (PDT)
-X-Received: by 2002:a7b:c8c5:: with SMTP id f5mr3226423wml.25.1566360469671;
- Tue, 20 Aug 2019 21:07:49 -0700 (PDT)
+ bh=2TIxCfXD2eyh6zMqJFg2GtypILTlpE+TvhurqKYvOlo=;
+ b=UsVwEHnBachATSKDnTHnv3Gr8Xfva5pGqW9bgEdaYz5aGynigyzgjXhMxh1BbBdaQA
+ sd8AB/bjzzzCX1eqV5IzFNTuDpyJotXOjze9bldSw3uhwloJXHEboc+sk/50CxjgAM2m
+ S6iTATy8Q4BSnMEkVwLmmYlW/O3mvUt63sw5kXk1X6csPE0a3hXSE9TI7+FQpjTAUAhS
+ ifQqHtvATwVuB5D9zBhyRlxhuDu0SHuh/+ykZxxQSJxi/fY0kG7AgTxrZ0hXCFkYFRw3
+ v+SKZdUcD+ojPDD862eBgYz1RqOLSuA3t7V6lY/sFngIzoeXPSlOTjN8F6t3l1Z3VkI8
+ ZPDQ==
+X-Gm-Message-State: APjAAAURElWstJWenhmqeZUNi9HiJuiXAr4UzRpu+NhLRhgjxB1Uwqh3
+ FdwsLLyS7MVpyMfvqNkrq2KF08JLJUNdtPPzhEU=
+X-Google-Smtp-Source: APXvYqyD9sge8d6nZp1df6LdnHet72hp2VogL583tm9cg6fYFMjjAZbyS0l7gUXxlDHmk9VAXZ4ToWq94s9ugar1QmM=
+X-Received: by 2002:ac2:4644:: with SMTP id s4mr17334296lfo.158.1566366755409; 
+ Tue, 20 Aug 2019 22:52:35 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190814060854.26345-1-codekipper@gmail.com>
  <20190814060854.26345-10-codekipper@gmail.com>
-In-Reply-To: <20190814060854.26345-10-codekipper@gmail.com>
-From: Chen-Yu Tsai <wens@csie.org>
-Date: Wed, 21 Aug 2019 12:07:37 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65+-OB4zEyW8f7hcWHkL7DtfEB1YK2B1nOKdgNdNqC0kQ@mail.gmail.com>
-Message-ID: <CAGb2v65+-OB4zEyW8f7hcWHkL7DtfEB1YK2B1nOKdgNdNqC0kQ@mail.gmail.com>
-To: Code Kipper <codekipper@gmail.com>
+ <CAGb2v65+-OB4zEyW8f7hcWHkL7DtfEB1YK2B1nOKdgNdNqC0kQ@mail.gmail.com>
+In-Reply-To: <CAGb2v65+-OB4zEyW8f7hcWHkL7DtfEB1YK2B1nOKdgNdNqC0kQ@mail.gmail.com>
+From: Code Kipper <codekipper@gmail.com>
+Date: Wed, 21 Aug 2019 07:52:24 +0200
+Message-ID: <CAEKpxBnxf=iejk887A7qFkzt3BXVxiRS1PeA45aZYR9DsBAU4Q@mail.gmail.com>
+To: Chen-Yu Tsai <wens@csie.org>
 Cc: Jernej Skrabec <jernej.skrabec@siol.net>,
  Linux-ALSA <alsa-devel@alsa-project.org>,
  linux-kernel <linux-kernel@vger.kernel.org>,
@@ -102,20 +104,27 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Aug 14, 2019 at 2:09 PM <codekipper@gmail.com> wrote:
->
-> From: Jernej Skrabec <jernej.skrabec@siol.net>
->
-> I2S doesn't work if parent rate couldn't be change. Difference between
-> wanted and actual rate is too big.
->
-> Fix this by adding CLK_SET_RATE_PARENT flag to I2S clocks.
->
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+Thanks....I've added to my next patch series but if you could add it
+when applying that would be great.
+BR,
+CK
 
-This lacks your SoB. Please reply and I can add it when applying.
-
-ChenYu
+On Wed, 21 Aug 2019 at 06:07, Chen-Yu Tsai <wens@csie.org> wrote:
+>
+> On Wed, Aug 14, 2019 at 2:09 PM <codekipper@gmail.com> wrote:
+> >
+> > From: Jernej Skrabec <jernej.skrabec@siol.net>
+> >
+> > I2S doesn't work if parent rate couldn't be change. Difference between
+> > wanted and actual rate is too big.
+> >
+> > Fix this by adding CLK_SET_RATE_PARENT flag to I2S clocks.
+> >
+> > Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
+>
+> This lacks your SoB. Please reply and I can add it when applying.
+>
+> ChenYu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

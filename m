@@ -2,84 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22C019791A
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 14:19:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 720CC97912
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 14:17:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 956BD166D;
-	Wed, 21 Aug 2019 14:18:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 956BD166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D69B1165F;
+	Wed, 21 Aug 2019 14:16:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D69B1165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566389966;
-	bh=sfuOZVqMx8wtxNUMAOKV04IS/jRFzrMqOtd5WDFtKrQ=;
+	s=default; t=1566389860;
+	bh=/l3Ftbr9gIx6ZqqFkuu//prPyMEt5WyetzHWJ0Rwl60=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=p99810vgKAezqG6xm7oOjBfEn01CtQ2maZqZ3qDGoOLA5X/wuLWlI1V1B/jHvm2kB
-	 SosMrPQDzussnO/JUJFFH3ZbhqbTvWeuMi3kb1fiOJBmr3o5dD4zHUvJU1AJqFqQyt
-	 Gxj0UVF+J0FLIXfHikMpTvLvNL4E35I3B+SdkPAc=
+	b=ho15Sxpr/IiWLX3nEXkZDc0ZZFVxIshiFCi5x2tK/HxCKa2UecFf7E2Dmvb6KQ30c
+	 /ZHwp6XkZXnxqttxIhjUYhk8R9rDYgdpeZuiZICrMcwTTqU+dXInoaCRe30zcb/Pjv
+	 myLKsxCcv+B8dsB6fFRxIdAVtHGSkvjbjZL9jqoo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05C93F805FD;
-	Wed, 21 Aug 2019 14:15:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B22DF805E2;
+	Wed, 21 Aug 2019 14:15:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BD13BF805F5; Wed, 21 Aug 2019 14:15:44 +0200 (CEST)
+ id E6457F80322; Wed, 21 Aug 2019 14:15:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- RCVD_IN_MSPIKE_H2, SPF_HELO_NONE, SPF_NONE,
+ SPF_HELO_NONE, SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f98.google.com (mail-ed1-f98.google.com
- [209.85.208.98])
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com
+ [209.85.128.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E6C3DF8045E
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 14:15:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6C3DF8045E
-Received: by mail-ed1-f98.google.com with SMTP id w5so2676213edl.8
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 05:15:34 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2290EF80322
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 14:15:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2290EF80322
+Received: by mail-wm1-f98.google.com with SMTP id c5so1699969wmb.5
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 05:15:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=or+cvsSg6ceM9i70D6UPLNnCbWB/HWcr9PNQOtNGKXI=;
- b=VJ0kdytl90Y6HOaK5NLrNMw02oqUWVxUGchyD+VeHLejBelcxkJsfHNSlLB2ZhXRzj
- uQo5Dq9dZZEtweDdvAtvP+E6KsXWhnWsjuRsfsME14bs9+TrtKOfBXLoBUwpV7gw3N9M
- LG7W8qLdFu926tidzBniExyCKdEYU6BFnlOe9KuRN3JPfmU4mihrKLexrN9MrCuo+3gS
- KIx9X6Hxa/ndkHER1slJW5AvFacj2/aeyTa13338SmF3L/sRj+Ny7mH6eIIupuf3A4a9
- UMai++vIIqHEOljJ55Clza1YWvuheSg+sUd/ujgZv7XNl7ghnrpBldnDFbxgzVR0V5y5
- BrtQ==
-X-Gm-Message-State: APjAAAWT8mnDFdpYV0d6T62CZLdorSxsu90htMZSVYYgbhJhTbHfXMeT
- pPzoW+hs87kOxXhgeSjzQPMZ2ka0wkhXRWmK/je+VNIv6Cb/Z1QBul0AgUBO7ZWGRg==
-X-Google-Smtp-Source: APXvYqwnL6a2+Wqqe4N5q5Qp5yJbqPQ85mdzWn2tird1yFrGVdQAYor3bqrwIaYpo5lJWM5SLTNhALLptlV9
-X-Received: by 2002:a17:906:6c90:: with SMTP id
- s16mr31271826ejr.62.1566389733773; 
+ bh=9/I4uWVsC4OtY3QnRa+GYPuY2sLA6GxvdUFKvJ4jhl0=;
+ b=UNYcztJH2XJoTDUDXlHUNmHHfDKzOLXUPDWtA5c/szGuif7YEixKRoTiHIp3psWWBW
+ jBnMpQbCWC39dqV4j/Fq/VyDsZCnNRFU8pC80V3ag54k+AzGlylWyjkeL42wA50Sam7Z
+ B00LVl/gzEgvW1yCGmeb/GhReqXSG7vpeAPScRBIEZOSupGxY+olG3G+xzysxpCyYtHI
+ WZxwuEzor77MnfoSsEoATTa02mc/OK7Lgmf7AxVYMBq7XbBfJMFMPu4h9DHJ4CC3h0Zd
+ 9dGIRwxNz1z6Mnc2WF0v3jHGWDkwi14wp6URA5V0pjCAuidTVOEeheJVmcRpAoc+T0e4
+ YMSg==
+X-Gm-Message-State: APjAAAXZ5lc8vV9l5Sfowem/pJdP3jCCrZlS5t4fh74o8smoYaGjA3do
+ fh3RHPk6kgprzIc8sRJ0pdv2NCi2G6lK86hdQcgmJh/mh5a4/AEsSKh8Llv3++ZGTA==
+X-Google-Smtp-Source: APXvYqxSzlyPC30pNK4qYU0JrdXd63tOM1PGvsPQg9J4Rj/FNS/q0eF2F1cUeoQUonF5AW17BjexLorqpkVL
+X-Received: by 2002:a1c:a584:: with SMTP id o126mr5895872wme.147.1566389733040; 
  Wed, 21 Aug 2019 05:15:33 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id n20sm115894ejr.72.2019.08.21.05.15.33
+ by smtp-relay.gmail.com with ESMTPS id t12sm395408wrm.42.2019.08.21.05.15.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Wed, 21 Aug 2019 05:15:33 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i0PWX-00077D-F7; Wed, 21 Aug 2019 12:15:33 +0000
+ id 1i0PWW-000775-Pz; Wed, 21 Aug 2019 12:15:32 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id B2DC62742FCD; Wed, 21 Aug 2019 13:15:32 +0100 (BST)
+ id 4491A27430D0; Wed, 21 Aug 2019 13:15:32 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-In-Reply-To: <20190814082911.665-3-daniel.baluta@nxp.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <875zms1ldm.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190821121532.B2DC62742FCD@ypsilon.sirena.org.uk>
+Message-Id: <20190821121532.4491A27430D0@ypsilon.sirena.org.uk>
 Date: Wed, 21 Aug 2019 13:15:32 +0100 (BST)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Xiubo.Lee@gmail.com, shengjiu.wang@nxp.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, nicoleotsuka@gmail.com, Mark Brown <broonie@kernel.org>,
- linux-imx@nxp.com, viorel.suman@nxp.com, festevam@gmail.com
-Subject: [alsa-devel] Applied "ASoC: dt-bindings: Introduce compatible
-	string for imx8qm" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Sridharan@sirena.co.uk, Ranjani <ranjani.sridharan@intel.com>
+Subject: [alsa-devel] Applied "ASoC: soc-core: remove unneeded dai_link
+	check from snd_soc_remove_dai_link()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,7 +98,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: dt-bindings: Introduce compatible string for imx8qm
+   ASoC: soc-core: remove unneeded dai_link check from snd_soc_remove_dai_link()
 
 has been applied to the asoc tree at
 
@@ -125,34 +123,54 @@ to this mail.
 Thanks,
 Mark
 
-From c1fe93581ae9d85c3a783b5fad21912bb88a0f34 Mon Sep 17 00:00:00 2001
-From: Daniel Baluta <daniel.baluta@nxp.com>
-Date: Wed, 14 Aug 2019 11:29:11 +0300
-Subject: [PATCH] ASoC: dt-bindings: Introduce compatible string for imx8qm
+From c26a8841119826badc8d358a4266880f83359f26 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Tue, 20 Aug 2019 14:04:58 +0900
+Subject: [PATCH] ASoC: soc-core: remove unneeded dai_link check from
+ snd_soc_remove_dai_link()
 
-Register map for i.MX8QM is similar with i.MX6 series. Integration
-of SAI IP into i.MX8QM SOC features a FIFO size of 64 X 32 bits samples.
+snd_soc_remove_dai_link() has card connected dai_link check. but
+	1) we need to call list_del() anyway,
+	   because it is "remove" function,
+	2) It is doing many thing for this card / dai_link already
+	   before checking dai_link.
 
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Link: https://lore.kernel.org/r/20190814082911.665-3-daniel.baluta@nxp.com
+This patch removes poinless dai_link check
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Link: https://lore.kernel.org/r/875zms1ldm.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/fsl-sai.txt | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/soc-core.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl-sai.txt b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-index e61c0dc1fc0b..0dc83cc4a236 100644
---- a/Documentation/devicetree/bindings/sound/fsl-sai.txt
-+++ b/Documentation/devicetree/bindings/sound/fsl-sai.txt
-@@ -9,7 +9,8 @@ Required properties:
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index d428491d51a7..6df880be1622 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1182,8 +1182,6 @@ EXPORT_SYMBOL_GPL(snd_soc_add_dai_link);
+ void snd_soc_remove_dai_link(struct snd_soc_card *card,
+ 			     struct snd_soc_dai_link *dai_link)
+ {
+-	struct snd_soc_dai_link *link, *_link;
+-
+ 	if (dai_link->dobj.type
+ 	    && dai_link->dobj.type != SND_SOC_DOBJ_DAI_LINK) {
+ 		dev_err(card->dev, "Invalid dai link type %d\n",
+@@ -1199,12 +1197,7 @@ void snd_soc_remove_dai_link(struct snd_soc_card *card,
+ 	if (dai_link->dobj.type && card->remove_dai_link)
+ 		card->remove_dai_link(card, dai_link);
  
-   - compatible		: Compatible list, contains "fsl,vf610-sai",
- 			  "fsl,imx6sx-sai", "fsl,imx6ul-sai",
--			  "fsl,imx7ulp-sai" or "fsl,imx8mq-sai".
-+			  "fsl,imx7ulp-sai", "fsl,imx8mq-sai" or
-+			  "fsl,imx8qm-sai".
- 
-   - reg			: Offset and length of the register set for the device.
+-	for_each_card_links_safe(card, link, _link) {
+-		if (link == dai_link) {
+-			list_del(&link->list);
+-			return;
+-		}
+-	}
++	list_del(&dai_link->list);
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_remove_dai_link);
  
 -- 
 2.20.1

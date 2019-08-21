@@ -2,68 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44CED9721A
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 08:16:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 621E197222
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 08:17:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE06D1658;
-	Wed, 21 Aug 2019 08:15:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE06D1658
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ECAA1616;
+	Wed, 21 Aug 2019 08:16:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ECAA1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566368185;
-	bh=MeUWqrAd+YqVmIDwST76V1Dm7P/JiCDENmn/v2fz93A=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=abIHOd35gPWwS8zO7n1Ung8bMtveXyMPQ1jOlZulDbtM85cyu6JckwLbSu06KWnzO
-	 AlPy3ZZlIAu9ueScn7HzWGQSJpuOui24qk6MXv2l7r5sOnlfKp0TxG/LTagfXSsT+p
-	 YxSy6u+vpPb4+4kg40UTLgB9QQ9yTk5av2+B/Qco=
+	s=default; t=1566368232;
+	bh=/pTHJ4D3vIPNxUZxnN3TcmHKgzvm2aPJ6rUiuj3bGzg=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=anZJ53maZsQHtJLyFc6elfZaMhtXn+B/R0TEh/CK1Rvtf/1h7z989jO2DyRaryAyK
+	 aiBbA2N8Fw0yTzImoxUbhHPKt8hQvGsTbY5GlpeYifHfEE+D/Voo36TBNZZOVh9cEt
+	 d9gIx1Og7/IlcJFb3GB81zMzzIDVPVAAJbAmfwTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF6CEF80157;
-	Wed, 21 Aug 2019 08:14:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA59BF805A1;
+	Wed, 21 Aug 2019 08:14:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 781F9F8036E; Tue, 20 Aug 2019 10:41:09 +0200 (CEST)
+ id AC007F80306; Wed, 21 Aug 2019 05:50:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,FROM_EXCESS_BASE64,HK_RANDOM_ENVFROM,
+ HK_RANDOM_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x232.google.com (mail-oi1-x232.google.com
+ [IPv6:2607:f8b0:4864:20::232])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5CE23F802E0
- for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 10:41:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CE23F802E0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2019 01:41:02 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,408,1559545200"; d="scan'208";a="172385728"
-Received: from shao2-debian.sh.intel.com (HELO [10.239.13.6]) ([10.239.13.6])
- by orsmga008.jf.intel.com with ESMTP; 20 Aug 2019 01:41:00 -0700
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-References: <alpine.DEB.2.21.1908091229140.2946@hadrien>
- <20190809123112.GC3963@sirena.co.uk>
- <88ac4c79-5ce3-3f1a-5f6e-3928a30a1ef5@ti.com>
- <alpine.DEB.2.21.1908091519400.2946@hadrien>
-From: Rong Chen <rong.a.chen@intel.com>
-Message-ID: <297e44a8-e08d-ddf2-e5e8-b532965b4a8d@intel.com>
-Date: Tue, 20 Aug 2019 16:41:02 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78F10F800BF
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 05:50:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78F10F800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="PEchX9jI"
+Received: by mail-oi1-x232.google.com with SMTP id k22so552886oiw.11
+ for <alsa-devel@alsa-project.org>; Tue, 20 Aug 2019 20:50:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=DQ22h0Aey8nOVKWBzG/Exo4IiLTXfWKAcwOFcoIH0II=;
+ b=PEchX9jIwViWUynKofi79cH3TtsHtsdAQj0UWQkRU5uSbUsHlJ7cMx5MksCE+MF20i
+ mkM0y496ZlzOXb1UyGdEvc+9jojiyDUukd/MKoeQILYUu2cvrN+r1KQdviDt8Ww28BjK
+ KCgrVax59FT/3P5zSaPSE2kncE7Ha+wzCjPh691YZqraNGt9nwQ8INecULcJ3jjiJbxJ
+ Votqc/fYF5ZjBkQg2xcZVzgxbPibHUN/8JwbJdf2BCPKqtZHAtVEbtTvoILtpO8dgeeT
+ kRUpAaueodMgigvZ/24Cg/cjGBHDgYhmE60D6cf+FBQnZqZlLuWGvuQTLev4fbLWLnWh
+ nRPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=DQ22h0Aey8nOVKWBzG/Exo4IiLTXfWKAcwOFcoIH0II=;
+ b=OK3AfAQMt6qwLiatxrFpTl9X6msD+MbrjgGb9bzpTadcKARbILj46ltRqf9zB2Mgf3
+ QEbxM2/dOoRvqgid3i5+8JpP9Mczbh8OMBThZxM6g4QRmTpTv2PWnZoEpgpWql11O9QB
+ Xy7J8bD3/GsJzuAqPQMmay7rRkRaNz3zxfHobwzOn+WWzFQvQ4vY1FxpMODdfLEJd2zS
+ rrW0Jookom8RIVNESs/VHRwxHey5KPQLs9KKKoUGXi/iLCgkEVSecNPY1jpcwP/49CWg
+ 9el6QTa7d/1BxJ1dJmazv9Orxz12sLxTC7sPo+fgzqzZK+TxDjjbF0CokJz14QbQoSTP
+ /WSQ==
+X-Gm-Message-State: APjAAAWvuez55o1IoyPFwzWW2Jkp/NwBad40l3aa9BhAJbLKivgrhbjc
+ 1j987Cg56aIOR0XTzCXTa2V23IqMQ4BRhSAEvY7uUBzh8gM=
+X-Google-Smtp-Source: APXvYqzyziGJKSq87PtOJqrJV5H59hsuUz/9Eeoud4rdv08nVSYwHODyz5cSJreCd6gy6fNMAgi0I7myQxNBz4+od4Q=
+X-Received: by 2002:aca:fc43:: with SMTP id a64mr2439685oii.57.1566359445845; 
+ Tue, 20 Aug 2019 20:50:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.1908091519400.2946@hadrien>
-Content-Language: en-US
+From: =?UTF-8?B?TWFydMOtbiBNYXJ0w61uZXogUml2ZXJh?= <mrtnz.rvr@gmail.com>
+Date: Tue, 20 Aug 2019 20:50:35 -0700
+Message-ID: <CAJnWPcZ9C8WY4ihRSBBkOJD7fHLGhfEEmBRhMLimKG+R+h8O2Q@mail.gmail.com>
+To: alsa-devel@alsa-project.org
 X-Mailman-Approved-At: Wed, 21 Aug 2019 08:14:38 +0200
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Julia Lawall <julia.lawall@lip6.fr>, Mark Brown <broonie@kernel.org>,
- kbuild-all@01.org
-Subject: Re: [alsa-devel] [kbuild-all] [PATCH] fix odd_ptr_err.cocci warnings
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] Master volume not controlling applications' volume.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,57 +87,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Peter,
+Changing the master volume in pavucontrol (or alsamixer) does not have any
+effect. The only way to change the volume is to go into the playback tab
+and change it for each application. The volume only changes when I set the
+master volume to 0 or when I increase it over 100%. In between there aren't
+any changes.
 
-We have updated to only send the reports to you, please see 
-https://github.com/intel/lkp-tests/blob/master/repo/linux/omap-audio
+Running arch on a Lenovo X1 Carbon if that's of any use. I am using the
+arch default configuration files.
 
-Best Regards,
-Rong Chen
+I posted somewhere else and was told to email this list as it could be a
+kernel bug.
 
-On 8/9/19 9:21 PM, Julia Lawall wrote:
->
-> On Fri, 9 Aug 2019, Peter Ujfalusi wrote:
->
->>
->> On 09/08/2019 15.31, Mark Brown wrote:
->>> On Fri, Aug 09, 2019 at 12:30:46PM +0200, Julia Lawall wrote:
->>>
->>>> tree:   https://github.com/omap-audio/linux-audio peter/ti-linux-4.19.y/wip
->>>> head:   62c9c1442c8f61ca93e62e1a9d8318be0abd9d9a
->>>> commit: 62c9c1442c8f61ca93e62e1a9d8318be0abd9d9a [34/34] j721e new machine driver wip
->>>> :::::: branch date: 20 hours ago
->>>> :::::: commit date: 20 hours ago
->>>>
->>>>   j721e-evm.c |    4 ++--
->>>>   1 file changed, 2 insertions(+), 2 deletions(-)
->>>>
->>>> --- a/sound/soc/ti/j721e-evm.c
->>>> +++ b/sound/soc/ti/j721e-evm.c
->>>> @@ -283,7 +283,7 @@ static int j721e_get_clocks(struct platf
->>> This file isn't upstream, it's only in the TI BSP.
->> Yes, it is not upstream, but the fix is valid.
->>
->> Julia: is it possible to direct these notifications only to me from
->> https://github.com/omap-audio/linux-audio.git ?
->>
->> It mostly carries TI BSP stuff and my various for upstream branches nowdays.
-> Please discuss it with the kbuild people.  They should be able to set it
-> up as you want.
->
-> You can try lkp@intel.com
->
-> julia
-> _______________________________________________
-> kbuild-all mailing list
-> kbuild-all@lists.01.org
-> https://lists.01.org/mailman/listinfo/kbuild-all
+kernel: 5.2.9-arch1-1-ARCH
+pactl info output:
 
+Server String: /run/user/1000/pulse/native
+Library Protocol Version: 32
+Server Protocol Version: 32
+Is Local: yes
+Client Index: 13
+Tile Size: 65472
+User Name: martinmr
+Host Name: martinmr-laptop
+Server Name: pulseaudio
+Server Version: 12.2
+Default Sample Specification: s16le 2ch 44100Hz
+Default Channel Map: front-left,front-right
+Default Sink: alsa_output.pci-0000_00_1f.3.analog-stereo
+Default Source: alsa_output.pci-0000_00_1f.3.analog-stereo.monitor
+Cookie: 1afa:f937
+
+Let me know if the output from some other command is needed.
+Best,
+
+Martin
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

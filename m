@@ -2,65 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83E839844B
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 21:25:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03BDB98532
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 22:07:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFBED165D;
-	Wed, 21 Aug 2019 21:24:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFBED165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50DD81607;
+	Wed, 21 Aug 2019 22:06:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50DD81607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566415507;
-	bh=XstUcnL/Bptt0fGIkETJhI+8hc8OaJvysJzmNF/0unw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Tc++qHvrFEtDkYYT8GNJb8qxObObKQmkG3q48hTXkFA9xUPb7jyGajOfQczul2ORb
-	 O0rLOCgEj4c/XcD/H9KrToE0zPqZcvV/f4TJe+ukuP87YCj8tLW5RaZc1bGUtikzbt
-	 ZSb91+6xqeWivg1jZZMKcoJTHG9Qjnghva4jdqlY=
+	s=default; t=1566418045;
+	bh=CzFHXHYv0rlqIcjyQzEFYHe5Y/bkp6azgfvBV/aMO98=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=CD3ufovRpLTbcwPF7YTi+Yj/BgcqC2PXXOW5wIbL/4PsJ0PQzyP/pft1H0RtZ871l
+	 5TI7MzJkQTdM2Ry3A9MQhMnAwbH5774y4t8G9AiIg4SfwUrCroCbeW3WiSPbmm9Z44
+	 mNQnEofWm1M3TdMfZ63j9ilKF7n1/8Lr5HGwkwW4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC4B4F80306;
-	Wed, 21 Aug 2019 21:23:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DB2EF805A1;
+	Wed, 21 Aug 2019 22:05:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9863F800BF; Wed, 21 Aug 2019 21:23:19 +0200 (CEST)
+ id 1D289F80322; Wed, 21 Aug 2019 22:05:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82847F800BF
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 21:23:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82847F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 93109F800BF
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 22:05:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93109F800BF
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2019 12:23:11 -0700
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Aug 2019 13:05:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,412,1559545200"; d="scan'208";a="180148220"
-Received: from dbarua-mobl.amr.corp.intel.com (HELO [10.252.198.189])
- ([10.252.198.189])
- by fmsmga007.fm.intel.com with ESMTP; 21 Aug 2019 12:23:10 -0700
-To: alsa-devel@alsa-project.org
-References: <20190813213227.5163-1-pierre-louis.bossart@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.64,412,1559545200"; d="scan'208";a="196069731"
+Received: from smasango-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.intel.com) ([10.252.139.100])
+ by fmsmga001.fm.intel.com with ESMTP; 21 Aug 2019 13:05:27 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <57e5dab5-2641-7c4b-a05a-fb4f0adccfc7@linux.intel.com>
-Date: Wed, 21 Aug 2019 14:23:10 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+To: alsa-devel@alsa-project.org
+Date: Wed, 21 Aug 2019 15:05:10 -0500
+Message-Id: <20190821200521.17283-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20190813213227.5163-1-pierre-louis.bossart@linux.intel.com>
-Content-Language: en-US
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, broonie@kernel.org, srinivas.kandagatla@linaro.org,
- jank@cadence.com, slawomir.blauciak@intel.com
-Subject: Re: [alsa-devel] [PATCH 0/6] soundwire: inits and PM additions for
- 5.4
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: [alsa-devel] [RFC PATCH 00/11] soundwire: intel: simplify DAI/PDI
+	handling
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,49 +71,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+In the initial SoundWire code released by Intel, the PDIs and ports on
+the Master interface were dynamically allocated. This wasn't a bad
+idea at the time and would have allowed for interesting routing.
 
+Fast-forward to 2019, with the hardware available on
+CometLake/IceLake, that dynamic allocation makes it complicated to
+deal with statically-allocated ASoC dailinks and topology-defined
+DAIs. In this series, we suggest a drastic simplification where the
+SoundWire code reuses information provided by DAIs and dailinks. We
+also suggest removing the dynamic allocation of ports on the master
+since in practice there is a 1:1 mapping between ports and PDIs.
 
-On 8/13/19 4:32 PM, Pierre-Louis Bossart wrote:
-> This is an update on the RFC, to be applied after the '[PATCH v2 0/3]
-> soundwire: debugfs support for 5.4' and '[PATCH 00/17] soundwire:
-> fixes for 5.4' series.
-> 
-> Total that makes 28 patches submitted for review, broken in 3 sets.
+In the second part of the series, we suggest adding new callbacks to
+SoundWire DAIs, so that all the SoundWire stream operations are
+contained at the DAI level. This solution results in a very simple
+integration with the SOF code (which will be shared in a separate
+series since SOF will not apply directly on top of
+soundwire/next). The SOF parts only call a SoundWire init/release API,
+and provides 2 callbacks for hw_params and free, with all the details
+of the SoundWire DAIs and IP handled in drivers/soundwire.
 
-I double-checked that this patchset does apply on top of soundwire/next 
-+ the 4 debugfs patches I just sent earlier.
+This solution has been tested on CometLake/IceLake with simple
+capture/playback. When ASoC supports the multi-cpu capability needed
+for synchronized playback/capture across multiple links, we will have
+to modify slightly this solution so that the stream alloc, release and
+trigger operations are done once. This is future work that will take
+place later, likely after 5.4, and which should not impact the SOF
+integration.
 
-I will now send the rather big changes needed for SOF integration as an 
-RFC, assuming this set is applied.
+The code in this patchset is the result of collaboration between Bard
+Liao, Rander Wang and Pierre Bossart, with ideas coming from all 3
+sides. It's likely that there are still some parts in the code that
+can be improved, hence the RFC state.
 
-> 
-> Changes since RFC (Feedback from GregKH, Vinod, Cezary, Guennadi):
-> Squashed init sequence fixes in one patch, which remains
-> readable. Tested all return values and called update_config() as
-> needed.
-> Fixed hw-reset debugfs (removed -unsafe and noisy dev_info traces)
-> Simplified enable_interrupt() with goto
-> Fixed style, removed typos and FIXMES in pm_runtime code
-> Clarified commit messages
-> 
-> Pierre-Louis Bossart (6):
->    soundwire: fix startup sequence for Intel/Cadence
->    soundwire: cadence_master: add hw_reset capability in debugfs
->    soundwire: intel: add helper for initialization
->    soundwire: intel: Add basic power management support
->    soundwire: cadence_master: make clock stop exit configurable on init
->    soundwire: intel: add pm_runtime support
-> 
->   drivers/soundwire/cadence_master.c | 135 ++++++++++++++------
->   drivers/soundwire/cadence_master.h |   5 +-
->   drivers/soundwire/intel.c          | 194 +++++++++++++++++++++++++++--
->   3 files changed, 289 insertions(+), 45 deletions(-)
-> 
+Bard Liao (3):
+  soundwire: intel: fix intel_register_dai PDI offsets and numbers
+  soundwire: intel: remove playback/capture stream_name
+  soundwire: cadence_master: improve PDI allocation
+
+Pierre-Louis Bossart (3):
+  soundwire: remove DAI_ID_RANGE definitions
+  soundwire: cadence/intel: simplify PDI/port mapping
+  soundwire: intel: don't filter out PDI0/1
+
+Rander Wang (5):
+  soundwire: intel: improve .config_stream callback, add .free_stream
+  soundwire: intel: add prepare support in sdw dai driver
+  soundwire: intel: add trigger support in sdw dai driver
+  soundwire: intel: do sdw stream setup in setup function
+  soundwire: intel: free all resources on hw_free()
+
+ drivers/soundwire/cadence_master.c  | 158 ++++------------
+ drivers/soundwire/cadence_master.h  |  34 +---
+ drivers/soundwire/intel.c           | 278 ++++++++++++++++------------
+ include/linux/soundwire/sdw.h       |   3 -
+ include/linux/soundwire/sdw_intel.h |   4 +-
+ 5 files changed, 209 insertions(+), 268 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

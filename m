@@ -2,56 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968E89868E
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 23:24:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DA12986C1
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 23:46:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE0841669;
-	Wed, 21 Aug 2019 23:23:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE0841669
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6BAF1607;
+	Wed, 21 Aug 2019 23:45:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6BAF1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566422676;
-	bh=LUkGY63Saao6Ct9nLJNwaJNwbCzAWEkpxycxnjOQNrI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=NV6OBuRwCI4hnkPB3REljTNFHK68W3QuXQIYkq59KZ1X4shCUZHt5eyD8WTCfS5e0
-	 uuy43VBhgGEsd3X2o4rnqjEqvyAm06Z694rBqEhoPHSjWKjDv79ylSw21Ydi4I5c0y
-	 8w6UcQMck0uy23UI04hp7ysMzbeq9OyXHIcDOtT4=
+	s=default; t=1566423991;
+	bh=CQAAe2W0ihk0PgP1Jxbs+ubxACZYJwKl6uowvPJ2G+I=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=hJyKfR64VzWT10tXuCWQxvKFBG7EjAmmRfy0Nhjx4veZ+LFHL3VCLTywrzUMB+lJm
+	 7w+Fzy1DHoSDlIN6kxXPdaTtm98u/M6bOTjNY6kLqQafuHQ/hFMiCrT4XoUj6wwEAD
+	 MJ6TtvnqPH/QrsLofzlqd41eXBNIDQl2hOma7poQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1C17F80308;
-	Wed, 21 Aug 2019 23:22:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C11D1F80322;
+	Wed, 21 Aug 2019 23:44:48 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BEFCF80306; Wed, 21 Aug 2019 23:22:49 +0200 (CEST)
+ id 68337F80306; Wed, 21 Aug 2019 23:44:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
+ [209.85.167.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F25E0F802E0
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 23:22:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F25E0F802E0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Aug 2019 14:22:42 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,414,1559545200"; d="scan'208";a="190342290"
-Received: from kekkonen.fi.intel.com ([10.237.72.156])
- by orsmga002.jf.intel.com with ESMTP; 21 Aug 2019 14:22:41 -0700
-From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Thu, 22 Aug 2019 00:11:38 +0300
-Message-Id: <20190821211138.14618-1-jaska.uimonen@linux.intel.com>
-X-Mailer: git-send-email 2.13.6
-Cc: Jaska Uimonen <jaska.uimonen@intel.com>, broonie@kernel.org
-Subject: [alsa-devel] [PATCH v2] ASoC: SOF: topology: fix get control data
-	return type and arguments
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51EB0F800BF
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 23:44:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51EB0F800BF
+Received: by mail-oi1-f193.google.com with SMTP id 16so2795362oiq.6
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 14:44:39 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=RLnoMCGg4aZAXQG/7EhE1lAx/LE1YZXQ51HizQcuuSk=;
+ b=qwz9NQlhwOIJvEBLT8MO2Q/V3OQrIIC2IqsEa/k+YfZ/ilwcgxTXyssNC/ry9C1yPb
+ l5mTVmeweGEcwlW5LCPUQgFb/+RKs2bOB73Lm9PhRvhdchUZswc9gIx0LbEhm3ClXQ+s
+ qlyoxeTSPkgxdniRJaZpX0BQFzSY5G5ZqhUGJ3Py7Eg8vc3NKE/ttWJOvpmT5XAP3zAq
+ udjhO9nX/b3J7KicHmO2xpw4W10xOTDpfWzYSgRYRZU/vRiCfpl5ZG4oMXCEvm/3NnQI
+ Ytl5tMQs2aRqQ7Qg+Wm28YR+XkcJwb4RnmLxxnwYZSGDHVHpGR8BMNZXoEVdqxDVIgFh
+ ab0w==
+X-Gm-Message-State: APjAAAVV6DFIyy6w07rvWuXYVz9PZODPmnx5lXtJBXOpsi0TqPlzQvCz
+ UZOdYhdbxVyrk2YH4XIJ/w==
+X-Google-Smtp-Source: APXvYqwHMvNmtkabfkRrV911VbE74YYZKFohSjzXpV0vzc4tBsAYOT28isHK4N/rXNz29ZFzUCPLIA==
+X-Received: by 2002:a54:4f09:: with SMTP id e9mr1583851oiy.89.1566423877964;
+ Wed, 21 Aug 2019 14:44:37 -0700 (PDT)
+Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id 65sm7881807otw.2.2019.08.21.14.44.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Aug 2019 14:44:37 -0700 (PDT)
+Date: Wed, 21 Aug 2019 16:44:36 -0500
+From: Rob Herring <robh@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20190821214436.GA13936@bogus>
+References: <20190809133407.25918-1-srinivas.kandagatla@linaro.org>
+ <20190809133407.25918-2-srinivas.kandagatla@linaro.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190809133407.25918-2-srinivas.kandagatla@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
+ pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, vkoul@kernel.org,
+ broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH v3 1/4] dt-bindings: soundwire: add slave
+	bindings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,91 +90,93 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jaska Uimonen <jaska.uimonen@intel.com>
+On Fri, Aug 09, 2019 at 02:34:04PM +0100, Srinivas Kandagatla wrote:
+> This patch adds bindings for Soundwire Slave devices that includes how
+> SoundWire enumeration address and Link ID are used to represented in
+> SoundWire slave device tree nodes.
+> 
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  .../devicetree/bindings/soundwire/slave.txt   | 51 +++++++++++++++++++
+>  1 file changed, 51 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soundwire/slave.txt
 
-sof_get_control_data returns negative values even though the return
-value is defined unsigned (size_t). So change the return value type to
-int and add the data size as pointer argument to sof_get_control_data to
-avoid ambiquity in the meaning of the return type.
+Can you convert this to DT schema given it is a common binding.
 
-Fixes: cac974a51ebb ("ASoC: SOF: topology: use set_get_data in process load")
-Reported by: Dan Carpenter <dan.carpenter@oracle.com>
-Signed-off-by: Jaska Uimonen <jaska.uimonen@intel.com>
----
- sound/soc/sof/topology.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+What does the host controller look like? You need to define the node 
+hierarchy. Bus controller schemas should then include the bus schema. 
+See spi-controller.yaml.
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 28a7a6e06a53..fc85efbad378 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1752,17 +1752,19 @@ static int sof_widget_load_siggen(struct snd_soc_component *scomp, int index,
- 	return ret;
- }
- 
--static size_t sof_get_control_data(struct snd_sof_dev *sdev,
--				   struct snd_soc_dapm_widget *widget,
--				   struct sof_widget_data *wdata)
-+static int sof_get_control_data(struct snd_sof_dev *sdev,
-+				struct snd_soc_dapm_widget *widget,
-+				struct sof_widget_data *wdata,
-+				size_t *size)
- {
- 	const struct snd_kcontrol_new *kc;
- 	struct soc_mixer_control *sm;
- 	struct soc_bytes_ext *sbe;
- 	struct soc_enum *se;
--	size_t size = 0;
- 	int i;
- 
-+	*size = 0;
-+
- 	for (i = 0; i < widget->num_kcontrols; i++) {
- 		kc = &widget->kcontrol_news[i];
- 
-@@ -1800,7 +1802,7 @@ static size_t sof_get_control_data(struct snd_sof_dev *sdev,
- 		if (wdata[i].pdata->magic != SOF_ABI_MAGIC)
- 			return -EINVAL;
- 
--		size += wdata[i].pdata->size;
-+		*size += wdata[i].pdata->size;
- 
- 		/* get data type */
- 		switch (wdata[i].control->cmd) {
-@@ -1819,7 +1821,7 @@ static size_t sof_get_control_data(struct snd_sof_dev *sdev,
- 		}
- 	}
- 
--	return size;
-+	return 0;
- }
- 
- static int sof_process_load(struct snd_soc_component *scomp, int index,
-@@ -1855,12 +1857,11 @@ static int sof_process_load(struct snd_soc_component *scomp, int index,
- 			return -ENOMEM;
- 
- 		/* get possible component controls and get size of all pdata */
--		ipc_data_size = sof_get_control_data(sdev, widget, wdata);
-+		ret = sof_get_control_data(sdev, widget, wdata,
-+					   &ipc_data_size);
- 
--		if (ipc_data_size <= 0) {
--			ret = ipc_data_size;
-+		if (ret < 0)
- 			goto out;
--		}
- 	}
- 
- 	ipc_size = sizeof(struct sof_ipc_comp_process) +
--- 
-2.13.6
+> 
+> diff --git a/Documentation/devicetree/bindings/soundwire/slave.txt b/Documentation/devicetree/bindings/soundwire/slave.txt
+> new file mode 100644
+> index 000000000000..201f65d2fafa
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soundwire/slave.txt
+> @@ -0,0 +1,51 @@
+> +SoundWire slave device bindings.
+> +
+> +SoundWire is a 2-pin multi-drop interface with data and clock line.
+> +It facilitates development of low cost, efficient, high performance systems.
+> +
+> +SoundWire slave devices:
+> +Every SoundWire controller node can contain zero or more child nodes
+> +representing slave devices on the bus. Every SoundWire slave device is
+> +uniquely determined by the enumeration address containing 5 fields:
+> +SoundWire Version, Instance ID, Manufacturer ID, Part ID
+> +and Class ID for a device. Addition to below required properties,
+> +child nodes can have device specific bindings.
+> +
+> +Required properties:
+> +- compatible:	 "sdw<LinkID><VersionID><InstanceID><MFD><PID><CID>".
+> +		  Is the textual representation of SoundWire Enumeration
+> +		  address along with Link ID. compatible string should contain
+> +		  SoundWire Link ID, SoundWire Version ID, Instance ID,
+> +		  Manufacturer ID, Part ID and Class ID in order
+> +		  represented as above and shall be in lower-case hexadecimal
+> +		  with leading zeroes. Vaild sizes of these fields are
+> +		  LinkID is 1 nibble,
+> +		  Version ID is 1 nibble
+> +		  Instance ID in 1 nibble
+> +		  MFD in 4 nibbles
+> +		  PID in 4 nibbles
+> +		  CID is 2 nibbles
+> +
+> +		  Version number '0x1' represents SoundWire 1.0
+> +		  Version number '0x2' represents SoundWire 1.1
 
+This can all be a regex.
+
+> +		  ex: "sdw0110217201000" represents 0 LinkID,
+> +		  SoundWire 1.0 version slave with Instance ID 1.
+> +		  More Information on detail of encoding of these fields can be
+> +		  found in MIPI Alliance DisCo & SoundWire 1.0 Specifications.
+> +
+> +SoundWire example for Qualcomm's SoundWire controller:
+> +
+> +soundwire@c2d0000 {
+> +	compatible = "qcom,soundwire-v1.5.0"
+> +	reg = <0x0c2d0000 0x2000>;
+> +
+> +	spkr_left:wsa8810-left{
+> +		compatible = "sdw0110217201000";
+> +		...
+> +	};
+> +
+> +	spkr_right:wsa8810-right{
+> +		compatible = "sdw0120217201000";
+
+The normal way to distinguish instances is with 'reg'. So I think you 
+need 'reg' with Instance ID moved there at least. Just guessing, but 
+perhaps Link ID, too? And for 2 different classes of device is that 
+enough? 
+
+Rob
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

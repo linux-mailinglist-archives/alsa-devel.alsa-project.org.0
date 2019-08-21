@@ -2,72 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 636EB975A4
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 11:11:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E88975EB
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 11:21:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2526166B;
-	Wed, 21 Aug 2019 11:10:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2526166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D3321607;
+	Wed, 21 Aug 2019 11:20:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D3321607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566378693;
-	bh=vMdzL8iSyEUIH6uIvNVNL3WQzNmygxsgOddyses45Uc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566379269;
+	bh=5VC04490V3dXKWvSnNRXttsHopTIG4TCBKIEynHj9dI=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FskTnuJVRNV2evY0xrJvmDihL5pDa5qIkjPt7plSfxBQvRlIM73XjTnq0AjGxcvD9
-	 wPh77OiAJHKw0a1QPhPr8YSUqhF7lyQnqyJUHmfxL/2tU748m+xI1ihFvw0ELv7wQY
-	 9KR86DwbGEIgeQMYfmnNtuPz0wJU27dNJ2hvHyYk=
+	b=IGcNe1GpXyGc0u5fALwLhpUZem51X2MJLkMGDG7Q7mU91BFBgPU/Hsuxyy5ZkaNkK
+	 xQLuFT8v9X/A0p567M8nt5c6c3N3r9DCZYZWPNC+wDOsngGMyw/clwCOEXIrr3EQOE
+	 tpSrBXZ7XFd1YJDRCU925/FkumgOQHeDN/7F1BiA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84B40F80157;
-	Wed, 21 Aug 2019 11:10:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEF40F80322;
+	Wed, 21 Aug 2019 11:19:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E1AFF80322; Wed, 21 Aug 2019 11:10:26 +0200 (CEST)
+ id 737F4F80306; Wed, 21 Aug 2019 11:19:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
+ [IPv6:2a00:1450:4864:20::241])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F130F80157
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 11:10:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F130F80157
+ by alsa1.perex.cz (Postfix) with ESMTPS id 777D5F80157
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 11:19:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 777D5F80157
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lGxA0HKW"
-Received: from localhost (unknown [106.201.100.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8F9B622CF7;
- Wed, 21 Aug 2019 09:10:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566378621;
- bh=W9CJXEr9ZkiNKd2KgCE+lVmTvH2ChSyocXu1r1dXMXM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lGxA0HKW+pO5EmaAU5VHVO9k08vuiGjEf0lotHaARtvj8B27zro+4/zK1TGcH9V4y
- 2wKV+KmxOtiolr/P4cIowle0i+7VrHfuttRd2hvF1R7eyr4vkobK28CzGkzPMm7gob
- RFHJt/LPOe1e3p92Jo7PqbooGHa9h4V/5smLax7E=
-Date: Wed, 21 Aug 2019 14:39:09 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: robh+dt@kernel.org,
-	Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20190821090909.GJ12733@vkoul-mobl.Dlink>
-References: <20190809133407.25918-1-srinivas.kandagatla@linaro.org>
- <20190809133407.25918-2-srinivas.kandagatla@linaro.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="NmFr7nxD"
+Received: by mail-lj1-x241.google.com with SMTP id e24so1429714ljg.11
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 02:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7tEQ31WOSLuQ3JEBF9cV8gIJ36Fz5CZ1Zb7GBPfj32s=;
+ b=NmFr7nxDxcBSv+uW4e7+vOU6sf2roLBf2V03NMTBhvA8HsbJuDjuF6SfhiqpB9nTHE
+ fR+OaPMsCKLJ7NobySSrkj3ygxdF+UbQFTYp10jJwkYhe3u7d4VDj0SNJHOsgLX2bNKC
+ UCj73zuWvfPcmvRIg1dGnFzky8Ud54Lzq3z0YH3+ZD4ZJgK6cC/hcUvBcrx3IpKzxFAW
+ AKK+8ukGQkwMaiKxjiW91h3sMTIz5qNaUWdiQAU8rS+YGdVuRqv8VNXbaPlCyHFApjMG
+ 6rRc9FbKry+rKOrUZtXHAYBymjAL11ozmQrBmF9WdBY2Z3QOKqPBC40ikCNvC/qqv5Gf
+ RU5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7tEQ31WOSLuQ3JEBF9cV8gIJ36Fz5CZ1Zb7GBPfj32s=;
+ b=YJldXiclBAQKB3uGadwxndECMg/yKs7NccF307jwfmJ6yWqOxQhFA89CQojjNz6f8W
+ m9/c+Vaf8JXn7rxE7jc/suN6pVrs9tc+Kny+tHC4B8HJtyjd1ygs4yEM5bHCEJsTJAG4
+ gJOjNiU9zZoa6gtGxy2b9HLheQS25991PtAE4ikGrJEw3ApJ2VidZ+tuNPu867jNCBd8
+ wqJCGPI3Fhy2FO4eZgPAyn2guDYyqD3c4K676uGmweJDsmP+r11Pf3+/bpF8FZrrqOFV
+ al51cFuW7j0RyIwtgxk3HaxddCT5xT5jVdUDl88dMHThltWUqK7i5pMOLk7K6tEmBqwE
+ 2bmA==
+X-Gm-Message-State: APjAAAURHhIAneXcMyoQXnigK1bEVQ4cT6FOFmaSNOaw5Cwqq+SGVyEz
+ efMnJbZ2BVVikLXTCgnyf1QYRHi6S4jxc8QmcbY=
+X-Google-Smtp-Source: APXvYqyMvMP7WpKv2AQSCUyxhmpTSTKtEUxHamxuC1vWlEJy7y4MvakGKiV9JeryByhHBufUiM7n40VZzjuQKwrf178=
+X-Received: by 2002:a2e:5bc6:: with SMTP id m67mr15204586lje.53.1566379158109; 
+ Wed, 21 Aug 2019 02:19:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190809133407.25918-2-srinivas.kandagatla@linaro.org>
-User-Agent: Mutt/1.11.3 (2019-02-01)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v3 1/4] dt-bindings: soundwire: add slave
-	bindings
+References: <20190814060854.26345-1-codekipper@gmail.com>
+ <20190814060854.26345-10-codekipper@gmail.com>
+In-Reply-To: <20190814060854.26345-10-codekipper@gmail.com>
+From: Code Kipper <codekipper@gmail.com>
+Date: Wed, 21 Aug 2019 11:19:05 +0200
+Message-ID: <CAEKpxB=9NNoZgZoY_GpcEuDYoMUGzb+ATgZOSM64qy9tirC_MQ@mail.gmail.com>
+To: Maxime Ripard <maxime.ripard@free-electrons.com>,
+ Chen-Yu Tsai <wens@csie.org>, linux-sunxi <linux-sunxi@googlegroups.com>
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
+ Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v5 09/15] clk: sunxi-ng: h6: Allow I2S to
+	change parent rate
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,81 +102,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 09-08-19, 14:34, Srinivas Kandagatla wrote:
-> This patch adds bindings for Soundwire Slave devices that includes how
-> SoundWire enumeration address and Link ID are used to represented in
-> SoundWire slave device tree nodes.
+On Wed, 14 Aug 2019 at 08:09, <codekipper@gmail.com> wrote:
+>
+> From: Jernej Skrabec <jernej.skrabec@siol.net>
+>
+> I2S doesn't work if parent rate couldn't be change. Difference between
+> wanted and actual rate is too big.
+>
+> Fix this by adding CLK_SET_RATE_PARENT flag to I2S clocks.
+>
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@siol.net>
 
-Rob does this look good to you, I intent to apply the soundwire parts
+Signed-off-by: Marcus Cooper <codekipper@gmail.com>
 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 > ---
->  .../devicetree/bindings/soundwire/slave.txt   | 51 +++++++++++++++++++
->  1 file changed, 51 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soundwire/slave.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/soundwire/slave.txt b/Documentation/devicetree/bindings/soundwire/slave.txt
-> new file mode 100644
-> index 000000000000..201f65d2fafa
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soundwire/slave.txt
-> @@ -0,0 +1,51 @@
-> +SoundWire slave device bindings.
-> +
-> +SoundWire is a 2-pin multi-drop interface with data and clock line.
-> +It facilitates development of low cost, efficient, high performance systems.
-> +
-> +SoundWire slave devices:
-> +Every SoundWire controller node can contain zero or more child nodes
-> +representing slave devices on the bus. Every SoundWire slave device is
-> +uniquely determined by the enumeration address containing 5 fields:
-> +SoundWire Version, Instance ID, Manufacturer ID, Part ID
-> +and Class ID for a device. Addition to below required properties,
-> +child nodes can have device specific bindings.
-> +
-> +Required properties:
-> +- compatible:	 "sdw<LinkID><VersionID><InstanceID><MFD><PID><CID>".
-> +		  Is the textual representation of SoundWire Enumeration
-> +		  address along with Link ID. compatible string should contain
-> +		  SoundWire Link ID, SoundWire Version ID, Instance ID,
-> +		  Manufacturer ID, Part ID and Class ID in order
-> +		  represented as above and shall be in lower-case hexadecimal
-> +		  with leading zeroes. Vaild sizes of these fields are
-> +		  LinkID is 1 nibble,
-> +		  Version ID is 1 nibble
-> +		  Instance ID in 1 nibble
-> +		  MFD in 4 nibbles
-> +		  PID in 4 nibbles
-> +		  CID is 2 nibbles
-> +
-> +		  Version number '0x1' represents SoundWire 1.0
-> +		  Version number '0x2' represents SoundWire 1.1
-> +		  ex: "sdw0110217201000" represents 0 LinkID,
-> +		  SoundWire 1.0 version slave with Instance ID 1.
-> +		  More Information on detail of encoding of these fields can be
-> +		  found in MIPI Alliance DisCo & SoundWire 1.0 Specifications.
-> +
-> +SoundWire example for Qualcomm's SoundWire controller:
-> +
-> +soundwire@c2d0000 {
-> +	compatible = "qcom,soundwire-v1.5.0"
-> +	reg = <0x0c2d0000 0x2000>;
-> +
-> +	spkr_left:wsa8810-left{
-> +		compatible = "sdw0110217201000";
-> +		...
-> +	};
-> +
-> +	spkr_right:wsa8810-right{
-> +		compatible = "sdw0120217201000";
-> +		...
-> +	};
-> +};
-> -- 
-> 2.21.0
-
--- 
-~Vinod
+>  drivers/clk/sunxi-ng/ccu-sun50i-h6.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-h6.c b/drivers/clk/sunxi-ng/ccu-sun50i-h6.c
+> index aebef4af9861..d89353a3cdec 100644
+> --- a/drivers/clk/sunxi-ng/ccu-sun50i-h6.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun50i-h6.c
+> @@ -505,7 +505,7 @@ static struct ccu_div i2s3_clk = {
+>                 .hw.init        = CLK_HW_INIT_PARENTS("i2s3",
+>                                                       audio_parents,
+>                                                       &ccu_div_ops,
+> -                                                     0),
+> +                                                     CLK_SET_RATE_PARENT),
+>         },
+>  };
+>
+> @@ -518,7 +518,7 @@ static struct ccu_div i2s0_clk = {
+>                 .hw.init        = CLK_HW_INIT_PARENTS("i2s0",
+>                                                       audio_parents,
+>                                                       &ccu_div_ops,
+> -                                                     0),
+> +                                                     CLK_SET_RATE_PARENT),
+>         },
+>  };
+>
+> @@ -531,7 +531,7 @@ static struct ccu_div i2s1_clk = {
+>                 .hw.init        = CLK_HW_INIT_PARENTS("i2s1",
+>                                                       audio_parents,
+>                                                       &ccu_div_ops,
+> -                                                     0),
+> +                                                     CLK_SET_RATE_PARENT),
+>         },
+>  };
+>
+> @@ -544,7 +544,7 @@ static struct ccu_div i2s2_clk = {
+>                 .hw.init        = CLK_HW_INIT_PARENTS("i2s2",
+>                                                       audio_parents,
+>                                                       &ccu_div_ops,
+> -                                                     0),
+> +                                                     CLK_SET_RATE_PARENT),
+>         },
+>  };
+>
+> --
+> 2.22.0
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

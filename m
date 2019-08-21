@@ -2,82 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 680959791E
-	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 14:20:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B245C97A3C
+	for <lists+alsa-devel@lfdr.de>; Wed, 21 Aug 2019 15:01:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE3E7165F;
-	Wed, 21 Aug 2019 14:19:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE3E7165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 08A801616;
+	Wed, 21 Aug 2019 15:01:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 08A801616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566390016;
-	bh=UNmdZfz9Zz7iK6Fj0tRS2DLMq1l73tPjPRsd+I9Che8=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=eHdhl8Nlq9V2Dimub9jFCngep5w0oI8QPhFM5v1pAuJbfENEWKBsECBUYnWo5B9Po
-	 wg6pNPUaOIx2NVk+ZankxCPbK2gYlKxegsnZh0tPxC0fMOR6C3yQ8abE7rEgYHKSVi
-	 nAZOkUiHZppGRHYMSvlZZajwz/4JlRIatMl7+d5Y=
+	s=default; t=1566392511;
+	bh=VQfEitPbBExtmPwPoEFEmZGIXRXK5zFwgImnp/xVVCA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jP1VTnYYFL2HrfUOWPNnLjt4iFyh6GN9op9LhYsU8Xy1bbljBKfKR4U4r7mifmmku
+	 nDkcjw+x3Mhz2b1d0QFNJZpBvMMkOIKWrB08Kgbr6RaOoqUvGl8a7c2SrUVAFLG2V+
+	 fI6rsdfGfydcUi8LnbXxS4JI242Y0nsnxvf6UzB8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88D44F8060F;
-	Wed, 21 Aug 2019 14:15:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EC521F80306;
+	Wed, 21 Aug 2019 15:00:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D09AF8036A; Wed, 21 Aug 2019 14:15:45 +0200 (CEST)
+ id 6688AF80306; Wed, 21 Aug 2019 15:00:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f99.google.com (mail-wr1-f99.google.com
- [209.85.221.99])
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-wm1-f98.google.com (mail-wm1-f98.google.com
+ [209.85.128.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93125F8036A
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 14:15:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93125F8036A
-Received: by mail-wr1-f99.google.com with SMTP id p17so1796576wrf.11
- for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 05:15:33 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3613F800BF
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 14:59:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3613F800BF
+Received: by mail-wm1-f98.google.com with SMTP id f72so2021206wmf.5
+ for <alsa-devel@alsa-project.org>; Wed, 21 Aug 2019 05:59:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:in-reply-to:message-id:date;
- bh=Snh+NfqlRXL88nkBpdOVZUEKDu0xFWclHT2b5DEkq4Y=;
- b=osTFM03k7ssT7iXA2zQ/lBc42gJ+BugO/n8J8LGw2ikkXmnF6r/Iywda380D4iBiN5
- 6tmougr6jq8nRE0k5yryi4ynoBY6pvUjYZFuLgU9gFYgMFu+JXpoK56kqVMT3KknFTf0
- LXqrM6NSQnC7u5jIpWVZjvhV9sjG1Cc/eAeb4s60hBFZz8vW9P2GaFzJYlsHig9aXlze
- C4n6szajORjktr2zVQWf+Yg1pFtv+OLI0wSpEX7CDjcfjMEWH3LXazUdwd9/DMjeaNt8
- wT0MfRD0mRr0AovRfhncwR/jgWiQCakgfLquYt3CVcA8B3k15NBX3Sz4SMCfu6ED+Qpg
- ncbQ==
-X-Gm-Message-State: APjAAAXJcxdLwip5ySdBYuzEnzRX9oVu90E/6UCovu16qgHc5+WqbeIT
- kTR+RBJ4kgzzyRJrxYjViNJlbGlToXKJwUfcJdrGPCXCK8gC1Bt8Iv9Cn74PxwT6rA==
-X-Google-Smtp-Source: APXvYqwGnLc7NKwkPiSbVfpZ978KwNZIeoVmaMf/v+r2YtEwI6fdOKWu38uvGNjBMBdd1VhR4zDSpHpGmaU1
-X-Received: by 2002:a5d:560a:: with SMTP id l10mr40018565wrv.101.1566389733373; 
- Wed, 21 Aug 2019 05:15:33 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MByKXfqnDA0/TEXshC73r4nKlG/9wq5CsnqAlVuFWLI=;
+ b=BdpsVofjz3wyOulDacYdBjjegLl2ImhJ9rtMMJKAW6V3YUydioxEvW/7MO5wz5bnc5
+ VN0GHNdDfj4TOvFmfu5Ti7pboxWKy170TFct1vqHii81bk6ryOQnGLOQ6Rkwdbf4bJuw
+ 2qY62cieGhqqi3W2bXuTRS3lH8TNGwmqIjcJlbqdE3aP9K6fW4UyWBtfhjj0CCiBpDmE
+ oqdHjWA3n6RXiLEkQ53elIbObJl4t7kZ5HS0FDwdGvQBda7IC7Ylsa1G14QSWa8R+9ZG
+ RyhaOXemtGHoggnwqCZElMVHageGrobnyaea+pJiulsrKSk6lmTMzDNVmU1glIqoI4y/
+ G4Ow==
+X-Gm-Message-State: APjAAAUtTs9bx0rRDWcRkxnQok4TcSO9OzSkue/0nTLkZ9UnP48Nhdt8
+ RdyOyY5W7aTRrk9kW918k5GnHV/jx5gVJ84era65Eiho2HwusqnT5VpyZYjvpBV/TQ==
+X-Google-Smtp-Source: APXvYqxslqShgIrUOarus+V+FX8T/WQBuHgvil/7NAQjmMooPd6aBaEJyv9A5KZgpJsxsL2ZiZGRfRXjNA3X
+X-Received: by 2002:a1c:b6d4:: with SMTP id g203mr5994494wmf.100.1566392397638; 
+ Wed, 21 Aug 2019 05:59:57 -0700 (PDT)
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk.
  [2a01:7e01::f03c:91ff:fed4:a3b6])
- by smtp-relay.gmail.com with ESMTPS id h6sm270251wrx.43.2019.08.21.05.15.33
+ by smtp-relay.gmail.com with ESMTPS id w10sm328905wre.38.2019.08.21.05.59.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Aug 2019 05:15:33 -0700 (PDT)
+ Wed, 21 Aug 2019 05:59:57 -0700 (PDT)
 X-Relaying-Domain: sirena.org.uk
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i0PWX-000776-0m; Wed, 21 Aug 2019 12:15:33 +0000
+ id 1i0QDV-0007Fw-EA; Wed, 21 Aug 2019 12:59:57 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7DBB027430D6; Wed, 21 Aug 2019 13:15:32 +0100 (BST)
+ id 86AD5274112A; Wed, 21 Aug 2019 13:59:56 +0100 (BST)
+Date: Wed, 21 Aug 2019 13:59:56 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <877e781ldq.wl-kuninori.morimoto.gx@renesas.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190821121532.7DBB027430D6@ypsilon.sirena.org.uk>
-Date: Wed, 21 Aug 2019 13:15:32 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Sridharan@sirena.co.uk, Ranjani <ranjani.sridharan@intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: merge
-	snd_soc_initialize_card_lists()" to the asoc tree
+To: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+Message-ID: <20190821125956.GJ5128@sirena.co.uk>
+References: <20190821123252.30920-1-jaska.uimonen@linux.intel.com>
+MIME-Version: 1.0
+In-Reply-To: <20190821123252.30920-1-jaska.uimonen@linux.intel.com>
+X-Cookie: Sic transit gloria Monday!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Jaska Uimonen <jaska.uimonen@intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: topology: fix get control data
+ return type and arguments
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,111 +93,76 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0282348963489296831=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: soc-core: merge snd_soc_initialize_card_lists()
+--===============0282348963489296831==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0FRtVia6Q6lt+M0P"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+--0FRtVia6Q6lt+M0P
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Wed, Aug 21, 2019 at 03:32:52PM +0300, Jaska Uimonen wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> +static int sof_get_control_data(struct snd_sof_dev *sdev,
+> +				struct snd_soc_dapm_widget *widget,
+> +				struct sof_widget_data *wdata,
+> +				size_t *size)
+>  {
+>  	const struct snd_kcontrol_new *kc;
+>  	struct soc_mixer_control *sm;
+>  	struct soc_bytes_ext *sbe;
+>  	struct soc_enum *se;
+> -	size_t size = 0;
+>  	int i;
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> -		size += wdata[i].pdata->size;
+> +		/* don't accept 0 size for data */
+> +		if (!wdata[i].pdata->size)
+> +			return -EINVAL;
 
-Thanks,
-Mark
+This should really be a separate change.
 
-From b03bfaec1d52123d5d941488f71e06964535e471 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 20 Aug 2019 14:04:54 +0900
-Subject: [PATCH] ASoC: soc-core: merge snd_soc_initialize_card_lists()
+> +
+> +		*size += wdata[i].pdata->size;
 
-snd_soc_initialize_card_lists() is doing card related
-INIT_LIST_HEAD(), but, it is already doing at
-snd_soc_register_card(). We don't need to do it separately.
-This patch merges these.
+We appear to be requiring that the size passed in is zero initialized
+which is a bit unusual and seems likely to break even if it happens to
+work right now.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/877e781ldq.wl-kuninori.morimoto.gx@renesas.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- include/sound/soc.h  | 10 ----------
- sound/soc/soc-core.c | 13 ++++++++-----
- 2 files changed, 8 insertions(+), 15 deletions(-)
+--0FRtVia6Q6lt+M0P
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 5c841c2ee814..f264c6509f00 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -1220,16 +1220,6 @@ static inline void *snd_soc_card_get_drvdata(struct snd_soc_card *card)
- 	return card->drvdata;
- }
- 
--static inline void snd_soc_initialize_card_lists(struct snd_soc_card *card)
--{
--	INIT_LIST_HEAD(&card->widgets);
--	INIT_LIST_HEAD(&card->paths);
--	INIT_LIST_HEAD(&card->dapm_list);
--	INIT_LIST_HEAD(&card->aux_comp_list);
--	INIT_LIST_HEAD(&card->component_dev_list);
--	INIT_LIST_HEAD(&card->list);
--}
--
- static inline bool snd_soc_volsw_is_stereo(struct soc_mixer_control *mc)
- {
- 	if (mc->reg == mc->rreg && mc->shift == mc->rshift)
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index b3f820fb53e6..d428491d51a7 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2370,15 +2370,18 @@ int snd_soc_register_card(struct snd_soc_card *card)
- 
- 	dev_set_drvdata(card->dev, card);
- 
--	snd_soc_initialize_card_lists(card);
--
-+	INIT_LIST_HEAD(&card->widgets);
-+	INIT_LIST_HEAD(&card->paths);
-+	INIT_LIST_HEAD(&card->dapm_list);
-+	INIT_LIST_HEAD(&card->aux_comp_list);
-+	INIT_LIST_HEAD(&card->component_dev_list);
-+	INIT_LIST_HEAD(&card->list);
- 	INIT_LIST_HEAD(&card->dai_link_list);
--
- 	INIT_LIST_HEAD(&card->rtd_list);
--	card->num_rtd = 0;
--
- 	INIT_LIST_HEAD(&card->dapm_dirty);
- 	INIT_LIST_HEAD(&card->dobj_list);
-+
-+	card->num_rtd = 0;
- 	card->instantiated = 0;
- 	mutex_init(&card->mutex);
- 	mutex_init(&card->dapm_mutex);
--- 
-2.20.1
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1dQEsACgkQJNaLcl1U
+h9B1GQf+Oiobkwncu2CQ4291dJFDKKCFU4KkgiY5kGuBhPPiTVrIA0nS4HrOqYgV
+8jRQzjcPgW5ie4adzXjFIqJZBYpfQd9S+v5TjHiYN13XpoYaO0ykr0BeSXFSXcKu
+dz78s1vupShO0ZdkGMev4DkKDTos3exppu66mXUM9Mx+9yAfEfPCWZGchhFbzM9o
+eHEuvO5Di1e/8DXi6X37OsCx+idd0Et4ryd9vlDCsjvx5BpP7dJpqBkhQUUj3W+z
+rxWYN8URKz8OAbmt7Uuz8NLGunx6JVVbBMnFE89pRKIXVQnhE07iEjO0SyuO80ac
+WPX7VdTMDD5krV3O3Fc4i4nb/nzwBA==
+=DdyM
+-----END PGP SIGNATURE-----
+
+--0FRtVia6Q6lt+M0P--
+
+--===============0282348963489296831==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0282348963489296831==--

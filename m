@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8769899782
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 16:58:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 874DD9978F
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 17:01:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CE118167F;
-	Thu, 22 Aug 2019 16:57:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE118167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E52E41672;
+	Thu, 22 Aug 2019 17:00:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E52E41672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566485922;
-	bh=/Ptfsb3Yklb9QxulptjvVAb3R9/zsA21VTdGXfgwolA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nKLDaEBEiUm27uv32pFWqJgXJReBfIUSBqJ01FDvkoZNaWQnEjf1d2dpPJg75FuOl
-	 0BgfuxjJJPmkqg1Hen5HF9wIRXR/whXev3Zn/njKNY2NPgSK6IEPsSsNdcgNTMUp3X
-	 KCmziFR5zpD5fyR0RjGlnhkug+dztjM60Ssbf/kU=
+	s=default; t=1566486065;
+	bh=SHAyWfcuRAET/sSX+Dd1yXOYJG7acdKBM9r/5ch6Wgk=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=s1LrcEuKUu4dgmgo+RYG4Ozc3kZaVSOomLj4bxp/9tQsO85PcCoUeU41caXWPRYHn
+	 h7T2J90LzCAJtZRGVisp7JHdHzzHJj2JikLD2h8eygCPJy+91gRTMAtZM2Im9RaMhB
+	 XltSoepe03pqT2zzV3//JP+bXqDj46Hu2I3Lu9aA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F4AFF8036E;
-	Thu, 22 Aug 2019 16:56:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6922F8036E;
+	Thu, 22 Aug 2019 16:59:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ACBFF8036E; Thu, 22 Aug 2019 16:56:56 +0200 (CEST)
+ id 4926FF800BF; Thu, 22 Aug 2019 16:59:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -33,30 +32,28 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 056E7F80147
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 16:56:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 056E7F80147
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 3BA7652E0CFE38D2A19A;
- Thu, 22 Aug 2019 22:56:41 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Thu, 22 Aug 2019
- 22:56:35 +0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC360F800BF
+ for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 16:59:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC360F800BF
+Received: from DGGEMS402-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 7D38731106B5519A65DA;
+ Thu, 22 Aug 2019 22:58:32 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS402-HUB.china.huawei.com
+ (10.3.19.202) with Microsoft SMTP Server id 14.3.439.0; Thu, 22 Aug 2019
+ 22:58:25 +0800
 From: YueHaibing <yuehaibing@huawei.com>
-To: <vkoul@kernel.org>, <sanyog.r.kale@intel.com>,
- <pierre-louis.bossart@linux.intel.com>, <ladis@linux-mips.org>
-Date: Thu, 22 Aug 2019 22:54:08 +0800
-Message-ID: <20190822145408.76272-1-yuehaibing@huawei.com>
+To: <perex@perex.cz>, <tiwai@suse.com>, <gregkh@linuxfoundation.org>,
+ <pavel@denx.de>, <allison@lohutok.net>, <tglx@linutronix.de>,
+ <yuehaibing@huawei.com>, <pakki001@umn.edu>
+Date: Thu, 22 Aug 2019 22:57:41 +0800
+Message-ID: <20190822145741.9592-1-yuehaibing@huawei.com>
 X-Mailer: git-send-email 2.10.2.windows.1
-In-Reply-To: <20190816141409.49940-1-yuehaibing@huawei.com>
-References: <20190816141409.49940-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
 X-Originating-IP: [10.133.213.239]
 X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v2 -next] soundwire: Fix -Wunused-function
-	warning
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH -next] ALSA: line6: Fix -Wunused-const-variable
+	warnings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,57 +71,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If CONFIG_ACPI is not set, gcc warning this:
+sound/usb/line6/driver.h:69:18: warning:
+ SYSEX_DATA_OFS defined but not used [-Wunused-const-variable=]
+sound/usb/line6/driver.h:70:18: warning:
+ SYSEX_EXTRA_SIZE defined but not used [-Wunused-const-variable=]
 
-drivers/soundwire/slave.c:16:12: warning:
- 'sdw_slave_add' defined but not used [-Wunused-function]
-
-Now all code in slave.c is only used on ACPI enabled,
-so compiles it while CONFIG_ACPI is set.
+SYSEX_EXTRA_SIZE is only used in driver.c and
+SYSEX_DATA_OFS in pod.c, so move them to .c fix
+this warning.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
-Suggested-by: Ladislav Michl <ladis@linux-mips.org>
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
-v2: use obj-$(CONFIG_ACPI) += slave.o
----
- drivers/soundwire/Makefile | 3 ++-
- drivers/soundwire/slave.c  | 3 ---
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ sound/usb/line6/driver.c | 2 ++
+ sound/usb/line6/driver.h | 3 ---
+ sound/usb/line6/pod.c    | 2 ++
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-index 45b7e50..a28bf3e 100644
---- a/drivers/soundwire/Makefile
-+++ b/drivers/soundwire/Makefile
-@@ -4,8 +4,9 @@
- #
+diff --git a/sound/usb/line6/driver.c b/sound/usb/line6/driver.c
+index b5a3f75..8027da8 100644
+--- a/sound/usb/line6/driver.c
++++ b/sound/usb/line6/driver.c
+@@ -31,6 +31,8 @@ const unsigned char line6_midi_id[3] = {
+ };
+ EXPORT_SYMBOL_GPL(line6_midi_id);
  
- #Bus Objs
--soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o
-+soundwire-bus-objs := bus_type.o bus.o mipi_disco.o stream.o
- obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
-+obj-$(CONFIG_ACPI) += slave.o
- 
- #Cadence Objs
- soundwire-cadence-objs := cadence_master.o
-diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
-index f39a581..0dc188e 100644
---- a/drivers/soundwire/slave.c
-+++ b/drivers/soundwire/slave.c
-@@ -60,7 +60,6 @@ static int sdw_slave_add(struct sdw_bus *bus,
- 	return ret;
- }
- 
--#if IS_ENABLED(CONFIG_ACPI)
++static const int SYSEX_EXTRA_SIZE = sizeof(line6_midi_id) + 4;
++
  /*
-  * sdw_acpi_find_slaves() - Find Slave devices in Master ACPI node
-  * @bus: SDW bus instance
-@@ -110,5 +109,3 @@ int sdw_acpi_find_slaves(struct sdw_bus *bus)
+ 	Code to request version of POD, Variax interface
+ 	(and maybe other devices).
+diff --git a/sound/usb/line6/driver.h b/sound/usb/line6/driver.h
+index e5e572e..c57633a 100644
+--- a/sound/usb/line6/driver.h
++++ b/sound/usb/line6/driver.h
+@@ -66,9 +66,6 @@
  
- 	return 0;
- }
+ extern const unsigned char line6_midi_id[3];
+ 
+-static const int SYSEX_DATA_OFS = sizeof(line6_midi_id) + 3;
+-static const int SYSEX_EXTRA_SIZE = sizeof(line6_midi_id) + 4;
 -
--#endif
+ /*
+ 	 Common properties of Line 6 devices.
+ */
+diff --git a/sound/usb/line6/pod.c b/sound/usb/line6/pod.c
+index ee4c9d2..24ad337 100644
+--- a/sound/usb/line6/pod.c
++++ b/sound/usb/line6/pod.c
+@@ -110,6 +110,8 @@ enum {
+ 	POD_BUSY_MIDISEND
+ };
+ 
++static const int SYSEX_DATA_OFS = sizeof(line6_midi_id) + 3;
++
+ static struct snd_ratden pod_ratden = {
+ 	.num_min = 78125,
+ 	.num_max = 78125,
 -- 
 2.7.4
 

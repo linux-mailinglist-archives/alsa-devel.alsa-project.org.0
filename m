@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C02899FCE
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 21:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8750C99FD7
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 21:23:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A86141699;
-	Thu, 22 Aug 2019 21:22:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A86141699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 104291688;
+	Thu, 22 Aug 2019 21:22:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 104291688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566501778;
-	bh=EAlL93jB1MuZH4trMq5PzvuD6EIub+kc7ik4CcF4FLA=;
+	s=default; t=1566501816;
+	bh=c1vDNIxr8lOirTn12nsDzLaeqWCETth9eOSDLsZaUS8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U2Nsonqg6D3LpWbQBmrMpj4O1jJDxc6e4/ofXhwyiZG6OKeEUoDa2PAyPUV+LTIA/
-	 JK7KhtHQWI31ULlh8mhl9X3moY3nHMIPjZmgcg8yeBIN+Ly1hefEk8Q8rPVrMyCJ/a
-	 RVuyXldJ4kUPupNGuF5hMnldRFnSWj8IuRwu6zLY=
+	b=VTybuCAOEzuL6fXYzw6+JeqFSO0Cm0rBKzkdbjSqxQysF8ADvfq+P2U1Z9B0ni/tD
+	 b9os/sHcIkyZuhTWuFIkwF4OrG1aY7ELCYXfqc91rmGIVPv3c34N2KA1gOUEgdAWNt
+	 2knYj4cV3eTkS6GDTEQowZRsnjMfhCFjxWDopgdM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45F59F80859;
-	Thu, 22 Aug 2019 21:06:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 797C2F8085E;
+	Thu, 22 Aug 2019 21:06:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C36B6F8070D; Thu, 22 Aug 2019 21:05:53 +0200 (CEST)
+ id DAF07F80714; Thu, 22 Aug 2019 21:05:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 45291F8064C
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 21:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45291F8064C
+ by alsa1.perex.cz (Postfix) with ESMTPS id A59E1F8065A
+ for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 21:05:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A59E1F8065A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2019 12:05:20 -0700
+ 22 Aug 2019 12:05:22 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,417,1559545200"; d="scan'208";a="203524536"
+X-IronPort-AV: E=Sophos;i="5.64,417,1559545200"; d="scan'208";a="203524549"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga004.fm.intel.com with ESMTP; 22 Aug 2019 12:05:19 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 22 Aug 2019 12:05:21 -0700
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Date: Thu, 22 Aug 2019 21:04:14 +0200
-Message-Id: <20190822190425.23001-25-cezary.rojewski@intel.com>
+Date: Thu, 22 Aug 2019 21:04:15 +0200
+Message-Id: <20190822190425.23001-26-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190822190425.23001-1-cezary.rojewski@intel.com>
 References: <20190822190425.23001-1-cezary.rojewski@intel.com>
 Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
  broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH 24/35] ASoC: Intel: Refactor probing of ACPI
-	devices
+Subject: [alsa-devel] [PATCH 25/35] ASoC: Intel: Skylake: Simplify
+	skl_sst_ctx_init declaration
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,307 +74,148 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Baytrail and Haswell ACPI loading is now separated and no longer
-clutters common code. Let's improve the loading procedure and remove
-some superfluous members.
-
-This change removes sst_pdata::resindex_dma_base as it is a duplication
-of dma_base. dma_base field has had it's type changed to allow for -1
-(not used) value.
-
-ACPI descriptor: sst_acpi_desc loses machines field and sst_id - now
-accessed via sst_pdata::boards and sst_pdata::id respectively.
-Cleanup consists mainly of legacy platform-specific probe routines
-being provided for each descendant. Prevents code duplications,
-especially for HSW/ BDW case while not losing any readability.
+'irq' and 'dsp' are redundant parameters of skl_sst_ctx_init. Simplify
+its declaration and update each invokes. This yet another step In quest
+for simplification of Skylake initialization process.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/intel/baytrail/acpi.c         | 43 +++++++++++-----
- sound/soc/intel/common/sst-acpi.c       | 21 +++-----
- sound/soc/intel/common/sst-dsp.h        |  8 +--
- sound/soc/intel/common/sst-firmware.c   |  2 +-
- sound/soc/intel/haswell/acpi.c          | 65 +++++++++++++++----------
- sound/soc/intel/skylake/skl-sst-utils.c |  2 +-
- 6 files changed, 82 insertions(+), 59 deletions(-)
+ sound/soc/intel/skylake/bxt-sst.c       |  4 ++--
+ sound/soc/intel/skylake/cnl-sst.c       |  4 ++--
+ sound/soc/intel/skylake/skl-sst-dsp.h   |  3 +--
+ sound/soc/intel/skylake/skl-sst-utils.c | 18 +++++++-----------
+ sound/soc/intel/skylake/skl-sst.c       |  4 ++--
+ sound/soc/intel/skylake/skl.c           |  1 +
+ 6 files changed, 15 insertions(+), 19 deletions(-)
 
-diff --git a/sound/soc/intel/baytrail/acpi.c b/sound/soc/intel/baytrail/acpi.c
-index 57d10a6e3be2..bf2560a8f3e2 100644
---- a/sound/soc/intel/baytrail/acpi.c
-+++ b/sound/soc/intel/baytrail/acpi.c
-@@ -11,25 +11,46 @@
- #include <sound/soc-acpi-intel-match.h>
- #include "../common/sst-dsp.h"
+diff --git a/sound/soc/intel/skylake/bxt-sst.c b/sound/soc/intel/skylake/bxt-sst.c
+index 5b46215fbc0f..e72cd63eb113 100644
+--- a/sound/soc/intel/skylake/bxt-sst.c
++++ b/sound/soc/intel/skylake/bxt-sst.c
+@@ -552,13 +552,13 @@ int bxt_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+ 	struct sst_dsp *sst;
+ 	int ret;
  
--static struct sst_acpi_desc byt_acpi_desc = {
--	.drv_name = "baytrail-pcm-audio",
--	.machines = snd_soc_acpi_intel_baytrail_legacy_machines,
--	.resindex_lpe_base = 0,
--	.resindex_pcicfg_base = 1,
--	.resindex_fw_base = 2,
--	.irqindex_host_ipc = 5,
--	.sst_id = SST_DEV_ID_BYT,
--	.resindex_dma_base = -1,
-+static struct sst_pdata byt_desc = {
-+	.id = SST_DEV_ID_BYT,
-+	.fw_name = "intel/fw_sst_0f28.bin-48kHz_i2s_master",
-+	.boards = snd_soc_acpi_intel_baytrail_legacy_machines,
-+	.dma_base = -1,
- };
+-	ret = skl_sst_ctx_init(dev, irq, fw_name, dsp, &skl_dev);
++	skl = *dsp;
++	ret = skl_sst_ctx_init(skl, fw_name, &skl_dev);
+ 	if (ret < 0) {
+ 		dev_err(dev, "%s: no device\n", __func__);
+ 		return ret;
+ 	}
  
- static const struct acpi_device_id byt_acpi_ids[] = {
--	{ "80860F28", (unsigned long)&byt_acpi_desc },
-+	{ "80860F28", (unsigned long)&byt_desc },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, byt_acpi_ids);
+-	skl = *dsp;
+ 	sst = skl->dsp;
+ 	sst->fw_ops = bxt_fw_ops;
+ 	sst->addr.lpe = mmio_base;
+diff --git a/sound/soc/intel/skylake/cnl-sst.c b/sound/soc/intel/skylake/cnl-sst.c
+index 47b991c03742..93b98281083c 100644
+--- a/sound/soc/intel/skylake/cnl-sst.c
++++ b/sound/soc/intel/skylake/cnl-sst.c
+@@ -429,13 +429,13 @@ int cnl_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+ 	struct sst_dsp *sst;
+ 	int ret;
  
-+static int byt_acpi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct sst_acpi_desc *acpi_desc;
-+	const struct acpi_device_id *id;
-+
-+	id = acpi_match_device(dev->driver->acpi_match_table, dev);
-+	if (!id)
-+		return -ENODEV;
-+
-+	acpi_desc = devm_kzalloc(dev, sizeof(*acpi_desc), GFP_KERNEL);
-+	if (!acpi_desc)
-+		return -ENOMEM;
-+
-+	acpi_desc->drv_name = "baytrail-pcm-audio";
-+	acpi_desc->pdata = (struct sst_pdata *)id->driver_data;
-+	acpi_desc->resindex_lpe_base = 0;
-+	acpi_desc->resindex_pcicfg_base = 1;
-+	acpi_desc->resindex_fw_base = 2;
-+	acpi_desc->irqindex_host_ipc = 5;
-+	platform_set_drvdata(pdev, acpi_desc);
-+
-+	return sst_acpi_probe(pdev);
-+}
-+
- static struct platform_driver byt_acpi_driver = {
--	.probe = sst_acpi_probe,
-+	.probe = byt_acpi_probe,
- 	.remove = sst_acpi_remove,
- 	.driver = {
- 		.name = "byt-acpi",
-diff --git a/sound/soc/intel/common/sst-acpi.c b/sound/soc/intel/common/sst-acpi.c
-index 8e75126106ea..53ac23f05966 100644
---- a/sound/soc/intel/common/sst-acpi.c
-+++ b/sound/soc/intel/common/sst-acpi.c
-@@ -17,7 +17,6 @@
- struct sst_acpi_priv {
- 	struct platform_device *pdev_mach;
- 	struct platform_device *pdev_pcm;
--	struct sst_pdata sst_pdata;
- 	struct sst_acpi_desc *desc;
- 	struct snd_soc_acpi_mach *mach;
- };
-@@ -27,8 +26,8 @@ static void sst_acpi_fw_cb(const struct firmware *fw, void *context)
- 	struct platform_device *pdev = context;
- 	struct device *dev = &pdev->dev;
- 	struct sst_acpi_priv *sst_acpi = platform_get_drvdata(pdev);
--	struct sst_pdata *sst_pdata = &sst_acpi->sst_pdata;
- 	struct sst_acpi_desc *desc = sst_acpi->desc;
-+	struct sst_pdata *sst_pdata = desc->pdata;
- 	struct snd_soc_acpi_mach *mach = sst_acpi->mach;
+-	ret = skl_sst_ctx_init(dev, irq, fw_name, dsp, &cnl_dev);
++	cnl = *dsp;
++	ret = skl_sst_ctx_init(cnl, fw_name, &cnl_dev);
+ 	if (ret < 0) {
+ 		dev_err(dev, "%s: no device\n", __func__);
+ 		return ret;
+ 	}
  
- 	sst_pdata->fw = fw;
-@@ -51,7 +50,6 @@ static void sst_acpi_fw_cb(const struct firmware *fw, void *context)
+-	cnl = *dsp;
+ 	sst = cnl->dsp;
+ 	sst->fw_ops = cnl_fw_ops;
+ 	sst->addr.lpe = mmio_base;
+diff --git a/sound/soc/intel/skylake/skl-sst-dsp.h b/sound/soc/intel/skylake/skl-sst-dsp.h
+index 3c92b1d849e4..e14d76ed0100 100644
+--- a/sound/soc/intel/skylake/skl-sst-dsp.h
++++ b/sound/soc/intel/skylake/skl-sst-dsp.h
+@@ -225,8 +225,7 @@ int skl_dsp_strip_extended_manifest(struct firmware *fw);
  
- int sst_acpi_probe(struct platform_device *pdev)
+ void skl_dsp_set_astate_cfg(struct skl_dev *skl, u32 cnt, void *data);
+ 
+-int skl_sst_ctx_init(struct device *dev, int irq, const char *fw_name,
+-		struct skl_dev **dsp,
++int skl_sst_ctx_init(struct skl_dev *skl, const char *fw_name,
+ 		struct sst_pdata *pdata);
+ int skl_prepare_lib_load(struct skl_dev *skl, struct skl_lib_info *linfo,
+ 			struct firmware *stripped_fw,
+diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
+index ac0a0e4c2d68..a4ad213d34e0 100644
+--- a/sound/soc/intel/skylake/skl-sst-utils.c
++++ b/sound/soc/intel/skylake/skl-sst-utils.c
+@@ -354,30 +354,26 @@ int skl_dsp_strip_extended_manifest(struct firmware *fw)
+ 	return 0;
+ }
+ 
+-int skl_sst_ctx_init(struct device *dev, int irq, const char *fw_name,
+-	struct skl_dev **dsp,
++int skl_sst_ctx_init(struct skl_dev *skl, const char *fw_name,
+ 	struct sst_pdata *pdata)
  {
--	const struct acpi_device_id *id;
- 	struct device *dev = &pdev->dev;
- 	struct sst_acpi_priv *sst_acpi;
- 	struct sst_pdata *sst_pdata;
-@@ -64,27 +62,20 @@ int sst_acpi_probe(struct platform_device *pdev)
- 	if (sst_acpi == NULL)
- 		return -ENOMEM;
+-	struct skl_dev *skl = *dsp;
+ 	struct sst_dsp *sst;
++	struct device *dev = skl->dev;
  
--	id = acpi_match_device(dev->driver->acpi_match_table, dev);
--	if (!id)
--		return -ENODEV;
--
--	desc = (struct sst_acpi_desc *)id->driver_data;
--	mach = snd_soc_acpi_find_machine(desc->machines);
-+	desc = platform_get_drvdata(pdev);
-+	sst_pdata = desc->pdata;
-+	mach = snd_soc_acpi_find_machine(sst_pdata->boards);
- 	if (mach == NULL) {
- 		dev_err(dev, "No matching ASoC machine driver found\n");
+ 	pdata->id = skl->pci->device;
+-	pdata->irq = irq;
++	pdata->irq = skl->pci->irq;
+ 	pdata->dma_base = -1;
+-	skl->dev = dev;
+ 	pdata->dsp = skl;
+ 	INIT_LIST_HEAD(&skl->uuid_list);
+-	skl->dsp = sst_dsp_new(dev, pdata);
+-	if (!skl->dsp) {
+-		dev_err(skl->dev, "%s: no device\n", __func__);
++	sst = sst_dsp_new(dev, pdata);
++	if (!sst) {
++		dev_err(dev, "%s: no device\n", __func__);
  		return -ENODEV;
  	}
  
--	sst_pdata = &sst_acpi->sst_pdata;
--	sst_pdata->id = desc->sst_id;
- 	sst_pdata->dma_dev = dev;
- 	sst_acpi->desc = desc;
- 	sst_acpi->mach = mach;
+-	sst = skl->dsp;
++	skl->dsp = sst;
+ 	sst->fw_name = fw_name;
+ 	init_waitqueue_head(&skl->mod_load_wait);
+-	INIT_LIST_HEAD(&sst->module_list);
+-
+ 	skl->is_first_boot = true;
  
--	sst_pdata->resindex_dma_base = desc->resindex_dma_base;
--	if (desc->resindex_dma_base >= 0) {
-+	if (sst_pdata->dma_base >= 0) {
- 		sst_pdata->dma_engine = desc->dma_engine;
--		sst_pdata->dma_base = desc->resindex_dma_base;
- 		sst_pdata->dma_size = desc->dma_size;
+ 	return 0;
+diff --git a/sound/soc/intel/skylake/skl-sst.c b/sound/soc/intel/skylake/skl-sst.c
+index c823936ffd34..f8aecd2ca8bb 100644
+--- a/sound/soc/intel/skylake/skl-sst.c
++++ b/sound/soc/intel/skylake/skl-sst.c
+@@ -523,13 +523,13 @@ int skl_sst_dsp_init(struct device *dev, void __iomem *mmio_base, int irq,
+ 	struct sst_dsp *sst;
+ 	int ret;
+ 
+-	ret = skl_sst_ctx_init(dev, irq, fw_name, dsp, &skl_dev);
++	skl = *dsp;
++	ret = skl_sst_ctx_init(skl, fw_name, &skl_dev);
+ 	if (ret < 0) {
+ 		dev_err(dev, "%s: no device\n", __func__);
+ 		return ret;
  	}
  
-@@ -140,7 +131,7 @@ EXPORT_SYMBOL_GPL(sst_acpi_probe);
- int sst_acpi_remove(struct platform_device *pdev)
- {
- 	struct sst_acpi_priv *sst_acpi = platform_get_drvdata(pdev);
--	struct sst_pdata *sst_pdata = &sst_acpi->sst_pdata;
-+	struct sst_pdata *sst_pdata = sst_acpi->desc->pdata;
+-	skl = *dsp;
+ 	sst = skl->dsp;
+ 	sst->addr.lpe = mmio_base;
+ 	sst->addr.shim = mmio_base;
+diff --git a/sound/soc/intel/skylake/skl.c b/sound/soc/intel/skylake/skl.c
+index 141dbbf975ac..54e1f957121d 100644
+--- a/sound/soc/intel/skylake/skl.c
++++ b/sound/soc/intel/skylake/skl.c
+@@ -890,6 +890,7 @@ static int skl_create(struct pci_dev *pci,
+ 	snd_hdac_ext_bus_init(bus, &pci->dev, &bus_core_ops, ext_ops);
+ 	bus->use_posbuf = 1;
+ 	skl->pci = pci;
++	skl->dev = &pci->dev;
+ 	INIT_WORK(&skl->probe_work, skl_probe_work);
+ 	bus->bdl_pos_adj = 0;
  
- 	platform_device_unregister(sst_acpi->pdev_mach);
- 	if (!IS_ERR_OR_NULL(sst_acpi->pdev_pcm))
-diff --git a/sound/soc/intel/common/sst-dsp.h b/sound/soc/intel/common/sst-dsp.h
-index a2ac7998fbdb..87d39b0e79c0 100644
---- a/sound/soc/intel/common/sst-dsp.h
-+++ b/sound/soc/intel/common/sst-dsp.h
-@@ -171,16 +171,13 @@ struct platform_device;
- /* Descriptor for setting up SST platform data */
- struct sst_acpi_desc {
- 	const char *drv_name;
--	struct snd_soc_acpi_mach *machines;
-+	struct sst_pdata *pdata;
- 	/* Platform resource indexes. Must set to -1 if not used */
- 	int resindex_lpe_base;
- 	int resindex_pcicfg_base;
- 	int resindex_fw_base;
- 	int irqindex_host_ipc;
- 	int resindex_dma_base;
--	/* Unique number identifying the SST core on platform */
--	int sst_id;
--	/* DMA only valid when resindex_dma_base != -1*/
- 	int dma_engine;
- 	int dma_size;
- };
-@@ -205,8 +202,7 @@ struct sst_pdata {
- 	const struct firmware *fw;
- 
- 	/* DMA */
--	int resindex_dma_base; /* other fields invalid if equals to -1 */
--	u32 dma_base;
-+	int dma_base; /* other fields invalid if equals to -1 */
- 	u32 dma_size;
- 	int dma_engine;
- 	struct device *dma_dev;
-diff --git a/sound/soc/intel/common/sst-firmware.c b/sound/soc/intel/common/sst-firmware.c
-index 6b6af11c32c3..61d3e6e46b98 100644
---- a/sound/soc/intel/common/sst-firmware.c
-+++ b/sound/soc/intel/common/sst-firmware.c
-@@ -268,7 +268,7 @@ static int sst_dma_new(struct sst_dsp *sst)
- 	struct resource mem;
- 	int ret = 0;
- 
--	if (sst->pdata->resindex_dma_base == -1)
-+	if (sst->pdata->dma_base == -1)
- 		/* DMA is not used, return and squelsh error messages */
- 		return 0;
- 
-diff --git a/sound/soc/intel/haswell/acpi.c b/sound/soc/intel/haswell/acpi.c
-index 7bd8b03851c4..3c49ec257e56 100644
---- a/sound/soc/intel/haswell/acpi.c
-+++ b/sound/soc/intel/haswell/acpi.c
-@@ -15,41 +15,56 @@
- #define SST_WPT_DSP_DMA_ADDR_OFFSET	0x0FE000
- #define SST_LPT_DSP_DMA_SIZE		(1024 - 1)
- 
--static struct sst_acpi_desc hsw_acpi_desc = {
--	.drv_name = "haswell-pcm-audio",
--	.machines = snd_soc_acpi_intel_haswell_machines,
--	.resindex_lpe_base = 0,
--	.resindex_pcicfg_base = 1,
--	.resindex_fw_base = -1,
--	.irqindex_host_ipc = 0,
--	.sst_id = SST_DEV_ID_LYNX_POINT,
--	.dma_engine = SST_DMA_TYPE_DW,
--	.resindex_dma_base = SST_LPT_DSP_DMA_ADDR_OFFSET,
--	.dma_size = SST_LPT_DSP_DMA_SIZE,
-+static struct sst_pdata hsw_desc = {
-+	.id = SST_DEV_ID_LYNX_POINT,
-+	.fw_name = "intel/IntcSST1.bin",
-+	.boards = snd_soc_acpi_intel_haswell_machines,
-+	.dma_base = SST_LPT_DSP_DMA_ADDR_OFFSET,
- };
- 
--static struct sst_acpi_desc bdw_acpi_desc = {
--	.drv_name = "haswell-pcm-audio",
--	.machines = snd_soc_acpi_intel_broadwell_machines,
--	.resindex_lpe_base = 0,
--	.resindex_pcicfg_base = 1,
--	.resindex_fw_base = -1,
--	.irqindex_host_ipc = 0,
--	.sst_id = SST_DEV_ID_WILDCAT_POINT,
--	.dma_engine = SST_DMA_TYPE_DW,
--	.resindex_dma_base = SST_WPT_DSP_DMA_ADDR_OFFSET,
--	.dma_size = SST_LPT_DSP_DMA_SIZE,
-+static struct sst_pdata bdw_desc = {
-+	.id = SST_DEV_ID_WILDCAT_POINT,
-+	.fw_name = "intel/IntcSST2.bin",
-+	.boards = snd_soc_acpi_intel_broadwell_machines,
-+	.dma_base = SST_WPT_DSP_DMA_ADDR_OFFSET,
- };
- 
- static const struct acpi_device_id hsw_acpi_ids[] = {
--	{ "INT33C8", (unsigned long)&hsw_acpi_desc },
--	{ "INT3438", (unsigned long)&bdw_acpi_desc },
-+	{ "INT33C8", (unsigned long)&hsw_desc },
-+	{ "INT3438", (unsigned long)&bdw_desc },
- 	{ }
- };
- MODULE_DEVICE_TABLE(acpi, hsw_acpi_ids);
- 
-+static int hsw_acpi_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct sst_acpi_desc *acpi_desc;
-+	const struct acpi_device_id *id;
-+
-+	id = acpi_match_device(dev->driver->acpi_match_table, dev);
-+	if (!id)
-+		return -ENODEV;
-+
-+	acpi_desc = devm_kzalloc(dev, sizeof(*acpi_desc), GFP_KERNEL);
-+	if (!acpi_desc)
-+		return -ENOMEM;
-+
-+	acpi_desc->drv_name = "haswell-pcm-audio";
-+	acpi_desc->pdata = (struct sst_pdata *)id->driver_data;
-+	acpi_desc->resindex_lpe_base = 0;
-+	acpi_desc->resindex_pcicfg_base = 1;
-+	acpi_desc->resindex_fw_base = -1;
-+	acpi_desc->irqindex_host_ipc = 0;
-+	acpi_desc->dma_engine = SST_DMA_TYPE_DW;
-+	acpi_desc->dma_size = SST_LPT_DSP_DMA_SIZE;
-+	platform_set_drvdata(pdev, acpi_desc);
-+
-+	return sst_acpi_probe(pdev);
-+}
-+
- static struct platform_driver hsw_acpi_driver = {
--	.probe = sst_acpi_probe,
-+	.probe = hsw_acpi_probe,
- 	.remove = sst_acpi_remove,
- 	.driver = {
- 		.name = "hsw-acpi",
-diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
-index bbe67e298efe..ac0a0e4c2d68 100644
---- a/sound/soc/intel/skylake/skl-sst-utils.c
-+++ b/sound/soc/intel/skylake/skl-sst-utils.c
-@@ -363,7 +363,7 @@ int skl_sst_ctx_init(struct device *dev, int irq, const char *fw_name,
- 
- 	pdata->id = skl->pci->device;
- 	pdata->irq = irq;
--	pdata->resindex_dma_base = -1;
-+	pdata->dma_base = -1;
- 	skl->dev = dev;
- 	pdata->dsp = skl;
- 	INIT_LIST_HEAD(&skl->uuid_list);
 -- 
 2.17.1
 

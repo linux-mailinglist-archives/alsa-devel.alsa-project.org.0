@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0015B99EFA
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 20:38:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F9799EF5
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 20:36:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 732CD166F;
-	Thu, 22 Aug 2019 20:37:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 732CD166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CAE386F;
+	Thu, 22 Aug 2019 20:35:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CAE386F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566499099;
-	bh=cXdA13ZliAEBPHvLzt7q1Y8u7Bfc/X35E6bGoh1bh0A=;
+	s=default; t=1566498994;
+	bh=YNYcRFRSibBNEk6DvIXsFkJ5awyaWl4gVNsoAM7ROEc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=O3qw/Ak2QBRAJIcAW7FY7Ym1hG/4y7AqZq1uhN1auucBEQ0IfI81e49QU5/OEo9j7
-	 MVGyBUuOmDdhwGjG1LJNg21Zx9V9AvuIg8t6q+hfoBrxoW1wpiEH9l6J8hCXNsD038
-	 GbL9WBAutacbBlK3mfp6ECH92o0G4E56+us1qCx0=
+	b=K4nH73IXsV/j6+ACuMx0IO7N1SwnS2m3LZ1v+4zmN/RW9JUZdwEGCFRGwAjhAbV0M
+	 B2UMeQEj5YAUknD94pUKtv+JfBTTyxGCrICg/iaUo2YgO2WNBDR3tOZjxqAMrc+QPo
+	 H8DWe/BliS1eIWQlYIxu3F9TBxC6EXR5KVSJ7X6I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5525FF80635;
-	Thu, 22 Aug 2019 20:33:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C690F803F3;
+	Thu, 22 Aug 2019 20:33:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E1BEF805FD; Thu, 22 Aug 2019 20:33:19 +0200 (CEST)
+ id BA542F805FD; Thu, 22 Aug 2019 20:33:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B960CF80147
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 20:33:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B960CF80147
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D4CDF804CB
+ for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 20:33:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D4CDF804CB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="tKGF34le"
+ header.b="DMwK3zli"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=weKO1Q1KEvMuMink4W1gKJEZmeUT2yT/2U5meeZialo=; b=tKGF34leAV3d
- xszM+oAq2NuVDBhISl/H9lnoNK0a9wqAnD0fuxXAaFxf08uumP9ge1KyzoqsHgznZAn59jEC92GRA
- elZrb1ckYHMwtgjB4nZxr3C2aQDzZWRopkANv7/ELkY3gpQa85K124TwEdwWOmkaf5sacpqbyO1/B
- 85LFk=;
+ List-Archive; bh=97zSV9eAWW5sCqu1n0VCbffgpgotZUvc3CFvtJZCpI4=; b=DMwK3zliJtiu
+ 4R2SpFDJdv+fozl+6uhpfRO1lR7Shwg+qXTDrxtQQ8LI6VmKC8DeHR3iJDN0gUCw4YXB3LESlJXl8
+ zoOMSNZrg5zoFW+YdM2nULZHRFxvVFZn5Ro0tdVeYX/W9hMhPQxabUsQZbJhOBDz9ldiAftPeAA/U
+ BNKL4=;
 Received: from 92.40.26.78.threembb.co.uk ([92.40.26.78]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i0rtL-0007fP-3t; Thu, 22 Aug 2019 18:32:59 +0000
+ id 1i0rtR-0007fZ-8s; Thu, 22 Aug 2019 18:33:05 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 88E80D02CB0; Thu, 22 Aug 2019 19:32:56 +0100 (BST)
+ id E471BD02CD1; Thu, 22 Aug 2019 19:32:56 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87y2zozazp.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871rxg1lda.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190822183256.88E80D02CB0@fitzroy.sirena.org.uk>
+Message-Id: <20190822183256.E471BD02CD1@fitzroy.sirena.org.uk>
 Date: Thu, 22 Aug 2019 19:32:56 +0100 (BST)
 Cc: Sridharan@sirena.org.uk, Linux-ALSA <alsa-devel@alsa-project.org>,
  Mark Brown <broonie@kernel.org>, Ranjani <ranjani.sridharan@intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: initialize list at one place"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: soc_cleanup_card_resources()
+	become void" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: initialize list at one place
+   ASoC: soc-core: soc_cleanup_card_resources() become void
 
 has been applied to the asoc tree at
 
@@ -112,51 +112,44 @@ to this mail.
 Thanks,
 Mark
 
-From 495efdb01f89a5fc53f9b2e61f5726d804d4a15d Mon Sep 17 00:00:00 2001
+From a4de83a385670c22c31e9bbb726595a447b32ba4 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 20 Aug 2019 14:05:20 +0900
-Subject: [PATCH] ASoC: soc-core: initialize list at one place
+Date: Tue, 20 Aug 2019 14:05:10 +0900
+Subject: [PATCH] ASoC: soc-core: soc_cleanup_card_resources() become void
 
-Initialize component related list at random place is very difficult
-to read. This patch initialize it at snd_soc_component_initialize().
+There is no need to check return value for
+soc_cleanup_card_resources(). Let't makes it as void.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/87y2zozazp.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/871rxg1lda.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 1a17cb1bc03b..0af83963289f 100644
+index 0ed6576bfef4..1be069c2ac8d 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -1272,7 +1272,6 @@ static int soc_probe_component(struct snd_soc_card *card,
- 
- 	component->card = card;
- 	dapm->card = card;
--	INIT_LIST_HEAD(&component->card_list);
- 	INIT_LIST_HEAD(&dapm->list);
- 	soc_set_name_prefix(card, component);
- 
-@@ -2648,6 +2647,8 @@ static int snd_soc_component_initialize(struct snd_soc_component *component,
- 	struct snd_soc_dapm_context *dapm;
- 
- 	INIT_LIST_HEAD(&component->dai_list);
-+	INIT_LIST_HEAD(&component->dobj_list);
-+	INIT_LIST_HEAD(&component->card_list);
- 	mutex_init(&component->io_mutex);
- 
- 	component->name = fmt_single_name(dev, &component->id);
-@@ -2733,7 +2734,6 @@ static void snd_soc_component_add(struct snd_soc_component *component)
- 
- 	/* see for_each_component */
- 	list_add(&component->list, &component_list);
--	INIT_LIST_HEAD(&component->dobj_list);
- 
- 	mutex_unlock(&client_mutex);
+@@ -1885,7 +1885,7 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 	}
  }
+ 
+-static int soc_cleanup_card_resources(struct snd_soc_card *card)
++static void soc_cleanup_card_resources(struct snd_soc_card *card)
+ {
+ 	/* free the ALSA card at first; this syncs with pending operations */
+ 	if (card->snd_card) {
+@@ -1906,8 +1906,6 @@ static int soc_cleanup_card_resources(struct snd_soc_card *card)
+ 	/* remove the card */
+ 	if (card->remove)
+ 		card->remove(card);
+-
+-	return 0;
+ }
+ 
+ static int snd_soc_instantiate_card(struct snd_soc_card *card)
 -- 
 2.20.1
 

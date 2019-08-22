@@ -2,95 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C42598F2F
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 11:20:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A449A99014
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 11:59:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E32B61686;
-	Thu, 22 Aug 2019 11:20:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E32B61686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2097E15E2;
+	Thu, 22 Aug 2019 11:58:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2097E15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566465653;
-	bh=yy7xcGMK2tP9INs4wdlmproCtyalR+WE6a6C/yEUIZc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ROe/yn2rIHutnX+4cXnjgFbKGzpi6EiwJ8VX52SXCjTLpNHymFRd2164ZoM2wkMc5
-	 eCgB09V1KUgLhBWPXfnLFSLbD6qf3DfZfga9flK88FyLXBzaECqwZPwmwKAdvTpexi
-	 PVLfCC2/LUtDSK7L3i/7WSPeyY0jMsa9H99VQOzM=
+	s=default; t=1566467962;
+	bh=6DznUPe04OmaTZTcBuYs4HHySCDGDivB1Qkk0QFpCJI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kLqcMo95Aj19vb7QY626zc6iueji1E60vk+IqJ4AR/M4vzpg4+bHSCOi93M6l7DKv
+	 JGgc6m+vCq4E6pBqmuGMO2/JL7mxDIUcYJ5A+WlqfrTKMRsEIEvn9eD5tpmyaAGavb
+	 0a17AI+DSS4fydAjY3zJhLEuxUWuE7s6vnJQ3r5g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8060CF803D5;
-	Thu, 22 Aug 2019 11:19:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B224F80112;
+	Thu, 22 Aug 2019 11:57:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9EFFFF8036E; Thu, 22 Aug 2019 11:19:05 +0200 (CEST)
+ id B01FAF803D5; Thu, 22 Aug 2019 11:57:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [IPv6:2a00:1450:4864:20::333])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20266F80147
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 11:19:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20266F80147
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77F81F800BF
+ for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 11:57:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77F81F800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="TUbZ+XT6"
-Received: by mail-wr1-x443.google.com with SMTP id q12so4658977wrj.12
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 02:19:01 -0700 (PDT)
+ header.b="JQLfaIFK"
+Received: by mail-wm1-x333.google.com with SMTP id c5so4903156wmb.5
+ for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 02:57:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=m9KKLrIqbY97G+YHTsqbk+m53nDW2UqwwOTGF21lRdM=;
- b=TUbZ+XT64zRH29bUvN0i/pkfTQ5oDoq3voysQLVKmlejq8f7t3N8QwT1Uti6bNMT2X
- aNtXyFjHsIv6Nt9FPjZ2mdrXl16cz5U+bkoXSS2aOS2EigmniSZRVAiIIqYfUaF5EEZI
- 3XJ7wB6GWL5vslhkX96ikuN6ExYzq36yPaTkWSvErHrrfdXl2LEYueeWsYsvcBP2s75G
- xzcASZGDbE750EU1CXfDMw9+R1E9cpwqy3uo6TdWZ1cG2jpFuGu5uJZmkiN4FrUDjIYc
- y1cN+ZP3qBjDVlUtvbemet0/PoOXjo4WgHdszQcvq1OtjbnJpGdSsG+WLk9nB0iYyP+C
- A3Yw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=kR3iAupDN1p7AjL90yYqFge/scd5U0HZbTAOmwv5vBY=;
+ b=JQLfaIFK06F559EY6AH4ccrGgpz6GGzGoQebhRGkIa13tsCeTEuWwdL0tbtoVGoCah
+ HuRdMzA4S3bME4wvTEqQzDYCAL6h9XBHOTaGKvhyrpIfxEh2rOl29K+Tyyqn2EUVwvxr
+ ZfT5FrZ4NkWFE/PUKUrxUpq+uEuCjTczZeMWekq8M1MPZpEsdf4dDat2wZeP9FLj6fYa
+ QFl/r3Asq+T0t8ue0DGxZt929HTapzab6u5tPd/VEUTrnJoXlburPfFAoAzOJroBQ6QM
+ xr/m3yeIJInIpv0lozKqNlsWsWSQkrnFN3N424XyCRwfk0HtASRLqQZpLgAf8ocrLHqd
+ 9CzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=m9KKLrIqbY97G+YHTsqbk+m53nDW2UqwwOTGF21lRdM=;
- b=q0+JfUwt9DB91coQhy32DbiYXS5QFBlNUo+u1boX2c1EPy1YENWBVq1YZbR+JVfJuY
- BXdAlAjBwa3R+oZuyK3XRLKv9ldFavo+NdkkX9p3WGeBMy9qQlA894gu72hLq9KhhHbo
- xFZj61YLjuBmAkZfZx1AeX1rpHx+aLRbdRC7SIGVK+KbinzuUD44YOrYdIGG9bLUD1I+
- a3ZHnB1GRloDjYA0pwhEXbhaZApLYLS2xPAWx03tF+YUQKVnxcWBwMReKxoqAXAkwMOE
- 7CHgJlMmoTMgBMNYJ8IhbCYlUtmCviRqKok2iYrg50jqOUxoLX2lBTFC2CCL8VVWnlFi
- 4BcQ==
-X-Gm-Message-State: APjAAAVdrQNTVANLsA6YteMViNzhj2GmQDD4f0VU8OjVpXPGi6+gFmVn
- lt1Bkmi0IbEYqZMQ3FnIA7si0Q==
-X-Google-Smtp-Source: APXvYqzOVluoLA+MQFTvG9csQYBVPHzlnPIYJG5axOcRqEmbg07SceenPRU1Pq/+XLrKpoCD4FOEzA==
-X-Received: by 2002:adf:c7cb:: with SMTP id y11mr39705758wrg.281.1566465541055; 
- Thu, 22 Aug 2019 02:19:01 -0700 (PDT)
-Received: from [192.168.86.34]
+ bh=kR3iAupDN1p7AjL90yYqFge/scd5U0HZbTAOmwv5vBY=;
+ b=Xe8SbHzDHdMBOCgUR2zEBoVLr4C9qnuJJ4mSktCs+oBvkquigj195ix0rcc6przxvl
+ DVLdj1iRifkbFwyBrgUWYWGnDINiGrN/eRmR//mnAZSqyVweRT9gcJhVSfr7JrX2ySOO
+ jVPS318cXN8vn/COp2YNP01Y6VSGA1KS8QjDgmLhO3TMBVNtfT+8sWMq06qfjxvrUTfK
+ XxulhoRVOk/59c66dhXwf8u/cfKMl3HHGH66yWCSnsRv4v4is3d8nrYh9L7wLzPL1T1q
+ MJ9+/ZO2HHfkh2KLXxMRcY3eUPlsP+Uhd1llER+D149ZiuLYtv8FPebg02kMWr+FCSfM
+ yzkg==
+X-Gm-Message-State: APjAAAUl27xFISB4edN00YZtUafmvRs8IqeFrscHU/l1e4dumvijhtnt
+ kZi8dvsn5CNwmXdoc3dDa4yrxw==
+X-Google-Smtp-Source: APXvYqwk25RSa6y/DPXrHDkMQJCnorEmRKZ1BVgcYmt1o6XmCLCTzwjLVUHLtTPvHrdBZ8J4BmqVow==
+X-Received: by 2002:a1c:7009:: with SMTP id l9mr5219091wmc.159.1566467848327; 
+ Thu, 22 Aug 2019 02:57:28 -0700 (PDT)
+Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id o8sm10141815wma.1.2019.08.22.02.18.58
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 22 Aug 2019 02:18:59 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>
-References: <20190821102705.18382-1-srinivas.kandagatla@linaro.org>
- <s5h4l2a76qz.wl-tiwai@suse.de>
+ by smtp.gmail.com with ESMTPSA id t24sm3298909wmj.14.2019.08.22.02.57.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Aug 2019 02:57:27 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <cd375dcc-f2b8-4953-8099-485f72f426da@linaro.org>
-Date: Thu, 22 Aug 2019 10:18:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+To: broonie@kernel.org,
+	tiwai@suse.de
+Date: Thu, 22 Aug 2019 10:56:49 +0100
+Message-Id: <20190822095653.7200-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <s5h4l2a76qz.wl-tiwai@suse.de>
-Content-Language: en-US
 Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- Vidyakumar Athota <vathota@codeaurora.org>, plai@codeaurora.org,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: add support for 352.8KHz and
- 384KHz sample rate
+ spapothi@codeaurora.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, plai@codeaurora.org
+Subject: [alsa-devel] [PATCH v2 0/4] ALSA: pcm: add support for 352.8KHz and
+	384KHz sample rate
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,46 +96,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for taking time to review,
+This patchset adds missing support to 352.8KHz and 384KHz sample rates in
+Qualcomm WCD9335 codec and QDSP dais.
 
-On 21/08/2019 18:44, Takashi Iwai wrote:
-> On Wed, 21 Aug 2019 12:27:05 +0200,
-> Srinivas Kandagatla wrote:
->>
->> From: Vidyakumar Athota <vathota@codeaurora.org>
->>
->> Most of the modern codecs supports 352.8KHz and 384KHz sample rates.
->> Currently HW params fails to set 352.8Kz and 384KHz sample rate
->> as these are not in known rates list.
->> Add these new rates to known list to allow them.
->>
->> This patch also adds defines in pcm.h so that drivers can use it.
->>
->> Signed-off-by: Vidyakumar Athota <vathota@codeaurora.org>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> 
-> As I repeatedly write for this kind of request, please submit always
-> with the user of the API, not only the API change itself.
-> 
-I totally agree with you.
+First patch adds these new rates to known list of rates in pcm core and
+also adds defines in pcm.h so that drivers can use it.
 
-I will respin the patchset with wcd9335 and QDSP6 patches.
+Changes since v1:
+ - Added wcd and qdsp users of these new rates.
 
+Srinivas Kandagatla (3):
+  ASoC: wcd9335: Fix primary interpolator max rate
+  ASoC: qdsp6: q6afe-dai: Update max rate for slim and tdm dais
+  ASoC: qdsp6: q6asm-dai: fix max rates on q6asm dais
 
-thanks,
-srini
+Vidyakumar Athota (1):
+  ALSA: pcm: add support for 352.8KHz and 384KHz sample rate
 
+ include/sound/pcm.h              |  5 ++
+ sound/core/pcm_native.c          |  2 +-
+ sound/soc/codecs/wcd9335.c       | 20 ++++---
+ sound/soc/qcom/qdsp6/q6afe-dai.c | 92 +++++++++++---------------------
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 18 +++----
+ 5 files changed, 59 insertions(+), 78 deletions(-)
 
-> 
-> thanks,
-> 
-> Takashi
-> 
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

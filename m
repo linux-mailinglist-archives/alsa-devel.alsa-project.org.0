@@ -2,65 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1546995F5
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 16:10:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5EC0399639
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 16:19:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E867168D;
-	Thu, 22 Aug 2019 16:09:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E867168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D76971692;
+	Thu, 22 Aug 2019 16:18:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D76971692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566483019;
-	bh=+EUQy7lMG6JUa7gtODer6sirNvSrKOk3EixEXLEdovc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566483585;
+	bh=R2MyjjcpCN5wIeb2fWtglqZd1U3cx8gg0RAh1JMahYk=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bbnV799AeYEoBqs00o2WNJVf9YlZngOVJgtNYU4wXBW8Cx3wnYBtKoX4Mk2LaPGg4
-	 3OwyqBRvfhqIIXx3ODai06y/zdl3+/zeL1OWVv0kWAn0biyNFJYFH7jYV0hJ+CCY4c
-	 hPR1IllWB3RKYjXmB/Pt5QG3kUYeqFw2TXbgmyf8=
+	b=IFBBqDbxHdK1wQku2wqPdpD5hoKicbcNhFEbQxv4P3FPHoCkNqGssSXRk+iGxG1Mh
+	 bs3yO1tuZwuMGisG+NvtrgqdWOem35i6Iw+Xyepn405wiAij8ueq/5diG8NRnpDIKO
+	 qyVG4NQRfHy/OfEQ96uGzbWHOJvj1wPXGKXn2PYI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67819F803D5;
-	Thu, 22 Aug 2019 16:09:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5A55F803D5;
+	Thu, 22 Aug 2019 16:18:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4C12F803D5; Thu, 22 Aug 2019 16:09:05 +0200 (CEST)
+ id 3E415F8036E; Thu, 22 Aug 2019 16:17:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE3F1F80112
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 16:09:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE3F1F80112
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Aug 2019 07:08:59 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,416,1559545200"; d="scan'208";a="183899805"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga006.jf.intel.com with ESMTP; 22 Aug 2019 07:08:59 -0700
-Received: from tcwomach-mobl1.amr.corp.intel.com (unknown [10.255.34.51])
- by linux.intel.com (Postfix) with ESMTP id 483425806C4;
- Thu, 22 Aug 2019 07:08:58 -0700 (PDT)
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20190822120135.13515-1-cezary.rojewski@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ed82f3b9-92da-dced-2fef-dee92ca67f10@linux.intel.com>
-Date: Thu, 22 Aug 2019 09:08:57 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20190822120135.13515-1-cezary.rojewski@intel.com>
-Content-Language: en-US
-Cc: broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: Baytrail: Fix implicit
-	fallthrough warning
+ by alsa1.perex.cz (Postfix) with ESMTPS id 992C9F800BF
+ for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 16:17:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 992C9F800BF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id BEFEEAEEC;
+ Thu, 22 Aug 2019 14:17:51 +0000 (UTC)
+Date: Thu, 22 Aug 2019 16:17:51 +0200
+Message-ID: <s5hef1dthbk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
+In-Reply-To: <20190819195714.GA2737@xn--80adja5bqm.su>
+References: <20190404192430.GA24729@xn--80adja5bqm.su>
+ <20190719111231.GA26592@xn--80adja5bqm.su>
+ <s5hzhla9j8b.wl-tiwai@suse.de>
+ <20190720165435.GA5855@xn--80adja5bqm.su>
+ <20190819195714.GA2737@xn--80adja5bqm.su>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,39 +68,85 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 8/22/19 7:01 AM, Cezary Rojewski wrote:
-> Separate _SUSPEND from _PAUSE_PUSH to ensure code is handled correctly
-> while fixing warning reported during compilation.
+On Mon, 19 Aug 2019 21:57:14 +0200,
+Sergey 'Jin' Bostandzhyan wrote:
 > 
-> Fixes: b80d19c166c4 ("ASoC: Intel: Restore Baytrail ADSP streams only when ADSP was in reset")
-> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-> ---
->   sound/soc/intel/baytrail/sst-baytrail-pcm.c | 2 ++
->   1 file changed, 2 insertions(+)
+> Hi Takashi,
 > 
-> diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-> index 9cbc982d46a9..eddb24ab8072 100644
-> --- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-> +++ b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-> @@ -193,6 +193,8 @@ static int sst_byt_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
->   		break;
->   	case SNDRV_PCM_TRIGGER_SUSPEND:
->   		pdata->restore_stream = false;
-> +		sst_byt_stream_pause(byt, pcm_data->stream);
-> +		break;
-
-why not just a /* fallthrough */ statement?
-
->   	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
->   		sst_byt_stream_pause(byt, pcm_data->stream);
->   		break;
+> On Sat, Jul 20, 2019 at 06:54:35PM +0200, Sergey 'Jin' Bostandzhyan wrote:
+> > On Fri, Jul 19, 2019 at 04:44:52PM +0200, Takashi Iwai wrote:
+> > > It might be some other external stuff like an external amp that is
+> > > missing.  Often it's managed via GPIO or EAPD (that is controlled by
+> > > HD-audio itself), but sometimes via a vendor-specific verb, or even
+> > > over a completely different i2c...
+> > > 
+> > > In the case of vendor verbs, you can take a look at other quirks for
+> > > similar models that touches lots of COEF stuff.
+> > 
+> > thanks for the pointers, does not sound simple, let's see if I get anywhere,
+> > I will for sure try.
 > 
+> I am going at a slow pace, but I did not give up and I'd be happy if you or
+> anyone else from the list would find the time to answer some questions from 
+> time to time.
+> 
+> Right now I am mostly studying patch_realtek.c, as a first step I want to
+> make sure that at least my known pins get set up by the driver without
+> having to go via hdajackretask.
+> 
+> I got my build set up, I also dug up hda-decode-pincfg from the hda-emu
+> sources and made it compile (very useful if one wants to understand and
+> compare the pin configurations in patch_realtek.c), so now I am trying
+> things out every other evening.
+> 
+> One part that is not quite clear to me: what the heck is ALC669X?
 
+It's just a name string :)  Realtek seems to give a different chip
+name for the certain variant for Dell or whatever big vendors.
+AFAIK, basically it's the very same chip as ALC670, which is almost
+compatible with ALC662 variant.
+
+> Could someone please explain the meaning of alc_codec_rename_pci_table ?
+> 
+> Entry for my vendor id looks like this:
+>     { 0x10ec0670, 0x1025, 0, "ALC669X" },
+> 
+> If I search for that vendor id further in the code, I see that it gets
+> patched as ALC662?
+> 
+>     HDA_CODEC_ENTRY(0x10ec0670, "ALC670", patch_alc662),
+> 
+> At the same time the documentation in models.rst lists those numbers
+> together:
+> 
+> ALC66x/67x/892
+> 
+> I already looked at the hda-audio specification from Intel to get a general
+> understanding, but I was also pulling some Realtek specs which do describe
+> implemented verbs and things like that (my hope was to see something
+> vendor related which could hint me how to enable the subwoofer).
+> 
+> I was not able to find any 669 Realtek datasheets, I did however find
+> the ones for ALC665 and ALC892. How specific is all of this, i.e. should I
+> keep looking for the exact one or am I on the wrong path here?
+
+The datasheet of ALC662 and similar chips should be available.
+In general, there is no big difference among Realtek chips; one has
+more I/O pins available, while one has less.
+
+The vendor-specific stuff like COEF isn't found in the datasheet in
+details, unfortunately.  Also, the GPIO pin connection isn't covered
+by the codec datasheet, as it's rather device-specific, of course.
+
+
+HTH,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

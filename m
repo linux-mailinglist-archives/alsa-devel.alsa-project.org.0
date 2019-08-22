@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AE4B98C7C
-	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 09:36:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D86F98C7B
+	for <lists+alsa-devel@lfdr.de>; Thu, 22 Aug 2019 09:36:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83BC41671;
-	Thu, 22 Aug 2019 09:35:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83BC41671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97516165F;
+	Thu, 22 Aug 2019 09:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97516165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566459404;
-	bh=bcYizlhDMhn5Oc2mPiml3kh76Bjj23MLW3owRSlAOy8=;
+	s=default; t=1566459367;
+	bh=LnBu8qBwcZwyNH1SfGgjB+JcfzHPZtr2ENp1yniAZsQ=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f0BeivkAViCJi90HXlYSdV3bzrNhGkwDxRBdq2ZrdbXXJCpB0QY4IzUuX1Byaqe6s
-	 OESB5M3zQZU+HCIZgdp6u34rR4BhYwaibttEntbshhqtllcrJm3eP9wcwj4YXSdTvu
-	 TuLZVgPLF9EUVwEVfQbFgpAy7xFuG+zTroAHpe0c=
+	b=X675s1JkAY/9uUG/1Bsqk24VrEfsG7EtXv91YThlrO4xjFQg2fq6dGLH5BKceReD+
+	 9jsuATDZYb6sdQeaPgJIyhpfEV9PMNXtK9A4LBg+8g5eSvZe/+VyEuNnf8PY0/yTgI
+	 1Z9K7ITGvwCiH+OOLi/CdXI+cKEmPzWjxcrLG0+M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FA90F80600;
-	Thu, 22 Aug 2019 09:32:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1052F805FB;
+	Thu, 22 Aug 2019 09:32:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96B96F804CB; Thu, 22 Aug 2019 09:32:24 +0200 (CEST)
+ id F323FF80391; Thu, 22 Aug 2019 09:32:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_32,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9390BF8036E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8B57CF8036D
  for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 09:32:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9390BF8036E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B57CF8036D
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 29F6FAFF4
+ by mx1.suse.de (Postfix) with ESMTP id 2B218AFFE
  for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 07:32:09 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Thu, 22 Aug 2019 09:32:05 +0200
-Message-Id: <20190822073207.8696-4-tiwai@suse.de>
+Date: Thu, 22 Aug 2019 09:32:06 +0200
+Message-Id: <20190822073207.8696-5-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20190822073207.8696-1-tiwai@suse.de>
 References: <20190822073207.8696-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 2/4] ALSA: usb-audio: Simplify
-	parse_audio_unit()
+Subject: [alsa-devel] [PATCH 3/4] ALSA: usb-audio: Unify the release of
+	usb_mixer_elem_info objects
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,122 +67,158 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Minor code refactoring by combining the UAC version and the type in
-the switch-case flow, so that we reduce the indentation and
-redundancy.  One good bonus is that the duplicated definition of the
-same type value (e.g. UAC2_EFFECT_UNIT) can be handled more cleanly.
+Instead of the direct kfree() calls, introduce a new local helper to
+release the usb_mixer_elem_info object.  This will be extended to do
+more than a single kfree() in the later patches.
+
+Also, use the standard goto instead of multiple calls in
+parse_audio_selector_unit() error paths.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/mixer.c | 95 +++++++++++++++++++++++--------------------------------
- 1 file changed, 39 insertions(+), 56 deletions(-)
+ sound/usb/mixer.c | 48 ++++++++++++++++++++++++++++--------------------
+ 1 file changed, 28 insertions(+), 20 deletions(-)
 
 diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index b4be226e07f3..2628697353bb 100644
+index 2628697353bb..7f498528be48 100644
 --- a/sound/usb/mixer.c
 +++ b/sound/usb/mixer.c
-@@ -2780,62 +2780,45 @@ static int parse_audio_unit(struct mixer_build *state, int unitid)
- 		return 0; /* skip invalid unit */
- 	}
+@@ -1026,10 +1026,15 @@ static struct usb_feature_control_info audio_feature_info[] = {
+ 	{ UAC2_FU_PHASE_INVERTER,	 "Phase Inverter Control", USB_MIXER_BOOLEAN, -1 },
+ };
  
--	if (protocol == UAC_VERSION_1 || protocol == UAC_VERSION_2) {
--		switch (p1[2]) {
--		case UAC_INPUT_TERMINAL:
--			return parse_audio_input_terminal(state, unitid, p1);
--		case UAC_MIXER_UNIT:
--			return parse_audio_mixer_unit(state, unitid, p1);
--		case UAC2_CLOCK_SOURCE:
--			return parse_clock_source_unit(state, unitid, p1);
--		case UAC_SELECTOR_UNIT:
--		case UAC2_CLOCK_SELECTOR:
--			return parse_audio_selector_unit(state, unitid, p1);
--		case UAC_FEATURE_UNIT:
--			return parse_audio_feature_unit(state, unitid, p1);
--		case UAC1_PROCESSING_UNIT:
--		/*   UAC2_EFFECT_UNIT has the same value */
--			if (protocol == UAC_VERSION_1)
--				return parse_audio_processing_unit(state, unitid, p1);
--			else
--				return 0; /* FIXME - effect units not implemented yet */
--		case UAC1_EXTENSION_UNIT:
--		/*   UAC2_PROCESSING_UNIT_V2 has the same value */
--			if (protocol == UAC_VERSION_1)
--				return parse_audio_extension_unit(state, unitid, p1);
--			else /* UAC_VERSION_2 */
--				return parse_audio_processing_unit(state, unitid, p1);
--		case UAC2_EXTENSION_UNIT_V2:
--			return parse_audio_extension_unit(state, unitid, p1);
--		default:
--			usb_audio_err(state->chip,
--				"unit %u: unexpected type 0x%02x\n", unitid, p1[2]);
--			return -EINVAL;
--		}
--	} else { /* UAC_VERSION_3 */
--		switch (p1[2]) {
--		case UAC_INPUT_TERMINAL:
--			return parse_audio_input_terminal(state, unitid, p1);
--		case UAC3_MIXER_UNIT:
--			return parse_audio_mixer_unit(state, unitid, p1);
--		case UAC3_CLOCK_SOURCE:
--			return parse_clock_source_unit(state, unitid, p1);
--		case UAC3_SELECTOR_UNIT:
--		case UAC3_CLOCK_SELECTOR:
--			return parse_audio_selector_unit(state, unitid, p1);
--		case UAC3_FEATURE_UNIT:
--			return parse_audio_feature_unit(state, unitid, p1);
--		case UAC3_EFFECT_UNIT:
--			return 0; /* FIXME - effect units not implemented yet */
--		case UAC3_PROCESSING_UNIT:
--			return parse_audio_processing_unit(state, unitid, p1);
--		case UAC3_EXTENSION_UNIT:
--			return parse_audio_extension_unit(state, unitid, p1);
--		default:
--			usb_audio_err(state->chip,
--				"unit %u: unexpected type 0x%02x\n", unitid, p1[2]);
--			return -EINVAL;
--		}
-+#define PTYPE(a, b)	((a) << 8 | (b))
-+	switch (PTYPE(protocol, p1[2])) {
-+	case PTYPE(UAC_VERSION_1, UAC_INPUT_TERMINAL):
-+	case PTYPE(UAC_VERSION_2, UAC_INPUT_TERMINAL):
-+	case PTYPE(UAC_VERSION_3, UAC_INPUT_TERMINAL):
-+		return parse_audio_input_terminal(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_1, UAC_MIXER_UNIT):
-+	case PTYPE(UAC_VERSION_2, UAC_MIXER_UNIT):
-+	case PTYPE(UAC_VERSION_3, UAC3_MIXER_UNIT):
-+		return parse_audio_mixer_unit(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_2, UAC2_CLOCK_SOURCE):
-+	case PTYPE(UAC_VERSION_3, UAC3_CLOCK_SOURCE):
-+		return parse_clock_source_unit(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_1, UAC_SELECTOR_UNIT):
-+	case PTYPE(UAC_VERSION_2, UAC_SELECTOR_UNIT):
-+	case PTYPE(UAC_VERSION_3, UAC3_SELECTOR_UNIT):
-+	case PTYPE(UAC_VERSION_2, UAC2_CLOCK_SELECTOR):
-+	case PTYPE(UAC_VERSION_3, UAC3_CLOCK_SELECTOR):
-+		return parse_audio_selector_unit(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_1, UAC_FEATURE_UNIT):
-+	case PTYPE(UAC_VERSION_2, UAC_FEATURE_UNIT):
-+	case PTYPE(UAC_VERSION_3, UAC3_FEATURE_UNIT):
-+		return parse_audio_feature_unit(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_1, UAC1_PROCESSING_UNIT):
-+	case PTYPE(UAC_VERSION_2, UAC2_PROCESSING_UNIT_V2):
-+	case PTYPE(UAC_VERSION_3, UAC3_PROCESSING_UNIT):
-+		return parse_audio_processing_unit(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_1, UAC1_EXTENSION_UNIT):
-+	case PTYPE(UAC_VERSION_2, UAC2_EXTENSION_UNIT_V2):
-+	case PTYPE(UAC_VERSION_3, UAC3_EXTENSION_UNIT):
-+		return parse_audio_extension_unit(state, unitid, p1);
-+	case PTYPE(UAC_VERSION_2, UAC2_EFFECT_UNIT):
-+	case PTYPE(UAC_VERSION_3, UAC3_EFFECT_UNIT):
-+		return 0; /* FIXME - effect units not implemented yet */
-+	default:
-+		usb_audio_err(state->chip,
-+			      "unit %u: unexpected type 0x%02x\n",
-+			      unitid, p1[2]);
-+		return -EINVAL;
- 	}
++static void usb_mixer_elem_info_free(struct usb_mixer_elem_info *cval)
++{
++	kfree(cval);
++}
++
+ /* private_free callback */
+ void snd_usb_mixer_elem_free(struct snd_kcontrol *kctl)
+ {
+-	kfree(kctl->private_data);
++	usb_mixer_elem_info_free(kctl->private_data);
+ 	kctl->private_data = NULL;
  }
  
+@@ -1552,7 +1557,7 @@ static void __build_feature_ctl(struct usb_mixer_interface *mixer,
+ 
+ 	ctl_info = get_feature_control_info(control);
+ 	if (!ctl_info) {
+-		kfree(cval);
++		usb_mixer_elem_info_free(cval);
+ 		return;
+ 	}
+ 	if (mixer->protocol == UAC_VERSION_1)
+@@ -1585,7 +1590,7 @@ static void __build_feature_ctl(struct usb_mixer_interface *mixer,
+ 
+ 	if (!kctl) {
+ 		usb_audio_err(mixer->chip, "cannot malloc kcontrol\n");
+-		kfree(cval);
++		usb_mixer_elem_info_free(cval);
+ 		return;
+ 	}
+ 	kctl->private_free = snd_usb_mixer_elem_free;
+@@ -1755,7 +1760,7 @@ static void build_connector_control(struct usb_mixer_interface *mixer,
+ 	kctl = snd_ctl_new1(&usb_connector_ctl_ro, cval);
+ 	if (!kctl) {
+ 		usb_audio_err(mixer->chip, "cannot malloc kcontrol\n");
+-		kfree(cval);
++		usb_mixer_elem_info_free(cval);
+ 		return;
+ 	}
+ 	get_connector_control_name(mixer, term, is_input, kctl->id.name,
+@@ -1808,7 +1813,7 @@ static int parse_clock_source_unit(struct mixer_build *state, int unitid,
+ 	kctl = snd_ctl_new1(&usb_bool_master_control_ctl_ro, cval);
+ 
+ 	if (!kctl) {
+-		kfree(cval);
++		usb_mixer_elem_info_free(cval);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -2068,7 +2073,7 @@ static void build_mixer_unit_ctl(struct mixer_build *state,
+ 	kctl = snd_ctl_new1(&usb_feature_unit_ctl, cval);
+ 	if (!kctl) {
+ 		usb_audio_err(state->chip, "cannot malloc kcontrol\n");
+-		kfree(cval);
++		usb_mixer_elem_info_free(cval);
+ 		return;
+ 	}
+ 	kctl->private_free = snd_usb_mixer_elem_free;
+@@ -2466,7 +2471,7 @@ static int build_audio_procunit(struct mixer_build *state, int unitid,
+ 
+ 		kctl = snd_ctl_new1(&mixer_procunit_ctl, cval);
+ 		if (!kctl) {
+-			kfree(cval);
++			usb_mixer_elem_info_free(cval);
+ 			return -ENOMEM;
+ 		}
+ 		kctl->private_free = snd_usb_mixer_elem_free;
+@@ -2604,7 +2609,7 @@ static void usb_mixer_selector_elem_free(struct snd_kcontrol *kctl)
+ 	if (kctl->private_data) {
+ 		struct usb_mixer_elem_info *cval = kctl->private_data;
+ 		num_ins = cval->max;
+-		kfree(cval);
++		usb_mixer_elem_info_free(cval);
+ 		kctl->private_data = NULL;
+ 	}
+ 	if (kctl->private_value) {
+@@ -2676,10 +2681,10 @@ static int parse_audio_selector_unit(struct mixer_build *state, int unitid,
+ 		break;
+ 	}
+ 
+-	namelist = kmalloc_array(desc->bNrInPins, sizeof(char *), GFP_KERNEL);
++	namelist = kcalloc(desc->bNrInPins, sizeof(char *), GFP_KERNEL);
+ 	if (!namelist) {
+-		kfree(cval);
+-		return -ENOMEM;
++		err = -ENOMEM;
++		goto error_cval;
+ 	}
+ #define MAX_ITEM_NAME_LEN	64
+ 	for (i = 0; i < desc->bNrInPins; i++) {
+@@ -2687,11 +2692,8 @@ static int parse_audio_selector_unit(struct mixer_build *state, int unitid,
+ 		len = 0;
+ 		namelist[i] = kmalloc(MAX_ITEM_NAME_LEN, GFP_KERNEL);
+ 		if (!namelist[i]) {
+-			while (i--)
+-				kfree(namelist[i]);
+-			kfree(namelist);
+-			kfree(cval);
+-			return -ENOMEM;
++			err = -ENOMEM;
++			goto error_name;
+ 		}
+ 		len = check_mapped_selector_name(state, unitid, i, namelist[i],
+ 						 MAX_ITEM_NAME_LEN);
+@@ -2705,10 +2707,8 @@ static int parse_audio_selector_unit(struct mixer_build *state, int unitid,
+ 	kctl = snd_ctl_new1(&mixer_selectunit_ctl, cval);
+ 	if (! kctl) {
+ 		usb_audio_err(state->chip, "cannot malloc kcontrol\n");
+-		for (i = 0; i < desc->bNrInPins; i++)
+-			kfree(namelist[i]);
+-		kfree(namelist);
+-		kfree(cval);
++		err = -ENOMEM;
++		goto error_name;
+ 		return -ENOMEM;
+ 	}
+ 	kctl->private_value = (unsigned long)namelist;
+@@ -2755,6 +2755,14 @@ static int parse_audio_selector_unit(struct mixer_build *state, int unitid,
+ 	usb_audio_dbg(state->chip, "[%d] SU [%s] items = %d\n",
+ 		    cval->head.id, kctl->id.name, desc->bNrInPins);
+ 	return snd_usb_mixer_add_control(&cval->head, kctl);
++
++ error_name:
++	for (i = 0; i < desc->bNrInPins; i++)
++		kfree(namelist[i]);
++	kfree(namelist);
++ error_cval:
++	usb_mixer_elem_info_free(cval);
++	return err;
+ }
+ 
+ /*
 -- 
 2.16.4
 

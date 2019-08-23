@@ -2,69 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A57609B4D0
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2019 18:46:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FCAF9B551
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2019 19:20:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F0431690;
-	Fri, 23 Aug 2019 18:46:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F0431690
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF6991684;
+	Fri, 23 Aug 2019 19:19:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF6991684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566578816;
-	bh=MIy5aCoouxogWWWMjD59h2v6yAfcD5TIxG+EjRXaCQM=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566580836;
+	bh=P4VBqgQGaM6+IiJzao/eiYznIg4YGWtlzU3ClqPqrcs=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TW1Z0I2D5NzrrnO6uRD48f5BL6ApHT9JC9ucFnpE0olUEwBVUZgtpyd1qeRX3cpLO
-	 rA1kT07k4mzx07i2aHnPyBiSznaH9ZfzdMAJk4JXQ5DUdG2krbkiSB7cImkDgVRUWU
-	 7I7zfpAglP6J5FBBTCOUu9CdSHnKeWtzNZ55zu08=
+	b=S0R+ewm8UtqExvBorAqbReQ/I/jwBYAPUJsnNOMIO+LolE8iD5plcA3+08D22svJb
+	 j1I5bLX3kr4Z+QXlQ6NI+iltkMJfyRBlN8RQTvPyqk1nBJs2DJUGzWJMzH/S5G6AqN
+	 VoTGPizU23CMNFlV6VKv70CSevaDy0rL8fGcuvQ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8855F802FB;
-	Fri, 23 Aug 2019 18:45:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B542EF80306;
+	Fri, 23 Aug 2019 19:18:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98CDAF80306; Fri, 23 Aug 2019 18:45:08 +0200 (CEST)
+ id B30CCF80306; Fri, 23 Aug 2019 19:18:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A2ADF8014A
- for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2019 18:45:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A2ADF8014A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Aug 2019 09:45:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,422,1559545200"; d="scan'208";a="354668581"
-Received: from tlchoatx-mobl1.amr.corp.intel.com (HELO [10.254.187.90])
- ([10.254.187.90])
- by orsmga005.jf.intel.com with ESMTP; 23 Aug 2019 09:44:59 -0700
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org, 
- robh+dt@kernel.org, vkoul@kernel.org
-References: <20190822233759.12663-1-srinivas.kandagatla@linaro.org>
- <20190822233759.12663-2-srinivas.kandagatla@linaro.org>
- <7da8aa89-2119-21d1-0e29-8894a8d40bf0@linux.intel.com>
- <37be6b6d-7e7f-2cd6-f9e9-f0cac48791ad@linaro.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d538238d-25d8-f179-c900-90be50ce814d@linux.intel.com>
-Date: Fri, 23 Aug 2019 11:44:58 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <37be6b6d-7e7f-2cd6-f9e9-f0cac48791ad@linaro.org>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, spapothi@codeaurora.org, linux-kernel@vger.kernel.org,
- lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [RESEND PATCH v4 1/4] dt-bindings: soundwire: add
- slave bindings
+ by alsa1.perex.cz (Postfix) with ESMTPS id E67F9F8014A
+ for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2019 19:18:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E67F9F8014A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id D59A1AC93;
+ Fri, 23 Aug 2019 17:18:46 +0000 (UTC)
+Date: Fri, 23 Aug 2019 19:18:46 +0200
+Message-ID: <s5hk1b36brd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <alpine.DEB.2.21.1908231831310.16459@zeliteleevi>
+References: <alpine.DEB.2.21.1908151641110.16459@zeliteleevi>
+ <s5hr25ma3xs.wl-tiwai@suse.de>
+ <alpine.DEB.2.21.1908231652000.16459@zeliteleevi>
+ <s5h5zmoq6cy.wl-tiwai@suse.de> <s5h36hrrk1j.wl-tiwai@suse.de>
+ <alpine.DEB.2.21.1908231831310.16459@zeliteleevi>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] sof/hda rework to share more of patch_hdmi.c logic
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,109 +68,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiA4LzIzLzE5IDEwOjU3IEFNLCBTcmluaXZhcyBLYW5kYWdhdGxhIHdyb3RlOgo+IAo+IAo+
-IE9uIDIzLzA4LzIwMTkgMTY6NDEsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+Pgo+Pgo+
-PiBPbiA4LzIyLzE5IDY6MzcgUE0sIFNyaW5pdmFzIEthbmRhZ2F0bGEgd3JvdGU6Cj4+PiBUaGlz
-IHBhdGNoIGFkZHMgYmluZGluZ3MgZm9yIFNvdW5kd2lyZSBTbGF2ZSBkZXZpY2VzIHRoYXQgaW5j
-bHVkZXMgaG93Cj4+PiBTb3VuZFdpcmUgZW51bWVyYXRpb24gYWRkcmVzcyBhbmQgTGluayBJRCBh
-cmUgdXNlZCB0byByZXByZXNlbnRlZCBpbgo+Pj4gU291bmRXaXJlIHNsYXZlIGRldmljZSB0cmVl
-IG5vZGVzLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IFNyaW5pdmFzIEthbmRhZ2F0bGEgPHNyaW5p
-dmFzLmthbmRhZ2F0bGFAbGluYXJvLm9yZz4KPj4+IC0tLQo+Pj4gwqAgLi4uL3NvdW5kd2lyZS9z
-b3VuZHdpcmUtY29udHJvbGxlci55YW1swqDCoMKgwqDCoMKgIHwgNzUgKysrKysrKysrKysrKysr
-KysrKwo+Pj4gwqAgMSBmaWxlIGNoYW5nZWQsIDc1IGluc2VydGlvbnMoKykKPj4+IMKgIGNyZWF0
-ZSBtb2RlIDEwMDY0NCAKPj4+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3Vu
-ZHdpcmUvc291bmR3aXJlLWNvbnRyb2xsZXIueWFtbAo+Pj4KPj4+IGRpZmYgLS1naXQgCj4+PiBh
-L0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZHdpcmUvc291bmR3aXJlLWNv
-bnRyb2xsZXIueWFtbCAKPj4+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Nv
-dW5kd2lyZS9zb3VuZHdpcmUtY29udHJvbGxlci55YW1sCj4+PiBuZXcgZmlsZSBtb2RlIDEwMDY0
-NAo+Pj4gaW5kZXggMDAwMDAwMDAwMDAwLi45MWFhNmM2ZDYyNjYKPj4+IC0tLSAvZGV2L251bGwK
-Pj4+ICsrKyAKPj4+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kd2ly
-ZS9zb3VuZHdpcmUtY29udHJvbGxlci55YW1sCj4+PiBAQCAtMCwwICsxLDc1IEBACj4+PiArIyBT
-UERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMAo+Pj4gKyVZQU1MIDEuMgo+Pj4gKy0tLQo+
-Pj4gKyRpZDogaHR0cDovL2RldmljZXRyZWUub3JnL3NjaGVtYXMvc291bmR3aXJlL3NvdW5kd2ly
-ZS1jb250cm9sbGVyLnlhbWwjCj4+PiArJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3JnL21l
-dGEtc2NoZW1hcy9jb3JlLnlhbWwjCj4+PiArCj4+PiArdGl0bGU6IFNvdW5kV2lyZSBDb250cm9s
-bGVyIEdlbmVyaWMgQmluZGluZwo+Pj4gKwo+Pj4gK21haW50YWluZXJzOgo+Pj4gK8KgIC0gU3Jp
-bml2YXMgS2FuZGFnYXRsYSA8c3Jpbml2YXMua2FuZGFnYXRsYUBsaW5hcm8ub3JnPgo+Pj4gKwo+
-Pj4gK2Rlc2NyaXB0aW9uOiB8Cj4+PiArwqAgU291bmRXaXJlIGJ1c3NlcyBjYW4gYmUgZGVzY3Jp
-YmVkIHdpdGggYSBub2RlIGZvciB0aGUgU291bmRXaXJlIAo+Pj4gY29udHJvbGxlcgo+Pj4gK8Kg
-IGRldmljZSBhbmQgYSBzZXQgb2YgY2hpbGQgbm9kZXMgZm9yIGVhY2ggU291bmRXaXJlIHNsYXZl
-IG9uIHRoZSBidXMuCj4+PiArCj4+PiArcHJvcGVydGllczoKPj4+ICvCoCAkbm9kZW5hbWU6Cj4+
-PiArwqDCoMKgIHBhdHRlcm46ICJec291bmR3aXJlKEAuKnwtWzAtOWEtZl0pKiQiCgpyZS1yZWFk
-aW5nIHRoaXMsIGl0IGxvb2tzIGxpa2UgeW91IGFyZSBkZWZpbmluZyB0aGUgY29udHJvbGxlciBi
-aW5kaW5ncywgCmJ1dCB0aGVyZSBhcmUgbm8gcmVhbCBjb250cm9sbGVyLWxldmVsIHByb3BlcnRp
-ZXMgZXhjZXB0IGZvciB0aGUgZmFjdCAKdGhhdCB0aGV5IGluY2x1ZGUgc2xhdmUgYmluZGluZ3M/
-CgpJbiBNSVBJIHRoZSBub3Rpb24gb2YgY29udHJvbGxlciBpcyB0aGF0IGl0IGNhbiBkZWFsIHdp
-dGggbXVsdGlwbGUgCmxpbmtzLCBlYWNoIG9mIHdoaWNoIGhhdmluZyBzcGVjaWZpYyBwcm9wZXJ0
-aWVzIChjbG9jayBzcGVlZCwgY2xvY2sgc3RvcCAKcHJvcGVydGllcywgZXRjKS4KCj4+PiArCj4+
-PiArwqAgIiNhZGRyZXNzLWNlbGxzIjoKPj4+ICvCoMKgwqAgY29uc3Q6IDIKPj4+ICsKPj4+ICvC
-oCAiI3NpemUtY2VsbHMiOgo+Pj4gK8KgwqDCoCBjb25zdDogMAo+Pj4gKwo+Pj4gK3BhdHRlcm5Q
-cm9wZXJ0aWVzOgo+Pj4gK8KgICJeLipAWzAtOWEtZl0rJCI6Cj4+PiArwqDCoMKgIHR5cGU6IG9i
-amVjdAo+Pj4gKwo+Pj4gK8KgwqDCoCBwcm9wZXJ0aWVzOgo+Pj4gK8KgwqDCoMKgwqAgY29tcGF0
-aWJsZToKPj4+ICvCoMKgwqDCoMKgIHBhdHRlcm46ICJec2R3WzAtOV1bMC05YS1mXXs0fVswLTlh
-LWZdezR9WzAtOWEtZl17Mn0kIgo+Pgo+PiBTbyBpcyB0aGlzIGEgNjQtYml0IHZhbHVlLCBhcyBp
-biB0aGUgTUlQSSBzcGVjLCBvciBpcyB0aGlzIHBhcnQgb2YgdGhlIAo+PiBfQURSIGRlc2NyaXB0
-aW9uPwo+IAo+IFJvYiBkaWQgbm90IGxpa2UgZW5jb2RpbmcgY29tcGF0aWJsZSBzdHJpbmcgZXhh
-Y3RseSBsaWtlIF9BRFIgZW5jb2RpbmcuCj4gCj4gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMTkv
-OC8yMi80OTAKCldvbmRlcmluZyBpZiB3ZSBhcmUgdGFsa2luZyBhYm91dCBkaWZmZXJlbnQgY29u
-Y2VwdHM/CgpSb2IncyBwb2ludCB3YXMgYWJvdXQgdGhlIEluc3RhbmNlSUQKCiJBc3N1bWluZyB5
-b3UgY291bGQgaGF2ZSBtb3JlIHRoYW4gMSBvZiB0aGUgc2FtZSBkZXZpY2Ugb24gdGhlIGJ1cywK
-dGhlbiB5b3UgbmVlZCBzb21lIHdheSB0byBkaXN0aW5ndWlzaCB0aGVtIGFuZCB0aGUgd2F5IHRo
-YXQncyBkb25lIGZvcgpEVCBpcyB1bml0LWFkZHJlc3MvcmVnLiBBbmQgY29tcGF0aWJsZSBzdHJp
-bmdzIHNob3VsZCBiZSBjb25zdGFudCBmb3IKZWFjaCBpbnN0YW5jZS4iCgpZb3UgY2FuIHVzZSB0
-aGUgTUlQSSBlbmNvZGluZyAqZXhjZXB0KiBmb3IgdGhlIEluc3RhbmNlSUQsIHRoYXQnZCBiZSAK
-ZmluZS4gSXQnbGwganVzdCBiZSBhIGJpdCB3ZWlyZCBzaW5jZSB0aGUgU2xhdmUgZGV2aWNlIHdp
-bGwgcmVwb3J0IHRoZSAKNDggYml0cyB0aGF0IGluY2x1ZGUgdGhlIEluc3RhbmNlIElELCBzbyB5
-b3UnbGwgaGF2ZSB0byBzcGVjaWFsIGNhc2UgCnRoaXMgZmllbGQsIGJ1dCBpZiB0aGlzIGlzIGEg
-RFQgcmVxdWlyZW1lbnQgdGhlbiBmaW5lLgoKUm9iJ3MgcG9pbnQgZG9lcyBub3QgYXBwbHkgdG8g
-dGhlIGxpbmsgSUQgLSB3aGljaCBpcyB1c2VkIHdoZW4geW91IGhhdmUgCm11bHRpcGxlIG1hc3Rl
-cnMgaW4geW91ciBjb250cm9sbGVyLiBUaGUgU2xhdmUgZGV2aWNlIGlzIGF0dGFjaGVkIGluIG9u
-ZSAKbG9jYXRpb24gYW5kIHdpbGwgbmV2ZXIgbW92ZSwgc28gdGhhdCBpcyBhIGNvbnN0YW50IHZh
-bHVlLgoKPiAKPj4gSSBhbHNvIGRvbid0IGdldCB3aHkgdGhlIGZpcnN0IGl0ZW0gaW4gaW4gYmFz
-ZTEwPwo+Pgo+IAo+IEFzIHRoaXMgY29ycmVzcG9uZHMgdG8gU291bmR3aXJlIFZlcnNpb24sIGFu
-ZCBJIGhhdmUgbm8gdmlzaWJpbGl0eSBvZiAKPiB2ZXJzaW9uIG51bWJlciBlbmNvZGluZyBhZnRl
-ciByZWFjaGluZyBudW1iZXIgOSBpbiB0aGlzIGZpZWxkLgo+IAo+IFRoaXMgY2FuIGJlIHVwZGF0
-ZWQgb25jZSB3ZSBoYXZlIG1vcmUgaW5mbyBvbiBob3cgdGhlIFZlcnNpb24gZW5jb2RpbmcgCj4g
-d2lsbCBsb29rIGxpa2UgaW4gZnV0dXJlLgo+IAo+IElkZWEgb2YgbGltaXRpbmcgcmVnZXggdG8g
-WzAtOV0gZm9yIHZlcnNpb24gaXMgdG8gZW5mb3JjZSBzb21lIGNoZWNraW5nIQoKdGhlIHZlcnNp
-b24gaXMgYSA0IGJpdCB2YWx1ZSBzdGFydGluZyBhdCAxIGZvciBTb3VuZFdpcmUgMS4wLiBUaGVy
-ZSBpcyAKbm90aGluZyBpbiB0aGUgc3BlYyB0aGF0IHRhbGtzIGFib3V0IGEgbGltaXQgdG8gOS4K
-Ckl0J3MgdW5saWtlbHkgd2UnbGwgZXZlciByZWFjaCB0aGF0IGJ1dCB5b3UgYXJlIGludGVycHJl
-dGluZyBhIHNwZWMgCmhlcmUuIHBsdXMganVzdCBiZWxvdyB5b3UgbWVudGlvbiBhbGwgZmllbGRz
-IGFzIGJlaW5nIGhleGFkZWNpbWFsLgoKPiAKPiAtLXNyaW5pCj4gCj4+Cj4+PiArwqDCoMKgwqDC
-oCBkZXNjcmlwdGlvbjoKPj4+ICvCoMKgwqDCoMKgIElzIHRoZSB0ZXh0dWFsIHJlcHJlc2VudGF0
-aW9uIG9mIFNvdW5kV2lyZSBFbnVtZXJhdGlvbgo+Pj4gK8KgwqDCoMKgwqAgYWRkcmVzcy4gY29t
-cGF0aWJsZSBzdHJpbmcgc2hvdWxkIGNvbnRhaW4gU291bmRXaXJlIFZlcnNpb24gSUQsCj4+PiAr
-wqDCoMKgwqDCoCBNYW51ZmFjdHVyZXIgSUQsIFBhcnQgSUQgYW5kIENsYXNzIElEIGluIG9yZGVy
-IGFuZCBzaGFsbCBiZSBpbgo+Pj4gK8KgwqDCoMKgwqAgbG93ZXItY2FzZSBoZXhhZGVjaW1hbCB3
-aXRoIGxlYWRpbmcgemVyb2VzLgo+Pj4gK8KgwqDCoMKgwqAgVmFsaWQgc2l6ZXMgb2YgdGhlc2Ug
-ZmllbGRzIGFyZQo+Pj4gK8KgwqDCoMKgwqAgVmVyc2lvbiBJRCBpcyAxIG5pYmJsZSwgbnVtYmVy
-ICcweDEnIHJlcHJlc2VudHMgU291bmRXaXJlIDEuMAo+Pj4gK8KgwqDCoMKgwqAgYW5kICcweDIn
-IHJlcHJlc2VudHMgU291bmRXaXJlIDEuMSBhbmQgc28gb24uCj4+PiArwqDCoMKgwqDCoCBNRkQg
-aXMgNCBuaWJibGVzCj4+PiArwqDCoMKgwqDCoCBQSUQgaXMgNCBuaWJibGVzCj4+PiArwqDCoMKg
-wqDCoCBDSUQgaXMgMiBuaWJibGVzCj4+PiArwqDCoMKgwqDCoCBNb3JlIEluZm9ybWF0aW9uIG9u
-IGRldGFpbCBvZiBlbmNvZGluZyBvZiB0aGVzZSBmaWVsZHMgY2FuIGJlCj4+PiArwqDCoMKgwqDC
-oCBmb3VuZCBpbiBNSVBJIEFsbGlhbmNlIERpc0NvICYgU291bmRXaXJlIDEuMCBTcGVjaWZpY2F0
-aW9ucy4KPj4+ICsKPj4+ICvCoMKgwqDCoMKgIHJlZzoKPj4+ICvCoMKgwqDCoMKgwqDCoCBtYXhJ
-dGVtczogMQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRlc2NyaXB0aW9uOgo+Pj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoCBJbnN0YW5jZSBJRCBhbmQgTGluayBJRCBvZiBTb3VuZFdpcmUgRGV2aWNlIEFkZHJl
-c3MuCj4+PiArCj4+PiArwqDCoMKgIHJlcXVpcmVkOgo+Pj4gK8KgwqDCoMKgwqAgLSBjb21wYXRp
-YmxlCj4+PiArwqDCoMKgwqDCoCAtIHJlZwo+Pj4gKwo+Pj4gK2V4YW1wbGVzOgo+Pj4gK8KgIC0g
-fAo+Pj4gK8KgwqDCoCBzb3VuZHdpcmVAYzJkMDAwMCB7Cj4+PiArwqDCoMKgwqDCoMKgwqAgI2Fk
-ZHJlc3MtY2VsbHMgPSA8Mj47Cj4+PiArwqDCoMKgwqDCoMKgwqAgI3NpemUtY2VsbHMgPSA8MD47
-Cj4+PiArwqDCoMKgwqDCoMKgwqAgY29tcGF0aWJsZSA9ICJxY29tLHNvdW5kd2lyZS12MS41LjAi
-Owo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJlZyA9IDwweDBjMmQwMDAwIDB4MjAwMD47Cj4+PiArCj4+
-PiArwqDCoMKgwqDCoMKgwqAgc3BlYWtlckAxIHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNvbXBhdGlibGUgPSAic2R3MTAyMTcyMDEwMDAiOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgcmVnID0gPDEgMD47Cj4+PiArwqDCoMKgwqDCoMKgwqAgfTsKPj4+ICsKPj4+ICvCoMKgwqDC
-oMKgwqDCoCBzcGVha2VyQDIgewo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29tcGF0aWJs
-ZSA9ICJzZHcxMDIxNzIwMTAwMCI7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWcgPSA8
-MiAwPjsKPj4+ICvCoMKgwqDCoMKgwqDCoCB9Owo+Pj4gK8KgwqDCoCB9Owo+Pj4gKwo+Pj4gKy4u
-Lgo+Pj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxz
-YS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8v
-bWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Fri, 23 Aug 2019 17:55:05 +0200,
+Kai Vehmanen wrote:
+> 
+> Hey,
+> 
+> 
+> On Fri, 23 Aug 2019, Takashi Iwai wrote:
+> > On Fri, 23 Aug 2019, Takashi Iwai wrote:
+> > > The current patch_hdmi.c implementation is based on the theoretical
+> > > possibility, and limitation to the reduced PCM streams would work, I
+> > > suppose.
+> [...]
+> > access to the fixed PCM device (e.g. hw:1,1).  But, it's hardly
+> > possible to get more than three audio-monitors active in the real
+> > scenario, we've almost never seen this necessity.
+> 
+> ack. This does feel very unlikely to be a problem. And one could implement 
+> a wait list -> delay PCM attach if all audio converters are taken when the 
+> new monitor ELD update happens. Upon next disconnect of an already 
+> attached audio enabled monitor, one could check the wait list and hook up 
+> monitors to the freed converters. But yeah, at least on i915 I don't see 
+> the need for this.
+> 
+> This does raise the question whether we should change the behaviour 
+> for the non-DSP HD driver as well...? Tempting, but the risk for breaking 
+> apps may be too high.
+
+It's a good question.  On one hand, it'd be good to clean up a bit,
+but we never know the use of backup PCM ever happened.  No news is a
+good news, after all.
+
+> > The actual behavior can be found in the description of commit
+> > a76056f2e57e:
+> > 
+> >     When monitor is connected, find a proper PCM for the monitor.
+> >     When monitor is disconnected, unbind the PCM from the pin.
+> >     
+> >     The binding policy (use Intel platform as example) is:
+> >     1. Try to use the legacy pin-pcm mapping for the device entry 0
+> >        of the pin.
+> >     2. If step 1 fails, try to bind pin to the backup PCMs. For example,
+> >        on Intel platform, if DP MST is enabled, 5 PCMs will be created.
+> >        PCM 3, PCM 7, PCM 8 are supposed to be used by device entry 0 of
+> >        pin 5, pin 6 and pin 7. PCM 9 and PCM 10 are the backup PCMs.
+> >     3. If step 2 fails, try to find any PCM to bind to the pin.
+> >     
+> > Removing the backup streams means the removal of step 2, but the
+> > driver will keep working in step 3.
+> 
+> Yes, I didn't have to actually change this code at all. I just limit the 
+> PCM count to number of converters, and the above code works without 
+> modifications (and skips (2)). Only problem left is how to change to 
+> toggle the different rules for calculing pcm count. Unless we change the 
+> behaviour for non-DSP HD driver as well, there needs to be some dynamic 
+> configuration of patch_hdmi. Kconfig/module-param won't do, I assume 
+> distros want to enable both options with same kernel.
+
+We can introduce some new flag in struct hda_codec indicating this
+restriction, and set it in hdac_hda_codec_probe() beforehand.
+
+Or, we may introduce a new Kconfig and disable statically.  The new
+Kconfig may have "depends on SOF=n" or whatever to be sure.
+Although we have no 100% guarantee as mentioned in the above, this
+shouldn't be a big problem.  Worth for try.
+
+Honestly speaking, I'm not entirely sure which is a better way to go.
+Both would be fairly small changes.
+
+You can try them out and see which looks saner.  I really don't mind
+either way.
+
+
+thanks,
+
+Takashi
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

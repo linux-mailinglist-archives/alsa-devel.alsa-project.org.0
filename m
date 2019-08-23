@@ -2,73 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB7129A8D4
-	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2019 09:31:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9D3E9A8FB
+	for <lists+alsa-devel@lfdr.de>; Fri, 23 Aug 2019 09:37:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BDE41667;
-	Fri, 23 Aug 2019 09:30:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BDE41667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CD041607;
+	Fri, 23 Aug 2019 09:36:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CD041607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566545496;
-	bh=8oR6helSyABarwGwYOFNe7SR669dGh5eG4IXVswcGeI=;
+	s=default; t=1566545833;
+	bh=EzP9fQtlbNfDApD/ke8RO44Nhyc7M2MedtfnxhSTzyw=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qp3UCdAX0fFvCQPcFg0fgCCSstFNplWoxmlNvpy6ZPYogYzsq2s403I3FOAFNUU6C
-	 Vxmax3DAF6A8Mi3xXBM0X8FjZdMXYNvkudt8WeFRUmDwidwqmvc5D3E4xyOoItSkSG
-	 QaRjmUzdRxt7pdCOHk2tqgmexYZUBS3Oo2EySJiU=
+	b=O+d1sV+sHbTRhtNPT+dh5awPuLezxIADnKSKZ7i/KOFqtCyUBpslqjKcXQijTGDkK
+	 MIj/di9mn2dMfcGgKjM4j5cSswJi0z1HsjfTmMud3ZkwEYY/lvBLNkVWqZgKV+oyWd
+	 xrngjLhx8y6mDdEckpCWAgFW1JnWYnBF0S6u6wf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EA9D8F802FB;
-	Fri, 23 Aug 2019 09:29:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E563DF80306;
+	Fri, 23 Aug 2019 09:35:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C963F80306; Fri, 23 Aug 2019 09:29:50 +0200 (CEST)
+ id 9CCC9F80306; Fri, 23 Aug 2019 09:35:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A33F4F80147
- for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2019 09:29:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A33F4F80147
+ by alsa1.perex.cz (Postfix) with ESMTPS id 33014F80147
+ for <alsa-devel@alsa-project.org>; Fri, 23 Aug 2019 09:35:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33014F80147
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="R6ABXy29"
+ header.b="fjW9/aM3"
 Received: from localhost (unknown [106.200.210.161])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4ED6D22CEC;
- Fri, 23 Aug 2019 07:29:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3D3D92341F;
+ Fri, 23 Aug 2019 07:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566545384;
- bh=2i/tPHQ6yaUr13qI3p1eM/TFcoLYXNVeOjhKb00S12M=;
+ s=default; t=1566545720;
+ bh=bbLkXAsHEX8Wn+grOk4i/1hsz2fjmgUr2Kj6i2J/rPM=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=R6ABXy29gh3qSQN8IYqa6XHQZq/QbzUAZ2NE+vaAzfIM+e5k67nhQhtokZbcjxSJ4
- TC+1kdlC50rEiTpR7gqK6SxES7dd//RAR3Byq2kNIOopsTMqV0yZG7Apr/7BGnPFuh
- pjzxPGWwr4Z4E5F/xRkwtYBcYAcHBWE01G6QST1s=
-Date: Fri, 23 Aug 2019 12:58:31 +0530
+ b=fjW9/aM3xPahmihoNOYFcTCads+Zl94leJ6QpWXcOUVLFa10S1tQGTkED3P7dIkqj
+ rQhddxY2T9+i6BH9sLI8PEn2wzdOEaie39zoZv3vluGoa6T+360J40QRavFv/Ev9c9
+ AxvI7Vu9rG+fQYl3xADrlgvqGBx+bQX3GhKzqmrs=
+Date: Fri, 23 Aug 2019 13:04:07 +0530
 From: Vinod Koul <vkoul@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
-	robh+dt@kernel.org
-Message-ID: <20190823072831.GE2672@vkoul-mobl>
-References: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
- <20190813083550.5877-5-srinivas.kandagatla@linaro.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20190823073407.GF2672@vkoul-mobl>
+References: <20190725234032.21152-1-pierre-louis.bossart@linux.intel.com>
+ <20190725234032.21152-32-pierre-louis.bossart@linux.intel.com>
+ <39318aab-b1b4-2cce-c408-792a5cc343dd@intel.com>
+ <ee87d4bb-3f35-eb27-0112-e6e64a09a279@linux.intel.com>
+ <20190802172843.GC12733@vkoul-mobl.Dlink>
+ <7abdb0e8-b9c4-28c7-d9ed-a7db1574e0b2@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190813083550.5877-5-srinivas.kandagatla@linaro.org>
+In-Reply-To: <7abdb0e8-b9c4-28c7-d9ed-a7db1574e0b2@linux.intel.com>
 User-Agent: Mutt/1.12.0 (2019-05-25)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, linux-kernel@vger.kernel.org, plai@codeaurora.org,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, broonie@kernel.org,
- spapothi@codeaurora.org
-Subject: Re: [alsa-devel] [PATCH v2 4/5] dt-bindings: soundwire: add
- bindings for Qcom controller
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 31/40] soundwire: intel: move
+ shutdown() callback and don't export symbol
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,204 +85,132 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13-08-19, 09:35, Srinivas Kandagatla wrote:
-> This patch adds bindings for Qualcomm soundwire controller.
-> 
-> Qualcomm SoundWire Master controller is present in most Qualcomm SoCs
-> either integrated as part of WCD audio codecs via slimbus or
-> as part of SOC I/O.
+On 14-08-19, 14:31, Pierre-Louis Bossart wrote:
+> =
 
-Rob.. ?
+> =
 
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../bindings/soundwire/qcom,sdw.txt           | 167 ++++++++++++++++++
->  1 file changed, 167 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-> new file mode 100644
-> index 000000000000..436547f3b155
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
-> @@ -0,0 +1,167 @@
-> +Qualcomm SoundWire Controller Bindings
-> +
-> +
-> +This binding describes the Qualcomm SoundWire Controller along with its
-> +board specific bus parameters.
-> +
-> +- compatible:
-> +	Usage: required
-> +	Value type: <stringlist>
-> +	Definition: must be "qcom,soundwire-v<MAJOR>.<MINOR>.<STEP>",
-> +		    Example:
-> +			"qcom,soundwire-v1.3.0"
-> +			"qcom,soundwire-v1.5.0"
-> +			"qcom,soundwire-v1.6.0"
-> +- reg:
-> +	Usage: required
-> +	Value type: <prop-encoded-array>
-> +	Definition: the base address and size of SoundWire controller
-> +		    address space.
-> +
-> +- interrupts:
-> +	Usage: required
-> +	Value type: <prop-encoded-array>
-> +	Definition: should specify the SoundWire Controller IRQ
-> +
-> +- clock-names:
-> +	Usage: required
-> +	Value type: <stringlist>
-> +	Definition: should be "iface" for SoundWire Controller interface clock
-> +
-> +- clocks:
-> +	Usage: required
-> +	Value type: <prop-encoded-array>
-> +	Definition: should specify the SoundWire Controller interface clock
-> +
-> +- #sound-dai-cells:
-> +	Usage: required
-> +	Value type: <u32>
-> +	Definition: must be 1 for digital audio interfaces on the controller.
-> +
-> +- qcom,dout-ports:
-> +	Usage: required
-> +	Value type: <u32>
-> +	Definition: must be count of data out ports
-> +
-> +- qcom,din-ports:
-> +	Usage: required
-> +	Value type: <u32>
-> +	Definition: must be count of data in ports
-> +
-> +- qcom,ports-offset1:
-> +	Usage: required
-> +	Value type: <prop-encoded-array>
-> +	Definition: should specify payload transport window offset1 of each
-> +		    data port. Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-offset2:
-> +	Usage: required
-> +	Value type: <prop-encoded-array>
-> +	Definition: should specify payload transport window offset2 of each
-> +		    data port. Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-sinterval-low:
-> +	Usage: required
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be sample interval low of each data port.
-> +		    Out ports followed by In ports. Used for Sample Interval
-> +		    calculation.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-word-length:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be size of payload channel sample.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-block-pack-mode:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be 0 or 1 to indicate the block packing mode.
-> +		    0 to indicate Blocks are per Channel
-> +		    1 to indicate Blocks are per Port.
-> +		    Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-block-group-count:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be in range 1 to 4 to indicate how many sample
-> +		    intervals are combined into a payload.
-> +		    Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-lane-control:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be in range 0 to 7 to identify which	data lane
-> +		    the data port uses.
-> +		    Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-hstart:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be number identifying lowerst numbered coloum in
-> +		    SoundWire Frame, i.e. left edge of the Transport sub-frame
-> +		    for each port. Values between 0 and 15 are valid.
-> +		    Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,ports-hstop:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be number identifying highest numbered coloum in
-> +		    SoundWire Frame, i.e. the right edge of the Transport
-> +		    sub-frame for each port. Values between 0 and 15 are valid.
-> +		    Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +- qcom,dports-type:
-> +	Usage: optional
-> +	Value type: <prop-encoded-array>
-> +	Definition: should be one of the following types
-> +		    0 for reduced port
-> +		    1 for simple ports
-> +		    2 for full port
-> +		    Out ports followed by In ports.
-> +		    More info in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> +Note:
-> +	More Information on detail of encoding of these fields can be
-> +found in MIPI Alliance SoundWire 1.0 Specifications.
-> +
-> += SoundWire devices
-> +Each subnode of the bus represents SoundWire device attached to it.
-> +The properties of these nodes are defined by the individual bindings.
-> +
-> += EXAMPLE
-> +The following example represents a SoundWire controller on DB845c board
-> +which has controller integrated inside WCD934x codec on SDM845 SoC.
-> +
-> +soundwire: soundwire@c85 {
-> +	compatible = "qcom,soundwire-v1.3.0";
-> +	reg = <0xc85 0x20>;
-> +	interrupts = <20 IRQ_TYPE_EDGE_RISING>;
-> +	clocks = <&wcc>;
-> +	clock-names = "iface";
-> +	#sound-dai-cells = <1>;
-> +	qcom,dports-type = <0>;
-> +	qcom,dout-ports	= <6>;
-> +	qcom,din-ports	= <2>;
-> +	qcom,ports-sinterval-low = /bits/ 8  <0x07 0x1F 0x3F 0x7 0x1F 0x3F 0x0F 0x0F>;
-> +	qcom,ports-offset1 = /bits/ 8 <0x01 0x02 0x0C 0x6 0x12 0x0D 0x07 0x0A >;
-> +	qcom,ports-offset2 = /bits/ 8 <0x00 0x00 0x1F 0x00 0x00 0x1F 0x00 0x00>;
-> +
-> +	/* Left Speaker */
-> +	left{
-> +		....
-> +	};
-> +
-> +	/* Right Speaker */
-> +	right{
-> +		....
-> +	};
-> +};
-> -- 
-> 2.21.0
+> > > > > +void intel_shutdown(struct snd_pcm_substream *substream,
+> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 struct snd_soc_dai *dai)
+> > > > > +{
+> > > > > +=A0=A0=A0 struct sdw_cdns_dma_data *dma;
+> > > > > +
+> > > > > +=A0=A0=A0 dma =3D snd_soc_dai_get_dma_data(dai, substream);
+> > > > > +=A0=A0=A0 if (!dma)
+> > > > > +=A0=A0=A0=A0=A0=A0=A0 return;
+> > > > > +
+> > > > > +=A0=A0=A0 snd_soc_dai_set_dma_data(dai, substream, NULL);
+> > > > > +=A0=A0=A0 kfree(dma);
+> > > > > +}
+> > > > =
 
--- 
+> > > > Correct me if I'm wrong, but do we really need to _get_dma_ here?
+> > > > _set_dma_ seems bulletproof, same for kfree.
+> > > =
+
+> > > I must admit I have no idea why we have a reference to DMAs here, thi=
+s looks
+> > > like an abuse to store a dai-specific context, and the initial test l=
+ooks
+> > > like copy-paste to detect invalid configs, as done in other callbacks=
+. Vinod
+> > > and Sanyog might have more history than me here.
+> > =
+
+> > I dont see snd_soc_dai_set_dma_data() call for
+> > sdw_cdns_dma_data so somthing is missing (at least in upstream code)
+> > =
+
+> > IIRC we should have a snd_soc_dai_set_dma_data() in alloc or some
+> > initialization routine and we free it here.. Sanyog?
+> =
+
+> Vinod, I double-checked that we do not indeed have a call to
+> snd_soc_dai_dma_data(), but there is code in cdns_set_stream() that sets =
+the
+> relevant dai->playback/capture_dma_data, see below
+> =
+
+> I am not a big fan of this code, touching the ASoC core internal fields
+> isn't a good idea in general.
+
+IIRC as long as you stick to single link I do not see this required. The
+question comes into picture when we have multi links as you would need
+to allocate a soundwire stream and set that for all the sdw DAIs
+
+So, what is the current model of soundwire stream, which entity allocates
+that and do you still care about multi-link? is there any machine driver
+with soundwire upstream yet?
+
+> Also not sure why for a DAI we need both _drvdata and _dma_data (especial=
+ly
+
+_drvdata is global for driver whereas _dma_data is typically used per
+DAI
+
+> for this case where the information stored has absolutely nothing to do w=
+ith
+> DMAs).
+> =
+
+> If the idea was to keep a context that is direction-dependent, that's lik=
+ely
+> unnecessary. For the Intel/Cadence case the interfaces can be configured =
+as
+> playback OR capture, not both concurrently, so the "dma" information could
+> have been stored in the generic DAI _drvdata.
+> =
+
+> I have other things to look into for now but this code will likely need to
+> be cleaned-up at some point to remove unnecessary parts.
+
+Sure please go ahead and do the cleanup.
+> =
+
+> int cdns_set_sdw_stream(struct snd_soc_dai *dai,
+> 			void *stream, bool pcm, int direction)
+> {
+> 	struct sdw_cdns *cdns =3D snd_soc_dai_get_drvdata(dai);
+> 	struct sdw_cdns_dma_data *dma;
+> =
+
+> 	dma =3D kzalloc(sizeof(*dma), GFP_KERNEL);
+> 	if (!dma)
+> 		return -ENOMEM;
+> =
+
+> 	if (pcm)
+> 		dma->stream_type =3D SDW_STREAM_PCM;
+> 	else
+> 		dma->stream_type =3D SDW_STREAM_PDM;
+> =
+
+> 	dma->bus =3D &cdns->bus;
+> 	dma->link_id =3D cdns->instance;
+> =
+
+> 	dma->stream =3D stream;
+> =
+
+> >>> this is equivalent to snd_soc_dai_dma_data()
+> =
+
+> 	if (direction =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
+> 		dai->playback_dma_data =3D dma;
+> 	else
+> 		dai->capture_dma_data =3D dma;
+> <<<<
+> 	return 0;
+> }
+> EXPORT_SYMBOL(cdns_set_sdw_stream);
+
+-- =
+
 ~Vinod
 _______________________________________________
 Alsa-devel mailing list

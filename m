@@ -2,72 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B14259C256
-	for <lists+alsa-devel@lfdr.de>; Sun, 25 Aug 2019 08:37:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C32D9C25B
+	for <lists+alsa-devel@lfdr.de>; Sun, 25 Aug 2019 08:54:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39FCA165F;
-	Sun, 25 Aug 2019 08:36:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39FCA165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 86D1E1666;
+	Sun, 25 Aug 2019 08:53:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86D1E1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566715059;
-	bh=UWX+IRxeNK8jdVvhTqVtFbQ0OLbKzfT5Ft/iygpN7aM=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1566716087;
+	bh=FoTBmMcFsShzNdpiuayQm1WqdPn6VBHbCXgILWXKZ2c=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=gnrBT/h1xRd5BKJbYo4ELIepwYuO9E+goV8ix0tgk553XMyy9INCAQN30zTw40i3Q
-	 cklagcS4wQ17hw+7M1jk9vfxzizsyGidYWfdFsW0RrSMy/3UuUaexJjaR/p7mV6YIn
-	 dk4VaZEU5c75ehxEAtmp8hsnCMmdugsZUDL/4Dp0=
+	b=HoLWVlfw+1MXvKsljUdcplIrgnp22Sc4VDpZnr86sozyh6rhdkSnwVvjN1c0VF5jt
+	 upSbJ6cbxWhCvT/klkIJztwDeJsY1N03TrtXEqbh0QuPSPHh5cfBXd4ZWKuuWGq4jj
+	 7ocKtyhYIxQ6C6neHa7II/6E8VQeaH1hY62NUgYk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F5A2F805F7;
-	Sun, 25 Aug 2019 08:34:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A299FF80214;
+	Sun, 25 Aug 2019 08:53:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9A251F8036E; Thu, 22 Aug 2019 16:53:11 +0200 (CEST)
+ id 64E59F80213; Sun, 25 Aug 2019 08:53:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
- [209.85.166.69])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7AD9CF80112
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 16:53:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AD9CF80112
-Received: by mail-io1-f69.google.com with SMTP id q5so6599286iof.19
- for <alsa-devel@alsa-project.org>; Thu, 22 Aug 2019 07:53:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=irkebm6L+5PI3JbBiKOkvsnKr96VeZDlVJCniMf5v5Y=;
- b=LD0cKx1Nb2fJJCmYiUAr6d6fvS1GZC7lmZmSrbbUAdBAj5EFSRMJ54cagVaoWDcVEB
- k4soDFQco+1ikmFSmagpiN3XQqd9V+KmY4yXMOjoqSlVWmny7i5aAqcNPLBx+iaEpBHn
- fZ6bicBjpBbT/YKm+pLotmQyBnp7UAFio3bGYzGCyKL11/DMT1ZAIF3SG8sfIMJog28b
- wCR2130qL9+BO1Nyf88OcfIeuR6BxzaNWWR43dlW3ND6lTMxvq/CdIbvWZxdOoZpVApG
- 5ZH59bh/gJasT8g7CYnguEiRcRlHdmlxjHzpQHFi1kbVns2PDLklLQLqIIEZ4RPE/8WH
- Z30w==
-X-Gm-Message-State: APjAAAX4DWgZ9JuwUNVhBxgGtz1Wq3g1FCKxwjBz8U0albgJQqXzT+Qt
- QYycp4WA8naPkbr8mfIoGeSjmABVNraozdtjuny5OQgHLnf3
-X-Google-Smtp-Source: APXvYqz40yLJ32U7FQDXz7vR4WMu40pvb3Wkavt+rlvYvu6Nve6858+HlRd3PrfpCRa4yuA3RK4ABcj6MK1Ab1R+g85VCtyjfMsy
+ by alsa1.perex.cz (Postfix) with ESMTPS id 253C6F801ED
+ for <alsa-devel@alsa-project.org>; Sun, 25 Aug 2019 08:52:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 253C6F801ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="RmJhGx8A"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="PNcIfGtC"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0E86221321;
+ Sun, 25 Aug 2019 02:52:53 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Sun, 25 Aug 2019 02:52:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=iaw8/Ot9AUG6I5+ljh8IgI2ci5
+ 5aRXAkgKYmUgTok2s=; b=RmJhGx8AfUtVeZQhzSCZ3WRUkLjdycnEkLPCO3n36C
+ JbrxQG21aMrPnk4CxefniLy8qzE4LJ+gJGJkYB0efEYomPwsmz5CjRjNJJcIOANL
+ EUXonWKEfgYOvlKWbvPevjRKNR371A372DQlal1CWqxXn7gPatPAgxcbPMPElGAT
+ zIHWpshTPtUE+fTnNGV64qNm/tb043EZcPAJ4W4ja6EUozZ8nP5LUK2UIsrufHx0
+ N6SYnLl+p0vnEnr8IqpHG+XsWIlXEPAJZXVdN0T+2t/GROE9tQtn0ewVgRrHL73K
+ kyCuwO9ZzOpyrckG53jzN7Gdjnb9O3v/sSV2xh8IbouQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=iaw8/Ot9AUG6I5+lj
+ h8IgI2ci55aRXAkgKYmUgTok2s=; b=PNcIfGtCuajO8eRCLogciyz8lOnwD/UfZ
+ pzRaNdvwr2CJiZZjaNzaLXEkxulmuPMC/9sBWKBXsqZZJXxL/KAWrIpdcQl7pair
+ R/xbSvTrvhn0PIMj79ipTE2gI5c3dPczEwakvmP52W8UFTLqrwf92YNgNZMEnrCp
+ Yf8uhzTJ8tIuj2rJJ5PTS2aDhivAf7oi32OvW5Nuqgn0xL40AynMX6HMIUrldA1J
+ 0fWjYrkbLlr08DEaZO9tA1C6Vj8ufPlxvEdIYuGeAVhTTQ2TcbSoR8ach1/VJ+Pd
+ nTQ7eHAmRtHED3M2JfMnLUtN2LwsBvKUK5t0+rnwJszxU4GuJkilg==
+X-ME-Sender: <xms:QzBiXUp6-ruqdG6CQrSNBmPIAnRCUi-bEGVF2FA0ziYEUfDaNBYxWw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudehuddguddugecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinhepfedqrhgtjedrihhnne
+ cukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdht
+ rghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:RDBiXWb3PhbTUGnRuUIgbErnPIWLnhadJFNAphl2kwhW58zgix_hTQ>
+ <xmx:RDBiXRx6S5HCfoNNh2SL3xnJbZYXQftju__Wl861X15F_Hbn48-DHQ>
+ <xmx:RDBiXdBbNoPPMjHcpbignCJW6jyuJEe1_O6t-9Q3NPzb_DxSMx0ILQ>
+ <xmx:RDBiXfHW6qdaoqgv_WTTW8rptLXI_w6giOA3_XjYq8N0c0kda6jtTg>
+Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B3F2080059;
+ Sun, 25 Aug 2019 02:52:50 -0400 (EDT)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: clemens@ladisch.de,
+	tiwai@suse.de
+Date: Sun, 25 Aug 2019 15:52:47 +0900
+Message-Id: <20190825065247.26840-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-Received: by 2002:a6b:7009:: with SMTP id l9mr74713ioc.160.1566485585762;
- Thu, 22 Aug 2019 07:53:05 -0700 (PDT)
-Date: Thu, 22 Aug 2019 07:53:05 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <000000000000e2a2ac0590b5d81f@google.com>
-From: syzbot <syzbot+4a75454b9ca2777f35c7@syzkaller.appspotmail.com>
-To: alexandre.belloni@bootlin.com, alsa-devel@alsa-project.org, 
- bhelgaas@google.com, kirr@nexedi.com, linux-kernel@vger.kernel.org, 
- linux@roeck-us.net, logang@deltatee.com, perex@perex.cz, 
- syzkaller-bugs@googlegroups.com, tglx@linutronix.de, tiwai@suse.com, 
- zsm@chromium.org
-X-Mailman-Approved-At: Sun, 25 Aug 2019 08:34:15 +0200
-Subject: [alsa-devel] KASAN: use-after-free Read in
-	snd_seq_ioctl_get_client_pool
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH] ALSA: firewire-lib: allocate additional
+	entries for list of packet descriptor to avoid out-of-bounds access
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,146 +104,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+This patch is for Linux v5.3-rc7.
 
-syzbot found the following crash on:
+In a case of delay to execute scheduled tasklet for isoc context, it's
+possible to handle queued packets than 16 (=INTERRUPT_INTERVAL). In the
+case, out-of-bounds access occurs because the list of packet descriptor
+is allocated just for 16 packets. This causes any negative effects in
+kernel memory or software IRQ context.
 
-HEAD commit:    d1abaeb3 Linux 5.3-rc5
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=15b5add2600000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=f7242b2607d5d53a
-dashboard link: https://syzkaller.appspot.com/bug?extid=4a75454b9ca2777f35c7
-compiler:       clang version 9.0.0 (/home/glider/llvm/clang  
-80fee25776c2fb61e74c1ecb1a523375c2500b69)
+It's quite rare because current implementation allows user processes to
+flush the queued packet in process context by executing several PCM
+ioctl(2) commands. However, it's good to prevent.
 
-Unfortunately, I don't have any reproducer for this crash yet.
+This commit is a prevention against this bug. For safe, the allocation is
+done for 16 plus 12 packets, equivalent to 1.5 msec plus. Furthermore,
+when detecting the case, packet streaming is cancelled and kernel log is
+printed to notice to users and developers.
 
-IMPORTANT: if you fix the bug, please add the following tag to the commit:
-Reported-by: syzbot+4a75454b9ca2777f35c7@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: use-after-free in atomic_read  
-include/asm-generic/atomic-instrumented.h:26 [inline]
-BUG: KASAN: use-after-free in snd_seq_unused_cells  
-sound/core/seq/seq_memory.h:60 [inline]
-BUG: KASAN: use-after-free in snd_seq_ioctl_get_client_pool+0x2e0/0x680  
-sound/core/seq/seq_clientmgr.c:1839
-Read of size 4 at addr ffff8880a8e27b14 by task syz-executor.5/31741
-
-CPU: 0 PID: 31741 Comm: syz-executor.5 Not tainted 5.3.0-rc5 #82
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
-Google 01/01/2011
-Call Trace:
-  __dump_stack lib/dump_stack.c:77 [inline]
-  dump_stack+0x1d8/0x2f8 lib/dump_stack.c:113
-  print_address_description+0x75/0x5b0 mm/kasan/report.c:351
-  __kasan_report+0x14b/0x1c0 mm/kasan/report.c:482
-  kasan_report+0x26/0x50 mm/kasan/common.c:612
-  check_memory_region_inline mm/kasan/generic.c:182 [inline]
-  check_memory_region+0x2cf/0x2e0 mm/kasan/generic.c:192
-  __kasan_check_read+0x11/0x20 mm/kasan/common.c:92
-  atomic_read include/asm-generic/atomic-instrumented.h:26 [inline]
-  snd_seq_unused_cells sound/core/seq/seq_memory.h:60 [inline]
-  snd_seq_ioctl_get_client_pool+0x2e0/0x680  
-sound/core/seq/seq_clientmgr.c:1839
-  snd_seq_ioctl+0x1d1/0x340 sound/core/seq/seq_clientmgr.c:2158
-  do_vfs_ioctl+0x744/0x1730 fs/ioctl.c:46
-  ksys_ioctl fs/ioctl.c:713 [inline]
-  __do_sys_ioctl fs/ioctl.c:720 [inline]
-  __se_sys_ioctl fs/ioctl.c:718 [inline]
-  __x64_sys_ioctl+0xe3/0x120 fs/ioctl.c:718
-  do_syscall_64+0xfe/0x140 arch/x86/entry/common.c:296
-  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-RIP: 0033:0x459829
-Code: fd b7 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7  
-48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff  
-ff 0f 83 cb b7 fb ff c3 66 2e 0f 1f 84 00 00 00 00
-RSP: 002b:00007faf5e0c4c78 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000000459829
-RDX: 00000000200003c0 RSI: 00000000c058534b RDI: 0000000000000003
-RBP: 000000000075bf20 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007faf5e0c56d4
-R13: 00000000004cdc18 R14: 00000000004d7ba8 R15: 00000000ffffffff
-
-Allocated by task 31737:
-  save_stack mm/kasan/common.c:69 [inline]
-  set_track mm/kasan/common.c:77 [inline]
-  __kasan_kmalloc+0x11c/0x1b0 mm/kasan/common.c:487
-  kasan_kmalloc+0x9/0x10 mm/kasan/common.c:501
-  kmem_cache_alloc_trace+0x221/0x2f0 mm/slab.c:3550
-  kmalloc include/linux/slab.h:552 [inline]
-  kzalloc include/linux/slab.h:748 [inline]
-  snd_seq_pool_new+0x53/0x1b0 sound/core/seq/seq_memory.c:459
-  snd_seq_fifo_new+0x72/0x1c0 sound/core/seq/seq_fifo.c:26
-  snd_seq_open+0x1e4/0x470 sound/core/seq/seq_clientmgr.c:350
-  snd_open+0x313/0x380 sound/core/sound.c:163
-  chrdev_open+0x509/0x590 fs/char_dev.c:414
-  do_dentry_open+0x73b/0xf90 fs/open.c:797
-  vfs_open+0x73/0x80 fs/open.c:906
-  do_last fs/namei.c:3416 [inline]
-  path_openat+0x1397/0x4460 fs/namei.c:3533
-  do_filp_open+0x192/0x3d0 fs/namei.c:3563
-  do_sys_open+0x29f/0x560 fs/open.c:1089
-  __do_sys_open fs/open.c:1107 [inline]
-  __se_sys_open fs/open.c:1102 [inline]
-  __x64_sys_open+0x87/0x90 fs/open.c:1102
-  do_syscall_64+0xfe/0x140 arch/x86/entry/common.c:296
-  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-
-Freed by task 31737:
-  save_stack mm/kasan/common.c:69 [inline]
-  set_track mm/kasan/common.c:77 [inline]
-  __kasan_slab_free+0x12a/0x1e0 mm/kasan/common.c:449
-  kasan_slab_free+0xe/0x10 mm/kasan/common.c:457
-  __cache_free mm/slab.c:3425 [inline]
-  kfree+0x115/0x200 mm/slab.c:3756
-  snd_seq_pool_delete+0x9e/0xd0 sound/core/seq/seq_memory.c:487
-  snd_seq_fifo_resize+0x1de/0x250 sound/core/seq/seq_fifo.c:262
-  snd_seq_ioctl_set_client_pool+0x3c4/0x740  
-sound/core/seq/seq_clientmgr.c:1880
-  snd_seq_ioctl+0x1d1/0x340 sound/core/seq/seq_clientmgr.c:2158
-  do_vfs_ioctl+0x744/0x1730 fs/ioctl.c:46
-  ksys_ioctl fs/ioctl.c:713 [inline]
-  __do_sys_ioctl fs/ioctl.c:720 [inline]
-  __se_sys_ioctl fs/ioctl.c:718 [inline]
-  __x64_sys_ioctl+0xe3/0x120 fs/ioctl.c:718
-  do_syscall_64+0xfe/0x140 arch/x86/entry/common.c:296
-  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-
-The buggy address belongs to the object at ffff8880a8e27b00
-  which belongs to the cache kmalloc-192 of size 192
-The buggy address is located 20 bytes inside of
-  192-byte region [ffff8880a8e27b00, ffff8880a8e27bc0)
-The buggy address belongs to the page:
-page:ffffea0002a389c0 refcount:1 mapcount:0 mapping:ffff8880aa400000  
-index:0x0
-flags: 0x1fffc0000000200(slab)
-raw: 01fffc0000000200 ffffea00026d1008 ffffea0002870048 ffff8880aa400000
-raw: 0000000000000000 ffff8880a8e27000 0000000100000010 0000000000000000
-page dumped because: kasan: bad access detected
-
-Memory state around the buggy address:
-  ffff8880a8e27a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-  ffff8880a8e27a80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-> ffff8880a8e27b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                          ^
-  ffff8880a8e27b80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-  ffff8880a8e27c00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
-This bug is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ sound/firewire/amdtp-stream.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-syzbot will keep track of this bug report. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
+index 1a92855c7647..f03321888997 100644
+--- a/sound/firewire/amdtp-stream.c
++++ b/sound/firewire/amdtp-stream.c
+@@ -56,6 +56,11 @@
+ #define INTERRUPT_INTERVAL	16
+ #define QUEUE_LENGTH		48
+ 
++// For jitter of software IRQ execution, keep more entries for the list
++// of packet descriptor equivalent to 1.5 msec to avoid out-of-bounds
++// access to process queued packets.
++#define DESC_COUNT	(INTERRUPT_INTERVAL + 12)
++
+ // For iso header, tstamp and 2 CIP header.
+ #define IR_CTX_HEADER_SIZE_CIP		16
+ // For iso header and tstamp.
+@@ -779,12 +784,22 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
+ {
+ 	struct amdtp_stream *s = private_data;
+ 	const __be32 *ctx_header = header;
+-	unsigned int packets = header_length / sizeof(*ctx_header);
++	unsigned int packets;
+ 	int i;
+ 
+ 	if (s->packet_index < 0)
+ 		return;
+ 
++	// The number of packets in buffer.
++	packets = header_length / sizeof(*ctx_header);
++	if (packets > DESC_COUNT) {
++		cancel_stream(s);
++		dev_info(&s->unit->device,
++			 "out-stream: Unexpected count of packet: %d\n",
++			 packets);
++		return;
++	}
++
+ 	generate_ideal_pkt_descs(s, s->pkt_descs, ctx_header, packets);
+ 
+ 	process_ctx_payloads(s, s->pkt_descs, packets);
+@@ -830,6 +845,13 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
+ 
+ 	// The number of packets in buffer.
+ 	packets = header_length / s->ctx_data.tx.ctx_header_size;
++	if (packets > DESC_COUNT) {
++		cancel_stream(s);
++		dev_info(&s->unit->device,
++			 "in-stream: Unexpected count of packet: %d\n",
++			 packets);
++		return;
++	}
+ 
+ 	err = generate_device_pkt_descs(s, s->pkt_descs, ctx_header, packets);
+ 	if (err < 0) {
+@@ -981,8 +1003,7 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed)
+ 	else
+ 		s->tag = TAG_CIP;
+ 
+-	s->pkt_descs = kcalloc(INTERRUPT_INTERVAL, sizeof(*s->pkt_descs),
+-			       GFP_KERNEL);
++	s->pkt_descs = kcalloc(DESC_COUNT, sizeof(*s->pkt_descs), GFP_KERNEL);
+ 	if (!s->pkt_descs) {
+ 		err = -ENOMEM;
+ 		goto err_context;
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

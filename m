@@ -2,68 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 850459D65C
-	for <lists+alsa-devel@lfdr.de>; Mon, 26 Aug 2019 21:21:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 616849D6DA
+	for <lists+alsa-devel@lfdr.de>; Mon, 26 Aug 2019 21:36:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03B8516BB;
-	Mon, 26 Aug 2019 21:20:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03B8516BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBCE216D0;
+	Mon, 26 Aug 2019 21:35:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBCE216D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566847267;
-	bh=4G8aUtop9z1GAxqPK6XpfVYC033niOGaLLQVatKCeQ4=;
+	s=default; t=1566848209;
+	bh=mbywoVCdajvbXKxVXioqfwjj4yPVQU5YVIs0cgwtgxc=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q2xltExBESZNrcRCM+L3070AFjO5CS3tQ+dQrj5uJmKGe0SEIj+z7Zp4ogMgdYdVR
-	 y+2XZ/fydWfLpNitsG1Pbo+D4Pnnx+g/WpOGQwEhBXa9Y0wJl0VGbzcKzPMtlJ/kyY
-	 2tbKRqo2zjjEs739UxLpsXYcXOr319H0H335YuMs=
+	b=aCSrPpCN1Pc/dHi9qo4MWAxGSP0SDBbde6l/TY1lnPywlMV+mNzVeRSALiq0gKi3p
+	 lkZ+3Xy/i24A2CB9v3EvAvn9vT2gm36s5YlBZwiAd0kj+Q43FVK3tWJyUUUBGqdoHv
+	 ojIHMy80W5LR5mYr06irZE2P0KGDsZL1FZmWCnMA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DC738F80377;
-	Mon, 26 Aug 2019 21:19:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 648E2F80377;
+	Mon, 26 Aug 2019 21:35:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68C7EF80376; Mon, 26 Aug 2019 21:18:57 +0200 (CEST)
+ id 4B931F80362; Mon, 26 Aug 2019 21:35:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_PASS,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B56D0F8014A
- for <alsa-devel@alsa-project.org>; Mon, 26 Aug 2019 21:18:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B56D0F8014A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0346AF8014A
+ for <alsa-devel@alsa-project.org>; Mon, 26 Aug 2019 21:34:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0346AF8014A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Aug 2019 12:18:49 -0700
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Aug 2019 12:34:53 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,433,1559545200"; d="scan'208";a="331576463"
+X-IronPort-AV: E=Sophos;i="5.64,433,1559545200"; d="scan'208";a="331581919"
 Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.26.150])
  ([10.252.26.150])
- by orsmga004.jf.intel.com with ESMTP; 26 Aug 2019 12:18:46 -0700
+ by orsmga004.jf.intel.com with ESMTP; 26 Aug 2019 12:34:51 -0700
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  alsa-devel@alsa-project.org
 References: <20190822190425.23001-1-cezary.rojewski@intel.com>
- <20190822190425.23001-28-cezary.rojewski@intel.com>
- <6369d711-8eb2-2664-412b-3de286bb3ca8@linux.intel.com>
- <29c6bb0d-c236-a6c7-9a59-efb7ec42e145@intel.com>
- <12a90456-b8a0-adc3-755a-cfee3124f177@linux.intel.com>
+ <20190822190425.23001-3-cezary.rojewski@intel.com>
+ <3173be35-0721-a36d-d328-b8e2ad3b5008@linux.intel.com>
+ <f05b3a3e-db2b-8d07-3531-14e9afd81d1a@intel.com>
+ <b0a3bdf2-c4e6-6d02-6781-ad840b760f6c@linux.intel.com>
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <c7bca384-9a2f-38e9-d097-69f3142b629d@intel.com>
-Date: Mon, 26 Aug 2019 21:18:45 +0200
+Message-ID: <e660c115-2410-c093-d572-94aa91d8f521@intel.com>
+Date: Mon, 26 Aug 2019 21:34:50 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <12a90456-b8a0-adc3-755a-cfee3124f177@linux.intel.com>
+In-Reply-To: <b0a3bdf2-c4e6-6d02-6781-ad840b760f6c@linux.intel.com>
 Content-Language: en-US
 Cc: broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH 27/35] ASoC: Intel: Skylake: Define
- platform descriptors
+Subject: Re: [alsa-devel] [PATCH 02/35] ASoC: Intel: Skylake: Add
+ FIRMWARE_CONFIG IPC request
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,136 +76,157 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2019-08-26 19:13, Pierre-Louis Bossart wrote:
-> 
-> 
-> On 8/24/19 5:51 AM, Cezary Rojewski wrote:
->> On 2019-08-23 21:50, Pierre-Louis Bossart wrote:
->>>
->>>
->>> On 8/22/19 2:04 PM, Cezary Rojewski wrote:
->>>> Make use of sst_pdata and declare platform descriptors for all existing
->>>> cAVS platforms. Each carries information about base_fw filename,
->>>> platform specific operations and boards supported.
->>>
->>> if you use a constant base_fw name that cannot be made board-specific 
->>> for specific usages, you will restrict the ability to deal with 
->>> quirks and custom cases.
->>>
->>> real-life example: not so long ago there were two SST firmwares for 
->>> 'regular' solutions and ultra-low-latency ones, so by having a single 
->>> name for all APL-based platforms you will generate issues that don't 
->>> exist today, or you will force users to patch something in the core.
->>>
->>
->> I did not bring up ULL case for a reason. Guess Pandora box is to be 
->> opened.. so be it.
->>
->> ULL stands for Ultra Low Latency and it can be described by the 
->> following:
->> - exists only for APL based platforms (more like single platform/ 
->> model though)
->> - in consequence, binary isn't present on any other FW branch and any 
->> other platform apart from APL
->> - its existence is tied to hardware.. eh.. let's call it a "limitation"
->> - number of actual vendors is too Ultra Low..
->> - has limited functionality and validation
->> - is not the recommended FW for end users in any case
->> - binary is not going to be upstreamed
->> - reference board is not going to be upstreamed
->> - generic (so called main FW) and ULL share the board ACPI ID and thus 
->> require kernel .config to be modified -or- blacklist.conf with be updated
->> - shares topology filename with generic (main) FW so user still has to 
->> modify his /lib/firmware. Topology names are currently NHLT-based, 
->> built from NHLT header data and platform id which are BIOS/ ABL and 
->> platform specific respectively
->> (...)
-> 
-> I would describe your answer as 'whatabout-ism'. Yes there are plenty of 
-> ways to screw-up, none of them is a justification for assuming that a 
-> single filename will work for everyone.
-> 
-> There are also plenty of good reasons to use a different fw and topology 
-> file name. Taking this capability away essentially corners users into 
-> non-upstreamed custom versions.
-
-There is no "different filename" for /skylake topology on upstream, only fw.
-
-> 
->> TLDR:
->> There is total of 0 people sitting in front of their monitors who are 
->> consciously going to make use of ULL firmware.
->> Any user that is going to, will have to play with their kconfig, 
->> blacklist and replace existing topology file.
-> 
-> that's where you are making too many assumptions, if quirks and dynamic 
-> detection capabilities are provided then it's possible to have a single 
-> kernel build that will deal with multiple configurations.
-> 
->> This is normally done by titanic build-bot which, among billion other 
->> things, ensures /lib/firmware looks like it should given the 
->> configuration.
->>
->> -
->>
->> So, one could have provided a nice choice-box within menuconfig to 
->> ensure only one board can be chosen.
->> When one does it, one realizes both generic and ULL firmwares are not 
->> actually tied to any specific board and with more boards (usecases) 
->> and more kconfigs code gets bloated.
->>
->> Moving further, guarding apl_desc with #if-else depending on some 
->> global generic-vs-ULL configuration which would adjust said 
->> descriptors with proper FW filename actually seems like a better 
->> solution..
->>
->> ..and then kBOOM comes in and actual design pattern!
->> Board should have been stated tplg_filename, not the fw_filename. Said 
->> topology file contains manifest which tells host what libraries to 
->> load. And thus, we clear the mist and see that one single field (which 
->> is currently missing in snd_soc_acpi_mach) and some clever topology 
->> manifest make it all happen: platform-board conflicts cease to exist.
-> 
-> I am not going to argue further. I've spent a lot of time making sure 
-> the same kernel build can be used across multiple platforms, if you want 
-> to stick to static custom configurations I am not interested in 
-> debating. I just hope your team has enough support folks to deal with 
-> all these configurations.
-> 
-
-Not arguing at all, just stating the facts.
-Idea behind is rather straightforward and my guess it that either you 
-missed the key part -or- my explanations were lackluster.
-We do want kernel to support multiple configurations dynamically. Same 
-goes for allowing for customizations, depending on board chosen. 
-Although, we think topology alone is more than enough.
-
-Existing mach::fw_filename and single tplg file based on data provided 
-from NHLT (function: skl_nhlt_update_topology_bin skl-nhlt.c) already 
-fails us. What is present on upstream is not sufficient and thus 
-build-bots are doing more than they are supposed to.
-
-Let uss checkout sof machine fields:
-- sof_fw_filename
-- sof_tplg_filename
-
-and then again, the skl one(s):
-- fw_filename
-
-Is the difference clear now?
-The key player here is topology file name. Once you tie board with 
-topology you have more than enough customization to do whatever you 
-want. As said, clever usage of topology may even allow you to skip 
-fw_filename entirely. And this is the exact opposite of static 
-configuration.
-
-In my opinion, SOF needs sof_fw_filename neither.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gMjAxOS0wOC0yNiAxODoyNywgUGllcnJlLUxvdWlzIEJvc3NhcnQgd3JvdGU6Cj4gCj4gCj4g
+T24gOC8yNC8xOSA0OjE3IEFNLCBDZXphcnkgUm9qZXdza2kgd3JvdGU6Cj4+IE9uIDIwMTktMDgt
+MjMgMjA6MjQsIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+Pj4KPj4+Cj4+PiBPbiA4LzIy
+LzE5IDI6MDMgUE0sIENlemFyeSBSb2pld3NraSB3cm90ZToKPj4+PiBJbXBsZW1lbnQgaW50ZXJm
+YWNlIGZvciByZXRyaWV2aW5nIGZpcm13YXJlIGNvbmZpZ3VyYXRpb24uIFNreWxha2UKPj4+PiBk
+cml2ZXIgd2lsbCB1c2UgdGhpcyBkYXRhIGluc3RlYWQgb2YgaGFyZGNvZGVkIHZhbHVlcyBpbiB1
+cGRhdGVzIHRvCj4+Pj4gY29tZS4KPj4+Pgo+Pj4+IE1vc3QgcGFyYW1zIGFyZSBjdXJyZW50bHkg
+dW51c2VkLiBJbiB0aW1lIGRyaXZlciBkZXBlbmRlbmN5IG9uIGZ3IAo+Pj4+IGNvbmZpZwo+Pj4+
+IHdpbGwgaW5jcmVhc2UsIGFuZCB3aXRoIGl0LCBtb3JlIHBhcnNpbmcgd2lsbCBiZSB1bnZlaWxl
+ZC4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IENlemFyeSBSb2pld3NraSA8Y2V6YXJ5LnJvamV3
+c2tpQGludGVsLmNvbT4KPj4+PiAtLS0KPj4+PiDCoCBzb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9z
+a2wtc3N0LWlwYy5jIHwgMTIyIAo+Pj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrCj4+Pj4g
+wqAgc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXNzdC1pcGMuaCB8wqAgNzIgKysrKysrKysr
+KysrKysrCj4+Pj4gwqAgc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLmjCoMKgwqDCoMKgwqDC
+oMKgIHzCoMKgIDEgKwo+Pj4+IMKgIDMgZmlsZXMgY2hhbmdlZCwgMTk1IGluc2VydGlvbnMoKykK
+Pj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9zb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtc3N0LWlw
+Yy5jIAo+Pj4+IGIvc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLXNzdC1pcGMuYwo+Pj4+IGlu
+ZGV4IDY2N2NkZGRjMjg5Zi4uZTllMTFlYzRjOTdiIDEwMDY0NAo+Pj4+IC0tLSBhL3NvdW5kL3Nv
+Yy9pbnRlbC9za3lsYWtlL3NrbC1zc3QtaXBjLmMKPj4+PiArKysgYi9zb3VuZC9zb2MvaW50ZWwv
+c2t5bGFrZS9za2wtc3N0LWlwYy5jCj4+Pj4gQEAgLTExLDYgKzExLDcgQEAKPj4+PiDCoCAjaW5j
+bHVkZSAic2tsLmgiCj4+Pj4gwqAgI2luY2x1ZGUgInNrbC1zc3QtZHNwLmgiCj4+Pj4gwqAgI2lu
+Y2x1ZGUgInNrbC1zc3QtaXBjLmgiCj4+Pj4gKyNpbmNsdWRlICJza2wtdG9wb2xvZ3kuaCIKPj4+
+PiDCoCAjaW5jbHVkZSAic291bmQvaGRhdWRpb19leHQuaCIKPj4+PiBAQCAtMTA2NywzICsxMDY4
+LDEyNCBAQCBpbnQgc2tsX2lwY19zZXRfZDBpeChzdHJ1Y3Qgc3N0X2dlbmVyaWNfaXBjIAo+Pj4+
+ICppcGMsIHN0cnVjdCBza2xfaXBjX2QwaXhfbXNnICptc2cpCj4+Pj4gwqDCoMKgwqDCoCByZXR1
+cm4gcmV0Owo+Pj4+IMKgIH0KPj4+PiDCoCBFWFBPUlRfU1lNQk9MX0dQTChza2xfaXBjX3NldF9k
+MGl4KTsKPj4+PiArCj4+Pj4gK2ludCBza2xfaXBjX2Z3X2NmZ19nZXQoc3RydWN0IHNzdF9nZW5l
+cmljX2lwYyAqaXBjLCBzdHJ1Y3QgCj4+Pj4gc2tsX2Z3X2NmZyAqY2ZnKQo+Pj4+ICt7Cj4+Pj4g
+K8KgwqDCoCBzdHJ1Y3Qgc2tsX2lwY19sYXJnZV9jb25maWdfbXNnIG1zZyA9IHswfTsKPj4+PiAr
+wqDCoMKgIHN0cnVjdCBza2xfdGx2ICp0bHY7Cj4+Pj4gK8KgwqDCoCBzaXplX3QgYnl0ZXMgPSAw
+LCBvZmZzZXQgPSAwOwo+Pj4+ICvCoMKgwqAgdTggKnBheWxvYWQgPSBOVUxMOwo+Pj4+ICvCoMKg
+wqAgaW50IHJldDsKPj4+PiArCj4+Pj4gK8KgwqDCoCBtc2cubW9kdWxlX2lkID0gMDsKPj4+PiAr
+wqDCoMKgIG1zZy5pbnN0YW5jZV9pZCA9IDA7Cj4+Pj4gK8KgwqDCoCBtc2cubGFyZ2VfcGFyYW1f
+aWQgPSBTS0xfQkFTRUZXX0ZJUk1XQVJFX0NPTkZJRzsKPj4+PiArCj4+Pj4gK8KgwqDCoCByZXQg
+PSBza2xfaXBjX2dldF9sYXJnZV9jb25maWcoaXBjLCAmbXNnLCAodTMyICoqKSZwYXlsb2FkLCAK
+Pj4+PiAmYnl0ZXMpOwo+Pj4+ICvCoMKgwqAgaWYgKHJldCkKPj4+PiArwqDCoMKgwqDCoMKgwqAg
+Z290byBleGl0Owo+Pj4+ICsKPj4+PiArwqDCoMKgIHdoaWxlIChvZmZzZXQgPCBieXRlcykgewo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoCB0bHYgPSAoc3RydWN0IHNrbF90bHYgKikocGF5bG9hZCArIG9m
+ZnNldCk7Cj4+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBzd2l0Y2ggKHRsdi0+dHlwZSkgewo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIFNLTF9GV19DRkdfRldfVkVSU0lPTjoKPj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBtZW1jcHkoJmNmZy0+ZndfdmVyc2lvbiwgdGx2LT52YWx1ZSwK
+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHNpemVvZihjZmctPmZ3X3ZlcnNp
+b24pKTsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+PiArCj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIGNhc2UgU0tMX0ZXX0NGR19NRU1PUllfUkVDTEFJTUVEOgo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGNmZy0+bWVtb3J5X3JlY2xhaW1lZCA9ICp0bHYtPnZhbHVlOwo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiArwqDCoMKgwqDC
+oMKgwqAgY2FzZSBTS0xfRldfQ0ZHX1NMT1dfQ0xPQ0tfRlJFUV9IWjoKPj4+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBjZmctPnNsb3dfY2xvY2tfZnJlcV9oeiA9ICp0bHYtPnZhbHVlOwo+Pj4+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKg
+wqAgY2FzZSBTS0xfRldfQ0ZHX0ZBU1RfQ0xPQ0tfRlJFUV9IWjoKPj4+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBjZmctPmZhc3RfY2xvY2tfZnJlcV9oeiA9ICp0bHYtPnZhbHVlOwo+Pj4+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAg
+Y2FzZSBTS0xfRldfQ0ZHX0FMSF9TVVBQT1JUX0xFVkVMOgo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGNmZy0+YWxoX3N1cHBvcnQgPSAqdGx2LT52YWx1ZTsKPj4+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBicmVhazsKPj4+PiArCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGNhc2UgU0tMX0ZX
+X0NGR19JUENfRExfTUFJTEJPWF9CWVRFUzoKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBj
+ZmctPmlwY19kbF9tYWlsYm94X2J5dGVzID0gKnRsdi0+dmFsdWU7Cj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIFNLTF9G
+V19DRkdfSVBDX1VMX01BSUxCT1hfQllURVM6Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+Y2ZnLT5pcGNfdWxfbWFpbGJveF9ieXRlcyA9ICp0bHYtPnZhbHVlOwo+Pj4+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBTS0xf
+RldfQ0ZHX1RSQUNFX0xPR19CWVRFUzoKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjZmct
+PnRyYWNlX2xvZ19ieXRlcyA9ICp0bHYtPnZhbHVlOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBTS0xfRldfQ0ZHX01B
+WF9QUExfQ09VTlQ6Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2ZnLT5tYXhfcHBsX2Nv
+dW50ID0gKnRsdi0+dmFsdWU7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+
+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIFNLTF9GV19DRkdfTUFYX0FTVEFURV9DT1VO
+VDoKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjZmctPm1heF9hc3RhdGVfY291bnQgPSAq
+dGx2LT52YWx1ZTsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+PiArCj4+
+Pj4gK8KgwqDCoMKgwqDCoMKgIGNhc2UgU0tMX0ZXX0NGR19NQVhfTU9EVUxFX1BJTl9DT1VOVDoK
+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjZmctPm1heF9tb2R1bGVfcGluX2NvdW50ID0g
+KnRsdi0+dmFsdWU7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4gKwo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIFNLTF9GV19DRkdfTU9EVUxFU19DT1VOVDoKPj4+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjZmctPm1vZHVsZXNfY291bnQgPSAqdGx2LT52YWx1ZTsK
+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+PiArCj4+Pj4gK8KgwqDCoMKg
+wqDCoMKgIGNhc2UgU0tMX0ZXX0NGR19NQVhfTU9EX0lOU1RfQ09VTlQ6Cj4+Pj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgY2ZnLT5tYXhfbW9kX2luc3RfY291bnQgPSAqdGx2LT52YWx1ZTsKPj4+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+PiArCj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgIGNhc2UgU0tMX0ZXX0NGR19NQVhfTExfVEFTS1NfUEVSX1BSSV9DT1VOVDoKPj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBjZmctPm1heF9sbF90YXNrc19wZXJfcHJpX2NvdW50ID0gKnRs
+di0+dmFsdWU7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4gKwo+Pj4+
+ICvCoMKgwqDCoMKgwqDCoCBjYXNlIFNLTF9GV19DRkdfTExfUFJJX0NPVU5UOgo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIGNmZy0+bGxfcHJpX2NvdW50ID0gKnRsdi0+dmFsdWU7Cj4+Pj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDC
+oCBjYXNlIFNLTF9GV19DRkdfTUFYX0RQX1RBU0tTX0NPVU5UOgo+Pj4+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGNmZy0+bWF4X2RwX3Rhc2tzX2NvdW50ID0gKnRsdi0+dmFsdWU7Cj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4gKwo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBj
+YXNlIFNLTF9GV19DRkdfTUFYX0xJQlNfQ09VTlQ6Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgY2ZnLT5tYXhfbGlic19jb3VudCA9ICp0bHYtPnZhbHVlOwo+Pj4+ICvCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBTS0xfRldf
+Q0ZHX1hUQUxfRlJFUV9IWjoKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjZmctPnh0YWxf
+ZnJlcV9oeiA9ICp0bHYtPnZhbHVlOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFr
+Owo+Pj4+ICsKPj4+PiArwqDCoMKgwqDCoMKgwqAgY2FzZSBTS0xfRldfQ0ZHX1VBT0xfU1VQUE9S
+VDoKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjZmctPnVhb2xfc3VwcG9ydCA9ICp0bHYt
+PnZhbHVlOwo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJyZWFrOwo+Pj4+ICsKPj4+PiAr
+wqDCoMKgwqDCoMKgwqAgY2FzZSBTS0xfRldfQ0ZHX1BPV0VSX0dBVElOR19QT0xJQ1k6Cj4+Pj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY2ZnLT5wb3dlcl9nYXRpbmdfcG9saWN5ID0gKnRsdi0+
+dmFsdWU7Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4gKwo+Pj4+ICvC
+oMKgwqDCoMKgwqDCoCBjYXNlIFNLTF9GV19DRkdfRE1BX0JVRkZFUl9DT05GSUc6Cj4+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIGNhc2UgU0tMX0ZXX0NGR19TQ0hFRFVMRVJfQ09ORklHOgo+Pj4+ICvCoMKg
+wqDCoMKgwqDCoCBjYXNlIFNLTF9GV19DRkdfQ0xPQ0tTX0NPTkZJRzoKPj4+PiArwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBicmVhazsKPj4+PiArCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGRlZmF1bHQ6
+Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGV2X2luZm8oaXBjLT5kZXYsICJVbnJlY29n
+bml6ZWQgZncgcGFyYW06ICVkXG4iLAo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgdGx2LT50eXBlKTsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+Cj4+
+PiBJc24ndCB0aGlzIGFuIGVycm9yPwo+Pj4gSWYgdGhlcmUgYXJlIG90aGVyIHBvc3NpYmxlIHZh
+bHVlcywgd2h5IG5vdCBsaXN0IHRoZW0gYW5kIHNraXAgdGhlbSwgCj4+PiBhcyBkb25lIGFib3Zl
+Pwo+Pj4KPj4KPj4gUHJldHR5IHN1cmUgSSBjYW5ub3Qgc2hhcmUgbmFtZXMgZm9yIGFsbCBjYXBh
+YmlsaXRpZXMgYXMgdGhlc2UgYXJlIAo+PiBFTUJBUkdPZWQuIE1vcmVvdmVyLCBib3RoIEZXX0NG
+RyBhbmQgSFdfQ0ZHIGFuZCBjb25zdGFudGx5IGJlaW5nIAo+PiB1cGRhdGVkIGFuZCB0aHVzIG5l
+dyBjb25zdGFudHMgYXJlIGFwcGVuZGVkLiBJIGZpbmQgaXQgYmVzdCB0byAiYnJlYWsiIAo+PiB3
+aGVuIGVuY291bnRlcmluZyBrbm93biBhbmQgdW4tRU1CQVJHT0VEIGNvbnN0YW50IGFuZCBzaW1w
+bHkgZHVtcCBpbmZvIAo+PiB2YWx1ZSBpZiB0aGUgb3Bwb3NpdGUgaXMgdHJ1ZS4KPj4KPj4gTmV3
+IGNhcGFiaWxpdGllcyBhcmUgYWx3YXlzIHRpZWQgdG8gbmV3ZXIgcGxhdGZvcm1zLiBJZiB0aGVy
+ZSB3aWxsIGJlIAo+PiBhIG5lZWQgZm9yIGFkZGluZyB0aGVtLCB0aGVzZSB3b24ndCBiZSBldmVu
+IHByZXNlbnQgaW4gU0tML0tCTCBhbmQgCj4+IHN1Y2ggRldzLiBBdCB0aGUgc2FtZSB0aW1lIGlm
+IGdpdmVuIGJpbmFyeSBkcm9wIGNvbnRhaW5zIHNvbWV0aGluZyBuZXcgCj4+IGJ1dCBub3QgcmVx
+dWlyZWQgdG8gYmUgaGFuZGxlZCBieSBob3N0IGluIGdlbmVyaWMgY2FzZSwgZHVtcGluZyBlcnJv
+ciAKPj4gaXMgY291bnRlci1pbnR1aXRpdmUuCj4gCj4gSXQgZ29lcyBiYWNrIHRvIHRoZSBjb21w
+YXRpYmlsaXR5IGlzc3VlLCBpZiB5b3UgaGF2ZSBhIG5ldyBmaXJtd2FyZSAKPiByZXBvcnRpbmcg
+YSBjYXBhYmlsaXR5IHRoYXQgeW91ciBkcml2ZXIgY2Fubm90IGhhbmRsZSB0aGVuIGl0J3MgYW4g
+Cj4gZXJyb3IuIGlmIHlvdSBoYXZlIGEgbmV3IGZpcm13YXJlIHRoYXQgcmVwb3J0cyBhIG5ldyBj
+YXBhYmlsaXR5IHRoYXQgY2FuIAo+IGJlIGlnbm9yZWQgdGhlbiBpdCdzIGZpbmUgdG8ganVzdCBz
+a2lwLgo+IAo+IEkgYW0ganVzdCBjb25jZXJuZWQgdGhhdCB5b3UgaGF2ZSBubyBjaGVja3MgYXQg
+YWxsLgo+IAoKU3RpbGwgd29uZGVyaW5nIHdoeSBzaG91bGQgaG9zdCBzaWRlIGJlIGNvbmNlcm5l
+ZCBhYm91dCBjYXBhYmlsaXR5IHRoZXkgCmFyZSBub3QgZ29pbmcgdG8gdXNlIGF0IGFsbC4KCkxl
+dCdzIGFzc3VtZSBGVyBiaW5hcmllcyBhcmUgYmVpbmcgdXBkYXRlZCByZWd1bGFybHkuIERvdWJ0
+ZnVsIGRldmVsb3BlciAKd2lsbCByZW1lbWJlciB0byBhcHBlbmQgbmV3IHN3aXRjaC1jYXNlIGV2
+ZXJ5IHRpbWUgbmV3IEZXLWNhcCBwb3BzIHVwIC0gCnJlcXVpcmVzIGNoZWNraW5nIGludGVybmFs
+IEZXIGhlYWRlcnMuCgpJbiB0aGUgbG9uZyBydW4sIEkgZG8gYmVsaWV2ZSB0aGUgImRlc3luY2hy
+b25pemF0aW9uIiBtYXkgaGFwcGVuLiBJJ2xsIApyZWNoZWNrIHdpdGggb3VyIEZXIGd1eXMgd2hh
+dCB0aGV5IHRoaW5rIGFib3V0IHVzIGNvbGxhcHNpbmcgYXQgdGhpcyAKcG9pbnQgKGNmZyBwYXJz
+aW5nKS4gSW4gZ2VuZXJhbCwgY0FWUyBzcGVjaWZpY2F0aW9uIGlzIHZlcnkgcGVybWlzc2l2ZSAK
+Zm9yICJvdXRib3VuZCIgYW5kIHJlc3RyaWN0aXZlIGFnYWluc3QgImluYm91bmQiIGRhdGEuIFBh
+cnNpbmcgZ29lcyBpbnRvIAoib3V0Ym91bmQiIGJhc2tldC4KCj4+Cj4+Pj4gK8KgwqDCoMKgwqDC
+oMKgIH0KPj4+PiArCj4+Pj4gK8KgwqDCoMKgwqDCoMKgIG9mZnNldCArPSBzaXplb2YoKnRsdikg
+KyB0bHYtPmxlbmd0aDsKPj4+PiArwqDCoMKgIH0KPj4+PiArCj4+Pj4gK2V4aXQ6Cj4+Pj4gK8Kg
+wqDCoCBrZnJlZShwYXlsb2FkKTsKPj4+PiArwqDCoMKgIHJldHVybiByZXQ7Cj4+Pj4gK30KPj4+
+PiArRVhQT1JUX1NZTUJPTF9HUEwoc2tsX2lwY19md19jZmdfZ2V0KTsKPj4+Cj4+Pj4gK2VudW0g
+c2tsX2FsaF9zdXBwb3J0X2xldmVsIHsKPj4+PiArwqDCoMKgIEFMSF9OT19TVVBQT1JUID0gMHgw
+MDAwMCwKPj4+PiArwqDCoMKgIEFMSF9DQVZTXzFfOF9DTkwgPSAweDEwMDAwLAo+Pj4+ICt9Owo+
+Pj4KPj4+IFN1cHBvcnQgZm9yIEFMSCBoYXNuJ3QgY2hhbmdlZCBldmVuIHBhc3QgMS44LCBhbmQg
+cmVmZXJlbmNlcyB0byBDTkwgCj4+PiBhcmUgcHJvYmFibHkgbm90IG5lZWRlZC4KPj4KPj4gVGhl
+c2UgYXJlIEZXIHR5cGVzIGFuZCBhcmUgaGVyZSB0byBiZSBsZWZ0IHVudG91Y2hlZC4gRW5zdXJl
+cyBwYXJzZWQgCj4+IHZhbHVlcyBvbiBob3N0IHNpZGUgbWF0Y2ggRlcgc2lkZS4KPiAKPiBBZGRp
+bmcgYSBjb21tZW50IHdvdWxkIGhlbHAgdGhlbi4KCkFncmVlZCwgdGhhbmtzLgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcg
+bGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJv
+amVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

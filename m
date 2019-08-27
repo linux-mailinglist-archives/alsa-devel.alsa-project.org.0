@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D7B7A1CEB
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 16:37:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38951A1CE4
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 16:35:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0472C167D;
-	Thu, 29 Aug 2019 16:36:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0472C167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE3341694;
+	Thu, 29 Aug 2019 16:34:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE3341694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567089426;
-	bh=KcknPlcJDbJyfIcwXmh/2ag1x+aTCP3ZZZp1sFlwfRs=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=J0sFo/6FvuZR8s8OkPyxUpoHoFZFVb+wIK8cfwG6V+jz2CK0QMw3Bo3Nbch9OPQH8
-	 MTtdg0YCX7+PV04OJNLDW9Kc9Ps/7u59lKZBuD65mXDtGhS3N7MRdlhnvQY4F1TA2F
-	 ViuHFWpxs8w336+kafz5Yt5hbNQw6t5itx+Mv21s=
+	s=default; t=1567089304;
+	bh=sw78fgX82rf0FrwDCDpzLk3mTvFUdPQ1IgQLvJ04HMo=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aPZ+q++Sxu+u7ltUXSOVB7xb9jVNTX6V2pNVoGlTKMMIPBv1eCMSiAKZxyH80xKxL
+	 S5U/EaoWePqS2P2ybdj8hKrJu42yTsw+AcOmnRt3omAokNCDF6V614MyhyFQmgMzjH
+	 PjSWms9OPEPIrLTt3/+IS3PWA/9ZdCyf7NPMGhaM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E60FF806F0;
-	Tue, 27 Aug 2019 21:58:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E936F80792;
+	Tue, 27 Aug 2019 22:28:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6D7C0F8065A; Tue, 27 Aug 2019 21:58:03 +0200 (CEST)
+ id E4825F80794; Tue, 27 Aug 2019 22:28:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F207FF8063D
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 21:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F207FF8063D
+ by alsa1.perex.cz (Postfix) with ESMTPS id D68F3F80792
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 22:28:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D68F3F80792
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="EKigAvoh"
+ header.b="KieZtpl8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=em6MZelX7acWSuGq0e95g/RTon/1iv0z54PUZyQG7gM=; b=EKigAvoh+h8Z
- K4H+BeUHg1q920TGOHo3dO1q3vT8KYG0F1Ew0XpOReYNp9xqtggBxbuThRYSRP/qbegTrhW2CP/PN
- pBZrAszLOfQvsbaiNWhsyOvWa0fHKmxTSm4UupRkW5vVjbBbtnkOVHaTFh4Z2jATLryig4OMqIUlu
- d8L3o=;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=tzbApj91/4h0+MwW9ER2voR7yLuJqGh0Fb8MOhLu5tQ=; b=KieZtpl8vXpPIB5S37aY6Z6bq
+ jWMoeIXrGy1pP4C/3WWossYtHVHGzUw5+m3ggiPQjju9D+Cm5AUidSVWxIRZZmDG1Q79twYtjflxe
+ rPh0Sy/lM2SF6PYHBt3EQffJg+YezoazuUPc5sPE1UTbPTrSn8if2xyt0H/cfyGdoBUzg=;
 Received: from 188.28.18.107.threembb.co.uk ([188.28.18.107]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i2hb9-0001BX-It; Tue, 27 Aug 2019 19:57:48 +0000
+ id 1i2i4p-0001HI-7U; Tue, 27 Aug 2019 20:28:27 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id A0690D02CED; Tue, 27 Aug 2019 20:57:44 +0100 (BST)
+ id 5546ED02CE7; Tue, 27 Aug 2019 21:28:25 +0100 (BST)
+Date: Tue, 27 Aug 2019 21:28:25 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-In-Reply-To: <20190826153900.25969-1-katsuhiro@katsuster.net>
-X-Patchwork-Hint: ignore
-Message-Id: <20190827195744.A0690D02CED@fitzroy.sirena.org.uk>
-Date: Tue, 27 Aug 2019 20:57:44 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Daniel Drake <drake@endlessm.com>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, David Yang <yangxiaohua@everest-semi.com>
-Subject: [alsa-devel] Applied "ASoC: es8316: fix headphone mixer volume
-	table" to the asoc tree
+To: alsa-devel@alsa-project.org
+Message-ID: <20190827202825.GP23391@sirena.co.uk>
+MIME-Version: 1.0
+X-Cookie: Don't SANFORIZE me!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Takashi Iwai <tiwai@suse.de>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Subject: [alsa-devel] [ANNOUNCE] 2019 Linux Audio miniconference
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,95 +78,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1042747908503678484=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: es8316: fix headphone mixer volume table
+--===============1042747908503678484==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sV6E+871crhbObqU"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
+--sV6E+871crhbObqU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+Hi,
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+As in previous years we're going to have an audio miniconference so we can
+get together and talk through issues, especially design decisions, face to
+face.  This year's event will be held on October 31st in Lyon, France,
+the day after ELC-E.  This will be held at the Lyon Convention Center (the
+ELC-E venue), generously sponsored by Intel.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+As with previous years let's pull together an agenda through a mailing
+list discussion - if people could reply to this mail with any topics
+they'd like to discuss we can take it from there.  Of course if we can
+sort things out more quickly via the mailing list that's even better!
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+If you're planning to attend please fill out the form here:
+
+    https://docs.google.com/forms/d/e/1FAIpQLSd6FV-tWYZ1fHlCmyzQhG98OtYH9W9GX-1dQ88mnLxVRGyPww/viewform?usp=sf_link
+
+This event will be covered by the same code of conduct as ELC-E.
+
+Thanks again to Intel for supporting this event.
 
 Thanks,
 Mark
 
-From f972d02fee2496024cfd6f59021c9d89d54922a6 Mon Sep 17 00:00:00 2001
-From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Date: Tue, 27 Aug 2019 00:38:59 +0900
-Subject: [PATCH] ASoC: es8316: fix headphone mixer volume table
+--sV6E+871crhbObqU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-This patch fix setting table of Headphone mixer volume.
-Current code uses 4 ... 7 values but these values are prohibited.
+-----BEGIN PGP SIGNATURE-----
 
-Correct settings are the following:
-  0000 -12dB
-  0001 -10.5dB
-  0010 -9dB
-  0011 -7.5dB
-  0100 -6dB
-  1000 -4.5dB
-  1001 -3dB
-  1010 -1.5dB
-  1011 0dB
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1lkmgACgkQJNaLcl1U
+h9Cwggf/TW6VBkkm7wLN2V4enbv4Yemn7buOp13bEX+cX86221Cv4vtNOBne2Q6L
+7mpr/ZI2EtYFeEBkL9ozg+UFErxtZyYw62Nd5NrI9R/UUDDsqsua2JuY4JWg6qDR
+q8q9DKF0EyIyJ9KtcZo9dY04dl5Hp/0rGNS+9zME5GHBEF3rV8qm5lsNdyPje1mJ
+nL0rIQ9tCWYMmijX2njVt1TbZ8aAWQpCJswiLvFAz5h5BeQqGbCPUN92iR8kOpOf
+KqdY5vDGlIQmGgEEWrvNRoPdnYgExFUHsFDch9ZElMlNIwM14xP7mwc+q3nydvxn
+Q7lguaSgjX0mR+my+1pW56PK6/CcJA==
+=6tZV
+-----END PGP SIGNATURE-----
 
-Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Reviewed-by: Daniel Drake <drake@endlessm.com>
-Link: https://lore.kernel.org/r/20190826153900.25969-1-katsuhiro@katsuster.net
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/es8316.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+--sV6E+871crhbObqU--
 
-diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index 6db002cc2058..96d04896193f 100644
---- a/sound/soc/codecs/es8316.c
-+++ b/sound/soc/codecs/es8316.c
-@@ -51,7 +51,10 @@ static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(adc_vol_tlv, -9600, 50, 1);
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(alc_max_gain_tlv, -650, 150, 0);
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(alc_min_gain_tlv, -1200, 150, 0);
- static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(alc_target_tlv, -1650, 150, 0);
--static const SNDRV_CTL_TLVD_DECLARE_DB_SCALE(hpmixer_gain_tlv, -1200, 150, 0);
-+static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(hpmixer_gain_tlv,
-+	0, 4, TLV_DB_SCALE_ITEM(-1200, 150, 0),
-+	8, 11, TLV_DB_SCALE_ITEM(-450, 150, 0),
-+);
- 
- static const SNDRV_CTL_TLVD_DECLARE_DB_RANGE(adc_pga_gain_tlv,
- 	0, 0, TLV_DB_SCALE_ITEM(-350, 0, 0),
-@@ -89,7 +92,7 @@ static const struct snd_kcontrol_new es8316_snd_controls[] = {
- 	SOC_DOUBLE_TLV("Headphone Playback Volume", ES8316_CPHP_ICAL_VOL,
- 		       4, 0, 3, 1, hpout_vol_tlv),
- 	SOC_DOUBLE_TLV("Headphone Mixer Volume", ES8316_HPMIX_VOL,
--		       0, 4, 7, 0, hpmixer_gain_tlv),
-+		       0, 4, 11, 0, hpmixer_gain_tlv),
- 
- 	SOC_ENUM("Playback Polarity", dacpol),
- 	SOC_DOUBLE_R_TLV("DAC Playback Volume", ES8316_DAC_VOLL,
--- 
-2.20.1
+--===============1042747908503678484==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1042747908503678484==--

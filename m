@@ -2,76 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B93C9A1D50
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 16:42:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46837A1D73
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 16:44:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 322FA16AC;
-	Thu, 29 Aug 2019 16:41:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 322FA16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D554116BF;
+	Thu, 29 Aug 2019 16:43:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D554116BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567089730;
-	bh=ZH7KhMIrd7B1juvwrVsqTUnrUhJJd8u0M8fzITzW2dw=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Udgv99tQAncxpA4zciAD8KsZwZ/GahJTZNa5dKs7Zv0ZjCzSO4nKxRU+bs58qWQlZ
-	 DSilxKS9MCItL1++8ln32MypbWHElqlYxbnA8F8o/A9S+gvpsh28Gg1mTTfJ7xZUt6
-	 f/dE7/HqW6sbcSA2JdTAShp1YbksNDpf+JcPWFnU=
+	s=default; t=1567089880;
+	bh=AZAlYOIMfp2jHpX15HJrWBHBMMqspYsm2z6OdWNGPIY=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BpPxjZQj5JOmE+9dnPCcKPCmfRLayQeYIbJi27oEZmWh8I+uzT30RgwxSgmqadaqZ
+	 TLglW1QL4nk85TeOVTbWFqTTX55yUr6mZRHar8wPSkzzPlWdrFKb2SM8qdyusK9ev6
+	 QZrvOp19lDUAvlSSQNP2CGTrwJ/VzBXkq/EIbIf8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60BCFF80735;
-	Tue, 27 Aug 2019 21:58:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4C7CF8078F;
+	Tue, 27 Aug 2019 22:25:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51D87F8070E; Tue, 27 Aug 2019 21:58:35 +0200 (CEST)
+ id ABED9F8077D; Tue, 27 Aug 2019 22:25:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79E04F8065B
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 21:58:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E04F8065B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42F34F80774
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 22:25:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F34F80774
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="G2ligliO"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Z4B62Rk/JMSGgsuF34/JSBkYZVjMAerIvx/5tvsYHFg=; b=G2ligliOmrXs
- YZWZd3Hou4ZJCouG3bc9CcHFsBFJJlm3IF5oK/kAuakkc9bDNmUli4Dg1q9cj2+TP1XF2jc+QfRgc
- raOsoGrNgiR0zQtk1+ODkdl6VZ/0l/5GzOHVJY3F6HMJy2YZ9ilrfxKkvi79IVfzPLUqujlH6znll
- uixJc=;
-Received: from 188.28.18.107.threembb.co.uk ([188.28.18.107]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1i2hbY-0001CU-J2; Tue, 27 Aug 2019 19:58:12 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 443E9D02CE8; Tue, 27 Aug 2019 20:58:10 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Dan Carpenter <dan.carpenter@oracle.com>
-In-Reply-To: <20190826131855.GA6840@mwanda>
-X-Patchwork-Hint: ignore
-Message-Id: <20190827195810.443E9D02CE8@fitzroy.sirena.org.uk>
-Date: Tue, 27 Aug 2019 20:58:10 +0100 (BST)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Daniel Baluta <daniel.baluta@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Takashi Iwai <tiwai@suse.com>,
- kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: imx8: Fix an is IS_ERR() vs NULL
-	check" to the asoc tree
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="M3G4Y3h4"
+Received: by mail-wr1-x442.google.com with SMTP id z1so101062wru.13
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 13:25:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=Z2ACtSe6Yiw1+YbjAjRq/giYtTA4VS+c+Zl+5oYIiXY=;
+ b=M3G4Y3h42bkVq/9crq1VzDHEGrLQc0rjs9gPpAzbIP/UbZna8LkFJy34RTWoq/YD3y
+ L//flOHT9MxTy0DixdqaCDt5j90xIg0Qu1edv8Z96TmRZhgr0YVEeW4sT6iSvHtXaRbL
+ 5JPpzH44Kpii6B5L2PwOGZMKmFyqesbaXfoFfGiNmMrlbB7fwqJuzwoAJf+rxQ5Ni+QS
+ q2R6YLyw0zZWdRFnh0ez0geQui90mQIvjsTNYyb9p4042lKSlqlDKx1FHGsuC2Iq5aGu
+ O+u4szumPoIF4XBmwLADecXc1QSAfSHTPekC+nzGKT354vm41lpBItQD1cF/IJnkCopL
+ p4Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=Z2ACtSe6Yiw1+YbjAjRq/giYtTA4VS+c+Zl+5oYIiXY=;
+ b=fGZj8dUtT26Q4u+BsF1htkhjlpsWTfUeH75dJVMqPXdL/conmWM+ak15dOKG1gtSDC
+ WdVyzymcwpxWf5b8cKGZOj0058393Ex+dyzG9NQrsZvKRhCJlosDgY6itgENZ3OWITft
+ vapwMswTZfQGX1iWIvNzAKF1T11X5HQqYhcRfeNof4SORA4nFIKPWATY1zuIoq3PQh1I
+ 9WffM3etJFboeU2S5+RyIOn33027XHuqBKBPm/DkwsRlCiwy1JW+VEMBsxSSQIwUdGHW
+ QUccD5CP+OBr/3g08baKQWQp91vapTXvxUVj7DCC+/n7/UzQifrjhGrdwKKuPf2UH8YO
+ 2WeA==
+X-Gm-Message-State: APjAAAUuDLi6qyvn/J1aAxRbNTyhYUVHCs1IOdfT0LokbLRCpofgGzVY
+ uLzwBNix4gjdPwRBbW9eTyn9Aw==
+X-Google-Smtp-Source: APXvYqyHpC6GdfK/HOCjnBJXEVM8YLHpWnP6P2IknR138f8AEZoNrRpK/Q0KA/Y/KqjK4k3jrZPmZQ==
+X-Received: by 2002:adf:f507:: with SMTP id q7mr66707wro.210.1566937522099;
+ Tue, 27 Aug 2019 13:25:22 -0700 (PDT)
+Received: from [192.168.86.29]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id e11sm292024wrc.4.2019.08.27.13.25.21
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 27 Aug 2019 13:25:21 -0700 (PDT)
+To: Rob Herring <robh+dt@kernel.org>
+References: <20190822233759.12663-1-srinivas.kandagatla@linaro.org>
+ <20190822233759.12663-4-srinivas.kandagatla@linaro.org>
+ <CAL_JsqLjgOy3TKrpuNYYkRxy-Ln+3FOoKVE9KweS0ycTxriWMQ@mail.gmail.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <81888350-9296-7db1-01b5-4594a3bd5d60@linaro.org>
+Date: Tue, 27 Aug 2019 21:25:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <CAL_JsqLjgOy3TKrpuNYYkRxy-Ln+3FOoKVE9KweS0ycTxriWMQ@mail.gmail.com>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>, spapothi@codeaurora.org,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Vinod <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [RESEND PATCH v4 3/4] dt-bindings: ASoC: Add
+	WSA881x bindings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,74 +106,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Thanks for taking time to review!
 
-   ASoC: SOF: imx8: Fix an is IS_ERR() vs NULL check
+On 27/08/2019 13:20, Rob Herring wrote:
+> On Thu, Aug 22, 2019 at 6:38 PM Srinivas Kandagatla
+> <srinivas.kandagatla@linaro.org> wrote:
+>>
+>> This patch adds bindings for WSA8810/WSA8815 Class-D Smart Speaker
+>> Amplifier. This Amplifier also has a simple thermal sensor for
+>> over temperature and speaker protection.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> ---
+>>   .../bindings/sound/qcom,wsa881x.yaml          | 44 +++++++++++++++++++
+>>   1 file changed, 44 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml b/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
+>> new file mode 100644
+>> index 000000000000..ad718d75c660
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
+>> @@ -0,0 +1,44 @@
+>> +# SPDX-License-Identifier: GPL-2.0
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/sound/qcom,wsa881x.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Bindings for Qualcomm WSA8810/WSA8815 Class-D Smart Speaker Amplifier
+>> +
+>> +maintainers:
+>> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>> +
+>> +allOf:
+>> +  - $ref: "soundwire-controller.yaml#"
+> 
+> This is not the controller, so this should not be included here. You
+> should get lots of warnings from doing so. You did run 'make
+> dt_binding_check', right?
 
-has been applied to the asoc tree at
+no, I was not aware of this command! will run that before sending next 
+version.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+> 
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: sdw10217201000
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  pd-gpios:
+> 
+> powerdown-gpios is the standard name.
+> 
+sounds good to me, will change this in next version!
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+>> +    description: GPIO spec for Powerdown/Shutdown line to use
+>> +    maxItems: 1
+>> +
+>> +  "#thermal-sensor-cells":
+>> +    const: 0
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - pd-gpios
+>> +  - #thermal-sensor-cells
+>> +
+>> +examples:
+>> +  - |
+>> +    efuse@1c23800 {
+>> +        compatible = "allwinner,sun4i-a10-sid";
+> 
+> Huh?
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Opps! copy paste bugs!!! :-)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From a325c7bc3a92f1d5ba8cff10d7ab93a989cdeb80 Mon Sep 17 00:00:00 2001
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Date: Mon, 26 Aug 2019 16:18:55 +0300
-Subject: [PATCH] ASoC: SOF: imx8: Fix an is IS_ERR() vs NULL check
-
-The device_link_add() function only returns NULL on error, it doesn't
-return error pointers.
-
-Fixes: 202acc565a1f ("ASoC: SOF: imx: Add i.MX8 HW support")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Link: https://lore.kernel.org/r/20190826131855.GA6840@mwanda
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/imx/imx8.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index c9d849ced54a..2a22b18e5ec0 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -227,8 +227,8 @@ static int imx8_probe(struct snd_sof_dev *sdev)
- 						DL_FLAG_STATELESS |
- 						DL_FLAG_PM_RUNTIME |
- 						DL_FLAG_RPM_ACTIVE);
--		if (IS_ERR(priv->link[i])) {
--			ret = PTR_ERR(priv->link[i]);
-+		if (!priv->link[i]) {
-+			ret = -ENOMEM;
- 			dev_pm_domain_detach(priv->pd_dev[i], false);
- 			goto exit_unroll_pm;
- 		}
--- 
-2.20.1
-
+> 
+>> +        reg = <0x01c23800 0x10>;
+>> +        pd-gpios = <&wcdpinctrl 2 0>;
+>> +        #thermal-sensor-cells = <0>;
+>> +    };
+>> +
+>> +...
+>> --
+>> 2.21.0
+>>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

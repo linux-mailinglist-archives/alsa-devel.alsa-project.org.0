@@ -2,65 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8A79EAB8
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 16:18:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C39BC9EAF3
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 16:27:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D07B81669;
-	Tue, 27 Aug 2019 16:18:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D07B81669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5106415E2;
+	Tue, 27 Aug 2019 16:26:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5106415E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566915535;
-	bh=Sj/MwfDj+UFQJzQUDdZKJhnJcSESr58vWDXpCgrA+lk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=S9/RyaYH2NgY+fp8C7xbaMUrWFGYNMoBDetVf/swlxqcfQ7KkLFqHfhqr9KptjfWM
-	 uOvItc8NEyH+JJUZAaKQJLITciQw6Z2nF3WyuYxJFtlHkUk96dB1jNlrhpY8PlYKOV
-	 273KbfH4r7v/HOvjGnqzl/c+MMT3TPpWn/7f6HWU=
+	s=default; t=1566916065;
+	bh=xKn9bjG2xgAoqUkJeMZGPy/xPYmqLDj+/fq6AMbnkL8=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=sdckEC5c5mxy1UM1xrEmzQ/gV6jczoZuLkZcHd/aZlSBnWQ37xefFC5E9O3GAyy7a
+	 3TJNNFqPz5KVGaq+IDCHLwkTlwSE60DSZcYckcVc0d06rdu2Tyy3p418f/hn4l6CDb
+	 ffYYsY4WySmd5EqHvhH8GUVmHOH9dlFoncCLf0LY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72BD5F80637;
-	Tue, 27 Aug 2019 16:13:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05C0BF802BE;
+	Tue, 27 Aug 2019 16:26:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E6E8F805FE; Tue, 27 Aug 2019 16:13:14 +0200 (CEST)
+ id C290EF801ED; Tue, 27 Aug 2019 16:25:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43FF3F801ED
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 16:25:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43FF3F801ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="mDK55b30"
+Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
+ [86.250.200.211])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04520F802A0
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 16:13:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04520F802A0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2019 07:13:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,437,1559545200"; d="scan'208";a="264282517"
-Received: from xxx.igk.intel.com ([10.237.93.170])
- by orsmga001.jf.intel.com with ESMTP; 27 Aug 2019 07:13:05 -0700
-From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 27 Aug 2019 16:17:12 +0200
-Message-Id: <20190827141712.21015-7-amadeuszx.slawinski@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190827141712.21015-1-amadeuszx.slawinski@linux.intel.com>
-References: <20190827141712.21015-1-amadeuszx.slawinski@linux.intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 8828420828;
+ Tue, 27 Aug 2019 14:25:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1566915950;
+ bh=KPrw+88StpQqBdqXYCLjfxmDIU+ZK0KlJvUmwYmZcl8=;
+ h=From:To:Cc:Subject:Date:From;
+ b=mDK55b30eEDgGIoDrh2j8AGHXubsHe/1jVg3Z0pQBNzRxlP/posS7sF2RvdC/sQgA
+ 0arc7USrKVHqvUejYIMJVBWd5Ma7cJSNkSGVy4xT7MwwkY3z6KeRK6xFEAu2s66ZiC
+ JRFbhauToPXiwLhXehWLbKpl/XSkfFyVdDxtviWU=
+From: Maxime Ripard <mripard@kernel.org>
+To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>
+Date: Tue, 27 Aug 2019 16:25:43 +0200
+Message-Id: <20190827142547.14577-1-mripard@kernel.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@intel.com>
-Subject: [alsa-devel] [PATCH 6/6] ASoC: Intel: NHLT: Fix debug print format
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Chen-Yu Tsai <wens@csie.org>,
+ Maxime Ripard <mripard@kernel.org>
+Subject: [alsa-devel] [PATCH 1/5] dt-bindings: sound: sun4i-spdif: Fix
+	dma-names warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,28 +77,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogQW1hZGV1c3ogU8WCYXdpxYRza2kgPGFtYWRldXN6eC5zbGF3aW5za2lAaW50ZWwuY29t
-PgoKb2VtX3RhYmxlX2lkIGlzIDggY2hhcnMgbG9uZywgc28gd2UgbmVlZCB0byBsaW1pdCBpdCwg
-b3RoZXJ3aXNlIGl0Cm1heSBwcmludCBzb21lIHVucHJpbnRhYmxlIGNoYXJhY3RlcnMgaW50byBk
-bWVzZy4KClNpZ25lZC1vZmYtYnk6IEFtYWRldXN6IFPFgmF3acWEc2tpIDxhbWFkZXVzenguc2xh
-d2luc2tpQGludGVsLmNvbT4KLS0tCiBzb3VuZC9zb2MvaW50ZWwvc2t5bGFrZS9za2wtbmhsdC5j
-IHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvc291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLW5obHQuYyBiL3NvdW5kL3Nv
-Yy9pbnRlbC9za3lsYWtlL3NrbC1uaGx0LmMKaW5kZXggYWIzZDIzYzdiZDY1Li4xOWYzMjhkNzFm
-MjQgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9pbnRlbC9za3lsYWtlL3NrbC1uaGx0LmMKKysrIGIv
-c291bmQvc29jL2ludGVsL3NreWxha2Uvc2tsLW5obHQuYwpAQCAtMTM2LDcgKzEzNiw3IEBAIGlu
-dCBza2xfbmhsdF91cGRhdGVfdG9wb2xvZ3lfYmluKHN0cnVjdCBza2xfZGV2ICpza2wpCiAJc3Ry
-dWN0IGhkYWNfYnVzICpidXMgPSBza2xfdG9fYnVzKHNrbCk7CiAJc3RydWN0IGRldmljZSAqZGV2
-ID0gYnVzLT5kZXY7CiAKLQlkZXZfZGJnKGRldiwgIm9lbV9pZCAlLjZzLCBvZW1fdGFibGVfaWQg
-JThzIG9lbV9yZXZpc2lvbiAlZFxuIiwKKwlkZXZfZGJnKGRldiwgIm9lbV9pZCAlLjZzLCBvZW1f
-dGFibGVfaWQgJS44cyBvZW1fcmV2aXNpb24gJWRcbiIsCiAJCW5obHQtPmhlYWRlci5vZW1faWQs
-IG5obHQtPmhlYWRlci5vZW1fdGFibGVfaWQsCiAJCW5obHQtPmhlYWRlci5vZW1fcmV2aXNpb24p
-OwogCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9y
-ZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2Et
-ZGV2ZWwK
+From: Maxime Ripard <maxime.ripard@bootlin.com>
+
+Even though the H6 compatible has been properly added, the exeption for the
+number of DMA channels hasn't been updated, leading in a validation
+warning.
+
+Fix this.
+
+Fixes: b20453031472 ("dt-bindings: sound: sun4i-spdif: Add Allwinner H6 compatible")
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+---
+ .../devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml  | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
+index e0284d8c3b63..38d4cede0860 100644
+--- a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
++++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml
+@@ -70,7 +70,9 @@ allOf:
+       properties:
+         compatible:
+           contains:
+-            const: allwinner,sun8i-h3-spdif
++            enum:
++              - allwinner,sun8i-h3-spdif
++              - allwinner,sun50i-h6-spdif
+ 
+     then:
+       properties:
+-- 
+2.21.0
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

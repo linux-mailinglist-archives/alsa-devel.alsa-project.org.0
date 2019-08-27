@@ -2,69 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F7189E503
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 11:57:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8492F9E5B2
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 12:30:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 016AC820;
-	Tue, 27 Aug 2019 11:57:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016AC820
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BD6E1667;
+	Tue, 27 Aug 2019 12:29:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BD6E1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566899870;
-	bh=AizUU6zxi5Nsi6vuIaXJ6h9ACtSYw8eTFfjczsvt0Uk=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566901829;
+	bh=JiLNjLRs//uGscNdsh3VZMx50WAEJ1oTQYhrzs7RU1M=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lqMUx8MW+Y8/aKpR7Geil0+XWFqlJDNewebHBikO1qH2MmZRhCg2wiryywdC930ho
-	 scPvrV+BmfaQOtuHNK+xu1a6rk79mEPFbq9qlKVCYjoKu4kuhbl811Q3EeoWQgSC0p
-	 84VbCkhAuWhqcSEg0uicUZiVRJpSkSOpCkPv15KY=
+	b=XcblhvqNCx110SnuRKjUvNrab+mCHigs2CvQzgtK18LzVFqhzxMrSOgZDIowIBjIL
+	 C6XX7JNaK9ik4wMR52R9djD9QGiLrdthCO6rr9vAKTZCh/agEEPxGyvXl7y7oe/FLA
+	 nj9GlhXaslxyG7qbjis/SmEqF+v6jJqq6YxJyIUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BF5DF802A1;
-	Tue, 27 Aug 2019 11:56:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 069C0F802BE;
+	Tue, 27 Aug 2019 12:28:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2DB87F80274; Tue, 27 Aug 2019 11:56:03 +0200 (CEST)
+ id 4E88CF80274; Tue, 27 Aug 2019 12:28:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43165F801ED
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 11:55:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43165F801ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Ij1ba8VI"
-Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
- [86.250.200.211])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 84CED206BA;
- Tue, 27 Aug 2019 09:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566899757;
- bh=atL+c09nTJMiaNPgzBud/uYn355sWv8brUYuoy1/Mo4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Ij1ba8VIqrOZDYUqLFOLUwXkabk9imXGwVmxdSmwN5cZGiTsUxO1aA/95qLigQa/L
- 8FSW5wKFkg2kk4bRYb3jVTNbxyMP3df0h7kajb2lXGFq57f9BTBjzR0sfwXVhqCua7
- DwmnG/1Z5xYHmybKdt3fxnGvMgFuAetc1sgOOlfk=
-Date: Tue, 27 Aug 2019 11:55:54 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Chen-Yu Tsai <wens@csie.org>, lgirdwood@gmail.com, broonie@kernel.org
-Message-ID: <20190827095554.33tipdzz4p44zyzr@flea>
-References: <20190827093206.17919-1-mripard@kernel.org>
- <20190827093206.17919-2-mripard@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1603CF800E7
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 12:28:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1603CF800E7
+Received: by mail-ed1-f68.google.com with SMTP id z51so30620171edz.13
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 03:28:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hpmMfEcW04e4wPdBKLOA6yCkiTAFKCBRUZkT3TMGsjY=;
+ b=pPAAKON5DhWG/NDnyyFkBZqyfnxf8coF4CSWvA9dlP+08foA5o/63d8BDoeSDe3sZi
+ gshJgNbTh6cqAoXlPbhEyRfixyqNHmUdIEq4cRAHhx9KvOsDNFB6UxJ+yAUBM5xq7H5h
+ 4zunHlyOw0C8rs/q3lwqV7R9FQdvEPT7v8gH2mhjLYzIybAu43WSfeP03ytx/T1Vq6Bp
+ y0NuF3/foIqd1Z4zsJAWAT3+SsE5F9SfJdzJMMtcpsD6pZgV0KSUqWJqUwgTIEK8Ird8
+ UKmPjOg/wcn6dfqNZ073qFBV8eTzINGwyOB9j6DCV4bVeOVKBDjc4Ztf/TtHUQsziXNj
+ IIuQ==
+X-Gm-Message-State: APjAAAVDj/lKCpRlitUCjC27Eszq2DQGaQMkRuF91mn2gXn2dVTcEFXO
+ nISGlIx2XBO0JkT0I17P7kwtk51vcDw=
+X-Google-Smtp-Source: APXvYqwaHjj3qQHH7RmhYkGj9mu3pEVhWbbd3yNY15ZkPOxT1O3gU5LOKqSO/qnPv5ZNR6XWgOwxXA==
+X-Received: by 2002:aa7:d755:: with SMTP id a21mr23270439eds.295.1566901712701; 
+ Tue, 27 Aug 2019 03:28:32 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com.
+ [209.85.128.42])
+ by smtp.gmail.com with ESMTPSA id n24sm3578398ejz.5.2019.08.27.03.28.31
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 27 Aug 2019 03:28:32 -0700 (PDT)
+Received: by mail-wm1-f42.google.com with SMTP id p74so2497054wme.4
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 03:28:31 -0700 (PDT)
+X-Received: by 2002:a1c:eb0a:: with SMTP id j10mr28275617wmh.125.1566901711153; 
+ Tue, 27 Aug 2019 03:28:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190827093206.17919-2-mripard@kernel.org>
-User-Agent: NeoMutt/20180716
-Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: sun4i: Revert A83t description
+References: <20190826180734.15801-1-codekipper@gmail.com>
+ <20190826180734.15801-2-codekipper@gmail.com>
+ <CAGb2v651jVp+J2eyWh7vw-yHmFTVy4eaMjHV0FvOF17C5_Hswg@mail.gmail.com>
+ <CAEKpxBmCg4AkqKM-O3C76gto+mPWyEdDbviAmRJ8PxLOOMTJ7w@mail.gmail.com>
+ <CAGb2v64VNZ0oyD_760uNccwJb7MKngSooWB72M+d1DfT4-djog@mail.gmail.com>
+ <CAEKpxBn3g2hFaei6thAnAHX4nemrs9c_xWp1GheMfMS6+TJ7gQ@mail.gmail.com>
+In-Reply-To: <CAEKpxBn3g2hFaei6thAnAHX4nemrs9c_xWp1GheMfMS6+TJ7gQ@mail.gmail.com>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Tue, 27 Aug 2019 18:28:16 +0800
+X-Gmail-Original-Message-ID: <CAGb2v67MOE0bUrxO6NrObOCUO9ErknC0CNGYuk_Bs_iBwvU_DQ@mail.gmail.com>
+Message-ID: <CAGb2v67MOE0bUrxO6NrObOCUO9ErknC0CNGYuk_Bs_iBwvU_DQ@mail.gmail.com>
+To: Code Kipper <codekipper@gmail.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
+ linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [linux-sunxi] [PATCH v6 1/3] ASoC: sun4i-i2s:
+ incorrect regmap for A83T
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,113 +100,123 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4101164858940463464=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============4101164858940463464==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ofq54esimqpykuym"
-Content-Disposition: inline
-
-
---ofq54esimqpykuym
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Aug 27, 2019 at 11:32:06AM +0200, Maxime Ripard wrote:
-> From: Maxime Ripard <maxime.ripard@bootlin.com>
+On Tue, Aug 27, 2019 at 4:35 PM Code Kipper <codekipper@gmail.com> wrote:
 >
-> The last set of reworks included some fixes to change the A83t behaviour
-> and "fix" it.
+> On Tue, 27 Aug 2019 at 10:01, Chen-Yu Tsai <wens@csie.org> wrote:
+> >
+> > On Tue, Aug 27, 2019 at 1:55 PM Code Kipper <codekipper@gmail.com> wrote:
+> > >
+> > > On Tue, 27 Aug 2019 at 06:13, Chen-Yu Tsai <wens@csie.org> wrote:
+> > > >
+> > > > On Tue, Aug 27, 2019 at 2:07 AM <codekipper@gmail.com> wrote:
+> > > > >
+> > > > > From: Marcus Cooper <codekipper@gmail.com>
+> > > > >
+> > > > > The regmap configuration is set up for the legacy block on the
+> > > > > A83T whereas it uses the new block with a larger register map.
+> > > >
+> > > > Looking at the code Allwinner previously released [1], that doesn't seem to be
+> > > > the case. Keep in mind that the register map shown in the user manual is for
+> > > > the TDM interface, which we don't actually support right now.
+> > >
+> > > Should it matter what we support right now?, the block according to the user
+> > > manual shows the bigger range. I don't have a A83T device and from what I
+> >
+> > There are a total of four I2S controllers on the A83T. Currently three of them
+> > are listed in the dtsi file, which are _not_ the one shown in the user manual.
+> > The one shown is the fourth one, which is the TDM controller.
 >
-> It turns out that the controller described in the datasheet and the one
-> supported here are not the same, yet the A83t has the two of them, and the
-> one supported in the driver wasn't the one described in the datasheet.
+> The configuration for the A83T suggests that it's a mixture of old and
+> new which I don't
+> think is the case considering it was released around the same time as
+> the H3. There
+> is enough similarity between the blocks for it to still work. For
+> example on the H6
+> we referenced by mistake the H3 block and we still got audio (with
+> only slight distortion).
+
+The difference with the A83T here is large enough that if you play anything
+it will simply stall. I already reported it as broken and Maxime has sent
+fixes.
+
+> I would suggest to validate all of the i2s blocks we need to test
+> using the internal loopback
+> as that will also cover capture.
 >
-> Fix this by reintroducing the proper quirks.
+> >
+> > It's not like we haven't seen this before. IIRC the A64 also had two variants
+> > of the I2S interface. The one coupled with the audio codec was different from
+> > the others.
 >
-> Fixes: 69e450e50ca6 ("ASoC: sun4i-i2s: Fix the LRCK period on A83t")
-> Fixes: bf943d527987 ("ASoC: sun4i-i2s: Fix MCLK Enable bit offset on A83t")
-> Fixes: 2e04fc4dbf50 ("ASoC: sun4i-i2s: Fix WSS and SR fields for the A83t")
-> Fixes: 515fcfbc7736 ("ASoC: sun4i-i2s: Fix LRCK and BCLK polarity offsets on newer SoCs")
-> Fixes: c1d3a921d72b ("ASoC: sun4i-i2s: Fix the MCLK and BCLK dividers on newer SoCs")
-> Fixes: fb19739d7f68 ("ASoC: sun4i-i2s: Use module clock as BCLK parent on newer SoCs")
-> Fixes: 71137bcd0a9a ("ASoC: sun4i-i2s: Move the format configuration to a callback")
-> Fixes: d70be625f25a ("ASoC: sun4i-i2s: Move the channel configuration to a callback")
-> Reported-by: Chen-Yu Tsai <wens@csie.org>
-> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-> ---
->  sound/soc/sunxi/sun4i-i2s.c | 24 ++++++++++++------------
->  1 file changed, 12 insertions(+), 12 deletions(-)
+> Yes...but the i2s of the audio codec was documented in the audio codec
+> section. I've used
+> this device to ensure that I've not broken anything in the old block
+> with these new changes.
 >
-> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> index a6a3f772fdf0..498ceebd9135 100644
-> --- a/sound/soc/sunxi/sun4i-i2s.c
-> +++ b/sound/soc/sunxi/sun4i-i2s.c
-> @@ -1106,18 +1106,18 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
->  	.has_reset		= true,
->  	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
->  	.sun4i_i2s_regmap	= &sun4i_i2s_regmap_config,
-> -	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
-> -	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
-> -	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
-> -	.bclk_dividers		= sun8i_i2s_clk_div,
-> -	.num_bclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
-> -	.mclk_dividers		= sun8i_i2s_clk_div,
-> -	.num_mclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
-> -	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
-> -	.get_sr			= sun8i_i2s_get_sr_wss,
-> -	.get_wss		= sun8i_i2s_get_sr_wss,
-> -	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
-> -	.set_fmt		= sun8i_i2s_set_soc_fmt,
-> +	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 7, 7),
-> +	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 2, 3),
-> +	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 5),
-> +	.bclk_dividers		= sun4i_i2s_bclk_div,
-> +	.num_bclk_dividers	= ARRAY_SIZE(sun4i_i2s_bclk_div),
-> +	.mclk_dividers		= sun4i_i2s_mclk_div,
-> +	.num_mclk_dividers	= ARRAY_SIZE(sun4i_i2s_mclk_div),
-> +	.get_bclk_parent_rate	= sun4i_i2s_get_bclk_parent_rate,
-> +	.get_sr			= sun4i_i2s_get_sr_wss,
+> >
+> > > gather not many users do. But the compatible for the H3 has been removed
+> > > and replaced with the settings for the A83T which also has default settings in
+> > > registers further up than SUNXI_RXCHMAP.
+> >
+> > I'll sync up with Maxime on this.
+> >
+> > > >
+> > > > The file shows the base address as 0x01c22800, and the last defined register
+> > > > is SUNXI_RXCHMAP at 0x3c.
+> > > >
+> > > > The I2S driver [2] also shows that it is the old register map size, but with
+> > > > TX_FIFO and INT_STA swapped around. This might mean that it would need a
+> > > > separate regmap_config, as the read/write callbacks need to be changed to
+> > > > fit the swapped registers.
+> > > >
+> > > > Finally, the TDM driver [3], which matches the TDM section in the manual, shows
+> > > > a larger register map.
+> > > >
+> > > > A83T is SUN8IW6, while SUN8IW7 refers to the H3.
+> > >
+> > > Since when have we trusted Allwinner code?, the TDM labelled block
+> > > clearly supports
+> >
+> > Since they haven't listed the I2S block in the user manual, so that is what we
+> > have to go by.
+> >
+> > The TDM section in the user manual only lists the block at 0x1c23000. The memory
+> > map says DAUDIO-[012] for addresses 0x1c22000, 0x1c22400, 0x1c22800, and TDM for
+> > address 0x1c23000. One would assume this meant these are somewhat different.
+> >
+> > > I2S. The biggest use case for this block is getting HDMI audio working
+> > > on the newer
+> >
+> > I understand that.
+> >
+> > > devices(LibreELEC nightlies has a user base of over 300) and I've tested this on
+> > > numerous set ups over the last couple of years.
+> >
+> > Tested on the H3, correct?
+>
+> Yes....but only with the additional changes for multi-channel with my
+> LibreELEC build.
+> These changes I tested on my pine64 before pushing upstream.
+>
+> >
+> > > Failing that reverting (3e9acd7ac693: "ASoC: sun4i-i2s: Remove
+> > > duplicated quirks structure")
+> > > would help.
+> >
+> > I'll take a look. IIRC it worked with the old layout, with the two registers
+> > swapped, playing standard 48 KHz / 16 bit audio when I added supported for
+> > the A83T. Then again maybe the stars were perfectly aligned. At the very least
+> > we could separate A83T and H3 as you suggested.
 
-This should be sun4i_i2s_get_sr
+Maxime has sent a patch reverting the merger.
 
-> +	.get_wss		= sun4i_i2s_get_sr_wss,
-
-This should be sun4i_i2s_get_wss
-
-Sorry for that.
-
-Maxime
---
-Maxime Ripard, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
---ofq54esimqpykuym
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXWT+KgAKCRDj7w1vZxhR
-xcK8APoCqQ3/O2zmdGt1Jbk4nJNFD9ugntBZ5RBtIauNpnmlWQD+KGnyPy5+HWfq
-E4inmGjbivNP3KzSX7HHh1Rr+fblBQc=
-=QDn9
------END PGP SIGNATURE-----
-
---ofq54esimqpykuym--
-
---===============4101164858940463464==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+ChenYu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4101164858940463464==--

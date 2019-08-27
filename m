@@ -2,89 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 210F39DD5C
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 07:56:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69B6D9DE58
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 09:03:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8817D1677;
-	Tue, 27 Aug 2019 07:56:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8817D1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id D468B1669;
+	Tue, 27 Aug 2019 09:02:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D468B1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566885414;
-	bh=7KpK9VoRecE9zfk7b6gQ0u6QmtXeEeL1/dEQWiZyWLw=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1566889386;
+	bh=uIRsquMqfh97Vjb91bAoctbggQSzbtbrcCjop4wqrN4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MHDp7TlH6gHcRqJVHK9Giv1DhXPnMuBWrrDKjX6zkAr5ALWE7YHw/xdwUj6NL6JdT
-	 tD0Sa7yutPilZeNmS3sUXJJgDO8RC7qMSUOhTL2xM5NQkN6PqFi/7VM+mzEHTX5mK0
-	 JzFFKvqUYMZLzCixM/dbwhuuyQG7O6JzyMgiQ6/g=
+	b=ZkXuy7O3uKw506psE9PWYczGj5I6qooDmziGSrePInmkeqp55wj1Wmxkl5aQB1/3i
+	 R0Z2BWTmJhzI0xrHglD+ZjAaHzjGZGOX90Hl8/M6qt2F0kbu+ADlZnkrRVt8HsQ91A
+	 E2WiMvexKenRngJbKiqtvjRb4tCZGlcVP0uGBXhA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2999FF80273;
-	Tue, 27 Aug 2019 07:55:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3552AF802A1;
+	Tue, 27 Aug 2019 09:01:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41926F80274; Tue, 27 Aug 2019 07:55:05 +0200 (CEST)
+ id 11855F80274; Tue, 27 Aug 2019 09:01:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33E65F800E7
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 07:54:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33E65F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9AAD9F80142
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 09:01:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9AAD9F80142
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="tBPtAp0W"
-Received: by mail-lf1-x141.google.com with SMTP id g9so386184lfb.0
- for <alsa-devel@alsa-project.org>; Mon, 26 Aug 2019 22:54:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=N+vpsDloTUdy5MvFdUSFeHVMIbrM4Okd8BXV+IVwifM=;
- b=tBPtAp0WoXthyCDuxt0/UFLRqezDiJevoRKm/SOQIUlGRldn152fQioRxeB7al5xxT
- sVoOIxaT/VuG5XuiKbuOW9+y1OHW9NHrC/uPtx+grRsTws3Vq7QqhSTz6j+4C26nCUqr
- LDMbBJz9Sa7OUTHFnJspqelzZyXBxk3eFAElrk3MWHmSUzcbICTCuExINBxSK/XylvvR
- ohpvOvP1+OoJDBUHQJQWotFSoTwt7NYPl+x0e1RajCT2jLQU3sCCkvBLETeYiSi3H541
- rDNr7/WbU2NPl9VrKwbfQ/oxycmkvFye7tObGO23O2OCVf9LLaBGOow+JWnc2DkFAg20
- 8Ojw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=N+vpsDloTUdy5MvFdUSFeHVMIbrM4Okd8BXV+IVwifM=;
- b=tJdagYgzAJHt7uJAlKtobPCOioDqst0yfcMXzUOSn0L9hsbGPlTP5bLaNxPZt+QL3T
- q2/cO+Ap9CK5TubtEK2Ty5pZRgB0DMp92bvJQklP1stj5xnj3+39+wZq71prRkgdzXQN
- XmBU/nxxL2+kt3FyFsHGc0gklbhyGjuKHwNlCeXRRxH7s7FF3Gj8fIeW3bksP6pave5G
- ULfwDSQmCWefO5oe+O8xsT16Kzi8a5hQ/vFR/sxSGc8mF1rvyx52vfYAMXwvX6t2oij5
- iuBhtoUr8Ln3VpS9f1AZfDP4f/60oZfDey3uyqrgW6ZoWNmIV9Hu0ExTdzEPea/zDfWA
- 6jQw==
-X-Gm-Message-State: APjAAAWbW/gBIzVGRcwsjT9vSH/2u+dW+/i7Y1NJvEh46yv/Qv8WuvMA
- xT7oVgTLK626EwYcTfzeYGyNJxETpexlHMnHB0I=
-X-Google-Smtp-Source: APXvYqzidw7it9RFvQO3QHpIyQRWnqyn2HDPGgcq72wbtDx3y1RWj/BFazwXFiWSboCAudwrFQw+mF1nebwphQAgI5I=
-X-Received: by 2002:ac2:563c:: with SMTP id b28mr12969143lff.93.1566885297683; 
- Mon, 26 Aug 2019 22:54:57 -0700 (PDT)
-MIME-Version: 1.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="hgQhsTQ0"
+Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
+ [86.250.200.211])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C88C1206BF;
+ Tue, 27 Aug 2019 07:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1566889264;
+ bh=Biq9mF8dTT+XjGplKumTdtUTNHz0ImKVfvD7CkyAwj0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hgQhsTQ0uGStkRN08ze0pp7gYCNZAgjNr980p+jcVF5VXiEywouzHu1X/QaioYG7h
+ pCwT9TmFUF4jd97IjGFMlF+qXHiYfnmwMA/XS1uzU8+t2GJf5VfqFsV2wMcd3tXQ08
+ RHKJsMf0efsZ6ws16aWkFS5lZ0ADFggxZxhDxI0I=
+Date: Tue, 27 Aug 2019 09:01:01 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: codekipper@gmail.com
+Message-ID: <20190827070101.tastgcqvzrgv3kc5@flea>
 References: <20190826180734.15801-1-codekipper@gmail.com>
- <20190826180734.15801-2-codekipper@gmail.com>
- <CAGb2v651jVp+J2eyWh7vw-yHmFTVy4eaMjHV0FvOF17C5_Hswg@mail.gmail.com>
-In-Reply-To: <CAGb2v651jVp+J2eyWh7vw-yHmFTVy4eaMjHV0FvOF17C5_Hswg@mail.gmail.com>
-From: Code Kipper <codekipper@gmail.com>
-Date: Tue, 27 Aug 2019 07:54:45 +0200
-Message-ID: <CAEKpxBmCg4AkqKM-O3C76gto+mPWyEdDbviAmRJ8PxLOOMTJ7w@mail.gmail.com>
-To: Chen-Yu Tsai <wens@csie.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
- linux-sunxi <linux-sunxi@googlegroups.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [linux-sunxi] [PATCH v6 1/3] ASoC: sun4i-i2s:
- incorrect regmap for A83T
+ <20190826180734.15801-4-codekipper@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <20190826180734.15801-4-codekipper@gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: alsa-devel@alsa-project.org, linux-sunxi@googlegroups.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com, be17068@iperbole.bo.it,
+ wens@csie.org, broonie@kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v6 3/3] ASoC: sun4i-i2s: Adjust LRCLK width
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,91 +78,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0931111125778618169=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 27 Aug 2019 at 06:13, Chen-Yu Tsai <wens@csie.org> wrote:
->
-> On Tue, Aug 27, 2019 at 2:07 AM <codekipper@gmail.com> wrote:
-> >
-> > From: Marcus Cooper <codekipper@gmail.com>
-> >
-> > The regmap configuration is set up for the legacy block on the
-> > A83T whereas it uses the new block with a larger register map.
->
-> Looking at the code Allwinner previously released [1], that doesn't seem to be
-> the case. Keep in mind that the register map shown in the user manual is for
-> the TDM interface, which we don't actually support right now.
 
-Should it matter what we support right now?, the block according to the user
-manual shows the bigger range. I don't have a A83T device and from what I
-gather not many users do. But the compatible for the H3 has been removed
-and replaced with the settings for the A83T which also has default settings in
-registers further up than SUNXI_RXCHMAP.
+--===============0931111125778618169==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="aewobl2wvpczcoyt"
+Content-Disposition: inline
 
->
-> The file shows the base address as 0x01c22800, and the last defined register
-> is SUNXI_RXCHMAP at 0x3c.
->
-> The I2S driver [2] also shows that it is the old register map size, but with
-> TX_FIFO and INT_STA swapped around. This might mean that it would need a
-> separate regmap_config, as the read/write callbacks need to be changed to
-> fit the swapped registers.
->
-> Finally, the TDM driver [3], which matches the TDM section in the manual, shows
-> a larger register map.
->
-> A83T is SUN8IW6, while SUN8IW7 refers to the H3.
 
-Since when have we trusted Allwinner code?, the TDM labelled block
-clearly supports
-I2S. The biggest use case for this block is getting HDMI audio working
-on the newer
-devices(LibreELEC nightlies has a user base of over 300) and I've tested this on
-numerous set ups over the last couple of years.
+--aewobl2wvpczcoyt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Failing that reverting (3e9acd7ac693: "ASoC: sun4i-i2s: Remove
-duplicated quirks structure")
-would help.
+On Mon, Aug 26, 2019 at 08:07:34PM +0200, codekipper@gmail.com wrote:
+> From: Marcus Cooper <codekipper@gmail.com>
+>
+> Some codecs such as i2s based HDMI audio and the Pine64 DAC require
+> a different amount of bit clocks per frame than what is calculated
+> by the sample width. Use the values obtained by the tdm slot bindings
+> to adjust the LRCLK width accordingly.
+>
+> Signed-off-by: Marcus Cooper <codekipper@gmail.com>
+> ---
+>  sound/soc/sunxi/sun4i-i2s.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+> index 056a299c03fb..0965a97c96e5 100644
+> --- a/sound/soc/sunxi/sun4i-i2s.c
+> +++ b/sound/soc/sunxi/sun4i-i2s.c
+> @@ -455,7 +455,10 @@ static int sun8i_i2s_set_chan_cfg(const struct sun4i_i2s *i2s,
+>  		break;
+>
+>  	case SND_SOC_DAIFMT_I2S:
+> -		lrck_period = params_physical_width(params);
+> +		if (i2s->slot_width)
+> +			lrck_period = i2s->slot_width;
+> +		else
+> +			lrck_period = params_physical_width(params);
+>  		break;
 
-BR,
-CK
->
-> ChenYu
->
-> [1] https://github.com/allwinner-zh/linux-3.4-sunxi/blob/master/sound/soc/sunxi/hdmiaudio/sunxi-hdmipcm.h
-> [2] https://github.com/allwinner-zh/linux-3.4-sunxi/blob/master/sound/soc/sunxi/i2s0/sunxi-i2s0.h
-> [3] https://github.com/allwinner-zh/linux-3.4-sunxi/blob/master/sound/soc/sunxi/daudio0/sunxi-daudio0.h
->
-> > Fixes: 21faaea1343f ("ASoC: sun4i-i2s: Add support for A83T")
-> > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> > ---
-> >  sound/soc/sunxi/sun4i-i2s.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> > index 57bf2a33753e..34575a8aa9f6 100644
-> > --- a/sound/soc/sunxi/sun4i-i2s.c
-> > +++ b/sound/soc/sunxi/sun4i-i2s.c
-> > @@ -1100,7 +1100,7 @@ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
-> >  static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
-> >         .has_reset              = true,
-> >         .reg_offset_txdata      = SUN8I_I2S_FIFO_TX_REG,
-> > -       .sun4i_i2s_regmap       = &sun4i_i2s_regmap_config,
-> > +       .sun4i_i2s_regmap       = &sun8i_i2s_regmap_config,
-> >         .field_clkdiv_mclk_en   = REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
-> >         .field_fmt_wss          = REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
-> >         .field_fmt_sr           = REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
-> > --
-> > 2.23.0
-> >
-> > --
-> > You received this message because you are subscribed to the Google Groups "linux-sunxi" group.
-> > To unsubscribe from this group and stop receiving emails from it, send an email to linux-sunxi+unsubscribe@googlegroups.com.
-> > To view this discussion on the web, visit https://groups.google.com/d/msgid/linux-sunxi/20190826180734.15801-2-codekipper%40gmail.com.
+That would be the case with the DSP formats too, right?
+
+Maxime
+
+--
+Maxime Ripard, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
+--aewobl2wvpczcoyt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXWTVLQAKCRDj7w1vZxhR
+xSAlAQCvR8zoBbzxDhfl4BOVHlf7M+d/VwTWUWIndBN6/bMNDAD+KSWSTL9rCbyM
+5aTcKxbY8Hi2H/ljbFggOIAykqgEnQI=
+=88rE
+-----END PGP SIGNATURE-----
+
+--aewobl2wvpczcoyt--
+
+--===============0931111125778618169==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0931111125778618169==--

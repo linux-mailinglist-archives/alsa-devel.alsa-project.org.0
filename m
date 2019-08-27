@@ -2,128 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3C2A9DEFA
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 09:46:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD0A29E049
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 10:02:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C9FD1667;
-	Tue, 27 Aug 2019 09:45:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C9FD1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3EB61670;
+	Tue, 27 Aug 2019 10:01:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3EB61670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566891976;
-	bh=uFk75hZBUR+CJpQg375SuYDMQ4kwFstbClYrRTlONMs=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1566892936;
+	bh=Csda0PlsVXJCVNp7FQa7J6OYAKl6Gsm0168nrZcADQU=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=crDIMTGJTaFlwa9lJ5gRAVnR57DdoR/mcGf7CS5wQ5YXZ9OPT/wKu0GyMRprvJp1S
-	 lpHcK5Qb9sXcE2YMJmoV8sJ1erpiigeDuM8CKUai/42/8cK+aa/rDt5UIEMztv+nTT
-	 /pL9hk+8ykbfIltqizHzZS7Y1AH5ebSSlrRZCN8Y=
+	b=o3qjrmxXp8l3pU41iCs0knTXqpUSwbF5OWaInalvyK5YWZrDc3WnHXleL6eYuSFWt
+	 hBt8adfcFsEIJqxZGB8R1OPSpm7K7xs+zNkpon/wgmb7AckEywyBswfFyZkm900/Yl
+	 2t1nLi0kzP5WaEMRk5xEclMMd6LvpCXg1LHbDD5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0193FF80273;
-	Tue, 27 Aug 2019 09:44:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAAD9F805A0;
+	Tue, 27 Aug 2019 10:00:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DBC3EF80274; Tue, 27 Aug 2019 09:44:28 +0200 (CEST)
+ id 74317F80444; Tue, 27 Aug 2019 10:00:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr40073.outbound.protection.outlook.com [40.107.4.73])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 938A2F801ED
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 10:00:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 938A2F801ED
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="FOk9lpc+"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CA09F801ED
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 09:44:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CA09F801ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="aDa4j5FX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MpKALyCItok5SPg1doT9QiiTql2sDTp/U/cp7Lg/rwP/P35Vx2yk+NR9M6xvgcyL5xsjAs+MZmj9VHdXKF2BCQeqYb+0mN4RFpBLm3nDHN17wMcSlpe3PBPI+6h4h/VwHKZ4MdwWb4Y+od967Kwq7fHkPIah8VwqCfdzMo/coRrL++jtwLQgiLW0BejcQEwEsmeTPLwPriKWAWRon90vVavkDtDPTMV/8LQw4sroKVjY8y7bD3a1xV9k8Lv1XGM+evCIOQE93PUECR3/kDMUs05iVvuboag3l2eb47Whj+twByHNuWHLVogut9iECua1Z/tRkDnh7W7MunhFYRiDiA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wdFFSZtM2sPw2p5vCdHcvsqNJlIfy03d+5Kq4ViMgxo=;
- b=F8w0HLJYgyuwgoZkYDDHCSHPqRScnPa+9VPi3nVPitUBpkwHtSh0et2mnpD2BrpLxZZpLODUJATLSwaheKShwCz4u/r9v2AkqManamptIVNktrAfHQRb7CXaff4+lyGTztC+4HKYga9LqITJrn0QYiqyM+v52NluwUC0mXcE74UYblT5M7/QnCLP5gS+U2frWwVzRyVWG+Pz9TbcIp6KZD+segDNfh0g/hwuOcNXOUXTQTUev5lBljIxAI+xJMRsCp2Q7MaVrs7O+59UvXnulQx7+CJW19R8D+9EoNywAiEHgFBUUSeXOBaevFxXJX60dPfGzc3gbp1VN6ZXo0cigA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wdFFSZtM2sPw2p5vCdHcvsqNJlIfy03d+5Kq4ViMgxo=;
- b=aDa4j5FX25yj44ERyT0wtbq1JknRbOhuHI8zwnRmGSgYN+eCheh/sI/OZjNldQKJ0eUSpP6yHImZvtlHpNJFcGhXrMzPPZBx0jxTaZw+AJBd7Np5CKLTiGmhW2j0rDHZ/pIEWQN9+9TgQrQIphgseaD9yyR6htWk6+hlSfQC1bc=
-Received: from VI1PR04MB4094.eurprd04.prod.outlook.com (52.133.13.160) by
- VI1PR04MB4349.eurprd04.prod.outlook.com (52.134.122.159) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2199.21; Tue, 27 Aug 2019 07:44:20 +0000
-Received: from VI1PR04MB4094.eurprd04.prod.outlook.com
- ([fe80::c85e:7409:9270:3c3c]) by VI1PR04MB4094.eurprd04.prod.outlook.com
- ([fe80::c85e:7409:9270:3c3c%7]) with mapi id 15.20.2199.021; Tue, 27 Aug 2019
- 07:44:20 +0000
-From: Daniel Baluta <daniel.baluta@nxp.com>
-To: "timur@kernel.org" <timur@kernel.org>, "Xiubo.Lee@gmail.com"
- <Xiubo.Lee@gmail.com>, "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "festevam@gmail.com" <festevam@gmail.com>, "broonie@kernel.org"
- <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>, "shawnguo@kernel.org"
- <shawnguo@kernel.org>, "S.j. Wang" <shengjiu.wang@nxp.com>, Viorel Suman
- <viorel.suman@nxp.com>, "perex@perex.cz" <perex@perex.cz>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>
-Thread-Topic: [PATCH] ASoC: imx-audmix: register the card on a proper dev
-Thread-Index: AQHVXItnJrx+gT0oHE+CkZPy//zxeKcOnWCA
-Date: Tue, 27 Aug 2019 07:44:20 +0000
-Message-ID: <65ef17869dbc0a785e2abe9c27df24fdfb273c16.camel@nxp.com>
-References: <1566921315-23402-1-git-send-email-shengjiu.wang@nxp.com>
-In-Reply-To: <1566921315-23402-1-git-send-email-shengjiu.wang@nxp.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=daniel.baluta@nxp.com; 
-x-originating-ip: [89.37.124.34]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0613489f-769b-4d1d-1420-08d72ac25f2b
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
- SRVR:VI1PR04MB4349; 
-x-ms-traffictypediagnostic: VI1PR04MB4349:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VI1PR04MB43497917CE243D66CC79EDF9F9A00@VI1PR04MB4349.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 0142F22657
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(346002)(376002)(366004)(396003)(199004)(189003)(66476007)(5660300002)(66946007)(64756008)(6506007)(66556008)(76176011)(4326008)(54906003)(7416002)(66446008)(81156014)(76116006)(71190400001)(8676002)(99286004)(6512007)(91956017)(50226002)(14454004)(81166006)(71200400001)(102836004)(6486002)(186003)(26005)(25786009)(6436002)(8936002)(229853002)(486006)(446003)(110136005)(44832011)(305945005)(36756003)(7736002)(6246003)(2906002)(478600001)(2201001)(66066001)(3846002)(53936002)(86362001)(2501003)(316002)(256004)(476003)(2616005)(11346002)(118296001)(6116002)(99106002)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR04MB4349;
- H:VI1PR04MB4094.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Nh5OoJxoi0Bymo8qndR0NU02ynGHtrTSLCH6TXplOXgA9zQkLYznUgKM5KxxneTJQJklsil5QaIZcAI36tI//DbpcKjfwpr4uokgwG2dIRIBADnN3oWywJjCT6O1mBSZrrNmY7NnaG3fi96Q/EERY6wR+VmQ2vwbywJRqn+3QUT75mpWJHGFhQjGSZO9/CnCUkzdhr5LPYsCo8LvWe38rz8O3ZPPVEJ8SdxLOtELZ7AD+GlnUAoX/33QPQLpKQgo2xa0kLSe0LXTpA13u6ry0nZgLE2/C0WR9WqeiY0QF1WQlk+Xp9F6yG1Rvdu549vGnh8HFXdbNBrRMQ2AZAROP3eupfLMRCzZifhluq0affDkCeBL/IGFjMFbPVCQJzKGd0t9ROWjbOJJGW38Prl6kNuD9aeLYEHO+O/2xc/hBIM=
-Content-ID: <72DF92E13A17A0468403E9BD125780DB@eurprd04.prod.outlook.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 48E98206BF;
+ Tue, 27 Aug 2019 08:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1566892800;
+ bh=/hUz0QHXM4fVdpZ2JqX3CUAwKTuN+Sp2nfxIucumXWY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=FOk9lpc+kWZqmZuvbA0NCG77cnpb8eVZXlhaNMPa4kcAoHiDh9vw7h2iobuH8K+Tm
+ aps4L6hNykzHknjpEykLt3Kr/vf9dPMuYE5hTTsmNIS+TCSzqmmIFsdZMv169UtiiB
+ k7HXQN8FrUe2l2LKw1cG1Y977tJIo8DX2jBSu/kM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue, 27 Aug 2019 09:48:57 +0200
+Message-Id: <20190827072738.668230721@linuxfoundation.org>
+X-Mailer: git-send-email 2.23.0
+In-Reply-To: <20190827072738.093683223@linuxfoundation.org>
+References: <20190827072738.093683223@linuxfoundation.org>
+User-Agent: quilt/0.66
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0613489f-769b-4d1d-1420-08d72ac25f2b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Aug 2019 07:44:20.2636 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 7sAT+ls6inUpirlNbjRxOvH6xxJl6hu1abdQbR+3v6scGUchbh5R0+DQ6rZIJHgi+4rnRC+W1tobSlET64ui6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4349
-Cc: "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- dl-linux-imx <linux-imx@nxp.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: imx-audmix: register the card on a
-	proper dev
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Sangbeom Kim <sbkim73@samsung.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Mark Brown <broonie@kernel.org>, stable@vger.kernel.org,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Wen Yang <wen.yang99@zte.com.cn>
+Subject: [alsa-devel] [PATCH 5.2 009/162] ASoC: samsung: odroid: fix an
+	use-after-free issue for codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,47 +87,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2019-08-27 at 11:55 -0400, Shengjiu Wang wrote:
-> This platform device is registered from "fsl_audmix", which is
-> its parent device. If use pdev->dev.parent for the priv->card.dev,
-> the value set by dev_set_drvdata in parent device will be covered
-> by the value in child device.
-> 
-> Fixes: b86ef5367761 ("ASoC: fsl: Add Audio Mixer machine driver")
-> Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+[ Upstream commit 9b6d104a6b150bd4d3e5b039340e1f6b20c2e3c1 ]
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+The codec variable is still being used after the of_node_put() call,
+which may result in use-after-free.
 
-Thanks Shengjiu for the fix!
+Fixes: bc3cf17b575a ("ASoC: samsung: odroid: Add support for secondary CPU DAI")
+Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sangbeom Kim <sbkim73@samsung.com>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Link: https://lore.kernel.org/r/1562989575-33785-2-git-send-email-wen.yang99@zte.com.cn
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/samsung/odroid.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-> ---
->  sound/soc/fsl/imx-audmix.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/fsl/imx-audmix.c b/sound/soc/fsl/imx-audmix.c
-> index 9e1cb18859ce..71590ca6394b 100644
-> --- a/sound/soc/fsl/imx-audmix.c
-> +++ b/sound/soc/fsl/imx-audmix.c
-> @@ -325,14 +325,14 @@ static int imx_audmix_probe(struct
-> platform_device *pdev)
->  	priv->card.num_configs = priv->num_dai_conf;
->  	priv->card.dapm_routes = priv->dapm_routes;
->  	priv->card.num_dapm_routes = priv->num_dapm_routes;
-> -	priv->card.dev = pdev->dev.parent;
-> +	priv->card.dev = &pdev->dev;
->  	priv->card.owner = THIS_MODULE;
->  	priv->card.name = "imx-audmix";
->  
->  	platform_set_drvdata(pdev, &priv->card);
->  	snd_soc_card_set_drvdata(&priv->card, priv);
->  
-> -	ret = devm_snd_soc_register_card(pdev->dev.parent, &priv-
-> >card);
-> +	ret = devm_snd_soc_register_card(&pdev->dev, &priv->card);
->  	if (ret) {
->  		dev_err(&pdev->dev, "snd_soc_register_card failed\n");
->  		return ret;
+diff --git a/sound/soc/samsung/odroid.c b/sound/soc/samsung/odroid.c
+index e688169ff12ab..95c35e3ff3303 100644
+--- a/sound/soc/samsung/odroid.c
++++ b/sound/soc/samsung/odroid.c
+@@ -275,9 +275,8 @@ static int odroid_audio_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	of_node_put(cpu);
+-	of_node_put(codec);
+ 	if (ret < 0)
+-		return ret;
++		goto err_put_node;
+ 
+ 	ret = snd_soc_of_get_dai_link_codecs(dev, codec, codec_link);
+ 	if (ret < 0)
+@@ -308,6 +307,7 @@ static int odroid_audio_probe(struct platform_device *pdev)
+ 		goto err_put_clk_i2s;
+ 	}
+ 
++	of_node_put(codec);
+ 	return 0;
+ 
+ err_put_clk_i2s:
+@@ -317,6 +317,8 @@ err_put_sclk:
+ err_put_cpu_dai:
+ 	of_node_put(cpu_dai);
+ 	snd_soc_of_put_dai_link_codecs(codec_link);
++err_put_node:
++	of_node_put(codec);
+ 	return ret;
+ }
+ 
+-- 
+2.20.1
+
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

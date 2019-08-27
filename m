@@ -2,71 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C795A1C9E
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 16:24:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAD71A1CAC
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 16:27:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B50AE1679;
-	Thu, 29 Aug 2019 16:23:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B50AE1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 720FF844;
+	Thu, 29 Aug 2019 16:26:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 720FF844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567088652;
-	bh=hu3H3/z3NM2l7YF0Kq+Oi7i4OoBR/P1t116Xlplv1Ts=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=VKbumnSliHNKVQF9mVDDEwTvfDQVnLH04yJNDyitAlm98I3b7MhXdgj0Q/onH9NAa
-	 mz3GoxRlCBuL2F+gJsO3gclniHlL59hR8OJitW7m8b5aKrOM2pLqWte44Ax+fCEV/n
-	 zbIg12xPvlBFKG+LCcdfzySuBGeZerS4FzpM/3qw=
+	s=default; t=1567088851;
+	bh=8AOxcy7fqP61FUpinxcJuzUVMfSfZJyVrnyfSZTFFp8=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=o0MoWSqGd/Xek78ujeYBZRrMbsISDpqxXuo/y1h7BasHXBZc+hidjwB8OfAuE9MZ1
+	 OEwPKCUJ6fEr7LbcOXZkgoWLVvBynRhtr6BoZthHfQgk26c6As8hLW+qf7LmLIy4m4
+	 3WxaeEYB2K2TE8MyjL3zfimRe6ltXYOgoa6RRnBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 735C5F8067C;
-	Tue, 27 Aug 2019 21:58:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D5DDF8085A;
+	Tue, 27 Aug 2019 22:29:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31594F806F5; Tue, 27 Aug 2019 21:58:22 +0200 (CEST)
+ id 69471F8085B; Tue, 27 Aug 2019 22:29:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0B3EF80678
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 21:58:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0B3EF80678
+ by alsa1.perex.cz (Postfix) with ESMTPS id D73B9F807C3
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 22:28:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D73B9F807C3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="wWTWMrJf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=iQIGj/7qLwRsT+YxnORuoAg5kfY4zp+GORl+rvOcDs8=; b=wWTWMrJfVSby
- zFHCEwcZ9x4JzCVkvLh1R7ITXunKPYFyxetx3kfGFkMtMw9eFK+D2AtLWA71jCM270ri9Vy9wM5f5
- lX3tGh28JHqCGhrK41nzXfvsNbLlXTGvxBJ2YD3/DNMLl+95Plc4qICvXVzRogDnGMbCN4HU7xnWS
- Xi16o=;
-Received: from 188.28.18.107.threembb.co.uk ([188.28.18.107]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1i2hbY-0001CX-Tt; Tue, 27 Aug 2019 19:58:13 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 7DE44D02CEB; Tue, 27 Aug 2019 20:58:10 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20190826032642.27324-1-tzungbi@google.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190827195810.7DE44D02CEB@fitzroy.sirena.org.uk>
-Date: Tue, 27 Aug 2019 20:58:10 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, cychiang@google.com, jiaxin.yu@mediatek.com,
- tzungbi@google.com, Mark Brown <broonie@kernel.org>, dgreid@google.com
-Subject: [alsa-devel] Applied "ASoC: mediatek: mt8183: remove unused
-	DAPM-related variables" to the asoc tree
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="b7P2GhkD"
+Received: by mail-wr1-x444.google.com with SMTP id y19so156028wrd.3
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 13:28:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=MNtgMowNOziQU04tj21QpB7UTHF+CQydh5Mx2MU8eSk=;
+ b=b7P2GhkDgx27DNyq0sjWmuBd2+u9U15lHb46pibNLi+dCp5bNz8y514//rUZKUKu3D
+ dEILlf0Wbax4H4GnSa4lJmq8ZfTQ+hKIMqsaZ81JcO6yxwfihGNrCEvPZ1aImRMxOlTZ
+ SM5y9YmLxdtZgLpfSIfttP4GJDF1h7yAtUxsC0lFevA9F2/p26MkBVD6sxbjFe8MAmHt
+ GMIqg7qCRfCdR2Zv2jRBTfNtUTTG9FBzNRiWfz0N/GCKAe+CXSQPX2FcIN/O2KsdXs9A
+ DaxIPLCqNlsuOY6IR400wVJAL1YgF24eO3+gVdzlljq/RE0W+c9TDI/segUAdJ7t15D4
+ v+OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=MNtgMowNOziQU04tj21QpB7UTHF+CQydh5Mx2MU8eSk=;
+ b=TNSyLn40wonCzgEOQVE7Pdtx4rLD2db8CIj8J9bffa/CZulxpTEnS4dHUgV3Vn7+j2
+ d+idK1YEGaUhD0JSoA6HkYLu+J+Us9FbSfVv+zdxRoidx4D5WVGZLTEQc8tN4OzVZNXI
+ Jo6P8lyNjPckFkd4WV7jysG+jd03hLSaBjXceA/y1dAXog+cqbLPk4RdPK3x9IC7505n
+ 6aq5eWenIpPMXYhTyBKAd3THI8KYb9l/8yB6T4euG6CPD1Zu/ngrQKTwDDSS3DoMHWKQ
+ HaddG2zrzy8JjxbKTXMnM/F9KF5V4rbV8p3O1P3JHA5YCg2bjPX07Wrb6l18iXI9usjw
+ 5V+w==
+X-Gm-Message-State: APjAAAUrfMw2VAhDGoJ1E9ilAw3xm5iHXQ2Nh6L8ZXgIc3lwDL6b5AOo
+ 662eqmti6AcpjXYdIGsBbAGIGQ==
+X-Google-Smtp-Source: APXvYqyqCKkUfNCobT49Kq8m/ke+WZcPuDoTmO1DYlDvMjvIx4arhT/4wdztPrpeCEQna1wLRCKfmQ==
+X-Received: by 2002:a05:6000:1186:: with SMTP id g6mr66120wrx.17.1566937738779; 
+ Tue, 27 Aug 2019 13:28:58 -0700 (PDT)
+Received: from [192.168.86.29]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id n14sm227060wra.75.2019.08.27.13.28.57
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 27 Aug 2019 13:28:57 -0700 (PDT)
+To: Rob Herring <robh@kernel.org>, Vinod Koul <vkoul@kernel.org>
+References: <20190822233759.12663-1-srinivas.kandagatla@linaro.org>
+ <20190822233759.12663-2-srinivas.kandagatla@linaro.org>
+ <20190823065340.GD2672@vkoul-mobl> <20190827202022.GA7783@bogus>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <ccc90c56-f776-0c1c-df6b-cb661aa5ea97@linaro.org>
+Date: Tue, 27 Aug 2019 21:28:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190827202022.GA7783@bogus>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, spapothi@codeaurora.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org
+Subject: Re: [alsa-devel] [RESEND PATCH v4 1/4] dt-bindings: soundwire: add
+	slave bindings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,80 +104,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+thanks for reviewing the patch!
 
-   ASoC: mediatek: mt8183: remove unused DAPM-related variables
+On 27/08/2019 21:20, Rob Herring wrote:
+> On Fri, Aug 23, 2019 at 12:23:40PM +0530, Vinod Koul wrote:
+>> On 23-08-19, 00:37, Srinivas Kandagatla wrote:
+>>> This patch adds bindings for Soundwire Slave devices that includes how
+>>> SoundWire enumeration address and Link ID are used to represented in
+>>> SoundWire slave device tree nodes.
+>>>
+>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>> ---
+>>>   .../soundwire/soundwire-controller.yaml       | 75 +++++++++++++++++++
+>>>   1 file changed, 75 insertions(+)
+>>>   create mode 100644 Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml b/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
+>>> new file mode 100644
+>>> index 000000000000..91aa6c6d6266
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
+>>> @@ -0,0 +1,75 @@
+>>> +# SPDX-License-Identifier: GPL-2.0
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/soundwire/soundwire-controller.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: SoundWire Controller Generic Binding
+>>
+>> Controller does not make sense here, why not use spec terminology and
+>> say "SoundWire Slave Generic Binding"
+> 
+> It's both IMO. It's describing the structure of child devices of a
+> controller (aka a bus).
+> 
+>>
+>>> +
+>>> +maintainers:
+>>> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>> +
+>>> +description: |
+>>> +  SoundWire busses can be described with a node for the SoundWire controller
+>>> +  device and a set of child nodes for each SoundWire slave on the bus.
+>>> +
+>>> +properties:
+>>> +  $nodename:
+>>> +    pattern: "^soundwire(@.*|-[0-9a-f])*$"
+> 
+> '-[0-9a-f]' was to handle cases like spi-gpio or i2c-gpio. Would a
+> bit banged interface be possible here?
 
-has been applied to the asoc tree at
+Highly unlikely!
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+> 
+>>> +
+>>> +  "#address-cells":
+>>> +    const: 2
+>>> +
+>>> +  "#size-cells":
+>>> +    const: 0
+>>> +
+>>> +patternProperties:
+>>> +  "^.*@[0-9a-f]+$":
+> 
+> If there are distinct fields in the address, they are typically comma
+> separated in the unit-address.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+okay, will fix that in next version!
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+> 
+>>> +    type: object
+>>> +
+>>> +    properties:
+>>> +      compatible:
+>>> +      pattern: "^sdw[0-9][0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$"
+>>> +      description:
+>>> +	  Is the textual representation of SoundWire Enumeration
+>>> +	  address. compatible string should contain SoundWire Version ID,
+>>> +	  Manufacturer ID, Part ID and Class ID in order and shall be in
+>>> +	  lower-case hexadecimal with leading zeroes.
+>>> +	  Valid sizes of these fields are
+>>> +	  Version ID is 1 nibble, number '0x1' represents SoundWire 1.0
+>>> +	  and '0x2' represents SoundWire 1.1 and so on.
+>>> +	  MFD is 4 nibbles
+>>> +	  PID is 4 nibbles
+>>> +	  CID is 2 nibbles
+>>> +	  More Information on detail of encoding of these fields can be
+>>> +	  found in MIPI Alliance DisCo & SoundWire 1.0 Specifications.
+>>> +
+>>> +      reg:
+>>> +        maxItems: 1
+>>> +        description:
+>>> +          Instance ID and Link ID of SoundWire Device Address.
+>>
+>> This looks better :) Thanks.
+>>
+>> Apart from the minor nit above this looks good to me, I can merge the
+>> sdw parts if Rob is fine with them.
+>>
+>> Thanks
+>>
+>>> +
+>>> +    required:
+>>> +      - compatible
+>>> +      - reg
+>>> +
+>>> +examples:
+>>> +  - |
+>>> +    soundwire@c2d0000 {
+>>> +        #address-cells = <2>;
+>>> +        #size-cells = <0>;
+>>> +        compatible = "qcom,soundwire-v1.5.0";
+> 
+> This will probably change once I review it. :)
 
-Thanks,
-Mark
+:-)
 
-From 3cdc3c9fd9fa92bcef777512d9f4eef854f9a4ed Mon Sep 17 00:00:00 2001
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Mon, 26 Aug 2019 11:26:42 +0800
-Subject: [PATCH] ASoC: mediatek: mt8183: remove unused DAPM-related variables
-
-Remove unused variable mt8183_mt6358_ts3a227_max98357_dapm_widgets and
-mt8183_mt6358_ts3a227_max98357_dapm_routes.  They are accidentially
-included when rebasing commits.
-
-Fixes: 6191cbde5ff0 ("ASoC: mediatek: mt8183: switch tdm pins gpio function when playback on or off")
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20190826032642.27324-1-tzungbi@google.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- .../mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c   | 10 ----------
- 1 file changed, 10 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index fe8a7461ace5..951706fa75fc 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -46,16 +46,6 @@ static int mt8183_i2s_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
- }
- 
--static const struct snd_soc_dapm_widget
--mt8183_mt6358_ts3a227_max98357_dapm_widgets[] = {
--	SND_SOC_DAPM_OUTPUT("IT6505_8CH"),
--};
--
--static const struct snd_soc_dapm_route
--mt8183_mt6358_ts3a227_max98357_dapm_routes[] = {
--	{"IT6505_8CH", NULL, "TDM"},
--};
--
- enum PINCTRL_PIN_STATE {
- 	PIN_STATE_DEFAULT = 0,
- 	PIN_TDM_OUT_ON,
--- 
-2.20.1
-
+thanks,
+srini
+> 
+>>> +        reg = <0x0c2d0000 0x2000>;
+>>> +
+>>> +        speaker@1 {
+>>> +            compatible = "sdw10217201000";
+>>> +            reg = <1 0>;
+>>> +        };
+>>> +
+>>> +        speaker@2 {
+>>> +            compatible = "sdw10217201000";
+>>> +            reg = <2 0>;
+>>> +        };
+>>> +    };
+>>> +
+>>> +...
+>>> -- 
+>>> 2.21.0
+>>
+>> -- 
+>> ~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

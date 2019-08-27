@@ -2,67 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D886D9E45D
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 11:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD6AA9E465
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 11:34:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DE741664;
-	Tue, 27 Aug 2019 11:33:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DE741664
+	by alsa0.perex.cz (Postfix) with ESMTPS id E01D4950;
+	Tue, 27 Aug 2019 11:34:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E01D4950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566898444;
-	bh=cB9l4p013+zYR6jTfMaTq++636uTPDP6UlF26Vj5d30=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=TomozriviPpYx+O5EBoTFiqsVY9XUfv2IgNTUYa++x0OA81KEsmMNpQUmGMHlI5VU
-	 kviY10dE2n7DJDOe8B0rhLXjM72PzHmrZxlhLp0nmV0DCBpMhp+EF98L613KTWbklw
-	 eMcar7K2g2prTRI9zOHrmI+8WOdmOWPb0URICNGU=
+	s=default; t=1566898491;
+	bh=mghIM1OjRuaC0xsZSnVsAxDgbhaanoO7MDh2pl0aoOI=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=cgb9UqNi0FikLUQVSU1UMT5AfLhTUlkhdkcUdMKnYjXTVI1YI82asb9okfIf9gDcA
+	 +rYjNa4lz9XqaKMcG0sgax4icUMpaj3EQyugUUFj+cZ3oWam/fGZSO7O3s2RALLoqp
+	 sfYjsM2RhFQZiA8KM5BapqLu1mjH0xlXSdFnTkwg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39645F802A1;
-	Tue, 27 Aug 2019 11:32:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1491AF805A0;
+	Tue, 27 Aug 2019 11:32:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67A27F80273; Tue, 27 Aug 2019 11:32:16 +0200 (CEST)
+ id D8384F802A1; Tue, 27 Aug 2019 11:32:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD481F801ED
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 11:32:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD481F801ED
+ by alsa1.perex.cz (Postfix) with ESMTPS id E75A0F80142
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 11:32:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E75A0F80142
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="s4yfYIoM"
+ header.b="0W9vs2Fn"
 Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
  [86.250.200.211])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D013321872;
- Tue, 27 Aug 2019 09:32:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 849682189D;
+ Tue, 27 Aug 2019 09:32:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566898329;
- bh=1d+XOT4U/2uQBCfgzLcq1WP0gCEmQYO/efc0j4zg794=;
- h=From:To:Cc:Subject:Date:From;
- b=s4yfYIoMR1xQ7wQ4kWuakB8VAPqV6OMXJ5L2tRjkFQaKCD/bJNo3lu6NW92HHwDQm
- hFwnQrBUT2JtGOZIfgYmODM0UmYV7xk5Jj6hurF1g67GjEjLWlmSnsGMo7TQzRG+Ki
- phSeujsX1he43Kh4f8LJtOMB2zxEc4gKZDqkT33E=
+ s=default; t=1566898332;
+ bh=CWtPfbqJFrgG+7X79G+npxJ/Ss/7eRL/CPDBSZIQam8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=0W9vs2Fny1Ax/hs0rRXidCQxA82Bpl1cqXeN+rKtRCcujsqYouc9Qj5MSUAhF/ASu
+ gEwZ10iyZMPprOf7QqFqYUDH+s/WJHO2VdarCET0BXd0j78TUS7n0Xc9SDcsXYSp9j
+ DR59k3yKQjrzEpC0gB6CbCLY+dtPsCuF69bhZoNM=
 From: Maxime Ripard <mripard@kernel.org>
 To: Chen-Yu Tsai <wens@csie.org>, Maxime Ripard <mripard@kernel.org>,
  lgirdwood@gmail.com, broonie@kernel.org
-Date: Tue, 27 Aug 2019 11:32:05 +0200
-Message-Id: <20190827093206.17919-1-mripard@kernel.org>
+Date: Tue, 27 Aug 2019 11:32:06 +0200
+Message-Id: <20190827093206.17919-2-mripard@kernel.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190827093206.17919-1-mripard@kernel.org>
+References: <20190827093206.17919-1-mripard@kernel.org>
 MIME-Version: 1.0
 Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 1/2] Revert "ASoC: sun4i-i2s: Remove duplicated
-	quirks structure"
+Subject: [alsa-devel] [PATCH 2/2] ASoC: sun4i: Revert A83t description
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,69 +84,64 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Maxime Ripard <maxime.ripard@bootlin.com>
 
-This reverts commit 3e9acd7ac6933cdc20c441bbf9a38ed9e42e1490.
+The last set of reworks included some fixes to change the A83t behaviour
+and "fix" it.
 
-It turns out that while one I2S controller is described in the A83t
-datasheet, the driver supports another, undocumented, one that has been
-inherited from the older SoCs, while the documented one uses the new
-design.
+It turns out that the controller described in the datasheet and the one
+supported here are not the same, yet the A83t has the two of them, and the
+one supported in the driver wasn't the one described in the datasheet.
 
-Fixes: 3e9acd7ac693 ("ASoC: sun4i-i2s: Remove duplicated quirks structure")
+Fix this by reintroducing the proper quirks.
+
+Fixes: 69e450e50ca6 ("ASoC: sun4i-i2s: Fix the LRCK period on A83t")
+Fixes: bf943d527987 ("ASoC: sun4i-i2s: Fix MCLK Enable bit offset on A83t")
+Fixes: 2e04fc4dbf50 ("ASoC: sun4i-i2s: Fix WSS and SR fields for the A83t")
+Fixes: 515fcfbc7736 ("ASoC: sun4i-i2s: Fix LRCK and BCLK polarity offsets on newer SoCs")
+Fixes: c1d3a921d72b ("ASoC: sun4i-i2s: Fix the MCLK and BCLK dividers on newer SoCs")
+Fixes: fb19739d7f68 ("ASoC: sun4i-i2s: Use module clock as BCLK parent on newer SoCs")
+Fixes: 71137bcd0a9a ("ASoC: sun4i-i2s: Move the format configuration to a callback")
+Fixes: d70be625f25a ("ASoC: sun4i-i2s: Move the channel configuration to a callback")
+Reported-by: Chen-Yu Tsai <wens@csie.org>
 Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 ---
- sound/soc/sunxi/sun4i-i2s.c | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ sound/soc/sunxi/sun4i-i2s.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 57bf2a33753e..a6a3f772fdf0 100644
+index a6a3f772fdf0..498ceebd9135 100644
 --- a/sound/soc/sunxi/sun4i-i2s.c
 +++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -1097,6 +1097,11 @@ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
- 	.set_fmt		= sun4i_i2s_set_soc_fmt,
- };
- 
-+/*
-+ * This doesn't describe the TDM controller documented in the A83t
-+ * datasheet, but the three undocumented I2S controller that use the
-+ * older design.
-+ */
- static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+@@ -1106,18 +1106,18 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
  	.has_reset		= true,
  	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
-@@ -1115,6 +1120,24 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
- 	.set_fmt		= sun8i_i2s_set_soc_fmt,
+ 	.sun4i_i2s_regmap	= &sun4i_i2s_regmap_config,
+-	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
+-	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
+-	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
+-	.bclk_dividers		= sun8i_i2s_clk_div,
+-	.num_bclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
+-	.mclk_dividers		= sun8i_i2s_clk_div,
+-	.num_mclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
+-	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
+-	.get_sr			= sun8i_i2s_get_sr_wss,
+-	.get_wss		= sun8i_i2s_get_sr_wss,
+-	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
+-	.set_fmt		= sun8i_i2s_set_soc_fmt,
++	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 7, 7),
++	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 2, 3),
++	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 5),
++	.bclk_dividers		= sun4i_i2s_bclk_div,
++	.num_bclk_dividers	= ARRAY_SIZE(sun4i_i2s_bclk_div),
++	.mclk_dividers		= sun4i_i2s_mclk_div,
++	.num_mclk_dividers	= ARRAY_SIZE(sun4i_i2s_mclk_div),
++	.get_bclk_parent_rate	= sun4i_i2s_get_bclk_parent_rate,
++	.get_sr			= sun4i_i2s_get_sr_wss,
++	.get_wss		= sun4i_i2s_get_sr_wss,
++	.set_chan_cfg		= sun4i_i2s_set_chan_cfg,
++	.set_fmt		= sun4i_i2s_set_soc_fmt,
  };
  
-+static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
-+	.has_reset		= true,
-+	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
-+	.sun4i_i2s_regmap	= &sun8i_i2s_regmap_config,
-+	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
-+	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
-+	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
-+	.bclk_dividers		= sun8i_i2s_clk_div,
-+	.num_bclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
-+	.mclk_dividers		= sun8i_i2s_clk_div,
-+	.num_mclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
-+	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
-+	.get_sr			= sun8i_i2s_get_sr_wss,
-+	.get_wss		= sun8i_i2s_get_sr_wss,
-+	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
-+	.set_fmt		= sun8i_i2s_set_soc_fmt,
-+};
-+
- static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
- 	.has_reset		= true,
- 	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
-@@ -1296,7 +1319,7 @@ static const struct of_device_id sun4i_i2s_match[] = {
- 	},
- 	{
- 		.compatible = "allwinner,sun8i-h3-i2s",
--		.data = &sun8i_a83t_i2s_quirks,
-+		.data = &sun8i_h3_i2s_quirks,
- 	},
- 	{
- 		.compatible = "allwinner,sun50i-a64-codec-i2s",
+ static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
 -- 
 2.21.0
 

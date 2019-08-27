@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 257319E7C6
-	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 14:22:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A56DF9E804
+	for <lists+alsa-devel@lfdr.de>; Tue, 27 Aug 2019 14:33:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B14B6166B;
-	Tue, 27 Aug 2019 14:21:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B14B6166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3165F1666;
+	Tue, 27 Aug 2019 14:32:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3165F1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1566908549;
-	bh=+Qc1mumG0d+d/vLzTNMuQJ8hU0NgBcGVWTMKyvVHGoY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Kw37QLcFgrgWVaj3TbjxJWHjM48+uswQ2ClVTrZCGRLrzZNPpV/6S4EEeT6wCPHMl
-	 tEvEepzeZUE20aJOc6q9/FjIVcnf0p6thNqDYhRMlPEakGqERRuHCaxykY1LT7YdS6
-	 fuwMpRa8/aHLXdjs1KaaWlffbg7Pw3MdA0UhZGPA=
+	s=default; t=1566909229;
+	bh=XZ9Jl6rN32VwYxWN+Em2HFRYY7kbgTVS7SQgWARvxXY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AYawnCj8O8nbMUiXI74iBLqDNM3owUa4r9JJzdKsBXeAB3tCRfneeaFBEp4Knu8kI
+	 ovWbpxi8La0TjmkfwoisENrDZzdHigMc4rnKe9ZL7ryPP60oD6wBDLxlntwGDV8pWZ
+	 0qbKCJVgcu0r0RMDn3ifg1BHc0Mh8ZxLObjPEznM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C7C52F802A1;
-	Tue, 27 Aug 2019 14:20:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 246B7F802A1;
+	Tue, 27 Aug 2019 14:32:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81D12F80274; Tue, 27 Aug 2019 14:20:41 +0200 (CEST)
+ id 7E786F800E7; Tue, 27 Aug 2019 14:31:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,49 +33,36 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3B05CF80142
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 14:20:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B05CF80142
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB4E2F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 14:31:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB4E2F800E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="hiSjrNzN"
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ header.b="ZKpRYyDr"
+Received: from localhost (lfbn-1-17395-211.w86-250.abo.wanadoo.fr
+ [86.250.200.211])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id F146A21872
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 12:20:33 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 709B5206BF;
+ Tue, 27 Aug 2019 12:31:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566908434;
- bh=10BPMi7ogBKEVUWUCp+OlUh6tWIYmElWTtO/pbCLCfE=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=hiSjrNzN9O29H/jZozkaXJ1RY7B2iPUnmPqzXqXAfbEHqvCNs2qwYPYjz+fe0bIVP
- 3OWIUxGwCDw0ICc9roj00pPsDU+tYy6PMcG/TCSw0YwM5ErWb8psm8Fm/gJJGcB7wT
- Gdyvjxn2TXOQ9wvf0rvh4w1k9UfLYSxEan4/ebTw=
-Received: by mail-qt1-f174.google.com with SMTP id a13so248082qtj.1
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 05:20:33 -0700 (PDT)
-X-Gm-Message-State: APjAAAUvu/SJs5IZLsgZL5RfW6jQ46ybTVjbVQHKciHOm1XbJW//k2lC
- ngW9qi+3Tf1TZGsZKGFxXzCof83pzdhKCflziA==
-X-Google-Smtp-Source: APXvYqwMqxGiTa7rYYydtko9BqUul5ihk660b1Rd0cPJHim/fp9+Uq5BxXYH75v80lYawW9Ve2rEL384NDhcnbTwKFM=
-X-Received: by 2002:a05:6214:10e1:: with SMTP id
- q1mr19735401qvt.148.1566908433096; 
- Tue, 27 Aug 2019 05:20:33 -0700 (PDT)
+ s=default; t=1566909094;
+ bh=FZRUuZCUTyQCSqMedVZ28+flP2/mWM4jyZ9NIq1nk3c=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ZKpRYyDrGo7oxfI3YL/i80qhuj+nF12zys7abG6s7fzVt4iNdHLBlH6dZAB+Cci76
+ UqD41ZonLyGbeN7Nz6y6Us0NiHRorXfzpPQXam3P4i2VmBeXoIqKDXVXM6uOyDBrG/
+ 1V77xjETXCYgnL00y7A8pBav+v0TTWfcpLUI2Xjk=
+From: Maxime Ripard <mripard@kernel.org>
+To: Chen-Yu Tsai <wens@csie.org>, Maxime Ripard <mripard@kernel.org>,
+ lgirdwood@gmail.com, broonie@kernel.org
+Date: Tue, 27 Aug 2019 14:31:30 +0200
+Message-Id: <20190827123131.29129-1-mripard@kernel.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <20190822233759.12663-1-srinivas.kandagatla@linaro.org>
- <20190822233759.12663-4-srinivas.kandagatla@linaro.org>
-In-Reply-To: <20190822233759.12663-4-srinivas.kandagatla@linaro.org>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Tue, 27 Aug 2019 07:20:21 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLjgOy3TKrpuNYYkRxy-Ln+3FOoKVE9KweS0ycTxriWMQ@mail.gmail.com>
-Message-ID: <CAL_JsqLjgOy3TKrpuNYYkRxy-Ln+3FOoKVE9KweS0ycTxriWMQ@mail.gmail.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, spapothi@codeaurora.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [RESEND PATCH v4 3/4] dt-bindings: ASoC: Add
-	WSA881x bindings
+Cc: codekipper@gmail.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v2 1/2] ASoC: sun4i-i2s: Revert "ASoC:
+	sun4i-i2s: Remove duplicated quirks structure"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,83 +80,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Aug 22, 2019 at 6:38 PM Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
-> This patch adds bindings for WSA8810/WSA8815 Class-D Smart Speaker
-> Amplifier. This Amplifier also has a simple thermal sensor for
-> over temperature and speaker protection.
->
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  .../bindings/sound/qcom,wsa881x.yaml          | 44 +++++++++++++++++++
->  1 file changed, 44 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
->
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml b/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
-> new file mode 100644
-> index 000000000000..ad718d75c660
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
-> @@ -0,0 +1,44 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/qcom,wsa881x.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Bindings for Qualcomm WSA8810/WSA8815 Class-D Smart Speaker Amplifier
-> +
-> +maintainers:
-> +  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> +
-> +allOf:
-> +  - $ref: "soundwire-controller.yaml#"
+From: Maxime Ripard <maxime.ripard@bootlin.com>
 
-This is not the controller, so this should not be included here. You
-should get lots of warnings from doing so. You did run 'make
-dt_binding_check', right?
+This reverts commit 3e9acd7ac6933cdc20c441bbf9a38ed9e42e1490.
 
-> +
-> +properties:
-> +  compatible:
-> +    const: sdw10217201000
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  pd-gpios:
+It turns out that while one I2S controller is described in the A83t
+datasheet, the driver supports another, undocumented, one that has been
+inherited from the older SoCs, while the documented one uses the new
+design.
 
-powerdown-gpios is the standard name.
+Fixes: 3e9acd7ac693 ("ASoC: sun4i-i2s: Remove duplicated quirks structure")
+Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 
-> +    description: GPIO spec for Powerdown/Shutdown line to use
-> +    maxItems: 1
-> +
-> +  "#thermal-sensor-cells":
-> +    const: 0
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - pd-gpios
-> +  - #thermal-sensor-cells
-> +
-> +examples:
-> +  - |
-> +    efuse@1c23800 {
-> +        compatible = "allwinner,sun4i-a10-sid";
+---
 
-Huh?
+Changes from v1:
+  - Add the proper prefix to the commit title
+---
+ sound/soc/sunxi/sun4i-i2s.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-> +        reg = <0x01c23800 0x10>;
-> +        pd-gpios = <&wcdpinctrl 2 0>;
-> +        #thermal-sensor-cells = <0>;
-> +    };
-> +
-> +...
-> --
-> 2.21.0
->
+diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
+index 57bf2a33753e..a6a3f772fdf0 100644
+--- a/sound/soc/sunxi/sun4i-i2s.c
++++ b/sound/soc/sunxi/sun4i-i2s.c
+@@ -1097,6 +1097,11 @@ static const struct sun4i_i2s_quirks sun6i_a31_i2s_quirks = {
+ 	.set_fmt		= sun4i_i2s_set_soc_fmt,
+ };
+ 
++/*
++ * This doesn't describe the TDM controller documented in the A83t
++ * datasheet, but the three undocumented I2S controller that use the
++ * older design.
++ */
+ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+ 	.has_reset		= true,
+ 	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
+@@ -1115,6 +1120,24 @@ static const struct sun4i_i2s_quirks sun8i_a83t_i2s_quirks = {
+ 	.set_fmt		= sun8i_i2s_set_soc_fmt,
+ };
+ 
++static const struct sun4i_i2s_quirks sun8i_h3_i2s_quirks = {
++	.has_reset		= true,
++	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
++	.sun4i_i2s_regmap	= &sun8i_i2s_regmap_config,
++	.field_clkdiv_mclk_en	= REG_FIELD(SUN4I_I2S_CLK_DIV_REG, 8, 8),
++	.field_fmt_wss		= REG_FIELD(SUN4I_I2S_FMT0_REG, 0, 2),
++	.field_fmt_sr		= REG_FIELD(SUN4I_I2S_FMT0_REG, 4, 6),
++	.bclk_dividers		= sun8i_i2s_clk_div,
++	.num_bclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
++	.mclk_dividers		= sun8i_i2s_clk_div,
++	.num_mclk_dividers	= ARRAY_SIZE(sun8i_i2s_clk_div),
++	.get_bclk_parent_rate	= sun8i_i2s_get_bclk_parent_rate,
++	.get_sr			= sun8i_i2s_get_sr_wss,
++	.get_wss		= sun8i_i2s_get_sr_wss,
++	.set_chan_cfg		= sun8i_i2s_set_chan_cfg,
++	.set_fmt		= sun8i_i2s_set_soc_fmt,
++};
++
+ static const struct sun4i_i2s_quirks sun50i_a64_codec_i2s_quirks = {
+ 	.has_reset		= true,
+ 	.reg_offset_txdata	= SUN8I_I2S_FIFO_TX_REG,
+@@ -1296,7 +1319,7 @@ static const struct of_device_id sun4i_i2s_match[] = {
+ 	},
+ 	{
+ 		.compatible = "allwinner,sun8i-h3-i2s",
+-		.data = &sun8i_a83t_i2s_quirks,
++		.data = &sun8i_h3_i2s_quirks,
+ 	},
+ 	{
+ 		.compatible = "allwinner,sun50i-a64-codec-i2s",
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

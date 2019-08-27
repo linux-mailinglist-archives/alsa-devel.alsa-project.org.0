@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07122A1E3A
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 17:02:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B68CCA1E43
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 17:04:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 91E3A16E0;
-	Thu, 29 Aug 2019 17:01:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91E3A16E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46B5516AC;
+	Thu, 29 Aug 2019 17:03:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46B5516AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567090950;
-	bh=h7d32KazYQzveViQocbR5IZiKYijRWovAhKYaJf/CKE=;
+	s=default; t=1567091041;
+	bh=otfwQ0yuLdnWFIsgmLu6SsVWzz8K5mjsdOuXVpdyUM0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=dDklADa+al4y8gYAuN4O0VZXFSkU82sTqyJ5LYfCl9pU3iEE9rGerAQ2CINnJNmuz
-	 i5Qzc6uI2pX8CXzUKlS3V5IdGq15huQ2cjL17IbZAutkmMwUBLXxicqAJkndQkCMm4
-	 z0gCc30rsuWPrKdWQig6wqMXFNFWPe471Hv3iyJU=
+	b=nlzLDBFv5sAb8HpLx3SZlm1b75D/YFiWqHzZCwLws/o1jTEHndssuJlOKCXFsw/4H
+	 1+unku1eiKwlTS237AKoByC7KtWeJ1uWOTK11u6R/2uTl4XiTcNocEGp4WMz3kFh5y
+	 GPd+9Kn79heuW4/E8zIAiC2Isdn6zjP+7OSSQYB4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0A1D1F8067B;
-	Tue, 27 Aug 2019 21:58:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 04CC5F80673;
+	Tue, 27 Aug 2019 21:58:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABA41F8063E; Tue, 27 Aug 2019 21:58:03 +0200 (CEST)
+ id 9D08CF8065A; Tue, 27 Aug 2019 21:57:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1465DF80641
- for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 21:57:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1465DF80641
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3F08F8063E
+ for <alsa-devel@alsa-project.org>; Tue, 27 Aug 2019 21:57:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F08F8063E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Fl+cZL3r"
+ header.b="PknI/goa"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=NvqUNXJbJAvMRX1de86ISSwIZP71G+d6RhEuhnN8bo8=; b=Fl+cZL3rwvxD
- V6Zxi63foeLQaKYyONW7SbWX+6FAedUs1azFZ5gBWCPBxc5Tb9014Vf1TZ3gOBZqOq2Ki12xdBoEh
- VsLBZeBYX0q+PzrgMmJzyKbjA6qM5jHw0pAc2ymmspDBdQb7h+ZMyI6JEWzETrV5friVLvFkEJI+A
- Aefws=;
+ List-Archive; bh=arR3yoBrsBx/ai1f3a6H8aBm/EqlAfpZt2z0CtrLW3U=; b=PknI/goaU39B
+ FgqMyb+3b9KP5K3eMT69OcEx7NdpSz6YsSqTqxdWmSk0bHxU3zmV7yMhTL5AMNVCCGrvI7WI2KzbZ
+ ioUc3poNoIATSSZE8R4fn5VJLX5TQNRERByFVrBCX+zXrSEeV9P/ssIADOeVWe2DepQwI/iX9fCyo
+ XIqCk=;
 Received: from 188.28.18.107.threembb.co.uk ([188.28.18.107]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i2hb9-0001BU-85; Tue, 27 Aug 2019 19:57:47 +0000
+ id 1i2hb9-0001BT-5m; Tue, 27 Aug 2019 19:57:47 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 7A129D02CEB; Tue, 27 Aug 2019 20:57:44 +0100 (BST)
+ id 64E50D02CEA; Tue, 27 Aug 2019 20:57:44 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Shuming Fan <shumingf@realtek.com>
-In-Reply-To: <20190826090052.1875-1-shumingf@realtek.com>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>
+In-Reply-To: <1566622726-27113-1-git-send-email-jiaxin.yu@mediatek.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190827195744.7A129D02CEB@fitzroy.sirena.org.uk>
+Message-Id: <20190827195744.64E50D02CEA@fitzroy.sirena.org.uk>
 Date: Tue, 27 Aug 2019 20:57:44 +0100 (BST)
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, cychiang@google.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com,
- sathya.prakash.m.r@intel.com, flove@realtek.com
-Subject: [alsa-devel] Applied "ASoC: rt1011: add mutex protection to
-	set_fmt/set_tdm_slot" to the asoc tree
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com, jiaxin.yu@mediatek.com,
+ tzungbi@google.com, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, eason.yen@mediatek.com
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt8183: fix tdm out data
+	align issue" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1011: add mutex protection to set_fmt/set_tdm_slot
+   ASoC: mediatek: mt8183: fix tdm out data align issue
 
 has been applied to the asoc tree at
 
@@ -114,120 +113,43 @@ to this mail.
 Thanks,
 Mark
 
-From e9e897d5fdba9bda3a8c80ea39761413725f198c Mon Sep 17 00:00:00 2001
-From: Shuming Fan <shumingf@realtek.com>
-Date: Mon, 26 Aug 2019 17:00:52 +0800
-Subject: [PATCH] ASoC: rt1011: add mutex protection to set_fmt/set_tdm_slot
+From d2ac1fe0342ce2b44621f60d053800e2d94f1d21 Mon Sep 17 00:00:00 2001
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Date: Sat, 24 Aug 2019 12:58:46 +0800
+Subject: [PATCH] ASoC: mediatek: mt8183: fix tdm out data align issue
 
-The calibration process at booting will reset registers and bypass cache
-to make sure the calibration is done.
-We add mutex protection to avoid unexpected settings while
-the registration process and calibration are interleaved.
+Mt8183 tdm out support S16_LE/S24_LE/S32_LE formats. When output S32_LE,
+we need set hd_align so that memif can output MSB 24bits. When output
+S24_LE, we need reset hd_align so that memif can output LSB 24bits.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Link: https://lore.kernel.org/r/20190826090052.1875-1-shumingf@realtek.com
+Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
+Link: https://lore.kernel.org/r/1566622726-27113-1-git-send-email-jiaxin.yu@mediatek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1011.c | 27 +++++++++++++++++++--------
- 1 file changed, 19 insertions(+), 8 deletions(-)
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index 0a6ff13d76e1..ed28250d5e34 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -1619,14 +1619,18 @@ static int rt1011_hw_params(struct snd_pcm_substream *substream,
- static int rt1011_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct snd_soc_component *component = dai->component;
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
- 	unsigned int reg_val = 0, reg_bclk_inv = 0;
-+	int ret = 0;
+diff --git a/sound/soc/mediatek/common/mtk-afe-fe-dai.c b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+index d16563408465..10ea4fdbeb1e 100644
+--- a/sound/soc/mediatek/common/mtk-afe-fe-dai.c
++++ b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+@@ -241,7 +241,7 @@ int mtk_afe_fe_prepare(struct snd_pcm_substream *substream,
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+ 	struct mtk_base_afe_memif *memif = &afe->memif[rtd->cpu_dai->id];
+ 	int hd_audio = 0;
+-	int hd_align = 1;
++	int hd_align = 0;
  
-+	snd_soc_dapm_mutex_lock(dapm);
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
- 	case SND_SOC_DAIFMT_CBS_CFS:
- 		reg_val |= RT1011_I2S_TDM_MS_S;
+ 	/* set hd mode */
+ 	switch (substream->runtime->format) {
+@@ -254,7 +254,6 @@ int mtk_afe_fe_prepare(struct snd_pcm_substream *substream,
+ 		break;
+ 	case SNDRV_PCM_FORMAT_S24_LE:
+ 		hd_audio = 1;
+-		hd_align = 0;
  		break;
  	default:
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
- 
- 	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-@@ -1636,7 +1640,7 @@ static int rt1011_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		reg_bclk_inv |= RT1011_TDM_INV_BCLK;
- 		break;
- 	default:
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
- 
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-@@ -1652,7 +1656,7 @@ static int rt1011_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		reg_val |= RT1011_I2S_TDM_DF_PCM_B;
- 		break;
- 	default:
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
- 
- 	switch (dai->id) {
-@@ -1667,9 +1671,11 @@ static int rt1011_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 		break;
- 	default:
- 		dev_err(component->dev, "Invalid dai->id: %d\n", dai->id);
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
--	return 0;
-+
-+	snd_soc_dapm_mutex_unlock(dapm);
-+	return ret;
- }
- 
- static int rt1011_set_component_sysclk(struct snd_soc_component *component,
-@@ -1788,8 +1794,12 @@ static int rt1011_set_tdm_slot(struct snd_soc_dai *dai,
- 	unsigned int tx_mask, unsigned int rx_mask, int slots, int slot_width)
- {
- 	struct snd_soc_component *component = dai->component;
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
- 	unsigned int val = 0, tdm_en = 0;
-+	int ret = 0;
- 
-+	snd_soc_dapm_mutex_lock(dapm);
- 	if (rx_mask || tx_mask)
- 		tdm_en = RT1011_TDM_I2S_DOCK_EN_1;
- 
-@@ -1809,7 +1819,7 @@ static int rt1011_set_tdm_slot(struct snd_soc_dai *dai,
- 	case 2:
- 		break;
- 	default:
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
- 
- 	switch (slot_width) {
-@@ -1828,7 +1838,7 @@ static int rt1011_set_tdm_slot(struct snd_soc_dai *dai,
- 	case 16:
- 		break;
- 	default:
--		return -EINVAL;
-+		ret = -EINVAL;
- 	}
- 
- 	snd_soc_component_update_bits(component, RT1011_TDM1_SET_1,
-@@ -1845,7 +1855,8 @@ static int rt1011_set_tdm_slot(struct snd_soc_dai *dai,
- 		RT1011_ADCDAT1_PIN_CONFIG | RT1011_ADCDAT2_PIN_CONFIG,
- 		RT1011_ADCDAT1_OUTPUT | RT1011_ADCDAT2_OUTPUT);
- 
--	return 0;
-+	snd_soc_dapm_mutex_unlock(dapm);
-+	return ret;
- }
- 
- static int rt1011_probe(struct snd_soc_component *component)
+ 		dev_err(afe->dev, "%s() error: unsupported format %d\n",
 -- 
 2.20.1
 

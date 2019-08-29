@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE12DA1EA3
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 17:14:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 194CEA1EA1
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 17:14:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78E891720;
-	Thu, 29 Aug 2019 17:14:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78E891720
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A8CD1700;
+	Thu, 29 Aug 2019 17:13:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A8CD1700
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567091690;
-	bh=q5brZDA4HHIEe78ZE+seyFIs/UC0rg++EXSdaGtCnpw=;
+	s=default; t=1567091675;
+	bh=iEDLf+1zMHgDem9lyxZJ1KyeKZPgaSuV5ybDVIvvwSA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hk0pslMLyY6g/QVVdnuSGCO11H7ZK5DUZu5xyWQA9d7HA+YtiF62YHMs9XT5p2OQ4
-	 Tztc6DI+6jFqK9miihSMvMCzO2nW/vQG4t0GSxcClVu8vcdh5C/9h+okIiOJ+9PeVu
-	 ys5n5Hxxr1DRFKcETIiboGMJb2NvT86R4nc3Lk4w=
+	b=PviWvBSEUI2tMwR5uqSGEtMCmns0ZuszhQpYOb3JL6umRjRyJolaLdr07wGInMEls
+	 cMuDXYFsGViGkFr+Z8U122CVdI0cj6bGgDqCVtw4aWfUlgiMnbm9cb+dBxbmsp6dcY
+	 UtppkdHGRdJMvq6KCUa0ZpkMUiwwyXR1+FRL6eZI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE6DAF898A1;
-	Thu, 29 Aug 2019 15:54:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A360AF898A6;
+	Thu, 29 Aug 2019 15:54:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0686BF8989D; Thu, 29 Aug 2019 15:54:28 +0200 (CEST)
+ id 9854DF8989E; Thu, 29 Aug 2019 15:54:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1937DF89893
- for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 15:54:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1937DF89893
+ by alsa1.perex.cz (Postfix) with ESMTPS id F28B1F89891
+ for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 15:54:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F28B1F89891
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2019 06:54:23 -0700
+ 29 Aug 2019 06:54:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,443,1559545200"; d="scan'208";a="182349410"
+X-IronPort-AV: E=Sophos;i="5.64,443,1559545200"; d="scan'208";a="182349435"
 Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by fmsmga007.fm.intel.com with ESMTP; 29 Aug 2019 06:54:22 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 29 Aug 2019 06:54:24 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	tiwai@suse.de
-Date: Thu, 29 Aug 2019 16:53:47 +0300
-Message-Id: <20190829135348.23569-7-kai.vehmanen@linux.intel.com>
+Date: Thu, 29 Aug 2019 16:53:48 +0300
+Message-Id: <20190829135348.23569-8-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190829135348.23569-1-kai.vehmanen@linux.intel.com>
 References: <20190829135348.23569-1-kai.vehmanen@linux.intel.com>
 Cc: libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
  kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [RFC PATCH 6/7] ALSA: hda/hdmi - complete
-	pcm_setup_pin without snd_pcm link
+Subject: [alsa-devel] [RFC PATCH 7/7] ASoC: SOF: Intel: load hda codec
+	module also for HDMI/DP
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,42 +75,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When used with e.g. SOF, the PCM entity is handled by ASoC and
-there is no direct link from the HDA codec to the snd_pcm_t
-object. Remaining configuration steps of hdmi_pcm_setup_pin()
-should still be done in this case.
+Handle all HDA codecs in the same way and remove exceptions
+for HDMI/DP.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/pci/hda/patch_hdmi.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/sof/intel/hda-codec.c | 11 ++++-------
+ sound/soc/sof/intel/hda.h       |  5 +++--
+ 2 files changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 4372c87c48f0..65afb833c125 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1386,8 +1386,6 @@ static void hdmi_pcm_setup_pin(struct hdmi_spec *spec,
- 		pcm = get_pcm_rec(spec, per_pin->pcm_idx);
- 	else
- 		return;
--	if (!pcm->pcm)
--		return;
- 	if (!test_bit(per_pin->pcm_idx, &spec->pcm_in_use))
- 		return;
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index b8b37f082309..3eb3e1505481 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -74,11 +74,8 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 	if (ret < 0)
+ 		return ret;
  
-@@ -1408,8 +1406,10 @@ static void hdmi_pcm_setup_pin(struct hdmi_spec *spec,
- 	snd_hda_spdif_ctls_assign(codec, per_pin->pcm_idx, hinfo->nid);
+-	/* use legacy bus only for HDA codecs, idisp uses ext bus */
+-	if ((resp & 0xFFFF0000) != IDISP_VID_INTEL) {
+-		hdev->type = HDA_DEV_LEGACY;
+-		hda_codec_load_module(&hda_priv->codec);
+-	}
++	hdev->type = HDA_DEV_LEGACY;
++	hda_codec_load_module(&hda_priv->codec);
  
- 	non_pcm = check_non_pcm_per_cvt(codec, hinfo->nid);
--	if (substream->runtime)
--		per_pin->channels = substream->runtime->channels;
-+	if (pcm->pcm) {
-+		if (substream->runtime)
-+			per_pin->channels = substream->runtime->channels;
-+	}
- 	per_pin->setup = true;
- 	per_pin->mux_idx = mux_idx;
+ 	return 0;
+ #else
+@@ -117,7 +114,7 @@ int hda_codec_probe_bus(struct snd_sof_dev *sdev)
+ }
+ EXPORT_SYMBOL(hda_codec_probe_bus);
  
+-#if IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
++#if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI)
+ 
+ void hda_codec_i915_get(struct snd_sof_dev *sdev)
+ {
+@@ -166,6 +163,6 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
+ }
+ EXPORT_SYMBOL(hda_codec_i915_exit);
+ 
+-#endif /* CONFIG_SND_SOC_HDAC_HDMI */
++#endif /* CONFIG_SND_HDA_CODEC_HDMI */
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 75b096050fa2..1cf8b039a21a 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -559,7 +559,8 @@ int hda_codec_probe_bus(struct snd_sof_dev *sdev);
+ 
+ #endif /* CONFIG_SND_SOC_SOF_HDA */
+ 
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) && IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) && \
++	IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI)
+ 
+ void hda_codec_i915_get(struct snd_sof_dev *sdev);
+ void hda_codec_i915_put(struct snd_sof_dev *sdev);
+@@ -573,7 +574,7 @@ static inline void hda_codec_i915_put(struct snd_sof_dev *sdev)  { }
+ static inline int hda_codec_i915_init(struct snd_sof_dev *sdev) { return 0; }
+ static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
+ 
+-#endif /* CONFIG_SND_SOC_SOF_HDA && CONFIG_SND_SOC_HDAC_HDMI */
++#endif /* CONFIG_SND_SOC_SOF_HDA && CONFIG_SND_HDA_CODEC_HDMI */
+ 
+ /*
+  * Trace Control.
 -- 
 2.17.1
 

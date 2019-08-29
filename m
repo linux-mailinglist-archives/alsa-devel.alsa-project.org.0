@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD2B1A2114
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 18:39:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7AD1A2115
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 18:39:23 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B9881677;
-	Thu, 29 Aug 2019 18:38:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B9881677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D02316B1;
+	Thu, 29 Aug 2019 18:38:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D02316B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567096754;
-	bh=z4VTUUKBd36J/i0kVHvAmGiUDVwdOSEriuOaeI/Ex6w=;
+	s=default; t=1567096762;
+	bh=WvLKTLAVSOuRBSaqh7/E9tNDLwb8tZpXtEGzAHlaROc=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mfpf/GvS9ZxHIWhE0es66JCJzphVb+hLD5xoZNWWsilYsObCRRjMru3zxaLkOoyrM
-	 FNiDkDe/7PUDfYHOP7O3cq4kPwVbhtq1cVMcOI+rwUy9dFD+ncnqFegkHTp68coeoj
-	 +Da6aQYYzAJP3L40B/iWEpPTvaFtErr+iFo6ScGM=
+	b=hoWkY9Bn9X0EpWZehM/ZdV/j4xMFZxiZLTYKqGpToWilwQLSDw1geZQVNjgqslkWO
+	 xrdxMC+in+xlh5sMtAz5evuwtfF4Xd1C4pohWxKIlQiTMKPeB4m261QXZk+f0edIwk
+	 CvXzaimjP3ITECfDAZgxd/U/Yr+58Cf59Ixl2JH8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88EF6F802A1;
-	Thu, 29 Aug 2019 18:36:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEB40F80377;
+	Thu, 29 Aug 2019 18:36:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C622BF801ED; Thu, 29 Aug 2019 18:36:40 +0200 (CEST)
+ id 432BAF801ED; Thu, 29 Aug 2019 18:36:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_5,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1083CF80096
- for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 18:36:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1083CF80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75FA0F80142
+ for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 18:36:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75FA0F80142
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="xHp80Gcn"
-Received: by mail-wr1-x442.google.com with SMTP id y19so4125027wrd.3
- for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 09:36:37 -0700 (PDT)
+ header.b="SPqD7twG"
+Received: by mail-wr1-x444.google.com with SMTP id j16so4097883wrr.8
+ for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 09:36:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ut1fjj8eBNR1pFtqlRw5Uf5pteRExaUZGDi9IpjspkU=;
- b=xHp80GcndzmNY8JJ7lMxSaKD+/5XoNzTgtOH5k1hm+r5JTxyG1X/vI8KHTJsQtI1Cv
- 1P3IC9kBfniaetDTJpmUVPdlwJewmUnvMNdH6qVj452oTqiE97E9MokPeFaUiAEDQNHY
- dL0L92xr8e6ymkb0HYv7xPdBhikI0vBXNBVdeIzyIKlDlNbgcEnWQOa63KgskLBBh+ZW
- zHySJdwOi9lvV+/CFsdnRTwLpZnBcLNSF5aaY2L68JQ9Ak1nDMvGy/bPE1QEP6BItGhl
- /kC0tuIGqnxXILzpq2sq6keWnzFzgrxFV9AMY+zTgvKAH2s2kjN1+q8TvOeh8zN0szvb
- IFIg==
+ bh=0y/VQ+YRgpX5o2wxlaY+4cXYuAJOmCwTGDSCpRsawzo=;
+ b=SPqD7twGvwKp/3dAhbuIEpOkZ9eaeoucN5AdbkgdF4l5oJwK1hz+UjQBg4gOXRhsSw
+ uUEovH7aQyS6TaurJffN7ndkPrgHURGFkcxhxPuy1mqZAWZXbbCpdVH42AvFrbnECxGv
+ ymHg9IcprUCOxLa7gVLxYoJkucRxYFsqyQ/VjpNX51Jsi4VchHHAo1fxQfTNETLrBdMh
+ UMJo+o/eqMr5JyhOUayxGfsARNQ6V38hgnnPL3L79a3RKc1zu5+C86RsnIK/0LPwNvoP
+ yhXmmRr3rvBtawUA4kapypIc2cX6yar6nGq5TKsCIGIZ24QGky6MGJkz7uf8/FAa0XfY
+ jCCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ut1fjj8eBNR1pFtqlRw5Uf5pteRExaUZGDi9IpjspkU=;
- b=ihWmic8hTNAL64ko1+402/jji14+Kkej/lR46xmmAN0T9gP4J7YavgPLrJUylBFVDb
- ZPHhthy0Ul2lPzVWCif0HEIrOKvLwqCsRFATa9+zH19U+9BATzeYXAmSIneTY92aBNax
- cqKuPz31D3ENB67wpiAMiV/PbaDR9TEo/qwpoB7r+R7G73oLZ4tyX2Qe3xP/Hw70z4uL
- bm7YoX2uk5DFgD0En/vBfyzX7ItG4niyvehYsRVGE0nOHn0t3wdEwq7od6OJ5hhCVIxg
- 44erySATIWRcWRUgbn9dbELPY/1+QYucEwC4VJefrFgMCoKgbs7Eh2TS6obzDEQazcXc
- FUBw==
-X-Gm-Message-State: APjAAAVL466qV81yzYLmjhe9fJt2ttmorTzysqfllaHZU+RocpUtEMxs
- YJo7uLF09RyvrTCFOWPzKArWPg==
-X-Google-Smtp-Source: APXvYqyg/29G3TEDvhJuP3sZOsleGXRe9357VR2GoR5BLQzNlObtZnEIk8orjsWHqLCNbzzds2BbAA==
-X-Received: by 2002:a5d:4b8c:: with SMTP id b12mr13543767wrt.26.1567096597086; 
- Thu, 29 Aug 2019 09:36:37 -0700 (PDT)
+ bh=0y/VQ+YRgpX5o2wxlaY+4cXYuAJOmCwTGDSCpRsawzo=;
+ b=YfNeqlpQR1NZbwFUOJXtx4fWKzPXFEOwVjV/PJ177/NnFkvue/n++MGNkFaHpdJ+VA
+ o6dQjCll0t/DWHk+9Qe2hhsyXQBRt03Gz/XnIIhxiUDprNNnwrwdI2JrtMgNjf3bo3QA
+ nk5Hwn0WnvVbO3A/q7zyU6jDBf2q1PYnOI0FEJHXmNUwjT2pbGhITs+G6KeGGYlScAwB
+ s6RWkEqlnensM7F8Wefh1FIt9JbVBjbKT4LniZrz4xaX3oslWE+EYzfbnse4gPp0mpd6
+ NCW6E+QuPAC0XrQNZiqPAfkH2ySdOsYILNUk3eNcd1XmiAw3VWCaA+KGUZAq7DshtdfV
+ 0drQ==
+X-Gm-Message-State: APjAAAULLdJ1Wz1i182doRbOy89dPvDljWp5+x+SQQVYsTUqIkhznp2b
+ Ova53lwllSzwcBBFaKY4Haydhg==
+X-Google-Smtp-Source: APXvYqxvtmZUogvHXPqiYxAGddjYnxODN6Beze5/yBnrfXMIqABIfOyxUyI7Dt9l7ZDVsWl1bPiyWA==
+X-Received: by 2002:a5d:4e08:: with SMTP id p8mr10168260wrt.20.1567096598266; 
+ Thu, 29 Aug 2019 09:36:38 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id k9sm4398243wrq.15.2019.08.29.09.36.35
+ by smtp.gmail.com with ESMTPSA id k9sm4398243wrq.15.2019.08.29.09.36.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Aug 2019 09:36:35 -0700 (PDT)
+ Thu, 29 Aug 2019 09:36:37 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org,
 	robh+dt@kernel.org,
 	vkoul@kernel.org
-Date: Thu, 29 Aug 2019 17:35:11 +0100
-Message-Id: <20190829163514.11221-2-srinivas.kandagatla@linaro.org>
+Date: Thu, 29 Aug 2019 17:35:12 +0100
+Message-Id: <20190829163514.11221-3-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190829163514.11221-1-srinivas.kandagatla@linaro.org>
 References: <20190829163514.11221-1-srinivas.kandagatla@linaro.org>
@@ -88,8 +88,8 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  bgoswami@codeaurora.org, spapothi@codeaurora.org, lgirdwood@gmail.com,
  linux-kernel@vger.kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] [PATCH v6 1/4] dt-bindings: soundwire: add slave
-	bindings
+Subject: [alsa-devel] [PATCH v6 2/4] soundwire: core: add device tree
+	support for slave devices
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,104 +107,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds bindings for Soundwire Slave devices that includes how
-SoundWire enumeration address and Link ID are used to represented in
-SoundWire slave device tree nodes.
+This patch adds support to parsing device tree based
+SoundWire slave devices.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- .../soundwire/soundwire-controller.yaml       | 82 +++++++++++++++++++
- 1 file changed, 82 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
+ drivers/soundwire/bus.c   |  2 ++
+ drivers/soundwire/bus.h   |  1 +
+ drivers/soundwire/slave.c | 52 +++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 55 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml b/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
-new file mode 100644
-index 000000000000..1b43993bccdb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
-@@ -0,0 +1,82 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/soundwire/soundwire-controller.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 728db3ebad6e..d83d89b3b15a 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -79,6 +79,8 @@ int sdw_add_bus_master(struct sdw_bus *bus)
+ 	 */
+ 	if (IS_ENABLED(CONFIG_ACPI) && ACPI_HANDLE(bus->dev))
+ 		ret = sdw_acpi_find_slaves(bus);
++	else if (IS_ENABLED(CONFIG_OF) && bus->dev->of_node)
++		ret = sdw_of_find_slaves(bus);
+ 	else
+ 		ret = -ENOTSUPP; /* No ACPI/DT so error out */
+ 
+diff --git a/drivers/soundwire/bus.h b/drivers/soundwire/bus.h
+index 9d6ea7e447ff..cb482da914da 100644
+--- a/drivers/soundwire/bus.h
++++ b/drivers/soundwire/bus.h
+@@ -15,6 +15,7 @@ static inline int sdw_acpi_find_slaves(struct sdw_bus *bus)
+ }
+ #endif
+ 
++int sdw_of_find_slaves(struct sdw_bus *bus);
+ void sdw_extract_slave_id(struct sdw_bus *bus,
+ 			  u64 addr, struct sdw_slave_id *id);
+ 
+diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
+index 4b522f6d1238..48a63ca130d2 100644
+--- a/drivers/soundwire/slave.c
++++ b/drivers/soundwire/slave.c
+@@ -2,6 +2,7 @@
+ // Copyright(c) 2015-17 Intel Corporation.
+ 
+ #include <linux/acpi.h>
++#include <linux/of.h>
+ #include <linux/soundwire/sdw.h>
+ #include <linux/soundwire/sdw_type.h>
+ #include "bus.h"
+@@ -35,6 +36,7 @@ static int sdw_slave_add(struct sdw_bus *bus,
+ 
+ 	slave->dev.release = sdw_slave_release;
+ 	slave->dev.bus = &sdw_bus_type;
++	slave->dev.of_node = of_node_get(to_of_node(fwnode));
+ 	slave->bus = bus;
+ 	slave->status = SDW_SLAVE_UNATTACHED;
+ 	slave->dev_num = 0;
+@@ -113,3 +115,53 @@ int sdw_acpi_find_slaves(struct sdw_bus *bus)
+ }
+ 
+ #endif
 +
-+title: SoundWire Controller Generic Binding
++/*
++ * sdw_of_find_slaves() - Find Slave devices in master device tree node
++ * @bus: SDW bus instance
++ *
++ * Scans Master DT node for SDW child Slave devices and registers it.
++ */
++int sdw_of_find_slaves(struct sdw_bus *bus)
++{
++	struct device *dev = bus->dev;
++	struct device_node *node;
 +
-+maintainers:
-+  - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-+  - Vinod Koul <vkoul@kernel.org>
++	for_each_child_of_node(bus->dev->of_node, node) {
++		int link_id, sdw_version, ret, len;
++		const char *compat = NULL;
++		struct sdw_slave_id id;
++		const __be32 *addr;
 +
-+description: |
-+  SoundWire busses can be described with a node for the SoundWire controller
-+  device and a set of child nodes for each SoundWire slave on the bus.
++		compat = of_get_property(node, "compatible", NULL);
++		if (!compat)
++			continue;
 +
-+properties:
-+  $nodename:
-+    pattern: "^soundwire(@.*)?$"
++		ret = sscanf(compat, "sdw%01x%04hx%04hx%02hhx", &sdw_version,
++			     &id.mfg_id, &id.part_id, &id.class_id);
 +
-+  "#address-cells":
-+    const: 2
++		if (ret != 4) {
++			dev_err(dev, "Invalid compatible string found %s\n",
++				compat);
++			continue;
++		}
 +
-+  "#size-cells":
-+    const: 0
++		addr = of_get_property(node, "reg", &len);
++		if (!addr || (len < 2 * sizeof(u32))) {
++			dev_err(dev, "Invalid Link and Instance ID\n");
++			continue;
++		}
 +
-+patternProperties:
-+  "^.*@[0-9a-f],[0-9a-f]$":
-+    type: object
++		link_id = be32_to_cpup(addr++);
++		id.unique_id = be32_to_cpup(addr);
++		id.sdw_version = sdw_version;
 +
-+    properties:
-+      compatible:
-+        pattern: "^sdw[0-9a-f]{1}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$"
-+        description: Is the textual representation of SoundWire Enumeration
-+          address. compatible string should contain SoundWire Version ID,
-+          Manufacturer ID, Part ID and Class ID in order and shall be in
-+          lower-case hexadecimal with leading zeroes.
-+          Valid sizes of these fields are
-+          Version ID is 1 nibble, number '0x1' represents SoundWire 1.0
-+          and '0x2' represents SoundWire 1.1 and so on.
-+          MFD is 4 nibbles
-+          PID is 4 nibbles
-+          CID is 2 nibbles
-+          More Information on detail of encoding of these fields can be
-+          found in MIPI Alliance DisCo & SoundWire 1.0 Specifications.
++		/* Check for link_id match */
++		if (link_id != bus->link_id)
++			continue;
 +
-+      reg:
-+        maxItems: 1
-+        description:
-+          Link ID followed by Instance ID of SoundWire Device Address.
++		sdw_slave_add(bus, &id, of_fwnode_handle(node));
++	}
 +
-+    required:
-+      - compatible
-+      - reg
-+
-+required:
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+examples:
-+  - |
-+    soundwire@c2d0000 {
-+        #address-cells = <2>;
-+        #size-cells = <0>;
-+        reg = <0x0c2d0000 0x2000>;
-+
-+        speaker@0,1 {
-+            compatible = "sdw10217201000";
-+            reg = <0 1>;
-+            powerdown-gpios = <&wcdpinctrl 2 0>;
-+            #thermal-sensor-cells = <0>;
-+        };
-+
-+        speaker@0,2 {
-+            compatible = "sdw10217201000";
-+            reg = <0 2>;
-+            powerdown-gpios = <&wcdpinctrl 2 0>;
-+            #thermal-sensor-cells = <0>;
-+        };
-+    };
-+
-+...
++	return 0;
++}
 -- 
 2.21.0
 

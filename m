@@ -2,57 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA1C6A1E29
-	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 17:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D21EA1E32
+	for <lists+alsa-devel@lfdr.de>; Thu, 29 Aug 2019 17:01:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 480B716AC;
-	Thu, 29 Aug 2019 16:59:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 480B716AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id D65BF16A9;
+	Thu, 29 Aug 2019 17:00:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D65BF16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567090816;
-	bh=KIHlhzlDS3r2VfVnZjkmcVV4hBhHvXfCUORKmtpuMJY=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Lt3XWwas2ZLqgJp6jdB57oMLlru6uNd1LL9xkNWXu/upFhV5Q1MAkd5U3SS4EEqRP
-	 h7sDA9R+A+ou00byIbKw3DRgBzAZguZWSYoDfO2tGeDccLgAgH0+qJyRntL8axekfc
-	 R05eIBvrB8dxkX4Ms6JRc+VJa6FL20YnXwYipDsM=
+	s=default; t=1567090859;
+	bh=7oJjgx8lnRP4+1he6Pd/CzUir6+pg+QJVbYtKp+2NYg=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=qjUvTOE6n/oVzTgtqeZCraoPmXJD5qS2VrOGfqhOr1Drapg6IPAgKQt1XnKms/afP
+	 rBSV714vOZtceLCNv70GnN01Brczk9+l1rlm+osX+2baf1EEUyvKa+10JwWqILPCK2
+	 5HAYUhyyQgvjcse5YapWDR7MTzhCSP91bqWXuT4Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4A2DFF89883;
-	Thu, 29 Aug 2019 15:54:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41567F8988B;
+	Thu, 29 Aug 2019 15:54:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B372F89881; Thu, 29 Aug 2019 15:54:07 +0200 (CEST)
+ id 785A2F8988B; Thu, 29 Aug 2019 15:54:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26342F8987F
- for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 15:54:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26342F8987F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D754F89884
+ for <alsa-devel@alsa-project.org>; Thu, 29 Aug 2019 15:54:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D754F89884
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Aug 2019 06:54:00 -0700
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Aug 2019 06:54:12 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,443,1559545200"; d="scan'208";a="182349271"
+X-IronPort-AV: E=Sophos;i="5.64,443,1559545200"; d="scan'208";a="182349320"
 Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by fmsmga007.fm.intel.com with ESMTP; 29 Aug 2019 06:53:59 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 29 Aug 2019 06:54:11 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	tiwai@suse.de
-Date: Thu, 29 Aug 2019 16:53:41 +0300
-Message-Id: <20190829135348.23569-1-kai.vehmanen@linux.intel.com>
+Date: Thu, 29 Aug 2019 16:53:43 +0300
+Message-Id: <20190829135348.23569-3-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20190829135348.23569-1-kai.vehmanen@linux.intel.com>
+References: <20190829135348.23569-1-kai.vehmanen@linux.intel.com>
 Cc: libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
  kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [RFC PATCH 0/7] adapt SOF to use snd-hda-codec-hdmi
+Subject: [alsa-devel] [RFC PATCH 2/7] ASoC: Intel: skl-hda-dsp-generic: use
+	snd-hda-codec-hdmi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,80 +75,163 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi all,
-here's a RFC patch series that adapts SOF (and one example machine
-driver) to use snd-hda-codec-hdmi (patch_hdmi.c) codec driver
-instead of hdac_hdmi (soc/codecs/hdac_hdmi.c). The primary goal
-is unify the HDMI codec implementation between DSP and non-DSP HDA
-configurations, offer same interface to user-space and reduce
-maintenance load for all.
+Switch to use the snd-hda-codec-hdmi driver for HDMI/DP instead
+of ASoC hdac-hdmi. This is aligned with how other HDA codecs
+are handled.
 
-Main points I'd like your input on:
+PCM device numbers are parsed from card topology and passed
+to snd-hda-codec-hdmi. This needs to be done at runtime as
+topology changes may affect PCM device allocation.
 
-1) Is the high-level approach ok?
- - SOF already uses pci/hda/ for all others codecs, so HDMI
-   has been the sole exception where code has been duplicated.
- - I've tried to keep changes to hda/hdmi minimal.
- - This series implements logic to parse the PCM topology
-   in a dynamic fashion, so we do not have to change all
-   existing (and future) DSP topologis to use fixed PCM device
-   numbers for HDMI, and we avoid need to hardcode PCM
-   device numbers in machine driver code.
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+---
+ sound/soc/intel/boards/skl_hda_dsp_common.c  | 27 +++------
+ sound/soc/intel/boards/skl_hda_dsp_common.h  | 61 ++++++++++++++++++++
+ sound/soc/intel/boards/skl_hda_dsp_generic.c |  7 ---
+ 3 files changed, 68 insertions(+), 27 deletions(-)
 
-2) Can we drop hdac_hdmi and its support from machine drivers, or
-   do we need to make it optional and keep it around?
-
- - Current series does not add any Kconfig options, but
-   simply switches SOF to use HDA codecs for all, including
-   HDMI/DP. This means hdac_hdmi is never used with SOF
-   and could be dropped (if SST is ok as well).
- - This may break some usage with SST (input is welcome!)
- - The change is visible to applications. The ALSA mixer
-   interface is different (OTOH with the new driver, playback
-   works out-of-the-box while with hdac_hdmi you needed to
-   set the multiple controls first, to have any audio out).
- - Alternatively I could add a KConfig option and we could
-   have a deprecation period for hdac_hdmi, allowing people
-   to compile with the old driver during transition time.
-   This will require #ifdef'ing in all the machine drivers.
-
-.. once these are addressed, I can proceed to extend the patchset
-with all affected machine drivers.
-
-Feature and testing info:
-
- - Tested on multiple Intel platforms supported by SOF.
- - Tested with ALSA console tools as well as with Pulseaudio.
-      - requires Pulseaudio 12.x or newer, see
-        https://lists.freedesktop.org/archives/pulseaudio-discuss/2019-August/031358.html
- - HDMI, DP, DP-MST with multi-monitor use-scenarios work ok.
- - New feature for SOF: ELD /proc fs works just like in
-   DSP-less mode.
- - New feature for SOF: jack detection works out-of-the-box
-   with Pulseaudio (no need for card specific UCM for HDMI)
- - Pre-reviewed at:
-   https://github.com/thesofproject/linux/pull/1155
-
-Kai Vehmanen (7):
-  ALSA: hda - add mst_no_extra_pcms flag to hda_codec
-  ASoC: Intel: skl-hda-dsp-generic: use snd-hda-codec-hdmi
-  ASoC: hdac_hda: add support for HDMI/DP as a HDA codec
-  ALSA: hda/hdmi - allow control creation without a linked pcm
-  ALSA: hda/hdmi - implement mst_no_extra_pcms flag
-  ALSA: hda/hdmi - complete pcm_setup_pin without snd_pcm link
-  ASoC: SOF: Intel: load hda codec module also for HDMI/DP
-
- include/sound/hda_codec.h                    |  1 +
- sound/pci/hda/patch_hdmi.c                   | 31 ++++---
- sound/soc/codecs/hdac_hda.c                  | 95 +++++++++++++++++---
- sound/soc/codecs/hdac_hda.h                  | 10 ++-
- sound/soc/intel/boards/skl_hda_dsp_common.c  | 27 ++----
- sound/soc/intel/boards/skl_hda_dsp_common.h  | 61 +++++++++++++
- sound/soc/intel/boards/skl_hda_dsp_generic.c |  7 --
- sound/soc/sof/intel/hda-codec.c              | 11 +--
- sound/soc/sof/intel/hda.h                    |  5 +-
- 9 files changed, 189 insertions(+), 59 deletions(-)
-
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
+index 55fd82e05e2c..3db9aee8aa83 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
+@@ -14,6 +14,9 @@
+ #include "../../codecs/hdac_hdmi.h"
+ #include "skl_hda_dsp_common.h"
+ 
++#include <sound/hda_codec.h>
++#include "../../codecs/hdac_hda.h"
++
+ #define NAME_SIZE	32
+ 
+ int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device)
+@@ -133,28 +136,12 @@ int skl_hda_hdmi_jack_init(struct snd_soc_card *card)
+ 	struct skl_hda_private *ctx = snd_soc_card_get_drvdata(card);
+ 	struct snd_soc_component *component = NULL;
+ 	struct skl_hda_hdmi_pcm *pcm;
+-	char jack_name[NAME_SIZE];
+-	int err;
+-
+-	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+-		component = pcm->codec_dai->component;
+-		snprintf(jack_name, sizeof(jack_name),
+-			 "HDMI/DP, pcm=%d Jack", pcm->device);
+-		err = snd_soc_card_jack_new(card, jack_name,
+-					    SND_JACK_AVOUT, &pcm->hdmi_jack,
+-					    NULL, 0);
+-
+-		if (err)
+-			return err;
+-
+-		err = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
+-					  &pcm->hdmi_jack);
+-		if (err < 0)
+-			return err;
+-	}
+ 
++	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct skl_hda_hdmi_pcm,
++			       head);
++	component = pcm->codec_dai->component;
+ 	if (!component)
+ 		return -EINVAL;
+ 
+-	return hdac_hdmi_jack_port_init(component, &card->dapm);
++	return skl_hda_hdmi_build_controls(card, component);
+ }
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.h b/sound/soc/intel/boards/skl_hda_dsp_common.h
+index daa582e513b2..6154688b09e8 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.h
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.h
+@@ -14,6 +14,8 @@
+ #include <linux/platform_device.h>
+ #include <sound/core.h>
+ #include <sound/jack.h>
++#include <sound/hda_codec.h>
++#include "../../codecs/hdac_hda.h"
+ 
+ #define HDA_DSP_MAX_BE_DAI_LINKS 7
+ 
+@@ -35,4 +37,63 @@ extern struct snd_soc_dai_link skl_hda_be_dai_links[HDA_DSP_MAX_BE_DAI_LINKS];
+ int skl_hda_hdmi_jack_init(struct snd_soc_card *card);
+ int skl_hda_hdmi_add_pcm(struct snd_soc_card *card, int device);
+ 
++/*
++ * Search card topology and return PCM device number
++ * matching Nth HDMI device (zero-based index).
++ */
++static inline struct snd_pcm *skl_hda_hdmi_pcm_handle(struct snd_soc_card *card,
++						      int hdmi_idx)
++{
++	struct snd_soc_pcm_runtime *rtd;
++	int i = 0;
++	struct snd_pcm *spcm;
++
++	for_each_card_rtds(card, rtd) {
++		spcm = rtd->pcm ?
++			rtd->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].pcm : 0;
++		if (spcm && strstr(spcm->id, "HDMI")) {
++			if (i == hdmi_idx)
++				return rtd->pcm;
++			++i;
++		}
++	}
++
++	return 0;
++}
++
++/*
++ * Search card topology and register HDMI PCM related controls
++ * to codec driver.
++ */
++static int skl_hda_hdmi_build_controls(struct snd_soc_card *card,
++				       struct snd_soc_component *component)
++{
++	struct hdac_hda_priv *hda_pvt;
++	struct hda_codec *hcodec;
++	struct snd_pcm *spcm;
++	struct hda_pcm *hpcm;
++	int err = 0, i = 0;
++
++	hda_pvt = snd_soc_component_get_drvdata(component);
++	hcodec = &hda_pvt->codec;
++
++	list_for_each_entry(hpcm, &hcodec->pcm_list_head, list) {
++		spcm = skl_hda_hdmi_pcm_handle(card, i);
++		if (spcm) {
++			hpcm->pcm = spcm;
++			hpcm->device = spcm->device;
++			dev_dbg(card->dev,
++				"%s: mapping HDMI converter %d to PCM %d (%p)\n",
++				__func__, i, hpcm->device, spcm);
++		}
++		i++;
++	}
++
++	err = snd_hda_codec_build_controls(hcodec);
++	if (err < 0)
++		dev_err(card->dev, "unable to create controls %d\n", err);
++
++	return err;
++}
++
+ #endif /* __SOUND_SOC_HDA_DSP_COMMON_H */
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index 9ed68eb4f058..9b6f8cc87f99 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -26,13 +26,6 @@ static const struct snd_soc_dapm_widget skl_hda_widgets[] = {
+ };
+ 
+ static const struct snd_soc_dapm_route skl_hda_map[] = {
+-	{ "hifi3", NULL, "iDisp3 Tx"},
+-	{ "iDisp3 Tx", NULL, "iDisp3_out"},
+-	{ "hifi2", NULL, "iDisp2 Tx"},
+-	{ "iDisp2 Tx", NULL, "iDisp2_out"},
+-	{ "hifi1", NULL, "iDisp1 Tx"},
+-	{ "iDisp1 Tx", NULL, "iDisp1_out"},
+-
+ 	{ "Analog Out", NULL, "Codec Output Pin1" },
+ 	{ "Digital Out", NULL, "Codec Output Pin2" },
+ 	{ "Alt Analog Out", NULL, "Codec Output Pin3" },
 -- 
 2.17.1
 

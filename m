@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739CDA3510
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 12:41:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D844AA3511
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 12:41:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 009841666;
-	Fri, 30 Aug 2019 12:40:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 009841666
+	by alsa0.perex.cz (Postfix) with ESMTPS id D13B81678;
+	Fri, 30 Aug 2019 12:40:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D13B81678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567161660;
-	bh=TJF6WRmTEP4v11HSkReNU9QbL3gPTIf3gTcbNPDWL5M=;
+	s=default; t=1567161668;
+	bh=UrdDrYTmo4mBFxPgEV00gU7z0C2kIWsP/mdKb62mcM8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p1L/D7lhbFhS0K1PulTTcA8crRFdXmKeTpv+RiaZMI/uRrxgYmTQtSNn7i3nQTg8N
-	 0eUqIecttpU/SJtgGjVVxG1YgogqtRMUmWPritzydjv6NuTqi/QGkw9U1dfx2nko08
-	 bvORk7VaobMp01PGHBBlEiQ8wwD5shB/5ityGdNc=
+	b=tGt/xDL8vQkniT0YROdvM5zyUXxdb7ukiyUhqZXClnlB5vZB82D0jDtTse+FNkghP
+	 T7W2YYg4YLqEcPthc9MU1dot5zU0MF5HS3ZMJlOOJwNV39MBPBEBmklG0aMmD+CAh0
+	 z6e6FobvH/zRFM0Y65hrImBSWUvrY5hr4U3iV25o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 137AAF805A0;
-	Fri, 30 Aug 2019 12:38:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09F12F80369;
+	Fri, 30 Aug 2019 12:38:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6FE8F80369; Fri, 30 Aug 2019 12:38:26 +0200 (CEST)
+ id 94D82F805F7; Fri, 30 Aug 2019 12:38:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33C49F80096
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 12:38:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33C49F80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDEBEF80096
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 12:38:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDEBEF80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="NSKMJhVQ"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x7UAcLqi096670;
- Fri, 30 Aug 2019 05:38:21 -0500
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="hzwiPefD"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id x7UAcMCe099240;
+ Fri, 30 Aug 2019 05:38:22 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1567161501;
- bh=XkrXSk4Ay3T1YcaHUJRNTcibDPompzK0GAMKJX330kA=;
+ s=ti-com-17Q1; t=1567161502;
+ bh=cth5moBVr5JEg/LWscsP/TMizn2YnQ/SAS6cxHDzCcM=;
  h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=NSKMJhVQojhD5RPbenIQYfbSfUN9kbdmbESdnWOEhFkAQ1WHUkSxRSOy9Zqq7zc7+
- IQ1AwKf+mcOIYUAQzCIUzNJGQcwHObK6m1FId6zK9McjEQSnI3vatn/xTjuyAnGvY7
- yjYD1Jo1jm31js1HiGiSAQyXAwXS7O78K7biQT1M=
-Received: from DLEE112.ent.ti.com (dlee112.ent.ti.com [157.170.170.23])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x7UAcLV9027949
+ b=hzwiPefDtMK3hxDt+/UDY4VGcOOHGFFWMhSEiDidGiJiLtAb1jhDg08iDErO66Ssr
+ LLJK7G+b0mg2/GGOzIDSi5e5aeejJq/8Wfp6bQkGMi5CvW3HfiurSL9LL02FOC5m9I
+ v1LlZuWmpV+Obz3oGfcoAPmx57EKf54qeL1SjiwU=
+Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x7UAcMJH024857
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 30 Aug 2019 05:38:21 -0500
-Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE112.ent.ti.com
- (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
+ Fri, 30 Aug 2019 05:38:22 -0500
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Fri, 30
- Aug 2019 05:38:20 -0500
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DLEE107.ent.ti.com
- (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ Aug 2019 05:38:22 -0500
+Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Fri, 30 Aug 2019 05:38:20 -0500
+ Frontend Transport; Fri, 30 Aug 2019 05:38:22 -0500
 Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x7UAcG3Z076275;
- Fri, 30 Aug 2019 05:38:19 -0500
+ by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id x7UAcG3a076275;
+ Fri, 30 Aug 2019 05:38:21 -0500
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Date: Fri, 30 Aug 2019 13:38:38 +0300
-Message-ID: <20190830103841.25128-2-peter.ujfalusi@ti.com>
+Date: Fri, 30 Aug 2019 13:38:39 +0300
+Message-ID: <20190830103841.25128-3-peter.ujfalusi@ti.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20190830103841.25128-1-peter.ujfalusi@ti.com>
 References: <20190830103841.25128-1-peter.ujfalusi@ti.com>
@@ -75,8 +75,8 @@ MIME-Version: 1.0
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 Cc: alsa-devel@alsa-project.org, nsekhar@ti.com,
  kuninori.morimoto.gx@renesas.com
-Subject: [alsa-devel] [PATCH 1/4] ASoC: ti: davinci-i2s: Add S32_LE as
-	support format
+Subject: [alsa-devel] [PATCH 2/4] ASoC: ti: davinci-i2s: Move the XSYNCERR
+	workaround to .prepare callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,45 +94,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ASP/McBSP can support 8/16/20/24/32 bits word in theory. I have only tested
-S16_LE and S32_LE, the other formats might not work so only extend the
-supported formats with S32_LE for now.
+Currently the driver uses snd_soc_rtdcom_lookup() in it's mcbsp_start
+function to try to stop/restart the DMA as the initial XSYNCERR workaround
+need to be done before the DMA is armed.
 
+There are couple of things wrong with this:
+- the driver crashes with NULL pointer dereference as the
+  component->driver->ops is actually NULL
+- the driver should not use snd_soc_rtdcom_lookup() in the first place
+- Fiddling with DMA is never a good thing
+
+Move the workaround handling to .prepare which is called before the DMA is
+armed, so it complies with the requirements.
+
+Reported-by (usage of snd_soc_rtdcom_lookup): Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 ---
- sound/soc/ti/davinci-i2s.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/ti/davinci-i2s.c | 82 ++++++++++++++++----------------------
+ 1 file changed, 34 insertions(+), 48 deletions(-)
 
 diff --git a/sound/soc/ti/davinci-i2s.c b/sound/soc/ti/davinci-i2s.c
-index 92c1bdc69086..f04d9fb5130f 100644
+index f04d9fb5130f..d89b5c928c4d 100644
 --- a/sound/soc/ti/davinci-i2s.c
 +++ b/sound/soc/ti/davinci-i2s.c
-@@ -612,6 +612,8 @@ static void davinci_i2s_shutdown(struct snd_pcm_substream *substream,
+@@ -187,57 +187,9 @@ static void toggle_clock(struct davinci_mcbsp_dev *dev, int playback)
+ static void davinci_mcbsp_start(struct davinci_mcbsp_dev *dev,
+ 		struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	int playback = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK);
+ 	u32 spcr;
+ 	u32 mask = playback ? DAVINCI_MCBSP_SPCR_XRST : DAVINCI_MCBSP_SPCR_RRST;
+-	spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
+-	if (spcr & mask) {
+-		/* start off disabled */
+-		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG,
+-				spcr & ~mask);
+-		toggle_clock(dev, playback);
+-	}
+-	if (dev->pcr & (DAVINCI_MCBSP_PCR_FSXM | DAVINCI_MCBSP_PCR_FSRM |
+-			DAVINCI_MCBSP_PCR_CLKXM | DAVINCI_MCBSP_PCR_CLKRM)) {
+-		/* Start the sample generator */
+-		spcr |= DAVINCI_MCBSP_SPCR_GRST;
+-		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG, spcr);
+-	}
+-
+-	if (playback) {
+-		/* Stop the DMA to avoid data loss */
+-		/* while the transmitter is out of reset to handle XSYNCERR */
+-		if (component->driver->ops->trigger) {
+-			int ret = component->driver->ops->trigger(substream,
+-				SNDRV_PCM_TRIGGER_STOP);
+-			if (ret < 0)
+-				printk(KERN_DEBUG "Playback DMA stop failed\n");
+-		}
+-
+-		/* Enable the transmitter */
+-		spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
+-		spcr |= DAVINCI_MCBSP_SPCR_XRST;
+-		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG, spcr);
+-
+-		/* wait for any unexpected frame sync error to occur */
+-		udelay(100);
+-
+-		/* Disable the transmitter to clear any outstanding XSYNCERR */
+-		spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
+-		spcr &= ~DAVINCI_MCBSP_SPCR_XRST;
+-		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG, spcr);
+-		toggle_clock(dev, playback);
+-
+-		/* Restart the DMA */
+-		if (component->driver->ops->trigger) {
+-			int ret = component->driver->ops->trigger(substream,
+-				SNDRV_PCM_TRIGGER_START);
+-			if (ret < 0)
+-				printk(KERN_DEBUG "Playback DMA start failed\n");
+-		}
+-	}
+ 
+ 	/* Enable transmitter or receiver */
+ 	spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
+@@ -575,7 +527,41 @@ static int davinci_i2s_prepare(struct snd_pcm_substream *substream,
+ {
+ 	struct davinci_mcbsp_dev *dev = snd_soc_dai_get_drvdata(dai);
+ 	int playback = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK);
++	u32 spcr;
++	u32 mask = playback ? DAVINCI_MCBSP_SPCR_XRST : DAVINCI_MCBSP_SPCR_RRST;
++
+ 	davinci_mcbsp_stop(dev, playback);
++
++	spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
++	if (spcr & mask) {
++		/* start off disabled */
++		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG,
++					spcr & ~mask);
++		toggle_clock(dev, playback);
++	}
++	if (dev->pcr & (DAVINCI_MCBSP_PCR_FSXM | DAVINCI_MCBSP_PCR_FSRM |
++			DAVINCI_MCBSP_PCR_CLKXM | DAVINCI_MCBSP_PCR_CLKRM)) {
++		/* Start the sample generator */
++		spcr |= DAVINCI_MCBSP_SPCR_GRST;
++		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG, spcr);
++	}
++
++	if (playback) {
++		/* Enable the transmitter */
++		spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
++		spcr |= DAVINCI_MCBSP_SPCR_XRST;
++		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG, spcr);
++
++		/* wait for any unexpected frame sync error to occur */
++		udelay(100);
++
++		/* Disable the transmitter to clear any outstanding XSYNCERR */
++		spcr = davinci_mcbsp_read_reg(dev, DAVINCI_MCBSP_SPCR_REG);
++		spcr &= ~DAVINCI_MCBSP_SPCR_XRST;
++		davinci_mcbsp_write_reg(dev, DAVINCI_MCBSP_SPCR_REG, spcr);
++		toggle_clock(dev, playback);
++	}
++
+ 	return 0;
  }
  
- #define DAVINCI_I2S_RATES	SNDRV_PCM_RATE_8000_96000
-+#define DAVINCI_I2S_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
-+				 SNDRV_PCM_FMTBIT_S32_LE)
- 
- static const struct snd_soc_dai_ops davinci_i2s_dai_ops = {
- 	.shutdown	= davinci_i2s_shutdown,
-@@ -639,12 +641,14 @@ static struct snd_soc_dai_driver davinci_i2s_dai = {
- 		.channels_min = 2,
- 		.channels_max = 2,
- 		.rates = DAVINCI_I2S_RATES,
--		.formats = SNDRV_PCM_FMTBIT_S16_LE,},
-+		.formats = DAVINCI_I2S_FORMATS,
-+	},
- 	.capture = {
- 		.channels_min = 2,
- 		.channels_max = 2,
- 		.rates = DAVINCI_I2S_RATES,
--		.formats = SNDRV_PCM_FMTBIT_S16_LE,},
-+		.formats = DAVINCI_I2S_FORMATS,
-+	},
- 	.ops = &davinci_i2s_dai_ops,
- 
- };
 -- 
 Peter
 

@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F6FA3F75
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 23:08:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56EADA3F76
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 23:09:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3BDE14E;
-	Fri, 30 Aug 2019 23:08:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3BDE14E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8CA1166A;
+	Fri, 30 Aug 2019 23:08:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8CA1166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567199330;
-	bh=NsQKkAYgcJBWMSOGUnpSdGHNTesppjKHT/96IZuaCCw=;
+	s=default; t=1567199339;
+	bh=5myXkZ5W6aQrB06gZmyickMGDhEIyb+hnEr4HML32qI=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LBKirw/VItTrbmHQNVjULbPC3eJmWfCqGIlsqPf1mXSZ+lRmTTYqZ7DUpxpxxIIDC
-	 hUGO10V5yYE7sf34K0PeIc3971NNy506/K4E2FDJXDJIcRyRrMGJOOSbW+E90/SS2O
-	 jefG2+hMq8cDoKwzFso4MIYq4gb7Wg0GHcnZBJkk=
+	b=R11hhT0dK5x3dtZ+WopmHK499NOgl5osWWpVxHHgsxo9Lno6FXxIpbBKRcvoeX7Eu
+	 62uD2KOmtbXDT/ndXilvK5ECJtDSf24ElQs9bQ1nr6L3MyxZ9+JDUN6rIYB3WuM+7F
+	 gY/iLDRw3TPgfCbIHwioB37PBQ1I8+SHzThdBJqo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9518FF80444;
-	Fri, 30 Aug 2019 23:06:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E402CF805F6;
+	Fri, 30 Aug 2019 23:06:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44FEBF800E7; Fri, 30 Aug 2019 23:06:19 +0200 (CEST)
+ id 9289EF80444; Fri, 30 Aug 2019 23:06:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97BBAF800E7
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 23:06:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97BBAF800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DF06F8036C
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 23:06:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DF06F8036C
 Received: from localhost.localdomain (unknown [91.224.148.103])
  (Authenticated sender: miquel.raynal@bootlin.com)
- by relay11.mail.gandi.net (Postfix) with ESMTPSA id C09AA100004;
- Fri, 30 Aug 2019 21:06:14 +0000 (UTC)
+ by relay11.mail.gandi.net (Postfix) with ESMTPSA id 6B0BF100005;
+ Fri, 30 Aug 2019 21:06:17 +0000 (UTC)
 From: Miquel Raynal <miquel.raynal@bootlin.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Date: Fri, 30 Aug 2019 23:06:06 +0200
-Message-Id: <20190830210607.22644-2-miquel.raynal@bootlin.com>
+Date: Fri, 30 Aug 2019 23:06:07 +0200
+Message-Id: <20190830210607.22644-3-miquel.raynal@bootlin.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190830210607.22644-1-miquel.raynal@bootlin.com>
 References: <20190830210607.22644-1-miquel.raynal@bootlin.com>
@@ -55,8 +55,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  Miquel Raynal <miquel.raynal@bootlin.com>, alexandre@bootlin.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 2/3] dt-bindings: sound: Add Xilinx logicPD-I2S
-	FPGA IP bindings
+Subject: [alsa-devel] [PATCH 3/3] MAINTAINERS: Add an entry for the Xilinx
+	logicPD-I2S block
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,79 +74,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Document the logicPD I2S FPGA block bindings in yaml.
-
-Syntax verified with dt-doc-validate.
+Reference the driver and and the bindings.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- .../bindings/sound/xlnx,logicpd-i2s.yaml      | 57 +++++++++++++++++++
- 1 file changed, 57 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
+ MAINTAINERS | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml b/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
-new file mode 100644
-index 000000000000..cbff641af199
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
-@@ -0,0 +1,57 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/xlnx,logicpd-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5bf8f340e6a8..382c33a1adef 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -17136,6 +17136,12 @@ L:	linux-serial@vger.kernel.org
+ S:	Maintained
+ F:	drivers/tty/serial/uartlite.c
+ 
++XILINX LOGICPD I2S SOUND DRIVER
++M:	Miquel Raynal <miquel.raynal@bootlin.com>
++S:	Maintained
++F:	sound/soc/xilinx/xlnx-logicpd-i2s.c
++F:	Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
 +
-+title: Device-Tree bindings for Xilinx logicPD I2S FPGA block
-+
-+maintainers:
-+  - Miquel Raynal <miquel.raynal@bootlin.com>
-+
-+description: |
-+  The IP supports I2S playback/capture audio. It acts as a slave and
-+  clocks should come from the codec. It only supports two channels and
-+  S16_LE format.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: xlnx,logicpd-i2s
-+
-+  reg:
-+    maxItems: 1
-+    description:
-+      Base address and size of the IP core instance.
-+
-+  interrupts:
-+    minItems: 1
-+    maxItems: 2
-+    items:
-+      - description: tx interrupt
-+      - description: rx interrupt
-+    description:
-+      Either the Tx interruption or the Rx interruption or both.
-+
-+  interrupt-names:
-+    minItems: 1
-+    maxItems: 2
-+    items:
-+      - const: tx
-+      - const: rx
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupts-controller
-+
-+examples:
-+  - |
-+    logii2s_dai: logii2s-dai@43c10000 {
-+        reg = <0x43c10000 0x1000>;
-+        compatible = "xlnx,logicpd-i2s-dai";
-+        interrupt-parent = <&intc>;
-+        interrupts = <0 29 IRQ_TYPE_LEVEL_HIGH>, <0 30 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-names = "rx", "tx";
-+    };
+ XILINX VIDEO IP CORES
+ M:	Hyun Kwon <hyun.kwon@xilinx.com>
+ M:	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 -- 
 2.20.1
 

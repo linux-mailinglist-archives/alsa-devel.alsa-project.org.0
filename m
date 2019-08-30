@@ -2,62 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5178A400E
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Aug 2019 00:01:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB4F7A40BA
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Aug 2019 00:57:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 460C6857;
-	Sat, 31 Aug 2019 00:00:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 460C6857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57CF5165D;
+	Sat, 31 Aug 2019 00:56:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57CF5165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567202465;
-	bh=ryLzlCOlrn2Rv5WYsb9zv4uuacZcnDjOoR1NOm4/Xm0=;
+	s=default; t=1567205829;
+	bh=j4vpGxzWqNX/E3lHJ39GssY6XPCrDaf5AcEBFoou/oc=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=efW3qouhK4KvyOEg61IJk/JWQaAavQw9lHJuqyGaz6oX4JCaTYZ9pCcNYGpRrbjAe
-	 oatIqJdtkNsybf8Mmu6J9kkdKTX6SFHhW7NBBmr925yMBjyKTlGolP4m9ANSZBQIZG
-	 gGHmI8EU2CojMOA8SKA6hVGgDQZx6PiC88QPaREU=
+	b=Dcng+zEzxWfdZotNNPypA08a/NPJre5f8ZG+JcxcnJgaC+bfF/n1V6OILt6KHNy5A
+	 NgmhNXtCfSszCGIgLwL2N827gRGcE5ZxEjN8y1SlxBdWLPEJbAm+IYTMUNILpgnNJO
+	 kC3PPX/EoFSc1cjEkVcYp5Q8jDAreMkgE2pe/JZc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E486DF80376;
-	Fri, 30 Aug 2019 23:59:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0A76F800AA;
+	Sat, 31 Aug 2019 00:55:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB446F80369; Fri, 30 Aug 2019 23:59:17 +0200 (CEST)
+ id E18AFF80369; Sat, 31 Aug 2019 00:55:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38A8CF800E7
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 23:59:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38A8CF800E7
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id F0D4420079F;
- Fri, 30 Aug 2019 23:59:12 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1362BF800AA
+ for <alsa-devel@alsa-project.org>; Sat, 31 Aug 2019 00:55:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1362BF800AA
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B8A351A008B;
+ Sat, 31 Aug 2019 00:55:16 +0200 (CEST)
 Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
  [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id E48EC20043B;
- Fri, 30 Aug 2019 23:59:12 +0200 (CEST)
+ by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A20AB1A0412;
+ Sat, 31 Aug 2019 00:55:16 +0200 (CEST)
 Received: from fsr-ub1864-103.ea.freescale.net
  (fsr-ub1864-103.ea.freescale.net [10.171.82.17])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 3FC0F2061E;
- Fri, 30 Aug 2019 23:59:12 +0200 (CEST)
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 222C220627;
+ Sat, 31 Aug 2019 00:55:16 +0200 (CEST)
 From: Daniel Baluta <daniel.baluta@nxp.com>
 To: broonie@kernel.org
-Date: Sat, 31 Aug 2019 00:59:10 +0300
-Message-Id: <20190830215910.31590-1-daniel.baluta@nxp.com>
+Date: Sat, 31 Aug 2019 01:55:14 +0300
+Message-Id: <20190830225514.5283-1-daniel.baluta@nxp.com>
 X-Mailer: git-send-email 2.17.1
 X-Virus-Scanned: ClamAV using ClamSMTP
 Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
  Daniel Baluta <daniel.baluta@nxp.com>, shengjiu.wang@nxp.com,
  linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- NXP Linux Team <linux-imx@nxp.com>, Viorel Suman <viorel.suman@nxp.com>,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>, gabrielcsmo@gmail.com,
  festevam@gmail.com
-Subject: [alsa-devel] [PATCH] ASoC: fsl_sai: Implement set_bclk_ratio
+Subject: [alsa-devel] [PATCH] ASoC: fsl_sai: Set SAI Channel Mode to Output
+	Mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,77 +78,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Viorel Suman <viorel.suman@nxp.com>
+From SAI datasheet:
 
-This is to allow machine drivers to set a certain bitclk rate
-which might not be exactly rate * frame size.
+CHMOD, configures if transmit data pins are configured for TDM mode
+or Output mode.
+	* (0) TDM mode, transmit data pins are tri-stated when slots are
+	masked or channels are disabled.
+	* (1) Output mode, transmit data pins are never tri-stated and
+	will output zero when slots are masked or channels are disabled.
+
+When data pins are tri-stated, there is noise on some channels
+when FS clock value is high and data is read while fsclk is
+transitioning from high to low.
+
+Fix this by setting CHMOD to Output Mode so that pins will output zero
+when slots are masked or channels are disabled.
 
 Cc: NXP Linux Team <linux-imx@nxp.com>
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
+Signed-off-by: Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 ---
- sound/soc/fsl/fsl_sai.c | 21 +++++++++++++++++++--
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 20 insertions(+), 2 deletions(-)
+ sound/soc/fsl/fsl_sai.c | 15 ++++++++++++---
+ sound/soc/fsl/fsl_sai.h |  2 ++
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index fe126029f4e3..e896b577b1f7 100644
+index e896b577b1f7..b9daab0eb6eb 100644
 --- a/sound/soc/fsl/fsl_sai.c
 +++ b/sound/soc/fsl/fsl_sai.c
-@@ -137,6 +137,16 @@ static int fsl_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
- 	return 0;
- }
+@@ -467,6 +467,12 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
  
-+static int fsl_sai_set_dai_bclk_ratio(struct snd_soc_dai *dai,
-+				      unsigned int ratio)
-+{
-+	struct fsl_sai *sai = snd_soc_dai_get_drvdata(dai);
-+
-+	sai->bclk_ratio = ratio;
-+
-+	return 0;
-+}
-+
- static int fsl_sai_set_dai_sysclk_tr(struct snd_soc_dai *cpu_dai,
- 		int clk_id, unsigned int freq, int fsl_dir)
- {
-@@ -423,8 +433,14 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 		slot_width = sai->slot_width;
+ 	val_cr4 |= FSL_SAI_CR4_FRSZ(slots);
  
++	/*
++	 * set CHMOD to Output Mode so that transmit data pins will
++	 * output zero when slots are masked or channels are disabled
++	 */
++	val_cr4 |= FSL_SAI_CR4_CHMOD;
++
+ 	/*
+ 	 * For SAI master mode, when Tx(Rx) sync with Rx(Tx) clock, Rx(Tx) will
+ 	 * generate bclk and frame clock for Tx(Rx), we should set RCR4(TCR4),
+@@ -477,7 +483,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
  	if (!sai->is_slave_mode) {
--		ret = fsl_sai_set_bclk(cpu_dai, tx,
--				slots * slot_width * params_rate(params));
-+		if (sai->bclk_ratio)
-+			ret = fsl_sai_set_bclk(cpu_dai, tx,
-+					       sai->bclk_ratio *
-+					       params_rate(params));
-+		else
-+			ret = fsl_sai_set_bclk(cpu_dai, tx,
-+					       slots * slot_width *
-+					       params_rate(params));
- 		if (ret)
- 			return ret;
+ 		if (!sai->synchronous[TX] && sai->synchronous[RX] && !tx) {
+ 			regmap_update_bits(sai->regmap, FSL_SAI_TCR4(ofs),
+-				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
++				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
++				FSL_SAI_CR4_CHMOD_MASK,
+ 				val_cr4);
+ 			regmap_update_bits(sai->regmap, FSL_SAI_TCR5(ofs),
+ 				FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
+@@ -486,7 +493,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 				~0UL - ((1 << channels) - 1));
+ 		} else if (!sai->synchronous[RX] && sai->synchronous[TX] && tx) {
+ 			regmap_update_bits(sai->regmap, FSL_SAI_RCR4(ofs),
+-				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
++				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
++				FSL_SAI_CR4_CHMOD_MASK,
+ 				val_cr4);
+ 			regmap_update_bits(sai->regmap, FSL_SAI_RCR5(ofs),
+ 				FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
+@@ -497,7 +505,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+ 	}
  
-@@ -640,6 +656,7 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
- }
- 
- static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
-+	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
- 	.set_sysclk	= fsl_sai_set_dai_sysclk,
- 	.set_fmt	= fsl_sai_set_dai_fmt,
- 	.set_tdm_slot	= fsl_sai_set_dai_tdm_slot,
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
+-			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
++			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
++			   FSL_SAI_CR4_CHMOD_MASK,
+ 			   val_cr4);
+ 	regmap_update_bits(sai->regmap, FSL_SAI_xCR5(tx, ofs),
+ 			   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
 diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index 3a3f6f8e5595..f96f8d97489d 100644
+index f96f8d97489d..1e3b4a6889a8 100644
 --- a/sound/soc/fsl/fsl_sai.h
 +++ b/sound/soc/fsl/fsl_sai.h
-@@ -177,6 +177,7 @@ struct fsl_sai {
- 	unsigned int mclk_streams;
- 	unsigned int slots;
- 	unsigned int slot_width;
-+	unsigned int bclk_ratio;
- 
- 	const struct fsl_sai_soc_data *soc_data;
- 	struct snd_dmaengine_dai_dma_data dma_params_rx;
+@@ -119,6 +119,8 @@
+ #define FSL_SAI_CR4_FRSZ_MASK	(0x1f << 16)
+ #define FSL_SAI_CR4_SYWD(x)	(((x) - 1) << 8)
+ #define FSL_SAI_CR4_SYWD_MASK	(0x1f << 8)
++#define FSL_SAI_CR4_CHMOD	BIT(5)
++#define FSL_SAI_CR4_CHMOD_MASK	GENMASK(5, 5)
+ #define FSL_SAI_CR4_MF		BIT(4)
+ #define FSL_SAI_CR4_FSE		BIT(3)
+ #define FSL_SAI_CR4_FSP		BIT(1)
 -- 
 2.17.1
 

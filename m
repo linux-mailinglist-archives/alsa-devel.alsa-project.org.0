@@ -2,83 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41EE9A5947
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 16:26:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B708A5A6F
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 17:22:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BEB1316DB;
-	Mon,  2 Sep 2019 16:25:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEB1316DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 658A516D4;
+	Mon,  2 Sep 2019 17:21:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 658A516D4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567434379;
-	bh=IMwiL89R0mGqCkVu1k4h8hke8NAQqLQCzlHV+LEm/xQ=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=qbTDVk3z444WWkJuBwDFviLO2IfcOQBycWXF4CwirP4wqUoESIu6XrSDSbXGJSzmz
-	 9jo+WjvqCYomyfXcpTWSR7f2VuLNlYgTZIduEfNN2iQjNR3BzGi8EG9XV/eny7VQzz
-	 KbescWWsf6tk55TUxjsKy9LgI6IRpFtwABCLCR/Y=
+	s=default; t=1567437720;
+	bh=RVsKg1rkJTLKybRLwQGPxpEcjit20qMONmkx1yL1Mpk=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=G/x5Siz1OtmKWAUE1qGUZujAj4aXFkqpkX4uXde3MBvZ//pmRLVbfGkVm04mq1E2F
+	 qYgIJG8f1Wg2ZZerJNkyV4BwR0vnRntB9qy2s5r23wornJOj++TSlXtTe2ww86JH5s
+	 eFzuQejkOuwfq+0F/Sj+ZF9flydDtIOx+lZyaKbA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE891F803D0;
-	Mon,  2 Sep 2019 16:24:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68086F80447;
+	Mon,  2 Sep 2019 17:20:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 671DBF803D0; Mon,  2 Sep 2019 16:24:32 +0200 (CEST)
+ id CF8D7F80369; Fri, 30 Aug 2019 10:31:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,PRX_BODY_135,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-eopbgr60115.outbound.protection.outlook.com [40.107.6.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7669BF8011E
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 16:24:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7669BF8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45297F80096
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 10:31:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45297F80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eG5ApBOQ"
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
- [209.85.222.179])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CA0E322DCC
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:24:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1567434266;
- bh=B74PQ5o385KMtSFx606GqW7Hji/64H+L+7SO8wzLMGg=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=eG5ApBOQMdx43szlZ3hRfFK3JhjJnHU1h9N6fzJZ5gSFAGo+DUwYCQAzqPRtkeL/Z
- egjx2sk3s2NgyQuuh7m09MlzWLOaXz87O/ehHQQMF+Ukgb9LnuLBl275xwetBiplq0
- SJsZX23mHLern4Z4WajFyMqxkRO1LaFCSNuEgAlY=
-Received: by mail-qk1-f179.google.com with SMTP id s14so12669971qkm.4
- for <alsa-devel@alsa-project.org>; Mon, 02 Sep 2019 07:24:26 -0700 (PDT)
-X-Gm-Message-State: APjAAAXOLpm7pfSDGCrP1YKLkuqWV4GlfJCMv57BWAX5hAiQiOkwHuFZ
- SgtWum6ItIqKtBvkmeXsa/3vfCfbCSS5xmIbwg==
-X-Google-Smtp-Source: APXvYqxVgrKxDU9AKZPVkiZjyBgcLWuDoOAhBqYHYxpm22jPeoe3HQJTqnHt0BhMxQu7W0O02Nt2wgbZXPnLf8rZcYc=
-X-Received: by 2002:a37:682:: with SMTP id 124mr28156982qkg.393.1567434265875; 
- Mon, 02 Sep 2019 07:24:25 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=visteon.onmicrosoft.com
+ header.i=@visteon.onmicrosoft.com header.b="oH0nbgfM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V4cOgDSJ8i8dlF4Rs7grDhI2S+RDCwgbOzRSUkX0BaxUpuLTCdQDfFoU5mmH4EK2V92PqDfrQNCVjyZ0+eLVGRafGGvtMmLXOsVMR6wtb7EYAFQD0SmQKnfw/u46wk89JZNVoE5+j3ha35dtnMFPoaZSFAdA0gZIeAqMUB938QQu3LuslhTbZgYdXDpa7HJyJJvZhoQ57N5/wAaYspoiqwiMN7AwUor0nTaKr/CFJ1Ixm0qEpufBZwuf57QCfoPJY6JOVMaulGgRYo2WLc3zEsCCKqM2Mb4/EOKdGKym4bt48gpdYqt4E6QPOY3ZrjLAunnOdI6f7WrwFOvHgXgp4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xjV4z9u6N1eQ67zNUZI5BMYmP8PxVKTc1ClctCRB+SY=;
+ b=ADji2G/Z0h4CPmNxTs9mxVASfRft5CGGAgWsNXepsZBcuHZINGjQDT9SINptDKct+gfLIf7TcEDP9TckzHFJ2UXzuQhgZqGoHNyxIL56wt28/87PNA8kaCZbAiE5QCWdropywDzYtv3AU+JgDbmyasOMTj+9LpW3ObiFgz15fFs+Aqp1QmrtNDWEh0Aj39ajdNUfqXwb0i9TbRgR2HaaUXm7U0iRoyI4C8TyQ6KUHZzfjQfwnZtIZ654nsecdtMCpr1t60oFz8YKuhPbD0nlzWUSPZ5QNRjl4A0AoZMKS46gN3O+6jgJWTdzWr64pgsfaUzvJkI7yJFq+ogtPZPSQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=visteon.com; dmarc=pass action=none header.from=visteon.com;
+ dkim=pass header.d=visteon.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=visteon.onmicrosoft.com; s=selector2-visteon-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xjV4z9u6N1eQ67zNUZI5BMYmP8PxVKTc1ClctCRB+SY=;
+ b=oH0nbgfMacAuXc1QGE3zHiXlpq950qzvMpeMH6hjOuaECj3mLaKfHvkS4CdR7uFUITJdyB/ttZUO8/qG3qW6jljVziFhOzUpeUWhUQ31Ek38SMr9mxLmTR3T8uNl2k/P+q5jc1JSbNM7XrKTGDh7bN2kMdGHD8Sp+an26tIItFk=
+Received: from AM6PR06MB4946.eurprd06.prod.outlook.com (20.177.118.208) by
+ AM6PR06MB5777.eurprd06.prod.outlook.com (20.177.118.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2199.21; Fri, 30 Aug 2019 08:31:25 +0000
+Received: from AM6PR06MB4946.eurprd06.prod.outlook.com
+ ([fe80::7c64:685a:dbe7:c309]) by AM6PR06MB4946.eurprd06.prod.outlook.com
+ ([fe80::7c64:685a:dbe7:c309%6]) with mapi id 15.20.2178.023; Fri, 30 Aug 2019
+ 08:31:25 +0000
+From: "Yang, Xiaotao (X.)" <xyang25@visteon.com>
+To: mailing list <alsa-devel@alsa-project.org>
+Thread-Topic: about pop chime on pcm api
+Thread-Index: AdVfCcEMarxS8pnJSw6uYaa7h8B2hw==
+Date: Fri, 30 Aug 2019 08:31:25 +0000
+Message-ID: <AM6PR06MB49462A448954E689F9F87D37A7BD0@AM6PR06MB4946.eurprd06.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=xyang25@visteon.com; 
+x-originating-ip: [165.225.116.207]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2da260e0-2bba-49cc-9a24-08d72d247243
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:AM6PR06MB5777; 
+x-ms-traffictypediagnostic: AM6PR06MB5777:
+x-microsoft-antispam-prvs: <AM6PR06MB5777054806C5CC82A9EDA850A7BD0@AM6PR06MB5777.eurprd06.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1201;
+x-forefront-prvs: 0145758B1D
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(39860400002)(366004)(396003)(136003)(376002)(346002)(189003)(199004)(256004)(6506007)(9686003)(6436002)(99286004)(14444005)(8936002)(55236004)(81156014)(55016002)(81166006)(6306002)(54896002)(4744005)(8676002)(14454004)(186003)(5660300002)(316002)(478600001)(53936002)(26005)(66946007)(64756008)(86362001)(66556008)(66476007)(7736002)(66446008)(76116006)(7696005)(66066001)(790700001)(6116002)(486006)(476003)(71190400001)(25786009)(71200400001)(33656002)(74316002)(52536014)(6916009)(3846002)(102836004)(2906002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR06MB5777;
+ H:AM6PR06MB4946.eurprd06.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: visteon.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: QhuWt1k04pV5Ib0roguviJQ1DwerXqu37YqIVEgmSrLYwDpCKrgr5Js72rQGJOEg5ZTKAOpOutpYTEQXK5o3PkggQUfcGFIAwW/AJ0cqo20VOBupC8+PmGwAUMzm+AefyB2P257FnQFbWl4vEdyV+IZH2l0Q27G1XrVVDriQqpQ3ugZIGjvDj2raUKMKy5my5rIwmiNv0zJ/eU7cnkNVoD1hcoFBlRcdrLmJ/5DzuZZETQwyEU/ZlEteUua/NQ+No1+5lkgD9FNAS/PvTI4CizfHd10IQfXk6GvNyiH9e6GvH3n1yc2uB+2EBr9pSsDzM37bOdsC4RP+AdHK2IdBFJ3gRvRu0Aa6ZDuX46Ko9C+0ydynSYPV+PWbC9/TNFo/TMAhrOUy2q69Y6Xc21ommdztF81gQyz2U7qHbqJrJF8=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-References: <20190830210607.22644-1-miquel.raynal@bootlin.com>
- <20190830210607.22644-2-miquel.raynal@bootlin.com>
- <20190902044231.GA17348@bogus> <20190902155113.40b00fa0@xps13>
-In-Reply-To: <20190902155113.40b00fa0@xps13>
-From: Rob Herring <robh@kernel.org>
-Date: Mon, 2 Sep 2019 15:24:13 +0100
-X-Gmail-Original-Message-ID: <CAL_JsqJJ31wfXnLGSp5Hzkb2L7VeDoOki+eBqUkm2LWEtsA58A@mail.gmail.com>
-Message-ID: <CAL_JsqJJ31wfXnLGSp5Hzkb2L7VeDoOki+eBqUkm2LWEtsA58A@mail.gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- alexandre@bootlin.com, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Michal Simek <michal.simek@xilinx.com>,
- "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH 2/3] dt-bindings: sound: Add Xilinx
-	logicPD-I2S FPGA IP bindings
+X-OriginatorOrg: visteon.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2da260e0-2bba-49cc-9a24-08d72d247243
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Aug 2019 08:31:25.2471 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7a147aaf-01ec-498c-80a1-e34a8c63c548
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bbnA2eHhbgoZ6RF0CTB9A8gPozJ/c9BbgdJZ6ySOq1cUEau7EBZooBjDlttdZpZTGxh3z5DI6yF+hFWPTcr5tg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR06MB5777
+X-Mailman-Approved-At: Mon, 02 Sep 2019 17:20:12 +0200
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] about pop chime on pcm api
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,98 +125,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 2, 2019 at 2:51 PM Miquel Raynal <miquel.raynal@bootlin.com> wrote:
->
-> Hi Rob,
->
-> Thanks for the review, one question below.
->
-> Rob Herring <robh@kernel.org> wrote on Mon, 02 Sep 2019 14:39:09 +0100:
->
-> > On Fri, Aug 30, 2019 at 11:06:06PM +0200, Miquel Raynal wrote:
-> > > Document the logicPD I2S FPGA block bindings in yaml.
-> > >
-> > > Syntax verified with dt-doc-validate.
-> > >
-> > > Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> > > ---
-> > >  .../bindings/sound/xlnx,logicpd-i2s.yaml      | 57 +++++++++++++++++++
-> > >  1 file changed, 57 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml b/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
-> > > new file mode 100644
-> > > index 000000000000..cbff641af199
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
-> > > @@ -0,0 +1,57 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/sound/xlnx,logicpd-i2s.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Device-Tree bindings for Xilinx logicPD I2S FPGA block
-> > > +
-> > > +maintainers:
-> > > +  - Miquel Raynal <miquel.raynal@bootlin.com>
-> > > +
-> > > +description: |
-> > > +  The IP supports I2S playback/capture audio. It acts as a slave and
-> > > +  clocks should come from the codec. It only supports two channels and
-> > > +  S16_LE format.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    items:
-> > > +      - const: xlnx,logicpd-i2s
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +    description:
-> > > +      Base address and size of the IP core instance.
-> > > +
-> > > +  interrupts:
-> > > +    minItems: 1
-> > > +    maxItems: 2
-> > > +    items:
-> > > +      - description: tx interrupt
-> > > +      - description: rx interrupt
-> > > +    description:
-> > > +      Either the Tx interruption or the Rx interruption or both.
-> >
-> > The schema says either tx or both. Doesn't really matter here as it's
-> > just numbers.
->
-> I see , I'll drop the 'items' entry.
->
-> >
-> > > +
-> > > +  interrupt-names:
-> > > +    minItems: 1
-> > > +    maxItems: 2
-> > > +    items:
-> > > +      - const: tx
-> > > +      - const: rx
-> >
-> > But here it does matter.
-> >
-> > The easiest way to express this is:
-> >
-> > oneOf:
-> >   - items:
-> >       - enum: [ tx, rx ]
-> >   - items:
-> >       - const: tx
-> >       - const: rx
-> >
->
-> Does this enforce an order? (I don't know if it matters, though, but in
-> the bellow example I put the Rx interrupt first).
+Hi:
+               Why should I call api<snd_pcm_close()> between the interval if  I want to play a wav file two times repeatly, Otherwise pop chime occurs?
 
-Yes. It does matter and should be defined what the order it.
+Eg: (fake code as follows):
+         Following codes works good.
+         Pcm.open();//open pcm device
+         Pcm.play(demo.wav);//set parameter and call snd_pcm_writei() to play
+         Pcm.close();//close pcm device
+         Pcm.open();
+         Pcm.play(demo.wav);
+         Pcm.close();
 
-Rob
+        But following codes works with pop chime
+        Pcm.open();
+        Pcm.play(demo.wav);
+        Pcm.play(demo.wav);
+        Pcm.close();
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

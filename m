@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBE5FA360A
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 13:52:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75554A3605
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 13:51:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3E9641677;
-	Fri, 30 Aug 2019 13:51:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E9641677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C2CA1687;
+	Fri, 30 Aug 2019 13:50:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C2CA1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567165969;
-	bh=5vyGFy2D+ZyVqxDUS1t6MIZAXjjkBwtsjW8A8E2D3wM=;
+	s=default; t=1567165886;
+	bh=AVT6vvh52yfbUQM/OQQlrpbdb4JkHI6nPmyLZ+xPQNI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gqE6hnB3w16Q3wsFF5lv8t3Vz0pxhnM9H2camB1oSfTWy3nGDxBKH+zEoI0jg4UVq
-	 znO3ExhLJwibxac0YLVEpsKVQseMnlcLI8ZcfsbWrdaHqirH51q0XVs3uddp/UkPyu
-	 o5EmpjmW0yuIHPL1b2PlPmrzCZIdoS+elDZV18GQ=
+	b=FZfmmgbgLRUxi+39eGx4/Ha1E37xbOWJ1ZsrOG7/B3bgOhx9pAZrN/NhqnvRa60G1
+	 IdF5i6EsOcHwrA30s4aGHJEb7/PtQAgL0/hM82vCMNdW6PSPAaLDrxk4eyWLsTS0++
+	 VLPVyTcbF4GR8MklZQo2I+WsRi6VQ81uexC4BLBQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60C9AF80671;
-	Fri, 30 Aug 2019 13:46:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F35DF8063D;
+	Fri, 30 Aug 2019 13:45:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DA8C9F8060F; Fri, 30 Aug 2019 13:45:35 +0200 (CEST)
+ id 81592F80444; Fri, 30 Aug 2019 13:45:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30E1BF805A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5A0B8F80444
  for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 13:45:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30E1BF805A0
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A0B8F80444
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nmPgfbe5"
+ header.b="eXL5Nut/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=DL+I+rAtszPH8UUp/xHLiOZjWk7OrZWj8jsDDc/Uib4=; b=nmPgfbe5JVeo
- ZxI1f3cjprmixIdN1Cj/Jcp8qxQ3EVZ6xP+HCWUIBxPZC+RmaQnvwYvFeYeHuTJYc6KTLxzs4QskM
- 70wTeoSbBBoYk/WeHxH1CUz3+I/MGApq/ArM6jHSDFNcm8pQO9NEOdaWOAuOsJignBbk2TkjvTonC
- Pt34I=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=+NWsc3C2fR4ykgOhoYnjjYbHH653rFzLN/GpLdtM95k=; b=eXL5Nut/NgJ5
+ 3vrgCGC6/WZVXSYHZgdrTtuFy47Bn/i3mIVeu9lz3TSh4FhY2NEWByqZXyOOj33IQmakSwkQmvCbu
+ Xyg/gSdNZy07snqyGExOqHOpeSSqG7swiND5sgl3SrGMnowYKXjtqJGFIhP121mLGdGhOr20SlJju
+ ujzH8=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i3fLC-0006Ia-UD; Fri, 30 Aug 2019 11:45:18 +0000
+ id 1i3fLC-0006IU-Kl; Fri, 30 Aug 2019 11:45:18 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 68C492742CA7; Fri, 30 Aug 2019 12:45:18 +0100 (BST)
+ id 0ED9C2742CA1; Fri, 30 Aug 2019 12:45:18 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Cezary Rojewski <cezary.rojewski@intel.com>
-In-Reply-To: <20190822113616.22702-2-cezary.rojewski@intel.com>
+In-Reply-To: <20190822113616.22702-4-cezary.rojewski@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190830114518.68C492742CA7@ypsilon.sirena.org.uk>
+Message-Id: <20190830114518.0ED9C2742CA1@ypsilon.sirena.org.uk>
 Date: Fri, 30 Aug 2019 12:45:18 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  tiwai@suse.com, lgirdwood@gmail.com,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: Haswell: Adjust machine device
-	private context" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: Intel: bdw-rt5677: Simplify device
+	probe" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: Haswell: Adjust machine device private context
+   ASoC: Intel: bdw-rt5677: Simplify device probe
 
 has been applied to the asoc tree at
 
@@ -114,51 +113,46 @@ to this mail.
 Thanks,
 Mark
 
-From ca964edf0ddbfec2cb10b3d251d09598e7ca9b13 Mon Sep 17 00:00:00 2001
+From c25e93bba90b3f194c43a37fe2fcdb0727c4ab84 Mon Sep 17 00:00:00 2001
 From: Cezary Rojewski <cezary.rojewski@intel.com>
-Date: Thu, 22 Aug 2019 13:36:13 +0200
-Subject: [PATCH] ASoC: Intel: Haswell: Adjust machine device private context
+Date: Thu, 22 Aug 2019 13:36:15 +0200
+Subject: [PATCH] ASoC: Intel: bdw-rt5677: Simplify device probe
 
-Apart from Haswell machines, all other devices have their private data
-set to snd_soc_acpi_mach instance.
+With legacy ADSP private context adjusted, there is no need for double
+safety.
 
-Changes for HSW/ BDW boards introduced with series:
-https://patchwork.kernel.org/cover/10782035/
-
-added support for dai_link platform_name adjustments within card probe
-routines. These take for granted private_data points to
-snd_soc_acpi_mach whereas for Haswell, it's sst_pdata instead. Change
-private context of platform_device - representing machine board - to
-address this.
-
-Fixes: e87055d732e3 ("ASoC: Intel: haswell: platform name fixup support")
-Fixes: 7e40ddcf974a ("ASoC: Intel: bdw-rt5677: platform name fixup support")
-Fixes: 2d067b2807f9 ("ASoC: Intel: broadwell: platform name fixup support")
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Link: https://lore.kernel.org/r/20190822113616.22702-2-cezary.rojewski@intel.com
+Link: https://lore.kernel.org/r/20190822113616.22702-4-cezary.rojewski@intel.com
 Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/common/sst-acpi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/bdw-rt5677.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/sound/soc/intel/common/sst-acpi.c b/sound/soc/intel/common/sst-acpi.c
-index 0e8e0a7a11df..5854868650b9 100644
---- a/sound/soc/intel/common/sst-acpi.c
-+++ b/sound/soc/intel/common/sst-acpi.c
-@@ -141,11 +141,12 @@ static int sst_acpi_probe(struct platform_device *pdev)
- 	}
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index e8e9c3dc82a5..4a4d3353e26d 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -340,7 +340,6 @@ static int bdw_rt5677_probe(struct platform_device *pdev)
+ {
+ 	struct bdw_rt5677_priv *bdw_rt5677;
+ 	struct snd_soc_acpi_mach *mach;
+-	const char *platform_name = NULL;
+ 	int ret;
  
- 	platform_set_drvdata(pdev, sst_acpi);
-+	mach->pdata = sst_pdata;
+ 	bdw_rt5677_card.dev = &pdev->dev;
+@@ -355,11 +354,8 @@ static int bdw_rt5677_probe(struct platform_device *pdev)
  
- 	/* register machine driver */
- 	sst_acpi->pdev_mach =
- 		platform_device_register_data(dev, mach->drv_name, -1,
--					      sst_pdata, sizeof(*sst_pdata));
-+					      mach, sizeof(*mach));
- 	if (IS_ERR(sst_acpi->pdev_mach))
- 		return PTR_ERR(sst_acpi->pdev_mach);
+ 	/* override plaform name, if required */
+ 	mach = (&pdev->dev)->platform_data;
+-	if (mach) /* extra check since legacy does not pass parameters */
+-		platform_name = mach->mach_params.platform;
+-
+ 	ret = snd_soc_fixup_dai_links_platform_name(&bdw_rt5677_card,
+-						    platform_name);
++						    mach->mach_params.platform);
+ 	if (ret)
+ 		return ret;
  
 -- 
 2.20.1

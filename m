@@ -2,97 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 674B2A37BC
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 15:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D388A3A7C
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 17:38:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3DA9166E;
-	Fri, 30 Aug 2019 15:25:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3DA9166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 537EA1664;
+	Fri, 30 Aug 2019 17:37:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 537EA1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567171609;
-	bh=s7WJzMCS/9r5gUMuNjKgVgB+B9l3RGQVtGNHCpNJA7I=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=XRP22JmFpThhDKhgVS5qx4mVwaytt1KkB4nHqB/isxgW5XphV8LDXzMJlVFPkhtly
-	 Ken1sPI+hR/kMVraOt9F30fNnKItVICv9GjQM9dBvYVhpmgBldXWV/hNA3yHlhP+Xn
-	 3cELgjz5gTww0hVBRzliN7JXZf8sIHaTn1VuJ+0U=
+	s=default; t=1567179492;
+	bh=FQhgUTHXdsjShsxtNfXNHO2UM6IQHeKETBmPPsW7TAo=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ABWr98PWrhjqg8bM18Lxu/9RdrabCwAQIh4wiBapgKOvcsqwLqigZaFksOmHkfXGT
+	 vzrdbaLT9c/2cHwBjCO+g2rJpE8uj6/rANoNth0XbykDFMt8SBXiCiZOgD1hZdDYv8
+	 uAyiS2AYJx95bNzn9zAfzFeLDYsWdqOoYzY4gxV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2198DF80376;
-	Fri, 30 Aug 2019 15:25:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A9FAF80369;
+	Fri, 30 Aug 2019 17:36:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26084F80369; Fri, 30 Aug 2019 15:25:01 +0200 (CEST)
+ id B75B8F80369; Fri, 30 Aug 2019 17:36:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 227B6F800E7
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 15:24:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 227B6F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B734F800E7
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 17:36:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B734F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="qDdOmGkl"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="pq/kg7Yc"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id CEDC4216CA;
- Fri, 30 Aug 2019 09:24:53 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Fri, 30 Aug 2019 09:24:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=ZOc9QF1XymxW3TThIgoaBqoQxx
- 9B1Byr0m0WbXALdyM=; b=qDdOmGklgM6I4mp1panEmbhQgcExvXkr5+hGR8R2o6
- 1Vez34FQS8/ePkcUAFMI0enr//V+VjBxUWbvqR6+76w7evFBjMYHymGj4/4sWEQU
- AuojrZjwt8E5mb2BIdJMa8Wlhqv6pmDEHtm/Mn7cebfij2QyqG494vGrDeIFe5kG
- Z+tuSvxt+MJnASxsK2WXL6zb694XHUG69fn0WTdMJa7LiceCPUizW5eyBpHmmjNq
- yhFE4Bbezu+Ut7LhunVx9Zwl0bf6mj4y2sYN0/ASXp/yqG98dX3CaLIHfsX8kDij
- D2Xh6wWm7bqDiUZaAqglyJtKYghQctsUT0UvWNIbS63w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ZOc9QF1XymxW3TThI
- goaBqoQxx9B1Byr0m0WbXALdyM=; b=pq/kg7YcvTVNQycv6Qhe6z9rENNssGsv8
- Pq3ES9eftm84D62HQxn0v1Ph0/YK0WlznoBrhqh3OEACOI0ynGqwUKIbBiXm6CD5
- D4H2GwL99GuiSTDR4I282Y44Sbi28gOauZ3A6dadOZM/IztkOJA1p6MAA4VB6UoT
- CM6nrsqrXvg/Rs+rqZOhpBc+rZDwrPR542VpYyck17V6b0ztYe3pjxKXkK/7m4oM
- QW77d0ZQljJXJqppo7DOH/Devo5p5enIZMn8CXXwjxHd89H5OoT9tq6kR2HRhPCH
- s4hr9LkwZUAemSLTZFzwu09bHv073hJXdabQEzC4hnHQcNA2e11Xw==
-X-ME-Sender: <xms:pCNpXZloFqCOHncUh7uMVRr78On8q-12xa807MTL_zHW5sIyTMV5kA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudeigedgieegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecuffhomhgrihhnpehkvghrnhgvlhdrohhrgh
- enucfkphepudegrdefrdejhedrudekudenucfrrghrrghmpehmrghilhhfrhhomhepohdq
- thgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjphenucevlhhushhtvghrufhiiigvpe
- dt
-X-ME-Proxy: <xmx:pCNpXe5e3bjKd5N115lHBgc6osDA2JBMjXp13-gxMkxaeo3M6g8MRA>
- <xmx:pCNpXfiazfQAYpA1sfjqrHOCarJCp324Zqe7YDIOSaDUWeS4OHLZbg>
- <xmx:pCNpXbHGzm8PIj8kalZ8J5KIussaj1NdDdssW7oFIGHdw5tfVXE1Mg>
- <xmx:pSNpXbbdEtnmES80RSjZP-VwXVy8i_3tScO7vd02ReXBtmZgC91muw>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id AA446D6005E;
- Fri, 30 Aug 2019 09:24:50 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Fri, 30 Aug 2019 22:24:46 +0900
-Message-Id: <20190830132446.5154-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="dBSnWY0L"
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9380323407
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 15:36:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1567179377;
+ bh=A1QrV49tH9q9dlQhAxJiuEe1Gg2tCFFNDHsDHnohYu4=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=dBSnWY0LCPv9EeotfjqGDgXVxUGuh8MDpDsFA1gcJk+hfMsODcgD4hMDFQwXA9RMK
+ 1TvokkDW8cWVEKAd8CzIvtLwVoWRdz91wpnLG2UOzHo0U7XHHRvBAKDH6OMIbq/4gg
+ pnnWoxMK2njiZ8oR2e6ZDD7Gl9CilQTsyAjDm2Gw=
+Received: by mail-qt1-f179.google.com with SMTP id j15so7965260qtl.13
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 08:36:17 -0700 (PDT)
+X-Gm-Message-State: APjAAAX7/yRMqwi5WbhfBb8oarxtVMFz8flmpTHwaKXPVedBhqZCds2w
+ cbfSWPQZvMZzpD+ZzFe6UY//ALKAXoGn2W7SoA==
+X-Google-Smtp-Source: APXvYqyqu+wKSjq8CtuKESA3gZWEHLsO/lSYJHQHqy8f0pK610bo1aWQwIn6ZI6qr6CNseMYx/sE4s//KRRz/X/Ntyc=
+X-Received: by 2002:aed:24f4:: with SMTP id u49mr16247909qtc.110.1567179376775; 
+ Fri, 30 Aug 2019 08:36:16 -0700 (PDT)
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] MAINTAINERS: update entry of firewire audio
-	drivers
+References: <20190828125209.28173-1-mripard@kernel.org>
+ <20190828125209.28173-2-mripard@kernel.org>
+In-Reply-To: <20190828125209.28173-2-mripard@kernel.org>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Fri, 30 Aug 2019 10:36:04 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqLatP9BaaHZvW=ax+X98imPR1rxYiQCb8rKLvAbyV8Y7A@mail.gmail.com>
+Message-ID: <CAL_JsqLatP9BaaHZvW=ax+X98imPR1rxYiQCb8rKLvAbyV8Y7A@mail.gmail.com>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ Frank Rowand <frowand.list@gmail.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v2 2/5] ASoC: dt-bindings: Convert
+ Allwinner A10 codec to a schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,43 +94,203 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit adds myself as one of maintainers for firewire audio
-drivers and IEC 61883-1/6 packet streaming engine. I call them ALSA
-firewire stack as a whole.
+On Wed, Aug 28, 2019 at 7:52 AM Maxime Ripard <mripard@kernel.org> wrote:
+>
+> From: Maxime Ripard <maxime.ripard@bootlin.com>
+>
+> The Allwinner SoCs have an embedded audio codec that is supported in Linux,
+> with a matching Device Tree binding.
+>
+> Now that we have the DT validation in place, let's convert the device tree
+> bindings for that controller over to a YAML schemas.
+>
+> Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+>
+> ---
+>
+> Changes from v1:
+>   - Fix subject prefix
+> ---
+>  .../sound/allwinner,sun4i-a10-codec.yaml      | 162 ++++++++++++++++++
+>  .../devicetree/bindings/sound/sun4i-codec.txt |  94 ----------
+>  2 files changed, 162 insertions(+), 94 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/sun4i-codec.txt
+>
+> diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml
+> new file mode 100644
+> index 000000000000..44feefae0ef0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml
+> @@ -0,0 +1,162 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/allwinner,sun4i-a10-codec.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Allwinner A10 Codec Device Tree Bindings
+> +
+> +maintainers:
+> +  - Chen-Yu Tsai <wens@csie.org>
+> +  - Maxime Ripard <maxime.ripard@bootlin.com>
+> +
+> +properties:
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  compatible:
+> +    enum:
+> +      - allwinner,sun4i-a10-codec
+> +      - allwinner,sun6i-a31-codec
+> +      - allwinner,sun7i-a20-codec
+> +      - allwinner,sun8i-a23-codec
+> +      - allwinner,sun8i-h3-codec
+> +      - allwinner,sun8i-v3s-codec
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: Bus Clock
+> +      - description: Module Clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb
+> +      - const: codec
+> +
+> +  dmas:
+> +    items:
+> +      - description: RX DMA Channel
+> +      - description: TX DMA Channel
+> +
+> +  dma-names:
+> +    items:
+> +      - const: rx
+> +      - const: tx
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  allwinner,audio-routing:
+> +    $ref: /schemas/types.yaml#definitions/non-unique-string-array
+> +    description: |-
+> +      A list of the connections between audio components.  Each entry
+> +      is a pair of strings, the first being the connection\'s sink, the
+> +      second being the connection\'s source. Valid names include
+> +
+> +        Audio pins on the SoC
+> +          HP
+> +          HPCOM
+> +          LINEIN    (not on sun8i-v3s)
+> +          LINEOUT   (not on sun8i-a23 or sun8i-v3s)
+> +          MIC1
+> +          MIC2      (not on sun8i-v3s)
+> +          MIC3      (only on sun6i-a31)
+> +
+> +        Microphone biases from the SoC
+> +          HBIAS
+> +          MBIAS     (not on sun8i-v3s)
+> +
+> +        Board connectors
+> +          Headphone
+> +          Headset Mic
+> +          Line In
+> +          Line Out
+> +          Mic
+> +          Speaker
 
-6 years ago I joined in development for this category of drivers with
-heavy reverse-engineering tasks and over 100 models are now available
-from ALSA applications. IEEE 1394 bus itself and units on the bus are
-enough legacy but the development still continues.
+All these strings should be in an enum. If 'items' is a schema rather
+than a list, it applies to all items.
 
-I have a plan to add drastic enhancement in kernel v5.5 and v5.6 period.
-This commit adds myself into MAINTAINERS so that developers and users
-can easily find active developer to post their issues, especially for
-regression.
+Also, I assume that maxItems can be 18 and minItems is 2?
 
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- MAINTAINERS | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 24e29b2e53c9..8929a2ec75f7 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -6264,8 +6264,9 @@ S:	Maintained
- F:	drivers/hwmon/f75375s.c
- F:	include/linux/f75375s.h
- 
--FIREWIRE AUDIO DRIVERS
-+FIREWIRE AUDIO DRIVERS and IEC 61883-1/6 PACKET STREAMING ENGINE
- M:	Clemens Ladisch <clemens@ladisch.de>
-++M:	Takashi Sakamoto <o-takashi@sakamocchi.jp>
- L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
- S:	Maintained
--- 
-2.20.1
-
+> +
+> +  allwinner,codec-analog-controls:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle to the codec analog controls in the PRCM
+> +
+> +  allwinner,pa-gpios:
+> +    description: GPIO to enable the external amplifier
+> +
+> +required:
+> +  - "#sound-dai-cells"
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - dmas
+> +  - dma-names
+> +
+> +if:
+> +  properties:
+> +    compatible:
+> +      enum:
+> +        - allwinner,sun6i-a31-codec
+> +        - allwinner,sun8i-a23-codec
+> +        - allwinner,sun8i-h3-codec
+> +        - allwinner,sun8i-v3s-codec
+> +
+> +then:
+> +  if:
+> +    properties:
+> +      compatible:
+> +        const: allwinner,sun6i-a31-codec
+> +
+> +  then:
+> +    required:
+> +      - resets
+> +      - allwinner,audio-routing
+> +
+> +  else:
+> +    required:
+> +      - resets
+> +      - allwinner,audio-routing
+> +      - allwinner,codec-analog-controls
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    codec@1c22c00 {
+> +        #sound-dai-cells = <0>;
+> +        compatible = "allwinner,sun7i-a20-codec";
+> +        reg = <0x01c22c00 0x40>;
+> +        interrupts = <0 30 4>;
+> +        clocks = <&apb0_gates 0>, <&codec_clk>;
+> +        clock-names = "apb", "codec";
+> +        dmas = <&dma 0 19>, <&dma 0 19>;
+> +        dma-names = "rx", "tx";
+> +    };
+> +
+> +  - |
+> +    codec@1c22c00 {
+> +        #sound-dai-cells = <0>;
+> +        compatible = "allwinner,sun6i-a31-codec";
+> +        reg = <0x01c22c00 0x98>;
+> +        interrupts = <0 29 4>;
+> +        clocks = <&ccu 61>, <&ccu 135>;
+> +        clock-names = "apb", "codec";
+> +        resets = <&ccu 42>;
+> +        dmas = <&dma 15>, <&dma 15>;
+> +        dma-names = "rx", "tx";
+> +        allwinner,audio-routing =
+> +            "Headphone", "HP",
+> +            "Speaker", "LINEOUT",
+> +            "LINEIN", "Line In",
+> +            "MIC1", "MBIAS",
+> +            "MIC1", "Mic",
+> +            "MIC2", "HBIAS",
+> +            "MIC2", "Headset Mic";
+> +    };
+> +
+> +...
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

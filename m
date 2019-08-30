@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939CBA35FC
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 13:47:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E73A35FE
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 13:48:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33C65167F;
-	Fri, 30 Aug 2019 13:46:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33C65167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D6F001679;
+	Fri, 30 Aug 2019 13:47:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6F001679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567165668;
-	bh=y+iDU71iqyNtSXKn0GtSKGRnv506jpsgengN6pwD+yo=;
+	s=default; t=1567165716;
+	bh=OQ3jmHDrDd1V08FR/zXWZ5j3OgNuNEwyAqlr2963LHo=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=p5FN8y/HR7PrsUWAWSlr0W+h7SJSJK8eGHdgrljfElE04mKudA+0+Fp5cGqeSirH5
-	 nAp3eyhbvkMukdurrOD/ZwkUDiwXH8h03bR3odSmsNerW4psZwhbUHL3y0R0/kb6Ez
-	 i8eEGMMNlXkSc045Qt3KBl+6bQUAdpsA4p0QK+q8=
+	b=dbb6CCsDGuKhPy7Ox7bEX51hYBJ2UtZTaUHUFZZDDkx7LoPKCS/9IzjcPLP+N2sul
+	 2ZnBgNPJbr3R2bpi08xmb8rGNtDwAD+6MXtAjRVDA4TOVBE+AhkpkZk9SEiz0mkED3
+	 ie7sVF+0eqXIYolh4E4dzoeKTzstkNprL0XTxGp8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EBF72F805FF;
-	Fri, 30 Aug 2019 13:45:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2E2CF80444;
+	Fri, 30 Aug 2019 13:45:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9F4CF805F5; Fri, 30 Aug 2019 13:45:22 +0200 (CEST)
+ id 3A95FF805FD; Fri, 30 Aug 2019 13:45:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7598F800D1
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 13:45:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7598F800D1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 197DDF80377
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 13:45:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 197DDF80377
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="HzBfUHiW"
+ header.b="c8ssFhkP"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=/u21Yi9w8sfz2o1BnA3bhqU2LzbCx7nl17xXA043Pls=; b=HzBfUHiWb3v0
- HpuHrZ8o0RrELz7URm0b9Cq1fmygDaszbYY/Whwz6QrjqeudONo7P2YXoM31DZQSZCt8TNTNxQu/+
- Qy0rC8c7Dt+wO2ttG94PvA/32JzHpg79H3FHuB6Pi3vw1YJb+/AXsE3+f/iR+aVhaynDz/NP6xikD
- GP3B0=;
+ List-Archive; bh=r0qoLRW1g03rHM/eJuVrtYBVLcshuWQuFJpe2c4m/KQ=; b=c8ssFhkP9lhD
+ zWINREpSUZxDZ63fu8dyuuBLHW5jdgeNNDStA2pr0NIKusdSOy9336DGlKzKzFbw3ITI/YgueMYkP
+ Au7VcdLTK3QfNiwb4R/qdfig1H7OsKR4DFj6SZqpRLCjlB/zczJgLIJksdNAHVMq+pThOkD68kGeM
+ l77lg=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i3fLC-0006IS-4w; Fri, 30 Aug 2019 11:45:18 +0000
+ id 1i3fLD-0006Ij-JR; Fri, 30 Aug 2019 11:45:19 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A30672742B61; Fri, 30 Aug 2019 12:45:17 +0100 (BST)
+ id F3A512742B61; Fri, 30 Aug 2019 12:45:18 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20190829214213.11653-1-pierre-louis.bossart@linux.intel.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+In-Reply-To: <20190830103841.25128-2-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190830114517.A30672742B61@ypsilon.sirena.org.uk>
-Date: Fri, 30 Aug 2019 12:45:17 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>
-Subject: [alsa-devel] Applied "ASoC: SOF/Intel: fix selection of
-	SND_INTEL_NHTL" to the asoc tree
+Message-Id: <20190830114518.F3A512742B61@ypsilon.sirena.org.uk>
+Date: Fri, 30 Aug 2019 12:45:18 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ nsekhar@ti.com, lgirdwood@gmail.com, kuninori.morimoto.gx@renesas.com
+Subject: [alsa-devel] Applied "ASoC: ti: davinci-i2s: Add S32_LE as support
+	format" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF/Intel: fix selection of SND_INTEL_NHTL
+   ASoC: ti: davinci-i2s: Add S32_LE as support format
 
 has been applied to the asoc tree at
 
@@ -113,57 +113,52 @@ to this mail.
 Thanks,
 Mark
 
-From 37638af8135c44e9c9e4b2744eadfd3839efc023 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Thu, 29 Aug 2019 16:42:13 -0500
-Subject: [PATCH] ASoC: SOF/Intel: fix selection of SND_INTEL_NHTL
+From 2231b2c63f869528504195f202d9585a4f00f143 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Fri, 30 Aug 2019 13:38:38 +0300
+Subject: [PATCH] ASoC: ti: davinci-i2s: Add S32_LE as support format
 
-We should only select SND_INTEL_NHLT when ACPI is defined. This was
-done for the legacy HDAudio driver but not for DSP-enabled cases,
-leading to compilation errors with randconfig.
+ASP/McBSP can support 8/16/20/24/32 bits word in theory. I have only tested
+S16_LE and S32_LE, the other formats might not work so only extend the
+supported formats with S32_LE for now.
 
-Fix by aligning on the same solution.
-
-For the Skylake driver this is overkill since there is a top-level
-dependency on ACPI, but it doesn't hurt and it's better to have
-consistency.
-
-Fixes: 68b953aeb50d9 ('ASoC: SOF: Intel: hda: fixup HDaudio topology name with DMIC number')
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190829214213.11653-1-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Link: https://lore.kernel.org/r/20190830103841.25128-2-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/Kconfig     | 2 +-
- sound/soc/sof/intel/Kconfig | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/ti/davinci-i2s.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index a3ec17fd63cd..01c99750212a 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -215,7 +215,7 @@ config SND_SOC_INTEL_SKYLAKE_COMMON
- 	select SND_SOC_INTEL_SST
- 	select SND_SOC_HDAC_HDA if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC
- 	select SND_SOC_ACPI_INTEL_MATCH
--	select SND_INTEL_NHLT
-+	select SND_INTEL_NHLT if ACPI
- 	help
- 	  If you have a Intel Skylake/Broxton/ApolloLake/KabyLake/
- 	  GeminiLake or CannonLake platform with the DSP enabled in the BIOS
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 889b6202d054..479ba249e219 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -286,7 +286,7 @@ config SND_SOC_SOF_HDA
- 	tristate
- 	select SND_HDA_EXT_CORE if SND_SOC_SOF_HDA_LINK
- 	select SND_SOC_HDAC_HDA if SND_SOC_SOF_HDA_AUDIO_CODEC
--	select SND_INTEL_NHLT
-+	select SND_INTEL_NHLT if ACPI
- 	help
- 	  This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level
+diff --git a/sound/soc/ti/davinci-i2s.c b/sound/soc/ti/davinci-i2s.c
+index 92c1bdc69086..f04d9fb5130f 100644
+--- a/sound/soc/ti/davinci-i2s.c
++++ b/sound/soc/ti/davinci-i2s.c
+@@ -612,6 +612,8 @@ static void davinci_i2s_shutdown(struct snd_pcm_substream *substream,
+ }
+ 
+ #define DAVINCI_I2S_RATES	SNDRV_PCM_RATE_8000_96000
++#define DAVINCI_I2S_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
++				 SNDRV_PCM_FMTBIT_S32_LE)
+ 
+ static const struct snd_soc_dai_ops davinci_i2s_dai_ops = {
+ 	.shutdown	= davinci_i2s_shutdown,
+@@ -639,12 +641,14 @@ static struct snd_soc_dai_driver davinci_i2s_dai = {
+ 		.channels_min = 2,
+ 		.channels_max = 2,
+ 		.rates = DAVINCI_I2S_RATES,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,},
++		.formats = DAVINCI_I2S_FORMATS,
++	},
+ 	.capture = {
+ 		.channels_min = 2,
+ 		.channels_max = 2,
+ 		.rates = DAVINCI_I2S_RATES,
+-		.formats = SNDRV_PCM_FMTBIT_S16_LE,},
++		.formats = DAVINCI_I2S_FORMATS,
++	},
+ 	.ops = &davinci_i2s_dai_ops,
+ 
+ };
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8CF0A360F
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 13:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB19A360C
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 13:53:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 626C61692;
-	Fri, 30 Aug 2019 13:53:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 626C61692
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA9411666;
+	Fri, 30 Aug 2019 13:52:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA9411666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567166084;
-	bh=2RLL42BoaYzIrKrExrW4HEveS1RBJSDRqCEKHgpFxuM=;
+	s=default; t=1567166008;
+	bh=jKRLu0uwYXj0tPyHz+UxlLxYbW26JhDD4YgPUZrq4YI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=g1Ug6WBfkk6m8PDNh8Td4DzZWT2MvoJ1n3hS4oN4A9ue1scxUZtUXc299WbTqxCwo
-	 VxnKzgSGRoE3lssZRn3TwZAqG07ECwIjwv3EL2kWRDqjYgGMQ8hZAQZJviFxd+fbgj
-	 PHpWCjiRL1/NYJiZXDwSt9SYffmZUX2g0kc9aY+M=
+	b=hv2bFBX0YDkDKxVbkpJeeN1BX26lSZSUBCQ9R+GO7TUc4aAz2/7AQDyYji0rb293o
+	 EymTIds9cg+pFjDN1TljjgKtmo6lY41zHqRdamQpQh4rwy67n6++alt4iWiw/uV4AE
+	 VGG+GJEIYfaxCSkEf7Ss9xrDwABVDcvk9yl0y97U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7F01AF806E5;
-	Fri, 30 Aug 2019 13:46:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73914F80676;
+	Fri, 30 Aug 2019 13:46:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA0B8F8060F; Fri, 30 Aug 2019 13:45:37 +0200 (CEST)
+ id 74723F80610; Fri, 30 Aug 2019 13:45:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D00AF805F7
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 13:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D00AF805F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68E64F805F8
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 13:45:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68E64F805F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Jlx4pGUU"
+ header.b="nmfTSx0x"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=QjPKEdDB9sCJJLsmrlg6e6hB1mOM3Pkslxq2I1phBfw=; b=Jlx4pGUUKv/H
- 7TLy34v8F8kpMKglTqTATjOIIYARUIpwZuU5MNu+f4CaCohs4TSZa3SanmORostsdtFwOww1DzNQx
- YIhwuZpJ3ZHSNlF1KRQxNR6XP+oSI7ZA5rx8xuGb3ZbboPBfIvTY1GLrY8HEQTJHbGysSf8Xoz6ag
- pqUf4=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ List-Archive; bh=6xkOPqJo96FXNHLuVat1JFTsnTVKnf7hfv6rvF2Exlw=; b=nmfTSx0xFhH7
+ xtp3D+HTM6J0mXhCAS+3YvpB3C2nVmosb0I1iWhigwFmwmCvQ3eFEeUTP4JZeuuYJYdBQxiufhwG+
+ Sl4ZeuQqpX9s8tusqKHnJ5QcQfpGJMkbddODfGNA5mNgDVHks/1zm7Db1FP+L7a90rM1iF4/55U6S
+ waa64=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i3fLE-0006Iq-4M; Fri, 30 Aug 2019 11:45:20 +0000
+ id 1i3fLD-0006Il-UQ; Fri, 30 Aug 2019 11:45:20 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8C9522742CDC; Fri, 30 Aug 2019 12:45:19 +0100 (BST)
+ id 5D9F12742CC6; Fri, 30 Aug 2019 12:45:19 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <1567012817-12625-1-git-send-email-shengjiu.wang@nxp.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <20190828095102.15737-1-cezary.rojewski@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190830114519.8C9522742CDC@ypsilon.sirena.org.uk>
+Message-Id: <20190830114519.5D9F12742CC6@ypsilon.sirena.org.uk>
 Date: Fri, 30 Aug 2019 12:45:19 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- festevam@gmail.com, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] Applied "ASoC: fsl_ssi: Fix clock control issue in
-	master mode" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ tiwai@suse.com, lgirdwood@gmail.com, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] Applied "ASoC: Intel: Baytrail: Fix implicit
+	fallthrough warning" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_ssi: Fix clock control issue in master mode
+   ASoC: Intel: Baytrail: Fix implicit fallthrough warning
 
 has been applied to the asoc tree at
 
@@ -115,73 +112,33 @@ to this mail.
 Thanks,
 Mark
 
-From 696d05225cebffd172008d212657be90e823eac0 Mon Sep 17 00:00:00 2001
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-Date: Wed, 28 Aug 2019 13:20:17 -0400
-Subject: [PATCH] ASoC: fsl_ssi: Fix clock control issue in master mode
+From cc9bbb6cde6c321706f1eff79d077b4a91cd5d12 Mon Sep 17 00:00:00 2001
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Date: Wed, 28 Aug 2019 11:51:02 +0200
+Subject: [PATCH] ASoC: Intel: Baytrail: Fix implicit fallthrough warning
 
-The test case is
-arecord -Dhw:0 -d 10 -f S16_LE -r 48000 -c 2 temp.wav &
-aplay -Dhw:0 -d 30 -f S16_LE -r 48000 -c 2 test.wav
+Append fallthrough statement to fix warning reported during compilation.
 
-There will be error after end of arecord:
-aplay: pcm_write:2051: write error: Input/output error
-
-Capture and Playback work in parallel in master mode, one
-substream stops, the other substream is impacted, the
-reason is that clock is disabled wrongly.
-
-The clock's reference count is not increased when second
-substream starts, the hw_param() function returns in the
-beginning because first substream is enabled, then in end
-of first substream, the hw_free() disables the clock.
-
-This patch is to move the clock enablement to the place
-before checking of the device enablement in hw_param().
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Link: https://lore.kernel.org/r/1567012817-12625-1-git-send-email-shengjiu.wang@nxp.com
+Fixes: b80d19c166c4 ("ASoC: Intel: Restore Baytrail ADSP streams only when ADSP was in reset")
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Link: https://lore.kernel.org/r/20190828095102.15737-1-cezary.rojewski@intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_ssi.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/intel/baytrail/sst-baytrail-pcm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/fsl/fsl_ssi.c b/sound/soc/fsl/fsl_ssi.c
-index fa862af25c1a..085855f9b08d 100644
---- a/sound/soc/fsl/fsl_ssi.c
-+++ b/sound/soc/fsl/fsl_ssi.c
-@@ -799,15 +799,6 @@ static int fsl_ssi_hw_params(struct snd_pcm_substream *substream,
- 	u32 wl = SSI_SxCCR_WL(sample_size);
- 	int ret;
- 
--	/*
--	 * SSI is properly configured if it is enabled and running in
--	 * the synchronous mode; Note that AC97 mode is an exception
--	 * that should set separate configurations for STCCR and SRCCR
--	 * despite running in the synchronous mode.
--	 */
--	if (ssi->streams && ssi->synchronous)
--		return 0;
--
- 	if (fsl_ssi_is_i2s_master(ssi)) {
- 		ret = fsl_ssi_set_bclk(substream, dai, hw_params);
- 		if (ret)
-@@ -823,6 +814,15 @@ static int fsl_ssi_hw_params(struct snd_pcm_substream *substream,
- 		}
- 	}
- 
-+	/*
-+	 * SSI is properly configured if it is enabled and running in
-+	 * the synchronous mode; Note that AC97 mode is an exception
-+	 * that should set separate configurations for STCCR and SRCCR
-+	 * despite running in the synchronous mode.
-+	 */
-+	if (ssi->streams && ssi->synchronous)
-+		return 0;
-+
- 	if (!fsl_ssi_is_ac97(ssi)) {
- 		/*
- 		 * Keep the ssi->i2s_net intact while having a local variable
+diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
+index 9cbc982d46a9..54f2ee3010ee 100644
+--- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
++++ b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
+@@ -193,6 +193,7 @@ static int sst_byt_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 		pdata->restore_stream = false;
++		/* fallthrough */
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+ 		sst_byt_stream_pause(byt, pcm_data->stream);
+ 		break;
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5517BA3AB7
-	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 17:44:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FD22A3ABE
+	for <lists+alsa-devel@lfdr.de>; Fri, 30 Aug 2019 17:45:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DBD181668;
-	Fri, 30 Aug 2019 17:43:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBD181668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32814886;
+	Fri, 30 Aug 2019 17:44:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32814886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567179879;
-	bh=iUoAwbTZ8AlLlHrlVuHhCPS/zurSLft9vJ3qv30Rm6k=;
+	s=default; t=1567179903;
+	bh=HvM4s5fmuj5BLKQdl2bKMgR0q9loQWlPEHG1XPhgV6Q=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=svIso/ryW8FUb5Z4ZcrdoPFz9TXk4/xKuVw3H555/U9QkIHtDrRD3rw9kzRNlktRC
-	 B76WvS9knG9n6te5dxi+vBHoUlgcEbuOVEbI96kElsfZX4LG4bQkXbHGfIIqp9VP7s
-	 UFQSucGeQ9sVT36QhWIjHSJuvEt6BCknjZlqyBv0=
+	b=uD52ahlvDkQgs9wiw5VASv/3KWhJL8Bk6xyZEXjmTi8DPW6vAPB5UwjmkOPAIvrAH
+	 zFtFn/dixD3qKVTFIzyEGMNY4LOke05nM6Or2H8fnLeSpO3RnzH821keLXPpLhHnhg
+	 ZWuuPvQPZbZGSFgD8yjvIFPjp5rloQRpYRyVWanc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F5BCF805F7;
-	Fri, 30 Aug 2019 17:42:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DECA2F805F6;
+	Fri, 30 Aug 2019 17:42:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E53AF805F5; Fri, 30 Aug 2019 17:42:36 +0200 (CEST)
+ id 75E88F805FA; Fri, 30 Aug 2019 17:42:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,39 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C5B0F80445
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 17:42:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C5B0F80445
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE678F805F8
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 17:42:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE678F805F8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OO5kl0tp"
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176])
+ header.b="DM1CXlk1"
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
+ [209.85.160.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9A50123428
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 15:42:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E2A9023428
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 15:42:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1567179751;
- bh=rjS27z1lBNhCEThrZ0kRF0f2b7v4SWdYVwASALBqm7Y=;
+ s=default; t=1567179773;
+ bh=SjF+r0sRfSw6guTPuHirWIwopvlcS/mInacUNuCDDCA=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=OO5kl0tpPfjShjhR6s2bDqoUlEMqS5fbn+z6GfVIp97MAo550syQk1WnY71NzWEd3
- QR+DaJVTCupCau1tgKTb6Ywl6eia1MEpIJ20UNOsZDGp6D0KHbDRYzF/qckNMovc7/
- uFeUE6mNBqeL5c4bK2+7vXzmoLX0SJl5HLXKvw/c=
-Received: by mail-qt1-f176.google.com with SMTP id 44so8004485qtg.11
- for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 08:42:31 -0700 (PDT)
-X-Gm-Message-State: APjAAAVjnpROzycnconD+qY6XWbstYJeLIlJ0ast02AfJtdMOWfUPE3c
- tHFUeO1rJ0jzjsovd6EU+sf1LYRmYnzRD4/E1Q==
-X-Google-Smtp-Source: APXvYqxBnsuq9Cl2AYxJ3+2RNMJO5TFFSdIRuxFvXYjoIaLcgogQZmTxJVQow0WheBHwlDr5sYneLYlM9P1u/GoXMGg=
-X-Received: by 2002:ac8:6b05:: with SMTP id w5mr221266qts.136.1567179750860;
- Fri, 30 Aug 2019 08:42:30 -0700 (PDT)
+ b=DM1CXlk1CMfyPGG+0KfVCNMQGXt7kL6/zsk9Vb3449Al86pJsn6TSalEvXkUtHuzn
+ b11LJRp6XB3YsulP4B8pzRz9DudGUcUlJV/mtIvvRYPNXsdwNkGrioCMtzSilJ1tCB
+ 0lSAXuF1GBwBeDXKDif2Bn5lXm6RoGN3QwI5rrYk=
+Received: by mail-qt1-f182.google.com with SMTP id n7so8047719qtb.6
+ for <alsa-devel@alsa-project.org>; Fri, 30 Aug 2019 08:42:52 -0700 (PDT)
+X-Gm-Message-State: APjAAAW74VQ4HtEAcmMqP1pzWa9+XzJp2rh3E7mYhWpdYXRTIAg5Neji
+ xA5tdNezkc8FWeubcO7iJ003avQcwecHxmjnKA==
+X-Google-Smtp-Source: APXvYqzXCHsQQOsvgsiISFEf/Zttwtxmy7SUxWU0aJkqVW9uY0SYjqHWdC/KWYvM+YsA8KFQRpWU9v+qwwnvZLkjrU4=
+X-Received: by 2002:aed:24f4:: with SMTP id u49mr16280140qtc.110.1567179772161; 
+ Fri, 30 Aug 2019 08:42:52 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190828125209.28173-1-mripard@kernel.org>
- <20190828125209.28173-5-mripard@kernel.org>
-In-Reply-To: <20190828125209.28173-5-mripard@kernel.org>
+In-Reply-To: <20190828125209.28173-1-mripard@kernel.org>
 From: Rob Herring <robh+dt@kernel.org>
-Date: Fri, 30 Aug 2019 10:42:19 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqL7nE8+XK0m+1UKCUypkkgb4Nky7ternsx0zkTxiSejRw@mail.gmail.com>
-Message-ID: <CAL_JsqL7nE8+XK0m+1UKCUypkkgb4Nky7ternsx0zkTxiSejRw@mail.gmail.com>
+Date: Fri, 30 Aug 2019 10:42:40 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJBs_vmqbe9DmEjNJR3YO6-3mnyxrTbYq0b++0eGJnU3w@mail.gmail.com>
+Message-ID: <CAL_JsqJBs_vmqbe9DmEjNJR3YO6-3mnyxrTbYq0b++0eGJnU3w@mail.gmail.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
@@ -75,8 +74,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Frank Rowand <frowand.list@gmail.com>,
  "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
  <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v2 5/5] ASoC: dt-bindings: Convert
- Allwinner A64 analog codec to a schema
+Subject: Re: [alsa-devel] [PATCH v2 1/5] ASoC: dt-bindings: sun4i-spdif: Fix
+	dma-names warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,13 +97,13 @@ On Wed, Aug 28, 2019 at 7:52 AM Maxime Ripard <mripard@kernel.org> wrote:
 >
 > From: Maxime Ripard <maxime.ripard@bootlin.com>
 >
-> The Allwinner A64 SoC has an embedded audio codec that uses a separate
-> controller to drive its analog part, which is supported in Linux, with a
-> matching Device Tree binding.
+> Even though the H6 compatible has been properly added, the exeption for the
+> number of DMA channels hasn't been updated, leading in a validation
+> warning.
 >
-> Now that we have the DT validation in place, let's convert the device tree
-> bindings for that controller over to a YAML schemas.
+> Fix this.
 >
+> Fixes: b20453031472 ("dt-bindings: sound: sun4i-spdif: Add Allwinner H6 compatible")
 > Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
 >
 > ---
@@ -112,11 +111,8 @@ On Wed, Aug 28, 2019 at 7:52 AM Maxime Ripard <mripard@kernel.org> wrote:
 > Changes from v1:
 >   - Fix subject prefix
 > ---
->  .../allwinner,sun50i-a64-codec-analog.yaml    | 39 +++++++++++++++++++
->  .../bindings/sound/sun50i-codec-analog.txt    | 14 -------
->  2 files changed, 39 insertions(+), 14 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun50i-a64-codec-analog.yaml
->  delete mode 100644 Documentation/devicetree/bindings/sound/sun50i-codec-analog.txt
+>  .../devicetree/bindings/sound/allwinner,sun4i-a10-spdif.yaml  | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 
 Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________

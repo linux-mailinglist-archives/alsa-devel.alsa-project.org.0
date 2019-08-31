@@ -2,64 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB4F7A40BA
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Aug 2019 00:57:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74AD4A4443
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Aug 2019 13:20:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57CF5165D;
-	Sat, 31 Aug 2019 00:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57CF5165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD582165F;
+	Sat, 31 Aug 2019 13:19:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD582165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567205829;
-	bh=j4vpGxzWqNX/E3lHJ39GssY6XPCrDaf5AcEBFoou/oc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Dcng+zEzxWfdZotNNPypA08a/NPJre5f8ZG+JcxcnJgaC+bfF/n1V6OILt6KHNy5A
-	 NgmhNXtCfSszCGIgLwL2N827gRGcE5ZxEjN8y1SlxBdWLPEJbAm+IYTMUNILpgnNJO
-	 kC3PPX/EoFSc1cjEkVcYp5Q8jDAreMkgE2pe/JZc=
+	s=default; t=1567250444;
+	bh=Bp/ZuxbTUi/2ODZLy6GY3S1jaOtTKjIcmhGl9eltCHw=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kQImpNgGdycMpFpkYMEOFyFPotx/f4u1p9IhTXTiy1gq8pCbR5Mj8PYSEd7VMWv5p
+	 TXQCG2hpekpE4pvFdOxSYs/fiswj9CeQpQWobGOEG1a7MlAJAo56hA4/lP2q+96QPQ
+	 NOtPwo/HYTvjr8EjcITnVCTNZrwkHug5l785O3GE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0A76F800AA;
-	Sat, 31 Aug 2019 00:55:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4207CF80268;
+	Sat, 31 Aug 2019 13:19:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E18AFF80369; Sat, 31 Aug 2019 00:55:21 +0200 (CEST)
+ id 185E5F80268; Sat, 31 Aug 2019 13:18:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1362BF800AA
- for <alsa-devel@alsa-project.org>; Sat, 31 Aug 2019 00:55:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1362BF800AA
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B8A351A008B;
- Sat, 31 Aug 2019 00:55:16 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A20AB1A0412;
- Sat, 31 Aug 2019 00:55:16 +0200 (CEST)
-Received: from fsr-ub1864-103.ea.freescale.net
- (fsr-ub1864-103.ea.freescale.net [10.171.82.17])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 222C220627;
- Sat, 31 Aug 2019 00:55:16 +0200 (CEST)
-From: Daniel Baluta <daniel.baluta@nxp.com>
-To: broonie@kernel.org
-Date: Sat, 31 Aug 2019 01:55:14 +0300
-Message-Id: <20190830225514.5283-1-daniel.baluta@nxp.com>
-X-Mailer: git-send-email 2.17.1
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- Daniel Baluta <daniel.baluta@nxp.com>, shengjiu.wang@nxp.com,
- linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- NXP Linux Team <linux-imx@nxp.com>,
- Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>, gabrielcsmo@gmail.com,
- festevam@gmail.com
-Subject: [alsa-devel] [PATCH] ASoC: fsl_sai: Set SAI Channel Mode to Output
-	Mode
+ by alsa1.perex.cz (Postfix) with ESMTPS id D45D7F800D1
+ for <alsa-devel@alsa-project.org>; Sat, 31 Aug 2019 13:18:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D45D7F800D1
+Received: from fsav301.sakura.ne.jp (fsav301.sakura.ne.jp [153.120.85.132])
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x7VBIhZf087789;
+ Sat, 31 Aug 2019 20:18:43 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+Received: from www1102.sakura.ne.jp (219.94.129.142)
+ by fsav301.sakura.ne.jp (F-Secure/fsigk_smtp/530/fsav301.sakura.ne.jp);
+ Sat, 31 Aug 2019 20:18:43 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/530/fsav301.sakura.ne.jp)
+Received: from [192.168.1.2] (118.153.231.153.ap.dti.ne.jp [153.231.153.118])
+ (authenticated bits=0)
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x7VBIgAG087782
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NO);
+ Sat, 31 Aug 2019 20:18:43 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+To: Mark Brown <broonie@kernel.org>
+References: <20190829173205.11805-1-katsuhiro@katsuster.net>
+ <20190829173205.11805-2-katsuhiro@katsuster.net>
+ <20190830111817.GA5182@sirena.co.uk>
+From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Message-ID: <ee38ca00-4146-49fe-21c0-af0578b1d65c@katsuster.net>
+Date: Sat, 31 Aug 2019 20:18:42 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190830111817.GA5182@sirena.co.uk>
+Content-Language: en-US
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, David Yang <yangxiaohua@everest-semi.com>,
+ Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: es8316: Add clock control of MCLK
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,99 +78,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From SAI datasheet:
+Hello Mark,
 
-CHMOD, configures if transmit data pins are configured for TDM mode
-or Output mode.
-	* (0) TDM mode, transmit data pins are tri-stated when slots are
-	masked or channels are disabled.
-	* (1) Output mode, transmit data pins are never tri-stated and
-	will output zero when slots are masked or channels are disabled.
+On 2019/08/30 20:18, Mark Brown wrote:
+> On Fri, Aug 30, 2019 at 02:32:04AM +0900, Katsuhiro Suzuki wrote:
+> 
+>> +	es8316->mclk = devm_clk_get(component->dev, "mclk");
+>> +	if (PTR_ERR(es8316->mclk) == -EPROBE_DEFER)
+>> +		return -EPROBE_DEFER;
+> 
+> If we don't get a clock it'd be nice to at least log that in case
+> there's something wrong with the clock driver so that people have more
+> of a hint as to why things might be breaking.
+> 
 
-When data pins are tri-stated, there is noise on some channels
-when FS clock value is high and data is read while fsclk is
-transitioning from high to low.
+OK, to change more user friendly.
 
-Fix this by setting CHMOD to Output Mode so that pins will output zero
-when slots are masked or channels are disabled.
 
-Cc: NXP Linux Team <linux-imx@nxp.com>
-Signed-off-by: Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
----
- sound/soc/fsl/fsl_sai.c | 15 ++++++++++++---
- sound/soc/fsl/fsl_sai.h |  2 ++
- 2 files changed, 14 insertions(+), 3 deletions(-)
+>> +
+>> +	if (es8316->mclk) {
+>> +		ret = clk_prepare_enable(es8316->mclk);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+> 
+> There's nothing that disables the clock on remove.
+> 
+> Otherwise this looks good.
+> 
+Thank you for reviewing. I'll fix it and send V2 patch set.
 
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index e896b577b1f7..b9daab0eb6eb 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -467,6 +467,12 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 
- 	val_cr4 |= FSL_SAI_CR4_FRSZ(slots);
- 
-+	/*
-+	 * set CHMOD to Output Mode so that transmit data pins will
-+	 * output zero when slots are masked or channels are disabled
-+	 */
-+	val_cr4 |= FSL_SAI_CR4_CHMOD;
-+
- 	/*
- 	 * For SAI master mode, when Tx(Rx) sync with Rx(Tx) clock, Rx(Tx) will
- 	 * generate bclk and frame clock for Tx(Rx), we should set RCR4(TCR4),
-@@ -477,7 +483,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 	if (!sai->is_slave_mode) {
- 		if (!sai->synchronous[TX] && sai->synchronous[RX] && !tx) {
- 			regmap_update_bits(sai->regmap, FSL_SAI_TCR4(ofs),
--				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
-+				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
-+				FSL_SAI_CR4_CHMOD_MASK,
- 				val_cr4);
- 			regmap_update_bits(sai->regmap, FSL_SAI_TCR5(ofs),
- 				FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
-@@ -486,7 +493,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 				~0UL - ((1 << channels) - 1));
- 		} else if (!sai->synchronous[RX] && sai->synchronous[TX] && tx) {
- 			regmap_update_bits(sai->regmap, FSL_SAI_RCR4(ofs),
--				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
-+				FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
-+				FSL_SAI_CR4_CHMOD_MASK,
- 				val_cr4);
- 			regmap_update_bits(sai->regmap, FSL_SAI_RCR5(ofs),
- 				FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
-@@ -497,7 +505,8 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR4(tx, ofs),
--			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK,
-+			   FSL_SAI_CR4_SYWD_MASK | FSL_SAI_CR4_FRSZ_MASK |
-+			   FSL_SAI_CR4_CHMOD_MASK,
- 			   val_cr4);
- 	regmap_update_bits(sai->regmap, FSL_SAI_xCR5(tx, ofs),
- 			   FSL_SAI_CR5_WNW_MASK | FSL_SAI_CR5_W0W_MASK |
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index f96f8d97489d..1e3b4a6889a8 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -119,6 +119,8 @@
- #define FSL_SAI_CR4_FRSZ_MASK	(0x1f << 16)
- #define FSL_SAI_CR4_SYWD(x)	(((x) - 1) << 8)
- #define FSL_SAI_CR4_SYWD_MASK	(0x1f << 8)
-+#define FSL_SAI_CR4_CHMOD	BIT(5)
-+#define FSL_SAI_CR4_CHMOD_MASK	GENMASK(5, 5)
- #define FSL_SAI_CR4_MF		BIT(4)
- #define FSL_SAI_CR4_FSE		BIT(3)
- #define FSL_SAI_CR4_FSP		BIT(1)
--- 
-2.17.1
 
+> 
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> 
+
+Best Regards,
+Katsuhiro Suzuki
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

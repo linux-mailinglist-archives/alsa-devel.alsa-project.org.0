@@ -2,64 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 349C0A44DB
-	for <lists+alsa-devel@lfdr.de>; Sat, 31 Aug 2019 17:01:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE0DA4505
+	for <lists+alsa-devel@lfdr.de>; Sat, 31 Aug 2019 17:29:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BFBB8857;
-	Sat, 31 Aug 2019 17:00:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BFBB8857
+	by alsa0.perex.cz (Postfix) with ESMTPS id 837C1950;
+	Sat, 31 Aug 2019 17:28:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 837C1950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567263690;
-	bh=oV2xkcxZ9MMTqN05wG7NIgtGZuzsYqe+wnelwAunVrg=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1567265345;
+	bh=bO0isCkpsZFWtD+ZTfFsuaXnAY1HC3ghXEABdCk64l8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dPumJahczWB3jfyjLz/2u8zxCc8LQRt3hVQcGhw/u3p7j6qLCbqQXHNAvB1Bsd/cI
-	 v7Mq487F6dNzJrtfIuthGEuJHEWRpRUwPOn8vH2JH5qhnO0B1fioNgB7bXV8GWOnyS
-	 xMxF1Gk7gs6SneyfIrYn4qwaad+c7AoYB5NhPSzo=
+	b=ka1ePnT1KFszkApE8hpljLeFqRRsRlaquIMF+aCGwUKzc99wa+H2akQK9o0JXWooa
+	 dN/FDgeZFDko1SnI/i4eDnAR8HIW48IpXzVWyEJvKFbSGKEMOlyCdkghmpkInO+SR+
+	 /OcZv2sQyjHc6THjRPV5Agl8QHPuF7VZsGp5RPrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B62EF800AA;
-	Sat, 31 Aug 2019 16:59:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D66FBF80229;
+	Sat, 31 Aug 2019 17:27:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFA47F80268; Sat, 31 Aug 2019 16:58:55 +0200 (CEST)
+ id 59649F80268; Sat, 31 Aug 2019 17:27:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48C64F800EA
- for <alsa-devel@alsa-project.org>; Sat, 31 Aug 2019 16:58:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48C64F800EA
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
- [10.5.11.14])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 1B0495AFE3;
- Sat, 31 Aug 2019 14:58:47 +0000 (UTC)
-Received: from shalem.localdomain.com (ovpn-116-39.ams2.redhat.com
- [10.36.116.39])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 22CF25D9D5;
- Sat, 31 Aug 2019 14:58:45 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: alsa-devel@alsa-project.org
-Date: Sat, 31 Aug 2019 16:58:42 +0200
-Message-Id: <20190831145842.32990-2-hdegoede@redhat.com>
-In-Reply-To: <20190831145842.32990-1-hdegoede@redhat.com>
-References: <20190831145842.32990-1-hdegoede@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.39]); Sat, 31 Aug 2019 14:58:47 +0000 (UTC)
-Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 2/2] conf/ucm: cht-bsw-rt5672: Add board
-	specific profile for Lenovo Thinkpad 8 tablet
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3A15F800AA
+ for <alsa-devel@alsa-project.org>; Sat, 31 Aug 2019 17:27:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A15F800AA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 5F789AF5B;
+ Sat, 31 Aug 2019 15:27:15 +0000 (UTC)
+Date: Sat, 31 Aug 2019 17:27:13 +0200
+Message-ID: <s5h4l1xl5im.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+In-Reply-To: <20190830132446.5154-1-o-takashi@sakamocchi.jp>
+References: <20190830132446.5154-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] MAINTAINERS: update entry of firewire
+	audio drivers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,97 +71,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Lenovo Thinkpad 8 tablet has stereo speakers and its internal DMIC
-on DMIC1, at a device specific profile for this.
+On Fri, 30 Aug 2019 15:24:46 +0200,
+Takashi Sakamoto wrote:
+> 
+> This commit adds myself as one of maintainers for firewire audio
+> drivers and IEC 61883-1/6 packet streaming engine. I call them ALSA
+> firewire stack as a whole.
+> 
+> 6 years ago I joined in development for this category of drivers with
+> heavy reverse-engineering tasks and over 100 models are now available
+> from ALSA applications. IEEE 1394 bus itself and units on the bus are
+> enough legacy but the development still continues.
+> 
+> I have a plan to add drastic enhancement in kernel v5.5 and v5.6 period.
+> This commit adds myself into MAINTAINERS so that developers and users
+> can easily find active developer to post their issues, especially for
+> regression.
+> 
+> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- configure.ac                                  |  1 +
- .../HiFi.conf                                 | 23 +++++++++++++++++++
- ...ENOVO-20BN002QGE-ThinkPad8-20BN002QGE.conf |  4 ++++
- .../Makefile.am                               |  4 ++++
- src/conf/ucm/Makefile.am                      |  1 +
- 5 files changed, 33 insertions(+)
- create mode 100644 src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/HiFi.conf
- create mode 100644 src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE.conf
- create mode 100644 src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/Makefile.am
+Applied now (with a typo correction -- a superfluous '+' was added).
+Thanks.
 
-diff --git a/configure.ac b/configure.ac
-index 9ccca7aa..778bc64e 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -756,6 +756,7 @@ AC_OUTPUT(Makefile doc/Makefile doc/pictures/Makefile doc/doxygen.cfg \
- 	  src/conf/ucm/HDAudio-Gigabyte-ALC1220DualCodecs/Makefile \
- 	  src/conf/ucm/HDAudio-Lenovo-DualCodecs/Makefile \
- 	  src/conf/ucm/kblrt5660/Makefile \
-+	  src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/Makefile \
- 	  src/conf/ucm/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216/Makefile \
- 	  src/conf/ucm/PandaBoard/Makefile \
- 	  src/conf/ucm/PandaBoardES/Makefile \
-diff --git a/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/HiFi.conf b/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/HiFi.conf
-new file mode 100644
-index 00000000..43c3c0dd
---- /dev/null
-+++ b/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/HiFi.conf
-@@ -0,0 +1,23 @@
-+SectionVerb {
-+	EnableSequence [
-+		cdev "hw:chtbswrt5672"
-+		<platforms/bytcr/PlatformEnableSeq.conf>
-+		<codecs/rt5672/EnableSeq.conf>
-+	]
-+
-+	DisableSequence [
-+		cdev "hw:chtbswrt5672"
-+		<platforms/bytcr/PlatformDisableSeq.conf>
-+	]
-+
-+	Value {
-+		PlaybackPCM "hw:chtbswrt5672"
-+		CapturePCM "hw:chtbswrt5672"
-+	}
-+}
-+
-+<codecs/rt5672/Speaker.conf>
-+<codecs/rt5672/HeadPhones.conf>
-+
-+<codecs/rt5672/DMIC2.conf>
-+<codecs/rt5672/HeadsetMic.conf>
-diff --git a/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE.conf b/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE.conf
-new file mode 100644
-index 00000000..1c3a766b
---- /dev/null
-+++ b/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE.conf
-@@ -0,0 +1,4 @@
-+SectionUseCase."HiFi" {
-+	File "../LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/HiFi.conf"
-+	Comment "Play HiFi quality Music"
-+}
-diff --git a/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/Makefile.am b/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/Makefile.am
-new file mode 100644
-index 00000000..842409e8
---- /dev/null
-+++ b/src/conf/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE/Makefile.am
-@@ -0,0 +1,4 @@
-+alsaconfigdir = @ALSA_CONFIG_DIR@
-+ucmdir = $(alsaconfigdir)/ucm/LENOVO-20BN002QGE-ThinkPad8-20BN002QGE
-+ucm_DATA = LENOVO-20BN002QGE-ThinkPad8-20BN002QGE.conf HiFi.conf
-+EXTRA_DIST = $(ucm_DATA)
-diff --git a/src/conf/ucm/Makefile.am b/src/conf/ucm/Makefile.am
-index 2ed4e1a3..7bb8eb1d 100644
---- a/src/conf/ucm/Makefile.am
-+++ b/src/conf/ucm/Makefile.am
-@@ -40,6 +40,7 @@ gpd-win-pocket-rt5645 \
- HDAudio-Gigabyte-ALC1220DualCodecs \
- HDAudio-Lenovo-DualCodecs \
- kblrt5660 \
-+LENOVO-20BN002QGE-ThinkPad8-20BN002QGE \
- LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216 \
- PandaBoard \
- PandaBoardES \
--- 
-2.23.0
 
+Takashi
+
+> ---
+>  MAINTAINERS | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 24e29b2e53c9..8929a2ec75f7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6264,8 +6264,9 @@ S:	Maintained
+>  F:	drivers/hwmon/f75375s.c
+>  F:	include/linux/f75375s.h
+>  
+> -FIREWIRE AUDIO DRIVERS
+> +FIREWIRE AUDIO DRIVERS and IEC 61883-1/6 PACKET STREAMING ENGINE
+>  M:	Clemens Ladisch <clemens@ladisch.de>
+> ++M:	Takashi Sakamoto <o-takashi@sakamocchi.jp>
+>  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+>  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
+>  S:	Maintained
+> -- 
+> 2.20.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

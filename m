@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68C50A5A7A
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 17:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F133EA5A7E
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 17:24:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17C1316F3;
-	Mon,  2 Sep 2019 17:22:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17C1316F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39D3616C8;
+	Mon,  2 Sep 2019 17:23:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39D3616C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567437826;
-	bh=cw8AfC4jRz9JzyPxodmOCmLfwbDnp0IT1grpuJd9v1k=;
+	s=default; t=1567437873;
+	bh=qURVnu9dG9DEjdWpFlmFb8mG0p4HJ2a3ScpLVlfwKKY=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k5afC8w8NPAgsw5ZWgoGxQnvRf6mqIw/hXJMTKlxvuoBBMrQzZOY2exMXSu3ZhynF
-	 xLEkPaaTof6LgRhik2hbD4luDvSfufDC2SNzla3spnkU7zAH5FIBDJgsaaI/fV74tY
-	 kwo4eKrCwsq6/FihFPSHiYKcuikuSmnO7nLJo7yA=
+	b=WWL/U2t34BNzpR9k/nfc5b3FUIUo5yood6Hzrr0onXTPcfLJBMhj8o/4Xk3kvcfXp
+	 ik4aVtu/Zbu6YQdU/JLvCYFAfZnFAeWAADbX2QgvosRjIPSYDP3v6JhTTnx8bWUn3a
+	 yb1LHUDkAln6q8AoJhFL75GcFvsDsAw+ti4rA2hM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D9ABF805FF;
-	Mon,  2 Sep 2019 17:20:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87EB5F8060F;
+	Mon,  2 Sep 2019 17:20:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F06FCF803D7; Sun,  1 Sep 2019 14:58:14 +0200 (CEST)
+ id 8794FF803D7; Sun,  1 Sep 2019 15:00:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,61 +35,61 @@ Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 221EAF80306
- for <alsa-devel@alsa-project.org>; Sun,  1 Sep 2019 14:58:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 221EAF80306
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4957EF800D1
+ for <alsa-devel@alsa-project.org>; Sun,  1 Sep 2019 15:00:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4957EF800D1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="mFFi1AKP"
-Received: by mail-wm1-x343.google.com with SMTP id q19so2993236wmc.3
- for <alsa-devel@alsa-project.org>; Sun, 01 Sep 2019 05:58:11 -0700 (PDT)
+ header.b="Qf+PO/6d"
+Received: by mail-wm1-x343.google.com with SMTP id k2so10357611wmj.4
+ for <alsa-devel@alsa-project.org>; Sun, 01 Sep 2019 06:00:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=UxrLHy0xZer5ID4RHyuCqHzVGteGB4HlcmZdUjqBSL4=;
- b=mFFi1AKPSaWngSR9jtj9CgHSiMvJGrF/gJcubSZhAcKoIP8k1Tn8h0Xb2H4MMpoY98
- ATkbzsIdx1azRsSUQ70wuqo1zjiARoeps830lySXrbXba0w/4YFfdVhXcwZWkp0fwtZ6
- 4WglBbXxLbyMehj5WsfIYCts15phqU9Ikqg/BP4/TfHTzcM2JNPQJypm7uNUOziVH0sZ
- fXFLOcK+r3mR7aLL1ySTmKoDMh11++IJL8l6Zqo6fsPJK95dJqStyWxcu8GDibJGBIRl
- JWlw3CgAMpfVSNAYHeq22BCm/95o+gxuBq72xJamkbYhxobYL6BUwc31VcC7CDbf30pO
- kV1Q==
+ bh=/kY5ez2UY78GlNnuNQzpPG/veO6d9ypsF/qsZ3kn5iE=;
+ b=Qf+PO/6dtwNFaVxqtGJzKTaKniz8RX6ESuac+SqGHXNMJroDYDHse2EpvXnI1uqf1j
+ BFOg7dyecrIKQlEXcTKZy2diaA7VNcMszCo2/IL5OLspUAl13UwTCG8IWjkAmcPL9H9n
+ kvHwSsgaOB9kHEHzHT5ikPvuq64SnOL1Cx40FuPBcFOUzURaUp2NyFqwmE33tMv8lZKo
+ WdA88vtnDPwjExBd6zXOiL9FU5nW+3oy0wiyMaZ+iDKi7j/WBZTMckmQ0Mlwm1vtsYgv
+ h3hLM7uWQTVZI53G1+VNqw0iJdQrTC7GiQxyqiYPofVd5jgNMIc5iPNyLIxsLLv1JpkX
+ pSeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
  :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=UxrLHy0xZer5ID4RHyuCqHzVGteGB4HlcmZdUjqBSL4=;
- b=LiyBjhJo5nZfj6CBoFIgeDvbzgjZbuG7U7fQz3a+tlW1rpbvw4dUYHSw5kVyRHSDtL
- wbDoSSD7JO30tpP4w9odBF6eMv3G+y/lxo1E1CP9DZFJZrwZ9HwlHOib4fCjE5JifJIg
- xVxQp6kDFVJ6DOFVXPdMxV5m/yxM0zoa5BnPeMa45cFJ0PAyY6P/SyUie6SJZF732+Fx
- 3+Pazk/cORewIo003teQsOBDiEWxOnY5G/8G8zaZqrx3YpkENPZ/fe0Jdy4u2R5EDRGB
- xQ/Iwu+wwjqirnT4y9yjjpqRQkR8H9V5U7+4UHZsXMhjof5l9bZdeFhDTE8tRb9s0Zx8
- cvBg==
-X-Gm-Message-State: APjAAAWltcSsvAhBipVSeO8nDEZL7Fp5o/SsLyuWuasOkqWZ3qCm6m3B
- OXkfDsHFbVmtkwyor/CWoyw=
-X-Google-Smtp-Source: APXvYqwpCH+B/lBvHkPsK4oranhfJRg2I6GN/bqGm9Vi9ZAArUYI1ZCHKIDT0o2hYlbk+wWuHH2+QQ==
-X-Received: by 2002:a7b:cb8e:: with SMTP id m14mr30808692wmi.10.1567342691150; 
- Sun, 01 Sep 2019 05:58:11 -0700 (PDT)
+ bh=/kY5ez2UY78GlNnuNQzpPG/veO6d9ypsF/qsZ3kn5iE=;
+ b=Hc8K2dOzFnpUxygpF286fX+og5VVifIqsZ+HkZdxcqy67Y2uJR/uEwCetKfyBSqqVc
+ PrewbpfULtjV9yzhmFujdrs6xbnKDaHJVDlBLvTtCaqr/MEMmZDrCgFrLkbVpJGwwu6h
+ gtKElqQdzDJ+Nl/X4sj7o+kCpp8GppM7ElvK4gkWkzUD5JcIUpAyKVsqBrc1S29/8J4u
+ R7F97QDkHBtXvSTbdCvli6O/ZefKdUdDe0kFqQGPxuih0VIb/Zfk//GHDDdLVNSI/Z5a
+ qStMj/epOpz41xudA7hpCCecKwxUXtOj/nG974nFxEZEOvKX8f49mZBvYVvuslJVSD8C
+ A/WQ==
+X-Gm-Message-State: APjAAAWSZD8NQ5zs6CsYJOBxemNFnMtmEmvKyR/X0EWYdmWhr/pxe6t2
+ CNYc3KA+Xe9NQx6vCJ1Z2gE=
+X-Google-Smtp-Source: APXvYqyhivmpE3lMGP6u1JMIOvrjJ4rxcsVaL4kw5hjjdftxOOcZ52sYnbiN8SIqnrz1+BPycOIUSg==
+X-Received: by 2002:a1c:9d0b:: with SMTP id g11mr29085302wme.22.1567342830477; 
+ Sun, 01 Sep 2019 06:00:30 -0700 (PDT)
 Received: from eldamar (host85-134-dynamic.30-79-r.retail.telecomitalia.it.
  [79.30.134.85])
- by smtp.gmail.com with ESMTPSA id r190sm15294524wmf.0.2019.09.01.05.58.09
+ by smtp.gmail.com with ESMTPSA id o11sm11093069wrw.19.2019.09.01.06.00.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Sep 2019 05:58:09 -0700 (PDT)
-Date: Sun, 1 Sep 2019 14:58:09 +0200
+ Sun, 01 Sep 2019 06:00:29 -0700 (PDT)
+Date: Sun, 1 Sep 2019 15:00:28 +0200
 From: Salvatore Bonaccorso <carnil@debian.org>
 To: Hui Peng <benquike@gmail.com>
-Message-ID: <20190901125809.GA23334@eldamar.local>
-References: <20190830214649.27761-1-benquike@gmail.com>
+Message-ID: <20190901130028.GB23334@eldamar.local>
+References: <20190830214730.27842-1-benquike@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190830214649.27761-1-benquike@gmail.com>
+In-Reply-To: <20190830214730.27842-1-benquike@gmail.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Mon, 02 Sep 2019 17:20:12 +0200
+X-Mailman-Approved-At: Mon, 02 Sep 2019 17:20:13 +0200
 Cc: Mathias Payer <mathias.payer@nebelwelt.net>, alsa-devel@alsa-project.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Wenwen Wang <wang6495@umn.edu>, Takashi Iwai <tiwai@suse.com>,
  stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 1/2] Fix an OOB bug in
-	parse_audio_mixer_unit
+Subject: Re: [alsa-devel] [PATCH 2/2] Fix a stack buffer overflow bug in
+	check_input_term
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,35 +107,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 30, 2019 at 05:46:49PM -0400, Hui Peng wrote:
-> The `uac_mixer_unit_descriptor` shown as below is read from the
-> device side. In `parse_audio_mixer_unit`, `baSourceID` field is
-> accessed from index 0 to `bNrInPins` - 1, the current implementation
-> assumes that descriptor is always valid (the length  of descriptor
-> is no shorter than 5 + `bNrInPins`). If a descriptor read from
-> the device side is invalid, it may trigger out-of-bound memory
-> access.
-> 
-> ```
-> struct uac_mixer_unit_descriptor {
-> 	__u8 bLength;
-> 	__u8 bDescriptorType;
-> 	__u8 bDescriptorSubtype;
-> 	__u8 bUnitID;
-> 	__u8 bNrInPins;
-> 	__u8 baSourceID[];
-> }
-> ```
-> 
-> This patch fixes the bug by add a sanity check on the length of
-> the descriptor.
-> 
-> CVE: CVE-2018-15117
+Hi Hui,
 
-FWIW, the correct CVE id should be probably CVE-2019-15117 here.
+On Fri, Aug 30, 2019 at 05:47:29PM -0400, Hui Peng wrote:
+> `check_input_term` recursively calls itself with input from
+> device side (e.g., uac_input_terminal_descriptor.bCSourceID)
+> as argument (id). In `check_input_term`, if `check_input_term`
+> is called with the same `id` argument as the caller, it triggers
+> endless recursive call, resulting kernel space stack overflow.
+> 
+> This patch fixes the bug by adding a bitmap to `struct mixer_build`
+> to keep track of the checked ids and stop the execution if some id
+> has been checked (similar to how parse_audio_unit handles unitid
+> argument).
+> 
+> CVE: CVE-2018-15118
 
-But there was already a patch queued and released in 5.2.10 and
-4.19.68 for this issue (as far I can see; is this correct?)
+Similar to the previous one, this should be CVE-2019-15118 as far I
+can tell.
 
 Regards,
 Salvatore

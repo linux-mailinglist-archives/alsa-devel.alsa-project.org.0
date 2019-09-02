@@ -2,71 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC2E3A5600
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:28:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAE4BA567B
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:43:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBB3716E0;
-	Mon,  2 Sep 2019 14:27:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBB3716E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2052A16BF;
+	Mon,  2 Sep 2019 14:42:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2052A16BF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567427296;
-	bh=1/tM4jIemsiPlyMRZ04zMlzRtXx53jIcjFXa52eBPgo=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EDA8ThVjvSGHUZSEBYANEXEQxeosC5fMnd9HkTbYyixdnmSM7035xBkGTW8lMx/q/
-	 dsFeqpCWAjVIiUINZgM+uSsBv1AVS9TOjLdmFxrvv97UFvqeF1g1zWLEvzJpKgIB9W
-	 liZvaiGtr9ENdQcZ4JUJMLmPeMOhKqf8WBuXay+I=
+	s=default; t=1567428227;
+	bh=sTfrWk2BlMB/MIvvkurmyAC4vJtwXYxl9VbKg0+sgs8=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vsl1BR7HUC6HM1vs0Nzqtj0vFQuPB/HIMnaK7yMjKF/kg/emPaJTRiG8wi2BKLolk
+	 aLVitiGuUn0Zym4ML4lS/ZAnq5rManrOQAztaBqyrtXCS9brH/elWA3TQgtv6sHecT
+	 c7kx/OSyn3VUI2n+zFMtfWv1HQM14QfIKTeqF9W4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 41E66F8060F;
-	Mon,  2 Sep 2019 14:24:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE68FF803D6;
+	Mon,  2 Sep 2019 14:42:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 483B1F80529; Mon,  2 Sep 2019 14:24:01 +0200 (CEST)
+ id 7D340F803D0; Mon,  2 Sep 2019 14:41:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDE31F80394
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDE31F80394
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BCB6F80392
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:41:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BCB6F80392
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="GFG7BUq/"
+ header.b="q8ijxkng"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=3sA9rF43iCNE2ckEX1YDNxjC1Ng8TXVV+08gsUmJPsA=; b=GFG7BUq/gqRR
- +Hx6X8wzGAgkuRqKmtLdcOKaAOaXEi7TqgYmv1oF4YSdLIMNBK+uOVXa81zvyU1PYW8cWBAIZZ6r8
- wGtSOek2V0CBeQ5mv3VLcauBgvEj4ewxIzIehEKlCnCRngILCQf5mZ1RP3+TYbBGR6jCNz2czJOaT
- MU4xc=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4kBJEx+Qu3mSPv+hNIjzoykytvR4h7p7UM0vTM6s1vA=; b=q8ijxkngdjzFHlHeGzQ+04Tbg
+ S6qaZsvAE7t3yLIEKlaNgveLU8PEQG2luelC4qffbo8hYlHlt1e6e3nWdmNOq/bgn4pReBd87Yb+d
+ TWBi2CoUsD2MmTmBG1rq+jWZbVkwekhCsmOh7OjmPp+5rvj2fNylXm1etnnxXI3aSpWq4=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i4lND-0003CG-FX; Mon, 02 Sep 2019 12:23:55 +0000
+ id 1i4lcX-0003GM-F8; Mon, 02 Sep 2019 12:39:45 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A16BB2742CCB; Mon,  2 Sep 2019 13:23:54 +0100 (BST)
+ id B6FAE2742CCB; Mon,  2 Sep 2019 13:39:44 +0100 (BST)
+Date: Mon, 2 Sep 2019 13:39:44 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87sgps7lbt.wl-kuninori.morimoto.gx@renesas.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190902122354.A16BB2742CCB@ypsilon.sirena.org.uk>
-Date: Mon,  2 Sep 2019 13:23:54 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: move soc_probe_component()
-	position" to the asoc tree
+To: Daniel Baluta <daniel.baluta@nxp.com>
+Message-ID: <20190902123944.GB5819@sirena.co.uk>
+References: <20190830225514.5283-1-daniel.baluta@nxp.com>
+MIME-Version: 1.0
+In-Reply-To: <20190830225514.5283-1-daniel.baluta@nxp.com>
+X-Cookie: Lost ticket pays maximum rate.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ shengjiu.wang@nxp.com, linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>, gabrielcsmo@gmail.com,
+ festevam@gmail.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Set SAI Channel Mode to
+	Output Mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,353 +86,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3248590286877877555=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: soc-core: move soc_probe_component() position
+--===============3248590286877877555==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IiVenqGWf+H9Y6IX"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+--IiVenqGWf+H9Y6IX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Sat, Aug 31, 2019 at 01:55:14AM +0300, Daniel Baluta wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> Fix this by setting CHMOD to Output Mode so that pins will output zero
+> when slots are masked or channels are disabled.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+This patch seems to do this unconditionally.  This is fine for
+configurations where the SoC is the only thing driving the bus but will
+mean that for TDM configurations where something else also drives some
+of the slots we'll end up with both devices driving simultaneously.  The
+safest thing would be to set this only if TDM isn't configured.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--IiVenqGWf+H9Y6IX
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
 
-From ffd60fba19d9752f553aac367cd40362011ab6c9 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 23 Aug 2019 09:58:42 +0900
-Subject: [PATCH] ASoC: soc-core: move soc_probe_component() position
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1tDY8ACgkQJNaLcl1U
+h9B6eQf/fWHBjGPAP86B03a4INm+HF3NUTJW3RUX7OufxZ6nXwI99zy/47e5hK4r
+RrYrDlh5Ybe5Dl6gK1/4VrO/SFMg6PyOJjpjwAijXRjW3y3CqiZe5e9bhLVoIcrM
+zAERB9q0o82bPAsKxlCqkG69MKZrHnDPH7pBAXM2kPRyn6QXQwWV8qqE2Rpfkto2
+ZprQEwsRlwatAPn4WfHBN7OsZy3BeVZqhT2VLD9GkF0zBdBhZEvO4opbj7cbQHdc
+Jdrw3AFvgUYHsjsNx+x1uVVy7DY1r/V2yh8ly8+WMn204eYDR8aKnm5oO0OpoN6o
+ibcFAnroXympSUaJvtWjiAzS0QBTBQ==
+=Wb+0
+-----END PGP SIGNATURE-----
 
-It is easy to read code if it is cleanly using paired function/naming,
-like start <-> stop, register <-> unregister, etc, etc.
-But, current ALSA SoC code is very random, unbalance, not paired, etc.
-It is easy to create bug at the such code, and it will be difficult to
-debug.
+--IiVenqGWf+H9Y6IX--
 
-soc_probe_comonent() has paired soc_remove_comonent(),
-but, these are implemented at different place.
-So it is difficult to confirm code.
-This patch moves soc_probe_component() next to
-soc_remove_component().
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87sgps7lbt.wl-kuninori.morimoto.gx@renesas.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-core.c | 261 +++++++++++++++++++++----------------------
- 1 file changed, 130 insertions(+), 131 deletions(-)
-
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 3754a08baf62..8fa1cfcc6f17 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -938,6 +938,41 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
- 	return -EPROBE_DEFER;
- }
- 
-+static void soc_set_of_name_prefix(struct snd_soc_component *component)
-+{
-+	struct device_node *of_node = soc_component_to_node(component);
-+	const char *str;
-+	int ret;
-+
-+	ret = of_property_read_string(of_node, "sound-name-prefix", &str);
-+	if (!ret)
-+		component->name_prefix = str;
-+}
-+
-+static void soc_set_name_prefix(struct snd_soc_card *card,
-+				struct snd_soc_component *component)
-+{
-+	int i;
-+
-+	for (i = 0; i < card->num_configs && card->codec_conf; i++) {
-+		struct snd_soc_codec_conf *map = &card->codec_conf[i];
-+		struct device_node *of_node = soc_component_to_node(component);
-+
-+		if (map->of_node && of_node != map->of_node)
-+			continue;
-+		if (map->dev_name && strcmp(component->name, map->dev_name))
-+			continue;
-+		component->name_prefix = map->name_prefix;
-+		return;
-+	}
-+
-+	/*
-+	 * If there is no configuration table or no match in the table,
-+	 * check if a prefix is provided in the node
-+	 */
-+	soc_set_of_name_prefix(component);
-+}
-+
- static void soc_cleanup_component(struct snd_soc_component *component)
- {
- 	snd_soc_component_set_jack(component, NULL, NULL);
-@@ -958,6 +993,101 @@ static void soc_remove_component(struct snd_soc_component *component)
- 	soc_cleanup_component(component);
- }
- 
-+static int soc_probe_component(struct snd_soc_card *card,
-+			       struct snd_soc_component *component)
-+{
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	struct snd_soc_dai *dai;
-+	int ret;
-+
-+	if (!strcmp(component->name, "snd-soc-dummy"))
-+		return 0;
-+
-+	if (component->card) {
-+		if (component->card != card) {
-+			dev_err(component->dev,
-+				"Trying to bind component to card \"%s\" but is already bound to card \"%s\"\n",
-+				card->name, component->card->name);
-+			return -ENODEV;
-+		}
-+		return 0;
-+	}
-+
-+	ret = snd_soc_component_module_get_when_probe(component);
-+	if (ret < 0)
-+		return ret;
-+
-+	component->card = card;
-+	dapm->card = card;
-+	INIT_LIST_HEAD(&dapm->list);
-+	soc_set_name_prefix(card, component);
-+
-+	soc_init_component_debugfs(component);
-+
-+	ret = snd_soc_dapm_new_controls(dapm,
-+					component->driver->dapm_widgets,
-+					component->driver->num_dapm_widgets);
-+
-+	if (ret != 0) {
-+		dev_err(component->dev,
-+			"Failed to create new controls %d\n", ret);
-+		goto err_probe;
-+	}
-+
-+	for_each_component_dais(component, dai) {
-+		ret = snd_soc_dapm_new_dai_widgets(dapm, dai);
-+		if (ret != 0) {
-+			dev_err(component->dev,
-+				"Failed to create DAI widgets %d\n", ret);
-+			goto err_probe;
-+		}
-+	}
-+
-+	ret = snd_soc_component_probe(component);
-+	if (ret < 0) {
-+		dev_err(component->dev,
-+			"ASoC: failed to probe component %d\n", ret);
-+		goto err_probe;
-+	}
-+	WARN(dapm->idle_bias_off &&
-+	     dapm->bias_level != SND_SOC_BIAS_OFF,
-+	     "codec %s can not start from non-off bias with idle_bias_off==1\n",
-+	     component->name);
-+
-+	/* machine specific init */
-+	if (component->init) {
-+		ret = component->init(component);
-+		if (ret < 0) {
-+			dev_err(component->dev,
-+				"Failed to do machine specific init %d\n", ret);
-+			goto err_probe;
-+		}
-+	}
-+
-+	ret = snd_soc_add_component_controls(component,
-+					     component->driver->controls,
-+					     component->driver->num_controls);
-+	if (ret < 0)
-+		goto err_probe;
-+
-+	ret = snd_soc_dapm_add_routes(dapm,
-+				      component->driver->dapm_routes,
-+				      component->driver->num_dapm_routes);
-+	if (ret < 0)
-+		goto err_probe;
-+
-+	list_add(&dapm->list, &card->dapm_list);
-+	/* see for_each_card_components */
-+	list_add(&component->card_list, &card->component_dev_list);
-+
-+err_probe:
-+	if (ret < 0)
-+		soc_cleanup_component(component);
-+
-+	return ret;
-+}
-+
- static void soc_remove_dai(struct snd_soc_dai *dai, int order)
- {
- 	int err;
-@@ -1207,137 +1337,6 @@ void snd_soc_remove_dai_link(struct snd_soc_card *card,
- }
- EXPORT_SYMBOL_GPL(snd_soc_remove_dai_link);
- 
--static void soc_set_of_name_prefix(struct snd_soc_component *component)
--{
--	struct device_node *component_of_node = soc_component_to_node(component);
--	const char *str;
--	int ret;
--
--	ret = of_property_read_string(component_of_node, "sound-name-prefix",
--				      &str);
--	if (!ret)
--		component->name_prefix = str;
--}
--
--static void soc_set_name_prefix(struct snd_soc_card *card,
--				struct snd_soc_component *component)
--{
--	int i;
--
--	for (i = 0; i < card->num_configs && card->codec_conf; i++) {
--		struct snd_soc_codec_conf *map = &card->codec_conf[i];
--		struct device_node *component_of_node = soc_component_to_node(component);
--
--		if (map->of_node && component_of_node != map->of_node)
--			continue;
--		if (map->dev_name && strcmp(component->name, map->dev_name))
--			continue;
--		component->name_prefix = map->name_prefix;
--		return;
--	}
--
--	/*
--	 * If there is no configuration table or no match in the table,
--	 * check if a prefix is provided in the node
--	 */
--	soc_set_of_name_prefix(component);
--}
--
--static int soc_probe_component(struct snd_soc_card *card,
--	struct snd_soc_component *component)
--{
--	struct snd_soc_dapm_context *dapm =
--			snd_soc_component_get_dapm(component);
--	struct snd_soc_dai *dai;
--	int ret;
--
--	if (!strcmp(component->name, "snd-soc-dummy"))
--		return 0;
--
--	if (component->card) {
--		if (component->card != card) {
--			dev_err(component->dev,
--				"Trying to bind component to card \"%s\" but is already bound to card \"%s\"\n",
--				card->name, component->card->name);
--			return -ENODEV;
--		}
--		return 0;
--	}
--
--	ret = snd_soc_component_module_get_when_probe(component);
--	if (ret < 0)
--		return ret;
--
--	component->card = card;
--	dapm->card = card;
--	INIT_LIST_HEAD(&dapm->list);
--	soc_set_name_prefix(card, component);
--
--	soc_init_component_debugfs(component);
--
--	ret = snd_soc_dapm_new_controls(dapm,
--					component->driver->dapm_widgets,
--					component->driver->num_dapm_widgets);
--
--	if (ret != 0) {
--		dev_err(component->dev,
--			"Failed to create new controls %d\n", ret);
--		goto err_probe;
--	}
--
--	for_each_component_dais(component, dai) {
--		ret = snd_soc_dapm_new_dai_widgets(dapm, dai);
--		if (ret != 0) {
--			dev_err(component->dev,
--				"Failed to create DAI widgets %d\n", ret);
--			goto err_probe;
--		}
--	}
--
--	ret = snd_soc_component_probe(component);
--	if (ret < 0) {
--		dev_err(component->dev,
--			"ASoC: failed to probe component %d\n", ret);
--		goto err_probe;
--	}
--	WARN(dapm->idle_bias_off &&
--	     dapm->bias_level != SND_SOC_BIAS_OFF,
--	     "codec %s can not start from non-off bias with idle_bias_off==1\n",
--	     component->name);
--
--	/* machine specific init */
--	if (component->init) {
--		ret = component->init(component);
--		if (ret < 0) {
--			dev_err(component->dev,
--				"Failed to do machine specific init %d\n", ret);
--			goto err_probe;
--		}
--	}
--
--	ret = snd_soc_add_component_controls(component,
--					     component->driver->controls,
--					     component->driver->num_controls);
--	if (ret < 0)
--		goto err_probe;
--
--	ret = snd_soc_dapm_add_routes(dapm,
--				      component->driver->dapm_routes,
--				      component->driver->num_dapm_routes);
--	if (ret < 0)
--		goto err_probe;
--
--	list_add(&dapm->list, &card->dapm_list);
--	/* see for_each_card_components */
--	list_add(&component->card_list, &card->component_dev_list);
--
--err_probe:
--	if (ret < 0)
--		soc_cleanup_component(component);
--
--	return ret;
--}
--
- static void soc_rtd_free(struct snd_soc_pcm_runtime *rtd)
- {
- 	if (rtd->dev_registered) {
--- 
-2.20.1
+--===============3248590286877877555==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3248590286877877555==--

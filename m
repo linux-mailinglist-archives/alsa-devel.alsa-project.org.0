@@ -2,90 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05E4FA51C5
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 10:33:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D2DA51D4
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 10:36:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E0A216A6;
-	Mon,  2 Sep 2019 10:32:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E0A216A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id A3BEB169C;
+	Mon,  2 Sep 2019 10:35:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3BEB169C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567413209;
-	bh=8SpdpePOx19UOt+1fM7kqnoznJ141FIt+p0t4KUSNNc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1567413378;
+	bh=uO+oA0eTvaXwW7S1voF2iwIS1MWvIdM5H1Uyk7ePp80=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qlzUXhSVqAakvQ5hB6MHQsrfjD2Xufl/qbRjw6H7o8S/4uv2TZTf32kG0obaXpgSg
-	 YdL+sVokZQ+WFIpG+VYUX9TzOHJxKmg6ZZBulgW/acQOwaG2TTqbSxv+SMmUTC7lv3
-	 36ZDyHtQCwCz8XDyPVIXk7CgdAQuDTh+KKrDtfD8=
+	b=hBfYBe+ary8AsiuyuHDy3yArFh6x9m7Na5cw3m2G+58oEbHvLSJaAktZXXZWFVqC2
+	 R/pRea94Wk0zhWkhD+SMYK65woZa90rgWIFRU0ATdb/pmbrryfcMJZsufr0YxmirVM
+	 b6Mkri/Ixjks5ycdiwqpv/TeeSGc2baV10rHYU4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D0C8DF80394;
-	Mon,  2 Sep 2019 10:31:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 398EAF803D0;
+	Mon,  2 Sep 2019 10:34:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BD9BF803D0; Mon,  2 Sep 2019 10:31:41 +0200 (CEST)
+ id AB6CAF803D0; Mon,  2 Sep 2019 10:34:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7AC84F8011E
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 10:31:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AC84F8011E
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 1D3DA4E927
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 08:31:34 +0000 (UTC)
-Received: by mail-ed1-f70.google.com with SMTP id z39so5634466edc.15
- for <alsa-devel@alsa-project.org>; Mon, 02 Sep 2019 01:31:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=c87BAGVabXocuKu1a4rY5K3qH1J2wkZsvMhdPTiauQU=;
- b=uWpaRU3n09bQw3AKow/H1O6qEVFHCNzgtyv8abShHznZQHW9NIE5yV/yLacU0gsuzY
- vTa21vVwR8X0THpLvCCeN9mqCf5yT/n9VEVAZmPtcaN2dkKdHpfoPZiZ9OQuhuA23Gwb
- TGMJ/b0eSL391fq3K0ROJor5AKVApkhDHJsDsXDUGuh3W1+QUvdPDC3lGIKwlk3Hwyze
- 9pXMij877+9RbxPaOcrmLHfWDvKAvPWzeyX8wRmcSaUVvTPMUlUjiW7sQ1m3LZpb/YjA
- Qy/IVPFf7mrgLwBsiiCmF7PvCqHLwQNVirLOX+oc7IPhk6N++0TuGQC596EATuczZa9B
- hWng==
-X-Gm-Message-State: APjAAAWHAZYdCa/aTS+aCis41u6xCk30fUqB3j+NtVmTdc/8DUEU1Y0b
- 05kicFI4OOnXsZIa1MQV8OJjGHnGVjkoztyBben7E43y6P33Lrf6Kurabf13i6KzcatyVLRDbLk
- OVAcWSV3wFBeDqTiWEABzQzg=
-X-Received: by 2002:a17:906:13d5:: with SMTP id
- g21mr23563268ejc.211.1567413092464; 
- Mon, 02 Sep 2019 01:31:32 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqxifImwFtvEsh+GtaVLEQ65x5teBrg5zDJ0Ww3wCNShD9wv/rJCsnNTZ2H6UDV4cSzVAhW6hA==
-X-Received: by 2002:a17:906:13d5:: with SMTP id
- g21mr23563243ejc.211.1567413092111; 
- Mon, 02 Sep 2019 01:31:32 -0700 (PDT)
-Received: from shalem.localdomain (84-106-84-65.cable.dynamic.v4.ziggo.nl.
- [84.106.84.65])
- by smtp.gmail.com with ESMTPSA id p92sm307017edb.22.2019.09.02.01.31.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 02 Sep 2019 01:31:31 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 984C4F802E0
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 10:34:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 984C4F802E0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="EU0ACbEH"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="uDQx1bIc"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 7C8FA21E97;
+ Mon,  2 Sep 2019 04:34:22 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Mon, 02 Sep 2019 04:34:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=hMX0v7CVKYm4kqWEV/5zzQLKbi7
+ 6ItOnSoow9qKgaMA=; b=EU0ACbEHdb4vy1KVDI47ff3Q+7n+IuOrLXYx7hpNr99
+ k65FClt1YVal3bcGmWXNjX+nqF5YsuQRpbxxp/QMkCHR4Pz9t6hAq8Ck7V9qTXBK
+ PgGcM8X0B2+DLOahZHq+7kCKZ4LwbBpOw6IY3xGd39mb511RqlvgdhZVxDh1KDRV
+ y/yp1Tf0FDqexJ8klWnz2EhFj4Di1mbZz9M6WHShHhYt4XWMI4Nctya9Bzd25h22
+ 78DeUl4iY02kEQJ08oaDO7VAAuxhxKrDAJANm8igF9/a2e4qsGtQAmY3nXRgxfQK
+ zy45DqsY3lEHgRo47Mb91XxgNolD9ZI7E7/K1yIkAhw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=hMX0v7
+ CVKYm4kqWEV/5zzQLKbi76ItOnSoow9qKgaMA=; b=uDQx1bIc9jLTQVHqo9w/iI
+ AZwn/Yu9Q+mIGCynEzM3cyre5Ax7AXkQ5rNI3YMOu1s63ZrMecGWNoW81UJ6Uny0
+ 4KCLRWapBo5hD5V4zaBdTO0ZzR41pu4ObgLJAz0RJ3+krwl6AFFwuF4h3XMXASfS
+ SLEbJW7uF9SdSqRg2QGrA3ZZOsx2EZ3eeNJgavjZ+bu+VcfcIZMTd56Qg3Wj3n7g
+ ntNFG7woqPqRDOU2m9zMPeDnCXssFy0Pcb4XBw8iNEsFcluocbhkMfc1bgwu9FqH
+ VSMhLoCOIJnJtSDtBjTdAWtu7mRHhMOxuF/eCwCxikIZXM6fq2nmfOmmaxVk0wKg
+ ==
+X-ME-Sender: <xms:DdRsXdxEDnRDkeGVpEmsKuwtPRPDTlMSKHmyzwGj-W87BfP0eFjrRA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudejtddgtdehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesthdtredttdervdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghenucfkphepudegrdefrdejhedr
+ udekudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmh
+ hotggthhhirdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:DdRsXZnma0Cuao4jLQWnXvqn4nJNAA7ZadOPmowzV9vCYaVSdITycA>
+ <xmx:DdRsXaGuKbFSXbqWEsh9k_hXTpNCgiiis6JUAnsPiFmIOYrys-Bepw>
+ <xmx:DdRsXRWgo1RK_IWUlqa5jZ0zs5MnA6xZNkzjKKL5_Thaou9DVF2cyg>
+ <xmx:DtRsXcB7l1PPWjV1Rsx97xSXelYPDucE5U2q0MU2L6Py1kFBT4esjg>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id E8F408005B;
+ Mon,  2 Sep 2019 04:34:19 -0400 (EDT)
+Date: Mon, 2 Sep 2019 17:34:17 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: Takashi Iwai <tiwai@suse.de>
-References: <20190831145842.32990-1-hdegoede@redhat.com>
- <s5hef0zjhw5.wl-tiwai@suse.de>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <99a375b4-f6e9-ef5e-6f24-9e76db44b2e8@redhat.com>
-Date: Mon, 2 Sep 2019 10:31:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+Message-ID: <20190902083416.GA14883@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+References: <20190830132446.5154-1-o-takashi@sakamocchi.jp>
+ <s5h4l1xl5im.wl-tiwai@suse.de>
 MIME-Version: 1.0
-In-Reply-To: <s5hef0zjhw5.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/2] conf/ucm: Add UCM profile for
- cht-bsw-rt5672 boards
+Content-Disposition: inline
+In-Reply-To: <s5h4l1xl5im.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] MAINTAINERS: update entry of firewire
+	audio drivers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,450 +112,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
-
-On 02-09-19 09:07, Takashi Iwai wrote:
-> On Sat, 31 Aug 2019 16:58:41 +0200,
-> Hans de Goede wrote:
->>
->> Add an UCM profile for Intel boards with a RT5672 codec.
->>
->> Re-use the existing platform enable and disable sequences for BYT/CHT SST
->> support and add a codecs/rt5672 dir with codec specific enable / disable
->> sequences for the various inputs and outputs.
->>
->> This is partly based on earlier work done here:
->> https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
->>
->> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+On Sat, Aug 31, 2019 at 05:27:13PM +0200, Takashi Iwai wrote:
+> On Fri, 30 Aug 2019 15:24:46 +0200,
+> Takashi Sakamoto wrote:
+> > 
+> > This commit adds myself as one of maintainers for firewire audio
+> > drivers and IEC 61883-1/6 packet streaming engine. I call them ALSA
+> > firewire stack as a whole.
+> > 
+> > 6 years ago I joined in development for this category of drivers with
+> > heavy reverse-engineering tasks and over 100 models are now available
+> > from ALSA applications. IEEE 1394 bus itself and units on the bus are
+> > enough legacy but the development still continues.
+> > 
+> > I have a plan to add drastic enhancement in kernel v5.5 and v5.6 period.
+> > This commit adds myself into MAINTAINERS so that developers and users
+> > can easily find active developer to post their issues, especially for
+> > regression.
+> > 
+> > Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 > 
-> We've recently set up a new alsa-ucm-conf repo for keeping UCM
-> profiles outside alsa-lib repo.  The new repo has a different license
-> (BSD3-Clause) for easily adapting to OSes with license restriction.
+> Applied now (with a typo correction -- a superfluous '+' was added).
+> Thanks.
 > 
-> I guess we should put the stuff there from now on, as much as
-> possible?  The handling of UCM profile is currently pending, and we
-> need to decide the general policy, as well as how to transfer the
-> existing profiles to the new repo...
+> 
+> Takashi
+ 
+Oops, thanks for your care to my typo...
 
-I think it is good that we now have a separate repo and I'm fine
-with re-licensing all my UCM profile work under a BSD3-Clause license.
+> > ---
+> >  MAINTAINERS | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 24e29b2e53c9..8929a2ec75f7 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -6264,8 +6264,9 @@ S:	Maintained
+> >  F:	drivers/hwmon/f75375s.c
+> >  F:	include/linux/f75375s.h
+> >  
+> > -FIREWIRE AUDIO DRIVERS
+> > +FIREWIRE AUDIO DRIVERS and IEC 61883-1/6 PACKET STREAMING ENGINE
+> >  M:	Clemens Ladisch <clemens@ladisch.de>
+> > ++M:	Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> >  L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+> >  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git
+> >  S:	Maintained
+> > -- 
+> > 2.20.1
+> > 
 
-But I believe that until we have actually figured out how this is
-all going to work and we are actually doing releases from the
-new alsa-ucm-conf repo, we should keep adding new profiles to
-alsa-lib for now, because these profiles are necessary for things
-to work OOTB for our end users.
 
-Regards,
+Regards
 
-Hans
-
-
->> ---
->>   configure.ac                                  |  2 +
->>   src/conf/ucm/Makefile.am                      |  1 +
->>   src/conf/ucm/cht-bsw-rt5672/HiFi.conf         | 27 +++++++++++
->>   src/conf/ucm/cht-bsw-rt5672/Makefile.am       |  4 ++
->>   .../ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf    |  6 +++
->>   src/conf/ucm/codecs/Makefile.am               |  1 +
->>   src/conf/ucm/codecs/rt5672/DMIC1.conf         | 28 +++++++++++
->>   src/conf/ucm/codecs/rt5672/DMIC2.conf         | 28 +++++++++++
->>   src/conf/ucm/codecs/rt5672/EnableSeq.conf     | 48 +++++++++++++++++++
->>   src/conf/ucm/codecs/rt5672/HeadPhones.conf    | 23 +++++++++
->>   src/conf/ucm/codecs/rt5672/HeadsetMic.conf    | 38 +++++++++++++++
->>   src/conf/ucm/codecs/rt5672/Makefile.am        |  5 ++
->>   src/conf/ucm/codecs/rt5672/MonoSpeaker.conf   | 26 ++++++++++
->>   src/conf/ucm/codecs/rt5672/Speaker.conf       | 22 +++++++++
->>   14 files changed, 259 insertions(+)
->>   create mode 100644 src/conf/ucm/cht-bsw-rt5672/HiFi.conf
->>   create mode 100644 src/conf/ucm/cht-bsw-rt5672/Makefile.am
->>   create mode 100644 src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/DMIC1.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/DMIC2.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/EnableSeq.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/HeadPhones.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/HeadsetMic.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/Makefile.am
->>   create mode 100644 src/conf/ucm/codecs/rt5672/MonoSpeaker.conf
->>   create mode 100644 src/conf/ucm/codecs/rt5672/Speaker.conf
->>
->> diff --git a/configure.ac b/configure.ac
->> index 2e955760..9ccca7aa 100644
->> --- a/configure.ac
->> +++ b/configure.ac
->> @@ -741,6 +741,7 @@ AC_OUTPUT(Makefile doc/Makefile doc/pictures/Makefile doc/doxygen.cfg \
->>   	  src/conf/ucm/bytcr-rt5651-stereo-spk-in1-mic/Makefile \
->>   	  src/conf/ucm/bytcr-rt5651-stereo-spk-in2-mic/Makefile \
->>   	  src/conf/ucm/bytcr-rt5651-stereo-spk-in12-mic/Makefile \
->> +	  src/conf/ucm/cht-bsw-rt5672/Makefile \
->>   	  src/conf/ucm/chtnau8824/Makefile \
->>   	  src/conf/ucm/chtrt5645/Makefile \
->>   	  src/conf/ucm/chtrt5645-mono-speaker-analog-mic/Makefile \
->> @@ -772,6 +773,7 @@ AC_OUTPUT(Makefile doc/Makefile doc/pictures/Makefile doc/doxygen.cfg \
->>   	  src/conf/ucm/codecs/rt5640/Makefile \
->>   	  src/conf/ucm/codecs/rt5645/Makefile \
->>   	  src/conf/ucm/codecs/rt5651/Makefile \
->> +	  src/conf/ucm/codecs/rt5672/Makefile \
->>   	  src/conf/ucm/platforms/Makefile \
->>   	  src/conf/ucm/platforms/bytcr/Makefile \
->>   	  src/conf/topology/Makefile \
->> diff --git a/src/conf/ucm/Makefile.am b/src/conf/ucm/Makefile.am
->> index 02257048..2ed4e1a3 100644
->> --- a/src/conf/ucm/Makefile.am
->> +++ b/src/conf/ucm/Makefile.am
->> @@ -25,6 +25,7 @@ bytcr-rt5651-stereo-spk-dmic-mic \
->>   bytcr-rt5651-stereo-spk-in1-mic \
->>   bytcr-rt5651-stereo-spk-in2-mic \
->>   bytcr-rt5651-stereo-spk-in12-mic \
->> +cht-bsw-rt5672 \
->>   chtnau8824 \
->>   chtrt5645 \
->>   chtrt5645-mono-speaker-analog-mic \
->> diff --git a/src/conf/ucm/cht-bsw-rt5672/HiFi.conf b/src/conf/ucm/cht-bsw-rt5672/HiFi.conf
->> new file mode 100644
->> index 00000000..b83099d8
->> --- /dev/null
->> +++ b/src/conf/ucm/cht-bsw-rt5672/HiFi.conf
->> @@ -0,0 +1,27 @@
->> +# Adapted from https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
->> +
->> +SectionVerb {
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		<platforms/bytcr/PlatformEnableSeq.conf>
->> +		<codecs/rt5672/EnableSeq.conf>
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		<platforms/bytcr/PlatformDisableSeq.conf>
->> +	]
->> +
->> +	Value {
->> +		PlaybackPCM "hw:chtbswrt5672"
->> +		CapturePCM "hw:chtbswrt5672"
->> +	}
->> +}
->> +
->> +<codecs/rt5672/Speaker.conf>
->> +<codecs/rt5672/MonoSpeaker.conf>
->> +<codecs/rt5672/HeadPhones.conf>
->> +
->> +<codecs/rt5672/DMIC1.conf>
->> +<codecs/rt5672/DMIC2.conf>
->> +<codecs/rt5672/HeadsetMic.conf>
->> diff --git a/src/conf/ucm/cht-bsw-rt5672/Makefile.am b/src/conf/ucm/cht-bsw-rt5672/Makefile.am
->> new file mode 100644
->> index 00000000..c3d557fa
->> --- /dev/null
->> +++ b/src/conf/ucm/cht-bsw-rt5672/Makefile.am
->> @@ -0,0 +1,4 @@
->> +alsaconfigdir = @ALSA_CONFIG_DIR@
->> +ucmdir = $(alsaconfigdir)/ucm/cht-bsw-rt5672
->> +ucm_DATA = cht-bsw-rt5672.conf HiFi.conf
->> +EXTRA_DIST = $(ucm_DATA)
->> diff --git a/src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf b/src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf
->> new file mode 100644
->> index 00000000..c79024d9
->> --- /dev/null
->> +++ b/src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf
->> @@ -0,0 +1,6 @@
->> +# Adapted from https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
->> +
->> +SectionUseCase."HiFi" {
->> +	File "HiFi.conf"
->> +	Comment "Play HiFi quality Music"
->> +}
->> diff --git a/src/conf/ucm/codecs/Makefile.am b/src/conf/ucm/codecs/Makefile.am
->> index 5987b9cf..17c4ebf9 100644
->> --- a/src/conf/ucm/codecs/Makefile.am
->> +++ b/src/conf/ucm/codecs/Makefile.am
->> @@ -4,4 +4,5 @@ es8316 \
->>   rt5640 \
->>   rt5645 \
->>   rt5651 \
->> +rt5672 \
->>   nau8824
->> diff --git a/src/conf/ucm/codecs/rt5672/DMIC1.conf b/src/conf/ucm/codecs/rt5672/DMIC1.conf
->> new file mode 100644
->> index 00000000..9a8db1a5
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/DMIC1.conf
->> @@ -0,0 +1,28 @@
->> +SectionDevice."DigitalMic-DMIC1" {
->> +	Comment "Internal Digital Microphone on DMIC1"
->> +
->> +	ConflictingDevice [
->> +		"DigitalMic-DMIC2"
->> +		"HeadsetMic"
->> +	]
->> +
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Int Mic Switch' on"
->> +		cset "name='Stereo1 DMIC Mux' DMIC1"
->> +		cset "name='Stereo1 ADC 2 Mux' DMIC"
->> +		cset "name='Sto1 ADC MIXL ADC2 Switch' on"
->> +		cset "name='Sto1 ADC MIXR ADC2 Switch' on"
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Int Mic Switch' off"
->> +		cset "name='Sto1 ADC MIXL ADC2 Switch' off"
->> +		cset "name='Sto1 ADC MIXR ADC2 Switch' off"
->> +	]
->> +
->> +	Value {
->> +		CaptureChannels 2
->> +	}
->> +}
->> diff --git a/src/conf/ucm/codecs/rt5672/DMIC2.conf b/src/conf/ucm/codecs/rt5672/DMIC2.conf
->> new file mode 100644
->> index 00000000..b960436e
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/DMIC2.conf
->> @@ -0,0 +1,28 @@
->> +SectionDevice."DigitalMic-DMIC2" {
->> +	Comment "Internal Digital Microphone on DMIC2"
->> +
->> +	ConflictingDevice [
->> +		"DigitalMic-DMIC1"
->> +		"HeadsetMic"
->> +	]
->> +
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Int Mic Switch' on"
->> +		cset "name='Stereo1 DMIC Mux' DMIC2"
->> +		cset "name='Stereo1 ADC 2 Mux' DMIC"
->> +		cset "name='Sto1 ADC MIXL ADC2 Switch' on"
->> +		cset "name='Sto1 ADC MIXR ADC2 Switch' on"
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Int Mic Switch' off"
->> +		cset "name='Sto1 ADC MIXL ADC2 Switch' off"
->> +		cset "name='Sto1 ADC MIXR ADC2 Switch' off"
->> +	]
->> +
->> +	Value {
->> +		CaptureChannels 2
->> +	}
->> +}
->> diff --git a/src/conf/ucm/codecs/rt5672/EnableSeq.conf b/src/conf/ucm/codecs/rt5672/EnableSeq.conf
->> new file mode 100644
->> index 00000000..bd4f357c
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/EnableSeq.conf
->> @@ -0,0 +1,48 @@
->> +# Playback (I2S1)
->> +
->> +# common
->> +cset "name='DAC1 L Mux' IF1 DAC"
->> +cset "name='DAC1 R Mux' IF1 DAC"
->> +cset "name='DAC1 MIXL DAC1 Switch' on"
->> +cset "name='DAC1 MIXR DAC1 Switch' on"
->> +cset "name='Stereo DAC MIXL DAC L1 Switch' on"
->> +cset "name='Stereo DAC MIXL DAC R1 Switch' off"
->> +cset "name='Stereo DAC MIXR DAC R1 Switch' on"
->> +cset "name='Stereo DAC MIXR DAC L1 Switch' off"
->> +
->> +# speaker
->> +cset "name='PDM1 L Mux' Stereo DAC"
->> +cset "name='PDM1 R Mux' Stereo DAC"
->> +
->> +# headphone
->> +cset "name='HPOVOL MIXL DAC1 Switch' on"
->> +cset "name='HPOVOL MIXR DAC1 Switch' on"
->> +cset "name='HPO MIX HPVOL Switch' on"
->> +
->> +# line out
->> +# cset "name='OUT MIXL DAC L1 Switch' on"
->> +# cset "name='OUT MIXR DAC R1 Switch' on"
->> +# cset "name='LOUT MIX OUTMIX L Switch' on"
->> +# cset "name='LOUT MIX OUTMIX R Switch' on"
->> +
->> +# 47=0dB, 0.375 dB/step
->> +cset "name='ADC Capture Volume' 47"
->> +cset "name='ADC Capture Switch' on"
->> +
->> +# Headset mic is quite soft, boost it a bit, 1 = 20dB which is the first
->> +# available boost step
->> +cset "name='IN1 Boost Volume' 1"
->> +
->> +# Start with all outputs / inputs disabled
->> +cset "name='Ext Spk Switch' off"
->> +cset "name='Headphone Switch' off"
->> +cset "name='Int Mic Switch' off"
->> +cset "name='Headset Mic Switch' off"
->> +cset "name='Sto1 ADC MIXL ADC1 Switch' off"
->> +cset "name='Sto1 ADC MIXR ADC1 Switch' off"
->> +cset "name='Sto1 ADC MIXL ADC2 Switch' off"
->> +cset "name='Sto1 ADC MIXR ADC2 Switch' off"
->> +cset "name='RECMIXL BST1 Switch' off"
->> +cset "name='RECMIXR BST1 Switch' off"
->> +cset "name='RECMIXL BST2 Switch' off"
->> +cset "name='RECMIXR BST2 Switch' off"
->> diff --git a/src/conf/ucm/codecs/rt5672/HeadPhones.conf b/src/conf/ucm/codecs/rt5672/HeadPhones.conf
->> new file mode 100644
->> index 00000000..cb8aad2d
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/HeadPhones.conf
->> @@ -0,0 +1,23 @@
->> +SectionDevice."Headphones" {
->> +	Comment "Headphones"
->> +
->> +	ConflictingDevice [
->> +		"Speaker"
->> +		"MonoSpeaker"
->> +	]
->> +
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Headphone Switch' on"
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Headphone Switch' off"
->> +	]
->> +
->> +	Value {
->> +		PlaybackChannels "2"
->> +		JackControl "Headphone Jack"
->> +	}
->> +}
->> diff --git a/src/conf/ucm/codecs/rt5672/HeadsetMic.conf b/src/conf/ucm/codecs/rt5672/HeadsetMic.conf
->> new file mode 100644
->> index 00000000..cc6d8d56
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/HeadsetMic.conf
->> @@ -0,0 +1,38 @@
->> +SectionDevice."HeadsetMic" {
->> +	Comment "Headset Microphone"
->> +
->> +	ConflictingDevice [
->> +		"DigitalMic-DMIC1"
->> +		"DigitalMic-DMIC2"
->> +	]
->> +
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Headset Mic Switch' on"
->> +        	cset "name='RECMIXL BST1 Switch' on"
->> +		cset "name='RECMIXR BST1 Switch' on"
->> +		cset "name='Sto1 ADC MIXL ADC1 Switch' on"
->> +		cset "name='Sto1 ADC MIXR ADC1 Switch' on"
->> +		# For unknown reasons the headset mic sound is only recorded
->> +		# on the left channel, we tweak the data-stream reception to
->> +		# use the left samples for both slots, so that we get a stereo
->> +		# stream with the mic sound on both channels
->> +		cset "name='codec_in rx deinterleaver codec_in0_1' 1"
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Headset Mic Switch' off"
->> +        	cset "name='RECMIXL BST1 Switch' off"
->> +		cset "name='RECMIXR BST1 Switch' off"
->> +		cset "name='Sto1 ADC MIXL ADC1 Switch' off"
->> +		cset "name='Sto1 ADC MIXR ADC1 Switch' off"
->> +		# Undo data-stream reception mono-mix workaround
->> +		cset "name='codec_in rx deinterleaver codec_in0_1' 2"
->> +	]
->> +
->> +	Value {
->> +		CaptureChannels "2"
->> +		JackControl "Headset Mic Jack"
->> +	}
->> +}
->> diff --git a/src/conf/ucm/codecs/rt5672/Makefile.am b/src/conf/ucm/codecs/rt5672/Makefile.am
->> new file mode 100644
->> index 00000000..feba0b76
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/Makefile.am
->> @@ -0,0 +1,5 @@
->> +alsaconfigdir = @ALSA_CONFIG_DIR@
->> +ucmdir = $(alsaconfigdir)/ucm/codecs/rt5672
->> +ucm_DATA = DMIC1.conf DMIC2.conf EnableSeq.conf HeadPhones.conf \
->> +	   HeadsetMic.conf MonoSpeaker.conf Speaker.conf
->> +EXTRA_DIST = $(ucm_DATA)
->> diff --git a/src/conf/ucm/codecs/rt5672/MonoSpeaker.conf b/src/conf/ucm/codecs/rt5672/MonoSpeaker.conf
->> new file mode 100644
->> index 00000000..828a1154
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/MonoSpeaker.conf
->> @@ -0,0 +1,26 @@
->> +SectionDevice."MonoSpeaker" {
->> +	Comment "Mono Speaker"
->> +
->> +	ConflictingDevice [
->> +		"Speaker"
->> +		"Headphones"
->> +	]
->> +
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Stereo DAC MIXR DAC R1 Switch' off"
->> +		cset "name='Stereo DAC MIXL DAC R1 Switch' on"
->> +		cset "name='Ext Spk Switch' on"
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Ext Spk Switch' off"
->> +		cset "name='Stereo DAC MIXL DAC R1 Switch' off"
->> +		cset "name='Stereo DAC MIXR DAC R1 Switch' on"
->> +	]
->> +
->> +	Value {
->> +		PlaybackChannels "2"
->> +	}
->> +}
->> diff --git a/src/conf/ucm/codecs/rt5672/Speaker.conf b/src/conf/ucm/codecs/rt5672/Speaker.conf
->> new file mode 100644
->> index 00000000..f9291e53
->> --- /dev/null
->> +++ b/src/conf/ucm/codecs/rt5672/Speaker.conf
->> @@ -0,0 +1,22 @@
->> +SectionDevice."Speaker" {
->> +	Comment "Speakers"
->> +
->> +	ConflictingDevice [
->> +		"MonoSpeaker"
->> +		"Headphones"
->> +	]
->> +
->> +	EnableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Ext Spk Switch' on"
->> +	]
->> +
->> +	DisableSequence [
->> +		cdev "hw:chtbswrt5672"
->> +		cset "name='Ext Spk Switch' off"
->> +	]
->> +
->> +	Value {
->> +		PlaybackChannels "2"
->> +	}
->> +}
->> -- 
->> 2.23.0
->>
->> _______________________________________________
->> Alsa-devel mailing list
->> Alsa-devel@alsa-project.org
->> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
->>
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

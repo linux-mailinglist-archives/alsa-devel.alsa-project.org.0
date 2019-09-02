@@ -2,76 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAD0AA557F
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:04:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEC5AA559E
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:11:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E21416B8;
-	Mon,  2 Sep 2019 14:03:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E21416B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3713116BC;
+	Mon,  2 Sep 2019 14:11:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3713116BC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567425883;
-	bh=ZYzPSaYLj++w/HcyJ/QdJ59jk6VHs67UeFZB43q0g3Q=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Aj+F6gnxNd7SiiGW9YWXmGHHinN1OiNs7jczojRefHHwEFrc5ubiICLAmHdLWhkJP
-	 q68zbnszrQFjpYwVsakCvV8gZ/WswY1iIpX6HXqGkT4whPASLNKr9nPD6vHwYjNuDy
-	 oYKaSNj7+rZrH1fNFixV1uwthUubwswjYtlbwDsc=
+	s=default; t=1567426312;
+	bh=EKdkm53RxDVRITgrVfBYCoBlJs2Z6+mYPWOuUHp5m64=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Reply-To:From;
+	b=U1OeIc1iq6DEIpljZTpxKpSVeEtG9zStpKSCofYq+jz2CNtPxI3ZYZngYHNRPkaiK
+	 QOn2SyXWDQCDgS+7e/ltZT0RA27X1bW89X6h+xyyKf4WQhK4KKanc1qmM8ruKuP+jr
+	 b7lxIkqEp9evW1Zj3gGlV4/DPMf2npvh77NaFrmg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD911F80394;
-	Mon,  2 Sep 2019 14:02:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 210F8F80447;
+	Mon,  2 Sep 2019 14:10:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 232B9F803D0; Mon,  2 Sep 2019 14:02:56 +0200 (CEST)
+ id 780BBF803D0; Mon,  2 Sep 2019 14:10:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from sonic307-53.consmr.mail.ir2.yahoo.com
+ (sonic307-53.consmr.mail.ir2.yahoo.com [87.248.110.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 631CBF8011E
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:02:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 631CBF8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5CA38F8011E
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:10:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CA38F8011E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="q2WL50s0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=RHTgkM0dM8xda/qXMLAftdtWVTMspSpd+zBxKdxmYLg=; b=q2WL50s09cQ8HSMxrwkyp2lQE
- KEWJsv8fwGb6HNa2DyeWECv+x39Wlm1WjFANRf2dfFkQxsSMQ+WXGSmtqywvNn49tNV+wqNX0L6DE
- +NRIZFLBN9Spw5oVoLWH4G5G4UABZdNu79sH/XvNtxpTmeb4+Mz+3iDlNReEpC6ou5FXw=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1i4l2o-00039e-0O; Mon, 02 Sep 2019 12:02:50 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1714E2742CCB; Mon,  2 Sep 2019 13:02:49 +0100 (BST)
-Date: Mon, 2 Sep 2019 13:02:49 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Message-ID: <20190902120248.GA5819@sirena.co.uk>
-References: <20190831162650.19822-1-katsuhiro@katsuster.net>
+ dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
+ header.b="Ln/nRmFi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1567426200; bh=hYsrMg8BkUcYgBDUwkZv/evNx7sQOR+oJOueeKNyDW4=;
+ h=Date:From:Reply-To:To:Subject:From:Subject;
+ b=Ln/nRmFinUmvQPL3BK+B9x7snYEEs9jDwyko0SCf7GwrnFc9cKXXsCjG5AvkJT+pudyD53rkkVhoxzPhjL7ThMCetirxWrwTtBrhztHWI1ww8tvGqs0YKOpxF8l9Qyg/Ahr6I42tN8Dfj4Ywd3SMo7F8YVYiMs/+GNU5VGkR8Cm+h5V+muAYuR1dFbT5T1L4mU4ByVTGspfxpK+1/6RW4eh80c/GjZUSHEEBTKpus+56tMpX2L6sVfFnzEBZE0zt4G1TJz2q+gkZAy7jnjmZmV0OSpLXpTZy3B2+F4rhOUCARLyIkpF8l23yuVo3gb7WskfP+iUrRU1MN984hPdu6A==
+X-YMail-OSG: cRhQKbsVM1kEP3U0UaAkZ8mmMQJ1l7Hk338aMa7kEDJ7mI6_5sV1sFueh6REvHw
+ _LpFpAGBmtc1XMG4w_z43ZDHxF9yZwMY5yaHOxXGM83stt6fSTgHY2B6kCxgti8xeYqVXCKYl8q.
+ s0_r4ReBI7UkhTciKJ6A1ytmIRKcayVGE3RAiz.uVleriDnw0QHuKLZU17jISNcWwCNJKL0PkyEj
+ 58Nvvxs3UXG47uluRJrVV2.pm2B7U7GmQaqOQxyb_gtdvldG4iTkhYPmTzIwoBbuPLLEdXVx2tGz
+ GvHbc4isde4pVg3HJzxwot8LbvxxZ2dunMvubtjuBV.qALsfnVk2yHm3C4Vw_7tadNTC76UzUhPp
+ KOirO8N2nV89oPbxyI18M0bXFCLmCL_egzz_KGE6Ca6ICRMrVC_W2Eto6WVzzuQv4JpruPnb6RHP
+ DthuXUUs5grV8u72Jn4VUVufilPA7kqDf.uzyLBm84_DjDttGsF6NTbjAfaWK8P7AzzbOlkXFT8A
+ 2hYrdqeD6LRxwWjqbSQ3HQiEcRY8e7m4QlDjF0A2GpcJy8muLkg_hikFrpJx0ViXRmMVoI6tVUXW
+ rgLHUXKa3EXMMh6.JE0W2XInripbRu_qA5MctjiRUoE71q5B7igTvclnowagsDeB1QIWf8G0j1Ab
+ 6RVd0eEZBuptkfZgfIOa28sGsX0xvfrrhdZ4qHZSUbXwK1IJAeKxs_XbibOQjG0DTc4htq5ck5rl
+ erpbgCmUhnckkBvSR.h4qWYJNzcTJmVvisFdp4Vf4p59fWPdLvyCs.OOrLd6qZ9huod5goue7nho
+ llCcUaYctvTTK83yUGho9IRWTRnFSChDMpGqtXmAzDSHkaGr8tLcRSBkNl1DoWyNU2KUnV811BLI
+ RXMcBCWZxbL8ZaVWRO_suLZWqo7jR5hVZpnpdzNsNdi4ysREn0BLJkPOZm7XH0HbPuYbqjF3NUnw
+ uViPrvaLetQuOMPv.ozCYZgWpQP6MPzm3sex241lO8tLvLe3BSctVjhwEFfuwKvSNcvMUvMsMDDd
+ Vr8SX_koBsyZFixPeKMVD1ABBwyVTGR7NKfMmUQan.05TBKA3sHr9cirEqwDa53XLT3vE.29eV.j
+ v5k7agMJ6QWoOh3wMv2ZTELx5.nW3nC_0CHYJwGVdhlRhnRD_MXC6YqA8v725kftN.DY5BDw6cSQ
+ Kr_9AYIuizzXqjs8u9PGFtKEtiVKD0sagHfD4MIac8_YRvzJAnzd2VmxmqFtlW3USEcpVG8_LiPk
+ tb.cRPTZoEIPsKTbIaQ7YytV4v2SXYJrqKJ8ZmD8_9ZWoASKKe87JZMo-
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.ir2.yahoo.com with HTTP; Mon, 2 Sep 2019 12:10:00 +0000
+Date: Mon, 2 Sep 2019 12:09:56 +0000 (UTC)
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+To: alsa-devel@alsa-project.org, tiwai@suse.de, g@b4.vu
+Message-ID: <1091462655.1815609.1567426196596@mail.yahoo.com>
 MIME-Version: 1.0
-In-Reply-To: <20190831162650.19822-1-katsuhiro@katsuster.net>
-X-Cookie: Lost ticket pays maximum rate.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, David Yang <yangxiaohua@everest-semi.com>,
- Daniel Drake <drake@endlessm.com>
-Subject: Re: [alsa-devel] [PATCH v2 1/3] ASoC: es8316: judge PCM rate at
-	later timing
+Subject: [alsa-devel] sound/usb kernel modules as a DKMS package.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,68 +81,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4511382823099558831=="
+Reply-To: htl10@users.sourceforge.net
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi all,
 
---===============4511382823099558831==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zhXaljGHf11kAtnf"
-Content-Disposition: inline
+I (We... this is kind of my 9-5 job) have been having some reliability issue with a Focusrite Scarlett Gen 2 18i20, and I was almost tempted to start looking at the windows driver, when I came upon Geoffrey's work. So I made the bleeding-edge sound/usb modules (for the 5.4 time frame) from Takashi's tree built as dkms modules against main line 5.2 . I hope this is useful for other people using USB sound devices.
 
+https://github.com/HinTak/sound-usb-dkms
 
---zhXaljGHf11kAtnf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This make it easier  / faster to try out new code, without building the whole kernel.
 
-On Sun, Sep 01, 2019 at 01:26:48AM +0900, Katsuhiro Suzuki wrote:
-> This patch change the judge timing about playing/capturing PCM rate.
->=20
-> Original code set constraints list of PCM rate limits at set_sysclk.
-> This strategy works well if system is using fixed rate clock.
->=20
-> But some boards and SoC (such as RockPro64 and RockChip I2S) has
-> connected SoC MCLK out to ES8316 MCLK in. In this case, SoC side I2S
-> will choose suitable frequency of MCLK such as fs * mclk-fs when
-> user starts playing or capturing.
+I would appreciate tips and tricks about the Scarlett 18i20, as well as general recommendation for new professional gear of the same sort to buy.
 
-The best way to handle this is to try to support both fixed and variable
-clock rates, some other drivers do this by setting constraints based on
-MCLK only if the MCLK has been set to a non-zero value.  They have the
-machine drivers reset the clock rate to 0 when it goes idle so that no
-constraints are applied then.  This means that if the machine has a
-fixed clock there will be constraints, and that constraints get applied
-if one direction has started and fixed the clock, but still allows the
-clock to be varied where possible.
+Incidentally, Tobias Hoffmann (who wrote the first gen driver about 5 years ago) was my GSoC student working on printer-related matters more than a decade ago; I did some wifi/USB related work in the kernel (am listed in linux/MAINTAINERS) so you can assume that I am relatively happy with driver-related matters.
 
---zhXaljGHf11kAtnf
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1tBOgACgkQJNaLcl1U
-h9Cqsgf/QH87sADyO5H2sSFpF1Q+z94gj4FdObMAowT+MfdNXULU7KlUsVfMcZ1i
-uqbIgpKzNezmZ0HSIckM81LJhPki96kWttW1LV4C/0XSse0qRvmlodK8eCg5P8ah
-DUUrvBEd65MRMpTNKdF/QZ8QSG8CSHgDntHA1iej9N6k04LeGLVEB9N25h0Kv02R
-+z+mHUCQvxmh5+ql8hg2a9XvKEyOW/fslKAV57xgEHbP8ElCdwkBqVvVn1LkyldJ
-b+cwBXQ/4HbjHQMJB7effDFbSpRJ8GrHO/SBT78pt05pu2+8gVqy+TV7CrM2bw7m
-Qhv3yQbq2xzikv0Vjj3WX+Gtnsjm7g==
-=AnX7
------END PGP SIGNATURE-----
-
---zhXaljGHf11kAtnf--
-
---===============4511382823099558831==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Cheers,
+Hin-Tak
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4511382823099558831==--

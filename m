@@ -2,82 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 066B5A4D1D
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 03:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21217A4D40
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 04:09:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6C6C31688;
-	Mon,  2 Sep 2019 03:33:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C6C31688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93FCF1690;
+	Mon,  2 Sep 2019 04:08:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93FCF1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567388074;
-	bh=2FjPCYcry0NY72PHMMGLbKA6u6bPheYptZUt/ZTBeEI=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tZI2WgSJEi9HgGTVCLTI3CdAUDuanQqEGnSKNAOVj1T8N84C/nRMB92hHiTw8yK6K
-	 9aAVeO3O99czM0i3dwdW+Sk63suYLVo1B0wapQRhuZQXA9GBGXOIxOQHJOw39oB43z
-	 x2V7nA9hpIFEzzZPCo8WuAS0t/Jfvw6lbqVAzx90=
+	s=default; t=1567390155;
+	bh=bb617jMrZcTdeJuNhy9kbUdlRGqwUxA0HzWlSkSgM4o=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Xwc8wFAEl5vVfmcBjh4RCDCDvqnSm/rYzUl6/TVaNy5wfc8eN79JZJXHysMzKGil2
+	 ip5f8WCMpm53FZBfiG/yDj3S5vlZguxnXv9EiUPDRk+jcXfLfPmuPQEOFmn58yXo6i
+	 ciS1/y+d3xGKiTM2U1OGyrTwR96Swzmj4Up1ZC04=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0C0AF804A9;
-	Mon,  2 Sep 2019 03:32:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA794F80392;
+	Mon,  2 Sep 2019 04:07:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97218F8045F; Mon,  2 Sep 2019 03:32:47 +0200 (CEST)
+ id 491E6F80394; Mon,  2 Sep 2019 04:07:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+ SPF_PASS, 
+ URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe44.google.com (mail-vs1-xe44.google.com
+ [IPv6:2607:f8b0:4864:20::e44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0D4FF80306
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 03:32:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D4FF80306
+ by alsa1.perex.cz (Postfix) with ESMTPS id 76F57F8011E
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 04:07:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 76F57F8011E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MRkrh/El"
-Received: by mail-pf1-x444.google.com with SMTP id b24so8058163pfp.1
- for <alsa-devel@alsa-project.org>; Sun, 01 Sep 2019 18:32:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id;
- bh=P0xla+/48Cc0EmdcDdKwChU9YuKbzXjNPfHb1kB/e70=;
- b=MRkrh/EloCt1NbfOx8G4qEizBAZgOaihQWSkn5uAd4b1mWj/vrwmW+pjG0PXbegeI8
- V3PvoiCf9CxAxR2t5qx33jB2BVxdSx4DJ5aITjLVhi/71o3UYm/dcxtnymkttTuK3p17
- MxtYQWw8rVQxgDrQn5nhjnOXZS0xR/2OdDPHczPn05Z4/Oczjk46RZjDj0PpW27CmY47
- EPYt6CIr/Pkh852uelVEdoATJ2meqZ7wG/x5gLMWzh/F3GBDlP7AUgPRPDxiIuL94Z1b
- 1e19P5rYcNcVICdFMNzE+/BWBl4mOhU17UqYbmoWJPagksQBh6qc8r/VibAcyZEul5ub
- L6XQ==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="lPR+RAf4"
+Received: by mail-vs1-xe44.google.com with SMTP id b187so8257890vsc.9
+ for <alsa-devel@alsa-project.org>; Sun, 01 Sep 2019 19:07:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SteZi7Jc1Qj/ZWEovebsg0xMt+f3c5vmQftu053JsS8=;
+ b=lPR+RAf4lLbHFKrG7BKbpxKO2o5PIV6QPEk5yeLJsGuOupELQ4EX6PQ2n7tlyefFjX
+ 5TueBZwuZlQptLjVpdiWoRTQzixxBywwaHL2Q/9NxpVlWZua4yL5HvNYQaptM2F6I5gj
+ urBmtznxWX5SXt9UN7RdKLsmNWsgswpCy+GTA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id;
- bh=P0xla+/48Cc0EmdcDdKwChU9YuKbzXjNPfHb1kB/e70=;
- b=sMuvi7FrhYwy9sk6evQRaZfijWCD1oWZrH49CYkT6ngXYv5/3H4524I0WqShW4Bmub
- /XBJd6eItLWPvhJUvCDKue3ARCPd86hJEunNrEAE+iGHPVN0IAsm0HZtq5Ly//ku4RQ8
- 3l1aJ+KOHILR99hx8nDDvhOoBtLbHPYu8sx94nj3otMySjvKMsBfDJWxT5KLon1NWpPo
- T9SuyXwhl+tuJvQ8CbbW+OXi04kTqRq3X3ibUPIP6cwPFuIc2RpZjdbMebzlNflLEEf6
- xlAvx+Mr2MwYxMEgTC3r6rGN93iwHU8xsnOn3W4BSAIz7KvK+XXx181UcvC0JgbWUK5I
- Fu+g==
-X-Gm-Message-State: APjAAAUjeCIQMOgDQ9dZEC1ZbPJPN50rulN/oFs3MNWy7fbSi2iYe8SG
- C6VUEBZRjhe/A3ZNjU3W9CzxjHFMw/g=
-X-Google-Smtp-Source: APXvYqyFCHc5ivWalxIa8a2O68nV1xYVZE54jhvSvOxwNzSjVbKAOndvPfZX2pfQO1LsblyWuxab4g==
-X-Received: by 2002:a63:2364:: with SMTP id u36mr22280825pgm.449.1567387962244; 
- Sun, 01 Sep 2019 18:32:42 -0700 (PDT)
-Received: from localhost.localdomain (76-14-106-55.rk.wavecable.com.
- [76.14.106.55])
- by smtp.gmail.com with ESMTPSA id l123sm16584020pfl.9.2019.09.01.18.32.41
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Sep 2019 18:32:41 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: alsa-devel@alsa-project.org
-Date: Sun,  1 Sep 2019 18:32:40 -0700
-Message-Id: <20190902013240.16591-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.17.1
-Subject: [alsa-devel] [PATCH] alsa-lib: Remove usleep usage
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SteZi7Jc1Qj/ZWEovebsg0xMt+f3c5vmQftu053JsS8=;
+ b=MsyLT1GioiV0A66d6fDjHp0Sk3d46wmQVgdf/2lXroa+p/9gHoA9qlWy7HlrDQDTbh
+ 0EdnoZi8WkEFmC77tUZvDalgAhIKtjuLkURQn3DhqSVArErfTrCjDND6AeoDFkvF/0uz
+ FLcBxWJaynh7hJ1VheuqU/sEvTumYHV3L0aREPTxaFshNPYow4RrLZ4CHjh0l6KudDxm
+ 4TuSGPPRNa153Vjpv5/IKQY41tcECpx6/utoLcJQI4VRSSoya+FV1t+c167VfwLcVC7R
+ X4yqw04XFvccCcY12CSUd6l65vYwaHn1RObUtX0JjpZ1273z3lNOSucKt8l79JBFMS+a
+ bckg==
+X-Gm-Message-State: APjAAAUZ9PPNp/uPBKWId+0rw6S2Y4Lc7j7wwibDnpBB/QV3PPRw3qEt
+ g0vvrCjfnsSxbEZekCADbytwdVF+TOOkQ6klLiEblw==
+X-Google-Smtp-Source: APXvYqygVljSvGbaEG8FKuJz0otOZOZdwZTpv0TbVOTes8YfHOyxR97RLOewIUCIM3Ih7DIGVB5YrjsGpPU2Agxjvyo=
+X-Received: by 2002:a67:de08:: with SMTP id q8mr4571764vsk.119.1567390042918; 
+ Sun, 01 Sep 2019 19:07:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190829042957.150929-1-cychiang@chromium.org>
+ <HE1PR06MB4011FA45247F186BB83DFF04ACBF0@HE1PR06MB4011.eurprd06.prod.outlook.com>
+In-Reply-To: <HE1PR06MB4011FA45247F186BB83DFF04ACBF0@HE1PR06MB4011.eurprd06.prod.outlook.com>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Mon, 2 Sep 2019 10:06:55 +0800
+Message-ID: <CAFv8NwLq-cJqj0MB=rzKuqr3g0n3Y-nHor4w8ntiFXytoHpdLw@mail.gmail.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tzungbi@chromium.org" <tzungbi@chromium.org>,
+ "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
+ "zhengxing@rock-chips.com" <zhengxing@rock-chips.com>,
+ "cain.cai@rock-chips.com" <cain.cai@rock-chips.com>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "jeffy.chen@rock-chips.com" <jeffy.chen@rock-chips.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ "a.hajda@samsung.com" <a.hajda@samsung.com>,
+ "eddie.cai@rock-chips.com" <eddie.cai@rock-chips.com>,
+ "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "enric.balletbo@collabora.com" <enric.balletbo@collabora.com>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "dgreid@chromium.org" <dgreid@chromium.org>,
+ "sam@ravnborg.org" <sam@ravnborg.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH] drm: dw-hdmi-i2s: enable audio clock in
+	audio_startup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,78 +109,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-usleep was deprecated by POSIX 2008 and is unavailable without deprecated
-APIs enabled in uClibc-ng.
+On Sun, Sep 1, 2019 at 6:04 PM Jonas Karlman <jonas@kwiboo.se> wrote:
+>
+> On 2019-08-29 06:29, Cheng-Yi Chiang wrote:
+> > In the designware databook, the sequence of enabling audio clock and
+> > setting format is not clearly specified.
+> > Currently, audio clock is enabled in the end of hw_param ops after
+> > setting format.
+> >
+> > On some monitors, there is a possibility that audio does not come out.
+> > Fix this by enabling audio clock in audio_startup ops
+> > before hw_param ops setting format.
+> >
+> > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> > ---
+> >  drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+> > index 5cbb71a866d5..08b4adbb1ddc 100644
+> > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+> > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+> > @@ -69,6 +69,14 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+> >       hdmi_write(audio, conf0, HDMI_AUD_CONF0);
+> >       hdmi_write(audio, conf1, HDMI_AUD_CONF1);
+> >
+> > +     return 0;
+> > +}
+> > +
+> > +static int dw_hdmi_i2s_audio_startup(struct device *dev, void *data)
+> > +{
+> > +     struct dw_hdmi_i2s_audio_data *audio = data;
+> > +     struct dw_hdmi *hdmi = audio->hdmi;
+> > +
+> >       dw_hdmi_audio_enable(hdmi);
+> >
+> >       return 0;
+> > @@ -105,6 +113,7 @@ static int dw_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
+> >  }
+> >
+> >  static struct hdmi_codec_ops dw_hdmi_i2s_ops = {
+> > +     .audio_startup = dw_hdmi_i2s_audio_startup,
+>
+> A small white space nit, there should be a tab and not space to align the equal sign above.
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- src/pcm/pcm_shm.c | 3 ++-
- src/ucm/main.c    | 3 ++-
- test/mixtest.c    | 2 +-
- 3 files changed, 5 insertions(+), 3 deletions(-)
+ACK. Will fix in v2.
+>
+> Also this patch do not cleanly apply to drm-misc-next or linux-next after
+> fc1ca6e01d0a "drm/bridge: dw-hdmi-i2s: add .get_eld support" was merged.
 
-diff --git a/src/pcm/pcm_shm.c b/src/pcm/pcm_shm.c
-index 26a27a57..30a77cd4 100644
---- a/src/pcm/pcm_shm.c
-+++ b/src/pcm/pcm_shm.c
-@@ -485,12 +485,13 @@ static int snd_pcm_shm_drain(snd_pcm_t *pcm)
- 	snd_pcm_shm_t *shm = pcm->private_data;
- 	volatile snd_pcm_shm_ctrl_t *ctrl = shm->ctrl;
- 	int err;
-+	struct timespec req = { 0, 10 * 1000 * 1000 };
- 	do {
- 		ctrl->cmd = SNDRV_PCM_IOCTL_DRAIN;
- 		err = snd_pcm_shm_action(pcm);
- 		if (err != -EAGAIN)
- 			break;
--		usleep(10000);
-+		nanosleep(&req, NULL);
- 	} while (1);
- 	if (err < 0)
- 		return err;
-diff --git a/src/ucm/main.c b/src/ucm/main.c
-index 99b1cd08..0e5236cb 100644
---- a/src/ucm/main.c
-+++ b/src/ucm/main.c
-@@ -359,6 +359,7 @@ static int execute_sequence(snd_use_case_mgr_t *uc_mgr,
- {
- 	struct list_head *pos;
- 	struct sequence_element *s;
-+	struct timespec sleep = { 0, s->data.sleep * 1000 };
- 	char *cdev = NULL;
- 	snd_ctl_t *ctl = NULL;
- 	int err = 0;
-@@ -440,7 +441,7 @@ static int execute_sequence(snd_use_case_mgr_t *uc_mgr,
- 			}
- 			break;
- 		case SEQUENCE_ELEMENT_TYPE_SLEEP:
--			usleep(s->data.sleep);
-+			nanosleep(&sleep, NULL);
- 			break;
- 		case SEQUENCE_ELEMENT_TYPE_EXEC:
- 			err = system(s->data.exec);
-diff --git a/test/mixtest.c b/test/mixtest.c
-index 57ca5d53..f0940344 100644
---- a/test/mixtest.c
-+++ b/test/mixtest.c
-@@ -77,7 +77,7 @@ static double detect_cpu_clock()
- 	rdtscll(tsc_begin);
- 	clock_gettime(CLOCK_MONOTONIC, &tm_begin);
- 
--	usleep(1000000);
-+	sleep(1);
- 
- 	rdtscll(tsc_end);
- 	clock_gettime(CLOCK_MONOTONIC, &tm_end);
--- 
-2.17.1
+ACK. Will rebase in v2.
+>
+>
+>
+>
+> This patch does fix an issue I have observed on my Rockchip devices where audio would not always
+> came out after switching between audio streams having different rate and channels parameters.
+> I used to carry [1] to fix that issue, but this seems like a more sane fix.
+>
+> [1] https://github.com/Kwiboo/linux-rockchip/commit/4862e4044532b8b480fa3a0faddc197586623808
+>
+> With above fixed,
+>
+> Reviewed-by: Jonas Karlman <jonas@kwiboo.se>
 
+
+Thanks a lot!
+
+>
+>
+> Regards,
+> Jonas
+>
+> >       .hw_params      = dw_hdmi_i2s_hw_params,
+> >       .audio_shutdown = dw_hdmi_i2s_audio_shutdown,
+> >       .get_dai_id     = dw_hdmi_i2s_get_dai_id,
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

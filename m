@@ -2,71 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4514AA5B09
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 18:03:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D68D9A5CAA
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 21:21:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 352D216E3;
-	Mon,  2 Sep 2019 18:02:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 352D216E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AB9216E5;
+	Mon,  2 Sep 2019 21:20:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AB9216E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567440199;
-	bh=/+c7CAlgS+w2mrSo84aBZDuUL6GtS3HlPOUz5JKX1P4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1567452075;
+	bh=UYljgo+NT1flmT/DQfsC7ntneAgvEai0J5mfCIp0ORo=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GfAysWXYcnlAzdU/RKfxgzlm7zQRw1/N50CS7PTRfxFXNkdZk7Ky8TKdkjB6VKJmk
-	 A67WmcxxTWMVTjOZ24JYR4hM1mdijzkuuyZSeMAdA8QtzbJWpscdmgOsfEq2XSrypj
-	 XzmBQzf9FsQtR5K8X6PAbrXnCVVYNTvMQvhqg6SE=
+	b=vq+4Lp+prnK0zGHdyNhh1ymO+JbcvqnBjhHTKHXOfb2HVp47Tp2IWOPYmjmjA0faB
+	 7mR7r+mq+a5xjANcJYNVz5DOvyG6gV1G6TTlb+RHt8wMNOVRRsgCQvYE/KjK6OU4Av
+	 AIEigtTP07HxBfdow7VJ2aNHyaKPlEVPIU/v4OyA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45243F803D6;
-	Mon,  2 Sep 2019 18:01:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FEEEF803D0;
+	Mon,  2 Sep 2019 21:19:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB504F8044A; Mon,  2 Sep 2019 18:00:59 +0200 (CEST)
+ id CD482F803D0; Mon,  2 Sep 2019 21:19:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27753F802E0
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 18:00:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27753F802E0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IokDy13u"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C89E921881;
- Mon,  2 Sep 2019 16:00:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1567440055;
- bh=mJwEXeh9CSD/UGKpq5I8/EKKhuH0yp4LBIc3MRNKusI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=IokDy13upxRjfjtUAgiANVVb5OnMLv/ypAQlXMRYwgf7PNYfawBES++kL3BndpSyq
- wmRXla5ruFdg/4tW1jDyC7volEhHr3UqY75gAI2gconNIjwmU+MH2nmHgpOo8zWGXa
- yjHRGES2Yuocvxc4Ka10XexzBKcrvhehbuY4UkEs=
-Date: Mon, 2 Sep 2019 18:00:44 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Hui Peng <benquike@gmail.com>
-Message-ID: <20190902160044.GC21884@kroah.com>
-References: <20190830214730.27842-1-benquike@gmail.com>
- <CAKpmkkWv2cjrJCkVhGmEMnLG2_kCNxdbt29dZ8j-UM8Cf3quGQ@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0B78F8011E
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 21:19:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0B78F8011E
+Received: from fsav401.sakura.ne.jp (fsav401.sakura.ne.jp [133.242.250.100])
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x82JJAia011666;
+ Tue, 3 Sep 2019 04:19:11 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+Received: from www1102.sakura.ne.jp (219.94.129.142)
+ by fsav401.sakura.ne.jp (F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp);
+ Tue, 03 Sep 2019 04:19:10 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp)
+Received: from [192.168.1.2] (118.153.231.153.ap.dti.ne.jp [153.231.153.118])
+ (authenticated bits=0)
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x82JJAlm011657
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NO);
+ Tue, 3 Sep 2019 04:19:10 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+To: Mark Brown <broonie@kernel.org>
+References: <20190831162650.19822-1-katsuhiro@katsuster.net>
+ <20190902120248.GA5819@sirena.co.uk>
+From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Message-ID: <1a3c5934-4731-d474-e9d5-795e8337b180@katsuster.net>
+Date: Tue, 3 Sep 2019 04:19:10 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAKpmkkWv2cjrJCkVhGmEMnLG2_kCNxdbt29dZ8j-UM8Cf3quGQ@mail.gmail.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Wenwen Wang <wang6495@umn.edu>, Mathias Payer <mathias.payer@nebelwelt.net>,
- stable@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [alsa-devel] [PATCH 2/2] Fix a stack buffer overflow bug in
-	check_input_term
+In-Reply-To: <20190902120248.GA5819@sirena.co.uk>
+Content-Language: en-US
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, David Yang <yangxiaohua@everest-semi.com>,
+ Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [PATCH v2 1/3] ASoC: es8316: judge PCM rate at
+	later timing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,19 +78,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 30, 2019 at 05:51:17PM -0400, Hui Peng wrote:
-> This is the backported patch for the following fix to v4.4.x and v4.14.x:
-> 19bce474c45b ("ALSA: usb-audio: Fix a stack buffer overflow bug in
-> check_input_term")
+Hello Mark,
 
-Now queued up, thanks.
+Thanks a lot for your comments.
 
-greg k-h
+On 2019/09/02 21:02, Mark Brown wrote:
+> On Sun, Sep 01, 2019 at 01:26:48AM +0900, Katsuhiro Suzuki wrote:
+>> This patch change the judge timing about playing/capturing PCM rate.
+>>
+>> Original code set constraints list of PCM rate limits at set_sysclk.
+>> This strategy works well if system is using fixed rate clock.
+>>
+>> But some boards and SoC (such as RockPro64 and RockChip I2S) has
+>> connected SoC MCLK out to ES8316 MCLK in. In this case, SoC side I2S
+>> will choose suitable frequency of MCLK such as fs * mclk-fs when
+>> user starts playing or capturing.
+> 
+> The best way to handle this is to try to support both fixed and variable
+> clock rates, some other drivers do this by setting constraints based on
+> MCLK only if the MCLK has been set to a non-zero value.  They have the
+> machine drivers reset the clock rate to 0 when it goes idle so that no
+> constraints are applied then.  This means that if the machine has a
+> fixed clock there will be constraints, and that constraints get applied
+> if one direction has started and fixed the clock, but still allows the
+> clock to be varied where possible.
+> 
+
+In my understanding, fixed and variable clock both use set_sysclk() for 
+telling their MCLK to codec driver. For fixed MCLK cases we need to
+apply constraint but for variable MCLK cases we should not set
+constraints at set_sysclk(). How can we identify these two cases...?
+
+For example, if machine sets very low MCLK once, the driver applies low
+Fs constraints which I2S driver cannot support to. After that this sound
+card cannot play/capture any Fs rate. It seems set_sysclk() is not
+called if Fs does not match constraints. So we have no chance to
+reconfigure MCLK by set_sysclk().
+
+
+Best Regards,
+Katsuhiro Suzuki
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,63 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81892A5D13
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 22:23:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6BCA5DA2
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 23:41:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCB6B16F3;
-	Mon,  2 Sep 2019 22:22:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCB6B16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 54EB616E5;
+	Mon,  2 Sep 2019 23:40:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 54EB616E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567455785;
-	bh=mnp6Q6s8+fReFQ3oA+ozU23Sx1/Bd6cSNCUTg/y8CFk=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1567460466;
+	bh=CDbeVI7/POkBp66A4O0JHszx09vgnxhTdSqIPNpDirQ=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DNADQlOjDiRhOG67GTvkhx61Pko2hlE9cONvm5530VuXMdmwFu/CwKTb9sIdirAP0
-	 X7stkS9Ka82eKrnjXAhOOZ4JHi9djaNKpgtv31/p66THETI5WNqmV/Kv8AJpZRTmxf
-	 seRxylZkA8nQa2HMpRorZi8mQPF17VB62VLN9zys=
+	b=SS7oDSQvStf8Zj4czclwG4WUZTtjT+NMSDysX4ravTP/Bj1iRQN+kAkZtTe+moEr0
+	 7Y82ilKgIyO/lv+Ar04ykpwnhq9zb0GsnvjpEXtU8p/DwsWxcIHFhmO4BYaaAJcEaq
+	 d4Vi6R+3HEf9KKAqPZR6w8SCA3KJAtm+WXiyDrXI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12B79F803D0;
-	Mon,  2 Sep 2019 22:21:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95271F80447;
+	Mon,  2 Sep 2019 23:39:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FE26F803D0; Mon,  2 Sep 2019 22:21:18 +0200 (CEST)
+ id 82252F803D0; Mon,  2 Sep 2019 23:39:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_65,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relay11.mail.gandi.net (relay11.mail.gandi.net [217.70.178.231])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F113F8011E
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 22:21:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F113F8011E
-Received: from xps13 (unknown [91.224.148.103])
- (Authenticated sender: miquel.raynal@bootlin.com)
- by relay11.mail.gandi.net (Postfix) with ESMTPSA id BC238100008;
- Mon,  2 Sep 2019 20:21:12 +0000 (UTC)
-Date: Mon, 2 Sep 2019 22:21:11 +0200
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Michal Simek <michal.simek@xilinx.com>
-Message-ID: <20190902222111.045ede17@xps13>
-In-Reply-To: <df36fc2d-ed62-2556-513d-158a7707d5cd@xilinx.com>
-References: <20190830210607.22644-1-miquel.raynal@bootlin.com>
- <df36fc2d-ed62-2556-513d-158a7707d5cd@xilinx.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_30, SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail1.xn--80adja5bqm.su (xn--80adja5bqm.su [45.62.210.217])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3F0C6F80392
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 23:39:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F0C6F80392
+Received: by mail1.xn--80adja5bqm.su (Postfix, from userid 1000)
+ id 65763209D35A; Mon,  2 Sep 2019 23:39:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail1.xn--80adja5bqm.su 65763209D35A
+Date: Mon, 2 Sep 2019 23:39:12 +0200
+From: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
+To: Takashi Iwai <tiwai@suse.de>
+Message-Id: <20190902213912.GA6630@xn--80adja5bqm.su>
+References: <20190819195714.GA2737@xn--80adja5bqm.su>
+ <s5hef1dthbk.wl-tiwai@suse.de>
+ <20190822203031.GA22363@xn--80adja5bqm.su>
+ <s5h5zmg48u2.wl-tiwai@suse.de>
+ <20190829103805.GA1525@xn--80adja5bqm.su>
+ <s5hsgpk2os6.wl-tiwai@suse.de>
+ <20190830114510.GA10027@xn--80adja5bqm.su>
+ <s5hzhjqzvu5.wl-tiwai@suse.de>
+ <20190901192737.GB28125@xn--80adja5bqm.su>
+ <s5hlfv7jj2r.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org,
- Maruthi Srinivas Bayyavarapu <maruthis@xilinx.com>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, praveenv@xilinx.com,
- alexandre@bootlin.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 1/3] ASoC: xlnx: add Xilinx logicPD-I2S
-	FPGA IP support
+Content-Disposition: inline
+In-Reply-To: <s5hlfv7jj2r.wl-tiwai@suse.de>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,42 +70,136 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgTWljaGFsLAoKTWljaGFsIFNpbWVrIDxtaWNoYWwuc2ltZWtAeGlsaW54LmNvbT4gd3JvdGUg
-b24gTW9uLCAyIFNlcCAyMDE5CjA5OjM5OjExICswMjAwOgoKPiBIaSBNaXF1ZWwKPiAKPiBPbiAz
-MC4gMDguIDE5IDIzOjA2LCBNaXF1ZWwgUmF5bmFsIHdyb3RlOgo+ID4gVGhpcyBJUCBpcyB2ZXJ5
-IHNpbXBsZSBzbyB0aGlzIGRyaXZlciBtYW5hZ2UgYm90aCB0aGUgREFJIGFuZCB0aGUgUENNCj4g
-PiBzdHJlYW1zLCBoZW5jZSB0aGUgcHJlc2VuY2Ugb2YgYm90aCBjb21wb25lbnRzIGluIHRoaXMg
-ZHJpdmVyLgo+ID4gCj4gPiBUaGVyZSBhcmUgcGxlbnR5IGF2YWlsYWJsZSBpbnRlcnJ1cHRpb25z
-IHdoZW4gY2FwdHVyaW5nIG9yIHBsYXlpbmcKPiA+IGJhY2sgYXVkaW8gdGhhdCBjYW4gYmUgdHJp
-Z2dlcmVkIGJ1dCB0aGUgb25seSBvbmUgdGhhdCBmaXRzIHRoZSBBTFNBCj4gPiBzb3VuZCBzeXN0
-ZW0gaXMgdGhlIFhGRVJfRE9ORSB3aGljaCBpcyB1c2VkIHRvIGJvdW5kIHNvdW5kCj4gPiBwZXJp
-b2RzLiBPdGhlciBpbnRlcnJ1cHRzIGFyZSBtYXNrZWQuIFBsZWFzZSBub3RlIHRoYXQgY2FwdHVy
-ZSBhbmQKPiA+IHBsYXliYWNrIGFyZSBub3QgcG9zc2libGUgYXQgdGhlIHNhbWUgdGltZSB0aG91
-Z2guCj4gPiAKPiA+IENhcHR1cmUgc2VlbXMgdG8gd29yayAoYXQgbGVhc3QgaXQgY3JlYXRlcyBh
-IGZpbGUgd2l0aCBzb21ldGhpbmcKPiA+IGluc2lkZSkgYnV0IEkgaGF2ZSBubyBjYXB0dXJlIG1l
-Y2hhbmlzbSBvbiB0aGUgYm9hcmQgdG8gYWN0dWFsbHkgdGVzdAo+ID4gdGhhdCBpdCB3b3JrcyBj
-b3JyZWN0bHkuCj4gPiAKPiA+IFNpZ25lZC1vZmYtYnk6IE1pcXVlbCBSYXluYWwgPG1pcXVlbC5y
-YXluYWxAYm9vdGxpbi5jb20+Cj4gPiAtLS0KPiA+IAo+ID4gSGVsbG8sCj4gPiAKPiA+IFRoaXMg
-aXMgbXkgZmlyc3QgY29udHJpYnV0aW9uIGluIHRoZSBzb3VuZCBzdWJzeXN0ZW0sIEkgaG9wZSBJ
-J3ZlCj4gPiB1bmRlcnN0b29kIHRoZSBjb3JlIGJ1dCBJIG1pZ2h0IGJlIGVudGlyZWx5IHdyb25n
-IGFzIHdlbGwsIHNvIHBsZWFzZQo+ID4gZG8gbm90IGhlc2l0YXRlIHRvIGJlIGNyaXRpY2FsIG9u
-IG15IGNob2ljZXMuCj4gPiAKPiA+IFRoYW5rcywKPiA+IE1pcXXDqGwKPiA+IAo+ID4gIHNvdW5k
-L3NvYy94aWxpbngvS2NvbmZpZyAgICAgICAgICAgIHwgICA3ICsKPiA+ICBzb3VuZC9zb2MveGls
-aW54L01ha2VmaWxlICAgICAgICAgICB8ICAgMiArCj4gPiAgc291bmQvc29jL3hpbGlueC94bG54
-LWxvZ2ljcGQtaTJzLmMgfCA0NjggKysrKysrKysrKysrKysrKysrKysrKysrKysrKyAgCj4gCj4g
-V2hhdCBJUCBpcyB0aGlzPwo+IGh0dHBzOi8vd3d3LnhpbGlueC5jb20vcHJvZHVjdHMvaW50ZWxs
-ZWN0dWFsLXByb3BlcnR5L2F1ZGlvLWkycy5odG1sCj4gCj4gaHR0cHM6Ly9naXRodWIuY29tL1hp
-bGlueC9saW51eC14bG54L2Jsb2IvbWFzdGVyL3NvdW5kL3NvYy94aWxpbngveGxueF9pMnMuYwo+
-IAo+IEFueXdheSBJIGFtIGFkZGluZyBQcmF2ZWVuIGFuZCBNYXJ1dGhpIHRvIHRha2UgYSBsb29r
-LgoKQWN0dWFsbHkgSSBoYXZlIGJlZW4gdHJpY2tlZCBieSBhIGRhdGFzaGVldCB3aXRoIHRoZSB3
-cm9uZyB0aXRsZTogdGhpcwppcyBhIExvZ2ljUEQgSVAsIGl0IGlzIG5vdCBmcm9tIFhpbGlueC4g
-SSB3aWxsIHJlc3VibWl0IHdpdGggYSBuZXcKZHJpdmVyIG5hbWUvY29tcGF0aWJsZSBhbmQgYWRk
-IHRoZSByZWxldmFudCBwZW9wbGUuCgpUaGFua3MsCk1pcXXDqGwKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxz
-YS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+Hi Takashi,
+
+On Mon, Sep 02, 2019 at 08:41:48AM +0200, Takashi Iwai wrote:
+> > Simpler...yes and no :) From what I have seen, all "default" Pulse profiles are
+> > replaced by the UCM, meaning that if I wanted them, I'd have to replicate
+> > all of them in my conf. It would work though. 
+> 
+> You just need to override codec->card->longname to some unique string
+> and use it as UCM profile name.
+> Check alc1220_fixup_gb_dual_codecs() as an example.
+
+no, no, that's not what I meant. I did understand how to tell PulseAudio
+which UCM to load, i.e. via the longname just as you wrote above.
+
+However, what I then observed was: PulseAudio loads my UCM configuration and
+pavucontrol lists only the profiles which I have specified in the UCM.
+
+So what I was trying to say is that I lose all the stock profiles that
+PulseAudio creates automatically and that list is quite long (i.e. 
+Analog Surround 5.1 Output + Analog Stereo Input, same for 5.0, 4.1, 4.0 and
+so on), basically the stock profiles get dropped in favor of the ones that I 
+provide in the UCM.
+ 
+> > Meanwhile I also figured out that /proc/asound/card0/codec#0 is
+> > providing this info as well:
+> > 
+> >   IO[1]: enable=0, dir=1, wake=0, sticky=0, data=0, unsol=0
+> > 
+> > So the value seems to be 0 and I can add an explicit SET_GPIO_DATA verb quirk
+> > to set it in addition to SET_GPIO_DIRECTION, right?
+> 
+> Yes.  You need to set SET_GPIO_MASK=0x02, SET_GPIO_DIRECTION=0x02 and
+> SET_GPIO_DATA=0x00 for that bit.
+
+Thanks a lot, I read the hda-intel spec on GPIOs a couple of times, but I
+was somehow not getting the idea about the GPIO MASK, now it's clear what
+I was missing. I'll add those three verbs to my quirk.
+
+[...] 
+> > The above seems to work quite well for me and does exactly what I want, 
+> > PulseAudio presents all the autogenerated profiles and handles mic and line 
+> > jacks itself, at the same time all unwanted speakers get muted as soon as I 
+> > plug in my headphones into the jack pin that is shared with my surround
+> > speakers. Of course Pulse does not "know" anything about the headphones and
+> > does not switch profiles, but I don't mind since the user experience is
+> > as expected.
+> 
+> Hm, OK, this amount of changes are acceptable.  The hardware behavior
+> itself is weird, and we have already tricky code, so it's no problem
+> to keep some yet another tricky code as long as it's described enough
+> in the comments and the changelog.
+
+Great, thank you! I will prepare a patch then, I like this approach a lot
+more than the UCM variant.
+ 
+> > My earlier attempt was to send the pin widget control verbs directly, however
+> > then the pin got reconnected as soon as playback started.
+> > This does not happen when I use snd_hda_set_pin_ctl_cache(), but I am not 
+> > quite sure about the cache, should I use the _cache function or the
+> > uncached one?
+> 
+> This should work, AFAIK.  The *_set_pin_ctl_cache() remembers the last
+> written value, as its name stands.  That's restored again at the PM
+> resume, for example.
+> 
+> The PM resume does re-trigger the jack detection callback, so it'll be
+> written up again in anyway, though.
+
+Thanks for the explanation, seems I picked the right function.
+ 
+> > Another thing I am not sure about is, if I somehow disrupt power management by 
+> > doing what I do? I saw that for instance restore_shutup_pins() does modify 
+> > those connections as well and I would basically overwrite whatever it did
+> > in the case that the user plugs/unplugs the headphones.
+> 
+> This should be fine as-is.  The shutup_pins() clears pins temporarily
+> and the pins are resumed to the cached values in return.
+
+I was more thinking of the scenario that shutup_pins() cleared them,
+some time afterwards the user unplugs headphones which triggers my jack-detect 
+callback where I reconnect the pins, although the "shutup" condition is still
+valid. Maybe I'm overthinking it. If this is not a problem, then I'm indeed
+almost done - easier than I thought :)
+ 
+> One thing to be improved would be to drop the surround jack control.
+> Adjust the pin config to different value with the fixed pin
+> connection, so that the auto-parser won't create the "Surround Jack"
+> control.  This isn't needed by PA or else, otherwise it may be
+> confusing.
+
+Hmm, if I understand you correctly, then you are referring to bits 31:30
+Port Connectivity? 
+
+It does not seem to work that way... I tried all combinations and I either
+lose jack detect support or I lose the 5.1 profile in Pulse.
+
+With these settings snd_hda_jack_detect_state() never returns HDA_JACK_PRESENT:
+0x91130012 [Fixed] Speaker at Int Rear
+0xd1130012 [Both] Speaker at Int Rear
+
+I can plug or unplug, I get called, but I always receive HDA_JACK_PHANTOM
+
+snd_hda_jack_detect_state() works fine with "no physical connection to port":
+0x51130012 [N/A] Speaker at Int Rear
+
+But with the above pin setting I "lose" the 5.1 profile in Pulse...
+
+Which leaves me with with what I had before:
+0x11130012 [Jack] Speaker at Int Rear
+
+Am I missing something or did you mean some other setting? Should I be
+using a different function instead of snd_hda_jack_detect_state() to
+check my jack state in the callback?
+
+
+I will study the kernelnewbies howto a bit more  (it's my first
+kernel patch submissoin) and will follow up with a patch soon.
+
+Thank you very much for your help! I would not have come so far
+without your support, really happy that my audio finally works :)
+
+Kind regards,
+Jin
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

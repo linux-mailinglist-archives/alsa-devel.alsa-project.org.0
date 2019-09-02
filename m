@@ -2,80 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22E7EA5930
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 16:22:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41EE9A5947
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 16:26:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CCE616D5;
-	Mon,  2 Sep 2019 16:21:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CCE616D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEB1316DB;
+	Mon,  2 Sep 2019 16:25:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEB1316DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567434153;
-	bh=WI6DKa28mV7P9C3HcCd/r1j7jEiWaqAgyeC4H1PxBaE=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1567434379;
+	bh=IMwiL89R0mGqCkVu1k4h8hke8NAQqLQCzlHV+LEm/xQ=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=hLOvAFFwdMyymhy6Lgy9cWgQUTihW+LWFJjIIIPWEVo9qlpv580hcgTODGYuIfjUq
-	 s+oFsiAuHOJzok2Riwb24uOA7K3x4aUrYtLbYFA0CdvjA1Vw4ggjVS9SbuYlJtefv6
-	 sn64WgflWRrHVqMwsBRCkbVhG05bM/qwVEqxIYRQ=
+	 From;
+	b=qbTDVk3z444WWkJuBwDFviLO2IfcOQBycWXF4CwirP4wqUoESIu6XrSDSbXGJSzmz
+	 9jo+WjvqCYomyfXcpTWSR7f2VuLNlYgTZIduEfNN2iQjNR3BzGi8EG9XV/eny7VQzz
+	 KbescWWsf6tk55TUxjsKy9LgI6IRpFtwABCLCR/Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8DC2F80447;
-	Mon,  2 Sep 2019 16:20:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EE891F803D0;
+	Mon,  2 Sep 2019 16:24:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E95F6F803D0; Mon,  2 Sep 2019 16:20:45 +0200 (CEST)
+ id 671DBF803D0; Mon,  2 Sep 2019 16:24:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from sonic314-19.consmr.mail.ir2.yahoo.com
- (sonic314-19.consmr.mail.ir2.yahoo.com [77.238.177.145])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7669BF8011E
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 16:24:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7669BF8011E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="eG5ApBOQ"
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com
+ [209.85.222.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D9A7F802E0
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 16:20:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D9A7F802E0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
- header.b="n55zAY43"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1567434042; bh=TQWACQe+YsQ5P5DlFZfELiEiXbMrtPX6wDRGbouosr8=;
- h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:From:Subject;
- b=n55zAY43tMsTLwBs9qLgAqNEIWc+yGv/sStV+lRhOq0mZGZFsQdTH4LP3g3umAiwDOfnQJTIiz2yLJ4f9ilTh/TNlyKIzYv0FAcyQ4EJy4QdUZHFqTtg+Fb9dx1hk5W2NrMkQKDFc6lGMqJIJdujsi57Zbj85pvC6fcR7jDdrlsMV2QWuG9aSftE83EWAk8gLwz6CHPufSGvNEyyBz3rlKasGfs95wY4tL53vL8+H9Z66pfQrAr5iRy/fMac+23d89RXPoyMW9YJKwupGclP11lmN1fnI4kocqluObur3JDPDr+fLcALSW1xijnEJb3pOz6arkFSFzyOagEt2xsqgw==
-X-YMail-OSG: B5OrVE4VM1lqxwB2Sgo0.ebbJ4APS0DqHcy.Eu.NNihx2I9.obK4DP18lTpxLoJ
- O52kTQj9FKqR4uMocdPnmOsmsA2ixIZ346BGUxGusMWPpox5zpHl72BKSBI6w0hq0DgNQ7a9QkT8
- y_yNS2qU3_rgZAKOQJ7_b0ZloZ0SOQlsOT8YM0q5aRk86BVoEOzp0nT6Wl40r7yGYDKrXU8MLwhF
- fLVKiNJOfKj.UM3zgG8VU_jhWapny3pn7VB6nYqV6BH4fL.IymZe6lIFaAiIGY7ViRtEdZH1aL24
- vGKrhFGb.dw6LiNUDGQfvH4gRZrMug0HI3Kq.ze9HQq29aE1..xb5SaeR8FwsIAVBhS1ajXSb2_o
- rfFcCEpK5VDUBbJIhHbcjwSoFiCVez9nGzfgcAg1Gi5Ubuwxw4stGKr6eBL6VNGgzTGtoyDszbyo
- KMlgWmNPyv3cLU3o6ajV2iPS1YccleNPCs9exX82vvUvTPdy_NTgPJfTLS8VC5fYVHvE9UgpmNaQ
- hMqJRt_HQWjqARO_Iiyer45Wpr7nQ2szZGcSO_84JfBfaJR5w7vVFnw93.HvwAvFdMIfZ7fdYFxK
- W36Xm4ntEQy_s8g.0qYbWTdIM39nkMVTZscydosRtvn.XUnsnkC1oyxZZ8tWAyU5VGtVCygWY1wR
- PpgguKSNcyHC5_CHzghUu8_eVouEF.lK2IRxW7WY6iYw1YEL40bwPOX6WeFwksqfeP_5Z7t2u7KN
- alSWNkQXsVlf1DCKASS8TmhFT2jeLnqPtks0h95XZFNA4luIr3zetGUco3JwQxv.yoRGKsWhOABk
- eT9mLWyW94hu7Aawdtc1Pr0diOqnvzc6qzalqK2V.eoYNks2nTdZshwp0sGsNJGeVXbIUfLh4Opu
- QtokckIo4hpCSenf5pt.xBDOna3zZ_kv1EMJzfbaQ_O2gseY3uLg95ftlS0b4gUT9HZss9ng4gnZ
- q84LAJYQF55fC1pQLieePCBEslbgFP20ErP.TJTRoQfAlcboITjFSby2dIMtba1q2L9MoYz6hQm6
- hiCNYuB4QuBYEy1RmkCcPis7fUwj.QmJUrVQeQDFaUSZ71EX.LRptGawR4zmEOshzihcHDSQkEj7
- GqU16oRMo5Uswy48eRh5okDV_HImODHPn70r72sAyCe1xNBj36Dzfh4rnxdHKiOIgdd42uAGz9.t
- NGsNNa.BC971zyD59X1VdihOc.xyz_wJ3sKiGd.8nHcsUELBKTQKQ4Qn6p_rQWb4ByURBiqSIkvL
- CZWUNEk1llIN9jeAU.rYjT_sxdDAtCuYFBuzXQOnEDPBmb4OXswBznUrpHghXug--
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic314.consmr.mail.ir2.yahoo.com with HTTP; Mon, 2 Sep 2019 14:20:42 +0000
-Date: Mon, 2 Sep 2019 14:20:38 +0000 (UTC)
-From: Hin-Tak Leung <htl10@users.sourceforge.net>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Message-ID: <958663156.1940472.1567434038770@mail.yahoo.com>
-In-Reply-To: <20190902130606.GA4911@workstation>
-References: <1091462655.1815609.1567426196596@mail.yahoo.com>
- <20190902130606.GA4911@workstation>
+ by mail.kernel.org (Postfix) with ESMTPSA id CA0E322DCC
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1567434266;
+ bh=B74PQ5o385KMtSFx606GqW7Hji/64H+L+7SO8wzLMGg=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=eG5ApBOQMdx43szlZ3hRfFK3JhjJnHU1h9N6fzJZ5gSFAGo+DUwYCQAzqPRtkeL/Z
+ egjx2sk3s2NgyQuuh7m09MlzWLOaXz87O/ehHQQMF+Ukgb9LnuLBl275xwetBiplq0
+ SJsZX23mHLern4Z4WajFyMqxkRO1LaFCSNuEgAlY=
+Received: by mail-qk1-f179.google.com with SMTP id s14so12669971qkm.4
+ for <alsa-devel@alsa-project.org>; Mon, 02 Sep 2019 07:24:26 -0700 (PDT)
+X-Gm-Message-State: APjAAAXOLpm7pfSDGCrP1YKLkuqWV4GlfJCMv57BWAX5hAiQiOkwHuFZ
+ SgtWum6ItIqKtBvkmeXsa/3vfCfbCSS5xmIbwg==
+X-Google-Smtp-Source: APXvYqxVgrKxDU9AKZPVkiZjyBgcLWuDoOAhBqYHYxpm22jPeoe3HQJTqnHt0BhMxQu7W0O02Nt2wgbZXPnLf8rZcYc=
+X-Received: by 2002:a37:682:: with SMTP id 124mr28156982qkg.393.1567434265875; 
+ Mon, 02 Sep 2019 07:24:25 -0700 (PDT)
 MIME-Version: 1.0
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, g@b4.vu
-Subject: Re: [alsa-devel] sound/usb kernel modules as a DKMS package.
+References: <20190830210607.22644-1-miquel.raynal@bootlin.com>
+ <20190830210607.22644-2-miquel.raynal@bootlin.com>
+ <20190902044231.GA17348@bogus> <20190902155113.40b00fa0@xps13>
+In-Reply-To: <20190902155113.40b00fa0@xps13>
+From: Rob Herring <robh@kernel.org>
+Date: Mon, 2 Sep 2019 15:24:13 +0100
+X-Gmail-Original-Message-ID: <CAL_JsqJJ31wfXnLGSp5Hzkb2L7VeDoOki+eBqUkm2LWEtsA58A@mail.gmail.com>
+Message-ID: <CAL_JsqJJ31wfXnLGSp5Hzkb2L7VeDoOki+eBqUkm2LWEtsA58A@mail.gmail.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ alexandre@bootlin.com, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH 2/3] dt-bindings: sound: Add Xilinx
+	logicPD-I2S FPGA IP bindings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,27 +91,103 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: htl10@users.sourceforge.net
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- 
+On Mon, Sep 2, 2019 at 2:51 PM Miquel Raynal <miquel.raynal@bootlin.com> wrote:
+>
+> Hi Rob,
+>
+> Thanks for the review, one question below.
+>
+> Rob Herring <robh@kernel.org> wrote on Mon, 02 Sep 2019 14:39:09 +0100:
+>
+> > On Fri, Aug 30, 2019 at 11:06:06PM +0200, Miquel Raynal wrote:
+> > > Document the logicPD I2S FPGA block bindings in yaml.
+> > >
+> > > Syntax verified with dt-doc-validate.
+> > >
+> > > Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> > > ---
+> > >  .../bindings/sound/xlnx,logicpd-i2s.yaml      | 57 +++++++++++++++++++
+> > >  1 file changed, 57 insertions(+)
+> > >  create mode 100644 Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml b/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
+> > > new file mode 100644
+> > > index 000000000000..cbff641af199
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/sound/xlnx,logicpd-i2s.yaml
+> > > @@ -0,0 +1,57 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/sound/xlnx,logicpd-i2s.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Device-Tree bindings for Xilinx logicPD I2S FPGA block
+> > > +
+> > > +maintainers:
+> > > +  - Miquel Raynal <miquel.raynal@bootlin.com>
+> > > +
+> > > +description: |
+> > > +  The IP supports I2S playback/capture audio. It acts as a slave and
+> > > +  clocks should come from the codec. It only supports two channels and
+> > > +  S16_LE format.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    items:
+> > > +      - const: xlnx,logicpd-i2s
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +    description:
+> > > +      Base address and size of the IP core instance.
+> > > +
+> > > +  interrupts:
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > > +    items:
+> > > +      - description: tx interrupt
+> > > +      - description: rx interrupt
+> > > +    description:
+> > > +      Either the Tx interruption or the Rx interruption or both.
+> >
+> > The schema says either tx or both. Doesn't really matter here as it's
+> > just numbers.
+>
+> I see , I'll drop the 'items' entry.
+>
+> >
+> > > +
+> > > +  interrupt-names:
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > > +    items:
+> > > +      - const: tx
+> > > +      - const: rx
+> >
+> > But here it does matter.
+> >
+> > The easiest way to express this is:
+> >
+> > oneOf:
+> >   - items:
+> >       - enum: [ tx, rx ]
+> >   - items:
+> >       - const: tx
+> >       - const: rx
+> >
+>
+> Does this enforce an order? (I don't know if it matters, though, but in
+> the bellow example I put the Rx interrupt first).
 
-On Monday, 2 September 2019, 14:31:24 BST, Takashi Sakamoto <o-takashi@sakamocchi.jp> wrote:
+Yes. It does matter and should be defined what the order it.
 
-...
-> > https://github.com/HinTak/sound-usb-dkms
-...
-
-> As a quick glance, the repository is just for deb-based distributions.
-> From my experience, users who eager to use the latest source codes tend
-> to use Arch Linux and Gentoo Linux. It's helpful for the users to
-> include some instructions just to use the code with DKMS system. Then
-> you could get any feedback from them as well.
-
-I added some quick instructions for non-Ubuntu/Debian systems. On the whole, it doesn't really add much to the work, as the debian packaging process really just auto-generates/insert the module version into the dkms.conf template I wrote. So for non-Ubuntu/Debian system, it is a matter of deciding on a version and edit/insert it manually, and copy the rest into the right place onto a system.  
+Rob
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

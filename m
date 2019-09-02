@@ -2,79 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84C9EA57B1
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 15:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E9ECA57C3
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 15:37:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EECD316C7;
-	Mon,  2 Sep 2019 15:33:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EECD316C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 884E916C3;
+	Mon,  2 Sep 2019 15:37:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 884E916C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567431276;
-	bh=GKCWWDPt5OOmMmTE9aCeDOkt4vQn6v+kPTAPPWwBxnM=;
-	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1567431478;
+	bh=L0bxZ4gvytQ/eFnS75x6N6HDdPvQrV4bcQPJ02OytKs=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=Awcp14D20ENJ7X0hJ5FqrYqcJfMAisfxrh3dW32zcFysqchverRPLTjR+EilWPfy+
-	 0yvZqutLFdpUVFMzuQDAQkp3aEkreaPTaO3E7TfusvKQFi0C0c8iG2qQyCH2n+UbWq
-	 Ydl8X6X7iqGJlfrpfdSWo4Fqphw0a7K+OFPxRTmc=
+	 From;
+	b=nJ9dURpNQJ6W2lKNcr9DOT1TBbwe9jHp2SPLEThV6KpJxhV6IAe4j/MUym7P+hHev
+	 enmXLld5SzsyPXq8/mkE+ONfWT2zxqwxxBmPvXsw+jY91BMHD1fteEGuBL1uWSDkIG
+	 p6lvthDVZe9irdjPFh9xACQL5CoYcqs9hik7xnoI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F110F80394;
-	Mon,  2 Sep 2019 15:32:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECEF5F80392;
+	Mon,  2 Sep 2019 15:36:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFFDAF803D0; Mon,  2 Sep 2019 15:32:45 +0200 (CEST)
+ id 33E68F803D0; Mon,  2 Sep 2019 15:36:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from sonic307-53.consmr.mail.ir2.yahoo.com
- (sonic307-53.consmr.mail.ir2.yahoo.com [87.248.110.30])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94D7BF80392
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 15:32:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94D7BF80392
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF0A3F80392
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 15:36:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF0A3F80392
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
- header.b="AcL24pMS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1567431161; bh=/eLG1yRjpn+E+xG75VyEiFWN5l2e30j9Ls2Cu3d6BII=;
- h=Date:From:Reply-To:To:In-Reply-To:References:Subject:From:Subject;
- b=AcL24pMSKTBXfZllsyrltHuh04m6GfTdgHvB/hWLqi3A4XUX57rsFRfR/ITrnytWqSc2W/p5nFzabtXMMt5qv0HNOw1PH7Jhvq56PweiDuJ1MPdhDoJ5BpTLD1+07HPGj/wJkFUfEvLaSwWxct3xRDRRgsINkZrTAVUbCpxx0B9tm1IgAD2RwdrvgngRW9sLhSeeFhnrOsSDscoOlJAgXiZrR49mHmz2D5JJW7qgeBuDLxLV2X5JVNf6xLqdZ2BtDbldeyWyHNT4SL/5ugdZ3V+NohhX+xa0PJ46E7muhu7XJRV+k86lIOS56rjkz7WrNpPtgKbUaAEUCWhIwS6mOg==
-X-YMail-OSG: zH2N8ZcVM1mhAy1FKrs4IikWt7YGZap7a7fMxYdsrxxs_REM85HYr7bNQPwkTAp
- Q3MV.7BBXR4c0j_Oz7kaqm__E1gN4mUISl3mvOeFe1LmTTFVTLzZIagpz_Wk452XZMVyccpRKn5K
- bDFPmBs7yusCagdfon0fn6SlrK6xXJumh9B84qjq3op1KQh9OPxAVg3Q_BhvVrvr5C37MBOejMdR
- tAFQSlgZWhVYym0h3P_FadDZh_nJzFI8iNMrc3bS5rlL32v7Bmw3dahnN1fDpVDI57NR738A0Bds
- jPyl2zHdtNgw2rYqAAeCYd35bMhsKQvM.P8ps6a8Vs.cmQWn5VaT9n9d0XWjCtI8c36QD1YGybi7
- aAdAQeUaLm1Eg56vfPuNgx4p_6lW8CZMw33qUdrPox4t3XQrYjIhbhJO19PLDU7xmWI.Tvg_u0.V
- T.iRQXhYM0hER_Kn2YbWugtq3op1Ga8RkAXyYBoxs85GjFcHBbqgqeqq5nZzrdx6bXt45SnoEp9D
- xFS4q9yg2q19V1CNr_kBFspPyYats7IYXruCdUrIjCjwsqUFip06lO4cK67Sj9EOK9zR2pyC_yFR
- A63XjgDBaKjOrJlPV6wuhhb3zm8hKGjnTlqPlUI9VM9RmMliJAaTLxrfTffW6RHpO3R6_bFgr.j1
- 6BSlqY5BwgGLczxjq3sm7GE6QLF6i36XDygA2vkeCa4opDhV64BxsOsy3NADAuqSwTYUClCG0Eyo
- 0jx8IO1v6XcG1Ixne6t2m3htiwB.h3kHjJKq77dCL4ztEarjvJZ9Byd4YGtXheL4A8GJqCkJOWJE
- gWqMir7sRqDUbXbVD3PTRM7Y_EdlKPNC4TpCc8EIMAPR7M5AJNEhDj1UNYumfSdhQKjZm8XP7za1
- 8bbtz8XBef5EeKl5gzuCK92w3DcH3zMcpAkk.9PuP8ZhCev1ZUiZ3BnM6Uv_LR9qvAANeJt6VlEs
- lJBx1MfoBqch1vi9PN33NHo6jSJmEB1TZagYeMCn0HrV2fKo0I.J5Fm7gmgPuBoEqLZUcRGT_70.
- kzkE9eUv4ArqYLLZwwWfRTUzH5_PdshaFYJjX4vDbtSz2fMuUqZE909w8aU_QfbAt217A8rNWCwC
- M.F6JNuk3tszyPjTzWI1b40E10Xdxay26zi7IQ5Ybl2eh6_wTf4daoFcBGLzNu8igvmkxu4F7Bqr
- Y8NeCBHVXZ81ixftcXTMun3ucNpuaXly7O0W6Fqojhd_Le1W2hRfJ_MNv69KsojyStuL6Gfcz0KJ
- TfKgTSpLiBPIxA_HYQgRrbNa2SmZq9XjLWc63VUyw8kcCQGMuSUEG8l1f5cXuMoAEWRF7TA--
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic307.consmr.mail.ir2.yahoo.com with HTTP; Mon, 2 Sep 2019 13:32:41 +0000
-Date: Mon, 2 Sep 2019 13:32:36 +0000 (UTC)
-From: Hin-Tak Leung <htl10@users.sourceforge.net>
-To: alsa-devel@alsa-project.org, Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Message-ID: <2107056110.1891562.1567431156568@mail.yahoo.com>
-In-Reply-To: <mailman.2517.1567429580.5742.alsa-devel@alsa-project.org>
-References: <mailman.2517.1567429580.5742.alsa-devel@alsa-project.org>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="UlCl3abu"
+Received: by mail-wm1-x344.google.com with SMTP id t9so14640430wmi.5
+ for <alsa-devel@alsa-project.org>; Mon, 02 Sep 2019 06:36:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=lgluUPyzTE3k7AyBs9nIV6ho5+oXFx0a+s2dE+u1Fk8=;
+ b=UlCl3abuuJFpLnHk0GD3eI2rM9n0Azzsrf1m9RwHiYwS5Exwkvc49cN6lZTg4HtDf7
+ te3wGTJ/Q7Wy8QRj0FtydbX8PZLAfGrl8vo+++PDn7mkgS4TL0jgQ8+bXY/N6sFSQR3M
+ x0K8Ptix0M+imYJ3mhqS5fJkHGT7j2yIVNZAkfhf0gYNF27aoG1kW2R+jzzT9GQG+BTU
+ /vd3Ju6jWcKst2NaTlSZuIDgXKK13QwQqMJNF8Isx+KN9LAtfuCbQfAPBoEmmM5r8hsX
+ uKBnW3Nmo8MVLpnhW97mSpcRSvhQ1UBMILml1T2Gdw/Kt2s825Bz4yoJXO3Nff6npHJR
+ lCcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=lgluUPyzTE3k7AyBs9nIV6ho5+oXFx0a+s2dE+u1Fk8=;
+ b=RWrbh0N7Y5w6FKdayPb3T5eV/DeWENex41yTTk/BeugWh7e8A3Klx55flUTtxjUVIP
+ cEv27ZnYyQdQItP5CYaDSEnp17YIBtrhrHSNbeABqaXC64h/gCSl4PpFbP+dqpxkwAI0
+ aqNUdUQjb0z5tyE0cUn+a6VvAoXYQ/aTfEsgjK6R/dWEk6yLJTfaoukfLIOAuLA0FFPI
+ nxLlfFcbaBKXYp92GvLda8kpIsExmm9kmX+rtthsrrfxCfdq5SKhXC7AIIsFBrltGOJP
+ py8ZHfa65y4Kt05cvPI2lZKseSE/GsTo8B0t+C32G+uUhgsCNSZ+AlRpmldGjym/NkVS
+ ifkg==
+X-Gm-Message-State: APjAAAWcwTYhXn1WBbQcsKhTTb9kMlv37an4rrZm0ovLaBZP/1S6wU9u
+ QQfGfXn2k2PxaYjb/pTNJPCOD0IsMbiVcTS+Nq0=
+X-Google-Smtp-Source: APXvYqxXTnz3j1+58ZXipucuYWcIzBAoeW6774ATixJZMau34AMCKmrFZUDfhSF4cmAZHiIFE4a5YsMhxy4Bn6/LgVQ=
+X-Received: by 2002:a7b:cc94:: with SMTP id p20mr9324398wma.171.1567431367725; 
+ Mon, 02 Sep 2019 06:36:07 -0700 (PDT)
 MIME-Version: 1.0
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: Re: [alsa-devel] sound/usb kernel modules as a DKMS package. (Re:
- Alsa-devel Digest, Vol 151, Issue 10)
+References: <20190830225514.5283-1-daniel.baluta@nxp.com>
+ <20190902123944.GB5819@sirena.co.uk>
+In-Reply-To: <20190902123944.GB5819@sirena.co.uk>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Mon, 2 Sep 2019 16:35:56 +0300
+Message-ID: <CAEnQRZDmVoSkpf47mTHeEKodX9_x4Y_9EVrkS=ta4sWU8tD3Zw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Daniel Baluta <daniel.baluta@nxp.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>,
+ Cosmin-Gabriel Samoila <gabrielcsmo@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Set SAI Channel Mode to
+	Output Mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,34 +98,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: htl10@users.sourceforge.net
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- > Date: Mon, 2 Sep 2019 22:06:07 +0900
-> From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+On Mon, Sep 2, 2019 at 3:42 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Sat, Aug 31, 2019 at 01:55:14AM +0300, Daniel Baluta wrote:
+>
+> > Fix this by setting CHMOD to Output Mode so that pins will output zero
+> > when slots are masked or channels are disabled.
+>
+> This patch seems to do this unconditionally.  This is fine for
+> configurations where the SoC is the only thing driving the bus but will
+> mean that for TDM configurations where something else also drives some
+> of the slots we'll end up with both devices driving simultaneously.  The
+> safest thing would be to set this only if TDM isn't configured.
 
-> As a quick glance, the repository is just for deb-based distributions.
-> >From my experience, users who eager to use the latest source codes tend
-> to use Arch Linux and Gentoo Linux. It's helpful for the users to
-> include some instructions just to use the code with DKMS system. Then
-> you could get any feedback from them as well.
+I thought that the SAI IP is the single owner of the audio data lines,
+so even in TDM
+mode SAI IP (which is inside SoC) is the only one adding data on the bus.
 
-Yes, that's correct. It appears that the "dkms mkrpm ..." functionality is not on Ubuntu. I am mostly a Fedora person privately (Slackware before Fedora). The Ubuntu thing is a work-requirement. Have never used Arch nor Gentoo.
+Now, you say that there could be two devices driving some of he masked
+slots right?
+I'm not sure how to really figure out that SAI is running in TDM mode.
 
-I'll see if I could get it done on Fedora too.
+RM says:
 
-The dkms packaging is mostly done for junior colleagues - I had removed all of work-related material before posting, so it is a bit bare at the moment.
+When enabled, the SAI continuously transmits and/or receives frames of
+data. Each
+frame consists of a fixed number of words and each word consists of a
+fixed number of
+bits. Within each frame, any given word can be masked causing the
+receiver to ignore
+that word and the transmitter to tri-state for the duration of that word.
 
-> For your information, I maintain out-of-tree codes to develop ALSA
-> firewire stack for a couple of years, as you start:
-> https://github.com/takaswie/snd-firewire-improve
+Will try to ask IP designer about this, thanks a lot for your comment!
 
-Yes, thanks. I came across that, and a few other repos which try to package up other part of bleeding-edge sound driver code (like HDA), but not sound/usb yet. Hence this posting. 
-
-  
+Daniel.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

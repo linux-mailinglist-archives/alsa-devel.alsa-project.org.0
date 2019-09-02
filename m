@@ -2,88 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90554A538F
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 12:04:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B74BA5413
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 12:34:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0965E16AB;
-	Mon,  2 Sep 2019 12:03:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0965E16AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5DBA16B1;
+	Mon,  2 Sep 2019 12:33:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5DBA16B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567418673;
-	bh=Ha2riKKiNu8yZWlVWyknZwks4d+AWnPdD9pX2lyDsRc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=oTqSZ66ygghXErK5vw4wsFqj6WIt8LMmbywdAh9wIdyIxuUFhAVzFqQlB1jRRWG4H
-	 tohkkYW8bI7+eNCqt26/naeEdOhxxyhlcEX+m+FTSLTy8k45LObKNoKVrf2IMY/fIN
-	 3hUZOBBNzjKqU/IUQAm0IBk/TijS1A7KMJu/gsGg=
+	s=default; t=1567420469;
+	bh=uw/9kyBg/EZBdrsfX/lR/J2Ut8s5gL2TcBW+OdElEoQ=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=m3hnBq/jejviRgIFyw/xEp9wUfdHKqNmZqz+9K9RWDXTNTVmsBxr9PtqfEJhOCYK7
+	 rOXGfHbEzyf0QcMV9eQGnx6B831SPnnp8kRQfMpZrQFYiL5kKyq0eAPsv36antgk1m
+	 Ox5N1cox8+FxT2wX5T04cspczrekkr0lQlCbpvAU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 610AFF803D6;
-	Mon,  2 Sep 2019 12:02:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C1E7F80447;
+	Mon,  2 Sep 2019 12:32:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 163B9F803D0; Mon,  2 Sep 2019 12:02:46 +0200 (CEST)
+ id 5BED9F803D0; Mon,  2 Sep 2019 12:32:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-oln040092070098.outbound.protection.outlook.com [40.92.70.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 36671F8011E
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 12:02:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36671F8011E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
- header.i=@endlessm-com.20150623.gappssmtp.com header.b="mh3+HhRm"
-Received: by mail-pg1-x544.google.com with SMTP id w10so7249657pgj.7
- for <alsa-devel@alsa-project.org>; Mon, 02 Sep 2019 03:02:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessm-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RQ4bgGpDe1aO2dcXCN2kWEia8kVQV/JW3GaWgKM7FYE=;
- b=mh3+HhRmMDF81+H6REGveUB1w/FITeP87l5Kn0pE/4A7ip3Z5n/gzLlKFGvZ4X1urg
- uTrpaaPPotgwE1gr0/qkMLkkEL1LFvVDQ1g6zdBYh5mNyl/iYUjoMweg1L0+Iq06FP5f
- f4Qty34vvU0ICYsKoQ6NQB2X16O+G5MR8/eRKCBB9pORO2u6OXD2bBaa+CskviGyjQRX
- D39hS8k6KY0yQtWXsycwUKfCKd28ujoMsypj9cyIrODLgCNiyce+93/An3DIAZLTGnws
- cujQTluCGz50xtILEjftm19ngvM+CNMXSRx2BuJDGhzdrOePRM8YHdbV93g9Xd4znWws
- /1hg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RQ4bgGpDe1aO2dcXCN2kWEia8kVQV/JW3GaWgKM7FYE=;
- b=aLCzz1TL5aoEuuqgBndqgvljv0YqNcUAyocjLHioCoCPHxC7bOHChKOeNTqmno7Y/+
- wgw1cX8lh7504dXQ6r9kzmgrI5UNHNmpEuNNJnspfmiojCWpWlDzk3h93ucoXfsEnAh9
- HH9LosbjgFDfnb6ElMtFVkIw0wgmaVUNvX9Bus7yuGGg3RfQ7zi171K5PAt0yw3F0O1Z
- CLW2QZosg2tR10BK8j65tOAwBW7+MR/5cj6PYlCFlwuDoE64vXWOkyBKLEAFygPiLBUL
- XlPIpoVn3Pcufp7tbuOO++VIX3LjEzwyW6ChUg+xQ8N1hm6c6cPqNtYg2APg2cqnMtTU
- 6XWQ==
-X-Gm-Message-State: APjAAAXGlf7GnFMG0sptCjHFLEtKJMQfDTiGvR4I4/4CloDOV7frsHFv
- YIGicwobMpyqMo3S0obki7+eWQ==
-X-Google-Smtp-Source: APXvYqxRf34N5BEFEv8etsDj/JI3+CfZ0JnpQI+TsEcRr5YSB05J7K3rQw7oqzyvUHr981kBtMIs4g==
-X-Received: by 2002:a62:2603:: with SMTP id m3mr34483187pfm.163.1567418560532; 
- Mon, 02 Sep 2019 03:02:40 -0700 (PDT)
-Received: from localhost.localdomain (123-204-46-122.static.seed.net.tw.
- [123.204.46.122])
- by smtp.gmail.com with ESMTPSA id z4sm12783932pgp.80.2019.09.02.03.02.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Sep 2019 03:02:40 -0700 (PDT)
-From: Jian-Hong Pan <jian-hong@endlessm.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Date: Mon,  2 Sep 2019 18:00:56 +0800
-Message-Id: <20190902100054.6941-1-jian-hong@endlessm.com>
-X-Mailer: git-send-email 2.23.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A17ADF80392
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 12:32:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A17ADF80392
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q7RL4JzppThEOGuni15BfXQKo4eraxoUWeYC5SS+EC/O6myKg+q0rXwYK03QFGa6qIhvITEsg5SyOOmOHKrIVmPJyfNKKHWv3/zPQR+hA+4t6JQtSTkVFho7a94S//JdUQqgSbytC7pDQE+kDBf4K5BbDDYJQ27TGkaBl16TsOYWgJDnOyAL4+rVdwRTOUr+dqp1au5hiJFtY2T2q63GvCmwuXY9rOftEAVxbhIeDS76rVxl8E421mIIturOK8TRdMRi9ypMLXRcAaLXlZZ/zU+1pDfY3nIj0PDPL1pXE0fWCN/Ucc/p1T1UtYpkpmnLo9hz06fDF954Wy7rCtb9Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mMy0bYrDmhv8lbTruCvXNPgcPqXv372WjYxd1S80E7s=;
+ b=PqtFtgL9qfsy0+lXQqm0r+aiFCzXFgUKeEHG0vuhKuqsbJWTnpU/8WabxMADJi0tvNEF8iU3AyTPyJdvOpNZh4KADA7pFGOmngtsalc/1M4jgebM2TGfUxLdnRONL1p0GhLjCVB9clb51XFUSjKkNvr95BzCQwX0VRqqqwTupgH/w3H+RbqGIpmtI14qQ0UJWXOd5tNBddYlm/9B9OEjSG0rm4C4rQWBX4Hh5ZvtdIcaB/+sWZEQz9iALGOaw6UePy9r+uAK1EY06msfjXm6YgP6PdkhlHyfTXjPXJSeZQOsUmE/NpBgg7EDslji/8znAj9zGoB/P+4BQaKfwBHuNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from AM5EUR03FT032.eop-EUR03.prod.protection.outlook.com
+ (10.152.16.56) by AM5EUR03HT039.eop-EUR03.prod.protection.outlook.com
+ (10.152.17.109) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2220.16; Mon, 2 Sep
+ 2019 10:32:38 +0000
+Received: from HE1PR06MB4011.eurprd06.prod.outlook.com (10.152.16.60) by
+ AM5EUR03FT032.mail.protection.outlook.com (10.152.16.84) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.2220.16 via Frontend Transport; Mon, 2 Sep 2019 10:32:38 +0000
+Received: from HE1PR06MB4011.eurprd06.prod.outlook.com
+ ([fe80::1188:7e7d:69b:a036]) by HE1PR06MB4011.eurprd06.prod.outlook.com
+ ([fe80::1188:7e7d:69b:a036%5]) with mapi id 15.20.2220.022; Mon, 2 Sep 2019
+ 10:32:37 +0000
+From: Jonas Karlman <jonas@kwiboo.se>
+To: Neil Armstrong <narmstrong@baylibre.com>, Cheng-Yi Chiang
+ <cychiang@chromium.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Thread-Topic: [PATCH v2] drm: dw-hdmi-i2s: enable audio clock in audio_startup
+Thread-Index: AQHVYUIsW0s7539kVU2Jt4QPypUBOKcYIv4AgAAN9AA=
+Date: Mon, 2 Sep 2019 10:32:37 +0000
+Message-ID: <HE1PR06MB4011E2F58875F30446D902BFACBE0@HE1PR06MB4011.eurprd06.prod.outlook.com>
+References: <20190902035435.44463-1-cychiang@chromium.org>
+ <241fd791-3792-34c8-ac35-a81a0a41070c@baylibre.com>
+In-Reply-To: <241fd791-3792-34c8-ac35-a81a0a41070c@baylibre.com>
+Accept-Language: sv-SE, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: HE1PR0902CA0020.eurprd09.prod.outlook.com
+ (2603:10a6:3:e5::30) To HE1PR06MB4011.eurprd06.prod.outlook.com
+ (2603:10a6:7:9c::32)
+x-incomingtopheadermarker: OriginalChecksum:11AFA484E24FBB2CDB4BF31F98FE745128D47FBAE604F925178CCA20798AFEF0;
+ UpperCasedChecksum:CEAEE32EF148EBB03EB444A95DF68042F6507D089325A6FC5FE9125E539400DE;
+ SizeAsReceived:8557; Count:49
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [A8LugvH9kj5T4xfRlk+80mbCfMFbMrmW]
+x-microsoft-original-message-id: <d6fa2d56-335b-e15d-da18-749ea0341fad@kwiboo.se>
+x-ms-publictraffictype: Email
+x-incomingheadercount: 49
+x-eopattributedmessage: 0
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(5050001)(7020095)(20181119158)(201702061078)(5061506573)(5061507331)(1603103135)(2017031320274)(2017031322404)(2017031323274)(2017031324274)(1601125500)(1603101475)(1701031045);
+ SRVR:AM5EUR03HT039; 
+x-ms-traffictypediagnostic: AM5EUR03HT039:
+x-microsoft-antispam-message-info: aPYwSGaRGf/92nAQF7WaYOyubhfYLufZAH+FzJ9zdaNyO4ale39c/SDQ8VerWyS8qfidyZqVm3lWQUxlMf+YMp5pW0YO74TbIMgWC/2ck7aCNT3CyKJ20Wf8vQFlvNnlI8Z1eNL4y0AeZsmrzNHr8rmgL2Wq8nVdVEjB6Jo8ZgQeqi27NodGvdkrcyadRWyZ
+x-ms-exchange-transport-forked: True
+Content-ID: <28AEFB56CC9D7540A050CC1E73674443@eurprd06.prod.outlook.com>
 MIME-Version: 1.0
-Cc: Jian-Hong Pan <jian-hong@endlessm.com>, alsa-devel@alsa-project.org,
- linux@endlessm.com, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: hda/realtek - Enable internal speaker &
-	headset mic of ASUS UX431FL
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f14e6ad-372f-4349-ed8d-08d72f90dfc7
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2019 10:32:37.8279 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5EUR03HT039
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "tzungbi@chromium.org" <tzungbi@chromium.org>,
+ "zhengxing@rock-chips.com" <zhengxing@rock-chips.com>,
+ "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
+ "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
+ "airlied@linux.ie" <airlied@linux.ie>,
+ "jeffy.chen@rock-chips.com" <jeffy.chen@rock-chips.com>,
+ "dianders@chromium.org" <dianders@chromium.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "cain.cai@rock-chips.com" <cain.cai@rock-chips.com>,
+ "a.hajda@samsung.com" <a.hajda@samsung.com>,
+ "eddie.cai@rock-chips.com" <eddie.cai@rock-chips.com>,
+ "Laurent.pinchart@ideasonboard.com" <Laurent.pinchart@ideasonboard.com>,
+ "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "enric.balletbo@collabora.com" <enric.balletbo@collabora.com>,
+ "dgreid@chromium.org" <dgreid@chromium.org>,
+ "sam@ravnborg.org" <sam@ravnborg.org>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v2] drm: dw-hdmi-i2s: enable audio clock in
+	audio_startup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,75 +139,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Original pin node values of ASUS UX431FL with ALC294:
+On 2019-09-02 11:42, Neil Armstrong wrote:
+> Hi,
+>
+> On 02/09/2019 05:54, Cheng-Yi Chiang wrote:
+>> In the designware databook, the sequence of enabling audio clock and
+>> setting format is not clearly specified.
+>> Currently, audio clock is enabled in the end of hw_param ops after
+>> setting format.
+>>
+>> On some monitors, there is a possibility that audio does not come out.
+>> Fix this by enabling audio clock in audio_startup ops
+>> before hw_param ops setting format.
+>>
+>> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+>> Reviewed-by: Douglas Anderson <dianders@chromium.org>
+>> Reviewed-by: Jonas Karlman <jonas@kwiboo.se>
+>> Tested-by: Douglas Anderson <dianders@chromium.org>
+>> ---
+>>  Changes from v1:
+>>  1. Move audio_startup to the front of audio_shutdown.
+>>  2. Fix the indentation of audio_startup equal sign using tab.
+>>  3. Rebase the patch on linux-next/master.
+>>  4. Add Reviewed-by and Tested-by fields from dianders@chromium.org.
+>>  5. Add Reviewed-by field from jonas@kwiboo.se.
+>>
+>>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c | 9 +++++++++
+>>  1 file changed, 9 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+>> index 1d15cf9b6821..34d8e837555f 100644
+>> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+>> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+>> @@ -109,6 +109,14 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
+>>  	hdmi_write(audio, conf0, HDMI_AUD_CONF0);
+>>  	hdmi_write(audio, conf1, HDMI_AUD_CONF1);
+>>  
+>> +	return 0;
+>> +}
+>> +
+>> +static int dw_hdmi_i2s_audio_startup(struct device *dev, void *data)
+>> +{
+>> +	struct dw_hdmi_i2s_audio_data *audio = data;
+>> +	struct dw_hdmi *hdmi = audio->hdmi;
+>> +
+>>  	dw_hdmi_audio_enable(hdmi);
+>>  
+>>  	return 0;
+>> @@ -153,6 +161,7 @@ static int dw_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
+>>  
+>>  static struct hdmi_codec_ops dw_hdmi_i2s_ops = {
+>>  	.hw_params	= dw_hdmi_i2s_hw_params,
+>> +	.audio_startup  = dw_hdmi_i2s_audio_startup,
+>>  	.audio_shutdown	= dw_hdmi_i2s_audio_shutdown,
+>>  	.get_eld	= dw_hdmi_i2s_get_eld,
+>>  	.get_dai_id	= dw_hdmi_i2s_get_dai_id,
+>>
+> Looks sane, Jonas should I apply it now it's rebased ?
 
-0x12 0xb7a60140
-0x13 0x40000000
-0x14 0x90170110
-0x15 0x411111f0
-0x16 0x411111f0
-0x17 0x90170111
-0x18 0x411111f0
-0x19 0x411111f0
-0x1a 0x411111f0
-0x1b 0x411111f0
-0x1d 0x4066852d
-0x1e 0x411111f0
-0x1f 0x411111f0
-0x21 0x04211020
+Sure, looks sane and compiles without warnings on my build host.
 
-1. Has duplicated internal speakers (0x14 & 0x17) which makes the output
-   route become confused. So, the output volume cannot be changed by
-   setting.
-2. Misses the headset mic pin node.
+Regards,
+Jonas
 
-This patch disables the confusing speaker (NID 0x14) and enables the
-headset mic (NID 0x19).
-
-Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
----
- sound/pci/hda/patch_realtek.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index e333b3e30e31..0a1fa99a6723 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -5797,6 +5797,7 @@ enum {
- 	ALC286_FIXUP_ACER_AIO_HEADSET_MIC,
- 	ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
- 	ALC299_FIXUP_PREDATOR_SPK,
-+	ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -6837,6 +6838,16 @@ static const struct hda_fixup alc269_fixups[] = {
- 			{ }
- 		}
- 	},
-+	[ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC] = {
-+		.type = HDA_FIXUP_PINS,
-+		.v.pins = (const struct hda_pintbl[]) {
-+			{ 0x14, 0x411111f0 }, /* disable confusing internal speaker */
-+			{ 0x19, 0x04a11150 }, /* use as headset mic, without its own jack detect */
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -6995,6 +7006,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
- 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
-+	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
- 	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
--- 
-2.20.1
+>
+> Neil
 
 _______________________________________________
 Alsa-devel mailing list

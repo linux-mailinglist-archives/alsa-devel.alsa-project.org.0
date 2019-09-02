@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D970DA55FC
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:27:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC2E3A5600
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:28:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5C7BA16CF;
-	Mon,  2 Sep 2019 14:26:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C7BA16CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBB3716E0;
+	Mon,  2 Sep 2019 14:27:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBB3716E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567427241;
-	bh=pLroh8GAww1zWedPmPE6rLAONAHXxCTfr/+61odVIjI=;
+	s=default; t=1567427296;
+	bh=1/tM4jIemsiPlyMRZ04zMlzRtXx53jIcjFXa52eBPgo=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=QzxlsrhISMzULi62FoQQfLhFufuov6avZEEVEb7EZSRB9UVsDN2bjKRXZhn/RJ2eX
-	 9MeclRbn42ILQyJheAHrcfhJVRcRRRhjMA1StALMwLxUHepvomy3yuW2TAcJOi0fdi
-	 NYiNdoG67Fgw8KPimoWTvwpri87olM66NlgAbMo4=
+	b=EDA8ThVjvSGHUZSEBYANEXEQxeosC5fMnd9HkTbYyixdnmSM7035xBkGTW8lMx/q/
+	 dsFeqpCWAjVIiUINZgM+uSsBv1AVS9TOjLdmFxrvv97UFvqeF1g1zWLEvzJpKgIB9W
+	 liZvaiGtr9ENdQcZ4JUJMLmPeMOhKqf8WBuXay+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47A75F805F6;
-	Mon,  2 Sep 2019 14:24:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41E66F8060F;
+	Mon,  2 Sep 2019 14:24:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 74EA9F805A9; Mon,  2 Sep 2019 14:24:00 +0200 (CEST)
+ id 483B1F80529; Mon,  2 Sep 2019 14:24:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 796ABF803D6
+ by alsa1.perex.cz (Postfix) with ESMTPS id DDE31F80394
  for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 796ABF803D6
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDE31F80394
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="DDZb7drs"
+ header.b="GFG7BUq/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=JhLrmJwwUdUqU6RLkBkPrZjlQeB0wimt7i/XeCcrLy0=; b=DDZb7drsUvAX
- mdq62jfqJOvf+fJBMxgC/Hi9EdTZSbR/bfXWxKQu6A0cijksJm+VE7ld5RXzzU4p0FvPdegd26Pib
- dlQfIJOAGbtXQegiGyf50H1CgJPZvLw7pVX7em23P98G2KXmvp3O8n23fljp+eBR2BqMD2pVW53Hh
- Amh40=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=3sA9rF43iCNE2ckEX1YDNxjC1Ng8TXVV+08gsUmJPsA=; b=GFG7BUq/gqRR
+ +Hx6X8wzGAgkuRqKmtLdcOKaAOaXEi7TqgYmv1oF4YSdLIMNBK+uOVXa81zvyU1PYW8cWBAIZZ6r8
+ wGtSOek2V0CBeQ5mv3VLcauBgvEj4ewxIzIehEKlCnCRngILCQf5mZ1RP3+TYbBGR6jCNz2czJOaT
+ MU4xc=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i4lND-0003CH-AZ; Mon, 02 Sep 2019 12:23:55 +0000
+ id 1i4lND-0003CG-FX; Mon, 02 Sep 2019 12:23:55 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D268F2742CCC; Mon,  2 Sep 2019 13:23:54 +0100 (BST)
+ id A16BB2742CCB; Mon,  2 Sep 2019 13:23:54 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87tva87lby.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87sgps7lbt.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190902122354.D268F2742CCC@ypsilon.sirena.org.uk>
+Message-Id: <20190902122354.A16BB2742CCB@ypsilon.sirena.org.uk>
 Date: Mon,  2 Sep 2019 13:23:54 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: add soc_rtd_free()" to the
-	asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: move soc_probe_component()
+	position" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +87,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: add soc_rtd_free()
+   ASoC: soc-core: move soc_probe_component() position
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -111,10 +112,10 @@ to this mail.
 Thanks,
 Mark
 
-From 9a7c9fe1203eb360b3a01b65a18bcd0de6670c53 Mon Sep 17 00:00:00 2001
+From ffd60fba19d9752f553aac367cd40362011ab6c9 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 23 Aug 2019 09:58:37 +0900
-Subject: [PATCH] ASoC: soc-core: add soc_rtd_free()
+Date: Fri, 23 Aug 2019 09:58:42 +0900
+Subject: [PATCH] ASoC: soc-core: move soc_probe_component() position
 
 It is easy to read code if it is cleanly using paired function/naming,
 like start <-> stop, register <-> unregister, etc, etc.
@@ -122,62 +123,305 @@ But, current ALSA SoC code is very random, unbalance, not paired, etc.
 It is easy to create bug at the such code, and it will be difficult to
 debug.
 
-soc_rtd_init() was soc_post_component_init(), but there was no
-its paired soc_post_component_free(), but it is done at
-soc_remove_link_dais().
-This means it is difficult to find related code.
-
-This patch adds soc_rtd_free() which is paired soc_rtd_init().
-soc_rtd_xxx() will be more cleanuped in the future.
+soc_probe_comonent() has paired soc_remove_comonent(),
+but, these are implemented at different place.
+So it is difficult to confirm code.
+This patch moves soc_probe_component() next to
+soc_remove_component().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87tva87lby.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87sgps7lbt.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ sound/soc/soc-core.c | 261 +++++++++++++++++++++----------------------
+ 1 file changed, 130 insertions(+), 131 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 3c087b478398..3754a08baf62 100644
+index 3754a08baf62..8fa1cfcc6f17 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -975,17 +975,15 @@ static void soc_remove_dai(struct snd_soc_dai *dai, int order)
- 	dai->probed = 0;
+@@ -938,6 +938,41 @@ static int soc_bind_dai_link(struct snd_soc_card *card,
+ 	return -EPROBE_DEFER;
  }
  
-+static void soc_rtd_free(struct snd_soc_pcm_runtime *rtd); /* remove me */
- static void soc_remove_link_dais(struct snd_soc_card *card,
- 		struct snd_soc_pcm_runtime *rtd, int order)
- {
- 	int i;
- 	struct snd_soc_dai *codec_dai;
- 
--	/* unregister the rtd device */
--	if (rtd->dev_registered) {
--		device_unregister(rtd->dev);
--		rtd->dev_registered = 0;
--	}
-+	/* finalize rtd device */
-+	soc_rtd_free(rtd);
- 
- 	/* remove the CODEC DAI */
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
-@@ -1340,6 +1338,15 @@ static int soc_probe_component(struct snd_soc_card *card,
- 	return ret;
- }
- 
-+static void soc_rtd_free(struct snd_soc_pcm_runtime *rtd)
++static void soc_set_of_name_prefix(struct snd_soc_component *component)
 +{
-+	if (rtd->dev_registered) {
-+		/* we don't need to call kfree() for rtd->dev */
-+		device_unregister(rtd->dev);
-+		rtd->dev_registered = 0;
-+	}
++	struct device_node *of_node = soc_component_to_node(component);
++	const char *str;
++	int ret;
++
++	ret = of_property_read_string(of_node, "sound-name-prefix", &str);
++	if (!ret)
++		component->name_prefix = str;
 +}
 +
- static void soc_rtd_release(struct device *dev)
++static void soc_set_name_prefix(struct snd_soc_card *card,
++				struct snd_soc_component *component)
++{
++	int i;
++
++	for (i = 0; i < card->num_configs && card->codec_conf; i++) {
++		struct snd_soc_codec_conf *map = &card->codec_conf[i];
++		struct device_node *of_node = soc_component_to_node(component);
++
++		if (map->of_node && of_node != map->of_node)
++			continue;
++		if (map->dev_name && strcmp(component->name, map->dev_name))
++			continue;
++		component->name_prefix = map->name_prefix;
++		return;
++	}
++
++	/*
++	 * If there is no configuration table or no match in the table,
++	 * check if a prefix is provided in the node
++	 */
++	soc_set_of_name_prefix(component);
++}
++
+ static void soc_cleanup_component(struct snd_soc_component *component)
  {
- 	kfree(dev);
+ 	snd_soc_component_set_jack(component, NULL, NULL);
+@@ -958,6 +993,101 @@ static void soc_remove_component(struct snd_soc_component *component)
+ 	soc_cleanup_component(component);
+ }
+ 
++static int soc_probe_component(struct snd_soc_card *card,
++			       struct snd_soc_component *component)
++{
++	struct snd_soc_dapm_context *dapm =
++		snd_soc_component_get_dapm(component);
++	struct snd_soc_dai *dai;
++	int ret;
++
++	if (!strcmp(component->name, "snd-soc-dummy"))
++		return 0;
++
++	if (component->card) {
++		if (component->card != card) {
++			dev_err(component->dev,
++				"Trying to bind component to card \"%s\" but is already bound to card \"%s\"\n",
++				card->name, component->card->name);
++			return -ENODEV;
++		}
++		return 0;
++	}
++
++	ret = snd_soc_component_module_get_when_probe(component);
++	if (ret < 0)
++		return ret;
++
++	component->card = card;
++	dapm->card = card;
++	INIT_LIST_HEAD(&dapm->list);
++	soc_set_name_prefix(card, component);
++
++	soc_init_component_debugfs(component);
++
++	ret = snd_soc_dapm_new_controls(dapm,
++					component->driver->dapm_widgets,
++					component->driver->num_dapm_widgets);
++
++	if (ret != 0) {
++		dev_err(component->dev,
++			"Failed to create new controls %d\n", ret);
++		goto err_probe;
++	}
++
++	for_each_component_dais(component, dai) {
++		ret = snd_soc_dapm_new_dai_widgets(dapm, dai);
++		if (ret != 0) {
++			dev_err(component->dev,
++				"Failed to create DAI widgets %d\n", ret);
++			goto err_probe;
++		}
++	}
++
++	ret = snd_soc_component_probe(component);
++	if (ret < 0) {
++		dev_err(component->dev,
++			"ASoC: failed to probe component %d\n", ret);
++		goto err_probe;
++	}
++	WARN(dapm->idle_bias_off &&
++	     dapm->bias_level != SND_SOC_BIAS_OFF,
++	     "codec %s can not start from non-off bias with idle_bias_off==1\n",
++	     component->name);
++
++	/* machine specific init */
++	if (component->init) {
++		ret = component->init(component);
++		if (ret < 0) {
++			dev_err(component->dev,
++				"Failed to do machine specific init %d\n", ret);
++			goto err_probe;
++		}
++	}
++
++	ret = snd_soc_add_component_controls(component,
++					     component->driver->controls,
++					     component->driver->num_controls);
++	if (ret < 0)
++		goto err_probe;
++
++	ret = snd_soc_dapm_add_routes(dapm,
++				      component->driver->dapm_routes,
++				      component->driver->num_dapm_routes);
++	if (ret < 0)
++		goto err_probe;
++
++	list_add(&dapm->list, &card->dapm_list);
++	/* see for_each_card_components */
++	list_add(&component->card_list, &card->component_dev_list);
++
++err_probe:
++	if (ret < 0)
++		soc_cleanup_component(component);
++
++	return ret;
++}
++
+ static void soc_remove_dai(struct snd_soc_dai *dai, int order)
+ {
+ 	int err;
+@@ -1207,137 +1337,6 @@ void snd_soc_remove_dai_link(struct snd_soc_card *card,
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_remove_dai_link);
+ 
+-static void soc_set_of_name_prefix(struct snd_soc_component *component)
+-{
+-	struct device_node *component_of_node = soc_component_to_node(component);
+-	const char *str;
+-	int ret;
+-
+-	ret = of_property_read_string(component_of_node, "sound-name-prefix",
+-				      &str);
+-	if (!ret)
+-		component->name_prefix = str;
+-}
+-
+-static void soc_set_name_prefix(struct snd_soc_card *card,
+-				struct snd_soc_component *component)
+-{
+-	int i;
+-
+-	for (i = 0; i < card->num_configs && card->codec_conf; i++) {
+-		struct snd_soc_codec_conf *map = &card->codec_conf[i];
+-		struct device_node *component_of_node = soc_component_to_node(component);
+-
+-		if (map->of_node && component_of_node != map->of_node)
+-			continue;
+-		if (map->dev_name && strcmp(component->name, map->dev_name))
+-			continue;
+-		component->name_prefix = map->name_prefix;
+-		return;
+-	}
+-
+-	/*
+-	 * If there is no configuration table or no match in the table,
+-	 * check if a prefix is provided in the node
+-	 */
+-	soc_set_of_name_prefix(component);
+-}
+-
+-static int soc_probe_component(struct snd_soc_card *card,
+-	struct snd_soc_component *component)
+-{
+-	struct snd_soc_dapm_context *dapm =
+-			snd_soc_component_get_dapm(component);
+-	struct snd_soc_dai *dai;
+-	int ret;
+-
+-	if (!strcmp(component->name, "snd-soc-dummy"))
+-		return 0;
+-
+-	if (component->card) {
+-		if (component->card != card) {
+-			dev_err(component->dev,
+-				"Trying to bind component to card \"%s\" but is already bound to card \"%s\"\n",
+-				card->name, component->card->name);
+-			return -ENODEV;
+-		}
+-		return 0;
+-	}
+-
+-	ret = snd_soc_component_module_get_when_probe(component);
+-	if (ret < 0)
+-		return ret;
+-
+-	component->card = card;
+-	dapm->card = card;
+-	INIT_LIST_HEAD(&dapm->list);
+-	soc_set_name_prefix(card, component);
+-
+-	soc_init_component_debugfs(component);
+-
+-	ret = snd_soc_dapm_new_controls(dapm,
+-					component->driver->dapm_widgets,
+-					component->driver->num_dapm_widgets);
+-
+-	if (ret != 0) {
+-		dev_err(component->dev,
+-			"Failed to create new controls %d\n", ret);
+-		goto err_probe;
+-	}
+-
+-	for_each_component_dais(component, dai) {
+-		ret = snd_soc_dapm_new_dai_widgets(dapm, dai);
+-		if (ret != 0) {
+-			dev_err(component->dev,
+-				"Failed to create DAI widgets %d\n", ret);
+-			goto err_probe;
+-		}
+-	}
+-
+-	ret = snd_soc_component_probe(component);
+-	if (ret < 0) {
+-		dev_err(component->dev,
+-			"ASoC: failed to probe component %d\n", ret);
+-		goto err_probe;
+-	}
+-	WARN(dapm->idle_bias_off &&
+-	     dapm->bias_level != SND_SOC_BIAS_OFF,
+-	     "codec %s can not start from non-off bias with idle_bias_off==1\n",
+-	     component->name);
+-
+-	/* machine specific init */
+-	if (component->init) {
+-		ret = component->init(component);
+-		if (ret < 0) {
+-			dev_err(component->dev,
+-				"Failed to do machine specific init %d\n", ret);
+-			goto err_probe;
+-		}
+-	}
+-
+-	ret = snd_soc_add_component_controls(component,
+-					     component->driver->controls,
+-					     component->driver->num_controls);
+-	if (ret < 0)
+-		goto err_probe;
+-
+-	ret = snd_soc_dapm_add_routes(dapm,
+-				      component->driver->dapm_routes,
+-				      component->driver->num_dapm_routes);
+-	if (ret < 0)
+-		goto err_probe;
+-
+-	list_add(&dapm->list, &card->dapm_list);
+-	/* see for_each_card_components */
+-	list_add(&component->card_list, &card->component_dev_list);
+-
+-err_probe:
+-	if (ret < 0)
+-		soc_cleanup_component(component);
+-
+-	return ret;
+-}
+-
+ static void soc_rtd_free(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	if (rtd->dev_registered) {
 -- 
 2.20.1
 

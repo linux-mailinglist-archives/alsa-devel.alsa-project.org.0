@@ -2,71 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0DF1A4EA9
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 06:36:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2733FA4F4F
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 08:43:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 566911688;
-	Mon,  2 Sep 2019 06:35:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 566911688
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90EBB1689;
+	Mon,  2 Sep 2019 08:42:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90EBB1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567398971;
-	bh=pmNuYPRz3+ya1L3HqnlXuO1MB1eN98qXh6gcomAWItg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=FjqMkzt9Ob3f2cjjg1a2CiqNb7ul+j2u/k9iTvwo8jqtUeBUmyrg+JVa5YvHRqWjc
-	 bHB7Rs4sFePOxF+A3lFDK+6qG10KP0kMZ8mCtRGmhUeR5oK6kgI27SdNscuV7yElbk
-	 5s5+NnlDzzr77rbJbDHyEyrQnlvV5vF6ill0+8CQ=
+	s=default; t=1567406623;
+	bh=wBqc1FeSeo2teoLvri+XA+HJIUFSEONhNmILpOwhXBg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YogcNalYqOgOZyH4N7dowUDJrRSAsg2MOt2AxKpzGmlC85P9UdYgEIKOoYp3fISVh
+	 Q1jtb+yFTKa8YENAQ10N4gfozrWgmufXtzXKe8AXvLhWgNFnDxPACOOuUSJmsmuDH4
+	 OdEBO0mbXeioPxvcBY17kinVYd6LMav0zlSRdmPs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CFB5F803D0;
-	Mon,  2 Sep 2019 06:34:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E59C9F8011E;
+	Mon,  2 Sep 2019 08:41:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 39918F803D0; Mon,  2 Sep 2019 06:34:22 +0200 (CEST)
+ id 6AB08F803D0; Mon,  2 Sep 2019 08:41:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FROM_EXCESS_BASE64,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CCF8F8011E
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 06:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CCF8F8011E
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x824Y6HK014729,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCAS11.realtek.com.tw[172.21.6.12])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x824Y6HK014729
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 2 Sep 2019 12:34:06 +0800
-Received: from RTITMBSVM07.realtek.com.tw ([fe80::a512:a803:bf1e:b23]) by
- RTITCAS11.realtek.com.tw ([fe80::7c6d:ced5:c4ff:8297%15]) with mapi id
- 14.03.0468.000; Mon, 2 Sep 2019 12:34:05 +0800
-From: =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
-To: "'Mark Brown'" <broonie@kernel.org>
-Thread-Topic: [PATCH 2/2] ASoC: rt1011: ADCDAT pin config modification
-Thread-Index: AdVhR6YYXfnBqF7USQCuxOA9PK1jjA==
-Date: Mon, 2 Sep 2019 04:34:05 +0000
-Message-ID: <10317AB43303BA4884D7AF9C2EBCFF4002BE9C67@RTITMBSVM07.realtek.com.tw>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.102.105]
-MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "cychiang@google.com" <cychiang@google.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- "sathya.prakash.m.r@intel.com" <sathya.prakash.m.r@intel.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: rt1011: ADCDAT pin config
-	modification
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65172F80392
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 08:41:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65172F80392
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id D3E53AC0C;
+ Mon,  2 Sep 2019 06:41:48 +0000 (UTC)
+Date: Mon, 02 Sep 2019 08:41:48 +0200
+Message-ID: <s5hlfv7jj2r.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
+In-Reply-To: <20190901192737.GB28125@xn--80adja5bqm.su>
+References: <s5hzhla9j8b.wl-tiwai@suse.de>
+ <20190720165435.GA5855@xn--80adja5bqm.su>
+ <20190819195714.GA2737@xn--80adja5bqm.su>
+ <s5hef1dthbk.wl-tiwai@suse.de>
+ <20190822203031.GA22363@xn--80adja5bqm.su>
+ <s5h5zmg48u2.wl-tiwai@suse.de>
+ <20190829103805.GA1525@xn--80adja5bqm.su>
+ <s5hsgpk2os6.wl-tiwai@suse.de>
+ <20190830114510.GA10027@xn--80adja5bqm.su>
+ <s5hzhjqzvu5.wl-tiwai@suse.de>
+ <20190901192737.GB28125@xn--80adja5bqm.su>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +79,158 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> > > So really this is setting up a loopback for testing?
+On Sun, 01 Sep 2019 21:27:37 +0200,
+Sergey 'Jin' Bostandzhyan wrote:
 > 
-> > We would not like to change ADCDAT pin to input mode in normal case.
-> > That's why the driver enables ADCDAT pin to the output mode in default.
-> > The rt1011 supports the feedback signal which could be playback data or I/V
-> data, etc.
-> > If the system wants the AEC reference data, rt1011 could feedback the
-> playback data.
+> > Other than that, the approach with UCM profile would be simpler.  It
+> > won't need anything else than what you already showed (pincfg and
+> > GPIO) in the driver side.
 > 
-> > The product could connect 2/4/6/8 rt1011 chips on the same I2S bus.
-> > In a test or debug mode, we could toggle ADCDAT pin to input mode that
-> > also helps HW engineer check the slot of feedback signal for each rt1011.
-> 
-> I think this needs more than just a straight userspace control on one device,
-> these use cases make sense but they'll need to be configured over multiple
-> chips simultaneously otherwise there's some possibility of hardware damage
-> (eg, if two chips try to drive the signal at the same time).  If this really can be
-> usefully varied at runtime then the driver bit of this should probably be an API
-> that the machine driver can call, the machine driver can then expose a control
-> that sets all the chips involved up together.
+> Simpler...yes and no :) From what I have seen, all "default" Pulse profiles are
+> replaced by the UCM, meaning that if I wanted them, I'd have to replicate
+> all of them in my conf. It would work though. 
 
-I understand your concerns and comments.
-In a design-in project, we will provide the proper control settings
-to arrange the slot location of ADCDAT signal for each rt1011.
-HW engineer will confirm the ADCDAT signal, too.
-So, the customer should not make two chips drive the signal
-at the same slot and at the same time.
-But, there is a chance to happen if the customer sets the wrong control settings.
-We will take your suggestion to make it as API call.
-The machine driver knows how many rt1011 chips connect and
-make pin config change together.
-Thanks.
+You just need to override codec->card->longname to some unique string
+and use it as UCM profile name.
+Check alc1220_fixup_gb_dual_codecs() as an example.
 
-> ------Please consider the environment before printing this e-mail.
+> > > > > {0x01, AC_VERB_SET_GPIO_DIRECTION, 0x02}
+> > > > 
+> > > > Actually this must be paired with the corresponding bit of GPIO_DATA,
+> > > > too.  Is the bit 0x02 of GPIO_DATA set or cleared?  Usually setting it
+> > > > turns on the amp, but sometimes inverted.
+> > > 
+> > > If I understood everything correctly, then the bit is set, meaning that the
+> > > GPIO signal is configured as output.
+> > 
+> > The GPIO_DIRECTION specifies whether input or output, and the actual
+> > value is passed via GPIO_DATA.  Both have to be specified, not only
+> > one.
+> 
+> [...]
+> 
+> > > set(0x01, 0x717,   0x02) # 0x01071702 (SET_GPIO_DIRECTION)
+> > 
+> > This needs the paired SET_GPIO_DATA for a proper operation.  Your
+> > analysis implicit assumes some default value that is already set by
+> > the hardware.
+> 
+> If I understand it correctly, then "some value" is zero on my hardware:
+> 
+> # hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
+> nid = 0x1, verb = 0xf15, param = 0x2
+> value = 0x0
+> 
+> Meanwhile I also figured out that /proc/asound/card0/codec#0 is
+> providing this info as well:
+> 
+>   IO[1]: enable=0, dir=1, wake=0, sticky=0, data=0, unsol=0
+> 
+> So the value seems to be 0 and I can add an explicit SET_GPIO_DATA verb quirk
+> to set it in addition to SET_GPIO_DIRECTION, right?
+
+Yes.  You need to set SET_GPIO_MASK=0x02, SET_GPIO_DIRECTION=0x02 and
+SET_GPIO_DATA=0x00 for that bit.
+
+> > > If the above is a yes, could you please point me to the right way of getting 
+> > > triggered upon jack state changes in the driver, since automute hooks seem 
+> > > not to trigger while something is playing?
+> > 
+> > This isn't easy, as repeatedly mentioned, since the parser assumes
+> > only one role for each pin except for the input/output switching.
+> > In your case the pin shares for two outputs to be switched, and this
+> > isn't implemented at all.
+> 
+> I think we talked a bit past each other, based on your reply I understand that 
+> you were assuming that I am still trying to solve it in the parser in some 
+> generic way, which as you indeed repeatedly mentioned would not be easy.
+> 
+> At the same time I do not rule out the possibility, that I simply do not
+> see the "bigger picture" and that you have already accounted for the
+> proposal that follows :)
+> 
+> Given that this is my first driver hacking adventure, I was aiming for a much
+> more localized solution, so I was not going to add generic support for
+> shared pins. Once I learned how to subscribe to jack state
+> changes I was able to implement the idea that I had inside the model
+> quirk:
+> 
+> static void alc662_aspire_ethos_mute_speakers(struct hda_codec *codec,
+>                     struct hda_jack_callback *cb)
+> {
+>     /* surround speakers muted automatically when headphones are
+>      * plugged in, we'll mute/unmute the remaining channels manually:
+>      * 0x15 - front left/front right
+>      * 0x18 - front center/ LFE
+>      * */
+>     if (snd_hda_jack_detect_state(codec, cb->nid) == HDA_JACK_PRESENT) {
+>         snd_hda_set_pin_ctl_cache(codec, 0x15, 0);
+>         snd_hda_set_pin_ctl_cache(codec, 0x18, 0);
+>     } else {
+>         snd_hda_set_pin_ctl_cache(codec, 0x15, PIN_OUT);
+>         snd_hda_set_pin_ctl_cache(codec, 0x18, PIN_OUT);
+>     }
+> }
+> 
+> static void alc662_fixup_aspire_ethos_hp(struct hda_codec *codec,
+>                      const struct hda_fixup *fix, int action)
+> {
+>     if (action == HDA_FIXUP_ACT_PRE_PROBE) {
+>         if (is_jack_detectable(codec, 0x1b)) {
+>             snd_hda_jack_detect_enable_callback(codec, 0x1b,
+>                                     alc662_aspire_ethos_mute_speakers);
+>         }
+>     }
+> }
+> 
+> This was the idea that I have been referring to, when I was talking about
+> "muting in the driver" after I learned that proper automuting based on hp pins
+> was not possible as you indeed repeatedly stated.
+> 
+> The above seems to work quite well for me and does exactly what I want, 
+> PulseAudio presents all the autogenerated profiles and handles mic and line 
+> jacks itself, at the same time all unwanted speakers get muted as soon as I 
+> plug in my headphones into the jack pin that is shared with my surround
+> speakers. Of course Pulse does not "know" anything about the headphones and
+> does not switch profiles, but I don't mind since the user experience is
+> as expected.
+
+Hm, OK, this amount of changes are acceptable.  The hardware behavior
+itself is weird, and we have already tricky code, so it's no problem
+to keep some yet another tricky code as long as it's described enough
+in the comments and the changelog.
+
+> My earlier attempt was to send the pin widget control verbs directly, however
+> then the pin got reconnected as soon as playback started.
+> This does not happen when I use snd_hda_set_pin_ctl_cache(), but I am not 
+> quite sure about the cache, should I use the _cache function or the
+> uncached one?
+
+This should work, AFAIK.  The *_set_pin_ctl_cache() remembers the last
+written value, as its name stands.  That's restored again at the PM
+resume, for example.
+
+The PM resume does re-trigger the jack detection callback, so it'll be
+written up again in anyway, though.
+
+> Another thing I am not sure about is, if I somehow disrupt power management by 
+> doing what I do? I saw that for instance restore_shutup_pins() does modify 
+> those connections as well and I would basically overwrite whatever it did
+> in the case that the user plugs/unplugs the headphones.
+
+This should be fine as-is.  The shutup_pins() clears pins temporarily
+and the pins are resumed to the cached values in return.
+
+One thing to be improved would be to drop the surround jack control.
+Adjust the pin config to different value with the fixed pin
+connection, so that the auto-parser won't create the "Surround Jack"
+control.  This isn't needed by PA or else, otherwise it may be
+confusing.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

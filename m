@@ -2,78 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE4BA567B
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:43:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3A0BA56B7
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Sep 2019 14:54:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2052A16BF;
-	Mon,  2 Sep 2019 14:42:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2052A16BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78FF616CB;
+	Mon,  2 Sep 2019 14:53:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78FF616CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567428227;
-	bh=sTfrWk2BlMB/MIvvkurmyAC4vJtwXYxl9VbKg0+sgs8=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1567428878;
+	bh=VGZ9VQkTT1VFCYlrrcAwYKhuiYkovYyDlOBD0X8v4A0=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vsl1BR7HUC6HM1vs0Nzqtj0vFQuPB/HIMnaK7yMjKF/kg/emPaJTRiG8wi2BKLolk
-	 aLVitiGuUn0Zym4ML4lS/ZAnq5rManrOQAztaBqyrtXCS9brH/elWA3TQgtv6sHecT
-	 c7kx/OSyn3VUI2n+zFMtfWv1HQM14QfIKTeqF9W4=
+	b=finmPXEHDQYnb3Sw1YtcFvkN5jh7seeuZqt1gxmoB30z8zePqBYeN1xXCT35pkjj4
+	 2VYlz9MqXBB1zMAZkhmZEkkmjWorrlqZXEintYxRIoy48581fbAAuluK/yTnCP50/5
+	 t2xPz63+4ksBj07V5RoMEXgD4yOeZ7M9frS74NI8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE68FF803D6;
-	Mon,  2 Sep 2019 14:42:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFAECF80392;
+	Mon,  2 Sep 2019 14:52:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D340F803D0; Mon,  2 Sep 2019 14:41:59 +0200 (CEST)
+ id 9BEBBF803D0; Mon,  2 Sep 2019 14:52:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BCB6F80392
- for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:41:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BCB6F80392
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="q8ijxkng"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4kBJEx+Qu3mSPv+hNIjzoykytvR4h7p7UM0vTM6s1vA=; b=q8ijxkngdjzFHlHeGzQ+04Tbg
- S6qaZsvAE7t3yLIEKlaNgveLU8PEQG2luelC4qffbo8hYlHlt1e6e3nWdmNOq/bgn4pReBd87Yb+d
- TWBi2CoUsD2MmTmBG1rq+jWZbVkwekhCsmOh7OjmPp+5rvj2fNylXm1etnnxXI3aSpWq4=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1i4lcX-0003GM-F8; Mon, 02 Sep 2019 12:39:45 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id B6FAE2742CCB; Mon,  2 Sep 2019 13:39:44 +0100 (BST)
-Date: Mon, 2 Sep 2019 13:39:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190902123944.GB5819@sirena.co.uk>
-References: <20190830225514.5283-1-daniel.baluta@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1EDBF802E0
+ for <alsa-devel@alsa-project.org>; Mon,  2 Sep 2019 14:52:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1EDBF802E0
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2019 05:52:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,459,1559545200"; d="scan'208";a="189550911"
+Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
+ by FMSMGA003.fm.intel.com with ESMTP; 02 Sep 2019 05:52:45 -0700
+Date: Mon, 2 Sep 2019 15:52:44 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@zeliteleevi
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <s5h8src2hci.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.21.1909021516200.16459@zeliteleevi>
+References: <20190829135348.23569-1-kai.vehmanen@linux.intel.com>
+ <20190829135348.23569-6-kai.vehmanen@linux.intel.com>
+ <s5h8src2hci.wl-tiwai@suse.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-In-Reply-To: <20190830225514.5283-1-daniel.baluta@nxp.com>
-X-Cookie: Lost ticket pays maximum rate.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- shengjiu.wang@nxp.com, linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
- NXP Linux Team <linux-imx@nxp.com>,
- Cosmin-Gabriel Samoila <cosmin.samoila@nxp.com>, gabrielcsmo@gmail.com,
- festevam@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Set SAI Channel Mode to
-	Output Mode
+Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
+ pierre-louis.bossart@linux.intel.com,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 5/7] ALSA: hda/hdmi - implement
+ mst_no_extra_pcms flag
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,58 +74,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3248590286877877555=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Takashi,
 
---===============3248590286877877555==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IiVenqGWf+H9Y6IX"
-Content-Disposition: inline
+On Thu, 29 Aug 2019, Takashi Iwai wrote:
 
+> On Thu, 29 Aug 2019 15:53:46 +0200,
+> Kai Vehmanen wrote:
+> >  static int generic_hdmi_build_pcms(struct hda_codec *codec)
+> >  {
+[...]
+> > +	if (codec->mst_no_extra_pcms)
+> > +		pcm_num = spec->num_nids;
+> > +	else
+> > +		pcm_num = spec->num_nids + spec->dev_num - 1;
+>
+> Instead of changing this, we can simply take dev_num=1 like below.
+[...]
+> -	if (is_haswell_plus(codec)) {
+> +	if (codec->mst_no_extra_pcms) {
+> +		/* for SOF/SST, no backup PCM streams can be assigned */
+> +		dev_num = 1; 
+> +		spec->dev_num = 1;
+> +	} else if (is_haswell_plus(codec)) {
 
---IiVenqGWf+H9Y6IX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+hmm, I think we need to keep dev_num as 3, to create the MST per_pin 
+structs for each port. I.e. we still have the virtual pins, although we 
+limit PCM count to 3. Unless we do this, at least jack detection is broken 
+in DP-MST mode.
 
-On Sat, Aug 31, 2019 at 01:55:14AM +0300, Daniel Baluta wrote:
+One option would be to set
+   dev_num = 3;
+   spec->dev_num = 1;
 
-> Fix this by setting CHMOD to Output Mode so that pins will output zero
-> when slots are masked or channels are disabled.
+... spec->dev_num is not really used elsewhere than 
+generic_hdmi_build_pcms(), so this works.
 
-This patch seems to do this unconditionally.  This is fine for
-configurations where the SoC is the only thing driving the bus but will
-mean that for TDM configurations where something else also drives some
-of the slots we'll end up with both devices driving simultaneously.  The
-safest thing would be to set this only if TDM isn't configured.
+But, but, this seems quite confusing. So ok if I keep in original form and 
+have separate logic in generic_hdmi_build_pcms()?
 
---IiVenqGWf+H9Y6IX
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1tDY8ACgkQJNaLcl1U
-h9B6eQf/fWHBjGPAP86B03a4INm+HF3NUTJW3RUX7OufxZ6nXwI99zy/47e5hK4r
-RrYrDlh5Ybe5Dl6gK1/4VrO/SFMg6PyOJjpjwAijXRjW3y3CqiZe5e9bhLVoIcrM
-zAERB9q0o82bPAsKxlCqkG69MKZrHnDPH7pBAXM2kPRyn6QXQwWV8qqE2Rpfkto2
-ZprQEwsRlwatAPn4WfHBN7OsZy3BeVZqhT2VLD9GkF0zBdBhZEvO4opbj7cbQHdc
-Jdrw3AFvgUYHsjsNx+x1uVVy7DY1r/V2yh8ly8+WMn204eYDR8aKnm5oO0OpoN6o
-ibcFAnroXympSUaJvtWjiAzS0QBTBQ==
-=Wb+0
------END PGP SIGNATURE-----
-
---IiVenqGWf+H9Y6IX--
-
---===============3248590286877877555==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Br, Kai
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3248590286877877555==--

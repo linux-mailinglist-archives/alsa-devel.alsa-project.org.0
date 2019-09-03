@@ -2,59 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4773A6B55
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 16:24:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15523A6BFE
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 16:56:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D65501692;
-	Tue,  3 Sep 2019 16:23:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D65501692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A052167A;
+	Tue,  3 Sep 2019 16:55:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A052167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567520673;
-	bh=9Unkz00gPFN1wtA+bWNTHLkUaBISJ1slVl47+3N7fZY=;
+	s=default; t=1567522584;
+	bh=0e9+1IOQnUju6s56d7rcOp5Q2i0vVKg5N54wC3tDAFc=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZsIQI+BDbjGpBEdWUDTrLCbTJdRZbqxpV434qqFL1PUWRkkETXav/B2OpQp0oTFwh
-	 1QRawnID+5KbQ/mCu96BJ+9PCwUlR3EaR/TG8aFZWlEehO4KyD2vC8W9MHSfT1Fo0U
-	 zDhrvCp/dH66iJwALUEbXUTpfh9Aol7MAsNfmH+I=
+	b=luuemqn3I765k4BrceU37PpMG1aXjZbGM522dG0sG5GQxXMEj46X1GWg1IkiP1Mag
+	 /IiopD9Q9zpGyD7yers/5se6sC2p8GBY9S0ffAHjelGKqE/7ohR2q8lL3W8tKbPrR2
+	 nWzL9nLTvF5zVZGu0kSib8GHeMuvknlYEAKcEjnQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0678BF805F6;
-	Tue,  3 Sep 2019 16:22:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DC7A2F8045F;
+	Tue,  3 Sep 2019 16:54:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7FD21F805F9; Tue,  3 Sep 2019 16:22:06 +0200 (CEST)
+ id 83581F8045F; Tue,  3 Sep 2019 16:54:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE464F803D7
- for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 16:21:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE464F803D7
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Sep 2019 07:21:53 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,463,1559545200"; d="scan'208";a="184765159"
-Received: from mloktyuk-mobl.amr.corp.intel.com (HELO [10.251.152.40])
- ([10.251.152.40])
- by orsmga003.jf.intel.com with ESMTP; 03 Sep 2019 07:21:53 -0700
-To: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7218F80392
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 16:54:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7218F80392
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id C46E52CD811
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 14:54:26 +0000 (UTC)
+Received: by mail-ed1-f71.google.com with SMTP id z39so8050078edc.15
+ for <alsa-devel@alsa-project.org>; Tue, 03 Sep 2019 07:54:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=2SqQUcpsSAj+5UU7LxQvnUfanvOpQpC9n7u7ektnaIE=;
+ b=WS4q1ljQ/UxFnAXktLthn28NGKCZb1j4vMoRx91VuSkRgz4+lM5WNz3igO1pUTlXS0
+ +ES2br6IBRfKBbDmtoUhOGGM8IoFLYLHHzi34YYO8QFDF9NCHWIEyc+MZK/Bz7jmReQ2
+ GuVPKFg9iMlu1m/ztwwAs7tpDfCNEFCpJQrxKLR50x17OPxNcvlcOT9Cc4zYMdKPlgmh
+ SokYxpfu03oQGCQDhy8TQpEMYrkedrF9oyL468WBA77A3DGDchFl0DUuARUrn6EM7RU4
+ 4lo7shcAPrtwhS2Ik1wrWObqvUwGQFtZpUrXgKn7Hh4dt3WJIZ/aG03VrVYJOgICRYi3
+ 2QpQ==
+X-Gm-Message-State: APjAAAWg3XhdN7MoiHuiA302ua1xybYURR6L20VyBYzCWAEYDBmgaFdH
+ lDyGK26khv6riUlba8vPts89kRSTc+z93zLpLOXrY2p4tQwQwKUoxOBROPNKtqF2veYRgAJ1Lhw
+ tZEgEyAU6jnlZAsoLVoCTlQ0=
+X-Received: by 2002:aa7:d94b:: with SMTP id l11mr9507467eds.44.1567522464917; 
+ Tue, 03 Sep 2019 07:54:24 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqz+0i80DntqgJBg0Ny4/wvNFLEstcdfMC5DvXWHbTSwaU7eaU4zf6CQKYYbcThIGh2fYHz/Og==
+X-Received: by 2002:aa7:d94b:: with SMTP id l11mr9507441eds.44.1567522464654; 
+ Tue, 03 Sep 2019 07:54:24 -0700 (PDT)
+Received: from shalem.localdomain (84-106-84-65.cable.dynamic.v4.ziggo.nl.
+ [84.106.84.65])
+ by smtp.gmail.com with ESMTPSA id oh24sm934884ejb.79.2019.09.03.07.54.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Sep 2019 07:54:23 -0700 (PDT)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
 References: <20190831145842.32990-1-hdegoede@redhat.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <6fb859af-0ef8-5e64-6799-7679aaba1cb0@linux.intel.com>
-Date: Tue, 3 Sep 2019 09:09:09 -0500
+ <6fb859af-0ef8-5e64-6799-7679aaba1cb0@linux.intel.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <dd42dd36-9a4f-e5fe-e8a1-9b3da1152899@redhat.com>
+Date: Tue, 3 Sep 2019 16:54:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190831145842.32990-1-hdegoede@redhat.com>
+In-Reply-To: <6fb859af-0ef8-5e64-6799-7679aaba1cb0@linux.intel.com>
 Content-Language: en-US
 Cc: Takashi Iwai <tiwai@suse.de>
 Subject: Re: [alsa-devel] [PATCH 1/2] conf/ucm: Add UCM profile for
@@ -71,430 +96,302 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 8/31/19 9:58 AM, Hans de Goede wrote:
-> Add an UCM profile for Intel boards with a RT5672 codec.
-> 
-> Re-use the existing platform enable and disable sequences for BYT/CHT SST
-> support and add a codecs/rt5672 dir with codec specific enable / disable
-> sequences for the various inputs and outputs.
-> 
-> This is partly based on earlier work done here:
-> https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
-
-Thanks for restarting this Hans.
-
-I can't recall if I did any work here, took default settings from Bard 
-Liao (when he was a Realtek) or if I just took examples from a 
-Chromebook UCM file. I know there's a Dell tablet which uses this codec, 
-but I just can't recall other devices.
-
-Also how does the selection of the configs work, I don't see the same 
-thing as in bytcr_rt5640/51 to play with the card long name and quirks. 
-Do you expect the user to select the 'right' configs based on 
-experimental trial-and-error.
-
-> 
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
->   configure.ac                                  |  2 +
->   src/conf/ucm/Makefile.am                      |  1 +
->   src/conf/ucm/cht-bsw-rt5672/HiFi.conf         | 27 +++++++++++
->   src/conf/ucm/cht-bsw-rt5672/Makefile.am       |  4 ++
->   .../ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf    |  6 +++
->   src/conf/ucm/codecs/Makefile.am               |  1 +
->   src/conf/ucm/codecs/rt5672/DMIC1.conf         | 28 +++++++++++
->   src/conf/ucm/codecs/rt5672/DMIC2.conf         | 28 +++++++++++
->   src/conf/ucm/codecs/rt5672/EnableSeq.conf     | 48 +++++++++++++++++++
->   src/conf/ucm/codecs/rt5672/HeadPhones.conf    | 23 +++++++++
->   src/conf/ucm/codecs/rt5672/HeadsetMic.conf    | 38 +++++++++++++++
->   src/conf/ucm/codecs/rt5672/Makefile.am        |  5 ++
->   src/conf/ucm/codecs/rt5672/MonoSpeaker.conf   | 26 ++++++++++
->   src/conf/ucm/codecs/rt5672/Speaker.conf       | 22 +++++++++
->   14 files changed, 259 insertions(+)
->   create mode 100644 src/conf/ucm/cht-bsw-rt5672/HiFi.conf
->   create mode 100644 src/conf/ucm/cht-bsw-rt5672/Makefile.am
->   create mode 100644 src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/DMIC1.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/DMIC2.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/EnableSeq.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/HeadPhones.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/HeadsetMic.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/Makefile.am
->   create mode 100644 src/conf/ucm/codecs/rt5672/MonoSpeaker.conf
->   create mode 100644 src/conf/ucm/codecs/rt5672/Speaker.conf
-> 
-> diff --git a/configure.ac b/configure.ac
-> index 2e955760..9ccca7aa 100644
-> --- a/configure.ac
-> +++ b/configure.ac
-> @@ -741,6 +741,7 @@ AC_OUTPUT(Makefile doc/Makefile doc/pictures/Makefile doc/doxygen.cfg \
->   	  src/conf/ucm/bytcr-rt5651-stereo-spk-in1-mic/Makefile \
->   	  src/conf/ucm/bytcr-rt5651-stereo-spk-in2-mic/Makefile \
->   	  src/conf/ucm/bytcr-rt5651-stereo-spk-in12-mic/Makefile \
-> +	  src/conf/ucm/cht-bsw-rt5672/Makefile \
->   	  src/conf/ucm/chtnau8824/Makefile \
->   	  src/conf/ucm/chtrt5645/Makefile \
->   	  src/conf/ucm/chtrt5645-mono-speaker-analog-mic/Makefile \
-> @@ -772,6 +773,7 @@ AC_OUTPUT(Makefile doc/Makefile doc/pictures/Makefile doc/doxygen.cfg \
->   	  src/conf/ucm/codecs/rt5640/Makefile \
->   	  src/conf/ucm/codecs/rt5645/Makefile \
->   	  src/conf/ucm/codecs/rt5651/Makefile \
-> +	  src/conf/ucm/codecs/rt5672/Makefile \
->   	  src/conf/ucm/platforms/Makefile \
->   	  src/conf/ucm/platforms/bytcr/Makefile \
->   	  src/conf/topology/Makefile \
-> diff --git a/src/conf/ucm/Makefile.am b/src/conf/ucm/Makefile.am
-> index 02257048..2ed4e1a3 100644
-> --- a/src/conf/ucm/Makefile.am
-> +++ b/src/conf/ucm/Makefile.am
-> @@ -25,6 +25,7 @@ bytcr-rt5651-stereo-spk-dmic-mic \
->   bytcr-rt5651-stereo-spk-in1-mic \
->   bytcr-rt5651-stereo-spk-in2-mic \
->   bytcr-rt5651-stereo-spk-in12-mic \
-> +cht-bsw-rt5672 \
->   chtnau8824 \
->   chtrt5645 \
->   chtrt5645-mono-speaker-analog-mic \
-> diff --git a/src/conf/ucm/cht-bsw-rt5672/HiFi.conf b/src/conf/ucm/cht-bsw-rt5672/HiFi.conf
-> new file mode 100644
-> index 00000000..b83099d8
-> --- /dev/null
-> +++ b/src/conf/ucm/cht-bsw-rt5672/HiFi.conf
-> @@ -0,0 +1,27 @@
-> +# Adapted from https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
-> +
-> +SectionVerb {
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		<platforms/bytcr/PlatformEnableSeq.conf>
-> +		<codecs/rt5672/EnableSeq.conf>
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		<platforms/bytcr/PlatformDisableSeq.conf>
-> +	]
-> +
-> +	Value {
-> +		PlaybackPCM "hw:chtbswrt5672"
-> +		CapturePCM "hw:chtbswrt5672"
-> +	}
-> +}
-> +
-> +<codecs/rt5672/Speaker.conf>
-> +<codecs/rt5672/MonoSpeaker.conf>
-> +<codecs/rt5672/HeadPhones.conf>
-> +
-> +<codecs/rt5672/DMIC1.conf>
-> +<codecs/rt5672/DMIC2.conf>
-> +<codecs/rt5672/HeadsetMic.conf>
-> diff --git a/src/conf/ucm/cht-bsw-rt5672/Makefile.am b/src/conf/ucm/cht-bsw-rt5672/Makefile.am
-> new file mode 100644
-> index 00000000..c3d557fa
-> --- /dev/null
-> +++ b/src/conf/ucm/cht-bsw-rt5672/Makefile.am
-> @@ -0,0 +1,4 @@
-> +alsaconfigdir = @ALSA_CONFIG_DIR@
-> +ucmdir = $(alsaconfigdir)/ucm/cht-bsw-rt5672
-> +ucm_DATA = cht-bsw-rt5672.conf HiFi.conf
-> +EXTRA_DIST = $(ucm_DATA)
-> diff --git a/src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf b/src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf
-> new file mode 100644
-> index 00000000..c79024d9
-> --- /dev/null
-> +++ b/src/conf/ucm/cht-bsw-rt5672/cht-bsw-rt5672.conf
-> @@ -0,0 +1,6 @@
-> +# Adapted from https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
-> +
-> +SectionUseCase."HiFi" {
-> +	File "HiFi.conf"
-> +	Comment "Play HiFi quality Music"
-> +}
-> diff --git a/src/conf/ucm/codecs/Makefile.am b/src/conf/ucm/codecs/Makefile.am
-> index 5987b9cf..17c4ebf9 100644
-> --- a/src/conf/ucm/codecs/Makefile.am
-> +++ b/src/conf/ucm/codecs/Makefile.am
-> @@ -4,4 +4,5 @@ es8316 \
->   rt5640 \
->   rt5645 \
->   rt5651 \
-> +rt5672 \
->   nau8824
-> diff --git a/src/conf/ucm/codecs/rt5672/DMIC1.conf b/src/conf/ucm/codecs/rt5672/DMIC1.conf
-> new file mode 100644
-> index 00000000..9a8db1a5
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/DMIC1.conf
-> @@ -0,0 +1,28 @@
-> +SectionDevice."DigitalMic-DMIC1" {
-> +	Comment "Internal Digital Microphone on DMIC1"
-> +
-> +	ConflictingDevice [
-> +		"DigitalMic-DMIC2"
-> +		"HeadsetMic"
-> +	]
-> +
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Int Mic Switch' on"
-> +		cset "name='Stereo1 DMIC Mux' DMIC1"
-> +		cset "name='Stereo1 ADC 2 Mux' DMIC"
-> +		cset "name='Sto1 ADC MIXL ADC2 Switch' on"
-> +		cset "name='Sto1 ADC MIXR ADC2 Switch' on"
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Int Mic Switch' off"
-> +		cset "name='Sto1 ADC MIXL ADC2 Switch' off"
-> +		cset "name='Sto1 ADC MIXR ADC2 Switch' off"
-> +	]
-> +
-> +	Value {
-> +		CaptureChannels 2
-> +	}
-> +}
-> diff --git a/src/conf/ucm/codecs/rt5672/DMIC2.conf b/src/conf/ucm/codecs/rt5672/DMIC2.conf
-> new file mode 100644
-> index 00000000..b960436e
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/DMIC2.conf
-> @@ -0,0 +1,28 @@
-> +SectionDevice."DigitalMic-DMIC2" {
-> +	Comment "Internal Digital Microphone on DMIC2"
-> +
-> +	ConflictingDevice [
-> +		"DigitalMic-DMIC1"
-> +		"HeadsetMic"
-> +	]
-> +
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Int Mic Switch' on"
-> +		cset "name='Stereo1 DMIC Mux' DMIC2"
-> +		cset "name='Stereo1 ADC 2 Mux' DMIC"
-> +		cset "name='Sto1 ADC MIXL ADC2 Switch' on"
-> +		cset "name='Sto1 ADC MIXR ADC2 Switch' on"
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Int Mic Switch' off"
-> +		cset "name='Sto1 ADC MIXL ADC2 Switch' off"
-> +		cset "name='Sto1 ADC MIXR ADC2 Switch' off"
-> +	]
-> +
-> +	Value {
-> +		CaptureChannels 2
-> +	}
-> +}
-> diff --git a/src/conf/ucm/codecs/rt5672/EnableSeq.conf b/src/conf/ucm/codecs/rt5672/EnableSeq.conf
-> new file mode 100644
-> index 00000000..bd4f357c
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/EnableSeq.conf
-> @@ -0,0 +1,48 @@
-> +# Playback (I2S1)
-> +
-> +# common
-> +cset "name='DAC1 L Mux' IF1 DAC"
-> +cset "name='DAC1 R Mux' IF1 DAC"
-> +cset "name='DAC1 MIXL DAC1 Switch' on"
-> +cset "name='DAC1 MIXR DAC1 Switch' on"
-> +cset "name='Stereo DAC MIXL DAC L1 Switch' on"
-> +cset "name='Stereo DAC MIXL DAC R1 Switch' off"
-> +cset "name='Stereo DAC MIXR DAC R1 Switch' on"
-> +cset "name='Stereo DAC MIXR DAC L1 Switch' off"
-> +
-> +# speaker
-> +cset "name='PDM1 L Mux' Stereo DAC"
-> +cset "name='PDM1 R Mux' Stereo DAC"
-> +
-> +# headphone
-> +cset "name='HPOVOL MIXL DAC1 Switch' on"
-> +cset "name='HPOVOL MIXR DAC1 Switch' on"
-> +cset "name='HPO MIX HPVOL Switch' on"
-> +
-> +# line out
-> +# cset "name='OUT MIXL DAC L1 Switch' on"
-> +# cset "name='OUT MIXR DAC R1 Switch' on"
-> +# cset "name='LOUT MIX OUTMIX L Switch' on"
-> +# cset "name='LOUT MIX OUTMIX R Switch' on"
-> +
-> +# 47=0dB, 0.375 dB/step
-> +cset "name='ADC Capture Volume' 47"
-> +cset "name='ADC Capture Switch' on"
-> +
-> +# Headset mic is quite soft, boost it a bit, 1 = 20dB which is the first
-> +# available boost step
-> +cset "name='IN1 Boost Volume' 1"
-> +
-> +# Start with all outputs / inputs disabled
-> +cset "name='Ext Spk Switch' off"
-> +cset "name='Headphone Switch' off"
-> +cset "name='Int Mic Switch' off"
-> +cset "name='Headset Mic Switch' off"
-> +cset "name='Sto1 ADC MIXL ADC1 Switch' off"
-> +cset "name='Sto1 ADC MIXR ADC1 Switch' off"
-> +cset "name='Sto1 ADC MIXL ADC2 Switch' off"
-> +cset "name='Sto1 ADC MIXR ADC2 Switch' off"
-> +cset "name='RECMIXL BST1 Switch' off"
-> +cset "name='RECMIXR BST1 Switch' off"
-> +cset "name='RECMIXL BST2 Switch' off"
-> +cset "name='RECMIXR BST2 Switch' off"
-> diff --git a/src/conf/ucm/codecs/rt5672/HeadPhones.conf b/src/conf/ucm/codecs/rt5672/HeadPhones.conf
-> new file mode 100644
-> index 00000000..cb8aad2d
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/HeadPhones.conf
-> @@ -0,0 +1,23 @@
-> +SectionDevice."Headphones" {
-> +	Comment "Headphones"
-> +
-> +	ConflictingDevice [
-> +		"Speaker"
-> +		"MonoSpeaker"
-> +	]
-> +
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Headphone Switch' on"
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Headphone Switch' off"
-> +	]
-> +
-> +	Value {
-> +		PlaybackChannels "2"
-> +		JackControl "Headphone Jack"
-> +	}
-> +}
-> diff --git a/src/conf/ucm/codecs/rt5672/HeadsetMic.conf b/src/conf/ucm/codecs/rt5672/HeadsetMic.conf
-> new file mode 100644
-> index 00000000..cc6d8d56
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/HeadsetMic.conf
-> @@ -0,0 +1,38 @@
-> +SectionDevice."HeadsetMic" {
-> +	Comment "Headset Microphone"
-> +
-> +	ConflictingDevice [
-> +		"DigitalMic-DMIC1"
-> +		"DigitalMic-DMIC2"
-> +	]
-> +
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Headset Mic Switch' on"
-> +        	cset "name='RECMIXL BST1 Switch' on"
-> +		cset "name='RECMIXR BST1 Switch' on"
-> +		cset "name='Sto1 ADC MIXL ADC1 Switch' on"
-> +		cset "name='Sto1 ADC MIXR ADC1 Switch' on"
-> +		# For unknown reasons the headset mic sound is only recorded
-> +		# on the left channel, we tweak the data-stream reception to
-> +		# use the left samples for both slots, so that we get a stereo
-> +		# stream with the mic sound on both channels
-> +		cset "name='codec_in rx deinterleaver codec_in0_1' 1"
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Headset Mic Switch' off"
-> +        	cset "name='RECMIXL BST1 Switch' off"
-> +		cset "name='RECMIXR BST1 Switch' off"
-> +		cset "name='Sto1 ADC MIXL ADC1 Switch' off"
-> +		cset "name='Sto1 ADC MIXR ADC1 Switch' off"
-> +		# Undo data-stream reception mono-mix workaround
-> +		cset "name='codec_in rx deinterleaver codec_in0_1' 2"
-> +	]
-> +
-> +	Value {
-> +		CaptureChannels "2"
-> +		JackControl "Headset Mic Jack"
-> +	}
-> +}
-> diff --git a/src/conf/ucm/codecs/rt5672/Makefile.am b/src/conf/ucm/codecs/rt5672/Makefile.am
-> new file mode 100644
-> index 00000000..feba0b76
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/Makefile.am
-> @@ -0,0 +1,5 @@
-> +alsaconfigdir = @ALSA_CONFIG_DIR@
-> +ucmdir = $(alsaconfigdir)/ucm/codecs/rt5672
-> +ucm_DATA = DMIC1.conf DMIC2.conf EnableSeq.conf HeadPhones.conf \
-> +	   HeadsetMic.conf MonoSpeaker.conf Speaker.conf
-> +EXTRA_DIST = $(ucm_DATA)
-> diff --git a/src/conf/ucm/codecs/rt5672/MonoSpeaker.conf b/src/conf/ucm/codecs/rt5672/MonoSpeaker.conf
-> new file mode 100644
-> index 00000000..828a1154
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/MonoSpeaker.conf
-> @@ -0,0 +1,26 @@
-> +SectionDevice."MonoSpeaker" {
-> +	Comment "Mono Speaker"
-> +
-> +	ConflictingDevice [
-> +		"Speaker"
-> +		"Headphones"
-> +	]
-> +
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Stereo DAC MIXR DAC R1 Switch' off"
-> +		cset "name='Stereo DAC MIXL DAC R1 Switch' on"
-> +		cset "name='Ext Spk Switch' on"
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Ext Spk Switch' off"
-> +		cset "name='Stereo DAC MIXL DAC R1 Switch' off"
-> +		cset "name='Stereo DAC MIXR DAC R1 Switch' on"
-> +	]
-> +
-> +	Value {
-> +		PlaybackChannels "2"
-> +	}
-> +}
-> diff --git a/src/conf/ucm/codecs/rt5672/Speaker.conf b/src/conf/ucm/codecs/rt5672/Speaker.conf
-> new file mode 100644
-> index 00000000..f9291e53
-> --- /dev/null
-> +++ b/src/conf/ucm/codecs/rt5672/Speaker.conf
-> @@ -0,0 +1,22 @@
-> +SectionDevice."Speaker" {
-> +	Comment "Speakers"
-> +
-> +	ConflictingDevice [
-> +		"MonoSpeaker"
-> +		"Headphones"
-> +	]
-> +
-> +	EnableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Ext Spk Switch' on"
-> +	]
-> +
-> +	DisableSequence [
-> +		cdev "hw:chtbswrt5672"
-> +		cset "name='Ext Spk Switch' off"
-> +	]
-> +
-> +	Value {
-> +		PlaybackChannels "2"
-> +	}
-> +}
-> 
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGksCgpPbiAwMy0wOS0xOSAxNjowOSwgUGllcnJlLUxvdWlzIEJvc3NhcnQgd3JvdGU6Cj4gCj4g
+Cj4gT24gOC8zMS8xOSA5OjU4IEFNLCBIYW5zIGRlIEdvZWRlIHdyb3RlOgo+PiBBZGQgYW4gVUNN
+IHByb2ZpbGUgZm9yIEludGVsIGJvYXJkcyB3aXRoIGEgUlQ1NjcyIGNvZGVjLgo+Pgo+PiBSZS11
+c2UgdGhlIGV4aXN0aW5nIHBsYXRmb3JtIGVuYWJsZSBhbmQgZGlzYWJsZSBzZXF1ZW5jZXMgZm9y
+IEJZVC9DSFQgU1NUCj4+IHN1cHBvcnQgYW5kIGFkZCBhIGNvZGVjcy9ydDU2NzIgZGlyIHdpdGgg
+Y29kZWMgc3BlY2lmaWMgZW5hYmxlIC8gZGlzYWJsZQo+PiBzZXF1ZW5jZXMgZm9yIHRoZSB2YXJp
+b3VzIGlucHV0cyBhbmQgb3V0cHV0cy4KPj4KPj4gVGhpcyBpcyBwYXJ0bHkgYmFzZWQgb24gZWFy
+bGllciB3b3JrIGRvbmUgaGVyZToKPj4gaHR0cHM6Ly9naXRodWIuY29tL3BsYm9zc2FydC9VQ00v
+dHJlZS9tYXN0ZXIvY2h0LWJzdy1ydDU2NzIKPiAKPiBUaGFua3MgZm9yIHJlc3RhcnRpbmcgdGhp
+cyBIYW5zLgo+IAo+IEkgY2FuJ3QgcmVjYWxsIGlmIEkgZGlkIGFueSB3b3JrIGhlcmUsIHRvb2sg
+ZGVmYXVsdCBzZXR0aW5ncyBmcm9tIEJhcmQgTGlhbyAod2hlbiBoZSB3YXMgYSBSZWFsdGVrKSBv
+ciBpZiBJIGp1c3QgdG9vayBleGFtcGxlcyBmcm9tIGEgQ2hyb21lYm9vayBVQ00gZmlsZS4gSSBr
+bm93IHRoZXJlJ3MgYSBEZWxsIHRhYmxldCB3aGljaCB1c2VzIHRoaXMgY29kZWMsIGJ1dCBJIGp1
+c3QgY2FuJ3QgcmVjYWxsIG90aGVyIGRldmljZXMuCgpJIG9ubHkgaGF2ZSB0aGUgTGVub3ZvIFRo
+aW5rcGFkIDggd2l0aCB0aGlzIGNvZGVjLgoKPiBBbHNvIGhvdyBkb2VzIHRoZSBzZWxlY3Rpb24g
+b2YgdGhlIGNvbmZpZ3Mgd29yaywgSSBkb24ndCBzZWUgdGhlIHNhbWUgdGhpbmcgYXMgaW4gYnl0
+Y3JfcnQ1NjQwLzUxIHRvIHBsYXkgd2l0aCB0aGUgY2FyZCBsb25nIG5hbWUgYW5kIHF1aXJrcy4g
+RG8geW91IGV4cGVjdCB0aGUgdXNlciB0byBzZWxlY3QgdGhlICdyaWdodCcgY29uZmlncyBiYXNl
+ZCBvbiBleHBlcmltZW50YWwgdHJpYWwtYW5kLWVycm9yLgoKTGlrZSB3aXRoIHRoZSBjaHRydDU2
+NDUgYW5kIGNodG5hdTg4MjQgdGhlcmUgaXMgbm8gbmVlZCBmb3IgYW55Cmtlcm5lbCBzaWRlIHF1
+aXJrcyBkZXBlbmRpbmcgb24gdGhlIGlucHV0L291dHB1dCBjb25maWcuCgpTbyB0aGUgcGxhbiBp
+cyB0byBoYXZlIGEgZGVmYXVsdCBwcm9maWxlIHdoaWNoCmFsbG93cyBzZWxlY3RpbmcgYWxsIHBv
+c3NpYmxlIGlucHV0cyAvIG91dHB1dHMgKGluY2x1ZGluZwpvbmVzIG5vdCBwcmVzZW50KSBhbmQg
+dGhlbiBoYXZlIERNSSBuYW1lIGJhc2VkIHByb2ZpbGVzLApsaWtlIHRoZSBwcm9maWxlIGFkZGVk
+IGZvciB0aGUgTGVub3ZvIFRoaW5rcGFkIDggaW4gdGhlCnNlY29uZCBwYXRjaCBpbiB0aGlzIHNl
+cmllcywgd2hpY2ggb25seSBpbmNsdWRlIHRoZQpyZWxldmFudCBpbnB1dHMgLyBvdXRwdXRzIGZv
+ciB0aGF0IHNwZWNpZmljIGRldmljZQooYXMgd2UgYXJlIGRvaW5nIGFscmVhZHkgZm9yIHRoZSBj
+aHRydDU2NDUgYW5kIGNodG5hdTg4MjQKcHJvZmlsZXMpCgpSZWdhcmRzLAoKSGFucwoKPiAKPj4K
+Pj4gU2lnbmVkLW9mZi1ieTogSGFucyBkZSBHb2VkZSA8aGRlZ29lZGVAcmVkaGF0LmNvbT4KPj4g
+LS0tCj4+IMKgIGNvbmZpZ3VyZS5hY8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8wqAgMiArCj4+IMKgIHNyYy9jb25mL3Vj
+bS9NYWtlZmlsZS5hbcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB8
+wqAgMSArCj4+IMKgIHNyYy9jb25mL3VjbS9jaHQtYnN3LXJ0NTY3Mi9IaUZpLmNvbmbCoMKgwqDC
+oMKgwqDCoMKgIHwgMjcgKysrKysrKysrKysKPj4gwqAgc3JjL2NvbmYvdWNtL2NodC1ic3ctcnQ1
+NjcyL01ha2VmaWxlLmFtwqDCoMKgwqDCoMKgIHzCoCA0ICsrCj4+IMKgIC4uLi91Y20vY2h0LWJz
+dy1ydDU2NzIvY2h0LWJzdy1ydDU2NzIuY29uZsKgwqDCoCB8wqAgNiArKysKPj4gwqAgc3JjL2Nv
+bmYvdWNtL2NvZGVjcy9NYWtlZmlsZS5hbcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfMKg
+IDEgKwo+PiDCoCBzcmMvY29uZi91Y20vY29kZWNzL3J0NTY3Mi9ETUlDMS5jb25mwqDCoMKgwqDC
+oMKgwqDCoCB8IDI4ICsrKysrKysrKysrCj4+IMKgIHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1Njcy
+L0RNSUMyLmNvbmbCoMKgwqDCoMKgwqDCoMKgIHwgMjggKysrKysrKysrKysKPj4gwqAgc3JjL2Nv
+bmYvdWNtL2NvZGVjcy9ydDU2NzIvRW5hYmxlU2VxLmNvbmbCoMKgwqDCoCB8IDQ4ICsrKysrKysr
+KysrKysrKysrKysKPj4gwqAgc3JjL2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvSGVhZFBob25lcy5j
+b25mwqDCoMKgIHwgMjMgKysrKysrKysrCj4+IMKgIHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1Njcy
+L0hlYWRzZXRNaWMuY29uZsKgwqDCoCB8IDM4ICsrKysrKysrKysrKysrKwo+PiDCoCBzcmMvY29u
+Zi91Y20vY29kZWNzL3J0NTY3Mi9NYWtlZmlsZS5hbcKgwqDCoMKgwqDCoMKgIHzCoCA1ICsrCj4+
+IMKgIHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL01vbm9TcGVha2VyLmNvbmbCoMKgIHwgMjYg
+KysrKysrKysrKwo+PiDCoCBzcmMvY29uZi91Y20vY29kZWNzL3J0NTY3Mi9TcGVha2VyLmNvbmbC
+oMKgwqDCoMKgwqAgfCAyMiArKysrKysrKysKPj4gwqAgMTQgZmlsZXMgY2hhbmdlZCwgMjU5IGlu
+c2VydGlvbnMoKykKPj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9jaHQtYnN3
+LXJ0NTY3Mi9IaUZpLmNvbmYKPj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9j
+aHQtYnN3LXJ0NTY3Mi9NYWtlZmlsZS5hbQo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgc3JjL2Nv
+bmYvdWNtL2NodC1ic3ctcnQ1NjcyL2NodC1ic3ctcnQ1NjcyLmNvbmYKPj4gwqAgY3JlYXRlIG1v
+ZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0RNSUMxLmNvbmYKPj4gwqAgY3Jl
+YXRlIG1vZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0RNSUMyLmNvbmYKPj4g
+wqAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0VuYWJsZVNl
+cS5jb25mCj4+IMKgIGNyZWF0ZSBtb2RlIDEwMDY0NCBzcmMvY29uZi91Y20vY29kZWNzL3J0NTY3
+Mi9IZWFkUGhvbmVzLmNvbmYKPj4gwqAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9j
+b2RlY3MvcnQ1NjcyL0hlYWRzZXRNaWMuY29uZgo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgc3Jj
+L2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvTWFrZWZpbGUuYW0KPj4gwqAgY3JlYXRlIG1vZGUgMTAw
+NjQ0IHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL01vbm9TcGVha2VyLmNvbmYKPj4gwqAgY3Jl
+YXRlIG1vZGUgMTAwNjQ0IHNyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL1NwZWFrZXIuY29uZgo+
+Pgo+PiBkaWZmIC0tZ2l0IGEvY29uZmlndXJlLmFjIGIvY29uZmlndXJlLmFjCj4+IGluZGV4IDJl
+OTU1NzYwLi45Y2NjYTdhYSAxMDA2NDQKPj4gLS0tIGEvY29uZmlndXJlLmFjCj4+ICsrKyBiL2Nv
+bmZpZ3VyZS5hYwo+PiBAQCAtNzQxLDYgKzc0MSw3IEBAIEFDX09VVFBVVChNYWtlZmlsZSBkb2Mv
+TWFrZWZpbGUgZG9jL3BpY3R1cmVzL01ha2VmaWxlIGRvYy9kb3h5Z2VuLmNmZyBcCj4+IMKgwqDC
+oMKgwqDCoMKgIHNyYy9jb25mL3VjbS9ieXRjci1ydDU2NTEtc3RlcmVvLXNway1pbjEtbWljL01h
+a2VmaWxlIFwKPj4gwqDCoMKgwqDCoMKgwqAgc3JjL2NvbmYvdWNtL2J5dGNyLXJ0NTY1MS1zdGVy
+ZW8tc3BrLWluMi1taWMvTWFrZWZpbGUgXAo+PiDCoMKgwqDCoMKgwqDCoCBzcmMvY29uZi91Y20v
+Ynl0Y3ItcnQ1NjUxLXN0ZXJlby1zcGstaW4xMi1taWMvTWFrZWZpbGUgXAo+PiArwqDCoMKgwqDC
+oCBzcmMvY29uZi91Y20vY2h0LWJzdy1ydDU2NzIvTWFrZWZpbGUgXAo+PiDCoMKgwqDCoMKgwqDC
+oCBzcmMvY29uZi91Y20vY2h0bmF1ODgyNC9NYWtlZmlsZSBcCj4+IMKgwqDCoMKgwqDCoMKgIHNy
+Yy9jb25mL3VjbS9jaHRydDU2NDUvTWFrZWZpbGUgXAo+PiDCoMKgwqDCoMKgwqDCoCBzcmMvY29u
+Zi91Y20vY2h0cnQ1NjQ1LW1vbm8tc3BlYWtlci1hbmFsb2ctbWljL01ha2VmaWxlIFwKPj4gQEAg
+LTc3Miw2ICs3NzMsNyBAQCBBQ19PVVRQVVQoTWFrZWZpbGUgZG9jL01ha2VmaWxlIGRvYy9waWN0
+dXJlcy9NYWtlZmlsZSBkb2MvZG94eWdlbi5jZmcgXAo+PiDCoMKgwqDCoMKgwqDCoCBzcmMvY29u
+Zi91Y20vY29kZWNzL3J0NTY0MC9NYWtlZmlsZSBcCj4+IMKgwqDCoMKgwqDCoMKgIHNyYy9jb25m
+L3VjbS9jb2RlY3MvcnQ1NjQ1L01ha2VmaWxlIFwKPj4gwqDCoMKgwqDCoMKgwqAgc3JjL2NvbmYv
+dWNtL2NvZGVjcy9ydDU2NTEvTWFrZWZpbGUgXAo+PiArwqDCoMKgwqDCoCBzcmMvY29uZi91Y20v
+Y29kZWNzL3J0NTY3Mi9NYWtlZmlsZSBcCj4+IMKgwqDCoMKgwqDCoMKgIHNyYy9jb25mL3VjbS9w
+bGF0Zm9ybXMvTWFrZWZpbGUgXAo+PiDCoMKgwqDCoMKgwqDCoCBzcmMvY29uZi91Y20vcGxhdGZv
+cm1zL2J5dGNyL01ha2VmaWxlIFwKPj4gwqDCoMKgwqDCoMKgwqAgc3JjL2NvbmYvdG9wb2xvZ3kv
+TWFrZWZpbGUgXAo+PiBkaWZmIC0tZ2l0IGEvc3JjL2NvbmYvdWNtL01ha2VmaWxlLmFtIGIvc3Jj
+L2NvbmYvdWNtL01ha2VmaWxlLmFtCj4+IGluZGV4IDAyMjU3MDQ4Li4yZWQ0ZTFhMyAxMDA2NDQK
+Pj4gLS0tIGEvc3JjL2NvbmYvdWNtL01ha2VmaWxlLmFtCj4+ICsrKyBiL3NyYy9jb25mL3VjbS9N
+YWtlZmlsZS5hbQo+PiBAQCAtMjUsNiArMjUsNyBAQCBieXRjci1ydDU2NTEtc3RlcmVvLXNway1k
+bWljLW1pYyBcCj4+IMKgIGJ5dGNyLXJ0NTY1MS1zdGVyZW8tc3BrLWluMS1taWMgXAo+PiDCoCBi
+eXRjci1ydDU2NTEtc3RlcmVvLXNway1pbjItbWljIFwKPj4gwqAgYnl0Y3ItcnQ1NjUxLXN0ZXJl
+by1zcGstaW4xMi1taWMgXAo+PiArY2h0LWJzdy1ydDU2NzIgXAo+PiDCoCBjaHRuYXU4ODI0IFwK
+Pj4gwqAgY2h0cnQ1NjQ1IFwKPj4gwqAgY2h0cnQ1NjQ1LW1vbm8tc3BlYWtlci1hbmFsb2ctbWlj
+IFwKPj4gZGlmZiAtLWdpdCBhL3NyYy9jb25mL3VjbS9jaHQtYnN3LXJ0NTY3Mi9IaUZpLmNvbmYg
+Yi9zcmMvY29uZi91Y20vY2h0LWJzdy1ydDU2NzIvSGlGaS5jb25mCj4+IG5ldyBmaWxlIG1vZGUg
+MTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwLi5iODMwOTlkOAo+PiAtLS0gL2Rldi9udWxsCj4+ICsr
+KyBiL3NyYy9jb25mL3VjbS9jaHQtYnN3LXJ0NTY3Mi9IaUZpLmNvbmYKPj4gQEAgLTAsMCArMSwy
+NyBAQAo+PiArIyBBZGFwdGVkIGZyb20gaHR0cHM6Ly9naXRodWIuY29tL3BsYm9zc2FydC9VQ00v
+dHJlZS9tYXN0ZXIvY2h0LWJzdy1ydDU2NzIKPj4gKwo+PiArU2VjdGlvblZlcmIgewo+PiArwqDC
+oMKgIEVuYWJsZVNlcXVlbmNlIFsKPj4gK8KgwqDCoMKgwqDCoMKgIGNkZXYgImh3OmNodGJzd3J0
+NTY3MiIKPj4gK8KgwqDCoMKgwqDCoMKgIDxwbGF0Zm9ybXMvYnl0Y3IvUGxhdGZvcm1FbmFibGVT
+ZXEuY29uZj4KPj4gK8KgwqDCoMKgwqDCoMKgIDxjb2RlY3MvcnQ1NjcyL0VuYWJsZVNlcS5jb25m
+Pgo+PiArwqDCoMKgIF0KPj4gKwo+PiArwqDCoMKgIERpc2FibGVTZXF1ZW5jZSBbCj4+ICvCoMKg
+wqDCoMKgwqDCoCBjZGV2ICJodzpjaHRic3dydDU2NzIiCj4+ICvCoMKgwqDCoMKgwqDCoCA8cGxh
+dGZvcm1zL2J5dGNyL1BsYXRmb3JtRGlzYWJsZVNlcS5jb25mPgo+PiArwqDCoMKgIF0KPj4gKwo+
+PiArwqDCoMKgIFZhbHVlIHsKPj4gK8KgwqDCoMKgwqDCoMKgIFBsYXliYWNrUENNICJodzpjaHRi
+c3dydDU2NzIiCj4+ICvCoMKgwqDCoMKgwqDCoCBDYXB0dXJlUENNICJodzpjaHRic3dydDU2NzIi
+Cj4+ICvCoMKgwqAgfQo+PiArfQo+PiArCj4+ICs8Y29kZWNzL3J0NTY3Mi9TcGVha2VyLmNvbmY+
+Cj4+ICs8Y29kZWNzL3J0NTY3Mi9Nb25vU3BlYWtlci5jb25mPgo+PiArPGNvZGVjcy9ydDU2NzIv
+SGVhZFBob25lcy5jb25mPgo+PiArCj4+ICs8Y29kZWNzL3J0NTY3Mi9ETUlDMS5jb25mPgo+PiAr
+PGNvZGVjcy9ydDU2NzIvRE1JQzIuY29uZj4KPj4gKzxjb2RlY3MvcnQ1NjcyL0hlYWRzZXRNaWMu
+Y29uZj4KPj4gZGlmZiAtLWdpdCBhL3NyYy9jb25mL3VjbS9jaHQtYnN3LXJ0NTY3Mi9NYWtlZmls
+ZS5hbSBiL3NyYy9jb25mL3VjbS9jaHQtYnN3LXJ0NTY3Mi9NYWtlZmlsZS5hbQo+PiBuZXcgZmls
+ZSBtb2RlIDEwMDY0NAo+PiBpbmRleCAwMDAwMDAwMC4uYzNkNTU3ZmEKPj4gLS0tIC9kZXYvbnVs
+bAo+PiArKysgYi9zcmMvY29uZi91Y20vY2h0LWJzdy1ydDU2NzIvTWFrZWZpbGUuYW0KPj4gQEAg
+LTAsMCArMSw0IEBACj4+ICthbHNhY29uZmlnZGlyID0gQEFMU0FfQ09ORklHX0RJUkAKPj4gK3Vj
+bWRpciA9ICQoYWxzYWNvbmZpZ2RpcikvdWNtL2NodC1ic3ctcnQ1NjcyCj4+ICt1Y21fREFUQSA9
+IGNodC1ic3ctcnQ1NjcyLmNvbmYgSGlGaS5jb25mCj4+ICtFWFRSQV9ESVNUID0gJCh1Y21fREFU
+QSkKPj4gZGlmZiAtLWdpdCBhL3NyYy9jb25mL3VjbS9jaHQtYnN3LXJ0NTY3Mi9jaHQtYnN3LXJ0
+NTY3Mi5jb25mIGIvc3JjL2NvbmYvdWNtL2NodC1ic3ctcnQ1NjcyL2NodC1ic3ctcnQ1NjcyLmNv
+bmYKPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPj4gaW5kZXggMDAwMDAwMDAuLmM3OTAyNGQ5Cj4+
+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvc3JjL2NvbmYvdWNtL2NodC1ic3ctcnQ1NjcyL2NodC1i
+c3ctcnQ1NjcyLmNvbmYKPj4gQEAgLTAsMCArMSw2IEBACj4+ICsjIEFkYXB0ZWQgZnJvbSBodHRw
+czovL2dpdGh1Yi5jb20vcGxib3NzYXJ0L1VDTS90cmVlL21hc3Rlci9jaHQtYnN3LXJ0NTY3Mgo+
+PiArCj4+ICtTZWN0aW9uVXNlQ2FzZS4iSGlGaSIgewo+PiArwqDCoMKgIEZpbGUgIkhpRmkuY29u
+ZiIKPj4gK8KgwqDCoCBDb21tZW50ICJQbGF5IEhpRmkgcXVhbGl0eSBNdXNpYyIKPj4gK30KPj4g
+ZGlmZiAtLWdpdCBhL3NyYy9jb25mL3VjbS9jb2RlY3MvTWFrZWZpbGUuYW0gYi9zcmMvY29uZi91
+Y20vY29kZWNzL01ha2VmaWxlLmFtCj4+IGluZGV4IDU5ODdiOWNmLi4xN2M0ZWJmOSAxMDA2NDQK
+Pj4gLS0tIGEvc3JjL2NvbmYvdWNtL2NvZGVjcy9NYWtlZmlsZS5hbQo+PiArKysgYi9zcmMvY29u
+Zi91Y20vY29kZWNzL01ha2VmaWxlLmFtCj4+IEBAIC00LDQgKzQsNSBAQCBlczgzMTYgXAo+PiDC
+oCBydDU2NDAgXAo+PiDCoCBydDU2NDUgXAo+PiDCoCBydDU2NTEgXAo+PiArcnQ1NjcyIFwKPj4g
+wqAgbmF1ODgyNAo+PiBkaWZmIC0tZ2l0IGEvc3JjL2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvRE1J
+QzEuY29uZiBiL3NyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0RNSUMxLmNvbmYKPj4gbmV3IGZp
+bGUgbW9kZSAxMDA2NDQKPj4gaW5kZXggMDAwMDAwMDAuLjlhOGRiMWE1Cj4+IC0tLSAvZGV2L251
+bGwKPj4gKysrIGIvc3JjL2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvRE1JQzEuY29uZgo+PiBAQCAt
+MCwwICsxLDI4IEBACj4+ICtTZWN0aW9uRGV2aWNlLiJEaWdpdGFsTWljLURNSUMxIiB7Cj4+ICvC
+oMKgwqAgQ29tbWVudCAiSW50ZXJuYWwgRGlnaXRhbCBNaWNyb3Bob25lIG9uIERNSUMxIgo+PiAr
+Cj4+ICvCoMKgwqAgQ29uZmxpY3RpbmdEZXZpY2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgIkRpZ2l0
+YWxNaWMtRE1JQzIiCj4+ICvCoMKgwqDCoMKgwqDCoCAiSGVhZHNldE1pYyIKPj4gK8KgwqDCoCBd
+Cj4+ICsKPj4gK8KgwqDCoCBFbmFibGVTZXF1ZW5jZSBbCj4+ICvCoMKgwqDCoMKgwqDCoCBjZGV2
+ICJodzpjaHRic3dydDU2NzIiCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdJbnQgTWlj
+IFN3aXRjaCcgb24iCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdTdGVyZW8xIERNSUMg
+TXV4JyBETUlDMSIKPj4gK8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1N0ZXJlbzEgQURDIDIg
+TXV4JyBETUlDIgo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nU3RvMSBBREMgTUlYTCBB
+REMyIFN3aXRjaCcgb24iCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdTdG8xIEFEQyBN
+SVhSIEFEQzIgU3dpdGNoJyBvbiIKPj4gK8KgwqDCoCBdCj4+ICsKPj4gK8KgwqDCoCBEaXNhYmxl
+U2VxdWVuY2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgY2RldiAiaHc6Y2h0YnN3cnQ1NjcyIgo+PiAr
+wqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nSW50IE1pYyBTd2l0Y2gnIG9mZiIKPj4gK8KgwqDC
+oMKgwqDCoMKgIGNzZXQgIm5hbWU9J1N0bzEgQURDIE1JWEwgQURDMiBTd2l0Y2gnIG9mZiIKPj4g
+K8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1N0bzEgQURDIE1JWFIgQURDMiBTd2l0Y2gnIG9m
+ZiIKPj4gK8KgwqDCoCBdCj4+ICsKPj4gK8KgwqDCoCBWYWx1ZSB7Cj4+ICvCoMKgwqDCoMKgwqDC
+oCBDYXB0dXJlQ2hhbm5lbHMgMgo+PiArwqDCoMKgIH0KPj4gK30KPj4gZGlmZiAtLWdpdCBhL3Ny
+Yy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0RNSUMyLmNvbmYgYi9zcmMvY29uZi91Y20vY29kZWNz
+L3J0NTY3Mi9ETUlDMi5jb25mCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAw
+MDAwLi5iOTYwNDM2ZQo+PiAtLS0gL2Rldi9udWxsCj4+ICsrKyBiL3NyYy9jb25mL3VjbS9jb2Rl
+Y3MvcnQ1NjcyL0RNSUMyLmNvbmYKPj4gQEAgLTAsMCArMSwyOCBAQAo+PiArU2VjdGlvbkRldmlj
+ZS4iRGlnaXRhbE1pYy1ETUlDMiIgewo+PiArwqDCoMKgIENvbW1lbnQgIkludGVybmFsIERpZ2l0
+YWwgTWljcm9waG9uZSBvbiBETUlDMiIKPj4gKwo+PiArwqDCoMKgIENvbmZsaWN0aW5nRGV2aWNl
+IFsKPj4gK8KgwqDCoMKgwqDCoMKgICJEaWdpdGFsTWljLURNSUMxIgo+PiArwqDCoMKgwqDCoMKg
+wqAgIkhlYWRzZXRNaWMiCj4+ICvCoMKgwqAgXQo+PiArCj4+ICvCoMKgwqAgRW5hYmxlU2VxdWVu
+Y2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgY2RldiAiaHc6Y2h0YnN3cnQ1NjcyIgo+PiArwqDCoMKg
+wqDCoMKgwqAgY3NldCAibmFtZT0nSW50IE1pYyBTd2l0Y2gnIG9uIgo+PiArwqDCoMKgwqDCoMKg
+wqAgY3NldCAibmFtZT0nU3RlcmVvMSBETUlDIE11eCcgRE1JQzIiCj4+ICvCoMKgwqDCoMKgwqDC
+oCBjc2V0ICJuYW1lPSdTdGVyZW8xIEFEQyAyIE11eCcgRE1JQyIKPj4gK8KgwqDCoMKgwqDCoMKg
+IGNzZXQgIm5hbWU9J1N0bzEgQURDIE1JWEwgQURDMiBTd2l0Y2gnIG9uIgo+PiArwqDCoMKgwqDC
+oMKgwqAgY3NldCAibmFtZT0nU3RvMSBBREMgTUlYUiBBREMyIFN3aXRjaCcgb24iCj4+ICvCoMKg
+wqAgXQo+PiArCj4+ICvCoMKgwqAgRGlzYWJsZVNlcXVlbmNlIFsKPj4gK8KgwqDCoMKgwqDCoMKg
+IGNkZXYgImh3OmNodGJzd3J0NTY3MiIKPj4gK8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J0lu
+dCBNaWMgU3dpdGNoJyBvZmYiCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdTdG8xIEFE
+QyBNSVhMIEFEQzIgU3dpdGNoJyBvZmYiCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdT
+dG8xIEFEQyBNSVhSIEFEQzIgU3dpdGNoJyBvZmYiCj4+ICvCoMKgwqAgXQo+PiArCj4+ICvCoMKg
+wqAgVmFsdWUgewo+PiArwqDCoMKgwqDCoMKgwqAgQ2FwdHVyZUNoYW5uZWxzIDIKPj4gK8KgwqDC
+oCB9Cj4+ICt9Cj4+IGRpZmYgLS1naXQgYS9zcmMvY29uZi91Y20vY29kZWNzL3J0NTY3Mi9FbmFi
+bGVTZXEuY29uZiBiL3NyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0VuYWJsZVNlcS5jb25mCj4+
+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwLi5iZDRmMzU3Ywo+PiAtLS0g
+L2Rldi9udWxsCj4+ICsrKyBiL3NyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0VuYWJsZVNlcS5j
+b25mCj4+IEBAIC0wLDAgKzEsNDggQEAKPj4gKyMgUGxheWJhY2sgKEkyUzEpCj4+ICsKPj4gKyMg
+Y29tbW9uCj4+ICtjc2V0ICJuYW1lPSdEQUMxIEwgTXV4JyBJRjEgREFDIgo+PiArY3NldCAibmFt
+ZT0nREFDMSBSIE11eCcgSUYxIERBQyIKPj4gK2NzZXQgIm5hbWU9J0RBQzEgTUlYTCBEQUMxIFN3
+aXRjaCcgb24iCj4+ICtjc2V0ICJuYW1lPSdEQUMxIE1JWFIgREFDMSBTd2l0Y2gnIG9uIgo+PiAr
+Y3NldCAibmFtZT0nU3RlcmVvIERBQyBNSVhMIERBQyBMMSBTd2l0Y2gnIG9uIgo+PiArY3NldCAi
+bmFtZT0nU3RlcmVvIERBQyBNSVhMIERBQyBSMSBTd2l0Y2gnIG9mZiIKPj4gK2NzZXQgIm5hbWU9
+J1N0ZXJlbyBEQUMgTUlYUiBEQUMgUjEgU3dpdGNoJyBvbiIKPj4gK2NzZXQgIm5hbWU9J1N0ZXJl
+byBEQUMgTUlYUiBEQUMgTDEgU3dpdGNoJyBvZmYiCj4+ICsKPj4gKyMgc3BlYWtlcgo+PiArY3Nl
+dCAibmFtZT0nUERNMSBMIE11eCcgU3RlcmVvIERBQyIKPj4gK2NzZXQgIm5hbWU9J1BETTEgUiBN
+dXgnIFN0ZXJlbyBEQUMiCj4+ICsKPj4gKyMgaGVhZHBob25lCj4+ICtjc2V0ICJuYW1lPSdIUE9W
+T0wgTUlYTCBEQUMxIFN3aXRjaCcgb24iCj4+ICtjc2V0ICJuYW1lPSdIUE9WT0wgTUlYUiBEQUMx
+IFN3aXRjaCcgb24iCj4+ICtjc2V0ICJuYW1lPSdIUE8gTUlYIEhQVk9MIFN3aXRjaCcgb24iCj4+
+ICsKPj4gKyMgbGluZSBvdXQKPj4gKyMgY3NldCAibmFtZT0nT1VUIE1JWEwgREFDIEwxIFN3aXRj
+aCcgb24iCj4+ICsjIGNzZXQgIm5hbWU9J09VVCBNSVhSIERBQyBSMSBTd2l0Y2gnIG9uIgo+PiAr
+IyBjc2V0ICJuYW1lPSdMT1VUIE1JWCBPVVRNSVggTCBTd2l0Y2gnIG9uIgo+PiArIyBjc2V0ICJu
+YW1lPSdMT1VUIE1JWCBPVVRNSVggUiBTd2l0Y2gnIG9uIgo+PiArCj4+ICsjIDQ3PTBkQiwgMC4z
+NzUgZEIvc3RlcAo+PiArY3NldCAibmFtZT0nQURDIENhcHR1cmUgVm9sdW1lJyA0NyIKPj4gK2Nz
+ZXQgIm5hbWU9J0FEQyBDYXB0dXJlIFN3aXRjaCcgb24iCj4+ICsKPj4gKyMgSGVhZHNldCBtaWMg
+aXMgcXVpdGUgc29mdCwgYm9vc3QgaXQgYSBiaXQsIDEgPSAyMGRCIHdoaWNoIGlzIHRoZSBmaXJz
+dAo+PiArIyBhdmFpbGFibGUgYm9vc3Qgc3RlcAo+PiArY3NldCAibmFtZT0nSU4xIEJvb3N0IFZv
+bHVtZScgMSIKPj4gKwo+PiArIyBTdGFydCB3aXRoIGFsbCBvdXRwdXRzIC8gaW5wdXRzIGRpc2Fi
+bGVkCj4+ICtjc2V0ICJuYW1lPSdFeHQgU3BrIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0n
+SGVhZHBob25lIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0nSW50IE1pYyBTd2l0Y2gnIG9m
+ZiIKPj4gK2NzZXQgIm5hbWU9J0hlYWRzZXQgTWljIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFt
+ZT0nU3RvMSBBREMgTUlYTCBBREMxIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0nU3RvMSBB
+REMgTUlYUiBBREMxIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0nU3RvMSBBREMgTUlYTCBB
+REMyIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0nU3RvMSBBREMgTUlYUiBBREMyIFN3aXRj
+aCcgb2ZmIgo+PiArY3NldCAibmFtZT0nUkVDTUlYTCBCU1QxIFN3aXRjaCcgb2ZmIgo+PiArY3Nl
+dCAibmFtZT0nUkVDTUlYUiBCU1QxIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0nUkVDTUlY
+TCBCU1QyIFN3aXRjaCcgb2ZmIgo+PiArY3NldCAibmFtZT0nUkVDTUlYUiBCU1QyIFN3aXRjaCcg
+b2ZmIgo+PiBkaWZmIC0tZ2l0IGEvc3JjL2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvSGVhZFBob25l
+cy5jb25mIGIvc3JjL2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvSGVhZFBob25lcy5jb25mCj4+IG5l
+dyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAwMDAwLi5jYjhhYWQyZAo+PiAtLS0gL2Rl
+di9udWxsCj4+ICsrKyBiL3NyYy9jb25mL3VjbS9jb2RlY3MvcnQ1NjcyL0hlYWRQaG9uZXMuY29u
+Zgo+PiBAQCAtMCwwICsxLDIzIEBACj4+ICtTZWN0aW9uRGV2aWNlLiJIZWFkcGhvbmVzIiB7Cj4+
+ICvCoMKgwqAgQ29tbWVudCAiSGVhZHBob25lcyIKPj4gKwo+PiArwqDCoMKgIENvbmZsaWN0aW5n
+RGV2aWNlIFsKPj4gK8KgwqDCoMKgwqDCoMKgICJTcGVha2VyIgo+PiArwqDCoMKgwqDCoMKgwqAg
+Ik1vbm9TcGVha2VyIgo+PiArwqDCoMKgIF0KPj4gKwo+PiArwqDCoMKgIEVuYWJsZVNlcXVlbmNl
+IFsKPj4gK8KgwqDCoMKgwqDCoMKgIGNkZXYgImh3OmNodGJzd3J0NTY3MiIKPj4gK8KgwqDCoMKg
+wqDCoMKgIGNzZXQgIm5hbWU9J0hlYWRwaG9uZSBTd2l0Y2gnIG9uIgo+PiArwqDCoMKgIF0KPj4g
+Kwo+PiArwqDCoMKgIERpc2FibGVTZXF1ZW5jZSBbCj4+ICvCoMKgwqDCoMKgwqDCoCBjZGV2ICJo
+dzpjaHRic3dydDU2NzIiCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdIZWFkcGhvbmUg
+U3dpdGNoJyBvZmYiCj4+ICvCoMKgwqAgXQo+PiArCj4+ICvCoMKgwqAgVmFsdWUgewo+PiArwqDC
+oMKgwqDCoMKgwqAgUGxheWJhY2tDaGFubmVscyAiMiIKPj4gK8KgwqDCoMKgwqDCoMKgIEphY2tD
+b250cm9sICJIZWFkcGhvbmUgSmFjayIKPj4gK8KgwqDCoCB9Cj4+ICt9Cj4+IGRpZmYgLS1naXQg
+YS9zcmMvY29uZi91Y20vY29kZWNzL3J0NTY3Mi9IZWFkc2V0TWljLmNvbmYgYi9zcmMvY29uZi91
+Y20vY29kZWNzL3J0NTY3Mi9IZWFkc2V0TWljLmNvbmYKPj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQK
+Pj4gaW5kZXggMDAwMDAwMDAuLmNjNmQ4ZDU2Cj4+IC0tLSAvZGV2L251bGwKPj4gKysrIGIvc3Jj
+L2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvSGVhZHNldE1pYy5jb25mCj4+IEBAIC0wLDAgKzEsMzgg
+QEAKPj4gK1NlY3Rpb25EZXZpY2UuIkhlYWRzZXRNaWMiIHsKPj4gK8KgwqDCoCBDb21tZW50ICJI
+ZWFkc2V0IE1pY3JvcGhvbmUiCj4+ICsKPj4gK8KgwqDCoCBDb25mbGljdGluZ0RldmljZSBbCj4+
+ICvCoMKgwqDCoMKgwqDCoCAiRGlnaXRhbE1pYy1ETUlDMSIKPj4gK8KgwqDCoMKgwqDCoMKgICJE
+aWdpdGFsTWljLURNSUMyIgo+PiArwqDCoMKgIF0KPj4gKwo+PiArwqDCoMKgIEVuYWJsZVNlcXVl
+bmNlIFsKPj4gK8KgwqDCoMKgwqDCoMKgIGNkZXYgImh3OmNodGJzd3J0NTY3MiIKPj4gK8KgwqDC
+oMKgwqDCoMKgIGNzZXQgIm5hbWU9J0hlYWRzZXQgTWljIFN3aXRjaCcgb24iCj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1JFQ01JWEwgQlNUMSBTd2l0Y2gnIG9uIgo+PiAr
+wqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nUkVDTUlYUiBCU1QxIFN3aXRjaCcgb24iCj4+ICvC
+oMKgwqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdTdG8xIEFEQyBNSVhMIEFEQzEgU3dpdGNoJyBvbiIK
+Pj4gK8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1N0bzEgQURDIE1JWFIgQURDMSBTd2l0Y2gn
+IG9uIgo+PiArwqDCoMKgwqDCoMKgwqAgIyBGb3IgdW5rbm93biByZWFzb25zIHRoZSBoZWFkc2V0
+IG1pYyBzb3VuZCBpcyBvbmx5IHJlY29yZGVkCj4+ICvCoMKgwqDCoMKgwqDCoCAjIG9uIHRoZSBs
+ZWZ0IGNoYW5uZWwsIHdlIHR3ZWFrIHRoZSBkYXRhLXN0cmVhbSByZWNlcHRpb24gdG8KPj4gK8Kg
+wqDCoMKgwqDCoMKgICMgdXNlIHRoZSBsZWZ0IHNhbXBsZXMgZm9yIGJvdGggc2xvdHMsIHNvIHRo
+YXQgd2UgZ2V0IGEgc3RlcmVvCj4+ICvCoMKgwqDCoMKgwqDCoCAjIHN0cmVhbSB3aXRoIHRoZSBt
+aWMgc291bmQgb24gYm90aCBjaGFubmVscwo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0n
+Y29kZWNfaW4gcnggZGVpbnRlcmxlYXZlciBjb2RlY19pbjBfMScgMSIKPj4gK8KgwqDCoCBdCj4+
+ICsKPj4gK8KgwqDCoCBEaXNhYmxlU2VxdWVuY2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgY2RldiAi
+aHc6Y2h0YnN3cnQ1NjcyIgo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nSGVhZHNldCBN
+aWMgU3dpdGNoJyBvZmYiCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1JF
+Q01JWEwgQlNUMSBTd2l0Y2gnIG9mZiIKPj4gK8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1JF
+Q01JWFIgQlNUMSBTd2l0Y2gnIG9mZiIKPj4gK8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5hbWU9J1N0
+bzEgQURDIE1JWEwgQURDMSBTd2l0Y2gnIG9mZiIKPj4gK8KgwqDCoMKgwqDCoMKgIGNzZXQgIm5h
+bWU9J1N0bzEgQURDIE1JWFIgQURDMSBTd2l0Y2gnIG9mZiIKPj4gK8KgwqDCoMKgwqDCoMKgICMg
+VW5kbyBkYXRhLXN0cmVhbSByZWNlcHRpb24gbW9uby1taXggd29ya2Fyb3VuZAo+PiArwqDCoMKg
+wqDCoMKgwqAgY3NldCAibmFtZT0nY29kZWNfaW4gcnggZGVpbnRlcmxlYXZlciBjb2RlY19pbjBf
+MScgMiIKPj4gK8KgwqDCoCBdCj4+ICsKPj4gK8KgwqDCoCBWYWx1ZSB7Cj4+ICvCoMKgwqDCoMKg
+wqDCoCBDYXB0dXJlQ2hhbm5lbHMgIjIiCj4+ICvCoMKgwqDCoMKgwqDCoCBKYWNrQ29udHJvbCAi
+SGVhZHNldCBNaWMgSmFjayIKPj4gK8KgwqDCoCB9Cj4+ICt9Cj4+IGRpZmYgLS1naXQgYS9zcmMv
+Y29uZi91Y20vY29kZWNzL3J0NTY3Mi9NYWtlZmlsZS5hbSBiL3NyYy9jb25mL3VjbS9jb2RlY3Mv
+cnQ1NjcyL01ha2VmaWxlLmFtCj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+IGluZGV4IDAwMDAw
+MDAwLi5mZWJhMGI3Ngo+PiAtLS0gL2Rldi9udWxsCj4+ICsrKyBiL3NyYy9jb25mL3VjbS9jb2Rl
+Y3MvcnQ1NjcyL01ha2VmaWxlLmFtCj4+IEBAIC0wLDAgKzEsNSBAQAo+PiArYWxzYWNvbmZpZ2Rp
+ciA9IEBBTFNBX0NPTkZJR19ESVJACj4+ICt1Y21kaXIgPSAkKGFsc2Fjb25maWdkaXIpL3VjbS9j
+b2RlY3MvcnQ1NjcyCj4+ICt1Y21fREFUQSA9IERNSUMxLmNvbmYgRE1JQzIuY29uZiBFbmFibGVT
+ZXEuY29uZiBIZWFkUGhvbmVzLmNvbmYgXAo+PiArwqDCoMKgwqDCoMKgIEhlYWRzZXRNaWMuY29u
+ZiBNb25vU3BlYWtlci5jb25mIFNwZWFrZXIuY29uZgo+PiArRVhUUkFfRElTVCA9ICQodWNtX0RB
+VEEpCj4+IGRpZmYgLS1naXQgYS9zcmMvY29uZi91Y20vY29kZWNzL3J0NTY3Mi9Nb25vU3BlYWtl
+ci5jb25mIGIvc3JjL2NvbmYvdWNtL2NvZGVjcy9ydDU2NzIvTW9ub1NwZWFrZXIuY29uZgo+PiBu
+ZXcgZmlsZSBtb2RlIDEwMDY0NAo+PiBpbmRleCAwMDAwMDAwMC4uODI4YTExNTQKPj4gLS0tIC9k
+ZXYvbnVsbAo+PiArKysgYi9zcmMvY29uZi91Y20vY29kZWNzL3J0NTY3Mi9Nb25vU3BlYWtlci5j
+b25mCj4+IEBAIC0wLDAgKzEsMjYgQEAKPj4gK1NlY3Rpb25EZXZpY2UuIk1vbm9TcGVha2VyIiB7
+Cj4+ICvCoMKgwqAgQ29tbWVudCAiTW9ubyBTcGVha2VyIgo+PiArCj4+ICvCoMKgwqAgQ29uZmxp
+Y3RpbmdEZXZpY2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgIlNwZWFrZXIiCj4+ICvCoMKgwqDCoMKg
+wqDCoCAiSGVhZHBob25lcyIKPj4gK8KgwqDCoCBdCj4+ICsKPj4gK8KgwqDCoCBFbmFibGVTZXF1
+ZW5jZSBbCj4+ICvCoMKgwqDCoMKgwqDCoCBjZGV2ICJodzpjaHRic3dydDU2NzIiCj4+ICvCoMKg
+wqDCoMKgwqDCoCBjc2V0ICJuYW1lPSdTdGVyZW8gREFDIE1JWFIgREFDIFIxIFN3aXRjaCcgb2Zm
+Igo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nU3RlcmVvIERBQyBNSVhMIERBQyBSMSBT
+d2l0Y2gnIG9uIgo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nRXh0IFNwayBTd2l0Y2gn
+IG9uIgo+PiArwqDCoMKgIF0KPj4gKwo+PiArwqDCoMKgIERpc2FibGVTZXF1ZW5jZSBbCj4+ICvC
+oMKgwqDCoMKgwqDCoCBjZGV2ICJodzpjaHRic3dydDU2NzIiCj4+ICvCoMKgwqDCoMKgwqDCoCBj
+c2V0ICJuYW1lPSdFeHQgU3BrIFN3aXRjaCcgb2ZmIgo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAi
+bmFtZT0nU3RlcmVvIERBQyBNSVhMIERBQyBSMSBTd2l0Y2gnIG9mZiIKPj4gK8KgwqDCoMKgwqDC
+oMKgIGNzZXQgIm5hbWU9J1N0ZXJlbyBEQUMgTUlYUiBEQUMgUjEgU3dpdGNoJyBvbiIKPj4gK8Kg
+wqDCoCBdCj4+ICsKPj4gK8KgwqDCoCBWYWx1ZSB7Cj4+ICvCoMKgwqDCoMKgwqDCoCBQbGF5YmFj
+a0NoYW5uZWxzICIyIgo+PiArwqDCoMKgIH0KPj4gK30KPj4gZGlmZiAtLWdpdCBhL3NyYy9jb25m
+L3VjbS9jb2RlY3MvcnQ1NjcyL1NwZWFrZXIuY29uZiBiL3NyYy9jb25mL3VjbS9jb2RlY3MvcnQ1
+NjcyL1NwZWFrZXIuY29uZgo+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+PiBpbmRleCAwMDAwMDAw
+MC4uZjkyOTFlNTMKPj4gLS0tIC9kZXYvbnVsbAo+PiArKysgYi9zcmMvY29uZi91Y20vY29kZWNz
+L3J0NTY3Mi9TcGVha2VyLmNvbmYKPj4gQEAgLTAsMCArMSwyMiBAQAo+PiArU2VjdGlvbkRldmlj
+ZS4iU3BlYWtlciIgewo+PiArwqDCoMKgIENvbW1lbnQgIlNwZWFrZXJzIgo+PiArCj4+ICvCoMKg
+wqAgQ29uZmxpY3RpbmdEZXZpY2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgIk1vbm9TcGVha2VyIgo+
+PiArwqDCoMKgwqDCoMKgwqAgIkhlYWRwaG9uZXMiCj4+ICvCoMKgwqAgXQo+PiArCj4+ICvCoMKg
+wqAgRW5hYmxlU2VxdWVuY2UgWwo+PiArwqDCoMKgwqDCoMKgwqAgY2RldiAiaHc6Y2h0YnN3cnQ1
+NjcyIgo+PiArwqDCoMKgwqDCoMKgwqAgY3NldCAibmFtZT0nRXh0IFNwayBTd2l0Y2gnIG9uIgo+
+PiArwqDCoMKgIF0KPj4gKwo+PiArwqDCoMKgIERpc2FibGVTZXF1ZW5jZSBbCj4+ICvCoMKgwqDC
+oMKgwqDCoCBjZGV2ICJodzpjaHRic3dydDU2NzIiCj4+ICvCoMKgwqDCoMKgwqDCoCBjc2V0ICJu
+YW1lPSdFeHQgU3BrIFN3aXRjaCcgb2ZmIgo+PiArwqDCoMKgIF0KPj4gKwo+PiArwqDCoMKgIFZh
+bHVlIHsKPj4gK8KgwqDCoMKgwqDCoMKgIFBsYXliYWNrQ2hhbm5lbHMgIjIiCj4+ICvCoMKgwqAg
+fQo+PiArfQo+PgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0
+cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVs
+Cg==

@@ -2,80 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A6BA6EC2
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 18:29:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F76CA707E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 18:40:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEF5015E2;
-	Tue,  3 Sep 2019 18:28:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEF5015E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 123F51693;
+	Tue,  3 Sep 2019 18:39:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 123F51693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567528152;
-	bh=5Zver/FVLhYKFtx1qrClS8vWWhpVyvq+/AR2PPpddjE=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1567528825;
+	bh=PWwCw/Vqa9Y3cr0M4VPe93iV+oIUIpGhOlpcK37qTcc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=EOy6or4H5038YjyekXQ4/TDPK2GQUt7ygx3SOhX8M7Zj5ApNvPJdtfTCz8O3UyyUb
-	 6uEi8lO3Z+1KkTC7DKBfpc9jHwK+ffFn+KiZoOp48hd/04JAGJETcXybpnstAlbuEo
-	 HUX4a9zN8gynVBHARuXufD6ryXl+ex6Hh1awA0+A=
+	 From;
+	b=t2P5jcn/GN+oyXDY4HoEHKg3yXWI3RTiZWANt/BjHwSlSBQJNnu1PEaakCROxDKcd
+	 Fk9/eg0OFSpq/RYOSyqmEtbV1J4oFXjKE+MwRim4DWn8GNetCmyeWSO11sO0CAL2Mg
+	 4BzPT7WB9DGm2eqdUiV56kETOlS61TzjfCuNkwwc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1D622F8045F;
-	Tue,  3 Sep 2019 18:27:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99CBAF80228;
+	Tue,  3 Sep 2019 18:38:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D029F8045F; Tue,  3 Sep 2019 18:27:25 +0200 (CEST)
+ id 55F13F8011E; Tue,  3 Sep 2019 18:38:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_72,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from sonic304-22.consmr.mail.ir2.yahoo.com
- (sonic304-22.consmr.mail.ir2.yahoo.com [77.238.179.147])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29330F80392
- for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 18:27:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29330F80392
+ by alsa1.perex.cz (Postfix) with ESMTPS id 013B6F8011E
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 18:38:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 013B6F8011E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
- header.b="VTCPO1vD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1567528040; bh=LCTufPjaBRyUz82lp6lN7OqEUE5Ld2syaos7wWu/IcE=;
- h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:From:Subject;
- b=VTCPO1vDEPnqaStfH4nkMq19F2xDFFaOaJ7LEmsM5DgmKlVA36Z0XQXj1LuET87Eg1iQexhE87RwJbNpW/sNsIH0YLSeBYtNksio0MR4q4pXAHuKzw1JcAs4N4+CvOpjaWAmgq50DkwFTxB5GPn0fPIxaZkAVRMnOmwehT30yUVJdtfpGtcbrBkJgdqhlDevgbUhFZk3wuNgzwlJck6zUcvB+g7cAWUbvhC9ybM9DgN4LAHJ5rTX2jwAH5CLnS04oa4MbmLp8QYFkvckfOEVHB/SvuxUHW15pWiFRKCXpTkeeWMSY5TARXN3HPQQ4frMUY+reyEXzUJ6P73gbe/iSA==
-X-YMail-OSG: v_L6Ju0VM1klYsFAfO6DxDUQ0UKHIclUeUWzxDE4k4UjCSiwSUstejwyJIh3zxG
- K45DgUQfg0k6gm77OWV1GngS.o2xylgebzqj_FldHQ5aCYr0hftkB0zPIwNyswINRW6Ta.MLAQJM
- fnPCCfe2b5NNir8u5PAvfkF.6Uiyeo1wFFRCpiqLlItYJAFHc7wGShObRyjRxVY5IiPqyw8KwPZp
- O974C5W7OVfDTmi980aIqSUnI3Zly2CmUItWMgsuZI9AHcLxpk35xqkk4DLFGmqlgQJ95dOlfGTc
- aSCA2eUKIG8v_cEBJM1O4IMujFyOfWjRPlp1DvmTbPTl0CU4YzIbNMpt6vvDh.OCqpK3IrNeCOZ8
- FqgYKP1FEKBR.4zihedpB26TLS6ztEhmRKbJsMpt6hpOKCr1lTx.dzq6oKEB0l.u9YwLD04pkS0e
- Vo3PcNVQ3jGNfAEPJ0Bo0lmQwET5TOXjsRLn2GjNDBw0c5h7OYZO6m1Irz0G0WQc_lHlYrXvuSx1
- rGDUK3Vd37I5OvDmyNBVF889H1WkzuhnuLn3AMl78nzE2Gvvjm8huE6dpcmc2LqJqDJ0vedrHIGu
- Mv9plQIy2J606c7oDpkOxODlTFEvuqL2ZMCKSTGQ93E6ycibIgalPM9t3SyHMKJOVPEr6nsPeEXA
- vRcDCzNcIMVtRf1LHdDsE8O8gevPoQQ.T1yVDN_trpZ83PiRwS7QstUUl.YbmYdWXMl.dY2g82RK
- W9Nwtnnof3Dd1CaQBVvmG1CmDOnZ1DceroZ.7Zl6AWwyiaj0gyVdoR.NOBW6pIwPkpIeiB4MqsNU
- NQN7ebhSkb3IDgTCoR3tpcSVAPkQWtFcB32fE6fMM916L.ozWaUZJrZFMgoH4tAm49rBXmtUPkyC
- gq2_Z750xM1CX0cDt3nZbwBjRaPHCxNP86Rc2mDGC33dqzQnxWDCWf.GzQ.B_bPqrVvAKNRmDMiD
- uhQWSyjIkNqc9a3ugRzrzEZ0F5k3CR1YjN1SB2TbiEPbypezzwGHQfFjj2Ne5l4gMScCs1tF3T7d
- cM2IeNeM_mRkHAKCjj0Sz6unlXq4J9cNwzOys_E8qacAv90rU_moCNU7g3pfdNDDsqrlDSvk_SjP
- elBidIu7HEAjHQjIg_0ZR34kcqYb_HtgBnFMmth5fRakD.7ChHwRCTmr6r3haU0YuuIrwHABOw0i
- iLACqRpUdFq4tPoFlFrtonCa84sKeLx3vuFx9wSf1WM6jQD8NWw05zQNMcmj8aOrrC_6tQ_ydAre
- s_b24rk_brFtTiXP4QSJIh.vcBXjZ6VLYLK3k3V8AsK0RogPXt_rhC9dn_BegeQ--
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic304.consmr.mail.ir2.yahoo.com with HTTP; Tue, 3 Sep 2019 16:27:20 +0000
-Date: Tue, 3 Sep 2019 16:27:17 +0000 (UTC)
-From: Hin-Tak Leung <htl10@users.sourceforge.net>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Message-ID: <2004928875.2948311.1567528037874@mail.yahoo.com>
-In-Reply-To: <20190902130606.GA4911@workstation>
-References: <1091462655.1815609.1567426196596@mail.yahoo.com>
- <20190902130606.GA4911@workstation>
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="APOdbs66"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=SJ8sp8FvDRuyze29OLcsHkJ1fO3LZuMK56azmXlvfRM=; b=APOdbs66SGlqWMxcn+FKIVqGD
+ tpbvxPtv+sFs7ndBggj7ezK7Mrix3mSgR/vgyiXmz5V5wCSEnj9fAuriGJY0xtnxbG/nbbMAPIoBZ
+ OS5/sm/FO0LZp0EflXUnHsjTqHjyK3+V6ExMsM0RClrjcL3uRHOucUulOjdhVNPklxobo=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1i5Bp8-0000lg-QW; Tue, 03 Sep 2019 16:38:30 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 5A9D62740A95; Tue,  3 Sep 2019 17:38:29 +0100 (BST)
+Date: Tue, 3 Sep 2019 17:38:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: richtek.jeff.chang@gmail.com
+Message-ID: <20190903163829.GB7916@sirena.co.uk>
+References: <1567494501-3427-1-git-send-email-richtek.jeff.chang@gmail.com>
 MIME-Version: 1.0
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, g@b4.vu
-Subject: Re: [alsa-devel] sound/usb kernel modules as a DKMS package.
+In-Reply-To: <1567494501-3427-1-git-send-email-richtek.jeff.chang@gmail.com>
+X-Cookie: You will pass away very quickly.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] [MT6660] Mediatek Smart Amplifier Driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,26 +82,167 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: htl10@users.sourceforge.net
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3214463568542186427=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
- 
 
-On Monday, 2 September 2019, 14:31:24 BST, Takashi Sakamoto <o-takashi@sakamocchi.jp> wrote:
-...
-> > https://github.com/HinTak/sound-usb-dkms
->
+--===============3214463568542186427==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UHN/qo2QbUvPLonB"
+Content-Disposition: inline
 
-> As a quick glance, the repository is just for deb-based distributions.
-> From my experience, users who eager to use the latest source codes tend
-> to use Arch Linux and Gentoo Linux...
 
-I have added some manual-install instructions for Fedora, after trying them out myself on a Fedora 30 docker instance.
-(and built the dkms rpm package within it). I'd expect Arch /Gentoo works the same way.  
+--UHN/qo2QbUvPLonB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Sep 03, 2019 at 03:08:21PM +0800, richtek.jeff.chang@gmail.com wrote:
+
+> --- /dev/null
+> +++ b/sound/soc/codecs/mt6660.c
+> @@ -0,0 +1,802 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) 2019 MediaTek Inc.
+> + */
+
+Please make the entire comment block a C++ comment so things look more
+consistent.
+
+> +struct reg_size_table {
+> +	u32 addr;
+> +	u8 size;
+> +};
+
+> +static const struct reg_size_table mt6660_reg_size_table[] = {
+> +	{ MT6660_REG_HPF1_COEF, 4 },
+> +	{ MT6660_REG_HPF2_COEF, 4 },
+> +	{ MT6660_REG_TDM_CFG3, 2 },
+> +	{ MT6660_REG_RESV17, 2 },
+> +	{ MT6660_REG_RESV23, 2 },
+> +	{ MT6660_REG_SIGMAX, 2 },
+> +	{ MT6660_REG_DEVID, 2},
+> +	{ MT6660_REG_TDM_CFG3, 2},
+> +	{ MT6660_REG_HCLIP_CTRL, 2},
+> +	{ MT6660_REG_DA_GAIN, 2},
+> +};
+
+Please talk to your hardware designers about the benefits of consistent
+register sizes :/
+
+> +static int32_t mt6660_i2c_update_bits(struct mt6660_chip *chip,
+> +	uint32_t addr, uint32_t mask, uint32_t data)
+> +{
+
+It would be good to implement a regmap rather than open coding
+*everything* - it'd give you things like this without needing to open
+code them.  Providing you don't use the cache code it should cope fine
+with variable register sizes.
+
+> +
+> +static int mt6660_i2c_init_setting(struct mt6660_chip *chip)
+> +{
+> +	int i, len, ret;
+> +	const struct codec_reg_val *init_table;
+> +
+> +	init_table = e4_reg_inits;
+> +	len = ARRAY_SIZE(e4_reg_inits);
+> +
+> +	for (i = 0; i < len; i++) {
+> +		ret = mt6660_i2c_update_bits(chip, init_table[i].addr,
+> +				init_table[i].mask, init_table[i].data);
+> +		if (ret < 0)
+> +			return ret;
+
+Why are we not using the chip defaults here?
+
+> +static int mt6660_chip_power_on(
+> +	struct snd_soc_component *component, int on_off)
+> +{
+> +	struct mt6660_chip *chip = (struct mt6660_chip *)
+> +		snd_soc_component_get_drvdata(component);
+> +	int ret = 0;
+> +	unsigned int val;
+> +
+> +	dev_dbg(component->dev, "%s: on_off = %d\n", __func__, on_off);
+> +	mutex_lock(&chip->var_lock);
+> +	if (on_off) {
+> +		if (chip->pwr_cnt == 0) {
+> +			ret = mt6660_i2c_update_bits(chip,
+> +				MT6660_REG_SYSTEM_CTRL, 0x01, 0x00);
+> +			val = mt6660_i2c_read(chip, MT6660_REG_IRQ_STATUS1);
+> +			dev_info(chip->dev,
+> +				"%s reg0x05 = 0x%x\n", __func__, val);
+> +		}
+> +		chip->pwr_cnt++;
+
+This looks like you're open coding runtime PM stuff?  AFAICT the issue
+is that you need to write to this register to do any I/O.  Just
+implement this via the standard runtime PM framework, you'll need to do
+something about the register I/O in the controls (ideally in the
+framework, it'd be a lot easier if you did have a cache) but you could
+cut out this bit.
+
+> +static int mt6660_component_set_bias_level(struct snd_soc_component *component,
+> +	enum snd_soc_bias_level level)
+> +{
+> +	struct snd_soc_dapm_context *dapm =
+> +		snd_soc_component_get_dapm(component);
+> +	int ret;
+> +	unsigned int val;
+> +	struct mt6660_chip *chip = snd_soc_component_get_drvdata(component);
+> +
+> +	if (dapm->bias_level == level) {
+> +		dev_warn(component->dev, "%s: repeat level change\n", __func__);
+
+This shouldn't be a warning.
+
+> +static const struct snd_kcontrol_new mt6660_component_snd_controls[] = {
+> +	SOC_SINGLE_EXT_TLV("Volume_Ctrl", MT6660_REG_VOL_CTRL, 0, 255,
+> +			   1, snd_soc_get_volsw, mt6660_component_put_volsw,
+> +			   vol_ctl_tlv),
+> +	SOC_SINGLE_EXT("WDT_Enable", MT6660_REG_WDT_CTRL, 7, 1, 0,
+> +		       snd_soc_get_volsw, mt6660_component_put_volsw),
+
+These control names should all use standard ALSA control names - on/off
+switches should end in Switch, volume controls in Volume.
+
+> +	SOC_SINGLE_EXT("I2SLRS", MT6660_REG_DATAO_SEL, 6, 3, 0,
+> +		       snd_soc_get_volsw, mt6660_component_put_volsw),
+> +	SOC_SINGLE_EXT("I2SDOLS", MT6660_REG_DATAO_SEL, 3, 7, 0,
+> +		       snd_soc_get_volsw, mt6660_component_put_volsw),
+> +	SOC_SINGLE_EXT("I2SDORS", MT6660_REG_DATAO_SEL, 0, 7, 0,
+> +		       snd_soc_get_volsw, mt6660_component_put_volsw),
+
+What do these controls do?
+
+--UHN/qo2QbUvPLonB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1ulwQACgkQJNaLcl1U
+h9DsxAf8DiH9juppC2atx8j+pwupdXbxOIeEil91IOqQMEBBSSJ1oa1nPDIz1HkH
+yJY7jq4QIijIkqA0b5Op3zEXSHIve3j3ZoUnN/Wrj6ODeyzrDXSvsDm/gB2/G3xJ
+AQYMGCGEaL3i0OmnFBf3LKCqG/FceKjOmg7QqcuNMGqLkdHdwiNMguc+5QkuSamM
+dvb3ZKnicrimjhMSocpe38qRFfcld4gJp6psfeDIQ8z2A1V8dtiNNrAbza/ArDUB
+kfUE1VkdWMTs1kOrjrTZl067ZzOTLBbSiulfxzDtM1UjB3LSteshyCkoVI5K+QBW
+qJJLfLqnH76e09UCIYvXbbV1J/oeRw==
+=1Pf1
+-----END PGP SIGNATURE-----
+
+--UHN/qo2QbUvPLonB--
+
+--===============3214463568542186427==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3214463568542186427==--

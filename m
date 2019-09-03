@@ -2,66 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F059FA7129
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 18:57:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75692A71B3
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 19:31:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F6DC1660;
-	Tue,  3 Sep 2019 18:56:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F6DC1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7F411694;
+	Tue,  3 Sep 2019 19:30:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7F411694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567529826;
-	bh=7ycOWxLv36T9/glFbCzbpCW1cYcFxKcJQmXY6fiYQo0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1567531890;
+	bh=zX6drHX0q88xCxulCqdb7IyWVi2naJYhvNNDr9VP0go=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PWIwnFEL8mgbwPG2RGo5hmIoC+NuBAcAr03ZqH3qwayeJNFdygdI2YGA2fXa+8K2M
-	 2Eb+UA3kS7inu0Ptc2zURH7nfHlcy/L5AAc/9SXVt2teyrKsGDPJiDrjJg0z1Fga6H
-	 AGgQtAj6f4RPoxflUSgQEc08mh9EEVHfz0cZudmg=
+	b=IEwSjBNjZIdKjwToZNr7BUxzKGI/sm+q8v197cChQaoYWCPMZvUZNPvV025k4LoH6
+	 BjmsGeQDvd69ClRLpHplGBYz7ENEo2EQPoofm2tfiZBKwEwGnJW93KusbpkjilyTMS
+	 2d3HKwbkPG7Eh5veV1UgVH7xdsZND903KkjwwCYA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 35427F805FB;
-	Tue,  3 Sep 2019 18:53:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F086F803D7;
+	Tue,  3 Sep 2019 19:29:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADE0AF8049B; Tue,  3 Sep 2019 18:53:43 +0200 (CEST)
+ id 1A507F8045F; Tue,  3 Sep 2019 19:29:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92B76F8045F
- for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 18:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92B76F8045F
-Received: from fsav401.sakura.ne.jp (fsav401.sakura.ne.jp [133.242.250.100])
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x83GrQpe037061;
- Wed, 4 Sep 2019 01:53:26 +0900 (JST)
- (envelope-from katsuhiro@katsuster.net)
-Received: from www1102.sakura.ne.jp (219.94.129.142)
- by fsav401.sakura.ne.jp (F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp);
- Wed, 04 Sep 2019 01:53:26 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp)
-Received: from localhost.localdomain (118.153.231.153.ap.dti.ne.jp
- [153.231.153.118]) (authenticated bits=0)
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x83GrNwn037038
- (version=TLSv1.2 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Wed, 4 Sep 2019 01:53:26 +0900 (JST)
- (envelope-from katsuhiro@katsuster.net)
-From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-To: Mark Brown <broonie@kernel.org>, David Yang <yangxiaohua@everest-semi.com>,
- Daniel Drake <drake@endlessm.com>, Hans de Goede <hdegoede@redhat.com>
-Date: Wed,  4 Sep 2019 01:53:22 +0900
-Message-Id: <20190903165322.20791-4-katsuhiro@katsuster.net>
-X-Mailer: git-send-email 2.23.0.rc1
-In-Reply-To: <20190903165322.20791-1-katsuhiro@katsuster.net>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09587F8011E
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 19:29:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09587F8011E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="i32rHdvm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=vPOV2xwpaRhp0OMl1Ga/s7x5wzmL8WG9D2hn+PwaTs8=; b=i32rHdvmlzW0spU4KU2ob0FEP
+ xZi0E6SIkJkRqIhsQt8J3l5MBedhNdrVGCRqSGq/ymrk4OsRpAIyxCvZqrc8feD3NvFz78ohTxlr4
+ HEe0gLTgCn8k3yfVRkxPq7U6pTYp3P9ii76PtpNjTCJCutoF7JceoA9LbDpNmot64KhDc=;
+Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1i5CcY-0000rp-8E; Tue, 03 Sep 2019 17:29:34 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 408CB2740A97; Tue,  3 Sep 2019 18:29:33 +0100 (BST)
+Date: Tue, 3 Sep 2019 18:29:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Message-ID: <20190903172933.GC7916@sirena.co.uk>
 References: <20190903165322.20791-1-katsuhiro@katsuster.net>
+ <20190903165322.20791-3-katsuhiro@katsuster.net>
 MIME-Version: 1.0
-Cc: Katsuhiro Suzuki <katsuhiro@katsuster.net>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v3 4/4] ASoC: es8316: add DT-bindings
+In-Reply-To: <20190903165322.20791-3-katsuhiro@katsuster.net>
+X-Cookie: You will pass away very quickly.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, David Yang <yangxiaohua@everest-semi.com>,
+ Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [PATCH v3 3/4] ASoC: es8316: support fixed clock
+	rate
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,49 +84,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8806368542219531551=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds missing DT-bindings document for Everest ES8316.
 
-Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
----
- .../bindings/sound/everest,es8316.txt         | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/everest,es8316.txt
+--===============8806368542219531551==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sHrvAb52M6C8blB9"
+Content-Disposition: inline
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.txt b/Documentation/devicetree/bindings/sound/everest,es8316.txt
-new file mode 100644
-index 000000000000..aefcff9c48a2
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/everest,es8316.txt
-@@ -0,0 +1,20 @@
-+Everest ES8316 audio CODEC
-+
-+This device supports both I2C and SPI.
-+
-+Required properties:
-+
-+  - compatible  : should be "everest,es8316"
-+  - reg : the I2C address of the device for I2C
-+  - clocks : a list of phandle, should contain entries for clock-names
-+  - clock-names : should include as follows:
-+         "mclk" : master clock (MCLK) of the device
-+
-+Example:
-+
-+es8316: codec@11 {
-+	compatible = "everest,es8316";
-+	reg = <0x11>;
-+	clocks = <&clks 10>;
-+	clock-names = "mclk";
-+};
--- 
-2.23.0.rc1
+
+--sHrvAb52M6C8blB9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Sep 04, 2019 at 01:53:21AM +0900, Katsuhiro Suzuki wrote:
+> This patch supports some type of machine drivers that use fixed clock
+> rate. After applied this patch, sysclk == 0 means there is no
+> constraint of sound rate and other values will set constraints which
+> is derived by sysclk setting.
+
+This is to support variable clock rate isn't it?
+
+--sHrvAb52M6C8blB9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1uovwACgkQJNaLcl1U
+h9AZzQf9HH0Db1wJ+XWQDgxQgcVuonUvv5+nYIakBUPCwszpWPe2bSJaYOmA//d0
+U1FmJCCpd/fKXHa1BfdQsA60q9u08qHcd4k2aWsbx3RwhO69rqPJu5V/OGG9mHL2
+XyeyZ5mwLYbSTWEJW+AOfqqHq8gTFrJro9vWc3jfXZXLwxAdLPRZJpeiKYPZR2ZI
+b2nyd9MZR4Zm4gTXPzb90ASOHnfe0/N6sFY8m8f/XWRluI1rZ1YySFHIB9ik3YNO
+vzU5s7fGrvGcXLpvaFdBhbP/KdZpJo9VUGWNvSopmk1Jep0EfTy1/z5dMiRemHAx
+/ruhvBhzpRS5yuFFqpgDj6VidFhPaQ==
+=beyQ
+-----END PGP SIGNATURE-----
+
+--sHrvAb52M6C8blB9--
+
+--===============8806368542219531551==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8806368542219531551==--

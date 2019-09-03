@@ -2,92 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED467A630C
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 09:49:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B601BA6352
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 10:02:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C2BD167B;
-	Tue,  3 Sep 2019 09:48:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C2BD167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E0441679;
+	Tue,  3 Sep 2019 10:01:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E0441679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567496961;
-	bh=QPa80ocvFuP+GbESUDKhkBJcv1ERujiyNr9b+peV0gg=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=edfClCb6Fo6w6YZbNUsodZ0czFSSGA5eBm8Grs+HrEHJtKjHKuMZJspnYKSodtba8
-	 d1ZfP0cMZRt4y632gDypi8+ZUoMoRAv2L6Xb9XPeJttRZxW9hJFGyjYfbE+9MLLFaC
-	 MrgS+E3+eAnWW2bU8T1K9FzmDYRWDW2L5a20+VhY=
+	s=default; t=1567497739;
+	bh=fKuKdZAAfN+FPAThnGEhoWtl3nIae55RAnLTLcU6RJc=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aHcaJcgt4mJ7wtkxVPlB5PDlTSJ+0OarR8NUHdM8HuyjDkcHcxhtfmVdj2Mb9X85w
+	 JxEiitnA3D590vBiwfuDZLOu9TeR5duUjNZI9nRiGIvkTv42ZqFt6x/BDjwvD5Y4mh
+	 2pF4B5FjwFLCrQUymvpG+IcPMy1gHN9998tuNCWc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C02FF8045F;
-	Tue,  3 Sep 2019 09:47:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2F72F804A9;
+	Tue,  3 Sep 2019 10:00:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2C75F8045F; Tue,  3 Sep 2019 09:47:33 +0200 (CEST)
+ id E7941F8045F; Tue,  3 Sep 2019 10:00:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mx1.redhat.com (mx1.redhat.com [209.132.183.28])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78276F80392
- for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 09:47:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78276F80392
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 1DCD03DE04
- for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 07:47:27 +0000 (UTC)
-Received: by mail-ed1-f69.google.com with SMTP id x40so10042314edm.4
- for <alsa-devel@alsa-project.org>; Tue, 03 Sep 2019 00:47:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=nToouos/ozr0DRHz/vRlgqcFjK+SaZJGZA6PyxDTHMU=;
- b=IG9q+7/aZggdFVeAXi9duQvgn0ZChVixmyoRhFXTrGxTRYmGLlVKtCNpiKflfBtUVQ
- b/ltcZAp3ySu3aKGK3kZGd/6yy97Tzzz+0USNvxMQmu9OX2VyOHdSo/FwzcyuYx1Q9li
- BsoCz69mLa4hpD2j7Tayx7G0mus24hkIUXqE1KP1fV3TOeesiw2JxwH1k61fzzsqxQ/k
- VlhGx6cKtYmwKtOQ824eqYJk6dYTpKxce2OO/4lOAU8//hFcvE9arFdtomlu9CD70VN/
- K5joYpDkxv8ODUElrJSTDRvxwZaZQbEZTnjUz1AuDUg2/zMBnxkG6ii6K+KIUAMqfKdG
- Batg==
-X-Gm-Message-State: APjAAAWXivACt+U2K3FCIstHIV4Bg+Y7RUNzw4jAjLopoZDas920F1kb
- dW5z4Q4OvwB3rsAb6euPcAMvYOQvPiKIrYphSPI4BAuOua6iLo8yt1F6oCaZnJdh53cjZdbzfLn
- nUoUlVDyDB71a8yFNANURQtM=
-X-Received: by 2002:a05:6402:644:: with SMTP id
- u4mr34576096edx.176.1567496845893; 
- Tue, 03 Sep 2019 00:47:25 -0700 (PDT)
-X-Google-Smtp-Source: APXvYqyEsD3TOBCDHd28jJNnKpZ4Rpm8J0qxTFZIA6wSXLtiaYMUCsARF3yaPKIbzIEeFNxZiUGcog==
-X-Received: by 2002:a05:6402:644:: with SMTP id
- u4mr34576090edx.176.1567496845737; 
- Tue, 03 Sep 2019 00:47:25 -0700 (PDT)
-Received: from shalem.localdomain (84-106-84-65.cable.dynamic.v4.ziggo.nl.
- [84.106.84.65])
- by smtp.gmail.com with ESMTPSA id dd17sm1395640ejb.61.2019.09.03.00.47.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Sep 2019 00:47:25 -0700 (PDT)
-To: Takashi Iwai <tiwai@suse.de>
-References: <20190831145842.32990-1-hdegoede@redhat.com>
- <s5hef0zjhw5.wl-tiwai@suse.de>
- <99a375b4-f6e9-ef5e-6f24-9e76db44b2e8@redhat.com>
- <s5hpnkiww75.wl-tiwai@suse.de>
-From: Hans de Goede <hdegoede@redhat.com>
-Message-ID: <57014241-1364-222b-ac48-b44023425b84@redhat.com>
-Date: Tue, 3 Sep 2019 09:47:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <s5hpnkiww75.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/2] conf/ucm: Add UCM profile for
- cht-bsw-rt5672 boards
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 19504F8011E
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 10:00:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19504F8011E
+Date: 03 Sep 2019 17:00:22 +0900
+X-IronPort-AV: E=Sophos;i="5.64,462,1559487600"; d="scan'208";a="25395712"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 03 Sep 2019 17:00:22 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 67AC84007523
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 17:00:22 +0900 (JST)
+Message-ID: <87v9u9u7vt.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Linux-ALSA <alsa-devel@alsa-project.org>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Subject: [alsa-devel] some lock needed for flush_delayed_work ?
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,81 +59,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On 02-09-19 17:32, Takashi Iwai wrote:
-> On Mon, 02 Sep 2019 10:31:30 +0200,
-> Hans de Goede wrote:
->>
->> Hi Takashi,
->>
->> On 02-09-19 09:07, Takashi Iwai wrote:
->>> On Sat, 31 Aug 2019 16:58:41 +0200,
->>> Hans de Goede wrote:
->>>>
->>>> Add an UCM profile for Intel boards with a RT5672 codec.
->>>>
->>>> Re-use the existing platform enable and disable sequences for BYT/CHT SST
->>>> support and add a codecs/rt5672 dir with codec specific enable / disable
->>>> sequences for the various inputs and outputs.
->>>>
->>>> This is partly based on earlier work done here:
->>>> https://github.com/plbossart/UCM/tree/master/cht-bsw-rt5672
->>>>
->>>> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
->>>
->>> We've recently set up a new alsa-ucm-conf repo for keeping UCM
->>> profiles outside alsa-lib repo.  The new repo has a different license
->>> (BSD3-Clause) for easily adapting to OSes with license restriction.
->>>
->>> I guess we should put the stuff there from now on, as much as
->>> possible?  The handling of UCM profile is currently pending, and we
->>> need to decide the general policy, as well as how to transfer the
->>> existing profiles to the new repo...
->>
->> I think it is good that we now have a separate repo and I'm fine
->> with re-licensing all my UCM profile work under a BSD3-Clause license.
->>
->> But I believe that until we have actually figured out how this is
->> all going to work and we are actually doing releases from the
->> new alsa-ucm-conf repo, we should keep adding new profiles to
->> alsa-lib for now, because these profiles are necessary for things
->> to work OOTB for our end users.
-> 
-> Well, putting to both repos isn't a good idea from the packaging POV,
-> either.  If we're going to release the alsa-ucm-conf sooner or later
-> together with the next alsa-lib release, we can put into the new repo
-> from the beginning.
+Hi ALSA ML
 
-Well, we want to move some of the other UCM profiles over too, right?
-(I guess eventually we want to move all of them over)
+I got below error when I unbind/bind CPU DAI.
+It seems we need to have some kind of lock ?
+I think => message came from
 
-So we are going to have this duplicate profile problem anyways.
+	linux/kernel/locking/lockdep.c :: assign_lock_key
 
-I was thinking of adding a --without-duplicate-ucm-profiles option
-to alsa-lib's ./configure which when used disables installation of UCM
-profiles which have a copy in the new alsa-ucm-conf.
+	...
+	[    6.392640] asoc-audio-graph-card sound: ASoC: CPU DAI  not registered
+=>	[    6.399430] INFO: trying to register non-static key.
+=>	[    6.404393] the code is fine but needs lockdep annotation.
+=>	[    6.409875] turning off the locking correctness validator.
+	[    6.415362] CPU: 2 PID: 193 Comm: test-bind-unbin Not tainted 5.3.0-rc1+ #625
+	[    6.422495] Hardware name: Renesas H3ULCB Kingfisher board based on r8a7795 ES2.0+ (DT)
+	[    6.430497] Call trace:
+	[    6.432949]  dump_backtrace+0x0/0x140
+	[    6.436609]  show_stack+0x24/0x30
+	[    6.439927]  dump_stack+0xc4/0x10c
+	[    6.443328]  register_lock_class+0x4e0/0x618
+	[    6.447594]  __lock_acquire+0x7c/0x1de8
+	[    6.451426]  lock_acquire+0xdc/0x1e0
+	[    6.455000]  del_timer_sync+0x60/0xe8
+	[    6.458660]  flush_delayed_work+0x2c/0x70
+	[    6.462671]  soc_cleanup_card_resources+0x50/0x348
+	[    6.467459]  snd_soc_bind_card+0x1e4/0x990
+	[    6.471551]  snd_soc_add_component+0x248/0x310
+	[    6.475992]  snd_soc_register_component+0x54/0x70
+	[    6.480696]  devm_snd_soc_register_component+0x60/0xb8
+	[    6.485833]  rsnd_probe+0x164/0x448
+	[    6.489321]  platform_drv_probe+0x58/0xa8
+	[    6.493330]  really_probe+0xec/0x2a0
+	[    6.496902]  driver_probe_device+0x5c/0xf0
+	[    6.500996]  device_driver_attach+0x74/0x80
+	[    6.505177]  bind_store+0xdc/0x120
+	[    6.508575]  drv_attr_store+0x40/0x58
+	[    6.512237]  sysfs_kf_write+0x50/0x78
+	[    6.515896]  kernfs_fop_write+0xf0/0x1e8
+	[    6.519819]  __vfs_write+0x48/0x90
+	[    6.523218]  vfs_write+0xac/0x1b8
+	[    6.526529]  ksys_write+0x74/0xf8
+	[    6.529840]  __arm64_sys_write+0x24/0x30
+	[    6.533762]  el0_svc_common.constprop.0+0x98/0x170
+	[    6.538550]  el0_svc_compat_handler+0x2c/0x38
+	[    6.542904]  el0_svc_compat+0x8/0x10
 
-This will give use a transition period, where distros can choose to either
-use alsa-lib with --without-duplicate-ucm-profiles + the new alsa-ucm-conf,
-or just use alsa-lib as they have before. Note the idea is for this to
-be temporary, eventually the profiles which are "disabled" by
---without-duplicate-ucm-profiles can be dropped and the option removed.
 
-OTOH if you plan to make sure that the next alsa-lib release is done
-in sync with the first alsa-ucm-conf release and you plan to move the
-UCM profiles which can be moved (licensing) before that, giving us a clean
-break, then that is fine too.
-
-Regards,
-
-Hans
-
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DB0FA711C
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 18:56:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54F7BA712A
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Sep 2019 18:57:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F7B41692;
-	Tue,  3 Sep 2019 18:55:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F7B41692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64E5E169F;
+	Tue,  3 Sep 2019 18:56:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64E5E169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567529776;
-	bh=UaBQV6i3CpNd+kze16km+LfTKyzG6+ryDs/XDcBtxGc=;
+	s=default; t=1567529835;
+	bh=TEZqTKkHOn/0ErawKU0DILN1IjE/KsNkm289vkwUtQE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PmD+eNOBEH37WKSzOPDpkauQQ23AyqxwcDGQoYQ0OehYRxUx1OMfPJAATay5WiERD
-	 YIUsOc1pbq6bWbHrpxl6IijQNvOyM2v0XsK7gTMlWEtldlF2Fx/iQgrWfpo7RpLejv
-	 dfHPhz4DqVp3msi3kMlkqMQBEcUVlZroIQgYajPw=
+	b=t7+EDUNJU4zZBtqwamNTBdsiCtWqZGfN4yClb7NCo7GBm7o9IOrKt7rNXFTyO0xW9
+	 1y5jqKFcrqdg1hFC5/l9lO/CYmYERB0hGd2pcNyoA3kwokgm9bkfSZGDk/CnDb/jvA
+	 dA1vSPr9aP1sdwNIDvEsQOKdAsZl8Dwfmgkv4IMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5F49F805F7;
-	Tue,  3 Sep 2019 18:53:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5645CF805FD;
+	Tue,  3 Sep 2019 18:53:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97F61F8049B; Tue,  3 Sep 2019 18:53:41 +0200 (CEST)
+ id 490E0F805F9; Tue,  3 Sep 2019 18:53:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,11 +33,11 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 969FCF803D7
- for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 18:53:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 969FCF803D7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E1CDF8011E
+ for <alsa-devel@alsa-project.org>; Tue,  3 Sep 2019 18:53:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E1CDF8011E
 Received: from fsav401.sakura.ne.jp (fsav401.sakura.ne.jp [133.242.250.100])
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x83GrQDM037052;
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x83GrQRs037055;
  Wed, 4 Sep 2019 01:53:26 +0900 (JST)
  (envelope-from katsuhiro@katsuster.net)
 Received: from www1102.sakura.ne.jp (219.94.129.142)
@@ -46,22 +46,22 @@ Received: from www1102.sakura.ne.jp (219.94.129.142)
 X-Virus-Status: clean(F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp)
 Received: from localhost.localdomain (118.153.231.153.ap.dti.ne.jp
  [153.231.153.118]) (authenticated bits=0)
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x83GrNwl037038
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x83GrNwm037038
  (version=TLSv1.2 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Wed, 4 Sep 2019 01:53:25 +0900 (JST)
+ Wed, 4 Sep 2019 01:53:26 +0900 (JST)
  (envelope-from katsuhiro@katsuster.net)
 From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
 To: Mark Brown <broonie@kernel.org>, David Yang <yangxiaohua@everest-semi.com>,
  Daniel Drake <drake@endlessm.com>, Hans de Goede <hdegoede@redhat.com>
-Date: Wed,  4 Sep 2019 01:53:20 +0900
-Message-Id: <20190903165322.20791-2-katsuhiro@katsuster.net>
+Date: Wed,  4 Sep 2019 01:53:21 +0900
+Message-Id: <20190903165322.20791-3-katsuhiro@katsuster.net>
 X-Mailer: git-send-email 2.23.0.rc1
 In-Reply-To: <20190903165322.20791-1-katsuhiro@katsuster.net>
 References: <20190903165322.20791-1-katsuhiro@katsuster.net>
 MIME-Version: 1.0
 Cc: Katsuhiro Suzuki <katsuhiro@katsuster.net>, alsa-devel@alsa-project.org,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v3 2/4] ASoC: es8316: add clock control of MCLK
+Subject: [alsa-devel] [PATCH v3 3/4] ASoC: es8316: support fixed clock rate
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,106 +79,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch introduce clock property for MCLK master freq control.
-Driver will set rate of MCLK master if set_sysclk is called and
-changing sysclk by board driver.
+This patch supports some type of machine drivers that use fixed clock
+rate. After applied this patch, sysclk == 0 means there is no
+constraint of sound rate and other values will set constraints which
+is derived by sysclk setting.
 
 Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
 
 ---
 
-Changes from v1:
-  - Output logs if clock error is found
-  - Disable and unprepare mclk when remove this driver
+Changes from v2:
+  - Newly added
 ---
- sound/soc/codecs/es8316.c | 35 +++++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
+ sound/soc/codecs/es8316.c | 24 ++++--------------------
+ 1 file changed, 4 insertions(+), 20 deletions(-)
 
 diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index 229808fa627c..ab41f2c056bd 100644
+index ab41f2c056bd..bf390bc64177 100644
 --- a/sound/soc/codecs/es8316.c
 +++ b/sound/soc/codecs/es8316.c
-@@ -9,6 +9,7 @@
- 
- #include <linux/module.h>
- #include <linux/acpi.h>
-+#include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/i2c.h>
- #include <linux/mod_devicetable.h>
-@@ -33,6 +34,7 @@ static const unsigned int supported_mclk_lrck_ratios[] = {
- 
- struct es8316_priv {
- 	struct mutex lock;
-+	struct clk *mclk;
- 	struct regmap *regmap;
- 	struct snd_soc_component *component;
- 	struct snd_soc_jack *jack;
-@@ -363,12 +365,19 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- {
- 	struct snd_soc_component *component = codec_dai->component;
- 	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
-+	int ret;
- 
- 	es8316->sysclk = freq;
- 
- 	if (freq == 0)
- 		return 0;
- 
-+	if (es8316->mclk) {
-+		ret = clk_set_rate(es8316->mclk, freq);
-+		if (ret)
-+			return ret;
-+	}
-+
+@@ -432,20 +432,6 @@ static int es8316_set_dai_fmt(struct snd_soc_dai *codec_dai,
  	return 0;
  }
  
-@@ -693,9 +702,26 @@ static int es8316_set_jack(struct snd_soc_component *component,
- static int es8316_probe(struct snd_soc_component *component)
- {
- 	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
-+	int ret;
+-static int es8316_pcm_startup(struct snd_pcm_substream *substream,
+-			      struct snd_soc_dai *dai)
+-{
+-	struct snd_soc_component *component = dai->component;
+-	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
+-
+-	if (es8316->sysclk == 0) {
+-		dev_err(component->dev, "No sysclk provided\n");
+-		return -EINVAL;
+-	}
+-
+-	return 0;
+-}
+-
+ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
+ 				struct snd_pcm_hw_params *params,
+ 				struct snd_soc_dai *dai)
+@@ -455,17 +441,16 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	u8 wordlen = 0;
+ 	int i;
  
- 	es8316->component = component;
+-	if (!es8316->sysclk) {
+-		dev_err(component->dev, "No MCLK configured\n");
+-		return -EINVAL;
+-	}
+-
+ 	/* Limit supported sample rates to ones that can be autodetected
+ 	 * by the codec running in slave mode.
+ 	 */
+ 	for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
+ 		const unsigned int ratio = supported_mclk_lrck_ratios[i];
  
-+	es8316->mclk = devm_clk_get(component->dev, "mclk");
-+	if (PTR_ERR(es8316->mclk) == -EPROBE_DEFER)
-+		return -EPROBE_DEFER;
-+	if (IS_ERR(es8316->mclk)) {
-+		dev_err(component->dev, "clock is invalid, ignored\n");
-+		es8316->mclk = NULL;
-+	}
++		/* Accept any rates if sysclk is 0. */
++		if (es8316->sysclk == 0)
++			break;
 +
-+	if (es8316->mclk) {
-+		ret = clk_prepare_enable(es8316->mclk);
-+		if (ret) {
-+			dev_err(component->dev, "unable to enable clock\n");
-+			return ret;
-+		}
-+	}
-+
- 	/* Reset codec and enable current state machine */
- 	snd_soc_component_write(component, ES8316_RESET, 0x3f);
- 	usleep_range(5000, 5500);
-@@ -718,8 +744,17 @@ static int es8316_probe(struct snd_soc_component *component)
- 	return 0;
- }
+ 		if (es8316->sysclk % ratio != 0)
+ 			continue;
+ 		if (es8316->sysclk / ratio == params_rate(params))
+@@ -509,7 +494,6 @@ static int es8316_mute(struct snd_soc_dai *dai, int mute)
+ 			SNDRV_PCM_FMTBIT_S24_LE)
  
-+static void es8316_remove(struct snd_soc_component *component)
-+{
-+	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
-+
-+	if (es8316->mclk)
-+		clk_disable_unprepare(es8316->mclk);
-+}
-+
- static const struct snd_soc_component_driver soc_component_dev_es8316 = {
- 	.probe			= es8316_probe,
-+	.remove			= es8316_remove,
- 	.set_jack		= es8316_set_jack,
- 	.controls		= es8316_snd_controls,
- 	.num_controls		= ARRAY_SIZE(es8316_snd_controls),
+ static const struct snd_soc_dai_ops es8316_ops = {
+-	.startup = es8316_pcm_startup,
+ 	.hw_params = es8316_pcm_hw_params,
+ 	.set_fmt = es8316_set_dai_fmt,
+ 	.set_sysclk = es8316_set_dai_sysclk,
 -- 
 2.23.0.rc1
 

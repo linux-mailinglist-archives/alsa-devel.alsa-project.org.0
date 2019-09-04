@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6A3CA871F
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 19:55:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA39AA8720
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 19:56:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C39F1689;
-	Wed,  4 Sep 2019 19:54:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C39F1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id F276C168E;
+	Wed,  4 Sep 2019 19:55:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F276C168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567619718;
-	bh=cKzmFkJhw0Tz/QML43k2N4q3sH08niAJNwg50zt5akQ=;
+	s=default; t=1567619765;
+	bh=H0aLZAXUn6i6ejJB6EBXvZy85/sK2truMnyGCENKtUU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=GAccBigdIa2AgU/zU8IbjE5Xg4IDcqRw70A2TIPah9T08aw5Rs7ryNfDCeYaKzWIr
-	 6bHChIQ+E8p5WbTmELXeZdpuq+wz5zYWq8E1Uf3pdd0hObcJO3W2meq694DxxFeOIu
-	 eUni09JBAnNh8u3DxMmGXsyNafAADfTYXRPmsg7I=
+	b=AECOoMR7g6x7vijrmqQJl4BSuKtE6FERdcm/fJtgATRGU9sPAdt8sF4bvaVnqMwbq
+	 QjdAra2s5iQNxqLs76iO+Ex6Om1yTqDIbihiwKQidL0kQNVtAacK+NU1i6cRJKhNYo
+	 N4/P0P6hIC1BFKCvcI/50we4CBe0+VLcxMSVKg+o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B43F7F8044A;
-	Wed,  4 Sep 2019 19:53:34 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 385E8F80447;
+	Wed,  4 Sep 2019 19:53:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40FFCF803D0; Wed,  4 Sep 2019 19:53:31 +0200 (CEST)
+ id 9F852F803D7; Wed,  4 Sep 2019 19:53:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4148F80171
- for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 19:53:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4148F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4FABF80394
+ for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 19:53:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4FABF80394
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="KLHLmNii"
+ header.b="S5N2XJlZ"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=0vUN/mP2jRkFY1yC0RcTePYe1dw/6b3Wm/AMlgoaVhg=; b=KLHLmNii4LIg
- wQ7R7KM/CUmnUL13W0brNnQnUcX93lSLNCG5Ar7UDxrbkwAPTeE8Y9lgdPCWf/XmMwicc0Saicbc8
- JcDVI36DVpgoj7LQdnRGsvRCXq1F2mo7mXbD0tval9iF/QPNZ21en2CwP5TaPnfjvpYLKxL+u+311
- FQr1Q=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
+ List-Archive; bh=Vad4mT+RpRm83DagHXSdfbCu0yANmHakAwjZP/ttn9s=; b=S5N2XJlZgWqd
+ NMmxs5uW8p3g9iQT+u0fSfVvptiA+UkrkE/kPIGEHVhuffWZCUU3AYBR/8W95mAbZ0yp2yQi/qeaV
+ L5zI1C6XMlR8o05irg8wmYODkvUPO+esvjN0YMS4i3GJQounsP5HvrdHcZxoLP1NJqnfzXZh1fRN8
+ 3lF+E=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i5ZTC-0006h5-7r; Wed, 04 Sep 2019 17:53:26 +0000
+ id 1i5ZTC-0006h8-IU; Wed, 04 Sep 2019 17:53:26 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 413C62742B45; Wed,  4 Sep 2019 18:53:25 +0100 (BST)
+ id ED4822742D17; Wed,  4 Sep 2019 18:53:25 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zm8q5n8.wl-kuninori.morimoto.gx@renesas.com>
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20190904082507.24300-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190904175325.413C62742B45@ypsilon.sirena.org.uk>
+Message-Id: <20190904175325.ED4822742D17@ypsilon.sirena.org.uk>
 Date: Wed,  4 Sep 2019 18:53:25 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: add comment to jack at
-	soc_remove_component()" to the asoc tree
+Cc: alsa-devel@alsa-project.org, arnd@arndb.de, Hulk Robot <hulkci@huawei.com>,
+ info@metux.net, tiwai@suse.com, yuehaibing@huawei.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, hsweeten@visionengravers.com,
+ Mark Brown <broonie@kernel.org>, olof@lixom.net, tglx@linutronix.de,
+ alexander.sverdlin@gmail.com
+Subject: [alsa-devel] Applied "ASoC: ep93xx: use
+	devm_platform_ioremap_resource() to simplify code" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: add comment to jack at soc_remove_component()
+   ASoC: ep93xx: use devm_platform_ioremap_resource() to simplify code
 
 has been applied to the asoc tree at
 
@@ -111,40 +116,45 @@ to this mail.
 Thanks,
 Mark
 
-From 04f770d968344ca95b55cf7b50452888ec5440e7 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 4 Sep 2019 09:14:35 +0900
-Subject: [PATCH] ASoC: soc-core: add comment to jack at soc_remove_component()
+From f295495ec657c5fb2cff355456c2a20c4c945d93 Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Wed, 4 Sep 2019 16:25:07 +0800
+Subject: [PATCH] ASoC: ep93xx: use devm_platform_ioremap_resource() to
+ simplify code
 
-Basically, driver which setups snd_soc_component_set_jack() need
-to release it by themselves. But, as framework level robustness,
-soc_remove_component() also releases it.
+Use devm_platform_ioremap_resource() to simplify the code a bit.
+This is detected by coccinelle.
 
-To avoid code reader confuse, this patch makes it clarify.
-
-This patch makes it clarify.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/875zm8q5n8.wl-kuninori.morimoto.gx@renesas.com
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20190904082507.24300-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/cirrus/ep93xx-ac97.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 2a166abaade1..05a2aff843aa 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -975,7 +975,9 @@ static void soc_set_name_prefix(struct snd_soc_card *card,
- 
- static void soc_cleanup_component(struct snd_soc_component *component)
+diff --git a/sound/soc/cirrus/ep93xx-ac97.c b/sound/soc/cirrus/ep93xx-ac97.c
+index 84c967fcab6b..e21eaa1893d1 100644
+--- a/sound/soc/cirrus/ep93xx-ac97.c
++++ b/sound/soc/cirrus/ep93xx-ac97.c
+@@ -362,7 +362,6 @@ static const struct snd_soc_component_driver ep93xx_ac97_component = {
+ static int ep93xx_ac97_probe(struct platform_device *pdev)
  {
-+	/* For framework level robustness */
- 	snd_soc_component_set_jack(component, NULL, NULL);
-+
- 	list_del(&component->card_list);
- 	snd_soc_dapm_free(snd_soc_component_get_dapm(component));
- 	soc_cleanup_component_debugfs(component);
+ 	struct ep93xx_ac97_info *info;
+-	struct resource *res;
+ 	int irq;
+ 	int ret;
+ 
+@@ -370,8 +369,7 @@ static int ep93xx_ac97_probe(struct platform_device *pdev)
+ 	if (!info)
+ 		return -ENOMEM;
+ 
+-	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	info->regs = devm_ioremap_resource(&pdev->dev, res);
++	info->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(info->regs))
+ 		return PTR_ERR(info->regs);
+ 
 -- 
 2.20.1
 

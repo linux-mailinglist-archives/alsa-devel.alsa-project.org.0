@@ -2,87 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26491A85B4
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 16:39:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D4EA85F1
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 17:08:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 94A5A16C6;
-	Wed,  4 Sep 2019 16:38:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94A5A16C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69A5D16C6;
+	Wed,  4 Sep 2019 17:07:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69A5D16C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567607977;
-	bh=z+Gvd+7IBYO8g4A5zTNbMz9EvkABAZ0rRTrjm4Aeywo=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1567609709;
+	bh=YJxUAgDGdwUhVFLvyAFj8dRSX7K4HiXvprxGqOltu5Q=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=to0oXxsl9vYp0nTvqIfO8OSmoiYUgw1R3a4R7g5Y3rbUF2OF2pP3YSUqsMwLcWV12
-	 F+4THyXm6GKBBsFhoLZ7oX6NDzP5hv0ZAUMelKMgmtUFc237gCNo6TfVXXH/44Sjab
-	 I3y42+c/H4sq7e+0lZzhnih4bE3cHdCXrTsSvuHQ=
+	b=eWZ/nHkRCGHToLPgr/Xjne2vPAe2fNMi7OHPCpbHsGHG2OeFKDXIbukc51M/2IFY5
+	 9JnjC/QbHeFD7zyWlxES8wx0fdAslGLo7Tgn8qaVYgk+OusGUEbkOd3rSwQVMgbI81
+	 TUksLaM8t32tuOMuTQz7x+9KzYvMz8TBU9CyVm8A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31A58F803A6;
-	Wed,  4 Sep 2019 16:37:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22C98F803D6;
+	Wed,  4 Sep 2019 17:06:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB3DAF803A6; Wed,  4 Sep 2019 16:37:44 +0200 (CEST)
+ id 4AF1DF8011E; Wed,  4 Sep 2019 17:06:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06809F8011E
- for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 16:37:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06809F8011E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="lhRvMHhK"
-Received: by mail-pg1-x543.google.com with SMTP id l21so11368327pgm.3
- for <alsa-devel@alsa-project.org>; Wed, 04 Sep 2019 07:37:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9CaC26YQBbs++2LlEGrT8hc5InQ6jt1lO4oP+jQbo+4=;
- b=lhRvMHhKgBm1PhW5YBzZk3QZWD0LIQg6cOaGJFKLMq8Mnd6w4KgZIiAHf50nbo9xhi
- SuoO6m+VMe3I9zG3rJp1TrqOstdiv5kf5JLs9VGrscoB/IPlo1WEdupFrLa4CI9wfp05
- tm/5Yusnpdj+eJVLa0gxHihikGCgaKT/WeZ4I27xXatqSniZQJn95Y6Cu4l/7CPN1kNw
- 4mnbBQQQihbtiA2Amj5vfI+QxFxsbGZCsZpn5AXQmlwnX880YB0EIT5r/aZBGZNb6+a2
- KI8h15rroiib8t4s0NwkdF+RGHJY5AkYNCT9JzXU1sAYdGvEncmWSWBe8g2MgaN60+wF
- rFSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9CaC26YQBbs++2LlEGrT8hc5InQ6jt1lO4oP+jQbo+4=;
- b=BLfcSqwoGg8+KHBVC0B56AW0MMjHKkHoo3wz2OO/2VuqKY7LN+qdC5QDMJHW/UyHrT
- GvsRYBgZw1stE4Q1RhtTVQhlqG4kq8gIm3D0NHPKahxduMZF8cfwCDgVdESa8DCDkRRH
- c1+IywsO9k1dH6ngnLkiFGglyb8lv1HCVfy2SSE8f8XDAOjR0cv6UQ+HC0HRAHs6dXrZ
- NPVf2A81urF+n7KovDkkWuWKzJbpefbyOYXNEaqk46byk/z6suRTUsRWvOVlnQ+NwWN9
- QmVKxd0chz3z+f0M66yQYo743KhGVrp4MEXwfLoNhjMHBnBmc9DM09kzvANvYjY2LqoJ
- yOPA==
-X-Gm-Message-State: APjAAAWjh7tACwNmE7Vx9wybkEmkW7EQf5xS/0KXWxPrnzk5bFzcV3wD
- z1nl+OpXSTNXhja62dB4LaeKEsIXUR/O77vNUbY=
-X-Google-Smtp-Source: APXvYqyZI6XJ+nXCD/369CCkMaViohyIPk8rgyHpVtu6GqeKZ94m+IIC+qjyXskEfjhPXSp3sqhdAxD2FCSLALCyNcU=
-X-Received: by 2002:a17:90a:bf01:: with SMTP id
- c1mr5430039pjs.30.1567607858001; 
- Wed, 04 Sep 2019 07:37:38 -0700 (PDT)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BC65F8011E
+ for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 17:06:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BC65F8011E
+Received: from fsav104.sakura.ne.jp (fsav104.sakura.ne.jp [27.133.134.231])
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x84F6OmK057013;
+ Thu, 5 Sep 2019 00:06:24 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+Received: from www1102.sakura.ne.jp (219.94.129.142)
+ by fsav104.sakura.ne.jp (F-Secure/fsigk_smtp/530/fsav104.sakura.ne.jp);
+ Thu, 05 Sep 2019 00:06:24 +0900 (JST)
+X-Virus-Status: clean(F-Secure/fsigk_smtp/530/fsav104.sakura.ne.jp)
+Received: from [192.168.1.2] (118.153.231.153.ap.dti.ne.jp [153.231.153.118])
+ (authenticated bits=0)
+ by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x84F6N7i057007
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=NO);
+ Thu, 5 Sep 2019 00:06:24 +0900 (JST)
+ (envelope-from katsuhiro@katsuster.net)
+To: Mark Brown <broonie@kernel.org>
 References: <20190903165322.20791-1-katsuhiro@katsuster.net>
- <20190903165322.20791-2-katsuhiro@katsuster.net>
-In-Reply-To: <20190903165322.20791-2-katsuhiro@katsuster.net>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Wed, 4 Sep 2019 17:37:26 +0300
-Message-ID: <CAHp75Vcm0yus5GpZEttdr_C07gmQXeNJ16gb_TFLUTvGkc164w@mail.gmail.com>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Daniel Drake <drake@endlessm.com>, Hans de Goede <hdegoede@redhat.com>,
- Mark Brown <broonie@kernel.org>, David Yang <yangxiaohua@everest-semi.com>
-Subject: Re: [alsa-devel] [PATCH v3 2/4] ASoC: es8316: add clock control of
-	MCLK
+ <20190903174801.GD7916@sirena.co.uk>
+From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Message-ID: <85c717bf-d875-016c-a303-867bdca9a645@katsuster.net>
+Date: Thu, 5 Sep 2019 00:06:23 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190903174801.GD7916@sirena.co.uk>
+Content-Language: en-US
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, David Yang <yangxiaohua@everest-semi.com>,
+ Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] [PATCH v3 1/4] ASoC: es8316: judge PCM rate at
+	later timing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,62 +78,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 3, 2019 at 7:54 PM Katsuhiro Suzuki <katsuhiro@katsuster.net> wrote:
->
-> This patch introduce clock property for MCLK master freq control.
-> Driver will set rate of MCLK master if set_sysclk is called and
-> changing sysclk by board driver.
->
-> Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Hello Mark,
+
+On 2019/09/04 2:48, Mark Brown wrote:
+> On Wed, Sep 04, 2019 at 01:53:19AM +0900, Katsuhiro Suzuki wrote:
+> 
+>> Root cause of this strange behavior is changing constraints list at
+>> set_sysclk timing. It seems that is too early to determine. So this
+>> patch does not use constraints list and check PCM rate limit more
+>> later timing at hw_params.
+> 
+> hw_params is a bit late to impose constraints, you want them to be
+> available to be available to the application before it gets as far as
+> picking the parameters it wants so that you don't get hw_params failing
+> due to an invalid configuration.  That makes everything run more
+> smoothly, applications should be able to trust the constraints they got
+> and some will not handle failures well.
+> 
+> The way this works with the variable MCLKs is that you end up in one of
+> two cases (wm8731 and wm8741 do this):
+> 
+>     1. The system is idle, MCLK is set to 0.  In this case no constraints
+>        are set and we just set MCLK to whatever is required in hw_params()
+>        in the machine driver.
+>     2. One direction is active, MCLK is set to whatever that needed.  In
+>        this case startup() sets constraints derived from the MCLK.
+> 
+> There are races in this if streams are being started and torn down
+> simultaneously, there's not much we can do about them with the API the
+> way it is so we do have to validate in hw_params() anyway but it should
+> be validation not constraint imposition.
+> 
+> If the system has a fixed MCLK it just sets that on probe then we always
+> get the constraints applied on startup through the same code that
+> handles case 2.
+> 
+
+Thank you for explanation. I agree with apply no constraints if MCLK is
+set to 0, and suitable constraints if MCLK is set to other values like
+as wm8731 and wm8741 drivers.
+
+I'll change my patch set and send.
 
 
-> +       if (es8316->mclk) {
+Would you tell me one more thing. I don't understand who sets MCLK to 0.
+Is it needed original machine driver instead of audio-graph-card?
 
-You don't need this if clock has been requested as optional
-(clk_get_optional() or so).
+On my test environment (audio-graph-card + Rockchip I2S + ES8316), it
+seems audio-graph-card has never called set_sysclk() with freq = 0 after
+stop play/capture sound. So my env will go to bad scenario as I 
+described in this patch.
 
-> +               ret = clk_set_rate(es8316->mclk, freq);
-> +               if (ret)
-> +                       return ret;
-> +       }
-
-> +       es8316->mclk = devm_clk_get(component->dev, "mclk");
-> +       if (PTR_ERR(es8316->mclk) == -EPROBE_DEFER)
-> +               return -EPROBE_DEFER;
-> +       if (IS_ERR(es8316->mclk)) {
-> +               dev_err(component->dev, "clock is invalid, ignored\n");
-> +               es8316->mclk = NULL;
-> +       }
-
-devm_clk_get_optional()
-
-> +       if (es8316->mclk) {
-
-Ditto as above.
-
-> +               ret = clk_prepare_enable(es8316->mclk);
-> +               if (ret) {
-> +                       dev_err(component->dev, "unable to enable clock\n");
-> +                       return ret;
-> +               }
-> +       }
-
-> +       if (es8316->mclk)
-
-Ditto.
-
-> +               clk_disable_unprepare(es8316->mclk);
-> +}
-
-
--- 
-With Best Regards,
-Andy Shevchenko
+Best Regards,
+Katsuhiro Suzuki
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

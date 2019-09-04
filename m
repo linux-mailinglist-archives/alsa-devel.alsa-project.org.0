@@ -2,98 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8425A7F4B
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 11:26:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 443A7A7F5D
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 11:29:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40120169B;
-	Wed,  4 Sep 2019 11:25:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40120169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6D8716A3;
+	Wed,  4 Sep 2019 11:28:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6D8716A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567589200;
-	bh=zpdaTMxmNT80CyCzc4HIqgdx9/iizNKla8EkwjS5E84=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1567589377;
+	bh=pq8Jd1lIEUvSHhPuQtNWPz8JCB7TTDA009rwSLcjxV0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=A4ZsJv7xAyqC+K9j2pf5dqnZmkcpjIfFUJddOZgRLb3n3SDOlhVzzm+8BA6amhWe1
-	 0RRdNNy3SMhjLyj0+w7m2h+9H1EQQwx4BIYrjfEdZFbUxaBA5gu9XzR6MkvfnZ18I+
-	 8SG8BuwS4bSt6RZ1pOWbFTNc7wY+Kv7UYSfOYUR0=
+	b=ogUM9eMSA9PddW2R36YATzkhS3SB/tzW/8EdmJXfsXmMFtnwCnwpKzjDqua/RF9kh
+	 r+d402skLd18ZNNxQ9/8y72VjIVM5Pzwd1YK6GPGkaH79neY74gqlocobL9k2xxnc0
+	 rNKNx02pRybrYiaj+h97RJXt91wKqPdSXd02up1Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6568EF803A6;
-	Wed,  4 Sep 2019 11:24:56 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F818F80228;
+	Wed,  4 Sep 2019 11:27:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B6F3F803A6; Wed,  4 Sep 2019 11:24:53 +0200 (CEST)
+ id A3A8BF80171; Wed,  4 Sep 2019 11:27:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_26,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-vs1-xe44.google.com (mail-vs1-xe44.google.com
- [IPv6:2607:f8b0:4864:20::e44])
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
+ [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30B93F80171
- for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 11:24:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30B93F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F1E0F80171
+ for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 11:27:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F1E0F80171
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="CjyrQ9P3"
-Received: by mail-vs1-xe44.google.com with SMTP id r17so10447298vso.1
- for <alsa-devel@alsa-project.org>; Wed, 04 Sep 2019 02:24:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=jafiBYGwM4ZpiVyiImKYEGoUTNpyYFF+6GOJwwQNQm8=;
- b=CjyrQ9P3jLwBmMBduhMR1Im9+0sVs2k0x3LG9sPH7PV2iraxbIL4wSgJzf5Ui6dQ8O
- fv2HFsO8YNBKAEzlfFSuvWYLeDLKqRYuUoRV7BsvSFHTI7ZKmVCLuKsOlT8i2mZTjMxQ
- +wG/cDKCegVAirNtPZ0qfPdof9NG6cJbSV+HU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=jafiBYGwM4ZpiVyiImKYEGoUTNpyYFF+6GOJwwQNQm8=;
- b=XL/8T3ia5ECYkRJUj9slIuXeLPpjXakLbrG+24dczbP1Xkhq1D5CMCu8/WXbFQAqYd
- iRkEHR9QLbp2oc+1ED0YK2BFAL6EFzud8pnX53XjtZKBxGqvYh9usY5KtpFHiag1PsfY
- mHscMwbs6tCjyv7vYopnNOIZO06UCoCxvwNcC16d5VJkzTjax5YNho2fTKrhrN8027sg
- BQo3xpYq9NTOAk+7n6rjhvOtFKO/G60KlCM2fEdNWsEiVoAhyA9v17ZjCf8jZHv19Rc5
- to69a02ueHxgLNSTjOGEztJjqCErNxxTJDRjBf5ZHUocdQQPeK4ao/v9ll5749Oc27fF
- dfLA==
-X-Gm-Message-State: APjAAAUaqxhYbS/FGQwlu3XC2aP9GOu8p5kPxQTK5ehHa7ehEuaQk1o4
- 68sxJwYPdPgeKAyAt6bFOi/iO386Xhu43XhaDzHb8A==
-X-Google-Smtp-Source: APXvYqyjUagoP5sjzYe4wVlxQk6HCxLNQaSRVAfGo+ZV/F58pA6/Ea0JKIZ32T+BqMSOR6ClZP9P3BH3CnLiqCaCmsc=
-X-Received: by 2002:a05:6102:7d5:: with SMTP id
- y21mr21302586vsg.9.1567589087107; 
- Wed, 04 Sep 2019 02:24:47 -0700 (PDT)
-MIME-Version: 1.0
+ dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
+ header.b="Om8Lq5NK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=XKThuSbZFfZ7pl95l1VPO0wQKRiG+nLbFF9OeGTjtYM=; b=Om8Lq5NKTbiEdTpux26a7qCk5
+ dZ5tJGlG6PK6Luh2tvZO7cMaOJLPmYev9eKKaC+piAWTYRoP3tQBsAX1v0z0Rmmf6HCqVQAkuV80k
+ f9MovrDB/BdqRql6wDTRmwUw4C0xwquaK5wQ98nhINmsPydabgyv424kYP72LLxUYR/NFlWMA+5VY
+ p9ygB+RVjjh9ozvrDrk/c83hko1T+Krs2RxUAUfeFFukYaxNLm/NHyAnrKbfhgsLJkyFZ4pfG+ZxA
+ EzXEF67V3Av318bsLe0fW/7CVPA0qtAMOVbSUl4lU4N80WT/8hmoVpi0tao6OabLx64hmsNOLxnj7
+ cqhKedPvQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39512)
+ by pandora.armlinux.org.uk with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1i5RZb-0003Yi-2F; Wed, 04 Sep 2019 10:27:31 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1i5RZP-0004Q3-GU; Wed, 04 Sep 2019 10:27:19 +0100
+Date: Wed, 4 Sep 2019 10:27:19 +0100
+From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+To: Cheng-yi Chiang <cychiang@chromium.org>
+Message-ID: <20190904092719.GJ13294@shell.armlinux.org.uk>
 References: <20190903055103.134764-1-cychiang@chromium.org>
  <e1c3483c-baa6-c726-e547-fadf40d259f4@baylibre.com>
- <d8a80ba5-dd2b-f84d-bbfc-9dd5ccbc26e9@baylibre.com>
- <19353031.SdOy5F5fmg@jernej-laptop>
-In-Reply-To: <19353031.SdOy5F5fmg@jernej-laptop>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Wed, 4 Sep 2019 17:24:20 +0800
-Message-ID: <CAFv8NwK=DFaEjPgz-BuhQRiYxDPuFmHOmRtPRFOihAja2WyjTg@mail.gmail.com>
-To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@siol.net>
+ <CAFv8NwKHZM+zTu7GF_J0Xk6hubA2JK4cCsdhsDPOGk=3rnbCZw@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAFv8NwKHZM+zTu7GF_J0Xk6hubA2JK4cCsdhsDPOGk=3rnbCZw@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <alsa-devel@alsa-project.org>, kuninori.morimoto.gx@renesas.com,
  Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Doug Anderson <dianders@chromium.org>,
+ dri-devel@lists.freedesktop.org, cain.cai@rock-chips.com,
  Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, sam@ravnborg.org,
- cain.cai@rock-chips.com, Xing Zheng <zhengxing@rock-chips.com>,
- linux-rockchip@lists.infradead.org, Dylan Reid <dgreid@chromium.org>,
- tzungbi@chromium.org, Jonas Karlman <jonas@kwiboo.se>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Yakir Yang <ykk@rock-chips.com>, sam@ravnborg.org,
+ Xing Zheng <zhengxing@rock-chips.com>, linux-rockchip@lists.infradead.org,
+ Dylan Reid <dgreid@chromium.org>, tzungbi@chromium.org,
  Jeffy Chen <jeffy.chen@rock-chips.com>,
- =?UTF-8?B?6JSh5p6r?= <eddie.cai@rock-chips.com>,
- linux-arm-kernel@lists.infradead.org,
+ =?utf-8?B?6JSh5p6r?= <eddie.cai@rock-chips.com>,
+ linux-arm-kernel@lists.infradead.org, Doug Anderson <dianders@chromium.org>,
  linux-kernel <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
  Enric Balletbo i Serra <enric.balletbo@collabora.com>, kuankuan.y@gmail.com
 Subject: Re: [alsa-devel] [PATCH] drm: bridge/dw_hdmi: add audio sample
-	channel status setting
+ channel status setting
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,143 +101,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gV2VkLCBTZXAgNCwgMjAxOSBhdCAyOjA4IEFNIEplcm5laiDFoGtyYWJlYyA8amVybmVqLnNr
-cmFiZWNAc2lvbC5uZXQ+IHdyb3RlOgo+Cj4gSGkhCj4KPiBEbmUgdG9yZWssIDAzLiBzZXB0ZW1i
-ZXIgMjAxOSBvYiAyMDowMDozMyBDRVNUIGplIE5laWwgQXJtc3Ryb25nIG5hcGlzYWwoYSk6Cj4g
-PiBIaSwKPiA+Cj4gPiBMZSAwMy8wOS8yMDE5IMOgIDExOjUzLCBOZWlsIEFybXN0cm9uZyBhIMOp
-Y3JpdCA6Cj4gPiA+IEhpLAo+ID4gPgo+ID4gPiBPbiAwMy8wOS8yMDE5IDA3OjUxLCBDaGVuZy1Z
-aSBDaGlhbmcgd3JvdGU6Cj4gPiA+PiBGcm9tOiBZYWtpciBZYW5nIDx5a2tAcm9jay1jaGlwcy5j
-b20+Cj4gPiA+Pgo+ID4gPj4gV2hlbiB0cmFuc21pdHRpbmcgSUVDNjA5ODUgbGluZWFyIFBDTSBh
-dWRpbywgd2UgY29uZmlndXJlIHRoZQo+ID4gPj4gQXVkaW8gU2FtcGxlIENoYW5uZWwgU3RhdHVz
-IGluZm9ybWF0aW9uIG9mIGFsbCB0aGUgY2hhbm5lbAo+ID4gPj4gc3RhdHVzIGJpdHMgaW4gdGhl
-IElFQzYwOTU4IGZyYW1lLgo+ID4gPj4gUmVmZXIgdG8gNjA5NTgtMyBwYWdlIDEwIGZvciBmcmVx
-dWVuY3ksIG9yaWdpbmFsIGZyZXF1ZW5jeSwgYW5kCj4gPiA+PiB3b3JkbGVuZ3RoIHNldHRpbmcu
-Cj4gPiA+Pgo+ID4gPj4gVGhpcyBmaXggdGhlIGlzc3VlIHRoYXQgYXVkaW8gZG9lcyBub3QgY29t
-ZSBvdXQgb24gc29tZSBtb25pdG9ycwo+ID4gPj4gKGUuZy4gTEcgMjJDVjI0MSkKPiA+ID4+Cj4g
-PiA+PiBTaWduZWQtb2ZmLWJ5OiBZYWtpciBZYW5nIDx5a2tAcm9jay1jaGlwcy5jb20+Cj4gPiA+
-PiBTaWduZWQtb2ZmLWJ5OiBDaGVuZy1ZaSBDaGlhbmcgPGN5Y2hpYW5nQGNocm9taXVtLm9yZz4K
-PiA+ID4+IC0tLQo+ID4gPj4KPiA+ID4+ICBkcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lz
-L2R3LWhkbWkuYyB8IDU5ICsrKysrKysrKysrKysrKysrKysrKysrCj4gPiA+PiAgZHJpdmVycy9n
-cHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1pLmggfCAyMCArKysrKysrKwo+ID4gPj4gIDIg
-ZmlsZXMgY2hhbmdlZCwgNzkgaW5zZXJ0aW9ucygrKQo+ID4gPj4KPiA+ID4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuYwo+ID4gPj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuYyBpbmRleAo+ID4gPj4gYmQ2NWQw
-NDc5NjgzLi4zNGQ0NmUyNWQ2MTAgMTAwNjQ0Cj4gPiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YnJpZGdlL3N5bm9wc3lzL2R3LWhkbWkuYwo+ID4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Jy
-aWRnZS9zeW5vcHN5cy9kdy1oZG1pLmMKPiA+ID4+IEBAIC01ODIsNiArNTgyLDYzIEBAIHN0YXRp
-YyB1bnNpZ25lZCBpbnQgaGRtaV9jb21wdXRlX24odW5zaWduZWQgaW50Cj4gPiA+PiBmcmVxLCB1
-bnNpZ25lZCBsb25nIHBpeGVsX2Nsayk+Pgo+ID4gPj4gICAgcmV0dXJuIG47Cj4gPiA+Pgo+ID4g
-Pj4gIH0KPiA+ID4+Cj4gPiA+PiArc3RhdGljIHZvaWQgaGRtaV9zZXRfc2Nobmwoc3RydWN0IGR3
-X2hkbWkgKmhkbWkpCj4gPiA+PiArewo+ID4gPj4gKyAgdTggYXVkX3NjaG5sX3NhbXBsZXJhdGU7
-Cj4gPiA+PiArICB1OCBhdWRfc2NobmxfODsKPiA+ID4+ICsKPiA+ID4+ICsgIC8qIFRoZXNlIHJl
-Z2lzdGVycyBhcmUgb24gUkszMjg4IHVzaW5nIHZlcnNpb24gMi4wYS4gKi8KPiA+ID4+ICsgIGlm
-IChoZG1pLT52ZXJzaW9uICE9IDB4MjAwYSkKPiA+ID4+ICsgICAgICAgICAgcmV0dXJuOwo+ID4g
-Pgo+ID4gPiBBcmUgdGhlc2UgbGltaXRlZCB0byB0aGUgMi4wYSB2ZXJzaW9uICppbiogUkszMjg4
-LCBvciAyLjBhIHZlcnNpb24gb24gYWxsCj4gPiA+IFNvQ3MgPwo+ID4KPiA+IEFmdGVyIGludmVz
-dGlnYXRpb25zLCBBbWxvZ2ljIHNldHMgdGhlc2UgcmVnaXN0ZXJzIG9uIHRoZWlyIDIuMGEgdmVy
-c2lvbgo+ID4gYXN3ZWxsLCBhbmQgSmVybmVqIChhZGRlZCBpbiBDYykgcmVwb3J0ZWQgbWUgQWxs
-d2lubmVyIHNldHMgdGhlbSBvbiB0aGVpcgo+ID4gPCAyLjBhIGFuZCA+IDIuMGEgSVBzIHZlcnNp
-b25zLgo+ID4KPiA+IENhbiB5b3UgY2hlY2sgb24gdGhlIFJvY2tjaGlwIElQIHZlcnNpb25zIGlu
-IFJLMzM5OSA/Cj4gPgo+ID4gRm9yIHJlZmVyZW5jZSwgdGhlIEhETUkgMS40YSBJUCB2ZXJzaW9u
-IGFsbHdpbm5lciBzZXR1cHMgaXM6Cj4gPiBodHRwczovL2dpdGh1Yi5jb20vQWxsd2lubmVyLUhv
-bWxldC9IMy1CU1A0LjQtbGludXgvYmxvYi9tYXN0ZXIvZHJpdmVycy92aWRlCj4gPiBvL2ZiZGV2
-L3N1bnhpL2Rpc3AyL2hkbWkvaGRtaV9ic3Bfc3VuOGl3Ny5jI0w1MzEtTDUzOSAocmVnaXN0ZXJz
-IGEKPiA+ICJzY3JhbWJsZWQiIGJ1dCBhIGN1c3RvbSBiaXQgY2FuIHJlc2V0IHRvIHRoZSBvcmln
-aW5hbCBtYXBwaW5nLCAweDEwNjYgLi4uCj4gPiAweDEwNmYpCj4KPiBGb3IgZWFzaWVyIHJlYWRp
-bmcsIGhlcmUgaXMgc2ltaWxhciwgYnV0IGFubm90YXRlZCB2ZXJzaW9uOiBodHRwOi8vaXguaW8v
-MVViNgo+IENoZWNrIGZ1bmN0aW9uIGJzcF9oZG1pX2F1ZGlvKCkuCj4KPiBVbmxlc3MgdGhlcmUg
-aXMgYSBzcGVjaWFsIHJlYXNvbiwgeW91IGNhbiBqdXN0IHJlbW92ZSB0aGF0IGNoZWNrLgo+CgpU
-aGFua3MgZm9yIHRoZSBncmVhdCByZWZlcmVuY2UuCkkgYWxzbyBzZWUgdGhhdCBJIG5lZWQgdG8g
-c2V0IHRoZSB3b3JkIGxlbmd0aCBhY2NvcmRpbmcgdG8gdGhlIGRlc2lyZWQKdmFsdWUgcGFzc2Vk
-IGJ5IGR3X2hkbWlfaTJzX2h3X3BhcmFtcyBpbiBkdy1oZG1pLWkycy1hdWRpby5jLgpXaWxsIGZp
-eCBpbiB2Mi4KCj4gQmVzdCByZWdhcmRzLAo+IEplcm5lago+Cj4gPgo+ID4gTmVpbAo+ID4KPiA+
-ID4+ICsKPiA+ID4+ICsgIHN3aXRjaCAoaGRtaS0+c2FtcGxlX3JhdGUpIHsKPiA+ID4+ICsgIGNh
-c2UgMzIwMDA6Cj4gPiA+PiArICAgICAgICAgIGF1ZF9zY2hubF9zYW1wbGVyYXRlID0gSERNSV9G
-Q19BVURTQ0hOTFM3X1NNUFJBVEVfMzJLOwo+ID4gPj4gKyAgICAgICAgICBicmVhazsKPiA+ID4+
-ICsgIGNhc2UgNDQxMDA6Cj4gPiA+PiArICAgICAgICAgIGF1ZF9zY2hubF9zYW1wbGVyYXRlID0g
-SERNSV9GQ19BVURTQ0hOTFM3X1NNUFJBVEVfNDRLMTsKPiA+ID4+ICsgICAgICAgICAgYnJlYWs7
-Cj4gPiA+PiArICBjYXNlIDQ4MDAwOgo+ID4gPj4gKyAgICAgICAgICBhdWRfc2Nobmxfc2FtcGxl
-cmF0ZSA9IEhETUlfRkNfQVVEU0NITkxTN19TTVBSQVRFXzQ4SzsKPiA+ID4+ICsgICAgICAgICAg
-YnJlYWs7Cj4gPiA+PiArICBjYXNlIDg4MjAwOgo+ID4gPj4gKyAgICAgICAgICBhdWRfc2Nobmxf
-c2FtcGxlcmF0ZSA9IEhETUlfRkNfQVVEU0NITkxTN19TTVBSQVRFXzg4SzI7Cj4gPiA+PiArICAg
-ICAgICAgIGJyZWFrOwo+ID4gPj4gKyAgY2FzZSA5NjAwMDoKPiA+ID4+ICsgICAgICAgICAgYXVk
-X3NjaG5sX3NhbXBsZXJhdGUgPSBIRE1JX0ZDX0FVRFNDSE5MUzdfU01QUkFURV85Nks7Cj4gPiA+
-PiArICAgICAgICAgIGJyZWFrOwo+ID4gPj4gKyAgY2FzZSAxNzY0MDA6Cj4gPiA+PiArICAgICAg
-ICAgIGF1ZF9zY2hubF9zYW1wbGVyYXRlID0KPiBIRE1JX0ZDX0FVRFNDSE5MUzdfU01QUkFURV8x
-NzZLNDsKPiA+ID4+ICsgICAgICAgICAgYnJlYWs7Cj4gPiA+PiArICBjYXNlIDE5MjAwMDoKPiA+
-ID4+ICsgICAgICAgICAgYXVkX3NjaG5sX3NhbXBsZXJhdGUgPSBIRE1JX0ZDX0FVRFNDSE5MUzdf
-U01QUkFURV8xOTJLOwo+ID4gPj4gKyAgICAgICAgICBicmVhazsKPiA+ID4+ICsgIGNhc2UgNzY4
-MDAwOgo+ID4gPj4gKyAgICAgICAgICBhdWRfc2Nobmxfc2FtcGxlcmF0ZSA9IEhETUlfRkNfQVVE
-U0NITkxTN19TTVBSQVRFXzc2OEs7Cj4gPiA+PiArICAgICAgICAgIGJyZWFrOwo+ID4gPj4gKyAg
-ZGVmYXVsdDoKPiA+ID4+ICsgICAgICAgICAgZGV2X3dhcm4oaGRtaS0+ZGV2LCAiVW5zdXBwb3J0
-ZWQgYXVkaW8gc2FtcGxlIHJhdGUgKCV1KQo+IFxuIiwKPiA+ID4+ICsgICAgICAgICAgICAgICAg
-ICAgaGRtaS0+c2FtcGxlX3JhdGUpOwo+ID4gPj4gKyAgICAgICAgICByZXR1cm47Cj4gPiA+PiAr
-ICB9Cj4gPiA+PiArCj4gPiA+PiArICAvKiBzZXQgY2hhbm5lbCBzdGF0dXMgcmVnaXN0ZXIgKi8K
-PiA+ID4+ICsgIGhkbWlfbW9kYihoZG1pLCBhdWRfc2Nobmxfc2FtcGxlcmF0ZSwKPiBIRE1JX0ZD
-X0FVRFNDSE5MUzdfU01QUkFURV9NQVNLLAo+ID4gPj4gKyAgICAgICAgICAgIEhETUlfRkNfQVVE
-U0NITkxTNyk7Cj4gPiA+PiArCj4gPiA+PiArICAvKgo+ID4gPj4gKyAgICogU2V0IG9yaWdpbmFs
-IGZyZXF1ZW5jeSB0byBiZSB0aGUgc2FtZSBhcyBmcmVxdWVuY3kuCj4gPiA+PiArICAgKiBVc2Ug
-b25lLWNvbXBsZW1lbnQgdmFsdWUgYXMgc3RhdGVkIGluIElFQzYwOTU4LTMgcGFnZSAxMy4KPiA+
-ID4+ICsgICAqLwo+ID4gPj4gKyAgYXVkX3NjaG5sXzggPSAofmF1ZF9zY2hubF9zYW1wbGVyYXRl
-KSA8PAo+ID4gPj4gKyAgICAgICAgICAgICAgICAgIEhETUlfRkNfQVVEU0NITkxTOF9PUklHU0FN
-UEZSRVFfT0ZGU0VUOwo+ID4gPj4gKwo+ID4gPj4gKyAgLyogVGhpcyBtZWFucyB3b3JkIGxlbmd0
-aCBpcyAxNiBiaXQuIFJlZmVyIHRvIElFQzYwOTU4LTMgcGFnZSAxMi4KPiAqLwo+ID4gPj4gKyAg
-YXVkX3NjaG5sXzggfD0gMiA8PCBIRE1JX0ZDX0FVRFNDSE5MUzhfV09SRExFR05USF9PRkZTRVQ7
-Cj4gPiA+PiArCj4gPiA+PiArICBoZG1pX3dyaXRlYihoZG1pLCBhdWRfc2NobmxfOCwgSERNSV9G
-Q19BVURTQ0hOTFM4KTsKPiA+ID4+ICt9Cj4gPiA+PiArCj4gPiA+Pgo+ID4gPj4gIHN0YXRpYyB2
-b2lkIGhkbWlfc2V0X2Nsa19yZWdlbmVyYXRvcihzdHJ1Y3QgZHdfaGRtaSAqaGRtaSwKPiA+ID4+
-Cj4gPiA+PiAgICB1bnNpZ25lZCBsb25nIHBpeGVsX2NsaywgdW5zaWduZWQgaW50IHNhbXBsZV9y
-YXRlKQo+ID4gPj4KPiA+ID4+ICB7Cj4gPiA+Pgo+ID4gPj4gQEAgLTYyMCw2ICs2NzcsOCBAQCBz
-dGF0aWMgdm9pZCBoZG1pX3NldF9jbGtfcmVnZW5lcmF0b3Ioc3RydWN0IGR3X2hkbWkKPiA+ID4+
-ICpoZG1pLD4+Cj4gPiA+PiAgICBoZG1pLT5hdWRpb19jdHMgPSBjdHM7Cj4gPiA+PiAgICBoZG1p
-X3NldF9jdHNfbihoZG1pLCBjdHMsIGhkbWktPmF1ZGlvX2VuYWJsZSA/IG4gOiAwKTsKPiA+ID4+
-ICAgIHNwaW5fdW5sb2NrX2lycSgmaGRtaS0+YXVkaW9fbG9jayk7Cj4gPiA+Pgo+ID4gPj4gKwo+
-ID4gPj4gKyAgaGRtaV9zZXRfc2NobmwoaGRtaSk7Cj4gPiA+Pgo+ID4gPj4gIH0KPiA+ID4+Cj4g
-PiA+PiAgc3RhdGljIHZvaWQgaGRtaV9pbml0X2Nsa19yZWdlbmVyYXRvcihzdHJ1Y3QgZHdfaGRt
-aSAqaGRtaSkKPiA+ID4+Cj4gPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRn
-ZS9zeW5vcHN5cy9kdy1oZG1pLmgKPiA+ID4+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5v
-cHN5cy9kdy1oZG1pLmggaW5kZXgKPiA+ID4+IDY5ODhmMTJkODlkOS4uNjE5ZWJjMWM4MzU0IDEw
-MDY0NAo+ID4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1p
-LmgKPiA+ID4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5o
-Cj4gPiA+PiBAQCAtMTU4LDYgKzE1OCwxNyBAQAo+ID4gPj4KPiA+ID4+ICAjZGVmaW5lIEhETUlf
-RkNfU1BEREVWSUNFSU5GICAgICAgICAgICAgICAgICAgICAweDEwNjIKPiA+ID4+ICAjZGVmaW5l
-IEhETUlfRkNfQVVEU0NPTkYgICAgICAgICAgICAgICAgICAgICAgICAweDEwNjMKPiA+ID4+ICAj
-ZGVmaW5lIEhETUlfRkNfQVVEU1NUQVQgICAgICAgICAgICAgICAgICAgICAgICAweDEwNjQKPiA+
-ID4+Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNWICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgMHgxMDY1Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNVICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgMHgxMDY2Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNDSE5MUzAgICAgICAg
-ICAgICAgICAgICAgICAgMHgxMDY3Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNDSE5MUzEg
-ICAgICAgICAgICAgICAgICAgICAgMHgxMDY4Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFND
-SE5MUzIgICAgICAgICAgICAgICAgICAgICAgMHgxMDY5Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZD
-X0FVRFNDSE5MUzMgICAgICAgICAgICAgICAgICAgICAgMHgxMDZhCj4gPiA+PiArI2RlZmluZSBI
-RE1JX0ZDX0FVRFNDSE5MUzQgICAgICAgICAgICAgICAgICAgICAgMHgxMDZiCj4gPiA+PiArI2Rl
-ZmluZSBIRE1JX0ZDX0FVRFNDSE5MUzUgICAgICAgICAgICAgICAgICAgICAgMHgxMDZjCj4gPiA+
-PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNDSE5MUzYgICAgICAgICAgICAgICAgICAgICAgMHgxMDZk
-Cj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNDSE5MUzcgICAgICAgICAgICAgICAgICAgICAg
-MHgxMDZlCj4gPiA+PiArI2RlZmluZSBIRE1JX0ZDX0FVRFNDSE5MUzggICAgICAgICAgICAgICAg
-ICAgICAgMHgxMDZmCj4gPiA+Pgo+ID4gPj4gICNkZWZpbmUgSERNSV9GQ19EQVRBQ0gwRklMTCAg
-ICAgICAgICAgICAgICAgICAgIDB4MTA3MAo+ID4gPj4gICNkZWZpbmUgSERNSV9GQ19EQVRBQ0gx
-RklMTCAgICAgICAgICAgICAgICAgICAgIDB4MTA3MQo+ID4gPj4gICNkZWZpbmUgSERNSV9GQ19E
-QVRBQ0gyRklMTCAgICAgICAgICAgICAgICAgICAgIDB4MTA3Mgo+ID4gPj4KPiA+ID4+IEBAIC03
-MDYsNiArNzE3LDE1IEBAIGVudW0gewo+ID4gPj4KPiA+ID4+ICAvKiBIRE1JX0ZDX0FVRFNDSE5M
-UzcgZmllbGQgdmFsdWVzICovCj4gPiA+Pgo+ID4gPj4gICAgSERNSV9GQ19BVURTQ0hOTFM3X0FD
-Q1VSQUNZX09GRlNFVCA9IDQsCj4gPiA+PiAgICBIRE1JX0ZDX0FVRFNDSE5MUzdfQUNDVVJBQ1lf
-TUFTSyA9IDB4MzAsCj4gPiA+Pgo+ID4gPj4gKyAgSERNSV9GQ19BVURTQ0hOTFM3X1NNUFJBVEVf
-TUFTSyA9IDB4MGYsCj4gPiA+PiArICBIRE1JX0ZDX0FVRFNDSE5MUzdfU01QUkFURV8xOTJLID0g
-MHhlLAo+ID4gPj4gKyAgSERNSV9GQ19BVURTQ0hOTFM3X1NNUFJBVEVfMTc2SzQgPSAweGMsCj4g
-PiA+PiArICBIRE1JX0ZDX0FVRFNDSE5MUzdfU01QUkFURV85NksgPSAweGEsCj4gPiA+PiArICBI
-RE1JX0ZDX0FVRFNDSE5MUzdfU01QUkFURV83NjhLID0gMHg5LAo+ID4gPj4gKyAgSERNSV9GQ19B
-VURTQ0hOTFM3X1NNUFJBVEVfODhLMiA9IDB4OCwKPiA+ID4+ICsgIEhETUlfRkNfQVVEU0NITkxT
-N19TTVBSQVRFXzMySyA9IDB4MywKPiA+ID4+ICsgIEhETUlfRkNfQVVEU0NITkxTN19TTVBSQVRF
-XzQ4SyA9IDB4MiwKPiA+ID4+ICsgIEhETUlfRkNfQVVEU0NITkxTN19TTVBSQVRFXzQ0SzEgPSAw
-eDAsCj4gPiA+Pgo+ID4gPj4gIC8qIEhETUlfRkNfQVVEU0NITkxTOCBmaWVsZCB2YWx1ZXMgKi8K
-PiA+ID4+Cj4gPiA+PiAgICBIRE1JX0ZDX0FVRFNDSE5MUzhfT1JJR1NBTVBGUkVRX01BU0sgPSAw
-eGYwLAo+Cj4KPgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpo
-dHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2
-ZWwK
+On Wed, Sep 04, 2019 at 05:09:29PM +0800, Cheng-yi Chiang wrote:
+> Hi,
+> 
+> On Tue, Sep 3, 2019 at 5:53 PM Neil Armstrong <narmstrong@baylibre.com> wrote:
+> >
+> > Hi,
+> >
+> > On 03/09/2019 07:51, Cheng-Yi Chiang wrote:
+> > > From: Yakir Yang <ykk@rock-chips.com>
+> > >
+> > > When transmitting IEC60985 linear PCM audio, we configure the
+> > > Audio Sample Channel Status information of all the channel
+> > > status bits in the IEC60958 frame.
+> > > Refer to 60958-3 page 10 for frequency, original frequency, and
+> > > wordlength setting.
+> > >
+> > > This fix the issue that audio does not come out on some monitors
+> > > (e.g. LG 22CV241)
+> > >
+> > > Signed-off-by: Yakir Yang <ykk@rock-chips.com>
+> > > Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> > > ---
+> > >  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 59 +++++++++++++++++++++++
+> > >  drivers/gpu/drm/bridge/synopsys/dw-hdmi.h | 20 ++++++++
+> > >  2 files changed, 79 insertions(+)
+> > >
+> > > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> > > index bd65d0479683..34d46e25d610 100644
+> > > --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> > > +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> > > @@ -582,6 +582,63 @@ static unsigned int hdmi_compute_n(unsigned int freq, unsigned long pixel_clk)
+> > >       return n;
+> > >  }
+> > >
+> > > +static void hdmi_set_schnl(struct dw_hdmi *hdmi)
+> > > +{
+> > > +     u8 aud_schnl_samplerate;
+> > > +     u8 aud_schnl_8;
+> > > +
+> > > +     /* These registers are on RK3288 using version 2.0a. */
+> > > +     if (hdmi->version != 0x200a)
+> > > +             return;
+> >
+> > Are these limited to the 2.0a version *in* RK3288, or 2.0a version on all
+> > SoCs ?
+> >
+> 
+> In the original patch by Yakir,
+> 
+> https://lore.kernel.org/patchwork/patch/539653/   (sorry, I should
+> have added this link in the "after the cut" note)
+> 
+> The fix is limited to version 2.0.
+> Since I am only testing on RK3288 with 2.0a, I change the check to 2.0a only.
+> I can not test 2.0a version on other SoCs.
+> The databook I have at hand is 2.0a (not specific to RK3288) so I
+> think all 2.0a should have this register.
+> 
+> As for other version like version 1.3 on iMX6, there is no such
+> register, as stated by Russell
+> 
+> http://lkml.iu.edu/hypermail/linux/kernel/1501.3/06268.html.
+
+It's likely more to do with how the IP is configured rather than the
+version.  The big difference between dw-hdmi used in iMX6 and elsewhere
+is that iMX6 uses a built-in AHB audio interface and not I2S.  Elsewhere
+uses I2S.
+
+I2S does not have the capability to convey channel status information
+(which is required by HDMI).  With AHB, it is encoded into the data in
+memory.
+
+So, I think this setup should be done in the I2S driver and not in the
+core driver.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
+According to speedtest.net: 11.9Mbps down 500kbps up
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

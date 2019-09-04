@@ -2,73 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0355CA86B8
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 18:52:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3F0BA86BC
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 18:54:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D1DB1678;
-	Wed,  4 Sep 2019 18:51:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D1DB1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9751683;
+	Wed,  4 Sep 2019 18:53:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9751683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567615963;
-	bh=+68TWcIzGTuSgqCl/2Jmhv+7uoRpokuIKJ6TZeXjXzM=;
+	s=default; t=1567616077;
+	bh=/dW0qU7bOpf7z1beRPyD746oVhejIX/XKmiZBHf/e3w=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BcQgZMNRS/71VeATEap/5QznN4bk0/htS1iRxVevrtOfXWrkKKSpn3+ufIspb3akR
-	 ImN+Y9Z2wDRZf6fNRL1S1dRyWAVwnGhxATlmTCdZ+IsU75ppVrOAmSTjregtMXLFN/
-	 mgz3ACYWlEAmgsw+CNbgqNFCwFoPUFp2dydUXTPs=
+	b=ii9rnuo4y35VKvmKjO6bJKcEtSSx49oTsNOdxjvudcW60c7/HRRi+QW2DX18Q/JQZ
+	 V/8cMukngiLbvRBeTlsiSLoeh+84GHaVyCK+LderaiB0lU7Kud3Dgf8pp8sGraeFlM
+	 IzJDT4rYG5f2oqbjq8Hz7YU3KH89I705L8x1dGzY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D54DF803A6;
-	Wed,  4 Sep 2019 18:50:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 028F6F803D0;
+	Wed,  4 Sep 2019 18:52:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B634F803A6; Wed,  4 Sep 2019 18:50:56 +0200 (CEST)
+ id 756EBF803A6; Wed,  4 Sep 2019 18:52:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_NONE autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E5FFF8011E
- for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 18:50:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E5FFF8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02B19F8011E
+ for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 18:52:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B19F8011E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="jOM2Hxu4"
+ header.b="tJaMPrEv"
 Received: from localhost (unknown [122.182.201.156])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BB1BF2087E;
- Wed,  4 Sep 2019 16:50:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 716E5208E4;
+ Wed,  4 Sep 2019 16:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1567615836;
- bh=b/x7QUROWv0yxoBVITIFYudbm4LpCcqr2OJ2VY0gqq8=;
+ s=default; t=1567615962;
+ bh=9Zah+m6g12D31+MzrxQoEJQmTT36fHIV8yCjlTJUYRo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=jOM2Hxu4umgWpQLtVXuFiGxx/FAXv3Gc+0G9Scdok9NzK6wiXb7aZyhPC86JhhrP4
- ijcxucrMe5zDGbFGP5vOjqO71gAR9JVMAP4mVLfHiWe+fa/AjDnmrlRHK8kte29lSP
- 6PMctjjHWvLuhrkRDCt3sRRoRiHn4upxzLqmSh00=
-Date: Wed, 4 Sep 2019 22:19:26 +0530
+ b=tJaMPrEvqYdcFCsj9zN3yGuNDA1WKW9qulsgPM92qSQ7297jZ3IMkP2oHx2bW1KYu
+ yz/UOTF6a68RmkfsyScEyejzz/A2k08WwRRT0PncYqsp1R/wFyw1cTruHXyo6YiW8/
+ uPby00yqAgComZOg2HG/QCkkXaPC9Qtc2p0yaqio=
+Date: Wed, 4 Sep 2019 22:21:29 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20190904164926.GA2672@vkoul-mobl>
-References: <20190813213227.5163-1-pierre-louis.bossart@linux.intel.com>
- <20190813213227.5163-3-pierre-louis.bossart@linux.intel.com>
- <20190904071317.GJ2672@vkoul-mobl>
- <71411347-93cf-2617-4edd-f6b401fe7a9b@linux.intel.com>
+Message-ID: <20190904165129.GB2672@vkoul-mobl>
+References: <20190821201720.17768-1-pierre-louis.bossart@linux.intel.com>
+ <20190821201720.17768-4-pierre-louis.bossart@linux.intel.com>
+ <20190904072131.GK2672@vkoul-mobl>
+ <1897e21f-b086-8233-e96e-6024e75a2153@linux.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <71411347-93cf-2617-4edd-f6b401fe7a9b@linux.intel.com>
+In-Reply-To: <1897e21f-b086-8233-e96e-6024e75a2153@linux.intel.com>
 User-Agent: Mutt/1.12.0 (2019-05-25)
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH 2/6] soundwire: cadence_master: add
- hw_reset capability in debugfs
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, tiwai@suse.de,
+ Pan Xiuli <xiuli.pan@linux.intel.com>, Keyon Jie <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, srinivas.kandagatla@linaro.org,
+ jank@cadence.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ YueHaibing <yuehaibing@huawei.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Fred Oh <fred.oh@linux.intel.com>, Rander Wang <rander.wang@linux.intel.com>,
+ Arnd Bergmann <arnd@arndb.de>, broonie@kernel.org,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Zhu Yingjiang <yingjiang.zhu@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, gregkh@linuxfoundation.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ slawomir.blauciak@intel.com
+Subject: Re: [alsa-devel] [RFC PATCH 3/5] ASoC: SOF: Intel: hda: add
+ SoundWire IP support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,41 +97,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 04-09-19, 08:18, Pierre-Louis Bossart wrote:
-> On 9/4/19 2:13 AM, Vinod Koul wrote:
-> > On 13-08-19, 16:32, Pierre-Louis Bossart wrote:
-> > > Provide debugfs capability to kick link and devices into hard-reset
-> > > (as defined by MIPI). This capability is really useful when some
-> > > devices are no longer responsive and/or to check the software handling
-> > > of resynchronization.
+On 04-09-19, 08:25, Pierre-Louis Bossart wrote:
+> On 9/4/19 2:21 AM, Vinod Koul wrote:
+> > On 21-08-19, 15:17, Pierre-Louis Bossart wrote:
+> > > The Core0 needs to be powered before the SoundWire IP is initialized.
+> > > 
+> > > Call sdw_intel_init/exit and store the context. We only have one
+> > > context, but depending on the hardware capabilities and BIOS settings
+> > > may enable multiple SoundWire links.
 > > > 
 > > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 > > > ---
-> > >   drivers/soundwire/cadence_master.c | 20 ++++++++++++++++++++
-> > >   1 file changed, 20 insertions(+)
+> > >   sound/soc/sof/intel/hda.c | 40 +++++++++++++++++++++++++++++++++------
+> > >   sound/soc/sof/intel/hda.h |  5 +++++
+> > >   2 files changed, 39 insertions(+), 6 deletions(-)
 > > > 
-> > > diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
-> > > index 046622e4b264..bd58d80ff636 100644
-> > > --- a/drivers/soundwire/cadence_master.c
-> > > +++ b/drivers/soundwire/cadence_master.c
-> > > @@ -340,6 +340,23 @@ static int cdns_reg_show(struct seq_file *s, void *data)
-> > >   }
-> > >   DEFINE_SHOW_ATTRIBUTE(cdns_reg);
-> > > +static int cdns_hw_reset(void *data, u64 value)
-> > > +{
-> > > +	struct sdw_cdns *cdns = data;
-> > > +	int ret;
-> > > +
-> > > +	if (value != 1)
-> > > +		return 0;
+> > > diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+> > > index a968890d0754..e754058e3679 100644
+> > > --- a/sound/soc/sof/intel/hda.c
+> > > +++ b/sound/soc/sof/intel/hda.c
+> > > @@ -57,6 +57,8 @@ static int hda_sdw_init(struct snd_sof_dev *sdev)
+> > >   {
+> > >   	acpi_handle handle;
+> > >   	struct sdw_intel_res res;
+> > > +	struct sof_intel_hda_dev *hdev;
+> > > +	void *sdw;
+> > >   	handle = ACPI_HANDLE(sdev->dev);
+> > > @@ -66,23 +68,32 @@ static int hda_sdw_init(struct snd_sof_dev *sdev)
+> > >   	res.irq = sdev->ipc_irq;
+> > >   	res.parent = sdev->dev;
+> > > -	hda_sdw_int_enable(sdev, true);
+> > > -
+> > > -	sdev->sdw = sdw_intel_init(handle, &res);
+> > > -	if (!sdev->sdw) {
+> > > +	sdw = sdw_intel_init(handle, &res);
 > > 
-> > Should this not be EINVAL to indicate invalid value passed?
+> > should this be called for platforms without sdw, I was hoping that some
+> > checks would be performed.. For example how would skl deal with this?
 > 
-> Maybe. I must admit I don't know what -EINVAL would do, this is used for
-> debugfs so it's not clear to me if the user will see a difference?
+> Good point. For now we rely on CONFIG_SOUNDWIRE_INTEL to use a fallback, but
+> if the kernel defines this config and we run on an older platform the only
+> safety would be the hardware capabilities and BIOS dependencies, I need to
+> test if it works.
 
-Well user should see "write error: Invalid argument" when he writes
-anything other than valid values :)
+Yes I am not sure given the experience with BIOS relying on that is a
+great idea ! But if that works, that would be better.
+
+
+> > > diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+> > > index c8f93317aeb4..48e09b7daf0a 100644
+> > > --- a/sound/soc/sof/intel/hda.h
+> > > +++ b/sound/soc/sof/intel/hda.h
+> > > @@ -399,6 +399,11 @@ struct sof_intel_hda_dev {
+> > >   	/* DMIC device */
+> > >   	struct platform_device *dmic_dev;
+> > > +
+> > > +#if IS_ENABLED(CONFIG_SOUNDWIRE_INTEL)
+> > 
+> > is this really required, context is a void pointer
+
+??
+
+> > > +	/* sdw context */
+> > > +	void *sdw;
+> > 
+> > > +#endif
 
 -- 
 ~Vinod

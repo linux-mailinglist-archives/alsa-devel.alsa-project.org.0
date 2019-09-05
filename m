@@ -2,92 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6726AA9EC0
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 11:47:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00317AA275
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 14:03:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E43B41677;
-	Thu,  5 Sep 2019 11:47:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E43B41677
+	by alsa0.perex.cz (Postfix) with ESMTPS id B14831655;
+	Thu,  5 Sep 2019 14:02:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B14831655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567676879;
-	bh=FRYp6TTRBds7I7Z5xH4D7Pw38EvDT+tlYLS/Oqj8Ep4=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=q/DAsMnCuFWbx5/xhtwe2IM7BEWrtsR9Ist2fFOOGcx1zNPdju+6NQngwXmJ2vKyT
-	 plnOmFm9Njcc0k9FJBogS/GQ0HJkP70jBVAwpar4RV7QPrccu+jCLO3uoo85bHYDJg
-	 KX+uJ1nEQyA+fvzUr47Pn1NpuczoBg0c3beu3ZL0=
+	s=default; t=1567685001;
+	bh=9slIe2W1E1laU4fIJSNnpTJlVM6ul9Q15HvDMLf/apA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hv2g3N5e1o+IlooHKTgQthCXlsiNYmfs/C8CPvZTGbVjOlcpgBzm7BP9p/GU/7IEc
+	 pgRdas+NLATf5AYAlEtmDcbveC546mWU3Q4NjWODfDsvYFMZlII78lb6A4Q8BXEmfK
+	 a9Yv6IFDiVKW7jggVDr/TcpKiEnLCssoNQZjNBfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 555BFF8049B;
-	Thu,  5 Sep 2019 11:46:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67E08F80529;
+	Thu,  5 Sep 2019 14:01:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C3DFF802DF; Thu,  5 Sep 2019 11:46:11 +0200 (CEST)
+ id 24318F80227; Thu,  5 Sep 2019 14:01:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, 
- URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-ua1-x942.google.com (mail-ua1-x942.google.com
- [IPv6:2607:f8b0:4864:20::942])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0481CF802DF
- for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 11:46:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0481CF802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BC32F80227
+ for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 14:01:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BC32F80227
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="WvjhViaV"
-Received: by mail-ua1-x942.google.com with SMTP id z8so554278uaq.11
- for <alsa-devel@alsa-project.org>; Thu, 05 Sep 2019 02:46:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UvRuIiqr/iKDV9aDWNlA8RrVDzREyScOlO/Z/R/SMk4=;
- b=WvjhViaVgl8x/auA7N3QoKa0pWASaXMpbqUiOjnZ1p3FYEgVVpJk0NHs6ARa3J/Mxc
- XbKEEFE7HfHLJL9pmMO/200PoywVrY3+4VKXW1BHqK01NlXD7cac0nZ89ATICbDRVbNB
- u+NLABTZnHIlKpb9pp2K/1XSrdisQsUgmUjeo=
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="stvEzN4t"
+Received: by mail-wm1-x342.google.com with SMTP id r17so4835185wme.0
+ for <alsa-devel@alsa-project.org>; Thu, 05 Sep 2019 05:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yFK6X2V6i39GcNDQWpzEpnOVpoV1Dx+VySBb8i2GX/I=;
+ b=stvEzN4tUS8oK1tZu/EaUIi2TPABQfmjiU4mPlGJpIy9qIoGskfwsPYca0Dq0e4oPl
+ DuwEICzFSm8kaAm51AaPy9tOzbXLDJifxZjw4c8+ZPPOrZm8/E6ECYeVwnZxC+XiUvjp
+ 949UTxAT6G0O23iPXgjV+Wdf6ES/zchaFfEK3pbnJVhU/VhlNBLdYpUFhhwZyEhE6vsb
+ 2PejIUevv+7DNzmPNZPNwnpVDYBmE3CDCi0TZ4lHHEq63JrW1Pa3NgH9AUBRJHkGT/eZ
+ jfbufeoQpcZCnDjTh5FgfFfKIrhUCSvsSE5L6Bk3uw0/fkIOsb2YUIubWIWWuRXiJ0B4
+ PWow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=UvRuIiqr/iKDV9aDWNlA8RrVDzREyScOlO/Z/R/SMk4=;
- b=KJ++bRP/vA2TK2xTBroW98d+bYUziE2zzkaxL2UacluHhJYJcT5PHf5o00vVYvPhYT
- 6OHz5WKugMD6YCA5o4Fqf9QWgKE5gJ+TEOP1T8jtYIGDaCIAJTqivZ7cKfQFlRLx9K0O
- 8BrBwP/BrnXQKsSM86SDrhiAkuofuTy8dRHy0F2H66FPaSYqOnd5xa+0XViFq5tTB/8S
- ZJ91uoLBrIpjKRX1o23bDBmR1QZ3LplvjvCVKF13uf4+y2/PHfCywobxbUHRc5sLx3hS
- AhsHGdEqVc9zBON/QegeEMgbzjh8Fe6J63XUOf6u4qViWJcsS06IZBVMxWLGXira3yqa
- yMnQ==
-X-Gm-Message-State: APjAAAWnnwtW8iSdiFknswsAl6kBp31jBQMZHJ9ixEpmjlbLnWXJ+aDS
- kJtqLTu7z2+MGdVInQTmQPbXva913pw5lJ5KCyZCXQ==
-X-Google-Smtp-Source: APXvYqwTvrQBn97z7rYT9ixy7UM/J7TliVkIaqrac8Xre+AMHO1uYOYzHMZzz7mlfTa7CsgN/vA8J0CGaj70IMm0CYI=
-X-Received: by 2002:a9f:2924:: with SMTP id t33mr921037uat.69.1567676765459;
- Thu, 05 Sep 2019 02:46:05 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yFK6X2V6i39GcNDQWpzEpnOVpoV1Dx+VySBb8i2GX/I=;
+ b=U++nZnPc2ERsPiQVfjDpdFgO8HnM7iRn/PaBgeZC2bl67e8jwokYiS3ncYHVyozEoZ
+ tn33TA+PSu6mDRlP9gxU5igfSRU+MjLhHwjS2RuNpxAV370OvJZeTu5hW8/s4fFuVdle
+ RVuQiXreixrC6CaJL5G+PIq89dhB8Orbd6wnownvFEZXmw8IYh2KY7wSkm0eqWUFkbXn
+ DrnY1XOxDbopmsKhD2Cy0g1bwGVrJ073IcgOD/difqe/NF1IrDO4bavynMBakLM3OavO
+ LA0qU8uBlHaUa2kZm9tqAWHTBKc4WvPN0k+BzzmAQl9QUBT++0UI4CdhqQ9u8hmbuTXX
+ aPDg==
+X-Gm-Message-State: APjAAAX1VdR+Su29xxe3YoQlwAH4mgX1czRESwf7GxRpEOr7dz4SXOGD
+ fTfBrWWQZs6Oxj4/85+b214NMQ==
+X-Google-Smtp-Source: APXvYqx0FuZccTavmCfh5UKk59D68gUWa1P+Lko4JSyqzHolIXwrXQ2h9DNNhEMWzPwh8vmYnLQyAw==
+X-Received: by 2002:a7b:c059:: with SMTP id u25mr2593849wmc.140.1567684888491; 
+ Thu, 05 Sep 2019 05:01:28 -0700 (PDT)
+Received: from starbuck.baylibre.local
+ (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
+ by smtp.googlemail.com with ESMTPSA id a18sm3436311wrh.25.2019.09.05.05.01.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Sep 2019 05:01:27 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Date: Thu,  5 Sep 2019 14:01:12 +0200
+Message-Id: <20190905120120.31752-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <20190905094325.33156-1-cychiang@chromium.org>
-In-Reply-To: <20190905094325.33156-1-cychiang@chromium.org>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Thu, 5 Sep 2019 17:45:38 +0800
-Message-ID: <CAFv8NwJ_3OQgNsim74u-Z3UHyY4OyTJ8Y8JeBSx9m0aWvnmNZA@mail.gmail.com>
-To: linux-kernel <linux-kernel@vger.kernel.org>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, kuninori.morimoto.gx@renesas.com,
- David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
- cain.cai@rock-chips.com, Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Yakir Yang <ykk@rock-chips.com>, sam@ravnborg.org,
- Xing Zheng <zhengxing@rock-chips.com>, linux-rockchip@lists.infradead.org,
- Dylan Reid <dgreid@chromium.org>, tzungbi@chromium.org,
- Jonas Karlman <jonas@kwiboo.se>, Jeffy Chen <jeffy.chen@rock-chips.com>,
- =?UTF-8?B?6JSh5p6r?= <eddie.cai@rock-chips.com>,
- linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Doug Anderson <dianders@chromium.org>, Daniel Vetter <daniel@ffwll.ch>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>, kuankuan.y@gmail.com
-Subject: Re: [alsa-devel] [PATCH v2] drm: bridge/dw_hdmi: add audio sample
-	channel status setting
+X-Patchwork-Bot: notify
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] [PATCH 0/8] ASoC: meson: add sm1 support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,199 +102,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Sorry for the noise.
-Removed original author ykk@rock-chips.com from the thread because
-that mail is obsolete.
-Yakir is now using kuankuan.y@gmail.com.
+This patchset prepare then add the audio support on the amlogic sm1
+SoC family in ASoC.
 
+This has been tested on sei610 platform. Since this platform does
+not have spdif, this patchset does not include the change necessary
+to support spdif input or output on the sm1.
 
-On Thu, Sep 5, 2019 at 5:43 PM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
->
-> From: Yakir Yang <ykk@rock-chips.com>
->
-> When transmitting IEC60985 linear PCM audio, we configure the
-> Aduio Sample Channel Status information of all the channel
-> status bits in the IEC60958 frame.
-> Refer to 60958-3 page 10 for frequency, original frequency, and
-> wordlength setting.
->
-> This fix the issue that audio does not come out on some monitors
-> (e.g. LG 22CV241)
->
-> Note that these registers are only for interfaces:
-> I2S audio interface, General Purpose Audio (GPA), or AHB audio DMA
-> (AHBAUDDMA).
-> For S/PDIF interface this information comes from the stream.
->
-> Currently this function dw_hdmi_set_channel_status is only called
-> from dw-hdmi-i2s-audio in I2S setup.
->
-> Signed-off-by: Yakir Yang <ykk@rock-chips.com>
-> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> ---
->  Original patch by Yakir Yang is at
->
->  https://lore.kernel.org/patchwork/patch/539653/
->
->  Change from v1 to v2:
->  1. Remove the version check because this will only be called by
->     dw-hdmi-i2s-audio, and the registers are available in I2S setup.
->  2. Set these registers in dw_hdmi_i2s_hw_params.
->  3. Fix the sample width setting so it can use 16 or 24 bits.
->
->  .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   |  1 +
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 70 +++++++++++++++++++
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi.h     | 20 ++++++
->  include/drm/bridge/dw_hdmi.h                  |  2 +
->  4 files changed, 93 insertions(+)
->
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-> index 34d8e837555f..b801a28b0f17 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
-> @@ -102,6 +102,7 @@ static int dw_hdmi_i2s_hw_params(struct device *dev, void *data,
->         }
->
->         dw_hdmi_set_sample_rate(hdmi, hparms->sample_rate);
-> +       dw_hdmi_set_channel_status(hdmi, hparms->sample_width);
->         dw_hdmi_set_channel_count(hdmi, hparms->channels);
->         dw_hdmi_set_channel_allocation(hdmi, hparms->cea.channel_allocation);
->
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> index bd65d0479683..d1daa369c8ae 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-> @@ -582,6 +582,76 @@ static unsigned int hdmi_compute_n(unsigned int freq, unsigned long pixel_clk)
->         return n;
->  }
->
-> +/*
-> + * When transmitting IEC60958 linear PCM audio, these registers allow to
-> + * configure the channel status information of all the channel status
-> + * bits in the IEC60958 frame. For the moment this configuration is only
-> + * used when the I2S audio interface, General Purpose Audio (GPA),
-> + * or AHB audio DMA (AHBAUDDMA) interface is active
-> + * (for S/PDIF interface this information comes from the stream).
-> + */
-> +void dw_hdmi_set_channel_status(struct dw_hdmi *hdmi,
-> +                               unsigned int sample_width)
-> +{
-> +       u8 aud_schnl_samplerate;
-> +       u8 aud_schnl_8;
-> +       u8 word_length_bits;
-> +
-> +       switch (hdmi->sample_rate) {
-> +       case 32000:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_32K;
-> +               break;
-> +       case 44100:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_44K1;
-> +               break;
-> +       case 48000:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_48K;
-> +               break;
-> +       case 88200:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_88K2;
-> +               break;
-> +       case 96000:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_96K;
-> +               break;
-> +       case 176400:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_176K4;
-> +               break;
-> +       case 192000:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_192K;
-> +               break;
-> +       case 768000:
-> +               aud_schnl_samplerate = HDMI_FC_AUDSCHNLS7_SMPRATE_768K;
-> +               break;
-> +       default:
-> +               dev_warn(hdmi->dev, "Unsupported audio sample rate (%u)\n",
-> +                        hdmi->sample_rate);
-> +               return;
-> +       }
-> +
-> +       /* set channel status register */
-> +       hdmi_modb(hdmi, aud_schnl_samplerate, HDMI_FC_AUDSCHNLS7_SMPRATE_MASK,
-> +                 HDMI_FC_AUDSCHNLS7);
-> +
-> +       /*
-> +        * Set original frequency to be the same as frequency.
-> +        * Use one-complement value as stated in IEC60958-3 page 13.
-> +        */
-> +       aud_schnl_8 = (~aud_schnl_samplerate) <<
-> +                       HDMI_FC_AUDSCHNLS8_ORIGSAMPFREQ_OFFSET;
-> +
-> +       /*
-> +        * Refer to IEC60958-3 page 12. We can accept 16 bits or 24 bits.
-> +        * Otherwise, set the register to 0t o indicate using default value.
-> +        */
-> +       word_length_bits = (sample_width == 16) ? 0x2 :
-> +                           ((sample_width == 24) ? 0xb : 0);
-> +
-> +       aud_schnl_8 |= word_length_bits << HDMI_FC_AUDSCHNLS8_WORDLEGNTH_OFFSET;
-> +
-> +       hdmi_writeb(hdmi, aud_schnl_8, HDMI_FC_AUDSCHNLS8);
-> +}
-> +EXPORT_SYMBOL_GPL(dw_hdmi_set_channel_status);
-> +
->  static void hdmi_set_clk_regenerator(struct dw_hdmi *hdmi,
->         unsigned long pixel_clk, unsigned int sample_rate)
->  {
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
-> index 6988f12d89d9..619ebc1c8354 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.h
-> @@ -158,6 +158,17 @@
->  #define HDMI_FC_SPDDEVICEINF                    0x1062
->  #define HDMI_FC_AUDSCONF                        0x1063
->  #define HDMI_FC_AUDSSTAT                        0x1064
-> +#define HDMI_FC_AUDSV                           0x1065
-> +#define HDMI_FC_AUDSU                           0x1066
-> +#define HDMI_FC_AUDSCHNLS0                      0x1067
-> +#define HDMI_FC_AUDSCHNLS1                      0x1068
-> +#define HDMI_FC_AUDSCHNLS2                      0x1069
-> +#define HDMI_FC_AUDSCHNLS3                      0x106a
-> +#define HDMI_FC_AUDSCHNLS4                      0x106b
-> +#define HDMI_FC_AUDSCHNLS5                      0x106c
-> +#define HDMI_FC_AUDSCHNLS6                      0x106d
-> +#define HDMI_FC_AUDSCHNLS7                      0x106e
-> +#define HDMI_FC_AUDSCHNLS8                      0x106f
->  #define HDMI_FC_DATACH0FILL                     0x1070
->  #define HDMI_FC_DATACH1FILL                     0x1071
->  #define HDMI_FC_DATACH2FILL                     0x1072
-> @@ -706,6 +717,15 @@ enum {
->  /* HDMI_FC_AUDSCHNLS7 field values */
->         HDMI_FC_AUDSCHNLS7_ACCURACY_OFFSET = 4,
->         HDMI_FC_AUDSCHNLS7_ACCURACY_MASK = 0x30,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_MASK = 0x0f,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_192K = 0xe,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_176K4 = 0xc,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_96K = 0xa,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_768K = 0x9,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_88K2 = 0x8,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_32K = 0x3,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_48K = 0x2,
-> +       HDMI_FC_AUDSCHNLS7_SMPRATE_44K1 = 0x0,
->
->  /* HDMI_FC_AUDSCHNLS8 field values */
->         HDMI_FC_AUDSCHNLS8_ORIGSAMPFREQ_MASK = 0xf0,
-> diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
-> index cf528c289857..12144d2f80f4 100644
-> --- a/include/drm/bridge/dw_hdmi.h
-> +++ b/include/drm/bridge/dw_hdmi.h
-> @@ -156,6 +156,8 @@ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense);
->
->  void dw_hdmi_set_sample_rate(struct dw_hdmi *hdmi, unsigned int rate);
->  void dw_hdmi_set_channel_count(struct dw_hdmi *hdmi, unsigned int cnt);
-> +void dw_hdmi_set_channel_status(struct dw_hdmi *hdmi,
-> +                               unsigned int sample_width);
->  void dw_hdmi_set_channel_allocation(struct dw_hdmi *hdmi, unsigned int ca);
->  void dw_hdmi_audio_enable(struct dw_hdmi *hdmi);
->  void dw_hdmi_audio_disable(struct dw_hdmi *hdmi);
-> --
-> 2.23.0.187.g17f5b7556c-goog
->
+Jerome Brunet (8):
+  ASoC: meson: add sm1 compatibles
+  ASoC: meson: add reset binding
+  ASoC: meson: axg-frddr: expose all 8 outputs
+  ASoC: meson: axg-toddr: expose all 8 inputs
+  ASoC: meson: tdmin: expose all 16 inputs
+  ASoC: meson: axg-frddr: add sm1 support
+  ASoC: meson: axg-toddr: add sm1 support
+  ASoC: meson: tdmout: add sm1 support
+
+ .../bindings/sound/amlogic,axg-fifo.txt       |   9 +-
+ .../bindings/sound/amlogic,axg-pdm.txt        |   6 +-
+ .../bindings/sound/amlogic,axg-spdifin.txt    |   6 +-
+ .../bindings/sound/amlogic,axg-spdifout.txt   |   6 +-
+ .../sound/amlogic,axg-tdm-formatters.txt      |   4 +-
+ .../bindings/sound/amlogic,g12a-tohdmitx.txt  |   5 +-
+ sound/soc/meson/axg-fifo.c                    |   2 +-
+ sound/soc/meson/axg-fifo.h                    |   1 +
+ sound/soc/meson/axg-frddr.c                   | 105 ++++++++++++++++--
+ sound/soc/meson/axg-tdmin.c                   |  47 +++++---
+ sound/soc/meson/axg-tdmout.c                  | 103 +++++++++++++----
+ sound/soc/meson/axg-toddr.c                   |  83 ++++++++++++--
+ 12 files changed, 321 insertions(+), 56 deletions(-)
+
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

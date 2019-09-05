@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A361AAA43
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 19:42:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A28B1AAA3F
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 19:40:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 03B0A1679;
-	Thu,  5 Sep 2019 19:41:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 03B0A1679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BA091678;
+	Thu,  5 Sep 2019 19:39:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BA091678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567705367;
-	bh=DmB6/ADYvXxd+aCCMlSdxqo/neBr7GQ902Ad5/6JzDw=;
+	s=default; t=1567705246;
+	bh=vly7ZiydX5fW9Ou9SFydnJ28kbnh4CiogNifp3Yhd/I=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=W5W1r2lqksvuTWYHPOyplZdUp/FH1kH8J1ItKt4ZTsAPEmRcVRTn3UizXzJunoEun
-	 qzVaE2FLAyKCm6asC7gyV42TzblelhUQw2bgrMD/GYLa9Hr3av5BeC+KxUI5Su/VDE
-	 fjoZgtKFNDYpLFwsLFnqzsFt8MnOiCE+LGiC6UIU=
+	b=FnODqNqc9D1pEx+6AnRF18WPLwutHyocArZYIizadG8AWcMW7VQdZxauhuN1bwViZ
+	 RNxWbXtJayUUfvCSi1RYMouu6jNJOELd/dPcmYOpV9+S2fmip0i+lmU1ALfHYSFSy1
+	 bRDG4dVrRIBrU/wWMWkYvaVUknpkXDoz0TqfxEps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A16D4F80611;
-	Thu,  5 Sep 2019 19:39:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 960DAF805F7;
+	Thu,  5 Sep 2019 19:39:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0D6FF805FD; Thu,  5 Sep 2019 19:39:06 +0200 (CEST)
+ id 34F1BF805F6; Thu,  5 Sep 2019 19:38:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9873F8049B
- for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 19:38:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9873F8049B
+ by alsa1.perex.cz (Postfix) with ESMTPS id B55B3F802DF
+ for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 19:38:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B55B3F802DF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ZSyEwwWk"
+ header.b="wZy0UVg1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=AP3QXYgc2oODBwjsiyyDTEmHz/ojfNEQngmM1GZg4jc=; b=ZSyEwwWkzeYr
- ciXUA8MJrAoSIFRCwbqGVE9a/25h+JPRZPLQ+ADVW9nMktvi70e2pFva1ZWtmK+aXjOrstXWTAICc
- n3r/D9FuOGayRr9FafsbqFzw1g1EqHgMcBuvONYDzUxd5jZIm+n4uKI1plXOpYQFoI0pAzZtmgOnE
- 6KAMQ=;
+ List-Archive; bh=4gbe+e5abX7vIgA3PShfmFuRCDSiOubAI1f9VXvtZ3U=; b=wZy0UVg1tMCJ
+ 7mHw2mUsLSQrBuNZKA0n0hEvYduPG56kLdIpccjhXeEknoFTJGYDmqvm9xE/7P0T1jcSSnH0NrB9Z
+ QPDg3pEvz55HQHgnRP9dKiy8WCppYX1GC7XQke2SC1cPwS9z/1sb1lNA3rGiXRrPTAGgQhRgROKZU
+ UakUY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i5vie-0005Ge-5O; Thu, 05 Sep 2019 17:38:52 +0000
+ id 1i5vie-0005Gg-D1; Thu, 05 Sep 2019 17:38:52 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 3861B2742D07; Thu,  5 Sep 2019 18:38:51 +0100 (BST)
+ id D62452742D1F; Thu,  5 Sep 2019 18:38:51 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190905064400.24800-1-yuehaibing@huawei.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20190905120120.31752-7-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190905173851.3861B2742D07@ypsilon.sirena.org.uk>
+Message-Id: <20190905173851.D62452742D1F@ypsilon.sirena.org.uk>
 Date: Thu,  5 Sep 2019 18:38:51 +0100 (BST)
-Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- daniel.baluta@nxp.com, s.hauer@pengutronix.de, tiwai@suse.com,
- yuehaibing@huawei.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
- linux-imx@nxp.com, kernel@pengutronix.de, shawnguo@kernel.org,
- festevam@gmail.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: SOF: imx8: Fix COMPILE_TEST error" to
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: meson: axg-frddr: add sm1 support" to
 	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: imx8: Fix COMPILE_TEST error
+   ASoC: meson: axg-frddr: add sm1 support
 
 has been applied to the asoc tree at
 
@@ -117,47 +115,145 @@ to this mail.
 Thanks,
 Mark
 
-From f4df4e4042b045c6ddbaff878a17ae169fe68ba6 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Thu, 5 Sep 2019 14:44:00 +0800
-Subject: [PATCH] ASoC: SOF: imx8: Fix COMPILE_TEST error
+From 52dd80d8f7386483bc60b2b7470e47a2e6f61d7c Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Thu, 5 Sep 2019 14:01:18 +0200
+Subject: [PATCH] ASoC: meson: axg-frddr: add sm1 support
 
-When do compile test, if SND_SOC_SOF_OF is not set, we get:
+On sm1, the output routing bits have moved to CTRL2 register
 
-sound/soc/sof/imx/imx8.o: In function `imx8_dsp_handle_request':
-imx8.c:(.text+0xb0): undefined reference to `snd_sof_ipc_msgs_rx'
-sound/soc/sof/imx/imx8.o: In function `imx8_ipc_msg_data':
-imx8.c:(.text+0xf4): undefined reference to `sof_mailbox_read'
-sound/soc/sof/imx/imx8.o: In function `imx8_dsp_handle_reply':
-imx8.c:(.text+0x160): undefined reference to `sof_mailbox_read'
-
-Make SND_SOC_SOF_IMX_TOPLEVEL always depends on SND_SOC_SOF_OF
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Fixes: 202acc565a1f ("ASoC: SOF: imx: Add i.MX8 HW support")
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190905064400.24800-1-yuehaibing@huawei.com
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20190905120120.31752-7-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/imx/Kconfig | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/meson/axg-fifo.c  |  2 +-
+ sound/soc/meson/axg-fifo.h  |  1 +
+ sound/soc/meson/axg-frddr.c | 73 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 75 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-index fd73d8402dbf..5acae75f5750 100644
---- a/sound/soc/sof/imx/Kconfig
-+++ b/sound/soc/sof/imx/Kconfig
-@@ -2,7 +2,8 @@
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index 80a3dde35b5c..5a3749938900 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -306,7 +306,7 @@ static const struct regmap_config axg_fifo_regmap_cfg = {
+ 	.reg_bits	= 32,
+ 	.val_bits	= 32,
+ 	.reg_stride	= 4,
+-	.max_register	= FIFO_INIT_ADDR,
++	.max_register	= FIFO_CTRL2,
+ };
  
- config SND_SOC_SOF_IMX_TOPLEVEL
- 	bool "SOF support for NXP i.MX audio DSPs"
--	depends on ARM64 && SND_SOC_SOF_OF || COMPILE_TEST
-+	depends on ARM64|| COMPILE_TEST
-+	depends on SND_SOC_SOF_OF
- 	help
-           This adds support for Sound Open Firmware for NXP i.MX platforms.
-           Say Y if you have such a device.
+ int axg_fifo_probe(struct platform_device *pdev)
+diff --git a/sound/soc/meson/axg-fifo.h b/sound/soc/meson/axg-fifo.h
+index 5caf81241dfe..bb1e2ce50256 100644
+--- a/sound/soc/meson/axg-fifo.h
++++ b/sound/soc/meson/axg-fifo.h
+@@ -61,6 +61,7 @@ struct snd_soc_pcm_runtime;
+ #define  STATUS1_INT_STS(x)		((x) << 0)
+ #define FIFO_STATUS2			0x18
+ #define FIFO_INIT_ADDR			0x24
++#define FIFO_CTRL2			0x28
+ 
+ struct axg_fifo {
+ 	struct regmap *map;
+diff --git a/sound/soc/meson/axg-frddr.c b/sound/soc/meson/axg-frddr.c
+index 0968e8375000..6ab111c31b28 100644
+--- a/sound/soc/meson/axg-frddr.c
++++ b/sound/soc/meson/axg-frddr.c
+@@ -23,6 +23,12 @@
+ #define CTRL0_SEL3_SHIFT		8
+ #define CTRL0_SEL3_EN_SHIFT		11
+ #define CTRL1_FRDDR_FORCE_FINISH	BIT(12)
++#define CTRL2_SEL1_SHIFT		0
++#define CTRL2_SEL1_EN_SHIFT		4
++#define CTRL2_SEL2_SHIFT		8
++#define CTRL2_SEL2_EN_SHIFT		12
++#define CTRL2_SEL3_SHIFT		16
++#define CTRL2_SEL3_EN_SHIFT		20
+ 
+ static int g12a_frddr_dai_prepare(struct snd_pcm_substream *substream,
+ 				  struct snd_soc_dai *dai)
+@@ -269,6 +275,70 @@ static const struct axg_fifo_match_data g12a_frddr_match_data = {
+ 	.dai_drv	= &g12a_frddr_dai_drv
+ };
+ 
++/* On SM1, the output selection in on CTRL2 */
++static const struct snd_kcontrol_new sm1_frddr_out1_enable =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch", FIFO_CTRL2,
++				    CTRL2_SEL1_EN_SHIFT, 1, 0);
++static const struct snd_kcontrol_new sm1_frddr_out2_enable =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch", FIFO_CTRL2,
++				    CTRL2_SEL2_EN_SHIFT, 1, 0);
++static const struct snd_kcontrol_new sm1_frddr_out3_enable =
++	SOC_DAPM_SINGLE_AUTODISABLE("Switch", FIFO_CTRL2,
++				    CTRL2_SEL3_EN_SHIFT, 1, 0);
++
++static SOC_ENUM_SINGLE_DECL(sm1_frddr_sel1_enum, FIFO_CTRL2, CTRL2_SEL1_SHIFT,
++			    axg_frddr_sel_texts);
++static SOC_ENUM_SINGLE_DECL(sm1_frddr_sel2_enum, FIFO_CTRL2, CTRL2_SEL2_SHIFT,
++			    axg_frddr_sel_texts);
++static SOC_ENUM_SINGLE_DECL(sm1_frddr_sel3_enum, FIFO_CTRL2, CTRL2_SEL3_SHIFT,
++			    axg_frddr_sel_texts);
++
++static const struct snd_kcontrol_new sm1_frddr_out1_demux =
++	SOC_DAPM_ENUM("Output Src 1", sm1_frddr_sel1_enum);
++static const struct snd_kcontrol_new sm1_frddr_out2_demux =
++	SOC_DAPM_ENUM("Output Src 2", sm1_frddr_sel2_enum);
++static const struct snd_kcontrol_new sm1_frddr_out3_demux =
++	SOC_DAPM_ENUM("Output Src 3", sm1_frddr_sel3_enum);
++
++static const struct snd_soc_dapm_widget sm1_frddr_dapm_widgets[] = {
++	SND_SOC_DAPM_AIF_OUT("SRC 1", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("SRC 2", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("SRC 3", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_SWITCH("SRC 1 EN", SND_SOC_NOPM, 0, 0,
++			    &sm1_frddr_out1_enable),
++	SND_SOC_DAPM_SWITCH("SRC 2 EN", SND_SOC_NOPM, 0, 0,
++			    &sm1_frddr_out2_enable),
++	SND_SOC_DAPM_SWITCH("SRC 3 EN", SND_SOC_NOPM, 0, 0,
++			    &sm1_frddr_out3_enable),
++	SND_SOC_DAPM_DEMUX("SINK 1 SEL", SND_SOC_NOPM, 0, 0,
++			   &sm1_frddr_out1_demux),
++	SND_SOC_DAPM_DEMUX("SINK 2 SEL", SND_SOC_NOPM, 0, 0,
++			   &sm1_frddr_out2_demux),
++	SND_SOC_DAPM_DEMUX("SINK 3 SEL", SND_SOC_NOPM, 0, 0,
++			   &sm1_frddr_out3_demux),
++	SND_SOC_DAPM_AIF_OUT("OUT 0", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 1", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 2", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 3", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 4", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 5", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 6", NULL, 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_AIF_OUT("OUT 7", NULL, 0, SND_SOC_NOPM, 0, 0),
++};
++
++static const struct snd_soc_component_driver sm1_frddr_component_drv = {
++	.dapm_widgets		= sm1_frddr_dapm_widgets,
++	.num_dapm_widgets	= ARRAY_SIZE(sm1_frddr_dapm_widgets),
++	.dapm_routes		= g12a_frddr_dapm_routes,
++	.num_dapm_routes	= ARRAY_SIZE(g12a_frddr_dapm_routes),
++	.ops			= &g12a_fifo_pcm_ops
++};
++
++static const struct axg_fifo_match_data sm1_frddr_match_data = {
++	.component_drv	= &sm1_frddr_component_drv,
++	.dai_drv	= &g12a_frddr_dai_drv
++};
++
+ static const struct of_device_id axg_frddr_of_match[] = {
+ 	{
+ 		.compatible = "amlogic,axg-frddr",
+@@ -276,6 +346,9 @@ static const struct of_device_id axg_frddr_of_match[] = {
+ 	}, {
+ 		.compatible = "amlogic,g12a-frddr",
+ 		.data = &g12a_frddr_match_data,
++	}, {
++		.compatible = "amlogic,sm1-frddr",
++		.data = &sm1_frddr_match_data,
+ 	}, {}
+ };
+ MODULE_DEVICE_TABLE(of, axg_frddr_of_match);
 -- 
 2.20.1
 

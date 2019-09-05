@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A73AEA9A1F
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 07:36:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE41CA9A20
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 07:36:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 914D11668;
-	Thu,  5 Sep 2019 07:35:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 914D11668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A37D1689;
+	Thu,  5 Sep 2019 07:36:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A37D1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567661775;
+	s=default; t=1567661813;
 	bh=xlNZ4Ve207GtLexP/tvtWx7LiGA/91+O87Rnj8g1px4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U3eyaZNWjq9rfHV7U5KFgP9W1pmHLMjCKhkZ/WXeFpcYxzYJscqSNscXB8j8toeEg
-	 0M5Gg8RTvkVVkX7BEqkxVzEDF1gKWjm9Rm/WEyiyulK55fjQ6mF7UJ1GOfmC70ucK9
-	 y3XPpZV7a+P0kgUNKXQ7fUlTn6TyhxFfPGMqaFls=
+	b=ZM+OU4J8WuCk9ZarVIha9fjXbikyaiWYstuL2uuIJpAOzo362v/gFbZOtveiuTlsC
+	 QgHXGtOLny5+xFBAWNv8XuaAKekUN/LUZQal5srHp1P6+XebSl4nwqVN/gj6JihA42
+	 zsIp6vBPHPYNyFnemBWw/lWWj2cf6J9FjaJZbq8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 905B3F805FA;
-	Thu,  5 Sep 2019 07:33:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AB01F805FD;
+	Thu,  5 Sep 2019 07:33:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50F14F805F5; Thu,  5 Sep 2019 07:33:41 +0200 (CEST)
+ id 99EB7F805F6; Thu,  5 Sep 2019 07:33:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,22 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D3663F80448;
- Thu,  5 Sep 2019 07:33:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3663F80448
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1BD6EF80529;
+ Thu,  5 Sep 2019 07:33:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BD6EF80529
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Sep 2019 22:33:30 -0700
+ 04 Sep 2019 22:33:32 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,469,1559545200"; d="scan'208";a="212657650"
+X-IronPort-AV: E=Sophos;i="5.64,469,1559545200"; d="scan'208";a="212657668"
 Received: from test-hp-elitedesk-800-g1-twr.igk.intel.com ([10.237.149.38])
- by fmsmga002.fm.intel.com with ESMTP; 04 Sep 2019 22:33:28 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 04 Sep 2019 22:33:30 -0700
 From: Pawel Harlozinski <pawel.harlozinski@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Thu,  5 Sep 2019 07:33:01 +0200
-Message-Id: <20190905053302.9262-3-pawel.harlozinski@linux.intel.com>
+Date: Thu,  5 Sep 2019 07:33:02 +0200
+Message-Id: <20190905053302.9262-4-pawel.harlozinski@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20190905053302.9262-1-pawel.harlozinski@linux.intel.com>
 References: <20190905053302.9262-1-pawel.harlozinski@linux.intel.com>

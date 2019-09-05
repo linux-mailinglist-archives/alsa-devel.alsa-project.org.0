@@ -2,73 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4254A8721
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Sep 2019 19:56:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92B5EA9932
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 06:05:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 574A2166C;
-	Wed,  4 Sep 2019 19:56:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 574A2166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5BF60166A;
+	Thu,  5 Sep 2019 06:04:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5BF60166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567619815;
-	bh=ERpV+HRq27kQbv0v4QVEbfbvYeuN7yMvvr28cQw3kCM=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fW4xUGQakj3Zowzk74xxGfpbD9IYkpXhpXGnCY9Kn4Xovz4I8ZLmcYIvF0wpe/P8T
-	 ti7QhbqGIq2FObQs3YK3wHGFNE+O+dxsR0jmLEFaeIsqJYiSNfMd8lJQd3g7xqcbme
-	 LUeAdI56HVzyOJt/rIH1Iw1iphjwxmOPUhR1Flkk=
+	s=default; t=1567656314;
+	bh=twVyJkFZ9dNb6AQxOIo+4TOh9Ueq3ZHxKfOBmtQMujY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=TN4qgz3TcDJ5+bFJYOVzooQreleH4s7x7UPS82trRGAMoh5Hw0XNrpnjD6ADFojuK
+	 6nI3QZ56kGXi65R3glPn6qqv/qRYtSh09egcoPZRwhaRooHH/n5NJf/KCxbgTfu5xJ
+	 MqOSapnf0WIKshq16BJuaG+/a3P+NWfTpuecnfNM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2131AF805FB;
-	Wed,  4 Sep 2019 19:53:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FB9CF804A9;
+	Thu,  5 Sep 2019 06:03:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09B00F8049B; Wed,  4 Sep 2019 19:53:35 +0200 (CEST)
+ id 1E933F80448; Thu,  5 Sep 2019 06:03:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A4D70F8011E
- for <alsa-devel@alsa-project.org>; Wed,  4 Sep 2019 19:53:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A4D70F8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DD32F802DF
+ for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 06:03:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DD32F802DF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="lIUzyIf+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=VCp+GINcdewaFZUB7P8VBjJ5Q+P6scN0GPbH/ZYlu7g=; b=lIUzyIf+Ndxz
- kAGCdJy6h5VNx3k/w/8/MIzj5BXPlw4K1V4lYvCpfSj68s0pbFh8JlS7qkNbruBjIFeeg2GUvywjL
- rom9pMG54jZfn3KbbZNssYtylHSzX+ZtZ1GSzb8H0/uSn6FaDgi5S63TzSKj2B6XCLvvT0SDfJABy
- l8HY4=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1i5ZTC-0006hF-NW; Wed, 04 Sep 2019 17:53:26 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 365752742CDC; Wed,  4 Sep 2019 18:53:26 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20190904074833.23572-1-yuehaibing@huawei.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190904175326.365752742CDC@ypsilon.sirena.org.uk>
-Date: Wed,  4 Sep 2019 18:53:26 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, yuzhao@google.com, tiwai@suse.com,
- yuehaibing@huawei.com, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
- tglx@linutronix.de, akshu.agrawal@amd.com
-Subject: [alsa-devel] Applied "ASoC: amd: use
-	devm_platform_ioremap_resource() to simplify code" to the asoc tree
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="UlWHaWw3"
+Received: by mail-pg1-x544.google.com with SMTP id i18so606305pgl.11
+ for <alsa-devel@alsa-project.org>; Wed, 04 Sep 2019 21:03:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=gzTkO0Rbhbc6qGDT4uIsvz+/20vaG5J88mBFRCtZ1I0=;
+ b=UlWHaWw3ysvzZNAgX+b35OI9+m0ei8mMYZmwfZkhVK967RNE5uj2MIBkIHRATZ5esw
+ qb2hPWTAVy6dFfKt9um30IWo4TxlIZ53AIWY/28YO0JO4StEDkqmHg80vf+RH6jcQLEz
+ ZWb0ozANSR8EuLNR2PzNS6phOTLdfV9S/Q/P/YNrtoXg45wfaFcNPw+0BI/TIMwWp3WN
+ kbyD3hUtDym4qEsogP3jw/HeyECxPiimveggDTcLyrotnFzwHZ7I9jVvypxJyOSQsYAS
+ vX2rANBi1fBc+TFWVqqG5PhXk53W73VDFlESbnWLTqIV3+vpAm33Y01DXzE4l1o+yOkh
+ G2Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=gzTkO0Rbhbc6qGDT4uIsvz+/20vaG5J88mBFRCtZ1I0=;
+ b=UcHXIt8HMSQI4vRECMoO/mjVOaHwrxRdJENcRML7Ijy0U9vF/ZqB3TFofKDCpUQNGw
+ zsst0ZHuaRXDFyPCLWIOGTrYHg/7OiD2UdtW/Frn+L0qPoiC0zLsyK4dphjy8n9tcazj
+ NzkMnLnUThFNOLUVlbgus5SEr0SQj6Z/Ry2irAIAPKcjJdjo5oUobN57mGReb5RPEDNN
+ DI3+PJzXDz2SOBKuO1UGgmCABP98hAMHiPROeJQBCQwHSEHhnNG57FjMgFvD6uJV+WF8
+ xi4v/rikbNTRAw1G2TqGxRMGwu3OdqSnLVoBeFJGiRGGzUbZWGZrtgCgSh/7i76/9j6d
+ kxKQ==
+X-Gm-Message-State: APjAAAUyCsvfwtD9PqJSN6XnmqG5PxRyq1/eBL+s1YaEwxGar8JQT46a
+ 4c2lghUIwHDCkHY7S6LjWjpeWA==
+X-Google-Smtp-Source: APXvYqyzIkvz0yA2lrEI0RaVsZGYFyE3s0khoYRmNK/psHtkaYkobCO80VWq1O/SIMOTnPn49zIaiQ==
+X-Received: by 2002:aa7:8a13:: with SMTP id m19mr1324958pfa.228.1567656190065; 
+ Wed, 04 Sep 2019 21:03:10 -0700 (PDT)
+Received: from localhost.localdomain
+ (104-188-17-28.lightspeed.sndgca.sbcglobal.net. [104.188.17.28])
+ by smtp.gmail.com with ESMTPSA id u9sm498058pjb.4.2019.09.04.21.03.08
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 04 Sep 2019 21:03:09 -0700 (PDT)
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+To: Patrick Lai <plai@codeaurora.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Date: Wed,  4 Sep 2019 21:03:06 -0700
+Message-Id: <20190905040306.21399-1-bjorn.andersson@linaro.org>
+X-Mailer: git-send-email 2.18.0
+Cc: linux-arm-msm@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: qcom: common: Include link-name in error
+	messages
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,66 +101,89 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Reading out the link-name earlier and including it in the various error
+messages makes it much more convenient to figure out what links have
+unmet dependencies.
 
-   ASoC: amd: use devm_platform_ioremap_resource() to simplify code
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From dfafc1822f6826c9d250223f59ce8c3b227866a6 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Wed, 4 Sep 2019 15:48:33 +0800
-Subject: [PATCH] ASoC: amd: use devm_platform_ioremap_resource() to simplify
- code
-
-Use devm_platform_ioremap_resource() to simplify the code a bit.
-This is detected by coccinelle.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190904074833.23572-1-yuehaibing@huawei.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 ---
- sound/soc/amd/acp-pcm-dma.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/qcom/common.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/amd/acp-pcm-dma.c b/sound/soc/amd/acp-pcm-dma.c
-index d26653f81416..52225b4b6382 100644
---- a/sound/soc/amd/acp-pcm-dma.c
-+++ b/sound/soc/amd/acp-pcm-dma.c
-@@ -1251,8 +1251,7 @@ static int acp_audio_probe(struct platform_device *pdev)
- 	if (!audio_drv_data)
- 		return -ENOMEM;
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 2c7348ddbbb3..6c20bdd850f3 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -53,12 +53,18 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 		link->num_cpus		= 1;
+ 		link->num_platforms	= 1;
  
--	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	audio_drv_data->acp_mmio = devm_ioremap_resource(&pdev->dev, res);
-+	audio_drv_data->acp_mmio = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(audio_drv_data->acp_mmio))
- 		return PTR_ERR(audio_drv_data->acp_mmio);
++		ret = of_property_read_string(np, "link-name", &link->name);
++		if (ret) {
++			dev_err(card->dev, "error getting codec dai_link name\n");
++			goto err;
++		}
++
+ 		cpu = of_get_child_by_name(np, "cpu");
+ 		platform = of_get_child_by_name(np, "platform");
+ 		codec = of_get_child_by_name(np, "codec");
  
+ 		if (!cpu) {
+-			dev_err(dev, "Can't find cpu DT node\n");
++			dev_err(dev, "%s: Can't find cpu DT node\n", link->name);
+ 			ret = -EINVAL;
+ 			goto err;
+ 		}
+@@ -66,7 +72,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 		ret = of_parse_phandle_with_args(cpu, "sound-dai",
+ 					"#sound-dai-cells", 0, &args);
+ 		if (ret) {
+-			dev_err(card->dev, "error getting cpu phandle\n");
++			dev_err(card->dev, "%s: error getting cpu phandle\n", link->name);
+ 			goto err;
+ 		}
+ 		link->cpus->of_node = args.np;
+@@ -74,7 +80,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 
+ 		ret = snd_soc_of_get_dai_name(cpu, &link->cpus->dai_name);
+ 		if (ret) {
+-			dev_err(card->dev, "error getting cpu dai name\n");
++			dev_err(card->dev, "%s: error getting cpu dai name\n", link->name);
+ 			goto err;
+ 		}
+ 
+@@ -83,14 +89,14 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 					"sound-dai",
+ 					0);
+ 			if (!link->platforms->of_node) {
+-				dev_err(card->dev, "platform dai not found\n");
++				dev_err(card->dev, "%s: platform dai not found\n", link->name);
+ 				ret = -EINVAL;
+ 				goto err;
+ 			}
+ 
+ 			ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
+ 			if (ret < 0) {
+-				dev_err(card->dev, "codec dai not found\n");
++				dev_err(card->dev, "%s: codec dai not found\n", link->name);
+ 				goto err;
+ 			}
+ 			link->no_pcm = 1;
+@@ -110,12 +116,6 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 		}
+ 
+ 		link->ignore_suspend = 1;
+-		ret = of_property_read_string(np, "link-name", &link->name);
+-		if (ret) {
+-			dev_err(card->dev, "error getting codec dai_link name\n");
+-			goto err;
+-		}
+-
+ 		link->nonatomic = 1;
+ 		link->dpcm_playback = 1;
+ 		link->dpcm_capture = 1;
 -- 
-2.20.1
+2.18.0
 
 _______________________________________________
 Alsa-devel mailing list

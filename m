@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A54AAA54
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 19:46:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9ADAAA53
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 19:46:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D855D166A;
-	Thu,  5 Sep 2019 19:45:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D855D166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6038167D;
+	Thu,  5 Sep 2019 19:45:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6038167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567705607;
-	bh=yWYMSpAzlZDq9XicshhXCDXMtffdUVsWAoUDllt8GGo=;
+	s=default; t=1567705564;
+	bh=KRf2UHszs3RIUBVz3bSG1KI6bLk/FqBdXG1toMpiNNE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=SNM4qYzJWFbuePN9gt70i61DL0tHWTljZvASaFmNMJy836mAsoryrAuucr5IkHpLE
-	 nW5rlaAmaqgOPP8KXYqCNaElXLNVR+tTlrhZ9FBUgxhaw/lX7bRx4BRVY17vcGjBDg
-	 u1Qit4y8XwRqyupnIDDIoIXwdFAHIIAPj+pbH8lc=
+	b=HbqG3gwgbNpUDdMPuQ2ayKu3iiZbx7QuHKFZeGOh+TUoqIKEJr9EHLaQz6E+YzOe5
+	 XN7kAPFUf7ocTNyl6JrQG7fDf4fLq2yAzTLRidDs1QWiRLg3ju9oeHMZN+6FZyOSuQ
+	 py+Vn013YbgyZVLWwIsrkNQhE9tGt4aYllssfkiM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 250A8F80677;
-	Thu,  5 Sep 2019 19:39:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F903F8065E;
+	Thu,  5 Sep 2019 19:39:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5146FF805FC; Thu,  5 Sep 2019 19:39:12 +0200 (CEST)
+ id C15AAF805F9; Thu,  5 Sep 2019 19:39:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF507F80539
- for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 19:38:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF507F80539
+ by alsa1.perex.cz (Postfix) with ESMTPS id AEC6FF805F5
+ for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 19:38:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEC6FF805F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="mowcuX34"
+ header.b="rFT+AfzP"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Kw7Sc8/OUQI+XpZIlQtPa4/jzKwmZbnxhfallE10YPc=; b=mowcuX34XcKt
- v+4geV1ZMQnB+/NsSasJjxDooP6ryicAAxa2GfxQOvQXvY5uXFahofnXDH0mkfgyl2LucPgBKTx54
- apbFNdNeEZoGMNZouDybLLDbQ5SHMZbKY9WDLP08+JlXLpIFY0Zba52Mk5gufIa7JXA4wMYv5Fxvq
- Q6FHU=;
+ List-Archive; bh=rtIzYqmrw6ZN5jUJED9NFhssAY92BE8w9JEYF5gkiiQ=; b=rFT+AfzP6j1d
+ vPA3tZ9NYc5583rcj5/km5pZuvhXafzUgRgvbjt+jB181N6EYC98t0IoIHd5SGsR1QgIcCNrd/lOz
+ 4sKqrGeADbvr/B0jgFnF6843GCJF4S6vPPfL4EWtNZ+osndd1eQcC8QB2feAC5xGsnuiASzBKNA/u
+ tUsOw=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1i5vih-0005HM-B8; Thu, 05 Sep 2019 17:38:55 +0000
+ id 1i5vih-0005HR-H1; Thu, 05 Sep 2019 17:38:55 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id CD1272742D1C; Thu,  5 Sep 2019 18:38:54 +0100 (BST)
+ id 0BF572742D07; Thu,  5 Sep 2019 18:38:55 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20190905120120.31752-2-jbrunet@baylibre.com>
+To: Bjorn Andersson <bjorn.andersson@linaro.org>
+In-Reply-To: <20190905040306.21399-1-bjorn.andersson@linaro.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20190905173854.CD1272742D1C@ypsilon.sirena.org.uk>
-Date: Thu,  5 Sep 2019 18:38:54 +0100 (BST)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-amlogic@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: meson: add sm1 compatibles" to the asoc
-	tree
+Message-Id: <20190905173855.0BF572742D07@ypsilon.sirena.org.uk>
+Date: Thu,  5 Sep 2019 18:38:55 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: qcom: common: Include link-name in
+	error messages" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: add sm1 compatibles
+   ASoC: qcom: common: Include link-name in error messages
 
 has been applied to the asoc tree at
 
@@ -115,112 +115,94 @@ to this mail.
 Thanks,
 Mark
 
-From f466309534b6f21304e1ee0573a60df9c4590272 Mon Sep 17 00:00:00 2001
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 5 Sep 2019 14:01:13 +0200
-Subject: [PATCH] ASoC: meson: add sm1 compatibles
+From 1ab1b340f037760ec9944a9a4911e85f29fc6e2c Mon Sep 17 00:00:00 2001
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Wed, 4 Sep 2019 21:03:06 -0700
+Subject: [PATCH] ASoC: qcom: common: Include link-name in error messages
 
-Document the compatible strings of the audio devices of the sm1 SoC
-family
+Reading out the link-name earlier and including it in the various error
+messages makes it much more convenient to figure out what links have
+unmet dependencies.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Link: https://lore.kernel.org/r/20190905120120.31752-2-jbrunet@baylibre.com
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Link: https://lore.kernel.org/r/20190905040306.21399-1-bjorn.andersson@linaro.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt  | 4 +++-
- Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt   | 3 ++-
- .../devicetree/bindings/sound/amlogic,axg-spdifin.txt         | 3 ++-
- .../devicetree/bindings/sound/amlogic,axg-spdifout.txt        | 3 ++-
- .../devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt  | 4 +++-
- .../devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt       | 3 ++-
- 6 files changed, 14 insertions(+), 6 deletions(-)
+ sound/soc/qcom/common.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
-index 4330fc9dca6d..4b17073c8f8c 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
-+++ b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
-@@ -4,7 +4,9 @@ Required properties:
- - compatible: 'amlogic,axg-toddr' or
- 	      'amlogic,axg-toddr' or
- 	      'amlogic,g12a-frddr' or
--	      'amlogic,g12a-toddr'
-+	      'amlogic,g12a-toddr' or
-+	      'amlogic,sm1-frddr' or
-+	      'amlogic,sm1-toddr'
- - reg: physical base address of the controller and length of memory
-        mapped region.
- - interrupts: interrupt specifier for the fifo.
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
-index 73f473a9365f..b3f097976e6b 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
-+++ b/Documentation/devicetree/bindings/sound/amlogic,axg-pdm.txt
-@@ -2,7 +2,8 @@
+diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
+index 2c7348ddbbb3..6c20bdd850f3 100644
+--- a/sound/soc/qcom/common.c
++++ b/sound/soc/qcom/common.c
+@@ -53,12 +53,18 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 		link->num_cpus		= 1;
+ 		link->num_platforms	= 1;
  
- Required properties:
- - compatible: 'amlogic,axg-pdm' or
--	      'amlogic,g12a-pdm'
-+	      'amlogic,g12a-pdm' or
-+	      'amlogic,sm1-pdm'
- - reg: physical base address of the controller and length of memory
-        mapped region.
- - clocks: list of clock phandle, one for each entry clock-names.
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-spdifin.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-spdifin.txt
-index 0b82504fa419..62e5bca71664 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,axg-spdifin.txt
-+++ b/Documentation/devicetree/bindings/sound/amlogic,axg-spdifin.txt
-@@ -2,7 +2,8 @@
++		ret = of_property_read_string(np, "link-name", &link->name);
++		if (ret) {
++			dev_err(card->dev, "error getting codec dai_link name\n");
++			goto err;
++		}
++
+ 		cpu = of_get_child_by_name(np, "cpu");
+ 		platform = of_get_child_by_name(np, "platform");
+ 		codec = of_get_child_by_name(np, "codec");
  
- Required properties:
- - compatible: 'amlogic,axg-spdifin' or
--	      'amlogic,g12a-spdifin'
-+	      'amlogic,g12a-spdifin' or
-+	      'amlogic,sm1-spdifin'
- - interrupts: interrupt specifier for the spdif input.
- - clocks: list of clock phandle, one for each entry clock-names.
- - clock-names: should contain the following:
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-spdifout.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-spdifout.txt
-index 826152730508..d38aa35ec630 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,axg-spdifout.txt
-+++ b/Documentation/devicetree/bindings/sound/amlogic,axg-spdifout.txt
-@@ -2,7 +2,8 @@
+ 		if (!cpu) {
+-			dev_err(dev, "Can't find cpu DT node\n");
++			dev_err(dev, "%s: Can't find cpu DT node\n", link->name);
+ 			ret = -EINVAL;
+ 			goto err;
+ 		}
+@@ -66,7 +72,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 		ret = of_parse_phandle_with_args(cpu, "sound-dai",
+ 					"#sound-dai-cells", 0, &args);
+ 		if (ret) {
+-			dev_err(card->dev, "error getting cpu phandle\n");
++			dev_err(card->dev, "%s: error getting cpu phandle\n", link->name);
+ 			goto err;
+ 		}
+ 		link->cpus->of_node = args.np;
+@@ -74,7 +80,7 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
  
- Required properties:
- - compatible: 'amlogic,axg-spdifout' or
--	      'amlogic,g12a-spdifout'
-+	      'amlogic,g12a-spdifout' or
-+	      'amlogic,sm1-spdifout'
- - clocks: list of clock phandle, one for each entry clock-names.
- - clock-names: should contain the following:
-   * "pclk" : peripheral clock.
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
-index 8835a43edfbb..5996c0cd89c2 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
-+++ b/Documentation/devicetree/bindings/sound/amlogic,axg-tdm-formatters.txt
-@@ -4,7 +4,9 @@ Required properties:
- - compatible: 'amlogic,axg-tdmin' or
- 	      'amlogic,axg-tdmout' or
- 	      'amlogic,g12a-tdmin' or
--	      'amlogic,g12a-tdmout'
-+	      'amlogic,g12a-tdmout' or
-+	      'amlogic,sm1-tdmin' or
-+	      'amlogic,sm1-tdmout
- - reg: physical base address of the controller and length of memory
-        mapped region.
- - clocks: list of clock phandle, one for each entry clock-names.
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt b/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt
-index aa6c35570d31..173a95045540 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt
-+++ b/Documentation/devicetree/bindings/sound/amlogic,g12a-tohdmitx.txt
-@@ -1,7 +1,8 @@
- * Amlogic HDMI Tx control glue
+ 		ret = snd_soc_of_get_dai_name(cpu, &link->cpus->dai_name);
+ 		if (ret) {
+-			dev_err(card->dev, "error getting cpu dai name\n");
++			dev_err(card->dev, "%s: error getting cpu dai name\n", link->name);
+ 			goto err;
+ 		}
  
- Required properties:
--- compatible: "amlogic,g12a-tohdmitx"
-+- compatible: "amlogic,g12a-tohdmitx" or
-+	      "amlogic,sm1-tohdmitx"
- - reg: physical base address of the controller and length of memory
-        mapped region.
- - #sound-dai-cells: should be 1.
+@@ -83,14 +89,14 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 					"sound-dai",
+ 					0);
+ 			if (!link->platforms->of_node) {
+-				dev_err(card->dev, "platform dai not found\n");
++				dev_err(card->dev, "%s: platform dai not found\n", link->name);
+ 				ret = -EINVAL;
+ 				goto err;
+ 			}
+ 
+ 			ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
+ 			if (ret < 0) {
+-				dev_err(card->dev, "codec dai not found\n");
++				dev_err(card->dev, "%s: codec dai not found\n", link->name);
+ 				goto err;
+ 			}
+ 			link->no_pcm = 1;
+@@ -110,12 +116,6 @@ int qcom_snd_parse_of(struct snd_soc_card *card)
+ 		}
+ 
+ 		link->ignore_suspend = 1;
+-		ret = of_property_read_string(np, "link-name", &link->name);
+-		if (ret) {
+-			dev_err(card->dev, "error getting codec dai_link name\n");
+-			goto err;
+-		}
+-
+ 		link->nonatomic = 1;
+ 		link->dpcm_playback = 1;
+ 		link->dpcm_capture = 1;
 -- 
 2.20.1
 

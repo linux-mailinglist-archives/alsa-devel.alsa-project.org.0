@@ -2,69 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7444EAA418
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 15:16:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5697AA42B
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Sep 2019 15:17:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6F221684;
-	Thu,  5 Sep 2019 15:16:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6F221684
+	by alsa0.perex.cz (Postfix) with ESMTPS id E895D166F;
+	Thu,  5 Sep 2019 15:16:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E895D166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567689413;
-	bh=5bAcasrGWn3tPQmMp1aQpl3qSsXUoUrSX2raiSqMqtc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1567689461;
+	bh=hFbF8b3CXwaVSm702Ewr07si62Nm8OKkXHbUThW/c1w=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=INrCbaLRTAl5hM42pTaVf9YTOlpQcVI3h3et/+HwKbVT53gWv7hHxHEpNkQtlnDk+
-	 k5lWcqCguyyODHHpSUbEOe4d9ufnrXruuihDLa3y1DnWaJTGj52QC9KwG8gsswJnqx
-	 YbvI7DmXiwvKeIZVpAy81mQCvKY3Qui883Xeh6SU=
+	b=TGaiFGTKnU/7v8+pMgh1oE21yfZ8BO3Ep0CbcC8wfmBWcZizNi3CIhskaJNl6aeQo
+	 zIBOJZgb1KkdNLXhu68W57uSg+NEEz5FQ/4tFEnAEOiFFNaF+E93Y9JSIGpT7tsFz8
+	 VdFbJMBUjmjT2cMNjSu3EP2mTT8zrv+Itu26Mpso=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C054F8049B;
-	Thu,  5 Sep 2019 15:15:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99B6EF804AA;
+	Thu,  5 Sep 2019 15:16:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B6500F80448; Thu,  5 Sep 2019 15:15:06 +0200 (CEST)
+ id EB4AFF804A9; Thu,  5 Sep 2019 15:16:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C80CF80171
- for <alsa-devel@alsa-project.org>; Thu,  5 Sep 2019 15:15:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C80CF80171
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Sep 2019 06:15:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,470,1559545200"; d="scan'208";a="177298824"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga008.jf.intel.com with ESMTP; 05 Sep 2019 06:15:00 -0700
-Received: from ravisha1-mobl1.amr.corp.intel.com (unknown [10.255.36.89])
- by linux.intel.com (Postfix) with ESMTP id 9C73B580105;
- Thu,  5 Sep 2019 06:14:58 -0700 (PDT)
-To: YueHaibing <yuehaibing@huawei.com>, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com, shawnguo@kernel.org,
- s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
- linux-imx@nxp.com, daniel.baluta@nxp.com
-References: <20190905064400.24800-1-yuehaibing@huawei.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d5a4b443-7530-75de-731f-b13cde66aea7@linux.intel.com>
-Date: Thu, 5 Sep 2019 08:14:57 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20190905064400.24800-1-yuehaibing@huawei.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH -next] ASoC: SOF: imx8: Fix COMPILE_TEST
- error
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31302F803D1;
+ Thu,  5 Sep 2019 15:16:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31302F803D1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 4911EAF32;
+ Thu,  5 Sep 2019 13:16:28 +0000 (UTC)
+Date: Thu, 05 Sep 2019 15:16:28 +0200
+Message-ID: <s5h8sr2rihf.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <9b997691-a609-e7b5-94a6-d42e26dfa080@linux.intel.com>
+References: <20190905053302.9262-1-pawel.harlozinski@linux.intel.com>
+ <20190905053302.9262-2-pawel.harlozinski@linux.intel.com>
+ <s5ha7bjgup9.wl-tiwai@suse.de>
+ <9b997691-a609-e7b5-94a6-d42e26dfa080@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: cezary.rojewski@intel.com, patch@alsa-project.org,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, broonie@kernel.org,
+ Pawel Harlozinski <pawel.harlozinski@linux.intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 2/3] ALSA:core: Add rate 24kHz
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,49 +69,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/5/19 1:44 AM, YueHaibing wrote:
-> When do compile test, if SND_SOC_SOF_OF is not set, we get:
+On Thu, 05 Sep 2019 15:11:43 +0200,
+Pierre-Louis Bossart wrote:
 > 
-> sound/soc/sof/imx/imx8.o: In function `imx8_dsp_handle_request':
-> imx8.c:(.text+0xb0): undefined reference to `snd_sof_ipc_msgs_rx'
-> sound/soc/sof/imx/imx8.o: In function `imx8_ipc_msg_data':
-> imx8.c:(.text+0xf4): undefined reference to `sof_mailbox_read'
-> sound/soc/sof/imx/imx8.o: In function `imx8_dsp_handle_reply':
-> imx8.c:(.text+0x160): undefined reference to `sof_mailbox_read'
+> On 9/5/19 12:48 AM, Takashi Iwai wrote:
+> > On Thu, 05 Sep 2019 07:33:00 +0200,
+> > Pawel Harlozinski wrote:
+> >>
+> >> Adds SNDRV_PCM_RATE_24000 at the bottom to keep backward compability
+> >> with alsa library.
+> >>
+> >> Signed-off-by: Pawel Harlozinski <pawel.harlozinski@linux.intel.com>
+> >
+> > No.  Such a fancy rate has to be handled inside the driver locally
+> > instead of adding to the common rate.
 > 
-> Make SND_SOC_SOF_IMX_TOPLEVEL always depends on SND_SOC_SOF_OF
+> It's not that crazy, this is supported in the HDaudio spec:
 > 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Fixes: 202acc565a1f ("ASoC: SOF: imx: Add i.MX8 HW support")
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> Sample Base Rate Divisor (DIV):
+> 000 = Divide by 1 (48 kHz, 44.1 kHz)
+> 001 = Divide by 2 (24 kHz, 22.05 kHz)
+> 
+> I am not sure why 22.05 made the cut and not 24 kHz, they are both
+> derived from common clocks with the same divider... Same for 11.025
+> and 12...
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+I'm not against supporting it.  It'd be fine if it were the changes
+that are applied only to HD-audio driver side.  What I'm against is to
+change the ALSA PCM core.  It's not necessarily done there at all.
 
-> ---
->   sound/soc/sof/imx/Kconfig | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-> index fd73d84..5acae75 100644
-> --- a/sound/soc/sof/imx/Kconfig
-> +++ b/sound/soc/sof/imx/Kconfig
-> @@ -2,7 +2,8 @@
->   
->   config SND_SOC_SOF_IMX_TOPLEVEL
->   	bool "SOF support for NXP i.MX audio DSPs"
-> -	depends on ARM64 && SND_SOC_SOF_OF || COMPILE_TEST
-> +	depends on ARM64|| COMPILE_TEST
-> +	depends on SND_SOC_SOF_OF
->   	help
->             This adds support for Sound Open Firmware for NXP i.MX platforms.
->             Say Y if you have such a device.
-> 
 
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

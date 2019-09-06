@@ -2,71 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1387ABC32
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2019 17:22:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA829ABC9C
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2019 17:35:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35C06166A;
-	Fri,  6 Sep 2019 17:21:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35C06166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2010942;
+	Fri,  6 Sep 2019 17:34:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2010942
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567783368;
-	bh=1RiqQjELLCVo48BluBqXCGkvdYd+GeRJkz2rr+V4bmk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1567784119;
+	bh=RkwWwsF19S+ZafF1XjpYE0UqvR2s5X1S3kaUY+sqDbY=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=llKLtfHVz0wPhyzCJtEE83eG/54Etp5KlytmaZ26aqhYbLTvjZ6AtPhEbDU+35JEQ
-	 VGRccncgd7v4AFqpfJ+E5IeIYFb0JPRmzaVtIHDc/3rQ0ug2TihCvBG8RtmF/NkmtM
-	 8o6pZaj4Z4KuPgX6nd9eahUoJbCu9eIAa1cl/QTw=
+	b=QVMoxReSi0WWpKR89B0BdlFN53v6PU4sAcWaPZjOi+JfYhnzs1kPcN2hR4cs99ZDR
+	 LIyRP2pNtktSbOShVYCup3HkkvYabyEEgTOF/OOmVtHz9vzicBNJ6Uo0qoiLHBQQrt
+	 QnUCTDB1uL2PtAgLt1fS5B8mpcZPVhtY8ScjY/e8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 137D7F80390;
-	Fri,  6 Sep 2019 17:21:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50DB4F803D6;
+	Fri,  6 Sep 2019 17:33:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26EAFF803A6; Fri,  6 Sep 2019 17:21:00 +0200 (CEST)
+ id 53C90F80394; Fri,  6 Sep 2019 17:33:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55ABDF80390
- for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 17:20:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55ABDF80390
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="KQA+pX5Z"
-Received: from localhost (unknown [194.251.198.105])
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3CA95206BB;
- Fri,  6 Sep 2019 15:12:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1567782745;
- bh=6GBxspgEsamlTCCJsfyJ2SfiGNAzXrdve0R0H91hsEU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=KQA+pX5ZaCO86pfLNNXlSyts5HiNV0gdhmmNTMsFaLfMuVrL0E9Ev+83EmgpH1Bkc
- zJu+nCa43QGwO8bG/NGvyShYYWVY38WIC8jD7AFMXnYJF4y2fDkamyeHfTbAo7fpTC
- MvMZ/+ksTxzX6W6ThASeaY8b7+qk2SbBdpRYIUEo=
-From: Maxime Ripard <mripard@kernel.org>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh+dt@kernel.org>,
- Frank Rowand <frowand.list@gmail.com>
-Date: Fri,  6 Sep 2019 18:12:21 +0300
-Message-Id: <20190906151221.3148-2-mripard@kernel.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190906151221.3148-1-mripard@kernel.org>
-References: <20190906151221.3148-1-mripard@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 01F1CF802DF
+ for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 17:33:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 01F1CF802DF
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2019 08:33:25 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,473,1559545200"; d="scan'208";a="174309690"
+Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
+ by orsmga007.jf.intel.com with ESMTP; 06 Sep 2019 08:33:23 -0700
+Date: Fri, 6 Sep 2019 18:33:22 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@zeliteleevi
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <32939fda-9752-6f9e-2c7d-0a0cca2a6a08@linux.intel.com>
+Message-ID: <alpine.DEB.2.21.1909061829230.16459@zeliteleevi>
+References: <20190906142909.770-1-kai.vehmanen@linux.intel.com>
+ <20190906142909.770-3-kai.vehmanen@linux.intel.com>
+ <32939fda-9752-6f9e-2c7d-0a0cca2a6a08@linux.intel.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Chen-Yu Tsai <wens@csie.org>,
- Maxime Ripard <mripard@kernel.org>
-Subject: [alsa-devel] [PATCH v3 2/2] ASoC: dt-bindings: Convert Allwinner
-	A23 analog codec to a schema
+Cc: tiwai@suse.de, libin.yang@intel.com, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH v2 2/6] ASoC: Intel:
+ skl-hda-dsp-generic: use snd-hda-codec-hdmi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,101 +78,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Maxime Ripard <maxime.ripard@bootlin.com>
+Hey,
 
-The Allwinner A23 SoC and later have an embedded audio codec that uses a
-separate controller to drive its analog part, which is supported in Linux,
-with a matching Device Tree binding.
+On Fri, 6 Sep 2019, Pierre-Louis Bossart wrote:
+> > +	if (!strncmp(card->name, "sof-skl_hda_card", 16)) {
+> > +		for_each_card_components(card, component) {
+> > +			modname = module_name(component->dev->driver->owner);
+> > +			if (!strncmp(component->name, "ehdaudio0D2", 11) &&
+> > +			    !strncmp(modname, "snd_hda_codec_hdmi", 18))
+> > +				use_common_codec = 1;
+> > +		}
+> > +	}
+> 
+> yuk. I am not a big fan of this...
+> 
+> It seems that we could pass information from the SOF side to the machine
+> driver using the mach_params argument. we already pass the codec_mask and
+> other fields, it wouldn't be too hard to reclaim a field or extend the
+> structure to pass the information.
 
-Now that we have the DT validation in place, let's convert the device tree
-bindings for that controller over to a YAML schemas.
+it is ugly, no question about it. :) My reasoning for this was to contain 
+the ugliness within the machine drivers (especially these that are used 
+with both SOF and SST). New machine drivers with no legacy to maintain 
+could just skip it.
 
-Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
+If the general concept of compiling both codec drivers in, and selecting 
+at runtime, is acceptable, I'll check how this would look via mach_params.
 
----
-
-Changes from v2:
-  - Use an enum instead of a oneOf for the compatibles
-
-Changes from v1:
-  - Fix subject prefix
----
- .../allwinner,sun8i-a23-codec-analog.yaml     | 38 +++++++++++++++++++
- .../bindings/sound/sun8i-codec-analog.txt     | 17 ---------
- 2 files changed, 38 insertions(+), 17 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun8i-a23-codec-analog.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/sun8i-codec-analog.txt
-
-diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun8i-a23-codec-analog.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a23-codec-analog.yaml
-new file mode 100644
-index 000000000000..85305b4c2729
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/allwinner,sun8i-a23-codec-analog.yaml
-@@ -0,0 +1,38 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/allwinner,sun8i-a23-codec-analog.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Allwinner A23 Analog Codec Device Tree Bindings
-+
-+maintainers:
-+  - Chen-Yu Tsai <wens@csie.org>
-+  - Maxime Ripard <maxime.ripard@bootlin.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      # FIXME: This is documented in the PRCM binding, but needs to be
-+      # migrated here at some point
-+      # - allwinner,sun8i-a23-codec-analog
-+      - allwinner,sun8i-h3-codec-analog
-+      - allwinner,sun8i-v3s-codec-analog
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    codec_analog: codec-analog@1f015c0 {
-+      compatible = "allwinner,sun8i-h3-codec-analog";
-+      reg = <0x01f015c0 0x4>;
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/sound/sun8i-codec-analog.txt b/Documentation/devicetree/bindings/sound/sun8i-codec-analog.txt
-deleted file mode 100644
-index 07356758bd91..000000000000
---- a/Documentation/devicetree/bindings/sound/sun8i-codec-analog.txt
-+++ /dev/null
-@@ -1,17 +0,0 @@
--* Allwinner Codec Analog Controls
--
--Required properties:
--- compatible: must be one of the following compatibles:
--		- "allwinner,sun8i-a23-codec-analog"
--		- "allwinner,sun8i-h3-codec-analog"
--		- "allwinner,sun8i-v3s-codec-analog"
--
--Required properties if not a sub-node of the PRCM node:
--- reg: must contain the registers location and length
--
--Example:
--prcm: prcm@1f01400 {
--	codec_analog: codec-analog {
--		compatible = "allwinner,sun8i-a23-codec-analog";
--	};
--};
--- 
-2.21.0
-
+Br, Kai
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

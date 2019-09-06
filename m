@@ -2,92 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB24EAB018
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2019 03:26:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FEECAB020
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2019 03:30:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31BBF1671;
-	Fri,  6 Sep 2019 03:25:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31BBF1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C127167E;
+	Fri,  6 Sep 2019 03:29:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C127167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567733189;
-	bh=sQOO2dkj/+lW3tKtcoYx7T7Uk1yfY0xu2DO5D8Ki/3U=;
+	s=default; t=1567733438;
+	bh=tzKnox6kO4imbVQoyjTUaxcajW2YCbyogHoZ+/sOk/c=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sbKtRidAprF7cZSJQgvYjaWpWKMMzWLcPTOUagRTisqz0lU7YovCN/GYmFoNsBBWw
-	 op8X4HoF5QvKy2vO/QEBMpgG6Ws6LKOh5MwQHRu3w50JTzIrZ73p7da9fwXylQnm2B
-	 VLigBeIiXxlyD87gz8vZD4q84BPG9FgcQaR6eRyY=
+	b=kbBiR0Pc5sLJ7hfsXNFqBxYN9SeafsbnRS5VlGKxN3tyNwXpzBcV8g81OFqxg+mGv
+	 G5wwihrFhLBL+FWno4e+LgQwBczb8PYO/H0/VHeTf9GcrHvAlc/71W1Ntxj2iDYacH
+	 cu7lT4xTuJrumQOxcJwRsRC42sOFPBeGX2TpgEvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25498F80448;
-	Fri,  6 Sep 2019 03:24:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1D35F80171;
+	Fri,  6 Sep 2019 03:29:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 628D4F80448; Fri,  6 Sep 2019 03:24:41 +0200 (CEST)
+ id ABF59F8049B; Fri,  6 Sep 2019 03:29:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD76FF80227
- for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 03:24:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD76FF80227
+ by alsa1.perex.cz (Postfix) with ESMTPS id 315BFF80171
+ for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 03:29:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 315BFF80171
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="MseIdCPT"
-Received: by mail-pf1-x444.google.com with SMTP id y72so3134036pfb.12
- for <alsa-devel@alsa-project.org>; Thu, 05 Sep 2019 18:24:37 -0700 (PDT)
+ header.b="LLxnr0JE"
+Received: by mail-pg1-x544.google.com with SMTP id n9so2509005pgc.1
+ for <alsa-devel@alsa-project.org>; Thu, 05 Sep 2019 18:29:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=DVF2xhHbHg2j29LblU1CgBEDCkpvcBZ4AEHewXas5gw=;
- b=MseIdCPTJrTQJXOW2UzidBAhUmOeTrXnBtOR+3fZX0Z7OI2kykLR9y//15fPmkKV9a
- jR/BczxeqD7rUjgQQtjkNUcxys3QOUJc7m8djl78qIGtAVV9LZ6bm9aWXdUCqLgInU6o
- i9r57ZkOn4/OhHPgZ5D3aGFe0fmySrPPszYeYdqfpbD/SDAyfBbzX/yXBFHXcpGU0IKo
- GfLNTt5RHSp9N+2sNsG4vC44jSkL6ecF30cXzAYX5XPTNB2vJC2ShzAre40QKDu+lAKf
- fvN95tMY86KO3LdrIPbdYE/dMaKSziOm04axHBWu3fD3UGgRb4ouDRgQ4KIgNpgnrbRg
- H4pg==
+ bh=sEoTtCVr37b7oXmy+gvoKkzJJnuSTqH0meQQ6053Wm4=;
+ b=LLxnr0JE4Z4CWrSnhcqlNRIC2d8xEpNueechntqus1WAPdfNrw5vi3KN8zSMRtZ9E7
+ aiTRmWCIcAcaTcaXfN4XbZ6EZrXp4zlDDTiWQOjZsQweSHyJzpkHAi+Ao2GvyXunQbN1
+ Kk7/QAmX0s5sR0H7znd19wpx1vXZb8JaMW/juvG7WTA9XhpCY3FUMDvzizXjkmq0kPuc
+ Hkpd7MNdtnidTUxu9nttF4wZB3fIbKAqGk2eKY47VYtYOwXkiM+vPA3kglKUjcDWiM2j
+ mw7Iy+MOWOwIGrpmJGXgafZE/6w+xV2uwWRS4azhU2JRux5BwJd4zwmAgpdydGabvwbq
+ 1u+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DVF2xhHbHg2j29LblU1CgBEDCkpvcBZ4AEHewXas5gw=;
- b=RcPC//5sV2e5Nx7o+96gAdTgE/L+NfDAZoc24whYWo528CN7HzEStTu8z1p7mJIREG
- zaGUqmNZmA18eUbWRrHduAe9oD5QqrgU4T9bEbkYUtF0T6kDuFSHYaUDrWT8lioVqg6Y
- Zmp0T294WnCGRxk3rwj5UoI3BdXEXPFjeg67ZiWbVzGPGGYxD87BkvJ/QJeyqBnWgvXD
- kriFAeIyZc++XwqbVUqeKXBUXNN2fZQ40lEUqJ1LRvqaoBuTHkOwn6PryWcx8TYmZGW7
- dUNwuaDmRGi3mSbRvi0/1ed/powqJ7BXaD07RlXmC3ocLplWYEzWG5sY+LLCOAGlgyT+
- DhJw==
-X-Gm-Message-State: APjAAAUb7JZYRVKljtKP/EqPnxEXv3qB/dwUNrOUk5oB/SxB2JgJa/z+
- 6O1PT26CqO3NdUzJKwqHM0I=
-X-Google-Smtp-Source: APXvYqwqglByW+NsVpmNz31XHRSPZh2xUQuRAXEuUO67Oz/RsBaNjU+V97Dds8Akz3dZzec4uAhMGg==
-X-Received: by 2002:a62:26c4:: with SMTP id m187mr7721569pfm.49.1567733075155; 
- Thu, 05 Sep 2019 18:24:35 -0700 (PDT)
+ bh=sEoTtCVr37b7oXmy+gvoKkzJJnuSTqH0meQQ6053Wm4=;
+ b=lQfficg3CqtqmdJj1vTOLFrLf7tFvQx726rIBNDbrnjCiqa6mQ4YsoF/h85OC2Srr6
+ VMa74nUe1S2CwKWAn4sJQ3elHS3m4jtB9jQ4/EfKekMyjcm8ANFPzHKXqLZE6kTHxbbC
+ UG05XaJ2lBA1eU4XdJCvrigLuYegsQmwSAdB0Ue44LncOCcioZZw/s1uy926v6fpiz5R
+ 8EnDYcwVhMhboFYmS2eU540/ZBC2TGWEig1Bs1aG++lwOC7/RF1eIQXD7zH6CJk5sPN7
+ pcfcqjzudJ6UMsOR4ejGbPvjHNSVdY5Z3p5LdkteDPpPqiDoGxTqyPahVJ0NB+xuf0a2
+ rAzA==
+X-Gm-Message-State: APjAAAVERjGL8X0FtAs15iqlZAsX9wurXD4rJHDr80xMekrs3enjZpUR
+ O5tNitMJdoTsX2tLcgaZWSZuOvFq
+X-Google-Smtp-Source: APXvYqw34ECxlJhxS5GuecE+kJ5qkdhUN9hFocOlgPUycAu8bVz6ItjUepFxEW3gN0sCDl/W01/hOA==
+X-Received: by 2002:a17:90a:3acf:: with SMTP id
+ b73mr6434716pjc.88.1567733373322; 
+ Thu, 05 Sep 2019 18:29:33 -0700 (PDT)
 Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
  [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id r18sm3222688pfc.3.2019.09.05.18.24.34
+ by smtp.gmail.com with ESMTPSA id f188sm3327847pfa.170.2019.09.05.18.29.32
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 05 Sep 2019 18:24:34 -0700 (PDT)
-Date: Thu, 5 Sep 2019 18:24:39 -0700
+ Thu, 05 Sep 2019 18:29:32 -0700 (PDT)
+Date: Thu, 5 Sep 2019 18:29:39 -0700
 From: Nicolin Chen <nicoleotsuka@gmail.com>
 To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190906012438.GA17926@Asurada-Nvidia.nvidia.com>
-References: <20190830200900.19668-1-daniel.baluta@nxp.com>
+Message-ID: <20190906012938.GB17926@Asurada-Nvidia.nvidia.com>
+References: <20190830215910.31590-1-daniel.baluta@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190830200900.19668-1-daniel.baluta@nxp.com>
+In-Reply-To: <20190830215910.31590-1-daniel.baluta@nxp.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
  shengjiu.wang@nxp.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- NXP Linux Team <linux-imx@nxp.com>, Mihai Serban <mihai.serban@nxp.com>,
- festevam@gmail.com, mihai.serban@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Fix noise when using EDMA
+ NXP Linux Team <linux-imx@nxp.com>, Viorel Suman <viorel.suman@nxp.com>,
+ festevam@gmail.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Implement set_bclk_ratio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,59 +106,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Aug 30, 2019 at 11:09:00PM +0300, Daniel Baluta wrote:
-> From: Mihai Serban <mihai.serban@nxp.com>
+On Sat, Aug 31, 2019 at 12:59:10AM +0300, Daniel Baluta wrote:
+> From: Viorel Suman <viorel.suman@nxp.com>
 > 
-> EDMA requires the period size to be multiple of maxburst. Otherwise the
-> remaining bytes are not transferred and thus noise is produced.
-> 
-> We can handle this issue by adding a constraint on
-> SNDRV_PCM_HW_PARAM_PERIOD_SIZE to be multiple of tx/rx maxburst value.
+> This is to allow machine drivers to set a certain bitclk rate
+> which might not be exactly rate * frame size.
+
+Just a quick thought of mine: slot_width and slots could be
+set via set_dai_tdm_slot() actually, while set_bclk_ratio()
+would override that one with your change. I'm not sure which
+one could be more important...so would you mind elaborating
+your use case?
+
+Thanks
+Nicolin
+
+
 > 
 > Cc: NXP Linux Team <linux-imx@nxp.com>
-> Signed-off-by: Mihai Serban <mihai.serban@nxp.com>
+> Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
 > Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 > ---
->  sound/soc/fsl/fsl_sai.c | 15 +++++++++++++++
+>  sound/soc/fsl/fsl_sai.c | 21 +++++++++++++++++++--
 >  sound/soc/fsl/fsl_sai.h |  1 +
->  2 files changed, 16 insertions(+)
+>  2 files changed, 20 insertions(+), 2 deletions(-)
 > 
 > diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index 728307acab90..fe126029f4e3 100644
+> index fe126029f4e3..e896b577b1f7 100644
 > --- a/sound/soc/fsl/fsl_sai.c
 > +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -612,6 +612,16 @@ static int fsl_sai_startup(struct snd_pcm_substream *substream,
->  			   FSL_SAI_CR3_TRCE_MASK,
->  			   FSL_SAI_CR3_TRCE);
+> @@ -137,6 +137,16 @@ static int fsl_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
+>  	return 0;
+>  }
 >  
-> +	/*
-> +	 * some DMA controllers need period size to be a multiple of
-> +	 * tx/rx maxburst
-> +	 */
-> +	if (sai->soc_data->use_constraint_period_size)
-> +		snd_pcm_hw_constraint_step(substream->runtime, 0,
-> +					   SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
-> +					   tx ? sai->dma_params_tx.maxburst :
-> +					   sai->dma_params_rx.maxburst);
-
-I feel that PERIOD_SIZE could be used for some other cases than
-being related to maxburst....
-  
->  static const struct of_device_id fsl_sai_ids[] = {
+> +static int fsl_sai_set_dai_bclk_ratio(struct snd_soc_dai *dai,
+> +				      unsigned int ratio)
+> +{
+> +	struct fsl_sai *sai = snd_soc_dai_get_drvdata(dai);
+> +
+> +	sai->bclk_ratio = ratio;
+> +
+> +	return 0;
+> +}
+> +
+>  static int fsl_sai_set_dai_sysclk_tr(struct snd_soc_dai *cpu_dai,
+>  		int clk_id, unsigned int freq, int fsl_dir)
+>  {
+> @@ -423,8 +433,14 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
+>  		slot_width = sai->slot_width;
+>  
+>  	if (!sai->is_slave_mode) {
+> -		ret = fsl_sai_set_bclk(cpu_dai, tx,
+> -				slots * slot_width * params_rate(params));
+> +		if (sai->bclk_ratio)
+> +			ret = fsl_sai_set_bclk(cpu_dai, tx,
+> +					       sai->bclk_ratio *
+> +					       params_rate(params));
+> +		else
+> +			ret = fsl_sai_set_bclk(cpu_dai, tx,
+> +					       slots * slot_width *
+> +					       params_rate(params));
+>  		if (ret)
+>  			return ret;
+>  
+> @@ -640,6 +656,7 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
+>  }
+>  
+>  static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
+> +	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
+>  	.set_sysclk	= fsl_sai_set_dai_sysclk,
+>  	.set_fmt	= fsl_sai_set_dai_fmt,
+>  	.set_tdm_slot	= fsl_sai_set_dai_tdm_slot,
 > diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-> index b89b0ca26053..3a3f6f8e5595 100644
+> index 3a3f6f8e5595..f96f8d97489d 100644
 > --- a/sound/soc/fsl/fsl_sai.h
 > +++ b/sound/soc/fsl/fsl_sai.h
-> @@ -157,6 +157,7 @@
+> @@ -177,6 +177,7 @@ struct fsl_sai {
+>  	unsigned int mclk_streams;
+>  	unsigned int slots;
+>  	unsigned int slot_width;
+> +	unsigned int bclk_ratio;
 >  
->  struct fsl_sai_soc_data {
->  	bool use_imx_pcm;
-> +	bool use_constraint_period_size;
-
-....so maybe the soc specific flag here could be something like
-	bool use_edma;
-
-What do you think?
+>  	const struct fsl_sai_soc_data *soc_data;
+>  	struct snd_dmaengine_dai_dma_data dma_params_rx;
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

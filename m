@@ -2,64 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E4A2AC85A
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Sep 2019 19:46:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D851ACB1B
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 08:07:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FBDE166C;
-	Sat,  7 Sep 2019 19:45:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FBDE166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC1E31668;
+	Sun,  8 Sep 2019 08:06:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC1E31668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567878381;
-	bh=OmnJmM4Wr1EKCXi4bTd4L6OMyatTy2ej/+p6Xe0ZOYY=;
+	s=default; t=1567922835;
+	bh=N0g5DlL/4u3WUZ2c6tKpdN56PSlRY1D7FHqW35zrX34=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=vT6tIC4oI1DgNxPhJkoJVIlxj0gkOtnghq78gLMSiZwVknwXpF+xWbPMydaXvS9Mf
-	 azdLJdhCX3DehYnIDtvdpFcqfn7Q+1cUoqFyz3pBgsoUiSDkQHKSL8uU2XbOGBC6ui
-	 rVyh3eN+lLdU8UIQNBXbLlbDwi8PPEvqlhDCCP74=
+	b=J2ygTDXjFDQr1KVrnio6yrrYQu2SY+r0Ynn7ImAuec19KnUveb9TeK0nAi1C4f5zm
+	 AGng6bN1C7XINBI22gGTfKBfHwEiE1+WBr/hEf7rtCwIRyqhtRUNzKbPLVRpOM4qlP
+	 UjGF5/aUyOWwKAnKWwyfalDaw7hbpuEUHH6+PDoU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD8F1F804A9;
-	Sat,  7 Sep 2019 19:45:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72ACFF802DF;
+	Sun,  8 Sep 2019 08:05:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4067AF804A9; Sat,  7 Sep 2019 19:45:15 +0200 (CEST)
+ id E8957F80394; Fri,  6 Sep 2019 10:21:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from www1102.sakura.ne.jp (www1102.sakura.ne.jp [219.94.129.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F01CEF80171
- for <alsa-devel@alsa-project.org>; Sat,  7 Sep 2019 19:45:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F01CEF80171
-Received: from fsav401.sakura.ne.jp (fsav401.sakura.ne.jp [133.242.250.100])
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id x87Hj6mw009250;
- Sun, 8 Sep 2019 02:45:06 +0900 (JST)
- (envelope-from katsuhiro@katsuster.net)
-Received: from www1102.sakura.ne.jp (219.94.129.142)
- by fsav401.sakura.ne.jp (F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp);
- Sun, 08 Sep 2019 02:45:06 +0900 (JST)
-X-Virus-Status: clean(F-Secure/fsigk_smtp/530/fsav401.sakura.ne.jp)
-Received: from localhost.localdomain (118.153.231.153.ap.dti.ne.jp
- [153.231.153.118]) (authenticated bits=0)
- by www1102.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id x87Hj3KZ009238
- (version=TLSv1.2 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
- Sun, 8 Sep 2019 02:45:06 +0900 (JST)
- (envelope-from katsuhiro@katsuster.net)
-From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-To: Mark Brown <broonie@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Sun,  8 Sep 2019 02:45:01 +0900
-Message-Id: <20190907174501.19833-1-katsuhiro@katsuster.net>
-X-Mailer: git-send-email 2.23.0.rc1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18DF4F80214
+ for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 10:21:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18DF4F80214
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kObRmSyC"
+Received: by mail-ed1-x544.google.com with SMTP id o9so5570773edq.0
+ for <alsa-devel@alsa-project.org>; Fri, 06 Sep 2019 01:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AEUMKCNSgzcE24WqN25Q+F0d5BZbGBWOLXhrIGnOlrg=;
+ b=kObRmSyCGoFhl/gHhqQTKx1PpScEzV2QF4VkqzER4ZAtCh7NSnn3bToJjIeDhBJHnL
+ H5FXBSHmetACx/izg4Z85bca0vudzuoLCPuqwhMkHRloCIoxgKotgphj/9BrYlbG6maK
+ 0kk6jaB3YGN6WzKkDqj7gbowhzoV2OX5vcVJp5VHJGjsQm/bwxDl5Qjape88pQrG+PTC
+ xX52xc1675VaPFRVg77MVVtj9yH7ADEQu3IQTxZyfypGNP5u8X6dsXl6/ro2bmPDUprO
+ 18EDIHvx2mXt5PxXj+Qu+JR8E83jrw62AornwEtTp1p/iDMDOupFESE1TgoB1Lgdqwje
+ 4i5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AEUMKCNSgzcE24WqN25Q+F0d5BZbGBWOLXhrIGnOlrg=;
+ b=WUVtiuYYgqSoU3IxWGq8HY2nc/udgyh59ISbDWOmo3gdlMu39UxmIOvKA9grpadC6D
+ iL6UzHL60Q5Nmt2Ny8aDLvdmgZ0h9YG1TDivCuR3b9yEYGov1rOwM8hPY0+5m2lf9jvW
+ GycO6g+2y7CSsTh6juBoz7SgNzgPdFxIJ+wXjL+yj+K3e82aMzxYl1NxNgOXzPyRB9c5
+ joROyVAuzoGycDl5qoYyDXiHfajCRaYhEwR13VSfovcODhYNcNakBCWRA4cLK6+0gp1F
+ ae65BOnxZGR9ePBPgNQFjoHIdQYQk7noegFYpsZDEqppY6W+tM618TsPbaVQwarCvMKj
+ SMVQ==
+X-Gm-Message-State: APjAAAWCM4r3o47nMtKlK3ng43aV2TeBej1Ds7Sq98ym0UHWueYCgj9U
+ /e0HyYxfbJWvb3EWHETHMQNadntxOdY=
+X-Google-Smtp-Source: APXvYqxlpa2bukoDkQwGCgyb2p8mQ2T2NHWYWayDw3k48wCUrz33sXK2Yv0G9JYyaTrBVhh76rE/ig==
+X-Received: by 2002:a17:906:43c4:: with SMTP id
+ j4mr6202007ejn.197.1567758114672; 
+ Fri, 06 Sep 2019 01:21:54 -0700 (PDT)
+Received: from localhost.localdomain ([115.132.198.120])
+ by smtp.gmail.com with ESMTPSA id c8sm481232ejk.22.2019.09.06.01.21.52
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Fri, 06 Sep 2019 01:21:54 -0700 (PDT)
+From: Tim Blechmann <tim.blechmann@gmail.com>
+X-Google-Original-From: Tim Blechmann <tim@klingt.org>
+To: alsa-devel@alsa-project.org
+Date: Fri,  6 Sep 2019 16:21:19 +0800
+Message-Id: <20190906082119.40971-1-tim@klingt.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Cc: Katsuhiro Suzuki <katsuhiro@katsuster.net>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] SoC: simple-card-utils: set 0Hz to sysclk when
-	shutdown
+X-Mailman-Approved-At: Sun, 08 Sep 2019 08:05:28 +0200
+Cc: Tim Blechmann <tim@klingt.org>
+Subject: [alsa-devel] [PATCH] alsa: lx6464es - add support for LX6464ESe pci
+	express variant
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,63 +101,51 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch set 0Hz to sysclk when shutdown the card.
+The pci express variant of the digigram lx6464es card has a different
+device ID, but works without changes to the driver.
+Thanks to Nikolas Slottke for reporting and testing.
 
-Some codecs set rate constraints that derives from sysclk. This
-mechanism works correctly if machine drivers give fixed frequency.
+Signed-off-by: Tim Blechmann <tim@klingt.org>
 
-But simple-audio and audio-graph card set variable clock rate if
-'mclk-fs' property exists. In this case, rate constraints will go
-bad scenario. For example a codec accepts three limited rates
-(mclk / 256, mclk / 384, mclk / 512).
-
-Bad scenario as follows (mclk-fs = 256):
-   - Initialize sysclk by correct value (Ex. 12.288MHz)
-     - Codec set constraints of PCM rate by sysclk
-       48kHz (1/256), 32kHz (1/384), 24kHz (1/512)
-   - Play 48kHz sound, it's acceptable
-   - Sysclk is not changed
-
-   - Play 32kHz sound, it's acceptable
-   - Set sysclk to 8.192MHz (= fs * mclk-fs = 32k * 256)
-     - Codec set constraints of PCM rate by sysclk
-       32kHz (1/256), 21.33kHz (1/384), 16kHz (1/512)
-
-   - Play 48kHz again, but it's NOT acceptable because constraints
-     do not allow 48kHz
-
-So codecs treat 0Hz sysclk as signal of applying no constraints to
-avoid this problem.
-
-Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
 ---
- sound/soc/generic/simple-card-utils.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ include/linux/pci_ids.h       | 2 ++
+ sound/pci/lx6464es/lx6464es.c | 8 ++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 556b1a789629..9b794775df53 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -213,10 +213,17 @@ EXPORT_SYMBOL_GPL(asoc_simple_startup);
- void asoc_simple_shutdown(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct simple_dai_props *dai_props =
- 		simple_priv_to_props(priv, rtd->num);
+diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
+index 7fa3f1498b34..08e15891ed2e 100644
+--- a/include/linux/pci_ids.h
++++ b/include/linux/pci_ids.h
+@@ -1933,6 +1933,8 @@
+ #define PCI_VENDOR_ID_DIGIGRAM		0x1369
+ #define PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ES_SERIAL_SUBSYSTEM	0xc001
+ #define PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ES_CAE_SERIAL_SUBSYSTEM	0xc002
++#define PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ESE_SERIAL_SUBSYSTEM		0xc021
++#define PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ESE_CAE_SERIAL_SUBSYSTEM	0xc022
  
-+	if (dai_props->mclk_fs) {
-+		snd_soc_dai_set_sysclk(codec_dai, 0, 0, SND_SOC_CLOCK_IN);
-+		snd_soc_dai_set_sysclk(cpu_dai, 0, 0, SND_SOC_CLOCK_OUT);
-+	}
-+
- 	asoc_simple_clk_disable(dai_props->cpu_dai);
+ #define PCI_VENDOR_ID_KAWASAKI		0x136b
+ #define PCI_DEVICE_ID_MCHIP_KL5A72002	0xff01
+diff --git a/sound/pci/lx6464es/lx6464es.c b/sound/pci/lx6464es/lx6464es.c
+index 9655b08a1c52..3f07e346ad41 100644
+--- a/sound/pci/lx6464es/lx6464es.c
++++ b/sound/pci/lx6464es/lx6464es.c
+@@ -65,6 +65,14 @@ static const struct pci_device_id snd_lx6464es_ids[] = {
+ 			 PCI_VENDOR_ID_DIGIGRAM,
+ 			 PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ES_CAE_SERIAL_SUBSYSTEM),
+ 	},			/* LX6464ES-CAE */
++	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_LX6464ES,
++			 PCI_VENDOR_ID_DIGIGRAM,
++			 PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ESE_SERIAL_SUBSYSTEM),
++	},			/* LX6464ESe */
++	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_PLX, PCI_DEVICE_ID_PLX_LX6464ES,
++			 PCI_VENDOR_ID_DIGIGRAM,
++			 PCI_SUBDEVICE_ID_DIGIGRAM_LX6464ESE_CAE_SERIAL_SUBSYSTEM),
++	},			/* LX6464ESe-CAE */
+ 	{ 0, },
+ };
  
- 	asoc_simple_clk_disable(dai_props->codec_dai);
 -- 
-2.23.0.rc1
+2.18.0
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E3CAC0E6
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2019 21:51:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23857AC0E9
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Sep 2019 21:52:02 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5646D1655;
-	Fri,  6 Sep 2019 21:50:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5646D1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61FC7166D;
+	Fri,  6 Sep 2019 21:51:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61FC7166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567799480;
-	bh=juvjR6YxbBb+UAYryAVEYCU2EpF9AZkRdO2cI9Cg0Rs=;
+	s=default; t=1567799521;
+	bh=qjYmvXQZ10S2t2sGM7DIIBvwT+2AsKKN2jr9Q/yDEbo=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AiDstikOdEUtqTtCRmY7d2UxkRSRxvjWbEN5LUceITDq1XfFNbLCoum2EFqQvQ/Au
-	 2571GQ3GUj7uiJwuK9e9dOfx2axDattaimX1hGwNrsE2lTVKNp7mCpxvCdhrDbZ9Or
-	 Ec7XofdjaIh8DPtfSRIufhmSPDn7XW3mzVEGNiLc=
+	b=qcXrqlNHXyeC7mbHiZMlq9DpROkZgXbWM3q+YjApI4+2XmZLf7IK2kZnYRqb8rE8s
+	 gOyliNDtIvjCb2hpzl//EmVwAXQVlvJFSw+/+qorLq+nQfSepPc2gxYRefcwUYAkqz
+	 9m3ZVYT5QFg1KLI2Bmu1QroSL1Llj0Zj4NJg3Awg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D49AF80633;
-	Fri,  6 Sep 2019 21:47:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7B13F8063A;
+	Fri,  6 Sep 2019 21:48:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6DB5F80612; Fri,  6 Sep 2019 21:47:54 +0200 (CEST)
+ id 32796F80639; Fri,  6 Sep 2019 21:47:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B8817F8060E
- for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 21:47:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8817F8060E
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0638F80611
+ for <alsa-devel@alsa-project.org>; Fri,  6 Sep 2019 21:47:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0638F80611
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="gIfihF6/"
-Received: by mail-pf1-x441.google.com with SMTP id r12so5238465pfh.1
- for <alsa-devel@alsa-project.org>; Fri, 06 Sep 2019 12:47:50 -0700 (PDT)
+ header.b="fyOKSHzR"
+Received: by mail-pf1-x444.google.com with SMTP id d15so5198671pfo.10
+ for <alsa-devel@alsa-project.org>; Fri, 06 Sep 2019 12:47:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=moKloexR9vorDQM4Iosj84blg7yZVcNp+szO8t+Ry2A=;
- b=gIfihF6/9VLzqid9Qar35yfcL/R2oiYK2NKvvKimBd2Ok976folsyXi5WqguJymasd
- 8HOHFkSykA4yD62UjBPLWCmeW6mUKE7o108FA832XfErHH+e+BJ5mnqZCYvVButrTAVF
- Qy4eqt0huoPoNCwRybGIjxqEACBaJbLill4GU=
+ bh=gapN+hwSxlX78IFbIdAVK+5HSLsRdoV1q4n7vdli/0M=;
+ b=fyOKSHzRz1Z4ZpCazORsupQKTsZRPUwAz/zEfvMErPCQG2PEWeq7X04+4ivUYgJ190
+ 4xODZsonRh/LZyqHKGss44tNLRsFTSfP6hBfCV3jiNiJulW68Hw9r2wjH4nI6Tms03tI
+ PJZ1Ir0eCpVjvT21g99SWFV2ImqNg6Ezn8vc4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=moKloexR9vorDQM4Iosj84blg7yZVcNp+szO8t+Ry2A=;
- b=jb/4pe3DjkHIbpvhURydct9bDMWXRYM7J2k6dG0Yu93+47gSmqmJgRXk0ZgGG71UsF
- 8IVGFFvDNaB1XdlzDFffK9qg7/sq0jzmlv1uD5btNje6kckTFEm1UKLY6xHLZ+aWnbeU
- OrRO/teSQerx15s1YmzSp4gpuVp5fYtTCCU/tKoe95q9oGnaXCER6SAKqtNewyzs+Xyo
- DsrsvXnlqKD4IC965/E+7jxpCjM8t9a5ngfciahFbNAA58T7FPCLxsQ+9CHwWWrXsFhO
- rRXSodBe/Z8SRdYeC7LUhovycC3Ecpv1QWniZhj2Y7nwmYHf5c6BfOV8aAz2CXY2S9GX
- k49w==
-X-Gm-Message-State: APjAAAX+1m7P56aJkwiPaZYOnlvaT35may6ejiB/r51adX4FAF0i35+N
- eaSSB9pbnySnLFHuF7rRzMuglhEluw==
-X-Google-Smtp-Source: APXvYqy68yyUvEm5xGhBP7gNLofxqIloeHIHweP9SFnwv/iMIyxuymPge8ji73T/pUYbCKbFyuFvkw==
-X-Received: by 2002:a62:ed04:: with SMTP id u4mr12635666pfh.220.1567799268622; 
- Fri, 06 Sep 2019 12:47:48 -0700 (PDT)
+ bh=gapN+hwSxlX78IFbIdAVK+5HSLsRdoV1q4n7vdli/0M=;
+ b=CVREJNGeESGzTBDmkxUcjaKwjlba72jvWBpAl14oqPfFmwbeDDAy/NS8IRC55ljnrO
+ Kvd4VQU5QfNvBbmUMzNZjJj/3JIUWKxlbSSA0gga761M1n4o5b+AEvGqY6yvCwpaXRhB
+ UOT2cOxzQCMXMVwNypzi71b/+LLeJv3SJxnHnb6eVElcUoPDSVmmDYzszbUAJxE44CTS
+ fM/hAF5TsJ0WPiEx0PdmBekTeWwHDKZYBMsyvf3m7j/7lLS4563J9NqKYWjH0rgUnrhJ
+ /nCCMQxTf6w1ONusVo+Kb16rN3qrqNjnuEbnbVHcBa+Uf1WQla2lpJXgrLdy70fDOZps
+ SIYA==
+X-Gm-Message-State: APjAAAUuV0pQmQlpfE2iZXcNzFPJHVDp5+jqiMl9jUnmBnj3zTHdPb0O
+ 4Q61oj4//Y/PNkoWx6G3Xnd6kNeRBg==
+X-Google-Smtp-Source: APXvYqwHylr6B3zkbaQtWvFsWxl1pBH6vAQPgfdRctKwf2KN5PsW859rr8CKNvRtkf8dC0ZBTe9CAQ==
+X-Received: by 2002:a63:c009:: with SMTP id h9mr9428539pgg.166.1567799272456; 
+ Fri, 06 Sep 2019 12:47:52 -0700 (PDT)
 Received: from localhost ([2620:15c:202:201:c87a:31ae:9107:f63d])
- by smtp.gmail.com with ESMTPSA id h70sm5482135pgc.36.2019.09.06.12.47.47
+ by smtp.gmail.com with ESMTPSA id m4sm7504579pgs.71.2019.09.06.12.47.51
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Sep 2019 12:47:48 -0700 (PDT)
+ Fri, 06 Sep 2019 12:47:52 -0700 (PDT)
 From: Curtis Malainey <cujomalainey@chromium.org>
 To: alsa-devel@alsa-project.org
-Date: Fri,  6 Sep 2019 12:46:25 -0700
-Message-Id: <20190906194636.217881-4-cujomalainey@chromium.org>
+Date: Fri,  6 Sep 2019 12:46:26 -0700
+Message-Id: <20190906194636.217881-5-cujomalainey@chromium.org>
 X-Mailer: git-send-email 2.23.0.187.g17f5b7556c-goog
 In-Reply-To: <20190906194636.217881-1-cujomalainey@chromium.org>
 References: <20190906194636.217881-1-cujomalainey@chromium.org>
@@ -82,8 +82,7 @@ Cc: Oder Chiou <oder_chiou@realtek.com>, Takashi Iwai <tiwai@suse.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Ben Zhang <benzh@chromium.org>,
  Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>,
  Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] [RFC 03/15] ASoC: rt5677: Add a PCM device for
-	streaming hotword via SPI
+Subject: [alsa-devel] [RFC 04/15] ASoC: rt5677: Load firmware via SPI
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,431 +102,406 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Ben Zhang <benzh@chromium.org>
 
-This patch implements a PCM interface for streaming hotword
-phrases over SPI. Userspace can open the PCM device at anytime.
-The stream is blocked when no hotword is detected. The mic
-audio buffer on the DSP is a ~128KByte ring buffer that holds
-~4sec of audio samples recorded from the DMIC (S16_LE, mono,
-16KHz). After a hotword is detected, previous 2 seconds of audio
-(containing the detected hotword) is streamed first, then live
-capture continues until userspace closes the PCM stream.
+The firmware rt5677_elf_vad is an ELF binary obtained from
+request_firmware(). Sections of the ELF are loaded to
+the DSP via SPI. A model (e.g. en_us.mmap) can optionally be
+loaded to the DSP at RT5677_MODEL_ADDR to overwrite the
+baked-in model in rt5677_elf_vad.
+
+When 'DSP VAD Switch' is turned on, rt5677_set_vad_source()
+enables the following digital path:
+
+DMIC L1 ->
+Mono DMIC L Mux ->
+Mono ADC2 L Mux ->
+Mono ADC MIXL ->
+VAD ADC Mux ->
+IB01 Mux
+
+Then we switch to DSP mode, load firmware, and let DSP run.
+When a hotword is detected, an interrupt is fired and
+rt5677_irq() is called. When 'DSP VAD Switch' is turned off,
+the codec is set back to normal mode.
 
 Signed-off-by: Ben Zhang <benzh@chromium.org>
 Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 ---
- sound/soc/codecs/rt5677-spi.c | 360 ++++++++++++++++++++++++++++++++++
- sound/soc/codecs/rt5677-spi.h |   1 +
- 2 files changed, 361 insertions(+)
+ sound/soc/codecs/rt5677.c | 306 +++++++++++++++++++++++++++++++-------
+ sound/soc/codecs/rt5677.h |   1 +
+ 2 files changed, 254 insertions(+), 53 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5677-spi.c b/sound/soc/codecs/rt5677-spi.c
-index d681488f5312..62621fe4747c 100644
---- a/sound/soc/codecs/rt5677-spi.c
-+++ b/sound/soc/codecs/rt5677-spi.c
-@@ -24,6 +24,8 @@
- #include <linux/firmware.h>
- #include <linux/acpi.h>
+diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+index 315a3d39bc09..35d4ec1b7dfd 100644
+--- a/sound/soc/codecs/rt5677.c
++++ b/sound/soc/codecs/rt5677.c
+@@ -38,6 +38,10 @@
  
-+#include <sound/soc.h>
-+
- #include "rt5677-spi.h"
+ #define RT5677_DEVICE_ID 0x6327
  
- #define DRV_NAME "rt5677spi"
-@@ -45,9 +47,330 @@
- #define RT5677_SPI_WRITE_16	0x1
- #define RT5677_SPI_READ_16	0x0
- 
-+#define RT5677_BUF_BYTES_TOTAL		0x20000
-+#define RT5677_MIC_BUF_ADDR		0x60030000
++/* Register controlling boot vector */
++#define RT5677_DSP_BOOT_VECTOR		0x1801f090
 +#define RT5677_MODEL_ADDR		0x5FFC9800
-+#define RT5677_MIC_BUF_BYTES		(RT5677_BUF_BYTES_TOTAL - sizeof(u32))
-+#define RT5677_MIC_BUF_FIRST_READ_SIZE	0x10000
 +
- static struct spi_device *g_spi;
- static DEFINE_MUTEX(spi_mutex);
+ #define RT5677_PR_RANGE_BASE (0xff + 1)
+ #define RT5677_PR_SPACING 0x100
  
-+struct rt5677_dsp {
-+	struct device *dev;
-+	struct delayed_work copy_work;
-+	struct mutex dma_lock;
-+	struct snd_pcm_substream *substream;
-+	size_t dma_offset;	/* zero-based offset into runtime->dma_area */
-+	size_t avail_bytes;	/* number of new bytes since last period */
-+	u32 mic_read_offset;	/* zero-based offset into DSP's mic buffer */
-+	bool new_hotword;	/* a new hotword is fired */
-+};
-+
-+static const struct snd_pcm_hardware rt5677_spi_pcm_hardware = {
-+	.info			= SNDRV_PCM_INFO_MMAP |
-+				  SNDRV_PCM_INFO_MMAP_VALID |
-+				  SNDRV_PCM_INFO_INTERLEAVED,
-+	.formats		= SNDRV_PCM_FMTBIT_S16_LE,
-+	.period_bytes_min	= PAGE_SIZE,
-+	.period_bytes_max	= RT5677_BUF_BYTES_TOTAL / 8,
-+	.periods_min		= 8,
-+	.periods_max		= 8,
-+	.channels_min		= 1,
-+	.channels_max		= 1,
-+	.buffer_bytes_max	= RT5677_BUF_BYTES_TOTAL,
-+};
-+
-+static struct snd_soc_dai_driver rt5677_spi_dai = {
-+	/* The DAI name "rt5677-dsp-cpu-dai" is not used. The actual DAI name
-+	 * registered with ASoC is the name of the device "spi-RT5677AA:00",
-+	 * because we only have one DAI. See snd_soc_register_dais().
-+	 */
-+	.name = "rt5677-dsp-cpu-dai",
-+	.id = 0,
-+	.capture = {
-+		.stream_name = "DSP Capture",
-+		.channels_min = 1,
-+		.channels_max = 1,
-+		.rates = SNDRV_PCM_RATE_16000,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+	},
-+};
-+
-+/* PCM for streaming audio from the DSP buffer */
-+static int rt5677_spi_pcm_open(struct snd_pcm_substream *substream)
+@@ -701,6 +705,210 @@ static void rt5677_set_dsp_mode(struct snd_soc_component *component, bool on)
+ 	}
+ }
+ 
++static unsigned int rt5677_set_vad_source(
++	struct snd_soc_component *component)
 +{
-+	snd_soc_set_runtime_hwparams(substream, &rt5677_spi_pcm_hardware);
++	struct rt5677_priv *rt5677 = snd_soc_component_get_drvdata(component);
++
++	/* Mono ADC Capture Switch = unmute (default) */
++	regmap_update_bits(rt5677->regmap, RT5677_MONO_ADC_DIG_VOL,
++			RT5677_L_MUTE, 0);
++
++	/* Mono ADC Boost Volume = 24dB */
++	regmap_update_bits(rt5677->regmap, RT5677_ADC_BST_CTRL2,
++		RT5677_MONO_ADC_L_BST_MASK | RT5677_MONO_ADC_R_BST_MASK,
++		(0x2 << RT5677_MONO_ADC_L_BST_SFT) |
++		(0x2 << RT5677_MONO_ADC_R_BST_SFT));
++
++	/* Mono ADC MIXL = Mono ADC2 L Mux (unmute)
++	 *                 Mono ADC1 L Mux (mute)
++	 * Mono ADC2 L Mux = Mono DMIC L Mux
++	 * Mono DMIC L Mux = DMIC1 (left)
++	 */
++	regmap_update_bits(rt5677->regmap, RT5677_MONO_ADC_MIXER,
++		RT5677_M_MONO_ADC_L2 | RT5677_M_MONO_ADC_L1 |
++		RT5677_SEL_MONO_ADC_L2_MASK | RT5677_SEL_MONO_DMIC_L_MASK,
++		RT5677_M_MONO_ADC_L1 | (1 << RT5677_SEL_MONO_ADC_L2_SFT) |
++		(0 << RT5677_SEL_MONO_DMIC_L_SFT));
++
++	/* DMIC1 power = enabled
++	 * DMIC CLK = 256 * fs / 12
++	 */
++	regmap_update_bits(rt5677->regmap, RT5677_DMIC_CTRL1,
++		RT5677_DMIC_1_EN_MASK | RT5677_DMIC_CLK_MASK,
++		RT5677_DMIC_1_EN | (5 << RT5677_DMIC_CLK_SFT));
++
++	/* I2S pre divide 2 = /6 (clk_sys2) */
++	regmap_update_bits(rt5677->regmap, RT5677_CLK_TREE_CTRL1,
++		RT5677_I2S_PD2_MASK, RT5677_I2S_PD2_6);
++
++	/* System Clock = MCLK1
++	 * Stereo ADC/DAC over sample rate = 128Fs (default)
++	 */
++	regmap_write(rt5677->regmap, RT5677_GLB_CLK1, 0x0000);
++
++	/* DSP Clock = MCLK1 (bypassed PLL2) */
++	regmap_write(rt5677->regmap, RT5677_GLB_CLK2,
++		RT5677_DSP_CLK_SRC_BYPASS);
++
++	/* Clock source for Mono L ADC = clk_sys2 */
++	regmap_update_bits(rt5677->regmap, RT5677_ASRC_6,
++		RT5677_AD_MONOL_CLK_SEL_MASK, 7 << RT5677_AD_MONOL_CLK_SEL_SFT);
++
++	/* SAD Threshold1 */
++	regmap_write(rt5677->regmap, RT5677_VAD_CTRL2, 0x013f);
++	/* SAD Threshold2 */
++	regmap_write(rt5677->regmap, RT5677_VAD_CTRL3, 0x0ae5);
++	/* SAD Sample Rate Converter = Up 6 (8K to 48K)
++	 * SAD Output Sample Rate = Same as I2S
++	 * VAD ADC Mux = MONO ADC MIX L
++	 * SAD Threshold3
++	 */
++	regmap_write(rt5677->regmap, RT5677_VAD_CTRL4,
++		0x01 << RT5677_VAD_SRC_SFT |
++		0x7f << RT5677_VAD_LV_DIFF_SFT);
++	/* Minimum frame level within a pre-determined duration = 32 frames
++	 * Bypass ADPCM Encoder/Decoder = Bypass ADPCM
++	 * Automatic Push Data to SAD Buffer Once SAD Flag is triggered = enable
++	 * SAD Buffer Over-Writing = enable
++	 * SAD Buffer Pop Mode Control = disable
++	 * SAD Buffer Push Mode Control = enable
++	 * SAD Detector Control = enable
++	 * SAD Function Control = enable
++	 * SAD Function Reset = normal
++	 */
++	regmap_write(rt5677->regmap, RT5677_VAD_CTRL1,
++		RT5677_VAD_FUNC_RESET | RT5677_VAD_FUNC_ENABLE |
++		RT5677_VAD_DET_ENABLE | RT5677_VAD_BUF_PUSH |
++		RT5677_VAD_BUF_OW | RT5677_VAD_FG2ENC |
++		RT5677_VAD_ADPCM_BYPASS | 1 << RT5677_VAD_MIN_DUR_SFT);
++
++	/* InBound0/1 Source = VAD ADC/DAC1 FS */
++	regmap_update_bits(rt5677->regmap, RT5677_DSP_INB_CTRL1,
++		RT5677_IB01_SRC_MASK, 4 << RT5677_IB01_SRC_SFT);
++
++	/* IRQ Source of VAD Jack Detection = enable */
++	regmap_write(rt5677->regmap, RT5677_IRQ_CTRL2, 0x4000);
++
++	/* Enable Gating Mode with MCLK = enable */
++	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC, 0x1, 0x1);
++
++	/* Private register, no doc */
++	regmap_update_bits(rt5677->regmap, RT5677_PR_BASE + RT5677_BIAS_CUR4,
++		0x0f00, 0x0100);
++
++	/* adc mono left filter = power on */
++	regmap_update_bits(rt5677->regmap, RT5677_PWR_DIG2,
++		RT5677_PWR_ADC_MF_L, RT5677_PWR_ADC_MF_L);
++
++	/* LDO2 output = 1.2V
++	 * LDO1 output = 1.2V (LDO_IN = 1.8V)
++	 */
++	regmap_update_bits(rt5677->regmap, RT5677_PWR_ANLG1,
++		RT5677_LDO1_SEL_MASK | RT5677_LDO2_SEL_MASK,
++		5 << RT5677_LDO1_SEL_SFT | 5 << RT5677_LDO2_SEL_SFT);
++
++	/* Codec core power =  power on
++	 * LDO1 power = power on
++	 */
++	regmap_update_bits(rt5677->regmap, RT5677_PWR_ANLG2,
++		RT5677_PWR_CORE | RT5677_PWR_LDO1,
++		RT5677_PWR_CORE | RT5677_PWR_LDO1);
++
++	/* Isolation for DCVDD4 = normal (set during probe)
++	 * Isolation for DCVDD2 = normal (set during probe)
++	 * Isolation for DSP = normal
++	 * Isolation for Band 0~7 = disable
++	 * Isolation for InBound 4~10 and OutBound 4~10 = disable
++	 */
++	regmap_write(rt5677->regmap, RT5677_PWR_DSP2,
++		RT5677_PWR_CORE_ISO | RT5677_PWR_DSP_ISO |
++		RT5677_PWR_SR7_ISO | RT5677_PWR_SR6_ISO |
++		RT5677_PWR_SR5_ISO | RT5677_PWR_SR4_ISO |
++		RT5677_PWR_SR3_ISO | RT5677_PWR_SR2_ISO |
++		RT5677_PWR_SR1_ISO | RT5677_PWR_SR0_ISO |
++		RT5677_PWR_MLT_ISO);
++
++	/* System Band 0~7 = power on
++	 * InBound 4~10 and OutBound 4~10 = power on
++	 * DSP = power on
++	 * DSP CPU = stop (will be set to "run" after firmware loaded)
++	 */
++	regmap_write(rt5677->regmap, RT5677_PWR_DSP1,
++		RT5677_PWR_SR7 | RT5677_PWR_SR6 |
++		RT5677_PWR_SR5 | RT5677_PWR_SR4 |
++		RT5677_PWR_SR3 | RT5677_PWR_SR2 |
++		RT5677_PWR_SR1 | RT5677_PWR_SR0 |
++		RT5677_PWR_MLT | RT5677_PWR_DSP |
++		RT5677_PWR_DSP_CPU);
++
 +	return 0;
 +}
 +
-+static int rt5677_spi_pcm_close(struct snd_pcm_substream *substream)
++static int rt5677_parse_and_load_dsp(struct rt5677_priv *rt5677, const u8 *buf,
++		unsigned int len)
 +{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_component *component =
-+			snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct rt5677_dsp *rt5677_dsp =
-+			snd_soc_component_get_drvdata(component);
-+
-+	cancel_delayed_work_sync(&rt5677_dsp->copy_work);
-+	return 0;
-+}
-+
-+static int rt5677_spi_hw_params(struct snd_pcm_substream *substream,
-+			       struct snd_pcm_hw_params *hw_params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_component *component =
-+			snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct rt5677_dsp *rt5677_dsp =
-+			snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	mutex_lock(&rt5677_dsp->dma_lock);
-+	ret = snd_pcm_lib_alloc_vmalloc_buffer(substream,
-+			params_buffer_bytes(hw_params));
-+	rt5677_dsp->substream = substream;
-+	mutex_unlock(&rt5677_dsp->dma_lock);
-+
-+	return ret;
-+}
-+
-+static int rt5677_spi_hw_free(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_component *component =
-+			snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct rt5677_dsp *rt5677_dsp =
-+			snd_soc_component_get_drvdata(component);
-+
-+	mutex_lock(&rt5677_dsp->dma_lock);
-+	rt5677_dsp->substream = 0;
-+	mutex_unlock(&rt5677_dsp->dma_lock);
-+
-+	return snd_pcm_lib_free_vmalloc_buffer(substream);
-+}
-+
-+static int rt5677_spi_prepare(struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_component *component =
-+			snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct rt5677_dsp *rt5677_dsp =
-+			snd_soc_component_get_drvdata(component);
-+
-+	rt5677_dsp->dma_offset = 0;
-+	rt5677_dsp->avail_bytes = 0;
-+	return 0;
-+}
-+
-+static snd_pcm_uframes_t rt5677_spi_pcm_pointer(
-+		struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_runtime *runtime = substream->runtime;
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_component *component =
-+			snd_soc_rtdcom_lookup(rtd, DRV_NAME);
-+	struct rt5677_dsp *rt5677_dsp =
-+			snd_soc_component_get_drvdata(component);
-+
-+	return bytes_to_frames(runtime, rt5677_dsp->dma_offset);
-+}
-+
-+static int rt5677_spi_mic_write_offset(u32 *mic_write_offset)
-+{
-+	int ret;
-+	/* Grab the first 4 bytes that hold the write pointer on the
-+	 * dsp, and check to make sure that it points somewhere inside the
-+	 * buffer.
-+	 */
-+	ret = rt5677_spi_read(RT5677_MIC_BUF_ADDR, mic_write_offset,
-+			sizeof(u32));
-+	if (ret)
-+		return ret;
-+	/* Adjust the offset so that it's zero-based */
-+	*mic_write_offset = *mic_write_offset - sizeof(u32);
-+	return *mic_write_offset < RT5677_MIC_BUF_BYTES ? 0 : -EFAULT;
-+}
-+
-+/*
-+ * Copy a block of audio samples from the DSP mic buffer to the dma_area of
-+ * the pcm runtime. The receiving buffer may wrap around.
-+ * @begin: start offset of the block to copy, in bytes.
-+ * @end:   offset of the first byte after the block to copy, must be greater
-+ *         than or equal to begin.
-+ *
-+ * Return: Zero if successful, or a negative error code on failure.
-+ */
-+static int rt5677_spi_append_data(struct rt5677_dsp *rt5677_dsp,
-+		u32 begin, u32 end)
-+{
-+	struct snd_pcm_runtime *runtime = rt5677_dsp->substream->runtime;
-+	size_t bytes_per_frame = frames_to_bytes(runtime, 1);
-+	size_t first_chunk_len, second_chunk_len;
-+	int ret;
-+
-+	if (begin > end || runtime->dma_bytes < 2 * bytes_per_frame) {
-+		dev_err(rt5677_dsp->dev,
-+			"Invalid copy from (%u, %u), dma_area size %zu\n",
-+			begin, end, runtime->dma_bytes);
-+		return -EINVAL;
-+	}
-+
-+	/* The block to copy is empty */
-+	if (begin == end)
-+		return 0;
-+
-+	/* If the incoming chunk is too big for the receiving buffer, only the
-+	 * last "receiving buffer size - one frame" bytes are copied.
-+	 */
-+	if (end - begin > runtime->dma_bytes - bytes_per_frame)
-+		begin = end - (runtime->dma_bytes - bytes_per_frame);
-+
-+	/* May need to split to two chunks, calculate the size of each */
-+	first_chunk_len = end - begin;
-+	second_chunk_len = 0;
-+	if (rt5677_dsp->dma_offset + first_chunk_len > runtime->dma_bytes) {
-+		/* Receiving buffer wrapped around */
-+		second_chunk_len = first_chunk_len;
-+		first_chunk_len = runtime->dma_bytes - rt5677_dsp->dma_offset;
-+		second_chunk_len -= first_chunk_len;
-+	}
-+
-+	/* Copy first chunk */
-+	ret = rt5677_spi_read(RT5677_MIC_BUF_ADDR + sizeof(u32) + begin,
-+			runtime->dma_area + rt5677_dsp->dma_offset,
-+			first_chunk_len);
-+	if (ret)
-+		return ret;
-+	rt5677_dsp->dma_offset += first_chunk_len;
-+	if (rt5677_dsp->dma_offset == runtime->dma_bytes)
-+		rt5677_dsp->dma_offset = 0;
-+
-+	/* Copy second chunk */
-+	if (second_chunk_len) {
-+		ret = rt5677_spi_read(RT5677_MIC_BUF_ADDR + sizeof(u32) +
-+				begin + first_chunk_len, runtime->dma_area,
-+				second_chunk_len);
-+		if (!ret)
-+			rt5677_dsp->dma_offset = second_chunk_len;
-+	}
-+	return ret;
-+}
-+
-+/*
-+ * A delayed work that streams audio samples from the DSP mic buffer to the
-+ * dma_area of the pcm runtime via SPI.
-+ */
-+static void rt5677_spi_copy_work(struct work_struct *work)
-+{
-+	struct rt5677_dsp *rt5677_dsp =
-+		container_of(work, struct rt5677_dsp, copy_work.work);
-+	struct snd_pcm_runtime *runtime;
-+	u32 mic_write_offset;
-+	size_t bytes_copied, period_bytes;
++	struct snd_soc_component *component = rt5677->component;
++	Elf32_Ehdr *elf_hdr;
++	Elf32_Phdr *pr_hdr;
++	Elf32_Half i;
 +	int ret = 0;
 +
-+	/* Ensure runtime->dma_area buffer does not go away while copying. */
-+	mutex_lock(&rt5677_dsp->dma_lock);
-+	if (!rt5677_dsp->substream) {
-+		dev_err(rt5677_dsp->dev, "No pcm substream\n");
-+		goto done;
++	if (!buf || (len < sizeof(Elf32_Ehdr)))
++		return -ENOMEM;
++
++	elf_hdr = (Elf32_Ehdr *)buf;
++#ifndef EM_XTENSA
++#define EM_XTENSA	94
++#endif
++	if (strncmp(elf_hdr->e_ident, ELFMAG, sizeof(ELFMAG) - 1))
++		dev_err(component->dev, "Wrong ELF header prefix\n");
++	if (elf_hdr->e_ehsize != sizeof(Elf32_Ehdr))
++		dev_err(component->dev, "Wrong Elf header size\n");
++	if (elf_hdr->e_machine != EM_XTENSA)
++		dev_err(component->dev, "Wrong DSP code file\n");
++
++	if (len < elf_hdr->e_phoff)
++		return -ENOMEM;
++	pr_hdr = (Elf32_Phdr *)(buf + elf_hdr->e_phoff);
++	for (i = 0; i < elf_hdr->e_phnum; i++) {
++		/* TODO: handle p_memsz != p_filesz */
++		if (pr_hdr->p_paddr && pr_hdr->p_filesz) {
++			dev_info(component->dev, "Load 0x%x bytes to 0x%x\n",
++					pr_hdr->p_filesz, pr_hdr->p_paddr);
++
++			ret = rt5677_spi_write(pr_hdr->p_paddr,
++					buf + pr_hdr->p_offset,
++					pr_hdr->p_filesz);
++			if (ret)
++				dev_err(component->dev, "Load firmware failed %d\n",
++						ret);
++		}
++		pr_hdr++;
 +	}
-+
-+	runtime = rt5677_dsp->substream->runtime;
-+
-+	if (rt5677_spi_mic_write_offset(&mic_write_offset)) {
-+		dev_err(rt5677_dsp->dev, "No mic_write_offset\n");
-+		goto done;
-+	}
-+
-+	/* If this is the first time that we've asked for streaming data after
-+	 * a hotword is fired, we should start reading from the previous 2
-+	 * seconds of audio from wherever the mic_write_offset is currently.
-+	 */
-+	if (rt5677_dsp->new_hotword) {
-+		rt5677_dsp->new_hotword = false;
-+		/* See if buffer wraparound happens */
-+		if (mic_write_offset < RT5677_MIC_BUF_FIRST_READ_SIZE)
-+			rt5677_dsp->mic_read_offset = RT5677_MIC_BUF_BYTES -
-+					(RT5677_MIC_BUF_FIRST_READ_SIZE -
-+					mic_write_offset);
-+		else
-+			rt5677_dsp->mic_read_offset = mic_write_offset -
-+					RT5677_MIC_BUF_FIRST_READ_SIZE;
-+	}
-+
-+	/* Copy all new samples from DSP's mic buffer to dma_area */
-+	bytes_copied = 0;
-+	if (rt5677_dsp->mic_read_offset < mic_write_offset) {
-+		/* One chunk in DSP's mic buffer */
-+		ret |= rt5677_spi_append_data(rt5677_dsp,
-+				rt5677_dsp->mic_read_offset, mic_write_offset);
-+		bytes_copied = mic_write_offset - rt5677_dsp->mic_read_offset;
-+	} else if (rt5677_dsp->mic_read_offset > mic_write_offset) {
-+		/* Wrap around, two chunks in DSP's mic buffer */
-+		ret |= rt5677_spi_append_data(rt5677_dsp,
-+				rt5677_dsp->mic_read_offset,
-+				RT5677_MIC_BUF_BYTES);
-+		ret |= rt5677_spi_append_data(rt5677_dsp, 0, mic_write_offset);
-+		bytes_copied = RT5677_MIC_BUF_BYTES -
-+				rt5677_dsp->mic_read_offset + mic_write_offset;
-+	}
-+	if (ret) {
-+		dev_err(rt5677_dsp->dev, "Copy failed %d\n", ret);
-+		goto done;
-+	}
-+
-+	rt5677_dsp->mic_read_offset = mic_write_offset;
-+	rt5677_dsp->avail_bytes += bytes_copied;
-+	period_bytes = snd_pcm_lib_period_bytes(rt5677_dsp->substream);
-+
-+	if (rt5677_dsp->avail_bytes >= period_bytes) {
-+		snd_pcm_period_elapsed(rt5677_dsp->substream);
-+		rt5677_dsp->avail_bytes = 0;
-+	}
-+	/* TODO benzh: use better delay time based on period_bytes */
-+	schedule_delayed_work(&rt5677_dsp->copy_work, msecs_to_jiffies(5));
-+done:
-+	mutex_unlock(&rt5677_dsp->dma_lock);
-+}
-+
-+struct page *rt5677_spi_pcm_page(struct snd_pcm_substream *substream,
-+		unsigned long offset)
-+{
-+	return snd_pcm_lib_get_vmalloc_page(substream, offset);
-+}
-+
-+static struct snd_pcm_ops rt5677_spi_pcm_ops = {
-+	.open		= rt5677_spi_pcm_open,
-+	.close		= rt5677_spi_pcm_close,
-+	.hw_params	= rt5677_spi_hw_params,
-+	.hw_free	= rt5677_spi_hw_free,
-+	.prepare	= rt5677_spi_prepare,
-+	.pointer	= rt5677_spi_pcm_pointer,
-+	.page		= rt5677_spi_pcm_page,
-+};
-+
-+static int rt5677_spi_pcm_probe(struct snd_soc_component *component)
-+{
-+	struct rt5677_dsp *rt5677_dsp;
-+
-+	rt5677_dsp = devm_kzalloc(component->dev, sizeof(*rt5677_dsp),
-+			GFP_KERNEL);
-+	rt5677_dsp->dev = &g_spi->dev;
-+	mutex_init(&rt5677_dsp->dma_lock);
-+	INIT_DELAYED_WORK(&rt5677_dsp->copy_work, rt5677_spi_copy_work);
-+
-+	snd_soc_component_set_drvdata(component, rt5677_dsp);
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver rt5677_spi_dai_component = {
-+	.name		= DRV_NAME,
-+	.probe		= rt5677_spi_pcm_probe,
-+	.ops		= &rt5677_spi_pcm_ops,
-+};
-+
- /* Select a suitable transfer command for the next transfer to ensure
-  * the transfer address is always naturally aligned while minimizing
-  * the total number of transfers required.
-@@ -218,9 +541,45 @@ int rt5677_spi_write_firmware(u32 addr, const struct firmware *fw)
- }
- EXPORT_SYMBOL_GPL(rt5677_spi_write_firmware);
- 
-+void rt5677_spi_hotword_detected(void)
-+{
-+	struct rt5677_dsp *rt5677_dsp;
-+
-+	if (!g_spi)
-+		return;
-+
-+	rt5677_dsp = dev_get_drvdata(&g_spi->dev);
-+	if (!rt5677_dsp) {
-+		dev_err(&g_spi->dev, "Can't get rt5677_dsp\n");
-+		return;
-+	}
-+
-+	mutex_lock(&rt5677_dsp->dma_lock);
-+	dev_info(rt5677_dsp->dev, "Hotword detected\n");
-+	rt5677_dsp->new_hotword = true;
-+	mutex_unlock(&rt5677_dsp->dma_lock);
-+
-+	schedule_delayed_work(&rt5677_dsp->copy_work, 0);
-+}
-+EXPORT_SYMBOL_GPL(rt5677_spi_hotword_detected);
-+
- static int rt5677_spi_probe(struct spi_device *spi)
- {
-+	int ret;
-+
- 	g_spi = spi;
-+
-+	ret = snd_soc_register_component(&spi->dev, &rt5677_spi_dai_component,
-+					 &rt5677_spi_dai, 1);
-+	if (ret < 0)
-+		dev_err(&spi->dev, "Failed to register component.\n");
-+
 +	return ret;
 +}
 +
-+static int rt5677_spi_remove(struct spi_device *spi)
++static int rt5677_load_dsp_from_file(struct snd_soc_component *component)
 +{
-+	snd_soc_unregister_component(&spi->dev);
++	struct rt5677_priv *rt5677 = snd_soc_component_get_drvdata(component);
++	const struct firmware *fwp;
++	int ret = 0;
++
++	/* Load dsp firmware from rt5677_elf_vad file */
++	ret = request_firmware(&fwp, "rt5677_elf_vad", component->dev);
++	if (ret) {
++		dev_err(component->dev, "Request rt5677_elf_vad failed %d\n",
++			ret);
++		return ret;
++	}
++	dev_info(component->dev, "Requested rt5677_elf_vad (%zu)\n", fwp->size);
++
++	ret = rt5677_parse_and_load_dsp(rt5677, fwp->data, fwp->size);
++	release_firmware(fwp);
++	return ret;
++}
++
+ static int rt5677_set_dsp_vad(struct snd_soc_component *component, bool on)
+ {
+ 	struct rt5677_priv *rt5677 = snd_soc_component_get_drvdata(component);
+@@ -710,74 +918,52 @@ static int rt5677_set_dsp_vad(struct snd_soc_component *component, bool on)
+ 	if (!IS_ENABLED(CONFIG_SND_SOC_RT5677_SPI))
+ 		return -ENXIO;
+ 
++	dev_info(component->dev, "DSP VAD: on=%d, activity=%d\n", on, activity);
+ 	if (on && !activity) {
+ 		activity = true;
+ 
+-		regcache_cache_only(rt5677->regmap, false);
+-		regcache_cache_bypass(rt5677->regmap, true);
++		/* Set GPIO1 as an output pin driving a 0. Firmware will
++		 * raise GPIO1 upon hotword detect.
++		 */
++		regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL2,
++			RT5677_GPIO1_DIR_MASK |	RT5677_GPIO1_OUT_MASK |
++			RT5677_GPIO1_P_MASK, RT5677_GPIO1_DIR_OUT |
++			RT5677_GPIO1_OUT_LO | RT5677_GPIO1_P_NOR);
++		regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1,
++			RT5677_GPIO1_PIN_MASK, RT5677_GPIO1_PIN_GPIO1);
+ 
+-		regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC, 0x1, 0x1);
+-		regmap_update_bits(rt5677->regmap,
+-			RT5677_PR_BASE + RT5677_BIAS_CUR4, 0x0f00, 0x0f00);
+-		regmap_update_bits(rt5677->regmap, RT5677_PWR_ANLG1,
+-			RT5677_LDO1_SEL_MASK, 0x0);
+-		regmap_update_bits(rt5677->regmap, RT5677_PWR_ANLG2,
+-			RT5677_PWR_LDO1, RT5677_PWR_LDO1);
+-		switch (rt5677->type) {
+-		case RT5677:
+-			regmap_update_bits(rt5677->regmap, RT5677_GLB_CLK1,
+-				RT5677_MCLK_SRC_MASK, RT5677_MCLK2_SRC);
+-			regmap_update_bits(rt5677->regmap, RT5677_GLB_CLK2,
+-				RT5677_PLL2_PR_SRC_MASK |
+-				RT5677_DSP_CLK_SRC_MASK,
+-				RT5677_PLL2_PR_SRC_MCLK2 |
+-				RT5677_DSP_CLK_SRC_BYPASS);
+-			break;
+-		case RT5676:
+-			regmap_update_bits(rt5677->regmap, RT5677_GLB_CLK2,
+-				RT5677_DSP_CLK_SRC_MASK,
+-				RT5677_DSP_CLK_SRC_BYPASS);
+-			break;
+-		default:
+-			break;
+-		}
+-		regmap_write(rt5677->regmap, RT5677_PWR_DSP2, 0x07ff);
+-		regmap_write(rt5677->regmap, RT5677_PWR_DSP1, 0x07fd);
++		rt5677_set_vad_source(component);
+ 		rt5677_set_dsp_mode(component, true);
+ 
+-		ret = request_firmware(&rt5677->fw1, RT5677_FIRMWARE1,
+-			component->dev);
+-		if (ret == 0) {
+-			rt5677_spi_write_firmware(0x50000000, rt5677->fw1);
+-			release_firmware(rt5677->fw1);
+-		}
++		/* Boot the firmware from IRAM instead of SRAM0. */
++		rt5677_dsp_mode_i2c_write_addr(rt5677, RT5677_DSP_BOOT_VECTOR,
++			0x0009, 0x0003);
++		rt5677_dsp_mode_i2c_write_addr(rt5677, RT5677_DSP_BOOT_VECTOR,
++			0x0019, 0x0003);
++		rt5677_dsp_mode_i2c_write_addr(rt5677, RT5677_DSP_BOOT_VECTOR,
++			0x0009, 0x0003);
+ 
+-		ret = request_firmware(&rt5677->fw2, RT5677_FIRMWARE2,
+-			component->dev);
+-		if (ret == 0) {
+-			rt5677_spi_write_firmware(0x60000000, rt5677->fw2);
+-			release_firmware(rt5677->fw2);
+-		}
++		ret = rt5677_load_dsp_from_file(component);
+ 
++		/* Set DSP CPU to Run */
+ 		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1, 0x1, 0x0);
+-
+-		regcache_cache_bypass(rt5677->regmap, false);
+-		regcache_cache_only(rt5677->regmap, true);
+ 	} else if (!on && activity) {
+ 		activity = false;
+ 
+-		regcache_cache_only(rt5677->regmap, false);
+-		regcache_cache_bypass(rt5677->regmap, true);
+-
+-		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1, 0x1, 0x1);
++		/* Set DSP CPU to Stop */
++		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1,
++			RT5677_PWR_DSP_CPU, RT5677_PWR_DSP_CPU);
+ 		rt5677_set_dsp_mode(component, false);
+-		regmap_write(rt5677->regmap, RT5677_PWR_DSP1, 0x0001);
+ 
+-		regmap_write(rt5677->regmap, RT5677_RESET, 0x10ec);
++		/* Disable and clear VAD interrupt */
++		regmap_write(rt5677->regmap, RT5677_VAD_CTRL1, 0x2184);
++		regmap_update_bits(rt5677->regmap, RT5677_IRQ_CTRL2,
++			0xF000, 0x0000);
++
++		/* Set GPIO1 pin back to be IRQ output for jack detect */
++		regmap_update_bits(rt5677->regmap, RT5677_GPIO_CTRL1,
++			RT5677_GPIO1_PIN_MASK, RT5677_GPIO1_PIN_IRQ);
+ 
+-		regcache_cache_bypass(rt5677->regmap, false);
+-		regcache_mark_dirty(rt5677->regmap);
+-		regcache_sync(rt5677->regmap);
+ 	}
+ 
  	return 0;
- }
- 
-@@ -236,6 +595,7 @@ static struct spi_driver rt5677_spi_driver = {
- 		.acpi_match_table = ACPI_PTR(rt5677_spi_acpi_id),
+@@ -4938,6 +5124,17 @@ static struct snd_soc_dai_driver rt5677_dai[] = {
+ 		},
+ 		.ops = &rt5677_aif_dai_ops,
  	},
- 	.probe = rt5677_spi_probe,
-+	.remove = rt5677_spi_remove,
++	{
++		.name = "rt5677-dspbuffer",
++		.id = RT5677_DSPBUFF,
++		.capture = {
++			.stream_name = "DSP Buffer",
++			.channels_min = 1,
++			.channels_max = 1,
++			.rates = SNDRV_PCM_RATE_16000,
++			.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		},
++	},
  };
- module_spi_driver(rt5677_spi_driver);
  
-diff --git a/sound/soc/codecs/rt5677-spi.h b/sound/soc/codecs/rt5677-spi.h
-index 6ba3369dc235..3af36ec928e9 100644
---- a/sound/soc/codecs/rt5677-spi.h
-+++ b/sound/soc/codecs/rt5677-spi.h
-@@ -12,5 +12,6 @@
- int rt5677_spi_read(u32 addr, void *rxbuf, size_t len);
- int rt5677_spi_write(u32 addr, const void *txbuf, size_t len);
- int rt5677_spi_write_firmware(u32 addr, const struct firmware *fw);
-+void rt5677_spi_hotword_detected(void);
+ static const struct snd_soc_component_driver soc_component_dev_rt5677 = {
+@@ -5081,6 +5278,9 @@ static irqreturn_t rt5677_irq(int unused, void *data)
  
- #endif /* __RT5677_SPI_H__ */
+ 	mutex_lock(&rt5677->irq_lock);
+ 
++	if (rt5677->dsp_vad_en)
++		rt5677_spi_hotword_detected();
++
+ 	/*
+ 	 * Loop to handle interrupts until the last i2c read shows no pending
+ 	 * irqs. The interrupt line is shared by multiple interrupt sources.
+diff --git a/sound/soc/codecs/rt5677.h b/sound/soc/codecs/rt5677.h
+index 213f4b8ca269..2bbd618b51ac 100644
+--- a/sound/soc/codecs/rt5677.h
++++ b/sound/soc/codecs/rt5677.h
+@@ -1730,6 +1730,7 @@ enum {
+ 	RT5677_AIF4,
+ 	RT5677_AIF5,
+ 	RT5677_AIFS,
++	RT5677_DSPBUFF,
+ };
+ 
+ enum {
 -- 
 2.23.0.187.g17f5b7556c-goog
 

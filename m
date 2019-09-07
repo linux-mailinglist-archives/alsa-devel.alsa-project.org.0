@@ -2,55 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FFE9AC538
-	for <lists+alsa-devel@lfdr.de>; Sat,  7 Sep 2019 09:48:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34B6CAC584
+	for <lists+alsa-devel@lfdr.de>; Sat,  7 Sep 2019 11:15:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A95611607;
-	Sat,  7 Sep 2019 09:47:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A95611607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CC2315F8;
+	Sat,  7 Sep 2019 11:15:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CC2315F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567842511;
-	bh=MHaenXxtN2jUr0eYHUNBJ3tNS9YN/cMzZaprdyDvDTo=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sc3rd2u/J9R5Jwc1WV89rRGqAu6tQGW9N/gilCF8wdxLg4SO9EIvNGDiuXTt04ni3
-	 HQgXhj3SWeWUHyWa8YPFsyBpf/rsNoUMOZmUfod9yV674O792MqrrCQN6WbBnZNsXr
-	 fM6P692UmrMeVRshxLd2TUJgMQmRy+ms9NXK4hD4=
+	s=default; t=1567847753;
+	bh=8xdtzloPC5i8MrI40szelS7L65pjGBXtrxjjP5r2Row=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=NxcLUdR2RQc2/yR5jyVvSE/IFHhxIaBagUJiawlcFWc+qTwoO6a6bw4BhndV04Z0f
+	 rpbOWh2W4aC6iv6naB5KlasErx6H1uYjJqk2jnYfmbJoHwp2hk2ndja6uNvDbME/k1
+	 gBalG4m1ePbEc0vVdP16N0i1AUVsSfSKi0vBwOSQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A9FDF80448;
-	Sat,  7 Sep 2019 09:46:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83F0FF803D1;
+	Sat,  7 Sep 2019 11:14:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A393CF80448; Sat,  7 Sep 2019 09:46:44 +0200 (CEST)
+ id 443A6F80448; Sat,  7 Sep 2019 11:14:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112]) (using TLSv1 with cipher AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBACEF800C6
- for <alsa-devel@alsa-project.org>; Sat,  7 Sep 2019 09:46:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBACEF800C6
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa (TLS1.0:RSA_AES_256_CBC_SHA1:32)
- (Exim 4.76) (envelope-from <colin.king@canonical.com>)
- id 1i6VQY-0006LA-Co; Sat, 07 Sep 2019 07:46:34 +0000
-From: Colin King <colin.king@canonical.com>
-To: Bard Liao <bardliao@realtek.com>, Oder Chiou <oder_chiou@realtek.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org
-Date: Sat,  7 Sep 2019 08:46:34 +0100
-Message-Id: <20190907074634.22144-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.20.1
+X-Spam-Status: No, score=0.0 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
+ SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from cvs.linux-mips.org (eddie.linux-mips.org [148.251.95.138])
+ by alsa1.perex.cz (Postfix) with ESMTP id C8A61F800C6
+ for <alsa-devel@alsa-project.org>; Sat,  7 Sep 2019 11:14:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8A61F800C6
+Received: (from localhost user: 'ladis' uid#1021 fake: STDIN
+ (ladis@eddie.linux-mips.org)) by eddie.linux-mips.org
+ id S23994248AbfIGJOAdZwOx (ORCPT
+ <rfc822;alsa-devel@alsa-project.org>); Sat, 7 Sep 2019 11:14:00 +0200
+Date: Sat, 7 Sep 2019 11:13:58 +0200
+From: Ladislav Michl <ladis@linux-mips.org>
+To: Tomas Novotny <tomas@novotny.cz>
+Message-ID: <20190907091358.GA7166@lenoch>
+References: <20190906165109.53c5a306@tomas.local.tbs-biometrics.cz>
 MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: rt1308: make array pd static const,
-	makes object smaller
+Content-Disposition: inline
+In-Reply-To: <20190906165109.53c5a306@tomas.local.tbs-biometrics.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org
+Subject: Re: [alsa-devel] omap-mcbsp: TX Buffer Overflow
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,43 +66,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+On Fri, Sep 06, 2019 at 04:51:09PM +0200, Tomas Novotny wrote:
+> Hi,
+> 
+> we have AM3703 based board similar to BeagleBoard. I'm hitting this error
+> after upgrade to latest LTS 4.19.71 (upgraded from 4.1):
+> 
+> omap-mcbsp 49022000.mcbsp: TX Buffer Overflow!
+> 
+> This appears during or after playing of short (~2s) ding-dong wav. That error
+> exists for longer time, because handling of tx buffer overflow irq was
+> introduced in 2016: 4e85e7776eba ("ASoC: omap-mcbsp: Enable TX/RX under and
+> overflow interrupts"). I've cherry-picked it to 4.1 and I see the error there also.
+> The sound seems clear and ok to me, but we are using low quality speaker.
 
-Don't populate the array pd on the stack but instead make it
-static const. Makes the object code smaller by 82 bytes.
+Just FYI, for stream capture there's
+omap-mcbsp 49022000.mcbsp: RX Buffer Underflow!
 
-Before:
-   text	   data	    bss	    dec	    hex	filename
-  26548	   7288	     64	  33900	   846c	sound/soc/codecs/rt1308.o
+As far as I remember all stable kernels we have in production - 4.9.x, 4.14.x and
+4.19.x - are affected. IGEPv2 with both DM3730 and OMAP3530 are affected
+(headless machines, CONFIG_VIDEO_OMAP3=n).
 
-After:
-   text	   data	    bss	    dec	    hex	filename
-  26370	   7384	     64	  33818	   841a	sound/soc/codecs/rt1308.o
+And DT is probably worth updating:
+omap_hwmod: mcbsp2_sidetone using broken dt data from mcbsp
+omap_hwmod: mcbsp3_sidetone using broken dt data from mcbsp
 
-(gcc version 9.2.1, amd64)
+I never motivated myself to dig deeper as catured stream looks pretty normal.
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/codecs/rt1308.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+	l.
 
-diff --git a/sound/soc/codecs/rt1308.c b/sound/soc/codecs/rt1308.c
-index 6f2ee6809dbb..b75931a69a1c 100644
---- a/sound/soc/codecs/rt1308.c
-+++ b/sound/soc/codecs/rt1308.c
-@@ -436,7 +436,8 @@ static const struct snd_soc_dapm_route rt1308_dapm_routes[] = {
- 
- static int rt1308_get_clk_info(int sclk, int rate)
- {
--	int i, pd[] = {1, 2, 3, 4, 6, 8, 12, 16};
-+	int i;
-+	static const int pd[] = {1, 2, 3, 4, 6, 8, 12, 16};
- 
- 	if (sclk <= 0 || rate <= 0)
- 		return -EINVAL;
--- 
-2.20.1
-
+> There are two workarounds to get rid of the message:
+> 1) Change 'dma_op_mode' sysfs attribute from 'element' to 'threshold'. I
+> found that just by coincidence when checking sysfs attributes.
+> 2) Compile kernel with CONFIG_VIDEO_OMAP3=y. Found on Logic PD forum [1].
+> 
+> Does anybody have any idea what's going wrong? Or why these (somehow)
+> unrelated workarounds help?
+> 
+> Thanks,
+> 
+> Tomas
+> 
+> [1] https://support.logicpd.com/TDGForum/tabid/124/aft/2277/Default.aspx
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

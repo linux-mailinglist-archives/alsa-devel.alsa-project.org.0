@@ -2,85 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81F22ACB63
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 09:50:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0749ACC22
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 12:41:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10810165E;
-	Sun,  8 Sep 2019 09:50:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10810165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 546C51672;
+	Sun,  8 Sep 2019 12:40:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 546C51672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567929053;
-	bh=AHVCU8InqRxzGOfPMhkG8l3cUfQLovj1p8aYe5dl/2w=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RfHthSEm1xj9lz37/BBVRwYfxElQEZFpcq76dfJqrKs8VlP/SzwzItZW6Q4cExSJV
-	 FAjy7VU+MAlMSgInVB9sDAEasN2stWE/UAi5uOqPgpc0WkvjiaeMWMwQDLXAZNiZuN
-	 hHI9+ip6ZdSUTVkmuNgvINMBK4l7SMKWgTLmk+Qs=
+	s=default; t=1567939275;
+	bh=+clLTp3iTa/NqbfFD6DHHQzNYHvvRASIupItQorYCzc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DsQYlahnp1cCfNLU7/RQHpBNg5PJqRt3SNepPAYKyC0jv1Ag7MlM9F5tp4/iWoo6N
+	 VUolVuFgAiDonWh9Hwu9bT4uoSDIKGHGzHDBQT8TVeFdNlbGikpTPGJHt35veflZzC
+	 H/ShXzh3eEmE04e0C1A45FOXR/cwmS6ITUygVW0U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B08EF80368;
-	Sun,  8 Sep 2019 09:49:09 +0200 (CEST)
-X-Original-To: Alsa-devel@alsa-project.org
-Delivered-To: Alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 759B7F805F7;
+	Sun,  8 Sep 2019 12:39:32 +0200 (CEST)
+X-Original-To: alsa-devel@alsa-project.org
+Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5A7CF800C1; Sun,  8 Sep 2019 09:49:06 +0200 (CEST)
+ id 842DDF8036F; Sun,  8 Sep 2019 12:39:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_NEUTRAL,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ MISSING_DATE, SPF_HELO_PASS, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E0749F800C1
- for <Alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 09:49:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E0749F800C1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="wpjofOz/"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 33E6421CDD;
- Sun,  8 Sep 2019 03:48:59 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Sun, 08 Sep 2019 03:48:59 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=rzeARmF+u5WSHLH7sYAaAxvxLobCK6aC/VUE9MXRF
- Ts=; b=wpjofOz/aafCv+8X7YlTj4HThoXkAEjjN8aXTF84Ikc7JpIF/rI6K0bB6
- bJOpgHrgP8u95mj2AbzFTo9uwZF4UNQiDhkTpbnhTg9aWxxr9johKnlsGJv7ZwqA
- 9qz/SOPGCkyAWjeBI1cX2NCCdo+16rUtAYkfqw1cqfeFpyuAfZPXHLHHkNVRqp/i
- V0mIf4iU8TPaB4tJkqQCR7sRDbnmSs+ubWbY6SblnEogER5l+tm/tbb+RGNkqP7m
- Jqq0O4zeZKt8L/Mm87RR1fkPCIuNo7W5/domthsJ0hMGKoWSEI46enqvs5f9uARW
- BzoIu38cnOARu0zU3IzaZQi7awTOA==
-X-ME-Sender: <xms:arJ0XUis6HT1cyDC1HN0rzEpSFdlyyrBT9SJ0E9a6niRCxEUpChrsQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudekfedgvdelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepkffuhffvffgjfhgtfggggfesthejredttderjeenucfhrhhomhepvfgrnhhu
- ucfmrghskhhinhgvnhcuoehtrghnuhhksehikhhirdhfiheqnecuffhomhgrihhnpehlih
- gsvghrrghprgihrdgtohhmpdhprghtrhgvohhnrdgtohhmnecukfhppeekkedruddufedr
- vdduuddrjedvnecurfgrrhgrmhepmhgrihhlfhhrohhmpehtrghnuhhksehikhhirdhfih
- enucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:arJ0XSuZUsk2ZnsSN3SVNF3a4VwXvgHi5XxYlBEtmtX5tF_E2C81lA>
- <xmx:arJ0XdTrxLCmvPIFTmDlgzd69ttzMWQX11MCMtfqLmnJTYbaUg_2PA>
- <xmx:arJ0XTEbqbbsh5JhKc_InfCNQ7CfS88B5TLQzZkAB7siTb1pEcMFLA>
- <xmx:a7J0XRpouyKQxoYZUxbUbvwfEyYuVuc6wMqhxDMJP1Um-wns2iNFjA>
-Received: from laptop (88-113-211-72.elisa-laajakaista.fi [88.113.211.72])
- by mail.messagingengine.com (Postfix) with ESMTPA id 462868005C;
- Sun,  8 Sep 2019 03:48:58 -0400 (EDT)
-Message-ID: <c3986f3fde3a2e008d9c2d81542aaacf9d751e62.camel@iki.fi>
-From: Tanu Kaskinen <tanuk@iki.fi>
-To: Eric Desjardins <desjare@gmail.com>, Alsa-devel@alsa-project.org
-Date: Sun, 08 Sep 2019 10:48:54 +0300
-In-Reply-To: <CADsNRHsGeM3bMv3Xh++QbZXeR1PBr30VkzoweyCqMKeAguXRUg@mail.gmail.com>
-References: <CADsNRHsGeM3bMv3Xh++QbZXeR1PBr30VkzoweyCqMKeAguXRUg@mail.gmail.com>
-User-Agent: Evolution 3.30.5-1.1 
+ by alsa1.perex.cz (Postfix) with ESMTPS id C76BCF800E6
+ for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 12:39:23 +0200 (CEST)
+Received: from server.perex-int.cz (unknown [172.16.0.20])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C35BFA003E;
+ Sun,  8 Sep 2019 12:39:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C35BFA003E
+Received: from alsa-devel.perex.cz (unknown [192.168.102.181])
+ by server.perex-int.cz (Perex's E-mail Delivery System) with ESMTP id
+ 487EB140059; Sun,  8 Sep 2019 12:39:20 +0200 (CEST)
 MIME-Version: 1.0
-Subject: Re: [alsa-devel] 5.1 to stereo using libasound
+From: Jaroslav Kysela <jkysela@redhat.com>
+To: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
+Message-Id: <15679391594432724-alsa-devel@perex.cz>
+Date: Sun,  8 Sep 2019 12:39:27 +0200 (CEST)
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] Licence change for your alsa-lib UCM commits (Marcin
+	Juszkiewicz: 5 total)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,46 +67,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, 2019-09-07 at 10:07 -0400, Eric Desjardins wrote:
-> Hi,
-> 
-> I am playing a mkv with 5.1 channels from a mkv. I configure libasound for
-> 6 channels and I feed them interleave audio using snd_pcm_writei. I use the
-> default pulse audio device.
-> 
-> So far, nothing is wrong. However, I do not ear things correctly. I listen
-> this on my stereo speaker. There is no mixdown to stereo and I was
-> wondering how to do that. I tried to use chmap api but anything I try on
-> the default device returns an error.
-> 
-> I was wondering what was the correct way to do that?
-> Using the mixing api?
-> How do we detect that my device output stereo if chmap doesn't work?
-> 
-> I am on a ubuntu 18.04 linux box.
+As discussed, we would like to move the UCM configuration files from the
+alsa-lib repository to new alsa-ucm-conf repository with the licence change
+from LGPL-2.1 to BSD-3-Clause.
 
-The pulse plugin takes your audio and sends it to PulseAudio without
-any modification. The ALSA API doesn't allow the application to tell
-the channel map of the stream, so if you send 6 channels, the pulse
-plugin assumes that you are using the default 5.1 channel map (front-
-left,front-right,rear-left,rear-right,front-center,lfe).
+I would like to check, if you agree with this licence change. Please, answer
+to this e-mail and write your agreement / disagreement (keep CC to
+the alsa-devel mailing list for the archiving purposes).
 
-The PulseAudio daemon then downmixes the audio to stereo in some way
-(the details depend on PulseAudio configuration). You can't detect from
-your ALSA application whether the device that PulseAudio is using is a
-stereo device or something else.
+Thank you for your time and co-operation.
 
-Since it's apparently not working as you expect, does your application
-use the default 5.1 channel map that I mentioned above? Is PulseAudio
-configured to do remixing ("pulseaudio --dump-conf" should show
-"enable-remixing = yes")?
+Reference:  https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/153257.html
 
--- 
-Tanu
+List of your commit(s):
 
-https://www.patreon.com/tanuk
-https://liberapay.com/tanuk
+  f07c14b08280fb461b7f070d55a625e1f5e88a1e
+    conf/ucm: DAISY-I2S: add Samsung ARM Chromebook UCM config from ChromeOS
+  5b019ea310e6a5d6ff8933bcbca1f3f3471be33b
+    conf/ucm: PandaBoard: add UCM config from Ubuntu
+  9d0f93af0b35bfdcbd3d758d98715508b69d6008
+    conf/ucm: PandaBoardES: add UCM config from Ubuntu
+  7db247be11381bef6e38a41f1d51fa78a99350b5
+    conf/ucm: SDP4430: add UCM config from Ubuntu
+  52de910868f56ee7e6b07a1a2ad6a54913f745d0
+    conf/ucm: tegraalc5632: add UCM config from Ubuntu
 
+---
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

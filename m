@@ -2,65 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAC6BAFFC1
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Sep 2019 17:18:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9DAB0AFFC4
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Sep 2019 17:18:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2FE1716DC;
-	Wed, 11 Sep 2019 17:17:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2FE1716DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BA7116EC;
+	Wed, 11 Sep 2019 17:17:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BA7116EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568215081;
-	bh=rrQDrfJ8FSE6UNvDq35pWICkOK4fiMiyv8Sq2+evL7U=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568215127;
+	bh=9iFQQbq4Q0CxkTn0JA9IU21b3mbyKlr7n7Sh5l+TGqE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pYjqIYHFHOkAvMwpUJ653s486IBdmzZxENF2RYiwJqMlyc/FZJp+xPwbCTwQKFAuD
-	 BMTDdJOXB7RkRHXMRm1K+QfqG0O3dSsB/O1kP0MfU2PzsE2kCN2Fma5o7yRqjypIVO
-	 hktUpTqaBN7/Y5o3volEMvAIuhPz2xjjKsOGMVLs=
+	b=L53nxNAU/gVxo7p6qnvz2G91vKSZkzRm6NU6yT6/Ud1dAvdROwvTiwMsUuRwRnnl5
+	 lZ8kPh3UQWdQXN8/+I1hhIZ6ICcBsLoDgo8kyEp5TzIjsqT9c2xAC9bDKoNYSbyFUb
+	 YLtmBYppM1oK3Esdv62JdFqsZ+N0wAhgWev0x2Vc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B36CDF804AB;
-	Wed, 11 Sep 2019 17:16:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1EF0DF805F6;
+	Wed, 11 Sep 2019 17:16:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7745FF80368; Sun,  8 Sep 2019 18:16:16 +0200 (CEST)
+ id 6D848F80368; Sun,  8 Sep 2019 23:02:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from malenstwo.juszkiewicz.com.pl (malenstwo.juszkiewicz.com.pl
- [37.187.99.30])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [IPv6:2a00:1450:4864:20::22c])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37247F800C1
- for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 18:16:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37247F800C1
-Received: from localhost (localhost [127.0.0.1])
- by malenstwo.juszkiewicz.com.pl (Postfix) with ESMTP id A759BC06AD;
- Sun,  8 Sep 2019 18:16:11 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at juszkiewicz.com.pl
-Received: from malenstwo.juszkiewicz.com.pl ([127.0.0.1])
- by localhost (mail.juszkiewicz.com.pl [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id SqudHF1ds49x; Sun,  8 Sep 2019 18:16:08 +0200 (CEST)
-Received: from puchatek.local (89-67-26-161.dynamic.chello.pl [89.67.26.161])
- by malenstwo.juszkiewicz.com.pl (Postfix) with ESMTPSA id 721C9C0561; 
- Sun,  8 Sep 2019 18:16:08 +0200 (CEST)
-To: Jaroslav Kysela <jkysela@redhat.com>
-References: <15679391594432724-alsa-devel@perex.cz>
-From: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
-Message-ID: <fbd36c4d-8fc1-4898-497f-3f5935d65cfb@juszkiewicz.com.pl>
-Date: Sun, 8 Sep 2019 18:16:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66B2EF80157
+ for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 23:01:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66B2EF80157
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="GE3Uo+P5"
+Received: by mail-lj1-x22c.google.com with SMTP id a4so10717532ljk.8
+ for <alsa-devel@alsa-project.org>; Sun, 08 Sep 2019 14:01:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=sVmsqyOJ1bzihht7PQeFIY6VoseQx0d+/FjGbTudk+c=;
+ b=GE3Uo+P59LxW6D8oZ7Y/3O/adt6p3QSx8BeeYU8WjrwP7Zjk+IBuy69i3TqwaWrxXq
+ gYWVw78xEwTqsG/gz1adGDsXMi+8JyE5HSzlkzCVWVIjZsIx03v1hlHMc31omPBn70St
+ xc/ez40ePCgnqEl4RsPh+F+aIkbkwu/eX8FDN6Je95+bBcbUispGmbOurw4WHeJaitAk
+ vfMj4SamvtKFqOWTSri1y44p1rj17Nd5sF1cce9rPbS97ALpEwgAaGjHD41DqVa+kTiU
+ lrpKbPhzpzY1M/nSUExrmR3LbC4ntBsvavd6rFVE5mYtn2qKWTgF4lJSeVOWdcd9lQUV
+ Q10w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=sVmsqyOJ1bzihht7PQeFIY6VoseQx0d+/FjGbTudk+c=;
+ b=foumfQe6vhRoXwIW+0lhMTmL9Pu2M+DaSMQhOw/l3C43T9lOZbvecab+wTExVM2VeY
+ Mdixkxrfs35k61JU1I+UvHOkXB/zW/mKUu9MWOZVzEqy4VWg8/8f5vB1PKzzhl66+t9b
+ z3+nDoonFlHRk1Ydqkdx3ab3PaofPj1FuXq8doXSKtbzMxNvb5dMjMumz+Rof0GsVYlQ
+ qBCWLiAFLiBvNPIi1R9HI7lvxROG1IMjqPHCGdj+X8L6W+KahQdRy7znzK0pGvT7zi/c
+ m4CcWAvjhpieM9R3Sd8+89EYbUSIDfUYzR9pIFwfuiA9DK/XKQjA8OW3dKfAhWD/Inq8
+ eanQ==
+X-Gm-Message-State: APjAAAVoPP2GeRIGid/LNOXiARXwD1H7nlX3rYRHkAJYfM6YLfssV0YO
+ nzIAlspOIqn8r9rV2i4x+40V91danqpadiSxhgs=
+X-Google-Smtp-Source: APXvYqzcv+MohFsebeWATlYedyT7W7aWFJMgjJX9WyDvgk79ciUCFdufsN8drsbm4wTWmuRwS6ZJ5n3KurxBOwZVqDE=
+X-Received: by 2002:a05:651c:1035:: with SMTP id
+ w21mr3572991ljm.119.1567976519185; 
+ Sun, 08 Sep 2019 14:01:59 -0700 (PDT)
 MIME-Version: 1.0
+References: <15679391594432724-alsa-devel@perex.cz>
 In-Reply-To: <15679391594432724-alsa-devel@perex.cz>
-Content-Language: en-GB
+From: Misha Komarovskiy <zombah@gmail.com>
+Date: Sun, 8 Sep 2019 21:01:23 +0000
+Message-ID: <CANLc0-YjPP_5s_QZDcg2K4e4JHcyQ1jbx=QovV3cTWpp5Z-R+g@mail.gmail.com>
+To: Jaroslav Kysela <jkysela@redhat.com>
 X-Mailman-Approved-At: Wed, 11 Sep 2019 17:16:14 +0200
 Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Licence change for your alsa-lib UCM commits
- (Marcin Juszkiewicz: 5 total)
+Subject: Re: [alsa-devel] Licence change for your alsa-lib UCM commit
+	(zombah: 1 total)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,33 +92,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VyBkbml1IDA4LjA5LjIwMTkgb8KgMTI6MzksIEphcm9zbGF2IEt5c2VsYSBwaXN6ZToKPiBBcyBk
-aXNjdXNzZWQsIHdlIHdvdWxkIGxpa2UgdG8gbW92ZSB0aGUgVUNNIGNvbmZpZ3VyYXRpb24gZmls
-ZXMgZnJvbSB0aGUKPiBhbHNhLWxpYiByZXBvc2l0b3J5IHRvIG5ldyBhbHNhLXVjbS1jb25mIHJl
-cG9zaXRvcnkgd2l0aCB0aGUgbGljZW5jZSBjaGFuZ2UKPiBmcm9tIExHUEwtMi4xIHRvIEJTRC0z
-LUNsYXVzZS4KPiAKPiBJIHdvdWxkIGxpa2UgdG8gY2hlY2ssIGlmIHlvdSBhZ3JlZSB3aXRoIHRo
-aXMgbGljZW5jZSBjaGFuZ2UuIFBsZWFzZSwgYW5zd2VyCj4gdG8gdGhpcyBlLW1haWwgYW5kIHdy
-aXRlIHlvdXIgYWdyZWVtZW50IC8gZGlzYWdyZWVtZW50IChrZWVwIENDIHRvCj4gdGhlIGFsc2Et
-ZGV2ZWwgbWFpbGluZyBsaXN0IGZvciB0aGUgYXJjaGl2aW5nIHB1cnBvc2VzKS4KCkkgYW0gZmlu
-ZSB3aXRoIGxpY2Vuc2UgY2hhbmdlLgoKPiBSZWZlcmVuY2U6ICBodHRwczovL21haWxtYW4uYWxz
-YS1wcm9qZWN0Lm9yZy9waXBlcm1haWwvYWxzYS1kZXZlbC8yMDE5LUp1bHkvMTUzMjU3Lmh0bWwK
-PiAKPiBMaXN0IG9mIHlvdXIgY29tbWl0KHMpOgo+IAo+ICAgZjA3YzE0YjA4MjgwZmI0NjFiN2Yw
-NzBkNTVhNjI1ZTFmNWU4OGExZQo+ICAgICBjb25mL3VjbTogREFJU1ktSTJTOiBhZGQgU2Ftc3Vu
-ZyBBUk0gQ2hyb21lYm9vayBVQ00gY29uZmlnIGZyb20gQ2hyb21lT1MKPiAgIDViMDE5ZWEzMTBl
-NmE1ZDZmZjg5MzNiY2JjYTFmM2YzNDcxYmUzM2IKPiAgICAgY29uZi91Y206IFBhbmRhQm9hcmQ6
-IGFkZCBVQ00gY29uZmlnIGZyb20gVWJ1bnR1Cj4gICA5ZDBmOTNhZjBiMzViZmRjYmQzZDc1OGQ5
-ODcxNTUwOGI2OWQ2MDA4Cj4gICAgIGNvbmYvdWNtOiBQYW5kYUJvYXJkRVM6IGFkZCBVQ00gY29u
-ZmlnIGZyb20gVWJ1bnR1Cj4gICA3ZGIyNDdiZTExMzgxYmVmNmUzOGE0MWYxZDUxZmE3OGE5OTM1
-MGI1Cj4gICAgIGNvbmYvdWNtOiBTRFA0NDMwOiBhZGQgVUNNIGNvbmZpZyBmcm9tIFVidW50dQo+
-ICAgNTJkZTkxMDg2OGY1NmVlN2U2YjA3YTFhMmFkNmE1NDkxM2Y3NDVkMAo+ICAgICBjb25mL3Vj
-bTogdGVncmFhbGM1NjMyOiBhZGQgVUNNIGNvbmZpZyBmcm9tIFVidW50dQo+IAo+IC0tLQo+IEph
-cm9zbGF2IEt5c2VsYSA8cGVyZXhAcGVyZXguY3o+Cj4gTGludXggU291bmQgTWFpbnRhaW5lcjsg
-QUxTQSBQcm9qZWN0OyBSZWQgSGF0LCBJbmMuCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVs
-QGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbHNhLWRldmVsCg==
+Hello Jaroslav,
+
+On Sun, Sep 8, 2019 at 10:39 AM Jaroslav Kysela <jkysela@redhat.com> wrote:
+>
+> As discussed, we would like to move the UCM configuration files from the
+> alsa-lib repository to new alsa-ucm-conf repository with the licence change
+> from LGPL-2.1 to BSD-3-Clause.
+>
+> I would like to check, if you agree with this licence change. Please, answer
+> to this e-mail and write your agreement / disagreement (keep CC to
+> the alsa-devel mailing list for the archiving purposes).
+
+I agree with licence change.
+Thank you.
+
+>
+> Thank you for your time and co-operation.
+>
+> Reference:  https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/153257.html
+>
+> List of your commit(s):
+>
+>   24b4e86ddc512acb6b26f97cb958d59586482fb7
+>     conf/ucm: PAZ00: add Toshiba AC100/Dynabook AZ new config
+>
+> ---
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+
+
+
+-- 
+Best Regards,
+Misha Komarovskiy
+zombahatgmaildotcom
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

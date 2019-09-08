@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4DFACD31
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 14:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61E93ACD88
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 14:52:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A55F165E;
-	Sun,  8 Sep 2019 14:46:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A55F165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CEC38165D;
+	Sun,  8 Sep 2019 14:51:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEC38165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567946860;
-	bh=Kz0uyruipr0XN3UeLLR/uvJV9FTrF5Q2Mw9pvF2jqus=;
+	s=default; t=1567947146;
+	bh=z6yH2nqMMUgQc2r8QDvEH+tW3sw3nkyq0lLgePBmyxk=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NXJsgtCvvMny/mJArMaj00DvaciEK85G/STETWi7YmJVAEH7DWpWXwE8WKHSL/T13
-	 0zeaUSJdEDzHXA7d0pvNcXEiXvDAhODOrVS7ANMVQim6/MhkpxEvR4kE23q0quSnCy
-	 Q7sOhBiCucW0XrlRgnXwnARAOrzWhI+MG9CanVNk=
+	b=GK7qUchK35Gud1O5K/32oM4IkKJg0vimRmu/IDtygowZSSo6S9hrQqUEyeeIKcqvT
+	 OyNMbqMYO47aLQ5M9vantIvvGPQnQ0Gc80VoQ5dSeAbl0vCnM210FNsWGrh2xNQogj
+	 IofQN8pa6q1v9MNgN9gAATLZQTLweMUa26RCUtX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EC94F80368;
-	Sun,  8 Sep 2019 14:45:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13DF2F80368;
+	Sun,  8 Sep 2019 14:50:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D54AF80368; Sun,  8 Sep 2019 14:45:52 +0200 (CEST)
+ id 8551EF80368; Sun,  8 Sep 2019 14:50:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,28 +34,28 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60C76F800E6
- for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 14:45:47 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44FABF800E6
+ for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 14:50:35 +0200 (CEST)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 566C1A003F;
- Sun,  8 Sep 2019 14:45:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 566C1A003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 259C8A0040;
+ Sun,  8 Sep 2019 14:50:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 259C8A0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1567946747; bh=DH8s6BLdCx2AkyMmHLo+9/q8200+Rg8saa0x7NkbO7E=;
+ t=1567947035; bh=081aClH3yudIvTmcTN0Iy26MyJW4BpjeCqbsHsg31/E=;
  h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=xDNbNe4QmTnnAN2TrQXOiXWMVpzmXjxiznP+pOYsPvhVLaQUH1Qv28j/TQKSg2QMT
- ExamnMQKaSJjHYEWQA3XB0QC2uWU9lRLKp6JGdGhQ4MZNBfTsczBv0KoLP/SbrhMO9
- qX9BwF4I7o/txqilNyN3d33e+6MWG1Yh3hiq3100=
+ b=FzGaAsfQ29e6ceQAYoFaB/6efVJk60+9BpTwS1KyF0l+mOkZtOO9ZYyTAGti/491c
+ UYhliDrCuUaKY+qkczD9maJVgCGogC8dXJTWWAqZMVeHLrMfg/vLTUpnjFI1pzQswy
+ B4qzfB5PKaA3eyOggcphvFpTUtdwzbM6bevvXjGA=
 Received: from t510-mob.perex-int.cz (unknown [88.214.186.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun,  8 Sep 2019 14:45:45 +0200 (CEST)
-To: Han <han.lu@intel.co>
+ Sun,  8 Sep 2019 14:50:32 +0200 (CEST)
+To: "Lu, Han" <han.lu@intel.com>
 References: <15679391594432724-alsa-devel@perex.cz>
 From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <50d38c53-78c8-0593-2029-f5502c49b69f@perex.cz>
-Date: Sun, 8 Sep 2019 14:45:43 +0200
+Message-ID: <cf4b5150-a9f5-fa82-8e4b-0978509a60b6@perex.cz>
+Date: Sun, 8 Sep 2019 14:50:31 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
@@ -85,7 +85,7 @@ Resend (delivery issues for the direct e-mail). Please, answer. Thank you.
 
 					Jaroslav
 
-08.09.19 in 12:39 Jaroslav Kysela wrote:
+Dne 08. 09. 19 v 12:39 Jaroslav Kysela napsal(a):
 > As discussed, we would like to move the UCM configuration files from the
 > alsa-lib repository to new alsa-ucm-conf repository with the licence change
 > from LGPL-2.1 to BSD-3-Clause.
@@ -110,6 +110,8 @@ Resend (delivery issues for the direct e-mail). Please, answer. Thank you.
 > Alsa-devel mailing list
 > Alsa-devel@alsa-project.org
 > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> 
+
 
 -- 
 Jaroslav Kysela <perex@perex.cz>

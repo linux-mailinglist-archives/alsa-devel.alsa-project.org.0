@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D31CDACC30
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 12:45:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD2FAACC31
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 12:46:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 677BC166C;
-	Sun,  8 Sep 2019 12:44:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 677BC166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 036CC166A;
+	Sun,  8 Sep 2019 12:45:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 036CC166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567939547;
-	bh=AyJUUp8Xmwgv4pzPyK4dh/ftCwKbJZt7kUDy9AI7L2Q=;
+	s=default; t=1567939584;
+	bh=ctvT173LwSJjMZuo5uM0lWUYYzCOl3HS65g77b0UoYo=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=JJPGAg8Yp/l7/cbU+Z8O0dSVF+52koLCvMUbkwEg8C6jeNV4F1MeyF24hKfF3n2Hx
-	 ifTjoppcX/7IZ5lKwF5LjMuw0hax8IsXY6UQ1VrLPlh+tTrpXcL58bsDtCt5BtNsJS
-	 jVPl6W8BENfHEbD/BYL9EqFZxZmFxQI/I9zjWxOs=
+	b=b6MsuPXCmXJVuU5taYDr8pL9SXNXGKKdyeV64eJG2LB7A452iXcs/P+ccNAlkSb/S
+	 MgzMNDWM2EaQHuuWnXN0GKL+I5vEPSyyilDW5wVxOrbZs0SrTSAu0IxKDJr6ohwai8
+	 lCCt55nfCjpwXp2mUGJOcfwhsWQXO1nN/b+jeJpk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9E2C4F80393;
-	Sun,  8 Sep 2019 12:40:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8683F80634;
+	Sun,  8 Sep 2019 12:40:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41F86F8063B; Sun,  8 Sep 2019 12:39:47 +0200 (CEST)
+ id C9367F80641; Sun,  8 Sep 2019 12:39:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14B9FF805F6
- for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 12:39:30 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10B6CF805F9
+ for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 12:39:31 +0200 (CEST)
 Received: from server.perex-int.cz (unknown [172.16.0.20])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AD26AA003F;
- Sun,  8 Sep 2019 12:39:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AD26AA003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AACA8A0042;
+ Sun,  8 Sep 2019 12:39:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AACA8A0042
 Received: from alsa-devel.perex.cz (unknown [192.168.102.181])
  by server.perex-int.cz (Perex's E-mail Delivery System) with ESMTP id
- 19D3814005C; Sun,  8 Sep 2019 12:39:26 +0200 (CEST)
+ 1A06F140073; Sun,  8 Sep 2019 12:39:27 +0200 (CEST)
 MIME-Version: 1.0
 From: Jaroslav Kysela <jkysela@redhat.com>
-To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+To: Heiko Stuebner <heiko@sntech.de>
 Message-Id: <15679391594432724-alsa-devel@perex.cz>
-Date: Sun,  8 Sep 2019 12:39:47 +0200 (CEST)
+Date: Sun,  8 Sep 2019 12:39:49 +0200 (CEST)
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] Licence change for your alsa-lib UCM commit (Enric
-	Balletbo i Serra: 1 total)
+Subject: [alsa-devel] Licence change for your alsa-lib UCM commit (Heiko
+	Stuebner: 1 total)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,8 +81,8 @@ Reference:  https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/1532
 
 List of your commit(s):
 
-  a192f52fc63a86e1fbb9a09adb0bc2a6bbc8dab1
-    conf/ucm: ROCKCHIP-I2S: add Rockchip I2S UCM config.
+  f449a299431a30d7d2588199f4cbd16e329db8a5
+    conf/ucm: ROCKCHIP-I2S: rename to VEYRON-I2S
 
 ---
 Jaroslav Kysela <perex@perex.cz>

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0749ACC22
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 12:41:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF439ACC23
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Sep 2019 12:42:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 546C51672;
-	Sun,  8 Sep 2019 12:40:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 546C51672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DF16166A;
+	Sun,  8 Sep 2019 12:41:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DF16166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1567939275;
-	bh=+clLTp3iTa/NqbfFD6DHHQzNYHvvRASIupItQorYCzc=;
+	s=default; t=1567939322;
+	bh=wXeilcCr5yELc3ZVEAmZzafBUNG2QJCPGA962G4p1Qw=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=DsQYlahnp1cCfNLU7/RQHpBNg5PJqRt3SNepPAYKyC0jv1Ag7MlM9F5tp4/iWoo6N
-	 VUolVuFgAiDonWh9Hwu9bT4uoSDIKGHGzHDBQT8TVeFdNlbGikpTPGJHt35veflZzC
-	 H/ShXzh3eEmE04e0C1A45FOXR/cwmS6ITUygVW0U=
+	b=RVj7OpKdYQ1zgAAH52urtG6dtAdA/cDxJiXderGzbWFRG/yvEHnfwytbQhxRqtLwl
+	 qcttt8yrLfIcJjAgC3Ro8zsk9PiqJcCLoSgz0IzxhcOGxIU/ntn6TwNMG9E4z0Y6N+
+	 KHOOf97lGdiN+o337/GlJpDpU55j389XDMOpA8to=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 759B7F805F7;
-	Sun,  8 Sep 2019 12:39:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 718AFF80368;
+	Sun,  8 Sep 2019 12:39:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 842DDF8036F; Sun,  8 Sep 2019 12:39:27 +0200 (CEST)
+ id E9925F804AB; Sun,  8 Sep 2019 12:39:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C76BCF800E6
- for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 12:39:23 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5584F80157
+ for <alsa-devel@alsa-project.org>; Sun,  8 Sep 2019 12:39:24 +0200 (CEST)
 Received: from server.perex-int.cz (unknown [172.16.0.20])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C35BFA003E;
- Sun,  8 Sep 2019 12:39:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C35BFA003E
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id BB024A003F;
+ Sun,  8 Sep 2019 12:39:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz BB024A003F
 Received: from alsa-devel.perex.cz (unknown [192.168.102.181])
  by server.perex-int.cz (Perex's E-mail Delivery System) with ESMTP id
- 487EB140059; Sun,  8 Sep 2019 12:39:20 +0200 (CEST)
+ 2224814005C; Sun,  8 Sep 2019 12:39:20 +0200 (CEST)
 MIME-Version: 1.0
 From: Jaroslav Kysela <jkysela@redhat.com>
-To: Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>
+To: Takashi Iwai <tiwai@suse.de>
 Message-Id: <15679391594432724-alsa-devel@perex.cz>
-Date: Sun,  8 Sep 2019 12:39:27 +0200 (CEST)
+Date: Sun,  8 Sep 2019 12:39:28 +0200 (CEST)
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] Licence change for your alsa-lib UCM commits (Marcin
-	Juszkiewicz: 5 total)
+Subject: [alsa-devel] Licence change for your alsa-lib UCM commits (Takashi
+	Iwai: 9 total)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,16 +81,24 @@ Reference:  https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/1532
 
 List of your commit(s):
 
-  f07c14b08280fb461b7f070d55a625e1f5e88a1e
-    conf/ucm: DAISY-I2S: add Samsung ARM Chromebook UCM config from ChromeOS
-  5b019ea310e6a5d6ff8933bcbca1f3f3471be33b
-    conf/ucm: PandaBoard: add UCM config from Ubuntu
-  9d0f93af0b35bfdcbd3d758d98715508b69d6008
-    conf/ucm: PandaBoardES: add UCM config from Ubuntu
-  7db247be11381bef6e38a41f1d51fa78a99350b5
-    conf/ucm: SDP4430: add UCM config from Ubuntu
-  52de910868f56ee7e6b07a1a2ad6a54913f745d0
-    conf/ucm: tegraalc5632: add UCM config from Ubuntu
+  c6ac8ddde965067c5be4f860d60ad106550f44c4
+    conf/ucm: Set up for installation
+  9d649add08beb93728ba2943a2c05f8f160f8296
+    conf/ucm: Add Makefile.am for broadwell-rt286 ucm config
+  91896be6bc326b5b9c1b5ef52b9dbac243fefa27
+    conf/ucm: Rearrange Makefile.am
+  b7e56af82a600262b7f641c5920a914b3303fd56
+    conf/ucm: Add dual HD-audio codecs config for Lenovo
+  d1e08d2db3517e8430ffa570f23b53987ba78cc3
+    conf/ucm: Add Gigabyte mobo UCM profile with dual HD-audio codecs
+  8ebb40c96970c913719a75deb2fe82ba2e257386
+    conf/ucm: Add a UCM profile for Dell WD15 Dock USB-audio
+  6eced6b4b6dca9f62ea3d13a40c5991231df3c5c
+    conf/ucm/Dell-WD15-Dock: Fix incorrect device names
+  d48adc2a206d044678be09953d57971c0e1907c7
+    conf: Move UCM profile snippets into components subdirectory
+  c9fcf9836907b1ccda0c1f72b698ee5c5dd5199c
+    ucm: Set default include path
 
 ---
 Jaroslav Kysela <perex@perex.cz>

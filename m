@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1E5AD723
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:46:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 574D4AD720
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:45:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 698721676;
-	Mon,  9 Sep 2019 12:45:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 698721676
+	by alsa0.perex.cz (Postfix) with ESMTPS id E951D4E;
+	Mon,  9 Sep 2019 12:44:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E951D4E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568025982;
-	bh=4W1kAzXOlZdpR/e+UBG3/Xh6hNq2OZgcrhJHHRwvR88=;
+	s=default; t=1568025940;
+	bh=lQg3F3EEYnWevlMbT1t6nAv5uqw5H4P7paQFeb9kIBU=;
 	h=From:To:Date:In-Reply-To:References:In-Reply-To:References:
 	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
 	 List-Subscribe:From;
-	b=p5GUXnFZtHm5PYrfycpnYjfW/NURYt/okaHOhVFsgP+jcMLB2iyLrFDrquRPektyZ
-	 qYp4AoSN69yldy+1C0OcVGHPNfmy7t10cLDB6N1275SmxIENgk6JCvFiQsU82RZ9lj
-	 XzTxj6wgNBkGN6g70Y6pKXQgVmgf2Bwmzeftj5F0=
+	b=izAJMQSOVKOrcR1Pq4eJ0tw+peuVmed0xb6M7eAXtpjIbRHvDrf0/X3fN1S4y48vm
+	 iy9AbbGrsoJ0LmtKfJpvF8J/y5PZJCULruCObrRG72Dne2EiGOiwaVOxQQUkrVJR9p
+	 AP8/9zRkohJMhKgBrfSxaGiiONnIZnZSF5V9Pe3I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64B50F806FA;
-	Mon,  9 Sep 2019 12:38:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92EF5F806EF;
+	Mon,  9 Sep 2019 12:38:11 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F8C4F800A9; Mon,  9 Sep 2019 12:34:54 +0200 (CEST)
+ id DB817F805FA; Mon,  9 Sep 2019 12:34:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 256FCF805FE
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 256FCF805FE
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id C8ED21A001D;
- Mon,  9 Sep 2019 12:34:48 +0200 (CEST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C107F805FF
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C107F805FF
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id BB17A200148;
+ Mon,  9 Sep 2019 12:34:49 +0200 (CEST)
 Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
  [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A00171A003B;
- Mon,  9 Sep 2019 12:34:43 +0200 (CEST)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id C12212001C3;
+ Mon,  9 Sep 2019 12:34:44 +0200 (CEST)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 48A2F402F2;
- Mon,  9 Sep 2019 18:34:37 +0800 (SGT)
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 60346402F3;
+ Mon,  9 Sep 2019 18:34:38 +0800 (SGT)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
  festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
  perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
  linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Date: Mon,  9 Sep 2019 18:33:19 -0400
-Message-Id: <65e96ca15afd4a282b122f3ea8b13642cf4614c7.1568025083.git.shengjiu.wang@nxp.com>
+Date: Mon,  9 Sep 2019 18:33:20 -0400
+Message-Id: <f62fda1f49af8159eb23a978147a321dd6849d1a.1568025083.git.shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1568025083.git.shengjiu.wang@nxp.com>
 References: <cover.1568025083.git.shengjiu.wang@nxp.com>
 In-Reply-To: <cover.1568025083.git.shengjiu.wang@nxp.com>
 References: <cover.1568025083.git.shengjiu.wang@nxp.com>
 X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [alsa-devel] [PATCH 1/3] ASoC: fsl_asrc: Use in(out)put_format
-	instead of in(out)put_word_width
+Subject: [alsa-devel] [PATCH 2/3] ASoC: fsl_asrc: update supported sample
+	format
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,144 +80,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-snd_pcm_format_t is more formal than enum asrc_word_width, which has
-two property, width and physical width, which is more accurate than
-enum asrc_word_width. So it is better to use in(out)put_format
-instead of in(out)put_word_width.
+The ASRC support 24bit/16bit/8bit input width, so S20_3LE format
+should not be supported, it is word width is 20bit.
+So replace S20_3LE with S24_3LE in supported list and add S8
+format in TX supported list
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- sound/soc/fsl/fsl_asrc.c | 56 +++++++++++++++++++++++++++-------------
- sound/soc/fsl/fsl_asrc.h |  4 +--
- 2 files changed, 40 insertions(+), 20 deletions(-)
+ sound/soc/fsl/fsl_asrc.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index cfa40ef6b1ca..4d3804a1ea55 100644
+index 4d3804a1ea55..584badf956d2 100644
 --- a/sound/soc/fsl/fsl_asrc.c
 +++ b/sound/soc/fsl/fsl_asrc.c
-@@ -265,6 +265,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 	struct asrc_config *config = pair->config;
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
- 	enum asrc_pair_index index = pair->index;
-+	enum asrc_word_width input_word_width;
-+	enum asrc_word_width output_word_width;
- 	u32 inrate, outrate, indiv, outdiv;
- 	u32 clk_index[2], div[2];
- 	int in, out, channels;
-@@ -283,9 +285,32 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 		return -EINVAL;
- 	}
+@@ -624,7 +624,7 @@ static int fsl_asrc_dai_probe(struct snd_soc_dai *dai)
  
--	/* Validate output width */
--	if (config->output_word_width == ASRC_WIDTH_8_BIT) {
--		pair_err("does not support 8bit width output\n");
-+	switch (snd_pcm_format_width(config->input_format)) {
-+	case 8:
-+		input_word_width = ASRC_WIDTH_8_BIT;
-+		break;
-+	case 16:
-+		input_word_width = ASRC_WIDTH_16_BIT;
-+		break;
-+	case 24:
-+		input_word_width = ASRC_WIDTH_24_BIT;
-+		break;
-+	default:
-+		pair_err("does not support this input format, %d\n",
-+			 config->input_format);
-+		return -EINVAL;
-+	}
-+
-+	switch (snd_pcm_format_width(config->output_format)) {
-+	case 16:
-+		output_word_width = ASRC_WIDTH_16_BIT;
-+		break;
-+	case 24:
-+		output_word_width = ASRC_WIDTH_24_BIT;
-+		break;
-+	default:
-+		pair_err("does not support this output format, %d\n",
-+			 config->output_format);
- 		return -EINVAL;
- 	}
+ #define FSL_ASRC_FORMATS	(SNDRV_PCM_FMTBIT_S24_LE | \
+ 				 SNDRV_PCM_FMTBIT_S16_LE | \
+-				 SNDRV_PCM_FMTBIT_S20_3LE)
++				 SNDRV_PCM_FMTBIT_S24_3LE)
  
-@@ -383,8 +408,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 	/* Implement word_width configurations */
- 	regmap_update_bits(asrc_priv->regmap, REG_ASRMCR1(index),
- 			   ASRMCR1i_OW16_MASK | ASRMCR1i_IWD_MASK,
--			   ASRMCR1i_OW16(config->output_word_width) |
--			   ASRMCR1i_IWD(config->input_word_width));
-+			   ASRMCR1i_OW16(output_word_width) |
-+			   ASRMCR1i_IWD(input_word_width));
- 
- 	/* Enable BUFFER STALL */
- 	regmap_update_bits(asrc_priv->regmap, REG_ASRMCR(index),
-@@ -497,13 +522,13 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
- 				  struct snd_soc_dai *dai)
- {
- 	struct fsl_asrc *asrc_priv = snd_soc_dai_get_drvdata(dai);
--	int width = params_width(params);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
- 	unsigned int channels = params_channels(params);
- 	unsigned int rate = params_rate(params);
- 	struct asrc_config config;
--	int word_width, ret;
-+	snd_pcm_format_t format;
-+	int ret;
- 
- 	ret = fsl_asrc_request_pair(channels, pair);
- 	if (ret) {
-@@ -513,15 +538,10 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
- 
- 	pair->config = &config;
- 
--	if (width == 16)
--		width = ASRC_WIDTH_16_BIT;
--	else
--		width = ASRC_WIDTH_24_BIT;
--
- 	if (asrc_priv->asrc_width == 16)
--		word_width = ASRC_WIDTH_16_BIT;
-+		format = SNDRV_PCM_FORMAT_S16_LE;
- 	else
--		word_width = ASRC_WIDTH_24_BIT;
-+		format = SNDRV_PCM_FORMAT_S24_LE;
- 
- 	config.pair = pair->index;
- 	config.channel_num = channels;
-@@ -529,13 +549,13 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
- 	config.outclk = OUTCLK_ASRCK1_CLK;
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		config.input_word_width   = width;
--		config.output_word_width  = word_width;
-+		config.input_format   = params_format(params);
-+		config.output_format  = format;
- 		config.input_sample_rate  = rate;
- 		config.output_sample_rate = asrc_priv->asrc_rate;
- 	} else {
--		config.input_word_width   = word_width;
--		config.output_word_width  = width;
-+		config.input_format   = format;
-+		config.output_format  = params_format(params);
- 		config.input_sample_rate  = asrc_priv->asrc_rate;
- 		config.output_sample_rate = rate;
- 	}
-diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
-index c60075112570..38af485bdd22 100644
---- a/sound/soc/fsl/fsl_asrc.h
-+++ b/sound/soc/fsl/fsl_asrc.h
-@@ -342,8 +342,8 @@ struct asrc_config {
- 	unsigned int dma_buffer_size;
- 	unsigned int input_sample_rate;
- 	unsigned int output_sample_rate;
--	enum asrc_word_width input_word_width;
--	enum asrc_word_width output_word_width;
-+	snd_pcm_format_t input_format;
-+	snd_pcm_format_t output_format;
- 	enum asrc_inclk inclk;
- 	enum asrc_outclk outclk;
- };
+ static struct snd_soc_dai_driver fsl_asrc_dai = {
+ 	.probe = fsl_asrc_dai_probe,
+@@ -635,7 +635,8 @@ static struct snd_soc_dai_driver fsl_asrc_dai = {
+ 		.rate_min = 5512,
+ 		.rate_max = 192000,
+ 		.rates = SNDRV_PCM_RATE_KNOT,
+-		.formats = FSL_ASRC_FORMATS,
++		.formats = FSL_ASRC_FORMATS |
++			   SNDRV_PCM_FMTBIT_S8,
+ 	},
+ 	.capture = {
+ 		.stream_name = "ASRC-Capture",
 -- 
 2.21.0
 

@@ -2,73 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9AF1AD8F1
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 14:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03E24ADA8B
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 15:55:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2EA851669;
-	Mon,  9 Sep 2019 14:24:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2EA851669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E7FD1664;
+	Mon,  9 Sep 2019 15:54:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E7FD1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568031905;
-	bh=dM/fnvCELkQkJUFpl3c7iYCh3//gPX1aS71CghkrN8c=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=LKcIQ8SWzPxOrYg4PZV8kX1M4Pfl2lodHiHvdLL++lkuAf7JcZnZN1lBtVSnOkaPS
-	 CfAHTUXrpp+7wDfyHphw479Q6YsKodjgIznwEqmjl1oYYl0HjDpvjZqMb+UVaY8TT6
-	 RBp97Qz8Tv3KPSK34G4cpzuJGjww5WJuSmxvjXcE=
+	s=default; t=1568037344;
+	bh=rA4T50WFTiVDNz4AiXcmKAqkF/p6LXTXBU14fIrNsmU=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ceXdf6aZ0rU1UG+H+gAVlKWk19hDvFzcDP6BFhDfGDXjCtKX2WJDQyU/QltFQRh+j
+	 bg3VKRx9UVJM6uR1AXjyEp2+qKGF9sN00h7O0S2Iys3UMO39XfxMeisNmfNhftRrL9
+	 uEUbBx+v//QEgyS8nBAHi6XJ/MLVTo6AHST/7L0Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 74693F800A9;
-	Mon,  9 Sep 2019 14:23:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DBC9AF800E6;
+	Mon,  9 Sep 2019 15:53:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6483F80323; Mon,  9 Sep 2019 14:23:18 +0200 (CEST)
+ id 22678F800C9; Mon,  9 Sep 2019 15:53:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A067F800A9
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 14:23:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A067F800A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id CFE55F800E6
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 15:53:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFE55F800E6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nuWrbdac"
+ header.b="SfCG2Ggh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=gYdHnx7Nr9MWONl7J9r7JSfdbIqXZJZeBwf+664C/f4=; b=nuWrbdacneIA
- HuzZOqw0iUssG+at54HTKWIqjbsQTvSKHodWb/KJyw5hYOX1lIbFh/XLAoY1PWr2+y9JLp8RIR8yB
- RocM3r+DRVzAKqzu/gex799LMmLAyZT71ha4JNgQZKzrfcSWGFnx3KpC/BcznXXUmz4S1BWvLE5PD
- DJfA0=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Cm68PPNUL9hpa20Iuq3N78KfFV9ZNG1FxC3bFlrLNBo=; b=SfCG2GghXvnLx5hk7+p07alq7
+ rAtpln77hLd/I2OhSW53ZOqioUNmYHSKcBbb8mqu7CPtaK7xrY8P/BZAFJBwcbiTIiUNImLxvpA9q
+ IP7v7eZk/iX6XwTN/nXk4BeApdZCIIVXbmK2eaCvwgK/XZDmHpv2JXbcjR+Uqt4JyETi8=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7IhN-0002In-T4; Mon, 09 Sep 2019 12:23:13 +0000
+ id 1i7K71-0002ZE-GF; Mon, 09 Sep 2019 13:53:47 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 49372D02D4C; Mon,  9 Sep 2019 13:23:13 +0100 (BST)
+ id DB8BCD02D3E; Mon,  9 Sep 2019 14:53:46 +0100 (BST)
+Date: Mon, 9 Sep 2019 14:53:46 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Ben Zhang <benzh@chromium.org>
-In-Reply-To: <20190906194636.217881-3-cujomalainey@chromium.org>
-X-Patchwork-Hint: ignore
-Message-Id: <20190909122313.49372D02D4C@fitzroy.sirena.org.uk>
-Date: Mon,  9 Sep 2019 13:23:13 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>,
- Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] Applied "ASoC: rt5677: keep analog power register at
-	SND_SOC_BIAS_OFF" to the asoc tree
+To: Neil Armstrong <narmstrong@baylibre.com>
+Message-ID: <20190909135346.GG2036@sirena.org.uk>
+References: <20190717083327.47646-1-cychiang@chromium.org>
+ <CA+Px+wX4gbntkd6y8NN8xwXpZLD4MH9rTeHcW9+Ndtw=3_mWBw@mail.gmail.com>
+ <CAFv8NwLiY+ro0L4c5vjSOGN8jA-Qr4zm2OWvVHkiuoa7_4e2Fg@mail.gmail.com>
+ <CAFv8NwJjG4mwfnYO=M3O9nZN48D6aY72nQuqEFpZL68dh5727w@mail.gmail.com>
+ <7019a223-cc97-e1c6-907b-e6b3d626164f@baylibre.com>
+MIME-Version: 1.0
+In-Reply-To: <7019a223-cc97-e1c6-907b-e6b3d626164f@baylibre.com>
+X-Cookie: Be careful!  UGLY strikes 9 out of 10!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Cheng-yi Chiang <cychiang@chromium.org>, linux-rockchip@lists.infradead.org,
+ Takashi Iwai <tiwai@suse.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ Dylan Reid <dgreid@chromium.org>, tzungbi@chromium.org,
+ Jonas Karlman <jonas@kwiboo.se>, Russell King <rmk+kernel@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Douglas Anderson <dianders@chromium.org>, Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [alsa-devel] [PATCH v5 0/5] Add HDMI jack support on RK3288
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,82 +95,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5544324781756764198=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: rt5677: keep analog power register at SND_SOC_BIAS_OFF
+--===============5544324781756764198==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1XWsVB21DFCvn2e8"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+--1XWsVB21DFCvn2e8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Mon, Sep 09, 2019 at 09:37:14AM +0200, Neil Armstrong wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> I'd like some review from ASoC people and other drm bridge reviewers,
+> Jernej, Jonas & Andrzej.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+> Jonas could have some comments on the overall patchset.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+The ASoC bits look basically fine, I've gone ahead and applied
+patch 1 as is since we're just before the merge window and that
+way we reduce potential cross tree issues.  I know there's a lot
+of discussion on the DRM side about how they want to handle
+things with jacks, I'm not 100% sure what the latest thinking is
+there.
 
-Thanks,
-Mark
+--1XWsVB21DFCvn2e8
+Content-Type: application/pgp-signature; name="signature.asc"
 
-From dfe58f2011595e7512bde9dffbd0abfc3a736ab7 Mon Sep 17 00:00:00 2001
-From: Ben Zhang <benzh@chromium.org>
-Date: Fri, 6 Sep 2019 12:46:24 -0700
-Subject: [PATCH] ASoC: rt5677: keep analog power register at SND_SOC_BIAS_OFF
+-----BEGIN PGP SIGNATURE-----
 
-Instead of clearing RT5677_PWR_ANLG2 (MX-64h) to 0 at SND_SOC_BIAS_OFF,
-we only clear the RT5677_PWR_CORE bit which is set at SND_SOC_BIAS_PREPARE.
-MICBIAS control bits are left unchanged.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl12WWoACgkQJNaLcl1U
+h9B58gf/azL9m1nPkR4phZ6A1RIN6d+L25pbHNjtM6SvzmLQ2nOUKncgKEgrHCE5
+mcWbRDcvUMGOQFMG4agAnXPvWxyTzLKs8YJ6inLI7FzsF9cGKN4eKz9wDl3QsikV
+ObslZLrhqTPe29AtSfIKfC9A3GRt9L0E6gG/D6YYa+ZzPEcJOSRMSsPQ+GXeHh1x
+uM7ntqIIEWytr2RkEDT+QJHAqgPWz9yI1L9ynlcZfp9OXt/sO2rWPkpFhNyyjeBs
+YFUpXp0aMmVtolJYrljTBVJ+DZeTX5JifotTePHJYEpavbMXJ9lcyTIMGL0bB94R
+o4rqAkYpM8kK2jGNg2ojes7W5qdjlA==
+=a5GI
+-----END PGP SIGNATURE-----
 
-This fixed the bug where if MICBIAS1 widget is forced on, MICBIAS
-control bits will be cleared at suspend and never turned back on again,
-since DAPM thinks the widget is always on.
+--1XWsVB21DFCvn2e8--
 
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20190906194636.217881-3-cujomalainey@chromium.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/rt5677.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 5b6ca3ced13b..315a3d39bc09 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -4493,11 +4493,11 @@ static int rt5677_set_bias_level(struct snd_soc_component *component,
- 	case SND_SOC_BIAS_OFF:
- 		regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC, 0x1, 0x0);
- 		regmap_write(rt5677->regmap, RT5677_PWR_DIG1, 0x0000);
--		regmap_write(rt5677->regmap, RT5677_PWR_DIG2, 0x0000);
- 		regmap_write(rt5677->regmap, RT5677_PWR_ANLG1,
- 			2 << RT5677_LDO1_SEL_SFT |
- 			2 << RT5677_LDO2_SEL_SFT);
--		regmap_write(rt5677->regmap, RT5677_PWR_ANLG2, 0x0000);
-+		regmap_update_bits(rt5677->regmap, RT5677_PWR_ANLG2,
-+			RT5677_PWR_CORE, 0);
- 		regmap_update_bits(rt5677->regmap,
- 			RT5677_PR_BASE + RT5677_BIAS_CUR4, 0x0f00, 0x0000);
- 
--- 
-2.20.1
+--===============5544324781756764198==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============5544324781756764198==--

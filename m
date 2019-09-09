@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13CAAAD70C
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:41:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B95FAD71A
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:44:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B73D1671;
-	Mon,  9 Sep 2019 12:40:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B73D1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07E36165E;
+	Mon,  9 Sep 2019 12:43:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07E36165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568025695;
-	bh=IfxAcbq6sBjKwDrIlFHrXMzQsbuxpgNyiA4RHs+lzIA=;
+	s=default; t=1568025861;
+	bh=JxvzhJ1RMuFTFkiwCAc372uOWXrbdzNPsLeanTeXK94=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=XcWtNxH0ZzealGtpOiYMPrf8eqlJV4YI1hyUfs8hvVg97X49gB2O6EZXBGxv2xdE4
-	 L/Z3TAw8/0g7m1RVXyO9Y7+tr/j217D+LNC73jPVH29ZEJOVwnxu3XShSNU2XZeE9W
-	 DOQBx3kn0ZzXWi6tvXVZPtWlyKAnZWwG+AwOOsAk=
+	b=N+C14xRpRGwfh09S0VYqUoYumbUC/8seW2IVPCTQQ8JsCCCHmxTwce+we2BOxtOxY
+	 eOyzkEnfuFK9RPuYnCb7R/g0DDBsqrGzSnchcA8dHBFvcy0JThiZH0uscq33ESXDY4
+	 2tLEVf9kKYgWggUwBD/Tjdn3d+PzwMyYua80uqcA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07994F8064C;
-	Mon,  9 Sep 2019 12:36:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FE7CF80519;
+	Mon,  9 Sep 2019 12:37:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97FA3F805FB; Mon,  9 Sep 2019 12:34:40 +0200 (CEST)
+ id 9BA72F800A9; Mon,  9 Sep 2019 12:34:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F3D1F805F7
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F3D1F805F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06D4AF805FB
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06D4AF805FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="pA8kSDy1"
+ header.b="pXNo7qq2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=7tQBabzGFNgFSknyRXUtCVROlUph9aJGvnMwb+EnPnQ=; b=pA8kSDy1/A6k
- I8FOL+n00KRf7avC/6XYSNm6JEd4M9cG/aul4uSgmNC+jXx5lBWMC/tioDVjCPLn9IeYGKPJ+ChCw
- R1TYm1K4hVM6uGDlk7K83tbuzrz5xLkfKJw+tBpnovkeGBTWOOMo4pY2DlQcxh2o7fsqgd0kPpgKL
- +QS4s=;
+ List-Archive; bh=qvEqsVB11jXmmerUvV31z20Vlpx17lLYw1fsBAjdagI=; b=pXNo7qq2UWBq
+ spzRhEcGVj6jjCwtX6iq9ax3WlEaALupG2KGNADYj377FRXB5YK4B4iPhuIcB7TK+5I3QetDm0iRm
+ ZVttrfHQEuFTtXHUzTXds1OPS6QUk+fk4ykoDpRgEFTR2APfm+NXYLjMvX5IUAhAJJZqEDQhZQQ0B
+ KE+Z4=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7GZq-0001sD-1Q; Mon, 09 Sep 2019 10:07:18 +0000
+ id 1i7GZq-0001s5-0D; Mon, 09 Sep 2019 10:07:18 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 6A853D02D59; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
+ id 559AED02D83; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-In-Reply-To: <20190907163653.9382-1-katsuhiro@katsuster.net>
+In-Reply-To: <20190907163653.9382-2-katsuhiro@katsuster.net>
 X-Patchwork-Hint: ignore
-Message-Id: <20190909100717.6A853D02D59@fitzroy.sirena.org.uk>
+Message-Id: <20190909100717.559AED02D83@fitzroy.sirena.org.uk>
 Date: Mon,  9 Sep 2019 11:07:17 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
  Daniel Drake <drake@endlessm.com>, Hans de Goede <hdegoede@redhat.com>,
  Mark Brown <broonie@kernel.org>, David Yang <yangxiaohua@everest-semi.com>
-Subject: [alsa-devel] Applied "ASoC: es8316: fix redundant codes of clock"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: es8316: support fixed and variable both
+	clock rates" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: es8316: fix redundant codes of clock
+   ASoC: es8316: support fixed and variable both clock rates
 
 has been applied to the asoc tree at
 
@@ -113,96 +113,109 @@ to this mail.
 Thanks,
 Mark
 
-From 0db0c62c88b84b135bbaf784499a08e536354a43 Mon Sep 17 00:00:00 2001
+From ebe02a5b9ef05e3b812af3d628cdf6206d9ba610 Mon Sep 17 00:00:00 2001
 From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Date: Sun, 8 Sep 2019 01:36:52 +0900
-Subject: [PATCH] ASoC: es8316: fix redundant codes of clock
+Date: Sun, 8 Sep 2019 01:36:53 +0900
+Subject: [PATCH] ASoC: es8316: support fixed and variable both clock rates
 
-This patch removes redundant null checks for optional MCLK clock.
-And fix DT binding document for changing clock property to optional
-from required.
+This patch supports some type of machine drivers that set 0 to mclk
+when sound device goes to idle state. After applied this patch,
+sysclk == 0 means there is no constraint of sound rate and other
+values will set constraints which is derived by sysclk setting.
+
+Original code refuses sysclk == 0 setting. But some boards and SoC
+(such as RockPro64 and RockChip I2S) has connected SoC MCLK out to
+ES8316 MCLK in. In this case, SoC side I2S will choose suitable
+frequency of MCLK such as fs * mclk-fs when user starts playing or
+capturing.
+
+Bad scenario as follows (mclk-fs = 256):
+  - Initialize sysclk by correct value (Ex. 12.288MHz)
+    - ES8316 set constraints of PCM rate by sysclk
+      48kHz (1/256), 32kHz (1/384), 30.720kHz (1/400),
+      24kHz (1/512), 16kHz (1/768), 12kHz (1/1024)
+  - Play 48kHz sound, it's acceptable
+  - Sysclk is not changed
+
+  - Play 32kHz sound, it's acceptable
+  - Set sysclk by 8.192MHz (= fs * mclk-fs = 32k * 256)
+    - ES8316 set constraints of PCM rate by sysclk
+      32kHz (1/256), 21.33kHz (1/384), 20.48kHz (1/400),
+      16kHz (1/512), 10.66kHz (1/768), 8kHz (1/1024)
+
+  - Play 48kHz again, but it's NOT acceptable because constraints
+    list does not allow 48kHz
 
 Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Link: https://lore.kernel.org/r/20190907163653.9382-1-katsuhiro@katsuster.net
+Link: https://lore.kernel.org/r/20190907163653.9382-2-katsuhiro@katsuster.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../bindings/sound/everest,es8316.txt         |  3 ++
- sound/soc/codecs/es8316.c                     | 31 ++++++++-----------
- 2 files changed, 16 insertions(+), 18 deletions(-)
+ sound/soc/codecs/es8316.c | 35 ++++++++++++++++++++---------------
+ 1 file changed, 20 insertions(+), 15 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.txt b/Documentation/devicetree/bindings/sound/everest,es8316.txt
-index aefcff9c48a2..1bf03c5f2af4 100644
---- a/Documentation/devicetree/bindings/sound/everest,es8316.txt
-+++ b/Documentation/devicetree/bindings/sound/everest,es8316.txt
-@@ -6,6 +6,9 @@ Required properties:
- 
-   - compatible  : should be "everest,es8316"
-   - reg : the I2C address of the device for I2C
-+
-+Optional properties:
-+
-   - clocks : a list of phandle, should contain entries for clock-names
-   - clock-names : should include as follows:
-          "mclk" : master clock (MCLK) of the device
 diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
-index 6248b01ca049..e9fa4981ccef 100644
+index e9fa4981ccef..9150e7068467 100644
 --- a/sound/soc/codecs/es8316.c
 +++ b/sound/soc/codecs/es8316.c
-@@ -370,11 +370,9 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- 	if (freq == 0)
+@@ -367,8 +367,12 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+ 
+ 	es8316->sysclk = freq;
+ 
+-	if (freq == 0)
++	if (freq == 0) {
++		es8316->sysclk_constraints.list = NULL;
++		es8316->sysclk_constraints.count = 0;
++
  		return 0;
++	}
  
--	if (es8316->mclk) {
--		ret = clk_set_rate(es8316->mclk, freq);
--		if (ret)
--			return ret;
--	}
-+	ret = clk_set_rate(es8316->mclk, freq);
-+	if (ret)
-+		return ret;
- 
- 	/* Limit supported sample rates to ones that can be autodetected
- 	 * by the codec running in slave mode.
-@@ -709,20 +707,18 @@ static int es8316_probe(struct snd_soc_component *component)
- 
- 	es8316->component = component;
- 
--	es8316->mclk = devm_clk_get(component->dev, "mclk");
--	if (PTR_ERR(es8316->mclk) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	es8316->mclk = devm_clk_get_optional(component->dev, "mclk");
- 	if (IS_ERR(es8316->mclk)) {
--		dev_err(component->dev, "clock is invalid, ignored\n");
--		es8316->mclk = NULL;
-+		dev_err(component->dev, "unable to get mclk\n");
-+		return PTR_ERR(es8316->mclk);
- 	}
-+	if (!es8316->mclk)
-+		dev_warn(component->dev, "assuming static mclk\n");
- 
--	if (es8316->mclk) {
--		ret = clk_prepare_enable(es8316->mclk);
--		if (ret) {
--			dev_err(component->dev, "unable to enable clock\n");
--			return ret;
--		}
-+	ret = clk_prepare_enable(es8316->mclk);
-+	if (ret) {
-+		dev_err(component->dev, "unable to enable mclk\n");
-+		return ret;
- 	}
- 
- 	/* Reset codec and enable current state machine */
-@@ -751,8 +747,7 @@ static void es8316_remove(struct snd_soc_component *component)
- {
+ 	ret = clk_set_rate(es8316->mclk, freq);
+ 	if (ret)
+@@ -447,17 +451,10 @@ static int es8316_pcm_startup(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
  	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
  
--	if (es8316->mclk)
--		clk_disable_unprepare(es8316->mclk);
-+	clk_disable_unprepare(es8316->mclk);
- }
+-	if (es8316->sysclk == 0) {
+-		dev_err(component->dev, "No sysclk provided\n");
+-		return -EINVAL;
+-	}
+-
+-	/* The set of sample rates that can be supported depends on the
+-	 * MCLK supplied to the CODEC.
+-	 */
+-	snd_pcm_hw_constraint_list(substream->runtime, 0,
+-				   SNDRV_PCM_HW_PARAM_RATE,
+-				   &es8316->sysclk_constraints);
++	if (es8316->sysclk_constraints.list)
++		snd_pcm_hw_constraint_list(substream->runtime, 0,
++					   SNDRV_PCM_HW_PARAM_RATE,
++					   &es8316->sysclk_constraints);
  
- static const struct snd_soc_component_driver soc_component_dev_es8316 = {
+ 	return 0;
+ }
+@@ -469,11 +466,19 @@ static int es8316_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_soc_component *component = dai->component;
+ 	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
+ 	u8 wordlen = 0;
++	int i;
+ 
+-	if (!es8316->sysclk) {
+-		dev_err(component->dev, "No MCLK configured\n");
+-		return -EINVAL;
++	/* Validate supported sample rates that are autodetected from MCLK */
++	for (i = 0; i < NR_SUPPORTED_MCLK_LRCK_RATIOS; i++) {
++		const unsigned int ratio = supported_mclk_lrck_ratios[i];
++
++		if (es8316->sysclk % ratio != 0)
++			continue;
++		if (es8316->sysclk / ratio == params_rate(params))
++			break;
+ 	}
++	if (i == NR_SUPPORTED_MCLK_LRCK_RATIOS)
++		return -EINVAL;
+ 
+ 	switch (params_format(params)) {
+ 	case SNDRV_PCM_FORMAT_S16_LE:
 -- 
 2.20.1
 

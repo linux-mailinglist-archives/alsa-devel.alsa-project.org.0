@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48AC2AD729
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4ED0AD738
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:48:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D5DD1167C;
-	Mon,  9 Sep 2019 12:46:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5DD1167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AA2F1673;
+	Mon,  9 Sep 2019 12:48:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AA2F1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568026059;
-	bh=8bkBt45MJRYkzNvPlY0fwg/2wBlHXyw3MKZ4IFEZUds=;
+	s=default; t=1568026139;
+	bh=EGnV6GSeNJoiJ1u7UReYq5LqU5hDHH2EKFBpI77vIL0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ON6Gq5tbKLdHFCcw79eJDL/8GT/AeK2lF6rQqju36EXIgKALzmKenlr/3dS5FTYQ7
-	 zPSM+T1Jqqmr7ytZ/j2K86o2fejA2fdvUCC2z05o2EkYm7HP50spei/TUKwew+utNs
-	 OhjOf02xDl61jauTEQuKQTyFL/okTm2Xix0sFuU8=
+	b=dVWwWJOFFLJUwiZnWy05n+vHP7izSdHh/SkS1kJnYhnRikmpR0zAXaz5hBo7DJf9o
+	 UybeXaQFX0jgjTWwNV+4wsW60DktDrZcxT1rQHbsNSt8uGY912RcuxxZci80Xj1RlA
+	 RufFDq5kp6YdVaBYb17aXe73D36nNSGx3brFrprg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3059CF80715;
-	Mon,  9 Sep 2019 12:38:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBF4EF8072A;
+	Mon,  9 Sep 2019 12:38:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5729EF8060F; Mon,  9 Sep 2019 12:35:08 +0200 (CEST)
+ id 1B0BFF80323; Mon,  9 Sep 2019 12:35:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CF386F805FB
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:35:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF386F805FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABD12F80612
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:35:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABD12F80612
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="o+7g/kAV"
+ header.b="S5snUQH5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=pgifkWS240+0IXtL8Cmh/xJGQiIwKppg9/fFNPpyMzA=; b=o+7g/kAVaukw
- y4CcDvi6FPdDWUfOsbTaPm6f+qq1ZOedWjEtn8vj3pl4MbVQh0/w5lBI8zsD+HKMPoubYQnVh7bKo
- bvUjTdBJW2O52gt1vcb9nFwA1JrgtML+K9TFhVcQnTqzXKjlB2NFKMrInhVVar9MY3WqWdBv/6WsN
- uzzsY=;
+ List-Archive; bh=yTK2raRocXmY1SVYBroK1A3JaVMioGcvQYa4SdbdL8k=; b=S5snUQH5yVyC
+ iub7lySHUfCpO7ZlHP7JorXwWyCPV/iJZESBtKcqjrReAjxZ7alvFMcF4d77OaARw3jxI7IIlZ/Bf
+ uxnyrDY8BM+Awf0jmUCty/MX2yumrprbhF8xp2PhQjZO8AP9qZH6H2mzfyR2tt6LCDIylBacyNh75
+ NlThQ=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7GZp-0001s1-U1; Mon, 09 Sep 2019 10:07:17 +0000
+ id 1i7GZp-0001rj-KO; Mon, 09 Sep 2019 10:07:17 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 2EE5AD02D76; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
+ id 089F0D02D52; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-In-Reply-To: <20190907174332.19586-1-katsuhiro@katsuster.net>
+To: Colin Ian King <colin.king@canonical.com>
+In-Reply-To: <20190907073717.21632-1-colin.king@canonical.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190909100717.2EE5AD02D76@fitzroy.sirena.org.uk>
+Message-Id: <20190909100717.089F0D02D52@fitzroy.sirena.org.uk>
 Date: Mon,  9 Sep 2019 11:07:17 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: rockchip: ignore 0Hz sysclk" to the
-	asoc tree
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
+Subject: [alsa-devel] Applied "ASoC: rt1011: make array pd static const,
+	makes object smaller" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rockchip: ignore 0Hz sysclk
+   ASoC: rt1011: make array pd static const, makes object smaller
 
 has been applied to the asoc tree at
 
@@ -113,39 +114,46 @@ to this mail.
 Thanks,
 Mark
 
-From f1879d7b98dc9081cffc7718b644c6c41628cd18 Mon Sep 17 00:00:00 2001
-From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Date: Sun, 8 Sep 2019 02:43:32 +0900
-Subject: [PATCH] ASoC: rockchip: ignore 0Hz sysclk
+From 2b70d5776e8b173e3b36a2ef63d94428c6a80e1f Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Sat, 7 Sep 2019 08:37:17 +0100
+Subject: [PATCH] ASoC: rt1011: make array pd static const, makes object
+ smaller
 
-This patch ignores sysclk setting if it is 0Hz.
+Don't populate the array pd on the stack but instead make it
+static const. Makes the object code smaller by 100 bytes.
 
-Some codecs treat 0Hz sysclk as signal of applying no constraints.
-This driver does not have such feature but current implementation
-outputs 'Failed to set mclk' error message if machine driver sets
-0Hz sysclk to this driver.
+Before:
+   text	   data	    bss	    dec	    hex	filename
+  51463	  13016	    128	  64607	   fc5f	sound/soc/codecs/rt1011.o
 
-Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Link: https://lore.kernel.org/r/20190907174332.19586-1-katsuhiro@katsuster.net
+After:
+   text	   data	    bss	    dec	    hex	filename
+  51299	  13080	    128	  64507	   fbfb	sound/soc/codecs/rt1011.o
+
+(gcc version 9.2.1, amd64)
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Link: https://lore.kernel.org/r/20190907073717.21632-1-colin.king@canonical.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/rockchip/rockchip_i2s.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/codecs/rt1011.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
-index 88ebaf6e1880..af2d5a6124c8 100644
---- a/sound/soc/rockchip/rockchip_i2s.c
-+++ b/sound/soc/rockchip/rockchip_i2s.c
-@@ -419,6 +419,9 @@ static int rockchip_i2s_set_sysclk(struct snd_soc_dai *cpu_dai, int clk_id,
- 	struct rk_i2s_dev *i2s = to_info(cpu_dai);
- 	int ret;
+diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
+index fa34565a3938..a92a0bacd812 100644
+--- a/sound/soc/codecs/rt1011.c
++++ b/sound/soc/codecs/rt1011.c
+@@ -1519,7 +1519,8 @@ static const struct snd_soc_dapm_route rt1011_dapm_routes[] = {
  
-+	if (freq == 0)
-+		return 0;
-+
- 	ret = clk_set_rate(i2s->mclk, freq);
- 	if (ret)
- 		dev_err(i2s->dev, "Fail to set mclk %d\n", ret);
+ static int rt1011_get_clk_info(int sclk, int rate)
+ {
+-	int i, pd[] = {1, 2, 3, 4, 6, 8, 12, 16};
++	int i;
++	static const int pd[] = {1, 2, 3, 4, 6, 8, 12, 16};
+ 
+ 	if (sclk <= 0 || rate <= 0)
+ 		return -EINVAL;
 -- 
 2.20.1
 

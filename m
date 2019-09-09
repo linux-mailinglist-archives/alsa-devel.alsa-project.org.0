@@ -2,93 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38700ADD98
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 18:55:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C1C4ADE29
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 19:46:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1220E1614;
-	Mon,  9 Sep 2019 18:54:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1220E1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id C411B1669;
+	Mon,  9 Sep 2019 19:45:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C411B1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568048127;
-	bh=2vXjhB86CFyCOgSe1nGXjxQrkslKOf4Wz/PM8aVbKsw=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1568051162;
+	bh=j3rIXO9lMqvaEuth9WbQbMmCHlFJn18By6Fh3wsm58M=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jvSGA7iYla5IDCP3PGoaXl4XxYhg2xMunRBgdM3rmCOY32WDy0DA+f/fdjZCr21mr
-	 YNQhSmJ3/CzEvh/1Y7WR29Q7a/ctX+CKo+Dno4+1QLeK3+M4E051SA46d+3v19hgnH
-	 nyAq80J1i/M2aL73W1hub9Cj9qE9DGKBrTrzYYkQ=
+	b=o2+wrv2d1L5R6xwzLt+E2lfmNWa09dXT8cPXUOYeIeMrTEVIlcBwAFnXGwj1m6Tdb
+	 e/l/6rhYBqGU5vzMIyc8/9cOtrP4/AQ325N509od50p2qI56JD/ROWQb1mIOy4FwMJ
+	 ENzGJnLZ6DXdJnTuBVKJySS2BDhO0ZTnqdITZpMg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1EBD7F80519;
-	Mon,  9 Sep 2019 18:53:40 +0200 (CEST)
-X-Original-To: alsa-devel@alsa-project.org
-Delivered-To: alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 26400F80323;
+	Mon,  9 Sep 2019 19:44:18 +0200 (CEST)
+X-Original-To: Alsa-devel@alsa-project.org
+Delivered-To: Alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3843FF80507; Mon,  9 Sep 2019 18:53:37 +0200 (CEST)
+ id D8353F80323; Mon,  9 Sep 2019 19:44:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84319F800C9
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 18:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84319F800C9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="cL+Wmncy"
-Received: by mail-qk1-x744.google.com with SMTP id q203so13773741qke.1
- for <alsa-devel@alsa-project.org>; Mon, 09 Sep 2019 09:53:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Z/RE3sZOS52OCIJSlMNFYYijY8PwSY3et1eyqWvBz8k=;
- b=cL+Wmncy6oma6eGrC+nFfOyFGs5a34R1pq28OBucKpjREQbhoJ83FOvJ6z+ttgaLR5
- uzO/ozehjX2/sP4emaM8xvhUcorC8O8636W0riEg2SWgZxMtZ7C/BpzZ8Udmr37EIS2H
- SFXWtMomfYQZGQuQH819eu2PB+vqPIhdZG7HFPe6YY6GYIrSvgLB93RuqEEkw+L8MRrK
- 8VDDHPoeU4ZnPfWr6hIOmNwtEd/SSU7T19jZf1zziEXgty7MOid+F2XIQZpmK+YrrYzM
- M5Q+bZQoI/D77ZKFw71MyYxdjavBaZt0cTROWM0rEotLxurT8aGwA7OcST6j4iRxS1DW
- 9IqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Z/RE3sZOS52OCIJSlMNFYYijY8PwSY3et1eyqWvBz8k=;
- b=iL4o0f5oetNWc89W7GETEpeEMN3AmcGW9hLDDfZftxEpQmVO79opjN0b+ruM0rWdEG
- EnoACoQEXmlJgx/NIWw6rboh1Dootl5iH/XoGHH3itQcA75E1/m0xJD5WuSBsj+JwPxr
- URqF90d6o9nXqA17IL6DCzHhRV9jTJguH5NCSomX3YaZtjfmKSXJn6JTbc96SDr4LhcJ
- nAkYbSgs9sFJUUN66hwtPRAFfzoOoBOf5W6hKr3E1BTsTQ3tycVG2eSFcMekX0t/0Scc
- 7a90YH1sV8dN16e2/E9xlhTFZ24sla8a24Y9D5a1OlC59B97TCq0yuqsnNxf4WmtNa6A
- XKYw==
-X-Gm-Message-State: APjAAAW2eCOgZUAk+uCw9GjaamVnc14QPsegF+gCM0PGAuP9CBL+zKkN
- zVX1yCIyDEsaIRdxBhUgdMo/tIq0YXqPq+SiYb8VwUFv+VU=
-X-Google-Smtp-Source: APXvYqxwAZWroFLVcfNe343lPZl/2BAtJmVCE09I7A+LHZAT9SAMZDwd0/vQQYCdGUC+XgcEuerMW04kWt78xvxzLLo=
-X-Received: by 2002:a37:8b46:: with SMTP id n67mr24488223qkd.36.1568048012633; 
- Mon, 09 Sep 2019 09:53:32 -0700 (PDT)
-MIME-Version: 1.0
-References: <20190906194636.217881-1-cujomalainey@chromium.org>
- <20190906194636.217881-7-cujomalainey@chromium.org>
- <87y2yy5nl8.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87y2yy5nl8.wl-kuninori.morimoto.gx@renesas.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Mon, 9 Sep 2019 09:53:21 -0700
-Message-ID: <CAOReqxh3BLCnJOJJbTcbBv83r2yF8_Df7d_Z6bg=3V+qnHPeDw@mail.gmail.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- ALSA development <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Steve Winslow <swinslow@gmail.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- Thomas Gleixner <tglx@linutronix.de>, Allison Randal <allison@lohutok.net>
-Subject: Re: [alsa-devel] [RFC 06/15] ASoC: bdw-rt5677: Add a DAI link for
-	rt5677 SPI PCM device
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59ECDF800A9
+ for <Alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 19:44:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59ECDF800A9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B8FEBAC18;
+ Mon,  9 Sep 2019 17:44:11 +0000 (UTC)
+Date: Mon, 09 Sep 2019 19:44:11 +0200
+Message-ID: <s5hzhjd9xg4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pavel Hofman <pavhofman@gmail.com>
+In-Reply-To: <CA+SWvNyUAyBQd9ktaZpvV8R7XcK8opA1_VQeMEnPfmr6jcSANQ@mail.gmail.com>
+References: <CA+SWvNx9hGJN0v9erykioJUKyd726VzfP4b77u0RUHh_mgFooQ@mail.gmail.com>
+ <CA+SWvNyUAyBQd9ktaZpvV8R7XcK8opA1_VQeMEnPfmr6jcSANQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] Measuring Device Throughput - MMAP vs. RW
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,52 +71,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Sep 8, 2019 at 5:18 PM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi Curtis
->
-> > From: Ben Zhang <benzh@chromium.org>
+On Mon, 09 Sep 2019 18:30:14 +0200,
+Pavel Hofman wrote:
+> 
+> On Sun, Sep 8, 2019 at 5:23 PM Pavel Hofman <pavhofman@gmail.com> wrote:
+> 
+> > Hi,
+> > Gathering data for USB async gadget feedback (
+> > https://mailman.alsa-project.org/pipermail/alsa-devel/2019-August/154819.html
+> > ) requires measuring average data rate to/from a device. For testing I
+> > added measuring/averaging code to methods snd_pcm_hw_writei, snd_pcm_hw_readi,
+> > and snd_pcm_hw_mmap_commit in
+> > https://github.com/alsa-project/alsa-lib/blob/master/src/pcm/pcm_hw.c .
+> > In all cases I take the parameter "size" of all the three methods as the
+> > number of samples written/read.
 > >
-> > This link is needed for the RT5677 DSP to do hotwording
+> > MMAP: When mmap is used (e.g. plughw:X + sample format conversion), I get
+> > very stable results for MMAP playback on all soundcards I have tested. But
+> > for capture I get identical results to playback for one soundcard (PCI
+> > Envy24), while the averaged rate calculated from "size" in
+> > snd_pcm_hw_mmap_commit fluctuates for capture on Intel HDA.
 > >
-> > Signed-off-by: Ben Zhang <benzh@chromium.org>
-> > Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-> > ---
-> (snip)
-> > +/* Wake on voice interface */
-> > +SND_SOC_DAILINK_DEF(fe_dsp,
-> > +     DAILINK_COMP_ARRAY(COMP_CPU("spi-RT5677AA:00")));
-> > +
-> > +SND_SOC_DAILINK_DEF(platform_dsp,
-> > +     DAILINK_COMP_ARRAY(COMP_PLATFORM("spi-RT5677AA:00")));
-> > +
-> > +SND_SOC_DAILINK_DEF(be_dsp,
-> > +     DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RT5677CE:00", "rt5677-dspbuffer")));
-> > +
-> (snip)
-> > +     /* Non-DPCM links */
-> > +     {
-> > +             .name = "Codec DSP",
-> > +             .stream_name = "Wake on Voice",
-> > +             SND_SOC_DAILINK_REG(fe_dsp, be_dsp, platform_dsp),
-> > +     },
->
-> If you don't need to re-use CPU/Codec/Platform definition,
-> I guess you can use more short version?
->
-> SND_SOC_DAILINK_DEFS(dsp,
->         DAILINK_COMP_ARRAY(COMP_CPU("spi-RT5677AA:00")),
->         DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RT5677CE:00", "rt5677-dspbuffer")),
->         DAILINK_COMP_ARRAY(COMP_PLATFORM("spi-RT5677AA:00")));
->
->  struct snd_soc_dai_link link = {
->         ...
->         SND_SOC_DAILINK_REG(dsp),
->  };
->
-Updated, thanks!
+> >
+> > I suspect the size parameter of snd_pcm_hw_mmap_commit is not the actual
+> > amount of samples read during the MMAP capture. Please how to calculate the
+> > number of samples read from the variables available in that method?
+> >
+> 
+> The mmap fluctuations seem to be fixed by using increases in hardware
+> pointer pcm->hw.ptr values instead of frames variable. Please do these
+> values wrap up or do they grow  to max long? Still contiguous after 10
+> minutes of running.
+
+Could you elaborate the requirement?  The description isn't clear to
+me.
+
+> I see the hw.ptr gets zeroed at XRUN. If I do not check for xruns (
+> snd_pcm_state(snd_pcm_t *pcm)?), can I just monitor continuity of hw.ptr
+> and restart the averaging if the new hw.ptr is lower than the previous one,
+> or are there any quirks to watch out?
+
+You should be able to skip XRUN check by changing the stop_threshold.
+Setting it to the boundary size essentially means skipping XRUN
+checks.
+
+In anyway, I put Pierre to Cc, as he's done some works in the past for
+the accurate position reporting on HD-audio and USB-audio devices.
+He can give a better hint in this regard.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

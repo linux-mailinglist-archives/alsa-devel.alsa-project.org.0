@@ -2,66 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E881AD728
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:47:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E6D0AD748
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:53:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1F4DC166D;
-	Mon,  9 Sep 2019 12:46:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F4DC166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D41D4169E;
+	Mon,  9 Sep 2019 12:52:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D41D4169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568026023;
-	bh=aqIxim7/I//xfNhKFpyvAxdxHNzgLCO3/0wHvdC6BMI=;
-	h=From:To:Date:In-Reply-To:References:In-Reply-To:References:
-	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
-	 List-Subscribe:From;
-	b=lJ811BmGn2Nifzt505pEfKoniwm1mtMijZK+V3lnwbdpSifXe7EV+kXqZCgNODrls
-	 tM7hEdK9TnsEn4FdxOq9NJV6a4HXdNAOWE13j7r82CGXDbIu9PqD88M3Ti4SqckVtu
-	 XzSlMkLuAJ3zzTbNih/mZKm1XJn5SPV4wZMq+sIc=
+	s=default; t=1568026382;
+	bh=jLNBJ36OApaaSx67IVxJabhkxRZMfYHBwNOVW1E6tjc=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=ps1nU2cZCpVZXUU/TPZGZVfjLgnKakEp32n2LwiI5+KLlCbfV+DicGKojZAwlutQo
+	 PzOE/BZfwb/IDtowVvkOqHSc0W8A70hWEzUHixFsR/HnG/v/99g547qGND9/ub6TOU
+	 LFWIsm0VvixMXL5igR5jq2rorXJ3qZmjU3XgAlY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 513C7F80633;
-	Mon,  9 Sep 2019 12:38:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 12073F80769;
+	Mon,  9 Sep 2019 12:39:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22B07F805FA; Mon,  9 Sep 2019 12:34:57 +0200 (CEST)
+ id 7AA21F805FA; Mon,  9 Sep 2019 12:35:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F442F80519
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F442F80519
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 061931A0084;
- Mon,  9 Sep 2019 12:34:51 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D7CE31A018F;
- Mon,  9 Sep 2019 12:34:45 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 80C1A402AF;
- Mon,  9 Sep 2019 18:34:39 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Date: Mon,  9 Sep 2019 18:33:21 -0400
-Message-Id: <2b6e028ca27b8569da4ab7868d7b90ff8c3225d0.1568025083.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1568025083.git.shengjiu.wang@nxp.com>
-References: <cover.1568025083.git.shengjiu.wang@nxp.com>
-In-Reply-To: <cover.1568025083.git.shengjiu.wang@nxp.com>
-References: <cover.1568025083.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [alsa-devel] [PATCH 3/3] ASoC: fsl_asrc: Fix error with S24_3LE
-	format bitstream in i.MX8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1055EF805FF
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:35:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1055EF805FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="OKofNxzw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=fz7+l4mvjmBGnncqCQaE1IroNLPzbIpEwubBbuwFycU=; b=OKofNxzwgeMB
+ RjzlnjjZm+sg2yPgcy83XL8TKLDZSBR5PVfY+5f35DX8g/8nvyHFIk3kNQC61nk09OtZUMk/wEt0e
+ 81gzTcFjaDf6Zk5h7oiozu+Ssk+Ox7EYi+20xfeRXxqt4pV6xtsWEACJ1okCe3sTrG04AdO4iAxHV
+ cxwZY=;
+Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1i7GZo-0001rG-Md; Mon, 09 Sep 2019 10:07:16 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 16CC7D02D1F; Mon,  9 Sep 2019 11:07:16 +0100 (BST)
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r24wor0z.wl-kuninori.morimoto.gx@renesas.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190909100716.16CC7D02D1F@fitzroy.sirena.org.uk>
+Date: Mon,  9 Sep 2019 11:07:16 +0100 (BST)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-core: self contained
+	soc_unbind_aux_dev()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,179 +84,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is error "aplay: pcm_write:2023: write error: Input/output error"
-on i.MX8QM/i.MX8QXP platform for S24_3LE format.
+The patch
 
-In i.MX8QM/i.MX8QXP, the DMA is EDMA, which don't support 24bit
-sample, but we didn't add any constraint, that cause issues.
+   ASoC: soc-core: self contained soc_unbind_aux_dev()
 
-So we need to query the caps of dma, then update the hw parameters
-according to the caps.
+has been applied to the asoc tree at
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From e8fbd2505242467044ec51bf57c642a50ed28a14 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 4 Sep 2019 09:15:40 +0900
+Subject: [PATCH] ASoC: soc-core: self contained soc_unbind_aux_dev()
+
+Current soc_unbind_aux_dev() implementation is very half,
+thus it is very unreadable.
+
+	for_each_comp_order(order) {
+		for_each_card_auxs_safe(card, comp, _comp) {
+
+(1)			if (comp->driver->remove_order == order) {
+				...
+=>				soc_unbind_aux_dev(comp);
+			}
+	}
+
+soc_unbind_aux_dev() itself is not related to remove_order (1).
+And, it is called from soc_remove_aux_devices(), even though
+its paired function soc_bind_aux_dev() is called from
+snd_soc_instantiate_card().
+It is very unbalance, and very difficult to understand.
+
+This patch do
+1) update soc_bind_aux_dev() to self contained
+2) call it from soc_cleanup_card_resources() to make up balance
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87r24wor0z.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_asrc.c     |  4 +-
- sound/soc/fsl/fsl_asrc.h     |  3 ++
- sound/soc/fsl/fsl_asrc_dma.c | 93 +++++++++++++++++++++++++++++++++---
- 3 files changed, 92 insertions(+), 8 deletions(-)
+ sound/soc/soc-core.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 584badf956d2..0bf91a6f54b9 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -115,7 +115,7 @@ static void fsl_asrc_sel_proc(int inrate, int outrate,
-  * within range [ANCA, ANCA+ANCB-1], depends on the channels of pair A
-  * while pair A and pair C are comparatively independent.
-  */
--static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
-+int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 2960070e68bc..35f48e9c5ead 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1559,10 +1559,14 @@ static int soc_link_init(struct snd_soc_card *card,
+ 	return ret;
+ }
+ 
+-static void soc_unbind_aux_dev(struct snd_soc_component *component)
++static void soc_unbind_aux_dev(struct snd_soc_card *card)
  {
- 	enum asrc_pair_index index = ASRC_INVALID_PAIR;
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
-@@ -158,7 +158,7 @@ static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
-  *
-  * It clears the resource from asrc_priv and releases the occupied channels.
-  */
--static void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
-+void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
- {
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
- 	enum asrc_pair_index index = pair->index;
-diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
-index 38af485bdd22..2b57e8c53728 100644
---- a/sound/soc/fsl/fsl_asrc.h
-+++ b/sound/soc/fsl/fsl_asrc.h
-@@ -462,4 +462,7 @@ struct fsl_asrc {
- #define DRV_NAME "fsl-asrc-dai"
- extern struct snd_soc_component_driver fsl_asrc_component;
- struct dma_chan *fsl_asrc_get_dma_channel(struct fsl_asrc_pair *pair, bool dir);
-+int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair);
-+void fsl_asrc_release_pair(struct fsl_asrc_pair *pair);
+-	component->init = NULL;
+-	list_del(&component->card_aux_list);
++	struct snd_soc_component *component, *_component;
 +
- #endif /* _FSL_ASRC_H */
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 01052a0808b0..30e27917016e 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -16,13 +16,11 @@
- 
- #define FSL_ASRC_DMABUF_SIZE	(256 * 1024)
- 
--static const struct snd_pcm_hardware snd_imx_hardware = {
-+static struct snd_pcm_hardware snd_imx_hardware = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_MMAP |
--		SNDRV_PCM_INFO_MMAP_VALID |
--		SNDRV_PCM_INFO_PAUSE |
--		SNDRV_PCM_INFO_RESUME,
-+		SNDRV_PCM_INFO_MMAP_VALID,
- 	.buffer_bytes_max = FSL_ASRC_DMABUF_SIZE,
- 	.period_bytes_min = 128,
- 	.period_bytes_max = 65535, /* Limited by SDMA engine */
-@@ -276,6 +274,16 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 	struct device *dev = component->dev;
- 	struct fsl_asrc *asrc_priv = dev_get_drvdata(dev);
- 	struct fsl_asrc_pair *pair;
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	u8 dir = tx ? OUT : IN;
-+	struct dma_slave_caps dma_caps;
-+	struct dma_chan *tmp_chan;
-+	struct snd_dmaengine_dai_dma_data *dma_data;
-+	u32 addr_widths = BIT(DMA_SLAVE_BUSWIDTH_1_BYTE) |
-+			  BIT(DMA_SLAVE_BUSWIDTH_2_BYTES) |
-+			  BIT(DMA_SLAVE_BUSWIDTH_4_BYTES);
-+	int ret;
-+	int i;
- 
- 	pair = kzalloc(sizeof(struct fsl_asrc_pair), GFP_KERNEL);
- 	if (!pair)
-@@ -285,8 +293,81 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 
- 	runtime->private_data = pair;
- 
--	snd_pcm_hw_constraint_integer(substream->runtime,
--				      SNDRV_PCM_HW_PARAM_PERIODS);
-+	ret = snd_pcm_hw_constraint_integer(substream->runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to set pcm hw params periods\n");
-+		return ret;
++	for_each_card_auxs_safe(card, component, _component) {
++		component->init = NULL;
++		list_del(&component->card_aux_list);
 +	}
-+
-+	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+
-+	/* Request a temp pair, which is release in the end */
-+	fsl_asrc_request_pair(1, pair);
-+
-+	tmp_chan = fsl_asrc_get_dma_channel(pair, dir);
-+	if (!tmp_chan) {
-+		dev_err(dev, "can't get dma channel\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = dma_get_slave_caps(tmp_chan, &dma_caps);
-+	if (ret == 0) {
-+		if (dma_caps.cmd_pause)
-+			snd_imx_hardware.info |= SNDRV_PCM_INFO_PAUSE |
-+						 SNDRV_PCM_INFO_RESUME;
-+		if (dma_caps.residue_granularity <=
-+			DMA_RESIDUE_GRANULARITY_SEGMENT)
-+			snd_imx_hardware.info |= SNDRV_PCM_INFO_BATCH;
-+
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			addr_widths = dma_caps.dst_addr_widths;
-+		else
-+			addr_widths = dma_caps.src_addr_widths;
-+	}
-+
-+	/*
-+	 * If SND_DMAENGINE_PCM_DAI_FLAG_PACK is set keep
-+	 * hw.formats set to 0, meaning no restrictions are in place.
-+	 * In this case it's the responsibility of the DAI driver to
-+	 * provide the supported format information.
-+	 */
-+	if (!(dma_data->flags & SND_DMAENGINE_PCM_DAI_FLAG_PACK))
-+		/*
-+		 * Prepare formats mask for valid/allowed sample types. If the
-+		 * dma does not have support for the given physical word size,
-+		 * it needs to be masked out so user space can not use the
-+		 * format which produces corrupted audio.
-+		 * In case the dma driver does not implement the slave_caps the
-+		 * default assumption is that it supports 1, 2 and 4 bytes
-+		 * widths.
-+		 */
-+		for (i = 0; i <= SNDRV_PCM_FORMAT_LAST; i++) {
-+			int bits = snd_pcm_format_physical_width(i);
-+
-+			/*
-+			 * Enable only samples with DMA supported physical
-+			 * widths
-+			 */
-+			switch (bits) {
-+			case 8:
-+			case 16:
-+			case 24:
-+			case 32:
-+			case 64:
-+				if (addr_widths & (1 << (bits / 8)))
-+					snd_imx_hardware.formats |= (1LL << i);
-+				break;
-+			default:
-+				/* Unsupported types */
-+				break;
-+			}
-+		}
-+
-+	if (tmp_chan)
-+		dma_release_channel(tmp_chan);
-+	fsl_asrc_release_pair(pair);
-+
- 	snd_soc_set_runtime_hwparams(substream, &snd_imx_hardware);
+ }
  
- 	return 0;
+ static int soc_bind_aux_dev(struct snd_soc_card *card)
+@@ -1614,12 +1618,8 @@ static void soc_remove_aux_devices(struct snd_soc_card *card)
+ 
+ 	for_each_comp_order(order) {
+ 		for_each_card_auxs_safe(card, comp, _comp) {
+-
+-			if (comp->driver->remove_order == order) {
++			if (comp->driver->remove_order == order)
+ 				soc_remove_component(comp);
+-				/* remove it from the card's aux_comp_list */
+-				soc_unbind_aux_dev(comp);
+-			}
+ 		}
+ 	}
+ }
+@@ -1932,6 +1932,7 @@ static void soc_cleanup_card_resources(struct snd_soc_card *card)
+ 
+ 	/* remove auxiliary devices */
+ 	soc_remove_aux_devices(card);
++	soc_unbind_aux_dev(card);
+ 
+ 	snd_soc_dapm_free(&card->dapm);
+ 	soc_cleanup_card_debugfs(card);
 -- 
-2.21.0
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

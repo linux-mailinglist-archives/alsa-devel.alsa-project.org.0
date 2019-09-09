@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B39BEAD73F
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:51:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62567AD743
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:52:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B945169A;
-	Mon,  9 Sep 2019 12:50:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B945169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F41431658;
+	Mon,  9 Sep 2019 12:51:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F41431658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568026297;
-	bh=LRQ5LzH0bWTq03hGgEKe/PIbIBezSubxRCaX9H4ZEmo=;
+	s=default; t=1568026336;
+	bh=UwHopyEbw7+AhO64eKTbw4ExuHJaiqZCBJ39eLusr/8=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=c6GWvIJZeFUCEXlY2UYtaeluS+Dvb9uY8d8gBIToMkBP10EXwJiXyQmlFQsRyCxL7
-	 5QoUkdRNPmo4lbqlGMC9efWjPj1zi9PV/Sm9Bh8PWySDJtjv66fLZ+DDgmqiL3esV2
-	 NwT/AoumXxAEetgSYdHCY1VemdxZlyLpF/VdHNBs=
+	b=Ik8XwbZSYQMczyn+lbI6Ipqp4Y/xCko15C0L85pD30QtkWILTorqhxMjYW6bxR2JM
+	 ATe9KP1N1XNLxJTYXTjuuk7mYLIz554jSHwfWUJx19cRsDUYFyfkDq7+arRa53fLOm
+	 1KexhijPKlfuI/mjvSVT62WzuGnY4PJRcZ35SrhQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82CF2F80760;
-	Mon,  9 Sep 2019 12:38:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56C7DF80508;
+	Mon,  9 Sep 2019 12:38:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0556F80508; Mon,  9 Sep 2019 12:35:37 +0200 (CEST)
+ id 42FE4F804CF; Mon,  9 Sep 2019 12:35:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4059DF804CF
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:35:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4059DF804CF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88603F80610
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:35:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88603F80610
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="SZfWbAvz"
+ header.b="DKSsyOIU"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=G/YyXUBf0EnnxZBRlPKQhX2LpQfJ577Gn2/LO2E0B7k=; b=SZfWbAvzRyT/
- eTsAbsmde8BuHtP8eVeyjtacno/vcLDygVGkGWPk+QsPI1FDkgitYE2mqg9aZPkblCeLgxbJuIAfS
- ZfrDp3+5VG0VSrRA5yLCMh7d+C4FOGe7VtBk78mUlUqmsLJ7a5XQ5kn6pP/sAUHBhQoHUjPRs115s
- L+Pj8=;
+ List-Archive; bh=djvY+i2UzgcbRSAUOr2kADC1kL7iS9x3vEBiyVHbBsI=; b=DKSsyOIUyvNQ
+ 2lG6Z5i6RrpvLO8m2M4FI/JXo0NiVysO45eoYpFqd0CV4lhqzdrCmZORzkGKRA+XMFbcXCRJ3ql5i
+ Q32XVh5KYGh9JxRa+1CfQx0OOkzMvmOqC1mU2YQYUatcLbd4oyitFRBPi6xwpYcBUJdfNr8NlB5/b
+ cVze0=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7GZp-0001rc-Id; Mon, 09 Sep 2019 10:07:17 +0000
+ id 1i7GZo-0001rI-QI; Mon, 09 Sep 2019 10:07:16 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id E8650D02D4C; Mon,  9 Sep 2019 11:07:16 +0100 (BST)
+ id 3C9FFD02D4C; Mon,  9 Sep 2019 11:07:16 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Colin Ian King <colin.king@canonical.com>
-In-Reply-To: <20190907074156.21907-1-colin.king@canonical.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87tv9sor1b.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190909100716.E8650D02D4C@fitzroy.sirena.org.uk>
+Message-Id: <20190909100716.3C9FFD02D4C@fitzroy.sirena.org.uk>
 Date: Mon,  9 Sep 2019 11:07:16 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt1305: make array pd static const,
-	makes object smaller" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-core: self contained
+	soc_bind_aux_dev()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1305: make array pd static const, makes object smaller
+   ASoC: soc-core: self contained soc_bind_aux_dev()
 
 has been applied to the asoc tree at
 
@@ -114,46 +111,89 @@ to this mail.
 Thanks,
 Mark
 
-From b61b1e35ed06db180968cb5ca0fbf8b8887ccb93 Mon Sep 17 00:00:00 2001
-From: Colin Ian King <colin.king@canonical.com>
-Date: Sat, 7 Sep 2019 08:41:56 +0100
-Subject: [PATCH] ASoC: rt1305: make array pd static const, makes object
- smaller
+From bee886f1ea9d9e58bef8204c543a409c399f8744 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 4 Sep 2019 09:15:28 +0900
+Subject: [PATCH] ASoC: soc-core: self contained soc_bind_aux_dev()
 
-Don't populate the array pd on the stack but instead make it
-static const. Makes the object code smaller by 93 bytes.
+Current soc_bind_aux_dev() implementation is very half,
+thus it is very unreadable.
 
-Before:
-   text	   data	    bss	    dec	    hex	filename
-  38961	   9784	     64	  48809	   bea9	sound/soc/codecs/rt1305.o
+	for_each_card_pre_auxs(xxx) {
+=>		ret = soc_bind_aux_dev(xxx);
+		...
+	}
 
-After:
-   text	   data	    bss	    dec	    hex	filename
-  38804	   9848	     64	  48716	   be4c	sound/soc/codecs/rt1305.o
+This patch does all for_each_xxx() under soc_bind_aux_dev(),
+and makes it to self contained.
 
-(gcc version 9.2.1, amd64)
-
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Link: https://lore.kernel.org/r/20190907074156.21907-1-colin.king@canonical.com
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87tv9sor1b.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1305.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ sound/soc/soc-core.c | 31 +++++++++++++++----------------
+ 1 file changed, 15 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1305.c b/sound/soc/codecs/rt1305.c
-index 9909369483f0..e27742abfa76 100644
---- a/sound/soc/codecs/rt1305.c
-+++ b/sound/soc/codecs/rt1305.c
-@@ -608,7 +608,8 @@ static const struct snd_soc_dapm_route rt1305_dapm_routes[] = {
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 20381f69a34b..d7761df03e19 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1559,20 +1559,22 @@ static int soc_link_init(struct snd_soc_card *card,
+ 	return ret;
+ }
  
- static int rt1305_get_clk_info(int sclk, int rate)
+-static int soc_bind_aux_dev(struct snd_soc_card *card,
+-			    struct snd_soc_aux_dev *aux_dev)
++static int soc_bind_aux_dev(struct snd_soc_card *card)
  {
--	int i, pd[] = {1, 2, 3, 4, 6, 8, 12, 16};
+ 	struct snd_soc_component *component;
++	struct snd_soc_aux_dev *aux;
 +	int i;
-+	static const int pd[] = {1, 2, 3, 4, 6, 8, 12, 16};
  
- 	if (sclk <= 0 || rate <= 0)
- 		return -EINVAL;
+-	/* codecs, usually analog devices */
+-	component = soc_find_component(&aux_dev->dlc);
+-	if (!component)
+-		return -EPROBE_DEFER;
+-
+-	component->init = aux_dev->init;
+-	/* see for_each_card_auxs */
+-	list_add(&component->card_aux_list, &card->aux_comp_list);
++	for_each_card_pre_auxs(card, i, aux) {
++		/* codecs, usually analog devices */
++		component = soc_find_component(&aux->dlc);
++		if (!component)
++			return -EPROBE_DEFER;
+ 
++		component->init = aux->init;
++		/* see for_each_card_auxs */
++		list_add(&component->card_aux_list, &card->aux_comp_list);
++	}
+ 	return 0;
+ }
+ 
+@@ -1937,7 +1939,6 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_pcm_runtime *rtd;
+ 	struct snd_soc_dai_link *dai_link;
+-	struct snd_soc_aux_dev *aux;
+ 	int ret, i;
+ 
+ 	mutex_lock(&client_mutex);
+@@ -1965,11 +1966,9 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 	}
+ 
+ 	/* bind aux_devs too */
+-	for_each_card_pre_auxs(card, i, aux) {
+-		ret = soc_bind_aux_dev(card, aux);
+-		if (ret != 0)
+-			goto probe_end;
+-	}
++	ret = soc_bind_aux_dev(card);
++	if (ret < 0)
++		goto probe_end;
+ 
+ 	/* add predefined DAI links to the list */
+ 	for_each_card_prelinks(card, i, dai_link) {
 -- 
 2.20.1
 

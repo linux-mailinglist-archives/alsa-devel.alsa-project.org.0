@@ -2,69 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AEC8AD829
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 13:43:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33286AD882
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 14:07:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 889ED166A;
-	Mon,  9 Sep 2019 13:42:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 889ED166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A59AB1668;
+	Mon,  9 Sep 2019 14:07:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A59AB1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568029417;
-	bh=znjk1+KB+9rTIR6v2hn2+1osaANXwPlH9GQx61KDGts=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568030872;
+	bh=zh0LmsjCU9LO07IQ0nJen0Ar3a7vC9i5Vkoqzl10a0I=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dov5SS/+KuCR3nTP5mtNRFIf7Hhiq4frJKDpPsG0o0NRIt/fleNx5lL8191x6evGa
-	 yfM3keWiA6dgnIR0Qi4TIll8uV9QfYGu8f9Cdn/poYwvJ5kbt6mE6+S2/VKwpiWKaE
-	 9Pb5ppDAE8SQaGp1NDo0iqJP2g9DT2UleAwA9z5U=
+	b=k3vBjJS9mg56wwwRPWFuKZgbiNbs6IwKyzwjm1GSKIs4+CvnsA0rdB3WMlTdGAIKB
+	 afCU/+dCbIFdRJgv76233BuoknCeOyf2Ch6S3M+6P/ZBuWFOi5w+cLurik2+arn1oU
+	 6Mu8rliFGfnpbTKYiddP7jojDXpo2CoQ23EhrWtk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19793F800E6;
-	Mon,  9 Sep 2019 13:41:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DA63F80323;
+	Mon,  9 Sep 2019 14:06:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F694F80323; Mon,  9 Sep 2019 13:41:49 +0200 (CEST)
+ id 6EF5FF80323; Mon,  9 Sep 2019 14:06:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49978F800A9
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 13:41:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49978F800A9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="xUsN32R3"
-Received: from localhost (unknown [148.69.85.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 582BA218AF;
- Mon,  9 Sep 2019 11:41:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1568029292;
- bh=UIBpQL4IyoiRivShLSPvpPLy/w0INLuoSj765Ms5he4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=xUsN32R35u2UBRj2lHEcA9H44gsX3xq+T5JpQmqDZWfJa1FKtItfngp9xYD5JwbTx
- xrTzIzCNrmEsodCvE2TC1jZyOwtkUb0qNP8keMHS8wjJkqKG+aRjDmBg1y7di6ZbHG
- vjxrtpyNpkPBkeyHRqWC/dCmpSrudREk4MBNKyFI=
-Date: Mon, 9 Sep 2019 06:41:29 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Message-ID: <20190909114129.GT103977@google.com>
-References: <20190827134756.10807-1-kai.heng.feng@canonical.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190827134756.10807-1-kai.heng.feng@canonical.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-pci@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 1/2] PCI: Add a helper to check Power
- Resource Requirements _PR3 existence
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB1C6F800A9
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 14:06:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB1C6F800A9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B5DF0AD44;
+ Mon,  9 Sep 2019 12:06:02 +0000 (UTC)
+Date: Mon, 09 Sep 2019 14:06:02 +0200
+Message-ID: <s5hy2yxbro5.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+In-Reply-To: <CAGvk5Pp76Y2s5Uz87KXxGCRbvEf8q6k8XhXoWGG=7qRUHx7iNg@mail.gmail.com>
+References: <CAGvk5Pohb9cxL=Mu11RPVD66NdiZkG+vO9TEtqBWe1tnBn6qyQ@mail.gmail.com>
+ <s5h5zm6pybu.wl-tiwai@suse.de>
+ <CAGvk5Pp76Y2s5Uz87KXxGCRbvEf8q6k8XhXoWGG=7qRUHx7iNg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Alsa conformance test - a new test for ALSA drivers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,101 +66,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Maybe:
-
-  PCI: Add pci_pr3_present() to check for Power Resources for D3hot
-
-On Tue, Aug 27, 2019 at 09:47:55PM +0800, Kai-Heng Feng wrote:
-> A driver may want to know the existence of _PR3, to choose different
-> runtime suspend behavior. A user will be add in next patch.
-
-Maybe include something like this in the commit lot?
-
-  Add pci_pr3_present() to check whether the platform supplies _PR3 to
-  tell us which power resources the device depends on when in D3hot.
-
-> This is mostly the same as nouveau_pr3_present().
-> 
-> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
-> ---
->  drivers/pci/pci.c   | 20 ++++++++++++++++++++
->  include/linux/pci.h |  2 ++
->  2 files changed, 22 insertions(+)
-> 
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index 1b27b5af3d55..776af15b92c2 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -5856,6 +5856,26 @@ int pci_set_vga_state(struct pci_dev *dev, bool decode,
->  	return 0;
->  }
->  
-> +bool pci_pr3_present(struct pci_dev *pdev)
-> +{
-> +	struct pci_dev *parent_pdev = pci_upstream_bridge(pdev);
-> +	struct acpi_device *parent_adev;
-> +
-> +	if (acpi_disabled)
-> +		return false;
-> +
-> +	if (!parent_pdev)
-> +		return false;
-> +
-> +	parent_adev = ACPI_COMPANION(&parent_pdev->dev);
-> +	if (!parent_adev)
-> +		return false;
-> +
-> +	return parent_adev->power.flags.power_resources &&
-> +		acpi_has_method(parent_adev->handle, "_PR3");
-
-I think this is generally OK, but it doesn't actually check whether
-*pdev* has a _PR3; it checks whether pdev's *parent* does.  So does
-that mean this is dependent on the GPU topology, i.e., does it assume
-that there is an upstream bridge and that power for everything under
-that bridge can be managed together?
-
-I'm wondering whether the "parent_pdev = pci_upstream_bridge()" part
-should be in the caller rather than in pci_pr3_present()?
-
-I can't connect any of the dots from _PR3 through to
-"need_eld_notify_link" (whatever "eld" is :)) and the uses of
-hda_intel.need_eld_notify_link (and needs_eld_notify_link()).
-
-But that's beyond the scope of *this* patch and it makes sense that
-you do want to discover the _PR3 existence, so I'm fine with this once
-we figure out the pdev vs parent question.
-
-> +}
-> +EXPORT_SYMBOL_GPL(pci_pr3_present);
-> +
->  /**
->   * pci_add_dma_alias - Add a DMA devfn alias for a device
->   * @dev: the PCI device for which alias is added
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 82e4cd1b7ac3..9b6f7b67fac9 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -2348,9 +2348,11 @@ struct irq_domain *pci_host_bridge_acpi_msi_domain(struct pci_bus *bus);
->  
->  void
->  pci_msi_register_fwnode_provider(struct fwnode_handle *(*fn)(struct device *));
-> +bool pci_pr3_present(struct pci_dev *pdev);
->  #else
->  static inline struct irq_domain *
->  pci_host_bridge_acpi_msi_domain(struct pci_bus *bus) { return NULL; }
-> +static bool pci_pr3_present(struct pci_dev *pdev) { return false; }
->  #endif
->  
->  #ifdef CONFIG_EEH
-> -- 
-> 2.17.1
-> 
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gRnJpLCAwNiBTZXAgMjAxOSAxMDowNjo1NSArMDIwMCwKWXUtSHN1YW4gSHN1IHdyb3RlOgo+
+IAo+IEhpIFRha2FzaGksCj4gCj4gVGhhbmtzIGZvciB0aGUgcmVwbHkuIEknbSB2ZXJ5IGdsYWQg
+dGhhdCB5b3UgbGlrZSBpdC4gRG8geW91IGhhdmUgYW55IHN0cm9uZwo+IHJlYXNvbiBmb3IgbW92
+aW5nIGl0IGludG8gQUxTQSB1cHN0cmVhbT8gSWYgbm90LCBJIHdvdWxkIGxpa2UgdG8ga2VlcCBp
+dCBpbgo+IGNocm9taXVtIGNvZGUgYmFzZS4gSXQncyBhbHNvIGVhc3kgZm9yIGRldmVsb3BlcnMg
+dG8gc2VuZCBwYXRjaGVzIHZpYSBnZXJyaXQgKAo+IGNocm9taXVtLXJldmlldy5nb29nbGVzb3Vy
+Y2UuY29tKS4gSSBjYW4gYmUgcmVzcG9uc2libGUgZm9yIHJldmlld2luZyB0aGVzZQo+IGNoYW5n
+ZXMuIElmIGluc3RhbGxpbmcgZnJvbSB0aGUgc291cmNlIGNvZGUgaXMgbm90IHF1aWNrIGVub3Vn
+aCwgd2UgY2FuIGNyZWF0ZQo+IHRoZSBuZXcgcGFja2FnZSBmb3IgaXQuIEJlc2lkZXMsIGl0IGlz
+IGVhc2llciBmb3IgbWUgdG8gbWFpbnRhaW4gdGhpcyB0b29sLgoKVGhlIGJpZ2dlc3QgYWR2YW50
+YWdlIGJ5IHVwc3RyZWFtaW5nIHdvdWxkIGJlIHRoZSBhY2NlcHRhbmNlIGJ5IG1hbnkKZGlzdHJv
+cywgc28gaW5jcmVhc2luZyB0aGUgdXNlciBiYXNlIGFuZCBtb3JlIGRlcGxveW1lbnQuCgpCdXQg
+SSBkb24ndCBtaW5kIGtlZXBpbmcgaW4gdGhlIGRvd25zdHJlYW0gc2lkZSwgdG9vLCB1bmxlc3Mg
+d2UgZ2V0Cm1vcmUgZGVtYW5kcy4KCgp0aGFua3MsCgpUYWthc2hpCgo+IAo+IEJlc3QsCj4gWXUt
+SHN1YW7CoAo+IAo+IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4g5pa8IDIwMTnlubQ55pyI
+NeaXpemAseWbm+S4i+WNiDExOjE35a+r6YGT77yaCj4gCj4gICAgIE9uIFdlZCwgMDQgU2VwIDIw
+MTkgMDY6Mjk6MzAgKzAyMDAsCj4gICAgIFl1LUhzdWFuIEhzdSB3cm90ZToKPiAgICAgPgo+ICAg
+ICA+IEhpIGFsbCwKPiAgICAgPgo+ICAgICA+IEkgaGF2ZSBjcmVhdGVkIGFuIG5ldyB0b29sICJB
+bHNhIGNvbmZvcm1hbmNlIHRlc3QiKAo+ICAgICA+IAo+ICAgICBodHRwczovL2Nocm9taXVtLmdv
+b2dsZXNvdXJjZS5jb20vY2hyb21pdW1vcy9wbGF0Zm9ybS9hdWRpb3Rlc3QvKy9tYXN0ZXIvYWxz
+YV9jb25mb3JtYW5jZV90ZXN0Lm1kCj4gICAgICksCj4gICAgID4gd2hpY2ggaXMgdXNlZCBmb3Ig
+dmVyaWZ5aW5nIEFMU0EgZHJpdmVycy4gSGVyZSBhcmUgc29tZSBtYWluIGZ1bmN0aW9ucwo+ICAg
+ICBpdAo+ICAgICA+IGNhbiBtZWFzdXJlOgo+ICAgICA+IDEuIENvcnJlY3RuZXNzIG9mIGh3X3Bh
+cmFtcwo+ICAgICA+IDIuIFN0YWJpbGl0eSBvZiByYXRlCj4gICAgID4gMy4gU3RhYmlsaXR5IG9m
+IHN0ZXAKPiAgICAgPiA0LiBSdW50aW1lIG9mIGVhY2ggQUxTQSBBUEkKPiAgICAgPiA1LiBVbmRl
+cnJ1biBhbmQgT3ZlcnJ1bgo+ICAgICA+Cj4gICAgID4gSSByZWNvbW1lbmQgdG8gdXNlIHRoZSBz
+Y3JpcHQgImFsc2FfY29uZm9ybWFuY2VfdGVzdC5weSIgaW5zaWRlLiBKdXN0Cj4gICAgIGdpdmUK
+PiAgICAgPiBpdCBhIGRldmljZSBhbmQgdGhlbiBpdCB3aWxsIHRlc3QgdGhlIGJlbG93IGZ1bmN0
+aW9ucyBhdXRvbWF0aWNhbGx5Lgo+ICAgICA+IDEuIFRvIG1ha2Ugc3VyZSB3aGV0aGVyIGFsbCB0
+aGUgcGFyYW1ldGVycyBwcm92aWRlZCBieSBhbiBBTFNBIGRyaXZlcgo+ICAgICBjYW4KPiAgICAg
+PiBiZSB1c2VkLgo+ICAgICA+IDIuIFRvIG1ha2Ugc3VyZSB3aGV0aGVyIHRoZSBtZWFzdXJlZCBy
+YXRlIGlzIHRoZSBzYW1lIGFzIHRoZSBleHBlY3RlZAo+ICAgICByYXRlLgo+ICAgICA+Cj4gICAg
+ID4gV2UgaGF2ZSB1c2VkIHRoaXMgdG9vbCB0byBmaW5kIG91dCBtYW55IGlzc3VlcyBpbiBDaHJv
+bWVPUy4gSSBob3BlIGl0Cj4gICAgIGNhbgo+ICAgICA+IGhlbHAgZGV2ZWxvcG1lbnQgaW4gTGlu
+dXggdG9vLiBJZiB5b3UgaGF2ZSBhbnkgcHJvYmxlbXMgb3Igd2FudCBtb3JlCj4gICAgID4gZmVh
+dHVyZXMsIHBsZWFzZSBjcmVhdGUgYSBidWcgaW4gY3JidWcuY29tIGFuZCBhc3NpZ24gdG8gbWUg
+KAo+ICAgICA+IHl1aHN1YW5AY2hyb21pdW0ub3JnKS4gVGhhbmtzIQo+ICAgIAo+ICAgICBHcmVh
+dCwgaXQncyBzb21ldGhpbmcgSSB3YW50ZWQgdG8gc2VlIGZvciBsb25nIHRpbWUuCj4gICAgIExl
+dCB1cyBrbm93IGlmIHlvdSdkIGxpa2UgdG8gcHV0IHRoaXMgdG8gQUxTQSB1cHN0cmVhbS4KPiAK
+PiAgICAgdGhhbmtzLAo+ICAgIAo+ICAgICBUYWthc2hpCj4gCj4gCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFs
+c2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

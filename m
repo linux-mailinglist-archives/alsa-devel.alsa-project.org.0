@@ -2,63 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A69AD2FF
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 08:11:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14C59AD32E
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 08:36:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5C111669;
-	Mon,  9 Sep 2019 08:10:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5C111669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B58E165D;
+	Mon,  9 Sep 2019 08:35:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B58E165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568009473;
-	bh=pWZmjDCYZbOFkezaYKzhhPcHRH/dwsx0MQ3muLSGztw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568010985;
+	bh=LlgHMLnUkZ/CttwG5YzpZA6DEVjXoTWT6Ubyk9yzyJM=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sGpLSp8t40S2lpL3kBHISxCxtUJt2QA9pM5Q1rwgwCoVLRb89svXxL6ZaJCHB6W/5
-	 pkOSMaz5vq0vHEf4ncncNimfL1UCQcTEpnqpcS/D+zs8VgtLTqoAhBQ/ZheoQxCsIO
-	 SE72/O8TxkP3FTnF2JaHDYjvYMBU1IwS0MkR0XRg=
+	b=MQAWUwDWT+qznnwUMQn0zApIkFn42r6KYB5TyGQWkdJoE41xrHg/bg3M9Qa1t7a7w
+	 XMBf0KSY7Qm1TwqZs6p6ZO1kpph2Qpe5wt79W3zuYRD1J7ssdAw61QdzCzZzfB3dlT
+	 EB1fkPwrJFl1b/sflUPPEIkozqAYcKZApCwnIjU8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 803E9F804CF;
-	Mon,  9 Sep 2019 08:09:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BEC21F800C9;
+	Mon,  9 Sep 2019 08:34:41 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1060BF804CF; Mon,  9 Sep 2019 08:09:26 +0200 (CEST)
+ id A0DF7F804CF; Mon,  9 Sep 2019 08:34:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EE226F80094
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 08:09:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE226F80094
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C646F800C9
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 08:34:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C646F800C9
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Sep 2019 23:09:18 -0700
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2019 23:34:30 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,483,1559545200"; d="scan'208";a="188924696"
-Received: from keyon-x299.sh.intel.com (HELO [10.239.159.75]) ([10.239.159.75])
- by orsmga006.jf.intel.com with ESMTP; 08 Sep 2019 23:09:18 -0700
-To: Jaroslav Kysela <perex@perex.cz>, tridlh@hotmail.com
-References: <15679391594432724-alsa-devel@perex.cz>
- <50d38c53-78c8-0593-2029-f5502c49b69f@perex.cz>
-From: Keyon Jie <yang.jie@linux.intel.com>
-Message-ID: <977a5bd9-7dde-7207-bb93-fc008197faf0@linux.intel.com>
-Date: Mon, 9 Sep 2019 14:15:48 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <50d38c53-78c8-0593-2029-f5502c49b69f@perex.cz>
+X-IronPort-AV: E=Sophos;i="5.64,483,1559545200"; d="scan'208";a="178248612"
+Received: from pgsmsx101.gar.corp.intel.com ([10.221.44.78])
+ by orsmga008.jf.intel.com with ESMTP; 08 Sep 2019 23:34:26 -0700
+Received: from pgsmsx108.gar.corp.intel.com ([169.254.8.125]) by
+ PGSMSX101.gar.corp.intel.com ([169.254.1.57]) with mapi id 14.03.0439.000;
+ Mon, 9 Sep 2019 14:34:25 +0800
+From: "Lu, Brent" <brent.lu@intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: [alsa-devel] [PATCH] ASoC: bdw-rt5677: channel constraint support
+Thread-Index: AQHVZFJP8PyrEMjcjUeZpcb0xW/mNqceLbmAgASxdDA=
+Date: Mon, 9 Sep 2019 06:34:25 +0000
+Message-ID: <CF33C36214C39B4496568E5578BE70C7402C9EA2@PGSMSX108.gar.corp.intel.com>
+References: <1567733058-9561-1-git-send-email-brent.lu@intel.com>
+ <391e8f6c-7e35-deb4-4f4d-c39396b778ba@linux.intel.com>
+In-Reply-To: <391e8f6c-7e35-deb4-4f4d-c39396b778ba@linux.intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Licence change for your alsa-lib UCM commit (Lu,
- Han: 1 total)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMTQyOGU1NDgtZWRmZS00OTUyLWI0YmItY2NmNzkxOTgzODVjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicytMeTJYeTJBVEcwclJpKzRNcndacGpVejJtMm1cL0RZRHBJNFkxRGhXQzBkOGllcmUyemxPYU5HWTlPTGpxQ2wifQ==
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [172.30.20.205]
+MIME-Version: 1.0
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "yang.jie@linux.intel.com" <yang.jie@linux.intel.com>,
+ "tiwai@suse.com" <tiwai@suse.com>,
+ "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "tglx@linutronix.de" <tglx@linutronix.de>
+Subject: Re: [alsa-devel] [PATCH] ASoC: bdw-rt5677: channel constraint
+ support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,33 +91,113 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgSmFyb3NsYXYsCgpIZXJlIGFkZCBIYW4ncyBuZXcgZW1haWwgYWRkcmVzcyB3aGljaCBtYXkg
-YmUgYXBwcm9hY2hhYmxlLgoKfktleW9uCgpPbiAyMDE5LzkvOCDkuIvljYg4OjQ1LCBKYXJvc2xh
-diBLeXNlbGEgd3JvdGU6Cj4gUmVzZW5kIChkZWxpdmVyeSBpc3N1ZXMgZm9yIHRoZSBkaXJlY3Qg
-ZS1tYWlsKS4gUGxlYXNlLCBhbnN3ZXIuIFRoYW5rIHlvdS4KPiAKPiAJCQkJCUphcm9zbGF2Cj4g
-Cj4gMDguMDkuMTkgaW4gMTI6MzkgSmFyb3NsYXYgS3lzZWxhIHdyb3RlOgo+PiBBcyBkaXNjdXNz
-ZWQsIHdlIHdvdWxkIGxpa2UgdG8gbW92ZSB0aGUgVUNNIGNvbmZpZ3VyYXRpb24gZmlsZXMgZnJv
-bSB0aGUKPj4gYWxzYS1saWIgcmVwb3NpdG9yeSB0byBuZXcgYWxzYS11Y20tY29uZiByZXBvc2l0
-b3J5IHdpdGggdGhlIGxpY2VuY2UgY2hhbmdlCj4+IGZyb20gTEdQTC0yLjEgdG8gQlNELTMtQ2xh
-dXNlLgo+Pgo+PiBJIHdvdWxkIGxpa2UgdG8gY2hlY2ssIGlmIHlvdSBhZ3JlZSB3aXRoIHRoaXMg
-bGljZW5jZSBjaGFuZ2UuIFBsZWFzZSwgYW5zd2VyCj4+IHRvIHRoaXMgZS1tYWlsIGFuZCB3cml0
-ZSB5b3VyIGFncmVlbWVudCAvIGRpc2FncmVlbWVudCAoa2VlcCBDQyB0bwo+PiB0aGUgYWxzYS1k
-ZXZlbCBtYWlsaW5nIGxpc3QgZm9yIHRoZSBhcmNoaXZpbmcgcHVycG9zZXMpLgo+Pgo+PiBUaGFu
-ayB5b3UgZm9yIHlvdXIgdGltZSBhbmQgY28tb3BlcmF0aW9uLgo+Pgo+PiBSZWZlcmVuY2U6ICBo
-dHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9waXBlcm1haWwvYWxzYS1kZXZlbC8yMDE5
-LUp1bHkvMTUzMjU3Lmh0bWwKPj4KPj4gTGlzdCBvZiB5b3VyIGNvbW1pdChzKToKPj4KPj4gICAg
-M2MyNjM3MTZmZDViZDJkOWQ1MzA4Y2IxM2RiYTY2N2QxMzhjMDA5Nwo+PiAgICAgIGNvbmYvdWNt
-OiBicm9hZHdlbGwtcnQyODY6IGFkZCB1Y20gY29uZmlnCj4+Cj4+IC0tLQo+PiBKYXJvc2xhdiBL
-eXNlbGEgPHBlcmV4QHBlcmV4LmN6Pgo+PiBMaW51eCBTb3VuZCBNYWludGFpbmVyOyBBTFNBIFBy
-b2plY3Q7IFJlZCBIYXQsIEluYy4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KPj4gQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4gQWxzYS1kZXZlbEBh
-bHNhLXByb2plY3Qub3JnCj4+IGh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8vYWxzYS1kZXZlbAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2Et
-cHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbHNhLWRldmVsCg==
+Hi Pierre
+
+We are working on a backport 3.14 branch for Chrome projects based on BDW platform. In the branch 4-channel capture is supported on some platforms but not all. So we need to add a constraint in the machine driver for machines don't support this feature.
+
+I checked the for-next branch in the broonie repo. The channels_max of HSW_PCM_DAI_ID_SYSTEM is 4 for capture stream so I think it would have same issue like google's backport tree. I didn't find any constraint for this dai. Would you point out where it is?
+
+		.capture = {
+			.stream_name = "Analog Capture",
+			.channels_min = 2,
+			.channels_max = 4,
+			.rates = SNDRV_PCM_RATE_48000,
+			.formats = SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S16_LE,
+		},
+
+Regards,
+Brent Lu
+
+-----Original Message-----
+From: Pierre-Louis Bossart [mailto:pierre-louis.bossart@linux.intel.com] 
+Sent: Friday, September 6, 2019 10:21 PM
+To: Lu, Brent <brent.lu@intel.com>; alsa-devel@alsa-project.org
+Cc: Rojewski, Cezary <cezary.rojewski@intel.com>; liam.r.girdwood@linux.intel.com; yang.jie@linux.intel.com; broonie@kernel.org; perex@perex.cz; tiwai@suse.com; kuninori.morimoto.gx@renesas.com; tglx@linutronix.de; linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: bdw-rt5677: channel constraint support
+
+On 9/5/19 8:24 PM, Brent Lu wrote:
+> BDW boards using this machine driver supports only stereo capture and 
+> playback. Implement a constraint to enforce it.
+
+Humm, can you clarify what problem/error this patch fixes?
+
+There are already constraints on the hsw_dais[] where the channels are stereo only.
+
+Thanks
+-Pierre
+
+> 
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>   sound/soc/intel/boards/bdw-rt5677.c | 33 +++++++++++++++++++++++++++++++++
+>   1 file changed, 33 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/bdw-rt5677.c 
+> b/sound/soc/intel/boards/bdw-rt5677.c
+> index 4a4d335..a312b55 100644
+> --- a/sound/soc/intel/boards/bdw-rt5677.c
+> +++ b/sound/soc/intel/boards/bdw-rt5677.c
+> @@ -22,6 +22,8 @@
+>   
+>   #include "../../codecs/rt5677.h"
+>   
+> +#define DUAL_CHANNEL 2
+> +
+>   struct bdw_rt5677_priv {
+>   	struct gpio_desc *gpio_hp_en;
+>   	struct snd_soc_component *component; @@ -245,6 +247,36 @@ static 
+> int bdw_rt5677_init(struct snd_soc_pcm_runtime *rtd)
+>   	return 0;
+>   }
+>   
+> +static const unsigned int channels[] = {
+> +	DUAL_CHANNEL,
+> +};
+> +
+> +static const struct snd_pcm_hw_constraint_list constraints_channels = {
+> +	.count = ARRAY_SIZE(channels),
+> +	.list = channels,
+> +	.mask = 0,
+> +};
+> +
+> +static int bdw_fe_startup(struct snd_pcm_substream *substream) {
+> +	struct snd_pcm_runtime *runtime = substream->runtime;
+> +
+> +	/*
+> +	 * On this platform for PCM device we support,
+> +	 * stereo
+> +	 */
+> +
+> +	runtime->hw.channels_max = DUAL_CHANNEL;
+> +	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
+> +					   &constraints_channels);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct snd_soc_ops bdw_rt5677_fe_ops = {
+> +	.startup = bdw_fe_startup,
+> +};
+> +
+>   /* broadwell digital audio interface glue - connects codec <--> CPU */
+>   SND_SOC_DAILINK_DEF(dummy,
+>   	DAILINK_COMP_ARRAY(COMP_DUMMY()));
+> @@ -273,6 +305,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+>   		},
+>   		.dpcm_capture = 1,
+>   		.dpcm_playback = 1,
+> +		.ops = &bdw_rt5677_fe_ops,
+>   		SND_SOC_DAILINK_REG(fe, dummy, platform),
+>   	},
+>   
+> 
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

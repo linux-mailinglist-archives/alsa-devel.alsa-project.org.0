@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6BEAD706
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:40:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13CAAAD70C
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:41:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4CCD1677;
-	Mon,  9 Sep 2019 12:39:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4CCD1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B73D1671;
+	Mon,  9 Sep 2019 12:40:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B73D1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568025623;
-	bh=JxHBJ+u9ST74QPiTyqH1aV2ioda9bliLDWPdTNNBP9Y=;
+	s=default; t=1568025695;
+	bh=IfxAcbq6sBjKwDrIlFHrXMzQsbuxpgNyiA4RHs+lzIA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=iNfFJGjYDwpZk6hT+xUmNsH4h1K2X1LbKKoyD15XE8P0qbUgug8X6D5NeFmqOZWNF
-	 pLcftI575R1X+CBiEraHCJWmqzc7NLyElhjyE0mqGXTd0SbNLVstqOHlbbtcyhe1Q3
-	 MkMAq5KIuv6qNZ+38qdFKbcfiU8O/9g65JbUOseM=
+	b=XcWtNxH0ZzealGtpOiYMPrf8eqlJV4YI1hyUfs8hvVg97X49gB2O6EZXBGxv2xdE4
+	 L/Z3TAw8/0g7m1RVXyO9Y7+tr/j217D+LNC73jPVH29ZEJOVwnxu3XShSNU2XZeE9W
+	 DOQBx3kn0ZzXWi6tvXVZPtWlyKAnZWwG+AwOOsAk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59DE3F805F7;
-	Mon,  9 Sep 2019 12:36:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07994F8064C;
+	Mon,  9 Sep 2019 12:36:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC95DF80094; Mon,  9 Sep 2019 12:34:32 +0200 (CEST)
+ id 97FA3F805FB; Mon,  9 Sep 2019 12:34:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3BA13F804FD
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BA13F804FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F3D1F805F7
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F3D1F805F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nom5ye0B"
+ header.b="pA8kSDy1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=5tP/CsShqX1/Pm++EC1QPZ2iu2mBVSSuan8MOuXOIFU=; b=nom5ye0BElA+
- KpiDnER9xR4POlsKEI0YiTCcc5i/zJb55XRwSylGMEtUuvw8V2bgPvjklUwjpd9VZ5eM0QSphqGIG
- eu/B48wNKL9yhXvnnoqRISMRDhjrffi7rJOFcT3UPXmFCfb2uh3LCKuEG9XyUTEw8o6/enfHjq0fc
- y8wAQ=;
+ List-Archive; bh=7tQBabzGFNgFSknyRXUtCVROlUph9aJGvnMwb+EnPnQ=; b=pA8kSDy1/A6k
+ I8FOL+n00KRf7avC/6XYSNm6JEd4M9cG/aul4uSgmNC+jXx5lBWMC/tioDVjCPLn9IeYGKPJ+ChCw
+ R1TYm1K4hVM6uGDlk7K83tbuzrz5xLkfKJw+tBpnovkeGBTWOOMo4pY2DlQcxh2o7fsqgd0kPpgKL
+ +QS4s=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7GZp-0001rR-93; Mon, 09 Sep 2019 10:07:17 +0000
+ id 1i7GZq-0001sD-1Q; Mon, 09 Sep 2019 10:07:18 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 74E81D02D5A; Mon,  9 Sep 2019 11:07:16 +0100 (BST)
+ id 6A853D02D59; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87y2z4or1r.wl-kuninori.morimoto.gx@renesas.com>
+To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+In-Reply-To: <20190907163653.9382-1-katsuhiro@katsuster.net>
 X-Patchwork-Hint: ignore
-Message-Id: <20190909100716.74E81D02D5A@fitzroy.sirena.org.uk>
-Date: Mon,  9 Sep 2019 11:07:16 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: add new soc_link_init()" to
-	the asoc tree
+Message-Id: <20190909100717.6A853D02D59@fitzroy.sirena.org.uk>
+Date: Mon,  9 Sep 2019 11:07:17 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Daniel Drake <drake@endlessm.com>, Hans de Goede <hdegoede@redhat.com>,
+ Mark Brown <broonie@kernel.org>, David Yang <yangxiaohua@everest-semi.com>
+Subject: [alsa-devel] Applied "ASoC: es8316: fix redundant codes of clock"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: add new soc_link_init()
+   ASoC: es8316: fix redundant codes of clock
 
 has been applied to the asoc tree at
 
@@ -111,107 +113,96 @@ to this mail.
 Thanks,
 Mark
 
-From c4b4698291a1d1c55665ae906779d1b685d5aa66 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 4 Sep 2019 09:15:12 +0900
-Subject: [PATCH] ASoC: soc-core: add new soc_link_init()
+From 0db0c62c88b84b135bbaf784499a08e536354a43 Mon Sep 17 00:00:00 2001
+From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Date: Sun, 8 Sep 2019 01:36:52 +0900
+Subject: [PATCH] ASoC: es8316: fix redundant codes of clock
 
-Current soc_probe_link_dais() (1) is called under probe_order (2),
-and it will initialize dai_link related settings at *Last* turn (3)(B).
-It is very complex code.
+This patch removes redundant null checks for optional MCLK clock.
+And fix DT binding document for changing clock property to optional
+from required.
 
-	static int soc_probe_link_dais(..., order)
-	{
-(A)		/* probe DAIs here */
-		...
-
-(3)		if (order != SND_SOC_COMP_ORDER_LAST)
-			return 0;
-
-(B)		/* initialize dai_link related settings */
-		...
-	}
-
-	static int snd_soc_instantiate_card(...)
-	{
-		...
-(2)		for_each_comp_order(order) {
-			for_each_card_rtds(...) {
-(1)				ret = soc_probe_link_dais(..., order);
-			}
-		}
-	}
-
-This patch separes soc_probe_link_dais() into "DAI probe" portion (A),
-and dai_link settings portion (B).
-The later is named as soc_link_init() by this patch.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87y2z4or1r.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
+Link: https://lore.kernel.org/r/20190907163653.9382-1-katsuhiro@katsuster.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 28 ++++++++++++++++++----------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+ .../bindings/sound/everest,es8316.txt         |  3 ++
+ sound/soc/codecs/es8316.c                     | 31 ++++++++-----------
+ 2 files changed, 16 insertions(+), 18 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 3ca5a21bfa6a..1e74ab8e6a25 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1455,19 +1455,13 @@ static int soc_link_dai_pcm_new(struct snd_soc_dai **dais, int num_dais,
- static int soc_probe_link_dais(struct snd_soc_card *card,
- 		struct snd_soc_pcm_runtime *rtd, int order)
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.txt b/Documentation/devicetree/bindings/sound/everest,es8316.txt
+index aefcff9c48a2..1bf03c5f2af4 100644
+--- a/Documentation/devicetree/bindings/sound/everest,es8316.txt
++++ b/Documentation/devicetree/bindings/sound/everest,es8316.txt
+@@ -6,6 +6,9 @@ Required properties:
+ 
+   - compatible  : should be "everest,es8316"
+   - reg : the I2C address of the device for I2C
++
++Optional properties:
++
+   - clocks : a list of phandle, should contain entries for clock-names
+   - clock-names : should include as follows:
+          "mclk" : master clock (MCLK) of the device
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 6248b01ca049..e9fa4981ccef 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -370,11 +370,9 @@ static int es8316_set_dai_sysclk(struct snd_soc_dai *codec_dai,
+ 	if (freq == 0)
+ 		return 0;
+ 
+-	if (es8316->mclk) {
+-		ret = clk_set_rate(es8316->mclk, freq);
+-		if (ret)
+-			return ret;
+-	}
++	ret = clk_set_rate(es8316->mclk, freq);
++	if (ret)
++		return ret;
+ 
+ 	/* Limit supported sample rates to ones that can be autodetected
+ 	 * by the codec running in slave mode.
+@@ -709,20 +707,18 @@ static int es8316_probe(struct snd_soc_component *component)
+ 
+ 	es8316->component = component;
+ 
+-	es8316->mclk = devm_clk_get(component->dev, "mclk");
+-	if (PTR_ERR(es8316->mclk) == -EPROBE_DEFER)
+-		return -EPROBE_DEFER;
++	es8316->mclk = devm_clk_get_optional(component->dev, "mclk");
+ 	if (IS_ERR(es8316->mclk)) {
+-		dev_err(component->dev, "clock is invalid, ignored\n");
+-		es8316->mclk = NULL;
++		dev_err(component->dev, "unable to get mclk\n");
++		return PTR_ERR(es8316->mclk);
+ 	}
++	if (!es8316->mclk)
++		dev_warn(component->dev, "assuming static mclk\n");
+ 
+-	if (es8316->mclk) {
+-		ret = clk_prepare_enable(es8316->mclk);
+-		if (ret) {
+-			dev_err(component->dev, "unable to enable clock\n");
+-			return ret;
+-		}
++	ret = clk_prepare_enable(es8316->mclk);
++	if (ret) {
++		dev_err(component->dev, "unable to enable mclk\n");
++		return ret;
+ 	}
+ 
+ 	/* Reset codec and enable current state machine */
+@@ -751,8 +747,7 @@ static void es8316_remove(struct snd_soc_component *component)
  {
--	struct snd_soc_dai_link *dai_link = rtd->dai_link;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
--	struct snd_soc_rtdcom_list *rtdcom;
--	struct snd_soc_component *component;
- 	struct snd_soc_dai *codec_dai;
--	int i, ret, num;
-+	int i, ret;
+ 	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
  
- 	dev_dbg(card->dev, "ASoC: probe %s dai link %d late %d\n",
- 			card->name, rtd->num, order);
+-	if (es8316->mclk)
+-		clk_disable_unprepare(es8316->mclk);
++	clk_disable_unprepare(es8316->mclk);
+ }
  
--	/* set default power off timeout */
--	rtd->pmdown_time = pmdown_time;
--
- 	ret = soc_probe_dai(cpu_dai, order);
- 	if (ret)
- 		return ret;
-@@ -1479,9 +1473,20 @@ static int soc_probe_link_dais(struct snd_soc_card *card,
- 			return ret;
- 	}
- 
--	/* complete DAI probe during last probe */
--	if (order != SND_SOC_COMP_ORDER_LAST)
--		return 0;
-+	return 0;
-+}
-+
-+static int soc_link_init(struct snd_soc_card *card,
-+			 struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_component *component;
-+	int ret, num;
-+
-+	/* set default power off timeout */
-+	rtd->pmdown_time = pmdown_time;
- 
- 	/* do machine specific initialization */
- 	if (dai_link->init) {
-@@ -2041,6 +2046,9 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
- 		}
- 	}
- 
-+	for_each_card_rtds(card, rtd)
-+		soc_link_init(card, rtd);
-+
- 	snd_soc_dapm_link_dai_widgets(card);
- 	snd_soc_dapm_connect_dai_link_widgets(card);
- 
+ static const struct snd_soc_component_driver soc_component_dev_es8316 = {
 -- 
 2.20.1
 

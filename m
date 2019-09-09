@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E56AD6FD
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:37:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A00AD701
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:39:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F41FD1670;
-	Mon,  9 Sep 2019 12:37:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F41FD1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB7CC1672;
+	Mon,  9 Sep 2019 12:38:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7CC1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568025471;
-	bh=7SI0GvPmArvEZaY0BbmV1j53yRjdu3pk7h2jZQl6kCU=;
+	s=default; t=1568025576;
+	bh=9Akb8J2tCbB23jVjo1LF9oM+xi7oAD8BkXyGFGooXZI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fyRb9xmAVrUBJyxxytnxOhZlOFM4zCFumkq1NAqQ2GI/GrzkUv9eunqmf4+tPAHS2
-	 lZqJpSPcb2vGIaPi2TMxxcrZu9zYUhzl03EBbUjfWYvVqClLO0DvUPS6HnQkV9xbHQ
-	 t60czr8W2Rapx5Ji01vtAWAIIZLaIo+fU91DvIJQ=
+	b=TNKKcE93ZFJJdFmcQuOfT7EUGKTn8btvNj7SytDrvjtMR/ru0cDlKc8GxxZ1UAmWn
+	 4oCtJ9HnYXpeiwbdnYSSvlDA8Vm1zUyaL5DxQpjaH3B5kKgEtFezGC6bHRJ+VpC8ab
+	 5izI5zj7x9odPqV8M5L6ibcJnBmUJFNPfpeVCfqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 236F0F805FE;
-	Mon,  9 Sep 2019 12:34:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAE74F804CF;
+	Mon,  9 Sep 2019 12:35:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3F7BF804FE; Mon,  9 Sep 2019 12:34:18 +0200 (CEST)
+ id 0428BF80507; Mon,  9 Sep 2019 12:34:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D75F8F80323
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D75F8F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FCA9F800A9
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FCA9F800A9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="jHXwY0XK"
+ header.b="GUldx2zO"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=h7CwsGin/gAKd5MlPcygrl7rvGBDxjHcGgJA8rYLCjs=; b=jHXwY0XK8Lhz
- CgaFjd5BtuovqmeEF7YD6sb77Vvs6Fvb3fgM1h1NCG/dz2ePiox6NR/t8gZM8b+Nipd9+3KgLLGjZ
- MCqoJROXKVe4fxvxUA9OGEWx6dq0tzCP0Cyxz/kEi1uheBtSfTfSBWcIaKa6hBI+JefzGjHEme07L
- Of120=;
+ List-Archive; bh=FADI6GBmjOVJOHjLSGMobnRN0OGoa6F3qFcm5svhebo=; b=GUldx2zOeqHZ
+ zYVeX2+Jd8vD3j8MXpHizC/1Mp4cFIcdiYjPMNN/43UgfwDsXmtUIujSvPpXZwuQKyQZTPNgss+JB
+ HLHSy/qtBt/MMoBfN9HRZoxCNT9L+ujZXsf4+6xYVQMZeDtq4dC/pp4dlOS6Ghvsh+LVSK1PJyVbR
+ 6gfkk=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7GZp-0001rk-Ne; Mon, 09 Sep 2019 10:07:17 +0000
+ id 1i7GZq-0001sV-9A; Mon, 09 Sep 2019 10:07:18 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 1BBC2D02D74; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
+ id 938E0D02D18; Mon,  9 Sep 2019 11:07:17 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-In-Reply-To: <20190907174501.19833-1-katsuhiro@katsuster.net>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+In-Reply-To: <20190906055524.7393-1-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190909100717.1BBC2D02D74@fitzroy.sirena.org.uk>
+Message-Id: <20190909100717.938E0D02D18@fitzroy.sirena.org.uk>
 Date: Mon,  9 Sep 2019 11:07:17 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [alsa-devel] Applied "SoC: simple-card-utils: set 0Hz to sysclk
-	when shutdown" to the asoc tree
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, lgirdwood@gmail.com,
+ arthur.she@linaro.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: dmaengine: Make the pcm->name equal to
+	pcm->id if the name is not set" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +87,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   SoC: simple-card-utils: set 0Hz to sysclk when shutdown
+   ASoC: dmaengine: Make the pcm->name equal to pcm->id if the name is not set
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.3
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,68 +112,45 @@ to this mail.
 Thanks,
 Mark
 
-From 2458adb8f92ad4d07ef7ab27c5bafa1d3f4678d6 Mon Sep 17 00:00:00 2001
-From: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Date: Sun, 8 Sep 2019 02:45:01 +0900
-Subject: [PATCH] SoC: simple-card-utils: set 0Hz to sysclk when shutdown
+From 2ec42f3147e1610716f184b02e65d7f493eed925 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Fri, 6 Sep 2019 08:55:24 +0300
+Subject: [PATCH] ASoC: dmaengine: Make the pcm->name equal to pcm->id if the
+ name is not set
 
-This patch set 0Hz to sysclk when shutdown the card.
+Some tools use the snd_pcm_info_get_name() to try to identify PCMs or for
+other purposes.
 
-Some codecs set rate constraints that derives from sysclk. This
-mechanism works correctly if machine drivers give fixed frequency.
+Currently it is left empty with the dmaengine-pcm, in this case copy the
+pcm->id string as pcm->name.
 
-But simple-audio and audio-graph card set variable clock rate if
-'mclk-fs' property exists. In this case, rate constraints will go
-bad scenario. For example a codec accepts three limited rates
-(mclk / 256, mclk / 384, mclk / 512).
+For example IGT is using this to find the HDMI PCM for testing audio on it.
 
-Bad scenario as follows (mclk-fs = 256):
-   - Initialize sysclk by correct value (Ex. 12.288MHz)
-     - Codec set constraints of PCM rate by sysclk
-       48kHz (1/256), 32kHz (1/384), 24kHz (1/512)
-   - Play 48kHz sound, it's acceptable
-   - Sysclk is not changed
-
-   - Play 32kHz sound, it's acceptable
-   - Set sysclk to 8.192MHz (= fs * mclk-fs = 32k * 256)
-     - Codec set constraints of PCM rate by sysclk
-       32kHz (1/256), 21.33kHz (1/384), 16kHz (1/512)
-
-   - Play 48kHz again, but it's NOT acceptable because constraints
-     do not allow 48kHz
-
-So codecs treat 0Hz sysclk as signal of applying no constraints to
-avoid this problem.
-
-Signed-off-by: Katsuhiro Suzuki <katsuhiro@katsuster.net>
-Link: https://lore.kernel.org/r/20190907174501.19833-1-katsuhiro@katsuster.net
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Reported-by: Arthur She <arthur.she@linaro.org>
+Link: https://lore.kernel.org/r/20190906055524.7393-1-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/generic/simple-card-utils.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/soc-generic-dmaengine-pcm.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 556b1a789629..9b794775df53 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -213,10 +213,17 @@ EXPORT_SYMBOL_GPL(asoc_simple_startup);
- void asoc_simple_shutdown(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
- 	struct simple_dai_props *dai_props =
- 		simple_priv_to_props(priv, rtd->num);
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index 748f5f641002..d93db2c2b527 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -306,6 +306,12 @@ static int dmaengine_pcm_new(struct snd_soc_pcm_runtime *rtd)
  
-+	if (dai_props->mclk_fs) {
-+		snd_soc_dai_set_sysclk(codec_dai, 0, 0, SND_SOC_CLOCK_IN);
-+		snd_soc_dai_set_sysclk(cpu_dai, 0, 0, SND_SOC_CLOCK_OUT);
-+	}
+ 		if (!dmaengine_pcm_can_report_residue(dev, pcm->chan[i]))
+ 			pcm->flags |= SND_DMAENGINE_PCM_FLAG_NO_RESIDUE;
 +
- 	asoc_simple_clk_disable(dai_props->cpu_dai);
++		if (rtd->pcm->streams[i].pcm->name[0] == '\0') {
++			strncpy(rtd->pcm->streams[i].pcm->name,
++				rtd->pcm->streams[i].pcm->id,
++				sizeof(rtd->pcm->streams[i].pcm->name));
++		}
+ 	}
  
- 	asoc_simple_clk_disable(dai_props->codec_dai);
+ 	return 0;
 -- 
 2.20.1
 

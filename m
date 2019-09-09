@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F63FAD6EE
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:36:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6527AAD6F8
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 12:37:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD70F1667;
-	Mon,  9 Sep 2019 12:35:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD70F1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67D481664;
+	Mon,  9 Sep 2019 12:36:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67D481664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568025373;
-	bh=KFZRTUwvf2VUhoX9/cUuqvxgIUhGMC52moVz1Vma5EU=;
+	s=default; t=1568025420;
+	bh=m4GTlmVLxq56lFx7O3bcgTekKlopEnRv9wvW23w9VzM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=VzzLhwbYVc7Z3rufKNQqgd+OC3PPdGTSHUjPE59sTiQxS2BBLqvriDmqDiJ+vJlLK
-	 qpm32q/ehgOov7TKWEZqc26baLSPoHFD+sYTu/EdINdePnMCFxeLnTc7HijY6d6Tfg
-	 lGDjC3MmizSwe2SP7EO/CIC+DEDXhuNMJeLzC3TU=
+	b=fIOB7aigMIrZF4uIazZ6kXAXNsJCYKVFu7eeoPyKd9qswtCnbMLG2nsbM0M2JdLq4
+	 hxX6iNBwRlmPsqwsxON8dhMaMFZEmjNJ22HW8oWZM1+j7/VAdYqz0qpxOsG/jzlZCB
+	 Hw1ZB8etRpOXgMoNN6tVkFDOFhiOYeMlXf7VNFVs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE84BF805F6;
-	Mon,  9 Sep 2019 12:34:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA5BFF805FC;
+	Mon,  9 Sep 2019 12:34:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91CA9F804FD; Mon,  9 Sep 2019 12:34:12 +0200 (CEST)
+ id EB4DEF80094; Mon,  9 Sep 2019 12:34:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A01C7F800A9
- for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:33:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A01C7F800A9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94BE0F80094
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 12:34:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94BE0F80094
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="apxj1Txe"
+ header.b="j3dA7/Kh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=vFMKCAQZR978yk1HuUQDZ3xr07qvsRtDUD4d4nadM3Y=; b=apxj1TxebQij
- zsOIlnsH/GCpkba9HlQO50QdbIKfiC1LMbOkkmxTmYxar6Acsy0ma9hPc++wwL3hZLwj7xE314Dtb
- ATtAN9kaJAq9I7xI8SvsFTaZap1lwBOgX75EfccSEwh+ZSHk0vfGmUQaPyjmEHFMB/hqlMb1E91uF
- j15E0=;
+ List-Archive; bh=naugclJA+Mo46QmkHYVOoG1LHZONs5eiWqPHDZD5HuU=; b=j3dA7/KhV0OB
+ lLZ/MCOqJue/bp1pRH55RmKzATnzxObOB74kSJX/fES+GITZBq6d0wNPvpUrR2a7ziUj1xKZdOwnU
+ lspKHrHtsxsohtaiCDJKJmO49kpyb3whPqHN6KxLRh/FE6/58PoV/nTMZ8CE1gCxhfKiEHnfzV5Us
+ QLlzw=;
 Received: from [148.69.85.38] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1i7GZo-0001rF-K2; Mon, 09 Sep 2019 10:07:16 +0000
+ id 1i7GZp-0001rT-Dd; Mon, 09 Sep 2019 10:07:17 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 03E2FD02D18; Mon,  9 Sep 2019 11:07:16 +0100 (BST)
+ id 87E7BD02D68; Mon,  9 Sep 2019 11:07:16 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@chromium.org>
-In-Reply-To: <20190906194636.217881-2-cujomalainey@chromium.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87zhjkor1x.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20190909100716.03E2FD02D18@fitzroy.sirena.org.uk>
+Message-Id: <20190909100716.87E7BD02D68@fitzroy.sirena.org.uk>
 Date: Mon,  9 Sep 2019 11:07:16 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt5677: Remove magic number register
-	writes" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-core: move soc_probe_dai() next to
+	soc_remove_dai()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5677: Remove magic number register writes
+   ASoC: soc-core: move soc_probe_dai() next to soc_remove_dai()
 
 has been applied to the asoc tree at
 
@@ -113,72 +111,85 @@ to this mail.
 Thanks,
 Mark
 
-From 33b773dc9288eb15d3216628d1d2381103d854a9 Mon Sep 17 00:00:00 2001
-From: Curtis Malainey <cujomalainey@chromium.org>
-Date: Fri, 6 Sep 2019 12:46:23 -0700
-Subject: [PATCH] ASoC: rt5677: Remove magic number register writes
+From a7d44f78063d642406132c2ed1dc6033d0d03cfe Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 4 Sep 2019 09:15:06 +0900
+Subject: [PATCH] ASoC: soc-core: move soc_probe_dai() next to soc_remove_dai()
 
-In order to simplify understanding what register values are being
-written to the codec for debugging more advanced features (such as
-hotwording) it is best to remove magic numbers
+It is easy to read code if it is cleanly using paired function/naming,
+like start <-> stop, register <-> unregister, etc, etc.
+But, current ALSA SoC code is very random, unbalance, not paired, etc.
+It is easy to create bug at the such code, and it will be difficult to
+debug.
 
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20190906194636.217881-2-cujomalainey@chromium.org
+This patch moves soc_probe_dai() next to soc_remove_dai() which is
+paired function.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87zhjkor1x.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 16 +++++++++++-----
- 1 file changed, 11 insertions(+), 5 deletions(-)
+ sound/soc/soc-core.c | 40 ++++++++++++++++++++--------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index c779dc3474f9..5b6ca3ced13b 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -691,10 +691,12 @@ static void rt5677_set_dsp_mode(struct snd_soc_component *component, bool on)
- 	struct rt5677_priv *rt5677 = snd_soc_component_get_drvdata(component);
- 
- 	if (on) {
--		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1, 0x2, 0x2);
-+		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1,
-+			RT5677_PWR_DSP, RT5677_PWR_DSP);
- 		rt5677->is_dsp_mode = true;
- 	} else {
--		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1, 0x2, 0x0);
-+		regmap_update_bits(rt5677->regmap, RT5677_PWR_DSP1,
-+			RT5677_PWR_DSP, 0x0);
- 		rt5677->is_dsp_mode = false;
- 	}
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 0a13f9461303..3ca5a21bfa6a 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1106,6 +1106,26 @@ static void soc_remove_dai(struct snd_soc_dai *dai, int order)
+ 	dai->probed = 0;
  }
-@@ -4466,7 +4468,8 @@ static int rt5677_set_bias_level(struct snd_soc_component *component,
  
- 			regmap_update_bits(rt5677->regmap, RT5677_PWR_ANLG1,
- 				RT5677_LDO1_SEL_MASK | RT5677_LDO2_SEL_MASK,
--				0x0055);
-+				5 << RT5677_LDO1_SEL_SFT |
-+				5 << RT5677_LDO2_SEL_SFT);
- 			regmap_update_bits(rt5677->regmap,
- 				RT5677_PR_BASE + RT5677_BIAS_CUR4,
- 				0x0f00, 0x0f00);
-@@ -4491,7 +4494,9 @@ static int rt5677_set_bias_level(struct snd_soc_component *component,
- 		regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC, 0x1, 0x0);
- 		regmap_write(rt5677->regmap, RT5677_PWR_DIG1, 0x0000);
- 		regmap_write(rt5677->regmap, RT5677_PWR_DIG2, 0x0000);
--		regmap_write(rt5677->regmap, RT5677_PWR_ANLG1, 0x0022);
-+		regmap_write(rt5677->regmap, RT5677_PWR_ANLG1,
-+			2 << RT5677_LDO1_SEL_SFT |
-+			2 << RT5677_LDO2_SEL_SFT);
- 		regmap_write(rt5677->regmap, RT5677_PWR_ANLG2, 0x0000);
- 		regmap_update_bits(rt5677->regmap,
- 			RT5677_PR_BASE + RT5677_BIAS_CUR4, 0x0f00, 0x0000);
-@@ -4719,7 +4724,8 @@ static int rt5677_probe(struct snd_soc_component *component)
++static int soc_probe_dai(struct snd_soc_dai *dai, int order)
++{
++	int ret;
++
++	if (dai->probed ||
++	    dai->driver->probe_order != order)
++		return 0;
++
++	ret = snd_soc_dai_probe(dai);
++	if (ret < 0) {
++		dev_err(dai->dev, "ASoC: failed to probe DAI %s: %d\n",
++			dai->name, ret);
++		return ret;
++	}
++
++	dai->probed = 1;
++
++	return 0;
++}
++
+ static void soc_rtd_free(struct snd_soc_pcm_runtime *rtd); /* remove me */
+ static void soc_remove_link_dais(struct snd_soc_card *card)
+ {
+@@ -1411,26 +1431,6 @@ static int soc_rtd_init(struct snd_soc_pcm_runtime *rtd, const char *name)
+ 	return 0;
+ }
  
- 	regmap_update_bits(rt5677->regmap, RT5677_DIG_MISC,
- 			~RT5677_IRQ_DEBOUNCE_SEL_MASK, 0x0020);
--	regmap_write(rt5677->regmap, RT5677_PWR_DSP2, 0x0c00);
-+	regmap_write(rt5677->regmap, RT5677_PWR_DSP2,
-+			RT5677_PWR_SLIM_ISO | RT5677_PWR_CORE_ISO);
- 
- 	for (i = 0; i < RT5677_GPIO_NUM; i++)
- 		rt5677_gpio_config(rt5677, i, rt5677->pdata.gpio_config[i]);
+-static int soc_probe_dai(struct snd_soc_dai *dai, int order)
+-{
+-	int ret;
+-
+-	if (dai->probed ||
+-	    dai->driver->probe_order != order)
+-		return 0;
+-
+-	ret = snd_soc_dai_probe(dai);
+-	if (ret < 0) {
+-		dev_err(dai->dev, "ASoC: failed to probe DAI %s: %d\n",
+-			dai->name, ret);
+-		return ret;
+-	}
+-
+-	dai->probed = 1;
+-
+-	return 0;
+-}
+-
+ static int soc_link_dai_pcm_new(struct snd_soc_dai **dais, int num_dais,
+ 				struct snd_soc_pcm_runtime *rtd)
+ {
 -- 
 2.20.1
 

@@ -2,81 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42866ADD47
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 18:32:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 071D3ADD90
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Sep 2019 18:54:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C198E1668;
-	Mon,  9 Sep 2019 18:31:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C198E1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D0801664;
+	Mon,  9 Sep 2019 18:53:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D0801664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568046738;
-	bh=nRvY18jahO+TF0DFd/aB1Mt3/THJbBL6tQIzpffMnyM=;
-	h=References:In-Reply-To:From:Date:To:Subject:List-Id:
+	s=default; t=1568048080;
+	bh=W/j/8WuhiqItmfyg1a+uoq3YvKyHupt8Pjrs8B23nnc=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HbmrhpskYKif+E8oa59YqNgKM7ZB4WgOyla8lOQl7r6X2wDfdwlOTFt7VD6/VvRSA
-	 VXNtLp3AyRbfA5UTLaUWFGV75urNEgbV4FsKQ+xc90YW0+uhpOTKJSaWw4XqYslAM+
-	 oa5iRQ9RZIwMHhIdCUUdtKCywLhNilRHvB/YpowI=
+	b=WGKK5phWFpI2JGraNPNJW3Ky6SJO/Zkd/AJ7aOoMJCb0MhoOXRMsMHaibsNg7+UZC
+	 3rC+iJ7wTnIFSLEkorH67xKs8GjkZNPT6b0jLvJu5ifYCYyX4h4FeoPGyqoeiMtS5I
+	 Jt4i8xBDTyofQPS78EYyRfmb/WAAO7VDB7uyBKWA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20807F804CF;
-	Mon,  9 Sep 2019 18:30:34 +0200 (CEST)
-X-Original-To: Alsa-devel@alsa-project.org
-Delivered-To: Alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 0387AF80323;
+	Mon,  9 Sep 2019 18:52:55 +0200 (CEST)
+X-Original-To: alsa-devel@alsa-project.org
+Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 238BAF80323; Mon,  9 Sep 2019 18:30:31 +0200 (CEST)
+ id 036F1F800C9; Mon,  9 Sep 2019 18:52:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
- [IPv6:2607:f8b0:4864:20::734])
+X-Spam-Status: No, score=-14.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4F4A4F800C9
- for <Alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 18:30:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F4A4F800C9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 46940F800E6
+ for <alsa-devel@alsa-project.org>; Mon,  9 Sep 2019 18:52:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46940F800E6
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="VarEGhU7"
-Received: by mail-qk1-x734.google.com with SMTP id x5so13668110qkh.5
- for <Alsa-devel@alsa-project.org>; Mon, 09 Sep 2019 09:30:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=2KQmj5j4WWNGWSlrZ67pKqW5yzRtyVvLIgif2HnBjic=;
- b=VarEGhU76UoKIbpDrmHlkyN5IglBrh7cGSVL5C4/eUEymglhrDUI6JwUth3Cld02ML
- YJCLjDfF/A2zdxDoEGkA7hzCUqM5untzBoeuaj016CPdhTETbZkGgZfGKGRjs9BVKs4O
- 1lqDgdVg0yJLIQ7OFP3+oYsp1DGnN/5qLxACssK2qCEWGkYXZ0a5b8yeXfT5z4lJg0PF
- jqlQF58mLPvkXFxS9wBTyLbFmoY4PAurSoBi2Xq0SLS1yNCeiLR26WYTde7SPv4eR1PK
- q4F7pOGxx/RsyunLUPSqikcVWoEZ942+og81/BlI1guroulnQFWXHR4AxrnliZt8bnzQ
- FbEA==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="MDzQwcXF"
+Received: by mail-qk1-x742.google.com with SMTP id 4so13738552qki.6
+ for <alsa-devel@alsa-project.org>; Mon, 09 Sep 2019 09:52:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VVQ9FT6nbyOJMf0n+KYpYwmGRMhyt0SHNjoGy/7TAHA=;
+ b=MDzQwcXFs8PSf2JfUPJNAf1+2lmMvu0k8cKhHYj8q0bznlqVYUpiCYd/Fkcj7tGe8h
+ 6M7FiQk7OuXh347R/CY/xHu0xvCfdOzAcxJRfTRRV/uyljDH5k7k9ong8rq6RsPrtQ5E
+ oLKjR/7IL4XBLuq6F00ROcZKmX/bH0xsQfvX4rvkrtiWYh/Oq7XBp1eVHIANzO3uNrgF
+ BpMPrLtDTrRdip+GsWPG+i0WyF7Tg8UAklODgME0Phmxf4obtFGaaFSsp/gN1Es40P0I
+ dLqLG3ZJgiHhQCYfn8yCwU7rwxAsgsaxG1c3LKWmFOrfB4neUO/hg/dUfgUVoB6VIS80
+ 6mnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=2KQmj5j4WWNGWSlrZ67pKqW5yzRtyVvLIgif2HnBjic=;
- b=G1VopRLOCOl9qcmzFwG1V1yVj7stVe9L1IMQm8k+DkhPPHPHEjVc7ph55iVE+f5k0+
- yacDO+/luAkWpiU+GphqkGu4LZZQTTks+akejJ4IeGfWreJJx2N3Y+qHVdO9bZ4+yKWB
- 5iKhMVdj6DfxgmwQgYYd5yE2zhPTuqVPp+YQj5GFdE73ZOJ5/nGuCkXYEAaVPXLnkSUv
- kKgppdd8Bj2VBQn22ipZ0zZSueRw45PZoJoKqP2S63I8jPuqRfTwuzjQ8Urvcr4S8FEl
- Jsk92L6bBuXZE0nxeEMPJ/WTR+ZaHF/zuCaSKTTG8p8uo+Bde0PyrHnMZHJIaMTGWemH
- VUIQ==
-X-Gm-Message-State: APjAAAV/zox15Zc7SYbu030HNi7cvybxejd4O/oRo7beQulHQvXVFgBS
- CT4hPxlqY3dzVy5hQfRUGUvSl6VEoHdN6DmV2qLnjPPm
-X-Google-Smtp-Source: APXvYqwuJn2UhX0H8W2keB+qa68lNqlf1j5t9ScVOEvBI6/FJr9xc0G35gg+6HDn8GL2SQ07JTctQsibTCsNTPzESjc=
-X-Received: by 2002:a37:410:: with SMTP id 16mr23745389qke.52.1568046626308;
- Mon, 09 Sep 2019 09:30:26 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=VVQ9FT6nbyOJMf0n+KYpYwmGRMhyt0SHNjoGy/7TAHA=;
+ b=kOydaVS7PM7b+rUA/jHXw03pYasoYoKFuKZmMtEQcqrMfTcQNHY2/gGjbKR5lgjqOW
+ 6nQpqZun8KphJ7/VDRhq3TUZ2O2akcvSUR9LG1qoBbe/W9ZVR1WxbZ70G9OKUNnHPKZp
+ lLvLetdTsW5Z7xNz2zBqIVTMXW59qkDy7hQneeNxYsVEJymxle3UV8cQfz6t4SpkVI+q
+ mWBHlmDgMjBoL3SVf5CcRbQN25t3do7pAhaMY8seYrFExLppqwqZBo3uBXJxXAWfZaNk
+ RZq5fCkFAzVaZ6aDB1TwSLUN2ID2q7rXmCWVEMkms/0CixkQgaSR3vAQDhZiMfY9mr4Y
+ eydQ==
+X-Gm-Message-State: APjAAAXrdDmXdaYA3ufsH0XBdFn4vHldmfPzh9XF0Ej4mf2hkvi26XCl
+ eWq80jSlw+xJwzzBtVONeTB1LOD0kJ/Jqm0kPO6Tow==
+X-Google-Smtp-Source: APXvYqzQAlAL39Lgm76lxBOhcMMJvKAgzJ7O2hlLTWj3lbSfYMXRr9TzvoW0abPYzONEe8Uv+jF5ZB2h/rhOOJ4Xv+o=
+X-Received: by 2002:a05:620a:c:: with SMTP id
+ j12mr20412390qki.127.1568047969203; 
+ Mon, 09 Sep 2019 09:52:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <CA+SWvNx9hGJN0v9erykioJUKyd726VzfP4b77u0RUHh_mgFooQ@mail.gmail.com>
-In-Reply-To: <CA+SWvNx9hGJN0v9erykioJUKyd726VzfP4b77u0RUHh_mgFooQ@mail.gmail.com>
-From: Pavel Hofman <pavhofman@gmail.com>
-Date: Mon, 9 Sep 2019 18:30:14 +0200
-Message-ID: <CA+SWvNyUAyBQd9ktaZpvV8R7XcK8opA1_VQeMEnPfmr6jcSANQ@mail.gmail.com>
-To: Alsa-devel@alsa-project.org
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: Re: [alsa-devel] Measuring Device Throughput - MMAP vs. RW
+References: <20190906194636.217881-1-cujomalainey@chromium.org>
+ <b96e35fb-09d7-6cf7-8880-2cb8f377cca8@linux.intel.com>
+ <CAOReqxgJQaW=XAsD4o9hq_iU1faJBK3d9Rg8FCp_4Mrx3UX-oQ@mail.gmail.com>
+ <b1de1190-d809-9cb3-3560-97595df895d3@linux.intel.com>
+In-Reply-To: <b1de1190-d809-9cb3-3560-97595df895d3@linux.intel.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Mon, 9 Sep 2019 09:52:38 -0700
+Message-ID: <CAOReqxjz+-qRH-w2Az20ihFRNAA3yxhaxsObXAsCypMh0vvMGA@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Curtis Malainey <cujomalainey@chromium.org>,
+ ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [RFC 00/15] Add Samus Hotwording for RT5677
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,43 +100,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Sep 8, 2019 at 5:23 PM Pavel Hofman <pavhofman@gmail.com> wrote:
-
-> Hi,
-> Gathering data for USB async gadget feedback (
-> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-August/154819.html
-> ) requires measuring average data rate to/from a device. For testing I
-> added measuring/averaging code to methods snd_pcm_hw_writei, snd_pcm_hw_readi,
-> and snd_pcm_hw_mmap_commit in
-> https://github.com/alsa-project/alsa-lib/blob/master/src/pcm/pcm_hw.c .
-> In all cases I take the parameter "size" of all the three methods as the
-> number of samples written/read.
+On Fri, Sep 6, 2019 at 3:13 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
 >
-> MMAP: When mmap is used (e.g. plughw:X + sample format conversion), I get
-> very stable results for MMAP playback on all soundcards I have tested. But
-> for capture I get identical results to playback for one soundcard (PCI
-> Envy24), while the averaged rate calculated from "size" in
-> snd_pcm_hw_mmap_commit fluctuates for capture on Intel HDA.
+> On 9/6/19 4:09 PM, Curtis Malainey wrote:
+> >
+> >
+> > Curtis Malainey | Software Engineer | cujomalainey@google.com
+> > <mailto:cujomalainey@google.com> | 650-898-3849
+> >
+> >
+> > On Fri, Sep 6, 2019 at 1:41 PM Pierre-Louis Bossart
+> > <pierre-louis.bossart@linux.intel.com
+> > <mailto:pierre-louis.bossart@linux.intel.com>> wrote:
+> >  >
+> >  > On 9/6/19 2:46 PM, Curtis Malainey wrote:
+> >  > > This patch series adds the hotwording implementation used in the
+> >  > > Pixelbook on the RT5677 driver.
+> >  > >
+> >  > > Known Issues:
+> >  > > There is a known issue where the system will fail to detect a
+> > hotword if
+> >  > > suspended while the stream is open. This is due to the fact that the
+> >  > > haswell-dsp suspends its I2S MCLK before the RT5677 suspends which
+> >  > > causes the writes and reads to become corrupted as a result. Any
+> >  > > recommendations to correct this behaviour would be appreciated.
+> >  >
+> >  > I don't get what 'suspend' and 'stream' refer to. is this pm_runtime,
+> >  > s2idle, system capture, SPI capture?
+> >  >
+> >  > Can you elaborate on the sequence?
+> > Definitely can,
+> >
+> >  1. open hotwording pcm with arecord in non-blocking mode
+> >       * Codec won't send any data over SPI until the hotword is detected
+> >  2. put system into S3 (see order of callbacks as follows)
 >
+> Before we start digging into dependencies below, is it really possible
+> to enter S3 with the hotwording open? I vaguely remember being told that
+> such cases would be trapped by the Chrome userspace and the PCM would be
+> closed. I don't think anyone on the SOF team testing this case for newer
+> platform, so that case on an old platform makes me nervous.
 >
-> I suspect the size parameter of snd_pcm_hw_mmap_commit is not the actual
-> amount of samples read during the MMAP capture. Please how to calculate the
-> number of samples read from the variables available in that method?
+I vaguely recall that as well now that you mention it. I will follow
+up internally, if that is true then this will be a non-issue from our
+point of view.
+> >      1. HSW DSP suspended which suspends stops I2S MCLK
+> >      2. RT5677 suspended, all pm writes are lost due to the fact that
+> >         the codec is still in DSP mode but has no clock
 >
-
-The mmap fluctuations seem to be fixed by using increases in hardware
-pointer pcm->hw.ptr values instead of frames variable. Please do these
-values wrap up or do they grow  to max long? Still contiguous after 10
-minutes of running.
-
-I see the hw.ptr gets zeroed at XRUN. If I do not check for xruns (
-snd_pcm_state(snd_pcm_t *pcm)?), can I just monitor continuity of hw.ptr
-and restart the averaging if the new hw.ptr is lower than the previous one,
-or are there any quirks to watch out?
-
-Thanks a lot,
-
-Pavel.
+> there's no real dependency or parent-child relationship between the two
+> drivers, is there? so I am wondering if this order is intentional or
+> just accidental.
+> The only thing I can think of is that there are multiple steps during
+> the system suspend and maybe we can play with .suspend_late instead of
+> .suspend?
+Not that I am aware of, when used as a standard codec there is no
+clock dependency. I will try and see if I can set the pm accordingly.
+>
+> >  3. System resumes and fails to restore the RT5677 due to the fact that
+> >     the regmap is now out of sync
+> >
+> > The rt5677 needs to suspend before the haswell dsp but I am not sure how
+> > to schedule that appropriately. The reason this worked in Samus is
+> > because it launched with a 3.14 kernel which did not
+> > have 0d2135ecadb0b2eec5338a7587ba29724ddf612b ("ASoC: Intel: Work around
+> > to fix HW D3 potential crash issue") which powers down the MCLK when the
+> > haswell DSP is not in use.
+> >
+> > Hope that clears things up.
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

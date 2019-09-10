@@ -2,61 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 928EAAF127
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 20:38:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF8E2AF1B7
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 21:11:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 267E716D1;
-	Tue, 10 Sep 2019 20:37:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 267E716D1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3023016CB;
+	Tue, 10 Sep 2019 21:10:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3023016CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568140690;
-	bh=Ixf1LWCLrLWsZk4AgFn6ohMld5JTQ3BOhJflB4oMZiA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1568142673;
+	bh=muDBfiqknP6buz4oCGByPhktAfZY8jpl1OrDtu5zahk=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X+Re45mwbDZ5c4hAhyLJEvd+5bK2Dn6fuHPhd7btm6/DfbXWlS0OfrqPVmLg8aiVc
-	 Z3Z6Q9AKT1xp3m6SHBrASNgNy2aWSj7cPhmNwEUQSNOr9lVj2nmO0fAmWyJD1LrvbR
-	 csXPLCZ01uPBClO/NHaXVu166wK9lulxJGn6mLcM=
+	b=TIUmkAK9RyT31bQWS36UyqVIh6y9kLAK2a+Dj0eQKiavd4d0AAQw+el9d7JPydKPO
+	 ybHEdFcWRhRy/eFKhfTsrtSQkp0+4PYEspoKgCYA9wo5WF4jTO0Jz+YPalFLoOcj6n
+	 AFVfGEjlWISduabfi9jslWtMoNdxryeDxTOGDwf0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48DE1F806F0;
-	Tue, 10 Sep 2019 20:29:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68148F80321;
+	Tue, 10 Sep 2019 21:09:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D6CBF8065A; Tue, 10 Sep 2019 20:29:52 +0200 (CEST)
+ id A27ECF80368; Tue, 10 Sep 2019 21:09:26 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C6F0F805F9
- for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 20:29:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C6F0F805F9
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2019 11:29:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,490,1559545200"; d="scan'208";a="200340084"
-Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by fmsmga001.fm.intel.com with ESMTP; 10 Sep 2019 11:29:46 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Tue, 10 Sep 2019 21:29:16 +0300
-Message-Id: <20190910182916.29693-11-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190910182916.29693-1-kai.vehmanen@linux.intel.com>
-References: <20190910182916.29693-1-kai.vehmanen@linux.intel.com>
-Cc: libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH v3 10/10] ASoC: Intel: bxt_rt298: common hdmi
-	codec support
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk [46.235.227.227])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31EBEF800A9
+ for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 21:09:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31EBEF800A9
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+ (Authenticated sender: eballetbo) with ESMTPSA id 8B91328DE09
+To: Jaroslav Kysela <jkysela@redhat.com>
+References: <15679391594432724-alsa-devel@perex.cz>
+From: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+Message-ID: <7d27fee4-1dee-3727-1d98-1d21cbe3445b@collabora.com>
+Date: Tue, 10 Sep 2019 21:09:19 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <15679391594432724-alsa-devel@perex.cz>
+Content-Language: en-GB
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Licence change for your alsa-lib UCM commit (Enric
+ Balletbo i Serra: 1 total)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,67 +63,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for using snd-hda-codec-hdmi driver for HDMI/DP
-instead of ASoC hdac-hdmi. This is aligned with how other
-HDA codecs are already handled.
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/intel/boards/bxt_rt298.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
 
-diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
-index adf416a49b48..eabf9d8468ae 100644
---- a/sound/soc/intel/boards/bxt_rt298.c
-+++ b/sound/soc/intel/boards/bxt_rt298.c
-@@ -18,6 +18,7 @@
- #include <sound/pcm_params.h>
- #include "../../codecs/hdac_hdmi.h"
- #include "../../codecs/rt298.h"
-+#include "hda_dsp_common.h"
- 
- /* Headset jack detection DAPM pins */
- static struct snd_soc_jack broxton_headset;
-@@ -31,6 +32,7 @@ struct bxt_hdmi_pcm {
- 
- struct bxt_rt286_private {
- 	struct list_head hdmi_pcm_list;
-+	bool common_hdmi_codec_drv;
- };
- 
- enum {
-@@ -527,6 +529,13 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
- 	int err, i = 0;
- 	char jack_name[NAME_SIZE];
- 
-+	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct bxt_hdmi_pcm,
-+			       head);
-+	component = pcm->codec_dai->component;
-+
-+	if (ctx->common_hdmi_codec_drv)
-+		return hda_dsp_hdmi_build_controls(card, component);
-+
- 	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
- 		component = pcm->codec_dai->component;
- 		snprintf(jack_name, sizeof(jack_name),
-@@ -626,6 +635,8 @@ static int broxton_audio_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ctx->common_hdmi_codec_drv = mach->mach_params.common_hdmi_codec_drv;
-+
- 	return devm_snd_soc_register_card(&pdev->dev, card);
- }
- 
--- 
-2.17.1
+On 8/9/19 12:39, Jaroslav Kysela wrote:
+> As discussed, we would like to move the UCM configuration files from the
+> alsa-lib repository to new alsa-ucm-conf repository with the licence change
+> from LGPL-2.1 to BSD-3-Clause.
+> 
+> I would like to check, if you agree with this licence change. Please, answer
+> to this e-mail and write your agreement / disagreement (keep CC to
+> the alsa-devel mailing list for the archiving purposes).
+> 
+> Thank you for your time and co-operation.
+> 
+> Reference:  https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/153257.html
+> 
+> List of your commit(s):
+> 
+>   a192f52fc63a86e1fbb9a09adb0bc2a6bbc8dab1
+>     conf/ucm: ROCKCHIP-I2S: add Rockchip I2S UCM config.
+> 
 
+I agree,
+
+Thanks,
+ Enric
+
+> ---
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

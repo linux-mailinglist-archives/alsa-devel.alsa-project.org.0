@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF593AED98
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 16:47:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BCCBAEDC5
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 16:52:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3720316A0;
-	Tue, 10 Sep 2019 16:47:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3720316A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BD131689;
+	Tue, 10 Sep 2019 16:51:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BD131689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568126876;
-	bh=AAhr7f4evPBnIXSjavU6uHwkeobxTK8ab+AtjwjAacU=;
+	s=default; t=1568127169;
+	bh=K5IbHwIGLtmqKKkXDjjzuoqtvbccPfbaYkKBixgXITQ=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bwJW7ONmWK81WxqesbcvCjBER82eOaDb53Fm+QxwtbjRJOjsR8eZH2sSots+3WR3B
-	 WtsRM66u0yxyD1bU2RUdoEhwP/kfPVdYVJL5FyJA8IhjDtV3KUi7nhHWw2qOGwDC3c
-	 oq/9TeJw6zhSJXH4ae57aXYugm0ico/8wCFXwr8o=
+	b=BdzZqtYFzjFm0REzJDtUPd05Z9x9RBSdiRNM10NNvXu+Nn9owP+XxoTaAZ3Ccp9CX
+	 f1JFXaNer7sTfIPGYFuNY6ag/9Cfw4dv/TwHdEKgxGyQ5+XZlm7U/ZChC3IdjsxwJE
+	 z/rBuKloSQSPVyZ9sJlY/xdC778Uvy1NFRxqeFbs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 61758F8036F;
-	Tue, 10 Sep 2019 16:46:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3E37F80393;
+	Tue, 10 Sep 2019 16:51:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F37F8F80368; Tue, 10 Sep 2019 16:46:08 +0200 (CEST)
+ id ADBD8F80368; Tue, 10 Sep 2019 16:50:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF494F800E9
- for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 16:46:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF494F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 49F96F800C9
+ for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 16:50:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49F96F800C9
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 93529AC2C;
- Tue, 10 Sep 2019 14:46:04 +0000 (UTC)
-Date: Tue, 10 Sep 2019 16:46:04 +0200
-Message-ID: <s5htv9k6wgj.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id 2C022AC49;
+ Tue, 10 Sep 2019 14:50:54 +0000 (UTC)
+Date: Tue, 10 Sep 2019 16:50:54 +0200
+Message-ID: <s5ho8zs6w8h.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <f3ec79a0-e204-c5df-9fc4-e5d0465f678f@ti.com>
+In-Reply-To: <s5htv9k6wgj.wl-tiwai@suse.de>
 References: <20190906055524.7393-1-peter.ujfalusi@ti.com>
  <s5hblvs8idi.wl-tiwai@suse.de>
  <f3ec79a0-e204-c5df-9fc4-e5d0465f678f@ti.com>
+ <s5htv9k6wgj.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -73,90 +74,96 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Sep 2019 16:23:59 +0200,
-Peter Ujfalusi wrote:
+On Tue, 10 Sep 2019 16:46:04 +0200,
+Takashi Iwai wrote:
 > 
-> 
-> 
-> On 10/09/2019 15.07, Takashi Iwai wrote:
-> > On Fri, 06 Sep 2019 07:55:24 +0200,
-> > Peter Ujfalusi wrote:
-> >>
-> >> Some tools use the snd_pcm_info_get_name() to try to identify PCMs or for
-> >> other purposes.
-> >>
-> >> Currently it is left empty with the dmaengine-pcm, in this case copy the
-> >> pcm->id string as pcm->name.
-> >>
-> >> For example IGT is using this to find the HDMI PCM for testing audio on it.
-> >>
-> >> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-> >> Reported-by: Arthur She <arthur.she@linaro.org>
-> >> ---
-> >> Hi,
-> >>
-> >> this was actually reported for 4.14 kernel with omap-pcm (replaced by sdma-pcm
-> >> in v4.18), since then we only use the generic dmaengine PCM but the same issue
-> >> applies today.
-> >>
-> >> Regards,
-> >> Peter
-> >>
-> >>  sound/soc/soc-generic-dmaengine-pcm.c | 6 ++++++
-> >>  1 file changed, 6 insertions(+)
-> >>
-> >> diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-> >> index 748f5f641002..d93db2c2b527 100644
-> >> --- a/sound/soc/soc-generic-dmaengine-pcm.c
-> >> +++ b/sound/soc/soc-generic-dmaengine-pcm.c
-> >> @@ -306,6 +306,12 @@ static int dmaengine_pcm_new(struct snd_soc_pcm_runtime *rtd)
-> >>  
-> >>  		if (!dmaengine_pcm_can_report_residue(dev, pcm->chan[i]))
-> >>  			pcm->flags |= SND_DMAENGINE_PCM_FLAG_NO_RESIDUE;
-> >> +
-> >> +		if (rtd->pcm->streams[i].pcm->name[0] == '\0') {
-> >> +			strncpy(rtd->pcm->streams[i].pcm->name,
-> >> +				rtd->pcm->streams[i].pcm->id,
-> >> +				sizeof(rtd->pcm->streams[i].pcm->name));
-> >> +		}
+> On Tue, 10 Sep 2019 16:23:59 +0200,
+> Peter Ujfalusi wrote:
 > > 
-> > Any reason to use strncpy() instead of strscpy()?
-> > After merging Mark's branch, I got a compile warning like:
-> >   sound/soc/soc-generic-dmaengine-pcm.c:311:4: warning: 'strncpy'
-> >   accessing 80 bytes at offsets 88 and 24 may overlap up to 0 bytes at
-> >   offset [9223372036854775807, -9223372036854775808] [-Wrestrict]
+> > 
+> > 
+> > On 10/09/2019 15.07, Takashi Iwai wrote:
+> > > On Fri, 06 Sep 2019 07:55:24 +0200,
+> > > Peter Ujfalusi wrote:
+> > >>
+> > >> Some tools use the snd_pcm_info_get_name() to try to identify PCMs or for
+> > >> other purposes.
+> > >>
+> > >> Currently it is left empty with the dmaengine-pcm, in this case copy the
+> > >> pcm->id string as pcm->name.
+> > >>
+> > >> For example IGT is using this to find the HDMI PCM for testing audio on it.
+> > >>
+> > >> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> > >> Reported-by: Arthur She <arthur.she@linaro.org>
+> > >> ---
+> > >> Hi,
+> > >>
+> > >> this was actually reported for 4.14 kernel with omap-pcm (replaced by sdma-pcm
+> > >> in v4.18), since then we only use the generic dmaengine PCM but the same issue
+> > >> applies today.
+> > >>
+> > >> Regards,
+> > >> Peter
+> > >>
+> > >>  sound/soc/soc-generic-dmaengine-pcm.c | 6 ++++++
+> > >>  1 file changed, 6 insertions(+)
+> > >>
+> > >> diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+> > >> index 748f5f641002..d93db2c2b527 100644
+> > >> --- a/sound/soc/soc-generic-dmaengine-pcm.c
+> > >> +++ b/sound/soc/soc-generic-dmaengine-pcm.c
+> > >> @@ -306,6 +306,12 @@ static int dmaengine_pcm_new(struct snd_soc_pcm_runtime *rtd)
+> > >>  
+> > >>  		if (!dmaengine_pcm_can_report_residue(dev, pcm->chan[i]))
+> > >>  			pcm->flags |= SND_DMAENGINE_PCM_FLAG_NO_RESIDUE;
+> > >> +
+> > >> +		if (rtd->pcm->streams[i].pcm->name[0] == '\0') {
+> > >> +			strncpy(rtd->pcm->streams[i].pcm->name,
+> > >> +				rtd->pcm->streams[i].pcm->id,
+> > >> +				sizeof(rtd->pcm->streams[i].pcm->name));
+> > >> +		}
+> > > 
+> > > Any reason to use strncpy() instead of strscpy()?
+> > > After merging Mark's branch, I got a compile warning like:
+> > >   sound/soc/soc-generic-dmaengine-pcm.c:311:4: warning: 'strncpy'
+> > >   accessing 80 bytes at offsets 88 and 24 may overlap up to 0 bytes at
+> > >   offset [9223372036854775807, -9223372036854775808] [-Wrestrict]
+> > 
+> > I have not seen such a warning.
+> > 'may overlap up to 0 bytes' ?
+> > snd_pcm_info {
+> > ...
+> >         unsigned char id[64];           /* ID (user selectable) */
+> >         unsigned char name[80];         /* name of this device */
+> >         unsigned char subname[32];      /* subdevice name */
+> > ...
+> > };
+> > 
+> > and strncpy() supposed to be something like this:
+> > char * strncpy(char *dest, const char *src, size_t n)
+> > {
+> > 	size_t i;
+> > 
+> > 	for (i = 0; i < n && src[i] != '\0'; i++)
+> > 		dest[i] = src[i];
+> > 	for ( ; i < n; i++)
+> > 		dest[i] = '\0';
+> > 
+> > 	return dest;
+> > }
+> > 
+> > I can see if I can get my compilers to show the warning and try
+> > strscpy() if it helps on it.
 > 
-> I have not seen such a warning.
-> 'may overlap up to 0 bytes' ?
-> snd_pcm_info {
-> ...
->         unsigned char id[64];           /* ID (user selectable) */
->         unsigned char name[80];         /* name of this device */
->         unsigned char subname[32];      /* subdevice name */
-> ...
-> };
-> 
-> and strncpy() supposed to be something like this:
-> char * strncpy(char *dest, const char *src, size_t n)
-> {
-> 	size_t i;
-> 
-> 	for (i = 0; i < n && src[i] != '\0'; i++)
-> 		dest[i] = src[i];
-> 	for ( ; i < n; i++)
-> 		dest[i] = '\0';
-> 
-> 	return dest;
-> }
-> 
-> I can see if I can get my compilers to show the warning and try
-> strscpy() if it helps on it.
+> strncpy() doesn't guarantee the string termination if you pass the
+> exact buffer size.  Better to use strscpy() in such a case.
 
-strncpy() doesn't guarantee the string termination if you pass the
-exact buffer size.  Better to use strscpy() in such a case.
+On the second thought, if pcm->id isn't NULL-terminated, it would
+result in OOB access.  So, if strncpy() usage is just to guarantee for
+the zero-fill, that's OK, to ignore as a possibly spurious old gcc
+warning...
 
-
-thanks,
 
 Takashi
 _______________________________________________

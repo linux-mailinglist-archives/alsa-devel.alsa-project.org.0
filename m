@@ -2,65 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05991AF26F
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 22:56:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE830AF37E
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Sep 2019 01:56:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15C9516F2;
-	Tue, 10 Sep 2019 22:55:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15C9516F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C2B116DE;
+	Wed, 11 Sep 2019 01:56:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C2B116DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568149003;
-	bh=3kXPhBbxaQ73y7wSZAugXH1hBmFzvgaIgVbeATDeo6E=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568159812;
+	bh=vE5/e9DD0cmW3OhdDT4LteP5tSu+FvUyMzbPLGXKcsY=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C/Rk2dUD/J5y7osV9Y6L7GLWUe9gD15UNDa/X0cIKvSDyBaNhAo6ZpGlZ3rGFUb/v
-	 dVBL42H0xIQ58p5nI5u3fTzFHQVONXVf00i1l4PzQuuZ2ybkhx6yJGwSYRmQZHZkNV
-	 ncPfU9hTRrd7px0E7xv7XJ9lAJD/cCCwsMOXo6JI=
+	b=arcg/ICl7SSngVkbDS+CbBd8AoHsYaAf5YswtJwJe2+te9VPr0qKyy1O7dNKlDGsE
+	 xnGoCvTsnccOofuTf2XXkFHk/uvKGMdzNXfe+2zPRJFU3kldiJ8iaxLcNAwe4dnESG
+	 4eYH1IvSru1ZhbbqLqndtA0/ixnqlubHEgqrapKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB74BF80634;
-	Tue, 10 Sep 2019 22:52:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95B35F80368;
+	Wed, 11 Sep 2019 01:55:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BC98F804AB; Tue, 10 Sep 2019 22:52:24 +0200 (CEST)
+ id AA92BF80368; Wed, 11 Sep 2019 01:55:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4940CF803D7
- for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 22:52:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4940CF803D7
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2019 13:52:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,490,1559545200"; d="scan'208";a="214439799"
-Received: from rmarszew-mobl1.ger.corp.intel.com (HELO [10.251.24.188])
- ([10.251.24.188])
- by fmsmga002.fm.intel.com with ESMTP; 10 Sep 2019 13:52:17 -0700
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
- tiwai@suse.de
-References: <20190910182916.29693-1-kai.vehmanen@linux.intel.com>
- <20190910182916.29693-5-kai.vehmanen@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <92a31430-824a-8b8a-cdb4-602184db7def@linux.intel.com>
-Date: Tue, 10 Sep 2019 15:52:05 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20190910182916.29693-5-kai.vehmanen@linux.intel.com>
-Content-Language: en-US
-Cc: libin.yang@intel.com
-Subject: Re: [alsa-devel] [PATCH v3 04/10] ASoC: SOF: Intel: add support for
- snd-hda-codec-hdmi
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id B20C1F800A9
+ for <alsa-devel@alsa-project.org>; Wed, 11 Sep 2019 01:54:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B20C1F800A9
+Date: 11 Sep 2019 08:54:54 +0900
+X-IronPort-AV: E=Sophos;i="5.64,491,1559487600"; d="scan'208";a="26265115"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 11 Sep 2019 08:54:54 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id ACD124003ECD;
+ Wed, 11 Sep 2019 08:54:54 +0900 (JST)
+Message-ID: <87ef0n671t.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+In-Reply-To: <CAFQqKeVGCO-VsvaVS0qTxJrQajJEAZOYKvOZa7fZQY05KWA75Q@mail.gmail.com>
+References: <8736h4nby1.wl-kuninori.morimoto.gx@renesas.com>
+ <87pnk8lxbu.wl-kuninori.morimoto.gx@renesas.com>
+ <CAFQqKeVGCO-VsvaVS0qTxJrQajJEAZOYKvOZa7fZQY05KWA75Q@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 09/13] ASoC: soc-core: use devm_kzalloc()
+	for rtd
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,161 +66,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+Hi Sridharan
 
-On 9/10/19 1:29 PM, Kai Vehmanen wrote:
-> Add support to implement HDMI/DP audio by using the common
-> snd-hda-codec-hdmi driver.
-> 
-> Change of codec driver affects user-space as the the two
-> drivers expose different mixer controls. A new kernel
-> module option "use_common_hdmi" is added to user-space
-> to indicate which interface should be used. The default
-> driver can be selected via a Kconfig option.
-> 
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-> ---
->   sound/soc/sof/intel/Kconfig     | 10 ++++++++++
->   sound/soc/sof/intel/hda-codec.c | 19 +++++++++++++++----
->   sound/soc/sof/intel/hda.c       |  6 ++++++
->   sound/soc/sof/intel/hda.h       |  6 ++++--
->   4 files changed, 35 insertions(+), 6 deletions(-)
-> 
-> diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-> index 479ba249e219..a8f4e69b044d 100644
-> --- a/sound/soc/sof/intel/Kconfig
-> +++ b/sound/soc/sof/intel/Kconfig
-> @@ -273,6 +273,16 @@ config SND_SOC_SOF_HDA_AUDIO_CODEC
->   	  Say Y if you want to enable HDAudio codecs with SOF.
->   	  If unsure select "N".
->   
-> +config SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
-> +	bool "SOF common HDA HDMI codec driver"
-> +	depends on SND_SOC_SOF_HDA_LINK
-> +	depends on SND_HDA_CODEC_HDMI
-> +	help
-> +	  This adds support for HDMI audio by using the common HDA
-> +	  HDMI/DisplayPort codec driver.
-> +	  Say Y if you want to use the common codec driver with SOF.
-> +	  If unsure select "Y".
-> +
->   endif ## SND_SOC_SOF_HDA_COMMON
->   
->   config SND_SOC_SOF_HDA_LINK_BASELINE
-> diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-> index 3ca6795a89ba..817ebba00b47 100644
-> --- a/sound/soc/sof/intel/hda-codec.c
-> +++ b/sound/soc/sof/intel/hda-codec.c
-> @@ -84,6 +84,8 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
->   {
->   #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
->   	struct hdac_hda_priv *hda_priv;
-> +	struct snd_soc_acpi_mach_params *mach_params = 0;
-> +	struct snd_sof_pdata *pdata = sdev->pdata;
->   #endif
->   	struct hda_bus *hbus = sof_to_hbus(sdev);
->   	struct hdac_device *hdev;
-> @@ -113,8 +115,16 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
->   	if (ret < 0)
->   		return ret;
->   
-> -	/* use legacy bus only for HDA codecs, idisp uses ext bus */
-> -	if ((resp & 0xFFFF0000) != IDISP_VID_INTEL) {
-> +	if (pdata->machine)
-> +		mach_params = (struct snd_soc_acpi_mach_params *)
-> +			&pdata->machine->mach_params;
-> +
-> +	/*
-> +	 * if common HDMI codec driver is not used, codec load
-> +	 * is skipped here and hdac_hdmi is used instead
-> +	 */
-> +	if ((mach_params && mach_params->common_hdmi_codec_drv) ||
-> +	    (resp & 0xFFFF0000) != IDISP_VID_INTEL) {
->   		hdev->type = HDA_DEV_LEGACY;
->   		hda_codec_load_module(&hda_priv->codec);
+Thank you for your review
 
-This part is might be problematic. For SoundWire stuff, I had to move 
-all the machine detection part out of hda_init_caps() and at the end of 
-hda_dsp_probe. It's not final since I am still trying to figure out what 
-the earliest time I can power-up the SoundWire IP is, but it would help 
-if you don't make strong assumptions on when mach_params is set. The 
-fact that all this code is currently in hda_init_caps() is not really by 
-design, more because of incremental code changes.
-
-
->   	}
-> @@ -155,7 +165,8 @@ int hda_codec_probe_bus(struct snd_sof_dev *sdev)
->   }
->   EXPORT_SYMBOL(hda_codec_probe_bus);
->   
-> -#if IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
-> +#if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
-> +	IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
->   
->   void hda_codec_i915_get(struct snd_sof_dev *sdev)
->   {
-> @@ -204,6 +215,6 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
->   }
->   EXPORT_SYMBOL(hda_codec_i915_exit);
->   
-> -#endif /* CONFIG_SND_SOC_HDAC_HDMI */
-> +#endif
->   
->   MODULE_LICENSE("Dual BSD/GPL");
-> diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-> index c72e9a09eee1..ee742157516e 100644
-> --- a/sound/soc/sof/intel/hda.c
-> +++ b/sound/soc/sof/intel/hda.c
-> @@ -54,6 +54,11 @@ MODULE_PARM_DESC(use_msi, "SOF HDA use PCI MSI mode");
->   static int hda_dmic_num = -1;
->   module_param_named(dmic_num, hda_dmic_num, int, 0444);
->   MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
-> +
-> +static bool hda_codec_use_common_hdmi =
-> +	IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC);
-> +module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
-> +MODULE_PARM_DESC(use_common_hdmi, "SOF HDA use common HDMI codec driver");
->   #endif
->   
->   static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
-> @@ -458,6 +463,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
->   			&pdata->machine->mach_params;
->   		mach_params->codec_mask = bus->codec_mask;
->   		mach_params->platform = dev_name(sdev->dev);
-> +		mach_params->common_hdmi_codec_drv = hda_codec_use_common_hdmi;
->   	}
->   
->   	/* create codec instances */
-> diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-> index 5591841a1b6f..28640a29e1b6 100644
-> --- a/sound/soc/sof/intel/hda.h
-> +++ b/sound/soc/sof/intel/hda.h
-> @@ -562,7 +562,9 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev);
->   
->   #endif /* CONFIG_SND_SOC_SOF_HDA */
->   
-> -#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) && IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
-> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) && \
-> +	(IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
-> +	 IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI))
->   
->   void hda_codec_i915_get(struct snd_sof_dev *sdev);
->   void hda_codec_i915_put(struct snd_sof_dev *sdev);
-> @@ -576,7 +578,7 @@ static inline void hda_codec_i915_put(struct snd_sof_dev *sdev)  { }
->   static inline int hda_codec_i915_init(struct snd_sof_dev *sdev) { return 0; }
->   static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
->   
-> -#endif /* CONFIG_SND_SOC_SOF_HDA && CONFIG_SND_SOC_HDAC_HDMI */
-> +#endif
->   
->   /*
->    * Trace Control.
+>     --- a/sound/soc/soc-core.c
+>     +++ b/sound/soc/soc-core.c
+>     @@ -370,11 +370,8 @@ static void soc_free_pcm_runtime(struct snd_soc_pcm_runtime *rtd)
+>             if (!rtd)
+>                     return;
+>    
+>     -       kfree(rtd->codec_dais);
+>     -       if (rtd->dev)
+>     -               device_unregister(rtd->dev); /* soc_release_rtd_dev */
+>             list_del(&rtd->list);
+>     -       kfree(rtd);
 > 
+> Morimoto-san,
+> 
+> Just curious, why did you remove the check for if(rtd->dev) here before calling device_unregister()?
+> 
+> Thanks,
+> Ranjani 
+> 
+>     +       device_unregister(rtd->dev); /* soc_release_rtd_dev */
+>      }
+
+Can you check [07/13] patch ?
+It allocs rtd->dev (as dev) first, and allocs rtd next.
+This means, if it has rtd, it has rtd->dev.
+
+Here, this function checks rtd pointer.
+If rtd is not NULL, rtd->dev is also not NULL.
+
+But, indeed it is a littile bit tricky ?
+Some comment is needed.
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,88 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AD17AE4E5
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 09:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54C21AE4F2
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 09:54:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C302A1669;
-	Tue, 10 Sep 2019 09:49:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C302A1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id E85F4166B;
+	Tue, 10 Sep 2019 09:53:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E85F4166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568101827;
-	bh=yqreMmyMa4A9fOG8JBzrwwGIZcK/vLr2L7YAKl6buis=;
+	s=default; t=1568102060;
+	bh=GzOHn6QmeA2mP9cObaV8B1srLHH2pmph06keFn4dHMs=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XlZDHQG3KpzVVYMAbFCOlqYzcgIeqVcbAhm7J3FFrQFxj4+VYiPwPO6EpE/1WHOAT
-	 57XbruxMqmwyFQsOo4sVNoXMm5XaSsSvNL+T1GZaWzJ3jj5yI7mP0/n4MfN6H0JPLk
-	 bB4yUrFG4tejeowhviIdQGccWzaTTlFTljkyjfPQ=
+	b=JbZ30sRXYwTQUMw8SnWsiXJVPW/WtLA9ZKs63TZtCo9dTeibE6/fPTZC7av/3gpAK
+	 jysNpslfWs2SL0/ulvH4BESxfWpkt3mjIxEUah78lML2BMET1pD8isKk2pn7N+Sm8s
+	 mzC9WyAJD/3t02kp0LQCydGFAr4zJLJztw00WKPA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECAF2F80393;
-	Tue, 10 Sep 2019 09:48:42 +0200 (CEST)
-X-Original-To: Alsa-devel@alsa-project.org
-Delivered-To: Alsa-devel@alsa-project.org
+	by alsa1.perex.cz (Postfix) with ESMTP id 693F9F80393;
+	Tue, 10 Sep 2019 09:52:35 +0200 (CEST)
+X-Original-To: alsa-devel@alsa-project.org
+Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACF25F80368; Tue, 10 Sep 2019 09:48:40 +0200 (CEST)
+ id 2B2FFF80368; Tue, 10 Sep 2019 09:52:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [IPv6:2607:f8b0:4864:20::736])
+X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-f196.google.com (mail-qk1-f196.google.com
+ [209.85.222.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C72EAF800A9
- for <Alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 09:48:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C72EAF800A9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="a2wNqDP+"
-Received: by mail-qk1-x736.google.com with SMTP id u184so13123032qkd.4
- for <Alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 00:48:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rAkZAbPk45Xqj5GPzfuHxRQkdHXONlTh8pgGL9L8DPg=;
- b=a2wNqDP+jwaKbO67xLKnck1VvXxV87H3YiaxqWbBdDBFgucK4Xxowzuhzsz6qZlc2p
- 26N/y0KSVlMGfGfHldHdElGPn47EdRhdmQ9mReSwnAFjNa4lWGo56H6TnfbW5jOrHI2w
- bhXgvPvi6davBuRR321lAYTAMouAFXuw1X91Ol/bQaeNp1LmDOtS/XavMW2R/AYd3q0T
- n+4I8ROqH+RKjqlN1HBapWrYSzu18gicK2dbBdqCCi4OyZN7/gWuoROmDXZDZYlEXUDu
- s7nIGKIsgyS3sHl1wn5wzeO8v1almdwzdaKQVjzw0J8+B1gehbAaVAm3XB4ssZIopY/u
- E1Vg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 64334F800C9
+ for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 09:52:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64334F800C9
+Received: by mail-qk1-f196.google.com with SMTP id y144so7971277qkb.7
+ for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 00:52:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rAkZAbPk45Xqj5GPzfuHxRQkdHXONlTh8pgGL9L8DPg=;
- b=gL145GR6EeIxhjx1ZIYTJz/dGjkNiZgYg5o00+MP46W0787kOL8M2ymhZcYiukRW3p
- gYeg3w5QSrKjlZ4E9BGPgdL8Z1bJk9uj5lO9uSw+VQpZxJ+NVLpE2sP1tbkI8/hGJUDH
- FN5GDp7M4ZJ4WNY2bZztVSRjqQ48YbhTCxtqVCmwcDHekTtoINoOPZnEbbHlfENIoU1M
- QlBIX2wnfFv/uhAdRwSi46K6mhcUUmMWaVhHZTANvAvR+jWPWaT6FRDYFYFM65ahcVrL
- uLNybuFQ/OPem4jhRjhEsem7TtdHJwrHf6qs56HbdFVieAAUAOHYBoDAyt/S/gkfBbjr
- sh3Q==
-X-Gm-Message-State: APjAAAWEtwnp8jrLWA0Z8qfYBS43WmF6KB6aZU3WbyYT62k5gJvToch+
- mZEnbePHM74ApuiXHNOTYf0/Ha/C3znNcaMneWw=
-X-Google-Smtp-Source: APXvYqx4c1DZsoeVx6DtWA+z0Toecyr4zsNKSHDKcW1PiB/gFW6ogXR8pLvkLpTaLsO0B/FZpRd8dXzvIwewZL8D8do=
-X-Received: by 2002:a05:620a:1393:: with SMTP id
- k19mr6032588qki.35.1568101715898; 
- Tue, 10 Sep 2019 00:48:35 -0700 (PDT)
+ bh=u9GytuQLzyYATbhV+IjgAeDxZXKzpVILhMpRGkoLMn0=;
+ b=EftAfQ5LgFBjNWYPYqqkdSNw/bC4ltFpA1SYZN66+hpISBuaixxvpBgLqn1Lh85UU/
+ LyU5ePxXwP4D+RoskgL2B0UeGaj1kIxBzV5w6mI9OAZvkGKdysReNFHrb6IkGeapAi71
+ LLPxLYnNGee0JVX5l2qQKABjWU/Lac1gRgy5zFg1PdkQ0rgfRRzpht3oYgNeotE0efIx
+ wQxVFW01tjJMS5mr4g4c+YG+eY3sYEWPpY1NMkaNWTWfsE7FHZWYb6C4fLrIsQQ8GwuK
+ F8dygSaaOhU8CMk2IUt5P91KPVI72YLLIwPYWbhLF58V/PokWKvyTIODocfjKRZN8urL
+ HpXw==
+X-Gm-Message-State: APjAAAWhx6puCK5VRi/9ZFKHMcA/E0wSxkNBJ2CeU+HZg30jAWlCNI/g
+ lmu3tV1C0Qnyc7oxj6MFJOsP7jTLwvTuMy/osnc=
+X-Google-Smtp-Source: APXvYqxln7Q1Hrqv0ev3shLxwwtKOqlgoIIxBQOyHa8+xJM7nUB9taTaEV46rFMYCch7AxGOs2gefPx1RVZCtak+A8o=
+X-Received: by 2002:ae9:ee06:: with SMTP id i6mr7307279qkg.3.1568101949751;
+ Tue, 10 Sep 2019 00:52:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <CA+SWvNx9hGJN0v9erykioJUKyd726VzfP4b77u0RUHh_mgFooQ@mail.gmail.com>
- <CA+SWvNyUAyBQd9ktaZpvV8R7XcK8opA1_VQeMEnPfmr6jcSANQ@mail.gmail.com>
- <s5hzhjd9xg4.wl-tiwai@suse.de>
- <CA+SWvNw_=Fj_3M3sqVP767OOR+YDY=6-rPtPgmGXg+BcvuG3oA@mail.gmail.com>
- <s5h8sqwaabt.wl-tiwai@suse.de>
-In-Reply-To: <s5h8sqwaabt.wl-tiwai@suse.de>
-From: Pavel Hofman <pavhofman@gmail.com>
-Date: Tue, 10 Sep 2019 09:48:24 +0200
-Message-ID: <CA+SWvNwLUzPknid7ZDq114iX8zxMhayRvdxmLMxdDtq9AV3FbQ@mail.gmail.com>
+References: <20190909195159.3326134-1-arnd@arndb.de>
+ <3b69e0ec-63cb-4888-9faa-acb7638d71dc@linux.intel.com>
+ <CAK8P3a0WDB_UvAnwfPDyR_maEefE4Qh++fHxAP61=8JfOFmy6w@mail.gmail.com>
+ <s5hef0oaav5.wl-tiwai@suse.de>
+In-Reply-To: <s5hef0oaav5.wl-tiwai@suse.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 10 Sep 2019 09:52:13 +0200
+Message-ID: <CAK8P3a2-gMbuN-17MC6ZsDwvPGCHmbJojKYGnrUshxhazATPRg@mail.gmail.com>
 To: Takashi Iwai <tiwai@suse.de>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] Measuring Device Throughput - MMAP vs. RW
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Pan Xiuli <xiuli.pan@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Evan Green <evgreen@chromium.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: work around
+ snd_hdac_aligned_read link failure
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,32 +91,70 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 10, 2019 at 9:18 AM Takashi Iwai <tiwai@suse.de> wrote:
-
+On Tue, Sep 10, 2019 at 9:06 AM Takashi Iwai <tiwai@suse.de> wrote:
+> On Mon, 09 Sep 2019 22:51:23 +0200, Arnd Bergmann wrote:
+> >
+> > On Mon, Sep 9, 2019 at 10:39 PM Pierre-Louis Bossart
+> > <pierre-louis.bossart@linux.intel.com> wrote:
+> > >
+> > > On 9/9/19 2:51 PM, Arnd Bergmann wrote:
+> > > > When CONFIG_SND_HDA_ALIGNED_MMIO is selected by another driver
+> > > > (i.e. Tegra) that selects CONFIG_SND_HDA_CORE as a loadable
+> > > > module, but SND_SOC_SOF_HDA_COMMON is built-in, we get a
+> > > > link failure from some functions that access the hda register:
+> > > >
+> > > > sound/soc/sof/intel/hda.o: In function `hda_ipc_irq_dump':
+> > > > hda.c:(.text+0x784): undefined reference to `snd_hdac_aligned_read'
+> > > > sound/soc/sof/intel/hda-stream.o: In function `hda_dsp_stream_threaded_handler':
+> > > > hda-stream.c:(.text+0x12e4): undefined reference to `snd_hdac_aligned_read'
+> > > > hda-stream.c:(.text+0x12f8): undefined reference to `snd_hdac_aligned_write'
+> > > >
+> > > > Add an explicit 'select' statement as a workaround. This is
+> > > > not a great solution, but it's the easiest way I could come
+> > > > up with.
+> > >
+> > > Thanks for spotting this, I don't think anyone on the SOF team looked at
+> > > this. Maybe we can filter with depends on !TEGRA or
+> > > !SND_HDA_ALIGNED_MMIO at the SOF Intel top-level instead?
+> >
+> > That doesn't sound much better than my approach, but could also work.
+> > One idea that I had but did not manage to implement was to move out
+> > the snd_hdac_aligned_read/write functions from the core hda code
+> > into a separate file. I think that would be the cleanest solution,
+> > as it decouples the problem from any drivers.
 >
-> The value read from snd_pcm_status() should give the accurate pair of
-> the position and the timestamp.
+> Yeah, that's a tricky problem because of the reverse-selection, as
+> usual...
 >
-Thanks. IIUC, if I call snd_pcm_status() in that mmap_commit method, get
-data between e.g. 10 seconds, and divide the increase of status._ptr
-https://github.com/michaelwu/alsa-lib/blob/afb2fbd0e554e42e51325c3197a176ea96a74203/include/sound/asound.h#L422
-by increase of status.tstamp, I should get the the most precise available
-soundcard rate estimate referenced to system time.
+> Another solution would be to just avoid byte/word access but use only
+> long access, i.e. replace snd_hdac_chip_readb() with
+> snd_hdac_chip_readl() with the aligned register and bit shift.
+> The aligned access helper is needed only for the register that isn't
+> aligned with 4 bytes offset.
 
+Ok, so basically open-coding the aligned access to RIRBSTS?
+That sounds like a much nicer workaround. So in place of
 
+                        sd_status = snd_hdac_stream_readb(s, SD_STS);
+                        dev_vdbg(bus->dev, "stream %d status 0x%x\n",
+                                 s->index, sd_status);
+                        snd_hdac_stream_writeb(s, SD_STS, sd_status);
 
-> You need to check the delay count as
-> well, which compensates the in-flight samples.
->
->
-I need just the rate at which the soundcard consumes/produces samples, I do
-not care about time at which the sound is being produced. I do not know
-exact meaning of the delay field. Is it involved in this calculation?
-Please is there any exact detailed description of the status fields?
+I suppose one could just readl/writel SOF_HDA_ADSP_REG_CL_SD_CTL
+and print the shifted value, right?
 
-Thanks.
+While I know nothing about the underlying requirements, I wonder
+about two things that stick out to me:
 
-Pavel.
+1. the existing code just writes back the same byte it has read. If
+    this write has no side-effects, why write it at all? OTOH, if it has
+    side-effects, isn't the aligned implementation of writing the whole
+    word in snd_hdac_aligned_write()  fundamentally flawed?
+
+2. Doesn't the read-modify-write cycle in snd_hdac_aligned_write()
+   need locking to work correctly?
+
+          Arnd
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

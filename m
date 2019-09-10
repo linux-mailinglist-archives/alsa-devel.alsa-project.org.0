@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDBD7AF26A
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 22:54:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26629AF26D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Sep 2019 22:55:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2FD216CC;
-	Tue, 10 Sep 2019 22:53:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2FD216CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AAF216E6;
+	Tue, 10 Sep 2019 22:54:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AAF216E6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568148847;
-	bh=B7abogkvD4XeBSh189sTn50bWEG8SXGPQc3z+paq0IY=;
+	s=default; t=1568148943;
+	bh=JC8y/zvvpkb7cQZfxTR9EAOu1eIu1XK2iDdXIeJsj3Q=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KWLvGeRTMu7mAuTgrZ4ufzMnh4Ih//zXOv3+hlTdgNcc5lvNkwrJZpggOK1eP+Clr
-	 c/inQ28qDAVXzcWvwVS00KQjbnv78/PUBT3Q6cp1NMZeW0CzMTqUCCazseZkD8ylYe
-	 53h8VCltC22RMRZvTLSEr0fidjV+pHXpz2VVskRk=
+	b=MwrIqEIyX4cOj2s1eSMnirzOJZj6PU/LvypG3RS8Pkl9Tiu9PiqTRSp755NfWHrqx
+	 c/mmLeaox6QEAtZQDH7TwXwn2BOTVwR3Yg7s7Tokm8NVm/QrhRqMfcULzbIfvfCMBe
+	 Ywpz0U3saAlWqpGSDiPUt1wk2pIc8t4CyZCwCVms=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 81ECEF80321;
-	Tue, 10 Sep 2019 22:52:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24667F805FA;
+	Tue, 10 Sep 2019 22:52:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABFF5F80393; Tue, 10 Sep 2019 22:52:19 +0200 (CEST)
+ id 5CFF3F804AB; Tue, 10 Sep 2019 22:52:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50935F800E9
- for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 22:52:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50935F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id A500AF80321
+ for <alsa-devel@alsa-project.org>; Tue, 10 Sep 2019 22:52:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A500AF80321
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Sep 2019 13:52:12 -0700
+ 10 Sep 2019 13:52:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,490,1559545200"; d="scan'208";a="214439765"
+X-IronPort-AV: E=Sophos;i="5.64,490,1559545200"; d="scan'208";a="214439777"
 Received: from rmarszew-mobl1.ger.corp.intel.com (HELO [10.251.24.188])
  ([10.251.24.188])
- by fmsmga002.fm.intel.com with ESMTP; 10 Sep 2019 13:52:11 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 10 Sep 2019 13:52:13 -0700
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
  tiwai@suse.de
 References: <20190910182916.29693-1-kai.vehmanen@linux.intel.com>
- <20190910182916.29693-3-kai.vehmanen@linux.intel.com>
+ <20190910182916.29693-2-kai.vehmanen@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a1b70a79-3bac-95e6-9091-9acee31a0a05@linux.intel.com>
-Date: Tue, 10 Sep 2019 15:31:45 -0500
+Message-ID: <326901ed-4cd2-af0e-0039-9cae55b787f7@linux.intel.com>
+Date: Tue, 10 Sep 2019 15:33:35 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190910182916.29693-3-kai.vehmanen@linux.intel.com>
+In-Reply-To: <20190910182916.29693-2-kai.vehmanen@linux.intel.com>
 Content-Language: en-US
 Cc: libin.yang@intel.com
-Subject: Re: [alsa-devel] [PATCH v3 02/10] ALSA: hda/hdmi - allow control
- creation without a linked pcm
+Subject: Re: [alsa-devel] [PATCH v3 01/10] ALSA: hda/hdmi - implement
+ mst_no_extra_pcms flag
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,42 +81,66 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 On 9/10/19 1:29 PM, Kai Vehmanen wrote:
-> Fix the logic in generic_hdmi_build_controls() to identify
-> unused hda_pcm entries by searching for SNDRV_PCM_INVALID_DEVICE.
-> This matches with logic in snd_hda_codec_build_pcms().
+> When mst_no_extra_pcms flag is set, the codec should not
+> use backup PCMs to handle DP-MST scenarios. Instead a simple
+> 1:1 mapping is assumed between PCMs and converters.
+
+mst_no_extra_pcms is not set, which makes it hard to review and get the 
+picture of what this does.
+
 > 
 > Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 > ---
->   sound/pci/hda/patch_hdmi.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+>   include/sound/hda_codec.h  |  1 +
+>   sound/pci/hda/patch_hdmi.c | 19 ++++++++++++++-----
+>   2 files changed, 15 insertions(+), 5 deletions(-)
 > 
+> diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+> index 9a0393cf024c..ac18f428eda6 100644
+> --- a/include/sound/hda_codec.h
+> +++ b/include/sound/hda_codec.h
+> @@ -254,6 +254,7 @@ struct hda_codec {
+>   	unsigned int force_pin_prefix:1; /* Add location prefix */
+>   	unsigned int link_down_at_suspend:1; /* link down at runtime suspend */
+>   	unsigned int relaxed_resume:1;	/* don't resume forcibly for jack */
+> +	unsigned int mst_no_extra_pcms:1; /* no backup PCMs for DP-MST */
+>   
+>   #ifdef CONFIG_PM
+>   	unsigned long power_on_acct;
 > diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-> index 59aaee4a40fd..c52726e19f44 100644
+> index bca5de78e9ad..59aaee4a40fd 100644
 > --- a/sound/pci/hda/patch_hdmi.c
 > +++ b/sound/pci/hda/patch_hdmi.c
-> @@ -2183,11 +2183,13 @@ static int generic_hdmi_build_jack(struct hda_codec *codec, int pcm_idx)
->   static int generic_hdmi_build_controls(struct hda_codec *codec)
+> @@ -2072,15 +2072,24 @@ static bool is_hdmi_pcm_attached(struct hdac_device *hdac, int pcm_idx)
+>   static int generic_hdmi_build_pcms(struct hda_codec *codec)
 >   {
 >   	struct hdmi_spec *spec = codec->spec;
-> +	struct hda_pcm *hda_pcm;
->   	int dev, err;
->   	int pin_idx, pcm_idx;
+> -	int idx;
+> +	int idx, pcm_num;
 >   
->   	for (pcm_idx = 0; pcm_idx < spec->pcm_used; pcm_idx++) {
-> -		if (!get_pcm_rec(spec, pcm_idx)->pcm) {
-> +		hda_pcm = get_pcm_rec(spec, pcm_idx);
-> +		if (hda_pcm->device == SNDRV_PCM_INVALID_DEVICE) {
-
-I find it hard to follow the logic.
-Before this patch only device 0 would be considered NO_PCM
-Not it's -1, so wondering if this is a fix unrelated to this series or 
-if there is a dependency on follow-up patches?
-
-#define SNDRV_PCM_INVALID_DEVICE      (-1)
-
->   			/* no PCM: mark this for skipping permanently */
->   			set_bit(pcm_idx, &spec->pcm_bitmap);
->   			continue;
+>   	/*
+>   	 * for non-mst mode, pcm number is the same as before
+> -	 * for DP MST mode, pcm number is (nid number + dev_num - 1)
+> -	 *  dev_num is the device entry number in a pin
+> -	 *
+> +	 * for DP MST mode without extra PCM, pcm number is same
+> +	 * for DP MST mode with extra PCMs, pcm number is
+> +	 *  (nid number + dev_num - 1)
+> +	 * dev_num is the device entry number in a pin
+>   	 */
+> -	for (idx = 0; idx < spec->num_nids + spec->dev_num - 1; idx++) {
+> +
+> +	if (codec->mst_no_extra_pcms)
+> +		pcm_num = spec->num_nids;
+> +	else
+> +		pcm_num = spec->num_nids + spec->dev_num - 1;
+> +
+> +	codec_dbg(codec, "hdmi: pcm_num set to %d\n", pcm_num);
+> +
+> +	for (idx = 0; idx < pcm_num; idx++) {
+>   		struct hda_pcm *info;
+>   		struct hda_pcm_stream *pstr;
+>   
 > 
 _______________________________________________
 Alsa-devel mailing list

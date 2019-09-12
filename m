@@ -2,90 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBF46B16A2
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 01:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2C97B16C4
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 01:53:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AD2B167A;
-	Fri, 13 Sep 2019 01:23:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AD2B167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id F34511668;
+	Fri, 13 Sep 2019 01:52:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F34511668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568330662;
-	bh=WvtYTndxytRu3XWaAZPsifF6YUsvrjjxJf1215GpLOo=;
+	s=default; t=1568332398;
+	bh=b4BqZ0D8qQW8QqW4/U4LSSKfFpXBfvzWytifF5s+aPU=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mwk0YWOtodYXPvmFRGDqkjNJfCQX5QfH/sBesuFB0IL7tHUT0n4zZae3nCAa0fmo9
-	 xUtpbeTi3cU21FQdCq8GvG8B18PY2J7aUzSp1oUnRPtvihXef2IV9G3VjGkJ9axJT7
-	 IJNtrqnKfmDnZA98dkfUSIXdNuHZciONz36MakJo=
+	b=H71BQ4Be7jO7i/yJStulWA4iQ9i9QjQAIm0U0aVGRpLeuY8etMwNXOQ3T8PT/6OyH
+	 eLipNGjqydYWAPDgu1NsNJmOSIrnbEN+hLQmBRQ3m52rvwOSdeOH0QbbcvFneLTrBI
+	 8GzTitTm2cnTfDZ9IFRlx1oKf9J1m4ZJIqfeELaU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A6A6F805FC;
-	Fri, 13 Sep 2019 01:22:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7494BF80393;
+	Fri, 13 Sep 2019 01:51:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2DC01F805FA; Fri, 13 Sep 2019 01:22:04 +0200 (CEST)
+ id 068C7F80368; Fri, 13 Sep 2019 01:51:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C592F802DF
- for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 01:22:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C592F802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00185F80143
+ for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 01:51:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00185F80143
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="mVclnYpU"
-Received: by mail-pg1-x544.google.com with SMTP id j191so3715048pgd.3
- for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 16:22:00 -0700 (PDT)
+ header.b="CH+33i++"
+Received: by mail-pl1-x642.google.com with SMTP id 4so12440052pld.10
+ for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 16:51:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=YmpY77tOjMlIBM+QNhtMQBjrqYVfrKFcyr6SgoPVdxU=;
- b=mVclnYpUotNVMVlsDFEnMjm9huupDI5osneDwNjpz3DEn7odTq1c2j3DWotgaHFfiP
- RrjHJyXSDm+jOs+8PAS76MemG0ZSxEVKxiDuzMSVkqgGaPZ+rBRIRjAdsDKGdsqmDTtV
- 8Mt5Z3cBPNwe+5kJ6n1RslkClAwV6Wvjtx61BNTXpB7H7V+dtKgX9hc5up8a01GcBRgR
- 1aygXyMNnQwQU56EcGzPJFVX4neoPPoyr92ld2d0Hs2kf0jf9Y5L3RTNqCXiFkcC2qFv
- z/cuxBvO5uT+Jm8RnPJQe231C5TPgiAibBCNfbVu/wM4UTIERhf0rLgrHxYfKtOwmB2t
- 61+Q==
+ bh=jwH7MEoAJ00c+7yFxXFsE0JEMDQRkeWQsif61Jhqi3M=;
+ b=CH+33i++1Luzxl8HYawv8HE2blbAZ7swcTEJAA7tWhmDd6HBta3K9TBY1havYrrodJ
+ 7+wkJA0vugEJi+fuHOJLp/jNbRghNgF+owPo44A17sTvEiyTUWvxtD0KUsPdLov77ETE
+ OjYMwTAAZV3vwkDzfhKUJVKbmZKGKwYbQk0kqGkGZta360oMD/mAHbxQhitLNDR53Ze4
+ SU3HZZBIVazFcwyYjFmcc25pa7ILwXvs1ASWa6lXm+0opNIxy7ZFRchNNFkX/gIve+fu
+ VhqfI5XkvWQj6su1zQCV3UB+uISGEbLxFeNhbQADYmagwaZTIUIIBmjZfZzWbiBWpD0s
+ MiIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=YmpY77tOjMlIBM+QNhtMQBjrqYVfrKFcyr6SgoPVdxU=;
- b=seLPMJ6r7cYTIwUXTv6CQl8fp7K8RJj3JNy8qMAc1DuF17xjDeEV+B/fZT/0lrdxVe
- CTJRf1BGUDBfqfp81XgplWQ7iqu08E99Vz8KbLCqKZFwW/DbS6YMeWXzY3p2UBKOVcis
- QuVl0j1rKr2b/D/4DV+uzsLF/QkBaPNdqZ9oYLZPxGPOuZg00WGogqBq4m2qYYhC+WbJ
- 9itOtdGiI9FytHx8DmEE55OFVzr4vJ9OcOd7Db72Ieav06tF+OSEuSQTx7VVGYEncrhC
- 3Mvpk2YKTWzfKDydVzy7m3HUUwhvPjO8Z5ls1txX/CJlmEBHo39zE4RPo1qc4QQSCdEB
- Hrjg==
-X-Gm-Message-State: APjAAAXLyxZhO6mmVbXjQvYdol8uckBxn//cUiQjwhatZ9wiYGJpYwyH
- w+bN1UT//rGHOEWXSuEVvRA=
-X-Google-Smtp-Source: APXvYqzjkWQvAVi05TsLPjjsDKWOcCu5aiWUyBmF1hRLmeD9T7T6K9HbN6XFLr4Amm9oqjG/SQ3UEQ==
-X-Received: by 2002:a17:90a:e98e:: with SMTP id
- v14mr1337906pjy.101.1568330519125; 
- Thu, 12 Sep 2019 16:21:59 -0700 (PDT)
+ bh=jwH7MEoAJ00c+7yFxXFsE0JEMDQRkeWQsif61Jhqi3M=;
+ b=RUNoQhrcI0yq1NfZJOvJXG4RLm0WIbTbAs5Pl5DukEoQSi87UnrRQyno52hmRGA9M4
+ nS/55fUCkmZroNM7CibCHKvE2iuHbA9r1TOORIynU0WQxCSDZNcz7x6JOm3XYu3kGOJT
+ RuhepfEuI+dJSHSOomMO9tof1PIFuLqsQuqOpddegPUF6SOQJBaVzsCEZ1cB9nQcw6De
+ zHrmHUOYVIzhYBXLajFQSvPV6FJiGcv6cbT+Qh/NuizrXJUjBiFWadxOAq5nwBwYn/xC
+ nAw96msin7ANoXH/MxXg4kX5aqnSmQFheVourUGkzi8G2MXEWJyV8mbgSZ+FCOQbIoWE
+ B/2g==
+X-Gm-Message-State: APjAAAUZ+6j6nlpq7qlHSl5Ky23Kd3/+Wa78lBm3Gmo+mVwTXbEI9X/A
+ maIFa2ofRvxG3yM2P0OoWTY=
+X-Google-Smtp-Source: APXvYqw8JsAO/ku52ctAh426YyLkFzzTSBnKNOrqkT8cXxA2Fn6w0cpGB8xMIpxVpQYBQQwfczK2/A==
+X-Received: by 2002:a17:902:724c:: with SMTP id
+ c12mr31734884pll.312.1568332285454; 
+ Thu, 12 Sep 2019 16:51:25 -0700 (PDT)
 Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
  [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id q204sm33758013pfc.11.2019.09.12.16.21.58
+ by smtp.gmail.com with ESMTPSA id u5sm27193129pfl.25.2019.09.12.16.51.24
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 12 Sep 2019 16:21:58 -0700 (PDT)
-Date: Thu, 12 Sep 2019 16:21:37 -0700
+ Thu, 12 Sep 2019 16:51:25 -0700 (PDT)
+Date: Thu, 12 Sep 2019 16:51:03 -0700
 From: Nicolin Chen <nicoleotsuka@gmail.com>
 To: "S.j. Wang" <shengjiu.wang@nxp.com>
-Message-ID: <20190912232136.GC24937@Asurada-Nvidia.nvidia.com>
-References: <cover.1568025083.git.shengjiu.wang@nxp.com>
- <65e96ca15afd4a282b122f3ea8b13642cf4614c7.1568025083.git.shengjiu.wang@nxp.com>
- <20190909200156.GB10344@Asurada-Nvidia.nvidia.com>
- <VE1PR04MB6479D271F4271ECF404473E7E3B60@VE1PR04MB6479.eurprd04.prod.outlook.com>
+Message-ID: <20190912235103.GD24937@Asurada-Nvidia.nvidia.com>
+References: <VE1PR04MB64791308D87F91C51412DF53E3B60@VE1PR04MB6479.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <VE1PR04MB6479D271F4271ECF404473E7E3B60@VE1PR04MB6479.eurprd04.prod.outlook.com>
+In-Reply-To: <VE1PR04MB64791308D87F91C51412DF53E3B60@VE1PR04MB6479.eurprd04.prod.outlook.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "timur@kernel.org" <timur@kernel.org>,
@@ -95,8 +92,8 @@ Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  "broonie@kernel.org" <broonie@kernel.org>,
  "festevam@gmail.com" <festevam@gmail.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [EXT] Re: [PATCH 1/3] ASoC: fsl_asrc: Use
- in(out)put_format instead of in(out)put_word_width
+Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: fsl_asrc: update supported
+	sample format
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,45 +111,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 10, 2019 at 02:22:06AM +0000, S.j. Wang wrote:
-> Hi
+On Tue, Sep 10, 2019 at 02:07:25AM +0000, S.j. Wang wrote:
+> > On Mon, Sep 09, 2019 at 06:33:20PM -0400, Shengjiu Wang wrote:
+> > > The ASRC support 24bit/16bit/8bit input width, so S20_3LE format
+> > > should not be supported, it is word width is 20bit.
+> > 
+> > I thought 3LE used 24-bit physical width. And the driver assigns
+> > ASRC_WIDTH_24_BIT to "width" for all non-16bit cases, so 20-bit would go
+> > for that 24-bit slot also. I don't clearly recall if I had explicitly tested
+> > S20_3LE, but I feel it should work since I put there...
 > 
-> > 
-> > On Mon, Sep 09, 2019 at 06:33:19PM -0400, Shengjiu Wang wrote:
-> > > snd_pcm_format_t is more formal than enum asrc_word_width, which
-> > has
-> > > two property, width and physical width, which is more accurate than
-> > > enum asrc_word_width. So it is better to use in(out)put_format instead
-> > > of in(out)put_word_width.
-> > 
-> > Hmm...I don't really see the benefit of using snd_pcm_format_t here...I
-> > mean, I know it's a generic one, and would understand if we use it as a
-> > param for a common API. But this patch merely packs the "width" by
-> > intentionally using this snd_pcm_format_t and then adds another
-> > translation to unpack it.. I feel it's a bit overcomplicated. Or am I missing
-> > something?
-> > 
-> > And I feel it's not necessary to use ALSA common format in our own "struct
-> > asrc_config" since it is more IP/register specific.
-> > 
-> > Thanks
-> > Nicolin
-> > 
-> 
-> As you know, we have another M2M function internally, when user want to
-> Set the format through M2M API, it is better to use snd_pcm_format_t instead the
-> Width, for snd_pcm_format_t include two property, data with and physical width
-> In driver some place need data width, some place need physical width.
-> For example how to distinguish S24_LE and S24_3LE in driver,  DMA setting needs
-> The physical width,  but ASRC need data width. 
-> 
-> Another purpose is that we have another new designed ASRC, which support more
-> Formats, I would like it can share same API with this ASRC, using snd_pcm_format_t
-> That we can use the common API, like snd_pcm_format_linear,
-> snd_pcm_format_big_endian to get the property of the format, which is needed by
-> driver.
+> For S20_3LE, the width is 20bit,  but the ASRC only support 24bit, if set the
+> ASRMCR1n.IWD= 24bit, because the actual width is 20 bit, the volume is
+> Lower than expected,  it likes 24bit data right shift 4 bit.
+> So it is not supported.
 
-I see. Just acked the patch.
+Hmm..S20_3LE right-aligns 20 bits in a 24-bit slot? I thought
+they're left aligned...
+
+If this is the case...shouldn't we have the same lower-volume
+problem for all hardwares that support S20_3LE now?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

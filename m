@@ -2,65 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FD7B0A5E
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 10:30:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D298B0B5B
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 11:27:55 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 408D2172B;
-	Thu, 12 Sep 2019 10:30:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 408D2172B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A5891730;
+	Thu, 12 Sep 2019 11:27:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A5891730
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568277054;
-	bh=4Ztk7dmZAr2uQSXmvs3ibQJjyd2au4/eGTZp4pIFMKk=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1568280475;
+	bh=STH0sI55P4RQwxEmjG+LBxYNjqO0rQ9Yfw7bSp44Odw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Uy5ytQqat8jBSITW1ax02xPpajiKHImsRtTC20WxObJ+6mk3OpvHdcZYQpt1Go5Z9
-	 6r7iS3/Al0UksSSeOxXRdlmoDwRoTlOb9dBpOTcmBPL9Kx7yFR3Dh0cjOEbU3Q3G16
-	 vn2S6Nb4YdFjvcdMUXO7dIiF8g4qya7OJ51eYHn8=
+	b=bS7vzsbgbuKY4WIWpH1ijfbufRuDoC4P63jwW+Hfs22oGKgZYdxCExGO189zPCUNu
+	 Se+sLQpueUs5fXSHD6JleLIdbNw/WUKXIUjxmLo+pbQ9mvbm+dgZJoqbIQ46WWQOX8
+	 F8Mg5GhPkKgCngX7g5vHtZWBP9howlbfja3E3Mk4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A0ED6F80393;
-	Thu, 12 Sep 2019 10:29:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 51BFEF80368;
+	Thu, 12 Sep 2019 11:26:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FA34F80368; Thu, 12 Sep 2019 10:29:05 +0200 (CEST)
+ id C29BBF80368; Thu, 12 Sep 2019 11:26:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7095AF80143
- for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 10:28:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7095AF80143
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2019 01:28:57 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,495,1559545200"; d="scan'208";a="209948129"
-Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by fmsmga004.fm.intel.com with ESMTP; 12 Sep 2019 01:28:56 -0700
-Date: Thu, 12 Sep 2019 11:28:55 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@zeliteleevi
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <326901ed-4cd2-af0e-0039-9cae55b787f7@linux.intel.com>
-Message-ID: <alpine.DEB.2.21.1909121117120.16459@zeliteleevi>
-References: <20190910182916.29693-1-kai.vehmanen@linux.intel.com>
- <20190910182916.29693-2-kai.vehmanen@linux.intel.com>
- <326901ed-4cd2-af0e-0039-9cae55b787f7@linux.intel.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC62CF802DF
+ for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 11:26:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC62CF802DF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="QVI3GwWp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=uoE/fKxQ+AJ4AMUIQswHxPLC2favoXRPS4bS0UmeK0I=; b=QVI3GwWpbFw8kapnwOilyUi7n
+ IKmPEsBfvh0HpcXA3ERZh89Wo3mPq3MkZT2CwnZz2Ambgh3tcZEjOkGZTfPIffPtPt8sJZ9NV90JX
+ ipg3JnqNOClb+da1cRqfKZEC6q/JmJIHTThC3aPIA7nOU/xz6Hrq0Qti/WKdhJQnUwmNM=;
+Received: from 195-23-252-136.net.novis.pt ([195.23.252.136]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1i8LMX-0006Q9-HJ; Thu, 12 Sep 2019 09:26:01 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 51A3AD00AB0; Thu, 12 Sep 2019 10:26:00 +0100 (BST)
+Date: Thu, 12 Sep 2019 10:26:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Curtis Malainey <cujomalainey@google.com>
+Message-ID: <20190912092600.GF2036@sirena.org.uk>
+References: <20190906194636.217881-1-cujomalainey@chromium.org>
+ <20190906194636.217881-6-cujomalainey@chromium.org>
+ <20190911102503.GV2036@sirena.org.uk>
+ <CAOReqxhjf0YeUhCF9N8YOReZC11k01R+TR7N6J51fZV6YXBc4g@mail.gmail.com>
 MIME-Version: 1.0
-Cc: tiwai@suse.de, libin.yang@intel.com, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v3 01/10] ALSA: hda/hdmi - implement
- mst_no_extra_pcms flag
+In-Reply-To: <CAOReqxhjf0YeUhCF9N8YOReZC11k01R+TR7N6J51fZV6YXBc4g@mail.gmail.com>
+X-Cookie: Be careful!  UGLY strikes 9 out of 10!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Oder Chiou <oder_chiou@realtek.com>,
+ ALSA development <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Ben Zhang <benzh@chromium.org>,
+ Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
+Subject: Re: [alsa-devel] [RFC 05/15] ASoC: rt5677: Auto enable/disable DSP
+	for hotwording
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,38 +87,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2234134609772954402=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hey,
 
-On Tue, 10 Sep 2019, Pierre-Louis Bossart wrote:
+--===============2234134609772954402==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DHdTHwZuIuFUI+Ax"
+Content-Disposition: inline
 
-> 
-> 
-> On 9/10/19 1:29 PM, Kai Vehmanen wrote:
-> > When mst_no_extra_pcms flag is set, the codec should not
-> > use backup PCMs to handle DP-MST scenarios. Instead a simple
-> > 1:1 mapping is assumed between PCMs and converters.
-> 
-> mst_no_extra_pcms is not set, which makes it hard to review and get the
-> picture of what this does.
 
-this flag is used in patch 3 of the series. I didn't want to combine the 
-patches 1&3 as patch 3 is modifying sound/soc/codecs/hdac_hda.c.
+--DHdTHwZuIuFUI+Ax
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Let me try to improve the commit message a bit to explain why this
-is needed. In short, if patch_hdmi.c creates virtual PCMs for routing 
-purposes (current behaviour with snd_hda_intel in non-DSP mode), it will 
-be impossible to match them to PCMs in ASoC topology. Thus to enable users
-like SOF (could be others), patch_hdmi.c needs to expose a mode where 
-physical converters are mapped to a fixed set of PCMs (-> this is 
-the mst_no_extra_pcms mode).
+On Wed, Sep 11, 2019 at 01:22:20PM -0700, Curtis Malainey wrote:
 
-Br, Kai
+> The source of the switch is commit af48f1d08a547 ("ASoC: rt5677:
+> Support DSP function for VAD application") and does not explain the
+> original intent of the switch. I believe the original intent of this
+> commit is to keep the switch in sync with the VAD state. I do not
+> believe we use the switch ourselves.
+
+Well, I would assume that the control is used to allow users to
+enable and disable the VAD functionality at runtime.  As with the
+routing if it's been exposed to users we should continue to let
+them control it.
+
+--DHdTHwZuIuFUI+Ax
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl16DyUACgkQJNaLcl1U
+h9CmRAf+JGoIG7Hub6I09dLtzR66Ijzdfry6JB0kiFGQHe9ookR9ofJXZ8gwb2eZ
+Fjf+QCy42BvnPTJZXuKmZyiqX/Wt2GzIRyvpvVkN53DnRcK1Uppf+jmHgDRFxmKU
+D2ypTaBO0Ygqb4g6SgY4zkoru9f+CMUhacdzr2muqnLCRBHJlbu1AQSAxgQ7Qsxk
+e/GUrGaOIf46GAKq2CZDzOo0UUUzXz8DFdxNfpWFYUxwIhuDEvdha6TteDtNPvyn
+a/SHEEzywS/oZCV/sa0oV56SgdRXUtr29Uw4bOTBMdxvXH0XhzOCZ3XCgARJ1quA
+d1GoW9iDTgK08ayoOm6NGFS0fnCZrg==
+=wU82
+-----END PGP SIGNATURE-----
+
+--DHdTHwZuIuFUI+Ax--
+
+--===============2234134609772954402==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2234134609772954402==--

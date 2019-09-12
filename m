@@ -2,79 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D298B0B5B
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 11:27:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB0BB0B83
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 11:36:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A5891730;
-	Thu, 12 Sep 2019 11:27:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A5891730
+	by alsa0.perex.cz (Postfix) with ESMTPS id 97BC582E;
+	Thu, 12 Sep 2019 11:35:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97BC582E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568280475;
-	bh=STH0sI55P4RQwxEmjG+LBxYNjqO0rQ9Yfw7bSp44Odw=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bS7vzsbgbuKY4WIWpH1ijfbufRuDoC4P63jwW+Hfs22oGKgZYdxCExGO189zPCUNu
-	 Se+sLQpueUs5fXSHD6JleLIdbNw/WUKXIUjxmLo+pbQ9mvbm+dgZJoqbIQ46WWQOX8
-	 F8Mg5GhPkKgCngX7g5vHtZWBP9howlbfja3E3Mk4=
+	s=default; t=1568280979;
+	bh=iouXHhrMYK7WmohIvTFV52sDEAP80sbHTYlwNLPFQI0=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:Reply-To:From;
+	b=hqLey5AQ/Wzsqzs/V9/Gj9Nh84bSyQuREMusUR8Qw8Dqlq8IsxBWiUZaTVpT7Eyzo
+	 PEm3GBI4XK0Ol0Q0zAZtFnALLZJu8Q9z3COsobVzYIU4U5r8vFmnKeoqA8FXBKgsjG
+	 KZpUSdI655ie8pKoznQtROnjLdXAizzfEaWYmxgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51BFEF80368;
-	Thu, 12 Sep 2019 11:26:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E706F80393;
+	Thu, 12 Sep 2019 11:34:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C29BBF80368; Thu, 12 Sep 2019 11:26:07 +0200 (CEST)
+ id E38FBF80368; Thu, 12 Sep 2019 11:34:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from sonic306-19.consmr.mail.ir2.yahoo.com
+ (sonic306-19.consmr.mail.ir2.yahoo.com [77.238.176.205])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC62CF802DF
- for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 11:26:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC62CF802DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1540BF801ED
+ for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 11:34:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1540BF801ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="QVI3GwWp"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uoE/fKxQ+AJ4AMUIQswHxPLC2favoXRPS4bS0UmeK0I=; b=QVI3GwWpbFw8kapnwOilyUi7n
- IKmPEsBfvh0HpcXA3ERZh89Wo3mPq3MkZT2CwnZz2Ambgh3tcZEjOkGZTfPIffPtPt8sJZ9NV90JX
- ipg3JnqNOClb+da1cRqfKZEC6q/JmJIHTThC3aPIA7nOU/xz6Hrq0Qti/WKdhJQnUwmNM=;
-Received: from 195-23-252-136.net.novis.pt ([195.23.252.136]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1i8LMX-0006Q9-HJ; Thu, 12 Sep 2019 09:26:01 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 51A3AD00AB0; Thu, 12 Sep 2019 10:26:00 +0100 (BST)
-Date: Thu, 12 Sep 2019 10:26:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@google.com>
-Message-ID: <20190912092600.GF2036@sirena.org.uk>
-References: <20190906194636.217881-1-cujomalainey@chromium.org>
- <20190906194636.217881-6-cujomalainey@chromium.org>
- <20190911102503.GV2036@sirena.org.uk>
- <CAOReqxhjf0YeUhCF9N8YOReZC11k01R+TR7N6J51fZV6YXBc4g@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
+ header.b="hGRHc21S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1568280868; bh=9sXSruA5nbXJecrNy/5t4onm6ado6rGc4p8jTIWO6lI=;
+ h=Date:From:Reply-To:To:Subject:From:Subject;
+ b=hGRHc21S7N8ZzG8Zoe2OxFuo3V2GJsNxeqHM/fO4tNDPEkGTKBzAIgrjp4h5Q00Z+ETdtwWh2rQm3BHo0WjD34msmOAAUe9ULTv9HcPFSVgN550gicMAPxfP7zJhL18Qz4ugbdQgu9+jUnxUchZt25wt9A0CeR1TpI2El8WOcF2WtgPbwz5THIN47HEV/66UhnIFon5H4fJQoXi3YnGdgf+WStDHLNCK4JpdKStvDj1Ccp74VvVNHkAFlu9phxyADIkyLDPeuCRnQDpgpNZYvpl7XkjZ45EC53TbFQ7NGarg+aN4A5XxsBCTPP/1TVPMXm+J7gC/oRPMWzpPONyBrQ==
+X-YMail-OSG: pXmSYGIVM1l9rorSthdunCEJY05p4IgeeRrEb4_Yw0obVYlSEVU5ZTZCfQzey_X
+ md2pYWUheo4Rz9wl9BjCu4BctxJiiOGtSvW38V_p9D3NRg4XkQC2dJrmd0pR0K_Y.NAgwRHPVRNr
+ C2WDRwkuzCOvxRQKt8U.0dnwoRrtdDA4Pm.pwZtA1Ve85owsnyInv7ZqdUbF9VC2LPsnvFvG_2qH
+ BbQ2r32cQG__w4mloYQsUGtLeA26uWPYM7IZ0sNx9dNfHMvFPuA_jndC6z6ymZ9_9TKdIqboR.bH
+ 1VADbeY0NgVLo_etVd1rPOy3phFBAiDyfF7GXQGOs1INu2rtcjzmyQxL8wFF.fnwlqWEfZMhMaLw
+ 9WAIQhi1uaxtWTrEB7ByziHC66kfX98jYR8EXUet2IYDHJMO0XbaqNSe5hu4I7deN4cy4l.jrfrQ
+ i0zlRkXTwvlgMVePrCMQlcQ8pcl9istKWBHDcgLkeY3bU4g_gviLqO_JV14bqZAvCqOCKLl2uZXq
+ FRbMVNjoHybYPeHI_CxwysvTExn4UYR_SZTRQ9fHMeptMIyqai27vS_QwxGn7tydOYkGagSlGc9x
+ iLvGwfiRL16_NP79548aCp2AIwxJxUsWaZKVKXaZUOeq4vIqetm12nxd5mO9OFv0.173PGrdFWQ0
+ lRAbawsFqSRsJSsblQcItzIwKPbOFfrwCM6WCIoYlv1NfaTYSrNtiVAGzxNsKIgia.x1IfCPdZ5a
+ KhiyEDH3pRcK2IxbGTBWHTYgzurUma0nXbON61PsZBRVyCIoZcn9IQvkuu15pjb37B58DEckgaVT
+ CmpXNYjbcyEErgZ5wP6VIxy1FTsIU4h.ZJFx7Thfg1tVfkOoijSbFJq.ziLoXWmb6gCgGHd6YGCT
+ 8dRotzAd6FxiCYpVaoQVnOnyiAkANc6WA1FdBAE7qx1Q7y6P8Ys5nz376X1fZCkc8GuyamLQ4XZM
+ Cq5h0DYLYNIFAHJxmvWhkmfa0CTU.IQ2oZwCwKvbWdT0TWrc7VHn9Uemhg1wfen9ThcSo3Ikl4x9
+ nxQOh0sLo4pGc1TUzZRBAYACTRX13zbXCCfT5PNtR0.mMH7KSm4yOitEa_5zhf7PoebVDOEok5cD
+ kWNHsKi1bTg3e8ss9_Akd3X3CSGMOCaTdcoFENmggXC7B6fVc5t5lp8im6bctxkFHv9tBcWVprHN
+ k_8kCP8jnIzhqS7x4Un7hk05yDenQBF9KOc1xm2NFuIn1TYGujFEZPMAnNknE55ZcJm0BL727Gfd
+ 81dCvjl_iFOfhu1uudW0dATBfdLAH6CzyFd_TRXW0okdVakU_hzTglKDstTiyp9RtWvrGlWEMWt1
+ vT4_l8BrC3X01rFJLxlQ-
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic306.consmr.mail.ir2.yahoo.com with HTTP; Thu, 12 Sep 2019 09:34:28 +0000
+Date: Thu, 12 Sep 2019 09:34:28 +0000 (UTC)
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+To: yuhsuan@chromium.org, alsa-devel@alsa-project.org
+Message-ID: <1000767908.8406503.1568280868516@mail.yahoo.com>
 MIME-Version: 1.0
-In-Reply-To: <CAOReqxhjf0YeUhCF9N8YOReZC11k01R+TR7N6J51fZV6YXBc4g@mail.gmail.com>
-X-Cookie: Be careful!  UGLY strikes 9 out of 10!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- ALSA development <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Ben Zhang <benzh@chromium.org>,
- Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [RFC 05/15] ASoC: rt5677: Auto enable/disable DSP
-	for hotwording
+Subject: [alsa-devel] alsa compliance test: H340 (USB audio) playback /
+ capture rate asymmetry bug?
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,60 +83,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2234134609772954402=="
+Reply-To: htl10@users.sourceforge.net
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+I am using Takashi Iwai's tree grafted onto mainline as DKMS ( as in
+https://github.com/HinTak/sound-usb-dkms ).
 
---===============2234134609772954402==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DHdTHwZuIuFUI+Ax"
-Content-Disposition: inline
+Running the alsa compliance test 
+commit f6167eb77d038b5b7a0d39645e7f2ae7fee6fdc0 (origin/stabilize-12464.B, origin/release-R78-12499.B)
 
+Capture all passed, but play back failed a couple, regarding the sample rate.
+It is a small head set with stereo head phone and a mic.
+ID 046d:0a38 Logitech, Inc. Headset H340
 
---DHdTHwZuIuFUI+Ax
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The question is, for such a cheap headset, why would the playback rate and the capture rate to be different? For many applications/ usages, with a device that's most capture and playback capable, we would like the rates to agree - both pass, or both fail in the same direction?
 
-On Wed, Sep 11, 2019 at 01:22:20PM -0700, Curtis Malainey wrote:
+Is this a hardware or software issue? Or, somebody suggested, I haven't looked, issue with the alsa compliance test itself, possibly regarding frame counts of usb devices?
 
-> The source of the switch is commit af48f1d08a547 ("ASoC: rt5677:
-> Support DSP function for VAD application") and does not explain the
-> original intent of the switch. I believe the original intent of this
-> commit is to keep the switch in sync with the VAD state. I do not
-> believe we use the switch ourselves.
+detail below. 
 
-Well, I would assume that the control is used to allow users to
-enable and disable the VAD functionality at runtime.  As with the
-routing if it's been exposed to users we should continue to let
-them control it.
+5 passed, 0 failed
+Device Information
+	Name: hw:CARD=H340
+	Stream: CAPTURE
+	Format: ['S16_LE']
+	Channels range: [2, 2]
+	Rate: [44100]
+	Period_size range: [45, 131072]
+	Buffer_size range: [90, 262144]
+Test Params
+	Set channels 2: pass
+	Set format S16_LE: pass
+	Set rate 44100: pass
+Test Rates
+	Set rate 44100: pass
+Test All Pairs
+	Set channels 2, format S16_LE, rate 44100: pass
 
---DHdTHwZuIuFUI+Ax
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl16DyUACgkQJNaLcl1U
-h9CmRAf+JGoIG7Hub6I09dLtzR66Ijzdfry6JB0kiFGQHe9ookR9ofJXZ8gwb2eZ
-Fjf+QCy42BvnPTJZXuKmZyiqX/Wt2GzIRyvpvVkN53DnRcK1Uppf+jmHgDRFxmKU
-D2ypTaBO0Ygqb4g6SgY4zkoru9f+CMUhacdzr2muqnLCRBHJlbu1AQSAxgQ7Qsxk
-e/GUrGaOIf46GAKq2CZDzOo0UUUzXz8DFdxNfpWFYUxwIhuDEvdha6TteDtNPvyn
-a/SHEEzywS/oZCV/sa0oV56SgdRXUtr29Uw4bOTBMdxvXH0XhzOCZ3XCgARJ1quA
-d1GoW9iDTgK08ayoOm6NGFS0fnCZrg==
-=wU82
------END PGP SIGNATURE-----
-
---DHdTHwZuIuFUI+Ax--
-
---===============2234134609772954402==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+3 passed, 2 failed
+Device Information
+	Name: hw:CARD=H340
+	Stream: PLAYBACK
+	Format: ['S16_LE']
+	Channels range: [2, 2]
+	Rate: [44100]
+	Period_size range: [45, 131072]
+	Buffer_size range: [90, 262144]
+Test Params
+	Set channels 2: pass
+	Set format S16_LE: pass
+	Set rate 44100: pass
+Test Rates
+	Set rate 44100: fail - Expected rate is 44100.000000, measure 44092.918362, difference 7.081638 > threshold 4.410000
+Test All Pairs
+	Set channels 2, format S16_LE, rate 44100: fail - Expected rate is 44100.000000, measure 44093.049192, difference 6.950808 > threshold 4.410000
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2234134609772954402==--

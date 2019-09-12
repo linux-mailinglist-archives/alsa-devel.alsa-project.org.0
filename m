@@ -2,92 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62789B16CF
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 01:56:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826EEB16D1
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 01:57:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D65081679;
-	Fri, 13 Sep 2019 01:55:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D65081679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 180E31658;
+	Fri, 13 Sep 2019 01:56:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 180E31658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568332607;
-	bh=UeqUOsv9Ib5qWhtovGAx0O4wP/izWztUWYveyAYvY/Q=;
+	s=default; t=1568332658;
+	bh=kPWRXcCpFtw9p1kAnehVFBVHIJAfNLH6wsQ7RchdvFE=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l3NQwjwDoURjZbIyYiCehn7WIIODC3MdNHkrGmgkdDneI9mPjjKCFQ1JUeUzRTgx2
-	 8WMFZQgHNNh+FiEL05O6ElRRzUE/2BczTZu3p3biHR3gsUZNkCO+b8wEm1tfBsM9RE
-	 RuyCt4Ainc1S7Or1+n1VzoJ9yvXE0LEqULFriMns=
+	b=D/Z0wl2Wb9VXdyrJfLrOQUE0gO9VeCu8EoY3J6Fx3Q5p8OJWk0uU8gacIpgSFU2eB
+	 y27+SpIeJOgk4OzA2zpFSXmSIR5U3x9IkKm3Uxq6Mo0U73dgv2LRiyVCV7kiNbBj4W
+	 TLaIyYNUc/uAYPPi4npn3LXW6MO8ypOSATtL1E3c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E520F80444;
-	Fri, 13 Sep 2019 01:55:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68CA7F80368;
+	Fri, 13 Sep 2019 01:55:52 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1BCC3F8036F; Fri, 13 Sep 2019 01:55:19 +0200 (CEST)
+ id 49451F805A0; Fri, 13 Sep 2019 01:55:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 39EDEF80143
- for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 01:55:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39EDEF80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCFCFF80368
+ for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 01:55:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCFCFF80368
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KGMLqA+9"
-Received: by mail-pf1-x441.google.com with SMTP id b13so16928077pfo.8
- for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 16:55:15 -0700 (PDT)
+ header.b="N/9FVwqw"
+Received: by mail-pg1-x541.google.com with SMTP id u17so14281390pgi.6
+ for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 16:55:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to:user-agent;
- bh=T7BSUypNwre1fAFwesmjDN9junQB0DZurUQ7dcfihpM=;
- b=KGMLqA+9S193uykKYP1g338SZWE6VX2GBpIzq0AkInh392UupWvTerKl+5SlUdyTzz
- XwOJLT2M0xyMpTXXdAzTKpgqDKSmkzD67ZrQ3LiAg4yc7HfBaw/fky0gLGdxJqDG72Q1
- fR4iWcxFtGyBpGpw7t/gFBFB0S3JrCq4j+06fT58EFEU9okyUNCQwDAPNr3+YoWBsfz1
- SyHz4g3mxIoEIOZIZDgQrEIlbJoSxEV3iZfe0GZQn4HncFDnRhepSLHN6xs2ogB5hdaO
- 3nCtNZnSDfVSWBTvaj8NWO5d9iQdxZwki1KLVo4TfkAQD2VBCQ+zTBT9043nV4na3/Tu
- /uXQ==
+ bh=MKg9N5Ak/mqK4Z77OiWZOmXzQbsQdtgDZRsUGqX7iZY=;
+ b=N/9FVwqw2HM4pjK9/KOapQ6CrsHfOWXlQZf5cbvJspNfr5YemTKwvog5nEJquW6vNB
+ dhb8QaktoUZb+TX2cX2BqUb5r+E1dvNebQMcdWPh/J4FiNdPstJmUUdAZAD1kJgmW/Af
+ 08haBzhalAZIsIPN29D7lBbgQjrl1RU3GRGrgJdxIgO8NdK32r7OiRK33X1bLBEwmewl
+ /p4DtShHDsmPP7cb7nbP08iwxYdtD9Nblw29H3yAzefARKSyVftxzo39jEpvRvonGGXr
+ bQ3TDRfX6z+Ezlf2vy3/BzFYT04GPSrPvMtEkR8C4ti0MnH3JYOzQyBeGGZ9FcbwOba6
+ REbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=T7BSUypNwre1fAFwesmjDN9junQB0DZurUQ7dcfihpM=;
- b=T+C+n+JtwfKA9Wp2d7/bmOieV64zEdeINDqNkDldS9Kko4OazxTMCVLdNWdYK+20tw
- 5+5HULzZ5w2FVNj6WDxbvM/lahclDyPGHclAYKTjperytL3OqHtEyn9pTzzc7yqtHaFF
- 2/jtCkyifQydJgz1HQxrS+URsSVgBCZeeL3RDxzc9VVfjOHFN6Rm3vEKK3cnmAh14ilv
- qNzOZrDdsjU2hIpl4DFZn86uV4oBDM18cNite+A5UcaJai9CBHmmb3I+VMiZhbVzYRNr
- KSjqQrejjwPSn5qyXiHwKiHjXJZKZNgmgRAr/9dOPApaIaCR7s+NPmSzgOLLKUakOM1q
- lPoA==
-X-Gm-Message-State: APjAAAUt2Sm3OVKu29YlwM37gXfVr5lLREtg6J5GTb1HSmxuK94qPsqK
- pc0+IlBBLSy/f4SQ597CZcQ=
-X-Google-Smtp-Source: APXvYqxd3HfuYstwynQJibP1ASKMlPK6lONo6c3uSBbgYJAkuEQve5IJTEE5AetFeHQiNVnFYyMTrQ==
-X-Received: by 2002:a17:90a:a6e:: with SMTP id
- o101mr1548500pjo.71.1568332513966; 
- Thu, 12 Sep 2019 16:55:13 -0700 (PDT)
+ bh=MKg9N5Ak/mqK4Z77OiWZOmXzQbsQdtgDZRsUGqX7iZY=;
+ b=GCwYN0E3fmMg6T9fHOaiBva9Hu8k22InuoDYJhay/dzaoJa7nhVG3kH8/N8F1PrOmB
+ wx81oszr5bPMzdwIm5I9IuADkyrlUMV6wjIAEThkdfRPdbdaZLyojeAuIGfQLbNgcqw8
+ lGuw+oV+95pGd2FstOTWj0jTSfIwE/uDwRjwyOkqEE2wVnV/PUDuGu4Yk50jfSYQur1Y
+ 3qs/wElsQAZhOKHKgXZ8MU5M05KNWo828cuCEp1OrzZw2jMZsFzpx9In6rgs+9zDhDME
+ 8ThSh9u5UsHL5eFmzqUyTT43cwhIB4/fqqY9aRyR6wc0DXeEuaiGQTfvg5EWBLdIZQVA
+ SOfQ==
+X-Gm-Message-State: APjAAAWhzl1sdYSYmCHhHuw3N91rMofxVAugyCOjKcaUPa9JnZFC2ly3
+ x0Nj5Ex6qYoJbwaFOqgry8o=
+X-Google-Smtp-Source: APXvYqwGccc6+qJ6fu7lfAAauwtZvtPeLkhiMe9OxJMG2Jg+hfl9NJGSzizq4OGkb7Sp0XJb4FrbIQ==
+X-Received: by 2002:aa7:8d10:: with SMTP id j16mr5842105pfe.109.1568332545774; 
+ Thu, 12 Sep 2019 16:55:45 -0700 (PDT)
 Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
  [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id j128sm35672488pfg.51.2019.09.12.16.55.13
+ by smtp.gmail.com with ESMTPSA id 1sm24596429pff.39.2019.09.12.16.55.45
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 12 Sep 2019 16:55:13 -0700 (PDT)
-Date: Thu, 12 Sep 2019 16:54:52 -0700
+ Thu, 12 Sep 2019 16:55:45 -0700 (PDT)
+Date: Thu, 12 Sep 2019 16:55:24 -0700
 From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Message-ID: <20190912235451.GF24937@Asurada-Nvidia.nvidia.com>
+To: Daniel Baluta <daniel.baluta@gmail.com>
+Message-ID: <20190912235523.GG24937@Asurada-Nvidia.nvidia.com>
 References: <20190830215910.31590-1-daniel.baluta@nxp.com>
+ <20190906012938.GB17926@Asurada-Nvidia.nvidia.com>
+ <20190911110017.GA2036@sirena.org.uk>
+ <CAEnQRZAid2xXu+6PxWDCBNDwS6c8DfNXEcNqseDPAsVJ7kEHeg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190830215910.31590-1-daniel.baluta@nxp.com>
+In-Reply-To: <CAEnQRZAid2xXu+6PxWDCBNDwS6c8DfNXEcNqseDPAsVJ7kEHeg@mail.gmail.com>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- shengjiu.wang@nxp.com, linux-kernel@vger.kernel.org, broonie@kernel.org,
- NXP Linux Team <linux-imx@nxp.com>, Viorel Suman <viorel.suman@nxp.com>,
- festevam@gmail.com
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Viorel Suman <viorel.suman@nxp.com>, Daniel Baluta <daniel.baluta@nxp.com>
 Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: Implement set_bclk_ratio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -106,84 +110,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Aug 31, 2019 at 12:59:10AM +0300, Daniel Baluta wrote:
-> From: Viorel Suman <viorel.suman@nxp.com>
+On Wed, Sep 11, 2019 at 04:06:41PM +0300, Daniel Baluta wrote:
+> On Wed, Sep 11, 2019 at 2:01 PM Mark Brown <broonie@kernel.org> wrote:
+> >
+> > On Thu, Sep 05, 2019 at 06:29:39PM -0700, Nicolin Chen wrote:
+> > > On Sat, Aug 31, 2019 at 12:59:10AM +0300, Daniel Baluta wrote:
+> >
+> > > > This is to allow machine drivers to set a certain bitclk rate
+> > > > which might not be exactly rate * frame size.
+> >
+> > > Just a quick thought of mine: slot_width and slots could be
+> > > set via set_dai_tdm_slot() actually, while set_bclk_ratio()
+> > > would override that one with your change. I'm not sure which
+> > > one could be more important...so would you mind elaborating
+> > > your use case?
+> >
+> > The reason we have both operations is partly that some hardware
+> > can configure the ratio but not do TDM and partly that setting
+> > TDM slots forces us to configure the slot size depending on the
+> > current stream configuration while just setting the ratio means
+> > we can just fix the configuration once.  I'd say it's just a user
+> > error to try to do both simultaneously.
 > 
-> This is to allow machine drivers to set a certain bitclk rate
-> which might not be exactly rate * frame size.
-> 
-> Cc: NXP Linux Team <linux-imx@nxp.com>
-> Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
-> Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+> Yes, exactly. We wanted to have a better control of bclk freq.
+> Sorry for the late answer, I'm traveling.
 
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-
-> ---
->  sound/soc/fsl/fsl_sai.c | 21 +++++++++++++++++++--
->  sound/soc/fsl/fsl_sai.h |  1 +
->  2 files changed, 20 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-> index fe126029f4e3..e896b577b1f7 100644
-> --- a/sound/soc/fsl/fsl_sai.c
-> +++ b/sound/soc/fsl/fsl_sai.c
-> @@ -137,6 +137,16 @@ static int fsl_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
->  	return 0;
->  }
->  
-> +static int fsl_sai_set_dai_bclk_ratio(struct snd_soc_dai *dai,
-> +				      unsigned int ratio)
-> +{
-> +	struct fsl_sai *sai = snd_soc_dai_get_drvdata(dai);
-> +
-> +	sai->bclk_ratio = ratio;
-> +
-> +	return 0;
-> +}
-> +
->  static int fsl_sai_set_dai_sysclk_tr(struct snd_soc_dai *cpu_dai,
->  		int clk_id, unsigned int freq, int fsl_dir)
->  {
-> @@ -423,8 +433,14 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
->  		slot_width = sai->slot_width;
->  
->  	if (!sai->is_slave_mode) {
-> -		ret = fsl_sai_set_bclk(cpu_dai, tx,
-> -				slots * slot_width * params_rate(params));
-> +		if (sai->bclk_ratio)
-> +			ret = fsl_sai_set_bclk(cpu_dai, tx,
-> +					       sai->bclk_ratio *
-> +					       params_rate(params));
-> +		else
-> +			ret = fsl_sai_set_bclk(cpu_dai, tx,
-> +					       slots * slot_width *
-> +					       params_rate(params));
->  		if (ret)
->  			return ret;
->  
-> @@ -640,6 +656,7 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
->  }
->  
->  static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
-> +	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
->  	.set_sysclk	= fsl_sai_set_dai_sysclk,
->  	.set_fmt	= fsl_sai_set_dai_fmt,
->  	.set_tdm_slot	= fsl_sai_set_dai_tdm_slot,
-> diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-> index 3a3f6f8e5595..f96f8d97489d 100644
-> --- a/sound/soc/fsl/fsl_sai.h
-> +++ b/sound/soc/fsl/fsl_sai.h
-> @@ -177,6 +177,7 @@ struct fsl_sai {
->  	unsigned int mclk_streams;
->  	unsigned int slots;
->  	unsigned int slot_width;
-> +	unsigned int bclk_ratio;
->  
->  	const struct fsl_sai_soc_data *soc_data;
->  	struct snd_dmaengine_dai_dma_data dma_params_rx;
-> -- 
-> 2.17.1
-> 
+I see. Thanks for the explain. Just acked.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

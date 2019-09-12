@@ -2,66 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94203B0A07
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 10:18:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2FD7B0A5E
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 10:30:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E45C171F;
-	Thu, 12 Sep 2019 10:17:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E45C171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 408D2172B;
+	Thu, 12 Sep 2019 10:30:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 408D2172B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568276284;
-	bh=rOaGqlM53BekfoI1FR1UmGS1lceyLvUqHsbgw0490O0=;
+	s=default; t=1568277054;
+	bh=4Ztk7dmZAr2uQSXmvs3ibQJjyd2au4/eGTZp4pIFMKk=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s5eUzQ+LjjCLL3e0w/2s+3BX6/y1fsKlnBZbA8fgXsW/4C4dqCyjWCVleO4TXuX41
-	 BcMYGpaFhVHN5GIFB6hFp+fRacelHkMSw9iKO8Uz1z+0xPTnzCo8MNDDsC7NwuBu6v
-	 J5mwDv4Xugvdi+zR0Cfy2Zqv9tD1WaWooEqzck7s=
+	b=Uy5ytQqat8jBSITW1ax02xPpajiKHImsRtTC20WxObJ+6mk3OpvHdcZYQpt1Go5Z9
+	 6r7iS3/Al0UksSSeOxXRdlmoDwRoTlOb9dBpOTcmBPL9Kx7yFR3Dh0cjOEbU3Q3G16
+	 vn2S6Nb4YdFjvcdMUXO7dIiF8g4qya7OJ51eYHn8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EE19F80321;
-	Thu, 12 Sep 2019 10:16:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0ED6F80393;
+	Thu, 12 Sep 2019 10:29:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51BD4F80321; Thu, 12 Sep 2019 10:16:17 +0200 (CEST)
+ id 8FA34F80368; Thu, 12 Sep 2019 10:29:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55D9EF80143
- for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 10:16:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55D9EF80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7095AF80143
+ for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 10:28:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7095AF80143
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2019 01:16:11 -0700
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Sep 2019 01:28:57 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,495,1559545200"; d="scan'208";a="192354549"
+X-IronPort-AV: E=Sophos;i="5.64,495,1559545200"; d="scan'208";a="209948129"
 Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by FMSMGA003.fm.intel.com with ESMTP; 12 Sep 2019 01:16:09 -0700
-Date: Thu, 12 Sep 2019 11:16:08 +0300 (EEST)
+ by fmsmga004.fm.intel.com with ESMTP; 12 Sep 2019 01:28:56 -0700
+Date: Thu, 12 Sep 2019 11:28:55 +0300 (EEST)
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 X-X-Sender: kvehmane@zeliteleevi
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <a1b70a79-3bac-95e6-9091-9acee31a0a05@linux.intel.com>
-Message-ID: <alpine.DEB.2.21.1909121042450.16459@zeliteleevi>
+In-Reply-To: <326901ed-4cd2-af0e-0039-9cae55b787f7@linux.intel.com>
+Message-ID: <alpine.DEB.2.21.1909121117120.16459@zeliteleevi>
 References: <20190910182916.29693-1-kai.vehmanen@linux.intel.com>
- <20190910182916.29693-3-kai.vehmanen@linux.intel.com>
- <a1b70a79-3bac-95e6-9091-9acee31a0a05@linux.intel.com>
+ <20190910182916.29693-2-kai.vehmanen@linux.intel.com>
+ <326901ed-4cd2-af0e-0039-9cae55b787f7@linux.intel.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: tiwai@suse.de, libin.yang@intel.com, alsa-devel@alsa-project.org,
  Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v3 02/10] ALSA: hda/hdmi - allow control
- creation without a linked pcm
+Subject: Re: [alsa-devel] [PATCH v3 01/10] ALSA: hda/hdmi - implement
+ mst_no_extra_pcms flag
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,42 +73,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGksCgpPbiBUdWUsIDEwIFNlcCAyMDE5LCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKCj4g
-T24gOS8xMC8xOSAxOjI5IFBNLCBLYWkgVmVobWFuZW4gd3JvdGU6Cj4gPiBGaXggdGhlIGxvZ2lj
-IGluIGdlbmVyaWNfaGRtaV9idWlsZF9jb250cm9scygpIHRvIGlkZW50aWZ5Cj4gPiB1bnVzZWQg
-aGRhX3BjbSBlbnRyaWVzIGJ5IHNlYXJjaGluZyBmb3IgU05EUlZfUENNX0lOVkFMSURfREVWSUNF
-Lgo+ID4gVGhpcyBtYXRjaGVzIHdpdGggbG9naWMgaW4gc25kX2hkYV9jb2RlY19idWlsZF9wY21z
-KCkuClsuLi5dCj4gPiAtCQlpZiAoIWdldF9wY21fcmVjKHNwZWMsIHBjbV9pZHgpLT5wY20pIHsK
-PiA+ICsJCWhkYV9wY20gPSBnZXRfcGNtX3JlYyhzcGVjLCBwY21faWR4KTsKPiA+ICsJCWlmICho
-ZGFfcGNtLT5kZXZpY2UgPT0gU05EUlZfUENNX0lOVkFMSURfREVWSUNFKSB7Cj4gCj4gSSBmaW5k
-IGl0IGhhcmQgdG8gZm9sbG93IHRoZSBsb2dpYy4KPiBCZWZvcmUgdGhpcyBwYXRjaCBvbmx5IGRl
-dmljZSAwIHdvdWxkIGJlIGNvbnNpZGVyZWQgTk9fUENNCj4gTm90IGl0J3MgLTEsIHNvIHdvbmRl
-cmluZyBpZiB0aGlzIGlzIGEgZml4IHVucmVsYXRlZCB0byB0aGlzIHNlcmllcyBvciBpZgo+IHRo
-ZXJlIGlzIGEgZGVwZW5kZW5jeSBvbiBmb2xsb3ctdXAgcGF0Y2hlcz8KCnRoZSBpbnRlbnQgd2Fz
-IHRvIGFsaWduIHdpdGggbG9naWMgaW4gCmhkYV9jb2RlYy5jOnNuZF9oZGFfY29kZWNfYnVpbGRf
-cGNtcygpIHdoaWNoIGlzIHRoZSBjb21tb24gZnVuY3Rpb24gdG8gCmNyZWF0ZSB0aGUgSERBIGRy
-aXZlciBQQ00gc3RhdGUuIEluIHRoYXQgZnVuY3Rpb246CgrCuyAgICAgICBsaXN0X2Zvcl9lYWNo
-X2VudHJ5KGNwY20sICZjb2RlYy0+cGNtX2xpc3RfaGVhZCwgbGlzdCkgewpbLi4uXQrCuyAgICAg
-ICDCuyAgICAgICBkZXYgPSBnZXRfZW1wdHlfcGNtX2RldmljZShidXMsIGNwY20tPnBjbV90eXBl
-KTsKwrsgICAgICAgwrsgICAgICAgaWYgKGRldiA8IDApIHsKwrsgICAgICAgwrsgICAgICAgwrsg
-ICAgICAgY3BjbS0+ZGV2aWNlID0gU05EUlZfUENNX0lOVkFMSURfREVWSUNFOwrCuyAgICAgICDC
-uyAgICAgICDCuyAgICAgICBjb250aW51ZTsgLyogbm8gZmF0YWwgZXJyb3IgKi8KwrsgICAgICAg
-wrsgICAgICAgfQoKLi4uIGkuZS4gaWYgbm8gUENNIGlzIGF0dGFjaGVkLCBpdCBpcyBtYXJrZWQg
-d2l0aCAKU05EUlZfUENNX0lOVkFMSURfREVWSUNFIHRvIGNwY20tPmRldmljZS4KClRoZSBsb2dp
-YyBpbiBwYXRjaF9oZG1pLmMsIHdoaWNoIGRlZHVjZWQgdGhlIHNhbWUgaW5mb3JtYXRpb24gYnkg
-Cmxvb2tpbmcgYXQgYW5vdGhlciBmaWVsZCAoY3BjbT4tPnBjbSksIHNlZW1zIHdyb25nIGFuZCB0
-aHVzIHRoZSBmaXguCgpOb3csIHRoaXMgdXNlZCB0byBiZSBjcml0aWNhbCBmb3IgdGhpcyBwYXRj
-aCBzZXJpZXMgYXMgd2VsbCwgYnV0IHlvdSBhcmUgCnJpZ2h0IHRoYXQgaXMgbm8gbG9uZ2VyIHRo
-ZSBjYXNlIChJIGFkZGVkIHBhc3Npbmcgb2YgdGhlIFBDTSBoYW5kbGUgc28Kd2UgY2FuIHJldXNl
-IGFsbCB0aGUga2NvbnRyb2wgY29kZSBpbiBwYXRjaF9oZG1pLmMgYW5kIHdpdGggdGhhdCB0aGlz
-IApwYXRjaCBpcyBubyBsb25nZXIgbWFuZGF0b3J5IGZvciBTT0YgdXNhZ2UpLgoKSSByZXRlc3Rl
-ZCB0aGUgc2VyaWVzIHdpdGhvdXQgdGhlIHBhdGNoIGFuZCBhbGwgc2VlbXMgZmluZSwgc28gbGV0
-J3MgCnNpbXBsaWZ5IHRoZSBzZXJpZXMgYnkgZHJvcHBpbmcgdGhpcy4KCkJyLCBLYWkKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFp
-bGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxz
-YS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Hey,
+
+On Tue, 10 Sep 2019, Pierre-Louis Bossart wrote:
+
+> 
+> 
+> On 9/10/19 1:29 PM, Kai Vehmanen wrote:
+> > When mst_no_extra_pcms flag is set, the codec should not
+> > use backup PCMs to handle DP-MST scenarios. Instead a simple
+> > 1:1 mapping is assumed between PCMs and converters.
+> 
+> mst_no_extra_pcms is not set, which makes it hard to review and get the
+> picture of what this does.
+
+this flag is used in patch 3 of the series. I didn't want to combine the 
+patches 1&3 as patch 3 is modifying sound/soc/codecs/hdac_hda.c.
+
+Let me try to improve the commit message a bit to explain why this
+is needed. In short, if patch_hdmi.c creates virtual PCMs for routing 
+purposes (current behaviour with snd_hda_intel in non-DSP mode), it will 
+be impossible to match them to PCMs in ASoC topology. Thus to enable users
+like SOF (could be others), patch_hdmi.c needs to expose a mode where 
+physical converters are mapped to a fixed set of PCMs (-> this is 
+the mst_no_extra_pcms mode).
+
+Br, Kai
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

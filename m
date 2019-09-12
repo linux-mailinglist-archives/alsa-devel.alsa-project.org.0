@@ -2,61 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB37B1122
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 16:29:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FAEEB11CC
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Sep 2019 17:07:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 278031772;
-	Thu, 12 Sep 2019 16:29:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 278031772
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3A9C1662;
+	Thu, 12 Sep 2019 17:06:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3A9C1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568298599;
-	bh=Ixf1LWCLrLWsZk4AgFn6ohMld5JTQ3BOhJflB4oMZiA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1568300852;
+	bh=dlplBjncfr6MieISXs22K6ZtZmMKGdGyBxIegaQdxHY=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hdgTrzH3wQcCF6hoHawdVGc/stBj0AkFP4HMESQtFDgAhZkFFToAHjf0mF3pf9rx3
-	 pzdPgdW+sNNRg+XAGgyf8OF0Do3RuLrzYfoWZOSvOG/dKPPm3/05d1AMMrHR/1MyXQ
-	 4tcogwjRHLWHmW6HyI8kSURXdNoJd5ivHL+2+h9A=
+	b=WPI62Oz3rO6U/7+fgiaOsw4WJIC1FhYTf7F0GZ/BD5xo3ccuZGwJEk1th0bWq+Sgv
+	 i+WbXdgOz5vFgyWam8XKHLV7r47jaSR7GlEGoitsJfh+ygxRlM0++KnUxJIKpCfIFx
+	 yhI1akcEJ8WWxAH4oF1ND465uYB0D1aQGA1QyyNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D0D4F80679;
-	Thu, 12 Sep 2019 16:22:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E48EF80368;
+	Thu, 12 Sep 2019 17:05:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2FD00F80676; Thu, 12 Sep 2019 16:22:38 +0200 (CEST)
+ id B2FD2F80368; Thu, 12 Sep 2019 17:05:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from webclient5.webclient5.de (webclient5.webclient5.de
+ [136.243.32.184])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 21FF7F8065D
- for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 16:22:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21FF7F8065D
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Sep 2019 07:22:34 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,492,1559545200"; d="scan'208";a="190008252"
-Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by orsmga006.jf.intel.com with ESMTP; 12 Sep 2019 07:22:33 -0700
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Thu, 12 Sep 2019 17:22:00 +0300
-Message-Id: <20190912142200.8031-10-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190912142200.8031-1-kai.vehmanen@linux.intel.com>
-References: <20190912142200.8031-1-kai.vehmanen@linux.intel.com>
-Cc: libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
- kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH v4 9/9] ASoC: Intel: bxt_rt298: common hdmi
-	codec support
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6202F80143
+ for <alsa-devel@alsa-project.org>; Thu, 12 Sep 2019 17:05:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6202F80143
+Received: from olorin.ladisch.de (unknown [46.114.32.78])
+ by webclient5.webclient5.de (Postfix) with ESMTPSA id 418885583EFB;
+ Thu, 12 Sep 2019 17:05:41 +0200 (CEST)
+To: htl10@users.sourceforge.net
+References: <1000767908.8406503.1568280868516@mail.yahoo.com>
+From: Clemens Ladisch <clemens@ladisch.de>
+Message-ID: <e9f48f93-6974-5dde-61dc-1d6d8dc4260f@ladisch.de>
+Date: Thu, 12 Sep 2019 17:04:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <1000767908.8406503.1568280868516@mail.yahoo.com>
+Content-Language: en-US
+X-Virus-Scanned: clamav-milter 0.99.4 at webclient5
+X-Virus-Status: Clean
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] alsa compliance test: H340 (USB audio) playback /
+ capture rate asymmetry bug?
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,67 +67,19 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for using snd-hda-codec-hdmi driver for HDMI/DP
-instead of ASoC hdac-hdmi. This is aligned with how other
-HDA codecs are already handled.
+Hin-Tak Leung wrote:
+> ID 046d:0a38 Logitech, Inc. Headset H340
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/soc/intel/boards/bxt_rt298.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Please show the output of "lsusb -v" for this device.
 
-diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
-index adf416a49b48..eabf9d8468ae 100644
---- a/sound/soc/intel/boards/bxt_rt298.c
-+++ b/sound/soc/intel/boards/bxt_rt298.c
-@@ -18,6 +18,7 @@
- #include <sound/pcm_params.h>
- #include "../../codecs/hdac_hdmi.h"
- #include "../../codecs/rt298.h"
-+#include "hda_dsp_common.h"
- 
- /* Headset jack detection DAPM pins */
- static struct snd_soc_jack broxton_headset;
-@@ -31,6 +32,7 @@ struct bxt_hdmi_pcm {
- 
- struct bxt_rt286_private {
- 	struct list_head hdmi_pcm_list;
-+	bool common_hdmi_codec_drv;
- };
- 
- enum {
-@@ -527,6 +529,13 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
- 	int err, i = 0;
- 	char jack_name[NAME_SIZE];
- 
-+	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct bxt_hdmi_pcm,
-+			       head);
-+	component = pcm->codec_dai->component;
-+
-+	if (ctx->common_hdmi_codec_drv)
-+		return hda_dsp_hdmi_build_controls(card, component);
-+
- 	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
- 		component = pcm->codec_dai->component;
- 		snprintf(jack_name, sizeof(jack_name),
-@@ -626,6 +635,8 @@ static int broxton_audio_probe(struct platform_device *pdev)
- 	if (ret)
- 		return ret;
- 
-+	ctx->common_hdmi_codec_drv = mach->mach_params.common_hdmi_codec_drv;
-+
- 	return devm_snd_soc_register_card(&pdev->dev, card);
- }
- 
--- 
-2.17.1
 
+Regards,
+Clemens
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,74 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF15B1B0B
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 11:44:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E31EBB227C
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 16:47:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2385166F;
-	Fri, 13 Sep 2019 11:43:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2385166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4400E1672;
+	Fri, 13 Sep 2019 16:47:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4400E1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568367848;
-	bh=3aZnbTGaSoiOO4K/z5uYA9VgINmGAbEDIU0oFZKh/bc=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=uD6lCj/bpe5momM7rhV1ycVmrwOEeopx3cgRyp5+MXM6/6Ps5JjJnRYxRWI3ZdoNY
-	 IcPsgvnp663RNkB1uqYWmIwZBJ8gtk0+9QoIIt0V4zEpdZKWQZM9AqcUjyj9wuycad
-	 W8P7DMfXmcxJAVQ3YgbAHnGIgXoq9yHW9QoUHr9g=
+	s=default; t=1568386079;
+	bh=B5PfBW9AoYY0CcMs9Dl1L6X4BFAoaRM5DILZ7OJaENo=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HND8siD5IHCO9e4TCm2WwRg7I1EEgB4DVa9z0OzowSIq1OsqiWLZFLDi6/AzfO8E+
+	 bDKvx0GTomqASvtcYDthI9LOQUoy6FQDnu+aTYfSxI2aOljUtuGbFTtSLLL7Ee/qKm
+	 tF6ablU+hNA0FaHEpCpFGR1vRK42vIrMcp3FDjnk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1748EF802DF;
-	Fri, 13 Sep 2019 11:42:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7454CF804AB;
+	Fri, 13 Sep 2019 16:46:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC000F8036A; Fri, 13 Sep 2019 11:42:21 +0200 (CEST)
+ id 69CD7F8036A; Fri, 13 Sep 2019 16:46:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB8A5F801EC
- for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 11:42:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB8A5F801EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id BBF3AF80143
+ for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 16:46:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBF3AF80143
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="i7d56xHK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=lHumIoWHnfMgoly+K9KCOwt1FKK4j360M4fRV6UdXgg=; b=i7d56xHKmc5d
- HYJR1JpadvREqDSPUR8sLXqZRvcXnYGZPc26BQLDYR/N23x5rb7qeZzda0PyTeOwwPsIVVLwvfGy3
- pzZ1b1XOyM1rgUymbsFYkMJqtzJyWk86BfYLzC7OHary5Mbl3nwutB/D5ii0X5F8nuRiWSqgELJo7
- L6CrE=;
-Received: from 195-23-252-136.net.novis.pt ([195.23.252.136]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1i8i5p-0003T7-8u; Fri, 13 Sep 2019 09:42:17 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id A26C1D00DD9; Fri, 13 Sep 2019 10:42:16 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Viorel Suman <viorel.suman@nxp.com>
-In-Reply-To: <20190830215910.31590-1-daniel.baluta@nxp.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20190913094216.A26C1D00DD9@fitzroy.sirena.org.uk>
-Date: Fri, 13 Sep 2019 10:42:16 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- Daniel Baluta <daniel.baluta@nxp.com>, shengjiu.wang@nxp.com,
- linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- festevam@gmail.com
-Subject: [alsa-devel] Applied "ASoC: fsl_sai: Implement set_bclk_ratio" to
-	the asoc tree
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="gGEVF7Ko"
+Received: by mail-wr1-x442.google.com with SMTP id u16so32408117wrr.0
+ for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 07:46:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=C0BmgB/sd5/VsBAY9AHPnlGPl1BNkW4BY4bf4naCTho=;
+ b=gGEVF7KofIj74MTNNyNlZCvWhhUkS9SlD9M1COpfX2ydWO3474Fa7dmB2KgOyCkvxg
+ g+fLcTmU1TwQx1dMxqpCT8KUlKiIp7tpJ14uftGsc4qrFI+lp0iNOv2d0x6E7ZnwE6sq
+ CC6krb4azk7xtvYQv7dCUMUnEvFvYfAoR8e0c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=C0BmgB/sd5/VsBAY9AHPnlGPl1BNkW4BY4bf4naCTho=;
+ b=Csx28nQZ8BQiyo/XLydI9GyzGPYinUxgqsBT3vlHfuebW95v6gkCxY3nqZrmV8iUBX
+ MZj8UliRtHwNDZwh/3D0A2oF+oPrnKbLN7gOVL3fc5a4rctI5J1sAbOlXQQwuHBU3Ogf
+ 2JYlKfq7oQPnjv1gAzF4/v2Xn/6tXoF8g77ZgYpzLlXgfg+gyvQmhyyJzf0Mr+wVfV5Z
+ AMf7bC1bg+UaAAI7nqQ1wS72dOlxPB2ywgh0WMrom6ziiWM9CoJ2oxPfpovHPa0ilFi0
+ MzCOIPQWlHt8Rb/yfhXbUn7VWg8ua9MY5TYzA4lQcut5WXmA0CiWYtObd1w6sTeWOAqb
+ TlCw==
+X-Gm-Message-State: APjAAAUqJM7hl05FTzTvIzBcZA+RAuYB7/jRTQlcn/KOk/icB3n/cd++
+ b/kCipWiUqfl7U3nC6/HozLfMsn911JgQhTm7GC7rw==
+X-Google-Smtp-Source: APXvYqw24qMeqt8Xt640qydkwYCEPBZphtaXbeNPw+dKo07zp30dTEa0aGcnyhnOcVlvvLR8LCpraiKRDOUuZGsoNvQ=
+X-Received: by 2002:a5d:4ed0:: with SMTP id s16mr710513wrv.248.1568385967865; 
+ Fri, 13 Sep 2019 07:46:07 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190912022740.161798-1-yuhsuan@chromium.org>
+ <f2d9e339-ef96-8bb4-7360-422d317a470f@linux.intel.com>
+In-Reply-To: <f2d9e339-ef96-8bb4-7360-422d317a470f@linux.intel.com>
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Fri, 13 Sep 2019 22:45:56 +0800
+Message-ID: <CAGvk5PpCOG0Jii_vksrewZ_Dfmc+OVM9C6pkCYLY=n+ac-wVaA@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: kbl_rt5663_rt5514_max98927:
+ Add dmic format constraint
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,120 +94,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
-
-   ASoC: fsl_sai: Implement set_bclk_ratio
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 63d1a3488ff58e094a7f517cf93c0250f0a3f6be Mon Sep 17 00:00:00 2001
-From: Viorel Suman <viorel.suman@nxp.com>
-Date: Sat, 31 Aug 2019 00:59:10 +0300
-Subject: [PATCH] ASoC: fsl_sai: Implement set_bclk_ratio
-
-This is to allow machine drivers to set a certain bitclk rate
-which might not be exactly rate * frame size.
-
-Cc: NXP Linux Team <linux-imx@nxp.com>
-Signed-off-by: Viorel Suman <viorel.suman@nxp.com>
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Link: https://lore.kernel.org/r/20190830215910.31590-1-daniel.baluta@nxp.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/fsl/fsl_sai.c | 21 +++++++++++++++++++--
- sound/soc/fsl/fsl_sai.h |  1 +
- 2 files changed, 20 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 728307acab90..ef0b74693093 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -137,6 +137,16 @@ static int fsl_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
- 	return 0;
- }
- 
-+static int fsl_sai_set_dai_bclk_ratio(struct snd_soc_dai *dai,
-+				      unsigned int ratio)
-+{
-+	struct fsl_sai *sai = snd_soc_dai_get_drvdata(dai);
-+
-+	sai->bclk_ratio = ratio;
-+
-+	return 0;
-+}
-+
- static int fsl_sai_set_dai_sysclk_tr(struct snd_soc_dai *cpu_dai,
- 		int clk_id, unsigned int freq, int fsl_dir)
- {
-@@ -423,8 +433,14 @@ static int fsl_sai_hw_params(struct snd_pcm_substream *substream,
- 		slot_width = sai->slot_width;
- 
- 	if (!sai->is_slave_mode) {
--		ret = fsl_sai_set_bclk(cpu_dai, tx,
--				slots * slot_width * params_rate(params));
-+		if (sai->bclk_ratio)
-+			ret = fsl_sai_set_bclk(cpu_dai, tx,
-+					       sai->bclk_ratio *
-+					       params_rate(params));
-+		else
-+			ret = fsl_sai_set_bclk(cpu_dai, tx,
-+					       slots * slot_width *
-+					       params_rate(params));
- 		if (ret)
- 			return ret;
- 
-@@ -630,6 +646,7 @@ static void fsl_sai_shutdown(struct snd_pcm_substream *substream,
- }
- 
- static const struct snd_soc_dai_ops fsl_sai_pcm_dai_ops = {
-+	.set_bclk_ratio	= fsl_sai_set_dai_bclk_ratio,
- 	.set_sysclk	= fsl_sai_set_dai_sysclk,
- 	.set_fmt	= fsl_sai_set_dai_fmt,
- 	.set_tdm_slot	= fsl_sai_set_dai_tdm_slot,
-diff --git a/sound/soc/fsl/fsl_sai.h b/sound/soc/fsl/fsl_sai.h
-index b89b0ca26053..b12cb578f6d0 100644
---- a/sound/soc/fsl/fsl_sai.h
-+++ b/sound/soc/fsl/fsl_sai.h
-@@ -176,6 +176,7 @@ struct fsl_sai {
- 	unsigned int mclk_streams;
- 	unsigned int slots;
- 	unsigned int slot_width;
-+	unsigned int bclk_ratio;
- 
- 	const struct fsl_sai_soc_data *soc_data;
- 	struct snd_dmaengine_dai_dma_data dma_params_rx;
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+VGhhbmtzIGZvciB0aGUgcmV2aWV3ISBJZiBJJ20gbm90IG1pc3Rha2VuLCB0aGUgbWljcm9waG9u
+ZSBpcyBhdHRhY2hlZCB0bwpleHRlcm5hbCBjb2RlYyhydDU1MTQpIGluc3RlYWQgb2YgUENIIG9u
+IEthYnlsYWtlIHBsYXRmb3JtLiBTbyB0aGVyZSBzaG91bGQKYmUgYSBURE0gYmV0d2VlbiBETUlD
+cyBhbmQgUENILiBXZSBjYW4gc2VlIGluIHRoZQprYWJ5bGFrZV9zc3AwX2h3X3BhcmFtcyBmdW5j
+dGlvbiwKdGhlcmUgYXJlIHNvbWUgb3BlcmF0aW9ucyBhYm91dCBzZXR0aW5nIHRkbSBzbG90X3dp
+ZHRoIHRvIDE2IGJpdHMuClRoZXJlZm9yZSwgSSB0aGluayBpdCBvbmx5IHN1cHBvcnRzIFMxNl9M
+RSBmb3JtYXQgZm9yIERNSUNzLiBJcyBpdCBjb3JyZWN0PwoKUGllcnJlLUxvdWlzIEJvc3NhcnQg
+PHBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4LmludGVsLmNvbT4g5pa8IDIwMTnlubQ55pyIMTLm
+l6Ug6YCx5ZubCuS4i+WNiDk6MDLlr6vpgZPvvJoKCj4gT24gOS8xMS8xOSA5OjI3IFBNLCBZdS1I
+c3VhbiBIc3Ugd3JvdGU6Cj4gPiAyNCBiaXRzIHJlY29yZGluZyBmcm9tIERNSUMgaXMgbm90IHN1
+cHBvcnRlZCBmb3IgS0JMIHBsYXRmb3JtIGJlY2F1c2UKPiA+IHRoZSBURE0gc2xvdCBiZXR3ZWVu
+IFBDSCBhbmQgY29kZWMgaXMgMTYgYml0cyBvbmx5LiBXZSBzaG91bGQgYWRkIGEKPiA+IGNvbnN0
+cmFpbnQgdG8gcmVtb3ZlIHRoYXQgdW5zdXBwb3J0ZWQgZm9ybWF0Lgo+Cj4gSHVtbSwgd2hlbiB5
+b3UgdXNlIERNSUNzIHRoZXkgYXJlIGRpcmVjdGx5IGNvbm5lY3RlZCB0byB0aGUgUENIIHdpdGgg
+YQo+IHN0YW5kYXJkIDEtYml0IFBETS4gVGhlcmUgaXMgbm8gbm90aW9uIG9mIFRETSBvciBzbG90
+Lgo+Cj4gSXQgY291bGQgdmVyeSB3ZWxsIGJlIHRoYXQgdGhlIGZpcm13YXJlL3RvcG9sb2d5IG9u
+bHkgc3VwcG9ydCAxNiBiaXQgKEkKPiB2YWd1ZWx5IHJlY2FsbCBhbm90aGVyIGNhc2Ugd2hlcmUg
+MjQgYml0cyB3YXMgYWRkZWQpLCBidXQgdGhlCj4gZGVzY3JpcHRpb24gaW4gdGhlIGNvbW1pdCBt
+ZXNzYWdlIHdvdWxkIG5lZWQgdG8gYmUgbW9kaWZpZWQgdG8gbWFrZSB0aGUKPiByZWFzb24gZm9y
+IHRoaXMgY2hhbmdlIGNsZWFyZXIuCj4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBZdS1Ic3VhbiBI
+c3UgPHl1aHN1YW5AY2hyb21pdW0ub3JnPgo+ID4gLS0tCj4gPiAgIHNvdW5kL3NvYy9pbnRlbC9i
+b2FyZHMva2JsX3J0NTY2M19ydDU1MTRfbWF4OTg5MjcuYyB8IDMgKysrCj4gPiAgIDEgZmlsZSBj
+aGFuZ2VkLCAzIGluc2VydGlvbnMoKykKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL2lu
+dGVsL2JvYXJkcy9rYmxfcnQ1NjYzX3J0NTUxNF9tYXg5ODkyNy5jCj4gYi9zb3VuZC9zb2MvaW50
+ZWwvYm9hcmRzL2tibF9ydDU2NjNfcnQ1NTE0X21heDk4OTI3LmMKPiA+IGluZGV4IDc0ZGRhODc4
+NGYxYTAxLi42N2IyNzZhNjVhOGQyZCAxMDA2NDQKPiA+IC0tLSBhL3NvdW5kL3NvYy9pbnRlbC9i
+b2FyZHMva2JsX3J0NTY2M19ydDU1MTRfbWF4OTg5MjcuYwo+ID4gKysrIGIvc291bmQvc29jL2lu
+dGVsL2JvYXJkcy9rYmxfcnQ1NjYzX3J0NTUxNF9tYXg5ODkyNy5jCj4gPiBAQCAtNDAwLDYgKzQw
+MCw5IEBAIHN0YXRpYyBpbnQga2FieWxha2VfZG1pY19zdGFydHVwKHN0cnVjdAo+IHNuZF9wY21f
+c3Vic3RyZWFtICpzdWJzdHJlYW0pCj4gPiAgICAgICBzbmRfcGNtX2h3X2NvbnN0cmFpbnRfbGlz
+dChydW50aW1lLCAwLCBTTkRSVl9QQ01fSFdfUEFSQU1fQ0hBTk5FTFMsCj4gPiAgICAgICAgICAg
+ICAgICAgICAgICAgZG1pY19jb25zdHJhaW50cyk7Cj4gPgo+ID4gKyAgICAgcnVudGltZS0+aHcu
+Zm9ybWF0cyA9IFNORFJWX1BDTV9GTVRCSVRfUzE2X0xFOwo+ID4gKyAgICAgc25kX3BjbV9od19j
+b25zdHJhaW50X21zYml0cyhydW50aW1lLCAwLCAxNiwgMTYpOwo+ID4gKwo+ID4gICAgICAgcmV0
+dXJuIHNuZF9wY21faHdfY29uc3RyYWludF9saXN0KHN1YnN0cmVhbS0+cnVudGltZSwgMCwKPiA+
+ICAgICAgICAgICAgICAgICAgICAgICBTTkRSVl9QQ01fSFdfUEFSQU1fUkFURSwgJmNvbnN0cmFp
+bnRzX3JhdGVzKTsKPiA+ICAgfQo+ID4KPgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxz
+YS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2Fsc2EtZGV2ZWwK

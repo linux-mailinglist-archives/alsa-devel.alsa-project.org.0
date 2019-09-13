@@ -2,86 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE9DB1A17
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 10:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56D0FB1AE9
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Sep 2019 11:34:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3B4C1675;
-	Fri, 13 Sep 2019 10:47:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3B4C1675
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5F7D1673;
+	Fri, 13 Sep 2019 11:34:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5F7D1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568364487;
-	bh=LKNmKb3OKHbg+hgioMgUoEF5NtHODXaQI31ZxGZpb5g=;
+	s=default; t=1568367297;
+	bh=gThzpV7lvWYEcKi6qEGJwmjLOVWcYmTVmPrL1UjHzvI=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GlQ1NITRjcFkjRRzDWBFIimmgjzHNNmeRG4buxlyNls8p1HwUeCNgnrzz2B/hcVLj
-	 L2k6u7TRnLF+bij48b1STqiCmRZ85eQD2nPUHKYtA3B2NtN2LtalXHNeeaMpM+pFP6
-	 qBIsDDn/qSF+xHI8pDsUkfmqtIr84bhS3oiaje7U=
+	b=kYAHGuqlYNJrKnKsfKlFj48ivMASOSsosxI8FpW0c0OuinfHeX7AeMHVP7wh9vj8U
+	 p2gYQRKGBHc3oaxuUXVjaNc+1hkVRbbIhSHdp0aMvz95pHU2wJCMMAvweqHX3aZN5n
+	 WWsghVPb/u1RHUFbOSZFcJy4HmGZMwVh3ZXehFNs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78941F8044B;
-	Fri, 13 Sep 2019 10:46:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F0FEF801EC;
+	Fri, 13 Sep 2019 11:33:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE304F8036A; Fri, 13 Sep 2019 10:46:18 +0200 (CEST)
+ id 57C8AF8036A; Fri, 13 Sep 2019 11:33:09 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9682F80143
- for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 10:46:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9682F80143
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1451EF801EC
+ for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 11:33:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1451EF801EC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="usywg2vt"
-Received: by mail-wr1-x444.google.com with SMTP id q17so26527851wrx.10
- for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 01:46:15 -0700 (PDT)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="gCqAsImP"
+Received: by mail-wr1-x441.google.com with SMTP id i18so682272wru.11
+ for <alsa-devel@alsa-project.org>; Fri, 13 Sep 2019 02:33:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=subject:to:cc:references:from:openpgp:autocrypt:organization
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=GzIH6oiBi70p/v479m1IVvyZsoprTy/n2kolGjI6PJ0=;
- b=usywg2vtWrZ3CrJygqz+cMxJ2GJfW/aKureTUYjWcVrLQM68WGD4li+WbML7/zP8fz
- H40NRgA455aa7v/qheQUrHVYvSDOPZv5Q2CH0i5Z/Gfs0o4C/PnuUQ5JqEUawUFpMRKv
- JwxVk8BB5qZ7UBELb5sf0YAY4f+BIC8smvYIAwF4p4CtXP/bR6orQOZqbKUflty6ZNG2
- Uojv/Dea+fFB3Xt/aFKzj7UXHcu0ht4ZIk6ZSDRq9naEclpxZsMmoQaPOgHWvlVXQA1I
- 2+oGHR9s7oddt0Yg25NOOwuUpROl2xZPBW0Oo6XRuSqu9ghE5bXarvfN5IRLnwieORvt
- EIoQ==
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=YWFP3fiiNLYjg5KjJkJ+a3OV517hoFU0pK03RFIpW6w=;
+ b=gCqAsImP3QV/jRpUp78X70WSTXJQi/V7ELSvPz73RKUCHgYp7clqnmXe5aMb1WE3WF
+ BhHJw6DNizcIemoU1Npdpt6mBaQ4KgActLaEh6iHNVHTEfXbEj7synOzvxUt2oLPcS4U
+ MmIg8CnTk63LRlYYi1AhYyFVbQH3OBFGGf/3/UoSe/WQlaKvqxgai7pJ8zp+N45VJjHR
+ hs+o66YyYZqE7+EmfYGF4kBzeRNepmy9w1m8jZHk1ZuxO+bRfspNI3pv1D33KxL0AqqS
+ auQadt4ZeBxwA0IiAe/NVOFU0aQx5sSqJ6YDk/7OCdakTwNDoSmMTWSc0iwZt57jaumf
+ Ly2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :organization:message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=GzIH6oiBi70p/v479m1IVvyZsoprTy/n2kolGjI6PJ0=;
- b=HE3WsmtK+GY1rC2Hlj4x+X+/QYxxoXqMfSBG8DdtUr1TWJMLL7CT2rYLXV/d2K0AAM
- FZpNXOEIIoFW678q43jTilmykE3qGo+vudDjmhjfGMr5Xs6Uyn6YiNko7fFovtprk9RL
- 1YWlCzF3hoEcNFvvKYtxbbYzgzHb8Ss3QfVUfaWUxIknuLWqYS2qgRVGJQQdT1PGaekX
- EoqxhnaXUAN7QhqUYkSIB7cqd5XzWW9aHgRK4LznFzhuFPNtsU0T4WiYTcvJo+DBy40e
- +wb5KqcHRtPbKuOIzOe43YV+evHgB1WOKJJ1Apf/8ROYRr1ojTmehBH1ClcH7noQYmYG
- eYmg==
-X-Gm-Message-State: APjAAAVZ5DgK9ZCEMXoB2+gyav79bYYt2TXlf+3dB68WPLfs/qgEkGwT
- pN6SWD7vAWWIGomwHjWDtFrvBA==
-X-Google-Smtp-Source: APXvYqxVYGDhAUAwh7E8NpBq7VN5JG7K5VF+vuH6zorXtEY/Q3wuVryYjx0GGDplWdj2bi67MkpnLg==
-X-Received: by 2002:a5d:4444:: with SMTP id x4mr37232191wrr.11.1568364374507; 
- Fri, 13 Sep 2019 01:46:14 -0700 (PDT)
+ :organization:message-id:date:user-agent:mime-version:in-reply-to;
+ bh=YWFP3fiiNLYjg5KjJkJ+a3OV517hoFU0pK03RFIpW6w=;
+ b=gWdqqrydcKEP/WCBXXK6XAL/+kd+ofXSSdW1agZgARi2SMTKlvgkRXG111R6ncEzcx
+ atUxfvV87auVPrgLArWiyg62Kv+R69owTOdSmfd9Fs82RHd+fgYtMzaFh9Vyg5efz9CZ
+ MHdtIJzS5HgOags8sUsVeV+eDD9kPRbL2ZHwzkn+mmeSxMHvm8YiX6vN1LTCy4a/fl62
+ x6s8/QLGjicJCnuYJid0C0u4IKTDvgeq5ich4TM0T3cZfC3n2qTQU0yOl7L0rq3IQsiT
+ Ll/e9mhLFsmjCAv47oDQXMPwNm0XsZ2qFDz+M8Kqr22+ugjPblrPPxs0UC/YqnA3Ppmb
+ VlFg==
+X-Gm-Message-State: APjAAAV4/NlqD1QHMozonupG57QRiMrhVuq2UjDVOnAxXPWK2X73LkWo
+ so9gyophxgMyLxWwblRWw7e64g==
+X-Google-Smtp-Source: APXvYqyTnY/BRnv5bnnwc3B97riovmka3Ma52ZQaQTgF3mOK8Nhr8fElod8xICY3ABgLgTy6zXeJkA==
+X-Received: by 2002:a5d:650d:: with SMTP id x13mr5675866wru.37.1568367184374; 
+ Fri, 13 Sep 2019 02:33:04 -0700 (PDT)
 Received: from [10.1.2.12] (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
  [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id r18sm1990649wme.48.2019.09.13.01.46.12
+ by smtp.gmail.com with ESMTPSA id h8sm679528wmc.5.2019.09.13.02.33.03
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 13 Sep 2019 01:46:13 -0700 (PDT)
-To: Jonas Karlman <jonas@kwiboo.se>, Cheng-yi Chiang <cychiang@chromium.org>
-References: <20190911082646.134347-1-cychiang@chromium.org>
- <1e2ec69d-e42d-4e1b-7ce9-d1620cfbb4c9@baylibre.com>
- <10668907.r1TyVuJQb1@jernej-laptop>
- <CAFv8NwJGa0HXsnv2MvJhknpr9PxUL3jH2HZLSLiSD5s_nHiQhQ@mail.gmail.com>
- <HE1PR06MB4011478532D8E127697565EDACB30@HE1PR06MB4011.eurprd06.prod.outlook.com>
+ Fri, 13 Sep 2019 02:33:03 -0700 (PDT)
+To: Mark Brown <broonie@kernel.org>
+References: <20190717083327.47646-1-cychiang@chromium.org>
+ <CA+Px+wX4gbntkd6y8NN8xwXpZLD4MH9rTeHcW9+Ndtw=3_mWBw@mail.gmail.com>
+ <CAFv8NwLiY+ro0L4c5vjSOGN8jA-Qr4zm2OWvVHkiuoa7_4e2Fg@mail.gmail.com>
+ <CAFv8NwJjG4mwfnYO=M3O9nZN48D6aY72nQuqEFpZL68dh5727w@mail.gmail.com>
+ <7019a223-cc97-e1c6-907b-e6b3d626164f@baylibre.com>
+ <20190909135346.GG2036@sirena.org.uk>
 From: Neil Armstrong <narmstrong@baylibre.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
@@ -134,35 +133,26 @@ Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
  VsbXrP9BZ6snXyHfebPnno/te5XRqZTL9aJOytB/1iUna+1MAwBxGFPvqeEUUyT+gx1l3Acl
  ZaTUOEkgIor5losDrePdPgE=
 Organization: Baylibre
-Message-ID: <5f8ec989-9f59-072f-20d4-4cb6ff76a5ac@baylibre.com>
-Date: Fri, 13 Sep 2019 10:46:12 +0200
+Message-ID: <3fc94731-f66a-223d-995e-97ac67f9e882@baylibre.com>
+Date: Fri, 13 Sep 2019 11:32:57 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <HE1PR06MB4011478532D8E127697565EDACB30@HE1PR06MB4011.eurprd06.prod.outlook.com>
-Content-Language: en-US
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Doug Anderson <dianders@chromium.org>,
- "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>,
- David Airlie <airlied@linux.ie>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "cain.cai@rock-chips.com" <cain.cai@rock-chips.com>,
- Andrzej Hajda <a.hajda@samsung.com>,
+In-Reply-To: <20190909135346.GG2036@sirena.org.uk>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Heiko Stuebner <heiko@sntech.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Yakir Yang <ykk@rock-chips.com>, "sam@ravnborg.org" <sam@ravnborg.org>,
- Jerome Brunet <jbrunet@baylibre.com>, Xing Zheng <zhengxing@rock-chips.com>,
- "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>,
- Dylan Reid <dgreid@chromium.org>,
- "tzungbi@chromium.org" <tzungbi@chromium.org>,
- Jeffy Chen <jeffy.chen@rock-chips.com>,
- =?UTF-8?B?6JSh5p6r?= <eddie.cai@rock-chips.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- =?UTF-8?Q?Jernej_=c5=a0krabec?= <jernej.skrabec@siol.net>,
- linux-kernel <linux-kernel@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- "kuankuan.y@gmail.com" <kuankuan.y@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v3] drm: bridge/dw_hdmi: add audio sample
- channel status setting
+ Cheng-yi Chiang <cychiang@chromium.org>, linux-rockchip@lists.infradead.org,
+ Takashi Iwai <tiwai@suse.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ Dylan Reid <dgreid@chromium.org>, tzungbi@chromium.org,
+ Jonas Karlman <jonas@kwiboo.se>, Russell King <rmk+kernel@armlinux.org.uk>,
+ linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ Douglas Anderson <dianders@chromium.org>, Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [alsa-devel] [PATCH v5 0/5] Add HDMI jack support on RK3288
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -175,135 +165,109 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1703290954143669566=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMTMvMDkvMjAxOSAwODozNywgSm9uYXMgS2FybG1hbiB3cm90ZToKPiBPbiAyMDE5LTA5LTEx
-IDE5OjAyLCBDaGVuZy15aSBDaGlhbmcgd3JvdGU6Cj4+IE9uIFRodSwgU2VwIDEyLCAyMDE5IGF0
-IDEyOjU0IEFNIEplcm5laiDFoGtyYWJlYyA8amVybmVqLnNrcmFiZWNAc2lvbC5uZXQ+IHdyb3Rl
-Ogo+Pj4gRG5lIHNyZWRhLCAxMS4gc2VwdGVtYmVyIDIwMTkgb2IgMTg6MjM6NTkgQ0VTVCBqZSBO
-ZWlsIEFybXN0cm9uZyBuYXBpc2FsKGEpOgo+Pj4+IE9uIDExLzA5LzIwMTkgMTA6MjYsIENoZW5n
-LVlpIENoaWFuZyB3cm90ZToKPj4+Pj4gRnJvbTogWWFraXIgWWFuZyA8eWtrQHJvY2stY2hpcHMu
-Y29tPgo+Pj4+Pgo+Pj4+PiBXaGVuIHRyYW5zbWl0dGluZyBJRUM2MDk4NSBsaW5lYXIgUENNIGF1
-ZGlvLCB3ZSBjb25maWd1cmUgdGhlCj4+Pj4+IEFkdWlvIFNhbXBsZSBDaGFubmVsIFN0YXR1cyBp
-bmZvcm1hdGlvbiBpbiB0aGUgSUVDNjA5NTggZnJhbWUuCj4+Pj4+IFRoZSBzdGF0dXMgYml0IGlz
-IGFscmVhZHkgYXZhaWxhYmxlIGluIGllYy5zdGF0dXMgb2YgaGRtaV9jb2RlY19wYXJhbXMuCj4+
-Pj4+Cj4+Pj4+IFRoaXMgZml4IHRoZSBpc3N1ZSB0aGF0IGF1ZGlvIGRvZXMgbm90IGNvbWUgb3V0
-IG9uIHNvbWUgbW9uaXRvcnMKPj4+Pj4gKGUuZy4gTEcgMjJDVjI0MSkKPj4+Pj4KPj4+Pj4gTm90
-ZSB0aGF0IHRoZXNlIHJlZ2lzdGVycyBhcmUgb25seSBmb3IgaW50ZXJmYWNlczoKPj4+Pj4gSTJT
-IGF1ZGlvIGludGVyZmFjZSwgR2VuZXJhbCBQdXJwb3NlIEF1ZGlvIChHUEEpLCBvciBBSEIgYXVk
-aW8gRE1BCj4+Pj4+IChBSEJBVURETUEpLgo+Pj4+PiBGb3IgUy9QRElGIGludGVyZmFjZSB0aGlz
-IGluZm9ybWF0aW9uIGNvbWVzIGZyb20gdGhlIHN0cmVhbS4KPj4+Pj4KPj4+Pj4gQ3VycmVudGx5
-IHRoaXMgZnVuY3Rpb24gZHdfaGRtaV9zZXRfY2hhbm5lbF9zdGF0dXMgaXMgb25seSBjYWxsZWQK
-Pj4+Pj4gZnJvbSBkdy1oZG1pLWkycy1hdWRpbyBpbiBJMlMgc2V0dXAuCj4+Pj4+Cj4+Pj4+IFNp
-Z25lZC1vZmYtYnk6IFlha2lyIFlhbmcgPHlra0Byb2NrLWNoaXBzLmNvbT4KPj4+Pj4gU2lnbmVk
-LW9mZi1ieTogQ2hlbmctWWkgQ2hpYW5nIDxjeWNoaWFuZ0BjaHJvbWl1bS5vcmc+Cj4+Pj4+IC0t
-LQo+Pj4+Pgo+Pj4+PiBDaGFuZ2UgZnJvbSB2MiB0byB2MzoKPj4+Pj4gMS4gUmV1c2Ugd2hhdCBp
-cyBhbHJlYWR5IHNldCBpbiBpZWMuc3RhdHVzIGluIGh3X3BhcmFtLgo+Pj4+PiAyLiBSZW1vdmUg
-YWxsIHVzZWxlc3MgZGVmaW5pdGlvbiBvZiByZWdpc3RlcnMgYW5kIHZhbHVlcy4KPj4+Pj4gMy4g
-Tm90ZSB0aGF0IHRoZSBvcmlnaW5hbCBzYW1wbGluZyBmcmVxdWVuY3kgaXMgbm90IHdyaXR0ZW4g
-dG8KPj4+Pj4KPj4+Pj4gICAgdGhlIGNoYW5uZWwgc3RhdHVzIGFzIHdlIHJldXNlIGNyZWF0ZV9p
-ZWM5NThfY29uc3VtZXIgaW4gcGNtX2llYzk1OC5jLgo+Pj4+PiAgICBXaXRob3V0IHRoYXQgaXQg
-Y2FuIHN0aWxsIHBsYXkgYXVkaW8gZmluZS4KPj4+Pj4KPj4+Pj4gIC4uLi9kcm0vYnJpZGdlL3N5
-bm9wc3lzL2R3LWhkbWktaTJzLWF1ZGlvLmMgICB8ICAxICsKPj4+Pj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jICAgICB8IDIwICsrKysrKysrKysrKysrKysrKysK
-Pj4+Pj4gIGRyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5oICAgICB8ICAy
-ICsrCj4+Pj4+ICBpbmNsdWRlL2RybS9icmlkZ2UvZHdfaGRtaS5oICAgICAgICAgICAgICAgICAg
-fCAgMSArCj4+Pj4+ICA0IGZpbGVzIGNoYW5nZWQsIDI0IGluc2VydGlvbnMoKykKPj4+Pj4KPj4+
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS1p
-MnMtYXVkaW8uYwo+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRt
-aS1pMnMtYXVkaW8uYyBpbmRleAo+Pj4+PiAzNGQ4ZTgzNzU1NWYuLjIwZjRmOTJkZDg2NiAxMDA2
-NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1pLWky
-cy1hdWRpby5jCj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHct
-aGRtaS1pMnMtYXVkaW8uYwo+Pj4+PiBAQCAtMTAyLDYgKzEwMiw3IEBAIHN0YXRpYyBpbnQgZHdf
-aGRtaV9pMnNfaHdfcGFyYW1zKHN0cnVjdCBkZXZpY2UgKmRldiwKPj4+Pj4gdm9pZCAqZGF0YSw+
-Cj4+Pj4+ICAgICB9Cj4+Pj4+Cj4+Pj4+ICAgICBkd19oZG1pX3NldF9zYW1wbGVfcmF0ZShoZG1p
-LCBocGFybXMtPnNhbXBsZV9yYXRlKTsKPj4+Pj4KPj4+Pj4gKyAgIGR3X2hkbWlfc2V0X2NoYW5u
-ZWxfc3RhdHVzKGhkbWksIGhwYXJtcy0+aWVjLnN0YXR1cyk7Cj4+Pj4+Cj4+Pj4+ICAgICBkd19o
-ZG1pX3NldF9jaGFubmVsX2NvdW50KGhkbWksIGhwYXJtcy0+Y2hhbm5lbHMpOwo+Pj4+PiAgICAg
-ZHdfaGRtaV9zZXRfY2hhbm5lbF9hbGxvY2F0aW9uKGhkbWksIGhwYXJtcy0KPj4+PiBjZWEuY2hh
-bm5lbF9hbGxvY2F0aW9uKTsKPj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9icmlk
-Z2Uvc3lub3BzeXMvZHctaGRtaS5jCj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5v
-cHN5cy9kdy1oZG1pLmMgaW5kZXgKPj4+Pj4gYmQ2NWQwNDc5NjgzLi5hYTdlZmQ0ZGExYzggMTAw
-NjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5j
-Cj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9icmlkZ2Uvc3lub3BzeXMvZHctaGRtaS5jCj4+
-Pj4+IEBAIC01ODIsNiArNTgyLDI2IEBAIHN0YXRpYyB1bnNpZ25lZCBpbnQgaGRtaV9jb21wdXRl
-X24odW5zaWduZWQgaW50IGZyZXEsCj4+Pj4+IHVuc2lnbmVkIGxvbmcgcGl4ZWxfY2xrKT4KPj4+
-Pj4gICAgIHJldHVybiBuOwo+Pj4+Pgo+Pj4+PiAgfQo+Pj4+Pgo+Pj4+PiArLyoKPj4+Pj4gKyAq
-IFdoZW4gdHJhbnNtaXR0aW5nIElFQzYwOTU4IGxpbmVhciBQQ00gYXVkaW8sIHRoZXNlIHJlZ2lz
-dGVycyBhbGxvdyB0bwo+Pj4+PiArICogY29uZmlndXJlIHRoZSBjaGFubmVsIHN0YXR1cyBpbmZv
-cm1hdGlvbiBvZiBhbGwgdGhlIGNoYW5uZWwgc3RhdHVzCj4+Pj4+ICsgKiBiaXRzIGluIHRoZSBJ
-RUM2MDk1OCBmcmFtZS4gRm9yIHRoZSBtb21lbnQgdGhpcyBjb25maWd1cmF0aW9uIGlzIG9ubHkK
-Pj4+Pj4gKyAqIHVzZWQgd2hlbiB0aGUgSTJTIGF1ZGlvIGludGVyZmFjZSwgR2VuZXJhbCBQdXJw
-b3NlIEF1ZGlvIChHUEEpLAo+Pj4+PiArICogb3IgQUhCIGF1ZGlvIERNQSAoQUhCQVVERE1BKSBp
-bnRlcmZhY2UgaXMgYWN0aXZlCj4+Pj4+ICsgKiAoZm9yIFMvUERJRiBpbnRlcmZhY2UgdGhpcyBp
-bmZvcm1hdGlvbiBjb21lcyBmcm9tIHRoZSBzdHJlYW0pLgo+Pj4+PiArICovCj4+Pj4+ICt2b2lk
-IGR3X2hkbWlfc2V0X2NoYW5uZWxfc3RhdHVzKHN0cnVjdCBkd19oZG1pICpoZG1pLAo+Pj4+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgdTggKmNoYW5uZWxfc3RhdHVzKQo+Pj4+PiArewo+
-Pj4+PiArICAgLyoKPj4+Pj4gKyAgICAqIFNldCBjaGFubmVsIHN0YXR1cyByZWdpc3RlciBmb3Ig
-ZnJlcXVlbmN5IGFuZCB3b3JkIGxlbmd0aC4KPj4+Pj4gKyAgICAqIFVzZSBkZWZhdWx0IHZhbHVl
-cyBmb3Igb3RoZXIgcmVnaXN0ZXJzLgo+Pj4+PiArICAgICovCj4+Pj4+ICsgICBoZG1pX3dyaXRl
-YihoZG1pLCBjaGFubmVsX3N0YXR1c1szXSwgSERNSV9GQ19BVURTQ0hOTFM3KTsKPj4+Pj4gKyAg
-IGhkbWlfd3JpdGViKGhkbWksIGNoYW5uZWxfc3RhdHVzWzRdLCBIRE1JX0ZDX0FVRFNDSE5MUzgp
-Owo+Pj4+PiArfQo+Pj4+PiArRVhQT1JUX1NZTUJPTF9HUEwoZHdfaGRtaV9zZXRfY2hhbm5lbF9z
-dGF0dXMpOwo+Pj4+PiArCj4+Pj4+Cj4+Pj4+ICBzdGF0aWMgdm9pZCBoZG1pX3NldF9jbGtfcmVn
-ZW5lcmF0b3Ioc3RydWN0IGR3X2hkbWkgKmhkbWksCj4+Pj4+Cj4+Pj4+ICAgICB1bnNpZ25lZCBs
-b25nIHBpeGVsX2NsaywgdW5zaWduZWQgaW50IHNhbXBsZV9yYXRlKQo+Pj4+Pgo+Pj4+PiAgewo+
-Pj4+Pgo+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9k
-dy1oZG1pLmgKPj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL3N5bm9wc3lzL2R3LWhkbWku
-aCBpbmRleAo+Pj4+PiA2OTg4ZjEyZDg5ZDkuLmZjZmY1MDU5ZGIyNCAxMDA2NDQKPj4+Pj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1pLmgKPj4+Pj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9zeW5vcHN5cy9kdy1oZG1pLmgKPj4+Pj4gQEAgLTE1OCw2
-ICsxNTgsOCBAQAo+Pj4+Pgo+Pj4+PiAgI2RlZmluZSBIRE1JX0ZDX1NQRERFVklDRUlORiAgICAg
-ICAgICAgICAgICAgICAgMHgxMDYyCj4+Pj4+ICAjZGVmaW5lIEhETUlfRkNfQVVEU0NPTkYgICAg
-ICAgICAgICAgICAgICAgICAgICAweDEwNjMKPj4+Pj4gICNkZWZpbmUgSERNSV9GQ19BVURTU1RB
-VCAgICAgICAgICAgICAgICAgICAgICAgIDB4MTA2NAo+Pj4+Pgo+Pj4+PiArI2RlZmluZSBIRE1J
-X0ZDX0FVRFNDSE5MUzcgICAgICAgICAgICAgICAgICAgICAgMHgxMDZlCj4+Pj4+ICsjZGVmaW5l
-IEhETUlfRkNfQVVEU0NITkxTOCAgICAgICAgICAgICAgICAgICAgICAweDEwNmYKPj4+Pj4KPj4+
-Pj4gICNkZWZpbmUgSERNSV9GQ19EQVRBQ0gwRklMTCAgICAgICAgICAgICAgICAgICAgIDB4MTA3
-MAo+Pj4+PiAgI2RlZmluZSBIRE1JX0ZDX0RBVEFDSDFGSUxMICAgICAgICAgICAgICAgICAgICAg
-MHgxMDcxCj4+Pj4+ICAjZGVmaW5lIEhETUlfRkNfREFUQUNIMkZJTEwgICAgICAgICAgICAgICAg
-ICAgICAweDEwNzIKPj4+Pj4KPj4+Pj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2JyaWRnZS9k
-d19oZG1pLmggYi9pbmNsdWRlL2RybS9icmlkZ2UvZHdfaGRtaS5oCj4+Pj4+IGluZGV4IGNmNTI4
-YzI4OTg1Ny4uNGIzZTg2M2M0ZjhhIDEwMDY0NAo+Pj4+PiAtLS0gYS9pbmNsdWRlL2RybS9icmlk
-Z2UvZHdfaGRtaS5oCj4+Pj4+ICsrKyBiL2luY2x1ZGUvZHJtL2JyaWRnZS9kd19oZG1pLmgKPj4+
-Pj4gQEAgLTE1Niw2ICsxNTYsNyBAQCB2b2lkIGR3X2hkbWlfc2V0dXBfcnhfc2Vuc2Uoc3RydWN0
-IGR3X2hkbWkgKmhkbWksIGJvb2wKPj4+Pj4gaHBkLCBib29sIHJ4X3NlbnNlKTs+Cj4+Pj4+ICB2
-b2lkIGR3X2hkbWlfc2V0X3NhbXBsZV9yYXRlKHN0cnVjdCBkd19oZG1pICpoZG1pLCB1bnNpZ25l
-ZCBpbnQgcmF0ZSk7Cj4+Pj4+ICB2b2lkIGR3X2hkbWlfc2V0X2NoYW5uZWxfY291bnQoc3RydWN0
-IGR3X2hkbWkgKmhkbWksIHVuc2lnbmVkIGludCBjbnQpOwo+Pj4+Pgo+Pj4+PiArdm9pZCBkd19o
-ZG1pX3NldF9jaGFubmVsX3N0YXR1cyhzdHJ1Y3QgZHdfaGRtaSAqaGRtaSwgdTgKPj4+Pj4gKmNo
-YW5uZWxfc3RhdHVzKTsKPj4+Pj4KPj4+Pj4gIHZvaWQgZHdfaGRtaV9zZXRfY2hhbm5lbF9hbGxv
-Y2F0aW9uKHN0cnVjdCBkd19oZG1pICpoZG1pLCB1bnNpZ25lZCBpbnQKPj4+Pj4gIGNhKTsKPj4+
-Pj4gIHZvaWQgZHdfaGRtaV9hdWRpb19lbmFibGUoc3RydWN0IGR3X2hkbWkgKmhkbWkpOwo+Pj4+
-PiAgdm9pZCBkd19oZG1pX2F1ZGlvX2Rpc2FibGUoc3RydWN0IGR3X2hkbWkgKmhkbWkpOwo+Pj4+
-IExvb2tzIGZpbmUgZm9yIG1lOgo+Pj4+IFJldmlld2VkLWJ5OiBOZWlsIEFybXN0cm9uZyA8bmFy
-bXN0cm9uZ0BiYXlsaWJyZS5jb20+Cj4+Pj4KPj4+PiBKb25hcyA/IEplcm5laiA/IFJ1c3NlbGwg
-Pwo+Pj4gUGF0Y2ggaXRzZWxmIGlzIGZpbmUsIEknbSBqdXN0IHdvbmRlcmluZyBpZiBtb3JlIGlu
-Zm9ybWF0aW9uIHNob3VsZCBiZSBjb3BpZWQKPj4+IGZyb20gc3RhdHVzIGFycmF5IHRvIHJlZ2lz
-dGVycy4gQnV0IEkgdGhpbmsgdGhleSBhcmUgbm90IDE6MSBtYXBwaW5nIHNvIHNvbWUKPj4+IG1v
-cmUgd29yayB3b3VsZCBiZSBuZWVkZWQuIEFueXdheSwgcGF0Y2ggaXM6Cj4+IEhpIEplcm5laiwK
-Pj4gWWVzIHlvdSBhcmUgcmlnaHQuIEkgd2FzIHRoaW5raW5nIGFib3V0IHRoZSBzYW1lIHRoaW5n
-Lgo+PiBCdXQgdGhlcmUgYXJlIGFsc28gc29tZSBmaWVsZHMgaW4gdGhlIElFQzYwOTU4IHNwZWMg
-bm90IG1hcHBlZCB0byB0aGUKPj4gcmVnaXN0ZXJzIG9uIGR3LWhkbWkuCj4+IFNvIEkgZW5kZWQg
-dXAganVzdCB3cml0aW5nIHRoZSB0d28gcmVnaXN0ZXJzIGluIHRoZSBvcmlnaW5hbCB5a2sncwo+
-PiBwYXRjaCwgYW5kIGlnbm9yaW5nICJvcmlnaW5hbCBzYW1wbGluZyBmcmVxdWVuY3kiIGxpa2Ug
-cGNtX2llYzk1OC4KPj4gSXQgdHVybnMgb3V0IHRoYXQgYXVkaW8gcGxheXMgZmluZSBvbiBteSBM
-RyBtb25pdG9yLiBTbyBJIHN1Z2dlc3Qgd2UKPj4gY2FuIGtlZXAgdGhpcyBwYXRjaCBhcyBzaW1w
-bGUgYXMgaXQgaXMsIGFuZCBhZGQgbW9yZSByZWdpc3RlciBzZXR0aW5nCj4+IGlmIHdlIGZpbmQg
-aXNzdWUuCj4+IFRoYW5rcyEKPiAKPiBJbiBteSBvbGQgbXVsdGktY2hhbm5lbCBscGNtIHBhdGNo
-IFsxXSBJIG9ubHkgd3JvdGUgc2FtcGxlIHJhdGUgdG8gRkNfQVVEU0NITkxTNy4KPiBUaGlzIGlz
-IG11Y2ggY2xlYW5lciBhbmQgc2ltcGxlciwgYW5kIHNldHRpbmcgRkNfQVVEU0NITkxTOCBkb2Vz
-IG5vdCBjYXVzZSBhbnkKPiBwcm9ibGVtcyB3aGVuIEkgdGVzdGVkIG9uIEFTVVMgVGlua2VyIEJv
-YXJkIFMgKFJLMzI4OCkuCj4gCj4gUmV2aWV3ZWQtYnk6IEpvbmFzIEthcmxtYW4gPGpvbmFzQGt3
-aWJvby5zZT4KPiAKPiAKPiBbMV0gaHR0cHM6Ly9naXRodWIuY29tL0t3aWJvby9saW51eC1yb2Nr
-Y2hpcC9jb21taXQvNGFmOWViYzU2N2NjZjBhMDg1MWZhMjYwMDk3MDIxYzI3YWViYmI2YgoKVGhh
-bmtzIEpvbmFzLCBKZXJuZWosCgpBcHBseWluZyBub3cuCgpOZWlsCgo+IAo+IFJlZ2FyZHMsCj4g
-Sm9uYXMKPiAKPj4KPj4+Cj4+PiBSZXZpZXdlZC1ieTogSmVybmVqIFNrcmFiZWMgPGplcm5lai5z
-a3JhYmVjQHNpb2wubmV0Pgo+Pj4KPj4+IEJlc3QgcmVnYXJkcywKPj4+IEplcm5lago+Pj4KPj4+
-PiBJZiBpdCdzIG9rIGZvciB5b3UgSSdsbCBhcHBseSBpdC4KPj4+Pgo+Pj4+IE5laWwKPj4+PgoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZl
-bCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1h
-bi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1703290954143669566==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="UBRWlaGOHY0XEFVZVHxIrla091rV5aEyl"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--UBRWlaGOHY0XEFVZVHxIrla091rV5aEyl
+From: Neil Armstrong <narmstrong@baylibre.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Cheng-yi Chiang <cychiang@chromium.org>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>,
+ Russell King <rmk+kernel@armlinux.org.uk>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, Douglas Anderson <dianders@chromium.org>,
+ Dylan Reid <dgreid@chromium.org>, tzungbi@chromium.org,
+ ALSA development <alsa-devel@alsa-project.org>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, Jernej Skrabec
+ <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>
+Message-ID: <3fc94731-f66a-223d-995e-97ac67f9e882@baylibre.com>
+Subject: Re: [PATCH v5 0/5] Add HDMI jack support on RK3288
+References: <20190717083327.47646-1-cychiang@chromium.org>
+ <CA+Px+wX4gbntkd6y8NN8xwXpZLD4MH9rTeHcW9+Ndtw=3_mWBw@mail.gmail.com>
+ <CAFv8NwLiY+ro0L4c5vjSOGN8jA-Qr4zm2OWvVHkiuoa7_4e2Fg@mail.gmail.com>
+ <CAFv8NwJjG4mwfnYO=M3O9nZN48D6aY72nQuqEFpZL68dh5727w@mail.gmail.com>
+ <7019a223-cc97-e1c6-907b-e6b3d626164f@baylibre.com>
+ <20190909135346.GG2036@sirena.org.uk>
+In-Reply-To: <20190909135346.GG2036@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+On 09/09/2019 15:53, Mark Brown wrote:
+> On Mon, Sep 09, 2019 at 09:37:14AM +0200, Neil Armstrong wrote:
+>=20
+>> I'd like some review from ASoC people and other drm bridge reviewers,
+>> Jernej, Jonas & Andrzej.
+>=20
+>> Jonas could have some comments on the overall patchset.
+>=20
+> The ASoC bits look basically fine, I've gone ahead and applied
+> patch 1 as is since we're just before the merge window and that
+> way we reduce potential cross tree issues.  I know there's a lot
+> of discussion on the DRM side about how they want to handle
+> things with jacks, I'm not 100% sure what the latest thinking is
+> there.
+>=20
+
+Thanks Mark.
+
+
+Cheng-Yi can you resent this serie without the already applied
+first patch with Jernej, Jonas, and Jerome Brunet <jbrunet@baylibre.com> =
+CCed ?
+
+Thanks,
+Neil
+
+
+--UBRWlaGOHY0XEFVZVHxIrla091rV5aEyl
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEPVPGJshWBf4d9CyLd9zb2sjISdEFAl17YkkACgkQd9zb2sjI
+SdFL8xAAm/uVVOJY0VK0uVX/gv2nNJ+t90WPrW3BfoWCLRaSr1czldafQkylTwQl
+EOHl8NcYz5pttql0d1ZKh6uZSCTsMtWRb6Qwm14c3ptFaD9y1TI8X+R+zryTIgA5
+fuaLScVQ+kDpMwWYvZvVdWnu7/7Wdtj+uDNEooXlxeIvylxQzPYGQLcrdyZz54DZ
+vPl/scouuoKobHYXHw5AUs/ipsHUxcfD9wm+s4lrcIcE8FSjoVqbwZsonqDlHfOY
+lCykwi/sj2A567r0fL0Qipj4cqa5Zzvy955v0K5E1bHbTFs3I9kKsMsrLmYrpVB8
+pG+Tz31EKziArzadGNlxjjI6ViRQxwXAOPUfDZW7JFmWPD+aF2ZquQttp3GGlbwf
+9ndAcqd0yPqBaWwaPWAZJ/CbZiKPeDtAVcBtiR/pHYDUgMiDq88O3deynxUer4qw
+06IrtU9X8yn02vEh2L+6fLCG3NfMCUdyl4lRCmxSJ8K83pCOx1iMpcawEJq+xktX
+qvQVxXHrp1D5drRUA+87MDZmI5aQ/9HoYY+tIMTC21D7JFB/x2U6n0nFRyLi/muG
+gD0oD4cBhYhH+xJhKQeBmx+cA6xb90J4mfzFvpWvwDeGNsJJ+QaLGmdz9b50Aqd9
+XKP4tzxUvHbepIhN1NPCh1Xe2cU06KRt2S/ID9usnk2cnXoigUg=
+=JmCa
+-----END PGP SIGNATURE-----
+
+--UBRWlaGOHY0XEFVZVHxIrla091rV5aEyl--
+
+--===============1703290954143669566==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1703290954143669566==--

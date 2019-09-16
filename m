@@ -2,82 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB03B43A2
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Sep 2019 23:57:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FD81B43A5
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Sep 2019 23:57:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C6F41677;
-	Mon, 16 Sep 2019 23:56:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C6F41677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C1041683;
+	Mon, 16 Sep 2019 23:57:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C1041683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568671029;
-	bh=uqI2A8Mb2XVpDeRtg+98s5nn046t6FN3RRgNR2n5AaU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568671075;
+	bh=WfTdVdGx+WuGz/73ok0sSob3XF1wPJ14syztA01F9ME=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XzBXmMa4UsEu5lYwPf9zDjOT4qxJSZadB3PLwD4nkhbw1AWTaM3gVxns9yOvdhpCW
-	 PDWpywUC3MGIQvGp1QhK//fuiHi/jSiJ6YbqXp/WqQ2QROMnV9ZzxeHLstHooq3UO1
-	 dguz1BvVWtrafpp6+US2+9iJoU7mAzUyx2u6t4FQ=
+	b=YxqaR5yjguh1bZfHS2ZmXfHHyIzeaMOMS6gREwbxPahb6I7fXoQ+rwv0Duvavl6QQ
+	 WaPr/TR7PYTTaLe6lC5t0px2jHdvzq7U7zcz6BYjVIs3goFw2xk6Cq8Pd4UZG1Rc5N
+	 /b61ebHv3n0WhX7PPMH3+Rg3xdEi6QeeF19dPD8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D463F80535;
-	Mon, 16 Sep 2019 23:55:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D26C9F805A8;
+	Mon, 16 Sep 2019 23:55:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6881F80506; Mon, 16 Sep 2019 23:55:22 +0200 (CEST)
+ id 7DF39F8053A; Mon, 16 Sep 2019 23:55:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BA270F801DA
- for <alsa-devel@alsa-project.org>; Mon, 16 Sep 2019 23:55:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA270F801DA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bQjWmt7c"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=b6Caq+T7s5uJYLSK4i/BJl+MMRKUFhC+Ci3qKF8EHYE=; b=bQjWmt7cagNLvIYxpZo5Pc+jh
- MrPMLyplGqoOfx3av/kSr2N5lu0mvnzj0qutsrteC7xOPPrJWwR9d1Bq2kfTiG0SkRN9A5vO/vB0l
- 7MaEwjojejuMkM+wVY4EMM+fJ4y+HgV2grHawZpJJNK+oKrV1hxY9BOAQvNzZU59ASH44=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1i9yxq-0005pC-5y; Mon, 16 Sep 2019 21:55:18 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id EE39A2741A12; Mon, 16 Sep 2019 22:55:16 +0100 (BST)
-Date: Mon, 16 Sep 2019 22:55:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Curtis Malainey <cujomalainey@google.com>
-Message-ID: <20190916215516.GL4352@sirena.co.uk>
-References: <20190906194636.217881-1-cujomalainey@chromium.org>
- <20190906194636.217881-6-cujomalainey@chromium.org>
- <20190911102503.GV2036@sirena.org.uk>
- <CAOReqxhjf0YeUhCF9N8YOReZC11k01R+TR7N6J51fZV6YXBc4g@mail.gmail.com>
- <20190912092600.GF2036@sirena.org.uk>
- <CAOReqxi+tGx3wSjOLE0cdwpVMhqF8Aj0_PW=s_8JMd_Puws5CQ@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAOReqxi+tGx3wSjOLE0cdwpVMhqF8Aj0_PW=s_8JMd_Puws5CQ@mail.gmail.com>
-X-Cookie: Man and wife make one fool.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- ALSA development <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Ben Zhang <benzh@chromium.org>,
- Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [RFC 05/15] ASoC: rt5677: Auto enable/disable DSP
-	for hotwording
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F74BF801DA
+ for <alsa-devel@alsa-project.org>; Mon, 16 Sep 2019 23:55:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F74BF801DA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 51769B009;
+ Mon, 16 Sep 2019 21:55:51 +0000 (UTC)
+Date: Mon, 16 Sep 2019 23:55:50 +0200
+Message-ID: <s5hd0fzykgp.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jan-Marek Glogowski <glogow@fbihome.de>
+In-Reply-To: <8f4f9b20-0aeb-f8f1-c02f-fd53c09679f1@fbihome.de>
+References: <8f4f9b20-0aeb-f8f1-c02f-fd53c09679f1@fbihome.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, Chris Chiu <chiu@endlessm.com>,
+ Hui Wang <hui.wang@canonical.com>, Jian-Hong Pan <jian-hong@endlessm.com>,
+ Daniel Drake <drake@endlessm.com>
+Subject: Re: [alsa-devel] RfC / [PATCH] Jack sense support for Medion E4254
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,58 +66,133 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2635831907348020156=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Mon, 16 Sep 2019 10:38:07 +0200,
+Jan-Marek Glogowski wrote:
+> 
+> Hi everybody,
+> 
+> I recently bought the laptop. It has one jack for attaching a headset. Jack
+> sense is announced by the HDA config but not working. Except for some
+> positioning, and color information, the PIN config seemed to be sensible, and
+> everything I tried to override, didn't result in a working jack.
+> 
+> Manually unmuting the jack using hda-analyser resulted in working output, so
+> generally the config seemed to work.
+> 
+> Reading the patch-realtek code, if found ALC256_FIXUP_ASUS_HEADSET_MODE, which
+> somehow changed the pin 0x19 to be associated with the 0x21 headset out pin,
+> resulting in this dmesg change:
+> 
+> -snd_hda_codec_realtek hdaudioC0D0:      Mic=0x19
+> +snd_hda_codec_realtek hdaudioC0D0:      Headset Mic=0x19
 
---===============2635831907348020156==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="d6Ruhs/CrrKSNzcV"
-Content-Disposition: inline
+What are the initial pin config values for these?
+
+> And for whatever reason jack sense is now working, at least for some normal
+> output-only headset (currently I don't have one included a mic with me, so
+> actually can't test that mic volume works correctly).
+> 
+> I was just wondering, if my pin values are actually correct, because they still
+> define different association, as I understand it, but the ASUS fix even works
+> with these wrong channels /associations 2 and 4.
+> 
+> So the attached patch works for me, but I'm still wondering, if this is the
+> correct solution. FWIW, jack sense works fine in Windows.
+> 
+> Anything I might be missing here?
+
+I don't think anything wrong here, as long as your quirk actually
+works.  I can double-check if I get alsa-info.sh output (run with
+--no-upload option) with hda-emu, too.
 
 
---d6Ruhs/CrrKSNzcV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+thanks,
 
-On Mon, Sep 16, 2019 at 02:29:32PM -0700, Curtis Malainey wrote:
+Takashi
 
-> I will work to add variable inputs, in the samus use case it doesn't
-> make much sense to use the hotword without the pcm open since that
-> audio needs to be captured. How would userspace received the detection
-> without the pcm open?
 
-They broke it, they get to keep all the pieces.  Equally, if they have a
-functional use case that differs to your hard coded one they aren't
-prevented from using it.
-
---d6Ruhs/CrrKSNzcV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2ABMMACgkQJNaLcl1U
-h9Bvdwf/af4SBl7R1SQ3rFIldvgCUIaRZ/8+nzf3wLOiOL03fEbv+ncx3NJW99J3
-qhLRGaI+Qwkob9Bdc1/5RzXtjn345s9BP6zDv9K8v8LvX0gCYkg+b2ClO3WvPOv+
-8kUb0s/18H164iSCyIPrryrz491Fw136qxL2e7Oo3Xn982wZqgoIRMppMXJzQgv4
-v+NcMyuqHHXqgydUnXrDPAvpu85xInTqoJ93oC5ItQLb1YvWGwmSaz/7WdznsRY5
-z0iMo6x6SagobceTsi6S49gqty7qlfh1Bje2EaoX8jD81FyxJm0NEE4+bloaavO4
-iZtFBkTZXffJq4Rz9cpjk6HXwp98TQ==
-=j1wt
------END PGP SIGNATURE-----
-
---d6Ruhs/CrrKSNzcV--
-
---===============2635831907348020156==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Jan-Marek
+> 
+> -------
+> 
+> >From 0ccc5f07d8737690bd2df6d88a5af0f1f36d0e40 Mon Sep 17 00:00:00 2001
+> From: Jan-Marek Glogowski <glogow@fbihome.de>
+> Date: Sun, 15 Sep 2019 16:57:28 +0200
+> Subject: [PATCH] ALSA: hda/realtek: PCI quirk for Medion E4254
+> 
+> The laptop has a combined jack to attach headsets on the right.
+> The BIOS encodes them as two different colored jacks at the front,
+> but otherwise it seems to be configured ok. But any adaption of
+> the pins config on its own doesn't fix the jack detection to work
+> in Linux. Still Windows works correct.
+> 
+> This is somehow fixed by chaining ALC256_FIXUP_ASUS_HEADSET_MODE,
+> which seems to register the microphone jack as a headset part and
+> also results in fixing jack sensing, visible in dmesg as:
+> 
+> -snd_hda_codec_realtek hdaudioC0D0:      Mic=0x19
+> +snd_hda_codec_realtek hdaudioC0D0:      Headset Mic=0x19
+> 
+> Signed-off-by: Jan-Marek Glogowski <glogow@fbihome.de>
+> ---
+>  sound/pci/hda/patch_realtek.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+> 
+> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+> index c1ddfd2fac52..448e0146dab2 100644
+> --- a/sound/pci/hda/patch_realtek.c
+> +++ b/sound/pci/hda/patch_realtek.c
+> @@ -5800,6 +5800,7 @@ enum {
+>  	ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
+>  	ALC299_FIXUP_PREDATOR_SPK,
+>  	ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC,
+> +	ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE,
+>  };
+> 
+>  static const struct hda_fixup alc269_fixups[] = {
+> @@ -6850,6 +6851,16 @@ static const struct hda_fixup alc269_fixups[] = {
+>  		.chained = true,
+>  		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
+>  	},
+> +	[ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE] = {
+> +		.type = HDA_FIXUP_PINS,
+> +		.v.pins = (const struct hda_pintbl[]) {
+> +			{ 0x19, 0x04a11040 },
+> +			{ 0x21, 0x04211020 },
+> +			{ }
+> +		},
+> +		.chained = true,
+> +		.chain_id = ALC256_FIXUP_ASUS_HEADSET_MODE
+> +	},
+>  };
+> 
+>  static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+> @@ -7113,6 +7124,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+>  	SND_PCI_QUIRK(0x17aa, 0x9e54, "LENOVO NB", ALC269_FIXUP_LENOVO_EAPD),
+>  	SND_PCI_QUIRK(0x19e5, 0x3204, "Huawei MACH-WX9", ALC256_FIXUP_HUAWEI_MACH_WX9_PINS),
+>  	SND_PCI_QUIRK(0x1b7d, 0xa831, "Ordissimo EVE2 ", ALC269VB_FIXUP_ORDISSIMO_EVE2), /* Also known as Malata PC-B1303 */
+> +	SND_PCI_QUIRK(0x10ec, 0x118c, "Medion EE4254 MD62100", ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE),
+> 
+>  #if 0
+>  	/* Below is a quirk table taken from the old code.
+> @@ -7280,6 +7292,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+>  	{.id = ALC225_FIXUP_HEADSET_JACK, .name = "alc-headset-jack"},
+>  	{.id = ALC295_FIXUP_CHROME_BOOK, .name = "alc-chrome-book"},
+>  	{.id = ALC299_FIXUP_PREDATOR_SPK, .name = "predator-spk"},
+> +	{.id = ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE, .name = "alc256-medion-headset"},
+>  	{}
+>  };
+>  #define ALC225_STANDARD_PINS \
+> -- 
+> 2.20.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2635831907348020156==--

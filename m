@@ -2,65 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C334B3D16
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Sep 2019 17:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E8A7B3E50
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Sep 2019 18:01:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8801F166F;
-	Mon, 16 Sep 2019 17:03:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8801F166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0858B1672;
+	Mon, 16 Sep 2019 18:00:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0858B1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568646251;
-	bh=8OsqljCB9BooI0mODj3CJZmk2HL3e4GXW8B+TDMKVx0=;
+	s=default; t=1568649661;
+	bh=5UzGyvT1ydD6jrRvwUBmXc4X/TuyohGFvb1iX9gD0So=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cqd2TeQ5CMUxBQsnEYL/X99/hlDqltyLPDW74UX3wQkZEyZN1TYk2yKO78LWPFPeL
-	 X86azXVANnodL9vDhEeQzAEnRrAEepiLRWK+CgzeRV+y1euYESlFIbKCd2+TmQrWur
-	 o8kxFMzbcMJWlfwj7FA5EnaHYSc2KZWlOTq/nPiU=
+	b=jOeurLrGQroTM5NpGJOZFnwRvZRyd441BzSRattuFdVP+Yk+GEvPt+p4R6cMA6eZJ
+	 1tusAgjbT8wihuc1LS5F8VqCoYk6xejFA+zSGD5owafbWoa/k3av/sUqgtchQyf24x
+	 AcDqfj2R22U7ayK+4nK5L+PHZ+SCicv+BrGz0zVQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7AF5F80506;
-	Mon, 16 Sep 2019 17:02:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F5F9F80506;
+	Mon, 16 Sep 2019 17:59:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A60C2F80506; Mon, 16 Sep 2019 17:02:24 +0200 (CEST)
+ id 3246EF80506; Mon, 16 Sep 2019 17:59:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66014F80148
- for <alsa-devel@alsa-project.org>; Mon, 16 Sep 2019 17:02:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66014F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FF61F80148
+ for <alsa-devel@alsa-project.org>; Mon, 16 Sep 2019 17:59:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FF61F80148
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Sep 2019 08:02:17 -0700
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Sep 2019 08:59:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,513,1559545200"; d="scan'208";a="193459449"
+X-IronPort-AV: E=Sophos;i="5.64,513,1559545200"; d="scan'208";a="386243666"
 Received: from linux.intel.com ([10.54.29.200])
- by FMSMGA003.fm.intel.com with ESMTP; 16 Sep 2019 08:02:17 -0700
+ by fmsmga005.fm.intel.com with ESMTP; 16 Sep 2019 08:59:07 -0700
 Received: from pbossart-mac01.local (unknown [10.251.11.91])
- by linux.intel.com (Postfix) with ESMTP id B72505806A0;
- Mon, 16 Sep 2019 08:02:16 -0700 (PDT)
-To: Sam McNally <sammc@chromium.org>, alsa-devel@alsa-project.org
-References: <20190916071511.5909-1-sammc@chromium.org>
+ by linux.intel.com (Postfix) with ESMTP id E04A8580882;
+ Mon, 16 Sep 2019 08:59:06 -0700 (PDT)
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
+ tiwai@suse.de
+References: <20190912142200.8031-1-kai.vehmanen@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <412d8b9f-463a-1082-8fbb-7a0879decddd@linux.intel.com>
-Date: Mon, 16 Sep 2019 10:02:16 -0500
+Message-ID: <5579b62d-d949-ec62-0a85-45d0842af38f@linux.intel.com>
+Date: Mon, 16 Sep 2019 10:59:06 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
  Gecko/20100101 Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20190916071511.5909-1-sammc@chromium.org>
+In-Reply-To: <20190912142200.8031-1-kai.vehmanen@linux.intel.com>
 Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: cht_bsw_rt5645: Add quirk for
- boards using pmc_plt_clk_0
+Cc: Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v4 0/9] adapt SOF to use snd-hda-codec-hdmi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,109 +78,80 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/16/19 2:15 AM, Sam McNally wrote:
-> As of commit 648e921888ad ("clk: x86: Stop marking clocks as
-> CLK_IS_CRITICAL"), the cht_bsw_rt5645 driver needs to enable the clock
-> it's using for the codec's mclk. It does this from commit 7735bce05a9c
-> ("ASoC: Intel: boards: use devm_clk_get() unconditionally"), enabling
-> pmc_plt_clk_3. However, Strago family Chromebooks use pmc_plt_clk_0 for
-> the codec mclk, resulting in white noise with some digital microphones.
-> Add a DMI-based quirk for Strago family Chromebooks to use pmc_plt_clk_0
-> instead.
+On 9/12/19 9:21 AM, Kai Vehmanen wrote:
+> Hi all,
+> 
+> here's the 4th round for this series that adapts SOF to use
+> snd-hda-codec-hdmi (patch_hdmi.c) codec driver instead of hdac_hdmi
+> (soc/codecs/hdac_hdmi.c). The primary goal is to unify the HDMI codec
+> implementation between DSP and non-DSP HDA configurations, offer same
+> interface to user-space and reduce maintenance load for all.
 
-Sounds good, thanks for the patch. You will need to Cc: maintainers 
-(Takashi and Mark) if you want them to see your patches.
+The series looks good to me so
 
-Maybe you should mention in the commit message that this mirrors the 
-changes made in cht_bsw_max98090_ti?
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Also see more important comment below
+I would recommend that we have a matching change for the Skylake driver 
+and validation that both SOF and cAVS/SST drivers can operate with this 
+mode set. Our goal is still to have coexistence between the two drivers 
+in a single build/distro, e.g. cAVS for SKL/KBL/APL and SOF for newer 
+platforms. This can be done in a follow-up patch but it needs to be done 
+before distros start selecting this common HDMI mode.
+
+The other concern I have is that we have other changes coming for 
+soc-acpi and machine drivers to deal with SoundWire, so it'd be nice to 
+have the changes mirrored between Mark and Takashi trees e.g. with the 
+merge of a fixed branch.
 
 > 
-> Signed-off-by: Sam McNally <sammc@chromium.org>
-> ---
+> v4 changes:
+> - Change order of patches to not break bisect (Pierre's feedback).
+> - Improve the explanation in commit message for
+>    mst_no_extra_pcms, patch 1. (Pierre's feedback).
+> - Fix errors in PCM constraints for HDMI (Pierre's feedback).
+> - Fix an issue on Ice Lake platforms (patch 3).
 > 
->   sound/soc/intel/boards/cht_bsw_rt5645.c | 26 +++++++++++++++++++------
->   1 file changed, 20 insertions(+), 6 deletions(-)
+> Feature and testing info:
+>   - Tested on multiple Intel platforms supported by SOF.
+>   - Tested with ALSA console tools as well as with Pulseaudio.
+>        - requires Pulseaudio 12.x or newer, see
+>          https://lists.freedesktop.org/archives/pulseaudio-discuss/2019-August/031358.html
+>   - HDMI, DP, DP-MST with multi-monitor use-scenarios work ok.
+>   - New feature for SOF: ELD /proc fs works just like in
+>     DSP-less mode.
+>   - New feature for SOF: jack detection works out-of-the-box
+>     with Pulseaudio (no need for card specific UCM for HDMI)
 > 
-> diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
-> index 8879c3be29d5..c68a5b85a4a0 100644
-> --- a/sound/soc/intel/boards/cht_bsw_rt5645.c
-> +++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
-> @@ -48,6 +48,7 @@ struct cht_mc_private {
->   #define CHT_RT5645_SSP2_AIF2     BIT(16) /* default is using AIF1  */
->   #define CHT_RT5645_SSP0_AIF1     BIT(17)
->   #define CHT_RT5645_SSP0_AIF2     BIT(18)
-> +#define CHT_RT5645_PMC_PLT_CLK_0 BIT(19)
->   
->   static unsigned long cht_rt5645_quirk = 0;
->   
-> @@ -59,6 +60,8 @@ static void log_quirks(struct device *dev)
->   		dev_info(dev, "quirk SSP0_AIF1 enabled");
->   	if (cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2)
->   		dev_info(dev, "quirk SSP0_AIF2 enabled");
-> +	if (cht_rt5645_quirk & CHT_RT5645_PMC_PLT_CLK_0)
-> +		dev_info(dev, "quirk PMC_PLT_CLK_0 enabled");
->   }
->   
->   static int platform_clock_control(struct snd_soc_dapm_widget *w,
-> @@ -226,15 +229,21 @@ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
->   	return 0;
->   }
->   
-> -/* uncomment when we have a real quirk
->   static int cht_rt5645_quirk_cb(const struct dmi_system_id *id)
->   {
->   	cht_rt5645_quirk = (unsigned long)id->driver_data;
->   	return 1;
->   }
-> -*/
->   
->   static const struct dmi_system_id cht_rt5645_quirk_table[] = {
-> +	{
-> +		/* Strago family Chromebooks */
-> +		.callback = cht_rt5645_quirk_cb,
-> +		.matches = {
-> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "Intel_Strago"),
-> +		},
-> +		.driver_data = (void *)CHT_RT5645_PMC_PLT_CLK_0,
-> +	},
->   	{
->   	},
->   };
-> @@ -526,6 +535,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
->   	int dai_index = 0;
->   	int ret_val = 0;
->   	int i;
-> +	const char *mclk_name;
->   
->   	drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_KERNEL);
->   	if (!drv)
-> @@ -662,11 +672,15 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
->   	if (ret_val)
->   		return ret_val;
->   
-> -	drv->mclk = devm_clk_get(&pdev->dev, "pmc_plt_clk_3");
-> +	if (cht_rt5645_quirk & CHT_RT5645_PMC_PLT_CLK_0)
-> +		mclk_name = "pmc_plt_clk_0";
-> +	else
-> +		mclk_name = "pmc_plt_clk_3";
-
-Aren't you missing a call to dmi_first_match() to change the default 
-value of this cht_rt5645_quirk variable?
-
-The rest of the patch looks good but I don't see how the DMI info is 
-actually used.
-
-> +	drv->mclk = devm_clk_get(&pdev->dev, mclk_name);
->   	if (IS_ERR(drv->mclk)) {
-> -		dev_err(&pdev->dev,
-> -			"Failed to get MCLK from pmc_plt_clk_3: %ld\n",
-> -			PTR_ERR(drv->mclk));
-> +		dev_err(&pdev->dev, "Failed to get MCLK from %s: %ld\n",
-> +			mclk_name, PTR_ERR(drv->mclk)); >   		return PTR_ERR(drv->mclk);
->   	}
->   
+> Kai Vehmanen (9):
+>    ALSA: hda/hdmi - implement mst_no_extra_pcms flag
+>    ASoC: hdac_hda: add support for HDMI/DP as a HDA codec
+>    ASoC: Intel: skl-hda-dsp-generic: use snd-hda-codec-hdmi
+>    ASoC: Intel: skl-hda-dsp-generic: fix include guard name
+>    ASoC: SOF: Intel: add support for snd-hda-codec-hdmi
+>    ASoC: Intel: bxt-da7219-max98357a: common hdmi codec support
+>    ASoC: Intel: glk_rt5682_max98357a: common hdmi codec support
+>    ASoC: intel: sof_rt5682: common hdmi codec support
+>    ASoC: Intel: bxt_rt298: common hdmi codec support
+> 
+>   include/sound/hda_codec.h                     |   1 +
+>   include/sound/soc-acpi.h                      |   2 +
+>   sound/pci/hda/patch_hdmi.c                    |  19 +++-
+>   sound/soc/codecs/hdac_hda.c                   | 100 +++++++++++++++---
+>   sound/soc/codecs/hdac_hda.h                   |  12 ++-
+>   sound/soc/intel/boards/bxt_da7219_max98357a.c |  11 ++
+>   sound/soc/intel/boards/bxt_rt298.c            |  11 ++
+>   sound/soc/intel/boards/glk_rt5682_max98357a.c |  11 ++
+>   sound/soc/intel/boards/hda_dsp_common.h       |  93 ++++++++++++++++
+>   sound/soc/intel/boards/skl_hda_dsp_common.c   |  10 +-
+>   sound/soc/intel/boards/skl_hda_dsp_common.h   |  27 ++++-
+>   sound/soc/intel/boards/skl_hda_dsp_generic.c  |   1 +
+>   sound/soc/intel/boards/sof_rt5682.c           |  11 ++
+>   sound/soc/sof/intel/Kconfig                   |  10 ++
+>   sound/soc/sof/intel/hda-codec.c               |  19 +++-
+>   sound/soc/sof/intel/hda.c                     |   6 ++
+>   sound/soc/sof/intel/hda.h                     |   6 +-
+>   17 files changed, 323 insertions(+), 27 deletions(-)
+>   create mode 100644 sound/soc/intel/boards/hda_dsp_common.h
 > 
 
 _______________________________________________

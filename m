@@ -2,85 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B84DB502F
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Sep 2019 16:17:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB1D6B504D
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Sep 2019 16:25:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B2B67166F;
-	Tue, 17 Sep 2019 16:16:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B2B67166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25B45166D;
+	Tue, 17 Sep 2019 16:24:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25B45166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568729844;
-	bh=rJA0kxinDZS1n5q/zrMPp2LDUuK8dZXJBrL6ukiCuH4=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1568730332;
+	bh=ZgCFJDAKGzJjRSxYh5caWQvRtwPSM8ez5okhssvlL7I=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tgQ21z1qqL7THXk7ak4quxVAtvnt1Qj7pDHeR73XiPJutIq2jM9kM1DH+ZVTBJjkM
-	 bUkjBmyWlw+adIoIlSPtuaxN3iTHsh+PtTRt+cT/vq7NM1vIBGS/kunVSBciqZQ7zn
-	 L8eKrBtYnkow0yYLWV0ucDXxJoC8A0F7uSKFkqVE=
+	b=KD+xv+Eqy8WD6/6RukVhR0ijD1DEBYsKawsKf6ZuAXNEqZOgubsCKsT0eceZCMkwr
+	 rieSbvu0MfFVXk32oO133Azb9/xqz/GdXyhW5fftubYNWit+L2MvnrPmOG+UpnhFF1
+	 HNHIRnZAGIoGHWYDPczW7u3sKUXXRYHYvWCzj8WM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8CD6F803D6;
-	Tue, 17 Sep 2019 16:15:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4D36F80361;
+	Tue, 17 Sep 2019 16:23:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A41E5F80361; Tue, 17 Sep 2019 16:15:37 +0200 (CEST)
+ id 60F32F80361; Tue, 17 Sep 2019 16:23:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CE66F80146
- for <alsa-devel@alsa-project.org>; Tue, 17 Sep 2019 16:15:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CE66F80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="w4/ghrVG"
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C4DE22189D
- for <alsa-devel@alsa-project.org>; Tue, 17 Sep 2019 14:15:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1568729728;
- bh=+B3sRZPhkAukMdMBAYVICiPGgK/51bRCH3pDovTUbwo=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=w4/ghrVGz+s1Xa8HKjmbSv+EFYoQomNvEU6uW/JCHc+xPgFpAla3Ef1Xc5bXWrW5B
- jhuTmBt1NGRBsA9acQjl2Py4L2JmtbGWUEhiSdVFNBg8ihClrjcR+9TNLOGfO7bkGE
- k+2UvRiT6gdfnian3dWHLECSTFJD+KRDO8Ckiw2M=
-Received: by mail-qt1-f175.google.com with SMTP id u40so4538807qth.11
- for <alsa-devel@alsa-project.org>; Tue, 17 Sep 2019 07:15:28 -0700 (PDT)
-X-Gm-Message-State: APjAAAWacagYlUiCiehKZdl5MwfZfetUOamjfmMsqT8oi4QnUKi2sg0r
- SkXWnVbqcNxHxuTrPGth+M/FybgSQrQViYyyAg==
-X-Google-Smtp-Source: APXvYqzA95YGsDAHuNNPxRimcQ6KIo1Xu3z8j8WHVokwnL8nyFMsfVMoZXe73MnOTmOXNpjhJW2nI4GI0hnrbY/hLoI=
-X-Received: by 2002:ac8:31b3:: with SMTP id h48mr4019256qte.300.1568729727989; 
- Tue, 17 Sep 2019 07:15:27 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56388F80146
+ for <alsa-devel@alsa-project.org>; Tue, 17 Sep 2019 16:23:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56388F80146
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Sep 2019 07:23:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,516,1559545200"; d="scan'208";a="193762956"
+Received: from linux.intel.com ([10.54.29.200])
+ by FMSMGA003.fm.intel.com with ESMTP; 17 Sep 2019 07:23:39 -0700
+Received: from pbossart-mac01.local (unknown [10.251.11.91])
+ by linux.intel.com (Postfix) with ESMTP id E194A580834;
+ Tue, 17 Sep 2019 07:23:38 -0700 (PDT)
+To: Sam McNally <sammc@chromium.org>, alsa-devel@alsa-project.org
+References: <20190917054933.209335-1-sammc@chromium.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <6b50adbe-a3d3-e5fb-e3c7-b8277551f36d@linux.intel.com>
+Date: Tue, 17 Sep 2019 09:23:16 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <CGME20190917120634eucas1p20addfc4e369468561714f3c44d3d8bf5@eucas1p2.samsung.com>
- <20190917111413.22711-1-m.falkowski@samsung.com>
- <20190917120627.28357-1-m.falkowski@samsung.com>
-In-Reply-To: <20190917120627.28357-1-m.falkowski@samsung.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Tue, 17 Sep 2019 09:15:16 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqLwkVQ6VFYtUfOErA8vG2qnE+nquo_m5s0zLRqgn+bJLg@mail.gmail.com>
-Message-ID: <CAL_JsqLwkVQ6VFYtUfOErA8vG2qnE+nquo_m5s0zLRqgn+bJLg@mail.gmail.com>
-To: Maciej Falkowski <m.falkowski@samsung.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Sangbeom Kim <sbkim73@samsung.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Andrzej Hajda <a.hajda@samsung.com>, Mark Brown <broonie@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [alsa-devel] [PATCH v2 2/2] dt-bindings: sound: Convert Samsung
-	SMDK audio complex
+In-Reply-To: <20190917054933.209335-1-sammc@chromium.org>
+Content-Language: en-US
+Cc: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: Intel: cht_bsw_rt5645: Add quirk
+ for boards using pmc_plt_clk_0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,29 +73,117 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 17, 2019 at 7:06 AM Maciej Falkowski
-<m.falkowski@samsung.com> wrote:
->
-> Convert Samsung SMDK audio complex to newer dt-schema format.
->
-> Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
-> v2:
-> - Added missing Signed-off-by certificate
-> ---
->  .../bindings/sound/samsung,smdk-wm8994.txt    | 14 -------
->  .../bindings/sound/samsung,smdk-wm8994.yaml   | 38 +++++++++++++++++++
->  2 files changed, 38 insertions(+), 14 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/samsung,smdk-wm8994.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/samsung,smdk-wm8994.yaml
+On 9/17/19 12:49 AM, Sam McNally wrote:
+> As of commit 648e921888ad ("clk: x86: Stop marking clocks as
+> CLK_IS_CRITICAL"), the cht_bsw_rt5645 driver needs to enable the clock
+> it's using for the codec's mclk. It does this from commit 7735bce05a9c
+> ("ASoC: Intel: boards: use devm_clk_get() unconditionally"), enabling
+> pmc_plt_clk_3. However, Strago family Chromebooks use pmc_plt_clk_0 for
+> the codec mclk, resulting in white noise with some digital microphones.
+> Add a DMI-based quirk for Strago family Chromebooks to use pmc_plt_clk_0
+> instead - mirroring the changes made to cht_bsw_max98090_ti in
+> commit a182ecd3809c ("ASoC: intel: cht_bsw_max98090_ti: Add quirk for
+> boards using pmc_plt_clk_0") and making use of the existing
+> dmi_check_system() call and related infrastructure added in
+> commit 22af29114eb4 ("ASoC: Intel: cht-bsw-rt5645: add quirks for
+> SSP0/AIF1/AIF2 routing").
+> 
+> Signed-off-by: Sam McNally <sammc@chromium.org>
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Looks good to me, thanks for the patch
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> ---
+> 
+> Changes in v2:
+> - Added to the description references to more related commits (similar
+>    cht_bsw_max98090_ti clock quirks inspiring this change and and the
+>    cht_bsw_rt5645 quirks setup)
+> 
+>   sound/soc/intel/boards/cht_bsw_rt5645.c | 26 +++++++++++++++++++------
+>   1 file changed, 20 insertions(+), 6 deletions(-)
+> 
+> diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+> index 8879c3be29d5..c68a5b85a4a0 100644
+> --- a/sound/soc/intel/boards/cht_bsw_rt5645.c
+> +++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+> @@ -48,6 +48,7 @@ struct cht_mc_private {
+>   #define CHT_RT5645_SSP2_AIF2     BIT(16) /* default is using AIF1  */
+>   #define CHT_RT5645_SSP0_AIF1     BIT(17)
+>   #define CHT_RT5645_SSP0_AIF2     BIT(18)
+> +#define CHT_RT5645_PMC_PLT_CLK_0 BIT(19)
+>   
+>   static unsigned long cht_rt5645_quirk = 0;
+>   
+> @@ -59,6 +60,8 @@ static void log_quirks(struct device *dev)
+>   		dev_info(dev, "quirk SSP0_AIF1 enabled");
+>   	if (cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2)
+>   		dev_info(dev, "quirk SSP0_AIF2 enabled");
+> +	if (cht_rt5645_quirk & CHT_RT5645_PMC_PLT_CLK_0)
+> +		dev_info(dev, "quirk PMC_PLT_CLK_0 enabled");
+>   }
+>   
+>   static int platform_clock_control(struct snd_soc_dapm_widget *w,
+> @@ -226,15 +229,21 @@ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
+>   	return 0;
+>   }
+>   
+> -/* uncomment when we have a real quirk
+>   static int cht_rt5645_quirk_cb(const struct dmi_system_id *id)
+>   {
+>   	cht_rt5645_quirk = (unsigned long)id->driver_data;
+>   	return 1;
+>   }
+> -*/
+>   
+>   static const struct dmi_system_id cht_rt5645_quirk_table[] = {
+> +	{
+> +		/* Strago family Chromebooks */
+> +		.callback = cht_rt5645_quirk_cb,
+> +		.matches = {
+> +			DMI_MATCH(DMI_PRODUCT_FAMILY, "Intel_Strago"),
+> +		},
+> +		.driver_data = (void *)CHT_RT5645_PMC_PLT_CLK_0,
+> +	},
+>   	{
+>   	},
+>   };
+> @@ -526,6 +535,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+>   	int dai_index = 0;
+>   	int ret_val = 0;
+>   	int i;
+> +	const char *mclk_name;
+>   
+>   	drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_KERNEL);
+>   	if (!drv)
+> @@ -662,11 +672,15 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+>   	if (ret_val)
+>   		return ret_val;
+>   
+> -	drv->mclk = devm_clk_get(&pdev->dev, "pmc_plt_clk_3");
+> +	if (cht_rt5645_quirk & CHT_RT5645_PMC_PLT_CLK_0)
+> +		mclk_name = "pmc_plt_clk_0";
+> +	else
+> +		mclk_name = "pmc_plt_clk_3";
+> +
+> +	drv->mclk = devm_clk_get(&pdev->dev, mclk_name);
+>   	if (IS_ERR(drv->mclk)) {
+> -		dev_err(&pdev->dev,
+> -			"Failed to get MCLK from pmc_plt_clk_3: %ld\n",
+> -			PTR_ERR(drv->mclk));
+> +		dev_err(&pdev->dev, "Failed to get MCLK from %s: %ld\n",
+> +			mclk_name, PTR_ERR(drv->mclk));
+>   		return PTR_ERR(drv->mclk);
+>   	}
+>   
+> 
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

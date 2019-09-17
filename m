@@ -2,96 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C6BB44CC
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Sep 2019 02:09:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9173DB4707
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Sep 2019 07:49:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35EF11672;
-	Tue, 17 Sep 2019 02:08:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35EF11672
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB7981670;
+	Tue, 17 Sep 2019 07:48:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB7981670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568678977;
-	bh=RwBT4LhoC0Chot1CPI5RF/Vmi8dogXZam1RuY3tnN0o=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568699351;
+	bh=2QPBNuVmzH+w96l5z5QIW/EKSx5DinSpuj+4fOVzPnI=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=vTr73hl4GhMdawBHS4XI/5S+i5nk6cP+W6CqDwBmM82eRDz6DrMxkNIV5dDNIz4ml
-	 qj1DlDdrPvUzBfUs3c5DBWAnotF1fd3JGm8gIszcPMyxmzinrLT5Lye6xPC4EkGsJc
-	 CMa15icRIAcTU5y+BNq1o5xVEPH/HDQ6lwRwKwE0=
+	b=r2VlhzMq/D7L80G64fSeLyJYfj0S0N6J339ODYslo30uCgUrfveTzvPWN4oEabB1W
+	 8HGsGFl5AFPMzUqbfscHDPSzDprM7jboCy2+A4sIIlXlITRnSwoTVdKsK5l3LUVFnU
+	 ggQdLeCxKQ3R+qUNRRLZBK5dgWl+Hu2yMB7CkXfA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACF7CF801DA;
-	Tue, 17 Sep 2019 02:07:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 19D32F80361;
+	Tue, 17 Sep 2019 07:47:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3A72F80506; Tue, 17 Sep 2019 02:07:50 +0200 (CEST)
+ id 28856F80361; Tue, 17 Sep 2019 07:47:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+ SPF_PASS, 
+ URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A5A9F80148
- for <alsa-devel@alsa-project.org>; Tue, 17 Sep 2019 02:07:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A5A9F80148
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6D6E4F80146
+ for <alsa-devel@alsa-project.org>; Tue, 17 Sep 2019 07:47:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D6E4F80146
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LDhLNSgp"
-Received: by mail-pl1-x643.google.com with SMTP id e5so647244pls.9
- for <alsa-devel@alsa-project.org>; Mon, 16 Sep 2019 17:07:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=wGQICKpcervV/f86viOkB++yLxsxzlIcZcpff5TogD4=;
- b=LDhLNSgpP2tPlLRhJelbmx5Ekz+8nY89eW4yz9R2J48WLARAO77Ojhdmmo45RfykbZ
- kSo6NFJZNplkr4WqwgsDo1Fp3MEOMQl+gA1vPbYM5Ruqwox2ni87eu+dC5H4opsHFOtL
- xXysw6W9PCO8y3GFYZR67SoKbD1D1E53Afs71NHlJltWQqomg7kn2NgRINbFFFq4QaZC
- g9ZPEODlxkbvIKDYmm1wS9xwYxWTBX/+Ghs/c7fL7YSqva6SH0vMCUXF+Q/WHBXydcF+
- 07ao2sdANeXMeAnUazIONYCPeDM8vQ1KquzoMlG8d2TSDryQ4zS+RR4agDMEiVnRVnX1
- fO+g==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="U755joqW"
+Received: by mail-wm1-x343.google.com with SMTP id p7so1647000wmp.4
+ for <alsa-devel@alsa-project.org>; Mon, 16 Sep 2019 22:47:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZJJ/OqyhCYDAmlAcRrX2Nmlf4soR9ckL779ult1qOVY=;
+ b=U755joqWpAls4mMkHumoMeL341aZkDR23QYQUcfShHn0aHHotW/A5uNmp+1vrsM2j3
+ n4P+zdVVVJ58o6LJuLNvsuKHRnUgvQFrOIO5jBRNy+bT31a9ZHHKeLw3deJ1h5OKKKGo
+ qG6dOhBY2MzK45zkUKNsJZi+lvDIWJOQMtdbg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wGQICKpcervV/f86viOkB++yLxsxzlIcZcpff5TogD4=;
- b=ohvoyM8jmukApsLPt37W3aNTyRC13O8nqXJ6Xp4+/lFx5ZV9zjHPkXvTJJjwgXHJkN
- ei1S5/WOOGxS5H0704HBbocxbxORdD28idt9qYPvCL8Ft/RFVmFeqVaRv5hGLdVsyhbM
- WMA9jqDC/TU2Mp+z68wwN7+AwC2Rcr0+6KCdM4rWsw1YfV4uqYBbHzr6o9Z/IcJgd9ot
- KmTsEkNGP0CxAz7HJ31wRD8tzHOe40Gj25wIKByHsk64q9E7DYsTE12DRzcpNPflMdkS
- NbGNLDFee51sp84hRgUJe9HVFOHoIVAOHTAHozUbO7gmco056tqMev0J1kXaa/7L26xT
- tFpA==
-X-Gm-Message-State: APjAAAWZvi/wN0bq+N50mWudquehuU7cAmkv2vVTQfoCmDoYyS+1yW3w
- Hm1oBis04p2N4+KrV81ETYE=
-X-Google-Smtp-Source: APXvYqwnStqZdbH/7r4iGdgZClZ9YY/we/pQe6S/tGNwmXObj/MEZIHs6NwzYuE+NFBg/aaekyVADw==
-X-Received: by 2002:a17:902:820a:: with SMTP id
- x10mr823128pln.216.1568678864404; 
- Mon, 16 Sep 2019 17:07:44 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id p20sm213382pgj.47.2019.09.16.17.07.43
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 16 Sep 2019 17:07:44 -0700 (PDT)
-Date: Mon, 16 Sep 2019 17:07:25 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Message-ID: <20190917000725.GF12789@Asurada-Nvidia.nvidia.com>
-References: <65e1f035aea2951aacda54aa3a751bc244f72f6a.1568367274.git.shengjiu.wang@nxp.com>
- <74dfc73a92d2df4213225abe7d2a3db82672fe0f.1568367274.git.shengjiu.wang@nxp.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZJJ/OqyhCYDAmlAcRrX2Nmlf4soR9ckL779ult1qOVY=;
+ b=Jkr94U3SUOl1BBCflvnTeg9cc+GKGk/nPNbS5qjraSzwlyHIcP/zylNd3uyq2hHrOW
+ B/9V1+myNs90ckAmPG/eUnTSsdMOyerBQHZzyLUYcRPRvorJBCPg7qKIcR7zHLV8Mgg+
+ YbneUGYjTcaNixpOfIPDOgGz3rets93iSKa/mv6ZMHcv+2Q0G+DYUj0gvc1D3PmGg7iF
+ P/LRPvR64SOru+HCpPMvCLUtRmGg5dl4ArtCWzY5ImtBXrDuk4yGMdFEJIfSLShEs+bH
+ XBxoJD6N+bQMPtDxZqq5my4e2MUtEDAa6ALTDB82EjddoVurRV3pX3EbHrj0DYmVFyqN
+ sxxQ==
+X-Gm-Message-State: APjAAAWfQ7InRoV4HGTzrbYLv9zZhu3y6m3FxaXEvjWbDpGy8Tvfj171
+ 6zvwJmB9dQ6iXYtuB5UE0+vEuUfuHdutvDf4FPM83g==
+X-Google-Smtp-Source: APXvYqyxmr7hZlgUNMhY5fYIO0VvEmk8E7d9GdFTCke+Zr+FTiNdrI1X1XHriJlmdRX2wt1JJBvkfwOopCZn2jFV3oQ=
+X-Received: by 2002:a1c:9ec9:: with SMTP id h192mr1911865wme.105.1568699237924; 
+ Mon, 16 Sep 2019 22:47:17 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <74dfc73a92d2df4213225abe7d2a3db82672fe0f.1568367274.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, broonie@kernel.org, festevam@gmail.com,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH V2 2/2] ASoC: fsl_mqs: Add MQS component
-	driver
+References: <20190916071511.5909-1-sammc@chromium.org>
+ <412d8b9f-463a-1082-8fbb-7a0879decddd@linux.intel.com>
+In-Reply-To: <412d8b9f-463a-1082-8fbb-7a0879decddd@linux.intel.com>
+From: Sam McNally <sammc@chromium.org>
+Date: Tue, 17 Sep 2019 15:46:40 +1000
+Message-ID: <CAJqEsoAdv=Hn-zWBeendppWC=5Uwd38S1PTSud5_Vmhxx6W9Ow@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: cht_bsw_rt5645: Add quirk for
+ boards using pmc_plt_clk_0
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,420 +95,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 13, 2019 at 05:42:14PM +0800, Shengjiu Wang wrote:
-> MQS (medium quality sound), is used to generate medium quality
-> audio via a standard digital output pin. It can be used to
-> connect stereo speakers or headphones simply via power amplifier
-> stages without an additional DAC chip. It only accepts 2-channel,
-> LSB-valid 16bit, MSB shift-out first, frame sync asserting with
-> the first bit of the frame, data shifted with the posedge of
-> bit clock, 44.1 kHz or 48 kHz signals from SAI1 in left justified
-> format; and it provides the SNR target as no more than 20dB for
-> the signals below 10 kHz. The signals above 10 kHz will have
-> worse THD+N values.
-> 
-> MQS provides only simple audio reproduction. No internal pop,
-> click or distortion artifact reduction methods are provided.
-> 
-> The MQS receives the audio data from the SAI1 Tx section.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+On Tue, 17 Sep 2019 at 01:02, Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+> On 9/16/19 2:15 AM, Sam McNally wrote:
+> > As of commit 648e921888ad ("clk: x86: Stop marking clocks as
+> > CLK_IS_CRITICAL"), the cht_bsw_rt5645 driver needs to enable the clock
+> > it's using for the codec's mclk. It does this from commit 7735bce05a9c
+> > ("ASoC: Intel: boards: use devm_clk_get() unconditionally"), enabling
+> > pmc_plt_clk_3. However, Strago family Chromebooks use pmc_plt_clk_0 for
+> > the codec mclk, resulting in white noise with some digital microphones.
+> > Add a DMI-based quirk for Strago family Chromebooks to use pmc_plt_clk_0
+> > instead.
+>
+> Sounds good, thanks for the patch. You will need to Cc: maintainers
+> (Takashi and Mark) if you want them to see your patches.
+>
+> Maybe you should mention in the commit message that this mirrors the
+> changes made in cht_bsw_max98090_ti?
+>
+Will do.
 
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+> Also see more important comment below
+>
+> >
+> > Signed-off-by: Sam McNally <sammc@chromium.org>
+> > ---
+> >
+> >   sound/soc/intel/boards/cht_bsw_rt5645.c | 26 +++++++++++++++++++------
+> >   1 file changed, 20 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
+> > index 8879c3be29d5..c68a5b85a4a0 100644
+> > --- a/sound/soc/intel/boards/cht_bsw_rt5645.c
+> > +++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
+> > @@ -48,6 +48,7 @@ struct cht_mc_private {
+> >   #define CHT_RT5645_SSP2_AIF2     BIT(16) /* default is using AIF1  */
+> >   #define CHT_RT5645_SSP0_AIF1     BIT(17)
+> >   #define CHT_RT5645_SSP0_AIF2     BIT(18)
+> > +#define CHT_RT5645_PMC_PLT_CLK_0 BIT(19)
+> >
+> >   static unsigned long cht_rt5645_quirk = 0;
+> >
+> > @@ -59,6 +60,8 @@ static void log_quirks(struct device *dev)
+> >               dev_info(dev, "quirk SSP0_AIF1 enabled");
+> >       if (cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2)
+> >               dev_info(dev, "quirk SSP0_AIF2 enabled");
+> > +     if (cht_rt5645_quirk & CHT_RT5645_PMC_PLT_CLK_0)
+> > +             dev_info(dev, "quirk PMC_PLT_CLK_0 enabled");
+> >   }
+> >
+> >   static int platform_clock_control(struct snd_soc_dapm_widget *w,
+> > @@ -226,15 +229,21 @@ static int cht_aif1_hw_params(struct snd_pcm_substream *substream,
+> >       return 0;
+> >   }
+> >
+> > -/* uncomment when we have a real quirk
+> >   static int cht_rt5645_quirk_cb(const struct dmi_system_id *id)
+> >   {
+> >       cht_rt5645_quirk = (unsigned long)id->driver_data;
+> >       return 1;
+> >   }
+> > -*/
+> >
+> >   static const struct dmi_system_id cht_rt5645_quirk_table[] = {
+> > +     {
+> > +             /* Strago family Chromebooks */
+> > +             .callback = cht_rt5645_quirk_cb,
+> > +             .matches = {
+> > +                     DMI_MATCH(DMI_PRODUCT_FAMILY, "Intel_Strago"),
+> > +             },
+> > +             .driver_data = (void *)CHT_RT5645_PMC_PLT_CLK_0,
+> > +     },
+> >       {
+> >       },
+> >   };
+> > @@ -526,6 +535,7 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+> >       int dai_index = 0;
+> >       int ret_val = 0;
+> >       int i;
+> > +     const char *mclk_name;
+> >
+> >       drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_KERNEL);
+> >       if (!drv)
+> > @@ -662,11 +672,15 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+> >       if (ret_val)
+> >               return ret_val;
+> >
+> > -     drv->mclk = devm_clk_get(&pdev->dev, "pmc_plt_clk_3");
+> > +     if (cht_rt5645_quirk & CHT_RT5645_PMC_PLT_CLK_0)
+> > +             mclk_name = "pmc_plt_clk_0";
+> > +     else
+> > +             mclk_name = "pmc_plt_clk_3";
+>
+> Aren't you missing a call to dmi_first_match() to change the default
+> value of this cht_rt5645_quirk variable?
+>
+> The rest of the patch looks good but I don't see how the DMI info is
+> actually used.
+>
 
-> ---
-> Changes in v2
-> - use devm_platform_ioremap_resource
-> 
->  sound/soc/fsl/Kconfig   |  10 ++
->  sound/soc/fsl/Makefile  |   2 +
->  sound/soc/fsl/fsl_mqs.c | 333 ++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 345 insertions(+)
->  create mode 100644 sound/soc/fsl/fsl_mqs.c
-> 
-> diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-> index aa99c008a925..65e8cd4be930 100644
-> --- a/sound/soc/fsl/Kconfig
-> +++ b/sound/soc/fsl/Kconfig
-> @@ -25,6 +25,16 @@ config SND_SOC_FSL_SAI
->  	  This option is only useful for out-of-tree drivers since
->  	  in-tree drivers select it automatically.
->  
-> +config SND_SOC_FSL_MQS
-> +	tristate "Medium Quality Sound (MQS) module support"
-> +	depends on SND_SOC_FSL_SAI
-> +	select REGMAP_MMIO
-> +	help
-> +	  Say Y if you want to add Medium Quality Sound (MQS)
-> +	  support for the Freescale CPUs.
-> +	  This option is only useful for out-of-tree drivers since
-> +	  in-tree drivers select it automatically.
-> +
->  config SND_SOC_FSL_AUDMIX
->  	tristate "Audio Mixer (AUDMIX) module support"
->  	select REGMAP_MMIO
-> diff --git a/sound/soc/fsl/Makefile b/sound/soc/fsl/Makefile
-> index c0dd04422fe9..8cde88c72d93 100644
-> --- a/sound/soc/fsl/Makefile
-> +++ b/sound/soc/fsl/Makefile
-> @@ -23,6 +23,7 @@ snd-soc-fsl-esai-objs := fsl_esai.o
->  snd-soc-fsl-micfil-objs := fsl_micfil.o
->  snd-soc-fsl-utils-objs := fsl_utils.o
->  snd-soc-fsl-dma-objs := fsl_dma.o
-> +snd-soc-fsl-mqs-objs := fsl_mqs.o
->  
->  obj-$(CONFIG_SND_SOC_FSL_AUDMIX) += snd-soc-fsl-audmix.o
->  obj-$(CONFIG_SND_SOC_FSL_ASOC_CARD) += snd-soc-fsl-asoc-card.o
-> @@ -33,6 +34,7 @@ obj-$(CONFIG_SND_SOC_FSL_SPDIF) += snd-soc-fsl-spdif.o
->  obj-$(CONFIG_SND_SOC_FSL_ESAI) += snd-soc-fsl-esai.o
->  obj-$(CONFIG_SND_SOC_FSL_MICFIL) += snd-soc-fsl-micfil.o
->  obj-$(CONFIG_SND_SOC_FSL_UTILS) += snd-soc-fsl-utils.o
-> +obj-$(CONFIG_SND_SOC_FSL_MQS) += snd-soc-fsl-mqs.o
->  obj-$(CONFIG_SND_SOC_POWERPC_DMA) += snd-soc-fsl-dma.o
->  
->  # MPC5200 Platform Support
-> diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
-> new file mode 100644
-> index 000000000000..c1619a553514
-> --- /dev/null
-> +++ b/sound/soc/fsl/fsl_mqs.c
-> @@ -0,0 +1,333 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +//
-> +// ALSA SoC IMX MQS driver
-> +//
-> +// Copyright (C) 2014-2015 Freescale Semiconductor, Inc.
-> +// Copyright 2019 NXP
-> +
-> +#include <linux/clk.h>
-> +#include <linux/module.h>
-> +#include <linux/moduleparam.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/mfd/syscon/imx6q-iomuxc-gpr.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/of.h>
-> +#include <linux/pm.h>
-> +#include <linux/slab.h>
-> +#include <sound/soc.h>
-> +#include <sound/pcm.h>
-> +#include <sound/initval.h>
-> +
-> +#define REG_MQS_CTRL		0x00
-> +
-> +#define MQS_EN_MASK			(0x1 << 28)
-> +#define MQS_EN_SHIFT			(28)
-> +#define MQS_SW_RST_MASK			(0x1 << 24)
-> +#define MQS_SW_RST_SHIFT		(24)
-> +#define MQS_OVERSAMPLE_MASK		(0x1 << 20)
-> +#define MQS_OVERSAMPLE_SHIFT		(20)
-> +#define MQS_CLK_DIV_MASK		(0xFF << 0)
-> +#define MQS_CLK_DIV_SHIFT		(0)
-> +
-> +/* codec private data */
-> +struct fsl_mqs {
-> +	struct regmap *regmap;
-> +	struct clk *mclk;
-> +	struct clk *ipg;
-> +
-> +	unsigned int reg_iomuxc_gpr2;
-> +	unsigned int reg_mqs_ctrl;
-> +	bool use_gpr;
-> +};
-> +
-> +#define FSL_MQS_RATES	(SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000)
-> +#define FSL_MQS_FORMATS	SNDRV_PCM_FMTBIT_S16_LE
-> +
-> +static int fsl_mqs_hw_params(struct snd_pcm_substream *substream,
-> +			     struct snd_pcm_hw_params *params,
-> +			     struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct fsl_mqs *mqs_priv = snd_soc_component_get_drvdata(component);
-> +	unsigned long mclk_rate;
-> +	int div, res;
-> +	int bclk, lrclk;
-> +
-> +	mclk_rate = clk_get_rate(mqs_priv->mclk);
-> +	bclk = snd_soc_params_to_bclk(params);
-> +	lrclk = params_rate(params);
-> +
-> +	/*
-> +	 * mclk_rate / (oversample(32,64) * FS * 2 * divider ) = repeat_rate;
-> +	 * if repeat_rate is 8, mqs can achieve better quality.
-> +	 * oversample rate is fix to 32 currently.
-> +	 */
-> +	div = mclk_rate / (32 * lrclk * 2 * 8);
-> +	res = mclk_rate % (32 * lrclk * 2 * 8);
-> +
-> +	if (res == 0 && div > 0 && div <= 256) {
-> +		if (mqs_priv->use_gpr) {
-> +			regmap_update_bits(mqs_priv->regmap, IOMUXC_GPR2,
-> +					   IMX6SX_GPR2_MQS_CLK_DIV_MASK,
-> +					   (div - 1) << IMX6SX_GPR2_MQS_CLK_DIV_SHIFT);
-> +			regmap_update_bits(mqs_priv->regmap, IOMUXC_GPR2,
-> +					   IMX6SX_GPR2_MQS_OVERSAMPLE_MASK, 0);
-> +		} else {
-> +			regmap_update_bits(mqs_priv->regmap, REG_MQS_CTRL,
-> +					   MQS_CLK_DIV_MASK,
-> +					   (div - 1) << MQS_CLK_DIV_SHIFT);
-> +			regmap_update_bits(mqs_priv->regmap, REG_MQS_CTRL,
-> +					   MQS_OVERSAMPLE_MASK, 0);
-> +		}
-> +	} else {
-> +		dev_err(component->dev, "can't get proper divider\n");
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int fsl_mqs_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-> +{
-> +	/* Only LEFT_J & SLAVE mode is supported. */
-> +	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-> +	case SND_SOC_DAIFMT_LEFT_J:
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-> +	case SND_SOC_DAIFMT_NB_NF:
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> +	case SND_SOC_DAIFMT_CBS_CFS:
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int fsl_mqs_startup(struct snd_pcm_substream *substream,
-> +			   struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct fsl_mqs *mqs_priv = snd_soc_component_get_drvdata(component);
-> +
-> +	if (mqs_priv->use_gpr)
-> +		regmap_update_bits(mqs_priv->regmap, IOMUXC_GPR2,
-> +				   IMX6SX_GPR2_MQS_EN_MASK,
-> +				   1 << IMX6SX_GPR2_MQS_EN_SHIFT);
-> +	else
-> +		regmap_update_bits(mqs_priv->regmap, REG_MQS_CTRL,
-> +				   MQS_EN_MASK,
-> +				   1 << MQS_EN_SHIFT);
-> +	return 0;
-> +}
-> +
-> +static void fsl_mqs_shutdown(struct snd_pcm_substream *substream,
-> +			     struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component = dai->component;
-> +	struct fsl_mqs *mqs_priv = snd_soc_component_get_drvdata(component);
-> +
-> +	if (mqs_priv->use_gpr)
-> +		regmap_update_bits(mqs_priv->regmap, IOMUXC_GPR2,
-> +				   IMX6SX_GPR2_MQS_EN_MASK, 0);
-> +	else
-> +		regmap_update_bits(mqs_priv->regmap, REG_MQS_CTRL,
-> +				   MQS_EN_MASK, 0);
-> +}
-> +
-> +const static struct snd_soc_component_driver soc_codec_fsl_mqs = {
-> +	.idle_bias_on = 1,
-> +	.non_legacy_dai_naming	= 1,
-> +};
-> +
-> +static const struct snd_soc_dai_ops fsl_mqs_dai_ops = {
-> +	.startup = fsl_mqs_startup,
-> +	.shutdown = fsl_mqs_shutdown,
-> +	.hw_params = fsl_mqs_hw_params,
-> +	.set_fmt = fsl_mqs_set_dai_fmt,
-> +};
-> +
-> +static struct snd_soc_dai_driver fsl_mqs_dai = {
-> +	.name		= "fsl-mqs-dai",
-> +	.playback	= {
-> +		.stream_name	= "Playback",
-> +		.channels_min	= 2,
-> +		.channels_max	= 2,
-> +		.rates		= FSL_MQS_RATES,
-> +		.formats	= FSL_MQS_FORMATS,
-> +	},
-> +	.ops = &fsl_mqs_dai_ops,
-> +};
-> +
-> +static const struct regmap_config fsl_mqs_regmap_config = {
-> +	.reg_bits = 32,
-> +	.reg_stride = 4,
-> +	.val_bits = 32,
-> +	.max_register = REG_MQS_CTRL,
-> +	.cache_type = REGCACHE_NONE,
-> +};
-> +
-> +static int fsl_mqs_probe(struct platform_device *pdev)
-> +{
-> +	struct device_node *np = pdev->dev.of_node;
-> +	struct device_node *gpr_np = 0;
-> +	struct fsl_mqs *mqs_priv;
-> +	void __iomem *regs;
-> +	int ret = 0;
-> +
-> +	mqs_priv = devm_kzalloc(&pdev->dev, sizeof(*mqs_priv), GFP_KERNEL);
-> +	if (!mqs_priv)
-> +		return -ENOMEM;
-> +
-> +	/* On i.MX6sx the MQS control register is in GPR domain
-> +	 * But in i.MX8QM/i.MX8QXP the control register is moved
-> +	 * to its own domain.
-> +	 */
-> +	if (of_device_is_compatible(np, "fsl,imx8qm-mqs"))
-> +		mqs_priv->use_gpr = false;
-> +	else
-> +		mqs_priv->use_gpr = true;
-> +
-> +	if (mqs_priv->use_gpr) {
-> +		gpr_np = of_parse_phandle(np, "gpr", 0);
-> +		if (IS_ERR(gpr_np)) {
-> +			dev_err(&pdev->dev, "failed to get gpr node by phandle\n");
-> +			ret = PTR_ERR(gpr_np);
-> +			goto out;
-> +		}
-> +
-> +		mqs_priv->regmap = syscon_node_to_regmap(gpr_np);
-> +		if (IS_ERR(mqs_priv->regmap)) {
-> +			dev_err(&pdev->dev, "failed to get gpr regmap\n");
-> +			ret = PTR_ERR(mqs_priv->regmap);
-> +			goto out;
-> +		}
-> +	} else {
-> +		regs = devm_platform_ioremap_resource(pdev, 0);
-> +		if (IS_ERR(regs))
-> +			return PTR_ERR(regs);
-> +
-> +		mqs_priv->regmap = devm_regmap_init_mmio_clk(&pdev->dev,
-> +							     "core",
-> +							     regs,
-> +							     &fsl_mqs_regmap_config);
-> +		if (IS_ERR(mqs_priv->regmap)) {
-> +			dev_err(&pdev->dev, "failed to init regmap: %ld\n",
-> +				PTR_ERR(mqs_priv->regmap));
-> +			return PTR_ERR(mqs_priv->regmap);
-> +		}
-> +
-> +		mqs_priv->ipg = devm_clk_get(&pdev->dev, "core");
-> +		if (IS_ERR(mqs_priv->ipg)) {
-> +			dev_err(&pdev->dev, "failed to get the clock: %ld\n",
-> +				PTR_ERR(mqs_priv->ipg));
-> +			goto out;
-> +		}
-> +	}
-> +
-> +	mqs_priv->mclk = devm_clk_get(&pdev->dev, "mclk");
-> +	if (IS_ERR(mqs_priv->mclk)) {
-> +		dev_err(&pdev->dev, "failed to get the clock: %ld\n",
-> +			PTR_ERR(mqs_priv->mclk));
-> +		goto out;
-> +	}
-> +
-> +	dev_set_drvdata(&pdev->dev, mqs_priv);
-> +	pm_runtime_enable(&pdev->dev);
-> +
-> +	return devm_snd_soc_register_component(&pdev->dev, &soc_codec_fsl_mqs,
-> +			&fsl_mqs_dai, 1);
-> +out:
-> +	if (!IS_ERR(gpr_np))
-> +		of_node_put(gpr_np);
-> +
-> +	return ret;
-> +}
-> +
-> +static int fsl_mqs_remove(struct platform_device *pdev)
-> +{
-> +	pm_runtime_disable(&pdev->dev);
-> +	return 0;
-> +}
-> +
-> +#ifdef CONFIG_PM
-> +static int fsl_mqs_runtime_resume(struct device *dev)
-> +{
-> +	struct fsl_mqs *mqs_priv = dev_get_drvdata(dev);
-> +
-> +	if (mqs_priv->ipg)
-> +		clk_prepare_enable(mqs_priv->ipg);
-> +
-> +	if (mqs_priv->mclk)
-> +		clk_prepare_enable(mqs_priv->mclk);
-> +
-> +	if (mqs_priv->use_gpr)
-> +		regmap_write(mqs_priv->regmap, IOMUXC_GPR2,
-> +			     mqs_priv->reg_iomuxc_gpr2);
-> +	else
-> +		regmap_write(mqs_priv->regmap, REG_MQS_CTRL,
-> +			     mqs_priv->reg_mqs_ctrl);
-> +	return 0;
-> +}
-> +
-> +static int fsl_mqs_runtime_suspend(struct device *dev)
-> +{
-> +	struct fsl_mqs *mqs_priv = dev_get_drvdata(dev);
-> +
-> +	if (mqs_priv->use_gpr)
-> +		regmap_read(mqs_priv->regmap, IOMUXC_GPR2,
-> +			    &mqs_priv->reg_iomuxc_gpr2);
-> +	else
-> +		regmap_read(mqs_priv->regmap, REG_MQS_CTRL,
-> +			    &mqs_priv->reg_mqs_ctrl);
-> +
-> +	if (mqs_priv->mclk)
-> +		clk_disable_unprepare(mqs_priv->mclk);
-> +
-> +	if (mqs_priv->ipg)
-> +		clk_disable_unprepare(mqs_priv->ipg);
-> +
-> +	return 0;
-> +}
-> +#endif
-> +
-> +static const struct dev_pm_ops fsl_mqs_pm_ops = {
-> +	SET_RUNTIME_PM_OPS(fsl_mqs_runtime_suspend,
-> +			   fsl_mqs_runtime_resume,
-> +			   NULL)
-> +	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-> +				pm_runtime_force_resume)
-> +};
-> +
-> +static const struct of_device_id fsl_mqs_dt_ids[] = {
-> +	{ .compatible = "fsl,imx8qm-mqs", },
-> +	{ .compatible = "fsl,imx6sx-mqs", },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, fsl_mqs_dt_ids);
-> +
-> +static struct platform_driver fsl_mqs_driver = {
-> +	.probe		= fsl_mqs_probe,
-> +	.remove		= fsl_mqs_remove,
-> +	.driver		= {
-> +		.name	= "fsl-mqs",
-> +		.of_match_table = fsl_mqs_dt_ids,
-> +		.pm = &fsl_mqs_pm_ops,
-> +	},
-> +};
-> +
-> +module_platform_driver(fsl_mqs_driver);
-> +
-> +MODULE_AUTHOR("Shengjiu Wang <Shengjiu.Wang@nxp.com>");
-> +MODULE_DESCRIPTION("MQS codec driver");
-> +MODULE_LICENSE("GPL v2");
-> +MODULE_ALIAS("platform: fsl-mqs");
-> -- 
-> 2.21.0
-> 
+The existing dmi_check_system() call at
+https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git/tree/sound/soc/intel/boards/cht_bsw_rt5645.c?h=for-5.4&id=fca11622d600228bec405456f41590155b3a3eca#n630
+uses the quirks table, calling the previously-commented-out callback
+to assign to the quirks global. I'll add a mention in the description.
+
+> > +     drv->mclk = devm_clk_get(&pdev->dev, mclk_name);
+> >       if (IS_ERR(drv->mclk)) {
+> > -             dev_err(&pdev->dev,
+> > -                     "Failed to get MCLK from pmc_plt_clk_3: %ld\n",
+> > -                     PTR_ERR(drv->mclk));
+> > +             dev_err(&pdev->dev, "Failed to get MCLK from %s: %ld\n",
+> > +                     mclk_name, PTR_ERR(drv->mclk)); >               return PTR_ERR(drv->mclk);
+> >       }
+> >
+> >
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,74 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B18C9B6505
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 15:51:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02C49B6515
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 15:52:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3138C168B;
-	Wed, 18 Sep 2019 15:50:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3138C168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CD361679;
+	Wed, 18 Sep 2019 15:51:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CD361679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568814673;
-	bh=sHs/fTSExQ/b7qJehM2NFYam5tMpZmH9WBpEqf4YkS8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568814719;
+	bh=HGQAFi9t36yo5LRdrLX/r04hfm9/MXDrUZRnQa/NCE4=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Chiz04ZpX7fa2shzoevgltsO/DQJnDGIap8lor752InXdcFTwgTXe+TFcgAvxCIMq
-	 o5GXhxH9a1hADNdEd/aHsyBPf0rqdTVM3mWMvOYW5+CvrzRR9bc5A72sbhim7fYZYu
-	 RmqZnjBhPWnfYEZvWnKVaaKxLjpHAtowqC8/Pc3k=
+	b=gUxhzGmXsAEtLYTutsSAuCPW1mhaENsIpXX/TlfEMt5cF76dxR0ec1pPVAbKsUtMd
+	 V1xZ8nNsEmO7yuCMJ6W8rwk+izf2iGPcZexx+VIdGaqnTAh6JXKs2+hci8MUhvac5/
+	 5zXiEYgpbC2iOKNJqUhOzphka9/fV5RbN1tOKdi8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95F39F80506;
-	Wed, 18 Sep 2019 15:49:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 482EAF80535;
+	Wed, 18 Sep 2019 15:49:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4EB6CF80506; Wed, 18 Sep 2019 15:49:26 +0200 (CEST)
+ id 717F6F8053A; Wed, 18 Sep 2019 15:49:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 46018F80146
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 15:49:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 46018F80146
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Sep 2019 06:49:20 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,520,1559545200"; d="scan'208";a="199049723"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga002.jf.intel.com with ESMTP; 18 Sep 2019 06:49:20 -0700
-Received: from pbossart-mac01.local (unknown [10.251.11.91])
- by linux.intel.com (Postfix) with ESMTP id 5223B5802B0;
- Wed, 18 Sep 2019 06:49:19 -0700 (PDT)
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20190916212342.12578-1-pierre-louis.bossart@linux.intel.com>
- <20190916212342.12578-9-pierre-louis.bossart@linux.intel.com>
- <20190917055512.GE2058532@kroah.com>
- <ab06c0c9-6224-a7b8-51c2-01226f763b98@linux.intel.com>
- <20190918120629.GD1901208@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c8f21078-1462-5463-ef12-957ebd9ba085@linux.intel.com>
-Date: Wed, 18 Sep 2019 08:48:33 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5824FF80534
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 15:49:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5824FF80534
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="MN6zvA84"
+Received: from mail-yw1-f50.google.com (mail-yw1-f50.google.com
+ [209.85.161.50])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id BAB5821928
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 13:49:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1568814585;
+ bh=Vsir7F3Rw0yN2oG3BxCXE+fvnqJZovYT8xzQgG4Purk=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=MN6zvA84e1GAQzDF8Oc7KorTjwkfX8QhfTlV/yE89YGnvwWTCGc+sZiyx/Cd1wOXW
+ 88i5Lif6ocTrKz0x4e/qziBndrZ8KfvrmDcYiFeunXLidgzYYY9Y4XgAJgMbrfpLnd
+ RywIv4FoZQGnLOZZNn62evPeLTXYCZsAF/6EsZP8=
+Received: by mail-yw1-f50.google.com with SMTP id q7so2474666ywe.10
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 06:49:45 -0700 (PDT)
+X-Gm-Message-State: APjAAAUF49lbSFS9lnNzRB8ixi1N2I+cvTAhdhSVqr0Hf7AvSBH2I3Vf
+ fLRJQC0jM3X7FE+a8CxPs2qilJcv7JZ8pEHMAw==
+X-Google-Smtp-Source: APXvYqyX5J7M/JnrOKuHqti9BK5SCSbzkKBYf8CDlkD0T4RESNs7Vm4Lj+l5V24NuFFkS5g5wceeMPsbDURipVXo9vI=
+X-Received: by 2002:a0d:ddc9:: with SMTP id g192mr3041978ywe.281.1568814584947; 
+ Wed, 18 Sep 2019 06:49:44 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190918120629.GD1901208@kroah.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 8/9] soundwire: intel: remove platform
- devices and provide new interface
+References: <CGME20190917120517eucas1p1188d244fac2d10d7990363ff25ffb70d@eucas1p1.samsung.com>
+ <20190917111413.22711-1-m.falkowski@samsung.com>
+ <20190917120452.28135-1-m.falkowski@samsung.com>
+ <CAL_JsqJmjUR63i_hKUuZwDu42rebwABHu62bQoxTRRJu5yObEA@mail.gmail.com>
+ <40f56f61-a1db-a1a2-262e-1f4c771481e1@samsung.com>
+In-Reply-To: <40f56f61-a1db-a1a2-262e-1f4c771481e1@samsung.com>
+From: Rob Herring <robh+dt@kernel.org>
+Date: Wed, 18 Sep 2019 08:49:33 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJ=QWk07y=h7dHFiRrKuE7NGoUr50bu3kiOC+YU8qS9jg@mail.gmail.com>
+Message-ID: <CAL_JsqJ=QWk07y=h7dHFiRrKuE7NGoUr50bu3kiOC+YU8qS9jg@mail.gmail.com>
+To: Maciej Falkowski <m.falkowski@samsung.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Sangbeom Kim <sbkim73@samsung.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Andrzej Hajda <a.hajda@samsung.com>, Mark Brown <broonie@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [alsa-devel] [PATCH v2 1/2] dt-bindings: sound: Convert Samsung
+ I2S controller to dt-schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,64 +95,127 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/18/19 7:06 AM, Greg KH wrote:
-> On Tue, Sep 17, 2019 at 09:29:52AM -0500, Pierre-Louis Bossart wrote:
->> On 9/17/19 12:55 AM, Greg KH wrote:
->>> On Mon, Sep 16, 2019 at 04:23:41PM -0500, Pierre-Louis Bossart wrote:
->>>> +/**
->>>> + * sdw_intel_probe() - SoundWire Intel probe routine
->>>> + * @parent_handle: ACPI parent handle
->>>> + * @res: resource data
->>>> + *
->>>> + * This creates SoundWire Master and Slave devices below the controller.
->>>> + * All the information necessary is stored in the context, and the res
->>>> + * argument pointer can be freed after this step.
->>>> + */
->>>> +struct sdw_intel_ctx
->>>> +*sdw_intel_probe(struct sdw_intel_res *res)
->>>> +{
->>>> +	return sdw_intel_probe_controller(res);
->>>> +}
->>>> +EXPORT_SYMBOL(sdw_intel_probe);
->>>> +
->>>> +/**
->>>> + * sdw_intel_startup() - SoundWire Intel startup
->>>> + * @ctx: SoundWire context allocated in the probe
->>>> + *
->>>> + */
->>>> +int sdw_intel_startup(struct sdw_intel_ctx *ctx)
->>>> +{
->>>> +	return sdw_intel_startup_controller(ctx);
->>>> +}
->>>> +EXPORT_SYMBOL(sdw_intel_startup);
->>>
->>> Why are you exporting these functions if no one calls them?
->>
->> They are used in the next series, see '[RFC PATCH 04/12] ASoC: SOF: Intel:
->> add SoundWire configuration interface'
-> 
-> That wasn't obvious :)
-> 
-> Also, why not EXPORT_SYMBOL_GPL()?  :)
+On Wed, Sep 18, 2019 at 5:08 AM Maciej Falkowski
+<m.falkowski@samsung.com> wrote:
+>
+>
+> On 9/17/19 3:05 PM, Rob Herring wrote:
+>
+> > On Tue, Sep 17, 2019 at 7:05 AM Maciej Falkowski
+> > <m.falkowski@samsung.com> wrote:
+> >> Convert Samsung I2S controller to newer dt-schema format.
+> >>
+> >> Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
+> >> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> >> ---
+> >> v2:
+> >> - Added missing Signed-off-by certificate
+> >> ---
+> >>   .../devicetree/bindings/sound/samsung-i2s.txt |  84 -------------
+> >>   .../bindings/sound/samsung-i2s.yaml           | 119 ++++++++++++++++++
+> >>   2 files changed, 119 insertions(+), 84 deletions(-)
+> >>   delete mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.txt
+> >>   create mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+> >> diff --git a/Documentation/devicetree/bindings/sound/samsung-i2s.yaml b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+> >> new file mode 100644
+> >> index 000000000000..59dc76035cb4
+> >> --- /dev/null
+> >> +++ b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+> >> @@ -0,0 +1,119 @@
+> >> +# SPDX-License-Identifier: GPL-2.0
+> >> +%YAML 1.2
+> >> +---
+> >> +$id: http://devicetree.org/schemas/sound/samsung-i2s.yaml#
+> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> >> +
+> >> +title: Samsung SoC I2S controller
+> >> +
+> >> +maintainers:
+> >> +  - Krzysztof Kozlowski <krzk@kernel.org>
+> >> +  - Sangbeom Kim <sbkim73@samsung.com>
+> >> +  - Sylwester Nawrocki <s.nawrocki@samsung.com>
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    description: |
+> >> +      samsung,s3c6410-i2s: for 8/16/24bit stereo I2S.
+> >> +
+> >> +      samsung,s5pv210-i2s: for 8/16/24bit multichannel(5.1) I2S with
+> >> +      secondary fifo, s/w reset control and internal mux for root clk src.
+> >> +
+> >> +      samsung,exynos5420-i2s: for 8/16/24bit multichannel(5.1) I2S for
+> >> +      playback, stereo channel capture, secondary fifo using internal
+> >> +      or external dma, s/w reset control, internal mux for root clk src
+> >> +      and 7.1 channel TDM support for playback. TDM (Time division multiplexing)
+> >> +      is to allow transfer of multiple channel audio data on single data line.
+> >> +
+> >> +      samsung,exynos7-i2s: with all the available features of exynos5 i2s.
+> >> +
+> >> +      exynos7 I2S has 7.1 channel TDM support for capture, secondary fifo
+> >> +      with only external dma and more no.of root clk sampling frequencies.
+> >> +
+> >> +      samsung,exynos7-i2s1: I2S1 on previous samsung platforms supports
+> >> +      stereo channels. exynos7 i2s1 upgraded to 5.1 multichannel with
+> >> +      slightly modified bit offsets.
+> >> +    enum:
+> >> +      - "samsung,s3c6410-i2s"
+> >> +      - "samsung,s5pv210-i2s"
+> >> +      - "samsung,exynos5420-i2s"
+> >> +      - "samsung,exynos7-i2s"
+> >> +      - "samsung,exynos7-i2s1"
+> > No need for quotes here.
+> >
+> >> +
+> >> +  reg:
+> >> +    maxItems: 1
+> >> +
+> >> +  dmas:
+> >> +    description: list of DMA controller phandle and DMA request line ordered pairs.
+> > How many?
+>
+> Hi Rob,
+>
+> I have one problem with determining size of dmas.
+>
+> It seems that there are only two options for dmas: tx, rx or tx, rx, tx-sec.
+>
+> It looks like minItems should be two and maxItems should be three.
+>
+> However, some of bindings have different definition of dmas.
+>
+> When there is:
+>
+>          dmas = <&pdma0 10
+>                  &pdma0 9
+>                  &pdma0 8>;
+>
+> the number of Items for dmas is one,
+>
+> when there is:
+>
+>          dmas = <&pdma0 10>,
+>                       <&pdma0 9>,
+>                       <&pdma0 8>;
+>
+> the number of Items is three.
+>
+> Both of these are equal from perspective of dtc,
+>
+> however from schema point of view, they have different size.
+>
+>
+> What is a proper solution to this kind of problem?
 
-Since the beginning of this SoundWire work, the intent what that the 
-code could be reused in non-GPL open-source circles, hence the dual 
-license and EXPORT_SYMBOL.
-That said, there are cases where the code only makes sense for Linux, or 
-relies on symbols that are exported with EXPORT_SYMBOL_GPL, in those 
-cases we rely on GPLv2 and EXPORT_SYMBOL_GPL. For this series I added a 
-disclaimer in the cover letter that those parts need to be reviewed 
-further to make sure there are no conflicts with GPL.
-This is an RFC-level contribution to check if my understanding of the 
-bus/device/driver model is aligned with recommendations. I've already 
-made local improvements by fixing bisect issues, removing warnings, 
-improved some sequences, and that GPL question will be revisited before 
-I send a formal patch.
+The solution is writing things in the latter form. I have a script to
+convert a bunch of these. I need to coordinate doing that at the end
+of a merge window.
+
+Rob
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

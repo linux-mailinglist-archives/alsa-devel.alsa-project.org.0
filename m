@@ -2,86 +2,117 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41E1CB59D8
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 04:49:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CF16B59F1
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 05:00:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A59EA166B;
-	Wed, 18 Sep 2019 04:48:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A59EA166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id ACC3015E0;
+	Wed, 18 Sep 2019 04:59:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACC3015E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568774967;
-	bh=/EB6n0qFP/qxH08A2uI1TVFV3WDgNJnyhK6b0tUmzUo=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=B6Nm3CLpNwo9gggbGJC0eM/ePuzPhv42ESpQdOt539f81UXaTnYj69ZRAzUy4W8V9
-	 1IndWgnv4yeI0YjX4ucwQ13PXULTFmMtAjzRDg1adglaTO993nW1H+39sOauZep5C/
-	 BOmdKWPNLY+osOggKXgVgFJG/UUglBaZJX1OF0Rs=
+	s=default; t=1568775612;
+	bh=4A/qi/1hfeEnpSsA/js+lNSfm0XzYMB1ukLevbdP3dg=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=vo+W7xf5TV7GW90fc/EZDv3TCIkShIC0ec4+PB6yMLFUxDOpRF/8HHv2O83ge1tb/
+	 SUhPzxp4QYEcp3avLZ27YroiTTG+glRkXb7/VGKaF5qXvtkHUAGB5sNqgVuGIfQf8S
+	 q6PLFEmx/s5eqbRbGVpV/3rDhnrE1O2LyLLJCZFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3799CF804FF;
-	Wed, 18 Sep 2019 04:47:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 54272F80534;
+	Wed, 18 Sep 2019 04:58:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F196CF80506; Wed, 18 Sep 2019 04:47:39 +0200 (CEST)
+ id 52465F80506; Wed, 18 Sep 2019 04:58:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr30066.outbound.protection.outlook.com [40.107.3.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B263EF80292
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 04:47:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B263EF80292
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Sep 2019 19:47:31 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,519,1559545200"; d="scan'208";a="191583196"
-Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
- by orsmga006.jf.intel.com with ESMTP; 17 Sep 2019 19:47:30 -0700
-Received: from fmsmsx156.amr.corp.intel.com (10.18.116.74) by
- FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 17 Sep 2019 19:47:30 -0700
-Received: from shsmsx106.ccr.corp.intel.com (10.239.4.159) by
- fmsmsx156.amr.corp.intel.com (10.18.116.74) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 17 Sep 2019 19:47:30 -0700
-Received: from shsmsx101.ccr.corp.intel.com ([169.254.1.92]) by
- SHSMSX106.ccr.corp.intel.com ([169.254.10.86]) with mapi id 14.03.0439.000;
- Wed, 18 Sep 2019 10:47:28 +0800
-From: "Liao, Bard" <bard.liao@intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Bard liao
- <yung-chuan.liao@linux.intel.com>
-Thread-Topic: [PATCH] ASoC: core: delete component->card_list in
- soc_remove_component only
-Thread-Index: AQHVbTaQ2ok0yj9UNUGKVA8zkqZyvKcwFfkAgACPtNA=
-Date: Wed, 18 Sep 2019 02:47:28 +0000
-Message-ID: <567A313375B6F043A9BE3A1D9B8C6E7F0B49706B@SHSMSX101.ccr.corp.intel.com>
-References: <20190916210353.6318-1-yung-chuan.liao@linux.intel.com>
- <87ef0ewhnd.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ef0ewhnd.wl-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9567F80292
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 04:58:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9567F80292
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="bkitgYed"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IQC1+axT8UQygydNuj7WQY4qJJCOa0CReEvMHSAfBP+k82amEVmzbiYD7xtyO8LbdoS++h4M/6c1LOVmEe84+kj379GV1OlSHkTk0q8gHy7t+aSL1wuSP7QA90mwp7C9A188AqPKtsQ3uwxRNkFem/dWQ6Ofj8wC9XuNhnMDyDMDcYCoMd8GHEzVg1DRP6TzEVbesGaqDNskQkfaG9PQaw18jX45DTmmWiHkK/roSuZfSkeaP6zk/O/QsZz8KC81fRbTmemWHPwGNRMqpHv79n1GnR/fc7JFafHpEvLj94PU2heJn+pHFU7VKwQ7Nu9roGRUSY/Y5ozGLpH3x+miug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cqoJaGhnB2lMMf86Y3LycK/MhVQrbEPk3PU5avXHEKo=;
+ b=cigAiIquiXpbfTNOvvlsnrHNQlMBBR0MdK4etMjCyLQpoT/qE6Yu/T3r1xYC8GTxWC2Imd5qe4whuZ7m8C8h+OPvZXncMSIPdghl6mGUCzmKqv+EcvcxIGaJ1cGV2y2cs8xM7dYvDFzilxnONdbHnM4O0/Zbc0tSdRuXQlJRUJAZQGzG4XowSDQTSLr19h0c6c6wyfrUbXJ3m/fgeTXty82ueeC9S1XLCYNOeCfGQZu2wvlXKymAeGk+XzUsfZp2nSLAPv1tO1w3Or7RA9nVvzzzJaOKktbgFxjlkEPfAWFxpTjjQiVWs8ehrobRtA2BZY6nX9CTm24pGB9tD8slZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cqoJaGhnB2lMMf86Y3LycK/MhVQrbEPk3PU5avXHEKo=;
+ b=bkitgYedlT79NKnHAJXzQhF/NkHFROYh2o5IdnJfdQwtcu9k6TgpSRO72qOJHTh6zLz7YK74NffUDD1vDiRJzfSm6mTm3/ZUjwfXP30PorUW7gBaqQKVf7F0FzoocdXo8IXQy2r1twh9Mc/Sovv6QiVJx9WIXp2hcVKAmVw8oxo=
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.233.80) by
+ VE1PR04MB6352.eurprd04.prod.outlook.com (10.255.118.21) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2284.20; Wed, 18 Sep 2019 02:58:17 +0000
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::5049:d7e5:95ff:3d53]) by VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::5049:d7e5:95ff:3d53%7]) with mapi id 15.20.2263.023; Wed, 18 Sep 2019
+ 02:58:17 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Thread-Topic: [PATCH 2/3] ASoC: fsl_asrc: update supported sample format
+Thread-Index: AdVtzNYpmL+IWzVvSN6kQwMCHfj2cw==
+Date: Wed, 18 Sep 2019 02:58:17 +0000
+Message-ID: <VE1PR04MB647930580E370538148FAAF2E38E0@VE1PR04MB6479.eurprd04.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOTY3MTFiMDMtMjg4Yi00NWY3LTg4MTItNTYzZWU2OWE0NWJmIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiOExtSCtJVXFMVGNzbWFra0NnbGhteFc3YzRSamJTeVwvVUpZQW1Ya1IwYzNoWnl5REhTQUZZazZjbDZvbkU1akcifQ==
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-originating-ip: [119.31.174.66]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 36a45189-a0d8-4e32-f152-08d73be40e29
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600167)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:VE1PR04MB6352; 
+x-ms-traffictypediagnostic: VE1PR04MB6352:
+x-microsoft-antispam-prvs: <VE1PR04MB63523E83ADDCE1D63E419863E38E0@VE1PR04MB6352.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 01644DCF4A
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(346002)(396003)(366004)(376002)(136003)(189003)(199004)(4326008)(7736002)(7416002)(486006)(74316002)(66476007)(66556008)(86362001)(64756008)(66446008)(3846002)(54906003)(5660300002)(8676002)(25786009)(6116002)(66946007)(52536014)(102836004)(229853002)(6246003)(6916009)(15650500001)(476003)(2906002)(76116006)(305945005)(6506007)(26005)(9686003)(6436002)(55016002)(14454004)(66066001)(478600001)(186003)(33656002)(256004)(7696005)(8936002)(316002)(99286004)(1411001)(81166006)(71200400001)(71190400001)(81156014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6352;
+ H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: Pel0sLltIdHk2amEO0DXCnu5rTO3qHObzJgr/xO+6i/0iA94boOkKvulH57NPpZH/yEn/bYEoeRjxsUMVkinl81bZM/CA0AQ69CdhsGOUr8mXlfu0audXof3BIPoxNxpQwE1eO1JBbnxGhBQb2BlPo2cFJNHinPvVEp8YAgM6oXzXjQmlJroZNZlE9sflY3V73wCu5x2CIMnZcGRkvY/sxSoTCJ00fmauccycaODnKlfyC8FXukzkH+VSuCfYEoaoaRJSwlBrUC/ppoFOaWdgPAldPifVAk6v6BXdCwC7WCFJtwBwDDw+JCeun6ZmmSg8YR6EFvVs9kusUErmdaiJqX1fREIgactXU/S/5eQOBZAP/ThwYVcA/pJTe+mXltlLWN561JvJ5chmmayQL2XhzQU00oJTpRrmwCW3k51Nj0=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36a45189-a0d8-4e32-f152-08d73be40e29
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2019 02:58:17.1457 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tqIqBJ6YyyHRzdynkTJWAaolGWUbgV8qygdsVKdit/Uuyk8x5/yywI5dIiJUfuo2dJwAu9q5fqT/y1E3ymShoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6352
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "timur@kernel.org" <timur@kernel.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
  "broonie@kernel.org" <broonie@kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: core: delete component->card_list in
- soc_remove_component only
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: fsl_asrc: update supported
+	sample format
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,107 +130,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi
 
-
-> -----Original Message-----
-> From: Kuninori Morimoto [mailto:kuninori.morimoto.gx@renesas.com]
-> Sent: Wednesday, September 18, 2019 8:52 AM
-> To: Bard liao <yung-chuan.liao@linux.intel.com>
-> Cc: broonie@kernel.org; tiwai@suse.de; alsa-devel@alsa-project.org; pierre-
-> louis.bossart@linux.intel.com; Liao, Bard <bard.liao@intel.com>
-> Subject: Re: [PATCH] ASoC: core: delete component->card_list in
-> soc_remove_component only
 > 
-> 
-> Hi Bard
-> 
-> Thank you for your patch
-> 
-> > From: Bard Liao <yung-chuan.liao@linux.intel.com>
+> On Fri, Sep 13, 2019 at 05:48:40AM +0000, S.j. Wang wrote:
+> > Hi
 > >
-> > We add component->card_list in the end of soc_probe_component(). In
-> > other words, component->card_list will not be added if there is an
-> > error in the soc_probe_component() function. So we can't delete
-> > component->card_list in the error handling of soc_probe_component().
+> > >
+> > > On Tue, Sep 10, 2019 at 02:07:25AM +0000, S.j. Wang wrote:
+> > > > > On Mon, Sep 09, 2019 at 06:33:20PM -0400, Shengjiu Wang wrote:
+> > > > > > The ASRC support 24bit/16bit/8bit input width, so S20_3LE
+> > > > > > format should not be supported, it is word width is 20bit.
+> > > > >
+> > > > > I thought 3LE used 24-bit physical width. And the driver assigns
+> > > > > ASRC_WIDTH_24_BIT to "width" for all non-16bit cases, so 20-bit
+> > > > > would go for that 24-bit slot also. I don't clearly recall if I
+> > > > > had explicitly tested S20_3LE, but I feel it should work since I put
+> there...
+> > > >
+> > > > For S20_3LE, the width is 20bit,  but the ASRC only support 24bit,
+> > > > if set the ASRMCR1n.IWD= 24bit, because the actual width is 20
+> > > > bit, the volume is Lower than expected,  it likes 24bit data right shift 4
+> bit.
+> > > > So it is not supported.
+> > >
+> > > Hmm..S20_3LE right-aligns 20 bits in a 24-bit slot? I thought
+> > > they're left aligned...
+> > >
+> > > If this is the case...shouldn't we have the same lower-volume
+> > > problem for all hardwares that support S20_3LE now?
 > >
-> > Fixes: 22d1423187e5 ("ASoC: soc-core: add soc_cleanup_component()")
-> > Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-> > ---
+> > Actually some hardware/module when they do transmission from FIFO to
+> > shift register, they can select the start bit, for example from the
+> > 20th bit. but not all module have this capability.
+> >
+> > For ASRC, it haven't.  IWD can only cover the data width,  there is no
+> > Other bit for slot width.
 > 
-> Hmm... what happen if you get error at soc_probe_component() ?
-> What does your "can't delete component->card_list" mean ?
-> Kernel Oops or warning ?
-
-That is Kernel Oops, see the dmesg below.
-[   84.180608] rt711 sdw:0:25d:711:0:1: ASoC: failed to probe component -517
-[   84.180653] sdw_rt711_rt1308_rt715 sdw_rt711_rt1308_rt715: ASoC: failed to instantiate card -517
-[   84.180701] sdw_rt711_rt1308_rt715 sdw_rt711_rt1308_rt715: snd_soc_register_card failed -517
-...
-[   94.419962] rt711 sdw:0:25d:711:0:1: ASoC: failed to probe component -517
-[   94.419983] general protection fault: 0000 [#1] SMP PTI
-[   94.419986] CPU: 6 PID: 119 Comm: kworker/6:1 Not tainted 5.3.0-rc7+ #821
-[   94.419988] Hardware name: Intel Corporation Ice Lake Client Platform/IceLake U DDR4 SODIMM PD RVP TLC, BIOS ICLSFWR1.R00.3042.A02.1901222005 01/22/2019
-[   94.419994] Workqueue: events deferred_probe_work_func
-[   94.420012] RIP: 0010:soc_cleanup_component+0x1c/0x70 [snd_soc_core]
-[   94.420015] Code: c3 0f 1f 00 66 2e 0f 1f 84 00 00 00 00 00 53 31 d2 48 89 fb 31 f6 e8 03 bc 00 00 48 8b 43 58 48 8b 53 50 48 8d bb c0 00 00 00 <48> 89 42 08 48 89 10 48 b8 00 01 00 00 00 00 ad de 48 89 43 50 48
-[   94.420017] RSP: 0000:ffffa40340317c38 EFLAGS: 00010246
-[   94.420019] RAX: dead000000000122 RBX: ffff8fe22576ac28 RCX: 0000000000000006
-[   94.420023] RDX: dead000000000100 RSI: 0000000000000000 RDI: ffff8fe22576ace8
-[   94.420024] RBP: ffffffffc07430c0 R08: 0000000000000586 R09: 000000000000004c
-[   94.420026] R10: ffffa40340317a68 R11: ffffa403403179a0 R12: ffff8fe22576ac20
-[   94.420027] R13: ffff8fe22576ace8 R14: ffff8fe22576ac90 R15: 0000000000000000
-[   94.420028] FS:  0000000000000000(0000) GS:ffff8fe227f80000(0000) knlGS:0000000000000000
-[   94.420030] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   94.420034] CR2: 00007ffdf5555c40 CR3: 000000028cd5c002 CR4: 0000000000760ee0
-[   94.420036] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[   94.420037] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[   94.420038] PKRU: 55555554
-[   94.420039] Call Trace:
-[   94.420050]  soc_probe_component+0x218/0x370 [snd_soc_core]
-[   94.420059]  snd_soc_instantiate_card+0x4da/0xd10 [snd_soc_core]
-[   94.420064]  ? devm_snd_soc_register_card+0x2e/0x80 [snd_soc_core]
-[   94.420071]  snd_soc_register_card+0x169/0x190 [snd_soc_core]
-[   94.420076]  devm_snd_soc_register_card+0x3e/0x80 [snd_soc_core]
-[   94.420082]  mc_probe+0x152/0x1ac [snd_soc_sdw_rt711_rt1308_rt715]
-[   94.420087]  ? acpi_dev_pm_attach+0x1b/0xa0
-[   94.420090]  platform_drv_probe+0x32/0x90
-[   94.420095]  really_probe+0xea/0x3d0
-[   94.420097]  ? driver_allows_async_probing+0x50/0x50
-[   94.420100]  driver_probe_device+0x10b/0x120
-[   94.420102]  ? driver_allows_async_probing+0x50/0x50
-[   94.420107]  bus_for_each_drv+0x61/0xa0
-[   94.420110]  __device_attach+0xcf/0x150
-[   94.420113]  bus_probe_device+0x82/0x90
-[   94.420115]  deferred_probe_work_func+0x6f/0xc0
-[   94.420121]  process_one_work+0x1e3/0x3d0
-[   94.420124]  worker_thread+0x28/0x3c0
-[   94.420126]  ? cancel_delayed_work+0x80/0x80
-[   94.420128]  kthread+0x10e/0x130
-[   94.420132]  ? kthread_park+0xa0/0xa0
-[   94.420135]  ret_from_fork+0x35/0x40
-[   94.420138] Modules linked in: snd_soc_rt715 snd_soc_rt1308_sdw snd_soc_rt711 regmap_sdw soundwire_intel snd_soc_sdw_rt711_rt1308_rt715 soundwire_cadence snd_soc_hdac_hdmi snd_soc_dmic snd_sof_pci snd_sof_intel_hda_common snd_soc_hdac_hda snd_hda_codec soundwire_intel_init snd_intel_nhlt snd_sof_intel_hda snd_sof_intel_byt snd_soc_acpi_intel_match snd_soc_acpi snd_sof_intel_ipc snd_sof snd_sof_xtensa_dsp snd_hda_ext_core snd_hda_core snd_soc_core snd_pcm snd_seq_midi snd_seq_midi_event snd_rawmidi snd_seq snd_seq_device snd_timer snd soundcore ax88179_178a usbnet x86_pkg_temp_thermal intel_powerclamp intel_lpss_pci mei_me intel_lpss mfd_core mei efivarfs i915 i2c_algo_bit drm_kms_helper syscopyarea xhci_pci sysfillrect sysimgblt sdhci_pci fb_sys_fops cqhci sdhci xhci_hcd drm
-[   94.420169] ---[ end trace 32434ffe9a1d6bab ]---
-
+> Okay..let's drop the S20_3LE then. But would it be possible for you to
+> elaborate the reasoning into the commit message also? Just for case when
+> people ask why we remove it simply.
 > 
-> I tried to create an error on purpose at soc_probe_component(), but, there was
-> no kernel oops, no warning, etc.
-> It just can't create sound card. It is very normal for me.
-> Or, which kernel are you using ?
+> Thanks
 
-Somehow I can only see the second attempt of component probe when it return
--517 (EPROBE_DEFER) in the first attempt by using below kernel.
-https://github.com/plbossart/sound/commits/fix/soundwire-split-lookup-init
-
-To me, the easiest way to see the issue is force return - EPROBE_DEFER on
-codec driver's probe function and call list_del(&component->card_list);
-before calling soc_cleanup_component(component);
-So list_del() will be called twice and you will see the issue.
-
-> 
-> Thank you for your help !!
-> Best regards
-> ---
-> Kuninori Morimoto
+OK.
+Best regards
+Wang shengjiu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

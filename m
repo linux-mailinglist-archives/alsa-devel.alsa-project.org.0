@@ -2,65 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D09B62CC
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 14:09:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19CCCB6348
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 14:33:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 01D1C1672;
-	Wed, 18 Sep 2019 14:08:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01D1C1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8EAF01679;
+	Wed, 18 Sep 2019 14:32:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8EAF01679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568808553;
-	bh=znIvvVeCSdG1dnaIZWYgn/KdKCWQ9L/eqXH6psOab1I=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568809988;
+	bh=FrMsTZ+Q74cCRvtX6gfdOQcyARsYuBuLaq15ppzWoBY=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PchUSY29BHgfD41+1lBtHS3jVmlvURAFUpz9IJNmMISuvglFTv9yQFNVTw9A5laHO
-	 isUKo/ZV3GDzhQny3PrMDo2m4LkQAhGB0DtFVse4NG20NeYfaKUEIigMD8fD/6YMsu
-	 kItnpPWturMDQrGAwMeg+JrvJMzbDQLUo7vHvrXU=
+	b=JJ5A7+HDnOkUb3e647aO/lHXo8Nb0VdelWRXw0X328Q1+e6v2EEiuaGRso66A4mDp
+	 53Q8ZOlnK48jCs6VFc8zn4jyrJPlnep/bP3yvqC1BK3L3g+zljLX7bnmdpwcXPLx0m
+	 J0v8E3vHbT81KCASzioxfaCoRy+/yXLlzLxGMaf4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFD78F8053A;
-	Wed, 18 Sep 2019 14:07:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FA6FF80146;
+	Wed, 18 Sep 2019 14:31:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BB83F80534; Wed, 18 Sep 2019 14:07:52 +0200 (CEST)
+ id 60D6AF80506; Wed, 18 Sep 2019 14:31:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93639F804FF
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 14:07:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 93639F804FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="fp194b2I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=sQAxrfKu/Y88r0D3fEOPIXJ3U9rPLWaX7UOrFXM/NBI=; b=fp194b2IhJF/vg7HyD5ln0Lvd
- QST717mPPPUjoivkAXi4gTYn4070shQw67lrYlZ1cUq4luBP+nMbO/RJghX7BubzIURprozcqtlRU
- uy3wYGO1jUYo106Ro76ZouhoW/zUySwRQl+epRFKchnGlwLD8k9h5th2KS0n03Jk0uZEE=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iAYkK-00054O-JM; Wed, 18 Sep 2019 12:07:44 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 16F472742927; Wed, 18 Sep 2019 13:07:44 +0100 (BST)
-Date: Wed, 18 Sep 2019 13:07:44 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Liao, Bard" <bard.liao@intel.com>
-Message-ID: <20190918120743.GG2596@sirena.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE5AFF80146
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 14:31:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE5AFF80146
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Sep 2019 05:31:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,520,1559545200"; d="scan'208";a="191702328"
+Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
+ by orsmga006.jf.intel.com with ESMTP; 18 Sep 2019 05:31:13 -0700
+Received: from shsmsx104.ccr.corp.intel.com (10.239.4.70) by
+ fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 18 Sep 2019 05:31:13 -0700
+Received: from shsmsx101.ccr.corp.intel.com ([169.254.1.92]) by
+ SHSMSX104.ccr.corp.intel.com ([169.254.5.32]) with mapi id 14.03.0439.000;
+ Wed, 18 Sep 2019 20:31:11 +0800
+From: "Liao, Bard" <bard.liao@intel.com>
+To: Mark Brown <broonie@kernel.org>
+Thread-Topic: [PATCH] ASoC: core: delete component->card_list in
+ soc_remove_component only
+Thread-Index: AQHVbTaQ2ok0yj9UNUGKVA8zkqZyvKcwFfkAgACPtND//6aZgIAAm3+g//+AZwCAAIuqEP//3vsAABFn0pA=
+Date: Wed, 18 Sep 2019 12:31:10 +0000
+Message-ID: <567A313375B6F043A9BE3A1D9B8C6E7F0B497238@SHSMSX101.ccr.corp.intel.com>
 References: <20190916210353.6318-1-yung-chuan.liao@linux.intel.com>
  <87ef0ewhnd.wl-kuninori.morimoto.gx@renesas.com>
  <567A313375B6F043A9BE3A1D9B8C6E7F0B49706B@SHSMSX101.ccr.corp.intel.com>
@@ -68,10 +65,19 @@ References: <20190916210353.6318-1-yung-chuan.liao@linux.intel.com>
  <567A313375B6F043A9BE3A1D9B8C6E7F0B4970C2@SHSMSX101.ccr.corp.intel.com>
  <875zlqw411.wl-kuninori.morimoto.gx@renesas.com>
  <567A313375B6F043A9BE3A1D9B8C6E7F0B4970DE@SHSMSX101.ccr.corp.intel.com>
+ <20190918120743.GG2596@sirena.co.uk>
+In-Reply-To: <20190918120743.GG2596@sirena.co.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiY2EwNjRlODktMzU4Yy00NGYxLWI4YWItM2U1ZWZlZDUzZTk2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiT3cwNEdyTFJ5enJLd3dBOUJiZzVad2JjV09tOXJLT0poMW5xWXJWMmxQRzhGU2h1emdrb1VZYjU3XC9nQlQrUmoifQ==
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 MIME-Version: 1.0
-In-Reply-To: <567A313375B6F043A9BE3A1D9B8C6E7F0B4970DE@SHSMSX101.ccr.corp.intel.com>
-X-Cookie: The devil finds work for idle glands.
-User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: "tiwai@suse.de" <tiwai@suse.de>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
@@ -91,55 +97,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7182600608273124795=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+> -----Original Message-----
+> From: Mark Brown [mailto:broonie@kernel.org]
+> Sent: Wednesday, September 18, 2019 8:08 PM
+> To: Liao, Bard <bard.liao@intel.com>
+> Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>; Bard liao 
+> <yung- chuan.liao@linux.intel.com>; tiwai@suse.de; 
+> alsa-devel@alsa-project.org; pierre-louis.bossart@linux.intel.com
+> Subject: Re: [PATCH] ASoC: core: delete component->card_list in 
+> soc_remove_component only
+> 
+> On Wed, Sep 18, 2019 at 06:13:54AM +0000, Liao, Bard wrote:
+> 
+> > The original patch has been applied by Mark. Should I send a patch 
+> > on top of the original patch or overwrite the original one?
+> 
+> Send an incremental patch on top of the one that's already applied please.
 
---===============7182600608273124795==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EXKGNeO8l0xGFBjy"
-Content-Disposition: inline
+Thanks Mark for the instruction. 
 
+Hi Morimoto-san,
 
---EXKGNeO8l0xGFBjy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Sep 18, 2019 at 06:13:54AM +0000, Liao, Bard wrote:
-
-> The original patch has been applied by Mark. Should I send a patch on top
-> of the original patch or overwrite the original one?
-
-Send an incremental patch on top of the one that's already applied
-please.
-
---EXKGNeO8l0xGFBjy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2CHg4ACgkQJNaLcl1U
-h9DK/gf9FwL33h2M7X/xZd7bN7VRpCmR8hOMExMO6kL4VaGKEwujZT8wviahzpqS
-ZkVE1yxK5TFlewORD+v15sKTABRTqgHkdxu68TIlIeEbcBslXgYSSXsXluJMU+4a
-t6rHPwmKf1cor/qJOu09GB/Y46DTcbXotuGlo9eSCO8IG00V9PoD8Iy2n0eJ8YbK
-j6u0KOEC40DRqmHKyQxuojkLtm+nqT4Q0zpoPlcYR8O1KqxYHb+nUhRajHVZWcdl
-Cpgj+Ol9qqUHtN1JR4WajcwJRKFVpuo10Dn18uW75QQfipjdCWRCh1qM+eP2HBHg
-Cz4gT8N56ynsWspxtCgFD4b0hgiFWg==
-=0Wz/
------END PGP SIGNATURE-----
-
---EXKGNeO8l0xGFBjy--
-
---===============7182600608273124795==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+May I use your signed-off as first author since that is your idea? :)
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7182600608273124795==--

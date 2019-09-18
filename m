@@ -2,97 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C264BB5E0C
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 09:31:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10358B5E46
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 09:46:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25B0A167D;
-	Wed, 18 Sep 2019 09:30:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25B0A167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 576A61676;
+	Wed, 18 Sep 2019 09:45:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 576A61676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568791877;
-	bh=XfZG3aKAj0Vt57YY6U5fO4y9+6NYQeFYhS9KIXAXS/c=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1568792807;
+	bh=rBvvvd00UEILrBXxFmH1NYVlv/+shOf855G5rce2JD4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JRnsoZP1/oaT39h6YTjuKyRfS9C00ucmg7bdMgUYT76ZBN2rr3vX/YZXK5/0oAOWL
-	 3diE5AXh2DtnPhhe/a70x3jd2vKUwdCt2IHcj2i8G6Uk5NT4tlexEOAIjgGXXi1Xdh
-	 5QX3SYetEU0xGvk86vt9/YepZh0DqH7ABnL8h6kk=
+	b=lxX4Nbws4Q1EczOwYOHu9YiZ0zZ0VOJWjDN2iQpS2rDtmJU7DCtlikX6Ak9ankd50
+	 o2oa2Mj4J3hyWcURv35I48BBdQxOeqxTOuPrOWTbyd5NpdzW0IElHq5SlKE50ICNZh
+	 wsaDiWuX4TOHoVl5ScDT0Qif/GzcOxpSkONgsDys=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 766B6F80534;
-	Wed, 18 Sep 2019 09:29:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07FE0F80534;
+	Wed, 18 Sep 2019 09:45:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7ACABF80506; Wed, 18 Sep 2019 09:29:28 +0200 (CEST)
+ id 8E664F80506; Wed, 18 Sep 2019 09:45:00 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, 
- URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe44.google.com (mail-vs1-xe44.google.com
- [IPv6:2607:f8b0:4864:20::e44])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 64672F80292
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 09:29:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64672F80292
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="bHgC61S8"
-Received: by mail-vs1-xe44.google.com with SMTP id w195so3793331vsw.11
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 00:29:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SDoUVLf2sM2Wd7eza5DvRhJf8f3rN/ciRvE3nXJqNFQ=;
- b=bHgC61S83XFKjjHLXOkOq4DxsfgHo2iXOrB0kGNER7zB3qrVVxUkcW0pixzEoZ/hFO
- 9zlhd8/Ni87ZlTvrJ0eiUB+ehwc8ERiN1SdYfkRdu5K74DlnoLi+h/s3kgUV+MO5yxI4
- IpXJ9/umG++g7tOVTqBUHyZhF1w1+BHeH19F0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SDoUVLf2sM2Wd7eza5DvRhJf8f3rN/ciRvE3nXJqNFQ=;
- b=RiFKErRNSbUKnZ+7Xv72X9tz7TyqELD4Q/L5PgC1YUFKeVtvkDGqWYtIK+28jLiHLI
- pDjUuluTfHRBQLwD0jjrR7hl9byhb2istGyEeMcOXAk/yRCeDQKB2nGbUT758x0lCtEY
- BQKqG2sRR4Q/+yYH1apt2Y04HmEuwLbXeQfpoSSCKIrsfIFb82fpH7j7AQ3xmH+Ju7ja
- ljzZ/BPjbDf6mwHTyhNbnc9UP7yKbgvxusS9U1LAidtCChzSZ5zBXThhQ7ucj3rV8Leo
- 5vksm5DeqzNJwY6KvC44EAWAZd3vBpj4ool+yjmmWNgPtBEpPtT+viVoj37zlZSHjcG9
- n/ag==
-X-Gm-Message-State: APjAAAVjCZwFvJlGGMnl7pfmJBYFEB6yD7LLIV7B/QbKYCZT9KJnZuoO
- qYCgO3r8gd+sxVJ4QcS9QZ95mKxL0zDgpmfW25Lxvw==
-X-Google-Smtp-Source: APXvYqz3X6HVZiW3ZAIrMpmqoTkGT9csY3mslQR+djJ/IC/kNyPMlb3OEGubgnn0YA3Nv38dQWDVGsLPAgmKFKrvNcM=
-X-Received: by 2002:a67:db8d:: with SMTP id f13mr1362214vsk.163.1568791763011; 
- Wed, 18 Sep 2019 00:29:23 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3284F80146
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 09:44:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3284F80146
+Received: from [78.40.148.177] (helo=localhost)
+ by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+ id 1iAUdv-0000tM-IO; Wed, 18 Sep 2019 08:44:51 +0100
 MIME-Version: 1.0
-References: <20190717083327.47646-1-cychiang@chromium.org>
- <CA+Px+wX4gbntkd6y8NN8xwXpZLD4MH9rTeHcW9+Ndtw=3_mWBw@mail.gmail.com>
- <CAFv8NwLiY+ro0L4c5vjSOGN8jA-Qr4zm2OWvVHkiuoa7_4e2Fg@mail.gmail.com>
- <CAFv8NwJjG4mwfnYO=M3O9nZN48D6aY72nQuqEFpZL68dh5727w@mail.gmail.com>
- <7019a223-cc97-e1c6-907b-e6b3d626164f@baylibre.com>
- <20190909135346.GG2036@sirena.org.uk>
- <3fc94731-f66a-223d-995e-97ac67f9e882@baylibre.com>
-In-Reply-To: <3fc94731-f66a-223d-995e-97ac67f9e882@baylibre.com>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Wed, 18 Sep 2019 15:28:56 +0800
-Message-ID: <CAFv8NwL3+4Qsv0B7PtVhB=HX6uFUMMaw5V=E3NTRE-v_jDVAxg@mail.gmail.com>
-To: Neil Armstrong <narmstrong@baylibre.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Heiko Stuebner <heiko@sntech.de>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- linux-rockchip@lists.infradead.org, Takashi Iwai <tiwai@suse.com>,
- Tzung-Bi Shih <tzungbi@google.com>, Dylan Reid <dgreid@chromium.org>,
- tzungbi@chromium.org, Jonas Karlman <jonas@kwiboo.se>,
- Russell King <rmk+kernel@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
- Douglas Anderson <dianders@chromium.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [alsa-devel] [PATCH v5 0/5] Add HDMI jack support on RK3288
+Date: Wed, 18 Sep 2019 08:44:50 +0100
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <077870b1-8856-9a28-dd13-f8bfb1418adb@linux.intel.com>
+References: <20190917181233.534-1-ben.dooks@codethink.co.uk>
+ <20190917181233.534-3-ben.dooks@codethink.co.uk>
+ <077870b1-8856-9a28-dd13-f8bfb1418adb@linux.intel.com>
+Message-ID: <de15ea8e9d2c07a1253fd414b421efbe@codethink.co.uk>
+X-Sender: ben.dooks@codethink.co.uk
+User-Agent: Roundcube Webmail/1.3.10
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, linux-kernel@lists.codethink.co.uk,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
+ linux-tegra-owner@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 2/8] ASoC: tegra: Allow 24bit and 32bit
+ samples
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,47 +70,152 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 13, 2019 at 5:33 PM Neil Armstrong <narmstrong@baylibre.com> wrote:
->
-> Hi,
->
-> On 09/09/2019 15:53, Mark Brown wrote:
-> > On Mon, Sep 09, 2019 at 09:37:14AM +0200, Neil Armstrong wrote:
-> >
-> >> I'd like some review from ASoC people and other drm bridge reviewers,
-> >> Jernej, Jonas & Andrzej.
-> >
-> >> Jonas could have some comments on the overall patchset.
-> >
-> > The ASoC bits look basically fine, I've gone ahead and applied
-> > patch 1 as is since we're just before the merge window and that
-> > way we reduce potential cross tree issues.  I know there's a lot
-> > of discussion on the DRM side about how they want to handle
-> > things with jacks, I'm not 100% sure what the latest thinking is
-> > there.
-> >
->
-> Thanks Mark.
->
->
-> Cheng-Yi can you resent this serie without the already applied
-> first patch with Jernej, Jonas, and Jerome Brunet <jbrunet@baylibre.com> CCed ?
 
-Hi Neil,
-Got it. Sorry for the late reply.
-I will resend this series without the first patch, based on latest
-drm-misc-next, and cc the folks.
-Thanks!
 
->
-> Thanks,
-> Neil
->
+On 2019-09-17 19:26, Pierre-Louis Bossart wrote:
+> On 9/17/19 1:12 PM, Ben Dooks wrote:
+>> From: Edward Cragg <edward.cragg@codethink.co.uk>
+>> 
+>> The tegra3 audio can support 24 and 32 bit sample sizes so add the
+>>   option to the tegra30_i2s_hw_params to configure the S24_LE or
+>>   S32_LE formats when requested.
+>> 
+>> Signed-off-by: Edward Cragg <edward.cragg@codethink.co.uk>
+>> [ben.dooks@codethink.co.uk: fixup merge of 24 and 32bit]
+>> [ben.dooks@codethink.co.uk: add pm calls around ytdm config]
+>> [ben.dooks@codethink.co.uk: remove debug prints]
+> 
+
+> You need to add your own Signed-off-by when sending patches from other 
+> people
+Yes, will do when this series has been reviewed and modifications done.
+
+> 
+>> ---
+>> squash 5aeca5a055fd ASoC: tegra: i2s: pm_runtime_get_sync() is needed 
+>> in tdm code
+>> 
+>> ASoC: tegra: i2s: pm_runtime_get_sync() is needed in tdm code
+>> ---
+>>   sound/soc/tegra/tegra30_i2s.c | 32 +++++++++++++++++++++++---------
+>>   1 file changed, 23 insertions(+), 9 deletions(-)
+>> 
+>> diff --git a/sound/soc/tegra/tegra30_i2s.c 
+>> b/sound/soc/tegra/tegra30_i2s.c
+>> index d36b4662b420..b5372839f672 100644
+>> --- a/sound/soc/tegra/tegra30_i2s.c
+>> +++ b/sound/soc/tegra/tegra30_i2s.c
+>> @@ -127,7 +127,7 @@ static int tegra30_i2s_hw_params(struct 
+>> snd_pcm_substream *substream,
+>>   	struct device *dev = dai->dev;
+>>   	struct tegra30_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+>>   	unsigned int mask, val, reg;
+>> -	int ret, sample_size, srate, i2sclock, bitcnt;
+>> +	int ret, sample_size, srate, i2sclock, bitcnt, audio_bits;
+>>   	struct tegra30_ahub_cif_conf cif_conf;
+>>     	if (params_channels(params) != 2)
+>> @@ -137,8 +137,19 @@ static int tegra30_i2s_hw_params(struct 
+>> snd_pcm_substream *substream,
+>>   	switch (params_format(params)) {
+>>   	case SNDRV_PCM_FORMAT_S16_LE:
+>>   		val = TEGRA30_I2S_CTRL_BIT_SIZE_16;
+>> +		audio_bits = TEGRA30_AUDIOCIF_BITS_16;
+>>   		sample_size = 16;
+>>   		break;
+>> +	case SNDRV_PCM_FORMAT_S24_LE:
+>> +		val = TEGRA30_I2S_CTRL_BIT_SIZE_24;
+>> +		audio_bits = TEGRA30_AUDIOCIF_BITS_24;
+>> +		sample_size = 24;
+>> +		break;
+>> +	case SNDRV_PCM_FORMAT_S32_LE:
+>> +		val = TEGRA30_I2S_CTRL_BIT_SIZE_32;
+>> +		audio_bits = TEGRA30_AUDIOCIF_BITS_32;
+>> +		sample_size = 32;
+>> +		break;
+>>   	default:
+>>   		return -EINVAL;
+>>   	}
+>> @@ -170,8 +181,8 @@ static int tegra30_i2s_hw_params(struct 
+>> snd_pcm_substream *substream,
+>>   	cif_conf.threshold = 0;
+>>   	cif_conf.audio_channels = 2;
+>>   	cif_conf.client_channels = 2;
+>> -	cif_conf.audio_bits = TEGRA30_AUDIOCIF_BITS_16;
+>> -	cif_conf.client_bits = TEGRA30_AUDIOCIF_BITS_16;
+>> +	cif_conf.audio_bits = audio_bits;
+>> +	cif_conf.client_bits = audio_bits;
+>>   	cif_conf.expand = 0;
+>>   	cif_conf.stereo_conv = 0;
+>>   	cif_conf.replicate = 0;
+>> @@ -264,10 +275,6 @@ static int tegra30_i2s_set_tdm(struct snd_soc_dai 
+>> *dai,
+>>   	struct tegra30_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+>>   	unsigned int mask = 0, val = 0;
+>>   -	dev_info(dai->dev, "%s: setting TDM: tx_mask: 0x%08x rx_mask: 
+>> 0x%08x "
+>> -		 "slots: 0x%08x " "width: %d\n",
+>> -		 __func__, tx_mask, rx_mask, slots, slot_width);
+>> -
+> 
+> This should be squashed in the previous patch
+
+Thanks, looks like I missed a bad rebase and hit this patch instead of 
+the
+previous.
+
+> 
+>>   	/* Set up slots and tx/rx masks */
+>>   	mask = TEGRA30_I2S_SLOT_CTRL_TOTAL_SLOTS_MASK |
+>>   	       TEGRA30_I2S_SLOT_CTRL_RX_SLOT_ENABLES_MASK |
+>> @@ -277,6 +284,8 @@ static int tegra30_i2s_set_tdm(struct snd_soc_dai 
+>> *dai,
+>>   	      (rx_mask << TEGRA30_I2S_SLOT_CTRL_RX_SLOT_ENABLES_SHIFT) |
+>>   	      ((slots - 1) << TEGRA30_I2S_SLOT_CTRL_TOTAL_SLOTS_SHIFT);
+>>   +	pm_runtime_get_sync(dai->dev);
+>> +
+>>   	regmap_update_bits(i2s->regmap, TEGRA30_I2S_SLOT_CTRL, mask, val);
+>>     	/* Set FSYNC width */
+>> @@ -284,6 +293,7 @@ static int tegra30_i2s_set_tdm(struct snd_soc_dai 
+>> *dai,
+>>   		TEGRA30_I2S_CH_CTRL_FSYNC_WIDTH_MASK,
+>>   		(slot_width - 1) << TEGRA30_I2S_CH_CTRL_FSYNC_WIDTH_SHIFT);
+>>   +	pm_runtime_put(dai->dev);
+> 
+> same for PM stuff, it's not related to 24/32 bit samples
+
+Yes, will do.
+Thank you for reviewing.
+
+>>   	return 0;
+>>   }
+>>   @@ -311,14 +321,18 @@ static const struct snd_soc_dai_driver 
+>> tegra30_i2s_dai_template = {
+>>   		.channels_min = 2,
+>>   		.channels_max = 2,
+>>   		.rates = SNDRV_PCM_RATE_8000_96000,
+>> -		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+>> +		.formats = SNDRV_PCM_FMTBIT_S32_LE |
+>> +			   SNDRV_PCM_FMTBIT_S24_LE |
+>> +			   SNDRV_PCM_FMTBIT_S16_LE,
+>>   	},
+>>   	.capture = {
+>>   		.stream_name = "Capture",
+>>   		.channels_min = 2,
+>>   		.channels_max = 2,
+>>   		.rates = SNDRV_PCM_RATE_8000_96000,
+>> -		.formats = SNDRV_PCM_FMTBIT_S16_LE,
+>> +		.formats = SNDRV_PCM_FMTBIT_S32_LE |
+>> +			   SNDRV_PCM_FMTBIT_S24_LE |
+>> +			   SNDRV_PCM_FMTBIT_S16_LE,
+>>   	},
+>>   	.ops = &tegra30_i2s_dai_ops,
+>>   	.symmetric_rates = 1,
+>> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

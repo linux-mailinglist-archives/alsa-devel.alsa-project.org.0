@@ -2,68 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF297B5D9F
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 08:52:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F36B5DA6
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 08:55:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44111168B;
-	Wed, 18 Sep 2019 08:51:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44111168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E15301689;
+	Wed, 18 Sep 2019 08:54:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E15301689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568789552;
-	bh=M+/8tVT+WQ6+7sP7uBo2GfJnAg0w9B+eBJvp0ihF39U=;
-	h=From:To:Date:In-Reply-To:References:In-Reply-To:References:
-	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
-	 List-Subscribe:From;
-	b=VHtUeIrLATDkbhwbk/8iZft/+tFmC9Vyr8TopXBJhV1QWJsYvYKY7iGjz5OInfosU
-	 4Yfh2AlLTodKhZCOwgbefyxX+fNtF6gOJAFrkSM9FlqsiuPT6E1jTU/4Bu2B4dsnAr
-	 o5Od8rqk2u4ZM1eQPeGqVSZq4BBI9lNMEU7v5ydY=
+	s=default; t=1568789727;
+	bh=Bq8Q2T+jShJk8T0HhXcg/7abmB8F+txhbkVo7eRxVR8=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mNm+HgWa3s3+QP2XAuanzA/odeT92XpdLc+HOg34+1sC7fwmHHqYgTIqSVdzFjZRz
+	 dQY/SbJwHGtYNUL7Luwxv6QJejlfLf46sSi3f2RLOasOBskk56izk+excbXTJYeABT
+	 JSKk2WVKazDJQjC4eedkQqHWJsKXROTiMyuWWYgc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B375F80612;
-	Wed, 18 Sep 2019 08:48:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 574CFF80292;
+	Wed, 18 Sep 2019 08:53:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1CC2BF805FA; Wed, 18 Sep 2019 08:48:49 +0200 (CEST)
+ id F0177F80292; Wed, 18 Sep 2019 08:53:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+Received: from server54-2.web-hosting.com (server54-2.web-hosting.com
+ [198.54.126.118])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81C27F80534
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 08:48:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81C27F80534
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 38F8E200160;
- Wed, 18 Sep 2019 08:48:45 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id BA24620025D;
- Wed, 18 Sep 2019 08:48:37 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id C1DE1402E6;
- Wed, 18 Sep 2019 14:48:28 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org,
- lars@metafoo.de
-Date: Wed, 18 Sep 2019 14:46:51 +0800
-Message-Id: <045b1255fffd9680b148a47b9b27cefa630192a8.1568788682.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1568788682.git.shengjiu.wang@nxp.com>
-References: <cover.1568788682.git.shengjiu.wang@nxp.com>
-In-Reply-To: <cover.1568788682.git.shengjiu.wang@nxp.com>
-References: <cover.1568788682.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [alsa-devel] [PATCH V2 4/4] ASoC: fsl_asrc: Fix error with S24_3LE
-	format bitstream in i.MX8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 67FCBF80292
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 08:53:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67FCBF80292
+Received: from [::1] (port=44600 helo=server54.web-hosting.com)
+ by server54.web-hosting.com with esmtpa (Exim 4.92)
+ (envelope-from <admin@grossmann-venter.com>) id 1iATqD-003FqQ-VP
+ for alsa-devel@alsa-project.org; Wed, 18 Sep 2019 02:53:34 -0400
+MIME-Version: 1.0
+Date: Wed, 18 Sep 2019 02:53:29 -0400
+From: liebrecht@grossmann-venter.com
+To: alsa-devel@alsa-project.org
+Message-ID: <3f2feed11ed26f299e3fcf0d2f97c09e@grossmann-venter.com>
+X-Sender: admin@grossmann-venter.com
+User-Agent: Roundcube Webmail/1.3.7
+X-OutGoing-Spam-Status: No, score=-1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - server54.web-hosting.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - grossmann-venter.com
+X-Get-Message-Sender-Via: server54.web-hosting.com: authenticated_id:
+ liebrecht@grossmann-venter.com
+X-Authenticated-Sender: server54.web-hosting.com: liebrecht@grossmann-venter.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-From-Rewrite: rewritten was: [admin@grossmann-venter.com],
+ actual sender does not match
+Subject: [alsa-devel] alsa acting up
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,141 +75,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is error "aplay: pcm_write:2023: write error: Input/output error"
-on i.MX8QM/i.MX8QXP platform for S24_3LE format.
+See images in links.
 
-In i.MX8QM/i.MX8QXP, the DMA is EDMA, which don't support 24bit
-sample, but we didn't add any constraint, that cause issues.
+1) 
+"http://grossmann-venter.com/visitors/ug/alsa/alsa-pulse-181vsl_unplug.png"
+2) "http://grossmann-venter.com/visitors/ug/alsa/alsa-dont 
+recognize1818VSLpng"
 
-So we need to query the caps of dma, then update the hw parameters
-according to the caps.
+1) As soon as pulseaudio is started Alsa says 1818VSL is unplugged....?
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_asrc.c     |  4 +--
- sound/soc/fsl/fsl_asrc.h     |  3 +++
- sound/soc/fsl/fsl_asrc_dma.c | 48 ++++++++++++++++++++++++++++++------
- 3 files changed, 46 insertions(+), 9 deletions(-)
+2) Clearly Presonus 1818VSL is found as lsusb output says, but alsa has 
+no clue about it.
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 584badf956d2..0bf91a6f54b9 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -115,7 +115,7 @@ static void fsl_asrc_sel_proc(int inrate, int outrate,
-  * within range [ANCA, ANCA+ANCB-1], depends on the channels of pair A
-  * while pair A and pair C are comparatively independent.
-  */
--static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
-+int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
- {
- 	enum asrc_pair_index index = ASRC_INVALID_PAIR;
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
-@@ -158,7 +158,7 @@ static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
-  *
-  * It clears the resource from asrc_priv and releases the occupied channels.
-  */
--static void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
-+void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
- {
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
- 	enum asrc_pair_index index = pair->index;
-diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
-index 38af485bdd22..2b57e8c53728 100644
---- a/sound/soc/fsl/fsl_asrc.h
-+++ b/sound/soc/fsl/fsl_asrc.h
-@@ -462,4 +462,7 @@ struct fsl_asrc {
- #define DRV_NAME "fsl-asrc-dai"
- extern struct snd_soc_component_driver fsl_asrc_component;
- struct dma_chan *fsl_asrc_get_dma_channel(struct fsl_asrc_pair *pair, bool dir);
-+int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair);
-+void fsl_asrc_release_pair(struct fsl_asrc_pair *pair);
-+
- #endif /* _FSL_ASRC_H */
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 01052a0808b0..c1f39975cc32 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -16,13 +16,11 @@
- 
- #define FSL_ASRC_DMABUF_SIZE	(256 * 1024)
- 
--static const struct snd_pcm_hardware snd_imx_hardware = {
-+static struct snd_pcm_hardware snd_imx_hardware = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_MMAP |
--		SNDRV_PCM_INFO_MMAP_VALID |
--		SNDRV_PCM_INFO_PAUSE |
--		SNDRV_PCM_INFO_RESUME,
-+		SNDRV_PCM_INFO_MMAP_VALID,
- 	.buffer_bytes_max = FSL_ASRC_DMABUF_SIZE,
- 	.period_bytes_min = 128,
- 	.period_bytes_max = 65535, /* Limited by SDMA engine */
-@@ -276,6 +274,11 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 	struct device *dev = component->dev;
- 	struct fsl_asrc *asrc_priv = dev_get_drvdata(dev);
- 	struct fsl_asrc_pair *pair;
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	u8 dir = tx ? OUT : IN;
-+	struct dma_chan *tmp_chan;
-+	struct snd_dmaengine_dai_dma_data *dma_data;
-+	int ret;
- 
- 	pair = kzalloc(sizeof(struct fsl_asrc_pair), GFP_KERNEL);
- 	if (!pair)
-@@ -285,9 +288,40 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 
- 	runtime->private_data = pair;
- 
--	snd_pcm_hw_constraint_integer(substream->runtime,
--				      SNDRV_PCM_HW_PARAM_PERIODS);
--	snd_soc_set_runtime_hwparams(substream, &snd_imx_hardware);
-+	ret = snd_pcm_hw_constraint_integer(substream->runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to set pcm hw params periods\n");
-+		return ret;
-+	}
-+
-+	/* Request a temp pair, which is release in the end */
-+	ret = fsl_asrc_request_pair(1, pair);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to request asrc pair\n");
-+		return ret;
-+	}
-+
-+	tmp_chan = fsl_asrc_get_dma_channel(pair, dir);
-+	if (!tmp_chan) {
-+		dev_err(dev, "can't get dma channel\n");
-+		return -EINVAL;
-+	}
-+
-+	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+
-+	ret = snd_dmaengine_pcm_set_runtime_hwparams(substream,
-+						     dma_data,
-+						     &snd_imx_hardware,
-+						     tmp_chan);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to set runtime hwparams\n");
-+		return ret;
-+	}
-+
-+	dma_release_channel(tmp_chan);
-+	fsl_asrc_release_pair(pair);
-+
- 
- 	return 0;
- }
--- 
-2.21.0
+How do
+I get alsa to recognise 181VSL as it is found by lsusb so it is presnet 
+on the system.
 
+It used to work fine but alsa just stopped working with 1818VSL recently 
+for no reason.
+
+I know this is a developers group, but please at least answer where I 
+can get help. Alsa help is absolutely non-existing.
+
+I also posted a bug with no response in another thread.
+
+
+Thanks.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

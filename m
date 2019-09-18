@@ -2,82 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D457DB611D
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 12:11:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD383B612F
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Sep 2019 12:12:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 422671670;
-	Wed, 18 Sep 2019 12:10:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 422671670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6975983B;
+	Wed, 18 Sep 2019 12:12:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6975983B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568801467;
-	bh=be/kGF+86M+Ew8zx8vXjD/iZ4pUxftsdyVF5FXrxXB0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1568801577;
+	bh=/0PpuMmV4uibBS2PXUZpBKTNspE+9WjUcxPJlGCVGP0=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MzXJ36TSLGKEdm2LoBM5drlLxN9GZI+He8aMHl0WK1SDjZFSzXWhhtfqSzgPQB+rY
-	 WjOsmmKgi+JA8Nu15Vhip3UDcZ0if+N+torvBy2VyaKVSLwU/5DEtSudI5Y5VZ+gxE
-	 /08ChH+fjIq/nkZpVY1/AI+BZehziVfH8BKOsu70=
+	b=FQVV4xGO8nPdUdRfulww+USvtJ9ZAhL9zXotlMNpgUjtql7K99WiVQG3L8kLqGJp1
+	 ymH04SHCQC8AzU5jK5rh2PezN9uWFdzY/ta8SKbDw+00KB+2Wnk63fqTWDzSCAq5HE
+	 hkWuDxMjGqy8z+LqeIMxZ53y+RwE5P8wEAPe8YiQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD721F805F7;
-	Wed, 18 Sep 2019 12:08:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9784F804FF;
+	Wed, 18 Sep 2019 12:11:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0015F804FF; Wed, 18 Sep 2019 12:08:34 +0200 (CEST)
+ id C44BCF804FF; Wed, 18 Sep 2019 12:11:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 621FEF80146
- for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 12:08:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 621FEF80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="crqdLtR3"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xwyKq2Af8oOa9Ecpf/EsUlNUNhPF1CKO7lVawL3W8PY=; b=crqdLtR3tMdN/woibuiHnuAPk
- qth15KSpYVLk2B4daGEt5o/WB+Z6W+o1Kb3ja6r71gkma0+zpi0oFBRnV7pHRWNg3Lg9sunk1S37K
- boYOxaKfZD4OWl27trwBcYZU1yhn2NK9wFg/7m86VGBxieE21WUi7cpxis91TkDkZ1R68=;
-Received: from ypsilon.sirena.org.uk ([2001:470:1f1d:6b5::7])
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iAWsv-0004bc-HJ; Wed, 18 Sep 2019 10:08:29 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7C73E2742927; Wed, 18 Sep 2019 11:08:28 +0100 (BST)
-Date: Wed, 18 Sep 2019 11:08:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ben Dooks <ben.dooks@codethink.co.uk>
-Message-ID: <20190918100828.GA2596@sirena.co.uk>
-References: <20190917181233.534-1-ben.dooks@codethink.co.uk>
- <20190917181233.534-3-ben.dooks@codethink.co.uk>
- <077870b1-8856-9a28-dd13-f8bfb1418adb@linux.intel.com>
- <de15ea8e9d2c07a1253fd414b421efbe@codethink.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34882F80146
+ for <alsa-devel@alsa-project.org>; Wed, 18 Sep 2019 12:11:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34882F80146
+Received: from [78.40.148.177] (helo=localhost)
+ by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+ id 1iAWvP-0005qm-SX; Wed, 18 Sep 2019 11:11:04 +0100
 MIME-Version: 1.0
-In-Reply-To: <de15ea8e9d2c07a1253fd414b421efbe@codethink.co.uk>
-X-Cookie: The devil finds work for idle glands.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Jonathan Hunter <jonathanh@nvidia.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@lists.codethink.co.uk, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>,
+Date: Wed, 18 Sep 2019 11:11:03 +0100
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+To: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <7b21823a-86e8-d3de-10b5-e047a5e025ef@nvidia.com>
+References: <20190917181233.534-1-ben.dooks@codethink.co.uk>
+ <20190917181233.534-2-ben.dooks@codethink.co.uk>
+ <7b21823a-86e8-d3de-10b5-e047a5e025ef@nvidia.com>
+Message-ID: <72705cbf3b70934bdf8e7a6116f420b5@codethink.co.uk>
+X-Sender: ben.dooks@codethink.co.uk
+User-Agent: Roundcube Webmail/1.3.10
+Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
  Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
  linux-tegra-owner@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 2/8] ASoC: tegra: Allow 24bit and 32bit
- samples
+Subject: Re: [alsa-devel] [PATCH 1/8] ASoC: tegra: Add a TDM configuration
+	callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,57 +69,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6306935486631129263=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============6306935486631129263==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="opJtzjQTFsWo+cga"
-Content-Disposition: inline
+
+On 2019-09-18 09:42, Jon Hunter wrote:
+> On 17/09/2019 19:12, Ben Dooks wrote:
+>> From: Edward Cragg <edward.cragg@codethink.co.uk>
+>> 
+>> Add a callback to configure TDM settings for the Tegra30 I2S ASoC 
+>> 'platform'
+>> driver.
+>> 
+>> Signed-off-by: Edward Cragg <edward.cragg@codethink.co.uk>
+>> ---
+>>  sound/soc/tegra/tegra30_i2s.c | 34 ++++++++++++++++++++++++++++++++++
+>>  1 file changed, 34 insertions(+)
+>> 
+>> diff --git a/sound/soc/tegra/tegra30_i2s.c 
+>> b/sound/soc/tegra/tegra30_i2s.c
+>> index ac6983c6bd72..d36b4662b420 100644
+>> --- a/sound/soc/tegra/tegra30_i2s.c
+>> +++ b/sound/soc/tegra/tegra30_i2s.c
+>> @@ -254,6 +254,39 @@ static int tegra30_i2s_trigger(struct 
+>> snd_pcm_substream *substream, int cmd,
+>>  	return 0;
+>>  }
+>> 
+>> +/*
+>> + * Set up TDM
+>> + */
+>> +static int tegra30_i2s_set_tdm(struct snd_soc_dai *dai,
+>> +			       unsigned int tx_mask, unsigned int rx_mask,
+>> +			       int slots, int slot_width)
+>> +{
+>> +	struct tegra30_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+>> +	unsigned int mask = 0, val = 0;
+>> +
+>> +	dev_info(dai->dev, "%s: setting TDM: tx_mask: 0x%08x rx_mask: 0x%08x 
+>> "
+> 
+> dev_dbg() please. Also I don't think it is necessary to print both the
+> function name and 'setting TDM', the function name should be 
+> sufficient.
+
+Yes, already sorted from previous review.
+
+>> +		 "slots: 0x%08x " "width: %d\n",
+> 
+> Why are there extra quotes here?
+
+No idea, I'll remove these later.
+
+>> +		 __func__, tx_mask, rx_mask, slots, slot_width)> +
+>> +	/* Set up slots and tx/rx masks */
+>> +	mask = TEGRA30_I2S_SLOT_CTRL_TOTAL_SLOTS_MASK |
+>> +	       TEGRA30_I2S_SLOT_CTRL_RX_SLOT_ENABLES_MASK |
+>> +	       TEGRA30_I2S_SLOT_CTRL_TX_SLOT_ENABLES_MASK;
+>> +
+>> +	val = (tx_mask << TEGRA30_I2S_SLOT_CTRL_TX_SLOT_ENABLES_SHIFT) |
+>> +	      (rx_mask << TEGRA30_I2S_SLOT_CTRL_RX_SLOT_ENABLES_SHIFT) |
+>> +	      ((slots - 1) << TEGRA30_I2S_SLOT_CTRL_TOTAL_SLOTS_SHIFT);
+>> +
+>> +	regmap_update_bits(i2s->regmap, TEGRA30_I2S_SLOT_CTRL, mask, val);
+>> +
+>> +	/* Set FSYNC width */
+>> +	regmap_update_bits(i2s->regmap, TEGRA30_I2S_CH_CTRL,
+>> +		TEGRA30_I2S_CH_CTRL_FSYNC_WIDTH_MASK,
+>> +		(slot_width - 1) << TEGRA30_I2S_CH_CTRL_FSYNC_WIDTH_SHIFT);
+> 
+> What happens if there is only one slot? The fsync will be the width of
+> the slot. Typically, TDM is used with DSP-A/B formats and although the
+> driver does not appear to program the fsync width, it probably should
+> during the tegra30_i2s_set_fmt() depending on the format used rather
+> than here.
+
+Hmm, should we check.
+
+The work was done to keep as close to the original client's 2.6 kernel
+as possible which set the fsync field to a whole data word. We could try
+and just set this to say 2 here and have a much shorter frame-sync 
+pulse.
+
+I'll add a check for slots < 2 and set the fsync width to 2.
+
+Thanks for the review.
 
 
---opJtzjQTFsWo+cga
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Sep 18, 2019 at 08:44:50AM +0100, Ben Dooks wrote:
-> On 2019-09-17 19:26, Pierre-Louis Bossart wrote:
-
-> > You need to add your own Signed-off-by when sending patches from other
-> > people
-
-> Yes, will do when this series has been reviewed and modifications done.
-
-I didn't look at it due to the lack of signoffs.
-
---opJtzjQTFsWo+cga
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2CAhsACgkQJNaLcl1U
-h9C46Af9HqUug+yYqtvuz1iJgkDg06+OGdgZCZt3LzD03CVMezkETohpjdENSa97
-vGv0ncXvs+B9obWMBxamAZQLIB02nbOaJRgV4KTB+BIs8Kea3S8MBiKnMJz4ImZN
-cRw7fZzOihl2sWacVixGQmwyucX72YjyqLWR0fqTxyp61YxW2kgBGkiLiljGF+mC
-I+AZ5Ad+INt/fMknuOqhvms1sLYjvWbGBgA1ShqHlw6OydHSR4QEBfNt57O4HPXr
-wjvyk+vbVnhZcSSewJzHMQCfC33alghK12ORM6K+58CwN8SNh2OQrkQBwVMKqm9l
-nvBqwW2hxdivNkRAvTT6d5wclb0MCQ==
-=yQx4
------END PGP SIGNATURE-----
-
---opJtzjQTFsWo+cga--
-
---===============6306935486631129263==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Cheers
+> Jon
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============6306935486631129263==--

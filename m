@@ -2,68 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE8AFB7926
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 14:17:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04F5B7934
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 14:21:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AE561680;
-	Thu, 19 Sep 2019 14:16:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AE561680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 660E41670;
+	Thu, 19 Sep 2019 14:21:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 660E41670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568895462;
-	bh=Nmm3pQwEb8CQM9idUs9HhlXQEt/jk0HZ4UpYf3g15IM=;
-	h=From:To:Date:In-Reply-To:References:In-Reply-To:References:
-	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
-	 List-Subscribe:From;
-	b=g8ivNca5tlp8kzVlyZzziczvcJYM7Jm9OiJic6vbTooCC/wT7W/E0tPZ4E0Cqq4g5
-	 n6ChX2TbO6SpBLhDTrhldyOKhk/0+aUo3LADLDH1eJcTxEfTHGCAOLWRrEmE0tBzH8
-	 a0ouSQhRfiyDJJs+dDTA+WbHNkSEPLFxVNHq6A6I=
+	s=default; t=1568895711;
+	bh=oSwqmcVJldok6KWPu610m77oA5PF0BDn09/JtT3DGyo=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FR78WAdsG18KG3dHbbdG87wRxVssiKnde1Zh4TMjd7L/hT61vkYi9So6IIoDmPULR
+	 oRY0VMud1Ost3mSj4Z42xoKBE9oW4ubL5NXIddQ6ZxOJuz7F9zeP72YFsTYcnQDAEe
+	 r77FL2CrcoivYb4PLI2yX2dnxwvMbJw1lILJGKb8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3408AF80637;
-	Thu, 19 Sep 2019 14:13:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A313F80307;
+	Thu, 19 Sep 2019 14:20:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06D20F80635; Thu, 19 Sep 2019 14:13:40 +0200 (CEST)
+ id 70CB9F80307; Thu, 19 Sep 2019 14:20:04 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 91FA7F80292
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 14:13:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91FA7F80292
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 33D291A0084;
- Thu, 19 Sep 2019 14:13:20 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 08B9A1A01CD;
- Thu, 19 Sep 2019 14:13:13 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 5A9DC40309;
- Thu, 19 Sep 2019 20:13:04 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, lgirdwood@gmail.com, broonie@kernel.org,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org,
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, mark.rutland@arm.com, devicetree@vger.kernel.org,
- lars@metafoo.de
-Date: Thu, 19 Sep 2019 20:11:42 +0800
-Message-Id: <0fe619f4c8f0898cf51c7324c9a0784c5782ed91.1568861098.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <cover.1568861098.git.shengjiu.wang@nxp.com>
-References: <cover.1568861098.git.shengjiu.wang@nxp.com>
-In-Reply-To: <cover.1568861098.git.shengjiu.wang@nxp.com>
-References: <cover.1568861098.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [alsa-devel] [PATCH V3 4/4] ASoC: fsl_asrc: Fix error with S24_3LE
-	format bitstream in i.MX8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10F09F80090
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 14:20:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10F09F80090
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="resN0vOp"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=AKopFK9dEIstEyim43tGHA3fBYATZ7qA4xc74oY0yuI=; b=resN0vOphZBdOMgJs8+wgivHZ
+ SVUSQdBoKjNnMbNMYq8nrtj8dkQCIQLwK8xaUubEn1VZdV67XmuYsZYIpy6BRe8bQ+kP/rV4IXU0N
+ es6Q7U+ZLAqSMO0sNnQpGblBqa6XDJl5BF72KSv7IooaMtFU75sI73zGKbs19pPVPMjds=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iAvPj-0002Su-Mu; Thu, 19 Sep 2019 12:19:59 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 290F42742939; Thu, 19 Sep 2019 13:19:59 +0100 (BST)
+Date: Thu, 19 Sep 2019 13:19:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Message-ID: <20190919121959.GH3642@sirena.co.uk>
+References: <20190910092016.GA6821@ubuntu>
+MIME-Version: 1.0
+In-Reply-To: <20190910092016.GA6821@ubuntu>
+X-Cookie: I'll be Grateful when they're Dead.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [alsa-devel] DPCM: suspicious code in dpcm_prune_paths()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,146 +81,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8609301038415984483=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There is error "aplay: pcm_write:2023: write error: Input/output error"
-on i.MX8QM/i.MX8QXP platform for S24_3LE format.
 
-In i.MX8QM/i.MX8QXP, the DMA is EDMA, which don't support 24bit
-sample, but we didn't add any constraint, that cause issues.
+--===============8609301038415984483==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HeFlAV5LIbMFYYuh"
+Content-Disposition: inline
 
-So we need to query the caps of dma, then update the hw parameters
-according to the caps.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_asrc.c     |  4 +--
- sound/soc/fsl/fsl_asrc.h     |  3 +++
- sound/soc/fsl/fsl_asrc_dma.c | 52 +++++++++++++++++++++++++++++++-----
- 3 files changed, 50 insertions(+), 9 deletions(-)
+--HeFlAV5LIbMFYYuh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 584badf956d2..0bf91a6f54b9 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -115,7 +115,7 @@ static void fsl_asrc_sel_proc(int inrate, int outrate,
-  * within range [ANCA, ANCA+ANCB-1], depends on the channels of pair A
-  * while pair A and pair C are comparatively independent.
-  */
--static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
-+int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
- {
- 	enum asrc_pair_index index = ASRC_INVALID_PAIR;
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
-@@ -158,7 +158,7 @@ static int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair)
-  *
-  * It clears the resource from asrc_priv and releases the occupied channels.
-  */
--static void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
-+void fsl_asrc_release_pair(struct fsl_asrc_pair *pair)
- {
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
- 	enum asrc_pair_index index = pair->index;
-diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
-index 38af485bdd22..2b57e8c53728 100644
---- a/sound/soc/fsl/fsl_asrc.h
-+++ b/sound/soc/fsl/fsl_asrc.h
-@@ -462,4 +462,7 @@ struct fsl_asrc {
- #define DRV_NAME "fsl-asrc-dai"
- extern struct snd_soc_component_driver fsl_asrc_component;
- struct dma_chan *fsl_asrc_get_dma_channel(struct fsl_asrc_pair *pair, bool dir);
-+int fsl_asrc_request_pair(int channels, struct fsl_asrc_pair *pair);
-+void fsl_asrc_release_pair(struct fsl_asrc_pair *pair);
-+
- #endif /* _FSL_ASRC_H */
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 01052a0808b0..c1c8ee4aca54 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -16,13 +16,11 @@
- 
- #define FSL_ASRC_DMABUF_SIZE	(256 * 1024)
- 
--static const struct snd_pcm_hardware snd_imx_hardware = {
-+static struct snd_pcm_hardware snd_imx_hardware = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_MMAP |
--		SNDRV_PCM_INFO_MMAP_VALID |
--		SNDRV_PCM_INFO_PAUSE |
--		SNDRV_PCM_INFO_RESUME,
-+		SNDRV_PCM_INFO_MMAP_VALID,
- 	.buffer_bytes_max = FSL_ASRC_DMABUF_SIZE,
- 	.period_bytes_min = 128,
- 	.period_bytes_max = 65535, /* Limited by SDMA engine */
-@@ -276,6 +274,11 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 	struct device *dev = component->dev;
- 	struct fsl_asrc *asrc_priv = dev_get_drvdata(dev);
- 	struct fsl_asrc_pair *pair;
-+	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	u8 dir = tx ? OUT : IN;
-+	struct dma_chan *tmp_chan;
-+	struct snd_dmaengine_dai_dma_data *dma_data;
-+	int ret;
- 
- 	pair = kzalloc(sizeof(struct fsl_asrc_pair), GFP_KERNEL);
- 	if (!pair)
-@@ -285,9 +288,44 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 
- 	runtime->private_data = pair;
- 
--	snd_pcm_hw_constraint_integer(substream->runtime,
--				      SNDRV_PCM_HW_PARAM_PERIODS);
--	snd_soc_set_runtime_hwparams(substream, &snd_imx_hardware);
-+	ret = snd_pcm_hw_constraint_integer(substream->runtime,
-+					    SNDRV_PCM_HW_PARAM_PERIODS);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to set pcm hw params periods\n");
-+		return ret;
-+	}
-+
-+	/* Request a temp pair, which is release in the end */
-+	ret = fsl_asrc_request_pair(1, pair);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to request asrc pair\n");
-+		return ret;
-+	}
-+
-+	tmp_chan = fsl_asrc_get_dma_channel(pair, dir);
-+	if (!tmp_chan) {
-+		dev_err(dev, "can't get dma channel\n");
-+		return -EINVAL;
-+	}
-+
-+	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
-+
-+	ret = snd_dmaengine_pcm_refine_runtime_hwparams(substream,
-+							dma_data,
-+							&snd_imx_hardware,
-+							tmp_chan);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to set runtime hwparams\n");
-+		return ret;
-+	}
-+
-+	ret = snd_soc_set_runtime_hwparams(substream, &snd_imx_hardware);
-+	if (ret)
-+		return ret;
-+
-+	dma_release_channel(tmp_chan);
-+	fsl_asrc_release_pair(pair);
-+
- 
- 	return 0;
- }
--- 
-2.21.0
+On Tue, Sep 10, 2019 at 11:20:17AM +0200, Guennadi Liakhovetski wrote:
+
+> This code in dpcm_prune_paths() seems to have no effect:
+
+> 		/* is there a valid CODEC DAI widget for this BE */
+> 		for_each_rtd_codec_dai(dpcm->be, i, dai) {
+> 			widget =3D dai_get_widget(dai, stream);
+>=20
+> 			/* prune the BE if it's no longer in our active list */
+> 			if (widget && widget_in_list(list, widget))
+> 				continue;
+> 		}
+
+> Neither of the variables, that are modified in this loop are used outside=
+=20
+> of it. Was the "continue" maybe meant to continue the encompassing loop?
+
+Liam?
+
+--HeFlAV5LIbMFYYuh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2Dcm4ACgkQJNaLcl1U
+h9B0rQf5AQXL8hYaKy1bLoXYcxTwsfVDZRIsGCj81qI1CeNjLlVUHfX8wBSTbGFY
+p0mdFv1We73gKiaBiCeYMvBBHC4Vb+BnmT4qrS7u+8L90luxxnxo6Pn1dy967RvU
+lM1PXZCc1xjqWar2n7MEN39sjMdmUPlXLuwdDiXz2d1g2HD/XZxB5QymYt45JyNN
+qhxrgxJAREcLmqzXdR7PMlPug511TuzWZ6OYqCxGozrG8lqqfELtjct36x1ZRQxL
++/ZD3gYXSKoy6nc4Ovrv82hZD3WmixkC5VAVC7TOTQrRPfaJMebBaNCzYaqTelGv
+GVkmNlcnCsWxqH6QzgHvlessJpdTnA==
+=S++M
+-----END PGP SIGNATURE-----
+
+--HeFlAV5LIbMFYYuh--
+
+--===============8609301038415984483==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8609301038415984483==--

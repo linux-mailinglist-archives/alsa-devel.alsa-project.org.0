@@ -2,82 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E3AB832D
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 23:14:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A2CB8842
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Sep 2019 01:51:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F9DA1678;
-	Thu, 19 Sep 2019 23:13:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F9DA1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4FDA1678;
+	Fri, 20 Sep 2019 01:50:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4FDA1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568927679;
-	bh=8KecdtnO+vkbrd1TM1LsL5krNrlmZZXWWtlKczcjQiQ=;
+	s=default; t=1568937103;
+	bh=5B4YXG7eATAAzT/B7uSy9yreaHrX31Ob7E5EkWA4cY8=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=pYZJTmcfzecOFWFWqIEIZhOKGC49lG1uFIAZRE16TdjPuEL3cFG/8BvdM3WdyvvVz
-	 z0aKe3r9BhV/X+/fT4BwD1p1LDfKZokP8tpB6yLwMS7aKjx5oP3bbyoIGlYlHAY/AB
-	 e0yRH4gzra2ERIdlXlYSXKnSvVAMMzwPNCTxpMfk=
+	 From;
+	b=GLnBsc/bwD4BA9dxVtPjLUimgOtlSy4zmeYA09dqJdyG62V165H4FtHDzwOYoMQ9B
+	 99acCwhQUEDUCoF2LZNhQWuE73PDDHabVo4hrhbEUyrPv7VWPKWwj2dXvD3NLCN24T
+	 FE0G0BkkJbhCvXlbXny/rQprxsEiOoZT1Ug+c6ko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B0BCF80361;
-	Thu, 19 Sep 2019 23:12:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9330F803D6;
+	Fri, 20 Sep 2019 01:49:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF6EEF80361; Thu, 19 Sep 2019 23:12:51 +0200 (CEST)
+ id 7CB4EF80361; Fri, 20 Sep 2019 01:49:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from egnor-li.ofb.net (egnor-li.ofb.net [IPv6:2600:3c01:e000:283::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 005B4F80146
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 23:12:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 005B4F80146
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71F3EF80096
+ for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 01:49:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71F3EF80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ofb.net header.i=@ofb.net
- header.b="IL4FNplB"
-Received: from ofb.net (163.242.197.104.bc.googleusercontent.com
- [104.197.242.163])
- by egnor-li.ofb.net (Postfix) with ESMTP id 21FE7117F71;
- Thu, 19 Sep 2019 21:12:46 +0000 (UTC)
-Received: from localhost.localdomain (unknown [173.239.75.234])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by ofb.net (Postfix) with ESMTPSA id 7EF853E922;
- Thu, 19 Sep 2019 14:12:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ofb.net; s=ofb;
- t=1568927565; bh=nUdYVJQ/hlz/YHSd427Gse6byG6Q+7bJ6MinuGvboKs=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=IL4FNplBWKrnpNpJTXKRPt0Z5zwnFZ8Utq2apwiMePLSfZPl0BKqr0/W1XxEmipyb
- vVxTv6ZkdbpD5svI2xDOo5b9v6s3vLkdAszJ8EZkjV2nYvCR0c3M1WaQcX+IPsANjL
- rJQTpwzfQI3eVnGgmUNMGo9nsps6y/YumOCZ0M0pMtWQSByvkIeLucjKKGsbexmNhM
- 6I16WHzn1+DzxpQdt7o319R09lqfvrRheJkAzy95QEkob8yyv0KqYHugnmMkRq1FZ1
- OO8qFMycUg6+23K6vqYDzAbomFUNnnfRp9mSOFidSGkzt0L/mZu4g3Tk9BGncEI8GC
- 4E1YqwJwDhtPQ==
-Received: from frederik by localhost.localdomain with local (Exim 4.92.2)
- (envelope-from <frederik@localhost.localdomain>)
- id 1iB3jI-000477-MU; Thu, 19 Sep 2019 14:12:44 -0700
-Date: Thu, 19 Sep 2019 14:12:44 -0700
-From: frederik@ofb.net
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20190919211244.buu3d6ey4k2dxyul@localhost>
-References: <20190904164706.gwjbcywbj7emnwvr@localhost>
- <s5hv9u19x2f.wl-tiwai@suse.de>
- <20190910173345.63bv2xa4vlkxicxj@localhost>
- <365e4bcc033c151076140471225db51c80808b7f.camel@iki.fi>
- <s5himprulnt.wl-tiwai@suse.de>
- <e294e2985eda906be3c3625235cc28643208dab2.camel@iki.fi>
- <s5hblvjukn6.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kNWSnXv4"
+Received: by mail-pf1-x442.google.com with SMTP id b128so3320859pfa.1
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 16:49:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=DO8lDkgH/09igYhmGE97oh8+8ahZBIflCShVrR9OrmU=;
+ b=kNWSnXv4Q9H2UbWOSwbkFDyDYqrw5V5FmU8EqdV7tUgMVaqW5UnRoGaPbLRxAC+hEd
+ 3daoRlbwjVz6K32Az6qna8OmyjDaxJuCA2WvshtxpT7DkMnbifHYEJ0BsKiMtLFSyUv3
+ xDtTO+b/VsYw08fNK30ntWhKO+BaL7AAi/8AlX1aHtOMrqbJ8T1WEIQpq9f5s4SWLwhz
+ bMbeKs2DUZAbkByeqfxDZXfHVfm4ozWqy8uoRaFUJ9B0hw9MOXly7hJRc2nommYb7OBW
+ jiKWP5+nLvTY4Ez/l9sDmXVwjP0y2WNKAAcZZMFAx8o/6PkqGygW6BcO7SHlaOPWr9Vk
+ I92g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=DO8lDkgH/09igYhmGE97oh8+8ahZBIflCShVrR9OrmU=;
+ b=WGOYqAX8o0brOybBxBORovF1SxFvL4kbvVPRLWzzR2xvqjZI/oiPauDFVat7O6a6EG
+ /91iEqKg0BimwYoXMmyn9ZzE6wwPBBnP/FiJqC8BJrFglij102c08iiqT+FhECJbEIsA
+ Ga2v5vZYNsmXvnl023BToKALkY5HDQZ69qoDAA8/DdELQpIWbs6zbFxYZsYfdZi+uX0r
+ R13IiS5EFzn5Hu4oUEhZiJnol974DWJAh3cy+ITrQ+mOI+GTZn8G6JXX7V7IZ1sJ7i26
+ JyFbmpXNDLk+kKN6pRsAmzxcgJf4KtAj44WjtfiDkakG5AQP8UivR6LOOI//BKfdZMGj
+ Xx/w==
+X-Gm-Message-State: APjAAAUVL+5/BdwYFEVs0nBVWtQMEyponPeu7M3Re5UAy/MlPM4MmPJd
+ ajrX2W0/TCK3OtOSVERmVX8=
+X-Google-Smtp-Source: APXvYqxicFF4tS7Mcj+VMjT1qOkc2frSVMWmjKYUyhpoVLCZd7f7tLUEHubAzMDOxlG+EHV+svcZtA==
+X-Received: by 2002:a62:1c16:: with SMTP id c22mr13829974pfc.10.1568936990878; 
+ Thu, 19 Sep 2019 16:49:50 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id e21sm30169pgr.43.2019.09.19.16.49.49
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 19 Sep 2019 16:49:50 -0700 (PDT)
+Date: Thu, 19 Sep 2019 16:48:58 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Message-ID: <20190919234857.GA14287@Asurada-Nvidia.nvidia.com>
+References: <cover.1568861098.git.shengjiu.wang@nxp.com>
+ <5811f393692a7668564fd4b9ef5708c1e3db8dc0.1568861098.git.shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <s5hblvjukn6.wl-tiwai@suse.de>
-User-Agent: NeoMutt/20180716
-Cc: Tanu Kaskinen <tanuk@iki.fi>, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] parameter for pulse device?
+In-Reply-To: <5811f393692a7668564fd4b9ef5708c1e3db8dc0.1568861098.git.shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH V3 2/4] ASoC: fsl_asrc: update supported
+	sample format
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,85 +103,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: frederik@ofb.net
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thank you for the tips.
+On Thu, Sep 19, 2019 at 08:11:40PM +0800, Shengjiu Wang wrote:
+> The ASRC support 24bit/16bit/8bit input width, which is
+> data width, not slot width.
+> 
+> For the S20_3LE format, the data with is 20bit, slot width
+> is 24bit, if we set ASRMCR1n.IWD to be 24bits, the result
+> is the volume is lower than expected, it likes 24bit data
+> right shift 4 bits
+> 
+> So replace S20_3LE with S24_3LE in supported list and add S8
+> format in TX supported list
+> 
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-I don't know if my input is still needed, but I figured out from looking at some of the syntax you linked to that I can put this in ~/.asoundrc and it does the job (this is what I had had in mind when I asked about "magic with macros", it is somewhat advanced for me):
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
 
-    pcm.!pulse {
-        @args [ DEV ]
-        @args.DEV {
-            type string
-            default "default"
-        }
-        type pulse;
-        device $DEV
-    }               
-
-Now I can set up a filter like this:
-
-    ecasound -i alsa,pulse:mic -o alsa,pulse:monitor
-
-Is something like this going into the alsa-plugins repo?
-
-Thanks,
-
-Frederick
-
-On Tue, Sep 17, 2019 at 03:17:49PM +0200, Takashi Iwai wrote:
->On Tue, 17 Sep 2019 15:14:53 +0200,
->Tanu Kaskinen wrote:
->>
->> On Tue, 2019-09-17 at 14:55 +0200, Takashi Iwai wrote:
->> > On Tue, 17 Sep 2019 14:51:01 +0200,
->> > Tanu Kaskinen wrote:
->> > > On Tue, 2019-09-10 at 10:33 -0700, frederik@ofb.net wrote:
->> > > > On Mon, Sep 09, 2019 at 07:52:24PM +0200, Takashi Iwai wrote:
->> > > > > It depends on how pcm.pulse is defined.  If it's defined to take an
->> > > > > argument, it can work like that.  (Or sometimes you may need to pass
->> > > > > the argument explicitly like "pulse:{device=mointor}".)
->> > > > >
->> > > > > The standard pcm.pulse definition provided in alsa-plugins repo
->> > > > > doesn't take the argument, and that can be the reason.
->> > > >
->> > > > Thank you Takashi. Would it be easy to change alsa-plugins so that it
->> > > > takes an argument? Is there a chance that this change would be
->> > > > accepted?
->> > > >
->> > > > If you can point me to the section of code in e.g. "plughw" where
->> > > > argument parsing is done, then I would probably end up modifying
->> > > > alsa-plugins myself, just to simplify what I am doing.
->> > >
->> > > This commit might be instructive:
->> > > https://git.alsa-project.org/?p=alsa-lib.git;a=commitdiff;h=3c199a0d199f0fae78c9c1b19c11878a6134b3a8
->> >
->> > Yes, thanks for pointing an example.
->> >
->> > Now I took a quick look at the current code, and one remaining problem
->> > is that there is no device parameter value corresponding to the
->> > default (=NULL).  Maybe we should accept the string "default" to be
->> > treated as NULL, for example.
->> >
->> > Ditto for the server parameter.
->>
->> Maybe "", i.e. the empty string, would be a good choice for the special
->> string representing NULL? It's not a valid device name or server
->> address, unlike "default", so there can't be any conflicts. Not that
->> "default" is very likely to cause conflicts either.
->
->Yeah, that sounds feasible.
->Then the rest is just coding ;)
->
->
->thanks,
->
->Takashi
->
+> ---
+>  sound/soc/fsl/fsl_asrc.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+> index 4d3804a1ea55..584badf956d2 100644
+> --- a/sound/soc/fsl/fsl_asrc.c
+> +++ b/sound/soc/fsl/fsl_asrc.c
+> @@ -624,7 +624,7 @@ static int fsl_asrc_dai_probe(struct snd_soc_dai *dai)
+>  
+>  #define FSL_ASRC_FORMATS	(SNDRV_PCM_FMTBIT_S24_LE | \
+>  				 SNDRV_PCM_FMTBIT_S16_LE | \
+> -				 SNDRV_PCM_FMTBIT_S20_3LE)
+> +				 SNDRV_PCM_FMTBIT_S24_3LE)
+>  
+>  static struct snd_soc_dai_driver fsl_asrc_dai = {
+>  	.probe = fsl_asrc_dai_probe,
+> @@ -635,7 +635,8 @@ static struct snd_soc_dai_driver fsl_asrc_dai = {
+>  		.rate_min = 5512,
+>  		.rate_max = 192000,
+>  		.rates = SNDRV_PCM_RATE_KNOT,
+> -		.formats = FSL_ASRC_FORMATS,
+> +		.formats = FSL_ASRC_FORMATS |
+> +			   SNDRV_PCM_FMTBIT_S8,
+>  	},
+>  	.capture = {
+>  		.stream_name = "ASRC-Capture",
+> -- 
+> 2.21.0
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

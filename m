@@ -2,82 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1D89B74A8
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 10:02:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27174B74AC
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 10:02:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22A5D166F;
-	Thu, 19 Sep 2019 10:01:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22A5D166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F21A168E;
+	Thu, 19 Sep 2019 10:01:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F21A168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568880133;
-	bh=XuDzjmfkD3BtNct9rzrVUeOqJXPPnXb5rsnD4I1SsrU=;
+	s=default; t=1568880164;
+	bh=pULAgNhlaSudAG0g9pfqa0stf3Usb6KtFfObU11QYjU=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=C+qEFpKcTPibhz8VQ7I3B8dCYbRZTgov0b1q5B1HxgN1HcHN1jyiXjjyCBFpp+3lJ
-	 FDyQAbO5sQQ8BAjlCLnqu42cRYceh/AlVKsKmhzyUlbDbfG2RJIPzq0yuPx461w9il
-	 qA4Unk7/lX5cPbZBosUmqLLLIU71/wk66osnD8K0=
+	b=OpS7v8z0E/0cdtIqa4n/UOAa7P4/0ejMFUVgKvR8oE16v6iEFy78ukpWiBJvk+ZyG
+	 V9/Gf23Zg6Se4RWniC3rmscn5IgBAZaZ704BKS+iVnhIcyUyVlQ1SJ3oQynTVbK4ah
+	 3CH89YYG7gqI39xcBJnInSEGpe5iXdrQQALD8RcQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A75BBF8048F;
-	Thu, 19 Sep 2019 10:00:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 865AFF803D6;
+	Thu, 19 Sep 2019 10:01:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 28FEFF80292; Thu, 19 Sep 2019 10:00:39 +0200 (CEST)
+ id 9ED98F803D6; Thu, 19 Sep 2019 10:01:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
  FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
  SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-f67.google.com (mail-wr1-f67.google.com
- [209.85.221.67])
+Received: from mail-wm1-f66.google.com (mail-wm1-f66.google.com
+ [209.85.128.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68874F80292
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 10:00:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68874F80292
-Received: by mail-wr1-f67.google.com with SMTP id v8so2032399wrt.2
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 01:00:25 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 56907F80307
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 10:01:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56907F80307
+Received: by mail-wm1-f66.google.com with SMTP id 3so2783949wmi.3
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 01:01:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=XYLP8EKg1aWYrdXosmUlGT0i0haeJe1I34kspHyVEH0=;
- b=a0CYbbho9KBkg82LLpBrsJBbtoagtcDszPQYAJTnpSYvR2fRW1kWY4Ay2bbLmRJnEE
- qxicA4ixvDTyMHc6kS6pICCTNyfB7EHFxdZV6x/l8nsHj8pculPcJbyKnUhn3MAvVSpy
- PAGiPzk3FEpINgsTudoGlBGKg/3w4eq0cxpIzDiqJFDhqH97Z8yttbtVBot8T6ezKyan
- JQ50ZXalM4Qmo8zR5CMEYMpbQnwMKa7hhzPqKRd4Gizcsqv6tBhokYMDoj6bKWcPaQjy
- sZL4Lwfu3LlTyd5Y6ScKylm3aPld9dzQurwpYnFhKDDkCjZxcfexWryehAeh26n4lFWk
- oPeA==
-X-Gm-Message-State: APjAAAW2PrQHkYXQlITAOA6i+EjxPoIysux4T1B0VB9Vlyfr5BkZpj/S
- LIGgjGFHxPXTF/Nfr0HAqxs=
-X-Google-Smtp-Source: APXvYqxkZJuMnz/5Yv5b+cZRtdqNk41lsPPfWQ5dJ873pZVxw48691hLCmWcac5LtqPWpbV9fXoJ9Q==
-X-Received: by 2002:adf:f50d:: with SMTP id q13mr6370586wro.187.1568880025167; 
- Thu, 19 Sep 2019 01:00:25 -0700 (PDT)
+ bh=9l/Q4EUeY/MLFd+AQm4TkiqnhshHiOklBHU3BARdFdE=;
+ b=oT5nJ7xVRM50e50Jl9jblwUevdembNw8UYiFZ8LpAnaNs0eSRN1gvaDn+xZw86N4rk
+ toLPcrHB6cPaidqwzh3ak/jlvLP6n78juH/EjREYxkj6MdZzvnmHVLTMdXczVpKLLYTT
+ Xi2J0LqWnDKKnWM0wgax5bAS4Pk0AsiU761i5chUXKNseip26PHKS8hH1achC4mE6npG
+ f+hoVCY1f+5UfrhqtsTPvwOAqD/cfe8cT5pgBJJQfrkVZfE1hVzQp6ATvY777mRndWuM
+ 23uHbbheipkJbSPedYapXSt2Pa2OTZZ92INpVlkkKmwo2AOIoIbPmDLstiZp6nbV7zw4
+ 1IIw==
+X-Gm-Message-State: APjAAAXXUG+JaB03fj+oh7tjVlXDwwm0jg+dwkixIbxzLO90kMmieKL9
+ bC/oCvspLxB5jipi0KrXfIk=
+X-Google-Smtp-Source: APXvYqwkmLUV4hPJJcWaqDDccNR6SsgGU7jssMHyEYDdwsyrDM+pO+zL1vqcxlXKfE+aZippLMXTaw==
+X-Received: by 2002:a05:600c:291c:: with SMTP id
+ i28mr1559297wmd.98.1568880094991; 
+ Thu, 19 Sep 2019 01:01:34 -0700 (PDT)
 Received: from pi3 ([194.230.155.145])
- by smtp.googlemail.com with ESMTPSA id u10sm15346109wrg.55.2019.09.19.01.00.23
+ by smtp.googlemail.com with ESMTPSA id u10sm15352265wrg.55.2019.09.19.01.01.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Sep 2019 01:00:24 -0700 (PDT)
-Date: Thu, 19 Sep 2019 10:00:21 +0200
+ Thu, 19 Sep 2019 01:01:33 -0700 (PDT)
+Date: Thu, 19 Sep 2019 10:01:31 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Message-ID: <20190919080021.GC13195@pi3>
+Message-ID: <20190919080131.GD13195@pi3>
 References: <20190918104634.15216-1-s.nawrocki@samsung.com>
- <CGME20190918104658eucas1p2c1f07d3e8b915d8c3a448b80d2af5df0@eucas1p2.samsung.com>
- <20190918104634.15216-4-s.nawrocki@samsung.com>
+ <CGME20190918104702eucas1p213070d06c69c4836d15d071b1926e60d@eucas1p2.samsung.com>
+ <20190918104634.15216-6-s.nawrocki@samsung.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20190918104634.15216-4-s.nawrocki@samsung.com>
+In-Reply-To: <20190918104634.15216-6-s.nawrocki@samsung.com>
 User-Agent: Mutt/1.12.1 (2019-06-15)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  linux-samsung-soc@vger.kernel.org, ckeepax@opensource.cirrus.com,
  b.zolnierkie@samsung.com, sbkim73@samsung.com, patches@opensource.cirrus.com,
  lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
  linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com
-Subject: Re: [alsa-devel] [PATCH v1 3/9] ASoC: wm8994: Add support for
- setting MCLKn clock rate
+Subject: Re: [alsa-devel] [PATCH v1 5/9] ASoC: samsung: arndale: Simplify
+ DAI link initialization
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,15 +96,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Sep 18, 2019 at 12:46:28PM +0200, Sylwester Nawrocki wrote:
-> Extend the set_sysclk() handler so we also set frequency of the MCLK1,
-> MCLK2 clocks through clk API when those clocks are specified in DT for
-> the device.
+On Wed, Sep 18, 2019 at 12:46:30PM +0200, Sylwester Nawrocki wrote:
+> There is only one DAI link so we can drop an unnecessary loop statement.
+> Use card->dai_link in place of direct static arndale_rt5631_dai[] array
+> dereference as a prerequisite for adding support for other CODECs.
+> Unnecessary assignment of dai_link->codecs->name to NULL is removed.
 > 
 > Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
 > ---
->  sound/soc/codecs/wm8994.c | 30 +++++++++++++++++++++++++++++-
->  1 file changed, 29 insertions(+), 1 deletion(-)
+>  sound/soc/samsung/arndale_rt5631.c | 42 ++++++++++++------------------
+>  1 file changed, 17 insertions(+), 25 deletions(-)
 
 Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
 

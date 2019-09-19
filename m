@@ -2,96 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DCC2B7B61
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 15:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0BEB7C62
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 16:25:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC20E168A;
-	Thu, 19 Sep 2019 15:58:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC20E168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id CA27D166D;
+	Thu, 19 Sep 2019 16:24:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA27D166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568901571;
-	bh=37v8KWnk7IRAn+/PVJvDncD9aqKLCY4A3QH3FK5k9a8=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uXwAtPsSgdgb0/zO5TFCWPk5YMoIalYGFHYOnd/1e+6x6ZTvumhAZqt6bz7+IuY4O
-	 SlPErB5NeiyA1VQYq7DM19i+Krm372SXSxPJb1439ovW7hq+F0abzrPs0nAg3jXXWX
-	 qsLVs1iwCqzMEbutIGjEK5ylWjDxJ7aPlzZZ+PsA=
+	s=default; t=1568903120;
+	bh=r+8wJNQ50sddKiNpq61FUEzTHks2X7dY4G5T8s9Ox78=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=G+N9yr5//Tk2CSTfxGuobdL4yU/Ebpolb5Rl1Cyk/XLxHQrnJMNy0AJ1cIu4NIMqU
+	 RiStgZe2Pu6IiC5b5/yNaKp1AqyXbilDRjwRADPyt+eC9LbreSLLVWyPPtCK9hgBf7
+	 LDSe1e5t1J+sZD5fD3qAmTs3KUjAILnv8Kyg0q+I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8CB2F80637;
-	Thu, 19 Sep 2019 15:55:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8053F80307;
+	Thu, 19 Sep 2019 16:23:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66922F80639; Thu, 19 Sep 2019 15:55:48 +0200 (CEST)
+ id 10A8FF80361; Thu, 19 Sep 2019 16:23:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout3.hostsharing.net (mailout3.hostsharing.net
+ [176.9.242.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4448F80637
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 15:55:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4448F80637
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="VvascM4p"
-Received: by mail-pf1-x444.google.com with SMTP id y72so2374916pfb.12
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 06:55:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=YvltAwcazfPUXLVaME+JgA9zHiL2aoA68dvUhBxJ+k0=;
- b=VvascM4pkKU4F95ti9Bl2ciow4VSlKqVRkoSZam4Zy8pNf/KevJdJe7PbSc5A8Vbei
- 5rjN7aU8GqL4jAo2r4eOUtchAoARXaF/M/SDOimb4RwY4uw62x+wPKDT3kX7ps/g8kyT
- nKD1WRtYLJOSDO6M0MwbYowZ0jXZKtt1qrzFM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=YvltAwcazfPUXLVaME+JgA9zHiL2aoA68dvUhBxJ+k0=;
- b=NN2+UGPVYIuitVAuy3ec5RDTs5stDQCtkwL4PLHbZS4eEBwoEvDc6cJXB/FFDDBpnR
- ROBA134H2nVBTlXrEZDWOniA0ZwEDPsUAkrgzOyosNcpZQUWFQ9y28wx/9V/F2184QNH
- O1yEqCyss5GJBXxkTxRJfNb/YQl3jsXgjNcmB89Bn8ywtO2UTXTBinXFVHo/5YT5AirU
- eJMwgD/H5Y8J1WRs8A4G6N6Ji49G5QN3MH35jz9hnjpugLLhQZu6OLaFobjfPQnLbnR5
- QuiGut5wJPVjtbFy2zMIMlm3wh7nAM265dOaclSwXd1M/8/tir1N4v/J1Jn1WTgD1KkC
- G/QQ==
-X-Gm-Message-State: APjAAAW4zZHErtGNLOtli08zMD7mXOTCc5yszp7hTKQ9+GmoAgb+rXxE
- rHarAblzQTSxdEPbVvw1Wk+TCg==
-X-Google-Smtp-Source: APXvYqxuqnv1/cDU4+3U+mf3SnkxxpRBvj/VkJDXLtzVeqncPGK5Xr2EZWZwOmm3tU9s2WzYUgipeQ==
-X-Received: by 2002:a65:4189:: with SMTP id a9mr8987692pgq.399.1568901343986; 
- Thu, 19 Sep 2019 06:55:43 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
- by smtp.gmail.com with ESMTPSA id j16sm7633402pje.6.2019.09.19.06.55.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Sep 2019 06:55:43 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Thu, 19 Sep 2019 21:54:50 +0800
-Message-Id: <20190919135450.62309-5-cychiang@chromium.org>
-X-Mailer: git-send-email 2.23.0.237.gc6a4ce50a0-goog
-In-Reply-To: <20190919135450.62309-1-cychiang@chromium.org>
-References: <20190919135450.62309-1-cychiang@chromium.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D009FF80146
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 16:23:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D009FF80146
+Received: from h06.hostsharing.net (h06.hostsharing.net [83.223.95.25])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.hostsharing.net",
+ Issuer "COMODO RSA Domain Validation Secure Server CA" (not verified))
+ by mailout3.hostsharing.net (Postfix) with ESMTPS id BD045101E6822;
+ Thu, 19 Sep 2019 16:23:30 +0200 (CEST)
+Received: from mail.home.lxtec.de (unknown [149.172.88.252])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ by h06.hostsharing.net (Postfix) with ESMTPSA id 6AF8C6001C5D;
+ Thu, 19 Sep 2019 16:23:30 +0200 (CEST)
+Received: from localhost ([127.0.0.1])
+ by mail.home.lxtec.de with esmtp (Exim 4.92.2 5 (LXTEC))
+ id 1iAxLF-0003bi-Ps; Thu, 19 Sep 2019 16:23:29 +0200
+X-Virus-Scanned: at mail.home.lxtec.de
+Received: from mail.home.lxtec.de ([127.0.0.1])
+ by localhost (mail.home.lxtec.de [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Ywp9lCZSM0Kz; Thu, 19 Sep 2019 16:23:29 +0200 (CEST)
+Received: from riesebie by mail.home.lxtec.de with local (Exim 4.92.2 5
+ (LXTEC)) id 1iAxLF-0003bC-KU; Thu, 19 Sep 2019 16:23:29 +0200
+Date: Thu, 19 Sep 2019 16:23:29 +0200
+From: Elimar Riesebieter <riesebie@lxtec.de>
+To: alsa-devel@alsa-project.org
+Message-ID: <20190919142329.35bsdnh5skuj7jl3@toy.home.lxtec.de>
+Mail-Followup-To: alsa-devel@alsa-project.org,
+ Mark Pearson <mpearson@lenovo.com>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
- Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
- dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
- Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
- linux-rockchip@lists.infradead.org, dgreid@chromium.org,
- Cheng-Yi Chiang <cychiang@chromium.org>, tzungbi@chromium.org,
- Jonas Karlman <jonas@kwiboo.se>, Russell King <rmk+kernel@armlinux.org.uk>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Jernej Skrabec <jernej.skrabec@siol.net>, dianders@chromium.org,
- Daniel Vetter <daniel@ffwll.ch>
-Subject: [alsa-devel] [PATCH v7 4/4] ASoC: rockchip_max98090: Add HDMI jack
-	support
+Content-Type: multipart/mixed; boundary="een2nhil4phop5qt"
+Content-Disposition: inline
+Organization: LXTEC
+Cc: Mark Pearson <mpearson@lenovo.com>
+Subject: [alsa-devel] alsa-lib: Add ucm support for whiskeylake
+	sof-skl_hda_card audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,77 +81,477 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In machine driver, create a jack and let hdmi-codec report jack status.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
----
- sound/soc/rockchip/Kconfig             |  3 ++-
- sound/soc/rockchip/rockchip_max98090.c | 20 ++++++++++++++++++++
- 2 files changed, 22 insertions(+), 1 deletion(-)
+--een2nhil4phop5qt
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/sound/soc/rockchip/Kconfig b/sound/soc/rockchip/Kconfig
-index b43657e6e655..d610b553ea3b 100644
---- a/sound/soc/rockchip/Kconfig
-+++ b/sound/soc/rockchip/Kconfig
-@@ -40,9 +40,10 @@ config SND_SOC_ROCKCHIP_MAX98090
- 	select SND_SOC_ROCKCHIP_I2S
- 	select SND_SOC_MAX98090
- 	select SND_SOC_TS3A227E
-+	select SND_SOC_HDMI_CODEC
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Rockchip
--	  boards using the MAX98090 codec, such as Veyron.
-+	  boards using the MAX98090 codec and HDMI codec, such as Veyron.
- 
- config SND_SOC_ROCKCHIP_RT5645
- 	tristate "ASoC support for Rockchip boards using a RT5645/RT5650 codec"
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 6c217492bb30..11cf252e8391 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -134,6 +134,25 @@ enum {
- 	DAILINK_HDMI,
- };
- 
-+static struct snd_soc_jack rk_hdmi_jack;
-+
-+static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_component *component = runtime->codec_dai->component;
-+	int ret;
-+
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &rk_hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
-+}
-+
- /* max98090 and HDMI codec dai_link */
- static struct snd_soc_dai_link rk_dailinks[] = {
- 	[DAILINK_MAX98090] = {
-@@ -151,6 +170,7 @@ static struct snd_soc_dai_link rk_dailinks[] = {
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
-+		.init = rk_hdmi_init,
- 		SND_SOC_DAILINK_REG(hdmi),
- 	}
- };
--- 
-2.23.0.237.gc6a4ce50a0-goog
+Hi ALSA devs,
+
+please notice the attached suggestion from Lenovo to support sound
+for whiskeylake sof-skl_hda_card audio.
+
+Thanks
+Elimar
+--=20
+  You cannot propel yourself forward by
+  patting yourself on the back.
+
+--een2nhil4phop5qt
+Content-Type: message/rfc822
+Content-Disposition: inline
+
+Return-path: <bounces+20190919-riesebie=lxtec.de@tracker.debian.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.2-lxtec_rules1 (2018-09-13) on
+	toy.home.lxtec.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.4 required=5.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,RCVD_IN_DNSWL_LOW
+	autolearn=unavailable autolearn_force=no version=3.4.2-lxtec_rules1
+Envelope-to: riesebie@mail.home.lxtec.de
+Delivery-date: Thu, 19 Sep 2019 15:55:04 +0200
+Received: from localhost ([127.0.0.1])
+	by mail.home.lxtec.de with esmtp (Exim 4.92.2 5 (LXTEC))
+	id 1iAwtj-0001qF-W7
+	for <riesebie@mail.home.lxtec.de>; Thu, 19 Sep 2019 15:55:04 +0200
+X-Virus-Scanned: at mail.home.lxtec.de
+Received: from mail.home.lxtec.de ([127.0.0.1])
+	by localhost (mail.home.lxtec.de [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id 99Uo0YonJ3_y for <riesebie@mail.home.lxtec.de>;
+	Thu, 19 Sep 2019 15:55:03 +0200 (CEST)
+Received: from getmail by mail.home.lxtec.de with local (Exim 4.92.2 5 (LXTEC))
+	id 1iAwtj-0001pv-Qz
+	for <riesebie@mail.home.lxtec.de>; Thu, 19 Sep 2019 15:55:03 +0200
+Delivered-To: unknown
+Received: from pop.lxtec.de ([2a01:37:1000::53df:4f63:0]:995) by
+  toy.home.lxtec.de with POP3-SSL; 19 Sep 2019 13:55:03 -0000
+X-Original-To: riesebie@lxtec.de
+Delivered-To: o1300-riesebie@h06.hostsharing.net
+Received: from mailin1.hostsharing.net (mailin1.hostsharing.net [83.223.95.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(Client CN "*.hostsharing.net", Issuer "COMODO RSA Domain Validation Secure Server CA" (not verified))
+	by h06.hostsharing.net (Postfix) with ESMTPS id E644F2C6837
+	for <riesebie@lxtec.de>; Thu, 19 Sep 2019 15:51:08 +0200 (CEST)
+Received: from mailly.debian.org (mailly.debian.org [IPv6:2001:41b8:202:deb:6564:a62:52c3:4b72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mailin1.hostsharing.net (Postfix) with ESMTPS id C192516D018
+	for <riesebie@lxtec.de>; Thu, 19 Sep 2019 15:51:08 +0200 (CEST)
+Received: from ticharich.debian.org ([2001:41c8:1000:21::21:23])
+	from C=NA,ST=NA,L=Ankh Morpork,O=Debian SMTP,OU=Debian SMTP CA,CN=ticharich.debian.org,EMAIL=hostmaster@ticharich.debian.org (verified)
+	by mailly.debian.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.89)
+	(envelope-from <bounces+20190919-riesebie=lxtec.de@tracker.debian.org>)
+	id 1iAwpv-0007Jl-TR
+	for riesebie@lxtec.de; Thu, 19 Sep 2019 13:51:07 +0000
+Received: from localhost ([::1] helo=ticharich.debian.org)
+	by ticharich.debian.org with esmtp (Exim 4.92)
+	(envelope-from <bounces+20190919-riesebie=lxtec.de@tracker.debian.org>)
+	id 1iAwpv-0005WV-Ig
+	for riesebie@lxtec.de; Thu, 19 Sep 2019 13:51:07 +0000
+Received: from mailly.debian.org ([2001:41b8:202:deb:6564:a62:52c3:4b72])
+	from C=NA,ST=NA,L=Ankh Morpork,O=Debian SMTP,OU=Debian SMTP CA,CN=mailly.debian.org,EMAIL=hostmaster@mailly.debian.org (verified)
+	by ticharich.debian.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.92)
+	(envelope-from <debbugs@buxtehude.debian.org>)
+	id 1iAwpv-0005WO-CV
+	for dispatch+alsa-utils@tracker.debian.org; Thu, 19 Sep 2019 13:51:07 +0000
+Received: from quantz.debian.org ([2001:41c8:1000:21::21:28])
+	from C=NA,ST=NA,L=Ankh Morpork,O=Debian SMTP,OU=Debian SMTP CA,CN=quantz.debian.org,EMAIL=hostmaster@quantz.debian.org (verified)
+	by mailly.debian.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.89)
+	(envelope-from <debbugs@buxtehude.debian.org>)
+	id 1iAwpv-0007Jd-13
+	for dispatch+alsa-utils@tracker.debian.org; Thu, 19 Sep 2019 13:51:07 +0000
+Received: from qa by quantz.debian.org with local (Exim 4.89)
+	(envelope-from <debbugs@buxtehude.debian.org>)
+	id 1iAwpu-0001LT-N9
+	for dispatch+alsa-utils@tracker.debian.org; Thu, 19 Sep 2019 13:51:06 +0000
+Received: from buxtehude.debian.org ([2607:f8f0:614:1::1274:39])
+	from C=NA,ST=NA,L=Ankh Morpork,O=Debian SMTP,OU=Debian SMTP CA,CN=buxtehude.debian.org,EMAIL=hostmaster@buxtehude.debian.org (verified)
+	by quantz.debian.org with esmtps (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+	(Exim 4.89)
+	(envelope-from <debbugs@buxtehude.debian.org>)
+	id 1iAwpu-0001Kg-F5
+	for alsa-utils@packages.qa.debian.org; Thu, 19 Sep 2019 13:51:06 +0000
+Received: from debbugs by buxtehude.debian.org with local (Exim 4.92)
+	(envelope-from <debbugs@buxtehude.debian.org>)
+	id 1iAwpr-00021c-Oi; Thu, 19 Sep 2019 13:51:03 +0000
+X-Loop: owner@bugs.debian.org
+Subject: Bug#940730: alsa-utils: Add ucm support for whiskeylake sof-skl_hda_card audio
+Reply-To: Mark Pearson <mpearson@lenovo.com>, 940730@bugs.debian.org
+Resent-From: Mark Pearson <mpearson@lenovo.com>
+Resent-To: debian-bugs-dist@lists.debian.org
+Resent-CC: mpearson@lenovo.com, Debian ALSA Maintainers <pkg-alsa-devel@lists.alioth.debian.org>
+X-Loop: owner@bugs.debian.org
+Resent-Date: Thu, 19 Sep 2019 13:51:01 +0000
+Resent-Message-ID: <handler.940730.B.15689010167365@bugs.debian.org>
+X-Debian-PR-Message: report 940730
+X-Debian-PR-Package: alsa-utils
+X-Debian-PR-Keywords: patch
+X-Debian-PR-Source: alsa-utils
+Received: via spool by submit@bugs.debian.org id=B.15689010167365
+          (code B); Thu, 19 Sep 2019 13:51:01 +0000
+Received: (at submit) by bugs.debian.org; 19 Sep 2019 13:50:16 +0000
+Received: from nrgwon0103w-lp130-02-70-48-230-170.dsl.bell.ca ([70.48.230.170] helo=[127.0.1.1])
+	by buxtehude.debian.org with esmtp (Exim 4.92)
+	(envelope-from <mpearson@lenovo.com>)
+	id 1iAwp5-0001uV-AT
+	for submit@bugs.debian.org; Thu, 19 Sep 2019 13:50:16 +0000
+Content-Type: multipart/mixed; boundary="===============7914326887900556129=="
+MIME-Version: 1.0
+From: Mark Pearson <mpearson@lenovo.com>
+To: Debian Bug Tracking System <submit@bugs.debian.org>
+Message-ID: <156890101471.4425.9268919318144753382.reportbug@debian>
+X-Mailer: reportbug 7.5.3~deb10u1
+Date: Thu, 19 Sep 2019 09:50:14 -0400
+Delivered-To: submit@bugs.debian.org
+Delivered-To: alsa-utils@packages.qa.debian.org
+Delivered-To: dispatch+alsa-utils@tracker.debian.org
+X-Loop: dispatch@tracker.debian.org
+X-Distro-Tracker-Keyword: bts
+X-Distro-Tracker-Package: alsa-utils
+List-Id: <alsa-utils.tracker.debian.org>
+X-Debian: tracker.debian.org
+X-Debian-Package: alsa-utils
+X-PTS-Package: alsa-utils
+X-PTS-Keyword: bts
+Precedence: list
+List-Unsubscribe: <mailto:control@tracker.debian.org?body=unsubscribe%20alsa-utils>
+
+This is a multi-part MIME message sent by reportbug.
+
+
+--===============7914326887900556129==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+Package: alsa-utils
+Version: 1.1.8-2
+Severity: important
+Tags: patch
+
+Dear Maintainer,
+
+   * What led up to the situation?
+The Lenovo X1 Carbon Gen 7 is using the whiskeylake processor and the audio is
+not working on it.
+A large part of this is the kernel SOF driver - for which a separate bug is
+submitted - but we also need some new files under /usr/share/alsa/ucm/sof-
+skl_hda_card to support the new audio devices.
+
+   * What exactly did you do (or not do) that was effective (or ineffective)?
+Add the attached HiFi and sof-skl_hda_card.conf files to the
+/usr/share/alsa/ucm/sof-skl_hda_card directory
+
+   * What was the outcome of this action?
+Devices are correctly detected and configured.
+
+   * What outcome did you expect instead?
+NA
+
+Let me know if any questions or concerns. Thanks for all the help!
+Mark
+
+
+
+-- System Information:
+Debian Release: 10.1
+  APT prefers stable-updates
+  APT policy: (500, 'stable-updates'), (500, 'stable')
+Architecture: amd64 (x86_64)
+
+Kernel: Linux 5.2.9 (SMP w/8 CPU cores)
+Kernel taint flags: TAINT_UNSIGNED_MODULE
+Locale: LANG=en_CA.UTF-8, LC_CTYPE=en_CA.UTF-8 (charmap=UTF-8), LANGUAGE=en_CA.UTF-8 (charmap=UTF-8)
+Shell: /bin/sh linked to /usr/bin/dash
+Init: systemd (via /run/systemd/system)
+LSM: AppArmor: enabled
+
+Versions of packages alsa-utils depends on:
+ii  kmod              26-1
+ii  libasound2        1.1.8-1
+ii  libc6             2.28-10
+ii  libfftw3-single3  3.3.8-2
+ii  libncursesw6      6.1+20181013-2+deb10u1
+ii  libsamplerate0    0.1.9-2
+ii  libtinfo6         6.1+20181013-2+deb10u1
+ii  lsb-base          10.2019051400
+ii  whiptail          0.52.20-8
+
+alsa-utils recommends no packages.
+
+alsa-utils suggests no packages.
+
+-- no debconf information
+
+--===============7914326887900556129==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="sof-skl_hda_card.conf"
+
+SectionUseCase."HiFi" {
+	File "HiFi"
+	Comment "Play HiFi quality Music"
+}
+
+
+--===============7914326887900556129==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="HiFi"
+
+# Use case Configuration for skl-hda-card
+
+SectionVerb {
+
+	EnableSequence [
+		cdev "hw:sofsklhdacard"
+		cset "name='Master Playback Switch' on"
+		cset "name='Capture Switch' on"
+		
+	]
+
+	DisableSequence [
+		cdev "hw:sofsklhdacard"
+	]
+
+        Value {
+        }
+}
+
+SectionDevice."Headphone" {
+	Comment "Headphone"
+
+	#ConflictingDevice [
+        #        "Speaker"
+        #]
+	
+	EnableSequence [
+		cdev "hw:sofsklhdacard"
+		cset "name='Headphone Playback Volume' 80"
+		#cset "name='Headphone Mic Boost Volume' 1"
+		cset "name='Headphone Playback Switch' on"
+	]
+
+	DisableSequence [
+		cdev "hw:sofsklhdacard"
+		cset "name='Headphone Playback Switch' off"
+	]
+
+	Value {
+		PlaybackPCM "hw:sofsklhdacard,0"
+		PlaybackChannels "2"
+		#JackHWMute "Speaker"
+		JackName "sof-skl_hda_card Headphone"
+		JackType "gpio"
+		JackSwitch "12"
+		JackControl "Headphone Jack"
+	}
+}
+
+SectionDevice."Speaker" {
+        Comment "Speaker"
+
+        #ConflictingDevice [
+        #        "Headphone"
+        #]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='Speaker Playback Switch' on"
+                cset "name='Speaker Playback Volume' 80"
+        ]
+
+        DisableSequence [
+                cset "name='Speaker Playback Switch' off"
+        ]
+
+        Value {
+		PlaybackPCM "hw:sofsklhdacard,0"
+		JackHWMute "Headphone"
+                PlaybackChannels "2"
+        }
+}
+
+SectionDevice."Bass Speaker" {
+        Comment "Bass Speaker"
+
+#       ConflictingDevice [
+#                "Headphone"
+#        ]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='Bass Speaker Playback Switch' on"
+		cset "name='Speaker Playback Switch' on"
+		cset "name='Speaker Playback Volume' 80"
+        ]
+
+        DisableSequence [
+                cset "name='Speaker Playback Switch' off"
+                cset "name='Bass Speaker Playback Switch' off"
+        ]
+        Value {
+                PlaybackPCM "hw:sofsklhdacard,0"
+                JackHWMute "Headphone"
+                PlaybackChannels "2"
+        }
+}
+
+SectionDevice."Headset" {
+	Comment "Headset Mic"
+
+        ConflictingDevice [
+                "DMIC Stereo"
+        ]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+#		cset "name='Headphone Mic Boost Volume' 1"
+#		cset "name='Capture Switch' on"
+        ]
+
+        DisableSequence [
+                cdev "hw:sofsklhdacard"
+#		cset "name='Capture Switch' off"
+        ]
+
+        Value {
+                CapturePCM "hw:0,0"
+                CaptureChannels "2"
+		JackControl "Mic Jack"
+#		JackHWMute "DMIC Stereo"
+        }
+}
+
+SectionDevice."Dmic" {
+        Comment "DMIC Stereo"
+
+        ConflictingDevice [
+                "Headset Mic"
+        ]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+#		cset "name='Capture Switch' on"
+                cset "name='PGA10.0 10 Master Capture Volume' 75"
+        ]
+
+        DisableSequence [
+                cdev "hw:sofsklhdacard"
+#		cset "name='Capture Switch' off"
+        ]
+
+        Value {
+                CapturePCM "hw:0,6"
+                CaptureChannels "2"
+#		JackHWMute "Headset Mic"
+        }
+}
+
+SectionDevice."HDMI1" {
+        Comment "HDMI1/DP1 Output"
+
+#        ConflictingDevice [
+                # "Headset"
+#        ]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='hif5-0 Jack Switch' on"
+                cset "name='Pin5-Port0 Mux' 1"
+        ]
+
+        DisableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='Pin5-Port0 Mux' 0"
+                cset "name='hif5-0 Jack Switch' off"
+        ]
+
+        Value {
+                PlaybackPCM "hw:0,3"
+                PlaybackChannels "2"
+                JackControl "HDMI/DP, pcm=11 Jack"
+                # JackHWMute "Headset"
+        }
+}
+
+SectionDevice."HDMI2" {
+        Comment "HDMI2/DP2 Output"
+
+#        ConflictingDevice [
+                # "Headset"
+#        ]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='hif6-0 Jack Switch' on"
+                cset "name='Pin6-Port0 Mux' 2"
+        ]
+
+        DisableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='Pin6-Port0 Mux' 0"
+                cset "name='hif6-0 Jack Switch' off"
+        ]
+
+        Value {
+                PlaybackPCM "hw:0,4"
+                PlaybackChannels "2"
+                JackControl "HDMI/DP, pcm=12 Jack"
+                # JackHWMute "Headset"
+        }
+}
+
+SectionDevice."HDMI3" {
+        Comment "HDMI3/DP3 Output"
+
+#        ConflictingDevice [
+                # "Headset"
+#        ]
+
+        EnableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='hif7-0 Jack Switch' on"
+                cset "name='Pin7-Port0 Mux' 3"
+        ]
+
+        DisableSequence [
+                cdev "hw:sofsklhdacard"
+                cset "name='Pin7-Port0 Mux' 0"
+                cset "name='hif7-0 Jack Switch' off"
+        ]
+
+        Value {
+                PlaybackPCM "hw:0,5"
+                PlaybackChannels "2"
+                JackControl "HDMI/DP, pcm=13 Jack"
+                # JackHWMute "Headset"
+        }
+}
+
+
+--===============7914326887900556129==--
+
+
+--een2nhil4phop5qt
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--een2nhil4phop5qt--

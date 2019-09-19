@@ -2,79 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1302FB7B5B
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 15:58:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DCC2B7B61
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Sep 2019 15:59:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ABE041687;
-	Thu, 19 Sep 2019 15:57:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABE041687
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC20E168A;
+	Thu, 19 Sep 2019 15:58:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC20E168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568901520;
-	bh=XHxTXChHidjlChUTDeS9bVMzqeqMd/8qIHpEqolmLUk=;
+	s=default; t=1568901571;
+	bh=37v8KWnk7IRAn+/PVJvDncD9aqKLCY4A3QH3FK5k9a8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c/OjSUYuq059vlxflXsT7fG+uiCtNP/3lDS30NKpEr9Uun2wCBF6oE0kQriNFOd0V
-	 R3MnuYJRf6LMJEy8X133OpjvvXyo0kQJp1x8BA/fMsa2X9+PBGBFlAJNQZAq+KcKDL
-	 YmbEKbZ1erc6toGX3gifCSoY7INLMa8Pjlmb+em8=
+	b=uXwAtPsSgdgb0/zO5TFCWPk5YMoIalYGFHYOnd/1e+6x6ZTvumhAZqt6bz7+IuY4O
+	 SlPErB5NeiyA1VQYq7DM19i+Krm372SXSxPJb1439ovW7hq+F0abzrPs0nAg3jXXWX
+	 qsLVs1iwCqzMEbutIGjEK5ylWjDxJ7aPlzZZ+PsA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF825F8060F;
-	Thu, 19 Sep 2019 15:55:39 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8CB2F80637;
+	Thu, 19 Sep 2019 15:55:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D8984F8060D; Thu, 19 Sep 2019 15:55:37 +0200 (CEST)
+ id 66922F80639; Thu, 19 Sep 2019 15:55:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30B98F805FF
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 15:55:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30B98F805FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4448F80637
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 15:55:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4448F80637
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="BXokyWSE"
-Received: by mail-pl1-x641.google.com with SMTP id 4so1654589pld.10
- for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 06:55:34 -0700 (PDT)
+ header.b="VvascM4p"
+Received: by mail-pf1-x444.google.com with SMTP id y72so2374916pfb.12
+ for <alsa-devel@alsa-project.org>; Thu, 19 Sep 2019 06:55:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ZIDYLu7ca97k4A/5V7MzuGF5gFCfwb0cYG7NrgVReLI=;
- b=BXokyWSEnoB+eLndxVit4ZfhwMTJl878NpORNWM6vv513KsPPeqI8v+oC4Xbg1+/jg
- hv56oRBzAHbTEXNnJ3NNjcS4JzFR9+287D41TcTm/hYSISRRerlS2+Bso5eWW1zT0Efz
- g/8DazqSzzVgfdbnctQLiakvQJCyCK3XIWrhU=
+ bh=YvltAwcazfPUXLVaME+JgA9zHiL2aoA68dvUhBxJ+k0=;
+ b=VvascM4pkKU4F95ti9Bl2ciow4VSlKqVRkoSZam4Zy8pNf/KevJdJe7PbSc5A8Vbei
+ 5rjN7aU8GqL4jAo2r4eOUtchAoARXaF/M/SDOimb4RwY4uw62x+wPKDT3kX7ps/g8kyT
+ nKD1WRtYLJOSDO6M0MwbYowZ0jXZKtt1qrzFM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ZIDYLu7ca97k4A/5V7MzuGF5gFCfwb0cYG7NrgVReLI=;
- b=Y9s99J2+YcHHKe1XVCHM23v1dUwP81doSDF7gH30OE51yXJOc/p82/3I7NLiaVjoQg
- 4zwi2AYs7lhzjSrTMXoGhVHhHqoXtNn1tAu0TTAJodx6cbtKWFyUSvwqh0fff0/fBNG+
- 3czJ3azi3ShxvohYhDhjq6hQ+5or9hyNl6t3XPi1di774rb7TwcyLaYVb0roayy99fAi
- NBK/DToJmHPo2eyuMM/YJe0eDfSJO77Jirvx/9iDwcDnKK92boWbyFABMvsQ6ZEQekwF
- mzFQzX07brwgu1bmuRJ8cgbakrQsz+IvV7iBFW6f/v+/OKzTbfqvkljwqgnvRtv15y5z
- bHpw==
-X-Gm-Message-State: APjAAAXj/eVM7hLv+3+Db7NjsQxmh/qxXeFyqJJucP9yB5tBXDWRY5EZ
- SNlLy0WSQNOxkoLHTj/pRIxjDQ==
-X-Google-Smtp-Source: APXvYqzKxS83hU+NxkyGPf3KK78zAWXF1bg49KAnScv/gCyw9MSc0ZklNNw3qvhxcocI53QORY7yVg==
-X-Received: by 2002:a17:902:7596:: with SMTP id
- j22mr10208368pll.280.1568901333378; 
- Thu, 19 Sep 2019 06:55:33 -0700 (PDT)
+ bh=YvltAwcazfPUXLVaME+JgA9zHiL2aoA68dvUhBxJ+k0=;
+ b=NN2+UGPVYIuitVAuy3ec5RDTs5stDQCtkwL4PLHbZS4eEBwoEvDc6cJXB/FFDDBpnR
+ ROBA134H2nVBTlXrEZDWOniA0ZwEDPsUAkrgzOyosNcpZQUWFQ9y28wx/9V/F2184QNH
+ O1yEqCyss5GJBXxkTxRJfNb/YQl3jsXgjNcmB89Bn8ywtO2UTXTBinXFVHo/5YT5AirU
+ eJMwgD/H5Y8J1WRs8A4G6N6Ji49G5QN3MH35jz9hnjpugLLhQZu6OLaFobjfPQnLbnR5
+ QuiGut5wJPVjtbFy2zMIMlm3wh7nAM265dOaclSwXd1M/8/tir1N4v/J1Jn1WTgD1KkC
+ G/QQ==
+X-Gm-Message-State: APjAAAW4zZHErtGNLOtli08zMD7mXOTCc5yszp7hTKQ9+GmoAgb+rXxE
+ rHarAblzQTSxdEPbVvw1Wk+TCg==
+X-Google-Smtp-Source: APXvYqxuqnv1/cDU4+3U+mf3SnkxxpRBvj/VkJDXLtzVeqncPGK5Xr2EZWZwOmm3tU9s2WzYUgipeQ==
+X-Received: by 2002:a65:4189:: with SMTP id a9mr8987692pgq.399.1568901343986; 
+ Thu, 19 Sep 2019 06:55:43 -0700 (PDT)
 Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
- by smtp.gmail.com with ESMTPSA id h9sm7468913pgh.51.2019.09.19.06.55.29
+ by smtp.gmail.com with ESMTPSA id j16sm7633402pje.6.2019.09.19.06.55.39
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Sep 2019 06:55:32 -0700 (PDT)
+ Thu, 19 Sep 2019 06:55:43 -0700 (PDT)
 From: Cheng-Yi Chiang <cychiang@chromium.org>
 To: linux-kernel@vger.kernel.org
-Date: Thu, 19 Sep 2019 21:54:49 +0800
-Message-Id: <20190919135450.62309-4-cychiang@chromium.org>
+Date: Thu, 19 Sep 2019 21:54:50 +0800
+Message-Id: <20190919135450.62309-5-cychiang@chromium.org>
 X-Mailer: git-send-email 2.23.0.237.gc6a4ce50a0-goog
 In-Reply-To: <20190919135450.62309-1-cychiang@chromium.org>
 References: <20190919135450.62309-1-cychiang@chromium.org>
@@ -91,8 +90,8 @@ Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
  Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Jernej Skrabec <jernej.skrabec@siol.net>, dianders@chromium.org,
  Daniel Vetter <daniel@ffwll.ch>
-Subject: [alsa-devel] [PATCH v7 3/4] ASoC: rockchip_max98090: Add dai_link
-	for HDMI
+Subject: [alsa-devel] [PATCH v7 4/4] ASoC: rockchip_max98090: Add HDMI jack
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,237 +109,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use two dai_links. One for HDMI and one for max98090.
-With this setup, audio can play to speaker and HDMI selectively.
+In machine driver, create a jack and let hdmi-codec report jack status.
 
 Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
 ---
- .../boot/dts/rk3288-veyron-analog-audio.dtsi  |   1 +
- sound/soc/rockchip/rockchip_max98090.c        | 129 ++++++++++++++----
- 2 files changed, 103 insertions(+), 27 deletions(-)
+ sound/soc/rockchip/Kconfig             |  3 ++-
+ sound/soc/rockchip/rockchip_max98090.c | 20 ++++++++++++++++++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/rk3288-veyron-analog-audio.dtsi b/arch/arm/boot/dts/rk3288-veyron-analog-audio.dtsi
-index 445270aa136e..51208d161d65 100644
---- a/arch/arm/boot/dts/rk3288-veyron-analog-audio.dtsi
-+++ b/arch/arm/boot/dts/rk3288-veyron-analog-audio.dtsi
-@@ -17,6 +17,7 @@
- 		rockchip,hp-det-gpios = <&gpio6 RK_PA5 GPIO_ACTIVE_HIGH>;
- 		rockchip,mic-det-gpios = <&gpio6 RK_PB3 GPIO_ACTIVE_LOW>;
- 		rockchip,headset-codec = <&headsetcodec>;
-+		rockchip,hdmi-codec = <&hdmi>;
- 	};
- };
+diff --git a/sound/soc/rockchip/Kconfig b/sound/soc/rockchip/Kconfig
+index b43657e6e655..d610b553ea3b 100644
+--- a/sound/soc/rockchip/Kconfig
++++ b/sound/soc/rockchip/Kconfig
+@@ -40,9 +40,10 @@ config SND_SOC_ROCKCHIP_MAX98090
+ 	select SND_SOC_ROCKCHIP_I2S
+ 	select SND_SOC_MAX98090
+ 	select SND_SOC_TS3A227E
++	select SND_SOC_HDMI_CODEC
+ 	help
+ 	  Say Y or M here if you want to add support for SoC audio on Rockchip
+-	  boards using the MAX98090 codec, such as Veyron.
++	  boards using the MAX98090 codec and HDMI codec, such as Veyron.
  
+ config SND_SOC_ROCKCHIP_RT5645
+ 	tristate "ASoC support for Rockchip boards using a RT5645/RT5650 codec"
 diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index c5fc24675a33..6c217492bb30 100644
+index 6c217492bb30..11cf252e8391 100644
 --- a/sound/soc/rockchip/rockchip_max98090.c
 +++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -11,6 +11,7 @@
- #include <linux/gpio.h>
- #include <linux/of_gpio.h>
- #include <sound/core.h>
-+#include <sound/hdmi-codec.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -41,6 +42,7 @@ static const struct snd_soc_dapm_widget rk_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
- 	SND_SOC_DAPM_MIC("Int Mic", NULL),
- 	SND_SOC_DAPM_SPK("Speaker", NULL),
-+	SND_SOC_DAPM_LINE("HDMI", NULL),
+@@ -134,6 +134,25 @@ enum {
+ 	DAILINK_HDMI,
  };
  
- static const struct snd_soc_dapm_route rk_audio_map[] = {
-@@ -52,6 +54,7 @@ static const struct snd_soc_dapm_route rk_audio_map[] = {
- 	{"Headphone", NULL, "HPR"},
- 	{"Speaker", NULL, "SPKL"},
- 	{"Speaker", NULL, "SPKR"},
-+	{"HDMI", NULL, "TX"},
- };
- 
- static const struct snd_kcontrol_new rk_mc_controls[] = {
-@@ -59,6 +62,7 @@ static const struct snd_kcontrol_new rk_mc_controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
- 	SOC_DAPM_PIN_SWITCH("Int Mic"),
- 	SOC_DAPM_PIN_SWITCH("Speaker"),
-+	SOC_DAPM_PIN_SWITCH("HDMI"),
- };
- 
- static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
-@@ -92,38 +96,63 @@ static int rk_aif1_hw_params(struct snd_pcm_substream *substream,
- 
- 	ret = snd_soc_dai_set_sysclk(cpu_dai, 0, mclk,
- 				     SND_SOC_CLOCK_OUT);
--	if (ret < 0) {
--		dev_err(codec_dai->dev, "Can't set codec clock %d\n", ret);
++static struct snd_soc_jack rk_hdmi_jack;
++
++static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
++{
++	struct snd_soc_card *card = runtime->card;
++	struct snd_soc_component *component = runtime->codec_dai->component;
++	int ret;
++
++	/* enable jack detection */
++	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
++				    &rk_hdmi_jack, NULL, 0);
 +	if (ret) {
-+		dev_err(cpu_dai->dev, "Can't set cpu dai clock %d\n", ret);
- 		return ret;
- 	}
- 
-+	/* HDMI codec dai does not need to set sysclk. */
-+	if (!strcmp(rtd->dai_link->name, "HDMI"))
-+		return 0;
-+
- 	ret = snd_soc_dai_set_sysclk(codec_dai, 0, mclk,
- 				     SND_SOC_CLOCK_IN);
--	if (ret < 0) {
--		dev_err(codec_dai->dev, "Can't set codec clock %d\n", ret);
-+	if (ret) {
-+		dev_err(codec_dai->dev, "Can't set codec dai clock %d\n", ret);
- 		return ret;
- 	}
- 
--	return ret;
-+	return 0;
- }
- 
- static const struct snd_soc_ops rk_aif1_ops = {
- 	.hw_params = rk_aif1_hw_params,
- };
- 
--SND_SOC_DAILINK_DEFS(hifi,
--	DAILINK_COMP_ARRAY(COMP_EMPTY()),
--	DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")),
--	DAILINK_COMP_ARRAY(COMP_EMPTY()));
--
--static struct snd_soc_dai_link rk_dailink = {
--	.name = "max98090",
--	.stream_name = "Audio",
--	.ops = &rk_aif1_ops,
--	/* set max98090 as slave */
--	.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
--		SND_SOC_DAIFMT_CBS_CFS,
--	SND_SOC_DAILINK_REG(hifi),
-+SND_SOC_DAILINK_DEFS(analog,
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()),
-+		     DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "HiFi")),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+SND_SOC_DAILINK_DEFS(hdmi,
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()),
-+		     DAILINK_COMP_ARRAY(COMP_CODEC(NULL, "i2s-hifi")),
-+		     DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
-+enum {
-+	DAILINK_MAX98090,
-+	DAILINK_HDMI,
-+};
-+
-+/* max98090 and HDMI codec dai_link */
-+static struct snd_soc_dai_link rk_dailinks[] = {
-+	[DAILINK_MAX98090] = {
-+		.name = "max98090",
-+		.stream_name = "Analog",
-+		.ops = &rk_aif1_ops,
-+		/* set max98090 as slave */
-+		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
-+			SND_SOC_DAIFMT_CBS_CFS,
-+		SND_SOC_DAILINK_REG(analog),
-+	},
-+	[DAILINK_HDMI] = {
-+		.name = "HDMI",
-+		.stream_name = "HDMI",
-+		.ops = &rk_aif1_ops,
-+		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
-+			SND_SOC_DAIFMT_CBS_CFS,
-+		SND_SOC_DAILINK_REG(hdmi),
-+	}
- };
- 
- static int rk_98090_headset_init(struct snd_soc_component *component);
-@@ -136,8 +165,8 @@ static struct snd_soc_aux_dev rk_98090_headset_dev = {
- static struct snd_soc_card snd_soc_card_rk = {
- 	.name = "ROCKCHIP-I2S",
- 	.owner = THIS_MODULE,
--	.dai_link = &rk_dailink,
--	.num_links = 1,
-+	.dai_link = rk_dailinks,
-+	.num_links = ARRAY_SIZE(rk_dailinks),
- 	.aux_dev = &rk_98090_headset_dev,
- 	.num_aux_devs = 1,
- 	.dapm_widgets = rk_dapm_widgets,
-@@ -173,27 +202,73 @@ static int snd_rk_mc_probe(struct platform_device *pdev)
- 	int ret = 0;
- 	struct snd_soc_card *card = &snd_soc_card_rk;
- 	struct device_node *np = pdev->dev.of_node;
-+	struct device_node *np_analog;
-+	struct device_node *np_cpu;
-+	struct device_node *np_hdmi_codec;
-+	struct of_phandle_args args;
- 
- 	/* register the soc card */
- 	card->dev = &pdev->dev;
- 
--	rk_dailink.codecs->of_node = of_parse_phandle(np,
--			"rockchip,audio-codec", 0);
--	if (!rk_dailink.codecs->of_node) {
-+	np_analog = of_parse_phandle(np, "rockchip,audio-codec", 0);
-+	if (!np_analog) {
- 		dev_err(&pdev->dev,
- 			"Property 'rockchip,audio-codec' missing or invalid\n");
- 		return -EINVAL;
- 	}
-+	rk_dailinks[DAILINK_MAX98090].codecs->of_node = np_analog;
-+
-+	ret = of_parse_phandle_with_fixed_args(np, "rockchip,audio-codec",
-+					       0, 0, &args);
-+	if (ret) {
-+		dev_err(&pdev->dev,
-+			"Unable to parse property 'rockchip,audio-codec'\n");
++		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
 +		return ret;
 +	}
 +
-+	ret = snd_soc_get_dai_name(
-+			&args, &rk_dailinks[DAILINK_MAX98090].codecs->dai_name);
-+	if (ret) {
-+		dev_err(&pdev->dev, "Unable to get codec dai_name\n");
-+		return ret;
-+	}
++	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
++}
 +
-+	np_cpu = of_parse_phandle(np, "rockchip,i2s-controller", 0);
- 
--	rk_dailink.cpus->of_node = of_parse_phandle(np,
--			"rockchip,i2s-controller", 0);
--	if (!rk_dailink.cpus->of_node) {
-+	if (!np_cpu) {
- 		dev_err(&pdev->dev,
- 			"Property 'rockchip,i2s-controller' missing or invalid\n");
- 		return -EINVAL;
+ /* max98090 and HDMI codec dai_link */
+ static struct snd_soc_dai_link rk_dailinks[] = {
+ 	[DAILINK_MAX98090] = {
+@@ -151,6 +170,7 @@ static struct snd_soc_dai_link rk_dailinks[] = {
+ 		.ops = &rk_aif1_ops,
+ 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
+ 			SND_SOC_DAIFMT_CBS_CFS,
++		.init = rk_hdmi_init,
+ 		SND_SOC_DAILINK_REG(hdmi),
  	}
- 
--	rk_dailink.platforms->of_node = rk_dailink.cpus->of_node;
-+	np_hdmi_codec = of_parse_phandle(np, "rockchip,hdmi-codec", 0);
-+	if (!np_hdmi_codec) {
-+		dev_err(&pdev->dev,
-+			"Property 'rockchip,hdmi-codec' missing or invalid\n");
-+		return -EINVAL;
-+	}
-+
-+	rk_dailinks[DAILINK_HDMI].codecs->of_node = np_hdmi_codec;
-+
-+	ret = of_parse_phandle_with_fixed_args(np, "rockchip,hdmi-codec",
-+					       0, 0, &args);
-+	if (ret) {
-+		dev_err(&pdev->dev,
-+			"Unable to parse property 'rockchip,hdmi-codec'\n");
-+		return ret;
-+	}
-+
-+	ret = snd_soc_get_dai_name(
-+			&args, &rk_dailinks[DAILINK_HDMI].codecs->dai_name);
-+	if (ret) {
-+		dev_err(&pdev->dev, "Unable to get hdmi codec dai_name\n");
-+		return ret;
-+	}
-+
-+	rk_dailinks[DAILINK_MAX98090].cpus->of_node = np_cpu;
-+	rk_dailinks[DAILINK_MAX98090].platforms->of_node = np_cpu;
-+	rk_dailinks[DAILINK_HDMI].cpus->of_node = np_cpu;
-+	rk_dailinks[DAILINK_HDMI].platforms->of_node = np_cpu;
- 
- 	rk_98090_headset_dev.codec_of_node = of_parse_phandle(np,
- 			"rockchip,headset-codec", 0);
+ };
 -- 
 2.23.0.237.gc6a4ce50a0-goog
 

@@ -2,85 +2,126 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5C4EB8FEA
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Sep 2019 14:44:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9DBFB9044
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Sep 2019 15:04:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28C721679;
-	Fri, 20 Sep 2019 14:44:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28C721679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A679167D;
+	Fri, 20 Sep 2019 15:03:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A679167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568983494;
-	bh=oDVddZbkppNoUqxuxx9TUPsBy8O2gU/U/nBm8IIdGNk=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UnalOYHBMvXetPBKwsjE/q+/45EOKvrqE4gXM7o2alZvYURA+b6EOGnkiQ9+1bH9q
-	 dzuQRJ1bGO7rv5/MENGPolPfiaSOWpAyV2Bl/rcLvZzdMubLU6IanLTWYtPsfDDtfT
-	 1CJxqHVDOfary2FHPOSDTCPHxaA/SNKoFrisscvk=
+	s=default; t=1568984674;
+	bh=zq5LdPKxonBYcGWFjt2ZGrPcwr5kCPwbfya2Qb+DeZw=;
+	h=From:To:Date:References:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=owRVjcun9oPiGcNPE6/pQHvJFqPg1RVNgyHm6cXwfTouDwCWgmfzziQ7bca5B6jF1
+	 xqCELN76UoAl3hXbArdvMDmxzeLgPodL5leFIyjkgC1ngeLk6I4XEAEjv1JHPaNmqW
+	 g4kikojg1mpFTlvM/OuYqZ7J0p7cYOG7Apo/22TE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97AF4F80527;
-	Fri, 20 Sep 2019 14:43:09 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9AFE0F804FF;
+	Fri, 20 Sep 2019 15:02:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6276BF80506; Fri, 20 Sep 2019 14:43:07 +0200 (CEST)
+ id 8E374F80506; Fri, 20 Sep 2019 15:02:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
- [209.85.128.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3EF6FF80096
- for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 14:43:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3EF6FF80096
-Received: by mail-wm1-f65.google.com with SMTP id y21so2161693wmi.0
- for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 05:43:04 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=IUIz0TFnK+oC5M96ipiDUxKW+O/HTgXIaIGHBEPFmZk=;
- b=WRr3tQu7VWExsz89mMlr/YwzlWIEc2nKdTBS44Z6Z8FnjErFntTOn1ON8yaAjz0RDz
- NyBjegV4nbmwU0S1J6S4aVncyV2PI4xeGzn0ZPUrns1QOC4yIvm8Iyab+nwQ1kWGO72o
- 1wSr7bhqQ67TnOajF7yQK23OyQK9TPNdZl+eq2Q4XXzgZGSjyJmZYi7b8pirDSJ3LpN6
- PUCyBaq6YU0lL7HFPKtiH/GvArNiv2lWwmGSi40lO6j/qCDev8NTRQRDGDGTWBd+/ceK
- Q5HHg4QiQt9XdDQyWKnrrvTt4tVqYHSHsL0r9DtxuuOSpw+mAUiZynYxXNJToS7FmcAi
- HlzQ==
-X-Gm-Message-State: APjAAAVb1FRO3EVuB7Pbf3XkkRgwbtshSvhaNLhp4gIyw/n2HGBTMhUh
- j/mkBptooSwzdmIB4Lkcvcg=
-X-Google-Smtp-Source: APXvYqzbaPx3iXSpFSvDy/ZXK9L8E7TXMCemVZw3zZNJjaJFe/Zom9X+pjc+WhUMLjEMWMRXD5G5Eg==
-X-Received: by 2002:a1c:96cd:: with SMTP id y196mr3276669wmd.67.1568983384086; 
- Fri, 20 Sep 2019 05:43:04 -0700 (PDT)
-Received: from pi3 ([194.230.155.145])
- by smtp.googlemail.com with ESMTPSA id l9sm1678293wme.45.2019.09.20.05.43.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Sep 2019 05:43:02 -0700 (PDT)
-Date: Fri, 20 Sep 2019 14:43:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <20190920124300.GA26917@pi3>
-References: <CAL_JsqJ=QWk07y=h7dHFiRrKuE7NGoUr50bu3kiOC+YU8qS9jg@mail.gmail.com>
- <CGME20190920115200eucas1p2253a3eb13373061ef8aa39131c98a319@eucas1p2.samsung.com>
- <20190920113540.30687-1-m.szyprowski@samsung.com>
- <20190920122616.GA26862@pi3>
- <68ec938a-29b5-0c07-3a5e-771d6ce587b4@samsung.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <68ec938a-29b5-0c07-3a5e-771d6ce587b4@samsung.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Maciej Falkowski <m.falkowski@samsung.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Andrzej Hajda <a.hajda@samsung.com>, Rob Herring <robh+dt@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [alsa-devel] [PATCH v3] dt-bindings: sound: Convert Samsung I2S
- controller to dt-schema
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84C2EF80146
+ for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 15:02:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84C2EF80146
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="dWU7/Kea"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20190920130240euoutp01f2948553a94c4cd992af1dc741cc15fb~GJyUipRVs2865728657euoutp01Y
+ for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 13:02:40 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20190920130240euoutp01f2948553a94c4cd992af1dc741cc15fb~GJyUipRVs2865728657euoutp01Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1568984560;
+ bh=BchkBTQspeIDzutFJIeK4Onaadt8x5arqRDNHXthQ7w=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=dWU7/KeabY3grQRMH1AXJzuDWbkG7/ZIj1YrDhFJm2j5zeg+VzIyjestwKSS+FJYJ
+ EBjMRshInjU16Cm5ZXXJh1eCsQAYnsRCwAtu6NoC6Hb9Ta6uNU6UwzpVdRBp+m9efA
+ QDk+b8+6lbHgR4Aafmae9ugNjNGk7G/BIdOjyadc=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20190920130239eucas1p2d1302e0a4d05f59e4e90b202a52d0004~GJyTnxGNZ1581315813eucas1p2F;
+ Fri, 20 Sep 2019 13:02:39 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id B1.6A.04374.FEDC48D5; Fri, 20
+ Sep 2019 14:02:39 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20190920130238eucas1p147fca337fa84592ac7f83760449e26a1~GJySuD2cN2907129071eucas1p12;
+ Fri, 20 Sep 2019 13:02:38 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20190920130238eusmtrp13b4c6124a69d5f4b661f35270e78da48~GJyST4JNV0476604766eusmtrp1D;
+ Fri, 20 Sep 2019 13:02:38 +0000 (GMT)
+X-AuditID: cbfec7f5-4f7ff70000001116-a3-5d84cdef18cb
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 92.F0.04117.EEDC48D5; Fri, 20
+ Sep 2019 14:02:38 +0100 (BST)
+Received: from AMDC3061.DIGITAL.local (unknown [106.120.51.75]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20190920130237eusmtip204165d8c1eab4b4b8f27c099fc9acc0c~GJyRn90NH1284512845eusmtip2O;
+ Fri, 20 Sep 2019 13:02:37 +0000 (GMT)
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+To: broonie@kernel.org, krzk@kernel.org
+Date: Fri, 20 Sep 2019 15:02:09 +0200
+Message-Id: <20190920130218.32690-1-s.nawrocki@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA0VSa0hTURz37O7uXkdXjlPyoGY0yliQZhndMkQx5FJfJPpiMmxuFxXdlE0t
+ 80O6tNR8pdlMlKwMbZmuZctHPphuq0RNNBVUzBQqHxjNBNEyt4v17ffk9z9wSExUjXuTiao0
+ Vq2SJYsFQr7JujF8dHUwV3qssxXSYyNmHv2yqgWnK+cWBPRYnhHQD/uHcHp42EDQ62P5PNo4
+ P47TVcPdPPpF/wxB21d7cDqvq5+g+5Zv4/RI4xovzI0x2LUCpr16hmCM+gIB86r+BqOr2QZM
+ SaseMHajXxRxWXhWwSYnZrDqwNArwoTst1Ys1Q6v/cgdF2SDHKoQkCSCwajpXmIhEJIi2AjQ
+ 3Gw3nyNrAH0aHMU5YgeoaaoD7DZ+d8k5vQGgtf5N/F+jp81EFAJXUgCDULGlBDiwJzyMZqu0
+ zhAGv/NQmaWZ5zA84EW00qxzYj48hEZLtc4FCoag3BmFQ0ZwP3pu6MUcXQR1BKqecqw5jHPo
+ 66NvGIc90KKtleCwLxqoKOJzhZsAFXVOERwpA2jWVge4VAjqs43gjjUMSlBLRyAnh6PN6WKC
+ e6Ybmlxxd8jYDiw36TBOplD+LRGXPog29dz5CHqjOwvbfA4z6IEtx6mLoBT1flgQlAG/6v9b
+ dQDogRebrlHGs5oTKvZqgEam1KSr4gPkKUoj2PkxA39sv9pA91acGUASiPdQjDVXKsJlGZpM
+ pRkgEhN7UjUntVIRpZBlXmfVKbHq9GRWYwY+JF/sRWW5fI4RwXhZGpvEsqmsetflka7e2SCp
+ fMAQfin8Sxw44x/J3HU3jy7hUWG1rhMFTJK8QBIZuj35+Of5fca0gdce0uOtWU83ctxifQOe
+ PbE0RKcvx/jET5hc5tWCzgsN8oj1GMv0gVPG2vUhfGtvpT+lUITerwhdnHkn+Xg62upS6k2N
+ SoIN78OXJPURb1SSZtd2IRTzNQmyoCOYWiP7C4BdDYgtAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrPLMWRmVeSWpSXmKPExsVy+t/xe7rvzrbEGpw8zm1x5eIhJouNM9az
+ Wkx9+ITN4krrJkaL+UfOsVqcP7+B3eLblQ4mi02Pr7FazDi/j8li7ZG77Baf3+9ntWjde4Td
+ 4vCbdlaLiyu+MDnweWz43MTmsXPWXXaPTas62Tw2L6n3mD7nP6NH35ZVjB6fN8kFsEfp2RTl
+ l5akKmTkF5fYKkUbWhjpGVpa6BmZWOoZGpvHWhmZKunb2aSk5mSWpRbp2yXoZTTsOcZc8Fmg
+ 4kPLNbYGxkbeLkYODgkBE4m/e5O7GLk4hASWMkocXnSSDSIuJTG/RamLkRPIFJb4c62LDaLm
+ E6PEh46/LCAJNgFDid6jfYwgtoiApkTHvNusIEXMAt+ZJA48PskMkhAWCJC4em8ZWBGLgKrE
+ 5f4mRpAFvALWEi13UyAWyEus3nCAeQIjzwJGhlWMIqmlxbnpucVGesWJucWleel6yfm5mxiB
+ gb3t2M8tOxi73gUfYhTgYFTi4fU41hIrxJpYVlyZe4hRgoNZSYR3jmlTrBBvSmJlVWpRfnxR
+ aU5q8SFGU6DdE5mlRJPzgVGXVxJvaGpobmFpaG5sbmxmoSTO2yFwMEZIID2xJDU7NbUgtQim
+ j4mDU6qBcdUf9cCSPLu3L+f4n/ltEpuzrObtnoVPS8vm5S18FmY34wOTf1ngy7XG7/+z+d7R
+ Nn7Gucfvy+Zb7HUlsi3VxvHKa/z7l89VvfH3pHqJnMf5zdO0y2+WPjX8ohTywU7qkHea5lXf
+ Sse/vGGFG5/xPD60UaD6edzru3JOu0/4tBcxLVIqu/3RWImlOCPRUIu5qDgRAGwSqdeCAgAA
+X-CMS-MailID: 20190920130238eucas1p147fca337fa84592ac7f83760449e26a1
+X-Msg-Generator: CA
+X-RootMTR: 20190920130238eucas1p147fca337fa84592ac7f83760449e26a1
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20190920130238eucas1p147fca337fa84592ac7f83760449e26a1
+References: <CGME20190920130238eucas1p147fca337fa84592ac7f83760449e26a1@eucas1p1.samsung.com>
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, ckeepax@opensource.cirrus.com,
+ b.zolnierkie@samsung.com, sbkim73@samsung.com, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com
+Subject: [alsa-devel] [PATCH v2 00/10] Basic sound support for Arndale board
+ / wm8994 updates
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,33 +134,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 20, 2019 at 02:33:13PM +0200, Marek Szyprowski wrote:
-> Hi Krzysztof,
-> 
- >> +examples:
-> >> +  - |
-> >> +    #include <dt-bindings/clock/exynos-audss-clk.h>
-> > Does it really work? When I tried, it was failing... If you look up at
-> > resulting DTS example it is wrong.
-> 
-> In which way it was wrong? We checked and it was correctly propagated to 
-> the example dts. It also compiled fine without errors. The only minor 
-> issue was that the include was generated inside the root node, but for 
-> the clock definitions this doesn't matter, but it makes the example 
-> easier to understand.
+This patch series adds basic audio support for Exynos5250 SoC based Arndale 
+board, the Bluetooth receiver source and HDMI output are not covered yet.
 
-Hmmm.... indeed this works. The output DTS is weird as include goes to
-example node (not even root) but it compiles. Somehow my previous tries
-with it were failing, I need to check why. In general I am all in for
-this include.
+There is also one fix for wm8994 driver related to WM1811 CODEC and wm8994
+updates to handle MCLK clocks, similar to patches:
+ ae1ea48c5c59 ("ASoC: arizona: Add gating for source clocks of the FLLs")
+ 7a4413d0dc96 ("ASoC: arizona: Add gating for clock when used for direct MCLK")
 
-Best regards,
-Krzysztof
+The main changes since v1:
+ - Fixed bug in "ASoC: wm8994: Add support for MCLKn clock gating" patch
+   (thanks to Charles),
+ - dropped the MFD part patch and moved getting of clocks to the CODEC driver,
+ - Added missing Kconfig entries to patch "ASoC: samsung: arndale: Add 
+   support for WM1811 CODEC",
+ - Added a patch renaming the driver and a patch for exynos_defconfig.
+
+Sylwester Nawrocki (10):
+  ASoC: wm8994: Do not register inapplicable controls for WM1811
+  ASoC: samsung: arndale: Add missing OF node dereferencing
+  ASoC: wm8994: Add support for setting MCLK clock rate
+  ASoC: wm8994: Add support for MCLKn clock gating
+  ASoC: samsung: arndale: Simplify DAI link initialization
+  ASoC: dt-bindings: Document "samsung,arndale-wm1811" compatible
+  ASoC: samsung: arndale: Add support for WM1811 CODEC
+  ASoC: samsung: Rename Arndale card driver
+  ARM: dts: arndale: Add audio support (WM1811 CODEC boards)
+  ARM: exynos_defconfig: Enable Arndale audio driver
+
+ .../devicetree/bindings/sound/arndale.txt     |   5 +-
+ arch/arm/boot/dts/exynos5250-arndale.dts      |  27 ++-
+ arch/arm/configs/exynos_defconfig             |   1 +
+ sound/soc/codecs/wm8994.c                     | 199 +++++++++++++---
+ sound/soc/codecs/wm8994.h                     |  10 +-
+ sound/soc/samsung/Kconfig                     |  12 +-
+ sound/soc/samsung/Makefile                    |   4 +-
+ sound/soc/samsung/arndale.c                   | 217 ++++++++++++++++++
+ sound/soc/samsung/arndale_rt5631.c            | 138 -----------
+ 9 files changed, 438 insertions(+), 175 deletions(-)
+ create mode 100644 sound/soc/samsung/arndale.c
+ delete mode 100644 sound/soc/samsung/arndale_rt5631.c
+
+-- 
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

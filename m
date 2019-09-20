@@ -2,72 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6CFBB90A5
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Sep 2019 15:28:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1BE2B99DA
+	for <lists+alsa-devel@lfdr.de>; Sat, 21 Sep 2019 00:53:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39CB31675;
-	Fri, 20 Sep 2019 15:27:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39CB31675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 664B31677;
+	Sat, 21 Sep 2019 00:52:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 664B31677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1568986118;
-	bh=fHtEpMjtR/kWvsD+M0TlSyeZzPESY7vzKOk52ijbI5M=;
+	s=default; t=1569020024;
+	bh=yyGw5yPGENl/v2jVZ6XYfiI1QlGevdFW+tSyVUYuEm0=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FvjTrtCagzf/EVAq2KcOv7khulNWXpB4Mycjh4Bn38Ms/fbyFYG1FljDf8sO3JOYi
-	 +134hwLlWlPb1jS10RkoeLORM5Q56fLNe+SN1SHJfiSxIbPzbCazBP/LTJKX0qfIS3
-	 65NoF3sYxEBVQOYIkGzXdLBpA4PeehxT7VIbbSyc=
+	b=dOwXNs5j+fWtJWvl0qFlkHrYeFnCPP2BD+8elOrW1DrUCX8MOtCzpG3gr9V7on7rN
+	 wHn5lLGPCUg3hq9UIThwIDDqqmBeLqeWOaLCKT00CgY5zDlidjRnUmOI7UfT3y4P1c
+	 IvRQiDccy23DDj4Xf0FQ2x9Hf20UqL1oqWFH+bzY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9302FF80519;
-	Fri, 20 Sep 2019 15:26:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B64A8F80506;
+	Sat, 21 Sep 2019 00:51:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D249BF80506; Fri, 20 Sep 2019 15:26:50 +0200 (CEST)
+ id 86714F80506; Sat, 21 Sep 2019 00:51:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5B6DBF80096
- for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 15:26:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5B6DBF80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id 379C8F800C7
+ for <alsa-devel@alsa-project.org>; Sat, 21 Sep 2019 00:51:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 379C8F800C7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dJwu4kjg"
-Received: from localhost (173-25-83-245.client.mchsi.com [173.25.83.245])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E3E5A20644;
- Fri, 20 Sep 2019 13:26:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1568986006;
- bh=l6trHkVRVi4Jtoy88rMW6wbwgrdI8cPoidRU+a4Nsio=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dJwu4kjg0I7EPoOxOCF9/xh8sTyrXKV0lUmPsvj4kB1vxJH9xuOBzn7f5vgJn8R4L
- gqF/dYYJPT7E+azdmsMGSglPJ61pl62C7tlTsYKAo70ctR53+WA7M71176sFajIWYB
- PNy0rNBhWw1Zo0iZRd4Gi9Ks4zX+ZGxEL7VfK0Ho=
-Date: Fri, 20 Sep 2019 08:26:44 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Kai-Heng Feng <kai.heng.feng@canonical.com>
-Message-ID: <20190920132644.GA226476@google.com>
-References: <20190827134756.10807-1-kai.heng.feng@canonical.com>
- <20190909114129.GT103977@google.com>
- <CAAd53p4mc0tgCBiwfZRowr4os_bqDP+7Ko=d+do8OW2aH1Whzg@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="XxpsH7YC"
+Received: by mail-pl1-x642.google.com with SMTP id e5so3853153pls.9
+ for <alsa-devel@alsa-project.org>; Fri, 20 Sep 2019 15:51:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=0P3XLXQhDOk6yT8L9UZqipY6hQ6gvzDoPp4owKec9vk=;
+ b=XxpsH7YCa/PUyweMsFxZ83TPOyD0WUZjPit3c8pITmQgtwko6irwDaxc9pADFQztvC
+ 4U90FTq1tsr90gbU3BH0dXMjgwrxN9irMCPTc5p97PU3oec9/cqWzdg6C2yhY/HsfNln
+ aScdV6JxcUYSWR5y5Hv9upvbjhCmXfYVsD9tu4NY5ITzk7+s1hqedARflggKmV1Dur7v
+ fiOu8/6RUGHJEhmjdorBPStTRSD4Ln8RO9iV39xPXYgVi3HpcU5c3nwZPcYP/tfnsq7x
+ oh49U2WdVkdA819mAvnTSbQQg3Gu+tax53st1QAbHmpdvq4sxTse2UtHV/IylCvTkm9n
+ Q3vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0P3XLXQhDOk6yT8L9UZqipY6hQ6gvzDoPp4owKec9vk=;
+ b=pQHuHqbQOpBmB9VMbYAyxiWD2HejJ/MYbTxPMPc6YGM44yoM/EM2ihK7oGlzLR+lbB
+ KSvw5BjluGhmPB4BGeRuvqkT2yJXJirp656w7RjGt13NaxS1NuXhkpVyUbZjox1ePeGA
+ C5nu/0UrxlwFtJDznUI3UYMdUs5wOu/tR+7Sv6R8zIcksTHdn/iy3SFKimJ8FQYhk7SL
+ MOS7R90qjW6K7Q/CcYFmypmbFhPFhG8GRHAehpGSywE9l17oRl249iNXLZ2PzLIdGj/z
+ RgPJg9s+eh95p+45R2eJ7mp89OxxfQv/QpjtJlVt6/+Coyx2YLlx02uEUxXBjMQh1TaQ
+ 5dLA==
+X-Gm-Message-State: APjAAAUOYb3RXA9cHWDzgPAvzfwNsdhlDVmIxipodDXLNdHJ1tEgDvf4
+ U3VCq+GHktNDN+GeVeB65is=
+X-Google-Smtp-Source: APXvYqxuXYaN7Iqu31wZ7eEfynHGlkievoHDsqLPDXtQ855SljuXpLCmyBe3bDgUiLJ0h23ehjlQAQ==
+X-Received: by 2002:a17:902:fe91:: with SMTP id
+ x17mr19665279plm.106.1569019907795; 
+ Fri, 20 Sep 2019 15:51:47 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id g24sm2039646pfi.81.2019.09.20.15.51.46
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 20 Sep 2019 15:51:47 -0700 (PDT)
+Date: Fri, 20 Sep 2019 15:50:58 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Message-ID: <20190920225055.GB21389@Asurada-Nvidia.nvidia.com>
+References: <cover.1568861098.git.shengjiu.wang@nxp.com>
+ <57e3bda7b94fecf94d17f2eacf1c6beebcac74ff.1568861098.git.shengjiu.wang@nxp.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAAd53p4mc0tgCBiwfZRowr4os_bqDP+7Ko=d+do8OW2aH1Whzg@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux PCI <linux-pci@vger.kernel.org>, alsa-devel@alsa-project.org,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, tiwai@suse.com,
- LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH 1/2] PCI: Add a helper to check Power
- Resource Requirements _PR3 existence
+In-Reply-To: <57e3bda7b94fecf94d17f2eacf1c6beebcac74ff.1568861098.git.shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
+ festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH V3 3/4] ASoC: pcm_dmaengine: Extract
+ snd_dmaengine_pcm_refine_runtime_hwparams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,95 +109,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[+cc Rafael]
-
-On Fri, Sep 20, 2019 at 01:23:20PM +0200, Kai-Heng Feng wrote:
-> On Mon, Sep 9, 2019 at 1:41 PM Bjorn Helgaas <helgaas@kernel.org> wrote:
-
-> > > +bool pci_pr3_present(struct pci_dev *pdev)
-> > > +{
-> > > +     struct pci_dev *parent_pdev = pci_upstream_bridge(pdev);
-> > > +     struct acpi_device *parent_adev;
-> > > +
-> > > +     if (acpi_disabled)
-> > > +             return false;
-> > > +
-> > > +     if (!parent_pdev)
-> > > +             return false;
-> > > +
-> > > +     parent_adev = ACPI_COMPANION(&parent_pdev->dev);
-> > > +     if (!parent_adev)
-> > > +             return false;
-> > > +
-> > > +     return parent_adev->power.flags.power_resources &&
-> > > +             acpi_has_method(parent_adev->handle, "_PR3");
-> >
-> > I think this is generally OK, but it doesn't actually check whether
-> > *pdev* has a _PR3; it checks whether pdev's *parent* does.  So does
-> > that mean this is dependent on the GPU topology, i.e., does it assume
-> > that there is an upstream bridge and that power for everything under
-> > that bridge can be managed together?
+On Thu, Sep 19, 2019 at 08:11:41PM +0800, Shengjiu Wang wrote:
+> When set the runtime hardware parameters, we may need to query
+> the capability of DMA to complete the parameters.
 > 
-> Yes, the power resource is managed by its upstream port.
+> This patch is to Extract this operation from
+> dmaengine_pcm_set_runtime_hwparams function to a separate function
+> snd_dmaengine_pcm_refine_runtime_hwparams, that other components
+> which need this feature can call this function.
 > 
-> > I'm wondering whether the "parent_pdev = pci_upstream_bridge()" part
-> > should be in the caller rather than in pci_pr3_present()?
-> 
-> This will make the function more align to its name, but needs more
-> work from caller side.
-> How about rename the function to pci_upstream_pr3_present()?
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-I cc'd Rafael because he knows all about how this stuff works, and I
-don't.
+> @@ -145,58 +140,15 @@ static int dmaengine_pcm_set_runtime_hwparams(struct snd_pcm_substream *substrea
 
-_PR3 is defined in terms of the device itself and the doc (ACPI v6.3,
-sec 7.3.11) doesn't mention any hierarchy.  I assume it would be legal
-for firmware to supply a _PR3 for "pdev" as well as for "parent_pdev"?
+> +	ret = snd_dmaengine_pcm_refine_runtime_hwparams(substream,
+> +							dma_data,
+> +							&hw,
+> +							chan);
+> +	if (ret)
+> +		return ret;
+>  
+>  	return snd_soc_set_runtime_hwparams(substream, &hw);
+> +
+> }
 
-If that is legal, I think it would be appropriate for the caller to
-look up the upstream bridge.  That way this interface could be used
-for both "pdev" and an upstream bridge.  If we look up the bridge
-internally, we would have to add a second interface if we actually
-want to know about _PR3 for the device itself.
+Just a nit, why add a line here? :)
 
-> > I can't connect any of the dots from _PR3 through to
-> > "need_eld_notify_link" (whatever "eld" is :)) and the uses of
-> > hda_intel.need_eld_notify_link (and needs_eld_notify_link()).
-> >
-> > But that's beyond the scope of *this* patch and it makes sense that
-> > you do want to discover the _PR3 existence, so I'm fine with this once
-> > we figure out the pdev vs parent question.
-> 
-> Thanks for your review.
-> 
-> Kai-Heng
-> 
-> >
-> > > +}
-> > > +EXPORT_SYMBOL_GPL(pci_pr3_present);
-> > > +
-> > >  /**
-> > >   * pci_add_dma_alias - Add a DMA devfn alias for a device
-> > >   * @dev: the PCI device for which alias is added
-> > > diff --git a/include/linux/pci.h b/include/linux/pci.h
-> > > index 82e4cd1b7ac3..9b6f7b67fac9 100644
-> > > --- a/include/linux/pci.h
-> > > +++ b/include/linux/pci.h
-> > > @@ -2348,9 +2348,11 @@ struct irq_domain *pci_host_bridge_acpi_msi_domain(struct pci_bus *bus);
-> > >
-> > >  void
-> > >  pci_msi_register_fwnode_provider(struct fwnode_handle *(*fn)(struct device *));
-> > > +bool pci_pr3_present(struct pci_dev *pdev);
-> > >  #else
-> > >  static inline struct irq_domain *
-> > >  pci_host_bridge_acpi_msi_domain(struct pci_bus *bus) { return NULL; }
-> > > +static bool pci_pr3_present(struct pci_dev *pdev) { return false; }
-> > >  #endif
-> > >
-> > >  #ifdef CONFIG_EEH
-> > > --
-> > > 2.17.1
-> > >
+The rest looks good to me, not sure whether the name "refine"
+would be the best one though, would like to wait for opinions
+from others.
+
+Thanks
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

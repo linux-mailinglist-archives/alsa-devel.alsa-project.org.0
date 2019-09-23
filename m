@@ -2,83 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A1E8BB1FA
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Sep 2019 12:11:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F213BB26A
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Sep 2019 12:49:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AEFC1684;
-	Mon, 23 Sep 2019 12:11:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AEFC1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id C27B11684;
+	Mon, 23 Sep 2019 12:48:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C27B11684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569233511;
-	bh=BHPcJhXuFIzIrP7zB6/Wok0uVnet3+K0hEcm8r3/XCg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569235763;
+	bh=Uj+BlXfPPSSPeM2l8OEpUQIQFmnk8EqlsNMWHJefecQ=;
+	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Cj+troV/4pnJgzp5QiPM2H4PqV8EWTsJ8T6gK/AEKHsBsNW4WfHRK6GUmhy0lxYhW
-	 vtUhU9DT86kBcgMEaoUpRcvIsDfgyWsEae6oE5wzabAJzOz97as1bJmWpRW/mjCam1
-	 B3aRrybC9vJMxQmO7anSVa3cwoWY576yuQ5FBZ+g=
+	b=TkNXipXrUMlOvVF/2Ter25+q7WmmvI0bPbZWPb5RKTUTwIcU/GBxCniCDaV+YVCCU
+	 JplKMTp5Xm2vJgsDvPLaz+Pn+KYtzh5j03N8ikrZjhhD6E38Ov84T6Tn6V0FJ/Evaj
+	 ms1OOYpE8Q0P+C5XrK+Njjoex3XPjktehaXjSSFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02D07F8049A;
-	Mon, 23 Sep 2019 12:10:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AADDF8044C;
+	Mon, 23 Sep 2019 12:47:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88092F8044C; Mon, 23 Sep 2019 12:10:04 +0200 (CEST)
+ id 71EAAF8044C; Mon, 23 Sep 2019 12:47:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
- [209.85.128.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from ns.iliad.fr (ns.iliad.fr [212.27.33.1])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDEA5F80213
- for <alsa-devel@alsa-project.org>; Mon, 23 Sep 2019 12:10:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDEA5F80213
-Received: by mail-wm1-f67.google.com with SMTP id 7so9198752wme.1
- for <alsa-devel@alsa-project.org>; Mon, 23 Sep 2019 03:10:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=h9qXlBn1SwboKu5LtxJjQDTNKEcy+/lavbTXOBsjGHM=;
- b=ab3XuZi6nGOLbR3IBM0YFuznJZbmi3ORv0IrIkUeEraa7EysJ4C6lV3oug8VQGswt1
- DU7X/BWfLNRQvSJsSgmec4GwNMU/P1DnHwWHLjYIUdt2AZa9RcOmm5N3knZpJrrBMFA+
- xjr7bkuem+QgFAxFJO21n9nlOg9HaimZAmPtwvvx1shem5metmHJO1L7m1dfv0555C+5
- +i/cVUwWU8wtaS5y40JvIaD398+8yqhnE9RN/6D1ULolg3byDN7uS0Idd4E6H3Dl0Elt
- HR44JHErIDdG2HqGPiImubZlAegJ3ap/pJKsY1ZSp3dyXJGmFYArtimQEMn2YnT+zLLG
- 4qVw==
-X-Gm-Message-State: APjAAAUH2ZomrtdLuUi7JBAZkFbOwmAx6yReaqerhnLwo9CVQB0D8wI6
- Pbmx/F1c/i375Q+I3w7649c=
-X-Google-Smtp-Source: APXvYqwZ70GVq/wsIIytWY8nE0tIFLrgynh5FI/RtkKc0x6HwJVU1rez82f8Fjm1XocHptXshd8PFg==
-X-Received: by 2002:a1c:150:: with SMTP id 77mr2056857wmb.116.1569233401030;
- Mon, 23 Sep 2019 03:10:01 -0700 (PDT)
-Received: from pi3 ([194.230.155.145])
- by smtp.googlemail.com with ESMTPSA id l9sm9539317wme.45.2019.09.23.03.09.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Sep 2019 03:10:00 -0700 (PDT)
-Date: Mon, 23 Sep 2019 12:09:57 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Message-ID: <20190923100957.GA4723@pi3>
-References: <20190920130218.32690-1-s.nawrocki@samsung.com>
- <CGME20190920130316eucas1p2de713006a13c62c0b895c2e33e0d14c7@eucas1p2.samsung.com>
- <20190920130218.32690-4-s.nawrocki@samsung.com>
- <7334ce45-f192-4421-aa3d-d142582153ef@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 173CEF80213
+ for <alsa-devel@alsa-project.org>; Mon, 23 Sep 2019 12:47:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 173CEF80213
+Received: from ns.iliad.fr (localhost [127.0.0.1])
+ by ns.iliad.fr (Postfix) with ESMTP id 279971FF3E;
+ Mon, 23 Sep 2019 12:47:34 +0200 (CEST)
+Received: from [192.168.108.37] (freebox.vlq16.iliad.fr [213.36.7.13])
+ by ns.iliad.fr (Postfix) with ESMTP id 891ED1FF27;
+ Mon, 23 Sep 2019 12:47:33 +0200 (CEST)
+From: Marc Gonzalez <marc.w.gonzalez@free.fr>
+To: alsa-devel@alsa-project.org
+References: <f7861989-8a2d-ed89-8f1f-68bad7013a34@free.fr>
+ <d67b68b9-49c0-6f78-4649-27b3b437a65f@free.fr>
+Message-ID: <878168cb-07e0-cdfd-37e9-9b9fb229155b@free.fr>
+Date: Mon, 23 Sep 2019 12:47:33 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <7334ce45-f192-4421-aa3d-d142582153ef@samsung.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, ckeepax@opensource.cirrus.com,
- b.zolnierkie@samsung.com, sbkim73@samsung.com, patches@opensource.cirrus.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com
-Subject: Re: [alsa-devel] [PATCH v2 03/10] ASoC: wm8994: Add support for
- setting MCLK clock rate
+In-Reply-To: <d67b68b9-49c0-6f78-4649-27b3b437a65f@free.fr>
+Content-Language: en-US
+X-Virus-Scanned: ClamAV using ClamSMTP ; ns.iliad.fr ;
+ Mon Sep 23 12:47:34 2019 +0200 (CEST)
+Cc: Takashi Iwai <tiwai@suse.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] Propagating audio properties along the audio path
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,25 +75,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Sep 23, 2019 at 11:10:48AM +0200, Sylwester Nawrocki wrote:
-> On 9/20/19 15:02, Sylwester Nawrocki wrote:
-> > Extend the set_sysclk() handler so we also set frequency of the MCLK1,
-> > MCLK2 clocks through clk API when those clocks are specified in DT.
-> > 
-> > Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> > Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+On 20/09/2019 11:50, Marc Gonzalez wrote:
+
+> One more concern popped up: if the audio stream changes mid-capture
+> (for example, a different TV program uses different audio settings),
+> then I would detect this in the eARC receiver, but it's not clear
+> (to me) how to propagate the info to the DSP...
 > 
-> Sorry, I squashed other patch to this one but forgot to remove above tags, 
-> not sure if those still stand as there was rather significant change in 
-> the patch. 
+> I'm not even sure when the HW params actually get applied...
+> Is it for SNDRV_PCM_IOCTL_PREPARE? SNDRV_PCM_IOCTL_START?
 
-It's good. For the record:
+I enabled debug logs in the sound layer:
+echo "file sound/* +fpm" > /sys/kernel/debug/dynamic_debug/control
 
-Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+and sprinkled dump_stack() in several driver callbacks.
 
-Best regards,
-Krzysztof
+When I run 'tinycap /tmp/earc.wav -t 10 -r 44100 -b 32'
+I see the open/SyS_openat call and the capture ioctl call
+which together generate calls to
+1) dpcm_fe_dai_open
+2) dpcm_fe_dai_hw_params
+3) dpcm_fe_dai_prepare
+4) dpcm_fe_dai_trigger
 
+But everything looks "synchronous", as in "reaction to user-space commands".
+I don't see how "asynchronous" events are dealt with, such as the stream
+params changing while a capture is active?
+
+Regards.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

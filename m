@@ -2,77 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9604EBBB84
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Sep 2019 20:28:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2584FBBD0C
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Sep 2019 22:37:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1481C16A9;
-	Mon, 23 Sep 2019 20:27:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1481C16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9745F16AA;
+	Mon, 23 Sep 2019 22:36:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9745F16AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569263301;
-	bh=PA0sSdaWpcOrBYYVXchVaBUqGbNshe+gNoyleSXEAnM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569271027;
+	bh=ZqwLKQnSiSyepoR6gqGMnbd8rmEdqoZiP6U0eyoXFG4=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UD7A7+DbmAJEKq1Y7WM7V07LO/urXJTAOOWZ5ZSmpTUnI1kKvawUpqoEtvEJZkJSI
-	 8kJWiRhJ3pnYG4rDYC0nTe+GMGR2vFwP0IxD5IRDxcPGwwxt/X+MNQqumdhMZy/fS1
-	 IgXPEtAlB5L2dmsuAfTlW8L31EmE7thexPRq/ue4=
+	b=FUYkHAbtZhKBluu0rcP1i7G1yZ4TL+CfPBElZt9KmDOtUSD9cv+Vn2nNC8viAAFva
+	 eU/WB7lNVNhE0iEhDzcEeVkIUUdcXLh7TZQLpwD8Kb5ELuqHOcvKDLMgQ65BBL5HvB
+	 me7waWqgNx+MI9xIJGVdJpnjmEvA7Pxy9UXqPc5s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 861B7F8031A;
-	Mon, 23 Sep 2019 20:26:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8717F8044C;
+	Mon, 23 Sep 2019 22:35:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50932F8044C; Mon, 23 Sep 2019 20:26:34 +0200 (CEST)
+ id 52598F8044C; Mon, 23 Sep 2019 22:35:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 228FDF802BD
- for <alsa-devel@alsa-project.org>; Mon, 23 Sep 2019 20:26:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 228FDF802BD
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="fKjhg1af"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zw+H0cLzv/wwqoCNPLuepePG6BXzshdDMwI7nmGluWE=; b=fKjhg1afHN0bskjgwyq9Io5Cu
- Uy0KP8nn8p8ohmwBpELJ9JE/+fVoxTyba9bySGimHT6golLOxvZ0pAbFoNxr9uKGSvSA5BIxMtEXm
- yzngWO3G+0KzgEAjcKOxDl9W86UWTmdQi6InLrl40Pfi9MGte/6+khTJKabJteeX0bAb8=;
-Received: from [12.157.10.114] (helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1iCT2X-0004Xp-9o; Mon, 23 Sep 2019 18:26:25 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 46260D01F26; Mon, 23 Sep 2019 19:26:23 +0100 (BST)
-Date: Mon, 23 Sep 2019 11:26:23 -0700
-From: Mark Brown <broonie@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Message-ID: <20190923182623.GX2036@sirena.org.uk>
-References: <20190923154547.26532-1-krzk@kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFC3BF802BD
+ for <alsa-devel@alsa-project.org>; Mon, 23 Sep 2019 22:35:18 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D729DA003F;
+ Mon, 23 Sep 2019 22:35:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D729DA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1569270917; bh=K+zJDuRcw8pxqfYvSiGA/ljAcD9a3tZCMeRQDmCnPrc=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=R7ThhIH/H/UgGRENsfMQEmT0fXq6UYEI4gIeECCJt0heF2etBaFn2b7Sn/xr6veEG
+ VC7pfeiOz+9bScmkgD/Iiq9EDUacMjs1CruGqoHZtaO23UuAfMtXto11mPPDWyPDoQ
+ LddNMWMxYPg58UTW1WYzX5CnRTa7nhQh9Ds8rW9U=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 23 Sep 2019 22:35:14 +0200 (CEST)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20190923165739.3975-1-perex@perex.cz>
+ <cf20bc02-adb1-0207-5fb2-7b9f0479885e@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <b657b630-c209-b927-6ea3-d72a6ce75639@perex.cz>
+Date: Mon, 23 Sep 2019 22:35:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190923154547.26532-1-krzk@kernel.org>
-X-Cookie: Be careful!  UGLY strikes 9 out of 10!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Jiri Kosina <trivial@kernel.org>,
- alsa-devel@alsa-project.org, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Clemens Ladisch <clemens@ladisch.de>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH trivial] sound: Fix Kconfig indentation
+In-Reply-To: <cf20bc02-adb1-0207-5fb2-7b9f0479885e@linux.intel.com>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Skylake SST driver - blacklist the
+ PCI device IDs for the auto probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,54 +78,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3979038247413758856=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 23. 09. 19 v 20:24 Pierre-Louis Bossart napsal(a):
+> On 9/23/19 11:57 AM, Jaroslav Kysela wrote:
+>> There are basically three drivers for the PCI devices for
+>> the recent Intel hardware with the build-in DSPs. The legacy HDA
+>> driver has dmic_detect module option for the auto detection
+>> of the platforms with the digital microphone. Because the SOF
+>> driver is preferred, just skip PCI probe in the Skylake SST
+>> driver when the PCI device ID clashes by default. The user
+>> can override the auto behaviour with the pci_binding
+>> module parameter.
+> 
+> Thanks Jaroslav for re-opening this mutual-exclusion issue.
+> 
+> I think we want to deal with this in two alternate ways
+> 1. static built-time exclusion based on Kconfigs
 
---===============3979038247413758856==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AaroDtM9M79Ffl67"
-Content-Disposition: inline
+Unfortunately, that's really an issue for the universal distros.
 
+> 2. probe-time exclusion based on quirks (CPU ID + DMI)
+> 
+> For example with a SKL/KBL/APL chromebook w/ DMIC we'd want to use the 
+> SST driver and for GLK+ we want to use SOF. For any device with 
+> HDAudio+DMIC we'd want SOF, same for any device with SoundWire when it's 
+> fully supported.
+> 
+> I can't recall if I shared the patches I worked on a couple of months 
+> ago, but they are still at https://github.com/thesofproject/linux/pull/927
 
---AaroDtM9M79Ffl67
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks for pointing me to this. It does not address the legacy HDA, but it's a
+step forward.
 
-On Mon, Sep 23, 2019 at 05:45:47PM +0200, Krzysztof Kozlowski wrote:
-> Adjust indentation from spaces to tab (+optional two spaces) as in
-> coding style with command like:
->     $ sed -e 's/^        /\t/' -i */Kconfig
+> the first part essentially does the same thing as this patch, the second 
+> relies on quirks. I've been busy with other things but indeed it's high 
+> time we closed this for distributions.
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Yes, and I have to say, it's too late for the hardware vendors right now. I
+will probably apply my patch to our distribution (I don't care too much about
+chromebooks - the user can change the module/driver behaviour manually) until
+we have a better code.
 
---AaroDtM9M79Ffl67
-Content-Type: application/pgp-signature; name="signature.asc"
+>> Boot log from Lenovo Carbon X1 (7th gen) with the default settings:
+>>
+>>    snd_hda_intel 0000:00:1f.3: Digital mics found on Skylake+ platform, aborting probe
+>>    snd_soc_skl 0000:00:1f.3: SOF driver is preferred on this platform, aborting probe
+>>    sof-audio-pci 0000:00:1f.3: warning: No matching ASoC machine driver found
+>>    sof-audio-pci 0000:00:1f.3: DSP detected with PCI class/subclass/prog-if 0x040380
+>>    ....
+>>
+>> Perhaps, it may be more wise to create one shared module and all
+>> three drivers should call the driver detection routine(s) from one
+>> place.
+> 
+> We did look into this and it's a bit complicated in terms of plumbing.
 
------BEGIN PGP SIGNATURE-----
+Could you elaborate more here? I believe that for the runtime environment
+where all drivers are compiled in the kernel, it might make sense to have this
+code at one place and installed only once for all three (or may be four in the
+soundwire future) drivers.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2JDk4ACgkQJNaLcl1U
-h9AK3Af/Tumh0ikqpRGJ0LZQlwnZL1S5vUwKQexSehpfKUrROssuMuDooB4KfBpz
-ADosYAcnRlbfTq0/WyLAbhOUUYfA11tff0W8JqcdhWDupk+DWkHGiSgARTy18/fx
-QQIiYsgO/MAiMJLVUS8Qm55ro7At6IGI6nGxDUtLowI/2OBxRrIXLlik9szhF9UL
-hfh0nRX4R2gIj33W/MuTWPLiRf2SUAvK95Z7+0QoiCMAwY+d4NKkjNTdqCKJWfeK
-FRBvFxRrd7KWIVq41QLWFp7FX3+fPEMhi2Setm0a7XVTszCKb09uxOIIKNJ8JwDv
-vOR6rMrZvaRkVnVT+BsW5n9HY6OksQ==
-=gZw4
------END PGP SIGNATURE-----
+We should have one straight way which driver/module is used. The separate
+conditions in the mentioned drivers will cause problems. Also, it will
+simplify things for the end user. One module parameter (in the driver selector
+library) is better than three or four to make things working (if the DMI /
+whatever table is not preset correctly for the new hardware).
 
---AaroDtM9M79Ffl67--
+				Thanks,
+					Jaroslav
 
---===============3979038247413758856==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3979038247413758856==--

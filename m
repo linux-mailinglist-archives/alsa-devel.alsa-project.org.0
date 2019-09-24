@@ -2,122 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7005BC47C
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2019 11:07:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E92BBC46D
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2019 11:04:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DB361672;
-	Tue, 24 Sep 2019 11:06:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DB361672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A6B81670;
+	Tue, 24 Sep 2019 11:03:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A6B81670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569316066;
-	bh=THIkdFzZjns9mpWokqj7Lt/GzP0zeu0n8S0MniTOnq4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Y2zDYcLPuDIipsRoMQr0kxbYxd9QMqUb/bvCPn7A6cep6ghTN+cvwYqL68MbtK5un
-	 DlevXfGICVmas6I1Nfa+ljyndaYkkCOfG3QwVI2cTBfQlYlJHOcEKUY4sGevIJCUkp
-	 hBQQB4071a6blxoNGMOOV4f/3XjSMH70+fZpkCS4=
+	s=default; t=1569315843;
+	bh=2fCFYFiHQrUiCoWMWHuDTh/dmTi33Sq7RT2DF/pwAlE=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=UnaKAGZPSpCXDunMECTiUF3dWWq3UifZvlBorh9BOLD/7XDI+O+/fqlabKJIBPuur
+	 tIYEPZZg/NpU4QS03J0zUoZ1AVmK7gxrC/W0///86OfjaTTRvqvuzAys10k76mDJU2
+	 dT5SVEgoR+hanrpLQoaba0BHrAySUjZQRD47kj24=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF691F8045F;
-	Tue, 24 Sep 2019 11:06:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 66E2AF8048D;
+	Tue, 24 Sep 2019 11:02:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C97D5F8045F; Tue, 24 Sep 2019 11:05:58 +0200 (CEST)
+ id F30B7F8045F; Tue, 24 Sep 2019 11:02:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-eopbgr40076.outbound.protection.outlook.com [40.107.4.76])
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=BODY_QUOTE_MALF_MSGID,
+ FROM_EXCESS_BASE64,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE1E5F80213
- for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2019 11:05:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE1E5F80213
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="r1BRrmFY"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YuPzQnrXDFNzSX+qRrCS+v/977IWlLZdBbrth6ZO6EKC+2Sy92tgXpnMxmbI9MDPw8sTyvlzS70QR/x/c+q44q0s0z7I0BYdacm0a1r1izEQT0bBtyn/Oa1IWFe7gcOAAsVV94Cl8ui9Qq+7HRaWgzY+KhOU0fMlDFCFHqFvSvT646YoUIG8DOXAX4/Tw6ab1JIzHOFxpCRBGYdGuY0SCF8T/T8+XYCYTmdnE8sfYcu4ylxRSKXXUzkavaRBG4j02QpOQAG5Vt5JoD00pkTOWPICXw+1Ovm0Tn4tjKgDNTvFUyVkK4NrjlsegYd0Ttz8/5KpsjFUsj9BkArFGVfk0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jjhwr+PkNSPrN9sjAprXRxlLuF0aqKCvoWqPXO/V+UU=;
- b=OpiiUHS38/cKm7QnzcgzHrGtCg20sMh6RTICUqsOK00Fzp2QpranvvCPGOVt8zHCojEjuOLXH6VfyT0YFt1QI7UXqv5y7AH807bszpMJCDjby9pUucl3xVHV384Rtyi5YSUDiQX8uEGoAxx6L15nW+4eWJUQ2B5EGMEvdwT8yU061IANoBaxToT95phquzLqCYJ22KFs0fev9xHXU18Pt2pgvMaK9425d/Jk4V8+Sym/CXrboHscummmhvM2bCq372YntcNDl2lcAgVJjkZBwaAlIWY8eyK+mxlVpO3P8CE3W4+fF9C62UtVgCrbAMxhW0Dwga3Z+bm+5Lv4SBmQ6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jjhwr+PkNSPrN9sjAprXRxlLuF0aqKCvoWqPXO/V+UU=;
- b=r1BRrmFY6lNCsH4fszehdp4RCEFNSQGab8eGxqdLYZ8uG1EUt7t5zVukRHEWG6IRIYsE2gnuqmJBdx9caG+b4YcvL4/qVt3TcOH2s2HUNEbFx8tKJI8DPSOGPHq99I0jTiWxYCeXiM85E27PG1OU7p6wKi+5rOHcG8EQKTOoS0g=
-Received: from AM0PR04MB6468.eurprd04.prod.outlook.com (20.179.254.214) by
- AM0PR04MB6291.eurprd04.prod.outlook.com (20.179.33.87) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2284.20; Tue, 24 Sep 2019 09:05:53 +0000
-Received: from AM0PR04MB6468.eurprd04.prod.outlook.com
- ([fe80::9974:f659:52e:40b6]) by AM0PR04MB6468.eurprd04.prod.outlook.com
- ([fe80::9974:f659:52e:40b6%4]) with mapi id 15.20.2284.023; Tue, 24 Sep 2019
- 09:05:53 +0000
-From: "S.j. Wang" <shengjiu.wang@nxp.com>
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Thread-Topic: [PATCH V3 4/4] ASoC: fsl_asrc: Fix error with S24_3LE format
- bitstream in i.MX8
-Thread-Index: AdVytw3fGmshbTVBRMKzM2C+xgJn/w==
-Date: Tue, 24 Sep 2019 09:05:52 +0000
-Message-ID: <AM0PR04MB646870B1F74898098D4018C9E3840@AM0PR04MB6468.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=shengjiu.wang@nxp.com; 
-x-originating-ip: [119.31.174.66]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0e0a19b3-7055-4888-eafe-08d740ce66e8
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600167)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
- SRVR:AM0PR04MB6291; 
-x-ms-traffictypediagnostic: AM0PR04MB6291:
-x-microsoft-antispam-prvs: <AM0PR04MB6291B028BBFA6EA7FB2A8881E3840@AM0PR04MB6291.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0170DAF08C
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(199004)(189003)(14454004)(4326008)(478600001)(7416002)(229853002)(6506007)(6916009)(33656002)(14444005)(99286004)(25786009)(7696005)(8936002)(186003)(26005)(86362001)(54906003)(5660300002)(66946007)(66446008)(316002)(102836004)(76116006)(1411001)(66476007)(66556008)(64756008)(6116002)(476003)(55016002)(9686003)(74316002)(8676002)(486006)(256004)(66066001)(6436002)(71200400001)(305945005)(71190400001)(6246003)(52536014)(2906002)(81166006)(3846002)(7736002)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR04MB6291;
- H:AM0PR04MB6468.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Av2t4GrgiCIW0XuY7qkvOSsvHzvij3fu4CwoHx4xj0zZHofOC8PzWL53rpXqFDicYm+RSYPT6qylzm+n7D4XEiIGJP9PlJ+nPNTB+x09dQZyUkvMk0GYc2neyyLfyDLtyzqGCH5QzUiE9mhoDIYdIIj0G6UMWlsvJCE7cyFnhQhOa+P5SqNw83UasK9oh+DHTbhGQ6hDeKjwnlv5/hg1d211bh4RArPqDqwxB9ucY2EjU6OVZq3JqG6iJ9uAUIDgBWzH/i5xj6m1wyM746saR4xmkcgHekIrvykjKIW/S6Qa+qsMB0sAmeDRy9+nkD72d7T4JjZlWDeu1PBw0/v5SJy8bYgUvtVh+6ztoJugOR5wq6PYUKyocy4HlHt9tvCQddO/cbucCu0+mJBr+DhWRDCOcJ3xDvRUzD5u17SSgIg=
-x-ms-exchange-transport-forked: True
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F029F802BD
+ for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2019 11:02:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F029F802BD
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Sep 2019 02:02:08 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,543,1559545200"; d="scan'208";a="203338086"
+Received: from xxx.igk.intel.com (HELO xxx) ([10.237.93.170])
+ by fmsmga001.fm.intel.com with ESMTP; 24 Sep 2019 02:02:06 -0700
+Date: Tue, 24 Sep 2019 11:07:00 +0200
+From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?=
+ <amadeuszx.slawinski@linux.intel.com>
+To: sathya.prakash.m.r@intel.com
+Message-ID: <20190924110700.2897cc18@xxx>
+In-Reply-To: <1569312546-16393-2-git-send-email-sathya.prakash.m.r@intel.com>
+References: <1569312546-16393-1-git-send-email-sathya.prakash.m.r@intel.com>
+ <1569312546-16393-2-git-send-email-sathya.prakash.m.r@intel.com>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e0a19b3-7055-4888-eafe-08d740ce66e8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Sep 2019 09:05:52.9416 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: e60udUmqaRwDPhEXiwqb4yCKEaQF7prHyyQ38F0Rgj3IC6Qj7uERf98Er47ThZ2T2rE7C3yjMfBhVcdzAmyX6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6291
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH V3 4/4] ASoC: fsl_asrc: Fix error with
- S24_3LE format bitstream in i.MX8
+Cc: naveen.m@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
+ pierre-louis.bossart@linux.intel.com
+Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Intel: boards: Add CML m/c using
+ RT1011 and RT5682
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,87 +76,563 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi
-> 
-> One issue for error-out and some nit-pickings inline. Thanks.
-> 
-> On Thu, Sep 19, 2019 at 08:11:42PM +0800, Shengjiu Wang wrote:
-> > There is error "aplay: pcm_write:2023: write error: Input/output error"
-> > on i.MX8QM/i.MX8QXP platform for S24_3LE format.
-> >
-> > In i.MX8QM/i.MX8QXP, the DMA is EDMA, which don't support 24bit
-> > sample, but we didn't add any constraint, that cause issues.
-> >
-> > So we need to query the caps of dma, then update the hw parameters
-> > according to the caps.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  sound/soc/fsl/fsl_asrc.c     |  4 +--
-> >  sound/soc/fsl/fsl_asrc.h     |  3 +++
-> >  sound/soc/fsl/fsl_asrc_dma.c | 52
-> > +++++++++++++++++++++++++++++++-----
-> >  3 files changed, 50 insertions(+), 9 deletions(-)
-> >
-> > @@ -276,6 +274,11 @@ static int fsl_asrc_dma_startup(struct
-> snd_pcm_substream *substream)
-> >       struct device *dev = component->dev;
-> >       struct fsl_asrc *asrc_priv = dev_get_drvdata(dev);
-> >       struct fsl_asrc_pair *pair;
-> > +     bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-> > +     u8 dir = tx ? OUT : IN;
-> > +     struct dma_chan *tmp_chan;
-> > +     struct snd_dmaengine_dai_dma_data *dma_data;
-> 
-> Nit: would it be possible to reorganize these a bit? Usually we put struct
-> things together unless there is a dependency, similar to
-> fsl_asrc_dma_hw_params().
-> 
-> > @@ -285,9 +288,44 @@ static int fsl_asrc_dma_startup(struct
-> > snd_pcm_substream *substream)
-> >
-> >       runtime->private_data = pair;
-> >
-> > +     /* Request a temp pair, which is release in the end */
-> 
-> Nit: "which will be released later" or "and will release it later"? And could
-> we use a work like "dummy"? Or at least I would love to see the comments
-> explaining the parameter "1"
-> in the function call below.
-> 
-> > +     ret = fsl_asrc_request_pair(1, pair);
-> > +     if (ret < 0) {
-> > +             dev_err(dev, "failed to request asrc pair\n");
-> > +             return ret;
-> > +     }
-> > +
-> > +     tmp_chan = fsl_asrc_get_dma_channel(pair, dir);
-> > +     if (!tmp_chan) {
-> > +             dev_err(dev, "can't get dma channel\n");
-> 
-> Could we align with other error messages using "failed to"?
-> 
-> > +     ret = snd_soc_set_runtime_hwparams(substream,
-> &snd_imx_hardware);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> [...]
-> > +     dma_release_channel(tmp_chan);
-> > +     fsl_asrc_release_pair(pair);
-> 
-> I think we need an "out:" here for those error-out routines to goto.
-> Otherwise, it'd be a pair leak?
-> 
-> > +
-> 
-> Could we drop this? There is a blank line below already :)
-> 
+On Tue, 24 Sep 2019 13:39:05 +0530
+sathya.prakash.m.r@intel.com wrote:
 
-Will update them.
+> From: Naveen Manohar <naveen.m@intel.com>
+> 
+> Machine driver to enable
+> RT5682 on SSP0, DMIC, HDMI and
+> RT1011 AMP on SSP1 with
+> 2 CH / 24 bit TDM Playback over 4 individual codecs and
+> 4 CH / 24 bit Capture to provide feedback.
+> 
+> Signed-off-by: Naveen Manohar <naveen.m@intel.com>
+> Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
+> ---
+>  sound/soc/intel/boards/Kconfig             |  18 ++
+>  sound/soc/intel/boards/Makefile            |   2 +
+>  sound/soc/intel/boards/cml_rt1011_rt5682.c | 475 +++++++++++++++++++++++++++++
+>  3 files changed, 495 insertions(+)
+>  create mode 100644 sound/soc/intel/boards/cml_rt1011_rt5682.c
+> 
+> diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+> index 50bf149818b5..6c41aa5e78c0 100644
+> --- a/sound/soc/intel/boards/Kconfig
+> +++ b/sound/soc/intel/boards/Kconfig
+> @@ -382,6 +382,24 @@ config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
+>  
+>  endif ## SND_SOC_INTEL_GLK || (SND_SOC_SOF_GEMINILAKE  && SND_SOC_SOF_HDA_LINK)
+>  
+> +if SND_SOC_SOF_COMETLAKE_LP && SND_SOC_SOF_HDA_LINK
+> +
+> +config SND_SOC_INTEL_SOF_CML_RT1011_RT5682_MACH
+> +	tristate "CML with RT1011 and RT5682 in I2S Mode"
+> +	depends on I2C && ACPI
+> +	depends on MFD_INTEL_LPSS || COMPILE_TEST
+> +	select SND_SOC_RT1011
+> +	select SND_SOC_RT5682
+> +	select SND_SOC_DMIC
+> +	select SND_SOC_HDAC_HDMI
+> +	help
+> +	   This adds support for ASoC machine driver for SOF platform with
+> +	   RT1011 + RT5682 I2S codec.
+> +	   Say Y if you have such a device.
+> +	   If unsure select "N".
+> +
+> +endif ## SND_SOC_SOF_COMETLAKE_LP && SND_SOC_SOF_HDA_LINK
+> +
+>  if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
+>  
+>  config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
+> diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+> index 6445f90ea542..848a2684535f 100644
+> --- a/sound/soc/intel/boards/Makefile
+> +++ b/sound/soc/intel/boards/Makefile
+> @@ -18,6 +18,7 @@ snd-soc-sst-byt-cht-da7213-objs := bytcht_da7213.o
+>  snd-soc-sst-byt-cht-es8316-objs := bytcht_es8316.o
+>  snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
+>  snd-soc-sof_rt5682-objs := sof_rt5682.o
+> +snd-soc-cml_rt1011_rt5682-objs := cml_rt1011_rt5682.o
+>  snd-soc-kbl_da7219_max98357a-objs := kbl_da7219_max98357a.o
+>  snd-soc-kbl_da7219_max98927-objs := kbl_da7219_max98927.o
+>  snd-soc-kbl_rt5663_max98927-objs := kbl_rt5663_max98927.o
+> @@ -47,6 +48,7 @@ obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_CX2072X_MACH) += snd-soc-sst-byt-cht-cx2072x.
+>  obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_DA7213_MACH) += snd-soc-sst-byt-cht-da7213.o
+>  obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_ES8316_MACH) += snd-soc-sst-byt-cht-es8316.o
+>  obj-$(CONFIG_SND_SOC_INTEL_BYT_CHT_NOCODEC_MACH) += snd-soc-sst-byt-cht-nocodec.o
+> +obj-$(CONFIG_SND_SOC_INTEL_SOF_CML_RT1011_RT5682_MACH) += cml_rt1011_rt5682.o
+>  obj-$(CONFIG_SND_SOC_INTEL_KBL_DA7219_MAX98357A_MACH) += snd-soc-kbl_da7219_max98357a.o
+>  obj-$(CONFIG_SND_SOC_INTEL_KBL_DA7219_MAX98927_MACH) += snd-soc-kbl_da7219_max98927.o
+>  obj-$(CONFIG_SND_SOC_INTEL_KBL_RT5663_MAX98927_MACH) += snd-soc-kbl_rt5663_max98927.o
+> diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+> new file mode 100644
+> index 000000000000..f2837a208341
+> --- /dev/null
+> +++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+> @@ -0,0 +1,475 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright(c) 2019 Intel Corporation.
+> +
+> +/*
+> + * Intel Cometlake I2S Machine driver for RT1011 + RT5682 codec
+> + */
+> +
+> +#include <linux/input.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/clk.h>
+> +#include <linux/dmi.h>
+> +#include <linux/slab.h>
+> +#include <asm/cpu_device_id.h>
+> +#include <linux/acpi.h>
+> +#include <sound/core.h>
+> +#include <sound/jack.h>
+> +#include <sound/pcm.h>
+> +#include <sound/pcm_params.h>
+> +#include <sound/soc.h>
+> +#include <sound/rt5682.h>
+> +#include <sound/soc-acpi.h>
+> +#include "../../codecs/rt1011.h"
+> +#include "../../codecs/rt5682.h"
+> +#include "../../codecs/hdac_hdmi.h"
+> +
+> +/* The platform clock outputs 24Mhz clock to codec as I2S MCLK */
+> +#define CML_PLAT_CLK	24000000
+> +#define CML_RT1011_CODEC_DAI "rt1011-aif"
+> +#define CML_RT5682_CODEC_DAI "rt5682-aif1"
+> +#define NAME_SIZE 32
+> +
+> +static struct snd_soc_jack hdmi_jack[3];
+> +
+> +struct hdmi_pcm {
+> +	struct list_head head;
+> +	struct snd_soc_dai *codec_dai;
+> +	int device;
+> +};
+> +
+> +struct card_private {
+> +	char codec_name[SND_ACPI_I2C_ID_LEN];
+> +	struct snd_soc_jack headset;
+> +	struct list_head hdmi_pcm_list;
+> +};
+> +
+> +static const struct snd_kcontrol_new cml_controls[] = {
+> +	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+> +	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+> +	SOC_DAPM_PIN_SWITCH("TL Ext Spk"),
+> +	SOC_DAPM_PIN_SWITCH("TR Ext Spk"),
+> +	SOC_DAPM_PIN_SWITCH("WL Ext Spk"),
+> +	SOC_DAPM_PIN_SWITCH("WR Ext Spk"),
+> +};
+> +
+> +static const struct snd_soc_dapm_widget cml_rt1011_rt5682_widgets[] = {
+> +	SND_SOC_DAPM_SPK("TL Ext Spk", NULL),
+> +	SND_SOC_DAPM_SPK("TR Ext Spk", NULL),
+> +	SND_SOC_DAPM_SPK("WL Ext Spk", NULL),
+> +	SND_SOC_DAPM_SPK("WR Ext Spk", NULL),
+> +	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+> +	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+> +	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
+> +};
+> +
+> +static const struct snd_soc_dapm_route cml_rt1011_rt5682_map[] = {
+> +	/*speaker*/
+> +	{"TL Ext Spk", NULL, "TL SPO"},
+> +	{"TR Ext Spk", NULL, "TR SPO"},
+> +	{"WL Ext Spk", NULL, "WL SPO"},
+> +	{"WR Ext Spk", NULL, "WR SPO"},
+> +
+> +	/* HP jack connectors - unknown if we have jack detection */
+> +	{ "Headphone Jack", NULL, "HPOL" },
+> +	{ "Headphone Jack", NULL, "HPOR" },
+> +
+> +	/* other jacks */
+> +	{ "IN1P", NULL, "Headset Mic" },
+> +
+> +	/* DMIC */
+> +	{"DMic", NULL, "SoC DMIC"},
 
-Best regards
-Wang Shengjiu
+There is some inconsistent spacing around the braces.
+
+> +};
+> +
+> +static int cml_rt5682_codec_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_component *component = rtd->codec_dai->component;
+> +	struct snd_soc_jack *jack;
+> +	int ret;
+> +
+> +	/* need to enable ASRC function for 24MHz mclk rate */
+> +	rt5682_sel_asrc_clk_src(component, RT5682_DA_STEREO1_FILTER |
+> +					RT5682_AD_STEREO1_FILTER,
+> +					RT5682_CLK_SEL_I2S1_ASRC);
+> +
+> +	/*
+> +	 * Headset buttons map to the google Reference headset.
+> +	 * These can be configured by userspace.
+> +	 */
+> +	ret = snd_soc_card_jack_new(rtd->card, "Headset Jack",
+> +				    SND_JACK_HEADSET | SND_JACK_BTN_0 |
+> +				    SND_JACK_BTN_1 | SND_JACK_BTN_2 |
+> +				    SND_JACK_BTN_3,
+> +				    &ctx->headset, NULL, 0);
+> +	if (ret) {
+> +		dev_err(rtd->dev, "Headset Jack creation failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	jack = &ctx->headset;
+> +
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_1, KEY_VOICECOMMAND);
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_2, KEY_VOLUMEUP);
+> +	snd_jack_set_key(jack->jack, SND_JACK_BTN_3, KEY_VOLUMEDOWN);
+> +	ret = snd_soc_component_set_jack(component, jack, NULL);
+> +	if (ret)
+> +		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
+> +
+> +	return ret;
+> +};
+> +
+> +static int cml_rt5682_hw_params(struct snd_pcm_substream *substream,
+> +				struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+> +	int clk_id, clk_freq, pll_out, ret;
+> +
+> +	clk_id = RT5682_PLL1_S_MCLK;
+> +	clk_freq = CML_PLAT_CLK;
+> +
+> +	pll_out = params_rate(params) * 512;
+> +
+> +	ret = snd_soc_dai_set_pll(codec_dai, 0, clk_id, clk_freq, pll_out);
+> +	if (ret < 0)
+> +		dev_warn(rtd->dev, "snd_soc_dai_set_pll err = %d\n", ret);
+> +
+> +	/* Configure sysclk for codec */
+> +	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL1,
+> +				     pll_out, SND_SOC_CLOCK_IN);
+> +	if (ret < 0)
+> +		dev_warn(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
+> +
+> +	/*
+> +	 * slot_width should be equal or large than data length, set them
+> +	 * be the same
+> +	 */
+> +	ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x0, 0x0, 2,
+> +				       params_width(params));
+> +	if (ret < 0)
+> +		dev_warn(rtd->dev, "set TDM slot err:%d\n", ret);
+> +	return ret;
+> +}
+> +
+> +static int cml_rt1011_hw_params(struct snd_pcm_substream *substream,
+> +				struct snd_pcm_hw_params *params)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_soc_dai *codec_dai;
+> +	struct snd_soc_card *card = rtd->card;
+> +	int srate, i, ret = 0;
+> +
+> +	srate = params_rate(params);
+> +
+> +	for (i = 0; i < rtd->num_codecs; i++) {
+> +		codec_dai = rtd->codec_dais[i];
+
+This looks like candidate for for_each_rtd_codec_dai macro
+
+> +
+> +		/* 100 Fs to drive 24 bit data */
+> +		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1011_PLL1_S_BCLK,
+> +					  100 * srate, 256 * srate);
+> +		if (ret < 0) {
+> +			dev_err(card->dev, "codec_dai clock not set\n");
+> +			return ret;
+> +		}
+> +
+> +		ret = snd_soc_dai_set_sysclk(codec_dai,
+> +					     RT1011_FS_SYS_PRE_S_PLL1,
+> +					     256 * srate, SND_SOC_CLOCK_IN);
+> +		if (ret < 0) {
+> +			dev_err(card->dev, "codec_dai clock not set\n");
+> +			return ret;
+> +		}
+> +
+> +		/*
+> +		 * Codec TDM is configured as 24 bit capture/ playback.
+> +		 * 2 CH PB is done over 4 codecs - 2 Woofers and 2 Tweeters.
+> +		 * The Left woofer and tweeter plays the Left playback data
+> +		 * and  similar by the Right.
+> +		 * Hence 2 codecs (1 T and 1 W pair) share same Rx slot.
+> +		 * The feedback is captured for each codec individually.
+> +		 * Hence all 4 codecs use 1 Tx slot each for feedback.
+> +		 */
+> +		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:00")) {
+> +			ret = snd_soc_dai_set_tdm_slot(codec_dai,
+> +						       0x4, 0x1, 4, 24);
+> +			if (ret < 0)
+> +				break;
+> +		}
+> +		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:02")) {
+> +			ret = snd_soc_dai_set_tdm_slot(codec_dai,
+> +						       0x1, 0x1, 4, 24);
+> +			if (ret < 0)
+> +				break;
+> +		}
+> +		/* TDM Rx slot 2 is used for Right Woofer & Tweeters pair */
+> +		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:01")) {
+> +			ret = snd_soc_dai_set_tdm_slot(codec_dai,
+> +						       0x8, 0x2, 4, 24);
+> +			if (ret < 0)
+> +				break;
+> +		}
+> +		if (!strcmp(codec_dai->component->name, "i2c-10EC1011:03")) {
+> +			ret = snd_soc_dai_set_tdm_slot(codec_dai,
+> +						       0x2, 0x2, 4, 24);
+> +			if (ret < 0)
+> +				break;
+> +		}
+> +	}
+> +	if (ret < 0)
+> +		dev_err(rtd->dev,
+> +			"set codec TDM slot for %s failed with error %d\n",
+> +			codec_dai->component->name, ret);
+> +	return ret;
+> +}
+> +
+> +static struct snd_soc_ops cml_rt5682_ops = {
+> +	.hw_params = cml_rt5682_hw_params,
+> +};
+> +
+> +static const struct snd_soc_ops cml_rt1011_ops = {
+> +	.hw_params = cml_rt1011_hw_params,
+> +};
+> +
+> +static int sof_card_late_probe(struct snd_soc_card *card)
+> +{
+> +	struct card_private *ctx = snd_soc_card_get_drvdata(card);
+> +	struct snd_soc_component *component = NULL;
+> +	char jack_name[NAME_SIZE];
+> +	struct hdmi_pcm *pcm;
+> +	int ret, i = 0;
+> +
+> +	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> +		component = pcm->codec_dai->component;
+> +		snprintf(jack_name, sizeof(jack_name),
+> +			 "HDMI/DP, pcm=%d Jack", pcm->device);
+> +		ret = snd_soc_card_jack_new(card, jack_name,
+> +					    SND_JACK_AVOUT, &hdmi_jack[i],
+> +					    NULL, 0);
+> +		if (ret)
+> +			return ret;
+> +
+> +		ret = hdac_hdmi_jack_init(pcm->codec_dai, pcm->device,
+> +					  &hdmi_jack[i]);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		i++;
+> +	}
+> +	if (!component)
+> +		return -EINVAL;
+> +
+> +	return hdac_hdmi_jack_port_init(component, &card->dapm);
+> +}
+> +
+> +static int hdmi_init(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct card_private *ctx = snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_dai *dai = rtd->codec_dai;
+> +	struct hdmi_pcm *pcm;
+> +
+> +	pcm = devm_kzalloc(rtd->card->dev, sizeof(*pcm), GFP_KERNEL);
+> +	if (!pcm)
+> +		return -ENOMEM;
+> +
+> +	pcm->device = dai->id;
+> +	pcm->codec_dai = dai;
+> +
+> +	list_add_tail(&pcm->head, &ctx->hdmi_pcm_list);
+> +
+> +	return 0;
+> +}
+> +
+> +/* Cometlake digital audio interface glue - connects codec <--> CPU */
+> +
+> +SND_SOC_DAILINK_DEF(ssp0_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("SSP0 Pin")));
+> +SND_SOC_DAILINK_DEF(ssp0_codec,
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5682:00",
+> +				CML_RT5682_CODEC_DAI)));
+> +
+> +SND_SOC_DAILINK_DEF(ssp1_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("SSP1 Pin")));
+> +SND_SOC_DAILINK_DEF(ssp1_codec,
+> +	DAILINK_COMP_ARRAY(
+> +	/* WL */ COMP_CODEC("i2c-10EC1011:00", CML_RT1011_CODEC_DAI),
+> +	/* WR */ COMP_CODEC("i2c-10EC1011:01", CML_RT1011_CODEC_DAI),
+> +	/* TL */ COMP_CODEC("i2c-10EC1011:02", CML_RT1011_CODEC_DAI),
+> +	/* TR */ COMP_CODEC("i2c-10EC1011:03", CML_RT1011_CODEC_DAI)));
+> +
+> +SND_SOC_DAILINK_DEF(dmic_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
+> +
+> +SND_SOC_DAILINK_DEF(dmic16k_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("DMIC16k Pin")));
+> +
+> +SND_SOC_DAILINK_DEF(dmic_codec,
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("dmic-codec", "dmic-hifi")));
+> +
+> +SND_SOC_DAILINK_DEF(idisp1_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("iDisp1 Pin")));
+> +SND_SOC_DAILINK_DEF(idisp1_codec,
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi1")));
+> +
+> +SND_SOC_DAILINK_DEF(idisp2_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("iDisp2 Pin")));
+> +SND_SOC_DAILINK_DEF(idisp2_codec,
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi2")));
+> +
+> +SND_SOC_DAILINK_DEF(idisp3_pin,
+> +	DAILINK_COMP_ARRAY(COMP_CPU("iDisp3 Pin")));
+> +SND_SOC_DAILINK_DEF(idisp3_codec,
+> +	DAILINK_COMP_ARRAY(COMP_CODEC("ehdaudio0D2", "intel-hdmi-hifi3")));
+> +
+> +SND_SOC_DAILINK_DEF(platform,
+> +	DAILINK_COMP_ARRAY(COMP_PLATFORM("0000:00:1f.3")));
+> +
+> +static struct snd_soc_dai_link cml_rt1011_rt5682_dailink[] = {
+> +	/* Back End DAI links */
+> +	{
+> +		/* SSP0 - Codec */
+> +		.name = "SSP0-Codec",
+> +		.id = 0,
+> +		.init = cml_rt5682_codec_init,
+> +		.ignore_pmdown_time = 1,
+> +		.ops = &cml_rt5682_ops,
+> +		.dpcm_playback = 1,
+> +		.dpcm_capture = 1,
+> +		.no_pcm = 1,
+> +		SND_SOC_DAILINK_REG(ssp0_pin, ssp0_codec, platform),
+> +	},
+> +	{
+> +		.name = "dmic01",
+> +		.id = 1,
+> +		.ignore_suspend = 1,
+> +		.dpcm_capture = 1,
+> +		.no_pcm = 1,
+> +		SND_SOC_DAILINK_REG(dmic_pin, dmic_codec, platform),
+> +	},
+> +	{
+> +		.name = "dmic16k",
+> +		.id = 2,
+> +		.ignore_suspend = 1,
+> +		.dpcm_capture = 1,
+> +		.no_pcm = 1,
+> +		SND_SOC_DAILINK_REG(dmic16k_pin, dmic_codec, platform),
+> +	},
+> +	{
+> +		.name = "iDisp1",
+> +		.id = 3,
+> +		.init = hdmi_init,
+> +		.dpcm_playback = 1,
+> +		.no_pcm = 1,
+> +		SND_SOC_DAILINK_REG(idisp1_pin, idisp1_codec, platform),
+> +	},
+> +	{
+> +		.name = "iDisp2",
+> +		.id = 4,
+> +		.init = hdmi_init,
+> +		.dpcm_playback = 1,
+> +		.no_pcm = 1,
+> +		SND_SOC_DAILINK_REG(idisp2_pin, idisp2_codec, platform),
+> +	},
+> +	{
+> +		.name = "iDisp3",
+> +		.id = 5,
+> +		.init = hdmi_init,
+> +		.dpcm_playback = 1,
+> +		.no_pcm = 1,
+> +		SND_SOC_DAILINK_REG(idisp3_pin, idisp3_codec, platform),
+> +	},
+> +	{
+> +		/*
+> +		 * SSP1 - Codec : added to end of list ensuring
+> +		 * reuse of common topologies for other end points
+> +		 * and changing only SSP1's codec
+> +		 */
+> +		.name = "SSP1-Codec",
+> +		.id = 6,
+> +		.dpcm_playback = 1,
+> +		.dpcm_capture = 1, /* Capture stream provides Feedback */
+> +		.no_pcm = 1,
+> +		.ops = &cml_rt1011_ops,
+> +		SND_SOC_DAILINK_REG(ssp1_pin, ssp1_codec, platform),
+> +	},
+> +};
+> +
+> +static struct snd_soc_codec_conf rt1011_conf[] = {
+> +	{
+> +		.dev_name = "i2c-10EC1011:00",
+> +		.name_prefix = "WL",
+> +	},
+> +	{
+> +		.dev_name = "i2c-10EC1011:01",
+> +		.name_prefix = "WR",
+> +	},
+> +	{
+> +		.dev_name = "i2c-10EC1011:02",
+> +		.name_prefix = "TL",
+> +	},
+> +	{
+> +		.dev_name = "i2c-10EC1011:03",
+> +		.name_prefix = "TR",
+> +	},
+> +};
+> +
+> +/* Cometlake audio machine driver for RT1011 and RT5682 */
+> +static struct snd_soc_card snd_soc_card_cml = {
+> +	.name = "cml_rt1011_rt5682",
+> +	.dai_link = cml_rt1011_rt5682_dailink,
+> +	.num_links = ARRAY_SIZE(cml_rt1011_rt5682_dailink),
+> +	.codec_conf = rt1011_conf,
+> +	.num_configs = ARRAY_SIZE(rt1011_conf),
+> +	.dapm_widgets = cml_rt1011_rt5682_widgets,
+> +	.num_dapm_widgets = ARRAY_SIZE(cml_rt1011_rt5682_widgets),
+> +	.dapm_routes = cml_rt1011_rt5682_map,
+> +	.num_dapm_routes = ARRAY_SIZE(cml_rt1011_rt5682_map),
+> +	.controls = cml_controls,
+> +	.num_controls = ARRAY_SIZE(cml_controls),
+> +	.fully_routed = true,
+> +	.late_probe = sof_card_late_probe,
+> +};
+> +
+> +static int snd_cml_rt1011_probe(struct platform_device *pdev)
+> +{
+> +	struct card_private *ctx;
+> +	struct snd_soc_acpi_mach *mach;
+> +	const char *platform_name;
+> +	int ret;
+> +
+> +	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_ATOMIC);
+> +	if (!ctx)
+> +		return -ENOMEM;
+> +
+> +	INIT_LIST_HEAD(&ctx->hdmi_pcm_list);
+> +	mach = (&pdev->dev)->platform_data;
+> +	snd_soc_card_cml.dev = &pdev->dev;
+> +	platform_name = mach->mach_params.platform;
+> +
+> +	/* set platform name for each dailink */
+> +	ret = snd_soc_fixup_dai_links_platform_name(&snd_soc_card_cml,
+> +						    platform_name);
+> +	if (ret)
+> +		return ret;
+> +	snd_soc_card_set_drvdata(&snd_soc_card_cml, ctx);
+> +
+> +	return devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_cml);
+> +}
+> +
+> +static struct platform_driver snd_cml_rt1011_rt5682_driver = {
+> +	.probe = snd_cml_rt1011_probe,
+> +	.driver = {
+> +		.name = "cml_rt1011_rt5682",
+> +		.pm = &snd_soc_pm_ops,
+> +	},
+> +};
+> +module_platform_driver(snd_cml_rt1011_rt5682_driver);
+> +
+> +/* Module information */
+> +MODULE_DESCRIPTION("Cometlake Audio Machine driver - RT1011 and RT5682 in I2S mode");
+> +MODULE_AUTHOR("Naveen Manohar <naveen.m@intel.com>");
+> +MODULE_AUTHOR("Sathya Prakash M R <sathya.prakash.m.r@intel.com>");
+> +MODULE_AUTHOR("Shuming Fan <shumingf@realtek.com>");
+> +MODULE_LICENSE("GPL v2");
+> +MODULE_ALIAS("platform:cml_rt1011_rt5682");
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

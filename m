@@ -2,64 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5865DBC55F
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2019 12:05:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAFC6BC59E
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2019 12:20:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C733B167B;
-	Tue, 24 Sep 2019 12:04:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C733B167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39E8A1681;
+	Tue, 24 Sep 2019 12:19:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39E8A1681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569319542;
-	bh=VaS+sIidOTPz56us3XUmhKlQNuzL7iK7fS1I9HmRwv0=;
+	s=default; t=1569320416;
+	bh=z+UpHm6NkCaUe30DYcUYE/0Ik2i09h+R3GcZqWu8ZaA=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WKXyjqfyIWcA6v3AhqK1SsPNVkwi1e3iL+QKX5lndbrjRwWE95a8Uzfl9QS8CUNxj
-	 TxRrfNxzaTHpiEc/C3pzkEsKElEor0WAlrmtcW7YIjZV9VUovN/S3yI6lnxBlB/RXR
-	 W+h+S2xVAWsrR64eQMBZLaCV8Vu61/ONr+ym4KiA=
+	b=cDCRCNEbsoyCsgkdZOIzTHR7nmb2HHSiAHsIEWwwRP9PaV8P1K4M9LPItIc4o8MgR
+	 YGoZqHbM9VpZQDaRMHkiva5NPPsJPSTuAAiT659Q0h6bdu/J072RtSyoOvgwog8Nt3
+	 iIQoPyPgOkwZDLUiR+NoeB8zh6Nweorx+dHqlKp4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55BA8F80533;
-	Tue, 24 Sep 2019 12:03:58 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA270F802BD;
+	Tue, 24 Sep 2019 12:18:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21B44F8045F; Tue, 24 Sep 2019 12:03:56 +0200 (CEST)
+ id 96D74F8045F; Tue, 24 Sep 2019 12:18:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=PRX_BODYSUB_19,PRX_BODY_14,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0496AF800B4
- for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2019 12:03:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0496AF800B4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Sep 2019 03:03:50 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,543,1559545200"; d="scan'208";a="193402869"
-Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by orsmga006.jf.intel.com with ESMTP; 24 Sep 2019 03:03:48 -0700
-Date: Tue, 24 Sep 2019 13:03:47 +0300 (EEST)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@zeliteleevi
-To: sathya.prakash.m.r@intel.com
-In-Reply-To: <1569312546-16393-2-git-send-email-sathya.prakash.m.r@intel.com>
-Message-ID: <alpine.DEB.2.21.1909241216510.16459@zeliteleevi>
-References: <1569312546-16393-1-git-send-email-sathya.prakash.m.r@intel.com>
- <1569312546-16393-2-git-send-email-sathya.prakash.m.r@intel.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
-MIME-Version: 1.0
-Cc: naveen.m@intel.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com
-Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: Intel: boards: Add CML m/c using
- RT1011 and RT5682
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60523F802BD
+ for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2019 12:18:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60523F802BD
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 6C4FDAF85;
+ Tue, 24 Sep 2019 10:18:24 +0000 (UTC)
+Date: Tue, 24 Sep 2019 12:18:24 +0200
+Message-ID: <s5htv92j8un.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ben Russell <thematrixeatsyou@gmail.com>
+In-Reply-To: <20190924194525.dab812e92f8a75d5ed8d3d16@gmail.com>
+References: <20190922032853.6123-1-thematrixeatsyou@gmail.com>
+ <s5h5zlkm62b.wl-tiwai@suse.de>
+ <20190924194525.dab812e92f8a75d5ed8d3d16@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH 0/3] Make pcm_ioplug check lock status
+	before locking (fixes pcm_jack lockups)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,58 +72,566 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Tue, 24 Sep 2019 09:45:25 +0200,
+Ben Russell wrote:
+> 
+> On Sun, 22 Sep 2019 22:25:48 +0200
+> Takashi Iwai <tiwai@suse.de> wrote:
+> 
+> > On Sun, 22 Sep 2019 05:28:50 +0200,
+> > Ben Russell wrote:
+> > > 
+> > > This is my first time contributing a patch to a mailing list. If I've made a mess, please let me know so I can learn how to avoid it in future.
+> > > 
+> > > The purpose of this patchset is to fix a specific common lockup in the pcm_jack plugin (from alsa-plugins). I'm not sure if this is the right approach to take, but at the very least it should make the pcm_ioplug code a bit more resilient.
+> > > 
+> > > The problem is this: When using the pcm_jack plugin, if a program attempts to play audio using the SND_PCM_FORMAT_FLOAT format, said program locks up.
+> > > 
+> > > This should be enough to reproduce the bug:
+> > > 
+> > >     pcm.rawjack {
+> > >         type jack
+> > >         playback_ports {
+> > >             0 system:playback_1
+> > >             1 system:playback_2
+> > >         }
+> > >         capture_ports {
+> > >             0 system:capture_1
+> > >             1 system:capture_2
+> > >         }
+> > >     }
+> > >     
+> > >     pcm.!default {
+> > >         type plug
+> > >         slave.pcm "rawjack"
+> > >     }
+> > > 
+> > > What's happening is that several snd_pcm_ioplug_* functions assume that the pcm mutex is locked already. It then proceeds to unlock the mutex, call a function, and then relock the mutex. When the mutex isn't locked already, the initial unlock results in a silently ignored pthread error, and the lock results in the program eventually deadlocking as it doesn't expect the mutex to be held at that point.
+> > > 
+> > > Patch 2 modifies pcm_ioplug to check if the mutex is held before doing the unlock-act-lock sequence, and if the mutex is not held then it skips the unlock and lock stages. This depends on Patch 1, which adds a snd_pcm_is_locked function to give the state of the mutex.
+> > > 
+> > > Patch 3 is completely optional. It adds assertions which make sure that all uses of snd_pcm_lock/snd_pcm_unlock are correct. On one hand this will likely result in crashes in some of the less refined parts of the code. On the other hand, when that happens, you'll know which parts need a bit more love. I know it was useful for finding this issue in the first place.
+> > > 
+> > > These patches fix the problems I am having, but if you have a more suitable approach to fixing this problem then please let me know.
+> > 
+> > Thanks for the analysis and patches.  It's indeed a serious problem we
+> > need to address.
+> > 
+> > The current semantics of locking in alsa-lib code assumes that the
+> > lock/unlock never fails.  So the "right-and-quick" fix would be just
+> > to take the patch 3 to assert() upon pthread_mutex_lock/unlock
+> > errors.  Then we need to paper over the actual invalid locks.
+> > 
+> > I do wonder, though, exactly which code path triggers the pthread
+> > mutex error?  You should be able to catch it via gdb after the patch.
+> > 
+> > 
+> > thanks,
+> > 
+> > Takashi
+> 
+> Sure thing. With patch #3 against commit 1d7a131f, this trips up on an assert:
+> 
+> $ gdb --args mpv --ao=alsa --audio-format=float RESPECOGNIZE.mp3
+> 
+> The relevant backtrace:
+> 
+> #4  0x00007ffff4b06cf3 in snd_pcm_unlock (pcm=0x5555558625c0) at pcm_local.h:1187
+> #5  0x00007ffff4b075b3 in snd_pcm_unlock (pcm=0x5555558625c0) at pcm_local.h:1187
+> 	if (pcm->lock_enabled && pcm->need_lock) {
+> 		unlock_err = pthread_mutex_unlock(&pcm->lock);
+> 		assert(unlock_err == 0); <-- this line
+> 	}
+> #6  snd_pcm_ioplug_prepare (pcm=0x5555558625c0) at pcm_ioplug.c:167
+> 	snd_pcm_ioplug_reset(pcm);
+> 	if (io->data->callback->prepare) {
+> 		snd_pcm_unlock(pcm); /* to avoid deadlock */ <-- this line
+> 		err = io->data->callback->prepare(io->data);
+> 		snd_pcm_lock(pcm);
+> 	}
+> #7  0x00007ffff4abcba0 in snd_pcm_prepare (pcm=0x5555558627c0) at pcm.c:1214
+> 	snd_pcm_lock(pcm);
+> 	if (pcm->fast_ops->prepare)
+> 		err = pcm->fast_ops->prepare(pcm->fast_op_arg); <-- this line
+> 	else
+> 		err = -ENOSYS;
+> #8  0x00005555555a2efa in ?? ()
+> 
+> Using --audio-format=s16 does not deadlock, as it goes via pcm_plugin before it can go via pcm_ioplug (it's most likely for sample format conversion):
+> 
+> #0  0x00007ffff4b07522 in snd_pcm_unlock (pcm=<optimized out>) at pcm_ioplug.c:166
+> #1  snd_pcm_ioplug_prepare (pcm=0x555555862640) at pcm_ioplug.c:167
+> #2  0x00007ffff4abcba0 in snd_pcm_prepare (pcm=0x555555862640) at pcm.c:1214
+> #3  0x00007ffff4ad2ed7 in snd_pcm_plugin_prepare (pcm=0x555555862e50) at pcm_plugin.c:159
+> 	snd_pcm_plugin_t *plugin = pcm->private_data;
+> 	int err;
+> 	err = snd_pcm_prepare(plugin->gen.slave); <-- this line
+> 	if (err < 0)
+> 		return err;
+> #4  0x00007ffff4abcba0 in snd_pcm_prepare (pcm=0x555555862840) at pcm.c:1214
+> #5  0x00005555555a2efa in ?? ()
 
-On Tue, 24 Sep 2019, sathya.prakash.m.r@intel.com wrote:
+Thanks, after reading the traces carefully, finally I figured out what
+went wrong.  In some cases, pcm->fast_op_arg isn't pcm itself but has
+a different value.  Then we call snd_pcm_lock() with pcm, but call
+fast_op with fast_op_arg as the PCM object.  This leads to the
+unexpected behavior for the plugin that tries to unlock / relock from
+the given PCM object.
 
-> +       /* need to enable ASRC function for 24MHz mclk rate */                                                                                                                                         
-> +       rt5682_sel_asrc_clk_src(component, RT5682_DA_STEREO1_FILTER |                                                                                                                                  
-> +                                       RT5682_AD_STEREO1_FILTER,                                                                                                                                      
-> +                                       RT5682_CLK_SEL_I2S1_ASRC);    
+So, we'd need to convert snd_pcm_lock()/unlock() with fast_op_arg or
+op_arg in most places.
 
-please align to opening parenthesis to align with rest of the file.
+A test fix patch is below.  Could you test it quickly?
+I'm going to traveling from tomorrow, so I'd like to have confirmation
+before merging into git repo.
 
-> +static const struct snd_soc_dapm_route cml_rt1011_rt5682_map[] = {
-> +	/*speaker*/
-> +	{"TL Ext Spk", NULL, "TL SPO"},
-> +	{"TR Ext Spk", NULL, "TR SPO"},
-> +	{"WL Ext Spk", NULL, "WL SPO"},
-> +	{"WR Ext Spk", NULL, "WR SPO"},
-> +
-> +	/* HP jack connectors - unknown if we have jack detection */
-> +	{ "Headphone Jack", NULL, "HPOL" },
-> +	{ "Headphone Jack", NULL, "HPOR" },
 
-like other reviewer commented, there is a mix of spacing that should be 
-fixed. OTOH, there are similar mixed styles in existing machine drivers, 
-so that's probably where it's coming from, but better to still fix in new 
-code.
+thanks,
 
-> +	/* DMIC */
-> +	{"DMic", NULL, "SoC DMIC"},
+Takashi
 
-Here's another instance of above.
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] pcm: Fix the wrong PCM object passed for locking/unlocking
 
-> +	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
-> +		component = pcm->codec_dai->component;
-> +		snprintf(jack_name, sizeof(jack_name),
-> +			 "HDMI/DP, pcm=%d Jack", pcm->device);
-> +		ret = snd_soc_card_jack_new(card, jack_name,
-> +					    SND_JACK_AVOUT, &hdmi_jack[i],
-> +					    NULL, 0);
-> +		if (ret)
-> +			return ret;
+Most of PCM API functions have snd_pcm_lock()/unlock() wraps for the
+actual calls of ops, and some plugins try to unlock/relock internally
+for the given PCM object.  This, unfortunately, causes a problem in
+some configurations and leads to the unexpected behavior or deadlock.
 
-The HDMI jack registration part will need to be updated once my
-series to support snd-hda-codec-hdmi goes in:
+The main problem is that we call snd_pcm_lock() with the given PCM
+object, while calling the ops with pcm->op_arg or pcm->fast_op_arg as
+the slave PCM object.  Meanwhile the plugin code assumes that the
+passed PCM object is already locked, and calls snd_pcm_unlock().
+This bug doesn't hit always because in most cases pcm->op_arg and
+fast_op_arg are identical with pcm itself.  But in some configurations
+they have different values, so the problem surfaces.
 
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-September/155456.html
+This patch is an attempt to resolve these inconsistencies.  It
+replaces most of snd_pcm_lock()/unlock() calls with either pcm->op_arg
+or pcm->fast_op_arg, depending on the call pattern, so that the plugin
+code can safely run snd_pcm_unlock() to the given PCM object.
 
-... but your patch is ok as it is. I'll send a patch to update this 
-machine driver as well if your patch goes in first. There's no harm unless 
-you explicitly enable the new HDMI codec driver in Kconfig.
+Reported-by: Ben Russell <thematrixeatsyou@gmail.com>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ src/pcm/pcm.c | 114 +++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 57 insertions(+), 57 deletions(-)
 
-Br, Kai
+diff --git a/src/pcm/pcm.c b/src/pcm/pcm.c
+index 178d43875f00..e7519f04686b 100644
+--- a/src/pcm/pcm.c
++++ b/src/pcm/pcm.c
+@@ -789,7 +789,7 @@ int snd_pcm_nonblock(snd_pcm_t *pcm, int nonblock)
+ 	/* FIXME: __snd_pcm_lock() call below is commented out because of the
+ 	 * the possible deadlock in signal handler calling snd_pcm_abort()
+ 	 */
+-	/* __snd_pcm_lock(pcm); */ /* forced lock due to pcm field change */
++	/* __snd_pcm_lock(pcm->op_arg); */ /* forced lock due to pcm field change */
+ 	if (pcm->ops->nonblock)
+ 		err = pcm->ops->nonblock(pcm->op_arg, nonblock);
+ 	else
+@@ -809,7 +809,7 @@ int snd_pcm_nonblock(snd_pcm_t *pcm, int nonblock)
+ 			pcm->mode &= ~SND_PCM_NONBLOCK;
+ 	}
+  unlock:
+-	/* __snd_pcm_unlock(pcm); */ /* FIXME: see above */
++	/* __snd_pcm_unlock(pcm->op_arg); */ /* FIXME: see above */
+ 	return err;
+ }
+ 
+@@ -989,13 +989,13 @@ int snd_pcm_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
+ 		return -EINVAL;
+ 	}
+ #endif
+-	__snd_pcm_lock(pcm); /* forced lock due to pcm field change */
++	__snd_pcm_lock(pcm->op_arg); /* forced lock due to pcm field change */
+ 	if (pcm->ops->sw_params)
+ 		err = pcm->ops->sw_params(pcm->op_arg, params);
+ 	else
+ 		err = -ENOSYS;
+ 	if (err < 0) {
+-		__snd_pcm_unlock(pcm);
++		__snd_pcm_unlock(pcm->op_arg);
+ 		return err;
+ 	}
+ 	pcm->tstamp_mode = params->tstamp_mode;
+@@ -1008,7 +1008,7 @@ int snd_pcm_sw_params(snd_pcm_t *pcm, snd_pcm_sw_params_t *params)
+ 	pcm->silence_threshold = params->silence_threshold;
+ 	pcm->silence_size = params->silence_size;
+ 	pcm->boundary = params->boundary;
+-	__snd_pcm_unlock(pcm);
++	__snd_pcm_unlock(pcm->op_arg);
+ 	return 0;
+ }
+ 
+@@ -1025,12 +1025,12 @@ int snd_pcm_status(snd_pcm_t *pcm, snd_pcm_status_t *status)
+ 	int err;
+ 
+ 	assert(pcm && status);
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->status)
+ 		err = pcm->fast_ops->status(pcm->fast_op_arg, status);
+ 	else
+ 		err = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 
+ 	return err;
+ }
+@@ -1050,9 +1050,9 @@ snd_pcm_state_t snd_pcm_state(snd_pcm_t *pcm)
+ 	snd_pcm_state_t state;
+ 
+ 	assert(pcm);
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	state = __snd_pcm_state(pcm);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return state;
+ }
+ 
+@@ -1078,9 +1078,9 @@ int snd_pcm_hwsync(snd_pcm_t *pcm)
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_hwsync(pcm);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1123,9 +1123,9 @@ int snd_pcm_delay(snd_pcm_t *pcm, snd_pcm_sframes_t *delayp)
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_delay(pcm, delayp);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1181,12 +1181,12 @@ int snd_pcm_htimestamp(snd_pcm_t *pcm, snd_pcm_uframes_t *avail, snd_htimestamp_
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->htimestamp)
+ 		err = pcm->fast_ops->htimestamp(pcm->fast_op_arg, avail, tstamp);
+ 	else
+ 		err = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1209,12 +1209,12 @@ int snd_pcm_prepare(snd_pcm_t *pcm)
+ 	err = bad_pcm_state(pcm, ~P_STATE(DISCONNECTED));
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->prepare)
+ 		err = pcm->fast_ops->prepare(pcm->fast_op_arg);
+ 	else
+ 		err = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1236,12 +1236,12 @@ int snd_pcm_reset(snd_pcm_t *pcm)
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->reset)
+ 		err = pcm->fast_ops->reset(pcm->fast_op_arg);
+ 	else
+ 		err = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1264,9 +1264,9 @@ int snd_pcm_start(snd_pcm_t *pcm)
+ 	err = bad_pcm_state(pcm, P_STATE(PREPARED));
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_start(pcm);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1296,12 +1296,12 @@ int snd_pcm_drop(snd_pcm_t *pcm)
+ 			    P_STATE(SUSPENDED));
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->drop)
+ 		err = pcm->fast_ops->drop(pcm->fast_op_arg);
+ 	else
+ 		err = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1364,12 +1364,12 @@ int snd_pcm_pause(snd_pcm_t *pcm, int enable)
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->pause)
+ 		err = pcm->fast_ops->pause(pcm->fast_op_arg, enable);
+ 	else
+ 		err = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1397,12 +1397,12 @@ snd_pcm_sframes_t snd_pcm_rewindable(snd_pcm_t *pcm)
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->rewindable)
+ 		result = pcm->fast_ops->rewindable(pcm->fast_op_arg);
+ 	else
+ 		result = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ 
+@@ -1430,12 +1430,12 @@ snd_pcm_sframes_t snd_pcm_rewind(snd_pcm_t *pcm, snd_pcm_uframes_t frames)
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->rewind)
+ 		result = pcm->fast_ops->rewind(pcm->fast_op_arg, frames);
+ 	else
+ 		result = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ 
+@@ -1463,12 +1463,12 @@ snd_pcm_sframes_t snd_pcm_forwardable(snd_pcm_t *pcm)
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->forwardable)
+ 		result = pcm->fast_ops->forwardable(pcm->fast_op_arg);
+ 	else
+ 		result = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ 
+@@ -1500,12 +1500,12 @@ snd_pcm_sframes_t snd_pcm_forward(snd_pcm_t *pcm, snd_pcm_uframes_t frames)
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	if (pcm->fast_ops->forward)
+ 		result = pcm->fast_ops->forward(pcm->fast_op_arg, frames);
+ 	else
+ 		result = -ENOSYS;
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ use_default_symbol_version(__snd_pcm_forward, snd_pcm_forward, ALSA_0.9.0rc8);
+@@ -1724,9 +1724,9 @@ int snd_pcm_poll_descriptors_count(snd_pcm_t *pcm)
+ 	int count;
+ 
+ 	assert(pcm);
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	count = __snd_pcm_poll_descriptors_count(pcm);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return count;
+ }
+ 
+@@ -1782,9 +1782,9 @@ int snd_pcm_poll_descriptors(snd_pcm_t *pcm, struct pollfd *pfds, unsigned int s
+ 	int err;
+ 
+ 	assert(pcm && pfds);
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_poll_descriptors(pcm, pfds, space);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -1817,9 +1817,9 @@ int snd_pcm_poll_descriptors_revents(snd_pcm_t *pcm, struct pollfd *pfds, unsign
+ 	int err;
+ 
+ 	assert(pcm && pfds && revents);
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_poll_revents(pcm, pfds, nfds, revents);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -2816,9 +2816,9 @@ int snd_pcm_wait(snd_pcm_t *pcm, int timeout)
+ {
+ 	int err;
+ 
+-	__snd_pcm_lock(pcm); /* forced lock */
++	__snd_pcm_lock(pcm->fast_op_arg); /* forced lock */
+ 	err = __snd_pcm_wait_in_lock(pcm, timeout);
+-	__snd_pcm_unlock(pcm);
++	__snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -2865,9 +2865,9 @@ int snd_pcm_wait_nocheck(snd_pcm_t *pcm, int timeout)
+ 		return -EIO;
+ 	}
+ 	do {
+-		__snd_pcm_unlock(pcm);
++		__snd_pcm_unlock(pcm->fast_op_arg);
+ 		err_poll = poll(pfd, npfds, timeout);
+-		__snd_pcm_lock(pcm);
++		__snd_pcm_lock(pcm->fast_op_arg);
+ 		if (err_poll < 0) {
+ 		        if (errno == EINTR && !PCMINABORT(pcm))
+ 		                continue;
+@@ -2926,9 +2926,9 @@ snd_pcm_sframes_t snd_pcm_avail_update(snd_pcm_t *pcm)
+ {
+ 	snd_pcm_sframes_t result;
+ 
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	result = __snd_pcm_avail_update(pcm);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ 
+@@ -2956,13 +2956,13 @@ snd_pcm_sframes_t snd_pcm_avail(snd_pcm_t *pcm)
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_hwsync(pcm);
+ 	if (err < 0)
+ 		result = err;
+ 	else
+ 		result = __snd_pcm_avail_update(pcm);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ 
+@@ -2989,7 +2989,7 @@ int snd_pcm_avail_delay(snd_pcm_t *pcm,
+ 		SNDMSG("PCM not set up");
+ 		return -EIO;
+ 	}
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_hwsync(pcm);
+ 	if (err < 0)
+ 		goto unlock;
+@@ -3004,7 +3004,7 @@ int snd_pcm_avail_delay(snd_pcm_t *pcm,
+ 	*availp = sf;
+ 	err = 0;
+  unlock:
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -7192,9 +7192,9 @@ int snd_pcm_mmap_begin(snd_pcm_t *pcm,
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	err = __snd_pcm_mmap_begin(pcm, areas, offset, frames);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return err;
+ }
+ 
+@@ -7297,9 +7297,9 @@ snd_pcm_sframes_t snd_pcm_mmap_commit(snd_pcm_t *pcm,
+ 	err = bad_pcm_state(pcm, P_STATE_RUNNABLE);
+ 	if (err < 0)
+ 		return err;
+-	snd_pcm_lock(pcm);
++	snd_pcm_lock(pcm->fast_op_arg);
+ 	result = __snd_pcm_mmap_commit(pcm, offset, frames);
+-	snd_pcm_unlock(pcm);
++	snd_pcm_unlock(pcm->fast_op_arg);
+ 	return result;
+ }
+ 
+@@ -7375,7 +7375,7 @@ snd_pcm_sframes_t snd_pcm_read_areas(snd_pcm_t *pcm, const snd_pcm_channel_area_
+ 	if (size == 0)
+ 		return 0;
+ 
+-	__snd_pcm_lock(pcm); /* forced lock */
++	__snd_pcm_lock(pcm->fast_op_arg); /* forced lock */
+ 	while (size > 0) {
+ 		snd_pcm_uframes_t frames;
+ 		snd_pcm_sframes_t avail;
+@@ -7434,7 +7434,7 @@ snd_pcm_sframes_t snd_pcm_read_areas(snd_pcm_t *pcm, const snd_pcm_channel_area_
+ 		xfer += frames;
+ 	}
+  _end:
+-	__snd_pcm_unlock(pcm);
++	__snd_pcm_unlock(pcm->fast_op_arg);
+ 	return xfer > 0 ? (snd_pcm_sframes_t) xfer : snd_pcm_check_error(pcm, err);
+ }
+ 
+@@ -7449,7 +7449,7 @@ snd_pcm_sframes_t snd_pcm_write_areas(snd_pcm_t *pcm, const snd_pcm_channel_area
+ 	if (size == 0)
+ 		return 0;
+ 
+-	__snd_pcm_lock(pcm); /* forced lock */
++	__snd_pcm_lock(pcm->fast_op_arg); /* forced lock */
+ 	while (size > 0) {
+ 		snd_pcm_uframes_t frames;
+ 		snd_pcm_sframes_t avail;
+@@ -7523,7 +7523,7 @@ snd_pcm_sframes_t snd_pcm_write_areas(snd_pcm_t *pcm, const snd_pcm_channel_area
+ 		xfer += frames;
+ 	}
+  _end:
+-	__snd_pcm_unlock(pcm);
++	__snd_pcm_unlock(pcm->fast_op_arg);
+ 	return xfer > 0 ? (snd_pcm_sframes_t) xfer : snd_pcm_check_error(pcm, err);
+ }
+ 
+-- 
+2.16.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

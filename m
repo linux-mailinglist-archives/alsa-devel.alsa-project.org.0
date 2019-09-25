@@ -2,95 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0C05BD4B0
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Sep 2019 23:54:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23509BD6C8
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 05:36:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 440CE16C0;
-	Tue, 24 Sep 2019 23:53:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 440CE16C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92DCE16C5;
+	Wed, 25 Sep 2019 05:35:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92DCE16C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569362055;
-	bh=nwmje83Nfmsl7qttSc9qRLfh5TmSctckrB3gevuxX4Y=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=FhgrblBDKV03yOeu/VaR3TbKtMDvannBx0xCcvsz8bNKuz5W98Ge8UgCxLsheA+/T
-	 hqGKPDOF/lUcilIx4HGRz7ZA3yWYuVMuX/Fnr3cP9IdO34BR6NVS09imip1ZoJk1lQ
-	 DI8YA7/4PeJItjKxK1x+IelRo5TKjxfvPr7v8tzA=
+	s=default; t=1569382600;
+	bh=gUP6FWQwOax6w7h4m1XIK0x21pLfBdaoVnmcOcmA4dI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ud0NXhBtEd24LBxVIUKZmSiGx0IFr1svAzCdw1Z65amqIfrZGSeBlUhNIp7ruvZh9
+	 R/5DwVyTmAkHeWJxc19t9O775BZE8S/miYRmHHy7Gb1EAi+gXowvGKCnwK5SHAEPOH
+	 RnTHHAyBnMqkEpxQ4YAggCdpqKj1WORGoP7ehlJo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C3C7F80213;
-	Tue, 24 Sep 2019 23:52:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1197AF8049A;
+	Wed, 25 Sep 2019 05:34:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37CF1F8045F; Tue, 24 Sep 2019 23:52:28 +0200 (CEST)
+ id 4DB34F802BD; Wed, 25 Sep 2019 05:34:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70072.outbound.protection.outlook.com [40.107.7.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 624FBF800B4
- for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2019 23:52:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 624FBF800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14A96F802BD
+ for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 05:34:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14A96F802BD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="d0ptLuEY"
-Received: by mail-pf1-x443.google.com with SMTP id q5so2096564pfg.13
- for <alsa-devel@alsa-project.org>; Tue, 24 Sep 2019 14:52:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=E1xMc24hYDUgJip/G3+nSaUWwisuKmB+ZHuc94zHHzk=;
- b=d0ptLuEYVEam1DP6UXz3ufvlKv0Rh2f7QGWIYd0pimxpen92m1nCjH63Y3oUmfgXdM
- e9vRofKj6tTXOAtvr+g2/9a4OV7tQDiVwVV3Kh3Sve7pqmIzmgRUghHnaZynH67SHnHW
- rIgf7ruRl3rhqnhyBHw02V8XZZKblWPDyB8D3/iet4MIZpE4iw5EZtcTjUztACEmkZLL
- 1qjjugP3Ww2u7zIQkdavyfSi2BMnClZMrdlHfrmnhP4EwsJZcIS9b6CNLzqrxxbn7x7b
- fO0hIcWTRFU/XT3rix7PftJL6Pji5+QETeii4ZwTtvNk/+xxeGBV169AGXUu6Hlki8Xd
- onNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=E1xMc24hYDUgJip/G3+nSaUWwisuKmB+ZHuc94zHHzk=;
- b=WHEDzNn0Slw3WjpDk3S4V0ptQPNO1muiS5YZ+ZQ4laiQD7M/TwBWcKFFHbfac0pNOE
- jQ0r1l+qKFnY6sQsRDZ02FfpeFF8YPp5SmooYvPA2fWha22AE2728SOpRcRtMUQxM46O
- gBUBgNJVY6ANTWLo5UZVHqjSQpUdCUAMZytfOFCyD+yLaS+I4cwgZPVhtZacR68cLVTf
- hk7Tr5Jmvp9o7UEgPymbE37iMxnYflBfvzbwfgYMc7fjrL6++6KMKOGwNz/noRpk7HDg
- 8/DvBJMHPiBEVLf2DZYSe/SECHMYp0JQbrceF9Oc25Kdl+qR/VEfd47uGqxb9PPGfleK
- b0vA==
-X-Gm-Message-State: APjAAAWXsIbOR5Gv8rYgUr8uV46yEO2B6sR0qKv5ig0rd593eu4GbPXx
- hKoM72m+4ElsEYQgdjxSacI=
-X-Google-Smtp-Source: APXvYqxe9O60bRaCPe/n2UFtUr8or3Vyc6C0TkkVo5BRee9PILbNcSSLNYNYmW98WrHaMtrjV5ZrRw==
-X-Received: by 2002:a63:20d:: with SMTP id 13mr5329837pgc.253.1569361943377;
- Tue, 24 Sep 2019 14:52:23 -0700 (PDT)
-Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
- [216.228.112.22])
- by smtp.gmail.com with ESMTPSA id h2sm6197465pfq.108.2019.09.24.14.52.22
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 24 Sep 2019 14:52:23 -0700 (PDT)
-Date: Tue, 24 Sep 2019 14:51:35 -0700
-From: Nicolin Chen <nicoleotsuka@gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Message-ID: <20190924215135.GA2277@Asurada-Nvidia.nvidia.com>
-References: <cover.1569296075.git.shengjiu.wang@nxp.com>
- <4d9aab898650c68ea57c10067830dac884eb7439.1569296075.git.shengjiu.wang@nxp.com>
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="bnFF7R6N"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=URrGibzPduHFL4Cj/qbsI27S02o/A3AGkx59xNBeR+tCMy3P4pBt5uGu9VhgkAEBjHNSibxWYqOP069pLsS4KDDg1pH36y6XnwPSMWvH5E+uR/MEBSyTYFFA8fe2nGc5o2iWpDmd9p1glqGPx/OJ/gbquXSlRx0EM4jM+y73hWGZZiRTOybRz7ndm5cIXTqA/JJAviwriY86atlFZiVESNP7zFt4n8SdgtYUhTxuFzCBLXbLxmIFpqycOQHEntsuMwUPjelopo6Qq1t7ZLpXoT1qXStRDqWZfnJN7EU9Yw5zK5ECBIEsVTUPu946zJy9vNxUUprggkEzQ16dsdPUjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AQ6TgO9jjXwz6VthJCuxc4Hg8en8OdiiORD8G8ad0/M=;
+ b=SG3qlnZY3neKFpSofcr75B8v9M0hovnwHxRcwDFHV1RCYEcQnbveEkcVypUpox57+F7CyacUaqbfUUg0bAZQkLhmdpPVU+ieCCSSth7ueY7rmcc9DDevp+q7ACqAOH73Xnuw9efNDQY6ZFpfPRwf0v0/y+7PrGHIjUDCuAU2tXdxvL+roR9ayI/wD/4VZxo20RdoNGAqJKgyO57YT+CKh4gTNFmCsxwpP0BywBJA3PUHqUjwbiYA5KXcAgBsIqbNgAzu+ubVrMVIw9/ZT44fsfEnqYFS3vWDj1MqjaFHlJ+Z9kcMm2WPJM4PIOX2xtPVYjgdjLwl+VdUYmL2y5NF8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AQ6TgO9jjXwz6VthJCuxc4Hg8en8OdiiORD8G8ad0/M=;
+ b=bnFF7R6NS/33mvy9PvK5UIS66YLbQ/E2q5rFLZIKEYMY8cWW8hASPVAeZgylPN3fTsJtcbcaULaWVyaqFV93/nE8BDt+lwwGQJKmMKy7T7oBYsJKd95+3JDmcdJUvfp2vdDcEmY0oj93+Wp97JTYsdXWTs7lU8aEs5htUPdqpG8=
+Received: from AM0PR04MB6468.eurprd04.prod.outlook.com (20.179.254.214) by
+ AM0PR04MB4993.eurprd04.prod.outlook.com (20.177.41.149) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2284.25; Wed, 25 Sep 2019 03:34:45 +0000
+Received: from AM0PR04MB6468.eurprd04.prod.outlook.com
+ ([fe80::9974:f659:52e:40b6]) by AM0PR04MB6468.eurprd04.prod.outlook.com
+ ([fe80::9974:f659:52e:40b6%4]) with mapi id 15.20.2284.023; Wed, 25 Sep 2019
+ 03:34:44 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Thread-Topic: [PATCH V4 4/4] ASoC: fsl_asrc: Fix error with S24_3LE format
+ bitstream in i.MX8
+Thread-Index: AdVzUXTsa3VOQwaBSAODOXmc76582A==
+Date: Wed, 25 Sep 2019 03:34:44 +0000
+Message-ID: <AM0PR04MB6468B2731299F16400BD4601E3870@AM0PR04MB6468.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-originating-ip: [119.31.174.66]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 4b17a451-efd2-40dd-64f3-08d741694f06
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600167)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:AM0PR04MB4993; 
+x-ms-traffictypediagnostic: AM0PR04MB4993:
+x-microsoft-antispam-prvs: <AM0PR04MB499301404885738ADF93699AE3870@AM0PR04MB4993.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 01713B2841
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(136003)(39860400002)(396003)(346002)(376002)(189003)(199004)(6116002)(1411001)(66556008)(3846002)(71190400001)(26005)(476003)(66446008)(2906002)(186003)(66476007)(7696005)(8676002)(99286004)(102836004)(14454004)(6246003)(305945005)(7736002)(81156014)(81166006)(86362001)(5660300002)(478600001)(54906003)(7416002)(55016002)(9686003)(6916009)(8936002)(6506007)(71200400001)(74316002)(66066001)(4326008)(14444005)(76116006)(33656002)(486006)(256004)(229853002)(52536014)(64756008)(316002)(6436002)(66946007)(25786009);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR04MB4993;
+ H:AM0PR04MB6468.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: MeVQok7MfHaEFh60Ye2Xu1C4HDAXl6wOkhUJZZh72RqRZltvInCgDQwdcakS1ySDHbq461O7V+ndE5XBbymQrhLazo+7bXUc3FxjgiHQLyyaNvoMGfrMwkidPe/XRPVYOXyQWYylge2s5VKYIbXlAFlCUGCdliOMF/G0xvMFtrDQvuFnN8KCuKoAeIvEu9HOy7ui8w70wmmi/oIcJcLl9dnxCD18ecovuRBatUPEpMIZ0BEc9c4U2j0aP92F0FOL3Q7/4QyiCIYGs+Ey7cPVcUfTiK9GJIejsa+pObmFBCBIzuAloasEY2FlkMSnJBMgVuEhWRTBs/TpuD+iupc7mWwWVEv58MOgIzhgAjBhF/ZWgJgl4DOTujI0WY1sUz9rrHFpOewnBMfKP5a+Va1XoHREv9wZrq90aXJEVPVBvkY=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4d9aab898650c68ea57c10067830dac884eb7439.1569296075.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
- Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, broonie@kernel.org,
- festevam@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH V4 3/4] ASoC: pcm_dmaengine: Extract
- snd_dmaengine_pcm_refine_runtime_hwparams
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b17a451-efd2-40dd-64f3-08d741694f06
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Sep 2019 03:34:44.8345 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Z+99T4hJgGWNuwtCFzBdPQUOBIoW37cS9ZydgqUys9BVT6EkVBB2K1i7aJ6p2GYerWe6GPjc/2pgsKOipkI6Fw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB4993
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>, "timur@kernel.org" <timur@kernel.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH V4 4/4] ASoC: fsl_asrc: Fix error with
+ S24_3LE format bitstream in i.MX8
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,20 +135,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Sep 24, 2019 at 06:52:34PM +0800, Shengjiu Wang wrote:
-> When set the runtime hardware parameters, we may need to query
-> the capability of DMA to complete the parameters.
-> 
-> This patch is to Extract this operation from
-> dmaengine_pcm_set_runtime_hwparams function to a separate function
-> snd_dmaengine_pcm_refine_runtime_hwparams, that other components
-> which need this feature can call this function.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Hi
 
-Looks good to me.
+> On Tue, Sep 24, 2019 at 06:52:35PM +0800, Shengjiu Wang wrote:
+> > There is error "aplay: pcm_write:2023: write error: Input/output error"
+> > on i.MX8QM/i.MX8QXP platform for S24_3LE format.
+> >
+> > In i.MX8QM/i.MX8QXP, the DMA is EDMA, which don't support 24bit
+> > sample, but we didn't add any constraint, that cause issues.
+> >
+> > So we need to query the caps of dma, then update the hw parameters
+> > according to the caps.
+> >
+> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > ---
+> >  sound/soc/fsl/fsl_asrc.c     |  4 +--
+> >  sound/soc/fsl/fsl_asrc.h     |  3 ++
+> >  sound/soc/fsl/fsl_asrc_dma.c | 59
+> > +++++++++++++++++++++++++++++++-----
+> >  3 files changed, 56 insertions(+), 10 deletions(-)
+> >
+> > @@ -270,12 +268,17 @@ static int fsl_asrc_dma_hw_free(struct
+> > snd_pcm_substream *substream)
+> >
+> >  static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
+> > {
+> > +     bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
+> >       struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> >       struct snd_pcm_runtime *runtime = substream->runtime;
+> >       struct snd_soc_component *component =
+> snd_soc_rtdcom_lookup(rtd,
+> > DRV_NAME);
+> > +     struct snd_dmaengine_dai_dma_data *dma_data;
+> >       struct device *dev = component->dev;
+> >       struct fsl_asrc *asrc_priv = dev_get_drvdata(dev);
+> >       struct fsl_asrc_pair *pair;
+> > +     struct dma_chan *tmp_chan = NULL;
+> > +     u8 dir = tx ? OUT : IN;
+> > +     int ret = 0;
+> >
+> >       pair = kzalloc(sizeof(struct fsl_asrc_pair), GFP_KERNEL);
+> 
+> Sorry, I didn't catch it previously. We would need to release this memory
+> also for all error-out paths, as the code doesn't have any error-out routine,
+> prior to applying this change.
+> 
+> >       if (!pair)
+> > @@ -285,11 +288,51 @@ static int fsl_asrc_dma_startup(struct
+> > snd_pcm_substream *substream)
+> 
+> > +     /* Request a dummy pair, which will be released later.
+> > +      * Request pair function needs channel num as input, for this
+> > +      * dummy pair, we just request "1" channel temporary.
+> > +      */
+> 
+> "temporary" => "temporarily"
+> 
+> > +     ret = fsl_asrc_request_pair(1, pair);
+> > +     if (ret < 0) {
+> > +             dev_err(dev, "failed to request asrc pair\n");
+> > +             return ret;
+> > +     }
+> > +
+> > +     /* Request a dummy dma channel, which will be release later. */
+> 
+> "release" => "released"
 
-Reviewed-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Ok, will update them.
+
+Best regards
+Wang shengjiu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

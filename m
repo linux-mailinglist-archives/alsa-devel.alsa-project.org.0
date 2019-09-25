@@ -2,60 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85894BE2E6
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 18:54:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD28EBE30B
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 19:07:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D94DD1721;
-	Wed, 25 Sep 2019 18:53:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D94DD1721
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49FBB1711;
+	Wed, 25 Sep 2019 19:06:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FBB1711
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569430456;
-	bh=I4hCohpyK/CVg8seu5sAtma3zjVyZTxHLwVnsX36ov0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1569431256;
+	bh=LCn9dSBn/M+soTW8CCRdwW4KFUGgNWD7wdiJPfKiQgc=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eZ1WLcm0ot0ZyxW4H9zDdZggy8PpsyPQhFVc5+qVYcrA56Ngm0vymWJah2XLlaTMZ
-	 +Y/HYKWBxTeGz/OvSUjKtLyO8vLBJhNq8JDhtvaF+hnzBrwqCUZXLr02lVmKGHs96V
-	 RVxMu1YKy+GdOtw6bqNmj0hHal8086FBBseDYm3g=
+	b=JTdgMmQ/Bacli5VQedUp7RMhzHJ366CZKMNWjLynrCyOjpRIkZGGbJtYfLcNedzSk
+	 LaNzRNsbaRKlKDE+p9gQUgIJ4j8geEUDYjPc2hbsETdrKkBHdvEOKQBp0hZumqAgAP
+	 WSmvhbrEKV/22IvuXhYFyyY8AJUQJJ6dQDgYn5Fw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE73CF8060E;
-	Wed, 25 Sep 2019 18:51:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A212F8049A;
+	Wed, 25 Sep 2019 19:05:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7884F805F7; Wed, 25 Sep 2019 18:51:39 +0200 (CEST)
+ id 2B455F8044C; Wed, 25 Sep 2019 19:05:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0676FF8049A
- for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 18:51:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0676FF8049A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1CFA5F80138
+ for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 19:05:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CFA5F80138
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2019 09:51:30 -0700
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2019 10:05:26 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,548,1559545200"; d="scan'208";a="203642162"
-Received: from unknown (HELO localhost.localdomain) ([10.223.165.177])
- by fmsmga001.fm.intel.com with ESMTP; 25 Sep 2019 09:51:28 -0700
-From: sathya.prakash.m.r@intel.com
-To: alsa-devel@alsa-project.org
-Date: Wed, 25 Sep 2019 22:27:04 +0530
-Message-Id: <1569430624-30505-3-git-send-email-sathya.prakash.m.r@intel.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1569430624-30505-1-git-send-email-sathya.prakash.m.r@intel.com>
-References: <1569430624-30505-1-git-send-email-sathya.prakash.m.r@intel.com>
-Cc: sathya.prakash.m.r@intel.com, naveen.m@intel.com, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, tiwai@suse.de
-Subject: [alsa-devel] [PATCH v4 2/2] ASoC: Intel: Add acpi match for rt1011
-	based m/c driver
+X-IronPort-AV: E=Sophos;i="5.64,548,1559545200"; d="scan'208";a="203645824"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga001.fm.intel.com with ESMTP; 25 Sep 2019 10:05:25 -0700
+Received: from aabousam-mobl1.amr.corp.intel.com (unknown [10.251.27.167])
+ by linux.intel.com (Postfix) with ESMTP id 74B99580406;
+ Wed, 25 Sep 2019 10:05:24 -0700 (PDT)
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
+References: <20190925161922.22479-1-navid.emamdoost@gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <13f4bd40-dbaa-e24e-edca-4b4acff9d9c5@linux.intel.com>
+Date: Wed, 25 Sep 2019 12:05:28 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <20190925161922.22479-1-navid.emamdoost@gmail.com>
+Content-Language: en-US
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kjlu@umn.edu,
+ Mark Brown <broonie@kernel.org>, Jie Yang <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ emamd001@umn.edu, smccaman@umn.edu, Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Enrico Weigelt <info@metux.net>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: Intel: Skylake: prevent memory
+ leak in snd_skl_parse_uuids
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,42 +79,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Naveen Manohar <naveen.m@intel.com>
+On 9/25/19 11:19 AM, Navid Emamdoost wrote:
+> In snd_skl_parse_uuids if allocation for module->instance_id fails, the
+> allocated memory for module shoulde be released. I changes the
+> allocation for module to use devm_kzalloc to be resource_managed
+> allocation and avoid the release in error path.
 
-Add match for CML m/c with RT1011 and RT5682
+if you use devm_, don't you need to fix the error path as well then, I 
+see a kfree(uuid) in skl_freeup_uuid_list().
 
-Signed-off-by: Naveen Manohar <naveen.m@intel.com>
-Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
----
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+I am not very familiar with this code but the error seems to be that the 
+list_add_tail() is called after the module->instance_id is allocated, so 
+there is a risk that the module allocated earlier is not freed (since 
+it's not yet added to the list). Freeing the module as done in patch 1 
+works, using devm_ without fixing the error path does not seem correct 
+to me.
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index 771b0ef21051..af7e85a4fc86 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -29,6 +29,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 		.sof_tplg_filename = "sof-cnl-rt274.tplg",
- 	},
- 	{
-+		.id = "10EC1011",
-+		.drv_name = "cml_rt1011_rt5682",
-+		.quirk_data = &cml_codecs,
-+		.sof_fw_filename = "sof-cnl.ri",
-+		.sof_tplg_filename = "sof-cml-rt1011-rt5682.tplg",
-+	},
-+	{
- 		.id = "MX98357A",
- 		.drv_name = "sof_rt5682",
- 		.quirk_data = &cml_codecs,
--- 
-1.9.1
+> 
+> Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+> ---
+> Changes in v2:
+> 	- Changed the allocation for module from kzalloc to devm_kzalloc
+> ---
+>   sound/soc/intel/skylake/skl-sst-utils.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
+> index d43cbf4a71ef..ac37f04b0eea 100644
+> --- a/sound/soc/intel/skylake/skl-sst-utils.c
+> +++ b/sound/soc/intel/skylake/skl-sst-utils.c
+> @@ -284,7 +284,7 @@ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
+>   	 */
+>   
+>   	for (i = 0; i < num_entry; i++, mod_entry++) {
+> -		module = kzalloc(sizeof(*module), GFP_KERNEL);
+> +		module = devm_kzalloc(ctx->dev, sizeof(*module), GFP_KERNEL);
+>   		if (!module) {
+>   			ret = -ENOMEM;
+>   			goto free_uuid_list;
+> 
 
 _______________________________________________
 Alsa-devel mailing list

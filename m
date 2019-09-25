@@ -2,71 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD28EBE30B
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 19:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4E9BE4AF
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 20:36:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 49FBB1711;
-	Wed, 25 Sep 2019 19:06:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49FBB1711
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD9001718;
+	Wed, 25 Sep 2019 20:35:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD9001718
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569431256;
-	bh=LCn9dSBn/M+soTW8CCRdwW4KFUGgNWD7wdiJPfKiQgc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JTdgMmQ/Bacli5VQedUp7RMhzHJ366CZKMNWjLynrCyOjpRIkZGGbJtYfLcNedzSk
-	 LaNzRNsbaRKlKDE+p9gQUgIJ4j8geEUDYjPc2hbsETdrKkBHdvEOKQBp0hZumqAgAP
-	 WSmvhbrEKV/22IvuXhYFyyY8AJUQJJ6dQDgYn5Fw=
+	s=default; t=1569436570;
+	bh=kUHGSXqZ9xHtuTMnXar7IRscEKwbG/LGkb1HF6BKKRI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=A5eaIiEk4iLMs+yI/YGfTydrbccjZfCllX+kyLQOQ1t8T+tQ4Iy2o3CJkRTnXCFi0
+	 StMmMJPG8bEOPeWEF1cON/MFCaqL8HAki8ySyeY7cRkPmYi6JnZZMOCzDXo2y0jk0F
+	 JicLEFIxDeHYuQXIA2TDiwbEyoywpBg8flML0/Rg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A212F8049A;
-	Wed, 25 Sep 2019 19:05:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A4BCF8044C;
+	Wed, 25 Sep 2019 20:34:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B455F8044C; Wed, 25 Sep 2019 19:05:36 +0200 (CEST)
+ id EEC4FF8044C; Wed, 25 Sep 2019 20:34:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CFA5F80138
- for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 19:05:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CFA5F80138
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2019 10:05:26 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,548,1559545200"; d="scan'208";a="203645824"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga001.fm.intel.com with ESMTP; 25 Sep 2019 10:05:25 -0700
-Received: from aabousam-mobl1.amr.corp.intel.com (unknown [10.251.27.167])
- by linux.intel.com (Postfix) with ESMTP id 74B99580406;
- Wed, 25 Sep 2019 10:05:24 -0700 (PDT)
-To: Navid Emamdoost <navid.emamdoost@gmail.com>
-References: <20190925161922.22479-1-navid.emamdoost@gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <13f4bd40-dbaa-e24e-edca-4b4acff9d9c5@linux.intel.com>
-Date: Wed, 25 Sep 2019 12:05:28 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <20190925161922.22479-1-navid.emamdoost@gmail.com>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kjlu@umn.edu,
- Mark Brown <broonie@kernel.org>, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- emamd001@umn.edu, smccaman@umn.edu, Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Enrico Weigelt <info@metux.net>, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: Intel: Skylake: prevent memory
- leak in snd_skl_parse_uuids
+ by alsa1.perex.cz (Postfix) with ESMTPS id 268BBF80138
+ for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 20:34:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 268BBF80138
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 51CFD200090;
+ Wed, 25 Sep 2019 20:34:11 +0200 (CEST)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
+ [134.27.226.22])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 45014200043;
+ Wed, 25 Sep 2019 20:34:11 +0200 (CEST)
+Received: from fsr-ub1864-103.ea.freescale.net
+ (fsr-ub1864-103.ea.freescale.net [10.171.82.17])
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id D458F20634;
+ Wed, 25 Sep 2019 20:34:10 +0200 (CEST)
+From: Daniel Baluta <daniel.baluta@nxp.com>
+To: broonie@kernel.org
+Date: Wed, 25 Sep 2019 21:33:58 +0300
+Message-Id: <20190925183358.11955-1-daniel.baluta@nxp.com>
+X-Mailer: git-send-email 2.17.1
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@intel.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, linux-imx@nxp.com,
+ Daniel Baluta <daniel.baluta@nxp.com>, pierre-louis.bossart@intel.com
+Subject: [alsa-devel] [PATCH] ASoC: core: Clarify usage of ignore_machine
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,50 +68,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/25/19 11:19 AM, Navid Emamdoost wrote:
-> In snd_skl_parse_uuids if allocation for module->instance_id fails, the
-> allocated memory for module shoulde be released. I changes the
-> allocation for module to use devm_kzalloc to be resource_managed
-> allocation and avoid the release in error path.
+For a sound card ignore_machine means that existing FEs links should be
+ignored and existing BEs links should be overridden with some information
+from the matching component driver.
 
-if you use devm_, don't you need to fix the error path as well then, I 
-see a kfree(uuid) in skl_freeup_uuid_list().
+Current code make some confusions about this so fix it!
 
-I am not very familiar with this code but the error seems to be that the 
-list_add_tail() is called after the module->instance_id is allocated, so 
-there is a risk that the module allocated earlier is not freed (since 
-it's not yet added to the list). Freeing the module as done in patch 1 
-works, using devm_ without fixing the error path does not seem correct 
-to me.
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+---
+ sound/soc/soc-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> 
-> Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
-> ---
-> Changes in v2:
-> 	- Changed the allocation for module from kzalloc to devm_kzalloc
-> ---
->   sound/soc/intel/skylake/skl-sst-utils.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/intel/skylake/skl-sst-utils.c b/sound/soc/intel/skylake/skl-sst-utils.c
-> index d43cbf4a71ef..ac37f04b0eea 100644
-> --- a/sound/soc/intel/skylake/skl-sst-utils.c
-> +++ b/sound/soc/intel/skylake/skl-sst-utils.c
-> @@ -284,7 +284,7 @@ int snd_skl_parse_uuids(struct sst_dsp *ctx, const struct firmware *fw,
->   	 */
->   
->   	for (i = 0; i < num_entry; i++, mod_entry++) {
-> -		module = kzalloc(sizeof(*module), GFP_KERNEL);
-> +		module = devm_kzalloc(ctx->dev, sizeof(*module), GFP_KERNEL);
->   		if (!module) {
->   			ret = -ENOMEM;
->   			goto free_uuid_list;
-> 
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 88978a3036c4..e32a45f6bd88 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1853,7 +1853,7 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 
+ 	for_each_component(component) {
+ 
+-		/* does this component override FEs ? */
++		/* does this component override BEs ? */
+ 		if (!component->driver->ignore_machine)
+ 			continue;
+ 
+@@ -1874,7 +1874,7 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 				continue;
+ 			}
+ 
+-			dev_info(card->dev, "info: override FE DAI link %s\n",
++			dev_info(card->dev, "info: override BE DAI link %s\n",
+ 				 card->dai_link[i].name);
+ 
+ 			/* override platform component */
+-- 
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

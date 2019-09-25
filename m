@@ -2,58 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E68F1BDD39
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 13:35:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5F23BDD45
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 13:40:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E78CF16DF;
-	Wed, 25 Sep 2019 13:34:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E78CF16DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 32E1616F5;
+	Wed, 25 Sep 2019 13:39:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32E1616F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569411339;
-	bh=qImkegdeL0/QhXUHNx1eUlrQmXTh7TrMGZL3+4TP/XE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1569411649;
+	bh=MbGIuQ33KkvFtfUyWQ9xZwdM/rMc0No65L2hDgkGFm8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JgNIGYTpfQvGMiKma4D/glW31vddKaRgYJk0CmdsttXARM03QMIfSCdUAmzvkFbk0
-	 uJD6avrF5J07ruDgVH7smoX5W7GhKpOooxGWCLRlh104ZSyWozfqrX+9m07pkQ1Liz
-	 J0mowIYMvxu5q/m9+5J3DwqGOBUTyQYwUIdP8D5I=
+	b=k1ORt+guDAPhp93LSZVbGCj9hgFEbGsnqOFhBoQEQnynwJlLPRQDoV8gTiOAD5a9L
+	 I/TNvSYgMDqp/aiYxOr8UHTKw9EsL4Ldchv5mQTpHkGK/vSvnuiPkaKnpNYRyLTxgl
+	 Rq9F/ogoWIK9xsFHvn9RgUpTEI7w2ylNooCWabt4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB0E1F805FC;
-	Wed, 25 Sep 2019 13:33:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D934DF8044C;
+	Wed, 25 Sep 2019 13:39:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D1FEAF805FA; Wed, 25 Sep 2019 13:33:11 +0200 (CEST)
+ id 23522F8044C; Wed, 25 Sep 2019 13:39:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3113BF805F8
- for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 13:33:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3113BF805F8
-Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
- helo=localhost) by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <kai.heng.feng@canonical.com>)
- id 1iD5Xc-00040S-Ng; Wed, 25 Sep 2019 11:33:05 +0000
-From: Kai-Heng Feng <kai.heng.feng@canonical.com>
-To: bhelgaas@google.com,
-	tiwai@suse.com
-Date: Wed, 25 Sep 2019 19:32:55 +0800
-Message-Id: <20190925113255.25062-2-kai.heng.feng@canonical.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20190925113255.25062-1-kai.heng.feng@canonical.com>
-References: <20190925113255.25062-1-kai.heng.feng@canonical.com>
-Cc: linux-pci@vger.kernel.org, alsa-devel@alsa-project.org,
- Kai-Heng Feng <kai.heng.feng@canonical.com>, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v4 2/2] ALSA: hda: Allow HDA to be runtime
-	suspended when dGPU is not bound to a driver
+ by alsa1.perex.cz (Postfix) with ESMTPS id F278FF80138
+ for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 13:38:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F278FF80138
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2019 04:38:52 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,547,1559545200"; d="scan'208";a="191312951"
+Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
+ by orsmga003.jf.intel.com with ESMTP; 25 Sep 2019 04:38:51 -0700
+Date: Wed, 25 Sep 2019 14:38:50 +0300 (EEST)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@zeliteleevi
+To: tiwai@suse.de, alsa-devel@alsa-project.org
+In-Reply-To: <20190925112409.1762-3-kai.vehmanen@linux.intel.com>
+Message-ID: <alpine.DEB.2.21.1909251424570.16459@zeliteleevi>
+References: <20190925112409.1762-1-kai.vehmanen@linux.intel.com>
+ <20190925112409.1762-3-kai.vehmanen@linux.intel.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+MIME-Version: 1.0
+Cc: libin.yang@intel.com, pierre-louis.bossart@linux.intel.com
+Subject: Re: [alsa-devel] [PATCH v5 2/9] ASoC: hdac_hda: add support for
+ HDMI/DP as a HDA codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,72 +71,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Nvidia proprietary driver doesn't support runtime power management, so
-when a user only wants to use the integrated GPU, it's a common practice
-to let dGPU not to bind any driver, and let its upstream port to be
-runtime suspended. At the end of runtime suspension the port uses
-platform power management to disable power through _OFF method of power
-resource, which is listed by _PR3.
+Hello,
 
-After commit b516ea586d71 ("PCI: Enable NVIDIA HDA controllers"), when
-the dGPU comes with an HDA function, the HDA won't be suspended if the
-dGPU is unbound, so the power resource can't be turned off by its
-upstream port driver.
+Takashi, please check whether this is ok. I'll highlight the changed 
+section below:
 
-Commit 37a3a98ef601 ("ALSA: hda - Enable runtime PM only for
-discrete GPU") only allows HDA to be runtime suspended once GPU is
-bound, to keep APU's HDA working.
+On Wed, 25 Sep 2019, Kai Vehmanen wrote:
 
-However, HDA on dGPU isn't that useful if dGPU is not bound to any
-driver.  So let's relax the runtime suspend requirement for dGPU's HDA
-function, to disable the power source to save lots of power.
+>  static int hdac_hda_codec_probe(struct snd_soc_component *component)
+>  {
+>  	struct hdac_hda_priv *hda_pvt =
+> @@ -322,6 +392,15 @@ static int hdac_hda_codec_probe(struct snd_soc_component *component)
+>  
+>  	snd_hdac_ext_bus_link_get(hdev->bus, hlink);
+>  
+> +	/*
+> +	 * Ensure any HDA display is powered at codec probe.
+> +	 * After snd_hda_codec_device_new(), display power is
+> +	 * managed by runtime PM.
+> +	 */
+> +	if (hda_pvt->need_display_power)
+> +		snd_hdac_display_power(hdev->bus, HDA_CODEC_IDX_CONTROLLER,
+> +				       true);
+> +
 
-BugLink: https://bugs.launchpad.net/bugs/1840835
-Fixes: b516ea586d71 ("PCI: Enable NVIDIA HDA controllers")
-Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
----
-v4:
-- Find upstream port, it's callee's responsibility now.
-v3:
-- Make changelog more clear.
-v2:
-- Change wording.
-- Rebase to Tiwai's branch.
- sound/pci/hda/hda_intel.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+This is the new bit (and matching logic in patch 5).The bug required a 
+very specific timing sequence to trigger, but a clear bug nevertheless. I 
+tried to fix it in spirit of your refactoring patch of to this area 
+029d92c289bd, "ALSA: hda: Refactor display power management". I.e. just 
+like snd_hda_intel's controller code, display power is enabled before 
+probe and later managed by codec using common code.
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 240f4ca76391..e63b871343e5 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -1280,11 +1280,17 @@ static void init_vga_switcheroo(struct azx *chip)
- {
- 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
- 	struct pci_dev *p = get_bound_vga(chip->pci);
-+	struct pci_dev *parent;
- 	if (p) {
- 		dev_info(chip->card->dev,
- 			 "Handle vga_switcheroo audio client\n");
- 		hda->use_vga_switcheroo = 1;
--		chip->bus.keep_power = 1; /* cleared in either gpu_bound op or codec probe */
-+
-+		/* cleared in either gpu_bound op or codec probe, or when its
-+		 * upstream port has _PR3 (i.e. dGPU).
-+		 */
-+		parent = pci_upstream_bridge(p);
-+		chip->bus.keep_power = parent ? !pci_pr3_present(parent) : 1;
- 		chip->driver_caps |= AZX_DCAPS_PM_RUNTIME;
- 		pci_dev_put(p);
- 	}
--- 
-2.17.1
+Additional SOF specific twist is that I need to pass the 
+"need_display_power" info from SOF code (where the initial codec probe is 
+done and we detect a HDMI HDA codec)), to soc/codecs/hdac_hda.c where the 
+actual driver probe is run for the codec. In snd_hda_intel this is all in 
+one place, so somewhat more straighforward, but logic is the same.
 
+Br, Kai
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,56 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21ABDBDCC5
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 13:12:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE10BBDD09
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 13:26:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACF3016DB;
-	Wed, 25 Sep 2019 13:11:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACF3016DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B98C16DE;
+	Wed, 25 Sep 2019 13:25:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B98C16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569409939;
-	bh=KKsjxwzfiO3TSSaQbyI5A4XF/S3rJvvR+WvWdzaieHg=;
+	s=default; t=1569410771;
+	bh=UooeNVyMH7jvHTZuP4zWfsFLfGIF6JerTyi89/CeuMU=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zbv+bg/hWsHmEGqEatPnVAk0zUSrWOCneNEuVCOOlIg9sxRD6NUzVFuwQG3UFM3Se
-	 saU4tPnshqHImjlFH4cSArXvspGiwaFzZ4hVhmzePzUolLgW9Loea++jEtgpgipJxi
-	 Fm5qbY0mEkzVb/+49NWiwGrDSmuZ9qKy7wAiP94Y=
+	b=r7KPfC5Ac+dnqmeCMyaoZkhraiTrpgWWGGPvvpojlOpV8MHLLO5cwzL9U8YCpJlsz
+	 20EHOs8dxeWMNpIzT/3IKgXj0IGs/qw6oILDfXVRQZd49EqTRLhH7UBCjI7yEibVZt
+	 Kv9KX48lOCbqjXMAJ6imrx+qUVSsakW4+r1B6OW0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 826C6F802BD;
-	Wed, 25 Sep 2019 13:10:35 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id EAA2CF804CA;
+	Wed, 25 Sep 2019 13:24:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25C6EF8044C; Wed, 25 Sep 2019 13:10:33 +0200 (CEST)
+ id E05D7F8049A; Wed, 25 Sep 2019 13:24:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09388F802BD
- for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 13:10:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09388F802BD
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1iD5Bf-0001zl-SC; Wed, 25 Sep 2019 11:10:23 +0000
-From: Colin King <colin.king@canonical.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- alsa-devel@alsa-project.org
-Date: Wed, 25 Sep 2019 12:10:23 +0100
-Message-Id: <20190925111023.7771-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: wcd9335: clean up indentation issue
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B370F80213
+ for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 13:24:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B370F80213
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Sep 2019 04:24:14 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,547,1559545200"; d="scan'208";a="218955857"
+Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
+ by fmsmga002.fm.intel.com with ESMTP; 25 Sep 2019 04:24:12 -0700
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Date: Wed, 25 Sep 2019 14:24:00 +0300
+Message-Id: <20190925112409.1762-1-kai.vehmanen@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
+ kai.vehmanen@linux.intel.com
+Subject: [alsa-devel] [PATCH v5 0/9] adapt SOF to use snd-hda-codec-hdmi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,44 +65,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+Hey,
+here's the 5th round for this series that adapts SOF to use
+snd-hda-codec-hdmi (patch_hdmi.c) codec driver instead of hdac_hdmi
+(soc/codecs/hdac_hdmi.c). The primary goal is to unify the HDMI codec
+implementation between DSP and non-DSP HDA configurations, offer same
+interface to user-space and reduce maintenance load for all.
 
-There is an if statement that is indented one level too deeply,
-remove the extraneous tabs.
+v5 changes:
+- Fixed a bug with codec power management at probe. To imitate snd_hda_intel
+  driver, SOF needs to enable display power when doing codec probe
+  for HDMI codecs. Affects patches 2 and 5.
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- sound/soc/codecs/wcd9335.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Feature and testing info:
+ - Tested on multiple Intel platforms supported by SOF.
+ - Tested with ALSA console tools as well as with Pulseaudio.
+      - requires Pulseaudio 12.x or newer, see
+        https://lists.freedesktop.org/archives/pulseaudio-discuss/2019-August/031358.html
+ - HDMI, DP, DP-MST with multi-monitor use-scenarios work ok.
+ - New feature for SOF: ELD /proc fs works just like in
+   DSP-less mode.
+ - New feature for SOF: jack detection works out-of-the-box
+   with Pulseaudio (no need for card specific UCM for HDMI)
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index f318403133e9..f11ffa28683b 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -2837,11 +2837,11 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 				   TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg, 0x10, 0x10);
- 		snd_soc_component_update_bits(comp, dec_cfg_reg, 0x08, 0x00);
--			if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
--				snd_soc_component_update_bits(comp, dec_cfg_reg,
--						    TX_HPF_CUT_OFF_FREQ_MASK,
--						    hpf_coff_freq << 5);
--			}
-+		if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
-+			snd_soc_component_update_bits(comp, dec_cfg_reg,
-+						      TX_HPF_CUT_OFF_FREQ_MASK,
-+						      hpf_coff_freq << 5);
-+		}
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg, 0x10, 0x00);
+Kai Vehmanen (9):
+  ALSA: hda/hdmi - implement mst_no_extra_pcms flag
+  ASoC: hdac_hda: add support for HDMI/DP as a HDA codec
+  ASoC: Intel: skl-hda-dsp-generic: use snd-hda-codec-hdmi
+  ASoC: Intel: skl-hda-dsp-generic: fix include guard name
+  ASoC: SOF: Intel: add support for snd-hda-codec-hdmi
+  ASoC: Intel: bxt-da7219-max98357a: common hdmi codec support
+  ASoC: Intel: glk_rt5682_max98357a: common hdmi codec support
+  ASoC: intel: sof_rt5682: common hdmi codec support
+  ASoC: Intel: bxt_rt298: common hdmi codec support
+
+ include/sound/hda_codec.h                     |   1 +
+ include/sound/soc-acpi.h                      |   2 +
+ sound/pci/hda/patch_hdmi.c                    |  19 ++-
+ sound/soc/codecs/hdac_hda.c                   | 110 ++++++++++++++++--
+ sound/soc/codecs/hdac_hda.h                   |  13 ++-
+ sound/soc/intel/boards/bxt_da7219_max98357a.c |  11 ++
+ sound/soc/intel/boards/bxt_rt298.c            |  11 ++
+ sound/soc/intel/boards/glk_rt5682_max98357a.c |  11 ++
+ sound/soc/intel/boards/hda_dsp_common.h       |  93 +++++++++++++++
+ sound/soc/intel/boards/skl_hda_dsp_common.c   |  10 +-
+ sound/soc/intel/boards/skl_hda_dsp_common.h   |  27 ++++-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c  |   1 +
+ sound/soc/intel/boards/sof_rt5682.c           |  11 ++
+ sound/soc/sof/intel/Kconfig                   |  10 ++
+ sound/soc/sof/intel/hda-codec.c               |  22 +++-
+ sound/soc/sof/intel/hda.c                     |   6 +
+ sound/soc/sof/intel/hda.h                     |   6 +-
+ 17 files changed, 337 insertions(+), 27 deletions(-)
+ create mode 100644 sound/soc/intel/boards/hda_dsp_common.h
+
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

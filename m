@@ -2,60 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 493F5BDD25
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 13:32:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FE17BDD33
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Sep 2019 13:34:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D583A167E;
-	Wed, 25 Sep 2019 13:31:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D583A167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A9F316DC;
+	Wed, 25 Sep 2019 13:34:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A9F316DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569411168;
-	bh=qo2TU+NpxwMRxxwSEIW3zISIJjxkgqGdLPWppj1ybRE=;
+	s=default; t=1569411292;
+	bh=SLX2mFur4GB6q26EtB8JnSBySSJKKv6HLSKPNU8vps4=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=uVptYeEgH+o6zRbdV9w8sBtAwH+m+F1dO/W5Tmb4wGtzWk+6XFefVVJCCkBSq0dNO
-	 pvMCF71K/u2tZ3R/qvM2LNovQ8z3q8av19MRUGdjWDVyxjdFK7tmSjyHHxDYjjy0Ym
-	 yAC+dNO22Nl00ZOzLDmunQFjfEqYXXYme+USIkbA=
+	b=Ac0hfH8GqEGQZCAhfgM5st3PPBWSD6omj35cEglKejfKO4hPm7XdJ3+fw8tkAEC+y
+	 ExTeukI9he5K/v1N0MaiWdrXmf8hanO+fCGMAaIROfqpMT8PBu4cEswW7dof82Kyb8
+	 sqZCV3/OQeumYQW/I3TyqrVYMR7pmg9efMf1+Qes=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6DEF4F80508;
-	Wed, 25 Sep 2019 13:26:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0B05F80213;
+	Wed, 25 Sep 2019 13:33:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69F66F8049C; Wed, 25 Sep 2019 13:26:30 +0200 (CEST)
+ id 358DAF8044C; Wed, 25 Sep 2019 13:33:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.3 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0DB04F80138
- for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 13:26:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DB04F80138
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4329F80138
+ for <alsa-devel@alsa-project.org>; Wed, 25 Sep 2019 13:33:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4329F80138
+Received: from 61-220-137-37.hinet-ip.hinet.net ([61.220.137.37]
+ helo=localhost) by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1iD5R7-0003O3-Ue; Wed, 25 Sep 2019 11:26:22 +0000
-From: Colin King <colin.king@canonical.com>
-To: Olivier Moysan <olivier.moysan@st.com>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, alsa-devel@alsa-project.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Wed, 25 Sep 2019 12:26:21 +0100
-Message-Id: <20190925112621.9312-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: stm32: sai: clean up indentation issue
+ (envelope-from <kai.heng.feng@canonical.com>)
+ id 1iD5XY-0003zZ-QM; Wed, 25 Sep 2019 11:33:01 +0000
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
+To: bhelgaas@google.com,
+	tiwai@suse.com
+Date: Wed, 25 Sep 2019 19:32:54 +0800
+Message-Id: <20190925113255.25062-1-kai.heng.feng@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Cc: linux-pci@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kai-Heng Feng <kai.heng.feng@canonical.com>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH v4 1/2] PCI: Add a helper to check Power
+	Resource Requirements _PR3 existence
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,36 +63,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+A driver may want to know the existence of _PR3, to choose different
+runtime suspend behavior. A user will be add in next patch.
 
-There is a statement that is indented one level too deeply,
-remove the extraneous tab.
+This is mostly the same as nouveau_pr3_present().
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
 ---
- sound/soc/stm/stm32_sai.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v4:
+- Let caller to find its upstream port device.
 
-diff --git a/sound/soc/stm/stm32_sai.c b/sound/soc/stm/stm32_sai.c
-index ef4273361d0d..e20267504b16 100644
---- a/sound/soc/stm/stm32_sai.c
-+++ b/sound/soc/stm/stm32_sai.c
-@@ -100,7 +100,7 @@ static int stm32_sai_sync_conf_provider(struct stm32_sai_data *sai, int synco)
- 		dev_err(&sai->pdev->dev, "%pOFn%s already set as sync provider\n",
- 			sai->pdev->dev.of_node,
- 			prev_synco == STM_SAI_SYNC_OUT_A ? "A" : "B");
--			stm32_sai_pclk_disable(&sai->pdev->dev);
-+		stm32_sai_pclk_disable(&sai->pdev->dev);
- 		return -EINVAL;
- 	}
+ drivers/pci/pci.c   | 16 ++++++++++++++++
+ include/linux/pci.h |  2 ++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index e7982af9a5d8..d03f624d8928 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -5856,6 +5856,22 @@ int pci_set_vga_state(struct pci_dev *dev, bool decode,
+ 	return 0;
+ }
  
++bool pci_pr3_present(struct pci_dev *pdev)
++{
++	struct acpi_device *adev;
++
++	if (acpi_disabled)
++		return false;
++
++	adev = ACPI_COMPANION(&pdev->dev);
++	if (!adev)
++		return false;
++
++	return adev->power.flags.power_resources &&
++		acpi_has_method(adev->handle, "_PR3");
++}
++EXPORT_SYMBOL_GPL(pci_pr3_present);
++
+ /**
+  * pci_add_dma_alias - Add a DMA devfn alias for a device
+  * @dev: the PCI device for which alias is added
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index f9088c89a534..1d15c5d49cdd 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -2310,9 +2310,11 @@ struct irq_domain *pci_host_bridge_acpi_msi_domain(struct pci_bus *bus);
+ 
+ void
+ pci_msi_register_fwnode_provider(struct fwnode_handle *(*fn)(struct device *));
++bool pci_pr3_present(struct pci_dev *pdev);
+ #else
+ static inline struct irq_domain *
+ pci_host_bridge_acpi_msi_domain(struct pci_bus *bus) { return NULL; }
++static bool pci_pr3_present(struct pci_dev *pdev) { return false; }
+ #endif
+ 
+ #ifdef CONFIG_EEH
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

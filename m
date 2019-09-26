@@ -2,82 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 396CCBF4D8
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 16:15:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59490BF586
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 17:09:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A819A175C;
-	Thu, 26 Sep 2019 16:14:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A819A175C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D440D1757;
+	Thu, 26 Sep 2019 17:08:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D440D1757
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569507311;
-	bh=lBVh6iswywJBD8J7X6og7Ag4wcW00Bljh6iYgTEKeG4=;
+	s=default; t=1569510554;
+	bh=0D7YTwRcWknmc/o1CgNXgE0fSwHXEDrTIvFzLr0C2a4=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iX3vBzK42WEMFPefNaQsODaEhqCjCAYJnbU9oayVpxDGRr+fzxCsgyXK4NAOq0stZ
-	 S9LxzOKpV6mE1PA6947z9nmvYCa29WJEs/nWaYqsIYL+t7Ft1131ErBTLJCbbGsF5K
-	 ji5yPvYcVwM1HCmDGgEcyAZX+KY7u17LUNGj+JWA=
+	b=WQDPCrYyudHEiMXOy7rmLPyuYCUNJ9PV2y286NrdZ8XCXcGXmzaEMS+54H3rdpXpW
+	 5FTRzLOpDKcppy5ulyQySY27lDH7oeP6YBx4/qbHng37T4gKP3pULIWic/dPwGyUAs
+	 Pjkzn/TTA1knAi+Pgzew/PumvfgRXl0bfrTwWx38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05DE4F802BD;
-	Thu, 26 Sep 2019 16:13:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4993BF802BD;
+	Thu, 26 Sep 2019 17:07:30 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 12941F803F4; Thu, 26 Sep 2019 16:13:25 +0200 (CEST)
+ id E9841F803F4; Thu, 26 Sep 2019 17:07:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com
- [209.85.128.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C6798F80213
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 16:13:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6798F80213
-Received: by mail-wm1-f65.google.com with SMTP id f22so2766785wmc.2
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 07:13:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=hBZ8CcivE1NYUxc5O3ZPMVIRE/wsSIlTMNpDwyj/BXg=;
- b=plFgSPAZeGRkMtXxtUXv4o9DM1einkDaayfEFSrH025lRYdQYX1J44jIl8lY4gRV1r
- Qnrf0GPAtXfiJHYCvXORmvuUmBccPeklkW9w0fuAopew+KwPg0kxGLwWa1dnBAO0l393
- QN9R/wpOny2M+ESFKWlnI+8WfrXzGB1hTrLV7bqyupoXKz/WoVfcc2GnArQCIDsh9Nk3
- OK29EjG0bjZHu/fjjGYbzQoHM5YGRUaDqPwQq7wr9kRY4w02M4kNhW/DoLJ9omf8VdFx
- jPUYgatH133SBGd0XKQyJXewhm8zfKwrLB67Ny/pCd8vRx5vHFbl6Yi+JhbnWMzBZhrk
- VYDQ==
-X-Gm-Message-State: APjAAAX0uNpYG4fZdeRh/os+wjPeewb/Rnx/O+bMmIDZXnUXt7VDXmvO
- dPq3eJtJGckO8PKxwbqAPWs=
-X-Google-Smtp-Source: APXvYqwFGmBsmHkzm5BSclLX9I0aHlju/5ZEtE1O/WmLwArVHDoSrkBS7RuTKuyW+Dop4GgKC7Wfrg==
-X-Received: by 2002:a1c:9dc1:: with SMTP id g184mr3132920wme.77.1569507200896; 
- Thu, 26 Sep 2019 07:13:20 -0700 (PDT)
-Received: from pi3 ([194.230.155.145])
- by smtp.googlemail.com with ESMTPSA id h63sm4348246wmf.15.2019.09.26.07.13.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2019 07:13:20 -0700 (PDT)
-Date: Thu, 26 Sep 2019 16:13:17 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <20190926141317.GA16044@pi3>
-References: <CGME20190926110226eucas1p24dbb1b39ffa3f607aa28c0c4d9ff6aba@eucas1p2.samsung.com>
- <20190926110219.6144-1-m.szyprowski@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF623F80140
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 17:07:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF623F80140
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="KeNWxeAB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4pLPnynkA7HWtaMnNTV/PFGoJgytgfbQyorJh3FSgNM=; b=KeNWxeABWoN68sqX4gBVJDfP/
+ wWk4rBUtHmI3WxTduOxdRh7KduW0Q5aEvuGQBUxON+jYBB1PmomPdae8lJFMLcWwVZUEtjzORYWMf
+ djVTMWhN4yMp/9K40cmouwdPg3BjPzXbFMZ5HZk+MQwC9jEWQrsKKna09q/EQv91C9H/s=;
+Received: from [12.157.10.118] (helo=fitzroy.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1iDVMY-0003rq-UH; Thu, 26 Sep 2019 15:07:23 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 6C02ED02CFF; Thu, 26 Sep 2019 16:07:21 +0100 (BST)
+Date: Thu, 26 Sep 2019 08:07:21 -0700
+From: Mark Brown <broonie@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Message-ID: <20190926150721.GT2036@sirena.org.uk>
+References: <20190926071707.17557-1-nuno.sa@analog.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190926110219.6144-1-m.szyprowski@samsung.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
+In-Reply-To: <20190926071707.17557-1-nuno.sa@analog.com>
+X-Cookie: Be careful!  UGLY strikes 9 out of 10!
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Maciej Falkowski <m.falkowski@samsung.com>, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: samsung: i2s: Document clocks
-	macros
+ alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 1/2] ASOC: Add ADAU7118 8 Channel
+ PDM-to-I2S/TDM Converter driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,33 +84,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7741625905344322906=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Sep 26, 2019 at 01:02:19PM +0200, Marek Szyprowski wrote:
-> From: Maciej Falkowski <m.falkowski@samsung.com>
-> 
-> Document clocks macros with their description
-> from 'Documentation/devicetree/bindings/sound/samsung-i2s.txt'
-> 
-> Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
-> v2:
-> - Added proper commit message and description
-> - Moved comments to the right side
-> 
-> Best regards,
-> Maciej Falkowski
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+--===============7741625905344322906==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zQiiCAM5ptAyb9EE"
+Content-Disposition: inline
 
-Best regards,
-Krzysztof
+
+--zQiiCAM5ptAyb9EE
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Sep 26, 2019 at 09:17:06AM +0200, Nuno S=E1 wrote:
+> This patch adds support for the 8 channel PDM-to-I2S/TDM converter. The
+> ADAU7118 converts four stereo pulse density modulation (PDM) bitstreams
+> into one pulse code modulation (PCM) output stream. The source for the PDM
+
+This is the third copy of this I've got in the past 24 hours -
+there's no versioning or anything so what's going on?
+
+--zQiiCAM5ptAyb9EE
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2M1CgACgkQJNaLcl1U
+h9A4EQf6A7KkdqPiVOYmb+wMLdzwvMZ5a7NT59t1LTN1pQxfvhj9DFWW5yC2kn4U
+vV2EtKpQhx203WjJiTOTffygZYyOLLFqoG1rB8hdHkmbrk5Oc3qHvNiP0FZSBQue
+ExwQdk1eDpvLU4SVcoD9Wy6/YjLJCs1KnABIAdPqbKyIpUZnUwi11n4NKg4HPBo9
+LzytHc+Wt68kmbadQDVGM/u4hMi8vCD93mWyjyYwsZGgMWppvianVMyEE8x02iEF
+KGlLC8HpaafCHTEgVOghdXzyiDr2pz0fyqZUG+Cp1uL9sTWTr53PfoMxx52J702h
+B1RKOXoQIveEeCemwYq0E5tNXNIhwQ==
+=4BYm
+-----END PGP SIGNATURE-----
+
+--zQiiCAM5ptAyb9EE--
+
+--===============7741625905344322906==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7741625905344322906==--

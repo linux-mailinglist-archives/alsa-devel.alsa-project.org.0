@@ -2,140 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7784EBF225
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 13:52:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C59ABF263
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 14:03:08 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF1FB173D;
-	Thu, 26 Sep 2019 13:51:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF1FB173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7F761740;
+	Thu, 26 Sep 2019 14:02:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7F761740
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569498736;
-	bh=9Vk6R2m7OC7Jo6PpMMiEeF6KvNbZ8snI1ktiSvJFZKE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Wa0gjqK6sea6PFToYc4S3d+izNvJYjSvdzNkofQTg5FfX+vJbHM4KoNrJkxZmZd+h
-	 +DJJd9jWrbAcg3zcb9v/LbAv8Sh+VJ3oGTxaVdr/tRGwXeziZTzj146n288mMSmKbw
-	 EyO/irGVmGtb9JUMkQ/WIoLxjXVL0OuN38JBg5gg=
+	s=default; t=1569499388;
+	bh=uxsjNjbcuMfhxirqEX8Uubdvi1pTIYQiERisIBRkvXc=;
+	h=From:To:Date:References:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=uXnlsQM6WM9QcWTL6Yt4WjUNm6qXEoAaROHlrBTly7kZlHbvAklU0QV6Vi089eZom
+	 Mk7o1OPk5cWTd1E3hOlnjDNXE4FOxreRN15kMvkxdDuL7mtzvT5VTQ3BBAx/mePPLN
+	 wxj7RvVh15Ys1rSe4X6aZuCo5seAKW24yWiLoBFk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6282AF805FA;
-	Thu, 26 Sep 2019 13:50:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A27BF803F4;
+	Thu, 26 Sep 2019 14:01:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29036F8048D; Thu, 26 Sep 2019 13:50:28 +0200 (CEST)
+ id 992BCF803F4; Thu, 26 Sep 2019 14:01:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
- [148.163.139.77])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFA15F80140
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 13:50:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFA15F80140
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10C50F80140
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 14:01:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10C50F80140
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
- header.i=@analog.onmicrosoft.com header.b="MCdZ+WpP"
-Received: from pps.filterd (m0167090.ppops.net [127.0.0.1])
- by mx0b-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x8QBgwt9006665; Thu, 26 Sep 2019 07:50:22 -0400
-Received: from nam03-dm3-obe.outbound.protection.outlook.com
- (mail-dm3nam03lp2056.outbound.protection.outlook.com [104.47.41.56])
- by mx0b-00128a01.pphosted.com with ESMTP id 2v6hkcq7u7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Thu, 26 Sep 2019 07:50:22 -0400
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hcmcna2FAMU00eayxhhn/5Pmn4Yl/6IqThBXkqJ2biamXXsKnWOVrjRZEsQJaBWHf91294Xq4qRN1z+b6WOvKsTQNdrXE9MurspqlnqPoMaEPpbH91OwdxXFgLn2gltdBSAmtL10YQgSD25RMFXzmtHpLFXF5PYby+IuqOzr8QVd6q7iqJDaUF+btc9uwePWSehvTE4UGoktFg21Pm7Uyn0mBzGWdw/m7tLW/lq2F1vtn55Orej4sK+qcwep03jifAYwrnBOzyLLFRtWzper/u8RlEIC82D8M4uFv/lVS9WShMH3+6ZIiQkxpTOB4SwI/g5glDHaNNlxJseNxVNgcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rkbl8teCMQ8vSxltg0l1JMy8QEuHaJb9gCj//VWn0Qk=;
- b=QjGJJE0rnp+LS4IqCZcKh8Jguz0Zwkn55QFzk2C42Rt80bm8NmPVp4gBHvc+X2A1+1WKpR56X+EgQyZGLmFr8oGxjnEIUGQS1OHxHtnB5YA11m7+jVMwBh0bKDe7nLaK14yxOQJ8eE7CocFOV9f3lWuidnANIJYIHOIeQeKoLMldIYU68HqheHgUiXIowvCPDGC6of5mucvGlZvL8sAATEAICO1YsCrl54sBKc4i8giD3NhIRB2oXWnrfyw3mqQXsFS+P4dKomdEHAAgd4Ic2fSZ6aKPH/zGJRHoBi/ZwUXggf4LylZyMg5ysLEKlbzkOQmxfV3tNEF6+rGfKjXWlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 137.71.25.55) smtp.rcpttodomain=suse.com smtp.mailfrom=analog.com;
- dmarc=bestguesspass action=none header.from=analog.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rkbl8teCMQ8vSxltg0l1JMy8QEuHaJb9gCj//VWn0Qk=;
- b=MCdZ+WpPR0xeYH+s6dml2pvlEi1y4lbeW8R2AkkswheE6v8Nk/I5GHWDknUG9hFQztt5u3kVQZ5Zcgogobuzrxo1Uz3hw6743lihtuQrqciQboqPZzWUxGTAPsr8gWeuEvKFs72NT7lERAwIeT8kIpISptiK5Zwalw1YVMhBukk=
-Received: from CY4PR03CA0004.namprd03.prod.outlook.com (2603:10b6:903:33::14)
- by CO2PR03MB2216.namprd03.prod.outlook.com (2603:10b6:102:9::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2284.26; Thu, 26 Sep
- 2019 11:50:20 +0000
-Received: from CY1NAM02FT029.eop-nam02.prod.protection.outlook.com
- (2a01:111:f400:7e45::202) by CY4PR03CA0004.outlook.office365.com
- (2603:10b6:903:33::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2305.16 via Frontend
- Transport; Thu, 26 Sep 2019 11:50:19 +0000
-Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
- 137.71.25.55 as permitted sender) receiver=protection.outlook.com;
- client-ip=137.71.25.55; helo=nwd2mta1.analog.com;
-Received: from nwd2mta1.analog.com (137.71.25.55) by
- CY1NAM02FT029.mail.protection.outlook.com (10.152.75.143) with Microsoft SMTP
- Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.2284.20
- via Frontend Transport; Thu, 26 Sep 2019 11:50:19 +0000
-Received: from NWD2HUBCAS7.ad.analog.com (nwd2hubcas7.ad.analog.com
- [10.64.69.107])
- by nwd2mta1.analog.com (8.13.8/8.13.8) with ESMTP id x8QBoDLK010413
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
- Thu, 26 Sep 2019 04:50:13 -0700
-Received: from saturn.ad.analog.com (10.48.65.123) by
- NWD2HUBCAS7.ad.analog.com (10.64.69.107) with Microsoft SMTP Server id
- 14.3.408.0; Thu, 26 Sep 2019 07:50:18 -0400
-From: Alexandru Ardelean <alexandru.ardelean@analog.com>
-To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
-Date: Thu, 26 Sep 2019 14:50:12 +0300
-Message-ID: <20190926115012.24049-2-alexandru.ardelean@analog.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190926115012.24049-1-alexandru.ardelean@analog.com>
-References: <20190709082111.27221-1-alexandru.ardelean@analog.com>
- <20190926115012.24049-1-alexandru.ardelean@analog.com>
-MIME-Version: 1.0
-X-ADIRoutedOnPrem: True
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:137.71.25.55; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(396003)(346002)(376002)(136003)(39860400002)(189003)(199004)(48376002)(305945005)(246002)(50226002)(51416003)(2870700001)(2906002)(7696005)(76176011)(186003)(26005)(4326008)(7636002)(107886003)(1076003)(47776003)(14444005)(8676002)(8936002)(356004)(6666004)(446003)(336012)(54906003)(126002)(476003)(2616005)(486006)(11346002)(44832011)(316002)(426003)(106002)(110136005)(70586007)(70206006)(478600001)(50466002)(5660300002)(86362001)(36756003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CO2PR03MB2216; H:nwd2mta1.analog.com; FPR:;
- SPF:Pass; LANG:en; PTR:nwd2mail10.analog.com; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0631c9d8-cc71-464c-2afa-08d74277b4bb
-X-Microsoft-Antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(5600167)(711020)(4605104)(4709080)(1401327)(4618075)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328);
- SRVR:CO2PR03MB2216; 
-X-MS-TrafficTypeDiagnostic: CO2PR03MB2216:
-X-Microsoft-Antispam-PRVS: <CO2PR03MB2216FF30C60A4F54C4A3804DF9860@CO2PR03MB2216.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:486;
-X-Forefront-PRVS: 0172F0EF77
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Message-Info: c7gxQAO8Dc1SHuspJArr/qX0TKpbxWtkUn+T0acHfSN+1I3KLVrA8CVqSYVZR0C2r9GvM8bj85hFcb/5IKEBWNWLyikcPlpsZo9TDj8pf11nQihTptAHYb9+JQgxx2SHzZPEfP/B/Lf5Ozsgft7OYNKSS9xsHQBKMO44T6Y4s+prYFsyeu3y5mpMaJ9Wbz1EBiLAoiyMu0h/ISS4cYOgQ433vCrnL5mpCJT+8JbJmPWyR8sQNp4k/emYKFb3HWo7i0TcOwD1VIStgiOSKGMwO63ZnzdgAoLYLQqPSoL5/GTplSgqifSn168Dempu7VD+DzEVxv6RRauydJSzTMDS5iWgTpTKjigBsOG5ab/3jZhrJ+OZYPXYivdZSHoyYccX43unNKqebWJTxG6pJlYrOeLICUeHBf23X+QEBlDmarI=
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2019 11:50:19.5549 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0631c9d8-cc71-464c-2afa-08d74277b4bb
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.55];
- Helo=[nwd2mta1.analog.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO2PR03MB2216
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-09-26_05:2019-09-25,2019-09-26 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- mlxlogscore=999 clxscore=1015 mlxscore=0 suspectscore=0 lowpriorityscore=0
- priorityscore=1501 adultscore=0 spamscore=0 malwarescore=0 bulkscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1908290000 definitions=main-1909260113
-Cc: lars@metafoo.de, lgirdwood@gmail.com, tiwai@suse.com, broonie@kernel.org,
- Alexandru Ardelean <alexandru.ardelean@analog.com>
-Subject: [alsa-devel] [PATCH 2/2][RESEND] ASoC: adau1761: Add ALC controls
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="FMsYPRxs"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20190926120116euoutp0290a2d93bbf938d2a2e5b1eda8aaf7c39~H_0bMYvJ90833208332euoutp02f
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 12:01:16 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20190926120116euoutp0290a2d93bbf938d2a2e5b1eda8aaf7c39~H_0bMYvJ90833208332euoutp02f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1569499276;
+ bh=9LJuqhkdt4DdylyxkRQhnaMr9vldbmxF+QJ+uVvM74s=;
+ h=From:To:Cc:Subject:Date:References:From;
+ b=FMsYPRxsIEHEVoPHBso64oCl/M6hq1/3WbPMR+z9qUXHSX7PzHoEsuaL3MHgfuAyx
+ L/9T+bWZKoDzot1k3duH3yzyrSQUe8G4G9wv+N81DJsplMAF/QFwBvBcw+t6snl5pG
+ z6JdpT/6HVrHS7PtDft83MrZBNw2WduL+M71/uJY=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20190926120116eucas1p2bca9b4a5ec904a86d063490aecaca02f~H_0a5zr3a2847228472eucas1p2u;
+ Thu, 26 Sep 2019 12:01:16 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id 51.B2.04469.C88AC8D5; Thu, 26
+ Sep 2019 13:01:16 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20190926120115eucas1p20280a4e50c826d43bea7bfe5d670aebe~H_0afpe9U2921029210eucas1p26;
+ Thu, 26 Sep 2019 12:01:15 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20190926120115eusmtrp1f2411ae4d07f8f80aceaf302c7ae762c~H_0afri760184101841eusmtrp1R;
+ Thu, 26 Sep 2019 12:01:15 +0000 (GMT)
+X-AuditID: cbfec7f2-569ff70000001175-1f-5d8ca88cbcf2
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 76.51.04166.B88AC8D5; Thu, 26
+ Sep 2019 13:01:15 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20190926120115eusmtip1e57df697420b160508f68a254fbb4efc~H_0Z4PDWO2539325393eusmtip1F;
+ Thu, 26 Sep 2019 12:01:15 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
+Date: Thu, 26 Sep 2019 14:01:11 +0200
+Message-Id: <20190926120111.8478-1-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupjleLIzCtJLcpLzFFi42LZduznOd2eFT2xBhuP8FpcuXiIyWLqwyds
+ FvOPnGO1OH9+A7vFtysdTBaXd81hs5hxfh+TxYPmdWwWa4/cZbdYev0ik0Xr3iPsFofftLM6
+ 8Hhs+NzE5rFm3hpGj52z7rJ7bFrVyebRt2UVo8fnTXIBbFFcNimpOZllqUX6dglcGc/WXGct
+ mK9fceDPUdYGxkcqXYycHBICJhIzLt9h72Lk4hASWMEo0bj8HSOE84VR4vj+N1CZz4wS5z80
+ McK0HD6zlhUisZxR4ui6L+xwLeua14NVsQkYSnS97WIDsUUE6iTOnjkCNpdZ4AiTRPP930wg
+ CWGBdInv/3aBNbAIqEpcv9ENZvMK2EjMmz6fFWKdvMTqDQeYIexmdom120wgbBeJw1cfskDY
+ whKvjm9hh7BlJE5P7mEBWQZUzyjx8Nxadginh1HictMMqCesJQ4fvwi0gQPoJE2J9bv0IcKO
+ Ek+fNbOBhCUE+CRuvBUECTMDmZO2TWeGCPNKdLQJQVSrScw6vg5u7cELl6DO9JBYMek4mC0k
+ ECtx4NlB5gmMcrMQdi1gZFzFKJ5aWpybnlpsmJdarlecmFtcmpeul5yfu4kRmEpO/zv+aQfj
+ 10tJhxgFOBiVeHgPhHXHCrEmlhVX5h5ilOBgVhLh9Y3siRXiTUmsrEotyo8vKs1JLT7EKM3B
+ oiTOW83wIFpIID2xJDU7NbUgtQgmy8TBKdXAKDO35u7vrPDgHNG+qkNnJOQ3LXqkEfLg7/H6
+ npOOO1oMrr261tyQ9kin1MPKJFThSdqz1Q71GZEXYmbOlM9/8Ek869fWy41zr+iqG9kJTt/K
+ E/Zf7KHzqd+TW3ZqFZzIU1nvVT5xacI7tWip3Yk3Q2eq5l58F5bT2tV0J3qd4ZeILf8vHvin
+ rcRSnJFoqMVcVJwIAC+BY4MhAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrKLMWRmVeSWpSXmKPExsVy+t/xu7rdK3piDfa1mlhcuXiIyWLqwyds
+ FvOPnGO1OH9+A7vFtysdTBaXd81hs5hxfh+TxYPmdWwWa4/cZbdYev0ik0Xr3iPsFofftLM6
+ 8Hhs+NzE5rFm3hpGj52z7rJ7bFrVyebRt2UVo8fnTXIBbFF6NkX5pSWpChn5xSW2StGGFkZ6
+ hpYWekYmlnqGxuaxVkamSvp2NimpOZllqUX6dgl6Gc/WXGctmK9fceDPUdYGxkcqXYycHBIC
+ JhKHz6xl7WLk4hASWMooMWPXZyaIhIzEyWkNrBC2sMSfa11sEEWfGCXmrz3DDJJgEzCU6HoL
+ kRARaGKUOLZ5JguIwyxwiknixtUpjCBVwgKpEsuaToONYhFQlbh+oxsszitgIzFv+nyoFfIS
+ qzccYJ7AyLOAkWEVo0hqaXFuem6xoV5xYm5xaV66XnJ+7iZGYBBvO/Zz8w7GSxuDDzEKcDAq
+ 8fAeCOuOFWJNLCuuzD3EKMHBrCTC6xvZEyvEm5JYWZValB9fVJqTWnyI0RRo+URmKdHkfGCE
+ 5ZXEG5oamltYGpobmxubWSiJ83YIHIwREkhPLEnNTk0tSC2C6WPi4JRqYPTeW7LreEMbQ+Qt
+ ZiuH/zLlN5IUP2xS859vZTi/ZvprNelFh+yfVOm+iVwY/6LZZ5NOwYYZh19fzNU/8rslNVgu
+ V0BLPPAc+6Qd59p+3V2w58jhOzMezmOMce34G3tg/xa3+TOkRHQmBwa3uRy6EC1Ul9A8zcpc
+ f2Kc7MVl9vZ5eRxrH5/5e1SJpTgj0VCLuag4EQBWNB4zeAIAAA==
+X-CMS-MailID: 20190926120115eucas1p20280a4e50c826d43bea7bfe5d670aebe
+X-Msg-Generator: CA
+X-RootMTR: 20190926120115eucas1p20280a4e50c826d43bea7bfe5d670aebe
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20190926120115eucas1p20280a4e50c826d43bea7bfe5d670aebe
+References: <CGME20190926120115eucas1p20280a4e50c826d43bea7bfe5d670aebe@eucas1p2.samsung.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Maciej Falkowski <m.falkowski@samsung.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: [alsa-devel] [PATCH] dt-bindings: sound: Convert Samsung Exynos
+ Odroid XU3/XU4 audio complex to dt-schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -148,183 +135,192 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Lars-Peter Clausen <lars@metafoo.de>
+From: Maciej Falkowski <m.falkowski@samsung.com>
 
-The adau1761 has a automatic level control block that can adjust the gain
-for the differential input PGA. This patch adds ALSA controls for enabling
-and changing the parameter settings for the ALC.
+Convert Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
+to newer dt-schema format.
 
-Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
-Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
+'clocks' property is unneeded in the bindings and is left undefined in 'properties'.
+
+'samsung,audio-widgets' and 'samsung,audio-routing' are optional from driver
+perspective and they are set as unrequired.
+
+Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 ---
- sound/soc/codecs/adau1761.c | 109 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 109 insertions(+)
+ .../bindings/sound/samsung,odroid.txt         | 54 -----------
+ .../bindings/sound/samsung,odroid.yaml        | 91 +++++++++++++++++++
+ 2 files changed, 91 insertions(+), 54 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/samsung,odroid.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/samsung,odroid.yaml
 
-diff --git a/sound/soc/codecs/adau1761.c b/sound/soc/codecs/adau1761.c
-index a9ef735f8b4e..5ca9b744b7d8 100644
---- a/sound/soc/codecs/adau1761.c
-+++ b/sound/soc/codecs/adau1761.c
-@@ -29,6 +29,9 @@
- #define ADAU1761_LEFT_DIFF_INPUT_VOL	0x400e
- #define ADAU1761_RIGHT_DIFF_INPUT_VOL	0x400f
- #define ADAU1761_ALC_CTRL0		0x4011
-+#define ADAU1761_ALC_CTRL1		0x4012
-+#define ADAU1761_ALC_CTRL2		0x4013
-+#define ADAU1761_ALC_CTRL3		0x4014
- #define ADAU1761_PLAY_LR_MIXER_LEFT	0x4020
- #define ADAU1761_PLAY_MIXER_LEFT0	0x401c
- #define ADAU1761_PLAY_MIXER_LEFT1	0x401d
-@@ -73,6 +76,9 @@ static const struct reg_default adau1761_reg_defaults[] = {
- 	{ ADAU1761_REC_MIXER_RIGHT1,		0x00 },
- 	{ ADAU1761_LEFT_DIFF_INPUT_VOL,		0x00 },
- 	{ ADAU1761_ALC_CTRL0,			0x00 },
-+	{ ADAU1761_ALC_CTRL1,			0x00 },
-+	{ ADAU1761_ALC_CTRL2,			0x00 },
-+	{ ADAU1761_ALC_CTRL3,			0x00 },
- 	{ ADAU1761_RIGHT_DIFF_INPUT_VOL,	0x00 },
- 	{ ADAU1761_PLAY_LR_MIXER_LEFT,		0x00 },
- 	{ ADAU1761_PLAY_MIXER_LEFT0,		0x00 },
-@@ -123,6 +129,10 @@ static const DECLARE_TLV_DB_SCALE(adau1761_sidetone_tlv, -1800, 300, 1);
- static const DECLARE_TLV_DB_SCALE(adau1761_boost_tlv, -600, 600, 1);
- static const DECLARE_TLV_DB_SCALE(adau1761_pga_boost_tlv, -2000, 2000, 1);
- 
-+static const DECLARE_TLV_DB_SCALE(adau1761_alc_max_gain_tlv, -1200, 600, 0);
-+static const DECLARE_TLV_DB_SCALE(adau1761_alc_target_tlv, -2850, 150, 0);
-+static const DECLARE_TLV_DB_SCALE(adau1761_alc_ng_threshold_tlv, -7650, 150, 0);
+diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.txt b/Documentation/devicetree/bindings/sound/samsung,odroid.txt
+deleted file mode 100644
+index e9da2200e173..000000000000
+--- a/Documentation/devicetree/bindings/sound/samsung,odroid.txt
++++ /dev/null
+@@ -1,54 +0,0 @@
+-Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
+-
+-Required properties:
+-
+- - compatible - "hardkernel,odroid-xu3-audio" - for Odroid XU3 board,
+-		"hardkernel,odroid-xu4-audio" - for Odroid XU4 board (deprecated),
+-		"samsung,odroid-xu3-audio" - for Odroid XU3 board (deprecated),
+-		"samsung,odroid-xu4-audio" - for Odroid XU4 board (deprecated)
+- - model - the user-visible name of this sound complex
+- - clocks - should contain entries matching clock names in the clock-names
+-    property
+- - samsung,audio-widgets - this property specifies off-codec audio elements
+-   like headphones or speakers, for details see widgets.txt
+- - samsung,audio-routing - a list of the connections between audio
+-   components;  each entry is a pair of strings, the first being the
+-   connection's sink, the second being the connection's source;
+-   valid names for sources and sinks are the MAX98090's pins (as
+-   documented in its binding), and the jacks on the board
+-
+-   For Odroid X2:
+-     "Headphone Jack", "Mic Jack", "DMIC"
+-
+-   For Odroid U3, XU3:
+-     "Headphone Jack", "Speakers"
+-
+-   For Odroid XU4:
+-     no entries
+-
+-Required sub-nodes:
+-
+- - 'cpu' subnode with a 'sound-dai' property containing the phandle of the I2S
+-    controller
+- - 'codec' subnode with a 'sound-dai' property containing list of phandles
+-    to the CODEC nodes, first entry must be corresponding to the MAX98090
+-    CODEC and the second entry must be the phandle of the HDMI IP block node
+-
+-Example:
+-
+-sound {
+-	compatible = "hardkernel,odroid-xu3-audio";
+-	model = "Odroid-XU3";
+-	samsung,audio-routing =
+-		"Headphone Jack", "HPL",
+-		"Headphone Jack", "HPR",
+-		"IN1", "Mic Jack",
+-		"Mic Jack", "MICBIAS";
+-
+-	cpu {
+-		sound-dai = <&i2s0 0>;
+-	};
+-	codec {
+-		sound-dai = <&hdmi>, <&max98090>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
+new file mode 100644
+index 000000000000..db6d3ea3180e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/samsung,odroid.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- static const unsigned int adau1761_bias_select_values[] = {
- 	0, 2, 3,
- };
-@@ -160,9 +170,91 @@ static const char * const adau1761_pga_slew_time_text[] = {
- 	"96 ms",
- };
- 
-+static const char * const adau1761_alc_function_text[] = {
-+	"Off",
-+	"Right",
-+	"Left",
-+	"Stereo",
-+	"DSP control",
-+};
++title: Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
 +
-+static const char * const adau1761_alc_hold_time_text[] = {
-+	"2.67 ms",
-+	"5.34 ms",
-+	"10.68 ms",
-+	"21.36 ms",
-+	"42.72 ms",
-+	"85.44 ms",
-+	"170.88 ms",
-+	"341.76 ms",
-+	"683.52 ms",
-+	"1367 ms",
-+	"2734.1 ms",
-+	"5468.2 ms",
-+	"10936 ms",
-+	"21873 ms",
-+	"43745 ms",
-+	"87491 ms",
-+};
++maintainers:
++  - Krzysztof Kozlowski <krzk@kernel.org>
++  - Sylwester Nawrocki <s.nawrocki@samsung.com>
 +
-+static const char * const adau1761_alc_attack_time_text[] = {
-+	"6 ms",
-+	"12 ms",
-+	"24 ms",
-+	"48 ms",
-+	"96 ms",
-+	"192 ms",
-+	"384 ms",
-+	"768 ms",
-+	"1540 ms",
-+	"3070 ms",
-+	"6140 ms",
-+	"12290 ms",
-+	"24580 ms",
-+	"49150 ms",
-+	"98300 ms",
-+	"196610 ms",
-+};
++properties:
++  compatible:
++    oneOf:
++      - const: hardkernel,odroid-xu3-audio
 +
-+static const char * const adau1761_alc_decay_time_text[] = {
-+	"24 ms",
-+	"48 ms",
-+	"96 ms",
-+	"192 ms",
-+	"384 ms",
-+	"768 ms",
-+	"15400 ms",
-+	"30700 ms",
-+	"61400 ms",
-+	"12290 ms",
-+	"24580 ms",
-+	"49150 ms",
-+	"98300 ms",
-+	"196610 ms",
-+	"393220 ms",
-+	"786430 ms",
-+};
++      - const: hardkernel,odroid-xu4-audio
++        deprecated: true
 +
-+static const char * const adau1761_alc_ng_type_text[] = {
-+	"Hold",
-+	"Mute",
-+	"Fade",
-+	"Fade + Mute",
-+};
++      - const: samsung,odroid-xu3-audio
++        deprecated: true
 +
- static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_pga_slew_time_enum,
- 		ADAU1761_ALC_CTRL0, 6, 0x3, adau1761_pga_slew_time_text,
- 		adau1761_pga_slew_time_values);
-+static SOC_ENUM_SINGLE_DECL(adau1761_alc_function_enum,
-+		ADAU1761_ALC_CTRL0, 0, adau1761_alc_function_text);
-+static SOC_ENUM_SINGLE_DECL(adau1761_alc_hold_time_enum,
-+		ADAU1761_ALC_CTRL1, 4, adau1761_alc_hold_time_text);
-+static SOC_ENUM_SINGLE_DECL(adau1761_alc_attack_time_enum,
-+		ADAU1761_ALC_CTRL2, 4, adau1761_alc_attack_time_text);
-+static SOC_ENUM_SINGLE_DECL(adau1761_alc_decay_time_enum,
-+		ADAU1761_ALC_CTRL2, 0, adau1761_alc_decay_time_text);
-+static SOC_ENUM_SINGLE_DECL(adau1761_alc_ng_type_enum,
-+		ADAU1761_ALC_CTRL3, 6, adau1761_alc_ng_type_text);
- 
- static const struct snd_kcontrol_new adau1761_jack_detect_controls[] = {
- 	SOC_SINGLE("Speaker Auto-mute Switch", ADAU1761_DIGMIC_JACKDETECT,
-@@ -180,6 +272,20 @@ static const struct snd_kcontrol_new adau1761_differential_mode_controls[] = {
- 		ADAU1761_REC_MIXER_RIGHT1, 3, 2, 0, adau1761_pga_boost_tlv),
- 
- 	SOC_ENUM("PGA Capture Slew Time", adau1761_pga_slew_time_enum),
++      - const: samsung,odroid-xu4-audio
++        deprecated: true
 +
-+	SOC_SINGLE_TLV("ALC Capture Max Gain Volume", ADAU1761_ALC_CTRL0,
-+		3, 7, 0, adau1761_alc_max_gain_tlv),
-+	SOC_ENUM("ALC Capture Function", adau1761_alc_function_enum),
-+	SOC_ENUM("ALC Capture Hold Time", adau1761_alc_hold_time_enum),
-+	SOC_SINGLE_TLV("ALC Capture Target Volume", ADAU1761_ALC_CTRL1,
-+		0, 15, 0, adau1761_alc_target_tlv),
-+	SOC_ENUM("ALC Capture Attack Time", adau1761_alc_decay_time_enum),
-+	SOC_ENUM("ALC Capture Decay Time", adau1761_alc_attack_time_enum),
-+	SOC_ENUM("ALC Capture Noise Gate Type", adau1761_alc_ng_type_enum),
-+	SOC_SINGLE("ALC Capture Noise Gate Switch",
-+		ADAU1761_ALC_CTRL3, 5, 1, 0),
-+	SOC_SINGLE_TLV("ALC Capture Noise Gate Threshold Volume",
-+		ADAU1761_ALC_CTRL3, 0, 31, 0, adau1761_alc_ng_threshold_tlv),
- };
- 
- static const struct snd_kcontrol_new adau1761_single_mode_controls[] = {
-@@ -652,6 +758,9 @@ static bool adau1761_readable_register(struct device *dev, unsigned int reg)
- 	case ADAU1761_CLK_ENABLE0:
- 	case ADAU1761_CLK_ENABLE1:
- 	case ADAU1761_ALC_CTRL0:
-+	case ADAU1761_ALC_CTRL1:
-+	case ADAU1761_ALC_CTRL2:
-+	case ADAU1761_ALC_CTRL3:
- 		return true;
- 	default:
- 		break;
++  model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: The user-visible name of this sound complex.
++
++  cpu:
++    type: object
++    properties:
++      sound-dai:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        description: phandles to the I2S controllers
++
++  codec:
++    type: object
++    properties:
++      sound-dai:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        description: |
++          List of phandles to the CODEC nodes,
++          first entry must be corresponding to the MAX98090 CODEC and
++          the second entry must be the phandle of the HDMI IP block node.
++
++  samsung,audio-widgets:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      This property specifies off-codec audio elements
++      like headphones or speakers, for details see widgets.txt
++
++  samsung,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      List of the connections between audio
++      components;  each entry is a pair of strings, the first being the
++      connection's sink, the second being the connection's source;
++      valid names for sources and sinks are the MAX98090's pins (as
++      documented in its binding), and the jacks on the board.
++      For Odroid X2: "Headphone Jack", "Mic Jack", "DMIC"
++      For Odroid U3, XU3: "Headphone Jack", "Speakers"
++      For Odroid XU4: no entries
++
++required:
++  - compatible
++  - model
++  - cpu
++  - codec
++
++examples:
++  - |
++    sound {
++        compatible = "hardkernel,odroid-xu3-audio";
++        model = "Odroid-XU3";
++        samsung,audio-routing =
++                "Headphone Jack", "HPL",
++                "Headphone Jack", "HPR",
++                "IN1", "Mic Jack",
++                "Mic Jack", "MICBIAS";
++
++        cpu {
++            sound-dai = <&i2s0 0>;
++        };
++
++        codec {
++            sound-dai = <&hdmi>, <&max98090>;
++        };
++    };
++
 -- 
-2.20.1
+2.17.1
+
+
 
 _______________________________________________
 Alsa-devel mailing list

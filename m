@@ -2,134 +2,140 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65D30BF21D
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 13:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA2A9BF223
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 13:51:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2A16173B;
-	Thu, 26 Sep 2019 13:50:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2A16173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E41A1746;
+	Thu, 26 Sep 2019 13:50:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E41A1746
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569498663;
-	bh=5rr4v3MC8P8h0BoyaGYusp2ySnfbH9Mdfj1PuUiWX/Q=;
-	h=To:From:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1569498709;
+	bh=VbbvOH6c9xshK0tcEOT8gfXLD+6sdgybHE03AwEo2FY=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=siG6ANNOu7NMIKuAaYhkkSBtAQEH1MRgn4AfMHwcGh8PlJ6INfbeV+AEuqLumiTcY
-	 wo9s9Skou2s3TBly7FBa50WFrHL1tWStxg6K+5gDmWOYPJ3/FS+D7p97ssX5h1UAFu
-	 deyBcclZ6Zj7JYeksJP1fQ3NF/XCpz7+74vT/zts=
+	b=fI1M2vWYEBm5J9CR8FbAmWqz0byTLzTo9A0R7uZr2McG+ZSNiO7lXSOMaTgLki+97
+	 pRXZEkxQGq+IeX8GN/GL3BPhUmXKVd5VxmPMoOYdAEFZAWlyJmNuSj8ptio/CqsRMG
+	 u0GU1xcnMvqGWlYD6RyQBDJGmL+t2uFTX7c73bLU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2621EF802BD;
-	Thu, 26 Sep 2019 13:49:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 18279F804FD;
+	Thu, 26 Sep 2019 13:50:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4288F803F4; Thu, 26 Sep 2019 13:49:15 +0200 (CEST)
+ id 1EABFF804FD; Thu, 26 Sep 2019 13:50:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-00128a01.pphosted.com (mx0b-00128a01.pphosted.com
+ [148.163.139.77])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C3E1F80138
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 13:49:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C3E1F80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7F3CF80138
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 13:50:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7F3CF80138
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="r+4zKtXh"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20190926114911euoutp010dd70761b1ce7b8b870e1d87bfb48370~H_p3kc6A41255712557euoutp01S
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 11:49:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20190926114911euoutp010dd70761b1ce7b8b870e1d87bfb48370~H_p3kc6A41255712557euoutp01S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1569498551;
- bh=BZepKz4s3f0hH8VdX/xzVxY/cw+IEqzC2BvljnieNfo=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=r+4zKtXhS/N/MAlj5mLoQXwp+TiGJ3ZRxX1SeQJBJLDBuTdu5CFS8jujb+ZU5CI5+
- H9cHMohORFECkq7UbgeN/ECSYFd3/9YokxuG3CkDlLAX3i9EjxYMKYTgyP1B8YaWUz
- 9m8nRwzacjXb7kzgeIPzn6rDV35pSHfJFizFatXs=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20190926114910eucas1p16728ac2239829b09c6cc666cd3da5431~H_p3EjocS0228002280eucas1p1L;
- Thu, 26 Sep 2019 11:49:10 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 0B.CF.04374.6B5AC8D5; Thu, 26
- Sep 2019 12:49:10 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20190926114910eucas1p15e7a562f8f80c3acea8a06427a0c57e2~H_p2pnpqG1908619086eucas1p1f;
- Thu, 26 Sep 2019 11:49:10 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20190926114910eusmtrp2014e840fd7d0173045f47576f4f0778d~H_p2jWhyv1405114051eusmtrp2b;
- Thu, 26 Sep 2019 11:49:10 +0000 (GMT)
-X-AuditID: cbfec7f5-4f7ff70000001116-d8-5d8ca5b6d65b
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 76.CF.04166.6B5AC8D5; Thu, 26
- Sep 2019 12:49:10 +0100 (BST)
-Received: from [106.120.51.95] (unknown [106.120.51.95]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20190926114909eusmtip22854c372d5aa31c8477fa118027379bf~H_p2FPnJS1433814338eusmtip2J;
- Thu, 26 Sep 2019 11:49:09 +0000 (GMT)
-To: Krzysztof Kozlowski <krzk@kernel.org>, Marek Szyprowski
- <m.szyprowski@samsung.com>
-From: Maciej Falkowski <m.falkowski@samsung.com>
-Message-ID: <50932d65-6d8b-aca2-2bec-d4eedaba0bdc@samsung.com>
-Date: Thu, 26 Sep 2019 13:49:09 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
+ header.i=@analog.onmicrosoft.com header.b="dUnMZfXP"
+Received: from pps.filterd (m0167091.ppops.net [127.0.0.1])
+ by mx0b-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x8QBgw7H032134; Thu, 26 Sep 2019 07:50:19 -0400
+Received: from nam03-dm3-obe.outbound.protection.outlook.com
+ (mail-dm3nam03lp2058.outbound.protection.outlook.com [104.47.41.58])
+ by mx0b-00128a01.pphosted.com with ESMTP id 2v6hku7g5b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 26 Sep 2019 07:50:19 -0400
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MtHDye95xjt486tdVTkv9U+JQPT05eejWFOTfCWh6I/dYR0CYilfeKIZdekDprSf4ZopdhrkEPf7piDF6RChYUd125SLyV9I2znKHXlusYIjFRokEbcmT0rUvz9rlV33e9UIVa/mVmSpFOTAh3hYRhXTYA6gABuRF/JcbXWaTRJ4moYNBVVFmenoBq4SvWW5hV2tNDBU/MNT+kYHBtWnA8bhXaEF/AqLhNTlWXC1HsfhQ6PZK1+AGMtHfEpdVrbvtT0QCifF5i5I6Xg+x6Vn04QSbOfvD9/avJtEn7USgjZTmI1UZyIPW9OJr4bKONVs+fz6GpcB+mYHr43w5jqILQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2+XSYvyDW/6LNC684dwO5kP/7Og1UsXSrr6729zlUJk=;
+ b=nlaAUWLmtcwkhPflIOA7LhAL6ZHEYInBgutlA7XtReUcYfnGP9xC/k1Mf6KQCZ7ZOumNXGvWc6mXT6eK1VMVSqwv53qmgvAd6kEwYPGg7IExvTQEaM/9QNcu0vqT4Dz/BN3IIYsISAsTMRWSGEpEN+623EP8AB1B3OVYHYi6xouL47SdVlhFjkbhIPRFwLi5E7jGmDFDnOa+Ny6eijMwrHnyQ9O0oqB1L6Rl7opLJF1a08sywNermVS8+j/QUj0Gf1zpVNAIkaVCD9BIWJ5U/d5wChp+ziAT5TBQ6PqeZWliAQpMcYivv9rjFdOgswEyLsncRdIeNzWhoXRkjmBUiw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 137.71.25.55) smtp.rcpttodomain=suse.com smtp.mailfrom=analog.com;
+ dmarc=bestguesspass action=none header.from=analog.com; dkim=none (message
+ not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2+XSYvyDW/6LNC684dwO5kP/7Og1UsXSrr6729zlUJk=;
+ b=dUnMZfXP2HQ8pbn6G/YoHoQSBH0x87/7mBbbH/NOSni6Bd2Gr7+U/TZvgxiUeSoKI6tCnOM/0cMdr3sBJfKVxADDsHrUYkin0kOhn7VLZMZ4Jjv1HSBpoARIk1iV797QmeNo9TCXpyFon8LWLaemwwz6erhK0gO9MI7W08dOO1g=
+Received: from CY1PR03CA0001.namprd03.prod.outlook.com (2603:10b6:600::11) by
+ DM5PR03MB3402.namprd03.prod.outlook.com (2603:10b6:4:3d::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2263.17; Thu, 26 Sep 2019 11:50:18 +0000
+Received: from CY1NAM02FT007.eop-nam02.prod.protection.outlook.com
+ (2a01:111:f400:7e45::206) by CY1PR03CA0001.outlook.office365.com
+ (2603:10b6:600::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2284.20 via Frontend
+ Transport; Thu, 26 Sep 2019 11:50:17 +0000
+Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
+ 137.71.25.55 as permitted sender) receiver=protection.outlook.com;
+ client-ip=137.71.25.55; helo=nwd2mta1.analog.com;
+Received: from nwd2mta1.analog.com (137.71.25.55) by
+ CY1NAM02FT007.mail.protection.outlook.com (10.152.75.5) with Microsoft SMTP
+ Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.2284.25
+ via Frontend Transport; Thu, 26 Sep 2019 11:50:17 +0000
+Received: from NWD2HUBCAS7.ad.analog.com (nwd2hubcas7.ad.analog.com
+ [10.64.69.107])
+ by nwd2mta1.analog.com (8.13.8/8.13.8) with ESMTP id x8QBoAiS010404
+ (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
+ Thu, 26 Sep 2019 04:50:10 -0700
+Received: from saturn.ad.analog.com (10.48.65.123) by
+ NWD2HUBCAS7.ad.analog.com (10.64.69.107) with Microsoft SMTP Server id
+ 14.3.408.0; Thu, 26 Sep 2019 07:50:15 -0400
+From: Alexandru Ardelean <alexandru.ardelean@analog.com>
+To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Date: Thu, 26 Sep 2019 14:50:11 +0300
+Message-ID: <20190926115012.24049-1-alexandru.ardelean@analog.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190709082111.27221-1-alexandru.ardelean@analog.com>
+References: <20190709082111.27221-1-alexandru.ardelean@analog.com>
 MIME-Version: 1.0
-In-Reply-To: <20190924152028.GD9218@pi3>
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrAKsWRmVeSWpSXmKPExsWy7djP87rblvbEGsz6pWhx5eIhJoupD5+w
- Wcw/co7V4vz5DewW3650MFlc3jWHzWLG+X1MFmuP3GW3WHr9IpNF694j7BaH37SzOnB7bPjc
- xOaxZt4aRo+ds+6ye2xa1cnm0bdlFaPH501yAWxRXDYpqTmZZalF+nYJXBmbvt9mLpiqWvF2
- yUKmBsarsl2MnBwSAiYS07/8ZAGxhQRWMEos6pTrYuQCsr8wSiw485wNwvnMKPHv+35mmI77
- vVdZIRLLGSVu9F9ihHDeMkps+PQJyOHgEBaolPjbLwRiighESGxfyQ5Swiywj0niz7ytTCCD
- 2AQMJPrf7AVbzStgJ/GhYT8jiM0ioCqxo/sRG4gtCtT76cFhVogaQYmTM5+A1XMKaEhM2P4T
- rJ5ZQF5i+9s5zBC2uMStJ/OZQJZJCNxil9g44zwLxNUuEn0tbVAfCEu8Or6FHcKWkfi/E6SB
- A8iulrj2TRait4VR4vq0t2wQNdYSf1ZNZAOpYRbQlFi/Sx8i7Cjx9slVRohWPokbbwUhTuCT
- mLRtOjNEmFeio00IwlSVeDMhFqJRWqJ1zX7GCYxKs5D8NQvJL7OQ/DILYe0CRpZVjOKppcW5
- 6anFxnmp5XrFibnFpXnpesn5uZsYgenq9L/jX3cw7vuTdIhRgINRiYf3QFh3rBBrYllxZe4h
- RgkOZiURXt/Inlgh3pTEyqrUovz4otKc1OJDjNIcLErivNUMD6KFBNITS1KzU1MLUotgskwc
- nFINjKFpF3ffW2Sz1U9j7uyqD/uT1jsXzD/LZXZ3q1XM5ZJDJyf91Jy+TC+nRq7V3jRuxaQn
- O4MWFgqamIf9nbn5gqjt//CDyZ85dnK1JX5Jt7t1nHvDhvMnQmd1XwyaXfrD4Z3Cyo1LVpTf
- /cc3u6r9t9dCZdVSVTdeppvmeu1vHm17NnUTZ4ui+nclluKMREMt5qLiRADsk6FCUwMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrGIsWRmVeSWpSXmKPExsVy+t/xe7rblvbEGtzpZrW4cvEQk8XUh0/Y
- LOYfOcdqcf78BnaLb1c6mCwu75rDZjHj/D4mi7VH7rJbLL1+kcmide8RdovDb9pZHbg9Nnxu
- YvNYM28No8fOWXfZPTat6mTz6NuyitHj8ya5ALYoPZui/NKSVIWM/OISW6VoQwsjPUNLCz0j
- E0s9Q2PzWCsjUyV9O5uU1JzMstQifbsEvYxN328zF0xVrXi7ZCFTA+NV2S5GTg4JAROJ+71X
- WUFsIYGljBKznhdCxKUl9l/7yA5hC0v8udbF1sXIBVTzmlGi7+ULpi5GDg5hgUqJv/1CIDUi
- AhESr+/cYwGpYRbYxyRxdtcDdoiGtYwSu38tZQSpYhMwkOh/s5cFxOYVsJP40LAfLM4ioCqx
- o/sRG4gtCjTp8I5ZjBA1ghInZz4Bq+cU0JCYsP0nWJxZwExi3uaHzBC2vMT2t3OgbHGJW0/m
- M01gFJqFpH0WkpZZSFpmIWlZwMiyilEktbQ4Nz232FCvODG3uDQvXS85P3cTIzBOtx37uXkH
- 46WNwYcYBTgYlXh4D4R1xwqxJpYVV+YeYpTgYFYS4fWN7IkV4k1JrKxKLcqPLyrNSS0+xGgK
- 9NxEZinR5HxgCskriTc0NTS3sDQ0NzY3NrNQEuftEDgYIySQnliSmp2aWpBaBNPHxMEp1cBY
- WH/Fh4d/wdkE7Z8H1j2SMqqedOh3xMsbSXYajYcmnLq5+ZlgjyjHiggpDsG1p2fGLXis8vsh
- TwVDrvcty6ml/KkL/mbMS71ot5T5a6xBjauLM/91BmvOvfcUA5uu83LVppo4F+9P1f3Z6h2y
- Q7eWW6p9fevhxVyq+T2HbVUUZCdc6bptJqnEUpyRaKjFXFScCAAcT8No6QIAAA==
-X-CMS-MailID: 20190926114910eucas1p15e7a562f8f80c3acea8a06427a0c57e2
-X-Msg-Generator: CA
-X-RootMTR: 20190924150230eucas1p295da8f6aa018aec4acabc068f6e1afa1
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20190924150230eucas1p295da8f6aa018aec4acabc068f6e1afa1
-References: <CGME20190924150230eucas1p295da8f6aa018aec4acabc068f6e1afa1@eucas1p2.samsung.com>
- <20190924150146.15972-1-m.szyprowski@samsung.com>
- <20190924152028.GD9218@pi3>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>
-Subject: Re: [alsa-devel] [PATCH] dt-bindings: sound: Convert Samsung
- Exynos5433 TM2(E) audio complex with WM5110 codec to dt-schema
+X-ADIRoutedOnPrem: True
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:137.71.25.55; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(136003)(376002)(396003)(39860400002)(346002)(189003)(199004)(110136005)(356004)(6666004)(2906002)(486006)(126002)(5660300002)(4326008)(476003)(8676002)(47776003)(70586007)(86362001)(44832011)(1076003)(426003)(50226002)(36756003)(50466002)(186003)(51416003)(76176011)(478600001)(7696005)(107886003)(26005)(2870700001)(2616005)(11346002)(48376002)(106002)(70206006)(246002)(336012)(446003)(14444005)(305945005)(54906003)(7636002)(8936002)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR03MB3402; H:nwd2mta1.analog.com; FPR:;
+ SPF:Pass; LANG:en; PTR:nwd2mail10.analog.com; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8f333806-c913-424d-8e43-08d74277b395
+X-Microsoft-Antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(5600167)(711020)(4605104)(4709080)(1401327)(4618075)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328);
+ SRVR:DM5PR03MB3402; 
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3402:
+X-Microsoft-Antispam-PRVS: <DM5PR03MB3402AB7DE7742323BBCD0336F9860@DM5PR03MB3402.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:243;
+X-Forefront-PRVS: 0172F0EF77
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Message-Info: YNxv9FN+rB5y41rNoyiTQv0jjWVKaaagjVLvBksqNb6QMiUY99Q1M+j/0d1yM5Q2ZDWPCi3QPGk5uPCcjwM3Q9XXJKxHZLOT6kGe1yf+kqsuKnoopj0qleMIaPsls+zTVvoSt+iQq3mtnR+HEFJ3ajokLnIpSakR4PrPF0PQ3SvsRdQedgEDfFAE/r+wgeuJ4LcT0C6c7Lsnk1kN0/QNdi05kr3R/StC+MtC7YcArwZmC8IgikTVONWT6ZNyzyJf/CeJY3N9UQ+ozTnLRYBq4emRnmgOy2ScoLvrhXgW29sXXk8+Ogn1S8zS67ny5YjLXvLKgnO5jMNZho0jrb2gtq2Bu6O6Ee+j/tjED7IVwgWWwspR2t7GdkTyx7L2Sew2V5jDPzmi7rxxFHRnSdDNEmRmjzdeXnJfFYBnDe/xZl8=
+X-OriginatorOrg: analog.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2019 11:50:17.6397 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8f333806-c913-424d-8e43-08d74277b395
+X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.55];
+ Helo=[nwd2mta1.analog.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3402
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-09-26_05:2019-09-25,2019-09-26 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0
+ priorityscore=1501 lowpriorityscore=0 malwarescore=0 clxscore=1011
+ adultscore=0 spamscore=0 mlxlogscore=999 mlxscore=0 impostorscore=0
+ bulkscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-1908290000 definitions=main-1909260113
+Cc: lars@metafoo.de, lgirdwood@gmail.com, tiwai@suse.com, broonie@kernel.org,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>
+Subject: [alsa-devel] [PATCH 1/2][RESEND] ASoC: adau1761: Add PGA Slew time
+	control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,134 +153,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Lars-Peter Clausen <lars@metafoo.de>
 
-On 9/24/19 5:20 PM, Krzysztof Kozlowski wrote:
-> On Tue, Sep 24, 2019 at 05:01:46PM +0200, Marek Szyprowski wrote:
->> From: Maciej Falkowski <m.falkowski@samsung.com>
->>
->> Convert Samsung Exynos5433 TM2(E) audio complex with WM5110 codec to newer dt-schema format.
->>
->> Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
->> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
->> ---
->>   .../bindings/sound/samsung,tm2-audio.txt      | 42 ----------
->>   .../bindings/sound/samsung,tm2-audio.yaml     | 83 +++++++++++++++++++
->>   2 files changed, 83 insertions(+), 42 deletions(-)
->>   delete mode 100644 Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt
->>   create mode 100644 Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt b/Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt
->> deleted file mode 100644
->> index f5ccc12ddc00..000000000000
->> --- a/Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt
->> +++ /dev/null
->> @@ -1,42 +0,0 @@
->> -Samsung Exynos5433 TM2(E) audio complex with WM5110 codec
->> -
->> -Required properties:
->> -
->> - - compatible		 : "samsung,tm2-audio"
->> - - model		 : the user-visible name of this sound complex
->> - - audio-codec		 : the first entry should be phandle of the wm5110 audio
->> -			   codec node, as described in ../mfd/arizona.txt;
->> -			   the second entry should be phandle of the HDMI
->> -			   transmitter node
->> - - i2s-controller	 : the list of phandle and argument tuples pointing to
->> -			   I2S controllers, the first entry should be I2S0 and
->> -			   the second one I2S1
->> - - audio-amplifier	 : the phandle of the MAX98504 amplifier
->> - - samsung,audio-routing : a list of the connections between audio components;
->> -			   each entry is a pair of strings, the first being the
->> -			   connection's sink, the second being the connection's
->> -			   source; valid names for sources and sinks are the
->> -			   WM5110's and MAX98504's pins and the jacks on the
->> -			   board: HP, SPK, Main Mic, Sub Mic, Third Mic,
->> -			   Headset Mic
->> - - mic-bias-gpios	 : GPIO pin that enables the Main Mic bias regulator
->> -
->> -
->> -Example:
->> -
->> -sound {
->> -	compatible = "samsung,tm2-audio";
->> -	audio-codec = <&wm5110>, <&hdmi>;
->> -	i2s-controller = <&i2s0 0>, <&i2s1 0>;
->> -	audio-amplifier = <&max98504>;
->> -	mic-bias-gpios = <&gpr3 2 0>;
->> -	model = "wm5110";
->> -	samsung,audio-routing =
->> -		"HP", "HPOUT1L",
->> -		"HP", "HPOUT1R",
->> -		"SPK", "SPKOUT",
->> -		"SPKOUT", "HPOUT2L",
->> -		"SPKOUT", "HPOUT2R",
->> -		"Main Mic", "MICBIAS2",
->> -		"IN1R", "Main Mic";
->> -};
->> diff --git a/Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml
->> new file mode 100644
->> index 000000000000..377f8cbe17b8
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml
->> @@ -0,0 +1,83 @@
->> +# SPDX-License-Identifier: GPL-2.0
->> +%YAML 1.2
->> +---
->> +$id: https://protect2.fireeye.com/url?k=ccb9abe11b8a2745.ccb820ae-a91cd712f01d248e&u=http://devicetree.org/schemas/sound/samsung,tm2-audio.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Samsung Exynos SoC Exynos5433 TM2(E) audio complex with WM5110 codec
->> +
->> +maintainers:
->> +  - Krzysztof Kozlowski <krzk@kernel.org>
->> +  - Sylwester Nawrocki <s.nawrocki@samsung.com>
->> +
->> +properties:
->> +  compatible:
->> +    const: samsung,tm2-audio
->> +
->> +  model:
->> +    maxItems: 1
-> $ref to string, then maxItems are not needed.
-> Add description (copy-paste).
+The PGA Slew Time control allows to configure the rate with which the PGA
+gain control ramps up/down to the target setting.
 
-Hi Krzysztof,
+The PGA slew control is done via the ALC Control 0 register. There are 2
+bits on that reg, that control PGA slew time, while the other bits control
+parts of the ALC (automatic level control) block.
 
-You're right, model is not a standard property.
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
+---
+ sound/soc/codecs/adau1761.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
->> +
->> +  audio-codec:
->> +    allOf:
->> +      - $ref: /schemas/types.yaml#/definitions/phandle-array
->> +      - items:
->> +          - description: |
->> +              phandle of the wm5110 audio codec node,
->> +              as described in ../mfd/arizona.txt;
->> +          - description: phandle of the HDMI transmitter node.
->> +
->> +  i2s-controller:
->> +    allOf:
->> +      - $ref: /schemas/types.yaml#/definitions/phandle-array
->> +      - items:
->> +          - description: phandle of the I2S0.
->> +          - description: phandle of the I2S1.
->> +
->> +  audio-amplifier:
-> Can you order the nodes here and in required section by name (except
-> compatible which should be first)?
+diff --git a/sound/soc/codecs/adau1761.c b/sound/soc/codecs/adau1761.c
+index 977f5a63be3f..a9ef735f8b4e 100644
+--- a/sound/soc/codecs/adau1761.c
++++ b/sound/soc/codecs/adau1761.c
+@@ -28,6 +28,7 @@
+ #define ADAU1761_REC_MIXER_RIGHT1	0x400d
+ #define ADAU1761_LEFT_DIFF_INPUT_VOL	0x400e
+ #define ADAU1761_RIGHT_DIFF_INPUT_VOL	0x400f
++#define ADAU1761_ALC_CTRL0		0x4011
+ #define ADAU1761_PLAY_LR_MIXER_LEFT	0x4020
+ #define ADAU1761_PLAY_MIXER_LEFT0	0x401c
+ #define ADAU1761_PLAY_MIXER_LEFT1	0x401d
+@@ -71,6 +72,7 @@ static const struct reg_default adau1761_reg_defaults[] = {
+ 	{ ADAU1761_REC_MIXER_RIGHT0,		0x00 },
+ 	{ ADAU1761_REC_MIXER_RIGHT1,		0x00 },
+ 	{ ADAU1761_LEFT_DIFF_INPUT_VOL,		0x00 },
++	{ ADAU1761_ALC_CTRL0,			0x00 },
+ 	{ ADAU1761_RIGHT_DIFF_INPUT_VOL,	0x00 },
+ 	{ ADAU1761_PLAY_LR_MIXER_LEFT,		0x00 },
+ 	{ ADAU1761_PLAY_MIXER_LEFT0,		0x00 },
+@@ -147,6 +149,21 @@ static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_capture_bias_enum,
+ 		ADAU17X1_REC_POWER_MGMT, 1, 0x3, adau1761_bias_select_text,
+ 		adau1761_bias_select_values);
+ 
++static const unsigned int adau1761_pga_slew_time_values[] = {
++	3, 0, 1, 2,
++};
++
++static const char * const adau1761_pga_slew_time_text[] = {
++	"Off",
++	"24 ms",
++	"48 ms",
++	"96 ms",
++};
++
++static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_pga_slew_time_enum,
++		ADAU1761_ALC_CTRL0, 6, 0x3, adau1761_pga_slew_time_text,
++		adau1761_pga_slew_time_values);
++
+ static const struct snd_kcontrol_new adau1761_jack_detect_controls[] = {
+ 	SOC_SINGLE("Speaker Auto-mute Switch", ADAU1761_DIGMIC_JACKDETECT,
+ 		4, 1, 0),
+@@ -161,6 +178,8 @@ static const struct snd_kcontrol_new adau1761_differential_mode_controls[] = {
+ 
+ 	SOC_DOUBLE_R_TLV("PGA Boost Capture Volume", ADAU1761_REC_MIXER_LEFT1,
+ 		ADAU1761_REC_MIXER_RIGHT1, 3, 2, 0, adau1761_pga_boost_tlv),
++
++	SOC_ENUM("PGA Capture Slew Time", adau1761_pga_slew_time_enum),
+ };
+ 
+ static const struct snd_kcontrol_new adau1761_single_mode_controls[] = {
+@@ -632,6 +651,7 @@ static bool adau1761_readable_register(struct device *dev, unsigned int reg)
+ 	case ADAU1761_DEJITTER:
+ 	case ADAU1761_CLK_ENABLE0:
+ 	case ADAU1761_CLK_ENABLE1:
++	case ADAU1761_ALC_CTRL0:
+ 		return true;
+ 	default:
+ 		break;
+-- 
+2.20.1
 
-Current order is already well-established across bindings (even example).
-I think that sorted properties are undesired with that.
-
-Best regards,
-Maciej Falkowski
-
->
-> Best regards,
-> Krzysztof
->
->
->
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

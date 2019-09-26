@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59490BF586
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 17:09:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C14DBF5C3
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 17:21:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D440D1757;
-	Thu, 26 Sep 2019 17:08:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D440D1757
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E2DD175E;
+	Thu, 26 Sep 2019 17:21:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E2DD175E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569510554;
-	bh=0D7YTwRcWknmc/o1CgNXgE0fSwHXEDrTIvFzLr0C2a4=;
+	s=default; t=1569511312;
+	bh=NwFmIoAm/BsFeFYEm2bSs9eI4iuHUnVFqcnILyCEwhw=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WQDPCrYyudHEiMXOy7rmLPyuYCUNJ9PV2y286NrdZ8XCXcGXmzaEMS+54H3rdpXpW
-	 5FTRzLOpDKcppy5ulyQySY27lDH7oeP6YBx4/qbHng37T4gKP3pULIWic/dPwGyUAs
-	 Pjkzn/TTA1knAi+Pgzew/PumvfgRXl0bfrTwWx38=
+	b=W0J9GjxFPwH49AjJi3VvhIt/PHkDivp5kWeNoDJbkQwpR3wfsiI2p30DXiiAW84nA
+	 8u2ZnGr5TMwXXPqsYzScrK74bdcEOoIewkWREsP2yitf9fOmWtkQW+AwLrRjiYh5gO
+	 m6HKRLHkvtvEzabMPowddp7n1/h99+Zv6v3tFrCI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4993BF802BD;
-	Thu, 26 Sep 2019 17:07:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90FA1F8048D;
+	Thu, 26 Sep 2019 17:20:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9841F803F4; Thu, 26 Sep 2019 17:07:27 +0200 (CEST)
+ id A97DCF80213; Thu, 26 Sep 2019 17:20:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,43 +35,47 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF623F80140
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 17:07:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF623F80140
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AF65F80213
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 17:20:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AF65F80213
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="KeNWxeAB"
+ header.b="kx7Cbp6S"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4pLPnynkA7HWtaMnNTV/PFGoJgytgfbQyorJh3FSgNM=; b=KeNWxeABWoN68sqX4gBVJDfP/
- wWk4rBUtHmI3WxTduOxdRh7KduW0Q5aEvuGQBUxON+jYBB1PmomPdae8lJFMLcWwVZUEtjzORYWMf
- djVTMWhN4yMp/9K40cmouwdPg3BjPzXbFMZ5HZk+MQwC9jEWQrsKKna09q/EQv91C9H/s=;
+ bh=CkcTAd4S96JpD35jbvDi6z+phIXmR7MSa7e/rGtaKb4=; b=kx7Cbp6SHnYTy5/8mkX9LsA03
+ zoLd51jZwr4WSGElOynTrJjN7UAfjOJb3xbJMGIADPIs0hzoOzgssneeHyqelOdmdoaEtGmrPIvYq
+ ylLR4W40pJuq0fW3zMz/i3G5SijHk9mWGGUAZD4FaiyO3147Mk3+wf1Ir569uYWdbEtMM=;
 Received: from [12.157.10.118] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1iDVMY-0003rq-UH; Thu, 26 Sep 2019 15:07:23 +0000
+ id 1iDVYn-0003uG-8U; Thu, 26 Sep 2019 15:20:01 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 6C02ED02CFF; Thu, 26 Sep 2019 16:07:21 +0100 (BST)
-Date: Thu, 26 Sep 2019 08:07:21 -0700
+ id A5E6DD02CFF; Thu, 26 Sep 2019 16:19:59 +0100 (BST)
+Date: Thu, 26 Sep 2019 08:19:59 -0700
 From: Mark Brown <broonie@kernel.org>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Message-ID: <20190926150721.GT2036@sirena.org.uk>
-References: <20190926071707.17557-1-nuno.sa@analog.com>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20190926151959.GV2036@sirena.org.uk>
+References: <1569542689-25512-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20190926071707.17557-1-nuno.sa@analog.com>
+In-Reply-To: <1569542689-25512-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 X-Cookie: Be careful!  UGLY strikes 9 out of 10!
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 1/2] ASOC: Add ADAU7118 8 Channel
- PDM-to-I2S/TDM Converter driver
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ Colin Ian King <colin.king@canonical.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: amd: Missing Initialization of
+	IRQFLAGS
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,48 +88,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7741625905344322906=="
+Content-Type: multipart/mixed; boundary="===============2275145261628944946=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============7741625905344322906==
+--===============2275145261628944946==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="zQiiCAM5ptAyb9EE"
+	protocol="application/pgp-signature"; boundary="L0pirLHWQnJmYWnZ"
 Content-Disposition: inline
 
 
---zQiiCAM5ptAyb9EE
-Content-Type: text/plain; charset=iso-8859-1
+--L0pirLHWQnJmYWnZ
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 26, 2019 at 09:17:06AM +0200, Nuno S=E1 wrote:
-> This patch adds support for the 8 channel PDM-to-I2S/TDM converter. The
-> ADAU7118 converts four stereo pulse density modulation (PDM) bitstreams
-> into one pulse code modulation (PCM) output stream. The source for the PDM
+On Fri, Sep 27, 2019 at 05:34:47AM +0530, Ravulapati Vishnu vardhan rao wro=
+te:
+> Fix for missing initialization of IRQFLAGS in
+> ACP-PCI driver and Missing Macro of ACP3x_DEVS.
+>=20
+> Follow up to IDb33df346
 
-This is the third copy of this I've got in the past 24 hours -
-there's no versioning or anything so what's going on?
+What is "IDb33df346"?
 
---zQiiCAM5ptAyb9EE
+--L0pirLHWQnJmYWnZ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2M1CgACgkQJNaLcl1U
-h9A4EQf6A7KkdqPiVOYmb+wMLdzwvMZ5a7NT59t1LTN1pQxfvhj9DFWW5yC2kn4U
-vV2EtKpQhx203WjJiTOTffygZYyOLLFqoG1rB8hdHkmbrk5Oc3qHvNiP0FZSBQue
-ExwQdk1eDpvLU4SVcoD9Wy6/YjLJCs1KnABIAdPqbKyIpUZnUwi11n4NKg4HPBo9
-LzytHc+Wt68kmbadQDVGM/u4hMi8vCD93mWyjyYwsZGgMWppvianVMyEE8x02iEF
-KGlLC8HpaafCHTEgVOghdXzyiDr2pz0fyqZUG+Cp1uL9sTWTr53PfoMxx52J702h
-B1RKOXoQIveEeCemwYq0E5tNXNIhwQ==
-=4BYm
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2M1x4ACgkQJNaLcl1U
+h9CzMQf8CW7bKL6E1DaPRcJ+5j/bmPxewThu9xmDy3QUSp98vzdVj2nsqQTwrE/n
+2khiq4zkCK1f8ocT0C92+DNHMQN+1jUoMHSPDP4ZSiIBAIIGIbGJOilcvIx5TGEp
+ZiHGBfXILiDBqeqnxX0wJ40RCgidP7gbGUUoliWt69KKIBYhuzlm7Rg0rWr/Zy0o
+nPRZVY978qNnIDmIgKl6vMaRCPpwibYJl3XGls+Xg8ek4gUbfDYNY0fnK2J3wLTW
+Hg1525ARow6o7PbjaGkqxlf7jilKlPYvClqWPU/qC5tdVG55HMxKsX191vV0iKTe
+/TP/nMEQm1qvryDg0TKCyUKMVD6YGA==
+=G7K2
 -----END PGP SIGNATURE-----
 
---zQiiCAM5ptAyb9EE--
+--L0pirLHWQnJmYWnZ--
 
---===============7741625905344322906==
+--===============2275145261628944946==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -136,4 +141,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============7741625905344322906==--
+--===============2275145261628944946==--
